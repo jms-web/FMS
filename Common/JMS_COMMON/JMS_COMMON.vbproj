@@ -1,0 +1,638 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{872E4129-F788-40A1-91B0-C41F0AEE504E}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>JMS_COMMON</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionStrict>Off</OptionStrict>
+    <RootNamespace>JMS_COMMON</RootNamespace>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <MyType>Windows</MyType>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath />
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+    <PublishUrl>http://localhost/AAACOMMON/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>
+    </AssemblyVersionSettings>
+    <AssemblyFileVersionSettings>
+    </AssemblyFileVersionSettings>
+    <AssemblyInfoVersionSettings>
+    </AssemblyInfoVersionSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\..\..\..\EXE_DEBUG\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings />
+    <AssemblyFileVersionSettings>
+    </AssemblyFileVersionSettings>
+    <CodeAnalysisRuleSet>..\JMS_COMMON.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\..\..\..\EXE\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
+    <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>..\JMS_COMMON.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <OutputPath>..\..\..\..\EXE_DEBUG\</OutputPath>
+    <WarningLevel>1</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <CodeAnalysisRuleSet>JMS_COMMON.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\..\..\..\EXE\</OutputPath>
+    <WarningLevel>1</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <CodeAnalysisRuleSet>JMS_COMMON.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MetroFramework, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MetroFramework.RunTime.1.2.0.3\lib\net40-Client\MetroFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Design, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MetroFramework.Design.1.2.0.3\lib\net40\MetroFramework.Design.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MetroFramework.Fonts, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MetroFramework.Fonts.1.2.0.3\lib\net40\MetroFramework.Fonts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="TKMP">
+      <HintPath>..\..\Libs\TKMP.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="JMS_COMMON" />
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Reflection.MethodBase" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\mdlCommonDBContext.vb">
+      <Link>Model\mdlCommonDBContext.vb</Link>
+    </Compile>
+    <Compile Include="..\mdlINTSYR.vb">
+      <Link>Common\mdlINTSYR.vb</Link>
+    </Compile>
+    <Compile Include="..\RESOURCE\Resources.Designer.vb">
+      <Link>My Project\Resources.Designer.vb</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="clsPubConst.vb" />
+    <Compile Include="Control\clsDataGridViewDateColumn.vb" />
+    <Compile Include="Control\ComboboxEx.Designer.vb">
+      <DependentUpon>ComboboxEx.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Control\ComboboxEx.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\FlowLayoutRadioBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\GroupBoxEx.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\MultiColumnCombobox.Designer.vb">
+      <DependentUpon>MultiColumnCombobox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Control\MultiColumnCombobox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\NullableDateTimePicker.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\LabelEx.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\TextBoxEx.Designer.vb">
+      <DependentUpon>TextBoxEx.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Control\TextBoxEx.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utility\AbstractSingleton.vb" />
+    <Compile Include="Utility\CaptureScreen.vb" />
+    <Compile Include="Utility\clsDbUtility.vb" />
+    <Compile Include="clsPubMethod.vb" />
+    <Compile Include="Control\DataTableEx.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\DateTextBox.Designer.vb">
+      <DependentUpon>DateTextBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Control\DateTextBox.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseForm\FrmBase.Designer.vb">
+      <DependentUpon>FrmBase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\FrmBase.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\FrmBaseBtn.Designer.vb">
+      <DependentUpon>FrmBaseBtn.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\FrmBaseBtn.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\FrmBaseSts.Designer.vb">
+      <DependentUpon>FrmBaseSts.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\FrmBaseSts.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\FrmBaseStsBtn.Designer.vb">
+      <DependentUpon>FrmBaseStsBtn.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\FrmBaseStsBtn.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm\FrmBaseStsBtnDgv.Designer.vb">
+      <DependentUpon>FrmBaseStsBtnDgv.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BaseForm\FrmBaseStsBtnDgv.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utility\ExceptionEx.vb" />
+    <Compile Include="Utility\DisplayNameAttribute.vb" />
+    <Compile Include="Utility\GoogleCalendarAPI.vb" />
+    <Compile Include="Utility\mdlDWM.vb" />
+    <Compile Include="Utility\IniFile.vb" />
+    <Compile Include="Control\KeyStatePanel.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utility\LogPut.vb" />
+    <Compile Include="Control\MaskedTextBoxEx.Designer.vb">
+      <DependentUpon>MaskedTextBoxEx.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Control\MaskedTextBoxEx.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utility\mdlExtensionMethod.vb" />
+    <Compile Include="Utility\mdlIMEModeEdit.vb" />
+    <Compile Include="Utility\mdlMailSend.vb" />
+    <Compile Include="Utility\Navigators.vb" />
+    <Compile Include="Utility\ProcessCheck.vb" />
+    <Compile Include="ToolForm\messagedlg.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ToolForm\Waitdlg.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utility\TupleElementNamesAttribute.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.SQL.Server.Compact.3.5">
+      <Visible>False</Visible>
+      <ProductName>SQL Server Compact 3.5 SP2</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Settings.settings">
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\RESOURCE\Resources.resx">
+      <Link>My Project\Resources.resx</Link>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control\DateTextBox.resx">
+      <DependentUpon>DateTextBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\FrmBase.resx">
+      <DependentUpon>FrmBase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\FrmBaseBtn.resx">
+      <DependentUpon>FrmBaseBtn.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\FrmBaseSts.resx">
+      <DependentUpon>FrmBaseSts.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\FrmBaseStsBtn.resx">
+      <DependentUpon>FrmBaseStsBtn.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm\FrmBaseStsBtnDgv.resx">
+      <DependentUpon>FrmBaseStsBtnDgv.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Resources\_imgAppForm32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgBase_calendar32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgBase_checkmark32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgBase_cog32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgCalendar-BusinessMonthView32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgDialog32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgMinus_Orange_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgOffice_Excel32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgPencil32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgPlus_Green_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgStatusAnnotations_Complete_and_ok_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgStatusAnnotations_Complete_and_ok_mono32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_icoMENU128x128.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgLog Out32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgPencil232x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgPreview32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgReport32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgSearch32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgSynchronize32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgText Document32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgCheckBox32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgExportToExcel32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgFilter32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgAdd32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgBase_floppydisk32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgCalendar32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgNew32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgPrint32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgSave32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgSettings32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgUndo32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgStatusAnnotations_Blocked32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgStatusAnnotations_Critical32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgStatusAnnotations_Warning32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgApplication form add32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgApplication form edit32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgApplication form32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgApplication form delete32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgDelete24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgDelete32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgStatusAnnotations_Blocked_32x32_MD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgStatusAnnotations_Blocked32x32_SM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgDown32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgLeft32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgRight32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgUp32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgPartition_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgExit_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgRecovery32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgStatusAnnotations_Blocked_Gray_32x32_MD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgsmallPlus32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IDEA_LOGO.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgFolder_Open_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgFolder_Open_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgBasket.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgBilling1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgBilling2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgCalculator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgCartAdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgDelivery.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgFork.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\machiningCenter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgMachiningCenter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgBarcode_reader.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgShelf.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgShelfs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgOpenFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgOpenAttachmentFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_icoBarcode_reader.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_icoBase_cog32x32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_icoBasket.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_icoBilling1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_icoBox.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_icoCalculator.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_icoDelivery.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_icoMachiningCenter.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_icoShelf.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_icoSearch32x32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MODEL\FMS_MODEL.vbproj">
+      <Project>{8923a885-8857-49fa-be22-9b9cbf6d19c2}</Project>
+      <Name>FMS_MODEL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_ReplaceNonNumerics="False" BuildVersion_StartDate="2000/1/1" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

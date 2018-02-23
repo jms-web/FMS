@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ErrLogMsgSetCommonInit" xml:space="preserve">
+    <value>プログラムを終了します(共通初期処理失敗)</value>
+    <comment>共通初期処理</comment>
+  </data>
+  <data name="ErrLogMsgSetOutput" xml:space="preserve">
+    <value>プログラムを終了します(出力先設定ファイル読込処理失敗)</value>
+    <comment>共通初期処理</comment>
+  </data>
+  <data name="ErrLogMsgSetPGInit" xml:space="preserve">
+    <value>プログラムを終了します(PG設定ファイル読込処理失敗)</value>
+    <comment>共通初期処理</comment>
+  </data>
+  <data name="ErrLogSqlExecutionFailure" xml:space="preserve">
+    <value>DB更新に失敗しました。</value>
+  </data>
+  <data name="ErrMsgInit" xml:space="preserve">
+    <value>プログラムを終了します</value>
+    <comment>共通初期処理</comment>
+  </data>
+  <data name="ErrMsgNotFoundTergetData" xml:space="preserve">
+    <value>出力データがありません。</value>
+  </data>
+  <data name="infoMsgDeleteOperationDelete" xml:space="preserve">
+    <value>該当レコードを完全削除しますか？
+この値が使用されていないことを確認して下さい。</value>
+    <comment>レコード削除処理</comment>
+  </data>
+  <data name="infoMsgDeleteOperationDisable" xml:space="preserve">
+    <value>該当レコードを削除(非表示)しますか？</value>
+    <comment>レコード削除処理</comment>
+  </data>
+  <data name="infoMsgDeleteOperationRestore" xml:space="preserve">
+    <value>該当レコードを復元(再表示)しますか？</value>
+    <comment>レコード削除処理</comment>
+  </data>
+  <data name="infoSearchCountOver" xml:space="preserve">
+    <value>検索結果が多すぎますが、表示しますか？</value>
+    <comment>検索件数既定値超過</comment>
+  </data>
+  <data name="infoSearchResultNotFound" xml:space="preserve">
+    <value>検索条件に一致するレコードは見つかりませんでした</value>
+    <comment>抽出結果対象レコードなし</comment>
+  </data>
+  <data name="infoTitleDeleteOperationDelete" xml:space="preserve">
+    <value>完全削除</value>
+    <comment>レコード削除処理</comment>
+  </data>
+  <data name="infoTitleDeleteOperationDisable" xml:space="preserve">
+    <value>削除(非表示)</value>
+    <comment>レコード削除処理</comment>
+  </data>
+  <data name="infoTitleDeleteOperationRestore" xml:space="preserve">
+    <value>復元(再表示)</value>
+    <comment>レコード削除処理</comment>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="_icoMENU128x128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_icoMENU128x128.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgAppForm32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgAppForm32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgBase_calendar32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgBase_calendar32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgBase_checkmark32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgBase_checkmark32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgBase_cog32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgBase_cog32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgBase_floppydisk32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgBase_floppydisk32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgCalendar_BusinessMonthView32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgCalendar-BusinessMonthView32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgDialog32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgDialog32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgMinus_Orange_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgMinus_Orange_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgOffice_Excel32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgOffice_Excel32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgPencil32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgPencil32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgPlus_Green_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgPlus_Green_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgStatusAnnotations_Complete_and_ok_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgStatusAnnotations_Complete_and_ok_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgStatusAnnotations_Complete_and_ok_mono32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgStatusAnnotations_Complete_and_ok_mono32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgLog_Out32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgLog Out32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgPencil232x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgPencil232x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgPreview32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgPreview32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgReport32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgReport32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgSearch32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgSearch32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgSynchronize32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgSynchronize32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgText_Document32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgText Document32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgCheckBox32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgCheckBox32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgExportToExcel32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgExportToExcel32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgFilter32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgFilter32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgAdd32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgAdd32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgCalendar32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgCalendar32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgNew32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgNew32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgPrint32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgPrint32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgSave32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgSave32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgSettings32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgSettings32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgUndo32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgUndo32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgStatusAnnotations_Blocked32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgStatusAnnotations_Blocked32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgStatusAnnotations_Critical32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgStatusAnnotations_Critical32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgStatusAnnotations_Warning32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgStatusAnnotations_Warning32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgApplication_form32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgApplication form32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgApplication_form_add32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgApplication form add32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgApplication_form_edit32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgApplication form edit32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgApplication_form_delete32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgApplication form delete32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgDelete24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgDelete24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgDelete32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgDelete32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgStatusAnnotations_Blocked32x32_SM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgStatusAnnotations_Blocked32x32_SM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgStatusAnnotations_Blocked_32x32_MD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgStatusAnnotations_Blocked_32x32_MD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgDown32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgDown32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgLeft32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgLeft32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgRight32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgRight32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgUp32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgUp32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgPartition_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgPartition_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgExit_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgExit_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgRecovery32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgRecovery32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgStatusAnnotations_Blocked_Gray_32x32_MD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgStatusAnnotations_Blocked_Gray_32x32_MD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="infoToolTipMsgNotFoundData" xml:space="preserve">
+    <value>データが存在しません</value>
+    <comment>ツールチップメッセージ 対象データなし</comment>
+  </data>
+  <data name="infoToolTipMsgNotFoundModifiedData" xml:space="preserve">
+    <value>データが変更されていません</value>
+    <comment>ツールチップメッセージ 変更データなし</comment>
+  </data>
+  <data name="infoToolTipMsgNotFoundTargetData" xml:space="preserve">
+    <value>未発注データが選択されていません</value>
+    <comment>ツールチップメッセージ 対象・選択データなし</comment>
+  </data>
+  <data name="infoToolTipMsgNotFoundRegistratioData" xml:space="preserve">
+    <value>登録可能データが存在しません</value>
+    <comment>ツールチップメッセージ 対象データなし</comment>
+  </data>
+  <data name="infoToolTipMsgNotFoundDeadlineData" xml:space="preserve">
+    <value>締め処理済みです</value>
+    <comment>ツールチップメッセージ 締め処理後</comment>
+  </data>
+  <data name="ErrMsgException" xml:space="preserve">
+    <value>例外エラーが発生しました</value>
+    <comment>エラーメッセージ</comment>
+  </data>
+  <data name="_imgsmallPlus32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgsmallPlus32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="infoTitleInputCheck" xml:space="preserve">
+    <value>入力必須項目チェック</value>
+    <comment>入力チェック</comment>
+  </data>
+  <data name="infoTilteDuplicateCheck" xml:space="preserve">
+    <value>重複登録チェック</value>
+    <comment>重複登録チェック</comment>
+  </data>
+  <data name="infoMsgRequireInput" xml:space="preserve">
+    <value>{0}を入力して下さい</value>
+    <comment>入力チェックメッセージ</comment>
+  </data>
+  <data name="infoMsgRequireSelect" xml:space="preserve">
+    <value>{0}を選択して下さい</value>
+    <comment>入力チェックメッセージ</comment>
+  </data>
+  <data name="infoMsgRequireSelectOrInput" xml:space="preserve">
+    <value>{0}を選択又は入力して下さい</value>
+    <comment>入力チェックメッセージ</comment>
+  </data>
+  <data name="infoMsgProgressStatus" xml:space="preserve">
+    <value>進行状況を表示しています……</value>
+  </data>
+  <data name="infoSearchDataChange" xml:space="preserve">
+    <value>データが変更されています。念のため再検索して確認して下さい。</value>
+  </data>
+  <data name="infoSearchDataRegistered" xml:space="preserve">
+    <value>既に登録済みのデータです。登録を続行しますか？</value>
+  </data>
+  <data name="infoSearchTheSameData" xml:space="preserve">
+    <value>同一の{0}が存在します。登録を続行しますか？</value>
+  </data>
+  <data name="infoSearchUnsettledData" xml:space="preserve">
+    <value>未確定の変更内容がリセットされますが、よろしいですか？</value>
+  </data>
+  <data name="infoTilteOutputDestinationSelection" xml:space="preserve">
+    <value>出力先を選択して下さい</value>
+  </data>
+  <data name="infoTitleAllShipping" xml:space="preserve">
+    <value>全出荷</value>
+  </data>
+  <data name="infoTitleCSVOutput" xml:space="preserve">
+    <value>CSV出力</value>
+  </data>
+  <data name="infoTitleResetChange" xml:space="preserve">
+    <value>変更リセット</value>
+  </data>
+  <data name="infoToolTipMsgFoundData" xml:space="preserve">
+    <value>{0} 件見つかりました。</value>
+  </data>
+  <data name="infoToolTipMsgOutput" xml:space="preserve">
+    <value>｢{0}｣に出力しました。</value>
+  </data>
+  <data name="infoToolTipMsgSearching" xml:space="preserve">
+    <value>検索中</value>
+  </data>
+  <data name="infoToolTipMsgShipped" xml:space="preserve">
+    <value>すべて出荷済みです。</value>
+  </data>
+  <data name="_imgFolder_Open_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgFolder_Open_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgFolder_Open_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgFolder_Open_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgBasket" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgBasket.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgBilling1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgBilling1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgBilling2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgBilling2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgBox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgCalculator" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgCalculator.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgCartAdd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgCartAdd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgDelivery" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgDelivery.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgFork" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgFork.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgBarcode_reader" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgBarcode_reader.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgMachiningCenter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgMachiningCenter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgShelf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgShelf.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgShelfs" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgShelfs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgOpenFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgOpenFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgOpenAttachmentFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgOpenAttachmentFile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="infoTilteDuplicateData" xml:space="preserve">
+    <value>同一の{0}が存在します。</value>
+  </data>
+  <data name="_icoBarcode_reader" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_icoBarcode_reader.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_icoBase_cog32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_icoBase_cog32x32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_icoBasket" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_icoBasket.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_icoBilling1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_icoBilling1.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_icoBox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_icoBox.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_icoCalculator" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_icoCalculator.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_icoDelivery" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_icoDelivery.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_icoMachiningCenter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_icoMachiningCenter.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_icoShelf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_icoShelf.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_icoSearch32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_icoSearch32x32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

@@ -1,0 +1,71 @@
+
+・Applicationにproject追加時は、ビルドの依存関係を設定すること・・・設定しないと、ソリューションビルド時にエラーとなる
+                                既存のリソースファイルを削除後、共有リソースファイルをリンク
+								カスタムツール：VbMyResourcesResXFileCodeGenerator
+								名前空間：My.Resources
+								としてビルド
+
+・Git Commitの際は、Automatic Version SettingsのSolutionのチェックを外す
+
+・EntityFrameworkを各プロジェクトにインストールする場合
+　Nuget経由で追加する場合は、App.Configとpackages.Configをプロジェクトから除外した上でインストールし、
+　インストール後、プロジェクト共有のDB Model プロジェクトのConfigファイルをリンクする
+
+
+
+「Entity ComponentModel.DataAnnotations.Attributes」
+<key>
+　主キー制約
+　内部的に<Required>も付与されているのでわざわざ追加する必要はない
+
+<Column(Order:=0,TypeName:="varchar")> 
+　複合キーの場合のみOrderを設定 ※表示順ではない 
+　TypeNameはエンティティクラスのプロパティ型とマップするDBフィールドの型が1対1でない場合に使用
+　string→varchar,nvarchar,char　datetime→datetime,datetime2　等
+
+<Column("DBフィールド名")>
+　DBのフィールド名とマップするエンティティクラスのフィールドプロパティ名が異なる場合に付与する
+　主に○○フラグ等のDBフィールドのデータ型とエンティティとして使用したいフィールドのデータ型が異なる場合の、
+　中継用のフィールドプロパティで使用する
+　この使用方法の場合は後述の<NotMapped>を付与したフィールドプロパティと併用する
+
+　<<使用例>>
+
+　<Column("DBフィールド名")>
+　中継用のフィールドプロパティ As String
+　
+　<NotMapped>
+　エンティティとして使用するフィールドプロパティ As Boolean
+
+
+<Required> 
+　NOT NULL制約
+　※DBファーストでモデルを作成すると、文字列のフィールドプロパティには自動で付与されるが、
+　数値型のフィールドプロパティには既定値が設定されている扱いで自動では付与されないので注意
+
+<StringLength(50)> <MaxLength(50)> 
+　文字列型のサイズ制約 <column>属性で指定したデータ型により、バイト数かUnicode文字数か変わる
+　エンティティモデルクラスではDecimalの有効桁数は指定出来ない
+　DBマイグレーション時は別途定義してDBに送り込むことは可能(OnModelCreatingメソッドのDbModelBuilderで)
+　DBファーストで自動付与されるのはStringLengthのほう
+
+<Display(Order:=1)>
+　Orderは一覧での表示順 うまく反映されない？ 反映されないときはプロパティの定義順=表示順
+　単にentitiesを.Datasourceに割り当てるだけでなくbindingsource経由でないとダメかも(未検証)
+
+<ComponentModel.DisplayName("列名")>
+　グリッド等の列名
+
+<NotMapped>
+　DBのフィールドとマッピングしないエンティティクラスのフィールドプロパティに付与する
+　<Column("DBフィールド名")>と併用することが多いためそちらを参照
+
+<index>
+　インデックス
+　<index(IsUnique:=True)> クラスター化インデックス
+  <index("indexName",1)> <index("indexName",2)> 複合インデックスの場合
+  
+entity framework sql直接発行
+http://gushwell.ldblog.jp/archives/52440183.html
+
+変更test

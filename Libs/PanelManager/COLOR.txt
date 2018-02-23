@@ -1,0 +1,38 @@
+Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
+	Me.Button1.Text = "変換"
+	Me.TextBox1.Text = "#789"
+End Sub
+
+Private Sub Button1_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button1.Click
+	Me.Text = ToColorName(Me.TextBox1.Text)
+End Sub
+
+'『Imports System.Drawing, System.Reflection』が必要です。
+Public Shared Function ToColorName(ByVal htmlColor As String) As String
+	Dim colorName As String = htmlColor
+	Dim C As Color
+	Dim _htmlColor As Color = FromHtmlColor(htmlColor)
+	For Each P As PropertyInfo In GetType(Color).GetProperties(BindingFlags.IgnoreCase Or BindingFlags.GetProperty Or BindingFlags.Static Or BindingFlags.Public)
+		'If _htmlColor.Equals(P.GetValue(C, Nothing)) Then
+		If _htmlColor.ToArgb() = DirectCast(P.GetValue(C, Nothing), Color).ToArgb() Then
+			colorName = P.Name
+			Exit For
+		End If
+	Next
+	Return colorName
+End Function
+
+Private Shared Function FromHtmlColor(ByVal htmlColor As String) As Color
+	Dim _color As Color = Color.Empty
+	If Len(htmlColor) > 0 Then
+		If (htmlColor.Chars(0) = "#"c) AndAlso ((htmlColor.Length = 7) OrElse (htmlColor.Length = 4)) Then
+			If htmlColor.Length = 7 Then
+				_color = Color.FromArgb(Convert.ToInt32(htmlColor.Substring(1, 2), 16), Convert.ToInt32(htmlColor.Substring(3, 2), 16), Convert.ToInt32(htmlColor.Substring(5, 2), 16))
+			Else
+				_color = Color.FromArgb(Convert.ToInt32(New String(htmlColor.Chars(1), 2), 16), Convert.ToInt32(New String(htmlColor.Chars(2), 2), 16), Convert.ToInt32(New String(htmlColor.Chars(3), 2), 16))
+			End If
+		End If
+	End If
+	Return _color
+End Function
+
