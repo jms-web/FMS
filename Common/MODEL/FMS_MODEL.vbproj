@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8923A885-8857-49FA-BE22-9B9CBF6D19C2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MODEL</RootNamespace>
+    <AssemblyName>FMS_MODEL</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\..\..\EXE_DEBUG\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\..\EXE\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FMS_MODEL.vb" />
+    <Compile Include="Migrations\201801300648127_Init.Designer.vb">
+      <DependentUpon>201801300648127_Init.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801300648127_Init.vb" />
+    <Compile Include="Migrations\201802010846366_Init1.Designer.vb">
+      <DependentUpon>201802010846366_Init1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802010846366_Init1.vb" />
+    <Compile Include="Migrations\201802010906237_Init2.Designer.vb">
+      <DependentUpon>201802010906237_Init2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802010906237_Init2.vb" />
+    <Compile Include="Migrations\Configuration.vb" />
+    <Compile Include="Models\Function\TV01_FUTEKIGO_ICHIRAN.vb" />
+    <Compile Include="Models\Masta\Biz\M108_KOTEI_SYUKEI.vb" />
+    <Compile Include="Models\Masta\Biz\M107_BUHIN_KISYU.vb" />
+    <Compile Include="Models\Masta\Common\M001_SETTING.vb" />
+    <Compile Include="Models\Masta\Biz\M016_SYONIN_TANTO.vb" />
+    <Compile Include="Models\Rireki\R001_SYONIN.vb" />
+    <Compile Include="Models\Masta\Biz\M015_SYONIN_NYURYOKU.vb" />
+    <Compile Include="Models\Masta\Biz\M014_SYONIN_ROUT.vb" />
+    <Compile Include="Models\Masta\Biz\M013_SYONIN_HOKOKU.vb" />
+    <Compile Include="Models\Masta\Common\M012_J_KOJO.vb" />
+    <Compile Include="Models\Masta\Common\M011_SYAIN_GYOMU.vb" />
+    <Compile Include="Models\Masta\Common\M004_SYAIN.vb" />
+    <Compile Include="Models\Masta\Common\M003_GYOMU_GROUP.vb" />
+    <Compile Include="Models\Masta\Common\M002_BUSYO.vb" />
+    <Compile Include="Models\Masta\Common\M010_SYAIN_KENGEN.vb" />
+    <Compile Include="Models\Masta\Common\M009_GAMEN_KENGEN.vb" />
+    <Compile Include="Models\Masta\Common\M008_MENU.vb" />
+    <Compile Include="Models\Masta\Common\M007_GAMEN.vb" />
+    <Compile Include="Models\Masta\Common\M006_CALENDAR.vb" />
+    <Compile Include="Models\Masta\Common\M005_SYOZOKU_BUSYO.vb" />
+    <Compile Include="Models\Masta\Biz\M102_TORI_KYOTEN.vb" />
+    <Compile Include="Models\Masta\Biz\M101_TORIHIKI.vb" />
+    <Compile Include="Models\Masta\Biz\M105_KISYU.vb" />
+    <Compile Include="Models\Masta\Biz\M106_BUHIN.vb" />
+    <Compile Include="Models\Masta\Biz\M103_KOTEI.vb" />
+    <Compile Include="Models\Masta\Biz\M109_BUHIN_KOTEI.vb" />
+    <Compile Include="Models\Masta\Biz\M118_SETUBI.vb" />
+    <Compile Include="Models\Masta\Biz\M119_KOTEI_SETUBI.vb" />
+    <Compile Include="Models\View\VWM001_SETTING.vb" />
+    <Compile Include="Models\View\VWM004_SYAIN.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801300648127_Init.resx">
+      <DependentUpon>201801300648127_Init.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802010846366_Init1.resx">
+      <DependentUpon>201802010846366_Init1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802010906237_Init2.resx">
+      <DependentUpon>201802010906237_Init2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>
