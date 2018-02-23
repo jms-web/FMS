@@ -1,7 +1,7 @@
 Imports JMS_COMMON.ClsPubMethod
 
 'UNDONE: ログイン・ログアウトパネルをManagedPanelに置き換え
-
+'test
 Public Class FrmM0000
 
 #Region "定数・変数"
