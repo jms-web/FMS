@@ -19,8 +19,10 @@ Partial Class FrmG0010
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmG0010))
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.cmbSTAGE_NCR = New JMS_COMMON.ComboboxEx()
         Me.gbxFilter = New System.Windows.Forms.GroupBox()
@@ -45,7 +47,7 @@ Partial Class FrmG0010
         Me.cmbKISYU = New JMS_COMMON.ComboboxEx()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.cmbBUHIN_NO = New JMS_COMMON.ComboboxEx()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnSECH_BUHIN = New System.Windows.Forms.Button()
         Me.cmbHOKUKO_NAME = New JMS_COMMON.ComboboxEx()
         Me.mtxHINMEI = New JMS_COMMON.MaskedTextBoxEx()
         Me.cmbSINSA_HANTEI_KB = New JMS_COMMON.ComboboxEx()
@@ -57,12 +59,12 @@ Partial Class FrmG0010
         Me.Label10 = New System.Windows.Forms.Label()
         Me.cmbSYOCHI_KB = New JMS_COMMON.ComboboxEx()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.TV01FUTEKIGOICHIRANBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.dgvDATA = New System.Windows.Forms.DataGridView()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.TV01FUTEKIGOICHIRANBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -104,6 +106,7 @@ Partial Class FrmG0010
         Me.cmdFunc6.Image = Global.FMS.My.Resources.Resources._imgRecovery32x32
         Me.cmdFunc6.Location = New System.Drawing.Point(1044, 595)
         Me.cmdFunc6.Text = "ïúå≥(F6)"
+        Me.cmdFunc6.Visible = False
         '
         'cmdFunc12
         '
@@ -275,7 +278,7 @@ Partial Class FrmG0010
         Me.tlpFilter.Controls.Add(Me.cmbKISYU, 8, 3)
         Me.tlpFilter.Controls.Add(Me.Label11, 19, 3)
         Me.tlpFilter.Controls.Add(Me.cmbBUHIN_NO, 27, 3)
-        Me.tlpFilter.Controls.Add(Me.Button1, 33, 3)
+        Me.tlpFilter.Controls.Add(Me.btnSECH_BUHIN, 33, 3)
         Me.tlpFilter.Controls.Add(Me.cmbHOKUKO_NAME, 41, 2)
         Me.tlpFilter.Controls.Add(Me.mtxHINMEI, 41, 3)
         Me.tlpFilter.Controls.Add(Me.cmbSINSA_HANTEI_KB, 8, 4)
@@ -417,6 +420,7 @@ Partial Class FrmG0010
         '
         'Label1
         '
+        Me.Label1.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.Label1, 8)
         Me.Label1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label1.Location = New System.Drawing.Point(383, 0)
@@ -571,17 +575,17 @@ Partial Class FrmG0010
         Me.cmbBUHIN_NO.TabIndex = 71
         Me.cmbBUHIN_NO.Text = "(ëIë)"
         '
-        'Button1
+        'btnSECH_BUHIN
         '
-        Me.tlpFilter.SetColumnSpan(Me.Button1, 3)
-        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button1.Location = New System.Drawing.Point(663, 93)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(54, 24)
-        Me.Button1.TabIndex = 99
-        Me.Button1.Text = "åüçı"
-        Me.Button1.UseVisualStyleBackColor = True
-        Me.Button1.Visible = False
+        Me.tlpFilter.SetColumnSpan(Me.btnSECH_BUHIN, 3)
+        Me.btnSECH_BUHIN.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSECH_BUHIN.Location = New System.Drawing.Point(663, 93)
+        Me.btnSECH_BUHIN.Name = "btnSECH_BUHIN"
+        Me.btnSECH_BUHIN.Size = New System.Drawing.Size(54, 24)
+        Me.btnSECH_BUHIN.TabIndex = 99
+        Me.btnSECH_BUHIN.Text = "åüçı"
+        Me.btnSECH_BUHIN.UseVisualStyleBackColor = True
+        Me.btnSECH_BUHIN.Visible = False
         '
         'cmbHOKUKO_NAME
         '
@@ -737,30 +741,62 @@ Partial Class FrmG0010
         Me.flxDATA.AllowEditing = False
         Me.flxDATA.AllowFiltering = True
         Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
-        Me.flxDATA.DataSource = Me.TV01FUTEKIGOICHIRANBindingSource
-        Me.flxDATA.Location = New System.Drawing.Point(12, 237)
+        Me.flxDATA.Location = New System.Drawing.Point(1213, 496)
         Me.flxDATA.Name = "flxDATA"
         Me.flxDATA.Rows.Count = 1
         Me.flxDATA.Rows.DefaultSize = 18
-        Me.flxDATA.Size = New System.Drawing.Size(1236, 322)
+        Me.flxDATA.Size = New System.Drawing.Size(32, 30)
         Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
         Me.flxDATA.TabIndex = 61
+        Me.flxDATA.Visible = False
         Me.flxDATA.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
         '
-        'TV01FUTEKIGOICHIRANBindingSource
+        'dgvDATA
         '
-        Me.TV01FUTEKIGOICHIRANBindingSource.DataSource = GetType(MODEL.TV01_FUTEKIGO_ICHIRAN)
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvDATA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvDATA.Location = New System.Drawing.Point(12, 240)
+        Me.dgvDATA.Name = "dgvDATA"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvDATA.RowTemplate.Height = 21
+        Me.dgvDATA.Size = New System.Drawing.Size(1233, 322)
+        Me.dgvDATA.TabIndex = 62
         '
         'FrmG0010
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.ClientSize = New System.Drawing.Size(1264, 712)
+        Me.Controls.Add(Me.dgvDATA)
         Me.Controls.Add(Me.flxDATA)
         Me.Controls.Add(Me.gbxFilter)
         Me.HelpButton = True
         Me.Name = "FrmG0010"
         Me.ShowStatusBar = True
         Me.Text = ""
+        Me.Controls.SetChildIndex(Me.gbxFilter, 0)
+        Me.Controls.SetChildIndex(Me.flxDATA, 0)
         Me.Controls.SetChildIndex(Me.lblRecordCount, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc3, 0)
@@ -775,14 +811,13 @@ Partial Class FrmG0010
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
-        Me.Controls.SetChildIndex(Me.gbxFilter, 0)
-        Me.Controls.SetChildIndex(Me.flxDATA, 0)
+        Me.Controls.SetChildIndex(Me.dgvDATA, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.TV01FUTEKIGOICHIRANBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -792,7 +827,6 @@ Partial Class FrmG0010
     Friend WithEvents gbxFilter As GroupBox
     Friend WithEvents chkClosedRowVisibled As CheckBox
     Friend WithEvents tlpFilter As TableLayoutPanel
-    Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Label1 As Label
     Friend WithEvents cmbSTAGE_CAR As ComboboxEx
     Friend WithEvents Label2 As Label
@@ -821,7 +855,8 @@ Partial Class FrmG0010
     Friend WithEvents mtxHOKUKO_NO As MaskedTextBoxEx
     Friend WithEvents Label10 As Label
     Friend WithEvents cmbHOKUKO_NAME As ComboboxEx
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnSECH_BUHIN As Button
     Friend WithEvents btnClearSrchFilter As Button
-    Friend WithEvents TV01FUTEKIGOICHIRANBindingSource As BindingSource
+    Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents dgvDATA As DataGridView
 End Class

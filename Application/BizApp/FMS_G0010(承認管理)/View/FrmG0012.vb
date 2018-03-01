@@ -47,11 +47,11 @@ Public Class FrmG0012
             'Call FunSetDgvCulumns(Me.dgvDATA)
 
             '-----コントロールデータソース設定
-            Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
+            'Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
 
-            ''-----イベントハンドラ設定
-            AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+            '''-----イベントハンドラ設定
+            'AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            'AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
 
             '検索実行
@@ -268,25 +268,25 @@ Public Class FrmG0012
             Dim sbSQLWHERE As New System.Text.StringBuilder
 
             ''----DBデータ取得
-            sbSQLWHERE.Remove(0, sbSQLWHERE.Length)
-            If Me.cmbKOMO_NM.SelectedValue <> "" Then
-                sbSQLWHERE.Append(" WHERE KOMO_NM ='" & Me.cmbKOMO_NM.SelectedValue & "' ")
-            Else
-                If cmbKOMO_NM.Text.ToString.IsNullOrWhiteSpace = False Then
-                    sbSQLWHERE.Append("  WHERE KOMO_NM  LIKE '%" & Me.cmbKOMO_NM.Text.Trim & "%' ")
-                End If
-            End If
+            'sbSQLWHERE.Remove(0, sbSQLWHERE.Length)
+            'If Me.cmbKOMO_NM.SelectedValue <> "" Then
+            '    sbSQLWHERE.Append(" WHERE KOMO_NM ='" & Me.cmbKOMO_NM.SelectedValue & "' ")
+            'Else
+            '    If cmbKOMO_NM.Text.ToString.IsNullOrWhiteSpace = False Then
+            '        sbSQLWHERE.Append("  WHERE KOMO_NM  LIKE '%" & Me.cmbKOMO_NM.Text.Trim & "%' ")
+            '    End If
+            'End If
 
-            If Me.chkDeletedRowVisibled.Checked = False Then
-                If sbSQLWHERE.Length = 0 Then
-                    sbSQLWHERE.Append(" WHERE DEL_FLG <> 1 ")
-                Else
-                    sbSQLWHERE.Append(" AND DEL_FLG <> 1 ")
-                End If
-                'dgvDATA.Columns("DEL_FLG").Visible = False
-            Else
-                'dgvDATA.Columns("DEL_FLG").Visible = True
-            End If
+            'If Me.chkDeletedRowVisibled.Checked = False Then
+            '    If sbSQLWHERE.Length = 0 Then
+            '        sbSQLWHERE.Append(" WHERE DEL_FLG <> 1 ")
+            '    Else
+            '        sbSQLWHERE.Append(" AND DEL_FLG <> 1 ")
+            '    End If
+            '    'dgvDATA.Columns("DEL_FLG").Visible = False
+            'Else
+            '    'dgvDATA.Columns("DEL_FLG").Visible = True
+            'End If
 
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append("SELECT")
@@ -447,11 +447,11 @@ Public Class FrmG0012
             'TODO: 参照型のSystem.Tupleを値型のSystem.ValueTupleに置き換える
 
             'コンボボックスの選択値を記憶
-            If cmbKOMO_NM.SelectedValue IsNot Nothing Then
-                strComboVal = cmbKOMO_NM.SelectedValue
-            Else
-                strComboVal = ""
-            End If
+            'If cmbKOMO_NM.SelectedValue IsNot Nothing Then
+            '    strComboVal = cmbKOMO_NM.SelectedValue
+            'Else
+            '    strComboVal = ""
+            'End If
 
             'frmDLG.PrMODE = intMODE
             'If Me.dgvDATA.CurrentRow IsNot Nothing Then
@@ -472,8 +472,8 @@ Public Class FrmG0012
                 Using DB As ClsDbUtility = DBOpen()
                     Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
                 End Using
-                Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
-                Me.cmbKOMO_NM.SelectedValue = strComboVal
+                'Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
+                'Me.cmbKOMO_NM.SelectedValue = strComboVal
 
 
                 '追加したコードの行を選択する
@@ -513,7 +513,7 @@ Public Class FrmG0012
         Try
 
             'コンボボックスの選択値
-            strComboVal = Me.cmbKOMO_NM.Text.Trim
+            'strComboVal = Me.cmbKOMO_NM.Text.Trim
 
             '-----SQL
             sbSQL.Remove(0, sbSQL.Length)
@@ -589,14 +589,14 @@ Public Class FrmG0012
                 '検索フィルタデータソース更新
                 Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
             End Using
-            Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
+            'Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
 
-            If strComboVal <> "" Then
-                Me.cmbKOMO_NM.Text = strComboVal
-            End If
-            If Me.cmbKOMO_NM.SelectedIndex <= 0 Then
-                Me.cmbKOMO_NM.Text = ""
-            End If
+            'If strComboVal <> "" Then
+            '    Me.cmbKOMO_NM.Text = strComboVal
+            'End If
+            'If Me.cmbKOMO_NM.SelectedIndex <= 0 Then
+            '    Me.cmbKOMO_NM.Text = ""
+            'End If
 
             Return True
         Catch ex As Exception
@@ -684,6 +684,8 @@ Public Class FrmG0012
         Me.cmdFunc1.PerformClick()
 
     End Sub
+
+
 
 #End Region
 

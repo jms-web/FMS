@@ -24,6 +24,10 @@ Public Class FrmBaseStsBtnDgv
     'DATAGRIDVIEW編集済みセルの文字色
     Protected clrEditedCellForeColor As Color = Color.Red
 
+    '警告背景色
+    Protected clrWarningCellBackColor As Color = Color.LightPink
+    '注意背景色
+    Protected clrCautionCellBackColor As Color = Color.Gold
 
     'グリッドデータの選択行を記録
     Public intDgvCurrentRow As Integer = 0
@@ -89,7 +93,7 @@ Public Class FrmBaseStsBtnDgv
                 'ユーザーの行幅変更
                 .AllowUserToResizeRows = False
                 'ユーザーの列幅変更
-                '.AllowUserToResizeColumns = False
+                .AllowUserToResizeColumns = False
                 '最終行にデータ入力行表示
                 .AllowUserToAddRows = False
                 '複数セル選択

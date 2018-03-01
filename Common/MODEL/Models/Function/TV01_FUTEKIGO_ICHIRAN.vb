@@ -9,6 +9,10 @@ Imports System.Data.Entity.Spatial
 ''' </summary>
 Partial Public Class TV01_FUTEKIGO_ICHIRAN
 
+    <NotMapped>
+    <ComponentModel.DisplayName("選択")>
+    Public Property SELECTED As Boolean
+
     <Key>
     <Column(Order:=0)>
     <StringLength(10)>
@@ -31,7 +35,7 @@ Partial Public Class TV01_FUTEKIGO_ICHIRAN
     <Key>
     <Column(Order:=3)>
     <StringLength(50)>
-    <ComponentModel.DisplayName("承認内容名")>
+    <ComponentModel.DisplayName("ステージ")>
     <Display(AutoGenerateField:=False)>
     Public Property SYONIN_NAIYO As String
 
@@ -44,7 +48,7 @@ Partial Public Class TV01_FUTEKIGO_ICHIRAN
     <Key>
     <Column(Order:=5)>
     <StringLength(50)>
-    <ComponentModel.DisplayName("ステージ")>
+    <ComponentModel.DisplayName("報告書名")>
     Public Property SYONIN_HOKOKUSYO_NAME As String '報告書名
 
     <Key>
@@ -105,7 +109,6 @@ Partial Public Class TV01_FUTEKIGO_ICHIRAN
     <Column(Order:=15)>
     <StringLength(1)>
     <ComponentModel.DisplayName("事前判定区分")>
-    <Display(AutoGenerateField:=False)>
     Public Property JIZEN_SINSA_HANTEI_KB As String
 
     <Key>
@@ -118,7 +121,6 @@ Partial Public Class TV01_FUTEKIGO_ICHIRAN
     <Column(Order:=17)>
     <StringLength(1)>
     <ComponentModel.DisplayName("再審判定区分")>
-    <Display(AutoGenerateField:=False)>
     Public Property SAISIN_IINKAI_HANTEI_KB As String
 
     <Key>
@@ -127,15 +129,14 @@ Partial Public Class TV01_FUTEKIGO_ICHIRAN
     <ComponentModel.DisplayName("再審判定区分")>
     Public Property SAISIN_IINKAI_HANTEI_KB_DISP As String
 
-
+    <Key>
     <StringLength(8)>
-    <NotMapped>
     <ComponentModel.DisplayName("起草日")>
     <Display(AutoGenerateField:=False)>
+    <Column(NameOf(ADD_YMD), Order:=19, TypeName:="String")>
     Public Property _ADD_YMD As String
 
-    <Key>
-    <Column(Order:=19)>
+    <NotMapped>
     <ComponentModel.DisplayName("起草日")>
     Public Property ADD_YMD As Date
         Get
@@ -147,14 +148,14 @@ Partial Public Class TV01_FUTEKIGO_ICHIRAN
         End Set
     End Property
 
+    <Key>
+    <Column(NameOf(SYOCHI_YMD), Order:=20, TypeName:="String")>
     <StringLength(8)>
-    <NotMapped>
     <ComponentModel.DisplayName("前処置実施日")>
     <Display(AutoGenerateField:=False)>
     Public Property _SYOCHI_YMD As String
 
-    <Key>
-    <Column(Order:=20)>
+    <NotMapped>
     <ComponentModel.DisplayName("前処置実施日")>
     Public Property SYOCHI_YMD As Date
         Get
@@ -166,5 +167,25 @@ Partial Public Class TV01_FUTEKIGO_ICHIRAN
         End Set
     End Property
 
+    <Key>
+    <Column(Order:=21)>
+    <ComponentModel.DisplayName("差戻元承認順")>
+    Public Property MODOSI_SYONIN_JUN As Integer
 
+    <Key>
+    <Column(Order:=22, TypeName:="nvarchar")>
+    <StringLength(50)>
+    <ComponentModel.DisplayName("差戻元承認順")>
+    Public Property MODOSI_SYONIN_NAIYO As Integer
+
+    <Key>
+    <Column(Order:=23, TypeName:="nvarchar")>
+    <StringLength(100)>
+    <ComponentModel.DisplayName("差戻元承認順")>
+    Public Property MODOSI_RIYU As Integer
+
+    <Key>
+    <Column(Order:=24)>
+    <ComponentModel.DisplayName("差戻元承認順")>
+    Public Property MODOSI_TAIRYU As Integer
 End Class

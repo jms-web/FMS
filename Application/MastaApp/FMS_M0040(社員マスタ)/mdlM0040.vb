@@ -48,11 +48,11 @@ Module mdlM0040
 
                 '-----‹¤’Êƒf[ƒ^æ“¾
                 Using DB As ClsDbUtility = DBOpen()
-                    Call FunGetCodeDataTable(DB, "•”", tblBU)
-                    Call FunGetCodeDataTable(DB, "‰Û", tblKA)
-                    Call FunGetCodeDataTable(DB, "–ğE‹æ•ª", tblYAKU_KBN)
-                    Call FunGetCodeDataTable(DB, "’¼ŠÔ‹æ•ª", tblCYOKKAN_KBN)
-                    Call FunGetCodeDataTable(DB, "E”Ô", tblSYOKUBAN)
+                    'Call FunGetCodeDataTable(DB, "•”", tblBU)
+                    'Call FunGetCodeDataTable(DB, "‰Û", tblKA)
+                    'Call FunGetCodeDataTable(DB, "–ğE‹æ•ª", tblYAKU_KBN)
+                    'Call FunGetCodeDataTable(DB, "’¼ŠÔ‹æ•ª", tblCYOKKAN_KBN)
+                    'Call FunGetCodeDataTable(DB, "E”Ô", tblSYOKUBAN)
                 End Using
 
                 '-----ˆê——‰æ–Ê•\¦

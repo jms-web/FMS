@@ -440,8 +440,8 @@ Public Class FrmG0011
     Private Function FunUpdateEntity(ByVal intMODE As ENM_DATA_OPERATION_MODE) As Boolean
         Dim frmDLG As New FrmG0011
         Dim dlgRET As DialogResult
-        Dim PKeys As Tuple(Of String, String)
-        Dim strComboVal As String
+        'Dim PKeys As Tuple(Of String, String)
+        'Dim strComboVal As String
 
         Try
             'TODO: éQè∆å^ÇÃSystem.TupleÇílå^ÇÃSystem.ValueTupleÇ…íuÇ´ä∑Ç¶ÇÈ
@@ -506,7 +506,7 @@ Public Class FrmG0011
 
     Private Function FunDEL(ByVal ENM_MODE As ENM_DATA_OPERATION_MODE) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
-        Dim strComboVal As String
+        'Dim strComboVal As String
         Dim strMsg As String
         Dim strTitle As String
 

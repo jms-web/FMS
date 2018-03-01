@@ -37,7 +37,7 @@ Public Class FrmM0040
             Call FunSetDgvCulumns(Me.dgvDATA)
 
             '-----コントロールデータソース設定
-            cmbSYOKUBAN.SetDataSource(tblSYOKUBAN.ExcludeDeleted, True)
+            'cmbSYOKUBAN.SetDataSource(tblSYOKUBAN.ExcludeDeleted, True)
 
             '-----イベントハンドラ設定
             AddHandler cmbSYOKUBAN.SelectedValueChanged, AddressOf SearchFilterValueChanged

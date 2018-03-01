@@ -529,7 +529,9 @@ Partial Class FrmM0000
         '
         'txtPASSWORD
         '
+        Me.txtPASSWORD.BackColor = System.Drawing.SystemColors.Window
         Me.txtPASSWORD.Font = New System.Drawing.Font("Meiryo UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.txtPASSWORD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtPASSWORD.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtPASSWORD.InputRequired = False
         Me.txtPASSWORD.Location = New System.Drawing.Point(3, 89)
@@ -552,7 +554,9 @@ Partial Class FrmM0000
         '
         'txtUSER
         '
+        Me.txtUSER.BackColor = System.Drawing.SystemColors.Window
         Me.txtUSER.Font = New System.Drawing.Font("Meiryo UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.txtUSER.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtUSER.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.txtUSER.InputRequired = False
         Me.txtUSER.Location = New System.Drawing.Point(3, 35)
@@ -635,6 +639,7 @@ Partial Class FrmM0000
         Me.lblSIME.TabIndex = 73
         Me.lblSIME.TabStop = True
         Me.lblSIME.Text = "<’Ê’m>"
+        Me.lblSIME.Visible = False
         Me.lblSIME.VisitedLinkColor = System.Drawing.Color.Blue
         '
         'lblCALENDER
@@ -648,6 +653,7 @@ Partial Class FrmM0000
         Me.lblCALENDER.TabIndex = 72
         Me.lblCALENDER.TabStop = True
         Me.lblCALENDER.Text = "<’Ê’m>"
+        Me.lblCALENDER.Visible = False
         Me.lblCALENDER.VisitedLinkColor = System.Drawing.Color.Blue
         '
         'lblGYOUMU

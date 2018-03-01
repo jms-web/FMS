@@ -112,190 +112,191 @@ Public Module mdlDBContext
     ''' </summary>
     Public tblKOMO_NM As DataTableEx
 
-    ''' <summary>
-    ''' 見積状況区分
-    ''' </summary>
-    Public tblMITU_KB As DataTableEx
-
-    ''' <summary>
-    ''' 製品区分
-    ''' </summary>
-    Public tblSEIHIN_KB As DataTableEx
-
-    ''' <summary>
-    ''' 得意先
-    ''' </summary>
-    Public tblTOKUI As DataTableEx
-
-    ''' <summary>
-    ''' 担当
-    ''' </summary>
-    Public tblTANTO As DataTableEx
-
-    ''' <summary>
-    ''' 端数処理区分
-    ''' </summary>
-    Public tblTAX_HASU_KB As DataTableEx
-
-    ''' <summary>
-    ''' 属性
-    ''' </summary>
-    Public tblZOKUSEI As DataTableEx
-
-    ''' <summary>
-    ''' 属性項目
-    ''' </summary>
-    Public tblZOKUSEI_K As DataTableEx
-
-    ''' <summary>
-    ''' 属性CD
-    ''' </summary>
-    Public tblZOKUSEI_CD As DataTableEx
-
-    ''' <summary>
-    ''' 属性名
-    ''' </summary>
-    Public tblZOKUSEI_NAME As DataTableEx
-    ''' <summary>
-    ''' 自支給区分
-    ''' </summary>
-    Public tblZISI_KB As DataTableEx
-
     '''' <summary>
-    '''' ありなし
+    '''' 職番
     '''' </summary>
-    'Public tblToF As DataTableEx
-
-    ''' <summary>
-    ''' 単位区分
-    ''' </summary>
-    Public tblTANI_KBN As DataTableEx
-
-    ''' <summary>
-    ''' 仕入外注区分
-    ''' </summary>
-    Public tblNAIGAI_KB As DataTableEx
-
-    ''' <summary>
-    ''' 取引種別
-    ''' </summary>
-    Public tblTORI_SYU As DataTableEx
-
-    ''' <summary>
-    ''' 売税区分
-    ''' </summary>
-    Public tblURI_KBN As DataTableEx
-
-    ''' <summary>
-    ''' 仕税区分
-    ''' </summary>
-    Public tblSHI_KBN As DataTableEx
-
-    ''' <summary>
-    ''' 役職区分
-    ''' </summary>
-    Public tblYAKU_KBN As DataTableEx
-
-    ''' <summary>
-    ''' 直間区分
-    ''' </summary>
-    Public tblCYOKKAN_KBN As DataTableEx
-
-    ''' <summary>
-    ''' 部
-    ''' </summary>
-    Public tblBU As DataTableEx
-
-    ''' <summary>
-    ''' 課
-    ''' </summary>
-    Public tblKA As DataTableEx
-
-    ''' <summary>
-    ''' 機械名
-    ''' </summary>
-    Public tblKIKAI_NAME As DataTableEx
-
-    ''' <summary>
-    ''' 機械メーカー
-    ''' </summary>
-    Public tblKIKAI_MAKER As DataTableEx
-
-    ''' <summary>
-    ''' 追加工区分
-    ''' </summary>
-    Public tblTUIKAKOU_KBN As DataTableEx
-
-    ''' <summary>
-    ''' 構成区分
-    ''' </summary>
-    Public tblKOUSEI_KBN As DataTableEx
-
-    ''' <summary>
-    ''' 管理区分
-    ''' </summary>
-    Public tblKANRI_KBN As DataTableEx
-
-    ''' <summary>
-    ''' 遊休区分
-    ''' </summary>
-    Public tblYUKYU_KBN As DataTableEx
-
-    ''' <summary>
-    ''' 取引先略名
-    ''' </summary>
-    Public tblTORI_SAKI As DataTableEx
-
-    ''' <summary>
-    ''' 取引先CD
-    ''' </summary>
-    Public tblTORI_SAKI_CD As DataTableEx
-
-    ''' <summary>
-    ''' 製品品番
-    ''' </summary>
-    Public tblHINBAN As DataTableEx
-
-    ''' <summary>
-    ''' 製品品名
-    ''' </summary>
-    Public tblHINMEI As DataTableEx
-
-    ''' <summary>
-    ''' 発注先CD
-    ''' </summary>
-    Public tblHACYU_CD As DataTableEx
+    'Public tblSYOKUBAN As DataTableEx
 
     '''' <summary>
-    '''' 品番
+    '''' 見積状況区分
+    '''' </summary>
+    'Public tblMITU_KB As DataTableEx
+
+    '''' <summary>
+    '''' 製品区分
+    '''' </summary>
+    'Public tblSEIHIN_KB As DataTableEx
+
+    '''' <summary>
+    '''' 得意先
+    '''' </summary>
+    'Public tblTOKUI As DataTableEx
+
+    '''' <summary>
+    '''' 担当
+    '''' </summary>
+    'Public tblTANTO As DataTableEx
+
+    '''' <summary>
+    '''' 端数処理区分
+    '''' </summary>
+    'Public tblTAX_HASU_KB As DataTableEx
+
+    '''' <summary>
+    '''' 属性
+    '''' </summary>
+    'Public tblZOKUSEI As DataTableEx
+
+    '''' <summary>
+    '''' 属性項目
+    '''' </summary>
+    'Public tblZOKUSEI_K As DataTableEx
+
+    '''' <summary>
+    '''' 属性CD
+    '''' </summary>
+    'Public tblZOKUSEI_CD As DataTableEx
+
+    '''' <summary>
+    '''' 属性名
+    '''' </summary>
+    'Public tblZOKUSEI_NAME As DataTableEx
+    '''' <summary>
+    '''' 自支給区分
+    '''' </summary>
+    'Public tblZISI_KB As DataTableEx
+
+    ''''' <summary>
+    ''''' ありなし
+    ''''' </summary>
+    ''Public tblToF As DataTableEx
+
+    '''' <summary>
+    '''' 単位区分
+    '''' </summary>
+    'Public tblTANI_KBN As DataTableEx
+
+    '''' <summary>
+    '''' 仕入外注区分
+    '''' </summary>
+    'Public tblNAIGAI_KB As DataTableEx
+
+    '''' <summary>
+    '''' 取引種別
+    '''' </summary>
+    'Public tblTORI_SYU As DataTableEx
+
+    '''' <summary>
+    '''' 売税区分
+    '''' </summary>
+    'Public tblURI_KBN As DataTableEx
+
+    '''' <summary>
+    '''' 仕税区分
+    '''' </summary>
+    'Public tblSHI_KBN As DataTableEx
+
+    '''' <summary>
+    '''' 役職区分
+    '''' </summary>
+    'Public tblYAKU_KBN As DataTableEx
+
+    '''' <summary>
+    '''' 直間区分
+    '''' </summary>
+    'Public tblCYOKKAN_KBN As DataTableEx
+
+    '''' <summary>
+    '''' 部
+    '''' </summary>
+    'Public tblBU As DataTableEx
+
+    '''' <summary>
+    '''' 課
+    '''' </summary>
+    'Public tblKA As DataTableEx
+
+    '''' <summary>
+    '''' 機械名
+    '''' </summary>
+    'Public tblKIKAI_NAME As DataTableEx
+
+    '''' <summary>
+    '''' 機械メーカー
+    '''' </summary>
+    'Public tblKIKAI_MAKER As DataTableEx
+
+    '''' <summary>
+    '''' 追加工区分
+    '''' </summary>
+    'Public tblTUIKAKOU_KBN As DataTableEx
+
+    '''' <summary>
+    '''' 構成区分
+    '''' </summary>
+    'Public tblKOUSEI_KBN As DataTableEx
+
+    '''' <summary>
+    '''' 管理区分
+    '''' </summary>
+    'Public tblKANRI_KBN As DataTableEx
+
+    '''' <summary>
+    '''' 遊休区分
+    '''' </summary>
+    'Public tblYUKYU_KBN As DataTableEx
+
+    '''' <summary>
+    '''' 取引先略名
+    '''' </summary>
+    'Public tblTORI_SAKI As DataTableEx
+
+    '''' <summary>
+    '''' 取引先CD
+    '''' </summary>
+    'Public tblTORI_SAKI_CD As DataTableEx
+
+    '''' <summary>
+    '''' 製品品番
     '''' </summary>
     'Public tblHINBAN As DataTableEx
 
+    '''' <summary>
+    '''' 製品品名
+    '''' </summary>
+    'Public tblHINMEI As DataTableEx
 
-    ''' <summary>
-    ''' 職番
-    ''' </summary>
-    Public tblSYOKUBAN As DataTableEx
+    '''' <summary>
+    '''' 発注先CD
+    '''' </summary>
+    'Public tblHACYU_CD As DataTableEx
 
-    ''' <summary>
-    ''' 理由CD
-    ''' </summary>
-    Public tblRIYU_CD As DataTableEx
+    ''''' <summary>
+    ''''' 品番
+    ''''' </summary>
+    ''Public tblHINBAN As DataTableEx
 
-    ''' <summary>
-    ''' 材質
-    ''' </summary>
-    Public tblZAISITU As DataTableEx
 
-    ''' <summary>
-    ''' 工程
-    ''' </summary>
-    Public tblKOTEI As DataTableEx
 
-    ''' <summary>
-    ''' カレンダー
-    ''' </summary>
-    Public tblCALENDAR As DataTableEx
+    '''' <summary>
+    '''' 理由CD
+    '''' </summary>
+    'Public tblRIYU_CD As DataTableEx
+
+    '''' <summary>
+    '''' 材質
+    '''' </summary>
+    'Public tblZAISITU As DataTableEx
+
+    '''' <summary>
+    '''' 工程
+    '''' </summary>
+    'Public tblKOTEI As DataTableEx
+
+    '''' <summary>
+    '''' カレンダー
+    '''' </summary>
+    'Public tblCALENDAR As DataTableEx
 
 #End Region
 

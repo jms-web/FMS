@@ -1,5 +1,5 @@
 Imports JMS_COMMON.ClsPubMethod
-
+Imports C1.Win.C1FlexGrid
 
 Public Class FrmG0010
 
@@ -17,7 +17,11 @@ Public Class FrmG0010
         MyBase.ToolTip.SetToolTip(Me.cmdFunc3, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc4, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc7, My.Resources.infoToolTipMsgNotFoundData)
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc8, My.Resources.infoToolTipMsgNotFoundData)
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc9, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc11, My.Resources.infoToolTipMsgNotFoundData)
 
     End Sub
 
@@ -33,10 +37,10 @@ Public Class FrmG0010
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
 
             '-----グリッド初期設定(親フォームから呼び出し)
-            'Call FunInitializeDataGridView(Me.dgvDATA)
+            Call FunInitializeDataGridView(dgvDATA)
 
             '-----グリッド列作成
-            'Call FunSetDgvCulumns(Me.dgvDATA)
+            Call FunSetDgvCulumns(dgvDATA)
 
             '-----コントロールデータソース設定
             'Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
@@ -47,7 +51,7 @@ Public Class FrmG0010
 
 
             '検索実行
-            'Me.cmdFunc1.PerformClick()
+            Me.cmdFunc1.PerformClick()
         Finally
 
         End Try
@@ -59,94 +63,99 @@ Public Class FrmG0010
 
     'フィールド定義()
     Private Shared Function FunSetDgvCulumns(ByVal dgv As DataGridView) As Boolean
-        Dim _Model As New MODEL.M001_SETTING
+        Dim _Model As New MODEL.TV01_FUTEKIGO_ICHIRAN
         Try
             With dgv
                 .AutoGenerateColumns = False
 
-                '.Columns.Add(NameOf(_Model.KOMO_NM), GetDisplayName(_Model.GetType, NameOf(_Model.KOMO_NM)))
-                '.Columns(.ColumnCount - 1).Width = 150
-                '.Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.KOMO_NM)
+                Dim cmbclmn1 As New DataGridViewCheckBoxColumn With {
+                .Name = NameOf(_Model.SELECTED),
+                .HeaderText = "選択",
+                .DataPropertyName = .Name
+                }
+                cmbclmn1.DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+                .Columns.Add(cmbclmn1)
+                .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
+                .Columns(.ColumnCount - 1).Width = 30
 
-                '.Columns.Add(NameOf(_Model.VALUE), GetDisplayName(_Model.GetType, NameOf(_Model.VALUE)))
-                '.Columns(.ColumnCount - 1).Width = 200
-                '.Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-                '.Columns(.ColumnCount - 1).Frozen = True
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.VALUE)
+                .Columns.Add(NameOf(_Model.HOKOKUSYO_NO), "報告書No")
+                .Columns(.ColumnCount - 1).Width = 70
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                '.Columns.Add(NameOf(_Model.DISP), GetDisplayName(_Model.GetType, NameOf(_Model.DISP)))
-                '.Columns(.ColumnCount - 1).Width = 300
-                '.Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DISP)
+                .Columns.Add(NameOf(_Model.SYONIN_NAIYO), "ステージ")
+                .Columns(.ColumnCount - 1).Width = 180
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                '.Columns.Add(NameOf(_Model.DISP_ORDER), GetDisplayName(_Model.GetType, NameOf(_Model.DISP_ORDER)))
-                '.Columns(.ColumnCount - 1).Width = 70
-                '.Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DISP_ORDER)
+                .Columns.Add(NameOf(_Model.SYONIN_HOKOKUSYO_R_NAME), "略名")
+                .Columns(.ColumnCount - 1).Width = 70
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                '.Columns.Add(NameOf(_Model.BIKOU), GetDisplayName(_Model.GetType, NameOf(_Model.BIKOU)))
-                '.Columns(.ColumnCount - 1).Width = 430
-                '.Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.BIKOU)
+                .Columns.Add(NameOf(_Model.SYOCHI_SYAIN_NAME), "処置担当者")
+                .Columns(.ColumnCount - 1).Width = 120
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                'Using cmbclmn1 As New DataGridViewCheckBoxColumn
-                '    cmbclmn1.Name = NameOf(_Model.DEF_FLG)
-                '    cmbclmn1.HeaderText = GetDisplayName(_Model.GetType, NameOf(_Model.DEF_FLG))
-                '    cmbclmn1.Width = 30
+                .Columns.Add(NameOf(_Model.TAIRYU), "滞留日数")
+                .Columns(.ColumnCount - 1).Width = 80
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                '    cmbclmn1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-                '    .Columns.Add(cmbclmn1)
-                '    .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
-                '    .Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DEF_FLG)
-                'End Using
+                .Columns.Add(NameOf(_Model.KISYU), "機種")
+                .Columns(.ColumnCount - 1).Width = 120
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                'Using cmbclmn2 As New DataGridViewCheckBoxColumn
-                '    cmbclmn2.Name = NameOf(_Model.DEL_FLG)
-                '    cmbclmn2.HeaderText = GetDisplayName(_Model.GetType, NameOf(_Model.DEL_FLG))
-                '    cmbclmn2.Width = 30
-                '    cmbclmn2.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-                '    .Columns.Add(cmbclmn2)
-                '    .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
-                '    .Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DEL_FLG)
-                'End Using
+                .Columns.Add(NameOf(_Model.BUHIN_BANGO), "部品番号")
+                .Columns(.ColumnCount - 1).Width = 180
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                '.Columns.Add(NameOf(_Model.ADD_YMDHNS), GetDisplayName(_Model.GetType, NameOf(_Model.ADD_YMDHNS)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.ADD_YMDHNS)
-                '.Columns(.ColumnCount - 1).Visible = False
+                .Columns.Add(NameOf(_Model.SYONIN_HOKOKUSYO_NAME), "名称")
+                .Columns(.ColumnCount - 1).Width = 180
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                '.Columns.Add(NameOf(_Model.ADD_TANTO_CD), GetDisplayName(_Model.GetType, NameOf(_Model.ADD_TANTO_CD)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.ADD_TANTO_CD)
-                '.Columns(.ColumnCount - 1).Visible = False
+                .Columns.Add(NameOf(_Model.JIZEN_SINSA_HANTEI_KB_DISP), "事前判定区分")
+                .Columns(.ColumnCount - 1).Width = 180
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                '.Columns.Add(NameOf(_Model.ADD_TANTO_NAME), GetDisplayName(_Model.GetType, NameOf(_Model.ADD_TANTO_NAME)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.ADD_TANTO_NAME)
-                '.Columns(.ColumnCount - 1).Visible = False
+                .Columns.Add(NameOf(_Model.SAISIN_IINKAI_HANTEI_KB_DISP), "再審判定区分")
+                .Columns(.ColumnCount - 1).Width = 180
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                '.Columns.Add(NameOf(_Model.EDIT_YMDHNS), GetDisplayName(_Model.GetType, NameOf(_Model.EDIT_YMDHNS)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.EDIT_YMDHNS)
-                '.Columns(.ColumnCount - 1).Visible = False
+                .Columns.Add(NameOf(_Model.ADD_YMD), "起草日")
+                .Columns(.ColumnCount - 1).Width = 180
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                '.Columns.Add(NameOf(_Model.EDIT_TANTO_CD), GetDisplayName(_Model.GetType, NameOf(_Model.EDIT_TANTO_CD)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.EDIT_TANTO_CD)
-                '.Columns(.ColumnCount - 1).Visible = False
+                .Columns.Add(NameOf(_Model.SYOCHI_YMD), "前処理実施日")
+                .Columns(.ColumnCount - 1).Width = 180
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                '.Columns.Add(NameOf(_Model.EDIT_TANTO_NAME), GetDisplayName(_Model.GetType, NameOf(_Model.EDIT_TANTO_NAME)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.EDIT_TANTO_NAME)
-                '.Columns(.ColumnCount - 1).Visible = False
+                .Columns.Add(NameOf(_Model.MODOSI_SYONIN_NAIYO), "差戻元ステージ")
+                .Columns(.ColumnCount - 1).Width = 180
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                '.Columns.Add(NameOf(_Model.DEL_YMDHNS), GetDisplayName(_Model.GetType, NameOf(_Model.DEL_YMDHNS)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DEL_YMDHNS)
-                '.Columns(.ColumnCount - 1).Visible = False
+                .Columns.Add(NameOf(_Model.MODOSI_RIYU), "差戻理由")
+                .Columns(.ColumnCount - 1).Width = 180
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                '.Columns.Add(NameOf(_Model.DEL_YMDHNS), GetDisplayName(_Model.GetType, NameOf(_Model.DEL_YMDHNS)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DEL_YMDHNS)
-                '.Columns(.ColumnCount - 1).Visible = False
 
-                '.Columns.Add(NameOf(_Model.DEL_TANTO_NAME), GetDisplayName(_Model.GetType, NameOf(_Model.DEL_TANTO_NAME)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DEL_TANTO_NAME)
-                '.Columns(.ColumnCount - 1).Visible = False
+                .Columns.Add(NameOf(_Model.MODOSI_SYONIN_JUN), "差戻承認順")
+                .Columns(.ColumnCount - 1).Visible = False
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+
+                '.Columns(.ColumnCount - 1).DefaultCellStyle.Format = "#,0"
             End With
+
 
             Return True
         Finally
@@ -198,28 +207,28 @@ Public Class FrmG0010
             'ボタンINDEX毎の処理
             Select Case intFUNC
                 Case 1  '検索
-                    Call FunSRCH(flxDATA, FunGetListData())
+                    Call FunSRCH(dgvDATA, FunGetListData())
                 Case 2  '追加
 
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
-                        'Call FunSRCH(Me.dgvDATA, FunGetListData())
+                        Call FunSRCH(dgvDATA, FunGetListData())
                     End If
                 Case 3  '参照追加
 
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._2_ADDREF) = True Then
-                        'Call FunSRCH(Me.dgvDATA, FunGetListData())
+                        Call FunSRCH(dgvDATA, FunGetListData())
                     End If
                 Case 4  '変更
 
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) = True Then
-                        'Call FunSRCH(Me.dgvDATA, FunGetListData())
+                        Call FunSRCH(dgvDATA, FunGetListData())
                     End If
                 Case 5, 6  '削除/復元/完全削除
 
                     Dim btn As Button = DirectCast(sender, Button)
                     Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(btn.Tag, ENM_DATA_OPERATION_MODE)
                     If FunDEL(ENM_MODE) = True Then
-                        'Call FunSRCH(Me.dgvDATA, FunGetListData())
+                        Call FunSRCH(dgvDATA, FunGetListData())
                     End If
 
                 Case 10  'CSV出力
@@ -290,7 +299,10 @@ Public Class FrmG0010
 
             For Each p As Reflection.PropertyInfo In properties
                 If IsAutoGenerateField(t, p.Name) = True Then
-                    dt.Columns.Add(p.Name, p.PropertyType)
+                    Dim dc As New DataColumn With {.ColumnName = p.Name,
+                                                   .DataType = p.PropertyType,
+                                                   .Caption = p.DisplayName}
+                    dt.Columns.Add(dc)
                 End If
             Next p
 
@@ -305,9 +317,16 @@ Public Class FrmG0010
                                 Case GetType(Decimal)
                                     Trow(p.Name) = CDec(row.Item(p.Name))
                                 Case GetType(Boolean)
-                                    Trow(p.Name) = CBool(row.Item(p.Name))
+                                    If p.Name = "SELECTED" Then
+                                        Trow(p.Name) = False
+                                    Else
+                                        Trow(p.Name) = CBool(row.Item(p.Name))
+                                    End If
+
                                 Case GetType(Date), GetType(DateTime)
-                                    Trow(p.Name) = CDate(row.Item(p.Name))
+                                    If row.Item(p.Name).ToString.IsNullOrWhiteSpace = False Then
+                                        Trow(p.Name) = CDate(row.Item(p.Name))
+                                    End If
                                 Case Else
                                     Trow(p.Name) = row.Item(p.Name)
                             End Select
@@ -325,26 +344,25 @@ Public Class FrmG0010
         End Try
     End Function
 
-    Private Function FunSRCH(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid, ByVal dt As DataTable) As Boolean
+    Private Function FunSRCH(ByVal dgv As DataGridView, ByVal dt As DataTable) As Boolean
         Dim intCURROW As Integer
         Try
-
             '-----選択行記憶
-            If flx.RowSel > 0 Then
-                intCURROW = flx.RowSel
+            If dgv.RowCount > 0 Then
+                intCURROW = dgv.CurrentRow.Index
             End If
 
-            flx.DataSource = dt
+            dgv.DataSource = dt
 
-            Call FunSetDgvCellFormat(flx)
+            Call FunSetDgvCellFormat(dgv)
 
-            If flx.Rows.Count > 1 Then
+            If dgv.RowCount > 1 Then
                 '-----選択行設定
                 Try
-                    flx.Rows(intCURROW).Selected = True
+                    dgv.CurrentCell = dgv.Rows(intCURROW).Cells(0)
                 Catch dgvEx As Exception
                 End Try
-                Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, flx.Rows.Count - 1)
+                Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, dgv.Rows.Count - 1)
             Else
                 Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
             End If
@@ -354,24 +372,31 @@ Public Class FrmG0010
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
-
-            '-----一覧可視
-            flx.Visible = True
         End Try
     End Function
 
-    Private Function FunSetDgvCellFormat(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
+    Private Function FunSetDgvCellFormat(ByVal dgv As DataGridView) As Boolean
 
         Try
-            Dim _Model As New MODEL.M001_SETTING
-            For i As Integer = 0 To flx.Rows.Count - 1
-                With flx.Rows(i)
-                    'If CBool(Me.dgvDATA.Rows(i).Cells(NameOf(_Model.DEL_FLG)).Value) = True Then
-                    '    Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
-                    '    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
-                    '    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
-                    'End If
+            'UNDONE: コードマスタより取得
+            Dim intWarningNotification As Integer = 3
+
+            Dim _Model As New MODEL.TV01_FUTEKIGO_ICHIRAN
+            For i As Integer = 0 To dgv.Rows.Count - 1
+                With dgv.Rows(i)
+                    If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU)).Value > intWarningNotification Then
+                        Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrWarningCellBackColor
+                    End If
+
+                    If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.MODOSI_SYONIN_JUN)).Value > 0 Then
+                        Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrCautionCellBackColor
+                    End If
                 End With
+
+                '削除
+                'Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
+                'Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
+                'Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
             Next i
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -578,36 +603,47 @@ Public Class FrmG0010
                 End With
             Next intFunc
 
-            If flxDATA.Rows.Count > 1 Then
+            If dgvDATA.RowCount > 0 Then
                 cmdFunc3.Enabled = True
                 cmdFunc4.Enabled = True
                 cmdFunc5.Enabled = True
+                'cmdFunc6.Enabled = True
+                cmdFunc7.Enabled = True
+                cmdFunc8.Enabled = True
+                cmdFunc9.Enabled = True
                 cmdFunc10.Enabled = True
+                cmdFunc11.Enabled = True
 
-                If flxDATA.Rows(flxDATA.RowSel).Item("DEL_FLG") = True Then
-                    '削除済データの場合
-                    cmdFunc4.Enabled = False
-                    cmdFunc5.Text = "完全削除(F5)"
-                    cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._6_DELETE
+                'If dgvDATA.CurrentRow IsNot Nothing AndAlso dgvDATA.CurrentRow.Cells.Item("DEL_FLG").Value = True Then
+                '    '削除済データの場合
+                '    cmdFunc4.Enabled = False
+                '    cmdFunc5.Text = "完全削除(F5)"
+                '    cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._6_DELETE
 
-                    '復元
-                    cmdFunc6.Text = "復元(F6)"
-                    cmdFunc6.Visible = True
-                    cmdFunc6.Tag = ENM_DATA_OPERATION_MODE._5_RESTORE
-                Else
-                    cmdFunc5.Text = "削除(F5)"
-                    cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._4_DISABLE
+                '    '復元
+                '    cmdFunc6.Text = "復元(F6)"
+                '    cmdFunc6.Visible = True
+                '    cmdFunc6.Tag = ENM_DATA_OPERATION_MODE._5_RESTORE
+                'Else
+                '    cmdFunc5.Text = "削除(F5)"
+                '    cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._4_DISABLE
 
-                    cmdFunc6.Text = ""
-                    cmdFunc6.Visible = False
-                    cmdFunc6.Tag = ""
-                End If
+                '    cmdFunc6.Text = ""
+                '    cmdFunc6.Visible = False
+                '    cmdFunc6.Tag = ""
+                'End If
 
             Else
                 cmdFunc3.Enabled = False
                 cmdFunc4.Enabled = False
                 cmdFunc5.Enabled = False
+                cmdFunc7.Enabled = False
+                cmdFunc6.Enabled = False
+                cmdFunc6.Visible = False
+                cmdFunc8.Enabled = False
+                cmdFunc9.Enabled = False
                 cmdFunc10.Enabled = False
+                cmdFunc11.Enabled = False
             End If
 
             Return True

@@ -41,10 +41,10 @@ Public Class FrmM0131
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
 
             '-----コントロールデータソース設定
-            Me.cmbKA_CD.SetDataSource(tblBU.ExcludeDeleted, True)
-            Me.cmbBUSYO_CD.SetDataSource(tblKA.ExcludeDeleted, True)
-            Me.cmbYAKUSYOKU_KB.SetDataSource(tblYAKU_KBN.ExcludeDeleted, True)
-            Me.cmbCYOKKAN_KB.SetDataSource(tblCYOKKAN_KBN.ExcludeDeleted, True)
+            'Me.cmbKA_CD.SetDataSource(tblBU.ExcludeDeleted, True)
+            'Me.cmbBUSYO_CD.SetDataSource(tblKA.ExcludeDeleted, True)
+            'Me.cmbYAKUSYOKU_KB.SetDataSource(tblYAKU_KBN.ExcludeDeleted, True)
+            'Me.cmbCYOKKAN_KB.SetDataSource(tblCYOKKAN_KBN.ExcludeDeleted, True)
 
             '-----処理モード別画面初期化
             Call FunInitializeControls(PrMODE)
