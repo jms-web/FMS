@@ -20,9 +20,9 @@ Partial Class FrmG0010
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmG0010))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.cmbSTAGE_NCR = New JMS_COMMON.ComboboxEx()
         Me.gbxFilter = New System.Windows.Forms.GroupBox()
@@ -164,7 +164,7 @@ Partial Class FrmG0010
         Me.cmbSTAGE_NCR.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbSTAGE_NCR.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbSTAGE_NCR.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbSTAGE_NCR, 8)
+        Me.tlpFilter.SetColumnSpan(Me.cmbSTAGE_NCR, 10)
         Me.cmbSTAGE_NCR.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSTAGE_NCR.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSTAGE_NCR.ForeColor = System.Drawing.SystemColors.ControlText
@@ -174,7 +174,7 @@ Partial Class FrmG0010
         Me.cmbSTAGE_NCR.Location = New System.Drawing.Point(163, 3)
         Me.cmbSTAGE_NCR.Name = "cmbSTAGE_NCR"
         Me.cmbSTAGE_NCR.Selected = False
-        Me.cmbSTAGE_NCR.Size = New System.Drawing.Size(154, 25)
+        Me.cmbSTAGE_NCR.Size = New System.Drawing.Size(194, 25)
         Me.cmbSTAGE_NCR.TabIndex = 0
         Me.cmbSTAGE_NCR.Text = "(‘I‘ð)"
         '
@@ -363,7 +363,7 @@ Partial Class FrmG0010
         Me.cmbSTAGE_CAR.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbSTAGE_CAR.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbSTAGE_CAR.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbSTAGE_CAR, 8)
+        Me.tlpFilter.SetColumnSpan(Me.cmbSTAGE_CAR, 10)
         Me.cmbSTAGE_CAR.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSTAGE_CAR.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSTAGE_CAR.ForeColor = System.Drawing.SystemColors.ControlText
@@ -373,7 +373,7 @@ Partial Class FrmG0010
         Me.cmbSTAGE_CAR.Location = New System.Drawing.Point(543, 3)
         Me.cmbSTAGE_CAR.Name = "cmbSTAGE_CAR"
         Me.cmbSTAGE_CAR.Selected = False
-        Me.cmbSTAGE_CAR.Size = New System.Drawing.Size(154, 25)
+        Me.cmbSTAGE_CAR.Size = New System.Drawing.Size(194, 25)
         Me.cmbSTAGE_CAR.TabIndex = 57
         Me.cmbSTAGE_CAR.Text = "(‘I‘ð)"
         '
@@ -753,33 +753,33 @@ Partial Class FrmG0010
         '
         'dgvDATA
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvDATA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle8
         Me.dgvDATA.Location = New System.Drawing.Point(12, 240)
         Me.dgvDATA.Name = "dgvDATA"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.dgvDATA.RowTemplate.Height = 21
         Me.dgvDATA.Size = New System.Drawing.Size(1233, 322)
         Me.dgvDATA.TabIndex = 62

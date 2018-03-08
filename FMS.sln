@@ -41,7 +41,6 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FMS_MODEL", "Common\MODEL\F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{D33ED8F3-FC0F-4FA5-AE98-4A96B467C379}"
 	ProjectSection(SolutionItems) = preProject
-		Doc\GitCommitプレフィックス一覧.txt = Doc\GitCommitプレフィックス一覧.txt
 		Doc\memo.txt = Doc\memo.txt
 	EndProjectSection
 EndProject

@@ -30,12 +30,12 @@
     <InstallUrl>http://SV91:8000/</InstallUrl>
     <ProductName>フジワラ 新管理システム TEST</ProductName>
     <PublisherName>JMS</PublisherName>
-    <MinimumRequiredVersion>0.9.18017.0046</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.9.18067.750</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>49</ApplicationRevision>
-    <ApplicationVersion>0.9.18017.%2a</ApplicationVersion>
+    <ApplicationRevision>750</ApplicationRevision>
+    <ApplicationVersion>0.9.18067.750</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

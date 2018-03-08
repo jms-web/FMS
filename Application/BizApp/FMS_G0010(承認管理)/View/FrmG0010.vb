@@ -69,6 +69,9 @@ Public Class FrmG0010
             With dgv
                 .AutoGenerateColumns = False
 
+                .RowsDefaultCellStyle.BackColor = Color.White
+                .AlternatingRowsDefaultCellStyle.BackColor = Color.White
+
                 Dim cmbclmn1 As New DataGridViewCheckBoxColumn With {
                 .Name = NameOf(_Model.SELECTED),
                 .HeaderText = "ëIë",
@@ -96,7 +99,7 @@ Public Class FrmG0010
 
                 .Columns.Add(NameOf(_Model.SYOCHI_SYAIN_NAME), "èàíuíSìñé“")
                 .Columns(.ColumnCount - 1).Width = 120
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
                 .Columns.Add(NameOf(_Model.TAIRYU), "ëÿóØì˙êî")
@@ -326,7 +329,15 @@ Public Class FrmG0010
 
                                 Case GetType(Date), GetType(DateTime)
                                     If row.Item(p.Name).ToString.IsNullOrWhiteSpace = False Then
-                                        Trow(p.Name) = CDate(row.Item(p.Name))
+                                        Select Case row.Item(p.Name).ToString.Length
+                                            Case 8
+                                                Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMdd", Nothing)
+                                            Case 14
+                                                Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMddHHmmss", Nothing)
+                                            Case Else
+                                                'Err
+                                                Trow(p.Name) = Nothing
+                                        End Select
                                     End If
                                 Case Else
                                     Trow(p.Name) = row.Item(p.Name)
