@@ -93,6 +93,10 @@
       <DependentUpon>201802010906237_Init2.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201802010906237_Init2.vb" />
+    <Compile Include="Migrations\201803080157507_Init3.Designer.vb">
+      <DependentUpon>201803080157507_Init3.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803080157507_Init3.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Function\TV01_FUTEKIGO_ICHIRAN.vb" />
     <Compile Include="Models\Masta\Biz\M108_KOTEI_SYUKEI.vb" />
@@ -149,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802010906237_Init2.resx">
       <DependentUpon>201802010906237_Init2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803080157507_Init3.resx">
+      <DependentUpon>201803080157507_Init3.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

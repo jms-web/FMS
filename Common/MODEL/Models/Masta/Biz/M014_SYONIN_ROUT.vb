@@ -26,20 +26,8 @@ Partial Public Class M014_SYONIN_ROUT
     Public Property SYONIN_NAIYO As String
 
     <Required>
-    <StringLength(1)>
-    <Column(TypeName:="char")>
-    <ComponentModel.DisplayName("承認者指定区分")>
-    Public Property SYONIN_SITEI_KB As String
-
-    <Required>
-    <ComponentModel.DisplayName("部署_社員ID")>
-    Public Property BUSYO_SYAIN_ID As Integer
-
-    <Required>
-    <StringLength(1)>
-    <Column(TypeName:="char")>
-    <ComponentModel.DisplayName("オプションフラグ")>
-    Public Property OPTION_FLG As String
+    <ComponentModel.DisplayName("警告通知滞留日数")>
+    Public Property KEIKOKU_TAIRYU_NISSU As Integer
 
 
     '共通項目------------------------------------
