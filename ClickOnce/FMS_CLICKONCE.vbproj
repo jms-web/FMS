@@ -17,7 +17,7 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>..\..\..\..\_DEPLOY\</PublishUrl>
+    <PublishUrl>\\Sv91\fms\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -27,20 +27,19 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://SRV1:8000/</InstallUrl>
-    <ProductName>IDEA生産管理システム</ProductName>
+    <InstallUrl>http://SV91:8000/</InstallUrl>
+    <ProductName>フジワラ 新管理システム TEST</ProductName>
     <PublisherName>JMS</PublisherName>
-    <MinimumRequiredVersion>0.9.17340.100</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.9.18017.0046</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>100</ApplicationRevision>
-    <ApplicationVersion>1.0.17340.0100</ApplicationVersion>
+    <ApplicationRevision>49</ApplicationRevision>
+    <ApplicationVersion>0.9.18017.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
-    <BootstrapperEnabled>false</BootstrapperEnabled>
-    <BootstrapperComponentsLocation>Relative</BootstrapperComponentsLocation>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -97,6 +96,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Debug\</OutputPath>
     <Prefer32Bit>false</Prefer32Bit>
+    <DefineDebug>true</DefineDebug>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -160,7 +160,37 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="EXE\C1.Win.C1FlexGrid.4.dll" />
+    <Content Include="EXE\FMS_G0010.exe" />
+    <Content Include="EXE\FMS_M0000.exe" />
+    <Content Include="EXE\FMS_M0010.exe" />
+    <Content Include="EXE\FMS_M0040.exe" />
+    <Content Include="EXE\FMS_M0060.exe" />
+    <Content Include="EXE\FMS_MODEL.dll" />
+    <Content Include="EXE\JMS_COMMON.dll" />
+    <Content Include="EXE\MetroFramework.dll" />
+    <Content Include="EXE\MetroFramework.Fonts.dll" />
+    <Content Include="EXE\Microsoft.WindowsAPICodePack.dll" />
+    <Content Include="EXE\Microsoft.WindowsAPICodePack.Shell.dll" />
+    <Content Include="EXE\TKMP.dll" />
+    <Content Include="EXE_DEBUG\C1.Win.C1FlexGrid.4.dll" />
+    <Content Include="EXE_DEBUG\FMS_G0010.exe" />
+    <Content Include="EXE_DEBUG\FMS_M0000.exe" />
+    <Content Include="EXE_DEBUG\FMS_M0010.exe" />
+    <Content Include="EXE_DEBUG\FMS_M0040.exe" />
+    <Content Include="EXE_DEBUG\FMS_M0060.exe" />
+    <Content Include="EXE_DEBUG\FMS_MODEL.dll" />
+    <Content Include="EXE_DEBUG\JMS_COMMON.dll" />
+    <Content Include="EXE_DEBUG\MetroFramework.dll" />
+    <Content Include="EXE_DEBUG\MetroFramework.Fonts.dll" />
+    <Content Include="EXE_DEBUG\Microsoft.WindowsAPICodePack.dll" />
+    <Content Include="EXE_DEBUG\Microsoft.WindowsAPICodePack.Shell.dll" />
+    <Content Include="EXE_DEBUG\TKMP.dll" />
+    <Content Include="INI\RIREKI.TXT" />
     <Content Include="INI\SYSTEM.INI" />
+    <Content Include="INI\EXCELOUT.INI" />
+    <Content Include="INI\EXCELTEMPLATE.INI" />
+    <Content Include="INI\MENU.INI" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -176,6 +206,11 @@
     <Content Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7 %28x86 および x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
@@ -188,11 +223,18 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="EXE\" />
     <Folder Include="LOG\" />
     <Folder Include="TEMPLATE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>xcopy "C:\FMS\EXE_DEBUG" "C:\FMS\SRC\VB.NET\FMS\ClickOnce\EXE" /D/E/C/I/H/Y
+xcopy "C:\FMS\INI" "C:\FMS\SRC\VB.NET\FMS\ClickOnce\INI" /D/E/C/I/H/Y</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -2,8 +2,15 @@
 Imports System.Reflection
 
 Module mdlClickOnce
-    Private Const CON_ROOTDIR As String = "C:\IDA"
-    Private Const CON_STARTUP_EXE As String = "IDA_M000.exe"
+    Private Const CON_ROOTDIR As String = "C:\FMS_TEST"
+    Private Const CON_STARTUP_EXE As String = "FMS_M0000.exe"
+
+#If DEBUG Then
+    Private Const EXE_PATH As String = "EXE_DEBUG"
+#Else
+    Private Const EXE_PATH As String = "EXE"
+#End If
+
 
     Public Sub MAIN()
         Dim intCNT As Integer
@@ -53,10 +60,10 @@ Module mdlClickOnce
 
             '-----EXE
             'フォルダ作成
-            System.IO.Directory.CreateDirectory(CON_ROOTDIR & "\EXE")
+            System.IO.Directory.CreateDirectory(CON_ROOTDIR & "\" & EXE_PATH)
 
             'ファイル一覧作成
-            files = System.IO.Directory.GetFiles(".\EXE", "*", IO.SearchOption.TopDirectoryOnly)
+            files = System.IO.Directory.GetFiles(".\" & EXE_PATH, "*", IO.SearchOption.TopDirectoryOnly)
 
             'ファイルコピー
             For intCNT = 0 To files.Length - 1
@@ -68,26 +75,12 @@ Module mdlClickOnce
 
 
                 '同名ファイル無し時
-                If System.IO.File.Exists(CON_ROOTDIR & "\EXE\" & strBUFF) = False Then
+                If System.IO.File.Exists(CON_ROOTDIR & "\" & EXE_PATH & "\" & strBUFF) = False Then
                     'コピー
-                    System.IO.File.Copy(".\EXE\" & strBUFF, CON_ROOTDIR & "\EXE\" & strBUFF)
-
-
-                    'ElseIf strBUFF.ToUpper = "HARDCPZ.EXE" Then 'HARDCPZ.EXE時
-
-                    'ElseIf strBUFF.ToUpper = "HARDCPZ.INI" Then 'HARDCPZ.INI時
-                    '    ' ファイル属性から読み取り専用を削除
-                    '    Dim fas As System.IO.FileAttributes = System.IO.File.GetAttributes("C:\ADCM\EXE\" & strBUFF)
-                    '    fas = fas And Not System.IO.FileAttributes.ReadOnly ' ファイル属性から読み取り専用を削除
-                    '    System.IO.File.SetAttributes("C:\ADCM\EXE\" & strBUFF, fas) ' ファイル属性を設定
-
-                    '    '旧ファイル削除
-                    '    System.IO.File.Delete("C:\ADCM\EXE\" & strBUFF)
-                    '    'コピー
-                    '    System.IO.File.Copy(".\EXE\" & strBUFF, "C:\ADCM\EXE\" & strBUFF)
+                    System.IO.File.Copy(".\" & EXE_PATH & "\" & strBUFF, CON_ROOTDIR & "\" & EXE_PATH & "\" & strBUFF)
 
                     '日時が古すぎ時
-                ElseIf System.IO.File.GetLastWriteTime(CON_ROOTDIR & "\EXE\" & strBUFF) < System.IO.File.GetLastWriteTime(".\EXE\" & strBUFF) Then
+                ElseIf System.IO.File.GetLastWriteTime(CON_ROOTDIR & "\" & EXE_PATH & "\" & strBUFF) < System.IO.File.GetLastWriteTime(".\" & EXE_PATH & "\" & strBUFF) Then
                     If strBUFF.Contains(".exe") = True Or strBUFF.Contains(".EXE") = True Then
                         '''''''''''''パス'c:\ADCM\exe\mbcj010juchu.exe'へのアクセスが拒否されました。
                         ''新ファイルVERSION取得
@@ -114,15 +107,15 @@ Module mdlClickOnce
                         'End If
 
                         '旧ファイル削除
-                        System.IO.File.Delete(CON_ROOTDIR & "\EXE\" & strBUFF)
+                        System.IO.File.Delete(CON_ROOTDIR & "\" & EXE_PATH & "\" & strBUFF)
                         'コピー
-                        System.IO.File.Copy(".\EXE\" & strBUFF, CON_ROOTDIR & "\EXE\" & strBUFF)
+                        System.IO.File.Copy(".\" & EXE_PATH & "\" & strBUFF, CON_ROOTDIR & "\" & EXE_PATH & "\" & strBUFF)
 
                     ElseIf strBUFF.Contains(".exe") = False And strBUFF.Contains(".EXE") = False Then
                         '旧ファイル削除
-                        System.IO.File.Delete(CON_ROOTDIR & "\EXE\" & strBUFF)
+                        System.IO.File.Delete(CON_ROOTDIR & "\" & EXE_PATH & "\" & strBUFF)
                         'コピー
-                        System.IO.File.Copy(".\EXE\" & strBUFF, CON_ROOTDIR & "\EXE\" & strBUFF)
+                        System.IO.File.Copy(".\" & EXE_PATH & "\" & strBUFF, CON_ROOTDIR & "\" & EXE_PATH & "\" & strBUFF)
                     End If
 
                 End If
@@ -158,32 +151,32 @@ Module mdlClickOnce
 
 
             '-----TEMPLATE
-            'フォルダ作成
-            System.IO.Directory.CreateDirectory(CON_ROOTDIR & "\TEMPLATE")
+            ''フォルダ作成
+            'System.IO.Directory.CreateDirectory(CON_ROOTDIR & "\TEMPLATE")
 
-            'ファイル一覧作成
-            files = System.IO.Directory.GetFiles(".\TEMPLATE", "*", IO.SearchOption.TopDirectoryOnly)
+            ''ファイル一覧作成
+            'files = System.IO.Directory.GetFiles(".\TEMPLATE", "*", IO.SearchOption.TopDirectoryOnly)
 
-            'ファイルコピー
-            For intCNT = 0 To files.Length - 1
-                'ファイル名(フルパス)取得
-                strBUFF = System.IO.Path.GetFileName(files(intCNT))
+            ''ファイルコピー
+            'For intCNT = 0 To files.Length - 1
+            '    'ファイル名(フルパス)取得
+            '    strBUFF = System.IO.Path.GetFileName(files(intCNT))
 
-                '同名ファイル無し時
-                If System.IO.File.Exists(CON_ROOTDIR & "\TEMPLATE\" & strBUFF) = False Then
-                    'コピー
-                    System.IO.File.Copy(".\TEMPLATE\" & strBUFF, CON_ROOTDIR & "\TEMPLATE\" & strBUFF)
+            '    '同名ファイル無し時
+            '    If System.IO.File.Exists(CON_ROOTDIR & "\TEMPLATE\" & strBUFF) = False Then
+            '        'コピー
+            '        System.IO.File.Copy(".\TEMPLATE\" & strBUFF, CON_ROOTDIR & "\TEMPLATE\" & strBUFF)
 
-                    'ElseIf strBUFF.ToUpper = "HANYO.INI" Then
+            '        'ElseIf strBUFF.ToUpper = "HANYO.INI" Then
 
-                    '日時が古すぎ時
-                ElseIf System.IO.File.GetLastWriteTime(CON_ROOTDIR & "\TEMPLATE\" & strBUFF) < System.IO.File.GetLastWriteTime(".\TEMPLATE\" & strBUFF) Then
-                    '旧ファイル削除
-                    System.IO.File.Delete(CON_ROOTDIR & "\TEMPLATE\" & strBUFF)
-                    'コピー
-                    System.IO.File.Copy(".\TEMPLATE\" & strBUFF, CON_ROOTDIR & "\TEMPLATE\" & strBUFF)
-                End If
-            Next
+            '        '日時が古すぎ時
+            '    ElseIf System.IO.File.GetLastWriteTime(CON_ROOTDIR & "\TEMPLATE\" & strBUFF) < System.IO.File.GetLastWriteTime(".\TEMPLATE\" & strBUFF) Then
+            '        '旧ファイル削除
+            '        System.IO.File.Delete(CON_ROOTDIR & "\TEMPLATE\" & strBUFF)
+            '        'コピー
+            '        System.IO.File.Copy(".\TEMPLATE\" & strBUFF, CON_ROOTDIR & "\TEMPLATE\" & strBUFF)
+            '    End If
+            'Next
 
 
             ''-----フォントインストールVBS起動
@@ -191,7 +184,7 @@ Module mdlClickOnce
 
 
             '-----メニュー起動
-            Shell(CON_ROOTDIR & "\EXE\" & CON_STARTUP_EXE, AppWinStyle.NormalFocus)
+            Shell(CON_ROOTDIR & "\" & EXE_PATH & "\" & CON_STARTUP_EXE, AppWinStyle.NormalFocus)
 
 
 

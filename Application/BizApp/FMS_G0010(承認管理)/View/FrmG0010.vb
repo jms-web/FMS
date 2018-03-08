@@ -43,8 +43,8 @@ Public Class FrmG0010
             Call FunSetDgvCulumns(dgvDATA)
 
             '-----コントロールデータソース設定
-            cmbSTAGE_NCR.SetDataSource(tblKOMO_NM, True)
-
+            cmbSTAGE_NCR.SetDataSource(tblNCR, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbSTAGE_CAR.SetDataSource(tblCAR, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             ''-----イベントハンドラ設定
             'AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged

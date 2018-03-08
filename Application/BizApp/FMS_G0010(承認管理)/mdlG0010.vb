@@ -47,7 +47,8 @@ Module mdlG0010
 
                 '-----共通データ取得
                 Using DB As ClsDbUtility = DBOpen()
-                    'Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
+                    Call FunGetCodeDataTable(DB, "NCR", tblNCR)
+                    Call FunGetCodeDataTable(DB, "CAR", tblCAR)
                 End Using
 
                 '-----一覧画面表示

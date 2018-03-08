@@ -22,7 +22,7 @@ Partial Public Class FMS_Context
     Public Overridable Property M010_SYAIN_KENGEN As DbSet(Of M010_SYAIN_KENGEN)
     Public Overridable Property M012_J_KOJO As DbSet(Of M012_J_KOJO)
     Public Overridable Property M013_SYONIN_HOKOKU As DbSet(Of M013_SYONIN_HOKOKU)
-    Public Overridable Property M014_SYONIN_ROUT As DbSet(Of M014_SYONIN_ROUT)
+    Public Overridable Property M014_SYONIN_ROUT As DbSet(Of VW014_SYONIN_ROUT)
     Public Overridable Property M015_SYONIN_NYURYOKU As DbSet(Of M015_SYONIN_NYURYOKU)
     Public Overridable Property M016_SYONIN_TANTO As DbSet(Of M016_SYONIN_TANTO)
 

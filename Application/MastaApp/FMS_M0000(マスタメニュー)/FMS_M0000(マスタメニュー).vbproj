@@ -27,10 +27,10 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
     <TargetFrameworkProfile />
-    <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>C:\DMS\PGM\SRC\Deploy\</PublishUrl>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
+    <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -38,7 +38,6 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://192.168.1.123:8000/</InstallUrl>
     <ProductName>PCドック管理システム</ProductName>
     <PublisherName>株式会社 向伸</PublisherName>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
@@ -301,7 +300,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UseGlobalSettings="True" />
+      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

@@ -126,6 +126,7 @@
     <Compile Include="Models\Masta\Biz\M109_BUHIN_KOTEI.vb" />
     <Compile Include="Models\Masta\Biz\M118_SETUBI.vb" />
     <Compile Include="Models\Masta\Biz\M119_KOTEI_SETUBI.vb" />
+    <Compile Include="Models\View\VWM014_SYONIN_ROUT.vb" />
     <Compile Include="Models\View\VWM001_SETTING.vb" />
     <Compile Include="Models\View\VWM004_SYAIN.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

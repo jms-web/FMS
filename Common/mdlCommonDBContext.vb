@@ -112,6 +112,17 @@ Public Module mdlDBContext
     ''' </summary>
     Public tblKOMO_NM As DataTableEx
 
+    ''' <summary>
+    ''' 製品処置(NCR ステージ
+    ''' </summary>
+    Public tblNCR As DataTableEx
+
+    ''' <summary>
+    ''' 是正処置(CAR ステージ
+    ''' </summary>
+    Public tblCAR As DataTableEx
+
+
     '''' <summary>
     '''' 職番
     '''' </summary>
@@ -314,365 +325,564 @@ Public Module mdlDBContext
         Dim intCNT As Integer
 
         Try
-            '初期化
             dt = New DataTableEx
 
             Select Case strKOMOKU
 
-                'Case "担当"
-                '    '検索
-                '    sbSQL.Append("SELECT * FROM " & NameOf(VWM03_TANTO) & " ")
-                '    If strWhere <> "" Then
-                '        sbSQL.Append("WHERE " & strWhere & "")
-                '    End If
-                '    If blnIncludeDeleted = False Then
-                '        sbSQL.Append(" AND DEL_FLG='0'")
-                '    End If
-                '    sbSQL.Append(" ORDER BY SYOKUBAN")
+#Region "               NCR"
+                Case "NCR"
+                    sbSQL.Append("SELECT * FROM " & NameOf(VWM014_SYONIN_ROUT) & " ")
+                    sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=1")
+                    If strWhere.IsNullOrWhiteSpace = False Then
+                        sbSQL.Append(" AND " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+                    sbSQL.Append(" ORDER BY SYONIN_HOKOKUSYO_ID, SYONIN_JUN")
 
-                '    '主キー設定
-                '    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
 
-                '    dt.Columns.Add("SYOKUBAN", GetType(String))
-                '    dt.Columns.Add("TANTO_NAME", GetType(String))
+                    dt.Columns.Add("SYONIN_HOKOKUSYO_ID", GetType(Integer))
 
-                '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            Trow("VALUE") = .Rows(intCNT).Item("SYONIN_JUN")
+                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO")
+                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
+                            dt.Rows.Add(Trow)
+                        Next intCNT
+                    End With
+#End Region
 
-                '    With dsList.Tables(0)
-                '        For intCNT = 0 To .Rows.Count - 1
-                '            Dim Trow As DataRow = dt.NewRow()
-                '            '
-                '            Trow("DISP") = .Rows(intCNT).Item("TANTO_NAME")
-                '            Trow("VALUE") = .Rows(intCNT).Item("TANTO_CD")
-                '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                '            Trow("SYOKUBAN") = .Rows(intCNT).Item("SYOKUBAN")
-                '            Trow("TANTO_NAME") = .Rows(intCNT).Item("TANTO_NAME")
-                '            dt.Rows.Add(Trow)
-                '        Next intCNT
-                '    End With
+#Region "               CAR"
+                Case "CAR"
+                    sbSQL.Append("SELECT * FROM " & NameOf(VWM014_SYONIN_ROUT) & " ")
+                    sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=2")
+                    If strWhere.IsNullOrWhiteSpace = False Then
+                        sbSQL.Append(" AND " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+                    sbSQL.Append(" ORDER BY SYONIN_HOKOKUSYO_ID, SYONIN_JUN")
 
-                'Case "取引先略名"
-                '    '検索
-                '    sbSQL.Append("SELECT * FROM " & NameOf(VWM02_TORIHIKI) & " ")
-                '    If strWhere <> "" Then
-                '        sbSQL.Append("WHERE " & strWhere & "")
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
 
-                '    End If
-                '    If blnIncludeDeleted = False Then
-                '        sbSQL.Append(" AND DEL_FLG='0'")
-                '    End If
-                '    sbSQL.Append(" ORDER BY TORI_CD")
+                    dt.Columns.Add("SYONIN_HOKOKUSYO_ID", GetType(Integer))
 
-                '    '主キー設定
-                '    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            Trow("VALUE") = .Rows(intCNT).Item("SYONIN_JUN")
+                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO")
+                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
+                            dt.Rows.Add(Trow)
+                        Next intCNT
+                    End With
+#End Region
 
-                '    dt.Columns.Add("SIIRE_GAICYU_KB", GetType(String))
-                '    dt.Columns.Add("SYOKUCHI_FLG", GetType(Boolean))
-                '    dt.Columns.Add("TORI_TANTO_NAME", GetType(String))
+#Region "               A"
+                    'Case "担当"
+                    '    '検索
+                    '    sbSQL.Append("SELECT * FROM " & NameOf(VWM03_TANTO) & " ")
+                    '    If strWhere <> "" Then
+                    '        sbSQL.Append("WHERE " & strWhere & "")
+                    '    End If
+                    '    If blnIncludeDeleted = False Then
+                    '        sbSQL.Append(" AND DEL_FLG='0'")
+                    '    End If
+                    '    sbSQL.Append(" ORDER BY SYOKUBAN")
 
-                '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
 
-                '    With dsList.Tables(0)
-                '        For intCNT = 0 To .Rows.Count - 1
-                '            Dim Trow As DataRow = dt.NewRow()
-                '            '
-                '            Trow("DISP") = .Rows(intCNT).Item("TORI_R_NAME")
-                '            Trow("VALUE") = .Rows(intCNT).Item("TORI_CD")
-                '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                '            Trow("SIIRE_GAICYU_KB") = .Rows(intCNT).Item("SIIRE_GAICYU_KB")
-                '            Trow("SYOKUCHI_FLG") = CBool(.Rows(intCNT).Item("SYOKUCHI_FLG"))
-                '            Trow("TORI_TANTO_NAME") = .Rows(intCNT).Item("TORI_TANTO_NAME")
-                '            dt.Rows.Add(Trow)
-                '        Next intCNT
-                '    End With
+                    '    dt.Columns.Add("SYOKUBAN", GetType(String))
+                    '    dt.Columns.Add("TANTO_NAME", GetType(String))
 
-                'Case "取引先CD"
-                '    '検索
-                '    sbSQL.Append("SELECT * FROM " & NameOf(VWM02_TORIHIKI) & " ")
-                '    If strWhere <> "" Then
-                '        sbSQL.Append("WHERE " & strWhere & "")
-                '    End If
-                '    If blnIncludeDeleted = False Then
-                '        sbSQL.Append(" AND DEL_FLG='0'")
-                '    End If
-                '    sbSQL.Append(" ORDER BY TORI_CD")
+                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
 
-                '    '主キー設定
-                '    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    '    With dsList.Tables(0)
+                    '        For intCNT = 0 To .Rows.Count - 1
+                    '            Dim Trow As DataRow = dt.NewRow()
+                    '            '
+                    '            Trow("DISP") = .Rows(intCNT).Item("TANTO_NAME")
+                    '            Trow("VALUE") = .Rows(intCNT).Item("TANTO_CD")
+                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                    '            Trow("SYOKUBAN") = .Rows(intCNT).Item("SYOKUBAN")
+                    '            Trow("TANTO_NAME") = .Rows(intCNT).Item("TANTO_NAME")
+                    '            dt.Rows.Add(Trow)
+                    '        Next intCNT
+                    '    End With
+#End Region
 
-                '    dt.Columns.Add("TORI_SYU", GetType(String))
-                '    dt.Columns.Add("SIIRE_GAICYU_KB", GetType(String))
-                '    dt.Columns.Add("SYOKUCHI_FLG", GetType(Boolean))
-                '    dt.Columns.Add("TORI_TANTO_NAME", GetType(String))
+#Region "               B"
+                    'Case "担当"
+                    '    '検索
+                    '    sbSQL.Append("SELECT * FROM " & NameOf(VWM03_TANTO) & " ")
+                    '    If strWhere <> "" Then
+                    '        sbSQL.Append("WHERE " & strWhere & "")
+                    '    End If
+                    '    If blnIncludeDeleted = False Then
+                    '        sbSQL.Append(" AND DEL_FLG='0'")
+                    '    End If
+                    '    sbSQL.Append(" ORDER BY SYOKUBAN")
 
-                '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
 
-                '    With dsList.Tables(0)
-                '        For intCNT = 0 To .Rows.Count - 1
-                '            Dim Trow As DataRow = dt.NewRow()
-                '            '
-                '            Trow("DISP") = .Rows(intCNT).Item("TORI_CD")
-                '            Trow("VALUE") = .Rows(intCNT).Item("TORI_CD")
-                '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                '            Trow("TORI_SYU") = .Rows(intCNT).Item("TORI_SYU")
-                '            Trow("SIIRE_GAICYU_KB") = .Rows(intCNT).Item("SIIRE_GAICYU_KB")
-                '            Trow("SYOKUCHI_FLG") = CBool(.Rows(intCNT).Item("SYOKUCHI_FLG"))
-                '            Trow("TORI_TANTO_NAME") = .Rows(intCNT).Item("TORI_TANTO_NAME")
-                '            dt.Rows.Add(Trow)
-                '        Next intCNT
-                '    End With
+                    '    dt.Columns.Add("SYOKUBAN", GetType(String))
+                    '    dt.Columns.Add("TANTO_NAME", GetType(String))
 
-                'Case "発注先CD"
-                '    '検索
-                '    sbSQL.Append("SELECT * FROM " & NameOf(VWM02_TORIHIKI) & " ")
-                '    If strWhere <> "" Then
-                '        sbSQL.Append("WHERE " & strWhere & "")
-                '    End If
-                '    If blnIncludeDeleted = False Then
-                '        sbSQL.Append(" AND DEL_FLG='0'")
-                '    End If
-                '    sbSQL.Append(" ORDER BY TORI_CD")
-                '    '主キー設定
-                '    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
 
-                '    dt.Columns.Add("TORI_NAME", GetType(String))
-                '    dt.Columns.Add("TORI_CD", GetType(Integer))
+                    '    With dsList.Tables(0)
+                    '        For intCNT = 0 To .Rows.Count - 1
+                    '            Dim Trow As DataRow = dt.NewRow()
+                    '            '
+                    '            Trow("DISP") = .Rows(intCNT).Item("TANTO_NAME")
+                    '            Trow("VALUE") = .Rows(intCNT).Item("TANTO_CD")
+                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                    '            Trow("SYOKUBAN") = .Rows(intCNT).Item("SYOKUBAN")
+                    '            Trow("TANTO_NAME") = .Rows(intCNT).Item("TANTO_NAME")
+                    '            dt.Rows.Add(Trow)
+                    '        Next intCNT
+                    '    End With
+#End Region
 
-                '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+#Region "               C"
+                    'Case "担当"
+                    '    '検索
+                    '    sbSQL.Append("SELECT * FROM " & NameOf(VWM03_TANTO) & " ")
+                    '    If strWhere <> "" Then
+                    '        sbSQL.Append("WHERE " & strWhere & "")
+                    '    End If
+                    '    If blnIncludeDeleted = False Then
+                    '        sbSQL.Append(" AND DEL_FLG='0'")
+                    '    End If
+                    '    sbSQL.Append(" ORDER BY SYOKUBAN")
 
-                '    With dsList.Tables(0)
-                '        For intCNT = 0 To .Rows.Count - 1
-                '            Dim Trow As DataRow = dt.NewRow()
-                '            Trow("DISP") = .Rows(intCNT).Item("TORI_NAME")
-                '            Trow("VALUE") = .Rows(intCNT).Item("TORI_CD")
-                '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                '            dt.Rows.Add(Trow)
-                '        Next intCNT
-                '    End With
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
 
-                'Case "職番"
-                '    '検索
-                '    sbSQL.Append("SELECT * FROM " & NameOf(VWM03_TANTO) & " ")
-                '    If strWhere <> "" Then
-                '        sbSQL.Append("WHERE " & strWhere & "")
-                '    End If
-                '    If blnIncludeDeleted = False Then
-                '        sbSQL.Append(" AND DEL_FLG='0'")
-                '    End If
-                '    sbSQL.Append(" ORDER BY TANTO_CD")
+                    '    dt.Columns.Add("SYOKUBAN", GetType(String))
+                    '    dt.Columns.Add("TANTO_NAME", GetType(String))
 
-                '    '主キー設定
-                '    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
 
-                '    dt.Columns.Add("TANTO_CD", GetType(Integer))
-                '    dt.Columns.Add("SYOKUBAN", GetType(String))
+                    '    With dsList.Tables(0)
+                    '        For intCNT = 0 To .Rows.Count - 1
+                    '            Dim Trow As DataRow = dt.NewRow()
+                    '            '
+                    '            Trow("DISP") = .Rows(intCNT).Item("TANTO_NAME")
+                    '            Trow("VALUE") = .Rows(intCNT).Item("TANTO_CD")
+                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                    '            Trow("SYOKUBAN") = .Rows(intCNT).Item("SYOKUBAN")
+                    '            Trow("TANTO_NAME") = .Rows(intCNT).Item("TANTO_NAME")
+                    '            dt.Rows.Add(Trow)
+                    '        Next intCNT
+                    '    End With
+#End Region
 
-                '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+#Region "               D"
+                    'Case "担当"
+                    '    '検索
+                    '    sbSQL.Append("SELECT * FROM " & NameOf(VWM03_TANTO) & " ")
+                    '    If strWhere <> "" Then
+                    '        sbSQL.Append("WHERE " & strWhere & "")
+                    '    End If
+                    '    If blnIncludeDeleted = False Then
+                    '        sbSQL.Append(" AND DEL_FLG='0'")
+                    '    End If
+                    '    sbSQL.Append(" ORDER BY SYOKUBAN")
 
-                '    With dsList.Tables(0)
-                '        For intCNT = 0 To .Rows.Count - 1
-                '            Dim Trow As DataRow = dt.NewRow()
-                '            '
-                '            Trow("DISP") = .Rows(intCNT).Item("SYOKUBAN")
-                '            Trow("VALUE") = .Rows(intCNT).Item("SYOKUBAN")
-                '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                '            dt.Rows.Add(Trow)
-                '        Next intCNT
-                '    End With
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    '    dt.Columns.Add("SYOKUBAN", GetType(String))
+                    '    dt.Columns.Add("TANTO_NAME", GetType(String))
+
+                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+
+                    '    With dsList.Tables(0)
+                    '        For intCNT = 0 To .Rows.Count - 1
+                    '            Dim Trow As DataRow = dt.NewRow()
+                    '            '
+                    '            Trow("DISP") = .Rows(intCNT).Item("TANTO_NAME")
+                    '            Trow("VALUE") = .Rows(intCNT).Item("TANTO_CD")
+                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                    '            Trow("SYOKUBAN") = .Rows(intCNT).Item("SYOKUBAN")
+                    '            Trow("TANTO_NAME") = .Rows(intCNT).Item("TANTO_NAME")
+                    '            dt.Rows.Add(Trow)
+                    '        Next intCNT
+                    '    End With
+#End Region
+
+#Region "               E"
+                    'Case "担当"
+                    '    '検索
+                    '    sbSQL.Append("SELECT * FROM " & NameOf(VWM03_TANTO) & " ")
+                    '    If strWhere <> "" Then
+                    '        sbSQL.Append("WHERE " & strWhere & "")
+                    '    End If
+                    '    If blnIncludeDeleted = False Then
+                    '        sbSQL.Append(" AND DEL_FLG='0'")
+                    '    End If
+                    '    sbSQL.Append(" ORDER BY SYOKUBAN")
+
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    '    dt.Columns.Add("SYOKUBAN", GetType(String))
+                    '    dt.Columns.Add("TANTO_NAME", GetType(String))
+
+                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+
+                    '    With dsList.Tables(0)
+                    '        For intCNT = 0 To .Rows.Count - 1
+                    '            Dim Trow As DataRow = dt.NewRow()
+                    '            '
+                    '            Trow("DISP") = .Rows(intCNT).Item("TANTO_NAME")
+                    '            Trow("VALUE") = .Rows(intCNT).Item("TANTO_CD")
+                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                    '            Trow("SYOKUBAN") = .Rows(intCNT).Item("SYOKUBAN")
+                    '            Trow("TANTO_NAME") = .Rows(intCNT).Item("TANTO_NAME")
+                    '            dt.Rows.Add(Trow)
+                    '        Next intCNT
+                    '    End With
+#End Region
+
+#Region "               temp"
+                    'Case "取引先略名"
+                    '    '検索
+                    '    sbSQL.Append("SELECT * FROM " & NameOf(VWM02_TORIHIKI) & " ")
+                    '    If strWhere <> "" Then
+                    '        sbSQL.Append("WHERE " & strWhere & "")
+
+                    '    End If
+                    '    If blnIncludeDeleted = False Then
+                    '        sbSQL.Append(" AND DEL_FLG='0'")
+                    '    End If
+                    '    sbSQL.Append(" ORDER BY TORI_CD")
+
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    '    dt.Columns.Add("SIIRE_GAICYU_KB", GetType(String))
+                    '    dt.Columns.Add("SYOKUCHI_FLG", GetType(Boolean))
+                    '    dt.Columns.Add("TORI_TANTO_NAME", GetType(String))
+
+                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+
+                    '    With dsList.Tables(0)
+                    '        For intCNT = 0 To .Rows.Count - 1
+                    '            Dim Trow As DataRow = dt.NewRow()
+                    '            '
+                    '            Trow("DISP") = .Rows(intCNT).Item("TORI_R_NAME")
+                    '            Trow("VALUE") = .Rows(intCNT).Item("TORI_CD")
+                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                    '            Trow("SIIRE_GAICYU_KB") = .Rows(intCNT).Item("SIIRE_GAICYU_KB")
+                    '            Trow("SYOKUCHI_FLG") = CBool(.Rows(intCNT).Item("SYOKUCHI_FLG"))
+                    '            Trow("TORI_TANTO_NAME") = .Rows(intCNT).Item("TORI_TANTO_NAME")
+                    '            dt.Rows.Add(Trow)
+                    '        Next intCNT
+                    '    End With
+
+                    'Case "取引先CD"
+                    '    '検索
+                    '    sbSQL.Append("SELECT * FROM " & NameOf(VWM02_TORIHIKI) & " ")
+                    '    If strWhere <> "" Then
+                    '        sbSQL.Append("WHERE " & strWhere & "")
+                    '    End If
+                    '    If blnIncludeDeleted = False Then
+                    '        sbSQL.Append(" AND DEL_FLG='0'")
+                    '    End If
+                    '    sbSQL.Append(" ORDER BY TORI_CD")
+
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    '    dt.Columns.Add("TORI_SYU", GetType(String))
+                    '    dt.Columns.Add("SIIRE_GAICYU_KB", GetType(String))
+                    '    dt.Columns.Add("SYOKUCHI_FLG", GetType(Boolean))
+                    '    dt.Columns.Add("TORI_TANTO_NAME", GetType(String))
+
+                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+
+                    '    With dsList.Tables(0)
+                    '        For intCNT = 0 To .Rows.Count - 1
+                    '            Dim Trow As DataRow = dt.NewRow()
+                    '            '
+                    '            Trow("DISP") = .Rows(intCNT).Item("TORI_CD")
+                    '            Trow("VALUE") = .Rows(intCNT).Item("TORI_CD")
+                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                    '            Trow("TORI_SYU") = .Rows(intCNT).Item("TORI_SYU")
+                    '            Trow("SIIRE_GAICYU_KB") = .Rows(intCNT).Item("SIIRE_GAICYU_KB")
+                    '            Trow("SYOKUCHI_FLG") = CBool(.Rows(intCNT).Item("SYOKUCHI_FLG"))
+                    '            Trow("TORI_TANTO_NAME") = .Rows(intCNT).Item("TORI_TANTO_NAME")
+                    '            dt.Rows.Add(Trow)
+                    '        Next intCNT
+                    '    End With
+
+                    'Case "発注先CD"
+                    '    '検索
+                    '    sbSQL.Append("SELECT * FROM " & NameOf(VWM02_TORIHIKI) & " ")
+                    '    If strWhere <> "" Then
+                    '        sbSQL.Append("WHERE " & strWhere & "")
+                    '    End If
+                    '    If blnIncludeDeleted = False Then
+                    '        sbSQL.Append(" AND DEL_FLG='0'")
+                    '    End If
+                    '    sbSQL.Append(" ORDER BY TORI_CD")
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    '    dt.Columns.Add("TORI_NAME", GetType(String))
+                    '    dt.Columns.Add("TORI_CD", GetType(Integer))
+
+                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+
+                    '    With dsList.Tables(0)
+                    '        For intCNT = 0 To .Rows.Count - 1
+                    '            Dim Trow As DataRow = dt.NewRow()
+                    '            Trow("DISP") = .Rows(intCNT).Item("TORI_NAME")
+                    '            Trow("VALUE") = .Rows(intCNT).Item("TORI_CD")
+                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                    '            dt.Rows.Add(Trow)
+                    '        Next intCNT
+                    '    End With
+
+                    'Case "職番"
+                    '    '検索
+                    '    sbSQL.Append("SELECT * FROM " & NameOf(VWM03_TANTO) & " ")
+                    '    If strWhere <> "" Then
+                    '        sbSQL.Append("WHERE " & strWhere & "")
+                    '    End If
+                    '    If blnIncludeDeleted = False Then
+                    '        sbSQL.Append(" AND DEL_FLG='0'")
+                    '    End If
+                    '    sbSQL.Append(" ORDER BY TANTO_CD")
+
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    '    dt.Columns.Add("TANTO_CD", GetType(Integer))
+                    '    dt.Columns.Add("SYOKUBAN", GetType(String))
+
+                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+
+                    '    With dsList.Tables(0)
+                    '        For intCNT = 0 To .Rows.Count - 1
+                    '            Dim Trow As DataRow = dt.NewRow()
+                    '            '
+                    '            Trow("DISP") = .Rows(intCNT).Item("SYOKUBAN")
+                    '            Trow("VALUE") = .Rows(intCNT).Item("SYOKUBAN")
+                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                    '            dt.Rows.Add(Trow)
+                    '        Next intCNT
+                    '    End With
 
 
 
-                'Case "カレンダー"
+                    'Case "カレンダー"
 
-                '    '検索
-                '    sbSQL.Append("SELECT * FROM " & NameOf(M12_CALENDAR) & " ")
-                '    If strWhere <> "" Then
-                '        sbSQL.Append("WHERE " & strWhere & " ")
-                '    End If
-                '    sbSQL.Append(" ORDER BY YYYYMMDD")
+                    '    '検索
+                    '    sbSQL.Append("SELECT * FROM " & NameOf(M12_CALENDAR) & " ")
+                    '    If strWhere <> "" Then
+                    '        sbSQL.Append("WHERE " & strWhere & " ")
+                    '    End If
+                    '    sbSQL.Append(" ORDER BY YYYYMMDD")
 
-                '    '主キー設定
-                '    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
 
-                '    dt.Columns.Add("KADO_KBN", GetType(String))
-                '    dt.Columns.Add("H_KANRI_NO", GetType(String))
+                    '    dt.Columns.Add("KADO_KBN", GetType(String))
+                    '    dt.Columns.Add("H_KANRI_NO", GetType(String))
 
-                '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
 
-                '    With dsList.Tables(0)
-                '        For intCNT = 0 To .Rows.Count - 1
-                '            Dim Trow As DataRow = dt.NewRow()
-                '            Trow("DISP") = .Rows(intCNT).Item("YYYYMMDD").ToString
-                '            Trow("VALUE") = .Rows(intCNT).Item("YYYYMMDD").ToString
-                '            Trow("KADO_KBN") = .Rows(intCNT).Item("KADO_KBN").ToString
-                '            Trow("H_KANRI_NO") = .Rows(intCNT).Item("H_KANRI_NO").ToString
-                '            dt.Rows.Add(Trow)
-                '        Next intCNT
-                '    End With
-
-
-                'Case "属性"
-
-                '    sbSQL.Append("SELECT *")
-                '    sbSQL.Append(" FROM " & NameOf(VWM15_ZOKUSEI) & "() ")
-                '    If strWhere <> "" Then
-                '        sbSQL.Append("WHERE " & strWhere & "")
-                '    Else
-                '        sbSQL.Append("WHERE 0=0")
-                '    End If
-                '    If blnIncludeDeleted = False Then
-                '        sbSQL.Append(" And DEL_FLG='0'")
-                '    End If
-                '    sbSQL.Append(" ORDER BY DISP_ORDER")
-
-                '    '主キー設定
-                '    dt.PrimaryKey = {dt.Columns("VALUE")}
-                '    dt.Columns.Add("DISP_ORDER", GetType(Integer))
-                '    dt.Columns.Add("ZOKUSEI_FLG", GetType(Integer))
-                '    dt.Columns.Add("HISSU_FLG", GetType(Boolean))
-                '    dt.Columns.Add("DISPwithHISSU_FLG", GetType(String))
-
-                '    dsList = DB.GetDataSet(sbSQL.ToString, False)
-                '    With dsList.Tables(0)
-                '        For intCNT = 0 To .Rows.Count - 1
-                '            Dim Trow As DataRow = dt.NewRow()
-                '            Trow("DISP") = .Rows(intCNT).Item("ZOKUSEI_NAME")
-                '            Trow("VALUE") = .Rows(intCNT).Item("ZOKUSEI_CD")
-                '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                '            Trow("DISP_ORDER") = .Rows(intCNT).Item("DISP_ORDER")
-                '            Trow("ZOKUSEI_FLG") = .Rows(intCNT).Item("ZOKUSEI_FLG")
-                '            Trow("HISSU_FLG") = CBool(.Rows(intCNT).Item("HISSU_FLG"))
-                '            Trow("DISPwithHISSU_FLG") = .Rows(intCNT).Item("ZOKUSEI_NAME") & IIf(CBool(.Rows(intCNT).Item("HISSU_FLG")), "＊", "")
-                '            dt.Rows.Add(Trow)
-                '        Next intCNT
-                '    End With
-
-                'Case "属性名"
-
-                '    sbSQL.Append("SELECT *")
-                '    sbSQL.Append(" FROM " & NameOf(VWM15_ZOKUSEI) & "() ")
-                '    If strWhere <> "" Then
-                '        sbSQL.Append("WHERE " & strWhere & "")
-                '    Else
-                '        sbSQL.Append("WHERE 0=0")
-                '    End If
-                '    If blnIncludeDeleted = False Then
-                '        sbSQL.Append(" And DEL_FLG='0'")
-                '    End If
-                '    sbSQL.Append(" ORDER BY DISP_ORDER")
-
-                '    '主キー設定
-                '    dt.PrimaryKey = {dt.Columns("VALUE")}
-                '    dt.Columns.Add("DISP_ORDER", GetType(Integer))
-                '    dt.Columns.Add("ZOKUSEI_FLG", GetType(Integer))
-                '    dt.Columns.Add("HISSU_FLG", GetType(Boolean))
-                '    dt.Columns.Add("DISPwithHISSU_FLG", GetType(String))
-
-                '    dsList = DB.GetDataSet(sbSQL.ToString, False)
-                '    With dsList.Tables(0)
-                '        For intCNT = 0 To .Rows.Count - 1
-                '            Dim Trow As DataRow = dt.NewRow()
-                '            Trow("DISP") = .Rows(intCNT).Item("ZOKUSEI_NAME")
-                '            Trow("VALUE") = .Rows(intCNT).Item("ZOKUSEI_NAME")
-                '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                '            Trow("DISP_ORDER") = .Rows(intCNT).Item("DISP_ORDER")
-                '            Trow("ZOKUSEI_FLG") = .Rows(intCNT).Item("ZOKUSEI_FLG")
-                '            Trow("HISSU_FLG") = CBool(.Rows(intCNT).Item("HISSU_FLG"))
-                '            Trow("DISPwithHISSU_FLG") = .Rows(intCNT).Item("ZOKUSEI_NAME") & IIf(CBool(.Rows(intCNT).Item("HISSU_FLG")), "＊", "")
-                '            dt.Rows.Add(Trow)
-                '        Next intCNT
-                '    End With
-
-                'Case "属性項目"
-
-                '    sbSQL.Append("SELECT *")
-                '    sbSQL.Append(" FROM " & NameOf(VWM16_ZOKUSEI_K) & " ")
-                '    If strWhere <> "" Then
-                '        sbSQL.Append("WHERE " & strWhere & "")
-                '    Else
-                '        sbSQL.Append("WHERE 0=0")
-                '    End If
-                '    If blnIncludeDeleted = False Then
-                '        sbSQL.Append(" And DEL_FLG='0'")
-                '    End If
-                '    sbSQL.Append(" ORDER BY ZOKUSEI_CD, DISP_ORDER")
-
-                '    '主キー設定
-                '    dt.PrimaryKey = {dt.Columns("ZOKUSEI_CD"), dt.Columns("VALUE")}
-                '    dt.Columns.Add("ZOKUSEI_CD", GetType(Integer))
-                '    dt.Columns.Add("DISP_ORDER", GetType(Integer))
-                '    dt.Columns.Add("COMP_KEY", GetType(String))
-
-                '    dsList = DB.GetDataSet(sbSQL.ToString, False)
-                '    With dsList.Tables(0)
-                '        For intCNT = 0 To .Rows.Count - 1
-                '            Dim Trow As DataRow = dt.NewRow()
-                '            Trow("VALUE") = .Rows(intCNT).Item("ZOKUSEI_K_NAME")
-                '            Trow("DISP") = .Rows(intCNT).Item("ZOKUSEI_K_NAME")
-                '            Trow("COMP_KEY") = .Rows(intCNT).Item("ZOKUSEI_CD") & "," & .Rows(intCNT).Item("ZOKUSEI_K_CD")
-                '            Trow("ZOKUSEI_CD") = .Rows(intCNT).Item("ZOKUSEI_CD")
-                '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                '            Trow("DISP_ORDER") = .Rows(intCNT).Item("DISP_ORDER")
-                '            dt.Rows.Add(Trow)
-                '        Next intCNT
-                '    End With
-
-                'Case "属性CD"
-                '    sbSQL.Append("SELECT *")
-                '    sbSQL.Append(" FROM " & NameOf(VWM15_ZOKUSEI) & "() ")
-                '    If strWhere <> "" Then
-                '        sbSQL.Append("WHERE " & strWhere & "")
-                '    Else
-                '        sbSQL.Append("WHERE 0=0")
-                '    End If
-                '    If blnIncludeDeleted = False Then
-                '        sbSQL.Append(" And DEL_FLG='0'")
-                '    End If
-                '    sbSQL.Append(" ORDER BY ZOKUSEI_CD")
-
-                '    '主キー設定
-                '    dt.PrimaryKey = {dt.Columns("ZOKUSEI_CD")}
-                '    dt.Columns.Add("DISP_ORDER", GetType(Integer))
-                '    dt.Columns.Add("ZOKUSEI_FLG", GetType(Integer))
-                '    dt.Columns.Add("HISSU_FLG", GetType(Boolean))
-                '    dt.Columns.Add("DISPwithHISSU_FLG", GetType(String))
+                    '    With dsList.Tables(0)
+                    '        For intCNT = 0 To .Rows.Count - 1
+                    '            Dim Trow As DataRow = dt.NewRow()
+                    '            Trow("DISP") = .Rows(intCNT).Item("YYYYMMDD").ToString
+                    '            Trow("VALUE") = .Rows(intCNT).Item("YYYYMMDD").ToString
+                    '            Trow("KADO_KBN") = .Rows(intCNT).Item("KADO_KBN").ToString
+                    '            Trow("H_KANRI_NO") = .Rows(intCNT).Item("H_KANRI_NO").ToString
+                    '            dt.Rows.Add(Trow)
+                    '        Next intCNT
+                    '    End With
 
 
-                '    dsList = DB.GetDataSet(sbSQL.ToString, False)
-                '    With dsList.Tables(0)
-                '        For intCNT = 0 To .Rows.Count - 1
-                '            Dim Trow As DataRow = dt.NewRow()
-                '            Trow("DISP") = .Rows(intCNT).Item("ZOKUSEI_CD")
-                '            Trow("VALUE") = .Rows(intCNT).Item("ZOKUSEI_CD")
-                '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                '            Trow("DISP_ORDER") = .Rows(intCNT).Item("DISP_ORDER")
-                '            Trow("ZOKUSEI_FLG") = .Rows(intCNT).Item("ZOKUSEI_FLG")
-                '            Trow("HISSU_FLG") = CBool(.Rows(intCNT).Item("HISSU_FLG"))
-                '            Trow("DISPwithHISSU_FLG") = .Rows(intCNT).Item("ZOKUSEI_NAME") & IIf(CBool(.Rows(intCNT).Item("HISSU_FLG")), "＊", "")
-                '            dt.Rows.Add(Trow)
-                '        Next intCNT
-                '    End With
+                    'Case "属性"
 
-                'Case "NullTable"
+                    '    sbSQL.Append("SELECT *")
+                    '    sbSQL.Append(" FROM " & NameOf(VWM15_ZOKUSEI) & "() ")
+                    '    If strWhere <> "" Then
+                    '        sbSQL.Append("WHERE " & strWhere & "")
+                    '    Else
+                    '        sbSQL.Append("WHERE 0=0")
+                    '    End If
+                    '    If blnIncludeDeleted = False Then
+                    '        sbSQL.Append(" And DEL_FLG='0'")
+                    '    End If
+                    '    sbSQL.Append(" ORDER BY DISP_ORDER")
 
-                '    '空のコードテーブルを作成し、後から項目を追加する際に使用する
-                '    '固有の項目で、コードマスタに登録するほどでもない場合に使う？
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    '    dt.Columns.Add("DISP_ORDER", GetType(Integer))
+                    '    dt.Columns.Add("ZOKUSEI_FLG", GetType(Integer))
+                    '    dt.Columns.Add("HISSU_FLG", GetType(Boolean))
+                    '    dt.Columns.Add("DISPwithHISSU_FLG", GetType(String))
 
-                '    '列追加
-                '    'dataTable.Columns.Add("DISP", GetType(String))
-                '    'dataTable.Columns.Add("VALUE", GetType(String))
+                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    '    With dsList.Tables(0)
+                    '        For intCNT = 0 To .Rows.Count - 1
+                    '            Dim Trow As DataRow = dt.NewRow()
+                    '            Trow("DISP") = .Rows(intCNT).Item("ZOKUSEI_NAME")
+                    '            Trow("VALUE") = .Rows(intCNT).Item("ZOKUSEI_CD")
+                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                    '            Trow("DISP_ORDER") = .Rows(intCNT).Item("DISP_ORDER")
+                    '            Trow("ZOKUSEI_FLG") = .Rows(intCNT).Item("ZOKUSEI_FLG")
+                    '            Trow("HISSU_FLG") = CBool(.Rows(intCNT).Item("HISSU_FLG"))
+                    '            Trow("DISPwithHISSU_FLG") = .Rows(intCNT).Item("ZOKUSEI_NAME") & IIf(CBool(.Rows(intCNT).Item("HISSU_FLG")), "＊", "")
+                    '            dt.Rows.Add(Trow)
+                    '        Next intCNT
+                    '    End With
 
-                '    '主キー設定
-                '    dt.PrimaryKey = {dt.Columns("VALUE")}
-                'Case "BlankTable"
+                    'Case "属性名"
 
-                '    '主キー設定
-                '    dt.PrimaryKey = {dt.Columns("VALUE")}
-                '    Dim Trow1 As DataRow = dt.NewRow()
-                '    Trow1("VALUE") = " "
-                '    Trow1("DISP") = " "
-                '    dt.Rows.Add(Trow1)
+                    '    sbSQL.Append("SELECT *")
+                    '    sbSQL.Append(" FROM " & NameOf(VWM15_ZOKUSEI) & "() ")
+                    '    If strWhere <> "" Then
+                    '        sbSQL.Append("WHERE " & strWhere & "")
+                    '    Else
+                    '        sbSQL.Append("WHERE 0=0")
+                    '    End If
+                    '    If blnIncludeDeleted = False Then
+                    '        sbSQL.Append(" And DEL_FLG='0'")
+                    '    End If
+                    '    sbSQL.Append(" ORDER BY DISP_ORDER")
 
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    '    dt.Columns.Add("DISP_ORDER", GetType(Integer))
+                    '    dt.Columns.Add("ZOKUSEI_FLG", GetType(Integer))
+                    '    dt.Columns.Add("HISSU_FLG", GetType(Boolean))
+                    '    dt.Columns.Add("DISPwithHISSU_FLG", GetType(String))
+
+                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    '    With dsList.Tables(0)
+                    '        For intCNT = 0 To .Rows.Count - 1
+                    '            Dim Trow As DataRow = dt.NewRow()
+                    '            Trow("DISP") = .Rows(intCNT).Item("ZOKUSEI_NAME")
+                    '            Trow("VALUE") = .Rows(intCNT).Item("ZOKUSEI_NAME")
+                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                    '            Trow("DISP_ORDER") = .Rows(intCNT).Item("DISP_ORDER")
+                    '            Trow("ZOKUSEI_FLG") = .Rows(intCNT).Item("ZOKUSEI_FLG")
+                    '            Trow("HISSU_FLG") = CBool(.Rows(intCNT).Item("HISSU_FLG"))
+                    '            Trow("DISPwithHISSU_FLG") = .Rows(intCNT).Item("ZOKUSEI_NAME") & IIf(CBool(.Rows(intCNT).Item("HISSU_FLG")), "＊", "")
+                    '            dt.Rows.Add(Trow)
+                    '        Next intCNT
+                    '    End With
+
+                    'Case "属性項目"
+
+                    '    sbSQL.Append("SELECT *")
+                    '    sbSQL.Append(" FROM " & NameOf(VWM16_ZOKUSEI_K) & " ")
+                    '    If strWhere <> "" Then
+                    '        sbSQL.Append("WHERE " & strWhere & "")
+                    '    Else
+                    '        sbSQL.Append("WHERE 0=0")
+                    '    End If
+                    '    If blnIncludeDeleted = False Then
+                    '        sbSQL.Append(" And DEL_FLG='0'")
+                    '    End If
+                    '    sbSQL.Append(" ORDER BY ZOKUSEI_CD, DISP_ORDER")
+
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("ZOKUSEI_CD"), dt.Columns("VALUE")}
+                    '    dt.Columns.Add("ZOKUSEI_CD", GetType(Integer))
+                    '    dt.Columns.Add("DISP_ORDER", GetType(Integer))
+                    '    dt.Columns.Add("COMP_KEY", GetType(String))
+
+                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    '    With dsList.Tables(0)
+                    '        For intCNT = 0 To .Rows.Count - 1
+                    '            Dim Trow As DataRow = dt.NewRow()
+                    '            Trow("VALUE") = .Rows(intCNT).Item("ZOKUSEI_K_NAME")
+                    '            Trow("DISP") = .Rows(intCNT).Item("ZOKUSEI_K_NAME")
+                    '            Trow("COMP_KEY") = .Rows(intCNT).Item("ZOKUSEI_CD") & "," & .Rows(intCNT).Item("ZOKUSEI_K_CD")
+                    '            Trow("ZOKUSEI_CD") = .Rows(intCNT).Item("ZOKUSEI_CD")
+                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                    '            Trow("DISP_ORDER") = .Rows(intCNT).Item("DISP_ORDER")
+                    '            dt.Rows.Add(Trow)
+                    '        Next intCNT
+                    '    End With
+
+                    'Case "属性CD"
+                    '    sbSQL.Append("SELECT *")
+                    '    sbSQL.Append(" FROM " & NameOf(VWM15_ZOKUSEI) & "() ")
+                    '    If strWhere <> "" Then
+                    '        sbSQL.Append("WHERE " & strWhere & "")
+                    '    Else
+                    '        sbSQL.Append("WHERE 0=0")
+                    '    End If
+                    '    If blnIncludeDeleted = False Then
+                    '        sbSQL.Append(" And DEL_FLG='0'")
+                    '    End If
+                    '    sbSQL.Append(" ORDER BY ZOKUSEI_CD")
+
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("ZOKUSEI_CD")}
+                    '    dt.Columns.Add("DISP_ORDER", GetType(Integer))
+                    '    dt.Columns.Add("ZOKUSEI_FLG", GetType(Integer))
+                    '    dt.Columns.Add("HISSU_FLG", GetType(Boolean))
+                    '    dt.Columns.Add("DISPwithHISSU_FLG", GetType(String))
+
+
+                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    '    With dsList.Tables(0)
+                    '        For intCNT = 0 To .Rows.Count - 1
+                    '            Dim Trow As DataRow = dt.NewRow()
+                    '            Trow("DISP") = .Rows(intCNT).Item("ZOKUSEI_CD")
+                    '            Trow("VALUE") = .Rows(intCNT).Item("ZOKUSEI_CD")
+                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                    '            Trow("DISP_ORDER") = .Rows(intCNT).Item("DISP_ORDER")
+                    '            Trow("ZOKUSEI_FLG") = .Rows(intCNT).Item("ZOKUSEI_FLG")
+                    '            Trow("HISSU_FLG") = CBool(.Rows(intCNT).Item("HISSU_FLG"))
+                    '            Trow("DISPwithHISSU_FLG") = .Rows(intCNT).Item("ZOKUSEI_NAME") & IIf(CBool(.Rows(intCNT).Item("HISSU_FLG")), "＊", "")
+                    '            dt.Rows.Add(Trow)
+                    '        Next intCNT
+                    '    End With
+
+                    'Case "NullTable"
+
+                    '    '空のコードテーブルを作成し、後から項目を追加する際に使用する
+                    '    '固有の項目で、コードマスタに登録するほどでもない場合に使う？
+
+                    '    '列追加
+                    '    'dataTable.Columns.Add("DISP", GetType(String))
+                    '    'dataTable.Columns.Add("VALUE", GetType(String))
+
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    'Case "BlankTable"
+
+                    '    '主キー設定
+                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    '    Dim Trow1 As DataRow = dt.NewRow()
+                    '    Trow1("VALUE") = " "
+                    '    Trow1("DISP") = " "
+                    '    dt.Rows.Add(Trow1)
+
+#End Region
+
+#Region "               項目名"
                 Case "項目名"
                     '検索
                     sbSQL.Append("SELECT DISTINCT ITEM_NAME,DEL_YMDHNS FROM " & NameOf(M001_SETTING) & " ")
@@ -689,7 +899,8 @@ Public Module mdlDBContext
                     '主キー設定
                     dt.PrimaryKey = {dt.Columns("VALUE")}
 
-                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    dsList =
+                        DB.GetDataSet(sbSQL.ToString, False)
 
                     With dsList.Tables(0)
                         For intCNT = 0 To .Rows.Count - 1
@@ -702,7 +913,9 @@ Public Module mdlDBContext
                             End If
                         Next intCNT
                     End With
+#End Region
 
+#Region "               Else"
                 Case Else
 
                     '検索
@@ -740,6 +953,7 @@ Public Module mdlDBContext
                         'UNDONE: data null exception
                         'Throw New ArgumentNullException("", "")
                     End If
+#End Region
 
             End Select
 
