@@ -91,7 +91,7 @@ Partial Class FrmM0011
         '
         Me.cmdFunc12.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.cmdFunc12.Image = Global.FMS.My.Resources.Resources._imgLog_Out32x32
-        Me.cmdFunc12.Location = New System.Drawing.Point(1035, 266)
+        Me.cmdFunc12.Location = New System.Drawing.Point(1085, 265)
         Me.cmdFunc12.Text = "キャンセル(F12)"
         '
         'cmdFunc11
@@ -111,8 +111,8 @@ Partial Class FrmM0011
         'cmdFunc7
         '
         Me.cmdFunc7.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc7.Location = New System.Drawing.Point(20, 265)
-        Me.cmdFunc7.Size = New System.Drawing.Size(195, 42)
+        Me.cmdFunc7.Location = New System.Drawing.Point(249, 266)
+        Me.cmdFunc7.Size = New System.Drawing.Size(18, 42)
         Me.cmdFunc7.Visible = False
         '
         'cmdFunc9
@@ -185,7 +185,7 @@ Partial Class FrmM0011
         Me.tlpFields.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpFields.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpFields.Size = New System.Drawing.Size(1232, 179)
-        Me.tlpFields.TabIndex = 46
+        Me.tlpFields.TabIndex = 0
         '
         'lbllblEDIT_YMDHNS
         '
@@ -240,7 +240,7 @@ Partial Class FrmM0011
         Me.chkDefaultVaue.Location = New System.Drawing.Point(643, 153)
         Me.chkDefaultVaue.Name = "chkDefaultVaue"
         Me.chkDefaultVaue.Size = New System.Drawing.Size(66, 21)
-        Me.chkDefaultVaue.TabIndex = 5
+        Me.chkDefaultVaue.TabIndex = 6
         Me.chkDefaultVaue.Text = "既定値"
         Me.chkDefaultVaue.UseVisualStyleBackColor = True
         '
@@ -269,7 +269,7 @@ Partial Class FrmM0011
         Me.mtxBIKOU.MaxByteLength = 200
         Me.mtxBIKOU.Name = "mtxBIKOU"
         Me.mtxBIKOU.Size = New System.Drawing.Size(544, 24)
-        Me.mtxBIKOU.TabIndex = 4
+        Me.mtxBIKOU.TabIndex = 5
         Me.mtxBIKOU.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxBIKOU.WatermarkText = Nothing
         '
@@ -298,7 +298,7 @@ Partial Class FrmM0011
         Me.cmbJYUN.Name = "cmbJYUN"
         Me.cmbJYUN.Selected = False
         Me.cmbJYUN.Size = New System.Drawing.Size(71, 25)
-        Me.cmbJYUN.TabIndex = 3
+        Me.cmbJYUN.TabIndex = 4
         '
         'mtxDISP
         '
@@ -311,7 +311,7 @@ Partial Class FrmM0011
         Me.mtxDISP.MaxByteLength = 200
         Me.mtxDISP.Name = "mtxDISP"
         Me.mtxDISP.Size = New System.Drawing.Size(544, 24)
-        Me.mtxDISP.TabIndex = 2
+        Me.mtxDISP.TabIndex = 3
         Me.mtxDISP.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxDISP.WatermarkText = Nothing
         '
@@ -336,7 +336,7 @@ Partial Class FrmM0011
         Me.mtxVALUE.MaxByteLength = 60
         Me.mtxVALUE.Name = "mtxVALUE"
         Me.mtxVALUE.Size = New System.Drawing.Size(237, 24)
-        Me.mtxVALUE.TabIndex = 1
+        Me.mtxVALUE.TabIndex = 2
         Me.mtxVALUE.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxVALUE.WatermarkText = Nothing
         '
@@ -376,7 +376,7 @@ Partial Class FrmM0011
         Me.cmbKOMO_NM.Name = "cmbKOMO_NM"
         Me.cmbKOMO_NM.Selected = False
         Me.cmbKOMO_NM.Size = New System.Drawing.Size(403, 25)
-        Me.cmbKOMO_NM.TabIndex = 0
+        Me.cmbKOMO_NM.TabIndex = 1
         Me.cmbKOMO_NM.Text = "(選択)"
         '
         'Label5
@@ -401,7 +401,7 @@ Partial Class FrmM0011
         Me.mtxKOMO_GROUP.MaxByteLength = 60
         Me.mtxKOMO_GROUP.Name = "mtxKOMO_GROUP"
         Me.mtxKOMO_GROUP.Size = New System.Drawing.Size(237, 24)
-        Me.mtxKOMO_GROUP.TabIndex = 68
+        Me.mtxKOMO_GROUP.TabIndex = 0
         Me.mtxKOMO_GROUP.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxKOMO_GROUP.WatermarkText = Nothing
         '

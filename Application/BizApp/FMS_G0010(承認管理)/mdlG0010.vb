@@ -49,6 +49,8 @@ Module mdlG0010
                 Using DB As ClsDbUtility = DBOpen()
                     Call FunGetCodeDataTable(DB, "NCR", tblNCR)
                     Call FunGetCodeDataTable(DB, "CAR", tblCAR)
+                    'UNDONE: ステージ別の担当者取得に置き換え
+                    Call FunGetCodeDataTable(DB, "担当", tblTANTO)
                 End Using
 
                 '-----一覧画面表示

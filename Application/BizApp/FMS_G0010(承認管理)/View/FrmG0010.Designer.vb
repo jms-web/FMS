@@ -128,7 +128,7 @@ Partial Class FrmG0010
         '
         'cmdFunc7
         '
-        Me.cmdFunc7.Image = Global.FMS.My.Resources.Resources._imgBase_checkmark32x32
+        Me.cmdFunc7.Image = Global.FMS.My.Resources.Resources._imgStatusAnnotations_Complete_and_ok_32x32
         Me.cmdFunc7.Location = New System.Drawing.Point(9, 643)
         Me.cmdFunc7.Text = "全選択(F7)"
         '
@@ -139,6 +139,7 @@ Partial Class FrmG0010
         '
         'cmdFunc8
         '
+        Me.cmdFunc8.Image = Global.FMS.My.Resources.Resources._imgStatusAnnotations_Complete_and_ok_mono32x32
         Me.cmdFunc8.Location = New System.Drawing.Point(216, 643)
         Me.cmdFunc8.Text = "全選択解除(F8)"
         '
@@ -166,6 +167,7 @@ Partial Class FrmG0010
         Me.cmbSTAGE_NCR.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.cmbSTAGE_NCR, 10)
         Me.cmbSTAGE_NCR.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSTAGE_NCR.DropDownWidth = 220
         Me.cmbSTAGE_NCR.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSTAGE_NCR.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSTAGE_NCR.FormattingEnabled = True
@@ -365,6 +367,7 @@ Partial Class FrmG0010
         Me.cmbSTAGE_CAR.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.cmbSTAGE_CAR, 10)
         Me.cmbSTAGE_CAR.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSTAGE_CAR.DropDownWidth = 220
         Me.cmbSTAGE_CAR.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSTAGE_CAR.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSTAGE_CAR.FormattingEnabled = True
@@ -395,10 +398,11 @@ Partial Class FrmG0010
         'Label4
         '
         Me.Label4.AutoSize = True
+        Me.Label4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label4.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label4.Location = New System.Drawing.Point(263, 30)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(14, 15)
+        Me.Label4.Size = New System.Drawing.Size(14, 30)
         Me.Label4.TabIndex = 60
         Me.Label4.Text = "~"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -459,10 +463,11 @@ Partial Class FrmG0010
         'Label7
         '
         Me.Label7.AutoSize = True
+        Me.Label7.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label7.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label7.Location = New System.Drawing.Point(643, 30)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(14, 15)
+        Me.Label7.Size = New System.Drawing.Size(14, 30)
         Me.Label7.TabIndex = 66
         Me.Label7.Text = "~"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter

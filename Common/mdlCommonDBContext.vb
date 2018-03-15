@@ -122,6 +122,10 @@ Public Module mdlDBContext
     ''' </summary>
     Public tblCAR As DataTableEx
 
+    ''' <summary>
+    ''' íSìñ
+    ''' </summary>
+    Public tblTANTO As DataTableEx
 
     '''' <summary>
     '''' êEî‘
@@ -142,11 +146,6 @@ Public Module mdlDBContext
     '''' ìæà”êÊ
     '''' </summary>
     'Public tblTOKUI As DataTableEx
-
-    '''' <summary>
-    '''' íSìñ
-    '''' </summary>
-    'Public tblTANTO As DataTableEx
 
     '''' <summary>
     '''' í[êîèàóùãÊï™
@@ -350,7 +349,7 @@ Public Module mdlDBContext
                         For intCNT = 0 To .Rows.Count - 1
                             Dim Trow As DataRow = dt.NewRow()
                             Trow("VALUE") = .Rows(intCNT).Item("SYONIN_JUN")
-                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO")
+                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_JUN") & " " & .Rows(intCNT).Item("SYONIN_NAIYO")
                             Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                             Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
                             dt.Rows.Add(Trow)
@@ -379,7 +378,7 @@ Public Module mdlDBContext
                         For intCNT = 0 To .Rows.Count - 1
                             Dim Trow As DataRow = dt.NewRow()
                             Trow("VALUE") = .Rows(intCNT).Item("SYONIN_JUN")
-                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO")
+                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_JUN") & " " & .Rows(intCNT).Item("SYONIN_NAIYO")
                             Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                             Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
                             dt.Rows.Add(Trow)
@@ -387,38 +386,43 @@ Public Module mdlDBContext
                     End With
 #End Region
 
-#Region "               A"
-                    'Case "íSìñ"
-                    '    'åüçı
-                    '    sbSQL.Append("SELECT * FROM " & NameOf(VWM03_TANTO) & " ")
-                    '    If strWhere <> "" Then
-                    '        sbSQL.Append("WHERE " & strWhere & "")
-                    '    End If
-                    '    If blnIncludeDeleted = False Then
-                    '        sbSQL.Append(" AND DEL_FLG='0'")
-                    '    End If
-                    '    sbSQL.Append(" ORDER BY SYOKUBAN")
+#Region "               íSìñ"
+                Case "íSìñ"
 
-                    '    'éÂÉLÅ[ê›íË
-                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    sbSQL.Append("SELECT * FROM " & NameOf(VWM004_SYAIN) & " ")
+                    If strWhere <> "" Then
+                        sbSQL.Append("WHERE " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+                    sbSQL.Append(" ORDER BY SYAIN_ID")
 
-                    '    dt.Columns.Add("SYOKUBAN", GetType(String))
-                    '    dt.Columns.Add("TANTO_NAME", GetType(String))
+                    'éÂÉLÅ[ê›íË
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
 
-                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    dt.Columns.Add("SYOKUBAN", GetType(String))
+                    dt.Columns.Add("SYAIN_NO", GetType(String))
+                    dt.Columns.Add("SYAIN_KB", GetType(String))
+                    dt.Columns.Add("YAKUSYOKU_KB", GetType(String))
+                    dt.Columns.Add("DAIKO_KB", GetType(String))
 
-                    '    With dsList.Tables(0)
-                    '        For intCNT = 0 To .Rows.Count - 1
-                    '            Dim Trow As DataRow = dt.NewRow()
-                    '            '
-                    '            Trow("DISP") = .Rows(intCNT).Item("TANTO_NAME")
-                    '            Trow("VALUE") = .Rows(intCNT).Item("TANTO_CD")
-                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                    '            Trow("SYOKUBAN") = .Rows(intCNT).Item("SYOKUBAN")
-                    '            Trow("TANTO_NAME") = .Rows(intCNT).Item("TANTO_NAME")
-                    '            dt.Rows.Add(Trow)
-                    '        Next intCNT
-                    '    End With
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            '
+                            Trow("DISP") = .Rows(intCNT).Item("SIMEI")
+                            Trow("VALUE") = .Rows(intCNT).Item("SYAIN_ID")
+                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            Trow("SYAIN_NO") = .Rows(intCNT).Item("SYAIN_NO")
+                            Trow("SYAIN_KB") = .Rows(intCNT).Item("SYAIN_KB")
+                            Trow("YAKUSYOKU_KB") = .Rows(intCNT).Item("YAKUSYOKU_KB")
+                            Trow("DAIKO_KB") = .Rows(intCNT).Item("DAIKO_KB")
+                            dt.Rows.Add(Trow)
+                        Next intCNT
+                    End With
 #End Region
 
 #Region "               B"

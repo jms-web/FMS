@@ -97,13 +97,22 @@
       <DependentUpon>201803080157507_Init3.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201803080157507_Init3.vb" />
+    <Compile Include="Migrations\201803150552002_Init4.Designer.vb">
+      <DependentUpon>201803150552002_Init4.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803150552002_Init4.vb" />
+    <Compile Include="Migrations\201803150640001_Init5.Designer.vb">
+      <DependentUpon>201803150640001_Init5.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803150640001_Init5.vb" />
     <Compile Include="Migrations\Configuration.vb" />
+    <Compile Include="Models\Data\D003_NCR_J.vb" />
     <Compile Include="Models\Function\TV01_FUTEKIGO_ICHIRAN.vb" />
     <Compile Include="Models\Masta\Biz\M108_KOTEI_SYUKEI.vb" />
     <Compile Include="Models\Masta\Biz\M107_BUHIN_KISYU.vb" />
     <Compile Include="Models\Masta\Common\M001_SETTING.vb" />
     <Compile Include="Models\Masta\Biz\M016_SYONIN_TANTO.vb" />
-    <Compile Include="Models\Rireki\R001_SYONIN.vb" />
+    <Compile Include="Models\Data\R001_SYONIN.vb" />
     <Compile Include="Models\Masta\Biz\M015_SYONIN_NYURYOKU.vb" />
     <Compile Include="Models\Masta\Biz\M014_SYONIN_ROUT.vb" />
     <Compile Include="Models\Masta\Biz\M013_SYONIN_HOKOKU.vb" />
@@ -157,6 +166,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803080157507_Init3.resx">
       <DependentUpon>201803080157507_Init3.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803150552002_Init4.resx">
+      <DependentUpon>201803150552002_Init4.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803150640001_Init5.resx">
+      <DependentUpon>201803150640001_Init5.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

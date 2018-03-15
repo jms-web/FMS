@@ -22,7 +22,6 @@ Partial Public Class TV01_FUTEKIGO_ICHIRAN
     <Key>
     <Column(Order:=1)>
     <StringLength(1)>
-    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("クローズフラグ")>
     Public Property CLOSE_FLG As String
 
@@ -36,7 +35,6 @@ Partial Public Class TV01_FUTEKIGO_ICHIRAN
     <Column(Order:=3)>
     <StringLength(50)>
     <ComponentModel.DisplayName("ステージ")>
-    <Display(AutoGenerateField:=False)>
     Public Property SYONIN_NAIYO As String
 
     <Key>
@@ -84,7 +82,6 @@ Partial Public Class TV01_FUTEKIGO_ICHIRAN
     <Column(Order:=11)>
     <StringLength(100)>
     <ComponentModel.DisplayName("機種")>
-    <Display(AutoGenerateField:=False)>
     Public Property KISYU As String
 
     <Key>

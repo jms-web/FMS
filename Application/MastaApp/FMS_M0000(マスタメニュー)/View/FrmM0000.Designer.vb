@@ -529,6 +529,7 @@ Partial Class FrmM0000
         '
         'txtPASSWORD
         '
+        Me.txtPASSWORD.AllowDrop = True
         Me.txtPASSWORD.BackColor = System.Drawing.SystemColors.Window
         Me.txtPASSWORD.Font = New System.Drawing.Font("Meiryo UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.txtPASSWORD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -554,6 +555,7 @@ Partial Class FrmM0000
         '
         'txtUSER
         '
+        Me.txtUSER.AllowDrop = True
         Me.txtUSER.BackColor = System.Drawing.SystemColors.Window
         Me.txtUSER.Font = New System.Drawing.Font("Meiryo UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.txtUSER.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
