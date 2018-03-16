@@ -3,11 +3,28 @@ Imports JMS_COMMON.ClsPubMethod
 
 Public Class FrmG0011
 
-    'TODO: Form LoadイベントのCatchを外す
+#Region "定数・変数"
+    Private _tabPageManager As TabPageManager
+#End Region
 
-    'TODO: (マスタ全般) 削除済みチェック時、dgv 複数行選択可にして、一括完全削除・復元出来るようにする
+#Region "プロパティ"
+    ''' <summary>
+    ''' 処理モード
+    ''' </summary>
+    Public Property PrMODE As Integer
 
-    'TODO: 余裕があったらButtonBaseFormのButtonPanel部分をGcFlowLayoutPanelにする
+    ''' <summary>
+    ''' 追加更新レコードのキー
+    ''' </summary>
+    Public Property PrPKeys As String
+
+    ''' <summary>
+    ''' 一覧の選択行データ
+    ''' </summary>
+    Public Property PrdgvCellCollection As DataGridViewCellCollection
+
+    Public Property PrDataRow As DataRow
+#End Region
 
 #Region "コンストラクタ"
 
@@ -53,13 +70,130 @@ Public Class FrmG0011
             'AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
             'AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
-
-            '検索実行
-            Me.cmdFunc1.PerformClick()
+            '-----処理モード別画面初期化
+            Call FunInitializeControls(PrMODE)
         Finally
 
         End Try
     End Sub
+
+#End Region
+
+#Region "処理モード別画面初期化"
+    Private Function FunInitializeControls(ByVal intMODE As Integer) As Boolean
+
+        Try
+            Select Case intMODE
+                Case ENM_DATA_OPERATION_MODE._1_ADD
+                    Me.Text = pub_APP_INFO.strTitle & "（追加）"
+                    lblTytle.Text = Me.Text
+                    cmdFunc1.Text = "追加(F1)"
+
+                    mtxHOKUKO_NO.Text = "<新規>"
+                    mtxHOKUKO_NO.Enabled = True
+                    mtxHOKUKO_NO.ReadOnly = True
+
+                    Call FunInitializeTabControl(1)
+
+                Case ENM_DATA_OPERATION_MODE._3_UPDATE
+                    Call FunSetEntityValues(PrdgvCellCollection)
+
+                    Me.Text = pub_APP_INFO.strTitle & "（変更）"
+                    lblTytle.Text = Me.Text
+                    cmdFunc1.Text = "変更(F1)"
+
+                Case Else
+                    Throw New ArgumentException(My.Resources.ErrMsgException, intMODE.ToString)
+            End Select
+
+            Return True
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' 一覧選択行の値をセット
+    ''' </summary>
+    ''' <param name="dgvCol"></param>
+    ''' <returns></returns>
+    Private Function FunSetEntityValues(dgvCol As DataGridViewCellCollection) As Boolean
+        Dim _Model As New MODEL.TV01_FUTEKIGO_ICHIRAN
+
+        Try
+            '-----コントロールに値をセット
+            With dgvCol
+
+                '報告書No
+                mtxHOKUKO_NO.Text = .Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                '起草者
+                mtxADD_SYAIN_NAME.Text = .Item(NameOf(_Model.SYOCHI_SYAIN_NAME)).Value
+                '起草日
+                dtDraft.Text = .Item(NameOf(_Model.ADD_YMD)).Value.ToString("yyyy/MM/dd")
+                '機種
+                cmbKISYU.SelectedValue = .Item(NameOf(_Model.KISYU)).Value
+                '部品番号
+                cmbBUHIN_NO.SelectedValue = .Item(NameOf(_Model.BUHIN_BANGO)).Value
+                '部品名称
+                mtxHINMEI.Text = .Item(NameOf(_Model.BUHIN_NAME)).Value
+                '号機
+                mtxGOUKI.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                'LOT
+                mtxLOT.Text = "" '.Item(NameOf(_Model.)).Value
+                '個数
+                mtxSU.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                '再発
+                mtxSAIHATU.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                '状態区分
+                cmbSTATUS.SelectedValue = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                '返却時の場合
+                mtxHENKYAKU.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                '保留理由
+                mtxHORYU_RIYU.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                '図番/規格
+                mtxZUBAN_KIKAKU.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+
+            End With
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        End Try
+    End Function
+
+#End Region
+
+#Region "タブコントロール初期化"
+    Private Function FunInitializeTabControl(ByVal intSTAGE As Integer) As Boolean
+
+        Try
+            _tabPageManager = New TabPageManager(TabSTAGE)
+
+            For Each page As TabPage In TabSTAGE.TabPages
+                If page.Name <> "tabAttachment" Then
+                    If page.Name = "tabSTAGE" & intSTAGE.ToString("00") Then
+                        page.Text = pub_SYAIN_INFO.SYAIN_NAME
+                    Else
+                        _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
+                    End If
+                End If
+            Next page
+
+            '処理済みステージ情報の取得
+            For i As Integer = 1 To intSTAGE - 1
+                TabSTAGE.Controls("tabSTAGE" & i.ToString("00")).Visible = True
+                TabSTAGE.Controls("tabSTAGE" & i.ToString("00")).Text = ""
+            Next i
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        End Try
+    End Function
+
 
 #End Region
 

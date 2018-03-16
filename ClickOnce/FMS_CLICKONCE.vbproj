@@ -17,6 +17,14 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <IsWebBootstrapper>true</IsWebBootstrapper>
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <UpdatePackageVersion>False</UpdatePackageVersion>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>AssemblyVersion</InheritWinAppVersionFrom>
     <PublishUrl>\\Sv91\fms\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -28,14 +36,14 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://SV91:8000/</InstallUrl>
-    <ProductName>フジワラ 新管理システム TEST</ProductName>
+    <ProductName>フジワラシステム デモ</ProductName>
     <PublisherName>JMS</PublisherName>
-    <MinimumRequiredVersion>0.9.18067.750</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.9.18074.121</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>750</ApplicationRevision>
-    <ApplicationVersion>0.9.18067.750</ApplicationVersion>
+    <ApplicationRevision>122</ApplicationRevision>
+    <ApplicationVersion>1.0.18074.0700</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -186,6 +194,7 @@
     <Content Include="EXE_DEBUG\Microsoft.WindowsAPICodePack.dll" />
     <Content Include="EXE_DEBUG\Microsoft.WindowsAPICodePack.Shell.dll" />
     <Content Include="EXE_DEBUG\TKMP.dll" />
+    <Content Include="favicon.ico" />
     <Content Include="INI\RIREKI.TXT" />
     <Content Include="INI\SYSTEM.INI" />
     <Content Include="INI\EXCELOUT.INI" />
@@ -201,9 +210,6 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7">
@@ -232,7 +238,7 @@
     </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>xcopy "C:\FMS\EXE_DEBUG" "C:\FMS\SRC\VB.NET\FMS\ClickOnce\EXE" /D/E/C/I/H/Y
+    <PreBuildEvent>xcopy "C:\FMS\EXE_DEBUG" "C:\FMS\SRC\VB.NET\FMS\ClickOnce\EXE_DEBUG" /D/E/C/I/H/Y
 xcopy "C:\FMS\INI" "C:\FMS\SRC\VB.NET\FMS\ClickOnce\INI" /D/E/C/I/H/Y</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

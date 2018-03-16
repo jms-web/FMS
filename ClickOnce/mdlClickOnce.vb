@@ -5,11 +5,11 @@ Module mdlClickOnce
     Private Const CON_ROOTDIR As String = "C:\FMS_TEST"
     Private Const CON_STARTUP_EXE As String = "FMS_M0000.exe"
 
-#If DEBUG Then
+    '#If DEBUG Then
     Private Const EXE_PATH As String = "EXE_DEBUG"
-#Else
-    Private Const EXE_PATH As String = "EXE"
-#End If
+    '#Else
+    '    Private Const EXE_PATH As String = "EXE"
+    '#End If
 
 
     Public Sub MAIN()

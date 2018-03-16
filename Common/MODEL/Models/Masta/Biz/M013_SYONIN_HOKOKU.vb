@@ -15,6 +15,12 @@ Partial Public Class M013_SYONIN_HOKOKU
     Public Property SYONIN_HOKOKUSYO_ID As Integer
 
     <Required>
+    <StringLength(1)>
+    <Column(TypeName:="char")>
+    <ComponentModel.DisplayName("部門区分")>
+    Public Property BUMON_KB As String
+
+    <Required>
     <StringLength(50)>
     <Column(TypeName:="nvarchar")>
     <ComponentModel.DisplayName("報告書名")>
