@@ -38,12 +38,12 @@
     <InstallUrl>http://SV91:8000/</InstallUrl>
     <ProductName>フジワラシステム デモ</ProductName>
     <PublisherName>JMS</PublisherName>
-    <MinimumRequiredVersion>0.9.18074.121</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.9.18080.0444</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>122</ApplicationRevision>
-    <ApplicationVersion>1.0.18074.0700</ApplicationVersion>
+    <ApplicationVersion>1.0.18080.0706</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -177,9 +177,7 @@
     <Content Include="EXE\FMS_MODEL.dll" />
     <Content Include="EXE\JMS_COMMON.dll" />
     <Content Include="EXE\MetroFramework.dll" />
-    <Content Include="EXE\MetroFramework.Fonts.dll" />
     <Content Include="EXE\Microsoft.WindowsAPICodePack.dll" />
-    <Content Include="EXE\Microsoft.WindowsAPICodePack.Shell.dll" />
     <Content Include="EXE\TKMP.dll" />
     <Content Include="EXE_DEBUG\C1.Win.C1FlexGrid.4.dll" />
     <Content Include="EXE_DEBUG\FMS_G0010.exe" />

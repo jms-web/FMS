@@ -93,14 +93,14 @@ Public Class FrmM0000
             Dim imgList As New ImageList
             imgList.Images.Add(My.Resources._imgBilling1)
             'imgList.Images.Add(My.Resources._imgBasket)
-            'imgList.Images.Add(My.Resources._imgBox)
+            imgList.Images.Add(My.Resources._imgBox)
             'imgList.Images.Add(My.Resources._imgBarcode_reader)
             'imgList.Images.Add(My.Resources._imgMachiningCenter)
             'imgList.Images.Add(My.Resources._imgMachiningCenter)
             'imgList.Images.Add(My.Resources._imgDelivery)
-            'imgList.Images.Add(My.Resources._imgShelf)
+            imgList.Images.Add(My.Resources._imgShelf)
             'imgList.Images.Add(My.Resources._imgCalculator)
-            'imgList.Images.Add(My.Resources._imgBase_cog32x32)
+            imgList.Images.Add(My.Resources._imgStatusAnnotations_Warning32x32)
             imgList.Images.Add(My.Resources._imgBase_cog32x32)
             imgList.ImageSize = New Size(32, 32)
             imgList.ColorDepth = ColorDepth.Depth32Bit
@@ -990,7 +990,6 @@ Public Class FrmM0000
             Return False
         End Try
     End Function
-
 
 #End Region
 

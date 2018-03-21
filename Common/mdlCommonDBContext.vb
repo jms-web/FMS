@@ -102,6 +102,7 @@ Public Module mdlDBContext
 
 #Region "データテーブル変数"
 
+#Region "共通"
     ''' <summary>
     ''' メニューセクション
     ''' </summary>
@@ -111,6 +112,26 @@ Public Module mdlDBContext
     ''' コードマスタ項目名
     ''' </summary>
     Public tblKOMO_NM As DataTableEx
+
+    ''' <summary>
+    ''' 担当
+    ''' </summary>
+    Public tblTANTO As DataTableEx
+
+    ''' <summary>
+    ''' 部門
+    ''' </summary>
+    Public tblBUMON As DataTableEx
+
+    ''' <summary>
+    ''' 機種
+    ''' </summary>
+    Public tblKISYU As DataTableEx
+
+#End Region
+
+
+#Region "不適合関連"
 
     ''' <summary>
     ''' 製品処置(NCR ステージ
@@ -123,9 +144,28 @@ Public Module mdlDBContext
     Public tblCAR As DataTableEx
 
     ''' <summary>
-    ''' 担当
+    ''' 事前審査判定区分
     ''' </summary>
-    Public tblTANTO As DataTableEx
+    Public tblJIZEN_SINSA_HANTEI_KB As DataTableEx
+
+    ''' <summary>
+    ''' 再審委員会判定区分
+    ''' </summary>
+    Public tblSAISIN_IINKAI_HANTEI_KB As DataTableEx
+
+
+    ''' <summary>
+    ''' 不適合区分
+    ''' </summary>
+    Public tblFUTEKIGO_KB As DataTableEx
+
+    ''' <summary>
+    ''' 不適合状態区分
+    ''' </summary>
+    Public tblFUTEKIGO_STATUS_KB As DataTableEx
+
+#End Region
+
 
     '''' <summary>
     '''' 職番
@@ -425,38 +465,34 @@ Public Module mdlDBContext
                     End With
 #End Region
 
-#Region "               B"
-                    'Case "担当"
-                    '    '検索
-                    '    sbSQL.Append("SELECT * FROM " & NameOf(VWM03_TANTO) & " ")
-                    '    If strWhere <> "" Then
-                    '        sbSQL.Append("WHERE " & strWhere & "")
-                    '    End If
-                    '    If blnIncludeDeleted = False Then
-                    '        sbSQL.Append(" AND DEL_FLG='0'")
-                    '    End If
-                    '    sbSQL.Append(" ORDER BY SYOKUBAN")
+#Region "               機種"
+                Case "機種"
+                    sbSQL.Append("SELECT * FROM " & NameOf(VWM105_KISYU) & " ")
+                    If strWhere <> "" Then
+                        sbSQL.Append("WHERE " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+                    sbSQL.Append(" ORDER BY KISYU_ID")
 
-                    '    '主キー設定
-                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    '主キー設定
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
 
-                    '    dt.Columns.Add("SYOKUBAN", GetType(String))
-                    '    dt.Columns.Add("TANTO_NAME", GetType(String))
+                    dt.Columns.Add("KISYU", GetType(String))
 
-                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
 
-                    '    With dsList.Tables(0)
-                    '        For intCNT = 0 To .Rows.Count - 1
-                    '            Dim Trow As DataRow = dt.NewRow()
-                    '            '
-                    '            Trow("DISP") = .Rows(intCNT).Item("TANTO_NAME")
-                    '            Trow("VALUE") = .Rows(intCNT).Item("TANTO_CD")
-                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                    '            Trow("SYOKUBAN") = .Rows(intCNT).Item("SYOKUBAN")
-                    '            Trow("TANTO_NAME") = .Rows(intCNT).Item("TANTO_NAME")
-                    '            dt.Rows.Add(Trow)
-                    '        Next intCNT
-                    '    End With
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            Trow("DISP") = .Rows(intCNT).Item("KISYU_NAME")
+                            Trow("VALUE") = .Rows(intCNT).Item("KISYU_ID")
+                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            Trow("KISYU") = .Rows(intCNT).Item("KISYU")
+                            dt.Rows.Add(Trow)
+                        Next intCNT
+                    End With
 #End Region
 
 #Region "               C"

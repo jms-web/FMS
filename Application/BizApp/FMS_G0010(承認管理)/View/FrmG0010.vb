@@ -42,14 +42,22 @@ Public Class FrmG0010
             '-----グリッド列作成
             Call FunSetDgvCulumns(dgvDATA)
 
-            '-----コントロールデータソース設定
-            cmbSTAGE_NCR.SetDataSource(tblNCR, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbSTAGE_CAR.SetDataSource(tblCAR, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            '-----コントロールソース設定
+            cmbSTAGE_NCR.SetDataSource(tblNCR.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbSTAGE_CAR.SetDataSource(tblCAR.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbTANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbJIZEN_SINSA_HANTEI_KB.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbSAISIN_IINKAI_HANTEI_KB.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-            cmbTANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+
+            '既定値設定
+            cmbTANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+
+
             ''-----イベントハンドラ設定
             'AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+            AddHandler Me.chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
 
             '検索実行
@@ -209,6 +217,8 @@ Public Class FrmG0010
     '行選択時イベント
     Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs)
         Try
+            Dim dgv As DataGridView = DirectCast(sender, DataGridView)
+
         Finally
             Call FunInitFuncButtonEnabled()
         End Try
@@ -472,7 +482,12 @@ Public Class FrmG0010
 
 
             sbSQLWHERE.Remove(0, sbSQLWHERE.Length)
-            sbSQLWHERE.Append("'','',0,'','','','',''")
+
+            If chkClosedRowVisibled.Checked Then
+                sbSQLWHERE.Append("'','',0,'','','','',''")
+            Else
+                sbSQLWHERE.Append("'','',0,'','','','','0'")
+            End If
 
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append("SELECT")
@@ -572,7 +587,7 @@ Public Class FrmG0010
                     dgv.CurrentCell = dgv.Rows(intCURROW).Cells(0)
                 Catch dgvEx As Exception
                 End Try
-                Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, dgv.Rows.Count - 1)
+                Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, dgv.Rows.Count)
             Else
                 Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
             End If
@@ -588,6 +603,7 @@ Public Class FrmG0010
     Private Function FunSetDgvCellFormat(ByVal dgv As DataGridView) As Boolean
 
         Try
+            'UNDONE: ステージ別の滞留警告日数を取得
             Dim intWarningNotification As Integer
             Using DB As ClsDbUtility = DBOpen()
                 intWarningNotification = FunGetCodeMastaValue(DB, "承認関連設定", "滞留警告日数")
@@ -798,7 +814,6 @@ Public Class FrmG0010
 
 #End Region
 
-
 #Region "全選択解除"
 
     Private Function FunUnSelectAll() As Boolean
@@ -827,8 +842,6 @@ Public Class FrmG0010
     End Function
 
 #End Region
-
-
 
 #Region "FuncButton有効無効切替"
 
@@ -861,6 +874,18 @@ Public Class FrmG0010
                 cmdFunc9.Enabled = True
                 cmdFunc10.Enabled = True
                 cmdFunc11.Enabled = True
+
+
+                '選択行がClosedの場合
+                If dgvDATA.CurrentRow.Cells.Item("CLOSE_FLG").Value = 1 Then
+                    cmdFunc4.Enabled = False
+                    cmdFunc5.Enabled = False
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "クローズ済のため変更出来ません")
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "クローズ済のため削除出来ません")
+                Else
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, My.Resources.infoToolTipMsgNotFoundData)
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
+                End If
 
                 'If dgvDATA.CurrentRow IsNot Nothing AndAlso dgvDATA.CurrentRow.Cells.Item("DEL_FLG").Value = True Then
                 '    '削除済データの場合

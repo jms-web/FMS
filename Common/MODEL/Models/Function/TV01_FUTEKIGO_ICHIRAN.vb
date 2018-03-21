@@ -173,13 +173,13 @@ Partial Public Class TV01_FUTEKIGO_ICHIRAN
     <Column(Order:=22, TypeName:="nvarchar")>
     <StringLength(50)>
     <ComponentModel.DisplayName("·–ßŒ³³”F‡")>
-    Public Property MODOSI_SYONIN_NAIYO As Integer
+    Public Property MODOSI_SYONIN_NAIYO As String
 
     <Key>
     <Column(Order:=23, TypeName:="nvarchar")>
     <StringLength(100)>
     <ComponentModel.DisplayName("·–ßŒ³³”F‡")>
-    Public Property MODOSI_RIYU As Integer
+    Public Property MODOSI_RIYU As String
 
     <Key>
     <Column(Order:=24)>

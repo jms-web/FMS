@@ -551,7 +551,7 @@ Partial Class FrmM0000
         Me.lblUSER.Name = "lblUSER"
         Me.lblUSER.Size = New System.Drawing.Size(216, 20)
         Me.lblUSER.TabIndex = 62
-        Me.lblUSER.Text = "ŽÐˆõCD"
+        Me.lblUSER.Text = "ŽÐˆõID"
         '
         'txtUSER
         '
@@ -666,7 +666,7 @@ Partial Class FrmM0000
         Me.lblGYOUMU.Name = "lblGYOUMU"
         Me.lblGYOUMU.Size = New System.Drawing.Size(219, 20)
         Me.lblGYOUMU.TabIndex = 66
-        Me.lblGYOUMU.Text = "‹Æ–±•ª—Þ"
+        Me.lblGYOUMU.Text = "‹Æ–±ˆê——"
         '
         'cmdLOGOUT
         '

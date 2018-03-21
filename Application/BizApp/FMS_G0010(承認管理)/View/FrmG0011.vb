@@ -5,6 +5,7 @@ Public Class FrmG0011
 
 #Region "定数・変数"
     Private _tabPageManager As TabPageManager
+
 #End Region
 
 #Region "プロパティ"
@@ -38,10 +39,10 @@ Public Class FrmG0011
         InitializeComponent()
         'ツールチップメッセージ
         MyBase.ToolTip.SetToolTip(Me.cmdFunc3, My.Resources.infoToolTipMsgNotFoundData)
-        MyBase.ToolTip.SetToolTip(Me.cmdFunc4, My.Resources.infoToolTipMsgNotFoundData)
-        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
-        MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
-
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "新規登録時は使用出来ません")
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "新規登録時は使用出来ません")
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc10, "新規登録時は使用出来ません")
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc11, "新規登録時は使用出来ません")
 
 
     End Sub
@@ -57,14 +58,11 @@ Public Class FrmG0011
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
 
-            '-----グリッド初期設定(親フォームから呼び出し)
-            'Call FunInitializeDataGridView(Me.dgvDATA)
-
-            '-----グリッド列作成
-            'Call FunSetDgvCulumns(Me.dgvDATA)
-
             '-----コントロールデータソース設定
-            'Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
+            cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+            '既定値の設定
 
             '''-----イベントハンドラ設定
             'AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
@@ -73,7 +71,7 @@ Public Class FrmG0011
             '-----処理モード別画面初期化
             Call FunInitializeControls(PrMODE)
         Finally
-
+            Call FunInitFuncButtonEnabled()
         End Try
     End Sub
 
@@ -85,22 +83,34 @@ Public Class FrmG0011
         Try
             Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
-                    Me.Text = pub_APP_INFO.strTitle & "（追加）"
+                    Me.Text = "不適合製品処置報告書(Non-Conformance Report)" '& "（新規追加）"
                     lblTytle.Text = Me.Text
-                    cmdFunc1.Text = "追加(F1)"
+                    cmdFunc1.Text = "保存(F1)"
 
                     mtxHOKUKO_NO.Text = "<新規>"
                     mtxHOKUKO_NO.Enabled = True
                     mtxHOKUKO_NO.ReadOnly = True
 
+                    mtxADD_SYAIN_NAME.Text = pub_SYAIN_INFO.SYAIN_NAME
+                    mtxADD_SYAIN_NAME.Enabled = False
+
+                    dtDraft.Text = Today.ToString("yyyy/MM/dd")
+                    dtDraft.Enabled = False
+
+                    numSU.Value = 1
+
+
                     Call FunInitializeTabControl(1)
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
+                    Me.Text = "不適合製品処置報告書(Non-Conformance Report)" '& "（変更）"
+                    lblTytle.Text = Me.Text
+                    cmdFunc1.Text = "保存(F1)"
+
                     Call FunSetEntityValues(PrdgvCellCollection)
 
-                    Me.Text = pub_APP_INFO.strTitle & "（変更）"
-                    lblTytle.Text = Me.Text
-                    cmdFunc1.Text = "変更(F1)"
+                    Call FunInitializeTabControl(1)
+                    mtxHOKUKO_NO.Enabled = False
 
                 Case Else
                     Throw New ArgumentException(My.Resources.ErrMsgException, intMODE.ToString)
@@ -140,18 +150,17 @@ Public Class FrmG0011
                 mtxHINMEI.Text = .Item(NameOf(_Model.BUHIN_NAME)).Value
                 '号機
                 mtxGOUKI.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
-                'LOT
-                mtxLOT.Text = "" '.Item(NameOf(_Model.)).Value
                 '個数
-                mtxSU.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                numSU.Value = 1 '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
                 '再発
-                mtxSAIHATU.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                chkSAIHATU.Checked = False 'CBool("")
+
                 '状態区分
                 cmbSTATUS.SelectedValue = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
                 '返却時の場合
-                mtxHENKYAKU.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                cmbFUTEKIGO_KB.SelectedValue = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
                 '保留理由
-                mtxHORYU_RIYU.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                mtxHENKYAKU.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
                 '図番/規格
                 mtxZUBAN_KIKAKU.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
 
@@ -165,7 +174,9 @@ Public Class FrmG0011
 
 #End Region
 
-#Region "タブコントロール初期化"
+#Region "タブコントロール制御"
+
+#Region "初期化"
     Private Function FunInitializeTabControl(ByVal intSTAGE As Integer) As Boolean
 
         Try
@@ -174,7 +185,7 @@ Public Class FrmG0011
             For Each page As TabPage In TabSTAGE.TabPages
                 If page.Name <> "tabAttachment" Then
                     If page.Name = "tabSTAGE" & intSTAGE.ToString("00") Then
-                        page.Text = pub_SYAIN_INFO.SYAIN_NAME
+                        page.Text = "現ステージ" 'pub_SYAIN_INFO.SYAIN_NAME
                     Else
                         _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
                     End If
@@ -193,6 +204,29 @@ Public Class FrmG0011
             Return False
         End Try
     End Function
+
+#End Region
+
+#Region "STAGE01"
+    Private Function FunInitializeSTAGE01() As Boolean
+
+        Try
+            mtxST01_UPD_YMD.Text = ""
+            mtxST01_NextStageName.Text = ""
+            cmbST01_DestTANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+            If PrDataRow.Item("SYONIN_JUN") = ENM_NCR_STAGE._10_起草入力 Then
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        End Try
+    End Function
+
+#End Region
 
 
 #End Region
@@ -750,11 +784,11 @@ Public Class FrmG0011
     ''' <param name="frm">対象フォーム</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function FunInitFuncButtonEnabled(ByVal frm As FrmG0010) As Boolean
+    Private Function FunInitFuncButtonEnabled() As Boolean
         Try
 
             For intFunc As Integer = 1 To 12
-                With frm.Controls("cmdFunc" & intFunc)
+                With Me.Controls("cmdFunc" & intFunc)
                     If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).Trim = "" Then
                         .Text = ""
                         .Visible = False
@@ -762,42 +796,21 @@ Public Class FrmG0011
                 End With
             Next intFunc
 
-            Dim dgv As DataGridView = DirectCast(frm.Controls("dgvDATA"), DataGridView)
 
-            If dgv.RowCount > 0 Then
-                frm.cmdFunc3.Enabled = True
-                frm.cmdFunc4.Enabled = True
-                frm.cmdFunc5.Enabled = True
-                frm.cmdFunc10.Enabled = True
+            If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
+                cmdFunc4.Enabled = False
+                cmdFunc5.Enabled = False
+                cmdFunc10.Enabled = False
+                cmdFunc11.Enabled = False
             Else
-                frm.cmdFunc3.Enabled = False
-                frm.cmdFunc4.Enabled = False
-                frm.cmdFunc5.Enabled = False
-                frm.cmdFunc10.Enabled = False
+                cmdFunc4.Enabled = True
+                cmdFunc5.Enabled = True
+                cmdFunc10.Enabled = True
+                cmdFunc11.Enabled = True
             End If
 
-            If dgv.SelectedRows.Count > 0 Then
-                If dgv.CurrentRow IsNot Nothing AndAlso dgv.CurrentRow.Cells.Item("DEL_FLG").Value = True Then
-                    '削除済データの場合
-                    frm.cmdFunc4.Enabled = False
-                    frm.cmdFunc5.Text = "完全削除(F5)"
-                    frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._6_DELETE
 
-                    '復元
-                    frm.cmdFunc6.Text = "復元(F6)"
-                    frm.cmdFunc6.Visible = True
-                    frm.cmdFunc6.Tag = ENM_DATA_OPERATION_MODE._5_RESTORE
-                Else
-                    frm.cmdFunc5.Text = "削除(F5)"
-                    frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._4_DISABLE
-
-                    frm.cmdFunc6.Text = ""
-                    frm.cmdFunc6.Visible = False
-                    frm.cmdFunc6.Tag = ""
-                End If
-            Else
-                frm.cmdFunc6.Visible = False
-            End If
+            'UNDONE: ユーザー権限による制御
 
             Return True
         Catch ex As Exception

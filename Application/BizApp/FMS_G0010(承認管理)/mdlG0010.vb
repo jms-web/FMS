@@ -9,6 +9,49 @@ Module mdlG0010
     ''' </summary>
     Public frmLIST As FrmG0010
 
+    ''' <summary>
+    ''' NCRステージ
+    ''' </summary>
+    Public Enum ENM_NCR_STAGE
+        _10_起草入力 = 10
+        _20_起草確認製造GL = 20
+        _30_起草確認検査 = 30
+        _40_事前審査判定及びCAR要否判定 = 40
+        _50_事前審査確認 = 50
+        _60_再審審査判定_技術代表 = 60
+        _61_再審審査判定_品証代表 = 61
+        _70_顧客再審処置_I_tag = 70
+        _80_処置実施 = 80
+        _81_処置実施_生技 = 81
+        _82_処置実施_製造 = 82
+        _83_処置実施_検査 = 83
+        _90_処置実施確認_管理T = 90
+        _100_処置実施決裁_製造課長 = 100
+        _110_abcde処置担当 = 110
+        _120_abcde処置確認 = 120
+        _990_Closed = 990
+    End Enum
+
+    ''' <summary>
+    ''' CARステージ
+    ''' </summary>
+    Public Enum ENM_CAR_STAGE
+        _10_起草入力 = 10
+        _20_起草確認_起草元GL = 20
+        _30_起草確認_担当課長 = 30
+        _40_起草確認_生産技術 = 40
+        _50_起草確認_設計開発 = 50
+        _60_起草確認_検査員 = 60
+        _70_起草確認_品証課長 = 70
+        _80_処置実施記録入力 = 80
+        _90_処置実施確認 = 90
+        _100_是正有効性記入 = 100
+        _110_是正有効性確認_検査GL = 110
+        _120_是正有効性確認_品証TL = 120
+        _130_是正有効性確認_品証担当課長 = 130
+        _990_Closed = 990
+
+    End Enum
 #End Region
 
 #Region "MAIN"
@@ -51,6 +94,13 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "CAR", tblCAR)
                     'UNDONE: ステージ別の担当者取得に置き換え
                     Call FunGetCodeDataTable(DB, "担当", tblTANTO)
+                    Call FunGetCodeDataTable(DB, "部門", tblBUMON)
+                    Call FunGetCodeDataTable(DB, "機種", tblKISYU)
+                    Call FunGetCodeDataTable(DB, "不適合区分", tblFUTEKIGO_KB)
+                    Call FunGetCodeDataTable(DB, "不適合状態区分", tblFUTEKIGO_STATUS_KB)
+                    Call FunGetCodeDataTable(DB, "事前審査判定区分", tblJIZEN_SINSA_HANTEI_KB)
+                    Call FunGetCodeDataTable(DB, "再審委員会判定区分", tblSAISIN_IINKAI_HANTEI_KB)
+
                 End Using
 
                 '-----一覧画面表示
