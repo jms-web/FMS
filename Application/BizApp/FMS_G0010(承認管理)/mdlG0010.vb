@@ -9,6 +9,13 @@ Module mdlG0010
     ''' </summary>
     Public frmLIST As FrmG0010
 
+
+    'DEBUG:
+    Public ST01_REGISTERED As Boolean
+    Public ST02_REGISTERED As Boolean
+    Public ST03_REGISTERED As Boolean
+    Public ST04_REGISTERED As Boolean
+
     ''' <summary>
     ''' NCRステージ
     ''' </summary>
@@ -94,12 +101,14 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "CAR", tblCAR)
                     'UNDONE: ステージ別の担当者取得に置き換え
                     Call FunGetCodeDataTable(DB, "担当", tblTANTO)
-                    Call FunGetCodeDataTable(DB, "部門", tblBUMON)
+                    Call FunGetCodeDataTable(DB, "部門区分", tblBUMON)
                     Call FunGetCodeDataTable(DB, "機種", tblKISYU)
                     Call FunGetCodeDataTable(DB, "不適合区分", tblFUTEKIGO_KB)
                     Call FunGetCodeDataTable(DB, "不適合状態区分", tblFUTEKIGO_STATUS_KB)
                     Call FunGetCodeDataTable(DB, "事前審査判定区分", tblJIZEN_SINSA_HANTEI_KB)
                     Call FunGetCodeDataTable(DB, "再審委員会判定区分", tblSAISIN_IINKAI_HANTEI_KB)
+                    Call FunGetCodeDataTable(DB, "部品番号", tblBUHIN)
+                    Call FunGetCodeDataTable(DB, "承認担当", tblTANTO_SYONIN)
 
                 End Using
 

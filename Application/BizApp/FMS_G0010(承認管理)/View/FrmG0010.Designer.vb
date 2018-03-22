@@ -46,14 +46,14 @@ Partial Class FrmG0010
         Me.Label9 = New System.Windows.Forms.Label()
         Me.cmbKISYU = New JMS_COMMON.ComboboxEx()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.cmbBUHIN_NO = New JMS_COMMON.ComboboxEx()
-        Me.btnSECH_BUHIN = New System.Windows.Forms.Button()
+        Me.cmbBUHIN_BANGO = New JMS_COMMON.ComboboxEx()
         Me.mtxHINMEI = New JMS_COMMON.MaskedTextBoxEx()
         Me.cmbJIZEN_SINSA_HANTEI_KB = New JMS_COMMON.ComboboxEx()
         Me.cmbSAISIN_IINKAI_HANTEI_KB = New JMS_COMMON.ComboboxEx()
         Me.chkClosedRowVisibled = New System.Windows.Forms.CheckBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.btnClearSrchFilter = New System.Windows.Forms.Button()
+        Me.btnSECH_BUHIN = New System.Windows.Forms.Button()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -279,14 +279,14 @@ Partial Class FrmG0010
         Me.tlpFilter.Controls.Add(Me.Label9, 0, 3)
         Me.tlpFilter.Controls.Add(Me.cmbKISYU, 8, 3)
         Me.tlpFilter.Controls.Add(Me.Label11, 19, 3)
-        Me.tlpFilter.Controls.Add(Me.cmbBUHIN_NO, 27, 3)
-        Me.tlpFilter.Controls.Add(Me.btnSECH_BUHIN, 33, 3)
+        Me.tlpFilter.Controls.Add(Me.cmbBUHIN_BANGO, 27, 3)
         Me.tlpFilter.Controls.Add(Me.mtxHINMEI, 41, 3)
         Me.tlpFilter.Controls.Add(Me.cmbJIZEN_SINSA_HANTEI_KB, 8, 4)
         Me.tlpFilter.Controls.Add(Me.cmbSAISIN_IINKAI_HANTEI_KB, 27, 4)
         Me.tlpFilter.Controls.Add(Me.chkClosedRowVisibled, 50, 4)
         Me.tlpFilter.Controls.Add(Me.Label14, 39, 3)
         Me.tlpFilter.Controls.Add(Me.btnClearSrchFilter, 57, 3)
+        Me.tlpFilter.Controls.Add(Me.btnSECH_BUHIN, 35, 3)
         Me.tlpFilter.Location = New System.Drawing.Point(3, 20)
         Me.tlpFilter.Name = "tlpFilter"
         Me.tlpFilter.RowCount = 6
@@ -555,35 +555,24 @@ Partial Class FrmG0010
         Me.Label11.Text = "部品番号:"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'cmbBUHIN_NO
+        'cmbBUHIN_BANGO
         '
-        Me.cmbBUHIN_NO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbBUHIN_NO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbBUHIN_NO.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbBUHIN_NO, 6)
-        Me.cmbBUHIN_NO.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbBUHIN_NO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbBUHIN_NO.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbBUHIN_NO.FormattingEnabled = True
-        Me.cmbBUHIN_NO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbBUHIN_NO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbBUHIN_NO.Location = New System.Drawing.Point(543, 93)
-        Me.cmbBUHIN_NO.Name = "cmbBUHIN_NO"
-        Me.cmbBUHIN_NO.Selected = False
-        Me.cmbBUHIN_NO.Size = New System.Drawing.Size(114, 25)
-        Me.cmbBUHIN_NO.TabIndex = 71
-        Me.cmbBUHIN_NO.Text = "(選択)"
-        '
-        'btnSECH_BUHIN
-        '
-        Me.tlpFilter.SetColumnSpan(Me.btnSECH_BUHIN, 3)
-        Me.btnSECH_BUHIN.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnSECH_BUHIN.Location = New System.Drawing.Point(663, 93)
-        Me.btnSECH_BUHIN.Name = "btnSECH_BUHIN"
-        Me.btnSECH_BUHIN.Size = New System.Drawing.Size(54, 24)
-        Me.btnSECH_BUHIN.TabIndex = 99
-        Me.btnSECH_BUHIN.Text = "検索"
-        Me.btnSECH_BUHIN.UseVisualStyleBackColor = True
+        Me.cmbBUHIN_BANGO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbBUHIN_BANGO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbBUHIN_BANGO.BackColor = System.Drawing.SystemColors.Window
+        Me.tlpFilter.SetColumnSpan(Me.cmbBUHIN_BANGO, 8)
+        Me.cmbBUHIN_BANGO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbBUHIN_BANGO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbBUHIN_BANGO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbBUHIN_BANGO.FormattingEnabled = True
+        Me.cmbBUHIN_BANGO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbBUHIN_BANGO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbBUHIN_BANGO.Location = New System.Drawing.Point(543, 93)
+        Me.cmbBUHIN_BANGO.Name = "cmbBUHIN_BANGO"
+        Me.cmbBUHIN_BANGO.Selected = False
+        Me.cmbBUHIN_BANGO.Size = New System.Drawing.Size(154, 25)
+        Me.cmbBUHIN_BANGO.TabIndex = 71
+        Me.cmbBUHIN_BANGO.Text = "(選択)"
         '
         'mtxHINMEI
         '
@@ -672,6 +661,18 @@ Partial Class FrmG0010
         Me.btnClearSrchFilter.TabIndex = 100
         Me.btnClearSrchFilter.Text = "条件クリア"
         Me.btnClearSrchFilter.UseVisualStyleBackColor = True
+        '
+        'btnSECH_BUHIN
+        '
+        Me.tlpFilter.SetColumnSpan(Me.btnSECH_BUHIN, 3)
+        Me.btnSECH_BUHIN.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSECH_BUHIN.Location = New System.Drawing.Point(703, 93)
+        Me.btnSECH_BUHIN.Name = "btnSECH_BUHIN"
+        Me.btnSECH_BUHIN.Size = New System.Drawing.Size(54, 24)
+        Me.btnSECH_BUHIN.TabIndex = 99
+        Me.btnSECH_BUHIN.Text = "検索"
+        Me.btnSECH_BUHIN.UseVisualStyleBackColor = True
+        Me.btnSECH_BUHIN.Visible = False
         '
         'flxDATA
         '
@@ -779,7 +780,7 @@ Partial Class FrmG0010
     Friend WithEvents cmbJIZEN_SINSA_HANTEI_KB As ComboboxEx
     Friend WithEvents Label8 As Label
     Friend WithEvents cmbTANTO As ComboboxEx
-    Friend WithEvents cmbBUHIN_NO As ComboboxEx
+    Friend WithEvents cmbBUHIN_BANGO As ComboboxEx
     Friend WithEvents Label11 As Label
     Friend WithEvents cmbSAISIN_IINKAI_HANTEI_KB As ComboboxEx
     Friend WithEvents cmbKISYU As ComboboxEx

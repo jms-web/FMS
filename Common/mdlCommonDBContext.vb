@@ -128,6 +128,11 @@ Public Module mdlDBContext
     ''' </summary>
     Public tblKISYU As DataTableEx
 
+    ''' <summary>
+    ''' 部品番号
+    ''' </summary>
+    Public tblBUHIN As DataTableEx
+
 #End Region
 
 
@@ -163,6 +168,12 @@ Public Module mdlDBContext
     ''' 不適合状態区分
     ''' </summary>
     Public tblFUTEKIGO_STATUS_KB As DataTableEx
+
+
+    ''' <summary>
+    ''' 承認担当
+    ''' </summary>
+    Public tblTANTO_SYONIN As DataTableEx
 
 #End Region
 
@@ -351,6 +362,7 @@ Public Module mdlDBContext
 #End Region
 
 #Region "データテーブル取得"
+
     ''' <summary>
     ''' コンボボックス等で使用するコードテーブルを取得する
     ''' </summary>
@@ -378,7 +390,7 @@ Public Module mdlDBContext
                     If blnIncludeDeleted = False Then
                         sbSQL.Append(" AND DEL_FLG='0'")
                     End If
-                    sbSQL.Append(" ORDER BY SYONIN_HOKOKUSYO_ID, SYONIN_JUN")
+                    sbSQL.Append(" ORDER BY SYONIN_JUN")
 
                     dt.PrimaryKey = {dt.Columns("VALUE")}
 
@@ -396,7 +408,6 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
-
 #Region "               CAR"
                 Case "CAR"
                     sbSQL.Append("SELECT * FROM " & NameOf(VWM014_SYONIN_ROUT) & " ")
@@ -425,7 +436,6 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
-
 #Region "               担当"
                 Case "担当"
 
@@ -464,7 +474,40 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+#Region "               承認担当"
+                Case "承認担当"
 
+                    sbSQL.Append("SELECT * FROM " & "V001_SYONIN_TANTO" & " ")
+                    If strWhere <> "" Then
+                        sbSQL.Append("WHERE " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+                    sbSQL.Append(" ORDER BY SYONIN_HOKOKUSYO_ID,SYONIN_JUN,SYAIN_ID")
+
+                    dt.Columns.Add("SYONIN_HOKOKUSYO_ID", GetType(Integer))
+                    dt.Columns.Add("SYONIN_JUN", GetType(Integer))
+
+                    '主キー設定
+                    dt.PrimaryKey = {dt.Columns("SYONIN_HOKOKUSYO_ID"), dt.Columns("SYONIN_JUN"), dt.Columns("VALUE")}
+
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            '
+                            Trow("DISP") = .Rows(intCNT).Item("SIMEI")
+                            Trow("VALUE") = .Rows(intCNT).Item("SYAIN_ID")
+                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
+                            Trow("SYONIN_JUN") = .Rows(intCNT).Item("SYONIN_JUN")
+                            
+                            dt.Rows.Add(Trow)
+                        Next intCNT
+                    End With
+#End Region
 #Region "               機種"
                 Case "機種"
                     sbSQL.Append("SELECT * FROM " & NameOf(VWM105_KISYU) & " ")
@@ -494,41 +537,39 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+#Region "               部品番号"
+                Case "部品番号"
+                    '検索
+                    sbSQL.Append("SELECT DISTINCT BUHIN_BANGO,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
+                    If strWhere <> "" Then
+                        sbSQL.Append("WHERE " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+                    sbSQL.Append(" ORDER BY BUHIN_BANGO")
 
-#Region "               C"
-                    'Case "担当"
-                    '    '検索
-                    '    sbSQL.Append("SELECT * FROM " & NameOf(VWM03_TANTO) & " ")
-                    '    If strWhere <> "" Then
-                    '        sbSQL.Append("WHERE " & strWhere & "")
-                    '    End If
-                    '    If blnIncludeDeleted = False Then
-                    '        sbSQL.Append(" AND DEL_FLG='0'")
-                    '    End If
-                    '    sbSQL.Append(" ORDER BY SYOKUBAN")
+                    '主キー設定
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
 
-                    '    '主キー設定
-                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    'dt.Columns.Add("BUMON_KB", GetType(String))
+                    'dt.Columns.Add("TOKUI_ID", GetType(Integer))
 
-                    '    dt.Columns.Add("SYOKUBAN", GetType(String))
-                    '    dt.Columns.Add("TANTO_NAME", GetType(String))
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
 
-                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
-
-                    '    With dsList.Tables(0)
-                    '        For intCNT = 0 To .Rows.Count - 1
-                    '            Dim Trow As DataRow = dt.NewRow()
-                    '            '
-                    '            Trow("DISP") = .Rows(intCNT).Item("TANTO_NAME")
-                    '            Trow("VALUE") = .Rows(intCNT).Item("TANTO_CD")
-                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                    '            Trow("SYOKUBAN") = .Rows(intCNT).Item("SYOKUBAN")
-                    '            Trow("TANTO_NAME") = .Rows(intCNT).Item("TANTO_NAME")
-                    '            dt.Rows.Add(Trow)
-                    '        Next intCNT
-                    '    End With
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            '
+                            Trow("DISP") = .Rows(intCNT).Item("BUHIN_BANGO")
+                            Trow("VALUE") = .Rows(intCNT).Item("BUHIN_BANGO")
+                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            'Trow("BUMON_KB") = .Rows(intCNT).Item("BUMON_KB")
+                            'Trow("TOKUI_ID") = .Rows(intCNT).Item("TOKUI_ID")
+                            dt.Rows.Add(Trow)
+                        Next intCNT
+                    End With
 #End Region
-
 #Region "               D"
                     'Case "担当"
                     '    '検索
@@ -562,7 +603,6 @@ Public Module mdlDBContext
                     '        Next intCNT
                     '    End With
 #End Region
-
 #Region "               E"
                     'Case "担当"
                     '    '検索
@@ -596,7 +636,6 @@ Public Module mdlDBContext
                     '        Next intCNT
                     '    End With
 #End Region
-
 #Region "               temp"
                     'Case "取引先略名"
                     '    '検索
@@ -921,7 +960,6 @@ Public Module mdlDBContext
                     '    dt.Rows.Add(Trow1)
 
 #End Region
-
 #Region "               項目名"
                 Case "項目名"
                     '検索
@@ -954,7 +992,6 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
-
 #Region "               Else"
                 Case Else
 

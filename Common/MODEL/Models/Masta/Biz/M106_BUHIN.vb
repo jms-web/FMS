@@ -28,6 +28,13 @@ Partial Public Class M106_BUHIN
     <ComponentModel.DisplayName("部品番号")>
     Public Property BUHIN_BANGO As String
 
+
+    <Required>
+    <Column(TypeName:="varchar")>
+    <StringLength(10)>
+    <ComponentModel.DisplayName("社内コード")>
+    Public Property SYANAI_CD As String
+
     <Required>
     <Column(TypeName:="varchar")>
     <StringLength(80)>
@@ -39,12 +46,6 @@ Partial Public Class M106_BUHIN
     <StringLength(2)>
     <ComponentModel.DisplayName("契約区分")>
     Public Property KEIYAKU_KB As String
-
-    <Column(TypeName:="varchar")>
-    <Required>
-    <StringLength(100)>
-    <ComponentModel.DisplayName("機種")>
-    Public Property KISYU As String
 
     <Column(TypeName:="varchar")>
     <Required>

@@ -151,32 +151,32 @@ Module mdlClickOnce
 
 
             '-----TEMPLATE
-            ''フォルダ作成
-            'System.IO.Directory.CreateDirectory(CON_ROOTDIR & "\TEMPLATE")
+            'フォルダ作成
+            System.IO.Directory.CreateDirectory(CON_ROOTDIR & "\TEMPLATE")
 
-            ''ファイル一覧作成
-            'files = System.IO.Directory.GetFiles(".\TEMPLATE", "*", IO.SearchOption.TopDirectoryOnly)
+            'ファイル一覧作成
+            files = System.IO.Directory.GetFiles(".\TEMPLATE", "*", IO.SearchOption.TopDirectoryOnly)
 
-            ''ファイルコピー
-            'For intCNT = 0 To files.Length - 1
-            '    'ファイル名(フルパス)取得
-            '    strBUFF = System.IO.Path.GetFileName(files(intCNT))
+            'ファイルコピー
+            For intCNT = 0 To files.Length - 1
+                'ファイル名(フルパス)取得
+                strBUFF = System.IO.Path.GetFileName(files(intCNT))
 
-            '    '同名ファイル無し時
-            '    If System.IO.File.Exists(CON_ROOTDIR & "\TEMPLATE\" & strBUFF) = False Then
-            '        'コピー
-            '        System.IO.File.Copy(".\TEMPLATE\" & strBUFF, CON_ROOTDIR & "\TEMPLATE\" & strBUFF)
+                '同名ファイル無し時
+                If System.IO.File.Exists(CON_ROOTDIR & "\TEMPLATE\" & strBUFF) = False Then
+                    'コピー
+                    System.IO.File.Copy(".\TEMPLATE\" & strBUFF, CON_ROOTDIR & "\TEMPLATE\" & strBUFF)
 
-            '        'ElseIf strBUFF.ToUpper = "HANYO.INI" Then
+                    'ElseIf strBUFF.ToUpper = "HANYO.INI" Then
 
-            '        '日時が古すぎ時
-            '    ElseIf System.IO.File.GetLastWriteTime(CON_ROOTDIR & "\TEMPLATE\" & strBUFF) < System.IO.File.GetLastWriteTime(".\TEMPLATE\" & strBUFF) Then
-            '        '旧ファイル削除
-            '        System.IO.File.Delete(CON_ROOTDIR & "\TEMPLATE\" & strBUFF)
-            '        'コピー
-            '        System.IO.File.Copy(".\TEMPLATE\" & strBUFF, CON_ROOTDIR & "\TEMPLATE\" & strBUFF)
-            '    End If
-            'Next
+                    '日時が古すぎ時
+                ElseIf System.IO.File.GetLastWriteTime(CON_ROOTDIR & "\TEMPLATE\" & strBUFF) < System.IO.File.GetLastWriteTime(".\TEMPLATE\" & strBUFF) Then
+                    '旧ファイル削除
+                    System.IO.File.Delete(CON_ROOTDIR & "\TEMPLATE\" & strBUFF)
+                    'コピー
+                    System.IO.File.Copy(".\TEMPLATE\" & strBUFF, CON_ROOTDIR & "\TEMPLATE\" & strBUFF)
+                End If
+            Next
 
 
             ''-----フォントインストールVBS起動
