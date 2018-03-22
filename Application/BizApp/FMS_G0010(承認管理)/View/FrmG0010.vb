@@ -3,6 +3,9 @@ Imports C1.Win.C1FlexGrid
 
 Public Class FrmG0010
 
+    Public Property PrDt As DataTable
+
+
 #Region "コンストラクタ"
 
     ''' <summary>
@@ -100,6 +103,10 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
                 .Columns.Add(NameOf(_Model.CLOSE_FLG), "Closed")
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).Visible = False
+
+                .Columns.Add(NameOf(_Model.SYONIN_JUN), "承認順")
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).Visible = False
 
@@ -413,13 +420,13 @@ Public Class FrmG0010
                 Case 2  '追加
 
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
-                        'Call FunSRCH(dgvDATA, FunGetListData())
+                        Call FunSRCH(dgvDATA, FunGetListData())
                     End If
 
                 Case 4  '変更
 
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) = True Then
-                        'Call FunSRCH(dgvDATA, FunGetListData())
+                        Call FunSRCH(dgvDATA, FunGetListData())
                     End If
                 Case 5, 6  '削除/復元/完全削除
 
@@ -481,7 +488,7 @@ Public Class FrmG0010
             Dim sbParam As New System.Text.StringBuilder
 
 
-            sbParam.Append("'','',0,'','','','',''")
+            sbParam.Append("'','',0,'','','','" & intREGISTERED_STAGE & "',''")
 
             If chkClosedRowVisibled.Checked Then
             Else
@@ -515,7 +522,7 @@ Public Class FrmG0010
             sbSQL.Append(" *")
             sbSQL.Append(" FROM " & NameOf(MODEL.TV01_FUTEKIGO_ICHIRAN) & "(" & sbParam.ToString & ")")
             sbSQL.Append(" " & sbSQLWHERE.ToString)
-            'sbSQL.Append(" ORDER BY KOMO_NM, DISP_ORDER ")
+            sbSQL.Append(" ORDER BY HOKOKUSYO_NO ")
             Using DBa As ClsDbUtility = DBOpen()
                 dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
@@ -598,7 +605,7 @@ Public Class FrmG0010
             If dgv.RowCount > 0 Then
                 intCURROW = dgv.CurrentRow.Index
             End If
-
+            PrDt = dt
             dgv.DataSource = dt
 
             Call FunSetDgvCellFormat(dgv)
@@ -667,27 +674,38 @@ Public Class FrmG0010
     ''' <returns></returns>
     Private Function FunUpdateEntity(ByVal intMODE As ENM_DATA_OPERATION_MODE) As Boolean
         Dim frmDLG As New FrmG0011
+        Dim frmCAR As New FrmG0012
         Dim dlgRET As DialogResult
 
         Try
+            If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE And dgvDATA.CurrentRow.Cells(5).Value = "CAR" Then
+                dlgRET = frmCAR.ShowDialog(Me)
 
-            frmDLG.PrMODE = intMODE
-            If dgvDATA.CurrentRow IsNot Nothing Then
-                frmDLG.PrdgvCellCollection = dgvDATA.CurrentRow.Cells
-                frmDLG.PrDataRow = dgvDATA.GetDataRow()
+                If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                    Return False
+                Else
+
+                End If
             Else
-                frmDLG.PrdgvCellCollection = Nothing
-                frmDLG.PrDataRow = Nothing
-            End If
-            frmDLG.PrDt = dgvDATA.DataSource
-            dlgRET = frmDLG.ShowDialog(Me)
+                frmDLG.PrMODE = intMODE
+                If dgvDATA.CurrentRow IsNot Nothing Then
+                    frmDLG.PrdgvCellCollection = dgvDATA.CurrentRow.Cells
+                    frmDLG.PrDataRow = dgvDATA.GetDataRow()
+                Else
+                    frmDLG.PrdgvCellCollection = Nothing
+                    frmDLG.PrDataRow = Nothing
+                End If
+                frmDLG.PrDt = Me.PrDt
+                dlgRET = frmDLG.ShowDialog(Me)
 
-            If dlgRET = Windows.Forms.DialogResult.Cancel Then
-                Return False
-            Else
-                dgvDATA.DataSource = frmDLG.PrDt
-
+                If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                    Return False
+                Else
+                    dgvDATA.DataSource = frmDLG.PrDt
+                End If
             End If
+
+
 
             Return True
         Catch ex As Exception

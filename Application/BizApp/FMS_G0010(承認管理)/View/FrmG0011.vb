@@ -143,6 +143,13 @@ Public Class FrmG0011
                     Call FunInitializeSTAGE(PrDataRow.Item("SYONIN_JUN"))
                     mtxHOKUKO_NO.Enabled = False
 
+                    For Each page As TabPage In TabSTAGE.TabPages
+                        If page.text = "現ステージ" Then
+                            TabSTAGE.SelectedIndex = page.TabIndex
+                            Exit For
+                        End If
+                    Next page
+
                 Case Else
                     Throw New ArgumentException(My.Resources.ErrMsgException, intMODE.ToString)
             End Select
@@ -215,18 +222,48 @@ Public Class FrmG0011
 
             For Each page As TabPage In TabSTAGE.TabPages
                 If page.Name <> "tabAttachment" Then
-                    If page.Name = "tabSTAGE" & intSTAGE.ToString("00") Then
+                    If Val(page.Name.Substring(8)) = intSTAGE Then
                         page.Text = "現ステージ" 'pub_SYAIN_INFO.SYAIN_NAME
-                    Else
+                    ElseIf Val(page.Name.Substring(8)) > intSTAGE Then
                         _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
+                    Else
+                        '各ステージの担当者
+                        'page.Text = ""
                     End If
                 End If
             Next page
 
+            'mtxST01_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._10_起草入力)
+            'mtxST02_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._20_起草確認製造GL)
+            'mtxST03_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._30_起草確認検査)
+            'mtxST04_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定)
+            'mtxST05_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._50_事前審査確認)
+            'mtxST06_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._61_再審審査判定_品証代表)
+            'mtxST07_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._70_顧客再審処置_I_tag)
+            'mtxST08_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._83_処置実施_検査)
+            'mtxST09_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._90_処置実施確認_管理T)
+            'mtxST10_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._100_処置実施決裁_製造課長)
+            'mtxST11_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._110_abcde処置担当)
+
+            'DEBUG:
+            Dim strTabNameList As New List(Of String)
+            strTabNameList.Add("日比野 敏久")
+            strTabNameList.Add("杉山 茂巨")
+            strTabNameList.Add("横山 隆広")
+            strTabNameList.Add("半田功")
+            strTabNameList.Add("今井秀秋")
+            strTabNameList.Add("半田功")
+            strTabNameList.Add("中澤康嗣")
+            strTabNameList.Add("日比野敏久")
+            strTabNameList.Add("林 欣吾")
+            strTabNameList.Add("日當瀬政彦")
+            strTabNameList.Add("横山 隆広")
+            strTabNameList.Add("杉山 茂巨")
+
             '処理済みステージ情報の取得
             For i As Integer = 1 To intSTAGE - 1
                 TabSTAGE.Controls("tabSTAGE" & i.ToString("00")).Visible = True
-                TabSTAGE.Controls("tabSTAGE" & i.ToString("00")).Text = ""
+                TabSTAGE.Controls("tabSTAGE" & i.ToString("00")).Text = strTabNameList(i - 1)
             Next i
 
             Return True
@@ -374,13 +411,18 @@ Public Class FrmG0011
                 Case 1  '保存
                     If FunINS() = True Then
                         MessageBox.Show("保存しました", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        intREGISTERED_STAGE += 1
+                        Me.DialogResult = DialogResult.OK
                         Me.Close()
                     End If
                 Case 2  '承認申請
                     If MessageBox.Show("申請しますか？", "申請登録", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
-                        If FunUPD() = True Then
-                            MessageBox.Show("申請しました", "申請登録", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        End If
+                        'If FunUPD() = True Then
+                        intREGISTERED_STAGE += 1
+                        MessageBox.Show("申請しました", "申請登録", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Me.DialogResult = DialogResult.OK
+                        Me.Close()
+                        'End If
                     End If
 
                 Case 4  '転送
@@ -390,8 +432,8 @@ Public Class FrmG0011
                 Case 6  'レポート印刷
                     MessageBox.Show("未実装", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Case 10  'CAR編集
-                    MessageBox.Show("未実装", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+                    Call OpenFormCAR()
                     'Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
                     'Call FunCSV_OUT(Me.dgvDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
@@ -420,159 +462,6 @@ Public Class FrmG0011
 
 #End Region
 
-#Region "検索"
-
-    Private Function FunGetListData() As DataTable
-        Try
-            Dim sbSQL As New System.Text.StringBuilder
-            Dim dsList As New DataSet
-            Dim sbSQLWHERE As New System.Text.StringBuilder
-
-            ''----DBデータ取得
-            'sbSQLWHERE.Remove(0, sbSQLWHERE.Length)
-            'If Me.cmbKOMO_NM.SelectedValue <> "" Then
-            '    sbSQLWHERE.Append(" WHERE KOMO_NM ='" & Me.cmbKOMO_NM.SelectedValue & "' ")
-            'Else
-            '    If cmbKOMO_NM.Text.ToString.IsNullOrWhiteSpace = False Then
-            '        sbSQLWHERE.Append("  WHERE KOMO_NM  LIKE '%" & Me.cmbKOMO_NM.Text.Trim & "%' ")
-            '    End If
-            'End If
-
-            'If Me.chkDeletedRowVisibled.Checked = False Then
-            '    If sbSQLWHERE.Length = 0 Then
-            '        sbSQLWHERE.Append(" WHERE DEL_FLG <> 1 ")
-            '    Else
-            '        sbSQLWHERE.Append(" AND DEL_FLG <> 1 ")
-            '    End If
-            '    'dgvDATA.Columns("DEL_FLG").Visible = False
-            'Else
-            '    'dgvDATA.Columns("DEL_FLG").Visible = True
-            'End If
-
-            '------DataTableに変換
-            Dim dt As New DataTable
-
-            Dim t As Type = GetType(MODEL.M001_SETTING)
-            Dim properties As Reflection.PropertyInfo() = t.GetProperties(
-                 Reflection.BindingFlags.Public Or
-                 Reflection.BindingFlags.NonPublic Or
-                 Reflection.BindingFlags.Instance Or
-                 Reflection.BindingFlags.Static)
-
-            For Each p As Reflection.PropertyInfo In properties
-                'If IsAutoGenerateField(t, p.Name) = True Then
-                dt.Columns.Add(p.Name, p.PropertyType)
-                'End If
-            Next p
-
-            With dsList.Tables(0)
-                For Each row As DataRow In .Rows
-                    Dim Trow As DataRow = dt.NewRow()
-                    For Each p As Reflection.PropertyInfo In properties
-                        'If IsAutoGenerateField(t, p.Name) = True Then
-                        Select Case p.PropertyType
-                            Case GetType(Integer)
-                                Trow(p.Name) = Val(row.Item(p.Name))
-                            Case GetType(Decimal)
-                                Trow(p.Name) = CDec(row.Item(p.Name))
-                            Case GetType(Boolean)
-                                Trow(p.Name) = CBool(row.Item(p.Name))
-                            Case Else
-                                Trow(p.Name) = row.Item(p.Name)
-                        End Select
-                        'End If
-                    Next p
-                    dt.Rows.Add(Trow)
-                Next row
-                dt.AcceptChanges()
-            End With
-
-            Return dt
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return Nothing
-        End Try
-    End Function
-
-    Private Function FunSRCH(ByVal dgv As DataGridView, ByVal dt As DataTable) As Boolean
-        Dim intCURROW As Integer
-        Try
-
-            'EntityFramework6版
-            'Dim _model As Model.VWM01_CODE
-            'DB.Database.Log = Sub(s)
-            '                      Debug.WriteLine(s)
-            '                  End Sub
-
-            'Dim query As IQueryable(Of Model.VWM01_CODE) = DB.VWM01_CODE.AsNoTracking
-            'If Me.cmbKOMO_NM.SelectedValue <> "" Then
-            '    query = query.Where(Function(e) e.KOMO_NM = Me.cmbKOMO_NM.SelectedValue.ToString)
-            'Else
-            '    If Me.cmbKOMO_NM.Text.Trim <> "" Then
-            '        query = query.Where(Function(e) e.KOMO_NM.Contains(Me.cmbKOMO_NM.Text.Trim))
-            '    End If
-            'End If
-            'If Me.chkDeletedRowVisibled.Checked = False Then
-            '    query = query.Where(Function(e) e.DEL_YMDHNS.Trim = "")
-            '    dgv.Columns(NameOf(_model.DEL_FLG)).Visible = False
-            'Else
-            '    dgv.Columns(NameOf(_model.DEL_FLG)).Visible = True
-            'End If
-            'dgv.DataSource = query.ToList
-
-
-            '-----選択行記憶
-            If dgv.RowCount > 0 Then
-                intCURROW = dgv.CurrentRow.Index
-            End If
-
-            dgv.DataSource = dt
-
-
-
-            Call FunSetDgvCellFormat(dgv)
-
-            If dgv.RowCount > 0 Then
-                '-----選択行設定
-                Try
-                    dgv.CurrentCell = dgv.Rows(intCURROW).Cells(0)
-                Catch dgvEx As Exception
-                End Try
-                Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, dgv.RowCount.ToString)
-            Else
-                Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
-            End If
-
-            Return True
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        Finally
-
-            '-----一覧可視
-            dgv.Visible = True
-        End Try
-    End Function
-
-    Private Function FunSetDgvCellFormat(ByVal dgv As DataGridView) As Boolean
-
-        Try
-            Dim _Model As New MODEL.M001_SETTING
-            For i As Integer = 0 To dgv.Rows.Count - 1
-                With dgv.Rows(i)
-                    'If CBool(Me.dgvDATA.Rows(i).Cells(NameOf(_Model.DEL_FLG)).Value) = True Then
-                    '    Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
-                    '    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
-                    '    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
-                    'End If
-                End With
-            Next i
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-        End Try
-    End Function
-
-#End Region
 
 #Region "追加"
     Private Function FunINS() As Boolean
@@ -587,42 +476,42 @@ Public Class FrmG0011
             End If
 
             '存在チェック
-            If PrDt.AsEnumerable.Where(Function(r) r.Field(Of Integer)("HOKOKUSYO_NO") = 18011).ToList.Count = 0 Then
-                Dim dr As DataRow = PrDt.NewRow
-                Dim intNextHOKOKUSYO_NO As Integer
-                Using DB As ClsDbUtility = DBOpen()
-                    intNextHOKOKUSYO_NO = FunGetCodeMastaValue(DB, "報告書NO管理", "1")
-                End Using
+            'If PrDt.AsEnumerable.Where(Function(r) r.Field(Of Integer)("HOKOKUSYO_NO") = 18011).ToList.Count = 0 Then
+            '    Dim dr As DataRow = PrDt.NewRow
+            '    Dim intNextHOKOKUSYO_NO As Integer
+            '    Using DB As ClsDbUtility = DBOpen()
+            '        intNextHOKOKUSYO_NO = FunGetCodeMastaValue(DB, "報告書NO管理", "1")
+            '    End Using
 
-                'dr("HOKOKUSYO_NO") = intNextHOKOKUSYO_NO
-                'dr("CLOSE_FLG") = "0"
-                'dr("SYONIN_JUN") = 10
-                'dr("SYONIN_NAIYO") = mtxST01_NextStageName.Text.Split(" ")(1)
-                'dr("SYONIN_HOKOKUSYO_ID") = "1"
-                'dr("SYONIN_HOKOKUSYO_NAME") = "不適合製品処置報告書"
-                'dr("SYONIN_HOKOKUSYO_R_NAME") = "NCR"
-                'dr("SYOCHI_SYAIN_ID") = pub_SYAIN_INFO.SYAIN_ID
-                'dr("SYOCHI_SYAIN_NAME") = pub_SYAIN_INFO.SYAIN_NAME
-                'dr("TAIRYU") = 0
-                'dr("KISYU_ID") = ""
-                'dr("KISYU") = ""
-                'dr("KISYU_NAME") = ""
-                'dr("BUHIN_BANGO") = ""
-                'dr("BUHIN_NAME") = ""
-                'dr("JIZEN_SINSA_HANTEI_KB") = ""
-                'dr("JIZEN_SINSA_HANTEI_KB_DISP") = ""
-                'dr("SAISIN_IINKAI_HANTEI_KB") = ""
-                'dr("SAISIN_IINKAI_HANTEI_KB_DISP") = ""
-                'dr("ADD_YMD") = dtDraft.ValueDate.ToString("yyyyMMdd")
-                'dr("SYOCHI_YMD") = " "
-                'dr("MODOSI_SYONIN_JUN") = 0
-                'dr("MODOSI_SYONIN_NAIYO") = ""
-                'dr("MODOSI_RIYU") = ""
-                'dr("MODOSI_TAIRYU") = 6
-                'PrDt.Rows.Add(dr)
-            Else
+            '    'dr("HOKOKUSYO_NO") = intNextHOKOKUSYO_NO
+            '    'dr("CLOSE_FLG") = "0"
+            '    'dr("SYONIN_JUN") = 10
+            '    'dr("SYONIN_NAIYO") = mtxST01_NextStageName.Text.Split(" ")(1)
+            '    'dr("SYONIN_HOKOKUSYO_ID") = "1"
+            '    'dr("SYONIN_HOKOKUSYO_NAME") = "不適合製品処置報告書"
+            '    'dr("SYONIN_HOKOKUSYO_R_NAME") = "NCR"
+            '    'dr("SYOCHI_SYAIN_ID") = pub_SYAIN_INFO.SYAIN_ID
+            '    'dr("SYOCHI_SYAIN_NAME") = pub_SYAIN_INFO.SYAIN_NAME
+            '    'dr("TAIRYU") = 0
+            '    'dr("KISYU_ID") = ""
+            '    'dr("KISYU") = ""
+            '    'dr("KISYU_NAME") = ""
+            '    'dr("BUHIN_BANGO") = ""
+            '    'dr("BUHIN_NAME") = ""
+            '    'dr("JIZEN_SINSA_HANTEI_KB") = ""
+            '    'dr("JIZEN_SINSA_HANTEI_KB_DISP") = ""
+            '    'dr("SAISIN_IINKAI_HANTEI_KB") = ""
+            '    'dr("SAISIN_IINKAI_HANTEI_KB_DISP") = ""
+            '    'dr("ADD_YMD") = dtDraft.ValueDate.ToString("yyyyMMdd")
+            '    'dr("SYOCHI_YMD") = " "
+            '    'dr("MODOSI_SYONIN_JUN") = 0
+            '    'dr("MODOSI_SYONIN_NAIYO") = ""
+            '    'dr("MODOSI_RIYU") = ""
+            '    'dr("MODOSI_TAIRYU") = 6
+            '    'PrDt.Rows.Add(dr)
+            'Else
 
-            End If
+            'End If
 
             'Using DB As ClsDbUtility = DBOpen()
             '    Dim intRET As Integer
@@ -706,6 +595,9 @@ Public Class FrmG0011
         Dim dsList As New System.Data.DataSet
 
         Try
+
+
+
             '入力チェック
             If FunCheckInput() = False Then
                 Return False
@@ -731,8 +623,6 @@ Public Class FrmG0011
                     '    MessageBox.Show(String.Format(My.Resources.infoSearchDataChange), My.Resources.infoTilteDuplicateCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     '    Return False
                     'End If
-
-
 
                     '-----UPDATE(表示順以外)
                     'sbSQL.Remove(0, sbSQL.Length)
@@ -768,6 +658,38 @@ Public Class FrmG0011
             dsList.Dispose()
         End Try
     End Function
+#End Region
+
+#Region "CAR"
+    Private Function OpenFormCAR() As Boolean
+        Dim frmDLG As New FrmG0012
+        Dim dlgRET As DialogResult
+        Dim PKeys As String
+
+        Try
+
+
+            dlgRET = frmDLG.ShowDialog(Me)
+
+
+            If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                Return False
+            Else
+                '追加選択行選択
+            End If
+
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            If frmDLG IsNot Nothing Then
+                frmDLG.Dispose()
+            End If
+        End Try
+    End Function
+
 #End Region
 
 #Region "入力チェック"
@@ -913,7 +835,7 @@ Public Class FrmG0011
         Try
 
             Dim drList As List(Of DataRow) = tblNCR.AsEnumerable().
-                                                Where(Function(r) r.Field(Of String)("VALUE") > intCurrentStageID.ToString).ToList
+                                                Where(Function(r) Val(r.Field(Of String)("VALUE")) > intCurrentStageID).ToList
             Dim strBUFF As String
             If drList.Count > 0 Then
                 strBUFF = drList(0).Item("DISP")
@@ -930,7 +852,7 @@ Public Class FrmG0011
         Try
 
             Dim drList As List(Of DataRow) = tblNCR.AsEnumerable().
-                                                Where(Function(r) r.Field(Of String)("VALUE") > intCurrentStageID).ToList
+                                                Where(Function(r) Val(r.Field(Of String)("VALUE")) > intCurrentStageID).ToList
             Dim intBUFF As Integer
             If drList.Count > 0 Then
                 intBUFF = Val(drList(0).Item("VALUE"))
@@ -981,8 +903,13 @@ Public Class FrmG0011
         For i As Integer = 1 To 12
             _tabPageManager.ChangeTabPageVisible(i, True)
         Next
-
         Dim dt As DataTable = tblTANTO_SYONIN.AsEnumerable.
+                                         Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_起草入力)).
+                                         CopyToDataTable
+        mtxST01_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._10_起草入力)
+        cmbST01_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+        dt = tblTANTO_SYONIN.AsEnumerable.
                                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_起草確認製造GL)).
                                          CopyToDataTable
         'mtxST02_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
@@ -1024,8 +951,40 @@ Public Class FrmG0011
         cmbST07_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
 
-    End Function
+        'DEBUG:
+        Dim strTabNameList As New List(Of String)
+        strTabNameList.Add("日比野 敏久") '23
+        strTabNameList.Add("杉山 茂巨") '31
+        strTabNameList.Add("横山 隆広") '21
+        strTabNameList.Add("半田功") '157
+        strTabNameList.Add("今井秀秋") '122
+        strTabNameList.Add("半田功") '157
+        strTabNameList.Add("中澤康嗣") '
+        strTabNameList.Add("日比野敏久") '
+        strTabNameList.Add("林 欣吾") '
+        strTabNameList.Add("日當瀬政彦") '
+        strTabNameList.Add("横山 隆広") '
+        strTabNameList.Add("杉山 茂巨") '
 
+        '処理済みステージ情報の取得
+        For i As Integer = 1 To 12
+            TabSTAGE.Controls("tabSTAGE" & i.ToString("00")).Visible = True
+            TabSTAGE.Controls("tabSTAGE" & i.ToString("00")).Text = strTabNameList(i - 1)
+        Next i
+
+        cmbST01_DestTANTO.Text = strTabNameList(0)
+        cmbST02_DestTANTO.Text = strTabNameList(1)
+        cmbST03_DestTANTO.Text = strTabNameList(2)
+        cmbST04_DestTANTO.Text = strTabNameList(3)
+        cmbST05_DestTANTO.Text = strTabNameList(4)
+        cmbST06_DestTANTO.Text = strTabNameList(5)
+        cmbST07_DestTANTO.Text = strTabNameList(6)
+        cmbST08_DestTANTO.Text = strTabNameList(7)
+        cmbST09_DestTANTO.Text = strTabNameList(8)
+        cmbST10_DestTANTO.Text = strTabNameList(9)
+        cmbST11_DestTANTO.Text = strTabNameList(10)
+
+    End Function
 
 #End Region
 

@@ -28,7 +28,6 @@ Partial Public Class TV01_FUTEKIGO_ICHIRAN
     <Key>
     <Column(Order:=2)>
     <ComponentModel.DisplayName("³”F‡")>
-    <Display(AutoGenerateField:=False)>
     Public Property SYONIN_JUN As Integer
 
     <Key>

@@ -11,10 +11,8 @@ Module mdlG0010
 
 
     'DEBUG:
-    Public ST01_REGISTERED As Boolean
-    Public ST02_REGISTERED As Boolean
-    Public ST03_REGISTERED As Boolean
-    Public ST04_REGISTERED As Boolean
+    Public intREGISTERED_STAGE As Integer
+
 
     ''' <summary>
     ''' NCRステージ

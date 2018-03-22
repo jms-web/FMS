@@ -2316,7 +2316,6 @@ Partial Class FrmG0012
         Me.btnOpenTempFileDialog.Size = New System.Drawing.Size(54, 24)
         Me.btnOpenTempFileDialog.TabIndex = 262
         Me.btnOpenTempFileDialog.UseVisualStyleBackColor = True
-        Me.btnOpenTempFileDialog.Visible = False
         '
         'btnOpenTempFile
         '
@@ -2328,7 +2327,6 @@ Partial Class FrmG0012
         Me.btnOpenTempFile.TabIndex = 261
         Me.btnOpenTempFile.Text = "ŠJ‚­"
         Me.btnOpenTempFile.UseVisualStyleBackColor = True
-        Me.btnOpenTempFile.Visible = False
         '
         'Label42
         '
@@ -2564,7 +2562,6 @@ Partial Class FrmG0012
         Me.Button6.Size = New System.Drawing.Size(54, 24)
         Me.Button6.TabIndex = 123
         Me.Button6.UseVisualStyleBackColor = True
-        Me.Button6.Visible = False
         '
         'Button7
         '
@@ -2576,7 +2573,6 @@ Partial Class FrmG0012
         Me.Button7.TabIndex = 122
         Me.Button7.Text = "ŠJ‚­"
         Me.Button7.UseVisualStyleBackColor = True
-        Me.Button7.Visible = False
         '
         'MaskedTextBoxEx10
         '
@@ -2612,7 +2608,6 @@ Partial Class FrmG0012
         Me.Button4.Size = New System.Drawing.Size(54, 24)
         Me.Button4.TabIndex = 119
         Me.Button4.UseVisualStyleBackColor = True
-        Me.Button4.Visible = False
         '
         'Button5
         '
@@ -2624,7 +2619,6 @@ Partial Class FrmG0012
         Me.Button5.TabIndex = 118
         Me.Button5.Text = "ŠJ‚­"
         Me.Button5.UseVisualStyleBackColor = True
-        Me.Button5.Visible = False
         '
         'mtxTempFilePath
         '
