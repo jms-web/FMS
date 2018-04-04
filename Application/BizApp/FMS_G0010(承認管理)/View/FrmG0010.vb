@@ -3,6 +3,9 @@ Imports C1.Win.C1FlexGrid
 
 Public Class FrmG0010
 
+    Public Property PrDt As DataTable
+
+
 #Region "コンストラクタ"
 
     ''' <summary>
@@ -42,14 +45,23 @@ Public Class FrmG0010
             '-----グリッド列作成
             Call FunSetDgvCulumns(dgvDATA)
 
-            '-----コントロールデータソース設定
-            cmbSTAGE_NCR.SetDataSource(tblNCR, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbSTAGE_CAR.SetDataSource(tblCAR, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            '-----コントロールソース設定
+            cmbSTAGE_NCR.SetDataSource(tblNCR.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbSTAGE_CAR.SetDataSource(tblCAR.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbTANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbJIZEN_SINSA_HANTEI_KB.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbSAISIN_IINKAI_HANTEI_KB.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-            cmbTANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            '既定値設定
+            cmbTANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+
+
             ''-----イベントハンドラ設定
-            'AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+            AddHandler Me.cmbTANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler Me.cmbBUHIN_BANGO.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler Me.chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
 
             '検索実行
@@ -91,6 +103,10 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
                 .Columns.Add(NameOf(_Model.CLOSE_FLG), "Closed")
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).Visible = False
+
+                .Columns.Add(NameOf(_Model.SYONIN_JUN), "承認順")
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).Visible = False
 
@@ -209,6 +225,8 @@ Public Class FrmG0010
     '行選択時イベント
     Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs)
         Try
+            Dim dgv As DataGridView = DirectCast(sender, DataGridView)
+
         Finally
             Call FunInitFuncButtonEnabled()
         End Try
@@ -404,11 +422,7 @@ Public Class FrmG0010
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
                         Call FunSRCH(dgvDATA, FunGetListData())
                     End If
-                Case 3  '参照追加
 
-                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._2_ADDREF) = True Then
-                        Call FunSRCH(dgvDATA, FunGetListData())
-                    End If
                 Case 4  '変更
 
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) = True Then
@@ -416,10 +430,10 @@ Public Class FrmG0010
                     End If
                 Case 5, 6  '削除/復元/完全削除
 
-                    Dim btn As Button = DirectCast(sender, Button)
-                    Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(btn.Tag, ENM_DATA_OPERATION_MODE)
-                    If FunDEL(ENM_MODE) = True Then
-                        Call FunSRCH(dgvDATA, FunGetListData())
+                    'Dim btn As Button = DirectCast(sender, Button)
+                    'Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(btn.Tag, ENM_DATA_OPERATION_MODE)
+                    If FunDEL() = True Then
+                        'Call FunSRCH(dgvDATA, FunGetListData())
                     End If
 
                 Case 7 '全選択
@@ -430,14 +444,16 @@ Public Class FrmG0010
 
                     Call FunUnSelectAll()
 
-                Case 9'メール送信
-
+                Case 9 'メール送信
+                    MessageBox.Show("未実装")
                 Case 10  '印刷
+                    Call OpenReport()
 
-                    Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
+                    'Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
                     'Call FunCSV_OUT(Me.dgvDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
                 Case 11 '履歴表示
+                    Call OpenFormRIREKI()
 
                 Case 12 '閉じる
                     Me.Close()
@@ -469,16 +485,44 @@ Public Class FrmG0010
             Dim sbSQL As New System.Text.StringBuilder
             Dim dsList As New DataSet
             Dim sbSQLWHERE As New System.Text.StringBuilder
+            Dim sbParam As New System.Text.StringBuilder
 
 
-            sbSQLWHERE.Remove(0, sbSQLWHERE.Length)
-            sbSQLWHERE.Append("'','',0,'','','','',''")
+            sbParam.Append("'','',0,'','','','" & intREGISTERED_STAGE & "',''")
+
+            If chkClosedRowVisibled.Checked Then
+            Else
+                If sbSQLWHERE.Length = 0 Then
+                    sbSQLWHERE.Append(" WHERE CLOSE_FLG = '0'")
+                Else
+                    sbSQLWHERE.Append(" AND CLOSE_FLG = '0'")
+                End If
+            End If
+
+            If cmbTANTO.SelectedValue <> "" Then
+                If sbSQLWHERE.Length = 0 Then
+                    sbSQLWHERE.Append(" WHERE SYOCHI_SYAIN_ID = " & cmbTANTO.SelectedValue)
+                Else
+                    sbSQLWHERE.Append(" AND SYOCHI_SYAIN_ID = " & cmbTANTO.SelectedValue)
+                End If
+            Else
+            End If
+
+            If cmbBUHIN_BANGO.SelectedValue <> "" Then
+                If sbSQLWHERE.Length = 0 Then
+                    sbSQLWHERE.Append(" WHERE BUHIN_BANGO = '" & cmbBUHIN_BANGO.SelectedValue & "'")
+                Else
+                    sbSQLWHERE.Append(" AND BUHIN_BANGO = '" & cmbBUHIN_BANGO.SelectedValue & "'")
+                End If
+            Else
+            End If
 
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append("SELECT")
             sbSQL.Append(" *")
-            sbSQL.Append(" FROM " & NameOf(MODEL.TV01_FUTEKIGO_ICHIRAN) & "(" & sbSQLWHERE.ToString & ")")
-            'sbSQL.Append(" ORDER BY KOMO_NM, DISP_ORDER ")
+            sbSQL.Append(" FROM " & NameOf(MODEL.TV01_FUTEKIGO_ICHIRAN) & "(" & sbParam.ToString & ")")
+            sbSQL.Append(" " & sbSQLWHERE.ToString)
+            sbSQL.Append(" ORDER BY HOKOKUSYO_NO ")
             Using DBa As ClsDbUtility = DBOpen()
                 dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
@@ -561,7 +605,7 @@ Public Class FrmG0010
             If dgv.RowCount > 0 Then
                 intCURROW = dgv.CurrentRow.Index
             End If
-
+            PrDt = dt
             dgv.DataSource = dt
 
             Call FunSetDgvCellFormat(dgv)
@@ -572,7 +616,7 @@ Public Class FrmG0010
                     dgv.CurrentCell = dgv.Rows(intCURROW).Cells(0)
                 Catch dgvEx As Exception
                 End Try
-                Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, dgv.Rows.Count - 1)
+                Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, dgv.Rows.Count)
             Else
                 Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
             End If
@@ -588,6 +632,7 @@ Public Class FrmG0010
     Private Function FunSetDgvCellFormat(ByVal dgv As DataGridView) As Boolean
 
         Try
+            'UNDONE: ステージ別の滞留警告日数を取得
             Dim intWarningNotification As Integer
             Using DB As ClsDbUtility = DBOpen()
                 intWarningNotification = FunGetCodeMastaValue(DB, "承認関連設定", "滞留警告日数")
@@ -629,27 +674,38 @@ Public Class FrmG0010
     ''' <returns></returns>
     Private Function FunUpdateEntity(ByVal intMODE As ENM_DATA_OPERATION_MODE) As Boolean
         Dim frmDLG As New FrmG0011
+        Dim frmCAR As New FrmG0012
         Dim dlgRET As DialogResult
-        Dim PKeys As String
 
         Try
+            If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE And dgvDATA.CurrentRow.Cells(5).Value = "CAR" Then
+                dlgRET = frmCAR.ShowDialog(Me)
 
-            frmDLG.PrMODE = intMODE
-            If Me.dgvDATA.CurrentRow IsNot Nothing Then
-                frmDLG.PrdgvCellCollection = Me.dgvDATA.CurrentRow.Cells
-                frmDLG.PrDataRow = Me.dgvDATA.GetDataRow()
-            Else
-                frmDLG.PrdgvCellCollection = Nothing
-                frmDLG.PrDataRow = Nothing
-            End If
-            dlgRET = frmDLG.ShowDialog(Me)
-            PKeys = frmDLG.PrPKeys
+                If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                    Return False
+                Else
 
-            If dlgRET = Windows.Forms.DialogResult.Cancel Then
-                Return False
+                End If
             Else
-                '追加選択行選択
+                frmDLG.PrMODE = intMODE
+                If dgvDATA.CurrentRow IsNot Nothing Then
+                    frmDLG.PrdgvCellCollection = dgvDATA.CurrentRow.Cells
+                    frmDLG.PrDataRow = dgvDATA.GetDataRow()
+                Else
+                    frmDLG.PrdgvCellCollection = Nothing
+                    frmDLG.PrDataRow = Nothing
+                End If
+                frmDLG.PrDt = Me.PrDt
+                dlgRET = frmDLG.ShowDialog(Me)
+
+                If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                    Return False
+                Else
+                    dgvDATA.DataSource = frmDLG.PrDt
+                End If
             End If
+
+
 
             Return True
         Catch ex As Exception
@@ -666,99 +722,100 @@ Public Class FrmG0010
 
 #Region "削除"
 
-    Private Function FunDEL(ByVal ENM_MODE As ENM_DATA_OPERATION_MODE) As Boolean
+    Private Function FunDEL() As Boolean
         Dim sbSQL As New System.Text.StringBuilder
         Dim strComboVal As String
         Dim strMsg As String
         Dim strTitle As String
 
         Try
+            MessageBox.Show("未実装")
 
-            'コンボボックスの選択値
-            strComboVal = Me.cmbSTAGE_NCR.Text.Trim
+            ''コンボボックスの選択値
+            'strComboVal = Me.cmbSTAGE_NCR.Text.Trim
 
-            '-----SQL
-            sbSQL.Remove(0, sbSQL.Length)
-            Select Case ENM_MODE
-                Case ENM_DATA_OPERATION_MODE._4_DISABLE
-                    '-----更新
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET ")
-                    '削除日時
-                    sbSQL.Append(" DEL_YMDHNS = dbo.GetSysDateString(), ")
-                    '削除担当者
-                    sbSQL.Append(" DEL_TANTO_CD = " & pub_SYAIN_INFO.SYAIN_ID & "")
+            ''-----SQL
+            'sbSQL.Remove(0, sbSQL.Length)
+            'Select Case ENM_MODE
+            '    Case ENM_DATA_OPERATION_MODE._4_DISABLE
+            '        '-----更新
+            '        sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET ")
+            '        '削除日時
+            '        sbSQL.Append(" DEL_YMDHNS = dbo.GetSysDateString(), ")
+            '        '削除担当者
+            '        sbSQL.Append(" DEL_TANTO_CD = " & pub_SYAIN_INFO.SYAIN_ID & "")
 
 
 
-                    strMsg = My.Resources.infoMsgDeleteOperationDisable
-                    strTitle = My.Resources.infoTitleDeleteOperationDisable
+            '        strMsg = My.Resources.infoMsgDeleteOperationDisable
+            '        strTitle = My.Resources.infoTitleDeleteOperationDisable
 
-                Case ENM_DATA_OPERATION_MODE._5_RESTORE
-                    '-----更新
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET ")
-                    '削除日時
-                    sbSQL.Append(" DEL_YMDHNS = ' ', ")
-                    '削除担当者
-                    sbSQL.Append(" DEL_TANTO_CD = " & pub_SYAIN_INFO.SYAIN_ID & "")
+            '    Case ENM_DATA_OPERATION_MODE._5_RESTORE
+            '        '-----更新
+            '        sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET ")
+            '        '削除日時
+            '        sbSQL.Append(" DEL_YMDHNS = ' ', ")
+            '        '削除担当者
+            '        sbSQL.Append(" DEL_TANTO_CD = " & pub_SYAIN_INFO.SYAIN_ID & "")
 
-                    strMsg = My.Resources.infoMsgDeleteOperationRestore
-                    strTitle = My.Resources.infoTitleDeleteOperationRestore
+            '        strMsg = My.Resources.infoMsgDeleteOperationRestore
+            '        strTitle = My.Resources.infoTitleDeleteOperationRestore
 
-                Case ENM_DATA_OPERATION_MODE._6_DELETE
+            '    Case ENM_DATA_OPERATION_MODE._6_DELETE
 
-                    '-----削除
-                    sbSQL.Append("DELETE FROM " & NameOf(MODEL.M001_SETTING) & " ")
+            '        '-----削除
+            '        sbSQL.Append("DELETE FROM " & NameOf(MODEL.M001_SETTING) & " ")
 
-                    strMsg = My.Resources.infoMsgDeleteOperationDelete
-                    strTitle = My.Resources.infoTitleDeleteOperationDelete
+            '        strMsg = My.Resources.infoMsgDeleteOperationDelete
+            '        strTitle = My.Resources.infoTitleDeleteOperationDelete
 
-                Case Else
-                    'UNDONE: argument null exception
-                    Return False
-            End Select
-            sbSQL.Append("WHERE")
-            'sbSQL.Append(" KOMO_NM = '" & Me.dgvDATA.CurrentRow.Cells.Item("KOMO_NM").Value.ToString & "' ")
-            'sbSQL.Append(" AND VALUE = '" & Me.dgvDATA.CurrentRow.Cells.Item("VALUE").Value.ToString & "' ")
+            '    Case Else
+            '        'UNDONE: argument null exception
+            '        Return False
+            'End Select
+            'sbSQL.Append("WHERE")
+            ''sbSQL.Append(" KOMO_NM = '" & Me.dgvDATA.CurrentRow.Cells.Item("KOMO_NM").Value.ToString & "' ")
+            ''sbSQL.Append(" AND VALUE = '" & Me.dgvDATA.CurrentRow.Cells.Item("VALUE").Value.ToString & "' ")
 
-            '確認メッセージ表示
-            If MessageBox.Show(strMsg, strTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> Windows.Forms.DialogResult.Yes Then
-                Me.DialogResult = Windows.Forms.DialogResult.Cancel
-                'Me.Close()
-                Return False
-            End If
+            ''確認メッセージ表示
+            'If MessageBox.Show(strMsg, strTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> Windows.Forms.DialogResult.Yes Then
+            '    Me.DialogResult = Windows.Forms.DialogResult.Cancel
+            '    'Me.Close()
+            '    Return False
+            'End If
 
-            Using DB As ClsDbUtility = DBOpen()
-                Dim blnErr As Boolean
-                Dim intRET As Integer
-                Dim sqlEx As Exception = Nothing
+            'Using DB As ClsDbUtility = DBOpen()
+            '    Dim blnErr As Boolean
+            '    Dim intRET As Integer
+            '    Dim sqlEx As Exception = Nothing
 
-                Try
-                    DB.BeginTransaction()
+            '    Try
+            '        DB.BeginTransaction()
 
-                    '-----SQL実行
-                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    If intRET <> 1 Then
-                        'エラーログ
-                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & "|" & sbSQL.ToString & "|" & sqlEx.Message
-                        WL.WriteLogDat(strErrMsg)
-                        blnErr = True
-                        Return False
-                    End If
-                Finally
-                    DB.Commit(Not blnErr)
-                End Try
+            '        '-----SQL実行
+            '        intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+            '        If intRET <> 1 Then
+            '            'エラーログ
+            '            Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & "|" & sbSQL.ToString & "|" & sqlEx.Message
+            '            WL.WriteLogDat(strErrMsg)
+            '            blnErr = True
+            '            Return False
+            '        End If
+            '    Finally
+            '        DB.Commit(Not blnErr)
+            '    End Try
 
-                '検索フィルタデータソース更新
-                Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
-            End Using
-            Me.cmbSTAGE_NCR.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
+            '    '検索フィルタデータソース更新
+            '    Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
+            'End Using
+            'Me.cmbSTAGE_NCR.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
 
-            If strComboVal <> "" Then
-                Me.cmbSTAGE_NCR.Text = strComboVal
-            End If
-            If Me.cmbSTAGE_NCR.SelectedIndex <= 0 Then
-                Me.cmbSTAGE_NCR.Text = ""
-            End If
+            'If strComboVal <> "" Then
+            '    Me.cmbSTAGE_NCR.Text = strComboVal
+            'End If
+            'If Me.cmbSTAGE_NCR.SelectedIndex <= 0 Then
+            '    Me.cmbSTAGE_NCR.Text = ""
+            'End If
 
             Return True
         Catch ex As Exception
@@ -798,7 +855,6 @@ Public Class FrmG0010
 
 #End Region
 
-
 #Region "全選択解除"
 
     Private Function FunUnSelectAll() As Boolean
@@ -828,7 +884,111 @@ Public Class FrmG0010
 
 #End Region
 
+#Region "レポート印刷"
+    Private Function OpenReport() As Boolean
+        Dim frmDLG As New FrmG0013
+        'Dim dlgRET As DialogResult
+        'Dim PKeys As String
 
+        Try
+
+            'If Me.dgvDATA.CurrentRow IsNot Nothing Then
+            '    frmDLG.PrdgvCellCollection = Me.dgvDATA.CurrentRow.Cells
+            '    frmDLG.PrDataRow = Me.dgvDATA.GetDataRow()
+            'Else
+            '    frmDLG.PrdgvCellCollection = Nothing
+            '    frmDLG.PrDataRow = Nothing
+            'End If
+            'dlgRET = frmDLG.ShowDialog(Me)
+            'PKeys = frmDLG.PrPKeys
+
+            'If dlgRET = Windows.Forms.DialogResult.Cancel Then
+            '    Return False
+            'Else
+            '    '追加選択行選択
+            'End If
+
+            Dim strFilePath As String = FunGetRootPath() & "\TEMPLATE\17065 T-4FC歪不良.pdf"
+
+            Dim hProcess As New System.Diagnostics.Process
+            If System.IO.File.Exists(strFilePath) = True Then
+                'hProcess = System.Diagnostics.Process.Start(strEXE, strARG)
+                hProcess.StartInfo.FileName = strFilePath
+                hProcess.SynchronizingObject = Me
+                hProcess.EnableRaisingEvents = True
+                hProcess.Start()
+
+            Else
+                Dim strMsg As String
+                strMsg = "下記ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
+                            vbCrLf & vbCrLf & strFilePath
+                MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            If frmDLG IsNot Nothing Then
+                frmDLG.Dispose()
+            End If
+        End Try
+    End Function
+#End Region
+
+#Region "履歴"
+    Private Function OpenFormRIREKI() As Boolean
+        Dim frmDLG As New FrmG0013
+        Dim dlgRET As DialogResult
+        Dim PKeys As String
+
+        Try
+
+            'If Me.dgvDATA.CurrentRow IsNot Nothing Then
+            '    frmDLG.PrdgvCellCollection = Me.dgvDATA.CurrentRow.Cells
+            '    frmDLG.PrDataRow = Me.dgvDATA.GetDataRow()
+            'Else
+            '    frmDLG.PrdgvCellCollection = Nothing
+            '    frmDLG.PrDataRow = Nothing
+            'End If
+            'dlgRET = frmDLG.ShowDialog(Me)
+            'PKeys = frmDLG.PrPKeys
+
+            'If dlgRET = Windows.Forms.DialogResult.Cancel Then
+            '    Return False
+            'Else
+            '    '追加選択行選択
+            'End If
+
+            Dim strFilePath As String = FunGetRootPath() & "\TEMPLATE\処置履歴.xlsx"
+
+            Dim hProcess As New System.Diagnostics.Process
+            If System.IO.File.Exists(strFilePath) = True Then
+                'hProcess = System.Diagnostics.Process.Start(strEXE, strARG)
+                hProcess.StartInfo.FileName = strFilePath
+                hProcess.SynchronizingObject = Me
+                hProcess.EnableRaisingEvents = True
+                hProcess.Start()
+
+            Else
+                Dim strMsg As String
+                strMsg = "下記ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
+                            vbCrLf & vbCrLf & strFilePath
+                MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            If frmDLG IsNot Nothing Then
+                frmDLG.Dispose()
+            End If
+        End Try
+    End Function
+#End Region
 
 #Region "FuncButton有効無効切替"
 
@@ -861,6 +1021,18 @@ Public Class FrmG0010
                 cmdFunc9.Enabled = True
                 cmdFunc10.Enabled = True
                 cmdFunc11.Enabled = True
+
+
+                '選択行がClosedの場合
+                If dgvDATA.CurrentRow.Cells.Item("CLOSE_FLG").Value = 1 Then
+                    cmdFunc4.Enabled = False
+                    cmdFunc5.Enabled = False
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "クローズ済のため変更出来ません")
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "クローズ済のため削除出来ません")
+                Else
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, My.Resources.infoToolTipMsgNotFoundData)
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
+                End If
 
                 'If dgvDATA.CurrentRow IsNot Nothing AndAlso dgvDATA.CurrentRow.Cells.Item("DEL_FLG").Value = True Then
                 '    '削除済データの場合
@@ -913,6 +1085,8 @@ Public Class FrmG0010
         Me.cmdFunc1.PerformClick()
 
     End Sub
+
+    '
 
 
 #End Region

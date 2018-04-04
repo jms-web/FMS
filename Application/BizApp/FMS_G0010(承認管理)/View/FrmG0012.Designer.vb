@@ -174,14 +174,14 @@ Partial Class FrmG0012
         Me.cmbST08_2_TANTO_KENSA = New JMS_COMMON.ComboboxEx()
         Me.Label75 = New System.Windows.Forms.Label()
         Me.tabSTAGE08_3 = New System.Windows.Forms.TabPage()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.mtxTempFilePath = New JMS_COMMON.MaskedTextBoxEx()
-        Me.Label48 = New System.Windows.Forms.Label()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
         Me.MaskedTextBoxEx10 = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label49 = New System.Windows.Forms.Label()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.mtxTempFilePath = New JMS_COMMON.MaskedTextBoxEx()
+        Me.Label48 = New System.Windows.Forms.Label()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
@@ -807,7 +807,6 @@ Partial Class FrmG0012
         Me.txtST01_YOKYU_NAIYO.Name = "txtST01_YOKYU_NAIYO"
         Me.txtST01_YOKYU_NAIYO.Size = New System.Drawing.Size(806, 207)
         Me.txtST01_YOKYU_NAIYO.TabIndex = 0
-        Me.txtST01_YOKYU_NAIYO.Text = "1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "5" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "6" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "7" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "8" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "9" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "0"
         Me.txtST01_YOKYU_NAIYO.WatermarkText = Nothing
         '
         'tabSTAGE02
@@ -1053,7 +1052,6 @@ Partial Class FrmG0012
         Me.TextBoxEx1.Name = "TextBoxEx1"
         Me.TextBoxEx1.Size = New System.Drawing.Size(806, 207)
         Me.TextBoxEx1.TabIndex = 218
-        Me.TextBoxEx1.Text = "1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "5" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "6" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "7" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "8" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "9" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "0"
         Me.TextBoxEx1.WatermarkText = Nothing
         '
         'lblST02_Modoshi_Riyu
@@ -1242,7 +1240,6 @@ Partial Class FrmG0012
         Me.TextBoxEx2.Name = "TextBoxEx2"
         Me.TextBoxEx2.Size = New System.Drawing.Size(806, 207)
         Me.TextBoxEx2.TabIndex = 220
-        Me.TextBoxEx2.Text = "1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "5" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "6" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "7" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "8" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "9" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "0"
         Me.TextBoxEx2.WatermarkText = Nothing
         '
         'lblST03_Modoshi_Riyu
@@ -1999,7 +1996,6 @@ Partial Class FrmG0012
         Me.txtST10_Comment.Name = "txtST10_Comment"
         Me.txtST10_Comment.Size = New System.Drawing.Size(1101, 58)
         Me.txtST10_Comment.TabIndex = 246
-        Me.txtST10_Comment.Text = "‚P" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "‚Q" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "‚R" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.txtST10_Comment.WatermarkText = Nothing
         '
         'Label100
@@ -2320,7 +2316,6 @@ Partial Class FrmG0012
         Me.btnOpenTempFileDialog.Size = New System.Drawing.Size(54, 24)
         Me.btnOpenTempFileDialog.TabIndex = 262
         Me.btnOpenTempFileDialog.UseVisualStyleBackColor = True
-        Me.btnOpenTempFileDialog.Visible = False
         '
         'btnOpenTempFile
         '
@@ -2332,7 +2327,6 @@ Partial Class FrmG0012
         Me.btnOpenTempFile.TabIndex = 261
         Me.btnOpenTempFile.Text = "ŠJ‚­"
         Me.btnOpenTempFile.UseVisualStyleBackColor = True
-        Me.btnOpenTempFile.Visible = False
         '
         'Label42
         '
@@ -2559,54 +2553,6 @@ Partial Class FrmG0012
         Me.tabSTAGE08_3.Text = "“Y•tŽ‘—¿"
         Me.tabSTAGE08_3.UseVisualStyleBackColor = True
         '
-        'Button4
-        '
-        Me.Button4.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button4.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.Button4.Location = New System.Drawing.Point(428, 8)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(54, 24)
-        Me.Button4.TabIndex = 119
-        Me.Button4.UseVisualStyleBackColor = True
-        Me.Button4.Visible = False
-        '
-        'Button5
-        '
-        Me.Button5.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Button5.Location = New System.Drawing.Point(488, 8)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(54, 24)
-        Me.Button5.TabIndex = 118
-        Me.Button5.Text = "ŠJ‚­"
-        Me.Button5.UseVisualStyleBackColor = True
-        Me.Button5.Visible = False
-        '
-        'mtxTempFilePath
-        '
-        Me.mtxTempFilePath.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxTempFilePath.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxTempFilePath.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxTempFilePath.InputRequired = False
-        Me.mtxTempFilePath.Location = New System.Drawing.Point(118, 8)
-        Me.mtxTempFilePath.Name = "mtxTempFilePath"
-        Me.mtxTempFilePath.Size = New System.Drawing.Size(304, 24)
-        Me.mtxTempFilePath.TabIndex = 117
-        Me.mtxTempFilePath.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxTempFilePath.WatermarkText = Nothing
-        '
-        'Label48
-        '
-        Me.Label48.AutoSize = True
-        Me.Label48.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label48.Location = New System.Drawing.Point(39, 13)
-        Me.Label48.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label48.Name = "Label48"
-        Me.Label48.Size = New System.Drawing.Size(68, 15)
-        Me.Label48.TabIndex = 116
-        Me.Label48.Text = "“Y•tŽ‘—¿1:"
-        Me.Label48.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'Button6
         '
         Me.Button6.Cursor = System.Windows.Forms.Cursors.Hand
@@ -2616,7 +2562,6 @@ Partial Class FrmG0012
         Me.Button6.Size = New System.Drawing.Size(54, 24)
         Me.Button6.TabIndex = 123
         Me.Button6.UseVisualStyleBackColor = True
-        Me.Button6.Visible = False
         '
         'Button7
         '
@@ -2628,7 +2573,6 @@ Partial Class FrmG0012
         Me.Button7.TabIndex = 122
         Me.Button7.Text = "ŠJ‚­"
         Me.Button7.UseVisualStyleBackColor = True
-        Me.Button7.Visible = False
         '
         'MaskedTextBoxEx10
         '
@@ -2654,6 +2598,52 @@ Partial Class FrmG0012
         Me.Label49.TabIndex = 120
         Me.Label49.Text = "“Y•tŽ‘—¿2:"
         Me.Label49.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Button4
+        '
+        Me.Button4.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button4.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
+        Me.Button4.Location = New System.Drawing.Point(428, 8)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(54, 24)
+        Me.Button4.TabIndex = 119
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'Button5
+        '
+        Me.Button5.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Button5.Location = New System.Drawing.Point(488, 8)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(54, 24)
+        Me.Button5.TabIndex = 118
+        Me.Button5.Text = "ŠJ‚­"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'mtxTempFilePath
+        '
+        Me.mtxTempFilePath.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxTempFilePath.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxTempFilePath.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxTempFilePath.InputRequired = False
+        Me.mtxTempFilePath.Location = New System.Drawing.Point(118, 8)
+        Me.mtxTempFilePath.Name = "mtxTempFilePath"
+        Me.mtxTempFilePath.Size = New System.Drawing.Size(304, 24)
+        Me.mtxTempFilePath.TabIndex = 117
+        Me.mtxTempFilePath.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxTempFilePath.WatermarkText = Nothing
+        '
+        'Label48
+        '
+        Me.Label48.AutoSize = True
+        Me.Label48.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label48.Location = New System.Drawing.Point(39, 13)
+        Me.Label48.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label48.Name = "Label48"
+        Me.Label48.Size = New System.Drawing.Size(68, 15)
+        Me.Label48.TabIndex = 116
+        Me.Label48.Text = "“Y•tŽ‘—¿1:"
+        Me.Label48.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'FrmG0012
         '
