@@ -414,6 +414,7 @@ Public Class FrmG0011
                         intREGISTERED_STAGE += 1
                         Me.DialogResult = DialogResult.OK
                         Me.Close()
+
                     End If
                 Case 2  '承認申請
                     If MessageBox.Show("申請しますか？", "申請登録", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then

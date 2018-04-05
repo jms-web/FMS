@@ -46,8 +46,8 @@ Public Class FrmG0010
             Call FunSetDgvCulumns(dgvDATA)
 
             '-----コントロールソース設定
-            cmbSTAGE_NCR.SetDataSource(tblNCR.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbSTAGE_CAR.SetDataSource(tblCAR.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+
             cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbTANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbJIZEN_SINSA_HANTEI_KB.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)

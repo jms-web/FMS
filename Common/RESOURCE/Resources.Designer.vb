@@ -163,6 +163,16 @@ Namespace My.Resources
         '''<summary>
         '''  (アイコン) に類似した型 System.Drawing.Icon のローカライズされたリソースを検索します。
         '''</summary>
+        Friend ReadOnly Property _icoSendmail() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("_icoSendmail", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  (アイコン) に類似した型 System.Drawing.Icon のローカライズされたリソースを検索します。
+        '''</summary>
         Friend ReadOnly Property _icoShelf() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("_icoShelf", resourceCulture)

@@ -1,7 +1,7 @@
 Imports JMS_COMMON.ClsPubMethod
 
 
-Public Class FrmG0014
+Public Class FrmG0015
 
     'TODO: Form LoadイベントのCatchを外す
 
@@ -47,11 +47,7 @@ Public Class FrmG0014
             'Call FunSetDgvCulumns(Me.dgvDATA)
 
             '-----コントロールデータソース設定
-            'Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
 
-            '''-----イベントハンドラ設定
-            'AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
 
             '検索実行
@@ -267,7 +263,7 @@ Public Class FrmG0014
             Dim dsList As New DataSet
             Dim sbSQLWHERE As New System.Text.StringBuilder
 
-            ''----DBデータ取得
+            '''----DBデータ取得
             'sbSQLWHERE.Remove(0, sbSQLWHERE.Length)
             'If Me.cmbKOMO_NM.SelectedValue <> "" Then
             '    sbSQLWHERE.Append(" WHERE KOMO_NM ='" & Me.cmbKOMO_NM.SelectedValue & "' ")

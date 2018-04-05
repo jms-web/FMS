@@ -19,8 +19,19 @@ Partial Class FrmG0013
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.dgvDATA = New System.Windows.Forms.DataGridView()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.MaskedTextBoxEx5 = New JMS_COMMON.MaskedTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -85,22 +96,106 @@ Partial Class FrmG0013
         '
         Me.lblTytle.Font = New System.Drawing.Font("Meiryo UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblTytle.Text = "不適合検索画面"
+        Me.lblTytle.Text = "原因分析区分の選択(要因:XXX)"
         '
-        'Panel1
+        'dgvDATA
         '
-
-        Me.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Panel1.Location = New System.Drawing.Point(16, 60)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1236, 502)
-        Me.Panel1.TabIndex = 65
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        Me.dgvDATA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle8
+        Me.dgvDATA.Location = New System.Drawing.Point(9, 91)
+        Me.dgvDATA.Name = "dgvDATA"
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
+        Me.dgvDATA.RowTemplate.Height = 21
+        Me.dgvDATA.Size = New System.Drawing.Size(618, 471)
+        Me.dgvDATA.TabIndex = 63
+        '
+        'DataGridView1
+        '
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle11
+        Me.DataGridView1.Location = New System.Drawing.Point(630, 91)
+        Me.DataGridView1.Name = "DataGridView1"
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
+        Me.DataGridView1.RowTemplate.Height = 21
+        Me.DataGridView1.Size = New System.Drawing.Size(618, 471)
+        Me.DataGridView1.TabIndex = 64
+        '
+        'Label11
+        '
+        Me.Label11.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label11.Location = New System.Drawing.Point(13, 57)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(154, 30)
+        Me.Label11.TabIndex = 77
+        Me.Label11.Text = "要因:"
+        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'MaskedTextBoxEx5
+        '
+        Me.MaskedTextBoxEx5.BackColor = System.Drawing.SystemColors.Window
+        Me.MaskedTextBoxEx5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.MaskedTextBoxEx5.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.MaskedTextBoxEx5.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.MaskedTextBoxEx5.InputRequired = False
+        Me.MaskedTextBoxEx5.Location = New System.Drawing.Point(173, 61)
+        Me.MaskedTextBoxEx5.Name = "MaskedTextBoxEx5"
+        Me.MaskedTextBoxEx5.Size = New System.Drawing.Size(100, 24)
+        Me.MaskedTextBoxEx5.TabIndex = 105
+        Me.MaskedTextBoxEx5.WatermarkColor = System.Drawing.Color.Empty
+        Me.MaskedTextBoxEx5.WatermarkText = Nothing
         '
         'FrmG0013
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.ClientSize = New System.Drawing.Size(1264, 712)
-        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.MaskedTextBoxEx5)
+        Me.Controls.Add(Me.Label11)
+        Me.Controls.Add(Me.DataGridView1)
+        Me.Controls.Add(Me.dgvDATA)
         Me.HelpButton = True
         Me.Name = "FrmG0013"
         Me.ShowStatusBar = True
@@ -119,11 +214,20 @@ Partial Class FrmG0013
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
-        Me.Controls.SetChildIndex(Me.Panel1, 0)
+        Me.Controls.SetChildIndex(Me.dgvDATA, 0)
+        Me.Controls.SetChildIndex(Me.DataGridView1, 0)
+        Me.Controls.SetChildIndex(Me.Label11, 0)
+        Me.Controls.SetChildIndex(Me.MaskedTextBoxEx5, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Panel1 As Panel
+
+    Friend WithEvents dgvDATA As DataGridView
+    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents Label11 As Label
+    Friend WithEvents MaskedTextBoxEx5 As MaskedTextBoxEx
 End Class

@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FrmG0014
+Partial Class FrmG0015
     Inherits JMS_COMMON.FrmBaseStsBtnDgv
 
     'Form overrides dispose to clean up the component list.
@@ -100,7 +100,7 @@ Partial Class FrmG0014
         '
         Me.lblTytle.Font = New System.Drawing.Font("Meiryo UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblTytle.Text = "èàíuóöó"
+        Me.lblTytle.Text = "ïœçXì‡óeî‰är"
         '
         'dgvDATA
         '
@@ -135,13 +135,13 @@ Partial Class FrmG0014
         Me.dgvDATA.Size = New System.Drawing.Size(1240, 502)
         Me.dgvDATA.TabIndex = 64
         '
-        'FrmG0014
+        'FrmG0015
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.ClientSize = New System.Drawing.Size(1264, 712)
         Me.Controls.Add(Me.dgvDATA)
         Me.HelpButton = True
-        Me.Name = "FrmG0014"
+        Me.Name = "FrmG0015"
         Me.ShowStatusBar = True
         Me.Text = ""
         Me.Controls.SetChildIndex(Me.lblTytle, 0)
