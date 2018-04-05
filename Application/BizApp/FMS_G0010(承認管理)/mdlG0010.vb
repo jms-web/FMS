@@ -9,10 +9,28 @@ Module mdlG0010
     ''' </summary>
     Public frmLIST As FrmG0010
 
-
     'DEBUG:
     Public intREGISTERED_STAGE As Integer
 
+    ''' <summary>
+    ''' 起動モード
+    ''' </summary>
+    Public Enum ENM_OPEN_MODE As Integer
+
+        ''' <summary>
+        ''' 通常モード…検索画面を表示
+        ''' </summary>
+        _0_通常 = 0
+
+        ''' <summary>
+        ''' 新規作成モード…新規登録画面を直接表示、登録後検索画面に戻らず
+        ''' </summary>
+        _1_新規作成 = 1
+    End Enum
+    ''' <summary>
+    ''' 起動モード(0:通常,1:新規作成)
+    ''' </summary>
+    Public pub_intOPEN_MODE As ENM_OPEN_MODE
 
     ''' <summary>
     ''' NCRステージ
@@ -99,7 +117,7 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "CAR", tblCAR)
                     'UNDONE: ステージ別の担当者取得に置き換え
                     Call FunGetCodeDataTable(DB, "担当", tblTANTO)
-                    Call FunGetCodeDataTable(DB, "部門区分", tblBUMON)
+                    Call FunGetCodeDataTable(DB, "部門区分", tblBUMON, "DISP_ORDER < 10")
                     Call FunGetCodeDataTable(DB, "機種", tblKISYU)
                     Call FunGetCodeDataTable(DB, "不適合区分", tblFUTEKIGO_KB)
                     Call FunGetCodeDataTable(DB, "不適合状態区分", tblFUTEKIGO_STATUS_KB)
@@ -109,6 +127,15 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "承認担当", tblTANTO_SYONIN)
 
                 End Using
+
+                '起動時パラメータを取得
+                Dim cmds() As String
+                cmds = System.Environment.GetCommandLineArgs
+                If cmds.Length = 3 Then
+                    pub_intOPEN_MODE = Val(cmds(2))
+                Else
+                    pub_intOPEN_MODE = ENM_OPEN_MODE._0_通常
+                End If
 
                 '-----一覧画面表示
                 frmLIST = New FrmG0010

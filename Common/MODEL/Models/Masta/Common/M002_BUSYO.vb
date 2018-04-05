@@ -22,6 +22,12 @@ Partial Public Class M002_BUSYO
     <Required>
     <StringLength(1)>
     <Column(TypeName:="char")>
+    <ComponentModel.DisplayName("部門区分")>
+    Public Property BUMON_KB As String
+
+    <Required>
+    <StringLength(1)>
+    <Column(TypeName:="char")>
     <ComponentModel.DisplayName("部署区分")>
     Public Property BUSYO_KB As String
 

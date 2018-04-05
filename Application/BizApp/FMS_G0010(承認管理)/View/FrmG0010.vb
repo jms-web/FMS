@@ -36,6 +36,8 @@ Public Class FrmG0010
     Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
+
+
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
 
@@ -44,6 +46,9 @@ Public Class FrmG0010
 
             '-----グリッド列作成
             Call FunSetDgvCulumns(dgvDATA)
+
+
+            'SPEC: PF01.2-(1)
 
             '-----コントロールソース設定
             cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -55,8 +60,8 @@ Public Class FrmG0010
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             '既定値設定
+            If pub_SYAIN_INFO.BUMON_KB.IsNullOrWhiteSpace = False Then cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
             cmbTANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
-
 
             ''-----イベントハンドラ設定
             AddHandler Me.cmbTANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
@@ -64,8 +69,14 @@ Public Class FrmG0010
             AddHandler Me.chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
 
-            '検索実行
-            Me.cmdFunc1.PerformClick()
+            Select Case pub_intOPEN_MODE
+                Case ENM_OPEN_MODE._0_通常
+                    Me.cmdFunc1.PerformClick()
+                Case ENM_OPEN_MODE._1_新規作成
+                    Me.cmdFunc2.PerformClick()
+                Case Else
+                    'Err
+            End Select
         Finally
 
         End Try

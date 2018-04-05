@@ -361,6 +361,45 @@ Public Module mdlDBContext
 
 #End Region
 
+#Region "データ取得関数"
+
+
+#Region "部門情報"
+    Public Function FunGetBUMON_INFO(ByVal intSyainID As Integer) As (BUMON_KB As String, BUMON_NAME As String)
+        Dim dsList As New System.Data.DataSet
+
+        Dim strSQL As String = <sql><![CDATA[
+            SELECT
+                  M004.SYAIN_ID
+                , M004.SYAIN_NO
+                , M005.BUSYO_ID
+                , M002.BUMON_KB
+                ,(SELECT ITEM_DISP FROM M001_SETTING AS M001 WHERE M001.ITEM_NAME='部門区分' AND M001.ITEM_VALUE=M002.BUMON_KB) AS BUMON_NAME
+            FROM
+                M004_SYAIN AS M004
+                LEFT JOIN M005_SYOZOKU_BUSYO AS M005
+                    ON M004.SYAIN_ID = M005.SYAIN_ID 
+                LEFT JOIN M002_BUSYO AS M002
+                    ON M005.BUSYO_ID = M002.BUSYO_ID 
+            WHERE M005.KENMU_FLG = '0' AND M004.SYAIN_ID = {0}
+            ]]></sql>.Value.Trim
+
+        Using DB As ClsDbUtility = DBOpen()
+            dsList = DB.GetDataSet(String.Format(strSQL, intSyainID), False)
+        End Using
+        With dsList.Tables(0)
+            If .Rows.Count > 0 Then
+                Return (.Rows(0).Item("BUMON_KB"), .Rows(0).Item("BUMON_NAME"))
+            Else
+                Return ("", "")
+            End If
+        End With
+    End Function
+#End Region
+
+
+#End Region
+
 #Region "データテーブル取得"
 
     ''' <summary>

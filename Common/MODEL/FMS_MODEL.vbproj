@@ -105,6 +105,10 @@
       <DependentUpon>201803150640001_Init5.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201803150640001_Init5.vb" />
+    <Compile Include="Migrations\201804050655482_Init31.Designer.vb">
+      <DependentUpon>201804050655482_Init31.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804050655482_Init31.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Data\D003_NCR_J.vb" />
     <Compile Include="Models\Function\TV01_FUTEKIGO_ICHIRAN.vb" />
@@ -154,6 +158,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Models\View\V001_SYONIN_TANTO.vb" />
+    <Compile Include="Models\View\V002_FUTEKIGO_HOKOKU_J.vb" />
+    <Compile Include="Models\View\VWM106_BUHIN.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801300648127_Init.resx">
@@ -173,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803150640001_Init5.resx">
       <DependentUpon>201803150640001_Init5.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804050655482_Init31.resx">
+      <DependentUpon>201804050655482_Init31.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

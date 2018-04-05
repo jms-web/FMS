@@ -106,6 +106,16 @@ Module mdlINTSYR
         ''' 権限
         ''' </summary>
         Dim KENGEN_KB As String
+
+        ''' <summary>
+        ''' 部門区分
+        ''' </summary>
+        Dim BUMON_KB As String
+
+        ''' <summary>
+        ''' 部門名
+        ''' </summary>
+        Dim BUMON_NAME As String
     End Structure
 
     ''' <summary>
@@ -221,10 +231,14 @@ Module mdlINTSYR
 
             '担当コード
             If cmds.Length >= 2 Then
+                Dim tplBUFF = FunGetBUMON_INFO(cmds(1))
+
                 pub_SYAIN_INFO = New SYAIN_INFO With {
                 .SYAIN_ID = cmds(1),
                 .SYAIN_CD = cmds(1),
-                .SYAIN_NAME = Fun_GetUSER_NAME(cmds(1))
+                .SYAIN_NAME = Fun_GetUSER_NAME(cmds(1)),
+                .BUMON_KB = tplBUFF.BUMON_KB,
+                .BUMON_NAME = tplBUFF.BUMON_NAME
                 }
                 'pub_USER_INFO.KENGEN_KB = Fun_GetUSER_KENGEN(pub_USER_INFO.USER_ID)
 
@@ -530,6 +544,8 @@ Module mdlINTSYR
     End Function
 
 #End Region
+
+
 
 #Region "DB操作関連"
     Public Function DBOpen() As ClsDbUtility
