@@ -3,11 +3,6 @@ Imports JMS_COMMON.ClsPubMethod
 
 Public Class FrmG0015
 
-    'TODO: Form LoadイベントのCatchを外す
-
-    'TODO: (マスタ全般) 削除済みチェック時、dgv 複数行選択可にして、一括完全削除・復元出来るようにする
-
-    'TODO: 余裕があったらButtonBaseFormのButtonPanel部分をGcFlowLayoutPanelにする
 
 #Region "コンストラクタ"
 
@@ -47,7 +42,11 @@ Public Class FrmG0015
             'Call FunSetDgvCulumns(Me.dgvDATA)
 
             '-----コントロールデータソース設定
+            'Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
 
+            '''-----イベントハンドラ設定
+            'AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            'AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
 
             '検索実行
@@ -263,7 +262,7 @@ Public Class FrmG0015
             Dim dsList As New DataSet
             Dim sbSQLWHERE As New System.Text.StringBuilder
 
-            '''----DBデータ取得
+            ''----DBデータ取得
             'sbSQLWHERE.Remove(0, sbSQLWHERE.Length)
             'If Me.cmbKOMO_NM.SelectedValue <> "" Then
             '    sbSQLWHERE.Append(" WHERE KOMO_NM ='" & Me.cmbKOMO_NM.SelectedValue & "' ")
@@ -436,11 +435,11 @@ Public Class FrmG0015
     Private Function FunUpdateEntity(ByVal intMODE As ENM_DATA_OPERATION_MODE) As Boolean
         Dim frmDLG As New FrmG0011
         Dim dlgRET As DialogResult
-        Dim PKeys As Tuple(Of String, String)
-        Dim strComboVal As String
+        'Dim PKeys As Tuple(Of String, String)
+        'Dim strComboVal As String
 
         Try
-            'TODO: 参照型のSystem.Tupleを値型のSystem.ValueTupleに置き換える
+            ' 参照型のSystem.Tupleを値型のSystem.ValueTupleに置き換える
 
             'コンボボックスの選択値を記憶
             'If cmbKOMO_NM.SelectedValue IsNot Nothing Then
@@ -502,7 +501,7 @@ Public Class FrmG0015
 
     Private Function FunDEL(ByVal ENM_MODE As ENM_DATA_OPERATION_MODE) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
-        Dim strComboVal As String
+        'Dim strComboVal As String
         Dim strMsg As String
         Dim strTitle As String
 
@@ -547,7 +546,7 @@ Public Class FrmG0015
                     strTitle = My.Resources.infoTitleDeleteOperationDelete
 
                 Case Else
-                    'UNDONE: argument null exception
+                    'argument null exception
                     Return False
             End Select
             sbSQL.Append("WHERE")

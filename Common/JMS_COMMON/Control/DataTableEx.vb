@@ -32,9 +32,6 @@ Public Class DataTableEx
         End Try
     End Sub
 
-    'UNDONE: DatatableExの主要追加メソッドをDatatableの拡張メソッドに移行
-    'CHECK: <Obsolete("DataTableの拡張メソッドを利用して下さい")>
-    'CHECK: プロパティ・メソッドを文字列名で取得　CallByName メソッド
 
     ''' <summary>
     ''' 削除済みを除外

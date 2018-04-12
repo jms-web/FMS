@@ -113,16 +113,16 @@ Partial Public Class M001_SETTING
     Protected Overridable Sub Dispose(disposing As Boolean)
         If Not disposedValue Then
             If disposing Then
-                ' TODO: マネージ状態を破棄します (マネージ オブジェクト)。
+                '  マネージ状態を破棄します (マネージ オブジェクト)。
             End If
 
-            ' TODO: アンマネージ リソース (アンマネージ オブジェクト) を解放し、下の Finalize() をオーバーライドします。
-            ' TODO: 大きなフィールドを null に設定します。
+            ' アンマネージ リソース (アンマネージ オブジェクト) を解放し、下の Finalize() をオーバーライドします。
+            ' 大きなフィールドを null に設定します。
         End If
         disposedValue = True
     End Sub
 
-    ' TODO: 上の Dispose(disposing As Boolean) にアンマネージ リソースを解放するコードが含まれる場合にのみ Finalize() をオーバーライドします。
+    '  上の Dispose(disposing As Boolean) にアンマネージ リソースを解放するコードが含まれる場合にのみ Finalize() をオーバーライドします。
     'Protected Overrides Sub Finalize()
     '    ' このコードを変更しないでください。クリーンアップ コードを上の Dispose(disposing As Boolean) に記述します。
     '    Dispose(False)
@@ -133,7 +133,7 @@ Partial Public Class M001_SETTING
     Public Sub Dispose() Implements IDisposable.Dispose
         ' このコードを変更しないでください。クリーンアップ コードを上の Dispose(disposing As Boolean) に記述します。
         Dispose(True)
-        ' TODO: 上の Finalize() がオーバーライドされている場合は、次の行のコメントを解除してください。
+        '  上の Finalize() がオーバーライドされている場合は、次の行のコメントを解除してください。
         ' GC.SuppressFinalize(Me)
     End Sub
 #End Region

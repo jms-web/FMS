@@ -231,7 +231,7 @@ Module mdlINTSYR
 
             '担当コード
             If cmds.Length >= 2 Then
-                Dim tplBUFF = FunGetBUMON_INFO(cmds(1))
+                Dim tplBUFF As (BUMON_KB As String, BUMON_NAME As String) = FunGetBUMON_INFO(cmds(1))
 
                 pub_SYAIN_INFO = New SYAIN_INFO With {
                 .SYAIN_ID = cmds(1),
@@ -499,7 +499,7 @@ Module mdlINTSYR
                     If .Rows.Count > 0 Then
                         Return .Rows(0).Item(0).ToString.Trim
                     Else
-                        'UNDONE:エラー
+                        'エラー
                         'Throw New ArgumentOutOfRangeException
                         Return ""
                     End If

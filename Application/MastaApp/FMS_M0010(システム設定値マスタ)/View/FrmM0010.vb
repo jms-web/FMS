@@ -456,7 +456,7 @@ Public Class FrmM0010
                     strTitle = My.Resources.infoTitleDeleteOperationDelete
 
                 Case Else
-                    'UNDONE: argument null exception
+                    ' argument null exception
                     Return False
             End Select
             sbSQL.Append(" WHERE")

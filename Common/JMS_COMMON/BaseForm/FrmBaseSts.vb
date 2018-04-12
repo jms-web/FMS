@@ -201,6 +201,7 @@ Public Class FrmBaseSts
             PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
             For Each item As ToolStripStatusLabel In Me.StatusStrip.Items
                 item.BorderSides = ToolStripStatusLabelBorderSides.None
+                item.BorderStyle = Border3DStyle.SunkenOuter
                 item.ForeColor = Color.White
                 item.Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
                 item.LinkColor = item.ForeColor

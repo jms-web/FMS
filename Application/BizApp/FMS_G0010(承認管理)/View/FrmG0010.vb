@@ -3,8 +3,15 @@ Imports C1.Win.C1FlexGrid
 
 Public Class FrmG0010
 
+
+
+#Region "プロパティ"
     Public Property PrDt As DataTable
 
+    Public Property PrGenin1 As List(Of (ITEM_NAME As String, ITEM_VALUE As String))
+
+    Public Property PrGenin2 As List(Of (ITEM_NAME As String, ITEM_VALUE As String))
+#End Region
 
 #Region "コンストラクタ"
 
@@ -25,6 +32,9 @@ Public Class FrmG0010
         MyBase.ToolTip.SetToolTip(Me.cmdFunc9, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc11, My.Resources.infoToolTipMsgNotFoundData)
+
+        dtJisiFrom.Nullable = True
+        dtJisiTo.Nullable = True
 
     End Sub
 
@@ -48,16 +58,34 @@ Public Class FrmG0010
             Call FunSetDgvCulumns(dgvDATA)
 
 
-            'SPEC: PF01.2-(1)
+            'SPEC: PF01.2-(1) A データソース
 
             '-----コントロールソース設定
-            cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
+
+            '共通
+            cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            Dim dtAddTANTO As DataTable = tblTANTO_SYONIN.ExcludeDeleted.AsEnumerable.Where(Function(r) r.Field(Of Integer)("SYONIN_JUN") = ENM_NCR_STAGE._10_起草入力).CopyToDataTable
+            cmbADD_TANTO.SetDataSource(dtAddTANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbTANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbTANTO.SetDataSource(tblTANTO_SYONIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbFUTEKIGO_JYOTAI_KB.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+
+            'NCR
             cmbJIZEN_SINSA_HANTEI_KB.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbSAISIN_IINKAI_HANTEI_KB.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbZESEI_SYOCHI_YOHI_KB.SetDataSource(tblYOHI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbKOKYAKU_HANTEI_SIJI_KB.SetDataSource(tblKOKYAKU_HANTEI_SIJI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbKOKYAKU_SAISYU_HANTEI_KB.SetDataSource(tblKOKYAKU_SAISYU_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbKENSA_KEKKA_KB.SetDataSource(tblKENSA_KEKKA_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+
+            'CAR
+            cmbYOIN1.SetDataSource(tblKONPON_YOIN_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbYOIN2.SetDataSource(tblKONPON_YOIN_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbTANTO_SAGYO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbKISEKI_KOTEI_KB.SetDataSource(tblKISEKI_KOUTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             '既定値設定
             If pub_SYAIN_INFO.BUMON_KB.IsNullOrWhiteSpace = False Then cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
@@ -68,6 +96,7 @@ Public Class FrmG0010
             AddHandler Me.cmbBUHIN_BANGO.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler Me.chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
+            Call FunInitFuncButtonEnabled()
 
             Select Case pub_intOPEN_MODE
                 Case ENM_OPEN_MODE._0_通常
@@ -144,6 +173,10 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
+
+                .Columns.Add(NameOf(_Model.KEIKOKU_TAIRYU), "滞留日数")
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).Visible = False
 
                 .Columns.Add(NameOf(_Model.KISYU), "機種")
                 .Columns(.ColumnCount - 1).Width = 120
@@ -498,47 +531,151 @@ Public Class FrmG0010
             Dim sbSQLWHERE As New System.Text.StringBuilder
             Dim sbParam As New System.Text.StringBuilder
 
+            'SPEC: PF01.2-(1) A 検索条件
 
-            sbParam.Append("'','',0,'','','','" & intREGISTERED_STAGE & "',''")
+#Region "           共通検索条件"
 
-            If chkClosedRowVisibled.Checked Then
+            '部門、機種、部品番号、部品名称 パラメータ
+
+            '社内CD
+            If mtxSyanaiCD.Text.IsNullOrWhiteSpace Then
             Else
-                If sbSQLWHERE.Length = 0 Then
-                    sbSQLWHERE.Append(" WHERE CLOSE_FLG = '0'")
-                Else
-                    sbSQLWHERE.Append(" AND CLOSE_FLG = '0'")
-                End If
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+                sbSQLWHERE.Append("SYANAI_CD LIKE '%" & mtxSyanaiCD.Text & "%'")
             End If
 
+            '号機
+            If mtxGOUKI.Text.IsNullOrWhiteSpace Then
+            Else
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+                sbSQLWHERE.Append("GOUKI LIKE '%" & mtxGOUKI.Text & "%'")
+            End If
+
+            '現処置担当者
             If cmbTANTO.SelectedValue <> "" Then
-                If sbSQLWHERE.Length = 0 Then
-                    sbSQLWHERE.Append(" WHERE SYOCHI_SYAIN_ID = " & cmbTANTO.SelectedValue)
-                Else
-                    sbSQLWHERE.Append(" AND SYOCHI_SYAIN_ID = " & cmbTANTO.SelectedValue)
-                End If
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+                sbSQLWHERE.Append("SYOCHI_SYAIN_ID = " & cmbTANTO.SelectedValue)
             Else
             End If
 
-            If cmbBUHIN_BANGO.SelectedValue <> "" Then
-                If sbSQLWHERE.Length = 0 Then
-                    sbSQLWHERE.Append(" WHERE BUHIN_BANGO = '" & cmbBUHIN_BANGO.SelectedValue & "'")
-                Else
-                    sbSQLWHERE.Append(" AND BUHIN_BANGO = '" & cmbBUHIN_BANGO.SelectedValue & "'")
-                End If
+            '処置実施日
+            If dtJisiFrom.Text.IsNullOrWhiteSpace Then
+            Else
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+                sbSQLWHERE.Append("SYOCHI_YMD <= '" & dtJisiFrom.ValueDate.ToString("yyyyMMdd") & "'")
+            End If
+            If dtJisiTo.Text.IsNullOrWhiteSpace Then
+            Else
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+                sbSQLWHERE.Append("SYOCHI_YMD > '" & dtJisiFrom.ValueDate.ToString("yyyyMMdd") & "'")
+            End If
+
+            '報告書No パラメータ
+
+
+            '起草者
+            If cmbADD_TANTO.SelectedValue <> "" Then
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+                sbSQLWHERE.Append(" AND ADD_SYAIN_ID = " & cmbADD_TANTO.SelectedValue)
             Else
             End If
 
-            sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append("SELECT")
-            sbSQL.Append(" *")
-            sbSQL.Append(" FROM " & NameOf(MODEL.TV01_FUTEKIGO_ICHIRAN) & "(" & sbParam.ToString & ")")
-            sbSQL.Append(" " & sbSQLWHERE.ToString)
-            sbSQL.Append(" ORDER BY HOKOKUSYO_NO ")
-            Using DBa As ClsDbUtility = DBOpen()
-                dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
-            End Using
+            'クローズ除く パラメータ
 
-            If dsList.Tables(0).Rows.Count > pub_APP_INFO.intSEARCHMAX Then
+            '滞留を表示
+            If chkTairyu.Checked Then
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+                sbSQLWHERE.Append(" WHERE TAIRYU > 0")
+            Else
+            End If
+
+            '不適合区分
+            If cmbFUTEKIGO_KB.SelectedValue <> "" Then
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+                sbSQLWHERE.Append(" AND FUTEKIGO_KB = '" & cmbFUTEKIGO_KB.SelectedValue & "'")
+            Else
+            End If
+
+            '不適合詳細区分
+            If cmbFUKEKIGO_S_KB.SelectedValue <> "" Then
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+                sbSQLWHERE.Append(" AND FUKEKIGO_S_KB = '" & cmbFUKEKIGO_S_KB.SelectedValue & "'")
+            Else
+            End If
+
+            '不適合状態区分
+            If cmbFUTEKIGO_JYOTAI_KB.SelectedValue <> "" Then
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+                sbSQLWHERE.Append(" AND FUTEKIGO_JYOTAI_KB = '" & cmbFUTEKIGO_JYOTAI_KB.SelectedValue & "'")
+            Else
+            End If
+
+#End Region
+
+#Region "           NCR検索条件"
+
+            '事前審査判定 パラメータ
+
+            '是正処置要否確認
+            If cmbZESEI_SYOCHI_YOHI_KB.SelectedValue <> "" Then
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+                sbSQLWHERE.Append(" AND ZESEI_SYOCHI_YOHI_KB = '" & cmbZESEI_SYOCHI_YOHI_KB.SelectedValue & "'")
+            Else
+            End If
+
+            '再審委員会判定 パラメータ
+
+            '顧客判定指示 
+            If cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValue <> "" Then
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+                sbSQLWHERE.Append(" AND KOKYAKU_HANTEI_SIJI_KB = '" & cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValue & "'")
+            Else
+            End If
+
+            '顧客最終判定区分
+            If cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValue <> "" Then
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+                sbSQLWHERE.Append(" AND KOKYAKU_SAISYU_HANTEI_KB = '" & cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValue & "'")
+            Else
+            End If
+
+            '検査結果 
+            If cmbKENSA_KEKKA_KB.SelectedValue <> "" Then
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+                sbSQLWHERE.Append(" AND KENSA_KEKKA_KB = '" & cmbKENSA_KEKKA_KB.SelectedValue & "'")
+            Else
+            End If
+
+#End Region
+
+#Region "           CAR検索条件"
+
+            '要因1
+            '要因2
+            '作業者名
+
+
+            '帰責工程
+            If cmbKISEKI_KOTEI_KB.SelectedValue <> "" Then
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+                sbSQLWHERE.Append(" AND KISEKI_KOTEI_KB = '" & cmbKISEKI_KOTEI_KB.SelectedValue & "'")
+            Else
+            End If
+
+#End Region
+
+
+            Dim dtBUFF As DataTable = FunGetTV01_FUTEKIGO_ICHIRAN(BUMON_KB:=Nz(cmbBUMON.SelectedValue),
+                                                              HOKOKUSYO_NO:=mtxHOKUKO_NO.Text,
+                                                              KISYU_ID:=Nz(cmbKISYU.SelectedValue, 0),
+                                                              BUHIN_BANGO:="%" & Nz(cmbBUHIN_BANGO.SelectedValue) & "%",
+                                                              BUHIN_NAME:="%" & Nz(mtxHINMEI.Text) & "%",
+                                                              JIZEN_SINSA_HANTEI_KB:=Nz(cmbJIZEN_SINSA_HANTEI_KB.SelectedValue),
+                                                              SAISIN_IINKAI_HANTEI_KB:=Nz(cmbSAISIN_IINKAI_HANTEI_KB.SelectedValue),
+                                                              CLOSE_FLG:=IIf(chkClosedRowVisibled.Checked, "", "0"),
+                                                              strWhere:=sbSQLWHERE.ToString)
+
+            If dtBUFF.Rows.Count > pub_APP_INFO.intSEARCHMAX Then
                 If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
                     Return Nothing
                 End If
@@ -563,7 +700,7 @@ Public Class FrmG0010
                 End If
             Next p
 
-            With dsList.Tables(0)
+            With dtBUFF
                 For Each row As DataRow In .Rows
                     Dim Trow As DataRow = dt.NewRow()
                     For Each p As Reflection.PropertyInfo In properties
@@ -583,9 +720,9 @@ Public Class FrmG0010
                                 Case GetType(Date), GetType(DateTime)
                                     If row.Item(p.Name).ToString.IsNullOrWhiteSpace = False Then
                                         Select Case row.Item(p.Name).ToString.Length
-                                            Case 8
+                                            Case 8 'yyyyMMdd
                                                 Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMdd", Nothing)
-                                            Case 14
+                                            Case 14 'yyyyMMddHHmmss
                                                 Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMddHHmmss", Nothing)
                                             Case Else
                                                 'Err
@@ -641,36 +778,26 @@ Public Class FrmG0010
     End Function
 
     Private Function FunSetDgvCellFormat(ByVal dgv As DataGridView) As Boolean
-
+        Dim _Model As New MODEL.TV01_FUTEKIGO_ICHIRAN
         Try
-            'UNDONE: ステージ別の滞留警告日数を取得
-            Dim intWarningNotification As Integer
-            Using DB As ClsDbUtility = DBOpen()
-                intWarningNotification = FunGetCodeMastaValue(DB, "承認関連設定", "滞留警告日数")
-            End Using
-
-            Dim _Model As New MODEL.TV01_FUTEKIGO_ICHIRAN
             For i As Integer = 0 To dgv.Rows.Count - 1
-                With dgv.Rows(i)
-                    If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU)).Value >= intWarningNotification Then
-                        Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrWarningCellBackColor
-                    End If
+                If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU)).Value >= Me.dgvDATA.Rows(i).Cells(NameOf(_Model.KEIKOKU_TAIRYU)).Value Then
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrWarningCellBackColor
+                End If
 
-                    If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.MODOSI_SYONIN_JUN)).Value > 0 Then
-                        Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrCautionCellBackColor
-                    End If
+                If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.MODOSI_SYONIN_JUN)).Value > 0 Then
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrCautionCellBackColor
+                End If
 
-                    If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.CLOSE_FLG)).Value > 0 Then
-                        Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
-                        Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
-                        Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
-                    End If
-
-                End With
-
+                If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.CLOSE_FLG)).Value > 0 Then
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
+                End If
             Next i
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
+        Finally
         End Try
     End Function
 
@@ -735,9 +862,9 @@ Public Class FrmG0010
 
     Private Function FunDEL() As Boolean
         Dim sbSQL As New System.Text.StringBuilder
-        Dim strComboVal As String
-        Dim strMsg As String
-        Dim strTitle As String
+        'Dim strComboVal As String
+        'Dim strMsg As String
+        'Dim strTitle As String
 
         Try
             MessageBox.Show("未実装")
@@ -842,7 +969,6 @@ Public Class FrmG0010
     Private Function FunSelectAll() As Boolean
 
         Try
-            'UNDONE: G050 全選択解除
             Dim dt As DataTable = DirectCast(Me.dgvDATA.DataSource, DataTable)
             Dim rows = dt.Rows 'AsEnumerable().Where(Function(r) r.Field(Of String)("STA") = Context.ENM_HACCYU_STATUS._0_未発注)
 
@@ -871,7 +997,7 @@ Public Class FrmG0010
     Private Function FunUnSelectAll() As Boolean
 
         Try
-            'UNDONE: G050 全選択解除
+
             Dim dt As DataTable = DirectCast(Me.dgvDATA.DataSource, DataTable)
             Dim rows = dt.Rows 'AsEnumerable().Where(Function(r) r.Field(Of String)("STA") = Context.ENM_HACCYU_STATUS._0_未発注)
 
@@ -951,8 +1077,8 @@ Public Class FrmG0010
 #Region "履歴"
     Private Function OpenFormRIREKI() As Boolean
         Dim frmDLG As New FrmG0013
-        Dim dlgRET As DialogResult
-        Dim PKeys As String
+        'Dim dlgRET As DialogResult
+        'Dim PKeys As String
 
         Try
 
@@ -1090,15 +1216,142 @@ Public Class FrmG0010
 
 #Region "コントロールイベント"
 
-    '検索フィルタ変更
+    '検索フィルタ変更時
     Private Sub SearchFilterValueChanged(sender As System.Object, e As System.EventArgs)
         '検索
         Me.cmdFunc1.PerformClick()
 
     End Sub
 
-    '
+    '部門変更時
+    Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
 
+        Select Case cmbBUMON.SelectedValue
+            Case Context.ENM_BUMON_KB._4_LP
+                lblSyanaiCD.Visible = True
+                mtxSyanaiCD.Visible = True
+            Case Else
+                lblSyanaiCD.Visible = False
+                mtxSyanaiCD.Visible = False
+                mtxSyanaiCD.Text = ""
+        End Select
+
+    End Sub
+
+
+#Region "CAR検索条件"
+
+    Private Sub CmbYOIN1_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbYOIN1.SelectedValueChanged
+        If cmbYOIN1.SelectedValue Is Nothing Then
+            mtxGENIN1.Text = ""
+            mtxGENIN1_DISP.Text = ""
+            btnClearGenin1.Enabled = False
+            btnSelectGenin1.Enabled = False
+        Else
+            btnClearGenin1.Enabled = True
+            btnSelectGenin1.Enabled = True
+        End If
+    End Sub
+
+    Private Sub CmbYOIN2_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbYOIN2.SelectedValueChanged
+        If cmbYOIN2.SelectedValue Is Nothing Then
+            mtxGENIN2.Text = ""
+            mtxGENIN2_DISP.Text = ""
+            btnClearGenin2.Enabled = False
+            btnSelectGenin2.Enabled = False
+        Else
+            btnClearGenin2.Enabled = True
+            btnSelectGenin2.Enabled = True
+        End If
+    End Sub
+
+    Private Sub BtnClearGenin1_Click(sender As Object, e As EventArgs) Handles btnClearGenin1.Click
+        mtxGENIN1.Text = ""
+        mtxGENIN1_DISP.Text = ""
+    End Sub
+
+    Private Sub BtnClearGenin2_Click(sender As Object, e As EventArgs) Handles btnClearGenin2.Click
+        mtxGENIN2.Text = ""
+        mtxGENIN2_DISP.Text = ""
+    End Sub
+
+    Private Sub BtnSelectGenin1_Click(sender As Object, e As EventArgs) Handles btnSelectGenin1.Click
+        Dim frmDLG As New FrmG0013
+        Dim dlgRET As DialogResult
+        Try
+
+            frmDLG.PrYOIN = (cmbYOIN1.SelectedValue, cmbYOIN1.Text)
+            frmDLG.PrSelectedList = PrGenin1
+            dlgRET = frmDLG.ShowDialog(Me)
+
+            If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                Exit Sub
+            Else
+                mtxGENIN1_DISP.Text = ""
+                For Each item In PrGenin1
+                    If mtxGENIN1_DISP.Text.IsNullOrWhiteSpace Then
+                        mtxGENIN1_DISP.Text = item.ITEM_NAME
+                    Else
+                        mtxGENIN1_DISP.Text &= ", " & item.ITEM_NAME
+                    End If
+                Next item
+            End If
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+        Finally
+            If frmDLG IsNot Nothing Then
+                frmDLG.Dispose()
+            End If
+        End Try
+    End Sub
+
+    Private Sub BtnSelectGenin2_Click(sender As Object, e As EventArgs) Handles btnSelectGenin2.Click
+        Dim frmDLG As New FrmG0014
+        Dim dlgRET As DialogResult
+        Try
+
+            frmDLG.PrYOIN = (cmbYOIN2.SelectedValue, cmbYOIN2.Text)
+            frmDLG.PrSelectedList = PrGenin2
+            dlgRET = frmDLG.ShowDialog(Me)
+
+            If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                Exit Sub
+            Else
+                mtxGENIN2_DISP.Text = ""
+                For Each item In PrGenin2
+                    If mtxGENIN2_DISP.Text.IsNullOrWhiteSpace Then
+                        mtxGENIN2_DISP.Text = item.ITEM_NAME
+                    Else
+                        mtxGENIN2_DISP.Text &= ", " & item.ITEM_NAME
+                    End If
+                Next item
+            End If
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+        Finally
+            If frmDLG IsNot Nothing Then
+                frmDLG.Dispose()
+            End If
+        End Try
+    End Sub
+
+    '不適合区分
+    Private Sub CmbFUTEKIGO_KB_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbFUTEKIGO_KB.SelectedValueChanged
+
+        If cmbFUTEKIGO_KB.SelectedValue <> "" Then
+            Dim dt As New DataTableEx
+            Using DB As ClsDbUtility = DBOpen()
+                FunGetCodeDataTable(DB, "不適合" & cmbFUTEKIGO_KB.Text.Replace("・", "") & "区分", dt)
+            End Using
+            cmbFUKEKIGO_S_KB.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+        Else
+            cmbFUKEKIGO_S_KB.DataSource = Nothing
+        End If
+
+    End Sub
+#End Region
 
 #End Region
 

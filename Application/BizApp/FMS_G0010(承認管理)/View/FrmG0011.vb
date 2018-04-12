@@ -665,7 +665,7 @@ Public Class FrmG0011
     Private Function OpenFormCAR() As Boolean
         Dim frmDLG As New FrmG0012
         Dim dlgRET As DialogResult
-        Dim PKeys As String
+        'Dim PKeys As String
 
         Try
 
@@ -837,7 +837,7 @@ Public Class FrmG0011
 
             Dim drList As List(Of DataRow) = tblNCR.AsEnumerable().
                                                 Where(Function(r) Val(r.Field(Of String)("VALUE")) > intCurrentStageID).ToList
-            Dim strBUFF As String
+            Dim strBUFF As String = ""
             If drList.Count > 0 Then
                 strBUFF = drList(0).Item("DISP")
             End If

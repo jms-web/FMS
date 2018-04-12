@@ -182,6 +182,7 @@ Partial Public Class TV01_FUTEKIGO_ICHIRAN
 
     <Key>
     <Column(Order:=24)>
-    <ComponentModel.DisplayName("·–ßŒ³³”F‡")>
-    Public Property MODOSI_TAIRYU As Integer
+    <ComponentModel.DisplayName("Œx’Ê’m‘Ø—¯“ú”")>
+    Public Property KEIKOKU_TAIRYU As Integer
+
 End Class

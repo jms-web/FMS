@@ -780,7 +780,6 @@ Public NotInheritable Class ClsPubMethod
         Dim strDefaultValue As String
 
         Try
-            'UNDONE: コンボボックス既定値設定時 OptionalParameterで別のデータソースを設定できるようにする
 
             'コンボボックスのデータソース取得
             Dim dt As DataTable = DirectCast(cmbCtrl.DataSource, DataTable)

@@ -1,7 +1,8 @@
 Imports JMS_COMMON.ClsPubMethod
 
 
-Public Class FrmG0012
+Public Class FrmG0016
+
 
 #Region "コンストラクタ"
 
@@ -33,8 +34,7 @@ Public Class FrmG0012
         Try
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
-            lblTytle.Text = "不適合是正処置報告書（Corrective Action Report）"
-            Me.Text = lblTytle.Text
+
             '-----グリッド初期設定(親フォームから呼び出し)
             'Call FunInitializeDataGridView(Me.dgvDATA)
 
@@ -42,17 +42,13 @@ Public Class FrmG0012
             'Call FunSetDgvCulumns(Me.dgvDATA)
 
             '-----コントロールデータソース設定
-            'Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
 
-            '''-----イベントハンドラ設定
-            'AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
 
             '検索実行
-            'Me.cmdFunc1.PerformClick()
+            Me.cmdFunc1.PerformClick()
         Finally
-            FunInitFuncButtonEnabled(Me)
+
         End Try
     End Sub
 
@@ -200,41 +196,39 @@ Public Class FrmG0012
 
             'ボタンINDEX毎の処理
             Select Case intFUNC
-                'Case 1  '検索
-                '    'Call FunSRCH(Me.dgvDATA, FunGetListData())
-                'Case 2  '追加
+                Case 1  '検索
+                    'Call FunSRCH(Me.dgvDATA, FunGetListData())
+                Case 2  '追加
 
-                '    'If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
-                '    '    'Call FunSRCH(Me.dgvDATA, FunGetListData())
-                '    'End If
-                'Case 3  '参照追加
+                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
+                        'Call FunSRCH(Me.dgvDATA, FunGetListData())
+                    End If
+                Case 3  '参照追加
 
-                '    'If FunUpdateEntity(ENM_DATA_OPERATION_MODE._2_ADDREF) = True Then
-                '    '    'Call FunSRCH(Me.dgvDATA, FunGetListData())
-                '    'End If
-                'Case 4  '変更
+                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._2_ADDREF) = True Then
+                        'Call FunSRCH(Me.dgvDATA, FunGetListData())
+                    End If
+                Case 4  '変更
 
-                '    'If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) = True Then
-                '    '    'Call FunSRCH(Me.dgvDATA, FunGetListData())
-                '    'End If
-                'Case 5, 6  '削除/復元/完全削除
+                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) = True Then
+                        'Call FunSRCH(Me.dgvDATA, FunGetListData())
+                    End If
+                Case 5, 6  '削除/復元/完全削除
 
-                '    'Dim btn As Button = DirectCast(sender, Button)
-                '    'Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(btn.Tag, ENM_DATA_OPERATION_MODE)
-                '    'If FunDEL(ENM_MODE) = True Then
-                '    '    'Call FunSRCH(Me.dgvDATA, FunGetListData())
-                '    'End If
+                    Dim btn As Button = DirectCast(sender, Button)
+                    Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(btn.Tag, ENM_DATA_OPERATION_MODE)
+                    If FunDEL(ENM_MODE) = True Then
+                        'Call FunSRCH(Me.dgvDATA, FunGetListData())
+                    End If
 
-                'Case 10  'CSV出力
+                Case 10  'CSV出力
 
-                '    Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
-                '    'Call FunCSV_OUT(Me.dgvDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
+                    Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
+                    'Call FunCSV_OUT(Me.dgvDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
 
                 Case 12 '閉じる
                     Me.Close()
-                Case Else
-                    MessageBox.Show("未実装", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End Select
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -264,7 +258,7 @@ Public Class FrmG0012
             Dim dsList As New DataSet
             Dim sbSQLWHERE As New System.Text.StringBuilder
 
-            ''----DBデータ取得
+            '''----DBデータ取得
             'sbSQLWHERE.Remove(0, sbSQLWHERE.Length)
             'If Me.cmbKOMO_NM.SelectedValue <> "" Then
             '    sbSQLWHERE.Append(" WHERE KOMO_NM ='" & Me.cmbKOMO_NM.SelectedValue & "' ")
@@ -441,7 +435,7 @@ Public Class FrmG0012
         'Dim strComboVal As String
 
         Try
-            '参照型のSystem.Tupleを値型のSystem.ValueTupleに置き換える
+            ' 参照型のSystem.Tupleを値型のSystem.ValueTupleに置き換える
 
             'コンボボックスの選択値を記憶
             'If cmbKOMO_NM.SelectedValue IsNot Nothing Then
@@ -613,7 +607,7 @@ Public Class FrmG0012
     ''' <param name="frm">対象フォーム</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function FunInitFuncButtonEnabled(ByVal frm As FrmG0012) As Boolean
+    Private Function FunInitFuncButtonEnabled(ByVal frm As FrmG0010) As Boolean
         Try
 
             For intFunc As Integer = 1 To 12
@@ -627,33 +621,40 @@ Public Class FrmG0012
 
             Dim dgv As DataGridView = DirectCast(frm.Controls("dgvDATA"), DataGridView)
 
-            frm.cmdFunc2.Enabled = True
-            frm.cmdFunc3.Enabled = True
-            frm.cmdFunc5.Enabled = True
-            frm.cmdFunc11.Enabled = True
+            If dgv.RowCount > 0 Then
+                frm.cmdFunc3.Enabled = True
+                frm.cmdFunc4.Enabled = True
+                frm.cmdFunc5.Enabled = True
+                frm.cmdFunc10.Enabled = True
+            Else
+                frm.cmdFunc3.Enabled = False
+                frm.cmdFunc4.Enabled = False
+                frm.cmdFunc5.Enabled = False
+                frm.cmdFunc10.Enabled = False
+            End If
 
-            'If dgv.SelectedRows.Count > 0 Then
-            '    If dgv.CurrentRow IsNot Nothing AndAlso dgv.CurrentRow.Cells.Item("DEL_FLG").Value = True Then
-            '        '削除済データの場合
-            '        frm.cmdFunc4.Enabled = False
-            '        frm.cmdFunc5.Text = "完全削除(F5)"
-            '        frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._6_DELETE
+            If dgv.SelectedRows.Count > 0 Then
+                If dgv.CurrentRow IsNot Nothing AndAlso dgv.CurrentRow.Cells.Item("DEL_FLG").Value = True Then
+                    '削除済データの場合
+                    frm.cmdFunc4.Enabled = False
+                    frm.cmdFunc5.Text = "完全削除(F5)"
+                    frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._6_DELETE
 
-            '        '復元
-            '        frm.cmdFunc6.Text = "復元(F6)"
-            '        frm.cmdFunc6.Visible = True
-            '        frm.cmdFunc6.Tag = ENM_DATA_OPERATION_MODE._5_RESTORE
-            '    Else
-            '        frm.cmdFunc5.Text = "削除(F5)"
-            '        frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._4_DISABLE
+                    '復元
+                    frm.cmdFunc6.Text = "復元(F6)"
+                    frm.cmdFunc6.Visible = True
+                    frm.cmdFunc6.Tag = ENM_DATA_OPERATION_MODE._5_RESTORE
+                Else
+                    frm.cmdFunc5.Text = "削除(F5)"
+                    frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._4_DISABLE
 
-            '        frm.cmdFunc6.Text = ""
-            '        frm.cmdFunc6.Visible = False
-            '        frm.cmdFunc6.Tag = ""
-            '    End If
-            'Else
-            '    frm.cmdFunc6.Visible = False
-            'End If
+                    frm.cmdFunc6.Text = ""
+                    frm.cmdFunc6.Visible = False
+                    frm.cmdFunc6.Tag = ""
+                End If
+            Else
+                frm.cmdFunc6.Visible = False
+            End If
 
             Return True
         Catch ex As Exception
@@ -674,9 +675,6 @@ Public Class FrmG0012
         Me.cmdFunc1.PerformClick()
 
     End Sub
-
-
-
 
 #End Region
 

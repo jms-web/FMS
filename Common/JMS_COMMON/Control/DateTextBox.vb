@@ -537,7 +537,6 @@ Public Class DateTextBoxEx
 #End Region
 
 #Region "Undo メソッド"
-    'UNDONE: MaskedTextBox Undoメソッド
     Public Overloads Sub Undo()
         Me.Text = Me.OldValue
     End Sub

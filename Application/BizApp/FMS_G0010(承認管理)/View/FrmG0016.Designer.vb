@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FrmG0014
+Partial Class FrmG0016
     Inherits JMS_COMMON.FrmBaseStsBtnDgv
 
     'Form overrides dispose to clean up the component list.
@@ -22,49 +22,51 @@ Partial Class FrmG0014
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
-        Me.dgvDetail = New System.Windows.Forms.DataGridView()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.mtxYOIN_NAME = New JMS_COMMON.MaskedTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvDetail, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
         '
         Me.lblRecordCount.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblRecordCount.Location = New System.Drawing.Point(12, 565)
-        Me.lblRecordCount.Size = New System.Drawing.Size(408, 24)
+        Me.lblRecordCount.Location = New System.Drawing.Point(9, 565)
         '
         'cmdFunc1
         '
-        Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgApplication_form32x32
+        Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgSearch32x32
         Me.cmdFunc1.Location = New System.Drawing.Point(9, 595)
-        Me.cmdFunc1.Text = "OK(F1)"
+        Me.cmdFunc1.Text = "検索(F1)"
         '
         'cmdFunc2
         '
+        Me.cmdFunc2.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
         Me.cmdFunc2.Location = New System.Drawing.Point(216, 595)
+        Me.cmdFunc2.Text = "追加(F2)"
         '
         'cmdFunc3
         '
+        Me.cmdFunc3.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
         Me.cmdFunc3.Location = New System.Drawing.Point(423, 595)
+        Me.cmdFunc3.Text = "類似追加(F3)"
         '
         'cmdFunc4
         '
+        Me.cmdFunc4.Image = Global.FMS.My.Resources.Resources._imgApplication_form_edit32x32
         Me.cmdFunc4.Location = New System.Drawing.Point(630, 595)
+        Me.cmdFunc4.Text = "変更(F4)"
         '
         'cmdFunc5
         '
+        Me.cmdFunc5.Image = Global.FMS.My.Resources.Resources._imgStatusAnnotations_Blocked_32x32_MD
         Me.cmdFunc5.Location = New System.Drawing.Point(837, 595)
+        Me.cmdFunc5.Text = "削除(F5)"
         '
         'cmdFunc6
         '
+        Me.cmdFunc6.Image = Global.FMS.My.Resources.Resources._imgRecovery32x32
         Me.cmdFunc6.Location = New System.Drawing.Point(1044, 595)
+        Me.cmdFunc6.Text = "復元(F6)"
         '
         'cmdFunc12
         '
@@ -78,7 +80,9 @@ Partial Class FrmG0014
         '
         'cmdFunc10
         '
+        Me.cmdFunc10.Image = Global.FMS.My.Resources.Resources._imgExportToExcel32x32
         Me.cmdFunc10.Location = New System.Drawing.Point(630, 643)
+        Me.cmdFunc10.Text = "CSV出力(F10)"
         '
         'cmdFunc7
         '
@@ -96,7 +100,7 @@ Partial Class FrmG0014
         '
         Me.lblTytle.Font = New System.Drawing.Font("Meiryo UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblTytle.Text = "原因分析区分の選択(要因:XXX)"
+        Me.lblTytle.Text = "変更内容比較"
         '
         'dgvDATA
         '
@@ -117,7 +121,7 @@ Partial Class FrmG0014
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle2
-        Me.dgvDATA.Location = New System.Drawing.Point(12, 91)
+        Me.dgvDATA.Location = New System.Drawing.Point(12, 60)
         Me.dgvDATA.Name = "dgvDATA"
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
@@ -128,107 +132,39 @@ Partial Class FrmG0014
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvDATA.RowTemplate.Height = 21
-        Me.dgvDATA.Size = New System.Drawing.Size(615, 471)
-        Me.dgvDATA.TabIndex = 63
+        Me.dgvDATA.Size = New System.Drawing.Size(1240, 502)
+        Me.dgvDATA.TabIndex = 64
         '
-        'dgvDetail
-        '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDetail.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
-        Me.dgvDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvDetail.DefaultCellStyle = DataGridViewCellStyle5
-        Me.dgvDetail.Location = New System.Drawing.Point(630, 91)
-        Me.dgvDetail.Name = "dgvDetail"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDetail.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
-        Me.dgvDetail.RowTemplate.Height = 21
-        Me.dgvDetail.Size = New System.Drawing.Size(618, 471)
-        Me.dgvDetail.TabIndex = 64
-        '
-        'Label11
-        '
-        Me.Label11.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label11.Location = New System.Drawing.Point(13, 57)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(60, 30)
-        Me.Label11.TabIndex = 77
-        Me.Label11.Text = "要因:"
-        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'mtxYOIN_NAME
-        '
-        Me.mtxYOIN_NAME.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxYOIN_NAME.Enabled = False
-        Me.mtxYOIN_NAME.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxYOIN_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxYOIN_NAME.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxYOIN_NAME.InputRequired = False
-        Me.mtxYOIN_NAME.Location = New System.Drawing.Point(79, 61)
-        Me.mtxYOIN_NAME.Name = "mtxYOIN_NAME"
-        Me.mtxYOIN_NAME.Size = New System.Drawing.Size(134, 24)
-        Me.mtxYOIN_NAME.TabIndex = 105
-        Me.mtxYOIN_NAME.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxYOIN_NAME.WatermarkText = Nothing
-        '
-        'FrmG0013
+        'FrmG0015
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.ClientSize = New System.Drawing.Size(1264, 712)
-        Me.Controls.Add(Me.mtxYOIN_NAME)
-        Me.Controls.Add(Me.Label11)
-        Me.Controls.Add(Me.dgvDetail)
         Me.Controls.Add(Me.dgvDATA)
         Me.HelpButton = True
-        Me.Name = "FrmG0013"
+        Me.Name = "FrmG0015"
         Me.ShowStatusBar = True
         Me.Text = ""
-        Me.Controls.SetChildIndex(Me.lblRecordCount, 0)
-        Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
-        Me.Controls.SetChildIndex(Me.cmdFunc3, 0)
-        Me.Controls.SetChildIndex(Me.cmdFunc4, 0)
-        Me.Controls.SetChildIndex(Me.cmdFunc5, 0)
-        Me.Controls.SetChildIndex(Me.cmdFunc6, 0)
-        Me.Controls.SetChildIndex(Me.cmdFunc1, 0)
         Me.Controls.SetChildIndex(Me.lblTytle, 0)
-        Me.Controls.SetChildIndex(Me.cmdFunc9, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc8, 0)
-        Me.Controls.SetChildIndex(Me.cmdFunc10, 0)
+        Me.Controls.SetChildIndex(Me.cmdFunc9, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
+        Me.Controls.SetChildIndex(Me.cmdFunc10, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
+        Me.Controls.SetChildIndex(Me.cmdFunc6, 0)
+        Me.Controls.SetChildIndex(Me.cmdFunc5, 0)
+        Me.Controls.SetChildIndex(Me.cmdFunc4, 0)
+        Me.Controls.SetChildIndex(Me.cmdFunc3, 0)
+        Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
+        Me.Controls.SetChildIndex(Me.cmdFunc1, 0)
+        Me.Controls.SetChildIndex(Me.lblRecordCount, 0)
         Me.Controls.SetChildIndex(Me.dgvDATA, 0)
-        Me.Controls.SetChildIndex(Me.dgvDetail, 0)
-        Me.Controls.SetChildIndex(Me.Label11, 0)
-        Me.Controls.SetChildIndex(Me.mtxYOIN_NAME, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvDetail, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents dgvDATA As DataGridView
-    Friend WithEvents dgvDetail As DataGridView
-    Friend WithEvents Label11 As Label
-    Friend WithEvents mtxYOIN_NAME As MaskedTextBoxEx
 End Class

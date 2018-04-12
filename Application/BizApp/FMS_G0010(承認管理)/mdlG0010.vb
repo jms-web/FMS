@@ -75,6 +75,20 @@ Module mdlG0010
         _990_Closed = 990
 
     End Enum
+
+
+    Public Enum ENM_GENIN_BUNSEKI_KB
+        _0_m_マネジメント = 0
+        _1_S_ソフトウェア = 1
+        _2_h_ハードウェア = 2
+        _3_e_作業環境 = 3
+        _4_L1_本人 = 4
+        _5_L2_関係者_支援体制 = 5
+        _11_材料 = 11
+        _12_設備_治具 = 12
+        _13_方法 = 13
+    End Enum
+
 #End Region
 
 #Region "MAIN"
@@ -124,8 +138,16 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "事前審査判定区分", tblJIZEN_SINSA_HANTEI_KB)
                     Call FunGetCodeDataTable(DB, "再審委員会判定区分", tblSAISIN_IINKAI_HANTEI_KB)
                     Call FunGetCodeDataTable(DB, "部品番号", tblBUHIN)
-                    Call FunGetCodeDataTable(DB, "承認担当", tblTANTO_SYONIN)
 
+                    Call FunGetCodeDataTable(DB, "承認担当", tblTANTO_SYONIN)
+                    Call FunGetCodeDataTable(DB, "顧客判定指示区分", tblKOKYAKU_HANTEI_SIJI_KB)
+                    Call FunGetCodeDataTable(DB, "顧客最終判定区分", tblKOKYAKU_SAISYU_HANTEI_KB)
+                    Call FunGetCodeDataTable(DB, "要否区分", tblYOHI_KB)
+                    Call FunGetCodeDataTable(DB, "検査結果区分", tblKENSA_KEKKA_KB)
+                    Call FunGetCodeDataTable(DB, "根本要因区分", tblKONPON_YOIN_KB)
+                    Call FunGetCodeDataTable(DB, "帰責工程区分", tblKISEKI_KOUTEI_KB)
+
+                    Call FunGetCodeDataTable(DB, "原因分析区分", tblGENIN_BUNSEKI_KB)
                 End Using
 
                 '起動時パラメータを取得

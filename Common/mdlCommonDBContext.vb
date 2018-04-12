@@ -94,6 +94,16 @@ Namespace Context
         End Enum
 #End Region
 
+#Region "共通"
+        Public Enum ENM_BUMON_KB
+            _0_経営部 = 0
+            _1_業務管理部 = 1
+            _2_航空機 = 2
+            _3_複合材 = 3
+            _4_LP = 4
+        End Enum
+#End Region
+
     End Module
 End Namespace
 
@@ -102,7 +112,7 @@ Public Module mdlDBContext
 
 #Region "データテーブル変数"
 
-#Region "共通"
+#Region "システム"
     ''' <summary>
     ''' メニューセクション
     ''' </summary>
@@ -117,6 +127,14 @@ Public Module mdlDBContext
     ''' 担当
     ''' </summary>
     Public tblTANTO As DataTableEx
+
+    ''' <summary>
+    ''' 要否区分
+    ''' </summary>
+    Public tblYOHI_KB As DataTableEx
+#End Region
+
+#Region "共通"
 
     ''' <summary>
     ''' 部門
@@ -134,7 +152,6 @@ Public Module mdlDBContext
     Public tblBUHIN As DataTableEx
 
 #End Region
-
 
 #Region "不適合関連"
 
@@ -158,17 +175,50 @@ Public Module mdlDBContext
     ''' </summary>
     Public tblSAISIN_IINKAI_HANTEI_KB As DataTableEx
 
-
     ''' <summary>
     ''' 不適合区分
     ''' </summary>
     Public tblFUTEKIGO_KB As DataTableEx
 
     ''' <summary>
+    ''' 不適合明細区分
+    ''' </summary>
+    Public tblFUTEKIGO_S_KB As DataTableEx
+
+    ''' <summary>
     ''' 不適合状態区分
     ''' </summary>
     Public tblFUTEKIGO_STATUS_KB As DataTableEx
 
+    ''' <summary>
+    ''' 顧客判定指示区分
+    ''' </summary>
+    Public tblKOKYAKU_HANTEI_SIJI_KB As DataTableEx
+
+    ''' <summary>
+    ''' 顧客最終判定区分
+    ''' </summary>
+    Public tblKOKYAKU_SAISYU_HANTEI_KB As DataTableEx
+
+    ''' <summary>
+    ''' 根本要因区分
+    ''' </summary>
+    Public tblKONPON_YOIN_KB As DataTableEx
+
+    ''' <summary>
+    ''' 帰責工程区分
+    ''' </summary>
+    Public tblKISEKI_KOUTEI_KB As DataTableEx
+
+    ''' <summary>
+    ''' 検査結果区分 合格、不合格
+    ''' </summary>
+    Public tblKENSA_KEKKA_KB As DataTableEx
+
+    ''' <summary>
+    ''' 原因分析区分
+    ''' </summary>
+    Public tblGENIN_BUNSEKI_KB As DataTableEx
 
     ''' <summary>
     ''' 承認担当
@@ -176,188 +226,6 @@ Public Module mdlDBContext
     Public tblTANTO_SYONIN As DataTableEx
 
 #End Region
-
-
-    '''' <summary>
-    '''' 職番
-    '''' </summary>
-    'Public tblSYOKUBAN As DataTableEx
-
-    '''' <summary>
-    '''' 見積状況区分
-    '''' </summary>
-    'Public tblMITU_KB As DataTableEx
-
-    '''' <summary>
-    '''' 製品区分
-    '''' </summary>
-    'Public tblSEIHIN_KB As DataTableEx
-
-    '''' <summary>
-    '''' 得意先
-    '''' </summary>
-    'Public tblTOKUI As DataTableEx
-
-    '''' <summary>
-    '''' 端数処理区分
-    '''' </summary>
-    'Public tblTAX_HASU_KB As DataTableEx
-
-    '''' <summary>
-    '''' 属性
-    '''' </summary>
-    'Public tblZOKUSEI As DataTableEx
-
-    '''' <summary>
-    '''' 属性項目
-    '''' </summary>
-    'Public tblZOKUSEI_K As DataTableEx
-
-    '''' <summary>
-    '''' 属性CD
-    '''' </summary>
-    'Public tblZOKUSEI_CD As DataTableEx
-
-    '''' <summary>
-    '''' 属性名
-    '''' </summary>
-    'Public tblZOKUSEI_NAME As DataTableEx
-    '''' <summary>
-    '''' 自支給区分
-    '''' </summary>
-    'Public tblZISI_KB As DataTableEx
-
-    ''''' <summary>
-    ''''' ありなし
-    ''''' </summary>
-    ''Public tblToF As DataTableEx
-
-    '''' <summary>
-    '''' 単位区分
-    '''' </summary>
-    'Public tblTANI_KBN As DataTableEx
-
-    '''' <summary>
-    '''' 仕入外注区分
-    '''' </summary>
-    'Public tblNAIGAI_KB As DataTableEx
-
-    '''' <summary>
-    '''' 取引種別
-    '''' </summary>
-    'Public tblTORI_SYU As DataTableEx
-
-    '''' <summary>
-    '''' 売税区分
-    '''' </summary>
-    'Public tblURI_KBN As DataTableEx
-
-    '''' <summary>
-    '''' 仕税区分
-    '''' </summary>
-    'Public tblSHI_KBN As DataTableEx
-
-    '''' <summary>
-    '''' 役職区分
-    '''' </summary>
-    'Public tblYAKU_KBN As DataTableEx
-
-    '''' <summary>
-    '''' 直間区分
-    '''' </summary>
-    'Public tblCYOKKAN_KBN As DataTableEx
-
-    '''' <summary>
-    '''' 部
-    '''' </summary>
-    'Public tblBU As DataTableEx
-
-    '''' <summary>
-    '''' 課
-    '''' </summary>
-    'Public tblKA As DataTableEx
-
-    '''' <summary>
-    '''' 機械名
-    '''' </summary>
-    'Public tblKIKAI_NAME As DataTableEx
-
-    '''' <summary>
-    '''' 機械メーカー
-    '''' </summary>
-    'Public tblKIKAI_MAKER As DataTableEx
-
-    '''' <summary>
-    '''' 追加工区分
-    '''' </summary>
-    'Public tblTUIKAKOU_KBN As DataTableEx
-
-    '''' <summary>
-    '''' 構成区分
-    '''' </summary>
-    'Public tblKOUSEI_KBN As DataTableEx
-
-    '''' <summary>
-    '''' 管理区分
-    '''' </summary>
-    'Public tblKANRI_KBN As DataTableEx
-
-    '''' <summary>
-    '''' 遊休区分
-    '''' </summary>
-    'Public tblYUKYU_KBN As DataTableEx
-
-    '''' <summary>
-    '''' 取引先略名
-    '''' </summary>
-    'Public tblTORI_SAKI As DataTableEx
-
-    '''' <summary>
-    '''' 取引先CD
-    '''' </summary>
-    'Public tblTORI_SAKI_CD As DataTableEx
-
-    '''' <summary>
-    '''' 製品品番
-    '''' </summary>
-    'Public tblHINBAN As DataTableEx
-
-    '''' <summary>
-    '''' 製品品名
-    '''' </summary>
-    'Public tblHINMEI As DataTableEx
-
-    '''' <summary>
-    '''' 発注先CD
-    '''' </summary>
-    'Public tblHACYU_CD As DataTableEx
-
-    ''''' <summary>
-    ''''' 品番
-    ''''' </summary>
-    ''Public tblHINBAN As DataTableEx
-
-
-
-    '''' <summary>
-    '''' 理由CD
-    '''' </summary>
-    'Public tblRIYU_CD As DataTableEx
-
-    '''' <summary>
-    '''' 材質
-    '''' </summary>
-    'Public tblZAISITU As DataTableEx
-
-    '''' <summary>
-    '''' 工程
-    '''' </summary>
-    'Public tblKOTEI As DataTableEx
-
-    '''' <summary>
-    '''' カレンダー
-    '''' </summary>
-    'Public tblCALENDAR As DataTableEx
 
 #End Region
 
@@ -397,8 +265,49 @@ Public Module mdlDBContext
     End Function
 #End Region
 
+#End Region
+
+#Region "テーブル値関数・ストアド バギング関数"
+
+#Region "TV01 不適合報告書一覧"
+    Public Function FunGetTV01_FUTEKIGO_ICHIRAN(ByVal BUMON_KB As String,
+                                                ByVal HOKOKUSYO_NO As String,
+                                                ByVal KISYU_ID As Integer,
+                                                ByVal BUHIN_BANGO As String,
+                                                ByVal BUHIN_NAME As String,
+                                                ByVal JIZEN_SINSA_HANTEI_KB As String,
+                                                ByVal SAISIN_IINKAI_HANTEI_KB As String,
+                                                ByVal CLOSE_FLG As String,
+                                                ByVal Optional strWhere As String = "") As DataTable
+
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+        Dim strParam As String = String.Format("'{0}','{1}',{2},'{3}','{4}','{5}','{6}','{7}'",
+                                              BUMON_KB,
+                                              HOKOKUSYO_NO,
+                                              KISYU_ID,
+                                              BUHIN_BANGO,
+                                              BUHIN_NAME,
+                                              JIZEN_SINSA_HANTEI_KB,
+                                              SAISIN_IINKAI_HANTEI_KB,
+                                              CLOSE_FLG)
+
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("SELECT")
+        sbSQL.Append(" *")
+        sbSQL.Append(" FROM " & NameOf(TV01_FUTEKIGO_ICHIRAN) & "(" & strParam & ")")
+        sbSQL.Append(" " & strWhere)
+        sbSQL.Append(" ORDER BY HOKOKUSYO_NO ")
+        Using DBa As ClsDbUtility = DBOpen()
+            dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        Return dsList.Tables(0)
+    End Function
+#End Region
 
 #End Region
+
 
 #Region "データテーブル取得"
 
@@ -1066,7 +975,7 @@ Public Module mdlDBContext
                             End With
                         Next intCNT
                     Else
-                        'UNDONE: data null exception
+                        ' data null exception
                         'Throw New ArgumentNullException("", "")
                     End If
 #End Region

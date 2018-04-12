@@ -307,11 +307,14 @@ Public Module mdlExtensionMethod
 #End Region
 
 #Region "String"
+
+    <Diagnostics.DebuggerStepThrough()>
     <Extension()>
     Public Function IsNullOrEmpty(ByVal value As String) As Boolean
         Return String.IsNullOrEmpty(value)
     End Function
 
+    <Diagnostics.DebuggerStepThrough()>
     <Extension()>
     Public Function IsNullOrWhiteSpace(ByVal this As String) As Boolean
         Return String.IsNullOrWhiteSpace(this)
