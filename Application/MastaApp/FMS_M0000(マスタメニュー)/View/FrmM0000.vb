@@ -760,10 +760,10 @@ Public Class FrmM0000
             'Me.BringToFront()
             '------------------------------------------------------------
 
-            ''-----ŠJ•ú
-            'If hProcess IsNot Nothing Then
-            '    hProcess.Close()
-            'End If
+            '-----ŠJ•ú
+            If hProcess IsNot Nothing Then
+                hProcess.Close()
+            End If
         End Try
 
     End Sub

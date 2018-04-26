@@ -816,7 +816,7 @@ Public Class FrmG0010
         Dim dlgRET As DialogResult
 
         Try
-            If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE And dgvDATA.CurrentRow.Cells(5).Value = "CAR" Then
+            If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE AndAlso dgvDATA.CurrentRow.Cells(5).Value = "CAR" Then
                 dlgRET = frmCAR.ShowDialog(Me)
 
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
@@ -1234,26 +1234,32 @@ Public Class FrmG0010
 
     Private Sub CmbYOIN1_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbYOIN1.SelectedValueChanged
         If cmbYOIN1.SelectedValue Is Nothing Then
-            mtxGENIN1.Text = ""
-            mtxGENIN1_DISP.Text = ""
+            mtxGENIN1.Enabled = False
             btnClearGenin1.Enabled = False
             btnSelectGenin1.Enabled = False
         Else
+            mtxGENIN1.Enabled = True
             btnClearGenin1.Enabled = True
             btnSelectGenin1.Enabled = True
         End If
+        PrGenin1.Clear()
+        mtxGENIN1.Text = ""
+        mtxGENIN1_DISP.Text = ""
     End Sub
 
     Private Sub CmbYOIN2_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbYOIN2.SelectedValueChanged
         If cmbYOIN2.SelectedValue Is Nothing Then
-            mtxGENIN2.Text = ""
-            mtxGENIN2_DISP.Text = ""
+            mtxGENIN2.Enabled = False
             btnClearGenin2.Enabled = False
             btnSelectGenin2.Enabled = False
         Else
+            mtxGENIN2.Enabled = True
             btnClearGenin2.Enabled = True
             btnSelectGenin2.Enabled = True
         End If
+        PrGenin2.Clear()
+        mtxGENIN2.Text = ""
+        mtxGENIN2_DISP.Text = ""
     End Sub
 
     '原因1クリア
@@ -1273,7 +1279,7 @@ Public Class FrmG0010
     '原因1区分選択画面呼び出し
     Private Sub BtnSelectGenin1_Click(sender As Object, e As EventArgs) Handles btnSelectGenin1.Click
 
-        Dim frmDLG As Form
+        Dim frmDLG As New Form
         Dim dlgRET As DialogResult
         Try
             If cmbYOIN1.SelectedValue = 0 Then
@@ -1312,18 +1318,20 @@ Public Class FrmG0010
 
     '原因2区分選択画面呼び出し
     Private Sub BtnSelectGenin2_Click(sender As Object, e As EventArgs) Handles btnSelectGenin2.Click
-        Dim frmDLG As Form
+        Dim frmDLG As New Form
         Dim dlgRET As DialogResult
         Try
             If cmbYOIN2.SelectedValue = 0 Then
                 frmDLG = New FrmG0013
                 DirectCast(frmDLG, FrmG0013).PrYOIN = (cmbYOIN2.SelectedValue, cmbYOIN2.Text)
-                DirectCast(frmDLG, FrmG0013).PrSelectedList = PrGenin1
+                DirectCast(frmDLG, FrmG0013).PrSelectedList = PrGenin2
             Else
                 frmDLG = New FrmG0014
                 DirectCast(frmDLG, FrmG0014).PrYOIN = (cmbYOIN2.SelectedValue, cmbYOIN2.Text)
-                DirectCast(frmDLG, FrmG0014).PrSelectedList = PrGenin1
+                DirectCast(frmDLG, FrmG0014).PrSelectedList = PrGenin2
             End If
+
+            dlgRET = frmDLG.ShowDialog(Me)
 
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Exit Sub

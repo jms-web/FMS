@@ -1448,6 +1448,7 @@ Partial Class FrmG0010
         Me.mtxGENIN1.Name = "mtxGENIN1"
         Me.mtxGENIN1.Size = New System.Drawing.Size(474, 24)
         Me.mtxGENIN1.TabIndex = 109
+        Me.mtxGENIN1.Visible = False
         Me.mtxGENIN1.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxGENIN1.WatermarkText = Nothing
         '
@@ -1462,6 +1463,7 @@ Partial Class FrmG0010
         Me.mtxGENIN2.Name = "mtxGENIN2"
         Me.mtxGENIN2.Size = New System.Drawing.Size(474, 24)
         Me.mtxGENIN2.TabIndex = 110
+        Me.mtxGENIN2.Visible = False
         Me.mtxGENIN2.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxGENIN2.WatermarkText = Nothing
         '
@@ -1475,6 +1477,7 @@ Partial Class FrmG0010
         Me.Label3.TabIndex = 111
         Me.Label3.Text = "å¥àˆ1(åüçıíl):"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label3.Visible = False
         '
         'Label22
         '
@@ -1486,6 +1489,7 @@ Partial Class FrmG0010
         Me.Label22.TabIndex = 112
         Me.Label22.Text = "å¥àˆ2(åüçıíl):"
         Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label22.Visible = False
         '
         'FrmG0010
         '

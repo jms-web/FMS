@@ -72,9 +72,31 @@ Public NotInheritable Class ClsPubMethod
         _2_Option = 2
     End Enum
 
+
+    <Flags>
+    Public Enum EllipsisFormat
+        ' Text Is Not modified.
+        _0_None = 0
+        ' Text Is trimmed at the end of the string. An ellipsis (...) 
+        ' Is drawn in place of remaining text.
+        _1_End = 1
+        ' Text Is trimmed at the beginning of the string. 
+        ' An ellipsis (...) Is drawn in place of remaining text. 
+        _2_Start = 2
+        ' Text Is trimmed in the middle of the string. 
+        ' An ellipsis (...) Is drawn in place of remaining text.
+        _3_Middle = 3
+        ' Preserve as much as possible of the drive And filename information. 
+        ' Must be combined with alignment information.
+        _4_Path = 4
+        ' Text Is trimmed at a word boundary. 
+        ' Must be combined with alignment information.
+        _8_Word = 8
+    End Enum
+
+
+
 #End Region
-
-
 
 #End Region
 
@@ -202,6 +224,101 @@ Public NotInheritable Class ClsPubMethod
             Return vbNullString
         End Try
     End Function
+
+    'Link https://www.codeproject.com/Articles/37503/Auto-Ellipsis
+    Public Const EllipsisChars As String = "..."
+    Public Shared Function CompactString(ByVal text As String, ByVal ctrl As Control, ByVal options As EllipsisFormat) As String
+        Using dc As Graphics = ctrl.CreateGraphics()
+            Dim s As Size = TextRenderer.MeasureText(dc, text, ctrl.Font)
+
+            ' control Is large enough to display the whole text 
+            If (s.Width <= ctrl.Width) Then
+                Return text
+            End If
+
+            Dim pre As String = ""
+            Dim Mid As String = text
+            Dim post As String = ""
+
+            Dim isPath As Boolean = (EllipsisFormat._4_Path & options) <> 0
+
+            ' split path string into <drive><directory><filename> 
+            If (isPath) Then
+                pre = IO.Path.GetPathRoot(text)
+                Mid = IO.Path.GetDirectoryName(text).Substring(pre.Length)
+                post = IO.Path.GetFileName(text)
+            End If
+
+            Dim Len As Integer = 0
+            Dim seg As Integer = Mid.Length
+            Dim fit As String = ""
+
+            ' find the longest string that fits into
+            ' the control boundaries using bisection method
+            While (seg > 1)
+                seg -= seg / 2
+
+                Dim Left As Integer = Len + seg
+                Dim Right As Integer = Mid.Length
+
+                If (Left > Right) Then
+                    Continue While
+                End If
+
+                If ((EllipsisFormat._3_Middle & options) = EllipsisFormat._3_Middle) Then
+                    Right -= Left / 2
+                    Left -= Left / 2
+                ElseIf ((EllipsisFormat._2_Start & options) <> 0) Then
+                    Right -= Left
+                    Left = 0
+                End If
+
+
+                ' build And measure a candidate string with ellipsis
+                Dim tst As String = Mid.Substring(0, Left) + EllipsisChars + Mid.Substring(Right)
+
+                ' restore path with <drive> And <filename>
+                If (isPath) Then
+                    tst = IO.Path.Combine(IO.Path.Combine(pre, tst), post)
+                End If
+                s = TextRenderer.MeasureText(dc, tst, ctrl.Font)
+
+                ' candidate string fits into control boundaries, 
+                ' try a longer string 
+                ' stop when seg <= 1 
+                If (s.Width <= ctrl.Width) Then
+                    Len += seg
+                    fit = tst
+                End If
+            End While
+
+            If Len = 0 Then ' String Then can't fit into control
+                ' "path" mode Is off, just return ellipsis characters
+                If isPath Then
+                Else
+                    Return EllipsisChars
+                End If
+
+                ' <drive> And <directory> are empty, return <filename>
+                If (pre.Length = 0 And Mid.Length = 0) Then
+                    Return post
+                End If
+
+                ' measure "C:\...\filename.ext"
+                fit = IO.Path.Combine(IO.Path.Combine(pre, EllipsisChars), post)
+
+                s = TextRenderer.MeasureText(dc, fit, ctrl.Font)
+
+                ' if still Not fit then return "...\filename.ext"
+                If (s.Width > ctrl.Width) Then
+                    fit = IO.Path.Combine(EllipsisChars, post)
+                End If
+            End If
+
+            Return fit
+        End Using
+    End Function
+
 #End Region
 
 #Region "フォルダ存在チェック＆作成"

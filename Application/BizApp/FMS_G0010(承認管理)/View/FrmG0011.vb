@@ -825,6 +825,123 @@ Public Class FrmG0011
 #Region "   STAGE10"
 
 #End Region
+#Region "   STAGE11"
+
+#End Region
+#Region "   STAGE12"
+
+#End Region
+#Region "添付資料"
+
+    '添付ファイル選択
+    Private Sub BtnOpenTempFileDialog_Click(sender As Object, e As EventArgs) Handles btnOpenTempFileDialog.Click
+        Dim ofd As New OpenFileDialog With {
+            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
+            .FilterIndex = 1,
+            .Title = "添付するファイルを選択してください",
+            .RestoreDirectory = True
+        }
+        If mtxTempFilePath.Tag Is Nothing OrElse mtxTempFilePath.Tag.ToString.IsNullOrWhiteSpace Then
+        Else
+            ofd.InitialDirectory = IO.Path.GetDirectoryName(mtxTempFilePath.Tag)
+        End If
+        If ofd.ShowDialog() = DialogResult.OK Then
+            mtxTempFilePath.Text = CompactString(ofd.FileName, mtxTempFilePath, EllipsisFormat._4_Path)
+            mtxTempFilePath.Tag = ofd.FileName
+
+        End If
+    End Sub
+
+    '添付ファイル開く
+    Private Sub BtnOpenTempFile_Click(sender As Object, e As EventArgs) Handles btnOpenTempFile.Click
+        Dim hProcess As New System.Diagnostics.Process
+        Dim strEXE As String
+        'Dim strARG As String
+        Try
+
+            strEXE = mtxTempFilePath.Tag
+            If strEXE.IsNullOrWhiteSpace Then
+            Else
+                If System.IO.File.Exists(strEXE) = True Then
+                    hProcess.StartInfo.FileName = strEXE
+                    'hProcess.StartInfo.Arguments = strARG
+                    hProcess.SynchronizingObject = Me
+                    AddHandler hProcess.Exited, AddressOf ProcessExited
+                    hProcess.EnableRaisingEvents = True
+                    hProcess.Start()
+
+                    Call SetTaskbarInfo(ENM_TASKBAR_STATE._2_Normal, 100)
+                    Call SetTaskbarOverlayIcon(System.Drawing.SystemIcons.Application)
+                Else
+                    Dim strMsg As String
+                    strMsg = "下記プログラムファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
+                                vbCrLf & vbCrLf & strEXE
+                    MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+        Finally
+            'プロセス終了を待機しない------------------------------------
+            ''-----自分表示
+            'Me.Show()
+            'Me.lstGYOMU.Focus()
+            'Me.Activate()
+            'Me.BringToFront()
+            '------------------------------------------------------------
+
+            '-----開放
+            If hProcess IsNot Nothing Then
+                hProcess.Close()
+            End If
+        End Try
+    End Sub
+    Private Sub ProcessExited(ByVal sender As Object, ByVal e As EventArgs)
+        Call SetTaskbarOverlayIcon(Nothing)
+        Call SetTaskbarInfo(ENM_TASKBAR_STATE._0_NoProgress)
+    End Sub
+
+    '画像1選択
+    Private Sub BtnOpenPict1Dialog_Click(sender As Object, e As EventArgs) Handles btnOpenPict1Dialog.Click
+        Dim ofd As New OpenFileDialog With {
+         .Filter = "画像(*.bmp;*.gif;*.jpg;*.png)|*.bmp;*.gif;*.jpg;*.png",
+         .FilterIndex = 1,
+         .Title = "添付する画像ファイルを選択してください",
+         .RestoreDirectory = True
+        }
+        If mtxPict1Path.Tag Is Nothing OrElse mtxPict1Path.Tag.ToString.IsNullOrWhiteSpace Then
+        Else
+            ofd.InitialDirectory = IO.Path.GetDirectoryName(mtxPict1Path.Tag)
+        End If
+
+        If ofd.ShowDialog() = DialogResult.OK Then
+            mtxPict1Path.Text = CompactString(ofd.FileName, mtxTempFilePath, EllipsisFormat._4_Path)
+            mtxPict1Path.Tag = ofd.FileName
+            pnlPict1.BackgroundImage = System.Drawing.Image.FromFile(ofd.FileName)
+            pnlPict1.Cursor = Cursors.Hand
+        End If
+    End Sub
+
+    '画像2選択
+    Private Sub BtnOpenPict2Dialog_Click(sender As Object, e As EventArgs) Handles btnOpenPict2Dialog.Click
+        Dim ofd As New OpenFileDialog With {
+            .Filter = "画像(*.bmp;*.gif;*.jpg;*.png)|*.bmp;*.gif;*.jpg;*.png",
+            .FilterIndex = 1,
+            .Title = "添付する画像ファイルを選択してください",
+            .RestoreDirectory = True
+        }
+        If mtxPict2Path.Tag Is Nothing OrElse mtxPict2Path.Tag.ToString.IsNullOrWhiteSpace Then
+        Else
+            ofd.InitialDirectory = IO.Path.GetDirectoryName(mtxPict2Path.Tag)
+        End If
+
+        If ofd.ShowDialog() = DialogResult.OK Then
+            mtxPict2Path.Text = CompactString(ofd.FileName, mtxTempFilePath, EllipsisFormat._4_Path)
+            mtxPict2Path.Tag = ofd.FileName
+            pnlPict2.BackgroundImage = System.Drawing.Image.FromFile(ofd.FileName)
+            pnlPict2.Cursor = Cursors.Hand
+        End If
+    End Sub
+
+#End Region
 
 #End Region
 
@@ -986,6 +1103,17 @@ Public Class FrmG0011
         cmbST11_DestTANTO.Text = strTabNameList(10)
 
     End Function
+
+    Private Sub pnlPict1_Click(sender As Object, e As EventArgs) Handles pnlPict1.Click
+
+    End Sub
+
+    Private Sub pnlPict2_Click(sender As Object, e As EventArgs) Handles pnlPict2.Click
+
+    End Sub
+
+
+
 
 #End Region
 
