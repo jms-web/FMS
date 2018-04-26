@@ -34,7 +34,7 @@ Public Class FrmG0014
     ''' 選択した原因の値リスト
     ''' </summary>
     ''' <returns></returns>
-    Public Property PrSelectedList As List(Of (ITEM_NAME As String, ITEM_VALUE As String))
+    Public Property PrSelectedList As List(Of (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String))
 #End Region
 
 #Region "Form関連"
@@ -56,14 +56,10 @@ Public Class FrmG0014
             '-----コントロールデータソース設定
             mtxYOIN_NAME.Text = PrYOIN.Name
 
-            ''-----イベントハンドラ設定
-            'AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
-
             '検索実行
-            Me.cmdFunc1.PerformClick()
+            Call FunSRCH(dgvDATA, FunGetListData())
         Finally
-
+            Call FunInitFuncButtonEnabled()
         End Try
     End Sub
 
@@ -77,9 +73,22 @@ Public Class FrmG0014
             With dgv
                 .AutoGenerateColumns = False
                 .ReadOnly = False
+                '.RowsDefaultCellStyle.BackColor = Color.White
+                '.AlternatingRowsDefaultCellStyle.BackColor = Color.White
 
-                .RowsDefaultCellStyle.BackColor = Color.White
-                .AlternatingRowsDefaultCellStyle.BackColor = Color.White
+                Dim cmbclmn1 As New DataGridViewCheckBoxColumn With {
+                        .Name = "SELECTED",
+                        .HeaderText = "選択",
+                        .DataPropertyName = .Name
+                        }
+                cmbclmn1.DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+                .Columns.Add(cmbclmn1)
+                .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
+                .Columns(.ColumnCount - 1).Width = 30
+
+                .Columns.Add("ITEM_NAME", "ITEM_NAME")
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).Visible = False
 
                 .Columns.Add("ITEM_VALUE", "ITEM_VALUE")
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
@@ -90,16 +99,6 @@ Public Class FrmG0014
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
-
-                Dim cmbclmn1 As New DataGridViewCheckBoxColumn With {
-                .Name = "SELECTED",
-                .HeaderText = "選択",
-                .DataPropertyName = .Name
-                }
-                cmbclmn1.DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-                .Columns.Add(cmbclmn1)
-                .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
-                .Columns(.ColumnCount - 1).Width = 30
             End With
 
             Return True
@@ -108,16 +107,24 @@ Public Class FrmG0014
         End Try
     End Function
 
-    'グリッドセル(行)ダブルクリック時イベント
-    Private Sub DgvDATA_CellDoubleClick(sender As System.Object, e As DataGridViewCellEventArgs)
-
-    End Sub
-
-    '行選択時イベント
-    Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs)
+    'グリッドセル(行)クリック時イベント
+    Private Sub DgvDATA_CellContentClick(sender As System.Object, e As DataGridViewCellEventArgs) Handles dgvDATA.CellContentClick
         Try
-        Finally
-            'Call FunInitFuncButtonEnabled(Me)
+            Dim dgv As DataGridView = DirectCast(sender, DataGridView)
+
+            If e.RowIndex >= 0 Then
+                Select Case dgv.Columns(e.ColumnIndex).Name
+                    Case "SELECTED"
+                        dgv.CurrentRow.Cells("SELECTED").Value = Not CBool(dgv.CurrentRow.Cells("SELECTED").Value)
+                        If CBool(dgv.CurrentRow.Cells("SELECTED").Value) Then
+                            PrSelectedList.Add((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
+                        Else
+                            PrSelectedList.Remove((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
+                        End If
+                End Select
+            End If
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
     End Sub
 
@@ -143,9 +150,10 @@ Public Class FrmG0014
 
             'ボタンINDEX毎の処理
             Select Case intFUNC
-                Case 1  '変更内容比較
-
+                Case 1  'OK
+                    Me.DialogResult = DialogResult.OK
                 Case 12 '閉じる
+                    Me.DialogResult = DialogResult.Cancel
                     Me.Close()
             End Select
         Catch ex As Exception
@@ -158,7 +166,7 @@ Public Class FrmG0014
             Next
 
             'ファンクションキー有効化初期化
-            'Call FunInitFuncButtonEnabled(Me)
+            Call FunInitFuncButtonEnabled()
 
             '[アクティブ]
             Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
@@ -178,56 +186,48 @@ Public Class FrmG0014
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append("SELECT")
             sbSQL.Append(" *")
-            sbSQL.Append(" FROM " & NameOf(MODEL.M001_SETTING) & " ")
-            sbSQL.Append(" WHERE ITEM_NAME='原因分析区分'")
+            sbSQL.Append(" FROM " & NameOf(MODEL.VWM001_SETTING) & " ")
+            sbSQL.Append(" WHERE ITEM_NAME='材料原因区分'")
             sbSQL.Append(" ORDER BY DISP_ORDER ")
             Using DBa As ClsDbUtility = DBOpen()
                 dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
 
-            'If dsList.Tables(0).Rows.Count > pub_APP_INFO.intSEARCHMAX Then
-            '    If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
-            '        Return Nothing
-            '    End If
-            'End If
-
             '------DataTableに変換
             Dim dt As New DataTable
-
-            Dim t As Type = GetType(MODEL.M001_SETTING)
-            Dim properties As Reflection.PropertyInfo() = t.GetProperties(
-                 Reflection.BindingFlags.Public Or
-                 Reflection.BindingFlags.NonPublic Or
-                 Reflection.BindingFlags.Instance Or
-                 Reflection.BindingFlags.Static)
-
-            For Each p As Reflection.PropertyInfo In properties
-                dt.Columns.Add(p.Name, p.PropertyType)
-            Next p
-
+            dt.Columns.Add("ITEM_NAME", GetType(String))
+            dt.Columns.Add("ITEM_VALUE", GetType(String))
+            dt.Columns.Add("ITEM_DISP", GetType(String))
+            dt.Columns.Add("DEL_FLG", GetType(Boolean))
+            dt.Columns.Add("DEF_FLG", GetType(Boolean))
+            dt.Columns.Add("DISP_ORDER", GetType(Integer))
             dt.Columns.Add("SELECTED", GetType(Boolean))
 
-            With dsList.Tables(0)
-                For Each row As DataRow In .Rows
-                    Dim Trow As DataRow = dt.NewRow()
-                    For Each p As Reflection.PropertyInfo In properties
-                        'If IsAutoGenerateField(t, p.Name) = True Then
-                        Select Case p.PropertyType
-                            Case GetType(Integer)
-                                Trow(p.Name) = Val(row.Item(p.Name))
-                            Case GetType(Decimal)
-                                Trow(p.Name) = CDec(row.Item(p.Name))
-                            Case GetType(Boolean)
-                                Trow(p.Name) = CBool(row.Item(p.Name))
-                            Case Else
-                                Trow(p.Name) = row.Item(p.Name)
-                        End Select
-                        'End If
-                    Next p
-                    dt.Rows.Add(Trow)
-                Next row
-                dt.AcceptChanges()
-            End With
+            '主キー設定
+            dt.PrimaryKey = {dt.Columns("ITEM_NAME"), dt.Columns("ITEM_VALUE")}
+
+            If dsList IsNot Nothing Then
+                For intCNT = 0 To dsList.Tables(0).Rows.Count - 1
+                    With dsList.Tables(0).Rows(intCNT)
+                        Dim Trow As DataRow = dt.NewRow()
+                        Trow("ITEM_NAME") = .Item("ITEM_NAME")
+                        Trow("ITEM_DISP") = .Item("ITEM_DISP")
+                        Trow("ITEM_VALUE") = .Item("ITEM_VALUE")
+                        Trow("DEL_FLG") = CBool(.Item("DEL_FLG"))
+                        Trow("DISP_ORDER") = Val(.Item("DISP_ORDER"))
+                        Trow("DEF_FLG") = CBool(.Item("DEF_FLG"))
+                        If PrSelectedList Is Nothing Then
+                            Trow("SELECTED") = False
+                        Else
+                            Trow("SELECTED") = PrSelectedList.Contains((.Item("ITEM_NAME"), .Item("ITEM_VALUE"), .Item("ITEM_DISP")))
+                        End If
+                        dt.Rows.Add(Trow)
+                    End With
+                Next intCNT
+            Else
+                ' data null exception
+                'Throw New ArgumentNullException("", "")
+            End If
 
             Return dt
         Catch ex As Exception
@@ -300,54 +300,17 @@ Public Class FrmG0014
     ''' <param name="frm">対象フォーム</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function FunInitFuncButtonEnabled(ByVal frm As FrmG0010) As Boolean
+    Private Function FunInitFuncButtonEnabled() As Boolean
         Try
 
             For intFunc As Integer = 1 To 12
-                With frm.Controls("cmdFunc" & intFunc)
+                With Me.Controls("cmdFunc" & intFunc)
                     If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).Trim = "" Then
                         .Text = ""
                         .Visible = False
                     End If
                 End With
             Next intFunc
-
-            Dim dgv As DataGridView = DirectCast(frm.Controls("dgvDATA"), DataGridView)
-
-            If dgv.RowCount > 0 Then
-                frm.cmdFunc3.Enabled = True
-                frm.cmdFunc4.Enabled = True
-                frm.cmdFunc5.Enabled = True
-                frm.cmdFunc10.Enabled = True
-            Else
-                frm.cmdFunc3.Enabled = False
-                frm.cmdFunc4.Enabled = False
-                frm.cmdFunc5.Enabled = False
-                frm.cmdFunc10.Enabled = False
-            End If
-
-            If dgv.SelectedRows.Count > 0 Then
-                If dgv.CurrentRow IsNot Nothing AndAlso dgv.CurrentRow.Cells.Item("DEL_FLG").Value = True Then
-                    '削除済データの場合
-                    frm.cmdFunc4.Enabled = False
-                    frm.cmdFunc5.Text = "完全削除(F5)"
-                    frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._6_DELETE
-
-                    '復元
-                    frm.cmdFunc6.Text = "復元(F6)"
-                    frm.cmdFunc6.Visible = True
-                    frm.cmdFunc6.Tag = ENM_DATA_OPERATION_MODE._5_RESTORE
-                Else
-                    frm.cmdFunc5.Text = "削除(F5)"
-                    frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._4_DISABLE
-
-                    frm.cmdFunc6.Text = ""
-                    frm.cmdFunc6.Visible = False
-                    frm.cmdFunc6.Tag = ""
-                End If
-            Else
-                frm.cmdFunc6.Visible = False
-            End If
 
             Return True
         Catch ex As Exception
@@ -361,13 +324,6 @@ Public Class FrmG0014
 #End Region
 
 #Region "コントロールイベント"
-
-    '検索フィルタ変更
-    Private Sub SearchFilterValueChanged(sender As System.Object, e As System.EventArgs)
-        '検索
-        Me.cmdFunc1.PerformClick()
-
-    End Sub
 
 #End Region
 

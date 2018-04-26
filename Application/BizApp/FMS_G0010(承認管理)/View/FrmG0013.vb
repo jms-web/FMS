@@ -34,7 +34,7 @@ Public Class FrmG0013
     ''' 選択した原因の値リスト
     ''' </summary>
     ''' <returns></returns>
-    Public Property PrSelectedList As List(Of (ITEM_NAME As String, ITEM_VALUE As String))
+    Public Property PrSelectedList As New List(Of (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String))
 
 #End Region
 
@@ -52,19 +52,19 @@ Public Class FrmG0013
             Me.Height = 570
 
             '-----グリッド初期設定(親フォームから呼び出し)
-            Call FunInitializeDataGridView(Me.dgvDATA)
-            Call FunInitializeDataGridView(Me.dgvDetail)
+            Call FunInitializeDataGridView(dgvDATA)
+            Call FunInitializeDataGridView(dgvDetail)
 
             '-----グリッド列作成
-            Call FunSetDgvCulumns(Me.dgvDATA)
-            Call FunSetDgvCulumns(Me.dgvDetail)
+            Call FunSetDgvCulumns(dgvDATA)
+            Call FunSetDgvCulumns(dgvDetail)
 
             '-----コントロールデータソース設定
 
             '検索実行
-            Me.cmdFunc1.PerformClick()
+            Call FunSRCH(dgvDATA, FunGetListData())
         Finally
-
+            Call FunInitFuncButtonEnabled()
         End Try
     End Sub
 
@@ -80,9 +80,8 @@ Public Class FrmG0013
                     Case "dgvDATA"
                         .AutoGenerateColumns = False
                         .ReadOnly = False
-
-                        .RowsDefaultCellStyle.BackColor = Color.White
-                        .AlternatingRowsDefaultCellStyle.BackColor = Color.White
+                        '.RowsDefaultCellStyle.BackColor = Color.White
+                        '.AlternatingRowsDefaultCellStyle.BackColor = Color.White
 
                         .Columns.Add("ITEM_VALUE", "ITEM_VALUE")
                         .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
@@ -94,22 +93,17 @@ Public Class FrmG0013
                         .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                         .Columns(.ColumnCount - 1).ReadOnly = True
 
-                        Dim cmbclmn1 As New DataGridViewCheckBoxColumn With {
-                        .Name = "SELECT_COUNT",
-                        .HeaderText = "選択件数",
-                        .DataPropertyName = .Name
-                        }
-                        cmbclmn1.DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-                        .Columns.Add(cmbclmn1)
-                        .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
-                        .Columns(.ColumnCount - 1).Width = 30
+                        .Columns.Add("SELECT_COUNT", "選択件数")
+                        .Columns(.ColumnCount - 1).Width = 60
+                        .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
+                        .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                        .Columns(.ColumnCount - 1).ReadOnly = True
 
                     Case "dgvDetail"
                         .AutoGenerateColumns = False
                         .ReadOnly = False
-
-                        .RowsDefaultCellStyle.BackColor = Color.White
-                        .AlternatingRowsDefaultCellStyle.BackColor = Color.White
+                        '.RowsDefaultCellStyle.BackColor = Color.White
+                        '.AlternatingRowsDefaultCellStyle.BackColor = Color.White
 
                         Dim cmbclmn1 As New DataGridViewCheckBoxColumn With {
                         .Name = "SELECTED",
@@ -143,22 +137,39 @@ Public Class FrmG0013
         End Try
     End Function
 
-    'グリッドセル(行)ダブルクリック時イベント
-    Private Sub DgvDATA_CellDoubleClick(sender As System.Object, e As DataGridViewCellEventArgs)
+    'グリッドセル(行)クリック時イベント
+    Private Sub DgvDetail_CellContentClick(sender As System.Object, e As DataGridViewCellEventArgs) Handles dgvDetail.CellContentClick
+        Try
+            Dim dgv As DataGridView = DirectCast(sender, DataGridView)
 
+            If e.RowIndex >= 0 Then
+                Select Case dgv.Columns(e.ColumnIndex).Name
+                    Case "SELECTED"
+                        dgv.CurrentRow.Cells("SELECTED").Value = Not CBool(dgv.CurrentRow.Cells("SELECTED").Value)
+                        If CBool(dgv.CurrentRow.Cells("SELECTED").Value) Then
+                            PrSelectedList.Add((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
+                        Else
+                            PrSelectedList.Remove((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
+                        End If
+                        dgvDATA.CurrentRow.Cells("SELECT_COUNT").Value = DirectCast(dgv.DataSource, DataTable).AsEnumerable().Where(Function(r) r.Field(Of Boolean)("SELECTED") = True).Count
+                End Select
+            End If
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+        End Try
     End Sub
 
     '行選択時イベント
     Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs) Handles dgvDATA.SelectionChanged
         Try
             If dgvDATA.CurrentRow IsNot Nothing Then
+                '詳細項目の表示
                 Call FunSRCH(dgvDetail, FunGetDgvDetail(dgvDATA.CurrentRow.Cells("ITEM_VALUE").Value))
             End If
         Finally
             'Call FunInitFuncButtonEnabled(Me)
         End Try
     End Sub
-
 
 #End Region
 
@@ -182,9 +193,10 @@ Public Class FrmG0013
 
             'ボタンINDEX毎の処理
             Select Case intFUNC
-                Case 1  '
-                    Call FunSRCH(dgvDATA, FunGetListData())
+                Case 1  'OK
+                    Me.DialogResult = DialogResult.OK
                 Case 12 '閉じる
+                    Me.DialogResult = DialogResult.Cancel
                     Me.Close()
             End Select
         Catch ex As Exception
@@ -209,7 +221,7 @@ Public Class FrmG0013
 
 #Region "検索"
 
-    'メイン(分析区分)グリッドのデータソー取得
+    'メイングリッド(分析区分)のデータ取得
     Private Function FunGetListData() As DataTable
         Try
             Dim sbSQL As New System.Text.StringBuilder
@@ -245,7 +257,12 @@ Public Class FrmG0013
                     Trow("ITEM_NAME") = row.Item("ITEM_NAME")
                     Trow("ITEM_VALUE") = row.Item("ITEM_VALUE")
                     Trow("ITEM_DISP") = row.Item("ITEM_DISP")
-                    Trow("SELECT_COUNT") = 0
+                    If PrSelectedList Is Nothing Then
+                        Trow("SELECT_COUNT") = 0
+                    Else
+                        Trow("SELECT_COUNT") = PrSelectedList.Where(Function(item) item.ITEM_NAME = row.Item("ITEM_VALUE")).Count
+                    End If
+
                     dt.Rows.Add(Trow)
                 Next row
                 dt.AcceptChanges()
@@ -259,28 +276,28 @@ Public Class FrmG0013
     End Function
 
     Private Function FunSRCH(ByVal dgv As DataGridView, ByVal dt As DataTable) As Boolean
-        Dim intCURROW As Integer
+        'Dim intCURROW As Integer
         Try
 
-            '-----選択行記憶
-            If dgv.RowCount > 0 Then
-                intCURROW = dgv.CurrentRow.Index
-            End If
+            ''-----選択行記憶
+            'If dgv.RowCount > 0 Then
+            '    intCURROW = dgv.CurrentRow.Index
+            'End If
 
             dgv.DataSource = dt
 
             'Call FunSetDgvCellFormat(dgv)
 
-            If dgv.RowCount > 0 Then
-                '-----選択行設定
-                Try
-                    dgv.CurrentCell = dgv.Rows(intCURROW).Cells(0)
-                Catch dgvEx As Exception
-                End Try
-                Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, dgv.RowCount.ToString)
-            Else
-                Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
-            End If
+            'If dgv.RowCount > 0 Then
+            '    '-----選択行設定
+            '    Try
+            '        dgv.CurrentCell = dgv.Rows(intCURROW).Cells(0)
+            '    Catch dgvEx As Exception
+            '    End Try
+            '    Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, dgv.RowCount.ToString)
+            'Else
+            '    Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
+            'End If
 
             Return True
         Catch ex As Exception
@@ -318,17 +335,17 @@ Public Class FrmG0013
             Dim strItemName As String
             Select Case strValue
                 Case ENM_GENIN_BUNSEKI_KB._0_m_マネジメント
-                    strItemName = "m-マネジメント"
+                    strItemName = "m"
                 Case ENM_GENIN_BUNSEKI_KB._1_S_ソフトウェア
-                    strItemName = "S-ソフトウェア"
+                    strItemName = "S"
                 Case ENM_GENIN_BUNSEKI_KB._2_h_ハードウェア
-                    strItemName = "h-ハードウェア"
+                    strItemName = "h"
                 Case ENM_GENIN_BUNSEKI_KB._3_e_作業環境
-                    strItemName = "e-作業環境"
+                    strItemName = "e"
                 Case ENM_GENIN_BUNSEKI_KB._4_L1_本人
-                    strItemName = "L1-本人"
+                    strItemName = "L1"
                 Case ENM_GENIN_BUNSEKI_KB._5_L2_関係者_支援体制
-                    strItemName = "L2-関係者・支援体制"
+                    strItemName = "L2"
                 Case Else
                     strItemName = ""
                     'err
@@ -339,56 +356,48 @@ Public Class FrmG0013
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append("SELECT")
             sbSQL.Append(" *")
-            sbSQL.Append(" FROM " & NameOf(MODEL.M001_SETTING) & " ")
-            sbSQL.Append(" WHERE ITEM_NAME='" & strItemName & "'")
+            sbSQL.Append(" FROM " & NameOf(MODEL.VWM001_SETTING) & " ")
+            sbSQL.Append(" WHERE ITEM_NAME='m-SHELL_" & strItemName & "区分'")
             sbSQL.Append(" ORDER BY DISP_ORDER ")
             Using DBa As ClsDbUtility = DBOpen()
                 dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
 
-            'If dsList.Tables(0).Rows.Count > pub_APP_INFO.intSEARCHMAX Then
-            '    If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
-            '        Return Nothing
-            '    End If
-            'End If
-
             '------DataTableに変換
             Dim dt As New DataTable
-
-            Dim t As Type = GetType(MODEL.M001_SETTING)
-            Dim properties As Reflection.PropertyInfo() = t.GetProperties(
-                 Reflection.BindingFlags.Public Or
-                 Reflection.BindingFlags.NonPublic Or
-                 Reflection.BindingFlags.Instance Or
-                 Reflection.BindingFlags.Static)
-
-            For Each p As Reflection.PropertyInfo In properties
-                dt.Columns.Add(p.Name, p.PropertyType)
-            Next p
-
+            dt.Columns.Add("ITEM_NAME", GetType(String))
+            dt.Columns.Add("ITEM_VALUE", GetType(String))
+            dt.Columns.Add("ITEM_DISP", GetType(String))
+            dt.Columns.Add("DEL_FLG", GetType(Boolean))
+            dt.Columns.Add("DEF_FLG", GetType(Boolean))
+            dt.Columns.Add("DISP_ORDER", GetType(Integer))
             dt.Columns.Add("SELECTED", GetType(Boolean))
 
-            With dsList.Tables(0)
-                For Each row As DataRow In .Rows
-                    Dim Trow As DataRow = dt.NewRow()
-                    For Each p As Reflection.PropertyInfo In properties
-                        'If IsAutoGenerateField(t, p.Name) = True Then
-                        Select Case p.PropertyType
-                            Case GetType(Integer)
-                                Trow(p.Name) = Val(row.Item(p.Name))
-                            Case GetType(Decimal)
-                                Trow(p.Name) = CDec(row.Item(p.Name))
-                            Case GetType(Boolean)
-                                Trow(p.Name) = CBool(row.Item(p.Name))
-                            Case Else
-                                Trow(p.Name) = row.Item(p.Name)
-                        End Select
-                        'End If
-                    Next p
-                    dt.Rows.Add(Trow)
-                Next row
-                dt.AcceptChanges()
-            End With
+            '主キー設定
+            dt.PrimaryKey = {dt.Columns("ITEM_NAME"), dt.Columns("ITEM_VALUE")}
+
+            If dsList IsNot Nothing Then
+                For intCNT = 0 To dsList.Tables(0).Rows.Count - 1
+                    With dsList.Tables(0).Rows(intCNT)
+                        Dim Trow As DataRow = dt.NewRow()
+                        Trow("ITEM_NAME") = strValue '件数カウントのために、名称ではなく項目値の方を格納する
+                        Trow("ITEM_DISP") = .Item("ITEM_DISP")
+                        Trow("ITEM_VALUE") = .Item("ITEM_VALUE")
+                        Trow("DEL_FLG") = CBool(.Item("DEL_FLG"))
+                        Trow("DISP_ORDER") = Val(.Item("DISP_ORDER"))
+                        Trow("DEF_FLG") = CBool(.Item("DEF_FLG"))
+                        If PrSelectedList Is Nothing Then
+                            Trow("SELECTED") = False
+                        Else
+                            Trow("SELECTED") = PrSelectedList.Contains((strValue, .Item("ITEM_VALUE"), .Item("ITEM_DISP")))
+                        End If
+                        dt.Rows.Add(Trow)
+                    End With
+                Next intCNT
+            Else
+                ' data null exception
+                'Throw New ArgumentNullException("", "")
+            End If
 
             Return dt
         Catch ex As Exception
@@ -413,49 +422,12 @@ Public Class FrmG0013
 
             For intFunc As Integer = 1 To 12
                 With Me.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).Trim = "" Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
                         .Text = ""
                         .Visible = False
                     End If
                 End With
             Next intFunc
-
-            'Dim dgv As DataGridView = DirectCast(Controls("dgvDATA"), DataGridView)
-
-            'If dgv.RowCount > 0 Then
-            '    cmdFunc3.Enabled = True
-            '    cmdFunc4.Enabled = True
-            '    cmdFunc5.Enabled = True
-            '    cmdFunc10.Enabled = True
-            'Else
-            '    cmdFunc3.Enabled = False
-            '    cmdFunc4.Enabled = False
-            '    cmdFunc5.Enabled = False
-            '    cmdFunc10.Enabled = False
-            'End If
-
-            'If dgv.SelectedRows.Count > 0 Then
-            '    If dgv.CurrentRow IsNot Nothing AndAlso dgv.CurrentRow.Cells.Item("DEL_FLG").Value = True Then
-            '        '削除済データの場合
-            '        cmdFunc4.Enabled = False
-            '        cmdFunc5.Text = "完全削除(F5)"
-            '        cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._6_DELETE
-
-            '        '復元
-            '        cmdFunc6.Text = "復元(F6)"
-            '        cmdFunc6.Visible = True
-            '        cmdFunc6.Tag = ENM_DATA_OPERATION_MODE._5_RESTORE
-            '    Else
-            '        cmdFunc5.Text = "削除(F5)"
-            '        cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._4_DISABLE
-
-            '        cmdFunc6.Text = ""
-            '        cmdFunc6.Visible = False
-            '        cmdFunc6.Tag = ""
-            '    End If
-            'Else
-            '    cmdFunc6.Visible = False
-            'End If
 
             Return True
         Catch ex As Exception
@@ -469,13 +441,6 @@ Public Class FrmG0013
 #End Region
 
 #Region "コントロールイベント"
-
-    '検索フィルタ変更
-    Private Sub SearchFilterValueChanged(sender As System.Object, e As System.EventArgs)
-        '検索
-        Me.cmdFunc1.PerformClick()
-
-    End Sub
 
 #End Region
 

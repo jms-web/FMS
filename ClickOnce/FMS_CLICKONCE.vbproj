@@ -38,12 +38,12 @@
     <InstallUrl>http://SV91:8000/</InstallUrl>
     <ProductName>フジワラシステム デモ</ProductName>
     <PublisherName>JMS</PublisherName>
-    <MinimumRequiredVersion>0.9.18102.0920</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.9.18116.0227</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>920</ApplicationRevision>
-    <ApplicationVersion>1.0.18102.0920</ApplicationVersion>
+    <ApplicationRevision>227</ApplicationRevision>
+    <ApplicationVersion>1.0.18116.0227</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

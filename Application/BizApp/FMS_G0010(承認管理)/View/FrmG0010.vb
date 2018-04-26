@@ -8,9 +8,9 @@ Public Class FrmG0010
 #Region "プロパティ"
     Public Property PrDt As DataTable
 
-    Public Property PrGenin1 As List(Of (ITEM_NAME As String, ITEM_VALUE As String))
+    Public Property PrGenin1 As New List(Of (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String))
 
-    Public Property PrGenin2 As List(Of (ITEM_NAME As String, ITEM_VALUE As String))
+    Public Property PrGenin2 As New List(Of (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String))
 #End Region
 
 #Region "コンストラクタ"
@@ -1141,7 +1141,7 @@ Public Class FrmG0010
 
             For intFunc As Integer = 1 To 12
                 With Me.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).Trim = "" Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
                         .Text = ""
                         .Visible = False
                     End If
@@ -1171,24 +1171,15 @@ Public Class FrmG0010
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
                 End If
 
-                'If dgvDATA.CurrentRow IsNot Nothing AndAlso dgvDATA.CurrentRow.Cells.Item("DEL_FLG").Value = True Then
-                '    '削除済データの場合
-                '    cmdFunc4.Enabled = False
-                '    cmdFunc5.Text = "完全削除(F5)"
-                '    cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._6_DELETE
+                '権限により
+                Dim blnAllowKIHYO As Boolean = FunblnAllowKIHYO()
+                Dim blnAllowSyonin As Boolean = FunblnAllowSyonin()
 
-                '    '復元
-                '    cmdFunc6.Text = "復元(F6)"
-                '    cmdFunc6.Visible = True
-                '    cmdFunc6.Tag = ENM_DATA_OPERATION_MODE._5_RESTORE
-                'Else
-                '    cmdFunc5.Text = "削除(F5)"
-                '    cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._4_DISABLE
+                cmdFunc2.Enabled = blnAllowKIHYO
+                cmdFunc5.Enabled = blnAllowKIHYO
+                cmdFunc4.Enabled = FunblnAllowSyonin()
+                cmdFunc9.Enabled = FunblnAllowSyonin()
 
-                '    cmdFunc6.Text = ""
-                '    cmdFunc6.Visible = False
-                '    cmdFunc6.Tag = ""
-                'End If
 
             Else
                 cmdFunc3.Enabled = False
@@ -1265,23 +1256,36 @@ Public Class FrmG0010
         End If
     End Sub
 
+    '原因1クリア
     Private Sub BtnClearGenin1_Click(sender As Object, e As EventArgs) Handles btnClearGenin1.Click
         mtxGENIN1.Text = ""
         mtxGENIN1_DISP.Text = ""
+        PrGenin1.Clear()
     End Sub
 
+    '原因2クリア
     Private Sub BtnClearGenin2_Click(sender As Object, e As EventArgs) Handles btnClearGenin2.Click
         mtxGENIN2.Text = ""
         mtxGENIN2_DISP.Text = ""
+        PrGenin2.Clear()
     End Sub
 
+    '原因1区分選択画面呼び出し
     Private Sub BtnSelectGenin1_Click(sender As Object, e As EventArgs) Handles btnSelectGenin1.Click
-        Dim frmDLG As New FrmG0013
+
+        Dim frmDLG As Form
         Dim dlgRET As DialogResult
         Try
+            If cmbYOIN1.SelectedValue = 0 Then
+                frmDLG = New FrmG0013
+                DirectCast(frmDLG, FrmG0013).PrYOIN = (cmbYOIN1.SelectedValue, cmbYOIN1.Text)
+                DirectCast(frmDLG, FrmG0013).PrSelectedList = PrGenin1
+            Else
+                frmDLG = New FrmG0014
+                DirectCast(frmDLG, FrmG0014).PrYOIN = (cmbYOIN1.SelectedValue, cmbYOIN1.Text)
+                DirectCast(frmDLG, FrmG0014).PrSelectedList = PrGenin1
+            End If
 
-            frmDLG.PrYOIN = (cmbYOIN1.SelectedValue, cmbYOIN1.Text)
-            frmDLG.PrSelectedList = PrGenin1
             dlgRET = frmDLG.ShowDialog(Me)
 
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
@@ -1290,9 +1294,9 @@ Public Class FrmG0010
                 mtxGENIN1_DISP.Text = ""
                 For Each item In PrGenin1
                     If mtxGENIN1_DISP.Text.IsNullOrWhiteSpace Then
-                        mtxGENIN1_DISP.Text = item.ITEM_NAME
+                        mtxGENIN1_DISP.Text = item.ITEM_DISP
                     Else
-                        mtxGENIN1_DISP.Text &= ", " & item.ITEM_NAME
+                        mtxGENIN1_DISP.Text &= ", " & item.ITEM_DISP
                     End If
                 Next item
             End If
@@ -1306,14 +1310,20 @@ Public Class FrmG0010
         End Try
     End Sub
 
+    '原因2区分選択画面呼び出し
     Private Sub BtnSelectGenin2_Click(sender As Object, e As EventArgs) Handles btnSelectGenin2.Click
-        Dim frmDLG As New FrmG0014
+        Dim frmDLG As Form
         Dim dlgRET As DialogResult
         Try
-
-            frmDLG.PrYOIN = (cmbYOIN2.SelectedValue, cmbYOIN2.Text)
-            frmDLG.PrSelectedList = PrGenin2
-            dlgRET = frmDLG.ShowDialog(Me)
+            If cmbYOIN2.SelectedValue = 0 Then
+                frmDLG = New FrmG0013
+                DirectCast(frmDLG, FrmG0013).PrYOIN = (cmbYOIN2.SelectedValue, cmbYOIN2.Text)
+                DirectCast(frmDLG, FrmG0013).PrSelectedList = PrGenin1
+            Else
+                frmDLG = New FrmG0014
+                DirectCast(frmDLG, FrmG0014).PrYOIN = (cmbYOIN2.SelectedValue, cmbYOIN2.Text)
+                DirectCast(frmDLG, FrmG0014).PrSelectedList = PrGenin1
+            End If
 
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Exit Sub
@@ -1321,9 +1331,9 @@ Public Class FrmG0010
                 mtxGENIN2_DISP.Text = ""
                 For Each item In PrGenin2
                     If mtxGENIN2_DISP.Text.IsNullOrWhiteSpace Then
-                        mtxGENIN2_DISP.Text = item.ITEM_NAME
+                        mtxGENIN2_DISP.Text = item.ITEM_DISP
                     Else
-                        mtxGENIN2_DISP.Text &= ", " & item.ITEM_NAME
+                        mtxGENIN2_DISP.Text &= ", " & item.ITEM_DISP
                     End If
                 Next item
             End If
@@ -1352,6 +1362,57 @@ Public Class FrmG0010
 
     End Sub
 #End Region
+
+#End Region
+
+
+#Region "ローカル関数"
+
+    Private Function FunblnAllowKIHYO() As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("SELECT")
+        sbSQL.Append(" *")
+        sbSQL.Append(" FROM " & NameOf(MODEL.M016_SYONIN_TANTO) & " ")
+        sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID IN(1,2)")
+        sbSQL.Append(" AND SYONIN_JUN=10")
+        sbSQL.Append(" AND SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID)
+        Using DBa As ClsDbUtility = DBOpen()
+            dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        If dsList.Tables(0).Rows.Count > 0 Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
+    Private Function FunblnAllowSyonin() As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("SELECT")
+        sbSQL.Append(" *")
+        sbSQL.Append(" FROM " & NameOf(MODEL.M016_SYONIN_TANTO) & " ")
+        sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID IN(1,2)")
+        sbSQL.Append(" AND SYONIN_JUN>10")
+        sbSQL.Append(" AND SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID)
+        Using DBa As ClsDbUtility = DBOpen()
+            dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        If dsList.Tables(0).Rows.Count > 0 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
 
 #End Region
 

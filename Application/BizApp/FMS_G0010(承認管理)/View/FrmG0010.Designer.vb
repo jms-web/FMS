@@ -1330,6 +1330,7 @@ Partial Class FrmG0010
         Me.mtxGENIN1_DISP.InputRequired = False
         Me.mtxGENIN1_DISP.Location = New System.Drawing.Point(543, 3)
         Me.mtxGENIN1_DISP.Name = "mtxGENIN1_DISP"
+        Me.mtxGENIN1_DISP.ReadOnly = True
         Me.mtxGENIN1_DISP.Size = New System.Drawing.Size(474, 24)
         Me.mtxGENIN1_DISP.TabIndex = 82
         Me.mtxGENIN1_DISP.WatermarkColor = System.Drawing.Color.Empty
@@ -1344,6 +1345,7 @@ Partial Class FrmG0010
         Me.mtxGENIN2_DISP.InputRequired = False
         Me.mtxGENIN2_DISP.Location = New System.Drawing.Point(543, 33)
         Me.mtxGENIN2_DISP.Name = "mtxGENIN2_DISP"
+        Me.mtxGENIN2_DISP.ReadOnly = True
         Me.mtxGENIN2_DISP.Size = New System.Drawing.Size(474, 24)
         Me.mtxGENIN2_DISP.TabIndex = 104
         Me.mtxGENIN2_DISP.WatermarkColor = System.Drawing.Color.Empty
