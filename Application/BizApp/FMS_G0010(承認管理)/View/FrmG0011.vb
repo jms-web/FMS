@@ -841,37 +841,41 @@ Public Class FrmG0011
             .Title = "添付するファイルを選択してください",
             .RestoreDirectory = True
         }
-        If mtxTempFilePath.Tag Is Nothing OrElse mtxTempFilePath.Tag.ToString.IsNullOrWhiteSpace Then
+        If lbltmpFile1.Links.Count = 0 Then
         Else
-            ofd.InitialDirectory = IO.Path.GetDirectoryName(mtxTempFilePath.Tag)
+            ofd.InitialDirectory = IO.Path.GetDirectoryName(lbltmpFile1.Links(0).ToString)
         End If
         If ofd.ShowDialog() = DialogResult.OK Then
-            mtxTempFilePath.Text = CompactString(ofd.FileName, mtxTempFilePath, EllipsisFormat._4_Path)
-            mtxTempFilePath.Tag = ofd.FileName
-
+            lbltmpFile1.Text = IO.Path.GetFileName(ofd.FileName)
+            lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, ofd.FileName)
+            lbltmpFile1.Visible = True
+            lbltmpFile1_Clear.Visible = True
         End If
     End Sub
 
-    '添付ファイル開く
-    Private Sub BtnOpenTempFile_Click(sender As Object, e As EventArgs) Handles btnOpenTempFile.Click
+    'リンククリック
+    Private Sub LbltmpFile1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1.LinkClicked
         Dim hProcess As New System.Diagnostics.Process
         Dim strEXE As String
         'Dim strARG As String
         Try
 
-            strEXE = mtxTempFilePath.Tag
+            strEXE = lbltmpFile1.Links(0).LinkData
             If strEXE.IsNullOrWhiteSpace Then
             Else
                 If System.IO.File.Exists(strEXE) = True Then
                     hProcess.StartInfo.FileName = strEXE
                     'hProcess.StartInfo.Arguments = strARG
                     hProcess.SynchronizingObject = Me
-                    AddHandler hProcess.Exited, AddressOf ProcessExited
+                    'AddHandler hProcess.Exited, AddressOf ProcessExited
                     hProcess.EnableRaisingEvents = True
                     hProcess.Start()
 
-                    Call SetTaskbarInfo(ENM_TASKBAR_STATE._2_Normal, 100)
-                    Call SetTaskbarOverlayIcon(System.Drawing.SystemIcons.Application)
+                    '最前面
+                    Call SetForegroundWindow(hProcess.Handle)
+
+                    'Call SetTaskbarInfo(ENM_TASKBAR_STATE._2_Normal, 100)
+                    'Call SetTaskbarOverlayIcon(System.Drawing.SystemIcons.Application)
                 Else
                     Dim strMsg As String
                     strMsg = "下記プログラムファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
@@ -879,6 +883,8 @@ Public Class FrmG0011
                     MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
             End If
+        Catch exInvalid As InvalidOperationException
+            'EM.ErrorSyori(exInvalid, False, conblnNonMsg)
         Finally
             'プロセス終了を待機しない------------------------------------
             ''-----自分表示
@@ -894,9 +900,18 @@ Public Class FrmG0011
             End If
         End Try
     End Sub
+
+    'リンククリア
+    Private Sub LbltmpFile1_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1_Clear.LinkClicked
+        lbltmpFile1.Text = ""
+        lbltmpFile1.Links.Clear()
+        lbltmpFile1.Visible = False
+        lbltmpFile1_Clear.Visible = False
+    End Sub
+
     Private Sub ProcessExited(ByVal sender As Object, ByVal e As EventArgs)
-        Call SetTaskbarOverlayIcon(Nothing)
-        Call SetTaskbarInfo(ENM_TASKBAR_STATE._0_NoProgress)
+        'Call SetTaskbarOverlayIcon(Nothing)
+        'Call SetTaskbarInfo(ENM_TASKBAR_STATE._0_NoProgress)
     End Sub
 
     '画像1選択
@@ -913,9 +928,9 @@ Public Class FrmG0011
         End If
 
         If ofd.ShowDialog() = DialogResult.OK Then
-            mtxPict1Path.Text = CompactString(ofd.FileName, mtxTempFilePath, EllipsisFormat._4_Path)
+            mtxPict1Path.Text = CompactString(ofd.FileName, mtxPict1Path, EllipsisFormat._4_Path)
             mtxPict1Path.Tag = ofd.FileName
-            pnlPict1.BackgroundImage = System.Drawing.Image.FromFile(ofd.FileName)
+            pnlPict1.Image = System.Drawing.Image.FromFile(ofd.FileName)
             pnlPict1.Cursor = Cursors.Hand
         End If
     End Sub
@@ -934,11 +949,36 @@ Public Class FrmG0011
         End If
 
         If ofd.ShowDialog() = DialogResult.OK Then
-            mtxPict2Path.Text = CompactString(ofd.FileName, mtxTempFilePath, EllipsisFormat._4_Path)
+            mtxPict2Path.Text = CompactString(ofd.FileName, mtxPict2Path, EllipsisFormat._4_Path)
             mtxPict2Path.Tag = ofd.FileName
-            pnlPict2.BackgroundImage = System.Drawing.Image.FromFile(ofd.FileName)
+            pnlPict2.Image = System.Drawing.Image.FromFile(ofd.FileName)
             pnlPict2.Cursor = Cursors.Hand
         End If
+    End Sub
+
+    '画像1クリック
+    Private Sub PnlPict1_Click(sender As Object, e As EventArgs) Handles pnlPict1.Click
+        If pnlPict1.Image IsNot Nothing Then
+            picZoom.Image = pnlPict1.Image
+            picZoom.BringToFront()
+            picZoom.Visible = True
+        End If
+    End Sub
+
+    '画像2クリック
+    Private Sub PnlPict2_Click(sender As Object, e As EventArgs) Handles pnlPict2.Click
+        If pnlPict2.Image IsNot Nothing Then
+            picZoom.Image = pnlPict2.Image
+            picZoom.BringToFront()
+            picZoom.Visible = True
+        End If
+    End Sub
+
+    '拡大画像クリック
+    Private Sub PicZoom_Click(sender As Object, e As EventArgs) Handles picZoom.Click
+        picZoom.Image = Nothing
+        picZoom.Visible = False
+        picZoom.SendToBack()
     End Sub
 
 #End Region
@@ -1103,17 +1143,6 @@ Public Class FrmG0011
         cmbST11_DestTANTO.Text = strTabNameList(10)
 
     End Function
-
-    Private Sub pnlPict1_Click(sender As Object, e As EventArgs) Handles pnlPict1.Click
-
-    End Sub
-
-    Private Sub pnlPict2_Click(sender As Object, e As EventArgs) Handles pnlPict2.Click
-
-    End Sub
-
-
-
 
 #End Region
 

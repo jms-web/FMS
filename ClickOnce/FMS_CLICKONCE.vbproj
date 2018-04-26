@@ -38,12 +38,12 @@
     <InstallUrl>http://SV91:8000/</InstallUrl>
     <ProductName>フジワラシステム デモ</ProductName>
     <PublisherName>JMS</PublisherName>
-    <MinimumRequiredVersion>0.9.18116.0227</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.9.18116.0844</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>227</ApplicationRevision>
-    <ApplicationVersion>1.0.18116.0227</ApplicationVersion>
+    <ApplicationRevision>844</ApplicationRevision>
+    <ApplicationVersion>1.0.18116.0857</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -208,8 +208,6 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <Content Include="TEMPLATE\17065 T-4FC歪不良.pdf" />
-    <Content Include="TEMPLATE\処置履歴.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7">
@@ -230,6 +228,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="LOG\" />
+    <Folder Include="TEMPLATE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

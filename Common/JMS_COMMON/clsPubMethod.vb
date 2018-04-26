@@ -2,7 +2,16 @@
 Imports System.ComponentModel
 Imports System.ComponentModel.DataAnnotations
 
+
 Public NotInheritable Class ClsPubMethod
+
+#Region "WinAPI"
+
+    <Runtime.InteropServices.DllImport("user32.dll")>
+    Public Shared Function SetForegroundWindow(hWnd As IntPtr) As <Runtime.InteropServices.MarshalAs(Runtime.InteropServices.UnmanagedType.Bool)> Boolean
+    End Function
+
+#End Region
 
 #Region "定数・変数"
 
