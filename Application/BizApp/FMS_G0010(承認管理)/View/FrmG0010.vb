@@ -1,15 +1,28 @@
 Imports JMS_COMMON.ClsPubMethod
 Imports C1.Win.C1FlexGrid
 
+''' <summary>
+''' 不適合検索画面
+''' </summary>
 Public Class FrmG0010
 
-
-
 #Region "プロパティ"
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
     Public Property PrDt As DataTable
 
+    ''' <summary>
+    ''' CAR検索条件 原因1
+    ''' </summary>
+    ''' <returns></returns>
     Public Property PrGenin1 As New List(Of (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String))
 
+    ''' <summary>
+    ''' CAR検索条件 原因2
+    ''' </summary>
+    ''' <returns></returns>
     Public Property PrGenin2 As New List(Of (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String))
 #End Region
 
@@ -32,9 +45,6 @@ Public Class FrmG0010
         MyBase.ToolTip.SetToolTip(Me.cmdFunc9, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc11, My.Resources.infoToolTipMsgNotFoundData)
-
-        dtJisiFrom.Nullable = True
-        dtJisiTo.Nullable = True
 
     End Sub
 
@@ -61,11 +71,18 @@ Public Class FrmG0010
             'SPEC: PF01.2-(1) A データソース
 
             '-----コントロールソース設定
-
+            '日付空欄許可
+            dtJisiFrom.Nullable = True
+            dtJisiTo.Nullable = True
 
             '共通
             cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            Dim dtAddTANTO As DataTable = tblTANTO_SYONIN.ExcludeDeleted.AsEnumerable.Where(Function(r) r.Field(Of Integer)("SYONIN_JUN") = ENM_NCR_STAGE._10_起草入力).CopyToDataTable
+            Dim dtAddTANTO As DataTable = tblTANTO_SYONIN.
+                                            ExcludeDeleted.
+                                            AsEnumerable.
+                                            Where(Function(r) r.Field(Of Integer)("SYONIN_JUN") = ENM_NCR_STAGE._10_起草入力).
+                                            CopyToDataTable
+
             cmbADD_TANTO.SetDataSource(dtAddTANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbTANTO.SetDataSource(tblTANTO_SYONIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -96,8 +113,7 @@ Public Class FrmG0010
             AddHandler Me.cmbBUHIN_BANGO.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler Me.chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
-            Call FunInitFuncButtonEnabled()
-
+            '起動モード別処理
             Select Case pub_intOPEN_MODE
                 Case ENM_OPEN_MODE._0_通常
                     Me.cmdFunc1.PerformClick()
@@ -107,7 +123,8 @@ Public Class FrmG0010
                     'Err
             End Select
         Finally
-
+            'ファンクションボタンステータス更新
+            Call FunInitFuncButtonEnabled()
         End Try
     End Sub
 
@@ -115,7 +132,7 @@ Public Class FrmG0010
 
 #Region "DataGridView関連"
 
-    'フィールド定義()
+    'フィールド定義
     Private Shared Function FunSetDgvCulumns(ByVal dgv As DataGridView) As Boolean
         Dim _Model As New MODEL.TV01_FUTEKIGO_ICHIRAN
         Try
@@ -246,10 +263,8 @@ Public Class FrmG0010
                 '.Columns(.ColumnCount - 1).DefaultCellStyle.Format = "#,0"
             End With
 
-
             Return True
         Finally
-
         End Try
     End Function
 
@@ -280,7 +295,6 @@ Public Class FrmG0010
     Private Sub DgvDATA_Sorted(sender As Object, e As EventArgs) Handles dgvDATA.Sorted
         Call FunSetDgvCellFormat(sender)
     End Sub
-
 
 #Region "　グリッド編集関連"
 

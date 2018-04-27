@@ -5,8 +5,6 @@
 Public Class DataTableEx
     Inherits DataTable
 
-    'UNDONE: 余裕があったら、DataTableExを廃止し、必要なメソッドを拡張メソッドとして定義
-
 #Region "変数・定数"
     Public Const DtExFindErrMsg As String = "#code does not exist#"
 #End Region
@@ -131,7 +129,7 @@ Public Class DataTableEx
 
 
             'ソースデータテーブルにフィルタをかける
-            If strSort <> "" Then
+            If strSort.IsNullOrWhiteSpace = False Then
                 dtr = Me.Select(strFilter, strSort)
             Else
                 dtr = Me.Select(strFilter)

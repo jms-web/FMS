@@ -61,6 +61,8 @@ Public Class FrmG0011
         Try
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+            Me.Text = "不適合製品処置報告書(Non-Conformance Report)"
+            lblTytle.Text = Me.Text
 
             '-----コントロールデータソース設定
             cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -112,9 +114,6 @@ Public Class FrmG0011
         Try
             Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
-                    Me.Text = "不適合製品処置報告書(Non-Conformance Report)" '& "（新規追加）"
-                    lblTytle.Text = Me.Text
-                    cmdFunc1.Text = "保存(F1)"
 
                     mtxHOKUKO_NO.Text = "<新規>"
                     mtxHOKUKO_NO.Enabled = True
@@ -133,10 +132,9 @@ Public Class FrmG0011
                     Call FunInitializeSTAGE(ENM_NCR_STAGE._10_起草入力)
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
-                    Me.Text = "不適合製品処置報告書(Non-Conformance Report)" '& "（変更）"
-                    lblTytle.Text = Me.Text
-                    cmdFunc1.Text = "保存(F1)"
 
+
+                    'SPEC: 10-2.①
                     Call FunSetEntityValues(PrDataRow)
 
                     Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrDataRow.Item("SYONIN_JUN")))
@@ -168,41 +166,51 @@ Public Class FrmG0011
     ''' <param name="dgvCol"></param>
     ''' <returns></returns>
     Private Function FunSetEntityValues(dr As DataRow) As Boolean
-        Dim _Model As New MODEL.TV01_FUTEKIGO_ICHIRAN
 
         Try
             '-----コントロールに値をセット
-            With dr
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append("SELECT")
+            sbSQL.Append(" *")
+            sbSQL.Append(" FROM " & NameOf(MODEL.V002_FUTEKIGO_HOKOKU_J) & " ")
+            sbSQL.Append(" WHERE HOKOKU_NO='" & dr.Item("HOKOKUSYO_NO") & "'")
+            Using DBa As ClsDbUtility = DBOpen()
+                dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            With dsList.Tables(0).Rows(0)
 
                 '報告書No
-                mtxHOKUKO_NO.Text = .Item(NameOf(_Model.HOKOKUSYO_NO))
+                mtxHOKUKO_NO.Text = .Item("")
                 '起草者
-                mtxADD_SYAIN_NAME.Text = .Item(NameOf(_Model.SYOCHI_SYAIN_NAME))
+                mtxADD_SYAIN_NAME.Text = .Item("")
                 '起草日
-                dtDraft.Text = .Item(NameOf(_Model.ADD_YMD))
+                dtDraft.Text = .Item("")
                 '機種
-                cmbKISYU.SelectedValue = .Item(NameOf(_Model.KISYU))
+                cmbKISYU.SelectedValue = .Item("")
                 '部品番号
-                cmbBUHIN_BANGO.SelectedValue = .Item(NameOf(_Model.BUHIN_BANGO))
+                cmbBUHIN_BANGO.SelectedValue = .Item("")
                 '部品名称
-                mtxHINMEI.Text = .Item(NameOf(_Model.BUHIN_NAME))
+                mtxHINMEI.Text = .Item("")
                 '号機
-                mtxGOUKI.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                mtxGOUKI.Text = .Item("")
                 '個数
-                numSU.Value = 1 '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                numSU.Value = .Item("")
                 '再発
-                chkSAIHATU.Checked = False 'CBool("")
+                chkSAIHATU.Checked = CBool(.Item(""))
 
                 '状態区分
-                cmbFUTEKIGO_STATUS.SelectedValue = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                cmbFUTEKIGO_STATUS.SelectedValue = .Item("")
                 '返却時の場合
-                cmbFUTEKIGO_KB.SelectedValue = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                cmbFUTEKIGO_KB.SelectedValue = .Item("")
                 '保留理由
-                mtxHENKYAKU.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
+                mtxHENKYAKU.Text = .Item("")
                 '図番/規格
-                mtxZUBAN_KIKAKU.Text = "" '.Item(NameOf(_Model.HOKOKUSYO_NO)).Value
-
+                mtxZUBAN_KIKAKU.Text = .Item("")
             End With
+
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -222,14 +230,20 @@ Public Class FrmG0011
 
             For Each page As TabPage In TabSTAGE.TabPages
                 If page.Name <> "tabAttachment" Then
-                    If Val(page.Name.Substring(8)) = intSTAGE Then
-                        page.Text = "現ステージ" 'pub_SYAIN_INFO.SYAIN_NAME
+                    If Val(page.Name.Substring(8)) < intSTAGE Then
+                        'SPEC: 10-2.③
+                        page.Text = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = PrDataRow("SYONIN_JUN")).FirstOrDefault.Item("DISP")
+                    ElseIf Val(page.Name.Substring(8)) = intSTAGE Then
+                        page.Text = "現ステージ" 'tblNCR.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = PrDataRow("SYONIN_JUN")).FirstOrDefault.Item("DISP")
+                        'SPEC: 10-2.④
+                        TabSTAGE.SelectedIndex = page.TabIndex
                     ElseIf Val(page.Name.Substring(8)) > intSTAGE Then
+                        'SPEC: 10-2 ②
                         _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
-                    Else
-                        '各ステージの担当者
-                        'page.Text = ""
                     End If
+
+                    'SPEC: 10-2.⑤
+                    page.Enabled = False
                 End If
             Next page
 
@@ -244,27 +258,6 @@ Public Class FrmG0011
             'mtxST09_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._90_処置実施確認_管理T)
             'mtxST10_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._100_処置実施決裁_製造課長)
             'mtxST11_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._110_abcde処置担当)
-
-            'DEBUG:
-            Dim strTabNameList As New List(Of String)
-            strTabNameList.Add("日比野 敏久")
-            strTabNameList.Add("杉山 茂巨")
-            strTabNameList.Add("横山 隆広")
-            strTabNameList.Add("半田功")
-            strTabNameList.Add("今井秀秋")
-            strTabNameList.Add("半田功")
-            strTabNameList.Add("中澤康嗣")
-            strTabNameList.Add("日比野敏久")
-            strTabNameList.Add("林 欣吾")
-            strTabNameList.Add("日當瀬政彦")
-            strTabNameList.Add("横山 隆広")
-            strTabNameList.Add("杉山 茂巨")
-
-            '処理済みステージ情報の取得
-            For i As Integer = 1 To intSTAGE - 1
-                TabSTAGE.Controls("tabSTAGE" & i.ToString("00")).Visible = True
-                TabSTAGE.Controls("tabSTAGE" & i.ToString("00")).Text = strTabNameList(i - 1)
-            Next i
 
             Return True
         Catch ex As Exception
@@ -409,35 +402,33 @@ Public Class FrmG0011
             'ボタンINDEX毎の処理
             Select Case intFUNC
                 Case 1  '保存
-                    If FunINS() = True Then
-                        MessageBox.Show("保存しました", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        intREGISTERED_STAGE += 1
-                        Me.DialogResult = DialogResult.OK
-                        Me.Close()
-
+                    If MessageBox.Show("入力内容を保存しますか？", "登録確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                        If FunSAVE() Then
+                            Me.DialogResult = DialogResult.OK
+                            MessageBox.Show("入力内容を保存しました", "保存完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        End If
                     End If
+
                 Case 2  '承認申請
-                    If MessageBox.Show("申請しますか？", "申請登録", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
-                        'If FunUPD() = True Then
-                        intREGISTERED_STAGE += 1
-                        MessageBox.Show("申請しました", "申請登録", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Me.DialogResult = DialogResult.OK
-                        Me.Close()
-                        'End If
+                    If MessageBox.Show("申請しますか？", "申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                        If FunREQUEST() Then
+                            MessageBox.Show("申請しました", "申請処理完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            Me.DialogResult = DialogResult.OK
+                            Me.Close()
+                        End If
                     End If
 
                 Case 4  '転送
                     MessageBox.Show("未実装", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Case 5  '差戻し
                     MessageBox.Show("未実装", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Case 6  'レポート印刷
-                    MessageBox.Show("未実装", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Case 10  'CAR編集
-
+                Case 9  'CAR編集
                     Call OpenFormCAR()
                     'Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
                     'Call FunCSV_OUT(Me.dgvDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
+                Case 10  'レポート印刷
+                    MessageBox.Show("未実装", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Case 11 '履歴表示
                     MessageBox.Show("未実装", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Case 12 '閉じる
@@ -463,9 +454,8 @@ Public Class FrmG0011
 
 #End Region
 
-
-#Region "追加"
-    Private Function FunINS() As Boolean
+#Region "保存"
+    Private Function FunSAVE() As Boolean
         Dim dsList As New DataSet
         Dim sbSQL As New System.Text.StringBuilder
 
@@ -590,8 +580,8 @@ Public Class FrmG0011
     End Function
 #End Region
 
-#Region "更新"
-    Private Function FunUPD() As Boolean
+#Region "申請"
+    Private Function FunREQUEST() As Boolean
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New System.Data.DataSet
 
@@ -733,24 +723,23 @@ Public Class FrmG0011
 
             For intFunc As Integer = 1 To 12
                 With Me.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).Trim = "" Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
                         .Text = ""
                         .Visible = False
                     End If
                 End With
             Next intFunc
 
-
             If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
                 cmdFunc4.Enabled = False
                 cmdFunc5.Enabled = False
-                cmdFunc6.Enabled = False
+                cmdFunc9.Enabled = False
                 cmdFunc10.Enabled = False
                 cmdFunc11.Enabled = False
             Else
                 cmdFunc4.Enabled = True
                 cmdFunc5.Enabled = True
-                cmdFunc6.Enabled = True
+                cmdFunc9.Enabled = True
                 cmdFunc10.Enabled = True
                 cmdFunc11.Enabled = True
             End If
@@ -878,7 +867,7 @@ Public Class FrmG0011
                     'Call SetTaskbarOverlayIcon(System.Drawing.SystemIcons.Application)
                 Else
                     Dim strMsg As String
-                    strMsg = "下記プログラムファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
+                    strMsg = "ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
                                 vbCrLf & vbCrLf & strEXE
                     MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
@@ -914,6 +903,8 @@ Public Class FrmG0011
         'Call SetTaskbarInfo(ENM_TASKBAR_STATE._0_NoProgress)
     End Sub
 
+#Region "画像1"
+
     '画像1選択
     Private Sub BtnOpenPict1Dialog_Click(sender As Object, e As EventArgs) Handles btnOpenPict1Dialog.Click
         Dim ofd As New OpenFileDialog With {
@@ -928,12 +919,55 @@ Public Class FrmG0011
         End If
 
         If ofd.ShowDialog() = DialogResult.OK Then
-            mtxPict1Path.Text = CompactString(ofd.FileName, mtxPict1Path, EllipsisFormat._4_Path)
-            mtxPict1Path.Tag = ofd.FileName
-            pnlPict1.Image = System.Drawing.Image.FromFile(ofd.FileName)
-            pnlPict1.Cursor = Cursors.Hand
+            Call SetPict1Data(ofd.FileName)
         End If
     End Sub
+
+    '画像1クリック
+    Private Sub PnlPict1_Click(sender As Object, e As EventArgs) Handles pnlPict1.Click
+        If pnlPict1.Image IsNot Nothing Then
+            picZoom.Image = pnlPict1.Image
+            picZoom.BringToFront()
+            picZoom.Visible = True
+        End If
+    End Sub
+
+    Private Sub PnlPict1_DragEnter(sender As Object, e As DragEventArgs) Handles pnlPict1.DragEnter
+        'ドラッグされたデータ形式を調べ、ファイルのときはコピーとする
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+            e.Effect = DragDropEffects.Copy
+        Else
+            e.Effect = DragDropEffects.None
+        End If
+    End Sub
+
+    Private Sub PnlPict1_DragDrop(sender As Object, e As DragEventArgs) Handles pnlPict1.DragDrop
+        Call SetPict1Data(e.Data.GetData(DataFormats.FileDrop, False))
+    End Sub
+
+    Private Sub MtxPict1Path_DragEnter(sender As Object, e As DragEventArgs) Handles mtxPict1Path.DragEnter
+        'ドラッグされたデータ形式を調べ、ファイルのときはコピーとする
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+            e.Effect = DragDropEffects.Copy
+        Else
+            e.Effect = DragDropEffects.None
+        End If
+    End Sub
+
+    Private Sub MtxPict1Path_DragDrop(sender As Object, e As DragEventArgs) Handles mtxPict1Path.DragDrop
+        Call SetPict1Data(CType(e.Data.GetData(DataFormats.FileDrop, False), String())(0))
+    End Sub
+
+    Private Sub SetPict1Data(ByVal strFileName As String)
+        mtxPict1Path.Text = CompactString(strFileName, mtxPict1Path, EllipsisFormat._4_Path)
+        mtxPict1Path.Tag = strFileName
+        pnlPict1.Image = Image.FromFile(strFileName)
+        pnlPict1.Cursor = Cursors.Hand
+    End Sub
+
+#End Region
+
+#Region "画像2"
 
     '画像2選択
     Private Sub BtnOpenPict2Dialog_Click(sender As Object, e As EventArgs) Handles btnOpenPict2Dialog.Click
@@ -951,17 +985,8 @@ Public Class FrmG0011
         If ofd.ShowDialog() = DialogResult.OK Then
             mtxPict2Path.Text = CompactString(ofd.FileName, mtxPict2Path, EllipsisFormat._4_Path)
             mtxPict2Path.Tag = ofd.FileName
-            pnlPict2.Image = System.Drawing.Image.FromFile(ofd.FileName)
+            pnlPict2.Image = Image.FromFile(ofd.FileName)
             pnlPict2.Cursor = Cursors.Hand
-        End If
-    End Sub
-
-    '画像1クリック
-    Private Sub PnlPict1_Click(sender As Object, e As EventArgs) Handles pnlPict1.Click
-        If pnlPict1.Image IsNot Nothing Then
-            picZoom.Image = pnlPict1.Image
-            picZoom.BringToFront()
-            picZoom.Visible = True
         End If
     End Sub
 
@@ -973,6 +998,41 @@ Public Class FrmG0011
             picZoom.Visible = True
         End If
     End Sub
+
+    Private Sub PnlPict2_DragEnter(sender As Object, e As DragEventArgs) Handles pnlPict2.DragEnter
+        'ドラッグされたデータ形式を調べ、ファイルのときはコピーとする
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+            e.Effect = DragDropEffects.Copy
+        Else
+            e.Effect = DragDropEffects.None
+        End If
+    End Sub
+
+    Private Sub PnlPict2_DragDrop(sender As Object, e As DragEventArgs) Handles pnlPict2.DragDrop
+        Call SetPict2Data(e.Data.GetData(DataFormats.FileDrop, False))
+    End Sub
+
+    Private Sub MtxPict2Path_DragEnter(sender As Object, e As DragEventArgs) Handles mtxPict2Path.DragEnter
+        'ドラッグされたデータ形式を調べ、ファイルのときはコピーとする
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+            e.Effect = DragDropEffects.Copy
+        Else
+            e.Effect = DragDropEffects.None
+        End If
+    End Sub
+
+    Private Sub MtxPict2Path_DragDrop(sender As Object, e As DragEventArgs) Handles mtxPict2Path.DragDrop
+        Call SetPict2Data(e.Data.GetData(DataFormats.FileDrop, False))
+    End Sub
+
+    Private Sub SetPict2Data(ByVal strFileName As String)
+        mtxPict2Path.Text = CompactString(strFileName, mtxPict1Path, EllipsisFormat._4_Path)
+        mtxPict2Path.Tag = strFileName
+        pnlPict2.Image = Image.FromFile(strFileName)
+        pnlPict2.Cursor = Cursors.Hand
+    End Sub
+
+#End Region
 
     '拡大画像クリック
     Private Sub PicZoom_Click(sender As Object, e As EventArgs) Handles picZoom.Click
@@ -989,6 +1049,12 @@ Public Class FrmG0011
 #End Region
 
 #Region "ローカル関数"
+
+    ''' <summary>
+    ''' 次ステージ名を取得
+    ''' </summary>
+    ''' <param name="intCurrentStageID">現ステージID</param>
+    ''' <returns></returns>
     Private Function FunGetNextStageName(ByVal intCurrentStageID As Integer) As String
         Try
 
@@ -1006,6 +1072,11 @@ Public Class FrmG0011
         End Try
     End Function
 
+    ''' <summary>
+    ''' 次ステージの承認順Noを取得
+    ''' </summary>
+    ''' <param name="intCurrentStageID">現ステージID</param>
+    ''' <returns></returns>
     Private Function FunGetNextSYONIN_JUN(ByVal intCurrentStageID As Integer) As Integer
         Try
 
@@ -1023,6 +1094,11 @@ Public Class FrmG0011
         End Try
     End Function
 
+    ''' <summary>
+    ''' 承認順Noから該当するタブNoを取得
+    ''' </summary>
+    ''' <param name="intSYONIN_JUN">承認順No</param>
+    ''' <returns></returns>
     Private Function FunConvertSYONIN_JUN_TO_STAGE_NO(ByVal intSYONIN_JUN As Integer) As Integer
         Dim intBUFF As Integer
         Select Case intSYONIN_JUN
@@ -1057,6 +1133,31 @@ Public Class FrmG0011
         Return intBUFF
     End Function
 
+
+    Private Function FunblnOwnCreated(ByVal intHOKOKUSYO_ID As Integer, ByVal strHOKOKUSYO_NO As String, ByVal intSYONIN_JUN As Integer) As Boolean
+        'Dim sbSQL As New System.Text.StringBuilder
+        'Dim dsList As New DataSet
+        'sbSQL.Remove(0, sbSQL.Length)
+        'sbSQL.Append("SELECT")
+        'sbSQL.Append(" *")
+        'sbSQL.Append(" FROM D004_SYONIN_J_KANRI ")
+        'sbSQL.Append(" WHERE HOKOKU_NO='" & dr.Item("HOKOKUSYO_NO") & "'")
+        'Using DBa As ClsDbUtility = DBOpen()
+        '    dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        'End Using
+
+        'With dsList.Tables(0).Rows(0)
+
+        'End With
+    End Function
+
+
+
+
+    ''' <summary>
+    ''' demo用全タブセット
+    ''' </summary>
+    ''' <returns></returns>
     Private Function FunSetAllTabPages() As Boolean
         For i As Integer = 1 To 12
             _tabPageManager.ChangeTabPageVisible(i, True)

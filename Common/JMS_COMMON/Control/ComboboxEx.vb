@@ -569,7 +569,7 @@ Public Class ComboboxEx
                     blnInsertRow = True
                     strTopRowCaption = CON_TOP_ROW_CAPTION_2
                 Case Else
-                    'UNDONE:エラー
+                    'エラー
                     blnInsertRow = False
                     strTopRowCaption = ""
             End Select
@@ -638,7 +638,6 @@ Public Class ComboboxEx
         Dim strDefaultValue As String
 
         Try
-            'UNDONE: コンボボックス既定値設定時 OptionalParameterで別のデータソースを設定できるようにする
 
             'コンボボックスのデータソース取得
             Dim dt As DataTable = DirectCast(Me.DataSource, DataTable)

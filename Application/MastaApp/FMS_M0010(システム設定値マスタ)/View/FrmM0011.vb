@@ -354,7 +354,7 @@ Public Class FrmM0011
             For intFunc As Integer = 1 To 12
                 Dim cmd As Button = DirectCast(Me.Controls.Find("cmdFunc" & intFunc, True)(0), Button)
                 With cmd
-                    If cmd IsNot Nothing AndAlso .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).Trim = "" Then
+                    If cmd IsNot Nothing AndAlso .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
                         .Text = ""
                         '.Visible = False
                         .Enabled = False
