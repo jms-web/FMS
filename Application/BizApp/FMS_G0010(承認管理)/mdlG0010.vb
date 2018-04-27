@@ -33,6 +33,14 @@ Module mdlG0010
     Public pub_intOPEN_MODE As ENM_OPEN_MODE
 
     ''' <summary>
+    ''' 承認報告書ID
+    ''' </summary>
+    Public Enum ENM_SYONIN_HOKOKU_ID
+        _1_NCR = 1
+        _2_CAR = 2
+    End Enum
+
+    ''' <summary>
     ''' NCRステージ
     ''' </summary>
     Public Enum ENM_NCR_STAGE

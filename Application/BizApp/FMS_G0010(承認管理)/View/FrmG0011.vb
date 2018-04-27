@@ -243,7 +243,7 @@ Public Class FrmG0011
                     End If
 
                     'SPEC: 10-2.⑤
-                    page.Enabled = False
+                    page.Enabled = FunblnOwnCreated(ENM_SYONIN_HOKOKU_ID._1_NCR, PrDataRow("HOKOKUSYO_NO"), PrDataRow("SYONIN_JUN"))
                 End If
             Next page
 
@@ -1134,24 +1134,31 @@ Public Class FrmG0011
     End Function
 
 
+    ''' <summary>
+    ''' ログインユーザーが承認or申請したステージか判定
+    ''' </summary>
+    ''' <param name="intHOKOKUSYO_ID">承認報告書ID</param>
+    ''' <param name="strHOKOKUSYO_NO">報告書No</param>
+    ''' <param name="intSYONIN_JUN">承認順No</param>
+    ''' <returns></returns>
     Private Function FunblnOwnCreated(ByVal intHOKOKUSYO_ID As Integer, ByVal strHOKOKUSYO_NO As String, ByVal intSYONIN_JUN As Integer) As Boolean
-        'Dim sbSQL As New System.Text.StringBuilder
-        'Dim dsList As New DataSet
-        'sbSQL.Remove(0, sbSQL.Length)
-        'sbSQL.Append("SELECT")
-        'sbSQL.Append(" *")
-        'sbSQL.Append(" FROM D004_SYONIN_J_KANRI ")
-        'sbSQL.Append(" WHERE HOKOKU_NO='" & dr.Item("HOKOKUSYO_NO") & "'")
-        'Using DBa As ClsDbUtility = DBOpen()
-        '    dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
-        'End Using
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("SELECT")
+        sbSQL.Append(" *")
+        sbSQL.Append(" FROM D004_SYONIN_J_KANRI ")
+        sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intHOKOKUSYO_ID & "")
+        sbSQL.Append(" AND HOKOKU_NO=" & intHOKOKUSYO_ID & "")
+        sbSQL.Append(" AND SYONIN_JUN=" & intHOKOKUSYO_ID & "")
+        sbSQL.Append(" AND SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID & "")
+        Using DBa As ClsDbUtility = DBOpen()
+            dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
 
-        'With dsList.Tables(0).Rows(0)
+        Return dsList.Tables(0).Rows.Count > 0
 
-        'End With
     End Function
-
-
 
 
     ''' <summary>
