@@ -4,8 +4,12 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class FrmG0011
 
 #Region "定数・変数"
+    ''' <summary>
+    ''' タブ非表示管理用
+    ''' </summary>
     Private _tabPageManager As TabPageManager
 
+    Private _D003_NCR_J As New MODEL.D003_NCR_J
 #End Region
 
 #Region "プロパティ"
@@ -22,13 +26,15 @@ Public Class FrmG0011
     ''' <summary>
     ''' 一覧の選択行データ
     ''' </summary>
-    Public Property PrdgvCellCollection As DataGridViewCellCollection
-
     Public Property PrDataRow As DataRow
 
 
+    Public Property PrCurrentStage As Integer
+
     'DEBUG:
     Public Property PrDt As DataTable
+
+
 #End Region
 
 #Region "コンストラクタ"
@@ -48,7 +54,7 @@ Public Class FrmG0011
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, "新規登録時は使用出来ません")
         MyBase.ToolTip.SetToolTip(Me.cmdFunc11, "新規登録時は使用出来ません")
 
-
+        D003NCRJBindingSource.DataSource = _D003_NCR_J
     End Sub
 
 #End Region
@@ -115,7 +121,11 @@ Public Class FrmG0011
             Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
 
-                    mtxHOKUKO_NO.Text = "<新規>"
+
+                    'mtxHOKUKO_NO.Text = "<新規>"
+
+                    _D003_NCR_J.HOKOKU_NO = "<新規>"
+
                     mtxHOKUKO_NO.Enabled = True
                     mtxHOKUKO_NO.ReadOnly = True
 
@@ -127,9 +137,11 @@ Public Class FrmG0011
 
                     numSU.Value = 1
 
+                    'SPEC: 2.(3).B.②
+                    PrCurrentStage = ENM_NCR_STAGE._10_起草入力
 
-                    Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(ENM_NCR_STAGE._10_起草入力))
-                    Call FunInitializeSTAGE(ENM_NCR_STAGE._10_起草入力)
+                    Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage))
+                    Call FunInitializeSTAGE(PrCurrentStage)
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
 
@@ -147,9 +159,8 @@ Public Class FrmG0011
                             Exit For
                         End If
                     Next page
-
                 Case Else
-                    Throw New ArgumentException(My.Resources.ErrMsgException, intMODE.ToString)
+                    'Throw New ArgumentException(My.Resources.ErrMsgException, intMODE.ToString)
             End Select
 
             Return True
@@ -414,6 +425,8 @@ Public Class FrmG0011
                         If FunREQUEST() Then
                             MessageBox.Show("申請しました", "申請処理完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             Me.DialogResult = DialogResult.OK
+
+                            'SPEC: 2.(3).E.④
                             Me.Close()
                         End If
                     End If
@@ -465,6 +478,12 @@ Public Class FrmG0011
             If FunCheckInput() = False Then
                 Return False
             End If
+
+            'SPEC: 2.(3).D.①.レコード更新
+
+
+            'SPEC: 2.(3).D.②.添付ファイル保存
+
 
             '存在チェック
             'If PrDt.AsEnumerable.Where(Function(r) r.Field(Of Integer)("HOKOKUSYO_NO") = 18011).ToList.Count = 0 Then
@@ -587,12 +606,24 @@ Public Class FrmG0011
 
         Try
 
-
-
+            'SPEC: 2.(3).E.①
             '入力チェック
             If FunCheckInput() = False Then
                 Return False
             End If
+
+
+            'SPEC: 2.(3).E.② 
+            If FunSAVE() Then
+                'MessageBox.Show("レコード登録失敗")
+                Return False
+            End If
+
+            'SPEC: 2.(3).E.③ 報告書操作履歴登録
+
+
+
+
 
             Using DB As ClsDbUtility = DBOpen()
                 Dim intRET As Integer

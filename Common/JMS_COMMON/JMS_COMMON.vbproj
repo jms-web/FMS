@@ -634,6 +634,60 @@
   <ItemGroup>
     <None Include="Resources\_icoSendmail.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_imgSendMail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\差し戻し.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\差し戻し2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\差し戻し3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\差し戻し4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\差し戻し5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\資材.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\資材2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\承認.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\承認２.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\承認4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\承認5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\申請.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\是正.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\是正2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\生産.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\履歴.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\履歴2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
     <PreBuildEvent>
@@ -643,7 +697,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_ReplaceNonNumerics="False" BuildVersion_StartDate="2000/1/1" />
+      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_ReplaceNonNumerics="False" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

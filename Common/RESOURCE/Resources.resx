@@ -233,9 +233,6 @@
   <data name="infoTilteDuplicateData" xml:space="preserve">
     <value>同一の{0}が存在します。</value>
   </data>
-  <data name="_imgUp32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\JMS_COMMON\Resources\_imgUp32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="_icoSendmail" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\JMS_COMMON\Resources\_icoSendmail.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -304,9 +301,6 @@
   </data>
   <data name="_imgDelivery" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\JMS_COMMON\Resources\_imgDelivery.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_imgUndo32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\JMS_COMMON\Resources\_imgUndo32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_icoBilling1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\JMS_COMMON\Resources\_icoBilling1.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -492,5 +486,65 @@
   </data>
   <data name="_imgStatusAnnotations_Warning32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\JMS_COMMON\Resources\_imgStatusAnnotations_Warning32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgUndo32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgUndo32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgUp32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgUp32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="履歴" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\履歴.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="履歴2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\履歴2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="差し戻し" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\差し戻し.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="差し戻し2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\差し戻し2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="差し戻し3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\差し戻し3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="差し戻し4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\差し戻し4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="差し戻し5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\差し戻し5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="承認" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\承認.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="承認4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\承認4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="承認5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\承認5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="承認２" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\承認２.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="是正" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\是正.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="是正2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\是正2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="生産" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\生産.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="申請" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\申請.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="資材" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\資材.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="資材2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\資材2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_imgSendMail2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JMS_COMMON\Resources\_imgSendMail2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

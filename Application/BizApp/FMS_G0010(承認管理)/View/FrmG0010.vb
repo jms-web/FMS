@@ -841,10 +841,8 @@ Public Class FrmG0010
             Else
                 frmDLG.PrMODE = intMODE
                 If dgvDATA.CurrentRow IsNot Nothing Then
-                    frmDLG.PrdgvCellCollection = dgvDATA.CurrentRow.Cells
                     frmDLG.PrDataRow = dgvDATA.GetDataRow()
                 Else
-                    frmDLG.PrdgvCellCollection = Nothing
                     frmDLG.PrDataRow = Nothing
                 End If
                 frmDLG.PrDt = Me.PrDt

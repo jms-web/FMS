@@ -1,5 +1,6 @@
 ﻿Imports System
 Imports System.Collections.Generic
+Imports System.ComponentModel
 Imports System.ComponentModel.DataAnnotations
 Imports System.ComponentModel.DataAnnotations.Schema
 Imports System.Data.Entity.Spatial
@@ -9,6 +10,9 @@ Imports System.Data.Entity.Spatial
 ''' </summary>
 <Table("D003_NCR_J", Schema:="dbo")>
 Partial Public Class D003_NCR_J
+    Implements INotifyPropertyChanged
+
+    Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 
     <Key>
     <Column(Order:=0, TypeName:="char")>
@@ -19,12 +23,24 @@ Partial Public Class D003_NCR_J
     <Required>
     <Column(TypeName:="char")>
     <StringLength(1)>
+    <ComponentModel.DisplayName("部門区分")>
+    Public Property BUMON_KB As String
+
+    <Required>
+    <Column(TypeName:="char")>
+    <StringLength(1)>
     <ComponentModel.DisplayName("クローズフラグ")>
     Public Property CLOSE_FLG As String
 
     <Required>
     <ComponentModel.DisplayName("機種ID")>
     Public Property KISYU_ID As Integer
+
+    <Required>
+    <Column(TypeName:="varchar")>
+    <StringLength(10)>
+    <ComponentModel.DisplayName("社内コード")>
+    Public Property SYANAI_CD As String
 
     <Required>
     <Column(TypeName:="varchar")>
@@ -43,12 +59,6 @@ Partial Public Class D003_NCR_J
     <StringLength(5)>
     <ComponentModel.DisplayName("号機")>
     Public Property GOKI As String
-
-    <Required>
-    <Column(TypeName:="varchar")>
-    <StringLength(15)>
-    <ComponentModel.DisplayName("LOT")>
-    Public Property LOT As String
 
     <Required>
     <ComponentModel.DisplayName("数量")>
@@ -75,8 +85,14 @@ Partial Public Class D003_NCR_J
     <Required>
     <Column(TypeName:="char")>
     <StringLength(1)>
-    <ComponentModel.DisplayName("保留理由区分")>
-    Public Property HORYU_RIYU_KB As String
+    <ComponentModel.DisplayName("不適合区分")>
+    Public Property FUTEKIGO_KB As String
+
+    <Required>
+    <Column(TypeName:="varchar")>
+    <StringLength(2)>
+    <ComponentModel.DisplayName("不適合詳細区分")>
+    Public Property FUTEKIGO_S_KB As String
 
     <Required>
     <Column(TypeName:="nvarchar")>
@@ -205,6 +221,12 @@ Partial Public Class D003_NCR_J
     <StringLength(8)>
     <ComponentModel.DisplayName("顧客最終判定日")>
     Public Property KOKYAKU_SAISYU_HANTEI_YMD As String
+
+    <Required>
+    <Column(TypeName:="char")>
+    <StringLength(1)>
+    <ComponentModel.DisplayName("再加工指示フラグ")>
+    Public Property SAIKAKO_SIJI_FLG As String
 
     <Required>
     <Column(TypeName:="char")>
@@ -423,4 +445,5 @@ Partial Public Class D003_NCR_J
     <Required>
     <Display(AutoGenerateField:=False)>
     Public Property DEL_SYAIN_ID As Integer
+
 End Class

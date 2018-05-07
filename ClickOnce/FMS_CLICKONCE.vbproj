@@ -43,7 +43,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>858</ApplicationRevision>
-    <ApplicationVersion>1.0.18116.0858</ApplicationVersion>
+    <ApplicationVersion>1.0.18117.0558</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

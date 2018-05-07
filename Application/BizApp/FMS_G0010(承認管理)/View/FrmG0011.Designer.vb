@@ -19,6 +19,7 @@ Partial Class FrmG0011
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.gbxFilter = New System.Windows.Forms.GroupBox()
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -29,6 +30,7 @@ Partial Class FrmG0011
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.cmbBUMON = New JMS_COMMON.ComboboxEx()
+        Me.D003NCRJBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.cmbFUTEKIGO_KB = New JMS_COMMON.ComboboxEx()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cmbHUTEKIGO_SYOSAI_KB = New JMS_COMMON.ComboboxEx()
@@ -315,6 +317,7 @@ Partial Class FrmG0011
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
+        CType(Me.D003NCRJBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numSU, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picZoom, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabSTAGE.SuspendLayout()
@@ -358,6 +361,7 @@ Partial Class FrmG0011
         '
         'cmdFunc2
         '
+        Me.cmdFunc2.Image = Global.FMS.My.Resources.Resources.申請
         Me.cmdFunc2.Location = New System.Drawing.Point(216, 595)
         Me.cmdFunc2.Text = "承認&&申請(F2)"
         '
@@ -367,11 +371,13 @@ Partial Class FrmG0011
         '
         'cmdFunc4
         '
+        Me.cmdFunc4.Image = Global.FMS.My.Resources.Resources._imgRight32x32
         Me.cmdFunc4.Location = New System.Drawing.Point(630, 595)
         Me.cmdFunc4.Text = "転送 (F4)"
         '
         'cmdFunc5
         '
+        Me.cmdFunc5.Image = Global.FMS.My.Resources.Resources._imgUndo32x32
         Me.cmdFunc5.Location = New System.Drawing.Point(837, 595)
         Me.cmdFunc5.Text = "差戻し(F5)"
         '
@@ -387,6 +393,7 @@ Partial Class FrmG0011
         '
         'cmdFunc11
         '
+        Me.cmdFunc11.Image = Global.FMS.My.Resources.Resources.履歴
         Me.cmdFunc11.Location = New System.Drawing.Point(837, 643)
         Me.cmdFunc11.Text = "履歴表示(F11)"
         '
@@ -402,6 +409,7 @@ Partial Class FrmG0011
         '
         'cmdFunc9
         '
+        Me.cmdFunc9.Image = Global.FMS.My.Resources.Resources._imgApplication_form_edit32x32
         Me.cmdFunc9.Location = New System.Drawing.Point(423, 643)
         Me.cmdFunc9.Text = "CAR編集(F9)"
         '
@@ -596,6 +604,7 @@ Partial Class FrmG0011
         '
         Me.mtxHOKUKO_NO.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxHOKUKO_NO, 7)
+        Me.mtxHOKUKO_NO.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.D003NCRJBindingSource, "HOKOKU_NO", True))
         Me.mtxHOKUKO_NO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxHOKUKO_NO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxHOKUKO_NO.InputRequired = False
@@ -637,6 +646,7 @@ Partial Class FrmG0011
         Me.cmbBUMON.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.cmbBUMON, 5)
         Me.cmbBUMON.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbBUMON.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.D003NCRJBindingSource, "BUMON_KB", True))
         Me.cmbBUMON.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbBUMON.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUMON.FormattingEnabled = True
@@ -648,6 +658,10 @@ Partial Class FrmG0011
         Me.cmbBUMON.Size = New System.Drawing.Size(94, 25)
         Me.cmbBUMON.TabIndex = 113
         Me.cmbBUMON.Text = "(選択)"
+        '
+        'D003NCRJBindingSource
+        '
+        Me.D003NCRJBindingSource.DataSource = GetType(MODEL.D003_NCR_J)
         '
         'cmbFUTEKIGO_KB
         '
@@ -3655,7 +3669,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
         Me.tlpST08.Controls.Add(Me.rbtnST11_E2_F, 4, 7)
         Me.tlpST08.Controls.Add(Me.rbtnST11_E2_T, 3, 7)
         Me.tlpST08.Controls.Add(Me.rbtnST11_E1_F, 4, 6)
@@ -3705,9 +3719,9 @@ Partial Class FrmG0011
         'rbtnST11_E2_F
         '
         Me.rbtnST11_E2_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_E2_F.Location = New System.Drawing.Point(687, 203)
+        Me.rbtnST11_E2_F.Location = New System.Drawing.Point(677, 203)
         Me.rbtnST11_E2_F.Name = "rbtnST11_E2_F"
-        Me.rbtnST11_E2_F.Size = New System.Drawing.Size(104, 22)
+        Me.rbtnST11_E2_F.Size = New System.Drawing.Size(114, 22)
         Me.rbtnST11_E2_F.TabIndex = 262
         Me.rbtnST11_E2_F.TabStop = True
         Me.rbtnST11_E2_F.Text = "未回答"
@@ -3717,7 +3731,7 @@ Partial Class FrmG0011
         'rbtnST11_E2_T
         '
         Me.rbtnST11_E2_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_E2_T.Location = New System.Drawing.Point(611, 203)
+        Me.rbtnST11_E2_T.Location = New System.Drawing.Point(601, 203)
         Me.rbtnST11_E2_T.Name = "rbtnST11_E2_T"
         Me.rbtnST11_E2_T.Size = New System.Drawing.Size(69, 22)
         Me.rbtnST11_E2_T.TabIndex = 261
@@ -3729,9 +3743,9 @@ Partial Class FrmG0011
         'rbtnST11_E1_F
         '
         Me.rbtnST11_E1_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_E1_F.Location = New System.Drawing.Point(687, 174)
+        Me.rbtnST11_E1_F.Location = New System.Drawing.Point(677, 174)
         Me.rbtnST11_E1_F.Name = "rbtnST11_E1_F"
-        Me.rbtnST11_E1_F.Size = New System.Drawing.Size(104, 22)
+        Me.rbtnST11_E1_F.Size = New System.Drawing.Size(114, 22)
         Me.rbtnST11_E1_F.TabIndex = 260
         Me.rbtnST11_E1_F.TabStop = True
         Me.rbtnST11_E1_F.Text = "未回答"
@@ -3741,7 +3755,7 @@ Partial Class FrmG0011
         'rbtnST11_E1_T
         '
         Me.rbtnST11_E1_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_E1_T.Location = New System.Drawing.Point(611, 174)
+        Me.rbtnST11_E1_T.Location = New System.Drawing.Point(601, 174)
         Me.rbtnST11_E1_T.Name = "rbtnST11_E1_T"
         Me.rbtnST11_E1_T.Size = New System.Drawing.Size(69, 22)
         Me.rbtnST11_E1_T.TabIndex = 259
@@ -3753,9 +3767,9 @@ Partial Class FrmG0011
         'rbtnST11_D2_F
         '
         Me.rbtnST11_D2_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_D2_F.Location = New System.Drawing.Point(687, 120)
+        Me.rbtnST11_D2_F.Location = New System.Drawing.Point(677, 120)
         Me.rbtnST11_D2_F.Name = "rbtnST11_D2_F"
-        Me.rbtnST11_D2_F.Size = New System.Drawing.Size(104, 22)
+        Me.rbtnST11_D2_F.Size = New System.Drawing.Size(114, 22)
         Me.rbtnST11_D2_F.TabIndex = 257
         Me.rbtnST11_D2_F.TabStop = True
         Me.rbtnST11_D2_F.Text = "未回答"
@@ -3765,7 +3779,7 @@ Partial Class FrmG0011
         'rbtnST11_D2_T
         '
         Me.rbtnST11_D2_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_D2_T.Location = New System.Drawing.Point(611, 120)
+        Me.rbtnST11_D2_T.Location = New System.Drawing.Point(601, 120)
         Me.rbtnST11_D2_T.Name = "rbtnST11_D2_T"
         Me.rbtnST11_D2_T.Size = New System.Drawing.Size(69, 22)
         Me.rbtnST11_D2_T.TabIndex = 256
@@ -3777,9 +3791,9 @@ Partial Class FrmG0011
         'rbtnST11_D1_F
         '
         Me.rbtnST11_D1_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_D1_F.Location = New System.Drawing.Point(687, 91)
+        Me.rbtnST11_D1_F.Location = New System.Drawing.Point(677, 91)
         Me.rbtnST11_D1_F.Name = "rbtnST11_D1_F"
-        Me.rbtnST11_D1_F.Size = New System.Drawing.Size(104, 22)
+        Me.rbtnST11_D1_F.Size = New System.Drawing.Size(114, 22)
         Me.rbtnST11_D1_F.TabIndex = 255
         Me.rbtnST11_D1_F.TabStop = True
         Me.rbtnST11_D1_F.Text = "未回答"
@@ -3789,7 +3803,7 @@ Partial Class FrmG0011
         'rbtnST11_D1_T
         '
         Me.rbtnST11_D1_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_D1_T.Location = New System.Drawing.Point(611, 91)
+        Me.rbtnST11_D1_T.Location = New System.Drawing.Point(601, 91)
         Me.rbtnST11_D1_T.Name = "rbtnST11_D1_T"
         Me.rbtnST11_D1_T.Size = New System.Drawing.Size(69, 22)
         Me.rbtnST11_D1_T.TabIndex = 254
@@ -3801,9 +3815,9 @@ Partial Class FrmG0011
         'rbtnST11_C_F
         '
         Me.rbtnST11_C_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_C_F.Location = New System.Drawing.Point(687, 62)
+        Me.rbtnST11_C_F.Location = New System.Drawing.Point(677, 62)
         Me.rbtnST11_C_F.Name = "rbtnST11_C_F"
-        Me.rbtnST11_C_F.Size = New System.Drawing.Size(104, 22)
+        Me.rbtnST11_C_F.Size = New System.Drawing.Size(114, 22)
         Me.rbtnST11_C_F.TabIndex = 253
         Me.rbtnST11_C_F.TabStop = True
         Me.rbtnST11_C_F.Text = "未回答"
@@ -3813,7 +3827,7 @@ Partial Class FrmG0011
         'rbtnST11_C_T
         '
         Me.rbtnST11_C_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_C_T.Location = New System.Drawing.Point(611, 62)
+        Me.rbtnST11_C_T.Location = New System.Drawing.Point(601, 62)
         Me.rbtnST11_C_T.Name = "rbtnST11_C_T"
         Me.rbtnST11_C_T.Size = New System.Drawing.Size(69, 22)
         Me.rbtnST11_C_T.TabIndex = 252
@@ -3825,9 +3839,9 @@ Partial Class FrmG0011
         'rbtnST11_B_F
         '
         Me.rbtnST11_B_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_B_F.Location = New System.Drawing.Point(687, 33)
+        Me.rbtnST11_B_F.Location = New System.Drawing.Point(677, 33)
         Me.rbtnST11_B_F.Name = "rbtnST11_B_F"
-        Me.rbtnST11_B_F.Size = New System.Drawing.Size(104, 22)
+        Me.rbtnST11_B_F.Size = New System.Drawing.Size(114, 22)
         Me.rbtnST11_B_F.TabIndex = 251
         Me.rbtnST11_B_F.TabStop = True
         Me.rbtnST11_B_F.Text = "未回答"
@@ -3837,7 +3851,7 @@ Partial Class FrmG0011
         'rbtnST11_B_T
         '
         Me.rbtnST11_B_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_B_T.Location = New System.Drawing.Point(611, 33)
+        Me.rbtnST11_B_T.Location = New System.Drawing.Point(601, 33)
         Me.rbtnST11_B_T.Name = "rbtnST11_B_T"
         Me.rbtnST11_B_T.Size = New System.Drawing.Size(69, 22)
         Me.rbtnST11_B_T.TabIndex = 250
@@ -3849,9 +3863,9 @@ Partial Class FrmG0011
         'rbtnST11_A_F
         '
         Me.rbtnST11_A_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_A_F.Location = New System.Drawing.Point(687, 4)
+        Me.rbtnST11_A_F.Location = New System.Drawing.Point(677, 4)
         Me.rbtnST11_A_F.Name = "rbtnST11_A_F"
-        Me.rbtnST11_A_F.Size = New System.Drawing.Size(104, 22)
+        Me.rbtnST11_A_F.Size = New System.Drawing.Size(114, 22)
         Me.rbtnST11_A_F.TabIndex = 249
         Me.rbtnST11_A_F.TabStop = True
         Me.rbtnST11_A_F.Text = "未回答"
@@ -3912,7 +3926,7 @@ Partial Class FrmG0011
         Me.Label126.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label126.Location = New System.Drawing.Point(25, 117)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(579, 28)
+        Me.Label126.Size = New System.Drawing.Size(569, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "影響有の場合、顧客への通知の要否"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -3926,7 +3940,7 @@ Partial Class FrmG0011
         Me.Label127.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label127.Location = New System.Drawing.Point(25, 88)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(579, 28)
+        Me.Label127.Size = New System.Drawing.Size(569, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "当該不適合による顧客への影響"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -3940,7 +3954,7 @@ Partial Class FrmG0011
         Me.Label128.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label128.Location = New System.Drawing.Point(25, 59)
         Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(579, 28)
+        Me.Label128.Size = New System.Drawing.Size(569, 28)
         Me.Label128.TabIndex = 241
         Me.Label128.Text = "廃却処置は本来の意図した使用又は適用ができない方法だったか？"
         Me.Label128.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -3967,7 +3981,7 @@ Partial Class FrmG0011
         Me.Label130.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label130.Location = New System.Drawing.Point(25, 30)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(579, 28)
+        Me.Label130.Size = New System.Drawing.Size(569, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "社内権限者により、又は顧客再審の場合は顧客により判定されたか？"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4021,7 +4035,7 @@ Partial Class FrmG0011
         Me.Label134.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label134.Location = New System.Drawing.Point(25, 171)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(579, 28)
+        Me.Label134.Size = New System.Drawing.Size(569, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "当該不適合による他のプロセスへの影響"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4048,7 +4062,7 @@ Partial Class FrmG0011
         Me.Label136.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label136.Location = New System.Drawing.Point(25, 200)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(579, 28)
+        Me.Label136.Size = New System.Drawing.Size(569, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "影響有の場合、封じ込め処置の要否"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4062,7 +4076,7 @@ Partial Class FrmG0011
         Me.Label137.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label137.Location = New System.Drawing.Point(25, 1)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(579, 28)
+        Me.Label137.Size = New System.Drawing.Size(569, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "検出された不適合を除去する処置（廃却を含む）は確実にとられたか？"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4084,7 +4098,7 @@ Partial Class FrmG0011
         'rbtnST11_A_T
         '
         Me.rbtnST11_A_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_A_T.Location = New System.Drawing.Point(611, 4)
+        Me.rbtnST11_A_T.Location = New System.Drawing.Point(601, 4)
         Me.rbtnST11_A_T.Name = "rbtnST11_A_T"
         Me.rbtnST11_A_T.Size = New System.Drawing.Size(69, 22)
         Me.rbtnST11_A_T.TabIndex = 248
@@ -4465,7 +4479,6 @@ Partial Class FrmG0011
         'btnOpenPict2Dialog
         '
         Me.btnOpenPict2Dialog.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnOpenPict2Dialog.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
         Me.btnOpenPict2Dialog.Location = New System.Drawing.Point(1161, 7)
         Me.btnOpenPict2Dialog.Name = "btnOpenPict2Dialog"
         Me.btnOpenPict2Dialog.Size = New System.Drawing.Size(54, 24)
@@ -4501,7 +4514,6 @@ Partial Class FrmG0011
         'btnOpenPict1Dialog
         '
         Me.btnOpenPict1Dialog.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnOpenPict1Dialog.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
         Me.btnOpenPict1Dialog.Location = New System.Drawing.Point(681, 6)
         Me.btnOpenPict1Dialog.Name = "btnOpenPict1Dialog"
         Me.btnOpenPict1Dialog.Size = New System.Drawing.Size(54, 24)
@@ -4537,7 +4549,6 @@ Partial Class FrmG0011
         'btnOpenTempFileDialog
         '
         Me.btnOpenTempFileDialog.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnOpenTempFileDialog.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
         Me.btnOpenTempFileDialog.Location = New System.Drawing.Point(79, 7)
         Me.btnOpenTempFileDialog.Name = "btnOpenTempFileDialog"
         Me.btnOpenTempFileDialog.Size = New System.Drawing.Size(54, 24)
@@ -4589,6 +4600,7 @@ Partial Class FrmG0011
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()
+        CType(Me.D003NCRJBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numSU, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picZoom, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabSTAGE.ResumeLayout(False)
@@ -4934,4 +4946,5 @@ Partial Class FrmG0011
     Friend WithEvents LinkLabel6 As LinkLabel
     Friend WithEvents LinkLabel7 As LinkLabel
     Friend WithEvents LinkLabel8 As LinkLabel
+    Friend WithEvents D003NCRJBindingSource As BindingSource
 End Class
