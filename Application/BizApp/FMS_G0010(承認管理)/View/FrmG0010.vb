@@ -545,8 +545,8 @@ Public Class FrmG0010
             Dim sbSQLWHERE As New System.Text.StringBuilder
             Dim sbParam As New System.Text.StringBuilder
 
-            'SPEC: PF01.2-(1) A 検索条件
-
+            'UNDONE: SPEC: PF01.2-(1) A 検索条件
+            Dim paramModel As New TV01_ParamModel
 #Region "           共通検索条件"
 
             '部門、機種、部品番号、部品名称 パラメータ
@@ -678,16 +678,7 @@ Public Class FrmG0010
 
 #End Region
 
-
-            Dim dtBUFF As DataTable = FunGetTV01_FUTEKIGO_ICHIRAN(BUMON_KB:=Nz(cmbBUMON.SelectedValue),
-                                                              HOKOKUSYO_NO:=mtxHOKUKO_NO.Text,
-                                                              KISYU_ID:=Nz(cmbKISYU.SelectedValue, 0),
-                                                              BUHIN_BANGO:="%" & Nz(cmbBUHIN_BANGO.SelectedValue) & "%",
-                                                              BUHIN_NAME:="%" & Nz(mtxHINMEI.Text) & "%",
-                                                              JIZEN_SINSA_HANTEI_KB:=Nz(cmbJIZEN_SINSA_HANTEI_KB.SelectedValue),
-                                                              SAISIN_IINKAI_HANTEI_KB:=Nz(cmbSAISIN_IINKAI_HANTEI_KB.SelectedValue),
-                                                              CLOSE_FLG:=IIf(chkClosedRowVisibled.Checked, "", "0"),
-                                                              strWhere:=sbSQLWHERE.ToString)
+            Dim dtBUFF As DataTable = FunGetTV01_FUTEKIGO_ICHIRAN(paramModel)
 
             If dtBUFF.Rows.Count > pub_APP_INFO.intSEARCHMAX Then
                 If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
@@ -815,6 +806,42 @@ Public Class FrmG0010
         End Try
     End Function
 
+#Region "TV01 不適合報告書一覧"
+    Public Function FunGetTV01_FUTEKIGO_ICHIRAN(ByVal ParamModel As TV01_ParamModel) As DataTable
+
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim sbParam As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        sbParam.Append(" '" & "" & "'")
+        sbParam.Append(",'" & "" & "'")
+        sbParam.Append(",'" & "" & "'")
+        sbParam.Append(",'" & "" & "'")
+        sbParam.Append(",'" & "" & "'")
+        sbParam.Append(",'" & "" & "'")
+        sbParam.Append(",'" & "" & "'")
+        sbParam.Append(",'" & "" & "'")
+        sbParam.Append(",'" & "" & "'")
+        sbParam.Append(",'" & "" & "'")
+        sbParam.Append(",'" & "" & "'")
+        sbParam.Append(",'" & "" & "'")
+        sbParam.Append(",'" & "" & "'")
+        sbParam.Append(",'" & "" & "'")
+        sbParam.Append(",'" & "" & "'")
+        sbParam.Append(",'" & "" & "'")
+
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("SELECT")
+        sbSQL.Append(" *")
+        sbSQL.Append(" FROM " & NameOf(MODEL.TV01_FUTEKIGO_ICHIRAN) & "(" & sbParam.ToString & ")")
+        sbSQL.Append(" ORDER BY HOKOKUSYO_NO ")
+        Using DBa As ClsDbUtility = DBOpen()
+            dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        Return dsList.Tables(0)
+    End Function
+#End Region
 #End Region
 
 #Region "追加・変更"

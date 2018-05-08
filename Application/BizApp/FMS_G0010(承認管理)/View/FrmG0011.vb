@@ -55,13 +55,15 @@ Public Class FrmG0011
         MyBase.ToolTip.SetToolTip(Me.cmdFunc11, "新規登録時は使用出来ません")
 
         D003NCRJBindingSource.DataSource = _D003_NCR_J
+
+        mtxHOKUKO_NO.ReadOnly = True
     End Sub
 
 #End Region
 
 #Region "Form関連"
 
-    'Loadイベント
+#Region "LOAD"
     Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
@@ -69,6 +71,9 @@ Public Class FrmG0011
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
             Me.Text = "不適合製品処置報告書(Non-Conformance Report)"
             lblTytle.Text = Me.Text
+
+            'バインディング
+            Call FunSetBinding()
 
             '-----コントロールデータソース設定
             cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -91,6 +96,9 @@ Public Class FrmG0011
         End Try
     End Sub
 
+
+#End Region
+
 #Region "KEYDOWN"
     'KEYDOWN
     Private Sub FrmMBCA000MENU_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
@@ -111,123 +119,6 @@ Public Class FrmG0011
 
     End Sub
 #End Region
-
-#End Region
-
-#Region "処理モード別画面初期化"
-    Private Function FunInitializeControls(ByVal intMODE As Integer) As Boolean
-
-        Try
-            Select Case intMODE
-                Case ENM_DATA_OPERATION_MODE._1_ADD
-
-
-                    'mtxHOKUKO_NO.Text = "<新規>"
-
-                    _D003_NCR_J.HOKOKU_NO = "<新規>"
-
-                    mtxHOKUKO_NO.Enabled = True
-                    mtxHOKUKO_NO.ReadOnly = True
-
-                    mtxADD_SYAIN_NAME.Text = pub_SYAIN_INFO.SYAIN_NAME
-                    mtxADD_SYAIN_NAME.Enabled = False
-
-                    dtDraft.Text = Today.ToString("yyyy/MM/dd")
-                    dtDraft.Enabled = False
-
-                    numSU.Value = 1
-
-                    'SPEC: 2.(3).B.②
-                    PrCurrentStage = ENM_NCR_STAGE._10_起草入力
-
-                    Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage))
-                    Call FunInitializeSTAGE(PrCurrentStage)
-
-                Case ENM_DATA_OPERATION_MODE._3_UPDATE
-
-
-                    'SPEC: 10-2.①
-                    Call FunSetEntityValues(PrDataRow)
-
-                    Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrDataRow.Item("SYONIN_JUN")))
-                    Call FunInitializeSTAGE(PrDataRow.Item("SYONIN_JUN"))
-                    mtxHOKUKO_NO.Enabled = False
-
-                    For Each page As TabPage In TabSTAGE.TabPages
-                        If page.text = "現ステージ" Then
-                            TabSTAGE.SelectedIndex = page.TabIndex
-                            Exit For
-                        End If
-                    Next page
-                Case Else
-                    'Throw New ArgumentException(My.Resources.ErrMsgException, intMODE.ToString)
-            End Select
-
-            Return True
-
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        End Try
-    End Function
-
-    ''' <summary>
-    ''' 一覧選択行の値をセット
-    ''' </summary>
-    ''' <param name="dgvCol"></param>
-    ''' <returns></returns>
-    Private Function FunSetEntityValues(dr As DataRow) As Boolean
-
-        Try
-            '-----コントロールに値をセット
-            Dim sbSQL As New System.Text.StringBuilder
-            Dim dsList As New DataSet
-            sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append("SELECT")
-            sbSQL.Append(" *")
-            sbSQL.Append(" FROM " & NameOf(MODEL.V002_FUTEKIGO_HOKOKU_J) & " ")
-            sbSQL.Append(" WHERE HOKOKU_NO='" & dr.Item("HOKOKUSYO_NO") & "'")
-            Using DBa As ClsDbUtility = DBOpen()
-                dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
-            End Using
-
-            With dsList.Tables(0).Rows(0)
-
-                '報告書No
-                mtxHOKUKO_NO.Text = .Item("")
-                '起草者
-                mtxADD_SYAIN_NAME.Text = .Item("")
-                '起草日
-                dtDraft.Text = .Item("")
-                '機種
-                cmbKISYU.SelectedValue = .Item("")
-                '部品番号
-                cmbBUHIN_BANGO.SelectedValue = .Item("")
-                '部品名称
-                mtxHINMEI.Text = .Item("")
-                '号機
-                mtxGOUKI.Text = .Item("")
-                '個数
-                numSU.Value = .Item("")
-                '再発
-                chkSAIHATU.Checked = CBool(.Item(""))
-
-                '状態区分
-                cmbFUTEKIGO_STATUS.SelectedValue = .Item("")
-                '返却時の場合
-                cmbFUTEKIGO_KB.SelectedValue = .Item("")
-                '保留理由
-                mtxHENKYAKU.Text = .Item("")
-                '図番/規格
-                mtxZUBAN_KIKAKU.Text = .Item("")
-            End With
-
-            Return True
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        End Try
-    End Function
 
 #End Region
 
@@ -816,6 +707,7 @@ Public Class FrmG0011
 
 #End Region
 #Region "   STAGE4"
+
     Private Sub rbtnST04_ZESEI_YES_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST04_ZESEI_YES.CheckedChanged
         If rbtnST04_ZESEI_YES.Checked Then
             lbltxtST04_RIYU.Visible = False
@@ -823,6 +715,14 @@ Public Class FrmG0011
         Else
             lbltxtST04_RIYU.Visible = True
             txtST04_RIYU.Visible = True
+        End If
+    End Sub
+
+    Private Sub ChkZESEI_SYOCHI_YOHI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkST04_ZESEI_SYOCHI_YOHI_KB.CheckedChanged
+        If chkST04_ZESEI_SYOCHI_YOHI_KB.Checked Then
+            rbtnST04_ZESEI_YES.Checked = True
+        Else
+            rbtnST04_ZESEI_NO.Checked = True
         End If
     End Sub
 
@@ -835,6 +735,15 @@ Public Class FrmG0011
 #End Region
 #Region "   STAGE7"
 
+
+    Private Sub ChkST07_SAIKAKO_SIJI_FLG_CheckedChanged(sender As Object, e As EventArgs) Handles chkST07_SAIKAKO_SIJI_FLG.CheckedChanged
+        If chkST07_SAIKAKO_SIJI_FLG.Checked Then
+            rbtnST07_Yes.Checked = True
+        Else
+            rbtnST07_No.Checked = True
+        End If
+    End Sub
+
 #End Region
 #Region "   STAGE8"
 
@@ -846,6 +755,21 @@ Public Class FrmG0011
 
 #End Region
 #Region "   STAGE11"
+    Private Sub ChkST11_CheckedChanged(sender As Object, e As EventArgs) Handles chkST11_A1.CheckedChanged,
+                                                                                 chkST11_B1.CheckedChanged,
+                                                                                 chkST11_C1.CheckedChanged,
+                                                                                 chkST11_D1.CheckedChanged,
+                                                                                 chkST11_D2.CheckedChanged,
+                                                                                 chkST11_E1.CheckedChanged,
+                                                                                 chkST11_E2.CheckedChanged
+
+        Dim chk As CheckBox = DirectCast(sender, CheckBox)
+        If chk.Checked Then
+            DirectCast(tlpST08.Controls("rbtnST11_" & chk.Name.Substring(8, 2) & "_T"), RadioButton).Checked = True
+        Else
+            DirectCast(tlpST08.Controls("rbtnST11_" & chk.Name.Substring(8, 2) & "_F"), RadioButton).Checked = True
+        End If
+    End Sub
 
 #End Region
 #Region "   STAGE12"
@@ -1080,6 +1004,215 @@ Public Class FrmG0011
 #End Region
 
 #Region "ローカル関数"
+
+#Region "処理モード別画面初期化"
+    Private Function FunInitializeControls(ByVal intMODE As Integer) As Boolean
+
+        Try
+            Select Case intMODE
+                Case ENM_DATA_OPERATION_MODE._1_ADD
+
+                    _D003_NCR_J.HOKOKU_NO = "<新規>"
+                    _D003_NCR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                    dtDraft.Text = Today.ToString("yyyy/MM/dd")
+
+
+                    numSU.Value = 1
+
+                    'SPEC: 2.(3).B.②
+                    PrCurrentStage = ENM_NCR_STAGE._10_起草入力
+
+                    Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage))
+                    Call FunInitializeSTAGE(PrCurrentStage)
+
+                Case ENM_DATA_OPERATION_MODE._3_UPDATE
+
+
+                    'SPEC: 10-2.①
+                    Call FunSetEntityValues(PrDataRow)
+
+                    Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrDataRow.Item("SYONIN_JUN")))
+                    Call FunInitializeSTAGE(PrDataRow.Item("SYONIN_JUN"))
+                    mtxHOKUKO_NO.Enabled = False
+
+                    For Each page As TabPage In TabSTAGE.TabPages
+                        If page.Text = "現ステージ" Then
+                            TabSTAGE.SelectedIndex = page.TabIndex
+                            Exit For
+                        End If
+                    Next page
+                Case Else
+                    'Throw New ArgumentException(My.Resources.ErrMsgException, intMODE.ToString)
+            End Select
+
+            Return True
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' 一覧選択行の値をセット
+    ''' </summary>
+    ''' <param name="dgvCol"></param>
+    ''' <returns></returns>
+    Private Function FunSetEntityValues(dr As DataRow) As Boolean
+
+        Try
+            '-----コントロールに値をセット
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append("SELECT")
+            sbSQL.Append(" *")
+            sbSQL.Append(" FROM " & NameOf(MODEL.V002_FUTEKIGO_HOKOKU_J) & " ")
+            sbSQL.Append(" WHERE HOKOKU_NO='" & dr.Item("HOKOKUSYO_NO") & "'")
+            Using DBa As ClsDbUtility = DBOpen()
+                dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            With dsList.Tables(0).Rows(0)
+
+                '報告書No
+                mtxHOKUKO_NO.Text = .Item("")
+                '起草者
+
+                '起草日
+                dtDraft.Text = .Item("")
+                '機種
+                cmbKISYU.SelectedValue = .Item("")
+                '部品番号
+                cmbBUHIN_BANGO.SelectedValue = .Item("")
+                '部品名称
+                mtxHINMEI.Text = .Item("")
+                '号機
+                mtxGOUKI.Text = .Item("")
+                '個数
+                numSU.Value = .Item("")
+                '再発
+                chkSAIHATU.Checked = CBool(.Item(""))
+
+                '状態区分
+                cmbFUTEKIGO_STATUS.SelectedValue = .Item("")
+                '返却時の場合
+                cmbFUTEKIGO_KB.SelectedValue = .Item("")
+                '保留理由
+                mtxFUTEKIGO_NAIYO.Text = .Item("")
+                '図番/規格
+                mtxZUBAN_KIKAKU.Text = .Item("")
+            End With
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        End Try
+    End Function
+
+#End Region
+
+#Region "バインディング"
+    Private Function FunSetBinding() As Boolean
+
+        '共通
+        mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HOKOKU_NO)))
+        cmbBUMON.DataBindings.Add(New Binding(NameOf(cmbBUMON.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.BUMON_KB)))
+        chkClosed.DataBindings.Add(New Binding(NameOf(chkClosed.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.CLOSE_FLG)))
+        dtDraft.DataBindings.Add(New Binding(NameOf(dtDraft.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.ADD_YMD)))
+        cmbKISYU.DataBindings.Add(New Binding(NameOf(cmbKISYU.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KISYU_ID)))
+        mtxGOUKI.DataBindings.Add(New Binding(NameOf(mtxGOUKI.Text), _D003_NCR_J, NameOf(_D003_NCR_J.GOKI)))
+        mtxSYANAI_CD.DataBindings.Add(New Binding(NameOf(mtxSYANAI_CD.Text), _D003_NCR_J, NameOf(_D003_NCR_J.SYANAI_CD)))
+        cmbBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbBUHIN_BANGO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.BUHIN_BANGO)))
+        mtxHINMEI.DataBindings.Add(New Binding(NameOf(mtxHINMEI.Text), _D003_NCR_J, NameOf(_D003_NCR_J.BUHIN_BAME)))
+        numSU.DataBindings.Add(New Binding(NameOf(numSU.Value), _D003_NCR_J, NameOf(_D003_NCR_J.SURYO)))
+        cmbFUTEKIGO_STATUS.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_STATUS.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.FUTEKIGO_JYOTAI_KB)))
+        chkSAIHATU.DataBindings.Add(New Binding(NameOf(chkSAIHATU.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SAIHATU)))
+        cmbFUTEKIGO_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_KB.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.FUTEKIGO_KB)))
+        cmbHUTEKIGO_SYOSAI_KB.DataBindings.Add(New Binding(NameOf(cmbHUTEKIGO_SYOSAI_KB.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.FUTEKIGO_S_KB)))
+        mtxZUBAN_KIKAKU.DataBindings.Add(New Binding(NameOf(mtxZUBAN_KIKAKU.Text), _D003_NCR_J, NameOf(_D003_NCR_J.ZUMEN_KIKAKU)))
+
+        'STAGE01
+        txtST01_YOKYU_NAIYO.DataBindings.Add(New Binding(NameOf(txtST01_YOKYU_NAIYO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.YOKYU_NAIYO)))
+        txtST01_KEKKA.DataBindings.Add(New Binding(NameOf(txtST01_KEKKA.Text), _D003_NCR_J, NameOf(_D003_NCR_J.KANSATU_KEKKA)))
+        mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HOKOKU_NO)))
+        mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HOKOKU_NO)))
+
+        'STAGE02
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HOKOKU_NO)))
+
+        'STAGE03
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HOKOKU_NO)))
+
+        'STAGE04
+        cmbST04_ZIZENSINSA_HANTEI.DataBindings.Add(New Binding(NameOf(cmbST04_ZIZENSINSA_HANTEI.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB)))
+        chkST04_ZESEI_SYOCHI_YOHI_KB.DataBindings.Add(New Binding(NameOf(chkST04_ZESEI_SYOCHI_YOHI_KB.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB)))
+        txtST04_RIYU.DataBindings.Add(New Binding(NameOf(txtST04_RIYU.Text), _D003_NCR_J, NameOf(_D003_NCR_J.ZESEI_NASI_RIYU)))
+
+        'STAGE05
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HOKOKU_NO)))
+
+        'STAGE06
+        cmbST06_SAISIN_IINKAI_HANTEI.DataBindings.Add(New Binding(NameOf(cmbST06_SAISIN_IINKAI_HANTEI.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SAISIN_IINKAI_HANTEI_KB)))
+        mtxST06_SAISIN_IINKAI_SIRYO_NO.DataBindings.Add(New Binding(NameOf(mtxST06_SAISIN_IINKAI_SIRYO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.SAISIN_IINKAI_SIRYO_NO)))
+
+        'STAGE07
+        mtxST07_ITAG_NO.DataBindings.Add(New Binding(NameOf(mtxST07_ITAG_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.ITAG_NO)))
+        cmbST07_SAISIN_TANTO.DataBindings.Add(New Binding(NameOf(cmbST07_SAISIN_TANTO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID)))
+        cmbST07_KOKYAKU_HANTEI_SIJI.DataBindings.Add(New Binding(NameOf(cmbST07_KOKYAKU_HANTEI_SIJI.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB)))
+        dtST07_KOKYAKU_HANTEI_SIJI.DataBindings.Add(New Binding(NameOf(dtST07_KOKYAKU_HANTEI_SIJI.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)))
+        cmbST07_KOKYAKU_SAISYU_HANTEI.DataBindings.Add(New Binding(NameOf(cmbST07_KOKYAKU_SAISYU_HANTEI.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB)))
+        dtST07_KOKYAKU_SAISYU_HANTEI.DataBindings.Add(New Binding(NameOf(dtST07_KOKYAKU_SAISYU_HANTEI.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD)))
+        chkST07_SAIKAKO_SIJI_FLG.DataBindings.Add(New Binding(NameOf(chkST07_SAIKAKO_SIJI_FLG.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SAIKAKO_SIJI_FLG)))
+
+        'STAGE08
+        dtST08_1_HAIKYAKU_YMD.DataBindings.Add(New Binding(NameOf(dtST08_1_HAIKYAKU_YMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.HAIKYAKU_YMD)))
+        cmbST08_1_HAIKYAKU_KB.DataBindings.Add(New Binding(NameOf(cmbST08_1_HAIKYAKU_KB.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.HAIKYAKU_KB)))
+        mtxST08_1_BIKO.DataBindings.Add(New Binding(NameOf(mtxST08_1_BIKO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HAIKYAKU_HOUHOU)))
+        cmbST08_1_HAIKYAKU_TANTO.DataBindings.Add(New Binding(NameOf(cmbST08_1_HAIKYAKU_TANTO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.HAIKYAKU_TANTO_ID)))
+
+        mtxST08_2_DOC_NO.DataBindings.Add(New Binding(NameOf(mtxST08_2_DOC_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO)))
+        dtST08_2_WorkOutYMD.DataBindings.Add(New Binding(NameOf(dtST08_2_WorkOutYMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD)))
+        dtST08_2_KENSA_YMD.DataBindings.Add(New Binding(NameOf(dtST08_2_KENSA_YMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD)))
+        cmbST08_2_KENSA_KEKKA.DataBindings.Add(New Binding(NameOf(cmbST08_2_KENSA_KEKKA.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KENSA_KEKKA_KB)))
+        cmbST08_2_TANTO_SEIZO.DataBindings.Add(New Binding(NameOf(cmbST08_2_TANTO_SEIZO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SEIZO_TANTO_ID)))
+        cmbST08_2_TANTO_SEIGI.DataBindings.Add(New Binding(NameOf(cmbST08_2_TANTO_SEIGI.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SEIGI_TANTO_ID)))
+        cmbST08_2_TANTO_KENSA.DataBindings.Add(New Binding(NameOf(cmbST08_2_TANTO_KENSA.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KENSA_TANTO_ID)))
+
+        dtST08_3_HENKYAKU_YMD.DataBindings.Add(New Binding(NameOf(dtST08_3_HENKYAKU_YMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.HAIKYAKU_YMD)))
+        mtxST08_3_HENKYAKU_SAKI.DataBindings.Add(New Binding(NameOf(mtxST08_3_HENKYAKU_SAKI.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HENKYAKU_SAKI)))
+        txtST08_3_BIKO.DataBindings.Add(New Binding(NameOf(txtST08_3_BIKO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HENKYAKU_BIKO)))
+
+        cmbST08_4_KISYU.DataBindings.Add(New Binding(NameOf(cmbST08_4_KISYU.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.TENYO_KISYU_ID)))
+        cmbST08_4_BUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbST08_4_BUHIN_BANGO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.TENYO_BUHIN_BANGO)))
+        mtxST08_4_GOUKI.DataBindings.Add(New Binding(NameOf(mtxST08_4_GOUKI.Text), _D003_NCR_J, NameOf(_D003_NCR_J.TENYO_GOKI)))
+        mtxST08_4_LOT.DataBindings.Add(New Binding(NameOf(mtxST08_4_LOT.Text), _D003_NCR_J, NameOf(_D003_NCR_J.TENYO_LOT)))
+        dtST08_4_TENYO_YMD.DataBindings.Add(New Binding(NameOf(dtST08_4_TENYO_YMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.TENYO_YMD)))
+
+        'STAGE09
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HOKOKU_NO)))
+
+        'STAGE10
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HOKOKU_NO)))
+
+        'STAGE11
+        chkST11_A1.DataBindings.Add(New Binding(NameOf(chkST11_A1.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SYOCHI_KEKKA_A)))
+        chkST11_B1.DataBindings.Add(New Binding(NameOf(chkST11_B1.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SYOCHI_KEKKA_B)))
+        chkST11_C1.DataBindings.Add(New Binding(NameOf(chkST11_C1.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SYOCHI_KEKKA_C)))
+        chkST11_D1.DataBindings.Add(New Binding(NameOf(chkST11_D1.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SYOCHI_D_UMU_KB)))
+        chkST11_D2.DataBindings.Add(New Binding(NameOf(chkST11_D2.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SYOCHI_D_YOHI_KB)))
+        mtxST11_D_Comment.DataBindings.Add(New Binding(NameOf(mtxST11_D_Comment.Text), _D003_NCR_J, NameOf(_D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU)))
+        chkST11_E1.DataBindings.Add(New Binding(NameOf(chkST11_E1.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SYOCHI_E_UMU_KB)))
+        chkST11_E2.DataBindings.Add(New Binding(NameOf(chkST11_E2.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SYOCHI_E_YOHI_KB)))
+        mtxST11_E_Comment.DataBindings.Add(New Binding(NameOf(mtxST11_E_Comment.Text), _D003_NCR_J, NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU)))
+
+        'STAGE12
+
+
+    End Function
+#End Region
+
 
     ''' <summary>
     ''' 次ステージ名を取得

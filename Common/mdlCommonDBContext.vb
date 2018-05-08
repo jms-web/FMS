@@ -269,43 +269,6 @@ Public Module mdlDBContext
 
 #Region "テーブル値関数・ストアド バギング関数"
 
-#Region "TV01 不適合報告書一覧"
-    Public Function FunGetTV01_FUTEKIGO_ICHIRAN(ByVal BUMON_KB As String,
-                                                ByVal HOKOKUSYO_NO As String,
-                                                ByVal KISYU_ID As Integer,
-                                                ByVal BUHIN_BANGO As String,
-                                                ByVal BUHIN_NAME As String,
-                                                ByVal JIZEN_SINSA_HANTEI_KB As String,
-                                                ByVal SAISIN_IINKAI_HANTEI_KB As String,
-                                                ByVal CLOSE_FLG As String,
-                                                ByVal Optional strWhere As String = "") As DataTable
-
-        Dim sbSQL As New System.Text.StringBuilder
-        Dim dsList As New DataSet
-        Dim strParam As String = String.Format("'{0}','{1}',{2},'{3}','{4}','{5}','{6}','{7}'",
-                                              BUMON_KB,
-                                              HOKOKUSYO_NO,
-                                              KISYU_ID,
-                                              BUHIN_BANGO,
-                                              BUHIN_NAME,
-                                              JIZEN_SINSA_HANTEI_KB,
-                                              SAISIN_IINKAI_HANTEI_KB,
-                                              CLOSE_FLG)
-
-        sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append("SELECT")
-        sbSQL.Append(" *")
-        sbSQL.Append(" FROM " & NameOf(TV01_FUTEKIGO_ICHIRAN) & "(" & strParam & ")")
-        sbSQL.Append(" " & strWhere)
-        sbSQL.Append(" ORDER BY HOKOKUSYO_NO ")
-        Using DBa As ClsDbUtility = DBOpen()
-            dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
-        End Using
-
-        Return dsList.Tables(0)
-    End Function
-#End Region
-
 #End Region
 
 
