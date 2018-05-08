@@ -1,8 +1,10 @@
-﻿''' <summary>
+﻿Imports PropertyChanged
+
+''' <summary>
 ''' 一覧検索ストアドパラメータ
 ''' </summary>
+<AddINotifyPropertyChangedInterface>
 Public Class TV01_ParamModel
-    Inherits MODEL.NotifyChangedBase
 
     '共通
     Public Property BUMON_KB As String
