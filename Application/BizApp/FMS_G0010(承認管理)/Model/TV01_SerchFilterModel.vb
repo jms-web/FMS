@@ -5,6 +5,7 @@
 ''' </summary>
 <AddINotifyPropertyChangedInterface>
 Public Class TV01_ParamModel
+    Inherits MODEL.NotifyChangedBase
 
     '共通
     Public Property BUMON_KB As String
@@ -19,10 +20,32 @@ Public Class TV01_ParamModel
     Public Property JISI_YMD_FROM As String
     Public Property JISI_YMD_TO As String
     Public Property FUTEKIGO_KB As String
-    Public Property FUKEKIGO_S_KB As String
+    Public Property FUTEKIGO_S_KB As String
     Public Property FUTEKIGO_JYOTAI_KB As String
-    Public Property VISIBLE_CLOSE As String
-    Public Property VISIBLE_TAIRYU As String
+
+    Public _VISIBLE_CLOSE As String
+    <DoNotNotify>
+    Public Property VISIBLE_CLOSE As Boolean
+        Get
+            Return IIf(_VISIBLE_CLOSE = "0", False, True)
+        End Get
+        Set(value As Boolean)
+            _VISIBLE_CLOSE = IIf(value, "1", "0")
+            OnPropertyChanged(NameOf(VISIBLE_CLOSE))
+        End Set
+    End Property
+
+    Public _VISIBLE_TAIRYU As String
+    <DoNotNotify>
+    Public Property VISIBLE_TAIRYU As Boolean
+        Get
+            Return IIf(_VISIBLE_TAIRYU = "0", False, True)
+        End Get
+        Set(value As Boolean)
+            _VISIBLE_TAIRYU = IIf(value, "1", "0")
+            OnPropertyChanged(NameOf(VISIBLE_TAIRYU))
+        End Set
+    End Property
 
     'NCR
     Public Property JIZEN_SINSA_HANTEI_KB As String
@@ -33,9 +56,8 @@ Public Class TV01_ParamModel
     Public Property KENSA_KEKKA_KB As String
 
     'CAR
-    Public Property YOIN1 As String
-    Public Property YOIN2 As String
-    Public Property TANTO_SAGYO As String
+    Public Property GENIN1 As String
+    Public Property GENIN2 As String
     Public Property KISEKI_KOTEI_KB As String
 
 End Class

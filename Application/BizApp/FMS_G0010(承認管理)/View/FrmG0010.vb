@@ -6,6 +6,12 @@ Imports C1.Win.C1FlexGrid
 ''' </summary>
 Public Class FrmG0010
 
+#Region "定数・変数"
+
+    Private ParamModel As New TV01_ParamModel
+#End Region
+
+
 #Region "プロパティ"
     ''' <summary>
     ''' 
@@ -24,6 +30,7 @@ Public Class FrmG0010
     ''' </summary>
     ''' <returns></returns>
     Public Property PrGenin2 As New List(Of (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String))
+
 #End Region
 
 #Region "コンストラクタ"
@@ -80,12 +87,12 @@ Public Class FrmG0010
             Dim dtAddTANTO As DataTable = tblTANTO_SYONIN.
                                             ExcludeDeleted.
                                             AsEnumerable.
-                                            Where(Function(r) r.Field(Of Integer)("SYONIN_JUN") = ENM_NCR_STAGE._10_起草入力).
+                                            Where(Function(r) r.Field(Of Integer)("SYONIN_JUN") = ENM_NCR_STAGE._10_起草入力 And r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = ENM_SYONIN_HOKOKU_ID._1_NCR).
                                             CopyToDataTable
 
             cmbADD_TANTO.SetDataSource(dtAddTANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbTANTO.SetDataSource(tblTANTO_SYONIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbTANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbFUTEKIGO_JYOTAI_KB.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -101,7 +108,6 @@ Public Class FrmG0010
             'CAR
             cmbYOIN1.SetDataSource(tblKONPON_YOIN_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbYOIN2.SetDataSource(tblKONPON_YOIN_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbTANTO_SAGYO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbKISEKI_KOTEI_KB.SetDataSource(tblKISEKI_KOUTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             '既定値設定
@@ -545,141 +551,142 @@ Public Class FrmG0010
             Dim sbSQLWHERE As New System.Text.StringBuilder
             Dim sbParam As New System.Text.StringBuilder
 
-            'UNDONE: SPEC: PF01.2-(1) A 検索条件
-            Dim paramModel As New TV01_ParamModel
-#Region "           共通検索条件"
+            'SPEC: PF01.2-(1) A 検索条件
+#Region "旧検索条件"
+            '#Region "           共通検索条件"
 
-            '部門、機種、部品番号、部品名称 パラメータ
+            '            '部門、機種、部品番号、部品名称 パラメータ
 
-            '社内CD
-            If mtxSyanaiCD.Text.IsNullOrWhiteSpace Then
-            Else
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-                sbSQLWHERE.Append("SYANAI_CD LIKE '%" & mtxSyanaiCD.Text & "%'")
-            End If
+            '            '社内CD
+            '            If mtxSyanaiCD.Text.IsNullOrWhiteSpace Then
+            '            Else
+            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+            '                sbSQLWHERE.Append("SYANAI_CD LIKE '%" & mtxSyanaiCD.Text & "%'")
+            '            End If
 
-            '号機
-            If mtxGOUKI.Text.IsNullOrWhiteSpace Then
-            Else
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-                sbSQLWHERE.Append("GOUKI LIKE '%" & mtxGOUKI.Text & "%'")
-            End If
+            '            '号機
+            '            If mtxGOUKI.Text.IsNullOrWhiteSpace Then
+            '            Else
+            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+            '                sbSQLWHERE.Append("GOUKI LIKE '%" & mtxGOUKI.Text & "%'")
+            '            End If
 
-            '現処置担当者
-            If cmbTANTO.SelectedValue <> "" Then
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-                sbSQLWHERE.Append("SYOCHI_SYAIN_ID = " & cmbTANTO.SelectedValue)
-            Else
-            End If
+            '            '現処置担当者
+            '            If cmbTANTO.SelectedValue <> "" Then
+            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+            '                sbSQLWHERE.Append("SYOCHI_SYAIN_ID = " & cmbTANTO.SelectedValue)
+            '            Else
+            '            End If
 
-            '処置実施日
-            If dtJisiFrom.Text.IsNullOrWhiteSpace Then
-            Else
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-                sbSQLWHERE.Append("SYOCHI_YMD <= '" & dtJisiFrom.ValueDate.ToString("yyyyMMdd") & "'")
-            End If
-            If dtJisiTo.Text.IsNullOrWhiteSpace Then
-            Else
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-                sbSQLWHERE.Append("SYOCHI_YMD > '" & dtJisiFrom.ValueDate.ToString("yyyyMMdd") & "'")
-            End If
+            '            '処置実施日
+            '            If dtJisiFrom.Text.IsNullOrWhiteSpace Then
+            '            Else
+            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+            '                sbSQLWHERE.Append("SYOCHI_YMD <= '" & dtJisiFrom.ValueDate.ToString("yyyyMMdd") & "'")
+            '            End If
+            '            If dtJisiTo.Text.IsNullOrWhiteSpace Then
+            '            Else
+            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+            '                sbSQLWHERE.Append("SYOCHI_YMD > '" & dtJisiFrom.ValueDate.ToString("yyyyMMdd") & "'")
+            '            End If
 
-            '報告書No パラメータ
+            '            '報告書No パラメータ
 
 
-            '起草者
-            If cmbADD_TANTO.SelectedValue <> "" Then
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-                sbSQLWHERE.Append(" AND ADD_SYAIN_ID = " & cmbADD_TANTO.SelectedValue)
-            Else
-            End If
+            '            '起草者
+            '            If cmbADD_TANTO.SelectedValue <> "" Then
+            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+            '                sbSQLWHERE.Append(" AND ADD_SYAIN_ID = " & cmbADD_TANTO.SelectedValue)
+            '            Else
+            '            End If
 
-            'クローズ除く パラメータ
+            '            'クローズ除く パラメータ
 
-            '滞留を表示
-            If chkTairyu.Checked Then
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-                sbSQLWHERE.Append(" WHERE TAIRYU > 0")
-            Else
-            End If
+            '            '滞留を表示
+            '            If chkTairyu.Checked Then
+            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+            '                sbSQLWHERE.Append(" WHERE TAIRYU > 0")
+            '            Else
+            '            End If
 
-            '不適合区分
-            If cmbFUTEKIGO_KB.SelectedValue <> "" Then
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-                sbSQLWHERE.Append(" AND FUTEKIGO_KB = '" & cmbFUTEKIGO_KB.SelectedValue & "'")
-            Else
-            End If
+            '            '不適合区分
+            '            If cmbFUTEKIGO_KB.SelectedValue <> "" Then
+            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+            '                sbSQLWHERE.Append(" AND FUTEKIGO_KB = '" & cmbFUTEKIGO_KB.SelectedValue & "'")
+            '            Else
+            '            End If
 
-            '不適合詳細区分
-            If cmbFUKEKIGO_S_KB.SelectedValue <> "" Then
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-                sbSQLWHERE.Append(" AND FUKEKIGO_S_KB = '" & cmbFUKEKIGO_S_KB.SelectedValue & "'")
-            Else
-            End If
+            '            '不適合詳細区分
+            '            If cmbFUKEKIGO_S_KB.SelectedValue <> "" Then
+            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+            '                sbSQLWHERE.Append(" AND FUKEKIGO_S_KB = '" & cmbFUKEKIGO_S_KB.SelectedValue & "'")
+            '            Else
+            '            End If
 
-            '不適合状態区分
-            If cmbFUTEKIGO_JYOTAI_KB.SelectedValue <> "" Then
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-                sbSQLWHERE.Append(" AND FUTEKIGO_JYOTAI_KB = '" & cmbFUTEKIGO_JYOTAI_KB.SelectedValue & "'")
-            Else
-            End If
+            '            '不適合状態区分
+            '            If cmbFUTEKIGO_JYOTAI_KB.SelectedValue <> "" Then
+            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+            '                sbSQLWHERE.Append(" AND FUTEKIGO_JYOTAI_KB = '" & cmbFUTEKIGO_JYOTAI_KB.SelectedValue & "'")
+            '            Else
+            '            End If
 
+            '#End Region
+
+            '#Region "           NCR検索条件"
+
+            '            '事前審査判定 パラメータ
+
+            '            '是正処置要否確認
+            '            If cmbZESEI_SYOCHI_YOHI_KB.SelectedValue <> "" Then
+            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+            '                sbSQLWHERE.Append(" AND ZESEI_SYOCHI_YOHI_KB = '" & cmbZESEI_SYOCHI_YOHI_KB.SelectedValue & "'")
+            '            Else
+            '            End If
+
+            '            '再審委員会判定 パラメータ
+
+            '            '顧客判定指示 
+            '            If cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValue <> "" Then
+            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+            '                sbSQLWHERE.Append(" AND KOKYAKU_HANTEI_SIJI_KB = '" & cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValue & "'")
+            '            Else
+            '            End If
+
+            '            '顧客最終判定区分
+            '            If cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValue <> "" Then
+            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+            '                sbSQLWHERE.Append(" AND KOKYAKU_SAISYU_HANTEI_KB = '" & cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValue & "'")
+            '            Else
+            '            End If
+
+            '            '検査結果 
+            '            If cmbKENSA_KEKKA_KB.SelectedValue <> "" Then
+            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+            '                sbSQLWHERE.Append(" AND KENSA_KEKKA_KB = '" & cmbKENSA_KEKKA_KB.SelectedValue & "'")
+            '            Else
+            '            End If
+
+            '#End Region
+
+            '#Region "           CAR検索条件"
+
+            '            '要因1
+            '            '要因2
+            '            '作業者名
+
+
+            '            '帰責工程
+            '            If cmbKISEKI_KOTEI_KB.SelectedValue <> "" Then
+            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
+            '                sbSQLWHERE.Append(" AND KISEKI_KOTEI_KB = '" & cmbKISEKI_KOTEI_KB.SelectedValue & "'")
+            '            Else
+            '            End If
+
+            '#End Region
 #End Region
 
-#Region "           NCR検索条件"
-
-            '事前審査判定 パラメータ
-
-            '是正処置要否確認
-            If cmbZESEI_SYOCHI_YOHI_KB.SelectedValue <> "" Then
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-                sbSQLWHERE.Append(" AND ZESEI_SYOCHI_YOHI_KB = '" & cmbZESEI_SYOCHI_YOHI_KB.SelectedValue & "'")
-            Else
-            End If
-
-            '再審委員会判定 パラメータ
-
-            '顧客判定指示 
-            If cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValue <> "" Then
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-                sbSQLWHERE.Append(" AND KOKYAKU_HANTEI_SIJI_KB = '" & cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValue & "'")
-            Else
-            End If
-
-            '顧客最終判定区分
-            If cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValue <> "" Then
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-                sbSQLWHERE.Append(" AND KOKYAKU_SAISYU_HANTEI_KB = '" & cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValue & "'")
-            Else
-            End If
-
-            '検査結果 
-            If cmbKENSA_KEKKA_KB.SelectedValue <> "" Then
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-                sbSQLWHERE.Append(" AND KENSA_KEKKA_KB = '" & cmbKENSA_KEKKA_KB.SelectedValue & "'")
-            Else
-            End If
-
-#End Region
-
-#Region "           CAR検索条件"
-
-            '要因1
-            '要因2
-            '作業者名
-
-
-            '帰責工程
-            If cmbKISEKI_KOTEI_KB.SelectedValue <> "" Then
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-                sbSQLWHERE.Append(" AND KISEKI_KOTEI_KB = '" & cmbKISEKI_KOTEI_KB.SelectedValue & "'")
-            Else
-            End If
-
-#End Region
-
-            Dim dtBUFF As DataTable = FunGetTV01_FUTEKIGO_ICHIRAN(paramModel)
-
+            Dim dtBUFF As DataTable = FunGetTV01_FUTEKIGO_ICHIRAN(ParamModel)
+            If dtBUFF Is Nothing Then Return Nothing
             If dtBUFF.Rows.Count > pub_APP_INFO.intSEARCHMAX Then
                 If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
                     Return Nothing
@@ -813,33 +820,46 @@ Public Class FrmG0010
         Dim sbParam As New System.Text.StringBuilder
         Dim dsList As New DataSet
 
-        sbParam.Append(" '" & "" & "'")
-        sbParam.Append(",'" & "" & "'")
-        sbParam.Append(",'" & "" & "'")
-        sbParam.Append(",'" & "" & "'")
-        sbParam.Append(",'" & "" & "'")
-        sbParam.Append(",'" & "" & "'")
-        sbParam.Append(",'" & "" & "'")
-        sbParam.Append(",'" & "" & "'")
-        sbParam.Append(",'" & "" & "'")
-        sbParam.Append(",'" & "" & "'")
-        sbParam.Append(",'" & "" & "'")
-        sbParam.Append(",'" & "" & "'")
-        sbParam.Append(",'" & "" & "'")
-        sbParam.Append(",'" & "" & "'")
-        sbParam.Append(",'" & "" & "'")
-        sbParam.Append(",'" & "" & "'")
+        '共通
+        sbParam.Append(" '" & ParamModel.BUMON_KB & "'")
+        sbParam.Append(",'" & ParamModel.HOKOKU_NO & "'")
+        sbParam.Append("," & ParamModel.ADD_TANTO & "")
+        sbParam.Append("," & ParamModel.KISYU_ID & "")
+        sbParam.Append(",'" & ParamModel.GOUKI & "'")
+        sbParam.Append(",'" & ParamModel.SYANAI_CD & "'")
+        sbParam.Append(",'" & ParamModel.BUHIN_BANGO & "'")
+        sbParam.Append(",'" & ParamModel.BUHIN_NAME & "'")
+        sbParam.Append(",'" & ParamModel.SYOCHI_TANTO & "'")
+        sbParam.Append(",'" & ParamModel.JISI_YMD_FROM & "'")
+        sbParam.Append(",'" & ParamModel.JISI_YMD_TO & "'")
+        sbParam.Append(",'" & ParamModel.FUTEKIGO_KB & "'")
+        sbParam.Append(",'" & ParamModel.FUTEKIGO_S_KB & "'")
+        sbParam.Append(",'" & ParamModel.FUTEKIGO_JYOTAI_KB & "'")
+        sbParam.Append(",'" & ParamModel._VISIBLE_CLOSE & "'")
+        sbParam.Append(",'" & ParamModel._VISIBLE_TAIRYU & "'")
 
-        sbSQL.Remove(0, sbSQL.Length)
+        'NCR
+        sbParam.Append(",'" & ParamModel.JIZEN_SINSA_HANTEI_KB & "'")
+        sbParam.Append(",'" & ParamModel.ZESEI_SYOCHI_YOHI_KB & "'")
+        sbParam.Append(",'" & ParamModel.SAISIN_IINKAI_HANTEI_KB & "'")
+        sbParam.Append(",'" & ParamModel.KOKYAKU_HANTEI_SIJI_KB & "'")
+        sbParam.Append(",'" & ParamModel.KOKYAKU_SAISYU_HANTEI_KB & "'")
+        sbParam.Append(",'" & ParamModel.KENSA_KEKKA_KB & "'")
+
+        'CAR
+        sbParam.Append(",'" & ParamModel.GENIN1 & "'")
+        sbParam.Append(",'" & ParamModel.GENIN2 & "'")
+        sbParam.Append(",'" & ParamModel.KISEKI_KOTEI_KB & "'")
+
         sbSQL.Append("SELECT")
         sbSQL.Append(" *")
         sbSQL.Append(" FROM " & NameOf(MODEL.TV01_FUTEKIGO_ICHIRAN) & "(" & sbParam.ToString & ")")
         sbSQL.Append(" ORDER BY HOKOKUSYO_NO ")
-        Using DBa As ClsDbUtility = DBOpen()
-            dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        Using DB As ClsDbUtility = DBOpen()
+            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
         End Using
 
-        Return dsList.Tables(0)
+        Return dsList?.Tables(0)
     End Function
 #End Region
 #End Region
@@ -858,6 +878,7 @@ Public Class FrmG0010
 
         Try
             If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE AndAlso dgvDATA.CurrentRow.Cells(5).Value = "CAR" Then
+
                 dlgRET = frmCAR.ShowDialog(Me)
 
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
@@ -872,17 +893,14 @@ Public Class FrmG0010
                 Else
                     frmDLG.PrDataRow = Nothing
                 End If
-                frmDLG.PrDt = Me.PrDt
                 dlgRET = frmDLG.ShowDialog(Me)
 
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
                     Return False
                 Else
-                    dgvDATA.DataSource = frmDLG.PrDt
+
                 End If
             End If
-
-
 
             Return True
         Catch ex As Exception
@@ -1253,6 +1271,9 @@ Public Class FrmG0010
 
     End Sub
 
+
+
+#Region "共通検索条件"
     '部門変更時
     Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
 
@@ -1265,9 +1286,8 @@ Public Class FrmG0010
                 mtxSyanaiCD.Visible = False
                 mtxSyanaiCD.Text = ""
         End Select
-
     End Sub
-
+#End Region
 
 #Region "CAR検索条件"
 
@@ -1412,8 +1432,39 @@ Public Class FrmG0010
 
 #End Region
 
-
 #Region "ローカル関数"
+
+    Private Function FunSetBinding() As Boolean
+        '共通
+        cmbBUMON.DataBindings.Add(New Binding(NameOf(cmbBUMON.SelectedValue), ParamModel, NameOf(ParamModel.BUMON_KB)))
+        mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), ParamModel, NameOf(ParamModel.HOKOKU_NO)))
+        cmbADD_TANTO.DataBindings.Add(New Binding(NameOf(cmbADD_TANTO.SelectedValue), ParamModel, NameOf(ParamModel.ADD_TANTO)))
+        cmbKISYU.DataBindings.Add(New Binding(NameOf(cmbKISYU.SelectedValue), ParamModel, NameOf(ParamModel.KISYU_ID)))
+        mtxGOUKI.DataBindings.Add(New Binding(NameOf(mtxGOUKI.Text), ParamModel, NameOf(ParamModel.GOUKI)))
+        mtxSyanaiCD.DataBindings.Add(New Binding(NameOf(mtxSyanaiCD.Text), ParamModel, NameOf(ParamModel.SYANAI_CD)))
+        cmbBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbBUHIN_BANGO.SelectedValue), ParamModel, NameOf(ParamModel.BUHIN_BANGO)))
+        mtxHINMEI.DataBindings.Add(New Binding(NameOf(mtxHINMEI.Text), ParamModel, NameOf(ParamModel.BUHIN_NAME)))
+        cmbTANTO.DataBindings.Add(New Binding(NameOf(cmbTANTO.SelectedValue), ParamModel, NameOf(ParamModel.SYOCHI_TANTO)))
+        dtJisiFrom.DataBindings.Add(New Binding(NameOf(dtJisiFrom.ValueNonFormat), ParamModel, NameOf(ParamModel.JISI_YMD_FROM)))
+        dtJisiTo.DataBindings.Add(New Binding(NameOf(dtJisiTo.ValueNonFormat), ParamModel, NameOf(ParamModel.JISI_YMD_TO)))
+        cmbFUTEKIGO_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_KB)))
+        cmbFUKEKIGO_S_KB.DataBindings.Add(New Binding(NameOf(cmbFUKEKIGO_S_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_S_KB)))
+        cmbFUTEKIGO_JYOTAI_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_JYOTAI_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_JYOTAI_KB)))
+        chkClosedRowVisibled.DataBindings.Add(New Binding(NameOf(chkClosedRowVisibled.Checked), ParamModel, NameOf(ParamModel.VISIBLE_CLOSE)))
+        chkTairyu.DataBindings.Add(New Binding(NameOf(chkTairyu.Checked), ParamModel, NameOf(ParamModel.VISIBLE_TAIRYU)))
+        'NCR
+        cmbJIZEN_SINSA_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbJIZEN_SINSA_HANTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.JIZEN_SINSA_HANTEI_KB)))
+        cmbZESEI_SYOCHI_YOHI_KB.DataBindings.Add(New Binding(NameOf(cmbZESEI_SYOCHI_YOHI_KB.SelectedValue), ParamModel, NameOf(ParamModel.ZESEI_SYOCHI_YOHI_KB)))
+        cmbSAISIN_IINKAI_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbSAISIN_IINKAI_HANTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.SAISIN_IINKAI_HANTEI_KB)))
+        cmbKOKYAKU_HANTEI_SIJI_KB.DataBindings.Add(New Binding(NameOf(cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValue), ParamModel, NameOf(ParamModel.KOKYAKU_HANTEI_SIJI_KB)))
+        cmbKOKYAKU_SAISYU_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.KOKYAKU_SAISYU_HANTEI_KB)))
+        cmbKENSA_KEKKA_KB.DataBindings.Add(New Binding(NameOf(cmbKENSA_KEKKA_KB.SelectedValue), ParamModel, NameOf(ParamModel.KENSA_KEKKA_KB)))
+        'CAR
+        mtxGENIN1.DataBindings.Add(New Binding(NameOf(mtxGENIN1.Text), ParamModel, NameOf(ParamModel.GENIN1)))
+        mtxGENIN2.DataBindings.Add(New Binding(NameOf(mtxGENIN2.Text), ParamModel, NameOf(ParamModel.GENIN2)))
+        cmbKISEKI_KOTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKISEKI_KOTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.KISEKI_KOTEI_KB)))
+
+    End Function
 
     Private Function FunblnAllowKIHYO() As Boolean
         Dim sbSQL As New System.Text.StringBuilder

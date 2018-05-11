@@ -78,9 +78,7 @@ Partial Class FrmG0010
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label27 = New System.Windows.Forms.Label()
-        Me.Label28 = New System.Windows.Forms.Label()
         Me.cmbYOIN1 = New JMS_COMMON.ComboboxEx()
-        Me.cmbTANTO_SAGYO = New JMS_COMMON.ComboboxEx()
         Me.Label35 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
@@ -90,14 +88,14 @@ Partial Class FrmG0010
         Me.btnSelectGenin1 = New System.Windows.Forms.Button()
         Me.btnSelectGenin2 = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
-        Me.Label30 = New System.Windows.Forms.Label()
-        Me.cmbKISEKI_KOTEI_KB = New JMS_COMMON.ComboboxEx()
         Me.btnClearGenin1 = New System.Windows.Forms.Button()
         Me.btnClearGenin2 = New System.Windows.Forms.Button()
         Me.mtxGENIN1 = New JMS_COMMON.MaskedTextBoxEx()
         Me.mtxGENIN2 = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.cmbKISEKI_KOTEI_KB = New JMS_COMMON.ComboboxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpFilter.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1197,9 +1195,7 @@ Partial Class FrmG0010
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel2.Controls.Add(Me.Label27, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label28, 0, 2)
         Me.TableLayoutPanel2.Controls.Add(Me.cmbYOIN1, 8, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.cmbTANTO_SAGYO, 8, 2)
         Me.TableLayoutPanel2.Controls.Add(Me.Label35, 19, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label18, 0, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.Label21, 19, 1)
@@ -1209,14 +1205,14 @@ Partial Class FrmG0010
         Me.TableLayoutPanel2.Controls.Add(Me.btnSelectGenin1, 39, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btnSelectGenin2, 39, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.Button3, 57, 4)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label30, 0, 3)
-        Me.TableLayoutPanel2.Controls.Add(Me.cmbKISEKI_KOTEI_KB, 8, 3)
         Me.TableLayoutPanel2.Controls.Add(Me.btnClearGenin1, 54, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btnClearGenin2, 54, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.mtxGENIN1, 27, 2)
         Me.TableLayoutPanel2.Controls.Add(Me.mtxGENIN2, 27, 3)
         Me.TableLayoutPanel2.Controls.Add(Me.Label3, 19, 2)
         Me.TableLayoutPanel2.Controls.Add(Me.Label22, 19, 3)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label30, 0, 2)
+        Me.TableLayoutPanel2.Controls.Add(Me.cmbKISEKI_KOTEI_KB, 8, 2)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 3)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
@@ -1242,17 +1238,6 @@ Partial Class FrmG0010
         Me.Label27.Text = "óvàˆ1:"
         Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label28
-        '
-        Me.TableLayoutPanel2.SetColumnSpan(Me.Label28, 8)
-        Me.Label28.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label28.Location = New System.Drawing.Point(3, 60)
-        Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(154, 30)
-        Me.Label28.TabIndex = 67
-        Me.Label28.Text = "çÏã∆é“ñº:"
-        Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'cmbYOIN1
         '
         Me.cmbYOIN1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
@@ -1271,24 +1256,6 @@ Partial Class FrmG0010
         Me.cmbYOIN1.Selected = False
         Me.cmbYOIN1.Size = New System.Drawing.Size(194, 25)
         Me.cmbYOIN1.TabIndex = 0
-        '
-        'cmbTANTO_SAGYO
-        '
-        Me.cmbTANTO_SAGYO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbTANTO_SAGYO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbTANTO_SAGYO.BackColor = System.Drawing.SystemColors.Window
-        Me.TableLayoutPanel2.SetColumnSpan(Me.cmbTANTO_SAGYO, 7)
-        Me.cmbTANTO_SAGYO.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbTANTO_SAGYO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbTANTO_SAGYO.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbTANTO_SAGYO.FormattingEnabled = True
-        Me.cmbTANTO_SAGYO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbTANTO_SAGYO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbTANTO_SAGYO.Location = New System.Drawing.Point(163, 63)
-        Me.cmbTANTO_SAGYO.Name = "cmbTANTO_SAGYO"
-        Me.cmbTANTO_SAGYO.Selected = False
-        Me.cmbTANTO_SAGYO.Size = New System.Drawing.Size(134, 25)
-        Me.cmbTANTO_SAGYO.TabIndex = 70
         '
         'Label35
         '
@@ -1407,36 +1374,6 @@ Partial Class FrmG0010
         Me.Button3.UseVisualStyleBackColor = True
         Me.Button3.Visible = False
         '
-        'Label30
-        '
-        Me.TableLayoutPanel2.SetColumnSpan(Me.Label30, 8)
-        Me.Label30.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label30.Location = New System.Drawing.Point(3, 90)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(154, 30)
-        Me.Label30.TabIndex = 69
-        Me.Label30.Text = "ãAê”çHíˆ:"
-        Me.Label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbKISEKI_KOTEI_KB
-        '
-        Me.cmbKISEKI_KOTEI_KB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbKISEKI_KOTEI_KB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKISEKI_KOTEI_KB.BackColor = System.Drawing.SystemColors.Window
-        Me.TableLayoutPanel2.SetColumnSpan(Me.cmbKISEKI_KOTEI_KB, 10)
-        Me.cmbKISEKI_KOTEI_KB.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbKISEKI_KOTEI_KB.DropDownWidth = 220
-        Me.cmbKISEKI_KOTEI_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbKISEKI_KOTEI_KB.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbKISEKI_KOTEI_KB.FormattingEnabled = True
-        Me.cmbKISEKI_KOTEI_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKISEKI_KOTEI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbKISEKI_KOTEI_KB.Location = New System.Drawing.Point(163, 93)
-        Me.cmbKISEKI_KOTEI_KB.Name = "cmbKISEKI_KOTEI_KB"
-        Me.cmbKISEKI_KOTEI_KB.Selected = False
-        Me.cmbKISEKI_KOTEI_KB.Size = New System.Drawing.Size(194, 25)
-        Me.cmbKISEKI_KOTEI_KB.TabIndex = 106
-        '
         'btnClearGenin1
         '
         Me.TableLayoutPanel2.SetColumnSpan(Me.btnClearGenin1, 3)
@@ -1512,6 +1449,36 @@ Partial Class FrmG0010
         Me.Label22.Text = "å¥àˆ2(åüçıíl):"
         Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label22.Visible = False
+        '
+        'Label30
+        '
+        Me.TableLayoutPanel2.SetColumnSpan(Me.Label30, 8)
+        Me.Label30.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label30.Location = New System.Drawing.Point(3, 60)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(154, 30)
+        Me.Label30.TabIndex = 69
+        Me.Label30.Text = "ãAê”çHíˆ:"
+        Me.Label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbKISEKI_KOTEI_KB
+        '
+        Me.cmbKISEKI_KOTEI_KB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbKISEKI_KOTEI_KB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbKISEKI_KOTEI_KB.BackColor = System.Drawing.SystemColors.Window
+        Me.TableLayoutPanel2.SetColumnSpan(Me.cmbKISEKI_KOTEI_KB, 10)
+        Me.cmbKISEKI_KOTEI_KB.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbKISEKI_KOTEI_KB.DropDownWidth = 220
+        Me.cmbKISEKI_KOTEI_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbKISEKI_KOTEI_KB.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbKISEKI_KOTEI_KB.FormattingEnabled = True
+        Me.cmbKISEKI_KOTEI_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKISEKI_KOTEI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKISEKI_KOTEI_KB.Location = New System.Drawing.Point(163, 63)
+        Me.cmbKISEKI_KOTEI_KB.Name = "cmbKISEKI_KOTEI_KB"
+        Me.cmbKISEKI_KOTEI_KB.Selected = False
+        Me.cmbKISEKI_KOTEI_KB.Size = New System.Drawing.Size(194, 25)
+        Me.cmbKISEKI_KOTEI_KB.TabIndex = 106
         '
         'FrmG0010
         '
@@ -1593,11 +1560,9 @@ Partial Class FrmG0010
     Friend WithEvents Button1 As Button
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
     Friend WithEvents Label27 As Label
-    Friend WithEvents Label28 As Label
     Friend WithEvents Label30 As Label
     Friend WithEvents cmbYOIN1 As ComboboxEx
     Friend WithEvents Label35 As Label
-    Friend WithEvents cmbTANTO_SAGYO As ComboboxEx
     Friend WithEvents mtxGENIN1_DISP As MaskedTextBoxEx
     Friend WithEvents Button3 As Button
     Friend WithEvents btnSelectGenin2 As Button

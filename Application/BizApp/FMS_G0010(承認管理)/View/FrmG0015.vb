@@ -349,27 +349,6 @@ Public Class FrmG0015
         Dim intCURROW As Integer
         Try
 
-            'EntityFramework6î≈
-            'Dim _model As Model.VWM01_CODE
-            'DB.Database.Log = Sub(s)
-            '                      Debug.WriteLine(s)
-            '                  End Sub
-
-            'Dim query As IQueryable(Of Model.VWM01_CODE) = DB.VWM01_CODE.AsNoTracking
-            'If Me.cmbKOMO_NM.SelectedValue <> "" Then
-            '    query = query.Where(Function(e) e.KOMO_NM = Me.cmbKOMO_NM.SelectedValue.ToString)
-            'Else
-            '    If Me.cmbKOMO_NM.Text.Trim <> "" Then
-            '        query = query.Where(Function(e) e.KOMO_NM.Contains(Me.cmbKOMO_NM.Text.Trim))
-            '    End If
-            'End If
-            'If Me.chkDeletedRowVisibled.Checked = False Then
-            '    query = query.Where(Function(e) e.DEL_YMDHNS.Trim = "")
-            '    dgv.Columns(NameOf(_model.DEL_FLG)).Visible = False
-            'Else
-            '    dgv.Columns(NameOf(_model.DEL_FLG)).Visible = True
-            'End If
-            'dgv.DataSource = query.ToList
 
 
             '-----ëIëçsãLâØ

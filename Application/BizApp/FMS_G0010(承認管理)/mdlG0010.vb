@@ -9,9 +9,6 @@ Module mdlG0010
     ''' </summary>
     Public frmLIST As FrmG0010
 
-    'DEBUG:
-    Public intREGISTERED_STAGE As Integer
-
     ''' <summary>
     ''' ãNìÆÉÇÅ[Éh
     ''' </summary>
