@@ -14,8 +14,11 @@ Imports PropertyChanged
 Partial Public Class D003_NCR_J
     Inherits NotifyChangedBase
 
-
     Public Sub New()
+        Call Clear()
+    End Sub
+
+    Public Sub Clear()
         HOKOKU_NO = ""
         BUMON_KB = ""
         CLOSE_FLG = False
@@ -91,26 +94,6 @@ Partial Public Class D003_NCR_J
         UPD_SYAIN_ID = 0
         DEL_YMDHNS = ""
         DEL_SYAIN_ID = 0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     End Sub
 

@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmG0016
-    Inherits JMS_COMMON.FrmBaseStsBtnDgv
+    Inherits JMS_COMMON.FrmBaseBtn
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -19,131 +19,234 @@ Partial Class FrmG0016
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.dgvDATA = New System.Windows.Forms.DataGridView()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.cmbTENSO_SAKI = New JMS_COMMON.ComboboxEx()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.mtxTENSO_RIYU = New JMS_COMMON.MaskedTextBoxEx()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.MaskedTextBoxEx1 = New JMS_COMMON.MaskedTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'lblRecordCount
-        '
-        Me.lblRecordCount.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblRecordCount.Location = New System.Drawing.Point(9, 565)
         '
         'cmdFunc1
         '
-        Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgSearch32x32
-        Me.cmdFunc1.Location = New System.Drawing.Point(9, 595)
-        Me.cmdFunc1.Text = "åüçı(F1)"
+        Me.cmdFunc1.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgBase_floppydisk32x32
+        Me.cmdFunc1.Location = New System.Drawing.Point(13, 207)
+        Me.cmdFunc1.TabIndex = 0
+        Me.cmdFunc1.Text = "ìoò^(F1)"
         '
         'cmdFunc2
         '
-        Me.cmdFunc2.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
-        Me.cmdFunc2.Location = New System.Drawing.Point(216, 595)
-        Me.cmdFunc2.Text = "í«â¡(F2)"
+        Me.cmdFunc2.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.cmdFunc2.Location = New System.Drawing.Point(443, 223)
+        Me.cmdFunc2.Size = New System.Drawing.Size(20, 27)
+        Me.cmdFunc2.Visible = False
         '
         'cmdFunc3
         '
-        Me.cmdFunc3.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
-        Me.cmdFunc3.Location = New System.Drawing.Point(423, 595)
-        Me.cmdFunc3.Text = "óﬁéóí«â¡(F3)"
+        Me.cmdFunc3.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.cmdFunc3.Location = New System.Drawing.Point(298, 222)
+        Me.cmdFunc3.Size = New System.Drawing.Size(20, 27)
+        Me.cmdFunc3.Visible = False
         '
         'cmdFunc4
         '
-        Me.cmdFunc4.Image = Global.FMS.My.Resources.Resources._imgApplication_form_edit32x32
-        Me.cmdFunc4.Location = New System.Drawing.Point(630, 595)
-        Me.cmdFunc4.Text = "ïœçX(F4)"
+        Me.cmdFunc4.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.cmdFunc4.Location = New System.Drawing.Point(501, 222)
+        Me.cmdFunc4.Size = New System.Drawing.Size(20, 27)
+        Me.cmdFunc4.Visible = False
         '
         'cmdFunc5
         '
-        Me.cmdFunc5.Image = Global.FMS.My.Resources.Resources._imgStatusAnnotations_Blocked_32x32_MD
-        Me.cmdFunc5.Location = New System.Drawing.Point(837, 595)
-        Me.cmdFunc5.Text = "çÌèú(F5)"
+        Me.cmdFunc5.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.cmdFunc5.Location = New System.Drawing.Point(704, 222)
+        Me.cmdFunc5.Size = New System.Drawing.Size(20, 27)
+        Me.cmdFunc5.Visible = False
         '
         'cmdFunc6
         '
-        Me.cmdFunc6.Image = Global.FMS.My.Resources.Resources._imgRecovery32x32
-        Me.cmdFunc6.Location = New System.Drawing.Point(1044, 595)
-        Me.cmdFunc6.Text = "ïúå≥(F6)"
+        Me.cmdFunc6.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.cmdFunc6.Location = New System.Drawing.Point(604, 223)
+        Me.cmdFunc6.Size = New System.Drawing.Size(120, 27)
+        Me.cmdFunc6.TabIndex = 1
+        Me.cmdFunc6.Visible = False
         '
         'cmdFunc12
         '
+        Me.cmdFunc12.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.cmdFunc12.Image = Global.FMS.My.Resources.Resources._imgLog_Out32x32
-        Me.cmdFunc12.Location = New System.Drawing.Point(1044, 643)
-        Me.cmdFunc12.Text = "ï¬Ç∂ÇÈ(F12)"
+        Me.cmdFunc12.Location = New System.Drawing.Point(836, 207)
+        Me.cmdFunc12.Text = "ÉLÉÉÉìÉZÉã(F12)"
         '
         'cmdFunc11
         '
-        Me.cmdFunc11.Location = New System.Drawing.Point(837, 643)
+        Me.cmdFunc11.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.cmdFunc11.Location = New System.Drawing.Point(704, 222)
+        Me.cmdFunc11.Size = New System.Drawing.Size(20, 27)
+        Me.cmdFunc11.Visible = False
         '
         'cmdFunc10
         '
-        Me.cmdFunc10.Image = Global.FMS.My.Resources.Resources._imgExportToExcel32x32
-        Me.cmdFunc10.Location = New System.Drawing.Point(630, 643)
-        Me.cmdFunc10.Text = "CSVèoóÕ(F10)"
+        Me.cmdFunc10.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.cmdFunc10.Location = New System.Drawing.Point(501, 222)
+        Me.cmdFunc10.Size = New System.Drawing.Size(20, 27)
+        Me.cmdFunc10.Visible = False
         '
         'cmdFunc7
         '
-        Me.cmdFunc7.Location = New System.Drawing.Point(9, 643)
+        Me.cmdFunc7.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.cmdFunc7.Location = New System.Drawing.Point(477, 223)
+        Me.cmdFunc7.Size = New System.Drawing.Size(18, 27)
+        Me.cmdFunc7.Visible = False
         '
         'cmdFunc9
         '
-        Me.cmdFunc9.Location = New System.Drawing.Point(423, 643)
+        Me.cmdFunc9.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.cmdFunc9.Location = New System.Drawing.Point(298, 222)
+        Me.cmdFunc9.Size = New System.Drawing.Size(20, 27)
+        Me.cmdFunc9.Visible = False
         '
         'cmdFunc8
         '
-        Me.cmdFunc8.Location = New System.Drawing.Point(216, 643)
+        Me.cmdFunc8.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.cmdFunc8.Location = New System.Drawing.Point(443, 223)
+        Me.cmdFunc8.Size = New System.Drawing.Size(20, 27)
+        Me.cmdFunc8.Visible = False
         '
         'lblTytle
         '
-        Me.lblTytle.Font = New System.Drawing.Font("Meiryo UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblTytle.Text = "ïœçXì‡óeî‰är"
+        Me.lblTytle.Location = New System.Drawing.Point(13, 12)
+        Me.lblTytle.Size = New System.Drawing.Size(982, 45)
+        Me.lblTytle.Text = "ç∑ñﬂÇµìoò^"
         '
-        'dgvDATA
+        'ErrorProvider
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvDATA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle2
-        Me.dgvDATA.Location = New System.Drawing.Point(12, 60)
-        Me.dgvDATA.Name = "dgvDATA"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        Me.dgvDATA.RowTemplate.Height = 21
-        Me.dgvDATA.Size = New System.Drawing.Size(1240, 502)
-        Me.dgvDATA.TabIndex = 64
+        Me.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         '
-        'FrmG0015
+        'GroupBox1
+        '
+        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.Controls.Add(Me.Label5)
+        Me.GroupBox1.Controls.Add(Me.cmbTENSO_SAKI)
+        Me.GroupBox1.Controls.Add(Me.Label2)
+        Me.GroupBox1.Controls.Add(Me.MaskedTextBoxEx1)
+        Me.GroupBox1.Controls.Add(Me.mtxTENSO_RIYU)
+        Me.GroupBox1.Controls.Add(Me.Label11)
+        Me.GroupBox1.Font = New System.Drawing.Font("ÇlÇr ÉSÉVÉbÉN", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(13, 60)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(982, 141)
+        Me.GroupBox1.TabIndex = 31
+        Me.GroupBox1.TabStop = False
+        '
+        'Label5
+        '
+        Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label5.Location = New System.Drawing.Point(6, 21)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(87, 25)
+        Me.Label5.TabIndex = 67
+        Me.Label5.Text = "ç∑ñﬂÇµêÊ:"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'cmbTENSO_SAKI
+        '
+        Me.cmbTENSO_SAKI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbTENSO_SAKI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbTENSO_SAKI.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbTENSO_SAKI.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.cmbTENSO_SAKI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbTENSO_SAKI.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbTENSO_SAKI.FormattingEnabled = True
+        Me.cmbTENSO_SAKI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbTENSO_SAKI.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbTENSO_SAKI.Location = New System.Drawing.Point(99, 21)
+        Me.cmbTENSO_SAKI.MaxLength = 30
+        Me.cmbTENSO_SAKI.Name = "cmbTENSO_SAKI"
+        Me.cmbTENSO_SAKI.Selected = False
+        Me.cmbTENSO_SAKI.Size = New System.Drawing.Size(239, 25)
+        Me.cmbTENSO_SAKI.TabIndex = 1
+        Me.cmbTENSO_SAKI.Text = "(ëIë)"
+        '
+        'Label2
+        '
+        Me.Label2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label2.Location = New System.Drawing.Point(6, 52)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(87, 24)
+        Me.Label2.TabIndex = 37
+        Me.Label2.Text = "ç∑ñﬂÇµóùóR:"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'mtxTENSO_RIYU
+        '
+        Me.mtxTENSO_RIYU.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxTENSO_RIYU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxTENSO_RIYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxTENSO_RIYU.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxTENSO_RIYU.InputRequired = False
+        Me.mtxTENSO_RIYU.Location = New System.Drawing.Point(99, 52)
+        Me.mtxTENSO_RIYU.MaxByteLength = 200
+        Me.mtxTENSO_RIYU.Name = "mtxTENSO_RIYU"
+        Me.mtxTENSO_RIYU.Size = New System.Drawing.Size(653, 24)
+        Me.mtxTENSO_RIYU.TabIndex = 3
+        Me.mtxTENSO_RIYU.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxTENSO_RIYU.WatermarkText = Nothing
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label11.ForeColor = System.Drawing.Color.Red
+        Me.Label11.Location = New System.Drawing.Point(96, 90)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(266, 17)
+        Me.Label11.TabIndex = 38
+        Me.Label11.Text = "Å¶ç∑ñﬂÇµìoò^Ç≥ÇÍÇÈÇ∆ïÒçêèëâÊñ Ç™ï¬Ç∂ÇÁÇÍÇ‹Ç∑"
+        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label1
+        '
+        Me.Label1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label1.Location = New System.Drawing.Point(344, 20)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(67, 25)
+        Me.Label1.TabIndex = 68
+        Me.Label1.Text = "íSìñé“ñº:"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'MaskedTextBoxEx1
+        '
+        Me.MaskedTextBoxEx1.BackColor = System.Drawing.SystemColors.Window
+        Me.MaskedTextBoxEx1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.MaskedTextBoxEx1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.MaskedTextBoxEx1.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.MaskedTextBoxEx1.InputRequired = False
+        Me.MaskedTextBoxEx1.Location = New System.Drawing.Point(417, 22)
+        Me.MaskedTextBoxEx1.MaxByteLength = 200
+        Me.MaskedTextBoxEx1.Name = "MaskedTextBoxEx1"
+        Me.MaskedTextBoxEx1.Size = New System.Drawing.Size(148, 24)
+        Me.MaskedTextBoxEx1.TabIndex = 3
+        Me.MaskedTextBoxEx1.WatermarkColor = System.Drawing.Color.Empty
+        Me.MaskedTextBoxEx1.WatermarkText = Nothing
+        '
+        'FrmG0016
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.ClientSize = New System.Drawing.Size(1264, 712)
-        Me.Controls.Add(Me.dgvDATA)
+        Me.BackColor = System.Drawing.SystemColors.Control
+        Me.ClientSize = New System.Drawing.Size(1008, 711)
+        Me.Controls.Add(Me.GroupBox1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True
-        Me.Name = "FrmG0015"
-        Me.ShowStatusBar = True
-        Me.Text = ""
+        Me.MinimumSize = New System.Drawing.Size(800, 300)
+        Me.Name = "FrmG0016"
+        Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.Controls.SetChildIndex(Me.lblTytle, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc8, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc9, 0)
@@ -157,14 +260,18 @@ Partial Class FrmG0016
         Me.Controls.SetChildIndex(Me.cmdFunc3, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc1, 0)
-        Me.Controls.SetChildIndex(Me.lblRecordCount, 0)
-        Me.Controls.SetChildIndex(Me.dgvDATA, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents dgvDATA As DataGridView
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label11 As Label
+    Friend WithEvents mtxTENSO_RIYU As MaskedTextBoxEx
+    Public WithEvents cmbTENSO_SAKI As ComboboxEx
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents MaskedTextBoxEx1 As MaskedTextBoxEx
 End Class

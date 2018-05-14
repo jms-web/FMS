@@ -7,6 +7,41 @@
 Public Class TV01_ParamModel
     Inherits MODEL.NotifyChangedBase
 
+    Public Sub New()
+        Call clear()
+    End Sub
+
+
+    Public Sub Clear()
+
+        BUMON_KB = ""
+        HOKOKU_NO = ""
+        ADD_TANTO = 0
+        KISYU_ID = 0
+        GOUKI = ""
+        SYANAI_CD = ""
+        BUHIN_BANGO = ""
+        BUHIN_NAME = ""
+        SYOCHI_TANTO = ""
+        JISI_YMD_FROM = ""
+        JISI_YMD_TO = ""
+        FUTEKIGO_KB = ""
+        FUTEKIGO_S_KB = ""
+        FUTEKIGO_JYOTAI_KB = ""
+        VISIBLE_CLOSE = False
+        VISIBLE_TAIRYU = False
+        JIZEN_SINSA_HANTEI_KB = ""
+        ZESEI_SYOCHI_YOHI_KB = ""
+        SAISIN_IINKAI_HANTEI_KB = ""
+        KOKYAKU_HANTEI_SIJI_KB = ""
+        KOKYAKU_SAISYU_HANTEI_KB = ""
+        KENSA_KEKKA_KB = ""
+        GENIN1 = ""
+        GENIN2 = ""
+        KISEKI_KOTEI_KB = ""
+
+    End Sub
+
     '共通
     Public Property BUMON_KB As String
     Public Property HOKOKU_NO As String

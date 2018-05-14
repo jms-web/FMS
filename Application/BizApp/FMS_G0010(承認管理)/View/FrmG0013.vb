@@ -124,7 +124,7 @@ Public Class FrmG0013
                         .Columns(.ColumnCount - 1).Visible = False
 
                         .Columns.Add("ITEM_DISP", "çÄñ⁄ñº")
-                        .Columns(.ColumnCount - 1).Width = 280
+                        .Columns(.ColumnCount - 1).Width = 380
                         .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                         .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                         .Columns(.ColumnCount - 1).ReadOnly = True

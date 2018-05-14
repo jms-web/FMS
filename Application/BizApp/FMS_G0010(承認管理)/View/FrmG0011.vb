@@ -9,7 +9,7 @@ Public Class FrmG0011
     ''' </summary>
     Private _tabPageManager As TabPageManager
 
-    Private _D003_NCR_J As New MODEL.D003_NCR_J
+
 #End Region
 
 #Region "プロパティ"

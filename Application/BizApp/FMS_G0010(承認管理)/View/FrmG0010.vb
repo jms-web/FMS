@@ -546,13 +546,15 @@ Public Class FrmG0010
 
     Private Function FunGetListData() As DataTable
         Try
-            Dim sbSQL As New System.Text.StringBuilder
-            Dim dsList As New DataSet
-            Dim sbSQLWHERE As New System.Text.StringBuilder
-            Dim sbParam As New System.Text.StringBuilder
 
             'SPEC: PF01.2-(1) A 検索条件
-#Region "旧検索条件"
+
+#Region "old 検索条件"
+
+            'Dim sbSQL As New System.Text.StringBuilder
+            'Dim dsList As New DataSet
+            'Dim sbParam As New System.Text.StringBuilder
+
             '#Region "           共通検索条件"
 
             '            '部門、機種、部品番号、部品名称 パラメータ
@@ -814,6 +816,12 @@ Public Class FrmG0010
     End Function
 
 #Region "TV01 不適合報告書一覧"
+
+    ''' <summary>
+    ''' 引数の検索条件を一覧取得ストアドに渡して検索結果のテーブルデータを取得
+    ''' </summary>
+    ''' <param name="ParamModel"></param>
+    ''' <returns></returns>
     Public Function FunGetTV01_FUTEKIGO_ICHIRAN(ByVal ParamModel As TV01_ParamModel) As DataTable
 
         Dim sbSQL As New System.Text.StringBuilder
@@ -862,6 +870,7 @@ Public Class FrmG0010
         Return dsList?.Tables(0)
     End Function
 #End Region
+
 #End Region
 
 #Region "追加・変更"
@@ -1356,15 +1365,35 @@ Public Class FrmG0010
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Exit Sub
             Else
+                '検索条件文字列作成
+                Dim sbWhere As New System.Text.StringBuilder
+                Dim strWhereBase As String = <sql><![CDATA[
+                        EXISTS
+                        (
+                        SELECT HOKOKU_NO FROM D006_CAR_GENIN WHERE 
+                        V007_NCR_CAR.HOKOKU_NO = D006_CAR_GENIN.HOKOKU_NO
+                        {0}
+                        )                            
+                        ]]></sql>.Value.Trim
+
+
                 mtxGENIN1_DISP.Text = ""
-                For Each item In PrGenin1
-                    If mtxGENIN1_DISP.Text.IsNullOrWhiteSpace Then
-                        mtxGENIN1_DISP.Text = item.ITEM_DISP
-                    Else
-                        mtxGENIN1_DISP.Text &= ", " & item.ITEM_DISP
-                    End If
-                Next item
+                If PrGenin1.Count > 0 Then
+                    For Each item In PrGenin1
+                        If mtxGENIN1_DISP.Text.IsNullOrWhiteSpace Then
+                            mtxGENIN1_DISP.Text = item.ITEM_DISP
+                        Else
+                            mtxGENIN1_DISP.Text &= ", " & item.ITEM_DISP
+                        End If
+
+                        sbWhere.Append(" AND (GENIN_BUNSEKI_KB='" & item.ITEM_NAME & "' AND GENIN_BUNSEKI_S_KB='" & item.ITEM_VALUE & "')")
+
+                    Next item
+                    ParamModel.GENIN1 = String.Format(strWhereBase, sbWhere.ToString)
+                Else
+                End If
             End If
+
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -1395,14 +1424,31 @@ Public Class FrmG0010
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Exit Sub
             Else
+                '検索条件文字列作成
+                Dim sbWhere As New System.Text.StringBuilder
+                Dim strWhereBase As String = <sql><![CDATA[
+                        EXISTS
+                        (
+                        SELECT HOKOKU_NO FROM D006_CAR_GENIN WHERE 
+                        V007_NCR_CAR.HOKOKU_NO = D006_CAR_GENIN.HOKOKU_NO
+                        {0}
+                        )                            
+                        ]]></sql>.Value.Trim
+
                 mtxGENIN2_DISP.Text = ""
-                For Each item In PrGenin2
-                    If mtxGENIN2_DISP.Text.IsNullOrWhiteSpace Then
-                        mtxGENIN2_DISP.Text = item.ITEM_DISP
-                    Else
-                        mtxGENIN2_DISP.Text &= ", " & item.ITEM_DISP
-                    End If
-                Next item
+                If PrGenin2.Count > 0 Then
+                    For Each item In PrGenin2
+                        If mtxGENIN2_DISP.Text.IsNullOrWhiteSpace Then
+                            mtxGENIN2_DISP.Text = item.ITEM_DISP
+                        Else
+                            mtxGENIN2_DISP.Text &= ", " & item.ITEM_DISP
+                        End If
+
+                        sbWhere.Append(" AND (GENIN_BUNSEKI_KB='" & item.ITEM_NAME & "' AND GENIN_BUNSEKI_S_KB='" & item.ITEM_VALUE & "')")
+                    Next item
+                    ParamModel.GENIN2 = String.Format(strWhereBase, sbWhere.ToString)
+                Else
+                End If
             End If
 
         Catch ex As Exception
@@ -1510,7 +1556,6 @@ Public Class FrmG0010
             Return False
         End If
     End Function
-
 
 #End Region
 

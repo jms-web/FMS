@@ -94,6 +94,8 @@ Module mdlG0010
         _13_•û–@ = 13
     End Enum
 
+
+    Public _D003_NCR_J As New MODEL.D003_NCR_J
 #End Region
 
 #Region "MAIN"

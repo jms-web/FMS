@@ -121,6 +121,9 @@
     <Compile Include="Migrations\201804050655482_Init31.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Data\D003_NCR_J.vb" />
+    <Compile Include="Models\Data\D004_SYONIN_J_KANRI.vb" />
+    <Compile Include="Models\Data\D005_CAR_J.vb" />
+    <Compile Include="Models\Data\D006_CAR_GENIN.vb" />
     <Compile Include="Models\Function\TV01_FUTEKIGO_ICHIRAN.vb" />
     <Compile Include="Models\Masta\Biz\M108_KOTEI_SYUKEI.vb" />
     <Compile Include="Models\Masta\Biz\M107_BUHIN_KISYU.vb" />
@@ -149,6 +152,8 @@
     <Compile Include="Models\Masta\Biz\M118_SETUBI.vb" />
     <Compile Include="Models\Masta\Biz\M119_KOTEI_SETUBI.vb" />
     <Compile Include="Models\NotifyChangedBase.vb" />
+    <Compile Include="Models\View\V003_SYONIN_J_KANRI.vb" />
+    <Compile Include="Models\View\V007_NCR_CAR.vb" />
     <Compile Include="Models\View\VWM105_KISYU.vb" />
     <Compile Include="Models\View\VWM014_SYONIN_ROUT.vb" />
     <Compile Include="Models\View\VWM001_SETTING.vb" />

@@ -197,10 +197,16 @@
     <Compile Include="View\FrmG0016.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\FrmG0015.Designer.vb">
-      <DependentUpon>FrmG0015.vb</DependentUpon>
+    <Compile Include="View\FrmG0017.Designer.vb">
+      <DependentUpon>FrmG0017.vb</DependentUpon>
     </Compile>
-    <Compile Include="View\FrmG0015.vb">
+    <Compile Include="View\FrmG0017.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FrmG0018.Designer.vb">
+      <DependentUpon>FrmG0018.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\FrmG0018.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\FrmG0013.Designer.vb">
@@ -219,6 +225,12 @@
       <DependentUpon>FrmG0010.vb</DependentUpon>
     </Compile>
     <Compile Include="View\FrmG0010.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FrmG0015.Designer.vb">
+      <DependentUpon>FrmG0015.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\FrmG0015.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -248,8 +260,12 @@
       <DependentUpon>FrmG0016.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\FrmG0015.resx">
-      <DependentUpon>FrmG0015.vb</DependentUpon>
+    <EmbeddedResource Include="View\FrmG0017.resx">
+      <DependentUpon>FrmG0017.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FrmG0018.resx">
+      <DependentUpon>FrmG0018.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="View\FrmG0013.resx">
@@ -264,6 +280,10 @@
       <DependentUpon>FrmG0010.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\FrmG0015.resx">
+      <DependentUpon>FrmG0015.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\app.manifest" />
@@ -272,6 +292,9 @@
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
     <None Include="My Project\DataSources\MODEL.D003_NCR_J.datasource" />
+    <None Include="My Project\DataSources\MODEL.D004_SYONIN_J_KANRI.datasource" />
+    <None Include="My Project\DataSources\MODEL.D005_CAR_J.datasource" />
+    <None Include="My Project\DataSources\MODEL.D006_CAR_GENIN.datasource" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>

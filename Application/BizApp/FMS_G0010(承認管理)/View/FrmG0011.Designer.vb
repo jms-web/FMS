@@ -36,7 +36,6 @@ Partial Class FrmG0011
         Me.Label4 = New System.Windows.Forms.Label()
         Me.mtxGOUKI = New JMS_COMMON.MaskedTextBoxEx()
         Me.lblSYANAI_CD = New System.Windows.Forms.Label()
-        Me.mtxSYANAI_CD = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.cmbBUHIN_BANGO = New JMS_COMMON.ComboboxEx()
         Me.btnSRCH_BUHIN = New System.Windows.Forms.Button()
@@ -304,9 +303,19 @@ Partial Class FrmG0011
         Me.Label122 = New System.Windows.Forms.Label()
         Me.lblSTAGE12 = New System.Windows.Forms.Label()
         Me.tabAttachment = New System.Windows.Forms.TabPage()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.pnlPict1 = New System.Windows.Forms.PictureBox()
         Me.flpPict1Path = New System.Windows.Forms.FlowLayoutPanel()
         Me.lblPict1Path = New System.Windows.Forms.LinkLabel()
         Me.lblPict1Path_Clear = New System.Windows.Forms.LinkLabel()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.btnOpenPict1Dialog = New System.Windows.Forms.Button()
+        Me.pnlPict2 = New System.Windows.Forms.PictureBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.flpPict2Path = New System.Windows.Forms.FlowLayoutPanel()
+        Me.lblPict2Path = New System.Windows.Forms.LinkLabel()
+        Me.lblPict2Path_Clear = New System.Windows.Forms.LinkLabel()
+        Me.btnOpenPict2Dialog = New System.Windows.Forms.Button()
         Me.fpnlTempFile = New System.Windows.Forms.FlowLayoutPanel()
         Me.lbltmpFile1 = New System.Windows.Forms.LinkLabel()
         Me.lbltmpFile1_Clear = New System.Windows.Forms.LinkLabel()
@@ -318,17 +327,10 @@ Partial Class FrmG0011
         Me.LinkLabel6 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel7 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel8 = New System.Windows.Forms.LinkLabel()
-        Me.flpPict2Path = New System.Windows.Forms.FlowLayoutPanel()
-        Me.lblPict2Path = New System.Windows.Forms.LinkLabel()
-        Me.lblPict2Path_Clear = New System.Windows.Forms.LinkLabel()
-        Me.pnlPict2 = New System.Windows.Forms.PictureBox()
-        Me.pnlPict1 = New System.Windows.Forms.PictureBox()
-        Me.btnOpenPict2Dialog = New System.Windows.Forms.Button()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.btnOpenPict1Dialog = New System.Windows.Forms.Button()
-        Me.Label24 = New System.Windows.Forms.Label()
         Me.btnOpenTempFileDialog = New System.Windows.Forms.Button()
         Me.Label19 = New System.Windows.Forms.Label()
+        Me.D004SYONINJKANRIBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.mtxSYANAI_CD = New JMS_COMMON.MaskedTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
@@ -357,11 +359,16 @@ Partial Class FrmG0011
         Me.tlpST08.SuspendLayout()
         Me.tabSTAGE12.SuspendLayout()
         Me.tabAttachment.SuspendLayout()
-        Me.flpPict1Path.SuspendLayout()
-        Me.fpnlTempFile.SuspendLayout()
-        Me.flpPict2Path.SuspendLayout()
-        CType(Me.pnlPict2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
         CType(Me.pnlPict1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.flpPict1Path.SuspendLayout()
+        CType(Me.pnlPict2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.flpPict2Path.SuspendLayout()
+        Me.fpnlTempFile.SuspendLayout()
+        CType(Me.D004SYONINJKANRIBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -530,7 +537,6 @@ Partial Class FrmG0011
         Me.tlpFilter.Controls.Add(Me.Label4, 13, 1)
         Me.tlpFilter.Controls.Add(Me.mtxGOUKI, 18, 1)
         Me.tlpFilter.Controls.Add(Me.lblSYANAI_CD, 0, 2)
-        Me.tlpFilter.Controls.Add(Me.mtxSYANAI_CD, 5, 2)
         Me.tlpFilter.Controls.Add(Me.Label11, 13, 2)
         Me.tlpFilter.Controls.Add(Me.cmbBUHIN_BANGO, 18, 2)
         Me.tlpFilter.Controls.Add(Me.btnSRCH_BUHIN, 26, 2)
@@ -550,6 +556,7 @@ Partial Class FrmG0011
         Me.tlpFilter.Controls.Add(Me.Label16, 13, 0)
         Me.tlpFilter.Controls.Add(Me.mtxHINMEI, 34, 2)
         Me.tlpFilter.Controls.Add(Me.cmbBUMON, 18, 0)
+        Me.tlpFilter.Controls.Add(Me.mtxSYANAI_CD, 5, 2)
         Me.tlpFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpFilter.Location = New System.Drawing.Point(3, 20)
         Me.tlpFilter.Name = "tlpFilter"
@@ -738,20 +745,6 @@ Partial Class FrmG0011
         Me.lblSYANAI_CD.TabIndex = 115
         Me.lblSYANAI_CD.Text = "é–ì‡ÉRÅ[Éh:"
         Me.lblSYANAI_CD.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'mtxSYANAI_CD
-        '
-        Me.mtxSYANAI_CD.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.mtxSYANAI_CD, 7)
-        Me.mtxSYANAI_CD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxSYANAI_CD.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxSYANAI_CD.InputRequired = False
-        Me.mtxSYANAI_CD.Location = New System.Drawing.Point(103, 63)
-        Me.mtxSYANAI_CD.Name = "mtxSYANAI_CD"
-        Me.mtxSYANAI_CD.Size = New System.Drawing.Size(134, 24)
-        Me.mtxSYANAI_CD.TabIndex = 116
-        Me.mtxSYANAI_CD.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxSYANAI_CD.WatermarkText = Nothing
         '
         'Label11
         '
@@ -1031,6 +1024,9 @@ Partial Class FrmG0011
         '
         'TabSTAGE
         '
+        Me.TabSTAGE.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TabSTAGE.Controls.Add(Me.tabSTAGE01)
         Me.TabSTAGE.Controls.Add(Me.tabSTAGE02)
         Me.TabSTAGE.Controls.Add(Me.tabSTAGE03)
@@ -1185,6 +1181,8 @@ Partial Class FrmG0011
         '
         'txtST01_KEKKA
         '
+        Me.txtST01_KEKKA.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST01_KEKKA.BackColor = System.Drawing.SystemColors.Window
         Me.txtST01_KEKKA.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST01_KEKKA.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -1222,6 +1220,8 @@ Partial Class FrmG0011
         '
         'txtST01_YOKYU_NAIYO
         '
+        Me.txtST01_YOKYU_NAIYO.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST01_YOKYU_NAIYO.BackColor = System.Drawing.SystemColors.Window
         Me.txtST01_YOKYU_NAIYO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST01_YOKYU_NAIYO.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -1333,6 +1333,8 @@ Partial Class FrmG0011
         '
         'txtST02_Comment
         '
+        Me.txtST02_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST02_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST02_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST02_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -1483,6 +1485,8 @@ Partial Class FrmG0011
         '
         'txtST03_Comment
         '
+        Me.txtST03_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST03_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST03_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST03_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -1686,6 +1690,8 @@ Partial Class FrmG0011
         '
         'txtST04_Comment
         '
+        Me.txtST04_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST04_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST04_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST04_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -1738,6 +1744,8 @@ Partial Class FrmG0011
         '
         'txtST04_RIYU
         '
+        Me.txtST04_RIYU.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST04_RIYU.BackColor = System.Drawing.SystemColors.Window
         Me.txtST04_RIYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST04_RIYU.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -1904,6 +1912,8 @@ Partial Class FrmG0011
         '
         'txtST05_Comment
         '
+        Me.txtST05_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST05_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST05_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST05_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -2059,6 +2069,8 @@ Partial Class FrmG0011
         '
         'txtST06_Comment
         '
+        Me.txtST06_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST06_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST06_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST06_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -2337,6 +2349,8 @@ Partial Class FrmG0011
         '
         'txtST07_Comment
         '
+        Me.txtST07_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST07_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST07_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST07_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -2655,6 +2669,8 @@ Partial Class FrmG0011
         '
         'txtST08_Comment
         '
+        Me.txtST08_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST08_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST08_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST08_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -2693,6 +2709,9 @@ Partial Class FrmG0011
         '
         'tabST08_SUB
         '
+        Me.tabST08_SUB.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tabST08_SUB.Controls.Add(Me.tabSTAGE08_1)
         Me.tabST08_SUB.Controls.Add(Me.tabSTAGE08_2)
         Me.tabST08_SUB.Controls.Add(Me.tabSTAGE08_3)
@@ -3135,13 +3154,16 @@ Partial Class FrmG0011
         '
         'txtST08_3_BIKO
         '
+        Me.txtST08_3_BIKO.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST08_3_BIKO.BackColor = System.Drawing.SystemColors.Window
         Me.txtST08_3_BIKO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST08_3_BIKO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.txtST08_3_BIKO.Location = New System.Drawing.Point(101, 36)
         Me.txtST08_3_BIKO.Multiline = True
         Me.txtST08_3_BIKO.Name = "txtST08_3_BIKO"
-        Me.txtST08_3_BIKO.Size = New System.Drawing.Size(1081, 100)
+        Me.txtST08_3_BIKO.Size = New System.Drawing.Size(1081, 104)
         Me.txtST08_3_BIKO.TabIndex = 267
         Me.txtST08_3_BIKO.WatermarkText = Nothing
         '
@@ -3504,6 +3526,8 @@ Partial Class FrmG0011
         '
         'txtST09_Comment
         '
+        Me.txtST09_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST09_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST09_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST09_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -3653,6 +3677,8 @@ Partial Class FrmG0011
         '
         'txtST10_Comment
         '
+        Me.txtST10_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST10_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST10_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST10_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -3819,13 +3845,15 @@ Partial Class FrmG0011
         '
         'tlpST08
         '
+        Me.tlpST08.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tlpST08.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.[Single]
         Me.tlpST08.ColumnCount = 5
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105.0!))
         Me.tlpST08.Controls.Add(Me.rbtnST11_E2_F, 4, 7)
         Me.tlpST08.Controls.Add(Me.rbtnST11_E2_T, 3, 7)
         Me.tlpST08.Controls.Add(Me.rbtnST11_E1_F, 4, 6)
@@ -3875,9 +3903,9 @@ Partial Class FrmG0011
         'rbtnST11_E2_F
         '
         Me.rbtnST11_E2_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_E2_F.Location = New System.Drawing.Point(656, 203)
+        Me.rbtnST11_E2_F.Location = New System.Drawing.Point(653, 203)
         Me.rbtnST11_E2_F.Name = "rbtnST11_E2_F"
-        Me.rbtnST11_E2_F.Size = New System.Drawing.Size(96, 22)
+        Me.rbtnST11_E2_F.Size = New System.Drawing.Size(99, 22)
         Me.rbtnST11_E2_F.TabIndex = 262
         Me.rbtnST11_E2_F.TabStop = True
         Me.rbtnST11_E2_F.Text = "ñ¢âÒìö"
@@ -3887,7 +3915,7 @@ Partial Class FrmG0011
         'rbtnST11_E2_T
         '
         Me.rbtnST11_E2_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_E2_T.Location = New System.Drawing.Point(565, 203)
+        Me.rbtnST11_E2_T.Location = New System.Drawing.Point(562, 203)
         Me.rbtnST11_E2_T.Name = "rbtnST11_E2_T"
         Me.rbtnST11_E2_T.Size = New System.Drawing.Size(84, 22)
         Me.rbtnST11_E2_T.TabIndex = 261
@@ -3899,9 +3927,9 @@ Partial Class FrmG0011
         'rbtnST11_E1_F
         '
         Me.rbtnST11_E1_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_E1_F.Location = New System.Drawing.Point(656, 174)
+        Me.rbtnST11_E1_F.Location = New System.Drawing.Point(653, 174)
         Me.rbtnST11_E1_F.Name = "rbtnST11_E1_F"
-        Me.rbtnST11_E1_F.Size = New System.Drawing.Size(96, 22)
+        Me.rbtnST11_E1_F.Size = New System.Drawing.Size(99, 22)
         Me.rbtnST11_E1_F.TabIndex = 260
         Me.rbtnST11_E1_F.TabStop = True
         Me.rbtnST11_E1_F.Text = "ñ¢âÒìö"
@@ -3911,7 +3939,7 @@ Partial Class FrmG0011
         'rbtnST11_E1_T
         '
         Me.rbtnST11_E1_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_E1_T.Location = New System.Drawing.Point(565, 174)
+        Me.rbtnST11_E1_T.Location = New System.Drawing.Point(562, 174)
         Me.rbtnST11_E1_T.Name = "rbtnST11_E1_T"
         Me.rbtnST11_E1_T.Size = New System.Drawing.Size(84, 22)
         Me.rbtnST11_E1_T.TabIndex = 259
@@ -3923,9 +3951,9 @@ Partial Class FrmG0011
         'rbtnST11_D2_F
         '
         Me.rbtnST11_D2_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_D2_F.Location = New System.Drawing.Point(656, 120)
+        Me.rbtnST11_D2_F.Location = New System.Drawing.Point(653, 120)
         Me.rbtnST11_D2_F.Name = "rbtnST11_D2_F"
-        Me.rbtnST11_D2_F.Size = New System.Drawing.Size(96, 22)
+        Me.rbtnST11_D2_F.Size = New System.Drawing.Size(99, 22)
         Me.rbtnST11_D2_F.TabIndex = 257
         Me.rbtnST11_D2_F.TabStop = True
         Me.rbtnST11_D2_F.Text = "ñ¢âÒìö"
@@ -3935,7 +3963,7 @@ Partial Class FrmG0011
         'rbtnST11_D2_T
         '
         Me.rbtnST11_D2_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_D2_T.Location = New System.Drawing.Point(565, 120)
+        Me.rbtnST11_D2_T.Location = New System.Drawing.Point(562, 120)
         Me.rbtnST11_D2_T.Name = "rbtnST11_D2_T"
         Me.rbtnST11_D2_T.Size = New System.Drawing.Size(84, 22)
         Me.rbtnST11_D2_T.TabIndex = 256
@@ -3947,9 +3975,9 @@ Partial Class FrmG0011
         'rbtnST11_D1_F
         '
         Me.rbtnST11_D1_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_D1_F.Location = New System.Drawing.Point(656, 91)
+        Me.rbtnST11_D1_F.Location = New System.Drawing.Point(653, 91)
         Me.rbtnST11_D1_F.Name = "rbtnST11_D1_F"
-        Me.rbtnST11_D1_F.Size = New System.Drawing.Size(96, 22)
+        Me.rbtnST11_D1_F.Size = New System.Drawing.Size(99, 22)
         Me.rbtnST11_D1_F.TabIndex = 255
         Me.rbtnST11_D1_F.TabStop = True
         Me.rbtnST11_D1_F.Text = "ñ¢âÒìö"
@@ -3959,7 +3987,7 @@ Partial Class FrmG0011
         'rbtnST11_D1_T
         '
         Me.rbtnST11_D1_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_D1_T.Location = New System.Drawing.Point(565, 91)
+        Me.rbtnST11_D1_T.Location = New System.Drawing.Point(562, 91)
         Me.rbtnST11_D1_T.Name = "rbtnST11_D1_T"
         Me.rbtnST11_D1_T.Size = New System.Drawing.Size(84, 22)
         Me.rbtnST11_D1_T.TabIndex = 254
@@ -3971,9 +3999,9 @@ Partial Class FrmG0011
         'rbtnST11_C1_F
         '
         Me.rbtnST11_C1_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_C1_F.Location = New System.Drawing.Point(656, 62)
+        Me.rbtnST11_C1_F.Location = New System.Drawing.Point(653, 62)
         Me.rbtnST11_C1_F.Name = "rbtnST11_C1_F"
-        Me.rbtnST11_C1_F.Size = New System.Drawing.Size(96, 22)
+        Me.rbtnST11_C1_F.Size = New System.Drawing.Size(99, 22)
         Me.rbtnST11_C1_F.TabIndex = 253
         Me.rbtnST11_C1_F.TabStop = True
         Me.rbtnST11_C1_F.Text = "ñ¢âÒìö"
@@ -3983,7 +4011,7 @@ Partial Class FrmG0011
         'rbtnST11_C1_T
         '
         Me.rbtnST11_C1_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_C1_T.Location = New System.Drawing.Point(565, 62)
+        Me.rbtnST11_C1_T.Location = New System.Drawing.Point(562, 62)
         Me.rbtnST11_C1_T.Name = "rbtnST11_C1_T"
         Me.rbtnST11_C1_T.Size = New System.Drawing.Size(84, 22)
         Me.rbtnST11_C1_T.TabIndex = 252
@@ -3995,9 +4023,9 @@ Partial Class FrmG0011
         'rbtnST11_B1_F
         '
         Me.rbtnST11_B1_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_B1_F.Location = New System.Drawing.Point(656, 33)
+        Me.rbtnST11_B1_F.Location = New System.Drawing.Point(653, 33)
         Me.rbtnST11_B1_F.Name = "rbtnST11_B1_F"
-        Me.rbtnST11_B1_F.Size = New System.Drawing.Size(96, 22)
+        Me.rbtnST11_B1_F.Size = New System.Drawing.Size(99, 22)
         Me.rbtnST11_B1_F.TabIndex = 251
         Me.rbtnST11_B1_F.TabStop = True
         Me.rbtnST11_B1_F.Text = "ñ¢âÒìö"
@@ -4007,7 +4035,7 @@ Partial Class FrmG0011
         'rbtnST11_B1_T
         '
         Me.rbtnST11_B1_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_B1_T.Location = New System.Drawing.Point(565, 33)
+        Me.rbtnST11_B1_T.Location = New System.Drawing.Point(562, 33)
         Me.rbtnST11_B1_T.Name = "rbtnST11_B1_T"
         Me.rbtnST11_B1_T.Size = New System.Drawing.Size(84, 22)
         Me.rbtnST11_B1_T.TabIndex = 250
@@ -4019,9 +4047,9 @@ Partial Class FrmG0011
         'rbtnST11_A1_F
         '
         Me.rbtnST11_A1_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_A1_F.Location = New System.Drawing.Point(656, 4)
+        Me.rbtnST11_A1_F.Location = New System.Drawing.Point(653, 4)
         Me.rbtnST11_A1_F.Name = "rbtnST11_A1_F"
-        Me.rbtnST11_A1_F.Size = New System.Drawing.Size(96, 22)
+        Me.rbtnST11_A1_F.Size = New System.Drawing.Size(99, 22)
         Me.rbtnST11_A1_F.TabIndex = 249
         Me.rbtnST11_A1_F.TabStop = True
         Me.rbtnST11_A1_F.Text = "ñ¢âÒìö"
@@ -4082,7 +4110,7 @@ Partial Class FrmG0011
         Me.Label126.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label126.Location = New System.Drawing.Point(25, 117)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(533, 28)
+        Me.Label126.Size = New System.Drawing.Size(530, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "âeãøóLÇÃèÍçáÅAå⁄ãqÇ÷ÇÃí ímÇÃóvî€"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4096,7 +4124,7 @@ Partial Class FrmG0011
         Me.Label127.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label127.Location = New System.Drawing.Point(25, 88)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(533, 28)
+        Me.Label127.Size = New System.Drawing.Size(530, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "ìñäYïsìKçáÇ…ÇÊÇÈå⁄ãqÇ÷ÇÃâeãø"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4110,7 +4138,7 @@ Partial Class FrmG0011
         Me.Label128.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label128.Location = New System.Drawing.Point(25, 59)
         Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(533, 28)
+        Me.Label128.Size = New System.Drawing.Size(530, 28)
         Me.Label128.TabIndex = 241
         Me.Label128.Text = "îpãpèàíuÇÕñ{óàÇÃà”ê}ÇµÇΩégópñîÇÕìKópÇ™Ç≈Ç´Ç»Ç¢ï˚ñ@ÇæÇ¡ÇΩÇ©ÅH"
         Me.Label128.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4137,7 +4165,7 @@ Partial Class FrmG0011
         Me.Label130.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label130.Location = New System.Drawing.Point(25, 30)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(533, 28)
+        Me.Label130.Size = New System.Drawing.Size(530, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "é–ì‡å†å¿é“Ç…ÇÊÇËÅAñîÇÕå⁄ãqçƒêRÇÃèÍçáÇÕå⁄ãqÇ…ÇÊÇËîªíËÇ≥ÇÍÇΩÇ©ÅH"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4191,7 +4219,7 @@ Partial Class FrmG0011
         Me.Label134.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label134.Location = New System.Drawing.Point(25, 171)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(533, 28)
+        Me.Label134.Size = New System.Drawing.Size(530, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "ìñäYïsìKçáÇ…ÇÊÇÈëºÇÃÉvÉçÉZÉXÇ÷ÇÃâeãø"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4218,7 +4246,7 @@ Partial Class FrmG0011
         Me.Label136.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label136.Location = New System.Drawing.Point(25, 200)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(533, 28)
+        Me.Label136.Size = New System.Drawing.Size(530, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "âeãøóLÇÃèÍçáÅAïïÇ∂çûÇﬂèàíuÇÃóvî€"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4232,7 +4260,7 @@ Partial Class FrmG0011
         Me.Label137.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label137.Location = New System.Drawing.Point(25, 1)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(533, 28)
+        Me.Label137.Size = New System.Drawing.Size(530, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "åüèoÇ≥ÇÍÇΩïsìKçáÇèúãéÇ∑ÇÈèàíuÅiîpãpÇä‹ÇﬁÅjÇÕämé¿Ç…Ç∆ÇÁÇÍÇΩÇ©ÅH"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4254,7 +4282,7 @@ Partial Class FrmG0011
         'rbtnST11_A1_T
         '
         Me.rbtnST11_A1_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_A1_T.Location = New System.Drawing.Point(565, 4)
+        Me.rbtnST11_A1_T.Location = New System.Drawing.Point(562, 4)
         Me.rbtnST11_A1_T.Name = "rbtnST11_A1_T"
         Me.rbtnST11_A1_T.Size = New System.Drawing.Size(84, 22)
         Me.rbtnST11_A1_T.TabIndex = 248
@@ -4358,6 +4386,9 @@ Partial Class FrmG0011
         '
         'txtST11_Comment
         '
+        Me.txtST11_Comment.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST11_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST11_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST11_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -4395,8 +4426,9 @@ Partial Class FrmG0011
         '
         'Label122
         '
-        Me.Label122.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label122.AutoSize = True
+        Me.Label122.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label122.Font = New System.Drawing.Font("Meiryo UI", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label122.Location = New System.Drawing.Point(350, 126)
         Me.Label122.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
@@ -4421,15 +4453,8 @@ Partial Class FrmG0011
         '
         'tabAttachment
         '
-        Me.tabAttachment.Controls.Add(Me.flpPict1Path)
+        Me.tabAttachment.Controls.Add(Me.SplitContainer1)
         Me.tabAttachment.Controls.Add(Me.fpnlTempFile)
-        Me.tabAttachment.Controls.Add(Me.flpPict2Path)
-        Me.tabAttachment.Controls.Add(Me.pnlPict2)
-        Me.tabAttachment.Controls.Add(Me.pnlPict1)
-        Me.tabAttachment.Controls.Add(Me.btnOpenPict2Dialog)
-        Me.tabAttachment.Controls.Add(Me.Label25)
-        Me.tabAttachment.Controls.Add(Me.btnOpenPict1Dialog)
-        Me.tabAttachment.Controls.Add(Me.Label24)
         Me.tabAttachment.Controls.Add(Me.btnOpenTempFileDialog)
         Me.tabAttachment.Controls.Add(Me.Label19)
         Me.tabAttachment.Location = New System.Drawing.Point(4, 26)
@@ -4439,14 +4464,54 @@ Partial Class FrmG0011
         Me.tabAttachment.Text = "ìYïtéëóø"
         Me.tabAttachment.UseVisualStyleBackColor = True
         '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer1.Location = New System.Drawing.Point(275, 7)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.pnlPict1)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.flpPict1Path)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label24)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.btnOpenPict1Dialog)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.pnlPict2)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.Label25)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.flpPict2Path)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.btnOpenPict2Dialog)
+        Me.SplitContainer1.Size = New System.Drawing.Size(940, 296)
+        Me.SplitContainer1.SplitterDistance = 468
+        Me.SplitContainer1.TabIndex = 130
+        '
+        'pnlPict1
+        '
+        Me.pnlPict1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlPict1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlPict1.Location = New System.Drawing.Point(3, 31)
+        Me.pnlPict1.Name = "pnlPict1"
+        Me.pnlPict1.Size = New System.Drawing.Size(460, 265)
+        Me.pnlPict1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pnlPict1.TabIndex = 124
+        Me.pnlPict1.TabStop = False
+        '
         'flpPict1Path
         '
+        Me.flpPict1Path.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.flpPict1Path.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.flpPict1Path.Controls.Add(Me.lblPict1Path)
         Me.flpPict1Path.Controls.Add(Me.lblPict1Path_Clear)
-        Me.flpPict1Path.Location = New System.Drawing.Point(321, 8)
+        Me.flpPict1Path.Location = New System.Drawing.Point(49, 5)
         Me.flpPict1Path.Name = "flpPict1Path"
-        Me.flpPict1Path.Size = New System.Drawing.Size(354, 20)
+        Me.flpPict1Path.Size = New System.Drawing.Size(356, 20)
         Me.flpPict1Path.TabIndex = 128
         '
         'lblPict1Path
@@ -4478,6 +4543,107 @@ Partial Class FrmG0011
         Me.lblPict1Path_Clear.Text = "Å~"
         Me.lblPict1Path_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lblPict1Path_Clear.Visible = False
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label24.Location = New System.Drawing.Point(4, 9)
+        Me.Label24.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(43, 15)
+        Me.Label24.TabIndex = 116
+        Me.Label24.Text = "âÊëú1:"
+        Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'btnOpenPict1Dialog
+        '
+        Me.btnOpenPict1Dialog.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnOpenPict1Dialog.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnOpenPict1Dialog.Image = CType(resources.GetObject("btnOpenPict1Dialog.Image"), System.Drawing.Image)
+        Me.btnOpenPict1Dialog.Location = New System.Drawing.Point(410, 3)
+        Me.btnOpenPict1Dialog.Name = "btnOpenPict1Dialog"
+        Me.btnOpenPict1Dialog.Size = New System.Drawing.Size(54, 24)
+        Me.btnOpenPict1Dialog.TabIndex = 118
+        Me.btnOpenPict1Dialog.UseVisualStyleBackColor = True
+        '
+        'pnlPict2
+        '
+        Me.pnlPict2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlPict2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlPict2.Location = New System.Drawing.Point(7, 30)
+        Me.pnlPict2.Name = "pnlPict2"
+        Me.pnlPict2.Size = New System.Drawing.Size(460, 266)
+        Me.pnlPict2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pnlPict2.TabIndex = 125
+        Me.pnlPict2.TabStop = False
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label25.Location = New System.Drawing.Point(4, 9)
+        Me.Label25.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(43, 15)
+        Me.Label25.TabIndex = 119
+        Me.Label25.Text = "âÊëú2:"
+        Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'flpPict2Path
+        '
+        Me.flpPict2Path.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.flpPict2Path.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.flpPict2Path.Controls.Add(Me.lblPict2Path)
+        Me.flpPict2Path.Controls.Add(Me.lblPict2Path_Clear)
+        Me.flpPict2Path.Location = New System.Drawing.Point(49, 5)
+        Me.flpPict2Path.Name = "flpPict2Path"
+        Me.flpPict2Path.Size = New System.Drawing.Size(356, 19)
+        Me.flpPict2Path.TabIndex = 129
+        '
+        'lblPict2Path
+        '
+        Me.lblPict2Path.Location = New System.Drawing.Point(0, 0)
+        Me.lblPict2Path.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblPict2Path.Name = "lblPict2Path"
+        Me.lblPict2Path.Size = New System.Drawing.Size(286, 17)
+        Me.lblPict2Path.TabIndex = 126
+        Me.lblPict2Path.TabStop = True
+        Me.lblPict2Path.Text = "link1"
+        Me.lblPict2Path.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblPict2Path.Visible = False
+        '
+        'lblPict2Path_Clear
+        '
+        Me.lblPict2Path_Clear.AutoSize = True
+        Me.lblPict2Path_Clear.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.flpPict2Path.SetFlowBreak(Me.lblPict2Path_Clear, True)
+        Me.lblPict2Path_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblPict2Path_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.lblPict2Path_Clear.LinkColor = System.Drawing.Color.Red
+        Me.lblPict2Path_Clear.Location = New System.Drawing.Point(286, 0)
+        Me.lblPict2Path_Clear.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblPict2Path_Clear.Name = "lblPict2Path_Clear"
+        Me.lblPict2Path_Clear.Size = New System.Drawing.Size(19, 17)
+        Me.lblPict2Path_Clear.TabIndex = 128
+        Me.lblPict2Path_Clear.TabStop = True
+        Me.lblPict2Path_Clear.Text = "Å~"
+        Me.lblPict2Path_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblPict2Path_Clear.Visible = False
+        '
+        'btnOpenPict2Dialog
+        '
+        Me.btnOpenPict2Dialog.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnOpenPict2Dialog.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnOpenPict2Dialog.Image = CType(resources.GetObject("btnOpenPict2Dialog.Image"), System.Drawing.Image)
+        Me.btnOpenPict2Dialog.Location = New System.Drawing.Point(411, 3)
+        Me.btnOpenPict2Dialog.Name = "btnOpenPict2Dialog"
+        Me.btnOpenPict2Dialog.Size = New System.Drawing.Size(54, 24)
+        Me.btnOpenPict2Dialog.TabIndex = 121
+        Me.btnOpenPict2Dialog.UseVisualStyleBackColor = True
         '
         'fpnlTempFile
         '
@@ -4652,110 +4818,6 @@ Partial Class FrmG0011
         Me.LinkLabel8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.LinkLabel8.Visible = False
         '
-        'flpPict2Path
-        '
-        Me.flpPict2Path.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.flpPict2Path.Controls.Add(Me.lblPict2Path)
-        Me.flpPict2Path.Controls.Add(Me.lblPict2Path_Clear)
-        Me.flpPict2Path.Location = New System.Drawing.Point(801, 9)
-        Me.flpPict2Path.Name = "flpPict2Path"
-        Me.flpPict2Path.Size = New System.Drawing.Size(354, 19)
-        Me.flpPict2Path.TabIndex = 129
-        '
-        'lblPict2Path
-        '
-        Me.lblPict2Path.Location = New System.Drawing.Point(0, 0)
-        Me.lblPict2Path.Margin = New System.Windows.Forms.Padding(0)
-        Me.lblPict2Path.Name = "lblPict2Path"
-        Me.lblPict2Path.Size = New System.Drawing.Size(286, 17)
-        Me.lblPict2Path.TabIndex = 126
-        Me.lblPict2Path.TabStop = True
-        Me.lblPict2Path.Text = "link1"
-        Me.lblPict2Path.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblPict2Path.Visible = False
-        '
-        'lblPict2Path_Clear
-        '
-        Me.lblPict2Path_Clear.AutoSize = True
-        Me.lblPict2Path_Clear.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.flpPict2Path.SetFlowBreak(Me.lblPict2Path_Clear, True)
-        Me.lblPict2Path_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblPict2Path_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.lblPict2Path_Clear.LinkColor = System.Drawing.Color.Red
-        Me.lblPict2Path_Clear.Location = New System.Drawing.Point(286, 0)
-        Me.lblPict2Path_Clear.Margin = New System.Windows.Forms.Padding(0)
-        Me.lblPict2Path_Clear.Name = "lblPict2Path_Clear"
-        Me.lblPict2Path_Clear.Size = New System.Drawing.Size(19, 17)
-        Me.lblPict2Path_Clear.TabIndex = 128
-        Me.lblPict2Path_Clear.TabStop = True
-        Me.lblPict2Path_Clear.Text = "Å~"
-        Me.lblPict2Path_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblPict2Path_Clear.Visible = False
-        '
-        'pnlPict2
-        '
-        Me.pnlPict2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlPict2.Location = New System.Drawing.Point(755, 39)
-        Me.pnlPict2.Name = "pnlPict2"
-        Me.pnlPict2.Size = New System.Drawing.Size(460, 265)
-        Me.pnlPict2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pnlPict2.TabIndex = 125
-        Me.pnlPict2.TabStop = False
-        '
-        'pnlPict1
-        '
-        Me.pnlPict1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlPict1.Location = New System.Drawing.Point(275, 38)
-        Me.pnlPict1.Name = "pnlPict1"
-        Me.pnlPict1.Size = New System.Drawing.Size(460, 265)
-        Me.pnlPict1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pnlPict1.TabIndex = 124
-        Me.pnlPict1.TabStop = False
-        '
-        'btnOpenPict2Dialog
-        '
-        Me.btnOpenPict2Dialog.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnOpenPict2Dialog.Image = CType(resources.GetObject("btnOpenPict2Dialog.Image"), System.Drawing.Image)
-        Me.btnOpenPict2Dialog.Location = New System.Drawing.Point(1161, 7)
-        Me.btnOpenPict2Dialog.Name = "btnOpenPict2Dialog"
-        Me.btnOpenPict2Dialog.Size = New System.Drawing.Size(54, 24)
-        Me.btnOpenPict2Dialog.TabIndex = 121
-        Me.btnOpenPict2Dialog.UseVisualStyleBackColor = True
-        '
-        'Label25
-        '
-        Me.Label25.AutoSize = True
-        Me.Label25.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label25.Location = New System.Drawing.Point(752, 13)
-        Me.Label25.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(43, 15)
-        Me.Label25.TabIndex = 119
-        Me.Label25.Text = "âÊëú2:"
-        Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'btnOpenPict1Dialog
-        '
-        Me.btnOpenPict1Dialog.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnOpenPict1Dialog.Image = CType(resources.GetObject("btnOpenPict1Dialog.Image"), System.Drawing.Image)
-        Me.btnOpenPict1Dialog.Location = New System.Drawing.Point(681, 6)
-        Me.btnOpenPict1Dialog.Name = "btnOpenPict1Dialog"
-        Me.btnOpenPict1Dialog.Size = New System.Drawing.Size(54, 24)
-        Me.btnOpenPict1Dialog.TabIndex = 118
-        Me.btnOpenPict1Dialog.UseVisualStyleBackColor = True
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label24.Location = New System.Drawing.Point(272, 12)
-        Me.Label24.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(43, 15)
-        Me.Label24.TabIndex = 116
-        Me.Label24.Text = "âÊëú1:"
-        Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'btnOpenTempFileDialog
         '
         Me.btnOpenTempFileDialog.Cursor = System.Windows.Forms.Cursors.Hand
@@ -4777,6 +4839,24 @@ Partial Class FrmG0011
         Me.Label19.TabIndex = 85
         Me.Label19.Text = "ìYïtÉtÉ@ÉCÉã:"
         Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'D004SYONINJKANRIBindingSource
+        '
+        Me.D004SYONINJKANRIBindingSource.DataSource = GetType(MODEL.D004_SYONIN_J_KANRI)
+        '
+        'mtxSYANAI_CD
+        '
+        Me.mtxSYANAI_CD.BackColor = System.Drawing.SystemColors.Window
+        Me.tlpFilter.SetColumnSpan(Me.mtxSYANAI_CD, 7)
+        Me.mtxSYANAI_CD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxSYANAI_CD.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxSYANAI_CD.InputRequired = False
+        Me.mtxSYANAI_CD.Location = New System.Drawing.Point(103, 63)
+        Me.mtxSYANAI_CD.Name = "mtxSYANAI_CD"
+        Me.mtxSYANAI_CD.Size = New System.Drawing.Size(134, 24)
+        Me.mtxSYANAI_CD.TabIndex = 105
+        Me.mtxSYANAI_CD.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxSYANAI_CD.WatermarkText = Nothing
         '
         'FrmG0011
         '
@@ -4856,14 +4936,21 @@ Partial Class FrmG0011
         Me.tabSTAGE12.PerformLayout()
         Me.tabAttachment.ResumeLayout(False)
         Me.tabAttachment.PerformLayout()
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel1.PerformLayout()
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.PerformLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
+        CType(Me.pnlPict1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.flpPict1Path.ResumeLayout(False)
         Me.flpPict1Path.PerformLayout()
-        Me.fpnlTempFile.ResumeLayout(False)
-        Me.fpnlTempFile.PerformLayout()
+        CType(Me.pnlPict2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.flpPict2Path.ResumeLayout(False)
         Me.flpPict2Path.PerformLayout()
-        CType(Me.pnlPict2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.pnlPict1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.fpnlTempFile.ResumeLayout(False)
+        Me.fpnlTempFile.PerformLayout()
+        CType(Me.D004SYONINJKANRIBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -5132,7 +5219,6 @@ Partial Class FrmG0011
     Friend WithEvents cmbBUMON As ComboboxEx
     Friend WithEvents chkSAIHATU As CheckBox
     Friend WithEvents lblSYANAI_CD As Label
-    Friend WithEvents mtxSYANAI_CD As MaskedTextBoxEx
     Friend WithEvents cmbFUTEKIGO_KB As ComboboxEx
     Friend WithEvents Label5 As Label
     Friend WithEvents cmbFUTEKIGO_S_KB As ComboboxEx
@@ -5176,4 +5262,7 @@ Partial Class FrmG0011
     Friend WithEvents flpPict2Path As FlowLayoutPanel
     Friend WithEvents lblPict2Path As LinkLabel
     Friend WithEvents lblPict2Path_Clear As LinkLabel
+    Friend WithEvents SplitContainer1 As SplitContainer
+    Friend WithEvents D004SYONINJKANRIBindingSource As BindingSource
+    Friend WithEvents mtxSYANAI_CD As MaskedTextBoxEx
 End Class

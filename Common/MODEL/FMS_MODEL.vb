@@ -38,6 +38,10 @@ Partial Public Class FMS_Context
     Public Overridable Property M119_KOTEI_SETUBI As DbSet(Of M119_KOTEI_SETUBI)
 
     Public Overridable Property D003_NCR_J As DbSet(Of D003_NCR_J)
+    Public Overridable Property D004_SYONIN_J_KANRI As DbSet(Of D004_SYONIN_J_KANRI)
+    Public Overridable Property D005_CAR_J As DbSet(Of D005_CAR_J)
+    Public Overridable Property D006_CAR_GENIN As DbSet(Of D006_CAR_GENIN)
+
 
     Protected Overrides Sub OnModelCreating(ByVal modelBuilder As DbModelBuilder)
 
