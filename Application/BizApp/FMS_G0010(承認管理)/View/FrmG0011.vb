@@ -56,6 +56,8 @@ Public Class FrmG0011
         mtxHOKUKO_NO.ReadOnly = True
         dtDraft.Enabled = False
         cmbAddTanto.Enabled = False
+        pnlPict1.AllowDrop = True
+        pnlPict2.AllowDrop = True
     End Sub
 
 #End Region
@@ -84,8 +86,10 @@ Public Class FrmG0011
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbFUTEKIGO_STATUS.SetDataSource(tblFUTEKIGO_STATUS_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             'バインディング
+            _D003_NCR_J.Clear()
             Call FunSetBinding()
 
             '既定値の設定
@@ -103,28 +107,6 @@ Public Class FrmG0011
         End Try
     End Sub
 
-
-#End Region
-
-#Region "KEYDOWN"
-    'KEYDOWN
-    Private Sub FrmMBCA000MENU_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
-        Dim KeyCode As Short = e.KeyCode
-
-        Try
-            '押下されたキーコード取得
-            KeyCode = e.KeyCode
-
-            If (KeyCode = Windows.Forms.Keys.A) And (e.Modifiers = Keys.Control + Keys.Shift) Then
-
-                Call FunSetAllTabPages()
-            End If
-
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-        End Try
-
-    End Sub
 #End Region
 
 #End Region
@@ -154,6 +136,8 @@ Public Class FrmG0011
                         If FunSAVE() Then
                             Me.DialogResult = DialogResult.OK
                             MessageBox.Show("入力内容を保存しました", "保存完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Else
+                            MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         End If
                     End If
 
@@ -165,6 +149,8 @@ Public Class FrmG0011
 
                             'SPEC: 2.(3).E.④
                             Me.Close()
+                        Else
+                            MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         End If
                     End If
 
@@ -208,7 +194,7 @@ Public Class FrmG0011
     Private Function FunSAVE() As Boolean
         Dim dsList As New DataSet
         Dim sbSQL As New System.Text.StringBuilder
-
+        Dim strMsg As String
 
         Try
             '-----入力チェック
@@ -223,15 +209,56 @@ Public Class FrmG0011
                 Dim blnErr As Boolean
 
                 Try
+                    '-----トランザクション
                     DB.BeginTransaction()
 
-                    '-----報告書No取得
-                    sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("SELECT * FROM " & NameOf(MODEL.M001_SETTING) & "")
-                    dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-                    If dsList.Tables(0).Rows.Count > 0 Then '存在時
-                        _D003_NCR_J.HOKOKU_NO = dsList.Tables(0).Rows(0).Item(0)
+                    'SPEC: 2.(3).D.②.添付ファイル保存
+                    Dim strRootDir As String
+                    strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
+                    If strRootDir.IsNullOrWhiteSpace OrElse Not System.IO.Directory.Exists(strRootDir) Then
+
+                        strMsg = "添付ファイル保存先が設定されていないか、アクセス出来ません。" & vbCrLf &
+                                 "添付ファイルはシステムに保存されませんが、" & vbCrLf &
+                                 "登録処理を続行しますか？"
+
+                        If MessageBox.Show(strMsg, "添付ファイル保存失敗", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) <> vbOK Then
+                            Return False
+                            blnErr = True
+                        End If
+                    Else
+                        Try
+                            If Not _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace Then
+                                System.IO.File.Copy(_D003_NCR_J.FILE_PATH, strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.FILE_PATH), True)
+                            End If
+                            If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace Then
+                                System.IO.File.Copy(_D003_NCR_J.G_FILE_PATH1, strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.FILE_PATH), True)
+                            End If
+                            If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace Then
+                                System.IO.File.Copy(_D003_NCR_J.G_FILE_PATH2, strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.FILE_PATH), True)
+                            End If
+                        Catch exIO As UnauthorizedAccessException
+                            strMsg = "添付ファイル保存先のアクセス権限がありません。" & vbCrLf &
+                                     "添付ファイル保存先:" & strRootDir
+                            MessageBox.Show(strMsg, "添付ファイル保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        End Try
                     End If
+
+                    '-----報告書No取得
+                    Dim objParam As System.Data.Common.DbParameter = DB.DbCommand.CreateParameter
+                    Dim lstParam As New List(Of System.Data.Common.DbParameter)
+                    With objParam
+                        .ParameterName = "HOKOKU_NO"
+                        .DbType = DbType.String
+                        .Direction = ParameterDirection.Output
+                        .Size = 8
+                    End With
+                    lstParam.Add(objParam)
+                    If DB.Fun_blnExecStored("dbo.ST01_GET_HOKOKU_NO", lstParam) = True Then
+                        _D003_NCR_J.HOKOKU_NO = DB.DbCommand.Parameters("HOKOKU_NO").Value
+                    Else
+                        _D003_NCR_J.HOKOKU_NO = ""
+                    End If
+
 
                     '-----MERGE
                     sbSQL.Remove(0, sbSQL.Length)
@@ -240,7 +267,7 @@ Public Class FrmG0011
                     sbSQL.Append(" SELECT")
                     sbSQL.Append(" '" & _D003_NCR_J.HOKOKU_NO & "' AS " & NameOf(_D003_NCR_J.HOKOKU_NO))
                     sbSQL.Append(" ,'" & _D003_NCR_J.BUMON_KB & "' AS " & NameOf(_D003_NCR_J.BUMON_KB))
-                    sbSQL.Append(" ,'" & _D003_NCR_J._CLOSE_FLG & "' AS " & NameOf(_D003_NCR_J.CLOSE_FLG))
+                    sbSQL.Append(" ,'" & _D003_NCR_J._CLOSE_FG & "' AS " & NameOf(_D003_NCR_J.CLOSE_FG))
                     sbSQL.Append(" ," & _D003_NCR_J.KISYU_ID & " AS " & NameOf(_D003_NCR_J.KISYU_ID))
                     sbSQL.Append(" ,'" & _D003_NCR_J.SYANAI_CD & "' AS " & NameOf(_D003_NCR_J.SYANAI_CD))
                     sbSQL.Append(" ,'" & _D003_NCR_J.BUHIN_BANGO & "' AS " & NameOf(_D003_NCR_J.BUHIN_BANGO))
@@ -255,7 +282,7 @@ Public Class FrmG0011
                     sbSQL.Append(" ,'" & _D003_NCR_J.ZUMEN_KIKAKU & "' AS " & NameOf(_D003_NCR_J.ZUMEN_KIKAKU))
                     sbSQL.Append(" ,'" & _D003_NCR_J.YOKYU_NAIYO & "' AS " & NameOf(_D003_NCR_J.YOKYU_NAIYO))
                     sbSQL.Append(" ,'" & _D003_NCR_J.KANSATU_KEKKA & "' AS " & NameOf(_D003_NCR_J.KANSATU_KEKKA))
-                    sbSQL.Append(" ,'" & _D003_NCR_J._SAIKAKO_SIJI_FLG & "' AS " & NameOf(_D003_NCR_J.SAIKAKO_SIJI_FLG))
+                    sbSQL.Append(" ,'" & _D003_NCR_J._SAIKAKO_SIJI_FG & "' AS " & NameOf(_D003_NCR_J.SAIKAKO_SIJI_FG))
                     sbSQL.Append(" ,'" & _D003_NCR_J.FILE_PATH & "' AS " & NameOf(_D003_NCR_J.FILE_PATH))
                     sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH1 & "' AS " & NameOf(_D003_NCR_J.G_FILE_PATH1))
                     sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH2 & "' AS " & NameOf(_D003_NCR_J.G_FILE_PATH2))
@@ -284,7 +311,7 @@ Public Class FrmG0011
                     sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.ZUMEN_KIKAKU) & " = WK." & NameOf(_D003_NCR_J.ZUMEN_KIKAKU))
 
                     sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.YOKYU_NAIYO) & " = WK." & NameOf(_D003_NCR_J.YOKYU_NAIYO))
-                    sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.SAIKAKO_SIJI_FLG) & " = WK." & NameOf(_D003_NCR_J.SAIKAKO_SIJI_FLG))
+                    sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.SAIKAKO_SIJI_FG) & " = WK." & NameOf(_D003_NCR_J.SAIKAKO_SIJI_FG))
                     sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.FILE_PATH) & " = WK." & NameOf(_D003_NCR_J.FILE_PATH))
                     sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.G_FILE_PATH1) & " = WK." & NameOf(_D003_NCR_J.G_FILE_PATH1))
                     sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.G_FILE_PATH2) & " = WK." & NameOf(_D003_NCR_J.G_FILE_PATH2))
@@ -295,7 +322,7 @@ Public Class FrmG0011
                     sbSQL.Append(" INSERT(")
                     sbSQL.Append("  " & NameOf(_D003_NCR_J.HOKOKU_NO))
                     sbSQL.Append(" ," & NameOf(_D003_NCR_J.BUMON_KB))
-                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.CLOSE_FLG))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.CLOSE_FG))
                     sbSQL.Append(" ," & NameOf(_D003_NCR_J.KISYU_ID))
                     sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYANAI_CD))
                     sbSQL.Append(" ," & NameOf(_D003_NCR_J.BUHIN_BANGO))
@@ -310,7 +337,58 @@ Public Class FrmG0011
                     sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZUMEN_KIKAKU))
                     sbSQL.Append(" ," & NameOf(_D003_NCR_J.YOKYU_NAIYO))
                     sbSQL.Append(" ," & NameOf(_D003_NCR_J.KANSATU_KEKKA))
-                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_SIJI_FLG))
+                    '---defaultValue
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZESEI_NASI_RIYU))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_YMD))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_KAKUNIN_YMD))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_IINKAI_HANTEI_KB))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_GIJYUTU_YMD))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_HINSYO_SYAIN_ID))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_HINSYO_YMD))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_IINKAI_SIRYO_NO))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.ITAG_NO))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_SIJI_FG))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.HAIKYAKU_YMD))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.HAIKYAKU_KB))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.HAIKYAKU_HOUHOU))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.HAIKYAKU_TANTO_ID))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.KENSA_KEKKA_KB))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SEIGI_TANTO_ID))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SEIZO_TANTO_ID))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.KENSA_TANTO_ID))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.HENKYAKU_YMD))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.HENKYAKU_SAKI))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.HENKYAKU_TANTO_ID))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.HENKYAKU_BIKO))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_KISYU_ID))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_BUHIN_BANGO))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_GOKI))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_LOT))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_YMD))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_KEKKA_A))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_KEKKA_B))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_KEKKA_C))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_D_UMU_KB))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_D_YOHI_KB))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_UMU_KB))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_YOHI_KB))
+                    sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU))
+                    '---
                     sbSQL.Append(" ," & NameOf(_D003_NCR_J.FILE_PATH))
                     sbSQL.Append(" ," & NameOf(_D003_NCR_J.G_FILE_PATH1))
                     sbSQL.Append(" ," & NameOf(_D003_NCR_J.G_FILE_PATH2))
@@ -323,7 +401,7 @@ Public Class FrmG0011
                     sbSQL.Append(" ) VALUES(")
                     sbSQL.Append("  WK." & NameOf(_D003_NCR_J.HOKOKU_NO))
                     sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.BUMON_KB))
-                    sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.CLOSE_FLG))
+                    sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.CLOSE_FG))
                     sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.KISYU_ID))
                     sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.SYANAI_CD))
                     sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.BUHIN_BANGO))
@@ -338,7 +416,58 @@ Public Class FrmG0011
                     sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.ZUMEN_KIKAKU))
                     sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.YOKYU_NAIYO))
                     sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.KANSATU_KEKKA))
-                    sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.SAIKAKO_SIJI_FLG))
+                    '---defaultValue
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZESEI_NASI_RIYU))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB))
+                    sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_YMD))
+                    sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_KAKUNIN_YMD))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_IINKAI_HANTEI_KB))
+                    sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_GIJYUTU_YMD))
+                    sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_HINSYO_SYAIN_ID))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_HINSYO_YMD))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_IINKAI_SIRYO_NO))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.ITAG_NO))
+                    sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_SIJI_FG))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.HAIKYAKU_YMD))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.HAIKYAKU_KB))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.HAIKYAKU_HOUHOU))
+                    sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.HAIKYAKU_TANTO_ID))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KENSA_KEKKA_KB))
+                    sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SEIGI_TANTO_ID))
+                    sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SEIZO_TANTO_ID))
+                    sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KENSA_TANTO_ID))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.HENKYAKU_YMD))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.HENKYAKU_SAKI))
+                    sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.HENKYAKU_TANTO_ID))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.HENKYAKU_BIKO))
+                    sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_KISYU_ID))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_BUHIN_BANGO))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_GOKI))
+                    sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_LOT))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_YMD))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_KEKKA_A))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_KEKKA_B))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_KEKKA_C))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_D_UMU_KB))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_D_YOHI_KB))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_UMU_KB))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_YOHI_KB))
+                    sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU))
+                    '---
                     sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.FILE_PATH))
                     sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.G_FILE_PATH1))
                     sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.G_FILE_PATH2))
@@ -350,61 +479,21 @@ Public Class FrmG0011
                     sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.DEL_YMDHNS))
                     sbSQL.Append(" );")
 
+                    '-----SQL実行
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
                     If intRET <> 1 Then
-                        'エラーログ出力
+                        '-----エラーログ出力
                         Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
                         WL.WriteLogDat(strErrMsg)
                         blnErr = True
                         Return False
                     End If
+
                 Finally
-                    'トランザクション
+                    '-----トランザクション
                     DB.Commit(Not blnErr)
                 End Try
             End Using
-
-            'SPEC: 2.(3).D.②.添付ファイル保存
-
-
-            '存在チェック
-            'If PrDt.AsEnumerable.Where(Function(r) r.Field(Of Integer)("HOKOKUSYO_NO") = 18011).ToList.Count = 0 Then
-            '    Dim dr As DataRow = PrDt.NewRow
-            '    Dim intNextHOKOKUSYO_NO As Integer
-            '    Using DB As ClsDbUtility = DBOpen()
-            '        intNextHOKOKUSYO_NO = FunGetCodeMastaValue(DB, "報告書NO管理", "1")
-            '    End Using
-
-            '    'dr("HOKOKUSYO_NO") = intNextHOKOKUSYO_NO
-            '    'dr("CLOSE_FLG") = "0"
-            '    'dr("SYONIN_JUN") = 10
-            '    'dr("SYONIN_NAIYO") = mtxST01_NextStageName.Text.Split(" ")(1)
-            '    'dr("SYONIN_HOKOKUSYO_ID") = "1"
-            '    'dr("SYONIN_HOKOKUSYO_NAME") = "不適合製品処置報告書"
-            '    'dr("SYONIN_HOKOKUSYO_R_NAME") = "NCR"
-            '    'dr("SYOCHI_SYAIN_ID") = pub_SYAIN_INFO.SYAIN_ID
-            '    'dr("SYOCHI_SYAIN_NAME") = pub_SYAIN_INFO.SYAIN_NAME
-            '    'dr("TAIRYU") = 0
-            '    'dr("KISYU_ID") = ""
-            '    'dr("KISYU") = ""
-            '    'dr("KISYU_NAME") = ""
-            '    'dr("BUHIN_BANGO") = ""
-            '    'dr("BUHIN_NAME") = ""
-            '    'dr("JIZEN_SINSA_HANTEI_KB") = ""
-            '    'dr("JIZEN_SINSA_HANTEI_KB_DISP") = ""
-            '    'dr("SAISIN_IINKAI_HANTEI_KB") = ""
-            '    'dr("SAISIN_IINKAI_HANTEI_KB_DISP") = ""
-            '    'dr("ADD_YMD") = dtDraft.ValueDate.ToString("yyyyMMdd")
-            '    'dr("SYOCHI_YMD") = " "
-            '    'dr("MODOSI_SYONIN_JUN") = 0
-            '    'dr("MODOSI_SYONIN_NAIYO") = ""
-            '    'dr("MODOSI_RIYU") = ""
-            '    'dr("MODOSI_TAIRYU") = 6
-            '    'PrDt.Rows.Add(dr)
-            'Else
-
-            'End If
-
 
 
             Return True
@@ -412,7 +501,7 @@ Public Class FrmG0011
             Throw
             Return False
         Finally
-            dsList.Dispose()
+
         End Try
     End Function
 #End Region
@@ -508,9 +597,7 @@ Public Class FrmG0011
 
         Try
 
-
             dlgRET = frmDLG.ShowDialog(Me)
-
 
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
@@ -518,6 +605,63 @@ Public Class FrmG0011
                 '追加選択行選択
             End If
 
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            If frmDLG IsNot Nothing Then
+                frmDLG.Dispose()
+            End If
+        End Try
+    End Function
+
+#End Region
+
+#Region "転送"
+    Private Function OpenFormTENSO() As Boolean
+        Dim frmDLG As New FrmG0015
+        Dim dlgRET As DialogResult
+
+        Try
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKU_ID._1_NCR
+            frmDLG.PrCurrentStage = Me.PrCurrentStage
+            dlgRET = frmDLG.ShowDialog(Me)
+
+            If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                Return False
+            Else
+                Me.Close()
+            End If
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            If frmDLG IsNot Nothing Then
+                frmDLG.Dispose()
+            End If
+        End Try
+    End Function
+
+#End Region
+
+#Region "差戻し"
+    Private Function OpenFormSASIMODOSI() As Boolean
+        Dim frmDLG As New FrmG0016
+        Dim dlgRET As DialogResult
+
+        Try
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKU_ID._1_NCR
+            frmDLG.PrCurrentStage = Me.PrCurrentStage
+            dlgRET = frmDLG.ShowDialog(Me)
+            If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                Return False
+            Else
+                Me.Close()
+            End If
 
             Return True
         Catch ex As Exception
@@ -618,7 +762,7 @@ Public Class FrmG0011
 
     End Sub
 
-    Private Sub CmbFUTEKIGO_STATUS_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbFUTEKIGO_STATUS.SelectedValueChanged
+    Private Sub CmbFUTEKIGO_STATUS_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbFUTEKIGO_STATUS.SelectedValueChanged, cmbSYANAI_CD.SelectedValueChanged
         'If cmbFUTEKIGO_STATUS.SelectedValue = 1 Then
 
         'End If
@@ -627,13 +771,15 @@ Public Class FrmG0011
     '部門変更時
     Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
         Select Case cmbBUMON.SelectedValue
+            Case Nothing
+                '
             Case Context.ENM_BUMON_KB._4_LP
                 lblSYANAI_CD.Visible = True
-                mtxSYANAI_CD.Visible = True
+                cmbSYANAI_CD.Visible = True
             Case Else
                 lblSYANAI_CD.Visible = False
-                mtxSYANAI_CD.Visible = False
-                mtxSYANAI_CD.Text = ""
+                cmbSYANAI_CD.Visible = False
+                cmbSYANAI_CD.SelectedIndex = 0
         End Select
     End Sub
 
@@ -651,6 +797,24 @@ Public Class FrmG0011
         End If
 
     End Sub
+
+    '社内コード
+    Private Sub mtxSYANAI_CD_Validated(sender As Object, e As EventArgs)
+        'TODO: テキストボックス or コンボボックス ?
+    End Sub
+
+    '部品番号
+    Private Sub CmbBUHIN_BANGO_Validated(sender As Object, e As EventArgs) Handles cmbBUHIN_BANGO.Validated
+        'CHECK: SelectedValueにバインドしているため、SelectedValueChanged時だと設定できない? 要検証
+        If cmbBUHIN_BANGO.SelectedValue Is Nothing Then
+            _D003_NCR_J.BUHIN_NAME = ""
+        Else
+            Dim str As String = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbBUHIN_BANGO.SelectedValue).First.Item("BUHIN_NAME")
+            _D003_NCR_J.BUHIN_NAME = str
+        End If
+    End Sub
+
+
 #End Region
 
 #Region "STAGE別"
@@ -748,8 +912,11 @@ Public Class FrmG0011
         End If
         If ofd.ShowDialog() = DialogResult.OK Then
             lbltmpFile1.Text = IO.Path.GetFileName(ofd.FileName)
+            lbltmpFile1.Links.Clear()
             lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, ofd.FileName)
-            lbltmpFile1.Tag = ofd.FileName
+
+            _D003_NCR_J.FILE_PATH = ofd.FileName
+            'lbltmpFile1.Tag = ofd.FileName
             lbltmpFile1.Visible = True
             lbltmpFile1_Clear.Visible = True
         End If
@@ -833,7 +1000,7 @@ Public Class FrmG0011
         End If
 
         If ofd.ShowDialog() = DialogResult.OK Then
-            Call SetPict1Data(ofd.FileName)
+            Call SetPict1Data({ofd.FileName})
         End If
     End Sub
 
@@ -883,13 +1050,15 @@ Public Class FrmG0011
     '    Call SetPict1Data(CType(e.Data.GetData(DataFormats.FileDrop, False), String())(0))
     'End Sub
 
-    Private Sub SetPict1Data(ByVal strFileName As String)
-        pnlPict1.Image = Image.FromFile(strFileName)
+    Private Sub SetPict1Data(ByVal strFileName() As String)
+        pnlPict1.Image = Image.FromFile(strFileName(0))
         pnlPict1.Cursor = Cursors.Hand
 
-        lblPict1Path.Text = CompactString(strFileName, lblPict1Path, EllipsisFormat._4_Path) 'IO.Path.GetFileName(strFileName)
-        lblPict1Path.Tag = strFileName
-        lblPict1Path.Links.Add(0, lblPict1Path.Text.Length, strFileName)
+        lblPict1Path.Text = CompactString(strFileName(0), lblPict1Path, EllipsisFormat._4_Path) 'IO.Path.GetFileName(strFileName)
+        'lblPict1Path.Tag = strFileName(0)
+        _D003_NCR_J.G_FILE_PATH1 = strFileName(0)
+        lblPict1Path.Links.Clear()
+        lblPict1Path.Links.Add(0, lblPict1Path.Text.Length, strFileName(0))
         lblPict1Path.Visible = True
         lblPict1Path_Clear.Visible = True
     End Sub
@@ -912,7 +1081,7 @@ Public Class FrmG0011
         End If
 
         If ofd.ShowDialog() = DialogResult.OK Then
-            Call SetPict2Data(ofd.FileName)
+            Call SetPict2Data({ofd.FileName})
         End If
     End Sub
 
@@ -962,12 +1131,14 @@ Public Class FrmG0011
         Call SetPict2Data(e.Data.GetData(DataFormats.FileDrop, False))
     End Sub
 
-    Private Sub SetPict2Data(ByVal strFileName As String)
-        pnlPict2.Image = Image.FromFile(strFileName)
+    Private Sub SetPict2Data(ByVal strFileName() As String)
+        pnlPict2.Image = Image.FromFile(strFileName(0))
         pnlPict2.Cursor = Cursors.Hand
 
-        lblPict2Path.Text = CompactString(strFileName, lblPict2Path, EllipsisFormat._4_Path) 'IO.Path.GetFileName(strFileName)
-        lblPict2Path.Tag = strFileName
+        lblPict2Path.Text = CompactString(strFileName(0), lblPict2Path, EllipsisFormat._4_Path) 'IO.Path.GetFileName(strFileName)
+        'lblPict2Path.Tag = strFileName(0)
+        _D003_NCR_J.G_FILE_PATH2 = strFileName(0)
+        lblPict2Path.Links.Clear()
         lblPict2Path.Links.Add(0, lblPict2Path.Text.Length, strFileName)
         lblPict2Path.Visible = True
         lblPict2Path_Clear.Visible = True
@@ -997,12 +1168,12 @@ Public Class FrmG0011
         '共通
         mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HOKOKU_NO)))
         cmbBUMON.DataBindings.Add(New Binding(NameOf(cmbBUMON.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.BUMON_KB)))
-        chkClosed.DataBindings.Add(New Binding(NameOf(chkClosed.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.CLOSE_FLG)))
+        chkClosed.DataBindings.Add(New Binding(NameOf(chkClosed.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.CLOSE_FG)))
         dtDraft.DataBindings.Add(New Binding(NameOf(dtDraft.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.ADD_YMD)))
         cmbAddTanto.DataBindings.Add(New Binding(NameOf(cmbAddTanto.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.ADD_SYAIN_ID)))
         cmbKISYU.DataBindings.Add(New Binding(NameOf(cmbKISYU.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KISYU_ID)))
         mtxGOUKI.DataBindings.Add(New Binding(NameOf(mtxGOUKI.Text), _D003_NCR_J, NameOf(_D003_NCR_J.GOKI)))
-        mtxSYANAI_CD.DataBindings.Add(New Binding(NameOf(mtxSYANAI_CD.Text), _D003_NCR_J, NameOf(_D003_NCR_J.SYANAI_CD)))
+        cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SYANAI_CD)))
         cmbBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbBUHIN_BANGO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.BUHIN_BANGO)))
         mtxHINMEI.DataBindings.Add(New Binding(NameOf(mtxHINMEI.Text), _D003_NCR_J, NameOf(_D003_NCR_J.BUHIN_NAME)))
         numSU.DataBindings.Add(New Binding(NameOf(numSU.Value), _D003_NCR_J, NameOf(_D003_NCR_J.SURYO)))
@@ -1047,7 +1218,7 @@ Public Class FrmG0011
         dtST07_KOKYAKU_HANTEI_SIJI.DataBindings.Add(New Binding(NameOf(dtST07_KOKYAKU_HANTEI_SIJI.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)))
         cmbST07_KOKYAKU_SAISYU_HANTEI.DataBindings.Add(New Binding(NameOf(cmbST07_KOKYAKU_SAISYU_HANTEI.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB)))
         dtST07_KOKYAKU_SAISYU_HANTEI.DataBindings.Add(New Binding(NameOf(dtST07_KOKYAKU_SAISYU_HANTEI.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD)))
-        chkST07_SAIKAKO_SIJI_FLG.DataBindings.Add(New Binding(NameOf(chkST07_SAIKAKO_SIJI_FLG.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SAIKAKO_SIJI_FLG)))
+        chkST07_SAIKAKO_SIJI_FLG.DataBindings.Add(New Binding(NameOf(chkST07_SAIKAKO_SIJI_FLG.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SAIKAKO_SIJI_FG)))
 
         'STAGE08
         dtST08_1_HAIKYAKU_YMD.DataBindings.Add(New Binding(NameOf(dtST08_1_HAIKYAKU_YMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.HAIKYAKU_YMD)))
@@ -1571,6 +1742,9 @@ Public Class FrmG0011
         cmbST11_DestTANTO.Text = strTabNameList(10)
 
     End Function
+
+
+
 
 
 #End Region

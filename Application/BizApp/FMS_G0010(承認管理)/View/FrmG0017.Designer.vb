@@ -36,37 +36,27 @@ Partial Class FrmG0017
         '
         Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgSearch32x32
         Me.cmdFunc1.Location = New System.Drawing.Point(9, 595)
-        Me.cmdFunc1.Text = "検索(F1)"
+        Me.cmdFunc1.Text = "変更内容比較(F1)"
         '
         'cmdFunc2
         '
-        Me.cmdFunc2.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
         Me.cmdFunc2.Location = New System.Drawing.Point(216, 595)
-        Me.cmdFunc2.Text = "追加(F2)"
         '
         'cmdFunc3
         '
-        Me.cmdFunc3.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
         Me.cmdFunc3.Location = New System.Drawing.Point(423, 595)
-        Me.cmdFunc3.Text = "類似追加(F3)"
         '
         'cmdFunc4
         '
-        Me.cmdFunc4.Image = Global.FMS.My.Resources.Resources._imgApplication_form_edit32x32
         Me.cmdFunc4.Location = New System.Drawing.Point(630, 595)
-        Me.cmdFunc4.Text = "変更(F4)"
         '
         'cmdFunc5
         '
-        Me.cmdFunc5.Image = Global.FMS.My.Resources.Resources._imgStatusAnnotations_Blocked_32x32_MD
         Me.cmdFunc5.Location = New System.Drawing.Point(837, 595)
-        Me.cmdFunc5.Text = "削除(F5)"
         '
         'cmdFunc6
         '
-        Me.cmdFunc6.Image = Global.FMS.My.Resources.Resources._imgRecovery32x32
         Me.cmdFunc6.Location = New System.Drawing.Point(1044, 595)
-        Me.cmdFunc6.Text = "復元(F6)"
         '
         'cmdFunc12
         '
@@ -80,9 +70,7 @@ Partial Class FrmG0017
         '
         'cmdFunc10
         '
-        Me.cmdFunc10.Image = Global.FMS.My.Resources.Resources._imgExportToExcel32x32
         Me.cmdFunc10.Location = New System.Drawing.Point(630, 643)
-        Me.cmdFunc10.Text = "CSV出力(F10)"
         '
         'cmdFunc7
         '
@@ -135,13 +123,13 @@ Partial Class FrmG0017
         Me.dgvDATA.Size = New System.Drawing.Size(1240, 502)
         Me.dgvDATA.TabIndex = 64
         '
-        'FrmG0014
+        'FrmG0017
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.ClientSize = New System.Drawing.Size(1264, 712)
         Me.Controls.Add(Me.dgvDATA)
         Me.HelpButton = True
-        Me.Name = "FrmG0014"
+        Me.Name = "FrmG0017"
         Me.ShowStatusBar = True
         Me.Text = ""
         Me.Controls.SetChildIndex(Me.lblTytle, 0)

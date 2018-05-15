@@ -20,6 +20,7 @@ Public Class TextBoxEx
 
         Me._GotForcusedColor = clrControlGotFocusedColor
         Me._BackColorDefault = clrControlDefaultBackColor
+        Me.EnterBehavior = 0
     End Sub
 #End Region
 
@@ -395,6 +396,16 @@ Public Class TextBoxEx
     End Property
 #End Region
 
+
+#Region "EnterBehavior"
+
+    <Category("動作"),
+     DefaultValue(0),
+     Description("0:通常、1:次の項目へ移動するため、Tabコマンドを送信する")>
+    Public Property EnterBehavior As Integer
+
+#End Region
+
 #Region "OnKeyDown(ByVal e As KeyEventArgs)"
     Protected Overrides Sub OnKeyDown(ByVal e As KeyEventArgs)
 
@@ -402,7 +413,12 @@ Public Class TextBoxEx
 
         Select Case e.KeyCode
             Case Keys.Enter     'Enter:Tab
-                SendKeys.Send("{Tab}") 'Enterを押した際、次の項目へ移動する為Tabを送信する
+
+                Select Case EnterBehavior
+                    Case 1
+                        SendKeys.Send("{Tab}") 'Enterを押した際、次の項目へ移動する為Tabを送信する
+                    Case Else 'and 0
+                End Select
         End Select
     End Sub
 #End Region

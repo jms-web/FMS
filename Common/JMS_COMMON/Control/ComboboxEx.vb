@@ -61,6 +61,16 @@ Public Class ComboboxEx
         End Set
     End Property
 
+    '<DefaultValue(GetType(Cursors), "Hand")>
+    'Public Overrides Property Cursor As Cursor
+    '    Get
+    '        Return MyBase.Cursor
+    '    End Get
+    '    Set(value As Cursor)
+    '        MyBase.Cursor = value
+    '    End Set
+    'End Property
+
 #End Region
 
     Private _Selected As Boolean
@@ -350,7 +360,9 @@ Public Class ComboboxEx
         '    '解除
         '    ResetWatermark(Me.Text)
         'End If
-
+        If Me.SelectedValue = Nothing AndAlso Me.DataSource IsNot Nothing Then
+            Me.SelectedIndex = 0
+        End If
         MyBase.OnSelectedValueChanged(e)
     End Sub
 #End Region

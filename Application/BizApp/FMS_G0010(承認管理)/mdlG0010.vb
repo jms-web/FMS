@@ -94,8 +94,12 @@ Module mdlG0010
         _13_方法 = 13
     End Enum
 
-
+    'Model
     Public _D003_NCR_J As New MODEL.D003_NCR_J
+    Public _D004_SYONIN_J_KANRI As New MODEL.D004_SYONIN_J_KANRI
+    Public _D005_CAR_J As New MODEL.D005_CAR_J
+    Public _D006_CAR_GENIN As New MODEL.D006_CAR_GENIN
+
 #End Region
 
 #Region "MAIN"
@@ -145,6 +149,7 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "事前審査判定区分", tblJIZEN_SINSA_HANTEI_KB)
                     Call FunGetCodeDataTable(DB, "再審委員会判定区分", tblSAISIN_IINKAI_HANTEI_KB)
                     Call FunGetCodeDataTable(DB, "部品番号", tblBUHIN)
+                    Call FunGetCodeDataTable(DB, "社内CD", tblSYANAI_CD)
 
                     Call FunGetCodeDataTable(DB, "承認担当", tblTANTO_SYONIN)
                     Call FunGetCodeDataTable(DB, "顧客判定指示区分", tblKOKYAKU_HANTEI_SIJI_KB)

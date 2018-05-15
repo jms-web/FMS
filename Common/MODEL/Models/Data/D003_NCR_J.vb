@@ -1,9 +1,6 @@
-﻿Imports System
-Imports System.Collections.Generic
-Imports System.ComponentModel
+﻿Imports System.ComponentModel
 Imports System.ComponentModel.DataAnnotations
 Imports System.ComponentModel.DataAnnotations.Schema
-Imports System.Data.Entity.Spatial
 Imports PropertyChanged
 
 ''' <summary>
@@ -12,7 +9,7 @@ Imports PropertyChanged
 <Table(NameOf(D003_NCR_J), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
 Partial Public Class D003_NCR_J
-    Inherits NotifyChangedBase
+    'Inherits NotifyChangedBase
 
     Public Sub New()
         Call Clear()
@@ -21,7 +18,7 @@ Partial Public Class D003_NCR_J
     Public Sub Clear()
         HOKOKU_NO = ""
         BUMON_KB = ""
-        CLOSE_FLG = False
+        CLOSE_FG = False
         KISYU_ID = 0
         SYANAI_CD = ""
         BUHIN_BANGO = ""
@@ -55,7 +52,7 @@ Partial Public Class D003_NCR_J
         KOKYAKU_HANTEI_SIJI_YMD = ""
         KOKYAKU_SAISYU_HANTEI_KB = ""
         KOKYAKU_SAISYU_HANTEI_YMD = ""
-        SAIKAKO_SIJI_FLG = False
+        SAIKAKO_SIJI_FG = False
         HAIKYAKU_YMD = ""
         HAIKYAKU_KB = ""
         HAIKYAKU_HOUHOU = ""
@@ -111,20 +108,19 @@ Partial Public Class D003_NCR_J
 
     <Required>
     <StringLength(1)>
-    <Column(NameOf(CLOSE_FLG), TypeName:="char")>
+    <Column(NameOf(CLOSE_FG), TypeName:="char")>
     <ComponentModel.DisplayName("クローズフラグ")>
-    Public Property _CLOSE_FLG As String
+    Public Property _CLOSE_FG As String
 
     <ComponentModel.DisplayName("クローズフラグ")>
     <NotMapped>
-    <DoNotNotify>
-    Public Property CLOSE_FLG As Boolean
+    Public Property CLOSE_FG As Boolean
         Get
-            Return IIf(_CLOSE_FLG = "0", False, True)
+            Return IIf(_CLOSE_FG = "0", False, True)
         End Get
         Set(value As Boolean)
-            _CLOSE_FLG = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(CLOSE_FLG))
+            _CLOSE_FG = IIf(value, "1", "0")
+            'OnPropertyChanged(NameOf(CLOSE_FG))
         End Set
     End Property
 
@@ -168,14 +164,13 @@ Partial Public Class D003_NCR_J
 
     <ComponentModel.DisplayName("再発")>
     <NotMapped>
-    <DoNotNotify>
     Public Property SAIHATU As Boolean
         Get
             Return IIf(_SAIHATU = "0", False, True)
         End Get
         Set(value As Boolean)
             _SAIHATU = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(SAIHATU))
+            'OnPropertyChanged(NameOf(SAIHATU))
         End Set
     End Property
 
@@ -229,14 +224,13 @@ Partial Public Class D003_NCR_J
 
     <ComponentModel.DisplayName("是正処置要否区分")>
     <NotMapped>
-    <DoNotNotify>
     Public Property ZESEI_SYOCHI_YOHI_KB As Boolean
         Get
             Return IIf(_ZESEI_SYOCHI_YOHI_KB = "0", False, True)
         End Get
         Set(value As Boolean)
             _ZESEI_SYOCHI_YOHI_KB = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(_ZESEI_SYOCHI_YOHI_KB))
+            'OnPropertyChanged(NameOf(_ZESEI_SYOCHI_YOHI_KB))
         End Set
     End Property
 
@@ -345,21 +339,20 @@ Partial Public Class D003_NCR_J
     Public Property KOKYAKU_SAISYU_HANTEI_YMD As String
 
     <Required>
-    <Column("SAIKAKO_SIJI_FLG", TypeName:="char")>
+    <Column(NameOf(SAIKAKO_SIJI_FG), TypeName:="char")>
     <StringLength(1)>
     <ComponentModel.DisplayName("再加工指示フラグ")>
-    Public Property _SAIKAKO_SIJI_FLG As String
+    Public Property _SAIKAKO_SIJI_FG As String
 
     <ComponentModel.DisplayName("再加工指示フラグ")>
     <NotMapped>
-    <DoNotNotify>
-    Public Property SAIKAKO_SIJI_FLG As Boolean
+    Public Property SAIKAKO_SIJI_FG As Boolean
         Get
-            Return IIf(_SAIKAKO_SIJI_FLG = "0", False, True)
+            Return IIf(_SAIKAKO_SIJI_FG = "0", False, True)
         End Get
         Set(value As Boolean)
-            _SAIKAKO_SIJI_FLG = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(SAIKAKO_SIJI_FLG))
+            _SAIKAKO_SIJI_FG = IIf(value, "1", "0")
+            'OnPropertyChanged(NameOf(SAIKAKO_SIJI_FG))
         End Set
     End Property
 
@@ -550,7 +543,6 @@ Partial Public Class D003_NCR_J
     Public Property ADD_YMDHNS As String
 
     <NotMapped>
-    <DoNotNotify>
     Public ReadOnly Property ADD_YMD As String
         Get
             Dim strRET As String
@@ -585,7 +577,6 @@ Partial Public Class D003_NCR_J
 
     <ComponentModel.DisplayName("削除済")>
     <NotMapped>
-    <DoNotNotify>
     Public ReadOnly Property DEL_FLG As Boolean
         Get
             Return DEL_YMDHNS.Trim <> ""

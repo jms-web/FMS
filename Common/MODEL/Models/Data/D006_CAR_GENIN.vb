@@ -49,20 +49,20 @@ Partial Public Class D006_CAR_GENIN
 
     <Required>
     <StringLength(1)>
-    <Column(NameOf(DAIHYO_FLG), TypeName:="char")>
+    <Column(NameOf(DAIHYO_FG), TypeName:="char")>
     <ComponentModel.DisplayName("代表フラグ")>
-    Public Property _DAIHYO_FLG As String
+    Public Property _DAIHYO_FG As String
 
     <ComponentModel.DisplayName("代表フラグ")>
     <NotMapped>
     <DoNotNotify>
-    Public Property DAIHYO_FLG As Boolean
+    Public Property DAIHYO_FG As Boolean
         Get
-            Return IIf(_DAIHYO_FLG = "0", False, True)
+            Return IIf(_DAIHYO_FG = "0", False, True)
         End Get
         Set(value As Boolean)
-            _DAIHYO_FLG = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(DAIHYO_FLG))
+            _DAIHYO_FG = IIf(value, "1", "0")
+            OnPropertyChanged(NameOf(DAIHYO_FG))
         End Set
     End Property
 

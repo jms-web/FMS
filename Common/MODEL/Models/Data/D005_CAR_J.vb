@@ -21,7 +21,7 @@ Partial Public Class D005_CAR_J
     Public Sub Clear()
         HOKOKU_NO = ""
         BUMON_KB = ""
-        CLOSE_FLG = False
+        CLOSE_FG = False
         SETUMON_1 = ""
         KAITO_1 = ""
         SETUMON_2 = ""
@@ -105,20 +105,20 @@ Partial Public Class D005_CAR_J
 
     <Required>
     <StringLength(1)>
-    <Column(NameOf(CLOSE_FLG), TypeName:="char")>
+    <Column(NameOf(CLOSE_FG), TypeName:="char")>
     <ComponentModel.DisplayName("クローズフラグ")>
-    Public Property _CLOSE_FLG As String
+    Public Property _CLOSE_FG As String
 
     <ComponentModel.DisplayName("クローズフラグ")>
     <NotMapped>
     <DoNotNotify>
-    Public Property CLOSE_FLG As Boolean
+    Public Property CLOSE_FG As Boolean
         Get
-            Return IIf(_CLOSE_FLG = "0", False, True)
+            Return IIf(_CLOSE_FG = "0", False, True)
         End Get
         Set(value As Boolean)
-            _CLOSE_FLG = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(CLOSE_FLG))
+            _CLOSE_FG = IIf(value, "1", "0")
+            OnPropertyChanged(NameOf(CLOSE_FG))
         End Set
     End Property
 

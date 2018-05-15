@@ -53,6 +53,9 @@ Public Class FrmG0010
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc11, My.Resources.infoToolTipMsgNotFoundData)
 
+        '日付空欄許可
+        dtJisiFrom.Nullable = True
+        dtJisiTo.Nullable = True
     End Sub
 
 #End Region
@@ -78,9 +81,6 @@ Public Class FrmG0010
             'SPEC: PF01.2-(1) A データソース
 
             '-----コントロールソース設定
-            '日付空欄許可
-            dtJisiFrom.Nullable = True
-            dtJisiTo.Nullable = True
 
             '共通
             cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -96,6 +96,7 @@ Public Class FrmG0010
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbFUTEKIGO_JYOTAI_KB.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbSyanaiCD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             'NCR
             cmbJIZEN_SINSA_HANTEI_KB.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -1280,20 +1281,20 @@ Public Class FrmG0010
 
     End Sub
 
-
-
 #Region "共通検索条件"
     '部門変更時
     Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
 
         Select Case cmbBUMON.SelectedValue
+            Case Nothing
+                '
             Case Context.ENM_BUMON_KB._4_LP
                 lblSyanaiCD.Visible = True
-                mtxSyanaiCD.Visible = True
+                cmbSyanaiCD.Visible = True
             Case Else
                 lblSyanaiCD.Visible = False
-                mtxSyanaiCD.Visible = False
-                mtxSyanaiCD.Text = ""
+                cmbSyanaiCD.Visible = False
+                cmbSyanaiCD.SelectedIndex = 0
         End Select
     End Sub
 #End Region
@@ -1487,7 +1488,7 @@ Public Class FrmG0010
         cmbADD_TANTO.DataBindings.Add(New Binding(NameOf(cmbADD_TANTO.SelectedValue), ParamModel, NameOf(ParamModel.ADD_TANTO)))
         cmbKISYU.DataBindings.Add(New Binding(NameOf(cmbKISYU.SelectedValue), ParamModel, NameOf(ParamModel.KISYU_ID)))
         mtxGOUKI.DataBindings.Add(New Binding(NameOf(mtxGOUKI.Text), ParamModel, NameOf(ParamModel.GOUKI)))
-        mtxSyanaiCD.DataBindings.Add(New Binding(NameOf(mtxSyanaiCD.Text), ParamModel, NameOf(ParamModel.SYANAI_CD)))
+        cmbSyanaiCD.DataBindings.Add(New Binding(NameOf(cmbSyanaiCD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD)))
         cmbBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbBUHIN_BANGO.SelectedValue), ParamModel, NameOf(ParamModel.BUHIN_BANGO)))
         mtxHINMEI.DataBindings.Add(New Binding(NameOf(mtxHINMEI.Text), ParamModel, NameOf(ParamModel.BUHIN_NAME)))
         cmbTANTO.DataBindings.Add(New Binding(NameOf(cmbTANTO.SelectedValue), ParamModel, NameOf(ParamModel.SYOCHI_TANTO)))

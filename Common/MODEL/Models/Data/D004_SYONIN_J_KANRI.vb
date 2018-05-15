@@ -26,10 +26,10 @@ Partial Public Class D004_SYONIN_J_KANRI
         SYAIN_ID = 0
         SYONIN_YMDHNS = ""
         SYONIN_HANTEI_KB = ""
-        SASIMODOSI_FLG = False
+        SASIMODOSI_FG = False
         RIYU = ""
         COMMENT = ""
-        MAIL_SEND_FLG = False
+        MAIL_SEND_FG = False
         ADD_YMDHNS = ""
         ADD_SYAIN_ID = 0
         UPD_YMDHNS = ""
@@ -70,20 +70,20 @@ Partial Public Class D004_SYONIN_J_KANRI
 
     <Required>
     <StringLength(1)>
-    <Column(NameOf(SASIMODOSI_FLG), TypeName:="char")>
+    <Column(NameOf(SASIMODOSI_FG), TypeName:="char")>
     <ComponentModel.DisplayName("差戻フラグ")>
-    Public Property _SASIMODOSI_FLG As String
+    Public Property _SASIMODOSI_FG As String
 
     <ComponentModel.DisplayName("差戻フラグ")>
     <NotMapped>
     <DoNotNotify>
-    Public Property SASIMODOSI_FLG As Boolean
+    Public Property SASIMODOSI_FG As Boolean
         Get
-            Return IIf(_SASIMODOSI_FLG = "0", False, True)
+            Return IIf(_SASIMODOSI_FG = "0", False, True)
         End Get
         Set(value As Boolean)
-            _SASIMODOSI_FLG = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(SASIMODOSI_FLG))
+            _SASIMODOSI_FG = IIf(value, "1", "0")
+            OnPropertyChanged(NameOf(SASIMODOSI_FG))
         End Set
     End Property
 
@@ -101,20 +101,20 @@ Partial Public Class D004_SYONIN_J_KANRI
 
     <Required>
     <StringLength(1)>
-    <Column(NameOf(MAIL_SEND_FLG), TypeName:="char")>
+    <Column(NameOf(MAIL_SEND_FG), TypeName:="char")>
     <ComponentModel.DisplayName("メール送信フラグ")>
-    Public Property _MAIL_SEND_FLG As String
+    Public Property _MAIL_SEND_FG As String
 
     <ComponentModel.DisplayName("メール送信フラグ")>
     <NotMapped>
     <DoNotNotify>
-    Public Property MAIL_SEND_FLG As Boolean
+    Public Property MAIL_SEND_FG As Boolean
         Get
-            Return IIf(_MAIL_SEND_FLG = "0", False, True)
+            Return IIf(_MAIL_SEND_FG = "0", False, True)
         End Get
         Set(value As Boolean)
-            _MAIL_SEND_FLG = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(MAIL_SEND_FLG))
+            _MAIL_SEND_FG = IIf(value, "1", "0")
+            OnPropertyChanged(NameOf(MAIL_SEND_FG))
         End Set
     End Property
 
