@@ -34,39 +34,27 @@ Partial Class FrmG0018
         '
         'cmdFunc1
         '
-        Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgSearch32x32
         Me.cmdFunc1.Location = New System.Drawing.Point(9, 595)
-        Me.cmdFunc1.Text = "åüçı(F1)"
         '
         'cmdFunc2
         '
-        Me.cmdFunc2.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
         Me.cmdFunc2.Location = New System.Drawing.Point(216, 595)
-        Me.cmdFunc2.Text = "í«â¡(F2)"
         '
         'cmdFunc3
         '
-        Me.cmdFunc3.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
         Me.cmdFunc3.Location = New System.Drawing.Point(423, 595)
-        Me.cmdFunc3.Text = "óﬁéóí«â¡(F3)"
         '
         'cmdFunc4
         '
-        Me.cmdFunc4.Image = Global.FMS.My.Resources.Resources._imgApplication_form_edit32x32
         Me.cmdFunc4.Location = New System.Drawing.Point(630, 595)
-        Me.cmdFunc4.Text = "ïœçX(F4)"
         '
         'cmdFunc5
         '
-        Me.cmdFunc5.Image = Global.FMS.My.Resources.Resources._imgStatusAnnotations_Blocked_32x32_MD
         Me.cmdFunc5.Location = New System.Drawing.Point(837, 595)
-        Me.cmdFunc5.Text = "çÌèú(F5)"
         '
         'cmdFunc6
         '
-        Me.cmdFunc6.Image = Global.FMS.My.Resources.Resources._imgRecovery32x32
         Me.cmdFunc6.Location = New System.Drawing.Point(1044, 595)
-        Me.cmdFunc6.Text = "ïúå≥(F6)"
         '
         'cmdFunc12
         '
@@ -80,9 +68,7 @@ Partial Class FrmG0018
         '
         'cmdFunc10
         '
-        Me.cmdFunc10.Image = Global.FMS.My.Resources.Resources._imgExportToExcel32x32
         Me.cmdFunc10.Location = New System.Drawing.Point(630, 643)
-        Me.cmdFunc10.Text = "CSVèoóÕ(F10)"
         '
         'cmdFunc7
         '
@@ -135,13 +121,13 @@ Partial Class FrmG0018
         Me.dgvDATA.Size = New System.Drawing.Size(1240, 502)
         Me.dgvDATA.TabIndex = 64
         '
-        'FrmG0015
+        'FrmG0018
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.ClientSize = New System.Drawing.Size(1264, 712)
         Me.Controls.Add(Me.dgvDATA)
         Me.HelpButton = True
-        Me.Name = "FrmG0015"
+        Me.Name = "FrmG0018"
         Me.ShowStatusBar = True
         Me.Text = ""
         Me.Controls.SetChildIndex(Me.lblTytle, 0)

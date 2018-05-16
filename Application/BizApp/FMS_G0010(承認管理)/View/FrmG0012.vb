@@ -3,6 +3,19 @@ Imports JMS_COMMON.ClsPubMethod
 
 Public Class FrmG0012
 
+#Region "プロパティ"
+    ''' <summary>
+    ''' 一覧の選択行データ
+    ''' </summary>
+    Public Property PrDataRow As DataRow
+
+    '現在のステージ 承認順
+    Public Property PrCurrentStage As Integer
+
+    '報告書No
+    Public Property PrHOKOKU_NO As String
+#End Region
+
 #Region "コンストラクタ"
 
     ''' <summary>
@@ -262,34 +275,12 @@ Public Class FrmG0012
         Try
             Dim sbSQL As New System.Text.StringBuilder
             Dim dsList As New DataSet
-            Dim sbSQLWHERE As New System.Text.StringBuilder
 
-            ''----DBデータ取得
-            'sbSQLWHERE.Remove(0, sbSQLWHERE.Length)
-            'If Me.cmbKOMO_NM.SelectedValue <> "" Then
-            '    sbSQLWHERE.Append(" WHERE KOMO_NM ='" & Me.cmbKOMO_NM.SelectedValue & "' ")
-            'Else
-            '    If cmbKOMO_NM.Text.ToString.IsNullOrWhiteSpace = False Then
-            '        sbSQLWHERE.Append("  WHERE KOMO_NM  LIKE '%" & Me.cmbKOMO_NM.Text.Trim & "%' ")
-            '    End If
-            'End If
-
-            'If Me.chkDeletedRowVisibled.Checked = False Then
-            '    If sbSQLWHERE.Length = 0 Then
-            '        sbSQLWHERE.Append(" WHERE DEL_FLG <> 1 ")
-            '    Else
-            '        sbSQLWHERE.Append(" AND DEL_FLG <> 1 ")
-            '    End If
-            '    'dgvDATA.Columns("DEL_FLG").Visible = False
-            'Else
-            '    'dgvDATA.Columns("DEL_FLG").Visible = True
-            'End If
 
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append("SELECT")
             sbSQL.Append(" *")
             sbSQL.Append(" FROM " & NameOf(MODEL.M001_SETTING) & " ")
-            sbSQL.Append(sbSQLWHERE)
             sbSQL.Append(" ORDER BY KOMO_NM, DISP_ORDER ")
             Using DBa As ClsDbUtility = DBOpen()
                 dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
@@ -646,12 +637,93 @@ Public Class FrmG0012
 
 #Region "コントロールイベント"
 
-    '検索フィルタ変更
-    Private Sub SearchFilterValueChanged(sender As System.Object, e As System.EventArgs)
-        '検索
-        Me.cmdFunc1.PerformClick()
+#Region "教育記録"
+    'ファイル選択
+    Private Sub BtnOpenTempFileDialog_Click(sender As Object, e As EventArgs) Handles btnOpenKYOIKU_FILE_PATH.Click
+        Dim ofd As New OpenFileDialog With {
+            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
+            .FilterIndex = 1,
+            .Title = "添付するファイルを選択してください",
+            .RestoreDirectory = True
+        }
+        If lblKYOIKU_FILE_PATH.Links.Count = 0 Then
+        Else
+            ofd.InitialDirectory = IO.Path.GetDirectoryName(lblKYOIKU_FILE_PATH.Links(0).ToString)
+        End If
+        If ofd.ShowDialog() = DialogResult.OK Then
+            lblKYOIKU_FILE_PATH.Text = IO.Path.GetFileName(ofd.FileName)
+            lblKYOIKU_FILE_PATH.Links.Clear()
+            lblKYOIKU_FILE_PATH.Links.Add(0, lblKYOIKU_FILE_PATH.Text.Length, ofd.FileName)
 
+            _D003_NCR_J.FILE_PATH = ofd.FileName
+            'lbltmpFile1.Tag = ofd.FileName
+            lblKYOIKU_FILE_PATH.Visible = True
+            lblKYOIKU_FILE_PATH_Clear.Visible = True
+        End If
     End Sub
+
+    'リンククリック
+    Private Sub LbltmpFile1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1.LinkClicked
+        Dim hProcess As New System.Diagnostics.Process
+        Dim strEXE As String
+        'Dim strARG As String
+        Try
+
+            strEXE = lblKYOIKU_FILE_PATH.Links(0).LinkData
+            If strEXE.IsNullOrWhiteSpace Then
+            Else
+                If System.IO.File.Exists(strEXE) = True Then
+                    hProcess.StartInfo.FileName = strEXE
+                    'hProcess.StartInfo.Arguments = strARG
+                    hProcess.SynchronizingObject = Me
+                    'AddHandler hProcess.Exited, AddressOf ProcessExited
+                    hProcess.EnableRaisingEvents = True
+                    hProcess.Start()
+
+                    '最前面
+                    Call SetForegroundWindow(hProcess.Handle)
+
+                    'Call SetTaskbarInfo(ENM_TASKBAR_STATE._2_Normal, 100)
+                    'Call SetTaskbarOverlayIcon(System.Drawing.SystemIcons.Application)
+                Else
+                    Dim strMsg As String
+                    strMsg = "ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
+                                vbCrLf & vbCrLf & strEXE
+                    MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+        Catch exInvalid As InvalidOperationException
+            'EM.ErrorSyori(exInvalid, False, conblnNonMsg)
+        Finally
+            'プロセス終了を待機しない------------------------------------
+            ''-----自分表示
+            'Me.Show()
+            'Me.lstGYOMU.Focus()
+            'Me.Activate()
+            'Me.BringToFront()
+            '------------------------------------------------------------
+
+            '-----開放
+            If hProcess IsNot Nothing Then
+                hProcess.Close()
+            End If
+        End Try
+    End Sub
+
+    'リンククリア
+    Private Sub LbltmpFile1_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1_Clear.LinkClicked
+        lblKYOIKU_FILE_PATH.Text = ""
+        lblKYOIKU_FILE_PATH.Tag = ""
+        lblKYOIKU_FILE_PATH.Links.Clear()
+        lblKYOIKU_FILE_PATH.Visible = False
+        lblKYOIKU_FILE_PATH_Clear.Visible = False
+    End Sub
+
+    Private Sub ProcessExited(ByVal sender As Object, ByVal e As EventArgs)
+        'Call SetTaskbarOverlayIcon(Nothing)
+        'Call SetTaskbarInfo(ENM_TASKBAR_STATE._0_NoProgress)
+    End Sub
+#End Region
 
 
 

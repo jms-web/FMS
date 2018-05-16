@@ -121,6 +121,7 @@
     <Compile Include="Migrations\201804050655482_Init31.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Data\D003_NCR_J.vb" />
+    <Compile Include="Models\Data\R001_HOKOKU_SOUSA.vb" />
     <Compile Include="Models\Data\D004_SYONIN_J_KANRI.vb" />
     <Compile Include="Models\Data\D005_CAR_J.vb" />
     <Compile Include="Models\Data\D006_CAR_GENIN.vb" />

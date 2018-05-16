@@ -94,11 +94,28 @@ Module mdlG0010
         _13_方法 = 13
     End Enum
 
+    ''' <summary>
+    ''' 承認判定区分
+    ''' </summary>
+    Public Enum ENM_SYONIN_HANTEI_KB
+        _0_未承認 = 0
+        _1_承認 = 1
+    End Enum
+
+    Public Enum ENM_HOKOKUSYO_SOUSA_KB
+        _0_起草 = 0
+        _1_申請承認依頼 = 1
+        _2_更新保存 = 2
+    End Enum
+
+
+
     'Model
     Public _D003_NCR_J As New MODEL.D003_NCR_J
     Public _D004_SYONIN_J_KANRI As New MODEL.D004_SYONIN_J_KANRI
     Public _D005_CAR_J As New MODEL.D005_CAR_J
     Public _D006_CAR_GENIN As New MODEL.D006_CAR_GENIN
+    Public _R001_HOKOKU_SOUSA As New MODEL.R001_HOKOKU_SOUSA
 
 #End Region
 

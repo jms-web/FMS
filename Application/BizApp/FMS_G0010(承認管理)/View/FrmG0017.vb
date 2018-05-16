@@ -22,6 +22,7 @@ Public Class FrmG0017
 
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
+        MyBase.ToolTip.SetToolTip(cmdFunc1, "差戻し以外の処置の変更内容の比較はできません")
 
     End Sub
 
@@ -60,6 +61,34 @@ Public Class FrmG0017
             With dgv
                 .AutoGenerateColumns = False
 
+                .Columns.Add("ADD_YMDHNS", "処理年月日")
+                .Columns(.ColumnCount - 1).Width = 100
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+
+                .Columns.Add("SYONIN_JUN", "承認順")
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).Visible = False
+
+                .Columns.Add("STAGE_NAME", "ステージ")
+                .Columns(.ColumnCount - 1).Width = 100
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+
+                .Columns.Add("SOUSA_NAME", "処置")
+                .Columns(.ColumnCount - 1).Width = 100
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+
+                .Columns.Add("SYAIN_NAME", "処置担当者")
+                .Columns(.ColumnCount - 1).Width = 100
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+
+                .Columns.Add("RIYU", "内容・理由")
+                .Columns(.ColumnCount - 1).Width = 300
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
             End With
 
@@ -85,7 +114,7 @@ Public Class FrmG0017
     Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs)
         Try
         Finally
-            'Call FunInitFuncButtonEnabled(Me)
+            Call FunInitFuncButtonEnabled()
         End Try
     End Sub
 
@@ -111,8 +140,8 @@ Public Class FrmG0017
 
             'ボタンINDEX毎の処理
             Select Case intFUNC
-                Case 1  '検索
-
+                Case 1  '変更内容比較
+                    Call FunOpenCompare()
 
                 Case 12 '閉じる
                     Me.Close()
@@ -143,37 +172,16 @@ Public Class FrmG0017
         Try
             Dim sbSQL As New System.Text.StringBuilder
             Dim dsList As New DataSet
-            Dim sbSQLWHERE As New System.Text.StringBuilder
 
-            ''----DBデータ取得
-            'sbSQLWHERE.Remove(0, sbSQLWHERE.Length)
-            'If Me.cmbKOMO_NM.SelectedValue <> "" Then
-            '    sbSQLWHERE.Append(" WHERE KOMO_NM ='" & Me.cmbKOMO_NM.SelectedValue & "' ")
-            'Else
-            '    If cmbKOMO_NM.Text.ToString.IsNullOrWhiteSpace = False Then
-            '        sbSQLWHERE.Append("  WHERE KOMO_NM  LIKE '%" & Me.cmbKOMO_NM.Text.Trim & "%' ")
-            '    End If
-            'End If
-
-            'If Me.chkDeletedRowVisibled.Checked = False Then
-            '    If sbSQLWHERE.Length = 0 Then
-            '        sbSQLWHERE.Append(" WHERE DEL_FLG <> 1 ")
-            '    Else
-            '        sbSQLWHERE.Append(" AND DEL_FLG <> 1 ")
-            '    End If
-            '    'dgvDATA.Columns("DEL_FLG").Visible = False
-            'Else
-            '    'dgvDATA.Columns("DEL_FLG").Visible = True
-            'End If
-
-            sbSQL.Remove(0, sbSQL.Length)
+            'SPEC: 20-7.①
             sbSQL.Append("SELECT")
             sbSQL.Append(" *")
-            sbSQL.Append(" FROM " & NameOf(MODEL.M001_SETTING) & " ")
-            sbSQL.Append(sbSQLWHERE)
-            sbSQL.Append(" ORDER BY KOMO_NM, DISP_ORDER ")
-            Using DBa As ClsDbUtility = DBOpen()
-                dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            sbSQL.Append(" FROM V004_HOKOKU_SOUSA")
+            sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & PrSYONIN_HOKOKUSYO_ID & "")
+            sbSQL.Append(" AND HOKOKU_NO='" & PrHOKOKUSYO_NO & "'")
+            sbSQL.Append(" ORDER BY ADD_YMDHNS DESC")
+            Using DB As ClsDbUtility = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
 
             If dsList.Tables(0).Rows.Count > pub_APP_INFO.intSEARCHMAX Then
@@ -182,25 +190,39 @@ Public Class FrmG0017
                 End If
             End If
 
-
             '------DataTableに変換
             Dim dt As New DataTable
 
             dt.Columns.Add("SYONIN_HOKOKUSYO_ID", GetType(Integer))
+            dt.Columns.Add("HOKOKU_NO", GetType(String))
+            dt.Columns.Add("ADD_YMDHNS", GetType(String))
             dt.Columns.Add("SYONIN_JUN", GetType(Integer))
+            dt.Columns.Add("SOUSA_KB", GetType(String))
+            dt.Columns.Add("SOUSA_NAME", GetType(String))
+            dt.Columns.Add("SYAIN_ID", GetType(Integer))
+            dt.Columns.Add("SYAIN_NAME", GetType(String))
+            dt.Columns.Add("SYONIN_HANTEI_KB", GetType(String))
+            dt.Columns.Add("SYONIN_HANTEI_NAME", GetType(String))
+            dt.Columns.Add("RIYU", GetType(String))
 
             '主キー設定
-            dt.PrimaryKey = {dt.Columns("SYONIN_JUN"), dt.Columns("VALUE")}
+            dt.PrimaryKey = {dt.Columns("SYONIN_HOKOKUSYO_ID"), dt.Columns("HOKOKU_NO"), dt.Columns("SYONIN_JUN")}
 
             With dsList.Tables(0)
                 For intCNT = 0 To .Rows.Count - 1
                     Dim Trow As DataRow = dt.NewRow()
                     '
-                    Trow("DISP") = .Rows(intCNT).Item("SIMEI")
-                    Trow("VALUE") = .Rows(intCNT).Item("SYAIN_ID")
-                    Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                     Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
+                    Trow("HOKOKU_NO") = .Rows(intCNT).Item("HOKOKU_NO")
+                    Trow("ADD_YMDHNS") = .Rows(intCNT).Item("ADD_YMDHNS")
                     Trow("SYONIN_JUN") = .Rows(intCNT).Item("SYONIN_JUN")
+                    Trow("SOUSA_KB") = .Rows(intCNT).Item("SOUSA_KB")
+                    Trow("SOUSA_NAME") = .Rows(intCNT).Item("SOUSA_NAME")
+                    Trow("SYAIN_ID") = .Rows(intCNT).Item("SYAIN_ID")
+                    Trow("SYAIN_NAME") = .Rows(intCNT).Item("SYAIN_NAME")
+                    Trow("SYONIN_HANTEI_KB") = .Rows(intCNT).Item("SYONIN_HANTEI_KB")
+                    Trow("SYONIN_HANTEI_NAME") = .Rows(intCNT).Item("SYONIN_HANTEI_NAME")
+                    Trow("RIYU") = .Rows(intCNT).Item("RIYU")
 
                     dt.Rows.Add(Trow)
                 Next intCNT
@@ -265,60 +287,26 @@ Public Class FrmG0017
 #Region "追加・変更"
 
     ''' <summary>
-    ''' レコード追加変更処理
+    ''' 変更内容比較画面を開く
     ''' </summary>
-    ''' <param name="intMODE">処理モード</param>
     ''' <returns></returns>
-    Private Function FunUpdateEntity(ByVal intMODE As ENM_DATA_OPERATION_MODE) As Boolean
-        Dim frmDLG As New FrmG0011
+    Private Function FunOpenCompare() As Boolean
+        Dim frmDLG As New FrmG0018
         Dim dlgRET As DialogResult
-        'Dim PKeys As Tuple(Of String, String)
-        'Dim strComboVal As String
 
         Try
-            ' 参照型のSystem.Tupleを値型のSystem.ValueTupleに置き換える
 
-            'コンボボックスの選択値を記憶
-            'If cmbKOMO_NM.SelectedValue IsNot Nothing Then
-            '    strComboVal = cmbKOMO_NM.SelectedValue
-            'Else
-            '    strComboVal = ""
-            'End If
-
-            'frmDLG.PrMODE = intMODE
-            'If Me.dgvDATA.CurrentRow IsNot Nothing Then
-            '    frmDLG.PrdgvCellCollection = Me.dgvDATA.CurrentRow.Cells
-            '    frmDLG.PrDataRow = Me.dgvDATA.GetDataRow()
-            'Else
-            '    frmDLG.PrdgvCellCollection = Nothing
-            '    frmDLG.PrDataRow = Nothing
-            'End If
+            If dgvDATA.CurrentRow IsNot Nothing Then
+                frmDLG.PrDataRow = Me.dgvDATA.GetDataRow()
+            Else
+                frmDLG.PrDataRow = Nothing
+            End If
             dlgRET = frmDLG.ShowDialog(Me)
-            'PKeys = frmDLG.PrPKeys
 
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
             Else
 
-                '-----項目名が追加になった場合、検索フィルタのコンボボックスのデータソースを再設定
-                Using DB As ClsDbUtility = DBOpen()
-                    Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
-                End Using
-                'Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
-                'Me.cmbKOMO_NM.SelectedValue = strComboVal
-
-
-                '追加したコードの行を選択する
-                'For i As Integer = 0 To Me.dgvDATA.RowCount - 1
-                '    With Me.dgvDATA.Rows(i)
-                '        If .Cells(0).Value = PKeys.Item1 And
-                '            .Cells(1).Value = PKeys.Item2 Then
-
-                '            Me.dgvDATA.CurrentCell = .Cells(0)
-                '            Exit For
-                '        End If
-                '    End With
-                'Next i
             End If
 
             Return True
@@ -353,6 +341,13 @@ Public Class FrmG0017
                     End If
                 End With
             Next intFunc
+
+            'SPEC: 20-7.②
+            If dgvDATA.CurrentRow IsNot Nothing AndAlso dgvDATA.CurrentRow.Cells("SYONIN_HANTEI_KB").Value = 1 Then '差戻し
+                cmdFunc1.Enabled = True
+            Else
+                cmdFunc1.Enabled = False
+            End If
 
             Return True
         Catch ex As Exception
