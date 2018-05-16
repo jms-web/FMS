@@ -1539,14 +1539,6 @@ Public Class FrmG0011
 
     End Function
 
-    '主データモデルから履歴データモデルへキーフィールドを転記
-    Private Function FunPostBindingSorce() As Boolean
-        _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKU_ID._1_NCR
-        _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
-
-
-
-    End Function
 #End Region
 
 #Region "処理モード別画面初期化"

@@ -11,7 +11,6 @@ Public Class FrmG0010
     Private ParamModel As New TV01_ParamModel
 #End Region
 
-
 #Region "プロパティ"
     ''' <summary>
     ''' 
@@ -141,7 +140,7 @@ Public Class FrmG0010
 
     'フィールド定義
     Private Shared Function FunSetDgvCulumns(ByVal dgv As DataGridView) As Boolean
-        Dim _Model As New MODEL.TV01_FUTEKIGO_ICHIRAN
+        Dim _Model As New MODEL.ST02_FUTEKIGO_ICHIRAN
         Try
             With dgv
                 .AutoGenerateColumns = False
@@ -160,13 +159,13 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
                 .Columns(.ColumnCount - 1).Width = 30
 
-                .Columns.Add(NameOf(_Model.HOKOKUSYO_NO), "報告書No")
+                .Columns.Add(NameOf(_Model.HOKOKU_NO), "報告書No")
                 .Columns(.ColumnCount - 1).Width = 70
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
-                .Columns.Add(NameOf(_Model.CLOSE_FLG), "Closed")
+                .Columns.Add(NameOf(_Model.CLOSE_FG), "Closed")
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).Visible = False
 
@@ -699,7 +698,7 @@ Public Class FrmG0010
             '------DataTableに変換
             Dim dt As New DataTable
 
-            Dim t As Type = GetType(MODEL.TV01_FUTEKIGO_ICHIRAN)
+            Dim t As Type = GetType(MODEL.ST02_FUTEKIGO_ICHIRAN)
             Dim properties As Reflection.PropertyInfo() = t.GetProperties(
                  Reflection.BindingFlags.Public Or
                  Reflection.BindingFlags.NonPublic Or
@@ -793,7 +792,7 @@ Public Class FrmG0010
     End Function
 
     Private Function FunSetDgvCellFormat(ByVal dgv As DataGridView) As Boolean
-        Dim _Model As New MODEL.TV01_FUTEKIGO_ICHIRAN
+        Dim _Model As New MODEL.ST02_FUTEKIGO_ICHIRAN
         Try
             For i As Integer = 0 To dgv.Rows.Count - 1
                 If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU)).Value >= Me.dgvDATA.Rows(i).Cells(NameOf(_Model.KEIKOKU_TAIRYU)).Value Then
@@ -804,7 +803,7 @@ Public Class FrmG0010
                     Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrCautionCellBackColor
                 End If
 
-                If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.CLOSE_FLG)).Value > 0 Then
+                If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.CLOSE_FG)).Value > 0 Then
                     Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
                     Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
                     Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
@@ -831,39 +830,41 @@ Public Class FrmG0010
 
         '共通
         sbParam.Append(" '" & ParamModel.BUMON_KB & "'")
-        sbParam.Append(",'" & ParamModel.HOKOKU_NO & "'")
-        sbParam.Append("," & ParamModel.ADD_TANTO & "")
+        sbParam.Append("," & ParamModel.SYONIN_HOKOKUSYO_ID & "")
         sbParam.Append("," & ParamModel.KISYU_ID & "")
-        sbParam.Append(",'" & ParamModel.GOUKI & "'")
-        sbParam.Append(",'" & ParamModel.SYANAI_CD & "'")
         sbParam.Append(",'" & ParamModel.BUHIN_BANGO & "'")
+        sbParam.Append(",'" & ParamModel.SYANAI_CD & "'")
         sbParam.Append(",'" & ParamModel.BUHIN_NAME & "'")
-        sbParam.Append(",'" & ParamModel.SYOCHI_TANTO & "'")
+        sbParam.Append(",'" & ParamModel.GOUKI & "'")
+        sbParam.Append("," & ParamModel.SYOCHI_TANTO & "")
         sbParam.Append(",'" & ParamModel.JISI_YMD_FROM & "'")
         sbParam.Append(",'" & ParamModel.JISI_YMD_TO & "'")
+        sbParam.Append(",'" & ParamModel.HOKOKU_NO & "'")
+        sbParam.Append("," & ParamModel.ADD_TANTO & "")
+        sbParam.Append(",'" & ParamModel._VISIBLE_CLOSE & "'")
+        sbParam.Append(",'" & ParamModel._VISIBLE_TAIRYU & "'")
         sbParam.Append(",'" & ParamModel.FUTEKIGO_KB & "'")
         sbParam.Append(",'" & ParamModel.FUTEKIGO_S_KB & "'")
         sbParam.Append(",'" & ParamModel.FUTEKIGO_JYOTAI_KB & "'")
-        sbParam.Append(",'" & ParamModel._VISIBLE_CLOSE & "'")
-        sbParam.Append(",'" & ParamModel._VISIBLE_TAIRYU & "'")
 
         'NCR
         sbParam.Append(",'" & ParamModel.JIZEN_SINSA_HANTEI_KB & "'")
         sbParam.Append(",'" & ParamModel.ZESEI_SYOCHI_YOHI_KB & "'")
         sbParam.Append(",'" & ParamModel.SAISIN_IINKAI_HANTEI_KB & "'")
-        sbParam.Append(",'" & ParamModel.KOKYAKU_HANTEI_SIJI_KB & "'")
-        sbParam.Append(",'" & ParamModel.KOKYAKU_SAISYU_HANTEI_KB & "'")
         sbParam.Append(",'" & ParamModel.KENSA_KEKKA_KB & "'")
 
+        'sbParam.Append(",'" & ParamModel.KOKYAKU_HANTEI_SIJI_KB & "'")
+        'sbParam.Append(",'" & ParamModel.KOKYAKU_SAISYU_HANTEI_KB & "'")
+
         'CAR
+        sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB1 & "'")
+        sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB2 & "'")
+        sbParam.Append(",'" & ParamModel.KISEKI_KOTEI_KB & "'")
         sbParam.Append(",'" & ParamModel.GENIN1 & "'")
         sbParam.Append(",'" & ParamModel.GENIN2 & "'")
-        sbParam.Append(",'" & ParamModel.KISEKI_KOTEI_KB & "'")
 
-        sbSQL.Append("SELECT")
-        sbSQL.Append(" *")
-        sbSQL.Append(" FROM " & NameOf(MODEL.TV01_FUTEKIGO_ICHIRAN) & "(" & sbParam.ToString & ")")
-        sbSQL.Append(" ORDER BY HOKOKUSYO_NO ")
+
+        sbSQL.Append("EXEC dbo." & NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN) & " " & sbParam.ToString & "")
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
         End Using

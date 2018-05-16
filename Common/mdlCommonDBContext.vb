@@ -231,6 +231,11 @@ Public Module mdlDBContext
     ''' </summary>
     Public tblTANTO_SYONIN As DataTableEx
 
+    ''' <summary>
+    ''' ê›ñ‚ì‡óe
+    ''' </summary>
+    Public tblSETUMON_NAIYO As DataTableEx
+
 #End Region
 
 #End Region

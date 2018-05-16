@@ -15,35 +15,40 @@ Public Class TV01_ParamModel
     Public Sub Clear()
 
         BUMON_KB = ""
-        HOKOKU_NO = ""
-        ADD_TANTO = 0
+        SYONIN_HOKOKUSYO_ID = 0
         KISYU_ID = 0
-        GOUKI = ""
-        SYANAI_CD = ""
         BUHIN_BANGO = ""
+        SYANAI_CD = ""
         BUHIN_NAME = ""
-        SYOCHI_TANTO = ""
+        GOUKI = ""
+        SYOCHI_TANTO = 0
         JISI_YMD_FROM = ""
         JISI_YMD_TO = ""
+        HOKOKU_NO = ""
+        ADD_TANTO = 0
+        VISIBLE_CLOSE = False
+        VISIBLE_TAIRYU = False
         FUTEKIGO_KB = ""
         FUTEKIGO_S_KB = ""
         FUTEKIGO_JYOTAI_KB = ""
-        VISIBLE_CLOSE = False
-        VISIBLE_TAIRYU = False
         JIZEN_SINSA_HANTEI_KB = ""
         ZESEI_SYOCHI_YOHI_KB = ""
         SAISIN_IINKAI_HANTEI_KB = ""
-        KOKYAKU_HANTEI_SIJI_KB = ""
-        KOKYAKU_SAISYU_HANTEI_KB = ""
-        KENSA_KEKKA_KB = ""
-        GENIN1 = ""
-        GENIN2 = ""
-        KISEKI_KOTEI_KB = ""
 
+        'KOKYAKU_HANTEI_SIJI_KB = ""
+        'KOKYAKU_SAISYU_HANTEI_KB = ""
+
+        KENSA_KEKKA_KB = ""
+        KONPON_YOIN_KB1 = ""
+        KONPON_YOIN_KB2 = ""
+        KISEKI_KOTEI_KB = ""
+        GENIN1 = "0=0"
+        GENIN2 = "0=0"
     End Sub
 
     '共通
     Public Property BUMON_KB As String
+    Public Property SYONIN_HOKOKUSYO_ID As Integer
     Public Property HOKOKU_NO As String
     Public Property ADD_TANTO As Integer
     Public Property KISYU_ID As Integer
@@ -51,7 +56,7 @@ Public Class TV01_ParamModel
     Public Property SYANAI_CD As String
     Public Property BUHIN_BANGO As String
     Public Property BUHIN_NAME As String
-    Public Property SYOCHI_TANTO As String
+    Public Property SYOCHI_TANTO As Integer
     Public Property JISI_YMD_FROM As String
     Public Property JISI_YMD_TO As String
     Public Property FUTEKIGO_KB As String
@@ -91,6 +96,8 @@ Public Class TV01_ParamModel
     Public Property KENSA_KEKKA_KB As String
 
     'CAR
+    Public Property KONPON_YOIN_KB1 As String
+    Public Property KONPON_YOIN_KB2 As String
     Public Property GENIN1 As String
     Public Property GENIN2 As String
     Public Property KISEKI_KOTEI_KB As String

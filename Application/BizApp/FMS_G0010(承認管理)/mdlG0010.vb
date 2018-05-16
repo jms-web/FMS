@@ -177,6 +177,8 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "帰責工程区分", tblKISEKI_KOUTEI_KB)
 
                     Call FunGetCodeDataTable(DB, "原因分析区分", tblGENIN_BUNSEKI_KB)
+
+                    Call FunGetCodeDataTable(DB, "設問内容", tblSETUMON_NAIYO)
                 End Using
 
                 '起動時パラメータを取得

@@ -527,6 +527,18 @@ Partial Public Class D005_CAR_J
     <ComponentModel.DisplayName("検査GL社員登録日時")>
     Public Property KENSA_GL_YMDHNS As String
 
+    <Required>
+    <Column(TypeName:="nvarchar")>
+    <StringLength(200)>
+    <ComponentModel.DisplayName("添付資料1パス")>
+    Public Property FILE_PATH1 As String
+
+    <Required>
+    <Column(TypeName:="nvarchar")>
+    <StringLength(200)>
+    <ComponentModel.DisplayName("添付資料2パス")>
+    Public Property FILE_PATH2 As String
+
 
     ''共通項目------------------------------------
     <Required>

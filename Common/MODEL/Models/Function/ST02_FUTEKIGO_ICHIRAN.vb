@@ -5,128 +5,124 @@ Imports System.ComponentModel.DataAnnotations.Schema
 Imports System.Data.Entity.Spatial
 
 ''' <summary>
-''' TV01 不適合報告書一覧 テーブル値関数
+''' ST02 不適合報告書一覧 テーブル値関数
 ''' </summary>
-Partial Public Class TV01_FUTEKIGO_ICHIRAN
+Partial Public Class ST02_FUTEKIGO_ICHIRAN
 
     <NotMapped>
     <ComponentModel.DisplayName("選択")>
     Public Property SELECTED As Boolean
 
-    <Key>
-    <Column(Order:=0)>
     <StringLength(10)>
     <ComponentModel.DisplayName("報告書No")>
-    Public Property HOKOKUSYO_NO As String
+    Public Property HOKOKU_NO As String
 
-    <Key>
-    <Column(Order:=1)>
-    <StringLength(1)>
-    <ComponentModel.DisplayName("クローズフラグ")>
-    Public Property CLOSE_FLG As String
-
-    <Key>
-    <Column(Order:=2)>
     <ComponentModel.DisplayName("承認順")>
     Public Property SYONIN_JUN As Integer
 
-    <Key>
-    <Column(Order:=3)>
     <StringLength(50)>
     <ComponentModel.DisplayName("ステージ")>
     Public Property SYONIN_NAIYO As String
 
-    <Key>
-    <Column(Order:=4)>
     <ComponentModel.DisplayName("承認報告書ID")>
     <Display(AutoGenerateField:=False)>
     Public Property SYONIN_HOKOKUSYO_ID As Integer
 
-    <Key>
-    <Column(Order:=5)>
     <StringLength(50)>
     <ComponentModel.DisplayName("報告書名")>
     Public Property SYONIN_HOKOKUSYO_NAME As String '報告書名
 
-    <Key>
-    <Column(Order:=6)>
     <StringLength(10)>
     <ComponentModel.DisplayName("種類略名")>
     Public Property SYONIN_HOKOKUSYO_R_NAME As String '報告書略名
 
-    <Key>
-    <Column(Order:=7)>
     <ComponentModel.DisplayName("処置担当者社員ID")>
     <Display(AutoGenerateField:=False)>
-    Public Property SYOCHI_SYAIN_ID As Integer
+    Public Property GEN_TANTO_ID As Integer
 
-    <Key>
-    <Column(Order:=8)>
     <StringLength(30)>
     <ComponentModel.DisplayName("処置担当者名")>
-    Public Property SYOCHI_SYAIN_NAME As String
+    Public Property GEN_TANTO_NAME As String
 
-    <Key>
-    <Column(Order:=9)>
+    <StringLength(14)>
+    <ComponentModel.DisplayName("承認日時")>
+    Public Property SYONIN_YMDHNS As String
+
     <ComponentModel.DisplayName("滞留日数")>
-    Public Property TAIRYU As Integer
+    Public Property TAIRYU_NISSU As Integer
 
-    <Key>
-    <Column(Order:=10)>
+    <StringLength(1)>
+    <ComponentModel.DisplayName("滞留フラグ")>
+    Public Property TAIRYU_FG As String
+
     <ComponentModel.DisplayName("機種ID")>
     <Display(AutoGenerateField:=False)>
     Public Property KISYU_ID As Integer
 
-    <Key>
-    <Column(Order:=11)>
     <StringLength(100)>
     <ComponentModel.DisplayName("機種")>
     Public Property KISYU As String
 
-    <Key>
-    <Column(Order:=12)>
     <StringLength(100)>
     <ComponentModel.DisplayName("機種")>
     Public Property KISYU_NAME As String '機種名
 
-    <Key>
-    <Column(Order:=13)>
     <StringLength(60)>
     <ComponentModel.DisplayName("部品番号")>
     Public Property BUHIN_BANGO As String
 
-    <Key>
-    <Column(Order:=14)>
     <StringLength(100)>
     <ComponentModel.DisplayName("品名")>
     Public Property BUHIN_NAME As String '部品名
 
-    <Key>
-    <Column(Order:=15)>
+    <StringLength(5)>
+    <ComponentModel.DisplayName("号機")>
+    Public Property GOKI As String
+
+    <StringLength(10)>
+    <ComponentModel.DisplayName("号機")>
+    Public Property SYANAI_CD As String
+
+    <StringLength(2)>
+    <ComponentModel.DisplayName("不適合区分")>
+    Public Property FUTEKIGO_KB As String
+
+    <StringLength(50)>
+    <ComponentModel.DisplayName("不適合区分名")>
+    Public Property FUTEKIGO_NAME As String
+
+    <StringLength(50)>
+    <ComponentModel.DisplayName("不適合詳細区分名")>
+    Public Property FUTEKIGO_S_NAME As String
+
+    <StringLength(2)>
+    <ComponentModel.DisplayName("不適合詳細区分")>
+    Public Property FUTEKIGO_S_KB As String
+
+    <StringLength(2)>
+    <ComponentModel.DisplayName("不適合状態区分")>
+    Public Property FUTEKIGO_JYOTAI_KB As String
+
+    <StringLength(2)>
+    <ComponentModel.DisplayName("不適合状態区分")>
+    Public Property FUTEKIGO_JYOTAI_NAME As String
+
     <StringLength(1)>
     <ComponentModel.DisplayName("事前判定区分")>
     Public Property JIZEN_SINSA_HANTEI_KB As String
 
-    <Key>
-    <Column(Order:=16)>
     <StringLength(50)>
     <ComponentModel.DisplayName("事前判定区分")>
     Public Property JIZEN_SINSA_HANTEI_KB_DISP As String
 
-    <Key>
-    <Column(Order:=17)>
     <StringLength(1)>
     <ComponentModel.DisplayName("再審判定区分")>
     Public Property SAISIN_IINKAI_HANTEI_KB As String
 
-    <Key>
-    <Column(Order:=18)>
     <StringLength(50)>
     <ComponentModel.DisplayName("再審判定区分")>
     Public Property SAISIN_IINKAI_HANTEI_KB_DISP As String
 
-    <Key>
-    <StringLength(8)>
     <ComponentModel.DisplayName("起草日")>
     <Display(AutoGenerateField:=False)>
     <Column(NameOf(ADD_YMD), Order:=19, TypeName:="String")>
@@ -144,8 +140,10 @@ Partial Public Class TV01_FUTEKIGO_ICHIRAN
         End Set
     End Property
 
-    <Key>
-    <Column(NameOf(SYOCHI_YMD), Order:=20, TypeName:="String")>
+    <StringLength(1)>
+    <ComponentModel.DisplayName("クローズフラグ")>
+    Public Property CLOSE_FG As String
+
     <StringLength(8)>
     <ComponentModel.DisplayName("前処置実施日")>
     <Display(AutoGenerateField:=False)>
@@ -163,26 +161,14 @@ Partial Public Class TV01_FUTEKIGO_ICHIRAN
         End Set
     End Property
 
-    <Key>
-    <Column(Order:=21)>
     <ComponentModel.DisplayName("差戻元承認順")>
     Public Property MODOSI_SYONIN_JUN As Integer
 
-    <Key>
-    <Column(Order:=22, TypeName:="nvarchar")>
     <StringLength(50)>
     <ComponentModel.DisplayName("差戻元承認順")>
     Public Property MODOSI_SYONIN_NAIYO As String
 
-    <Key>
-    <Column(Order:=23, TypeName:="nvarchar")>
-    <StringLength(100)>
-    <ComponentModel.DisplayName("差戻元承認順")>
-    Public Property MODOSI_RIYU As String
 
-    <Key>
-    <Column(Order:=24)>
-    <ComponentModel.DisplayName("警告通知滞留日数")>
-    Public Property KEIKOKU_TAIRYU As Integer
+
 
 End Class

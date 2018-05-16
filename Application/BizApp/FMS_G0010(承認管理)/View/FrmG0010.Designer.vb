@@ -55,6 +55,7 @@ Partial Class FrmG0010
         Me.Label40 = New System.Windows.Forms.Label()
         Me.cmbFUTEKIGO_JYOTAI_KB = New JMS_COMMON.ComboboxEx()
         Me.chkClosedRowVisibled = New System.Windows.Forms.CheckBox()
+        Me.cmbSyanaiCD = New JMS_COMMON.ComboboxEx()
         Me.cmbJIZEN_SINSA_HANTEI_KB = New JMS_COMMON.ComboboxEx()
         Me.cmbSAISIN_IINKAI_HANTEI_KB = New JMS_COMMON.ComboboxEx()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
@@ -95,7 +96,6 @@ Partial Class FrmG0010
         Me.Label22 = New System.Windows.Forms.Label()
         Me.Label30 = New System.Windows.Forms.Label()
         Me.cmbKISEKI_KOTEI_KB = New JMS_COMMON.ComboboxEx()
-        Me.cmbSyanaiCD = New JMS_COMMON.ComboboxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpFilter.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -736,6 +736,24 @@ Partial Class FrmG0010
         Me.chkClosedRowVisibled.TabIndex = 1
         Me.chkClosedRowVisibled.Text = "CloseçœÇ‡ï\é¶"
         Me.chkClosedRowVisibled.UseVisualStyleBackColor = True
+        '
+        'cmbSyanaiCD
+        '
+        Me.cmbSyanaiCD.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSyanaiCD.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSyanaiCD.BackColor = System.Drawing.SystemColors.Window
+        Me.tlpFilter.SetColumnSpan(Me.cmbSyanaiCD, 7)
+        Me.cmbSyanaiCD.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.cmbSyanaiCD.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSyanaiCD.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSyanaiCD.FormattingEnabled = True
+        Me.cmbSyanaiCD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbSyanaiCD.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbSyanaiCD.Location = New System.Drawing.Point(163, 63)
+        Me.cmbSyanaiCD.Name = "cmbSyanaiCD"
+        Me.cmbSyanaiCD.Selected = False
+        Me.cmbSyanaiCD.Size = New System.Drawing.Size(134, 25)
+        Me.cmbSyanaiCD.TabIndex = 70
         '
         'cmbJIZEN_SINSA_HANTEI_KB
         '
@@ -1465,24 +1483,6 @@ Partial Class FrmG0010
         Me.cmbKISEKI_KOTEI_KB.Selected = False
         Me.cmbKISEKI_KOTEI_KB.Size = New System.Drawing.Size(194, 25)
         Me.cmbKISEKI_KOTEI_KB.TabIndex = 106
-        '
-        'cmbSyanaiCD
-        '
-        Me.cmbSyanaiCD.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbSyanaiCD.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSyanaiCD.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbSyanaiCD, 7)
-        Me.cmbSyanaiCD.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.cmbSyanaiCD.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbSyanaiCD.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbSyanaiCD.FormattingEnabled = True
-        Me.cmbSyanaiCD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbSyanaiCD.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSyanaiCD.Location = New System.Drawing.Point(163, 63)
-        Me.cmbSyanaiCD.Name = "cmbSyanaiCD"
-        Me.cmbSyanaiCD.Selected = False
-        Me.cmbSyanaiCD.Size = New System.Drawing.Size(134, 25)
-        Me.cmbSyanaiCD.TabIndex = 70
         '
         'FrmG0010
         '
