@@ -72,6 +72,16 @@ Partial Public Class D005_CAR_J
         KAITO_24 = ""
         SETUMON_25 = ""
         KAITO_25 = ""
+        KONPON_YOIN_KB1 = ""
+        KONPON_YOIN_KB2 = ""
+        KONPON_YOIN_SYAIN_ID = 0
+        KISEKI_KOTEI_KB = ""
+        SYOCHI_A_SYAIN_ID = 0
+        SYOCHI_A_YMDHNS = ""
+        SYOCHI_B_SYAIN_ID = 0
+        SYOCHI_B_YMDHNS = ""
+        SYOCHI_C_SYAIN_ID = 0
+        SYOCHI_C_YMDHNS = ""
         KYOIKU_FILE_PATH = ""
         ZESEI_SYOCHI_YUKO_UMU = ""
         SYOSAI_FILE_PATH = ""

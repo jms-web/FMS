@@ -8,7 +8,7 @@ Public Class FrmG0010
 
 #Region "定数・変数"
 
-    Private ParamModel As New TV01_ParamModel
+    Private ParamModel As New ST02_ParamModel
 #End Region
 
 #Region "プロパティ"
@@ -159,6 +159,11 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
                 .Columns(.ColumnCount - 1).Width = 30
 
+
+                .Columns.Add(NameOf(_Model.SYONIN_HOKOKUSYO_ID), "承認報告書ID")
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).Visible = False
+
                 .Columns.Add(NameOf(_Model.HOKOKU_NO), "報告書No")
                 .Columns(.ColumnCount - 1).Width = 70
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -185,23 +190,23 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
-                .Columns.Add(NameOf(_Model.SYOCHI_SYAIN_NAME), "処置担当者")
+                .Columns.Add(NameOf(_Model.GEN_TANTO_NAME), "処置担当者")
                 .Columns(.ColumnCount - 1).Width = 120
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
-                .Columns.Add(NameOf(_Model.TAIRYU), "滞留日数")
+                .Columns.Add(NameOf(_Model.TAIRYU_FG), "滞留フラグ")
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).Visible = False
+
+                .Columns.Add(NameOf(_Model.TAIRYU_NISSU), "滞留日数")
                 .Columns(.ColumnCount - 1).Width = 80
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
-                .Columns.Add(NameOf(_Model.KEIKOKU_TAIRYU), "滞留日数")
-                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
-                .Columns(.ColumnCount - 1).Visible = False
-
-                .Columns.Add(NameOf(_Model.KISYU), "機種")
+                .Columns.Add(NameOf(_Model.KISYU_NAME), "機種")
                 .Columns(.ColumnCount - 1).Width = 120
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
@@ -225,43 +230,48 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
-                .Columns.Add(NameOf(_Model.JIZEN_SINSA_HANTEI_KB_NAME), "事前判定区分")
+                .Columns.Add(NameOf(_Model.JIZEN_SINSA_HANTEI_NAME), "事前判定区分")
                 .Columns(.ColumnCount - 1).Width = 180
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
-                .Columns.Add(NameOf(_Model.SAISIN_IINKAI_HANTEI_KB_DISP), "再審判定区分")
+                .Columns.Add(NameOf(_Model.SAISIN_IINKAI_HANTEI_NAME), "再審判定区分")
                 .Columns(.ColumnCount - 1).Width = 180
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
-                .Columns.Add(NameOf(_Model.ADD_YMD), "起草日")
+                .Columns.Add(NameOf(_Model.KISO_YMD), "起草日")
                 .Columns(.ColumnCount - 1).Width = 180
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
-                .Columns.Add(NameOf(_Model.SYOCHI_YMD), "前処理実施日")
+                .Columns.Add(NameOf(_Model.SYONIN_YMDHNS), "前処理実施日")
                 .Columns(.ColumnCount - 1).Width = 180
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
-                .Columns.Add(NameOf(_Model.MODOSI_SYONIN_NAIYO), "差戻元ステージ")
+                .Columns.Add(NameOf(_Model.SASIMOTO_SYONIN_JUN), "差戻承認順")
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).Visible = False
+
+
+                .Columns.Add(NameOf(_Model.SASIMOTO_SYONIN_NAIYO), "差戻元ステージ")
                 .Columns(.ColumnCount - 1).Width = 180
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
-                .Columns.Add(NameOf(_Model.MODOSI_RIYU), "差戻理由")
+                .Columns.Add(NameOf(_Model.RIYU), "差戻理由")
                 .Columns(.ColumnCount - 1).Width = 180
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
-                .Columns.Add(NameOf(_Model.MODOSI_SYONIN_JUN), "差戻承認順")
+                .Columns.Add(NameOf(_Model.SASIMOTO_SYONIN_JUN), "差戻承認順")
                 .Columns(.ColumnCount - 1).Visible = False
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
@@ -511,7 +521,7 @@ Public Class FrmG0010
                 Case 9 'メール送信
                     MessageBox.Show("未実装")
                 Case 10  '印刷
-                    Call OpenReport()
+                    Call FunOpenReport()
 
                     'Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
                     'Call FunCSV_OUT(Me.dgvDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
@@ -687,7 +697,7 @@ Public Class FrmG0010
             '#End Region
 #End Region
 
-            Dim dtBUFF As DataTable = FunGetTV01_FUTEKIGO_ICHIRAN(ParamModel)
+            Dim dtBUFF As DataTable = FunGetST02_FUTEKIGO_ICHIRAN(ParamModel)
             If dtBUFF Is Nothing Then Return Nothing
             If dtBUFF.Rows.Count > pub_APP_INFO.intSEARCHMAX Then
                 If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
@@ -744,7 +754,7 @@ Public Class FrmG0010
                                         End Select
                                     End If
                                 Case Else
-                                    Trow(p.Name) = row.Item(p.Name)
+                                    Trow(p.Name) = row.Item(p.Name).ToString.Trim
                             End Select
                         End If
                     Next p
@@ -795,11 +805,11 @@ Public Class FrmG0010
         Dim _Model As New MODEL.ST02_FUTEKIGO_ICHIRAN
         Try
             For i As Integer = 0 To dgv.Rows.Count - 1
-                If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU)).Value >= Me.dgvDATA.Rows(i).Cells(NameOf(_Model.KEIKOKU_TAIRYU)).Value Then
+                If dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU_FG)).Value = 1 Then
                     Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrWarningCellBackColor
                 End If
 
-                If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.MODOSI_SYONIN_JUN)).Value > 0 Then
+                If dgvDATA.Rows(i).Cells(NameOf(_Model.SASIMOTO_SYONIN_JUN)).Value > 0 Then
                     Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrCautionCellBackColor
                 End If
 
@@ -822,7 +832,7 @@ Public Class FrmG0010
     ''' </summary>
     ''' <param name="ParamModel"></param>
     ''' <returns></returns>
-    Public Function FunGetTV01_FUTEKIGO_ICHIRAN(ByVal ParamModel As TV01_ParamModel) As DataTable
+    Public Function FunGetST02_FUTEKIGO_ICHIRAN(ByVal ParamModel As ST02_ParamModel) As DataTable
 
         Dim sbSQL As New System.Text.StringBuilder
         Dim sbParam As New System.Text.StringBuilder
@@ -853,13 +863,12 @@ Public Class FrmG0010
         sbParam.Append(",'" & ParamModel.SAISIN_IINKAI_HANTEI_KB & "'")
         sbParam.Append(",'" & ParamModel.KENSA_KEKKA_KB & "'")
 
-        'sbParam.Append(",'" & ParamModel.KOKYAKU_HANTEI_SIJI_KB & "'")
-        'sbParam.Append(",'" & ParamModel.KOKYAKU_SAISYU_HANTEI_KB & "'")
-
         'CAR
         sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB1 & "'")
         sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB2 & "'")
         sbParam.Append(",'" & ParamModel.KISEKI_KOTEI_KB & "'")
+        sbParam.Append(",'" & ParamModel.KOKYAKU_HANTEI_SIJI_KB & "'")
+        sbParam.Append(",'" & ParamModel.KOKYAKU_SAISYU_HANTEI_KB & "'")
         sbParam.Append(",'" & ParamModel.GENIN1 & "'")
         sbParam.Append(",'" & ParamModel.GENIN2 & "'")
 
@@ -1089,57 +1098,230 @@ Public Class FrmG0010
 
 #End Region
 
-#Region "レポート印刷"
-    Private Function OpenReport() As Boolean
-        Dim frmDLG As New FrmG0013
-        'Dim dlgRET As DialogResult
-        'Dim PKeys As String
-
+#Region "印刷"
+    Private Function FunOpenReport() As Boolean
+        Dim strOutputFileName As String
+        Dim strTEMPFILE As String
+        'Dim intRET As Integer
         Try
 
-            'If Me.dgvDATA.CurrentRow IsNot Nothing Then
-            '    frmDLG.PrdgvCellCollection = Me.dgvDATA.CurrentRow.Cells
-            '    frmDLG.PrDataRow = Me.dgvDATA.GetDataRow()
-            'Else
-            '    frmDLG.PrdgvCellCollection = Nothing
-            '    frmDLG.PrDataRow = Nothing
-            'End If
-            'dlgRET = frmDLG.ShowDialog(Me)
-            'PKeys = frmDLG.PrPKeys
+            Select Case dgvDATA.CurrentRow.Cells("SYONIN_HOKOKU_ID").Value
+                Case ENM_SYONIN_HOKOKU_ID._1_NCR
+                    'ファイル名
+                    strOutputFileName = "NCR_" & _D003_NCR_J.HOKOKU_NO & "_Work.xlsx"
 
-            'If dlgRET = Windows.Forms.DialogResult.Cancel Then
-            '    Return False
-            'Else
-            '    '追加選択行選択
-            'End If
+                    '既存ファイル削除
+                    If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
+                        Return False
+                    End If
 
-            Dim strFilePath As String = FunGetRootPath() & "\TEMPLATE\17065 T-4FC歪不良.pdf"
+                    Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
+                        strTEMPFILE = FunConvRootPath(iniIF.GetIniString("NCR", "FILEPATH"))
+                    End Using
 
-            Dim hProcess As New System.Diagnostics.Process
-            If System.IO.File.Exists(strFilePath) = True Then
-                'hProcess = System.Diagnostics.Process.Start(strEXE, strARG)
-                hProcess.StartInfo.FileName = strFilePath
-                hProcess.SynchronizingObject = Me
-                hProcess.EnableRaisingEvents = True
-                hProcess.Start()
+                    'エクセル出力ファイル用意
+                    If OUT_EXCEL_READY(strTEMPFILE, pub_APP_INFO.strOUTPUT_PATH, strOutputFileName) = False Then
+                        Return False
+                    End If
+                    '-----書込処理
+                    If FunMakeReportNCR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
+                        Return False
+                    End If
+                Case ENM_SYONIN_HOKOKU_ID._2_CAR
+                    'ファイル名
+                    strOutputFileName = "CAR_" & _D003_NCR_J.HOKOKU_NO & "_Work.xlsx"
 
-            Else
-                Dim strMsg As String
-                strMsg = "下記ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
-                            vbCrLf & vbCrLf & strFilePath
-                MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
-            End If
+                    '既存ファイル削除
+                    If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
+                        Return False
+                    End If
 
-            Return True
+                    Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
+                        strTEMPFILE = FunConvRootPath(iniIF.GetIniString("CAR", "FILEPATH"))
+                    End Using
+
+                    'エクセル出力ファイル用意
+                    If OUT_EXCEL_READY(strTEMPFILE, pub_APP_INFO.strOUTPUT_PATH, strOutputFileName) = False Then
+                        Return False
+                    End If
+                    '-----書込処理
+                    If FunMakeReportCAR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
+                        Return False
+                    End If
+                Case Else
+                    'err
+                    Return False
+            End Select
+
+            'Excel起動
+            Return FunOpenExcelApp(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName)
+
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
-            If frmDLG IsNot Nothing Then
-                frmDLG.Dispose()
-            End If
+            Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
         End Try
     End Function
+
+    Private Function FunMakeReportNCR(ByVal strFilePath As String) As Boolean
+
+        Dim spWorkbook As SpreadsheetGear.IWorkbook
+        Dim spWorksheets As SpreadsheetGear.IWorksheets
+        Dim spSheet1 As SpreadsheetGear.IWorksheet
+        Dim spRangeFrom As SpreadsheetGear.IRange
+        Dim spRangeTo As SpreadsheetGear.IRange
+
+        Try
+            spWorkbook = SpreadsheetGear.Factory.GetWorkbook(strFilePath, System.Globalization.CultureInfo.CurrentCulture)
+
+            spWorkbook.WorkbookSet.GetLock()
+            spWorksheets = spWorkbook.Worksheets
+            spSheet1 = spWorksheets.Item(0) 'sheet1
+
+
+            Dim spprint As SpreadsheetGear.Printing.PrintWhat = SpreadsheetGear.Printing.PrintWhat.Sheet
+
+
+            'レコードフレーム初期化
+            'spWork.Range("RECORD_FRAME").ClearContents()
+            spSheet1.Range(NameOf(_D003_NCR_J.HOKOKU_NO)).Value = _D003_NCR_J.HOKOKU_NO
+
+
+            'spWork.Range("KINGAKU").Formula = "=I2*K2" '発注数 * 単価
+
+            '-----レコードフレームを本シートにコピー
+            'spRangeFrom = spWork.Cells("RECORD_FRAME").EntireRow
+            'strRange = String.Format("A{0}:L{1}", intCurrentRowIndex, intCurrentRowIndex)
+            'spRangeTo = spSheet1.Cells(strRange).EntireRow
+            'spRangeFrom.Copy(spRangeTo, SpreadsheetGear.PasteType.All, SpreadsheetGear.PasteOperation.None, False, False)
+
+
+            If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace Then
+                Dim imageFile As String = _D003_NCR_J.G_FILE_PATH1
+                Dim width As Double
+                Dim height As Double
+                Dim image As Image = Image.FromFile(imageFile)
+                Try
+                    width = image.Width * 72.0 / image.HorizontalResolution
+                    height = image.Height * 72.0 / image.VerticalResolution
+                Finally
+                    image.Dispose()
+                End Try
+
+                Dim windowInfo As SpreadsheetGear.IWorksheetWindowInfo = spSheet1.WindowInfo
+                Dim left As Double = windowInfo.ColumnToPoints(1.5)
+                Dim top As Double = windowInfo.RowToPoints(1.5)
+                spSheet1.Shapes.AddPicture(imageFile, left, top, width, height)
+            End If
+
+            If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace Then
+                Dim imageFile As String = _D003_NCR_J.G_FILE_PATH2
+                Dim width As Double
+                Dim height As Double
+                Dim image As Image = Image.FromFile(imageFile)
+                Try
+                    width = image.Width * 72.0 / image.HorizontalResolution
+                    height = image.Height * 72.0 / image.VerticalResolution
+                Finally
+                    image.Dispose()
+                End Try
+
+                Dim windowInfo As SpreadsheetGear.IWorksheetWindowInfo = spSheet1.WindowInfo
+                Dim left As Double = windowInfo.ColumnToPoints(1.5)
+                Dim top As Double = windowInfo.RowToPoints(1.5)
+                spSheet1.Shapes.AddPicture(imageFile, left, top, width, height)
+            End If
+
+            '印刷範囲指定
+            'spSheet1.PageSetup.PrintArea = "sheet1!$A$1:$L$" & intCurrentRowIndex
+            '印刷タイトル行
+            'spSheet1.PageSetup.PrintTitleRows = "sheet1!$1:$3"
+
+            '-----ファイル保存
+            'spWork.Delete()
+            'spWorksheets(0).Cells("A1").Select()
+            spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.OpenXMLWorkbook)
+            spWorkbook.WorkbookSet.ReleaseLock()
+
+            Return True
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            spRangeFrom = Nothing
+            spRangeTo = Nothing
+            spSheet1 = Nothing
+            spWorksheets = Nothing
+            spWorkbook = Nothing
+
+            ''-----開放
+            'dsList.Dispose()
+        End Try
+    End Function
+
+    Private Function FunMakeReportCAR(ByVal strFilePath As String) As Boolean
+
+        Dim spWorkbook As SpreadsheetGear.IWorkbook
+        Dim spWorksheets As SpreadsheetGear.IWorksheets
+        Dim spSheet1 As SpreadsheetGear.IWorksheet
+        Dim spRangeFrom As SpreadsheetGear.IRange
+        Dim spRangeTo As SpreadsheetGear.IRange
+
+        Try
+            spWorkbook = SpreadsheetGear.Factory.GetWorkbook(strFilePath, System.Globalization.CultureInfo.CurrentCulture)
+
+            spWorkbook.WorkbookSet.GetLock()
+            spWorksheets = spWorkbook.Worksheets
+            spSheet1 = spWorksheets.Item(0) 'sheet1
+
+
+            Dim spprint As SpreadsheetGear.Printing.PrintWhat = SpreadsheetGear.Printing.PrintWhat.Sheet
+
+
+            'レコードフレーム初期化
+            'spWork.Range("RECORD_FRAME").ClearContents()
+            spSheet1.Range(NameOf(_D003_NCR_J.HOKOKU_NO)).Value = _D003_NCR_J.HOKOKU_NO
+
+
+            'spWork.Range("KINGAKU").Formula = "=I2*K2" '発注数 * 単価
+
+            '-----レコードフレームを本シートにコピー
+            'spRangeFrom = spWork.Cells("RECORD_FRAME").EntireRow
+            'strRange = String.Format("A{0}:L{1}", intCurrentRowIndex, intCurrentRowIndex)
+            'spRangeTo = spSheet1.Cells(strRange).EntireRow
+            'spRangeFrom.Copy(spRangeTo, SpreadsheetGear.PasteType.All, SpreadsheetGear.PasteOperation.None, False, False)
+
+
+            '印刷範囲指定
+            'spSheet1.PageSetup.PrintArea = "sheet1!$A$1:$L$" & intCurrentRowIndex
+            '印刷タイトル行
+            'spSheet1.PageSetup.PrintTitleRows = "sheet1!$1:$3"
+
+            '-----ファイル保存
+            'spWork.Delete()
+            'spWorksheets(0).Cells("A1").Select()
+            spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.OpenXMLWorkbook)
+            spWorkbook.WorkbookSet.ReleaseLock()
+
+            Return True
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            spRangeFrom = Nothing
+            spRangeTo = Nothing
+            spSheet1 = Nothing
+            spWorksheets = Nothing
+            spWorkbook = Nothing
+
+            ''-----開放
+            'dsList.Dispose()
+        End Try
+    End Function
+
 #End Region
 
 #Region "履歴"
@@ -1229,7 +1411,7 @@ Public Class FrmG0010
 
 
                 '選択行がClosedの場合
-                If dgvDATA.CurrentRow.Cells.Item("CLOSE_FLG").Value = 1 Then
+                If dgvDATA.CurrentRow.Cells.Item(NameOf(_D003_NCR_J.CLOSE_FG)).Value = 1 Then
                     cmdFunc4.Enabled = False
                     cmdFunc5.Enabled = False
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "クローズ済のため変更出来ません")

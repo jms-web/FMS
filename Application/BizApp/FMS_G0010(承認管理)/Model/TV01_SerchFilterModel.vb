@@ -4,7 +4,7 @@
 ''' 一覧検索ストアドパラメータ
 ''' </summary>
 <AddINotifyPropertyChangedInterface>
-Public Class TV01_ParamModel
+Public Class ST02_ParamModel
     Inherits MODEL.NotifyChangedBase
 
     Public Sub New()
@@ -42,8 +42,8 @@ Public Class TV01_ParamModel
         KONPON_YOIN_KB1 = ""
         KONPON_YOIN_KB2 = ""
         KISEKI_KOTEI_KB = ""
-        GENIN1 = "0=0"
-        GENIN2 = "0=0"
+        GENIN1 = ""
+        GENIN2 = ""
     End Sub
 
     '共通

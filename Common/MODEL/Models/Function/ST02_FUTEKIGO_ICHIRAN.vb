@@ -113,7 +113,7 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
 
     <StringLength(50)>
     <ComponentModel.DisplayName("事前判定区分名")>
-    Public Property JIZEN_SINSA_HANTEI_KB_NAME As String
+    Public Property JIZEN_SINSA_HANTEI_NAME As String
 
     <StringLength(1)>
     <ComponentModel.DisplayName("是正処置要否区分")>
@@ -121,67 +121,114 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
 
     <StringLength(150)>
     <ComponentModel.DisplayName("是正処置要否区分名")>
-    Public Property ZESEI_SYOCHI_YOHI_KB_NAME As String
-
-
-
-
-
+    Public Property ZESEI_SYOCHI_YOHI_NAME As String
 
     <StringLength(1)>
-    <ComponentModel.DisplayName("再審判定区分")>
+    <ComponentModel.DisplayName("再審委員会判定区分")>
     Public Property SAISIN_IINKAI_HANTEI_KB As String
 
     <StringLength(50)>
-    <ComponentModel.DisplayName("再審判定区分")>
-    Public Property SAISIN_IINKAI_HANTEI_KB_DISP As String
+    <ComponentModel.DisplayName("再審委員会判定区分名")>
+    Public Property SAISIN_IINKAI_HANTEI_NAME As String
+
+    <StringLength(1)>
+    <ComponentModel.DisplayName("検査結果区分")>
+    Public Property KENSA_KEKKA_KB As String
+
+    <StringLength(50)>
+    <ComponentModel.DisplayName("検査結果区分名")>
+    Public Property KENSA_KEKKA_NAME As String
+
+    <StringLength(1)>
+    <ComponentModel.DisplayName("根本要因区分1")>
+    Public Property KONPON_YOIN_KB1 As String
+
+    <StringLength(50)>
+    <ComponentModel.DisplayName("根本要因区分名1")>
+    Public Property KONPON_YOIN_NAME1 As String
+
+    <StringLength(1)>
+    <ComponentModel.DisplayName("根本要因区分2")>
+    Public Property KONPON_YOIN_KB2 As String
+
+    <StringLength(50)>
+    <ComponentModel.DisplayName("根本要因区分名2")>
+    Public Property KONPON_YOIN_NAME2 As String
+
+    <StringLength(1)>
+    <ComponentModel.DisplayName("帰責工程区分")>
+    Public Property KISEKI_KOTEI_KB As String
+
+    <StringLength(50)>
+    <ComponentModel.DisplayName("帰責工程区分名")>
+    Public Property KISEKI_KOTEI_NAME As String
 
     <ComponentModel.DisplayName("起草日")>
     <Display(AutoGenerateField:=False)>
-    <Column(NameOf(ADD_YMD), Order:=19, TypeName:="String")>
-    Public Property _ADD_YMD As String
+    <Column(NameOf(KISO_YMD), TypeName:="String")>
+    Public Property _KISO_YMD As String
 
     <NotMapped>
     <ComponentModel.DisplayName("起草日")>
-    Public Property ADD_YMD As Date
+    Public Property KISO_YMD As Date
         Get
-            Return DateTime.ParseExact(_ADD_YMD, "yyyyMMdd", Nothing)
+            Return DateTime.ParseExact(_KISO_YMD, "yyyyMMdd", Nothing)
         End Get
         Set(value As Date)
 
-            _ADD_YMD = value.ToString("yyyyMMdd")
+            _KISO_YMD = value.ToString("yyyyMMdd")
         End Set
     End Property
+
+    <ComponentModel.DisplayName("起草担当者ID")>
+    Public Property KISO_TANTO_ID As Integer
+
+    <StringLength(30)>
+    <ComponentModel.DisplayName("起草担当者名")>
+    Public Property KISO_TANTO_NAME As String
 
     <StringLength(1)>
     <ComponentModel.DisplayName("クローズフラグ")>
     Public Property CLOSE_FG As String
 
-    <StringLength(8)>
-    <ComponentModel.DisplayName("前処置実施日")>
-    <Display(AutoGenerateField:=False)>
-    Public Property _SYOCHI_YMD As String
-
-    <NotMapped>
-    <ComponentModel.DisplayName("前処置実施日")>
-    Public Property SYOCHI_YMD As Date
-        Get
-            Return DateTime.ParseExact(_SYOCHI_YMD, "yyyyMMdd", Nothing)
-        End Get
-        Set(value As Date)
-
-            _SYOCHI_YMD = value.ToString("yyyyMMdd")
-        End Set
-    End Property
-
     <ComponentModel.DisplayName("差戻元承認順")>
-    Public Property MODOSI_SYONIN_JUN As Integer
+    Public Property SASIMOTO_SYONIN_JUN As Integer
 
     <StringLength(50)>
-    <ComponentModel.DisplayName("差戻元承認順")>
-    Public Property MODOSI_SYONIN_NAIYO As String
+    <ComponentModel.DisplayName("差戻元承認内容")>
+    Public Property SASIMOTO_SYONIN_NAIYO As String
 
+    <StringLength(100)>
+    <ComponentModel.DisplayName("差戻理由")>
+    Public Property RIYU As String
 
+    <StringLength(500)>
+    <ComponentModel.DisplayName("要求内容")>
+    Public Property YOKYU_NAIYO As String
+
+    <StringLength(1)>
+    <ComponentModel.DisplayName("部門区分")>
+    Public Property BUMON_KB As String
+
+    <StringLength(50)>
+    <ComponentModel.DisplayName("部門区分")>
+    Public Property BUMON_NAME As String
+
+    <StringLength(2)>
+    <ComponentModel.DisplayName("顧客判定指示区分")>
+    Public Property KOKYAKU_HANTEI_SIJI_KB As String
+
+    <StringLength(150)>
+    <ComponentModel.DisplayName("顧客判定指示区分名")>
+    Public Property KOKYAKU_HANTEI_SIJI_NAME As String
+
+    <StringLength(2)>
+    <ComponentModel.DisplayName("顧客最終判定区分")>
+    Public Property KOKYAKU_SAISYU_HANTEI_KB As String
+
+    <StringLength(150)>
+    <ComponentModel.DisplayName("顧客最終判定区分名")>
+    Public Property KOKYAKU_SAISYU_HANTEI_NAME As String
 
 
 End Class

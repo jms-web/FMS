@@ -679,7 +679,7 @@ Partial Class FrmG0011
         Me.mtxFUTEKIGO_NAIYO.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxFUTEKIGO_NAIYO, 11)
         Me.mtxFUTEKIGO_NAIYO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxFUTEKIGO_NAIYO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxFUTEKIGO_NAIYO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxFUTEKIGO_NAIYO.InputRequired = False
         Me.mtxFUTEKIGO_NAIYO.Location = New System.Drawing.Point(363, 93)
         Me.mtxFUTEKIGO_NAIYO.Name = "mtxFUTEKIGO_NAIYO"
@@ -893,7 +893,7 @@ Partial Class FrmG0011
         Me.mtxZUBAN_KIKAKU.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxZUBAN_KIKAKU, 19)
         Me.mtxZUBAN_KIKAKU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxZUBAN_KIKAKU.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxZUBAN_KIKAKU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxZUBAN_KIKAKU.InputRequired = False
         Me.mtxZUBAN_KIKAKU.Location = New System.Drawing.Point(683, 123)
         Me.mtxZUBAN_KIKAKU.Name = "mtxZUBAN_KIKAKU"
@@ -1204,7 +1204,7 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST01_KEKKA.BackColor = System.Drawing.SystemColors.Window
         Me.txtST01_KEKKA.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtST01_KEKKA.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtST01_KEKKA.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtST01_KEKKA.Location = New System.Drawing.Point(10, 163)
         Me.txtST01_KEKKA.Multiline = True
         Me.txtST01_KEKKA.Name = "txtST01_KEKKA"
@@ -1243,7 +1243,7 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST01_YOKYU_NAIYO.BackColor = System.Drawing.SystemColors.Window
         Me.txtST01_YOKYU_NAIYO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtST01_YOKYU_NAIYO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtST01_YOKYU_NAIYO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtST01_YOKYU_NAIYO.Location = New System.Drawing.Point(9, 58)
         Me.txtST01_YOKYU_NAIYO.Multiline = True
         Me.txtST01_YOKYU_NAIYO.Name = "txtST01_YOKYU_NAIYO"
@@ -1356,7 +1356,7 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST02_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST02_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtST02_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtST02_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtST02_Comment.Location = New System.Drawing.Point(118, 70)
         Me.txtST02_Comment.Multiline = True
         Me.txtST02_Comment.Name = "txtST02_Comment"
@@ -1508,7 +1508,7 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST03_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST03_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtST03_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtST03_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtST03_Comment.Location = New System.Drawing.Point(118, 70)
         Me.txtST03_Comment.Multiline = True
         Me.txtST03_Comment.Name = "txtST03_Comment"
@@ -1713,7 +1713,7 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST04_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST04_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtST04_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtST04_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtST04_Comment.Location = New System.Drawing.Point(118, 251)
         Me.txtST04_Comment.Multiline = True
         Me.txtST04_Comment.Name = "txtST04_Comment"
@@ -1767,7 +1767,7 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST04_RIYU.BackColor = System.Drawing.SystemColors.Window
         Me.txtST04_RIYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtST04_RIYU.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtST04_RIYU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtST04_RIYU.Location = New System.Drawing.Point(118, 104)
         Me.txtST04_RIYU.Multiline = True
         Me.txtST04_RIYU.Name = "txtST04_RIYU"
@@ -1935,7 +1935,7 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST05_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST05_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtST05_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtST05_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtST05_Comment.Location = New System.Drawing.Point(118, 70)
         Me.txtST05_Comment.Multiline = True
         Me.txtST05_Comment.Name = "txtST05_Comment"
@@ -2092,7 +2092,7 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST06_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST06_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtST06_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtST06_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtST06_Comment.Location = New System.Drawing.Point(118, 251)
         Me.txtST06_Comment.Multiline = True
         Me.txtST06_Comment.Name = "txtST06_Comment"
@@ -2372,7 +2372,7 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST07_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST07_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtST07_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtST07_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtST07_Comment.Location = New System.Drawing.Point(118, 251)
         Me.txtST07_Comment.Multiline = True
         Me.txtST07_Comment.Name = "txtST07_Comment"
@@ -2692,7 +2692,7 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST08_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST08_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtST08_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtST08_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtST08_Comment.Location = New System.Drawing.Point(118, 251)
         Me.txtST08_Comment.Multiline = True
         Me.txtST08_Comment.Name = "txtST08_Comment"
@@ -2806,7 +2806,7 @@ Partial Class FrmG0011
         '
         Me.mtxST08_1_BIKO.BackColor = System.Drawing.SystemColors.Window
         Me.mtxST08_1_BIKO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxST08_1_BIKO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxST08_1_BIKO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxST08_1_BIKO.InputRequired = False
         Me.mtxST08_1_BIKO.Location = New System.Drawing.Point(101, 67)
         Me.mtxST08_1_BIKO.Name = "mtxST08_1_BIKO"
@@ -3177,7 +3177,7 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST08_3_BIKO.BackColor = System.Drawing.SystemColors.Window
         Me.txtST08_3_BIKO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtST08_3_BIKO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtST08_3_BIKO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtST08_3_BIKO.Location = New System.Drawing.Point(101, 36)
         Me.txtST08_3_BIKO.Multiline = True
         Me.txtST08_3_BIKO.Name = "txtST08_3_BIKO"
@@ -3219,7 +3219,7 @@ Partial Class FrmG0011
         '
         Me.mtxST08_3_HENKYAKU_SAKI.BackColor = System.Drawing.SystemColors.Window
         Me.mtxST08_3_HENKYAKU_SAKI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxST08_3_HENKYAKU_SAKI.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxST08_3_HENKYAKU_SAKI.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxST08_3_HENKYAKU_SAKI.InputRequired = False
         Me.mtxST08_3_HENKYAKU_SAKI.Location = New System.Drawing.Point(342, 6)
         Me.mtxST08_3_HENKYAKU_SAKI.Name = "mtxST08_3_HENKYAKU_SAKI"
@@ -3548,7 +3548,7 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST09_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST09_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtST09_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtST09_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtST09_Comment.Location = New System.Drawing.Point(118, 70)
         Me.txtST09_Comment.Multiline = True
         Me.txtST09_Comment.Name = "txtST09_Comment"
@@ -3699,7 +3699,7 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST10_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST10_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtST10_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtST10_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtST10_Comment.Location = New System.Drawing.Point(118, 70)
         Me.txtST10_Comment.Multiline = True
         Me.txtST10_Comment.Name = "txtST10_Comment"
@@ -3871,7 +3871,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 125.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 126.0!))
         Me.tlpST08.Controls.Add(Me.rbtnST11_E2_F, 4, 7)
         Me.tlpST08.Controls.Add(Me.rbtnST11_E2_T, 3, 7)
         Me.tlpST08.Controls.Add(Me.rbtnST11_E1_F, 4, 6)
@@ -3921,9 +3921,9 @@ Partial Class FrmG0011
         'rbtnST11_E2_F
         '
         Me.rbtnST11_E2_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_E2_F.Location = New System.Drawing.Point(633, 203)
+        Me.rbtnST11_E2_F.Location = New System.Drawing.Point(632, 203)
         Me.rbtnST11_E2_F.Name = "rbtnST11_E2_F"
-        Me.rbtnST11_E2_F.Size = New System.Drawing.Size(119, 22)
+        Me.rbtnST11_E2_F.Size = New System.Drawing.Size(120, 22)
         Me.rbtnST11_E2_F.TabIndex = 14
         Me.rbtnST11_E2_F.TabStop = True
         Me.rbtnST11_E2_F.Text = "未回答"
@@ -3933,7 +3933,7 @@ Partial Class FrmG0011
         'rbtnST11_E2_T
         '
         Me.rbtnST11_E2_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_E2_T.Location = New System.Drawing.Point(542, 203)
+        Me.rbtnST11_E2_T.Location = New System.Drawing.Point(541, 203)
         Me.rbtnST11_E2_T.Name = "rbtnST11_E2_T"
         Me.rbtnST11_E2_T.Size = New System.Drawing.Size(84, 22)
         Me.rbtnST11_E2_T.TabIndex = 13
@@ -3945,9 +3945,9 @@ Partial Class FrmG0011
         'rbtnST11_E1_F
         '
         Me.rbtnST11_E1_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_E1_F.Location = New System.Drawing.Point(633, 174)
+        Me.rbtnST11_E1_F.Location = New System.Drawing.Point(632, 174)
         Me.rbtnST11_E1_F.Name = "rbtnST11_E1_F"
-        Me.rbtnST11_E1_F.Size = New System.Drawing.Size(119, 22)
+        Me.rbtnST11_E1_F.Size = New System.Drawing.Size(120, 22)
         Me.rbtnST11_E1_F.TabIndex = 12
         Me.rbtnST11_E1_F.TabStop = True
         Me.rbtnST11_E1_F.Text = "未回答"
@@ -3957,7 +3957,7 @@ Partial Class FrmG0011
         'rbtnST11_E1_T
         '
         Me.rbtnST11_E1_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_E1_T.Location = New System.Drawing.Point(542, 174)
+        Me.rbtnST11_E1_T.Location = New System.Drawing.Point(541, 174)
         Me.rbtnST11_E1_T.Name = "rbtnST11_E1_T"
         Me.rbtnST11_E1_T.Size = New System.Drawing.Size(84, 22)
         Me.rbtnST11_E1_T.TabIndex = 11
@@ -3969,9 +3969,9 @@ Partial Class FrmG0011
         'rbtnST11_D2_F
         '
         Me.rbtnST11_D2_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_D2_F.Location = New System.Drawing.Point(633, 120)
+        Me.rbtnST11_D2_F.Location = New System.Drawing.Point(632, 120)
         Me.rbtnST11_D2_F.Name = "rbtnST11_D2_F"
-        Me.rbtnST11_D2_F.Size = New System.Drawing.Size(119, 22)
+        Me.rbtnST11_D2_F.Size = New System.Drawing.Size(120, 22)
         Me.rbtnST11_D2_F.TabIndex = 9
         Me.rbtnST11_D2_F.TabStop = True
         Me.rbtnST11_D2_F.Text = "未回答"
@@ -3981,7 +3981,7 @@ Partial Class FrmG0011
         'rbtnST11_D2_T
         '
         Me.rbtnST11_D2_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_D2_T.Location = New System.Drawing.Point(542, 120)
+        Me.rbtnST11_D2_T.Location = New System.Drawing.Point(541, 120)
         Me.rbtnST11_D2_T.Name = "rbtnST11_D2_T"
         Me.rbtnST11_D2_T.Size = New System.Drawing.Size(84, 22)
         Me.rbtnST11_D2_T.TabIndex = 8
@@ -3993,9 +3993,9 @@ Partial Class FrmG0011
         'rbtnST11_D1_F
         '
         Me.rbtnST11_D1_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_D1_F.Location = New System.Drawing.Point(633, 91)
+        Me.rbtnST11_D1_F.Location = New System.Drawing.Point(632, 91)
         Me.rbtnST11_D1_F.Name = "rbtnST11_D1_F"
-        Me.rbtnST11_D1_F.Size = New System.Drawing.Size(119, 22)
+        Me.rbtnST11_D1_F.Size = New System.Drawing.Size(120, 22)
         Me.rbtnST11_D1_F.TabIndex = 7
         Me.rbtnST11_D1_F.TabStop = True
         Me.rbtnST11_D1_F.Text = "未回答"
@@ -4005,7 +4005,7 @@ Partial Class FrmG0011
         'rbtnST11_D1_T
         '
         Me.rbtnST11_D1_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_D1_T.Location = New System.Drawing.Point(542, 91)
+        Me.rbtnST11_D1_T.Location = New System.Drawing.Point(541, 91)
         Me.rbtnST11_D1_T.Name = "rbtnST11_D1_T"
         Me.rbtnST11_D1_T.Size = New System.Drawing.Size(84, 22)
         Me.rbtnST11_D1_T.TabIndex = 6
@@ -4017,9 +4017,9 @@ Partial Class FrmG0011
         'rbtnST11_C1_F
         '
         Me.rbtnST11_C1_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_C1_F.Location = New System.Drawing.Point(633, 62)
+        Me.rbtnST11_C1_F.Location = New System.Drawing.Point(632, 62)
         Me.rbtnST11_C1_F.Name = "rbtnST11_C1_F"
-        Me.rbtnST11_C1_F.Size = New System.Drawing.Size(119, 22)
+        Me.rbtnST11_C1_F.Size = New System.Drawing.Size(120, 22)
         Me.rbtnST11_C1_F.TabIndex = 5
         Me.rbtnST11_C1_F.TabStop = True
         Me.rbtnST11_C1_F.Text = "未回答"
@@ -4029,7 +4029,7 @@ Partial Class FrmG0011
         'rbtnST11_C1_T
         '
         Me.rbtnST11_C1_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_C1_T.Location = New System.Drawing.Point(542, 62)
+        Me.rbtnST11_C1_T.Location = New System.Drawing.Point(541, 62)
         Me.rbtnST11_C1_T.Name = "rbtnST11_C1_T"
         Me.rbtnST11_C1_T.Size = New System.Drawing.Size(84, 22)
         Me.rbtnST11_C1_T.TabIndex = 4
@@ -4041,9 +4041,9 @@ Partial Class FrmG0011
         'rbtnST11_B1_F
         '
         Me.rbtnST11_B1_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_B1_F.Location = New System.Drawing.Point(633, 33)
+        Me.rbtnST11_B1_F.Location = New System.Drawing.Point(632, 33)
         Me.rbtnST11_B1_F.Name = "rbtnST11_B1_F"
-        Me.rbtnST11_B1_F.Size = New System.Drawing.Size(119, 22)
+        Me.rbtnST11_B1_F.Size = New System.Drawing.Size(120, 22)
         Me.rbtnST11_B1_F.TabIndex = 3
         Me.rbtnST11_B1_F.TabStop = True
         Me.rbtnST11_B1_F.Text = "未回答"
@@ -4053,7 +4053,7 @@ Partial Class FrmG0011
         'rbtnST11_B1_T
         '
         Me.rbtnST11_B1_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_B1_T.Location = New System.Drawing.Point(542, 33)
+        Me.rbtnST11_B1_T.Location = New System.Drawing.Point(541, 33)
         Me.rbtnST11_B1_T.Name = "rbtnST11_B1_T"
         Me.rbtnST11_B1_T.Size = New System.Drawing.Size(84, 22)
         Me.rbtnST11_B1_T.TabIndex = 2
@@ -4065,9 +4065,9 @@ Partial Class FrmG0011
         'rbtnST11_A1_F
         '
         Me.rbtnST11_A1_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_A1_F.Location = New System.Drawing.Point(633, 4)
+        Me.rbtnST11_A1_F.Location = New System.Drawing.Point(632, 4)
         Me.rbtnST11_A1_F.Name = "rbtnST11_A1_F"
-        Me.rbtnST11_A1_F.Size = New System.Drawing.Size(119, 22)
+        Me.rbtnST11_A1_F.Size = New System.Drawing.Size(120, 22)
         Me.rbtnST11_A1_F.TabIndex = 1
         Me.rbtnST11_A1_F.TabStop = True
         Me.rbtnST11_A1_F.Text = "未回答"
@@ -4128,7 +4128,7 @@ Partial Class FrmG0011
         Me.Label126.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label126.Location = New System.Drawing.Point(25, 117)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(510, 28)
+        Me.Label126.Size = New System.Drawing.Size(509, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "影響有の場合、顧客への通知の要否"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4142,7 +4142,7 @@ Partial Class FrmG0011
         Me.Label127.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label127.Location = New System.Drawing.Point(25, 88)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(510, 28)
+        Me.Label127.Size = New System.Drawing.Size(509, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "当該不適合による顧客への影響"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4156,7 +4156,7 @@ Partial Class FrmG0011
         Me.Label128.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label128.Location = New System.Drawing.Point(25, 59)
         Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(510, 28)
+        Me.Label128.Size = New System.Drawing.Size(509, 28)
         Me.Label128.TabIndex = 241
         Me.Label128.Text = "廃却処置は本来の意図した使用又は適用ができない方法だったか？"
         Me.Label128.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4183,7 +4183,7 @@ Partial Class FrmG0011
         Me.Label130.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label130.Location = New System.Drawing.Point(25, 30)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(510, 28)
+        Me.Label130.Size = New System.Drawing.Size(509, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "社内権限者により、又は顧客再審の場合は顧客により判定されたか？"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4237,7 +4237,7 @@ Partial Class FrmG0011
         Me.Label134.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label134.Location = New System.Drawing.Point(25, 171)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(510, 28)
+        Me.Label134.Size = New System.Drawing.Size(509, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "当該不適合による他のプロセスへの影響"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4264,7 +4264,7 @@ Partial Class FrmG0011
         Me.Label136.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label136.Location = New System.Drawing.Point(25, 200)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(510, 28)
+        Me.Label136.Size = New System.Drawing.Size(509, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "影響有の場合、封じ込め処置の要否"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4278,7 +4278,7 @@ Partial Class FrmG0011
         Me.Label137.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label137.Location = New System.Drawing.Point(25, 1)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(510, 28)
+        Me.Label137.Size = New System.Drawing.Size(509, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "検出された不適合を除去する処置（廃却を含む）は確実にとられたか？"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4300,7 +4300,7 @@ Partial Class FrmG0011
         'rbtnST11_A1_T
         '
         Me.rbtnST11_A1_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rbtnST11_A1_T.Location = New System.Drawing.Point(542, 4)
+        Me.rbtnST11_A1_T.Location = New System.Drawing.Point(541, 4)
         Me.rbtnST11_A1_T.Name = "rbtnST11_A1_T"
         Me.rbtnST11_A1_T.Size = New System.Drawing.Size(84, 22)
         Me.rbtnST11_A1_T.TabIndex = 0
@@ -4409,7 +4409,7 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST11_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.txtST11_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtST11_Comment.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtST11_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtST11_Comment.Location = New System.Drawing.Point(927, 137)
         Me.txtST11_Comment.Multiline = True
         Me.txtST11_Comment.Name = "txtST11_Comment"

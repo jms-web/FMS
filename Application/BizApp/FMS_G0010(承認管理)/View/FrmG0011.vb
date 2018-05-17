@@ -161,16 +161,18 @@ Public Class FrmG0011
                     End If
 
                 Case 4  '転送
-                    MessageBox.Show("未実装", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Call OpenFormTENSO()
                 Case 5  '差戻し
-                    MessageBox.Show("未実装", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Call OpenFormSASIMODOSI()
                 Case 9  'CAR編集
                     Call OpenFormCAR()
-                    'Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
-                    'Call FunCSV_OUT(Me.dgvDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
                 Case 10  'レポート印刷
                     MessageBox.Show("未実装", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                    'Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
+                    'Call FunCSV_OUT(Me.dgvDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
+
                 Case 11 '履歴表示
                     MessageBox.Show("未実装", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Case 12 '閉じる
@@ -224,7 +226,7 @@ Public Class FrmG0011
                     End If
 
                     '
-                    If FunSAVE_D004(DB) Then
+                    If FunSAVE_D004(DB, enmSAVE_MODE) Then
                     Else
                         Return False
                         blnErr = True
@@ -251,38 +253,44 @@ Public Class FrmG0011
     End Function
 
     Private Function FunSAVE_FILE(ByVal DB As ClsDbUtility) As Boolean
-        'SPEC: 2.(3).D.②.添付ファイル保存
-        Dim strRootDir As String
-        Dim strMsg As String
-        strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
-        If strRootDir.IsNullOrWhiteSpace OrElse Not System.IO.Directory.Exists(strRootDir) Then
 
-            strMsg = "添付ファイル保存先が設定されていないか、アクセス出来ません。" & vbCrLf &
-                     "添付ファイルはシステムに保存されませんが、" & vbCrLf &
-                     "登録処理を続行しますか？"
-
-            If MessageBox.Show(strMsg, "添付ファイル保存失敗", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) <> vbOK Then
-                Return False
-            End If
+        If _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace And _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace And _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace Then
+            Return True
         Else
-            Try
-                If Not _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace Then
-                    System.IO.File.Copy(_D003_NCR_J.FILE_PATH, strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.FILE_PATH), True)
-                    _D003_NCR_J.FILE_PATH = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.FILE_PATH)
+            'SPEC: 2.(3).D.②.添付ファイル保存
+            Dim strRootDir As String
+            Dim strMsg As String
+            strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
+            If strRootDir.IsNullOrWhiteSpace OrElse Not System.IO.Directory.Exists(strRootDir) Then
+
+                strMsg = "添付ファイル保存先が設定されていないか、アクセス出来ません。" & vbCrLf &
+                         "添付ファイルはシステムに保存されませんが、" & vbCrLf &
+                         "登録処理を続行しますか？"
+
+                If MessageBox.Show(strMsg, "ファイル保存先アクセス不可", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) <> vbOK Then
+                    Me.DialogResult = DialogResult.Abort
+                    Return True
                 End If
-                If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace Then
-                    System.IO.File.Copy(_D003_NCR_J.G_FILE_PATH1, strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH1), True)
-                    _D003_NCR_J.G_FILE_PATH1 = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH1)
-                End If
-                If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace Then
-                    System.IO.File.Copy(_D003_NCR_J.G_FILE_PATH2, strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH2), True)
-                    _D003_NCR_J.G_FILE_PATH2 = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH2)
-                End If
-            Catch exIO As UnauthorizedAccessException
-                strMsg = "添付ファイル保存先のアクセス権限がありません。" & vbCrLf &
-                         "添付ファイル保存先:" & strRootDir
-                MessageBox.Show(strMsg, "添付ファイル保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
+            Else
+                Try
+                    If Not _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace Then
+                        System.IO.File.Copy(_D003_NCR_J.FILE_PATH, strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.FILE_PATH), True)
+                        _D003_NCR_J.FILE_PATH = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.FILE_PATH)
+                    End If
+                    If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace Then
+                        System.IO.File.Copy(_D003_NCR_J.G_FILE_PATH1, strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH1), True)
+                        _D003_NCR_J.G_FILE_PATH1 = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH1)
+                    End If
+                    If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace Then
+                        System.IO.File.Copy(_D003_NCR_J.G_FILE_PATH2, strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH2), True)
+                        _D003_NCR_J.G_FILE_PATH2 = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH2)
+                    End If
+                Catch exIO As UnauthorizedAccessException
+                    strMsg = "添付ファイル保存先のアクセス権限がありません。" & vbCrLf &
+                             "添付ファイル保存先:" & strRootDir
+                    MessageBox.Show(strMsg, "ファイル保存先アクセス不可", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End If
         End If
     End Function
 
@@ -537,61 +545,41 @@ Public Class FrmG0011
             Return False
         End If
 
+
+        Return True
     End Function
 
-    Private Function FunSAVE_D004(ByVal DB As ClsDbUtility) As Boolean
+    Private Function FunSAVE_D004(ByVal DB As ClsDbUtility, ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
         Dim intRET As Integer
         Dim sqlEx As New Exception
 
-        '-----報告書No取得
-        Dim objParam As System.Data.Common.DbParameter = DB.DbCommand.CreateParameter
-        Dim lstParam As New List(Of System.Data.Common.DbParameter)
-        With objParam
-            .ParameterName = "HOKOKU_NO"
-            .DbType = DbType.String
-            .Direction = ParameterDirection.Output
-            .Size = 8
-        End With
-        lstParam.Add(objParam)
-        If DB.Fun_blnExecStored("dbo.ST01_GET_HOKOKU_NO", lstParam) = True Then
-            _D003_NCR_J.HOKOKU_NO = DB.DbCommand.Parameters("HOKOKU_NO").Value
-        Else
-            _D003_NCR_J.HOKOKU_NO = ""
-        End If
+        '-----データモデル更新
+        _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKU_ID._1_NCR
+        _R001_HOKOKU_SOUSA.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+        _R001_HOKOKU_SOUSA.SYONIN_JUN = PrCurrentStage
+        _R001_HOKOKU_SOUSA.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append("MERGE INTO " & NameOf(MODEL.D003_NCR_J) & " AS SrcT")
+        sbSQL.Append("MERGE INTO " & NameOf(MODEL.D004_SYONIN_J_KANRI) & " AS SrcT")
         sbSQL.Append(" USING (")
         sbSQL.Append(" SELECT")
-        sbSQL.Append(" '" & _D003_NCR_J.HOKOKU_NO & "' AS " & NameOf(_D003_NCR_J.HOKOKU_NO))
-        sbSQL.Append(" ,'" & _D003_NCR_J.BUMON_KB & "' AS " & NameOf(_D003_NCR_J.BUMON_KB))
-        sbSQL.Append(" ,'" & _D003_NCR_J._CLOSE_FG & "' AS " & NameOf(_D003_NCR_J.CLOSE_FG))
-        sbSQL.Append(" ," & _D003_NCR_J.KISYU_ID & " AS " & NameOf(_D003_NCR_J.KISYU_ID))
-        sbSQL.Append(" ,'" & _D003_NCR_J.SYANAI_CD & "' AS " & NameOf(_D003_NCR_J.SYANAI_CD))
-        sbSQL.Append(" ,'" & _D003_NCR_J.BUHIN_BANGO & "' AS " & NameOf(_D003_NCR_J.BUHIN_BANGO))
-        sbSQL.Append(" ,'" & _D003_NCR_J.BUHIN_NAME & "' AS " & NameOf(_D003_NCR_J.BUHIN_NAME))
-        sbSQL.Append(" ,'" & _D003_NCR_J.GOKI & "' AS " & NameOf(_D003_NCR_J.GOKI))
-        sbSQL.Append(" ," & _D003_NCR_J.SURYO & " AS " & NameOf(_D003_NCR_J.SURYO))
-        sbSQL.Append(" ,'" & _D003_NCR_J._SAIHATU & "' AS " & NameOf(_D003_NCR_J.SAIHATU))
-        sbSQL.Append(" ,'" & _D003_NCR_J.FUTEKIGO_JYOTAI_KB & "' AS " & NameOf(_D003_NCR_J.FUTEKIGO_JYOTAI_KB))
-        sbSQL.Append(" ,'" & _D003_NCR_J.FUTEKIGO_NAIYO & "' AS " & NameOf(_D003_NCR_J.FUTEKIGO_NAIYO))
-        sbSQL.Append(" ,'" & _D003_NCR_J.FUTEKIGO_KB & "' AS " & NameOf(_D003_NCR_J.FUTEKIGO_KB))
-        sbSQL.Append(" ,'" & _D003_NCR_J.FUTEKIGO_S_KB & "' AS " & NameOf(_D003_NCR_J.FUTEKIGO_S_KB))
-        sbSQL.Append(" ,'" & _D003_NCR_J.ZUMEN_KIKAKU & "' AS " & NameOf(_D003_NCR_J.ZUMEN_KIKAKU))
-        sbSQL.Append(" ,'" & _D003_NCR_J.YOKYU_NAIYO & "' AS " & NameOf(_D003_NCR_J.YOKYU_NAIYO))
-        sbSQL.Append(" ,'" & _D003_NCR_J.KANSATU_KEKKA & "' AS " & NameOf(_D003_NCR_J.KANSATU_KEKKA))
-        sbSQL.Append(" ,'" & _D003_NCR_J._SAIKAKO_SIJI_FG & "' AS " & NameOf(_D003_NCR_J.SAIKAKO_SIJI_FG))
-        sbSQL.Append(" ,'" & _D003_NCR_J.FILE_PATH & "' AS " & NameOf(_D003_NCR_J.FILE_PATH))
-        sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH1 & "' AS " & NameOf(_D003_NCR_J.G_FILE_PATH1))
-        sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH2 & "' AS " & NameOf(_D003_NCR_J.G_FILE_PATH2))
+        sbSQL.Append(" " & _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID & " AS " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI.HOKOKU_NO & "' AS " & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO))
+        sbSQL.Append(" ," & _D004_SYONIN_J_KANRI.SYONIN_JUN & " AS " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN))
+
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI.SYAIN_ID & "' AS " & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI.SYONIN_YMDHNS & "' AS " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB & "' AS " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI._SASIMODOSI_FG & "' AS " & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI.RIYU & "' AS " & NameOf(_D004_SYONIN_J_KANRI.RIYU))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI.COMMENT & "' AS " & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI._MAIL_SEND_FG & "' AS " & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
         sbSQL.Append(" ," & _D003_NCR_J.ADD_SYAIN_ID & " AS " & NameOf(_D003_NCR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ,dbo.GetSysDateString() AS " & NameOf(_D003_NCR_J.ADD_YMDHNS))
         sbSQL.Append(" ," & pub_SYAIN_INFO.SYAIN_ID & " AS " & NameOf(_D003_NCR_J.UPD_SYAIN_ID))
         sbSQL.Append(" ,dbo.GetSysDateString() AS " & NameOf(_D003_NCR_J.UPD_YMDHNS))
-        sbSQL.Append(" ,0 AS " & NameOf(_D003_NCR_J.DEL_SYAIN_ID))
-        sbSQL.Append(" ,' ' AS " & NameOf(_D003_NCR_J.DEL_YMDHNS))
         sbSQL.Append(" ) AS WK")
         sbSQL.Append(" ON (SrcT.HOKOKU_NO = WK.HOKOKU_NO)")
         'UPDATE
@@ -788,6 +776,7 @@ Public Class FrmG0011
             Return False
         End If
 
+        Return True
     End Function
 
     Private Function FunSAVE_R001(ByVal DB As ClsDbUtility, ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
@@ -809,7 +798,7 @@ Public Class FrmG0011
         _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKU_ID._1_NCR
         _R001_HOKOKU_SOUSA.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
         _R001_HOKOKU_SOUSA.SYONIN_JUN = PrCurrentStage
-        _R001_HOKOKU_SOUSA.SYONIN_JUN = pub_SYAIN_INFO.SYAIN_ID
+        _R001_HOKOKU_SOUSA.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
 
         Select Case _R001_HOKOKU_SOUSA.SYONIN_JUN
             Case ENM_NCR_STAGE._10_起草入力
@@ -858,14 +847,15 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB))
         sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.RIYU))
         sbSQL.Append(" ) VALUES(")
-        sbSQL.Append("  " & NameOf(_R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID))
-        sbSQL.Append(" ,'" & NameOf(_R001_HOKOKU_SOUSA.HOKOKU_NO) & "'")
+        sbSQL.Append("  " & (_R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID))
+        sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.HOKOKU_NO) & "'")
         sbSQL.Append(" ,dbo.GetSysDateString()") 'ADD_YMDHNS
-        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SYONIN_JUN))
-        sbSQL.Append(" ,'" & NameOf(_R001_HOKOKU_SOUSA.SOUSA_KB) & "'")
-        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SYAIN_ID))
-        sbSQL.Append(" ,'" & NameOf(_R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB) & "'")
-        sbSQL.Append(" ,'" & NameOf(_R001_HOKOKU_SOUSA.RIYU) & "'")
+        sbSQL.Append(" ," & (_R001_HOKOKU_SOUSA.SYONIN_JUN))
+        sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.SOUSA_KB) & "'")
+        sbSQL.Append(" ," & (_R001_HOKOKU_SOUSA.SYAIN_ID))
+        sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB) & "'")
+        sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.RIYU) & "'")
+        sbSQL.Append(")")
 
         '-----SQL実行
         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
@@ -875,7 +865,10 @@ Public Class FrmG0011
             WL.WriteLogDat(strErrMsg)
             Return False
         End If
+
+        Return True
     End Function
+
 #End Region
 
 #Region "CAR"
@@ -964,6 +957,114 @@ Public Class FrmG0011
     End Function
 
 #End Region
+
+#Region "印刷"
+    Private Function FunOpenReportNCR() As Boolean
+        Dim strOutputFileName As String
+        Dim strTEMPFILE As String
+        'Dim intRET As Integer
+
+        Try
+
+            'ファイル名
+            strOutputFileName = "NCR_" & _D003_NCR_J.HOKOKU_NO & "_Work.xlsx"
+
+            '既存ファイル削除
+            If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
+                Return False
+            End If
+
+            Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
+                strTEMPFILE = FunConvRootPath(iniIF.GetIniString("NCR", "FILEPATH"))
+            End Using
+
+            'エクセル出力ファイル用意
+            If OUT_EXCEL_READY(strTEMPFILE, pub_APP_INFO.strOUTPUT_PATH, strOutputFileName) = False Then
+                Return False
+            End If
+            '-----書込処理
+            If FunMakeReportNCR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
+                Return False
+            End If
+
+            'Excel起動
+            Return FunOpenExcelApp(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName)
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
+        End Try
+    End Function
+
+    Private Function FunMakeReportNCR(ByVal strFilePath As String) As Boolean
+
+        Dim spWorkbook As SpreadsheetGear.IWorkbook
+        Dim spWorksheets As SpreadsheetGear.IWorksheets
+        Dim spSheet1 As SpreadsheetGear.IWorksheet
+        Dim spRangeFrom As SpreadsheetGear.IRange
+        Dim spRangeTo As SpreadsheetGear.IRange
+
+        Try
+            spWorkbook = SpreadsheetGear.Factory.GetWorkbook(strFilePath, System.Globalization.CultureInfo.CurrentCulture)
+
+            spWorkbook.WorkbookSet.GetLock()
+            spWorksheets = spWorkbook.Worksheets
+            spSheet1 = spWorksheets.Item(0) 'sheet1
+
+
+            Dim spprint As SpreadsheetGear.Printing.PrintWhat = SpreadsheetGear.Printing.PrintWhat.Sheet
+
+
+            'レコードフレーム初期化
+            'spWork.Range("RECORD_FRAME").ClearContents()
+            spSheet1.Range(NameOf(_D003_NCR_J.HOKOKU_NO)).Value = _D003_NCR_J.HOKOKU_NO
+
+
+            'spWork.Range("KINGAKU").Formula = "=I2*K2" '発注数 * 単価
+
+            '-----レコードフレームを本シートにコピー
+            'spRangeFrom = spWork.Cells("RECORD_FRAME").EntireRow
+            'strRange = String.Format("A{0}:L{1}", intCurrentRowIndex, intCurrentRowIndex)
+            'spRangeTo = spSheet1.Cells(strRange).EntireRow
+            'spRangeFrom.Copy(spRangeTo, SpreadsheetGear.PasteType.All, SpreadsheetGear.PasteOperation.None, False, False)
+
+
+            '印刷範囲指定
+            'spSheet1.PageSetup.PrintArea = "sheet1!$A$1:$L$" & intCurrentRowIndex
+            '印刷タイトル行
+            'spSheet1.PageSetup.PrintTitleRows = "sheet1!$1:$3"
+
+            '-----ファイル保存
+            'spWork.Delete()
+            'spWorksheets(0).Cells("A1").Select()
+            spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.OpenXMLWorkbook)
+            spWorkbook.WorkbookSet.ReleaseLock()
+
+            Return True
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            spRangeFrom = Nothing
+            spRangeTo = Nothing
+            spSheet1 = Nothing
+            spWorksheets = Nothing
+            spWorkbook = Nothing
+
+            ''-----開放
+            'dsList.Dispose()
+        End Try
+    End Function
+
+#End Region
+
+#Region "履歴"
+
+#End Region
+
 
 #Region "FuncButton有効無効切替"
 
@@ -2054,5 +2155,161 @@ Public Class FrmG0011
 
 
 #End Region
+
+    ''#Region "納入予定一覧"
+    '    Private Function FunOpenReportNonyuList() As Boolean
+    '        Dim strOutputFileName As String
+    '        Dim strTEMPFILE As String
+    '        'Dim intRET As Integer
+
+    '        Try
+    '            'ファイル名
+    '            strOutputFileName = "納入予定一覧_" & DateTime.ParseExact(Me.dtYM.Value, "yyyy/MM/dd", Nothing).ToString("yyyy年MM月") &
+    '                                      "_" & Me.cmbSYUBETU.Text & "_" & Me.cmbSIIRE.Text & ".xlsx"
+
+    '            '既存ファイル削除
+    '            If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
+    '                Return False
+    '            End If
+
+    '            Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
+    '                strTEMPFILE = FunConvRootPath(iniIF.GetIniString("発注確定", "FILEPATH2"))
+    '            End Using
+
+    '            'エクセル出力ファイル用意
+    '            If OUT_EXCEL_READY(strTEMPFILE, pub_APP_INFO.strOUTPUT_PATH, strOutputFileName) = False Then
+    '                Return False
+    '            End If
+    '            '-----書込処理
+    '            Dim rows As List(Of DataRow) = DirectCast(Me.dgvDATA.DataSource, DataTable).AsEnumerable().ToList
+    '            If FunMakeReportNonyuList(rows, pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
+    '                Return False
+    '            End If
+
+    '            'Excel起動
+    '            Return FunOpenExcelApp(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName)
+
+    '        Catch ex As Exception
+    '            EM.ErrorSyori(ex, False, conblnNonMsg)
+    '            Return False
+    '        Finally
+    '            Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
+    '        End Try
+    '    End Function
+
+    '    Private Function FunMakeReportNonyuList(ByVal rows As List(Of DataRow), ByVal strFilePath As String) As Boolean
+    '        'Dim dsList As New DataSet
+    '        'Dim sbSQL As New System.Text.StringBuilder
+
+    '        Dim intCurrentRowIndex As Integer = 4
+    '        Dim strRange As String
+
+    '        Dim spWorkbook As SpreadsheetGear.IWorkbook
+    '        Dim spWorksheets As SpreadsheetGear.IWorksheets
+    '        Dim spSheet1 As SpreadsheetGear.IWorksheet
+    '        Dim spWork As SpreadsheetGear.IWorksheet
+    '        Dim spRangeFrom As SpreadsheetGear.IRange
+    '        Dim spRangeTo As SpreadsheetGear.IRange
+
+    '        Try
+    '            spWorkbook = SpreadsheetGear.Factory.GetWorkbook(strFilePath, System.Globalization.CultureInfo.CurrentCulture)
+
+    '            spWorkbook.WorkbookSet.GetLock()
+    '            spWorksheets = spWorkbook.Worksheets
+    '            spSheet1 = spWorksheets.Item(0) 'sheet1
+    '            spWork = spWorksheets.Item(1) 'Work
+
+    '            Dim spprint As SpreadsheetGear.Printing.PrintWhat = SpreadsheetGear.Printing.PrintWhat.Sheet
+
+    '            'sbSQL.Remove(0, sbSQL.Length)
+    '            'sbSQL.Append(" SELECT * FROM " & Context.CON_S_TB07_HACCYU_STATUS & " ")
+    '            ''[年月],[種別],[ｽﾃｰﾀｽ],[発注No],[品名],[納入予定日From],[納入予定日To]
+    '            'sbSQL.Append(String.Format("('{0}','{1}','{2}','{3}','{4}','{5}','{6}')",
+    '            '                       Me.dtYM.ValueNonFormat,
+    '            '                       Me.cmbSYUBETU.SelectedValue,
+    '            '                       Me.cmbSTATUS.SelectedValue,
+    '            '                       strHacyuNo,
+    '            '                       Me.mtxHINMEI.Text,
+    '            '                       Me.mtxDayFrom.Text,
+    '            '                       Me.mtxDayTo.Text))
+    '            'If chkDeletedRowVisibled.Checked = False Then
+    '            '    sbSQL.Append(" WHERE STATUS <> '" & Context.ENM_HACCYU_STATUS._9_取消 & "'")
+    '            'End If
+    '            'sbSQL.Append(" ORDER BY HACYU_NO,E_NO")
+
+    '            'Using DB As ClsDbUtility = DBOpen()
+    '            '    dsList = DB.GetDataSet(sbSQL.ToString)
+    '            'End Using
+
+    '            For Each row In rows
+    '                With row
+    '                    'レコードフレーム初期化
+    '                    spWork.Range("RECORD_FRAME").ClearContents()
+    '                    If .Item("NONYU_Y_YMD").ToString.Trim <> "" Then
+    '                        spWork.Range("NONYU_Y_YMD").Value = CDate(.Item("NONYU_Y_YMD")).ToString("yyyy/MM/dd")
+    '                    End If
+    '                    spWork.Range("STATUS").Value = .Item("STATUS_NAME")
+
+    '                    If .Item("HACYU_NO").ToString.Trim <> "" Then
+    '                        spWork.Range("HACYU_E_NO").Value = .Item("HACYU_NO") & "-" & Val(.Item("E_NO")).ToString("000")
+    '                    End If
+    '                    If .Item("NONYU_YMD").ToString.Trim <> "" Then
+    '                        spWork.Range("NONYU_YMD").Value = CDate(.Item("NONYU_YMD")).ToString("yyyy/MM/dd")
+    '                    End If
+
+    '                    If .Item("KEIJYO_YMD").ToString.Trim <> "" Then
+    '                        spWork.Range("KEIJYO_YMD").Value = CDate(.Item("KEIJYO_YMD")).ToString("yyyy/MM/dd")
+    '                    End If
+
+    '                    spWork.Range("SIIRE").Value = .Item("SIIRE_NAME")
+    '                    spWork.Range("MAKER").Value = .Item("MAKER_NAME")
+    '                    spWork.Range("HINMEI").Value = .Item("HINMEI")
+    '                    spWork.Range("HACYU_SU").Value = .Item("HACYU_SU")
+    '                    spWork.Range("NONYU_SU").Value = If(.Item("NONYU_SU") = 0, "", .Item("NONYU_SU"))
+    '                    spWork.Range("TANKA").Value = .Item("TANKA")
+    '                    spWork.Range("KINGAKU").Formula = "=I2*K2" '発注数 * 単価
+
+    '                    '-----レコードフレームを本シートにコピー
+    '                    spRangeFrom = spWork.Cells("RECORD_FRAME").EntireRow
+    '                    strRange = String.Format("A{0}:L{1}", intCurrentRowIndex, intCurrentRowIndex)
+    '                    spRangeTo = spSheet1.Cells(strRange).EntireRow
+    '                    spRangeFrom.Copy(spRangeTo, SpreadsheetGear.PasteType.All, SpreadsheetGear.PasteOperation.None, False, False)
+
+    '                    'カレント行を更新
+    '                    intCurrentRowIndex += 1
+    '                End With
+    '            Next row
+
+    '            '印刷範囲指定
+    '            spSheet1.PageSetup.PrintArea = "sheet1!$A$1:$L$" & intCurrentRowIndex
+    '            '印刷タイトル行
+    '            spSheet1.PageSetup.PrintTitleRows = "sheet1!$1:$3"
+
+    '            '-----ファイル保存
+    '            spWork.Delete()
+    '            spWorksheets(0).Cells("A1").Select()
+    '            spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.OpenXMLWorkbook)
+    '            spWorkbook.WorkbookSet.ReleaseLock()
+
+    '            Return True
+
+    '        Catch ex As Exception
+    '            EM.ErrorSyori(ex, False, conblnNonMsg)
+    '            Return False
+    '        Finally
+    '            spRangeFrom = Nothing
+    '            spRangeTo = Nothing
+    '            spSheet1 = Nothing
+    '            spWork = Nothing
+    '            spWorksheets = Nothing
+    '            spWorkbook = Nothing
+
+    '            ''-----開放
+    '            'dsList.Dispose()
+    '        End Try
+    '    End Function
+
+    '#End Region
+
 
 End Class

@@ -55,14 +55,13 @@ Public Class FrmG0012
             'Call FunSetDgvCulumns(Me.dgvDATA)
 
             '-----コントロールデータソース設定
-            cmbKONPON_YOIN_KB1.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-
-
-            FunInitializeControls()
+            cmbKONPON_YOIN_KB1.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            cmbKONPON_YOIN_KB2.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
             '検索実行
-            'Me.cmdFunc1.PerformClick()
+            FunInitializeControls()
+
+
         Finally
             FunInitFuncButtonEnabled(Me)
         End Try
@@ -265,310 +264,6 @@ Public Class FrmG0012
         End Try
 
     End Sub
-
-#End Region
-
-#Region "検索"
-
-    Private Function FunGetListData() As DataTable
-        Try
-            Dim sbSQL As New System.Text.StringBuilder
-            Dim dsList As New DataSet
-
-
-            sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append("SELECT")
-            sbSQL.Append(" *")
-            sbSQL.Append(" FROM " & NameOf(MODEL.M001_SETTING) & " ")
-            sbSQL.Append(" ORDER BY KOMO_NM, DISP_ORDER ")
-            Using DBa As ClsDbUtility = DBOpen()
-                dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
-            End Using
-
-            If dsList.Tables(0).Rows.Count > pub_APP_INFO.intSEARCHMAX Then
-                If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
-                    Return Nothing
-                End If
-            End If
-
-
-            '------DataTableに変換
-            Dim dt As New DataTable
-
-            Dim t As Type = GetType(MODEL.M001_SETTING)
-            Dim properties As Reflection.PropertyInfo() = t.GetProperties(
-                 Reflection.BindingFlags.Public Or
-                 Reflection.BindingFlags.NonPublic Or
-                 Reflection.BindingFlags.Instance Or
-                 Reflection.BindingFlags.Static)
-
-            For Each p As Reflection.PropertyInfo In properties
-                'If IsAutoGenerateField(t, p.Name) = True Then
-                dt.Columns.Add(p.Name, p.PropertyType)
-                'End If
-            Next p
-
-            With dsList.Tables(0)
-                For Each row As DataRow In .Rows
-                    Dim Trow As DataRow = dt.NewRow()
-                    For Each p As Reflection.PropertyInfo In properties
-                        'If IsAutoGenerateField(t, p.Name) = True Then
-                        Select Case p.PropertyType
-                            Case GetType(Integer)
-                                Trow(p.Name) = Val(row.Item(p.Name))
-                            Case GetType(Decimal)
-                                Trow(p.Name) = CDec(row.Item(p.Name))
-                            Case GetType(Boolean)
-                                Trow(p.Name) = CBool(row.Item(p.Name))
-                            Case Else
-                                Trow(p.Name) = row.Item(p.Name)
-                        End Select
-                        'End If
-                    Next p
-                    dt.Rows.Add(Trow)
-                Next row
-                dt.AcceptChanges()
-            End With
-
-            Return dt
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return Nothing
-        End Try
-    End Function
-
-    Private Function FunSRCH(ByVal dgv As DataGridView, ByVal dt As DataTable) As Boolean
-        Dim intCURROW As Integer
-        Try
-
-
-            '-----選択行記憶
-            If dgv.RowCount > 0 Then
-                intCURROW = dgv.CurrentRow.Index
-            End If
-
-            dgv.DataSource = dt
-
-
-
-            Call FunSetDgvCellFormat(dgv)
-
-            If dgv.RowCount > 0 Then
-                '-----選択行設定
-                Try
-                    dgv.CurrentCell = dgv.Rows(intCURROW).Cells(0)
-                Catch dgvEx As Exception
-                End Try
-                Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, dgv.RowCount.ToString)
-            Else
-                Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
-            End If
-
-            Return True
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        Finally
-
-            '-----一覧可視
-            dgv.Visible = True
-        End Try
-    End Function
-
-    Private Function FunSetDgvCellFormat(ByVal dgv As DataGridView) As Boolean
-
-        Try
-            Dim _Model As New MODEL.M001_SETTING
-            For i As Integer = 0 To dgv.Rows.Count - 1
-                With dgv.Rows(i)
-                    'If CBool(Me.dgvDATA.Rows(i).Cells(NameOf(_Model.DEL_FLG)).Value) = True Then
-                    '    Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
-                    '    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
-                    '    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
-                    'End If
-                End With
-            Next i
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-        End Try
-    End Function
-
-#End Region
-
-#Region "追加・変更"
-
-    ''' <summary>
-    ''' レコード追加変更処理
-    ''' </summary>
-    ''' <param name="intMODE">処理モード</param>
-    ''' <returns></returns>
-    Private Function FunUpdateEntity(ByVal intMODE As ENM_DATA_OPERATION_MODE) As Boolean
-        Dim frmDLG As New FrmG0011
-        Dim dlgRET As DialogResult
-        'Dim PKeys As Tuple(Of String, String)
-        'Dim strComboVal As String
-
-        Try
-            '参照型のSystem.Tupleを値型のSystem.ValueTupleに置き換える
-
-            'コンボボックスの選択値を記憶
-            'If cmbKOMO_NM.SelectedValue IsNot Nothing Then
-            '    strComboVal = cmbKOMO_NM.SelectedValue
-            'Else
-            '    strComboVal = ""
-            'End If
-
-            'frmDLG.PrMODE = intMODE
-            'If Me.dgvDATA.CurrentRow IsNot Nothing Then
-            '    frmDLG.PrdgvCellCollection = Me.dgvDATA.CurrentRow.Cells
-            '    frmDLG.PrDataRow = Me.dgvDATA.GetDataRow()
-            'Else
-            '    frmDLG.PrdgvCellCollection = Nothing
-            '    frmDLG.PrDataRow = Nothing
-            'End If
-            dlgRET = frmDLG.ShowDialog(Me)
-            'PKeys = frmDLG.PrPKeys
-
-            If dlgRET = Windows.Forms.DialogResult.Cancel Then
-                Return False
-            Else
-
-                '-----項目名が追加になった場合、検索フィルタのコンボボックスのデータソースを再設定
-                Using DB As ClsDbUtility = DBOpen()
-                    Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
-                End Using
-                'Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
-                'Me.cmbKOMO_NM.SelectedValue = strComboVal
-
-
-                '追加したコードの行を選択する
-                'For i As Integer = 0 To Me.dgvDATA.RowCount - 1
-                '    With Me.dgvDATA.Rows(i)
-                '        If .Cells(0).Value = PKeys.Item1 And
-                '            .Cells(1).Value = PKeys.Item2 Then
-
-                '            Me.dgvDATA.CurrentCell = .Cells(0)
-                '            Exit For
-                '        End If
-                '    End With
-                'Next i
-            End If
-
-            Return True
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        Finally
-            If frmDLG IsNot Nothing Then
-                frmDLG.Dispose()
-            End If
-        End Try
-    End Function
-
-#End Region
-
-#Region "削除"
-
-    Private Function FunDEL(ByVal ENM_MODE As ENM_DATA_OPERATION_MODE) As Boolean
-        Dim sbSQL As New System.Text.StringBuilder
-        'Dim strComboVal As String
-        Dim strMsg As String
-        Dim strTitle As String
-
-        Try
-
-            'コンボボックスの選択値
-            'strComboVal = Me.cmbKOMO_NM.Text.Trim
-
-            '-----SQL
-            sbSQL.Remove(0, sbSQL.Length)
-            Select Case ENM_MODE
-                Case ENM_DATA_OPERATION_MODE._4_DISABLE
-                    '-----更新
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET ")
-                    '削除日時
-                    sbSQL.Append(" DEL_YMDHNS = dbo.GetSysDateString(), ")
-                    '削除担当者
-                    sbSQL.Append(" DEL_TANTO_CD = " & pub_SYAIN_INFO.SYAIN_ID & "")
-
-
-
-                    strMsg = My.Resources.infoMsgDeleteOperationDisable
-                    strTitle = My.Resources.infoTitleDeleteOperationDisable
-
-                Case ENM_DATA_OPERATION_MODE._5_RESTORE
-                    '-----更新
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET ")
-                    '削除日時
-                    sbSQL.Append(" DEL_YMDHNS = ' ', ")
-                    '削除担当者
-                    sbSQL.Append(" DEL_TANTO_CD = " & pub_SYAIN_INFO.SYAIN_ID & "")
-
-                    strMsg = My.Resources.infoMsgDeleteOperationRestore
-                    strTitle = My.Resources.infoTitleDeleteOperationRestore
-
-                Case ENM_DATA_OPERATION_MODE._6_DELETE
-
-                    '-----削除
-                    sbSQL.Append("DELETE FROM " & NameOf(MODEL.M001_SETTING) & " ")
-
-                    strMsg = My.Resources.infoMsgDeleteOperationDelete
-                    strTitle = My.Resources.infoTitleDeleteOperationDelete
-
-                Case Else
-                    ' argument null exception
-                    Return False
-            End Select
-            sbSQL.Append("WHERE")
-            'sbSQL.Append(" KOMO_NM = '" & Me.dgvDATA.CurrentRow.Cells.Item("KOMO_NM").Value.ToString & "' ")
-            'sbSQL.Append(" AND VALUE = '" & Me.dgvDATA.CurrentRow.Cells.Item("VALUE").Value.ToString & "' ")
-
-            '確認メッセージ表示
-            If MessageBox.Show(strMsg, strTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> Windows.Forms.DialogResult.Yes Then
-                Me.DialogResult = Windows.Forms.DialogResult.Cancel
-                'Me.Close()
-                Return False
-            End If
-
-            Using DB As ClsDbUtility = DBOpen()
-                Dim blnErr As Boolean
-                Dim intRET As Integer
-                Dim sqlEx As Exception = Nothing
-
-                Try
-                    DB.BeginTransaction()
-
-                    '-----SQL実行
-                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    If intRET <> 1 Then
-                        'エラーログ
-                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & "|" & sbSQL.ToString & "|" & sqlEx.Message
-                        WL.WriteLogDat(strErrMsg)
-                        blnErr = True
-                        Return False
-                    End If
-                Finally
-                    DB.Commit(Not blnErr)
-                End Try
-
-                '検索フィルタデータソース更新
-                Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
-            End Using
-            'Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
-
-            'If strComboVal <> "" Then
-            '    Me.cmbKOMO_NM.Text = strComboVal
-            'End If
-            'If Me.cmbKOMO_NM.SelectedIndex <= 0 Then
-            '    Me.cmbKOMO_NM.Text = ""
-            'End If
-
-            Return True
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        End Try
-    End Function
 
 #End Region
 
@@ -1023,7 +718,37 @@ Public Class FrmG0012
 
     Private Function FunSetBinding() As Boolean
         '共通
-        mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HOKOKU_NO)))
+        mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+
+        'mtxKISYU.DataBindings.Add(New Binding(NameOf(mtxKISYU.Text), _D003_CAR_J, NameOf(_D003_NCR_J.KISYU_)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.ADD_SYAIN_ID)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO)))
+
+
 
     End Function
 
@@ -1035,7 +760,9 @@ Public Class FrmG0012
                 Return False
             End If
 
-
+            If FunSetModel() = False Then
+                Return False
+            End If
 
 
             Return True
@@ -1071,7 +798,139 @@ Public Class FrmG0012
 
     End Function
 
+    Private Function FunSetModel() As Boolean
+        Try
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
 
+            _D005_CAR_J.Clear()
+
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append("SELECT")
+            sbSQL.Append(" *")
+            sbSQL.Append(" FROM V005_CAR_J")
+            sbSQL.Append(" WHERE HOKOKU_NO='" & PrHOKOKU_NO & "'")
+            Using DBa As ClsDbUtility = DBOpen()
+                dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            If dsList.Tables(0).Rows.Count > 0 Then
+                With dsList.Tables(0).Rows(0)
+                    _D005_CAR_J.HOKOKU_NO = .Item(NameOf(_D005_CAR_J.HOKOKU_NO))
+                    _D005_CAR_J.BUMON_KB = .Item(NameOf(_D005_CAR_J.BUMON_KB))
+                    _D005_CAR_J.CLOSE_FG = .Item(NameOf(_D005_CAR_J.CLOSE_FG))
+
+                    _D005_CAR_J.SETUMON_1 = .Item(NameOf(_D005_CAR_J.SETUMON_1))
+                    _D005_CAR_J.KAITO_1 = .Item(NameOf(_D005_CAR_J.KAITO_1))
+                    _D005_CAR_J.SETUMON_2 = .Item(NameOf(_D005_CAR_J.SETUMON_2))
+                    _D005_CAR_J.KAITO_2 = .Item(NameOf(_D005_CAR_J.KAITO_2))
+                    _D005_CAR_J.SETUMON_3 = .Item(NameOf(_D005_CAR_J.SETUMON_3))
+                    _D005_CAR_J.KAITO_3 = .Item(NameOf(_D005_CAR_J.KAITO_3))
+                    _D005_CAR_J.SETUMON_4 = .Item(NameOf(_D005_CAR_J.SETUMON_4))
+                    _D005_CAR_J.KAITO_4 = .Item(NameOf(_D005_CAR_J.KAITO_4))
+                    _D005_CAR_J.SETUMON_5 = .Item(NameOf(_D005_CAR_J.SETUMON_5))
+                    _D005_CAR_J.KAITO_5 = .Item(NameOf(_D005_CAR_J.KAITO_5))
+                    _D005_CAR_J.SETUMON_6 = .Item(NameOf(_D005_CAR_J.SETUMON_6))
+                    _D005_CAR_J.KAITO_6 = .Item(NameOf(_D005_CAR_J.KAITO_6))
+                    _D005_CAR_J.SETUMON_7 = .Item(NameOf(_D005_CAR_J.SETUMON_7))
+                    _D005_CAR_J.KAITO_7 = .Item(NameOf(_D005_CAR_J.KAITO_7))
+                    _D005_CAR_J.SETUMON_8 = .Item(NameOf(_D005_CAR_J.SETUMON_8))
+                    _D005_CAR_J.KAITO_8 = .Item(NameOf(_D005_CAR_J.KAITO_8))
+                    _D005_CAR_J.SETUMON_9 = .Item(NameOf(_D005_CAR_J.SETUMON_9))
+                    _D005_CAR_J.KAITO_9 = .Item(NameOf(_D005_CAR_J.KAITO_9))
+                    _D005_CAR_J.SETUMON_10 = .Item(NameOf(_D005_CAR_J.SETUMON_10))
+                    _D005_CAR_J.KAITO_10 = .Item(NameOf(_D005_CAR_J.KAITO_10))
+                    _D005_CAR_J.SETUMON_11 = .Item(NameOf(_D005_CAR_J.SETUMON_11))
+                    _D005_CAR_J.KAITO_11 = .Item(NameOf(_D005_CAR_J.KAITO_11))
+                    _D005_CAR_J.SETUMON_12 = .Item(NameOf(_D005_CAR_J.SETUMON_12))
+                    _D005_CAR_J.KAITO_12 = .Item(NameOf(_D005_CAR_J.KAITO_12))
+                    _D005_CAR_J.SETUMON_13 = .Item(NameOf(_D005_CAR_J.SETUMON_13))
+                    _D005_CAR_J.KAITO_13 = .Item(NameOf(_D005_CAR_J.KAITO_13))
+                    _D005_CAR_J.SETUMON_14 = .Item(NameOf(_D005_CAR_J.SETUMON_14))
+                    _D005_CAR_J.KAITO_14 = .Item(NameOf(_D005_CAR_J.KAITO_14))
+                    _D005_CAR_J.SETUMON_15 = .Item(NameOf(_D005_CAR_J.SETUMON_15))
+                    _D005_CAR_J.KAITO_15 = .Item(NameOf(_D005_CAR_J.KAITO_15))
+                    _D005_CAR_J.SETUMON_16 = .Item(NameOf(_D005_CAR_J.SETUMON_16))
+                    _D005_CAR_J.KAITO_16 = .Item(NameOf(_D005_CAR_J.KAITO_16))
+                    _D005_CAR_J.SETUMON_17 = .Item(NameOf(_D005_CAR_J.SETUMON_17))
+                    _D005_CAR_J.KAITO_17 = .Item(NameOf(_D005_CAR_J.KAITO_17))
+                    _D005_CAR_J.SETUMON_18 = .Item(NameOf(_D005_CAR_J.SETUMON_18))
+                    _D005_CAR_J.KAITO_18 = .Item(NameOf(_D005_CAR_J.KAITO_18))
+                    _D005_CAR_J.SETUMON_19 = .Item(NameOf(_D005_CAR_J.SETUMON_19))
+                    _D005_CAR_J.KAITO_19 = .Item(NameOf(_D005_CAR_J.KAITO_19))
+                    _D005_CAR_J.SETUMON_20 = .Item(NameOf(_D005_CAR_J.SETUMON_20))
+                    _D005_CAR_J.KAITO_20 = .Item(NameOf(_D005_CAR_J.KAITO_20))
+                    _D005_CAR_J.SETUMON_21 = .Item(NameOf(_D005_CAR_J.SETUMON_21))
+                    _D005_CAR_J.KAITO_21 = .Item(NameOf(_D005_CAR_J.KAITO_21))
+                    _D005_CAR_J.SETUMON_22 = .Item(NameOf(_D005_CAR_J.SETUMON_22))
+                    _D005_CAR_J.KAITO_22 = .Item(NameOf(_D005_CAR_J.KAITO_22))
+                    _D005_CAR_J.SETUMON_23 = .Item(NameOf(_D005_CAR_J.SETUMON_23))
+                    _D005_CAR_J.KAITO_23 = .Item(NameOf(_D005_CAR_J.KAITO_23))
+                    _D005_CAR_J.SETUMON_24 = .Item(NameOf(_D005_CAR_J.SETUMON_24))
+                    _D005_CAR_J.KAITO_24 = .Item(NameOf(_D005_CAR_J.KAITO_24))
+                    _D005_CAR_J.SETUMON_25 = .Item(NameOf(_D005_CAR_J.SETUMON_25))
+                    _D005_CAR_J.KAITO_25 = .Item(NameOf(_D005_CAR_J.KAITO_25))
+
+                    _D005_CAR_J.KONPON_YOIN_KB1 = .Item(NameOf(_D005_CAR_J.KONPON_YOIN_KB1))
+                    _D005_CAR_J.KONPON_YOIN_KB2 = .Item(NameOf(_D005_CAR_J.KONPON_YOIN_KB2))
+                    _D005_CAR_J.KONPON_YOIN_SYAIN_ID = .Item(NameOf(_D005_CAR_J.KONPON_YOIN_SYAIN_ID))
+                    _D005_CAR_J.KISEKI_KOTEI_KB = .Item(NameOf(_D005_CAR_J.KISEKI_KOTEI_KB))
+                    _D005_CAR_J.SYOCHI_A_SYAIN_ID = .Item(NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID))
+                    _D005_CAR_J.SYOCHI_A_YMDHNS = .Item(NameOf(_D005_CAR_J.SYOCHI_A_YMDHNS))
+                    _D005_CAR_J.SYOCHI_B_SYAIN_ID = .Item(NameOf(_D005_CAR_J.SYOCHI_B_SYAIN_ID))
+                    _D005_CAR_J.SYOCHI_B_YMDHNS = .Item(NameOf(_D005_CAR_J.SYOCHI_B_YMDHNS))
+                    _D005_CAR_J.SYOCHI_C_SYAIN_ID = .Item(NameOf(_D005_CAR_J.SYOCHI_C_SYAIN_ID))
+                    _D005_CAR_J.SYOCHI_C_YMDHNS = .Item(NameOf(_D005_CAR_J.SYOCHI_C_YMDHNS))
+                    _D005_CAR_J.KYOIKU_FILE_PATH = .Item(NameOf(_D005_CAR_J.KYOIKU_FILE_PATH))
+                    _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = .Item(NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU))
+                    _D005_CAR_J.SYOSAI_FILE_PATH = .Item(NameOf(_D005_CAR_J.SYOSAI_FILE_PATH))
+                    _D005_CAR_J.GOKI = .Item(NameOf(_D005_CAR_J.GOKI))
+                    _D005_CAR_J.LOT = .Item(NameOf(_D005_CAR_J.LOT))
+                    _D005_CAR_J.KENSA_TANTO_ID = .Item(NameOf(_D005_CAR_J.KENSA_TANTO_ID))
+                    _D005_CAR_J.KENSA_TOROKU_YMDHNS = .Item(NameOf(_D005_CAR_J.KENSA_TOROKU_YMDHNS))
+                    _D005_CAR_J.KENSA_GL_SYAIN_ID = .Item(NameOf(_D005_CAR_J.KENSA_GL_SYAIN_ID))
+                    _D005_CAR_J.KENSA_GL_YMDHNS = .Item(NameOf(_D005_CAR_J.KENSA_GL_YMDHNS))
+                    _D005_CAR_J.ADD_SYAIN_ID = .Item(NameOf(_D005_CAR_J.ADD_SYAIN_ID))
+                    _D005_CAR_J.ADD_YMDHNS = .Item(NameOf(_D005_CAR_J.ADD_YMDHNS))
+                    _D005_CAR_J.UPD_SYAIN_ID = .Item(NameOf(_D005_CAR_J.UPD_SYAIN_ID))
+                    _D005_CAR_J.UPD_YMDHNS = .Item(NameOf(_D005_CAR_J.UPD_YMDHNS))
+                    _D005_CAR_J.DEL_SYAIN_ID = .Item(NameOf(_D005_CAR_J.DEL_SYAIN_ID))
+                    _D005_CAR_J.DEL_YMDHNS = .Item(NameOf(_D005_CAR_J.DEL_YMDHNS))
+                End With
+            Else
+                'Error
+                MessageBox.Show("該当報告書Noのデータが見つまりませんでした。" & vbCrLf & "報告書No=" & PrHOKOKU_NO, "該当データなし", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return False
+            End If
+
+            '原因分析区分
+            _D006_CAR_GENIN_List.Clear()
+
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append("SELECT")
+            sbSQL.Append(" *")
+            sbSQL.Append(" FROM V006_CAR_GENIN")
+            sbSQL.Append(" WHERE HOKOKU_NO='" & PrHOKOKU_NO & "'")
+            sbSQL.Append(" ORDER BY RENBAN")
+            Using DBa As ClsDbUtility = DBOpen()
+                dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            For Each row As DataRow In dsList.Tables(0).Rows
+                _D006_CAR_GENIN_List.Add(New MODEL.D006_CAR_GENIN With {.HOKOKU_NO = dsList.Tables(0).Rows(0).Item(NameOf(.HOKOKU_NO)),
+                                                                       .RENBAN = dsList.Tables(0).Rows(0).Item(NameOf(.RENBAN)),
+                                                                       .GENIN_BUNSEKI_KB = dsList.Tables(0).Rows(0).Item(NameOf(.GENIN_BUNSEKI_KB)),
+                                                                       .GENIN_BUNSEKI_S_KB = dsList.Tables(0).Rows(0).Item(NameOf(.GENIN_BUNSEKI_S_KB)),
+                                                                       .DAIHYO_FG = dsList.Tables(0).Rows(0).Item(NameOf(.DAIHYO_FG)),
+                                                                       .ADD_SYAIN_ID = dsList.Tables(0).Rows(0).Item(NameOf(.ADD_SYAIN_ID)),
+                                                                       .ADD_YMDHNS = dsList.Tables(0).Rows(0).Item(NameOf(.ADD_YMDHNS))})
+            Next row
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return Nothing
+        End Try
+    End Function
 
 
 
