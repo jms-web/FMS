@@ -112,8 +112,21 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Public Property JIZEN_SINSA_HANTEI_KB As String
 
     <StringLength(50)>
-    <ComponentModel.DisplayName("事前判定区分")>
-    Public Property JIZEN_SINSA_HANTEI_KB_DISP As String
+    <ComponentModel.DisplayName("事前判定区分名")>
+    Public Property JIZEN_SINSA_HANTEI_KB_NAME As String
+
+    <StringLength(1)>
+    <ComponentModel.DisplayName("是正処置要否区分")>
+    Public Property ZESEI_SYOCHI_YOHI_KB As String
+
+    <StringLength(150)>
+    <ComponentModel.DisplayName("是正処置要否区分名")>
+    Public Property ZESEI_SYOCHI_YOHI_KB_NAME As String
+
+
+
+
+
 
     <StringLength(1)>
     <ComponentModel.DisplayName("再審判定区分")>

@@ -225,7 +225,7 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
-                .Columns.Add(NameOf(_Model.JIZEN_SINSA_HANTEI_KB_DISP), "Ž–‘O”»’è‹æ•ª")
+                .Columns.Add(NameOf(_Model.JIZEN_SINSA_HANTEI_KB_NAME), "Ž–‘O”»’è‹æ•ª")
                 .Columns(.ColumnCount - 1).Width = 180
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
