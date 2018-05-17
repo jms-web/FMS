@@ -128,6 +128,16 @@ Module mdlG0010
     End Enum
 
 
+    Public Enum ENM_SAISIN_IINKAI_HANTEI_KB
+        _0_完成する = 0
+        _1_そのまま使用可 = 1
+        _2_顧客再審申請 = 2
+        _3_廃却する = 3
+        _4_返却する = 4
+        _5_転用する = 5
+        _6_再加工する = 6
+    End Enum
+
     'Model
     Public _D003_NCR_J As New MODEL.D003_NCR_J
     Public _D004_SYONIN_J_KANRI As New MODEL.D004_SYONIN_J_KANRI
@@ -219,6 +229,74 @@ Module mdlG0010
 
         End Try
     End Sub
+#End Region
+
+
+#Region "メール送信"
+
+    Public Function FunSendMailFutekigo(ByVal strSubject As String, ByVal strBody As String, ByVal ToSYAIN_ID As Integer) As Boolean
+        Dim strSmtpServer As String
+        Dim intSmtpPort As Integer
+        Dim strFromAddress As String
+        Dim strToAddress As String
+        Dim strUserID As String
+        Dim strPassword As String
+        Dim blnSend As Boolean
+
+        Using DB As ClsDbUtility = DBOpen()
+            strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
+            intSmtpPort = Val(FunGetCodeMastaValue(DB, "メール設定", "SMTP_PORT"))
+            strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
+            'strUserID = FunGetCodeMastaValue("メール設定", "SMTP_USER")
+            'strPassword = FunGetCodeMastaValue("メール設定", "SMTP_PASS")
+
+
+            '---申請先担当者のメールアドレス取得
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append("SELECT")
+            sbSQL.Append(" MAIL_ADDRESS")
+            sbSQL.Append(" FROM " & NameOf(MODEL.M004_SYAIN) & " ")
+            sbSQL.Append(" WHERE SYAIN_ID=" & ToSYAIN_ID & "")
+            Using DBa As ClsDbUtility = DBOpen()
+                dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+            If dsList.Tables(0).Rows.Count > 0 Then
+                strToAddress = dsList.Tables(0).Rows(0).Item(0)
+            Else
+                Return False
+            End If
+
+        End Using
+
+        '認証なし
+        blnSend = ClsMailSend.FunSendMail(strSmtpServer,
+                       intSmtpPort,
+                       strFromAddress,
+                       strToAddress,
+                       CCAddress:=strFromAddress,
+                       BCCAddress:="",
+                       strSubject:=strSubject,
+                       strBody:=strBody,
+                       strAttachment:="",
+                       strFromName:="不適合管理システム")
+
+        '認証あり
+        'blnSend = ClsMailSend.FunSendMailoverAUTH(strSmtpServer,
+        '               intSmtpPort,
+        '               strUserID,
+        '               strPassword,
+        '               strFromAddress,
+        '               strToAddress,
+        '               strSubject,
+        '               "タイムカード集計",
+        '               strSendFilePath)
+
+        Return blnSend
+
+    End Function
+
 #End Region
 
 End Module

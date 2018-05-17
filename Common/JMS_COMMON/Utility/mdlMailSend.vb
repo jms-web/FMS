@@ -1,5 +1,5 @@
-﻿Module mdlMailSend
-    Public Function FunSendMail(ByVal strSmtpServer As String,
+﻿Public Class ClsMailSend
+    Public Shared Function FunSendMail(ByVal strSmtpServer As String,
                                 ByVal intSmtpPort As Integer,
                                 ByVal FromAddress As String,
                                 ByVal ToAddress As String,
@@ -67,7 +67,7 @@
         End Try
     End Function
 
-    Public Function FunSendMailoverAUTH(ByVal strSmtpServer As String,
+    Public Shared Function FunSendMailoverAUTH(ByVal strSmtpServer As String,
                                 ByVal intSmtpPort As Integer,
                                 ByVal strUserID As String,
                                 ByVal strPassword As String,
@@ -166,4 +166,4 @@
         '全ての証明書を信用します
         e.Cancel = False
     End Sub
-End Module
+End Class

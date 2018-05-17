@@ -310,7 +310,7 @@ Public Class FrmG0011
         Dim sqlEx As New Exception
 
         '-----未保存時、報告書No取得
-        If _D003_NCR_J.HOKOKU_NO.IsNullOrWhiteSpace Then
+        If _D003_NCR_J.HOKOKU_NO.IsNullOrWhiteSpace Or _D003_NCR_J.HOKOKU_NO = "<新規>" Then
             Dim objParam As System.Data.Common.DbParameter = DB.DbCommand.CreateParameter
             Dim lstParam As New List(Of System.Data.Common.DbParameter)
             With objParam
@@ -738,6 +738,11 @@ Public Class FrmG0011
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
         sbSQL.Append(" );")
+
+        'UNDOLE OUTPUT句でINSERTかUPDATEか判定しINSERTの場合のみメール送信
+        'https://qiita.com/ka_to/items/bfceba5b97d25f0d044a
+        'https://social.msdn.microsoft.com/Forums/vstudio/ja-JP/2a8a5d6f-0166-4f91-9279-05e1a3de4a90/outputmerge-?forum=sqlserverja
+
         '-----SQL実行
         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
         If intRET <> 1 Then
@@ -747,7 +752,12 @@ Public Class FrmG0011
             Return False
         End If
 
-
+        If _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False Then
+            If FunSendMailFutekigo("【テスト】不適合管理システム テストメール", "送信テスト", _D004_SYONIN_J_KANRI.SYAIN_ID) Then
+            Else
+                MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        End If
 
         Return True
     End Function
@@ -1043,7 +1053,6 @@ Public Class FrmG0011
 #Region "履歴"
 
 #End Region
-
 
 #Region "FuncButton有効無効切替"
 
@@ -1922,7 +1931,6 @@ Public Class FrmG0011
     End Function
 #End Region
 
-
     ''' <summary>
     ''' 次ステージ名を取得
     ''' </summary>
@@ -1945,7 +1953,6 @@ Public Class FrmG0011
         End Try
     End Function
 
-
     ''' <summary>
     ''' 次ステージの承認順Noを取得
     ''' </summary>
@@ -1954,9 +1961,9 @@ Public Class FrmG0011
     Private Function FunGetNextSYONIN_JUN(ByVal intCurrentStageID As Integer) As Integer
         Try
 
-
             Dim intNextStageID As Integer
 
+            'SPEC: 50-3 50以降の承認順遷移
             Select Case intCurrentStageID
                 Case Is < ENM_NCR_STAGE._50_事前審査確認
                     '50以前の場合は登録順番通り
@@ -1983,26 +1990,54 @@ Public Class FrmG0011
 
                 Case ENM_NCR_STAGE._60_再審審査判定_技術代表
                     intNextStageID = ENM_NCR_STAGE._61_再審審査判定_品証代表
+
                 Case ENM_NCR_STAGE._61_再審審査判定_品証代表
 
                     Select Case _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB
-
+                        Case ENM_SAISIN_IINKAI_HANTEI_KB._0_完成する, ENM_SAISIN_IINKAI_HANTEI_KB._1_そのまま使用可
+                            intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
+                        Case ENM_SAISIN_IINKAI_HANTEI_KB._2_顧客再審申請
+                            intNextStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag
+                        Case ENM_SAISIN_IINKAI_HANTEI_KB._3_廃却する, ENM_SAISIN_IINKAI_HANTEI_KB._4_返却する, ENM_SAISIN_IINKAI_HANTEI_KB._5_転用する, ENM_SAISIN_IINKAI_HANTEI_KB._6_再加工する
+                            intNextStageID = ENM_NCR_STAGE._80_処置実施
+                        Case Else
+                            'Err
                     End Select
+
+                Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
+                    If _D003_NCR_J.SAIKAKO_SIJI_FG Then
+                        intNextStageID = ENM_NCR_STAGE._80_処置実施
+                    Else
+                        intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
+                    End If
+
+                Case ENM_NCR_STAGE._80_処置実施
+                    If _D003_NCR_J.SAIKAKO_SIJI_FG Then
+                        intNextStageID = ENM_NCR_STAGE._81_処置実施_生技
+                    Else
+                        intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
+                    End If
+
+                Case ENM_NCR_STAGE._81_処置実施_生技
+                    intNextStageID = ENM_NCR_STAGE._82_処置実施_製造
+
+                Case ENM_NCR_STAGE._82_処置実施_製造
+                    intNextStageID = ENM_NCR_STAGE._83_処置実施_検査
+
+                Case ENM_NCR_STAGE._83_処置実施_検査
+                    intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
 
                 Case ENM_NCR_STAGE._90_処置実施確認_管理T
-                            intNextStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長
-                        Case ENM_NCR_STAGE._100_処置実施決裁_製造課長
-                            intNextStageID = ENM_NCR_STAGE._110_abcde処置担当
+                    intNextStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長
 
+                Case ENM_NCR_STAGE._100_処置実施決裁_製造課長
+                    intNextStageID = ENM_NCR_STAGE._110_abcde処置担当
 
-                        Case ENM_NCR_STAGE._50_事前審査確認
+                Case Else
 
-                        Case Else
+            End Select
 
-                    End Select
-
-
-                    Return intNextStageID
+            Return intNextStageID
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return 0
@@ -2024,7 +2059,6 @@ Public Class FrmG0011
             Return 0
         End If
     End Function
-
 
     ''' <summary>
     ''' 承認順Noから該当するタブNoを取得
@@ -2185,11 +2219,6 @@ Public Class FrmG0011
 
 
 #End Region
-
-
-
-
-
 
 #End Region
 
