@@ -81,7 +81,9 @@ Module mdlG0010
 
     End Enum
 
-
+    ''' <summary>
+    ''' 原因分析区分
+    ''' </summary>
     Public Enum ENM_GENIN_BUNSEKI_KB
         _0_m_マネジメント = 0
         _1_S_ソフトウェア = 1
@@ -102,12 +104,28 @@ Module mdlG0010
         _1_承認 = 1
     End Enum
 
+    ''' <summary>
+    ''' 報告書操作区分
+    ''' </summary>
     Public Enum ENM_HOKOKUSYO_SOUSA_KB
         _0_起草 = 0
         _1_申請承認依頼 = 1
         _2_更新保存 = 2
     End Enum
 
+    ''' <summary>
+    ''' 事前審査判定区分
+    ''' </summary>
+    Public Enum ENM_JIZEN_SINSA_HANTEI_KB
+        _0_完成する = 0
+        _1_そのまま使用可 = 1
+        _2_再審委員会送り = 2
+        _3_顧客再審申請 = 3
+        _4_廃却する = 4
+        _5_返却する = 5
+        _6_転用する = 6
+        _7_再加工する = 7
+    End Enum
 
 
     'Model
