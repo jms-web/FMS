@@ -18,6 +18,7 @@ Partial Public Class V005_CAR_J
     Public Sub Clear()
         HOKOKU_NO = ""
         BUMON_KB = ""
+        BUMON_NAME = ""
         CLOSE_FG = False
         SETUMON_1 = ""
         KAITO_1 = ""
@@ -70,29 +71,42 @@ Partial Public Class V005_CAR_J
         SETUMON_25 = ""
         KAITO_25 = ""
         KONPON_YOIN_KB1 = ""
+        KONPON_YOIN_NAME1 = ""
         KONPON_YOIN_KB2 = ""
+        KONPON_YOIN_NAME2 = ""
         KONPON_YOIN_SYAIN_ID = 0
+        KONPON_YOIN_SYAIN_NAME = ""
         KISEKI_KOTEI_KB = ""
+        KISEKI_KOTEI_NAME = ""
         SYOCHI_A_SYAIN_ID = 0
+        SYOCHI_A_SYAIN_NAME = ""
         SYOCHI_A_YMDHNS = ""
         SYOCHI_B_SYAIN_ID = 0
+        SYOCHI_B_SYAIN_NAME = ""
         SYOCHI_B_YMDHNS = ""
         SYOCHI_C_SYAIN_ID = 0
+        SYOCHI_C_SYAIN_NAME = ""
         SYOCHI_C_YMDHNS = ""
         KYOIKU_FILE_PATH = ""
         ZESEI_SYOCHI_YUKO_UMU = ""
+        ZESEI_SYOCHI_YUKO_UMU_NAME = ""
         SYOSAI_FILE_PATH = ""
         GOKI = ""
         LOT = ""
         KENSA_TANTO_ID = 0
+        KENSA_TANTO_NAME = ""
         KENSA_TOROKU_YMDHNS = ""
         KENSA_GL_SYAIN_ID = 0
+        KENSA_GL_SYAIN_NAME = ""
         KENSA_GL_YMDHNS = ""
         ADD_SYAIN_ID = 0
+        ADD_SYAIN_NAME = ""
         ADD_YMDHNS = ""
         UPD_SYAIN_ID = 0
+        UPD_SYAIN_NAME = ""
         UPD_YMDHNS = ""
         DEL_SYAIN_ID = 0
+        DEL_SYAIN_NAME = ""
         DEL_YMDHNS = ""
 
     End Sub
@@ -446,15 +460,21 @@ Partial Public Class V005_CAR_J
     <ComponentModel.DisplayName("根本要因区分1")>
     Public Property KONPON_YOIN_KB1 As String
 
+    Public Property KONPON_YOIN_NAME1 As String
+
     <Required>
     <Column(TypeName:="varchar")>
     <StringLength(2)>
     <ComponentModel.DisplayName("根本要因区分2")>
+    Public Property KONPON_YOIN_NAME2 As String
+
     Public Property KONPON_YOIN_KB2 As String
 
     <Required>
     <ComponentModel.DisplayName("根本要因社員ID")>
     Public Property KONPON_YOIN_SYAIN_ID As Integer
+
+    Public Property KONPON_YOIN_SYAIN_NAME As String
 
     <Required>
     <Column(TypeName:="varchar")>
@@ -462,9 +482,13 @@ Partial Public Class V005_CAR_J
     <ComponentModel.DisplayName("帰責工程区分")>
     Public Property KISEKI_KOTEI_KB As String
 
+    Public Property KISEKI_KOTEI_NAME As String
+
     <Required>
     <ComponentModel.DisplayName("処置実施A社員ID")>
     Public Property SYOCHI_A_SYAIN_ID As Integer
+
+    Public Property SYOCHI_A_SYAIN_NAME As String
 
     <Required>
     <StringLength(14)>
@@ -476,6 +500,8 @@ Partial Public Class V005_CAR_J
     <ComponentModel.DisplayName("処置実施B社員ID")>
     Public Property SYOCHI_B_SYAIN_ID As Integer
 
+    Public Property SYOCHI_B_SYAIN_NAME As String
+
     <Required>
     <StringLength(14)>
     <Column(TypeName:="char")>
@@ -485,6 +511,8 @@ Partial Public Class V005_CAR_J
     <Required>
     <ComponentModel.DisplayName("処置実施C社員ID")>
     Public Property SYOCHI_C_SYAIN_ID As Integer
+
+    Public Property SYOCHI_C_SYAIN_NAME As String
 
     <Required>
     <StringLength(14)>
@@ -504,6 +532,8 @@ Partial Public Class V005_CAR_J
     <StringLength(2)>
     <ComponentModel.DisplayName("是正処置有効性有無")>
     Public Property ZESEI_SYOCHI_YUKO_UMU As String
+
+    Public Property ZESEI_SYOCHI_YUKO_UMU_NAME As String
 
     <Required>
     <Column(TypeName:="nvarchar")>
@@ -527,6 +557,8 @@ Partial Public Class V005_CAR_J
     <ComponentModel.DisplayName("検査社員ID")>
     Public Property KENSA_TANTO_ID As Integer
 
+    Public Property KENSA_TANTO_NAME As String
+
     <Required>
     <StringLength(14)>
     <Column(TypeName:="char")>
@@ -536,6 +568,8 @@ Partial Public Class V005_CAR_J
     <Required>
     <ComponentModel.DisplayName("検査GL社員ID")>
     Public Property KENSA_GL_SYAIN_ID As Integer
+
+    Public Property KENSA_GL_SYAIN_NAME As String
 
     <Required>
     <StringLength(14)>
@@ -581,6 +615,8 @@ Partial Public Class V005_CAR_J
     <Display(AutoGenerateField:=False)>
     Public Property ADD_SYAIN_ID As Integer
 
+    Public Property ADD_SYAIN_NAME As String
+
     <Required>
     <StringLength(14)>
     <Display(AutoGenerateField:=False)>
@@ -590,6 +626,8 @@ Partial Public Class V005_CAR_J
     <Required>
     <Display(AutoGenerateField:=False)>
     Public Property UPD_SYAIN_ID As Integer
+
+    Public Property UPD_SYAIN_NAME As String
 
     <Required>
     <StringLength(14)>
@@ -609,5 +647,7 @@ Partial Public Class V005_CAR_J
     <Required>
     <Display(AutoGenerateField:=False)>
     Public Property DEL_SYAIN_ID As Integer
+
+    Public Property DEL_SYAIN_NAME As String
 
 End Class

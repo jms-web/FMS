@@ -17,6 +17,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{33A3C8AB-8A0C-4DDE-8756-A04126E1F585}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LOG", "LOG", "{67150766-8778-459F-8499-2992D7B4BA0D}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\LOG\FMS_ERROR.LOG = ..\..\..\LOG\FMS_ERROR.LOG
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{37524F46-8F14-457C-ADA8-3FD0FD95AFA4}"
 	ProjectSection(SolutionItems) = preProject
@@ -234,8 +237,8 @@ Global
 		{872E4129-F788-40A1-91B0-C41F0AEE504E} = {33A3C8AB-8A0C-4DDE-8756-A04126E1F585}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7654D903-2DF2-4216-B2D3-7A7E3E63F7E7}
-		BuildVersion_StartDate = 2000/1/1
 		BuildVersion_UseGlobalSettings = True
+		BuildVersion_StartDate = 2000/1/1
+		SolutionGuid = {7654D903-2DF2-4216-B2D3-7A7E3E63F7E7}
 	EndGlobalSection
 EndGlobal

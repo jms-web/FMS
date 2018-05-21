@@ -22,6 +22,9 @@ Public Class ComboboxEx
     Public Sub New()
         InitializeComponent()
 
+        'SetDatasourceから移行 SelectedValueChanged等を発火させないため
+        Me.DisplayMember = "DISP"
+        Me.ValueMember = "VALUE"
     End Sub
 #End Region
 
@@ -356,6 +359,7 @@ Public Class ComboboxEx
     End Sub
 
     Protected Overrides Sub OnSelectedValueChanged(ByVal e As EventArgs)
+
         'If Me.SelectedValue IsNot Nothing Then
         '    '解除
         '    ResetWatermark(Me.Text)
@@ -363,7 +367,10 @@ Public Class ComboboxEx
         If Me.SelectedValue = Nothing AndAlso Me.DataSource IsNot Nothing Then
             Me.SelectedIndex = 0
         End If
-        MyBase.OnSelectedValueChanged(e)
+
+        If Me.OldValue <> Me.SelectedValue Then
+            MyBase.OnSelectedValueChanged(e)
+        End If
     End Sub
 #End Region
 
@@ -565,8 +572,8 @@ Public Class ComboboxEx
             End If
 
             '-----コンボボックス表示値と選択値の列設定
-            Me.DisplayMember = "DISP"
-            Me.ValueMember = "VALUE"
+            'Me.DisplayMember = "DISP"
+            'Me.ValueMember = "VALUE"
 
             Dim blnInsertRow As Boolean
             Dim strTopRowCaption As String

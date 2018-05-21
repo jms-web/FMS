@@ -302,7 +302,7 @@ Public Class ClsDbUtility
             'Throw New MyException.clsSqlException(ex, strSql)
             'EM.ErrorSyori(ex, True, blnNonMsg)
             ErrException = ex
-
+            Return Nothing
         Finally
             ''終了時間
             'Dim endtime As Double = Microsoft.VisualBasic.Timer

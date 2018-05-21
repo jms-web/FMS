@@ -27,7 +27,7 @@ Module mdlG0010
     ''' <summary>
     ''' 起動モード(0:通常,1:新規作成)
     ''' </summary>
-    Public pub_intOPEN_MODE As ENM_OPEN_MODE
+    Public pub_intOPEN_MODE As Integer
 
     ''' <summary>
     ''' 承認報告書ID
@@ -240,7 +240,7 @@ Module mdlG0010
     End Sub
 #End Region
 
-#Region "ST02 不適合報告書一覧"
+#Region "共通関数"
 
     ''' <summary>
     ''' 引数の検索条件を一覧取得ストアドに渡して検索結果のテーブルデータを取得
@@ -296,7 +296,6 @@ Module mdlG0010
         Return dsList?.Tables(0)
     End Function
 
-
     Public Function FunGetV002Model(ByVal strHOKOKU_NO As String) As MODEL.V002_NCR_J
 
         Dim sbSQL As New System.Text.StringBuilder
@@ -326,8 +325,8 @@ Module mdlG0010
                 _model.HAIKYAKU_KB_NAME = .Item(NameOf(_model.HAIKYAKU_KB_NAME))
                 _model.HAIKYAKU_TANTO_NAME = .Item(NameOf(_model.HAIKYAKU_TANTO_NAME))
                 _model.HAIKYAKU_YMD = .Item(NameOf(_model.HAIKYAKU_YMD))
-                '_model.HASSEI_KOTEI_GL_NAME = .Item(NameOf(_model.HASSEI_KOTEI_GL_NAME))
-                '_model.HASSEI_KOTEI_GL_YMD = .Item(NameOf(_model.HASSEI_KOTEI_GL_YMD))
+                _model.HASSEI_KOTEI_GL_NAME = .Item(NameOf(_model.HASSEI_KOTEI_GL_NAME))
+                _model.HASSEI_KOTEI_GL_YMD = .Item(NameOf(_model.HASSEI_KOTEI_GL_YMD))
                 _model.HENKYAKU_BIKO = .Item(NameOf(_model.HENKYAKU_BIKO))
                 _model.HENKYAKU_TANTO_NAME = .Item(NameOf(_model.HENKYAKU_TANTO_NAME))
                 _model.HENKYAKU_YMD = .Item(NameOf(_model.HENKYAKU_YMD))
@@ -379,7 +378,7 @@ Module mdlG0010
 
     End Function
 
-    Public Function FunGetV003Model(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String) As MODEL.V003_SYONIN_J_KANRI
+    Public Function FunGetV003Model(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String) As List(Of MODEL.V003_SYONIN_J_KANRI)
 
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
@@ -398,24 +397,125 @@ Module mdlG0010
             Return Nothing
         Else
 
-            Dim _model As New MODEL.V003_SYONIN_J_KANRI
-            With dsList.Tables(0).Rows(0)
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+            Dim entities As New List(Of MODEL.V003_SYONIN_J_KANRI)
+            For Each row As DataRow In dsList.Tables(0).Rows
+                With row
+                    Dim _model As New MODEL.V003_SYONIN_J_KANRI
+                    _model.SYONIN_HOKOKUSYO_ID = .Item(NameOf(_model.SYONIN_HOKOKUSYO_ID))
+                    _model.HOKOKUSYO_NO = .Item(NameOf(_model.HOKOKUSYO_NO))
+                    _model.SYONIN_JUN = .Item(NameOf(_model.SYONIN_JUN))
+                    _model.SYAIN_ID = .Item(NameOf(_model.SYAIN_ID))
+                    _model.SYAIN_NAME = .Item(NameOf(_model.SYAIN_NAME))
+                    _model.SYONIN_YMDHNS = .Item(NameOf(_model.SYONIN_YMDHNS))
+                    _model.SYONIN_HANTEI_KB = .Item(NameOf(_model.SYONIN_HANTEI_KB))
+                    _model.SYONIN_HANTEI_NAME = .Item(NameOf(_model.SYONIN_HANTEI_NAME))
+                    _model.SASIMODOSI_FG = CBool(.Item(NameOf(_model.SASIMODOSI_FG)))
+                    _model.RIYU = .Item(NameOf(_model.RIYU))
+                    _model.COMMENT = .Item(NameOf(_model.COMMENT))
+                    _model.ADD_YMDHNS = .Item(NameOf(_model.ADD_YMDHNS))
+                    _model.ADD_SYAIN_ID = .Item(NameOf(_model.ADD_SYAIN_ID))
+                    _model.ADD_SYAIN_NAME = .Item(NameOf(_model.ADD_SYAIN_NAME))
+                    _model.UPD_YMDHNS = .Item(NameOf(_model.UPD_YMDHNS))
+                    _model.UPD_SYAIN_ID = .Item(NameOf(_model.UPD_SYAIN_ID))
+                    _model.UPD_SYAIN_NAME = .Item(NameOf(_model.UPD_SYAIN_NAME))
+                    entities.Add(_model)
+                End With
+            Next row
 
+            Return entities
+        End If
+    End Function
+
+    Public Function FunGetV005Model(ByVal strHOKOKU_NO As String) As MODEL.V005_CAR_J
+
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("SELECT")
+        sbSQL.Append(" *")
+        sbSQL.Append(" FROM " & NameOf(MODEL.V005_CAR_J) & " ")
+        sbSQL.Append(" WHERE HOKOKU_NO='" & strHOKOKU_NO & "'")
+        Using DB As ClsDbUtility = DBOpen()
+            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        If dsList.Tables(0).Rows.Count = 0 Then
+            Return Nothing
+        Else
+
+            Dim _model As New MODEL.V005_CAR_J
+            With dsList.Tables(0).Rows(0)
+                _model.HOKOKU_NO = .Item(NameOf(_model.HOKOKU_NO))
+                _model.BUMON_KB = .Item(NameOf(_model.BUMON_KB))
+                _model.BUMON_NAME = .Item(NameOf(_model.BUMON_NAME))
+                _model.KISYU_ID = .Item(NameOf(_model.KISYU_ID))
+                _model.KISYU = .Item(NameOf(_model.KISYU))
+                _model.KISYU_NAME = .Item(NameOf(_model.KISYU_NAME))
+                _model.CLOSE_FG = CBool(.Item(NameOf(_model.CLOSE_FG)))
+                _model.KAITO_1 = .Item(NameOf(_model.KAITO_1))
+                _model.KAITO_2 = .Item(NameOf(_model.KAITO_2))
+                _model.KAITO_3 = .Item(NameOf(_model.KAITO_3))
+                _model.KAITO_4 = .Item(NameOf(_model.KAITO_4))
+                _model.KAITO_5 = .Item(NameOf(_model.KAITO_5))
+                _model.KAITO_6 = .Item(NameOf(_model.KAITO_6))
+                _model.KAITO_7 = .Item(NameOf(_model.KAITO_7))
+                _model.KAITO_8 = .Item(NameOf(_model.KAITO_8))
+                _model.KAITO_9 = .Item(NameOf(_model.KAITO_9))
+                _model.KAITO_10 = .Item(NameOf(_model.KAITO_10))
+                _model.KAITO_11 = .Item(NameOf(_model.KAITO_11))
+                _model.KAITO_12 = .Item(NameOf(_model.KAITO_12))
+                _model.KAITO_13 = .Item(NameOf(_model.KAITO_13))
+                _model.KAITO_14 = .Item(NameOf(_model.KAITO_14))
+                _model.KAITO_15 = .Item(NameOf(_model.KAITO_15))
+                _model.KAITO_16 = .Item(NameOf(_model.KAITO_16))
+                _model.KAITO_17 = .Item(NameOf(_model.KAITO_17))
+                _model.KAITO_18 = .Item(NameOf(_model.KAITO_18))
+                _model.KAITO_19 = .Item(NameOf(_model.KAITO_19))
+                _model.KAITO_20 = .Item(NameOf(_model.KAITO_20))
+                _model.KAITO_21 = .Item(NameOf(_model.KAITO_21))
+                _model.KAITO_22 = .Item(NameOf(_model.KAITO_22))
+                _model.KAITO_23 = .Item(NameOf(_model.KAITO_23))
+                _model.KAITO_24 = .Item(NameOf(_model.KAITO_24))
+                _model.KAITO_25 = .Item(NameOf(_model.KAITO_25))
+                _model.KONPON_YOIN_KB1 = .Item(NameOf(_model.KONPON_YOIN_KB1))
+                _model.KONPON_YOIN_NAME1 = .Item(NameOf(_model.KONPON_YOIN_NAME1))
+                _model.KONPON_YOIN_KB2 = .Item(NameOf(_model.KONPON_YOIN_KB2))
+                _model.KONPON_YOIN_NAME2 = .Item(NameOf(_model.KONPON_YOIN_NAME2))
+                _model.KONPON_YOIN_SYAIN_ID = .Item(NameOf(_model.KONPON_YOIN_SYAIN_ID))
+                _model.KONPON_YOIN_SYAIN_NAME = .Item(NameOf(_model.KONPON_YOIN_SYAIN_NAME))
+                _model.KISEKI_KOTEI_KB = .Item(NameOf(_model.KISEKI_KOTEI_KB))
+                _model.KISEKI_KOTEI_NAME = .Item(NameOf(_model.KISEKI_KOTEI_NAME))
+                _model.SYOCHI_A_SYAIN_ID = .Item(NameOf(_model.SYOCHI_A_SYAIN_ID))
+                _model.SYOCHI_A_SYAIN_NAME = .Item(NameOf(_model.SYOCHI_A_SYAIN_NAME))
+                _model.SYOCHI_A_YMDHNS = .Item(NameOf(_model.SYOCHI_A_YMDHNS))
+                _model.SYOCHI_B_SYAIN_ID = .Item(NameOf(_model.SYOCHI_B_SYAIN_ID))
+                _model.SYOCHI_B_SYAIN_NAME = .Item(NameOf(_model.SYOCHI_B_SYAIN_NAME))
+                _model.SYOCHI_B_YMDHNS = .Item(NameOf(_model.SYOCHI_B_YMDHNS))
+                _model.SYOCHI_C_SYAIN_ID = .Item(NameOf(_model.SYOCHI_C_SYAIN_ID))
+                _model.SYOCHI_C_SYAIN_NAME = .Item(NameOf(_model.SYOCHI_C_SYAIN_NAME))
+                _model.SYOCHI_C_YMDHNS = .Item(NameOf(_model.SYOCHI_C_YMDHNS))
+                _model.KYOIKU_FILE_PATH = .Item(NameOf(_model.KYOIKU_FILE_PATH))
+                _model.ZESEI_SYOCHI_YUKO_UMU = .Item(NameOf(_model.ZESEI_SYOCHI_YUKO_UMU))
+                _model.ZESEI_SYOCHI_YUKO_UMU_NAME = .Item(NameOf(_model.ZESEI_SYOCHI_YUKO_UMU_NAME))
+                _model.SYOSAI_FILE_PATH = .Item(NameOf(_model.SYOSAI_FILE_PATH))
+                _model.GOKI = .Item(NameOf(_model.GOKI))
+                _model.LOT = .Item(NameOf(_model.LOT))
+                _model.KENSA_TANTO_ID = .Item(NameOf(_model.KENSA_TANTO_ID))
+                _model.KENSA_TANTO_NAME = .Item(NameOf(_model.KENSA_TANTO_NAME))
+                _model.KENSA_TOROKU_YMDHNS = .Item(NameOf(_model.KENSA_TOROKU_YMDHNS))
+                _model.KENSA_GL_SYAIN_ID = .Item(NameOf(_model.KENSA_GL_SYAIN_ID))
+                _model.KENSA_GL_SYAIN_NAME = .Item(NameOf(_model.KENSA_GL_SYAIN_NAME))
+                _model.KENSA_GL_YMDHNS = .Item(NameOf(_model.KENSA_GL_YMDHNS))
+                _model.ADD_SYAIN_ID = .Item(NameOf(_model.ADD_SYAIN_ID))
+                _model.ADD_SYAIN_NAME = .Item(NameOf(_model.ADD_SYAIN_NAME))
+                _model.ADD_YMDHNS = .Item(NameOf(_model.ADD_YMDHNS))
+                _model.UPD_SYAIN_ID = .Item(NameOf(_model.UPD_SYAIN_ID))
+                _model.UPD_SYAIN_NAME = .Item(NameOf(_model.UPD_SYAIN_NAME))
+                _model.UPD_YMDHNS = .Item(NameOf(_model.UPD_YMDHNS))
+                _model.DEL_SYAIN_ID = .Item(NameOf(_model.DEL_SYAIN_ID))
+                _model.DEL_SYAIN_NAME = .Item(NameOf(_model.DEL_SYAIN_NAME))
+                _model.DEL_YMDHNS = .Item(NameOf(_model.DEL_YMDHNS))
 
             End With
 
@@ -424,6 +524,56 @@ Module mdlG0010
 
 
 
+
+    End Function
+
+
+
+    ''' <summary>
+    ''' 次ステージ名を取得
+    ''' </summary>
+    ''' <param name="intCurrentStageID">現ステージID</param>
+    ''' <returns></returns>
+    Public Function FunGetNextStageName(ByVal intCurrentStageID As Integer) As String
+        Try
+
+            Dim drList As List(Of DataRow) = tblNCR.AsEnumerable().
+                                                Where(Function(r) Val(r.Field(Of String)("VALUE")) > intCurrentStageID).ToList
+            Dim strBUFF As String = ""
+            If drList.Count > 0 Then
+                strBUFF = drList(0).Item("DISP")
+            End If
+
+            Return strBUFF
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return vbEmpty
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' ログインユーザーが承認or申請したステージか判定
+    ''' </summary>
+    ''' <param name="intSYONIN_HOKOKUSYO_ID">承認報告書ID</param>
+    ''' <param name="strHOKOKU_NO">報告書No</param>
+    ''' <param name="intSYONIN_JUN">承認順No</param>
+    ''' <returns></returns>
+    Public Function FunblnOwnCreated(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String, ByVal intSYONIN_JUN As Integer) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("SELECT")
+        sbSQL.Append(" *")
+        sbSQL.Append(" FROM " & NameOf(MODEL.D004_SYONIN_J_KANRI) & " ")
+        sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intSYONIN_HOKOKUSYO_ID & "")
+        sbSQL.Append(" AND HOKOKU_NO='" & strHOKOKU_NO & "'")
+        sbSQL.Append(" AND SYONIN_JUN=" & intSYONIN_JUN & "")
+        sbSQL.Append(" AND SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID & "")
+        Using DBa As ClsDbUtility = DBOpen()
+            dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        Return dsList.Tables(0).Rows.Count > 0
 
     End Function
 #End Region
@@ -435,8 +585,8 @@ Module mdlG0010
         Dim intSmtpPort As Integer
         Dim strFromAddress As String
         Dim strToAddress As String
-        Dim strUserID As String
-        Dim strPassword As String
+        'Dim strUserID As String
+        'Dim strPassword As String
         Dim blnSend As Boolean
 
         Using DB As ClsDbUtility = DBOpen()

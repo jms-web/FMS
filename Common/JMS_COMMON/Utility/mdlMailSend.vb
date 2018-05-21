@@ -8,7 +8,8 @@
                                 ByVal strSubject As String,
                                 ByVal strBody As String,
                                 ByVal strAttachment As String,
-                                ByVal Optional strFromName As String = "") As Boolean
+                                ByVal Optional strFromName As String = "",
+                                ByVal Optional isHTML As Boolean = False) As Boolean
 
         Dim smtp As TKMP.Net.SmtpClient = Nothing
         'Dim logon As TKMP.Net.ISmtpLogon
@@ -34,6 +35,11 @@
 
             '本文のパート
             Dim txtPart As New TKMP.Writer.TextPart(strBody)
+
+            'UNDONE: 本文をHTML形式に変換する処理を追加
+            If isHTML Then
+
+            End If
 
             '添付ファイル
             Dim filePart As New TKMP.Writer.FilePart(strAttachment)

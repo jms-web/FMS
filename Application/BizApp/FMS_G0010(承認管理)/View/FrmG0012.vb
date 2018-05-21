@@ -323,39 +323,109 @@ Public Class FrmG0012
             spWorksheets = spWorkbook.Worksheets
             spSheet1 = spWorksheets.Item(0) 'sheet1
 
-
             Dim spprint As SpreadsheetGear.Printing.PrintWhat = SpreadsheetGear.Printing.PrintWhat.Sheet
 
 
             'レコードフレーム初期化
-            'spWork.Range("RECORD_FRAME").ClearContents()
-            spSheet1.Range(NameOf(_D003_NCR_J.BUHIN_BANGO)).Value = _D003_NCR_J.BUHIN_BANGO
-            spSheet1.Range(NameOf(_D003_NCR_J.BUHIN_NAME)).Value = _D003_NCR_J.BUHIN_NAME
 
-            'spWork.Range("KINGAKU").Formula = "=I2*K2" '発注数 * 単価
+            Dim _V005_CAR_J As MODEL.V005_CAR_J = FunGetV005Model(_D003_NCR_J.HOKOKU_NO)
 
-            '-----レコードフレームを本シートにコピー
-            'spRangeFrom = spWork.Cells("RECORD_FRAME").EntireRow
-            'strRange = String.Format("A{0}:L{1}", intCurrentRowIndex, intCurrentRowIndex)
-            'spRangeTo = spSheet1.Cells(strRange).EntireRow
-            'spRangeFrom.Copy(spRangeTo, SpreadsheetGear.PasteType.All, SpreadsheetGear.PasteOperation.None, False, False)
+            spSheet1.Range(NameOf(_V005_CAR_J.GOKI)).Value = _V005_CAR_J.GOKI
+            spSheet1.Range(NameOf(_V005_CAR_J.HOKOKU_NO)).Value = _V005_CAR_J.HOKOKU_NO
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_1)).Value = _V005_CAR_J.KAITO_1
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_2)).Value = _V005_CAR_J.KAITO_2
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_3)).Value = _V005_CAR_J.KAITO_3
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_4)).Value = _V005_CAR_J.KAITO_4
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_5)).Value = _V005_CAR_J.KAITO_5
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_6)).Value = _V005_CAR_J.KAITO_6
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_7)).Value = _V005_CAR_J.KAITO_7
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_8)).Value = _V005_CAR_J.KAITO_8
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_9)).Value = _V005_CAR_J.KAITO_9
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_10)).Value = _V005_CAR_J.KAITO_10
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_11)).Value = _V005_CAR_J.KAITO_11
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_12)).Value = _V005_CAR_J.KAITO_12
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_13)).Value = _V005_CAR_J.KAITO_13
+            If CBool(_V005_CAR_J.KAITO_14) Then
+                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_14) & "_YOU").Value = "TRUE"
+            Else
+                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_14) & "_HI").Value = "TRUE"
+            End If
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_15)).Value = _V005_CAR_J.KAITO_15
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_16)).Value = _V005_CAR_J.KAITO_16
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_17)).Value = _V005_CAR_J.KAITO_17
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_18)).Value = _V005_CAR_J.KAITO_18
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_19)).Value = _V005_CAR_J.KAITO_19
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_20)).Value = _V005_CAR_J.KAITO_20
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_21)).Value = _V005_CAR_J.KAITO_21
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_22)).Value = _V005_CAR_J.KAITO_22
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_23)).Value = _V005_CAR_J.KAITO_23
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_24)).Value = _V005_CAR_J.KAITO_24
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_25)).Value = _V005_CAR_J.KAITO_25
 
+            spSheet1.Range(NameOf(_V005_CAR_J.KENSA_GL_SYAIN_NAME)).Value = _V005_CAR_J.KENSA_GL_SYAIN_NAME
+            spSheet1.Range(NameOf(_V005_CAR_J.KENSA_GL_YMDHNS)).Value = _V005_CAR_J.KENSA_GL_YMDHNS
+            spSheet1.Range(NameOf(_V005_CAR_J.KENSA_TANTO_NAME)).Value = _V005_CAR_J.KENSA_TANTO_NAME
+            spSheet1.Range(NameOf(_V005_CAR_J.KENSA_TOROKU_YMDHNS)).Value = _V005_CAR_J.KENSA_TOROKU_YMDHNS
+            spSheet1.Range(NameOf(_V005_CAR_J.KISYU)).Value = _V005_CAR_J.KISYU
+            spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_A_SYAIN_NAME)).Value = _V005_CAR_J.SYOCHI_A_SYAIN_NAME
+            spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_A_YMDHNS)).Value = _V005_CAR_J.SYOCHI_A_YMDHNS
+            spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_B_SYAIN_NAME)).Value = _V005_CAR_J.SYOCHI_B_SYAIN_NAME
+            spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_B_YMDHNS)).Value = _V005_CAR_J.SYOCHI_B_YMDHNS
+            spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_C_SYAIN_NAME)).Value = _V005_CAR_J.SYOCHI_C_SYAIN_NAME
+            spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_C_YMDHNS)).Value = _V005_CAR_J.SYOCHI_C_YMDHNS
+            spSheet1.Range("SYONIN_NAME10").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME20").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME30").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME40").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME50").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME60").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME90").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME100").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME120").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD10").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD20").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD30").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD40").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD50").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD60").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD90").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD100").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD120").Value = _V005_CAR_J.GOKI
+            spSheet1.Range(NameOf(_V005_CAR_J.SYOSAI_FILE_PATH)).Value = _V005_CAR_J.SYOSAI_FILE_PATH
+            spSheet1.Range(NameOf(_V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU_NAME)).Value = _V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU_NAME
 
-            '印刷範囲指定
-            'spSheet1.PageSetup.PrintArea = "sheet1!$A$1:$L$" & intCurrentRowIndex
-            '印刷タイトル行
-            'spSheet1.PageSetup.PrintTitleRows = "sheet1!$1:$3"
-
-            '-----印刷
-            Dim printDocument As SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument = New SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument(spSheet1, SpreadsheetGear.Printing.PrintWhat.Sheet)
-            'printDocument.PrinterSettings.PrinterName = "Epson MX-80"
-            printDocument.Print()
+            '-----SpereasheetGera印刷
+            Dim ssgPrintDocument As SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument = New SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument(spSheet1, SpreadsheetGear.Printing.PrintWhat.Sheet)
+            'printDocument.PrinterSettings.PrinterName = "PrinterName"
+            ssgPrintDocument.Print()
 
             '-----ファイル保存
             'spWork.Delete()
             'spWorksheets(0).Cells("A1").Select()
             spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.OpenXMLWorkbook)
             spWorkbook.WorkbookSet.ReleaseLock()
+
+            '-----Spire版 直接PDF発行するならこっち
+            'Dim workbook As New Spire.Xls.Workbook
+            'workbook.LoadFromFile(strFilePath)
+            'Dim pdfFilePath As String
+            'pdfFilePath = System.IO.Path.GetDirectoryName(strFilePath) & "\" & System.IO.Path.GetFileNameWithoutExtension(strFilePath) & ".pdf"
+            'workbook.SaveToFile(pdfFilePath, Spire.Xls.FileFormat.PDF)
+
+            ''Spire PDF編集
+            ''Dim pdfDoc As New Spire.Pdf.PdfDocument
+            ''pdfDoc.PageSettings.Orientation = Spire.Pdf.PdfPageOrientation.Landscape
+            ''pdfDoc.PageSettings.Width = "970"
+            ''pdfDoc.PageSettings.Height = "850"
+
+            ''PDF表示
+            'System.Diagnostics.Process.Start(pdfFilePath)
+
+            'Excel作業ファイルを削除
+            Try
+                System.IO.File.Delete(strFilePath)
+            Catch ex As UnauthorizedAccessException
+            End Try
 
             Return True
 
@@ -369,8 +439,6 @@ Public Class FrmG0012
             spWorksheets = Nothing
             spWorkbook = Nothing
 
-            ''-----開放
-            'dsList.Dispose()
         End Try
     End Function
 
@@ -831,12 +899,13 @@ Public Class FrmG0012
         mtxADD_SYAIN_NAME.Text = Fun_GetUSER_NAME(_D004_SYONIN_J_KANRI.SYAIN_ID)
         mtxFUTEKIGO_KB.Text = tblFUTEKIGO_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D003_NCR_J.FUTEKIGO_KB).FirstOrDefault?.Item("DISP")
         mtxFUTEKIGO_S_KB.Text = tblFUTEKIGO_S_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D003_NCR_J.FUTEKIGO_S_KB).FirstOrDefault?.Item("DISP")
+        mtxCurrentStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKU_ID._2_CAR, _D005_CAR_J.HOKOKU_NO)
 
         'ヘッダ
-        mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged))
+        mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         'mtxKISYU.DataBindings.Add(New Binding(NameOf(mtxKISYU.Text), _D005_CAR_J, NameOf(_D005_CAR_J.ki), False, DataSourceUpdateMode.OnPropertyChanged))
         'mtxADD_SYAIN_NAME.DataBindings.Add(New Binding(NameOf(mtxADD_SYAIN_NAME.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged))
-        mtxCurrentStageName.DataBindings.Add(New Binding(NameOf(mtxCurrentStageName.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged))
+        'mtxCurrentStageName.DataBindings.Add(New Binding(NameOf(mtxCurrentStageName.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged))
 
         '発生状況
         txtKAITO_1.DataBindings.Add(New Binding(NameOf(txtKAITO_1.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_1), False, DataSourceUpdateMode.OnPropertyChanged))
@@ -903,6 +972,7 @@ Public Class FrmG0012
 
 
     End Function
+
 
 #Region "処理モード別画面初期化"
     Private Function FunInitializeControls() As Boolean
@@ -1088,6 +1158,27 @@ Public Class FrmG0012
 
 #End Region
 
+    Private Function FunGetCurrentStageName(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String) As String
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("SELECT")
+        sbSQL.Append(" *")
+        sbSQL.Append(" FROM " & NameOf(MODEL.V003_SYONIN_J_KANRI) & " ")
+        sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intSYONIN_HOKOKUSYO_ID & "")
+        sbSQL.Append(" AND HOKOKU_NO='" & strHOKOKU_NO & "'")
+        sbSQL.Append(" ORDER BY SYONIN_JUN DESC")
+        Using DB As ClsDbUtility = DBOpen()
+            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        If dsList.Tables(0).Rows.Count = 0 Then
+            Return Nothing
+        Else
+            Return ""
+        End If
+    End Function
 
 #End Region
 

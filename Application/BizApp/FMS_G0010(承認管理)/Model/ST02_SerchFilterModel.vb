@@ -34,10 +34,8 @@ Public Class ST02_ParamModel
         JIZEN_SINSA_HANTEI_KB = ""
         ZESEI_SYOCHI_YOHI_KB = ""
         SAISIN_IINKAI_HANTEI_KB = ""
-
-        'KOKYAKU_HANTEI_SIJI_KB = ""
-        'KOKYAKU_SAISYU_HANTEI_KB = ""
-
+        KOKYAKU_HANTEI_SIJI_KB = ""
+        KOKYAKU_SAISYU_HANTEI_KB = ""
         KENSA_KEKKA_KB = ""
         KONPON_YOIN_KB1 = ""
         KONPON_YOIN_KB2 = ""
@@ -56,7 +54,20 @@ Public Class ST02_ParamModel
     Public Property SYANAI_CD As String
     Public Property BUHIN_BANGO As String
     Public Property BUHIN_NAME As String
+
+    Public Property _SYOCHI_TANTO As Integer
+    <DoNotNotify>
     Public Property SYOCHI_TANTO As Integer
+        Get
+            Return _SYOCHI_TANTO
+        End Get
+        Set(value As Integer)
+            _SYOCHI_TANTO = value
+            OnPropertyChanged(NameOf(SYOCHI_TANTO))
+        End Set
+    End Property
+
+
     Public Property JISI_YMD_FROM As String
     Public Property JISI_YMD_TO As String
     Public Property FUTEKIGO_KB As String

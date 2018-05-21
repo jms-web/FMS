@@ -9,7 +9,7 @@ Public Class FrmG0017
 
     Public Property PrSYONIN_HOKOKUSYO_ID As Integer
 
-    Public Property PrHOKOKUSYO_NO As String
+    Public Property PrHOKOKU_NO As String
 #End Region
 
 #Region "コンストラクタ"
@@ -176,9 +176,9 @@ Public Class FrmG0017
             'SPEC: 20-7.①
             sbSQL.Append("SELECT")
             sbSQL.Append(" *")
-            sbSQL.Append(" FROM V004_HOKOKU_SOUSA")
+            sbSQL.Append(" FROM " & NameOf(MODEL.V003_SYONIN_J_KANRI) & "")
             sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & PrSYONIN_HOKOKUSYO_ID & "")
-            sbSQL.Append(" AND HOKOKU_NO='" & PrHOKOKUSYO_NO & "'")
+            sbSQL.Append(" AND HOKOKU_NO='" & PrHOKOKU_NO & "'")
             sbSQL.Append(" ORDER BY ADD_YMDHNS DESC")
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)

@@ -73,14 +73,14 @@ Partial Public Class D003_NCR_J
         TENYO_GOKI = ""
         TENYO_LOT = 0
         TENYO_YMD = ""
-        SYOCHI_KEKKA_A = ""
-        SYOCHI_KEKKA_B = ""
-        SYOCHI_KEKKA_C = ""
-        SYOCHI_D_UMU_KB = ""
-        SYOCHI_D_YOHI_KB = ""
+        SYOCHI_KEKKA_A = False
+        SYOCHI_KEKKA_B = False
+        SYOCHI_KEKKA_C = False
+        SYOCHI_D_UMU_KB = False
+        SYOCHI_D_YOHI_KB = False
         SYOCHI_D_SYOCHI_KIROKU = ""
-        SYOCHI_E_UMU_KB = ""
-        SYOCHI_E_YOHI_KB = ""
+        SYOCHI_E_UMU_KB = False
+        SYOCHI_E_YOHI_KB = False
         SYOCHI_E_SYOCHI_KIROKU = ""
         FILE_PATH = ""
         G_FILE_PATH1 = ""
@@ -466,31 +466,91 @@ Partial Public Class D003_NCR_J
     <Column(TypeName:="char")>
     <StringLength(1)>
     <ComponentModel.DisplayName("処置結果a")>
-    Public Property SYOCHI_KEKKA_A As String
+    Public Property _SYOCHI_KEKKA_A As String
+
+    <ComponentModel.DisplayName("処置結果a")>
+    <NotMapped>
+    Public Property SYOCHI_KEKKA_A As Boolean
+        Get
+            Return IIf(_SYOCHI_KEKKA_A = "0", False, True)
+        End Get
+        Set(value As Boolean)
+            _SYOCHI_KEKKA_A = IIf(value, "1", "0")
+            'OnPropertyChanged(NameOf(CLOSE_FG))
+        End Set
+    End Property
 
     <Required>
     <Column(TypeName:="char")>
     <StringLength(1)>
     <ComponentModel.DisplayName("処置結果b")>
-    Public Property SYOCHI_KEKKA_B As String
+    Public Property _SYOCHI_KEKKA_B As String
+
+    <ComponentModel.DisplayName("処置結果b")>
+    <NotMapped>
+    Public Property SYOCHI_KEKKA_B As Boolean
+        Get
+            Return IIf(_SYOCHI_KEKKA_B = "0", False, True)
+        End Get
+        Set(value As Boolean)
+            _SYOCHI_KEKKA_B = IIf(value, "1", "0")
+            'OnPropertyChanged(NameOf(CLOSE_FG))
+        End Set
+    End Property
 
     <Required>
     <Column(TypeName:="char")>
     <StringLength(1)>
     <ComponentModel.DisplayName("処置結果c")>
-    Public Property SYOCHI_KEKKA_C As String
+    Public Property _SYOCHI_KEKKA_C As String
+
+    <ComponentModel.DisplayName("処置結果c")>
+    <NotMapped>
+    Public Property SYOCHI_KEKKA_C As Boolean
+        Get
+            Return IIf(_SYOCHI_KEKKA_C = "0", False, True)
+        End Get
+        Set(value As Boolean)
+            _SYOCHI_KEKKA_C = IIf(value, "1", "0")
+            'OnPropertyChanged(NameOf(CLOSE_FG))
+        End Set
+    End Property
 
     <Required>
     <Column(TypeName:="char")>
     <StringLength(1)>
     <ComponentModel.DisplayName("処置d有無区分")>
-    Public Property SYOCHI_D_UMU_KB As String
+    Public Property _SYOCHI_D_UMU_KB As String
+
+    <ComponentModel.DisplayName("処置d有無区分")>
+    <NotMapped>
+    Public Property SYOCHI_D_UMU_KB As Boolean
+        Get
+            Return IIf(_SYOCHI_D_UMU_KB = "0", False, True)
+        End Get
+        Set(value As Boolean)
+            _SYOCHI_D_UMU_KB = IIf(value, "1", "0")
+            'OnPropertyChanged(NameOf(CLOSE_FG))
+        End Set
+    End Property
 
     <Required>
     <Column(TypeName:="char")>
     <StringLength(1)>
     <ComponentModel.DisplayName("処置d要否区分")>
-    Public Property SYOCHI_D_YOHI_KB As String
+    Public Property _SYOCHI_D_YOHI_KB As String
+
+    <ComponentModel.DisplayName("処置d要否区分")>
+    <NotMapped>
+    Public Property SYOCHI_D_YOHI_KB As Boolean
+        Get
+            Return IIf(_SYOCHI_D_YOHI_KB = "0", False, True)
+        End Get
+        Set(value As Boolean)
+            _SYOCHI_D_YOHI_KB = IIf(value, "1", "0")
+            'OnPropertyChanged(NameOf(CLOSE_FG))
+        End Set
+    End Property
 
     <Required>
     <Column(TypeName:="nvarchar")>
@@ -502,13 +562,37 @@ Partial Public Class D003_NCR_J
     <Column(TypeName:="char")>
     <StringLength(1)>
     <ComponentModel.DisplayName("処置e有無区分")>
-    Public Property SYOCHI_E_UMU_KB As String
+    Public Property _SYOCHI_E_UMU_KB As String
+
+    <ComponentModel.DisplayName("処置e有無区分")>
+    <NotMapped>
+    Public Property SYOCHI_E_UMU_KB As Boolean
+        Get
+            Return IIf(_SYOCHI_E_UMU_KB = "0", False, True)
+        End Get
+        Set(value As Boolean)
+            _SYOCHI_E_UMU_KB = IIf(value, "1", "0")
+            'OnPropertyChanged(NameOf(CLOSE_FG))
+        End Set
+    End Property
 
     <Required>
     <Column(TypeName:="char")>
     <StringLength(1)>
     <ComponentModel.DisplayName("処置e要否区分")>
-    Public Property SYOCHI_E_YOHI_KB As String
+    Public Property _SYOCHI_E_YOHI_KB As String
+
+    <ComponentModel.DisplayName("処置e要否区分")>
+    <NotMapped>
+    Public Property SYOCHI_E_YOHI_KB As Boolean
+        Get
+            Return IIf(_SYOCHI_E_YOHI_KB = "0", False, True)
+        End Get
+        Set(value As Boolean)
+            _SYOCHI_E_YOHI_KB = IIf(value, "1", "0")
+            'OnPropertyChanged(NameOf(CLOSE_FG))
+        End Set
+    End Property
 
     <Required>
     <Column(TypeName:="nvarchar")>

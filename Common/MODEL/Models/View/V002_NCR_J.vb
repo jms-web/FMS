@@ -295,6 +295,15 @@ Partial Public Class V002_NCR_J
     <StringLength(30)>
     Public Property DEL_SYAIN_NAME As String
 
+    <StringLength(14)>
+    Public Property HASSEI_KOTEI_GL_YMD As String
+
+    <StringLength(30)>
+    Public Property HASSEI_KOTEI_GL_NAME As String
+
     <StringLength(1)>
     Public Property DEL_FG As String
+
+
+
 End Class
