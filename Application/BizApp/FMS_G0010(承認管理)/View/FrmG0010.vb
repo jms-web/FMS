@@ -697,7 +697,7 @@ Public Class FrmG0010
             '#End Region
 #End Region
 
-            Dim dtBUFF As DataTable = FunGetST02_FUTEKIGO_ICHIRAN(ParamModel)
+            Dim dtBUFF As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(ParamModel)
             If dtBUFF Is Nothing Then Return Nothing
             If dtBUFF.Rows.Count > pub_APP_INFO.intSEARCHMAX Then
                 If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
@@ -825,62 +825,7 @@ Public Class FrmG0010
         End Try
     End Function
 
-#Region "TV01 不適合報告書一覧"
 
-    ''' <summary>
-    ''' 引数の検索条件を一覧取得ストアドに渡して検索結果のテーブルデータを取得
-    ''' </summary>
-    ''' <param name="ParamModel"></param>
-    ''' <returns></returns>
-    Public Function FunGetST02_FUTEKIGO_ICHIRAN(ByVal ParamModel As ST02_ParamModel) As DataTable
-
-        Dim sbSQL As New System.Text.StringBuilder
-        Dim sbParam As New System.Text.StringBuilder
-        Dim dsList As New DataSet
-
-        '共通
-        sbParam.Append(" '" & ParamModel.BUMON_KB & "'")
-        sbParam.Append("," & ParamModel.SYONIN_HOKOKUSYO_ID & "")
-        sbParam.Append("," & ParamModel.KISYU_ID & "")
-        sbParam.Append(",'" & ParamModel.BUHIN_BANGO & "'")
-        sbParam.Append(",'" & ParamModel.SYANAI_CD & "'")
-        sbParam.Append(",'" & ParamModel.BUHIN_NAME & "'")
-        sbParam.Append(",'" & ParamModel.GOUKI & "'")
-        sbParam.Append("," & ParamModel.SYOCHI_TANTO & "")
-        sbParam.Append(",'" & ParamModel.JISI_YMD_FROM & "'")
-        sbParam.Append(",'" & ParamModel.JISI_YMD_TO & "'")
-        sbParam.Append(",'" & ParamModel.HOKOKU_NO & "'")
-        sbParam.Append("," & ParamModel.ADD_TANTO & "")
-        sbParam.Append(",'" & ParamModel._VISIBLE_CLOSE & "'")
-        sbParam.Append(",'" & ParamModel._VISIBLE_TAIRYU & "'")
-        sbParam.Append(",'" & ParamModel.FUTEKIGO_KB & "'")
-        sbParam.Append(",'" & ParamModel.FUTEKIGO_S_KB & "'")
-        sbParam.Append(",'" & ParamModel.FUTEKIGO_JYOTAI_KB & "'")
-
-        'NCR
-        sbParam.Append(",'" & ParamModel.JIZEN_SINSA_HANTEI_KB & "'")
-        sbParam.Append(",'" & ParamModel.ZESEI_SYOCHI_YOHI_KB & "'")
-        sbParam.Append(",'" & ParamModel.SAISIN_IINKAI_HANTEI_KB & "'")
-        sbParam.Append(",'" & ParamModel.KENSA_KEKKA_KB & "'")
-
-        'CAR
-        sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB1 & "'")
-        sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB2 & "'")
-        sbParam.Append(",'" & ParamModel.KISEKI_KOTEI_KB & "'")
-        sbParam.Append(",'" & ParamModel.KOKYAKU_HANTEI_SIJI_KB & "'")
-        sbParam.Append(",'" & ParamModel.KOKYAKU_SAISYU_HANTEI_KB & "'")
-        sbParam.Append(",'" & ParamModel.GENIN1 & "'")
-        sbParam.Append(",'" & ParamModel.GENIN2 & "'")
-
-
-        sbSQL.Append("EXEC dbo." & NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN) & " " & sbParam.ToString & "")
-        Using DB As ClsDbUtility = DBOpen()
-            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-        End Using
-
-        Return dsList?.Tables(0)
-    End Function
-#End Region
 
 #End Region
 
@@ -1666,33 +1611,33 @@ Public Class FrmG0010
 
     Private Function FunSetBinding() As Boolean
         '共通
-        cmbBUMON.DataBindings.Add(New Binding(NameOf(cmbBUMON.SelectedValue), ParamModel, NameOf(ParamModel.BUMON_KB)))
-        mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), ParamModel, NameOf(ParamModel.HOKOKU_NO)))
-        cmbADD_TANTO.DataBindings.Add(New Binding(NameOf(cmbADD_TANTO.SelectedValue), ParamModel, NameOf(ParamModel.ADD_TANTO)))
-        cmbKISYU.DataBindings.Add(New Binding(NameOf(cmbKISYU.SelectedValue), ParamModel, NameOf(ParamModel.KISYU_ID)))
-        mtxGOUKI.DataBindings.Add(New Binding(NameOf(mtxGOUKI.Text), ParamModel, NameOf(ParamModel.GOUKI)))
-        cmbSyanaiCD.DataBindings.Add(New Binding(NameOf(cmbSyanaiCD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD)))
-        cmbBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbBUHIN_BANGO.SelectedValue), ParamModel, NameOf(ParamModel.BUHIN_BANGO)))
-        mtxHINMEI.DataBindings.Add(New Binding(NameOf(mtxHINMEI.Text), ParamModel, NameOf(ParamModel.BUHIN_NAME)))
-        cmbTANTO.DataBindings.Add(New Binding(NameOf(cmbTANTO.SelectedValue), ParamModel, NameOf(ParamModel.SYOCHI_TANTO)))
-        dtJisiFrom.DataBindings.Add(New Binding(NameOf(dtJisiFrom.ValueNonFormat), ParamModel, NameOf(ParamModel.JISI_YMD_FROM)))
-        dtJisiTo.DataBindings.Add(New Binding(NameOf(dtJisiTo.ValueNonFormat), ParamModel, NameOf(ParamModel.JISI_YMD_TO)))
-        cmbFUTEKIGO_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_KB)))
-        cmbFUKEKIGO_S_KB.DataBindings.Add(New Binding(NameOf(cmbFUKEKIGO_S_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_S_KB)))
-        cmbFUTEKIGO_JYOTAI_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_JYOTAI_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_JYOTAI_KB)))
-        chkClosedRowVisibled.DataBindings.Add(New Binding(NameOf(chkClosedRowVisibled.Checked), ParamModel, NameOf(ParamModel.VISIBLE_CLOSE)))
-        chkTairyu.DataBindings.Add(New Binding(NameOf(chkTairyu.Checked), ParamModel, NameOf(ParamModel.VISIBLE_TAIRYU)))
+        cmbBUMON.DataBindings.Add(New Binding(NameOf(cmbBUMON.SelectedValue), ParamModel, NameOf(ParamModel.BUMON_KB), False, DataSourceUpdateMode.OnPropertyChanged))
+        mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), ParamModel, NameOf(ParamModel.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged))
+        cmbADD_TANTO.DataBindings.Add(New Binding(NameOf(cmbADD_TANTO.SelectedValue), ParamModel, NameOf(ParamModel.ADD_TANTO), False, DataSourceUpdateMode.OnPropertyChanged))
+        cmbKISYU.DataBindings.Add(New Binding(NameOf(cmbKISYU.SelectedValue), ParamModel, NameOf(ParamModel.KISYU_ID), False, DataSourceUpdateMode.OnPropertyChanged))
+        mtxGOUKI.DataBindings.Add(New Binding(NameOf(mtxGOUKI.Text), ParamModel, NameOf(ParamModel.GOUKI), False, DataSourceUpdateMode.OnPropertyChanged))
+        cmbSyanaiCD.DataBindings.Add(New Binding(NameOf(cmbSyanaiCD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged))
+        cmbBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbBUHIN_BANGO.SelectedValue), ParamModel, NameOf(ParamModel.BUHIN_BANGO), False, DataSourceUpdateMode.OnPropertyChanged))
+        mtxHINMEI.DataBindings.Add(New Binding(NameOf(mtxHINMEI.Text), ParamModel, NameOf(ParamModel.BUHIN_NAME), False, DataSourceUpdateMode.OnPropertyChanged))
+        cmbTANTO.DataBindings.Add(New Binding(NameOf(cmbTANTO.SelectedValue), ParamModel, NameOf(ParamModel.SYOCHI_TANTO), False, DataSourceUpdateMode.OnPropertyChanged))
+        dtJisiFrom.DataBindings.Add(New Binding(NameOf(dtJisiFrom.ValueNonFormat), ParamModel, NameOf(ParamModel.JISI_YMD_FROM), False, DataSourceUpdateMode.OnPropertyChanged))
+        dtJisiTo.DataBindings.Add(New Binding(NameOf(dtJisiTo.ValueNonFormat), ParamModel, NameOf(ParamModel.JISI_YMD_TO), False, DataSourceUpdateMode.OnPropertyChanged))
+        cmbFUTEKIGO_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_KB), False, DataSourceUpdateMode.OnPropertyChanged))
+        cmbFUKEKIGO_S_KB.DataBindings.Add(New Binding(NameOf(cmbFUKEKIGO_S_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_S_KB), False, DataSourceUpdateMode.OnPropertyChanged))
+        cmbFUTEKIGO_JYOTAI_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_JYOTAI_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_JYOTAI_KB), False, DataSourceUpdateMode.OnPropertyChanged))
+        chkClosedRowVisibled.DataBindings.Add(New Binding(NameOf(chkClosedRowVisibled.Checked), ParamModel, NameOf(ParamModel.VISIBLE_CLOSE), False, DataSourceUpdateMode.OnPropertyChanged))
+        chkTairyu.DataBindings.Add(New Binding(NameOf(chkTairyu.Checked), ParamModel, NameOf(ParamModel.VISIBLE_TAIRYU), False, DataSourceUpdateMode.OnPropertyChanged))
         'NCR
-        cmbJIZEN_SINSA_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbJIZEN_SINSA_HANTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.JIZEN_SINSA_HANTEI_KB)))
-        cmbZESEI_SYOCHI_YOHI_KB.DataBindings.Add(New Binding(NameOf(cmbZESEI_SYOCHI_YOHI_KB.SelectedValue), ParamModel, NameOf(ParamModel.ZESEI_SYOCHI_YOHI_KB)))
-        cmbSAISIN_IINKAI_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbSAISIN_IINKAI_HANTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.SAISIN_IINKAI_HANTEI_KB)))
-        cmbKOKYAKU_HANTEI_SIJI_KB.DataBindings.Add(New Binding(NameOf(cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValue), ParamModel, NameOf(ParamModel.KOKYAKU_HANTEI_SIJI_KB)))
-        cmbKOKYAKU_SAISYU_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.KOKYAKU_SAISYU_HANTEI_KB)))
-        cmbKENSA_KEKKA_KB.DataBindings.Add(New Binding(NameOf(cmbKENSA_KEKKA_KB.SelectedValue), ParamModel, NameOf(ParamModel.KENSA_KEKKA_KB)))
+        cmbJIZEN_SINSA_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbJIZEN_SINSA_HANTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.JIZEN_SINSA_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged))
+        cmbZESEI_SYOCHI_YOHI_KB.DataBindings.Add(New Binding(NameOf(cmbZESEI_SYOCHI_YOHI_KB.SelectedValue), ParamModel, NameOf(ParamModel.ZESEI_SYOCHI_YOHI_KB), False, DataSourceUpdateMode.OnPropertyChanged))
+        cmbSAISIN_IINKAI_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbSAISIN_IINKAI_HANTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.SAISIN_IINKAI_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged))
+        cmbKOKYAKU_HANTEI_SIJI_KB.DataBindings.Add(New Binding(NameOf(cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValue), ParamModel, NameOf(ParamModel.KOKYAKU_HANTEI_SIJI_KB), False, DataSourceUpdateMode.OnPropertyChanged))
+        cmbKOKYAKU_SAISYU_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.KOKYAKU_SAISYU_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged))
+        cmbKENSA_KEKKA_KB.DataBindings.Add(New Binding(NameOf(cmbKENSA_KEKKA_KB.SelectedValue), ParamModel, NameOf(ParamModel.KENSA_KEKKA_KB), False, DataSourceUpdateMode.OnPropertyChanged))
         'CAR
-        mtxGENIN1.DataBindings.Add(New Binding(NameOf(mtxGENIN1.Text), ParamModel, NameOf(ParamModel.GENIN1)))
-        mtxGENIN2.DataBindings.Add(New Binding(NameOf(mtxGENIN2.Text), ParamModel, NameOf(ParamModel.GENIN2)))
-        cmbKISEKI_KOTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKISEKI_KOTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.KISEKI_KOTEI_KB)))
+        mtxGENIN1.DataBindings.Add(New Binding(NameOf(mtxGENIN1.Text), ParamModel, NameOf(ParamModel.GENIN1), False, DataSourceUpdateMode.OnPropertyChanged))
+        mtxGENIN2.DataBindings.Add(New Binding(NameOf(mtxGENIN2.Text), ParamModel, NameOf(ParamModel.GENIN2), False, DataSourceUpdateMode.OnPropertyChanged))
+        cmbKISEKI_KOTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKISEKI_KOTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.KISEKI_KOTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged))
 
     End Function
 

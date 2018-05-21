@@ -127,7 +127,9 @@ Module mdlG0010
         _7_再加工する = 7
     End Enum
 
-
+    ''' <summary>
+    ''' 再審委員会判定区分
+    ''' </summary>
     Public Enum ENM_SAISIN_IINKAI_HANTEI_KB
         _0_完成する = 0
         _1_そのまま使用可 = 1
@@ -136,6 +138,13 @@ Module mdlG0010
         _4_返却する = 4
         _5_転用する = 5
         _6_再加工する = 6
+    End Enum
+
+    Public Enum ENM_FUTEKIGO_JYOTAI_KB
+        _0_最終製品 = 0
+        _1_仕掛品 = 1
+        _2_材料 = 2
+        _3_返却品 = 3
     End Enum
 
     'Model
@@ -231,6 +240,193 @@ Module mdlG0010
     End Sub
 #End Region
 
+#Region "ST02 不適合報告書一覧"
+
+    ''' <summary>
+    ''' 引数の検索条件を一覧取得ストアドに渡して検索結果のテーブルデータを取得
+    ''' </summary>
+    ''' <param name="ParamModel"></param>
+    ''' <returns></returns>
+    Public Function FunGetDtST02_FUTEKIGO_ICHIRAN(ByVal ParamModel As ST02_ParamModel) As DataTable
+
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim sbParam As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        '共通
+        sbParam.Append(" '" & ParamModel.BUMON_KB & "'")
+        sbParam.Append("," & ParamModel.SYONIN_HOKOKUSYO_ID & "")
+        sbParam.Append("," & ParamModel.KISYU_ID & "")
+        sbParam.Append(",'" & ParamModel.BUHIN_BANGO & "'")
+        sbParam.Append(",'" & ParamModel.SYANAI_CD & "'")
+        sbParam.Append(",'" & ParamModel.BUHIN_NAME & "'")
+        sbParam.Append(",'" & ParamModel.GOUKI & "'")
+        sbParam.Append("," & ParamModel.SYOCHI_TANTO & "")
+        sbParam.Append(",'" & ParamModel.JISI_YMD_FROM & "'")
+        sbParam.Append(",'" & ParamModel.JISI_YMD_TO & "'")
+        sbParam.Append(",'" & ParamModel.HOKOKU_NO & "'")
+        sbParam.Append("," & ParamModel.ADD_TANTO & "")
+        sbParam.Append(",'" & ParamModel._VISIBLE_CLOSE & "'")
+        sbParam.Append(",'" & ParamModel._VISIBLE_TAIRYU & "'")
+        sbParam.Append(",'" & ParamModel.FUTEKIGO_KB & "'")
+        sbParam.Append(",'" & ParamModel.FUTEKIGO_S_KB & "'")
+        sbParam.Append(",'" & ParamModel.FUTEKIGO_JYOTAI_KB & "'")
+
+        'NCR
+        sbParam.Append(",'" & ParamModel.JIZEN_SINSA_HANTEI_KB & "'")
+        sbParam.Append(",'" & ParamModel.ZESEI_SYOCHI_YOHI_KB & "'")
+        sbParam.Append(",'" & ParamModel.SAISIN_IINKAI_HANTEI_KB & "'")
+        sbParam.Append(",'" & ParamModel.KENSA_KEKKA_KB & "'")
+
+        'CAR
+        sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB1 & "'")
+        sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB2 & "'")
+        sbParam.Append(",'" & ParamModel.KISEKI_KOTEI_KB & "'")
+        sbParam.Append(",'" & ParamModel.KOKYAKU_HANTEI_SIJI_KB & "'")
+        sbParam.Append(",'" & ParamModel.KOKYAKU_SAISYU_HANTEI_KB & "'")
+        sbParam.Append(",'" & ParamModel.GENIN1 & "'")
+        sbParam.Append(",'" & ParamModel.GENIN2 & "'")
+
+
+        sbSQL.Append("EXEC dbo." & NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN) & " " & sbParam.ToString & "")
+        Using DB As ClsDbUtility = DBOpen()
+            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        Return dsList?.Tables(0)
+    End Function
+
+
+    Public Function FunGetV002Model(ByVal strHOKOKU_NO As String) As MODEL.V002_NCR_J
+
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("SELECT")
+        sbSQL.Append(" *")
+        sbSQL.Append(" FROM " & NameOf(MODEL.V002_NCR_J) & " ")
+        sbSQL.Append(" WHERE HOKOKU_NO='" & strHOKOKU_NO & "'")
+        Using DB As ClsDbUtility = DBOpen()
+            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        If dsList.Tables(0).Rows.Count = 0 Then
+            Return Nothing
+        Else
+
+            Dim _model As New MODEL.V002_NCR_J
+            With dsList.Tables(0).Rows(0)
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                _model.BUHIN_NAME = .Item(NameOf(_model.BUHIN_NAME))
+                _model.FUTEKIGO_JYOTAI_KB = .Item(NameOf(_model.FUTEKIGO_JYOTAI_KB))
+                _model.FUTEKIGO_NAIYO = .Item(NameOf(_model.FUTEKIGO_NAIYO))
+                _model.GOKI = .Item(NameOf(_model.GOKI))
+                _model.HAIKYAKU_HOUHOU = .Item(NameOf(_model.HAIKYAKU_HOUHOU))
+                _model.HAIKYAKU_KB_NAME = .Item(NameOf(_model.HAIKYAKU_KB_NAME))
+                _model.HAIKYAKU_TANTO_NAME = .Item(NameOf(_model.HAIKYAKU_TANTO_NAME))
+                _model.HAIKYAKU_YMD = .Item(NameOf(_model.HAIKYAKU_YMD))
+                '_model.HASSEI_KOTEI_GL_NAME = .Item(NameOf(_model.HASSEI_KOTEI_GL_NAME))
+                '_model.HASSEI_KOTEI_GL_YMD = .Item(NameOf(_model.HASSEI_KOTEI_GL_YMD))
+                _model.HENKYAKU_BIKO = .Item(NameOf(_model.HENKYAKU_BIKO))
+                _model.HENKYAKU_TANTO_NAME = .Item(NameOf(_model.HENKYAKU_TANTO_NAME))
+                _model.HENKYAKU_YMD = .Item(NameOf(_model.HENKYAKU_YMD))
+                _model.HOKOKU_NO = .Item(NameOf(_model.HOKOKU_NO))
+                _model.ITAG_NO = .Item(NameOf(_model.ITAG_NO))
+                _model.JIZEN_SINSA_HANTEI_KB = .Item(NameOf(_model.JIZEN_SINSA_HANTEI_KB))
+                _model.JIZEN_SINSA_SYAIN_NAME = .Item(NameOf(_model.JIZEN_SINSA_SYAIN_NAME))
+                _model.JIZEN_SINSA_YMD = .Item(NameOf(_model.JIZEN_SINSA_YMD))
+                _model.KANSATU_KEKKA = .Item(NameOf(_model.KANSATU_KEKKA))
+                _model.KENSA_KEKKA_NAME = .Item(NameOf(_model.KENSA_KEKKA_NAME))
+                _model.KENSA_TANTO_NAME = .Item(NameOf(_model.KENSA_TANTO_NAME))
+                _model.KISYU = .Item(NameOf(_model.KISYU))
+                _model.KOKYAKU_HANTEI_SIJI_NAME = .Item(NameOf(_model.KOKYAKU_HANTEI_SIJI_NAME))
+                _model.KOKYAKU_HANTEI_SIJI_YMD = .Item(NameOf(_model.KOKYAKU_HANTEI_SIJI_YMD))
+                _model.SAIHATU = .Item(NameOf(_model.SAIHATU))
+                _model.SAIKAKO_KENSA_YMD = .Item(NameOf(_model.SAIKAKO_KENSA_YMD))
+                _model.SAIKAKO_SAGYO_KAN_YMD = .Item(NameOf(_model.SAIKAKO_SAGYO_KAN_YMD))
+                _model.SAIKAKO_SIJI_NO = .Item(NameOf(_model.SAIKAKO_SIJI_NO))
+                _model.SAISIN_GIJYUTU_SYAIN_NAME = .Item(NameOf(_model.SAISIN_GIJYUTU_SYAIN_NAME))
+                _model.SAISIN_HINSYO_SYAIN_NAME = .Item(NameOf(_model.SAISIN_HINSYO_SYAIN_NAME))
+                _model.SAISIN_HINSYO_YMD = .Item(NameOf(_model.SAISIN_HINSYO_YMD))
+                _model.SAISIN_IINKAI_HANTEI_KB = .Item(NameOf(_model.SAISIN_IINKAI_HANTEI_KB))
+                _model.SAISIN_IINKAI_SIRYO_NO = .Item(NameOf(_model.SAISIN_IINKAI_SIRYO_NO))
+                _model.SAISIN_KAKUNIN_SYAIN_NAME = .Item(NameOf(_model.SAISIN_KAKUNIN_SYAIN_NAME))
+                _model.SAISIN_KAKUNIN_YMD = .Item(NameOf(_model.SAISIN_KAKUNIN_YMD))
+                _model.SEIGI_TANTO_NAME = .Item(NameOf(_model.SEIGI_TANTO_NAME))
+                _model.SEIZO_TANTO_NAME = .Item(NameOf(_model.SEIZO_TANTO_NAME))
+                _model.SURYO = .Item(NameOf(_model.SURYO))
+                _model.SYOCHI_D_SYOCHI_KIROKU = .Item(NameOf(_model.SYOCHI_D_SYOCHI_KIROKU))
+                _model.SYOCHI_D_UMU_NAME = .Item(NameOf(_model.SYOCHI_D_UMU_NAME))
+                _model.SYOCHI_D_YOHI_NAME = .Item(NameOf(_model.SYOCHI_D_YOHI_NAME))
+                _model.SYOCHI_E_SYOCHI_KIROKU = .Item(NameOf(_model.SYOCHI_E_SYOCHI_KIROKU))
+                _model.SYOCHI_E_UMU_NAME = .Item(NameOf(_model.SYOCHI_E_UMU_NAME))
+                _model.SYOCHI_E_YOHI_NAME = .Item(NameOf(_model.SYOCHI_E_YOHI_NAME))
+                _model.TENYO_BUHIN_BANGO = .Item(NameOf(_model.TENYO_BUHIN_BANGO))
+                _model.TENYO_GOKI = .Item(NameOf(_model.TENYO_GOKI))
+                _model.TENYO_KISYU = .Item(NameOf(_model.TENYO_KISYU))
+                _model.TENYO_YMD = .Item(NameOf(_model.TENYO_YMD))
+                _model.YOKYU_NAIYO = .Item(NameOf(_model.YOKYU_NAIYO))
+                _model.ZUMEN_KIKAKU = .Item(NameOf(_model.ZUMEN_KIKAKU))
+
+            End With
+
+            Return _model
+        End If
+
+
+
+
+    End Function
+
+    Public Function FunGetV003Model(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String) As MODEL.V003_SYONIN_J_KANRI
+
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("SELECT")
+        sbSQL.Append(" *")
+        sbSQL.Append(" FROM " & NameOf(MODEL.V003_SYONIN_J_KANRI) & " ")
+        sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID = " & intSYONIN_HOKOKUSYO_ID & "")
+        sbSQL.Append(" AND HOKOKU_NO='" & strHOKOKU_NO & "'")
+        Using DB As ClsDbUtility = DBOpen()
+            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        If dsList.Tables(0).Rows.Count = 0 Then
+            Return Nothing
+        Else
+
+            Dim _model As New MODEL.V003_SYONIN_J_KANRI
+            With dsList.Tables(0).Rows(0)
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+
+
+            End With
+
+            Return _model
+        End If
+
+
+
+
+    End Function
+#End Region
 
 #Region "メール送信"
 
@@ -269,6 +465,10 @@ Module mdlG0010
             End If
 
         End Using
+
+        'DEBUG: mail送信無効
+        Return True
+
 
         '認証なし
         blnSend = ClsMailSend.FunSendMail(strSmtpServer,

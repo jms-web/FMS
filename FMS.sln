@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{37524F46-8
 		Libs\SpreadsheetGear2012.Core.dll = Libs\SpreadsheetGear2012.Core.dll
 		Libs\SpreadsheetGear2012.Drawing.dll = Libs\SpreadsheetGear2012.Drawing.dll
 		Libs\SpreadsheetGear2012.Windows.Forms.dll = Libs\SpreadsheetGear2012.Windows.Forms.dll
+		Libs\TKMP.dll = Libs\TKMP.dll
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BizApp", "BizApp", "{D70FCEFD-9C30-47F2-8477-4DBA645BB752}"
@@ -88,6 +89,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{63A0AFBB-0174-48A2-9123-27257C917383}"
 	ProjectSection(SolutionItems) = preProject
 		FodyWeavers.xml = FodyWeavers.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TEMPLATE", "TEMPLATE", "{3539564C-E47C-47CF-B18A-FF3B4C50BE69}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\TEMPLATE\TEMP_CAR.xlsx = ..\..\..\TEMPLATE\TEMP_CAR.xlsx
+		..\..\..\TEMPLATE\TEMP_NCR.xlsx = ..\..\..\TEMPLATE\TEMP_NCR.xlsx
 	EndProjectSection
 EndProject
 Global

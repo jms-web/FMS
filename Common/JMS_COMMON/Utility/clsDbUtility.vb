@@ -265,6 +265,57 @@ Public Class ClsDbUtility
     End Function
 #End Region
 
+
+#Region "ExecuteScalar"
+    ''' <summary>
+    ''' データ更新する
+    ''' </summary>
+    ''' <param name="strSql">
+    ''' Sql文
+    ''' </param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function ExecuteScalar(ByVal strSql As String, Optional ByVal blnNonMsg As Boolean = True, Optional ByRef ErrException As Exception = Nothing) As String
+
+        '開始時間
+        'Dim starttime As Double = Microsoft.VisualBasic.Timer
+
+        Try
+
+            Dim strRET As String
+            Dim sqlCmd As DbCommand = Connection.CreateCommand()
+
+            'タイムアウト
+            If Me.CommandTimeout > 0 Then
+                sqlCmd.CommandTimeout = CommandTimeout
+            End If
+
+            sqlCmd.Transaction = transaction
+            sqlCmd.CommandText = strSql
+
+            strRET = sqlCmd.ExecuteScalar
+            Return strRET
+            'Catch ex As System.Data.SqlClient.SqlException
+            '    'エラーログを出力
+
+        Catch ex As Exception
+            'Throw New MyException.clsSqlException(ex, strSql)
+            'EM.ErrorSyori(ex, True, blnNonMsg)
+            ErrException = ex
+
+        Finally
+            ''終了時間
+            'Dim endtime As Double = Microsoft.VisualBasic.Timer
+            'If pub_SystemInfo.strDebugMode = "1" And blnSqlTime = True Then
+            '    Call Fun_blnLogWrite(PUBC_STRLOGKBN_OFF, PUBC_STRSTSKBN_NONE, PUBC_STRALTKBN_OFF, 503, "0", 0, _
+            '                         GetCurrentMethod.DeclaringType.Name, GetCurrentMethod.Name, "SqlTime ExecuteNonQuery:" & (endtime - starttime).ToString("0.00000Second"), strSql)
+            'End If
+
+        End Try
+
+    End Function
+#End Region
+
 #Region "ExecuteStoredProcedure"
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:SQL クエリのセキュリティ脆弱性を確認")>
     Public Sub ExecuteStoredProcedure(strExecName As String, Optional ByVal blnNonMsg As Boolean = False)
