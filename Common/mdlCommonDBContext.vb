@@ -236,6 +236,11 @@ Public Module mdlDBContext
     ''' </summary>
     Public tblSETUMON_NAIYO As DataTableEx
 
+    ''' <summary>
+    ''' îpãpï˚ñ@
+    ''' </summary>
+    Public tblHAIKYAKU_KB As DataTableEx
+
 #End Region
 
 #End Region
@@ -367,7 +372,7 @@ Public Module mdlDBContext
                     dt = New DataTableEx("System.Int32")
 
                     sbSQL.Append("SELECT * FROM " & NameOf(VWM004_SYAIN) & " ")
-                    If strWhere <> "" Then
+                    If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append("WHERE " & strWhere & "")
                     End If
                     If blnIncludeDeleted = False Then
@@ -407,7 +412,7 @@ Public Module mdlDBContext
                     dt = New DataTableEx("System.Int32")
 
                     sbSQL.Append("SELECT * FROM " & "V001_SYONIN_TANTO" & " ")
-                    If strWhere <> "" Then
+                    If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append("WHERE " & strWhere & "")
                     End If
                     If blnIncludeDeleted = False Then
@@ -439,8 +444,10 @@ Public Module mdlDBContext
 #End Region
 #Region "               ç∑ñﬂÇµêÊ"
                 Case "ç∑ñﬂÇµêÊ"
+                    dt = New DataTableEx("System.Int32")
+
                     sbSQL.Append("SELECT * FROM " & "V003_SYONIN_J_KANRI" & " ")
-                    If strWhere <> "" Then
+                    If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append("WHERE " & strWhere & "")
                     End If
                     'If blnIncludeDeleted = False Then
@@ -449,21 +456,24 @@ Public Module mdlDBContext
 
                     dt.Columns.Add("SYONIN_HOKOKUSYO_ID", GetType(Integer))
                     dt.Columns.Add("SYONIN_JUN", GetType(Integer))
+                    dt.Columns.Add("SYAIN_NAME", GetType(String))
+                    dt.Columns.Add("HOKOKU_NO", GetType(String))
 
                     'éÂÉLÅ[ê›íË
-                    'dt.PrimaryKey = {dt.Columns("SYONIN_HOKOKUSYO_ID"), dt.Columns("SYONIN_JUN"), dt.Columns("VALUE")}
+                    dt.PrimaryKey = {dt.Columns("SYONIN_HOKOKUSYO_ID"), dt.Columns("SYONIN_JUN"), dt.Columns("HOKOKU_NO")}
 
                     dsList = DB.GetDataSet(sbSQL.ToString, False)
 
                     With dsList.Tables(0)
                         For intCNT = 0 To .Rows.Count - 1
                             Dim Trow As DataRow = dt.NewRow()
-                            '
-                            Trow("DISP") = .Rows(intCNT).Item("SIMEI")
+                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO") & " " & .Rows(intCNT).Item("SYAIN_NAME")
                             Trow("VALUE") = .Rows(intCNT).Item("SYAIN_ID")
-                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            Trow("SYAIN_NAME") = .Rows(intCNT).Item("SYAIN_NAME")
+                            'Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                             Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
                             Trow("SYONIN_JUN") = .Rows(intCNT).Item("SYONIN_JUN")
+                            Trow("HOKOKU_NO") = .Rows(intCNT).Item("HOKOKU_NO")
 
                             dt.Rows.Add(Trow)
                         Next intCNT
@@ -475,7 +485,7 @@ Public Module mdlDBContext
                     dt = New DataTableEx("System.Int32")
 
                     sbSQL.Append("SELECT * FROM " & NameOf(VWM105_KISYU) & " ")
-                    If strWhere <> "" Then
+                    If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append("WHERE " & strWhere & "")
                     End If
                     If blnIncludeDeleted = False Then
@@ -506,7 +516,7 @@ Public Module mdlDBContext
                     'åüçı
                     sbSQL.Append("SELECT DISTINCT SYANAI_CD,BUHIN_BANGO,BUHIN_NAME,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
                     sbSQL.Append("WHERE BUMON_KB='4'")
-                    If strWhere <> "" Then
+                    If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append(" AND " & strWhere & "")
                     End If
                     If blnIncludeDeleted = False Then
@@ -539,7 +549,7 @@ Public Module mdlDBContext
                 Case "ïîïiî‘çÜ"
                     'åüçı
                     sbSQL.Append("SELECT DISTINCT BUHIN_BANGO,BUHIN_NAME,SYANAI_CD,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
-                    If strWhere <> "" Then
+                    If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append("WHERE " & strWhere & "")
                     End If
                     If blnIncludeDeleted = False Then
@@ -896,7 +906,7 @@ Public Module mdlDBContext
                 Case "çÄñ⁄ñº"
                     'åüçı
                     sbSQL.Append("SELECT DISTINCT ITEM_NAME,DEL_YMDHNS FROM " & NameOf(M001_SETTING) & " ")
-                    If strWhere <> "" Then
+                    If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append("WHERE " & strWhere)
                     Else
                         sbSQL.Append("WHERE 0=0")
@@ -918,7 +928,7 @@ Public Module mdlDBContext
                                 Dim Trow As DataRow = dt.NewRow()
                                 Trow("DISP") = .Rows(intCNT).Item("ITEM_NAME").ToString
                                 Trow("VALUE") = .Rows(intCNT).Item("ITEM_NAME").ToString
-                                Trow("DEL_FLG") = IIf(.Rows(intCNT).Item("DEL_YMDHNS").ToString.Trim = "", False, True)
+                                Trow("DEL_FLG") = IIf(.Rows(intCNT).Item("DEL_YMDHNS").ToString.IsNullOrWhiteSpace, False, True)
                                 dt.Rows.Add(Trow)
                             End If
                         Next intCNT
@@ -929,7 +939,7 @@ Public Module mdlDBContext
 
                     'åüçı
                     sbSQL.Append("SELECT * FROM " & NameOf(VWM001_SETTING) & " WHERE ITEM_NAME='" & strKOMOKU & "'")
-                    If strWhere <> "" Then
+                    If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append(" AND " & strWhere & "")
                     End If
                     If blnIncludeDeleted = False Then

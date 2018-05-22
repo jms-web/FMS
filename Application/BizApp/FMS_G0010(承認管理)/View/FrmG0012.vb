@@ -895,7 +895,7 @@ Public Class FrmG0012
 
     Private Function FunSetBinding() As Boolean
         '更新しないものはバインドしないものとする
-        mtxKISYU.Text = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
+        mtxKISYU.Text = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
         mtxADD_SYAIN_NAME.Text = Fun_GetUSER_NAME(_D004_SYONIN_J_KANRI.SYAIN_ID)
         mtxFUTEKIGO_KB.Text = tblFUTEKIGO_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D003_NCR_J.FUTEKIGO_KB).FirstOrDefault?.Item("DISP")
         mtxFUTEKIGO_S_KB.Text = tblFUTEKIGO_S_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D003_NCR_J.FUTEKIGO_S_KB).FirstOrDefault?.Item("DISP")

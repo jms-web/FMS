@@ -9,6 +9,7 @@ Module mdlG0010
     ''' </summary>
     Public frmLIST As FrmG0010
 
+#Region "列挙型"
     ''' <summary>
     ''' 起動モード
     ''' </summary>
@@ -35,6 +36,14 @@ Module mdlG0010
     Public Enum ENM_SYONIN_HOKOKUSYO_ID
         _1_NCR = 1
         _2_CAR = 2
+    End Enum
+
+    ''' <summary>
+    ''' 検査結果区分
+    ''' </summary>
+    Public Enum ENM_KENSA_KEKKA_KB
+        _0_合格 = 0
+        _1_不合格 = 1
     End Enum
 
     ''' <summary>
@@ -140,6 +149,22 @@ Module mdlG0010
         _6_再加工する = 6
     End Enum
 
+    ''' <summary>
+    ''' 顧客最終判定区分
+    ''' </summary>
+    Public Enum ENM_KOKYAKU_SAISYU_HANTEI_KB
+        _0_完成する = 0
+        _1_そのまま使用可 = 1
+        _2_顧客再審申請 = 2
+        _3_廃却する = 3
+        _4_返却する = 4
+        _5_転用する = 5
+        _6_再加工する = 6
+    End Enum
+
+    ''' <summary>
+    ''' 不適合状態区分
+    ''' </summary>
     Public Enum ENM_FUTEKIGO_JYOTAI_KB
         _0_最終製品 = 0
         _1_仕掛品 = 1
@@ -147,12 +172,36 @@ Module mdlG0010
         _3_返却品 = 3
     End Enum
 
+    ''' <summary>
+    ''' 要否区分
+    ''' </summary>
+    Public Enum ENM_YOHI_KB
+        _0_否 = 0
+        _1_要 = 1
+    End Enum
+
+    ''' <summary>
+    ''' 履歴操作区分
+    ''' </summary>
+    Public Enum ENM_SOUSA_KB
+        _0_新規作成 = 0
+        _1_申請依頼 = 1
+        _2_更新保存 = 2
+        _3_承認差戻 = 3
+        _4_メール送信 = 4
+        _5_転送 = 5
+    End Enum
+#End Region
+
     'Model
     Public _D003_NCR_J As New MODEL.D003_NCR_J
     Public _D004_SYONIN_J_KANRI As New MODEL.D004_SYONIN_J_KANRI
     Public _D005_CAR_J As New MODEL.D005_CAR_J
     Public _D006_CAR_GENIN_List As New List(Of MODEL.D006_CAR_GENIN)
     Public _R001_HOKOKU_SOUSA As New MODEL.R001_HOKOKU_SOUSA
+    Public _R002_HOKOKU_TENSO As New MODEL.R002_HOKOKU_TENSO
+    Public _R003_NCR_SASIMODOSI As New MODEL.R003_NCR_SASIMODOSI
+    Public _R004_CAR_SASIMODOSI As New MODEL.R004_CAR_SASIMODOSI
 
 #End Region
 
@@ -194,7 +243,6 @@ Module mdlG0010
                 Using DB As ClsDbUtility = DBOpen()
                     Call FunGetCodeDataTable(DB, "NCR", tblNCR)
                     Call FunGetCodeDataTable(DB, "CAR", tblCAR)
-                    'UNDONE: ステージ別の担当者取得に置き換え
                     Call FunGetCodeDataTable(DB, "担当", tblTANTO)
                     Call FunGetCodeDataTable(DB, "部門区分", tblBUMON, "DISP_ORDER < 10")
                     Call FunGetCodeDataTable(DB, "機種", tblKISYU)
@@ -216,6 +264,8 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "原因分析区分", tblGENIN_BUNSEKI_KB)
 
                     Call FunGetCodeDataTable(DB, "設問内容", tblSETUMON_NAIYO)
+
+                    Call FunGetCodeDataTable(DB, "廃却方法", tblHAIKYAKU_KB)
                 End Using
 
                 '起動時パラメータを取得
@@ -569,7 +619,7 @@ Module mdlG0010
         Try
 
             Dim drList As List(Of DataRow) = tblNCR.AsEnumerable().
-                                                Where(Function(r) Val(r.Field(Of String)("VALUE")) > intCurrentStageID).ToList
+                                                Where(Function(r) Val(r.Field(Of Integer)("VALUE")) > intCurrentStageID).ToList
             Dim strBUFF As String = ""
             If drList.Count > 0 Then
                 strBUFF = drList(0).Item("DISP")

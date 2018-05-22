@@ -9,9 +9,9 @@ Imports PropertyChanged
 ''' <summary>
 ''' D003_不適合製品処置報告書情報
 ''' </summary>
-<Table(NameOf(D005_CAR_J), Schema:="dbo")>
+<Table(NameOf(R004_CAR_SASIMODOSI), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
-Partial Public Class D005_CAR_J
+Partial Public Class R004_CAR_SASIMODOSI
     Inherits NotifyChangedBase
 
     Public Sub New()
@@ -19,9 +19,9 @@ Partial Public Class D005_CAR_J
     End Sub
 
     Public Sub Clear()
+        SASIMODOSI_YMDHNS = ""
         HOKOKU_NO = ""
         BUMON_KB = ""
-        _CLOSE_FG = "0"
         CLOSE_FG = False
         SETUMON_1 = ""
         KAITO_1 = ""
@@ -92,26 +92,23 @@ Partial Public Class D005_CAR_J
         KENSA_TOROKU_YMDHNS = ""
         KENSA_GL_SYAIN_ID = 0
         KENSA_GL_YMDHNS = ""
-        ADD_SYAIN_ID = 0
-        ADD_YMDHNS = ""
-        UPD_SYAIN_ID = 0
-        UPD_YMDHNS = ""
-        DEL_SYAIN_ID = 0
-        DEL_YMDHNS = ""
+        FILE_PATH1 = ""
+        FILE_PATH2 = ""
 
     End Sub
 
     Default Public Property Item(ByVal propertyName As String) As Object
         Get
-            Return GetType(D005_CAR_J).GetProperty(propertyName).GetValue(Me)
+            Return GetType(R004_CAR_SASIMODOSI).GetProperty(propertyName).GetValue(Me)
         End Get
         Set(value As Object)
-            GetType(D005_CAR_J).GetProperty(propertyName).SetValue(Me, value)
+            GetType(R004_CAR_SASIMODOSI).GetProperty(propertyName).SetValue(Me, value)
         End Set
     End Property
 
-    <Key>
-    <Column(Order:=0, TypeName:="char")>
+    <StringLength(14)>
+    Public Property SASIMODOSI_YMDHNS As String
+
     <StringLength(10)>
     <DisplayName("報告書No")>
     Public Property HOKOKU_NO As String
@@ -559,58 +556,5 @@ Partial Public Class D005_CAR_J
     Public Property FILE_PATH2 As String
 
 
-    ''共通項目------------------------------------
-    <Required>
-    <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
-    <Column(TypeName:="char")>
-    Public Property ADD_YMDHNS As String
-
-    <NotMapped>
-    <DoNotNotify>
-    Public ReadOnly Property ADD_YMD As String
-        Get
-            Dim strRET As String
-            If ADD_YMDHNS IsNot Nothing AndAlso ADD_YMDHNS.Length = 14 Then
-                strRET = DateTime.ParseExact(ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-            Else
-                strRET = ""
-            End If
-            Return strRET
-        End Get
-    End Property
-
-    <Required>
-    <Display(AutoGenerateField:=False)>
-    Public Property ADD_SYAIN_ID As Integer
-
-    <Required>
-    <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
-    <Column(TypeName:="char")>
-    Public Property UPD_YMDHNS As String
-
-    <Required>
-    <Display(AutoGenerateField:=False)>
-    Public Property UPD_SYAIN_ID As Integer
-
-    <Required>
-    <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
-    <Column(TypeName:="char")>
-    Public Property DEL_YMDHNS As String
-
-    <ComponentModel.DisplayName("削除済")>
-    <NotMapped>
-    <DoNotNotify>
-    Public ReadOnly Property DEL_FLG As Boolean
-        Get
-            Return DEL_YMDHNS.Trim <> ""
-        End Get
-    End Property
-
-    <Required>
-    <Display(AutoGenerateField:=False)>
-    Public Property DEL_SYAIN_ID As Integer
 
 End Class

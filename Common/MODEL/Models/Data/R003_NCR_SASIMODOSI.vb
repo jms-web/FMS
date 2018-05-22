@@ -6,9 +6,9 @@ Imports PropertyChanged
 ''' <summary>
 ''' D003_不適合製品処置報告書情報
 ''' </summary>
-<Table(NameOf(D003_NCR_J), Schema:="dbo")>
+<Table(NameOf(R003_NCR_SASIMODOSI), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
-Partial Public Class D003_NCR_J
+Partial Public Class R003_NCR_SASIMODOSI
     'Inherits NotifyChangedBase
 
     Public Sub New()
@@ -16,9 +16,9 @@ Partial Public Class D003_NCR_J
     End Sub
 
     Public Sub Clear()
+        SASIMODOSI_YMDHNS = ""
         HOKOKU_NO = ""
         BUMON_KB = ""
-        _CLOSE_FG = "0"
         CLOSE_FG = False
         KISYU_ID = 0
         SYANAI_CD = ""
@@ -26,7 +26,6 @@ Partial Public Class D003_NCR_J
         BUHIN_NAME = ""
         GOKI = ""
         SURYO = 1
-        _SAIHATU = "0"
         SAIHATU = False
         FUTEKIGO_JYOTAI_KB = ""
         FUTEKIGO_NAIYO = ""
@@ -35,7 +34,6 @@ Partial Public Class D003_NCR_J
         ZUMEN_KIKAKU = ""
         YOKYU_NAIYO = ""
         KANSATU_KEKKA = ""
-        _ZESEI_SYOCHI_YOHI_KB = "0"
         ZESEI_SYOCHI_YOHI_KB = False
         ZESEI_NASI_RIYU = ""
         JIZEN_SINSA_HANTEI_KB = ""
@@ -56,7 +54,6 @@ Partial Public Class D003_NCR_J
         KOKYAKU_HANTEI_SIJI_YMD = ""
         KOKYAKU_SAISYU_HANTEI_KB = ""
         KOKYAKU_SAISYU_HANTEI_YMD = ""
-        _SAIKAKO_SIJI_FG = "0"
         SAIKAKO_SIJI_FG = False
         HAIKYAKU_YMD = ""
         HAIKYAKU_KB = ""
@@ -78,47 +75,36 @@ Partial Public Class D003_NCR_J
         TENYO_GOKI = ""
         TENYO_LOT = 0
         TENYO_YMD = ""
-        _SYOCHI_KEKKA_A = "0"
         SYOCHI_KEKKA_A = False
-        _SYOCHI_KEKKA_B = "0"
         SYOCHI_KEKKA_B = False
-        _SYOCHI_KEKKA_C = "0"
         SYOCHI_KEKKA_C = False
-        _SYOCHI_D_UMU_KB = "0"
         SYOCHI_D_UMU_KB = False
-        _SYOCHI_D_YOHI_KB = "0"
         SYOCHI_D_YOHI_KB = False
         SYOCHI_D_SYOCHI_KIROKU = ""
-        _SYOCHI_E_UMU_KB = "0"
         SYOCHI_E_UMU_KB = False
-        _SYOCHI_E_YOHI_KB = "0"
         SYOCHI_E_YOHI_KB = False
         SYOCHI_E_SYOCHI_KIROKU = ""
         FILE_PATH = ""
         G_FILE_PATH1 = ""
         G_FILE_PATH2 = ""
-        ADD_YMDHNS = ""
-        ADD_SYAIN_ID = 0
-        UPD_YMDHNS = ""
-        UPD_SYAIN_ID = 0
-        DEL_YMDHNS = ""
-        DEL_SYAIN_ID = 0
+
 
     End Sub
 
 
     Default Public Property Item(ByVal propertyName As String) As Object
         Get
-            Return GetType(D003_NCR_J).GetProperty(propertyName).GetValue(Me)
+            Return GetType(R003_NCR_SASIMODOSI).GetProperty(propertyName).GetValue(Me)
         End Get
         Set(value As Object)
-            GetType(D003_NCR_J).GetProperty(propertyName).SetValue(Me, value)
+            GetType(R003_NCR_SASIMODOSI).GetProperty(propertyName).SetValue(Me, value)
         End Set
     End Property
 
+    <StringLength(14)>
+    Public Property SASIMODOSI_YMDHNS As String
 
-    <Key>
-    <Column(Order:=0, TypeName:="char")>
+
     <StringLength(10)>
     <DisplayName("報告書No")>
     Public Property HOKOKU_NO As String
@@ -640,58 +626,5 @@ Partial Public Class D003_NCR_J
     <StringLength(200)>
     <ComponentModel.DisplayName("画像ファイルパス2")>
     Public Property G_FILE_PATH2 As String
-
-
-    ''共通項目------------------------------------
-    <Required>
-    <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
-    <Column(TypeName:="char")>
-    Public Property ADD_YMDHNS As String
-
-    <NotMapped>
-    Public ReadOnly Property ADD_YMD As String
-        Get
-            Dim strRET As String
-            If ADD_YMDHNS IsNot Nothing AndAlso ADD_YMDHNS.Length = 14 Then
-                strRET = DateTime.ParseExact(ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-            Else
-                strRET = ""
-            End If
-            Return strRET
-        End Get
-    End Property
-
-    <Required>
-    <Display(AutoGenerateField:=False)>
-    Public Property ADD_SYAIN_ID As Integer
-
-    <Required>
-    <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
-    <Column(TypeName:="char")>
-    Public Property UPD_YMDHNS As String
-
-    <Required>
-    <Display(AutoGenerateField:=False)>
-    Public Property UPD_SYAIN_ID As Integer
-
-    <Required>
-    <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
-    <Column(TypeName:="char")>
-    Public Property DEL_YMDHNS As String
-
-    <ComponentModel.DisplayName("削除済")>
-    <NotMapped>
-    Public ReadOnly Property DEL_FLG As Boolean
-        Get
-            Return DEL_YMDHNS.Trim <> ""
-        End Get
-    End Property
-
-    <Required>
-    <Display(AutoGenerateField:=False)>
-    Public Property DEL_SYAIN_ID As Integer
 
 End Class

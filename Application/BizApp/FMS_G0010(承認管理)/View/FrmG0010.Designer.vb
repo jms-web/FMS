@@ -342,7 +342,7 @@ Partial Class FrmG0010
         Me.cmbBUMON.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbBUMON.Location = New System.Drawing.Point(163, 3)
         Me.cmbBUMON.Name = "cmbBUMON"
-        Me.cmbBUMON.NullValue = Nothing
+        Me.cmbBUMON.NullValue = " "
         Me.cmbBUMON.Selected = False
         Me.cmbBUMON.Size = New System.Drawing.Size(94, 25)
         Me.cmbBUMON.TabIndex = 102
@@ -374,7 +374,7 @@ Partial Class FrmG0010
         Me.cmbGEN_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbGEN_TANTO.Location = New System.Drawing.Point(163, 93)
         Me.cmbGEN_TANTO.Name = "cmbGEN_TANTO"
-        Me.cmbGEN_TANTO.NullValue = Nothing
+        Me.cmbGEN_TANTO.NullValue = " "
         Me.cmbGEN_TANTO.Selected = False
         Me.cmbGEN_TANTO.Size = New System.Drawing.Size(134, 25)
         Me.cmbGEN_TANTO.TabIndex = 70
@@ -510,7 +510,7 @@ Partial Class FrmG0010
         Me.cmbADD_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbADD_TANTO.Location = New System.Drawing.Point(843, 3)
         Me.cmbADD_TANTO.Name = "cmbADD_TANTO"
-        Me.cmbADD_TANTO.NullValue = Nothing
+        Me.cmbADD_TANTO.NullValue = " "
         Me.cmbADD_TANTO.Selected = False
         Me.cmbADD_TANTO.Size = New System.Drawing.Size(134, 25)
         Me.cmbADD_TANTO.TabIndex = 109
@@ -542,7 +542,7 @@ Partial Class FrmG0010
         Me.cmbKISYU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKISYU.Location = New System.Drawing.Point(163, 33)
         Me.cmbKISYU.Name = "cmbKISYU"
-        Me.cmbKISYU.NullValue = Nothing
+        Me.cmbKISYU.NullValue = " "
         Me.cmbKISYU.Selected = False
         Me.cmbKISYU.Size = New System.Drawing.Size(134, 25)
         Me.cmbKISYU.TabIndex = 78
@@ -610,7 +610,7 @@ Partial Class FrmG0010
         Me.cmbBUHIN_BANGO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbBUHIN_BANGO.Location = New System.Drawing.Point(463, 63)
         Me.cmbBUHIN_BANGO.Name = "cmbBUHIN_BANGO"
-        Me.cmbBUHIN_BANGO.NullValue = Nothing
+        Me.cmbBUHIN_BANGO.NullValue = " "
         Me.cmbBUHIN_BANGO.Selected = False
         Me.cmbBUHIN_BANGO.Size = New System.Drawing.Size(154, 25)
         Me.cmbBUHIN_BANGO.TabIndex = 71
@@ -679,7 +679,7 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbFUTEKIGO_KB.Location = New System.Drawing.Point(163, 123)
         Me.cmbFUTEKIGO_KB.Name = "cmbFUTEKIGO_KB"
-        Me.cmbFUTEKIGO_KB.NullValue = Nothing
+        Me.cmbFUTEKIGO_KB.NullValue = " "
         Me.cmbFUTEKIGO_KB.Selected = False
         Me.cmbFUTEKIGO_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbFUTEKIGO_KB.TabIndex = 111
@@ -711,7 +711,7 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_S_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbFUTEKIGO_S_KB.Location = New System.Drawing.Point(463, 123)
         Me.cmbFUTEKIGO_S_KB.Name = "cmbFUTEKIGO_S_KB"
-        Me.cmbFUTEKIGO_S_KB.NullValue = Nothing
+        Me.cmbFUTEKIGO_S_KB.NullValue = " "
         Me.cmbFUTEKIGO_S_KB.Selected = False
         Me.cmbFUTEKIGO_S_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbFUTEKIGO_S_KB.TabIndex = 112
@@ -743,7 +743,7 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_JYOTAI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbFUTEKIGO_JYOTAI_KB.Location = New System.Drawing.Point(163, 153)
         Me.cmbFUTEKIGO_JYOTAI_KB.Name = "cmbFUTEKIGO_JYOTAI_KB"
-        Me.cmbFUTEKIGO_JYOTAI_KB.NullValue = Nothing
+        Me.cmbFUTEKIGO_JYOTAI_KB.NullValue = " "
         Me.cmbFUTEKIGO_JYOTAI_KB.Selected = False
         Me.cmbFUTEKIGO_JYOTAI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbFUTEKIGO_JYOTAI_KB.TabIndex = 114
@@ -777,7 +777,7 @@ Partial Class FrmG0010
         Me.cmbSYANAI_CD.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbSYANAI_CD.Location = New System.Drawing.Point(163, 63)
         Me.cmbSYANAI_CD.Name = "cmbSYANAI_CD"
-        Me.cmbSYANAI_CD.NullValue = Nothing
+        Me.cmbSYANAI_CD.NullValue = " "
         Me.cmbSYANAI_CD.Selected = False
         Me.cmbSYANAI_CD.Size = New System.Drawing.Size(134, 25)
         Me.cmbSYANAI_CD.TabIndex = 70
@@ -798,7 +798,7 @@ Partial Class FrmG0010
         Me.cmbJIZEN_SINSA_HANTEI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbJIZEN_SINSA_HANTEI_KB.Location = New System.Drawing.Point(163, 3)
         Me.cmbJIZEN_SINSA_HANTEI_KB.Name = "cmbJIZEN_SINSA_HANTEI_KB"
-        Me.cmbJIZEN_SINSA_HANTEI_KB.NullValue = Nothing
+        Me.cmbJIZEN_SINSA_HANTEI_KB.NullValue = " "
         Me.cmbJIZEN_SINSA_HANTEI_KB.Selected = False
         Me.cmbJIZEN_SINSA_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbJIZEN_SINSA_HANTEI_KB.TabIndex = 68
@@ -819,7 +819,7 @@ Partial Class FrmG0010
         Me.cmbSAISIN_IINKAI_HANTEI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Location = New System.Drawing.Point(163, 63)
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Name = "cmbSAISIN_IINKAI_HANTEI_KB"
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.NullValue = Nothing
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.NullValue = " "
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Selected = False
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbSAISIN_IINKAI_HANTEI_KB.TabIndex = 77
@@ -1055,7 +1055,7 @@ Partial Class FrmG0010
         Me.cmbKENSA_KEKKA_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKENSA_KEKKA_KB.Location = New System.Drawing.Point(163, 153)
         Me.cmbKENSA_KEKKA_KB.Name = "cmbKENSA_KEKKA_KB"
-        Me.cmbKENSA_KEKKA_KB.NullValue = Nothing
+        Me.cmbKENSA_KEKKA_KB.NullValue = " "
         Me.cmbKENSA_KEKKA_KB.Selected = False
         Me.cmbKENSA_KEKKA_KB.Size = New System.Drawing.Size(94, 25)
         Me.cmbKENSA_KEKKA_KB.TabIndex = 78
@@ -1087,7 +1087,7 @@ Partial Class FrmG0010
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Location = New System.Drawing.Point(163, 123)
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Name = "cmbKOKYAKU_SAISYU_HANTEI_KB"
-        Me.cmbKOKYAKU_SAISYU_HANTEI_KB.NullValue = Nothing
+        Me.cmbKOKYAKU_SAISYU_HANTEI_KB.NullValue = " "
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Selected = False
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.TabIndex = 70
@@ -1119,7 +1119,7 @@ Partial Class FrmG0010
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Location = New System.Drawing.Point(163, 93)
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Name = "cmbKOKYAKU_HANTEI_SIJI_KB"
-        Me.cmbKOKYAKU_HANTEI_SIJI_KB.NullValue = Nothing
+        Me.cmbKOKYAKU_HANTEI_SIJI_KB.NullValue = " "
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Selected = False
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Size = New System.Drawing.Size(94, 25)
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.TabIndex = 106
@@ -1162,7 +1162,7 @@ Partial Class FrmG0010
         Me.cmbZESEI_SYOCHI_YOHI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbZESEI_SYOCHI_YOHI_KB.Location = New System.Drawing.Point(163, 33)
         Me.cmbZESEI_SYOCHI_YOHI_KB.Name = "cmbZESEI_SYOCHI_YOHI_KB"
-        Me.cmbZESEI_SYOCHI_YOHI_KB.NullValue = Nothing
+        Me.cmbZESEI_SYOCHI_YOHI_KB.NullValue = " "
         Me.cmbZESEI_SYOCHI_YOHI_KB.Selected = False
         Me.cmbZESEI_SYOCHI_YOHI_KB.Size = New System.Drawing.Size(94, 25)
         Me.cmbZESEI_SYOCHI_YOHI_KB.TabIndex = 104
@@ -1304,7 +1304,7 @@ Partial Class FrmG0010
         Me.cmbYOIN1.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbYOIN1.Location = New System.Drawing.Point(163, 3)
         Me.cmbYOIN1.Name = "cmbYOIN1"
-        Me.cmbYOIN1.NullValue = Nothing
+        Me.cmbYOIN1.NullValue = " "
         Me.cmbYOIN1.Selected = False
         Me.cmbYOIN1.Size = New System.Drawing.Size(194, 25)
         Me.cmbYOIN1.TabIndex = 0
@@ -1359,7 +1359,7 @@ Partial Class FrmG0010
         Me.cmbYOIN2.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbYOIN2.Location = New System.Drawing.Point(163, 33)
         Me.cmbYOIN2.Name = "cmbYOIN2"
-        Me.cmbYOIN2.NullValue = Nothing
+        Me.cmbYOIN2.NullValue = " "
         Me.cmbYOIN2.Selected = False
         Me.cmbYOIN2.Size = New System.Drawing.Size(194, 25)
         Me.cmbYOIN2.TabIndex = 103
@@ -1533,7 +1533,7 @@ Partial Class FrmG0010
         Me.cmbKISEKI_KOTEI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKISEKI_KOTEI_KB.Location = New System.Drawing.Point(163, 63)
         Me.cmbKISEKI_KOTEI_KB.Name = "cmbKISEKI_KOTEI_KB"
-        Me.cmbKISEKI_KOTEI_KB.NullValue = Nothing
+        Me.cmbKISEKI_KOTEI_KB.NullValue = " "
         Me.cmbKISEKI_KOTEI_KB.Selected = False
         Me.cmbKISEKI_KOTEI_KB.Size = New System.Drawing.Size(194, 25)
         Me.cmbKISEKI_KOTEI_KB.TabIndex = 106

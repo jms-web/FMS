@@ -10,7 +10,7 @@ Partial Public Class V002_NCR_J
 
 
     Public Sub Clear()
-
+        ZESEI_SYOCHI_YOHI_KB = "0"
     End Sub
 
     'UNDONE: 他のモデルにもインデクサプロパティを実装する

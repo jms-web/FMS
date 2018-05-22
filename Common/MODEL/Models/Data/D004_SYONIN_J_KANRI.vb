@@ -26,15 +26,27 @@ Partial Public Class D004_SYONIN_J_KANRI
         SYAIN_ID = 0
         SYONIN_YMDHNS = ""
         SYONIN_HANTEI_KB = ""
+        _SASIMODOSI_FG = "0"
         SASIMODOSI_FG = False
         RIYU = ""
         COMMENT = ""
+        _MAIL_SEND_FG = "0"
         MAIL_SEND_FG = False
         ADD_YMDHNS = ""
         ADD_SYAIN_ID = 0
         UPD_YMDHNS = ""
         UPD_SYAIN_ID = 0
     End Sub
+
+
+    Default Public Property Item(ByVal propertyName As String) As Object
+        Get
+            Return GetType(D004_SYONIN_J_KANRI).GetProperty(propertyName).GetValue(Me)
+        End Get
+        Set(value As Object)
+            GetType(D004_SYONIN_J_KANRI).GetProperty(propertyName).SetValue(Me, value)
+        End Set
+    End Property
 
     <Key>
     <Column(Order:=0)>

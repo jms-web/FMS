@@ -237,6 +237,7 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).Width = 180
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).Frozen = True
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
                 .Columns.Add(NameOf(_Model.BUHIN_NAME), "部品名")
@@ -545,19 +546,8 @@ Public Class FrmG0010
                     Call FunUnSelectAll()
 
                 Case 9 'メール送信
+                    Call FunMailSending()
 
-                    Dim dr As DataRow = dgvDATA.GetDataRow()
-
-                    If dr IsNot Nothing Then
-                        Dim strSubject As String = "【テスト】不適合管理システム テストメール"
-                        Dim strBody As String = "送信テスト"
-
-                        Dim strSyainName As String = Fun_GetUSER_NAME(dr.Item("GEN_TANTO_ID"))
-
-                        If MessageBox.Show(strSyainName & "さんに確認メールを送信します。" & vbCrLf & "", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
-                            Call FunSendMailFutekigo(strSubject, strBody, dr.Item("GEN_TANTO_ID"))
-                        End If
-                    End If
 
                 Case 10  '印刷
                     Call FunOpenReport()
@@ -750,9 +740,8 @@ Public Class FrmG0010
             Dim t As Type = GetType(MODEL.ST02_FUTEKIGO_ICHIRAN)
             Dim properties As Reflection.PropertyInfo() = t.GetProperties(
                  Reflection.BindingFlags.Public Or
-                 Reflection.BindingFlags.NonPublic Or
                  Reflection.BindingFlags.Instance Or
-                 Reflection.BindingFlags.Static)
+                 Reflection.BindingFlags.Static).Where(Function(p) p.Name <> "Item").ToArray
 
             For Each p As Reflection.PropertyInfo In properties
                 If IsAutoGenerateField(t, p.Name) = True Then
@@ -793,7 +782,13 @@ Public Class FrmG0010
                                         End Select
                                     End If
                                 Case Else
-                                    Trow(p.Name) = row.Item(p.Name).ToString.Trim
+                                    '特定列のみ加工
+                                    Select Case p.Name
+                                        Case "SYONIN_NAIYO"
+                                            Trow(p.Name) = row.Item("SYONIN_JUN") & "." & row.Item(p.Name).ToString.Trim
+                                        Case Else
+                                            Trow(p.Name) = row.Item(p.Name).ToString.Trim
+                                    End Select
                             End Select
                         End If
                     Next p
@@ -936,12 +931,8 @@ Public Class FrmG0010
             End Select
             sbSQL.Append(" DEL_SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID & "")
             sbSQL.Append(" ,DEL_YMDHNS=dbo.GetSysDateString()")
-            sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.ADD_YMDHNS))
-            sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SYONIN_JUN))
-            sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SOUSA_KB))
             sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intSYONIN_HOKOKUSYO_ID & "")
             sbSQL.Append(" AND HOKOKU_NO='" & strHOKOKU_NO & "'")
-            sbSQL.Append(")")
 
 
             'CHECK: 一覧削除ボタン D004やR001等の編集履歴はどうするか
@@ -1029,6 +1020,34 @@ Public Class FrmG0010
         End Try
     End Function
 
+#End Region
+
+#Region "メール送信"
+    Private Function FunMailSending() As Boolean
+        Try
+            Dim dt As DataTable = DirectCast(dgvDATA.DataSource, DataTable).AsEnumerable.
+                                    Where(Function(r) r.Field(Of Boolean)("SELECTED") = True)?.
+                                    CopyToDataTable
+
+            If dt IsNot Nothing Then
+                For Each dr As DataRow In dt.Rows
+                    Dim strSubject As String = "【テスト】不適合管理システム テストメール"
+                    Dim strBody As String = dr.Item("SYONIN_NAIYO")
+                    Dim strSyainName As String = Fun_GetUSER_NAME(dr.Item("GEN_TANTO_ID"))
+
+                    If MessageBox.Show(strSyainName & "さんに確認メールを送信します。" & vbCrLf & "よろしいですか？", "確認メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
+                        If FunSendMailFutekigo(strSubject, strBody, dr.Item("GEN_TANTO_ID")) Then
+                            MessageBox.Show("メール送信しました。", "メール送信成功", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Else
+                            MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        End If
+                    End If
+                Next dr
+            End If
+        Catch ex As Exception
+            'EM.ErrorSyori(ex, False, conblnNonMsg)
+        End Try
+    End Function
 #End Region
 
 #Region "印刷"
@@ -1151,7 +1170,9 @@ Public Class FrmG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_YMD)).Value = _V002_NCR_J.SAISIN_HINSYO_YMD
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_HANTEI_KB) & _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB).Value = "TRUE"
+            If Not _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB.IsNullOrWhiteSpace Then
+                ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_HANTEI_KB) & _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB).Value = "TRUE"
+            End If
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_SIRYO_NO)).Value = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_YMD)).Value = _V002_NCR_J.SAISIN_KAKUNIN_YMD
@@ -1189,7 +1210,11 @@ Public Class FrmG0010
 
             '-----SpereasheetGera印刷
             Dim ssgPrintDocument As SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument = New SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument(ssgSheet1, SpreadsheetGear.Printing.PrintWhat.Sheet)
-            'printDocument.PrinterSettings.PrinterName = "PrinterName"
+
+            Dim pd As New System.Drawing.Printing.PrintDocument
+            'プリンタ名の取得
+            Dim defaultPrinterName As String = pd.PrinterSettings.PrinterName
+            ssgPrintDocument.PrinterSettings.PrinterName = defaultPrinterName
             ssgPrintDocument.Print()
 
             '-----ファイル保存
@@ -1226,6 +1251,7 @@ Public Class FrmG0010
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
+
             ssgRangeFrom = Nothing
             ssgRangeTo = Nothing
             ssgSheet1 = Nothing

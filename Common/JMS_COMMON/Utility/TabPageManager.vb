@@ -31,14 +31,14 @@
     ''' TabPageの表示・非表示を変更する
     ''' </summary>
     ''' <param name="index">変更するTabPageのIndex番号</param>
-    ''' <param name="v">表示するときはTrue。
+    ''' <param name="blnVisible">表示するときはTrue。
     ''' 非表示にするときはFalse。</param>
     Public Sub ChangeTabPageVisible(
-        ByVal index As Integer, ByVal v As Boolean)
-        If _tabPageInfos(index).Visible = v Then
+        ByVal index As Integer, ByVal blnVisible As Boolean)
+        If _tabPageInfos(index).Visible = blnVisible Then
             Return
         End If
-        _tabPageInfos(index).Visible = v
+        _tabPageInfos(index).Visible = blnVisible
         _tabControl.SuspendLayout()
         _tabControl.TabPages.Clear()
         Dim i As Integer

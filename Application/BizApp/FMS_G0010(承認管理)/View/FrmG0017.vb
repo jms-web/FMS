@@ -5,11 +5,19 @@ Imports JMS_COMMON.ClsPubMethod
 ''' </summary>
 Public Class FrmG0017
 
+
+#Region "定数・変数"
+    '入力必須コントロール検証判定
+    Private pri_blnValidated As Boolean
+#End Region
+
 #Region "プロパティ"
 
     Public Property PrSYONIN_HOKOKUSYO_ID As Integer
 
     Public Property PrHOKOKU_NO As String
+
+    Public Property PrCurrentStage As Integer
 #End Region
 
 #Region "コンストラクタ"
@@ -36,6 +44,8 @@ Public Class FrmG0017
         Try
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+            lblTytle.Text = "処置履歴"
+            Me.Text = lblTytle.Text
 
             '-----グリッド初期設定(親フォームから呼び出し)
             Call FunInitializeDataGridView(Me.dgvDATA)
@@ -62,7 +72,7 @@ Public Class FrmG0017
                 .AutoGenerateColumns = False
 
                 .Columns.Add("ADD_YMDHNS", "処理年月日")
-                .Columns(.ColumnCount - 1).Width = 100
+                .Columns(.ColumnCount - 1).Width = 150
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
@@ -70,23 +80,23 @@ Public Class FrmG0017
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).Visible = False
 
-                .Columns.Add("STAGE_NAME", "ステージ")
-                .Columns(.ColumnCount - 1).Width = 100
+                .Columns.Add("SYONIN_NAIYO", "ステージ")
+                .Columns(.ColumnCount - 1).Width = 220
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
                 .Columns.Add("SOUSA_NAME", "処置")
-                .Columns(.ColumnCount - 1).Width = 100
+                .Columns(.ColumnCount - 1).Width = 120
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
                 .Columns.Add("SYAIN_NAME", "処置担当者")
-                .Columns(.ColumnCount - 1).Width = 100
+                .Columns(.ColumnCount - 1).Width = 150
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
                 .Columns.Add("RIYU", "内容・理由")
-                .Columns(.ColumnCount - 1).Width = 300
+                .Columns(.ColumnCount - 1).Width = 400
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
@@ -176,7 +186,7 @@ Public Class FrmG0017
             'SPEC: 20-7.①
             sbSQL.Append("SELECT")
             sbSQL.Append(" *")
-            sbSQL.Append(" FROM " & NameOf(MODEL.V003_SYONIN_J_KANRI) & "")
+            sbSQL.Append(" FROM " & NameOf(MODEL.V004_HOKOKU_SOUSA) & "")
             sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & PrSYONIN_HOKOKUSYO_ID & "")
             sbSQL.Append(" AND HOKOKU_NO='" & PrHOKOKU_NO & "'")
             sbSQL.Append(" ORDER BY ADD_YMDHNS DESC")
@@ -197,6 +207,7 @@ Public Class FrmG0017
             dt.Columns.Add("HOKOKU_NO", GetType(String))
             dt.Columns.Add("ADD_YMDHNS", GetType(String))
             dt.Columns.Add("SYONIN_JUN", GetType(Integer))
+            dt.Columns.Add("SYONIN_NAIYO", GetType(String))
             dt.Columns.Add("SOUSA_KB", GetType(String))
             dt.Columns.Add("SOUSA_NAME", GetType(String))
             dt.Columns.Add("SYAIN_ID", GetType(Integer))
@@ -206,7 +217,7 @@ Public Class FrmG0017
             dt.Columns.Add("RIYU", GetType(String))
 
             '主キー設定
-            dt.PrimaryKey = {dt.Columns("SYONIN_HOKOKUSYO_ID"), dt.Columns("HOKOKU_NO"), dt.Columns("SYONIN_JUN")}
+            dt.PrimaryKey = {dt.Columns("SYONIN_HOKOKUSYO_ID"), dt.Columns("HOKOKU_NO"), dt.Columns("ADD_YMDHNS")}
 
             With dsList.Tables(0)
                 For intCNT = 0 To .Rows.Count - 1
@@ -214,11 +225,12 @@ Public Class FrmG0017
                     '
                     Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
                     Trow("HOKOKU_NO") = .Rows(intCNT).Item("HOKOKU_NO")
-                    Trow("ADD_YMDHNS") = .Rows(intCNT).Item("ADD_YMDHNS")
+                    Trow("ADD_YMDHNS") = DateTime.ParseExact(.Rows(intCNT).Item("ADD_YMDHNS"), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
                     Trow("SYONIN_JUN") = .Rows(intCNT).Item("SYONIN_JUN")
                     Trow("SOUSA_KB") = .Rows(intCNT).Item("SOUSA_KB")
                     Trow("SOUSA_NAME") = .Rows(intCNT).Item("SOUSA_NAME")
                     Trow("SYAIN_ID") = .Rows(intCNT).Item("SYAIN_ID")
+                    Trow("SYONIN_NAIYO") = .Rows(intCNT).Item("SYONIN_JUN") & "." & .Rows(intCNT).Item("SYONIN_NAIYO")
                     Trow("SYAIN_NAME") = .Rows(intCNT).Item("SYAIN_NAME")
                     Trow("SYONIN_HANTEI_KB") = .Rows(intCNT).Item("SYONIN_HANTEI_KB")
                     Trow("SYONIN_HANTEI_NAME") = .Rows(intCNT).Item("SYONIN_HANTEI_NAME")
@@ -343,7 +355,7 @@ Public Class FrmG0017
             Next intFunc
 
             'SPEC: 20-7.②
-            If dgvDATA.CurrentRow IsNot Nothing AndAlso dgvDATA.CurrentRow.Cells("SYONIN_HANTEI_KB").Value = 1 Then '差戻し
+            If dgvDATA.CurrentRow IsNot Nothing AndAlso dgvDATA.GetDataRow.Item("SYONIN_HANTEI_KB") = 1 Then '差戻し
                 cmdFunc1.Enabled = True
             Else
                 cmdFunc1.Enabled = False

@@ -9,6 +9,16 @@ Imports System.Data.Entity.Spatial
 ''' </summary>
 Partial Public Class ST02_FUTEKIGO_ICHIRAN
 
+    'インデクサプロパティ
+    Default Public Property Item(ByVal propertyName As String) As Object
+        Get
+            Return GetType(ST02_FUTEKIGO_ICHIRAN).GetProperty(propertyName).GetValue(Me)
+        End Get
+        Set(value As Object)
+            GetType(ST02_FUTEKIGO_ICHIRAN).GetProperty(propertyName).SetValue(Me, value)
+        End Set
+    End Property
+
     <NotMapped>
     <ComponentModel.DisplayName("選択")>
     Public Property SELECTED As Boolean
@@ -25,7 +35,6 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Public Property SYONIN_NAIYO As String
 
     <ComponentModel.DisplayName("承認報告書ID")>
-    <Display(AutoGenerateField:=False)>
     Public Property SYONIN_HOKOKUSYO_ID As Integer
 
     <StringLength(50)>
@@ -37,7 +46,6 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Public Property SYONIN_HOKOKUSYO_R_NAME As String '報告書略名
 
     <ComponentModel.DisplayName("処置担当者社員ID")>
-    <Display(AutoGenerateField:=False)>
     Public Property GEN_TANTO_ID As Integer
 
     <StringLength(30)>

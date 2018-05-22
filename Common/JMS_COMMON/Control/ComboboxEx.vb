@@ -76,21 +76,6 @@ Public Class ComboboxEx
         End Set
     End Property
 
-    Public Overrides Property Text As String
-        Get
-            Select Case MyBase.SelectedValue?.ToString
-                Case CON_TOP_ROW_CAPTION_0, CON_TOP_ROW_CAPTION_1, CON_TOP_ROW_CAPTION_2
-                    'メタ選択肢の場合は、選択されていないものとする
-                    Return String.Empty 'NullValue
-                Case Else
-                    Return MyBase.Text
-            End Select
-        End Get
-        Set(value As String)
-            MyBase.Text = value
-        End Set
-    End Property
-
     '<DefaultValue(GetType(Cursors), "Hand")>
     'Public Overrides Property Cursor As Cursor
     '    Get
@@ -394,7 +379,7 @@ Public Class ComboboxEx
         '    ResetWatermark(Me.Text)
         'End If
 
-        If Me.OldValue = Me.SelectedValue Then
+        If OldValue = Me.SelectedValue Then
         Else
             'If Me.SelectedValue = Nothing AndAlso MyBase.DataSource IsNot Nothing Then
             '    MyBase.SelectedIndex = 0
@@ -404,12 +389,28 @@ Public Class ComboboxEx
         End If
     End Sub
 
-    Protected Overrides Sub OnSelectedIndexChanged(e As EventArgs)
+    Public Overrides Property Text As String
+        Get
+            Select Case MyBase.SelectedValue?.ToString
+                Case CON_TOP_ROW_CAPTION_0, CON_TOP_ROW_CAPTION_1, CON_TOP_ROW_CAPTION_2
+                    'メタ選択肢の場合は、選択されていないものとする
+                    Return String.Empty 'NullValue
+                Case Else
+                    Return MyBase.Text
+            End Select
+        End Get
+        Set(value As String)
+            MyBase.Text = value
+        End Set
+    End Property
 
+    Protected Overrides Sub OnMouseWheel(e As MouseEventArgs)
+        'CHECK: コンボボックスマウスホイール無効
+        'MyBase.OnMouseWheel(e)
 
-        MyBase.OnSelectedIndexChanged(e)
+        Dim eventArgs As HandledMouseEventArgs = DirectCast(e, HandledMouseEventArgs)
+        eventArgs.Handled = True
     End Sub
-
 #End Region
 
 #Region "GotFocusedColor"

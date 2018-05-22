@@ -16,9 +16,7 @@ Public Class DataTableEx
     Public Sub New(ByVal Optional valueType As String = "System.String")
 
         Try
-            'UNDONE: DataTableEx　オプションパラメータでデータ型指定
-
-            '列追加
+            'CHECK: 列追加 VALUE列はバインドする場合は明示的にデータ型を指定
             Dim t As Type = Type.GetType(valueType, False, True)
             Me.Columns.Add("VALUE", t)
             Me.Columns.Add("DISP", GetType(String))
@@ -32,7 +30,6 @@ Public Class DataTableEx
             EM.ErrorSyori(ex)
         End Try
     End Sub
-
 
     ''' <summary>
     ''' 削除済みを除外
@@ -184,7 +181,6 @@ Public Class DataTableEx
             Return Me
         End Try
     End Function
-
 
     ''' <summary>
     ''' 任意のフィールドのキーを用いて、レコード上の別のフィールドを取得します

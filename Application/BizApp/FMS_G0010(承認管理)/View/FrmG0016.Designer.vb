@@ -148,7 +148,7 @@ Partial Class FrmG0016
         'Label1
         '
         Me.Label1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label1.Location = New System.Drawing.Point(344, 20)
+        Me.Label1.Location = New System.Drawing.Point(6, 51)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(67, 25)
         Me.Label1.TabIndex = 68
@@ -180,8 +180,9 @@ Partial Class FrmG0016
         Me.cmbMODOSI_SAKI.Location = New System.Drawing.Point(99, 21)
         Me.cmbMODOSI_SAKI.MaxLength = 30
         Me.cmbMODOSI_SAKI.Name = "cmbMODOSI_SAKI"
+        Me.cmbMODOSI_SAKI.NullValue = " "
         Me.cmbMODOSI_SAKI.Selected = False
-        Me.cmbMODOSI_SAKI.Size = New System.Drawing.Size(239, 25)
+        Me.cmbMODOSI_SAKI.Size = New System.Drawing.Size(409, 25)
         Me.cmbMODOSI_SAKI.TabIndex = 1
         Me.cmbMODOSI_SAKI.Text = "(‘I‘ð)"
         Me.cmbMODOSI_SAKI.ValueMember = "VALUE"
@@ -189,7 +190,7 @@ Partial Class FrmG0016
         'Label2
         '
         Me.Label2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label2.Location = New System.Drawing.Point(6, 52)
+        Me.Label2.Location = New System.Drawing.Point(6, 81)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(87, 24)
         Me.Label2.TabIndex = 37
@@ -204,7 +205,7 @@ Partial Class FrmG0016
         Me.mtxTANTO_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxTANTO_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxTANTO_NAME.InputRequired = False
-        Me.mtxTANTO_NAME.Location = New System.Drawing.Point(417, 22)
+        Me.mtxTANTO_NAME.Location = New System.Drawing.Point(99, 52)
         Me.mtxTANTO_NAME.MaxByteLength = 200
         Me.mtxTANTO_NAME.Name = "mtxTANTO_NAME"
         Me.mtxTANTO_NAME.Size = New System.Drawing.Size(148, 24)
@@ -219,10 +220,10 @@ Partial Class FrmG0016
         Me.mtxMODOSI_RIYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxMODOSI_RIYU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxMODOSI_RIYU.InputRequired = False
-        Me.mtxMODOSI_RIYU.Location = New System.Drawing.Point(99, 52)
+        Me.mtxMODOSI_RIYU.Location = New System.Drawing.Point(99, 82)
         Me.mtxMODOSI_RIYU.MaxByteLength = 200
         Me.mtxMODOSI_RIYU.Name = "mtxMODOSI_RIYU"
-        Me.mtxMODOSI_RIYU.Size = New System.Drawing.Size(653, 24)
+        Me.mtxMODOSI_RIYU.Size = New System.Drawing.Size(728, 24)
         Me.mtxMODOSI_RIYU.TabIndex = 3
         Me.mtxMODOSI_RIYU.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxMODOSI_RIYU.WatermarkText = Nothing
@@ -232,7 +233,7 @@ Partial Class FrmG0016
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label11.ForeColor = System.Drawing.Color.Red
-        Me.Label11.Location = New System.Drawing.Point(96, 90)
+        Me.Label11.Location = New System.Drawing.Point(96, 114)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(266, 17)
         Me.Label11.TabIndex = 38

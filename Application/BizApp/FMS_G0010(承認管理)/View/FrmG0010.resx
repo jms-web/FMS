@@ -121,7 +121,7 @@
     <value>127, 17</value>
   </metadata>
   <metadata name="ErrorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>219, 17</value>
+    <value>17, 56</value>
   </metadata>
   <data name="flxDATA.ColumnInfo" xml:space="preserve">
     <value>25,1,0,0,0,90,Columns:1{AllowDragging:False;AllowResizing:False;AllowEditing:False;}	2{AllowDragging:False;AllowResizing:False;AllowEditing:False;}	3{Visible:False;}	4{Visible:False;}	5{Visible:False;}	6{Visible:False;}	9{Visible:False;}	12{Visible:False;}	13{Visible:False;}	17{Visible:False;}	19{Visible:False;}	21{Visible:False;}	23{Visible:False;}	</value>
