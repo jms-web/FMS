@@ -11,7 +11,6 @@ Public Class ST02_ParamModel
         Call clear()
     End Sub
 
-
     Public Sub Clear()
 
         BUMON_KB = ""
@@ -44,10 +43,22 @@ Public Class ST02_ParamModel
         GENIN2 = ""
     End Sub
 
+    'インデクサプロパティ
+    Default Public Property Item(ByVal propertyName As String) As Object
+        Get
+            Return GetType(ST02_ParamModel).GetProperty(propertyName).GetValue(Me)
+        End Get
+        Set(value As Object)
+            GetType(ST02_ParamModel).GetProperty(propertyName).SetValue(Me, value)
+        End Set
+    End Property
+
     '共通
     Public Property BUMON_KB As String
     Public Property SYONIN_HOKOKUSYO_ID As Integer
     Public Property HOKOKU_NO As String
+
+
     Public Property ADD_TANTO As Integer
     Public Property KISYU_ID As Integer
     Public Property GOUKI As String
@@ -66,7 +77,6 @@ Public Class ST02_ParamModel
             OnPropertyChanged(NameOf(SYOCHI_TANTO))
         End Set
     End Property
-
 
     Public Property JISI_YMD_FROM As String
     Public Property JISI_YMD_TO As String

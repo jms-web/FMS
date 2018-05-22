@@ -16,6 +16,7 @@ Public Class ComboboxEx
     Private _GotForcusedColor As Color 'フォーカス時の背景色
     Private _BackColorDefault As Color 'フォーカス喪失時時の背景色
 
+
 #End Region
 
 #Region "コンストラクタ"
@@ -23,26 +24,52 @@ Public Class ComboboxEx
         InitializeComponent()
 
         'SetDatasourceから移行 SelectedValueChanged等を発火させないため
-        Me.DisplayMember = "DISP"
-        Me.ValueMember = "VALUE"
+        DisplayMember = "DISP"
+        ValueMember = "VALUE"
+
+        NullValue = " "
     End Sub
 #End Region
 
 #Region "プロパティ"
+
+    Private _NullValue As Object
+    Public Property NullValue As Object
+        Get
+
+            If _NullValue Is Nothing Then
+                Return " "
+            Else
+                Return _NullValue
+            End If
+
+
+        End Get
+        Set(value As Object)
+            _NullValue = value
+        End Set
+    End Property
+
 
 #Region "オーバーロード"
 
     <Browsable(False)>
     Public Overloads Property SelectedValue As Object
         Get
-            Select Case MyBase.SelectedValue?.ToString
-                Case CON_TOP_ROW_CAPTION_0, CON_TOP_ROW_CAPTION_1, CON_TOP_ROW_CAPTION_2
-                    'メタ選択肢の場合は、選択されていないものとする
-                    Return Nothing
-                Case Else
-                    Return MyBase.SelectedValue
-
-            End Select
+            If TypeOf MyBase.SelectedValue Is String Then
+                Select Case MyBase.SelectedValue.ToString
+                    Case CON_TOP_ROW_CAPTION_0, CON_TOP_ROW_CAPTION_1, CON_TOP_ROW_CAPTION_2
+                        'メタ選択肢の場合は、選択されていないものとする
+                        'NullValueが設定されている場合はそれを返す
+                        Return NullValue 'Nothing
+                    Case Else
+                        Return MyBase.SelectedValue
+                End Select
+            ElseIf TypeOf MyBase.SelectedValue Is Integer Then
+                Return Val(MyBase.SelectedValue)
+            Else
+                Return MyBase.SelectedValue
+            End If
         End Get
         Set(value As Object)
             MyBase.SelectedValue = value
@@ -54,7 +81,7 @@ Public Class ComboboxEx
             Select Case MyBase.SelectedValue?.ToString
                 Case CON_TOP_ROW_CAPTION_0, CON_TOP_ROW_CAPTION_1, CON_TOP_ROW_CAPTION_2
                     'メタ選択肢の場合は、選択されていないものとする
-                    Return String.Empty
+                    Return String.Empty 'NullValue
                 Case Else
                     Return MyBase.Text
             End Select
@@ -73,6 +100,8 @@ Public Class ComboboxEx
     '        MyBase.Cursor = value
     '    End Set
     'End Property
+
+
 
 #End Region
 
@@ -96,13 +125,13 @@ Public Class ComboboxEx
     End Property
 
 
-    Private _OldValue As String
+    Private _OldValue As Object
     ''' <summary>
     ''' 変更前の値を取得します
     ''' </summary>
     ''' <returns></returns>
     <Browsable(False)>
-    Public ReadOnly Property OldValue As String
+    Public ReadOnly Property OldValue As Object
         Get
             Return _OldValue
         End Get
@@ -344,7 +373,7 @@ Public Class ComboboxEx
 
 #Region "オーバーライド"
     Protected Overrides Sub OnEnter(ByVal e As System.EventArgs)
-        _OldValue = Me.Text
+        _OldValue = Me.SelectedValue
         'If _HasWaterMark Then
         '    '解除
         '    Call ResetWatermark("")
@@ -364,14 +393,23 @@ Public Class ComboboxEx
         '    '解除
         '    ResetWatermark(Me.Text)
         'End If
-        If Me.SelectedValue = Nothing AndAlso Me.DataSource IsNot Nothing Then
-            Me.SelectedIndex = 0
-        End If
 
-        If Me.OldValue <> Me.SelectedValue Then
+        If Me.OldValue = Me.SelectedValue Then
+        Else
+            'If Me.SelectedValue = Nothing AndAlso MyBase.DataSource IsNot Nothing Then
+            '    MyBase.SelectedIndex = 0
+            'End If
+            _OldValue = Me.SelectedValue
             MyBase.OnSelectedValueChanged(e)
         End If
     End Sub
+
+    Protected Overrides Sub OnSelectedIndexChanged(e As EventArgs)
+
+
+        MyBase.OnSelectedIndexChanged(e)
+    End Sub
+
 #End Region
 
 #Region "GotFocusedColor"
@@ -608,7 +646,15 @@ Public Class ComboboxEx
                     End If
                     Select Case True
                         Case column.DataType Is GetType(String)
-                            BlankRow(column.ColumnName.ToString) = strTopRowCaption
+                            Select Case column.ColumnName
+                                Case DisplayMember
+                                    BlankRow(column.ColumnName.ToString) = strTopRowCaption
+                                Case ValueMember
+                                    BlankRow(column.ColumnName.ToString) = NullValue
+                                Case Else
+                                    BlankRow(column.ColumnName.ToString) = ""
+                            End Select
+
                         Case column.DataType Is GetType(Integer), column.DataType Is GetType(Decimal), column.DataType Is GetType(Double)
                             BlankRow(column.ColumnName.ToString) = 0
                         Case Else

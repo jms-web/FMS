@@ -24,7 +24,7 @@ Partial Public Class D003_NCR_J
         BUHIN_BANGO = ""
         BUHIN_NAME = ""
         GOKI = ""
-        SURYO = 0
+        SURYO = 1
         SAIHATU = False
         FUTEKIGO_NAIYO = ""
         FUTEKIGO_KB = ""

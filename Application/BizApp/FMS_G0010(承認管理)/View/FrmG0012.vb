@@ -293,7 +293,7 @@ Public Class FrmG0012
                 Return False
             End If
             '-----書込処理
-            If FunMakeReportCAR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
+            If FunMakeReportCAR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, _D003_NCR_J.HOKOKU_NO) = False Then
                 Return False
             End If
 
@@ -308,7 +308,7 @@ Public Class FrmG0012
         End Try
     End Function
 
-    Private Function FunMakeReportCAR(ByVal strFilePath As String) As Boolean
+    Private Function FunMakeReportCAR(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean
 
         Dim spWorkbook As SpreadsheetGear.IWorkbook
         Dim spWorksheets As SpreadsheetGear.IWorksheets
@@ -328,7 +328,7 @@ Public Class FrmG0012
 
             'レコードフレーム初期化
 
-            Dim _V005_CAR_J As MODEL.V005_CAR_J = FunGetV005Model(_D003_NCR_J.HOKOKU_NO)
+            Dim _V005_CAR_J As MODEL.V005_CAR_J = FunGetV005Model(strHOKOKU_NO)
 
             spSheet1.Range(NameOf(_V005_CAR_J.GOKI)).Value = _V005_CAR_J.GOKI
             spSheet1.Range(NameOf(_V005_CAR_J.HOKOKU_NO)).Value = _V005_CAR_J.HOKOKU_NO
@@ -899,7 +899,7 @@ Public Class FrmG0012
         mtxADD_SYAIN_NAME.Text = Fun_GetUSER_NAME(_D004_SYONIN_J_KANRI.SYAIN_ID)
         mtxFUTEKIGO_KB.Text = tblFUTEKIGO_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D003_NCR_J.FUTEKIGO_KB).FirstOrDefault?.Item("DISP")
         mtxFUTEKIGO_S_KB.Text = tblFUTEKIGO_S_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D003_NCR_J.FUTEKIGO_S_KB).FirstOrDefault?.Item("DISP")
-        mtxCurrentStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKU_ID._2_CAR, _D005_CAR_J.HOKOKU_NO)
+        mtxCurrentStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _D005_CAR_J.HOKOKU_NO)
 
         'ヘッダ
         mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged, ""))

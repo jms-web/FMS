@@ -32,7 +32,7 @@ Module mdlG0010
     ''' <summary>
     ''' 承認報告書ID
     ''' </summary>
-    Public Enum ENM_SYONIN_HOKOKU_ID
+    Public Enum ENM_SYONIN_HOKOKUSYO_ID
         _1_NCR = 1
         _2_CAR = 2
     End Enum
@@ -315,58 +315,75 @@ Module mdlG0010
         Else
 
             Dim _model As New MODEL.V002_NCR_J
+            Dim t As Type = GetType(MODEL.V002_NCR_J)
+            Dim properties As Reflection.PropertyInfo() = t.GetProperties(
+                 Reflection.BindingFlags.Public Or
+                 Reflection.BindingFlags.Instance Or
+                 Reflection.BindingFlags.Static).Where(Function(p) p.Name <> "Item").ToArray
+
             With dsList.Tables(0).Rows(0)
-                _model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                _model.BUHIN_NAME = .Item(NameOf(_model.BUHIN_NAME))
-                _model.FUTEKIGO_JYOTAI_KB = .Item(NameOf(_model.FUTEKIGO_JYOTAI_KB))
-                _model.FUTEKIGO_NAIYO = .Item(NameOf(_model.FUTEKIGO_NAIYO))
-                _model.GOKI = .Item(NameOf(_model.GOKI))
-                _model.HAIKYAKU_HOUHOU = .Item(NameOf(_model.HAIKYAKU_HOUHOU))
-                _model.HAIKYAKU_KB_NAME = .Item(NameOf(_model.HAIKYAKU_KB_NAME))
-                _model.HAIKYAKU_TANTO_NAME = .Item(NameOf(_model.HAIKYAKU_TANTO_NAME))
-                _model.HAIKYAKU_YMD = .Item(NameOf(_model.HAIKYAKU_YMD))
-                _model.HASSEI_KOTEI_GL_NAME = .Item(NameOf(_model.HASSEI_KOTEI_GL_NAME))
-                _model.HASSEI_KOTEI_GL_YMD = .Item(NameOf(_model.HASSEI_KOTEI_GL_YMD))
-                _model.HENKYAKU_BIKO = .Item(NameOf(_model.HENKYAKU_BIKO))
-                _model.HENKYAKU_TANTO_NAME = .Item(NameOf(_model.HENKYAKU_TANTO_NAME))
-                _model.HENKYAKU_YMD = .Item(NameOf(_model.HENKYAKU_YMD))
-                _model.HOKOKU_NO = .Item(NameOf(_model.HOKOKU_NO))
-                _model.ITAG_NO = .Item(NameOf(_model.ITAG_NO))
-                _model.JIZEN_SINSA_HANTEI_KB = .Item(NameOf(_model.JIZEN_SINSA_HANTEI_KB))
-                _model.JIZEN_SINSA_SYAIN_NAME = .Item(NameOf(_model.JIZEN_SINSA_SYAIN_NAME))
-                _model.JIZEN_SINSA_YMD = .Item(NameOf(_model.JIZEN_SINSA_YMD))
-                _model.KANSATU_KEKKA = .Item(NameOf(_model.KANSATU_KEKKA))
-                _model.KENSA_KEKKA_NAME = .Item(NameOf(_model.KENSA_KEKKA_NAME))
-                _model.KENSA_TANTO_NAME = .Item(NameOf(_model.KENSA_TANTO_NAME))
-                _model.KISYU = .Item(NameOf(_model.KISYU))
-                _model.KOKYAKU_HANTEI_SIJI_NAME = .Item(NameOf(_model.KOKYAKU_HANTEI_SIJI_NAME))
-                _model.KOKYAKU_HANTEI_SIJI_YMD = .Item(NameOf(_model.KOKYAKU_HANTEI_SIJI_YMD))
-                _model.SAIHATU = .Item(NameOf(_model.SAIHATU))
-                _model.SAIKAKO_KENSA_YMD = .Item(NameOf(_model.SAIKAKO_KENSA_YMD))
-                _model.SAIKAKO_SAGYO_KAN_YMD = .Item(NameOf(_model.SAIKAKO_SAGYO_KAN_YMD))
-                _model.SAIKAKO_SIJI_NO = .Item(NameOf(_model.SAIKAKO_SIJI_NO))
-                _model.SAISIN_GIJYUTU_SYAIN_NAME = .Item(NameOf(_model.SAISIN_GIJYUTU_SYAIN_NAME))
-                _model.SAISIN_HINSYO_SYAIN_NAME = .Item(NameOf(_model.SAISIN_HINSYO_SYAIN_NAME))
-                _model.SAISIN_HINSYO_YMD = .Item(NameOf(_model.SAISIN_HINSYO_YMD))
-                _model.SAISIN_IINKAI_HANTEI_KB = .Item(NameOf(_model.SAISIN_IINKAI_HANTEI_KB))
-                _model.SAISIN_IINKAI_SIRYO_NO = .Item(NameOf(_model.SAISIN_IINKAI_SIRYO_NO))
-                _model.SAISIN_KAKUNIN_SYAIN_NAME = .Item(NameOf(_model.SAISIN_KAKUNIN_SYAIN_NAME))
-                _model.SAISIN_KAKUNIN_YMD = .Item(NameOf(_model.SAISIN_KAKUNIN_YMD))
-                _model.SEIGI_TANTO_NAME = .Item(NameOf(_model.SEIGI_TANTO_NAME))
-                _model.SEIZO_TANTO_NAME = .Item(NameOf(_model.SEIZO_TANTO_NAME))
-                _model.SURYO = .Item(NameOf(_model.SURYO))
-                _model.SYOCHI_D_SYOCHI_KIROKU = .Item(NameOf(_model.SYOCHI_D_SYOCHI_KIROKU))
-                _model.SYOCHI_D_UMU_NAME = .Item(NameOf(_model.SYOCHI_D_UMU_NAME))
-                _model.SYOCHI_D_YOHI_NAME = .Item(NameOf(_model.SYOCHI_D_YOHI_NAME))
-                _model.SYOCHI_E_SYOCHI_KIROKU = .Item(NameOf(_model.SYOCHI_E_SYOCHI_KIROKU))
-                _model.SYOCHI_E_UMU_NAME = .Item(NameOf(_model.SYOCHI_E_UMU_NAME))
-                _model.SYOCHI_E_YOHI_NAME = .Item(NameOf(_model.SYOCHI_E_YOHI_NAME))
-                _model.TENYO_BUHIN_BANGO = .Item(NameOf(_model.TENYO_BUHIN_BANGO))
-                _model.TENYO_GOKI = .Item(NameOf(_model.TENYO_GOKI))
-                _model.TENYO_KISYU = .Item(NameOf(_model.TENYO_KISYU))
-                _model.TENYO_YMD = .Item(NameOf(_model.TENYO_YMD))
-                _model.YOKYU_NAIYO = .Item(NameOf(_model.YOKYU_NAIYO))
-                _model.ZUMEN_KIKAKU = .Item(NameOf(_model.ZUMEN_KIKAKU))
+                For Each p As Reflection.PropertyInfo In properties
+                    _model(p.Name) = .Item(p.Name)
+                Next p
+
+                '_model.ADD_SYAIN_ID = .Item(NameOf(_model.ADD_SYAIN_ID))
+                '_model.ADD_SYAIN_NAME = .Item(NameOf(_model.ADD_SYAIN_NAME))
+                '_model.ADD_YMDHNS = .Item(NameOf(_model.ADD_YMDHNS))
+                '_model.BUMON_KB = .Item(NameOf(_model.BUMON_KB))
+                '_model.BUMON_NAME = .Item(NameOf(_model.BUMON_NAME))
+                '_model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
+                '_model.BUHIN_NAME = .Item(NameOf(_model.BUHIN_NAME))
+                '_model.FUTEKIGO_JYOTAI_KB = .Item(NameOf(_model.FUTEKIGO_JYOTAI_KB))
+                '_model.FUTEKIGO_NAIYO = .Item(NameOf(_model.FUTEKIGO_NAIYO))
+                '_model.GOKI = .Item(NameOf(_model.GOKI))
+                '_model.HAIKYAKU_HOUHOU = .Item(NameOf(_model.HAIKYAKU_HOUHOU))
+                '_model.HAIKYAKU_KB_NAME = .Item(NameOf(_model.HAIKYAKU_KB_NAME))
+                '_model.HAIKYAKU_TANTO_NAME = .Item(NameOf(_model.HAIKYAKU_TANTO_NAME))
+                '_model.HAIKYAKU_YMD = .Item(NameOf(_model.HAIKYAKU_YMD))
+                '_model.HASSEI_KOTEI_GL_NAME = .Item(NameOf(_model.HASSEI_KOTEI_GL_NAME))
+                '_model.HASSEI_KOTEI_GL_YMD = .Item(NameOf(_model.HASSEI_KOTEI_GL_YMD))
+                '_model.HENKYAKU_BIKO = .Item(NameOf(_model.HENKYAKU_BIKO))
+                '_model.HENKYAKU_TANTO_NAME = .Item(NameOf(_model.HENKYAKU_TANTO_NAME))
+                '_model.HENKYAKU_YMD = .Item(NameOf(_model.HENKYAKU_YMD))
+                '_model.HOKOKU_NO = .Item(NameOf(_model.HOKOKU_NO))
+                '_model.ITAG_NO = .Item(NameOf(_model.ITAG_NO))
+                '_model.JIZEN_SINSA_HANTEI_KB = .Item(NameOf(_model.JIZEN_SINSA_HANTEI_KB))
+                '_model.JIZEN_SINSA_SYAIN_NAME = .Item(NameOf(_model.JIZEN_SINSA_SYAIN_NAME))
+                '_model.JIZEN_SINSA_YMD = .Item(NameOf(_model.JIZEN_SINSA_YMD))
+                '_model.KANSATU_KEKKA = .Item(NameOf(_model.KANSATU_KEKKA))
+                '_model.KENSA_KEKKA_NAME = .Item(NameOf(_model.KENSA_KEKKA_NAME))
+                '_model.KENSA_TANTO_NAME = .Item(NameOf(_model.KENSA_TANTO_NAME))
+                '_model.KISYU = .Item(NameOf(_model.KISYU))
+                '_model.KISYU_ID = .Item(NameOf(_model.KISYU_ID))
+                '_model.KISYU_NAME = .Item(NameOf(_model.KISYU_NAME))
+                '_model.KOKYAKU_HANTEI_SIJI_NAME = .Item(NameOf(_model.KOKYAKU_HANTEI_SIJI_NAME))
+                '_model.KOKYAKU_HANTEI_SIJI_YMD = .Item(NameOf(_model.KOKYAKU_HANTEI_SIJI_YMD))
+                '_model.SAIHATU = .Item(NameOf(_model.SAIHATU))
+                '_model.SAIKAKO_KENSA_YMD = .Item(NameOf(_model.SAIKAKO_KENSA_YMD))
+                '_model.SAIKAKO_SAGYO_KAN_YMD = .Item(NameOf(_model.SAIKAKO_SAGYO_KAN_YMD))
+                '_model.SAIKAKO_SIJI_NO = .Item(NameOf(_model.SAIKAKO_SIJI_NO))
+                '_model.SAISIN_GIJYUTU_SYAIN_NAME = .Item(NameOf(_model.SAISIN_GIJYUTU_SYAIN_NAME))
+                '_model.SAISIN_HINSYO_SYAIN_NAME = .Item(NameOf(_model.SAISIN_HINSYO_SYAIN_NAME))
+                '_model.SAISIN_HINSYO_YMD = .Item(NameOf(_model.SAISIN_HINSYO_YMD))
+                '_model.SAISIN_IINKAI_HANTEI_KB = .Item(NameOf(_model.SAISIN_IINKAI_HANTEI_KB))
+                '_model.SAISIN_IINKAI_SIRYO_NO = .Item(NameOf(_model.SAISIN_IINKAI_SIRYO_NO))
+                '_model.SAISIN_KAKUNIN_SYAIN_NAME = .Item(NameOf(_model.SAISIN_KAKUNIN_SYAIN_NAME))
+                '_model.SAISIN_KAKUNIN_YMD = .Item(NameOf(_model.SAISIN_KAKUNIN_YMD))
+                '_model.SEIGI_TANTO_NAME = .Item(NameOf(_model.SEIGI_TANTO_NAME))
+                '_model.SEIZO_TANTO_NAME = .Item(NameOf(_model.SEIZO_TANTO_NAME))
+                '_model.SURYO = .Item(NameOf(_model.SURYO))
+                '_model.SYOCHI_D_SYOCHI_KIROKU = .Item(NameOf(_model.SYOCHI_D_SYOCHI_KIROKU))
+                '_model.SYOCHI_D_UMU_NAME = .Item(NameOf(_model.SYOCHI_D_UMU_NAME))
+                '_model.SYOCHI_D_YOHI_NAME = .Item(NameOf(_model.SYOCHI_D_YOHI_NAME))
+                '_model.SYOCHI_E_SYOCHI_KIROKU = .Item(NameOf(_model.SYOCHI_E_SYOCHI_KIROKU))
+                '_model.SYOCHI_E_UMU_NAME = .Item(NameOf(_model.SYOCHI_E_UMU_NAME))
+                '_model.SYOCHI_E_YOHI_NAME = .Item(NameOf(_model.SYOCHI_E_YOHI_NAME))
+                '_model.TENYO_BUHIN_BANGO = .Item(NameOf(_model.TENYO_BUHIN_BANGO))
+                '_model.TENYO_GOKI = .Item(NameOf(_model.TENYO_GOKI))
+                '_model.TENYO_KISYU = .Item(NameOf(_model.TENYO_KISYU))
+                '_model.TENYO_YMD = .Item(NameOf(_model.TENYO_YMD))
+                '_model.YOKYU_NAIYO = .Item(NameOf(_model.YOKYU_NAIYO))
+                '_model.ZUMEN_KIKAKU = .Item(NameOf(_model.ZUMEN_KIKAKU))
 
             End With
 
@@ -396,28 +413,42 @@ Module mdlG0010
         If dsList.Tables(0).Rows.Count = 0 Then
             Return Nothing
         Else
+            Dim t As Type = GetType(MODEL.V003_SYONIN_J_KANRI)
+            Dim properties As Reflection.PropertyInfo() = t.GetProperties(
+                         Reflection.BindingFlags.Public Or
+                         Reflection.BindingFlags.Instance Or
+                         Reflection.BindingFlags.Static).Where(Function(p) p.Name <> "Item").ToArray
 
             Dim entities As New List(Of MODEL.V003_SYONIN_J_KANRI)
             For Each row As DataRow In dsList.Tables(0).Rows
                 With row
                     Dim _model As New MODEL.V003_SYONIN_J_KANRI
-                    _model.SYONIN_HOKOKUSYO_ID = .Item(NameOf(_model.SYONIN_HOKOKUSYO_ID))
-                    _model.HOKOKUSYO_NO = .Item(NameOf(_model.HOKOKUSYO_NO))
-                    _model.SYONIN_JUN = .Item(NameOf(_model.SYONIN_JUN))
-                    _model.SYAIN_ID = .Item(NameOf(_model.SYAIN_ID))
-                    _model.SYAIN_NAME = .Item(NameOf(_model.SYAIN_NAME))
-                    _model.SYONIN_YMDHNS = .Item(NameOf(_model.SYONIN_YMDHNS))
-                    _model.SYONIN_HANTEI_KB = .Item(NameOf(_model.SYONIN_HANTEI_KB))
-                    _model.SYONIN_HANTEI_NAME = .Item(NameOf(_model.SYONIN_HANTEI_NAME))
-                    _model.SASIMODOSI_FG = CBool(.Item(NameOf(_model.SASIMODOSI_FG)))
-                    _model.RIYU = .Item(NameOf(_model.RIYU))
-                    _model.COMMENT = .Item(NameOf(_model.COMMENT))
-                    _model.ADD_YMDHNS = .Item(NameOf(_model.ADD_YMDHNS))
-                    _model.ADD_SYAIN_ID = .Item(NameOf(_model.ADD_SYAIN_ID))
-                    _model.ADD_SYAIN_NAME = .Item(NameOf(_model.ADD_SYAIN_NAME))
-                    _model.UPD_YMDHNS = .Item(NameOf(_model.UPD_YMDHNS))
-                    _model.UPD_SYAIN_ID = .Item(NameOf(_model.UPD_SYAIN_ID))
-                    _model.UPD_SYAIN_NAME = .Item(NameOf(_model.UPD_SYAIN_NAME))
+                    For Each p As Reflection.PropertyInfo In properties
+
+                        Select Case p.PropertyType
+                            Case GetType(Integer)
+                                _model(p.Name) = row.Item(p.Name)
+                            Case GetType(Decimal)
+                                _model(p.Name) = CDec(row.Item(p.Name))
+                            Case GetType(Boolean)
+                                _model(p.Name) = CBool(row.Item(p.Name))
+
+                            Case GetType(Date), GetType(DateTime)
+                                If row.Item(p.Name).ToString.IsNullOrWhiteSpace = False Then
+                                    Select Case row.Item(p.Name).ToString.Length
+                                        Case 8 'yyyyMMdd
+                                            _model(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMdd", Nothing)
+                                        Case 14 'yyyyMMddHHmmss
+                                            _model(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMddHHmmss", Nothing)
+                                        Case Else
+                                            'Err
+                                            _model(p.Name) = Nothing
+                                    End Select
+                                End If
+                            Case Else
+                                _model(p.Name) = row.Item(p.Name).ToString.Trim
+                        End Select
+                    Next p
                     entities.Add(_model)
                 End With
             Next row
@@ -588,64 +619,84 @@ Module mdlG0010
         'Dim strUserID As String
         'Dim strPassword As String
         Dim blnSend As Boolean
+        Dim strToSyainName As String
 
-        Using DB As ClsDbUtility = DBOpen()
-            strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
-            intSmtpPort = Val(FunGetCodeMastaValue(DB, "メール設定", "SMTP_PORT"))
-            strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
-            'strUserID = FunGetCodeMastaValue("メール設定", "SMTP_USER")
-            'strPassword = FunGetCodeMastaValue("メール設定", "SMTP_PASS")
+        Dim strMsg As String
+        Try
 
 
-            '---申請先担当者のメールアドレス取得
-            Dim sbSQL As New System.Text.StringBuilder
-            Dim dsList As New DataSet
-            sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append("SELECT")
-            sbSQL.Append(" MAIL_ADDRESS")
-            sbSQL.Append(" FROM " & NameOf(MODEL.M004_SYAIN) & " ")
-            sbSQL.Append(" WHERE SYAIN_ID=" & ToSYAIN_ID & "")
-            Using DBa As ClsDbUtility = DBOpen()
-                dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+
+            Using DB As ClsDbUtility = DBOpen()
+                strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
+                intSmtpPort = Val(FunGetCodeMastaValue(DB, "メール設定", "SMTP_PORT"))
+                strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
+                'strUserID = FunGetCodeMastaValue("メール設定", "SMTP_USER")
+                'strPassword = FunGetCodeMastaValue("メール設定", "SMTP_PASS")
+
+
+                '---申請先担当者のメールアドレス取得
+                Dim sbSQL As New System.Text.StringBuilder
+                Dim dsList As New DataSet
+                sbSQL.Remove(0, sbSQL.Length)
+                sbSQL.Append("SELECT")
+                sbSQL.Append(" SIMEI")
+                sbSQL.Append(" ,MAIL_ADDRESS")
+                sbSQL.Append(" FROM " & NameOf(MODEL.M004_SYAIN) & " ")
+                sbSQL.Append(" WHERE SYAIN_ID=" & ToSYAIN_ID & "")
+                Using DBa As ClsDbUtility = DBOpen()
+                    dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                End Using
+                If dsList.Tables(0).Rows.Count > 0 Then
+                    strToAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
+                    strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI")
+                Else
+                    Return False
+                End If
+
             End Using
-            If dsList.Tables(0).Rows.Count > 0 Then
-                strToAddress = dsList.Tables(0).Rows(0).Item(0)
-            Else
-                Return False
-            End If
 
-        End Using
-
-        'DEBUG: mail送信無効
-        Return True
+            'DEBUG: mail送信無効
+            Return True
 
 
-        '認証なし
-        blnSend = ClsMailSend.FunSendMail(strSmtpServer,
-                       intSmtpPort,
-                       strFromAddress,
-                       strToAddress,
-                       CCAddress:=strFromAddress,
-                       BCCAddress:="",
-                       strSubject:=strSubject,
-                       strBody:=strBody,
-                       strAttachment:="",
-                       strFromName:="不適合管理システム")
 
-        '認証あり
-        'blnSend = ClsMailSend.FunSendMailoverAUTH(strSmtpServer,
-        '               intSmtpPort,
-        '               strUserID,
-        '               strPassword,
-        '               strFromAddress,
-        '               strToAddress,
-        '               strSubject,
-        '               "タイムカード集計",
-        '               strSendFilePath)
+            strMsg = String.Format("【メール送信成功】TO:{0}({1}) SUBJECT:{2}", strToSyainName, strToAddress, strSubject)
+            WL.WriteLogDat(strMsg)
 
-        Return blnSend
+            '認証なし
+            blnSend = ClsMailSend.FunSendMail(strSmtpServer,
+                           intSmtpPort,
+                           strFromAddress,
+                           strToAddress,
+                           CCAddress:=strFromAddress,
+                           BCCAddress:="",
+                           strSubject:=strSubject,
+                           strBody:=strBody,
+                           strAttachment:="",
+                           strFromName:="不適合管理システム")
 
+            '認証あり
+            'blnSend = ClsMailSend.FunSendMailoverAUTH(strSmtpServer,
+            '               intSmtpPort,
+            '               strUserID,
+            '               strPassword,
+            '               strFromAddress,
+            '               strToAddress,
+            '               strSubject,
+            '               "タイムカード集計",
+            '               strSendFilePath)
+
+            Return blnSend
+        Catch ex As Exception
+            Throw
+            strMsg = String.Format("【メール送信失敗】TO:{0}({1}) SUBJECT:{2}" & vbCrLf & Err.Description, strToSyainName, strToAddress, strSubject)
+            WL.WriteLogDat(strMsg)
+        End Try
     End Function
+
+#End Region
+
+#Region "Excel出力"
 
 #End Region
 

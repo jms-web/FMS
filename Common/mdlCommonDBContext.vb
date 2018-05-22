@@ -294,12 +294,17 @@ Public Module mdlDBContext
         Dim intCNT As Integer
 
         Try
+            'CHECK: ※ VALUEが数値でかつコンボボックスにバインドされる場合はDataTableExの初期化パラメータに"Integer"を指定すること
+
             dt = New DataTableEx
 
             Select Case strKOMOKU
 
 #Region "               NCR"
                 Case "NCR"
+
+                    dt = New DataTableEx("System.Int32")
+
                     sbSQL.Append("SELECT * FROM " & NameOf(VWM014_SYONIN_ROUT) & " ")
                     sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=1")
                     If strWhere.IsNullOrWhiteSpace = False Then
@@ -328,6 +333,8 @@ Public Module mdlDBContext
 #End Region
 #Region "               CAR"
                 Case "CAR"
+                    dt = New DataTableEx("System.Int32")
+
                     sbSQL.Append("SELECT * FROM " & NameOf(VWM014_SYONIN_ROUT) & " ")
                     sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=2")
                     If strWhere.IsNullOrWhiteSpace = False Then
@@ -356,6 +363,8 @@ Public Module mdlDBContext
 #End Region
 #Region "               担当"
                 Case "担当"
+
+                    dt = New DataTableEx("System.Int32")
 
                     sbSQL.Append("SELECT * FROM " & NameOf(VWM004_SYAIN) & " ")
                     If strWhere <> "" Then
@@ -395,6 +404,8 @@ Public Module mdlDBContext
 #Region "               承認担当"
                 Case "承認担当"
 
+                    dt = New DataTableEx("System.Int32")
+
                     sbSQL.Append("SELECT * FROM " & "V001_SYONIN_TANTO" & " ")
                     If strWhere <> "" Then
                         sbSQL.Append("WHERE " & strWhere & "")
@@ -421,7 +432,7 @@ Public Module mdlDBContext
                             Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                             Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
                             Trow("SYONIN_JUN") = .Rows(intCNT).Item("SYONIN_JUN")
-                            
+
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
@@ -460,6 +471,9 @@ Public Module mdlDBContext
 #End Region
 #Region "               機種"
                 Case "機種"
+
+                    dt = New DataTableEx("System.Int32")
+
                     sbSQL.Append("SELECT * FROM " & NameOf(VWM105_KISYU) & " ")
                     If strWhere <> "" Then
                         sbSQL.Append("WHERE " & strWhere & "")

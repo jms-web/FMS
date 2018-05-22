@@ -4,6 +4,27 @@ Imports System.ComponentModel.DataAnnotations.Schema
 
 Partial Public Class V002_NCR_J
 
+    Public Sub New()
+        Call Clear()
+    End Sub
+
+
+    Public Sub Clear()
+
+    End Sub
+
+    'UNDONE: 他のモデルにもインデクサプロパティを実装する
+
+    'インデクサプロパティ
+    Default Public Property Item(ByVal propertyName As String) As Object
+        Get
+            Return GetType(V002_NCR_J).GetProperty(propertyName).GetValue(Me)
+        End Get
+        Set(value As Object)
+            GetType(V002_NCR_J).GetProperty(propertyName).SetValue(Me, value)
+        End Set
+    End Property
+
     <StringLength(10)>
     Public Property HOKOKU_NO As String
 
@@ -16,7 +37,6 @@ Partial Public Class V002_NCR_J
     <StringLength(1)>
     Public Property CLOSE_FG As String
 
-    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property KISYU_ID As Integer
 
     <StringLength(30)>
@@ -37,10 +57,6 @@ Partial Public Class V002_NCR_J
     <StringLength(5)>
     Public Property GOKI As String
 
-    <StringLength(15)>
-    Public Property LOT As String
-
-    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property SURYO As Integer
 
     <StringLength(10)>
@@ -52,8 +68,14 @@ Partial Public Class V002_NCR_J
     <StringLength(30)>
     Public Property FUTEKIGO_NAIYO As String
 
-    <StringLength(1)>
-    Public Property HORYU_RIYU_KB As String
+    Public Property FUTEKIGO_KB As String
+
+    Public Property FUTEKIGO_NAME As String
+
+    Public Property FUTEKIGO_S_KB As String
+
+    Public Property FUTEKIGO_S_NAME As String
+
 
     <StringLength(30)>
     Public Property ZUMEN_KIKAKU As String
@@ -156,6 +178,8 @@ Partial Public Class V002_NCR_J
 
     <StringLength(10)>
     Public Property SAIKAKO_SIJI_NO As String
+
+    Public Property SAIKAKO_SIJI_FG As String
 
     <StringLength(8)>
     Public Property SAIKAKO_SAGYO_KAN_YMD As String
@@ -301,8 +325,8 @@ Partial Public Class V002_NCR_J
     <StringLength(30)>
     Public Property HASSEI_KOTEI_GL_NAME As String
 
-    <StringLength(1)>
-    Public Property DEL_FG As String
+    '<StringLength(1)>
+    'Public Property DEL_FG As String
 
 
 

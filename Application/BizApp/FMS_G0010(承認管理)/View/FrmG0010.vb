@@ -54,6 +54,11 @@ Public Class FrmG0010
         '日付空欄許可
         dtJisiFrom.Nullable = True
         dtJisiTo.Nullable = True
+
+        '先頭ウォーターマーク+バインドが必要なコンボボックスのための設定
+        cmbADD_TANTO.NullValue = 0
+        cmbKISYU.NullValue = 0
+        cmbGEN_TANTO.NullValue = 0
     End Sub
 
 #End Region
@@ -84,16 +89,16 @@ Public Class FrmG0010
             Dim dtAddTANTO As DataTable = tblTANTO_SYONIN.
                                             ExcludeDeleted.
                                             AsEnumerable.
-                                            Where(Function(r) r.Field(Of Integer)("SYONIN_JUN") = ENM_NCR_STAGE._10_起草入力 And r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = ENM_SYONIN_HOKOKU_ID._1_NCR).
+                                            Where(Function(r) r.Field(Of Integer)("SYONIN_JUN") = ENM_NCR_STAGE._10_起草入力 And r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = ENM_SYONIN_HOKOKUSYO_ID._1_NCR).
                                             CopyToDataTable
 
             cmbADD_TANTO.SetDataSource(dtAddTANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbTANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbGEN_TANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbFUTEKIGO_JYOTAI_KB.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbSyanaiCD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             'NCR
             cmbJIZEN_SINSA_HANTEI_KB.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -113,12 +118,26 @@ Public Class FrmG0010
 
             '既定値設定
             If pub_SYAIN_INFO.BUMON_KB.IsNullOrWhiteSpace = False Then cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
-            cmbTANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+            cmbGEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
 
             ''-----イベントハンドラ設定
-            AddHandler Me.cmbTANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            AddHandler Me.cmbBUHIN_BANGO.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            AddHandler Me.chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbBUMON.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbKISYU.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbFUTEKIGO_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbFUTEKIGO_JYOTAI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+
+            AddHandler mtxHOKUKO_NO.Validated, AddressOf SearchFilterValueChanged
+            AddHandler mtxGOKI.Validated, AddressOf SearchFilterValueChanged
+            AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler dtJisiFrom.Validated, AddressOf SearchFilterValueChanged
+            AddHandler dtJisiTo.Validated, AddressOf SearchFilterValueChanged
+            AddHandler cmbFUTEKIGO_S_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler mtxHINMEI.Validated, AddressOf SearchFilterValueChanged
+            AddHandler chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+            AddHandler chkTairyu.CheckedChanged, AddressOf SearchFilterValueChanged
 
             '起動モード別処理
             Select Case pub_intOPEN_MODE
@@ -128,6 +147,7 @@ Public Class FrmG0010
                     Me.cmdFunc2.PerformClick()
                 Case Else
                     'Err
+                    Throw New ArgumentException("起動モードパラメータが取得出来ませんでした")
             End Select
         Finally
             'ファンクションボタンステータス更新
@@ -505,10 +525,15 @@ Public Class FrmG0010
                     End If
                 Case 5, 6  '削除/復元/完全削除
 
-                    'Dim btn As Button = DirectCast(sender, Button)
-                    'Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(btn.Tag, ENM_DATA_OPERATION_MODE)
-                    If FunDEL() = True Then
-                        'Call FunSRCH(dgvDATA, FunGetListData())
+                    If dgvDATA.CurrentRow IsNot Nothing Then
+                        If MessageBox.Show("選択されたデータを削除しますか?", "削除確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
+                            Dim dr As DataRow = dgvDATA.GetDataRow()
+                            If FunDEL(dr.Item("SYONIN_HOKOKUSYO_ID"), dr.Item("HOKOKU_NO")) = True Then
+                                Call FunSRCH(dgvDATA, FunGetListData())
+                            End If
+                        End If
+                    Else
+                        MessageBox.Show("該当データが選択されていません。", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     End If
 
                 Case 7 '全選択
@@ -796,7 +821,7 @@ Public Class FrmG0010
 
             Call FunSetDgvCellFormat(dgv)
 
-            If dgv.RowCount > 1 Then
+            If dgv.RowCount > 0 Then
                 '-----選択行設定
                 Try
                     dgv.CurrentCell = dgv.Rows(intCURROW).Cells(0)
@@ -896,100 +921,49 @@ Public Class FrmG0010
 
 #Region "削除"
 
-    Private Function FunDEL() As Boolean
+    Private Function FunDEL(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
-        'Dim strComboVal As String
-        'Dim strMsg As String
-        'Dim strTitle As String
 
         Try
-            MessageBox.Show("未実装")
 
-            ''コンボボックスの選択値
-            'strComboVal = Me.cmbSTAGE_NCR.Text.Trim
+            '-----UPDATE
+            sbSQL.Remove(0, sbSQL.Length)
+            Select Case intSYONIN_HOKOKUSYO_ID
+                Case ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+                    sbSQL.Append("UPDATE " & NameOf(MODEL.D003_NCR_J) & " SET")
+                Case ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+                    sbSQL.Append("UPDATE " & NameOf(MODEL.D005_CAR_J) & " SET")
+            End Select
+            sbSQL.Append(" DEL_SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID & "")
+            sbSQL.Append(" ,DEL_YMDHNS=dbo.GetSysDateString()")
+            sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.ADD_YMDHNS))
+            sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SYONIN_JUN))
+            sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SOUSA_KB))
+            sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intSYONIN_HOKOKUSYO_ID & "")
+            sbSQL.Append(" AND HOKOKU_NO='" & strHOKOKU_NO & "'")
+            sbSQL.Append(")")
 
-            ''-----SQL
-            'sbSQL.Remove(0, sbSQL.Length)
-            'Select Case ENM_MODE
-            '    Case ENM_DATA_OPERATION_MODE._4_DISABLE
-            '        '-----更新
-            '        sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET ")
-            '        '削除日時
-            '        sbSQL.Append(" DEL_YMDHNS = dbo.GetSysDateString(), ")
-            '        '削除担当者
-            '        sbSQL.Append(" DEL_TANTO_CD = " & pub_SYAIN_INFO.SYAIN_ID & "")
 
+            'CHECK: 一覧削除ボタン D004やR001等の編集履歴はどうするか
 
-
-            '        strMsg = My.Resources.infoMsgDeleteOperationDisable
-            '        strTitle = My.Resources.infoTitleDeleteOperationDisable
-
-            '    Case ENM_DATA_OPERATION_MODE._5_RESTORE
-            '        '-----更新
-            '        sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET ")
-            '        '削除日時
-            '        sbSQL.Append(" DEL_YMDHNS = ' ', ")
-            '        '削除担当者
-            '        sbSQL.Append(" DEL_TANTO_CD = " & pub_SYAIN_INFO.SYAIN_ID & "")
-
-            '        strMsg = My.Resources.infoMsgDeleteOperationRestore
-            '        strTitle = My.Resources.infoTitleDeleteOperationRestore
-
-            '    Case ENM_DATA_OPERATION_MODE._6_DELETE
-
-            '        '-----削除
-            '        sbSQL.Append("DELETE FROM " & NameOf(MODEL.M001_SETTING) & " ")
-
-            '        strMsg = My.Resources.infoMsgDeleteOperationDelete
-            '        strTitle = My.Resources.infoTitleDeleteOperationDelete
-
-            '    Case Else
-            '        'UNDONE: argument null exception
-            '        Return False
-            'End Select
-            'sbSQL.Append("WHERE")
-            ''sbSQL.Append(" KOMO_NM = '" & Me.dgvDATA.CurrentRow.Cells.Item("KOMO_NM").Value.ToString & "' ")
-            ''sbSQL.Append(" AND VALUE = '" & Me.dgvDATA.CurrentRow.Cells.Item("VALUE").Value.ToString & "' ")
-
-            ''確認メッセージ表示
-            'If MessageBox.Show(strMsg, strTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> Windows.Forms.DialogResult.Yes Then
-            '    Me.DialogResult = Windows.Forms.DialogResult.Cancel
-            '    'Me.Close()
-            '    Return False
-            'End If
-
-            'Using DB As ClsDbUtility = DBOpen()
-            '    Dim blnErr As Boolean
-            '    Dim intRET As Integer
-            '    Dim sqlEx As Exception = Nothing
-
-            '    Try
-            '        DB.BeginTransaction()
-
-            '        '-----SQL実行
-            '        intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-            '        If intRET <> 1 Then
-            '            'エラーログ
-            '            Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & "|" & sbSQL.ToString & "|" & sqlEx.Message
-            '            WL.WriteLogDat(strErrMsg)
-            '            blnErr = True
-            '            Return False
-            '        End If
-            '    Finally
-            '        DB.Commit(Not blnErr)
-            '    End Try
-
-            '    '検索フィルタデータソース更新
-            '    Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
-            'End Using
-            'Me.cmbSTAGE_NCR.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
-
-            'If strComboVal <> "" Then
-            '    Me.cmbSTAGE_NCR.Text = strComboVal
-            'End If
-            'If Me.cmbSTAGE_NCR.SelectedIndex <= 0 Then
-            '    Me.cmbSTAGE_NCR.Text = ""
-            'End If
+            '-----SQL実行
+            Using DB As ClsDbUtility = DBOpen()
+                Dim sqlEx As New Exception
+                Dim blnErr As Boolean
+                Dim intRET As Integer
+                Try
+                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+                    If intRET <> 1 Then
+                        '-----エラーログ出力
+                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                        WL.WriteLogDat(strErrMsg)
+                        blnErr = True
+                        Return False
+                    End If
+                Finally
+                    DB.Commit(Not blnErr)
+                End Try
+            End Using
 
             Return True
         Catch ex As Exception
@@ -1063,9 +1037,10 @@ Public Class FrmG0010
         Dim strTEMPFILE As String
         'Dim intRET As Integer
         Try
+            Dim strHOKOKU_NO As String = dgvDATA.GetDataRow().Item("HOKOKU_NO")
 
-            Select Case dgvDATA.CurrentRow.Cells("SYONIN_HOKOKU_ID").Value
-                Case ENM_SYONIN_HOKOKU_ID._1_NCR
+            Select Case dgvDATA.GetDataRow().Item("SYONIN_HOKOKUSYO_ID")
+                Case ENM_SYONIN_HOKOKUSYO_ID._1_NCR
                     'ファイル名
                     strOutputFileName = "NCR_" & _D003_NCR_J.HOKOKU_NO & "_Work.xlsx"
 
@@ -1083,10 +1058,10 @@ Public Class FrmG0010
                         Return False
                     End If
                     '-----書込処理
-                    If FunMakeReportNCR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
+                    If FunMakeReportNCR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
                         Return False
                     End If
-                Case ENM_SYONIN_HOKOKU_ID._2_CAR
+                Case ENM_SYONIN_HOKOKUSYO_ID._2_CAR
                     'ファイル名
                     strOutputFileName = "CAR_" & _D003_NCR_J.HOKOKU_NO & "_Work.xlsx"
 
@@ -1104,7 +1079,7 @@ Public Class FrmG0010
                         Return False
                     End If
                     '-----書込処理
-                    If FunMakeReportCAR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
+                    If FunMakeReportCAR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
                         Return False
                     End If
                 Case Else
@@ -1113,7 +1088,7 @@ Public Class FrmG0010
             End Select
 
             'Excel起動
-            Return FunOpenExcelApp(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName)
+            'Return FunOpenExcelApp(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName)
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -1123,85 +1098,127 @@ Public Class FrmG0010
         End Try
     End Function
 
-    Private Function FunMakeReportNCR(ByVal strFilePath As String) As Boolean
+    Private Function FunMakeReportNCR(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean
 
-        Dim spWorkbook As SpreadsheetGear.IWorkbook
-        Dim spWorksheets As SpreadsheetGear.IWorksheets
-        Dim spSheet1 As SpreadsheetGear.IWorksheet
-        Dim spRangeFrom As SpreadsheetGear.IRange
-        Dim spRangeTo As SpreadsheetGear.IRange
+        Dim ssgWorkbook As SpreadsheetGear.IWorkbook
+        Dim ssgWorksheets As SpreadsheetGear.IWorksheets
+        Dim ssgSheet1 As SpreadsheetGear.IWorksheet
+        Dim ssgRangeFrom As SpreadsheetGear.IRange
+        Dim ssgRangeTo As SpreadsheetGear.IRange
 
         Try
-            spWorkbook = SpreadsheetGear.Factory.GetWorkbook(strFilePath, System.Globalization.CultureInfo.CurrentCulture)
 
-            spWorkbook.WorkbookSet.GetLock()
-            spWorksheets = spWorkbook.Worksheets
-            spSheet1 = spWorksheets.Item(0) 'sheet1
+            Dim _V002_NCR_J As MODEL.V002_NCR_J = FunGetV002Model(strHOKOKU_NO)
+            Dim _V003_SYONIN_J_KANRI_List As List(Of MODEL.V003_SYONIN_J_KANRI) = FunGetV003Model(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, strHOKOKU_NO)
 
-
-            Dim spprint As SpreadsheetGear.Printing.PrintWhat = SpreadsheetGear.Printing.PrintWhat.Sheet
-
+            ssgWorkbook = SpreadsheetGear.Factory.GetWorkbook(strFilePath, System.Globalization.CultureInfo.CurrentCulture)
+            ssgWorkbook.WorkbookSet.GetLock()
+            ssgWorksheets = ssgWorkbook.Worksheets
+            ssgSheet1 = ssgWorksheets.Item(0) 'sheet1
 
             'レコードフレーム初期化
             'spWork.Range("RECORD_FRAME").ClearContents()
-            spSheet1.Range(NameOf(_D003_NCR_J.HOKOKU_NO)).Value = _D003_NCR_J.HOKOKU_NO
+            ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_BANGO)).Value = _V002_NCR_J.BUHIN_BANGO
+            ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_NAME)).Value = _V002_NCR_J.BUHIN_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.FUTEKIGO_JYOTAI_KB) & _V002_NCR_J.FUTEKIGO_JYOTAI_KB).Value = "TRUE"
+            ssgSheet1.Range(NameOf(_V002_NCR_J.FUTEKIGO_NAIYO)).Value = _V002_NCR_J.FUTEKIGO_NAIYO
+            ssgSheet1.Range(NameOf(_V002_NCR_J.GOKI)).Value = _V002_NCR_J.GOKI
+            ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_HOUHOU)).Value = "(その他の内容：" & _V002_NCR_J.HAIKYAKU_HOUHOU.PadRight(30) & ")"
+            ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_KB_NAME)).Value = _V002_NCR_J.HAIKYAKU_KB_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_TANTO_NAME)).Value = _V002_NCR_J.HAIKYAKU_TANTO_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_YMD)).Value = _V002_NCR_J.HAIKYAKU_YMD
+            ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_NAME)).Value = _V002_NCR_J.HASSEI_KOTEI_GL_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_YMD)).Value = _V002_NCR_J.HASSEI_KOTEI_GL_YMD
+            ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_BIKO)).Value = _V002_NCR_J.HENKYAKU_BIKO
+            ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_SAKI)).Value = _V002_NCR_J.HENKYAKU_SAKI
+            ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_TANTO_NAME)).Value = _V002_NCR_J.HENKYAKU_TANTO_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_YMD)).Value = _V002_NCR_J.HENKYAKU_YMD
+            ssgSheet1.Range(NameOf(_V002_NCR_J.HOKOKU_NO)).Value = _V002_NCR_J.HOKOKU_NO
+            ssgSheet1.Range(NameOf(_V002_NCR_J.ITAG_NO)).Value = _V002_NCR_J.ITAG_NO
+            ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_HANTEI_KB) & _V002_NCR_J.JIZEN_SINSA_HANTEI_KB).Value = "TRUE"
+            ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_SYAIN_NAME)).Value = _V002_NCR_J.JIZEN_SINSA_SYAIN_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_YMD)).Value = _V002_NCR_J.JIZEN_SINSA_YMD
+            ssgSheet1.Range(NameOf(_V002_NCR_J.KANSATU_KEKKA)).Value = _V002_NCR_J.KANSATU_KEKKA
+            ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_KEKKA_NAME)).Value = _V002_NCR_J.KENSA_KEKKA_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_TANTO_NAME)).Value = _V002_NCR_J.KENSA_TANTO_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.KISYU)).Value = _V002_NCR_J.KISYU
+            ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_HANTEI_SIJI_NAME)).Value = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)).Value = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SAIHATU)).Value = _V002_NCR_J.SAIHATU
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SAIKAKO_KENSA_YMD)).Value = _V002_NCR_J.SAIKAKO_KENSA_YMD
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SAIKAKO_SAGYO_KAN_YMD)).Value = _V002_NCR_J.SAIKAKO_SAGYO_KAN_YMD
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SAIKAKO_SIJI_NO)).Value = _V002_NCR_J.SAIKAKO_SIJI_NO
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_YMD)).Value = _V002_NCR_J.SAISIN_HINSYO_YMD
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_HANTEI_KB) & _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB).Value = "TRUE"
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_SIRYO_NO)).Value = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_YMD)).Value = _V002_NCR_J.SAISIN_KAKUNIN_YMD
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SEIGI_TANTO_NAME)).Value = _V002_NCR_J.SEIGI_TANTO_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SEIZO_TANTO_NAME)).Value = _V002_NCR_J.SEIZO_TANTO_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SURYO)).Value = _V002_NCR_J.SURYO
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_UMU_NAME)).Value = _V002_NCR_J.SYOCHI_D_UMU_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_D_YOHI_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_UMU_NAME)).Value = _V002_NCR_J.SYOCHI_E_UMU_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_E_YOHI_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_A_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_A_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_B_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_B_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_C_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_C_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_BUHIN_BANGO)).Value = _V002_NCR_J.TENYO_BUHIN_BANGO
+            ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_GOKI)).Value = _V002_NCR_J.TENYO_GOKI
+            ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_KISYU)).Value = _V002_NCR_J.TENYO_KISYU
+            ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_YMD)).Value = _V002_NCR_J.TENYO_YMD
+            ssgSheet1.Range(NameOf(_V002_NCR_J.YOKYU_NAIYO)).Value = _V002_NCR_J.YOKYU_NAIYO
+            ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = "(図面/規格　： " & _V002_NCR_J.ZUMEN_KIKAKU.PadRight(50) & ")"
 
+            ssgSheet1.Range("SYONIN_NAME10").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).FirstOrDefault?.SYAIN_NAME
+            ssgSheet1.Range("SYONIN_NAME20").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_起草確認製造GL).FirstOrDefault?.SYAIN_NAME
+            ssgSheet1.Range("SYONIN_NAME30").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).FirstOrDefault?.SYAIN_NAME
+            ssgSheet1.Range("SYONIN_NAME90").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._90_処置実施確認_管理T).FirstOrDefault?.SYAIN_NAME
+            ssgSheet1.Range("SYONIN_NAME100").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._100_処置実施決裁_製造課長).FirstOrDefault?.SYAIN_NAME
+            ssgSheet1.Range("SYONIN_NAME110").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._110_abcde処置担当).FirstOrDefault?.SYAIN_NAME
+            ssgSheet1.Range("SYONIN_NAME120").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._120_abcde処置確認).FirstOrDefault?.SYAIN_NAME
+            ssgSheet1.Range("SYONIN_YMD20").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_起草確認製造GL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            ssgSheet1.Range("SYONIN_YMD30").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            ssgSheet1.Range("SYONIN_YMD90").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._90_処置実施確認_管理T And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            ssgSheet1.Range("SYONIN_YMD100").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._100_処置実施決裁_製造課長 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            ssgSheet1.Range("SYONIN_YMD110").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._110_abcde処置担当 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
 
-            'spWork.Range("KINGAKU").Formula = "=I2*K2" '発注数 * 単価
-
-            '-----レコードフレームを本シートにコピー
-            'spRangeFrom = spWork.Cells("RECORD_FRAME").EntireRow
-            'strRange = String.Format("A{0}:L{1}", intCurrentRowIndex, intCurrentRowIndex)
-            'spRangeTo = spSheet1.Cells(strRange).EntireRow
-            'spRangeFrom.Copy(spRangeTo, SpreadsheetGear.PasteType.All, SpreadsheetGear.PasteOperation.None, False, False)
-
-
-            If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace Then
-                Dim imageFile As String = _D003_NCR_J.G_FILE_PATH1
-                Dim width As Double
-                Dim height As Double
-                Dim image As Image = Image.FromFile(imageFile)
-                Try
-                    width = image.Width * 72.0 / image.HorizontalResolution
-                    height = image.Height * 72.0 / image.VerticalResolution
-                Finally
-                    image.Dispose()
-                End Try
-
-                Dim windowInfo As SpreadsheetGear.IWorksheetWindowInfo = spSheet1.WindowInfo
-                Dim left As Double = windowInfo.ColumnToPoints(1.5)
-                Dim top As Double = windowInfo.RowToPoints(1.5)
-                spSheet1.Shapes.AddPicture(imageFile, left, top, width, height)
-            End If
-
-            If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace Then
-                Dim imageFile As String = _D003_NCR_J.G_FILE_PATH2
-                Dim width As Double
-                Dim height As Double
-                Dim image As Image = Image.FromFile(imageFile)
-                Try
-                    width = image.Width * 72.0 / image.HorizontalResolution
-                    height = image.Height * 72.0 / image.VerticalResolution
-                Finally
-                    image.Dispose()
-                End Try
-
-                Dim windowInfo As SpreadsheetGear.IWorksheetWindowInfo = spSheet1.WindowInfo
-                Dim left As Double = windowInfo.ColumnToPoints(1.5)
-                Dim top As Double = windowInfo.RowToPoints(1.5)
-                spSheet1.Shapes.AddPicture(imageFile, left, top, width, height)
-            End If
-
-            '印刷範囲指定
-            'spSheet1.PageSetup.PrintArea = "sheet1!$A$1:$L$" & intCurrentRowIndex
-            '印刷タイトル行
-            'spSheet1.PageSetup.PrintTitleRows = "sheet1!$1:$3"
+            '-----SpereasheetGera印刷
+            Dim ssgPrintDocument As SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument = New SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument(ssgSheet1, SpreadsheetGear.Printing.PrintWhat.Sheet)
+            'printDocument.PrinterSettings.PrinterName = "PrinterName"
+            ssgPrintDocument.Print()
 
             '-----ファイル保存
             'spWork.Delete()
             'spWorksheets(0).Cells("A1").Select()
-            spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.OpenXMLWorkbook)
-            spWorkbook.WorkbookSet.ReleaseLock()
+            ssgSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.OpenXMLWorkbook)
+            ssgWorkbook.WorkbookSet.ReleaseLock()
+
+            '-----Spire版 直接PDF発行するならこっち
+            'Dim workbook As New Spire.Xls.Workbook
+            'workbook.LoadFromFile(strFilePath)
+            'Dim pdfFilePath As String
+            'pdfFilePath = System.IO.Path.GetDirectoryName(strFilePath) & "\" & System.IO.Path.GetFileNameWithoutExtension(strFilePath) & ".pdf"
+            'workbook.SaveToFile(pdfFilePath, Spire.Xls.FileFormat.PDF)
+
+            ''Spire PDF編集
+            ''Dim pdfDoc As New Spire.Pdf.PdfDocument
+            ''pdfDoc.PageSettings.Orientation = Spire.Pdf.PdfPageOrientation.Landscape
+            ''pdfDoc.PageSettings.Width = "970"
+            ''pdfDoc.PageSettings.Height = "850"
+
+            ''PDF表示
+            'System.Diagnostics.Process.Start(pdfFilePath)
+
+            'Excel作業ファイルを削除
+            Try
+                System.IO.File.Delete(strFilePath)
+            Catch ex As UnauthorizedAccessException
+            End Try
 
             Return True
 
@@ -1209,18 +1226,15 @@ Public Class FrmG0010
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
-            spRangeFrom = Nothing
-            spRangeTo = Nothing
-            spSheet1 = Nothing
-            spWorksheets = Nothing
-            spWorkbook = Nothing
-
-            ''-----開放
-            'dsList.Dispose()
+            ssgRangeFrom = Nothing
+            ssgRangeTo = Nothing
+            ssgSheet1 = Nothing
+            ssgWorksheets = Nothing
+            ssgWorkbook = Nothing
         End Try
     End Function
 
-    Private Function FunMakeReportCAR(ByVal strFilePath As String) As Boolean
+    Private Function FunMakeReportCAR(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean
 
         Dim spWorkbook As SpreadsheetGear.IWorkbook
         Dim spWorksheets As SpreadsheetGear.IWorksheets
@@ -1235,34 +1249,109 @@ Public Class FrmG0010
             spWorksheets = spWorkbook.Worksheets
             spSheet1 = spWorksheets.Item(0) 'sheet1
 
-
             Dim spprint As SpreadsheetGear.Printing.PrintWhat = SpreadsheetGear.Printing.PrintWhat.Sheet
 
 
             'レコードフレーム初期化
-            'spWork.Range("RECORD_FRAME").ClearContents()
-            spSheet1.Range(NameOf(_D003_NCR_J.HOKOKU_NO)).Value = _D003_NCR_J.HOKOKU_NO
 
+            Dim _V005_CAR_J As MODEL.V005_CAR_J = FunGetV005Model(strHOKOKU_NO)
 
-            'spWork.Range("KINGAKU").Formula = "=I2*K2" '発注数 * 単価
+            spSheet1.Range(NameOf(_V005_CAR_J.GOKI)).Value = _V005_CAR_J.GOKI
+            spSheet1.Range(NameOf(_V005_CAR_J.HOKOKU_NO)).Value = _V005_CAR_J.HOKOKU_NO
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_1)).Value = _V005_CAR_J.KAITO_1
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_2)).Value = _V005_CAR_J.KAITO_2
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_3)).Value = _V005_CAR_J.KAITO_3
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_4)).Value = _V005_CAR_J.KAITO_4
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_5)).Value = _V005_CAR_J.KAITO_5
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_6)).Value = _V005_CAR_J.KAITO_6
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_7)).Value = _V005_CAR_J.KAITO_7
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_8)).Value = _V005_CAR_J.KAITO_8
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_9)).Value = _V005_CAR_J.KAITO_9
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_10)).Value = _V005_CAR_J.KAITO_10
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_11)).Value = _V005_CAR_J.KAITO_11
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_12)).Value = _V005_CAR_J.KAITO_12
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_13)).Value = _V005_CAR_J.KAITO_13
+            If CBool(_V005_CAR_J.KAITO_14) Then
+                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_14) & "_YOU").Value = "TRUE"
+            Else
+                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_14) & "_HI").Value = "TRUE"
+            End If
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_15)).Value = _V005_CAR_J.KAITO_15
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_16)).Value = _V005_CAR_J.KAITO_16
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_17)).Value = _V005_CAR_J.KAITO_17
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_18)).Value = _V005_CAR_J.KAITO_18
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_19)).Value = _V005_CAR_J.KAITO_19
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_20)).Value = _V005_CAR_J.KAITO_20
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_21)).Value = _V005_CAR_J.KAITO_21
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_22)).Value = _V005_CAR_J.KAITO_22
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_23)).Value = _V005_CAR_J.KAITO_23
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_24)).Value = _V005_CAR_J.KAITO_24
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_25)).Value = _V005_CAR_J.KAITO_25
 
-            '-----レコードフレームを本シートにコピー
-            'spRangeFrom = spWork.Cells("RECORD_FRAME").EntireRow
-            'strRange = String.Format("A{0}:L{1}", intCurrentRowIndex, intCurrentRowIndex)
-            'spRangeTo = spSheet1.Cells(strRange).EntireRow
-            'spRangeFrom.Copy(spRangeTo, SpreadsheetGear.PasteType.All, SpreadsheetGear.PasteOperation.None, False, False)
+            spSheet1.Range(NameOf(_V005_CAR_J.KENSA_GL_SYAIN_NAME)).Value = _V005_CAR_J.KENSA_GL_SYAIN_NAME
+            spSheet1.Range(NameOf(_V005_CAR_J.KENSA_GL_YMDHNS)).Value = _V005_CAR_J.KENSA_GL_YMDHNS
+            spSheet1.Range(NameOf(_V005_CAR_J.KENSA_TANTO_NAME)).Value = _V005_CAR_J.KENSA_TANTO_NAME
+            spSheet1.Range(NameOf(_V005_CAR_J.KENSA_TOROKU_YMDHNS)).Value = _V005_CAR_J.KENSA_TOROKU_YMDHNS
+            spSheet1.Range(NameOf(_V005_CAR_J.KISYU)).Value = _V005_CAR_J.KISYU
+            spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_A_SYAIN_NAME)).Value = _V005_CAR_J.SYOCHI_A_SYAIN_NAME
+            spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_A_YMDHNS)).Value = _V005_CAR_J.SYOCHI_A_YMDHNS
+            spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_B_SYAIN_NAME)).Value = _V005_CAR_J.SYOCHI_B_SYAIN_NAME
+            spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_B_YMDHNS)).Value = _V005_CAR_J.SYOCHI_B_YMDHNS
+            spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_C_SYAIN_NAME)).Value = _V005_CAR_J.SYOCHI_C_SYAIN_NAME
+            spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_C_YMDHNS)).Value = _V005_CAR_J.SYOCHI_C_YMDHNS
+            spSheet1.Range("SYONIN_NAME10").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME20").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME30").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME40").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME50").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME60").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME90").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME100").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_NAME120").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD10").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD20").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD30").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD40").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD50").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD60").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD90").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD100").Value = _V005_CAR_J.GOKI
+            spSheet1.Range("SYONIN_YMD120").Value = _V005_CAR_J.GOKI
+            spSheet1.Range(NameOf(_V005_CAR_J.SYOSAI_FILE_PATH)).Value = _V005_CAR_J.SYOSAI_FILE_PATH
+            spSheet1.Range(NameOf(_V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU_NAME)).Value = _V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU_NAME
 
-
-            '印刷範囲指定
-            'spSheet1.PageSetup.PrintArea = "sheet1!$A$1:$L$" & intCurrentRowIndex
-            '印刷タイトル行
-            'spSheet1.PageSetup.PrintTitleRows = "sheet1!$1:$3"
+            '-----SpereasheetGera印刷
+            Dim ssgPrintDocument As SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument = New SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument(spSheet1, SpreadsheetGear.Printing.PrintWhat.Sheet)
+            'printDocument.PrinterSettings.PrinterName = "PrinterName"
+            ssgPrintDocument.Print()
 
             '-----ファイル保存
             'spWork.Delete()
             'spWorksheets(0).Cells("A1").Select()
             spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.OpenXMLWorkbook)
             spWorkbook.WorkbookSet.ReleaseLock()
+
+            '-----Spire版 直接PDF発行するならこっち
+            'Dim workbook As New Spire.Xls.Workbook
+            'workbook.LoadFromFile(strFilePath)
+            'Dim pdfFilePath As String
+            'pdfFilePath = System.IO.Path.GetDirectoryName(strFilePath) & "\" & System.IO.Path.GetFileNameWithoutExtension(strFilePath) & ".pdf"
+            'workbook.SaveToFile(pdfFilePath, Spire.Xls.FileFormat.PDF)
+
+            ''Spire PDF編集
+            ''Dim pdfDoc As New Spire.Pdf.PdfDocument
+            ''pdfDoc.PageSettings.Orientation = Spire.Pdf.PdfPageOrientation.Landscape
+            ''pdfDoc.PageSettings.Width = "970"
+            ''pdfDoc.PageSettings.Height = "850"
+
+            ''PDF表示
+            'System.Diagnostics.Process.Start(pdfFilePath)
+
+            'Excel作業ファイルを削除
+            Try
+                System.IO.File.Delete(strFilePath)
+            Catch ex As UnauthorizedAccessException
+            End Try
 
             Return True
 
@@ -1276,8 +1365,6 @@ Public Class FrmG0010
             spWorksheets = Nothing
             spWorkbook = Nothing
 
-            ''-----開放
-            'dsList.Dispose()
         End Try
     End Function
 
@@ -1408,15 +1495,13 @@ Public Class FrmG0010
     Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
 
         Select Case cmbBUMON.SelectedValue
-            Case Nothing
-                '
-            Case Context.ENM_BUMON_KB._4_LP
+            Case Context.ENM_BUMON_KB._4_LP.ToString
                 lblSyanaiCD.Visible = True
-                cmbSyanaiCD.Visible = True
+                cmbSYANAI_CD.Visible = True
             Case Else
                 lblSyanaiCD.Visible = False
-                cmbSyanaiCD.Visible = False
-                cmbSyanaiCD.SelectedIndex = 0
+                cmbSYANAI_CD.Visible = False
+                ParamModel.SYANAI_CD = ""
         End Select
     End Sub
 #End Region
@@ -1424,14 +1509,14 @@ Public Class FrmG0010
 #Region "CAR検索条件"
 
     Private Sub CmbYOIN1_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbYOIN1.SelectedValueChanged
-        If cmbYOIN1.SelectedValue Is Nothing Then
-            mtxGENIN1.Enabled = False
-            btnClearGenin1.Enabled = False
-            btnSelectGenin1.Enabled = False
-        Else
-            mtxGENIN1.Enabled = True
+        If cmbYOIN1.SelectedIndex > 0 Then
+            mtxGENIN1_DISP.Enabled = True
             btnClearGenin1.Enabled = True
             btnSelectGenin1.Enabled = True
+        Else
+            mtxGENIN1_DISP.Enabled = False
+            btnClearGenin1.Enabled = False
+            btnSelectGenin1.Enabled = False
         End If
         PrGenin1.Clear()
         mtxGENIN1.Text = ""
@@ -1439,14 +1524,14 @@ Public Class FrmG0010
     End Sub
 
     Private Sub CmbYOIN2_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbYOIN2.SelectedValueChanged
-        If cmbYOIN2.SelectedValue Is Nothing Then
-            mtxGENIN2.Enabled = False
-            btnClearGenin2.Enabled = False
-            btnSelectGenin2.Enabled = False
-        Else
-            mtxGENIN2.Enabled = True
+        If cmbYOIN2.SelectedIndex > 0 Then
+            mtxGENIN2_DISP.Enabled = True
             btnClearGenin2.Enabled = True
             btnSelectGenin2.Enabled = True
+        Else
+            mtxGENIN2_DISP.Enabled = False
+            btnClearGenin2.Enabled = False
+            btnSelectGenin2.Enabled = False
         End If
         PrGenin2.Clear()
         mtxGENIN2.Text = ""
@@ -1514,6 +1599,7 @@ Public Class FrmG0010
                     Next item
                     ParamModel.GENIN1 = String.Format(strWhereBase, sbWhere.ToString)
                 Else
+                    ParamModel.GENIN1 = ""
                 End If
             End If
 
@@ -1550,13 +1636,13 @@ Public Class FrmG0010
                 '検索条件文字列作成
                 Dim sbWhere As New System.Text.StringBuilder
                 Dim strWhereBase As String = <sql><![CDATA[
-                        EXISTS
-                        (
-                        SELECT HOKOKU_NO FROM D006_CAR_GENIN WHERE 
-                        V007_NCR_CAR.HOKOKU_NO = D006_CAR_GENIN.HOKOKU_NO
-                        {0}
-                        )                            
-                        ]]></sql>.Value.Trim
+                    EXISTS
+                    (
+                    SELECT HOKOKU_NO FROM D006_CAR_GENIN WHERE 
+                    V007_NCR_CAR.HOKOKU_NO = D006_CAR_GENIN.HOKOKU_NO
+                    {0}
+                    )
+                    ]]></sql>.Value.Trim
 
                 mtxGENIN2_DISP.Text = ""
                 If PrGenin2.Count > 0 Then
@@ -1571,6 +1657,7 @@ Public Class FrmG0010
                     Next item
                     ParamModel.GENIN2 = String.Format(strWhereBase, sbWhere.ToString)
                 Else
+                    ParamModel.GENIN2 = ""
                 End If
             End If
 
@@ -1591,9 +1678,9 @@ Public Class FrmG0010
             Using DB As ClsDbUtility = DBOpen()
                 FunGetCodeDataTable(DB, "不適合" & cmbFUTEKIGO_KB.Text.Replace("・", "") & "区分", dt)
             End Using
-            cmbFUKEKIGO_S_KB.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbFUTEKIGO_S_KB.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
         Else
-            cmbFUKEKIGO_S_KB.DataSource = Nothing
+            cmbFUTEKIGO_S_KB.DataSource = Nothing
         End If
 
     End Sub
@@ -1610,15 +1697,16 @@ Public Class FrmG0010
         mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), ParamModel, NameOf(ParamModel.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbADD_TANTO.DataBindings.Add(New Binding(NameOf(cmbADD_TANTO.SelectedValue), ParamModel, NameOf(ParamModel.ADD_TANTO), False, DataSourceUpdateMode.OnPropertyChanged, 0))
         cmbKISYU.DataBindings.Add(New Binding(NameOf(cmbKISYU.SelectedValue), ParamModel, NameOf(ParamModel.KISYU_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-        mtxGOUKI.DataBindings.Add(New Binding(NameOf(mtxGOUKI.Text), ParamModel, NameOf(ParamModel.GOUKI), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbSyanaiCD.DataBindings.Add(New Binding(NameOf(cmbSyanaiCD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        mtxGOKI.DataBindings.Add(New Binding(NameOf(mtxGOKI.Text), ParamModel, NameOf(ParamModel.GOUKI), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbBUHIN_BANGO.SelectedValue), ParamModel, NameOf(ParamModel.BUHIN_BANGO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         mtxHINMEI.DataBindings.Add(New Binding(NameOf(mtxHINMEI.Text), ParamModel, NameOf(ParamModel.BUHIN_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbTANTO.DataBindings.Add(New Binding(NameOf(cmbTANTO.SelectedValue), ParamModel, NameOf(ParamModel.SYOCHI_TANTO), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+
+        cmbGEN_TANTO.DataBindings.Add(New Binding(NameOf(cmbGEN_TANTO.SelectedValue), ParamModel, NameOf(ParamModel.SYOCHI_TANTO), False, DataSourceUpdateMode.OnPropertyChanged, 0))
         dtJisiFrom.DataBindings.Add(New Binding(NameOf(dtJisiFrom.ValueNonFormat), ParamModel, NameOf(ParamModel.JISI_YMD_FROM), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         dtJisiTo.DataBindings.Add(New Binding(NameOf(dtJisiTo.ValueNonFormat), ParamModel, NameOf(ParamModel.JISI_YMD_TO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbFUTEKIGO_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbFUKEKIGO_S_KB.DataBindings.Add(New Binding(NameOf(cmbFUKEKIGO_S_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_S_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbFUTEKIGO_S_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_S_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_S_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbFUTEKIGO_JYOTAI_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_JYOTAI_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_JYOTAI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         chkClosedRowVisibled.DataBindings.Add(New Binding(NameOf(chkClosedRowVisibled.Checked), ParamModel, NameOf(ParamModel.VISIBLE_CLOSE), False, DataSourceUpdateMode.OnPropertyChanged, False))
         chkTairyu.DataBindings.Add(New Binding(NameOf(chkTairyu.Checked), ParamModel, NameOf(ParamModel.VISIBLE_TAIRYU), False, DataSourceUpdateMode.OnPropertyChanged, False))
@@ -1680,6 +1768,8 @@ Public Class FrmG0010
             Return False
         End If
     End Function
+
+
 
 #End Region
 

@@ -13,11 +13,14 @@ Public Class DataTableEx
     ''' コンストラクタ
     ''' </summary>
     ''' <remarks></remarks>
-    Public Sub New()
+    Public Sub New(ByVal Optional valueType As String = "System.String")
 
         Try
+            'UNDONE: DataTableEx　オプションパラメータでデータ型指定
+
             '列追加
-            Me.Columns.Add("VALUE", GetType(String))
+            Dim t As Type = Type.GetType(valueType, False, True)
+            Me.Columns.Add("VALUE", t)
             Me.Columns.Add("DISP", GetType(String))
             Me.Columns.Add("DEL_FLG", GetType(Boolean))
             Me.Columns.Add("DEF_FLG", GetType(Boolean))

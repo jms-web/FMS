@@ -13,7 +13,7 @@ Partial Public Class V003_SYONIN_J_KANRI
 
     Public Sub Clear()
         SYONIN_HOKOKUSYO_ID = 0
-        HOKOKUSYO_NO = ""
+        HOKOKU_NO = ""
         SYONIN_JUN = 0
         SYAIN_ID = 0
         SYAIN_NAME = ""
@@ -33,10 +33,18 @@ Partial Public Class V003_SYONIN_J_KANRI
 
     End Sub
 
+    Default Public Property Item(ByVal propertyName As String) As Object
+        Get
+            Return GetType(V003_SYONIN_J_KANRI).GetProperty(propertyName).GetValue(Me)
+        End Get
+        Set(value As Object)
+            GetType(V003_SYONIN_J_KANRI).GetProperty(propertyName).SetValue(Me, value)
+        End Set
+    End Property
 
     Public Property SYONIN_HOKOKUSYO_ID As Integer
 
-    Public Property HOKOKUSYO_NO As String
+    Public Property HOKOKU_NO As String
     Public Property SYONIN_JUN As Integer
     Public Property SYAIN_ID As Integer
     Public Property SYAIN_NAME As String
@@ -48,7 +56,7 @@ Partial Public Class V003_SYONIN_J_KANRI
     <StringLength(1)>
     <Column(NameOf(SASIMODOSI_FG), TypeName:="char")>
     <ComponentModel.DisplayName("差戻フラグ")>
-    Public Property _SASIMODOSI_FG As String
+    Private Property _SASIMODOSI_FG As String
 
     <ComponentModel.DisplayName("差戻フラグ")>
     <NotMapped>
@@ -70,7 +78,7 @@ Partial Public Class V003_SYONIN_J_KANRI
     <StringLength(1)>
     <Column(NameOf(MAIL_SEND_FG), TypeName:="char")>
     <ComponentModel.DisplayName("メール送信フラグ")>
-    Public Property _MAIL_SEND_FG As String
+    Private Property _MAIL_SEND_FG As String
 
     <ComponentModel.DisplayName("メール送信フラグ")>
     <NotMapped>

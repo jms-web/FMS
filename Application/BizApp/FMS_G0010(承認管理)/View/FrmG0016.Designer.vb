@@ -171,6 +171,7 @@ Partial Class FrmG0016
         Me.cmbMODOSI_SAKI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbMODOSI_SAKI.BackColor = System.Drawing.SystemColors.Window
         Me.cmbMODOSI_SAKI.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.cmbMODOSI_SAKI.DisplayMember = "DISP"
         Me.cmbMODOSI_SAKI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbMODOSI_SAKI.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbMODOSI_SAKI.FormattingEnabled = True
@@ -183,6 +184,7 @@ Partial Class FrmG0016
         Me.cmbMODOSI_SAKI.Size = New System.Drawing.Size(239, 25)
         Me.cmbMODOSI_SAKI.TabIndex = 1
         Me.cmbMODOSI_SAKI.Text = "(‘I‘ð)"
+        Me.cmbMODOSI_SAKI.ValueMember = "VALUE"
         '
         'Label2
         '
@@ -197,6 +199,7 @@ Partial Class FrmG0016
         'mtxTANTO_NAME
         '
         Me.mtxTANTO_NAME.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxTANTO_NAME.Enabled = False
         Me.mtxTANTO_NAME.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxTANTO_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxTANTO_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
