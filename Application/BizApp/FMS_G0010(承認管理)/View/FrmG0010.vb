@@ -1025,12 +1025,11 @@ Public Class FrmG0010
 #Region "メール送信"
     Private Function FunMailSending() As Boolean
         Try
-            Dim dt As DataTable = DirectCast(dgvDATA.DataSource, DataTable).AsEnumerable.
-                                    Where(Function(r) r.Field(Of Boolean)("SELECTED") = True)?.
-                                    CopyToDataTable
+            Dim dt = DirectCast(dgvDATA.DataSource, DataTable).AsEnumerable.
+                                    Where(Function(r) r.Field(Of Boolean)("SELECTED") = True)
 
-            If dt IsNot Nothing Then
-                For Each dr As DataRow In dt.Rows
+            If dt.Count > 0 Then
+                For Each dr As DataRow In dt.CopyToDataTable.Rows
                     Dim strSubject As String = "【テスト】不適合管理システム テストメール"
                     Dim strBody As String = dr.Item("SYONIN_NAIYO")
                     Dim strSyainName As String = Fun_GetUSER_NAME(dr.Item("GEN_TANTO_ID"))
@@ -1043,7 +1042,21 @@ Public Class FrmG0010
                         End If
                     End If
                 Next dr
+            Else
+                Dim cr As DataRow = dgvDATA.GetDataRow
+                Dim strSubject As String = "【テスト】不適合管理システム テストメール"
+                Dim strBody As String = cr.Item("SYONIN_NAIYO")
+                Dim strSyainName As String = Fun_GetUSER_NAME(cr.Item("GEN_TANTO_ID"))
+
+                If MessageBox.Show(strSyainName & "さんに確認メールを送信します。" & vbCrLf & "よろしいですか？", "確認メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
+                    If FunSendMailFutekigo(strSubject, strBody, cr.Item("GEN_TANTO_ID")) Then
+                        MessageBox.Show("メール送信しました。", "メール送信成功", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Else
+                        MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End If
+                End If
             End If
+
         Catch ex As Exception
             'EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
@@ -1531,6 +1544,12 @@ Public Class FrmG0010
         End Select
     End Sub
 
+#Region "検索条件クリア"
+    Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click
+        ParamModel.Clear()
+    End Sub
+#End Region
+
 #End Region
 
 #Region "CAR検索条件"
@@ -1795,6 +1814,8 @@ Public Class FrmG0010
             Return False
         End If
     End Function
+
+
 
 
 

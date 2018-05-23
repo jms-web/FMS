@@ -540,8 +540,8 @@ Public Class ComboboxEx
             End If
 
             '-----コンボボックス表示値と選択値の列設定
-            Me.DisplayMember = "DISP"
-            Me.ValueMember = "VALUE"
+            'Me.DisplayMember = "DISP"
+            'Me.ValueMember = "VALUE"
 
             If InsertBlankRow = True Then
                 '----先頭に空白行を追加する場合

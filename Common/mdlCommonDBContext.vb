@@ -512,7 +512,7 @@ Public Module mdlDBContext
 #Region "               é–ì‡CD"
                 Case "é–ì‡CD"
                     'åüçı
-                    sbSQL.Append("SELECT DISTINCT SYANAI_CD,BUHIN_BANGO,BUHIN_NAME,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
+                    sbSQL.Append("SELECT DISTINCT SYANAI_CD,BUHIN_BANGO,BUHIN_NAME,KISYU_ID,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
                     sbSQL.Append("WHERE BUMON_KB='2'")
                     If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append(" AND " & strWhere & "")
@@ -527,6 +527,7 @@ Public Module mdlDBContext
 
                     dt.Columns.Add("BUHIN_BANGO", GetType(String))
                     dt.Columns.Add("BUHIN_NAME", GetType(String))
+                    dt.Columns.Add("KISYU_ID", GetType(Integer))
 
                     dsList = DB.GetDataSet(sbSQL.ToString, False)
 
@@ -539,6 +540,7 @@ Public Module mdlDBContext
                             Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                             Trow("BUHIN_BANGO") = .Rows(intCNT).Item("BUHIN_BANGO")
                             Trow("BUHIN_NAME") = .Rows(intCNT).Item("BUHIN_NAME")
+                            Trow("KISYU_ID") = .Rows(intCNT).Item("KISYU_ID")
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
@@ -546,7 +548,7 @@ Public Module mdlDBContext
 #Region "               ïîïiî‘çÜ"
                 Case "ïîïiî‘çÜ"
                     'åüçı
-                    sbSQL.Append("SELECT DISTINCT BUHIN_BANGO,BUHIN_NAME,SYANAI_CD,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
+                    sbSQL.Append("SELECT DISTINCT BUHIN_BANGO,BUHIN_NAME,SYANAI_CD,KISYU_ID,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
                     If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append("WHERE " & strWhere & "")
                     End If
@@ -560,6 +562,7 @@ Public Module mdlDBContext
 
                     dt.Columns.Add("BUHIN_NAME", GetType(String))
                     dt.Columns.Add("SYANAI_CD", GetType(String))
+                    dt.Columns.Add("KISYU_ID", GetType(Integer))
 
                     dsList = DB.GetDataSet(sbSQL.ToString, False)
 
@@ -572,6 +575,7 @@ Public Module mdlDBContext
                             Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                             Trow("BUHIN_NAME") = .Rows(intCNT).Item("BUHIN_NAME")
                             Trow("SYANAI_CD") = .Rows(intCNT).Item("SYANAI_CD")
+                            Trow("KISYU_ID") = .Rows(intCNT).Item("KISYU_ID")
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With

@@ -42,10 +42,17 @@
             End If
 
             '添付ファイル
-            Dim filePart As New TKMP.Writer.FilePart(strAttachment)
+            Dim filePart As TKMP.Writer.FilePart
+            If strAttachment.IsNullOrWhiteSpace Then
+                filePart = Nothing
+                '本文と添付ファイルを持つ、マルチパートクラスを作成
+                writer.MainPart = New TKMP.Writer.MultiPart(txtPart)
+            Else
+                filePart = New TKMP.Writer.FilePart(strAttachment)
+                '本文と添付ファイルを持つ、マルチパートクラスを作成
+                writer.MainPart = New TKMP.Writer.MultiPart(txtPart, filePart)
+            End If
 
-            '本文と添付ファイルを持つ、マルチパートクラスを作成
-            writer.MainPart = New TKMP.Writer.MultiPart(txtPart, filePart)
 
             'メールの送信先サーバー名
             Dim address As System.Net.IPAddress = System.Net.Dns.GetHostEntry(strSmtpServer).AddressList(0)
@@ -84,7 +91,8 @@
                                 ByVal strSubject As String,
                                 ByVal strBody As String,
                                 ByVal strAttachment As String,
-                                ByVal Optional strFromName As String = "") As Boolean
+                                ByVal Optional strFromName As String = "",
+                                ByVal Optional isHTML As Boolean = False) As Boolean
 
         Dim smtp As TKMP.Net.SmtpClient = Nothing
         Dim logon As TKMP.Net.ISmtpLogon
@@ -114,7 +122,7 @@
 
 
             'メールの実際の差出人
-            writer.FromAddress = FromAddress
+            writer.FromAddress = "funato@jms-web.co.jp" 'FromAddress
             'メールヘッダの差出人情報
             If strFromName <> "" Then
                 writer.Headers.Add("From", strFromName & " <" & FromAddress & ">")
@@ -132,10 +140,16 @@
             Dim txtPart As New TKMP.Writer.TextPart(strBody)
 
             '添付ファイル
-            Dim filePart As New TKMP.Writer.FilePart(strAttachment)
-
-            '本文と添付ファイルを持つ、マルチパートクラスを作成
-            writer.MainPart = New TKMP.Writer.MultiPart(txtPart, filePart)
+            Dim filePart As TKMP.Writer.FilePart
+            If strAttachment.IsNullOrWhiteSpace Then
+                filePart = Nothing
+                '本文と添付ファイルを持つ、マルチパートクラスを作成
+                writer.MainPart = New TKMP.Writer.MultiPart(txtPart)
+            Else
+                filePart = New TKMP.Writer.FilePart(strAttachment)
+                '本文と添付ファイルを持つ、マルチパートクラスを作成
+                writer.MainPart = New TKMP.Writer.MultiPart(txtPart, filePart)
+            End If
 
             'メールの送信先サーバー名
             Dim address As System.Net.IPAddress = System.Net.Dns.GetHostEntry(strSmtpServer).AddressList(0)

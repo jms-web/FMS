@@ -57,13 +57,8 @@ Public Class FrmG0016
             Me.ControlBox = False
 
             '-----各コントロールのデータソースを設定
-            Dim tbl As New DataTableEx
-            Using DB As ClsDbUtility = DBOpen()
-                Dim strWhere As String
-                strWhere = "SYONIN_HOKOKUSYO_ID=" & PrSYONIN_HOKOKUSYO_ID & " AND HOKOKU_NO='" & PrHOKOKU_NO & "' AND (SYONIN_JUN=20 OR SYONIN_JUN<" & PrCurrentStage & ")"
-                Call FunGetCodeDataTable(DB, "差戻し先", tbl, strWhere)
-            End Using
-            cmbMODOSI_SAKI.SetDataSource(tbl, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+            cmbMODOSI_SAKI.SetDataSource(FunGetMODISI_SAKI(PrSYONIN_HOKOKUSYO_ID, PrHOKOKU_NO, PrCurrentStage), ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             'バインディング
             Call FunSetBinding()
@@ -534,7 +529,45 @@ Public Class FrmG0016
         mtxMODOSI_RIYU.DataBindings.Add(New Binding(NameOf(mtxMODOSI_RIYU.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.RIYU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
     End Function
 
+    Private Function FunGetMODISI_SAKI(ByVal intSYONIN_HOKOKU_ID As Integer, ByVal strHOKOKU_NO As String, ByVal intCurrentStage As Integer) As DataTable
+        Dim dt As New DataTableEx("System.Int32")
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
 
+        sbSQL.Append("SELECT * FROM " & "V003_SYONIN_J_KANRI" & " MAIN")
+        sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intSYONIN_HOKOKU_ID & "")
+        sbSQL.Append(" AND HOKOKU_NO='" & strHOKOKU_NO & "'")
+        sbSQL.Append(" AND (SYONIN_JUN=20 OR SYONIN_JUN=(SELECT MAX(SYONIN_JUN) FROM V003_SYONIN_J_KANRI AS SUB WHERE SUB.SYONIN_JUN<" & intCurrentStage & "))")
+        Using DB As ClsDbUtility = DBOpen()
+            dsList = DB.GetDataSet(sbSQL.ToString, False)
+        End Using
+
+        dt.Columns.Add("SYONIN_HOKOKUSYO_ID", GetType(Integer))
+        dt.Columns.Add("SYONIN_JUN", GetType(Integer))
+        dt.Columns.Add("SYAIN_NAME", GetType(String))
+        dt.Columns.Add("HOKOKU_NO", GetType(String))
+
+        '主キー設定
+        dt.PrimaryKey = {dt.Columns("SYONIN_HOKOKUSYO_ID"), dt.Columns("SYONIN_JUN"), dt.Columns("HOKOKU_NO")}
+
+
+        With dsList.Tables(0)
+            For intCNT = 0 To .Rows.Count - 1
+                Dim Trow As DataRow = dt.NewRow()
+                Trow("DISP") = .Rows(intCNT).Item("SYONIN_JUN") & "." & .Rows(intCNT).Item("SYONIN_NAIYO") & " " & .Rows(intCNT).Item("SYAIN_NAME")
+                Trow("VALUE") = .Rows(intCNT).Item("SYAIN_ID")
+                Trow("SYAIN_NAME") = .Rows(intCNT).Item("SYAIN_NAME")
+                'Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
+                Trow("SYONIN_JUN") = .Rows(intCNT).Item("SYONIN_JUN")
+                Trow("HOKOKU_NO") = .Rows(intCNT).Item("HOKOKU_NO")
+
+                dt.Rows.Add(Trow)
+            Next intCNT
+        End With
+
+        Return dt
+    End Function
 
 
 #End Region

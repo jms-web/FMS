@@ -316,8 +316,8 @@ Module mdlG0010
         sbParam.Append(",'" & ParamModel.JISI_YMD_TO & "'")
         sbParam.Append(",'" & ParamModel.HOKOKU_NO & "'")
         sbParam.Append("," & ParamModel.ADD_TANTO & "")
-        sbParam.Append(",'" & ParamModel._VISIBLE_CLOSE & "'")
-        sbParam.Append(",'" & ParamModel._VISIBLE_TAIRYU & "'")
+        sbParam.Append(",'" & IIf(ParamModel._VISIBLE_CLOSE = 1, "", ParamModel._VISIBLE_CLOSE) & "'")
+        sbParam.Append(",'" & IIf(ParamModel._VISIBLE_TAIRYU = 1, "", ParamModel._VISIBLE_TAIRYU) & "'")
         sbParam.Append(",'" & ParamModel.FUTEKIGO_KB & "'")
         sbParam.Append(",'" & ParamModel.FUTEKIGO_S_KB & "'")
         sbParam.Append(",'" & ParamModel.FUTEKIGO_JYOTAI_KB & "'")
@@ -666,10 +666,11 @@ Module mdlG0010
         Dim intSmtpPort As Integer
         Dim strFromAddress As String
         Dim strToAddress As String
-        'Dim strUserID As String
-        'Dim strPassword As String
+        Dim strUserID As String
+        Dim strPassword As String
         Dim blnSend As Boolean
         Dim strToSyainName As String
+        Dim strFromSyainName As String
 
         Dim strMsg As String
         Try
@@ -679,10 +680,9 @@ Module mdlG0010
             Using DB As ClsDbUtility = DBOpen()
                 strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
                 intSmtpPort = Val(FunGetCodeMastaValue(DB, "メール設定", "SMTP_PORT"))
-                strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
-                'strUserID = FunGetCodeMastaValue("メール設定", "SMTP_USER")
-                'strPassword = FunGetCodeMastaValue("メール設定", "SMTP_PASS")
-
+                'strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
+                strUserID = FunGetCodeMastaValue(DB, "メール設定", "SMTP_USER")
+                strPassword = FunGetCodeMastaValue(DB, "メール設定", "SMTP_PASS")
 
                 '---申請先担当者のメールアドレス取得
                 Dim sbSQL As New System.Text.StringBuilder
@@ -703,9 +703,25 @@ Module mdlG0010
                     Return False
                 End If
 
+                '---申請元担当者のメールアドレス取得
+                sbSQL.Remove(0, sbSQL.Length)
+                sbSQL.Append("SELECT")
+                sbSQL.Append(" SIMEI")
+                sbSQL.Append(" ,MAIL_ADDRESS")
+                sbSQL.Append(" FROM " & NameOf(MODEL.M004_SYAIN) & " ")
+                sbSQL.Append(" WHERE SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID & "")
+                Using DBa As ClsDbUtility = DBOpen()
+                    dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                End Using
+                If dsList.Tables(0).Rows.Count > 0 Then
+                    strFromAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
+                    strFromSyainName = dsList.Tables(0).Rows(0).Item("SIMEI")
+                Else
+                    Return False
+                End If
             End Using
 
-            'DEBUG: mail送信無効 システム担当者以外無効
+            'DEBUG: mail送信無効
             Select Case ToSYAIN_ID
                 Case 136, 999999
                 Case Else
@@ -715,28 +731,31 @@ Module mdlG0010
             strMsg = String.Format("【メール送信成功】TO:{0}({1}) SUBJECT:{2}", strToSyainName, strToAddress, strSubject)
             WL.WriteLogDat(strMsg)
 
-            '認証なし
-            blnSend = ClsMailSend.FunSendMail(strSmtpServer,
-                           intSmtpPort,
-                           strFromAddress,
-                           strToAddress,
-                           CCAddress:=strFromAddress,
-                           BCCAddress:="",
-                           strSubject:=strSubject,
-                           strBody:=strBody,
-                           strAttachment:="",
-                           strFromName:="不適合管理システム")
-
-            '認証あり
-            'blnSend = ClsMailSend.FunSendMailoverAUTH(strSmtpServer,
+            ''認証なし
+            'blnSend = ClsMailSend.FunSendMail(strSmtpServer,
             '               intSmtpPort,
-            '               strUserID,
-            '               strPassword,
             '               strFromAddress,
             '               strToAddress,
-            '               strSubject,
-            '               "タイムカード集計",
-            '               strSendFilePath)
+            '               CCAddress:=strFromAddress,
+            '               BCCAddress:="",
+            '               strSubject:=strSubject,
+            '               strBody:=strBody,
+            '               strAttachment:="",
+            '               strFromName:="不適合管理システム")
+
+            '認証あり
+            blnSend = ClsMailSend.FunSendMailoverAUTH(strSmtpServer,
+                           intSmtpPort,
+                           strUserID,
+                           strPassword,
+                           strFromAddress,
+                           strToAddress,
+                           strFromAddress,
+                           "",
+                           strSubject,
+                           strBody,
+                           "",
+                           "不適合管理システム")
 
             Return blnSend
         Catch ex As Exception

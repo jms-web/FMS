@@ -536,12 +536,13 @@ Partial Class FrmM0000
         Me.txtPASSWORD.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtPASSWORD.InputRequired = False
         Me.txtPASSWORD.Location = New System.Drawing.Point(3, 89)
+        Me.txtPASSWORD.MaxByteLength = 20
         Me.txtPASSWORD.Name = "txtPASSWORD"
         Me.txtPASSWORD.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtPASSWORD.Size = New System.Drawing.Size(213, 28)
         Me.txtPASSWORD.TabIndex = 63
         Me.txtPASSWORD.WatermarkColor = System.Drawing.Color.Empty
-        Me.txtPASSWORD.WatermarkText = Nothing
+        Me.txtPASSWORD.WatermarkText = "<•K{>"
         '
         'lblUSER
         '

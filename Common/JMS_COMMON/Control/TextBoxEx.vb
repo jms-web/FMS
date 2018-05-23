@@ -223,6 +223,7 @@ Public Class TextBoxEx
                     Return
                 End If
 
+                'CHECK: ペースト無効時はコメントアウト解除
             Case WM_PASTE
                 Me.OnPaste(New System.EventArgs())
                 Return

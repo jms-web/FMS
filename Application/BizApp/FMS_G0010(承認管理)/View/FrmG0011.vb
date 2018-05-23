@@ -189,7 +189,7 @@ Public Class FrmG0011
                 Case 1  '保存
 
                     '入力チェック
-                    If FunCheckInput() Then
+                    If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
                         If MessageBox.Show("入力内容を保存しますか？", "登録確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
 
                             If FunSAVE(ENM_SAVE_MODE._1_保存) Then
@@ -210,7 +210,7 @@ Public Class FrmG0011
 
                 Case 2  '承認申請
                     '入力チェック
-                    If FunCheckInput() Then
+                    If FunCheckInput(ENM_SAVE_MODE._2_承認申請) Then
                         If MessageBox.Show("申請しますか？", "申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                             If FunSAVE(ENM_SAVE_MODE._2_承認申請) Then
                                 MessageBox.Show("申請しました", "申請処理完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -831,6 +831,11 @@ Public Class FrmG0011
         sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
         sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.COMMENT) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
         sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
+        sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG))
+        sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS))
+        sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB))
+        sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
+        sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.RIYU) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.RIYU))
         'INSERT
         sbSQL.Append(" WHEN NOT MATCHED THEN ")
         sbSQL.Append(" INSERT(")
@@ -2625,7 +2630,8 @@ Public Class FrmG0011
 
 #Region "部門区分"
     Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
-        Select Case cmbBUMON.SelectedValue.ToString
+        Select Case cmbBUMON.SelectedValue.ToString.Trim
+            Case ""
             Case Context.ENM_BUMON_KB._2_LP
                 lblSYANAI_CD.Visible = True
                 cmbSYANAI_CD.Visible = True
@@ -2672,12 +2678,14 @@ Public Class FrmG0011
 #Region "社内コード"
     Private Sub CmbSYANAI_CD_Validated(sender As Object, e As EventArgs) Handles cmbSYANAI_CD.Validated
         If cmbSYANAI_CD.SelectedValue IsNot Nothing Then
-            Dim dr As DataRow = DirectCast(cmbSYANAI_CD.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("SYANAI_CD") = cmbSYANAI_CD.SelectedValue).FirstOrDefault
+            Dim dr As DataRow = DirectCast(cmbSYANAI_CD.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbSYANAI_CD.SelectedValue).FirstOrDefault
             _D003_NCR_J.BUHIN_BANGO = dr.Item("BUHIN_BANGO")
-            _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_MEI")
+            _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
+            _D003_NCR_J.KISYU_ID = dr.Item("KISYU_ID")
         Else
             _D003_NCR_J.BUHIN_BANGO = ""
             _D003_NCR_J.BUHIN_NAME = ""
+            _D003_NCR_J.KISYU_ID = 0
         End If
     End Sub
 #End Region
@@ -2690,12 +2698,13 @@ Public Class FrmG0011
             Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbBUHIN_BANGO.SelectedValue).FirstOrDefault
             _D003_NCR_J.SYANAI_CD = dr.Item("SYANAI_CD")
             _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
-
+            _D003_NCR_J.KISYU_ID = dr.Item("KISYU_ID")
             '再発チェック
             _D003_NCR_J.SAIHATU = FunIsReIssue(_D003_NCR_J.BUHIN_BANGO, _D003_NCR_J.FUTEKIGO_KB, _D003_NCR_J.FUTEKIGO_S_KB)
         Else
             _D003_NCR_J.SYANAI_CD = ""
             _D003_NCR_J.BUHIN_NAME = ""
+            _D003_NCR_J.KISYU_ID = 0
         End If
     End Sub
 
@@ -2715,7 +2724,7 @@ Public Class FrmG0011
 #End Region
 
 #Region "製造番号(号機)"
-    Private Sub MtxGOUKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxGOUKI.Validating
+    Private Sub MtxGOUKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles mtxGOUKI.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
         If mtx.Text.IsNullOrWhiteSpace = True Then
@@ -2829,7 +2838,7 @@ Public Class FrmG0011
 #End Region
 
 #Region "図番"
-    Private Sub MtxZUBAN_KIKAKU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxZUBAN_KIKAKU.Validating
+    Private Sub MtxZUBAN_KIKAKU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles mtxZUBAN_KIKAKU.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
         If mtx.Text.IsNullOrWhiteSpace = True Then
@@ -3528,7 +3537,7 @@ Public Class FrmG0011
 #End Region
 
 #Region "入力チェック"
-    Public Function FunCheckInput() As Boolean
+    Private Function FunCheckInput(ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
         Try
 
             '-----共通
@@ -3536,55 +3545,57 @@ Public Class FrmG0011
             Call CmbKISYU_Validating(cmbKISYU, Nothing)
             Call CmbBUHIN_BANGO_Validating(cmbBUHIN_BANGO, Nothing)
 
-            Call MtxGOUKI_Validating(mtxGOUKI, Nothing)
+            'Call MtxGOUKI_Validating(mtxGOUKI, Nothing)
             Call CmbFUTEKIGO_STATUS_Validating(cmbFUTEKIGO_STATUS, Nothing)
             Call MtxFUTEKIGO_NAIYO_Validating(mtxHENKYAKU_RIYU, Nothing)
             Call CmbFUTEKIGO_KB_Validating(cmbFUTEKIGO_KB, Nothing)
             Call CmbFUTEKIGO_S_KB_Validating(cmbFUTEKIGO_S_KB, Nothing)
-            Call MtxZUBAN_KIKAKU_Validating(mtxZUBAN_KIKAKU, Nothing)
+            'Call MtxZUBAN_KIKAKU_Validating(mtxZUBAN_KIKAKU, Nothing)
 
-            '-----ステージ別
-            Select Case PrCurrentStage
-                Case ENM_NCR_STAGE._10_起草入力
-                    Call TxtST01_YOKYU_NAIYO_Validating(txtST01_YOKYU_NAIYO, Nothing)
-                    Call TxtST01_KEKKA_Validating(txtST01_KEKKA, Nothing)
-                    Call CmbDestTANTO_Validating(cmbST01_DestTANTO, Nothing)
+            If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
+                '-----ステージ別
+                Select Case PrCurrentStage
+                    Case ENM_NCR_STAGE._10_起草入力
+                        Call TxtST01_YOKYU_NAIYO_Validating(txtST01_YOKYU_NAIYO, Nothing)
+                        Call TxtST01_KEKKA_Validating(txtST01_KEKKA, Nothing)
+                        Call CmbDestTANTO_Validating(cmbST01_DestTANTO, Nothing)
 
-                Case ENM_NCR_STAGE._20_起草確認製造GL
-                    Call CmbDestTANTO_Validating(cmbST02_DestTANTO, Nothing)
+                    Case ENM_NCR_STAGE._20_起草確認製造GL
+                        Call CmbDestTANTO_Validating(cmbST02_DestTANTO, Nothing)
 
-                Case ENM_NCR_STAGE._30_起草確認検査
-                    Call CmbDestTANTO_Validating(cmbST03_DestTANTO, Nothing)
+                    Case ENM_NCR_STAGE._30_起草確認検査
+                        Call CmbDestTANTO_Validating(cmbST03_DestTANTO, Nothing)
 
-                Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
-                    Call CmbDestTANTO_Validating(cmbST04_DestTANTO, Nothing)
+                    Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
+                        Call CmbDestTANTO_Validating(cmbST04_DestTANTO, Nothing)
 
-                Case ENM_NCR_STAGE._50_事前審査確認
-                    Call CmbDestTANTO_Validating(cmbST05_DestTANTO, Nothing)
+                    Case ENM_NCR_STAGE._50_事前審査確認
+                        Call CmbDestTANTO_Validating(cmbST05_DestTANTO, Nothing)
 
-                Case ENM_NCR_STAGE._60_再審審査判定_技術代表, ENM_NCR_STAGE._61_再審審査判定_品証代表
-                    Call CmbDestTANTO_Validating(cmbST06_DestTANTO, Nothing)
+                    Case ENM_NCR_STAGE._60_再審審査判定_技術代表, ENM_NCR_STAGE._61_再審審査判定_品証代表
+                        Call CmbDestTANTO_Validating(cmbST06_DestTANTO, Nothing)
 
-                Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
-                    Call CmbDestTANTO_Validating(cmbST07_DestTANTO, Nothing)
+                    Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
+                        Call CmbDestTANTO_Validating(cmbST07_DestTANTO, Nothing)
 
-                Case ENM_NCR_STAGE._80_処置実施, ENM_NCR_STAGE._81_処置実施_生技, ENM_NCR_STAGE._82_処置実施_製造, ENM_NCR_STAGE._83_処置実施_検査
-                    Call CmbDestTANTO_Validating(cmbST08_DestTANTO, Nothing)
+                    Case ENM_NCR_STAGE._80_処置実施, ENM_NCR_STAGE._81_処置実施_生技, ENM_NCR_STAGE._82_処置実施_製造, ENM_NCR_STAGE._83_処置実施_検査
+                        Call CmbDestTANTO_Validating(cmbST08_DestTANTO, Nothing)
 
-                Case ENM_NCR_STAGE._90_処置実施確認_管理T
-                    Call CmbDestTANTO_Validating(cmbST09_DestTANTO, Nothing)
+                    Case ENM_NCR_STAGE._90_処置実施確認_管理T
+                        Call CmbDestTANTO_Validating(cmbST09_DestTANTO, Nothing)
 
-                Case ENM_NCR_STAGE._100_処置実施決裁_製造課長
-                    Call CmbDestTANTO_Validating(cmbST10_DestTANTO, Nothing)
+                    Case ENM_NCR_STAGE._100_処置実施決裁_製造課長
+                        Call CmbDestTANTO_Validating(cmbST10_DestTANTO, Nothing)
 
-                Case ENM_NCR_STAGE._110_abcde処置担当
-                    Call CmbDestTANTO_Validating(cmbST11_DestTANTO, Nothing)
+                    Case ENM_NCR_STAGE._110_abcde処置担当
+                        Call CmbDestTANTO_Validating(cmbST11_DestTANTO, Nothing)
 
-                Case ENM_NCR_STAGE._120_abcde処置確認
+                    Case ENM_NCR_STAGE._120_abcde処置確認
 
-                Case Else
-                    'Err
-            End Select
+                    Case Else
+                        'Err
+                End Select
+            End If
 
             '上記各種Validatingイベントでフラグを更新し、全てOKの場合はTrue
             Return pri_blnValidated
