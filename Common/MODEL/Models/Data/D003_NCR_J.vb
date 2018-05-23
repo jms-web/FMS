@@ -35,6 +35,7 @@ Partial Public Class D003_NCR_J
         ZUMEN_KIKAKU = ""
         YOKYU_NAIYO = ""
         KANSATU_KEKKA = ""
+
         _ZESEI_SYOCHI_YOHI_KB = "0"
         ZESEI_SYOCHI_YOHI_KB = False
         ZESEI_NASI_RIYU = ""
@@ -94,6 +95,7 @@ Partial Public Class D003_NCR_J
         _SYOCHI_E_YOHI_KB = "0"
         SYOCHI_E_YOHI_KB = False
         SYOCHI_E_SYOCHI_KIROKU = ""
+
         FILE_PATH = ""
         G_FILE_PATH1 = ""
         G_FILE_PATH2 = ""
