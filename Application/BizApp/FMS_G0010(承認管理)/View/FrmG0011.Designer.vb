@@ -261,19 +261,24 @@ Partial Class FrmG0011
         Me.chkST11_A1 = New System.Windows.Forms.CheckBox()
         Me.lblST11_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.tlpST08 = New System.Windows.Forms.TableLayoutPanel()
-        Me.rbtnST11_E2_F = New System.Windows.Forms.RadioButton()
+        Me.Panel7 = New System.Windows.Forms.Panel()
         Me.rbtnST11_E2_T = New System.Windows.Forms.RadioButton()
-        Me.rbtnST11_E1_F = New System.Windows.Forms.RadioButton()
+        Me.rbtnST11_E2_F = New System.Windows.Forms.RadioButton()
+        Me.Panel2 = New System.Windows.Forms.Panel()
         Me.rbtnST11_E1_T = New System.Windows.Forms.RadioButton()
-        Me.rbtnST11_D2_F = New System.Windows.Forms.RadioButton()
+        Me.rbtnST11_E1_F = New System.Windows.Forms.RadioButton()
+        Me.Panel6 = New System.Windows.Forms.Panel()
         Me.rbtnST11_D2_T = New System.Windows.Forms.RadioButton()
-        Me.rbtnST11_D1_F = New System.Windows.Forms.RadioButton()
+        Me.rbtnST11_D2_F = New System.Windows.Forms.RadioButton()
+        Me.Panel5 = New System.Windows.Forms.Panel()
         Me.rbtnST11_D1_T = New System.Windows.Forms.RadioButton()
-        Me.rbtnST11_C1_F = New System.Windows.Forms.RadioButton()
+        Me.rbtnST11_D1_F = New System.Windows.Forms.RadioButton()
+        Me.Panel4 = New System.Windows.Forms.Panel()
         Me.rbtnST11_C1_T = New System.Windows.Forms.RadioButton()
-        Me.rbtnST11_B1_F = New System.Windows.Forms.RadioButton()
+        Me.rbtnST11_C1_F = New System.Windows.Forms.RadioButton()
+        Me.Panel3 = New System.Windows.Forms.Panel()
         Me.rbtnST11_B1_T = New System.Windows.Forms.RadioButton()
-        Me.rbtnST11_A1_F = New System.Windows.Forms.RadioButton()
+        Me.rbtnST11_B1_F = New System.Windows.Forms.RadioButton()
         Me.mtxST11_E_Comment = New JMS_COMMON.MaskedTextBoxEx()
         Me.mtxST11_D_Comment = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label125 = New System.Windows.Forms.Label()
@@ -290,7 +295,9 @@ Partial Class FrmG0011
         Me.Label136 = New System.Windows.Forms.Label()
         Me.Label137 = New System.Windows.Forms.Label()
         Me.Label138 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.rbtnST11_A1_T = New System.Windows.Forms.RadioButton()
+        Me.rbtnST11_A1_F = New System.Windows.Forms.RadioButton()
         Me.lblSTAGE11 = New System.Windows.Forms.Label()
         Me.cmbST11_DestTANTO = New JMS_COMMON.ComboboxEx()
         Me.mtxST11_NextStageName = New JMS_COMMON.MaskedTextBoxEx()
@@ -301,8 +308,8 @@ Partial Class FrmG0011
         Me.txtST11_Comment = New JMS_COMMON.TextBoxEx()
         Me.mtxST11_UPD_YMD = New JMS_COMMON.MaskedTextBoxEx()
         Me.tabSTAGE12 = New System.Windows.Forms.TabPage()
-        Me.Label122 = New System.Windows.Forms.Label()
         Me.lblSTAGE12 = New System.Windows.Forms.Label()
+        Me.Label122 = New System.Windows.Forms.Label()
         Me.tabAttachment = New System.Windows.Forms.TabPage()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.flpPict1Path = New System.Windows.Forms.Panel()
@@ -331,13 +338,6 @@ Partial Class FrmG0011
         Me.btnOpenTempFileDialog = New System.Windows.Forms.Button()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.D004SYONINJKANRIBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.Panel7 = New System.Windows.Forms.Panel()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
@@ -364,6 +364,13 @@ Partial Class FrmG0011
         Me.tabSTAGE10.SuspendLayout()
         Me.tabSTAGE11.SuspendLayout()
         Me.tlpST08.SuspendLayout()
+        Me.Panel7.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        Me.Panel6.SuspendLayout()
+        Me.Panel5.SuspendLayout()
+        Me.Panel4.SuspendLayout()
+        Me.Panel3.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.tabSTAGE12.SuspendLayout()
         Me.tabAttachment.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -376,13 +383,6 @@ Partial Class FrmG0011
         CType(Me.pnlPict2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.fpnlTempFile.SuspendLayout()
         CType(Me.D004SYONINJKANRIBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
-        Me.Panel2.SuspendLayout()
-        Me.Panel3.SuspendLayout()
-        Me.Panel4.SuspendLayout()
-        Me.Panel5.SuspendLayout()
-        Me.Panel6.SuspendLayout()
-        Me.Panel7.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -3999,7 +3999,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 177.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.Panel7, 3, 7)
@@ -4041,18 +4041,15 @@ Partial Class FrmG0011
         Me.tlpST08.Size = New System.Drawing.Size(756, 255)
         Me.tlpST08.TabIndex = 237
         '
-        'rbtnST11_E2_F
+        'Panel7
         '
-        Me.rbtnST11_E2_F.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.rbtnST11_E2_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_E2_F.Location = New System.Drawing.Point(100, 0)
-        Me.rbtnST11_E2_F.Name = "rbtnST11_E2_F"
-        Me.rbtnST11_E2_F.Size = New System.Drawing.Size(75, 28)
-        Me.rbtnST11_E2_F.TabIndex = 1
-        Me.rbtnST11_E2_F.TabStop = True
-        Me.rbtnST11_E2_F.Text = "未回答"
-        Me.rbtnST11_E2_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.rbtnST11_E2_F.UseVisualStyleBackColor = True
+        Me.Panel7.Controls.Add(Me.rbtnST11_E2_T)
+        Me.Panel7.Controls.Add(Me.rbtnST11_E2_F)
+        Me.Panel7.Location = New System.Drawing.Point(578, 200)
+        Me.Panel7.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel7.Name = "Panel7"
+        Me.Panel7.Size = New System.Drawing.Size(175, 28)
+        Me.Panel7.TabIndex = 245
         '
         'rbtnST11_E2_T
         '
@@ -4068,18 +4065,28 @@ Partial Class FrmG0011
         Me.rbtnST11_E2_T.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_E2_T.UseVisualStyleBackColor = True
         '
-        'rbtnST11_E1_F
+        'rbtnST11_E2_F
         '
-        Me.rbtnST11_E1_F.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.rbtnST11_E1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_E1_F.Location = New System.Drawing.Point(100, 0)
-        Me.rbtnST11_E1_F.Name = "rbtnST11_E1_F"
-        Me.rbtnST11_E1_F.Size = New System.Drawing.Size(75, 28)
-        Me.rbtnST11_E1_F.TabIndex = 1
-        Me.rbtnST11_E1_F.TabStop = True
-        Me.rbtnST11_E1_F.Text = "未回答"
-        Me.rbtnST11_E1_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.rbtnST11_E1_F.UseVisualStyleBackColor = True
+        Me.rbtnST11_E2_F.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rbtnST11_E2_F.Dock = System.Windows.Forms.DockStyle.Right
+        Me.rbtnST11_E2_F.Location = New System.Drawing.Point(100, 0)
+        Me.rbtnST11_E2_F.Name = "rbtnST11_E2_F"
+        Me.rbtnST11_E2_F.Size = New System.Drawing.Size(75, 28)
+        Me.rbtnST11_E2_F.TabIndex = 1
+        Me.rbtnST11_E2_F.TabStop = True
+        Me.rbtnST11_E2_F.Text = "未回答"
+        Me.rbtnST11_E2_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rbtnST11_E2_F.UseVisualStyleBackColor = True
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.rbtnST11_E1_T)
+        Me.Panel2.Controls.Add(Me.rbtnST11_E1_F)
+        Me.Panel2.Location = New System.Drawing.Point(578, 171)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(175, 28)
+        Me.Panel2.TabIndex = 244
         '
         'rbtnST11_E1_T
         '
@@ -4095,18 +4102,28 @@ Partial Class FrmG0011
         Me.rbtnST11_E1_T.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_E1_T.UseVisualStyleBackColor = True
         '
-        'rbtnST11_D2_F
+        'rbtnST11_E1_F
         '
-        Me.rbtnST11_D2_F.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.rbtnST11_D2_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_D2_F.Location = New System.Drawing.Point(100, 0)
-        Me.rbtnST11_D2_F.Name = "rbtnST11_D2_F"
-        Me.rbtnST11_D2_F.Size = New System.Drawing.Size(75, 28)
-        Me.rbtnST11_D2_F.TabIndex = 1
-        Me.rbtnST11_D2_F.TabStop = True
-        Me.rbtnST11_D2_F.Text = "未回答"
-        Me.rbtnST11_D2_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.rbtnST11_D2_F.UseVisualStyleBackColor = True
+        Me.rbtnST11_E1_F.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rbtnST11_E1_F.Dock = System.Windows.Forms.DockStyle.Right
+        Me.rbtnST11_E1_F.Location = New System.Drawing.Point(100, 0)
+        Me.rbtnST11_E1_F.Name = "rbtnST11_E1_F"
+        Me.rbtnST11_E1_F.Size = New System.Drawing.Size(75, 28)
+        Me.rbtnST11_E1_F.TabIndex = 1
+        Me.rbtnST11_E1_F.TabStop = True
+        Me.rbtnST11_E1_F.Text = "未回答"
+        Me.rbtnST11_E1_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rbtnST11_E1_F.UseVisualStyleBackColor = True
+        '
+        'Panel6
+        '
+        Me.Panel6.Controls.Add(Me.rbtnST11_D2_T)
+        Me.Panel6.Controls.Add(Me.rbtnST11_D2_F)
+        Me.Panel6.Location = New System.Drawing.Point(578, 117)
+        Me.Panel6.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(175, 28)
+        Me.Panel6.TabIndex = 245
         '
         'rbtnST11_D2_T
         '
@@ -4122,18 +4139,28 @@ Partial Class FrmG0011
         Me.rbtnST11_D2_T.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_D2_T.UseVisualStyleBackColor = True
         '
-        'rbtnST11_D1_F
+        'rbtnST11_D2_F
         '
-        Me.rbtnST11_D1_F.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.rbtnST11_D1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_D1_F.Location = New System.Drawing.Point(100, 0)
-        Me.rbtnST11_D1_F.Name = "rbtnST11_D1_F"
-        Me.rbtnST11_D1_F.Size = New System.Drawing.Size(75, 28)
-        Me.rbtnST11_D1_F.TabIndex = 1
-        Me.rbtnST11_D1_F.TabStop = True
-        Me.rbtnST11_D1_F.Text = "未回答"
-        Me.rbtnST11_D1_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.rbtnST11_D1_F.UseVisualStyleBackColor = True
+        Me.rbtnST11_D2_F.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rbtnST11_D2_F.Dock = System.Windows.Forms.DockStyle.Right
+        Me.rbtnST11_D2_F.Location = New System.Drawing.Point(100, 0)
+        Me.rbtnST11_D2_F.Name = "rbtnST11_D2_F"
+        Me.rbtnST11_D2_F.Size = New System.Drawing.Size(75, 28)
+        Me.rbtnST11_D2_F.TabIndex = 1
+        Me.rbtnST11_D2_F.TabStop = True
+        Me.rbtnST11_D2_F.Text = "未回答"
+        Me.rbtnST11_D2_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rbtnST11_D2_F.UseVisualStyleBackColor = True
+        '
+        'Panel5
+        '
+        Me.Panel5.Controls.Add(Me.rbtnST11_D1_T)
+        Me.Panel5.Controls.Add(Me.rbtnST11_D1_F)
+        Me.Panel5.Location = New System.Drawing.Point(578, 88)
+        Me.Panel5.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(175, 28)
+        Me.Panel5.TabIndex = 245
         '
         'rbtnST11_D1_T
         '
@@ -4149,18 +4176,28 @@ Partial Class FrmG0011
         Me.rbtnST11_D1_T.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_D1_T.UseVisualStyleBackColor = True
         '
-        'rbtnST11_C1_F
+        'rbtnST11_D1_F
         '
-        Me.rbtnST11_C1_F.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.rbtnST11_C1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_C1_F.Location = New System.Drawing.Point(100, 0)
-        Me.rbtnST11_C1_F.Name = "rbtnST11_C1_F"
-        Me.rbtnST11_C1_F.Size = New System.Drawing.Size(75, 28)
-        Me.rbtnST11_C1_F.TabIndex = 1
-        Me.rbtnST11_C1_F.TabStop = True
-        Me.rbtnST11_C1_F.Text = "未回答"
-        Me.rbtnST11_C1_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.rbtnST11_C1_F.UseVisualStyleBackColor = True
+        Me.rbtnST11_D1_F.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rbtnST11_D1_F.Dock = System.Windows.Forms.DockStyle.Right
+        Me.rbtnST11_D1_F.Location = New System.Drawing.Point(100, 0)
+        Me.rbtnST11_D1_F.Name = "rbtnST11_D1_F"
+        Me.rbtnST11_D1_F.Size = New System.Drawing.Size(75, 28)
+        Me.rbtnST11_D1_F.TabIndex = 1
+        Me.rbtnST11_D1_F.TabStop = True
+        Me.rbtnST11_D1_F.Text = "未回答"
+        Me.rbtnST11_D1_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rbtnST11_D1_F.UseVisualStyleBackColor = True
+        '
+        'Panel4
+        '
+        Me.Panel4.Controls.Add(Me.rbtnST11_C1_T)
+        Me.Panel4.Controls.Add(Me.rbtnST11_C1_F)
+        Me.Panel4.Location = New System.Drawing.Point(578, 59)
+        Me.Panel4.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(175, 28)
+        Me.Panel4.TabIndex = 245
         '
         'rbtnST11_C1_T
         '
@@ -4176,18 +4213,28 @@ Partial Class FrmG0011
         Me.rbtnST11_C1_T.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_C1_T.UseVisualStyleBackColor = True
         '
-        'rbtnST11_B1_F
+        'rbtnST11_C1_F
         '
-        Me.rbtnST11_B1_F.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.rbtnST11_B1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_B1_F.Location = New System.Drawing.Point(100, 0)
-        Me.rbtnST11_B1_F.Name = "rbtnST11_B1_F"
-        Me.rbtnST11_B1_F.Size = New System.Drawing.Size(75, 28)
-        Me.rbtnST11_B1_F.TabIndex = 1
-        Me.rbtnST11_B1_F.TabStop = True
-        Me.rbtnST11_B1_F.Text = "未回答"
-        Me.rbtnST11_B1_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.rbtnST11_B1_F.UseVisualStyleBackColor = True
+        Me.rbtnST11_C1_F.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rbtnST11_C1_F.Dock = System.Windows.Forms.DockStyle.Right
+        Me.rbtnST11_C1_F.Location = New System.Drawing.Point(100, 0)
+        Me.rbtnST11_C1_F.Name = "rbtnST11_C1_F"
+        Me.rbtnST11_C1_F.Size = New System.Drawing.Size(75, 28)
+        Me.rbtnST11_C1_F.TabIndex = 1
+        Me.rbtnST11_C1_F.TabStop = True
+        Me.rbtnST11_C1_F.Text = "未回答"
+        Me.rbtnST11_C1_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rbtnST11_C1_F.UseVisualStyleBackColor = True
+        '
+        'Panel3
+        '
+        Me.Panel3.Controls.Add(Me.rbtnST11_B1_T)
+        Me.Panel3.Controls.Add(Me.rbtnST11_B1_F)
+        Me.Panel3.Location = New System.Drawing.Point(578, 30)
+        Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(175, 28)
+        Me.Panel3.TabIndex = 245
         '
         'rbtnST11_B1_T
         '
@@ -4203,18 +4250,18 @@ Partial Class FrmG0011
         Me.rbtnST11_B1_T.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_B1_T.UseVisualStyleBackColor = True
         '
-        'rbtnST11_A1_F
+        'rbtnST11_B1_F
         '
-        Me.rbtnST11_A1_F.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.rbtnST11_A1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_A1_F.Location = New System.Drawing.Point(100, 0)
-        Me.rbtnST11_A1_F.Name = "rbtnST11_A1_F"
-        Me.rbtnST11_A1_F.Size = New System.Drawing.Size(75, 28)
-        Me.rbtnST11_A1_F.TabIndex = 1
-        Me.rbtnST11_A1_F.TabStop = True
-        Me.rbtnST11_A1_F.Text = "未回答"
-        Me.rbtnST11_A1_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.rbtnST11_A1_F.UseVisualStyleBackColor = True
+        Me.rbtnST11_B1_F.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rbtnST11_B1_F.Dock = System.Windows.Forms.DockStyle.Right
+        Me.rbtnST11_B1_F.Location = New System.Drawing.Point(100, 0)
+        Me.rbtnST11_B1_F.Name = "rbtnST11_B1_F"
+        Me.rbtnST11_B1_F.Size = New System.Drawing.Size(75, 28)
+        Me.rbtnST11_B1_F.TabIndex = 1
+        Me.rbtnST11_B1_F.TabStop = True
+        Me.rbtnST11_B1_F.Text = "未回答"
+        Me.rbtnST11_B1_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rbtnST11_B1_F.UseVisualStyleBackColor = True
         '
         'mtxST11_E_Comment
         '
@@ -4270,7 +4317,7 @@ Partial Class FrmG0011
         Me.Label126.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label126.Location = New System.Drawing.Point(25, 117)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(551, 28)
+        Me.Label126.Size = New System.Drawing.Size(549, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "影響有の場合、顧客への通知の要否"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4284,7 +4331,7 @@ Partial Class FrmG0011
         Me.Label127.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label127.Location = New System.Drawing.Point(25, 88)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(551, 28)
+        Me.Label127.Size = New System.Drawing.Size(549, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "当該不適合による顧客への影響"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4298,7 +4345,7 @@ Partial Class FrmG0011
         Me.Label128.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label128.Location = New System.Drawing.Point(25, 59)
         Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(551, 28)
+        Me.Label128.Size = New System.Drawing.Size(549, 28)
         Me.Label128.TabIndex = 241
         Me.Label128.Text = "廃却処置は本来の意図した使用又は適用ができない方法だったか？"
         Me.Label128.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4325,7 +4372,7 @@ Partial Class FrmG0011
         Me.Label130.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label130.Location = New System.Drawing.Point(25, 30)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(551, 28)
+        Me.Label130.Size = New System.Drawing.Size(549, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "社内権限者により、又は顧客再審の場合は顧客により判定されたか？"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4379,7 +4426,7 @@ Partial Class FrmG0011
         Me.Label134.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label134.Location = New System.Drawing.Point(25, 171)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(551, 28)
+        Me.Label134.Size = New System.Drawing.Size(549, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "当該不適合による他のプロセスへの影響"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4406,7 +4453,7 @@ Partial Class FrmG0011
         Me.Label136.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label136.Location = New System.Drawing.Point(25, 200)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(551, 28)
+        Me.Label136.Size = New System.Drawing.Size(549, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "影響有の場合、封じ込め処置の要否"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4420,7 +4467,7 @@ Partial Class FrmG0011
         Me.Label137.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label137.Location = New System.Drawing.Point(25, 1)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(551, 28)
+        Me.Label137.Size = New System.Drawing.Size(549, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "検出された不適合を除去する処置（廃却を含む）は確実にとられたか？"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4439,6 +4486,16 @@ Partial Class FrmG0011
         Me.Label138.Text = "D"
         Me.Label138.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.rbtnST11_A1_T)
+        Me.Panel1.Controls.Add(Me.rbtnST11_A1_F)
+        Me.Panel1.Location = New System.Drawing.Point(578, 1)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(175, 28)
+        Me.Panel1.TabIndex = 248
+        '
         'rbtnST11_A1_T
         '
         Me.rbtnST11_A1_T.Cursor = System.Windows.Forms.Cursors.Hand
@@ -4452,6 +4509,19 @@ Partial Class FrmG0011
         Me.rbtnST11_A1_T.Text = "良好"
         Me.rbtnST11_A1_T.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_A1_T.UseVisualStyleBackColor = True
+        '
+        'rbtnST11_A1_F
+        '
+        Me.rbtnST11_A1_F.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rbtnST11_A1_F.Dock = System.Windows.Forms.DockStyle.Right
+        Me.rbtnST11_A1_F.Location = New System.Drawing.Point(100, 0)
+        Me.rbtnST11_A1_F.Name = "rbtnST11_A1_F"
+        Me.rbtnST11_A1_F.Size = New System.Drawing.Size(75, 28)
+        Me.rbtnST11_A1_F.TabIndex = 1
+        Me.rbtnST11_A1_F.TabStop = True
+        Me.rbtnST11_A1_F.Text = "未回答"
+        Me.rbtnST11_A1_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rbtnST11_A1_F.UseVisualStyleBackColor = True
         '
         'lblSTAGE11
         '
@@ -4580,28 +4650,14 @@ Partial Class FrmG0011
         '
         'tabSTAGE12
         '
-        Me.tabSTAGE12.Controls.Add(Me.Label122)
         Me.tabSTAGE12.Controls.Add(Me.lblSTAGE12)
+        Me.tabSTAGE12.Controls.Add(Me.Label122)
         Me.tabSTAGE12.Location = New System.Drawing.Point(4, 26)
         Me.tabSTAGE12.Name = "tabSTAGE12"
         Me.tabSTAGE12.Size = New System.Drawing.Size(1229, 312)
         Me.tabSTAGE12.TabIndex = 11
         Me.tabSTAGE12.Text = "STAGE12"
         Me.tabSTAGE12.UseVisualStyleBackColor = True
-        '
-        'Label122
-        '
-        Me.Label122.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label122.Font = New System.Drawing.Font("Meiryo UI", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label122.Location = New System.Drawing.Point(350, 126)
-        Me.Label122.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label122.Name = "Label122"
-        Me.Label122.Size = New System.Drawing.Size(525, 61)
-        Me.Label122.TabIndex = 241
-        Me.Label122.Text = "最終承認を行ってください"
-        Me.Label122.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblSTAGE12
         '
@@ -4615,6 +4671,18 @@ Partial Class FrmG0011
         Me.lblSTAGE12.TabIndex = 237
         Me.lblSTAGE12.Text = "処置確認(検査Ｇ)"
         Me.lblSTAGE12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label122
+        '
+        Me.Label122.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label122.Font = New System.Drawing.Font("Meiryo UI", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label122.Location = New System.Drawing.Point(0, 0)
+        Me.Label122.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label122.Name = "Label122"
+        Me.Label122.Size = New System.Drawing.Size(1229, 312)
+        Me.Label122.TabIndex = 241
+        Me.Label122.Text = "最終承認を行ってください"
+        Me.Label122.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'tabAttachment
         '
@@ -5015,76 +5083,6 @@ Partial Class FrmG0011
         '
         Me.D004SYONINJKANRIBindingSource.DataSource = GetType(MODEL.D004_SYONIN_J_KANRI)
         '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.rbtnST11_A1_T)
-        Me.Panel1.Controls.Add(Me.rbtnST11_A1_F)
-        Me.Panel1.Location = New System.Drawing.Point(580, 1)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(175, 28)
-        Me.Panel1.TabIndex = 248
-        '
-        'Panel2
-        '
-        Me.Panel2.Controls.Add(Me.rbtnST11_E1_T)
-        Me.Panel2.Controls.Add(Me.rbtnST11_E1_F)
-        Me.Panel2.Location = New System.Drawing.Point(580, 171)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(175, 28)
-        Me.Panel2.TabIndex = 244
-        '
-        'Panel3
-        '
-        Me.Panel3.Controls.Add(Me.rbtnST11_B1_T)
-        Me.Panel3.Controls.Add(Me.rbtnST11_B1_F)
-        Me.Panel3.Location = New System.Drawing.Point(580, 30)
-        Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(175, 28)
-        Me.Panel3.TabIndex = 245
-        '
-        'Panel4
-        '
-        Me.Panel4.Controls.Add(Me.rbtnST11_C1_T)
-        Me.Panel4.Controls.Add(Me.rbtnST11_C1_F)
-        Me.Panel4.Location = New System.Drawing.Point(580, 59)
-        Me.Panel4.Margin = New System.Windows.Forms.Padding(0)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(175, 28)
-        Me.Panel4.TabIndex = 245
-        '
-        'Panel5
-        '
-        Me.Panel5.Controls.Add(Me.rbtnST11_D1_T)
-        Me.Panel5.Controls.Add(Me.rbtnST11_D1_F)
-        Me.Panel5.Location = New System.Drawing.Point(580, 88)
-        Me.Panel5.Margin = New System.Windows.Forms.Padding(0)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(175, 28)
-        Me.Panel5.TabIndex = 245
-        '
-        'Panel6
-        '
-        Me.Panel6.Controls.Add(Me.rbtnST11_D2_T)
-        Me.Panel6.Controls.Add(Me.rbtnST11_D2_F)
-        Me.Panel6.Location = New System.Drawing.Point(580, 117)
-        Me.Panel6.Margin = New System.Windows.Forms.Padding(0)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(175, 28)
-        Me.Panel6.TabIndex = 245
-        '
-        'Panel7
-        '
-        Me.Panel7.Controls.Add(Me.rbtnST11_E2_T)
-        Me.Panel7.Controls.Add(Me.rbtnST11_E2_F)
-        Me.Panel7.Location = New System.Drawing.Point(580, 200)
-        Me.Panel7.Margin = New System.Windows.Forms.Padding(0)
-        Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(175, 28)
-        Me.Panel7.TabIndex = 245
-        '
         'FrmG0011
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -5159,6 +5157,13 @@ Partial Class FrmG0011
         Me.tabSTAGE11.PerformLayout()
         Me.tlpST08.ResumeLayout(False)
         Me.tlpST08.PerformLayout()
+        Me.Panel7.ResumeLayout(False)
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel6.ResumeLayout(False)
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel1.ResumeLayout(False)
         Me.tabSTAGE12.ResumeLayout(False)
         Me.tabSTAGE12.PerformLayout()
         Me.tabAttachment.ResumeLayout(False)
@@ -5178,13 +5183,6 @@ Partial Class FrmG0011
         Me.fpnlTempFile.ResumeLayout(False)
         Me.fpnlTempFile.PerformLayout()
         CType(Me.D004SYONINJKANRIBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel3.ResumeLayout(False)
-        Me.Panel4.ResumeLayout(False)
-        Me.Panel5.ResumeLayout(False)
-        Me.Panel6.ResumeLayout(False)
-        Me.Panel7.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
