@@ -36,15 +36,15 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://SV91:8000/</InstallUrl>
-    <ProductName>フジワラシステム デモ</ProductName>
+    <ProductName>フジワラシステム</ProductName>
     <PublisherName>JMS</PublisherName>
-    <MinimumRequiredVersion>0.9.18117.0558</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.9.18143.0114</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>858</ApplicationRevision>
-    <ApplicationVersion>1.0.18117.0558</ApplicationVersion>
+    <ApplicationRevision>115</ApplicationRevision>
+    <ApplicationVersion>0.9.18143.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -239,6 +239,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>xcopy "C:\FMS\EXE_DEBUG" "C:\FMS\SRC\VB.NET\FMS\ClickOnce\EXE_DEBUG" /D/E/C/I/H/Y
+xcopy "C:\FMS\EXE" "C:\FMS\SRC\VB.NET\FMS\ClickOnce\EXE" /D/E/C/I/H/Y
 xcopy "C:\FMS\INI" "C:\FMS\SRC\VB.NET\FMS\ClickOnce\INI" /D/E/C/I/H/Y</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

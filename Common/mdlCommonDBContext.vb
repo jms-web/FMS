@@ -96,11 +96,9 @@ Namespace Context
 
 #Region "ã§í "
         Public Enum ENM_BUMON_KB
-            _0_åoâcïî = 0
-            _1_ã∆ñ±ä«óùïî = 1
-            _2_çqãÛã@ = 2
+            _1_ïóñh = 1
+            _2_LP = 2
             _3_ï°çáçﬁ = 3
-            _4_LP = 4
         End Enum
 
 #End Region
@@ -515,7 +513,7 @@ Public Module mdlDBContext
                 Case "é–ì‡CD"
                     'åüçı
                     sbSQL.Append("SELECT DISTINCT SYANAI_CD,BUHIN_BANGO,BUHIN_NAME,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
-                    sbSQL.Append("WHERE BUMON_KB='4'")
+                    sbSQL.Append("WHERE BUMON_KB='2'")
                     If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append(" AND " & strWhere & "")
                     End If

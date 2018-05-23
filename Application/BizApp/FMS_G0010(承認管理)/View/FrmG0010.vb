@@ -1061,7 +1061,7 @@ Public Class FrmG0010
             Select Case dgvDATA.GetDataRow().Item("SYONIN_HOKOKUSYO_ID")
                 Case ENM_SYONIN_HOKOKUSYO_ID._1_NCR
                     'ファイル名
-                    strOutputFileName = "NCR_" & _D003_NCR_J.HOKOKU_NO & "_Work.xlsx"
+                    strOutputFileName = "NCR_" & strHOKOKU_NO & "_Work.xlsx"
 
                     '既存ファイル削除
                     If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
@@ -1082,7 +1082,7 @@ Public Class FrmG0010
                     End If
                 Case ENM_SYONIN_HOKOKUSYO_ID._2_CAR
                     'ファイル名
-                    strOutputFileName = "CAR_" & _D003_NCR_J.HOKOKU_NO & "_Work.xlsx"
+                    strOutputFileName = "CAR_" & strHOKOKU_NO & "_Work.xlsx"
 
                     '既存ファイル削除
                     If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
@@ -1241,7 +1241,7 @@ Public Class FrmG0010
 
             'Excel作業ファイルを削除
             Try
-                System.IO.File.Delete(strFilePath)
+                'System.IO.File.Delete(strFilePath)
             Catch ex As UnauthorizedAccessException
             End Try
 
@@ -1520,8 +1520,8 @@ Public Class FrmG0010
     '部門変更時
     Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
 
-        Select Case cmbBUMON.SelectedValue
-            Case Context.ENM_BUMON_KB._4_LP.ToString
+        Select Case Val(cmbBUMON.SelectedValue)
+            Case Context.ENM_BUMON_KB._2_LP
                 lblSyanaiCD.Visible = True
                 cmbSYANAI_CD.Visible = True
             Case Else
@@ -1530,6 +1530,7 @@ Public Class FrmG0010
                 ParamModel.SYANAI_CD = ""
         End Select
     End Sub
+
 #End Region
 
 #Region "CAR検索条件"

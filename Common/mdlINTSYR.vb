@@ -493,7 +493,7 @@ Module mdlINTSYR
             Using DB As ClsDbUtility = DBOpen()
                 sbSQL.Remove(0, sbSQL.Length)
                 sbSQL.Append("SELECT SIMEI FROM " & "M004_SYAIN" & " ")
-                sbSQL.Append(" WHERE SYAIN_NO =" & SYAIN_ID & " ")
+                sbSQL.Append(" WHERE SYAIN_ID =" & SYAIN_ID & " ")
                 dsList = DB.GetDataSet(sbSQL.ToString)
                 With dsList.Tables(0)
                     If .Rows.Count > 0 Then

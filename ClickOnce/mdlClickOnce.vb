@@ -2,7 +2,7 @@
 Imports System.Reflection
 
 Module mdlClickOnce
-    Private Const CON_ROOTDIR As String = "C:\FMS_TEST"
+    Private Const CON_ROOTDIR As String = "C:\FMS"
     Private Const CON_STARTUP_EXE As String = "FMS_M0000.exe"
 
     '#If DEBUG Then

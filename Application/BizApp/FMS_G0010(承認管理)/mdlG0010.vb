@@ -705,10 +705,12 @@ Module mdlG0010
 
             End Using
 
-            'DEBUG: mail送信無効
-            Return True
-
-
+            'DEBUG: mail送信無効 システム担当者以外無効
+            Select Case ToSYAIN_ID
+                Case 136, 999999
+                Case Else
+                    Return True
+            End Select
 
             strMsg = String.Format("【メール送信成功】TO:{0}({1}) SUBJECT:{2}", strToSyainName, strToAddress, strSubject)
             WL.WriteLogDat(strMsg)

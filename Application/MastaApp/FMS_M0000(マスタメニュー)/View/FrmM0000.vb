@@ -713,9 +713,11 @@ Public Class FrmM0000
                 strEXE = FunGetRootPath() & FunGetEXEPath() & arrNOW_CMDS(intIndex).Path.Substring(0, intBUFF)
 
 
+                strARG = pub_SYAIN_INFO.SYAIN_ID & Space(1)
+
                 '-----à¯êîéÊìæ
                 '¢HANYO.INI£Ç∆Ç©
-                strARG = arrNOW_CMDS(intIndex).Path.Substring(intBUFF + 1)
+                strARG &= arrNOW_CMDS(intIndex).Path.Substring(intBUFF + 1)
             End If
 
             '-----ãNìÆ

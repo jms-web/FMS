@@ -581,7 +581,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.YOKYU_NAIYO))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.KANSATU_KEKKA))
         '---defaultValue
-        sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB))
+        sbSQL.Append(" ,'0'") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZESEI_NASI_RIYU))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB))
         sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID))
@@ -1666,7 +1666,7 @@ Public Class FrmG0011
 
             'Excel作業ファイルを削除
             Try
-                System.IO.File.Delete(strFilePath)
+                'System.IO.File.Delete(strFilePath)
             Catch ex As UnauthorizedAccessException
             End Try
 
@@ -1773,12 +1773,655 @@ Public Class FrmG0011
 
 #Region "コントロールイベント"
 
+#Region "タブコントロール制御"
+
+#Region "初期化"
+    Private Function FunInitializeTabControl(ByVal intCurrentTabNo As Integer) As Boolean
+
+        Try
+            _tabPageManager = New TabPageManager(TabSTAGE)
+
+            For Each page As TabPage In TabSTAGE.TabPages
+                If page.Name <> "tabAttachment" Then
+                    If Val(page.Name.Substring(8)) < intCurrentTabNo Then
+                        'SPEC: 10-2.③
+                        page.Text = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN(Val(page.Name.Substring(8)))).FirstOrDefault.Item("DISP")
+
+                    ElseIf Val(page.Name.Substring(8)) = intCurrentTabNo Then
+                        page.Text = "現ステージ" 'tblNCR.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = PrDataRow("SYONIN_JUN")).FirstOrDefault.Item("DISP")
+
+                        '次ステージの承認担当者・コメント欄をバインド
+                        Dim ctrlTANTO As Control() = Me.Controls.Find("cmbST" & intCurrentTabNo.ToString("00") & "_DestTANTO", True)
+                        If ctrlTANTO.Length > 0 Then
+                            Dim cmbTANTO As ComboboxEx = ctrlTANTO(0)
+                            cmbTANTO.NullValue = 0
+                            cmbTANTO.DataBindings.Add(New Binding(NameOf(cmbTANTO.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+                        End If
+                        Dim ctrlCOMMENT As Control() = Me.Controls.Find("txtST" & intCurrentTabNo.ToString("00") & "_Comment", True)
+                        If ctrlCOMMENT.Length > 0 Then
+                            Dim txtCOMMENT As TextBoxEx = ctrlCOMMENT(0)
+                            txtCOMMENT.DataBindings.Add(New Binding(NameOf(txtCOMMENT.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+                        End If
+
+                    ElseIf Val(page.Name.Substring(8)) > intCurrentTabNo Then
+                        'SPEC: 10-2 ②
+                        _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
+                    End If
+
+                    'SPEC: 10-2.⑤ 
+                    If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
+                        '新規作成時
+                        'SPEC: (3).B 
+                        page.Enabled = True
+                    Else
+                        'カレントユーザーの以外は参照のみ
+                        If PrDataRow("SYONIN_JUN") >= ENM_NCR_STAGE._90_処置実施確認_管理T Then
+                            page.Enabled = FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrDataRow("HOKOKU_NO"), PrDataRow("SYONIN_JUN"))
+                        End If
+                    End If
+                End If
+            Next page
+
+
+            '添付資料タブ初期化
+
+            If Not _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace Then
+                lbltmpFile1.Text = IO.Path.GetFileName(_D003_NCR_J.FILE_PATH)
+                lbltmpFile1.Links.Clear()
+                lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, _D003_NCR_J.FILE_PATH)
+                _D003_NCR_J.FILE_PATH = _D003_NCR_J.FILE_PATH
+                lbltmpFile1.Visible = True
+                lbltmpFile1_Clear.Visible = True
+            End If
+            If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace Then
+                Call SetPict1Data({_D003_NCR_J.G_FILE_PATH1})
+            End If
+            If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace Then
+                Call SetPict1Data({_D003_NCR_J.G_FILE_PATH2})
+            End If
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        End Try
+    End Function
+
+#End Region
+
+#Region "STAGE別コントロール初期化"
+    Private Function FunInitializeSTAGE(ByVal intStageID As Integer) As Boolean
+        Dim dt As New DataTable
+        Dim _V003 As New MODEL.V003_SYONIN_J_KANRI
+        Try
+
+
+
+#Region "               10"
+            If intStageID >= ENM_NCR_STAGE._10_起草入力 Then
+                dt = tblTANTO_SYONIN.AsEnumerable.
+                                            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_起草入力)).
+                                            CopyToDataTable
+
+                mtxST01_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                mtxST01_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._10_起草入力)
+                cmbST01_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+
+                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+                    _D003_NCR_J.YOKYU_NAIYO = _V002_NCR_J.YOKYU_NAIYO
+                    _D003_NCR_J.KANSATU_KEKKA = _V002_NCR_J.KANSATU_KEKKA
+
+
+                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).
+                                FirstOrDefault
+
+                    If _V003 IsNot Nothing Then
+                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._10_起草入力 Then lblST01_Modoshi_Riyu.Visible = True
+                        lblST01_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        cmbST01_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                    End If
+                End If
+            End If
+#End Region
+#Region "               20"
+            If intStageID >= ENM_NCR_STAGE._20_起草確認製造GL Then
+                dt = tblTANTO_SYONIN.AsEnumerable.
+                                Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_起草確認製造GL)).
+                                CopyToDataTable
+
+                mtxST02_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                mtxST02_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._20_起草確認製造GL)
+                cmbST02_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+
+                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_起草確認製造GL).
+                                FirstOrDefault
+
+                    cmbST02_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                    txtST02_Comment.Text = _V003.COMMENT
+
+                    If _V003 IsNot Nothing Then
+                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._20_起草確認製造GL Then lblST02_Modoshi_Riyu.Visible = True
+                        lblST02_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                    End If
+                End If
+            End If
+#End Region
+#Region "               30"
+            If intStageID >= ENM_NCR_STAGE._30_起草確認検査 Then
+                dt = tblTANTO_SYONIN.AsEnumerable.
+                                Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_起草確認検査)).
+                                CopyToDataTable
+
+                mtxST03_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                mtxST03_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._30_起草確認検査)
+                cmbST03_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).
+                                FirstOrDefault
+
+                    If _V003 IsNot Nothing Then
+                        cmbST03_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        txtST03_Comment.Text = _V003.COMMENT
+                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._30_起草確認検査 Then lblST03_Modoshi_Riyu.Visible = True
+                        lblST03_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                    End If
+                End If
+            End If
+#End Region
+#Region "               40"
+            If intStageID >= ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 Then
+                dt = tblTANTO_SYONIN.AsEnumerable.
+                                            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定)).
+                                            CopyToDataTable
+
+                mtxST04_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                mtxST04_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定)
+                cmbST04_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                cmbST04_JIZENSINSA_HANTEI.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+
+                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定).
+                                FirstOrDefault
+
+                    _D003_NCR_J.JIZEN_SINSA_HANTEI_KB = _V002_NCR_J.JIZEN_SINSA_HANTEI_KB
+                    _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = CBool(_V002_NCR_J.ZESEI_SYOCHI_YOHI_KB)
+                    _D003_NCR_J.ZESEI_NASI_RIYU = _V002_NCR_J.ZESEI_NASI_RIYU
+
+                    If _V003 IsNot Nothing Then
+                        cmbST04_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        txtST04_Comment.Text = _V003.COMMENT
+                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 Then lblST04_Modoshi_Riyu.Visible = True
+                        lblST04_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                    End If
+                End If
+            End If
+
+#End Region
+#Region "               50"
+            If intStageID >= ENM_NCR_STAGE._50_事前審査確認 Then
+                dt = tblTANTO_SYONIN.AsEnumerable.
+                                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = ENM_NCR_STAGE._60_再審審査判定_技術代表).
+                                        CopyToDataTable
+
+                mtxST05_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                mtxST05_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._50_事前審査確認)
+                cmbST05_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._50_事前審査確認).
+                                FirstOrDefault
+
+                    If _V003 IsNot Nothing Then
+                        cmbST05_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        txtST05_Comment.Text = _V003.COMMENT
+                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._50_事前審査確認 Then lblST05_Modoshi_Riyu.Visible = True
+                        lblST05_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                    End If
+                End If
+            End If
+#End Region
+#Region "               60"
+            If intStageID >= ENM_NCR_STAGE._60_再審審査判定_技術代表 Then
+                dt = tblTANTO_SYONIN.AsEnumerable.
+                                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_再審審査判定_技術代表)).
+                                        CopyToDataTable
+
+                mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                mtxST06_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._60_再審審査判定_技術代表)
+                cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                cmbST06_SAISIN_IINKAI_HANTEI.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+
+                'SPEC: 60-2.③
+                cmbKISYU.Enabled = False
+                cmbSYANAI_CD.Enabled = False
+                cmbFUTEKIGO_STATUS.Enabled = False
+                cmbFUTEKIGO_KB.Enabled = False
+                cmbFUTEKIGO_S_KB.Enabled = False
+                cmbBUMON.Enabled = False
+                mtxGOUKI.Enabled = False
+                cmbBUHIN_BANGO.Enabled = False
+                mtxHENKYAKU_RIYU.Enabled = False
+                cmbFUTEKIGO_S_KB.Enabled = False
+                cmbKISO_TANTO.Enabled = False
+                mtxHINMEI.Enabled = False
+                mtxZUBAN_KIKAKU.Enabled = False
+                numSU.Enabled = False
+
+                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._60_再審審査判定_技術代表).
+                                FirstOrDefault
+
+                    _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB = _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB
+                    _D003_NCR_J.SAISIN_IINKAI_SIRYO_NO = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
+
+                    If _V003 IsNot Nothing Then
+                        cmbST06_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        txtST06_Comment.Text = _V003.COMMENT
+                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._60_再審審査判定_技術代表 Then lblST06_Modoshi_Riyu.Visible = True
+                        lblST06_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                    End If
+                End If
+
+            End If
+#End Region
+#Region "               61"
+            If intStageID >= ENM_NCR_STAGE._61_再審審査判定_品証代表 Then
+                If FunExistAchievement(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._61_再審審査判定_品証代表) Then
+                    dt = tblTANTO_SYONIN.AsEnumerable.
+                                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_再審審査判定_品証代表)).
+                                        CopyToDataTable
+
+                    mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                    mtxST06_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._61_再審審査判定_品証代表)
+                    cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                    cmbST06_SAISIN_IINKAI_HANTEI.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                    'SPEC: 60-2.④
+                    cmbST06_SAISIN_IINKAI_HANTEI.Enabled = False
+                    mtxST06_SAISIN_IINKAI_SIRYO_NO.Enabled = False
+
+                    If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+                        _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                    Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._61_再審審査判定_品証代表).
+                                    FirstOrDefault
+
+                        _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB = _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB
+                        _D003_NCR_J.SAISIN_IINKAI_SIRYO_NO = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
+
+                        If _V003 IsNot Nothing Then
+                            cmbST06_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                            txtST06_Comment.Text = _V003.COMMENT
+                            If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._61_再審審査判定_品証代表 Then lblST06_Modoshi_Riyu.Visible = True
+                            lblST06_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        End If
+                    End If
+                Else
+                    '次ステージが取得出来ない場合=登録内容により処理がスキップされた場合等はタブごと非表示
+                    For Each page As TabPage In TabSTAGE.TabPages
+                        If Val(page.Name.Substring(8)) = FunConvertSYONIN_JUN_TO_STAGE_NO(ENM_NCR_STAGE._61_再審審査判定_品証代表).ToString("00") Then
+                            _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
+                            Exit For
+                        End If
+                    Next
+                End If
+            End If
+#End Region
+#Region "               70"
+
+            If intStageID >= ENM_NCR_STAGE._70_顧客再審処置_I_tag Then
+                If FunExistAchievement(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._70_顧客再審処置_I_tag) Then
+                    dt = tblTANTO_SYONIN.AsEnumerable.
+                                Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_顧客再審処置_I_tag)).
+                                CopyToDataTable
+
+                    mtxST07_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                    mtxST07_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._70_顧客再審処置_I_tag)
+                    cmbST07_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                    If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+                        _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                    Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._70_顧客再審処置_I_tag).
+                                    FirstOrDefault
+
+                        _D003_NCR_J.ITAG_NO = _V002_NCR_J.ITAG_NO
+                        _D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID = _V002_NCR_J.KOKYAKU_SAISIN_TANTO_ID
+                        _D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_KB
+                        _D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD
+                        _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB = _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
+                        _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD = _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD
+                        _D003_NCR_J.SAIKAKO_SIJI_FG = CBool(_V002_NCR_J.SAIKAKO_SIJI_FG)
+
+                        If _V003 IsNot Nothing Then
+                            cmbST07_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                            txtST07_Comment.Text = _V003.COMMENT
+                            If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag Then lblST07_Modoshi_Riyu.Visible = True
+                            lblST07_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        End If
+                    End If
+                Else
+                    '次ステージが取得出来ない場合=登録内容により処理がスキップされた場合等はタブごと非表示
+                    For Each page As TabPage In TabSTAGE.TabPages
+                        If Val(page.Name.Substring(8)) = FunConvertSYONIN_JUN_TO_STAGE_NO(ENM_NCR_STAGE._70_顧客再審処置_I_tag).ToString("00") Then
+                            _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
+                            Exit For
+                        End If
+                    Next
+                End If
+            End If
+#End Region
+#Region "               80"
+
+            '80
+            If intStageID >= ENM_NCR_STAGE._80_処置実施 Then
+                If FunExistAchievement(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._80_処置実施) Then
+                    dt = tblTANTO_SYONIN.AsEnumerable.
+                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_処置実施)).
+                          CopyToDataTable
+
+                    mtxST08_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                    mtxST08_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._80_処置実施)
+                    cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                    cmbST08_1_HAIKYAKU_KB.SetDataSource(tblHAIKYAKU_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                    cmbST08_1_HAIKYAKU_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                    cmbST08_2_KENSA_KEKKA.SetDataSource(tblKENSA_KEKKA_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                    cmbST08_2_TANTO_SEIZO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                    cmbST08_2_TANTO_SEIGI.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                    cmbST08_2_TANTO_KENSA.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                    cmbST08_3_HENKYAKU_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                    cmbST08_4_KISYU.SetDataSource(tblKISYU, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                    cmbST08_4_BUHIN_BANGO.SetDataSource(tblBUHIN, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
+                    If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+                        _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                    Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._80_処置実施).
+                                    FirstOrDefault
+
+                        _D003_NCR_J.HAIKYAKU_YMD = _V002_NCR_J.HAIKYAKU_YMD
+                        _D003_NCR_J.HAIKYAKU_HOUHOU = _V002_NCR_J.HAIKYAKU_HOUHOU
+                        _D003_NCR_J.HENKYAKU_BIKO = _V002_NCR_J.HENKYAKU_BIKO
+                        _D003_NCR_J.HAIKYAKU_TANTO_ID = _V002_NCR_J.HAIKYAKU_TANTO_ID
+                        _D003_NCR_J.SAIKAKO_SIJI_NO = _V002_NCR_J.SAIKAKO_SIJI_NO
+                        _D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD = _V002_NCR_J.SAIKAKO_SAGYO_KAN_YMD
+                        _D003_NCR_J.SAIKAKO_KENSA_YMD = _V002_NCR_J.SAIKAKO_KENSA_YMD
+
+                        _D003_NCR_J.KENSA_KEKKA_KB = _V002_NCR_J.KENSA_KEKKA_KB
+                        _D003_NCR_J.SEIZO_TANTO_ID = _V002_NCR_J.SEIZO_TANTO_ID
+                        _D003_NCR_J.SEIGI_TANTO_ID = _V002_NCR_J.SEIGI_TANTO_ID
+                        _D003_NCR_J.KENSA_TANTO_ID = _V002_NCR_J.KENSA_TANTO_ID
+
+                        _D003_NCR_J.HENKYAKU_YMD = _V002_NCR_J.HENKYAKU_YMD
+                        _D003_NCR_J.HENKYAKU_SAKI = _V002_NCR_J.HENKYAKU_SAKI
+                        _D003_NCR_J.HENKYAKU_BIKO = _V002_NCR_J.HENKYAKU_BIKO
+                        _D003_NCR_J.HENKYAKU_TANTO_ID = _V002_NCR_J.HENKYAKU_TANTO_ID
+
+                        _D003_NCR_J.TENYO_KISYU_ID = _V002_NCR_J.TENYO_KISYU_ID
+                        _D003_NCR_J.TENYO_BUHIN_BANGO = _V002_NCR_J.TENYO_BUHIN_BANGO
+                        _D003_NCR_J.TENYO_GOKI = _V002_NCR_J.TENYO_GOKI
+                        _D003_NCR_J.TENYO_LOT = _V002_NCR_J.TENYO_LOT
+                        _D003_NCR_J.TENYO_YMD = _V002_NCR_J.TENYO_YMD
+
+                        If _V003 IsNot Nothing Then
+                            cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                            txtST08_Comment.Text = _V003.COMMENT
+                            If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._80_処置実施 Then lblST08_Modoshi_Riyu.Visible = True
+                            lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        End If
+
+                        'SPEC: 80-2.④
+                        _tabPageManagerST08Sub = New TabPageManager(tabST08_SUB)
+                        Dim strTabpageName As String
+                        Select Case _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
+                            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._3_廃却する
+                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_廃却実施記録
+                            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._4_返却する
+                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_返却実施記録
+                            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._5_転用する
+                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_転用先記録
+                            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._6_再加工する
+                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_再加工指示_記録
+                            Case Else
+                                Select Case _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB
+                                    Case ENM_SAISIN_IINKAI_HANTEI_KB._3_廃却する
+                                        strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_廃却実施記録
+                                    Case ENM_SAISIN_IINKAI_HANTEI_KB._4_返却する
+                                        strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_返却実施記録
+                                    Case ENM_SAISIN_IINKAI_HANTEI_KB._5_転用する
+                                        strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_転用先記録
+                                    Case ENM_SAISIN_IINKAI_HANTEI_KB._6_再加工する
+                                        strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_再加工指示_記録
+                                    Case Else
+                                        Select Case _D003_NCR_J.JIZEN_SINSA_HANTEI_KB
+                                            Case ENM_JIZEN_SINSA_HANTEI_KB._4_廃却する
+                                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_廃却実施記録
+                                            Case ENM_JIZEN_SINSA_HANTEI_KB._5_返却する
+                                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_返却実施記録
+                                            Case ENM_JIZEN_SINSA_HANTEI_KB._6_転用する
+                                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_転用先記録
+                                            Case ENM_JIZEN_SINSA_HANTEI_KB._7_再加工する
+                                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_再加工指示_記録
+                                            Case Else
+                                                'Err
+                                                Throw New ArgumentException("80-2.④ JIZEN_SINSA_HANTEI_KB")
+                                        End Select
+                                End Select
+                        End Select
+                        For Each page As TabPage In tabST08_SUB.TabPages
+                            If page.Name = strTabpageName Then
+                                tabST08_SUB.SelectedIndex = page.TabIndex
+                            Else
+                                '非表示
+                                _tabPageManagerST08Sub.ChangeTabPageVisible(page.TabIndex, False)
+                            End If
+                        Next page
+                        '
+                    End If
+                Else
+                    '次ステージが取得出来ない場合=登録内容により処理がスキップされた場合等はタブごと非表示
+                    For Each page As TabPage In TabSTAGE.TabPages
+                        If Val(page.Name.Substring(8)) = FunConvertSYONIN_JUN_TO_STAGE_NO(ENM_NCR_STAGE._80_処置実施).ToString("00") Then
+                            _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
+                            Exit For
+                        End If
+                    Next
+                End If
+            End If
+
+            '81
+            If intStageID >= ENM_NCR_STAGE._81_処置実施_生技 Then
+                dt = tblTANTO_SYONIN.AsEnumerable.
+                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_処置実施_生技)).
+                          CopyToDataTable
+
+                mtxST08_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._81_処置実施_生技)
+                cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._81_処置実施_生技).
+                                FirstOrDefault
+
+                    If _V003 IsNot Nothing Then
+                        cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        txtST08_Comment.Text = _V003.COMMENT
+                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._81_処置実施_生技 Then lblST08_Modoshi_Riyu.Visible = True
+                        lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                    End If
+                End If
+            End If
+
+            '82
+            If intStageID >= ENM_NCR_STAGE._82_処置実施_製造 Then
+                dt = tblTANTO_SYONIN.AsEnumerable.
+                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_処置実施_製造)).
+                          CopyToDataTable
+
+                mtxST08_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._82_処置実施_製造)
+                cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._82_処置実施_製造).
+                                FirstOrDefault
+
+                    If _V003 IsNot Nothing Then
+                        cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        txtST08_Comment.Text = _V003.COMMENT
+                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._82_処置実施_製造 Then lblST08_Modoshi_Riyu.Visible = True
+                        lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                    End If
+                End If
+            End If
+
+            '83
+            If intStageID >= ENM_NCR_STAGE._83_処置実施_検査 Then
+                dt = tblTANTO_SYONIN.AsEnumerable.
+                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_処置実施_検査)).
+                          CopyToDataTable
+
+                mtxST08_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._83_処置実施_検査)
+                cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._83_処置実施_検査).
+                                FirstOrDefault
+
+                    If _V003 IsNot Nothing Then
+                        cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        txtST08_Comment.Text = _V003.COMMENT
+                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._83_処置実施_検査 Then lblST08_Modoshi_Riyu.Visible = True
+                        lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                    End If
+                End If
+            End If
+
+#End Region
+#Region "               90"
+            If intStageID >= ENM_NCR_STAGE._90_処置実施確認_管理T Then
+                dt = tblTANTO_SYONIN.AsEnumerable.
+                            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_処置実施確認_管理T)).
+                            CopyToDataTable
+
+                mtxST09_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                mtxST09_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._90_処置実施確認_管理T)
+                cmbST09_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._90_処置実施確認_管理T).
+                                FirstOrDefault
+
+                    If _V003 IsNot Nothing Then
+                        cmbST09_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        txtST09_Comment.Text = _V003.COMMENT
+                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._90_処置実施確認_管理T Then lblST09_Modoshi_Riyu.Visible = True
+                        lblST09_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                    End If
+                End If
+            End If
+#End Region
+#Region "               100"
+            If intStageID >= ENM_NCR_STAGE._100_処置実施決裁_製造課長 Then
+                dt = tblTANTO_SYONIN.AsEnumerable.
+                    Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_処置実施決裁_製造課長)).
+                    CopyToDataTable
+
+                mtxST10_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                mtxST10_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._100_処置実施決裁_製造課長)
+                cmbST10_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._100_処置実施決裁_製造課長).
+                                FirstOrDefault
+
+                    If _V003 IsNot Nothing Then
+                        cmbST10_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        txtST10_Comment.Text = _V003.COMMENT
+                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長 Then lblST10_Modoshi_Riyu.Visible = True
+                        lblST10_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                    End If
+                End If
+            End If
+#End Region
+#Region "               110"
+            If intStageID >= ENM_NCR_STAGE._110_abcde処置担当 Then
+                dt = tblTANTO_SYONIN.AsEnumerable.
+                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcde処置担当)).
+                          CopyToDataTable
+
+                mtxST11_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                mtxST11_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._110_abcde処置担当)
+                cmbST11_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._110_abcde処置担当).
+                                FirstOrDefault
+
+                    _D003_NCR_J.SYOCHI_KEKKA_A = CBool(_V002_NCR_J.SYOCHI_KEKKA_A)
+                    _D003_NCR_J.SYOCHI_KEKKA_B = CBool(_V002_NCR_J.SYOCHI_KEKKA_B)
+                    _D003_NCR_J.SYOCHI_KEKKA_C = CBool(_V002_NCR_J.SYOCHI_KEKKA_C)
+                    _D003_NCR_J.SYOCHI_D_UMU_KB = CBool(_V002_NCR_J.SYOCHI_D_UMU_KB)
+                    _D003_NCR_J.SYOCHI_D_YOHI_KB = CBool(_V002_NCR_J.SYOCHI_E_YOHI_KB)
+                    _D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU = _V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU
+                    _D003_NCR_J.SYOCHI_E_UMU_KB = CBool(_V002_NCR_J.SYOCHI_D_UMU_KB)
+                    _D003_NCR_J.SYOCHI_E_YOHI_KB = CBool(_V002_NCR_J.SYOCHI_E_YOHI_KB)
+                    _D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU = _V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU
+
+                    If _V003 IsNot Nothing Then
+                        cmbST11_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        txtST11_Comment.Text = _V003.COMMENT
+                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._110_abcde処置担当 Then lblST11_Modoshi_Riyu.Visible = True
+                        lblST11_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                    End If
+                End If
+            End If
+#End Region
+#Region "               120"
+            If intStageID >= ENM_NCR_STAGE._120_abcde処置確認 Then
+
+            End If
+#End Region
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        End Try
+    End Function
+
+#End Region
+
+    Private Sub TabSTAGE_SelectedIndexChanged(sender As Object, e As EventArgs) 'Handles TabSTAGE.SelectedIndexChanged
+        If TabSTAGE.SelectedTab.Enabled = False Then
+            cmdFunc1.Enabled = False
+        End If
+    End Sub
+#End Region
+
 #Region "共通"
 
 #Region "部門区分"
     Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
         Select Case cmbBUMON.SelectedValue.ToString
-            Case Context.ENM_BUMON_KB._4_LP
+            Case Context.ENM_BUMON_KB._2_LP
                 lblSYANAI_CD.Visible = True
                 cmbSYANAI_CD.Visible = True
             Case Else
@@ -2677,648 +3320,7 @@ Public Class FrmG0011
 
 #End Region
 
-#Region "タブコントロール制御"
 
-#Region "初期化"
-    Private Function FunInitializeTabControl(ByVal intCurrentTabNo As Integer) As Boolean
-
-        Try
-            _tabPageManager = New TabPageManager(TabSTAGE)
-
-            For Each page As TabPage In TabSTAGE.TabPages
-                If page.Name <> "tabAttachment" Then
-                    If Val(page.Name.Substring(8)) < intCurrentTabNo Then
-                        'SPEC: 10-2.③
-                        page.Text = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN(Val(page.Name.Substring(8)))).FirstOrDefault.Item("DISP")
-
-                    ElseIf Val(page.Name.Substring(8)) = intCurrentTabNo Then
-                        page.Text = "現ステージ" 'tblNCR.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = PrDataRow("SYONIN_JUN")).FirstOrDefault.Item("DISP")
-
-                        '次ステージの承認担当者・コメント欄をバインド
-                        Dim ctrlTANTO As Control() = Me.Controls.Find("cmbST" & intCurrentTabNo.ToString("00") & "_DestTANTO", True)
-                        If ctrlTANTO.Length > 0 Then
-                            Dim cmbTANTO As ComboboxEx = ctrlTANTO(0)
-                            cmbTANTO.NullValue = 0
-                            cmbTANTO.DataBindings.Add(New Binding(NameOf(cmbTANTO.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-                        End If
-                        Dim ctrlCOMMENT As Control() = Me.Controls.Find("txtST" & intCurrentTabNo.ToString("00") & "_Comment", True)
-                        If ctrlCOMMENT.Length > 0 Then
-                            Dim txtCOMMENT As TextBoxEx = ctrlCOMMENT(0)
-                            txtCOMMENT.DataBindings.Add(New Binding(NameOf(txtCOMMENT.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-                        End If
-
-                    ElseIf Val(page.Name.Substring(8)) > intCurrentTabNo Then
-                        'SPEC: 10-2 ②
-                        _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
-                    End If
-
-                    'SPEC: 10-2.⑤ 
-                    If PrDataRow Is Nothing Then
-                        '新規作成時
-                        'SPEC: (3).B 
-                        page.Enabled = True
-                    Else
-                        'カレントユーザーの以外は参照のみ
-                        If PrDataRow("SYONIN_JUN") >= ENM_NCR_STAGE._90_処置実施確認_管理T Then
-                            page.Enabled = FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrDataRow("HOKOKU_NO"), PrDataRow("SYONIN_JUN"))
-                        End If
-                    End If
-                End If
-            Next page
-
-
-            '添付資料タブ初期化
-
-            If Not _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace Then
-                lbltmpFile1.Text = IO.Path.GetFileName(_D003_NCR_J.FILE_PATH)
-                lbltmpFile1.Links.Clear()
-                lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, _D003_NCR_J.FILE_PATH)
-                _D003_NCR_J.FILE_PATH = _D003_NCR_J.FILE_PATH
-                lbltmpFile1.Visible = True
-                lbltmpFile1_Clear.Visible = True
-            End If
-            If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace Then
-                Call SetPict1Data({_D003_NCR_J.G_FILE_PATH1})
-            End If
-            If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace Then
-                Call SetPict1Data({_D003_NCR_J.G_FILE_PATH2})
-            End If
-
-            Return True
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        End Try
-    End Function
-
-#End Region
-
-#Region "STAGE別コントロール初期化"
-    Private Function FunInitializeSTAGE(ByVal intStageID As Integer) As Boolean
-        Dim dt As New DataTable
-        Dim _V003 As New MODEL.V003_SYONIN_J_KANRI
-        Try
-
-
-
-#Region "               10"
-            If intStageID >= ENM_NCR_STAGE._10_起草入力 Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                                            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_起草入力)).
-                                            CopyToDataTable
-
-                mtxST01_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST01_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._10_起草入力)
-                cmbST01_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-
-                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                    _D003_NCR_J.YOKYU_NAIYO = _V002_NCR_J.YOKYU_NAIYO
-                    _D003_NCR_J.KANSATU_KEKKA = _V002_NCR_J.KANSATU_KEKKA
-
-
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).
-                                FirstOrDefault
-
-                    If _V003 IsNot Nothing Then
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._10_起草入力 Then lblST01_Modoshi_Riyu.Visible = True
-                        lblST01_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                        cmbST01_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                    End If
-                End If
-            End If
-#End Region
-#Region "               20"
-            If intStageID >= ENM_NCR_STAGE._20_起草確認製造GL Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                                Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_起草確認製造GL)).
-                                CopyToDataTable
-
-                mtxST02_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST02_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._20_起草確認製造GL)
-                cmbST02_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-
-                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_起草確認製造GL).
-                                FirstOrDefault
-
-                    cmbST02_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                    txtST02_Comment.Text = _V003.COMMENT
-
-                    If _V003 IsNot Nothing Then
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._20_起草確認製造GL Then lblST02_Modoshi_Riyu.Visible = True
-                        lblST02_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                    End If
-                End If
-            End If
-#End Region
-#Region "               30"
-            If intStageID >= ENM_NCR_STAGE._30_起草確認検査 Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                                Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_起草確認検査)).
-                                CopyToDataTable
-
-                mtxST03_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST03_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._30_起草確認検査)
-                cmbST03_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).
-                                FirstOrDefault
-
-                    If _V003 IsNot Nothing Then
-                        cmbST03_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        txtST03_Comment.Text = _V003.COMMENT
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._30_起草確認検査 Then lblST03_Modoshi_Riyu.Visible = True
-                        lblST03_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                    End If
-                End If
-            End If
-#End Region
-#Region "               40"
-            If intStageID >= ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                                            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定)).
-                                            CopyToDataTable
-
-                mtxST04_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST04_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定)
-                cmbST04_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                cmbST04_JIZENSINSA_HANTEI.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-
-                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定).
-                                FirstOrDefault
-
-                    _D003_NCR_J.JIZEN_SINSA_HANTEI_KB = _V002_NCR_J.JIZEN_SINSA_HANTEI_KB
-                    _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = CBool(_V002_NCR_J.ZESEI_SYOCHI_YOHI_KB)
-                    _D003_NCR_J.ZESEI_NASI_RIYU = _V002_NCR_J.ZESEI_NASI_RIYU
-
-                    If _V003 IsNot Nothing Then
-                        cmbST04_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        txtST04_Comment.Text = _V003.COMMENT
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 Then lblST04_Modoshi_Riyu.Visible = True
-                        lblST04_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                    End If
-                End If
-            End If
-
-#End Region
-#Region "               50"
-            If intStageID >= ENM_NCR_STAGE._50_事前審査確認 Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = ENM_NCR_STAGE._60_再審審査判定_技術代表).
-                                        CopyToDataTable
-
-                mtxST05_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST05_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._50_事前審査確認)
-                cmbST05_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._50_事前審査確認).
-                                FirstOrDefault
-
-                    If _V003 IsNot Nothing Then
-                        cmbST05_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        txtST05_Comment.Text = _V003.COMMENT
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._50_事前審査確認 Then lblST05_Modoshi_Riyu.Visible = True
-                        lblST05_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                    End If
-                End If
-            End If
-#End Region
-#Region "               60"
-            If intStageID >= ENM_NCR_STAGE._60_再審審査判定_技術代表 Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_再審審査判定_技術代表)).
-                                        CopyToDataTable
-
-                mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST06_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._60_再審審査判定_技術代表)
-                cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                cmbST06_SAISIN_IINKAI_HANTEI.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-
-                'SPEC: 60-2.③
-                cmbKISYU.Enabled = False
-                cmbSYANAI_CD.Enabled = False
-                cmbFUTEKIGO_STATUS.Enabled = False
-                cmbFUTEKIGO_KB.Enabled = False
-                cmbFUTEKIGO_S_KB.Enabled = False
-                cmbBUMON.Enabled = False
-                mtxGOUKI.Enabled = False
-                cmbBUHIN_BANGO.Enabled = False
-                mtxHENKYAKU_RIYU.Enabled = False
-                cmbFUTEKIGO_S_KB.Enabled = False
-                cmbKISO_TANTO.Enabled = False
-                mtxHINMEI.Enabled = False
-                mtxZUBAN_KIKAKU.Enabled = False
-                numSU.Enabled = False
-
-                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._60_再審審査判定_技術代表).
-                                FirstOrDefault
-
-                    _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB = _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB
-                    _D003_NCR_J.SAISIN_IINKAI_SIRYO_NO = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
-
-                    If _V003 IsNot Nothing Then
-                        cmbST06_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        txtST06_Comment.Text = _V003.COMMENT
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._60_再審審査判定_技術代表 Then lblST06_Modoshi_Riyu.Visible = True
-                        lblST06_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                    End If
-                End If
-
-            End If
-#End Region
-#Region "               61"
-            If intStageID >= ENM_NCR_STAGE._61_再審審査判定_品証代表 Then
-                If FunExistAchievement(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._61_再審審査判定_品証代表) Then
-                    dt = tblTANTO_SYONIN.AsEnumerable.
-                                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_再審審査判定_品証代表)).
-                                        CopyToDataTable
-
-                    mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                    mtxST06_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._61_再審審査判定_品証代表)
-                    cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                    cmbST06_SAISIN_IINKAI_HANTEI.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                    'SPEC: 60-2.④
-                    cmbST06_SAISIN_IINKAI_HANTEI.Enabled = False
-                    mtxST06_SAISIN_IINKAI_SIRYO_NO.Enabled = False
-
-                    If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                        _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                    Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._61_再審審査判定_品証代表).
-                                    FirstOrDefault
-
-                        _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB = _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB
-                        _D003_NCR_J.SAISIN_IINKAI_SIRYO_NO = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
-
-                        If _V003 IsNot Nothing Then
-                            cmbST06_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                            txtST06_Comment.Text = _V003.COMMENT
-                            If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._61_再審審査判定_品証代表 Then lblST06_Modoshi_Riyu.Visible = True
-                            lblST06_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                        End If
-                    End If
-                Else
-                    '次ステージが取得出来ない場合=登録内容により処理がスキップされた場合等はタブごと非表示
-                    For Each page As TabPage In TabSTAGE.TabPages
-                        If Val(page.Name.Substring(8)) = FunConvertSYONIN_JUN_TO_STAGE_NO(ENM_NCR_STAGE._61_再審審査判定_品証代表).ToString("00") Then
-                            _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
-                            Exit For
-                        End If
-                    Next
-                End If
-            End If
-#End Region
-#Region "               70"
-
-            If intStageID >= ENM_NCR_STAGE._70_顧客再審処置_I_tag Then
-                If FunExistAchievement(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._70_顧客再審処置_I_tag) Then
-                    dt = tblTANTO_SYONIN.AsEnumerable.
-                                Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_顧客再審処置_I_tag)).
-                                CopyToDataTable
-
-                    mtxST07_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                    mtxST07_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._70_顧客再審処置_I_tag)
-                    cmbST07_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                    If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                        _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                    Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._70_顧客再審処置_I_tag).
-                                    FirstOrDefault
-
-                        _D003_NCR_J.ITAG_NO = _V002_NCR_J.ITAG_NO
-                        _D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID = _V002_NCR_J.KOKYAKU_SAISIN_TANTO_ID
-                        _D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_KB
-                        _D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD
-                        _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB = _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
-                        _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD = _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD
-                        _D003_NCR_J.SAIKAKO_SIJI_FG = CBool(_V002_NCR_J.SAIKAKO_SIJI_FG)
-
-                        If _V003 IsNot Nothing Then
-                            cmbST07_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                            txtST07_Comment.Text = _V003.COMMENT
-                            If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag Then lblST07_Modoshi_Riyu.Visible = True
-                            lblST07_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                        End If
-                    End If
-                Else
-                    '次ステージが取得出来ない場合=登録内容により処理がスキップされた場合等はタブごと非表示
-                    For Each page As TabPage In TabSTAGE.TabPages
-                        If Val(page.Name.Substring(8)) = FunConvertSYONIN_JUN_TO_STAGE_NO(ENM_NCR_STAGE._70_顧客再審処置_I_tag).ToString("00") Then
-                            _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
-                            Exit For
-                        End If
-                    Next
-                End If
-            End If
-#End Region
-#Region "               80"
-
-            '80
-            If intStageID >= ENM_NCR_STAGE._80_処置実施 Then
-                If FunExistAchievement(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._80_処置実施) Then
-                    dt = tblTANTO_SYONIN.AsEnumerable.
-                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_処置実施)).
-                          CopyToDataTable
-
-                    mtxST08_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                    mtxST08_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._80_処置実施)
-                    cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                    cmbST08_1_HAIKYAKU_KB.SetDataSource(tblHAIKYAKU_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                    cmbST08_1_HAIKYAKU_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                    cmbST08_2_KENSA_KEKKA.SetDataSource(tblKENSA_KEKKA_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                    cmbST08_2_TANTO_SEIZO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    cmbST08_2_TANTO_SEIGI.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    cmbST08_2_TANTO_KENSA.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    cmbST08_3_HENKYAKU_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                    cmbST08_4_KISYU.SetDataSource(tblKISYU, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    cmbST08_4_BUHIN_BANGO.SetDataSource(tblBUHIN, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-
-                    If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                        _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                    Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._80_処置実施).
-                                    FirstOrDefault
-
-                        _D003_NCR_J.HAIKYAKU_YMD = _V002_NCR_J.HAIKYAKU_YMD
-                        _D003_NCR_J.HAIKYAKU_HOUHOU = _V002_NCR_J.HAIKYAKU_HOUHOU
-                        _D003_NCR_J.HENKYAKU_BIKO = _V002_NCR_J.HENKYAKU_BIKO
-                        _D003_NCR_J.HAIKYAKU_TANTO_ID = _V002_NCR_J.HAIKYAKU_TANTO_ID
-                        _D003_NCR_J.SAIKAKO_SIJI_NO = _V002_NCR_J.SAIKAKO_SIJI_NO
-                        _D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD = _V002_NCR_J.SAIKAKO_SAGYO_KAN_YMD
-                        _D003_NCR_J.SAIKAKO_KENSA_YMD = _V002_NCR_J.SAIKAKO_KENSA_YMD
-
-                        _D003_NCR_J.KENSA_KEKKA_KB = _V002_NCR_J.KENSA_KEKKA_KB
-                        _D003_NCR_J.SEIZO_TANTO_ID = _V002_NCR_J.SEIZO_TANTO_ID
-                        _D003_NCR_J.SEIGI_TANTO_ID = _V002_NCR_J.SEIGI_TANTO_ID
-                        _D003_NCR_J.KENSA_TANTO_ID = _V002_NCR_J.KENSA_TANTO_ID
-
-                        _D003_NCR_J.HENKYAKU_YMD = _V002_NCR_J.HENKYAKU_YMD
-                        _D003_NCR_J.HENKYAKU_SAKI = _V002_NCR_J.HENKYAKU_SAKI
-                        _D003_NCR_J.HENKYAKU_BIKO = _V002_NCR_J.HENKYAKU_BIKO
-                        _D003_NCR_J.HENKYAKU_TANTO_ID = _V002_NCR_J.HENKYAKU_TANTO_ID
-
-                        _D003_NCR_J.TENYO_KISYU_ID = _V002_NCR_J.TENYO_KISYU_ID
-                        _D003_NCR_J.TENYO_BUHIN_BANGO = _V002_NCR_J.TENYO_BUHIN_BANGO
-                        _D003_NCR_J.TENYO_GOKI = _V002_NCR_J.TENYO_GOKI
-                        _D003_NCR_J.TENYO_LOT = _V002_NCR_J.TENYO_LOT
-                        _D003_NCR_J.TENYO_YMD = _V002_NCR_J.TENYO_YMD
-
-                        If _V003 IsNot Nothing Then
-                            cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                            txtST08_Comment.Text = _V003.COMMENT
-                            If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._80_処置実施 Then lblST08_Modoshi_Riyu.Visible = True
-                            lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                        End If
-
-                        'SPEC: 80-2.④
-                        _tabPageManagerST08Sub = New TabPageManager(tabST08_SUB)
-                        Dim strTabpageName As String
-                        Select Case _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
-                            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._3_廃却する
-                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_廃却実施記録
-                            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._4_返却する
-                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_返却実施記録
-                            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._5_転用する
-                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_転用先記録
-                            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._6_再加工する
-                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_再加工指示_記録
-                            Case Else
-                                Select Case _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB
-                                    Case ENM_SAISIN_IINKAI_HANTEI_KB._3_廃却する
-                                        strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_廃却実施記録
-                                    Case ENM_SAISIN_IINKAI_HANTEI_KB._4_返却する
-                                        strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_返却実施記録
-                                    Case ENM_SAISIN_IINKAI_HANTEI_KB._5_転用する
-                                        strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_転用先記録
-                                    Case ENM_SAISIN_IINKAI_HANTEI_KB._6_再加工する
-                                        strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_再加工指示_記録
-                                    Case Else
-                                        Select Case _D003_NCR_J.JIZEN_SINSA_HANTEI_KB
-                                            Case ENM_JIZEN_SINSA_HANTEI_KB._4_廃却する
-                                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_廃却実施記録
-                                            Case ENM_JIZEN_SINSA_HANTEI_KB._5_返却する
-                                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_返却実施記録
-                                            Case ENM_JIZEN_SINSA_HANTEI_KB._6_転用する
-                                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_転用先記録
-                                            Case ENM_JIZEN_SINSA_HANTEI_KB._7_再加工する
-                                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_再加工指示_記録
-                                            Case Else
-                                                'Err
-                                                Throw New ArgumentException("80-2.④ JIZEN_SINSA_HANTEI_KB")
-                                        End Select
-                                End Select
-                        End Select
-                        For Each page As TabPage In tabST08_SUB.TabPages
-                            If page.Name = strTabpageName Then
-                                tabST08_SUB.SelectedIndex = page.TabIndex
-                            Else
-                                '非表示
-                                _tabPageManagerST08Sub.ChangeTabPageVisible(page.TabIndex, False)
-                            End If
-                        Next page
-                        '
-                    End If
-                Else
-                    '次ステージが取得出来ない場合=登録内容により処理がスキップされた場合等はタブごと非表示
-                    For Each page As TabPage In TabSTAGE.TabPages
-                        If Val(page.Name.Substring(8)) = FunConvertSYONIN_JUN_TO_STAGE_NO(ENM_NCR_STAGE._80_処置実施).ToString("00") Then
-                            _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
-                            Exit For
-                        End If
-                    Next
-                End If
-            End If
-
-            '81
-            If intStageID >= ENM_NCR_STAGE._81_処置実施_生技 Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_処置実施_生技)).
-                          CopyToDataTable
-
-                mtxST08_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._81_処置実施_生技)
-                cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._81_処置実施_生技).
-                                FirstOrDefault
-
-                    If _V003 IsNot Nothing Then
-                        cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        txtST08_Comment.Text = _V003.COMMENT
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._81_処置実施_生技 Then lblST08_Modoshi_Riyu.Visible = True
-                        lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                    End If
-                End If
-            End If
-
-            '82
-            If intStageID >= ENM_NCR_STAGE._82_処置実施_製造 Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_処置実施_製造)).
-                          CopyToDataTable
-
-                mtxST08_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._82_処置実施_製造)
-                cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._82_処置実施_製造).
-                                FirstOrDefault
-
-                    If _V003 IsNot Nothing Then
-                        cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        txtST08_Comment.Text = _V003.COMMENT
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._82_処置実施_製造 Then lblST08_Modoshi_Riyu.Visible = True
-                        lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                    End If
-                End If
-            End If
-
-            '83
-            If intStageID >= ENM_NCR_STAGE._83_処置実施_検査 Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_処置実施_検査)).
-                          CopyToDataTable
-
-                mtxST08_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._83_処置実施_検査)
-                cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._83_処置実施_検査).
-                                FirstOrDefault
-
-                    If _V003 IsNot Nothing Then
-                        cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        txtST08_Comment.Text = _V003.COMMENT
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._83_処置実施_検査 Then lblST08_Modoshi_Riyu.Visible = True
-                        lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                    End If
-                End If
-            End If
-
-#End Region
-#Region "               90"
-            If intStageID >= ENM_NCR_STAGE._90_処置実施確認_管理T Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_処置実施確認_管理T)).
-                            CopyToDataTable
-
-                mtxST09_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST09_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._90_処置実施確認_管理T)
-                cmbST09_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._90_処置実施確認_管理T).
-                                FirstOrDefault
-
-                    If _V003 IsNot Nothing Then
-                        cmbST09_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        txtST09_Comment.Text = _V003.COMMENT
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._90_処置実施確認_管理T Then lblST09_Modoshi_Riyu.Visible = True
-                        lblST09_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                    End If
-                End If
-            End If
-#End Region
-#Region "               100"
-            If intStageID >= ENM_NCR_STAGE._100_処置実施決裁_製造課長 Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                    Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_処置実施決裁_製造課長)).
-                    CopyToDataTable
-
-                mtxST10_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST10_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._100_処置実施決裁_製造課長)
-                cmbST10_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._100_処置実施決裁_製造課長).
-                                FirstOrDefault
-
-                    If _V003 IsNot Nothing Then
-                        cmbST10_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        txtST10_Comment.Text = _V003.COMMENT
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長 Then lblST10_Modoshi_Riyu.Visible = True
-                        lblST10_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                    End If
-                End If
-            End If
-#End Region
-#Region "               110"
-            If intStageID >= ENM_NCR_STAGE._110_abcde処置担当 Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcde処置担当)).
-                          CopyToDataTable
-
-                mtxST11_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST11_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._110_abcde処置担当)
-                cmbST11_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._110_abcde処置担当).
-                                FirstOrDefault
-
-                    _D003_NCR_J.SYOCHI_KEKKA_A = CBool(_V002_NCR_J.SYOCHI_KEKKA_A)
-                    _D003_NCR_J.SYOCHI_KEKKA_B = CBool(_V002_NCR_J.SYOCHI_KEKKA_B)
-                    _D003_NCR_J.SYOCHI_KEKKA_C = CBool(_V002_NCR_J.SYOCHI_KEKKA_C)
-                    _D003_NCR_J.SYOCHI_D_UMU_KB = CBool(_V002_NCR_J.SYOCHI_D_UMU_KB)
-                    _D003_NCR_J.SYOCHI_D_YOHI_KB = CBool(_V002_NCR_J.SYOCHI_E_YOHI_KB)
-                    _D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU = _V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU
-                    _D003_NCR_J.SYOCHI_E_UMU_KB = CBool(_V002_NCR_J.SYOCHI_D_UMU_KB)
-                    _D003_NCR_J.SYOCHI_E_YOHI_KB = CBool(_V002_NCR_J.SYOCHI_E_YOHI_KB)
-                    _D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU = _V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU
-
-                    If _V003 IsNot Nothing Then
-                        cmbST11_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        txtST11_Comment.Text = _V003.COMMENT
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._110_abcde処置担当 Then lblST11_Modoshi_Riyu.Visible = True
-                        lblST11_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                    End If
-                End If
-            End If
-#End Region
-#Region "               120"
-            If intStageID >= ENM_NCR_STAGE._120_abcde処置確認 Then
-
-            End If
-#End Region
-
-            Return True
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        End Try
-    End Function
-
-#End Region
-
-    Private Sub TabSTAGE_SelectedIndexChanged(sender As Object, e As EventArgs) 'Handles TabSTAGE.SelectedIndexChanged
-        If TabSTAGE.SelectedTab.Enabled = False Then
-            cmdFunc1.Enabled = False
-        End If
-    End Sub
-#End Region
 
 #Region "入力チェック"
     Public Function FunCheckInput() As Boolean
