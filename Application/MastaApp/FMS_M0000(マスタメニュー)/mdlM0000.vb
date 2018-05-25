@@ -87,6 +87,9 @@ Module mdlM0000
                 End If
 
 
+                'UNDONE: パラメータ取得 メールリンク経由でのPG起動用 ユーザーIDとPG_PATH およびそのPGのパラメータを受け取る
+
+
                 Call FunCreateJumpList()
 
                 '-----一覧画面表示

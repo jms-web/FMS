@@ -235,7 +235,7 @@ Module mdlINTSYR
 
                 pub_SYAIN_INFO = New SYAIN_INFO With {
                 .SYAIN_ID = cmds(1),
-                .SYAIN_CD = cmds(1),
+                .SYAIN_CD = Fun_GetSYAIN_NO(cmds(1)),
                 .SYAIN_NAME = Fun_GetUSER_NAME(cmds(1)),
                 .BUMON_KB = tplBUFF.BUMON_KB,
                 .BUMON_NAME = tplBUFF.BUMON_NAME
@@ -493,6 +493,41 @@ Module mdlINTSYR
             Using DB As ClsDbUtility = DBOpen()
                 sbSQL.Remove(0, sbSQL.Length)
                 sbSQL.Append("SELECT SIMEI FROM " & "M004_SYAIN" & " ")
+                sbSQL.Append(" WHERE SYAIN_ID =" & SYAIN_ID & " ")
+                dsList = DB.GetDataSet(sbSQL.ToString)
+                With dsList.Tables(0)
+                    If .Rows.Count > 0 Then
+                        Return .Rows(0).Item(0).ToString.Trim
+                    Else
+                        'ÉGÉâÅ[
+                        'Throw New ArgumentOutOfRangeException
+                        Return ""
+                    End If
+                End With
+            End Using
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return ""
+        Finally
+            dsList.Dispose()
+        End Try
+    End Function
+
+#End Region
+
+#Region "é–àıNOéÊìæ"
+
+    Public Function Fun_GetSYAIN_NO(ByVal SYAIN_ID As Integer) As String
+        Dim dsList As New System.Data.DataSet
+        Dim sbSQL As New System.Text.StringBuilder
+
+        Try
+
+
+            Using DB As ClsDbUtility = DBOpen()
+                sbSQL.Remove(0, sbSQL.Length)
+                sbSQL.Append("SELECT SYAIN_NO FROM " & "M004_SYAIN" & " ")
                 sbSQL.Append(" WHERE SYAIN_ID =" & SYAIN_ID & " ")
                 dsList = DB.GetDataSet(sbSQL.ToString)
                 With dsList.Tables(0)

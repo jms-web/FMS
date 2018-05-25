@@ -16,13 +16,16 @@ Public Class ComboboxEx
     Private _GotForcusedColor As Color 'フォーカス時の背景色
     Private _BackColorDefault As Color 'フォーカス喪失時時の背景色
 
-
+    Private _BackColorOrg As System.Drawing.Color
+    Private _ReadOnly As Boolean
+    Private _CursorOrg As Cursor
 #End Region
 
 #Region "コンストラクタ"
     Public Sub New()
         InitializeComponent()
-
+        _BackColorOrg = BackColor
+        _CursorOrg = Cursor
         'SetDatasourceから移行 SelectedValueChanged等を発火させないため
         DisplayMember = "DISP"
         ValueMember = "VALUE"
@@ -32,6 +35,28 @@ Public Class ComboboxEx
 #End Region
 
 #Region "プロパティ"
+
+
+
+    Public Property [ReadOnly] As Boolean
+        Get
+            Return _ReadOnly
+        End Get
+
+        Set(ByVal Value As Boolean)
+            _ReadOnly = Value
+            If Value Then
+                Cursor = Cursors.Default
+                BackColor = System.Drawing.SystemColors.Control
+                SetStyle(ControlStyles.UserMouse, True)
+            Else
+                Cursor = _CursorOrg
+                BackColor = _BackColorOrg
+                SetStyle(ControlStyles.UserMouse, False)
+            End If
+        End Set
+    End Property
+
 
     Private _NullValue As Object
     Public Property NullValue As Object
@@ -437,8 +462,35 @@ Public Class ComboboxEx
     End Property
 #End Region
 
-#Region "OnKeyDown(ByVal e As KeyEventArgs)"
+
+#Region "OnKeyUp"
+    Protected Overrides Sub OnKeyUp(e As KeyEventArgs)
+
+        If _ReadOnly Then
+            e.Handled = True
+            Return
+        End If
+
+        MyBase.OnKeyUp(e)
+    End Sub
+#End Region
+#Region "OnKeyPress"
+    Protected Overrides Sub OnKeyPress(e As KeyPressEventArgs)
+        If _ReadOnly Then
+            e.Handled = True
+            Return
+        End If
+
+        MyBase.OnKeyPress(e)
+    End Sub
+#End Region
+#Region "OnKeyDown"
     Protected Overrides Sub OnKeyDown(ByVal e As KeyEventArgs)
+
+        If _ReadOnly Then
+            e.Handled = True
+            Return
+        End If
 
         MyBase.OnKeyDown(e)
 

@@ -9,6 +9,14 @@ Module mdlG0010
     ''' </summary>
     Public frmLIST As FrmG0010
 
+    ''' <summary>
+    ''' 起動モード(0:通常,1:新規作成)
+    ''' </summary>
+    Public pub_intOPEN_MODE As Integer
+
+    Public pub_PrSYONIN_HOKOKUSYO_ID As Integer
+    Public pub_PrHOKOKU_NO As String
+
 #Region "列挙型"
     ''' <summary>
     ''' 起動モード
@@ -25,10 +33,6 @@ Module mdlG0010
         ''' </summary>
         _1_新規作成 = 1
     End Enum
-    ''' <summary>
-    ''' 起動モード(0:通常,1:新規作成)
-    ''' </summary>
-    Public pub_intOPEN_MODE As Integer
 
     ''' <summary>
     ''' 承認報告書ID
@@ -193,7 +197,7 @@ Module mdlG0010
     End Enum
 #End Region
 
-    'Model
+#Region "Model"
     Public _D003_NCR_J As New MODEL.D003_NCR_J
     Public _D004_SYONIN_J_KANRI As New MODEL.D004_SYONIN_J_KANRI
     Public _D005_CAR_J As New MODEL.D005_CAR_J
@@ -202,6 +206,7 @@ Module mdlG0010
     Public _R002_HOKOKU_TENSO As New MODEL.R002_HOKOKU_TENSO
     Public _R003_NCR_SASIMODOSI As New MODEL.R003_NCR_SASIMODOSI
     Public _R004_CAR_SASIMODOSI As New MODEL.R004_CAR_SASIMODOSI
+#End Region
 
 #End Region
 
@@ -271,7 +276,12 @@ Module mdlG0010
                 '起動時パラメータを取得
                 Dim cmds() As String
                 cmds = System.Environment.GetCommandLineArgs
-                If cmds.Length = 3 Then
+
+                If cmds.Length = 5 Then
+                    'メールリンク用 
+                    pub_PrHOKOKU_NO = Val(cmds(4))
+                    pub_PrSYONIN_HOKOKUSYO_ID = Val(cmds(3))
+                ElseIf cmds.Length = 3 Then
                     pub_intOPEN_MODE = Val(cmds(2))
                 Else
                     pub_intOPEN_MODE = ENM_OPEN_MODE._0_通常
@@ -608,7 +618,23 @@ Module mdlG0010
 
     End Function
 
+    '現在のステージ名を取得
+    Public Function FunGetCurrentStageName(ByVal intCurrentStageID As Integer) As String
+        Try
 
+            Dim drList As List(Of DataRow) = tblNCR.AsEnumerable().
+                                                Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
+            Dim strBUFF As String = ""
+            If drList.Count > 0 Then
+                strBUFF = drList(0).Item("DISP")
+            End If
+
+            Return strBUFF
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return vbEmpty
+        End Try
+    End Function
 
     ''' <summary>
     ''' 次ステージ名を取得
@@ -680,7 +706,6 @@ Module mdlG0010
             Using DB As ClsDbUtility = DBOpen()
                 strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
                 intSmtpPort = Val(FunGetCodeMastaValue(DB, "メール設定", "SMTP_PORT"))
-                'strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
                 strUserID = FunGetCodeMastaValue(DB, "メール設定", "SMTP_USER")
                 strPassword = FunGetCodeMastaValue(DB, "メール設定", "SMTP_PASS")
 
@@ -714,22 +739,32 @@ Module mdlG0010
                     dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
                 End Using
                 If dsList.Tables(0).Rows.Count > 0 Then
+
+#If DEBUG Then
+                    strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
+#Else
                     strFromAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
+#End If
+
                     strFromSyainName = dsList.Tables(0).Rows(0).Item("SIMEI")
                 Else
                     Return False
                 End If
             End Using
 
-            'DEBUG: mail送信無効
-            Select Case ToSYAIN_ID
-                Case 136, 999999
-                Case Else
-                    Return True
-            End Select
+
 
             strMsg = String.Format("【メール送信成功】TO:{0}({1}) SUBJECT:{2}", strToSyainName, strToAddress, strSubject)
             WL.WriteLogDat(strMsg)
+
+
+            'DEBUG: mail送信無効
+            'Select Case ToSYAIN_ID
+            'Case 136, 999999
+            'Case Else
+            Return True
+            'End Select
+
 
             ''認証なし
             'blnSend = ClsMailSend.FunSendMail(strSmtpServer,

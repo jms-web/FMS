@@ -232,6 +232,18 @@
     <Compile Include="Control\LabelEx.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Control\TabPageEx.Designer.vb">
+      <DependentUpon>TabPageEx.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Control\TabPageEx.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Control\TabControlEx.Designer.vb">
+      <DependentUpon>TabControlEx.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Control\TabControlEx.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Control\TextBoxEx.Designer.vb">
       <DependentUpon>TextBoxEx.vb</DependentUpon>
     </Compile>
@@ -697,7 +709,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_ReplaceNonNumerics="False" />
+      <UserProperties BuildVersion_ReplaceNonNumerics="False" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

@@ -876,10 +876,10 @@ Public Class FrmG0010
         Dim dlgRET As DialogResult
 
         Try
-            If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE AndAlso dgvDATA.CurrentRow.Cells(5).Value = "CAR" Then
+            If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE AndAlso dgvDATA.CurrentRow.Cells("SYONIN_HOKOKUSYO_ID").Value = ENM_SYONIN_HOKOKUSYO_ID._2_CAR Then
 
+                frmDLG.PrDataRow = dgvDATA.GetDataRow()
                 dlgRET = frmCAR.ShowDialog(Me)
-
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
                     Return False
                 Else

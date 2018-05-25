@@ -74,9 +74,16 @@ Public Class FrmG0011
         'MyBase.ToolTip.SetToolTip(Me.cmdFunc3, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "新規登録時は使用出来ません")
         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "新規登録時は使用出来ません")
-        MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "新規登録時は使用出来ません")
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, "新規登録時は使用出来ません")
         MyBase.ToolTip.SetToolTip(Me.cmdFunc11, "新規登録時は使用出来ません")
+
+
+        If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "新規登録時は使用出来ません")
+        Else
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "編集権限がありません")
+        End If
+
 
         D003NCRJBindingSource.DataSource = _D003_NCR_J
 
@@ -152,7 +159,6 @@ Public Class FrmG0011
             '''-----イベントハンドラ設定
             'AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
             'AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
-
 
 
             '-----処理モード別画面初期化
@@ -1988,18 +1994,33 @@ Public Class FrmG0011
 
 #Region "初期化"
     Private Function FunInitializeTabControl(ByVal intCurrentTabNo As Integer) As Boolean
-
+        Dim strStageName As String
         Try
             _tabPageManager = New TabPageManager(TabSTAGE)
 
-            For Each page As TabPage In TabSTAGE.TabPages
+            For Each page As TabPageEx In TabSTAGE.TabPages
                 If page.Name <> "tabAttachment" Then
-                    If Val(page.Name.Substring(8)) < intCurrentTabNo Then
-                        'SPEC: 10-2.③
-                        page.Text = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN(Val(page.Name.Substring(8)))).FirstOrDefault.Item("DISP")
+                    Dim intTabNo As Integer = Val(page.Name.Substring(8))
 
-                    ElseIf Val(page.Name.Substring(8)) = intCurrentTabNo Then
-                        page.Text = "現ステージ" 'tblNCR.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = PrDataRow("SYONIN_JUN")).FirstOrDefault.Item("DISP")
+                    If intTabNo < intCurrentTabNo Then
+                        'SPEC: 10-2.③
+                        strStageName = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN(Val(page.Name.Substring(8)))).FirstOrDefault.Item("DISP")
+                        page.Text = strStageName
+
+                        Dim ctrlLabel As Control() = Me.Controls.Find("lblSTAGE" & intCurrentTabNo.ToString("00"), True)
+                        If ctrlLabel.Length > 0 Then
+                            Dim lblSTAGE As Label = ctrlLabel(0)
+                            lblSTAGE.Text = strStageName
+                        End If
+
+                    ElseIf intTabNo = intCurrentTabNo Then
+                        page.Text = "現ステージ"
+                        strStageName = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN(Val(page.Name.Substring(8)))).FirstOrDefault.Item("DISP")
+                        Dim ctrlLabel As Control() = Me.Controls.Find("lblSTAGE" & intCurrentTabNo.ToString("00"), True)
+                        If ctrlLabel.Length > 0 Then
+                            Dim lblSTAGE As Label = ctrlLabel(0)
+                            lblSTAGE.Text = strStageName
+                        End If
 
                         '次ステージの承認担当者・コメント欄をバインド
                         Dim ctrlTANTO As Control() = Me.Controls.Find("cmbST" & intCurrentTabNo.ToString("00") & "_DestTANTO", True)
@@ -2014,7 +2035,7 @@ Public Class FrmG0011
                             txtCOMMENT.DataBindings.Add(New Binding(NameOf(txtCOMMENT.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, ""))
                         End If
 
-                    ElseIf Val(page.Name.Substring(8)) > intCurrentTabNo Then
+                    ElseIf intTabNo > intCurrentTabNo Then
                         'SPEC: 10-2 ②
                         _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
                     End If
@@ -2025,9 +2046,18 @@ Public Class FrmG0011
                         'SPEC: (3).B 
                         page.Enabled = True
                     Else
-                        'カレントユーザーの以外は参照のみ
+                        'カレントユーザー以外は参照のみ
                         If PrDataRow("SYONIN_JUN") >= ENM_NCR_STAGE._90_処置実施確認_管理T Then
-                            page.Enabled = FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrDataRow("HOKOKU_NO"), PrDataRow("SYONIN_JUN"))
+                            If Val(page.Name.Substring(8)) = intCurrentTabNo Then
+                                page.Enabled = True
+                            Else
+                                page.Enabled = False
+                            End If
+                        Else
+                            'page.Enabled = FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrDataRow("HOKOKU_NO"), PrDataRow("SYONIN_JUN"))
+
+                            'page.Enabled = FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrDataRow("HOKOKU_NO"), FunConvertSTAGE_NO_TO_SYONIN_JUN(intTabNo))
+                            page.EnableDisablePages(FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrDataRow("HOKOKU_NO"), FunConvertSTAGE_NO_TO_SYONIN_JUN(intTabNo)))
                         End If
                     End If
                 End If
@@ -2066,8 +2096,6 @@ Public Class FrmG0011
         Dim _V003 As New MODEL.V003_SYONIN_J_KANRI
         Try
 
-
-
 #Region "               10"
             If intStageID >= ENM_NCR_STAGE._10_起草入力 Then
                 dt = tblTANTO_SYONIN.AsEnumerable.
@@ -2075,7 +2103,7 @@ Public Class FrmG0011
                                             CopyToDataTable
 
                 mtxST01_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST01_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._10_起草入力)
+                mtxST01_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_起草入力))
                 cmbST01_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
 
@@ -2103,7 +2131,7 @@ Public Class FrmG0011
                                 CopyToDataTable
 
                 mtxST02_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST02_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._20_起草確認製造GL)
+                mtxST02_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_起草確認製造GL))
                 cmbST02_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
 
@@ -2129,7 +2157,7 @@ Public Class FrmG0011
                                 CopyToDataTable
 
                 mtxST03_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST03_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._30_起草確認検査)
+                mtxST03_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_起草確認検査))
                 cmbST03_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
@@ -2153,7 +2181,7 @@ Public Class FrmG0011
                                             CopyToDataTable
 
                 mtxST04_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST04_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定)
+                mtxST04_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定))
                 cmbST04_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 cmbST04_JIZENSINSA_HANTEI.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -2181,11 +2209,11 @@ Public Class FrmG0011
 #Region "               50"
             If intStageID >= ENM_NCR_STAGE._50_事前審査確認 Then
                 dt = tblTANTO_SYONIN.AsEnumerable.
-                                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = ENM_NCR_STAGE._60_再審審査判定_技術代表).
+                                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._50_事前審査確認)).
                                         CopyToDataTable
 
                 mtxST05_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST05_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._50_事前審査確認)
+                mtxST05_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._50_事前審査確認))
                 cmbST05_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
@@ -2207,13 +2235,11 @@ Public Class FrmG0011
                 dt = tblTANTO_SYONIN.AsEnumerable.
                                         Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_再審審査判定_技術代表)).
                                         CopyToDataTable
-
-                mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST06_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._60_再審審査判定_技術代表)
+                mtxST06_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_再審審査判定_技術代表))
                 cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
 
                 cmbST06_SAISIN_IINKAI_HANTEI.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
 
                 'SPEC: 60-2.③
                 cmbKISYU.Enabled = False
@@ -2257,7 +2283,7 @@ Public Class FrmG0011
                                         CopyToDataTable
 
                     mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                    mtxST06_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._61_再審審査判定_品証代表)
+                    mtxST06_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_再審審査判定_品証代表))
                     cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     cmbST06_SAISIN_IINKAI_HANTEI.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -2301,7 +2327,7 @@ Public Class FrmG0011
                                 CopyToDataTable
 
                     mtxST07_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                    mtxST07_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._70_顧客再審処置_I_tag)
+                    mtxST07_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_顧客再審処置_I_tag))
                     cmbST07_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
@@ -2345,7 +2371,7 @@ Public Class FrmG0011
                           CopyToDataTable
 
                     mtxST08_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                    mtxST08_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._80_処置実施)
+                    mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_処置実施))
                     cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     cmbST08_1_HAIKYAKU_KB.SetDataSource(tblHAIKYAKU_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -2453,13 +2479,19 @@ Public Class FrmG0011
                 End If
             End If
 
+
+
+
+
+#End Region
+#Region "               81"
             '81
             If intStageID >= ENM_NCR_STAGE._81_処置実施_生技 Then
                 dt = tblTANTO_SYONIN.AsEnumerable.
                           Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_処置実施_生技)).
                           CopyToDataTable
 
-                mtxST08_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._81_処置実施_生技)
+                mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_処置実施_生技))
                 cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
@@ -2475,14 +2507,15 @@ Public Class FrmG0011
                     End If
                 End If
             End If
-
+#End Region
+#Region "               82"
             '82
             If intStageID >= ENM_NCR_STAGE._82_処置実施_製造 Then
                 dt = tblTANTO_SYONIN.AsEnumerable.
                           Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_処置実施_製造)).
                           CopyToDataTable
 
-                mtxST08_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._82_処置実施_製造)
+                mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_処置実施_製造))
                 cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
@@ -2498,14 +2531,15 @@ Public Class FrmG0011
                     End If
                 End If
             End If
-
+#End Region
+#Region "               83"
             '83
             If intStageID >= ENM_NCR_STAGE._83_処置実施_検査 Then
                 dt = tblTANTO_SYONIN.AsEnumerable.
                           Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_処置実施_検査)).
                           CopyToDataTable
 
-                mtxST08_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._83_処置実施_検査)
+                mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_処置実施_検査))
                 cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
@@ -2521,7 +2555,6 @@ Public Class FrmG0011
                     End If
                 End If
             End If
-
 #End Region
 #Region "               90"
             If intStageID >= ENM_NCR_STAGE._90_処置実施確認_管理T Then
@@ -2530,7 +2563,7 @@ Public Class FrmG0011
                             CopyToDataTable
 
                 mtxST09_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST09_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._90_処置実施確認_管理T)
+                mtxST09_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_処置実施確認_管理T))
                 cmbST09_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
@@ -2554,7 +2587,7 @@ Public Class FrmG0011
                     CopyToDataTable
 
                 mtxST10_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST10_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._100_処置実施決裁_製造課長)
+                mtxST10_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_処置実施決裁_製造課長))
                 cmbST10_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
@@ -2578,7 +2611,7 @@ Public Class FrmG0011
                           CopyToDataTable
 
                 mtxST11_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
-                mtxST11_NextStageName.Text = FunGetNextStageName(ENM_NCR_STAGE._110_abcde処置担当)
+                mtxST11_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcde処置担当))
                 cmbST11_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
@@ -2620,11 +2653,14 @@ Public Class FrmG0011
 
 #End Region
 
+#Region "タブイベント"
     Private Sub TabSTAGE_SelectedIndexChanged(sender As Object, e As EventArgs) 'Handles TabSTAGE.SelectedIndexChanged
         If TabSTAGE.SelectedTab.Enabled = False Then
             cmdFunc1.Enabled = False
         End If
     End Sub
+#End Region
+    
 #End Region
 
 #Region "共通"
@@ -2956,7 +2992,11 @@ Public Class FrmG0011
     '共通項目のみ
 #End Region
 #Region "   STAGE6"
-    '共通項目のみ
+    Private Sub cmbST06_SAISIN_IINKAI_HANTEI_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbST06_SAISIN_IINKAI_HANTEI.SelectedValueChanged
+        '次ステージ名更新
+    End Sub
+
+
 #End Region
 #Region "   STAGE7"
 
@@ -3327,7 +3367,7 @@ Public Class FrmG0011
 
         'STAGE04
         cmbST04_JIZENSINSA_HANTEI.DataBindings.Add(New Binding(NameOf(cmbST04_JIZENSINSA_HANTEI.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkST04_ZESEI_SYOCHI_YOHI_KB.DataBindings.Add(New Binding(NameOf(chkST04_ZESEI_SYOCHI_YOHI_KB.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkST04_ZESEI_SYOCHI_YOHI_KB.DataBindings.Add(New Binding(NameOf(chkST04_ZESEI_SYOCHI_YOHI_KB.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB), False, DataSourceUpdateMode.OnPropertyChanged, False))
         txtST04_RIYU.DataBindings.Add(New Binding(NameOf(txtST04_RIYU.Text), _D003_NCR_J, NameOf(_D003_NCR_J.ZESEI_NASI_RIYU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
         'STAGE05

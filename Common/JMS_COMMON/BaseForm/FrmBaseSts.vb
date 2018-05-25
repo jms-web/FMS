@@ -171,7 +171,7 @@ Public Class FrmBaseSts
 
             '-----ステータスバー:ログインユーザー名
             If objUSER_INFO.SYAIN_NAME <> "" Then
-                Me.ToolStripStatusLabelBLANK.Text = "ログイン:" & objUSER_INFO.SYAIN_ID & " " & objUSER_INFO.SYAIN_NAME
+                Me.ToolStripStatusLabelBLANK.Text = "ログイン:" & objUSER_INFO.SYAIN_CD & " " & objUSER_INFO.SYAIN_NAME
             End If
 
             'VERSION
