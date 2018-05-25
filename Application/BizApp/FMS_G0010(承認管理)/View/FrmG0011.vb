@@ -801,6 +801,7 @@ Public Class FrmG0011
                 'Err
                 Return False
         End Select
+
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("MERGE INTO " & NameOf(MODEL.D004_SYONIN_J_KANRI) & " AS SrcT")
@@ -3019,7 +3020,6 @@ Public Class FrmG0011
             lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, ofd.FileName)
 
             _D003_NCR_J.FILE_PATH = ofd.FileName
-            'lbltmpFile1.Tag = ofd.FileName
             lbltmpFile1.Visible = True
             lbltmpFile1_Clear.Visible = True
         End If
@@ -3076,7 +3076,7 @@ Public Class FrmG0011
     'リンククリア
     Private Sub LbltmpFile1_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1_Clear.LinkClicked
         lbltmpFile1.Text = ""
-        lbltmpFile1.Tag = ""
+        _D003_NCR_J.FILE_PATH = ""
         lbltmpFile1.Links.Clear()
         lbltmpFile1.Visible = False
         lbltmpFile1_Clear.Visible = False
@@ -3137,7 +3137,7 @@ Public Class FrmG0011
     'リンククリア
     Private Sub LblPict1Path_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblPict1Path_Clear.LinkClicked
         lblPict1Path.Text = ""
-        lblPict1Path.Tag = ""
+        _D003_NCR_J.G_FILE_PATH1 = ""
         lblPict1Path.Links.Clear()
         lblPict1Path.Visible = False
         lblPict1Path_Clear.Visible = False
@@ -3214,7 +3214,7 @@ Public Class FrmG0011
     'リンククリア
     Private Sub LblPict2Path_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblPict2Path_Clear.LinkClicked
         lblPict2Path.Text = ""
-        lblPict2Path.Tag = ""
+        _D003_NCR_J.G_FILE_PATH2 = ""
         lblPict2Path.Links.Clear()
         lblPict2Path.Visible = False
         lblPict2Path_Clear.Visible = False

@@ -159,11 +159,14 @@ Public Class FrmG0016
                     End If
 
                     '-----差し戻されたステージ以降の承認済み実績を削除
-                    sbSQL.Append("DELETE FROM" & NameOf(MODEL.D004_SYONIN_J_KANRI) & "")
-                    sbSQL.Append(" WHERE " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN) & ">" & cmbMODOSI_SAKI.SelectedValue & "")
+                    sbSQL.Remove(0, sbSQL.Length)
+                    sbSQL.Append("DELETE FROM " & NameOf(MODEL.D004_SYONIN_J_KANRI) & "")
+                    sbSQL.Append(" WHERE " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID) & "=" & PrSYONIN_HOKOKUSYO_ID & "")
+                    sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & "='" & _D003_NCR_J.HOKOKU_NO & "'")
+                    sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN) & ">" & cmbMODOSI_SAKI.SelectedValue & ";")
                     '-----SQL実行
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    If intRET <> 1 Then
+                    If sqlEx IsNot Nothing Then
                         '-----エラーログ出力
                         Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
                         WL.WriteLogDat(strErrMsg)
@@ -543,23 +546,23 @@ Public Class FrmG0016
         End Using
 
         dt.Columns.Add("SYONIN_HOKOKUSYO_ID", GetType(Integer))
-        dt.Columns.Add("SYONIN_JUN", GetType(Integer))
+        dt.Columns.Add("SYAIN_ID", GetType(Integer))
         dt.Columns.Add("SYAIN_NAME", GetType(String))
         dt.Columns.Add("HOKOKU_NO", GetType(String))
 
         '主キー設定
-        dt.PrimaryKey = {dt.Columns("SYONIN_HOKOKUSYO_ID"), dt.Columns("SYONIN_JUN"), dt.Columns("HOKOKU_NO")}
+        dt.PrimaryKey = {dt.Columns("SYONIN_JUN"), dt.Columns("HOKOKU_NO")}
 
 
         With dsList.Tables(0)
             For intCNT = 0 To .Rows.Count - 1
                 Dim Trow As DataRow = dt.NewRow()
                 Trow("DISP") = .Rows(intCNT).Item("SYONIN_JUN") & "." & .Rows(intCNT).Item("SYONIN_NAIYO") & " " & .Rows(intCNT).Item("SYAIN_NAME")
-                Trow("VALUE") = .Rows(intCNT).Item("SYAIN_ID")
+                Trow("VALUE") = .Rows(intCNT).Item("SYONIN_JUN")
                 Trow("SYAIN_NAME") = .Rows(intCNT).Item("SYAIN_NAME")
                 'Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                 Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
-                Trow("SYONIN_JUN") = .Rows(intCNT).Item("SYONIN_JUN")
+                Trow("SYAIN_ID") = .Rows(intCNT).Item("SYAIN_ID")
                 Trow("HOKOKU_NO") = .Rows(intCNT).Item("HOKOKU_NO")
 
                 dt.Rows.Add(Trow)

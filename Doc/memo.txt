@@ -67,3 +67,9 @@
   
 entity framework sql直接発行
 http://gushwell.ldblog.jp/archives/52440183.html
+
+
+ビルド前イベント
+xcopy "C:\FMS\EXE_DEBUG" "C:\FMS\SRC\VB.NET\FMS\ClickOnce\EXE_DEBUG" /D/E/C/I/H/Y
+xcopy "C:\FMS\EXE" "C:\FMS\SRC\VB.NET\FMS\ClickOnce\EXE" /D/E/C/I/H/Y
+xcopy "C:\FMS\INI" "C:\FMS\SRC\VB.NET\FMS\ClickOnce\INI" /D/E/C/I/H/Y

@@ -245,7 +245,6 @@ Public Module mdlDBContext
 
 #Region "データ取得関数"
 
-
 #Region "部門情報"
     Public Function FunGetBUMON_INFO(ByVal intSyainID As Integer) As (BUMON_KB As String, BUMON_NAME As String)
         Dim dsList As New System.Data.DataSet
@@ -280,7 +279,6 @@ Public Module mdlDBContext
 #End Region
 
 #End Region
-
 
 #Region "データテーブル取得"
 

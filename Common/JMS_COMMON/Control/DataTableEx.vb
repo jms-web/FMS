@@ -15,20 +15,15 @@ Public Class DataTableEx
     ''' <remarks></remarks>
     Public Sub New(ByVal Optional valueType As String = "System.String")
 
-        Try
-            'CHECK: 列追加 VALUE列はバインドする場合は明示的にデータ型を指定
-            Dim t As Type = Type.GetType(valueType, False, True)
-            Me.Columns.Add("VALUE", t)
-            Me.Columns.Add("DISP", GetType(String))
-            Me.Columns.Add("DEL_FLG", GetType(Boolean))
-            Me.Columns.Add("DEF_FLG", GetType(Boolean))
+        'CHECK: 列追加 VALUE列はバインドする場合は明示的にデータ型を指定
+        Dim t As Type = Type.GetType(valueType, False, True)
+        Columns.Add("VALUE", t)
+        Columns.Add("DISP", GetType(String))
+        Columns.Add("DEL_FLG", GetType(Boolean))
+        Columns.Add("DEF_FLG", GetType(Boolean))
 
-            '主キー設定
-            Me.PrimaryKey = {Me.Columns("VALUE")}
-
-        Catch ex As Exception
-            EM.ErrorSyori(ex)
-        End Try
+        '主キー設定
+        Me.PrimaryKey = {Me.Columns("VALUE")}
     End Sub
 
     ''' <summary>

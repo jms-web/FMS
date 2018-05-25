@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' アセンブリ属性の値を確認します。
 
-<Assembly: AssemblyTitle("CLICKONCE_IDA")> 
+<Assembly: AssemblyTitle("CLICKONCE_FMS")>
 <Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("JMS")> 
-<Assembly: AssemblyProduct("CLICKONCE_IDA")> 
+<Assembly: AssemblyCompany("JMS")>
+<Assembly: AssemblyProduct("")>
 <Assembly: AssemblyCopyright("Copyright ©  2017")> 
 <Assembly: AssemblyTrademark("")> 
 
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' 既定値にすることができます:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.18143.0658")>
-<Assembly: AssemblyFileVersion("1.0.18143.0658")>
+<Assembly: AssemblyVersion("0.9.18145.0632")>
+<Assembly: AssemblyFileVersion("0.9.18145.0632")>
