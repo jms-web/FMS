@@ -70,7 +70,6 @@ Public Class FrmG0010
 
         Try
 
-
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
 
@@ -117,7 +116,14 @@ Public Class FrmG0010
             Call FunSetBinding()
 
             '既定値設定
-            If pub_SYAIN_INFO.BUMON_KB.IsNullOrWhiteSpace = False Then cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+            If pub_SYAIN_INFO.BUMON_KB.IsNullOrWhiteSpace = False Then
+                cmbBUMON.DataSource = DirectCast(cmbBUMON.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = pub_SYAIN_INFO.BUMON_KB).CopyToDataTable
+                cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+
+                'UNDONE: システム管理者のみ制限解除
+                'cmbBUMON.ReadOnly = True
+            End If
+
             cmbGEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
 
             ''-----イベントハンドラ設定
@@ -149,6 +155,7 @@ Public Class FrmG0010
                     'Err
                     Throw New ArgumentException("起動モードパラメータが取得出来ませんでした")
             End Select
+
         Finally
             'ファンクションボタンステータス更新
             Call FunInitFuncButtonEnabled()

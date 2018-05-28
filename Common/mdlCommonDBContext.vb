@@ -510,7 +510,7 @@ Public Module mdlDBContext
 #Region "               社内CD"
                 Case "社内CD"
                     '検索
-                    sbSQL.Append("SELECT DISTINCT SYANAI_CD,BUHIN_BANGO,BUHIN_NAME,KISYU_ID,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
+                    sbSQL.Append("SELECT DISTINCT BUMON_KB,SYANAI_CD,BUHIN_BANGO,BUHIN_NAME,KISYU_ID,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
                     sbSQL.Append("WHERE BUMON_KB='2'")
                     If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append(" AND " & strWhere & "")
@@ -523,6 +523,7 @@ Public Module mdlDBContext
                     '主キー設定
                     dt.PrimaryKey = {dt.Columns("VALUE")}
 
+                    dt.Columns.Add("BUMON_KB", GetType(String))
                     dt.Columns.Add("BUHIN_BANGO", GetType(String))
                     dt.Columns.Add("BUHIN_NAME", GetType(String))
                     dt.Columns.Add("KISYU_ID", GetType(Integer))
@@ -536,6 +537,7 @@ Public Module mdlDBContext
                             Trow("DISP") = .Rows(intCNT).Item("SYANAI_CD")
                             Trow("VALUE") = .Rows(intCNT).Item("SYANAI_CD")
                             Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            Trow("BUMON_KB") = .Rows(intCNT).Item("BUMON_KB")
                             Trow("BUHIN_BANGO") = .Rows(intCNT).Item("BUHIN_BANGO")
                             Trow("BUHIN_NAME") = .Rows(intCNT).Item("BUHIN_NAME")
                             Trow("KISYU_ID") = .Rows(intCNT).Item("KISYU_ID")
@@ -546,7 +548,7 @@ Public Module mdlDBContext
 #Region "               部品番号"
                 Case "部品番号"
                     '検索
-                    sbSQL.Append("SELECT DISTINCT BUHIN_BANGO,BUHIN_NAME,SYANAI_CD,KISYU_ID,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
+                    sbSQL.Append("SELECT DISTINCT BUMON_KB,BUHIN_BANGO,BUHIN_NAME,SYANAI_CD,KISYU_ID,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
                     If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append("WHERE " & strWhere & "")
                     End If
@@ -558,6 +560,7 @@ Public Module mdlDBContext
                     '主キー設定
                     dt.PrimaryKey = {dt.Columns("VALUE")}
 
+                    dt.Columns.Add("BUMON_KB", GetType(String))
                     dt.Columns.Add("BUHIN_NAME", GetType(String))
                     dt.Columns.Add("SYANAI_CD", GetType(String))
                     dt.Columns.Add("KISYU_ID", GetType(Integer))
@@ -571,6 +574,7 @@ Public Module mdlDBContext
                             Trow("DISP") = .Rows(intCNT).Item("BUHIN_BANGO")
                             Trow("VALUE") = .Rows(intCNT).Item("BUHIN_BANGO")
                             Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            Trow("BUMON_KB") = .Rows(intCNT).Item("BUMON_KB")
                             Trow("BUHIN_NAME") = .Rows(intCNT).Item("BUHIN_NAME")
                             Trow("SYANAI_CD") = .Rows(intCNT).Item("SYANAI_CD")
                             Trow("KISYU_ID") = .Rows(intCNT).Item("KISYU_ID")

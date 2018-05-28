@@ -195,6 +195,14 @@ Module mdlG0010
         _4_メール送信 = 4
         _5_転送 = 5
     End Enum
+
+
+    Public Enum ENM_SYOUNIN_HANTEI_KB
+        _0_未承認 = 0
+        _1_承認 = 1
+        _9_差戻 = 9
+    End Enum
+
 #End Region
 
 #Region "Model"
@@ -249,7 +257,7 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "NCR", tblNCR)
                     Call FunGetCodeDataTable(DB, "CAR", tblCAR)
                     Call FunGetCodeDataTable(DB, "担当", tblTANTO)
-                    Call FunGetCodeDataTable(DB, "部門区分", tblBUMON, "DISP_ORDER < 10")
+                    Call FunGetCodeDataTable(DB, "部門区分", tblBUMON, "DISP_ORDER < 10") '10以降は不適合SYSでは不要
                     Call FunGetCodeDataTable(DB, "機種", tblKISYU)
                     Call FunGetCodeDataTable(DB, "不適合区分", tblFUTEKIGO_KB)
                     Call FunGetCodeDataTable(DB, "不適合状態区分", tblFUTEKIGO_STATUS_KB)

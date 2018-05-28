@@ -355,7 +355,7 @@ Public Class FrmG0017
             Next intFunc
 
             'SPEC: 20-7.áA
-            If dgvDATA.CurrentRow IsNot Nothing AndAlso dgvDATA.GetDataRow.Item("SYONIN_HANTEI_KB") = 1 Then 'ç∑ñﬂÇµ
+            If dgvDATA.CurrentRow IsNot Nothing AndAlso dgvDATA.GetDataRow.Item("SYONIN_HANTEI_KB") = ENM_SYOUNIN_HANTEI_KB._9_ç∑ñﬂ Then 'ç∑ñﬂÇµ
                 cmdFunc1.Enabled = True
             Else
                 cmdFunc1.Enabled = False

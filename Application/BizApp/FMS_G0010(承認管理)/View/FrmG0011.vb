@@ -89,7 +89,8 @@ Public Class FrmG0011
 
         mtxHOKUKO_NO.ReadOnly = True
         dtDraft.Enabled = False
-        cmbKISO_TANTO.Enabled = False
+        cmbKISO_TANTO.ReadOnly = True
+        mtxHINMEI.ReadOnly = True
         pnlPict1.AllowDrop = True
         pnlPict2.AllowDrop = True
 
@@ -1990,7 +1991,7 @@ Public Class FrmG0011
 
 #Region "コントロールイベント"
 
-#Region "タブコントロール制御"
+#Region "タブ関連"
 
 #Region "初期化"
     Private Function FunInitializeTabControl(ByVal intCurrentTabNo As Integer) As Boolean
@@ -2120,6 +2121,7 @@ Public Class FrmG0011
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._10_起草入力 Then lblST01_Modoshi_Riyu.Visible = True
                         lblST01_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
                         cmbST01_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        If intStageID > ENM_NCR_STAGE._10_起草入力 Then cmbST01_DestTANTO.ReadOnly = True
                     End If
                 End If
             End If
@@ -2146,6 +2148,7 @@ Public Class FrmG0011
                     If _V003 IsNot Nothing Then
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._20_起草確認製造GL Then lblST02_Modoshi_Riyu.Visible = True
                         lblST02_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If intStageID > ENM_NCR_STAGE._20_起草確認製造GL Then cmbST02_DestTANTO.ReadOnly = True
                     End If
                 End If
             End If
@@ -2170,6 +2173,7 @@ Public Class FrmG0011
                         txtST03_Comment.Text = _V003.COMMENT
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._30_起草確認検査 Then lblST03_Modoshi_Riyu.Visible = True
                         lblST03_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If intStageID > ENM_NCR_STAGE._30_起草確認検査 Then cmbST03_DestTANTO.ReadOnly = True
                     End If
                 End If
             End If
@@ -2201,6 +2205,7 @@ Public Class FrmG0011
                         txtST04_Comment.Text = _V003.COMMENT
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 Then lblST04_Modoshi_Riyu.Visible = True
                         lblST04_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If intStageID > ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 Then cmbST04_DestTANTO.ReadOnly = True
                     End If
                 End If
             End If
@@ -2226,6 +2231,7 @@ Public Class FrmG0011
                         txtST05_Comment.Text = _V003.COMMENT
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._50_事前審査確認 Then lblST05_Modoshi_Riyu.Visible = True
                         lblST05_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If intStageID > ENM_NCR_STAGE._50_事前審査確認 Then cmbST05_DestTANTO.ReadOnly = True
                     End If
                 End If
             End If
@@ -2270,6 +2276,7 @@ Public Class FrmG0011
                         txtST06_Comment.Text = _V003.COMMENT
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._60_再審審査判定_技術代表 Then lblST06_Modoshi_Riyu.Visible = True
                         lblST06_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If intStageID > ENM_NCR_STAGE._60_再審審査判定_技術代表 Then cmbST06_DestTANTO.ReadOnly = True
                     End If
                 End If
 
@@ -2305,6 +2312,7 @@ Public Class FrmG0011
                             txtST06_Comment.Text = _V003.COMMENT
                             If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._61_再審審査判定_品証代表 Then lblST06_Modoshi_Riyu.Visible = True
                             lblST06_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                            If intStageID > ENM_NCR_STAGE._61_再審審査判定_品証代表 Then cmbST06_DestTANTO.ReadOnly = True
                         End If
                     End If
                 Else
@@ -2348,6 +2356,7 @@ Public Class FrmG0011
                             txtST07_Comment.Text = _V003.COMMENT
                             If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag Then lblST07_Modoshi_Riyu.Visible = True
                             lblST07_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                            If intStageID > ENM_NCR_STAGE._70_顧客再審処置_I_tag Then cmbST07_DestTANTO.ReadOnly = True
                         End If
                     End If
                 Else
@@ -2418,6 +2427,7 @@ Public Class FrmG0011
                             txtST08_Comment.Text = _V003.COMMENT
                             If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._80_処置実施 Then lblST08_Modoshi_Riyu.Visible = True
                             lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                            If intStageID > ENM_NCR_STAGE._80_処置実施 Then cmbST08_DestTANTO.ReadOnly = True
                         End If
 
                         'SPEC: 80-2.④
@@ -2576,6 +2586,7 @@ Public Class FrmG0011
                         txtST09_Comment.Text = _V003.COMMENT
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._90_処置実施確認_管理T Then lblST09_Modoshi_Riyu.Visible = True
                         lblST09_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If intStageID > ENM_NCR_STAGE._90_処置実施確認_管理T Then cmbST09_DestTANTO.ReadOnly = True
                     End If
                 End If
             End If
@@ -2600,6 +2611,7 @@ Public Class FrmG0011
                         txtST10_Comment.Text = _V003.COMMENT
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長 Then lblST10_Modoshi_Riyu.Visible = True
                         lblST10_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If intStageID > ENM_NCR_STAGE._100_処置実施決裁_製造課長 Then cmbST10_DestTANTO.ReadOnly = True
                     End If
                 End If
             End If
@@ -2634,6 +2646,7 @@ Public Class FrmG0011
                         txtST11_Comment.Text = _V003.COMMENT
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._110_abcde処置担当 Then lblST11_Modoshi_Riyu.Visible = True
                         lblST11_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If intStageID > ENM_NCR_STAGE._110_abcde処置担当 Then cmbST10_DestTANTO.ReadOnly = True
                     End If
                 End If
             End If
@@ -2667,7 +2680,9 @@ Public Class FrmG0011
 
 #Region "部門区分"
     Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
-        Select Case cmbBUMON.SelectedValue.ToString.Trim
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        Select Case cmb.SelectedValue.ToString.Trim
             Case ""
             Case Context.ENM_BUMON_KB._2_LP
                 lblSYANAI_CD.Visible = True
@@ -2675,18 +2690,48 @@ Public Class FrmG0011
             Case Else
                 lblSYANAI_CD.Visible = False
                 cmbSYANAI_CD.Visible = False
-                _D003_NCR_J.SYANAI_CD = ""
         End Select
+
+        'UNDONE: 部門で機種絞り込み
+        Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
+
+        '部品番号
+        RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+        If blnSelected Then
+            Dim dt As DataTable = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmb.SelectedValue).CopyToDataTable
+
+            cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            _D003_NCR_J.BUHIN_BANGO = ""
+        Else
+            cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+        End If
+        AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+
+        '社内コード
+        RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
+        If blnSelected Then
+            If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
+                Dim dt As DataTable = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmb.SelectedValue).CopyToDataTable
+
+                cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            Else
+                cmbSYANAI_CD.DataSource = Nothing
+            End If
+            _D003_NCR_J.SYANAI_CD = ""
+        Else
+            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+        End If
+        AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
     End Sub
 
-    'UNDONE: ErrorProvider 表示名を適切に
+    'UNDONE: ErrorProvider 表示名を適切に 選択 入力　選択または入力
 
     Private Sub CmbBUMON_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbBUMON.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If cmb.SelectedValue = cmb.NullValue Then
             'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門"))
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
         Else
@@ -2697,6 +2742,44 @@ Public Class FrmG0011
 #End Region
 
 #Region "機種"
+    Private Sub CmbKISYU_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKISYU.SelectedValueChanged
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
+
+        '部品番号
+        RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+        If blnSelected Then
+            Dim drs = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue)
+            If drs.Count > 0 Then
+                Dim dt As DataTable = drs.CopyToDataTable
+                Dim _selectedValue As String = cmbBUHIN_BANGO.SelectedValue
+
+                cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                _D003_NCR_J.BUHIN_BANGO = _selectedValue
+            End If
+        Else
+            cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+        End If
+        AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+
+        '社内コード
+        RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
+        If blnSelected Then
+            If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
+                Dim dt As DataTable = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue).CopyToDataTable
+
+                cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            Else
+                cmbSYANAI_CD.DataSource = Nothing
+            End If
+            _D003_NCR_J.SYANAI_CD = ""
+        Else
+            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+        End If
+        AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
+    End Sub
+
     Private Sub CmbKISYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKISYU.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
@@ -2713,31 +2796,88 @@ Public Class FrmG0011
 #End Region
 
 #Region "社内コード"
-    Private Sub CmbSYANAI_CD_Validated(sender As Object, e As EventArgs) Handles cmbSYANAI_CD.Validated
-        If cmbSYANAI_CD.SelectedValue IsNot Nothing Then
+    Private Sub CmbSYANAI_CD_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbSYANAI_CD.SelectedValueChanged
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        'UNDONE: 社内CDで機種絞り込み
+        Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
+
+        '部品番号
+        RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+        If blnSelected Then
+            Dim dt As DataTable = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.SYANAI_CD)) = cmb.SelectedValue).CopyToDataTable
+
+            cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            _D003_NCR_J.BUHIN_BANGO = ""
+        Else
+            cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+        End If
+        AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+
+
+        '抽出
+        RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+        RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+        If blnSelected Then
             Dim dr As DataRow = DirectCast(cmbSYANAI_CD.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbSYANAI_CD.SelectedValue).FirstOrDefault
             _D003_NCR_J.BUHIN_BANGO = dr.Item("BUHIN_BANGO")
             _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
             _D003_NCR_J.KISYU_ID = dr.Item("KISYU_ID")
+
         Else
             _D003_NCR_J.BUHIN_BANGO = ""
             _D003_NCR_J.BUHIN_NAME = ""
             _D003_NCR_J.KISYU_ID = 0
         End If
+        AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+        AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
     End Sub
+
 #End Region
 
 #Region "部品番号"
+    Private Sub CmbBUHIN_BANGO_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUHIN_BANGO.SelectedValueChanged
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
 
-    Private Sub CmbBUHIN_BANGO_Validated(sender As Object, e As EventArgs) Handles cmbBUHIN_BANGO.Validated
-        'CHECK: SelectedValueにバインドしているため、SelectedValueChanged自身やその前に発生するValidating時だと設定できない
-        If cmbBUHIN_BANGO.SelectedValue IsNot Nothing Then
+        'UNDONE: 部品番号で機種絞り込み
+
+        '社内コード
+        If blnSelected Then
+            cmbSYANAI_CD.DataBindings.Clear()
+            If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
+                Dim dt As DataTable = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUHIN_BANGO)) = cmb.SelectedValue).CopyToDataTable
+
+                cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            Else
+                cmbSYANAI_CD.DataSource = Nothing
+            End If
+            _D003_NCR_J.SYANAI_CD = ""
+            cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
+        Else
+            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+        End If
+
+
+        '抽出
+        If blnSelected Then
             Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbBUHIN_BANGO.SelectedValue).FirstOrDefault
-            _D003_NCR_J.SYANAI_CD = dr.Item("SYANAI_CD")
+
+            If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
+                RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
+                _D003_NCR_J.SYANAI_CD = dr.Item("SYANAI_CD")
+                AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
+            End If
             _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
+
+            RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
             _D003_NCR_J.KISYU_ID = dr.Item("KISYU_ID")
+            AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+
             '再発チェック
             _D003_NCR_J.SAIHATU = FunIsReIssue(_D003_NCR_J.BUHIN_BANGO, _D003_NCR_J.FUTEKIGO_KB, _D003_NCR_J.FUTEKIGO_S_KB)
+
         Else
             _D003_NCR_J.SYANAI_CD = ""
             _D003_NCR_J.BUHIN_NAME = ""
@@ -2822,7 +2962,7 @@ Public Class FrmG0011
 
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue <> "" Then
+        If cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace Then
             Dim dt As New DataTableEx
             Using DB As ClsDbUtility = DBOpen()
                 FunGetCodeDataTable(DB, "不適合" & cmb.Text.Replace("・", "") & "区分", dt)
@@ -2835,7 +2975,6 @@ Public Class FrmG0011
             cmbFUTEKIGO_S_KB.DataSource = Nothing
             cmbFUTEKIGO_S_KB.DataBindings.Clear()
         End If
-
     End Sub
 
     Private Sub CmbFUTEKIGO_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbFUTEKIGO_KB.Validating
@@ -2854,7 +2993,7 @@ Public Class FrmG0011
 #End Region
 
 #Region "不適合詳細区分"
-    Private Sub CmbFUTEKIGO_S_KB_Validated(sender As Object, e As EventArgs) Handles cmbFUTEKIGO_S_KB.Validated
+    Private Sub CmbFUTEKIGO_S_KB_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbFUTEKIGO_S_KB.SelectedValueChanged
         '再発チェック
         _D003_NCR_J.SAIHATU = FunIsReIssue(_D003_NCR_J.BUHIN_BANGO, _D003_NCR_J.FUTEKIGO_KB, _D003_NCR_J.FUTEKIGO_S_KB)
     End Sub
