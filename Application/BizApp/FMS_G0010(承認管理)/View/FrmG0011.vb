@@ -70,6 +70,7 @@ Public Class FrmG0011
 
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
+
         'ツールチップメッセージ
         'MyBase.ToolTip.SetToolTip(Me.cmdFunc3, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "新規登録時は使用出来ません")
@@ -94,9 +95,9 @@ Public Class FrmG0011
         pnlPict1.AllowDrop = True
         pnlPict2.AllowDrop = True
 
-        'UNDONE: Enable FalseのForeColorを指定したい
+        'UNDONE: Enable False時のForeColorを指定したい
 
-        '先頭ウォーターマーク+バインドが必要なコンボボックスのための設定
+        '未選択時ウォーターマーク+バインドが必要なコンボボックスのための設定
         cmbKISO_TANTO.NullValue = 0
         cmbKISYU.NullValue = 0
         cmbST07_SAISIN_TANTO.NullValue = 0
@@ -2086,6 +2087,7 @@ Public Class FrmG0011
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
+        Finally
         End Try
     End Function
 
@@ -2096,6 +2098,8 @@ Public Class FrmG0011
         Dim dt As New DataTable
         Dim _V003 As New MODEL.V003_SYONIN_J_KANRI
         Try
+
+
 
 #Region "               10"
             If intStageID >= ENM_NCR_STAGE._10_起草入力 Then
@@ -2198,6 +2202,12 @@ Public Class FrmG0011
 
                     _D003_NCR_J.JIZEN_SINSA_HANTEI_KB = _V002_NCR_J.JIZEN_SINSA_HANTEI_KB
                     _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = CBool(_V002_NCR_J.ZESEI_SYOCHI_YOHI_KB)
+                    If _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB Then
+                        rbtnST04_ZESEI_YES.Checked = True
+                    Else
+                        rbtnST04_ZESEI_NO.Checked = True
+                    End If
+
                     _D003_NCR_J.ZESEI_NASI_RIYU = _V002_NCR_J.ZESEI_NASI_RIYU
 
                     If _V003 IsNot Nothing Then
@@ -2349,6 +2359,7 @@ Public Class FrmG0011
                         _D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD
                         _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB = _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
                         _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD = _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD
+                        _D003_NCR_J.SAIKAKO_SIJI_FG = Not CBool(_V002_NCR_J.SAIKAKO_SIJI_FG)
                         _D003_NCR_J.SAIKAKO_SIJI_FG = CBool(_V002_NCR_J.SAIKAKO_SIJI_FG)
 
                         If _V003 IsNot Nothing Then
@@ -2618,6 +2629,7 @@ Public Class FrmG0011
 #End Region
 #Region "               110"
             If intStageID >= ENM_NCR_STAGE._110_abcde処置担当 Then
+
                 dt = tblTANTO_SYONIN.AsEnumerable.
                           Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcde処置担当)).
                           CopyToDataTable
@@ -2630,6 +2642,13 @@ Public Class FrmG0011
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._110_abcde処置担当).
                                 FirstOrDefault
+                    _D003_NCR_J.SYOCHI_KEKKA_A = Not CBool(_V002_NCR_J.SYOCHI_KEKKA_A)
+                    _D003_NCR_J.SYOCHI_KEKKA_B = Not CBool(_V002_NCR_J.SYOCHI_KEKKA_B)
+                    _D003_NCR_J.SYOCHI_KEKKA_C = Not CBool(_V002_NCR_J.SYOCHI_KEKKA_C)
+                    _D003_NCR_J.SYOCHI_D_UMU_KB = Not CBool(_V002_NCR_J.SYOCHI_D_UMU_KB)
+                    _D003_NCR_J.SYOCHI_D_YOHI_KB = Not CBool(_V002_NCR_J.SYOCHI_E_YOHI_KB)
+                    _D003_NCR_J.SYOCHI_E_UMU_KB = Not CBool(_V002_NCR_J.SYOCHI_D_UMU_KB)
+                    _D003_NCR_J.SYOCHI_E_YOHI_KB = Not CBool(_V002_NCR_J.SYOCHI_E_YOHI_KB)
 
                     _D003_NCR_J.SYOCHI_KEKKA_A = CBool(_V002_NCR_J.SYOCHI_KEKKA_A)
                     _D003_NCR_J.SYOCHI_KEKKA_B = CBool(_V002_NCR_J.SYOCHI_KEKKA_B)
@@ -2661,6 +2680,8 @@ Public Class FrmG0011
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
+        Finally
+
         End Try
     End Function
 
@@ -3105,6 +3126,14 @@ Public Class FrmG0011
         txtST04_RIYU.Enabled = blnChecked
     End Sub
 
+    Private Sub RbtnST04_ZESEI_NO_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST04_ZESEI_NO.CheckedChanged
+
+        Dim blnChecked As Boolean = rbtnST04_ZESEI_NO.Checked
+        lbltxtST04_RIYU.Visible = blnChecked
+        txtST04_RIYU.Visible = blnChecked
+        txtST04_RIYU.Enabled = blnChecked
+    End Sub
+
     Private Sub ChkZESEI_SYOCHI_YOHI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkST04_ZESEI_SYOCHI_YOHI_KB.CheckedChanged
         If chkST04_ZESEI_SYOCHI_YOHI_KB.Checked Then
             rbtnST04_ZESEI_YES.Checked = True
@@ -3126,6 +3155,7 @@ Public Class FrmG0011
             pri_blnValidated = True
         End If
     End Sub
+
 #End Region
 #Region "   STAGE5"
     '共通項目のみ
@@ -3166,12 +3196,42 @@ Public Class FrmG0011
                                                                                  chkST11_E1.CheckedChanged,
                                                                                  chkST11_E2.CheckedChanged
 
+
         Dim chk As CheckBox = DirectCast(sender, CheckBox)
         If chk.Checked Then
-            DirectCast(tlpST08.Controls("rbtnST11_" & chk.Name.Substring(8, 2) & "_T"), RadioButton).Checked = True
+            Dim strCtrlName As String
+            Dim rbtn As RadioButton = DirectCast(tlpST08.Controls("rbtnST11_" & chk.Name.Substring(8, 2) & "_T"), RadioButton)
+            rbtn.Checked = True
         Else
-            DirectCast(tlpST08.Controls("rbtnST11_" & chk.Name.Substring(8, 2) & "_F"), RadioButton).Checked = True
+            Dim rbtn As RadioButton = DirectCast(tlpST08.Controls("rbtnST11_" & chk.Name.Substring(8, 2) & "_F"), RadioButton)
+            rbtn.Checked = True
         End If
+    End Sub
+
+    Private Sub RbtnST11_YES_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST11_A1_T.CheckedChanged,
+                                                                                      rbtnST11_B1_T.CheckedChanged,
+                                                                                      rbtnST11_C1_T.CheckedChanged,
+                                                                                      rbtnST11_D1_T.CheckedChanged,
+                                                                                      rbtnST11_D2_T.CheckedChanged,
+                                                                                      rbtnST11_E1_T.CheckedChanged,
+                                                                                      rbtnST11_E2_T.CheckedChanged
+        Dim rbtn As RadioButton = DirectCast(sender, RadioButton)
+
+        Dim blnChecked As Boolean = DirectCast(tlpST08.Controls("rbtnST11_" & rbtn.Name.Substring(8, 2) & "_T"), RadioButton).Checked
+        DirectCast(tlpST08.Controls("chkST11_" & rbtn.Name.Substring(8, 2) & "_T"), RadioButton).Checked = blnChecked
+    End Sub
+
+    Private Sub RbtnST11_NO_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST11_A1_F.CheckedChanged,
+                                                                                      rbtnST11_B1_F.CheckedChanged,
+                                                                                      rbtnST11_C1_F.CheckedChanged,
+                                                                                      rbtnST11_D1_F.CheckedChanged,
+                                                                                      rbtnST11_D2_F.CheckedChanged,
+                                                                                      rbtnST11_E1_F.CheckedChanged,
+                                                                                      rbtnST11_E2_F.CheckedChanged
+        Dim rbtn As RadioButton = DirectCast(sender, RadioButton)
+
+        Dim blnChecked As Boolean = DirectCast(tlpST08.Controls("rbtnST11_" & rbtn.Name.Substring(8, 2) & "_F"), RadioButton).Checked
+        DirectCast(tlpST08.Controls("chkST11_" & rbtn.Name.Substring(8, 2) & "_F"), RadioButton).Checked = blnChecked
     End Sub
 
 #End Region
@@ -3590,8 +3650,11 @@ Public Class FrmG0011
                     'SPEC: 2.(3).B.②
                     PrCurrentStage = ENM_NCR_STAGE._10_起草入力
 
+
+                    Me.TabSTAGE.Visible = False 'ちらつき防止
                     Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage))
                     Call FunInitializeSTAGE(PrCurrentStage)
+                    Me.TabSTAGE.Visible = True
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
 
@@ -3605,6 +3668,7 @@ Public Class FrmG0011
                         cmbBUMON.Enabled = False
                     End If
 
+                    Me.TabSTAGE.Visible = False
                     Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrDataRow.Item("SYONIN_JUN")))
                     Call FunInitializeSTAGE(PrDataRow.Item("SYONIN_JUN"))
                     mtxHOKUKO_NO.Enabled = False
@@ -3616,6 +3680,9 @@ Public Class FrmG0011
                             Exit For
                         End If
                     Next page
+                    Me.TabSTAGE.Visible = True
+
+
                 Case Else
                     'Throw New ArgumentException(My.Resources.ErrMsgException, intMODE.ToString)
             End Select
@@ -3705,6 +3772,8 @@ Public Class FrmG0011
             _D003_NCR_J.FILE_PATH = _V002_NCR_J.FILE_PATH
             _D003_NCR_J.G_FILE_PATH1 = _V002_NCR_J.G_FILE_PATH1
             _D003_NCR_J.G_FILE_PATH2 = _V002_NCR_J.G_FILE_PATH2
+
+
 
             Return True
         Catch ex As Exception

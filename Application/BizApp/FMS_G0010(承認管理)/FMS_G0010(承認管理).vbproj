@@ -119,7 +119,6 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="C1.Win.C1FlexGrid.4, Version=4.0.20173.286, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="mscorlib" />
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PropertyChanged, Version=2.5.6.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
@@ -253,7 +252,6 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="View\FrmG0012.resx">
       <DependentUpon>FrmG0012.vb</DependentUpon>
       <SubType>Designer</SubType>
