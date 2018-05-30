@@ -239,6 +239,11 @@ Public Module mdlDBContext
     ''' </summary>
     Public tblHAIKYAKU_KB As DataTableEx
 
+    ''' <summary>
+    ''' 承認判定区分
+    ''' </summary>
+    Public tblSYONIN_HANTEI_KB As DataTableEx
+
 #End Region
 
 #End Region
@@ -493,6 +498,7 @@ Public Module mdlDBContext
                     dt.PrimaryKey = {dt.Columns("VALUE")}
 
                     dt.Columns.Add("KISYU", GetType(String))
+                    dt.Columns.Add("BUMON_KB", GetType(String))
 
                     dsList = DB.GetDataSet(sbSQL.ToString, False)
 
@@ -503,6 +509,7 @@ Public Module mdlDBContext
                             Trow("VALUE") = .Rows(intCNT).Item("KISYU_ID")
                             Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                             Trow("KISYU") = .Rows(intCNT).Item("KISYU")
+                            Trow("BUMON_KB") = .Rows(intCNT).Item("BUMON_KB")
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
@@ -510,7 +517,7 @@ Public Module mdlDBContext
 #Region "               社内CD"
                 Case "社内CD"
                     '検索
-                    sbSQL.Append("SELECT DISTINCT BUMON_KB,SYANAI_CD,BUHIN_BANGO,BUHIN_NAME,KISYU_ID,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
+                    sbSQL.Append("SELECT DISTINCT BUMON_KB,SYANAI_CD,BUHIN_BANGO,BUHIN_NAME,KISYU_ID,TOKUI_ID,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
                     sbSQL.Append("WHERE BUMON_KB='2'")
                     If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append(" AND " & strWhere & "")
@@ -521,12 +528,13 @@ Public Module mdlDBContext
                     sbSQL.Append(" ORDER BY SYANAI_CD")
 
                     '主キー設定
-                    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    dt.PrimaryKey = {dt.Columns("BUMON_KB"), dt.Columns("TOKUI_ID"), dt.Columns("VALUE")}
 
                     dt.Columns.Add("BUMON_KB", GetType(String))
                     dt.Columns.Add("BUHIN_BANGO", GetType(String))
                     dt.Columns.Add("BUHIN_NAME", GetType(String))
                     dt.Columns.Add("KISYU_ID", GetType(Integer))
+                    dt.Columns.Add("TOKUI_ID", GetType(Integer))
 
                     dsList = DB.GetDataSet(sbSQL.ToString, False)
 
@@ -541,6 +549,7 @@ Public Module mdlDBContext
                             Trow("BUHIN_BANGO") = .Rows(intCNT).Item("BUHIN_BANGO")
                             Trow("BUHIN_NAME") = .Rows(intCNT).Item("BUHIN_NAME")
                             Trow("KISYU_ID") = .Rows(intCNT).Item("KISYU_ID")
+                            Trow("TOKUI_ID") = .Rows(intCNT).Item("TOKUI_ID")
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
@@ -548,7 +557,7 @@ Public Module mdlDBContext
 #Region "               部品番号"
                 Case "部品番号"
                     '検索
-                    sbSQL.Append("SELECT DISTINCT BUMON_KB,BUHIN_BANGO,BUHIN_NAME,SYANAI_CD,KISYU_ID,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
+                    sbSQL.Append("SELECT DISTINCT BUMON_KB,BUHIN_BANGO,BUHIN_NAME,SYANAI_CD,KISYU_ID,TOKUI_ID,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
                     If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append("WHERE " & strWhere & "")
                     End If
@@ -558,12 +567,13 @@ Public Module mdlDBContext
                     sbSQL.Append(" ORDER BY BUHIN_BANGO")
 
                     '主キー設定
-                    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    dt.PrimaryKey = {dt.Columns("BUMON_KB"), dt.Columns("TOKUI_ID"), dt.Columns("VALUE")}
 
                     dt.Columns.Add("BUMON_KB", GetType(String))
                     dt.Columns.Add("BUHIN_NAME", GetType(String))
                     dt.Columns.Add("SYANAI_CD", GetType(String))
                     dt.Columns.Add("KISYU_ID", GetType(Integer))
+                    dt.Columns.Add("TOKUI_ID", GetType(Integer))
 
                     dsList = DB.GetDataSet(sbSQL.ToString, False)
 
@@ -578,6 +588,7 @@ Public Module mdlDBContext
                             Trow("BUHIN_NAME") = .Rows(intCNT).Item("BUHIN_NAME")
                             Trow("SYANAI_CD") = .Rows(intCNT).Item("SYANAI_CD")
                             Trow("KISYU_ID") = .Rows(intCNT).Item("KISYU_ID")
+                            Trow("TOKUI_ID") = .Rows(intCNT).Item("TOKUI_ID")
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With

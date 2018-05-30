@@ -279,6 +279,9 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "設問内容", tblSETUMON_NAIYO)
 
                     Call FunGetCodeDataTable(DB, "廃却方法", tblHAIKYAKU_KB)
+
+                    Call FunGetCodeDataTable(DB, "承認判定区分", tblSYONIN_HANTEI_KB)
+
                 End Using
 
                 '起動時パラメータを取得

@@ -9,8 +9,12 @@ Public Class FrmBaseSts
     Public Shared clrPG_STATUS_ACTIVE As Color = Color.FromArgb(0, 140, 255) 'Color.FromArgb(0, 161, 255)
     Public Shared clrPG_STATUS_PROCESSING As Color = Color.FromArgb(255, 110, 30) 'Color.OrangeRed 'Color.DarkOrange
     Public Shared clrPG_STATUS_ERROR As Color = Color.Red
+    Public Shared clrPG_STATUS_ALTMODE As Color = Color.Purple
 
     Private priblnMode As Boolean
+
+    'DEBUG:
+    Public blnAltMode As Boolean
 #End Region
 
 #Region "プロパティ"
@@ -30,6 +34,8 @@ Public Class FrmBaseSts
                     intRET = ENM_PG_STATUS._2_ACTIVE
                 Case Me.StatusStrip.BackColor = clrPG_STATUS_PROCESSING
                     intRET = ENM_PG_STATUS._3_PROCESSING
+                Case Me.StatusStrip.BackColor = clrPG_STATUS_ALTMODE
+                    intRET = ENM_PG_STATUS._4_ALTMODE
                 Case Me.StatusStrip.BackColor = clrPG_STATUS_ERROR
                     intRET = ENM_PG_STATUS._9_ERROR
             End Select
@@ -47,6 +53,9 @@ Public Class FrmBaseSts
                 Case ENM_PG_STATUS._3_PROCESSING
                     Me.StatusStrip.BackColor = clrPG_STATUS_PROCESSING
                     _blnEventHandled = True
+                Case ENM_PG_STATUS._4_ALTMODE
+                    Me.StatusStrip.BackColor = clrPG_STATUS_ALTMODE
+                    _blnEventHandled = False
                 Case ENM_PG_STATUS._9_ERROR
                     Me.StatusStrip.BackColor = clrPG_STATUS_ERROR
                     _blnEventHandled = True
@@ -154,7 +163,7 @@ Public Class FrmBaseSts
         If Me.Visible = False Then Exit Sub
 
         '-----ステータスバー描画
-        Me.ToolStripStatusLabelBLANK.Width = Me.Width - 810 '624
+        Me.ToolStripStatusLabelBLANK.Width = Me.Width - 810 - 170 '624
 
     End Sub
 
@@ -198,7 +207,13 @@ Public Class FrmBaseSts
 
     Private Sub Frm_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
         If _blnEventHandled = False Then
-            PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
+
+            If blnAltMode Then
+                PrPG_STATUS = ENM_PG_STATUS._4_ALTMODE
+            Else
+                PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
+            End If
+
             For Each item As ToolStripStatusLabel In Me.StatusStrip.Items
                 item.BorderSides = ToolStripStatusLabelBorderSides.None
                 item.BorderStyle = Border3DStyle.SunkenOuter

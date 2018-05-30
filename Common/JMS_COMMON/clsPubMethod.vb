@@ -41,6 +41,11 @@ Public NotInheritable Class ClsPubMethod
         _3_PROCESSING = 3
 
         ''' <summary>
+        ''' モード切替
+        ''' </summary>
+        _4_ALTMODE = 4
+
+        ''' <summary>
         ''' エラー
         ''' </summary>
         _9_ERROR = 9

@@ -14,6 +14,7 @@ Public Class FrmM0000
     Private blnALTPRT As Boolean 'TRUE:最前面WINDOW、FALSE:DESKTOP
 
     Private blnLogin As Boolean
+
 #End Region
 
 #Region "コンストラクタ"
@@ -150,6 +151,22 @@ Public Class FrmM0000
                 '該当ボタンCLICKイベント生成
                 cmdFunc(KeyCode - 112).PerformClick()
             End If
+
+            'DEBUG: テスト用パスワード認証回避コマンド
+            If (KeyCode = Windows.Forms.Keys.T) And (e.Modifiers = Keys.Control + Keys.Shift) Then
+                blnAltMode = Not blnAltMode
+
+                If blnAltMode Then
+                    ToolStripStatusLabelMASSAGE.Text = "テストモード"
+                    MessageBox.Show("テストモードに切り替えました。" & "ログイン時パスワードが不要になり、メール送信機能が無効になります。", "テストモード", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Me.PrPG_STATUS = ENM_PG_STATUS._4_ALTMODE
+
+                Else
+                    Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
+                    ToolStripStatusLabelMASSAGE.Text = ""
+                End If
+            End If
+
 
             'ESC
             If KeyCode = Windows.Forms.Keys.Escape Then
@@ -293,10 +310,11 @@ Public Class FrmM0000
                         Exit Sub
                     End If
 
+
                     '-----PASSWORDチェック
                     With DS.Tables(0).Rows(0)
-                        If .Item("PASS").ToString.TrimEnd <> "" AndAlso
-                        Me.txtPASSWORD.Text.Trim = .Item("PASS").ToString.Trim Then '入力PASSWORD一致時
+                        'DEBUG: パスワード認証回避
+                        If (Not .Item("PASS").ToString.IsNullOrWhiteSpace AndAlso txtPASSWORD.Text.Trim = .Item("PASS").ToString.Trim) Or blnAltMode Then '入力PASSWORD一致時
                             '記憶
                             pub_SYAIN_INFO = New SYAIN_INFO With {
                             .SYAIN_ID = DS.Tables(0).Rows(0).Item("SYAIN_ID"),
@@ -324,6 +342,8 @@ Public Class FrmM0000
                             Exit Sub
                         End If
                     End With
+
+
                 End Using
 
                 Call SubCheckSime(DB)
@@ -337,6 +357,8 @@ Public Class FrmM0000
 
             '-----ログオフ表示
             Call FunLOGIN(True) 'ログオフパネル表示
+
+
 
             '-----業務選択リスト初期化
             If Me.lstGYOMU.Items.Count > 0 Then

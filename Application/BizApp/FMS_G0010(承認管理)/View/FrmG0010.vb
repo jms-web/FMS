@@ -1036,6 +1036,7 @@ Public Class FrmG0010
                                     Where(Function(r) r.Field(Of Boolean)("SELECTED") = True)
 
             If dt.Count > 0 Then
+
                 For Each dr As DataRow In dt.CopyToDataTable.Rows
                     Dim strSubject As String = "【テスト】不適合管理システム テストメール"
                     Dim strBody As String = dr.Item("SYONIN_NAIYO")
@@ -1050,6 +1051,7 @@ Public Class FrmG0010
                     End If
                 Next dr
             Else
+                '選択チェックは入っていない場合、選択行のみ
                 Dim cr As DataRow = dgvDATA.GetDataRow
                 Dim strSubject As String = "【テスト】不適合管理システム テストメール"
                 Dim strBody As String = cr.Item("SYONIN_NAIYO")
@@ -1537,19 +1539,200 @@ Public Class FrmG0010
     End Sub
 
 #Region "共通検索条件"
-    '部門変更時
-    Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
 
-        Select Case Val(cmbBUMON.SelectedValue)
+
+#Region "製品区分(部門区分)"
+    Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        Select Case cmb.SelectedValue.ToString.Trim
+            Case ""
             Case Context.ENM_BUMON_KB._2_LP
                 lblSyanaiCD.Visible = True
                 cmbSYANAI_CD.Visible = True
             Case Else
                 lblSyanaiCD.Visible = False
                 cmbSYANAI_CD.Visible = False
-                ParamModel.SYANAI_CD = ""
         End Select
+
+        Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
+
+        '機種
+        RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+        If blnSelected Then
+            Dim dt As DataTable = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmb.SelectedValue).CopyToDataTable
+
+            cmbKISYU.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            ParamModel.KISYU_ID = 0
+        Else
+            cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+        End If
+        AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+
+
+        '部品番号
+        RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+        If blnSelected Then
+            Dim dt As DataTable = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmb.SelectedValue).CopyToDataTable
+
+            cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            ParamModel.BUHIN_BANGO = ""
+        Else
+            cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+        End If
+        AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+
+        '社内コード
+        RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
+        If blnSelected Then
+            If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
+                Dim dt As DataTable = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmb.SelectedValue).CopyToDataTable
+
+                cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            Else
+                'cmbSYANAI_CD.DataSource = Nothing
+            End If
+            ParamModel.SYANAI_CD = ""
+        Else
+            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+        End If
+        AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
     End Sub
+
+#End Region
+
+#Region "機種"
+    Private Sub CmbKISYU_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKISYU.SelectedValueChanged
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
+
+        '部品番号
+        RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+        If blnSelected Then
+            Dim drs = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue)
+            If drs.Count > 0 Then
+                Dim dt As DataTable = drs.CopyToDataTable
+                Dim _selectedValue As String = cmbBUHIN_BANGO.SelectedValue
+
+                cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                ParamModel.BUHIN_BANGO = _selectedValue
+            End If
+        Else
+            cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+        End If
+        AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+
+        '社内コード
+        RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
+        If blnSelected Then
+            If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
+                Dim dt As DataTable = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue).CopyToDataTable
+
+                cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            Else
+                'cmbSYANAI_CD.DataSource = Nothing
+            End If
+            ParamModel.SYANAI_CD = ""
+        Else
+            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+        End If
+        AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
+    End Sub
+
+#End Region
+
+#Region "社内コード"
+    Private Sub CmbSYANAI_CD_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbSYANAI_CD.SelectedValueChanged
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+
+        Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
+
+        '機種・・・部品番号が絞りこまれることで連動して機種も絞り込まれる
+
+        '部品番号
+        RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+        If blnSelected Then
+            Dim dt As DataTable = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.SYANAI_CD)) = cmb.SelectedValue).CopyToDataTable
+
+            cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            ParamModel.BUHIN_BANGO = ""
+        Else
+            cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+        End If
+        AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+
+
+        '抽出
+        RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+        RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+        If blnSelected Then
+            Dim dr As DataRow = DirectCast(cmbSYANAI_CD.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbSYANAI_CD.SelectedValue).FirstOrDefault
+            ParamModel.BUHIN_BANGO = dr.Item("BUHIN_BANGO")
+            ParamModel.BUHIN_NAME = dr.Item("BUHIN_NAME")
+            ParamModel.KISYU_ID = dr.Item("KISYU_ID")
+
+        Else
+            ParamModel.BUHIN_BANGO = ""
+            ParamModel.BUHIN_NAME = ""
+            ParamModel.KISYU_ID = 0
+        End If
+        AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+        AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+    End Sub
+
+#End Region
+
+#Region "部品番号"
+    Private Sub CmbBUHIN_BANGO_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUHIN_BANGO.SelectedValueChanged
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
+
+        'UNDONE: 部品番号で機種絞り込み
+
+        '社内コード
+        If blnSelected Then
+            cmbSYANAI_CD.DataBindings.Clear()
+            If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
+                Dim dt As DataTable = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUHIN_BANGO)) = cmb.SelectedValue).CopyToDataTable
+
+                cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            Else
+                cmbSYANAI_CD.DataSource = Nothing
+            End If
+            ParamModel.SYANAI_CD = ""
+            cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
+        Else
+            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+        End If
+
+        '抽出
+        If blnSelected Then
+            Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbBUHIN_BANGO.SelectedValue).FirstOrDefault
+
+            If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
+                RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
+                ParamModel.SYANAI_CD = dr.Item("SYANAI_CD")
+                AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
+            End If
+            ParamModel.BUHIN_NAME = dr.Item("BUHIN_NAME")
+
+            RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+            ParamModel.KISYU_ID = dr.Item("KISYU_ID")
+            AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+
+
+        Else
+            ParamModel.SYANAI_CD = ""
+            ParamModel.BUHIN_NAME = ""
+            ParamModel.KISYU_ID = 0
+        End If
+    End Sub
+
+#End Region
+
 
 #Region "検索条件クリア"
     Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click

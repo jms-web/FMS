@@ -428,7 +428,7 @@ Public Class FrmG0011
         End If
 
         '-----モデル更新
-        If PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso _D003_NCR_J.KENSA_KEKKA_KB = ENM_KENSA_KEKKA_KB._1_不合格 Then
+        If (PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso _D003_NCR_J.KENSA_KEKKA_KB = ENM_KENSA_KEKKA_KB._1_不合格) Or PrCurrentStage = ENM_NCR_STAGE._120_abcde処置確認 Then
             _D003_NCR_J.CLOSE_FG = 1
         End If
 
@@ -908,6 +908,14 @@ Public Class FrmG0011
                 Return False
         End Select
 
+        '-----モデル更新
+        Select Case PrCurrentStage
+            Case ENM_NCR_STAGE._120_abcde処置確認
+                _D004_SYONIN_J_KANRI.SYONIN_JUN = 999 'Close
+                _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
+        End Select
+
+
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("MERGE INTO " & NameOf(MODEL.D004_SYONIN_J_KANRI) & " AS SrcT")
@@ -979,10 +987,8 @@ Public Class FrmG0011
         Select Case strRET
             Case "INSERT"
                 If _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False Then
-                    If FunSendMailFutekigo("【テスト】不適合管理システム テストメール", FunGetNextStageName(_D004_SYONIN_J_KANRI.SYONIN_JUN), _D004_SYONIN_J_KANRI.SYAIN_ID) Then
-                    Else
-                        MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    End If
+                    '承認依頼メール送信
+                    Call FunSendRequestMail()
                 End If
             Case "UPDATE"
 
@@ -994,6 +1000,48 @@ Public Class FrmG0011
         End Select
 
         Return True
+    End Function
+
+    ''' <summary>
+    ''' 承認依頼メール送信
+    ''' </summary>
+    ''' <returns></returns>
+    Private Function FunSendRequestMail()
+        Dim KISYU_NAME As String = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
+        Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
+        Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
+        Dim strBody As String = <sql><![CDATA[
+                        {0} 殿
+                        　　不適合製品の処置依頼が来ましたので対応をお願いします。
+                        
+                        【報告書No】{1}
+                        【承認内容(ステージ)】{2}
+                        【機種】{3}
+                        【部品番号】{4}
+                        【依頼者】{5}
+                        【依頼社処置内容】{6}
+                        【コメント】{7}
+                        )
+                        ]]></sql>.Value.Trim
+
+        strSubject = String.Format(strSubject, KISYU_NAME, _D003_NCR_J.BUHIN_BANGO)
+        strBody = String.Format(strBody,
+                                Fun_GetUSER_NAME(_D004_SYONIN_J_KANRI.SYAIN_ID),
+                                _D004_SYONIN_J_KANRI.HOKOKU_NO,
+                                FunGetCurrentStageName(_D004_SYONIN_J_KANRI.SYONIN_JUN),
+                                KISYU_NAME,
+                                _D003_NCR_J.BUHIN_BANGO,
+                                Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
+                                SYONIN_HANTEI_NAME,
+                                _D004_SYONIN_J_KANRI.COMMENT)
+
+
+        If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=_D004_SYONIN_J_KANRI.SYAIN_ID) Then
+            Return True
+        Else
+            MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return False
+        End If
     End Function
 
     ''' <summary>
@@ -2642,23 +2690,61 @@ Public Class FrmG0011
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._110_abcde処置担当).
                                 FirstOrDefault
-                    _D003_NCR_J.SYOCHI_KEKKA_A = Not CBool(_V002_NCR_J.SYOCHI_KEKKA_A)
-                    _D003_NCR_J.SYOCHI_KEKKA_B = Not CBool(_V002_NCR_J.SYOCHI_KEKKA_B)
-                    _D003_NCR_J.SYOCHI_KEKKA_C = Not CBool(_V002_NCR_J.SYOCHI_KEKKA_C)
-                    _D003_NCR_J.SYOCHI_D_UMU_KB = Not CBool(_V002_NCR_J.SYOCHI_D_UMU_KB)
-                    _D003_NCR_J.SYOCHI_D_YOHI_KB = Not CBool(_V002_NCR_J.SYOCHI_E_YOHI_KB)
-                    _D003_NCR_J.SYOCHI_E_UMU_KB = Not CBool(_V002_NCR_J.SYOCHI_D_UMU_KB)
-                    _D003_NCR_J.SYOCHI_E_YOHI_KB = Not CBool(_V002_NCR_J.SYOCHI_E_YOHI_KB)
+
 
                     _D003_NCR_J.SYOCHI_KEKKA_A = CBool(_V002_NCR_J.SYOCHI_KEKKA_A)
+                    If _D003_NCR_J.SYOCHI_KEKKA_A Then
+                        rbtnST11_A1_T.Checked = True
+                    Else
+                        rbtnST11_A1_F.Checked = True
+                    End If
+
                     _D003_NCR_J.SYOCHI_KEKKA_B = CBool(_V002_NCR_J.SYOCHI_KEKKA_B)
+                    If _D003_NCR_J.SYOCHI_KEKKA_B Then
+                        rbtnST11_B1_T.Checked = True
+                    Else
+                        rbtnST11_B1_F.Checked = True
+                    End If
+
                     _D003_NCR_J.SYOCHI_KEKKA_C = CBool(_V002_NCR_J.SYOCHI_KEKKA_C)
+                    If _D003_NCR_J.SYOCHI_KEKKA_C Then
+                        rbtnST11_C1_T.Checked = True
+                    Else
+                        rbtnST11_C1_F.Checked = True
+                    End If
+
                     _D003_NCR_J.SYOCHI_D_UMU_KB = CBool(_V002_NCR_J.SYOCHI_D_UMU_KB)
+                    If _D003_NCR_J.SYOCHI_D_UMU_KB Then
+                        rbtnST11_D1_T.Checked = True
+                    Else
+                        rbtnST11_D1_F.Checked = True
+                    End If
+
                     _D003_NCR_J.SYOCHI_D_YOHI_KB = CBool(_V002_NCR_J.SYOCHI_E_YOHI_KB)
+                    If _D003_NCR_J.SYOCHI_E_YOHI_KB Then
+                        rbtnST11_D2_T.Checked = True
+                    Else
+                        rbtnST11_D2_F.Checked = True
+                    End If
+
                     _D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU = _V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU
+
                     _D003_NCR_J.SYOCHI_E_UMU_KB = CBool(_V002_NCR_J.SYOCHI_D_UMU_KB)
+                    If _D003_NCR_J.SYOCHI_D_UMU_KB Then
+                        rbtnST11_E1_T.Checked = True
+                    Else
+                        rbtnST11_E1_F.Checked = True
+                    End If
+
                     _D003_NCR_J.SYOCHI_E_YOHI_KB = CBool(_V002_NCR_J.SYOCHI_E_YOHI_KB)
+                    If _D003_NCR_J.SYOCHI_E_YOHI_KB Then
+                        rbtnST11_E2_T.Checked = True
+                    Else
+                        rbtnST11_E2_F.Checked = True
+                    End If
+
                     _D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU = _V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU
+
 
                     If _V003 IsNot Nothing Then
                         cmbST11_DestTANTO.SelectedValue = _V003.SYAIN_ID
@@ -2672,7 +2758,7 @@ Public Class FrmG0011
 #End Region
 #Region "               120"
             If intStageID >= ENM_NCR_STAGE._120_abcde処置確認 Then
-
+                _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             End If
 #End Region
 
@@ -2713,8 +2799,20 @@ Public Class FrmG0011
                 cmbSYANAI_CD.Visible = False
         End Select
 
-        'UNDONE: 部門で機種絞り込み
         Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
+
+        '機種
+        RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+        If blnSelected Then
+            Dim dt As DataTable = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmb.SelectedValue).CopyToDataTable
+
+            cmbKISYU.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            _D003_NCR_J.KISYU_ID = 0
+        Else
+            cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+        End If
+        AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+
 
         '部品番号
         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
@@ -2820,8 +2918,10 @@ Public Class FrmG0011
     Private Sub CmbSYANAI_CD_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbSYANAI_CD.SelectedValueChanged
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        'UNDONE: 社内CDで機種絞り込み
+
         Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
+
+        '機種・・・部品番号が絞りこまれることで連動して機種も絞り込まれる
 
         '部品番号
         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
@@ -3188,40 +3288,37 @@ Public Class FrmG0011
     '共通項目のみ
 #End Region
 #Region "   STAGE11"
-    Private Sub ChkST11_CheckedChanged(sender As Object, e As EventArgs) Handles chkST11_A1.CheckedChanged,
-                                                                                 chkST11_B1.CheckedChanged,
-                                                                                 chkST11_C1.CheckedChanged,
-                                                                                 chkST11_D1.CheckedChanged,
-                                                                                 chkST11_D2.CheckedChanged,
-                                                                                 chkST11_E1.CheckedChanged,
-                                                                                 chkST11_E2.CheckedChanged
+    Private Sub ChkST11_CheckedChanged(sender As Object, e As EventArgs) 'Handles chkST11_A1.CheckedChanged,
+        'chkST11_B1.CheckedChanged,
+        'chkST11_C1.CheckedChanged,
+        'chkST11_D1.CheckedChanged,
+        'chkST11_D2.CheckedChanged,
+        'chkST11_E1.CheckedChanged,
+        'chkST11_E2.CheckedChanged
 
 
         Dim chk As CheckBox = DirectCast(sender, CheckBox)
+        Dim strNameSuffix As String
         If chk.Checked Then
-            Dim strCtrlName As String
-            Dim rbtn As RadioButton = DirectCast(tlpST08.Controls("rbtnST11_" & chk.Name.Substring(8, 2) & "_T"), RadioButton)
-            rbtn.Checked = True
+            strNameSuffix = "T"
         Else
-            Dim rbtn As RadioButton = DirectCast(tlpST08.Controls("rbtnST11_" & chk.Name.Substring(8, 2) & "_F"), RadioButton)
+            strNameSuffix = "F"
+        End If
+        Dim ctrlLabel As Control() = Me.Controls.Find("rbtnST11_" & chk.Name.Substring(8, 2) & "_" & strNameSuffix, True)
+        If ctrlLabel.Length > 0 Then
+            Dim rbtn As RadioButton = ctrlLabel(0)
             rbtn.Checked = True
         End If
     End Sub
 
-    Private Sub RbtnST11_YES_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST11_A1_T.CheckedChanged,
+    Private Sub RbtnST11_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST11_A1_T.CheckedChanged,
                                                                                       rbtnST11_B1_T.CheckedChanged,
                                                                                       rbtnST11_C1_T.CheckedChanged,
                                                                                       rbtnST11_D1_T.CheckedChanged,
                                                                                       rbtnST11_D2_T.CheckedChanged,
                                                                                       rbtnST11_E1_T.CheckedChanged,
-                                                                                      rbtnST11_E2_T.CheckedChanged
-        Dim rbtn As RadioButton = DirectCast(sender, RadioButton)
-
-        Dim blnChecked As Boolean = DirectCast(tlpST08.Controls("rbtnST11_" & rbtn.Name.Substring(8, 2) & "_T"), RadioButton).Checked
-        DirectCast(tlpST08.Controls("chkST11_" & rbtn.Name.Substring(8, 2) & "_T"), RadioButton).Checked = blnChecked
-    End Sub
-
-    Private Sub RbtnST11_NO_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST11_A1_F.CheckedChanged,
+                                                                                      rbtnST11_E2_T.CheckedChanged,
+                                                                                      rbtnST11_A1_F.CheckedChanged,
                                                                                       rbtnST11_B1_F.CheckedChanged,
                                                                                       rbtnST11_C1_F.CheckedChanged,
                                                                                       rbtnST11_D1_F.CheckedChanged,
@@ -3229,10 +3326,16 @@ Public Class FrmG0011
                                                                                       rbtnST11_E1_F.CheckedChanged,
                                                                                       rbtnST11_E2_F.CheckedChanged
         Dim rbtn As RadioButton = DirectCast(sender, RadioButton)
+        Dim strNameSuffix As String = rbtn.Name.Substring(12, 1)
 
-        Dim blnChecked As Boolean = DirectCast(tlpST08.Controls("rbtnST11_" & rbtn.Name.Substring(8, 2) & "_F"), RadioButton).Checked
-        DirectCast(tlpST08.Controls("chkST11_" & rbtn.Name.Substring(8, 2) & "_F"), RadioButton).Checked = blnChecked
+        Dim ctrlLabel As Control() = Me.Controls.Find("chkST11_" & rbtn.Name.Substring(9, 2), True)
+        If ctrlLabel.Length > 0 Then
+            Dim chk As CheckBox = ctrlLabel(0)
+            chk.Checked = IIf(strNameSuffix = "T", True, False)
+        End If
     End Sub
+
+
 
 #End Region
 #Region "   STAGE12"

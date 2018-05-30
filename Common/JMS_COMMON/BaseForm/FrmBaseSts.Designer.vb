@@ -29,6 +29,7 @@ Partial Class FrmBaseSts
         Me.ToolStripStatusLabelPCNAME = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabelBLANK = New System.Windows.Forms.ToolStripStatusLabel()
         Me.TimerTime = New System.Windows.Forms.Timer(Me.components)
+        Me.ToolStripStatusLabelMASSAGE = New System.Windows.Forms.ToolStripStatusLabel()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -45,7 +46,7 @@ Partial Class FrmBaseSts
         '
         Me.StatusStrip.BackColor = System.Drawing.SystemColors.Control
         Me.StatusStrip.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabelVERSION, Me.ToolStripStatusLabelPCNAME, Me.ToolStripStatusLabelBLANK})
+        Me.StatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabelVERSION, Me.ToolStripStatusLabelPCNAME, Me.ToolStripStatusLabelBLANK, Me.ToolStripStatusLabelMASSAGE})
         Me.StatusStrip.Location = New System.Drawing.Point(0, 685)
         Me.StatusStrip.Name = "StatusStrip"
         Me.StatusStrip.Size = New System.Drawing.Size(1264, 26)
@@ -92,13 +93,23 @@ Partial Class FrmBaseSts
         Me.ToolStripStatusLabelBLANK.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.ToolStripStatusLabelBLANK.Margin = New System.Windows.Forms.Padding(0, 3, 0, 0)
         Me.ToolStripStatusLabelBLANK.Name = "ToolStripStatusLabelBLANK"
-        Me.ToolStripStatusLabelBLANK.Size = New System.Drawing.Size(520, 23)
+        Me.ToolStripStatusLabelBLANK.Size = New System.Drawing.Size(350, 23)
         Me.ToolStripStatusLabelBLANK.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TimerTime
         '
         Me.TimerTime.Enabled = True
         Me.TimerTime.Interval = 1000
+        '
+        'ToolStripStatusLabelMASSAGE
+        '
+        Me.ToolStripStatusLabelMASSAGE.AutoSize = False
+        Me.ToolStripStatusLabelMASSAGE.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
+            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
+        Me.ToolStripStatusLabelMASSAGE.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter
+        Me.ToolStripStatusLabelMASSAGE.Name = "ToolStripStatusLabelMASSAGE"
+        Me.ToolStripStatusLabelMASSAGE.Size = New System.Drawing.Size(170, 21)
         '
         'FrmBaseSts
         '
@@ -134,4 +145,5 @@ Partial Class FrmBaseSts
     Protected WithEvents ToolStripStatusLabelPCNAME As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents TimerTime As Timer
     Public WithEvents StatusStrip As StatusStrip
+    Protected WithEvents ToolStripStatusLabelMASSAGE As ToolStripStatusLabel
 End Class
