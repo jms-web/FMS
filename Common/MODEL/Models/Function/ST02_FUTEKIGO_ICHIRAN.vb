@@ -52,9 +52,23 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     <ComponentModel.DisplayName("ˆ’u’S“–ŽÒ–¼")>
     Public Property GEN_TANTO_NAME As String
 
-    <StringLength(14)>
+
     <ComponentModel.DisplayName("³”F“úŽž")>
-    Public Property SYONIN_YMDHNS As String
+    <Display(AutoGenerateField:=False)>
+    <Column(NameOf(SYONIN_YMDHNS), TypeName:="String")>
+    Public Property _SYONIN_YMDHNS As String
+
+    <NotMapped>
+    <ComponentModel.DisplayName("³”F“úŽž")>
+    Public Property SYONIN_YMDHNS As DateTime
+        Get
+            Return DateTime.ParseExact(_SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing)
+        End Get
+        Set(value As DateTime)
+
+            _SYONIN_YMDHNS = value.ToString("yyyyMMddHHmmss")
+        End Set
+    End Property
 
     <ComponentModel.DisplayName("‘Ø—¯“ú”")>
     Public Property TAIRYU_NISSU As Integer

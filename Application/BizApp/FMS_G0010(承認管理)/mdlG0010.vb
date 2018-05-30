@@ -267,6 +267,7 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "社内CD", tblSYANAI_CD)
 
                     Call FunGetCodeDataTable(DB, "承認担当", tblTANTO_SYONIN)
+                    'Call FunGetCodeDataTable(DB, "承認担当一覧", tblTANTO_SYONINList)
                     Call FunGetCodeDataTable(DB, "顧客判定指示区分", tblKOKYAKU_HANTEI_SIJI_KB)
                     Call FunGetCodeDataTable(DB, "顧客最終判定区分", tblKOKYAKU_SAISYU_HANTEI_KB)
                     Call FunGetCodeDataTable(DB, "要否区分", tblYOHI_KB)
@@ -753,6 +754,9 @@ Module mdlG0010
 
 #If DEBUG Then
                     strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
+                    'DEBUG: mail送信無効
+                    strToAddress = "funato@jms-web.co.jp"
+                    'strToAddress = "i2u5r6p1d7l9o6s3@jms-web.slack.com"
 #Else
                     strFromAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
 #End If
@@ -767,15 +771,6 @@ Module mdlG0010
 
             strMsg = String.Format("【メール送信成功】TO:{0}({1}) SUBJECT:{2}", strToSyainName, strToAddress, strSubject)
             WL.WriteLogDat(strMsg)
-
-
-            'DEBUG: mail送信無効
-            'Select Case ToSYAIN_ID
-            'Case 136, 999999
-            'Case Else
-            Return True
-            'End Select
-
 
             ''認証なし
             'blnSend = ClsMailSend.FunSendMail(strSmtpServer,
@@ -813,8 +808,75 @@ Module mdlG0010
 
 #End Region
 
-#Region "Excel出力"
+#Region "管理者権限確認"
+
+    Public Function HasAdminAuth(ByVal intSYAIN_ID As Integer) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("SELECT")
+        sbSQL.Append(" *")
+        sbSQL.Append(" FROM " & NameOf(MODEL.VWM001_SETTING) & " ")
+        sbSQL.Append(" WHERE ITEM_NAME='管理者権限'")
+        sbSQL.Append(" AND ITEM_DISP='" & intSYAIN_ID & "'")
+        Using DBa As ClsDbUtility = DBOpen()
+            dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        If dsList.Tables(0).Rows.Count > 0 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+#End Region
+
+#Region "承認所属社員取得"
+    'TV02_SYONIN_SYOZOKU_SYAIN
+
+    Public Function FunGetSYONIN_SYOZOKU_SYAIN(ByVal Optional BUMON_KB As String = "", ByVal Optional SYONIN_HOUKOKUSYO_ID As Integer = 0, ByVal Optional SYONIN_JUN As Integer = 0) As DataTable
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        Dim dt As DataTableEx
+
+        dt = New DataTableEx("System.Int32")
+
+        sbSQL.Append("SELECT * FROM TV02_SYONIN_SYOZOKU_SYAIN('" & BUMON_KB & "')")
+        If SYONIN_HOUKOKUSYO_ID > 0 Then
+            sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & SYONIN_HOUKOKUSYO_ID & "")
+            sbSQL.Append(" AND SYONIN_JUN=" & SYONIN_JUN & "")
+        End If
+        sbSQL.Append(" ORDER BY SYONIN_HOKOKUSYO_ID,SYONIN_JUN,SYAIN_ID")
+        Using DB As ClsDbUtility = DBOpen()
+            dsList = DB.GetDataSet(sbSQL.ToString, False)
+        End Using
+
+        'dt.Columns.Add("SYONIN_HOKOKUSYO_ID", GetType(Integer))
+        'dt.Columns.Add("SYONIN_JUN", GetType(Integer))
+
+        dt.PrimaryKey = {dt.Columns("VALUE")} ', dt.Columns("SYONIN_JUN"), dt.Columns("SYONIN_HOKOKUSYO_ID")
+
+        With dsList.Tables(0)
+            For intCNT = 0 To .Rows.Count - 1
+                Dim Trow As DataRow = dt.NewRow()
+                If Not dt.Rows.Contains(.Rows(intCNT).Item("SYAIN_ID")) Then
+                    Trow("VALUE") = .Rows(intCNT).Item("SYAIN_ID")
+                    Trow("DISP") = .Rows(intCNT).Item("SIMEI")
+                    'Trow("DEF_FLG") = False
+                    'Trow("DEL_FLG") = False
+                    'Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
+                    'Trow("SYONIN_JUN") = .Rows(intCNT).Item("SYONIN_JUN")
+                    dt.Rows.Add(Trow)
+                End If
+            Next intCNT
+        End With
+
+        Return dt
+    End Function
 
 #End Region
+
 
 End Module

@@ -32,6 +32,12 @@ Module mdlM0000
     Public arrCMDS_SUBFUNC(11) As SUB_CMDS_TYPE    'サブファンクション
     Public intCMDS_SUBFUNC As Integer          'サブファンクション件数
 
+    'メールリンク関連
+    Public pubLinkEXE As String
+    Public pubLinkSyainID As String
+    Public pubLinkParams As String
+
+
 #Region "MAIN"
     <STAThread()>
     Public Sub Main()
@@ -79,6 +85,17 @@ Module mdlM0000
                     strBUFF = iniIF.GetIniString("SYSTEM", "USERID")
                 End Using
 
+                'UNDONE: パラメータ取得 メールリンク経由でのPG起動用 ユーザーIDとPG_PATH およびそのPGのパラメータを受け取る
+                Dim cmds() As String
+                cmds = System.Environment.GetCommandLineArgs
+
+                If cmds.Length = 4 Then
+                    'メールリンク用 
+                    pubLinkSyainID = cmds(1)
+                    pubLinkEXE = cmds(2)
+                    pubLinkParams = cmds(3)
+                End If
+
                 '前回ログインユーザーが空欄の場合=バージョンアップ後初回起動時
                 If strBUFF.Trim = "" Then
                     Using frmDLG As New FrmM0010
@@ -86,10 +103,7 @@ Module mdlM0000
                     End Using
                 End If
 
-
-                'UNDONE: パラメータ取得 メールリンク経由でのPG起動用 ユーザーIDとPG_PATH およびそのPGのパラメータを受け取る
-
-
+                'ジャンプリスト
                 Call FunCreateJumpList()
 
                 '-----一覧画面表示

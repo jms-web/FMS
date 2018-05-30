@@ -157,6 +157,31 @@ Public Class FrmG0011
             Call FunSetBinding()
 
             'ä˘íËílÇÃê›íË
+            Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
+            If blnIsAdmin Then
+                'ÉVÉXÉeÉÄä«óùé“ÇÃÇ›êßå¿âèú
+            Else
+                Select Case pub_SYAIN_INFO.BUMON_KB
+                    Case Context.ENM_BUMON_KB._1_ïóñh, Context.ENM_BUMON_KB._2_LP
+                        cmbBUMON.DataSource = DirectCast(cmbBUMON.DataSource, DataTable).
+                                                    AsEnumerable.
+                                                    Where(Function(r) r.Field(Of String)("VALUE") = "1" Or r.Field(Of String)("VALUE") = "2").
+                                                    CopyToDataTable
+
+                        cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+
+                    Case Context.ENM_BUMON_KB._3_ï°çáçﬁ
+                        cmbBUMON.DataSource = DirectCast(cmbBUMON.DataSource, DataTable).
+                                                    AsEnumerable.
+                                                    Where(Function(r) r.Field(Of String)("VALUE") = pub_SYAIN_INFO.BUMON_KB).
+                                                    CopyToDataTable
+
+                        cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+                    Case Else
+
+                End Select
+            End If
+
 
             '''-----ÉCÉxÉìÉgÉnÉìÉhÉâê›íË
             'AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
@@ -694,7 +719,7 @@ Public Class FrmG0011
         '---defaultValue
         sbSQL.Append(" ,'0'") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZESEI_NASI_RIYU))
-        sbSQL.Append(" ,'0'") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB))
+        sbSQL.Append(" ,' '") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB))
         sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_YMD))
         sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID))
@@ -800,6 +825,7 @@ Public Class FrmG0011
             Case ENM_SAVE_MODE._1_ï€ë∂
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_ñ¢è≥îF
+                _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             Case ENM_SAVE_MODE._2_è≥îFê\êø
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF
@@ -866,7 +892,7 @@ Public Class FrmG0011
         sbSQL.Append("  WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN))
-        sbSQL.Append(" ," & pub_SYAIN_INFO.SYAIN_ID & "")
+        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG))
@@ -900,7 +926,12 @@ Public Class FrmG0011
                 Return True
             Case ENM_SAVE_MODE._2_è≥îFê\êø
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = FunGetNextSYONIN_JUN(PrCurrentStage)
-                _D004_SYONIN_J_KANRI.SYAIN_ID = FunGetNextSYONIN_TANTO_ID(PrCurrentStage)
+
+                If PrCurrentStage = ENM_NCR_STAGE._120_abcdeèàíuämîF Then
+                    _D004_SYONIN_J_KANRI.SYAIN_ID = 0
+                Else
+                    _D004_SYONIN_J_KANRI.SYAIN_ID = FunGetNextSYONIN_TANTO_ID(PrCurrentStage)
+                End If
                 _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
                 _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False
             Case Else
@@ -1008,21 +1039,20 @@ Public Class FrmG0011
     ''' <returns></returns>
     Private Function FunSendRequestMail()
         Dim KISYU_NAME As String = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
-        Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
+        Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
         Dim strSubject As String = "ÅyïsìKçáïièàíuàÀóäÅz{0}ÅE{1}"
         Dim strBody As String = <sql><![CDATA[
-                        {0} ìa
-                        Å@Å@ïsìKçáêªïiÇÃèàíuàÀóäÇ™óàÇ‹ÇµÇΩÇÃÇ≈ëŒâûÇÇ®äËÇ¢ÇµÇ‹Ç∑ÅB
-                        
-                        ÅyïÒçêèëNoÅz{1}
-                        Åyè≥îFì‡óe(ÉXÉeÅ[ÉW)Åz{2}
-                        Åyã@éÌÅz{3}
-                        Åyïîïiî‘çÜÅz{4}
-                        ÅyàÀóäé“Åz{5}
-                        ÅyàÀóäé–èàíuì‡óeÅz{6}
-                        ÅyÉRÉÅÉìÉgÅz{7}
-                        )
-                        ]]></sql>.Value.Trim
+        {0} ìa
+        ïsìKçáêªïiÇÃèàíuàÀóäÇ™óàÇ‹ÇµÇΩÇÃÇ≈ëŒâûÇÇ®äËÇ¢ÇµÇ‹Ç∑ÅB
+        
+        ÅyïÒçêèëNoÅz{1}
+        Åyè≥îFì‡óe(ÉXÉeÅ[ÉW)Åz{2}
+        Åyã@éÌÅz{3}
+        Åyïîïiî‘çÜÅz{4}
+        ÅyàÀóäé“Åz{5}
+        ÅyàÀóäé“èàíuì‡óeÅz{6}
+        ÅyÉRÉÅÉìÉgÅz{7}                        
+        ]]></sql>.Value.Trim
 
         strSubject = String.Format(strSubject, KISYU_NAME, _D003_NCR_J.BUHIN_BANGO)
         strBody = String.Format(strBody,
@@ -2147,17 +2177,17 @@ Public Class FrmG0011
         Dim _V003 As New MODEL.V003_SYONIN_J_KANRI
         Try
 
-
-
 #Region "               10"
             If intStageID >= ENM_NCR_STAGE._10_ãNëêì¸óÕ Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                                            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_ãNëêì¸óÕ)).
-                                            CopyToDataTable
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_ãNëêì¸óÕ))
+                'dt = tblTANTO_SYONIN.AsEnumerable.
+                '                            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_ãNëêì¸óÕ)).
+                '                            CopyToDataTable
+                cmbST01_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST01_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                 mtxST01_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_ãNëêì¸óÕ))
-                cmbST01_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
 
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
@@ -2180,13 +2210,15 @@ Public Class FrmG0011
 #End Region
 #Region "               20"
             If intStageID >= ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                                Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL)).
-                                CopyToDataTable
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL))
+                'dt = tblTANTO_SYONIN.AsEnumerable.
+                'Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL)).
+                'CopyToDataTable
+                cmbST02_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST02_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                 mtxST02_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL))
-                cmbST02_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
 
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
@@ -2207,13 +2239,14 @@ Public Class FrmG0011
 #End Region
 #Region "               30"
             If intStageID >= ENM_NCR_STAGE._30_ãNëêämîFåüç∏ Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                                Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_ãNëêämîFåüç∏)).
-                                CopyToDataTable
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_ãNëêämîFåüç∏))
+                'dt = tblTANTO_SYONIN.AsEnumerable.
+                '                Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_ãNëêämîFåüç∏)).
+                '                CopyToDataTable
+                cmbST03_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST03_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                 mtxST03_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_ãNëêämîFåüç∏))
-                cmbST03_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -2232,16 +2265,16 @@ Public Class FrmG0011
 #End Region
 #Region "               40"
             If intStageID >= ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                                            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË)).
-                                            CopyToDataTable
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË))
+                'dt = tblTANTO_SYONIN.AsEnumerable.
+                '                            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË)).
+                '                            CopyToDataTable
+                cmbST04_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST04_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                 mtxST04_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË))
-                cmbST04_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 cmbST04_JIZENSINSA_HANTEI.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -2271,13 +2304,14 @@ Public Class FrmG0011
 #End Region
 #Region "               50"
             If intStageID >= ENM_NCR_STAGE._50_éñëOêRç∏ämîF Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._50_éñëOêRç∏ämîF)).
-                                        CopyToDataTable
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._50_éñëOêRç∏ämîF))
+                'dt = tblTANTO_SYONIN.AsEnumerable.
+                '                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._50_éñëOêRç∏ämîF)).
+                '                        CopyToDataTable
+                cmbST05_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST05_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                 mtxST05_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._50_éñëOêRç∏ämîF))
-                cmbST05_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -2296,13 +2330,14 @@ Public Class FrmG0011
 #End Region
 #Region "               60"
             If intStageID >= ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\ Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\)).
-                                        CopyToDataTable
-                mtxST06_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\))
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\))
+                'dt = tblTANTO_SYONIN.AsEnumerable.
+                '                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\)).
+                '                        CopyToDataTable
                 cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
 
+                mtxST06_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\))
+                mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                 cmbST06_SAISIN_IINKAI_HANTEI.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 'SPEC: 60-2.áB
@@ -2343,14 +2378,14 @@ Public Class FrmG0011
 #Region "               61"
             If intStageID >= ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\ Then
                 If FunExistAchievement(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\) Then
-                    dt = tblTANTO_SYONIN.AsEnumerable.
-                                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\)).
-                                        CopyToDataTable
+                    dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\))
+                    'dt = tblTANTO_SYONIN.AsEnumerable.
+                    '                    Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\)).
+                    '                    CopyToDataTable
+                    cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                     mtxST06_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\))
-                    cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
                     cmbST06_SAISIN_IINKAI_HANTEI.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     'SPEC: 60-2.áC
@@ -2385,16 +2420,16 @@ Public Class FrmG0011
             End If
 #End Region
 #Region "               70"
-
             If intStageID >= ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag Then
                 If FunExistAchievement(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag) Then
-                    dt = tblTANTO_SYONIN.AsEnumerable.
-                                Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag)).
-                                CopyToDataTable
+                    dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag))
+                    'dt = tblTANTO_SYONIN.AsEnumerable.
+                    '            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag)).
+                    '            CopyToDataTable
+                    cmbST07_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     mtxST07_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                     mtxST07_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag))
-                    cmbST07_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                         _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -2434,13 +2469,14 @@ Public Class FrmG0011
             '80
             If intStageID >= ENM_NCR_STAGE._80_èàíué¿é{ Then
                 If FunExistAchievement(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._80_èàíué¿é{) Then
-                    dt = tblTANTO_SYONIN.AsEnumerable.
-                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_èàíué¿é{)).
-                          CopyToDataTable
+                    dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_èàíué¿é{))
+                    'dt = tblTANTO_SYONIN.AsEnumerable.
+                    '      Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_èàíué¿é{)).
+                    '      CopyToDataTable
+                    cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     mtxST08_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                     mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_èàíué¿é{))
-                    cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     cmbST08_1_HAIKYAKU_KB.SetDataSource(tblHAIKYAKU_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     cmbST08_1_HAIKYAKU_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -2556,12 +2592,13 @@ Public Class FrmG0011
 #Region "               81"
             '81
             If intStageID >= ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ)).
-                          CopyToDataTable
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ))
+                'dt = tblTANTO_SYONIN.AsEnumerable.
+                '          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ)).
+                '          CopyToDataTable
+                cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ))
-                cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -2580,12 +2617,13 @@ Public Class FrmG0011
 #Region "               82"
             '82
             If intStageID >= ENM_NCR_STAGE._82_èàíué¿é{_êªë¢ Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢)).
-                          CopyToDataTable
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢))
+                'dt = tblTANTO_SYONIN.AsEnumerable.
+                '          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢)).
+                '          CopyToDataTable
+                cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢))
-                cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -2604,12 +2642,14 @@ Public Class FrmG0011
 #Region "               83"
             '83
             If intStageID >= ENM_NCR_STAGE._83_èàíué¿é{_åüç∏ Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏)).
-                          CopyToDataTable
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏))
+                'dt = tblTANTO_SYONIN.AsEnumerable.
+                '          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏)).
+                '          CopyToDataTable
+
+                cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏))
-                cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -2627,13 +2667,14 @@ Public Class FrmG0011
 #End Region
 #Region "               90"
             If intStageID >= ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT)).
-                            CopyToDataTable
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT))
+                'dt = tblTANTO_SYONIN.AsEnumerable.
+                '            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT)).
+                '            CopyToDataTable
+                cmbST09_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST09_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                 mtxST09_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT))
-                cmbST09_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -2652,13 +2693,14 @@ Public Class FrmG0011
 #End Region
 #Region "               100"
             If intStageID >= ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑ Then
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                    Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑)).
-                    CopyToDataTable
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑))
+                'dt = tblTANTO_SYONIN.AsEnumerable.
+                '    Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑)).
+                '    CopyToDataTable
+                cmbST10_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST10_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                 mtxST10_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑))
-                cmbST10_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -2677,14 +2719,14 @@ Public Class FrmG0011
 #End Region
 #Region "               110"
             If intStageID >= ENM_NCR_STAGE._110_abcdeèàíuíSìñ Then
-
-                dt = tblTANTO_SYONIN.AsEnumerable.
-                          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcdeèàíuíSìñ)).
-                          CopyToDataTable
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcdeèàíuíSìñ))
+                'dt = tblTANTO_SYONIN.AsEnumerable.
+                '          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcdeèàíuíSìñ)).
+                '          CopyToDataTable
+                cmbST11_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST11_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                 mtxST11_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcdeèàíuíSìñ))
-                cmbST11_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -2789,7 +2831,7 @@ Public Class FrmG0011
     Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        Select Case cmb.SelectedValue.ToString.Trim
+        Select Case cmb.SelectedValue?.ToString.Trim
             Case ""
             Case Context.ENM_BUMON_KB._2_LP
                 lblSYANAI_CD.Visible = True
@@ -2869,7 +2911,7 @@ Public Class FrmG0011
         'ïîïiî‘çÜ
         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
         If blnSelected Then
-            Dim drs = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue)
+            Dim drs = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue).ToList
             If drs.Count > 0 Then
                 Dim dt As DataTable = drs.CopyToDataTable
                 Dim _selectedValue As String = cmbBUHIN_BANGO.SelectedValue
@@ -2943,7 +2985,7 @@ Public Class FrmG0011
             Dim dr As DataRow = DirectCast(cmbSYANAI_CD.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbSYANAI_CD.SelectedValue).FirstOrDefault
             _D003_NCR_J.BUHIN_BANGO = dr.Item("BUHIN_BANGO")
             _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
-            _D003_NCR_J.KISYU_ID = dr.Item("KISYU_ID")
+            If dr.Item("KISYU_ID") <> 0 Then _D003_NCR_J.KISYU_ID = dr.Item("KISYU_ID")
 
         Else
             _D003_NCR_J.BUHIN_BANGO = ""
@@ -2993,7 +3035,7 @@ Public Class FrmG0011
             _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
 
             RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-            _D003_NCR_J.KISYU_ID = dr.Item("KISYU_ID")
+            If dr.Item("KISYU_ID") <> 0 Then _D003_NCR_J.KISYU_ID = dr.Item("KISYU_ID")
             AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
 
             'çƒî≠É`ÉFÉbÉN
@@ -3256,15 +3298,42 @@ Public Class FrmG0011
         End If
     End Sub
 
+    Private Sub CmbST04_JIZENSINSA_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST04_JIZENSINSA_HANTEI.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = True
+        End If
+    End Sub
+
 #End Region
 #Region "   STAGE5"
     'ã§í çÄñ⁄ÇÃÇ›
 #End Region
 #Region "   STAGE6"
-    Private Sub cmbST06_SAISIN_IINKAI_HANTEI_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbST06_SAISIN_IINKAI_HANTEI.SelectedValueChanged
-        'éüÉXÉeÅ[ÉWñºçXêV
+    Private Sub CmbST06_SAISIN_IINKAI_HANTEI_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbST06_SAISIN_IINKAI_HANTEI.SelectedValueChanged
+        'UNDONE: éüÉXÉeÅ[ÉWñºçXêV
     End Sub
 
+    Private Sub CmbST06_SAISIN_IINKAI_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST06_SAISIN_IINKAI_HANTEI.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = True
+        End If
+    End Sub
 
 #End Region
 #Region "   STAGE7"
@@ -3277,8 +3346,177 @@ Public Class FrmG0011
         End If
     End Sub
 
+    Private Sub CmbST07_SAISIN_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_SAISIN_TANTO.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = True
+        End If
+    End Sub
+
+    Private Sub CmbST07_KOKYAKU_HANTEI_SIJI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_KOKYAKU_HANTEI_SIJI.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = True
+        End If
+    End Sub
+
+    Private Sub CmbST07_KOKYAKU_SAISYU_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_KOKYAKU_SAISYU_HANTEI.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = True
+        End If
+    End Sub
+
 #End Region
 #Region "   STAGE8"
+
+#Region "       8-1"
+    Private Sub CmbST08_1_HAIKYAKU_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_1_HAIKYAKU_KB.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = True
+        End If
+    End Sub
+
+    Private Sub CmbST08_1_HAIKYAKU_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_1_HAIKYAKU_TANTO.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = True
+        End If
+    End Sub
+#End Region
+#Region "       8-2"
+    Private Sub CmbST08_2_KENSA_KEKKA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_2_KENSA_KEKKA.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = True
+        End If
+    End Sub
+    Private Sub CmbST08_2_TANTO_SEIZO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_2_TANTO_SEIZO.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = True
+        End If
+    End Sub
+    Private Sub CmbST08_2_TANTO_SEIGI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_2_TANTO_SEIGI.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = True
+        End If
+    End Sub
+    Private Sub CmbST08_2_TANTO_KENSA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_2_TANTO_KENSA.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = True
+        End If
+    End Sub
+#End Region
+#Region "       8-3"
+    Private Sub CmbST08_3_HENKYAKU_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_3_HENKYAKU_TANTO.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If tabST08_SUB.SelectedIndex = 2 AndAlso cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = True
+        End If
+    End Sub
+#End Region
+#Region "       8-4"
+    Private Sub CmbST08_4_KISYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_4_KISYU.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = True
+        End If
+    End Sub
+    Private Sub CmbST08_4_BUHIN_BANGO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_4_BUHIN_BANGO.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = True
+        End If
+    End Sub
+#End Region
 
 #End Region
 #Region "   STAGE9"
@@ -3918,18 +4156,32 @@ Public Class FrmG0011
                         Call CmbDestTANTO_Validating(cmbST03_DestTANTO, Nothing)
 
                     Case ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË
+                        Call CmbST04_JIZENSINSA_HANTEI_Validating(cmbST04_JIZENSINSA_HANTEI, Nothing)
                         Call CmbDestTANTO_Validating(cmbST04_DestTANTO, Nothing)
 
                     Case ENM_NCR_STAGE._50_éñëOêRç∏ämîF
                         Call CmbDestTANTO_Validating(cmbST05_DestTANTO, Nothing)
 
                     Case ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\, ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\
+                        Call CmbST06_SAISIN_IINKAI_HANTEI_Validating(cmbST06_SAISIN_IINKAI_HANTEI, Nothing)
                         Call CmbDestTANTO_Validating(cmbST06_DestTANTO, Nothing)
 
                     Case ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag
+                        Call CmbST07_SAISIN_TANTO_Validating(cmbST07_SAISIN_TANTO, Nothing)
+                        Call CmbST07_KOKYAKU_HANTEI_SIJI_Validating(cmbST07_KOKYAKU_HANTEI_SIJI, Nothing)
+                        Call CmbST07_KOKYAKU_SAISYU_HANTEI_Validating(cmbST07_KOKYAKU_SAISYU_HANTEI, Nothing)
                         Call CmbDestTANTO_Validating(cmbST07_DestTANTO, Nothing)
 
                     Case ENM_NCR_STAGE._80_èàíué¿é{, ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ, ENM_NCR_STAGE._82_èàíué¿é{_êªë¢, ENM_NCR_STAGE._83_èàíué¿é{_åüç∏
+                        Call CmbST08_1_HAIKYAKU_KB_Validating(cmbST08_1_HAIKYAKU_KB, Nothing)
+                        Call CmbST08_1_HAIKYAKU_TANTO_Validating(cmbST08_1_HAIKYAKU_TANTO, Nothing)
+                        Call CmbST08_2_KENSA_KEKKA_Validating(cmbST08_2_KENSA_KEKKA, Nothing)
+                        Call CmbST08_2_TANTO_KENSA_Validating(cmbST08_2_TANTO_KENSA, Nothing)
+                        Call CmbST08_2_TANTO_SEIGI_Validating(cmbST08_2_TANTO_SEIGI, Nothing)
+                        Call CmbST08_2_TANTO_SEIZO_Validating(cmbST08_2_TANTO_SEIZO, Nothing)
+                        Call CmbST08_3_HENKYAKU_TANTO_Validating(cmbST08_3_HENKYAKU_TANTO, Nothing)
+                        Call CmbST08_4_BUHIN_BANGO_Validating(cmbST08_4_BUHIN_BANGO, Nothing)
+                        Call CmbST08_4_KISYU_Validating(cmbST08_4_KISYU, Nothing)
                         Call CmbDestTANTO_Validating(cmbST08_DestTANTO, Nothing)
 
                     Case ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT

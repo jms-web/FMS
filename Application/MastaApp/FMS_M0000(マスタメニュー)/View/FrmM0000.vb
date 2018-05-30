@@ -120,6 +120,18 @@ Public Class FrmM0000
             Application.DoEvents()
 
 
+            'メールリンクパラメータを展開
+            If Not pubLinkSyainID.IsNullOrWhiteSpace Then
+                Me.txtUSER.Text = Fun_GetSYAIN_NO(pubLinkSyainID)
+
+                'オルタナティブモードでパスワード認証を回避して自動ログイン
+                blnAltMode = True
+                Call CmdLOGIN_Click(Nothing, Nothing)
+
+
+            End If
+
+
             '-----先回ログインユーザー表示
             Using iniIF As New IniFile(pub_SYSTEM_INI_FILE)
                 strBUFF = iniIF.GetIniString("SYSTEM", "USERID")
@@ -357,8 +369,6 @@ Public Class FrmM0000
 
             '-----ログオフ表示
             Call FunLOGIN(True) 'ログオフパネル表示
-
-
 
             '-----業務選択リスト初期化
             If Me.lstGYOMU.Items.Count > 0 Then

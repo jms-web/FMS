@@ -93,7 +93,7 @@ Public Class FrmG0010
 
             cmbADD_TANTO.SetDataSource(dtAddTANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbGEN_TANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbFUTEKIGO_JYOTAI_KB.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -116,15 +116,38 @@ Public Class FrmG0010
             Call FunSetBinding()
 
             '既定値設定
-            If pub_SYAIN_INFO.BUMON_KB.IsNullOrWhiteSpace = False Then
-                cmbBUMON.DataSource = DirectCast(cmbBUMON.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = pub_SYAIN_INFO.BUMON_KB).CopyToDataTable
-                cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
 
-                'UNDONE: システム管理者のみ制限解除
-                'cmbBUMON.ReadOnly = True
+            Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
+            If blnIsAdmin Then
+                'システム管理者のみ制限解除
+            Else
+                Select Case pub_SYAIN_INFO.BUMON_KB
+                    Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
+                        Dim dt As DataTable = DirectCast(cmbBUMON.DataSource, DataTable).
+                                                    AsEnumerable.
+                                                    Where(Function(r) r.Field(Of String)("VALUE") = "1" Or r.Field(Of String)("VALUE") = "2").
+                                                    CopyToDataTable
+                        cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+
+                        cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+
+                    Case Context.ENM_BUMON_KB._3_複合材
+                        Dim dt As DataTable = DirectCast(cmbBUMON.DataSource, DataTable).
+                                                    AsEnumerable.
+                                                    Where(Function(r) r.Field(Of String)("VALUE") = pub_SYAIN_INFO.BUMON_KB).
+                                                    CopyToDataTable
+                        cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+
+                        cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+                    Case Else
+
+                End Select
             End If
+            'Dim dtGEN_TANTO As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
+            'cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             cmbGEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+
 
             ''-----イベントハンドラ設定
             AddHandler cmbBUMON.SelectedValueChanged, AddressOf SearchFilterValueChanged
@@ -161,6 +184,7 @@ Public Class FrmG0010
             Call FunInitFuncButtonEnabled()
         End Try
     End Sub
+
 
 #End Region
 
@@ -207,13 +231,13 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).Visible = False
 
                 .Columns.Add(NameOf(_Model.SYONIN_NAIYO), "ステージ")
-                .Columns(.ColumnCount - 1).Width = 180
+                .Columns(.ColumnCount - 1).Width = 210
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
                 .Columns.Add(NameOf(_Model.SYONIN_HOKOKUSYO_R_NAME), "略名")
-                .Columns(.ColumnCount - 1).Width = 70
+                .Columns(.ColumnCount - 1).Width = 60
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
@@ -228,8 +252,8 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).Visible = False
 
-                .Columns.Add(NameOf(_Model.TAIRYU_NISSU), "滞留日数")
-                .Columns(.ColumnCount - 1).Width = 80
+                .Columns.Add(NameOf(_Model.TAIRYU_NISSU), "滞留" & vbCrLf & "日数")
+                .Columns(.ColumnCount - 1).Width = 60
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
@@ -272,14 +296,14 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
                 .Columns.Add(NameOf(_Model.KISO_YMD), "起草日")
-                .Columns(.ColumnCount - 1).Width = 180
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).Width = 100
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
                 .Columns.Add(NameOf(_Model.SYONIN_YMDHNS), "前処理実施日")
-                .Columns(.ColumnCount - 1).Width = 180
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).Width = 100
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
@@ -1034,34 +1058,92 @@ Public Class FrmG0010
         Try
             Dim dt = DirectCast(dgvDATA.DataSource, DataTable).AsEnumerable.
                                     Where(Function(r) r.Field(Of Boolean)("SELECTED") = True)
+            Dim strTantoNameList As String = ""
 
             If dt.Count > 0 Then
-
                 For Each dr As DataRow In dt.CopyToDataTable.Rows
-                    Dim strSubject As String = "【テスト】不適合管理システム テストメール"
-                    Dim strBody As String = dr.Item("SYONIN_NAIYO")
-                    Dim strSyainName As String = Fun_GetUSER_NAME(dr.Item("GEN_TANTO_ID"))
-
-                    If MessageBox.Show(strSyainName & "さんに確認メールを送信します。" & vbCrLf & "よろしいですか？", "確認メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
-                        If FunSendMailFutekigo(strSubject, strBody, dr.Item("GEN_TANTO_ID")) Then
-                            MessageBox.Show("メール送信しました。", "メール送信成功", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Else
-                            MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        End If
+                    If strTantoNameList = "" Then
+                        strTantoNameList = dr.Item("GEN_TANTO_NAME")
+                    Else
+                        strTantoNameList &= vbCrLf & dr.Item("GEN_TANTO_NAME")
                     End If
                 Next dr
+
+
+                Dim strMsg As String = "以下の担当者に処置滞留通知メールを送信します。" & vbCrLf &
+                                           "よろしいですか？" & vbCrLf &
+                                           vbCrLf &
+                                           strTantoNameList
+                If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
+                    For Each dr As DataRow In dt.CopyToDataTable.Rows
+                        Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
+                        Dim strBody As String = <sql><![CDATA[
+                    {0} 殿
+                    不適合製品の処置依頼から【滞留日数】{1}日が経過しています。
+                    早急に対応をお願いします。
+        
+                    【報告書No】{2}
+                    【承認内容(ステージ)】{3}
+                    【機種】{4}
+                    【部品番号】{5}
+                    【依頼者】{6}                    
+                    ]]></sql>.Value.Trim
+
+                        strSubject = String.Format(strSubject, dr.Item("KISYU_NAME"), dr.Item("BUHIN_BANGO"))
+                        strBody = String.Format(strBody,
+                                    dr.Item("GEN_TANTO_NAME"),
+                                    dr.Item("TAIRYU_NISSU"),
+                                    dr.Item("HOKOKU_NO"),
+                                    dr.Item("SYONIN_NAIYO"),
+                                    dr.Item("KISYU_NAME"),
+                                    dr.Item("BUHIN_BANGO"),
+                                    Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID))
+
+                        If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=dr.Item("GEN_TANTO_ID")) Then
+                            Return True
+                        Else
+                            MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            Return False
+                        End If
+                    Next dr
+                End If
             Else
                 '選択チェックは入っていない場合、選択行のみ
-                Dim cr As DataRow = dgvDATA.GetDataRow
-                Dim strSubject As String = "【テスト】不適合管理システム テストメール"
-                Dim strBody As String = cr.Item("SYONIN_NAIYO")
-                Dim strSyainName As String = Fun_GetUSER_NAME(cr.Item("GEN_TANTO_ID"))
+                Dim strMsg As String = "以下の担当者に処置滞留通知メールを送信します。" & vbCrLf &
+                                    "よろしいですか？" & vbCrLf &
+                                    vbCrLf &
+                                    strTantoNameList
 
-                If MessageBox.Show(strSyainName & "さんに確認メールを送信します。" & vbCrLf & "よろしいですか？", "確認メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
-                    If FunSendMailFutekigo(strSubject, strBody, cr.Item("GEN_TANTO_ID")) Then
-                        MessageBox.Show("メール送信しました。", "メール送信成功", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
+                    Dim dr As DataRow = dgvDATA.GetDataRow
+                    Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
+                    Dim strBody As String = <sql><![CDATA[
+                    {0} 殿
+                    不適合製品の処置依頼から【滞留日数】{1}日が経過しています。
+                    早急に対応をお願いします。
+        
+                    【報告書No】{2}
+                    【承認内容(ステージ)】{3}
+                    【機種】{4}
+                    【部品番号】{5}
+                    【依頼者】{6}                    
+                    ]]></sql>.Value.Trim
+
+                    strSubject = String.Format(strSubject, dr.Item("KISYU_NAME"), dr.Item("BUHIN_BANGO"))
+                    strBody = String.Format(strBody,
+                                dr.Item("GEN_TANTO_NAME"),
+                                dr.Item("TAIRYU_NISSU"),
+                                dr.Item("HOKOKU_NO"),
+                                dr.Item("SYONIN_NAIYO"),
+                                dr.Item("KISYU_NAME"),
+                                dr.Item("BUHIN_BANGO"),
+                                Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID))
+
+                    If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=dr.Item("GEN_TANTO_ID")) Then
+                        Return True
                     Else
-                        MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Return False
                     End If
                 End If
             End If
@@ -1472,11 +1554,17 @@ Public Class FrmG0010
                 End With
             Next intFunc
 
+            If FunblnAllowKIHYO() Then
+                cmdFunc2.Enabled = True
+            Else
+                cmdFunc2.Enabled = False
+                MyBase.ToolTip.SetToolTip(Me.cmdFunc2, "起票権限がありません")
+            End If
+
             If dgvDATA.RowCount > 0 Then
                 cmdFunc3.Enabled = True
                 cmdFunc4.Enabled = True
                 cmdFunc5.Enabled = True
-                'cmdFunc6.Enabled = True
                 cmdFunc7.Enabled = True
                 cmdFunc8.Enabled = True
                 cmdFunc9.Enabled = True
@@ -1493,17 +1581,29 @@ Public Class FrmG0010
                 Else
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc4, My.Resources.infoToolTipMsgNotFoundData)
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
+
+
+                    If FunblnAllowSyonin() Then
+                        cmdFunc4.Enabled = True
+                    Else
+                        cmdFunc4.Enabled = False
+                        MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "変更承認権限がありません")
+                    End If
                 End If
 
-                '権限により
-                Dim blnAllowKIHYO As Boolean = FunblnAllowKIHYO()
-                Dim blnAllowSyonin As Boolean = FunblnAllowSyonin()
+                If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+                Else
+                    cmdFunc5.Enabled = False
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除権限の使用には管理者権限が必要です")
+                End If
 
-                cmdFunc2.Enabled = blnAllowKIHYO
-                cmdFunc5.Enabled = blnAllowKIHYO
-                cmdFunc4.Enabled = FunblnAllowSyonin()
-                cmdFunc9.Enabled = FunblnAllowSyonin()
-
+                If FunblnAllowTairyuMailSend() Then
+                    cmdFunc9.Enabled = True
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc9, My.Resources.infoToolTipMsgNotFoundData)
+                Else
+                    cmdFunc9.Enabled = False
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "滞留通知メール送信権限がありません")
+                End If
 
             Else
                 cmdFunc3.Enabled = False
@@ -1525,6 +1625,8 @@ Public Class FrmG0010
         End Try
     End Function
 
+
+
 #End Region
 
 #End Region
@@ -1540,12 +1642,11 @@ Public Class FrmG0010
 
 #Region "共通検索条件"
 
-
 #Region "製品区分(部門区分)"
     Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        Select Case cmb.SelectedValue.ToString.Trim
+        Select Case cmb.SelectedValue?.ToString.Trim
             Case ""
             Case Context.ENM_BUMON_KB._2_LP
                 lblSyanaiCD.Visible = True
@@ -1554,6 +1655,9 @@ Public Class FrmG0010
                 lblSyanaiCD.Visible = False
                 cmbSYANAI_CD.Visible = False
         End Select
+
+        Dim dtGEN_TANTO As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
+        cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
         Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
 
@@ -2005,7 +2109,26 @@ Public Class FrmG0010
         End If
     End Function
 
+    Private Function FunblnAllowTairyuMailSend() As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
 
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("SELECT")
+        sbSQL.Append(" *")
+        sbSQL.Append(" FROM " & NameOf(MODEL.VWM001_SETTING) & " ")
+        sbSQL.Append(" WHERE ITEM_NAME='滞留メール送信権限'")
+        sbSQL.Append(" AND ITEM_DISP='" & pub_SYAIN_INFO.SYAIN_ID & "'")
+        Using DBa As ClsDbUtility = DBOpen()
+            dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        If dsList.Tables(0).Rows.Count > 0 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 
 
 

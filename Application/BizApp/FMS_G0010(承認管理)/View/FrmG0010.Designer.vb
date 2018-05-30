@@ -19,12 +19,10 @@ Partial Class FrmG0010
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.cmbBUMON = New JMS_COMMON.ComboboxEx()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cmbGEN_TANTO = New JMS_COMMON.ComboboxEx()
         Me.btnClearSrchFilter = New System.Windows.Forms.Button()
@@ -33,13 +31,10 @@ Partial Class FrmG0010
         Me.dtJisiFrom = New JMS_COMMON.DateTextBoxEx()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.dtJisiTo = New JMS_COMMON.DateTextBoxEx()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.mtxHOKUKO_NO = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.cmbADD_TANTO = New JMS_COMMON.ComboboxEx()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.cmbKISYU = New JMS_COMMON.ComboboxEx()
-        Me.lblSyanaiCD = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.cmbFUTEKIGO_KB = New JMS_COMMON.ComboboxEx()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -47,14 +42,19 @@ Partial Class FrmG0010
         Me.Label40 = New System.Windows.Forms.Label()
         Me.cmbFUTEKIGO_JYOTAI_KB = New JMS_COMMON.ComboboxEx()
         Me.chkClosedRowVisibled = New System.Windows.Forms.CheckBox()
-        Me.cmbSYANAI_CD = New JMS_COMMON.ComboboxEx()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.cmbBUHIN_BANGO = New JMS_COMMON.ComboboxEx()
-        Me.btnSECH_BUHIN = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.mtxHINMEI = New JMS_COMMON.MaskedTextBoxEx()
-        Me.Label4 = New System.Windows.Forms.Label()
+        Me.btnSECH_BUHIN = New System.Windows.Forms.Button()
         Me.mtxGOKI = New JMS_COMMON.MaskedTextBoxEx()
+        Me.lblSyanaiCD = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.cmbSYANAI_CD = New JMS_COMMON.ComboboxEx()
+        Me.mtxHOKUKO_NO = New JMS_COMMON.MaskedTextBoxEx()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.cmbBUMON = New JMS_COMMON.ComboboxEx()
         Me.cmbJIZEN_SINSA_HANTEI_KB = New JMS_COMMON.ComboboxEx()
         Me.cmbSAISIN_IINKAI_HANTEI_KB = New JMS_COMMON.ComboboxEx()
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
@@ -185,7 +185,7 @@ Partial Class FrmG0010
         Me.cmdFunc9.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc9.Image = Global.FMS.My.Resources.Resources._imgSendMail2
         Me.cmdFunc9.Location = New System.Drawing.Point(423, 643)
-        Me.cmdFunc9.Text = "メール送信(F9)"
+        Me.cmdFunc9.Text = "滞留通知メール送信(F9)"
         '
         'cmdFunc8
         '
@@ -313,39 +313,6 @@ Partial Class FrmG0010
         Me.tlpFilter.Size = New System.Drawing.Size(1222, 187)
         Me.tlpFilter.TabIndex = 56
         '
-        'Label1
-        '
-        Me.tlpFilter.SetColumnSpan(Me.Label1, 8)
-        Me.Label1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label1.Location = New System.Drawing.Point(303, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(154, 30)
-        Me.Label1.TabIndex = 101
-        Me.Label1.Text = "製品区分:"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbBUMON
-        '
-        Me.cmbBUMON.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbBUMON.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbBUMON.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbBUMON, 5)
-        Me.cmbBUMON.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbBUMON.DisplayMember = "DISP"
-        Me.cmbBUMON.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbBUMON.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbBUMON.FormattingEnabled = True
-        Me.cmbBUMON.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbBUMON.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbBUMON.Location = New System.Drawing.Point(463, 3)
-        Me.cmbBUMON.Name = "cmbBUMON"
-        Me.cmbBUMON.NullValue = " "
-        Me.cmbBUMON.ReadOnly = False
-        Me.cmbBUMON.Selected = False
-        Me.cmbBUMON.Size = New System.Drawing.Size(94, 25)
-        Me.cmbBUMON.TabIndex = 0
-        Me.cmbBUMON.ValueMember = "VALUE"
-        '
         'Label6
         '
         Me.tlpFilter.SetColumnSpan(Me.Label6, 8)
@@ -457,31 +424,6 @@ Partial Class FrmG0010
         Me.dtJisiTo.Value = ""
         Me.dtJisiTo.ValueNonFormat = ""
         '
-        'Label8
-        '
-        Me.tlpFilter.SetColumnSpan(Me.Label8, 8)
-        Me.Label8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label8.Location = New System.Drawing.Point(3, 0)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(154, 30)
-        Me.Label8.TabIndex = 69
-        Me.Label8.Text = "報告書No:"
-        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'mtxHOKUKO_NO
-        '
-        Me.mtxHOKUKO_NO.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.mtxHOKUKO_NO, 7)
-        Me.mtxHOKUKO_NO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxHOKUKO_NO.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxHOKUKO_NO.InputRequired = False
-        Me.mtxHOKUKO_NO.Location = New System.Drawing.Point(163, 3)
-        Me.mtxHOKUKO_NO.Name = "mtxHOKUKO_NO"
-        Me.mtxHOKUKO_NO.Size = New System.Drawing.Size(134, 24)
-        Me.mtxHOKUKO_NO.TabIndex = 1
-        Me.mtxHOKUKO_NO.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxHOKUKO_NO.WatermarkText = Nothing
-        '
         'Label14
         '
         Me.tlpFilter.SetColumnSpan(Me.Label14, 8)
@@ -547,17 +489,6 @@ Partial Class FrmG0010
         Me.cmbKISYU.Size = New System.Drawing.Size(134, 25)
         Me.cmbKISYU.TabIndex = 3
         Me.cmbKISYU.ValueMember = "VALUE"
-        '
-        'lblSyanaiCD
-        '
-        Me.tlpFilter.SetColumnSpan(Me.lblSyanaiCD, 8)
-        Me.lblSyanaiCD.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSyanaiCD.Location = New System.Drawing.Point(303, 60)
-        Me.lblSyanaiCD.Name = "lblSyanaiCD"
-        Me.lblSyanaiCD.Size = New System.Drawing.Size(154, 30)
-        Me.lblSyanaiCD.TabIndex = 105
-        Me.lblSyanaiCD.Text = "社内コード:"
-        Me.lblSyanaiCD.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label15
         '
@@ -671,28 +602,6 @@ Partial Class FrmG0010
         Me.chkClosedRowVisibled.Text = "Close済も表示"
         Me.chkClosedRowVisibled.UseVisualStyleBackColor = True
         '
-        'cmbSYANAI_CD
-        '
-        Me.cmbSYANAI_CD.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbSYANAI_CD.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYANAI_CD.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbSYANAI_CD, 7)
-        Me.cmbSYANAI_CD.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbSYANAI_CD.DisplayMember = "DISP"
-        Me.cmbSYANAI_CD.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbSYANAI_CD.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbSYANAI_CD.FormattingEnabled = True
-        Me.cmbSYANAI_CD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbSYANAI_CD.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSYANAI_CD.Location = New System.Drawing.Point(463, 63)
-        Me.cmbSYANAI_CD.Name = "cmbSYANAI_CD"
-        Me.cmbSYANAI_CD.NullValue = " "
-        Me.cmbSYANAI_CD.ReadOnly = False
-        Me.cmbSYANAI_CD.Selected = False
-        Me.cmbSYANAI_CD.Size = New System.Drawing.Size(134, 25)
-        Me.cmbSYANAI_CD.TabIndex = 7
-        Me.cmbSYANAI_CD.ValueMember = "VALUE"
-        '
         'Label11
         '
         Me.tlpFilter.SetColumnSpan(Me.Label11, 8)
@@ -727,18 +636,6 @@ Partial Class FrmG0010
         Me.cmbBUHIN_BANGO.TabIndex = 4
         Me.cmbBUHIN_BANGO.ValueMember = "VALUE"
         '
-        'btnSECH_BUHIN
-        '
-        Me.tlpFilter.SetColumnSpan(Me.btnSECH_BUHIN, 3)
-        Me.btnSECH_BUHIN.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnSECH_BUHIN.Location = New System.Drawing.Point(683, 63)
-        Me.btnSECH_BUHIN.Name = "btnSECH_BUHIN"
-        Me.btnSECH_BUHIN.Size = New System.Drawing.Size(54, 24)
-        Me.btnSECH_BUHIN.TabIndex = 5
-        Me.btnSECH_BUHIN.Text = "検索"
-        Me.btnSECH_BUHIN.UseVisualStyleBackColor = True
-        Me.btnSECH_BUHIN.Visible = False
-        '
         'Label2
         '
         Me.tlpFilter.SetColumnSpan(Me.Label2, 8)
@@ -764,16 +661,17 @@ Partial Class FrmG0010
         Me.mtxHINMEI.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxHINMEI.WatermarkText = Nothing
         '
-        'Label4
+        'btnSECH_BUHIN
         '
-        Me.tlpFilter.SetColumnSpan(Me.Label4, 8)
-        Me.Label4.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label4.Location = New System.Drawing.Point(3, 60)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(154, 30)
-        Me.Label4.TabIndex = 107
-        Me.Label4.Text = "製造番号(号機):"
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.tlpFilter.SetColumnSpan(Me.btnSECH_BUHIN, 3)
+        Me.btnSECH_BUHIN.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSECH_BUHIN.Location = New System.Drawing.Point(683, 63)
+        Me.btnSECH_BUHIN.Name = "btnSECH_BUHIN"
+        Me.btnSECH_BUHIN.Size = New System.Drawing.Size(54, 24)
+        Me.btnSECH_BUHIN.TabIndex = 5
+        Me.btnSECH_BUHIN.Text = "検索"
+        Me.btnSECH_BUHIN.UseVisualStyleBackColor = True
+        Me.btnSECH_BUHIN.Visible = False
         '
         'mtxGOKI
         '
@@ -788,6 +686,108 @@ Partial Class FrmG0010
         Me.mtxGOKI.TabIndex = 8
         Me.mtxGOKI.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxGOKI.WatermarkText = Nothing
+        '
+        'lblSyanaiCD
+        '
+        Me.tlpFilter.SetColumnSpan(Me.lblSyanaiCD, 8)
+        Me.lblSyanaiCD.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSyanaiCD.Location = New System.Drawing.Point(303, 60)
+        Me.lblSyanaiCD.Name = "lblSyanaiCD"
+        Me.lblSyanaiCD.Size = New System.Drawing.Size(154, 30)
+        Me.lblSyanaiCD.TabIndex = 105
+        Me.lblSyanaiCD.Text = "社内コード:"
+        Me.lblSyanaiCD.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label4
+        '
+        Me.tlpFilter.SetColumnSpan(Me.Label4, 8)
+        Me.Label4.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label4.Location = New System.Drawing.Point(3, 60)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(154, 30)
+        Me.Label4.TabIndex = 107
+        Me.Label4.Text = "製造番号(号機):"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbSYANAI_CD
+        '
+        Me.cmbSYANAI_CD.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYANAI_CD.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSYANAI_CD.BackColor = System.Drawing.SystemColors.Window
+        Me.tlpFilter.SetColumnSpan(Me.cmbSYANAI_CD, 7)
+        Me.cmbSYANAI_CD.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSYANAI_CD.DisplayMember = "DISP"
+        Me.cmbSYANAI_CD.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSYANAI_CD.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSYANAI_CD.FormattingEnabled = True
+        Me.cmbSYANAI_CD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbSYANAI_CD.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbSYANAI_CD.Location = New System.Drawing.Point(463, 63)
+        Me.cmbSYANAI_CD.Name = "cmbSYANAI_CD"
+        Me.cmbSYANAI_CD.NullValue = " "
+        Me.cmbSYANAI_CD.ReadOnly = False
+        Me.cmbSYANAI_CD.Selected = False
+        Me.cmbSYANAI_CD.Size = New System.Drawing.Size(134, 25)
+        Me.cmbSYANAI_CD.TabIndex = 7
+        Me.cmbSYANAI_CD.ValueMember = "VALUE"
+        '
+        'mtxHOKUKO_NO
+        '
+        Me.mtxHOKUKO_NO.BackColor = System.Drawing.SystemColors.Window
+        Me.tlpFilter.SetColumnSpan(Me.mtxHOKUKO_NO, 7)
+        Me.mtxHOKUKO_NO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxHOKUKO_NO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxHOKUKO_NO.InputRequired = False
+        Me.mtxHOKUKO_NO.Location = New System.Drawing.Point(163, 3)
+        Me.mtxHOKUKO_NO.Name = "mtxHOKUKO_NO"
+        Me.mtxHOKUKO_NO.Size = New System.Drawing.Size(134, 24)
+        Me.mtxHOKUKO_NO.TabIndex = 1
+        Me.mtxHOKUKO_NO.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxHOKUKO_NO.WatermarkText = Nothing
+        '
+        'Label8
+        '
+        Me.tlpFilter.SetColumnSpan(Me.Label8, 8)
+        Me.Label8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label8.Location = New System.Drawing.Point(3, 0)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(154, 30)
+        Me.Label8.TabIndex = 69
+        Me.Label8.Text = "報告書No:"
+        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label1
+        '
+        Me.tlpFilter.SetColumnSpan(Me.Label1, 8)
+        Me.Label1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label1.Location = New System.Drawing.Point(303, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(154, 30)
+        Me.Label1.TabIndex = 101
+        Me.Label1.Text = "製品区分:"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbBUMON
+        '
+        Me.cmbBUMON.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbBUMON.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbBUMON.BackColor = System.Drawing.SystemColors.Window
+        Me.tlpFilter.SetColumnSpan(Me.cmbBUMON, 5)
+        Me.cmbBUMON.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbBUMON.DisplayMember = "DISP"
+        Me.cmbBUMON.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbBUMON.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbBUMON.FormattingEnabled = True
+        Me.cmbBUMON.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbBUMON.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbBUMON.Location = New System.Drawing.Point(463, 3)
+        Me.cmbBUMON.Name = "cmbBUMON"
+        Me.cmbBUMON.NullValue = " "
+        Me.cmbBUMON.ReadOnly = False
+        Me.cmbBUMON.Selected = False
+        Me.cmbBUMON.Size = New System.Drawing.Size(94, 25)
+        Me.cmbBUMON.TabIndex = 0
+        Me.cmbBUMON.ValueMember = "VALUE"
         '
         'cmbJIZEN_SINSA_HANTEI_KB
         '
@@ -838,33 +838,33 @@ Partial Class FrmG0010
         Me.dgvDATA.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvDATA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvDATA.Location = New System.Drawing.Point(12, 289)
         Me.dgvDATA.Name = "dgvDATA"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvDATA.RowTemplate.Height = 21
         Me.dgvDATA.Size = New System.Drawing.Size(1233, 273)
         Me.dgvDATA.TabIndex = 62

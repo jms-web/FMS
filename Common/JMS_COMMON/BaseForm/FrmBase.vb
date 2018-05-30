@@ -25,6 +25,7 @@ Public Class FrmBase
 
         ErrorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink
         'ErrorProvider.BlinkRate = 250
+        ToolTip.InitialDelay = 700
 
     End Sub
 

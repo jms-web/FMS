@@ -228,6 +228,11 @@ Public Module mdlDBContext
     ''' 承認担当
     ''' </summary>
     Public tblTANTO_SYONIN As DataTableEx
+    ''' <summary>
+    ''' 承認担当一覧
+    ''' </summary>
+    Public tblTANTO_SYONINList As DataTableEx
+
 
     ''' <summary>
     ''' 設問内容
@@ -281,6 +286,8 @@ Public Module mdlDBContext
             End If
         End With
     End Function
+
+
 #End Region
 
 #End Region
@@ -440,6 +447,36 @@ Public Module mdlDBContext
                             Trow("SYONIN_JUN") = .Rows(intCNT).Item("SYONIN_JUN")
 
                             dt.Rows.Add(Trow)
+                        Next intCNT
+                    End With
+#End Region
+#Region "               承認担当一覧"
+                Case "承認担当一覧"
+
+                    dt = New DataTableEx("System.Int32")
+
+                    sbSQL.Append("SELECT DISTINCT SYAIN_ID,SIMEI,DEL_FLG FROM " & "V001_SYONIN_TANTO" & " ")
+                    If strWhere.IsNullOrWhiteSpace = False Then
+                        sbSQL.Append("WHERE " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+
+                    '主キー設定
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            If dt.Rows.Contains(.Rows(intCNT).Item("SYAIN_ID")) = False Then
+                                Trow("DISP") = .Rows(intCNT).Item("SIMEI")
+                                Trow("VALUE") = .Rows(intCNT).Item("SYAIN_ID")
+                                Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                                dt.Rows.Add(Trow)
+                            End If
                         Next intCNT
                     End With
 #End Region

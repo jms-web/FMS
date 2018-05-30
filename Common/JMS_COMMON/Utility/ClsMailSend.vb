@@ -98,6 +98,9 @@
         Dim logon As TKMP.Net.ISmtpLogon
 
         Try
+            EM = New ErrMsg(CON_ERR_LOG)
+            WL = New WriteLog()
+
             '送信メールの作成クラスを定義
             Dim writer As New TKMP.Writer.MailWriter
 
