@@ -162,11 +162,11 @@ Public Class FrmG0016
                     sbSQL.Remove(0, sbSQL.Length)
                     sbSQL.Append("DELETE FROM " & NameOf(MODEL.D004_SYONIN_J_KANRI) & "")
                     sbSQL.Append(" WHERE " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID) & "=" & PrSYONIN_HOKOKUSYO_ID & "")
-                    sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & "='" & _D003_NCR_J.HOKOKU_NO & "'")
+                    sbSQL.Append(" AND RTRIM(" & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & ")='" & _D003_NCR_J.HOKOKU_NO.Trim & "'")
                     sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN) & ">" & cmbMODOSI_SAKI.SelectedValue & ";")
                     '-----SQL実行
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    If sqlEx IsNot Nothing Then
+                    If intRET = 0 Then
                         '-----エラーログ出力
                         Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
                         WL.WriteLogDat(strErrMsg)

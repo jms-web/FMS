@@ -10,10 +10,6 @@ Public Class FrmG0011
     Private _tabPageManager As TabPageManager
     Private _tabPageManagerST08Sub As TabPageManager
 
-    Private Enum ENM_SAVE_MODE
-        _1_保存 = 1
-        _2_承認申請 = 2
-    End Enum
 
     '80 NCR処置実施 タブページ
     Private Enum ENM_STAGE80_TABPAGES
@@ -33,9 +29,6 @@ Public Class FrmG0011
 
     '是正処置要否判定=CAR編集画面起動判定
     Private blnEnableCAREdit As Boolean
-
-
-
 
 #End Region
 
@@ -157,30 +150,30 @@ Public Class FrmG0011
             Call FunSetBinding()
 
             '既定値の設定
-            Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
-            If blnIsAdmin Then
-                'システム管理者のみ制限解除
-            Else
-                Select Case pub_SYAIN_INFO.BUMON_KB
-                    Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
-                        cmbBUMON.DataSource = DirectCast(cmbBUMON.DataSource, DataTable).
-                                                    AsEnumerable.
-                                                    Where(Function(r) r.Field(Of String)("VALUE") = "1" Or r.Field(Of String)("VALUE") = "2").
-                                                    CopyToDataTable
+            'Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
+            'If blnIsAdmin Then
+            '    'システム管理者のみ制限解除
+            'Else
+            '    Select Case pub_SYAIN_INFO.BUMON_KB
+            '        Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
+            '            cmbBUMON.DataSource = DirectCast(cmbBUMON.DataSource, DataTable).
+            '                                        AsEnumerable.
+            '                                        Where(Function(r) r.Field(Of String)("VALUE") = "1" Or r.Field(Of String)("VALUE") = "2").
+            '                                        CopyToDataTable
 
-                        cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+            '            cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
 
-                    Case Context.ENM_BUMON_KB._3_複合材
-                        cmbBUMON.DataSource = DirectCast(cmbBUMON.DataSource, DataTable).
-                                                    AsEnumerable.
-                                                    Where(Function(r) r.Field(Of String)("VALUE") = pub_SYAIN_INFO.BUMON_KB).
-                                                    CopyToDataTable
+            '        Case Context.ENM_BUMON_KB._3_複合材
+            '            cmbBUMON.DataSource = DirectCast(cmbBUMON.DataSource, DataTable).
+            '                                        AsEnumerable.
+            '                                        Where(Function(r) r.Field(Of String)("VALUE") = pub_SYAIN_INFO.BUMON_KB).
+            '                                        CopyToDataTable
 
-                        cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
-                    Case Else
+            '            cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+            '        Case Else
 
-                End Select
-            End If
+            '    End Select
+            'End If
 
 
             '''-----イベントハンドラ設定
@@ -289,7 +282,7 @@ Public Class FrmG0011
                     Call FunOpenReportNCR()
 
                 Case 11 '履歴表示
-                    Call OpenFormHistory()
+                    Call OpenFormHistory(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO)
 
                 Case 12 '閉じる
                     Me.Close()
@@ -783,14 +776,7 @@ Public Class FrmG0011
         strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
         Select Case strRET
             Case "INSERT"
-                'SPEC: 40-1
-                If PrCurrentStage = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 And _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_要 Then
-                    If FunSAVE_D005(DB) Then
-                        blnEnableCAREdit = True
-                    Else
-                        Return False
-                    End If
-                End If
+
 
             Case "UPDATE"
 
@@ -934,6 +920,7 @@ Public Class FrmG0011
                 End If
                 _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
                 _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False
+
             Case Else
                 'Err
                 Return False
@@ -1021,6 +1008,8 @@ Public Class FrmG0011
                     '承認依頼メール送信
                     Call FunSendRequestMail()
                 End If
+
+
             Case "UPDATE"
 
             Case Else
@@ -1029,6 +1018,19 @@ Public Class FrmG0011
                 WL.WriteLogDat(strErrMsg)
                 Return False
         End Select
+
+
+        'SPEC: 40-1
+        If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And
+            PrCurrentStage = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 And
+            _D003_NCR_J._ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_要 Then
+
+            If FunSAVE_D005(DB) Then
+                blnEnableCAREdit = True
+            Else
+                Return False
+            End If
+        End If
 
         Return True
     End Function
@@ -1261,6 +1263,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KENSA_TANTO_ID))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KENSA_TOROKU_YMDHNS))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KENSA_GL_SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_D005_CAR_J.KENSA_GL_YMDHNS))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.ADD_YMDHNS))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.UPD_SYAIN_ID))
@@ -1339,6 +1342,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & _D005_CAR_J.KENSA_TANTO_ID & "")
         sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_TOROKU_YMDHNS & "'")
         sbSQL.Append(" ," & _D005_CAR_J.KENSA_GL_SYAIN_ID & "")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_GL_YMDHNS & "'")
         sbSQL.Append(" ," & _D005_CAR_J.ADD_SYAIN_ID & "")
         sbSQL.Append(" ,'" & _D005_CAR_J.ADD_YMDHNS & "'")
         sbSQL.Append(" ," & _D005_CAR_J.UPD_SYAIN_ID & "")
@@ -1355,6 +1359,105 @@ Public Class FrmG0011
             WL.WriteLogDat(strErrMsg)
             Return False
         End If
+
+
+        '----D004
+        '-----データモデル更新
+        _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+        _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+        _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_CAR_STAGE._10_起草入力
+        _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+        _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
+        _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
+        _D004_SYONIN_J_KANRI.SASIMODOSI_FG = False
+        _D004_SYONIN_J_KANRI.RIYU = ""
+        _D004_SYONIN_J_KANRI.COMMENT = ""
+        _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
+        _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+
+        '-----MERGE
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("MERGE INTO " & NameOf(MODEL.D004_SYONIN_J_KANRI) & " AS SrcT")
+        sbSQL.Append(" USING (")
+        sbSQL.Append(" SELECT")
+        sbSQL.Append(" " & _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID & " AS " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI.HOKOKU_NO & "' AS " & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO))
+        sbSQL.Append(" ," & _D004_SYONIN_J_KANRI.SYONIN_JUN & " AS " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI.SYAIN_ID & "' AS " & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI.SYONIN_YMDHNS & "' AS " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB & "' AS " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI._SASIMODOSI_FG & "' AS " & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI.RIYU & "' AS " & NameOf(_D004_SYONIN_J_KANRI.RIYU))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI.COMMENT & "' AS " & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI._MAIL_SEND_FG & "' AS " & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
+        sbSQL.Append(" ," & _D004_SYONIN_J_KANRI.ADD_SYAIN_ID & " AS " & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
+        sbSQL.Append(" ,dbo.GetSysDateString() AS " & NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS))
+        sbSQL.Append(" ," & pub_SYAIN_INFO.SYAIN_ID & " AS " & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
+        sbSQL.Append(" ,dbo.GetSysDateString() AS " & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
+        sbSQL.Append(" ) AS WK")
+        sbSQL.Append(" ON (SrcT." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID) & "")
+        sbSQL.Append(" AND SrcT." & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & "")
+        sbSQL.Append(" AND SrcT." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN) & ")")
+        'UPDATE
+        sbSQL.Append(" WHEN MATCHED THEN")
+        sbSQL.Append(" UPDATE SET")
+        sbSQL.Append("  SrcT." & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID))
+        sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
+        sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.COMMENT) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
+        sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
+        sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG))
+        sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS))
+        sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB))
+        sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
+        sbSQL.Append(" ,SrcT." & NameOf(_D004_SYONIN_J_KANRI.RIYU) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.RIYU))
+        'INSERT
+        sbSQL.Append(" WHEN NOT MATCHED THEN ")
+        sbSQL.Append(" INSERT(")
+        sbSQL.Append("  " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID))
+        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO))
+        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN))
+        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS))
+        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB))
+        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG))
+        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.RIYU))
+        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
+        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
+        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS))
+        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
+        sbSQL.Append(" ) VALUES(")
+        sbSQL.Append("  WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID))
+        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO))
+        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN))
+        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID))
+        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS))
+        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB))
+        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG))
+        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.RIYU))
+        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
+        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
+        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
+        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS))
+        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
+        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
+        sbSQL.Append(" )")
+        sbSQL.Append("OUTPUT $action AS RESULT") 'INSERT OR UPDATE をncarchar(10)で取得する場合
+        sbSQL.Append(";")
+        Dim strRET As String
+        strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+        Select Case strRET
+            Case "INSERT"
+
+            Case "UPDATE"
+
+            Case Else
+                '-----エラーログ出力
+                Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                WL.WriteLogDat(strErrMsg)
+                Return False
+        End Select
 
         Return True
     End Function
@@ -1757,6 +1860,7 @@ Public Class FrmG0011
         Try
             frmDLG.PrSYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKUSYO_ID._1_NCR
             frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+            frmDLG.PrBUMON_KB = _D003_NCR_J.BUMON_KB
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
 
@@ -1838,7 +1942,7 @@ Public Class FrmG0011
             End If
 
             'Excel起動
-            'Return FunOpenExcelApp(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName)
+            Return FunOpenExcelApp(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName)
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -1937,7 +2041,7 @@ Public Class FrmG0011
             '-----SpereasheetGera印刷
             Dim ssgPrintDocument As SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument = New SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument(ssgSheet1, SpreadsheetGear.Printing.PrintWhat.Sheet)
             'printDocument.PrinterSettings.PrinterName = "PrinterName"
-            ssgPrintDocument.Print()
+            'ssgPrintDocument.Print()
 
             '-----ファイル保存
             'spWork.Delete()
@@ -1984,13 +2088,13 @@ Public Class FrmG0011
 #End Region
 
 #Region "履歴"
-    Private Function OpenFormHistory() As Boolean
+    Private Function OpenFormHistory(ByVal SYONIN_HOKOKU_ID As Integer, ByVal HOKOKU_NO As String) As Boolean
         Dim frmDLG As New FrmG0017
         Dim dlgRET As DialogResult
 
         Try
-            frmDLG.PrSYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-            frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = SYONIN_HOKOKU_ID
+            frmDLG.PrHOKOKU_NO = HOKOKU_NO
             dlgRET = frmDLG.ShowDialog(Me)
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
@@ -3266,6 +3370,7 @@ Public Class FrmG0011
         lbltxtST04_RIYU.Visible = blnChecked
         txtST04_RIYU.Visible = blnChecked
         txtST04_RIYU.Enabled = blnChecked
+        _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = True
     End Sub
 
     Private Sub RbtnST04_ZESEI_NO_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST04_ZESEI_NO.CheckedChanged
@@ -3274,6 +3379,7 @@ Public Class FrmG0011
         lbltxtST04_RIYU.Visible = blnChecked
         txtST04_RIYU.Visible = blnChecked
         txtST04_RIYU.Enabled = blnChecked
+        _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = False
     End Sub
 
     Private Sub ChkZESEI_SYOCHI_YOHI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkST04_ZESEI_SYOCHI_YOHI_KB.CheckedChanged

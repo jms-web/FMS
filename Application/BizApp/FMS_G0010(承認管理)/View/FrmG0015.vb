@@ -17,6 +17,8 @@ Public Class FrmG0015
     Public Property PrHOKOKU_NO As String
 
     Public Property PrCurrentStage As Integer
+
+    Public Property PrBUMON_KB As String
 #End Region
 
 #Region "コンストラクタ"
@@ -56,11 +58,16 @@ Public Class FrmG0015
             Me.ControlBox = False
 
             '-----各コントロールのデータソースを設定
-            Dim tbl As DataTable = tblTANTO_SYONIN.AsEnumerable.
-                                    Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = PrSYONIN_HOKOKUSYO_ID _
-                                    And r.Field(Of Integer)("SYONIN_JUN") = PrCurrentStage _
-                                    And r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).
-                                    CopyToDataTable
+            Dim tbl As DataTable
+            'tbl = tblTANTO_SYONIN.AsEnumerable.
+            '                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = PrSYONIN_HOKOKUSYO_ID _
+            '                        And r.Field(Of Integer)("SYONIN_JUN") = PrCurrentStage _
+            '                        And r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).
+            '                        CopyToDataTable
+
+            tbl = FunGetSYONIN_SYOZOKU_SYAIN(PrBUMON_KB, PrSYONIN_HOKOKUSYO_ID, PrCurrentStage).AsEnumerable.
+                    Where(Function(r) r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).CopyToDataTable
+
             Me.cmbTENSO_SAKI.SetDataSource(tbl, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             'バインディング

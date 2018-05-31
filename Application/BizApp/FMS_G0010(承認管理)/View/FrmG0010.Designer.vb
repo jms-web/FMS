@@ -19,9 +19,9 @@ Partial Class FrmG0010
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cmbGEN_TANTO = New JMS_COMMON.ComboboxEx()
@@ -63,7 +63,7 @@ Partial Class FrmG0010
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnClearSrchFilter2 = New System.Windows.Forms.Button()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.cmbKENSA_KEKKA_KB = New JMS_COMMON.ComboboxEx()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -85,7 +85,7 @@ Partial Class FrmG0010
         Me.mtxGENIN2_DISP = New JMS_COMMON.MaskedTextBoxEx()
         Me.btnSelectGenin1 = New System.Windows.Forms.Button()
         Me.btnSelectGenin2 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.btnClearSrchFilter3 = New System.Windows.Forms.Button()
         Me.btnClearGenin1 = New System.Windows.Forms.Button()
         Me.btnClearGenin2 = New System.Windows.Forms.Button()
         Me.mtxGENIN1 = New JMS_COMMON.MaskedTextBoxEx()
@@ -200,6 +200,10 @@ Partial Class FrmG0010
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblTytle.Size = New System.Drawing.Size(1233, 45)
         Me.lblTytle.Text = "不適合検索画面"
+        '
+        'ToolTip
+        '
+        Me.ToolTip.InitialDelay = 700
         '
         'tlpFilter
         '
@@ -838,33 +842,33 @@ Partial Class FrmG0010
         Me.dgvDATA.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvDATA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvDATA.Location = New System.Drawing.Point(12, 289)
         Me.dgvDATA.Name = "dgvDATA"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvDATA.RowTemplate.Height = 21
         Me.dgvDATA.Size = New System.Drawing.Size(1233, 273)
         Me.dgvDATA.TabIndex = 62
@@ -972,7 +976,7 @@ Partial Class FrmG0010
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.Controls.Add(Me.Label13, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.cmbJIZEN_SINSA_HANTEI_KB, 8, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.Button1, 57, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.btnClearSrchFilter2, 57, 4)
         Me.TableLayoutPanel1.Controls.Add(Me.Label17, 0, 5)
         Me.TableLayoutPanel1.Controls.Add(Me.cmbKENSA_KEKKA_KB, 8, 5)
         Me.TableLayoutPanel1.Controls.Add(Me.Label12, 0, 4)
@@ -1008,18 +1012,17 @@ Partial Class FrmG0010
         Me.Label13.Text = "事前審査判定区分:"
         Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Button1
+        'btnClearSrchFilter2
         '
-        Me.TableLayoutPanel1.SetColumnSpan(Me.Button1, 5)
-        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button1.Location = New System.Drawing.Point(1143, 123)
-        Me.Button1.Name = "Button1"
-        Me.TableLayoutPanel1.SetRowSpan(Me.Button1, 3)
-        Me.Button1.Size = New System.Drawing.Size(74, 54)
-        Me.Button1.TabIndex = 100
-        Me.Button1.Text = "条件クリア"
-        Me.Button1.UseVisualStyleBackColor = True
-        Me.Button1.Visible = False
+        Me.TableLayoutPanel1.SetColumnSpan(Me.btnClearSrchFilter2, 5)
+        Me.btnClearSrchFilter2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnClearSrchFilter2.Location = New System.Drawing.Point(1143, 123)
+        Me.btnClearSrchFilter2.Name = "btnClearSrchFilter2"
+        Me.TableLayoutPanel1.SetRowSpan(Me.btnClearSrchFilter2, 3)
+        Me.btnClearSrchFilter2.Size = New System.Drawing.Size(74, 54)
+        Me.btnClearSrchFilter2.TabIndex = 100
+        Me.btnClearSrchFilter2.Text = "条件クリア"
+        Me.btnClearSrchFilter2.UseVisualStyleBackColor = True
         '
         'Label17
         '
@@ -1250,7 +1253,7 @@ Partial Class FrmG0010
         Me.TableLayoutPanel2.Controls.Add(Me.mtxGENIN2_DISP, 27, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.btnSelectGenin1, 39, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btnSelectGenin2, 39, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.Button3, 57, 4)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnClearSrchFilter3, 57, 4)
         Me.TableLayoutPanel2.Controls.Add(Me.btnClearGenin1, 54, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btnClearGenin2, 54, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.mtxGENIN1, 27, 2)
@@ -1415,18 +1418,17 @@ Partial Class FrmG0010
         Me.btnSelectGenin2.Text = "選択"
         Me.btnSelectGenin2.UseVisualStyleBackColor = True
         '
-        'Button3
+        'btnClearSrchFilter3
         '
-        Me.TableLayoutPanel2.SetColumnSpan(Me.Button3, 5)
-        Me.Button3.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button3.Location = New System.Drawing.Point(1143, 123)
-        Me.Button3.Name = "Button3"
-        Me.TableLayoutPanel2.SetRowSpan(Me.Button3, 3)
-        Me.Button3.Size = New System.Drawing.Size(74, 54)
-        Me.Button3.TabIndex = 100
-        Me.Button3.Text = "条件クリア"
-        Me.Button3.UseVisualStyleBackColor = True
-        Me.Button3.Visible = False
+        Me.TableLayoutPanel2.SetColumnSpan(Me.btnClearSrchFilter3, 5)
+        Me.btnClearSrchFilter3.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnClearSrchFilter3.Location = New System.Drawing.Point(1143, 123)
+        Me.btnClearSrchFilter3.Name = "btnClearSrchFilter3"
+        Me.TableLayoutPanel2.SetRowSpan(Me.btnClearSrchFilter3, 3)
+        Me.btnClearSrchFilter3.Size = New System.Drawing.Size(74, 54)
+        Me.btnClearSrchFilter3.TabIndex = 100
+        Me.btnClearSrchFilter3.Text = "条件クリア"
+        Me.btnClearSrchFilter3.UseVisualStyleBackColor = True
         '
         'btnClearGenin1
         '
@@ -1611,14 +1613,14 @@ Partial Class FrmG0010
     Friend WithEvents Label17 As Label
     Friend WithEvents cmbKOKYAKU_SAISYU_HANTEI_KB As ComboboxEx
     Friend WithEvents cmbKENSA_KEKKA_KB As ComboboxEx
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnClearSrchFilter2 As Button
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
     Friend WithEvents Label27 As Label
     Friend WithEvents Label30 As Label
     Friend WithEvents cmbYOIN1 As ComboboxEx
     Friend WithEvents Label35 As Label
     Friend WithEvents mtxGENIN1_DISP As MaskedTextBoxEx
-    Friend WithEvents Button3 As Button
+    Friend WithEvents btnClearSrchFilter3 As Button
     Friend WithEvents btnSelectGenin2 As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents cmbBUMON As ComboboxEx

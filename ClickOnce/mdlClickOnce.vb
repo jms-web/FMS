@@ -184,7 +184,7 @@ Module mdlClickOnce
             ''-----フォントインストールVBS起動
             'Shell("C:\ADCM\EXE\FONTINSTALL.VBS", AppWinStyle.NormalFocus)
 
-            Dim strParams As String = GetUriParameters()
+            Dim strParams As String '= GetUriParameters()
 
             '-----メニュー起動
             If strParams <> "" Then

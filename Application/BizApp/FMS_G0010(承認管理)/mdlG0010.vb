@@ -34,6 +34,12 @@ Module mdlG0010
         _1_新規作成 = 1
     End Enum
 
+    Public Enum ENM_SAVE_MODE
+        _1_保存 = 1
+        _2_承認申請 = 2
+    End Enum
+
+
     ''' <summary>
     ''' 承認報告書ID
     ''' </summary>
@@ -620,6 +626,25 @@ Module mdlG0010
                 _model.DEL_SYAIN_NAME = .Item(NameOf(_model.DEL_SYAIN_NAME))
                 _model.DEL_YMDHNS = .Item(NameOf(_model.DEL_YMDHNS))
 
+                _model.SYONIN_NAME10 = .Item(NameOf(_model.SYONIN_NAME10))
+                _model.SYONIN_YMD10 = .Item(NameOf(_model.SYONIN_YMD10))
+                _model.SYONIN_NAME20 = .Item(NameOf(_model.SYONIN_NAME20))
+                _model.SYONIN_YMD20 = .Item(NameOf(_model.SYONIN_YMD20))
+                _model.SYONIN_NAME30 = .Item(NameOf(_model.SYONIN_NAME30))
+                _model.SYONIN_YMD30 = .Item(NameOf(_model.SYONIN_YMD30))
+                _model.SYONIN_NAME40 = .Item(NameOf(_model.SYONIN_NAME40))
+                _model.SYONIN_YMD40 = .Item(NameOf(_model.SYONIN_YMD40))
+                _model.SYONIN_NAME50 = .Item(NameOf(_model.SYONIN_NAME50))
+                _model.SYONIN_YMD50 = .Item(NameOf(_model.SYONIN_YMD50))
+                _model.SYONIN_NAME60 = .Item(NameOf(_model.SYONIN_NAME60))
+                _model.SYONIN_YMD60 = .Item(NameOf(_model.SYONIN_YMD60))
+                _model.SYONIN_NAME90 = .Item(NameOf(_model.SYONIN_NAME90))
+                _model.SYONIN_YMD90 = .Item(NameOf(_model.SYONIN_YMD90))
+                _model.SYONIN_NAME100 = .Item(NameOf(_model.SYONIN_NAME100))
+                _model.SYONIN_YMD100 = .Item(NameOf(_model.SYONIN_YMD100))
+                _model.SYONIN_NAME120 = .Item(NameOf(_model.SYONIN_NAME120))
+                _model.SYONIN_YMD120 = .Item(NameOf(_model.SYONIN_YMD120))
+
             End With
 
             Return _model
@@ -768,9 +793,12 @@ Module mdlG0010
             End Using
 
 
-
             strMsg = String.Format("【メール送信成功】TO:{0}({1}) SUBJECT:{2}", strToSyainName, strToAddress, strSubject)
             WL.WriteLogDat(strMsg)
+
+            'DEBUG:
+            Return True
+
 
             ''認証なし
             'blnSend = ClsMailSend.FunSendMail(strSmtpServer,
@@ -877,6 +905,8 @@ Module mdlG0010
     End Function
 
 #End Region
+
+
 
 
 End Module

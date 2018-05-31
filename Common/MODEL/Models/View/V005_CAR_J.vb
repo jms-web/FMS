@@ -650,4 +650,33 @@ Partial Public Class V005_CAR_J
 
     Public Property DEL_SYAIN_NAME As String
 
+
+    Public Property SYONIN_NAME10 As String
+    Public Property SYONIN_YMD10 As String
+
+    Public Property SYONIN_NAME20 As String
+    Public Property SYONIN_YMD20 As String
+
+    Public Property SYONIN_NAME30 As String
+    Public Property SYONIN_YMD30 As String
+
+    Public Property SYONIN_NAME40 As String
+    Public Property SYONIN_YMD40 As String
+
+    Public Property SYONIN_NAME50 As String
+    Public Property SYONIN_YMD50 As String
+
+    Public Property SYONIN_NAME60 As String
+    Public Property SYONIN_YMD60 As String
+
+    Public Property SYONIN_NAME90 As String
+    Public Property SYONIN_YMD90 As String
+
+    Public Property SYONIN_NAME100 As String
+    Public Property SYONIN_YMD100 As String
+
+    Public Property SYONIN_NAME120 As String
+    Public Property SYONIN_YMD120 As String
+
+
 End Class

@@ -216,6 +216,12 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).Visible = False
 
+                .Columns.Add(NameOf(_Model.BUMON_NAME), "製品" & vbCrLf & "区分")
+                .Columns(.ColumnCount - 1).Width = 60
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).ReadOnly = True
+
                 .Columns.Add(NameOf(_Model.HOKOKU_NO), "報告書No")
                 .Columns(.ColumnCount - 1).Width = 80
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -828,6 +834,28 @@ Public Class FrmG0010
                 dt.AcceptChanges()
             End With
 
+            'CHECK: 部門抽出条件適用 ログインユーザーの所属と異なる部門条件の場合・・・(すべて)を含む
+            Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
+            If blnIsAdmin Then
+                'システム管理者のみ制限解除
+            Else
+                If pub_SYAIN_INFO.BUMON_KB <> ParamModel.BUMON_KB Then
+                    Select Case pub_SYAIN_INFO.BUMON_KB
+                        Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
+                            Dim qdt = dt.AsEnumerable.Where(Function(r) r.Field(Of String)("BUMON_KB") = 1 Or r.Field(Of String)("BUMON_KB") = 2).ToList
+                            If qdt.Count > 0 Then
+                                dt = qdt.CopyToDataTable
+                            End If
+
+                        Case Context.ENM_BUMON_KB._3_複合材
+                            Dim qdt = dt.AsEnumerable.Where(Function(r) r.Field(Of String)("BUMON_KB") = 3).ToList
+                            If qdt.Count > 0 Then
+                                dt = qdt.CopyToDataTable
+                            End If
+                    End Select
+                End If
+            End If
+
             Return dt
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -909,7 +937,7 @@ Public Class FrmG0010
         Try
             If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE AndAlso dgvDATA.CurrentRow.Cells("SYONIN_HOKOKUSYO_ID").Value = ENM_SYONIN_HOKOKUSYO_ID._2_CAR Then
 
-                frmDLG.PrDataRow = dgvDATA.GetDataRow()
+                frmCAR.PrDataRow = dgvDATA.GetDataRow()
                 dlgRET = frmCAR.ShowDialog(Me)
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
                     Return False
@@ -1061,6 +1089,9 @@ Public Class FrmG0010
             Dim strTantoNameList As String = ""
 
             If dt.Count > 0 Then
+
+                'UNDONE: 同一担当者のデータが複数件ある場合に、確認メッセージに同一担当者名が複数表示されてしまう
+
                 For Each dr As DataRow In dt.CopyToDataTable.Rows
                     If strTantoNameList = "" Then
                         strTantoNameList = dr.Item("GEN_TANTO_NAME")
@@ -1108,14 +1139,16 @@ Public Class FrmG0010
                     Next dr
                 End If
             Else
+                Dim dr As DataRow = dgvDATA.GetDataRow
+
                 '選択チェックは入っていない場合、選択行のみ
                 Dim strMsg As String = "以下の担当者に処置滞留通知メールを送信します。" & vbCrLf &
                                     "よろしいですか？" & vbCrLf &
                                     vbCrLf &
-                                    strTantoNameList
+                                    dr.Item("GEN_TANTO_NAME")
 
                 If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
-                    Dim dr As DataRow = dgvDATA.GetDataRow
+
                     Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
                     Dim strBody As String = <sql><![CDATA[
                     {0} 殿
@@ -1211,7 +1244,7 @@ Public Class FrmG0010
             End Select
 
             'Excel起動
-            'Return FunOpenExcelApp(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName)
+            Return FunOpenExcelApp(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName)
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -1319,7 +1352,7 @@ Public Class FrmG0010
             'プリンタ名の取得
             Dim defaultPrinterName As String = pd.PrinterSettings.PrinterName
             ssgPrintDocument.PrinterSettings.PrinterName = defaultPrinterName
-            ssgPrintDocument.Print()
+            'ssgPrintDocument.Print()
 
             '-----ファイル保存
             'spWork.Delete()
@@ -1453,7 +1486,7 @@ Public Class FrmG0010
             '-----SpereasheetGera印刷
             Dim ssgPrintDocument As SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument = New SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument(spSheet1, SpreadsheetGear.Printing.PrintWhat.Sheet)
             'printDocument.PrinterSettings.PrinterName = "PrinterName"
-            ssgPrintDocument.Print()
+            'ssgPrintDocument.Print()
 
             '-----ファイル保存
             'spWork.Delete()
@@ -1479,7 +1512,7 @@ Public Class FrmG0010
 
             'Excel作業ファイルを削除
             Try
-                System.IO.File.Delete(strFilePath)
+                'System.IO.File.Delete(strFilePath)
             Catch ex As UnauthorizedAccessException
             End Try
 
@@ -1839,7 +1872,7 @@ Public Class FrmG0010
 
 
 #Region "検索条件クリア"
-    Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click
+    Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click, btnClearSrchFilter2.Click, btnClearSrchFilter3.Click
         ParamModel.Clear()
     End Sub
 #End Region
