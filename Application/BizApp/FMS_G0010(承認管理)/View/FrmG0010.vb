@@ -918,8 +918,6 @@ Public Class FrmG0010
         End Try
     End Function
 
-
-
 #End Region
 
 #Region "’Ç‰ÁE•ÏX"

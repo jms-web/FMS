@@ -345,7 +345,7 @@ Module mdlG0010
         sbParam.Append(",'" & ParamModel.HOKOKU_NO & "'")
         sbParam.Append("," & ParamModel.ADD_TANTO & "")
         sbParam.Append(",'" & IIf(ParamModel._VISIBLE_CLOSE = 1, "", ParamModel._VISIBLE_CLOSE) & "'")
-        sbParam.Append(",'" & IIf(ParamModel._VISIBLE_TAIRYU = 1, "", ParamModel._VISIBLE_TAIRYU) & "'")
+        sbParam.Append(",'" & IIf(ParamModel._VISIBLE_TAIRYU = 1, ParamModel._VISIBLE_TAIRYU, "") & "'")
         sbParam.Append(",'" & ParamModel.FUTEKIGO_KB & "'")
         sbParam.Append(",'" & ParamModel.FUTEKIGO_S_KB & "'")
         sbParam.Append(",'" & ParamModel.FUTEKIGO_JYOTAI_KB & "'")

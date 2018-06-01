@@ -221,10 +221,6 @@ Public Class FrmG0012
             Select Case intFUNC
                 Case 1  '保存
 
-                    'DEBUG:
-                    MessageBox.Show("不具合修正中", "使用不可")
-                    Exit Sub
-
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
                         If MessageBox.Show("入力内容を保存しますか？", "登録確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
@@ -240,9 +236,6 @@ Public Class FrmG0012
 
                 Case 2  '承認申請
 
-                    'DEBUG:
-                    MessageBox.Show("不具合修正中", "使用不可")
-                    Exit Sub
 
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._2_承認申請) Then
