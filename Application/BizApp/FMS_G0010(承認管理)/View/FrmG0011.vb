@@ -2378,11 +2378,16 @@ Public Class FrmG0011
 
                     If _V003 IsNot Nothing Then
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._10_起草入力 Then lblST01_Modoshi_Riyu.Visible = True
-                        lblST01_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If _V003.SASIMODOSI_FG Then
+                            lblST01_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        Else
+                            '転送時
+                            lblST01_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                        End If
                         cmbST01_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        If intStageID > ENM_NCR_STAGE._10_起草入力 Then cmbST01_DestTANTO.Enabled = False
+                            If intStageID > ENM_NCR_STAGE._10_起草入力 Then cmbST01_DestTANTO.Enabled = False
+                        End If
                     End If
-                End If
             End If
 #End Region
 #Region "               20"
@@ -2408,10 +2413,15 @@ Public Class FrmG0011
 
                     If _V003 IsNot Nothing Then
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._20_起草確認製造GL Then lblST02_Modoshi_Riyu.Visible = True
+                        If _V003.SASIMODOSI_FG Then
+                            lblST02_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        Else
+                            '転送時
+                            lblST02_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                        End If
 
                         mtxST02_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
-                        'UNDONE: 操作区分別にcaptionヘッダ名を変える 差戻 or 転送
-                        lblST02_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+
                         If intStageID > ENM_NCR_STAGE._20_起草確認製造GL Then cmbST02_DestTANTO.Enabled = False
                     Else
                         mtxST02_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
@@ -2444,7 +2454,13 @@ Public Class FrmG0011
                         mtxST03_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
 
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._30_起草確認検査 Then lblST03_Modoshi_Riyu.Visible = True
-                        lblST03_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+
+                        If _V003.SASIMODOSI_FG Then
+                            lblST03_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        Else
+                            '転送時
+                            lblST03_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                        End If
                         If intStageID > ENM_NCR_STAGE._30_起草確認検査 Then cmbST03_DestTANTO.Enabled = False
                     Else
                         mtxST03_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
@@ -2487,7 +2503,13 @@ Public Class FrmG0011
                         txtST04_Comment.Text = _V003.COMMENT
                         mtxST04_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 Then lblST04_Modoshi_Riyu.Visible = True
-                        lblST04_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If _V003.SASIMODOSI_FG Then
+                            lblST04_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        Else
+                            '転送時
+                            lblST04_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                        End If
+
                         If intStageID > ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 Then cmbST04_DestTANTO.Enabled = False
                     Else
                         mtxST04_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
@@ -2518,7 +2540,12 @@ Public Class FrmG0011
                         txtST05_Comment.Text = _V003.COMMENT
                         mtxST05_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._50_事前審査確認 Then lblST05_Modoshi_Riyu.Visible = True
-                        lblST05_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If _V003.SASIMODOSI_FG Then
+                            lblST05_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        Else
+                            '転送時
+                            lblST05_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                        End If
                         If intStageID > ENM_NCR_STAGE._50_事前審査確認 Then cmbST05_DestTANTO.Enabled = False
                     Else
                         mtxST05_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
@@ -2568,7 +2595,12 @@ Public Class FrmG0011
                         txtST06_Comment.Text = _V003.COMMENT
                         mtxST06_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._60_再審審査判定_技術代表 Then lblST06_Modoshi_Riyu.Visible = True
-                        lblST06_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If _V003.SASIMODOSI_FG Then
+                            lblST06_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        Else
+                            '転送時
+                            lblST06_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                        End If
                         If intStageID > ENM_NCR_STAGE._60_再審審査判定_技術代表 Then cmbST06_DestTANTO.Enabled = False
                     Else
                         mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
@@ -2609,7 +2641,12 @@ Public Class FrmG0011
                             txtST06_Comment.Text = _V003.COMMENT
                             mtxST06_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                             If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._61_再審審査判定_品証代表 Then lblST06_Modoshi_Riyu.Visible = True
-                            lblST06_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                            If _V003.SASIMODOSI_FG Then
+                                lblST06_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                            Else
+                                '転送時
+                                lblST06_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                            End If
                             If intStageID > ENM_NCR_STAGE._61_再審審査判定_品証代表 Then cmbST06_DestTANTO.Enabled = False
                         Else
                             mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
@@ -2658,7 +2695,12 @@ Public Class FrmG0011
                             txtST07_Comment.Text = _V003.COMMENT
                             mtxST07_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                             If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag Then lblST07_Modoshi_Riyu.Visible = True
-                            lblST07_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                            If _V003.SASIMODOSI_FG Then
+                                lblST07_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                            Else
+                                '転送時
+                                lblST07_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                            End If
                             If intStageID > ENM_NCR_STAGE._70_顧客再審処置_I_tag Then cmbST07_DestTANTO.Enabled = False
                         Else
                             mtxST07_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
@@ -2734,7 +2776,12 @@ Public Class FrmG0011
                             txtST08_Comment.Text = _V003.COMMENT
                             mtxST08_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                             If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._80_処置実施 Then lblST08_Modoshi_Riyu.Visible = True
-                            lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                            If _V003.SASIMODOSI_FG Then
+                                lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                            Else
+                                '転送時
+                                lblST08_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                            End If
                             If intStageID > ENM_NCR_STAGE._80_処置実施 Then cmbST08_DestTANTO.Enabled = False
                         Else
                             mtxST08_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
@@ -2825,7 +2872,12 @@ Public Class FrmG0011
                         txtST08_Comment.Text = _V003.COMMENT
                         mtxST08_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._81_処置実施_生技 Then lblST08_Modoshi_Riyu.Visible = True
-                        lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If _V003.SASIMODOSI_FG Then
+                            lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        Else
+                            '転送時
+                            lblST08_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                        End If
                     End If
                 End If
             End If
@@ -2851,7 +2903,12 @@ Public Class FrmG0011
                         txtST08_Comment.Text = _V003.COMMENT
                         mtxST08_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._82_処置実施_製造 Then lblST08_Modoshi_Riyu.Visible = True
-                        lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If _V003.SASIMODOSI_FG Then
+                            lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        Else
+                            '転送時
+                            lblST08_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                        End If
                     End If
                 End If
             End If
@@ -2878,7 +2935,12 @@ Public Class FrmG0011
                         txtST08_Comment.Text = _V003.COMMENT
                         mtxST08_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._83_処置実施_検査 Then lblST08_Modoshi_Riyu.Visible = True
-                        lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If _V003.SASIMODOSI_FG Then
+                            lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        Else
+                            '転送時
+                            lblST08_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                        End If
                     End If
                 End If
             End If
@@ -2905,7 +2967,12 @@ Public Class FrmG0011
                         txtST09_Comment.Text = _V003.COMMENT
                         mtxST09_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._90_処置実施確認_管理T Then lblST09_Modoshi_Riyu.Visible = True
-                        lblST09_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If _V003.SASIMODOSI_FG Then
+                            lblST09_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        Else
+                            '転送時
+                            lblST09_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                        End If
                         If intStageID > ENM_NCR_STAGE._90_処置実施確認_管理T Then cmbST09_DestTANTO.Enabled = False
                     Else
                         mtxST09_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
@@ -2935,7 +3002,12 @@ Public Class FrmG0011
                         txtST10_Comment.Text = _V003.COMMENT
                         mtxST10_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長 Then lblST10_Modoshi_Riyu.Visible = True
-                        lblST10_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If _V003.SASIMODOSI_FG Then
+                            lblST10_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        Else
+                            '転送時
+                            lblST10_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                        End If
                         If intStageID > ENM_NCR_STAGE._100_処置実施決裁_製造課長 Then cmbST10_DestTANTO.Enabled = False
                     Else
                         mtxST10_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
@@ -3019,7 +3091,12 @@ Public Class FrmG0011
                         txtST11_Comment.Text = _V003.COMMENT
                         mtxST11_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._110_abcde処置担当 Then lblST11_Modoshi_Riyu.Visible = True
-                        lblST11_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        If _V003.SASIMODOSI_FG Then
+                            lblST11_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                        Else
+                            '転送時
+                            lblST11_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                        End If
                         If intStageID > ENM_NCR_STAGE._110_abcde処置担当 Then cmbST10_DestTANTO.Enabled = False
                     Else
                         mtxST11_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")

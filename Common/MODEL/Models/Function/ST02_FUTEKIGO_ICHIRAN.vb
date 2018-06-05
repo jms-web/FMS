@@ -253,5 +253,9 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     <ComponentModel.DisplayName("ŒÚ‹qÅI”»’è‹æ•ª–¼")>
     Public Property KOKYAKU_SAISYU_HANTEI_NAME As String
 
+    <StringLength(14)>
+    <ComponentModel.DisplayName("íœ“úŽž")>
+    Public Property DEL_YMDHNS As String
+
 
 End Class

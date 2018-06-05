@@ -165,6 +165,7 @@ Public Class FrmG0010
             AddHandler cmbFUTEKIGO_S_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler mtxHINMEI.Validated, AddressOf SearchFilterValueChanged
+            AddHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
             AddHandler chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
             AddHandler chkTairyu.CheckedChanged, AddressOf SearchFilterValueChanged
 
@@ -341,6 +342,11 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
+
+                .Columns.Add(NameOf(_Model.DEL_YMDHNS), "削除日時")
+                .Columns(.ColumnCount - 1).Visible = False
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+
                 '.Columns(.ColumnCount - 1).DefaultCellStyle.Format = "#,0"
             End With
 
@@ -363,9 +369,11 @@ Public Class FrmG0010
     End Sub
 
     '行選択時イベント
-    Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs)
+    Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs) Handles dgvDATA.SelectionChanged
         Try
             Dim dgv As DataGridView = DirectCast(sender, DataGridView)
+
+
 
         Finally
             Call FunInitFuncButtonEnabled()
@@ -631,148 +639,21 @@ Public Class FrmG0010
 
             'SPEC: PF01.2-(1) A 検索条件
 
-#Region "old 検索条件"
-
-            'Dim sbSQL As New System.Text.StringBuilder
-            'Dim dsList As New DataSet
-            'Dim sbParam As New System.Text.StringBuilder
-
-            '#Region "           共通検索条件"
-
-            '            '部門、機種、部品番号、部品名称 パラメータ
-
-            '            '社内CD
-            '            If mtxSyanaiCD.Text.IsNullOrWhiteSpace Then
-            '            Else
-            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-            '                sbSQLWHERE.Append("SYANAI_CD LIKE '%" & mtxSyanaiCD.Text & "%'")
-            '            End If
-
-            '            '号機
-            '            If mtxGOUKI.Text.IsNullOrWhiteSpace Then
-            '            Else
-            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-            '                sbSQLWHERE.Append("GOUKI LIKE '%" & mtxGOUKI.Text & "%'")
-            '            End If
-
-            '            '現処置担当者
-            '            If cmbTANTO.SelectedValue <> "" Then
-            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-            '                sbSQLWHERE.Append("SYOCHI_SYAIN_ID = " & cmbTANTO.SelectedValue)
-            '            Else
-            '            End If
-
-            '            '処置実施日
-            '            If dtJisiFrom.Text.IsNullOrWhiteSpace Then
-            '            Else
-            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-            '                sbSQLWHERE.Append("SYOCHI_YMD <= '" & dtJisiFrom.ValueDate.ToString("yyyyMMdd") & "'")
-            '            End If
-            '            If dtJisiTo.Text.IsNullOrWhiteSpace Then
-            '            Else
-            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-            '                sbSQLWHERE.Append("SYOCHI_YMD > '" & dtJisiFrom.ValueDate.ToString("yyyyMMdd") & "'")
-            '            End If
-
-            '            '報告書No パラメータ
-
-
-            '            '起草者
-            '            If cmbADD_TANTO.SelectedValue <> "" Then
-            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-            '                sbSQLWHERE.Append(" AND ADD_SYAIN_ID = " & cmbADD_TANTO.SelectedValue)
-            '            Else
-            '            End If
-
-            '            'クローズ除く パラメータ
-
-            '            '滞留を表示
-            '            If chkTairyu.Checked Then
-            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-            '                sbSQLWHERE.Append(" WHERE TAIRYU > 0")
-            '            Else
-            '            End If
-
-            '            '不適合区分
-            '            If cmbFUTEKIGO_KB.SelectedValue <> "" Then
-            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-            '                sbSQLWHERE.Append(" AND FUTEKIGO_KB = '" & cmbFUTEKIGO_KB.SelectedValue & "'")
-            '            Else
-            '            End If
-
-            '            '不適合詳細区分
-            '            If cmbFUKEKIGO_S_KB.SelectedValue <> "" Then
-            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-            '                sbSQLWHERE.Append(" AND FUKEKIGO_S_KB = '" & cmbFUKEKIGO_S_KB.SelectedValue & "'")
-            '            Else
-            '            End If
-
-            '            '不適合状態区分
-            '            If cmbFUTEKIGO_JYOTAI_KB.SelectedValue <> "" Then
-            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-            '                sbSQLWHERE.Append(" AND FUTEKIGO_JYOTAI_KB = '" & cmbFUTEKIGO_JYOTAI_KB.SelectedValue & "'")
-            '            Else
-            '            End If
-
-            '#End Region
-
-            '#Region "           NCR検索条件"
-
-            '            '事前審査判定 パラメータ
-
-            '            '是正処置要否確認
-            '            If cmbZESEI_SYOCHI_YOHI_KB.SelectedValue <> "" Then
-            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-            '                sbSQLWHERE.Append(" AND ZESEI_SYOCHI_YOHI_KB = '" & cmbZESEI_SYOCHI_YOHI_KB.SelectedValue & "'")
-            '            Else
-            '            End If
-
-            '            '再審委員会判定 パラメータ
-
-            '            '顧客判定指示 
-            '            If cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValue <> "" Then
-            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-            '                sbSQLWHERE.Append(" AND KOKYAKU_HANTEI_SIJI_KB = '" & cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValue & "'")
-            '            Else
-            '            End If
-
-            '            '顧客最終判定区分
-            '            If cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValue <> "" Then
-            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-            '                sbSQLWHERE.Append(" AND KOKYAKU_SAISYU_HANTEI_KB = '" & cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValue & "'")
-            '            Else
-            '            End If
-
-            '            '検査結果 
-            '            If cmbKENSA_KEKKA_KB.SelectedValue <> "" Then
-            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-            '                sbSQLWHERE.Append(" AND KENSA_KEKKA_KB = '" & cmbKENSA_KEKKA_KB.SelectedValue & "'")
-            '            Else
-            '            End If
-
-            '#End Region
-
-            '#Region "           CAR検索条件"
-
-            '            '要因1
-            '            '要因2
-            '            '作業者名
-
-
-            '            '帰責工程
-            '            If cmbKISEKI_KOTEI_KB.SelectedValue <> "" Then
-            '                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND "))
-            '                sbSQLWHERE.Append(" AND KISEKI_KOTEI_KB = '" & cmbKISEKI_KOTEI_KB.SelectedValue & "'")
-            '            Else
-            '            End If
-
-            '#End Region
-#End Region
-
             Dim dtBUFF As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(ParamModel)
             If dtBUFF Is Nothing Then Return Nothing
             If dtBUFF.Rows.Count > pub_APP_INFO.intSEARCHMAX Then
                 If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
+                    Return Nothing
+                End If
+            End If
+
+            'UNDONE: 削除済み表示切替 可能ならストアドパラメータに条件設定を移行したい
+            If chkDleteRowVisibled.Checked Then
+            Else
+                Dim drs As List(Of DataRow) = dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of String)("DEL_YMDHNS").Trim = "").ToList
+                If drs.Count > 0 Then
+                    dtBUFF = drs.CopyToDataTable
+                Else
                     Return Nothing
                 End If
             End If
@@ -913,6 +794,12 @@ Public Class FrmG0010
                 End If
 
                 If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.CLOSE_FG)).Value > 0 Then
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
+                End If
+
+                If dgvDATA.Rows(i).Cells(NameOf(_Model.DEL_YMDHNS)).Value <> "" Then
                     Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
                     Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
                     Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
@@ -1630,6 +1517,16 @@ Public Class FrmG0010
                 End If
 
                 If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+
+                    If dgvDATA.CurrentRow.Cells.Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).Value <> "" Then
+                        '削除済み
+                        cmdFunc4.Enabled = False
+                        MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "削除済みデータです")
+                        cmdFunc5.Enabled = False
+                        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除済みデータです")
+                        dgvDATA.CurrentRow.Cells.Item("SELECTED").ReadOnly = True
+                    End If
+
                 Else
                     cmdFunc5.Enabled = False
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除権限の使用には管理者権限が必要です")
@@ -1885,8 +1782,6 @@ Public Class FrmG0010
     End Sub
 
 #End Region
-
-
 
 #Region "検索条件クリア"
     Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click, btnClearSrchFilter2.Click, btnClearSrchFilter3.Click

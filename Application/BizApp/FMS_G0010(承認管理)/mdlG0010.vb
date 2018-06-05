@@ -365,7 +365,6 @@ Module mdlG0010
         sbParam.Append(",'" & ParamModel.GENIN1 & "'")
         sbParam.Append(",'" & ParamModel.GENIN2 & "'")
 
-
         sbSQL.Append("EXEC dbo." & NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN) & " " & sbParam.ToString & "")
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)

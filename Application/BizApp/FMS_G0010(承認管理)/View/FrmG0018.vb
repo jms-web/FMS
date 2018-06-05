@@ -1,6 +1,9 @@
 Imports JMS_COMMON.ClsPubMethod
 
 
+''' <summary>
+''' 差し戻し前後での変更項目の比較
+''' </summary>
 Public Class FrmG0018
 
 #Region "プロパティ"
@@ -33,6 +36,8 @@ Public Class FrmG0018
         Try
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+            lblTytle.Text = "変更内容比較"
+            Me.Text = lblTytle.Text
 
             '-----グリッド初期設定(親フォームから呼び出し)
             Call FunInitializeDataGridView(Me.dgvDATA)
@@ -40,10 +45,12 @@ Public Class FrmG0018
             '-----グリッド列作成
             Call FunSetDgvCulumns(Me.dgvDATA)
 
-            '検索実行
-
-        Finally
             Call FunInitFuncButtonEnabled()
+
+            '検索実行
+            Call FunSRCH(dgvDATA, FunGetListData)
+        Finally
+
         End Try
     End Sub
 
@@ -136,7 +143,7 @@ Public Class FrmG0018
             Next
 
             'ファンクションキー有効化初期化
-            'Call FunInitFuncButtonEnabled(Me)
+            Call FunInitFuncButtonEnabled()
 
             '[アクティブ]
             Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
@@ -159,7 +166,7 @@ Public Class FrmG0018
             sbSQL.Append(" FROM TV01_HENKO_HIKAKU(")
             sbSQL.Append("'" & PrDataRow.Item("SASIMODOSI_YMDHNS") & "'")
             sbSQL.Append("," & PrDataRow.Item("SYONIN_HOKOKUSYO_ID") & "")
-            sbSQL.Append(",'" & PrDataRow.Item("HOKOKUSYO_NO") & "'")
+            sbSQL.Append(",'" & PrDataRow.Item("HOKOKU_NO") & "'")
             sbSQL.Append(")")
             Using DBa As ClsDbUtility = DBOpen()
                 dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
@@ -169,6 +176,11 @@ Public Class FrmG0018
                 If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
                     Return Nothing
                 End If
+            End If
+
+            If dsList.Tables(0).Rows.Count = 0 Then
+                MessageBox.Show("差戻し後変更されていません。", "変更データなし", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Me.Close()
             End If
 
             '------DataTableに変換

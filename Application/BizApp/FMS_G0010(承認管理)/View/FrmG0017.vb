@@ -5,7 +5,6 @@ Imports JMS_COMMON.ClsPubMethod
 ''' </summary>
 Public Class FrmG0017
 
-
 #Region "定数・変数"
     '入力必須コントロール検証判定
     Private pri_blnValidated As Boolean
@@ -46,6 +45,7 @@ Public Class FrmG0017
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
             lblTytle.Text = "処置履歴"
             Me.Text = lblTytle.Text
+
 
             '-----グリッド初期設定(親フォームから呼び出し)
             Call FunInitializeDataGridView(Me.dgvDATA)
@@ -215,6 +215,7 @@ Public Class FrmG0017
             dt.Columns.Add("SYONIN_HANTEI_KB", GetType(String))
             dt.Columns.Add("SYONIN_HANTEI_NAME", GetType(String))
             dt.Columns.Add("RIYU", GetType(String))
+            dt.Columns.Add("SASIMODOSI_YMDHNS", GetType(String))
 
             '主キー設定
             dt.PrimaryKey = {dt.Columns("SYONIN_HOKOKUSYO_ID"), dt.Columns("HOKOKU_NO"), dt.Columns("ADD_YMDHNS")}
@@ -235,6 +236,7 @@ Public Class FrmG0017
                     Trow("SYONIN_HANTEI_KB") = .Rows(intCNT).Item("SYONIN_HANTEI_KB")
                     Trow("SYONIN_HANTEI_NAME") = .Rows(intCNT).Item("SYONIN_HANTEI_NAME")
                     Trow("RIYU") = .Rows(intCNT).Item("RIYU")
+                    Trow("SASIMODOSI_YMDHNS") = .Rows(intCNT).Item("SASIMODOSI_YMDHNS")
 
                     dt.Rows.Add(Trow)
                 Next intCNT
