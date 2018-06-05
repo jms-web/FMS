@@ -29,7 +29,7 @@ Partial Public Class V005_CAR_J
         SETUMON_4 = ""
         KAITO_4 = ""
         SETUMON_5 = ""
-        KAITO_5 = ""
+        KAITO_5 = 0
         SETUMON_6 = ""
         KAITO_6 = ""
         SETUMON_7 = ""
@@ -39,7 +39,7 @@ Partial Public Class V005_CAR_J
         SETUMON_9 = ""
         KAITO_9 = ""
         SETUMON_10 = ""
-        KAITO_10 = ""
+        KAITO_10 = 0
         SETUMON_11 = ""
         KAITO_11 = ""
         SETUMON_12 = ""
@@ -53,7 +53,7 @@ Partial Public Class V005_CAR_J
         SETUMON_16 = ""
         KAITO_16 = ""
         SETUMON_17 = ""
-        KAITO_17 = ""
+        KAITO_17 = 0
         SETUMON_18 = ""
         KAITO_18 = ""
         SETUMON_19 = ""
@@ -221,10 +221,8 @@ Partial Public Class V005_CAR_J
     Public Property SETUMON_5 As String
 
     <Required>
-    <Column(TypeName:="nvarchar")>
-    <StringLength(150)>
     <ComponentModel.DisplayName("設問回答5")>
-    Public Property KAITO_5 As String
+    Public Property KAITO_5 As Integer
 
     <Required>
     <Column(TypeName:="nvarchar")>
@@ -275,10 +273,8 @@ Partial Public Class V005_CAR_J
     Public Property KAITO_9 As String
 
     <Required>
-    <Column(TypeName:="nvarchar")>
-    <StringLength(100)>
     <ComponentModel.DisplayName("設問内容10")>
-    Public Property SETUMON_10 As String
+    Public Property SETUMON_10 As Integer
 
     <Required>
     <Column(TypeName:="nvarchar")>
@@ -359,10 +355,8 @@ Partial Public Class V005_CAR_J
     Public Property KAITO_16 As String
 
     <Required>
-    <Column(TypeName:="nvarchar")>
-    <StringLength(100)>
     <ComponentModel.DisplayName("設問内容17")>
-    Public Property SETUMON_17 As String
+    Public Property SETUMON_17 As Integer
 
     <Required>
     <Column(TypeName:="nvarchar")>

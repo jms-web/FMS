@@ -32,7 +32,7 @@ Partial Public Class D005_CAR_J
         SETUMON_4 = ""
         KAITO_4 = ""
         SETUMON_5 = ""
-        KAITO_5 = ""
+        KAITO_5 = 0
         SETUMON_6 = ""
         KAITO_6 = ""
         SETUMON_7 = ""
@@ -42,7 +42,7 @@ Partial Public Class D005_CAR_J
         SETUMON_9 = ""
         KAITO_9 = ""
         SETUMON_10 = ""
-        KAITO_10 = ""
+        KAITO_10 = 0
         SETUMON_11 = ""
         KAITO_11 = ""
         SETUMON_12 = ""
@@ -56,7 +56,7 @@ Partial Public Class D005_CAR_J
         SETUMON_16 = ""
         KAITO_16 = ""
         SETUMON_17 = ""
-        KAITO_17 = ""
+        KAITO_17 = 0
         SETUMON_18 = ""
         KAITO_18 = ""
         SETUMON_19 = ""
@@ -84,7 +84,7 @@ Partial Public Class D005_CAR_J
         SYOCHI_C_SYAIN_ID = 0
         SYOCHI_C_YMDHNS = ""
         KYOIKU_FILE_PATH = ""
-        ZESEI_SYOCHI_YUKO_UMU = ""
+        ZESEI_SYOCHI_YUKO_UMU = "0"
         SYOSAI_FILE_PATH = ""
         GOKI = ""
         LOT = ""
@@ -202,10 +202,8 @@ Partial Public Class D005_CAR_J
     Public Property SETUMON_5 As String
 
     <Required>
-    <Column(TypeName:="nvarchar")>
-    <StringLength(150)>
     <ComponentModel.DisplayName("設問回答5")>
-    Public Property KAITO_5 As String
+    Public Property KAITO_5 As Integer
 
     <Required>
     <Column(TypeName:="nvarchar")>
@@ -262,10 +260,8 @@ Partial Public Class D005_CAR_J
     Public Property SETUMON_10 As String
 
     <Required>
-    <Column(TypeName:="nvarchar")>
-    <StringLength(150)>
     <ComponentModel.DisplayName("設問回答10")>
-    Public Property KAITO_10 As String
+    Public Property KAITO_10 As Integer
 
     <Required>
     <Column(TypeName:="nvarchar")>
@@ -346,10 +342,8 @@ Partial Public Class D005_CAR_J
     Public Property SETUMON_17 As String
 
     <Required>
-    <Column(TypeName:="nvarchar")>
-    <StringLength(150)>
     <ComponentModel.DisplayName("設問回答17")>
-    Public Property KAITO_17 As String
+    Public Property KAITO_17 As Integer
 
     <Required>
     <Column(TypeName:="nvarchar")>

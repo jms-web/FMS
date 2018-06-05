@@ -759,7 +759,7 @@ Partial Class FrmG0012
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtKAITO_1.BackColor = System.Drawing.SystemColors.Window
         Me.txtKAITO_1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtKAITO_1.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtKAITO_1.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtKAITO_1.Location = New System.Drawing.Point(6, 24)
         Me.txtKAITO_1.Multiline = True
         Me.txtKAITO_1.Name = "txtKAITO_1"
@@ -923,7 +923,7 @@ Partial Class FrmG0012
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtKAITO_2.BackColor = System.Drawing.SystemColors.Window
         Me.txtKAITO_2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtKAITO_2.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtKAITO_2.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtKAITO_2.Location = New System.Drawing.Point(6, 24)
         Me.txtKAITO_2.Multiline = True
         Me.txtKAITO_2.Name = "txtKAITO_2"
@@ -1109,7 +1109,7 @@ Partial Class FrmG0012
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtKAITO_3.BackColor = System.Drawing.SystemColors.Window
         Me.txtKAITO_3.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtKAITO_3.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtKAITO_3.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtKAITO_3.Location = New System.Drawing.Point(6, 24)
         Me.txtKAITO_3.Multiline = True
         Me.txtKAITO_3.Name = "txtKAITO_3"
@@ -1577,7 +1577,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_15.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.mtxKAITO_15.BackColor = System.Drawing.SystemColors.Window
         Me.mtxKAITO_15.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxKAITO_15.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxKAITO_15.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxKAITO_15.InputRequired = False
         Me.mtxKAITO_15.Location = New System.Drawing.Point(88, 61)
         Me.mtxKAITO_15.Name = "mtxKAITO_15"
@@ -1841,7 +1841,7 @@ Partial Class FrmG0012
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtComment.BackColor = System.Drawing.SystemColors.Window
         Me.txtComment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtComment.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtComment.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtComment.Location = New System.Drawing.Point(118, 38)
         Me.txtComment.Multiline = True
         Me.txtComment.Name = "txtComment"
@@ -2012,7 +2012,7 @@ Partial Class FrmG0012
         Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel18)
         Me.fpnlKYOIKU_FILE_PATH.Location = New System.Drawing.Point(99, 71)
         Me.fpnlKYOIKU_FILE_PATH.Name = "fpnlKYOIKU_FILE_PATH"
-        Me.fpnlKYOIKU_FILE_PATH.Size = New System.Drawing.Size(287, 22)
+        Me.fpnlKYOIKU_FILE_PATH.Size = New System.Drawing.Size(386, 22)
         Me.fpnlKYOIKU_FILE_PATH.TabIndex = 256
         '
         'lblKYOIKU_FILE_PATH
@@ -2174,7 +2174,7 @@ Partial Class FrmG0012
         '
         Me.btnOpenKYOIKU_FILE_PATH.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnOpenKYOIKU_FILE_PATH.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.btnOpenKYOIKU_FILE_PATH.Location = New System.Drawing.Point(392, 70)
+        Me.btnOpenKYOIKU_FILE_PATH.Location = New System.Drawing.Point(491, 68)
         Me.btnOpenKYOIKU_FILE_PATH.Name = "btnOpenKYOIKU_FILE_PATH"
         Me.btnOpenKYOIKU_FILE_PATH.Size = New System.Drawing.Size(54, 24)
         Me.btnOpenKYOIKU_FILE_PATH.TabIndex = 257
@@ -2360,7 +2360,7 @@ Partial Class FrmG0012
         Me.fpnlSYOSAI_FILE_PATH.Controls.Add(Me.LinkLabel8)
         Me.fpnlSYOSAI_FILE_PATH.Location = New System.Drawing.Point(518, 10)
         Me.fpnlSYOSAI_FILE_PATH.Name = "fpnlSYOSAI_FILE_PATH"
-        Me.fpnlSYOSAI_FILE_PATH.Size = New System.Drawing.Size(287, 22)
+        Me.fpnlSYOSAI_FILE_PATH.Size = New System.Drawing.Size(391, 22)
         Me.fpnlSYOSAI_FILE_PATH.TabIndex = 270
         '
         'lblSYOSAI_FILE_PATH
@@ -2522,7 +2522,7 @@ Partial Class FrmG0012
         '
         Me.btnOpenSYOSAI_FILE_PATH.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnOpenSYOSAI_FILE_PATH.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.btnOpenSYOSAI_FILE_PATH.Location = New System.Drawing.Point(811, 9)
+        Me.btnOpenSYOSAI_FILE_PATH.Location = New System.Drawing.Point(915, 9)
         Me.btnOpenSYOSAI_FILE_PATH.Name = "btnOpenSYOSAI_FILE_PATH"
         Me.btnOpenSYOSAI_FILE_PATH.Size = New System.Drawing.Size(54, 24)
         Me.btnOpenSYOSAI_FILE_PATH.TabIndex = 271
@@ -2777,7 +2777,7 @@ Partial Class FrmG0012
         Me.fpnltmpFile2.Controls.Add(Me.LinkLabel38)
         Me.fpnltmpFile2.Location = New System.Drawing.Point(113, 40)
         Me.fpnltmpFile2.Name = "fpnltmpFile2"
-        Me.fpnltmpFile2.Size = New System.Drawing.Size(287, 22)
+        Me.fpnltmpFile2.Size = New System.Drawing.Size(386, 22)
         Me.fpnltmpFile2.TabIndex = 123
         '
         'lbltmpFile2
@@ -2939,7 +2939,7 @@ Partial Class FrmG0012
         '
         Me.btnOpentmpFile2.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnOpentmpFile2.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.btnOpentmpFile2.Location = New System.Drawing.Point(406, 39)
+        Me.btnOpentmpFile2.Location = New System.Drawing.Point(505, 38)
         Me.btnOpentmpFile2.Name = "btnOpentmpFile2"
         Me.btnOpentmpFile2.Size = New System.Drawing.Size(54, 24)
         Me.btnOpentmpFile2.TabIndex = 124
@@ -2960,7 +2960,7 @@ Partial Class FrmG0012
         Me.fpnltmpFile1.Controls.Add(Me.LinkLabel28)
         Me.fpnltmpFile1.Location = New System.Drawing.Point(113, 10)
         Me.fpnltmpFile1.Name = "fpnltmpFile1"
-        Me.fpnltmpFile1.Size = New System.Drawing.Size(287, 22)
+        Me.fpnltmpFile1.Size = New System.Drawing.Size(386, 22)
         Me.fpnltmpFile1.TabIndex = 121
         '
         'lbltmpFile1
@@ -3122,7 +3122,7 @@ Partial Class FrmG0012
         '
         Me.btnOpentmpFile1.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnOpentmpFile1.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.btnOpentmpFile1.Location = New System.Drawing.Point(406, 9)
+        Me.btnOpentmpFile1.Location = New System.Drawing.Point(505, 8)
         Me.btnOpentmpFile1.Name = "btnOpentmpFile1"
         Me.btnOpentmpFile1.Size = New System.Drawing.Size(54, 24)
         Me.btnOpentmpFile1.TabIndex = 122
