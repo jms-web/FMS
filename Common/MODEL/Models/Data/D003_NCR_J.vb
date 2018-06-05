@@ -108,7 +108,7 @@ Partial Public Class D003_NCR_J
 
     End Sub
 
-
+    <Display(AutoGenerateField:=False)>
     Default Public Property Item(ByVal propertyName As String) As Object
         Get
             Return GetType(D003_NCR_J).GetProperty(propertyName).GetValue(Me)
@@ -134,6 +134,7 @@ Partial Public Class D003_NCR_J
     <Required>
     <StringLength(1)>
     <Column(NameOf(CLOSE_FG), TypeName:="char")>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("クローズフラグ")>
     Public Property _CLOSE_FG As String
 
@@ -184,6 +185,7 @@ Partial Public Class D003_NCR_J
     <Required>
     <Column("SAIHATU", TypeName:="char")>
     <StringLength(1)>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("再発")>
     Public Property _SAIHATU As String
 
@@ -244,6 +246,7 @@ Partial Public Class D003_NCR_J
     <Required>
     <Column(NameOf(ZESEI_SYOCHI_YOHI_KB), TypeName:="char")>
     <StringLength(1)>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("是正処置要否区分")>
     Public Property _ZESEI_SYOCHI_YOHI_KB As String
 
@@ -366,6 +369,7 @@ Partial Public Class D003_NCR_J
     <Required>
     <Column(NameOf(SAIKAKO_SIJI_FG), TypeName:="char")>
     <StringLength(1)>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("再加工指示フラグ")>
     Public Property _SAIKAKO_SIJI_FG As String
 
@@ -491,6 +495,7 @@ Partial Public Class D003_NCR_J
     <Column(TypeName:="char")>
     <StringLength(1)>
     <ComponentModel.DisplayName("処置結果a")>
+    <Display(AutoGenerateField:=False)>
     Public Property _SYOCHI_KEKKA_A As String
 
     <ComponentModel.DisplayName("処置結果a")>
@@ -508,6 +513,7 @@ Partial Public Class D003_NCR_J
     <Required>
     <Column(TypeName:="char")>
     <StringLength(1)>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("処置結果b")>
     Public Property _SYOCHI_KEKKA_B As String
 
@@ -526,6 +532,7 @@ Partial Public Class D003_NCR_J
     <Required>
     <Column(TypeName:="char")>
     <StringLength(1)>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("処置結果c")>
     Public Property _SYOCHI_KEKKA_C As String
 
@@ -544,6 +551,7 @@ Partial Public Class D003_NCR_J
     <Required>
     <Column(TypeName:="char")>
     <StringLength(1)>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("処置d有無区分")>
     Public Property _SYOCHI_D_UMU_KB As String
 
@@ -562,6 +570,7 @@ Partial Public Class D003_NCR_J
     <Required>
     <Column(TypeName:="char")>
     <StringLength(1)>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("処置d要否区分")>
     Public Property _SYOCHI_D_YOHI_KB As String
 
@@ -586,6 +595,7 @@ Partial Public Class D003_NCR_J
     <Required>
     <Column(TypeName:="char")>
     <StringLength(1)>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("処置e有無区分")>
     Public Property _SYOCHI_E_UMU_KB As String
 
@@ -604,6 +614,7 @@ Partial Public Class D003_NCR_J
     <Required>
     <Column(TypeName:="char")>
     <StringLength(1)>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("処置e要否区分")>
     Public Property _SYOCHI_E_YOHI_KB As String
 
@@ -647,16 +658,16 @@ Partial Public Class D003_NCR_J
     ''共通項目------------------------------------
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="char")>
     Public Property ADD_YMDHNS As String
 
+    <Display(AutoGenerateField:=False)>
     <NotMapped>
     Public ReadOnly Property ADD_YMD As String
         Get
             Dim strRET As String
             If ADD_YMDHNS IsNot Nothing AndAlso ADD_YMDHNS.Length = 14 Then
-                strRET = DateTime.ParseExact(ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                strRET = DateTime.ParseExact(ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyyMMdd")
             Else
                 strRET = ""
             End If
@@ -665,25 +676,22 @@ Partial Public Class D003_NCR_J
     End Property
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property ADD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="char")>
     Public Property UPD_YMDHNS As String
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property UPD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="char")>
     Public Property DEL_YMDHNS As String
 
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("削除済")>
     <NotMapped>
     Public ReadOnly Property DEL_FLG As Boolean
@@ -693,7 +701,6 @@ Partial Public Class D003_NCR_J
     End Property
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property DEL_SYAIN_ID As Integer
 
 End Class

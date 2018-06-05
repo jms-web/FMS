@@ -397,80 +397,17 @@ Module mdlG0010
             Dim properties As Reflection.PropertyInfo() = t.GetProperties(
                  Reflection.BindingFlags.Public Or
                  Reflection.BindingFlags.Instance Or
-                 Reflection.BindingFlags.Static).Where(Function(p) p.Name <> "Item").ToArray
+                 Reflection.BindingFlags.Static)
 
             With dsList.Tables(0).Rows(0)
                 For Each p As Reflection.PropertyInfo In properties
-                    _model(p.Name) = .Item(p.Name)
+                    If IsAutoGenerateField(t, p.Name) = True Then
+                        _model(p.Name) = .Item(p.Name)
+                    End If
                 Next p
-
-                '_model.ADD_SYAIN_ID = .Item(NameOf(_model.ADD_SYAIN_ID))
-                '_model.ADD_SYAIN_NAME = .Item(NameOf(_model.ADD_SYAIN_NAME))
-                '_model.ADD_YMDHNS = .Item(NameOf(_model.ADD_YMDHNS))
-                '_model.BUMON_KB = .Item(NameOf(_model.BUMON_KB))
-                '_model.BUMON_NAME = .Item(NameOf(_model.BUMON_NAME))
-                '_model.BUHIN_BANGO = .Item(NameOf(_model.BUHIN_BANGO))
-                '_model.BUHIN_NAME = .Item(NameOf(_model.BUHIN_NAME))
-                '_model.FUTEKIGO_JYOTAI_KB = .Item(NameOf(_model.FUTEKIGO_JYOTAI_KB))
-                '_model.FUTEKIGO_NAIYO = .Item(NameOf(_model.FUTEKIGO_NAIYO))
-                '_model.GOKI = .Item(NameOf(_model.GOKI))
-                '_model.HAIKYAKU_HOUHOU = .Item(NameOf(_model.HAIKYAKU_HOUHOU))
-                '_model.HAIKYAKU_KB_NAME = .Item(NameOf(_model.HAIKYAKU_KB_NAME))
-                '_model.HAIKYAKU_TANTO_NAME = .Item(NameOf(_model.HAIKYAKU_TANTO_NAME))
-                '_model.HAIKYAKU_YMD = .Item(NameOf(_model.HAIKYAKU_YMD))
-                '_model.HASSEI_KOTEI_GL_NAME = .Item(NameOf(_model.HASSEI_KOTEI_GL_NAME))
-                '_model.HASSEI_KOTEI_GL_YMD = .Item(NameOf(_model.HASSEI_KOTEI_GL_YMD))
-                '_model.HENKYAKU_BIKO = .Item(NameOf(_model.HENKYAKU_BIKO))
-                '_model.HENKYAKU_TANTO_NAME = .Item(NameOf(_model.HENKYAKU_TANTO_NAME))
-                '_model.HENKYAKU_YMD = .Item(NameOf(_model.HENKYAKU_YMD))
-                '_model.HOKOKU_NO = .Item(NameOf(_model.HOKOKU_NO))
-                '_model.ITAG_NO = .Item(NameOf(_model.ITAG_NO))
-                '_model.JIZEN_SINSA_HANTEI_KB = .Item(NameOf(_model.JIZEN_SINSA_HANTEI_KB))
-                '_model.JIZEN_SINSA_SYAIN_NAME = .Item(NameOf(_model.JIZEN_SINSA_SYAIN_NAME))
-                '_model.JIZEN_SINSA_YMD = .Item(NameOf(_model.JIZEN_SINSA_YMD))
-                '_model.KANSATU_KEKKA = .Item(NameOf(_model.KANSATU_KEKKA))
-                '_model.KENSA_KEKKA_NAME = .Item(NameOf(_model.KENSA_KEKKA_NAME))
-                '_model.KENSA_TANTO_NAME = .Item(NameOf(_model.KENSA_TANTO_NAME))
-                '_model.KISYU = .Item(NameOf(_model.KISYU))
-                '_model.KISYU_ID = .Item(NameOf(_model.KISYU_ID))
-                '_model.KISYU_NAME = .Item(NameOf(_model.KISYU_NAME))
-                '_model.KOKYAKU_HANTEI_SIJI_NAME = .Item(NameOf(_model.KOKYAKU_HANTEI_SIJI_NAME))
-                '_model.KOKYAKU_HANTEI_SIJI_YMD = .Item(NameOf(_model.KOKYAKU_HANTEI_SIJI_YMD))
-                '_model.SAIHATU = .Item(NameOf(_model.SAIHATU))
-                '_model.SAIKAKO_KENSA_YMD = .Item(NameOf(_model.SAIKAKO_KENSA_YMD))
-                '_model.SAIKAKO_SAGYO_KAN_YMD = .Item(NameOf(_model.SAIKAKO_SAGYO_KAN_YMD))
-                '_model.SAIKAKO_SIJI_NO = .Item(NameOf(_model.SAIKAKO_SIJI_NO))
-                '_model.SAISIN_GIJYUTU_SYAIN_NAME = .Item(NameOf(_model.SAISIN_GIJYUTU_SYAIN_NAME))
-                '_model.SAISIN_HINSYO_SYAIN_NAME = .Item(NameOf(_model.SAISIN_HINSYO_SYAIN_NAME))
-                '_model.SAISIN_HINSYO_YMD = .Item(NameOf(_model.SAISIN_HINSYO_YMD))
-                '_model.SAISIN_IINKAI_HANTEI_KB = .Item(NameOf(_model.SAISIN_IINKAI_HANTEI_KB))
-                '_model.SAISIN_IINKAI_SIRYO_NO = .Item(NameOf(_model.SAISIN_IINKAI_SIRYO_NO))
-                '_model.SAISIN_KAKUNIN_SYAIN_NAME = .Item(NameOf(_model.SAISIN_KAKUNIN_SYAIN_NAME))
-                '_model.SAISIN_KAKUNIN_YMD = .Item(NameOf(_model.SAISIN_KAKUNIN_YMD))
-                '_model.SEIGI_TANTO_NAME = .Item(NameOf(_model.SEIGI_TANTO_NAME))
-                '_model.SEIZO_TANTO_NAME = .Item(NameOf(_model.SEIZO_TANTO_NAME))
-                '_model.SURYO = .Item(NameOf(_model.SURYO))
-                '_model.SYOCHI_D_SYOCHI_KIROKU = .Item(NameOf(_model.SYOCHI_D_SYOCHI_KIROKU))
-                '_model.SYOCHI_D_UMU_NAME = .Item(NameOf(_model.SYOCHI_D_UMU_NAME))
-                '_model.SYOCHI_D_YOHI_NAME = .Item(NameOf(_model.SYOCHI_D_YOHI_NAME))
-                '_model.SYOCHI_E_SYOCHI_KIROKU = .Item(NameOf(_model.SYOCHI_E_SYOCHI_KIROKU))
-                '_model.SYOCHI_E_UMU_NAME = .Item(NameOf(_model.SYOCHI_E_UMU_NAME))
-                '_model.SYOCHI_E_YOHI_NAME = .Item(NameOf(_model.SYOCHI_E_YOHI_NAME))
-                '_model.TENYO_BUHIN_BANGO = .Item(NameOf(_model.TENYO_BUHIN_BANGO))
-                '_model.TENYO_GOKI = .Item(NameOf(_model.TENYO_GOKI))
-                '_model.TENYO_KISYU = .Item(NameOf(_model.TENYO_KISYU))
-                '_model.TENYO_YMD = .Item(NameOf(_model.TENYO_YMD))
-                '_model.YOKYU_NAIYO = .Item(NameOf(_model.YOKYU_NAIYO))
-                '_model.ZUMEN_KIKAKU = .Item(NameOf(_model.ZUMEN_KIKAKU))
-
             End With
-
             Return _model
         End If
-
-
-
-
     End Function
 
     Public Function FunGetV003Model(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String) As List(Of MODEL.V003_SYONIN_J_KANRI)
@@ -495,43 +432,83 @@ Module mdlG0010
             Dim properties As Reflection.PropertyInfo() = t.GetProperties(
                          Reflection.BindingFlags.Public Or
                          Reflection.BindingFlags.Instance Or
-                         Reflection.BindingFlags.Static).Where(Function(p) p.Name <> "Item").ToArray
+                         Reflection.BindingFlags.Static)
 
             Dim entities As New List(Of MODEL.V003_SYONIN_J_KANRI)
             For Each row As DataRow In dsList.Tables(0).Rows
                 With row
                     Dim _model As New MODEL.V003_SYONIN_J_KANRI
                     For Each p As Reflection.PropertyInfo In properties
+                        If IsAutoGenerateField(t, p.Name) = True Then
+                            Select Case p.PropertyType
+                                Case GetType(Integer)
+                                    _model(p.Name) = row.Item(p.Name)
+                                Case GetType(Decimal)
+                                    _model(p.Name) = CDec(row.Item(p.Name))
+                                Case GetType(Boolean)
+                                    _model(p.Name) = CBool(row.Item(p.Name))
 
-                        Select Case p.PropertyType
-                            Case GetType(Integer)
-                                _model(p.Name) = row.Item(p.Name)
-                            Case GetType(Decimal)
-                                _model(p.Name) = CDec(row.Item(p.Name))
-                            Case GetType(Boolean)
-                                _model(p.Name) = CBool(row.Item(p.Name))
-
-                            Case GetType(Date), GetType(DateTime)
-                                If row.Item(p.Name).ToString.IsNullOrWhiteSpace = False Then
-                                    Select Case row.Item(p.Name).ToString.Length
-                                        Case 8 'yyyyMMdd
-                                            _model(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMdd", Nothing)
-                                        Case 14 'yyyyMMddHHmmss
-                                            _model(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMddHHmmss", Nothing)
-                                        Case Else
-                                            'Err
-                                            _model(p.Name) = Nothing
-                                    End Select
-                                End If
-                            Case Else
-                                _model(p.Name) = row.Item(p.Name).ToString.Trim
-                        End Select
+                                Case GetType(Date), GetType(DateTime)
+                                    If row.Item(p.Name).ToString.IsNullOrWhiteSpace = False Then
+                                        Select Case row.Item(p.Name).ToString.Length
+                                            Case 8 'yyyyMMdd
+                                                _model(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMdd", Nothing)
+                                            Case 14 'yyyyMMddHHmmss
+                                                _model(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMddHHmmss", Nothing)
+                                            Case Else
+                                                'Err
+                                                _model(p.Name) = Nothing
+                                        End Select
+                                    End If
+                                Case Else
+                                    _model(p.Name) = row.Item(p.Name).ToString.Trim
+                            End Select
+                        End If
                     Next p
                     entities.Add(_model)
                 End With
             Next row
 
             Return entities
+        End If
+    End Function
+
+    Public Function FunGetV004Model(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String, ByVal intSYONIN_JUN As Integer) As MODEL.V004_HOKOKU_SOUSA
+
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("SELECT")
+        sbSQL.Append(" *")
+        sbSQL.Append(" FROM " & NameOf(MODEL.V004_HOKOKU_SOUSA) & " ")
+        sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intSYONIN_HOKOKUSYO_ID & "")
+        sbSQL.Append(" AND HOKOKU_NO='" & strHOKOKU_NO & "'")
+        sbSQL.Append(" AND SYONIN_JUN=" & intSYONIN_JUN & "")
+        Using DB As ClsDbUtility = DBOpen()
+            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        If dsList.Tables(0).Rows.Count = 0 Then
+            Return Nothing
+        Else
+
+            Dim _model As New MODEL.V004_HOKOKU_SOUSA
+            Dim t As Type = GetType(MODEL.V004_HOKOKU_SOUSA)
+            Dim properties As Reflection.PropertyInfo() = t.GetProperties(
+                 Reflection.BindingFlags.Public Or
+                 Reflection.BindingFlags.Instance Or
+                 Reflection.BindingFlags.Static).Where(Function(p) p.Name <> "Item").ToArray
+
+            With dsList.Tables(0).Rows(0)
+                For Each p As Reflection.PropertyInfo In properties
+                    If IsAutoGenerateField(t, p.Name) = True Then
+                        _model(p.Name) = .Item(p.Name)
+                    End If
+                Next p
+            End With
+
+            Return _model
         End If
     End Function
 
@@ -649,13 +626,13 @@ Module mdlG0010
 
             Return _model
         End If
-
-
-
-
     End Function
 
-    '現在のステージ名を取得
+    ''' <summary>
+    ''' 現在のステージ名を取得
+    ''' </summary>
+    ''' <param name="intCurrentStageID"></param>
+    ''' <returns></returns>
     Public Function FunGetCurrentStageName(ByVal intCurrentStageID As Integer) As String
         Try
 
@@ -720,7 +697,7 @@ Module mdlG0010
         Return dsList.Tables(0).Rows.Count > 0
 
     End Function
-#End Region
+
 
 #Region "メール送信"
 
@@ -905,6 +882,9 @@ Module mdlG0010
     End Function
 
 #End Region
+
+#End Region
+
 
 
 

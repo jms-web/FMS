@@ -184,12 +184,24 @@ Public Class DateTextBoxEx
         End Get
 
         Set(ByVal value As String)
+            Dim dt As DateTime
+            Select Case Me.DisplayFormat
+                Case EnumType.yyyyMM
+                    DateTime.TryParseExact(value, "yyyyMM", Nothing, Globalization.DateTimeStyles.None, dt)
+                Case EnumType.yyyyMMdd
+                    DateTime.TryParseExact(value, "yyyyMMdd", Nothing, Globalization.DateTimeStyles.None, dt)
+                Case Else
+                    Me.MaskedTextBox1.Text = ""
+                    Exit Property
+            End Select
+
             '日付チェック
-            If FunDateLimit(value) <> 0 Then
+            If FunDateLimit(dt) <> 0 Then
+                Me.MaskedTextBox1.Text = ""
                 Exit Property
             End If
 
-            Me.DateTimePicker1.Value = DateTime.Parse(value)
+            Me.DateTimePicker1.Value = dt
             Me.MaskedTextBox1.Text = Me.DateTimePicker1.Text
         End Set
     End Property
@@ -365,17 +377,19 @@ Public Class DateTextBoxEx
                     Exit Sub
                 End If
             End If
+
+            'ユーザーコントロールのイベント起動
+            RaiseEvent TxtChanged(Me, System.EventArgs.Empty)
         Else
             'MessageBox.Show("不正な日付形式が入力されました。。", "日付形式エラー", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            'If _blnNullable = True Then
-            '    Me.MaskedTextBox1.Text = ""
-            'End If
+            If _blnNullable = True Then
+                Me.MaskedTextBox1.Text = ""
+                'ユーザーコントロールのイベント起動
+                RaiseEvent TxtChanged(Me, System.EventArgs.Empty)
+            End If
             Exit Sub
         End If
-
-        'ユーザーコントロールのイベント起動
-        RaiseEvent TxtChanged(Me, System.EventArgs.Empty)
     End Sub
 #End Region
 

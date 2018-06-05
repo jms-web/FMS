@@ -277,7 +277,6 @@ Public Class FrmG0012
                 Case 12 'ï¬Ç∂ÇÈ
                     Me.Close()
                 Case Else
-                    MessageBox.Show("ñ¢é¿ëï", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End Select
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -1764,9 +1763,6 @@ Public Class FrmG0012
                 End With
             Next intFunc
 
-            Dim dgv As DataGridView = DirectCast(Me.Controls("dgvDATA"), DataGridView)
-
-
             'SPEC: C10-3
             Select Case PrCurrentStage
                 Case ENM_CAR_STAGE._10_ãNëêì¸óÕ
@@ -2286,7 +2282,7 @@ Public Class FrmG0012
             mtxCurrentStageName.Text = FunGetLastStageName(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO)
 
 
-            PrCurrentStage = PrDataRow.Item("SYONIN_JUN")
+            PrCurrentStage = PrCurrentStage
 
             'SPEC: C10-2.áC
             Select Case PrCurrentStage
@@ -2344,10 +2340,10 @@ Public Class FrmG0012
             Dim dsList As New DataSet
 
             _V002_NCR_J.Clear()
-            _V002_NCR_J = FunGetV002Model(PrDataRow.Item("HOKOKU_NO"))
+            _V002_NCR_J = FunGetV002Model(PrHOKOKU_NO)
 
             _D005_CAR_J.Clear()
-            _V005_CAR_J = FunGetV005Model(PrDataRow.Item("HOKOKU_NO"))
+            _V005_CAR_J = FunGetV005Model(PrHOKOKU_NO)
 
             'sbSQL.Remove(0, sbSQL.Length)
             'sbSQL.Append("SELECT")
@@ -2455,7 +2451,7 @@ Public Class FrmG0012
             sbSQL.Append("SELECT")
             sbSQL.Append(" *")
             sbSQL.Append(" FROM V006_CAR_GENIN")
-            sbSQL.Append(" WHERE HOKOKU_NO='" & PrDataRow.Item("HOKOKU_NO") & "'")
+            sbSQL.Append(" WHERE HOKOKU_NO='" & PrHOKOKU_NO & "'")
             sbSQL.Append(" ORDER BY RENBAN")
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)

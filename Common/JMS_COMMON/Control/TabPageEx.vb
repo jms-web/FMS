@@ -44,27 +44,53 @@ Public Class TabPageEx
 
     'UNDONE: ComboboxExのSetStyleを各種Exコントロールに実装する→見た目を変えずにEnable=False
 
-    Public Sub EnableDisablePages(ByVal enabled As Boolean)
-        For Each ctl As Control In Me.Controls
-            Select Case ctl.GetType
-                Case GetType(TextBox)
-                    DirectCast(ctl, TextBox).ReadOnly = Not enabled
-                Case GetType(TextBoxEx)
-                    DirectCast(ctl, TextBoxEx).ReadOnly = Not enabled
-                Case GetType(MaskedTextBox)
-                    DirectCast(ctl, MaskedTextBox).ReadOnly = Not enabled
-                Case GetType(MaskedTextBoxEx)
-                    DirectCast(ctl, MaskedTextBoxEx).ReadOnly = Not enabled
-                Case GetType(ComboboxEx)
-                    DirectCast(ctl, ComboboxEx).ReadOnly = Not enabled
-                Case GetType(DateTextBoxEx)
-                    DirectCast(ctl, DateTextBoxEx).Enabled = enabled
-                Case GetType(RadioButton)
-                    DirectCast(ctl, RadioButton).Enabled = enabled
-                Case Else
-                    '無視
-            End Select
-        Next
+    Public Sub EnableDisablePages(ByVal enabled As Boolean, Optional ByVal intProperty As Integer = 1)
+
+        Select Case intProperty
+            Case 1 'Enabled
+                For Each ctl As Control In Me.Controls
+                    Select Case ctl.GetType
+                        Case GetType(TextBox)
+                            DirectCast(ctl, TextBox).Enabled = enabled
+                        Case GetType(TextBoxEx)
+                            DirectCast(ctl, TextBoxEx).Enabled = enabled
+                        Case GetType(MaskedTextBox)
+                            DirectCast(ctl, MaskedTextBox).Enabled = enabled
+                        Case GetType(MaskedTextBoxEx)
+                            DirectCast(ctl, MaskedTextBoxEx).Enabled = enabled
+                        Case GetType(ComboboxEx)
+                            DirectCast(ctl, ComboboxEx).Enabled = enabled
+                        Case GetType(DateTextBoxEx)
+                            DirectCast(ctl, DateTextBoxEx).Enabled = enabled
+                        Case GetType(RadioButton)
+                            DirectCast(ctl, RadioButton).Enabled = enabled
+                        Case Else
+                            '無視
+                    End Select
+                Next
+            Case 2 'ReadOnly
+                For Each ctl As Control In Me.Controls
+                    Select Case ctl.GetType
+                        Case GetType(TextBox)
+                            DirectCast(ctl, TextBox).ReadOnly = Not enabled
+                        Case GetType(TextBoxEx)
+                            DirectCast(ctl, TextBoxEx).ReadOnly = Not enabled
+                        Case GetType(MaskedTextBox)
+                            DirectCast(ctl, MaskedTextBox).ReadOnly = Not enabled
+                        Case GetType(MaskedTextBoxEx)
+                            DirectCast(ctl, MaskedTextBoxEx).ReadOnly = Not enabled
+                        Case GetType(ComboboxEx)
+                            DirectCast(ctl, ComboboxEx).ReadOnly = Not enabled
+                        Case GetType(DateTextBoxEx)
+                            DirectCast(ctl, DateTextBoxEx).Enabled = enabled
+                        Case GetType(RadioButton)
+                            DirectCast(ctl, RadioButton).Enabled = enabled
+
+                        Case Else
+                            '無視
+                    End Select
+                Next
+        End Select
     End Sub
     'Public Shared Sub EnableDisablePages(ByVal tbCon As TabControl, ByVal pg As TabPage, ByVal enabled As Boolean)
     '    Try

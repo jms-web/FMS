@@ -16,6 +16,7 @@ Partial Public Class V002_NCR_J
     'UNDONE: 他のモデルにもインデクサプロパティを実装する
 
     'インデクサプロパティ
+    <ComponentModel.DataAnnotations.Display(AutoGenerateField:=False)>
     Default Public Property Item(ByVal propertyName As String) As Object
         Get
             Return GetType(V002_NCR_J).GetProperty(propertyName).GetValue(Me)
@@ -324,10 +325,5 @@ Partial Public Class V002_NCR_J
 
     <StringLength(30)>
     Public Property HASSEI_KOTEI_GL_NAME As String
-
-    '<StringLength(1)>
-    'Public Property DEL_FG As String
-
-
 
 End Class

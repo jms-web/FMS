@@ -43,7 +43,7 @@ Public Class FrmG0018
             '検索実行
 
         Finally
-
+            Call FunInitFuncButtonEnabled()
         End Try
     End Sub
 
@@ -53,93 +53,25 @@ Public Class FrmG0018
 
     'フィールド定義()
     Private Shared Function FunSetDgvCulumns(ByVal dgv As DataGridView) As Boolean
-        Dim _Model As New MODEL.M001_SETTING
         Try
             With dgv
                 .AutoGenerateColumns = False
 
-                '.Columns.Add(NameOf(_Model.KOMO_NM), GetDisplayName(_Model.GetType, NameOf(_Model.KOMO_NM)))
-                '.Columns(.ColumnCount - 1).Width = 150
-                '.Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.KOMO_NM)
+                .Columns.Add("KOMOKU_NAME", "変更項目名")
+                .Columns(.ColumnCount - 1).Width = 150
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                '.Columns.Add(NameOf(_Model.VALUE), GetDisplayName(_Model.GetType, NameOf(_Model.VALUE)))
-                '.Columns(.ColumnCount - 1).Width = 200
-                '.Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-                '.Columns(.ColumnCount - 1).Frozen = True
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.VALUE)
+                .Columns.Add("MAE_NAIYO", "変更前内容")
+                .Columns(.ColumnCount - 1).Width = 400
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                '.Columns.Add(NameOf(_Model.DISP), GetDisplayName(_Model.GetType, NameOf(_Model.DISP)))
-                '.Columns(.ColumnCount - 1).Width = 300
-                '.Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DISP)
+                .Columns.Add("ATO_NAIYO", "変更後内容")
+                .Columns(.ColumnCount - 1).Width = 400
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                '.Columns.Add(NameOf(_Model.DISP_ORDER), GetDisplayName(_Model.GetType, NameOf(_Model.DISP_ORDER)))
-                '.Columns(.ColumnCount - 1).Width = 70
-                '.Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DISP_ORDER)
-
-                '.Columns.Add(NameOf(_Model.BIKOU), GetDisplayName(_Model.GetType, NameOf(_Model.BIKOU)))
-                '.Columns(.ColumnCount - 1).Width = 430
-                '.Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.BIKOU)
-
-                'Using cmbclmn1 As New DataGridViewCheckBoxColumn
-                '    cmbclmn1.Name = NameOf(_Model.DEF_FLG)
-                '    cmbclmn1.HeaderText = GetDisplayName(_Model.GetType, NameOf(_Model.DEF_FLG))
-                '    cmbclmn1.Width = 30
-
-                '    cmbclmn1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-                '    .Columns.Add(cmbclmn1)
-                '    .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
-                '    .Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DEF_FLG)
-                'End Using
-
-                'Using cmbclmn2 As New DataGridViewCheckBoxColumn
-                '    cmbclmn2.Name = NameOf(_Model.DEL_FLG)
-                '    cmbclmn2.HeaderText = GetDisplayName(_Model.GetType, NameOf(_Model.DEL_FLG))
-                '    cmbclmn2.Width = 30
-                '    cmbclmn2.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-                '    .Columns.Add(cmbclmn2)
-                '    .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
-                '    .Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DEL_FLG)
-                'End Using
-
-                '.Columns.Add(NameOf(_Model.ADD_YMDHNS), GetDisplayName(_Model.GetType, NameOf(_Model.ADD_YMDHNS)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.ADD_YMDHNS)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.ADD_TANTO_CD), GetDisplayName(_Model.GetType, NameOf(_Model.ADD_TANTO_CD)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.ADD_TANTO_CD)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.ADD_TANTO_NAME), GetDisplayName(_Model.GetType, NameOf(_Model.ADD_TANTO_NAME)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.ADD_TANTO_NAME)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.EDIT_YMDHNS), GetDisplayName(_Model.GetType, NameOf(_Model.EDIT_YMDHNS)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.EDIT_YMDHNS)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.EDIT_TANTO_CD), GetDisplayName(_Model.GetType, NameOf(_Model.EDIT_TANTO_CD)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.EDIT_TANTO_CD)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.EDIT_TANTO_NAME), GetDisplayName(_Model.GetType, NameOf(_Model.EDIT_TANTO_NAME)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.EDIT_TANTO_NAME)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.DEL_YMDHNS), GetDisplayName(_Model.GetType, NameOf(_Model.DEL_YMDHNS)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DEL_YMDHNS)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.DEL_YMDHNS), GetDisplayName(_Model.GetType, NameOf(_Model.DEL_YMDHNS)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DEL_YMDHNS)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.DEL_TANTO_NAME), GetDisplayName(_Model.GetType, NameOf(_Model.DEL_TANTO_NAME)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DEL_TANTO_NAME)
-                '.Columns(.ColumnCount - 1).Visible = False
             End With
 
             Return True
@@ -154,7 +86,7 @@ Public Class FrmG0018
             'ヘッダ以外のセルダブルクリック時
             If e.RowIndex >= 0 Then
                 '該当行の変更処理を実行する
-                Me.cmdFunc4.PerformClick()
+                'Me.cmdFunc4.PerformClick()
             End If
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -225,7 +157,7 @@ Public Class FrmG0018
             sbSQL.Append("SELECT")
             sbSQL.Append(" *")
             sbSQL.Append(" FROM TV01_HENKO_HIKAKU(")
-            sbSQL.Append("'" & PrDataRow.Item("ADD_YMDHNS") & "'")
+            sbSQL.Append("'" & PrDataRow.Item("SASIMODOSI_YMDHNS") & "'")
             sbSQL.Append("," & PrDataRow.Item("SYONIN_HOKOKUSYO_ID") & "")
             sbSQL.Append(",'" & PrDataRow.Item("HOKOKUSYO_NO") & "'")
             sbSQL.Append(")")
@@ -277,8 +209,6 @@ Public Class FrmG0018
             End If
 
             dgv.DataSource = dt
-
-
 
             Call FunSetDgvCellFormat(dgv)
 

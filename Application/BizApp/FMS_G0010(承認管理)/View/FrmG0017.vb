@@ -109,7 +109,7 @@ Public Class FrmG0017
     End Function
 
     'グリッドセル(行)ダブルクリック時イベント
-    Private Sub DgvDATA_CellDoubleClick(sender As System.Object, e As DataGridViewCellEventArgs)
+    Private Sub DgvDATA_CellDoubleClick(sender As System.Object, e As DataGridViewCellEventArgs) Handles dgvDATA.CellDoubleClick
         Try
             'ヘッダ以外のセルダブルクリック時
             If e.RowIndex >= 0 Then
@@ -121,7 +121,7 @@ Public Class FrmG0017
     End Sub
 
     '行選択時イベント
-    Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs)
+    Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs) Handles dgvDATA.SelectionChanged
         Try
         Finally
             Call FunInitFuncButtonEnabled()

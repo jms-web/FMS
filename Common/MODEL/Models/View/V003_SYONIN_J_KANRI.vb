@@ -33,6 +33,7 @@ Partial Public Class V003_SYONIN_J_KANRI
 
     End Sub
 
+    <ComponentModel.DataAnnotations.Display(AutoGenerateField:=False)>
     Default Public Property Item(ByVal propertyName As String) As Object
         Get
             Return GetType(V003_SYONIN_J_KANRI).GetProperty(propertyName).GetValue(Me)

@@ -111,6 +111,16 @@ Partial Public Class V005_CAR_J
 
     End Sub
 
+    <ComponentModel.DataAnnotations.Display(AutoGenerateField:=False)>
+    Default Public Property Item(ByVal propertyName As String) As Object
+        Get
+            Return GetType(V005_CAR_J).GetProperty(propertyName).GetValue(Me)
+        End Get
+        Set(value As Object)
+            GetType(V005_CAR_J).GetProperty(propertyName).SetValue(Me, value)
+        End Set
+    End Property
+
 
     <Key>
     <Column(Order:=0, TypeName:="char")>
@@ -136,6 +146,7 @@ Partial Public Class V005_CAR_J
     <Required>
     <StringLength(1)>
     <Column(NameOf(CLOSE_FG), TypeName:="char")>
+    <ComponentModel.DataAnnotations.Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("クローズフラグ")>
     Public Property _CLOSE_FG As String
 
@@ -593,12 +604,12 @@ Partial Public Class V005_CAR_J
     ''共通項目------------------------------------
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="char")>
     Public Property ADD_YMDHNS As String
 
     <NotMapped>
     <DoNotNotify>
+    <ComponentModel.DataAnnotations.Display(AutoGenerateField:=False)>
     Public ReadOnly Property ADD_YMD As String
         Get
             Dim strRET As String
@@ -612,14 +623,12 @@ Partial Public Class V005_CAR_J
     End Property
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property ADD_SYAIN_ID As Integer
 
     Public Property ADD_SYAIN_NAME As String
 
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="char")>
     Public Property UPD_YMDHNS As String
 
@@ -631,11 +640,11 @@ Partial Public Class V005_CAR_J
 
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="char")>
     Public Property DEL_YMDHNS As String
 
     <ComponentModel.DisplayName("削除済")>
+    <ComponentModel.DataAnnotations.Display(AutoGenerateField:=False)>
     <NotMapped>
     <DoNotNotify>
     Public ReadOnly Property DEL_FLG As Boolean
@@ -645,7 +654,6 @@ Partial Public Class V005_CAR_J
     End Property
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property DEL_SYAIN_ID As Integer
 
     Public Property DEL_SYAIN_NAME As String

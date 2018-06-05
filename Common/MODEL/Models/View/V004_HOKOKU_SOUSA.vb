@@ -24,8 +24,17 @@ Partial Public Class V004_HOKOKU_SOUSA
         SYONIN_HANTEI_KB = ""
         SYONIN_HANTEI_NAME = ""
         RIYU = ""
-
     End Sub
+
+    <ComponentModel.DataAnnotations.Display(AutoGenerateField:=False)>
+    Default Public Property Item(ByVal propertyName As String) As Object
+        Get
+            Return GetType(D003_NCR_J).GetProperty(propertyName).GetValue(Me)
+        End Get
+        Set(value As Object)
+            GetType(D003_NCR_J).GetProperty(propertyName).SetValue(Me, value)
+        End Set
+    End Property
 
     Public Property SYONIN_HOKOKUSYO_ID As Integer
     Public Property HOKOKUSYO_NO As String

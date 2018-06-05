@@ -101,6 +101,7 @@ Partial Public Class D005_CAR_J
 
     End Sub
 
+    <Display(AutoGenerateField:=False)>
     Default Public Property Item(ByVal propertyName As String) As Object
         Get
             Return GetType(D005_CAR_J).GetProperty(propertyName).GetValue(Me)
@@ -125,10 +126,12 @@ Partial Public Class D005_CAR_J
     <Required>
     <StringLength(1)>
     <Column(NameOf(CLOSE_FG), TypeName:="char")>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("クローズフラグ")>
     Public Property _CLOSE_FG As String
 
     <ComponentModel.DisplayName("クローズフラグ")>
+    <Display(AutoGenerateField:=False)>
     <NotMapped>
     <DoNotNotify>
     Public Property CLOSE_FG As Boolean
@@ -562,12 +565,12 @@ Partial Public Class D005_CAR_J
     ''共通項目------------------------------------
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="char")>
     Public Property ADD_YMDHNS As String
 
     <NotMapped>
     <DoNotNotify>
+    <Display(AutoGenerateField:=False)>
     Public ReadOnly Property ADD_YMD As String
         Get
             Dim strRET As String
@@ -581,28 +584,25 @@ Partial Public Class D005_CAR_J
     End Property
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property ADD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="char")>
     Public Property UPD_YMDHNS As String
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property UPD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="char")>
     Public Property DEL_YMDHNS As String
 
     <ComponentModel.DisplayName("削除済")>
     <NotMapped>
     <DoNotNotify>
+    <Display(AutoGenerateField:=False)>
     Public ReadOnly Property DEL_FLG As Boolean
         Get
             Return DEL_YMDHNS.Trim <> ""
@@ -610,7 +610,6 @@ Partial Public Class D005_CAR_J
     End Property
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property DEL_SYAIN_ID As Integer
 
 End Class

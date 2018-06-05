@@ -166,7 +166,7 @@ Public Class FrmG0016
                     sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN) & ">" & cmbMODOSI_SAKI.SelectedValue & ";")
                     '-----SQL実行
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    If intRET = 0 Then
+                    If sqlEx.Source IsNot Nothing Then
                         '-----エラーログ出力
                         Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
                         WL.WriteLogDat(strErrMsg)
@@ -211,6 +211,7 @@ Public Class FrmG0016
                         '-----エラーログ出力
                         Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
                         WL.WriteLogDat(strErrMsg)
+                        blnErr = True
                         Return False
                     End If
 
@@ -219,12 +220,14 @@ Public Class FrmG0016
                         Case ENM_SYONIN_HOKOKUSYO_ID._1_NCR
                             If FunSAVE_R003(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
                             Else
+                                blnErr = True
                                 Return False
                             End If
                         Case ENM_SYONIN_HOKOKUSYO_ID._2_CAR
                             'UNDONE: FunSAVE_R004
                             If FunSAVE_R003(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
                             Else
+                                blnErr = True
                                 Return False
                             End If
                         Case Else
@@ -250,100 +253,94 @@ Public Class FrmG0016
 
     Private Function FunSAVE_R003(ByRef DB As ClsDbUtility, ByVal strYMDHNS As String) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
-        Dim strRET As String
+        Dim intRET As Integer
         Dim sqlEx As New Exception
 
         '-----MERGE
         sbSQL.Append(" INSERT INTO " & NameOf(MODEL.R003_NCR_SASIMODOSI) & "(")
         sbSQL.Append(" " & NameOf(_R003_NCR_SASIMODOSI.SASIMODOSI_YMDHNS))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.HOKOKU_NO))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.BUMON_KB))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.CLOSE_FG))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.KISYU_ID))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYANAI_CD))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.BUHIN_BANGO))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.BUHIN_NAME))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.GOKI))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SURYO))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIHATU))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.FUTEKIGO_JYOTAI_KB))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.FUTEKIGO_NAIYO))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.FUTEKIGO_KB))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.FUTEKIGO_S_KB))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZUMEN_KIKAKU))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.YOKYU_NAIYO))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.KANSATU_KEKKA))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZESEI_NASI_RIYU))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_YMD))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_KAKUNIN_YMD))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_IINKAI_HANTEI_KB))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_GIJYUTU_YMD))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_HINSYO_SYAIN_ID))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_HINSYO_YMD))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAISIN_IINKAI_SIRYO_NO))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.ITAG_NO))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_SIJI_FG))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.HAIKYAKU_YMD))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.HAIKYAKU_KB))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.HAIKYAKU_HOUHOU))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.HAIKYAKU_TANTO_ID))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.KENSA_KEKKA_KB))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SEIGI_TANTO_ID))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SEIZO_TANTO_ID))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.KENSA_TANTO_ID))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.HENKYAKU_YMD))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.HENKYAKU_SAKI))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.HENKYAKU_TANTO_ID))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.HENKYAKU_BIKO))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_KISYU_ID))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_BUHIN_BANGO))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_GOKI))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_LOT))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_YMD))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_KEKKA_A))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_KEKKA_B))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_KEKKA_C))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_D_UMU_KB))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_D_YOHI_KB))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_UMU_KB))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_YOHI_KB))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.FILE_PATH))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.G_FILE_PATH1))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.G_FILE_PATH2))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.ADD_SYAIN_ID))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.ADD_YMDHNS))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.UPD_SYAIN_ID))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.UPD_YMDHNS))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.DEL_SYAIN_ID))
-        sbSQL.Append(" ," & NameOf(_D003_NCR_J.DEL_YMDHNS))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HOKOKU_NO))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.BUMON_KB))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.CLOSE_FG))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KISYU_ID))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SYANAI_CD))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.BUHIN_BANGO))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.BUHIN_NAME))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.GOKI))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SURYO))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAIHATU))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.FUTEKIGO_JYOTAI_KB))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.FUTEKIGO_NAIYO))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.FUTEKIGO_KB))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.FUTEKIGO_S_KB))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.ZUMEN_KIKAKU))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.YOKYU_NAIYO))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KANSATU_KEKKA))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.ZESEI_SYOCHI_YOHI_KB))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.ZESEI_NASI_RIYU))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.JIZEN_SINSA_HANTEI_KB))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.JIZEN_SINSA_SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.JIZEN_SINSA_YMD))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAISIN_KAKUNIN_SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAISIN_KAKUNIN_YMD))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAISIN_IINKAI_HANTEI_KB))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAISIN_GIJYUTU_SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAISIN_GIJYUTU_YMD))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAISIN_HINSYO_SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAISIN_HINSYO_YMD))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAISIN_IINKAI_SIRYO_NO))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.ITAG_NO))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KOKYAKU_SAISIN_TANTO_ID))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KOKYAKU_SAISIN_YMD))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KOKYAKU_HANTEI_SIJI_KB))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KOKYAKU_HANTEI_SIJI_YMD))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KOKYAKU_SAISYU_HANTEI_KB))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KOKYAKU_SAISYU_HANTEI_YMD))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAIKAKO_SIJI_FG))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HAIKYAKU_YMD))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HAIKYAKU_KB))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HAIKYAKU_HOUHOU))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HAIKYAKU_TANTO_ID))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAIKAKO_SIJI_NO))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAIKAKO_SAGYO_KAN_YMD))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAIKAKO_KENSA_YMD))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KENSA_KEKKA_KB))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SEIGI_TANTO_ID))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SEIZO_TANTO_ID))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KENSA_TANTO_ID))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HENKYAKU_YMD))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HENKYAKU_SAKI))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HENKYAKU_TANTO_ID))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HENKYAKU_BIKO))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.TENYO_KISYU_ID))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.TENYO_BUHIN_BANGO))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.TENYO_GOKI))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.TENYO_LOT))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.TENYO_YMD))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SYOCHI_KEKKA_A))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SYOCHI_KEKKA_B))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SYOCHI_KEKKA_C))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SYOCHI_D_UMU_KB))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SYOCHI_D_YOHI_KB))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SYOCHI_D_SYOCHI_KIROKU))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SYOCHI_E_UMU_KB))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SYOCHI_E_YOHI_KB))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SYOCHI_E_SYOCHI_KIROKU))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.FILE_PATH))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.G_FILE_PATH1))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.G_FILE_PATH2))
         sbSQL.Append(" ) VALUES(")
         sbSQL.Append(" '" & strYMDHNS & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.HOKOKU_NO & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.BUMON_KB & "'")
-        sbSQL.Append(" ,'" & _D003_NCR_J.CLOSE_FG & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J._CLOSE_FG & "'")
         sbSQL.Append(" ," & _D003_NCR_J.KISYU_ID & "")
         sbSQL.Append(" ,'" & _D003_NCR_J.SYANAI_CD & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.BUHIN_BANGO & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.BUHIN_NAME & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.GOKI & "'")
         sbSQL.Append(" ," & _D003_NCR_J.SURYO & "")
-        sbSQL.Append(" ,'" & _D003_NCR_J.SAIHATU & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J._SAIHATU & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.FUTEKIGO_JYOTAI_KB & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.FUTEKIGO_NAIYO & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.FUTEKIGO_KB & "'")
@@ -351,7 +348,7 @@ Public Class FrmG0016
         sbSQL.Append(" ,'" & _D003_NCR_J.ZUMEN_KIKAKU & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.YOKYU_NAIYO & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.KANSATU_KEKKA & "'")
-        sbSQL.Append(" ,'" & _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J._ZESEI_SYOCHI_YOHI_KB & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.ZESEI_NASI_RIYU & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.JIZEN_SINSA_HANTEI_KB & "'")
         sbSQL.Append(" ," & _D003_NCR_J.JIZEN_SINSA_SYAIN_ID & "")
@@ -371,7 +368,7 @@ Public Class FrmG0016
         sbSQL.Append(" ,'" & _D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD & "'")
-        sbSQL.Append(" ,'" & _D003_NCR_J.SAIKAKO_SIJI_FG & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J._SAIKAKO_SIJI_FG & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.HAIKYAKU_YMD & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.HAIKYAKU_KB & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.HAIKYAKU_HOUHOU & "'")
@@ -390,42 +387,30 @@ Public Class FrmG0016
         sbSQL.Append(" ," & _D003_NCR_J.TENYO_KISYU_ID & "")
         sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_BUHIN_BANGO & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_GOKI & "'")
-        sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_LOT & "'")
+        sbSQL.Append(" ," & _D003_NCR_J.TENYO_LOT & "")
         sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_YMD & "'")
-        sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_KEKKA_A & "'")
-        sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_KEKKA_B & "'")
-        sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_KEKKA_C & "'")
-        sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_D_UMU_KB & "'")
-        sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_D_YOHI_KB & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_KEKKA_A & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_KEKKA_B & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_KEKKA_C & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_D_UMU_KB & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_D_YOHI_KB & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU & "'")
-        sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_E_UMU_KB & "'")
-        sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_E_YOHI_KB & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_E_UMU_KB & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_E_YOHI_KB & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.FILE_PATH & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH1 & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH2 & "'")
-        sbSQL.Append(" ," & _D003_NCR_J.ADD_SYAIN_ID & "")
-        sbSQL.Append(" ,'" & _D003_NCR_J.ADD_YMDHNS & "'")
-        sbSQL.Append(" ," & _D003_NCR_J.UPD_SYAIN_ID & "")
-        sbSQL.Append(" ,'" & _D003_NCR_J.UPD_YMDHNS & "'")
-        sbSQL.Append(" ," & _D003_NCR_J.DEL_SYAIN_ID & "")
-        sbSQL.Append(" ,'" & _D003_NCR_J.DEL_YMDHNS & "'")
         sbSQL.Append(" );")
-        strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
-        Select Case strRET
-            Case "INSERT"
-
-
-            Case "UPDATE"
-
-            Case Else
-                '-----エラーログ出力
-                Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                WL.WriteLogDat(strErrMsg)
-                Return False
-        End Select
-
-        Return True
+        intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+        If intRET <> 1 Then
+            '-----エラーログ出力
+            Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+            WL.WriteLogDat(strErrMsg)
+            Return False
+        Else
+            Return True
+        End If
     End Function
 
 
@@ -540,7 +525,12 @@ Public Class FrmG0016
         sbSQL.Append("SELECT * FROM " & "V003_SYONIN_J_KANRI" & " MAIN")
         sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intSYONIN_HOKOKU_ID & "")
         sbSQL.Append(" AND HOKOKU_NO='" & strHOKOKU_NO & "'")
-        sbSQL.Append(" AND (SYONIN_JUN=20 OR SYONIN_JUN=(SELECT MAX(SYONIN_JUN) FROM V003_SYONIN_J_KANRI AS SUB WHERE SUB.SYONIN_JUN<" & intCurrentStage & "))")
+        'カレントステージが20以外の場合は差し戻し先として20も追加
+        If intCurrentStage = 20 Then
+            sbSQL.Append(" AND (SYONIN_JUN=(SELECT MAX(SYONIN_JUN) FROM V003_SYONIN_J_KANRI AS SUB WHERE SUB.SYONIN_JUN<" & intCurrentStage & "))")
+        Else
+            sbSQL.Append(" AND (SYONIN_JUN=20 OR SYONIN_JUN=(SELECT MAX(SYONIN_JUN) FROM V003_SYONIN_J_KANRI AS SUB WHERE SUB.SYONIN_JUN<" & intCurrentStage & "))")
+        End If
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, False)
         End Using

@@ -23,6 +23,15 @@ Partial Public Class D006_CAR_GENIN
 
     End Sub
 
+    <Display(AutoGenerateField:=False)>
+    Default Public Property Item(ByVal propertyName As String) As Object
+        Get
+            Return GetType(D006_CAR_GENIN).GetProperty(propertyName).GetValue(Me)
+        End Get
+        Set(value As Object)
+            GetType(D006_CAR_GENIN).GetProperty(propertyName).SetValue(Me, value)
+        End Set
+    End Property
 
     <Key>
     <Column(Order:=0, TypeName:="char")>
@@ -50,6 +59,7 @@ Partial Public Class D006_CAR_GENIN
     <Required>
     <StringLength(1)>
     <Column(NameOf(DAIHYO_FG), TypeName:="char")>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("代表フラグ")>
     Public Property _DAIHYO_FG As String
 
@@ -69,11 +79,11 @@ Partial Public Class D006_CAR_GENIN
     ''共通項目------------------------------------
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="char")>
     Public Property ADD_YMDHNS As String
 
     <NotMapped>
+    <Display(AutoGenerateField:=False)>
     <DoNotNotify>
     Public ReadOnly Property ADD_YMD As String
         Get
@@ -88,7 +98,6 @@ Partial Public Class D006_CAR_GENIN
     End Property
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property ADD_SYAIN_ID As Integer
 
 End Class

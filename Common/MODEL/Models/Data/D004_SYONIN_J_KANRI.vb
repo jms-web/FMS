@@ -38,7 +38,7 @@ Partial Public Class D004_SYONIN_J_KANRI
         UPD_SYAIN_ID = 0
     End Sub
 
-
+    <Display(AutoGenerateField:=False)>
     Default Public Property Item(ByVal propertyName As String) As Object
         Get
             Return GetType(D004_SYONIN_J_KANRI).GetProperty(propertyName).GetValue(Me)
@@ -83,6 +83,7 @@ Partial Public Class D004_SYONIN_J_KANRI
     <Required>
     <StringLength(1)>
     <Column(NameOf(SASIMODOSI_FG), TypeName:="char")>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("差戻フラグ")>
     Public Property _SASIMODOSI_FG As String
 
@@ -114,6 +115,7 @@ Partial Public Class D004_SYONIN_J_KANRI
     <Required>
     <StringLength(1)>
     <Column(NameOf(MAIL_SEND_FG), TypeName:="char")>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("メール送信フラグ")>
     Public Property _MAIL_SEND_FG As String
 
@@ -134,12 +136,12 @@ Partial Public Class D004_SYONIN_J_KANRI
     ''共通項目------------------------------------
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="char")>
     Public Property ADD_YMDHNS As String
 
     <NotMapped>
     <DoNotNotify>
+    <Display(AutoGenerateField:=False)>
     Public ReadOnly Property ADD_YMD As String
         Get
             Dim strRET As String
@@ -153,17 +155,14 @@ Partial Public Class D004_SYONIN_J_KANRI
     End Property
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property ADD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="char")>
     Public Property UPD_YMDHNS As String
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property UPD_SYAIN_ID As Integer
 
 End Class

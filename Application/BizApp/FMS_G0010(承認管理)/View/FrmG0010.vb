@@ -160,8 +160,8 @@ Public Class FrmG0010
             AddHandler mtxHOKUKO_NO.Validated, AddressOf SearchFilterValueChanged
             AddHandler mtxGOKI.Validated, AddressOf SearchFilterValueChanged
             AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            AddHandler dtJisiFrom.Validated, AddressOf SearchFilterValueChanged
-            AddHandler dtJisiTo.Validated, AddressOf SearchFilterValueChanged
+            AddHandler dtJisiFrom.TxtChanged, AddressOf SearchFilterValueChanged
+            AddHandler dtJisiTo.TxtChanged, AddressOf SearchFilterValueChanged
             AddHandler cmbFUTEKIGO_S_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler mtxHINMEI.Validated, AddressOf SearchFilterValueChanged
@@ -778,7 +778,7 @@ Public Class FrmG0010
             Dim properties As Reflection.PropertyInfo() = t.GetProperties(
                  Reflection.BindingFlags.Public Or
                  Reflection.BindingFlags.Instance Or
-                 Reflection.BindingFlags.Static).Where(Function(p) p.Name <> "Item").ToArray
+                 Reflection.BindingFlags.Static)
 
             For Each p As Reflection.PropertyInfo In properties
                 If IsAutoGenerateField(t, p.Name) = True Then
@@ -936,11 +936,13 @@ Public Class FrmG0010
             If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE AndAlso dgvDATA.CurrentRow.Cells("SYONIN_HOKOKUSYO_ID").Value = ENM_SYONIN_HOKOKUSYO_ID._2_CAR Then
 
                 frmCAR.PrDataRow = dgvDATA.GetDataRow()
+                frmCAR.PrHOKOKU_NO = dgvDATA.GetDataRow().Item("HOKOKU_NO")
+                frmDLG.PrCurrentStage = dgvDATA.GetDataRow().Item("SYONIN_JUN")
                 dlgRET = frmCAR.ShowDialog(Me)
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
                     Return False
                 Else
-
+                    Return True
                 End If
             Else
                 frmDLG.PrMODE = intMODE
@@ -954,11 +956,10 @@ Public Class FrmG0010
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
                     Return False
                 Else
-
+                    Return True
                 End If
             End If
 
-            Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -988,9 +989,7 @@ Public Class FrmG0010
             End Select
             sbSQL.Append(" DEL_SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID & "")
             sbSQL.Append(" ,DEL_YMDHNS=dbo.GetSysDateString()")
-            sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intSYONIN_HOKOKUSYO_ID & "")
-            sbSQL.Append(" AND HOKOKU_NO='" & strHOKOKU_NO & "'")
-
+            sbSQL.Append(" WHERE HOKOKU_NO='" & strHOKOKU_NO & "'")
 
             'CHECK: 一覧削除ボタン D004やR001等の編集履歴はどうするか
 
@@ -1000,6 +999,8 @@ Public Class FrmG0010
                 Dim blnErr As Boolean
                 Dim intRET As Integer
                 Try
+                    DB.BeginTransaction()
+
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
                     If intRET <> 1 Then
                         '-----エラーログ出力
@@ -1668,7 +1669,6 @@ Public Class FrmG0010
     Private Sub SearchFilterValueChanged(sender As System.Object, e As System.EventArgs)
         '検索
         Me.cmdFunc1.PerformClick()
-
     End Sub
 
 #Region "共通検索条件"
@@ -1686,6 +1686,9 @@ Public Class FrmG0010
                 lblSyanaiCD.Visible = False
                 cmbSYANAI_CD.Visible = False
         End Select
+
+        Dim dtADD_TANTO As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, ENM_NCR_STAGE._10_起草入力)
+        cmbADD_TANTO.SetDataSource(dtADD_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
         Dim dtGEN_TANTO As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
         cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -1869,9 +1872,11 @@ Public Class FrmG0010
 #End Region
 
 
+
 #Region "検索条件クリア"
     Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click, btnClearSrchFilter2.Click, btnClearSrchFilter3.Click
         ParamModel.Clear()
+
     End Sub
 #End Region
 

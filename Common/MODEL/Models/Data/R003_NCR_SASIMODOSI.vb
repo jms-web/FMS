@@ -91,7 +91,7 @@ Partial Public Class R003_NCR_SASIMODOSI
 
     End Sub
 
-
+    <Display(AutoGenerateField:=False)>
     Default Public Property Item(ByVal propertyName As String) As Object
         Get
             Return GetType(R003_NCR_SASIMODOSI).GetProperty(propertyName).GetValue(Me)
@@ -350,6 +350,7 @@ Partial Public Class R003_NCR_SASIMODOSI
     <Required>
     <Column(NameOf(SAIKAKO_SIJI_FG), TypeName:="char")>
     <StringLength(1)>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("再加工指示フラグ")>
     Public Property _SAIKAKO_SIJI_FG As String
 

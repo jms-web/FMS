@@ -10,6 +10,7 @@ Imports System.Data.Entity.Spatial
 Partial Public Class ST02_FUTEKIGO_ICHIRAN
 
     'インデクサプロパティ
+    <Display(AutoGenerateField:=False)>
     Default Public Property Item(ByVal propertyName As String) As Object
         Get
             Return GetType(ST02_FUTEKIGO_ICHIRAN).GetProperty(propertyName).GetValue(Me)
