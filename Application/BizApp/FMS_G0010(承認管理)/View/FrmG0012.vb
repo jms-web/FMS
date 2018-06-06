@@ -41,7 +41,7 @@ Public Class FrmG0012
         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
 
-
+        Me.ShowIcon = True
 
     End Sub
 

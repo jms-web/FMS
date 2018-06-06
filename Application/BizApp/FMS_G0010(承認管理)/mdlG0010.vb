@@ -288,10 +288,10 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "Œ´ˆö•ªÍ‹æ•ª", tblGENIN_BUNSEKI_KB)
 
                     Call FunGetCodeDataTable(DB, "İ–â“à—e", tblSETUMON_NAIYO)
-
-                    Call FunGetCodeDataTable(DB, "”p‹p•û–@", tblHAIKYAKU_KB)
-
                     Call FunGetCodeDataTable(DB, "³”F”»’è‹æ•ª", tblSYONIN_HANTEI_KB)
+
+                    Call FunGetCodeDataTable(DB, "”p‹p•û–@‹æ•ª", tblHAIKYAKU_KB)
+
 
                 End Using
 

@@ -30,7 +30,7 @@ Public Class FrmG0016
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
 
-
+        Me.ShowIcon = True
         cmbMODOSI_SAKI.NullValue = 0
     End Sub
 

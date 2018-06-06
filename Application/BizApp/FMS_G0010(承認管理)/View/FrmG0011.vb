@@ -78,7 +78,7 @@ Public Class FrmG0011
         Else
             MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "編集権限がありません")
         End If
-
+        Me.ShowIcon = True
 
         D003NCRJBindingSource.DataSource = _D003_NCR_J
 
@@ -148,6 +148,7 @@ Public Class FrmG0011
             _D005_CAR_J.Clear()
             _R001_HOKOKU_SOUSA.clear()
             _R002_HOKOKU_TENSO.clear()
+
             'バインディング
             Call FunSetBindingD003()
 
@@ -253,7 +254,7 @@ Public Class FrmG0011
                                 End If
 
                                 'SPEC: 80-3.③
-                                If PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso _D003_NCR_J.KENSA_KEKKA_KB = ENM_KENSA_KEKKA_KB._1_不合格 Then
+                                If PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso Val(_D003_NCR_J.KENSA_KEKKA_KB) = ENM_KENSA_KEKKA_KB._1_不合格 Then
                                     If MessageBox.Show("再不適合処置データを続けて作成しますか?", "再不適合処置確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
                                         Call FunSAVE_D003_SAI_FUTEKIGO()
                                     End If
@@ -448,7 +449,7 @@ Public Class FrmG0011
         End If
 
         '-----モデル更新
-        If (PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso _D003_NCR_J.KENSA_KEKKA_KB = ENM_KENSA_KEKKA_KB._1_不合格) Or PrCurrentStage = ENM_NCR_STAGE._120_abcde処置確認 Then
+        If (PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso Val(_D003_NCR_J.KENSA_KEKKA_KB) = ENM_KENSA_KEKKA_KB._1_不合格) Or PrCurrentStage = ENM_NCR_STAGE._120_abcde処置確認 Then
             _D003_NCR_J.CLOSE_FG = 1
         End If
 
@@ -2682,6 +2683,11 @@ Public Class FrmG0011
                     mtxST07_UPD_YMD.Enabled = False
                     mtxST07_NextStageName.Enabled = False
 
+                    cmbST07_SAISIN_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                    cmbST07_KOKYAKU_HANTEI_SIJI.SetDataSource(tblKOKYAKU_HANTEI_SIJI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                    cmbST07_KOKYAKU_SAISYU_HANTEI.SetDataSource(tblKOKYAKU_SAISYU_HANTEI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+
                     If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                         _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                     Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._70_顧客再審処置_I_tag).
@@ -2737,7 +2743,6 @@ Public Class FrmG0011
                     mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_処置実施))
                     mtxST08_UPD_YMD.Enabled = False
                     mtxST08_NextStageName.Enabled = False
-
                     cmbST08_1_HAIKYAKU_KB.SetDataSource(tblHAIKYAKU_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     cmbST08_1_HAIKYAKU_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     cmbST08_2_KENSA_KEKKA.SetDataSource(tblKENSA_KEKKA_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -3157,10 +3162,12 @@ Public Class FrmG0011
         RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
         cmbKISYU.DataBindings.Clear()
         If blnSelected Then
-            Dim dt As DataTable = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmb.SelectedValue).CopyToDataTable
-
-            cmbKISYU.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            _D003_NCR_J.KISYU_ID = 0
+            Dim drs = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmb.SelectedValue).ToList
+            If drs.Count > 0 Then
+                Dim dt As DataTable = drs.CopyToDataTable
+                cmbKISYU.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                _D003_NCR_J.KISYU_ID = 0
+            End If
         Else
             cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
         End If
@@ -3171,10 +3178,12 @@ Public Class FrmG0011
         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
         cmbBUHIN_BANGO.DataBindings.Clear()
         If blnSelected Then
-            Dim dt As DataTable = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmb.SelectedValue).CopyToDataTable
-
-            cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            _D003_NCR_J.BUHIN_BANGO = ""
+            Dim drs = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmb.SelectedValue).ToList
+            If drs.Count > 0 Then
+                Dim dt As DataTable = drs.CopyToDataTable
+                cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                _D003_NCR_J.BUHIN_BANGO = ""
+            End If
         Else
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
         End If
@@ -3186,13 +3195,15 @@ Public Class FrmG0011
         cmbSYANAI_CD.DataBindings.Clear()
         If blnSelected Then
             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                Dim dt As DataTable = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmb.SelectedValue).CopyToDataTable
-
-                cmbSYANAI_CD.DisplayMember = "DISP"
-                cmbSYANAI_CD.ValueMember = "VALUE"
-                cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                Dim drs = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmb.SelectedValue).ToList
+                If drs.Count > 0 Then
+                    Dim dt As DataTable = drs.CopyToDataTable
+                    cmbSYANAI_CD.DisplayMember = "DISP"
+                    cmbSYANAI_CD.ValueMember = "VALUE"
+                    cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                End If
             Else
-                cmbSYANAI_CD.DataSource = Nothing
+                'cmbSYANAI_CD.DataSource = Nothing
             End If
             _D003_NCR_J.SYANAI_CD = ""
         Else
@@ -3245,7 +3256,7 @@ Public Class FrmG0011
         RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
         If blnSelected Then
             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                Dim drs = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue)
+                Dim drs = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue).ToList
                 If drs.Count > 0 Then
                     Dim dt As DataTable = drs.CopyToDataTable
                     Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue
@@ -3253,7 +3264,7 @@ Public Class FrmG0011
                     _D003_NCR_J.SYANAI_CD = _selectedValue
                 End If
             Else
-                cmbSYANAI_CD.DataSource = Nothing
+                'cmbSYANAI_CD.DataSource = Nothing
             End If
             _D003_NCR_J.SYANAI_CD = ""
         Else
@@ -3289,10 +3300,12 @@ Public Class FrmG0011
         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
         cmbBUHIN_BANGO.DataBindings.Clear()
         If blnSelected Then
-            Dim dt As DataTable = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.SYANAI_CD)) = cmb.SelectedValue).CopyToDataTable
-
-            cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            _D003_NCR_J.BUHIN_BANGO = ""
+            Dim drs = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.SYANAI_CD)) = cmb.SelectedValue).ToList
+            If drs.Count > 0 Then
+                Dim dt As DataTable = drs.CopyToDataTable
+                cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                _D003_NCR_J.BUHIN_BANGO = ""
+            End If
         Else
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
         End If
@@ -3337,7 +3350,7 @@ Public Class FrmG0011
         cmbSYANAI_CD.DataBindings.Clear()
         If blnSelected Then
             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                Dim drs = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue)
+                Dim drs = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUHIN_BANGO)) = cmb.SelectedValue).ToList
                 If drs.Count > 0 Then
                     Dim dt As DataTable = drs.CopyToDataTable
                     Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue
@@ -3347,7 +3360,7 @@ Public Class FrmG0011
                     _D003_NCR_J.SYANAI_CD = _selectedValue
                 End If
             Else
-                cmbSYANAI_CD.DataSource = Nothing
+                'cmbSYANAI_CD.DataSource = Nothing
             End If
             _D003_NCR_J.SYANAI_CD = ""
         Else
@@ -3359,7 +3372,6 @@ Public Class FrmG0011
         '抽出
         If blnSelected Then
             Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbBUHIN_BANGO.SelectedValue).FirstOrDefault
-
             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
                 RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
                 _D003_NCR_J.SYANAI_CD = dr.Item("SYANAI_CD")

@@ -23,7 +23,7 @@ Public Class FrmG0018
 
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
-
+        Me.ShowIcon = True
     End Sub
 
 #End Region

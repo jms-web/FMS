@@ -31,7 +31,7 @@ Public Class FrmG0015
 
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
-
+        Me.ShowIcon = True
         cmbTENSO_SAKI.NullValue = 0
     End Sub
 

@@ -30,7 +30,7 @@ Public Class FrmG0017
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
         MyBase.ToolTip.SetToolTip(cmdFunc1, "差戻し以外の処置の変更内容の比較はできません")
-
+        Me.ShowIcon = True
     End Sub
 
 #End Region

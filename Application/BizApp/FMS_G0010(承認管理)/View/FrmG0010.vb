@@ -41,6 +41,10 @@ Public Class FrmG0010
 
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
+
+        Me.Icon = My.Resources._icoAppForm32x32
+        Me.ShowIcon = True
+
         'ツールチップメッセージ
         MyBase.ToolTip.SetToolTip(Me.cmdFunc3, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc4, My.Resources.infoToolTipMsgNotFoundData)
@@ -174,7 +178,12 @@ Public Class FrmG0010
             AddHandler chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
             AddHandler chkTairyu.CheckedChanged, AddressOf SearchFilterValueChanged
 
-
+            AddHandler cmbJIZEN_SINSA_HANTEI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbZESEI_SYOCHI_YOHI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbSAISIN_IINKAI_HANTEI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbKENSA_KEKKA_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
 
             '起動モード別処理
             Select Case pub_intOPEN_MODE
@@ -186,7 +195,6 @@ Public Class FrmG0010
                     'Err
                     Throw New ArgumentException("起動モードパラメータが取得出来ませんでした")
             End Select
-
         Finally
             'ファンクションボタンステータス更新
             Call FunInitFuncButtonEnabled()
@@ -297,7 +305,7 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
-                .Columns.Add(NameOf(_Model.SYONIN_HOKOKUSYO_NAME), "名称")
+                .Columns.Add(NameOf(_Model.SYONIN_HOKOKUSYO_NAME), "報告書名称")
                 .Columns(.ColumnCount - 1).Width = 180
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
@@ -1400,7 +1408,7 @@ Public Class FrmG0010
             '-----ファイル保存
             'spWork.Delete()
             'spWorksheets(0).Cells("A1").Select()
-            spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.OpenXMLWorkbook)
+            spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.Excel8)
             spWorkbook.WorkbookSet.ReleaseLock()
 
             '-----Spire版 直接PDF発行するならこっち
@@ -1618,10 +1626,12 @@ Public Class FrmG0010
         '機種
         RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
         If blnSelected Then
-            Dim dt As DataTable = tblKISYU_J.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmb.SelectedValue).CopyToDataTable
-
-            cmbKISYU.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            ParamModel.KISYU_ID = 0
+            Dim drs = tblKISYU_J.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmb.SelectedValue)
+            If drs.Count > 0 Then
+                Dim dt As DataTable = drs.CopyToDataTable
+                cmbKISYU.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                ParamModel.KISYU_ID = 0
+            End If
         Else
             cmbKISYU.SetDataSource(tblKISYU_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
         End If
