@@ -274,13 +274,13 @@ Partial Public Class V005_CAR_J
 
     <Required>
     <ComponentModel.DisplayName("設問内容10")>
-    Public Property SETUMON_10 As Integer
+    Public Property SETUMON_10 As String
 
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(150)>
     <ComponentModel.DisplayName("設問回答10")>
-    Public Property KAITO_10 As String
+    Public Property KAITO_10 As Integer
 
     <Required>
     <Column(TypeName:="nvarchar")>
@@ -356,13 +356,13 @@ Partial Public Class V005_CAR_J
 
     <Required>
     <ComponentModel.DisplayName("設問内容17")>
-    Public Property SETUMON_17 As Integer
+    Public Property SETUMON_17 As String
 
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(150)>
     <ComponentModel.DisplayName("設問回答17")>
-    Public Property KAITO_17 As String
+    Public Property KAITO_17 As Integer
 
     <Required>
     <Column(TypeName:="nvarchar")>

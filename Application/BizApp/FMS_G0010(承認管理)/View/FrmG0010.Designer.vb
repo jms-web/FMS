@@ -55,6 +55,7 @@ Partial Class FrmG0010
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cmbBUMON = New JMS_COMMON.ComboboxEx()
+        Me.chkDleteRowVisibled = New System.Windows.Forms.CheckBox()
         Me.cmbJIZEN_SINSA_HANTEI_KB = New JMS_COMMON.ComboboxEx()
         Me.cmbSAISIN_IINKAI_HANTEI_KB = New JMS_COMMON.ComboboxEx()
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
@@ -94,7 +95,6 @@ Partial Class FrmG0010
         Me.Label22 = New System.Windows.Forms.Label()
         Me.Label30 = New System.Windows.Forms.Label()
         Me.cmbKISEKI_KOTEI_KB = New JMS_COMMON.ComboboxEx()
-        Me.chkDleteRowVisibled = New System.Windows.Forms.CheckBox()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpFilter.SuspendLayout()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -794,6 +794,19 @@ Partial Class FrmG0010
         Me.cmbBUMON.Size = New System.Drawing.Size(94, 25)
         Me.cmbBUMON.TabIndex = 0
         Me.cmbBUMON.ValueMember = "VALUE"
+        '
+        'chkDleteRowVisibled
+        '
+        Me.chkDleteRowVisibled.AutoSize = True
+        Me.tlpFilter.SetColumnSpan(Me.chkDleteRowVisibled, 7)
+        Me.chkDleteRowVisibled.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkDleteRowVisibled.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.chkDleteRowVisibled.Location = New System.Drawing.Point(723, 153)
+        Me.chkDleteRowVisibled.Name = "chkDleteRowVisibled"
+        Me.chkDleteRowVisibled.Size = New System.Drawing.Size(103, 21)
+        Me.chkDleteRowVisibled.TabIndex = 114
+        Me.chkDleteRowVisibled.Text = "çÌèúçœÇ‡ï\é¶"
+        Me.chkDleteRowVisibled.UseVisualStyleBackColor = True
         '
         'cmbJIZEN_SINSA_HANTEI_KB
         '
@@ -1541,19 +1554,6 @@ Partial Class FrmG0010
         Me.cmbKISEKI_KOTEI_KB.Size = New System.Drawing.Size(194, 25)
         Me.cmbKISEKI_KOTEI_KB.TabIndex = 106
         Me.cmbKISEKI_KOTEI_KB.ValueMember = "VALUE"
-        '
-        'chkDleteRowVisibled
-        '
-        Me.chkDleteRowVisibled.AutoSize = True
-        Me.tlpFilter.SetColumnSpan(Me.chkDleteRowVisibled, 7)
-        Me.chkDleteRowVisibled.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkDleteRowVisibled.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.chkDleteRowVisibled.Location = New System.Drawing.Point(723, 153)
-        Me.chkDleteRowVisibled.Name = "chkDleteRowVisibled"
-        Me.chkDleteRowVisibled.Size = New System.Drawing.Size(103, 21)
-        Me.chkDleteRowVisibled.TabIndex = 114
-        Me.chkDleteRowVisibled.Text = "çÌèúçœÇ‡ï\é¶"
-        Me.chkDleteRowVisibled.UseVisualStyleBackColor = True
         '
         'FrmG0010
         '

@@ -770,7 +770,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.G_FILE_PATH1))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.G_FILE_PATH2))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.ADD_SYAIN_ID))
-        sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.ADD_YMDHNS))
+        sbSQL.Append(" ,dbo.GetSysDateString()") 'ADD_YMDHNS
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.UPD_SYAIN_ID))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.UPD_YMDHNS))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.DEL_SYAIN_ID))
@@ -1679,7 +1679,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.FILE_PATH) & " = WK." & NameOf(_D003_NCR_J.FILE_PATH))
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.G_FILE_PATH1) & " = WK." & NameOf(_D003_NCR_J.G_FILE_PATH1))
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.G_FILE_PATH2) & " = WK." & NameOf(_D003_NCR_J.G_FILE_PATH2))
-        sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.UPD_SYAIN_ID) & " = WK." & NameOf(_D003_NCR_J.UPD_SYAIN_ID))
+        sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.UPD_SYAIN_ID) & " = " & pub_SYAIN_INFO.SYAIN_ID)
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.UPD_YMDHNS) & " = dbo.GetSysDateString()")
 
         'INSERT
@@ -2033,7 +2033,9 @@ Public Class FrmG0011
             'spWork.Range("RECORD_FRAME").ClearContents()
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_BANGO)).Value = _V002_NCR_J.BUHIN_BANGO
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_NAME)).Value = _V002_NCR_J.BUHIN_NAME
-            ssgSheet1.Range(NameOf(_V002_NCR_J.FUTEKIGO_JYOTAI_KB) & _V002_NCR_J.FUTEKIGO_JYOTAI_KB).Value = "TRUE"
+            If Not _V002_NCR_J.FUTEKIGO_JYOTAI_KB.IsNullOrWhiteSpace Then
+                ssgSheet1.Range(NameOf(_V002_NCR_J.FUTEKIGO_JYOTAI_KB) & _V002_NCR_J.FUTEKIGO_JYOTAI_KB).Value = "TRUE"
+            End If
             ssgSheet1.Range(NameOf(_V002_NCR_J.FUTEKIGO_NAIYO)).Value = _V002_NCR_J.FUTEKIGO_NAIYO
             ssgSheet1.Range(NameOf(_V002_NCR_J.GOKI)).Value = _V002_NCR_J.GOKI
             ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_HOUHOU)).Value = "(ÇªÇÃëºÇÃì‡óeÅF" & _V002_NCR_J.HAIKYAKU_HOUHOU.PadRight(30) & ")"
@@ -2048,7 +2050,9 @@ Public Class FrmG0011
             ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_YMD)).Value = _V002_NCR_J.HENKYAKU_YMD
             ssgSheet1.Range(NameOf(_V002_NCR_J.HOKOKU_NO)).Value = _V002_NCR_J.HOKOKU_NO
             ssgSheet1.Range(NameOf(_V002_NCR_J.ITAG_NO)).Value = _V002_NCR_J.ITAG_NO
-            ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_HANTEI_KB) & _V002_NCR_J.JIZEN_SINSA_HANTEI_KB).Value = "TRUE"
+            If Not _V002_NCR_J.JIZEN_SINSA_HANTEI_KB.IsNullOrWhiteSpace Then
+                ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_HANTEI_KB) & _V002_NCR_J.JIZEN_SINSA_HANTEI_KB).Value = "TRUE"
+            End If
             ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_SYAIN_NAME)).Value = _V002_NCR_J.JIZEN_SINSA_SYAIN_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_YMD)).Value = _V002_NCR_J.JIZEN_SINSA_YMD
             ssgSheet1.Range(NameOf(_V002_NCR_J.KANSATU_KEKKA)).Value = _V002_NCR_J.KANSATU_KEKKA
@@ -2064,7 +2068,9 @@ Public Class FrmG0011
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_YMD)).Value = _V002_NCR_J.SAISIN_HINSYO_YMD
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_HANTEI_KB) & _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB).Value = "TRUE"
+            If Not _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB.IsNullOrWhiteSpace Then
+                ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_HANTEI_KB) & _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB).Value = "TRUE"
+            End If
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_SIRYO_NO)).Value = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_YMD)).Value = _V002_NCR_J.SAISIN_KAKUNIN_YMD
@@ -2213,15 +2219,6 @@ Public Class FrmG0011
                 'SPEC: 40-3.áC
                 cmdFunc9.Enabled = _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_óv
 
-                'SPEC: 80-2.áD
-                Select Case PrCurrentStage
-                    Case ENM_NCR_STAGE._10_ãNëêì¸óÕ
-                        cmdFunc5.Enabled = False
-                    Case ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ, ENM_NCR_STAGE._82_èàíué¿é{_êªë¢, ENM_NCR_STAGE._83_èàíué¿é{_åüç∏
-                        cmdFunc1.Enabled = False
-                    Case Else
-                End Select
-
                 'ÉJÉåÉìÉgÉXÉeÅ[ÉWÇ™é©êgÇÃíSìñÇ≈Ç»Ç¢èÍçáÇÕñ≥å¯
                 If FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, PrDataRow.Item("SYONIN_JUN")) Then 'If TabSTAGE.TabPages(TabSTAGE.SelectedIndex).Enabled = False Then
                     cmdFunc1.Enabled = True
@@ -2234,6 +2231,15 @@ Public Class FrmG0011
                     cmdFunc4.Enabled = False
                     cmdFunc5.Enabled = False
                 End If
+
+                'SPEC: 80-2.áD
+                Select Case PrCurrentStage
+                    Case ENM_NCR_STAGE._10_ãNëêì¸óÕ
+                        cmdFunc5.Enabled = False
+                    Case ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ, ENM_NCR_STAGE._82_èàíué¿é{_êªë¢, ENM_NCR_STAGE._83_èàíué¿é{_åüç∏
+                        cmdFunc1.Enabled = False
+                    Case Else
+                End Select
             End If
 
 

@@ -265,12 +265,16 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "担当", tblTANTO)
                     Call FunGetCodeDataTable(DB, "部門区分", tblBUMON, "DISP_ORDER < 10") '10以降は不適合SYSでは不要
                     Call FunGetCodeDataTable(DB, "機種", tblKISYU)
+                    Call FunGetCodeDataTable(DB, "機種実績", tblKISYU_J)
+
                     Call FunGetCodeDataTable(DB, "不適合区分", tblFUTEKIGO_KB)
                     Call FunGetCodeDataTable(DB, "不適合状態区分", tblFUTEKIGO_STATUS_KB)
                     Call FunGetCodeDataTable(DB, "事前審査判定区分", tblJIZEN_SINSA_HANTEI_KB)
                     Call FunGetCodeDataTable(DB, "再審委員会判定区分", tblSAISIN_IINKAI_HANTEI_KB)
                     Call FunGetCodeDataTable(DB, "部品番号", tblBUHIN)
+                    Call FunGetCodeDataTable(DB, "部品番号実績", tblBUHIN_J)
                     Call FunGetCodeDataTable(DB, "社内CD", tblSYANAI_CD)
+                    Call FunGetCodeDataTable(DB, "社内CD実績", tblSYANAI_CD_J)
 
                     Call FunGetCodeDataTable(DB, "承認担当", tblTANTO_SYONIN)
                     'Call FunGetCodeDataTable(DB, "承認担当一覧", tblTANTO_SYONINList)
