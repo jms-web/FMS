@@ -1,16 +1,18 @@
 Imports JMS_COMMON.ClsPubMethod
 
-
+''' <summary>
+''' CAR登録画面
+''' </summary>
 Public Class FrmG0012
 
 #Region "定数・変数"
     Private _V002_NCR_J As New MODEL.V002_NCR_J
+    Private _V003_SYONIN_J_KANRI_List As New List(Of MODEL.V003_SYONIN_J_KANRI)
     Private _V005_CAR_J As New MODEL.V005_CAR_J
 
     '入力必須コントロール検証判定
     Private pri_blnValidated As Boolean
 #End Region
-
 
 #Region "プロパティ"
     ''' <summary>
@@ -2170,9 +2172,7 @@ Public Class FrmG0012
 
 #End Region
 
-
 #End Region
-
 
 #Region "ローカル関数"
 
@@ -2259,7 +2259,6 @@ Public Class FrmG0012
         End Try
     End Function
 
-
 #Region "処理モード別画面初期化"
     Private Function FunInitializeControls() As Boolean
 
@@ -2285,9 +2284,6 @@ Public Class FrmG0012
             mtxFUTEKIGO_S_KB.Text = _V002_NCR_J.FUTEKIGO_S_NAME
             mtxCurrentStageName.Text = FunGetLastStageName(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO)
 
-
-            PrCurrentStage = PrCurrentStage
-
             'SPEC: C10-2.④
             Select Case PrCurrentStage
                 Case ENM_CAR_STAGE._10_起草入力 To ENM_CAR_STAGE._70_起草確認_品証課長
@@ -2296,6 +2292,21 @@ Public Class FrmG0012
                 Case Else
 
             End Select
+
+
+            Dim _V003 As New MODEL.V003_SYONIN_J_KANRI
+            _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).
+                                FirstOrDefault
+            If _V003 IsNot Nothing Then
+                If Not _V003.RIYU.IsNullOrWhiteSpace Then lbl_Modoshi_Riyu.Visible = True
+                If _V003.SASIMODOSI_FG Then
+                    lbl_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                Else
+                    '転送時
+                    lbl_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                End If
+            End If
 
             Return True
 
@@ -2346,20 +2357,11 @@ Public Class FrmG0012
             _V002_NCR_J.Clear()
             _V002_NCR_J = FunGetV002Model(PrHOKOKU_NO)
 
+            _V003_SYONIN_J_KANRI_List = FunGetV003Model(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO)
+
             _D005_CAR_J.Clear()
             _V005_CAR_J = FunGetV005Model(PrHOKOKU_NO)
 
-            'sbSQL.Remove(0, sbSQL.Length)
-            'sbSQL.Append("SELECT")
-            'sbSQL.Append(" *")
-            'sbSQL.Append(" FROM V005_CAR_J")
-            'sbSQL.Append(" WHERE HOKOKU_NO='" & PrHOKOKU_NO & "'")
-            'Using DBa As ClsDbUtility = DBOpen()
-            '    dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
-            'End Using
-
-            'If dsList.Tables(0).Rows.Count > 0 Then
-            '    With dsList.Tables(0).Rows(0)
             _D005_CAR_J.HOKOKU_NO = _V005_CAR_J.HOKOKU_NO
             _D005_CAR_J.BUMON_KB = _V005_CAR_J.BUMON_KB
             _D005_CAR_J.CLOSE_FG = _V005_CAR_J.CLOSE_FG
@@ -2440,12 +2442,6 @@ Public Class FrmG0012
             _D005_CAR_J.UPD_YMDHNS = _V005_CAR_J.UPD_YMDHNS
             _D005_CAR_J.DEL_SYAIN_ID = _V005_CAR_J.DEL_SYAIN_ID
             _D005_CAR_J.DEL_YMDHNS = _V005_CAR_J.DEL_YMDHNS
-            '    End With
-            'Else
-            '    'Error
-            '    MessageBox.Show("該当報告書Noのデータが見つまりませんでした。" & vbCrLf & "報告書No=" & PrHOKOKU_NO, "該当データなし", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            '    Return False
-            'End If
 
 
             '原因分析区分

@@ -4560,20 +4560,26 @@ Public Class FrmG0011
 #End Region
 
 #Region "入力チェック"
+
+    ''' <summary>
+    ''' 入力チェック 必須項目のValidationを呼び出すことで判定
+    ''' </summary>
+    ''' <param name="enmSAVE_MODE"></param>
+    ''' <returns></returns>
     Private Function FunCheckInput(ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
         Try
+
+            'UNDONE: #40 フラグFalse時点で抜ける
 
             '-----共通
             Call CmbBUMON_Validating(cmbBUMON, Nothing)
             Call CmbKISYU_Validating(cmbKISYU, Nothing)
             Call CmbBUHIN_BANGO_Validating(cmbBUHIN_BANGO, Nothing)
 
-            'Call MtxGOUKI_Validating(mtxGOUKI, Nothing)
             Call CmbFUTEKIGO_STATUS_Validating(cmbFUTEKIGO_STATUS, Nothing)
             Call MtxFUTEKIGO_NAIYO_Validating(mtxHENKYAKU_RIYU, Nothing)
             Call CmbFUTEKIGO_KB_Validating(cmbFUTEKIGO_KB, Nothing)
             Call CmbFUTEKIGO_S_KB_Validating(cmbFUTEKIGO_S_KB, Nothing)
-            'Call MtxZUBAN_KIKAKU_Validating(mtxZUBAN_KIKAKU, Nothing)
 
             If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
                 '-----ステージ別
