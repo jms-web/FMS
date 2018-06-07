@@ -1822,7 +1822,18 @@ Public Class FrmG0012
 
 #End Region
 #Region "   7.申請先情報"
-
+    Private Sub CmbDestTANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbDestTANTO.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        If cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "申請先社員"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        End If
+    End Sub
 #End Region
 
 #Region "   処置実施記録"
@@ -2483,21 +2494,18 @@ Public Class FrmG0012
         Try
 
             '-----共通
-            'Call CmbBUMON_Validating(cmbBUMON, Nothing)
-            'Call CmbKISYU_Validating(cmbKISYU, Nothing)
-            'Call CmbBUHIN_BANGO_Validating(cmbBUHIN_BANGO, Nothing)
-
-            'Call MtxGOUKI_Validating(mtxGOUKI, Nothing)
-            ''Call CmbFUTEKIGO_STATUS_Validating(cmbFUTEKIGO_STATUS, Nothing)
-            ''Call MtxFUTEKIGO_NAIYO_Validating(mtxHENKYAKU_RIYU, Nothing)
-            ''Call CmbFUTEKIGO_KB_Validating(cmbFUTEKIGO_KB, Nothing)
-            ''Call CmbFUTEKIGO_S_KB_Validating(cmbFUTEKIGO_S_KB, Nothing)
-            'Call MtxZUBAN_KIKAKU_Validating(mtxZUBAN_KIKAKU, Nothing)
+            Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
 
             If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
                 '-----ステージ別
                 Select Case PrCurrentStage
+                    Case ENM_CAR_STAGE._80_処置実施記録入力, ENM_CAR_STAGE._90_処置実施確認
 
+                    Case ENM_CAR_STAGE._100_是正有効性記入
+
+                    Case ENM_CAR_STAGE._110_是正有効性確認_検査GL
+
+                    Case ENM_CAR_STAGE._120_是正有効性確認_品証TL, ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
 
                     Case Else
                         'Err
@@ -2515,7 +2523,12 @@ Public Class FrmG0012
 
 #End Region
 
-
+    ''' <summary>
+    ''' 該当報告書Noの現在のステージ名を取得
+    ''' </summary>
+    ''' <param name="intSYONIN_HOKOKUSYO_ID"></param>
+    ''' <param name="strHOKOKU_NO"></param>
+    ''' <returns></returns>
     Private Function FunGetLastStageName(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String) As String
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
@@ -2579,7 +2592,6 @@ Public Class FrmG0012
         Return intStageTabNo
     End Function
 
-
     ''' <summary>
     ''' 申請先社員IDを取得
     ''' </summary>
@@ -2601,7 +2613,6 @@ Public Class FrmG0012
             Throw
         End Try
     End Function
-
 
     ''' <summary>
     ''' 次ステージの承認順Noを取得
@@ -2696,6 +2707,5 @@ Public Class FrmG0012
     End Function
 
 #End Region
-
 
 End Class

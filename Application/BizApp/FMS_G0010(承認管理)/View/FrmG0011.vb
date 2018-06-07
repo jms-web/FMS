@@ -26,7 +26,7 @@ Public Class FrmG0011
     Private _V004_HOKOKU_SOUSA As New MODEL.V004_HOKOKU_SOUSA
 
     '入力必須コントロール検証判定
-    Private pri_blnValidated As Boolean
+    Private pri_blnValidated As Boolean = True
 
     '是正処置要否判定=CAR編集画面起動判定
     Private blnEnableCAREdit As Boolean
@@ -3227,7 +3227,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 #End Region
@@ -3285,7 +3285,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 #End Region
@@ -3407,7 +3407,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 #End Region
@@ -3448,7 +3448,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 #End Region
@@ -3464,7 +3464,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(mtx)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 #End Region
@@ -3498,7 +3498,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 #End Region
@@ -3519,7 +3519,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 #End Region
@@ -3536,6 +3536,16 @@ Public Class FrmG0011
         Else
             ErrorProvider.ClearError(mtx)
             pri_blnValidated = True
+        End If
+    End Sub
+
+#End Region
+
+#Region "数量"
+    Private Sub NumSU_Validated(sender As Object, e As EventArgs) Handles numSU.Validated
+
+        If Val(numSU.Text) = 0 Then
+            numSU.Text = numSU.Minimum
         End If
     End Sub
 
@@ -3565,7 +3575,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 #End Region
@@ -3581,7 +3591,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(txt)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -3595,7 +3605,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(txt)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -3658,7 +3668,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -3681,7 +3691,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -3706,7 +3716,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -3720,7 +3730,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -3734,7 +3744,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -3752,7 +3762,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -3766,7 +3776,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 #End Region
@@ -3781,7 +3791,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
     Private Sub CmbST08_2_TANTO_SEIZO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_2_TANTO_SEIZO.Validating
@@ -3794,7 +3804,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
     Private Sub CmbST08_2_TANTO_SEIGI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_2_TANTO_SEIGI.Validating
@@ -3807,7 +3817,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
     Private Sub CmbST08_2_TANTO_KENSA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_2_TANTO_KENSA.Validating
@@ -3820,7 +3830,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 #End Region
@@ -3835,7 +3845,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 #End Region
@@ -3850,7 +3860,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
     Private Sub CmbST08_4_BUHIN_BANGO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_4_BUHIN_BANGO.Validating
@@ -3863,7 +3873,7 @@ Public Class FrmG0011
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 #End Region
@@ -4565,13 +4575,14 @@ Public Class FrmG0011
 
     ''' <summary>
     ''' 入力チェック 必須項目のValidationを呼び出すことで判定
+    ''' AndAlsoでビット演算し、1個でもFalseがあったらfalseを返す
     ''' </summary>
     ''' <param name="enmSAVE_MODE"></param>
     ''' <returns></returns>
     Private Function FunCheckInput(ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
         Try
-
-            'UNDONE: #40 フラグFalse時点で抜ける
+            'フラグリセット
+            pri_blnValidated = True
 
             '-----共通
             Call CmbBUMON_Validating(cmbBUMON, Nothing)
@@ -4923,6 +4934,7 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
+
 
 #End Region
 
