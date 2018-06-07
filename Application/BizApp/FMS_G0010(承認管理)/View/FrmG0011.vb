@@ -1123,6 +1123,8 @@ Public Class FrmG0011
         Dim intRET As Integer
         Dim sqlEx As New Exception
 
+        'UNDONE: MERGE INTO Ç…ïœçX
+
         '---ë∂ç›ämîF
         Dim dsList As New DataSet
         Dim blnExist As Boolean

@@ -1002,9 +1002,6 @@ Public Class FrmG0010
             Dim strTantoNameList As String = ""
 
             If dt.Count > 0 Then
-
-                'UNDONE: 同一担当者のデータが複数件ある場合に、確認メッセージに同一担当者名が複数表示されてしまう
-
                 For Each dr As DataRow In dt.CopyToDataTable.Rows
                     If strTantoNameList = "" Then
                         strTantoNameList = dr.Item("GEN_TANTO_NAME")
@@ -1013,15 +1010,21 @@ Public Class FrmG0010
                     End If
                 Next dr
 
+                'UNDONE: 同一担当者のデータが複数件ある場合に、確認メッセージに同一担当者名が複数表示されてしまう
 
-                Dim strMsg As String = "以下の担当者に処置滞留通知メールを送信します。" & vbCrLf &
-                                           "よろしいですか？" & vbCrLf &
-                                           vbCrLf &
-                                           strTantoNameList
-                If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
-                    For Each dr As DataRow In dt.CopyToDataTable.Rows
-                        Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
-                        Dim strBody As String = <sql><![CDATA[
+                Using DB As ClsDbUtility = DBOpen()
+                    Dim blnErr As Boolean
+                    Try
+                        DB.BeginTransaction()
+
+                        Dim strMsg As String = "以下の担当者に処置滞留通知メールを送信します。" & vbCrLf &
+                                                   "よろしいですか？" & vbCrLf &
+                                                   vbCrLf &
+                                                   strTantoNameList
+                        If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
+                            For Each dr As DataRow In dt.CopyToDataTable.Rows
+                                Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
+                                Dim strBody As String = <sql><![CDATA[
                     {0} 殿
                     不適合製品の処置依頼から【滞留日数】{1}日が経過しています。
                     早急に対応をお願いします。
@@ -1033,24 +1036,38 @@ Public Class FrmG0010
                     【依頼者】{6}                    
                     ]]></sql>.Value.Trim
 
-                        strSubject = String.Format(strSubject, dr.Item("KISYU_NAME"), dr.Item("BUHIN_BANGO"))
-                        strBody = String.Format(strBody,
-                                    dr.Item("GEN_TANTO_NAME"),
-                                    dr.Item("TAIRYU_NISSU"),
-                                    dr.Item("HOKOKU_NO"),
-                                    dr.Item("SYONIN_NAIYO"),
-                                    dr.Item("KISYU_NAME"),
-                                    dr.Item("BUHIN_BANGO"),
-                                    Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID))
+                                strSubject = String.Format(strSubject, dr.Item("KISYU_NAME"), dr.Item("BUHIN_BANGO"))
+                                strBody = String.Format(strBody,
+                                        dr.Item("GEN_TANTO_NAME"),
+                                        dr.Item("TAIRYU_NISSU"),
+                                        dr.Item("HOKOKU_NO"),
+                                        dr.Item("SYONIN_NAIYO"),
+                                        dr.Item("KISYU_NAME"),
+                                        dr.Item("BUHIN_BANGO"),
+                                        Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID))
 
-                        If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=dr.Item("GEN_TANTO_ID")) Then
+                                If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=dr.Item("GEN_TANTO_ID")) Then
+                                    If FunSAVE_R001(DB, dr) Then
+                                    Else
+                                        blnErr = True
+                                        Return False
+                                    End If
+                                Else
+                                    MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                    blnErr = True
+                                    Return False
+                                End If
+                            Next dr
+
+                            '全選択解除
+                            Call FunUnSelectAll()
+
                             Return True
-                        Else
-                            MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                            Return False
                         End If
-                    Next dr
-                End If
+                    Finally
+                        DB.Commit(Not blnErr)
+                    End Try
+                End Using
             Else
                 Dim dr As DataRow = dgvDATA.GetDataRow
 
@@ -1065,7 +1082,7 @@ Public Class FrmG0010
                     Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
                     Dim strBody As String = <sql><![CDATA[
                     {0} 殿
-                    不適合製品の処置依頼から【滞留日数】{1}日が経過しています。
+                    不適合製品の処置依頼から{1}日が経過しています。
                     早急に対応をお願いします。
         
                     【報告書No】{2}
@@ -1086,7 +1103,22 @@ Public Class FrmG0010
                                 Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID))
 
                     If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=dr.Item("GEN_TANTO_ID")) Then
-                        Return True
+
+                        Using DB As ClsDbUtility = DBOpen()
+                            Dim blnErr As Boolean
+                            Try
+                                DB.BeginTransaction()
+
+                                If FunSAVE_R001(DB, dr) Then
+                                    Return True
+                                Else
+                                    blnErr = True
+                                    Return False
+                                End If
+                            Finally
+                                DB.Commit(Not blnErr)
+                            End Try
+                        End Using
                     Else
                         MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         Return False
@@ -1095,9 +1127,78 @@ Public Class FrmG0010
             End If
 
         Catch ex As Exception
-            'EM.ErrorSyori(ex, False, conblnNonMsg)
+            EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
     End Function
+
+    ''' <summary>
+    ''' 報告書操作履歴更新
+    ''' </summary>
+    ''' <param name="DB"></param>
+    ''' <param name="enmSAVE_MODE"></param>
+    ''' <returns></returns>
+    Private Function FunSAVE_R001(ByRef DB As ClsDbUtility, ByVal dr As DataRow) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim intRET As Integer
+        Dim sqlEx As New Exception
+
+        'UNDONE: MERGE INTO に変更
+
+        '---存在確認
+        'Dim dsList As New DataSet
+        'Dim blnExist As Boolean
+        'sbSQL.Append("SELECT HOKOKU_NO FROM " & NameOf(MODEL.R001_HOKOKU_SOUSA) & "")
+        'sbSQL.Append(" WHERE HOKOKU_NO ='" & dr.Item("HOKOKU_NO") & "'")
+        'dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        'If dsList.Tables(0).Rows.Count > 0 Then
+        '    blnExist = True
+        'End If
+
+        '-----データモデル更新
+        _R001_HOKOKU_SOUSA.clear()
+        _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = dr.Item("SYONIN_HOKOKUSYO_ID")
+        _R001_HOKOKU_SOUSA.HOKOKU_NO = dr.Item("HOKOKU_NO")
+        _R001_HOKOKU_SOUSA.SYONIN_JUN = dr.Item("SYONIN_JUN")
+        _R001_HOKOKU_SOUSA.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+        _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_SOUSA_KB._4_メール送信
+        _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
+        _R001_HOKOKU_SOUSA.RIYU = "処置滞留通知送信"
+        _R001_HOKOKU_SOUSA.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+
+        '-----INSERT R001
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("INSERT INTO " & NameOf(MODEL.R001_HOKOKU_SOUSA) & "(")
+        sbSQL.Append("  " & NameOf(_R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID))
+        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.HOKOKU_NO))
+        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.ADD_YMDHNS))
+        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SYONIN_JUN))
+        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SOUSA_KB))
+        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB))
+        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.RIYU))
+        sbSQL.Append(" ) VALUES(")
+        sbSQL.Append("  " & (_R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID))
+        sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.HOKOKU_NO) & "'")
+        sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.ADD_YMDHNS) & "'")
+        sbSQL.Append(" ," & (_R001_HOKOKU_SOUSA.SYONIN_JUN))
+        sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.SOUSA_KB) & "'")
+        sbSQL.Append(" ," & (_R001_HOKOKU_SOUSA.SYAIN_ID))
+        sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB) & "'")
+        sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.RIYU) & "'")
+        sbSQL.Append(")")
+
+        '-----SQL実行
+        intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+        If intRET <> 1 Then
+            '-----エラーログ出力
+            Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+            WL.WriteLogDat(strErrMsg)
+            Return False
+        Else
+            Return True
+        End If
+    End Function
+
 #End Region
 
 #Region "印刷"

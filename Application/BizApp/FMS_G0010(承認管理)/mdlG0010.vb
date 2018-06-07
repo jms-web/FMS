@@ -121,6 +121,7 @@ Module mdlG0010
     Public Enum ENM_SYONIN_HANTEI_KB
         _0_未承認 = 0
         _1_承認 = 1
+        _9_差戻 = 9
     End Enum
 
     ''' <summary>
@@ -202,12 +203,6 @@ Module mdlG0010
         _5_転送 = 5
     End Enum
 
-
-    Public Enum ENM_SYOUNIN_HANTEI_KB
-        _0_未承認 = 0
-        _1_承認 = 1
-        _9_差戻 = 9
-    End Enum
 
 #End Region
 
@@ -777,7 +772,7 @@ Module mdlG0010
             WL.WriteLogDat(strMsg)
 
             'DEBUG:
-            Return True
+            'Return True
 
 
             ''認証なし
