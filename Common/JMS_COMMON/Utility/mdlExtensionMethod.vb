@@ -324,6 +324,22 @@ Public Module mdlExtensionMethod
     Public Function Format(ByVal this As String, ByVal ParamArray args() As Object) As String
         Return String.Format(this, args)
     End Function
+
+    ''' <summary>
+    ''' 文字列中の特定文字をSQL文用にエスケープ
+    ''' </summary>
+    ''' <param name="this"></param>
+    ''' <returns></returns>
+    <Extension()>
+    Public Function ParseSqlEscape(ByVal this As String) As String
+        Dim strRET As String
+
+        'UNDONE: SQLエスケープ文字追加
+        strRET = this.Replace("'", """")
+
+        Return strRET
+    End Function
+
 #End Region
 
 End Module

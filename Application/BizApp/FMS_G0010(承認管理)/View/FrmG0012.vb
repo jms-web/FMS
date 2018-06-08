@@ -25,6 +25,19 @@ Public Class FrmG0012
 
     '報告書No
     Public Property PrHOKOKU_NO As String
+
+    ''' <summary>
+    ''' CAR検索条件 原因1
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property PrGenin1 As New List(Of (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String))
+
+    ''' <summary>
+    ''' CAR検索条件 原因2
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property PrGenin2 As New List(Of (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String))
+
 #End Region
 
 #Region "コンストラクタ"
@@ -1554,7 +1567,7 @@ Public Class FrmG0012
         Try
 
             'ファイル名
-            strOutputFileName = "CAR_" & _D003_NCR_J.HOKOKU_NO & "_Work.xlsx"
+            strOutputFileName = "CAR_" & _D003_NCR_J.HOKOKU_NO & "_Work.xls"
 
             '既存ファイル削除
             If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
@@ -1585,7 +1598,7 @@ Public Class FrmG0012
         End Try
     End Function
 
-    Private Function FunMakeReportCAR(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean
+    Private Function _FunMakeReportCAR(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean
 
         Dim spWorkbook As SpreadsheetGear.IWorkbook
         Dim spWorksheets As SpreadsheetGear.IWorksheets
@@ -1810,6 +1823,117 @@ Public Class FrmG0012
     End Sub
 #End Region
 #Region "   3.根本原因"
+    Private Sub btnSelectGenin1_Click(sender As Object, e As EventArgs) Handles btnSelectGenin1.Click
+        Dim frmDLG As New Form
+        Dim dlgRET As DialogResult
+        Try
+            If cmbGENIN1.SelectedValue = 0 Then
+                frmDLG = New FrmG0013
+                DirectCast(frmDLG, FrmG0013).PrYOIN = (cmbGENIN1.SelectedValue, cmbGENIN1.Text)
+                DirectCast(frmDLG, FrmG0013).PrSelectedList = PrGenin1
+            Else
+                frmDLG = New FrmG0014
+                DirectCast(frmDLG, FrmG0014).PrYOIN = (cmbGENIN1.SelectedValue, cmbGENIN1.Text)
+                DirectCast(frmDLG, FrmG0014).PrSelectedList = PrGenin1
+            End If
+
+            dlgRET = frmDLG.ShowDialog(Me)
+
+            If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                Exit Sub
+            Else
+                '検索条件文字列作成
+                Dim sbWhere As New System.Text.StringBuilder
+                Dim strWhereBase As String = <sql><![CDATA[
+                    EXISTS
+                    (
+                    SELECT HOKOKU_NO FROM D006_CAR_GENIN WHERE 
+                    V007_NCR_CAR.HOKOKU_NO = D006_CAR_GENIN.HOKOKU_NO
+                    {0}
+                    )
+                    ]]></sql>.Value.Trim
+
+                'mtxGENIN2_DISP.Text = ""
+                'If PrGenin2.Count > 0 Then
+                '    'For Each item In PrGenin2
+                '    '    If mtxGENIN2_DISP.Text.IsNullOrWhiteSpace Then
+                '    '        mtxGENIN2_DISP.Text = item.ITEM_DISP
+                '    '    Else
+                '    '        mtxGENIN2_DISP.Text &= ", " & item.ITEM_DISP
+                '    '    End If
+
+                '    '    sbWhere.Append(" AND (GENIN_BUNSEKI_KB='" & item.ITEM_NAME & "' AND GENIN_BUNSEKI_S_KB='" & item.ITEM_VALUE & "')")
+                '    'Next item
+                '    ParamModel.GENIN2 = String.Format(strWhereBase, sbWhere.ToString)
+                'Else
+                '    ParamModel.GENIN2 = ""
+                'End If
+            End If
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+        Finally
+            If frmDLG IsNot Nothing Then
+                frmDLG.Dispose()
+            End If
+        End Try
+    End Sub
+
+    Private Sub btnSelectGenin2_Click(sender As Object, e As EventArgs) Handles btnSelectGenin2.Click
+        Dim frmDLG As New Form
+        Dim dlgRET As DialogResult
+        Try
+            If cmbGENIN2.SelectedValue = 0 Then
+                frmDLG = New FrmG0013
+                DirectCast(frmDLG, FrmG0013).PrYOIN = (cmbGENIN2.SelectedValue, cmbGENIN2.Text)
+                DirectCast(frmDLG, FrmG0013).PrSelectedList = PrGenin2
+            Else
+                frmDLG = New FrmG0014
+                DirectCast(frmDLG, FrmG0014).PrYOIN = (cmbGENIN2.SelectedValue, cmbGENIN2.Text)
+                DirectCast(frmDLG, FrmG0014).PrSelectedList = PrGenin2
+            End If
+
+            dlgRET = frmDLG.ShowDialog(Me)
+
+            If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                Exit Sub
+            Else
+                '検索条件文字列作成
+                Dim sbWhere As New System.Text.StringBuilder
+                Dim strWhereBase As String = <sql><![CDATA[
+                    EXISTS
+                    (
+                    SELECT HOKOKU_NO FROM D006_CAR_GENIN WHERE 
+                    V007_NCR_CAR.HOKOKU_NO = D006_CAR_GENIN.HOKOKU_NO
+                    {0}
+                    )
+                    ]]></sql>.Value.Trim
+
+                'mtxGENIN2_DISP.Text = ""
+                'If PrGenin2.Count > 0 Then
+                '    'For Each item In PrGenin2
+                '    '    If mtxGENIN2_DISP.Text.IsNullOrWhiteSpace Then
+                '    '        mtxGENIN2_DISP.Text = item.ITEM_DISP
+                '    '    Else
+                '    '        mtxGENIN2_DISP.Text &= ", " & item.ITEM_DISP
+                '    '    End If
+
+                '    '    sbWhere.Append(" AND (GENIN_BUNSEKI_KB='" & item.ITEM_NAME & "' AND GENIN_BUNSEKI_S_KB='" & item.ITEM_VALUE & "')")
+                '    'Next item
+                '    ParamModel.GENIN2 = String.Format(strWhereBase, sbWhere.ToString)
+                'Else
+                '    ParamModel.GENIN2 = ""
+                'End If
+            End If
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+        Finally
+            If frmDLG IsNot Nothing Then
+                frmDLG.Dispose()
+            End If
+        End Try
+    End Sub
 
 #End Region
 #Region "   4.修正応急処置"
@@ -2219,14 +2343,14 @@ Public Class FrmG0012
             '修正・応急処置
             dtKAITO_4.DataBindings.Add(New Binding(NameOf(dtKAITO_4.ValueNonFormat), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_4), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             cmbKAITO_5.DataBindings.Add(New Binding(NameOf(cmbKAITO_5.SelectedValue), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_5), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            cmbKAITO_6.DataBindings.Add(New Binding(NameOf(cmbKAITO_6.SelectedValue), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_6), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            mtxKAITO_6.DataBindings.Add(New Binding(NameOf(mtxKAITO_6.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_6), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             mtxKAITO_7.DataBindings.Add(New Binding(NameOf(mtxKAITO_7.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_7), False, DataSourceUpdateMode.OnPropertyChanged, 0))
             dtKAITO_8.DataBindings.Add(New Binding(NameOf(dtKAITO_8.ValueNonFormat), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_7), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
             '是正処置
             dtKAITO_9.DataBindings.Add(New Binding(NameOf(dtKAITO_9.ValueNonFormat), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_9), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             cmbKAITO_10.DataBindings.Add(New Binding(NameOf(cmbKAITO_10.SelectedValue), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_10), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            cmbKAITO_11.DataBindings.Add(New Binding(NameOf(cmbKAITO_11.SelectedValue), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_11), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            mtxKAITO_11.DataBindings.Add(New Binding(NameOf(mtxKAITO_11.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_11), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             mtxKAITO_12.DataBindings.Add(New Binding(NameOf(mtxKAITO_12.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_12), False, DataSourceUpdateMode.OnPropertyChanged, 0))
             dtKAITO_13.DataBindings.Add(New Binding(NameOf(dtKAITO_13.ValueNonFormat), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_13), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
@@ -2235,7 +2359,7 @@ Public Class FrmG0012
             mtxKAITO_15.DataBindings.Add(New Binding(NameOf(mtxKAITO_15.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_15), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             dtKAITO_16.DataBindings.Add(New Binding(NameOf(dtKAITO_16.ValueNonFormat), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_16), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             cmbKAITO_17.DataBindings.Add(New Binding(NameOf(cmbKAITO_17.SelectedValue), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_17), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            cmbKAITO_18.DataBindings.Add(New Binding(NameOf(cmbKAITO_18.SelectedValue), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_18), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            mtxKAITO_18.DataBindings.Add(New Binding(NameOf(mtxKAITO_18.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_18), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             mtxKAITO_19.DataBindings.Add(New Binding(NameOf(mtxKAITO_19.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_19), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             dtKAITO_20.DataBindings.Add(New Binding(NameOf(dtKAITO_20.ValueNonFormat), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_20), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
@@ -2289,6 +2413,7 @@ Public Class FrmG0012
                 Return False
             End If
 
+            mtxBUMON_KB.Text = _V002_NCR_J.BUMON_NAME
             mtxKISYU.Text = _V002_NCR_J.KISYU_NAME
             mtxADD_SYAIN_NAME.Text = _V005_CAR_J.SYONIN_NAME10
             mtxFUTEKIGO_KB.Text = _V002_NCR_J.FUTEKIGO_NAME
@@ -2705,6 +2830,8 @@ Public Class FrmG0012
             Return 0
         End Try
     End Function
+
+
 
 #End Region
 

@@ -22,12 +22,14 @@ Partial Class FrmG0012
         Me.components = New System.ComponentModel.Container()
         Me.gbxFilter = New System.Windows.Forms.GroupBox()
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.mtxBUMON_KB = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.mtxHOKUKO_NO = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.mtxKISYU = New JMS_COMMON.MaskedTextBoxEx()
-        Me.mtxADD_SYAIN_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.mtxADD_SYAIN_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.mtxCurrentStageName = New JMS_COMMON.MaskedTextBoxEx()
         Me.TabSTAGE = New System.Windows.Forms.TabControl()
@@ -56,8 +58,8 @@ Partial Class FrmG0012
         Me.lblSETUMON_2 = New System.Windows.Forms.Label()
         Me.txtKAITO_2 = New JMS_COMMON.TextBoxEx()
         Me.tabSTAGE03 = New System.Windows.Forms.TabPage()
-        Me.Button11 = New System.Windows.Forms.Button()
-        Me.Button10 = New System.Windows.Forms.Button()
+        Me.btnSelectGenin2 = New System.Windows.Forms.Button()
+        Me.btnSelectGenin1 = New System.Windows.Forms.Button()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.cmbGENIN2 = New JMS_COMMON.ComboboxEx()
         Me.Label17 = New System.Windows.Forms.Label()
@@ -68,8 +70,8 @@ Partial Class FrmG0012
         Me.lblSETUMON_3 = New System.Windows.Forms.Label()
         Me.txtKAITO_3 = New JMS_COMMON.TextBoxEx()
         Me.tabSTAGE04 = New System.Windows.Forms.TabPage()
+        Me.mtxKAITO_6 = New JMS_COMMON.MaskedTextBoxEx()
         Me.lblSETUMON_8 = New System.Windows.Forms.Label()
-        Me.cmbKAITO_6 = New JMS_COMMON.ComboboxEx()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.mtxKAITO_7 = New JMS_COMMON.MaskedTextBoxEx()
         Me.cmbKAITO_5 = New JMS_COMMON.ComboboxEx()
@@ -81,8 +83,8 @@ Partial Class FrmG0012
         Me.dtKAITO_4 = New JMS_COMMON.DateTextBoxEx()
         Me.lbl = New System.Windows.Forms.Label()
         Me.tabSTAGE05 = New System.Windows.Forms.TabPage()
+        Me.mtxKAITO_11 = New JMS_COMMON.MaskedTextBoxEx()
         Me.lblSETUMON_13 = New System.Windows.Forms.Label()
-        Me.cmbKAITO_11 = New JMS_COMMON.ComboboxEx()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.mtxKAITO_12 = New JMS_COMMON.MaskedTextBoxEx()
         Me.cmbKAITO_10 = New JMS_COMMON.ComboboxEx()
@@ -94,9 +96,9 @@ Partial Class FrmG0012
         Me.dtKAITO_9 = New JMS_COMMON.DateTextBoxEx()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.tabSTAGE06 = New System.Windows.Forms.TabPage()
+        Me.mtxKAITO_18 = New JMS_COMMON.MaskedTextBoxEx()
         Me.lblSETUMON_20 = New System.Windows.Forms.Label()
         Me.cmbKAITO_14 = New JMS_COMMON.ComboboxEx()
-        Me.cmbKAITO_18 = New JMS_COMMON.ComboboxEx()
         Me.mtxKAITO_15 = New JMS_COMMON.MaskedTextBoxEx()
         Me.mtxKAITO_19 = New JMS_COMMON.MaskedTextBoxEx()
         Me.cmbKAITO_17 = New JMS_COMMON.ComboboxEx()
@@ -392,14 +394,16 @@ Partial Class FrmG0012
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpFilter.Controls.Add(Me.Label8, 0, 0)
-        Me.tlpFilter.Controls.Add(Me.mtxHOKUKO_NO, 5, 0)
-        Me.tlpFilter.Controls.Add(Me.Label14, 13, 0)
-        Me.tlpFilter.Controls.Add(Me.mtxKISYU, 18, 0)
-        Me.tlpFilter.Controls.Add(Me.mtxADD_SYAIN_NAME, 30, 0)
-        Me.tlpFilter.Controls.Add(Me.Label6, 25, 0)
-        Me.tlpFilter.Controls.Add(Me.Label1, 39, 0)
-        Me.tlpFilter.Controls.Add(Me.mtxCurrentStageName, 44, 0)
+        Me.tlpFilter.Controls.Add(Me.Label5, 0, 0)
+        Me.tlpFilter.Controls.Add(Me.mtxBUMON_KB, 4, 0)
+        Me.tlpFilter.Controls.Add(Me.Label8, 9, 0)
+        Me.tlpFilter.Controls.Add(Me.mtxHOKUKO_NO, 13, 0)
+        Me.tlpFilter.Controls.Add(Me.Label14, 19, 0)
+        Me.tlpFilter.Controls.Add(Me.mtxKISYU, 23, 0)
+        Me.tlpFilter.Controls.Add(Me.Label6, 30, 0)
+        Me.tlpFilter.Controls.Add(Me.mtxADD_SYAIN_NAME, 34, 0)
+        Me.tlpFilter.Controls.Add(Me.Label1, 43, 0)
+        Me.tlpFilter.Controls.Add(Me.mtxCurrentStageName, 48, 0)
         Me.tlpFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpFilter.Location = New System.Drawing.Point(3, 20)
         Me.tlpFilter.Name = "tlpFilter"
@@ -413,15 +417,41 @@ Partial Class FrmG0012
         Me.tlpFilter.Size = New System.Drawing.Size(1230, 33)
         Me.tlpFilter.TabIndex = 56
         '
+        'Label5
+        '
+        Me.tlpFilter.SetColumnSpan(Me.Label5, 4)
+        Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label5.Location = New System.Drawing.Point(3, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(74, 30)
+        Me.Label5.TabIndex = 114
+        Me.Label5.Text = "製品区分:"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'mtxBUMON_KB
+        '
+        Me.mtxBUMON_KB.BackColor = System.Drawing.SystemColors.Window
+        Me.tlpFilter.SetColumnSpan(Me.mtxBUMON_KB, 4)
+        Me.mtxBUMON_KB.Enabled = False
+        Me.mtxBUMON_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxBUMON_KB.InputRequired = False
+        Me.mtxBUMON_KB.Location = New System.Drawing.Point(83, 3)
+        Me.mtxBUMON_KB.Name = "mtxBUMON_KB"
+        Me.mtxBUMON_KB.ReadOnly = True
+        Me.mtxBUMON_KB.Size = New System.Drawing.Size(74, 24)
+        Me.mtxBUMON_KB.TabIndex = 115
+        Me.mtxBUMON_KB.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxBUMON_KB.WatermarkText = Nothing
+        '
         'Label8
         '
-        Me.Label8.AutoSize = True
-        Me.tlpFilter.SetColumnSpan(Me.Label8, 5)
-        Me.Label8.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tlpFilter.SetColumnSpan(Me.Label8, 4)
         Me.Label8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label8.Location = New System.Drawing.Point(3, 0)
+        Me.Label8.Location = New System.Drawing.Point(183, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(94, 30)
+        Me.Label8.Size = New System.Drawing.Size(74, 30)
         Me.Label8.TabIndex = 83
         Me.Label8.Text = "報告書No:"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -429,29 +459,27 @@ Partial Class FrmG0012
         'mtxHOKUKO_NO
         '
         Me.mtxHOKUKO_NO.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.mtxHOKUKO_NO, 6)
+        Me.tlpFilter.SetColumnSpan(Me.mtxHOKUKO_NO, 5)
         Me.mtxHOKUKO_NO.Enabled = False
         Me.mtxHOKUKO_NO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxHOKUKO_NO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxHOKUKO_NO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxHOKUKO_NO.InputRequired = False
-        Me.mtxHOKUKO_NO.Location = New System.Drawing.Point(103, 3)
+        Me.mtxHOKUKO_NO.Location = New System.Drawing.Point(263, 3)
         Me.mtxHOKUKO_NO.Name = "mtxHOKUKO_NO"
         Me.mtxHOKUKO_NO.ReadOnly = True
-        Me.mtxHOKUKO_NO.Size = New System.Drawing.Size(114, 24)
+        Me.mtxHOKUKO_NO.Size = New System.Drawing.Size(94, 24)
         Me.mtxHOKUKO_NO.TabIndex = 84
         Me.mtxHOKUKO_NO.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxHOKUKO_NO.WatermarkText = Nothing
         '
         'Label14
         '
-        Me.Label14.AutoSize = True
-        Me.tlpFilter.SetColumnSpan(Me.Label14, 5)
-        Me.Label14.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tlpFilter.SetColumnSpan(Me.Label14, 4)
         Me.Label14.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label14.Location = New System.Drawing.Point(263, 0)
+        Me.Label14.Location = New System.Drawing.Point(383, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(94, 30)
+        Me.Label14.Size = New System.Drawing.Size(74, 30)
         Me.Label14.TabIndex = 85
         Me.Label14.Text = "機種:"
         Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -465,13 +493,24 @@ Partial Class FrmG0012
         Me.mtxKISYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxKISYU.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxKISYU.InputRequired = False
-        Me.mtxKISYU.Location = New System.Drawing.Point(363, 3)
+        Me.mtxKISYU.Location = New System.Drawing.Point(463, 3)
         Me.mtxKISYU.Name = "mtxKISYU"
         Me.mtxKISYU.ReadOnly = True
         Me.mtxKISYU.Size = New System.Drawing.Size(114, 24)
         Me.mtxKISYU.TabIndex = 112
         Me.mtxKISYU.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxKISYU.WatermarkText = Nothing
+        '
+        'Label6
+        '
+        Me.tlpFilter.SetColumnSpan(Me.Label6, 4)
+        Me.Label6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label6.Location = New System.Drawing.Point(603, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(74, 30)
+        Me.Label6.TabIndex = 93
+        Me.Label6.Text = "起草者:"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'mtxADD_SYAIN_NAME
         '
@@ -482,7 +521,7 @@ Partial Class FrmG0012
         Me.mtxADD_SYAIN_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxADD_SYAIN_NAME.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxADD_SYAIN_NAME.InputRequired = False
-        Me.mtxADD_SYAIN_NAME.Location = New System.Drawing.Point(603, 3)
+        Me.mtxADD_SYAIN_NAME.Location = New System.Drawing.Point(683, 3)
         Me.mtxADD_SYAIN_NAME.Name = "mtxADD_SYAIN_NAME"
         Me.mtxADD_SYAIN_NAME.ReadOnly = True
         Me.mtxADD_SYAIN_NAME.Size = New System.Drawing.Size(154, 24)
@@ -490,22 +529,11 @@ Partial Class FrmG0012
         Me.mtxADD_SYAIN_NAME.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxADD_SYAIN_NAME.WatermarkText = Nothing
         '
-        'Label6
-        '
-        Me.tlpFilter.SetColumnSpan(Me.Label6, 5)
-        Me.Label6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label6.Location = New System.Drawing.Point(503, 0)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(94, 30)
-        Me.Label6.TabIndex = 93
-        Me.Label6.Text = "起草者:"
-        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'Label1
         '
         Me.tlpFilter.SetColumnSpan(Me.Label1, 5)
         Me.Label1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label1.Location = New System.Drawing.Point(783, 0)
+        Me.Label1.Location = New System.Drawing.Point(863, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(94, 30)
         Me.Label1.TabIndex = 113
@@ -515,16 +543,16 @@ Partial Class FrmG0012
         'mtxCurrentStageName
         '
         Me.mtxCurrentStageName.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.mtxCurrentStageName, 16)
+        Me.tlpFilter.SetColumnSpan(Me.mtxCurrentStageName, 13)
         Me.mtxCurrentStageName.Enabled = False
         Me.mtxCurrentStageName.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxCurrentStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxCurrentStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxCurrentStageName.InputRequired = False
-        Me.mtxCurrentStageName.Location = New System.Drawing.Point(883, 3)
+        Me.mtxCurrentStageName.Location = New System.Drawing.Point(963, 3)
         Me.mtxCurrentStageName.Name = "mtxCurrentStageName"
         Me.mtxCurrentStageName.ReadOnly = True
-        Me.mtxCurrentStageName.Size = New System.Drawing.Size(314, 24)
+        Me.mtxCurrentStageName.Size = New System.Drawing.Size(254, 24)
         Me.mtxCurrentStageName.TabIndex = 111
         Me.mtxCurrentStageName.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxCurrentStageName.WatermarkText = Nothing
@@ -933,8 +961,8 @@ Partial Class FrmG0012
         '
         'tabSTAGE03
         '
-        Me.tabSTAGE03.Controls.Add(Me.Button11)
-        Me.tabSTAGE03.Controls.Add(Me.Button10)
+        Me.tabSTAGE03.Controls.Add(Me.btnSelectGenin2)
+        Me.tabSTAGE03.Controls.Add(Me.btnSelectGenin1)
         Me.tabSTAGE03.Controls.Add(Me.Label16)
         Me.tabSTAGE03.Controls.Add(Me.cmbGENIN2)
         Me.tabSTAGE03.Controls.Add(Me.Label17)
@@ -951,27 +979,27 @@ Partial Class FrmG0012
         Me.tabSTAGE03.Text = "根本原因"
         Me.tabSTAGE03.UseVisualStyleBackColor = True
         '
-        'Button11
+        'btnSelectGenin2
         '
-        Me.Button11.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button11.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Button11.Location = New System.Drawing.Point(1123, 86)
-        Me.Button11.Name = "Button11"
-        Me.Button11.Size = New System.Drawing.Size(54, 24)
-        Me.Button11.TabIndex = 260
-        Me.Button11.Text = "選択"
-        Me.Button11.UseVisualStyleBackColor = True
+        Me.btnSelectGenin2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSelectGenin2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnSelectGenin2.Location = New System.Drawing.Point(1123, 86)
+        Me.btnSelectGenin2.Name = "btnSelectGenin2"
+        Me.btnSelectGenin2.Size = New System.Drawing.Size(54, 24)
+        Me.btnSelectGenin2.TabIndex = 260
+        Me.btnSelectGenin2.Text = "選択"
+        Me.btnSelectGenin2.UseVisualStyleBackColor = True
         '
-        'Button10
+        'btnSelectGenin1
         '
-        Me.Button10.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button10.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Button10.Location = New System.Drawing.Point(1123, 55)
-        Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(54, 24)
-        Me.Button10.TabIndex = 259
-        Me.Button10.Text = "選択"
-        Me.Button10.UseVisualStyleBackColor = True
+        Me.btnSelectGenin1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSelectGenin1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnSelectGenin1.Location = New System.Drawing.Point(1123, 55)
+        Me.btnSelectGenin1.Name = "btnSelectGenin1"
+        Me.btnSelectGenin1.Size = New System.Drawing.Size(54, 24)
+        Me.btnSelectGenin1.TabIndex = 259
+        Me.btnSelectGenin1.Text = "選択"
+        Me.btnSelectGenin1.UseVisualStyleBackColor = True
         '
         'Label16
         '
@@ -1119,8 +1147,8 @@ Partial Class FrmG0012
         '
         'tabSTAGE04
         '
+        Me.tabSTAGE04.Controls.Add(Me.mtxKAITO_6)
         Me.tabSTAGE04.Controls.Add(Me.lblSETUMON_8)
-        Me.tabSTAGE04.Controls.Add(Me.cmbKAITO_6)
         Me.tabSTAGE04.Controls.Add(Me.Button1)
         Me.tabSTAGE04.Controls.Add(Me.mtxKAITO_7)
         Me.tabSTAGE04.Controls.Add(Me.cmbKAITO_5)
@@ -1138,6 +1166,20 @@ Partial Class FrmG0012
         Me.tabSTAGE04.Text = "修正・応急処置"
         Me.tabSTAGE04.UseVisualStyleBackColor = True
         '
+        'mtxKAITO_6
+        '
+        Me.mtxKAITO_6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.mtxKAITO_6.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKAITO_6.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxKAITO_6.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxKAITO_6.InputRequired = False
+        Me.mtxKAITO_6.Location = New System.Drawing.Point(88, 89)
+        Me.mtxKAITO_6.Name = "mtxKAITO_6"
+        Me.mtxKAITO_6.Size = New System.Drawing.Size(154, 24)
+        Me.mtxKAITO_6.TabIndex = 239
+        Me.mtxKAITO_6.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxKAITO_6.WatermarkText = Nothing
+        '
         'lblSETUMON_8
         '
         Me.lblSETUMON_8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -1147,29 +1189,6 @@ Partial Class FrmG0012
         Me.lblSETUMON_8.TabIndex = 238
         Me.lblSETUMON_8.Text = "日付:"
         Me.lblSETUMON_8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbKAITO_6
-        '
-        Me.cmbKAITO_6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.cmbKAITO_6.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbKAITO_6.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKAITO_6.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbKAITO_6.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbKAITO_6.DisplayMember = "DISP"
-        Me.cmbKAITO_6.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbKAITO_6.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbKAITO_6.FormattingEnabled = True
-        Me.cmbKAITO_6.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKAITO_6.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbKAITO_6.Location = New System.Drawing.Point(88, 89)
-        Me.cmbKAITO_6.Name = "cmbKAITO_6"
-        Me.cmbKAITO_6.NullValue = " "
-        Me.cmbKAITO_6.ReadOnly = False
-        Me.cmbKAITO_6.Selected = False
-        Me.cmbKAITO_6.Size = New System.Drawing.Size(154, 25)
-        Me.cmbKAITO_6.TabIndex = 237
-        Me.cmbKAITO_6.Text = "(選択)"
-        Me.cmbKAITO_6.ValueMember = "VALUE"
         '
         'Button1
         '
@@ -1306,8 +1325,8 @@ Partial Class FrmG0012
         '
         'tabSTAGE05
         '
+        Me.tabSTAGE05.Controls.Add(Me.mtxKAITO_11)
         Me.tabSTAGE05.Controls.Add(Me.lblSETUMON_13)
-        Me.tabSTAGE05.Controls.Add(Me.cmbKAITO_11)
         Me.tabSTAGE05.Controls.Add(Me.Button2)
         Me.tabSTAGE05.Controls.Add(Me.mtxKAITO_12)
         Me.tabSTAGE05.Controls.Add(Me.cmbKAITO_10)
@@ -1325,6 +1344,20 @@ Partial Class FrmG0012
         Me.tabSTAGE05.Text = "是正処置"
         Me.tabSTAGE05.UseVisualStyleBackColor = True
         '
+        'mtxKAITO_11
+        '
+        Me.mtxKAITO_11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.mtxKAITO_11.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKAITO_11.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxKAITO_11.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxKAITO_11.InputRequired = False
+        Me.mtxKAITO_11.Location = New System.Drawing.Point(88, 89)
+        Me.mtxKAITO_11.Name = "mtxKAITO_11"
+        Me.mtxKAITO_11.Size = New System.Drawing.Size(154, 24)
+        Me.mtxKAITO_11.TabIndex = 251
+        Me.mtxKAITO_11.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxKAITO_11.WatermarkText = Nothing
+        '
         'lblSETUMON_13
         '
         Me.lblSETUMON_13.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -1334,29 +1367,6 @@ Partial Class FrmG0012
         Me.lblSETUMON_13.TabIndex = 250
         Me.lblSETUMON_13.Text = "日付:"
         Me.lblSETUMON_13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbKAITO_11
-        '
-        Me.cmbKAITO_11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.cmbKAITO_11.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbKAITO_11.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKAITO_11.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbKAITO_11.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbKAITO_11.DisplayMember = "DISP"
-        Me.cmbKAITO_11.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbKAITO_11.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbKAITO_11.FormattingEnabled = True
-        Me.cmbKAITO_11.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKAITO_11.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbKAITO_11.Location = New System.Drawing.Point(88, 89)
-        Me.cmbKAITO_11.Name = "cmbKAITO_11"
-        Me.cmbKAITO_11.NullValue = " "
-        Me.cmbKAITO_11.ReadOnly = False
-        Me.cmbKAITO_11.Selected = False
-        Me.cmbKAITO_11.Size = New System.Drawing.Size(154, 25)
-        Me.cmbKAITO_11.TabIndex = 249
-        Me.cmbKAITO_11.Text = "(選択)"
-        Me.cmbKAITO_11.ValueMember = "VALUE"
         '
         'Button2
         '
@@ -1493,9 +1503,9 @@ Partial Class FrmG0012
         '
         'tabSTAGE06
         '
+        Me.tabSTAGE06.Controls.Add(Me.mtxKAITO_18)
         Me.tabSTAGE06.Controls.Add(Me.lblSETUMON_20)
         Me.tabSTAGE06.Controls.Add(Me.cmbKAITO_14)
-        Me.tabSTAGE06.Controls.Add(Me.cmbKAITO_18)
         Me.tabSTAGE06.Controls.Add(Me.mtxKAITO_15)
         Me.tabSTAGE06.Controls.Add(Me.mtxKAITO_19)
         Me.tabSTAGE06.Controls.Add(Me.cmbKAITO_17)
@@ -1515,6 +1525,20 @@ Partial Class FrmG0012
         Me.tabSTAGE06.TabIndex = 5
         Me.tabSTAGE06.Text = "処置水平展開"
         Me.tabSTAGE06.UseVisualStyleBackColor = True
+        '
+        'mtxKAITO_18
+        '
+        Me.mtxKAITO_18.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.mtxKAITO_18.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKAITO_18.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxKAITO_18.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxKAITO_18.InputRequired = False
+        Me.mtxKAITO_18.Location = New System.Drawing.Point(88, 152)
+        Me.mtxKAITO_18.Name = "mtxKAITO_18"
+        Me.mtxKAITO_18.Size = New System.Drawing.Size(154, 24)
+        Me.mtxKAITO_18.TabIndex = 263
+        Me.mtxKAITO_18.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxKAITO_18.WatermarkText = Nothing
         '
         'lblSETUMON_20
         '
@@ -1548,29 +1572,6 @@ Partial Class FrmG0012
         Me.cmbKAITO_14.TabIndex = 261
         Me.cmbKAITO_14.Text = "(選択)"
         Me.cmbKAITO_14.ValueMember = "VALUE"
-        '
-        'cmbKAITO_18
-        '
-        Me.cmbKAITO_18.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.cmbKAITO_18.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbKAITO_18.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKAITO_18.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbKAITO_18.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbKAITO_18.DisplayMember = "DISP"
-        Me.cmbKAITO_18.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbKAITO_18.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbKAITO_18.FormattingEnabled = True
-        Me.cmbKAITO_18.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKAITO_18.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbKAITO_18.Location = New System.Drawing.Point(88, 152)
-        Me.cmbKAITO_18.Name = "cmbKAITO_18"
-        Me.cmbKAITO_18.NullValue = " "
-        Me.cmbKAITO_18.ReadOnly = False
-        Me.cmbKAITO_18.Selected = False
-        Me.cmbKAITO_18.Size = New System.Drawing.Size(154, 25)
-        Me.cmbKAITO_18.TabIndex = 261
-        Me.cmbKAITO_18.Text = "(選択)"
-        Me.cmbKAITO_18.ValueMember = "VALUE"
         '
         'mtxKAITO_15
         '
@@ -3312,12 +3313,10 @@ Partial Class FrmG0012
     Friend WithEvents dtKAITO_4 As DateTextBoxEx
     Friend WithEvents lbl As Label
     Friend WithEvents lblSETUMON_8 As Label
-    Friend WithEvents cmbKAITO_6 As ComboboxEx
     Friend WithEvents lblSETUMON_7 As Label
     Friend WithEvents lblSETUMON_6 As Label
     Friend WithEvents dtKAITO_8 As DateTextBoxEx
     Friend WithEvents lblSETUMON_13 As Label
-    Friend WithEvents cmbKAITO_11 As ComboboxEx
     Friend WithEvents Button2 As Button
     Friend WithEvents mtxKAITO_12 As MaskedTextBoxEx
     Friend WithEvents cmbKAITO_10 As ComboboxEx
@@ -3330,7 +3329,6 @@ Partial Class FrmG0012
     Friend WithEvents Label29 As Label
     Friend WithEvents lblSETUMON_20 As Label
     Friend WithEvents cmbKAITO_14 As ComboboxEx
-    Friend WithEvents cmbKAITO_18 As ComboboxEx
     Friend WithEvents mtxKAITO_15 As MaskedTextBoxEx
     Friend WithEvents mtxKAITO_19 As MaskedTextBoxEx
     Friend WithEvents cmbKAITO_17 As ComboboxEx
@@ -3385,8 +3383,8 @@ Partial Class FrmG0012
     Friend WithEvents cmbGENIN1 As ComboboxEx
     Friend WithEvents Label51 As Label
     Friend WithEvents cmbKISEKI_KOTEI As ComboboxEx
-    Friend WithEvents Button11 As Button
-    Friend WithEvents Button10 As Button
+    Friend WithEvents btnSelectGenin2 As Button
+    Friend WithEvents btnSelectGenin1 As Button
     Friend WithEvents Label42 As Label
     Friend WithEvents cmbKENSA_GL_TANTO As ComboboxEx
     Friend WithEvents Label47 As Label
@@ -3447,4 +3445,9 @@ Partial Class FrmG0012
     Friend WithEvents cmbSYOCHI_B_TANTO As ComboboxEx
     Friend WithEvents cmbSYOCHI_A_TANTO As ComboboxEx
     Friend WithEvents D005CARJBindingSource As BindingSource
+    Friend WithEvents mtxKAITO_6 As MaskedTextBoxEx
+    Friend WithEvents mtxKAITO_11 As MaskedTextBoxEx
+    Friend WithEvents mtxKAITO_18 As MaskedTextBoxEx
+    Friend WithEvents Label5 As Label
+    Friend WithEvents mtxBUMON_KB As MaskedTextBoxEx
 End Class

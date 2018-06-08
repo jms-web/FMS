@@ -552,7 +552,7 @@ Public Class FrmG0016
                 Trow("SYAIN_NAME") = .Rows(intCNT).Item("SYAIN_NAME")
                 'Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                 Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
-                Trow("SYAIN_ID") = .Rows(intCNT).Item("SYAIN_ID")
+                Trow("SYAIN_ID") = .Rows(intCNT).Item("UPD_SYAIN_ID") '.Rows(intCNT).Item("SYAIN_ID")
                 Trow("HOKOKU_NO") = .Rows(intCNT).Item("HOKOKU_NO")
 
                 dt.Rows.Add(Trow)

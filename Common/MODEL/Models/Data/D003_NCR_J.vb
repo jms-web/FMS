@@ -492,7 +492,7 @@ Partial Public Class D003_NCR_J
     Public Property TENYO_YMD As String
 
     <Required>
-    <Column(TypeName:="char")>
+    <Column(NameOf(SYOCHI_KEKKA_A), TypeName:="char")>
     <StringLength(1)>
     <ComponentModel.DisplayName("処置結果a")>
     <Display(AutoGenerateField:=False)>

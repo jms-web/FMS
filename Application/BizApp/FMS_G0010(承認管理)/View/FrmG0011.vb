@@ -152,38 +152,6 @@ Public Class FrmG0011
             'ƒoƒCƒ“ƒfƒBƒ“ƒO
             Call FunSetBindingD003()
 
-            'Šù’è’l‚ÌÝ’è
-            'Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
-            'If blnIsAdmin Then
-            '    'ƒVƒXƒeƒ€ŠÇ—ŽÒ‚Ì‚Ý§ŒÀ‰ðœ
-            'Else
-            '    Select Case pub_SYAIN_INFO.BUMON_KB
-            '        Case Context.ENM_BUMON_KB._1_•—–h, Context.ENM_BUMON_KB._2_LP
-            '            cmbBUMON.DataSource = DirectCast(cmbBUMON.DataSource, DataTable).
-            '                                        AsEnumerable.
-            '                                        Where(Function(r) r.Field(Of String)("VALUE") = "1" Or r.Field(Of String)("VALUE") = "2").
-            '                                        CopyToDataTable
-
-            '            cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
-
-            '        Case Context.ENM_BUMON_KB._3_•¡‡Þ
-            '            cmbBUMON.DataSource = DirectCast(cmbBUMON.DataSource, DataTable).
-            '                                        AsEnumerable.
-            '                                        Where(Function(r) r.Field(Of String)("VALUE") = pub_SYAIN_INFO.BUMON_KB).
-            '                                        CopyToDataTable
-
-            '            cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
-            '        Case Else
-
-            '    End Select
-            'End If
-
-
-            '''-----ƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰Ý’è
-            'AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
-
-
             '-----ˆ—ƒ‚[ƒh•Ê‰æ–Ê‰Šú‰»
             Call FunInitializeControls(PrMODE)
         Finally
@@ -464,19 +432,19 @@ Public Class FrmG0011
         sbSQL.Append(" ," & _D003_NCR_J.KISYU_ID & " AS " & NameOf(_D003_NCR_J.KISYU_ID))
         sbSQL.Append(" ,'" & _D003_NCR_J.SYANAI_CD & "' AS " & NameOf(_D003_NCR_J.SYANAI_CD))
         sbSQL.Append(" ,'" & _D003_NCR_J.BUHIN_BANGO & "' AS " & NameOf(_D003_NCR_J.BUHIN_BANGO))
-        sbSQL.Append(" ,'" & _D003_NCR_J.BUHIN_NAME & "' AS " & NameOf(_D003_NCR_J.BUHIN_NAME))
-        sbSQL.Append(" ,'" & _D003_NCR_J.GOKI & "' AS " & NameOf(_D003_NCR_J.GOKI))
+        sbSQL.Append(" ,'" & _D003_NCR_J.BUHIN_NAME.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.BUHIN_NAME))
+        sbSQL.Append(" ,'" & _D003_NCR_J.GOKI.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.GOKI))
         sbSQL.Append(" ," & _D003_NCR_J.SURYO & " AS " & NameOf(_D003_NCR_J.SURYO))
         sbSQL.Append(" ,'" & _D003_NCR_J._SAIHATU & "' AS " & NameOf(_D003_NCR_J.SAIHATU))
         sbSQL.Append(" ,'" & _D003_NCR_J.FUTEKIGO_JYOTAI_KB & "' AS " & NameOf(_D003_NCR_J.FUTEKIGO_JYOTAI_KB))
-        sbSQL.Append(" ,'" & _D003_NCR_J.FUTEKIGO_NAIYO & "' AS " & NameOf(_D003_NCR_J.FUTEKIGO_NAIYO))
+        sbSQL.Append(" ,'" & _D003_NCR_J.FUTEKIGO_NAIYO.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.FUTEKIGO_NAIYO))
         sbSQL.Append(" ,'" & _D003_NCR_J.FUTEKIGO_KB & "' AS " & NameOf(_D003_NCR_J.FUTEKIGO_KB))
         sbSQL.Append(" ,'" & _D003_NCR_J.FUTEKIGO_S_KB & "' AS " & NameOf(_D003_NCR_J.FUTEKIGO_S_KB))
-        sbSQL.Append(" ,'" & _D003_NCR_J.ZUMEN_KIKAKU & "' AS " & NameOf(_D003_NCR_J.ZUMEN_KIKAKU))
-        sbSQL.Append(" ,'" & _D003_NCR_J.YOKYU_NAIYO & "' AS " & NameOf(_D003_NCR_J.YOKYU_NAIYO))
-        sbSQL.Append(" ,'" & _D003_NCR_J.KANSATU_KEKKA & "' AS " & NameOf(_D003_NCR_J.KANSATU_KEKKA))
+        sbSQL.Append(" ,'" & _D003_NCR_J.ZUMEN_KIKAKU.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.ZUMEN_KIKAKU))
+        sbSQL.Append(" ,'" & _D003_NCR_J.YOKYU_NAIYO.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.YOKYU_NAIYO))
+        sbSQL.Append(" ,'" & _D003_NCR_J.KANSATU_KEKKA.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.KANSATU_KEKKA))
         sbSQL.Append(" ,'" & _D003_NCR_J._ZESEI_SYOCHI_YOHI_KB & "' AS " & NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB))
-        sbSQL.Append(" ,'" & _D003_NCR_J.ZESEI_NASI_RIYU & "' AS " & NameOf(_D003_NCR_J.ZESEI_NASI_RIYU))
+        sbSQL.Append(" ,'" & _D003_NCR_J.ZESEI_NASI_RIYU.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.ZESEI_NASI_RIYU))
         sbSQL.Append(" ,'" & _D003_NCR_J.JIZEN_SINSA_HANTEI_KB & "' AS " & NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB))
         sbSQL.Append(" ," & _D003_NCR_J.JIZEN_SINSA_SYAIN_ID & " AS " & NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID))
 
@@ -488,8 +456,8 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & _D003_NCR_J.SAISIN_GIJYUTU_YMD & "' AS " & NameOf(_D003_NCR_J.SAISIN_GIJYUTU_YMD))
         sbSQL.Append(" ," & _D003_NCR_J.SAISIN_HINSYO_SYAIN_ID & " AS " & NameOf(_D003_NCR_J.SAISIN_HINSYO_SYAIN_ID))
         sbSQL.Append(" ,'" & _D003_NCR_J.SAISIN_HINSYO_YMD & "' AS " & NameOf(_D003_NCR_J.SAISIN_HINSYO_YMD))
-        sbSQL.Append(" ,'" & _D003_NCR_J.SAISIN_IINKAI_SIRYO_NO & "' AS " & NameOf(_D003_NCR_J.SAISIN_IINKAI_SIRYO_NO))
-        sbSQL.Append(" ,'" & _D003_NCR_J.ITAG_NO & "' AS " & NameOf(_D003_NCR_J.ITAG_NO))
+        sbSQL.Append(" ,'" & _D003_NCR_J.SAISIN_IINKAI_SIRYO_NO.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.SAISIN_IINKAI_SIRYO_NO))
+        sbSQL.Append(" ,'" & _D003_NCR_J.ITAG_NO.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.ITAG_NO))
         sbSQL.Append(" ," & _D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID & " AS " & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID))
         sbSQL.Append(" ,'" & _D003_NCR_J.KOKYAKU_SAISIN_YMD & "' AS " & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD))
         sbSQL.Append(" ,'" & _D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB & "' AS " & NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB))
@@ -499,9 +467,9 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & _D003_NCR_J._SAIKAKO_SIJI_FG & "' AS " & NameOf(_D003_NCR_J.SAIKAKO_SIJI_FG))
         sbSQL.Append(" ,'" & _D003_NCR_J.HAIKYAKU_YMD & "' AS " & NameOf(_D003_NCR_J.HAIKYAKU_YMD))
         sbSQL.Append(" ,'" & _D003_NCR_J.HAIKYAKU_KB & "' AS " & NameOf(_D003_NCR_J.HAIKYAKU_KB))
-        sbSQL.Append(" ,'" & _D003_NCR_J.HAIKYAKU_HOUHOU & "' AS " & NameOf(_D003_NCR_J.HAIKYAKU_HOUHOU))
+        sbSQL.Append(" ,'" & _D003_NCR_J.HAIKYAKU_HOUHOU.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.HAIKYAKU_HOUHOU))
         sbSQL.Append(" ," & _D003_NCR_J.HAIKYAKU_TANTO_ID & " AS " & NameOf(_D003_NCR_J.HAIKYAKU_TANTO_ID))
-        sbSQL.Append(" ,'" & _D003_NCR_J.SAIKAKO_SIJI_NO & "' AS " & NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO))
+        sbSQL.Append(" ,'" & _D003_NCR_J.SAIKAKO_SIJI_NO.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO))
         sbSQL.Append(" ,'" & _D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD & "' AS " & NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD))
         sbSQL.Append(" ,'" & _D003_NCR_J.SAIKAKO_KENSA_YMD & "' AS " & NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD))
         sbSQL.Append(" ,'" & _D003_NCR_J.KENSA_KEKKA_KB & "' AS " & NameOf(_D003_NCR_J.KENSA_KEKKA_KB))
@@ -509,12 +477,12 @@ Public Class FrmG0011
         sbSQL.Append(" ," & _D003_NCR_J.SEIZO_TANTO_ID & " AS " & NameOf(_D003_NCR_J.SEIZO_TANTO_ID))
         sbSQL.Append(" ," & _D003_NCR_J.KENSA_TANTO_ID & " AS " & NameOf(_D003_NCR_J.KENSA_TANTO_ID))
         sbSQL.Append(" ,'" & _D003_NCR_J.HENKYAKU_YMD & "' AS " & NameOf(_D003_NCR_J.HENKYAKU_YMD))
-        sbSQL.Append(" ,'" & _D003_NCR_J.HENKYAKU_SAKI & "' AS " & NameOf(_D003_NCR_J.HENKYAKU_SAKI))
+        sbSQL.Append(" ,'" & _D003_NCR_J.HENKYAKU_SAKI.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.HENKYAKU_SAKI))
         sbSQL.Append(" ," & _D003_NCR_J.HENKYAKU_TANTO_ID & " AS " & NameOf(_D003_NCR_J.HENKYAKU_TANTO_ID))
-        sbSQL.Append(" ,'" & _D003_NCR_J.HENKYAKU_BIKO & "' AS " & NameOf(_D003_NCR_J.HENKYAKU_BIKO))
+        sbSQL.Append(" ,'" & _D003_NCR_J.HENKYAKU_BIKO.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.HENKYAKU_BIKO))
         sbSQL.Append(" ," & _D003_NCR_J.TENYO_KISYU_ID & " AS " & NameOf(_D003_NCR_J.TENYO_KISYU_ID))
-        sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_BUHIN_BANGO & "' AS " & NameOf(_D003_NCR_J.TENYO_BUHIN_BANGO))
-        sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_GOKI & "' AS " & NameOf(_D003_NCR_J.TENYO_GOKI))
+        sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_BUHIN_BANGO.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.TENYO_BUHIN_BANGO))
+        sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_GOKI.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.TENYO_GOKI))
         sbSQL.Append(" ," & _D003_NCR_J.TENYO_LOT & " AS " & NameOf(_D003_NCR_J.TENYO_LOT))
         sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_YMD & "' AS " & NameOf(_D003_NCR_J.TENYO_YMD))
         sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_KEKKA_A & "' AS " & NameOf(_D003_NCR_J.SYOCHI_KEKKA_A))
@@ -522,14 +490,14 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_KEKKA_C & "' AS " & NameOf(_D003_NCR_J.SYOCHI_KEKKA_C))
         sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_D_UMU_KB & "' AS " & NameOf(_D003_NCR_J.SYOCHI_D_UMU_KB))
         sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_D_YOHI_KB & "' AS " & NameOf(_D003_NCR_J.SYOCHI_D_YOHI_KB))
-        sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU & "' AS " & NameOf(_D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU))
+        sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU))
         sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_E_UMU_KB & "' AS " & NameOf(_D003_NCR_J.SYOCHI_E_UMU_KB))
         sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_E_YOHI_KB & "' AS " & NameOf(_D003_NCR_J.SYOCHI_E_YOHI_KB))
-        sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU & "' AS " & NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU))
+        sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU))
 
-        sbSQL.Append(" ,'" & _D003_NCR_J.FILE_PATH & "' AS " & NameOf(_D003_NCR_J.FILE_PATH))
-        sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH1 & "' AS " & NameOf(_D003_NCR_J.G_FILE_PATH1))
-        sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH2 & "' AS " & NameOf(_D003_NCR_J.G_FILE_PATH2))
+        sbSQL.Append(" ,'" & _D003_NCR_J.FILE_PATH.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.FILE_PATH))
+        sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH1.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.G_FILE_PATH1))
+        sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH2.ParseSqlEscape & "' AS " & NameOf(_D003_NCR_J.G_FILE_PATH2))
         sbSQL.Append(" ," & _D003_NCR_J.ADD_SYAIN_ID & " AS " & NameOf(_D003_NCR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ,'" & _D003_NCR_J.ADD_YMDHNS & "' AS " & NameOf(_D003_NCR_J.ADD_YMDHNS))
         sbSQL.Append(" ," & pub_SYAIN_INFO.SYAIN_ID & " AS " & NameOf(_D003_NCR_J.UPD_SYAIN_ID))
@@ -538,7 +506,6 @@ Public Class FrmG0011
         sbSQL.Append(" ,' ' AS " & NameOf(_D003_NCR_J.DEL_YMDHNS))
         sbSQL.Append(" ) AS WK")
         sbSQL.Append(" ON (SrcT.HOKOKU_NO = WK.HOKOKU_NO)")
-
 
         'UPDATE ”r‘¼§Œä XV“úŽž‚ª•ÏX‚³‚ê‚Ä‚¢‚È‚¢ê‡‚Ì‚Ý
         sbSQL.Append(" WHEN MATCHED AND SrcT." & NameOf(_D003_NCR_J.UPD_YMDHNS) & " = WK." & NameOf(_D003_NCR_J.UPD_YMDHNS) & " THEN ")
@@ -1986,7 +1953,7 @@ Public Class FrmG0011
         Try
 
             'ƒtƒ@ƒCƒ‹–¼
-            strOutputFileName = "NCR_" & _D003_NCR_J.HOKOKU_NO & "_Work.xlsx"
+            strOutputFileName = "NCR_" & _D003_NCR_J.HOKOKU_NO & "_Work.xls"
 
             'Šù‘¶ƒtƒ@ƒCƒ‹íœ
             If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
@@ -2007,7 +1974,7 @@ Public Class FrmG0011
             End If
 
             'Excel‹N“®
-            Return FunOpenExcelApp(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName)
+            'Return FunOpenExcelApp(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName)
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -2016,13 +1983,12 @@ Public Class FrmG0011
         End Try
     End Function
 
-    Private Function FunMakeReportNCR(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean
+    Private Function _FunMakeReportNCR(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean
 
         Dim ssgWorkbook As SpreadsheetGear.IWorkbook
         Dim ssgWorksheets As SpreadsheetGear.IWorksheets
         Dim ssgSheet1 As SpreadsheetGear.IWorksheet
-        Dim ssgRangeFrom As SpreadsheetGear.IRange
-        Dim ssgRangeTo As SpreadsheetGear.IRange
+
 
         Try
             Dim _V002_NCR_J As MODEL.V002_NCR_J = FunGetV002Model(strHOKOKU_NO)
@@ -2109,36 +2075,23 @@ Public Class FrmG0011
             ssgSheet1.Range("SYONIN_YMD100").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._100_ˆ’uŽÀŽ{ŒˆÙ_»‘¢‰Û’· And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_³”F).FirstOrDefault?.SYONIN_YMDHNS
             ssgSheet1.Range("SYONIN_YMD110").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._110_abcdeˆ’u’S“– And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_³”F).FirstOrDefault?.SYONIN_YMDHNS
 
-            '-----SpereasheetGeraˆóü
-            Dim ssgPrintDocument As SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument = New SpreadsheetGear.Drawing.Printing.WorkbookPrintDocument(ssgSheet1, SpreadsheetGear.Printing.PrintWhat.Sheet)
-            'printDocument.PrinterSettings.PrinterName = "PrinterName"
-            'ssgPrintDocument.Print()
-
             '-----ƒtƒ@ƒCƒ‹•Û‘¶
-            'spWork.Delete()
-            'spWorksheets(0).Cells("A1").Select()
-            ssgSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.OpenXMLWorkbook)
+            ssgSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.Excel8)
             ssgWorkbook.WorkbookSet.ReleaseLock()
 
             '-----Spire”Å ’¼ÚPDF”­s‚·‚é‚È‚ç‚±‚Á‚¿
-            'Dim workbook As New Spire.Xls.Workbook
-            'workbook.LoadFromFile(strFilePath)
-            'Dim pdfFilePath As String
-            'pdfFilePath = System.IO.Path.GetDirectoryName(strFilePath) & "\" & System.IO.Path.GetFileNameWithoutExtension(strFilePath) & ".pdf"
-            'workbook.SaveToFile(pdfFilePath, Spire.Xls.FileFormat.PDF)
-
-            ''Spire PDF•ÒW
-            ''Dim pdfDoc As New Spire.Pdf.PdfDocument
-            ''pdfDoc.PageSettings.Orientation = Spire.Pdf.PdfPageOrientation.Landscape
-            ''pdfDoc.PageSettings.Width = "970"
-            ''pdfDoc.PageSettings.Height = "850"
+            Dim workbook As New Spire.Xls.Workbook
+            workbook.LoadFromFile(strFilePath)
+            Dim pdfFilePath As String
+            pdfFilePath = System.IO.Path.GetDirectoryName(strFilePath) & "\" & System.IO.Path.GetFileNameWithoutExtension(strFilePath) & ".pdf"
+            workbook.SaveToFile(pdfFilePath, Spire.Xls.FileFormat.PDF)
 
             ''PDF•\Ž¦
-            'System.Diagnostics.Process.Start(pdfFilePath)
+            System.Diagnostics.Process.Start(pdfFilePath)
 
             'Excelì‹Æƒtƒ@ƒCƒ‹‚ðíœ
             Try
-                'System.IO.File.Delete(strFilePath)
+                System.IO.File.Delete(strFilePath)
             Catch ex As UnauthorizedAccessException
             End Try
 
@@ -2148,8 +2101,6 @@ Public Class FrmG0011
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
-            ssgRangeFrom = Nothing
-            ssgRangeTo = Nothing
             ssgSheet1 = Nothing
             ssgWorksheets = Nothing
             ssgWorkbook = Nothing
@@ -2394,9 +2345,11 @@ Public Class FrmG0011
                             lblST01_Modoshi_Riyu.Text = "“]‘———RF" & _V003.RIYU
                         End If
                         cmbST01_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                            If intStageID > ENM_NCR_STAGE._10_‹N‘“ü—Í Then cmbST01_DestTANTO.Enabled = False
+                        If intStageID > ENM_NCR_STAGE._10_‹N‘“ü—Í Then
+                            cmbST01_DestTANTO.Enabled = False
                         End If
                     End If
+                End If
             End If
 #End Region
 #Region "               20"
@@ -2431,7 +2384,10 @@ Public Class FrmG0011
 
                         mtxST02_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
 
-                        If intStageID > ENM_NCR_STAGE._20_‹N‘Šm”F»‘¢GL Then cmbST02_DestTANTO.Enabled = False
+                        If intStageID > ENM_NCR_STAGE._20_‹N‘Šm”F»‘¢GL Then
+                            cmbST02_DestTANTO.Enabled = False
+                            txtST02_Comment.Enabled = False
+                        End If
                     Else
                         mtxST02_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                     End If
@@ -2470,7 +2426,10 @@ Public Class FrmG0011
                             '“]‘—Žž
                             lblST03_Modoshi_Riyu.Text = "“]‘———RF" & _V003.RIYU
                         End If
-                        If intStageID > ENM_NCR_STAGE._30_‹N‘Šm”FŒŸ¸ Then cmbST03_DestTANTO.Enabled = False
+                        If intStageID > ENM_NCR_STAGE._30_‹N‘Šm”FŒŸ¸ Then
+                            cmbST03_DestTANTO.Enabled = False
+                            txtST03_Comment.Enabled = False
+                        End If
                     Else
                         mtxST03_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                     End If
@@ -2519,7 +2478,13 @@ Public Class FrmG0011
                             lblST04_Modoshi_Riyu.Text = "“]‘———RF" & _V003.RIYU
                         End If
 
-                        If intStageID > ENM_NCR_STAGE._40_Ž–‘OR¸”»’è‹y‚ÑCAR—v”Û”»’è Then cmbST04_DestTANTO.Enabled = False
+                        If intStageID > ENM_NCR_STAGE._40_Ž–‘OR¸”»’è‹y‚ÑCAR—v”Û”»’è Then
+                            cmbST04_DestTANTO.Enabled = False
+                            txtST04_Comment.Enabled = False
+                            cmbST04_JIZENSINSA_HANTEI.Enabled = False
+                            pnlST04_ZESEI.Enabled = False
+
+                        End If
                     Else
                         mtxST04_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                     End If
@@ -2555,7 +2520,10 @@ Public Class FrmG0011
                             '“]‘—Žž
                             lblST05_Modoshi_Riyu.Text = "“]‘———RF" & _V003.RIYU
                         End If
-                        If intStageID > ENM_NCR_STAGE._50_Ž–‘OR¸Šm”F Then cmbST05_DestTANTO.Enabled = False
+                        If intStageID > ENM_NCR_STAGE._50_Ž–‘OR¸Šm”F Then
+                            cmbST05_DestTANTO.Enabled = False
+                            txtST05_Comment.Enabled = False
+                        End If
                     Else
                         mtxST05_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                     End If
@@ -2610,7 +2578,10 @@ Public Class FrmG0011
                             '“]‘—Žž
                             lblST06_Modoshi_Riyu.Text = "“]‘———RF" & _V003.RIYU
                         End If
-                        If intStageID > ENM_NCR_STAGE._60_ÄRR¸”»’è_‹Zp‘ã•\ Then cmbST06_DestTANTO.Enabled = False
+                        If intStageID > ENM_NCR_STAGE._60_ÄRR¸”»’è_‹Zp‘ã•\ Then
+                            cmbST06_DestTANTO.Enabled = False
+                            txtST06_Comment.Enabled = False
+                        End If
                     Else
                         mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                     End If
@@ -2656,7 +2627,10 @@ Public Class FrmG0011
                                 '“]‘—Žž
                                 lblST06_Modoshi_Riyu.Text = "“]‘———RF" & _V003.RIYU
                             End If
-                            If intStageID > ENM_NCR_STAGE._61_ÄRR¸”»’è_•iØ‘ã•\ Then cmbST06_DestTANTO.Enabled = False
+                            If intStageID > ENM_NCR_STAGE._61_ÄRR¸”»’è_•iØ‘ã•\ Then
+                                cmbST06_DestTANTO.Enabled = False
+                                txtST06_Comment.Enabled = False
+                            End If
                         Else
                             mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                         End If
@@ -2701,8 +2675,12 @@ Public Class FrmG0011
                         _D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD
                         _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB = _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
                         _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD = _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD
-                        _D003_NCR_J.SAIKAKO_SIJI_FG = Not CBool(_V002_NCR_J.SAIKAKO_SIJI_FG)
                         _D003_NCR_J.SAIKAKO_SIJI_FG = CBool(_V002_NCR_J.SAIKAKO_SIJI_FG)
+                        If _D003_NCR_J.SAIKAKO_SIJI_FG Then
+                            rbtnST07_Yes.Checked = True
+                        Else
+                            rbtnST07_No.Checked = True
+                        End If
 
                         If _V003 IsNot Nothing Then
                             cmbST07_DestTANTO.SelectedValue = _V003.SYAIN_ID
@@ -2715,7 +2693,10 @@ Public Class FrmG0011
                                 '“]‘—Žž
                                 lblST07_Modoshi_Riyu.Text = "“]‘———RF" & _V003.RIYU
                             End If
-                            If intStageID > ENM_NCR_STAGE._70_ŒÚ‹qÄRˆ’u_I_tag Then cmbST07_DestTANTO.Enabled = False
+                            If intStageID > ENM_NCR_STAGE._70_ŒÚ‹qÄRˆ’u_I_tag Then
+                                cmbST07_DestTANTO.Enabled = False
+                                txtST07_Comment.Enabled = False
+                            End If
                         Else
                             mtxST07_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                         End If
@@ -2795,7 +2776,10 @@ Public Class FrmG0011
                                 '“]‘—Žž
                                 lblST08_Modoshi_Riyu.Text = "“]‘———RF" & _V003.RIYU
                             End If
-                            If intStageID > ENM_NCR_STAGE._80_ˆ’uŽÀŽ{ Then cmbST08_DestTANTO.Enabled = False
+                            If intStageID > ENM_NCR_STAGE._80_ˆ’uŽÀŽ{ Then
+                                cmbST08_DestTANTO.Enabled = False
+                                txtST08_Comment.Enabled = False
+                            End If
                         Else
                             mtxST08_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                         End If
@@ -2803,41 +2787,7 @@ Public Class FrmG0011
                         'SPEC: 80-2.‡C
                         _tabPageManagerST08Sub = New TabPageManager(tabST08_SUB)
                         Dim strTabpageName As String
-                        Select Case _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
-                            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._3_”p‹p‚·‚é
-                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_”p‹pŽÀŽ{‹L˜^
-                            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._4_•Ô‹p‚·‚é
-                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_•Ô‹pŽÀŽ{‹L˜^
-                            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._5_“]—p‚·‚é
-                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_“]—pæ‹L˜^
-                            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._6_Ä‰ÁH‚·‚é
-                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_Ä‰ÁHŽwŽ¦_‹L˜^
-                            Case Else
-                                Select Case _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB
-                                    Case ENM_SAISIN_IINKAI_HANTEI_KB._3_”p‹p‚·‚é
-                                        strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_”p‹pŽÀŽ{‹L˜^
-                                    Case ENM_SAISIN_IINKAI_HANTEI_KB._4_•Ô‹p‚·‚é
-                                        strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_•Ô‹pŽÀŽ{‹L˜^
-                                    Case ENM_SAISIN_IINKAI_HANTEI_KB._5_“]—p‚·‚é
-                                        strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_“]—pæ‹L˜^
-                                    Case ENM_SAISIN_IINKAI_HANTEI_KB._6_Ä‰ÁH‚·‚é
-                                        strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_Ä‰ÁHŽwŽ¦_‹L˜^
-                                    Case Else
-                                        Select Case _D003_NCR_J.JIZEN_SINSA_HANTEI_KB
-                                            Case ENM_JIZEN_SINSA_HANTEI_KB._4_”p‹p‚·‚é
-                                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_”p‹pŽÀŽ{‹L˜^
-                                            Case ENM_JIZEN_SINSA_HANTEI_KB._5_•Ô‹p‚·‚é
-                                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_•Ô‹pŽÀŽ{‹L˜^
-                                            Case ENM_JIZEN_SINSA_HANTEI_KB._6_“]—p‚·‚é
-                                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_“]—pæ‹L˜^
-                                            Case ENM_JIZEN_SINSA_HANTEI_KB._7_Ä‰ÁH‚·‚é
-                                                strTabpageName = "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_Ä‰ÁHŽwŽ¦_‹L˜^
-                                            Case Else
-                                                'Err
-                                                Throw New ArgumentException("80-2.‡C JIZEN_SINSA_HANTEI_KB")
-                                        End Select
-                                End Select
-                        End Select
+                        strTabpageName = FunGetST08SubPageName()
                         For Each page As TabPage In tabST08_SUB.TabPages
                             If page.Name = strTabpageName Then
                                 tabST08_SUB.SelectedIndex = page.TabIndex
@@ -2986,7 +2936,10 @@ Public Class FrmG0011
                             '“]‘—Žž
                             lblST09_Modoshi_Riyu.Text = "“]‘———RF" & _V003.RIYU
                         End If
-                        If intStageID > ENM_NCR_STAGE._90_ˆ’uŽÀŽ{Šm”F_ŠÇ—T Then cmbST09_DestTANTO.Enabled = False
+                        If intStageID > ENM_NCR_STAGE._90_ˆ’uŽÀŽ{Šm”F_ŠÇ—T Then
+                            cmbST09_DestTANTO.Enabled = False
+                            txtST09_Comment.Enabled = False
+                        End If
                     Else
                         mtxST09_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                     End If
@@ -3021,7 +2974,10 @@ Public Class FrmG0011
                             '“]‘—Žž
                             lblST10_Modoshi_Riyu.Text = "“]‘———RF" & _V003.RIYU
                         End If
-                        If intStageID > ENM_NCR_STAGE._100_ˆ’uŽÀŽ{ŒˆÙ_»‘¢‰Û’· Then cmbST10_DestTANTO.Enabled = False
+                        If intStageID > ENM_NCR_STAGE._100_ˆ’uŽÀŽ{ŒˆÙ_»‘¢‰Û’· Then
+                            cmbST10_DestTANTO.Enabled = False
+                            txtST10_Comment.Enabled = False
+                        End If
                     Else
                         mtxST10_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                     End If
@@ -3110,7 +3066,10 @@ Public Class FrmG0011
                             '“]‘—Žž
                             lblST11_Modoshi_Riyu.Text = "“]‘———RF" & _V003.RIYU
                         End If
-                        If intStageID > ENM_NCR_STAGE._110_abcdeˆ’u’S“– Then cmbST10_DestTANTO.Enabled = False
+                        If intStageID > ENM_NCR_STAGE._110_abcdeˆ’u’S“– Then
+                            cmbST11_DestTANTO.Enabled = False
+                            txtST11_Comment.Enabled = False
+                        End If
                     Else
                         mtxST11_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                     End If
@@ -3130,6 +3089,44 @@ Public Class FrmG0011
         Finally
 
         End Try
+    End Function
+
+    Private Function FunGetST08SubPageName() As String
+        Select Case _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
+            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._3_”p‹p‚·‚é
+                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_”p‹pŽÀŽ{‹L˜^
+            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._4_•Ô‹p‚·‚é
+                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_•Ô‹pŽÀŽ{‹L˜^
+            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._5_“]—p‚·‚é
+                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_“]—pæ‹L˜^
+            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._6_Ä‰ÁH‚·‚é
+                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_Ä‰ÁHŽwŽ¦_‹L˜^
+            Case Else
+                Select Case _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB
+                    Case ENM_SAISIN_IINKAI_HANTEI_KB._3_”p‹p‚·‚é
+                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_”p‹pŽÀŽ{‹L˜^
+                    Case ENM_SAISIN_IINKAI_HANTEI_KB._4_•Ô‹p‚·‚é
+                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_•Ô‹pŽÀŽ{‹L˜^
+                    Case ENM_SAISIN_IINKAI_HANTEI_KB._5_“]—p‚·‚é
+                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_“]—pæ‹L˜^
+                    Case ENM_SAISIN_IINKAI_HANTEI_KB._6_Ä‰ÁH‚·‚é
+                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_Ä‰ÁHŽwŽ¦_‹L˜^
+                    Case Else
+                        Select Case _D003_NCR_J.JIZEN_SINSA_HANTEI_KB
+                            Case ENM_JIZEN_SINSA_HANTEI_KB._4_”p‹p‚·‚é
+                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_”p‹pŽÀŽ{‹L˜^
+                            Case ENM_JIZEN_SINSA_HANTEI_KB._5_•Ô‹p‚·‚é
+                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_•Ô‹pŽÀŽ{‹L˜^
+                            Case ENM_JIZEN_SINSA_HANTEI_KB._6_“]—p‚·‚é
+                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_“]—pæ‹L˜^
+                            Case ENM_JIZEN_SINSA_HANTEI_KB._7_Ä‰ÁH‚·‚é
+                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_Ä‰ÁHŽwŽ¦_‹L˜^
+                            Case Else
+                                'Err
+                                Throw New ArgumentException("80-2.‡C JIZEN_SINSA_HANTEI_KB")
+                        End Select
+                End Select
+        End Select
     End Function
 
 #End Region
@@ -4626,15 +4623,26 @@ Public Class FrmG0011
                         Call CmbDestTANTO_Validating(cmbST07_DestTANTO, Nothing)
 
                     Case ENM_NCR_STAGE._80_ˆ’uŽÀŽ{, ENM_NCR_STAGE._81_ˆ’uŽÀŽ{_¶‹Z, ENM_NCR_STAGE._82_ˆ’uŽÀŽ{_»‘¢, ENM_NCR_STAGE._83_ˆ’uŽÀŽ{_ŒŸ¸
-                        Call CmbST08_1_HAIKYAKU_KB_Validating(cmbST08_1_HAIKYAKU_KB, Nothing)
-                        Call CmbST08_1_HAIKYAKU_TANTO_Validating(cmbST08_1_HAIKYAKU_TANTO, Nothing)
-                        Call CmbST08_2_KENSA_KEKKA_Validating(cmbST08_2_KENSA_KEKKA, Nothing)
-                        Call CmbST08_2_TANTO_KENSA_Validating(cmbST08_2_TANTO_KENSA, Nothing)
-                        Call CmbST08_2_TANTO_SEIGI_Validating(cmbST08_2_TANTO_SEIGI, Nothing)
-                        Call CmbST08_2_TANTO_SEIZO_Validating(cmbST08_2_TANTO_SEIZO, Nothing)
-                        Call CmbST08_3_HENKYAKU_TANTO_Validating(cmbST08_3_HENKYAKU_TANTO, Nothing)
-                        Call CmbST08_4_BUHIN_BANGO_Validating(cmbST08_4_BUHIN_BANGO, Nothing)
-                        Call CmbST08_4_KISYU_Validating(cmbST08_4_KISYU, Nothing)
+
+                        Dim strPageName As String = FunGetST08SubPageName()
+                        Select Case Val(strPageName.Substring(11, 1))
+                            Case ENM_STAGE80_TABPAGES._1_”p‹pŽÀŽ{‹L˜^
+                                Call CmbST08_1_HAIKYAKU_KB_Validating(cmbST08_1_HAIKYAKU_KB, Nothing)
+                                Call CmbST08_1_HAIKYAKU_TANTO_Validating(cmbST08_1_HAIKYAKU_TANTO, Nothing)
+                            Case ENM_STAGE80_TABPAGES._2_•Ô‹pŽÀŽ{‹L˜^
+                                Call CmbST08_2_KENSA_KEKKA_Validating(cmbST08_2_KENSA_KEKKA, Nothing)
+                                Call CmbST08_2_TANTO_KENSA_Validating(cmbST08_2_TANTO_KENSA, Nothing)
+                                Call CmbST08_2_TANTO_SEIGI_Validating(cmbST08_2_TANTO_SEIGI, Nothing)
+                                Call CmbST08_2_TANTO_SEIZO_Validating(cmbST08_2_TANTO_SEIZO, Nothing)
+                            Case ENM_STAGE80_TABPAGES._3_“]—pæ‹L˜^
+                                Call CmbST08_3_HENKYAKU_TANTO_Validating(cmbST08_3_HENKYAKU_TANTO, Nothing)
+                            Case ENM_STAGE80_TABPAGES._4_Ä‰ÁHŽwŽ¦_‹L˜^
+                                Call CmbST08_4_BUHIN_BANGO_Validating(cmbST08_4_BUHIN_BANGO, Nothing)
+                                Call CmbST08_4_KISYU_Validating(cmbST08_4_KISYU, Nothing)
+                            Case Else
+                                Throw New ArgumentException("80-2.‡C JIZEN_SINSA_HANTEI_KB")
+                        End Select
+
                         Call CmbDestTANTO_Validating(cmbST08_DestTANTO, Nothing)
 
                     Case ENM_NCR_STAGE._90_ˆ’uŽÀŽ{Šm”F_ŠÇ—T
@@ -4934,6 +4942,8 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
+
+
 
 
 #End Region
