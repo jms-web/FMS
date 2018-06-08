@@ -1133,6 +1133,7 @@ Module mdlG0010
             If Not _V005_CAR_J.KAITO_20.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_20)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_20, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
+            '現状未使用のフィールド
             'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_21)).Value = _V005_CAR_J.KAITO_21
             'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_22)).Value = _V005_CAR_J.KAITO_22
             'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_23)).Value = _V005_CAR_J.KAITO_23
