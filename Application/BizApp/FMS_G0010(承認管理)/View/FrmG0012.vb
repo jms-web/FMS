@@ -2311,6 +2311,11 @@ Public Class FrmG0012
 
 #Region "ローカル関数"
 
+    ''' <summary>
+    ''' コントロールバインディング
+    ''' コントロールバインディング
+    ''' </summary>
+    ''' <returns></returns>
     Private Function FunSetBinding() As Boolean
 
         Try
