@@ -14,9 +14,9 @@ Public Class FrmG0011
     '80 NCRèàíué¿é{ É^ÉuÉyÅ[ÉW
     Private Enum ENM_STAGE80_TABPAGES
         _1_îpãpé¿é{ãLò^ = 1
-        _2_ï‘ãpé¿é{ãLò^ = 2
+        _2_çƒâ¡çHéwé¶_ãLò^ = 2
         _3_ì]ópêÊãLò^ = 3
-        _4_çƒâ¡çHéwé¶_ãLò^ = 4
+        _4_ï‘ãpé¿é{ãLò^ = 4
     End Enum
 
 
@@ -1885,7 +1885,6 @@ Public Class FrmG0011
         Dim dlgRET As DialogResult
 
         Try
-
             frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
             frmDLG.PrCurrentStage = ENM_CAR_STAGE._10_ãNëêì¸óÕ
             dlgRET = frmDLG.ShowDialog(Me)
@@ -1895,7 +1894,6 @@ Public Class FrmG0011
             Else
                 'í«â¡ëIëçsëIë
             End If
-
 
             Return True
         Catch ex As Exception
@@ -2756,12 +2754,28 @@ Public Class FrmG0011
                     cmbST08_1_HAIKYAKU_KB.SetDataSource(tblHAIKYAKU_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     cmbST08_1_HAIKYAKU_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     cmbST08_2_KENSA_KEKKA.SetDataSource(tblKENSA_KEKKA_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                    cmbST08_2_TANTO_SEIZO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    cmbST08_2_TANTO_SEIGI.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    cmbST08_2_TANTO_KENSA.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    cmbST08_3_HENKYAKU_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                    cmbST08_4_KISYU.SetDataSource(tblKISYU, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    cmbST08_4_BUHIN_BANGO.SetDataSource(tblBUHIN, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
+                    'ïîñÂèäëÆé–àıéÊìæ
+                    dt = FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
+
+                    cmbST08_2_TANTO_SEIZO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                    cmbST08_2_TANTO_SEIGI.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                    cmbST08_2_TANTO_KENSA.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                    cmbST08_3_HENKYAKU_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                    Dim drs = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = _D003_NCR_J.BUMON_KB).ToList
+                    If drs.Count > 0 Then
+                        dt = drs.CopyToDataTable
+                        cmbST08_4_KISYU.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                        '_D003_NCR_J.KISYU_ID = 0
+                    End If
+
+                    drs = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = _D003_NCR_J.BUMON_KB).ToList
+                    If drs.Count > 0 Then
+                        dt = drs.CopyToDataTable
+                        cmbST08_4_BUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                        '_D003_NCR_J.BUHIN_BANGO = ""
+                    End If
 
                     If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                         _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -3123,31 +3137,31 @@ Public Class FrmG0011
             Case ENM_KOKYAKU_SAISYU_HANTEI_KB._3_îpãpÇ∑ÇÈ
                 Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
             Case ENM_KOKYAKU_SAISYU_HANTEI_KB._4_ï‘ãpÇ∑ÇÈ
-                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_ï‘ãpé¿é{ãLò^
+                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_ï‘ãpé¿é{ãLò^
             Case ENM_KOKYAKU_SAISYU_HANTEI_KB._5_ì]ópÇ∑ÇÈ
                 Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_ì]ópêÊãLò^
             Case ENM_KOKYAKU_SAISYU_HANTEI_KB._6_çƒâ¡çHÇ∑ÇÈ
-                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_çƒâ¡çHéwé¶_ãLò^
+                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
             Case Else
                 Select Case _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB
                     Case ENM_SAISIN_IINKAI_HANTEI_KB._3_îpãpÇ∑ÇÈ
                         Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
                     Case ENM_SAISIN_IINKAI_HANTEI_KB._4_ï‘ãpÇ∑ÇÈ
-                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_ï‘ãpé¿é{ãLò^
+                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_ï‘ãpé¿é{ãLò^
                     Case ENM_SAISIN_IINKAI_HANTEI_KB._5_ì]ópÇ∑ÇÈ
                         Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_ì]ópêÊãLò^
                     Case ENM_SAISIN_IINKAI_HANTEI_KB._6_çƒâ¡çHÇ∑ÇÈ
-                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_çƒâ¡çHéwé¶_ãLò^
+                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
                     Case Else
                         Select Case _D003_NCR_J.JIZEN_SINSA_HANTEI_KB
                             Case ENM_JIZEN_SINSA_HANTEI_KB._4_îpãpÇ∑ÇÈ
                                 Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
                             Case ENM_JIZEN_SINSA_HANTEI_KB._5_ï‘ãpÇ∑ÇÈ
-                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_ï‘ãpé¿é{ãLò^
+                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_ï‘ãpé¿é{ãLò^
                             Case ENM_JIZEN_SINSA_HANTEI_KB._6_ì]ópÇ∑ÇÈ
                                 Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_ì]ópêÊãLò^
                             Case ENM_JIZEN_SINSA_HANTEI_KB._7_çƒâ¡çHÇ∑ÇÈ
-                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_çƒâ¡çHéwé¶_ãLò^
+                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
                             Case Else
                                 'Err
                                 Throw New ArgumentException("80-2.áC JIZEN_SINSA_HANTEI_KB")
@@ -3317,8 +3331,6 @@ Public Class FrmG0011
 #Region "é–ì‡ÉRÅ[Éh"
     Private Sub CmbSYANAI_CD_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbSYANAI_CD.SelectedValueChanged
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
-
         Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
 
         'ïîïiî‘çÜ
@@ -3370,11 +3382,11 @@ Public Class FrmG0011
         Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
 
         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+        RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
 
         'é–ì‡ÉRÅ[Éh
-        RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-        cmbSYANAI_CD.DataBindings.Clear()
         If blnSelected Then
+            cmbSYANAI_CD.DataBindings.Clear()
             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
                 Dim drs = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUHIN_BANGO)) = cmb.SelectedValue).ToList
                 If drs.Count > 0 Then
@@ -3386,14 +3398,15 @@ Public Class FrmG0011
                     _D003_NCR_J.SYANAI_CD = _selectedValue
                 End If
             Else
+                _D003_NCR_J.SYANAI_CD = ""
                 'cmbSYANAI_CD.DataSource = Nothing
             End If
-            _D003_NCR_J.SYANAI_CD = ""
+            cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         Else
             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
         End If
         AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-        cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
 
         'íäèo
         If blnSelected Then
@@ -4656,14 +4669,14 @@ Public Class FrmG0011
                             Case ENM_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
                                 Call CmbST08_1_HAIKYAKU_KB_Validating(cmbST08_1_HAIKYAKU_KB, Nothing)
                                 Call CmbST08_1_HAIKYAKU_TANTO_Validating(cmbST08_1_HAIKYAKU_TANTO, Nothing)
-                            Case ENM_STAGE80_TABPAGES._2_ï‘ãpé¿é{ãLò^
+                            Case ENM_STAGE80_TABPAGES._4_ï‘ãpé¿é{ãLò^
                                 Call CmbST08_2_KENSA_KEKKA_Validating(cmbST08_2_KENSA_KEKKA, Nothing)
                                 Call CmbST08_2_TANTO_KENSA_Validating(cmbST08_2_TANTO_KENSA, Nothing)
                                 Call CmbST08_2_TANTO_SEIGI_Validating(cmbST08_2_TANTO_SEIGI, Nothing)
                                 Call CmbST08_2_TANTO_SEIZO_Validating(cmbST08_2_TANTO_SEIZO, Nothing)
                             Case ENM_STAGE80_TABPAGES._3_ì]ópêÊãLò^
                                 Call CmbST08_3_HENKYAKU_TANTO_Validating(cmbST08_3_HENKYAKU_TANTO, Nothing)
-                            Case ENM_STAGE80_TABPAGES._4_çƒâ¡çHéwé¶_ãLò^
+                            Case ENM_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
                                 Call CmbST08_4_BUHIN_BANGO_Validating(cmbST08_4_BUHIN_BANGO, Nothing)
                                 Call CmbST08_4_KISYU_Validating(cmbST08_4_KISYU, Nothing)
                             Case Else

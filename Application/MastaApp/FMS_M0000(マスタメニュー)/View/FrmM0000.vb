@@ -826,10 +826,11 @@ Public Class FrmM0000
 
                 If strBUFF <> "0" Then
                     'If MsgBox("他のアプリがまだ起動中ですが、メニューを閉じますか？" & vbCrLf & strBUFF, MsgBoxStyle.Information + MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton2) = MsgBoxResult.No Then
-                    If MsgBox("他のアプリがまだ起動中ですが、メニューを閉じますか？", MsgBoxStyle.Information + MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton2) = MsgBoxResult.No Then
-                        '抜ける
-                        Exit Sub
-                    End If
+
+                    'If MsgBox("他のアプリがまだ起動中ですが、メニューを閉じますか？", MsgBoxStyle.Information + MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton2) = MsgBoxResult.No Then
+                    '    '抜ける
+                    '    Exit Sub
+                    'End If
                 End If
 
 

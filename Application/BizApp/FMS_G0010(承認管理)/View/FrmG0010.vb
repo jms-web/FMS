@@ -66,6 +66,12 @@ Public Class FrmG0010
         cmbADD_TANTO.NullValue = 0
         cmbKISYU.NullValue = 0
         cmbGEN_TANTO.NullValue = 0
+
+        Select Case pub_intOPEN_MODE
+            Case ENM_OPEN_MODE._1_新規作成
+                Me.WindowState = FormWindowState.Minimized
+        End Select
+
     End Sub
 
 #End Region
@@ -194,6 +200,7 @@ Public Class FrmG0010
                     Me.cmdFunc1.PerformClick()
                 Case ENM_OPEN_MODE._1_新規作成
                     Me.cmdFunc2.PerformClick()
+                    Me.WindowState = FormWindowState.Normal
                 Case Else
                     'Err
                     Throw New ArgumentException("起動モードパラメータが取得出来ませんでした")
@@ -1670,18 +1677,18 @@ Public Class FrmG0010
 #Region "社内コード"
     Private Sub CmbSYANAI_CD_SelectedValueChanged(sender As Object, e As EventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
         Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
 
         '部品番号
         RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-
         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
         If blnSelected Then
-            Dim dt As DataTable = tblBUHIN_J.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.SYANAI_CD)) = cmb.SelectedValue).CopyToDataTable
-
-            cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            ParamModel.BUHIN_BANGO = ""
+            Dim drs = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.SYANAI_CD)) = cmb.SelectedValue).ToList
+            If drs.Count > 0 Then
+                Dim dt As DataTable = drs.CopyToDataTable
+                cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                ParamModel.BUHIN_BANGO = ""
+            End If
         Else
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
         End If
@@ -1724,15 +1731,20 @@ Public Class FrmG0010
         If blnSelected Then
             cmbSYANAI_CD.DataBindings.Clear()
             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                Dim dt As DataTable = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUHIN_BANGO)) = cmb.SelectedValue).CopyToDataTable
-
-                cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                Dim drs = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUHIN_BANGO)) = cmb.SelectedValue).ToList
+                If drs.Count > 0 Then
+                    Dim dt As DataTable = drs.CopyToDataTable
+                    Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue
+                    cmbSYANAI_CD.DisplayMember = "DISP"
+                    cmbSYANAI_CD.ValueMember = "VALUE"
+                    cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                    ParamModel.SYANAI_CD = _selectedValue
+                End If
             Else
-                cmbSYANAI_CD.DataSource = Nothing
+                ParamModel.SYANAI_CD = ""
+                'cmbSYANAI_CD.DataSource = Nothing
             End If
-            ParamModel.SYANAI_CD = ""
             cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-
         Else
             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
         End If
@@ -1741,7 +1753,6 @@ Public Class FrmG0010
         '抽出
         If blnSelected Then
             Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbBUHIN_BANGO.SelectedValue).FirstOrDefault
-
             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
                 RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
                 ParamModel.SYANAI_CD = dr.Item("SYANAI_CD")
@@ -1752,7 +1763,6 @@ Public Class FrmG0010
             RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
             ParamModel.KISYU_ID = dr.Item("KISYU_ID")
             AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-
 
         Else
             ParamModel.SYANAI_CD = ""

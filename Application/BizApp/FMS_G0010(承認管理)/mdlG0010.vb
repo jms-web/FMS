@@ -881,6 +881,48 @@ Module mdlG0010
 
 #End Region
 
+#Region "承認所属社員取得"
+    'TV03_SYONIN_SYAIN
+
+    Public Function FunGetSYOZOKU_SYAIN(ByVal Optional BUMON_KB As String = "", ByVal Optional BUSYO_ID As Integer = 0) As DataTable
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        Dim dt As DataTableEx
+
+        dt = New DataTableEx("System.Int32")
+
+        sbSQL.Append("SELECT * FROM TV03_SYOZOKU_SYAIN('" & BUMON_KB & "')")
+        If BUSYO_ID > 0 Then
+            sbSQL.Append(" WHERE BUSYO_ID=" & BUSYO_ID & "")
+        End If
+        sbSQL.Append(" ORDER BY SYAIN_ID")
+        Using DB As ClsDbUtility = DBOpen()
+            dsList = DB.GetDataSet(sbSQL.ToString, False)
+        End Using
+
+        dt.PrimaryKey = {dt.Columns("VALUE")} ', dt.Columns("SYONIN_JUN"), dt.Columns("SYONIN_HOKOKUSYO_ID")
+
+        With dsList.Tables(0)
+            For intCNT = 0 To .Rows.Count - 1
+                Dim Trow As DataRow = dt.NewRow()
+                If Not dt.Rows.Contains(.Rows(intCNT).Item("SYAIN_ID")) Then
+                    Trow("VALUE") = .Rows(intCNT).Item("SYAIN_ID")
+                    Trow("DISP") = .Rows(intCNT).Item("SIMEI")
+                    'Trow("DEF_FLG") = False
+                    'Trow("DEL_FLG") = False
+                    'Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
+                    'Trow("SYONIN_JUN") = .Rows(intCNT).Item("SYONIN_JUN")
+                    dt.Rows.Add(Trow)
+                End If
+            Next intCNT
+        End With
+
+        Return dt
+    End Function
+
+#End Region
+
 #Region "レポート出力"
 
     Public Function FunMakeReportNCR(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean

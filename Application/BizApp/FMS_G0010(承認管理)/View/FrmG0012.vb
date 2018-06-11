@@ -250,8 +250,6 @@ Public Class FrmG0012
                     End If
 
                 Case 2  '承認申請
-
-
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._2_承認申請) Then
                         If MessageBox.Show("申請しますか？", "申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
@@ -267,9 +265,6 @@ Public Class FrmG0012
                         End If
                     End If
 
-                    'If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
-                    '    'Call FunSRCH(Me.dgvDATA, FunGetListData())
-                    'End If
                 Case 3  'NCR
                     Call OpenFormNCR()
 
@@ -280,11 +275,7 @@ Public Class FrmG0012
 
                 Case 10  'CSV出力
 
-                    'DEBUG:
-                    MessageBox.Show("不具合修正中", "使用不可")
-                    Exit Sub
-
-                    Call FunOpenReportNCR()
+                    Call FunOpenReportCAR()
 
                 Case 11 '履歴
                     Call OpenFormHistory(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO)
@@ -303,7 +294,7 @@ Public Class FrmG0012
             Next
 
             'ファンクションキー有効化初期化
-            'Call FunInitFuncButtonEnabled(Me)
+            Call FunInitFuncButtonEnabled()
 
             '[アクティブ]
             Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
@@ -1559,7 +1550,7 @@ Public Class FrmG0012
 #End Region
 
 #Region "印刷"
-    Private Function FunOpenReportNCR() As Boolean
+    Private Function FunOpenReportCAR() As Boolean
         Dim strOutputFileName As String
         Dim strTEMPFILE As String
         'Dim intRET As Integer
@@ -1567,7 +1558,7 @@ Public Class FrmG0012
         Try
 
             'ファイル名
-            strOutputFileName = "CAR_" & _D003_NCR_J.HOKOKU_NO & "_Work.xls"
+            strOutputFileName = "CAR_" & _D005_CAR_J.HOKOKU_NO & "_Work.xls"
 
             '既存ファイル削除
             If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
@@ -1583,7 +1574,7 @@ Public Class FrmG0012
                 Return False
             End If
             '-----書込処理
-            If FunMakeReportCAR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, _D003_NCR_J.HOKOKU_NO) = False Then
+            If FunMakeReportCAR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, _D005_CAR_J.HOKOKU_NO) = False Then
                 Return False
             End If
 
@@ -1782,16 +1773,28 @@ Public Class FrmG0012
                 End With
             Next intFunc
 
+            'カレントステージが自身の担当でない場合は無効
+            If FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, PrHOKOKU_NO, PrCurrentStage) Then '
+                cmdFunc1.Enabled = True
+                cmdFunc2.Enabled = True
+                cmdFunc4.Enabled = True
+                cmdFunc5.Enabled = True
+            Else
+                cmdFunc1.Enabled = False
+                cmdFunc2.Enabled = False
+                cmdFunc4.Enabled = False
+                cmdFunc5.Enabled = False
+            End If
+
             'SPEC: C10-3
             Select Case PrCurrentStage
                 Case ENM_CAR_STAGE._10_起草入力
+                    cmdFunc4.Enabled = False
                     cmdFunc5.Enabled = False
-                    cmdFunc6.Enabled = False
                 Case Else
+                    cmdFunc4.Enabled = True
                     cmdFunc5.Enabled = True
-                    cmdFunc6.Enabled = True
             End Select
-
 
             Return True
         Catch ex As Exception
