@@ -389,6 +389,11 @@ Public Class FrmG0010
     '行選択時イベント
     Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs) Handles dgvDATA.SelectionChanged
         Try
+            If Me.dgvDATA.CurrentRow.Cells("CLOSE_FG").Value = "1" Or Me.dgvDATA.CurrentRow.Cells("DEL_YMDHNS").Value.ToString.Trim <> "" Then
+                Me.dgvDATA.CurrentRow.ReadOnly = True
+            Else
+                Me.dgvDATA.CurrentRow.ReadOnly = False
+            End If
 
         Finally
             Call FunInitFuncButtonEnabled()
@@ -446,39 +451,20 @@ Public Class FrmG0010
         Try
             Dim dgv As DataGridView = DirectCast(sender, DataGridView)
 
-            If e.RowIndex >= 0 Then
-                Select Case dgv.Columns(e.ColumnIndex).Name
-                    Case "SELECTED"
-                        'If Me.dgvDATA.CurrentRow.Cells("STATUS").Value = Context.ENM_HACCYU_STATUS._0_未発注 Then
-                        '    If Me.dgvDATA.CurrentRow.Cells("MODIFIED_STATUS").Value = True Then
-                        '        '数量・単価変更時、は更新するまで選択処理は不可
-                        '        Me.dgvDATA.CurrentRow.Cells("SELECTROW").Value = False
-                        '        MessageBox.Show("数量・単価が変更されています。先に変更内容を確定して下さい", "変更未確定", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        '        Exit Sub
-                        '    Else
-                        Me.dgvDATA.CurrentRow.Cells("SELECTED").Value = Not CBool(Me.dgvDATA.CurrentRow.Cells("SELECTED").Value)
-                        '    End If
-                        'Else
-                        '    '選択不可
-                        '    Me.dgvDATA.CurrentRow.Cells("SELECTED").Value = False
-                        '    MessageBox.Show("未発注データ以外は選択出来ません。", "選択不可", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        'End If
+            'If e.RowIndex >= 0 Then
+            '    Select Case dgv.Columns(e.ColumnIndex).Name
+            '        Case "SELECTED"
+            '            If Me.dgvDATA.CurrentRow.Cells("CLOSE_FG").Value = "1" Or Me.dgvDATA.CurrentRow.Cells("DEL_YMDHNS").Value.ToString.Trim <> "" Then
+            '                Me.dgvDATA.CurrentRow.Cells("SELECTED").Value = False 'Not CBool(Me.dgvDATA.CurrentRow.Cells("SELECTED").Value)
+            '            Else
+            '                '    '選択不可
+            '                '    Me.dgvDATA.CurrentRow.Cells("SELECTED").Value = False
+            '                '    MessageBox.Show("未発注データ以外は選択出来ません。", "選択不可", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            '            End If
 
-                        'Case "HACYU_SU", "TANKA"
-                        '    If dgv(e.ColumnIndex, e.RowIndex).ReadOnly = True Then
-                        '        Select Case Me.dgvDATA.CurrentRow.Cells("STATUS").Value
-                        '            Case Context.ENM_HACCYU_STATUS._1_発注済, Context.ENM_HACCYU_STATUS._2_入荷済
-                        '                MessageBox.Show("既に発注済みのため数量・単価は変更できません。" & vbCrLf & "変更が必要な場合は既存の発注を取消後、発注計画を再登録して下さい。", "変更不可", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        '            Case Context.ENM_HACCYU_STATUS._9_取消
-                        '                MessageBox.Show("既に取消済みのため数量・単価は変更できません。" & vbCrLf & "変更が必要な場合は、発注計画を再登録して下さい。", "変更不可", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        '        End Select
-                        '        Exit Sub
-                        '    Else
-                        '        Me.dgvDATA.BeginEdit(True)
-                        '    End If
-                End Select
+            '    End Select
 
-            End If
+            'End If
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -942,9 +928,7 @@ Public Class FrmG0010
     Private Function FunSelectAll() As Boolean
 
         Try
-            Dim dt As DataTable = DirectCast(Me.dgvDATA.DataSource, DataTable)
-            Dim rows = dt.Rows 'AsEnumerable().Where(Function(r) r.Field(Of String)("STA") = Context.ENM_HACCYU_STATUS._0_未発注)
-
+            Dim rows = DirectCast(Me.dgvDATA.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("CLOSE_FG") = "0" And r.Field(Of String)("DEL_YMDHNS").Trim = "").ToList
             If rows.Count > 0 Then
                 For Each row As DataRow In rows
                     row.Item("SELECTED") = True '"●"
@@ -953,7 +937,6 @@ Public Class FrmG0010
                 '表示更新
                 FunSetDgvCellFormat(Me.dgvDATA)
             Else
-                'MessageBox.Show("未発注データはありません。", "全選択", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
             Return True
@@ -1499,6 +1482,16 @@ Public Class FrmG0010
                     End If
 
                 Else
+
+                    If dgvDATA.CurrentRow.Cells.Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).Value <> "" Then
+                        '削除済み
+                        cmdFunc4.Enabled = False
+                        MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "削除済みデータです")
+                        cmdFunc5.Enabled = False
+                        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除済みデータです")
+                        dgvDATA.CurrentRow.Cells.Item("SELECTED").ReadOnly = True
+                    End If
+
                     cmdFunc5.Enabled = False
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除権限の使用には管理者権限が必要です")
                 End If
@@ -1561,11 +1554,21 @@ Public Class FrmG0010
                 cmbSYANAI_CD.Visible = False
         End Select
 
+        Dim intBUFF As Integer
+        intBUFF = cmbADD_TANTO.SelectedValue
+        RemoveHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
         Dim dtADD_TANTO As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, ENM_NCR_STAGE._10_起草入力)
         cmbADD_TANTO.SetDataSource(dtADD_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+        cmbADD_TANTO.SelectedValue = intBUFF
+        AddHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
 
+        intBUFF = cmbGEN_TANTO.SelectedValue
+        RemoveHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
         Dim dtGEN_TANTO As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
         cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+        cmbGEN_TANTO.SelectedValue = intBUFF
+        AddHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
+
 
         Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
 
@@ -1583,7 +1586,6 @@ Public Class FrmG0010
         End If
         AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
 
-
         '部品番号
         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
         If blnSelected Then
@@ -1594,7 +1596,7 @@ Public Class FrmG0010
                 ParamModel.BUHIN_BANGO = ""
             End If
         Else
-                cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
         End If
         AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
 
@@ -1608,8 +1610,8 @@ Public Class FrmG0010
                     cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                 End If
             Else
-                    'cmbSYANAI_CD.DataSource = Nothing
-                End If
+                'cmbSYANAI_CD.DataSource = Nothing
+            End If
             ParamModel.SYANAI_CD = ""
         Else
             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -1765,7 +1767,7 @@ Public Class FrmG0010
 #Region "検索条件クリア"
     Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click, btnClearSrchFilter2.Click, btnClearSrchFilter3.Click
         ParamModel.Clear()
-
+        chkDleteRowVisibled.Checked = False
     End Sub
 #End Region
 

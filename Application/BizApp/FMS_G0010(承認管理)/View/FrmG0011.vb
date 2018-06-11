@@ -134,13 +134,40 @@ Public Class FrmG0011
             '                                Where(Function(r) r.Field(Of Integer)("SYONIN_JUN") = ENM_NCR_STAGE._10_起草入力 And r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = ENM_SYONIN_HOKOKU_ID._1_NCR).
             '                                CopyToDataTable
             cmbKISO_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-            cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbFUTEKIGO_STATUS.SetDataSource(tblFUTEKIGO_STATUS_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+            cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
+            If blnIsAdmin Then
+                'システム管理者のみ制限解除
+            Else
+                Select Case pub_SYAIN_INFO.BUMON_KB
+                    Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
+                        Dim dt As DataTable = DirectCast(cmbBUMON.DataSource, DataTable).
+                                                    AsEnumerable.
+                                                    Where(Function(r) r.Field(Of String)("VALUE") = "1" Or r.Field(Of String)("VALUE") = "2").
+                                                    CopyToDataTable
+                        cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+
+                        cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+
+                    Case Context.ENM_BUMON_KB._3_複合材
+                        Dim dt As DataTable = DirectCast(cmbBUMON.DataSource, DataTable).
+                                                    AsEnumerable.
+                                                    Where(Function(r) r.Field(Of String)("VALUE") = pub_SYAIN_INFO.BUMON_KB).
+                                                    CopyToDataTable
+                        cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+
+                        cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+                    Case Else
+
+                End Select
+            End If
+
 
             'モデルリセット
             _D003_NCR_J.Clear()
