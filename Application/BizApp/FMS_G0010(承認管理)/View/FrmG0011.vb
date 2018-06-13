@@ -168,7 +168,6 @@ Public Class FrmG0011
                 End Select
             End If
 
-
             'モデルリセット
             _D003_NCR_J.Clear()
             _D004_SYONIN_J_KANRI.clear()
@@ -4467,7 +4466,6 @@ Public Class FrmG0011
                     'SPEC: 2.(3).B.②
                     PrCurrentStage = ENM_NCR_STAGE._10_起草入力
 
-
                     Me.TabSTAGE.Visible = False 'ちらつき防止
                     Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage))
                     Call FunInitializeSTAGE(PrCurrentStage)
@@ -4513,7 +4511,6 @@ Public Class FrmG0011
                         End If
                     Next page
                     Me.TabSTAGE.Visible = True
-
 
                 Case Else
                     'Throw New ArgumentException(My.Resources.ErrMsgException, intMODE.ToString)

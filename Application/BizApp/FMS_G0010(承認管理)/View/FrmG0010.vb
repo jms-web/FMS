@@ -92,7 +92,6 @@ Public Class FrmG0010
             '-----グリッド列作成
             Call FunSetDgvCulumns(dgvDATA)
 
-
             'SPEC: PF01.2-(1) A データソース
 
             '-----コントロールソース設定
@@ -166,7 +165,6 @@ Public Class FrmG0010
             'cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbGEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
 
-
             ''-----イベントハンドラ設定
             AddHandler cmbBUMON.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler cmbKISYU.SelectedValueChanged, AddressOf SearchFilterValueChanged
@@ -210,7 +208,6 @@ Public Class FrmG0010
             Call FunInitFuncButtonEnabled()
         End Try
     End Sub
-
 
 #End Region
 
@@ -844,7 +841,7 @@ Public Class FrmG0010
 
                 frmCAR.PrDataRow = dgvDATA.GetDataRow()
                 frmCAR.PrHOKOKU_NO = dgvDATA.GetDataRow().Item("HOKOKU_NO")
-                frmDLG.PrCurrentStage = dgvDATA.GetDataRow().Item("SYONIN_JUN")
+                frmCAR.PrCurrentStage = dgvDATA.GetDataRow().Item("SYONIN_JUN")
                 dlgRET = frmCAR.ShowDialog(Me)
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
                     Return False
@@ -1837,10 +1834,12 @@ Public Class FrmG0010
         Try
             If cmbYOIN1.SelectedValue = 0 Then
                 frmDLG = New FrmG0013
+                DirectCast(frmDLG, FrmG0013).PrMODE = 0
                 DirectCast(frmDLG, FrmG0013).PrYOIN = (cmbYOIN1.SelectedValue, cmbYOIN1.Text)
                 DirectCast(frmDLG, FrmG0013).PrSelectedList = PrGenin1
             Else
                 frmDLG = New FrmG0014
+                DirectCast(frmDLG, FrmG0014).PrMODE = 0
                 DirectCast(frmDLG, FrmG0014).PrYOIN = (cmbYOIN1.SelectedValue, cmbYOIN1.Text)
                 DirectCast(frmDLG, FrmG0014).PrSelectedList = PrGenin1
             End If
