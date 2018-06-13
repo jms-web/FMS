@@ -2683,7 +2683,10 @@ Public Class FrmG0011
                     mtxST07_UPD_YMD.Enabled = False
                     mtxST07_NextStageName.Enabled = False
 
-                    cmbST07_SAISIN_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                    'ïîñÂèäëÆé–àıéÊìæ
+                    dt = FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
+
+                    cmbST07_SAISIN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     cmbST07_KOKYAKU_HANTEI_SIJI.SetDataSource(tblKOKYAKU_HANTEI_SIJI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     cmbST07_KOKYAKU_SAISYU_HANTEI.SetDataSource(tblKOKYAKU_SAISYU_HANTEI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
@@ -3733,6 +3736,17 @@ Public Class FrmG0011
 
 #End Region
 #Region "   STAGE7"
+    Private Sub rbtnST07_Yes_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST07_Yes.CheckedChanged
+
+        Dim blnChecked As Boolean = rbtnST07_No.Checked
+        _D003_NCR_J.SAIKAKO_SIJI_FG = True
+    End Sub
+
+    Private Sub rbtnST07_No_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST07_No.CheckedChanged
+
+        Dim blnChecked As Boolean = rbtnST07_No.Checked
+        _D003_NCR_J.SAIKAKO_SIJI_FG = False
+    End Sub
 
     Private Sub ChkST07_SAIKAKO_SIJI_FLG_CheckedChanged(sender As Object, e As EventArgs) Handles chkST07_SAIKAKO_SIJI_FLG.CheckedChanged
         If chkST07_SAIKAKO_SIJI_FLG.Checked Then
