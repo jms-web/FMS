@@ -393,10 +393,12 @@ Public Class FrmG0010
     '行選択時イベント
     Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs) Handles dgvDATA.SelectionChanged
         Try
-            If Me.dgvDATA.CurrentRow.Cells("CLOSE_FG").Value = "1" Or Me.dgvDATA.CurrentRow.Cells("DEL_YMDHNS").Value.ToString.Trim <> "" Then
-                Me.dgvDATA.CurrentRow.ReadOnly = True
-            Else
-                Me.dgvDATA.CurrentRow.ReadOnly = False
+            If Me.dgvDATA.CurrentRow IsNot Nothing Then
+                If Me.dgvDATA.CurrentRow.Cells("CLOSE_FG").Value = "1" Or Me.dgvDATA.CurrentRow.Cells("DEL_YMDHNS").Value.ToString.Trim <> "" Then
+                    Me.dgvDATA.CurrentRow.ReadOnly = True
+                Else
+                    Me.dgvDATA.CurrentRow.ReadOnly = False
+                End If
             End If
 
         Finally
@@ -796,20 +798,24 @@ Public Class FrmG0010
         Dim _Model As New MODEL.ST02_FUTEKIGO_ICHIRAN
         Try
             For i As Integer = 0 To dgv.Rows.Count - 1
-                If dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU_FG)).Value = 1 Then
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrWarningCellBackColor
-                End If
-
+                '差し戻し
                 If dgvDATA.Rows(i).Cells(NameOf(_Model.SASIMOTO_SYONIN_JUN)).Value > 0 Then
                     Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrCautionCellBackColor
                 End If
 
+                '滞留
+                If dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU_FG)).Value = 1 Then
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrWarningCellBackColor
+                End If
+
+                'Closed
                 If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.CLOSE_FG)).Value > 0 Then
                     Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
                     Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
                     Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
                 End If
 
+                'Deleted
                 If dgvDATA.Rows(i).Cells(NameOf(_Model.DEL_YMDHNS)).Value <> "" Then
                     Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
                     Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor

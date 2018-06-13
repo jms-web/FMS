@@ -791,6 +791,7 @@ Partial Class FrmG0012
         Me.txtKAITO_1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtKAITO_1.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtKAITO_1.Location = New System.Drawing.Point(6, 24)
+        Me.txtKAITO_1.MaxByteLength = 300
         Me.txtKAITO_1.Multiline = True
         Me.txtKAITO_1.Name = "txtKAITO_1"
         Me.txtKAITO_1.Size = New System.Drawing.Size(806, 232)
@@ -955,6 +956,7 @@ Partial Class FrmG0012
         Me.txtKAITO_2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtKAITO_2.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtKAITO_2.Location = New System.Drawing.Point(6, 24)
+        Me.txtKAITO_2.MaxByteLength = 300
         Me.txtKAITO_2.Multiline = True
         Me.txtKAITO_2.Name = "txtKAITO_2"
         Me.txtKAITO_2.Size = New System.Drawing.Size(806, 232)
@@ -1163,6 +1165,7 @@ Partial Class FrmG0012
         Me.txtKAITO_3.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtKAITO_3.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtKAITO_3.Location = New System.Drawing.Point(6, 24)
+        Me.txtKAITO_3.MaxByteLength = 300
         Me.txtKAITO_3.Multiline = True
         Me.txtKAITO_3.Name = "txtKAITO_3"
         Me.txtKAITO_3.Size = New System.Drawing.Size(806, 232)
@@ -1198,6 +1201,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_6.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxKAITO_6.InputRequired = False
         Me.mtxKAITO_6.Location = New System.Drawing.Point(88, 89)
+        Me.mtxKAITO_6.MaxByteLength = 300
         Me.mtxKAITO_6.Name = "mtxKAITO_6"
         Me.mtxKAITO_6.Size = New System.Drawing.Size(154, 24)
         Me.mtxKAITO_6.TabIndex = 239
@@ -1234,6 +1238,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_7.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxKAITO_7.InputRequired = False
         Me.mtxKAITO_7.Location = New System.Drawing.Point(88, 120)
+        Me.mtxKAITO_7.MaxByteLength = 300
         Me.mtxKAITO_7.Name = "mtxKAITO_7"
         Me.mtxKAITO_7.Size = New System.Drawing.Size(81, 24)
         Me.mtxKAITO_7.TabIndex = 235
@@ -1376,6 +1381,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_11.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxKAITO_11.InputRequired = False
         Me.mtxKAITO_11.Location = New System.Drawing.Point(88, 89)
+        Me.mtxKAITO_11.MaxByteLength = 300
         Me.mtxKAITO_11.Name = "mtxKAITO_11"
         Me.mtxKAITO_11.Size = New System.Drawing.Size(154, 24)
         Me.mtxKAITO_11.TabIndex = 251
@@ -1412,6 +1418,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_12.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxKAITO_12.InputRequired = False
         Me.mtxKAITO_12.Location = New System.Drawing.Point(88, 120)
+        Me.mtxKAITO_12.MaxByteLength = 300
         Me.mtxKAITO_12.Name = "mtxKAITO_12"
         Me.mtxKAITO_12.Size = New System.Drawing.Size(81, 24)
         Me.mtxKAITO_12.TabIndex = 247
@@ -1558,6 +1565,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_18.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxKAITO_18.InputRequired = False
         Me.mtxKAITO_18.Location = New System.Drawing.Point(88, 152)
+        Me.mtxKAITO_18.MaxByteLength = 300
         Me.mtxKAITO_18.Name = "mtxKAITO_18"
         Me.mtxKAITO_18.Size = New System.Drawing.Size(154, 24)
         Me.mtxKAITO_18.TabIndex = 263
@@ -1605,6 +1613,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_15.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxKAITO_15.InputRequired = False
         Me.mtxKAITO_15.Location = New System.Drawing.Point(88, 61)
+        Me.mtxKAITO_15.MaxByteLength = 300
         Me.mtxKAITO_15.Name = "mtxKAITO_15"
         Me.mtxKAITO_15.Size = New System.Drawing.Size(360, 24)
         Me.mtxKAITO_15.TabIndex = 259
@@ -1619,6 +1628,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_19.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxKAITO_19.InputRequired = False
         Me.mtxKAITO_19.Location = New System.Drawing.Point(88, 183)
+        Me.mtxKAITO_19.MaxByteLength = 300
         Me.mtxKAITO_19.Name = "mtxKAITO_19"
         Me.mtxKAITO_19.Size = New System.Drawing.Size(81, 24)
         Me.mtxKAITO_19.TabIndex = 259
@@ -1868,6 +1878,7 @@ Partial Class FrmG0012
         Me.txtComment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtComment.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtComment.Location = New System.Drawing.Point(118, 38)
+        Me.txtComment.MaxByteLength = 2000
         Me.txtComment.Multiline = True
         Me.txtComment.Name = "txtComment"
         Me.txtComment.Size = New System.Drawing.Size(1101, 56)
@@ -2629,6 +2640,7 @@ Partial Class FrmG0012
         Me.mtxLOT.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxLOT.InputRequired = False
         Me.mtxLOT.Location = New System.Drawing.Point(143, 71)
+        Me.mtxLOT.MaxByteLength = 300
         Me.mtxLOT.Name = "mtxLOT"
         Me.mtxLOT.Size = New System.Drawing.Size(156, 24)
         Me.mtxLOT.TabIndex = 263
@@ -2642,6 +2654,7 @@ Partial Class FrmG0012
         Me.mtxGOKI.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxGOKI.InputRequired = False
         Me.mtxGOKI.Location = New System.Drawing.Point(143, 41)
+        Me.mtxGOKI.MaxByteLength = 300
         Me.mtxGOKI.Name = "mtxGOKI"
         Me.mtxGOKI.Size = New System.Drawing.Size(156, 24)
         Me.mtxGOKI.TabIndex = 263
