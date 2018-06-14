@@ -19,6 +19,8 @@ Public Class FrmG0014
         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
         Me.ShowIcon = True
+
+        PrMODE = 0
     End Sub
 
 #End Region
@@ -35,6 +37,20 @@ Public Class FrmG0014
     ''' </summary>
     ''' <returns></returns>
     Public Property PrSelectedList As List(Of (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String))
+
+
+    ''' <summary>
+    ''' 動作モード 0:検索、1:登録
+    ''' 動作モード 0:検索、1:登録
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property PrMODE As Integer
+
+    ''' <summary>
+    ''' 代表
+    ''' </summary>
+    Public Property PrDAIHYO As (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String)
+
 #End Region
 
 #Region "Form関連"
@@ -68,7 +84,7 @@ Public Class FrmG0014
 #Region "DataGridView関連"
 
     'フィールド定義()
-    Private Shared Function FunSetDgvCulumns(ByVal dgv As DataGridView) As Boolean
+    Private Function FunSetDgvCulumns(ByVal dgv As DataGridView) As Boolean
         Try
             With dgv
                 .AutoGenerateColumns = False
@@ -85,6 +101,18 @@ Public Class FrmG0014
                 .Columns.Add(cmbclmn1)
                 .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
                 .Columns(.ColumnCount - 1).Width = 30
+
+                If PrMODE = 1 Then
+                    Dim cmbclmn2 As New DataGridViewCheckBoxColumn With {
+                        .Name = "DAIHYO",
+                        .HeaderText = "代表",
+                        .DataPropertyName = .Name
+                        }
+                    cmbclmn1.DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+                    .Columns.Add(cmbclmn2)
+                    .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
+                    .Columns(.ColumnCount - 1).Width = 30
+                End If
 
                 .Columns.Add("ITEM_NAME", "ITEM_NAME")
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
@@ -118,9 +146,22 @@ Public Class FrmG0014
                         dgv.CurrentRow.Cells("SELECTED").Value = Not CBool(dgv.CurrentRow.Cells("SELECTED").Value)
                         If CBool(dgv.CurrentRow.Cells("SELECTED").Value) Then
                             PrSelectedList.Add((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
+                            If PrDAIHYO.ITEM_VALUE.IsNullOrWhiteSpace Then
+                                dgv.CurrentRow.Cells("DAIHYO").Value = True
+                                PrDAIHYO = (dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value)
+                            End If
                         Else
                             PrSelectedList.Remove((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
+                            dgv.CurrentRow.Cells("DAIHYO").Value = False
+                            PrDAIHYO = Nothing
                         End If
+                    Case "DAIHYO"
+                        If Not CBool(dgv.CurrentRow.Cells("SELECTED").Value) Then
+                            dgv.CurrentRow.Cells("SELECTED").Value = True
+                            PrSelectedList.Add((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
+                        End If
+                        dgv.CurrentRow.Cells("DAIHYO").Value = Not CBool(dgv.CurrentRow.Cells("DAIHYO").Value)
+                        PrDAIHYO = (dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value)
                 End Select
             End If
         Catch ex As Exception
@@ -128,6 +169,28 @@ Public Class FrmG0014
         End Try
     End Sub
 
+    'セル値変更時
+    Private Sub DgvDATA_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDATA.CellValueChanged
+        Dim dgv As DataGridView = DirectCast(sender, DataGridView)
+
+        If dgv.Columns(e.ColumnIndex).Name = "DAIHYO" Then
+
+            '今回チェック設定した
+            If dgv(e.ColumnIndex, e.RowIndex).Value = True Then
+                '他にチェックされている項目がある場合はそのチェックを解除
+                For rowIndex As Integer = 0 To dgv.Rows.Count - 1
+                    If rowIndex <> e.RowIndex And dgv(e.ColumnIndex, rowIndex).Value = True Then
+                        'チェックを解除
+                        dgv(e.ColumnIndex, rowIndex).Value = False
+                        'ReadOnlyを解除
+                        dgv(e.ColumnIndex, rowIndex).ReadOnly = False
+                    End If
+                Next
+                '今回チェックした場所をReadOnlyに設定
+                dgv(e.ColumnIndex, e.RowIndex).ReadOnly = True
+            End If
+        End If
+    End Sub
 #End Region
 
 #Region "FunctionButton関連"
@@ -202,6 +265,7 @@ Public Class FrmG0014
             dt.Columns.Add("DEF_FLG", GetType(Boolean))
             dt.Columns.Add("DISP_ORDER", GetType(Integer))
             dt.Columns.Add("SELECTED", GetType(Boolean))
+            dt.Columns.Add("DAIHYO", GetType(Boolean))
 
             '主キー設定
             dt.PrimaryKey = {dt.Columns("ITEM_NAME"), dt.Columns("ITEM_VALUE")}
@@ -220,6 +284,12 @@ Public Class FrmG0014
                             Trow("SELECTED") = False
                         Else
                             Trow("SELECTED") = PrSelectedList.Contains((.Item("ITEM_NAME"), .Item("ITEM_VALUE"), .Item("ITEM_DISP")))
+                        End If
+                        If PrDAIHYO.ITEM_VALUE <> "" Then
+                            Dim prBUFF As (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String) = (.Item("ITEM_NAME").ToString, .Item("ITEM_VALUE").ToString, .Item("ITEM_DISP").ToString)
+                            Trow("DAIHYO") = PrDAIHYO.Equals(prBUFF)
+                        Else
+                            Trow("DAIHYO") = False
                         End If
                         dt.Rows.Add(Trow)
                     End With

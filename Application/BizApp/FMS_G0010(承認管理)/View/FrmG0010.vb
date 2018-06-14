@@ -92,7 +92,6 @@ Public Class FrmG0010
             '-----グリッド列作成
             Call FunSetDgvCulumns(dgvDATA)
 
-
             'SPEC: PF01.2-(1) A データソース
 
             '-----コントロールソース設定
@@ -166,7 +165,6 @@ Public Class FrmG0010
             'cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbGEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
 
-
             ''-----イベントハンドラ設定
             AddHandler cmbBUMON.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler cmbKISYU.SelectedValueChanged, AddressOf SearchFilterValueChanged
@@ -210,7 +208,6 @@ Public Class FrmG0010
             Call FunInitFuncButtonEnabled()
         End Try
     End Sub
-
 
 #End Region
 
@@ -396,10 +393,12 @@ Public Class FrmG0010
     '行選択時イベント
     Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs) Handles dgvDATA.SelectionChanged
         Try
-            If Me.dgvDATA.CurrentRow.Cells("CLOSE_FG").Value = "1" Or Me.dgvDATA.CurrentRow.Cells("DEL_YMDHNS").Value.ToString.Trim <> "" Then
-                Me.dgvDATA.CurrentRow.ReadOnly = True
-            Else
-                Me.dgvDATA.CurrentRow.ReadOnly = False
+            If Me.dgvDATA.CurrentRow IsNot Nothing Then
+                If Me.dgvDATA.CurrentRow.Cells("CLOSE_FG").Value = "1" Or Me.dgvDATA.CurrentRow.Cells("DEL_YMDHNS").Value.ToString.Trim <> "" Then
+                    Me.dgvDATA.CurrentRow.ReadOnly = True
+                Else
+                    Me.dgvDATA.CurrentRow.ReadOnly = False
+                End If
             End If
 
         Finally
@@ -799,20 +798,24 @@ Public Class FrmG0010
         Dim _Model As New MODEL.ST02_FUTEKIGO_ICHIRAN
         Try
             For i As Integer = 0 To dgv.Rows.Count - 1
-                If dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU_FG)).Value = 1 Then
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrWarningCellBackColor
-                End If
-
+                '差し戻し
                 If dgvDATA.Rows(i).Cells(NameOf(_Model.SASIMOTO_SYONIN_JUN)).Value > 0 Then
                     Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrCautionCellBackColor
                 End If
 
+                '滞留
+                If dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU_FG)).Value = 1 Then
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrWarningCellBackColor
+                End If
+
+                'Closed
                 If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.CLOSE_FG)).Value > 0 Then
                     Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
                     Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
                     Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
                 End If
 
+                'Deleted
                 If dgvDATA.Rows(i).Cells(NameOf(_Model.DEL_YMDHNS)).Value <> "" Then
                     Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
                     Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
@@ -844,7 +847,7 @@ Public Class FrmG0010
 
                 frmCAR.PrDataRow = dgvDATA.GetDataRow()
                 frmCAR.PrHOKOKU_NO = dgvDATA.GetDataRow().Item("HOKOKU_NO")
-                frmDLG.PrCurrentStage = dgvDATA.GetDataRow().Item("SYONIN_JUN")
+                frmCAR.PrCurrentStage = dgvDATA.GetDataRow().Item("SYONIN_JUN")
                 dlgRET = frmCAR.ShowDialog(Me)
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
                     Return False
@@ -1837,10 +1840,12 @@ Public Class FrmG0010
         Try
             If cmbYOIN1.SelectedValue = 0 Then
                 frmDLG = New FrmG0013
+                DirectCast(frmDLG, FrmG0013).PrMODE = 0
                 DirectCast(frmDLG, FrmG0013).PrYOIN = (cmbYOIN1.SelectedValue, cmbYOIN1.Text)
                 DirectCast(frmDLG, FrmG0013).PrSelectedList = PrGenin1
             Else
                 frmDLG = New FrmG0014
+                DirectCast(frmDLG, FrmG0014).PrMODE = 0
                 DirectCast(frmDLG, FrmG0014).PrYOIN = (cmbYOIN1.SelectedValue, cmbYOIN1.Text)
                 DirectCast(frmDLG, FrmG0014).PrSelectedList = PrGenin1
             End If

@@ -168,7 +168,6 @@ Public Class FrmG0011
                 End Select
             End If
 
-
             'モデルリセット
             _D003_NCR_J.Clear()
             _D004_SYONIN_J_KANRI.clear()
@@ -2684,7 +2683,10 @@ Public Class FrmG0011
                     mtxST07_UPD_YMD.Enabled = False
                     mtxST07_NextStageName.Enabled = False
 
-                    cmbST07_SAISIN_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                    '部門所属社員取得
+                    dt = FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
+
+                    cmbST07_SAISIN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     cmbST07_KOKYAKU_HANTEI_SIJI.SetDataSource(tblKOKYAKU_HANTEI_SIJI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     cmbST07_KOKYAKU_SAISYU_HANTEI.SetDataSource(tblKOKYAKU_SAISYU_HANTEI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
@@ -3734,6 +3736,17 @@ Public Class FrmG0011
 
 #End Region
 #Region "   STAGE7"
+    Private Sub rbtnST07_Yes_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST07_Yes.CheckedChanged
+
+        Dim blnChecked As Boolean = rbtnST07_No.Checked
+        _D003_NCR_J.SAIKAKO_SIJI_FG = True
+    End Sub
+
+    Private Sub rbtnST07_No_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST07_No.CheckedChanged
+
+        Dim blnChecked As Boolean = rbtnST07_No.Checked
+        _D003_NCR_J.SAIKAKO_SIJI_FG = False
+    End Sub
 
     Private Sub ChkST07_SAIKAKO_SIJI_FLG_CheckedChanged(sender As Object, e As EventArgs) Handles chkST07_SAIKAKO_SIJI_FLG.CheckedChanged
         If chkST07_SAIKAKO_SIJI_FLG.Checked Then
@@ -4467,7 +4480,6 @@ Public Class FrmG0011
                     'SPEC: 2.(3).B.②
                     PrCurrentStage = ENM_NCR_STAGE._10_起草入力
 
-
                     Me.TabSTAGE.Visible = False 'ちらつき防止
                     Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage))
                     Call FunInitializeSTAGE(PrCurrentStage)
@@ -4513,7 +4525,6 @@ Public Class FrmG0011
                         End If
                     Next page
                     Me.TabSTAGE.Visible = True
-
 
                 Case Else
                     'Throw New ArgumentException(My.Resources.ErrMsgException, intMODE.ToString)

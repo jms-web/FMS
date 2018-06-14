@@ -9,6 +9,7 @@ Public Class FrmG0012
     Private _V002_NCR_J As New MODEL.V002_NCR_J
     Private _V003_SYONIN_J_KANRI_List As New List(Of MODEL.V003_SYONIN_J_KANRI)
     Private _V005_CAR_J As New MODEL.V005_CAR_J
+    Private _D006_CAR_GENIN As New MODEL.D006_CAR_GENIN
 
     '入力必須コントロール検証判定
     Private pri_blnValidated As Boolean
@@ -58,6 +59,12 @@ Public Class FrmG0012
 
         Me.ShowIcon = True
 
+        cmbDestTANTO.NullValue = 0
+        cmbKAITO_5.NullValue = 0
+        cmbKAITO_10.NullValue = 0
+        cmbKAITO_17.NullValue = 0
+        cmbKONPON_YOIN_TANTO.NullValue = 0
+
     End Sub
 
 #End Region
@@ -82,6 +89,8 @@ Public Class FrmG0012
             cmbKONPON_YOIN_KB1.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
             cmbKONPON_YOIN_KB2.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
+            cmbKISEKI_KOTEI.SetDataSource(tblKISEKI_KOUTEI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKAITO_14.SetDataSource(tblYOHI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             '-----画面初期化
             Call FunInitializeControls()
@@ -343,6 +352,12 @@ Public Class FrmG0012
                         blnErr = True
                     End If
 
+                    If FunSAVE_D006(DB) Then
+                    Else
+                        Return False
+                        blnErr = True
+                    End If
+
                     '
                     If FunSAVE_R001(DB, enmSAVE_MODE) Then
                     Else
@@ -430,19 +445,12 @@ Public Class FrmG0012
         Dim strRET As String
         Dim sqlEx As New Exception
 
-        '-----モデル更新
-        If (PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso _D003_NCR_J.KENSA_KEKKA_KB = ENM_KENSA_KEKKA_KB._1_不合格) Or PrCurrentStage = ENM_NCR_STAGE._120_abcde処置確認 Then
-            _D003_NCR_J.CLOSE_FG = 1
-        End If
-
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append("MERGE INTO " & NameOf(MODEL.D003_NCR_J) & " AS SrcT")
+        sbSQL.Append("MERGE INTO " & NameOf(MODEL.D005_CAR_J) & " AS SrcT")
         sbSQL.Append(" USING (")
         sbSQL.Append(" SELECT")
-        sbSQL.Append(" '" & _D003_NCR_J.HOKOKU_NO & "' AS " & NameOf(_D003_NCR_J.HOKOKU_NO))
-        sbSQL.Append(" ,'" & _D003_NCR_J.BUMON_KB & "' AS " & NameOf(_D003_NCR_J.BUMON_KB))
-        sbSQL.Append(" ,'" & _D005_CAR_J.HOKOKU_NO & "' AS " & NameOf(_D005_CAR_J.HOKOKU_NO))
+        sbSQL.Append(" '" & _D005_CAR_J.HOKOKU_NO & "' AS " & NameOf(_D005_CAR_J.HOKOKU_NO))
         sbSQL.Append(" ,'" & _D005_CAR_J.BUMON_KB & "' AS " & NameOf(_D005_CAR_J.BUMON_KB))
         sbSQL.Append(" ,'" & _D005_CAR_J._CLOSE_FG & "' AS " & NameOf(_D005_CAR_J.CLOSE_FG))
         sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_1 & "' AS " & NameOf(_D005_CAR_J.SETUMON_1))
@@ -530,7 +538,7 @@ Public Class FrmG0012
 
         Select Case PrCurrentStage
             Case ENM_CAR_STAGE._10_起草入力 To ENM_CAR_STAGE._70_起草確認_品証課長
-                sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.SETUMON_1) & " = WK." & NameOf(_D005_CAR_J.SETUMON_1))
+                sbSQL.Append("  SrcT." & NameOf(_D005_CAR_J.SETUMON_1) & " = WK." & NameOf(_D005_CAR_J.SETUMON_1))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.SETUMON_2) & " = WK." & NameOf(_D005_CAR_J.SETUMON_2))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.SETUMON_3) & " = WK." & NameOf(_D005_CAR_J.SETUMON_3))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.SETUMON_4) & " = WK." & NameOf(_D005_CAR_J.SETUMON_4))
@@ -609,7 +617,7 @@ Public Class FrmG0012
 
         'INSERT
         sbSQL.Append(" WHEN NOT MATCHED THEN ")
-        sbSQL.Append("INSERT")
+        sbSQL.Append("INSERT(")
         sbSQL.Append("  " & NameOf(_D005_CAR_J.HOKOKU_NO))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.BUMON_KB))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.CLOSE_FG))
@@ -721,19 +729,19 @@ Public Class FrmG0012
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_2 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_3 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_4 & "'")
-        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_5 & "'")
+        sbSQL.Append(" ," & _D005_CAR_J.KAITO_5 & "")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_6 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_7 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_8 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_9 & "'")
-        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_10 & "'")
+        sbSQL.Append(" ," & _D005_CAR_J.KAITO_10 & "")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_11 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_12 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_13 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_14 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_15 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_16 & "'")
-        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_17 & "'")
+        sbSQL.Append(" ," & _D005_CAR_J.KAITO_17 & "")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_18 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_19 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_20 & "'")
@@ -1031,6 +1039,138 @@ Public Class FrmG0012
 
         Return True
     End Function
+
+    ''' <summary>
+    ''' 不適合是正処置原因分析情報更新
+    ''' </summary>
+    ''' <param name="DB"></param>
+    ''' <returns></returns>
+    Private Function FunSAVE_D006(ByRef DB As ClsDbUtility) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim intRET As Integer
+        Dim sqlEx As New Exception
+
+        '-----DELETE
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("DELETE FROM " & NameOf(MODEL.D006_CAR_GENIN) & "")
+        sbSQL.Append(" WHERE HOKOKU_NO='" & _D005_CAR_J.HOKOKU_NO & "'")
+        '-----SQL実行
+        intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+        If sqlEx.Source IsNot Nothing Then
+            '-----エラーログ出力
+            Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+            WL.WriteLogDat(strErrMsg)
+            Return False
+        End If
+
+        For Each item In PrGenin1
+            _D006_CAR_GENIN.Clear()
+
+            '-----データモデル更新
+            _D006_CAR_GENIN.HOKOKU_NO = _D005_CAR_J.HOKOKU_NO
+            _D006_CAR_GENIN.RENBAN = 1
+            _D006_CAR_GENIN.GENIN_BUNSEKI_KB = item.ITEM_NAME
+            If _D005_CAR_J.KONPON_YOIN_KB1 = 0 Then '0:人
+                _D006_CAR_GENIN.GENIN_BUNSEKI_S_KB = item.ITEM_VALUE
+            Else
+                _D006_CAR_GENIN.GENIN_BUNSEKI_KB = item.ITEM_VALUE
+                _D006_CAR_GENIN.GENIN_BUNSEKI_S_KB = " "
+            End If
+            If mtxGENIN1.Text = item.ITEM_NAME & "," & item.ITEM_VALUE Then
+                '代表
+                _D006_CAR_GENIN._DAIHYO_FG = 1
+            Else
+                _D006_CAR_GENIN._DAIHYO_FG = 0
+            End If
+            _D006_CAR_GENIN.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+            _D006_CAR_GENIN.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+
+            '-----INSERT
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append("INSERT INTO " & NameOf(MODEL.D006_CAR_GENIN) & "(")
+            sbSQL.Append("  " & NameOf(_D006_CAR_GENIN.HOKOKU_NO))
+            sbSQL.Append(" ," & NameOf(_D006_CAR_GENIN.RENBAN))
+            sbSQL.Append(" ," & NameOf(_D006_CAR_GENIN.GENIN_BUNSEKI_KB))
+            sbSQL.Append(" ," & NameOf(_D006_CAR_GENIN.GENIN_BUNSEKI_S_KB))
+            sbSQL.Append(" ," & NameOf(_D006_CAR_GENIN.DAIHYO_FG))
+            sbSQL.Append(" ," & NameOf(_D006_CAR_GENIN.ADD_SYAIN_ID))
+            sbSQL.Append(" ," & NameOf(_D006_CAR_GENIN.ADD_YMDHNS))
+            sbSQL.Append(" ) VALUES(")
+            sbSQL.Append("  '" & _D006_CAR_GENIN.HOKOKU_NO & "'")
+            sbSQL.Append(" ," & _D006_CAR_GENIN.RENBAN & "")
+            sbSQL.Append(" ,'" & _D006_CAR_GENIN.GENIN_BUNSEKI_KB & "'")
+            sbSQL.Append(" ,'" & _D006_CAR_GENIN.GENIN_BUNSEKI_S_KB & "'")
+            sbSQL.Append(" ,'" & _D006_CAR_GENIN._DAIHYO_FG & "'")
+            sbSQL.Append(" ," & _D006_CAR_GENIN.ADD_SYAIN_ID)
+            sbSQL.Append(" ,'" & _D006_CAR_GENIN.ADD_YMDHNS & "'")
+            sbSQL.Append(")")
+
+            '-----SQL実行
+            intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+            If intRET <> 1 Then
+                '-----エラーログ出力
+                Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                WL.WriteLogDat(strErrMsg)
+                Return False
+            End If
+        Next item
+
+        For Each item In PrGenin2
+            _D006_CAR_GENIN.Clear()
+
+            '-----データモデル更新
+            _D006_CAR_GENIN.HOKOKU_NO = _D005_CAR_J.HOKOKU_NO
+            _D006_CAR_GENIN.RENBAN = 2
+            _D006_CAR_GENIN.GENIN_BUNSEKI_KB = item.ITEM_NAME
+            If _D005_CAR_J.KONPON_YOIN_KB2 = 0 Then '0:人
+                _D006_CAR_GENIN.GENIN_BUNSEKI_S_KB = item.ITEM_VALUE
+            Else
+                _D006_CAR_GENIN.GENIN_BUNSEKI_KB = item.ITEM_VALUE
+                _D006_CAR_GENIN.GENIN_BUNSEKI_S_KB = " "
+            End If
+            If mtxGENIN2.Text = item.ITEM_NAME & "," & item.ITEM_VALUE Then
+                '代表
+                _D006_CAR_GENIN._DAIHYO_FG = 1
+            Else
+                _D006_CAR_GENIN._DAIHYO_FG = 0
+            End If
+            _D006_CAR_GENIN.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+            _D006_CAR_GENIN.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+
+            '-----INSERT
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append("INSERT INTO " & NameOf(MODEL.D006_CAR_GENIN) & "(")
+            sbSQL.Append("  " & NameOf(_D006_CAR_GENIN.HOKOKU_NO))
+            sbSQL.Append(" ," & NameOf(_D006_CAR_GENIN.RENBAN))
+            sbSQL.Append(" ," & NameOf(_D006_CAR_GENIN.GENIN_BUNSEKI_KB))
+            sbSQL.Append(" ," & NameOf(_D006_CAR_GENIN.GENIN_BUNSEKI_S_KB))
+            sbSQL.Append(" ," & NameOf(_D006_CAR_GENIN.DAIHYO_FG))
+            sbSQL.Append(" ," & NameOf(_D006_CAR_GENIN.ADD_SYAIN_ID))
+            sbSQL.Append(" ," & NameOf(_D006_CAR_GENIN.ADD_YMDHNS))
+            sbSQL.Append(" ) VALUES(")
+            sbSQL.Append("  '" & _D006_CAR_GENIN.HOKOKU_NO & "'")
+            sbSQL.Append(" ," & _D006_CAR_GENIN.RENBAN & "")
+            sbSQL.Append(" ,'" & _D006_CAR_GENIN.GENIN_BUNSEKI_KB & "'")
+            sbSQL.Append(" ,'" & _D006_CAR_GENIN.GENIN_BUNSEKI_S_KB & "'")
+            sbSQL.Append(" ,'" & _D006_CAR_GENIN._DAIHYO_FG & "'")
+            sbSQL.Append(" ," & _D006_CAR_GENIN.ADD_SYAIN_ID)
+            sbSQL.Append(" ,'" & _D006_CAR_GENIN.ADD_YMDHNS & "'")
+            sbSQL.Append(")")
+
+            '-----SQL実行
+            intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+            If intRET <> 1 Then
+                '-----エラーログ出力
+                Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                WL.WriteLogDat(strErrMsg)
+                Return False
+            End If
+        Next item
+
+        Return True
+    End Function
+
+
 
     ''' <summary>
     ''' 承認依頼メール送信
@@ -1469,7 +1609,11 @@ Public Class FrmG0012
         Try
 
             frmDLG.PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE
+
+            'UNDONE: 
             frmDLG.PrDataRow = PrDataRow
+
+
             dlgRET = frmDLG.ShowDialog(Me)
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
@@ -1815,29 +1959,58 @@ Public Class FrmG0012
 
 #End Region
 #Region "   2.要因"
-
-    'SPEC: 10-1
-    Private Sub cmbKONPON_YOIN_KB1_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKONPON_YOIN_KB1.Validating
-        'If _D005_CAR_J.
+    Private Sub CmbKONPON_YOIN_KB1_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKONPON_YOIN_KB1.SelectedValueChanged
+        If cmbKONPON_YOIN_KB1.SelectedValue = cmbKONPON_YOIN_KB1.NullValue Then
+            btnSelectGenin1.Enabled = False
+            PrGenin1.Clear()
+            mtxGENIN1_DISP.Text = ""
+            mtxGENIN1.Text = ""
+        Else
+            btnSelectGenin1.Enabled = True
+        End If
     End Sub
 
-    Private Sub cmbKONPON_YOIN_KB2_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKONPON_YOIN_KB2.Validating
+    Private Sub CmbKONPON_YOIN_KB2_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKONPON_YOIN_KB2.SelectedValueChanged
+        If cmbKONPON_YOIN_KB2.SelectedValue = cmbKONPON_YOIN_KB2.NullValue Then
+            btnSelectGenin2.Enabled = False
+            PrGenin2.Clear()
+            mtxGENIN2_DISP.Text = ""
+            mtxGENIN2.Text = ""
+        Else
+            btnSelectGenin2.Enabled = True
+        End If
+    End Sub
+
+    'SPEC: 10-1
+    Private Sub CmbKONPON_YOIN_KB1_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKONPON_YOIN_KB1.Validating
+
+    End Sub
+
+    Private Sub CmbKONPON_YOIN_KB2_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKONPON_YOIN_KB2.Validating
 
     End Sub
 #End Region
 #Region "   3.根本原因"
-    Private Sub btnSelectGenin1_Click(sender As Object, e As EventArgs) Handles btnSelectGenin1.Click
+    Private Sub BtnSelectGenin1_Click(sender As Object, e As EventArgs) Handles btnSelectGenin1.Click
         Dim frmDLG As New Form
         Dim dlgRET As DialogResult
         Try
-            If cmbGENIN1.SelectedValue = 0 Then
+            If cmbKONPON_YOIN_KB1.SelectedValue = 0 Then
                 frmDLG = New FrmG0013
-                DirectCast(frmDLG, FrmG0013).PrYOIN = (cmbGENIN1.SelectedValue, cmbGENIN1.Text)
+                DirectCast(frmDLG, FrmG0013).PrMODE = 1
+                DirectCast(frmDLG, FrmG0013).PrYOIN = (cmbKONPON_YOIN_KB1.SelectedValue, cmbKONPON_YOIN_KB1.Text)
                 DirectCast(frmDLG, FrmG0013).PrSelectedList = PrGenin1
+                If Not mtxGENIN1.Text.IsNullOrWhiteSpace Then
+                    DirectCast(frmDLG, FrmG0013).PrDAIHYO = (mtxGENIN1.Text.Split(",")(0), mtxGENIN1.Text.Split(",")(1), mtxGENIN1_DISP.Text)
+                End If
             Else
                 frmDLG = New FrmG0014
-                DirectCast(frmDLG, FrmG0014).PrYOIN = (cmbGENIN1.SelectedValue, cmbGENIN1.Text)
+                DirectCast(frmDLG, FrmG0014).PrMODE = 1
+                DirectCast(frmDLG, FrmG0014).PrYOIN = (cmbKONPON_YOIN_KB1.SelectedValue, cmbKONPON_YOIN_KB1.Text)
                 DirectCast(frmDLG, FrmG0014).PrSelectedList = PrGenin1
+                If Not mtxGENIN1.Text.IsNullOrWhiteSpace Then
+                    DirectCast(frmDLG, FrmG0014).PrDAIHYO = (mtxGENIN1.Text.Split(",")(0), mtxGENIN1.Text.Split(",")(1), mtxGENIN1_DISP.Text)
+                End If
             End If
 
             dlgRET = frmDLG.ShowDialog(Me)
@@ -1845,32 +2018,20 @@ Public Class FrmG0012
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Exit Sub
             Else
-                '検索条件文字列作成
-                Dim sbWhere As New System.Text.StringBuilder
-                Dim strWhereBase As String = <sql><![CDATA[
-                    EXISTS
-                    (
-                    SELECT HOKOKU_NO FROM D006_CAR_GENIN WHERE 
-                    V007_NCR_CAR.HOKOKU_NO = D006_CAR_GENIN.HOKOKU_NO
-                    {0}
-                    )
-                    ]]></sql>.Value.Trim
+                Dim DAIHYO As (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String)
+                If cmbKONPON_YOIN_KB1.SelectedValue = 0 Then
+                    DAIHYO = DirectCast(frmDLG, FrmG0013).PrDAIHYO
+                Else
+                    DAIHYO = DirectCast(frmDLG, FrmG0014).PrDAIHYO
+                End If
 
-                'mtxGENIN2_DISP.Text = ""
-                'If PrGenin2.Count > 0 Then
-                '    'For Each item In PrGenin2
-                '    '    If mtxGENIN2_DISP.Text.IsNullOrWhiteSpace Then
-                '    '        mtxGENIN2_DISP.Text = item.ITEM_DISP
-                '    '    Else
-                '    '        mtxGENIN2_DISP.Text &= ", " & item.ITEM_DISP
-                '    '    End If
-
-                '    '    sbWhere.Append(" AND (GENIN_BUNSEKI_KB='" & item.ITEM_NAME & "' AND GENIN_BUNSEKI_S_KB='" & item.ITEM_VALUE & "')")
-                '    'Next item
-                '    ParamModel.GENIN2 = String.Format(strWhereBase, sbWhere.ToString)
-                'Else
-                '    ParamModel.GENIN2 = ""
-                'End If
+                If DAIHYO.ITEM_NAME <> "" Then
+                    mtxGENIN1_DISP.Text = DAIHYO.ITEM_DISP
+                    mtxGENIN1.Text = DAIHYO.ITEM_NAME & "," & DAIHYO.ITEM_VALUE
+                Else
+                    mtxGENIN1_DISP.Text = ""
+                    mtxGENIN1.Text = ""
+                End If
             End If
 
         Catch ex As Exception
@@ -1882,18 +2043,26 @@ Public Class FrmG0012
         End Try
     End Sub
 
-    Private Sub btnSelectGenin2_Click(sender As Object, e As EventArgs) Handles btnSelectGenin2.Click
+    Private Sub BtnSelectGenin2_Click(sender As Object, e As EventArgs) Handles btnSelectGenin2.Click
         Dim frmDLG As New Form
         Dim dlgRET As DialogResult
         Try
-            If cmbGENIN2.SelectedValue = 0 Then
+            If cmbKONPON_YOIN_KB2.SelectedValue = 0 Then
                 frmDLG = New FrmG0013
-                DirectCast(frmDLG, FrmG0013).PrYOIN = (cmbGENIN2.SelectedValue, cmbGENIN2.Text)
+                DirectCast(frmDLG, FrmG0013).PrMODE = 1
+                DirectCast(frmDLG, FrmG0013).PrYOIN = (cmbKONPON_YOIN_KB2.SelectedValue, cmbKONPON_YOIN_KB2.Text)
                 DirectCast(frmDLG, FrmG0013).PrSelectedList = PrGenin2
+                If Not mtxGENIN2.Text.IsNullOrWhiteSpace Then
+                    DirectCast(frmDLG, FrmG0013).PrDAIHYO = (mtxGENIN2.Text.Split(",")(0), mtxGENIN2.Text.Split(",")(1), mtxGENIN2_DISP.Text)
+                End If
             Else
                 frmDLG = New FrmG0014
-                DirectCast(frmDLG, FrmG0014).PrYOIN = (cmbGENIN2.SelectedValue, cmbGENIN2.Text)
+                DirectCast(frmDLG, FrmG0014).PrMODE = 1
+                DirectCast(frmDLG, FrmG0014).PrYOIN = (cmbKONPON_YOIN_KB2.SelectedValue, cmbKONPON_YOIN_KB2.Text)
                 DirectCast(frmDLG, FrmG0014).PrSelectedList = PrGenin2
+                If Not mtxGENIN2.Text.IsNullOrWhiteSpace Then
+                    DirectCast(frmDLG, FrmG0014).PrDAIHYO = (mtxGENIN2.Text.Split(",")(0), mtxGENIN2.Text.Split(",")(1), mtxGENIN2_DISP.Text)
+                End If
             End If
 
             dlgRET = frmDLG.ShowDialog(Me)
@@ -1901,32 +2070,20 @@ Public Class FrmG0012
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Exit Sub
             Else
-                '検索条件文字列作成
-                Dim sbWhere As New System.Text.StringBuilder
-                Dim strWhereBase As String = <sql><![CDATA[
-                    EXISTS
-                    (
-                    SELECT HOKOKU_NO FROM D006_CAR_GENIN WHERE 
-                    V007_NCR_CAR.HOKOKU_NO = D006_CAR_GENIN.HOKOKU_NO
-                    {0}
-                    )
-                    ]]></sql>.Value.Trim
+                Dim DAIHYO As (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String)
+                If cmbKONPON_YOIN_KB2.SelectedValue = 0 Then
+                    DAIHYO = DirectCast(frmDLG, FrmG0013).PrDAIHYO
+                Else
+                    DAIHYO = DirectCast(frmDLG, FrmG0014).PrDAIHYO
+                End If
 
-                'mtxGENIN2_DISP.Text = ""
-                'If PrGenin2.Count > 0 Then
-                '    'For Each item In PrGenin2
-                '    '    If mtxGENIN2_DISP.Text.IsNullOrWhiteSpace Then
-                '    '        mtxGENIN2_DISP.Text = item.ITEM_DISP
-                '    '    Else
-                '    '        mtxGENIN2_DISP.Text &= ", " & item.ITEM_DISP
-                '    '    End If
-
-                '    '    sbWhere.Append(" AND (GENIN_BUNSEKI_KB='" & item.ITEM_NAME & "' AND GENIN_BUNSEKI_S_KB='" & item.ITEM_VALUE & "')")
-                '    'Next item
-                '    ParamModel.GENIN2 = String.Format(strWhereBase, sbWhere.ToString)
-                'Else
-                '    ParamModel.GENIN2 = ""
-                'End If
+                If DAIHYO.ITEM_NAME <> "" Then
+                    mtxGENIN2_DISP.Text = DAIHYO.ITEM_DISP
+                    mtxGENIN2.Text = DAIHYO.ITEM_NAME & "," & DAIHYO.ITEM_VALUE
+                Else
+                    mtxGENIN2_DISP.Text = ""
+                    mtxGENIN2.Text = ""
+                End If
             End If
 
         Catch ex As Exception
@@ -2353,7 +2510,7 @@ Public Class FrmG0012
             cmbKAITO_5.DataBindings.Add(New Binding(NameOf(cmbKAITO_5.SelectedValue), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_5), False, DataSourceUpdateMode.OnPropertyChanged, 0))
             mtxKAITO_6.DataBindings.Add(New Binding(NameOf(mtxKAITO_6.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_6), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             mtxKAITO_7.DataBindings.Add(New Binding(NameOf(mtxKAITO_7.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_7), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            dtKAITO_8.DataBindings.Add(New Binding(NameOf(dtKAITO_8.ValueNonFormat), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_7), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            dtKAITO_8.DataBindings.Add(New Binding(NameOf(dtKAITO_8.ValueNonFormat), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_8), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
             '是正処置
             dtKAITO_9.DataBindings.Add(New Binding(NameOf(dtKAITO_9.ValueNonFormat), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_9), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -2370,6 +2527,10 @@ Public Class FrmG0012
             mtxKAITO_18.DataBindings.Add(New Binding(NameOf(mtxKAITO_18.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_18), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             mtxKAITO_19.DataBindings.Add(New Binding(NameOf(mtxKAITO_19.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_19), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             dtKAITO_20.DataBindings.Add(New Binding(NameOf(dtKAITO_20.ValueNonFormat), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_20), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
+            '申請先情報
+            cmbDestTANTO.DataBindings.Add(New Binding(NameOf(cmbDestTANTO.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+            txtComment.DataBindings.Add(New Binding(NameOf(txtComment.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, 0))
 
             '処置実施記録
             cmbSYOCHI_A_TANTO.DataBindings.Add(New Binding(NameOf(cmbSYOCHI_A_TANTO.SelectedValue), _D005_CAR_J, NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
@@ -2428,19 +2589,27 @@ Public Class FrmG0012
             mtxFUTEKIGO_S_KB.Text = _V002_NCR_J.FUTEKIGO_S_NAME
             mtxCurrentStageName.Text = FunGetLastStageName(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO)
 
+            Dim dt As DataTable
+            dt = FunGetSYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB)
+            cmbKONPON_YOIN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKAITO_5.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKAITO_10.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKAITO_17.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+            dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, ENM_SYONIN_HOKOKUSYO_ID._2_CAR, PrCurrentStage)
+            cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
             'SPEC: C10-2.④
             Select Case PrCurrentStage
                 Case ENM_CAR_STAGE._10_起草入力 To ENM_CAR_STAGE._70_起草確認_品証課長
                     tabCAR_SUB_1.Enabled = False
                     tabCAR_SUB_2.Enabled = False
                 Case Else
-
             End Select
-
 
             Dim _V003 As New MODEL.V003_SYONIN_J_KANRI
             _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).
+                                Where(Function(r) r.SYONIN_JUN = PrCurrentStage).
                                 FirstOrDefault
             If _V003 IsNot Nothing Then
                 If Not _V003.RIYU.IsNullOrWhiteSpace Then lbl_Modoshi_Riyu.Visible = True
@@ -2625,11 +2794,10 @@ Public Class FrmG0012
 #Region "入力チェック"
     Private Function FunCheckInput(ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
         Try
-
+            pri_blnValidated = True
             '-----共通
-            Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
-
             If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
+                Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
                 '-----ステージ別
                 Select Case PrCurrentStage
                     Case ENM_CAR_STAGE._80_処置実施記録入力, ENM_CAR_STAGE._90_処置実施確認
@@ -2828,6 +2996,7 @@ Public Class FrmG0012
                     intNextStageID = ENM_NCR_STAGE._110_abcde処置担当
                 Case ENM_NCR_STAGE._110_abcde処置担当
                     intNextStageID = ENM_NCR_STAGE._120_abcde処置確認
+
                 Case Else
 
             End Select
@@ -2838,6 +3007,8 @@ Public Class FrmG0012
             Return 0
         End Try
     End Function
+
+
 
 
 

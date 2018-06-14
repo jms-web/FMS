@@ -284,9 +284,7 @@ Module mdlG0010
 
                     Call FunGetCodeDataTable(DB, "設問内容", tblSETUMON_NAIYO)
                     Call FunGetCodeDataTable(DB, "承認判定区分", tblSYONIN_HANTEI_KB)
-
                     Call FunGetCodeDataTable(DB, "廃却方法区分", tblHAIKYAKU_KB)
-
 
                 End Using
 
@@ -772,8 +770,7 @@ Module mdlG0010
             WL.WriteLogDat(strMsg)
 
             'DEBUG:
-            'Return True
-
+            Return True
 
             ''認証なし
             'blnSend = ClsMailSend.FunSendMail(strSmtpServer,
@@ -1022,13 +1019,13 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.YOKYU_NAIYO)).Value = _V002_NCR_J.YOKYU_NAIYO
             ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = "(図面/規格　： " & _V002_NCR_J.ZUMEN_KIKAKU.PadRight(50) & ")"
 
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._10_起草入力).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).FirstOrDefault?.SYAIN_NAME
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._20_起草確認製造GL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_起草確認製造GL).FirstOrDefault?.SYAIN_NAME
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._30_起草確認検査).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).FirstOrDefault?.SYAIN_NAME
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._90_処置実施確認_管理T).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._90_処置実施確認_管理T).FirstOrDefault?.SYAIN_NAME
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._100_処置実施決裁_製造課長).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._100_処置実施決裁_製造課長).FirstOrDefault?.SYAIN_NAME
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._110_abcde処置担当).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._110_abcde処置担当).FirstOrDefault?.SYAIN_NAME
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._120_abcde処置確認).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._120_abcde処置確認).FirstOrDefault?.SYAIN_NAME
+            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._10_起草入力).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).FirstOrDefault?.UPD_SYAIN_NAME
+            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._20_起草確認製造GL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_起草確認製造GL).FirstOrDefault?.UPD_SYAIN_NAME
+            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._30_起草確認検査).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).FirstOrDefault?.UPD_SYAIN_NAME
+            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._90_処置実施確認_管理T).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._90_処置実施確認_管理T).FirstOrDefault?.UPD_SYAIN_NAME
+            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._100_処置実施決裁_製造課長).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._100_処置実施決裁_製造課長).FirstOrDefault?.UPD_SYAIN_NAME
+            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._110_abcde処置担当).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._110_abcde処置担当).FirstOrDefault?.UPD_SYAIN_NAME
+            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._120_abcde処置確認).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._120_abcde処置確認).FirstOrDefault?.UPD_SYAIN_NAME
 
             Dim strYMDHNS As String
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_起草確認製造GL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
