@@ -3286,6 +3286,8 @@ Public Class FrmG0011
                 Dim dt As DataTable = drs.CopyToDataTable
                 Dim _selectedValue As String = cmbBUHIN_BANGO.SelectedValue
 
+
+
                 cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 _D003_NCR_J.BUHIN_BANGO = _selectedValue
             End If

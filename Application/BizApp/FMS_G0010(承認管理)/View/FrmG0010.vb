@@ -161,8 +161,8 @@ Public Class FrmG0010
 
                 End Select
             End If
-            'Dim dtGEN_TANTO As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
-            'cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            Dim dtGEN_TANTO As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
+            cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbGEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
 
             ''-----イベントハンドラ設定
