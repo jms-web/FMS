@@ -654,7 +654,7 @@ Module mdlG0010
     Public Function FunGetNextStageName(ByVal intCurrentStageID As Integer) As String
         Try
 
-            Dim drList As List(Of DataRow) = tblNCR.AsEnumerable().
+            Dim drList As List(Of DataRow) = tblCAR.AsEnumerable().
                                                 Where(Function(r) Val(r.Field(Of Integer)("VALUE")) > intCurrentStageID).ToList
             Dim strBUFF As String = ""
             If drList.Count > 0 Then
@@ -749,11 +749,11 @@ Module mdlG0010
                     dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
                 End Using
                 If dsList.Tables(0).Rows.Count > 0 Then
-
+                    strFromAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
 #If DEBUG Then
-                    strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
+                    'strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
                     'DEBUG: mail送信無効
-                    strToAddress = "funato@jms-web.co.jp"
+                    'strToAddress = "funato@jms-web.co.jp"
                     'strToAddress = "i2u5r6p1d7l9o6s3@jms-web.slack.com"
 #Else
                     strFromAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
@@ -770,33 +770,33 @@ Module mdlG0010
             WL.WriteLogDat(strMsg)
 
             'DEBUG:
-            Return True
+            'Return True
 
             ''認証なし
-            'blnSend = ClsMailSend.FunSendMail(strSmtpServer,
-            '               intSmtpPort,
-            '               strFromAddress,
-            '               strToAddress,
-            '               CCAddress:=strFromAddress,
-            '               BCCAddress:="",
-            '               strSubject:=strSubject,
-            '               strBody:=strBody,
-            '               strAttachment:="",
-            '               strFromName:="不適合管理システム")
-
-            '認証あり
-            blnSend = ClsMailSend.FunSendMailoverAUTH(strSmtpServer,
+            blnSend = ClsMailSend.FunSendMail(strSmtpServer,
                            intSmtpPort,
-                           strUserID,
-                           strPassword,
                            strFromAddress,
                            strToAddress,
-                           strFromAddress,
-                           "",
-                           strSubject,
-                           strBody,
-                           "",
-                           "不適合管理システム")
+                           CCAddress:=strFromAddress,
+                           BCCAddress:="",
+                           strSubject:=strSubject,
+                           strBody:=strBody,
+                           strAttachment:="",
+                           strFromName:="不適合管理システム")
+
+            '認証あり
+            'blnSend = ClsMailSend.FunSendMailoverAUTH(strSmtpServer,
+            '               intSmtpPort,
+            '               strUserID,
+            '               strPassword,
+            '               strFromAddress,
+            '               strToAddress,
+            '               strFromAddress,
+            '               "",
+            '               strSubject,
+            '               strBody,
+            '               "",
+            '               "不適合管理システム")
 
             Return blnSend
         Catch ex As Exception
@@ -999,7 +999,9 @@ Module mdlG0010
             End If
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_SIRYO_NO)).Value = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_YMD)).Value = _V002_NCR_J.SAISIN_KAKUNIN_YMD
+            If Not _V002_NCR_J.SAISIN_KAKUNIN_YMD.IsNullOrWhiteSpace Then
+                ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SAISIN_KAKUNIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+            End If
             ssgSheet1.Range(NameOf(_V002_NCR_J.SEIGI_TANTO_NAME)).Value = _V002_NCR_J.SEIGI_TANTO_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SEIZO_TANTO_NAME)).Value = _V002_NCR_J.SEIZO_TANTO_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SURYO)).Value = _V002_NCR_J.SURYO
@@ -1019,36 +1021,40 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.YOKYU_NAIYO)).Value = _V002_NCR_J.YOKYU_NAIYO
             ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = "(図面/規格　： " & _V002_NCR_J.ZUMEN_KIKAKU.PadRight(50) & ")"
 
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._10_起草入力).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).FirstOrDefault?.UPD_SYAIN_NAME
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._20_起草確認製造GL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_起草確認製造GL).FirstOrDefault?.UPD_SYAIN_NAME
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._30_起草確認検査).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).FirstOrDefault?.UPD_SYAIN_NAME
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._90_処置実施確認_管理T).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._90_処置実施確認_管理T).FirstOrDefault?.UPD_SYAIN_NAME
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._100_処置実施決裁_製造課長).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._100_処置実施決裁_製造課長).FirstOrDefault?.UPD_SYAIN_NAME
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._110_abcde処置担当).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._110_abcde処置担当).FirstOrDefault?.UPD_SYAIN_NAME
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._120_abcde処置確認).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._120_abcde処置確認).FirstOrDefault?.UPD_SYAIN_NAME
+            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._10_起草入力).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).FirstOrDefault?.SYAIN_NAME
+
+
 
             Dim strYMDHNS As String
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_起草確認製造GL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNullOrWhiteSpace Then
                 ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._20_起草確認製造GL).Value = "'" & DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._20_起草確認製造GL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_起草確認製造GL).FirstOrDefault?.UPD_SYAIN_NAME
             End If
 
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNullOrWhiteSpace Then
                 ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._30_起草確認検査).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._30_起草確認検査).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).FirstOrDefault?.UPD_SYAIN_NAME
             End If
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._90_処置実施確認_管理T And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNullOrWhiteSpace Then
                 ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._90_処置実施確認_管理T).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._90_処置実施確認_管理T).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._90_処置実施確認_管理T).FirstOrDefault?.UPD_SYAIN_NAME
             End If
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._100_処置実施決裁_製造課長 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNullOrWhiteSpace Then
                 ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._100_処置実施決裁_製造課長).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._100_処置実施決裁_製造課長).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._100_処置実施決裁_製造課長).FirstOrDefault?.UPD_SYAIN_NAME
             End If
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._110_abcde処置担当 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNullOrWhiteSpace Then
                 ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._110_abcde処置担当).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._110_abcde処置担当).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._110_abcde処置担当).FirstOrDefault?.UPD_SYAIN_NAME
             End If
+
+            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._120_abcde処置確認).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._120_abcde処置確認).FirstOrDefault?.UPD_SYAIN_NAME
+
 
             '画像表示
             Dim top As Double
@@ -1157,7 +1163,7 @@ Module mdlG0010
             If Not _V005_CAR_J.KAITO_13.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_13)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_13, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
-            If CBool(_V005_CAR_J.KAITO_14) Then
+            If Not _V005_CAR_J.KAITO_14.IsNullOrWhiteSpace AndAlso CBool(_V005_CAR_J.KAITO_14) Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_14) & "_YOU").Value = "TRUE"
             Else
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_14) & "_HI").Value = "TRUE"
@@ -1208,28 +1214,28 @@ Module mdlG0010
             spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME120)).Value = _V005_CAR_J.SYONIN_NAME120
 
             If Not _V005_CAR_J.SYONIN_YMD20.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD20)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD20, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD20)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD20, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             If Not _V005_CAR_J.SYONIN_YMD30.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD30)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD30, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD30)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD30, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             If Not _V005_CAR_J.SYONIN_YMD40.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD40)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD40, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD40)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD40, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             If Not _V005_CAR_J.SYONIN_YMD50.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD50)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD50, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD50)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD50, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             If Not _V005_CAR_J.SYONIN_YMD60.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD60)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD60, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD60)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD60, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             If Not _V005_CAR_J.SYONIN_YMD90.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD90)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD90, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD90)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD90, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             If Not _V005_CAR_J.SYONIN_YMD100.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD100)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD100, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD100)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD100, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             If Not _V005_CAR_J.SYONIN_YMD120.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD120)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD120, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD120)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD120, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.SYOSAI_FILE_PATH)).Value = _V005_CAR_J.SYOSAI_FILE_PATH
             spSheet1.Range(NameOf(_V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU_NAME)).Value = _V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU_NAME

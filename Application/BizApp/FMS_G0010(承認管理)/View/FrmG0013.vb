@@ -297,6 +297,7 @@ Public Class FrmG0013
             sbSQL.Append(" *")
             sbSQL.Append(" FROM " & NameOf(MODEL.M001_SETTING) & " ")
             sbSQL.Append(" WHERE ITEM_NAME='Œ´ˆö•ªÍ‹æ•ª'")
+
             sbSQL.Append(" ORDER BY DISP_ORDER ")
             Using DBa As ClsDbUtility = DBOpen()
                 dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
