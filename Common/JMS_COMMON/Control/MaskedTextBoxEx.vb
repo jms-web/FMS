@@ -337,7 +337,7 @@ Public Class MaskedTextBoxEx
             End If
 
             '-----ペーストを最大文字バイト数に制限
-            If Me.MaxLength * 2 > Me.MaxByteLength Then
+            If Me.MaxLength * 2 >= Me.MaxByteLength Then
 
                 inputText = clipboardText.ToString()
                 Dim textByteCount As Integer = sjisEncoding.GetByteCount(Me.Text)
