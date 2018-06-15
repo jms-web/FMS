@@ -770,7 +770,9 @@ Module mdlG0010
             WL.WriteLogDat(strMsg)
 
             'DEBUG:
-            'Return True
+
+            Return True
+
 
             ''”FØ‚È‚µ
             blnSend = ClsMailSend.FunSendMail(strSmtpServer,
