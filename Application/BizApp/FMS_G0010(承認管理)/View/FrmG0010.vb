@@ -200,8 +200,7 @@ Public Class FrmG0010
                     Me.cmdFunc2.PerformClick()
                     Me.WindowState = FormWindowState.Normal
                 Case Else
-                    'Err
-                    Throw New ArgumentException("起動モードパラメータが取得出来ませんでした")
+                    Me.cmdFunc1.PerformClick()
             End Select
         Finally
             'ファンクションボタンステータス更新

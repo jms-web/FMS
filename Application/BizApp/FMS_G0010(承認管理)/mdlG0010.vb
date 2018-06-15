@@ -230,7 +230,7 @@ Module mdlG0010
                     Exit Sub
                 End If
 
-                '-----‹¤’Ê‰Šúˆ—
+                '----‹¤’Ê‰Šúˆ—
                 If FunINTSYR() = False Then
                     WL.WriteLogDat(My.Resources.ErrLogMsgSetCommonInit)
                     Exit Sub
