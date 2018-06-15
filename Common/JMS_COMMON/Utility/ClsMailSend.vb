@@ -15,6 +15,7 @@
         'Dim logon As TKMP.Net.ISmtpLogon
 
         Try
+
             '送信メールの作成クラスを定義
             Dim writer As New TKMP.Writer.MailWriter
 
@@ -53,9 +54,10 @@
                 writer.MainPart = New TKMP.Writer.MultiPart(txtPart, filePart)
             End If
 
-
             'メールの送信先サーバー名
+
             Dim address As System.Net.IPAddress = System.Net.Dns.GetHostEntry(strSmtpServer).AddressList(0)
+
 
             'SMTPへの接続クラスを作成
             smtp = New TKMP.Net.SmtpClient(address, intSmtpPort)
@@ -68,7 +70,7 @@
             End If
             'メール送信
             smtp.SendMail(writer)
-            WL.WriteLogDat(String.Format("メール送信成功:From={0},To={1},送信ファイル={2}", FromAddress, ToAddress, strAttachment))
+            'WL.WriteLogDat(String.Format("メール送信成功:From={0},To={1},送信ファイル={2}", FromAddress, ToAddress, strAttachment))
 
             Return True
         Catch ex As Exception

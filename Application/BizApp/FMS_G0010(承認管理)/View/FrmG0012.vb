@@ -807,8 +807,8 @@ Public Class FrmG0012
         Dim sqlEx As New Exception
 
         '-----データモデル更新
-        _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-        _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+        _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+        _D004_SYONIN_J_KANRI.HOKOKU_NO = _V005_CAR_J.HOKOKU_NO
         _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
         _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
         '-----レコード保存
@@ -918,11 +918,9 @@ Public Class FrmG0012
             Case ENM_SAVE_MODE._2_承認申請
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = FunGetNextSYONIN_JUN(PrCurrentStage)
 
-                If PrCurrentStage = ENM_NCR_STAGE._120_abcde処置確認 Then
-                    _D004_SYONIN_J_KANRI.SYAIN_ID = 0
-                Else
-                    _D004_SYONIN_J_KANRI.SYAIN_ID = FunGetNextSYONIN_TANTO_ID(PrCurrentStage)
-                End If
+
+                _D004_SYONIN_J_KANRI.SYAIN_ID = cmbDestTANTO.SelectedValue ' FunGetNextSYONIN_TANTO_ID(PrCurrentStage)
+
                 _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
                 _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False
 
@@ -933,7 +931,7 @@ Public Class FrmG0012
 
         '-----モデル更新
         Select Case PrCurrentStage
-            Case ENM_NCR_STAGE._120_abcde処置確認
+            Case ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = 999 'Close
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
         End Select
@@ -1025,17 +1023,17 @@ Public Class FrmG0012
         End Select
 
 
-        'SPEC: 40-1
-        If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And
-            PrCurrentStage = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 And
-            _D003_NCR_J._ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_要 Then
+        ''SPEC: 40-1
+        'If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And
+        '    PrCurrentStage = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 And
+        '    _D003_NCR_J._ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_要 Then
 
-            If FunSAVE_D005(DB) Then
-                'blnEnableCAREdit = True
-            Else
-                Return False
-            End If
-        End If
+        '    If FunSAVE_D005(DB) Then
+        '        'blnEnableCAREdit = True
+        '    Else
+        '        Return False
+        '    End If
+        'End If
 
         Return True
     End Function
@@ -2589,12 +2587,25 @@ Public Class FrmG0012
             mtxFUTEKIGO_S_KB.Text = _V002_NCR_J.FUTEKIGO_S_NAME
             mtxCurrentStageName.Text = FunGetLastStageName(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO)
 
+            'UNDONE: 申請先テキストバインド解除
+            mtxUPD_YMD.Text = Now.ToString("yyyy/MM/dd")
+            mtxNextStageName.Text = FunGetNextStageName(PrCurrentStage)
+
+
+
             Dim dt As DataTable
             dt = FunGetSYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB)
             cmbKONPON_YOIN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbKAITO_5.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbKAITO_10.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbKAITO_17.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            'UNDONE: バインド上書き
+            cmbSYOCHI_A_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbSYOCHI_B_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbSYOCHI_C_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKENSA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKENSA_GL_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
 
             dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, ENM_SYONIN_HOKOKUSYO_ID._2_CAR, PrCurrentStage)
             cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -2924,80 +2935,85 @@ Public Class FrmG0012
         Try
 
             Dim intNextStageID As Integer
+            'UNDONE:
+            Return intCurrentStageID + 10
 
-            'SPEC: 50-3 50以降の承認順遷移
             Select Case intCurrentStageID
-                Case Is < ENM_NCR_STAGE._50_事前審査確認
-                    '50以前の場合は登録順番通り
 
-                    Dim drList As List(Of DataRow) = tblNCR.AsEnumerable().
-                                                    Where(Function(r) Val(r.Field(Of Integer)("VALUE")) > intCurrentStageID).ToList
-                    If drList.Count > 0 Then
-                        intNextStageID = Val(drList(0).Item("VALUE"))
-                    End If
-                Case ENM_NCR_STAGE._50_事前審査確認
-                    '登録内容に応じて流動的に変化
-                    Select Case _D003_NCR_J.JIZEN_SINSA_HANTEI_KB
-                        Case ENM_JIZEN_SINSA_HANTEI_KB._0_完成する, ENM_JIZEN_SINSA_HANTEI_KB._1_そのまま使用可
-                            intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
-                        Case ENM_JIZEN_SINSA_HANTEI_KB._2_再審委員会送り
-                            intNextStageID = ENM_NCR_STAGE._60_再審審査判定_技術代表
-                        Case ENM_JIZEN_SINSA_HANTEI_KB._3_顧客再審申請
-                            intNextStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag
-                        Case ENM_JIZEN_SINSA_HANTEI_KB._4_廃却する, ENM_JIZEN_SINSA_HANTEI_KB._5_返却する, ENM_JIZEN_SINSA_HANTEI_KB._6_転用する, ENM_JIZEN_SINSA_HANTEI_KB._7_再加工する
-                            intNextStageID = ENM_NCR_STAGE._80_処置実施
-                        Case Else
-                            'Err
-                    End Select
 
-                Case ENM_NCR_STAGE._60_再審審査判定_技術代表
-                    intNextStageID = ENM_NCR_STAGE._61_再審審査判定_品証代表
+                ''SPEC: 50-3 50以降の承認順遷移
+                'Select Case intCurrentStageID
+                '    Case Is < ENM_NCR_STAGE._50_事前審査確認
+                '        '50以前の場合は登録順番通り
 
-                Case ENM_NCR_STAGE._61_再審審査判定_品証代表
+                '        Dim drList As List(Of DataRow) = tblNCR.AsEnumerable().
+                '                                        Where(Function(r) Val(r.Field(Of Integer)("VALUE")) > intCurrentStageID).ToList
+                '        If drList.Count > 0 Then
+                '            intNextStageID = Val(drList(0).Item("VALUE"))
+                '        End If
+                '    Case ENM_NCR_STAGE._50_事前審査確認
+                '        '登録内容に応じて流動的に変化
+                '        Select Case _D003_NCR_J.JIZEN_SINSA_HANTEI_KB
+                '            Case ENM_JIZEN_SINSA_HANTEI_KB._0_完成する, ENM_JIZEN_SINSA_HANTEI_KB._1_そのまま使用可
+                '                intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
+                '            Case ENM_JIZEN_SINSA_HANTEI_KB._2_再審委員会送り
+                '                intNextStageID = ENM_NCR_STAGE._60_再審審査判定_技術代表
+                '            Case ENM_JIZEN_SINSA_HANTEI_KB._3_顧客再審申請
+                '                intNextStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag
+                '            Case ENM_JIZEN_SINSA_HANTEI_KB._4_廃却する, ENM_JIZEN_SINSA_HANTEI_KB._5_返却する, ENM_JIZEN_SINSA_HANTEI_KB._6_転用する, ENM_JIZEN_SINSA_HANTEI_KB._7_再加工する
+                '                intNextStageID = ENM_NCR_STAGE._80_処置実施
+                '            Case Else
+                '                'Err
+                '        End Select
 
-                    Select Case _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB
-                        Case ENM_SAISIN_IINKAI_HANTEI_KB._0_完成する, ENM_SAISIN_IINKAI_HANTEI_KB._1_そのまま使用可
-                            intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
-                        Case ENM_SAISIN_IINKAI_HANTEI_KB._2_顧客再審申請
-                            intNextStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag
-                        Case ENM_SAISIN_IINKAI_HANTEI_KB._3_廃却する, ENM_SAISIN_IINKAI_HANTEI_KB._4_返却する, ENM_SAISIN_IINKAI_HANTEI_KB._5_転用する, ENM_SAISIN_IINKAI_HANTEI_KB._6_再加工する
-                            intNextStageID = ENM_NCR_STAGE._80_処置実施
-                        Case Else
-                            'Err
-                    End Select
+                '    Case ENM_NCR_STAGE._60_再審審査判定_技術代表
+                '        intNextStageID = ENM_NCR_STAGE._61_再審審査判定_品証代表
 
-                Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
-                    If _D003_NCR_J.SAIKAKO_SIJI_FG Then
-                        intNextStageID = ENM_NCR_STAGE._80_処置実施
-                    Else
-                        intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
-                    End If
+                '    Case ENM_NCR_STAGE._61_再審審査判定_品証代表
 
-                Case ENM_NCR_STAGE._80_処置実施
-                    If _D003_NCR_J.SAIKAKO_SIJI_FG Then
-                        intNextStageID = ENM_NCR_STAGE._81_処置実施_生技
-                    Else
-                        intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
-                    End If
+                '        Select Case _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB
+                '            Case ENM_SAISIN_IINKAI_HANTEI_KB._0_完成する, ENM_SAISIN_IINKAI_HANTEI_KB._1_そのまま使用可
+                '                intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
+                '            Case ENM_SAISIN_IINKAI_HANTEI_KB._2_顧客再審申請
+                '                intNextStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag
+                '            Case ENM_SAISIN_IINKAI_HANTEI_KB._3_廃却する, ENM_SAISIN_IINKAI_HANTEI_KB._4_返却する, ENM_SAISIN_IINKAI_HANTEI_KB._5_転用する, ENM_SAISIN_IINKAI_HANTEI_KB._6_再加工する
+                '                intNextStageID = ENM_NCR_STAGE._80_処置実施
+                '            Case Else
+                '                'Err
+                '        End Select
 
-                Case ENM_NCR_STAGE._81_処置実施_生技
-                    intNextStageID = ENM_NCR_STAGE._82_処置実施_製造
+                '    Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
+                '        If _D003_NCR_J.SAIKAKO_SIJI_FG Then
+                '            intNextStageID = ENM_NCR_STAGE._80_処置実施
+                '        Else
+                '            intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
+                '        End If
 
-                Case ENM_NCR_STAGE._82_処置実施_製造
-                    intNextStageID = ENM_NCR_STAGE._83_処置実施_検査
+                '    Case ENM_NCR_STAGE._80_処置実施
+                '        If _D003_NCR_J.SAIKAKO_SIJI_FG Then
+                '            intNextStageID = ENM_NCR_STAGE._81_処置実施_生技
+                '        Else
+                '            intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
+                '        End If
 
-                Case ENM_NCR_STAGE._83_処置実施_検査
-                    intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
+                '    Case ENM_NCR_STAGE._81_処置実施_生技
+                '        intNextStageID = ENM_NCR_STAGE._82_処置実施_製造
 
-                Case ENM_NCR_STAGE._90_処置実施確認_管理T
-                    intNextStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長
+                '    Case ENM_NCR_STAGE._82_処置実施_製造
+                '        intNextStageID = ENM_NCR_STAGE._83_処置実施_検査
 
-                Case ENM_NCR_STAGE._100_処置実施決裁_製造課長
-                    intNextStageID = ENM_NCR_STAGE._110_abcde処置担当
-                Case ENM_NCR_STAGE._110_abcde処置担当
-                    intNextStageID = ENM_NCR_STAGE._120_abcde処置確認
+                '    Case ENM_NCR_STAGE._83_処置実施_検査
+                '        intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
 
-                Case Else
+                '    Case ENM_NCR_STAGE._90_処置実施確認_管理T
+                '        intNextStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長
+
+                '    Case ENM_NCR_STAGE._100_処置実施決裁_製造課長
+                '        intNextStageID = ENM_NCR_STAGE._110_abcde処置担当
+                '    Case ENM_NCR_STAGE._110_abcde処置担当
+                '        intNextStageID = ENM_NCR_STAGE._120_abcde処置確認
+
+                '    Case Else
 
             End Select
 

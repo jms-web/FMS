@@ -447,6 +447,30 @@ Public Class FrmG0011
             _D003_NCR_J.CLOSE_FG = 1
         End If
 
+        Select Case PrCurrentStage
+            Case ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË
+                _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                'UNDONE: getdbsysdate
+                _D003_NCR_J.JIZEN_SINSA_YMD = Now.ToString("yyyyMMdd")
+            Case ENM_NCR_STAGE._50_éñëOêRç∏ämîF
+                _D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                _D003_NCR_J.SAISIN_KAKUNIN_YMD = Now.ToString("yyyyMMdd")
+            Case ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\
+                _D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                _D003_NCR_J.SAISIN_GIJYUTU_YMD = Now.ToString("yyyyMMdd")
+            Case ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\
+                _D003_NCR_J.SAISIN_HINSYO_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                _D003_NCR_J.SAISIN_HINSYO_YMD = Now.ToString("yyyyMMdd")
+            Case ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag
+                _D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
+                _D003_NCR_J.KOKYAKU_SAISIN_YMD = Now.ToString("yyyyMMdd")
+            Case ENM_NCR_STAGE._110_abcdeèàíuíSìñ
+
+
+            Case Else
+                'UNDONE: 
+        End Select
+
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("MERGE INTO " & NameOf(MODEL.D003_NCR_J) & " AS SrcT")
@@ -2320,7 +2344,7 @@ Public Class FrmG0011
                 Call SetPict1Data({_D003_NCR_J.G_FILE_PATH1})
             End If
             If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace Then
-                Call SetPict1Data({_D003_NCR_J.G_FILE_PATH2})
+                Call SetPict2Data({_D003_NCR_J.G_FILE_PATH2})
             End If
 
             Return True
@@ -2754,12 +2778,12 @@ Public Class FrmG0011
                     mtxST08_UPD_YMD.Enabled = False
                     mtxST08_NextStageName.Enabled = False
                     cmbST08_1_HAIKYAKU_KB.SetDataSource(tblHAIKYAKU_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                    cmbST08_1_HAIKYAKU_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
                     cmbST08_2_KENSA_KEKKA.SetDataSource(tblKENSA_KEKKA_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     'ïîñÂèäëÆé–àıéÊìæ
                     dt = FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
-
+                    cmbST08_1_HAIKYAKU_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     cmbST08_2_TANTO_SEIZO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
                     cmbST08_2_TANTO_SEIGI.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
                     cmbST08_2_TANTO_KENSA.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
@@ -3287,7 +3311,11 @@ Public Class FrmG0011
                 Dim _selectedValue As String = cmbBUHIN_BANGO.SelectedValue
 
                 cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                _D003_NCR_J.BUHIN_BANGO = _selectedValue
+                If Not cmbBUHIN_BANGO.NullValue = cmbBUHIN_BANGO.SelectedValue Then
+                    _D003_NCR_J.BUHIN_BANGO = _selectedValue
+                End If
+            Else
+                cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             End If
         Else
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -3936,13 +3964,13 @@ Public Class FrmG0011
     'ã§í çÄñ⁄ÇÃÇ›
 #End Region
 #Region "   STAGE11"
-    Private Sub ChkST11_CheckedChanged(sender As Object, e As EventArgs) 'Handles chkST11_A1.CheckedChanged,
-        'chkST11_B1.CheckedChanged,
-        'chkST11_C1.CheckedChanged,
-        'chkST11_D1.CheckedChanged,
-        'chkST11_D2.CheckedChanged,
-        'chkST11_E1.CheckedChanged,
-        'chkST11_E2.CheckedChanged
+    Private Sub ChkST11_CheckedChanged(sender As Object, e As EventArgs) Handles chkST11_A1.CheckedChanged,
+        chkST11_B1.CheckedChanged,
+        chkST11_C1.CheckedChanged,
+        chkST11_D1.CheckedChanged,
+        chkST11_D2.CheckedChanged,
+        chkST11_E1.CheckedChanged,
+        chkST11_E2.CheckedChanged
 
 
         Dim chk As CheckBox = DirectCast(sender, CheckBox)
@@ -4389,12 +4417,21 @@ Public Class FrmG0011
         chkST04_ZESEI_SYOCHI_YOHI_KB.DataBindings.Add(New Binding(NameOf(chkST04_ZESEI_SYOCHI_YOHI_KB.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB), False, DataSourceUpdateMode.OnPropertyChanged, False))
         txtST04_RIYU.DataBindings.Add(New Binding(NameOf(txtST04_RIYU.Text), _D003_NCR_J, NameOf(_D003_NCR_J.ZESEI_NASI_RIYU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
+        'cmbST04_DestTANTO.DataBindings.Add(New Binding(NameOf(cmbST04_DestTANTO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+
         'STAGE05
         'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HOKOKU_NO)))
+        'cmbST05_DestTANTO.DataBindings.Add(New Binding(NameOf(cmbST05_DestTANTO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+
 
         'STAGE06
         cmbST06_SAISIN_IINKAI_HANTEI.DataBindings.Add(New Binding(NameOf(cmbST06_SAISIN_IINKAI_HANTEI.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SAISIN_IINKAI_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         mtxST06_SAISIN_IINKAI_SIRYO_NO.DataBindings.Add(New Binding(NameOf(mtxST06_SAISIN_IINKAI_SIRYO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.SAISIN_IINKAI_SIRYO_NO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        'If PrCurrentStage = ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\ Then
+        '    cmbST06_DestTANTO.DataBindings.Add(New Binding(NameOf(cmbST06_DestTANTO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+        'Else
+        '    cmbST06_DestTANTO.DataBindings.Add(New Binding(NameOf(cmbST06_DestTANTO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SAISIN_HINSYO_SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+        'End If
 
         'STAGE07
         mtxST07_ITAG_NO.DataBindings.Add(New Binding(NameOf(mtxST07_ITAG_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.ITAG_NO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -4404,6 +4441,8 @@ Public Class FrmG0011
         cmbST07_KOKYAKU_SAISYU_HANTEI.DataBindings.Add(New Binding(NameOf(cmbST07_KOKYAKU_SAISYU_HANTEI.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         dtST07_KOKYAKU_SAISYU_HANTEI.DataBindings.Add(New Binding(NameOf(dtST07_KOKYAKU_SAISYU_HANTEI.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         chkST07_SAIKAKO_SIJI_FLG.DataBindings.Add(New Binding(NameOf(chkST07_SAIKAKO_SIJI_FLG.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SAIKAKO_SIJI_FG), False, DataSourceUpdateMode.OnPropertyChanged, False))
+        'cmbST07_DestTANTO.DataBindings.Add(New Binding(NameOf(cmbST07_DestTANTO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+
 
         'STAGE08
         dtST08_1_HAIKYAKU_YMD.DataBindings.Add(New Binding(NameOf(dtST08_1_HAIKYAKU_YMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.HAIKYAKU_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -4428,6 +4467,7 @@ Public Class FrmG0011
         mtxST08_4_GOUKI.DataBindings.Add(New Binding(NameOf(mtxST08_4_GOUKI.Text), _D003_NCR_J, NameOf(_D003_NCR_J.TENYO_GOKI), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         mtxST08_4_LOT.DataBindings.Add(New Binding(NameOf(mtxST08_4_LOT.Text), _D003_NCR_J, NameOf(_D003_NCR_J.TENYO_LOT), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         dtST08_4_TENYO_YMD.DataBindings.Add(New Binding(NameOf(dtST08_4_TENYO_YMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.TENYO_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
 
         'STAGE09
         'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HOKOKU_NO)))

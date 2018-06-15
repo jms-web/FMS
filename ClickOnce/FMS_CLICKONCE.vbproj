@@ -24,7 +24,7 @@
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <UpdatePackageVersion>False</UpdatePackageVersion>
     <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
-    <InheritWinAppVersionFrom>AssemblyVersion</InheritWinAppVersionFrom>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
     <PrimaryVersionType>AssemblyVersionAttribute</PrimaryVersionType>
     <PublishUrl>\\Sv91\fms\</PublishUrl>
     <Install>true</Install>
@@ -39,13 +39,13 @@
     <InstallUrl>http://SV91:8000/</InstallUrl>
     <ProductName>フジワラシステム</ProductName>
     <PublisherName>JMS</PublisherName>
-    <MinimumRequiredVersion>0.9.18157.0834</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.9.18165.0729</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>834</ApplicationRevision>
-    <ApplicationVersion>0.9.18164.0609</ApplicationVersion>
+    <ApplicationRevision>729</ApplicationRevision>
+    <ApplicationVersion>0.9.18165.0729</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -184,6 +184,10 @@
     <Content Include="EXE\MetroFramework.dll" />
     <Content Include="EXE\Microsoft.WindowsAPICodePack.dll" />
     <Content Include="EXE\PropertyChanged.dll" />
+    <Content Include="EXE\Spire.Common.dll" />
+    <Content Include="EXE\Spire.License.dll" />
+    <Content Include="EXE\Spire.Pdf.dll" />
+    <Content Include="EXE\Spire.XLS.dll" />
     <Content Include="EXE\SpreadsheetGear2012.Core.dll" />
     <Content Include="EXE\SpreadsheetGear2012.Drawing.dll" />
     <Content Include="EXE\TKMP.dll" />
@@ -216,8 +220,12 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="TEMPLATE\TEMP_CAR.xls" />
-    <None Include="TEMPLATE\TEMP_NCR.xls" />
+    <Content Include="TEMPLATE\TEMP_CAR.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TEMPLATE\TEMP_NCR.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7">

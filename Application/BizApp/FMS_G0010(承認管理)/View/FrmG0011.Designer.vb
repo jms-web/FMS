@@ -3957,6 +3957,7 @@ Partial Class FrmG0011
         '
         'tabSTAGE11
         '
+        Me.tabSTAGE11.Controls.Add(Me.tlpST08)
         Me.tabSTAGE11.Controls.Add(Me.chkST11_E2)
         Me.tabSTAGE11.Controls.Add(Me.chkST11_D1)
         Me.tabSTAGE11.Controls.Add(Me.chkST11_D2)
@@ -3965,7 +3966,6 @@ Partial Class FrmG0011
         Me.tabSTAGE11.Controls.Add(Me.chkST11_B1)
         Me.tabSTAGE11.Controls.Add(Me.chkST11_A1)
         Me.tabSTAGE11.Controls.Add(Me.lblST11_Modoshi_Riyu)
-        Me.tabSTAGE11.Controls.Add(Me.tlpST08)
         Me.tabSTAGE11.Controls.Add(Me.lblSTAGE11)
         Me.tabSTAGE11.Controls.Add(Me.cmbST11_DestTANTO)
         Me.tabSTAGE11.Controls.Add(Me.mtxST11_NextStageName)
@@ -3986,79 +3986,72 @@ Partial Class FrmG0011
         'chkST11_E2
         '
         Me.chkST11_E2.AutoSize = True
-        Me.chkST11_E2.Location = New System.Drawing.Point(772, 248)
+        Me.chkST11_E2.Location = New System.Drawing.Point(729, 248)
         Me.chkST11_E2.Name = "chkST11_E2"
         Me.chkST11_E2.Size = New System.Drawing.Size(43, 21)
         Me.chkST11_E2.TabIndex = 243
         Me.chkST11_E2.Text = "E2"
         Me.chkST11_E2.UseVisualStyleBackColor = True
-        Me.chkST11_E2.Visible = False
         '
         'chkST11_D1
         '
         Me.chkST11_D1.AutoSize = True
-        Me.chkST11_D1.Location = New System.Drawing.Point(772, 136)
+        Me.chkST11_D1.Location = New System.Drawing.Point(729, 136)
         Me.chkST11_D1.Name = "chkST11_D1"
         Me.chkST11_D1.Size = New System.Drawing.Size(45, 21)
         Me.chkST11_D1.TabIndex = 242
         Me.chkST11_D1.Text = "D1"
         Me.chkST11_D1.UseVisualStyleBackColor = True
-        Me.chkST11_D1.Visible = False
         '
         'chkST11_D2
         '
         Me.chkST11_D2.AutoSize = True
-        Me.chkST11_D2.Location = New System.Drawing.Point(772, 162)
+        Me.chkST11_D2.Location = New System.Drawing.Point(729, 162)
         Me.chkST11_D2.Name = "chkST11_D2"
         Me.chkST11_D2.Size = New System.Drawing.Size(45, 21)
         Me.chkST11_D2.TabIndex = 241
         Me.chkST11_D2.Text = "D2"
         Me.chkST11_D2.UseVisualStyleBackColor = True
-        Me.chkST11_D2.Visible = False
         '
         'chkST11_E1
         '
         Me.chkST11_E1.AutoSize = True
-        Me.chkST11_E1.Location = New System.Drawing.Point(772, 218)
+        Me.chkST11_E1.Location = New System.Drawing.Point(729, 218)
         Me.chkST11_E1.Name = "chkST11_E1"
         Me.chkST11_E1.Size = New System.Drawing.Size(43, 21)
         Me.chkST11_E1.TabIndex = 240
         Me.chkST11_E1.Text = "E1"
         Me.chkST11_E1.UseVisualStyleBackColor = True
-        Me.chkST11_E1.Visible = False
         '
         'chkST11_C1
         '
         Me.chkST11_C1.AutoSize = True
-        Me.chkST11_C1.Location = New System.Drawing.Point(772, 107)
+        Me.chkST11_C1.Location = New System.Drawing.Point(729, 107)
         Me.chkST11_C1.Name = "chkST11_C1"
         Me.chkST11_C1.Size = New System.Drawing.Size(44, 21)
         Me.chkST11_C1.TabIndex = 239
         Me.chkST11_C1.Text = "C1"
         Me.chkST11_C1.UseVisualStyleBackColor = True
-        Me.chkST11_C1.Visible = False
         '
         'chkST11_B1
         '
         Me.chkST11_B1.AutoSize = True
-        Me.chkST11_B1.Location = New System.Drawing.Point(772, 78)
+        Me.chkST11_B1.Location = New System.Drawing.Point(729, 78)
         Me.chkST11_B1.Name = "chkST11_B1"
         Me.chkST11_B1.Size = New System.Drawing.Size(44, 21)
         Me.chkST11_B1.TabIndex = 239
         Me.chkST11_B1.Text = "B1"
         Me.chkST11_B1.UseVisualStyleBackColor = True
-        Me.chkST11_B1.Visible = False
         '
         'chkST11_A1
         '
         Me.chkST11_A1.AutoSize = True
-        Me.chkST11_A1.Location = New System.Drawing.Point(772, 48)
+        Me.chkST11_A1.Location = New System.Drawing.Point(729, 48)
         Me.chkST11_A1.Name = "chkST11_A1"
         Me.chkST11_A1.Size = New System.Drawing.Size(44, 21)
         Me.chkST11_A1.TabIndex = 239
         Me.chkST11_A1.Text = "A1"
         Me.chkST11_A1.UseVisualStyleBackColor = True
-        Me.chkST11_A1.Visible = False
         '
         'lblST11_Modoshi_Riyu
         '
@@ -4660,7 +4653,7 @@ Partial Class FrmG0011
         '
         Me.Label21.AutoSize = True
         Me.Label21.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label21.Location = New System.Drawing.Point(821, 83)
+        Me.Label21.Location = New System.Drawing.Point(820, 83)
         Me.Label21.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(100, 15)
