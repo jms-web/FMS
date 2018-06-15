@@ -324,13 +324,13 @@ Public Class FrmG0011
                         Case ENM_NCR_STAGE._81_処置実施_生技 To ENM_NCR_STAGE._100_処置実施決裁_製造課長
                             'データは更新しない
                         Case Else
-                            If FunSAVE_FILE(DB) Then
+                            'SPEC: 2.(3).D.①.レコード更新
+                            If FunSAVE_D003(DB) Then
                             Else
                                 Return False
                                 blnErr = True
                             End If
-                            'SPEC: 2.(3).D.①.レコード更新
-                            If FunSAVE_D003(DB) Then
+                            If FunSAVE_FILE(DB) Then
                             Else
                                 Return False
                                 blnErr = True
@@ -390,17 +390,19 @@ Public Class FrmG0011
                 End If
             Else
                 Try
-                    If Not _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace AndAlso _D003_NCR_J.FILE_PATH <> strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.FILE_PATH) Then
-                        System.IO.File.Copy(_D003_NCR_J.FILE_PATH, strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.FILE_PATH), True)
-                        _D003_NCR_J.FILE_PATH = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.FILE_PATH)
+                    System.IO.Directory.CreateDirectory(strRootDir & _D003_NCR_J.HOKOKU_NO)
+
+                    If Not _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace AndAlso _D003_NCR_J.FILE_PATH <> System.IO.Path.GetFileName(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH) Then
+                        System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData(0), strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH, True)
+                        '_D003_NCR_J.FILE_PATH = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.FILE_PATH)
                     End If
-                    If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace AndAlso _D003_NCR_J.G_FILE_PATH1 <> strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH1) Then
-                        System.IO.File.Copy(_D003_NCR_J.G_FILE_PATH1, strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH1), True)
-                        _D003_NCR_J.G_FILE_PATH1 = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH1)
+                    If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace AndAlso _D003_NCR_J.G_FILE_PATH1 <> System.IO.Path.GetFileName(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1) Then
+                        System.IO.File.Copy(lblPict1Path.Links.Item(0).LinkData(0), strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1, True)
+                        '_D003_NCR_J.G_FILE_PATH1 = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH1)
                     End If
-                    If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace AndAlso _D003_NCR_J.G_FILE_PATH2 <> strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH2) Then
-                        System.IO.File.Copy(_D003_NCR_J.G_FILE_PATH2, strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH2), True)
-                        _D003_NCR_J.G_FILE_PATH2 = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH2)
+                    If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace AndAlso _D003_NCR_J.G_FILE_PATH2 <> System.IO.Path.GetFileName(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2) Then
+                        System.IO.File.Copy(lblPict2Path.Links.Item(0).LinkData(0), strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2, True)
+                        '_D003_NCR_J.G_FILE_PATH2 = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH2)
                     End If
 
                     Return True
@@ -444,7 +446,7 @@ Public Class FrmG0011
 
         '-----モデル更新
         If (PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso Val(_D003_NCR_J.KENSA_KEKKA_KB) = ENM_KENSA_KEKKA_KB._1_不合格) Or PrCurrentStage = ENM_NCR_STAGE._120_abcde処置確認 Then
-            _D003_NCR_J.CLOSE_FG = 1
+            _D003_NCR_J._CLOSE_FG = 1
         End If
 
         Select Case PrCurrentStage
@@ -1049,7 +1051,7 @@ Public Class FrmG0011
         strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
         Select Case strRET
             Case "INSERT"
-                If _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False Then
+                If PrCurrentStage < ENM_NCR_STAGE._120_abcde処置確認 AndAlso _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False Then
                     '承認依頼メール送信
                     Call FunSendRequestMail()
                 End If
@@ -1999,6 +2001,7 @@ Public Class FrmG0011
         'Dim intRET As Integer
 
         Try
+            Me.Cursor = Cursors.WaitCursor
 
             'ファイル名
             strOutputFileName = "NCR_" & _D003_NCR_J.HOKOKU_NO & "_Work.xls"
@@ -2028,6 +2031,7 @@ Public Class FrmG0011
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
+            Me.Cursor = Cursors.Default
         End Try
     End Function
 
@@ -2332,19 +2336,22 @@ Public Class FrmG0011
 
 
             '添付資料タブ初期化
+            Dim strRootDir As String
+            Using DB As ClsDbUtility = DBOpen()
+                strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
+            End Using
             If Not _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace Then
-                lbltmpFile1.Text = IO.Path.GetFileName(_D003_NCR_J.FILE_PATH)
+                lbltmpFile1.Text = CompactString(_D003_NCR_J.FILE_PATH, lbltmpFile1, EllipsisFormat._4_Path)
                 lbltmpFile1.Links.Clear()
-                lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, _D003_NCR_J.FILE_PATH)
-                _D003_NCR_J.FILE_PATH = _D003_NCR_J.FILE_PATH
+                lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH)
                 lbltmpFile1.Visible = True
                 lbltmpFile1_Clear.Visible = True
             End If
             If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace Then
-                Call SetPict1Data({_D003_NCR_J.G_FILE_PATH1})
+                Call SetPict1Data({strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1})
             End If
             If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace Then
-                Call SetPict2Data({_D003_NCR_J.G_FILE_PATH2})
+                Call SetPict2Data({strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2})
             End If
 
             Return True
@@ -4037,7 +4044,7 @@ Public Class FrmG0011
             lbltmpFile1.Links.Clear()
             lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, ofd.FileName)
 
-            _D003_NCR_J.FILE_PATH = ofd.FileName
+            _D003_NCR_J.FILE_PATH = IO.Path.GetFileName(ofd.FileName)
             lbltmpFile1.Visible = True
             lbltmpFile1_Clear.Visible = True
         End If
@@ -4066,6 +4073,12 @@ Public Class FrmG0011
 
                     'Call SetTaskbarInfo(ENM_TASKBAR_STATE._2_Normal, 100)
                     'Call SetTaskbarOverlayIcon(System.Drawing.SystemIcons.Application)
+
+                    'Private Sub ProcessExited(ByVal sender As Object, ByVal e As EventArgs)
+                    '    Call SetTaskbarOverlayIcon(Nothing)
+                    '    Call SetTaskbarInfo(ENM_TASKBAR_STATE._0_NoProgress)
+                    'End Sub
+
                 Else
                     Dim strMsg As String
                     strMsg = "ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
@@ -4100,10 +4113,6 @@ Public Class FrmG0011
         lbltmpFile1_Clear.Visible = False
     End Sub
 
-    Private Sub ProcessExited(ByVal sender As Object, ByVal e As EventArgs)
-        'Call SetTaskbarOverlayIcon(Nothing)
-        'Call SetTaskbarInfo(ENM_TASKBAR_STATE._0_NoProgress)
-    End Sub
 #End Region
 
 #Region "画像1"
@@ -4183,7 +4192,7 @@ Public Class FrmG0011
 
             lblPict1Path.Text = CompactString(strFileName(0), lblPict1Path, EllipsisFormat._4_Path) 'IO.Path.GetFileName(strFileName)
             'lblPict1Path.Tag = strFileName(0)
-            _D003_NCR_J.G_FILE_PATH1 = strFileName(0)
+            _D003_NCR_J.G_FILE_PATH1 = IO.Path.GetFileName(strFileName(0))
             lblPict1Path.Links.Clear()
             lblPict1Path.Links.Add(0, lblPict1Path.Text.Length, strFileName(0))
             lblPict1Path.Visible = True
@@ -4272,7 +4281,7 @@ Public Class FrmG0011
 
             lblPict2Path.Text = CompactString(strFileName(0), lblPict2Path, EllipsisFormat._4_Path) 'IO.Path.GetFileName(strFileName)
             'lblPict2Path.Tag = strFileName(0)
-            _D003_NCR_J.G_FILE_PATH2 = strFileName(0)
+            _D003_NCR_J.G_FILE_PATH2 = IO.Path.GetFileName(strFileName(0))
             lblPict2Path.Links.Clear()
             lblPict2Path.Links.Add(0, lblPict2Path.Text.Length, strFileName)
             lblPict2Path.Visible = True

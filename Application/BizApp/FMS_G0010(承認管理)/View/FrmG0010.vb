@@ -603,8 +603,8 @@ Public Class FrmG0010
                     Call FunUnSelectAll()
 
                 Case 9 'メール送信
-                    Call FunMailSending()
 
+                    Call FunMailSending()
 
                 Case 10  '印刷
                     Call FunOpenReport()
@@ -989,6 +989,7 @@ Public Class FrmG0010
 #Region "メール送信"
     Private Function FunMailSending() As Boolean
         Try
+            Me.Cursor = Cursors.WaitCursor
             Dim dt = DirectCast(dgvDATA.DataSource, DataTable).AsEnumerable.
                                     Where(Function(r) r.Field(Of Boolean)("SELECTED") = True)
             Dim strTantoNameList As String = ""
@@ -1120,6 +1121,8 @@ Public Class FrmG0010
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
+        Finally
+            Me.Cursor = Cursors.Default
         End Try
     End Function
 
@@ -1200,7 +1203,7 @@ Public Class FrmG0010
         'Dim intRET As Integer
         Try
             Dim strHOKOKU_NO As String = dgvDATA.GetDataRow().Item("HOKOKU_NO")
-
+            Me.Cursor = Cursors.WaitCursor
             Select Case dgvDATA.GetDataRow().Item("SYONIN_HOKOKUSYO_ID")
                 Case ENM_SYONIN_HOKOKUSYO_ID._1_NCR
                     'ファイル名
@@ -1249,13 +1252,11 @@ Public Class FrmG0010
                     Return False
             End Select
 
-
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
-            Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
+            Me.Cursor = Cursors.Default
         End Try
     End Function
 

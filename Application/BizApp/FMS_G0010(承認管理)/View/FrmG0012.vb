@@ -101,128 +101,6 @@ Public Class FrmG0012
 
 #End Region
 
-#Region "DataGridView関連"
-
-    'フィールド定義()
-    Private Shared Function FunSetDgvCulumns(ByVal dgv As DataGridView) As Boolean
-        Dim _Model As New MODEL.M001_SETTING
-        Try
-            With dgv
-                .AutoGenerateColumns = False
-
-                '.Columns.Add(NameOf(_Model.KOMO_NM), GetDisplayName(_Model.GetType, NameOf(_Model.KOMO_NM)))
-                '.Columns(.ColumnCount - 1).Width = 150
-                '.Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.KOMO_NM)
-
-                '.Columns.Add(NameOf(_Model.VALUE), GetDisplayName(_Model.GetType, NameOf(_Model.VALUE)))
-                '.Columns(.ColumnCount - 1).Width = 200
-                '.Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-                '.Columns(.ColumnCount - 1).Frozen = True
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.VALUE)
-
-                '.Columns.Add(NameOf(_Model.DISP), GetDisplayName(_Model.GetType, NameOf(_Model.DISP)))
-                '.Columns(.ColumnCount - 1).Width = 300
-                '.Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DISP)
-
-                '.Columns.Add(NameOf(_Model.DISP_ORDER), GetDisplayName(_Model.GetType, NameOf(_Model.DISP_ORDER)))
-                '.Columns(.ColumnCount - 1).Width = 70
-                '.Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DISP_ORDER)
-
-                '.Columns.Add(NameOf(_Model.BIKOU), GetDisplayName(_Model.GetType, NameOf(_Model.BIKOU)))
-                '.Columns(.ColumnCount - 1).Width = 430
-                '.Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.BIKOU)
-
-                'Using cmbclmn1 As New DataGridViewCheckBoxColumn
-                '    cmbclmn1.Name = NameOf(_Model.DEF_FLG)
-                '    cmbclmn1.HeaderText = GetDisplayName(_Model.GetType, NameOf(_Model.DEF_FLG))
-                '    cmbclmn1.Width = 30
-
-                '    cmbclmn1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-                '    .Columns.Add(cmbclmn1)
-                '    .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
-                '    .Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DEF_FLG)
-                'End Using
-
-                'Using cmbclmn2 As New DataGridViewCheckBoxColumn
-                '    cmbclmn2.Name = NameOf(_Model.DEL_FLG)
-                '    cmbclmn2.HeaderText = GetDisplayName(_Model.GetType, NameOf(_Model.DEL_FLG))
-                '    cmbclmn2.Width = 30
-                '    cmbclmn2.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-                '    .Columns.Add(cmbclmn2)
-                '    .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
-                '    .Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DEL_FLG)
-                'End Using
-
-                '.Columns.Add(NameOf(_Model.ADD_YMDHNS), GetDisplayName(_Model.GetType, NameOf(_Model.ADD_YMDHNS)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.ADD_YMDHNS)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.ADD_TANTO_CD), GetDisplayName(_Model.GetType, NameOf(_Model.ADD_TANTO_CD)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.ADD_TANTO_CD)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.ADD_TANTO_NAME), GetDisplayName(_Model.GetType, NameOf(_Model.ADD_TANTO_NAME)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.ADD_TANTO_NAME)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.EDIT_YMDHNS), GetDisplayName(_Model.GetType, NameOf(_Model.EDIT_YMDHNS)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.EDIT_YMDHNS)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.EDIT_TANTO_CD), GetDisplayName(_Model.GetType, NameOf(_Model.EDIT_TANTO_CD)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.EDIT_TANTO_CD)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.EDIT_TANTO_NAME), GetDisplayName(_Model.GetType, NameOf(_Model.EDIT_TANTO_NAME)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.EDIT_TANTO_NAME)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.DEL_YMDHNS), GetDisplayName(_Model.GetType, NameOf(_Model.DEL_YMDHNS)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DEL_YMDHNS)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.DEL_YMDHNS), GetDisplayName(_Model.GetType, NameOf(_Model.DEL_YMDHNS)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DEL_YMDHNS)
-                '.Columns(.ColumnCount - 1).Visible = False
-
-                '.Columns.Add(NameOf(_Model.DEL_TANTO_NAME), GetDisplayName(_Model.GetType, NameOf(_Model.DEL_TANTO_NAME)))
-                '.Columns(.ColumnCount - 1).DataPropertyName = NameOf(_Model.DEL_TANTO_NAME)
-                '.Columns(.ColumnCount - 1).Visible = False
-            End With
-
-            Return True
-        Finally
-
-        End Try
-    End Function
-
-    'グリッドセル(行)ダブルクリック時イベント
-    Private Sub DgvDATA_CellDoubleClick(sender As System.Object, e As DataGridViewCellEventArgs)
-        Try
-            'ヘッダ以外のセルダブルクリック時
-            If e.RowIndex >= 0 Then
-                '該当行の変更処理を実行する
-                Me.cmdFunc4.PerformClick()
-            End If
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-        End Try
-    End Sub
-
-    '行選択時イベント
-    Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs)
-        Try
-        Finally
-            'Call FunInitFuncButtonEnabled(Me)
-        End Try
-    End Sub
-
-#End Region
-
 #Region "FunctionButton関連"
 
 #Region "ボタンクリックイベント"
@@ -282,7 +160,7 @@ Public Class FrmG0012
                 Case 5  '差し戻し
                     Call OpenFormSASIMODOSI()
 
-                Case 10  'CSV出力
+                Case 10  '印刷
 
                     Call FunOpenReportCAR()
 
@@ -332,13 +210,13 @@ Public Class FrmG0012
                         Case ENM_CAR_STAGE._120_是正有効性確認_品証TL, ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
                             '更新しない
                         Case Else
-                            If FunSAVE_FILE(DB) Then
+                            'SPEC: 2.(3).D.①.レコード更新
+                            If FunSAVE_D005(DB) Then
                             Else
                                 Return False
                                 blnErr = True
                             End If
-                            'SPEC: 2.(3).D.①.レコード更新
-                            If FunSAVE_D005(DB) Then
+                            If FunSAVE_FILE(DB) Then
                             Else
                                 Return False
                                 blnErr = True
@@ -407,21 +285,18 @@ Public Class FrmG0012
                 End If
             Else
                 Try
-                    If Not _D005_CAR_J.KYOIKU_FILE_PATH.IsNullOrWhiteSpace AndAlso _D005_CAR_J.KYOIKU_FILE_PATH <> strRootDir & System.IO.Path.GetFileName(_D005_CAR_J.KYOIKU_FILE_PATH) Then
-                        System.IO.File.Copy(_D005_CAR_J.KYOIKU_FILE_PATH, strRootDir & System.IO.Path.GetFileName(_D005_CAR_J.KYOIKU_FILE_PATH), True)
-                        _D005_CAR_J.KYOIKU_FILE_PATH = strRootDir & System.IO.Path.GetFileName(_D005_CAR_J.KYOIKU_FILE_PATH)
+                    System.IO.Directory.CreateDirectory(strRootDir & _D005_CAR_J.HOKOKU_NO)
+                    If Not _D005_CAR_J.KYOIKU_FILE_PATH.IsNullOrWhiteSpace AndAlso _D005_CAR_J.KYOIKU_FILE_PATH <> System.IO.Path.GetFileName(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH) Then
+                        System.IO.File.Copy(lblKYOIKU_FILE_PATH.Links.Item(0).LinkData(0), strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH, True)
                     End If
-                    If Not _D005_CAR_J.SYOSAI_FILE_PATH.IsNullOrWhiteSpace AndAlso _D005_CAR_J.SYOSAI_FILE_PATH <> strRootDir & System.IO.Path.GetFileName(_D005_CAR_J.SYOSAI_FILE_PATH) Then
-                        System.IO.File.Copy(_D005_CAR_J.SYOSAI_FILE_PATH, strRootDir & System.IO.Path.GetFileName(_D005_CAR_J.SYOSAI_FILE_PATH), True)
-                        _D005_CAR_J.SYOSAI_FILE_PATH = strRootDir & System.IO.Path.GetFileName(_D005_CAR_J.SYOSAI_FILE_PATH)
+                    If Not _D005_CAR_J.SYOSAI_FILE_PATH.IsNullOrWhiteSpace AndAlso _D005_CAR_J.SYOSAI_FILE_PATH <> System.IO.Path.GetFileName(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH) Then
+                        System.IO.File.Copy(lblKYOIKU_FILE_PATH.Links.Item(0).LinkData(0), strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH, True)
                     End If
-                    If Not _D005_CAR_J.FILE_PATH1.IsNullOrWhiteSpace AndAlso _D005_CAR_J.FILE_PATH1 <> strRootDir & System.IO.Path.GetFileName(_D005_CAR_J.FILE_PATH1) Then
-                        System.IO.File.Copy(_D005_CAR_J.FILE_PATH1, strRootDir & System.IO.Path.GetFileName(_D005_CAR_J.FILE_PATH1), True)
-                        _D005_CAR_J.FILE_PATH1 = strRootDir & System.IO.Path.GetFileName(_D005_CAR_J.FILE_PATH1)
+                    If Not _D005_CAR_J.FILE_PATH1.IsNullOrWhiteSpace AndAlso _D005_CAR_J.FILE_PATH1 <> System.IO.Path.GetFileName(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1) Then
+                        System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData(0), strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1, True)
                     End If
-                    If Not _D005_CAR_J.FILE_PATH2.IsNullOrWhiteSpace AndAlso _D005_CAR_J.FILE_PATH2 <> strRootDir & System.IO.Path.GetFileName(_D005_CAR_J.FILE_PATH2) Then
-                        System.IO.File.Copy(_D005_CAR_J.FILE_PATH2, strRootDir & System.IO.Path.GetFileName(_D005_CAR_J.FILE_PATH2), True)
-                        _D005_CAR_J.FILE_PATH2 = strRootDir & System.IO.Path.GetFileName(_D005_CAR_J.FILE_PATH2)
+                    If Not _D005_CAR_J.FILE_PATH2.IsNullOrWhiteSpace AndAlso _D005_CAR_J.FILE_PATH2 <> System.IO.Path.GetFileName(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2) Then
+                        System.IO.File.Copy(lbltmpFile2.Links.Item(0).LinkData(0), strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2, True)
                     End If
 
                     Return True
@@ -444,6 +319,14 @@ Public Class FrmG0012
         Dim sbSQL As New System.Text.StringBuilder
         Dim strRET As String
         Dim sqlEx As New Exception
+
+        'モデル更新
+        Select Case PrCurrentStage
+            Case ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
+                _D005_CAR_J._CLOSE_FG = 1
+            Case Else
+
+        End Select
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
@@ -917,10 +800,7 @@ Public Class FrmG0012
                 Return True
             Case ENM_SAVE_MODE._2_承認申請
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = FunGetNextSYONIN_JUN(PrCurrentStage)
-
-
-                _D004_SYONIN_J_KANRI.SYAIN_ID = cmbDestTANTO.SelectedValue ' FunGetNextSYONIN_TANTO_ID(PrCurrentStage)
-
+                _D004_SYONIN_J_KANRI.SYAIN_ID = cmbDestTANTO.SelectedValue
                 _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
                 _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False
 
@@ -1007,11 +887,10 @@ Public Class FrmG0012
         strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
         Select Case strRET
             Case "INSERT"
-                If _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False Then
+                If PrCurrentStage < ENM_CAR_STAGE._130_是正有効性確認_品証担当課長 AndAlso _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False Then
                     '承認依頼メール送信
                     Call FunSendRequestMail()
                 End If
-
 
             Case "UPDATE"
 
@@ -1021,19 +900,6 @@ Public Class FrmG0012
                 WL.WriteLogDat(strErrMsg)
                 Return False
         End Select
-
-
-        ''SPEC: 40-1
-        'If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And
-        '    PrCurrentStage = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 And
-        '    _D003_NCR_J._ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_要 Then
-
-        '    If FunSAVE_D005(DB) Then
-        '        'blnEnableCAREdit = True
-        '    Else
-        '        Return False
-        '    End If
-        'End If
 
         Return True
     End Function
@@ -1168,14 +1034,12 @@ Public Class FrmG0012
         Return True
     End Function
 
-
-
     ''' <summary>
     ''' 承認依頼メール送信
     ''' </summary>
     ''' <returns></returns>
     Private Function FunSendRequestMail()
-        Dim KISYU_NAME As String = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
+        Dim KISYU_NAME As String = _V002_NCR_J.KISYU_NAME
         Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
         Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
         Dim strBody As String = <sql><![CDATA[
@@ -1191,13 +1055,13 @@ Public Class FrmG0012
         【コメント】{7}                        
         ]]></sql>.Value.Trim
 
-        strSubject = String.Format(strSubject, KISYU_NAME, _D003_NCR_J.BUHIN_BANGO)
+        strSubject = String.Format(strSubject, KISYU_NAME, _V002_NCR_J.BUHIN_BANGO)
         strBody = String.Format(strBody,
                                 Fun_GetUSER_NAME(_D004_SYONIN_J_KANRI.SYAIN_ID),
                                 _D004_SYONIN_J_KANRI.HOKOKU_NO,
                                 FunGetCurrentStageName(_D004_SYONIN_J_KANRI.SYONIN_JUN),
                                 KISYU_NAME,
-                                _D003_NCR_J.BUHIN_BANGO,
+                                _V002_NCR_J.BUHIN_BANGO,
                                 Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
                                 SYONIN_HANTEI_NAME,
                                 _D004_SYONIN_J_KANRI.COMMENT)
@@ -1233,15 +1097,15 @@ Public Class FrmG0012
         End If
 
         '-----データモデル更新
-        _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-        _R001_HOKOKU_SOUSA.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+        _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+        _R001_HOKOKU_SOUSA.HOKOKU_NO = _V002_NCR_J.HOKOKU_NO
         _R001_HOKOKU_SOUSA.SYONIN_JUN = PrCurrentStage
         _R001_HOKOKU_SOUSA.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
         'UNDONE: getsysdatetime
         _R001_HOKOKU_SOUSA.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
 
         Select Case _R001_HOKOKU_SOUSA.SYONIN_JUN
-            Case ENM_NCR_STAGE._10_起草入力
+            Case ENM_CAR_STAGE._10_起草入力
                 Select Case enmSAVE_MODE
                     Case ENM_SAVE_MODE._1_保存
                         _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
@@ -1321,8 +1185,8 @@ Public Class FrmG0012
 
         '-----データモデル更新
         Dim _D005_CAR_J As New MODEL.D005_CAR_J
-        _D005_CAR_J.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
-        _D005_CAR_J.BUMON_KB = _D003_NCR_J.BUMON_KB
+        _D005_CAR_J.HOKOKU_NO = _V002_NCR_J.HOKOKU_NO
+        _D005_CAR_J.BUMON_KB = _V002_NCR_J.BUMON_KB
 
         '-----INSERT
         sbSQL.Remove(0, sbSQL.Length)
@@ -1499,7 +1363,7 @@ Public Class FrmG0012
         '----D004
         '-----データモデル更新
         _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKUSYO_ID._2_CAR
-        _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+        _D004_SYONIN_J_KANRI.HOKOKU_NO = _V002_NCR_J.HOKOKU_NO
         _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_CAR_STAGE._10_起草入力
         _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
         _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
@@ -1578,7 +1442,7 @@ Public Class FrmG0012
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
         sbSQL.Append(" )")
-        sbSQL.Append("OUTPUT $action AS RESULT") 'INSERT OR UPDATE をncarchar(10)で取得する場合
+        sbSQL.Append("OUTPUT $action AS RESULT")
         sbSQL.Append(";")
         Dim strRET As String
         strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
@@ -1637,9 +1501,9 @@ Public Class FrmG0012
         Dim dlgRET As DialogResult
 
         Try
-            frmDLG.PrSYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-            frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
-            frmDLG.PrBUMON_KB = _D003_NCR_J.BUMON_KB
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+            frmDLG.PrHOKOKU_NO = _V002_NCR_J.HOKOKU_NO
+            frmDLG.PrBUMON_KB = _V002_NCR_J.BUMON_KB
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
 
@@ -1668,8 +1532,8 @@ Public Class FrmG0012
         Dim dlgRET As DialogResult
 
         Try
-            frmDLG.PrSYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-            frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+            frmDLG.PrHOKOKU_NO = _V002_NCR_J.HOKOKU_NO
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
@@ -1698,6 +1562,7 @@ Public Class FrmG0012
         'Dim intRET As Integer
 
         Try
+            Me.Cursor = Cursors.WaitCursor
 
             'ファイル名
             strOutputFileName = "CAR_" & _D005_CAR_J.HOKOKU_NO & "_Work.xls"
@@ -1727,7 +1592,7 @@ Public Class FrmG0012
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
-
+            Me.Cursor = Cursors.Default
         End Try
     End Function
 
@@ -2138,8 +2003,7 @@ Public Class FrmG0012
             lblKYOIKU_FILE_PATH.Links.Clear()
             lblKYOIKU_FILE_PATH.Links.Add(0, lblKYOIKU_FILE_PATH.Text.Length, ofd.FileName)
 
-            _D003_NCR_J.FILE_PATH = ofd.FileName
-            'lbltmpFile1.Tag = ofd.FileName
+            _D005_CAR_J.KYOIKU_FILE_PATH = IO.Path.GetFileName(ofd.FileName)
             lblKYOIKU_FILE_PATH.Visible = True
             lblKYOIKU_FILE_PATH_Clear.Visible = True
         End If
@@ -2196,16 +2060,11 @@ Public Class FrmG0012
     'リンククリア
     Private Sub lblKYOIKU_FILE_PATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblKYOIKU_FILE_PATH_Clear.LinkClicked
         lblKYOIKU_FILE_PATH.Text = ""
-        lblKYOIKU_FILE_PATH.Tag = ""
         lblKYOIKU_FILE_PATH.Links.Clear()
         lblKYOIKU_FILE_PATH.Visible = False
         lblKYOIKU_FILE_PATH_Clear.Visible = False
     End Sub
 
-    Private Sub ProcessExited(ByVal sender As Object, ByVal e As EventArgs)
-        'Call SetTaskbarOverlayIcon(Nothing)
-        'Call SetTaskbarInfo(ENM_TASKBAR_STATE._0_NoProgress)
-    End Sub
 #End Region
 
 #End Region
@@ -2229,7 +2088,7 @@ Public Class FrmG0012
             lblSYOSAI_FILE_PATH.Links.Clear()
             lblSYOSAI_FILE_PATH.Links.Add(0, lblSYOSAI_FILE_PATH.Text.Length, ofd.FileName)
 
-            _D005_CAR_J.KYOIKU_FILE_PATH = ofd.FileName
+            _D005_CAR_J.SYOSAI_FILE_PATH = IO.Path.GetFileName(ofd.FileName)
             lblSYOSAI_FILE_PATH.Visible = True
             lblSYOSAI_FILE_PATH_Clear.Visible = True
         End If
@@ -2314,14 +2173,14 @@ Public Class FrmG0012
             lbltmpFile1.Links.Clear()
             lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, ofd.FileName)
 
-            _D005_CAR_J.FILE_PATH1 = ofd.FileName
+            _D005_CAR_J.FILE_PATH1 = IO.Path.GetFileName(ofd.FileName)
             lbltmpFile1.Visible = True
             lbltmpFile1_Clear.Visible = True
         End If
     End Sub
 
     'リンククリック
-    Private Sub lbltmpFile1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1.LinkClicked
+    Private Sub LbltmpFile1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1.LinkClicked
         Dim hProcess As New System.Diagnostics.Process
         Dim strEXE As String
         'Dim strARG As String
@@ -2396,8 +2255,7 @@ Public Class FrmG0012
             lbltmpFile2.Links.Clear()
             lbltmpFile2.Links.Add(0, lbltmpFile2.Text.Length, ofd.FileName)
 
-            _D005_CAR_J.FILE_PATH2 = ofd.FileName
-            'lbltmpFile1.Tag = ofd.FileName
+            _D005_CAR_J.FILE_PATH2 = IO.Path.GetFileName(ofd.FileName)
             lbltmpFile2.Visible = True
             lbltmpFile2_Clear.Visible = True
         End If
@@ -2586,8 +2444,6 @@ Public Class FrmG0012
             mtxFUTEKIGO_KB.Text = _V002_NCR_J.FUTEKIGO_NAME
             mtxFUTEKIGO_S_KB.Text = _V002_NCR_J.FUTEKIGO_S_NAME
             mtxCurrentStageName.Text = FunGetLastStageName(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO)
-
-            'UNDONE: 申請先テキストバインド解除
             mtxUPD_YMD.Text = Now.ToString("yyyy/MM/dd")
             mtxNextStageName.Text = FunGetNextStageName(PrCurrentStage)
 
@@ -2599,7 +2455,6 @@ Public Class FrmG0012
             cmbKAITO_5.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbKAITO_10.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbKAITO_17.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            'UNDONE: バインド上書き
             cmbSYOCHI_A_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbSYOCHI_B_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbSYOCHI_C_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -2639,7 +2494,6 @@ Public Class FrmG0012
             Return False
         End Try
     End Function
-
 
     Private Function FunSetSETUMON_NAIYO() As Boolean
         Try
@@ -2681,7 +2535,7 @@ Public Class FrmG0012
             _V002_NCR_J.Clear()
             _V002_NCR_J = FunGetV002Model(PrHOKOKU_NO)
 
-            _V003_SYONIN_J_KANRI_List = FunGetV003Model(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO)
+            _V003_SYONIN_J_KANRI_List = FunGetV003Model(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, PrHOKOKU_NO)
 
             _D005_CAR_J.Clear()
             _V005_CAR_J = FunGetV005Model(PrHOKOKU_NO)
@@ -2751,9 +2605,9 @@ Public Class FrmG0012
             _D005_CAR_J.SYOCHI_B_YMDHNS = _V005_CAR_J.SYOCHI_B_YMDHNS
             _D005_CAR_J.SYOCHI_C_SYAIN_ID = _V005_CAR_J.SYOCHI_C_SYAIN_ID
             _D005_CAR_J.SYOCHI_C_YMDHNS = _V005_CAR_J.SYOCHI_C_YMDHNS
-            _D005_CAR_J.KYOIKU_FILE_PATH = _V005_CAR_J.KYOIKU_FILE_PATH
+
             _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = _V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU
-            _D005_CAR_J.SYOSAI_FILE_PATH = _V005_CAR_J.SYOSAI_FILE_PATH
+
             _D005_CAR_J.GOKI = _V005_CAR_J.GOKI
             _D005_CAR_J.LOT = _V005_CAR_J.LOT
             _D005_CAR_J.KENSA_TANTO_ID = _V005_CAR_J.KENSA_TANTO_ID
@@ -2767,6 +2621,44 @@ Public Class FrmG0012
             _D005_CAR_J.DEL_SYAIN_ID = _V005_CAR_J.DEL_SYAIN_ID
             _D005_CAR_J.DEL_YMDHNS = _V005_CAR_J.DEL_YMDHNS
 
+
+            '添付ファイル
+            Dim strRootDir As String
+            Using DB As ClsDbUtility = DBOpen()
+                strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
+            End Using
+            If Not _D005_CAR_J.KYOIKU_FILE_PATH.IsNullOrWhiteSpace Then
+                _D005_CAR_J.KYOIKU_FILE_PATH = _V005_CAR_J.KYOIKU_FILE_PATH
+                lblKYOIKU_FILE_PATH.Text = CompactString(_V005_CAR_J.KYOIKU_FILE_PATH, lblKYOIKU_FILE_PATH, EllipsisFormat._4_Path)
+                lblKYOIKU_FILE_PATH.Links.Clear()
+                lblKYOIKU_FILE_PATH.Links.Add(0, lblKYOIKU_FILE_PATH.Text.Length, strRootDir & _V005_CAR_J.HOKOKU_NO.Trim & "\" & _V005_CAR_J.KYOIKU_FILE_PATH)
+                lblKYOIKU_FILE_PATH.Visible = True
+                lblKYOIKU_FILE_PATH_Clear.Visible = True
+            End If
+            If Not _D005_CAR_J.SYOSAI_FILE_PATH.IsNullOrWhiteSpace Then
+                _D005_CAR_J.SYOSAI_FILE_PATH = _V005_CAR_J.SYOSAI_FILE_PATH
+                lblSYOSAI_FILE_PATH.Text = CompactString(_V005_CAR_J.SYOSAI_FILE_PATH, lblKYOIKU_FILE_PATH, EllipsisFormat._4_Path)
+                lblSYOSAI_FILE_PATH.Links.Clear()
+                lblSYOSAI_FILE_PATH.Links.Add(0, lblSYOSAI_FILE_PATH.Text.Length, strRootDir & _V005_CAR_J.HOKOKU_NO.Trim & "\" & _V005_CAR_J.SYOSAI_FILE_PATH)
+                lblSYOSAI_FILE_PATH.Visible = True
+                lblSYOSAI_FILE_PATH_Clear.Visible = True
+            End If
+            If Not _D005_CAR_J.FILE_PATH1.IsNullOrWhiteSpace Then
+                _D005_CAR_J.FILE_PATH1 = _V005_CAR_J.FILE_PATH1
+                lbltmpFile1.Text = CompactString(_V005_CAR_J.FILE_PATH1, lbltmpFile1, EllipsisFormat._4_Path)
+                lbltmpFile1.Links.Clear()
+                lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, strRootDir & _V005_CAR_J.HOKOKU_NO.Trim & "\" & _V005_CAR_J.FILE_PATH1)
+                lbltmpFile1.Visible = True
+                lbltmpFile1_Clear.Visible = True
+            End If
+            If Not _D005_CAR_J.FILE_PATH2.IsNullOrWhiteSpace Then
+                _D005_CAR_J.FILE_PATH2 = _V005_CAR_J.FILE_PATH2
+                lbltmpFile2.Text = CompactString(_V005_CAR_J.FILE_PATH2, lbltmpFile2, EllipsisFormat._4_Path)
+                lbltmpFile2.Links.Clear()
+                lbltmpFile2.Links.Add(0, lbltmpFile2.Text.Length, strRootDir & _V005_CAR_J.HOKOKU_NO.Trim & "\" & _V005_CAR_J.FILE_PATH2)
+                lbltmpFile2.Visible = True
+                lbltmpFile2_Clear.Visible = True
+            End If
 
             '原因分析区分
             _D006_CAR_GENIN_List.Clear()
@@ -2866,67 +2758,6 @@ Public Class FrmG0012
     End Function
 
     ''' <summary>
-    ''' 承認順Noから該当するタブNoを取得
-    ''' </summary>
-    ''' <param name="intSYONIN_JUN">承認順No</param>
-    ''' <returns></returns>
-    Private Function FunConvertSYONIN_JUN_TO_STAGE_NO(ByVal intSYONIN_JUN As Integer) As Integer
-        Dim intStageTabNo As Integer
-        Select Case intSYONIN_JUN
-            Case ENM_NCR_STAGE._10_起草入力
-                intStageTabNo = 1
-            Case ENM_NCR_STAGE._20_起草確認製造GL
-                intStageTabNo = 2
-            Case ENM_NCR_STAGE._30_起草確認検査
-                intStageTabNo = 3
-            Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
-                intStageTabNo = 4
-            Case ENM_NCR_STAGE._50_事前審査確認
-                intStageTabNo = 5
-            Case ENM_NCR_STAGE._60_再審審査判定_技術代表, ENM_NCR_STAGE._61_再審審査判定_品証代表
-                intStageTabNo = 6
-            Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
-                intStageTabNo = 7
-            Case ENM_NCR_STAGE._80_処置実施, ENM_NCR_STAGE._81_処置実施_生技, ENM_NCR_STAGE._82_処置実施_製造, ENM_NCR_STAGE._83_処置実施_検査
-                intStageTabNo = 8
-            Case ENM_NCR_STAGE._90_処置実施確認_管理T
-                intStageTabNo = 9
-            Case ENM_NCR_STAGE._100_処置実施決裁_製造課長
-                intStageTabNo = 10
-            Case ENM_NCR_STAGE._110_abcde処置担当
-                intStageTabNo = 11
-            Case ENM_NCR_STAGE._120_abcde処置確認
-                intStageTabNo = 12
-            Case Else
-                intStageTabNo = 15
-        End Select
-
-        Return intStageTabNo
-    End Function
-
-    ''' <summary>
-    ''' 申請先社員IDを取得
-    ''' </summary>
-    ''' <param name="intCurrentStageID"></param>
-    ''' <returns></returns>
-    Private Function FunGetNextSYONIN_TANTO_ID(ByVal intCurrentStageID As Integer) As Integer
-        Try
-
-            Dim currentStageTabNo As String = FunConvertSYONIN_JUN_TO_STAGE_NO(intCurrentStageID).ToString("00")
-            Dim ctrl As Control() = Me.Controls.Find("cmbST" & currentStageTabNo & "_DestTANTO", True)
-            Dim cmbTANTO As ComboboxEx = ctrl(0)
-
-            If cmbTANTO IsNot Nothing Then
-                Return cmbTANTO.SelectedValue
-            Else
-                Return 0
-            End If
-        Catch ex As Exception
-            Throw
-        End Try
-    End Function
-
-    ''' <summary>
     ''' 次ステージの承認順Noを取得
     ''' </summary>
     ''' <param name="intCurrentStageID">現ステージID</param>
@@ -2934,90 +2765,8 @@ Public Class FrmG0012
     Private Function FunGetNextSYONIN_JUN(ByVal intCurrentStageID As Integer) As Integer
         Try
 
-            Dim intNextStageID As Integer
-            'UNDONE:
             Return intCurrentStageID + 10
 
-            Select Case intCurrentStageID
-
-
-                ''SPEC: 50-3 50以降の承認順遷移
-                'Select Case intCurrentStageID
-                '    Case Is < ENM_NCR_STAGE._50_事前審査確認
-                '        '50以前の場合は登録順番通り
-
-                '        Dim drList As List(Of DataRow) = tblNCR.AsEnumerable().
-                '                                        Where(Function(r) Val(r.Field(Of Integer)("VALUE")) > intCurrentStageID).ToList
-                '        If drList.Count > 0 Then
-                '            intNextStageID = Val(drList(0).Item("VALUE"))
-                '        End If
-                '    Case ENM_NCR_STAGE._50_事前審査確認
-                '        '登録内容に応じて流動的に変化
-                '        Select Case _D003_NCR_J.JIZEN_SINSA_HANTEI_KB
-                '            Case ENM_JIZEN_SINSA_HANTEI_KB._0_完成する, ENM_JIZEN_SINSA_HANTEI_KB._1_そのまま使用可
-                '                intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
-                '            Case ENM_JIZEN_SINSA_HANTEI_KB._2_再審委員会送り
-                '                intNextStageID = ENM_NCR_STAGE._60_再審審査判定_技術代表
-                '            Case ENM_JIZEN_SINSA_HANTEI_KB._3_顧客再審申請
-                '                intNextStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag
-                '            Case ENM_JIZEN_SINSA_HANTEI_KB._4_廃却する, ENM_JIZEN_SINSA_HANTEI_KB._5_返却する, ENM_JIZEN_SINSA_HANTEI_KB._6_転用する, ENM_JIZEN_SINSA_HANTEI_KB._7_再加工する
-                '                intNextStageID = ENM_NCR_STAGE._80_処置実施
-                '            Case Else
-                '                'Err
-                '        End Select
-
-                '    Case ENM_NCR_STAGE._60_再審審査判定_技術代表
-                '        intNextStageID = ENM_NCR_STAGE._61_再審審査判定_品証代表
-
-                '    Case ENM_NCR_STAGE._61_再審審査判定_品証代表
-
-                '        Select Case _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB
-                '            Case ENM_SAISIN_IINKAI_HANTEI_KB._0_完成する, ENM_SAISIN_IINKAI_HANTEI_KB._1_そのまま使用可
-                '                intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
-                '            Case ENM_SAISIN_IINKAI_HANTEI_KB._2_顧客再審申請
-                '                intNextStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag
-                '            Case ENM_SAISIN_IINKAI_HANTEI_KB._3_廃却する, ENM_SAISIN_IINKAI_HANTEI_KB._4_返却する, ENM_SAISIN_IINKAI_HANTEI_KB._5_転用する, ENM_SAISIN_IINKAI_HANTEI_KB._6_再加工する
-                '                intNextStageID = ENM_NCR_STAGE._80_処置実施
-                '            Case Else
-                '                'Err
-                '        End Select
-
-                '    Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
-                '        If _D003_NCR_J.SAIKAKO_SIJI_FG Then
-                '            intNextStageID = ENM_NCR_STAGE._80_処置実施
-                '        Else
-                '            intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
-                '        End If
-
-                '    Case ENM_NCR_STAGE._80_処置実施
-                '        If _D003_NCR_J.SAIKAKO_SIJI_FG Then
-                '            intNextStageID = ENM_NCR_STAGE._81_処置実施_生技
-                '        Else
-                '            intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
-                '        End If
-
-                '    Case ENM_NCR_STAGE._81_処置実施_生技
-                '        intNextStageID = ENM_NCR_STAGE._82_処置実施_製造
-
-                '    Case ENM_NCR_STAGE._82_処置実施_製造
-                '        intNextStageID = ENM_NCR_STAGE._83_処置実施_検査
-
-                '    Case ENM_NCR_STAGE._83_処置実施_検査
-                '        intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
-
-                '    Case ENM_NCR_STAGE._90_処置実施確認_管理T
-                '        intNextStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長
-
-                '    Case ENM_NCR_STAGE._100_処置実施決裁_製造課長
-                '        intNextStageID = ENM_NCR_STAGE._110_abcde処置担当
-                '    Case ENM_NCR_STAGE._110_abcde処置担当
-                '        intNextStageID = ENM_NCR_STAGE._120_abcde処置確認
-
-                '    Case Else
-
-            End Select
-
-            Return intNextStageID
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return 0
