@@ -1,6 +1,8 @@
 Imports JMS_COMMON.ClsPubMethod
 
-
+''' <summary>
+''' 原因分析区分選択画面(人要因)
+''' </summary>
 Public Class FrmG0013
 
 #Region "コンストラクタ"

@@ -286,16 +286,16 @@ Public Class FrmG0012
             Else
                 Try
                     System.IO.Directory.CreateDirectory(strRootDir & _D005_CAR_J.HOKOKU_NO)
-                    If Not _D005_CAR_J.KYOIKU_FILE_PATH.IsNullOrWhiteSpace AndAlso _D005_CAR_J.KYOIKU_FILE_PATH <> System.IO.Path.GetFileName(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH) Then
+                    If Not _D005_CAR_J.KYOIKU_FILE_PATH.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH) Then
                         System.IO.File.Copy(lblKYOIKU_FILE_PATH.Links.Item(0).LinkData(0), strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH, True)
                     End If
-                    If Not _D005_CAR_J.SYOSAI_FILE_PATH.IsNullOrWhiteSpace AndAlso _D005_CAR_J.SYOSAI_FILE_PATH <> System.IO.Path.GetFileName(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH) Then
+                    If Not _D005_CAR_J.SYOSAI_FILE_PATH.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH) Then
                         System.IO.File.Copy(lblKYOIKU_FILE_PATH.Links.Item(0).LinkData(0), strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH, True)
                     End If
-                    If Not _D005_CAR_J.FILE_PATH1.IsNullOrWhiteSpace AndAlso _D005_CAR_J.FILE_PATH1 <> System.IO.Path.GetFileName(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1) Then
+                    If Not _D005_CAR_J.FILE_PATH1.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1) Then
                         System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData(0), strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1, True)
                     End If
-                    If Not _D005_CAR_J.FILE_PATH2.IsNullOrWhiteSpace AndAlso _D005_CAR_J.FILE_PATH2 <> System.IO.Path.GetFileName(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2) Then
+                    If Not _D005_CAR_J.FILE_PATH2.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2) Then
                         System.IO.File.Copy(lbltmpFile2.Links.Item(0).LinkData(0), strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2, True)
                     End If
 

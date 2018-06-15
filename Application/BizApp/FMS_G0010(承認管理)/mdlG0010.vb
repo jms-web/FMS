@@ -728,9 +728,8 @@ Module mdlG0010
                 sbSQL.Append(" ,MAIL_ADDRESS")
                 sbSQL.Append(" FROM " & NameOf(MODEL.M004_SYAIN) & " ")
                 sbSQL.Append(" WHERE SYAIN_ID=" & ToSYAIN_ID & "")
-                Using DBa As ClsDbUtility = DBOpen()
-                    dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
-                End Using
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+
                 If dsList.Tables(0).Rows.Count > 0 Then
                     strToAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
                     strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI")
@@ -745,60 +744,52 @@ Module mdlG0010
                 sbSQL.Append(" ,MAIL_ADDRESS")
                 sbSQL.Append(" FROM " & NameOf(MODEL.M004_SYAIN) & " ")
                 sbSQL.Append(" WHERE SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID & "")
-                Using DBa As ClsDbUtility = DBOpen()
-                    dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
-                End Using
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
                 If dsList.Tables(0).Rows.Count > 0 Then
-                    strFromAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
 #If DEBUG Then
-                    'strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
-                    'DEBUG: mail送信無効
-                    'strToAddress = "funato@jms-web.co.jp"
+                    strToAddress = "funato@jms-web.co.jp"
+                    strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
                     'strToAddress = "i2u5r6p1d7l9o6s3@jms-web.slack.com"
 #Else
                     strFromAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
 #End If
-
                     strFromSyainName = dsList.Tables(0).Rows(0).Item("SIMEI")
                 Else
                     Return False
                 End If
             End Using
 
-
             strMsg = String.Format("【メール送信成功】TO:{0}({1}) SUBJECT:{2}", strToSyainName, strToAddress, strSubject)
             WL.WriteLogDat(strMsg)
 
             'DEBUG:
-
             Return True
 
-
-            ''認証なし
-            blnSend = ClsMailSend.FunSendMail(strSmtpServer,
-                           intSmtpPort,
-                           strFromAddress,
-                           strToAddress,
-                           CCAddress:=strFromAddress,
-                           BCCAddress:="",
-                           strSubject:=strSubject,
-                           strBody:=strBody,
-                           strAttachment:="",
-                           strFromName:="不適合管理システム")
-
-            '認証あり
-            'blnSend = ClsMailSend.FunSendMailoverAUTH(strSmtpServer,
+            ''認証なし フジワラ
+            'blnSend = ClsMailSend.FunSendMail(strSmtpServer,
             '               intSmtpPort,
-            '               strUserID,
-            '               strPassword,
             '               strFromAddress,
             '               strToAddress,
-            '               strFromAddress,
-            '               "",
-            '               strSubject,
-            '               strBody,
-            '               "",
-            '               "不適合管理システム")
+            '               CCAddress:=strFromAddress,
+            '               BCCAddress:="",
+            '               strSubject:=strSubject,
+            '               strBody:=strBody,
+            '               strAttachment:="",
+            '               strFromName:="不適合管理システム")
+
+            '認証あり JMS
+            blnSend = ClsMailSend.FunSendMailoverAUTH(strSmtpServer,
+                           intSmtpPort,
+                           strUserID,
+                           strPassword,
+                           strFromAddress,
+                           strToAddress,
+                           strFromAddress,
+                           "",
+                           strSubject,
+                           strBody,
+                           "",
+                           "不適合管理システム")
 
             Return blnSend
         Catch ex As Exception
@@ -1057,6 +1048,10 @@ Module mdlG0010
 
             ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._120_abcde処置確認).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._120_abcde処置確認).FirstOrDefault?.UPD_SYAIN_NAME
 
+            Dim strRootDir As String
+            Using DB As ClsDbUtility = DBOpen()
+                strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
+            End Using
 
             '画像表示
             Dim top As Double
@@ -1064,7 +1059,7 @@ Module mdlG0010
             Dim width As Double
             Dim height As Double
             If Not _V002_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace Then
-                Using img = Image.FromFile(_V002_NCR_J.G_FILE_PATH1)
+                Using img = Image.FromFile(strRootDir & _V002_NCR_J.HOKOKU_NO.Trim & "\" & _V002_NCR_J.G_FILE_PATH1)
                     Dim windowInfo As SpreadsheetGear.IWorksheetWindowInfo = ssgSheet1.WindowInfo
                     '何行目
                     top = windowInfo.RowToPoints(7.2)
@@ -1074,11 +1069,11 @@ Module mdlG0010
                     width = windowInfo.ColumnToPoints(5.5) 'img.Width * 72 / img.HorizontalResolution
                     height = windowInfo.RowToPoints(4) 'img.Height * 72 / img.VerticalResolution
                 End Using
-                ssgSheet1.Shapes.AddPicture(_V002_NCR_J.G_FILE_PATH1, left, top, width, height)
+                ssgSheet1.Shapes.AddPicture(strRootDir & _V002_NCR_J.HOKOKU_NO.Trim & "\" & _V002_NCR_J.G_FILE_PATH1, left, top, width, height)
             End If
 
             If Not _V002_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace Then
-                Using img = Image.FromFile(_V002_NCR_J.G_FILE_PATH2)
+                Using img = Image.FromFile(strRootDir & _V002_NCR_J.HOKOKU_NO.Trim & "\" & _V002_NCR_J.G_FILE_PATH2)
                     Dim windowInfo As SpreadsheetGear.IWorksheetWindowInfo = ssgSheet1.WindowInfo
                     '何行目
                     top = windowInfo.RowToPoints(7.2 + 9)
@@ -1088,7 +1083,7 @@ Module mdlG0010
                     width = windowInfo.ColumnToPoints(5.5) 'img.Width * 72 / img.HorizontalResolution
                     height = windowInfo.RowToPoints(4) 'img.Height * 72 / img.VerticalResolution
                 End Using
-                ssgSheet1.Shapes.AddPicture(_V002_NCR_J.G_FILE_PATH2, left, top, width, height)
+                ssgSheet1.Shapes.AddPicture(strRootDir & _V002_NCR_J.HOKOKU_NO.Trim & "\" & _V002_NCR_J.G_FILE_PATH2, left, top, width, height)
             End If
 
             '-----ファイル保存
@@ -1110,7 +1105,7 @@ Module mdlG0010
 
             'Excel作業ファイルを削除
             Try
-                'System.IO.File.Delete(strFilePath)
+                System.IO.File.Delete(strFilePath)
             Catch ex As UnauthorizedAccessException
             End Try
 
@@ -1180,6 +1175,7 @@ Module mdlG0010
             If Not _V005_CAR_J.KAITO_20.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_20)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_20, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
+
             '現状未使用のフィールド
             'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_21)).Value = _V005_CAR_J.KAITO_21
             'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_22)).Value = _V005_CAR_J.KAITO_22
@@ -1206,38 +1202,38 @@ Module mdlG0010
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_C_SYAIN_NAME)).Value = _V005_CAR_J.SYOCHI_C_SYAIN_NAME
             spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME10)).Value = _V005_CAR_J.SYONIN_NAME10
-            spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME20)).Value = _V005_CAR_J.SYONIN_NAME20
-            spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME30)).Value = _V005_CAR_J.SYONIN_NAME30
-            spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME40)).Value = _V005_CAR_J.SYONIN_NAME40
-            spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME50)).Value = _V005_CAR_J.SYONIN_NAME50
-            spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME60)).Value = _V005_CAR_J.SYONIN_NAME60
-            spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME90)).Value = _V005_CAR_J.SYONIN_NAME90
-            spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME100)).Value = _V005_CAR_J.SYONIN_NAME100
-            spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME120)).Value = _V005_CAR_J.SYONIN_NAME120
 
             If Not _V005_CAR_J.SYONIN_YMD20.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD20)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD20, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME20)).Value = _V005_CAR_J.SYONIN_NAME20
             End If
             If Not _V005_CAR_J.SYONIN_YMD30.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD30)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD30, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME30)).Value = _V005_CAR_J.SYONIN_NAME30
             End If
             If Not _V005_CAR_J.SYONIN_YMD40.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD40)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD40, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME40)).Value = _V005_CAR_J.SYONIN_NAME40
             End If
             If Not _V005_CAR_J.SYONIN_YMD50.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD50)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD50, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME50)).Value = _V005_CAR_J.SYONIN_NAME50
             End If
             If Not _V005_CAR_J.SYONIN_YMD60.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD60)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD60, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME60)).Value = _V005_CAR_J.SYONIN_NAME60
             End If
             If Not _V005_CAR_J.SYONIN_YMD90.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD90)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD90, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME90)).Value = _V005_CAR_J.SYONIN_NAME90
             End If
             If Not _V005_CAR_J.SYONIN_YMD100.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD100)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD100, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME100)).Value = _V005_CAR_J.SYONIN_NAME100
             End If
             If Not _V005_CAR_J.SYONIN_YMD120.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD120)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD120, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME120)).Value = _V005_CAR_J.SYONIN_NAME120
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.SYOSAI_FILE_PATH)).Value = _V005_CAR_J.SYOSAI_FILE_PATH
             spSheet1.Range(NameOf(_V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU_NAME)).Value = _V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU_NAME
@@ -1253,15 +1249,12 @@ Module mdlG0010
             pdfFilePath = System.IO.Path.GetDirectoryName(strFilePath) & "\" & System.IO.Path.GetFileNameWithoutExtension(strFilePath) & ".pdf"
             workbook.SaveToFile(pdfFilePath, Spire.Xls.FileFormat.PDF)
 
-            ''PDF表示
+            'PDF表示
             System.Diagnostics.Process.Start(pdfFilePath)
-
-            'Excel起動
-            'Return FunOpenExcelApp(strFilePath)
 
             'Excel作業ファイルを削除
             Try
-                'System.IO.File.Delete(strFilePath)
+                System.IO.File.Delete(strFilePath)
             Catch ex As UnauthorizedAccessException
             End Try
 

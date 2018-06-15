@@ -1548,6 +1548,13 @@ Public Class FrmG0010
         Me.cmdFunc1.PerformClick()
     End Sub
 
+#Region "検索条件クリア"
+    Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click, btnClearSrchFilter2.Click, btnClearSrchFilter3.Click
+        ParamModel.Clear()
+        chkDleteRowVisibled.Checked = False
+    End Sub
+#End Region
+
 #Region "共通検索条件"
 
 #Region "製品区分(部門区分)"
@@ -1775,13 +1782,6 @@ Public Class FrmG0010
         AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
     End Sub
 
-#End Region
-
-#Region "検索条件クリア"
-    Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click, btnClearSrchFilter2.Click, btnClearSrchFilter3.Click
-        ParamModel.Clear()
-        chkDleteRowVisibled.Checked = False
-    End Sub
 #End Region
 
 #End Region

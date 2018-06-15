@@ -41,6 +41,7 @@ Public Class ST02_ParamModel
         KISEKI_KOTEI_KB = ""
         GENIN1 = ""
         GENIN2 = ""
+
     End Sub
 
     'インデクサプロパティ

@@ -319,7 +319,6 @@ Public Class FrmG0011
                 Try '-----トランザクション
                     DB.BeginTransaction()
 
-
                     Select Case PrCurrentStage
                         Case ENM_NCR_STAGE._81_処置実施_生技 To ENM_NCR_STAGE._100_処置実施決裁_製造課長
                             'データは更新しない
@@ -391,16 +390,15 @@ Public Class FrmG0011
             Else
                 Try
                     System.IO.Directory.CreateDirectory(strRootDir & _D003_NCR_J.HOKOKU_NO)
-
-                    If Not _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace AndAlso _D003_NCR_J.FILE_PATH <> System.IO.Path.GetFileName(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH) Then
+                    If Not _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH) Then
                         System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData(0), strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH, True)
                         '_D003_NCR_J.FILE_PATH = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.FILE_PATH)
                     End If
-                    If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace AndAlso _D003_NCR_J.G_FILE_PATH1 <> System.IO.Path.GetFileName(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1) Then
+                    If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1) Then
                         System.IO.File.Copy(lblPict1Path.Links.Item(0).LinkData(0), strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1, True)
                         '_D003_NCR_J.G_FILE_PATH1 = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH1)
                     End If
-                    If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace AndAlso _D003_NCR_J.G_FILE_PATH2 <> System.IO.Path.GetFileName(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2) Then
+                    If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2) Then
                         System.IO.File.Copy(lblPict2Path.Links.Item(0).LinkData(0), strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2, True)
                         '_D003_NCR_J.G_FILE_PATH2 = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH2)
                     End If
@@ -4190,7 +4188,7 @@ Public Class FrmG0011
         Try
             pnlPict1.Cursor = Cursors.Hand
 
-            lblPict1Path.Text = CompactString(strFileName(0), lblPict1Path, EllipsisFormat._4_Path) 'IO.Path.GetFileName(strFileName)
+            lblPict1Path.Text = CompactString(IO.Path.GetFileName(strFileName(0)), lblPict1Path, EllipsisFormat._4_Path) 'IO.Path.GetFileName(strFileName)
             'lblPict1Path.Tag = strFileName(0)
             _D003_NCR_J.G_FILE_PATH1 = IO.Path.GetFileName(strFileName(0))
             lblPict1Path.Links.Clear()
@@ -4279,7 +4277,7 @@ Public Class FrmG0011
         Try
             pnlPict2.Cursor = Cursors.Hand
 
-            lblPict2Path.Text = CompactString(strFileName(0), lblPict2Path, EllipsisFormat._4_Path) 'IO.Path.GetFileName(strFileName)
+            lblPict2Path.Text = CompactString(IO.Path.GetFileName(strFileName(0)), lblPict2Path, EllipsisFormat._4_Path) 'IO.Path.GetFileName(strFileName)
             'lblPict2Path.Tag = strFileName(0)
             _D003_NCR_J.G_FILE_PATH2 = IO.Path.GetFileName(strFileName(0))
             lblPict2Path.Links.Clear()
