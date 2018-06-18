@@ -84,7 +84,8 @@ Partial Public Class D005_CAR_J
         SYOCHI_C_SYAIN_ID = 0
         SYOCHI_C_YMDHNS = ""
         KYOIKU_FILE_PATH = ""
-        ZESEI_SYOCHI_YUKO_UMU = "0"
+        ZESEI_SYOCHI_YUKO_UMU = False
+
         SYOSAI_FILE_PATH = ""
         GOKI = ""
         LOT = ""
@@ -500,10 +501,24 @@ Partial Public Class D005_CAR_J
     Public Property KYOIKU_FILE_PATH As String
 
     <Required>
-    <Column(TypeName:="nvarchar")>
-    <StringLength(2)>
+    <StringLength(1)>
+    <Column(NameOf(ZESEI_SYOCHI_YUKO_UMU), TypeName:="char")>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("是正処置有効性有無")>
-    Public Property ZESEI_SYOCHI_YUKO_UMU As String
+    Public Property _ZESEI_SYOCHI_YUKO_UMU As String
+
+    <ComponentModel.DisplayName("是正処置有効性有無")>
+    <NotMapped>
+    Public Property ZESEI_SYOCHI_YUKO_UMU As Boolean
+        Get
+            Return IIf(_ZESEI_SYOCHI_YUKO_UMU = "0", False, True)
+        End Get
+        Set(value As Boolean)
+            _ZESEI_SYOCHI_YUKO_UMU = IIf(value, "1", "0")
+            'OnPropertyChanged(NameOf(CLOSE_FG))
+        End Set
+    End Property
+
 
     <Required>
     <Column(TypeName:="nvarchar")>

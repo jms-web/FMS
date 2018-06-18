@@ -589,6 +589,8 @@ Module mdlG0010
                 _model.KENSA_GL_SYAIN_ID = .Item(NameOf(_model.KENSA_GL_SYAIN_ID))
                 _model.KENSA_GL_SYAIN_NAME = .Item(NameOf(_model.KENSA_GL_SYAIN_NAME))
                 _model.KENSA_GL_YMDHNS = .Item(NameOf(_model.KENSA_GL_YMDHNS))
+                _model.FILE_PATH1 = .Item(NameOf(_model.FILE_PATH1))
+                _model.FILE_PATH2 = .Item(NameOf(_model.FILE_PATH2))
                 _model.ADD_SYAIN_ID = .Item(NameOf(_model.ADD_SYAIN_ID))
                 _model.ADD_SYAIN_NAME = .Item(NameOf(_model.ADD_SYAIN_NAME))
                 _model.ADD_YMDHNS = .Item(NameOf(_model.ADD_YMDHNS))

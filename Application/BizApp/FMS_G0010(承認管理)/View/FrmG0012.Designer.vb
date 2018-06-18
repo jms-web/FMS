@@ -152,7 +152,6 @@ Partial Class FrmG0012
         Me.Label38 = New System.Windows.Forms.Label()
         Me.Label73 = New System.Windows.Forms.Label()
         Me.tabCAR_SUB_2 = New System.Windows.Forms.TabPage()
-        Me.chkZESEI_SYOCHI_YUKO_UMU = New System.Windows.Forms.CheckBox()
         Me.fpnlSYOSAI_FILE_PATH = New System.Windows.Forms.FlowLayoutPanel()
         Me.lblSYOSAI_FILE_PATH = New System.Windows.Forms.LinkLabel()
         Me.lblSYOSAI_FILE_PATH_Clear = New System.Windows.Forms.LinkLabel()
@@ -182,6 +181,7 @@ Partial Class FrmG0012
         Me.Label81 = New System.Windows.Forms.Label()
         Me.dtKENSA_TOROKU = New JMS_COMMON.DateTextBoxEx()
         Me.Label75 = New System.Windows.Forms.Label()
+        Me.chkZESEI_SYOCHI_YUKO_UMU = New System.Windows.Forms.CheckBox()
         Me.tabCAR_SUB_3 = New System.Windows.Forms.TabPage()
         Me.fpnltmpFile2 = New System.Windows.Forms.FlowLayoutPanel()
         Me.lbltmpFile2 = New System.Windows.Forms.LinkLabel()
@@ -2344,7 +2344,6 @@ Partial Class FrmG0012
         '
         'tabCAR_SUB_2
         '
-        Me.tabCAR_SUB_2.Controls.Add(Me.chkZESEI_SYOCHI_YUKO_UMU)
         Me.tabCAR_SUB_2.Controls.Add(Me.fpnlSYOSAI_FILE_PATH)
         Me.tabCAR_SUB_2.Controls.Add(Me.btnOpenSYOSAI_FILE_PATH)
         Me.tabCAR_SUB_2.Controls.Add(Me.Label42)
@@ -2362,6 +2361,7 @@ Partial Class FrmG0012
         Me.tabCAR_SUB_2.Controls.Add(Me.Label81)
         Me.tabCAR_SUB_2.Controls.Add(Me.dtKENSA_TOROKU)
         Me.tabCAR_SUB_2.Controls.Add(Me.Label75)
+        Me.tabCAR_SUB_2.Controls.Add(Me.chkZESEI_SYOCHI_YUKO_UMU)
         Me.tabCAR_SUB_2.Location = New System.Drawing.Point(4, 26)
         Me.tabCAR_SUB_2.Name = "tabCAR_SUB_2"
         Me.tabCAR_SUB_2.Padding = New System.Windows.Forms.Padding(3)
@@ -2369,17 +2369,6 @@ Partial Class FrmG0012
         Me.tabCAR_SUB_2.TabIndex = 1
         Me.tabCAR_SUB_2.Text = "是正処置有効性レビュー"
         Me.tabCAR_SUB_2.UseVisualStyleBackColor = True
-        '
-        'chkZESEI_SYOCHI_YUKO_UMU
-        '
-        Me.chkZESEI_SYOCHI_YUKO_UMU.AutoSize = True
-        Me.chkZESEI_SYOCHI_YUKO_UMU.Location = New System.Drawing.Point(244, 10)
-        Me.chkZESEI_SYOCHI_YUKO_UMU.Name = "chkZESEI_SYOCHI_YUKO_UMU"
-        Me.chkZESEI_SYOCHI_YUKO_UMU.Size = New System.Drawing.Size(86, 21)
-        Me.chkZESEI_SYOCHI_YUKO_UMU.TabIndex = 272
-        Me.chkZESEI_SYOCHI_YUKO_UMU.Text = "chkZESEI"
-        Me.chkZESEI_SYOCHI_YUKO_UMU.UseVisualStyleBackColor = True
-        Me.chkZESEI_SYOCHI_YUKO_UMU.Visible = False
         '
         'fpnlSYOSAI_FILE_PATH
         '
@@ -2677,13 +2666,13 @@ Partial Class FrmG0012
         Me.rbtnZESEI_SYOCHI_YES.Name = "rbtnZESEI_SYOCHI_YES"
         Me.rbtnZESEI_SYOCHI_YES.Size = New System.Drawing.Size(39, 21)
         Me.rbtnZESEI_SYOCHI_YES.TabIndex = 0
-        Me.rbtnZESEI_SYOCHI_YES.TabStop = True
         Me.rbtnZESEI_SYOCHI_YES.Text = "有"
         Me.rbtnZESEI_SYOCHI_YES.UseVisualStyleBackColor = True
         '
         'rbtnZESEI_SYOCHI_NO
         '
         Me.rbtnZESEI_SYOCHI_NO.AutoSize = True
+        Me.rbtnZESEI_SYOCHI_NO.Checked = True
         Me.rbtnZESEI_SYOCHI_NO.Location = New System.Drawing.Point(48, 3)
         Me.rbtnZESEI_SYOCHI_NO.Name = "rbtnZESEI_SYOCHI_NO"
         Me.rbtnZESEI_SYOCHI_NO.Size = New System.Drawing.Size(39, 21)
@@ -2784,6 +2773,16 @@ Partial Class FrmG0012
         Me.Label75.TabIndex = 239
         Me.Label75.Text = "詳細資料No(有時):"
         Me.Label75.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'chkZESEI_SYOCHI_YUKO_UMU
+        '
+        Me.chkZESEI_SYOCHI_YUKO_UMU.AutoSize = True
+        Me.chkZESEI_SYOCHI_YUKO_UMU.Location = New System.Drawing.Point(146, 10)
+        Me.chkZESEI_SYOCHI_YUKO_UMU.Name = "chkZESEI_SYOCHI_YUKO_UMU"
+        Me.chkZESEI_SYOCHI_YUKO_UMU.Size = New System.Drawing.Size(86, 21)
+        Me.chkZESEI_SYOCHI_YUKO_UMU.TabIndex = 272
+        Me.chkZESEI_SYOCHI_YUKO_UMU.Text = "chkZESEI"
+        Me.chkZESEI_SYOCHI_YUKO_UMU.UseVisualStyleBackColor = True
         '
         'tabCAR_SUB_3
         '

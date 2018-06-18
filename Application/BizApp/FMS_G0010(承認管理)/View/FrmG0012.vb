@@ -39,6 +39,9 @@ Public Class FrmG0012
     ''' <returns></returns>
     Public Property PrGenin2 As New List(Of (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String))
 
+    'NCR編集画面から開かれているか
+    Public Property PrDialog As Boolean
+
 #End Region
 
 #Region "コンストラクタ"
@@ -216,6 +219,12 @@ Public Class FrmG0012
                                 Return False
                                 blnErr = True
                             End If
+                            If FunSAVE_D006(DB) Then
+                            Else
+                                Return False
+                                blnErr = True
+                            End If
+
                             If FunSAVE_FILE(DB) Then
                             Else
                                 Return False
@@ -230,11 +239,7 @@ Public Class FrmG0012
                         blnErr = True
                     End If
 
-                    If FunSAVE_D006(DB) Then
-                    Else
-                        Return False
-                        blnErr = True
-                    End If
+
 
                     '
                     If FunSAVE_R001(DB, enmSAVE_MODE) Then
@@ -287,16 +292,16 @@ Public Class FrmG0012
                 Try
                     System.IO.Directory.CreateDirectory(strRootDir & _D005_CAR_J.HOKOKU_NO)
                     If Not _D005_CAR_J.KYOIKU_FILE_PATH.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH) Then
-                        System.IO.File.Copy(lblKYOIKU_FILE_PATH.Links.Item(0).LinkData(0), strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH, True)
+                        System.IO.File.Copy(lblKYOIKU_FILE_PATH.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH, True)
                     End If
                     If Not _D005_CAR_J.SYOSAI_FILE_PATH.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH) Then
-                        System.IO.File.Copy(lblKYOIKU_FILE_PATH.Links.Item(0).LinkData(0), strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH, True)
+                        System.IO.File.Copy(lblSYOSAI_FILE_PATH.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH, True)
                     End If
                     If Not _D005_CAR_J.FILE_PATH1.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1) Then
-                        System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData(0), strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1, True)
+                        System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1, True)
                     End If
                     If Not _D005_CAR_J.FILE_PATH2.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2) Then
-                        System.IO.File.Copy(lbltmpFile2.Links.Item(0).LinkData(0), strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2, True)
+                        System.IO.File.Copy(lbltmpFile2.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2, True)
                     End If
 
                     Return True
@@ -399,7 +404,7 @@ Public Class FrmG0012
         sbSQL.Append(" ," & _D005_CAR_J.SYOCHI_C_SYAIN_ID & " AS " & NameOf(_D005_CAR_J.SYOCHI_C_SYAIN_ID))
         sbSQL.Append(" ,'" & _D005_CAR_J.SYOCHI_C_YMDHNS & "' AS " & NameOf(_D005_CAR_J.SYOCHI_C_YMDHNS))
         sbSQL.Append(" ,'" & _D005_CAR_J.KYOIKU_FILE_PATH & "' AS " & NameOf(_D005_CAR_J.KYOIKU_FILE_PATH))
-        sbSQL.Append(" ,'" & _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU & "' AS " & NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU))
+        sbSQL.Append(" ,'" & _D005_CAR_J._ZESEI_SYOCHI_YUKO_UMU & "' AS " & NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU))
         sbSQL.Append(" ,'" & _D005_CAR_J.SYOSAI_FILE_PATH & "' AS " & NameOf(_D005_CAR_J.SYOSAI_FILE_PATH))
         sbSQL.Append(" ,'" & _D005_CAR_J.GOKI & "' AS " & NameOf(_D005_CAR_J.GOKI))
         sbSQL.Append(" ,'" & _D005_CAR_J.LOT & "' AS " & NameOf(_D005_CAR_J.LOT))
@@ -407,6 +412,8 @@ Public Class FrmG0012
         sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_TOROKU_YMDHNS & "' AS " & NameOf(_D005_CAR_J.KENSA_TOROKU_YMDHNS))
         sbSQL.Append(" ," & _D005_CAR_J.KENSA_GL_SYAIN_ID & " AS " & NameOf(_D005_CAR_J.KENSA_GL_SYAIN_ID))
         sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_GL_YMDHNS & "' AS " & NameOf(_D005_CAR_J.KENSA_GL_YMDHNS))
+        sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH1 & "' AS " & NameOf(_D005_CAR_J.FILE_PATH1))
+        sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH2 & "' AS " & NameOf(_D005_CAR_J.FILE_PATH2))
         sbSQL.Append(" ," & _D005_CAR_J.ADD_SYAIN_ID & " AS " & NameOf(_D005_CAR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ,'" & _D005_CAR_J.ADD_YMDHNS & "' AS " & NameOf(_D005_CAR_J.ADD_YMDHNS))
         sbSQL.Append(" ," & _D005_CAR_J.UPD_SYAIN_ID & " AS " & NameOf(_D005_CAR_J.UPD_SYAIN_ID))
@@ -472,7 +479,7 @@ Public Class FrmG0012
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.ADD_YMDHNS) & " = WK." & NameOf(_D005_CAR_J.ADD_YMDHNS))
 
             Case ENM_CAR_STAGE._80_処置実施記録入力 To ENM_CAR_STAGE._90_処置実施確認
-                sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID) & " = WK." & NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID))
+                sbSQL.Append(" SrcT." & NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID) & " = WK." & NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.SYOCHI_A_YMDHNS) & " = WK." & NameOf(_D005_CAR_J.SYOCHI_A_YMDHNS))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.SYOCHI_B_SYAIN_ID) & " = WK." & NameOf(_D005_CAR_J.SYOCHI_B_SYAIN_ID))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.SYOCHI_B_YMDHNS) & " = WK." & NameOf(_D005_CAR_J.SYOCHI_B_YMDHNS))
@@ -481,7 +488,7 @@ Public Class FrmG0012
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.KYOIKU_FILE_PATH) & " = WK." & NameOf(_D005_CAR_J.KYOIKU_FILE_PATH))
 
             Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._110_是正有効性確認_検査GL
-                sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU) & " = WK." & NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU))
+                sbSQL.Append(" SrcT." & NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU) & " = WK." & NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.SYOSAI_FILE_PATH) & " = WK." & NameOf(_D005_CAR_J.SYOSAI_FILE_PATH))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.GOKI) & " = WK." & NameOf(_D005_CAR_J.GOKI))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.LOT) & " = WK." & NameOf(_D005_CAR_J.LOT))
@@ -495,6 +502,8 @@ Public Class FrmG0012
                 Return False
         End Select
 
+        sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.FILE_PATH1) & " = WK." & NameOf(_D005_CAR_J.FILE_PATH1))
+        sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.FILE_PATH2) & " = WK." & NameOf(_D005_CAR_J.FILE_PATH2))
         sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.UPD_SYAIN_ID) & " = WK." & NameOf(_D005_CAR_J.UPD_SYAIN_ID))
         sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.UPD_YMDHNS) & " = WK." & NameOf(_D005_CAR_J.UPD_YMDHNS))
 
@@ -573,6 +582,8 @@ Public Class FrmG0012
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KENSA_TOROKU_YMDHNS))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KENSA_GL_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KENSA_GL_YMDHNS))
+        sbSQL.Append(" ," & NameOf(_D005_CAR_J.FILE_PATH1))
+        sbSQL.Append(" ," & NameOf(_D005_CAR_J.FILE_PATH2))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.ADD_YMDHNS))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.UPD_SYAIN_ID))
@@ -652,6 +663,8 @@ Public Class FrmG0012
         sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_TOROKU_YMDHNS & "'")
         sbSQL.Append(" ," & _D005_CAR_J.KENSA_GL_SYAIN_ID & "")
         sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_GL_YMDHNS & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH1 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH2 & "'")
         sbSQL.Append(" ," & _D005_CAR_J.ADD_SYAIN_ID & "")
         sbSQL.Append(" ,'" & _D005_CAR_J.ADD_YMDHNS & "'")
         sbSQL.Append(" ," & _D005_CAR_J.UPD_SYAIN_ID & "")
@@ -1263,6 +1276,8 @@ Public Class FrmG0012
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KENSA_TOROKU_YMDHNS))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KENSA_GL_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KENSA_GL_YMDHNS))
+        sbSQL.Append(" ," & NameOf(_D005_CAR_J.FILE_PATH1))
+        sbSQL.Append(" ," & NameOf(_D005_CAR_J.FILE_PATH2))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.ADD_YMDHNS))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.UPD_SYAIN_ID))
@@ -1342,6 +1357,8 @@ Public Class FrmG0012
         sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_TOROKU_YMDHNS & "'")
         sbSQL.Append(" ," & _D005_CAR_J.KENSA_GL_SYAIN_ID & "")
         sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_GL_YMDHNS & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH1 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH2 & "'")
         sbSQL.Append(" ," & _D005_CAR_J.ADD_SYAIN_ID & "")
         sbSQL.Append(" ,'" & _D005_CAR_J.ADD_YMDHNS & "'")
         sbSQL.Append(" ," & _D005_CAR_J.UPD_SYAIN_ID & "")
@@ -1471,9 +1488,23 @@ Public Class FrmG0012
         Try
 
             frmDLG.PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE
+            frmDLG.PrDialog = True
 
-            'UNDONE: 
-            frmDLG.PrDataRow = PrDataRow
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
+
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append("SELECT")
+            sbSQL.Append(" HOKOKU_NO,SYONIN_JUN")
+            sbSQL.Append(" FROM " & NameOf(MODEL.V007_NCR_CAR) & " ")
+            sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & ENM_SYONIN_HOKOKUSYO_ID._1_NCR & "")
+            sbSQL.Append(" AND HOKOKU_NO='" & _D005_CAR_J.HOKOKU_NO & "'")
+            Using DB As ClsDbUtility = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+
+            frmDLG.PrDataRow = dsList.Tables(0).Rows(0)
 
 
             dlgRET = frmDLG.ShowDialog(Me)
@@ -1793,6 +1824,14 @@ Public Class FrmG0012
                 cmdFunc5.Enabled = False
             End If
 
+            If Not PrDialog Then
+                cmdFunc3.Enabled = True
+                MyBase.ToolTip.SetToolTip(Me.cmdFunc3, My.Resources.infoToolTipMsgNotFoundData)
+            Else
+                cmdFunc3.Enabled = False
+                MyBase.ToolTip.SetToolTip(Me.cmdFunc3, "既にNCR画面から呼び出されているため使用出来ません")
+            End If
+
             'SPEC: C10-3
             Select Case PrCurrentStage
                 Case ENM_CAR_STAGE._10_起草入力
@@ -2063,6 +2102,7 @@ Public Class FrmG0012
         lblKYOIKU_FILE_PATH.Links.Clear()
         lblKYOIKU_FILE_PATH.Visible = False
         lblKYOIKU_FILE_PATH_Clear.Visible = False
+        _D005_CAR_J.KYOIKU_FILE_PATH = ""
     End Sub
 
 #End Region
@@ -2149,8 +2189,33 @@ Public Class FrmG0012
         lblSYOSAI_FILE_PATH.Links.Clear()
         lblSYOSAI_FILE_PATH.Visible = False
         lblSYOSAI_FILE_PATH_Clear.Visible = False
+        _D005_CAR_J.SYOSAI_FILE_PATH = ""
     End Sub
 #End Region
+
+
+#Region "是正処置有効性の問題の有無"
+    Private Sub rbtnZESEI_SYOCHI_YES_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnZESEI_SYOCHI_YES.CheckedChanged
+
+        Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
+        _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = True
+    End Sub
+
+    Private Sub rbtnZESEI_SYOCHI_NO_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnZESEI_SYOCHI_NO.CheckedChanged
+
+        Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
+        _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = False
+    End Sub
+
+    Private Sub chkZESEI_SYOCHI_YUKO_UMU_CheckedChanged(sender As Object, e As EventArgs) Handles chkZESEI_SYOCHI_YUKO_UMU.CheckedChanged
+        If chkZESEI_SYOCHI_YUKO_UMU.Checked Then
+            rbtnZESEI_SYOCHI_YES.Checked = True
+        Else
+            rbtnZESEI_SYOCHI_NO.Checked = True
+        End If
+    End Sub
+#End Region
+
 
 #End Region
 #Region "   添付資料"
@@ -2234,6 +2299,7 @@ Public Class FrmG0012
         lbltmpFile1.Links.Clear()
         lbltmpFile1.Visible = False
         lbltmpFile1_Clear.Visible = False
+        _D005_CAR_J.FILE_PATH1 = ""
     End Sub
 
 #End Region
@@ -2316,6 +2382,7 @@ Public Class FrmG0012
         lbltmpFile2.Links.Clear()
         lbltmpFile2.Visible = False
         lbltmpFile2_Clear.Visible = False
+        _D005_CAR_J.FILE_PATH2 = ""
     End Sub
 #End Region
 
@@ -2448,28 +2515,32 @@ Public Class FrmG0012
             mtxNextStageName.Text = FunGetNextStageName(PrCurrentStage)
 
 
-
-            Dim dt As DataTable
-            dt = FunGetSYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB)
-            cmbKONPON_YOIN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKAITO_5.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKAITO_10.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKAITO_17.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbSYOCHI_A_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbSYOCHI_B_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbSYOCHI_C_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKENSA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKENSA_GL_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-
-            dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, ENM_SYONIN_HOKOKUSYO_ID._2_CAR, PrCurrentStage)
-            cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
             'SPEC: C10-2.④
             Select Case PrCurrentStage
                 Case ENM_CAR_STAGE._10_起草入力 To ENM_CAR_STAGE._70_起草確認_品証課長
                     tabCAR_SUB_1.Enabled = False
                     tabCAR_SUB_2.Enabled = False
+
+                Case ENM_CAR_STAGE._80_処置実施記録入力, ENM_CAR_STAGE._90_処置実施確認
+                    tabSTAGE01.Enabled = False
+                    tabSTAGE02.Enabled = False
+                    tabSTAGE03.Enabled = False
+                    tabSTAGE04.Enabled = False
+                    tabSTAGE05.Enabled = False
+                    tabSTAGE06.Enabled = False
+
+                    tabCAR_SUB_2.Enabled = False
+
+                Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
+
+                    tabSTAGE01.Enabled = False
+                    tabSTAGE02.Enabled = False
+                    tabSTAGE03.Enabled = False
+                    tabSTAGE04.Enabled = False
+                    tabSTAGE05.Enabled = False
+                    tabSTAGE06.Enabled = False
+
+                    tabCAR_SUB_1.Enabled = False
                 Case Else
             End Select
 
@@ -2540,6 +2611,25 @@ Public Class FrmG0012
             _D005_CAR_J.Clear()
             _V005_CAR_J = FunGetV005Model(PrHOKOKU_NO)
 
+
+            'データソース設定
+            Dim dt As DataTable
+            dt = FunGetSYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB)
+            cmbKONPON_YOIN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKAITO_5.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKAITO_10.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKAITO_17.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbSYOCHI_A_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbSYOCHI_B_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbSYOCHI_C_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKENSA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKENSA_GL_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+
+            dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, ENM_SYONIN_HOKOKUSYO_ID._2_CAR, PrCurrentStage)
+            cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+
             _D005_CAR_J.HOKOKU_NO = _V005_CAR_J.HOKOKU_NO
             _D005_CAR_J.BUMON_KB = _V005_CAR_J.BUMON_KB
             _D005_CAR_J.CLOSE_FG = _V005_CAR_J.CLOSE_FG
@@ -2596,31 +2686,42 @@ Public Class FrmG0012
             _D005_CAR_J.KAITO_25 = _V005_CAR_J.KAITO_25
 
             _D005_CAR_J.KONPON_YOIN_KB1 = _V005_CAR_J.KONPON_YOIN_KB1
+            If Not _V005_CAR_J.KONPON_YOIN_KB1.IsNullOrWhiteSpace Then
+                btnSelectGenin1.Enabled = True
+            End If
             _D005_CAR_J.KONPON_YOIN_KB2 = _V005_CAR_J.KONPON_YOIN_KB2
+            If Not _V005_CAR_J.KONPON_YOIN_KB2.IsNullOrWhiteSpace Then
+                btnSelectGenin2.Enabled = True
+            End If
+
             _D005_CAR_J.KONPON_YOIN_SYAIN_ID = _V005_CAR_J.KONPON_YOIN_SYAIN_ID
             _D005_CAR_J.KISEKI_KOTEI_KB = _V005_CAR_J.KISEKI_KOTEI_KB
             _D005_CAR_J.SYOCHI_A_SYAIN_ID = _V005_CAR_J.SYOCHI_A_SYAIN_ID
-            _D005_CAR_J.SYOCHI_A_YMDHNS = _V005_CAR_J.SYOCHI_A_YMDHNS
+            _D005_CAR_J.SYOCHI_A_YMDHNS = _V005_CAR_J.SYOCHI_A_YMDHNS.Trim
             _D005_CAR_J.SYOCHI_B_SYAIN_ID = _V005_CAR_J.SYOCHI_B_SYAIN_ID
-            _D005_CAR_J.SYOCHI_B_YMDHNS = _V005_CAR_J.SYOCHI_B_YMDHNS
+            _D005_CAR_J.SYOCHI_B_YMDHNS = _V005_CAR_J.SYOCHI_B_YMDHNS.Trim
             _D005_CAR_J.SYOCHI_C_SYAIN_ID = _V005_CAR_J.SYOCHI_C_SYAIN_ID
-            _D005_CAR_J.SYOCHI_C_YMDHNS = _V005_CAR_J.SYOCHI_C_YMDHNS
+            _D005_CAR_J.SYOCHI_C_YMDHNS = _V005_CAR_J.SYOCHI_C_YMDHNS.Trim
 
-            _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = _V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU
+            _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = CBool(_V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU.Trim)
 
             _D005_CAR_J.GOKI = _V005_CAR_J.GOKI
             _D005_CAR_J.LOT = _V005_CAR_J.LOT
             _D005_CAR_J.KENSA_TANTO_ID = _V005_CAR_J.KENSA_TANTO_ID
-            _D005_CAR_J.KENSA_TOROKU_YMDHNS = _V005_CAR_J.KENSA_TOROKU_YMDHNS
+            _D005_CAR_J.KENSA_TOROKU_YMDHNS = _V005_CAR_J.KENSA_TOROKU_YMDHNS.Trim
             _D005_CAR_J.KENSA_GL_SYAIN_ID = _V005_CAR_J.KENSA_GL_SYAIN_ID
-            _D005_CAR_J.KENSA_GL_YMDHNS = _V005_CAR_J.KENSA_GL_YMDHNS
+            _D005_CAR_J.KENSA_GL_YMDHNS = _V005_CAR_J.KENSA_GL_YMDHNS.Trim
             _D005_CAR_J.ADD_SYAIN_ID = _V005_CAR_J.ADD_SYAIN_ID
-            _D005_CAR_J.ADD_YMDHNS = _V005_CAR_J.ADD_YMDHNS
+            _D005_CAR_J.ADD_YMDHNS = _V005_CAR_J.ADD_YMDHNS.Trim
             _D005_CAR_J.UPD_SYAIN_ID = _V005_CAR_J.UPD_SYAIN_ID
-            _D005_CAR_J.UPD_YMDHNS = _V005_CAR_J.UPD_YMDHNS
+            _D005_CAR_J.UPD_YMDHNS = _V005_CAR_J.UPD_YMDHNS.Trim
             _D005_CAR_J.DEL_SYAIN_ID = _V005_CAR_J.DEL_SYAIN_ID
-            _D005_CAR_J.DEL_YMDHNS = _V005_CAR_J.DEL_YMDHNS
+            _D005_CAR_J.DEL_YMDHNS = _V005_CAR_J.DEL_YMDHNS.Trim
 
+            _D005_CAR_J.KYOIKU_FILE_PATH = _V005_CAR_J.KYOIKU_FILE_PATH
+            _D005_CAR_J.SYOSAI_FILE_PATH = _V005_CAR_J.SYOSAI_FILE_PATH
+            _D005_CAR_J.FILE_PATH1 = _V005_CAR_J.FILE_PATH1
+            _D005_CAR_J.FILE_PATH2 = _V005_CAR_J.FILE_PATH2
 
             '添付ファイル
             Dim strRootDir As String
@@ -2673,16 +2774,38 @@ Public Class FrmG0012
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
 
-            For Each row As DataRow In dsList.Tables(0).Rows
-                _D006_CAR_GENIN_List.Add(New MODEL.D006_CAR_GENIN With {.HOKOKU_NO = dsList.Tables(0).Rows(0).Item(NameOf(.HOKOKU_NO)),
-                                                                       .RENBAN = dsList.Tables(0).Rows(0).Item(NameOf(.RENBAN)),
-                                                                       .GENIN_BUNSEKI_KB = dsList.Tables(0).Rows(0).Item(NameOf(.GENIN_BUNSEKI_KB)),
-                                                                       .GENIN_BUNSEKI_S_KB = dsList.Tables(0).Rows(0).Item(NameOf(.GENIN_BUNSEKI_S_KB)),
-                                                                       .DAIHYO_FG = dsList.Tables(0).Rows(0).Item(NameOf(.DAIHYO_FG)),
-                                                                       .ADD_SYAIN_ID = dsList.Tables(0).Rows(0).Item(NameOf(.ADD_SYAIN_ID)),
-                                                                       .ADD_YMDHNS = dsList.Tables(0).Rows(0).Item(NameOf(.ADD_YMDHNS))})
-            Next row
+            PrGenin1.Clear()
+            PrGenin2.Clear()
 
+            For Each row As DataRow In dsList.Tables(0).Rows
+                If row.Item(NameOf(_D006_CAR_GENIN.RENBAN)) = 1 Then
+                    Dim item As (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String) = (row.Item("GENIN_BUNSEKI_KB"), row.Item("GENIN_BUNSEKI_S_KB"), row.Item("GENIN_BUNSEKI_NAME"))
+                    PrGenin1.Add(item)
+
+                    If row.Item(NameOf(_D006_CAR_GENIN.DAIHYO_FG)) = True Then
+                        mtxGENIN1_DISP.Text = item.ITEM_DISP
+                        mtxGENIN1.Text = item.ITEM_NAME & "," & item.ITEM_VALUE
+                    End If
+                End If
+
+                If row.Item(NameOf(_D006_CAR_GENIN.RENBAN)) = 2 Then
+                    Dim item As (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String) = (row.Item("GENIN_BUNSEKI_KB"), row.Item("GENIN_BUNSEKI_S_KB"), row.Item("GENIN_BUNSEKI_NAME"))
+                    PrGenin2.Add(item)
+
+                    If row.Item(NameOf(_D006_CAR_GENIN.DAIHYO_FG)) = True Then
+                        mtxGENIN2_DISP.Text = item.ITEM_DISP
+                        mtxGENIN2.Text = item.ITEM_NAME & "," & item.ITEM_VALUE
+                    End If
+                End If
+
+                '_D006_CAR_GENIN_List.Add(New MODEL.D006_CAR_GENIN With {.HOKOKU_NO = row.Item(NameOf(.HOKOKU_NO)),
+                '                                                       .RENBAN = row.Item(NameOf(.RENBAN)),
+                '                                                       .GENIN_BUNSEKI_KB = row.Item(NameOf(.GENIN_BUNSEKI_KB)),
+                '                                                       .GENIN_BUNSEKI_S_KB = row.Item(NameOf(.GENIN_BUNSEKI_S_KB)),
+                '                                                       .DAIHYO_FG = row.Item(NameOf(.DAIHYO_FG)),
+                '                                                       .ADD_SYAIN_ID = row.Item(NameOf(.ADD_SYAIN_ID)),
+                '                                                       .ADD_YMDHNS = row.Item(NameOf(.ADD_YMDHNS))})
+            Next row
 
             Return True
 

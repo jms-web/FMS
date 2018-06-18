@@ -52,6 +52,10 @@ Public Class FrmG0011
     '現在のステージ 承認順
     Public Property PrCurrentStage As Integer
 
+
+    'CAR編集画面から開かれているか
+    Public Property PrDialog As Boolean
+
 #End Region
 
 #Region "コンストラクタ"
@@ -1908,6 +1912,7 @@ Public Class FrmG0011
         Dim dlgRET As DialogResult
 
         Try
+            frmDLG.PrDialog = True
             frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
             frmDLG.PrCurrentStage = ENM_CAR_STAGE._10_起草入力
             dlgRET = frmDLG.ShowDialog(Me)
@@ -2221,7 +2226,18 @@ Public Class FrmG0011
                 cmdFunc11.Enabled = True
 
                 'SPEC: 40-3.④
-                cmdFunc9.Enabled = _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_要
+                If PrDialog = False AndAlso (_D003_NCR_J._ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_要) Then
+
+                    If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
+                        MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "新規登録時は使用出来ません")
+                    Else
+                        MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "編集権限がありません")
+                    End If
+                    cmdFunc9.Enabled = True
+                Else
+                    cmdFunc9.Enabled = False
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "既にCAR画面から呼び出されているため使用出来ません")
+                End If
 
                 'カレントステージが自身の担当でない場合は無効
                 If FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, PrDataRow.Item("SYONIN_JUN")) Then 'If TabSTAGE.TabPages(TabSTAGE.SelectedIndex).Enabled = False Then
@@ -2244,6 +2260,7 @@ Public Class FrmG0011
                         cmdFunc1.Enabled = False
                     Case Else
                 End Select
+
             End If
 
 

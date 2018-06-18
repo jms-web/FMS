@@ -123,6 +123,10 @@ Partial Class FrmG0016
         Me.lblTytle.Size = New System.Drawing.Size(982, 45)
         Me.lblTytle.Text = "ç∑ñﬂÇµìoò^"
         '
+        'ToolTip
+        '
+        Me.ToolTip.InitialDelay = 700
+        '
         'ErrorProvider
         '
         Me.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
@@ -181,6 +185,7 @@ Partial Class FrmG0016
         Me.cmbMODOSI_SAKI.MaxLength = 30
         Me.cmbMODOSI_SAKI.Name = "cmbMODOSI_SAKI"
         Me.cmbMODOSI_SAKI.NullValue = " "
+        Me.cmbMODOSI_SAKI.ReadOnly = False
         Me.cmbMODOSI_SAKI.Selected = False
         Me.cmbMODOSI_SAKI.Size = New System.Drawing.Size(409, 25)
         Me.cmbMODOSI_SAKI.TabIndex = 1
@@ -223,7 +228,7 @@ Partial Class FrmG0016
         Me.mtxMODOSI_RIYU.Location = New System.Drawing.Point(99, 82)
         Me.mtxMODOSI_RIYU.MaxByteLength = 200
         Me.mtxMODOSI_RIYU.Name = "mtxMODOSI_RIYU"
-        Me.mtxMODOSI_RIYU.Size = New System.Drawing.Size(728, 24)
+        Me.mtxMODOSI_RIYU.Size = New System.Drawing.Size(612, 24)
         Me.mtxMODOSI_RIYU.TabIndex = 3
         Me.mtxMODOSI_RIYU.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxMODOSI_RIYU.WatermarkText = Nothing
