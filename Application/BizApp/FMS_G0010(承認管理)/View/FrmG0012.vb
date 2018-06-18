@@ -2514,6 +2514,8 @@ Public Class FrmG0012
             mtxUPD_YMD.Text = Now.ToString("yyyy/MM/dd")
             mtxNextStageName.Text = FunGetNextStageName(PrCurrentStage)
 
+            Dim blnOwn As Boolean = FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO, PrCurrentStage)
+            tabSTAGE07.Enabled = blnOwn
 
             'SPEC: C10-2.④
             Select Case PrCurrentStage
@@ -2529,6 +2531,7 @@ Public Class FrmG0012
                     tabSTAGE05.Enabled = False
                     tabSTAGE06.Enabled = False
 
+                    tabCAR_SUB_1.Enabled = blnOwn
                     tabCAR_SUB_2.Enabled = False
 
                 Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
@@ -2541,8 +2544,11 @@ Public Class FrmG0012
                     tabSTAGE06.Enabled = False
 
                     tabCAR_SUB_1.Enabled = False
+                    tabCAR_SUB_2.Enabled = blnOwn
                 Case Else
             End Select
+
+
 
             Dim _V003 As New MODEL.V003_SYONIN_J_KANRI
             _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.

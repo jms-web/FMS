@@ -252,9 +252,10 @@ Public Class FrmG0017
     Private Function FunSRCH(ByVal dgv As DataGridView, ByVal dt As DataTable) As Boolean
 
         Try
-            dgv.DataSource = dt
-
-            Call FunSetDgvCellFormat(dgv)
+            If dt.Rows.Count > 0 Then
+                dgv.DataSource = dt
+                Call FunSetDgvCellFormat(dgv)
+            End If
 
             If dgv.RowCount > 0 Then
                 '-----ëIëçsê›íË
@@ -357,8 +358,10 @@ Public Class FrmG0017
             Next intFunc
 
             'SPEC: 20-7.áA
-            Dim dr As DataRow = dgvDATA.GetDataRow
-
+            Dim dr As DataRow
+            If dgvDATA.Rows.Count > 0 Then
+                dr = dgvDATA.GetDataRow
+            End If
             If dr IsNot Nothing AndAlso dr.Item("SOUSA_KB") = ENM_SOUSA_KB._3_è≥îFç∑ñﬂ Then 'ç∑ñﬂÇµ
                 cmdFunc1.Enabled = True
             Else
