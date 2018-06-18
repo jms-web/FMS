@@ -3321,7 +3321,6 @@ Public Class FrmG0011
 #Region "機種"
     Private Sub CmbKISYU_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKISYU.SelectedValueChanged
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
         Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
 
         '部品番号
@@ -3333,7 +3332,7 @@ Public Class FrmG0011
                 Dim _selectedValue As String = cmbBUHIN_BANGO.SelectedValue
 
                 cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                If Not cmbBUHIN_BANGO.NullValue = cmbBUHIN_BANGO.SelectedValue Then
+                If Not cmbBUHIN_BANGO.NullValue = _selectedValue Then
                     _D003_NCR_J.BUHIN_BANGO = _selectedValue
                 End If
             Else
@@ -3353,7 +3352,9 @@ Public Class FrmG0011
                     Dim dt As DataTable = drs.CopyToDataTable
                     Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue
                     cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                    _D003_NCR_J.SYANAI_CD = _selectedValue
+                    If Not cmbSYANAI_CD.NullValue = _selectedValue Then
+                        _D003_NCR_J.SYANAI_CD = _selectedValue
+                    End If
                 End If
             Else
                 'cmbSYANAI_CD.DataSource = Nothing
@@ -3445,7 +3446,7 @@ Public Class FrmG0011
         '社内コード
         If blnSelected Then
             cmbSYANAI_CD.DataBindings.Clear()
-            If Val(cmbBUMON.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
+            If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
                 Dim drs = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUHIN_BANGO)) = cmb.SelectedValue).ToList
                 If drs.Count > 0 Then
                     Dim dt As DataTable = drs.CopyToDataTable
@@ -3453,7 +3454,9 @@ Public Class FrmG0011
                     cmbSYANAI_CD.DisplayMember = "DISP"
                     cmbSYANAI_CD.ValueMember = "VALUE"
                     cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                    _D003_NCR_J.SYANAI_CD = _selectedValue
+                    If Not cmbSYANAI_CD.NullValue = _selectedValue Then
+                        _D003_NCR_J.SYANAI_CD = _selectedValue
+                    End If
                 End If
             Else
                 _D003_NCR_J.SYANAI_CD = ""

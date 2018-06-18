@@ -307,7 +307,7 @@ Public Class TextBoxEx
                 selectedTextByteCount = sjisEncoding.GetByteCount(Me.SelectedText)
                 Dim remainByteCount As Integer = Me.MaxByteLength - (textByteCount - selectedTextByteCount)
 
-                If remainByteCount <= 0 Then
+                If remainByteCount <= 0 Or MaxByteLength - (textByteCount + inputByteCount) <= 0 Then
                     Return
                 End If
 
@@ -325,7 +325,7 @@ Public Class TextBoxEx
             End If
 
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
+            'EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
     End Sub
 #End Region

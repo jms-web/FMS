@@ -1016,11 +1016,16 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.YOKYU_NAIYO)).Value = _V002_NCR_J.YOKYU_NAIYO
             ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = "(図面/規格　： " & _V002_NCR_J.ZUMEN_KIKAKU.PadRight(50) & ")"
 
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._10_起草入力).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).FirstOrDefault?.SYAIN_NAME
-
-
-
             Dim strYMDHNS As String
+
+            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._10_起草入力).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).FirstOrDefault?.SYAIN_NAME
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            If Not strYMDHNS.IsNullOrWhiteSpace Then
+                ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._10_起草入力).Value = "'" & DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+            End If
+
+
+
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_起草確認製造GL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNullOrWhiteSpace Then
                 ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._20_起草確認製造GL).Value = "'" & DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
@@ -1145,22 +1150,22 @@ Module mdlG0010
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_2)).Value = _V005_CAR_J.KAITO_2
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_3)).Value = _V005_CAR_J.KAITO_3
             If Not _V005_CAR_J.KAITO_4.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_4)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_4, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_4)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_4.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_5)).Value = _V005_CAR_J.KAITO_5
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_6)).Value = _V005_CAR_J.KAITO_6
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_7)).Value = _V005_CAR_J.KAITO_7
             If Not _V005_CAR_J.KAITO_8.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_8)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_8, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_8)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_8.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             If Not _V005_CAR_J.KAITO_9.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_9)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_9, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_9)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_9.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_10)).Value = _V005_CAR_J.KAITO_10
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_11)).Value = _V005_CAR_J.KAITO_11
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_12)).Value = _V005_CAR_J.KAITO_12
             If Not _V005_CAR_J.KAITO_13.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_13)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_13, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_13)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_13.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             If Not _V005_CAR_J.KAITO_14.IsNullOrWhiteSpace AndAlso CBool(_V005_CAR_J.KAITO_14) Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_14) & "_YOU").Value = "TRUE"
@@ -1169,13 +1174,13 @@ Module mdlG0010
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_15)).Value = _V005_CAR_J.KAITO_15
             If Not _V005_CAR_J.KAITO_16.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_16)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_16, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_16)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_16.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_17)).Value = _V005_CAR_J.KAITO_17
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_18)).Value = _V005_CAR_J.KAITO_18
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_19)).Value = _V005_CAR_J.KAITO_19
             If Not _V005_CAR_J.KAITO_20.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_20)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_20, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.KAITO_20)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_20.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
 
             '現状未使用のフィールド
@@ -1187,54 +1192,56 @@ Module mdlG0010
 
             spSheet1.Range(NameOf(_V005_CAR_J.KENSA_GL_SYAIN_NAME)).Value = _V005_CAR_J.KENSA_GL_SYAIN_NAME
             If Not _V005_CAR_J.KENSA_GL_YMDHNS.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.KENSA_GL_YMDHNS)).Value = DateTime.ParseExact(_V005_CAR_J.KENSA_GL_YMDHNS, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.KENSA_GL_YMDHNS)).Value = DateTime.ParseExact(_V005_CAR_J.KENSA_GL_YMDHNS.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.KENSA_TANTO_NAME)).Value = _V005_CAR_J.KENSA_TANTO_NAME
             If Not _V005_CAR_J.KENSA_TOROKU_YMDHNS.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.KENSA_TOROKU_YMDHNS)).Value = DateTime.ParseExact(_V005_CAR_J.KENSA_TOROKU_YMDHNS, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.KENSA_TOROKU_YMDHNS)).Value = DateTime.ParseExact(_V005_CAR_J.KENSA_TOROKU_YMDHNS.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.KISYU)).Value = _V005_CAR_J.KISYU
             spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_A_SYAIN_NAME)).Value = _V005_CAR_J.SYOCHI_A_SYAIN_NAME
             If Not _V005_CAR_J.SYOCHI_A_YMDHNS.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_A_YMDHNS)).Value = DateTime.ParseExact(_V005_CAR_J.SYOCHI_A_YMDHNS, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_A_YMDHNS)).Value = DateTime.ParseExact(_V005_CAR_J.SYOCHI_A_YMDHNS.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_B_SYAIN_NAME)).Value = _V005_CAR_J.SYOCHI_B_SYAIN_NAME
             If Not _V005_CAR_J.SYOCHI_B_YMDHNS.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_B_YMDHNS)).Value = DateTime.ParseExact(_V005_CAR_J.SYOCHI_B_YMDHNS, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_B_YMDHNS)).Value = DateTime.ParseExact(_V005_CAR_J.SYOCHI_B_YMDHNS.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_C_SYAIN_NAME)).Value = _V005_CAR_J.SYOCHI_C_SYAIN_NAME
             spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME10)).Value = _V005_CAR_J.SYONIN_NAME10
-
+            If Not _V005_CAR_J.SYONIN_YMD10.IsNullOrWhiteSpace Then
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD10)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD10.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+            End If
             If Not _V005_CAR_J.SYONIN_YMD20.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD20)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD20, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD20)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD20.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME20)).Value = _V005_CAR_J.SYONIN_NAME20
             End If
             If Not _V005_CAR_J.SYONIN_YMD30.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD30)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD30, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD30)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD30.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME30)).Value = _V005_CAR_J.SYONIN_NAME30
             End If
             If Not _V005_CAR_J.SYONIN_YMD40.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD40)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD40, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD40)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD40.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME40)).Value = _V005_CAR_J.SYONIN_NAME40
             End If
             If Not _V005_CAR_J.SYONIN_YMD50.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD50)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD50, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD50)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD50.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME50)).Value = _V005_CAR_J.SYONIN_NAME50
             End If
             If Not _V005_CAR_J.SYONIN_YMD60.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD60)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD60, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD60)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD60.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME60)).Value = _V005_CAR_J.SYONIN_NAME60
             End If
             If Not _V005_CAR_J.SYONIN_YMD90.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD90)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD90, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD90)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD90.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME90)).Value = _V005_CAR_J.SYONIN_NAME90
             End If
             If Not _V005_CAR_J.SYONIN_YMD100.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD100)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD100, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD100)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD100.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME100)).Value = _V005_CAR_J.SYONIN_NAME100
             End If
             If Not _V005_CAR_J.SYONIN_YMD120.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD120)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD120, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD120)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD120.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME120)).Value = _V005_CAR_J.SYONIN_NAME120
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.SYOSAI_FILE_PATH)).Value = _V005_CAR_J.SYOSAI_FILE_PATH

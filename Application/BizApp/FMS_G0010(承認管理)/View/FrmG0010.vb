@@ -1653,7 +1653,9 @@ Public Class FrmG0010
                 Dim _selectedValue As String = cmbBUHIN_BANGO.SelectedValue
 
                 cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                ParamModel.BUHIN_BANGO = _selectedValue
+                If Not cmbBUHIN_BANGO.NullValue = cmbBUHIN_BANGO.SelectedValue Then
+                    ParamModel.BUHIN_BANGO = _selectedValue
+                End If
             End If
         Else
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -1670,7 +1672,9 @@ Public Class FrmG0010
                     Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue
 
                     cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                    ParamModel.SYANAI_CD = _selectedValue
+                    If Not cmbSYANAI_CD.NullValue = _selectedValue Then
+                        ParamModel.SYANAI_CD = _selectedValue
+                    End If
                 End If
             Else
                 'cmbSYANAI_CD.DataSource = Nothing
@@ -1689,8 +1693,9 @@ Public Class FrmG0010
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
         Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
 
-        '•”•i”Ô†
         RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
+
+        '•”•i”Ô†
         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
         If blnSelected Then
             Dim drs = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.SYANAI_CD)) = cmb.SelectedValue).ToList
@@ -1741,7 +1746,7 @@ Public Class FrmG0010
         If blnSelected Then
             cmbSYANAI_CD.DataBindings.Clear()
             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                Dim drs = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUHIN_BANGO)) = cmb.SelectedValue).ToList
+                Dim drs = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUHIN_BANGO)) = cmb.SelectedValue).ToList
                 If drs.Count > 0 Then
                     Dim dt As DataTable = drs.CopyToDataTable
                     Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue
@@ -1754,7 +1759,7 @@ Public Class FrmG0010
                 ParamModel.SYANAI_CD = ""
                 'cmbSYANAI_CD.DataSource = Nothing
             End If
-            cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         Else
             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
         End If
@@ -1771,7 +1776,9 @@ Public Class FrmG0010
             ParamModel.BUHIN_NAME = dr.Item("BUHIN_NAME")
 
             RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-            ParamModel.KISYU_ID = dr.Item("KISYU_ID")
+            If dr.Item("KISYU_ID") <> 0 Then
+                ParamModel.KISYU_ID = dr.Item("KISYU_ID")
+            End If
             AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
 
         Else

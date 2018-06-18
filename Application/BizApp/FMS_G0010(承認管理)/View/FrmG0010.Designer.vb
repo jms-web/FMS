@@ -656,14 +656,14 @@ Partial Class FrmG0010
         'mtxHINMEI
         '
         Me.mtxHINMEI.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.mtxHINMEI, 12)
+        Me.tlpFilter.SetColumnSpan(Me.mtxHINMEI, 15)
         Me.mtxHINMEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxHINMEI.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxHINMEI.InputRequired = False
         Me.mtxHINMEI.Location = New System.Drawing.Point(843, 33)
         Me.mtxHINMEI.MaxByteLength = 100
         Me.mtxHINMEI.Name = "mtxHINMEI"
-        Me.mtxHINMEI.Size = New System.Drawing.Size(234, 24)
+        Me.mtxHINMEI.Size = New System.Drawing.Size(294, 24)
         Me.mtxHINMEI.TabIndex = 6
         Me.mtxHINMEI.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxHINMEI.WatermarkText = Nothing

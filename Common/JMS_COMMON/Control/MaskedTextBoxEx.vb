@@ -345,7 +345,8 @@ Public Class MaskedTextBoxEx
                 selectedTextByteCount = sjisEncoding.GetByteCount(Me.SelectedText)
                 Dim remainByteCount As Integer = Me.MaxByteLength - (textByteCount - selectedTextByteCount)
 
-                If remainByteCount <= 0 Then
+
+                If remainByteCount <= 0 Or MaxByteLength - (textByteCount + inputByteCount) <= 0 Then
                     Return
                 End If
 
