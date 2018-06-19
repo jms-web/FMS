@@ -2291,10 +2291,10 @@ Public Class FrmG0011
 
                     If intTabNo < intCurrentTabNo Then
                         'SPEC: 10-2.‡B
-                        strStageName = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN(Val(page.Name.Substring(8)))).FirstOrDefault.Item("DISP")
+                        strStageName = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN2(Val(page.Name.Substring(8)))).FirstOrDefault.Item("DISP")
                         page.Text = strStageName
 
-                        Dim ctrlLabel As Control() = Me.Controls.Find("lblSTAGE" & intCurrentTabNo.ToString("00"), True)
+                        Dim ctrlLabel As Control() = Me.Controls.Find("lblSTAGE" & intTabNo.ToString("00"), True)
                         If ctrlLabel.Length > 0 Then
                             Dim lblSTAGE As Label = ctrlLabel(0)
                             lblSTAGE.Text = strStageName
@@ -2302,8 +2302,8 @@ Public Class FrmG0011
 
                     ElseIf intTabNo = intCurrentTabNo Then
                         page.Text = "Œ»ƒXƒe[ƒW"
-                        strStageName = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN(Val(page.Name.Substring(8)))).FirstOrDefault.Item("DISP")
-                        Dim ctrlLabel As Control() = Me.Controls.Find("lblSTAGE" & intCurrentTabNo.ToString("00"), True)
+                        strStageName = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN2(Val(page.Name.Substring(8)))).FirstOrDefault.Item("DISP")
+                        Dim ctrlLabel As Control() = Me.Controls.Find("lblSTAGE" & intTabNo.ToString("00"), True)
                         If ctrlLabel.Length > 0 Then
                             Dim lblSTAGE As Label = ctrlLabel(0)
                             lblSTAGE.Text = strStageName
@@ -5007,10 +5007,10 @@ Public Class FrmG0011
             Case 5
                 intSTAGE_ID = ENM_NCR_STAGE._50_–‘OR¸Šm”F
             Case 6
-                If PrCurrentStage = ENM_NCR_STAGE._60_ÄRR¸”»’è_‹Zp‘ã•\ Or PrCurrentStage = ENM_NCR_STAGE._61_ÄRR¸”»’è_•iØ‘ã•\ Then
-                    intSTAGE_ID = PrCurrentStage
-                Else
+                If PrCurrentStage <= ENM_NCR_STAGE._60_ÄRR¸”»’è_‹Zp‘ã•\ Then
                     intSTAGE_ID = ENM_NCR_STAGE._60_ÄRR¸”»’è_‹Zp‘ã•\
+                Else
+                    intSTAGE_ID = ENM_NCR_STAGE._61_ÄRR¸”»’è_•iØ‘ã•\
                 End If
             Case 7
                 intSTAGE_ID = ENM_NCR_STAGE._70_ŒÚ‹qÄRˆ’u_I_tag
