@@ -2343,7 +2343,8 @@ Public Class FrmG0011
                             'カレントユーザー以外は参照のみ
 
                             'page.Enabled = FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrDataRow("HOKOKU_NO"), FunConvertSTAGE_NO_TO_SYONIN_JUN(intTabNo))
-                            page.EnableDisablePages(FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrDataRow("HOKOKU_NO"), FunConvertSTAGE_NO_TO_SYONIN_JUN(intTabNo)))
+                            page.EnableDisablePages(FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrDataRow("HOKOKU_NO"), FunConvertSTAGE_NO_TO_SYONIN_JUN2(intTabNo)))
+                            'page.EnableDisablePages(FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrDataRow("HOKOKU_NO"), PrCurrentStage))
                         End If
                     End If
                 End If
@@ -2601,7 +2602,7 @@ Public Class FrmG0011
             End If
 #End Region
 #Region "               60"
-            If intStageID >= ENM_NCR_STAGE._60_再審審査判定_技術代表 Then
+            If intStageID = ENM_NCR_STAGE._60_再審審査判定_技術代表 Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_再審審査判定_技術代表))
                 'dt = tblTANTO_SYONIN.AsEnumerable.
                 '                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_再審審査判定_技術代表)).
@@ -4968,7 +4969,11 @@ Public Class FrmG0011
             Case 5
                 intSTAGE_ID = ENM_NCR_STAGE._50_事前審査確認
             Case 6
+                'If PrCurrentStage = ENM_NCR_STAGE._60_再審審査判定_技術代表 Or PrCurrentStage = ENM_NCR_STAGE._61_再審審査判定_品証代表 Then
+                '    intSTAGE_ID = PrCurrentStage
+                'Else
                 intSTAGE_ID = ENM_NCR_STAGE._60_再審審査判定_技術代表
+                'End If
             Case 7
                 intSTAGE_ID = ENM_NCR_STAGE._70_顧客再審処置_I_tag
             Case 8
@@ -4987,6 +4992,50 @@ Public Class FrmG0011
 
         Return intSTAGE_ID
     End Function
+
+    Private Function FunConvertSTAGE_NO_TO_SYONIN_JUN2(ByVal intTabNo As Integer) As Integer
+        Dim intSTAGE_ID As Integer
+        Select Case intTabNo
+            Case 1
+                intSTAGE_ID = ENM_NCR_STAGE._10_起草入力
+            Case 2
+                intSTAGE_ID = ENM_NCR_STAGE._20_起草確認製造GL
+            Case 3
+                intSTAGE_ID = ENM_NCR_STAGE._30_起草確認検査
+            Case 4
+                intSTAGE_ID = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
+            Case 5
+                intSTAGE_ID = ENM_NCR_STAGE._50_事前審査確認
+            Case 6
+                If PrCurrentStage = ENM_NCR_STAGE._60_再審審査判定_技術代表 Or PrCurrentStage = ENM_NCR_STAGE._61_再審審査判定_品証代表 Then
+                    intSTAGE_ID = PrCurrentStage
+                Else
+                    intSTAGE_ID = ENM_NCR_STAGE._60_再審審査判定_技術代表
+                End If
+            Case 7
+                intSTAGE_ID = ENM_NCR_STAGE._70_顧客再審処置_I_tag
+            Case 8
+                Select Case PrCurrentStage
+                    Case ENM_NCR_STAGE._80_処置実施 To ENM_NCR_STAGE._83_処置実施_検査
+                        intSTAGE_ID = PrCurrentStage
+                    Case Else
+                        intSTAGE_ID = ENM_NCR_STAGE._80_処置実施
+                End Select
+            Case 9
+                intSTAGE_ID = ENM_NCR_STAGE._90_処置実施確認_管理T
+            Case 10
+                intSTAGE_ID = ENM_NCR_STAGE._100_処置実施決裁_製造課長
+            Case 11
+                intSTAGE_ID = ENM_NCR_STAGE._110_abcde処置担当
+            Case 12
+                intSTAGE_ID = ENM_NCR_STAGE._120_abcde処置確認
+            Case Else
+                intSTAGE_ID = 15
+        End Select
+
+        Return intSTAGE_ID
+    End Function
+
 
     ''' <summary>
     ''' 再発判定

@@ -2031,8 +2031,8 @@ Public Class FrmG0010
 
         If ParamModel.BUHIN_BANGO <> "" Then
             sbParam.Append(",'" & ParamModel.BUHIN_BANGO & "'")
-        ElseIf Not cmbBUHIN_BANGO.Text.IsNullOrWhiteSpace Then
-            sbParam.Append(",'" & cmbBUHIN_BANGO.Text.Trim & "'")
+            'ElseIf Not cmbBUHIN_BANGO.Text.IsNullOrWhiteSpace Then
+            '    sbParam.Append(",'" & cmbBUHIN_BANGO.Text.Trim & "'")
         Else
             sbParam.Append(",'" & ParamModel.BUHIN_BANGO & "'")
         End If
