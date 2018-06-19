@@ -2017,6 +2017,64 @@ Public Class FrmG0010
 
     End Function
 
+
+    Public Function FunGetDtST02_FUTEKIGO_ICHIRAN(ByVal ParamModel As ST02_ParamModel) As DataTable
+
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim sbParam As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        '‹¤’Ê
+        sbParam.Append(" '" & ParamModel.BUMON_KB & "'")
+        sbParam.Append("," & ParamModel.SYONIN_HOKOKUSYO_ID & "")
+        sbParam.Append("," & ParamModel.KISYU_ID & "")
+
+        If ParamModel.BUHIN_BANGO <> "" Then
+            sbParam.Append(",'" & ParamModel.BUHIN_BANGO & "'")
+        ElseIf Not cmbBUHIN_BANGO.Text.IsNullOrWhiteSpace Then
+            sbParam.Append(",'" & cmbBUHIN_BANGO.Text.Trim & "'")
+        Else
+            sbParam.Append(",'" & ParamModel.BUHIN_BANGO & "'")
+        End If
+
+        sbParam.Append(",'" & ParamModel.SYANAI_CD & "'")
+        sbParam.Append(",'" & ParamModel.BUHIN_NAME & "'")
+        sbParam.Append(",'" & ParamModel.GOUKI & "'")
+        sbParam.Append("," & ParamModel.SYOCHI_TANTO & "")
+        sbParam.Append(",'" & ParamModel.JISI_YMD_FROM & "'")
+        sbParam.Append(",'" & ParamModel.JISI_YMD_TO & "'")
+        sbParam.Append(",'" & ParamModel.HOKOKU_NO & "'")
+        sbParam.Append("," & ParamModel.ADD_TANTO & "")
+        sbParam.Append(",'" & IIf(ParamModel._VISIBLE_CLOSE = 1, "", ParamModel._VISIBLE_CLOSE) & "'")
+        sbParam.Append(",'" & IIf(ParamModel._VISIBLE_TAIRYU = 1, ParamModel._VISIBLE_TAIRYU, "") & "'")
+        sbParam.Append(",'" & ParamModel.FUTEKIGO_KB & "'")
+        sbParam.Append(",'" & ParamModel.FUTEKIGO_S_KB & "'")
+        sbParam.Append(",'" & ParamModel.FUTEKIGO_JYOTAI_KB & "'")
+
+        'NCR
+        sbParam.Append(",'" & ParamModel.JIZEN_SINSA_HANTEI_KB & "'")
+        sbParam.Append(",'" & ParamModel.ZESEI_SYOCHI_YOHI_KB & "'")
+        sbParam.Append(",'" & ParamModel.SAISIN_IINKAI_HANTEI_KB & "'")
+        sbParam.Append(",'" & ParamModel.KENSA_KEKKA_KB & "'")
+
+        'CAR
+        sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB1 & "'")
+        sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB2 & "'")
+        sbParam.Append(",'" & ParamModel.KISEKI_KOTEI_KB & "'")
+        sbParam.Append(",'" & ParamModel.KOKYAKU_HANTEI_SIJI_KB & "'")
+        sbParam.Append(",'" & ParamModel.KOKYAKU_SAISYU_HANTEI_KB & "'")
+        sbParam.Append(",'" & ParamModel.GENIN1 & "'")
+        sbParam.Append(",'" & ParamModel.GENIN2 & "'")
+
+        sbSQL.Append("EXEC dbo." & NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN) & " " & sbParam.ToString & "")
+        Using DB As ClsDbUtility = DBOpen()
+            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        Return dsList?.Tables(0)
+    End Function
+
+
     Private Function FunblnAllowKIHYO() As Boolean
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
