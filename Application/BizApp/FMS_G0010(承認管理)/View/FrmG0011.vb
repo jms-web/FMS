@@ -15,8 +15,8 @@ Public Class FrmG0011
     Private Enum ENM_STAGE80_TABPAGES
         _1_îpãpé¿é{ãLò^ = 1
         _2_çƒâ¡çHéwé¶_ãLò^ = 2
-        _3_ì]ópêÊãLò^ = 3
-        _4_ï‘ãpé¿é{ãLò^ = 4
+        _3_ï‘ãpé¿é{ãLò^ = 3
+        _4_ì]ópêÊãLò^ = 4
     End Enum
 
 
@@ -2668,7 +2668,6 @@ Public Class FrmG0011
                     '                    CopyToDataTable
                     cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-
                     mtxST06_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\))
                     cmbST06_SAISIN_IINKAI_HANTEI.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     mtxST06_UPD_YMD.Enabled = False
@@ -3185,9 +3184,9 @@ Public Class FrmG0011
             Case ENM_KOKYAKU_SAISYU_HANTEI_KB._3_îpãpÇ∑ÇÈ
                 Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
             Case ENM_KOKYAKU_SAISYU_HANTEI_KB._4_ï‘ãpÇ∑ÇÈ
-                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_ï‘ãpé¿é{ãLò^
+                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
             Case ENM_KOKYAKU_SAISYU_HANTEI_KB._5_ì]ópÇ∑ÇÈ
-                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_ì]ópêÊãLò^
+                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_ì]ópêÊãLò^
             Case ENM_KOKYAKU_SAISYU_HANTEI_KB._6_çƒâ¡çHÇ∑ÇÈ
                 Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
             Case Else
@@ -3195,9 +3194,9 @@ Public Class FrmG0011
                     Case ENM_SAISIN_IINKAI_HANTEI_KB._3_îpãpÇ∑ÇÈ
                         Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
                     Case ENM_SAISIN_IINKAI_HANTEI_KB._4_ï‘ãpÇ∑ÇÈ
-                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_ï‘ãpé¿é{ãLò^
+                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
                     Case ENM_SAISIN_IINKAI_HANTEI_KB._5_ì]ópÇ∑ÇÈ
-                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_ì]ópêÊãLò^
+                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_ì]ópêÊãLò^
                     Case ENM_SAISIN_IINKAI_HANTEI_KB._6_çƒâ¡çHÇ∑ÇÈ
                         Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
                     Case Else
@@ -3205,9 +3204,9 @@ Public Class FrmG0011
                             Case ENM_JIZEN_SINSA_HANTEI_KB._4_îpãpÇ∑ÇÈ
                                 Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
                             Case ENM_JIZEN_SINSA_HANTEI_KB._5_ï‘ãpÇ∑ÇÈ
-                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_ï‘ãpé¿é{ãLò^
+                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
                             Case ENM_JIZEN_SINSA_HANTEI_KB._6_ì]ópÇ∑ÇÈ
-                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_ì]ópêÊãLò^
+                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_ì]ópêÊãLò^
                             Case ENM_JIZEN_SINSA_HANTEI_KB._7_çƒâ¡çHÇ∑ÇÈ
                                 Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
                             Case Else
@@ -3773,7 +3772,11 @@ Public Class FrmG0011
 #End Region
 #Region "   STAGE6"
     Private Sub CmbST06_SAISIN_IINKAI_HANTEI_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbST06_SAISIN_IINKAI_HANTEI.SelectedValueChanged
-        'UNDONE: éüÉXÉeÅ[ÉWñºçXêV
+        'éüÉXÉeÅ[ÉWñºçXêV
+        mtxST06_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(PrCurrentStage))
+        Dim dt As DataTable
+        dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(PrCurrentStage))
+        cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
     End Sub
 
     Private Sub CmbST06_SAISIN_IINKAI_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST06_SAISIN_IINKAI_HANTEI.Validating
@@ -4750,12 +4753,12 @@ Public Class FrmG0011
                             Case ENM_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
                                 Call CmbST08_1_HAIKYAKU_KB_Validating(cmbST08_1_HAIKYAKU_KB, Nothing)
                                 Call CmbST08_1_HAIKYAKU_TANTO_Validating(cmbST08_1_HAIKYAKU_TANTO, Nothing)
-                            Case ENM_STAGE80_TABPAGES._4_ï‘ãpé¿é{ãLò^
+                            Case ENM_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
                                 Call CmbST08_2_KENSA_KEKKA_Validating(cmbST08_2_KENSA_KEKKA, Nothing)
                                 Call CmbST08_2_TANTO_KENSA_Validating(cmbST08_2_TANTO_KENSA, Nothing)
                                 Call CmbST08_2_TANTO_SEIGI_Validating(cmbST08_2_TANTO_SEIGI, Nothing)
                                 Call CmbST08_2_TANTO_SEIZO_Validating(cmbST08_2_TANTO_SEIZO, Nothing)
-                            Case ENM_STAGE80_TABPAGES._3_ì]ópêÊãLò^
+                            Case ENM_STAGE80_TABPAGES._4_ì]ópêÊãLò^
                                 Call CmbST08_3_HENKYAKU_TANTO_Validating(cmbST08_3_HENKYAKU_TANTO, Nothing)
                             Case ENM_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
                                 Call CmbST08_4_BUHIN_BANGO_Validating(cmbST08_4_BUHIN_BANGO, Nothing)

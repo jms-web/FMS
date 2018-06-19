@@ -641,16 +641,17 @@ Public Module mdlDBContext
                     With dsList.Tables(0)
                         For intCNT = 0 To .Rows.Count - 1
                             Dim Trow As DataRow = dt.NewRow()
-                            '
-                            Trow("DISP") = .Rows(intCNT).Item("SYANAI_CD")
-                            Trow("VALUE") = .Rows(intCNT).Item("SYANAI_CD")
-                            'Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                            Trow("BUMON_KB") = .Rows(intCNT).Item("BUMON_KB")
-                            Trow("BUHIN_BANGO") = .Rows(intCNT).Item("BUHIN_BANGO")
-                            Trow("BUHIN_NAME") = .Rows(intCNT).Item("BUHIN_NAME")
-                            Trow("KISYU_ID") = .Rows(intCNT).Item("KISYU_ID")
-                            Trow("TOKUI_ID") = .Rows(intCNT).Item("TOKUI_ID")
-                            dt.Rows.Add(Trow)
+                            If Not .Rows(intCNT).Item("SYANAI_CD").ToString.IsNullOrWhiteSpace Then
+                                Trow("DISP") = .Rows(intCNT).Item("SYANAI_CD")
+                                Trow("VALUE") = .Rows(intCNT).Item("SYANAI_CD")
+                                'Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                                Trow("BUMON_KB") = .Rows(intCNT).Item("BUMON_KB")
+                                Trow("BUHIN_BANGO") = .Rows(intCNT).Item("BUHIN_BANGO")
+                                Trow("BUHIN_NAME") = .Rows(intCNT).Item("BUHIN_NAME")
+                                Trow("KISYU_ID") = .Rows(intCNT).Item("KISYU_ID")
+                                Trow("TOKUI_ID") = .Rows(intCNT).Item("TOKUI_ID")
+                                dt.Rows.Add(Trow)
+                            End If
                         Next intCNT
                     End With
 #End Region
