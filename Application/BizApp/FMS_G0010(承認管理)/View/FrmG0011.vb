@@ -2866,8 +2866,9 @@ Public Class FrmG0011
                                 lblST08_Modoshi_Riyu.Text = "ì]ëóóùóRÅF" & _V003.RIYU
                             End If
                             If intStageID > ENM_NCR_STAGE._80_èàíué¿é{ Then
-                                cmbST08_DestTANTO.Enabled = False
-                                txtST08_Comment.Enabled = False
+                                'cmbST08_DestTANTO.Enabled = False
+                                'txtST08_Comment.Enabled = False
+                                tabST08_SUB.Enabled = False
                             End If
                         Else
                             mtxST08_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
@@ -2905,7 +2906,7 @@ Public Class FrmG0011
 #End Region
 #Region "               81"
             '81
-            If intStageID >= ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ Then
+            If intStageID = ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ))
                 'dt = tblTANTO_SYONIN.AsEnumerable.
                 '          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ)).
@@ -2936,7 +2937,7 @@ Public Class FrmG0011
 #End Region
 #Region "               82"
             '82
-            If intStageID >= ENM_NCR_STAGE._82_èàíué¿é{_êªë¢ Then
+            If intStageID = ENM_NCR_STAGE._82_èàíué¿é{_êªë¢ Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢))
                 'dt = tblTANTO_SYONIN.AsEnumerable.
                 '          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢)).
