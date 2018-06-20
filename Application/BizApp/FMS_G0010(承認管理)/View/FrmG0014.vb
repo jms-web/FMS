@@ -43,7 +43,6 @@ Public Class FrmG0014
 
     ''' <summary>
     ''' ìÆçÏÉÇÅ[Éh 0:åüçıÅA1:ìoò^
-    ''' ìÆçÏÉÇÅ[Éh 0:åüçıÅA1:ìoò^
     ''' </summary>
     ''' <returns></returns>
     Public Property PrMODE As Integer
@@ -148,14 +147,16 @@ Public Class FrmG0014
                         dgv.CurrentRow.Cells("SELECTED").Value = Not CBool(dgv.CurrentRow.Cells("SELECTED").Value)
                         If CBool(dgv.CurrentRow.Cells("SELECTED").Value) Then
                             PrSelectedList.Add((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
-                            If PrDAIHYO.ITEM_VALUE.IsNullOrWhiteSpace Then
+                            If PrDAIHYO.ITEM_VALUE.IsNullOrWhiteSpace And PrMODE = 1 Then
                                 dgv.CurrentRow.Cells("DAIHYO").Value = True
                                 PrDAIHYO = (dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value)
                             End If
                         Else
                             PrSelectedList.Remove((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
-                            dgv.CurrentRow.Cells("DAIHYO").Value = False
-                            PrDAIHYO = Nothing
+                            If PrMODE = 1 Then
+                                dgv.CurrentRow.Cells("DAIHYO").Value = False
+                                PrDAIHYO = Nothing
+                            End If
                         End If
                     Case "DAIHYO"
                         If Not CBool(dgv.CurrentRow.Cells("SELECTED").Value) Then

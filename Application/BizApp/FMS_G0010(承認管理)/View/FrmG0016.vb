@@ -143,7 +143,8 @@ Public Class FrmG0016
                     sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG) & "='" & 1 & "'")
                     sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.RIYU) & "='" & _D004_SYONIN_J_KANRI.RIYU & "'")
                     sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG) & "='" & 0 & "'")
-                    sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID) & "=" & pub_SYAIN_INFO.SYAIN_ID & "")
+                    sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID) & "=" & mtxTANTO_ID.Text & "")
+                    sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID) & "=" & pub_SYAIN_INFO.SYAIN_ID & "") '
                     sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS) & "=dbo.GetSysDateString()")
                     sbSQL.Append(" WHERE " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID) & "=" & PrSYONIN_HOKOKUSYO_ID & "")
                     sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & "='" & _D003_NCR_J.HOKOKU_NO & "'")
@@ -459,9 +460,11 @@ Public Class FrmG0016
 
         'SPEC: 20-5.‡A
         If cmb.SelectedValue = cmb.NullValue Then
+            mtxTANTO_ID.Text = ""
             mtxTANTO_NAME.Text = ""
         Else
             mtxTANTO_NAME.Text = DirectCast(cmbMODOSI_SAKI.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = cmb.SelectedValue).First.Item("SYAIN_NAME")
+            mtxTANTO_ID.Text = DirectCast(cmbMODOSI_SAKI.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = cmb.SelectedValue).First.Item("SYAIN_ID")
         End If
 
     End Sub
@@ -552,7 +555,7 @@ Public Class FrmG0016
                 Trow("SYAIN_NAME") = .Rows(intCNT).Item("UPD_SYAIN_NAME")
                 'Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                 Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
-                Trow("SYAIN_ID") = .Rows(intCNT).Item("UPD_SYAIN_ID") '.Rows(intCNT).Item("SYAIN_ID")
+                Trow("SYAIN_ID") = .Rows(intCNT).Item("UPD_SYAIN_ID")
                 Trow("HOKOKU_NO") = .Rows(intCNT).Item("HOKOKU_NO")
 
                 dt.Rows.Add(Trow)

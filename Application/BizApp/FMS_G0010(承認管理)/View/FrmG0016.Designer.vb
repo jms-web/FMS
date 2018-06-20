@@ -27,6 +27,7 @@ Partial Class FrmG0016
         Me.mtxTANTO_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.mtxMODOSI_RIYU = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label11 = New System.Windows.Forms.Label()
+        Me.mtxTANTO_ID = New JMS_COMMON.MaskedTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -135,6 +136,7 @@ Partial Class FrmG0016
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.mtxTANTO_ID)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.cmbMODOSI_SAKI)
@@ -174,7 +176,7 @@ Partial Class FrmG0016
         Me.cmbMODOSI_SAKI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbMODOSI_SAKI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbMODOSI_SAKI.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbMODOSI_SAKI.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.cmbMODOSI_SAKI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbMODOSI_SAKI.DisplayMember = "DISP"
         Me.cmbMODOSI_SAKI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbMODOSI_SAKI.ForeColor = System.Drawing.SystemColors.ControlText
@@ -245,11 +247,28 @@ Partial Class FrmG0016
         Me.Label11.Text = "Å¶ç∑ñﬂÇµìoò^Ç≥ÇÍÇÈÇ∆ïÒçêèëâÊñ Ç™ï¬Ç∂ÇÁÇÍÇ‹Ç∑"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'mtxTANTO_ID
+        '
+        Me.mtxTANTO_ID.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxTANTO_ID.Enabled = False
+        Me.mtxTANTO_ID.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxTANTO_ID.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxTANTO_ID.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxTANTO_ID.InputRequired = False
+        Me.mtxTANTO_ID.Location = New System.Drawing.Point(253, 52)
+        Me.mtxTANTO_ID.MaxByteLength = 200
+        Me.mtxTANTO_ID.Name = "mtxTANTO_ID"
+        Me.mtxTANTO_ID.Size = New System.Drawing.Size(52, 24)
+        Me.mtxTANTO_ID.TabIndex = 69
+        Me.mtxTANTO_ID.Visible = False
+        Me.mtxTANTO_ID.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxTANTO_ID.WatermarkText = Nothing
+        '
         'FrmG0016
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(1008, 711)
+        Me.ClientSize = New System.Drawing.Size(1008, 712)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True
@@ -283,4 +302,5 @@ Partial Class FrmG0016
     Friend WithEvents Label5 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents mtxTANTO_NAME As MaskedTextBoxEx
+    Friend WithEvents mtxTANTO_ID As MaskedTextBoxEx
 End Class

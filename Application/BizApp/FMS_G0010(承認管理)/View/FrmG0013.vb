@@ -180,21 +180,30 @@ Public Class FrmG0013
                     Case "SELECTED"
                         dgv.CurrentRow.Cells("SELECTED").Value = Not CBool(dgv.CurrentRow.Cells("SELECTED").Value)
                         If CBool(dgv.CurrentRow.Cells("SELECTED").Value) Then
-                            PrSelectedList.Add((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
-                            If PrDAIHYO.ITEM_VALUE.IsNullOrWhiteSpace Then
+                            If Not PrSelectedList.Contains((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value)) Then
+                                PrSelectedList.Add((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
+                            End If
+
+                            If PrDAIHYO.ITEM_VALUE.IsNullOrWhiteSpace And PrMODE = 1 Then
                                 dgv.CurrentRow.Cells("DAIHYO").Value = True
                                 PrDAIHYO = (dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value)
                             End If
                         Else
                             PrSelectedList.Remove((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
-                            dgv.CurrentRow.Cells("DAIHYO").Value = False
-                            PrDAIHYO = Nothing
+
+                            If PrMODE = 1 Then
+                                dgv.CurrentRow.Cells("DAIHYO").Value = False
+                                PrDAIHYO = Nothing
+                            End If
                         End If
                         dgvDATA.CurrentRow.Cells("SELECT_COUNT").Value = DirectCast(dgv.DataSource, DataTable).AsEnumerable().Where(Function(r) r.Field(Of Boolean)("SELECTED") = True).Count
                     Case "DAIHYO"
                         If Not CBool(dgv.CurrentRow.Cells("SELECTED").Value) Then
                             dgv.CurrentRow.Cells("SELECTED").Value = True
-                            PrSelectedList.Add((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
+
+                            If Not PrSelectedList.Contains((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value)) Then
+                                PrSelectedList.Add((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
+                            End If
                         End If
                         dgv.CurrentRow.Cells("DAIHYO").Value = Not CBool(dgv.CurrentRow.Cells("DAIHYO").Value)
                         PrDAIHYO = (dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value)
@@ -328,7 +337,7 @@ Public Class FrmG0013
                     If PrSelectedList Is Nothing Then
                         Trow("SELECT_COUNT") = 0
                     Else
-                        Trow("SELECT_COUNT") = PrSelectedList.Where(Function(item) item.ITEM_NAME = row.Item("ITEM_VALUE")).Count
+                        Trow("SELECT_COUNT") = PrSelectedList.Where(Function(item) item.ITEM_NAME.Trim = row.Item("ITEM_VALUE")).Count
                     End If
                     dt.Rows.Add(Trow)
                 Next row
@@ -457,11 +466,12 @@ Public Class FrmG0013
                         If PrSelectedList Is Nothing Then
                             Trow("SELECTED") = False
                         Else
-                            Trow("SELECTED") = PrSelectedList.Contains((strValue, .Item("ITEM_VALUE"), .Item("ITEM_DISP")))
+                            Dim bln As Boolean = PrSelectedList.Contains((strValue, .Item("ITEM_VALUE").ToString.Trim, .Item("ITEM_DISP").ToString.Trim))
+                            Trow("SELECTED") = bln
                         End If
                         If PrDAIHYO.ITEM_VALUE <> "" Then
-                            Dim prBUFF As (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String) = (strValue, dsList.Tables(0).Rows(intCNT).Item("ITEM_VALUE").ToString, dsList.Tables(0).Rows(intCNT).Item("ITEM_DISP").ToString)
-                            Trow("DAIHYO") = PrDAIHYO.Equals(prBUFF)
+                            Dim bln As Boolean = (PrDAIHYO.ITEM_DISP = dsList.Tables(0).Rows(intCNT).Item("ITEM_DISP").ToString.Trim) And (PrDAIHYO.ITEM_NAME.Trim = strValue) And (PrDAIHYO.ITEM_VALUE.Trim = dsList.Tables(0).Rows(intCNT).Item("ITEM_VALUE").ToString.Trim)
+                            Trow("DAIHYO") = bln
                         Else
                             Trow("DAIHYO") = False
                         End If

@@ -650,6 +650,27 @@ Module mdlG0010
     End Function
 
 
+    Private Function FunGetCurrentSYONIN_JUN(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal HOKOKU_NO As String) As Integer
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append("SELECT")
+        sbSQL.Append(" SYONIN_JUN")
+        sbSQL.Append(" FROM " & NameOf(MODEL.V007_NCR_CAR) & " ")
+        sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intSYONIN_HOKOKUSYO_ID & "")
+        sbSQL.Append(" AND HOKOKU_NO='" & HOKOKU_NO & "'")
+        Using DBa As ClsDbUtility = DBOpen()
+            dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        If dsList.Tables(0).Rows.Count > 0 Then
+            Return dsList.Tables(0).Rows(0).Item(0)
+        Else
+            Return 0
+        End If
+    End Function
+
 #Region "メール送信"
 
     Public Function FunSendMailFutekigo(ByVal strSubject As String, ByVal strBody As String, ByVal ToSYAIN_ID As Integer) As Boolean
@@ -712,39 +733,42 @@ Module mdlG0010
                 Else
                     Return False
                 End If
+
+                strMsg = String.Format("【メール送信成功】TO:{0}({1}) SUBJECT:{2}", strToSyainName, strToAddress, strSubject)
+                WL.WriteLogDat(strMsg)
+
+                'DEBUG:
+                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE") = 0 Then
+                    Return True
+                End If
             End Using
 
-            strMsg = String.Format("【メール送信成功】TO:{0}({1}) SUBJECT:{2}", strToSyainName, strToAddress, strSubject)
-            WL.WriteLogDat(strMsg)
-
-            'DEBUG:
-            Return True
 
             ''認証なし フジワラ
-            'blnSend = ClsMailSend.FunSendMail(strSmtpServer,
-            '               intSmtpPort,
-            '               strFromAddress,
-            '               strToAddress,
-            '               CCAddress:=strFromAddress,
-            '               BCCAddress:="",
-            '               strSubject:=strSubject,
-            '               strBody:=strBody,
-            '               strAttachment:="",
-            '               strFromName:="不適合管理システム")
-
-            '認証あり JMS
-            blnSend = ClsMailSend.FunSendMailoverAUTH(strSmtpServer,
+            blnSend = ClsMailSend.FunSendMail(strSmtpServer,
                            intSmtpPort,
-                           strUserID,
-                           strPassword,
                            strFromAddress,
                            strToAddress,
-                           strFromAddress,
-                           "",
-                           strSubject,
-                           strBody,
-                           "",
-                           "不適合管理システム")
+                           CCAddress:=strFromAddress,
+                           BCCAddress:="",
+                           strSubject:=strSubject,
+                           strBody:=strBody,
+                           strAttachment:="",
+                           strFromName:="不適合管理システム")
+
+            '認証あり JMS
+            'blnSend = ClsMailSend.FunSendMailoverAUTH(strSmtpServer,
+            '               intSmtpPort,
+            '               strUserID,
+            '               strPassword,
+            '               strFromAddress,
+            '               strToAddress,
+            '               strFromAddress,
+            '               "",
+            '               strSubject,
+            '               strBody,
+            '               "",
+            '               "不適合管理システム")
 
             Return blnSend
         Catch ex As Exception
@@ -954,11 +978,16 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.SEIZO_TANTO_NAME)).Value = _V002_NCR_J.SEIZO_TANTO_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SURYO)).Value = _V002_NCR_J.SURYO
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_UMU_NAME)).Value = _V002_NCR_J.SYOCHI_D_UMU_NAME
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_D_YOHI_NAME
+
+            Dim intCurrentStage As Integer = FunGetCurrentSYONIN_JUN(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _V002_NCR_J.HOKOKU_NO)
+            If intCurrentStage >= ENM_NCR_STAGE._110_abcde処置担当 Then
+                ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_UMU_NAME)).Value = _V002_NCR_J.SYOCHI_D_UMU_NAME
+                ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_D_YOHI_NAME
+                ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_UMU_NAME)).Value = _V002_NCR_J.SYOCHI_E_UMU_NAME
+                ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_E_YOHI_NAME
+            End If
+
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_UMU_NAME)).Value = _V002_NCR_J.SYOCHI_E_UMU_NAME
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_E_YOHI_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_A_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_A_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_B_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_B_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_C_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_C_NAME
@@ -1006,7 +1035,9 @@ Module mdlG0010
                 ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._110_abcde処置担当).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._110_abcde処置担当).FirstOrDefault?.UPD_SYAIN_NAME
             End If
 
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._120_abcde処置確認).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._120_abcde処置確認).FirstOrDefault?.UPD_SYAIN_NAME
+            If intCurrentStage > ENM_NCR_STAGE._120_abcde処置確認 Then
+                ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._120_abcde処置確認).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._120_abcde処置確認).FirstOrDefault?.UPD_SYAIN_NAME
+            End If
 
             Dim strRootDir As String
             Using DB As ClsDbUtility = DBOpen()
@@ -1065,7 +1096,7 @@ Module mdlG0010
 
             'Excel作業ファイルを削除
             Try
-                System.IO.File.Delete(strFilePath)
+                'System.IO.File.Delete(strFilePath)
             Catch ex As UnauthorizedAccessException
             End Try
 
@@ -1105,7 +1136,7 @@ Module mdlG0010
             If Not _V005_CAR_J.KAITO_4.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_4)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_4.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
-            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_5)).Value = _V005_CAR_J.KAITO_5
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_5)).Value = Fun_GetUSER_NAME(_V005_CAR_J.KAITO_5)
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_6)).Value = _V005_CAR_J.KAITO_6
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_7)).Value = _V005_CAR_J.KAITO_7
             If Not _V005_CAR_J.KAITO_8.IsNullOrWhiteSpace Then
@@ -1114,7 +1145,7 @@ Module mdlG0010
             If Not _V005_CAR_J.KAITO_9.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_9)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_9.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
-            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_10)).Value = _V005_CAR_J.KAITO_10
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_10)).Value = Fun_GetUSER_NAME(_V005_CAR_J.KAITO_10)
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_11)).Value = _V005_CAR_J.KAITO_11
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_12)).Value = _V005_CAR_J.KAITO_12
             If Not _V005_CAR_J.KAITO_13.IsNullOrWhiteSpace Then
@@ -1129,7 +1160,7 @@ Module mdlG0010
             If Not _V005_CAR_J.KAITO_16.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_16)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_16.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
-            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_17)).Value = _V005_CAR_J.KAITO_17
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_17)).Value = Fun_GetUSER_NAME(_V005_CAR_J.KAITO_17)
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_18)).Value = _V005_CAR_J.KAITO_18
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_19)).Value = _V005_CAR_J.KAITO_19
             If Not _V005_CAR_J.KAITO_20.IsNullOrWhiteSpace Then
@@ -1161,6 +1192,10 @@ Module mdlG0010
                 spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_B_YMDHNS)).Value = DateTime.ParseExact(_V005_CAR_J.SYOCHI_B_YMDHNS.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_C_SYAIN_NAME)).Value = _V005_CAR_J.SYOCHI_C_SYAIN_NAME
+            If Not _V005_CAR_J.SYOCHI_C_YMDHNS.IsNullOrWhiteSpace Then
+                spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_C_YMDHNS)).Value = DateTime.ParseExact(_V005_CAR_J.SYOCHI_B_YMDHNS.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+            End If
+
             spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME10)).Value = _V005_CAR_J.SYONIN_NAME10
             If Not _V005_CAR_J.SYONIN_YMD10.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD10)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD10.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")

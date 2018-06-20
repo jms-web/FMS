@@ -56,11 +56,11 @@
 
             'メールの送信先サーバー名
 
-            Dim address As System.Net.IPAddress = System.Net.Dns.GetHostEntry(strSmtpServer).AddressList(0)
+            Dim address() As System.Net.IPAddress = System.Net.Dns.GetHostEntry(strSmtpServer).AddressList
 
 
             'SMTPへの接続クラスを作成
-            smtp = New TKMP.Net.SmtpClient(address, intSmtpPort)
+            smtp = New TKMP.Net.SmtpClient(address(0), intSmtpPort)
 
             'サーバーへ接続
             If Not smtp.Connect() Then

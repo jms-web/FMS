@@ -175,7 +175,7 @@ Public Class FrmG0011
             'モデルリセット
             _D003_NCR_J.Clear()
             _D004_SYONIN_J_KANRI.clear()
-            _D005_CAR_J.Clear()
+            '_D005_CAR_J.Clear()
             _R001_HOKOKU_SOUSA.clear()
             _R002_HOKOKU_TENSO.clear()
 
@@ -1329,6 +1329,8 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.UPD_YMDHNS))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.DEL_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.DEL_YMDHNS))
+        sbSQL.Append(" ," & NameOf(_D005_CAR_J.FILE_PATH1))
+        sbSQL.Append(" ," & NameOf(_D005_CAR_J.FILE_PATH2))
         sbSQL.Append(" ) VALUES(")
         sbSQL.Append(" '" & _D005_CAR_J.HOKOKU_NO & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.BUMON_KB & "'")
@@ -1394,7 +1396,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & _D005_CAR_J.SYOCHI_C_SYAIN_ID & "")
         sbSQL.Append(" ,'" & _D005_CAR_J.SYOCHI_C_YMDHNS & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KYOIKU_FILE_PATH & "'")
-        sbSQL.Append(" ,'" & _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J._ZESEI_SYOCHI_YUKO_UMU & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.SYOSAI_FILE_PATH & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.GOKI & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.LOT & "'")
@@ -1408,6 +1410,8 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & _D005_CAR_J.UPD_YMDHNS & "'")
         sbSQL.Append(" ," & _D005_CAR_J.DEL_SYAIN_ID & "")
         sbSQL.Append(" ,'" & _D005_CAR_J.DEL_YMDHNS & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH1 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH2 & "'")
         sbSQL.Append(")")
 
         '-----SQL実行

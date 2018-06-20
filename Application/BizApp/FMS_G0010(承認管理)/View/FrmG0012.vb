@@ -210,8 +210,8 @@ Public Class FrmG0012
                     DB.BeginTransaction()
 
                     Select Case PrCurrentStage
-                        Case ENM_CAR_STAGE._120_是正有効性確認_品証TL, ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
-                            '更新しない
+                        'Case ENM_CAR_STAGE._120_是正有効性確認_品証TL, ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
+                        '更新しない
                         Case Else
                             'SPEC: 2.(3).D.①.レコード更新
                             If FunSAVE_D005(DB) Then
@@ -506,6 +506,7 @@ Public Class FrmG0012
         sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.FILE_PATH2) & " = WK." & NameOf(_D005_CAR_J.FILE_PATH2))
         sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.UPD_SYAIN_ID) & " = WK." & NameOf(_D005_CAR_J.UPD_SYAIN_ID))
         sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.UPD_YMDHNS) & " = WK." & NameOf(_D005_CAR_J.UPD_YMDHNS))
+        sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.CLOSE_FG) & " = WK." & NameOf(_D005_CAR_J.CLOSE_FG))
 
         'INSERT
         sbSQL.Append(" WHEN NOT MATCHED THEN ")
@@ -1617,7 +1618,7 @@ Public Class FrmG0012
             End If
 
             'Excel起動
-            Return FunOpenExcelApp(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName)
+            'Return FunOpenExcelApp(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName)
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -1897,7 +1898,8 @@ Public Class FrmG0012
         Dim frmDLG As New Form
         Dim dlgRET As DialogResult
         Try
-            If cmbKONPON_YOIN_KB1.SelectedValue = 0 Then
+
+            If _D005_CAR_J.KONPON_YOIN_KB1 = 0 Then
                 frmDLG = New FrmG0013
                 DirectCast(frmDLG, FrmG0013).PrMODE = 1
                 DirectCast(frmDLG, FrmG0013).PrYOIN = (cmbKONPON_YOIN_KB1.SelectedValue, cmbKONPON_YOIN_KB1.Text)
@@ -1931,6 +1933,7 @@ Public Class FrmG0012
                     mtxGENIN1_DISP.Text = DAIHYO.ITEM_DISP
                     mtxGENIN1.Text = DAIHYO.ITEM_NAME & "," & DAIHYO.ITEM_VALUE
                 Else
+                    PrGenin1.Clear()
                     mtxGENIN1_DISP.Text = ""
                     mtxGENIN1.Text = ""
                 End If
@@ -1949,7 +1952,7 @@ Public Class FrmG0012
         Dim frmDLG As New Form
         Dim dlgRET As DialogResult
         Try
-            If cmbKONPON_YOIN_KB2.SelectedValue = 0 Then
+            If _D005_CAR_J.KONPON_YOIN_KB2 = 0 Then
                 frmDLG = New FrmG0013
                 DirectCast(frmDLG, FrmG0013).PrMODE = 1
                 DirectCast(frmDLG, FrmG0013).PrYOIN = (cmbKONPON_YOIN_KB2.SelectedValue, cmbKONPON_YOIN_KB2.Text)
@@ -1983,6 +1986,7 @@ Public Class FrmG0012
                     mtxGENIN2_DISP.Text = DAIHYO.ITEM_DISP
                     mtxGENIN2.Text = DAIHYO.ITEM_NAME & "," & DAIHYO.ITEM_VALUE
                 Else
+                    PrGenin2.Clear()
                     mtxGENIN2_DISP.Text = ""
                     mtxGENIN2.Text = ""
                 End If
@@ -2785,20 +2789,20 @@ Public Class FrmG0012
 
             For Each row As DataRow In dsList.Tables(0).Rows
                 If row.Item(NameOf(_D006_CAR_GENIN.RENBAN)) = 1 Then
-                    Dim item As (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String) = (row.Item("GENIN_BUNSEKI_KB"), row.Item("GENIN_BUNSEKI_S_KB"), row.Item("GENIN_BUNSEKI_NAME"))
+                    Dim item As (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String) = (row.Item("GENIN_BUNSEKI_KB").ToString.Trim, row.Item("GENIN_BUNSEKI_S_KB").ToString.Trim, row.Item("GENIN_BUNSEKI_NAME").ToString.Trim)
                     PrGenin1.Add(item)
 
-                    If row.Item(NameOf(_D006_CAR_GENIN.DAIHYO_FG)) = True Then
+                    If row.Item(NameOf(_D006_CAR_GENIN.DAIHYO_FG)) = 1 Then
                         mtxGENIN1_DISP.Text = item.ITEM_DISP
                         mtxGENIN1.Text = item.ITEM_NAME & "," & item.ITEM_VALUE
                     End If
                 End If
 
                 If row.Item(NameOf(_D006_CAR_GENIN.RENBAN)) = 2 Then
-                    Dim item As (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String) = (row.Item("GENIN_BUNSEKI_KB"), row.Item("GENIN_BUNSEKI_S_KB"), row.Item("GENIN_BUNSEKI_NAME"))
+                    Dim item As (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String) = (row.Item("GENIN_BUNSEKI_KB").ToString.Trim, row.Item("GENIN_BUNSEKI_S_KB").ToString.Trim, row.Item("GENIN_BUNSEKI_NAME").ToString.Trim)
                     PrGenin2.Add(item)
 
-                    If row.Item(NameOf(_D006_CAR_GENIN.DAIHYO_FG)) = True Then
+                    If row.Item(NameOf(_D006_CAR_GENIN.DAIHYO_FG)) = 1 Then
                         mtxGENIN2_DISP.Text = item.ITEM_DISP
                         mtxGENIN2.Text = item.ITEM_NAME & "," & item.ITEM_VALUE
                     End If
