@@ -328,6 +328,7 @@ Module mdlG0010
 
 #Region "共通関数"
 
+#Region "値取得等"
     ''' <summary>
     ''' 引数の検索条件を一覧取得ストアドに渡して検索結果のテーブルデータを取得
     ''' </summary>
@@ -681,6 +682,7 @@ Module mdlG0010
             Return 0
         End If
     End Function
+#End Region
 
 #Region "メール送信"
 
