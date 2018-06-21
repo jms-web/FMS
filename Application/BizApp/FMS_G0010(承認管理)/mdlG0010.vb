@@ -116,6 +116,17 @@ Module mdlG0010
     End Enum
 
     ''' <summary>
+    ''' 根本要因区分
+    ''' </summary>
+    Public Enum ENM_KONPON_YOIN_KB
+        _0_人 = 0
+        _1_材料 = 1
+        _2_設備治具 = 2
+        _3_方法 = 3
+    End Enum
+
+
+    ''' <summary>
     ''' 承認判定区分
     ''' </summary>
     Public Enum ENM_SYONIN_HANTEI_KB

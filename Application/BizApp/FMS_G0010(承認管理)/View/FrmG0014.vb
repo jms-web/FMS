@@ -74,7 +74,7 @@ Public Class FrmG0014
             mtxYOIN_NAME.Text = PrYOIN.Name
 
             '検索実行
-            Call FunSRCH(dgvDATA, FunGetListData())
+            Call FunSRCH(dgvDATA, FunGetListData(PrYOIN.Value))
         Finally
             Call FunInitFuncButtonEnabled()
         End Try
@@ -244,8 +244,26 @@ Public Class FrmG0014
 
 #Region "検索"
 
-    Private Function FunGetListData() As DataTable
+    Private Function FunGetListData(ByVal strValue As String) As DataTable
         Try
+            Dim GeninBunsekiKB As String
+            Dim strItemName As String
+            Select Case strValue
+                Case ENM_KONPON_YOIN_KB._1_材料
+                    strItemName = "材料原因区分"
+                    GeninBunsekiKB = ENM_GENIN_BUNSEKI_KB._11_材料
+                Case ENM_KONPON_YOIN_KB._2_設備治具
+                    strItemName = "設備治具原因区分"
+                    GeninBunsekiKB = ENM_GENIN_BUNSEKI_KB._12_設備_治具
+                Case ENM_KONPON_YOIN_KB._3_方法
+                    strItemName = "方法原因区分"
+                    GeninBunsekiKB = ENM_GENIN_BUNSEKI_KB._13_方法
+                Case Else
+                    Return Nothing
+                    'Err
+            End Select
+
+
             Dim sbSQL As New System.Text.StringBuilder
             Dim dsList As New DataSet
 
@@ -253,7 +271,7 @@ Public Class FrmG0014
             sbSQL.Append("SELECT")
             sbSQL.Append(" *")
             sbSQL.Append(" FROM " & NameOf(MODEL.VWM001_SETTING) & " ")
-            sbSQL.Append(" WHERE ITEM_NAME='材料原因区分'")
+            sbSQL.Append(" WHERE ITEM_NAME='" & strItemName & "'")
             sbSQL.Append(" ORDER BY DISP_ORDER ")
             Using DBa As ClsDbUtility = DBOpen()
                 dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
@@ -277,7 +295,7 @@ Public Class FrmG0014
                 For intCNT = 0 To dsList.Tables(0).Rows.Count - 1
                     With dsList.Tables(0).Rows(intCNT)
                         Dim Trow As DataRow = dt.NewRow()
-                        Trow("ITEM_NAME") = .Item("ITEM_NAME")
+                        Trow("ITEM_NAME") = GeninBunsekiKB '検索のため名称ではなく値にする .Item("ITEM_NAME")
                         Trow("ITEM_DISP") = .Item("ITEM_DISP")
                         Trow("ITEM_VALUE") = .Item("ITEM_VALUE")
                         Trow("DEL_FLG") = CBool(.Item("DEL_FLG"))
@@ -286,11 +304,11 @@ Public Class FrmG0014
                         If PrSelectedList Is Nothing Then
                             Trow("SELECTED") = False
                         Else
-                            Trow("SELECTED") = PrSelectedList.Contains((.Item("ITEM_NAME"), .Item("ITEM_VALUE"), .Item("ITEM_DISP")))
+                            Trow("SELECTED") = PrSelectedList.Contains((GeninBunsekiKB, .Item("ITEM_VALUE").ToString.Trim, .Item("ITEM_DISP").ToString.Trim))
                         End If
                         If PrDAIHYO.ITEM_VALUE <> "" Then
-                            Dim prBUFF As (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String) = (.Item("ITEM_NAME").ToString, .Item("ITEM_VALUE").ToString, .Item("ITEM_DISP").ToString)
-                            Trow("DAIHYO") = PrDAIHYO.Equals(prBUFF)
+                            Dim bln As Boolean = (PrDAIHYO.ITEM_DISP = .Item("ITEM_DISP").ToString.Trim And PrDAIHYO.ITEM_NAME = GeninBunsekiKB And PrDAIHYO.ITEM_VALUE = .Item("ITEM_VALUE").ToString.Trim)
+                            Trow("DAIHYO") = bln
                         Else
                             Trow("DAIHYO") = False
                         End If
@@ -399,7 +417,5 @@ Public Class FrmG0014
 #Region "コントロールイベント"
 
 #End Region
-
-
 
 End Class

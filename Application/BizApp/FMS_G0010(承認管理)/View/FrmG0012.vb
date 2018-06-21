@@ -948,12 +948,12 @@ Public Class FrmG0012
             _D006_CAR_GENIN.HOKOKU_NO = _D005_CAR_J.HOKOKU_NO
             _D006_CAR_GENIN.RENBAN = 1
             _D006_CAR_GENIN.GENIN_BUNSEKI_KB = item.ITEM_NAME
-            If _D005_CAR_J.KONPON_YOIN_KB1 = 0 Then '0:人
-                _D006_CAR_GENIN.GENIN_BUNSEKI_S_KB = item.ITEM_VALUE
-            Else
-                _D006_CAR_GENIN.GENIN_BUNSEKI_KB = item.ITEM_VALUE
-                _D006_CAR_GENIN.GENIN_BUNSEKI_S_KB = " "
-            End If
+            'If _D005_CAR_J.KONPON_YOIN_KB1 = 0 Then '0:人
+            _D006_CAR_GENIN.GENIN_BUNSEKI_S_KB = item.ITEM_VALUE
+            'Else
+            '    _D006_CAR_GENIN.GENIN_BUNSEKI_KB = item.ITEM_VALUE
+            '    _D006_CAR_GENIN.GENIN_BUNSEKI_S_KB = " "
+            'End If
             If mtxGENIN1.Text = item.ITEM_NAME & "," & item.ITEM_VALUE Then
                 '代表
                 _D006_CAR_GENIN._DAIHYO_FG = 1
@@ -1000,12 +1000,12 @@ Public Class FrmG0012
             _D006_CAR_GENIN.HOKOKU_NO = _D005_CAR_J.HOKOKU_NO
             _D006_CAR_GENIN.RENBAN = 2
             _D006_CAR_GENIN.GENIN_BUNSEKI_KB = item.ITEM_NAME
-            If _D005_CAR_J.KONPON_YOIN_KB2 = 0 Then '0:人
-                _D006_CAR_GENIN.GENIN_BUNSEKI_S_KB = item.ITEM_VALUE
-            Else
-                _D006_CAR_GENIN.GENIN_BUNSEKI_KB = item.ITEM_VALUE
-                _D006_CAR_GENIN.GENIN_BUNSEKI_S_KB = " "
-            End If
+            'If _D005_CAR_J.KONPON_YOIN_KB2 = 0 Then '0:人
+            _D006_CAR_GENIN.GENIN_BUNSEKI_S_KB = item.ITEM_VALUE
+            'Else
+            '    _D006_CAR_GENIN.GENIN_BUNSEKI_KB = item.ITEM_VALUE
+            '    _D006_CAR_GENIN.GENIN_BUNSEKI_S_KB = " "
+            'End If
             If mtxGENIN2.Text = item.ITEM_NAME & "," & item.ITEM_VALUE Then
                 '代表
                 _D006_CAR_GENIN._DAIHYO_FG = 1

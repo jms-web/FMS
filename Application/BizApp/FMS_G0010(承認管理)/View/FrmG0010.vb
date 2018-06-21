@@ -2017,7 +2017,6 @@ Public Class FrmG0010
 
     End Function
 
-
     Public Function FunGetDtST02_FUTEKIGO_ICHIRAN(ByVal ParamModel As ST02_ParamModel) As DataTable
 
         Dim sbSQL As New System.Text.StringBuilder

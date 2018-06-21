@@ -470,7 +470,6 @@ Public Class FrmG0011
                 _D003_NCR_J.KOKYAKU_SAISIN_YMD = Now.ToString("yyyyMMdd")
             Case ENM_NCR_STAGE._110_abcdeèàíuíSìñ
 
-
             Case Else
                 'UNDONE: 
         End Select
