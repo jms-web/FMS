@@ -751,7 +751,7 @@ Module mdlG0010
                 WL.WriteLogDat(strMsg)
 
                 'DEBUG:
-                If FunGetCodeMastaValue(DB, "ƒ[ƒ‹İ’è", "ENABLE") = 0 Then
+                If FunGetCodeMastaValue(DB, "ƒ[ƒ‹İ’è", "ENABLE") = "FALSE" Then
                     Return True
                 End If
             End Using

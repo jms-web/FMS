@@ -72,9 +72,11 @@ Public Class FrmG0017
                 .AutoGenerateColumns = False
 
                 .Columns.Add("ADD_YMDHNS", "処理年月日")
-                .Columns(.ColumnCount - 1).Width = 150
+                .Columns(.ColumnCount - 1).Width = 140
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).ValueType = GetType(DateTime)
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Format = "yyyy/MM/dd HH:mm"
 
                 .Columns.Add("SYONIN_JUN", "承認順")
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
@@ -98,6 +100,11 @@ Public Class FrmG0017
                 .Columns.Add("RIYU", "内容・理由")
                 .Columns(.ColumnCount - 1).Width = 400
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+
+                .Columns.Add("CHANGE", " ")
+                .Columns(.ColumnCount - 1).Width = 80
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
             End With
@@ -189,7 +196,7 @@ Public Class FrmG0017
             sbSQL.Append(" FROM " & NameOf(MODEL.V004_HOKOKU_SOUSA) & "")
             sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & PrSYONIN_HOKOKUSYO_ID & "")
             sbSQL.Append(" AND HOKOKU_NO='" & PrHOKOKU_NO & "'")
-            sbSQL.Append(" ORDER BY ADD_YMDHNS DESC")
+            sbSQL.Append(" ORDER BY SASIMODOSI_YMDHNS")
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
@@ -205,7 +212,7 @@ Public Class FrmG0017
 
             dt.Columns.Add("SYONIN_HOKOKUSYO_ID", GetType(Integer))
             dt.Columns.Add("HOKOKU_NO", GetType(String))
-            dt.Columns.Add("ADD_YMDHNS", GetType(String))
+            dt.Columns.Add("ADD_YMDHNS", GetType(DateTime))
             dt.Columns.Add("SYONIN_JUN", GetType(Integer))
             dt.Columns.Add("SYONIN_NAIYO", GetType(String))
             dt.Columns.Add("SOUSA_KB", GetType(String))
@@ -216,6 +223,7 @@ Public Class FrmG0017
             dt.Columns.Add("SYONIN_HANTEI_NAME", GetType(String))
             dt.Columns.Add("RIYU", GetType(String))
             dt.Columns.Add("SASIMODOSI_YMDHNS", GetType(String))
+            dt.Columns.Add("CHANGE", GetType(String))
 
             '主キー設定
             dt.PrimaryKey = {dt.Columns("SYONIN_HOKOKUSYO_ID"), dt.Columns("HOKOKU_NO"), dt.Columns("ADD_YMDHNS")}
@@ -226,7 +234,7 @@ Public Class FrmG0017
                     '
                     Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
                     Trow("HOKOKU_NO") = .Rows(intCNT).Item("HOKOKU_NO")
-                    Trow("ADD_YMDHNS") = DateTime.ParseExact(.Rows(intCNT).Item("ADD_YMDHNS"), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
+                    Trow("ADD_YMDHNS") = DateTime.ParseExact(.Rows(intCNT).Item("ADD_YMDHNS"), "yyyyMMddHHmmss", Nothing)
                     Trow("SYONIN_JUN") = .Rows(intCNT).Item("SYONIN_JUN")
                     Trow("SOUSA_KB") = .Rows(intCNT).Item("SOUSA_KB")
                     Trow("SOUSA_NAME") = .Rows(intCNT).Item("SOUSA_NAME")
@@ -237,6 +245,11 @@ Public Class FrmG0017
                     Trow("SYONIN_HANTEI_NAME") = .Rows(intCNT).Item("SYONIN_HANTEI_NAME")
                     Trow("RIYU") = .Rows(intCNT).Item("RIYU")
                     Trow("SASIMODOSI_YMDHNS") = .Rows(intCNT).Item("SASIMODOSI_YMDHNS")
+                    If .Rows(intCNT).Item("SOUSA_KB") = ENM_SOUSA_KB._3_承認差戻 Then
+                        Trow("CHANGE") = "変更あり"
+                    Else
+                        Trow("CHANGE") = ""
+                    End If
 
                     dt.Rows.Add(Trow)
                 Next intCNT

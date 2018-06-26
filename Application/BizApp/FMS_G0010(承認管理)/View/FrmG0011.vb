@@ -395,15 +395,15 @@ Public Class FrmG0011
                 Try
                     System.IO.Directory.CreateDirectory(strRootDir & _D003_NCR_J.HOKOKU_NO)
                     If Not _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH) Then
-                        System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData(0), strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH, True)
+                        System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH, True)
                         '_D003_NCR_J.FILE_PATH = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.FILE_PATH)
                     End If
                     If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1) Then
-                        System.IO.File.Copy(lblPict1Path.Links.Item(0).LinkData(0), strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1, True)
+                        System.IO.File.Copy(lblPict1Path.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1, True)
                         '_D003_NCR_J.G_FILE_PATH1 = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH1)
                     End If
                     If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2) Then
-                        System.IO.File.Copy(lblPict2Path.Links.Item(0).LinkData(0), strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2, True)
+                        System.IO.File.Copy(lblPict2Path.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2, True)
                         '_D003_NCR_J.G_FILE_PATH2 = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH2)
                     End If
 
@@ -2723,11 +2723,7 @@ Public Class FrmG0011
             If intStageID >= ENM_NCR_STAGE._70_ŒÚ‹qÄRˆ’u_I_tag Then
                 If FunExistAchievement(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._70_ŒÚ‹qÄRˆ’u_I_tag) Then
                     dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_ŒÚ‹qÄRˆ’u_I_tag))
-                    'dt = tblTANTO_SYONIN.AsEnumerable.
-                    '            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_ŒÚ‹qÄRˆ’u_I_tag)).
-                    '            CopyToDataTable
                     cmbST07_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
                     mtxST07_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_ŒÚ‹qÄRˆ’u_I_tag))
                     mtxST07_UPD_YMD.Enabled = False
                     mtxST07_NextStageName.Enabled = False
@@ -3184,6 +3180,10 @@ Public Class FrmG0011
         End Try
     End Function
 
+    ''' <summary>
+    ''' ƒXƒe[ƒW80“àƒ^ƒu‚Ì”»’è
+    ''' </summary>
+    ''' <returns></returns>
     Private Function FunGetST08SubPageName() As String
         Select Case _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
             Case ENM_KOKYAKU_SAISYU_HANTEI_KB._3_”p‹p‚·‚é
@@ -3340,10 +3340,16 @@ Public Class FrmG0011
                     _D003_NCR_J.BUHIN_BANGO = _selectedValue
                 End If
             Else
-                cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                drs = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmbBUMON.SelectedValue).ToList
+                If drs.Count > 0 Then
+                    cmbBUHIN_BANGO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                End If
             End If
         Else
-            cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            Dim drs = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmbBUMON.SelectedValue).ToList
+            If drs.Count > 0 Then
+                cmbBUHIN_BANGO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            End If
         End If
         AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
 
@@ -3365,7 +3371,10 @@ Public Class FrmG0011
             End If
             _D003_NCR_J.SYANAI_CD = ""
         Else
-            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            Dim drs = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = cmbBUMON.SelectedValue).ToList
+            If drs.Count > 0 Then
+                cmbSYANAI_CD.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            End If
         End If
         AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
     End Sub
@@ -3804,12 +3813,16 @@ Public Class FrmG0011
 
         Dim blnChecked As Boolean = rbtnST07_No.Checked
         _D003_NCR_J.SAIKAKO_SIJI_FG = True
+
+        Call FunUpdateNextStageInfo()
     End Sub
 
     Private Sub rbtnST07_No_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST07_No.CheckedChanged
 
         Dim blnChecked As Boolean = rbtnST07_No.Checked
         _D003_NCR_J.SAIKAKO_SIJI_FG = False
+
+        Call FunUpdateNextStageInfo()
     End Sub
 
     Private Sub ChkST07_SAIKAKO_SIJI_FLG_CheckedChanged(sender As Object, e As EventArgs) Handles chkST07_SAIKAKO_SIJI_FLG.CheckedChanged
@@ -3820,12 +3833,27 @@ Public Class FrmG0011
         End If
     End Sub
 
+    Private Sub CmbST07_KOKYAKU_SAISYU_HANTEI_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbST07_KOKYAKU_SAISYU_HANTEI.SelectedValueChanged
+        Call FunUpdateNextStageInfo()
+    End Sub
+
+    ''' <summary>
+    ''' ƒXƒe[ƒW70 ‘I‘ğ“à—e‚É‰‚¶‚ÄŸƒXƒe[ƒW–¼‚Æ’S“–Ò‚ğXV
+    ''' </summary>
+    ''' <returns></returns>
+    Private Function FunUpdateNextStageInfo() As Boolean
+        Dim dt As DataTable
+        dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_ŒÚ‹qÄRˆ’u_I_tag))
+        cmbST07_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+        mtxST07_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_ŒÚ‹qÄRˆ’u_I_tag))
+    End Function
+
     Private Sub CmbST07_SAISIN_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_SAISIN_TANTO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If cmb.SelectedValue = cmb.NullValue Then
             'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "–‘OR¸”»’è"))
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ÄR\¿’S“–"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
         Else
@@ -3839,7 +3867,7 @@ Public Class FrmG0011
 
         If cmb.SelectedValue = cmb.NullValue Then
             'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "–‘OR¸”»’è"))
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ŒÚ‹q”»’èw¦"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
         Else
@@ -3853,7 +3881,7 @@ Public Class FrmG0011
 
         If cmb.SelectedValue = cmb.NullValue Then
             'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "–‘OR¸”»’è"))
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ŒÚ‹qÅI”»’è"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
         Else
@@ -3871,7 +3899,7 @@ Public Class FrmG0011
 
         If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.SelectedValue = cmb.NullValue Then
             'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "–‘OR¸”»’è"))
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "”p‹p•û–@"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
         Else
@@ -3885,7 +3913,7 @@ Public Class FrmG0011
 
         If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.SelectedValue = cmb.NullValue Then
             'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "–‘OR¸”»’è"))
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "”p‹pÀ{Ò"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
         Else
@@ -3900,7 +3928,7 @@ Public Class FrmG0011
 
         If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
             'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "–‘OR¸”»’è"))
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ŒŸ¸Œ‹‰Ê"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
         Else
@@ -3913,7 +3941,7 @@ Public Class FrmG0011
 
         If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
             'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "–‘OR¸”»’è"))
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "»‘¢’S“–"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
         Else
@@ -3926,7 +3954,7 @@ Public Class FrmG0011
 
         If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
             'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "–‘OR¸”»’è"))
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "¶‹Z’S“–"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
         Else
@@ -3939,7 +3967,7 @@ Public Class FrmG0011
 
         If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
             'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "–‘OR¸”»’è"))
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ŒŸ¸’S“–"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
         Else
@@ -3954,7 +3982,7 @@ Public Class FrmG0011
 
         If tabST08_SUB.SelectedIndex = 2 AndAlso cmb.SelectedValue = cmb.NullValue Then
             'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "–‘OR¸”»’è"))
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "•Ô‹p’S“–"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
         Else
@@ -3969,7 +3997,7 @@ Public Class FrmG0011
 
         If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.SelectedValue = cmb.NullValue Then
             'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "–‘OR¸”»’è"))
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "‹@í"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
         Else
@@ -3982,7 +4010,7 @@ Public Class FrmG0011
 
         If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.SelectedValue = cmb.NullValue Then
             'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "–‘OR¸”»’è"))
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "•”•i”Ô†"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
         Else
@@ -4473,14 +4501,13 @@ Public Class FrmG0011
 
         'STAGE07
         mtxST07_ITAG_NO.DataBindings.Add(New Binding(NameOf(mtxST07_ITAG_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.ITAG_NO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbST07_SAISIN_TANTO.DataBindings.Add(New Binding(NameOf(cmbST07_SAISIN_TANTO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbST07_SAISIN_TANTO.DataBindings.Add(New Binding(NameOf(cmbST07_SAISIN_TANTO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
         cmbST07_KOKYAKU_HANTEI_SIJI.DataBindings.Add(New Binding(NameOf(cmbST07_KOKYAKU_HANTEI_SIJI.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         dtST07_KOKYAKU_HANTEI_SIJI.DataBindings.Add(New Binding(NameOf(dtST07_KOKYAKU_HANTEI_SIJI.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbST07_KOKYAKU_SAISYU_HANTEI.DataBindings.Add(New Binding(NameOf(cmbST07_KOKYAKU_SAISYU_HANTEI.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         dtST07_KOKYAKU_SAISYU_HANTEI.DataBindings.Add(New Binding(NameOf(dtST07_KOKYAKU_SAISYU_HANTEI.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         chkST07_SAIKAKO_SIJI_FLG.DataBindings.Add(New Binding(NameOf(chkST07_SAIKAKO_SIJI_FLG.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SAIKAKO_SIJI_FG), False, DataSourceUpdateMode.OnPropertyChanged, False))
         'cmbST07_DestTANTO.DataBindings.Add(New Binding(NameOf(cmbST07_DestTANTO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-
 
         'STAGE08
         dtST08_1_HAIKYAKU_YMD.DataBindings.Add(New Binding(NameOf(dtST08_1_HAIKYAKU_YMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.HAIKYAKU_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -4822,7 +4849,6 @@ Public Class FrmG0011
                         intNextStageID = Val(drList(0).Item("VALUE"))
                     End If
                 Case ENM_NCR_STAGE._50_–‘OR¸Šm”F
-                    '“o˜^“à—e‚É‰‚¶‚Ä—¬“®“I‚É•Ï‰»
                     Select Case _D003_NCR_J.JIZEN_SINSA_HANTEI_KB
                         Case ENM_JIZEN_SINSA_HANTEI_KB._0_Š®¬‚·‚é, ENM_JIZEN_SINSA_HANTEI_KB._1_‚»‚Ì‚Ü‚Üg—p‰Â
                             intNextStageID = ENM_NCR_STAGE._90_ˆ’uÀ{Šm”F_ŠÇ—T
@@ -4853,11 +4879,18 @@ Public Class FrmG0011
                     End Select
 
                 Case ENM_NCR_STAGE._70_ŒÚ‹qÄRˆ’u_I_tag
-                    If _D003_NCR_J.SAIKAKO_SIJI_FG Then
-                        intNextStageID = ENM_NCR_STAGE._80_ˆ’uÀ{
-                    Else
-                        intNextStageID = ENM_NCR_STAGE._90_ˆ’uÀ{Šm”F_ŠÇ—T
-                    End If
+
+                    'SPEC: #48
+                    Select Case _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
+                        Case ENM_KOKYAKU_SAISYU_HANTEI_KB._3_”p‹p‚·‚é, ENM_KOKYAKU_SAISYU_HANTEI_KB._4_•Ô‹p‚·‚é, ENM_KOKYAKU_SAISYU_HANTEI_KB._5_“]—p‚·‚é
+                            intNextStageID = ENM_NCR_STAGE._80_ˆ’uÀ{
+                        Case Else
+                            If _D003_NCR_J.SAIKAKO_SIJI_FG Then
+                                intNextStageID = ENM_NCR_STAGE._80_ˆ’uÀ{
+                            Else
+                                intNextStageID = ENM_NCR_STAGE._90_ˆ’uÀ{Šm”F_ŠÇ—T
+                            End If
+                    End Select
 
                 Case ENM_NCR_STAGE._80_ˆ’uÀ{
                     If _D003_NCR_J.SAIKAKO_SIJI_FG Then
@@ -5119,6 +5152,7 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
+
 
 
 
