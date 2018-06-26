@@ -191,6 +191,11 @@ Public Class FrmG0011
 
 #End Region
 
+    'Shown
+    Private Sub Frm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        Me.Owner.Visible = False
+    End Sub
+
 #End Region
 
 #Region "FunctionButton関連"
@@ -399,11 +404,11 @@ Public Class FrmG0011
                         '_D003_NCR_J.FILE_PATH = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.FILE_PATH)
                     End If
                     If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1) Then
-                        System.IO.File.Copy(lblPict1Path.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1, True)
+                        System.IO.File.Copy(lblPict1Path.Links.Item(0).LinkData(0), strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1, True)
                         '_D003_NCR_J.G_FILE_PATH1 = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH1)
                     End If
                     If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2) Then
-                        System.IO.File.Copy(lblPict2Path.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2, True)
+                        System.IO.File.Copy(lblPict2Path.Links.Item(0).LinkData(0), strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2, True)
                         '_D003_NCR_J.G_FILE_PATH2 = strRootDir & System.IO.Path.GetFileName(_D003_NCR_J.G_FILE_PATH2)
                     End If
 
@@ -1431,7 +1436,8 @@ Public Class FrmG0011
         _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKUSYO_ID._2_CAR
         _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
         _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_CAR_STAGE._10_起草入力
-        _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+        '#53
+        _D004_SYONIN_J_KANRI.SYAIN_ID = cmbST04_CAR_TANTO.SelectedValue 'pub_SYAIN_INFO.SYAIN_ID
         _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
         _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
         _D004_SYONIN_J_KANRI.SASIMODOSI_FG = False
@@ -2183,7 +2189,6 @@ Public Class FrmG0011
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
             Else
-                Me.Close()
             End If
 
             Return True
@@ -2194,6 +2199,7 @@ Public Class FrmG0011
             If frmDLG IsNot Nothing Then
                 frmDLG.Dispose()
             End If
+            Me.Visible = True
         End Try
     End Function
 #End Region
@@ -2272,8 +2278,12 @@ Public Class FrmG0011
                     Case Else
                 End Select
 
+                '#52 管理者権限を持つ場合
+                Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
+                If blnIsAdmin Then
+                    cmdFunc4.Enabled = True
+                End If
             End If
-
 
             Return True
         Catch ex As Exception
@@ -2532,6 +2542,10 @@ Public Class FrmG0011
                 mtxST04_NextStageName.Enabled = False
 
                 cmbST04_JIZENSINSA_HANTEI.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, ENM_SYONIN_HOKOKUSYO_ID._2_CAR, ENM_CAR_STAGE._10_起草入力)
+                cmbST04_CAR_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                cmbST04_CAR_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -3335,6 +3349,9 @@ Public Class FrmG0011
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
         Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
 
+        cmbSYANAI_CD.ValueMember = "VALUE"
+        cmbSYANAI_CD.DisplayMember = "DISP"
+
         '部品番号
         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
         If blnSelected Then
@@ -3548,7 +3565,7 @@ Public Class FrmG0011
     Private Sub CmbFUTEKIGO_STATUS_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbFUTEKIGO_STATUS.SelectedValueChanged
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        Dim blnRET As Boolean = (cmb.SelectedValue = ENM_FUTEKIGO_JYOTAI_KB._3_返却品.ToString)
+        Dim blnRET As Boolean = cmb.SelectedValue = "3" 'ENM_FUTEKIGO_JYOTAI_KB._3_返却品.ToString
         lblFUTEKIGO_NAIYO.Visible = blnRET
         mtxHENKYAKU_RIYU.Visible = blnRET
         mtxHENKYAKU_RIYU.Enabled = blnRET
@@ -3596,6 +3613,8 @@ Public Class FrmG0011
             Using DB As ClsDbUtility = DBOpen()
                 FunGetCodeDataTable(DB, "不適合" & cmb.Text.Replace("・", "") & "区分", dt)
             End Using
+            cmbFUTEKIGO_S_KB.ValueMember = "VALUE"
+            cmbFUTEKIGO_S_KB.DisplayMember = "DISP"
             cmbFUTEKIGO_S_KB.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             _D003_NCR_J.FUTEKIGO_S_KB = ""
         Else
@@ -3739,7 +3758,9 @@ Public Class FrmG0011
         Dim blnChecked As Boolean = rbtnST04_ZESEI_NO.Checked
         lbltxtST04_RIYU.Visible = blnChecked
         txtST04_RIYU.Visible = blnChecked
-        txtST04_RIYU.Enabled = blnChecked
+        lblCAR_TANTO.Visible = Not blnChecked
+        cmbST04_CAR_TANTO.Visible = Not blnChecked
+
         _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = True
     End Sub
 
@@ -3748,7 +3769,9 @@ Public Class FrmG0011
         Dim blnChecked As Boolean = rbtnST04_ZESEI_NO.Checked
         lbltxtST04_RIYU.Visible = blnChecked
         txtST04_RIYU.Visible = blnChecked
-        txtST04_RIYU.Enabled = blnChecked
+        lblCAR_TANTO.Visible = Not blnChecked
+        cmbST04_CAR_TANTO.Visible = Not blnChecked
+
         _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = False
     End Sub
 

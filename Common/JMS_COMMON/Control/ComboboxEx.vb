@@ -431,10 +431,10 @@ Public Class ComboboxEx
 
     Protected Overrides Sub OnMouseWheel(e As MouseEventArgs)
         'CHECK: コンボボックスマウスホイール無効
-        'MyBase.OnMouseWheel(e)
+        MyBase.OnMouseWheel(e)
 
-        Dim eventArgs As HandledMouseEventArgs = DirectCast(e, HandledMouseEventArgs)
-        eventArgs.Handled = True
+        'Dim eventArgs As HandledMouseEventArgs = DirectCast(e, HandledMouseEventArgs)
+        'eventArgs.Handled = True
     End Sub
 #End Region
 

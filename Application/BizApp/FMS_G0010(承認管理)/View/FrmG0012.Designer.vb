@@ -118,7 +118,7 @@ Partial Class FrmG0012
         Me.cmbDestTANTO = New JMS_COMMON.ComboboxEx()
         Me.mtxNextStageName = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label97 = New System.Windows.Forms.Label()
-        Me.Label98 = New System.Windows.Forms.Label()
+        Me.lblDestTANTO = New System.Windows.Forms.Label()
         Me.Label99 = New System.Windows.Forms.Label()
         Me.txtComment = New JMS_COMMON.TextBoxEx()
         Me.Label100 = New System.Windows.Forms.Label()
@@ -1780,7 +1780,7 @@ Partial Class FrmG0012
         Me.tabSTAGE07.Controls.Add(Me.cmbDestTANTO)
         Me.tabSTAGE07.Controls.Add(Me.mtxNextStageName)
         Me.tabSTAGE07.Controls.Add(Me.Label97)
-        Me.tabSTAGE07.Controls.Add(Me.Label98)
+        Me.tabSTAGE07.Controls.Add(Me.lblDestTANTO)
         Me.tabSTAGE07.Controls.Add(Me.Label99)
         Me.tabSTAGE07.Controls.Add(Me.txtComment)
         Me.tabSTAGE07.Controls.Add(Me.Label100)
@@ -1844,18 +1844,18 @@ Partial Class FrmG0012
         Me.Label97.Text = "承認先ステージ名:"
         Me.Label97.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label98
+        'lblDestTANTO
         '
-        Me.Label98.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label98.AutoSize = True
-        Me.Label98.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label98.Location = New System.Drawing.Point(661, 11)
-        Me.Label98.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label98.Name = "Label98"
-        Me.Label98.Size = New System.Drawing.Size(72, 15)
-        Me.Label98.TabIndex = 248
-        Me.Label98.Text = "申請先社員:"
-        Me.Label98.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblDestTANTO.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblDestTANTO.AutoSize = True
+        Me.lblDestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblDestTANTO.Location = New System.Drawing.Point(661, 11)
+        Me.lblDestTANTO.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblDestTANTO.Name = "lblDestTANTO"
+        Me.lblDestTANTO.Size = New System.Drawing.Size(72, 15)
+        Me.lblDestTANTO.TabIndex = 248
+        Me.lblDestTANTO.Text = "申請先社員:"
+        Me.lblDestTANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label99
         '
@@ -3383,7 +3383,7 @@ Partial Class FrmG0012
     Friend WithEvents cmbDestTANTO As ComboboxEx
     Friend WithEvents mtxNextStageName As MaskedTextBoxEx
     Friend WithEvents Label97 As Label
-    Friend WithEvents Label98 As Label
+    Friend WithEvents lblDestTANTO As Label
     Friend WithEvents Label99 As Label
     Friend WithEvents txtComment As TextBoxEx
     Friend WithEvents Label100 As Label

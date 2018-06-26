@@ -157,6 +157,9 @@ Partial Public Class V002_NCR_J
     <StringLength(1)>
     Public Property KOKYAKU_SAISYU_HANTEI_KB As String
 
+    <StringLength(30)>
+    Public Property KOKYAKU_SAISYU_HANTEI_NAME As String
+
     <StringLength(8)>
     Public Property KOKYAKU_SAISYU_HANTEI_YMD As String
 

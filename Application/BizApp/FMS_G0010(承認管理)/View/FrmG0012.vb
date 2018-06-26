@@ -102,6 +102,10 @@ Public Class FrmG0012
         End Try
     End Sub
 
+    'Shown
+    Private Sub Frm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        Me.Owner.Visible = False
+    End Sub
 #End Region
 
 #Region "FunctionButton関連"
@@ -140,6 +144,9 @@ Public Class FrmG0012
                     End If
 
                 Case 2  '承認申請
+                    '申請先タブに切り替え
+                    TabSTAGE.SelectedIndex = 6
+
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._2_承認申請) Then
                         If MessageBox.Show("申請しますか？", "申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
@@ -1778,7 +1785,6 @@ Public Class FrmG0012
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
             Else
-                Me.Close()
             End If
 
             Return True
@@ -1789,6 +1795,8 @@ Public Class FrmG0012
             If frmDLG IsNot Nothing Then
                 frmDLG.Dispose()
             End If
+
+            Me.Visible = True
         End Try
     End Function
 #End Region
@@ -1820,11 +1828,28 @@ Public Class FrmG0012
                 cmdFunc2.Enabled = True
                 cmdFunc4.Enabled = True
                 cmdFunc5.Enabled = True
+
+                'SPEC: C10-3
+                If PrCurrentStage = ENM_CAR_STAGE._10_起草入力 Then
+                    cmdFunc5.Enabled = False
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "起草入力で差戻登録は使用出来ません")
+                Else
+                    cmdFunc5.Enabled = True
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
+                End If
             Else
                 cmdFunc1.Enabled = False
                 cmdFunc2.Enabled = False
                 cmdFunc4.Enabled = False
                 cmdFunc5.Enabled = False
+
+                MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "登録権限がありません")
+
+                '#52 管理者権限を持つ場合
+                Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
+                If blnIsAdmin Then
+                    cmdFunc4.Enabled = True
+                End If
             End If
 
             If Not PrDialog Then
@@ -1834,16 +1859,6 @@ Public Class FrmG0012
                 cmdFunc3.Enabled = False
                 MyBase.ToolTip.SetToolTip(Me.cmdFunc3, "既にNCR画面から呼び出されているため使用出来ません")
             End If
-
-            'SPEC: C10-3
-            Select Case PrCurrentStage
-                Case ENM_CAR_STAGE._10_起草入力
-                    cmdFunc4.Enabled = False
-                    cmdFunc5.Enabled = False
-                Case Else
-                    cmdFunc4.Enabled = True
-                    cmdFunc5.Enabled = True
-            End Select
 
             Return True
         Catch ex As Exception
@@ -2554,7 +2569,10 @@ Public Class FrmG0012
                 Case Else
             End Select
 
-
+            If PrCurrentStage = ENM_CAR_STAGE._130_是正有効性確認_品証担当課長 Then
+                lblDestTANTO.Visible = False
+                cmbDestTANTO.Visible = False
+            End If
 
             Dim _V003 As New MODEL.V003_SYONIN_J_KANRI
             _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -2907,9 +2925,6 @@ Public Class FrmG0012
             Return 0
         End Try
     End Function
-
-
-
 
 
 #End Region

@@ -59,7 +59,9 @@ Public Class FrmG0017
             Call FunInitFuncButtonEnabled()
         End Try
     End Sub
-
+    Private Sub Frm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        Me.Owner.Visible = False
+    End Sub
 #End Region
 
 #Region "DataGridViewä÷òA"
@@ -73,7 +75,7 @@ Public Class FrmG0017
 
                 .Columns.Add("ADD_YMDHNS", "èàóùîNåéì˙")
                 .Columns(.ColumnCount - 1).Width = 140
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ValueType = GetType(DateTime)
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Format = "yyyy/MM/dd HH:mm"

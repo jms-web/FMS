@@ -477,6 +477,42 @@ Public Class FrmG0010
         End Try
     End Sub
 
+    '行書式
+    Private Function FunSetDgvCellFormat(ByVal dgv As DataGridView) As Boolean
+        Dim _Model As New MODEL.ST02_FUTEKIGO_ICHIRAN
+        Try
+            For i As Integer = 0 To dgv.Rows.Count - 1
+
+                '#55
+                ''差し戻し
+                'If dgvDATA.Rows(i).Cells(NameOf(_Model.SASIMOTO_SYONIN_JUN)).Value > 0 Then
+                '    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrCautionCellBackColor
+                'End If
+
+                ''滞留
+                'If dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU_FG)).Value = 1 Then
+                '    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrWarningCellBackColor
+                'End If
+
+                'Closed
+                If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.CLOSE_FG)).Value > 0 Then
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
+                End If
+
+                'Deleted
+                If dgvDATA.Rows(i).Cells(NameOf(_Model.DEL_YMDHNS)).Value <> "" Then
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
+                End If
+            Next i
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+        Finally
+        End Try
+    End Function
 
 #Region "編集可能セルOnMouse時カーソル変更"
     Private Sub Dgv_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvDATA.CellMouseMove
@@ -793,40 +829,6 @@ Public Class FrmG0010
         End Try
     End Function
 
-    Private Function FunSetDgvCellFormat(ByVal dgv As DataGridView) As Boolean
-        Dim _Model As New MODEL.ST02_FUTEKIGO_ICHIRAN
-        Try
-            For i As Integer = 0 To dgv.Rows.Count - 1
-                '差し戻し
-                If dgvDATA.Rows(i).Cells(NameOf(_Model.SASIMOTO_SYONIN_JUN)).Value > 0 Then
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrCautionCellBackColor
-                End If
-
-                '滞留
-                If dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU_FG)).Value = 1 Then
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrWarningCellBackColor
-                End If
-
-                'Closed
-                If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.CLOSE_FG)).Value > 0 Then
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
-                End If
-
-                'Deleted
-                If dgvDATA.Rows(i).Cells(NameOf(_Model.DEL_YMDHNS)).Value <> "" Then
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
-                End If
-            Next i
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-        Finally
-        End Try
-    End Function
-
 #End Region
 
 #Region "追加・変更"
@@ -861,7 +863,6 @@ Public Class FrmG0010
                     frmDLG.PrDataRow = Nothing
                 End If
                 dlgRET = frmDLG.ShowDialog(Me)
-
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
                     Return False
                 Else
@@ -876,6 +877,8 @@ Public Class FrmG0010
             If frmDLG IsNot Nothing Then
                 frmDLG.Dispose()
             End If
+
+            Me.Visible = True
         End Try
     End Function
 
@@ -1418,6 +1421,7 @@ Public Class FrmG0010
             If frmDLG IsNot Nothing Then
                 frmDLG.Dispose()
             End If
+            Me.Visible = True
         End Try
     End Function
 #End Region
@@ -1547,6 +1551,14 @@ Public Class FrmG0010
         '検索
         Me.cmdFunc1.PerformClick()
     End Sub
+
+    'Close済み
+    Private Sub chkClosedRowVisibled_Click(sender As Object, e As EventArgs) Handles chkClosedRowVisibled.Click
+        If chkClosedRowVisibled.Checked Then
+            cmbGEN_TANTO.SelectedValue = 0
+        End If
+    End Sub
+
 
 #Region "検索条件クリア"
     Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click, btnClearSrchFilter2.Click, btnClearSrchFilter3.Click
@@ -2139,6 +2151,9 @@ Public Class FrmG0010
             Return False
         End If
     End Function
+
+
+
 
 #End Region
 
