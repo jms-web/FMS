@@ -328,7 +328,7 @@ Public Class FrmG0011
                             'データは更新しない
                         Case Else
                             'SPEC: 2.(3).D.①.レコード更新
-                            If FunSAVE_D003(DB) Then
+                            If FunSAVE_D003(DB, enmSAVE_MODE) Then
                             Else
                                 Return False
                                 blnErr = True
@@ -423,7 +423,7 @@ Public Class FrmG0011
     ''' </summary>
     ''' <param name="DB"></param>
     ''' <returns></returns>
-    Private Function FunSAVE_D003(ByRef DB As ClsDbUtility) As Boolean
+    Private Function FunSAVE_D003(ByRef DB As ClsDbUtility, ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
         Dim strRET As String
         Dim sqlEx As New Exception
@@ -451,28 +451,31 @@ Public Class FrmG0011
             _D003_NCR_J._CLOSE_FG = 1
         End If
 
-        Select Case PrCurrentStage
-            Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
-                _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                'UNDONE: getdbsysdate
-                _D003_NCR_J.JIZEN_SINSA_YMD = Now.ToString("yyyyMMdd")
-            Case ENM_NCR_STAGE._50_事前審査確認
-                _D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                _D003_NCR_J.SAISIN_KAKUNIN_YMD = Now.ToString("yyyyMMdd")
-            Case ENM_NCR_STAGE._60_再審審査判定_技術代表
-                _D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                _D003_NCR_J.SAISIN_GIJYUTU_YMD = Now.ToString("yyyyMMdd")
-            Case ENM_NCR_STAGE._61_再審審査判定_品証代表
-                _D003_NCR_J.SAISIN_HINSYO_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                _D003_NCR_J.SAISIN_HINSYO_YMD = Now.ToString("yyyyMMdd")
-            Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
-                _D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
-                _D003_NCR_J.KOKYAKU_SAISIN_YMD = Now.ToString("yyyyMMdd")
-            Case ENM_NCR_STAGE._110_abcde処置担当
+        If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
+            Select Case PrCurrentStage
+                Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
+                    _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                    'UNDONE: getdbsysdate
+                    _D003_NCR_J.JIZEN_SINSA_YMD = Now.ToString("yyyyMMdd")
+                Case ENM_NCR_STAGE._50_事前審査確認
+                    _D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                    _D003_NCR_J.SAISIN_KAKUNIN_YMD = Now.ToString("yyyyMMdd")
+                Case ENM_NCR_STAGE._60_再審審査判定_技術代表
+                    _D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                    _D003_NCR_J.SAISIN_GIJYUTU_YMD = Now.ToString("yyyyMMdd")
+                Case ENM_NCR_STAGE._61_再審審査判定_品証代表
+                    _D003_NCR_J.SAISIN_HINSYO_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                    _D003_NCR_J.SAISIN_HINSYO_YMD = Now.ToString("yyyyMMdd")
+                Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
+                    _D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
+                    _D003_NCR_J.KOKYAKU_SAISIN_YMD = Now.ToString("yyyyMMdd")
 
-            Case Else
-                'UNDONE: 
-        End Select
+                Case ENM_NCR_STAGE._110_abcde処置担当
+
+                Case Else
+                    'UNDONE: 
+            End Select
+        End If
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
@@ -1984,6 +1987,7 @@ Public Class FrmG0011
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
             Else
+                Me.DialogResult = DialogResult.OK
                 Me.Close()
             End If
 
@@ -2229,17 +2233,21 @@ Public Class FrmG0011
                 cmdFunc11.Enabled = True
 
                 'SPEC: 40-3.④
-                If PrDialog = False AndAlso (_D003_NCR_J._ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_要) Then
+                If PrDialog = True Then
 
-                    If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
-                        MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "新規登録時は使用出来ません")
-                    Else
-                        MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "編集権限がありません")
-                    End If
-                    cmdFunc9.Enabled = True
-                Else
                     cmdFunc9.Enabled = False
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "既にCAR画面から呼び出されているため使用出来ません")
+                Else
+                    If _D003_NCR_J._ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_要 Then
+                        cmdFunc9.Enabled = True
+                    Else
+                        If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
+                            MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "新規登録時は使用出来ません")
+                        Else
+                            MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "是正処置不要のため作成されていません")
+                        End If
+                        cmdFunc9.Enabled = False
+                    End If
                 End If
 
                 'カレントステージが自身の担当でない場合は無効
@@ -4881,7 +4889,7 @@ Public Class FrmG0011
                 Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
 
                     'SPEC: #48
-                    Select Case _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
+                    Select Case Val(cmbST07_KOKYAKU_SAISYU_HANTEI.SelectedValue)'_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
                         Case ENM_KOKYAKU_SAISYU_HANTEI_KB._3_廃却する, ENM_KOKYAKU_SAISYU_HANTEI_KB._4_返却する, ENM_KOKYAKU_SAISYU_HANTEI_KB._5_転用する
                             intNextStageID = ENM_NCR_STAGE._80_処置実施
                         Case Else

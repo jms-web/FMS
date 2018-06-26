@@ -1542,6 +1542,7 @@ Public Class FrmG0012
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
             Else
+                Me.DialogResult = DialogResult.OK
                 Me.Close()
             End If
 
@@ -1571,6 +1572,7 @@ Public Class FrmG0012
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
             Else
+                Me.DialogResult = DialogResult.OK
                 Me.Close()
             End If
 
