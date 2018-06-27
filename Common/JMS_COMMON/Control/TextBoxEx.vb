@@ -366,6 +366,28 @@ Public Class TextBoxEx
     End Sub
 #End Region
 
+    Public Property ShowRemaining As Boolean
+
+
+#Region "　Change メソッド(Overrides)"
+    Protected Overrides Sub OnTextChanged(e As EventArgs)
+        MyBase.OnTextChanged(e)
+
+        Using g As Graphics = Graphics.FromHwnd(Me.Handle)
+            'テキストボックス外に残り入力可能文字数を描画
+            Dim rect As Rectangle = Me.ClientRectangle
+            rect.Offset(1, 1)
+            TextRenderer.DrawText(g,
+                                  WatermarkText,
+                                  New Font(Me.Font.Name, Me.Font.Size, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte)),
+                                  rect,
+                                  _watermarkColor,
+                                  TextFormatFlags.Top Or TextFormatFlags.Left)
+        End Using
+    End Sub
+
+#End Region
+
 #Region "　SelectAll メソッド (Delegate)　"
     Private Delegate Sub MethodInvokerForTextBox(ByVal pTarget As TextBox)
     Private Shared Sub MaskedTextBoxSelectAll(ByVal pTarget As TextBox)

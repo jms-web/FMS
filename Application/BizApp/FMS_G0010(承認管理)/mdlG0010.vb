@@ -905,6 +905,28 @@ Module mdlG0010
 
 #End Region
 
+#Region "報告書登録内容変更判定"
+    Public Function FunChangedRecord(ByVal intHOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String, strTargetYMDHNS As String) As Boolean
+        Dim dsList As New DataSet
+        Dim sbSQL As New System.Text.StringBuilder
+        Try
+
+            sbSQL.Append("SELECT * FROM " & NameOf(MODEL.ST01_GET_HOKOKU_NO) & "")
+            sbSQL.Append("")
+            Using DB As ClsDbUtility = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            Return dsList.Tables(0).Rows.Count > 0
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        End Try
+    End Function
+
+#End Region
+
 #Region "レポート出力"
 
     Public Function FunMakeReportNCR(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean

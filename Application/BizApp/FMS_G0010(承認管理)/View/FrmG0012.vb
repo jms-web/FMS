@@ -223,27 +223,27 @@ Public Class FrmG0012
                             'SPEC: 2.(3).D.①.レコード更新
                             If FunSAVE_D005(DB) Then
                             Else
-                                Return False
                                 blnErr = True
+                                Return False
                             End If
                             If FunSAVE_D006(DB) Then
                             Else
-                                Return False
                                 blnErr = True
+                                Return False
                             End If
 
                             If FunSAVE_FILE(DB) Then
                             Else
-                                Return False
                                 blnErr = True
+                                Return False
                             End If
                     End Select
 
                     '
                     If FunSAVE_D004(DB, enmSAVE_MODE) Then
                     Else
-                        Return False
                         blnErr = True
+                        Return False
                     End If
 
 
@@ -251,8 +251,8 @@ Public Class FrmG0012
                     '
                     If FunSAVE_R001(DB, enmSAVE_MODE) Then
                     Else
-                        Return False
                         blnErr = True
+                        Return False
                     End If
 
                 Finally
@@ -317,6 +317,10 @@ Public Class FrmG0012
                     strMsg = "添付ファイル保存先のアクセス権限がありません。" & vbCrLf &
                              "添付ファイル保存先:" & strRootDir
                     MessageBox.Show(strMsg, "ファイル保存先アクセス不可", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return False
+                Catch ex As Exception
+                    Throw
+                    Return False
                 End Try
             End If
         End If
@@ -680,7 +684,7 @@ Public Class FrmG0012
         sbSQL.Append(" ," & _D005_CAR_J.DEL_SYAIN_ID & "")
         sbSQL.Append(" ,'" & _D005_CAR_J.DEL_YMDHNS & "'")
         sbSQL.Append(")")
-        sbSQL.Append("OUTPUT $action AS RESULT") 'INSERT OR UPDATE をncarchar(10)で取得する場合
+        sbSQL.Append("OUTPUT $action AS RESULT")
         sbSQL.Append(";")
         strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
         Select Case strRET
@@ -731,6 +735,8 @@ Public Class FrmG0012
                 Return False
         End Select
 
+        _D004_SYONIN_J_KANRI.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("MERGE INTO " & NameOf(MODEL.D004_SYONIN_J_KANRI) & " AS SrcT")
@@ -747,9 +753,9 @@ Public Class FrmG0012
         sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI.COMMENT & "' AS " & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
         sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI._MAIL_SEND_FG & "' AS " & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
         sbSQL.Append(" ," & _D004_SYONIN_J_KANRI.ADD_SYAIN_ID & " AS " & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
-        sbSQL.Append(" ,dbo.GetSysDateString() AS " & NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI.ADD_YMDHNS & "' AS " & NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS))
         sbSQL.Append(" ," & pub_SYAIN_INFO.SYAIN_ID & " AS " & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
-        sbSQL.Append(" ,dbo.GetSysDateString() AS " & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
+        sbSQL.Append(" ,'" & _D004_SYONIN_J_KANRI.UPD_YMDHNS & "' AS " & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
         sbSQL.Append(" ) AS WK")
         sbSQL.Append(" ON (SrcT." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID) & "")
         sbSQL.Append(" AND SrcT." & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & " = WK." & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & "")
@@ -921,6 +927,11 @@ Public Class FrmG0012
                 WL.WriteLogDat(strErrMsg)
                 Return False
         End Select
+
+        If FunSAVE_R004(DB, _D004_SYONIN_J_KANRI.ADD_YMDHNS) Then
+        Else
+            Return False
+        End If
 
         Return True
     End Function
@@ -1485,6 +1496,178 @@ Public Class FrmG0012
 
         Return True
     End Function
+
+    Private Function FunSAVE_R004(ByRef DB As ClsDbUtility, ByVal strYMDHNS As String) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim intRET As Integer
+        Dim sqlEx As New Exception
+
+        '-----MERGE
+        sbSQL.Append(" INSERT INTO " & NameOf(MODEL.R004_CAR_SASIMODOSI) & "(")
+        sbSQL.Append(" " & NameOf(_R004_CAR_SASIMODOSI.SASIMODOSI_YMDHNS))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.HOKOKU_NO))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.BUMON_KB))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_1))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_2))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_3))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_4))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_5))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_6))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_7))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_8))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_9))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_10))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_11))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_12))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_13))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_14))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_15))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_16))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_17))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_18))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_19))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_20))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_21))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_22))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_23))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_24))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_25))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_1))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_2))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_3))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_4))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_5))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_6))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_7))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_8))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_9))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_10))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_11))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_12))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_13))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_14))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_15))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_16))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_17))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_18))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_19))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_20))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_21))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_22))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_23))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_24))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KAITO_25))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KONPON_YOIN_KB1))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KONPON_YOIN_KB2))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KONPON_YOIN_SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KISEKI_KOTEI_KB))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SYOCHI_A_SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SYOCHI_A_YMDHNS))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SYOCHI_B_SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SYOCHI_B_YMDHNS))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SYOCHI_C_SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SYOCHI_C_YMDHNS))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KYOIKU_FILE_PATH))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.ZESEI_SYOCHI_YUKO_UMU))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SYOSAI_FILE_PATH))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.GOKI))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.LOT))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KENSA_TANTO_ID))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KENSA_TOROKU_YMDHNS))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KENSA_GL_SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KENSA_GL_YMDHNS))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.FILE_PATH1))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.FILE_PATH2))
+
+        sbSQL.Append(" ) VALUES(")
+        sbSQL.Append(" '" & strYMDHNS & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.HOKOKU_NO & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.BUMON_KB & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J._CLOSE_FG & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_1 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_2 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_3 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_4 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_5 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_6 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_7 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_8 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_9 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_10 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_11 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_12 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_13 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_14 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_15 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_16 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_17 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_18 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_19 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_20 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_21 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_22 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_23 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_24 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SETUMON_25 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_1 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_2 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_3 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_4 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_5 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_6 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_7 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_8 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_9 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_10 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_11 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_12 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_13 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_14 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_15 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_16 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_17 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_18 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_19 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_20 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_21 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_22 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_23 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_24 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_25 & "'")
+
+        sbSQL.Append(" ,'" & _D005_CAR_J.KONPON_YOIN_KB1 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KONPON_YOIN_KB2 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KONPON_YOIN_SYAIN_ID & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KISEKI_KOTEI_KB & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SYOCHI_A_SYAIN_ID & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SYOCHI_A_YMDHNS & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SYOCHI_B_SYAIN_ID & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SYOCHI_B_YMDHNS & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SYOCHI_C_SYAIN_ID & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SYOCHI_C_YMDHNS & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KYOIKU_FILE_PATH & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SYOSAI_FILE_PATH & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.GOKI & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.LOT & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_TANTO_ID & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_TOROKU_YMDHNS & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_GL_SYAIN_ID & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_GL_YMDHNS & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH1 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH2 & "'")
+        sbSQL.Append(" );")
+        intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+        If intRET <> 1 Then
+            '-----エラーログ出力
+            Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+            WL.WriteLogDat(strErrMsg)
+            Return False
+        Else
+            Return True
+        End If
+    End Function
+
 
 #End Region
 
@@ -2059,7 +2242,7 @@ Public Class FrmG0012
             ofd.InitialDirectory = IO.Path.GetDirectoryName(lblKYOIKU_FILE_PATH.Links(0).ToString)
         End If
         If ofd.ShowDialog() = DialogResult.OK Then
-            lblKYOIKU_FILE_PATH.Text = IO.Path.GetFileName(ofd.FileName)
+            lblKYOIKU_FILE_PATH.Text = CompactString(IO.Path.GetFileName(ofd.FileName), lblKYOIKU_FILE_PATH, EllipsisFormat._4_Path)
             lblKYOIKU_FILE_PATH.Links.Clear()
             lblKYOIKU_FILE_PATH.Links.Add(0, lblKYOIKU_FILE_PATH.Text.Length, ofd.FileName)
 
@@ -2145,7 +2328,7 @@ Public Class FrmG0012
             ofd.InitialDirectory = IO.Path.GetDirectoryName(lblSYOSAI_FILE_PATH.Links(0).ToString)
         End If
         If ofd.ShowDialog() = DialogResult.OK Then
-            lblSYOSAI_FILE_PATH.Text = IO.Path.GetFileName(ofd.FileName)
+            lblSYOSAI_FILE_PATH.Text = CompactString(IO.Path.GetFileName(ofd.FileName), lblSYOSAI_FILE_PATH, EllipsisFormat._4_Path)
             lblSYOSAI_FILE_PATH.Links.Clear()
             lblSYOSAI_FILE_PATH.Links.Add(0, lblSYOSAI_FILE_PATH.Text.Length, ofd.FileName)
 
@@ -2255,7 +2438,7 @@ Public Class FrmG0012
             ofd.InitialDirectory = IO.Path.GetDirectoryName(lbltmpFile1.Links(0).ToString)
         End If
         If ofd.ShowDialog() = DialogResult.OK Then
-            lbltmpFile1.Text = IO.Path.GetFileName(ofd.FileName)
+            lbltmpFile1.Text = CompactString(IO.Path.GetFileName(ofd.FileName), lbltmpFile1, EllipsisFormat._4_Path)
             lbltmpFile1.Links.Clear()
             lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, ofd.FileName)
 
@@ -2338,7 +2521,7 @@ Public Class FrmG0012
             ofd.InitialDirectory = IO.Path.GetDirectoryName(lbltmpFile2.Links(0).ToString)
         End If
         If ofd.ShowDialog() = DialogResult.OK Then
-            lbltmpFile2.Text = IO.Path.GetFileName(ofd.FileName)
+            lbltmpFile2.Text = CompactString(IO.Path.GetFileName(ofd.FileName), lbltmpFile2, EllipsisFormat._4_Path)
             lbltmpFile2.Links.Clear()
             lbltmpFile2.Links.Add(0, lbltmpFile2.Text.Length, ofd.FileName)
 

@@ -791,7 +791,8 @@ Partial Class FrmG0012
         Me.txtKAITO_1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtKAITO_1.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtKAITO_1.Location = New System.Drawing.Point(6, 24)
-        Me.txtKAITO_1.MaxByteLength = 300
+        Me.txtKAITO_1.MaxByteLength = 400
+        Me.txtKAITO_1.MaxLength = 200
         Me.txtKAITO_1.Multiline = True
         Me.txtKAITO_1.Name = "txtKAITO_1"
         Me.txtKAITO_1.Size = New System.Drawing.Size(806, 232)
@@ -956,7 +957,8 @@ Partial Class FrmG0012
         Me.txtKAITO_2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtKAITO_2.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtKAITO_2.Location = New System.Drawing.Point(6, 24)
-        Me.txtKAITO_2.MaxByteLength = 300
+        Me.txtKAITO_2.MaxByteLength = 400
+        Me.txtKAITO_2.MaxLength = 200
         Me.txtKAITO_2.Multiline = True
         Me.txtKAITO_2.Name = "txtKAITO_2"
         Me.txtKAITO_2.Size = New System.Drawing.Size(806, 232)
@@ -1165,7 +1167,8 @@ Partial Class FrmG0012
         Me.txtKAITO_3.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtKAITO_3.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtKAITO_3.Location = New System.Drawing.Point(6, 24)
-        Me.txtKAITO_3.MaxByteLength = 300
+        Me.txtKAITO_3.MaxByteLength = 400
+        Me.txtKAITO_3.MaxLength = 200
         Me.txtKAITO_3.Multiline = True
         Me.txtKAITO_3.Name = "txtKAITO_3"
         Me.txtKAITO_3.Size = New System.Drawing.Size(806, 232)

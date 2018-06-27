@@ -73,7 +73,7 @@ Public Class FrmG0017
             With dgv
                 .AutoGenerateColumns = False
 
-                .Columns.Add("ADD_YMDHNS", "ˆ—”NŒ“ú")
+                .Columns.Add("ADD_YMDHNS", "ˆ—“ú")
                 .Columns(.ColumnCount - 1).Width = 140
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name

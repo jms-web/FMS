@@ -128,6 +128,7 @@
     <Compile Include="Models\Data\D004_SYONIN_J_KANRI.vb" />
     <Compile Include="Models\Data\D005_CAR_J.vb" />
     <Compile Include="Models\Data\D006_CAR_GENIN.vb" />
+    <Compile Include="Models\Function\ST01_GET_HOKOKU_NO.vb" />
     <Compile Include="Models\Function\ST02_FUTEKIGO_ICHIRAN.vb" />
     <Compile Include="Models\Masta\Biz\M108_KOTEI_SYUKEI.vb" />
     <Compile Include="Models\Masta\Biz\M107_BUHIN_KISYU.vb" />
