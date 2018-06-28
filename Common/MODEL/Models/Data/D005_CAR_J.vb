@@ -50,7 +50,7 @@ Partial Public Class D005_CAR_J
         SETUMON_13 = ""
         KAITO_13 = ""
         SETUMON_14 = ""
-        KAITO_14 = ""
+        KAITO_14 = "0"
         SETUMON_15 = ""
         KAITO_15 = ""
         SETUMON_16 = ""
@@ -301,10 +301,23 @@ Partial Public Class D005_CAR_J
     Public Property KAITO_13 As String
 
     <Required>
-    <Column(TypeName:="nvarchar")>
+    <Column(NameOf(SETUMON_14), TypeName:="nvarchar")>
     <StringLength(100)>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("設問内容14")>
     Public Property SETUMON_14 As String
+
+    '<ComponentModel.DisplayName("設問内容14")>
+    '<NotMapped>
+    'Public Property SETUMON_14 As Boolean
+    '    Get
+    '        Return IIf(_SETUMON_14 = "0", False, True)
+    '    End Get
+    '    Set(value As Boolean)
+    '        _SETUMON_14 = IIf(value, "1", "0")
+    '        'OnPropertyChanged(NameOf(CLOSE_FG))
+    '    End Set
+    'End Property
 
     <Required>
     <Column(TypeName:="nvarchar")>

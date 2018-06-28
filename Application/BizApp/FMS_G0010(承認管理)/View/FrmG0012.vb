@@ -13,6 +13,8 @@ Public Class FrmG0012
 
     '入力必須コントロール検証判定
     Private pri_blnValidated As Boolean
+
+    Private _tabPageManager As TabPageManager
 #End Region
 
 #Region "プロパティ"
@@ -2210,7 +2212,25 @@ Public Class FrmG0012
 
 #End Region
 #Region "   6.処置水平展開"
+    Private Sub RbtnKAITO14_T_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnKAITO_14_T.CheckedChanged
 
+        Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
+        _D005_CAR_J.KAITO_14 = ENM_YOHI_KB._1_要
+    End Sub
+
+    Private Sub RbtnKAITO14_F_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnKAITO_14_T.CheckedChanged
+
+        Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
+        _D005_CAR_J.KAITO_14 = ENM_YOHI_KB._0_否
+    End Sub
+
+    Private Sub ChkKAITO_14_CheckedChanged(sender As Object, e As EventArgs) Handles chkKAITO_14.CheckedChanged
+        If chkKAITO_14.Checked Then
+            rbtnKAITO_14_T.Checked = True
+        Else
+            rbtnKAITO_14_F.Checked = True
+        End If
+    End Sub
 #End Region
 #Region "   7.申請先情報"
     Private Sub CmbDestTANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbDestTANTO.Validating
@@ -2648,7 +2668,9 @@ Public Class FrmG0012
             dtKAITO_13.DataBindings.Add(New Binding(NameOf(dtKAITO_13.ValueNonFormat), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_13), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
             '処置水平展開
-            cmbKAITO_14.DataBindings.Add(New Binding(NameOf(cmbKAITO_14.SelectedValue), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_14), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            'cmbKAITO_14.DataBindings.Add(New Binding(NameOf(cmbKAITO_14.SelectedValue), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_14), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            'chkKAITO_14.DataBindings.Add(New Binding(NameOf(chkKAITO_14.Checked), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_14), False, DataSourceUpdateMode.OnPropertyChanged, False))
+
             mtxKAITO_15.DataBindings.Add(New Binding(NameOf(mtxKAITO_15.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_15), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             dtKAITO_16.DataBindings.Add(New Binding(NameOf(dtKAITO_16.ValueNonFormat), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_16), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             cmbKAITO_17.DataBindings.Add(New Binding(NameOf(cmbKAITO_17.SelectedValue), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_17), False, DataSourceUpdateMode.OnPropertyChanged, 0))
@@ -2658,7 +2680,7 @@ Public Class FrmG0012
 
             '申請先情報
             cmbDestTANTO.DataBindings.Add(New Binding(NameOf(cmbDestTANTO.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            txtComment.DataBindings.Add(New Binding(NameOf(txtComment.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+            'txtComment.DataBindings.Add(New Binding(NameOf(txtComment.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, 0))
 
             '処置実施記録
             cmbSYOCHI_A_TANTO.DataBindings.Add(New Binding(NameOf(cmbSYOCHI_A_TANTO.SelectedValue), _D005_CAR_J, NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
@@ -2716,40 +2738,32 @@ Public Class FrmG0012
             mtxFUTEKIGO_KB.Text = _V002_NCR_J.FUTEKIGO_NAME
             mtxFUTEKIGO_S_KB.Text = _V002_NCR_J.FUTEKIGO_S_NAME
             mtxCurrentStageName.Text = FunGetLastStageName(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO)
-            mtxUPD_YMD.Text = Now.ToString("yyyy/MM/dd")
+            'mtxUPD_YMD.Text = Now.ToString("yyyy/MM/dd")
             mtxNextStageName.Text = FunGetNextStageName(PrCurrentStage)
 
             Dim blnOwn As Boolean = FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO, PrCurrentStage)
-            tabSTAGE07.Enabled = blnOwn
+            'tabSTAGE07.Enabled = blnOwn
 
             'SPEC: C10-2.④
             Select Case PrCurrentStage
                 Case ENM_CAR_STAGE._10_起草入力 To ENM_CAR_STAGE._70_起草確認_品証課長
-                    tabCAR_SUB_1.Enabled = False
-                    tabCAR_SUB_2.Enabled = False
+                    tab_CAR_SUB_1_.Visible = False
+                    tab_CAR_SUB_2_.Visible = False
 
                 Case ENM_CAR_STAGE._80_処置実施記録入力, ENM_CAR_STAGE._90_処置実施確認
                     tabSTAGE01.Enabled = False
                     tabSTAGE02.Enabled = False
-                    tabSTAGE03.Enabled = False
-                    tabSTAGE04.Enabled = False
-                    tabSTAGE05.Enabled = False
-                    tabSTAGE06.Enabled = False
 
-                    tabCAR_SUB_1.Enabled = blnOwn
-                    tabCAR_SUB_2.Enabled = False
+                    tab_CAR_SUB_1_.Enabled = blnOwn
+                    tab_CAR_SUB_2_.Visible = False
 
                 Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
 
                     tabSTAGE01.Enabled = False
                     tabSTAGE02.Enabled = False
-                    tabSTAGE03.Enabled = False
-                    tabSTAGE04.Enabled = False
-                    tabSTAGE05.Enabled = False
-                    tabSTAGE06.Enabled = False
 
-                    tabCAR_SUB_1.Enabled = False
-                    tabCAR_SUB_2.Enabled = blnOwn
+                    tab_CAR_SUB_1_.Enabled = False
+                    tab_CAR_SUB_2_.Enabled = blnOwn
                 Case Else
             End Select
 
@@ -2876,6 +2890,8 @@ Public Class FrmG0012
             _D005_CAR_J.KAITO_13 = _V005_CAR_J.KAITO_13
             _D005_CAR_J.SETUMON_14 = _V005_CAR_J.SETUMON_14
             _D005_CAR_J.KAITO_14 = _V005_CAR_J.KAITO_14
+            chkKAITO_14.Checked = IIf(_V005_CAR_J.KAITO_14 = "1", True, False)
+
             _D005_CAR_J.SETUMON_15 = _V005_CAR_J.SETUMON_15
             _D005_CAR_J.KAITO_15 = _V005_CAR_J.KAITO_15
             _D005_CAR_J.SETUMON_16 = _V005_CAR_J.SETUMON_16
