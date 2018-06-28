@@ -67,6 +67,9 @@ Partial Public Class V002_NCR_J
     Public Property FUTEKIGO_JYOTAI_KB As String
 
     <StringLength(30)>
+    Public Property FUTEKIGO_JYOTAI_NAME As String
+
+    <StringLength(30)>
     Public Property FUTEKIGO_NAIYO As String
 
     Public Property FUTEKIGO_KB As String
@@ -202,15 +205,24 @@ Partial Public Class V002_NCR_J
     <StringLength(30)>
     Public Property SEIGI_TANTO_NAME As String
 
+    <StringLength(8)>
+    Public Property SEIGI_KAKUNIN_YMD As String
+
     Public Property SEIZO_TANTO_ID As Integer
 
     <StringLength(30)>
     Public Property SEIZO_TANTO_NAME As String
 
+    <StringLength(8)>
+    Public Property SEIZO_KAKUNIN_YMD As String
+
     Public Property KENSA_TANTO_ID As Integer
 
     <StringLength(30)>
     Public Property KENSA_TANTO_NAME As String
+
+    <StringLength(8)>
+    Public Property KENSA_KAKUNIN_YMD As String
 
     <StringLength(8)>
     Public Property HENKYAKU_YMD As String
@@ -301,6 +313,20 @@ Partial Public Class V002_NCR_J
 
     <StringLength(14)>
     Public Property ADD_YMDHNS As String
+
+    <Display(AutoGenerateField:=False)>
+    <NotMapped>
+    Public ReadOnly Property ADD_YMD As String
+        Get
+            Dim strRET As String
+            If ADD_YMDHNS IsNot Nothing AndAlso ADD_YMDHNS.Length = 14 Then
+                strRET = DateTime.ParseExact(ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyyMMdd")
+            Else
+                strRET = ""
+            End If
+            Return strRET
+        End Get
+    End Property
 
     Public Property ADD_SYAIN_ID As Integer
 

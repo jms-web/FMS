@@ -1084,13 +1084,6 @@ Public Class FrmG0011
                 Return False
         End Select
 
-
-        If FunSAVE_R003(DB, _D004_SYONIN_J_KANRI.ADD_YMDHNS) Then
-        Else
-            Return False
-        End If
-
-
         'SPEC: 40-1
         If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And
             PrCurrentStage = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 And
@@ -1232,6 +1225,11 @@ Public Class FrmG0011
             '-----エラーログ出力
             Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
             WL.WriteLogDat(strErrMsg)
+            Return False
+        End If
+
+        If FunSAVE_R003(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
+        Else
             Return False
         End If
 

@@ -249,7 +249,7 @@ Partial Class FrmG0012
         '
         Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgBase_floppydisk32x32
         Me.cmdFunc1.Location = New System.Drawing.Point(9, 595)
-        Me.cmdFunc1.Text = "•Û‘¶(F1)"
+        Me.cmdFunc1.Text = "ˆêŽž•Û‘¶(F1)"
         '
         'cmdFunc2
         '
@@ -795,6 +795,7 @@ Partial Class FrmG0012
         Me.txtKAITO_1.MaxLength = 200
         Me.txtKAITO_1.Multiline = True
         Me.txtKAITO_1.Name = "txtKAITO_1"
+        Me.txtKAITO_1.ShowRemaining = False
         Me.txtKAITO_1.Size = New System.Drawing.Size(806, 232)
         Me.txtKAITO_1.TabIndex = 0
         Me.txtKAITO_1.WatermarkText = Nothing
@@ -961,6 +962,7 @@ Partial Class FrmG0012
         Me.txtKAITO_2.MaxLength = 200
         Me.txtKAITO_2.Multiline = True
         Me.txtKAITO_2.Name = "txtKAITO_2"
+        Me.txtKAITO_2.ShowRemaining = False
         Me.txtKAITO_2.Size = New System.Drawing.Size(806, 232)
         Me.txtKAITO_2.TabIndex = 0
         Me.txtKAITO_2.WatermarkText = Nothing
@@ -1171,6 +1173,7 @@ Partial Class FrmG0012
         Me.txtKAITO_3.MaxLength = 200
         Me.txtKAITO_3.Multiline = True
         Me.txtKAITO_3.Name = "txtKAITO_3"
+        Me.txtKAITO_3.ShowRemaining = False
         Me.txtKAITO_3.Size = New System.Drawing.Size(806, 232)
         Me.txtKAITO_3.TabIndex = 0
         Me.txtKAITO_3.WatermarkText = Nothing
@@ -1884,6 +1887,7 @@ Partial Class FrmG0012
         Me.txtComment.MaxByteLength = 2000
         Me.txtComment.Multiline = True
         Me.txtComment.Name = "txtComment"
+        Me.txtComment.ShowRemaining = False
         Me.txtComment.Size = New System.Drawing.Size(1101, 56)
         Me.txtComment.TabIndex = 1
         Me.txtComment.WatermarkText = Nothing

@@ -1507,6 +1507,7 @@ Public Class FrmG0012
         sbSQL.Append(" " & NameOf(_R004_CAR_SASIMODOSI.SASIMODOSI_YMDHNS))
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.HOKOKU_NO))
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.BUMON_KB))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.CLOSE_FG))
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_1))
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_2))
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_3))
@@ -1646,7 +1647,7 @@ Public Class FrmG0012
         sbSQL.Append(" ,'" & _D005_CAR_J.SYOCHI_C_SYAIN_ID & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.SYOCHI_C_YMDHNS & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KYOIKU_FILE_PATH & "'")
-        sbSQL.Append(" ,'" & _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J._ZESEI_SYOCHI_YUKO_UMU & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.SYOSAI_FILE_PATH & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.GOKI & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.LOT & "'")
@@ -2839,7 +2840,7 @@ Public Class FrmG0012
             cmbKENSA_GL_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
 
-            dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, ENM_SYONIN_HOKOKUSYO_ID._2_CAR, PrCurrentStage)
+            dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
             cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
 

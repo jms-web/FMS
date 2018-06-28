@@ -654,6 +654,10 @@ Partial Public Class D003_NCR_J
     <ComponentModel.DisplayName("画像ファイルパス2")>
     Public Property G_FILE_PATH2 As String
 
+    '<Required>
+    '<ComponentModel.DisplayName("発生工程GL確認担当")>
+    'Public Property HASSEI_KOTEI_GL_SYAIN_ID As Integer
+
 
     ''共通項目------------------------------------
     <Required>

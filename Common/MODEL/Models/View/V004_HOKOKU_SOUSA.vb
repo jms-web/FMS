@@ -24,6 +24,7 @@ Partial Public Class V004_HOKOKU_SOUSA
         SYONIN_HANTEI_KB = ""
         SYONIN_HANTEI_NAME = ""
         RIYU = ""
+        HENKOU_KENSU = 0
     End Sub
 
     <ComponentModel.DataAnnotations.Display(AutoGenerateField:=False)>
@@ -47,4 +48,6 @@ Partial Public Class V004_HOKOKU_SOUSA
     Public Property SYONIN_HANTEI_KB As String
     Public Property SYONIN_HANTEI_NAME As String
     Public Property RIYU As String
+
+    Public Property HENKOU_KENSU As Integer
 End Class

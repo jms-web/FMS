@@ -946,8 +946,6 @@ Module mdlG0010
             ssgWorksheets = ssgWorkbook.Worksheets
             ssgSheet1 = ssgWorksheets.Item(0) 'sheet1
 
-            'レコードフレーム初期化
-            'spWork.Range("RECORD_FRAME").ClearContents()
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_BANGO)).Value = _V002_NCR_J.BUHIN_BANGO
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_NAME)).Value = _V002_NCR_J.BUHIN_NAME
             If Not _V002_NCR_J.FUTEKIGO_JYOTAI_KB.IsNullOrWhiteSpace Then
@@ -960,10 +958,6 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_TANTO_NAME)).Value = _V002_NCR_J.HAIKYAKU_TANTO_NAME
             If Not _V002_NCR_J.HAIKYAKU_YMD.IsNullOrWhiteSpace Then
                 ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.HAIKYAKU_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            End If
-            ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_NAME)).Value = _V002_NCR_J.HASSEI_KOTEI_GL_NAME
-            If Not _V002_NCR_J.HASSEI_KOTEI_GL_YMD.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.HASSEI_KOTEI_GL_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_BIKO)).Value = _V002_NCR_J.HENKYAKU_BIKO
             ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_SAKI)).Value = _V002_NCR_J.HENKYAKU_SAKI
@@ -980,7 +974,13 @@ Module mdlG0010
             If Not _V002_NCR_J.JIZEN_SINSA_YMD.IsNullOrWhiteSpace Then
                 ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.JIZEN_SINSA_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
-
+            If _V002_NCR_J.ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_要 Then
+                ssgSheet1.Range("NCR_HOKOKU_NO").Value = _V002_NCR_J.HOKOKU_NO
+                ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_NAME)).Value = _V002_NCR_J.HASSEI_KOTEI_GL_NAME
+                If Not _V002_NCR_J.HASSEI_KOTEI_GL_YMD.IsNullOrWhiteSpace Then
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.HASSEI_KOTEI_GL_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                End If
+            End If
             ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_SAISIN_TANTO_NAME)).Value = _V002_NCR_J.KOKYAKU_SAISIN_TANTO_NAME
             If Not _V002_NCR_J.KOKYAKU_SAISIN_YMD.IsNullOrWhiteSpace Then
                 ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_SAISIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.KOKYAKU_SAISIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
@@ -993,7 +993,6 @@ Module mdlG0010
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.KANSATU_KEKKA)).Value = _V002_NCR_J.KANSATU_KEKKA
             ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_KEKKA_NAME)).Value = _V002_NCR_J.KENSA_KEKKA_NAME
-            ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_TANTO_NAME)).Value = _V002_NCR_J.KENSA_TANTO_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.KISYU)).Value = _V002_NCR_J.KISYU
             ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_HANTEI_SIJI_NAME)).Value = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_NAME
             If Not _V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD.IsNullOrWhiteSpace Then
@@ -1022,16 +1021,33 @@ Module mdlG0010
             End If
             ssgSheet1.Range(NameOf(_V002_NCR_J.SEIGI_TANTO_NAME)).Value = _V002_NCR_J.SEIGI_TANTO_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SEIZO_TANTO_NAME)).Value = _V002_NCR_J.SEIZO_TANTO_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_TANTO_NAME)).Value = _V002_NCR_J.KENSA_TANTO_NAME
+            If Not _V002_NCR_J.SEIGI_KAKUNIN_YMD.IsNullOrWhiteSpace Then
+                ssgSheet1.Range(NameOf(_V002_NCR_J.SEIGI_KAKUNIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SEIGI_KAKUNIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+            End If
+            If Not _V002_NCR_J.SEIZO_KAKUNIN_YMD.IsNullOrWhiteSpace Then
+                ssgSheet1.Range(NameOf(_V002_NCR_J.SEIZO_KAKUNIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SEIZO_KAKUNIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+            End If
+            If Not _V002_NCR_J.KENSA_KAKUNIN_YMD.IsNullOrWhiteSpace Then
+                ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_KAKUNIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.KENSA_KAKUNIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+            End If
+
             ssgSheet1.Range(NameOf(_V002_NCR_J.SURYO)).Value = _V002_NCR_J.SURYO
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU
 
             Dim intCurrentStage As Integer = FunGetCurrentSYONIN_JUN(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _V002_NCR_J.HOKOKU_NO)
             If intCurrentStage >= ENM_NCR_STAGE._110_abcde処置担当 Then
                 ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_UMU_NAME)).Value = _V002_NCR_J.SYOCHI_D_UMU_NAME
+                'If _V002_NCR_J.SYOCHI_D_UMU_NAME = "有" Then
                 ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_D_YOHI_NAME
+                'End If
                 ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_UMU_NAME)).Value = _V002_NCR_J.SYOCHI_E_UMU_NAME
+                'If _V002_NCR_J.SYOCHI_E_UMU_NAME = "有" Then
                 ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_E_YOHI_NAME
+                'End If
             End If
+
+
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_A_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_A_NAME
@@ -1045,9 +1061,8 @@ Module mdlG0010
                 ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.TENYO_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
 
-
             ssgSheet1.Range(NameOf(_V002_NCR_J.YOKYU_NAIYO)).Value = _V002_NCR_J.YOKYU_NAIYO
-            ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = "(図面/規格　： " & _V002_NCR_J.ZUMEN_KIKAKU.PadRight(50) & ")"
+            ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = _V002_NCR_J.ZUMEN_KIKAKU
 
             Dim strYMDHNS As String
 
@@ -1056,8 +1071,6 @@ Module mdlG0010
             If Not strYMDHNS.IsNullOrWhiteSpace Then
                 ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._10_起草入力).Value = "'" & DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
             End If
-
-
 
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_起草確認製造GL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNullOrWhiteSpace Then
@@ -1100,6 +1113,7 @@ Module mdlG0010
             Dim left As Double
             Dim width As Double
             Dim height As Double
+            Dim aspectRatio As Double
             If Not _V002_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace Then
                 Using img = Image.FromFile(strRootDir & _V002_NCR_J.HOKOKU_NO.Trim & "\" & _V002_NCR_J.G_FILE_PATH1)
                     Dim windowInfo As SpreadsheetGear.IWorksheetWindowInfo = ssgSheet1.WindowInfo
@@ -1108,8 +1122,10 @@ Module mdlG0010
                     '何列目
                     left = windowInfo.ColumnToPoints(9.2)
 
-                    width = windowInfo.ColumnToPoints(5.5) 'img.Width * 72 / img.HorizontalResolution
                     height = windowInfo.RowToPoints(4) 'img.Height * 72 / img.VerticalResolution
+                    aspectRatio = img.Width / img.Height
+                    width = height * aspectRatio 'windowInfo.ColumnToPoints(5.5) * Magnification 'img.Width * 72 / img.HorizontalResolution
+
                 End Using
                 ssgSheet1.Shapes.AddPicture(strRootDir & _V002_NCR_J.HOKOKU_NO.Trim & "\" & _V002_NCR_J.G_FILE_PATH1, left, top, width, height)
             End If
@@ -1122,8 +1138,9 @@ Module mdlG0010
                     '何列目
                     left = windowInfo.ColumnToPoints(9.2)
 
-                    width = windowInfo.ColumnToPoints(5.5) 'img.Width * 72 / img.HorizontalResolution
                     height = windowInfo.RowToPoints(4) 'img.Height * 72 / img.VerticalResolution
+                    aspectRatio = img.Width / img.Height
+                    width = height * aspectRatio 'windowInfo.ColumnToPoints(5.5) * Magnification 'img.Width * 72 / img.HorizontalResolution
                 End Using
                 ssgSheet1.Shapes.AddPicture(strRootDir & _V002_NCR_J.HOKOKU_NO.Trim & "\" & _V002_NCR_J.G_FILE_PATH2, left, top, width, height)
             End If

@@ -8,6 +8,8 @@ Public Class FrmG0017
 #Region "定数・変数"
     '入力必須コントロール検証判定
     Private pri_blnValidated As Boolean
+
+    Private _V002_NCR_J As New MODEL.V002_NCR_J
 #End Region
 
 #Region "プロパティ"
@@ -52,6 +54,8 @@ Public Class FrmG0017
 
             '-----グリッド列作成
             Call FunSetDgvCulumns(Me.dgvDATA)
+
+            Call FunSetModel()
 
             '検索実行
             Call FunSRCH(Me.dgvDATA, FunGetListData())
@@ -104,7 +108,12 @@ Public Class FrmG0017
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                .Columns.Add("CHANGE", " ")
+                Dim linkColumn As New DataGridViewLinkColumn
+                linkColumn.Name = "CHANGE"
+                linkColumn.HeaderText = " "
+                linkColumn.LinkBehavior = LinkBehavior.HoverUnderline
+                linkColumn.TrackVisitedState = False
+                .Columns.Add(linkColumn)
                 .Columns(.ColumnCount - 1).Width = 80
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
@@ -117,16 +126,11 @@ Public Class FrmG0017
         End Try
     End Function
 
-    'グリッドセル(行)ダブルクリック時イベント
-    Private Sub DgvDATA_CellDoubleClick(sender As System.Object, e As DataGridViewCellEventArgs) Handles dgvDATA.CellDoubleClick
-        Try
-            'ヘッダ以外のセルダブルクリック時
-            If e.RowIndex >= 0 Then
-                Me.cmdFunc1.PerformClick()
-            End If
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-        End Try
+    Private Sub DgvDATA_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDATA.CellContentClick
+        Dim dgv As DataGridView = DirectCast(sender, DataGridView)
+        If dgv.Columns(e.ColumnIndex).Name = "CHANGE" And dgv(e.ColumnIndex, e.RowIndex).Value = "変更あり" Then
+            Call FunOpenCompare()
+        End If
     End Sub
 
     '行選択時イベント
@@ -226,6 +230,7 @@ Public Class FrmG0017
             dt.Columns.Add("RIYU", GetType(String))
             dt.Columns.Add("SASIMODOSI_YMDHNS", GetType(String))
             dt.Columns.Add("CHANGE", GetType(String))
+            dt.Columns.Add("HENKOU_KENSU", GetType(Integer))
 
             '主キー設定
             dt.PrimaryKey = {dt.Columns("SYONIN_HOKOKUSYO_ID"), dt.Columns("HOKOKU_NO"), dt.Columns("ADD_YMDHNS")}
@@ -247,7 +252,7 @@ Public Class FrmG0017
                     Trow("SYONIN_HANTEI_NAME") = .Rows(intCNT).Item("SYONIN_HANTEI_NAME")
                     Trow("RIYU") = .Rows(intCNT).Item("RIYU")
                     Trow("SASIMODOSI_YMDHNS") = .Rows(intCNT).Item("SASIMODOSI_YMDHNS")
-                    If .Rows(intCNT).Item("SOUSA_KB") = ENM_SOUSA_KB._3_承認差戻 Then
+                    If .Rows(intCNT).Item("HENKOU_KENSU") > 0 Then 'If .Rows(intCNT).Item("SOUSA_KB") = ENM_SOUSA_KB._3_承認差戻 Then
                         Trow("CHANGE") = "変更あり"
                     Else
                         Trow("CHANGE") = ""
@@ -372,17 +377,6 @@ Public Class FrmG0017
                 End With
             Next intFunc
 
-            'SPEC: 20-7.②
-            Dim dr As DataRow
-            If dgvDATA.Rows.Count > 0 Then
-                dr = dgvDATA.GetDataRow
-            End If
-            If dr IsNot Nothing AndAlso dr.Item("SOUSA_KB") = ENM_SOUSA_KB._3_承認差戻 Then '差戻し
-                cmdFunc1.Enabled = True
-            Else
-                cmdFunc1.Enabled = False
-            End If
-
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -398,6 +392,42 @@ Public Class FrmG0017
 
 #End Region
 
+#Region "ローカル関数"
+    Private Function FunSetModel() As Boolean
 
+        _V002_NCR_J = FunGetV002Model(PrHOKOKU_NO)
+        mtxHOKUKO_NO.Text = _V002_NCR_J.HOKOKU_NO
+        mtxBUMON_KB.Text = _V002_NCR_J.BUMON_NAME
+        mtxKISOU_TANTO.Text = _V002_NCR_J.ADD_SYAIN_NAME
+        dtDraft.ValueNonFormat = _V002_NCR_J.ADD_YMD
+        mtxKISYU.Text = _V002_NCR_J.KISYU_NAME
+        mtxBUHIN_BANGO.Text = _V002_NCR_J.BUHIN_BANGO
+        mtxHINMEI.Text = _V002_NCR_J.BUHIN_NAME
+        mtxGOUKI.Text = _V002_NCR_J.GOKI
+        If _V002_NCR_J.BUMON_KB = Context.ENM_BUMON_KB._2_LP Then
+            lblSYANAI_CD.Visible = True
+            mtxSYANAI_CD.Visible = True
+            mtxSYANAI_CD.Text = _V002_NCR_J.SYANAI_CD
+        Else
+            lblSYANAI_CD.Visible = False
+            mtxSYANAI_CD.Visible = False
+        End If
+        numSU.Value = _V002_NCR_J.SURYO
+        If _V002_NCR_J.FUTEKIGO_JYOTAI_KB = ENM_FUTEKIGO_JYOTAI_KB._3_返却品 Then
+            mtxHENKYAKU_RIYU.Visible = True
+            mtxHENKYAKU_RIYU.Text = _V002_NCR_J.FUTEKIGO_NAIYO
+        Else
+            mtxHENKYAKU_RIYU.Visible = False
+        End If
+        mtxFUTEKIGO_JYOTAI.Text = _V002_NCR_J.FUTEKIGO_JYOTAI_NAME
+        mtxFUTEKIGO_KB.Text = _V002_NCR_J.FUTEKIGO_NAME
+        mtxFUTEKIGO_S_KB.Text = _V002_NCR_J.FUTEKIGO_S_NAME
+        mtxZUBAN_KIKAKU.Text = _V002_NCR_J.ZUMEN_KIKAKU
+
+        Return True
+    End Function
+
+
+#End Region
 
 End Class
