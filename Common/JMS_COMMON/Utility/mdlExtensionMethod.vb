@@ -331,13 +331,24 @@ Public Module mdlExtensionMethod
     ''' <param name="this"></param>
     ''' <returns></returns>
     <Extension()>
-    Public Function ParseSqlEscape(ByVal this As String) As String
+    Public Function ConvertSqlEscape(ByVal this As String) As String
         Dim strRET As String
 
         'UNDONE: SQLエスケープ文字追加
         strRET = this.Replace("'", """")
 
         Return strRET
+    End Function
+
+    ''' <summary>
+    ''' バイト
+    ''' </summary>
+    ''' <param name="this"></param>
+    ''' <returns></returns>
+    <Extension()>
+    Public Function GetByteLength(this As String, Optional encodeName As String = "Shift_JIS") As Integer
+        Dim enc As System.Text.Encoding = System.Text.Encoding.GetEncoding(encodeName)
+        Return enc.GetByteCount(this)
     End Function
 
 #End Region

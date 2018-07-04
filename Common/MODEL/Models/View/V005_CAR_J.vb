@@ -99,6 +99,10 @@ Partial Public Class V005_CAR_J
         KENSA_GL_SYAIN_ID = 0
         KENSA_GL_SYAIN_NAME = ""
         KENSA_GL_YMDHNS = ""
+        FILE_PATH1 = ""
+        FILE_PATH2 = ""
+        FUTEKIGO_HASSEI_YMD = ""
+
         ADD_SYAIN_ID = 0
         ADD_SYAIN_NAME = ""
         ADD_YMDHNS = ""
@@ -593,6 +597,13 @@ Partial Public Class V005_CAR_J
     <StringLength(200)>
     <ComponentModel.DisplayName("添付資料2パス")>
     Public Property FILE_PATH2 As String
+
+
+    <Required>
+    <StringLength(8)>
+    <Column(TypeName:="char")>
+    <ComponentModel.DisplayName("不適合発生日")>
+    Public Property FUTEKIGO_HASSEI_YMD As String
 
 
     ''共通項目------------------------------------

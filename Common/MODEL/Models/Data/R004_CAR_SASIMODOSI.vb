@@ -94,6 +94,7 @@ Partial Public Class R004_CAR_SASIMODOSI
         KENSA_GL_YMDHNS = ""
         FILE_PATH1 = ""
         FILE_PATH2 = ""
+        FUTEKIGO_HASSEI_YMD = ""
 
     End Sub
 
@@ -556,5 +557,11 @@ Partial Public Class R004_CAR_SASIMODOSI
     Public Property FILE_PATH2 As String
 
 
+
+    <Required>
+    <StringLength(8)>
+    <Column(TypeName:="char")>
+    <ComponentModel.DisplayName("不適合発生日")>
+    Public Property FUTEKIGO_HASSEI_YMD As String
 
 End Class

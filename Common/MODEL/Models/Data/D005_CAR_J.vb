@@ -85,7 +85,6 @@ Partial Public Class D005_CAR_J
         SYOCHI_C_YMDHNS = ""
         KYOIKU_FILE_PATH = ""
         ZESEI_SYOCHI_YUKO_UMU = False
-
         SYOSAI_FILE_PATH = ""
         GOKI = ""
         LOT = ""
@@ -93,6 +92,10 @@ Partial Public Class D005_CAR_J
         KENSA_TOROKU_YMDHNS = ""
         KENSA_GL_SYAIN_ID = 0
         KENSA_GL_YMDHNS = ""
+        FILE_PATH1 = ""
+        FILE_PATH2 = ""
+        FUTEKIGO_HASSEI_YMD = ""
+
         ADD_SYAIN_ID = 0
         ADD_YMDHNS = ""
         UPD_SYAIN_ID = 0
@@ -582,6 +585,12 @@ Partial Public Class D005_CAR_J
     <StringLength(200)>
     <ComponentModel.DisplayName("添付資料2パス")>
     Public Property FILE_PATH2 As String
+
+    <Required>
+    <StringLength(8)>
+    <Column(TypeName:="char")>
+    <ComponentModel.DisplayName("不適合発生日")>
+    Public Property FUTEKIGO_HASSEI_YMD As String
 
 
     ''共通項目------------------------------------

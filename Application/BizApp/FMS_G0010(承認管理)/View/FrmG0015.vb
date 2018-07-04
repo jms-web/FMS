@@ -31,6 +31,7 @@ Public Class FrmG0015
 
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
+        Me.Icon = My.Resources._icoAppForm32x32
         Me.ShowIcon = True
         cmbTENSO_SAKI.NullValue = 0
     End Sub
@@ -58,17 +59,17 @@ Public Class FrmG0015
             Me.ControlBox = False
 
             '-----各コントロールのデータソースを設定
-            Dim tbl As DataTable
-            'tbl = tblTANTO_SYONIN.AsEnumerable.
-            '                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = PrSYONIN_HOKOKUSYO_ID _
-            '                        And r.Field(Of Integer)("SYONIN_JUN") = PrCurrentStage _
-            '                        And r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).
-            '                        CopyToDataTable
+            Dim drs = FunGetSYONIN_SYOZOKU_SYAIN(PrBUMON_KB, PrSYONIN_HOKOKUSYO_ID, PrCurrentStage).AsEnumerable.
+                    Where(Function(r) r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID)
 
-            tbl = FunGetSYONIN_SYOZOKU_SYAIN(PrBUMON_KB, PrSYONIN_HOKOKUSYO_ID, PrCurrentStage).AsEnumerable.
-                    Where(Function(r) r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).CopyToDataTable
+            If drs.Count > 0 Then
+                Dim tbl As DataTable
+                tbl = drs.CopyToDataTable
+                Me.cmbTENSO_SAKI.SetDataSource(tbl, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            Else
+                MessageBox.Show("当該ステージの承認担当者がログインユーザー以外に登録されていないため、転送処理は出来ません。", "承認担当者マスタ登録不備", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
 
-            Me.cmbTENSO_SAKI.SetDataSource(tbl, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             'バインディング
             Call FunSetBinding()

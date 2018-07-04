@@ -717,7 +717,9 @@ Partial Class FrmG0011
         Me.mtxHENKYAKU_RIYU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxHENKYAKU_RIYU.InputRequired = False
         Me.mtxHENKYAKU_RIYU.Location = New System.Drawing.Point(363, 93)
+        Me.mtxHENKYAKU_RIYU.MaxByteLength = 0
         Me.mtxHENKYAKU_RIYU.Name = "mtxHENKYAKU_RIYU"
+        Me.mtxHENKYAKU_RIYU.ShowRemaining = False
         Me.mtxHENKYAKU_RIYU.Size = New System.Drawing.Size(474, 24)
         Me.mtxHENKYAKU_RIYU.TabIndex = 12
         Me.mtxHENKYAKU_RIYU.Visible = False
@@ -791,6 +793,7 @@ Partial Class FrmG0011
         Me.mtxZUBAN_KIKAKU.Location = New System.Drawing.Point(683, 123)
         Me.mtxZUBAN_KIKAKU.MaxByteLength = 60
         Me.mtxZUBAN_KIKAKU.Name = "mtxZUBAN_KIKAKU"
+        Me.mtxZUBAN_KIKAKU.ShowRemaining = False
         Me.mtxZUBAN_KIKAKU.Size = New System.Drawing.Size(354, 24)
         Me.mtxZUBAN_KIKAKU.TabIndex = 15
         Me.mtxZUBAN_KIKAKU.WatermarkColor = System.Drawing.Color.Empty
@@ -840,8 +843,10 @@ Partial Class FrmG0011
         Me.mtxHOKUKO_NO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxHOKUKO_NO.InputRequired = False
         Me.mtxHOKUKO_NO.Location = New System.Drawing.Point(103, 3)
+        Me.mtxHOKUKO_NO.MaxByteLength = 0
         Me.mtxHOKUKO_NO.Name = "mtxHOKUKO_NO"
         Me.mtxHOKUKO_NO.ReadOnly = True
+        Me.mtxHOKUKO_NO.ShowRemaining = False
         Me.mtxHOKUKO_NO.Size = New System.Drawing.Size(134, 24)
         Me.mtxHOKUKO_NO.TabIndex = 0
         Me.mtxHOKUKO_NO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -948,7 +953,9 @@ Partial Class FrmG0011
         Me.mtxHINMEI.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxHINMEI.InputRequired = False
         Me.mtxHINMEI.Location = New System.Drawing.Point(683, 33)
+        Me.mtxHINMEI.MaxByteLength = 0
         Me.mtxHINMEI.Name = "mtxHINMEI"
+        Me.mtxHINMEI.ShowRemaining = True
         Me.mtxHINMEI.Size = New System.Drawing.Size(354, 24)
         Me.mtxHINMEI.TabIndex = 6
         Me.mtxHINMEI.WatermarkColor = System.Drawing.Color.Empty
@@ -974,7 +981,9 @@ Partial Class FrmG0011
         Me.mtxGOUKI.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxGOUKI.InputRequired = False
         Me.mtxGOUKI.Location = New System.Drawing.Point(103, 63)
+        Me.mtxGOUKI.MaxByteLength = 20
         Me.mtxGOUKI.Name = "mtxGOUKI"
+        Me.mtxGOUKI.ShowRemaining = True
         Me.mtxGOUKI.Size = New System.Drawing.Size(134, 24)
         Me.mtxGOUKI.TabIndex = 7
         Me.mtxGOUKI.WatermarkColor = System.Drawing.Color.Empty
@@ -1194,13 +1203,14 @@ Partial Class FrmG0011
         'mtxST01_NextStageName
         '
         Me.mtxST01_NextStageName.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST01_NextStageName.Enabled = False
         Me.mtxST01_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST01_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_NextStageName.InputRequired = False
         Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 282)
+        Me.mtxST01_NextStageName.MaxByteLength = 0
         Me.mtxST01_NextStageName.Name = "mtxST01_NextStageName"
         Me.mtxST01_NextStageName.ReadOnly = True
+        Me.mtxST01_NextStageName.ShowRemaining = True
         Me.mtxST01_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST01_NextStageName.TabIndex = 3
         Me.mtxST01_NextStageName.WatermarkColor = System.Drawing.Color.Empty
@@ -1245,13 +1255,14 @@ Partial Class FrmG0011
         'mtxST01_UPD_YMD
         '
         Me.mtxST01_UPD_YMD.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST01_UPD_YMD.Enabled = False
         Me.mtxST01_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST01_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_UPD_YMD.InputRequired = False
         Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 282)
+        Me.mtxST01_UPD_YMD.MaxByteLength = 0
         Me.mtxST01_UPD_YMD.Name = "mtxST01_UPD_YMD"
         Me.mtxST01_UPD_YMD.ReadOnly = True
+        Me.mtxST01_UPD_YMD.ShowRemaining = True
         Me.mtxST01_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST01_UPD_YMD.TabIndex = 2
         Me.mtxST01_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1392,7 +1403,9 @@ Partial Class FrmG0011
         Me.mtxST02_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST02_NextStageName.InputRequired = False
         Me.mtxST02_NextStageName.Location = New System.Drawing.Point(359, 40)
+        Me.mtxST02_NextStageName.MaxByteLength = 0
         Me.mtxST02_NextStageName.Name = "mtxST02_NextStageName"
+        Me.mtxST02_NextStageName.ShowRemaining = True
         Me.mtxST02_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST02_NextStageName.TabIndex = 1
         Me.mtxST02_NextStageName.WatermarkColor = System.Drawing.Color.Empty
@@ -1471,7 +1484,9 @@ Partial Class FrmG0011
         Me.mtxST02_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST02_UPD_YMD.InputRequired = False
         Me.mtxST02_UPD_YMD.Location = New System.Drawing.Point(118, 40)
+        Me.mtxST02_UPD_YMD.MaxByteLength = 0
         Me.mtxST02_UPD_YMD.Name = "mtxST02_UPD_YMD"
+        Me.mtxST02_UPD_YMD.ShowRemaining = True
         Me.mtxST02_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST02_UPD_YMD.TabIndex = 0
         Me.mtxST02_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1553,7 +1568,9 @@ Partial Class FrmG0011
         Me.mtxST03_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST03_NextStageName.InputRequired = False
         Me.mtxST03_NextStageName.Location = New System.Drawing.Point(359, 40)
+        Me.mtxST03_NextStageName.MaxByteLength = 0
         Me.mtxST03_NextStageName.Name = "mtxST03_NextStageName"
+        Me.mtxST03_NextStageName.ShowRemaining = True
         Me.mtxST03_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST03_NextStageName.TabIndex = 1
         Me.mtxST03_NextStageName.WatermarkColor = System.Drawing.Color.Empty
@@ -1632,7 +1649,9 @@ Partial Class FrmG0011
         Me.mtxST03_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST03_UPD_YMD.InputRequired = False
         Me.mtxST03_UPD_YMD.Location = New System.Drawing.Point(118, 40)
+        Me.mtxST03_UPD_YMD.MaxByteLength = 0
         Me.mtxST03_UPD_YMD.Name = "mtxST03_UPD_YMD"
+        Me.mtxST03_UPD_YMD.ShowRemaining = True
         Me.mtxST03_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST03_UPD_YMD.TabIndex = 0
         Me.mtxST03_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1801,7 +1820,9 @@ Partial Class FrmG0011
         Me.mtxST04_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST04_NextStageName.InputRequired = False
         Me.mtxST04_NextStageName.Location = New System.Drawing.Point(359, 221)
+        Me.mtxST04_NextStageName.MaxByteLength = 0
         Me.mtxST04_NextStageName.Name = "mtxST04_NextStageName"
+        Me.mtxST04_NextStageName.ShowRemaining = True
         Me.mtxST04_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST04_NextStageName.TabIndex = 3
         Me.mtxST04_NextStageName.WatermarkColor = System.Drawing.Color.Empty
@@ -1880,7 +1901,9 @@ Partial Class FrmG0011
         Me.mtxST04_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST04_UPD_YMD.InputRequired = False
         Me.mtxST04_UPD_YMD.Location = New System.Drawing.Point(118, 221)
+        Me.mtxST04_UPD_YMD.MaxByteLength = 0
         Me.mtxST04_UPD_YMD.Name = "mtxST04_UPD_YMD"
+        Me.mtxST04_UPD_YMD.ShowRemaining = True
         Me.mtxST04_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST04_UPD_YMD.TabIndex = 2
         Me.mtxST04_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2039,7 +2062,9 @@ Partial Class FrmG0011
         Me.mtxST05_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST05_NextStageName.InputRequired = False
         Me.mtxST05_NextStageName.Location = New System.Drawing.Point(359, 40)
+        Me.mtxST05_NextStageName.MaxByteLength = 0
         Me.mtxST05_NextStageName.Name = "mtxST05_NextStageName"
+        Me.mtxST05_NextStageName.ShowRemaining = True
         Me.mtxST05_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST05_NextStageName.TabIndex = 1
         Me.mtxST05_NextStageName.WatermarkColor = System.Drawing.Color.Empty
@@ -2118,7 +2143,9 @@ Partial Class FrmG0011
         Me.mtxST05_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST05_UPD_YMD.InputRequired = False
         Me.mtxST05_UPD_YMD.Location = New System.Drawing.Point(118, 40)
+        Me.mtxST05_UPD_YMD.MaxByteLength = 0
         Me.mtxST05_UPD_YMD.Name = "mtxST05_UPD_YMD"
+        Me.mtxST05_UPD_YMD.ShowRemaining = True
         Me.mtxST05_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST05_UPD_YMD.TabIndex = 0
         Me.mtxST05_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2205,7 +2232,9 @@ Partial Class FrmG0011
         Me.mtxST06_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST06_NextStageName.InputRequired = False
         Me.mtxST06_NextStageName.Location = New System.Drawing.Point(359, 221)
+        Me.mtxST06_NextStageName.MaxByteLength = 0
         Me.mtxST06_NextStageName.Name = "mtxST06_NextStageName"
+        Me.mtxST06_NextStageName.ShowRemaining = True
         Me.mtxST06_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST06_NextStageName.TabIndex = 3
         Me.mtxST06_NextStageName.WatermarkColor = System.Drawing.Color.Empty
@@ -2284,7 +2313,9 @@ Partial Class FrmG0011
         Me.mtxST06_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST06_UPD_YMD.InputRequired = False
         Me.mtxST06_UPD_YMD.Location = New System.Drawing.Point(118, 221)
+        Me.mtxST06_UPD_YMD.MaxByteLength = 0
         Me.mtxST06_UPD_YMD.Name = "mtxST06_UPD_YMD"
+        Me.mtxST06_UPD_YMD.ShowRemaining = True
         Me.mtxST06_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST06_UPD_YMD.TabIndex = 2
         Me.mtxST06_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2300,6 +2331,7 @@ Partial Class FrmG0011
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.Location = New System.Drawing.Point(118, 73)
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.MaxByteLength = 6
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.Name = "mtxST06_SAISIN_IINKAI_SIRYO_NO"
+        Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.ShowRemaining = True
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.Size = New System.Drawing.Size(154, 24)
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.TabIndex = 1
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.WatermarkColor = System.Drawing.Color.Empty
@@ -2499,7 +2531,9 @@ Partial Class FrmG0011
         Me.mtxST07_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST07_NextStageName.InputRequired = False
         Me.mtxST07_NextStageName.Location = New System.Drawing.Point(359, 221)
+        Me.mtxST07_NextStageName.MaxByteLength = 0
         Me.mtxST07_NextStageName.Name = "mtxST07_NextStageName"
+        Me.mtxST07_NextStageName.ShowRemaining = True
         Me.mtxST07_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST07_NextStageName.TabIndex = 7
         Me.mtxST07_NextStageName.WatermarkColor = System.Drawing.Color.Empty
@@ -2578,7 +2612,9 @@ Partial Class FrmG0011
         Me.mtxST07_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST07_UPD_YMD.InputRequired = False
         Me.mtxST07_UPD_YMD.Location = New System.Drawing.Point(118, 221)
+        Me.mtxST07_UPD_YMD.MaxByteLength = 0
         Me.mtxST07_UPD_YMD.Name = "mtxST07_UPD_YMD"
+        Me.mtxST07_UPD_YMD.ShowRemaining = True
         Me.mtxST07_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST07_UPD_YMD.TabIndex = 6
         Me.mtxST07_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -2714,6 +2750,7 @@ Partial Class FrmG0011
         Me.mtxST07_ITAG_NO.Location = New System.Drawing.Point(118, 42)
         Me.mtxST07_ITAG_NO.MaxByteLength = 20
         Me.mtxST07_ITAG_NO.Name = "mtxST07_ITAG_NO"
+        Me.mtxST07_ITAG_NO.ShowRemaining = True
         Me.mtxST07_ITAG_NO.Size = New System.Drawing.Size(154, 24)
         Me.mtxST07_ITAG_NO.TabIndex = 0
         Me.mtxST07_ITAG_NO.WatermarkColor = System.Drawing.Color.Empty
@@ -2841,7 +2878,9 @@ Partial Class FrmG0011
         Me.mtxST08_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST08_NextStageName.InputRequired = False
         Me.mtxST08_NextStageName.Location = New System.Drawing.Point(359, 221)
+        Me.mtxST08_NextStageName.MaxByteLength = 0
         Me.mtxST08_NextStageName.Name = "mtxST08_NextStageName"
+        Me.mtxST08_NextStageName.ShowRemaining = True
         Me.mtxST08_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST08_NextStageName.TabIndex = 2
         Me.mtxST08_NextStageName.WatermarkColor = System.Drawing.Color.Empty
@@ -2920,7 +2959,9 @@ Partial Class FrmG0011
         Me.mtxST08_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST08_UPD_YMD.InputRequired = False
         Me.mtxST08_UPD_YMD.Location = New System.Drawing.Point(118, 221)
+        Me.mtxST08_UPD_YMD.MaxByteLength = 0
         Me.mtxST08_UPD_YMD.Name = "mtxST08_UPD_YMD"
+        Me.mtxST08_UPD_YMD.ShowRemaining = True
         Me.mtxST08_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST08_UPD_YMD.TabIndex = 1
         Me.mtxST08_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
@@ -3016,6 +3057,7 @@ Partial Class FrmG0011
         Me.mtxST08_1_BIKO.Location = New System.Drawing.Point(101, 67)
         Me.mtxST08_1_BIKO.MaxByteLength = 60
         Me.mtxST08_1_BIKO.Name = "mtxST08_1_BIKO"
+        Me.mtxST08_1_BIKO.ShowRemaining = True
         Me.mtxST08_1_BIKO.Size = New System.Drawing.Size(775, 24)
         Me.mtxST08_1_BIKO.TabIndex = 2
         Me.mtxST08_1_BIKO.WatermarkColor = System.Drawing.Color.Empty
@@ -3269,6 +3311,7 @@ Partial Class FrmG0011
         Me.mtxST08_2_DOC_NO.Location = New System.Drawing.Point(101, 6)
         Me.mtxST08_2_DOC_NO.MaxByteLength = 10
         Me.mtxST08_2_DOC_NO.Name = "mtxST08_2_DOC_NO"
+        Me.mtxST08_2_DOC_NO.ShowRemaining = True
         Me.mtxST08_2_DOC_NO.Size = New System.Drawing.Size(115, 24)
         Me.mtxST08_2_DOC_NO.TabIndex = 0
         Me.mtxST08_2_DOC_NO.WatermarkColor = System.Drawing.Color.Empty
@@ -3459,6 +3502,7 @@ Partial Class FrmG0011
         Me.mtxST08_3_HENKYAKU_SAKI.Location = New System.Drawing.Point(342, 6)
         Me.mtxST08_3_HENKYAKU_SAKI.MaxByteLength = 120
         Me.mtxST08_3_HENKYAKU_SAKI.Name = "mtxST08_3_HENKYAKU_SAKI"
+        Me.mtxST08_3_HENKYAKU_SAKI.ShowRemaining = True
         Me.mtxST08_3_HENKYAKU_SAKI.Size = New System.Drawing.Size(314, 24)
         Me.mtxST08_3_HENKYAKU_SAKI.TabIndex = 1
         Me.mtxST08_3_HENKYAKU_SAKI.WatermarkColor = System.Drawing.Color.Empty
@@ -3584,7 +3628,9 @@ Partial Class FrmG0011
         Me.mtxST08_4_GOUKI.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST08_4_GOUKI.InputRequired = False
         Me.mtxST08_4_GOUKI.Location = New System.Drawing.Point(101, 66)
+        Me.mtxST08_4_GOUKI.MaxByteLength = 0
         Me.mtxST08_4_GOUKI.Name = "mtxST08_4_GOUKI"
+        Me.mtxST08_4_GOUKI.ShowRemaining = True
         Me.mtxST08_4_GOUKI.Size = New System.Drawing.Size(134, 24)
         Me.mtxST08_4_GOUKI.TabIndex = 2
         Me.mtxST08_4_GOUKI.WatermarkColor = System.Drawing.Color.Empty
@@ -3635,7 +3681,9 @@ Partial Class FrmG0011
         Me.mtxST08_4_LOT.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST08_4_LOT.InputRequired = False
         Me.mtxST08_4_LOT.Location = New System.Drawing.Point(101, 96)
+        Me.mtxST08_4_LOT.MaxByteLength = 0
         Me.mtxST08_4_LOT.Name = "mtxST08_4_LOT"
+        Me.mtxST08_4_LOT.ShowRemaining = True
         Me.mtxST08_4_LOT.Size = New System.Drawing.Size(54, 24)
         Me.mtxST08_4_LOT.TabIndex = 3
         Me.mtxST08_4_LOT.WatermarkColor = System.Drawing.Color.Empty
@@ -3751,7 +3799,9 @@ Partial Class FrmG0011
         Me.mtxST09_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST09_NextStageName.InputRequired = False
         Me.mtxST09_NextStageName.Location = New System.Drawing.Point(359, 40)
+        Me.mtxST09_NextStageName.MaxByteLength = 0
         Me.mtxST09_NextStageName.Name = "mtxST09_NextStageName"
+        Me.mtxST09_NextStageName.ShowRemaining = True
         Me.mtxST09_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST09_NextStageName.TabIndex = 1
         Me.mtxST09_NextStageName.WatermarkColor = System.Drawing.Color.Empty
@@ -3830,7 +3880,9 @@ Partial Class FrmG0011
         Me.mtxST09_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST09_UPD_YMD.InputRequired = False
         Me.mtxST09_UPD_YMD.Location = New System.Drawing.Point(118, 40)
+        Me.mtxST09_UPD_YMD.MaxByteLength = 0
         Me.mtxST09_UPD_YMD.Name = "mtxST09_UPD_YMD"
+        Me.mtxST09_UPD_YMD.ShowRemaining = True
         Me.mtxST09_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST09_UPD_YMD.TabIndex = 0
         Me.mtxST09_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
@@ -3911,7 +3963,9 @@ Partial Class FrmG0011
         Me.mtxST10_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST10_NextStageName.InputRequired = False
         Me.mtxST10_NextStageName.Location = New System.Drawing.Point(359, 40)
+        Me.mtxST10_NextStageName.MaxByteLength = 0
         Me.mtxST10_NextStageName.Name = "mtxST10_NextStageName"
+        Me.mtxST10_NextStageName.ShowRemaining = True
         Me.mtxST10_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST10_NextStageName.TabIndex = 1
         Me.mtxST10_NextStageName.WatermarkColor = System.Drawing.Color.Empty
@@ -3990,7 +4044,9 @@ Partial Class FrmG0011
         Me.mtxST10_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST10_UPD_YMD.InputRequired = False
         Me.mtxST10_UPD_YMD.Location = New System.Drawing.Point(118, 40)
+        Me.mtxST10_UPD_YMD.MaxByteLength = 0
         Me.mtxST10_UPD_YMD.Name = "mtxST10_UPD_YMD"
+        Me.mtxST10_UPD_YMD.ShowRemaining = True
         Me.mtxST10_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST10_UPD_YMD.TabIndex = 0
         Me.mtxST10_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
@@ -4046,7 +4102,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 211.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 219.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.Panel7, 3, 7)
@@ -4092,7 +4148,7 @@ Partial Class FrmG0011
         '
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_T)
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_F)
-        Me.Panel7.Location = New System.Drawing.Point(544, 200)
+        Me.Panel7.Location = New System.Drawing.Point(536, 200)
         Me.Panel7.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(175, 28)
@@ -4129,7 +4185,7 @@ Partial Class FrmG0011
         '
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_T)
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_F)
-        Me.Panel2.Location = New System.Drawing.Point(544, 171)
+        Me.Panel2.Location = New System.Drawing.Point(536, 171)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(175, 28)
@@ -4166,7 +4222,7 @@ Partial Class FrmG0011
         '
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_T)
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_F)
-        Me.Panel6.Location = New System.Drawing.Point(544, 117)
+        Me.Panel6.Location = New System.Drawing.Point(536, 117)
         Me.Panel6.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(175, 28)
@@ -4203,7 +4259,7 @@ Partial Class FrmG0011
         '
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_T)
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_F)
-        Me.Panel5.Location = New System.Drawing.Point(544, 88)
+        Me.Panel5.Location = New System.Drawing.Point(536, 88)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(175, 28)
@@ -4240,7 +4296,7 @@ Partial Class FrmG0011
         '
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_T)
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_F)
-        Me.Panel4.Location = New System.Drawing.Point(544, 59)
+        Me.Panel4.Location = New System.Drawing.Point(536, 59)
         Me.Panel4.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(175, 28)
@@ -4277,7 +4333,7 @@ Partial Class FrmG0011
         '
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_T)
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_F)
-        Me.Panel3.Location = New System.Drawing.Point(544, 30)
+        Me.Panel3.Location = New System.Drawing.Point(536, 30)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(175, 28)
@@ -4322,6 +4378,7 @@ Partial Class FrmG0011
         Me.mtxST11_E_Comment.Margin = New System.Windows.Forms.Padding(0)
         Me.mtxST11_E_Comment.MaxByteLength = 200
         Me.mtxST11_E_Comment.Name = "mtxST11_E_Comment"
+        Me.mtxST11_E_Comment.ShowRemaining = True
         Me.mtxST11_E_Comment.Size = New System.Drawing.Size(667, 24)
         Me.mtxST11_E_Comment.TabIndex = 1
         Me.mtxST11_E_Comment.WatermarkColor = System.Drawing.Color.Empty
@@ -4339,6 +4396,7 @@ Partial Class FrmG0011
         Me.mtxST11_D_Comment.Margin = New System.Windows.Forms.Padding(0)
         Me.mtxST11_D_Comment.MaxByteLength = 200
         Me.mtxST11_D_Comment.Name = "mtxST11_D_Comment"
+        Me.mtxST11_D_Comment.ShowRemaining = True
         Me.mtxST11_D_Comment.Size = New System.Drawing.Size(667, 24)
         Me.mtxST11_D_Comment.TabIndex = 0
         Me.mtxST11_D_Comment.WatermarkColor = System.Drawing.Color.Empty
@@ -4366,7 +4424,7 @@ Partial Class FrmG0011
         Me.Label126.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label126.Location = New System.Drawing.Point(25, 117)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(515, 28)
+        Me.Label126.Size = New System.Drawing.Size(507, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "影響有の場合、顧客への通知の要否"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4380,7 +4438,7 @@ Partial Class FrmG0011
         Me.Label127.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label127.Location = New System.Drawing.Point(25, 88)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(515, 28)
+        Me.Label127.Size = New System.Drawing.Size(507, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "当該不適合による顧客への影響"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4394,7 +4452,7 @@ Partial Class FrmG0011
         Me.Label128.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label128.Location = New System.Drawing.Point(25, 59)
         Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(515, 28)
+        Me.Label128.Size = New System.Drawing.Size(507, 28)
         Me.Label128.TabIndex = 241
         Me.Label128.Text = "廃却処置は本来の意図した使用又は適用ができない方法だったか？"
         Me.Label128.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4421,7 +4479,7 @@ Partial Class FrmG0011
         Me.Label130.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label130.Location = New System.Drawing.Point(25, 30)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(515, 28)
+        Me.Label130.Size = New System.Drawing.Size(507, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "社内権限者により、又は顧客再審の場合は顧客により判定されたか？"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4475,7 +4533,7 @@ Partial Class FrmG0011
         Me.Label134.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label134.Location = New System.Drawing.Point(25, 171)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(515, 28)
+        Me.Label134.Size = New System.Drawing.Size(507, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "当該不適合による他のプロセスへの影響"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4502,7 +4560,7 @@ Partial Class FrmG0011
         Me.Label136.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label136.Location = New System.Drawing.Point(25, 200)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(515, 28)
+        Me.Label136.Size = New System.Drawing.Size(507, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "影響有の場合、封じ込め処置の要否"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4516,7 +4574,7 @@ Partial Class FrmG0011
         Me.Label137.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label137.Location = New System.Drawing.Point(25, 1)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(515, 28)
+        Me.Label137.Size = New System.Drawing.Size(507, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "検出された不適合を除去する処置（廃却を含む）は確実にとられたか？"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4539,7 +4597,7 @@ Partial Class FrmG0011
         '
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_T)
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_F)
-        Me.Panel1.Location = New System.Drawing.Point(544, 1)
+        Me.Panel1.Location = New System.Drawing.Point(536, 1)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(175, 28)
@@ -4697,7 +4755,9 @@ Partial Class FrmG0011
         Me.mtxST11_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST11_NextStageName.InputRequired = False
         Me.mtxST11_NextStageName.Location = New System.Drawing.Point(927, 76)
+        Me.mtxST11_NextStageName.MaxByteLength = 0
         Me.mtxST11_NextStageName.Name = "mtxST11_NextStageName"
+        Me.mtxST11_NextStageName.ShowRemaining = True
         Me.mtxST11_NextStageName.Size = New System.Drawing.Size(295, 24)
         Me.mtxST11_NextStageName.TabIndex = 1
         Me.mtxST11_NextStageName.WatermarkColor = System.Drawing.Color.Empty
@@ -4777,7 +4837,9 @@ Partial Class FrmG0011
         Me.mtxST11_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST11_UPD_YMD.InputRequired = False
         Me.mtxST11_UPD_YMD.Location = New System.Drawing.Point(927, 46)
+        Me.mtxST11_UPD_YMD.MaxByteLength = 0
         Me.mtxST11_UPD_YMD.Name = "mtxST11_UPD_YMD"
+        Me.mtxST11_UPD_YMD.ShowRemaining = True
         Me.mtxST11_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST11_UPD_YMD.TabIndex = 0
         Me.mtxST11_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty

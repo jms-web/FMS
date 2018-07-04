@@ -20,6 +20,7 @@ Partial Class FrmG0016
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.mtxTANTO_ID = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cmbMODOSI_SAKI = New JMS_COMMON.ComboboxEx()
@@ -27,7 +28,6 @@ Partial Class FrmG0016
         Me.mtxTANTO_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.mtxMODOSI_RIYU = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.mtxTANTO_ID = New JMS_COMMON.MaskedTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -151,6 +151,24 @@ Partial Class FrmG0016
         Me.GroupBox1.TabIndex = 31
         Me.GroupBox1.TabStop = False
         '
+        'mtxTANTO_ID
+        '
+        Me.mtxTANTO_ID.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxTANTO_ID.Enabled = False
+        Me.mtxTANTO_ID.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxTANTO_ID.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxTANTO_ID.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxTANTO_ID.InputRequired = False
+        Me.mtxTANTO_ID.Location = New System.Drawing.Point(253, 52)
+        Me.mtxTANTO_ID.MaxByteLength = 200
+        Me.mtxTANTO_ID.Name = "mtxTANTO_ID"
+        Me.mtxTANTO_ID.ShowRemaining = False
+        Me.mtxTANTO_ID.Size = New System.Drawing.Size(52, 24)
+        Me.mtxTANTO_ID.TabIndex = 69
+        Me.mtxTANTO_ID.Visible = False
+        Me.mtxTANTO_ID.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxTANTO_ID.WatermarkText = Nothing
+        '
         'Label1
         '
         Me.Label1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -215,6 +233,7 @@ Partial Class FrmG0016
         Me.mtxTANTO_NAME.Location = New System.Drawing.Point(99, 52)
         Me.mtxTANTO_NAME.MaxByteLength = 200
         Me.mtxTANTO_NAME.Name = "mtxTANTO_NAME"
+        Me.mtxTANTO_NAME.ShowRemaining = False
         Me.mtxTANTO_NAME.Size = New System.Drawing.Size(148, 24)
         Me.mtxTANTO_NAME.TabIndex = 3
         Me.mtxTANTO_NAME.WatermarkColor = System.Drawing.Color.Empty
@@ -230,6 +249,7 @@ Partial Class FrmG0016
         Me.mtxMODOSI_RIYU.Location = New System.Drawing.Point(99, 82)
         Me.mtxMODOSI_RIYU.MaxByteLength = 200
         Me.mtxMODOSI_RIYU.Name = "mtxMODOSI_RIYU"
+        Me.mtxMODOSI_RIYU.ShowRemaining = False
         Me.mtxMODOSI_RIYU.Size = New System.Drawing.Size(612, 24)
         Me.mtxMODOSI_RIYU.TabIndex = 3
         Me.mtxMODOSI_RIYU.WatermarkColor = System.Drawing.Color.Empty
@@ -246,23 +266,6 @@ Partial Class FrmG0016
         Me.Label11.TabIndex = 38
         Me.Label11.Text = "Å¶ç∑ñﬂÇµìoò^Ç≥ÇÍÇÈÇ∆ïÒçêèëâÊñ Ç™ï¬Ç∂ÇÁÇÍÇ‹Ç∑"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'mtxTANTO_ID
-        '
-        Me.mtxTANTO_ID.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxTANTO_ID.Enabled = False
-        Me.mtxTANTO_ID.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxTANTO_ID.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxTANTO_ID.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.mtxTANTO_ID.InputRequired = False
-        Me.mtxTANTO_ID.Location = New System.Drawing.Point(253, 52)
-        Me.mtxTANTO_ID.MaxByteLength = 200
-        Me.mtxTANTO_ID.Name = "mtxTANTO_ID"
-        Me.mtxTANTO_ID.Size = New System.Drawing.Size(52, 24)
-        Me.mtxTANTO_ID.TabIndex = 69
-        Me.mtxTANTO_ID.Visible = False
-        Me.mtxTANTO_ID.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxTANTO_ID.WatermarkText = Nothing
         '
         'FrmG0016
         '

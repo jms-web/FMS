@@ -56,13 +56,14 @@ Public Class FrmG0012
 
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
+        Me.Icon = My.Resources._icoAppForm32x32
+        Me.ShowIcon = True
+
         'ツールチップメッセージ
         MyBase.ToolTip.SetToolTip(Me.cmdFunc3, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc4, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
-
-        Me.ShowIcon = True
 
         cmbDestTANTO.NullValue = 0
         cmbKAITO_5.NullValue = 0
@@ -1681,8 +1682,6 @@ Public Class FrmG0012
 
         Try
 
-            frmDLG.PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE
-            frmDLG.PrDialog = True
 
             Dim sbSQL As New System.Text.StringBuilder
             Dim dsList As New DataSet
@@ -1697,8 +1696,10 @@ Public Class FrmG0012
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
 
-
-            frmDLG.PrDataRow = dsList.Tables(0).Rows(0)
+            frmDLG.PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE
+            frmDLG.PrDialog = True
+            frmDLG.PrCurrentStage = dsList.Tables(0).Rows(0).Item("SYONIN_JUN")
+            frmDLG.PrHOKOKU_NO = dsList.Tables(0).Rows(0).Item("HOKOKU_NO")
 
 
             dlgRET = frmDLG.ShowDialog(Me)

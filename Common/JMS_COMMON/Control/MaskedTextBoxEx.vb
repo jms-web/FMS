@@ -20,13 +20,14 @@ Public Class MaskedTextBoxEx
     Public Sub New()
         Call InitializeComponent()
 
-        Me.MaxByteLength = 65535
+        'Me.MaxByteLength = 65535
         Me.SelectAllText = True
         Me.ImeMode = Windows.Forms.ImeMode.Disable
         _watermarkColor = SystemColors.GrayText
 
         Me._GotForcusedColor = clrControlGotFocusedColor
         Me._BackColorDefault = clrControlDefaultBackColor
+        ShowRemaining = False
     End Sub
 #End Region
 
@@ -464,7 +465,29 @@ Public Class MaskedTextBoxEx
     End Sub
 #End Region
 
+    Public Property ShowRemaining As Boolean
 
+#Region "　Change メソッド(Overrides)"
+    Protected Overrides Sub OnTextChanged(e As EventArgs)
+
+        If ShowRemaining Then
+            Using g As Graphics = Graphics.FromHwnd(Me.Handle)
+                'テキストボックス外に残り入力可能文字数を描画
+                Dim rect As Rectangle = Me.ClientRectangle
+                rect.Offset(50, 0)
+                TextRenderer.DrawText(g,
+                                         "残り " & (Me.MaxLength - Me.Text.ToString.GetByteLength) / 2 & "文字",
+                                          New Font(Me.Font.Name, Me.Font.Size, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte)),
+                                          rect,
+                                          Color.Black,
+                                          Me.BackColor,
+                                          TextFormatFlags.Right)
+            End Using
+        End If
+        MyBase.OnTextChanged(e)
+    End Sub
+
+#End Region
 
 #Region "　OnLeave メソッド (Overrides)　"
     'Protected Overrides Sub OnLeave(ByVal e As EventArgs)

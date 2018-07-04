@@ -19,7 +19,7 @@ Partial Public Class D003_NCR_J
         HOKOKU_NO = ""
         BUMON_KB = ""
         _CLOSE_FG = "0"
-        CLOSE_FG = False
+        'CLOSE_FG = False
         KISYU_ID = 0
         SYANAI_CD = ""
         BUHIN_BANGO = ""
@@ -27,7 +27,7 @@ Partial Public Class D003_NCR_J
         GOKI = ""
         SURYO = 1
         _SAIHATU = "0"
-        SAIHATU = False
+        'SAIHATU = False
         FUTEKIGO_JYOTAI_KB = ""
         FUTEKIGO_NAIYO = ""
         FUTEKIGO_KB = ""
@@ -37,7 +37,7 @@ Partial Public Class D003_NCR_J
         KANSATU_KEKKA = ""
 
         _ZESEI_SYOCHI_YOHI_KB = "0"
-        ZESEI_SYOCHI_YOHI_KB = False
+        'ZESEI_SYOCHI_YOHI_KB = False
         ZESEI_NASI_RIYU = ""
         JIZEN_SINSA_HANTEI_KB = ""
         JIZEN_SINSA_SYAIN_ID = 0
@@ -58,7 +58,7 @@ Partial Public Class D003_NCR_J
         KOKYAKU_SAISYU_HANTEI_KB = ""
         KOKYAKU_SAISYU_HANTEI_YMD = ""
         _SAIKAKO_SIJI_FG = "0"
-        SAIKAKO_SIJI_FG = False
+        'SAIKAKO_SIJI_FG = False
         HAIKYAKU_YMD = ""
         HAIKYAKU_KB = ""
         HAIKYAKU_HOUHOU = ""
@@ -80,20 +80,20 @@ Partial Public Class D003_NCR_J
         TENYO_LOT = 0
         TENYO_YMD = ""
         _SYOCHI_KEKKA_A = "0"
-        SYOCHI_KEKKA_A = False
+        'SYOCHI_KEKKA_A = False
         _SYOCHI_KEKKA_B = "0"
-        SYOCHI_KEKKA_B = False
+        'SYOCHI_KEKKA_B = False
         _SYOCHI_KEKKA_C = "0"
-        SYOCHI_KEKKA_C = False
+        'SYOCHI_KEKKA_C = False
         _SYOCHI_D_UMU_KB = "0"
-        SYOCHI_D_UMU_KB = False
+        'SYOCHI_D_UMU_KB = False
         _SYOCHI_D_YOHI_KB = "0"
-        SYOCHI_D_YOHI_KB = False
+        'SYOCHI_D_YOHI_KB = False
         SYOCHI_D_SYOCHI_KIROKU = ""
         _SYOCHI_E_UMU_KB = "0"
-        SYOCHI_E_UMU_KB = False
+        'SYOCHI_E_UMU_KB = False
         _SYOCHI_E_YOHI_KB = "0"
-        SYOCHI_E_YOHI_KB = False
+        'SYOCHI_E_YOHI_KB = False
         SYOCHI_E_SYOCHI_KIROKU = ""
 
         FILE_PATH = ""

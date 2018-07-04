@@ -40,6 +40,10 @@ Partial Class FrmG0012
         Me.D005CARJBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.TabSTAGE = New System.Windows.Forms.TabControl()
         Me.tabSTAGE01 = New System.Windows.Forms.TabPage()
+        Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.rbtnKAITO_14_T = New System.Windows.Forms.RadioButton()
+        Me.rbtnKAITO_14_F = New System.Windows.Forms.RadioButton()
+        Me.chkKAITO_14 = New System.Windows.Forms.CheckBox()
         Me.mtxKAITO_18 = New JMS_COMMON.MaskedTextBoxEx()
         Me.lblSETUMON_20 = New System.Windows.Forms.Label()
         Me.cmbKAITO_14 = New JMS_COMMON.ComboboxEx()
@@ -198,16 +202,13 @@ Partial Class FrmG0012
         Me.mtxNextStageName = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label97 = New System.Windows.Forms.Label()
         Me.lblDestTANTO = New System.Windows.Forms.Label()
-        Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.rbtnKAITO_14_T = New System.Windows.Forms.RadioButton()
-        Me.rbtnKAITO_14_F = New System.Windows.Forms.RadioButton()
-        Me.chkKAITO_14 = New System.Windows.Forms.CheckBox()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
         CType(Me.D005CARJBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabSTAGE.SuspendLayout()
         Me.tabSTAGE01.SuspendLayout()
+        Me.FlowLayoutPanel2.SuspendLayout()
         Me.tab_CAR_SUB_1_.SuspendLayout()
         Me.fpnlKYOIKU_FILE_PATH.SuspendLayout()
         Me.tab_CAR_SUB_2_.SuspendLayout()
@@ -217,7 +218,6 @@ Partial Class FrmG0012
         Me.tab_CAR_SUB_3_.SuspendLayout()
         Me.fpnltmpFile2.SuspendLayout()
         Me.fpnltmpFile1.SuspendLayout()
-        Me.FlowLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -416,14 +416,15 @@ Partial Class FrmG0012
         '
         Me.mtxBUMON_KB.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxBUMON_KB, 4)
-        Me.mtxBUMON_KB.Enabled = False
         Me.mtxBUMON_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxBUMON_KB.InputRequired = False
         Me.mtxBUMON_KB.Location = New System.Drawing.Point(83, 3)
+        Me.mtxBUMON_KB.MaxByteLength = 0
         Me.mtxBUMON_KB.Name = "mtxBUMON_KB"
         Me.mtxBUMON_KB.ReadOnly = True
+        Me.mtxBUMON_KB.ShowRemaining = True
         Me.mtxBUMON_KB.Size = New System.Drawing.Size(74, 24)
         Me.mtxBUMON_KB.TabIndex = 115
         Me.mtxBUMON_KB.WatermarkColor = System.Drawing.Color.Empty
@@ -444,14 +445,15 @@ Partial Class FrmG0012
         '
         Me.mtxHOKUKO_NO.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxHOKUKO_NO, 5)
-        Me.mtxHOKUKO_NO.Enabled = False
         Me.mtxHOKUKO_NO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxHOKUKO_NO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxHOKUKO_NO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxHOKUKO_NO.InputRequired = False
         Me.mtxHOKUKO_NO.Location = New System.Drawing.Point(263, 3)
+        Me.mtxHOKUKO_NO.MaxByteLength = 0
         Me.mtxHOKUKO_NO.Name = "mtxHOKUKO_NO"
         Me.mtxHOKUKO_NO.ReadOnly = True
+        Me.mtxHOKUKO_NO.ShowRemaining = True
         Me.mtxHOKUKO_NO.Size = New System.Drawing.Size(94, 24)
         Me.mtxHOKUKO_NO.TabIndex = 84
         Me.mtxHOKUKO_NO.WatermarkColor = System.Drawing.Color.Empty
@@ -472,14 +474,15 @@ Partial Class FrmG0012
         '
         Me.mtxKISYU.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxKISYU, 6)
-        Me.mtxKISYU.Enabled = False
         Me.mtxKISYU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxKISYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxKISYU.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxKISYU.InputRequired = False
         Me.mtxKISYU.Location = New System.Drawing.Point(463, 3)
+        Me.mtxKISYU.MaxByteLength = 0
         Me.mtxKISYU.Name = "mtxKISYU"
         Me.mtxKISYU.ReadOnly = True
+        Me.mtxKISYU.ShowRemaining = True
         Me.mtxKISYU.Size = New System.Drawing.Size(114, 24)
         Me.mtxKISYU.TabIndex = 112
         Me.mtxKISYU.WatermarkColor = System.Drawing.Color.Empty
@@ -500,14 +503,15 @@ Partial Class FrmG0012
         '
         Me.mtxADD_SYAIN_NAME.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxADD_SYAIN_NAME, 8)
-        Me.mtxADD_SYAIN_NAME.Enabled = False
         Me.mtxADD_SYAIN_NAME.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxADD_SYAIN_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxADD_SYAIN_NAME.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxADD_SYAIN_NAME.InputRequired = False
         Me.mtxADD_SYAIN_NAME.Location = New System.Drawing.Point(683, 3)
+        Me.mtxADD_SYAIN_NAME.MaxByteLength = 0
         Me.mtxADD_SYAIN_NAME.Name = "mtxADD_SYAIN_NAME"
         Me.mtxADD_SYAIN_NAME.ReadOnly = True
+        Me.mtxADD_SYAIN_NAME.ShowRemaining = True
         Me.mtxADD_SYAIN_NAME.Size = New System.Drawing.Size(154, 24)
         Me.mtxADD_SYAIN_NAME.TabIndex = 86
         Me.mtxADD_SYAIN_NAME.WatermarkColor = System.Drawing.Color.Empty
@@ -528,14 +532,15 @@ Partial Class FrmG0012
         '
         Me.mtxCurrentStageName.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxCurrentStageName, 13)
-        Me.mtxCurrentStageName.Enabled = False
         Me.mtxCurrentStageName.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxCurrentStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxCurrentStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxCurrentStageName.InputRequired = False
         Me.mtxCurrentStageName.Location = New System.Drawing.Point(963, 3)
+        Me.mtxCurrentStageName.MaxByteLength = 0
         Me.mtxCurrentStageName.Name = "mtxCurrentStageName"
         Me.mtxCurrentStageName.ReadOnly = True
+        Me.mtxCurrentStageName.ShowRemaining = True
         Me.mtxCurrentStageName.Size = New System.Drawing.Size(254, 24)
         Me.mtxCurrentStageName.TabIndex = 111
         Me.mtxCurrentStageName.WatermarkColor = System.Drawing.Color.Empty
@@ -558,13 +563,15 @@ Partial Class FrmG0012
         Me.mtxFUTEKIGO_KB.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.mtxFUTEKIGO_KB.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxFUTEKIGO_KB, 8)
-        Me.mtxFUTEKIGO_KB.Enabled = False
+        Me.mtxFUTEKIGO_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxFUTEKIGO_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxFUTEKIGO_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxFUTEKIGO_KB.InputRequired = False
         Me.mtxFUTEKIGO_KB.Location = New System.Drawing.Point(83, 33)
+        Me.mtxFUTEKIGO_KB.MaxByteLength = 0
         Me.mtxFUTEKIGO_KB.Name = "mtxFUTEKIGO_KB"
         Me.mtxFUTEKIGO_KB.ReadOnly = True
+        Me.mtxFUTEKIGO_KB.ShowRemaining = True
         Me.mtxFUTEKIGO_KB.Size = New System.Drawing.Size(154, 24)
         Me.mtxFUTEKIGO_KB.TabIndex = 239
         Me.mtxFUTEKIGO_KB.WatermarkColor = System.Drawing.Color.Empty
@@ -587,13 +594,15 @@ Partial Class FrmG0012
         Me.mtxFUTEKIGO_S_KB.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.mtxFUTEKIGO_S_KB.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxFUTEKIGO_S_KB, 8)
-        Me.mtxFUTEKIGO_S_KB.Enabled = False
+        Me.mtxFUTEKIGO_S_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxFUTEKIGO_S_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxFUTEKIGO_S_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxFUTEKIGO_S_KB.InputRequired = False
         Me.mtxFUTEKIGO_S_KB.Location = New System.Drawing.Point(383, 33)
+        Me.mtxFUTEKIGO_S_KB.MaxByteLength = 0
         Me.mtxFUTEKIGO_S_KB.Name = "mtxFUTEKIGO_S_KB"
         Me.mtxFUTEKIGO_S_KB.ReadOnly = True
+        Me.mtxFUTEKIGO_S_KB.ShowRemaining = True
         Me.mtxFUTEKIGO_S_KB.Size = New System.Drawing.Size(154, 24)
         Me.mtxFUTEKIGO_S_KB.TabIndex = 238
         Me.mtxFUTEKIGO_S_KB.WatermarkColor = System.Drawing.Color.Empty
@@ -694,6 +703,47 @@ Partial Class FrmG0012
         Me.tabSTAGE01.Text = "CARçÄñ⁄"
         Me.tabSTAGE01.UseVisualStyleBackColor = True
         '
+        'FlowLayoutPanel2
+        '
+        Me.FlowLayoutPanel2.Controls.Add(Me.rbtnKAITO_14_T)
+        Me.FlowLayoutPanel2.Controls.Add(Me.rbtnKAITO_14_F)
+        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(692, 287)
+        Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
+        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(95, 29)
+        Me.FlowLayoutPanel2.TabIndex = 306
+        '
+        'rbtnKAITO_14_T
+        '
+        Me.rbtnKAITO_14_T.AutoSize = True
+        Me.rbtnKAITO_14_T.Location = New System.Drawing.Point(3, 3)
+        Me.rbtnKAITO_14_T.Name = "rbtnKAITO_14_T"
+        Me.rbtnKAITO_14_T.Size = New System.Drawing.Size(39, 21)
+        Me.rbtnKAITO_14_T.TabIndex = 0
+        Me.rbtnKAITO_14_T.Text = "óv"
+        Me.rbtnKAITO_14_T.UseVisualStyleBackColor = True
+        '
+        'rbtnKAITO_14_F
+        '
+        Me.rbtnKAITO_14_F.AutoSize = True
+        Me.rbtnKAITO_14_F.Checked = True
+        Me.rbtnKAITO_14_F.Location = New System.Drawing.Point(48, 3)
+        Me.rbtnKAITO_14_F.Name = "rbtnKAITO_14_F"
+        Me.rbtnKAITO_14_F.Size = New System.Drawing.Size(39, 21)
+        Me.rbtnKAITO_14_F.TabIndex = 1
+        Me.rbtnKAITO_14_F.TabStop = True
+        Me.rbtnKAITO_14_F.Text = "î€"
+        Me.rbtnKAITO_14_F.UseVisualStyleBackColor = True
+        '
+        'chkKAITO_14
+        '
+        Me.chkKAITO_14.AutoSize = True
+        Me.chkKAITO_14.Location = New System.Drawing.Point(701, 293)
+        Me.chkKAITO_14.Name = "chkKAITO_14"
+        Me.chkKAITO_14.Size = New System.Drawing.Size(86, 21)
+        Me.chkKAITO_14.TabIndex = 307
+        Me.chkKAITO_14.Text = "chkZESEI"
+        Me.chkKAITO_14.UseVisualStyleBackColor = True
+        '
         'mtxKAITO_18
         '
         Me.mtxKAITO_18.BackColor = System.Drawing.SystemColors.Window
@@ -703,6 +753,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_18.Location = New System.Drawing.Point(692, 349)
         Me.mtxKAITO_18.MaxByteLength = 300
         Me.mtxKAITO_18.Name = "mtxKAITO_18"
+        Me.mtxKAITO_18.ShowRemaining = True
         Me.mtxKAITO_18.Size = New System.Drawing.Size(114, 24)
         Me.mtxKAITO_18.TabIndex = 19
         Me.mtxKAITO_18.WatermarkColor = System.Drawing.Color.Empty
@@ -749,6 +800,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_15.Location = New System.Drawing.Point(879, 288)
         Me.mtxKAITO_15.MaxByteLength = 300
         Me.mtxKAITO_15.Name = "mtxKAITO_15"
+        Me.mtxKAITO_15.ShowRemaining = True
         Me.mtxKAITO_15.Size = New System.Drawing.Size(340, 24)
         Me.mtxKAITO_15.TabIndex = 16
         Me.mtxKAITO_15.WatermarkColor = System.Drawing.Color.Empty
@@ -763,6 +815,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_19.Location = New System.Drawing.Point(879, 349)
         Me.mtxKAITO_19.MaxByteLength = 300
         Me.mtxKAITO_19.Name = "mtxKAITO_19"
+        Me.mtxKAITO_19.ShowRemaining = True
         Me.mtxKAITO_19.Size = New System.Drawing.Size(81, 24)
         Me.mtxKAITO_19.TabIndex = 20
         Me.mtxKAITO_19.WatermarkColor = System.Drawing.Color.Empty
@@ -900,6 +953,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_11.Location = New System.Drawing.Point(693, 185)
         Me.mtxKAITO_11.MaxByteLength = 300
         Me.mtxKAITO_11.Name = "mtxKAITO_11"
+        Me.mtxKAITO_11.ShowRemaining = True
         Me.mtxKAITO_11.Size = New System.Drawing.Size(114, 24)
         Me.mtxKAITO_11.TabIndex = 12
         Me.mtxKAITO_11.WatermarkColor = System.Drawing.Color.Empty
@@ -936,6 +990,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_12.Location = New System.Drawing.Point(879, 185)
         Me.mtxKAITO_12.MaxByteLength = 300
         Me.mtxKAITO_12.Name = "mtxKAITO_12"
+        Me.mtxKAITO_12.ShowRemaining = True
         Me.mtxKAITO_12.Size = New System.Drawing.Size(81, 24)
         Me.mtxKAITO_12.TabIndex = 13
         Me.mtxKAITO_12.WatermarkColor = System.Drawing.Color.Empty
@@ -1053,6 +1108,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_6.Location = New System.Drawing.Point(693, 81)
         Me.mtxKAITO_6.MaxByteLength = 300
         Me.mtxKAITO_6.Name = "mtxKAITO_6"
+        Me.mtxKAITO_6.ShowRemaining = True
         Me.mtxKAITO_6.Size = New System.Drawing.Size(114, 24)
         Me.mtxKAITO_6.TabIndex = 6
         Me.mtxKAITO_6.WatermarkColor = System.Drawing.Color.Empty
@@ -1089,6 +1145,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_7.Location = New System.Drawing.Point(879, 81)
         Me.mtxKAITO_7.MaxByteLength = 300
         Me.mtxKAITO_7.Name = "mtxKAITO_7"
+        Me.mtxKAITO_7.ShowRemaining = True
         Me.mtxKAITO_7.Size = New System.Drawing.Size(81, 24)
         Me.mtxKAITO_7.TabIndex = 7
         Me.mtxKAITO_7.WatermarkColor = System.Drawing.Color.Empty
@@ -1284,7 +1341,9 @@ Partial Class FrmG0012
         Me.mtxST01_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_NextStageName.InputRequired = False
         Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 399)
+        Me.mtxST01_NextStageName.MaxByteLength = 0
         Me.mtxST01_NextStageName.Name = "mtxST01_NextStageName"
+        Me.mtxST01_NextStageName.ShowRemaining = True
         Me.mtxST01_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST01_NextStageName.TabIndex = 214
         Me.mtxST01_NextStageName.WatermarkColor = System.Drawing.Color.Empty
@@ -1337,7 +1396,9 @@ Partial Class FrmG0012
         Me.mtxST01_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_UPD_YMD.InputRequired = False
         Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 399)
+        Me.mtxST01_UPD_YMD.MaxByteLength = 0
         Me.mtxST01_UPD_YMD.Name = "mtxST01_UPD_YMD"
+        Me.mtxST01_UPD_YMD.ShowRemaining = True
         Me.mtxST01_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST01_UPD_YMD.TabIndex = 210
         Me.mtxST01_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
@@ -2127,6 +2188,7 @@ Partial Class FrmG0012
         Me.mtxLOT.Location = New System.Drawing.Point(159, 70)
         Me.mtxLOT.MaxByteLength = 300
         Me.mtxLOT.Name = "mtxLOT"
+        Me.mtxLOT.ShowRemaining = True
         Me.mtxLOT.Size = New System.Drawing.Size(156, 24)
         Me.mtxLOT.TabIndex = 6
         Me.mtxLOT.Visible = False
@@ -2164,6 +2226,7 @@ Partial Class FrmG0012
         Me.mtxGOKI.Location = New System.Drawing.Point(159, 42)
         Me.mtxGOKI.MaxByteLength = 300
         Me.mtxGOKI.Name = "mtxGOKI"
+        Me.mtxGOKI.ShowRemaining = True
         Me.mtxGOKI.Size = New System.Drawing.Size(156, 24)
         Me.mtxGOKI.TabIndex = 3
         Me.mtxGOKI.WatermarkColor = System.Drawing.Color.Empty
@@ -2246,8 +2309,10 @@ Partial Class FrmG0012
         Me.mtxGENIN2.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxGENIN2.InputRequired = False
         Me.mtxGENIN2.Location = New System.Drawing.Point(752, 61)
+        Me.mtxGENIN2.MaxByteLength = 0
         Me.mtxGENIN2.Name = "mtxGENIN2"
         Me.mtxGENIN2.ReadOnly = True
+        Me.mtxGENIN2.ShowRemaining = True
         Me.mtxGENIN2.Size = New System.Drawing.Size(69, 24)
         Me.mtxGENIN2.TabIndex = 275
         Me.mtxGENIN2.Visible = False
@@ -2262,8 +2327,10 @@ Partial Class FrmG0012
         Me.mtxGENIN1.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxGENIN1.InputRequired = False
         Me.mtxGENIN1.Location = New System.Drawing.Point(752, 32)
+        Me.mtxGENIN1.MaxByteLength = 0
         Me.mtxGENIN1.Name = "mtxGENIN1"
         Me.mtxGENIN1.ReadOnly = True
+        Me.mtxGENIN1.ShowRemaining = True
         Me.mtxGENIN1.Size = New System.Drawing.Size(69, 24)
         Me.mtxGENIN1.TabIndex = 274
         Me.mtxGENIN1.Visible = False
@@ -2278,8 +2345,10 @@ Partial Class FrmG0012
         Me.mtxGENIN2_DISP.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxGENIN2_DISP.InputRequired = False
         Me.mtxGENIN2_DISP.Location = New System.Drawing.Point(435, 60)
+        Me.mtxGENIN2_DISP.MaxByteLength = 0
         Me.mtxGENIN2_DISP.Name = "mtxGENIN2_DISP"
         Me.mtxGENIN2_DISP.ReadOnly = True
+        Me.mtxGENIN2_DISP.ShowRemaining = True
         Me.mtxGENIN2_DISP.Size = New System.Drawing.Size(251, 24)
         Me.mtxGENIN2_DISP.TabIndex = 4
         Me.mtxGENIN2_DISP.WatermarkColor = System.Drawing.Color.Empty
@@ -2293,8 +2362,10 @@ Partial Class FrmG0012
         Me.mtxGENIN1_DISP.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxGENIN1_DISP.InputRequired = False
         Me.mtxGENIN1_DISP.Location = New System.Drawing.Point(435, 31)
+        Me.mtxGENIN1_DISP.MaxByteLength = 0
         Me.mtxGENIN1_DISP.Name = "mtxGENIN1_DISP"
         Me.mtxGENIN1_DISP.ReadOnly = True
+        Me.mtxGENIN1_DISP.ShowRemaining = True
         Me.mtxGENIN1_DISP.Size = New System.Drawing.Size(251, 24)
         Me.mtxGENIN1_DISP.TabIndex = 1
         Me.mtxGENIN1_DISP.WatermarkColor = System.Drawing.Color.Empty
@@ -2928,12 +2999,14 @@ Partial Class FrmG0012
         '
         Me.mtxNextStageName.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.mtxNextStageName.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxNextStageName.Enabled = False
         Me.mtxNextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxNextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxNextStageName.InputRequired = False
         Me.mtxNextStageName.Location = New System.Drawing.Point(760, 155)
+        Me.mtxNextStageName.MaxByteLength = 0
         Me.mtxNextStageName.Name = "mtxNextStageName"
+        Me.mtxNextStageName.ReadOnly = True
+        Me.mtxNextStageName.ShowRemaining = True
         Me.mtxNextStageName.Size = New System.Drawing.Size(254, 19)
         Me.mtxNextStageName.TabIndex = 250
         Me.mtxNextStageName.WatermarkColor = System.Drawing.Color.Empty
@@ -2964,47 +3037,6 @@ Partial Class FrmG0012
         Me.lblDestTANTO.TabIndex = 248
         Me.lblDestTANTO.Text = "ê\êøêÊé–àı:"
         Me.lblDestTANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'FlowLayoutPanel2
-        '
-        Me.FlowLayoutPanel2.Controls.Add(Me.rbtnKAITO_14_T)
-        Me.FlowLayoutPanel2.Controls.Add(Me.rbtnKAITO_14_F)
-        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(692, 287)
-        Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
-        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(95, 29)
-        Me.FlowLayoutPanel2.TabIndex = 306
-        '
-        'rbtnKAITO_14_T
-        '
-        Me.rbtnKAITO_14_T.AutoSize = True
-        Me.rbtnKAITO_14_T.Location = New System.Drawing.Point(3, 3)
-        Me.rbtnKAITO_14_T.Name = "rbtnKAITO_14_T"
-        Me.rbtnKAITO_14_T.Size = New System.Drawing.Size(39, 21)
-        Me.rbtnKAITO_14_T.TabIndex = 0
-        Me.rbtnKAITO_14_T.Text = "óv"
-        Me.rbtnKAITO_14_T.UseVisualStyleBackColor = True
-        '
-        'rbtnKAITO_14_F
-        '
-        Me.rbtnKAITO_14_F.AutoSize = True
-        Me.rbtnKAITO_14_F.Checked = True
-        Me.rbtnKAITO_14_F.Location = New System.Drawing.Point(48, 3)
-        Me.rbtnKAITO_14_F.Name = "rbtnKAITO_14_F"
-        Me.rbtnKAITO_14_F.Size = New System.Drawing.Size(39, 21)
-        Me.rbtnKAITO_14_F.TabIndex = 1
-        Me.rbtnKAITO_14_F.TabStop = True
-        Me.rbtnKAITO_14_F.Text = "î€"
-        Me.rbtnKAITO_14_F.UseVisualStyleBackColor = True
-        '
-        'chkKAITO_14
-        '
-        Me.chkKAITO_14.AutoSize = True
-        Me.chkKAITO_14.Location = New System.Drawing.Point(701, 293)
-        Me.chkKAITO_14.Name = "chkKAITO_14"
-        Me.chkKAITO_14.Size = New System.Drawing.Size(86, 21)
-        Me.chkKAITO_14.TabIndex = 307
-        Me.chkKAITO_14.Text = "chkZESEI"
-        Me.chkKAITO_14.UseVisualStyleBackColor = True
         '
         'FrmG0012
         '
@@ -3051,6 +3083,8 @@ Partial Class FrmG0012
         Me.TabSTAGE.ResumeLayout(False)
         Me.tabSTAGE01.ResumeLayout(False)
         Me.tabSTAGE01.PerformLayout()
+        Me.FlowLayoutPanel2.ResumeLayout(False)
+        Me.FlowLayoutPanel2.PerformLayout()
         Me.tab_CAR_SUB_1_.ResumeLayout(False)
         Me.tab_CAR_SUB_1_.PerformLayout()
         Me.fpnlKYOIKU_FILE_PATH.ResumeLayout(False)
@@ -3068,8 +3102,6 @@ Partial Class FrmG0012
         Me.fpnltmpFile2.PerformLayout()
         Me.fpnltmpFile1.ResumeLayout(False)
         Me.fpnltmpFile1.PerformLayout()
-        Me.FlowLayoutPanel2.ResumeLayout(False)
-        Me.FlowLayoutPanel2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -23,7 +23,9 @@ Public Class FrmG0018
 
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
+        Me.Icon = My.Resources._icoAppForm32x32
         Me.ShowIcon = True
+
     End Sub
 
 #End Region

@@ -30,6 +30,7 @@ Public Class FrmG0016
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
 
+        Me.Icon = My.Resources._icoAppForm32x32
         Me.ShowIcon = True
         cmbMODOSI_SAKI.NullValue = 0
     End Sub
@@ -225,7 +226,7 @@ Public Class FrmG0016
                                 Return False
                             End If
                         Case ENM_SYONIN_HOKOKUSYO_ID._2_CAR
-                            'UNDONE: FunSAVE_R004
+
                             If FunSAVE_R004(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
                             Else
                                 blnErr = True

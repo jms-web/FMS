@@ -13,7 +13,7 @@ Public Class TextBoxEx
     Public Sub New()
         Call InitializeComponent()
 
-        Me.MaxByteLength = 65535
+        'Me.MaxByteLength = 65535
         Me.SelectAllText = True
         Me.ImeMode = Windows.Forms.ImeMode.Disable
         _watermarkColor = SystemColors.GrayText
@@ -21,6 +21,7 @@ Public Class TextBoxEx
         Me._GotForcusedColor = clrControlGotFocusedColor
         Me._BackColorDefault = clrControlDefaultBackColor
         Me.EnterBehavior = 0
+
     End Sub
 #End Region
 
@@ -373,17 +374,20 @@ Public Class TextBoxEx
     Protected Overrides Sub OnTextChanged(e As EventArgs)
         MyBase.OnTextChanged(e)
 
-        Using g As Graphics = Graphics.FromHwnd(Me.Handle)
-            'テキストボックス外に残り入力可能文字数を描画
-            Dim rect As Rectangle = Me.ClientRectangle
-            rect.Offset(1, 1)
-            TextRenderer.DrawText(g,
-                                  WatermarkText,
-                                  New Font(Me.Font.Name, Me.Font.Size, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte)),
-                                  rect,
-                                  _watermarkColor,
-                                  TextFormatFlags.Top Or TextFormatFlags.Left)
-        End Using
+        If ShowRemaining Then
+            Using g As Graphics = Graphics.FromHwnd(Me.Handle)
+                'テキストボックス外に残り入力可能文字数を描画
+                Dim rect As Rectangle = Me.ClientRectangle
+                rect.Offset(50, 0)
+                TextRenderer.DrawText(g,
+                                      "残り " & (Me.MaxLength - Me.Text.ToString.GetByteLength) / 2 & "文字",
+                                      New Font(Me.Font.Name, Me.Font.Size, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte)),
+                                      rect,
+                                      Color.Black,
+                                      Me.BackColor,
+                                      TextFormatFlags.Right)
+            End Using
+        End If
     End Sub
 
 #End Region

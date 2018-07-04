@@ -839,7 +839,7 @@ Public Class FrmG0010
     ''' <param name="intMODE">処理モード</param>
     ''' <returns></returns>
     Private Function FunUpdateEntity(ByVal intMODE As ENM_DATA_OPERATION_MODE) As Boolean
-        Dim frmDLG As New FrmG0011
+        Dim frmNCR As New FrmG0011
         Dim frmCAR As New FrmG0012
         Dim dlgRET As DialogResult
 
@@ -856,16 +856,38 @@ Public Class FrmG0010
                     Return True
                 End If
             Else
-                frmDLG.PrMODE = intMODE
-                If dgvDATA.CurrentRow IsNot Nothing Then
-                    frmDLG.PrDataRow = dgvDATA.GetDataRow()
+                frmNCR.PrMODE = intMODE
+                If intMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
+                    'SPEC: 2.(3).B.②
+                    frmNCR.PrCurrentStage = ENM_NCR_STAGE._10_起草入力
+                    'frmNCR.PrDataRow = Nothing
                 Else
-                    frmDLG.PrDataRow = Nothing
+                    'frmNCR.PrDataRow = dgvDATA.GetDataRow()
+                    frmNCR.PrHOKOKU_NO = dgvDATA.GetDataRow().Item("HOKOKU_NO")
+                    frmNCR.PrCurrentStage = dgvDATA.GetDataRow().Item("SYONIN_JUN")
                 End If
-                dlgRET = frmDLG.ShowDialog(Me)
+                dlgRET = frmNCR.ShowDialog(Me)
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
                     Return False
                 Else
+                    '再不適合登録
+                    If frmNCR.PrSAI_FUTEKIGO Then
+
+                        Dim HOKOKU_NO As String = frmNCR.PrHOKOKU_NO
+                        Dim CurrentStage As String = frmNCR.PrCurrentStage
+                        frmNCR.Dispose()
+                        frmNCR = New FrmG0011 With {
+                            .PrMODE = intMODE,
+                            .PrHOKOKU_NO = HOKOKU_NO,
+                            .PrCurrentStage = CurrentStage
+                        }
+
+                        dlgRET = frmNCR.ShowDialog(Me)
+                        If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                            Return False
+                        End If
+                    End If
+
                     Return True
                 End If
             End If
@@ -874,10 +896,12 @@ Public Class FrmG0010
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
-            If frmDLG IsNot Nothing Then
-                frmDLG.Dispose()
+            If frmNCR IsNot Nothing Then
+                frmNCR.Dispose()
             End If
-
+            If frmCAR IsNot Nothing Then
+                frmCAR.Dispose()
+            End If
             Me.Visible = True
         End Try
     End Function
@@ -901,7 +925,7 @@ Public Class FrmG0010
             End Select
             sbSQL.Append(" DEL_SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID & "")
             sbSQL.Append(" ,DEL_YMDHNS=dbo.GetSysDateString()")
-            sbSQL.Append(" WHERE HOKOKU_NO='" & strHOKOKU_NO.ParseSqlEscape & "'")
+            sbSQL.Append(" WHERE HOKOKU_NO='" & strHOKOKU_NO.ConvertSqlEscape & "'")
 
             'CHECK: 一覧削除ボタン D004やR001等の編集履歴はどうするか
 
@@ -1182,7 +1206,7 @@ Public Class FrmG0010
         sbSQL.Append(" ,'" & _R001_HOKOKU_SOUSA.SOUSA_KB & "'")
         sbSQL.Append(" ," & _R001_HOKOKU_SOUSA.SYAIN_ID)
         sbSQL.Append(" ,'" & _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB & "'")
-        sbSQL.Append(" ,'" & _R001_HOKOKU_SOUSA.RIYU.ParseSqlEscape & "'")
+        sbSQL.Append(" ,'" & _R001_HOKOKU_SOUSA.RIYU.ConvertSqlEscape & "'")
         sbSQL.Append(")")
 
         '-----SQL実行

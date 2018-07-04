@@ -20,6 +20,7 @@ Public Class FrmG0014
         MyBase.ToolTip.SetToolTip(Me.cmdFunc4, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
+        Me.Icon = My.Resources._icoAppForm32x32
         Me.ShowIcon = True
 
         PrMODE = 0
