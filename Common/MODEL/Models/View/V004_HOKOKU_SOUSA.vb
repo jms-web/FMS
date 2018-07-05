@@ -4,7 +4,7 @@ Imports PropertyChanged
 ''' <summary>
 ''' D003_不適合製品処置報告書情報
 ''' </summary>
-<Table(NameOf(V005_CAR_J), Schema:="dbo")>
+<Table(NameOf(V004_HOKOKU_SOUSA), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
 Partial Public Class V004_HOKOKU_SOUSA
 
@@ -25,15 +25,17 @@ Partial Public Class V004_HOKOKU_SOUSA
         SYONIN_HANTEI_NAME = ""
         RIYU = ""
         HENKOU_KENSU = 0
+        MODOSI_SAKI_SYAIN_ID = 0
+        MODOSI_SAKI_SYAIN_NAME = ""
     End Sub
 
     <ComponentModel.DataAnnotations.Display(AutoGenerateField:=False)>
     Default Public Property Item(ByVal propertyName As String) As Object
         Get
-            Return GetType(D003_NCR_J).GetProperty(propertyName).GetValue(Me)
+            Return GetType(V004_HOKOKU_SOUSA).GetProperty(propertyName).GetValue(Me)
         End Get
         Set(value As Object)
-            GetType(D003_NCR_J).GetProperty(propertyName).SetValue(Me, value)
+            GetType(V004_HOKOKU_SOUSA).GetProperty(propertyName).SetValue(Me, value)
         End Set
     End Property
 
@@ -50,4 +52,8 @@ Partial Public Class V004_HOKOKU_SOUSA
     Public Property RIYU As String
 
     Public Property HENKOU_KENSU As Integer
+
+    Public Property MODOSI_SAKI_SYAIN_ID As Integer
+    Public Property MODOSI_SAKI_SYAIN_NAME As String
+
 End Class

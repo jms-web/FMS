@@ -104,8 +104,14 @@ Public Class FrmG0017
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
+                .Columns.Add("MODOSI_SAKI_SYAIN_NAME", "差戻先・転送先")
+                .Columns(.ColumnCount - 1).Width = 150
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).Visible = False
+
                 .Columns.Add("RIYU", "内容・理由")
-                .Columns(.ColumnCount - 1).Width = 400
+                .Columns(.ColumnCount - 1).Width = 300
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
@@ -232,6 +238,7 @@ Public Class FrmG0017
             dt.Columns.Add("SASIMODOSI_YMDHNS", GetType(String))
             dt.Columns.Add("CHANGE", GetType(String))
             dt.Columns.Add("HENKOU_KENSU", GetType(Integer))
+            dt.Columns.Add("MODOSI_SAKI_SYAIN_NAME", GetType(String))
 
             '主キー設定
             dt.PrimaryKey = {dt.Columns("SYONIN_HOKOKUSYO_ID"), dt.Columns("HOKOKU_NO"), dt.Columns("ADD_YMDHNS")}
@@ -253,6 +260,16 @@ Public Class FrmG0017
                     Trow("SYONIN_HANTEI_NAME") = .Rows(intCNT).Item("SYONIN_HANTEI_NAME")
                     Trow("RIYU") = .Rows(intCNT).Item("RIYU")
                     Trow("SASIMODOSI_YMDHNS") = .Rows(intCNT).Item("SASIMODOSI_YMDHNS")
+
+                    Select Case .Rows(intCNT).Item("SOUSA_KB")
+                        Case ENM_SOUSA_KB._3_承認差戻
+                            Trow("MODOSI_SAKI_SYAIN_NAME") = "⇒" & .Rows(intCNT).Item("MODOSI_SAKI_SYAIN_NAME")
+                        Case ENM_SOUSA_KB._5_転送
+                            Trow("MODOSI_SAKI_SYAIN_NAME") = "⇒" & .Rows(intCNT).Item("MODOSI_SAKI_SYAIN_NAME")
+                        Case Else
+                            'Err
+                    End Select
+
                     If .Rows(intCNT).Item("HENKOU_KENSU") > 0 Then 'If .Rows(intCNT).Item("SOUSA_KB") = ENM_SOUSA_KB._3_承認差戻 Then
                         Trow("CHANGE") = "変更あり"
                     Else

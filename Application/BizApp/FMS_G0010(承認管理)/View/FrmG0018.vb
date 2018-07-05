@@ -11,6 +11,7 @@ Public Class FrmG0018
     ''' 一覧の選択行データ
     ''' </summary>
     Public Property PrDataRow As DataRow
+
 #End Region
 
 #Region "コンストラクタ"
@@ -48,6 +49,12 @@ Public Class FrmG0018
             Call FunSetDgvCulumns(Me.dgvDATA)
 
             Call FunInitFuncButtonEnabled()
+
+
+            'ヘッダ項目セット
+            mtxCurrentStageName.Text = PrDataRow.Item("SYONIN_NAIYO")
+            mtxSYOCHI.Text = PrDataRow.Item("SOUSA_NAME")
+            mtxADD_SYAIN_NAME.Text = PrDataRow.Item("SYAIN_NAME")
 
             '検索実行
             Call FunSRCH(dgvDATA, FunGetListData)

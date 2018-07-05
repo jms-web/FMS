@@ -90,6 +90,10 @@ Partial Class FrmM0000
         '
         Me.lblTytle.Text = "lblTitle"
         '
+        'ToolTip
+        '
+        Me.ToolTip.InitialDelay = 700
+        '
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.ColumnCount = 2
@@ -539,6 +543,7 @@ Partial Class FrmM0000
         Me.txtPASSWORD.MaxByteLength = 20
         Me.txtPASSWORD.Name = "txtPASSWORD"
         Me.txtPASSWORD.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtPASSWORD.ShowRemaining = False
         Me.txtPASSWORD.Size = New System.Drawing.Size(213, 28)
         Me.txtPASSWORD.TabIndex = 63
         Me.txtPASSWORD.WatermarkColor = System.Drawing.Color.Empty
@@ -563,7 +568,9 @@ Partial Class FrmM0000
         Me.txtUSER.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.txtUSER.InputRequired = False
         Me.txtUSER.Location = New System.Drawing.Point(3, 35)
+        Me.txtUSER.MaxByteLength = 10
         Me.txtUSER.Name = "txtUSER"
+        Me.txtUSER.ShowRemaining = False
         Me.txtUSER.Size = New System.Drawing.Size(213, 28)
         Me.txtUSER.TabIndex = 61
         Me.txtUSER.WatermarkColor = System.Drawing.Color.Empty

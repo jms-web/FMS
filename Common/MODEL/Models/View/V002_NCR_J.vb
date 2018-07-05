@@ -311,6 +311,8 @@ Partial Public Class V002_NCR_J
     <StringLength(200)>
     Public Property G_FILE_PATH2 As String
 
+    Public Property HASSEI_KOTEI_GL_SYAIN_ID As Integer
+
     <StringLength(14)>
     Public Property ADD_YMDHNS As String
 
@@ -353,6 +355,8 @@ Partial Public Class V002_NCR_J
     Public Property HASSEI_KOTEI_GL_YMD As String
 
     <StringLength(30)>
-    Public Property HASSEI_KOTEI_GL_NAME As String
+    Public Property HASSEI_KOTEI_GL_SYAIN_NAME As String
+
+
 
 End Class

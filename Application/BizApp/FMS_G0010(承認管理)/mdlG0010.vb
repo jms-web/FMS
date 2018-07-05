@@ -864,7 +864,7 @@ Module mdlG0010
 
 #End Region
 
-#Region "承認所属社員取得"
+#Region "所属社員取得"
     'TV03_SYONIN_SYAIN
 
     Public Function FunGetSYOZOKU_SYAIN(ByVal Optional BUMON_KB As String = "", ByVal Optional BUSYO_ID As Integer = 0) As DataTable
@@ -976,8 +976,8 @@ Module mdlG0010
                 ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.JIZEN_SINSA_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             If _V002_NCR_J.ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_要 Then
-                ssgSheet1.Range("NCR_HOKOKU_NO").Value = _V002_NCR_J.HOKOKU_NO
-                ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_NAME)).Value = _V002_NCR_J.HASSEI_KOTEI_GL_NAME
+                ssgSheet1.Range("CAR_HOKOKU_NO").Value = _V002_NCR_J.HOKOKU_NO
+                ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_SYAIN_NAME)).Value = _V002_NCR_J.HASSEI_KOTEI_GL_SYAIN_NAME
                 If Not _V002_NCR_J.HASSEI_KOTEI_GL_YMD.IsNullOrWhiteSpace Then
                     ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.HASSEI_KOTEI_GL_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                 End If
@@ -1318,7 +1318,7 @@ Module mdlG0010
 
             'Excel作業ファイルを削除
             Try
-                System.IO.File.Delete(strFilePath)
+                'System.IO.File.Delete(strFilePath)
             Catch ex As UnauthorizedAccessException
             End Try
 

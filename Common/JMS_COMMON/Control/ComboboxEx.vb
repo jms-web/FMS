@@ -47,7 +47,8 @@ Public Class ComboboxEx
             _ReadOnly = Value
             If Value Then
                 Cursor = Cursors.Default
-                BackColor = System.Drawing.SystemColors.Control
+                'DEBUG:Combobox ReadOnly時の背景色
+                BackColor = _BackColorOrg 'System.Drawing.SystemColors.Control
                 SetStyle(ControlStyles.UserMouse, True)
             Else
                 Cursor = _CursorOrg

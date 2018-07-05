@@ -250,7 +250,6 @@ Public Class FrmG0012
                     End If
 
 
-
                     '
                     If FunSAVE_R001(DB, enmSAVE_MODE) Then
                     Else
@@ -463,6 +462,8 @@ Public Class FrmG0012
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.SETUMON_18) & " = WK." & NameOf(_D005_CAR_J.SETUMON_18))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.SETUMON_19) & " = WK." & NameOf(_D005_CAR_J.SETUMON_19))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.SETUMON_20) & " = WK." & NameOf(_D005_CAR_J.SETUMON_20))
+                sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.SETUMON_21) & " = WK." & NameOf(_D005_CAR_J.SETUMON_21))
+                sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.SETUMON_22) & " = WK." & NameOf(_D005_CAR_J.SETUMON_22))
 
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.KAITO_1) & " = WK." & NameOf(_D005_CAR_J.KAITO_1))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.KAITO_2) & " = WK." & NameOf(_D005_CAR_J.KAITO_2))
@@ -484,6 +485,8 @@ Public Class FrmG0012
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.KAITO_18) & " = WK." & NameOf(_D005_CAR_J.KAITO_18))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.KAITO_19) & " = WK." & NameOf(_D005_CAR_J.KAITO_19))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.KAITO_20) & " = WK." & NameOf(_D005_CAR_J.KAITO_20))
+                sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.KAITO_21) & " = WK." & NameOf(_D005_CAR_J.KAITO_21))
+                sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.KAITO_22) & " = WK." & NameOf(_D005_CAR_J.KAITO_22))
 
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.KONPON_YOIN_KB1) & " = WK." & NameOf(_D005_CAR_J.KONPON_YOIN_KB1))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.KONPON_YOIN_KB2) & " = WK." & NameOf(_D005_CAR_J.KONPON_YOIN_KB2))
@@ -1144,39 +1147,17 @@ Public Class FrmG0012
         'UNDONE: getsysdatetime
         _R001_HOKOKU_SOUSA.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
 
-        Select Case _R001_HOKOKU_SOUSA.SYONIN_JUN
-            Case ENM_CAR_STAGE._10_起草入力
-                Select Case enmSAVE_MODE
-                    Case ENM_SAVE_MODE._1_保存
-                        _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
 
-                        If blnExist Then
-                            _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._2_更新保存
-                        Else
-                            _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._0_起草
-                        End If
+        Select Case enmSAVE_MODE
+            Case ENM_SAVE_MODE._1_保存
+                '追加しない
+                Return True
 
-                    Case ENM_SAVE_MODE._2_承認申請
-                        _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
-
-                        If blnExist Then
-                            '追加しない
-                            Return True
-                        Else
-                            _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._0_起草
-                        End If
-                End Select
-            Case Else
-                Select Case enmSAVE_MODE
-                    Case ENM_SAVE_MODE._1_保存
-                        '追加しない
-                        Return True
-
-                    Case ENM_SAVE_MODE._2_承認申請
-                        _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
-                        _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._1_申請承認依頼
-                End Select
+            Case ENM_SAVE_MODE._2_承認申請
+                _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
+                _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._1_申請承認依頼
         End Select
+
         '-----
 
         '-----INSERT
@@ -1589,6 +1570,7 @@ Public Class FrmG0012
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KENSA_GL_YMDHNS))
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.FILE_PATH1))
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.FILE_PATH2))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.FUTEKIGO_HASSEI_YMD))
 
         sbSQL.Append(" ) VALUES(")
         sbSQL.Append(" '" & strYMDHNS & "'")
@@ -1667,6 +1649,7 @@ Public Class FrmG0012
         sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_GL_YMDHNS & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH1 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH2 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.FUTEKIGO_HASSEI_YMD & "'")
         sbSQL.Append(" );")
         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
         If intRET <> 1 Then
@@ -2428,19 +2411,19 @@ Public Class FrmG0012
 
 
 #Region "是正処置有効性の問題の有無"
-    Private Sub rbtnZESEI_SYOCHI_YES_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnZESEI_SYOCHI_YES.CheckedChanged
+    Private Sub rbtnZESEI_SYOCHI_YES_CheckedChanged(sender As Object, e As EventArgs)
 
         Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
         _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = True
     End Sub
 
-    Private Sub rbtnZESEI_SYOCHI_NO_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnZESEI_SYOCHI_NO.CheckedChanged
+    Private Sub rbtnZESEI_SYOCHI_NO_CheckedChanged(sender As Object, e As EventArgs)
 
         Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
         _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = False
     End Sub
 
-    Private Sub chkZESEI_SYOCHI_YUKO_UMU_CheckedChanged(sender As Object, e As EventArgs) Handles chkZESEI_SYOCHI_YUKO_UMU.CheckedChanged
+    Private Sub chkZESEI_SYOCHI_YUKO_UMU_CheckedChanged(sender As Object, e As EventArgs)
         If chkZESEI_SYOCHI_YUKO_UMU.Checked Then
             rbtnZESEI_SYOCHI_YES.Checked = True
         Else
@@ -2715,6 +2698,10 @@ Public Class FrmG0012
             lbltmpFile1.DataBindings.Add(New Binding(NameOf(lbltmpFile1.Tag), _D005_CAR_J, NameOf(_D005_CAR_J.FILE_PATH1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             lbltmpFile2.DataBindings.Add(New Binding(NameOf(lbltmpFile2.Tag), _D005_CAR_J, NameOf(_D005_CAR_J.FILE_PATH2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
+
+            txtKAITO_21.DataBindings.Add(New Binding(NameOf(txtKAITO_21.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_21), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            txtKAITO_22.DataBindings.Add(New Binding(NameOf(txtKAITO_22.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_22), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
             Return True
 
         Catch ex As Exception
@@ -2754,26 +2741,33 @@ Public Class FrmG0012
             Dim blnOwn As Boolean = FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO, PrCurrentStage)
             'tabSTAGE07.Enabled = blnOwn
 
+            _tabPageManager = New TabPageManager(TabSTAGE)
+
+
             'SPEC: C10-2.④
             Select Case PrCurrentStage
                 Case ENM_CAR_STAGE._10_起草入力 To ENM_CAR_STAGE._70_起草確認_品証課長
-                    tab_CAR_SUB_1_.Visible = False
-                    tab_CAR_SUB_2_.Visible = False
+                    'UNDONE #60
+                    '_tabPageManager.ChangeTabPageVisible(tab_CAR_SUB_1_.TabIndex, False) 'tab_CAR_SUB_1_.Visible = False
+                    '_tabPageManager.ChangeTabPageVisible(tab_CAR_SUB_2_.TabIndex, False)'tab_CAR_SUB_2_.Visible = False
+                    tab_CAR_SUB_1_.Enabled = False
+                    tab_CAR_SUB_2_.Enabled = False
 
                 Case ENM_CAR_STAGE._80_処置実施記録入力, ENM_CAR_STAGE._90_処置実施確認
-                    tabSTAGE01.Enabled = False
-                    tabSTAGE02.Enabled = False
-
                     tab_CAR_SUB_1_.Enabled = blnOwn
-                    tab_CAR_SUB_2_.Visible = False
+                    tab_CAR_SUB_2_.Enabled = False
+
+                    '_tabPageManager.ChangeTabPageVisible(tab_CAR_SUB_1_.TabIndex, blnOwn) 'tab_CAR_SUB_1_.Enabled = blnOwn
+                    '_tabPageManager.ChangeTabPageVisible(tab_CAR_SUB_2_.TabIndex, False)'tab_CAR_SUB_2_.Visible = False
+
 
                 Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
 
-                    tabSTAGE01.Enabled = False
-                    tabSTAGE02.Enabled = False
-
                     tab_CAR_SUB_1_.Enabled = False
                     tab_CAR_SUB_2_.Enabled = blnOwn
+
+                    '_tabPageManager.ChangeTabPageVisible(tab_CAR_SUB_1_.TabIndex, False) 'tab_CAR_SUB_1_.Enabled = False
+                    '_tabPageManager.ChangeTabPageVisible(tab_CAR_SUB_2_.TabIndex, blnOwn) 'tab_CAR_SUB_2_.Enabled = blnOwn
                 Case Else
             End Select
 
@@ -2828,6 +2822,8 @@ Public Class FrmG0012
             lblSETUMON_18.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 18).First.Item("DISP")
             lblSETUMON_19.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 19).First.Item("DISP")
             lblSETUMON_20.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 20).First.Item("DISP")
+            lblSETUMON_21.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 21).First.Item("DISP")
+            lblSETUMON_22.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 22).First.Item("DISP")
 
             Return True
         Catch ex As Exception
@@ -2857,12 +2853,11 @@ Public Class FrmG0012
             cmbKAITO_5.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbKAITO_10.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbKAITO_17.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbSYOCHI_A_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbSYOCHI_B_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbSYOCHI_C_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbSYOCHI_A_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            cmbSYOCHI_B_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            cmbSYOCHI_C_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
             cmbKENSA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbKENSA_GL_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
 
             dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
             cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)

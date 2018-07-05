@@ -24,6 +24,7 @@ Public Class FrmG0011
     Private _V002_NCR_J As New MODEL.V002_NCR_J
     Private _V003_SYONIN_J_KANRI_List As New List(Of MODEL.V003_SYONIN_J_KANRI)
     Private _V004_HOKOKU_SOUSA As New MODEL.V004_HOKOKU_SOUSA
+    Private _V005_CAR_J As New MODEL.V005_CAR_J
 
     '入力必須コントロール検証判定
     Private pri_blnValidated As Boolean = True
@@ -107,6 +108,8 @@ Public Class FrmG0011
         cmbST02_DestTANTO.NullValue = 0
         cmbST03_DestTANTO.NullValue = 0
         cmbST04_DestTANTO.NullValue = 0
+        cmbST04_HASSEI_KOTEI_GL_TANTO.NullValue = 0
+        cmbST04_CAR_TANTO.NullValue = 0
         cmbST05_DestTANTO.NullValue = 0
         cmbST06_DestTANTO.NullValue = 0
         cmbST07_DestTANTO.NullValue = 0
@@ -509,6 +512,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & _D003_NCR_J.KANSATU_KEKKA.ConvertSqlEscape & "' AS " & NameOf(_D003_NCR_J.KANSATU_KEKKA))
         sbSQL.Append(" ,'" & _D003_NCR_J._ZESEI_SYOCHI_YOHI_KB & "' AS " & NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB))
         sbSQL.Append(" ,'" & _D003_NCR_J.ZESEI_NASI_RIYU.ConvertSqlEscape & "' AS " & NameOf(_D003_NCR_J.ZESEI_NASI_RIYU))
+        sbSQL.Append(" ," & _D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID & " AS " & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID))
         sbSQL.Append(" ,'" & _D003_NCR_J.JIZEN_SINSA_HANTEI_KB & "' AS " & NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB))
         sbSQL.Append(" ," & _D003_NCR_J.JIZEN_SINSA_SYAIN_ID & " AS " & NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID))
 
@@ -592,6 +596,7 @@ Public Class FrmG0011
 
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB) & " = WK." & NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB))
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.ZESEI_NASI_RIYU) & " = WK." & NameOf(_D003_NCR_J.ZESEI_NASI_RIYU))
+        sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID) & " = WK." & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID))
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB) & " = WK." & NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB))
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID) & " = WK." & NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID))
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.JIZEN_SINSA_YMD) & " = WK." & NameOf(_D003_NCR_J.JIZEN_SINSA_YMD))
@@ -670,6 +675,7 @@ Public Class FrmG0011
         '---defaultValue
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZESEI_NASI_RIYU))
+        sbSQL.Append(" ," & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_YMD))
@@ -749,6 +755,7 @@ Public Class FrmG0011
         '---defaultValue
         sbSQL.Append(" ,'0'") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.ZESEI_NASI_RIYU))
+        sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.HASSEI_KOTEI_SYAIN_ID))
         sbSQL.Append(" ,' '") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB))
         sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.JIZEN_SINSA_YMD))
@@ -1181,21 +1188,16 @@ Public Class FrmG0011
                 _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
         End Select
 
-        Select Case _R001_HOKOKU_SOUSA.SYONIN_JUN
-            Case ENM_NCR_STAGE._10_起草入力
-                If blnExist Then
-                    _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._2_更新保存
-                Else
-                    _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._0_起草
-                End If
-            Case Else
-                Select Case enmSAVE_MODE
-                    Case ENM_SAVE_MODE._1_保存
-                        '#55
-                        _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._2_更新保存
-                    Case ENM_SAVE_MODE._2_承認申請
-                        _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._1_申請承認依頼
-                End Select
+
+        Select Case enmSAVE_MODE
+            Case ENM_SAVE_MODE._1_保存
+                '#55
+                _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._2_更新保存
+
+                '#56 一時保存時の履歴は残さない
+                Return True
+            Case ENM_SAVE_MODE._2_承認申請
+                _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._1_申請承認依頼
         End Select
         '-----
 
@@ -1273,6 +1275,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KANSATU_KEKKA))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.ZESEI_SYOCHI_YOHI_KB))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.ZESEI_NASI_RIYU))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HASSEI_KOTEI_GL_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.JIZEN_SINSA_HANTEI_KB))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.JIZEN_SINSA_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.JIZEN_SINSA_YMD))
@@ -1345,6 +1348,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & _D003_NCR_J.KANSATU_KEKKA & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J._ZESEI_SYOCHI_YOHI_KB & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.ZESEI_NASI_RIYU & "'")
+        sbSQL.Append(" ," & _D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID & "")
         sbSQL.Append(" ,'" & _D003_NCR_J.JIZEN_SINSA_HANTEI_KB & "'")
         sbSQL.Append(" ," & _D003_NCR_J.JIZEN_SINSA_SYAIN_ID & "")
         sbSQL.Append(" ,'" & _D003_NCR_J.JIZEN_SINSA_YMD & "'")
@@ -1423,6 +1427,7 @@ Public Class FrmG0011
         Dim _D005_CAR_J As New MODEL.D005_CAR_J
         _D005_CAR_J.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
         _D005_CAR_J.BUMON_KB = _D003_NCR_J.BUMON_KB
+
 
         '-----INSERT
         sbSQL.Remove(0, sbSQL.Length)
@@ -1505,6 +1510,8 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_GL_YMDHNS & "' AS " & NameOf(_D005_CAR_J.KENSA_GL_YMDHNS))
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH1 & "' AS " & NameOf(_D005_CAR_J.FILE_PATH1))
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH2 & "' AS " & NameOf(_D005_CAR_J.FILE_PATH2))
+        sbSQL.Append(" ,'" & _D005_CAR_J.FUTEKIGO_HASSEI_YMD & "' AS " & NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD))
+
         sbSQL.Append(" ," & _D005_CAR_J.ADD_SYAIN_ID & " AS " & NameOf(_D005_CAR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ,'" & _D005_CAR_J.ADD_YMDHNS & "' AS " & NameOf(_D005_CAR_J.ADD_YMDHNS))
         sbSQL.Append(" ," & _D005_CAR_J.UPD_SYAIN_ID & " AS " & NameOf(_D005_CAR_J.UPD_SYAIN_ID))
@@ -1586,6 +1593,8 @@ Public Class FrmG0011
 
         sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.FILE_PATH1) & " = WK." & NameOf(_D005_CAR_J.FILE_PATH1))
         sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.FILE_PATH2) & " = WK." & NameOf(_D005_CAR_J.FILE_PATH2))
+        sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD) & " = WK." & NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD))
+
         sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.UPD_SYAIN_ID) & " = WK." & NameOf(_D005_CAR_J.UPD_SYAIN_ID))
         sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.UPD_YMDHNS) & " = WK." & NameOf(_D005_CAR_J.UPD_YMDHNS))
         sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.CLOSE_FG) & " = WK." & NameOf(_D005_CAR_J.CLOSE_FG))
@@ -1673,6 +1682,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.DEL_YMDHNS))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.FILE_PATH1))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.FILE_PATH2))
+        sbSQL.Append(" ," & NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD))
         sbSQL.Append(" ) VALUES(")
         sbSQL.Append(" '" & _D005_CAR_J.HOKOKU_NO & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.BUMON_KB & "'")
@@ -1754,6 +1764,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & _D005_CAR_J.DEL_YMDHNS & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH1 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH2 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.FUTEKIGO_HASSEI_YMD & "'")
         sbSQL.Append(")")
         sbSQL.Append("OUTPUT $action AS RESULT")
         sbSQL.Append(";")
@@ -1979,6 +1990,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & "" & "' AS " & NameOf(_D003_NCR_J.FILE_PATH))
         sbSQL.Append(" ,'" & "" & "' AS " & NameOf(_D003_NCR_J.G_FILE_PATH1))
         sbSQL.Append(" ,'" & "" & "' AS " & NameOf(_D003_NCR_J.G_FILE_PATH2))
+        sbSQL.Append(" ," & "0" & " AS " & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID))
         sbSQL.Append(" ," & pub_SYAIN_INFO.SYAIN_ID & " AS " & NameOf(_D003_NCR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ,dbo.GetSysDateString() AS " & NameOf(_D003_NCR_J.ADD_YMDHNS))
         sbSQL.Append(" ," & 0 & " AS " & NameOf(_D003_NCR_J.UPD_SYAIN_ID))
@@ -2061,6 +2073,8 @@ Public Class FrmG0011
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.FILE_PATH) & " = WK." & NameOf(_D003_NCR_J.FILE_PATH))
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.G_FILE_PATH1) & " = WK." & NameOf(_D003_NCR_J.G_FILE_PATH1))
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.G_FILE_PATH2) & " = WK." & NameOf(_D003_NCR_J.G_FILE_PATH2))
+        sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID) & " = WK." & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID))
+
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.UPD_SYAIN_ID) & " = " & pub_SYAIN_INFO.SYAIN_ID)
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.UPD_YMDHNS) & " = dbo.GetSysDateString()")
 
@@ -2137,7 +2151,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.FILE_PATH))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.G_FILE_PATH1))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.G_FILE_PATH2))
-        'sbSQL.Append(" ," & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.ADD_YMDHNS))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.UPD_SYAIN_ID))
@@ -2215,7 +2229,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.FILE_PATH))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.G_FILE_PATH1))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.G_FILE_PATH2))
-        'sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID))
+        sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.ADD_YMDHNS))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.UPD_SYAIN_ID))
@@ -2539,7 +2553,7 @@ Public Class FrmG0011
             ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_KB_NAME)).Value = _V002_NCR_J.HAIKYAKU_KB_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_TANTO_NAME)).Value = _V002_NCR_J.HAIKYAKU_TANTO_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_YMD)).Value = _V002_NCR_J.HAIKYAKU_YMD
-            ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_NAME)).Value = _V002_NCR_J.HASSEI_KOTEI_GL_NAME
+            ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_SYAIN_NAME)).Value = _V002_NCR_J.HASSEI_KOTEI_GL_SYAIN_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_YMD)).Value = _V002_NCR_J.HASSEI_KOTEI_GL_YMD
             ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_BIKO)).Value = _V002_NCR_J.HENKYAKU_BIKO
             ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_SAKI)).Value = _V002_NCR_J.HENKYAKU_SAKI
@@ -3003,9 +3017,14 @@ Public Class FrmG0011
 
                 cmbST04_JIZENSINSA_HANTEI.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
+
+                dt = FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
+                cmbST04_HASSEI_KOTEI_GL_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, ENM_SYONIN_HOKOKUSYO_ID._2_CAR, ENM_CAR_STAGE._10_起草入力)
                 cmbST04_CAR_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 cmbST04_CAR_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -3038,8 +3057,9 @@ Public Class FrmG0011
                             cmbST04_DestTANTO.ReadOnly = True
                             txtST04_Comment.ReadOnly = True
                             cmbST04_JIZENSINSA_HANTEI.ReadOnly = True
+                            cmbST04_CAR_TANTO.ReadOnly = True
+                            cmbST04_HASSEI_KOTEI_GL_TANTO.ReadOnly = True
                             pnlST04_ZESEI.Enabled = False
-
                         End If
                     Else
                         mtxST04_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
@@ -4221,6 +4241,9 @@ Public Class FrmG0011
         lblCAR_TANTO.Visible = Not blnChecked
         cmbST04_CAR_TANTO.Visible = Not blnChecked
 
+        lblST04_HASSEI_KOTEI_GL_TANTO.Visible = Not blnChecked
+        cmbST04_HASSEI_KOTEI_GL_TANTO.Visible = Not blnChecked
+
         _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = True
     End Sub
 
@@ -4231,6 +4254,9 @@ Public Class FrmG0011
         txtST04_RIYU.Visible = blnChecked
         lblCAR_TANTO.Visible = Not blnChecked
         cmbST04_CAR_TANTO.Visible = Not blnChecked
+
+        lblST04_HASSEI_KOTEI_GL_TANTO.Visible = Not blnChecked
+        cmbST04_HASSEI_KOTEI_GL_TANTO.Visible = Not blnChecked
 
         _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = False
     End Sub
@@ -4271,6 +4297,34 @@ Public Class FrmG0011
         End If
     End Sub
 
+
+    Private Sub CmbST04_CAR_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST04_CAR_TANTO.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "CAR起草担当"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        End If
+    End Sub
+
+    Private Sub CmbST04_HASSEI_KOTEI_GL_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST04_HASSEI_KOTEI_GL_TANTO.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If cmb.SelectedValue = cmb.NullValue Then
+            'e.Cancel = True
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "発生工程GL担当"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            pri_blnValidated = False
+        Else
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        End If
+    End Sub
 #End Region
 #Region "   STAGE5"
     '共通項目のみ
@@ -4901,6 +4955,7 @@ Public Class FrmG0011
         chkST04_ZESEI_SYOCHI_YOHI_KB.DataBindings.Add(New Binding(NameOf(chkST04_ZESEI_SYOCHI_YOHI_KB.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB), False, DataSourceUpdateMode.OnPropertyChanged, False))
         txtST04_RIYU.DataBindings.Add(New Binding(NameOf(txtST04_RIYU.Text), _D003_NCR_J, NameOf(_D003_NCR_J.ZESEI_NASI_RIYU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
+        cmbST04_HASSEI_KOTEI_GL_TANTO.DataBindings.Add(New Binding(NameOf(cmbST04_HASSEI_KOTEI_GL_TANTO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
 
         'STAGE05
 
@@ -5200,6 +5255,8 @@ Public Class FrmG0011
             Next p
 #End Region
 
+
+
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -5248,7 +5305,12 @@ Public Class FrmG0011
 
                     Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
                         Call CmbST04_JIZENSINSA_HANTEI_Validating(cmbST04_JIZENSINSA_HANTEI, Nothing)
-                        Call CmbDestTANTO_Validating(cmbST04_DestTANTO, Nothing)
+                        Call CmbST04_CAR_TANTO_Validating(cmbST04_CAR_TANTO, Nothing)
+
+                        If chkST04_ZESEI_SYOCHI_YOHI_KB.Checked = True Then
+                            Call CmbST04_HASSEI_KOTEI_GL_TANTO_Validating(cmbST04_HASSEI_KOTEI_GL_TANTO, Nothing)
+                            Call CmbDestTANTO_Validating(cmbST04_DestTANTO, Nothing)
+                        End If
 
                     Case ENM_NCR_STAGE._50_事前審査確認
                         Call CmbDestTANTO_Validating(cmbST05_DestTANTO, Nothing)
@@ -5641,6 +5703,8 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
+
+
 
 
 
