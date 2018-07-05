@@ -1230,10 +1230,12 @@ Public Class FrmG0011
             Return False
         End If
 
+
         If FunSAVE_R003(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
-        Else
-            Return False
-        End If
+            Else
+                Return False
+            End If
+
 
         Return True
     End Function

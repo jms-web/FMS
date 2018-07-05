@@ -585,6 +585,7 @@ Module mdlG0010
                 _model.SYONIN_NAME120 = .Item(NameOf(_model.SYONIN_NAME120))
                 _model.SYONIN_YMD120 = .Item(NameOf(_model.SYONIN_YMD120))
 
+                _model.FUTEKIGO_HASSEI_YMD = .Item(NameOf(_model.FUTEKIGO_HASSEI_YMD))
             End With
 
             Return _model

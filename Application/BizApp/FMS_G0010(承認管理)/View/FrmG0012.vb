@@ -428,6 +428,7 @@ Public Class FrmG0012
         sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_GL_YMDHNS & "' AS " & NameOf(_D005_CAR_J.KENSA_GL_YMDHNS))
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH1 & "' AS " & NameOf(_D005_CAR_J.FILE_PATH1))
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH2 & "' AS " & NameOf(_D005_CAR_J.FILE_PATH2))
+        sbSQL.Append(" ,'" & _D005_CAR_J.FUTEKIGO_HASSEI_YMD & "' AS " & NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD))
         sbSQL.Append(" ," & _D005_CAR_J.ADD_SYAIN_ID & " AS " & NameOf(_D005_CAR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ,'" & _D005_CAR_J.ADD_YMDHNS & "' AS " & NameOf(_D005_CAR_J.ADD_YMDHNS))
         sbSQL.Append(" ," & _D005_CAR_J.UPD_SYAIN_ID & " AS " & NameOf(_D005_CAR_J.UPD_SYAIN_ID))
@@ -488,6 +489,8 @@ Public Class FrmG0012
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.KONPON_YOIN_KB2) & " = WK." & NameOf(_D005_CAR_J.KONPON_YOIN_KB2))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.KONPON_YOIN_SYAIN_ID) & " = WK." & NameOf(_D005_CAR_J.KONPON_YOIN_SYAIN_ID))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.KISEKI_KOTEI_KB) & " = WK." & NameOf(_D005_CAR_J.KISEKI_KOTEI_KB))
+
+                sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD) & " = WK." & NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD))
 
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.ADD_SYAIN_ID) & " = WK." & NameOf(_D005_CAR_J.ADD_SYAIN_ID))
                 sbSQL.Append(" ,SrcT." & NameOf(_D005_CAR_J.ADD_YMDHNS) & " = WK." & NameOf(_D005_CAR_J.ADD_YMDHNS))
@@ -599,6 +602,7 @@ Public Class FrmG0012
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KENSA_GL_YMDHNS))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.FILE_PATH1))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.FILE_PATH2))
+        sbSQL.Append(" ," & NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.ADD_YMDHNS))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.UPD_SYAIN_ID))
@@ -680,6 +684,7 @@ Public Class FrmG0012
         sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_GL_YMDHNS & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH1 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH2 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.FUTEKIGO_HASSEI_YMD & "'")
         sbSQL.Append(" ," & _D005_CAR_J.ADD_SYAIN_ID & "")
         sbSQL.Append(" ,'" & _D005_CAR_J.ADD_YMDHNS & "'")
         sbSQL.Append(" ," & _D005_CAR_J.UPD_SYAIN_ID & "")
@@ -1300,6 +1305,7 @@ Public Class FrmG0012
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KENSA_GL_YMDHNS))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.FILE_PATH1))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.FILE_PATH2))
+        sbSQL.Append(" ," & NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.ADD_YMDHNS))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.UPD_SYAIN_ID))
@@ -1381,6 +1387,7 @@ Public Class FrmG0012
         sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_GL_YMDHNS & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH1 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH2 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.FUTEKIGO_HASSEI_YMD & "'")
         sbSQL.Append(" ," & _D005_CAR_J.ADD_SYAIN_ID & "")
         sbSQL.Append(" ,'" & _D005_CAR_J.ADD_YMDHNS & "'")
         sbSQL.Append(" ," & _D005_CAR_J.UPD_SYAIN_ID & "")
@@ -2654,6 +2661,8 @@ Public Class FrmG0012
             'cmbGENIN2.DataBindings.Add(New Binding(NameOf(cmbGENIN2.SelectedValue), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged))
             cmbKISEKI_KOTEI.DataBindings.Add(New Binding(NameOf(cmbKISEKI_KOTEI.SelectedValue), _D005_CAR_J, NameOf(_D005_CAR_J.KISEKI_KOTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
+            dtFUTEKIGO_HASSEI_YMD.DataBindings.Add(New Binding(NameOf(dtFUTEKIGO_HASSEI_YMD.ValueNonFormat), _D005_CAR_J, NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
             'èCê≥ÅEâûã}èàíu
             dtKAITO_4.DataBindings.Add(New Binding(NameOf(dtKAITO_4.ValueNonFormat), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_4), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             cmbKAITO_5.DataBindings.Add(New Binding(NameOf(cmbKAITO_5.SelectedValue), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_5), False, DataSourceUpdateMode.OnPropertyChanged, 0))
@@ -2925,6 +2934,7 @@ Public Class FrmG0012
                 btnSelectGenin2.Enabled = True
             End If
 
+            _D005_CAR_J.FUTEKIGO_HASSEI_YMD = _V005_CAR_J.FUTEKIGO_HASSEI_YMD
             _D005_CAR_J.KONPON_YOIN_SYAIN_ID = _V005_CAR_J.KONPON_YOIN_SYAIN_ID
             _D005_CAR_J.KISEKI_KOTEI_KB = _V005_CAR_J.KISEKI_KOTEI_KB
             _D005_CAR_J.SYOCHI_A_SYAIN_ID = _V005_CAR_J.SYOCHI_A_SYAIN_ID

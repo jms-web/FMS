@@ -340,6 +340,8 @@ Partial Class FrmG0011
         Me.btnOpenTempFileDialog = New System.Windows.Forms.Button()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.D004SYONINJKANRIBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.ComboboxEx1 = New JMS_COMMON.ComboboxEx()
+        Me.Label3 = New System.Windows.Forms.Label()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
@@ -1398,13 +1400,13 @@ Partial Class FrmG0011
         'mtxST02_NextStageName
         '
         Me.mtxST02_NextStageName.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST02_NextStageName.Enabled = False
         Me.mtxST02_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST02_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST02_NextStageName.InputRequired = False
         Me.mtxST02_NextStageName.Location = New System.Drawing.Point(359, 40)
         Me.mtxST02_NextStageName.MaxByteLength = 0
         Me.mtxST02_NextStageName.Name = "mtxST02_NextStageName"
+        Me.mtxST02_NextStageName.ReadOnly = True
         Me.mtxST02_NextStageName.ShowRemaining = True
         Me.mtxST02_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST02_NextStageName.TabIndex = 1
@@ -1479,13 +1481,13 @@ Partial Class FrmG0011
         'mtxST02_UPD_YMD
         '
         Me.mtxST02_UPD_YMD.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST02_UPD_YMD.Enabled = False
         Me.mtxST02_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST02_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST02_UPD_YMD.InputRequired = False
         Me.mtxST02_UPD_YMD.Location = New System.Drawing.Point(118, 40)
         Me.mtxST02_UPD_YMD.MaxByteLength = 0
         Me.mtxST02_UPD_YMD.Name = "mtxST02_UPD_YMD"
+        Me.mtxST02_UPD_YMD.ReadOnly = True
         Me.mtxST02_UPD_YMD.ShowRemaining = True
         Me.mtxST02_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST02_UPD_YMD.TabIndex = 0
@@ -1563,13 +1565,13 @@ Partial Class FrmG0011
         'mtxST03_NextStageName
         '
         Me.mtxST03_NextStageName.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST03_NextStageName.Enabled = False
         Me.mtxST03_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST03_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST03_NextStageName.InputRequired = False
         Me.mtxST03_NextStageName.Location = New System.Drawing.Point(359, 40)
         Me.mtxST03_NextStageName.MaxByteLength = 0
         Me.mtxST03_NextStageName.Name = "mtxST03_NextStageName"
+        Me.mtxST03_NextStageName.ReadOnly = True
         Me.mtxST03_NextStageName.ShowRemaining = True
         Me.mtxST03_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST03_NextStageName.TabIndex = 1
@@ -1644,13 +1646,13 @@ Partial Class FrmG0011
         'mtxST03_UPD_YMD
         '
         Me.mtxST03_UPD_YMD.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST03_UPD_YMD.Enabled = False
         Me.mtxST03_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST03_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST03_UPD_YMD.InputRequired = False
         Me.mtxST03_UPD_YMD.Location = New System.Drawing.Point(118, 40)
         Me.mtxST03_UPD_YMD.MaxByteLength = 0
         Me.mtxST03_UPD_YMD.Name = "mtxST03_UPD_YMD"
+        Me.mtxST03_UPD_YMD.ReadOnly = True
         Me.mtxST03_UPD_YMD.ShowRemaining = True
         Me.mtxST03_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST03_UPD_YMD.TabIndex = 0
@@ -1673,6 +1675,8 @@ Partial Class FrmG0011
         '
         'tabSTAGE04
         '
+        Me.tabSTAGE04.Controls.Add(Me.ComboboxEx1)
+        Me.tabSTAGE04.Controls.Add(Me.Label3)
         Me.tabSTAGE04.Controls.Add(Me.cmbST04_CAR_TANTO)
         Me.tabSTAGE04.Controls.Add(Me.lblCAR_TANTO)
         Me.tabSTAGE04.Controls.Add(Me.chkST04_ZESEI_SYOCHI_YOHI_KB)
@@ -1815,13 +1819,13 @@ Partial Class FrmG0011
         'mtxST04_NextStageName
         '
         Me.mtxST04_NextStageName.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST04_NextStageName.Enabled = False
         Me.mtxST04_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST04_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST04_NextStageName.InputRequired = False
         Me.mtxST04_NextStageName.Location = New System.Drawing.Point(359, 221)
         Me.mtxST04_NextStageName.MaxByteLength = 0
         Me.mtxST04_NextStageName.Name = "mtxST04_NextStageName"
+        Me.mtxST04_NextStageName.ReadOnly = True
         Me.mtxST04_NextStageName.ShowRemaining = True
         Me.mtxST04_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST04_NextStageName.TabIndex = 3
@@ -1896,13 +1900,13 @@ Partial Class FrmG0011
         'mtxST04_UPD_YMD
         '
         Me.mtxST04_UPD_YMD.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST04_UPD_YMD.Enabled = False
         Me.mtxST04_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST04_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST04_UPD_YMD.InputRequired = False
         Me.mtxST04_UPD_YMD.Location = New System.Drawing.Point(118, 221)
         Me.mtxST04_UPD_YMD.MaxByteLength = 0
         Me.mtxST04_UPD_YMD.Name = "mtxST04_UPD_YMD"
+        Me.mtxST04_UPD_YMD.ReadOnly = True
         Me.mtxST04_UPD_YMD.ShowRemaining = True
         Me.mtxST04_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST04_UPD_YMD.TabIndex = 2
@@ -2057,13 +2061,13 @@ Partial Class FrmG0011
         'mtxST05_NextStageName
         '
         Me.mtxST05_NextStageName.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST05_NextStageName.Enabled = False
         Me.mtxST05_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST05_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST05_NextStageName.InputRequired = False
         Me.mtxST05_NextStageName.Location = New System.Drawing.Point(359, 40)
         Me.mtxST05_NextStageName.MaxByteLength = 0
         Me.mtxST05_NextStageName.Name = "mtxST05_NextStageName"
+        Me.mtxST05_NextStageName.ReadOnly = True
         Me.mtxST05_NextStageName.ShowRemaining = True
         Me.mtxST05_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST05_NextStageName.TabIndex = 1
@@ -2138,13 +2142,13 @@ Partial Class FrmG0011
         'mtxST05_UPD_YMD
         '
         Me.mtxST05_UPD_YMD.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST05_UPD_YMD.Enabled = False
         Me.mtxST05_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST05_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST05_UPD_YMD.InputRequired = False
         Me.mtxST05_UPD_YMD.Location = New System.Drawing.Point(118, 40)
         Me.mtxST05_UPD_YMD.MaxByteLength = 0
         Me.mtxST05_UPD_YMD.Name = "mtxST05_UPD_YMD"
+        Me.mtxST05_UPD_YMD.ReadOnly = True
         Me.mtxST05_UPD_YMD.ShowRemaining = True
         Me.mtxST05_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST05_UPD_YMD.TabIndex = 0
@@ -2227,13 +2231,13 @@ Partial Class FrmG0011
         'mtxST06_NextStageName
         '
         Me.mtxST06_NextStageName.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST06_NextStageName.Enabled = False
         Me.mtxST06_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST06_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST06_NextStageName.InputRequired = False
         Me.mtxST06_NextStageName.Location = New System.Drawing.Point(359, 221)
         Me.mtxST06_NextStageName.MaxByteLength = 0
         Me.mtxST06_NextStageName.Name = "mtxST06_NextStageName"
+        Me.mtxST06_NextStageName.ReadOnly = True
         Me.mtxST06_NextStageName.ShowRemaining = True
         Me.mtxST06_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST06_NextStageName.TabIndex = 3
@@ -2308,13 +2312,13 @@ Partial Class FrmG0011
         'mtxST06_UPD_YMD
         '
         Me.mtxST06_UPD_YMD.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST06_UPD_YMD.Enabled = False
         Me.mtxST06_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST06_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST06_UPD_YMD.InputRequired = False
         Me.mtxST06_UPD_YMD.Location = New System.Drawing.Point(118, 221)
         Me.mtxST06_UPD_YMD.MaxByteLength = 0
         Me.mtxST06_UPD_YMD.Name = "mtxST06_UPD_YMD"
+        Me.mtxST06_UPD_YMD.ReadOnly = True
         Me.mtxST06_UPD_YMD.ShowRemaining = True
         Me.mtxST06_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST06_UPD_YMD.TabIndex = 2
@@ -2526,13 +2530,13 @@ Partial Class FrmG0011
         'mtxST07_NextStageName
         '
         Me.mtxST07_NextStageName.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST07_NextStageName.Enabled = False
         Me.mtxST07_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST07_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST07_NextStageName.InputRequired = False
         Me.mtxST07_NextStageName.Location = New System.Drawing.Point(359, 221)
         Me.mtxST07_NextStageName.MaxByteLength = 0
         Me.mtxST07_NextStageName.Name = "mtxST07_NextStageName"
+        Me.mtxST07_NextStageName.ReadOnly = True
         Me.mtxST07_NextStageName.ShowRemaining = True
         Me.mtxST07_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST07_NextStageName.TabIndex = 7
@@ -2607,13 +2611,13 @@ Partial Class FrmG0011
         'mtxST07_UPD_YMD
         '
         Me.mtxST07_UPD_YMD.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST07_UPD_YMD.Enabled = False
         Me.mtxST07_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST07_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST07_UPD_YMD.InputRequired = False
         Me.mtxST07_UPD_YMD.Location = New System.Drawing.Point(118, 221)
         Me.mtxST07_UPD_YMD.MaxByteLength = 0
         Me.mtxST07_UPD_YMD.Name = "mtxST07_UPD_YMD"
+        Me.mtxST07_UPD_YMD.ReadOnly = True
         Me.mtxST07_UPD_YMD.ShowRemaining = True
         Me.mtxST07_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST07_UPD_YMD.TabIndex = 6
@@ -2873,13 +2877,13 @@ Partial Class FrmG0011
         'mtxST08_NextStageName
         '
         Me.mtxST08_NextStageName.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST08_NextStageName.Enabled = False
         Me.mtxST08_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST08_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST08_NextStageName.InputRequired = False
         Me.mtxST08_NextStageName.Location = New System.Drawing.Point(359, 221)
         Me.mtxST08_NextStageName.MaxByteLength = 0
         Me.mtxST08_NextStageName.Name = "mtxST08_NextStageName"
+        Me.mtxST08_NextStageName.ReadOnly = True
         Me.mtxST08_NextStageName.ShowRemaining = True
         Me.mtxST08_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST08_NextStageName.TabIndex = 2
@@ -2954,13 +2958,13 @@ Partial Class FrmG0011
         'mtxST08_UPD_YMD
         '
         Me.mtxST08_UPD_YMD.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST08_UPD_YMD.Enabled = False
         Me.mtxST08_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST08_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST08_UPD_YMD.InputRequired = False
         Me.mtxST08_UPD_YMD.Location = New System.Drawing.Point(118, 221)
         Me.mtxST08_UPD_YMD.MaxByteLength = 0
         Me.mtxST08_UPD_YMD.Name = "mtxST08_UPD_YMD"
+        Me.mtxST08_UPD_YMD.ReadOnly = True
         Me.mtxST08_UPD_YMD.ShowRemaining = True
         Me.mtxST08_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST08_UPD_YMD.TabIndex = 1
@@ -3794,13 +3798,13 @@ Partial Class FrmG0011
         'mtxST09_NextStageName
         '
         Me.mtxST09_NextStageName.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST09_NextStageName.Enabled = False
         Me.mtxST09_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST09_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST09_NextStageName.InputRequired = False
         Me.mtxST09_NextStageName.Location = New System.Drawing.Point(359, 40)
         Me.mtxST09_NextStageName.MaxByteLength = 0
         Me.mtxST09_NextStageName.Name = "mtxST09_NextStageName"
+        Me.mtxST09_NextStageName.ReadOnly = True
         Me.mtxST09_NextStageName.ShowRemaining = True
         Me.mtxST09_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST09_NextStageName.TabIndex = 1
@@ -3875,13 +3879,13 @@ Partial Class FrmG0011
         'mtxST09_UPD_YMD
         '
         Me.mtxST09_UPD_YMD.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST09_UPD_YMD.Enabled = False
         Me.mtxST09_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST09_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST09_UPD_YMD.InputRequired = False
         Me.mtxST09_UPD_YMD.Location = New System.Drawing.Point(118, 40)
         Me.mtxST09_UPD_YMD.MaxByteLength = 0
         Me.mtxST09_UPD_YMD.Name = "mtxST09_UPD_YMD"
+        Me.mtxST09_UPD_YMD.ReadOnly = True
         Me.mtxST09_UPD_YMD.ShowRemaining = True
         Me.mtxST09_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST09_UPD_YMD.TabIndex = 0
@@ -3958,13 +3962,13 @@ Partial Class FrmG0011
         'mtxST10_NextStageName
         '
         Me.mtxST10_NextStageName.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST10_NextStageName.Enabled = False
         Me.mtxST10_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST10_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST10_NextStageName.InputRequired = False
         Me.mtxST10_NextStageName.Location = New System.Drawing.Point(359, 40)
         Me.mtxST10_NextStageName.MaxByteLength = 0
         Me.mtxST10_NextStageName.Name = "mtxST10_NextStageName"
+        Me.mtxST10_NextStageName.ReadOnly = True
         Me.mtxST10_NextStageName.ShowRemaining = True
         Me.mtxST10_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST10_NextStageName.TabIndex = 1
@@ -4039,13 +4043,13 @@ Partial Class FrmG0011
         'mtxST10_UPD_YMD
         '
         Me.mtxST10_UPD_YMD.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST10_UPD_YMD.Enabled = False
         Me.mtxST10_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST10_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST10_UPD_YMD.InputRequired = False
         Me.mtxST10_UPD_YMD.Location = New System.Drawing.Point(118, 40)
         Me.mtxST10_UPD_YMD.MaxByteLength = 0
         Me.mtxST10_UPD_YMD.Name = "mtxST10_UPD_YMD"
+        Me.mtxST10_UPD_YMD.ReadOnly = True
         Me.mtxST10_UPD_YMD.ShowRemaining = True
         Me.mtxST10_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST10_UPD_YMD.TabIndex = 0
@@ -4102,7 +4106,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 219.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 221.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.Panel7, 3, 7)
@@ -4148,7 +4152,7 @@ Partial Class FrmG0011
         '
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_T)
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_F)
-        Me.Panel7.Location = New System.Drawing.Point(536, 200)
+        Me.Panel7.Location = New System.Drawing.Point(534, 200)
         Me.Panel7.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(175, 28)
@@ -4185,7 +4189,7 @@ Partial Class FrmG0011
         '
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_T)
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_F)
-        Me.Panel2.Location = New System.Drawing.Point(536, 171)
+        Me.Panel2.Location = New System.Drawing.Point(534, 171)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(175, 28)
@@ -4222,7 +4226,7 @@ Partial Class FrmG0011
         '
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_T)
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_F)
-        Me.Panel6.Location = New System.Drawing.Point(536, 117)
+        Me.Panel6.Location = New System.Drawing.Point(534, 117)
         Me.Panel6.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(175, 28)
@@ -4259,7 +4263,7 @@ Partial Class FrmG0011
         '
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_T)
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_F)
-        Me.Panel5.Location = New System.Drawing.Point(536, 88)
+        Me.Panel5.Location = New System.Drawing.Point(534, 88)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(175, 28)
@@ -4296,7 +4300,7 @@ Partial Class FrmG0011
         '
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_T)
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_F)
-        Me.Panel4.Location = New System.Drawing.Point(536, 59)
+        Me.Panel4.Location = New System.Drawing.Point(534, 59)
         Me.Panel4.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(175, 28)
@@ -4333,7 +4337,7 @@ Partial Class FrmG0011
         '
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_T)
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_F)
-        Me.Panel3.Location = New System.Drawing.Point(536, 30)
+        Me.Panel3.Location = New System.Drawing.Point(534, 30)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(175, 28)
@@ -4424,7 +4428,7 @@ Partial Class FrmG0011
         Me.Label126.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label126.Location = New System.Drawing.Point(25, 117)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(507, 28)
+        Me.Label126.Size = New System.Drawing.Size(505, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "âeãøóLÇÃèÍçáÅAå⁄ãqÇ÷ÇÃí ímÇÃóvî€"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4438,7 +4442,7 @@ Partial Class FrmG0011
         Me.Label127.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label127.Location = New System.Drawing.Point(25, 88)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(507, 28)
+        Me.Label127.Size = New System.Drawing.Size(505, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "ìñäYïsìKçáÇ…ÇÊÇÈå⁄ãqÇ÷ÇÃâeãø"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4452,7 +4456,7 @@ Partial Class FrmG0011
         Me.Label128.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label128.Location = New System.Drawing.Point(25, 59)
         Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(507, 28)
+        Me.Label128.Size = New System.Drawing.Size(505, 28)
         Me.Label128.TabIndex = 241
         Me.Label128.Text = "îpãpèàíuÇÕñ{óàÇÃà”ê}ÇµÇΩégópñîÇÕìKópÇ™Ç≈Ç´Ç»Ç¢ï˚ñ@ÇæÇ¡ÇΩÇ©ÅH"
         Me.Label128.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4479,7 +4483,7 @@ Partial Class FrmG0011
         Me.Label130.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label130.Location = New System.Drawing.Point(25, 30)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(507, 28)
+        Me.Label130.Size = New System.Drawing.Size(505, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "é–ì‡å†å¿é“Ç…ÇÊÇËÅAñîÇÕå⁄ãqçƒêRÇÃèÍçáÇÕå⁄ãqÇ…ÇÊÇËîªíËÇ≥ÇÍÇΩÇ©ÅH"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4533,7 +4537,7 @@ Partial Class FrmG0011
         Me.Label134.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label134.Location = New System.Drawing.Point(25, 171)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(507, 28)
+        Me.Label134.Size = New System.Drawing.Size(505, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "ìñäYïsìKçáÇ…ÇÊÇÈëºÇÃÉvÉçÉZÉXÇ÷ÇÃâeãø"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4560,7 +4564,7 @@ Partial Class FrmG0011
         Me.Label136.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label136.Location = New System.Drawing.Point(25, 200)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(507, 28)
+        Me.Label136.Size = New System.Drawing.Size(505, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "âeãøóLÇÃèÍçáÅAïïÇ∂çûÇﬂèàíuÇÃóvî€"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4574,7 +4578,7 @@ Partial Class FrmG0011
         Me.Label137.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label137.Location = New System.Drawing.Point(25, 1)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(507, 28)
+        Me.Label137.Size = New System.Drawing.Size(505, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "åüèoÇ≥ÇÍÇΩïsìKçáÇèúãéÇ∑ÇÈèàíuÅiîpãpÇä‹ÇﬁÅjÇÕämé¿Ç…Ç∆ÇÁÇÍÇΩÇ©ÅH"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4597,7 +4601,7 @@ Partial Class FrmG0011
         '
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_T)
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_F)
-        Me.Panel1.Location = New System.Drawing.Point(536, 1)
+        Me.Panel1.Location = New System.Drawing.Point(534, 1)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(175, 28)
@@ -4750,13 +4754,13 @@ Partial Class FrmG0011
         'mtxST11_NextStageName
         '
         Me.mtxST11_NextStageName.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST11_NextStageName.Enabled = False
         Me.mtxST11_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST11_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST11_NextStageName.InputRequired = False
         Me.mtxST11_NextStageName.Location = New System.Drawing.Point(927, 76)
         Me.mtxST11_NextStageName.MaxByteLength = 0
         Me.mtxST11_NextStageName.Name = "mtxST11_NextStageName"
+        Me.mtxST11_NextStageName.ReadOnly = True
         Me.mtxST11_NextStageName.ShowRemaining = True
         Me.mtxST11_NextStageName.Size = New System.Drawing.Size(295, 24)
         Me.mtxST11_NextStageName.TabIndex = 1
@@ -4832,13 +4836,13 @@ Partial Class FrmG0011
         'mtxST11_UPD_YMD
         '
         Me.mtxST11_UPD_YMD.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST11_UPD_YMD.Enabled = False
         Me.mtxST11_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST11_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST11_UPD_YMD.InputRequired = False
         Me.mtxST11_UPD_YMD.Location = New System.Drawing.Point(927, 46)
         Me.mtxST11_UPD_YMD.MaxByteLength = 0
         Me.mtxST11_UPD_YMD.Name = "mtxST11_UPD_YMD"
+        Me.mtxST11_UPD_YMD.ReadOnly = True
         Me.mtxST11_UPD_YMD.ShowRemaining = True
         Me.mtxST11_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST11_UPD_YMD.TabIndex = 0
@@ -5283,6 +5287,40 @@ Partial Class FrmG0011
         '
         Me.D004SYONINJKANRIBindingSource.DataSource = GetType(MODEL.D004_SYONIN_J_KANRI)
         '
+        'ComboboxEx1
+        '
+        Me.ComboboxEx1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboboxEx1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboboxEx1.BackColor = System.Drawing.SystemColors.Window
+        Me.ComboboxEx1.Cursor = System.Windows.Forms.Cursors.Default
+        Me.ComboboxEx1.DisplayMember = "DISP"
+        Me.ComboboxEx1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.ComboboxEx1.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ComboboxEx1.FormattingEnabled = True
+        Me.ComboboxEx1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.ComboboxEx1.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx1.Location = New System.Drawing.Point(419, 167)
+        Me.ComboboxEx1.Name = "ComboboxEx1"
+        Me.ComboboxEx1.NullValue = " "
+        Me.ComboboxEx1.ReadOnly = False
+        Me.ComboboxEx1.Selected = False
+        Me.ComboboxEx1.Size = New System.Drawing.Size(154, 25)
+        Me.ComboboxEx1.TabIndex = 236
+        Me.ComboboxEx1.Text = "(ëIë)"
+        Me.ComboboxEx1.ValueMember = "VALUE"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label3.Location = New System.Drawing.Point(327, 172)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(60, 15)
+        Me.Label3.TabIndex = 237
+        Me.Label3.Text = "î≠ê∂çHíˆ:"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'FrmG0011
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -5706,4 +5744,6 @@ Partial Class FrmG0011
     Friend WithEvents tabSTAGE08_4 As TabPageEx
     Friend WithEvents cmbST04_CAR_TANTO As ComboboxEx
     Friend WithEvents lblCAR_TANTO As Label
+    Friend WithEvents ComboboxEx1 As ComboboxEx
+    Friend WithEvents Label3 As Label
 End Class
