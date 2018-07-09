@@ -23,6 +23,7 @@ bld/
 [Ll]og/
 ClickOnce/EXE/
 ClickOnce/EXE_DEBUG/
+RESOURCE/Image/
 
 # Visual Studio 2015 cache/options directory
 .vs/
