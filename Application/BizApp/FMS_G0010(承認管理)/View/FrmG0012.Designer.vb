@@ -39,7 +39,7 @@ Partial Class FrmG0012
         Me.lbl_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.D005CARJBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.TabSTAGE = New System.Windows.Forms.TabControl()
-        Me.tabSTAGE01 = New System.Windows.Forms.TabPage()
+        Me.tabSTAGE01 = New JMS_COMMON.TabPageEx()
         Me.lblSETUMON_22 = New System.Windows.Forms.Label()
         Me.lblSETUMON_21 = New System.Windows.Forms.Label()
         Me.txtKAITO_21 = New JMS_COMMON.TextBoxEx()
@@ -99,7 +99,7 @@ Partial Class FrmG0012
         Me.mtxST01_UPD_YMD = New JMS_COMMON.MaskedTextBoxEx()
         Me.lblSETUMON_1 = New System.Windows.Forms.Label()
         Me.txtKAITO_1 = New JMS_COMMON.TextBoxEx()
-        Me.tab_CAR_SUB_1_ = New System.Windows.Forms.TabPage()
+        Me.tab_CAR_SUB_1_ = New JMS_COMMON.TabPageEx()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -128,7 +128,7 @@ Partial Class FrmG0012
         Me.Label41 = New System.Windows.Forms.Label()
         Me.dtSYOCHI_B_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.dtSYOCHI_A_YMD = New JMS_COMMON.DateTextBoxEx()
-        Me.tab_CAR_SUB_2_ = New System.Windows.Forms.TabPage()
+        Me.tab_CAR_SUB_2_ = New JMS_COMMON.TabPageEx()
         Me.fpnlSYOSAI_FILE_PATH = New System.Windows.Forms.FlowLayoutPanel()
         Me.lblSYOSAI_FILE_PATH = New System.Windows.Forms.LinkLabel()
         Me.lblSYOSAI_FILE_PATH_Clear = New System.Windows.Forms.LinkLabel()
@@ -154,7 +154,7 @@ Partial Class FrmG0012
         Me.mtxLOT = New JMS_COMMON.MaskedTextBoxEx()
         Me.cmbKENSA_TANTO = New JMS_COMMON.ComboboxEx()
         Me.mtxGOKI = New JMS_COMMON.MaskedTextBoxEx()
-        Me.tabSTAGE02 = New System.Windows.Forms.TabPage()
+        Me.tabSTAGE02 = New JMS_COMMON.TabPageEx()
         Me.dtFUTEKIGO_HASSEI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.mtxGENIN2 = New JMS_COMMON.MaskedTextBoxEx()
@@ -175,7 +175,7 @@ Partial Class FrmG0012
         Me.cmbKONPON_YOIN_KB1 = New JMS_COMMON.ComboboxEx()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cmbKONPON_YOIN_TANTO = New JMS_COMMON.ComboboxEx()
-        Me.tab_CAR_SUB_3_ = New System.Windows.Forms.TabPage()
+        Me.tab_CAR_SUB_3_ = New JMS_COMMON.TabPageEx()
         Me.fpnltmpFile2 = New System.Windows.Forms.FlowLayoutPanel()
         Me.lbltmpFile2 = New System.Windows.Forms.LinkLabel()
         Me.lbltmpFile2_Clear = New System.Windows.Forms.LinkLabel()
@@ -231,9 +231,10 @@ Partial Class FrmG0012
         '
         'lblRecordCount
         '
+        Me.lblRecordCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblRecordCount.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblRecordCount.Location = New System.Drawing.Point(12, 565)
-        Me.lblRecordCount.Size = New System.Drawing.Size(407, 24)
+        Me.lblRecordCount.Location = New System.Drawing.Point(578, 147)
+        Me.lblRecordCount.Size = New System.Drawing.Size(43, 24)
         '
         'cmdFunc1
         '
@@ -285,7 +286,7 @@ Partial Class FrmG0012
         '
         Me.cmdFunc10.Image = Global.FMS.My.Resources.Resources._imgPrint32x32
         Me.cmdFunc10.Location = New System.Drawing.Point(630, 643)
-        Me.cmdFunc10.Text = "印刷(F10)"
+        Me.cmdFunc10.Text = "印刷プレビュー(F10)"
         '
         'cmdFunc7
         '
@@ -436,7 +437,8 @@ Partial Class FrmG0012
         Me.mtxBUMON_KB.ReadOnly = True
         Me.mtxBUMON_KB.ShowRemaining = True
         Me.mtxBUMON_KB.Size = New System.Drawing.Size(74, 24)
-        Me.mtxBUMON_KB.TabIndex = 115
+        Me.mtxBUMON_KB.TabIndex = 0
+        Me.mtxBUMON_KB.TabStop = False
         Me.mtxBUMON_KB.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxBUMON_KB.WatermarkText = Nothing
         '
@@ -465,7 +467,8 @@ Partial Class FrmG0012
         Me.mtxHOKUKO_NO.ReadOnly = True
         Me.mtxHOKUKO_NO.ShowRemaining = True
         Me.mtxHOKUKO_NO.Size = New System.Drawing.Size(94, 24)
-        Me.mtxHOKUKO_NO.TabIndex = 84
+        Me.mtxHOKUKO_NO.TabIndex = 1
+        Me.mtxHOKUKO_NO.TabStop = False
         Me.mtxHOKUKO_NO.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxHOKUKO_NO.WatermarkText = Nothing
         '
@@ -494,7 +497,8 @@ Partial Class FrmG0012
         Me.mtxKISYU.ReadOnly = True
         Me.mtxKISYU.ShowRemaining = True
         Me.mtxKISYU.Size = New System.Drawing.Size(114, 24)
-        Me.mtxKISYU.TabIndex = 112
+        Me.mtxKISYU.TabIndex = 2
+        Me.mtxKISYU.TabStop = False
         Me.mtxKISYU.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxKISYU.WatermarkText = Nothing
         '
@@ -523,7 +527,8 @@ Partial Class FrmG0012
         Me.mtxADD_SYAIN_NAME.ReadOnly = True
         Me.mtxADD_SYAIN_NAME.ShowRemaining = True
         Me.mtxADD_SYAIN_NAME.Size = New System.Drawing.Size(154, 24)
-        Me.mtxADD_SYAIN_NAME.TabIndex = 86
+        Me.mtxADD_SYAIN_NAME.TabIndex = 3
+        Me.mtxADD_SYAIN_NAME.TabStop = False
         Me.mtxADD_SYAIN_NAME.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxADD_SYAIN_NAME.WatermarkText = Nothing
         '
@@ -552,7 +557,8 @@ Partial Class FrmG0012
         Me.mtxCurrentStageName.ReadOnly = True
         Me.mtxCurrentStageName.ShowRemaining = True
         Me.mtxCurrentStageName.Size = New System.Drawing.Size(254, 24)
-        Me.mtxCurrentStageName.TabIndex = 111
+        Me.mtxCurrentStageName.TabIndex = 4
+        Me.mtxCurrentStageName.TabStop = False
         Me.mtxCurrentStageName.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxCurrentStageName.WatermarkText = Nothing
         '
@@ -583,7 +589,8 @@ Partial Class FrmG0012
         Me.mtxFUTEKIGO_KB.ReadOnly = True
         Me.mtxFUTEKIGO_KB.ShowRemaining = True
         Me.mtxFUTEKIGO_KB.Size = New System.Drawing.Size(154, 24)
-        Me.mtxFUTEKIGO_KB.TabIndex = 239
+        Me.mtxFUTEKIGO_KB.TabIndex = 5
+        Me.mtxFUTEKIGO_KB.TabStop = False
         Me.mtxFUTEKIGO_KB.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxFUTEKIGO_KB.WatermarkText = Nothing
         '
@@ -614,7 +621,8 @@ Partial Class FrmG0012
         Me.mtxFUTEKIGO_S_KB.ReadOnly = True
         Me.mtxFUTEKIGO_S_KB.ShowRemaining = True
         Me.mtxFUTEKIGO_S_KB.Size = New System.Drawing.Size(154, 24)
-        Me.mtxFUTEKIGO_S_KB.TabIndex = 238
+        Me.mtxFUTEKIGO_S_KB.TabIndex = 6
+        Me.mtxFUTEKIGO_S_KB.TabStop = False
         Me.mtxFUTEKIGO_S_KB.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxFUTEKIGO_S_KB.WatermarkText = Nothing
         '
@@ -636,6 +644,9 @@ Partial Class FrmG0012
         '
         'TabSTAGE
         '
+        Me.TabSTAGE.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TabSTAGE.Controls.Add(Me.tabSTAGE01)
         Me.TabSTAGE.Controls.Add(Me.tab_CAR_SUB_1_)
         Me.TabSTAGE.Controls.Add(Me.tab_CAR_SUB_2_)
@@ -709,6 +720,7 @@ Partial Class FrmG0012
         Me.tabSTAGE01.Controls.Add(Me.mtxST01_UPD_YMD)
         Me.tabSTAGE01.Controls.Add(Me.lblSETUMON_1)
         Me.tabSTAGE01.Controls.Add(Me.txtKAITO_1)
+        Me.tabSTAGE01.HitEnabled = False
         Me.tabSTAGE01.Location = New System.Drawing.Point(4, 26)
         Me.tabSTAGE01.Name = "tabSTAGE01"
         Me.tabSTAGE01.Padding = New System.Windows.Forms.Padding(3)
@@ -743,13 +755,13 @@ Partial Class FrmG0012
         Me.txtKAITO_21.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtKAITO_21.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtKAITO_21.Location = New System.Drawing.Point(692, 26)
-        Me.txtKAITO_21.MaxByteLength = 400
-        Me.txtKAITO_21.MaxLength = 200
+        Me.txtKAITO_21.MaxByteLength = 160
+        Me.txtKAITO_21.MaxLength = 80
         Me.txtKAITO_21.Multiline = True
         Me.txtKAITO_21.Name = "txtKAITO_21"
         Me.txtKAITO_21.ShowRemaining = False
         Me.txtKAITO_21.Size = New System.Drawing.Size(527, 43)
-        Me.txtKAITO_21.TabIndex = 309
+        Me.txtKAITO_21.TabIndex = 3
         Me.txtKAITO_21.WatermarkText = Nothing
         '
         'txtKAITO_22
@@ -758,13 +770,13 @@ Partial Class FrmG0012
         Me.txtKAITO_22.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtKAITO_22.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtKAITO_22.Location = New System.Drawing.Point(692, 156)
-        Me.txtKAITO_22.MaxByteLength = 400
-        Me.txtKAITO_22.MaxLength = 200
+        Me.txtKAITO_22.MaxByteLength = 160
+        Me.txtKAITO_22.MaxLength = 80
         Me.txtKAITO_22.Multiline = True
         Me.txtKAITO_22.Name = "txtKAITO_22"
         Me.txtKAITO_22.ShowRemaining = False
         Me.txtKAITO_22.Size = New System.Drawing.Size(527, 43)
-        Me.txtKAITO_22.TabIndex = 308
+        Me.txtKAITO_22.TabIndex = 10
         Me.txtKAITO_22.WatermarkText = Nothing
         '
         'FlowLayoutPanel2
@@ -819,7 +831,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_18.Name = "mtxKAITO_18"
         Me.mtxKAITO_18.ShowRemaining = True
         Me.mtxKAITO_18.Size = New System.Drawing.Size(114, 24)
-        Me.mtxKAITO_18.TabIndex = 19
+        Me.mtxKAITO_18.TabIndex = 20
         Me.mtxKAITO_18.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxKAITO_18.WatermarkText = Nothing
         '
@@ -866,7 +878,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_15.Name = "mtxKAITO_15"
         Me.mtxKAITO_15.ShowRemaining = True
         Me.mtxKAITO_15.Size = New System.Drawing.Size(340, 24)
-        Me.mtxKAITO_15.TabIndex = 16
+        Me.mtxKAITO_15.TabIndex = 17
         Me.mtxKAITO_15.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxKAITO_15.WatermarkText = Nothing
         '
@@ -881,7 +893,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_19.Name = "mtxKAITO_19"
         Me.mtxKAITO_19.ShowRemaining = True
         Me.mtxKAITO_19.Size = New System.Drawing.Size(81, 24)
-        Me.mtxKAITO_19.TabIndex = 20
+        Me.mtxKAITO_19.TabIndex = 21
         Me.mtxKAITO_19.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxKAITO_19.WatermarkText = Nothing
         '
@@ -903,7 +915,7 @@ Partial Class FrmG0012
         Me.cmbKAITO_17.ReadOnly = False
         Me.cmbKAITO_17.Selected = False
         Me.cmbKAITO_17.Size = New System.Drawing.Size(154, 25)
-        Me.cmbKAITO_17.TabIndex = 18
+        Me.cmbKAITO_17.TabIndex = 19
         Me.cmbKAITO_17.Text = "(選択)"
         Me.cmbKAITO_17.ValueMember = "VALUE"
         '
@@ -977,7 +989,7 @@ Partial Class FrmG0012
         Me.dtKAITO_20.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtKAITO_20.Name = "dtKAITO_20"
         Me.dtKAITO_20.Size = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_20.TabIndex = 21
+        Me.dtKAITO_20.TabIndex = 22
         Me.dtKAITO_20.Value = ""
         Me.dtKAITO_20.ValueNonFormat = ""
         '
@@ -991,7 +1003,7 @@ Partial Class FrmG0012
         Me.dtKAITO_16.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtKAITO_16.Name = "dtKAITO_16"
         Me.dtKAITO_16.Size = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_16.TabIndex = 17
+        Me.dtKAITO_16.TabIndex = 18
         Me.dtKAITO_16.Value = ""
         Me.dtKAITO_16.ValueNonFormat = ""
         '
@@ -1019,7 +1031,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_11.Name = "mtxKAITO_11"
         Me.mtxKAITO_11.ShowRemaining = True
         Me.mtxKAITO_11.Size = New System.Drawing.Size(114, 24)
-        Me.mtxKAITO_11.TabIndex = 12
+        Me.mtxKAITO_11.TabIndex = 14
         Me.mtxKAITO_11.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxKAITO_11.WatermarkText = Nothing
         '
@@ -1040,7 +1052,7 @@ Partial Class FrmG0012
         Me.Button2.Location = New System.Drawing.Point(1039, 205)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(54, 25)
-        Me.Button2.TabIndex = 11
+        Me.Button2.TabIndex = 13
         Me.Button2.Text = "検索"
         Me.Button2.UseVisualStyleBackColor = True
         Me.Button2.Visible = False
@@ -1056,7 +1068,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_12.Name = "mtxKAITO_12"
         Me.mtxKAITO_12.ShowRemaining = True
         Me.mtxKAITO_12.Size = New System.Drawing.Size(81, 24)
-        Me.mtxKAITO_12.TabIndex = 13
+        Me.mtxKAITO_12.TabIndex = 15
         Me.mtxKAITO_12.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxKAITO_12.WatermarkText = Nothing
         '
@@ -1078,7 +1090,7 @@ Partial Class FrmG0012
         Me.cmbKAITO_10.ReadOnly = False
         Me.cmbKAITO_10.Selected = False
         Me.cmbKAITO_10.Size = New System.Drawing.Size(154, 25)
-        Me.cmbKAITO_10.TabIndex = 10
+        Me.cmbKAITO_10.TabIndex = 12
         Me.cmbKAITO_10.Text = "(選択)"
         Me.cmbKAITO_10.ValueMember = "VALUE"
         '
@@ -1132,7 +1144,7 @@ Partial Class FrmG0012
         Me.dtKAITO_13.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtKAITO_13.Name = "dtKAITO_13"
         Me.dtKAITO_13.Size = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_13.TabIndex = 14
+        Me.dtKAITO_13.TabIndex = 16
         Me.dtKAITO_13.Value = ""
         Me.dtKAITO_13.ValueNonFormat = ""
         '
@@ -1146,7 +1158,7 @@ Partial Class FrmG0012
         Me.dtKAITO_9.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtKAITO_9.Name = "dtKAITO_9"
         Me.dtKAITO_9.Size = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_9.TabIndex = 9
+        Me.dtKAITO_9.TabIndex = 11
         Me.dtKAITO_9.Value = ""
         Me.dtKAITO_9.ValueNonFormat = ""
         '
@@ -1174,7 +1186,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_6.Name = "mtxKAITO_6"
         Me.mtxKAITO_6.ShowRemaining = True
         Me.mtxKAITO_6.Size = New System.Drawing.Size(114, 24)
-        Me.mtxKAITO_6.TabIndex = 6
+        Me.mtxKAITO_6.TabIndex = 7
         Me.mtxKAITO_6.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxKAITO_6.WatermarkText = Nothing
         '
@@ -1195,7 +1207,7 @@ Partial Class FrmG0012
         Me.Button1.Location = New System.Drawing.Point(1039, 74)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(54, 25)
-        Me.Button1.TabIndex = 5
+        Me.Button1.TabIndex = 6
         Me.Button1.Text = "検索"
         Me.Button1.UseVisualStyleBackColor = True
         Me.Button1.Visible = False
@@ -1211,7 +1223,7 @@ Partial Class FrmG0012
         Me.mtxKAITO_7.Name = "mtxKAITO_7"
         Me.mtxKAITO_7.ShowRemaining = True
         Me.mtxKAITO_7.Size = New System.Drawing.Size(81, 24)
-        Me.mtxKAITO_7.TabIndex = 7
+        Me.mtxKAITO_7.TabIndex = 8
         Me.mtxKAITO_7.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxKAITO_7.WatermarkText = Nothing
         '
@@ -1233,7 +1245,7 @@ Partial Class FrmG0012
         Me.cmbKAITO_5.ReadOnly = False
         Me.cmbKAITO_5.Selected = False
         Me.cmbKAITO_5.Size = New System.Drawing.Size(154, 25)
-        Me.cmbKAITO_5.TabIndex = 4
+        Me.cmbKAITO_5.TabIndex = 5
         Me.cmbKAITO_5.Text = "(選択)"
         Me.cmbKAITO_5.ValueMember = "VALUE"
         '
@@ -1287,7 +1299,7 @@ Partial Class FrmG0012
         Me.dtKAITO_8.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtKAITO_8.Name = "dtKAITO_8"
         Me.dtKAITO_8.Size = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_8.TabIndex = 8
+        Me.dtKAITO_8.TabIndex = 9
         Me.dtKAITO_8.Value = ""
         Me.dtKAITO_8.ValueNonFormat = ""
         '
@@ -1301,7 +1313,7 @@ Partial Class FrmG0012
         Me.dtKAITO_4.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtKAITO_4.Name = "dtKAITO_4"
         Me.dtKAITO_4.Size = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_4.TabIndex = 3
+        Me.dtKAITO_4.TabIndex = 4
         Me.dtKAITO_4.Value = ""
         Me.dtKAITO_4.ValueNonFormat = ""
         '
@@ -1487,8 +1499,8 @@ Partial Class FrmG0012
         Me.txtKAITO_1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtKAITO_1.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtKAITO_1.Location = New System.Drawing.Point(6, 24)
-        Me.txtKAITO_1.MaxByteLength = 400
-        Me.txtKAITO_1.MaxLength = 200
+        Me.txtKAITO_1.MaxByteLength = 360
+        Me.txtKAITO_1.MaxLength = 180
         Me.txtKAITO_1.Multiline = True
         Me.txtKAITO_1.Name = "txtKAITO_1"
         Me.txtKAITO_1.ShowRemaining = False
@@ -1516,6 +1528,7 @@ Partial Class FrmG0012
         Me.tab_CAR_SUB_1_.Controls.Add(Me.Label41)
         Me.tab_CAR_SUB_1_.Controls.Add(Me.dtSYOCHI_B_YMD)
         Me.tab_CAR_SUB_1_.Controls.Add(Me.dtSYOCHI_A_YMD)
+        Me.tab_CAR_SUB_1_.HitEnabled = False
         Me.tab_CAR_SUB_1_.Location = New System.Drawing.Point(4, 26)
         Me.tab_CAR_SUB_1_.Name = "tab_CAR_SUB_1_"
         Me.tab_CAR_SUB_1_.Size = New System.Drawing.Size(1231, 381)
@@ -1840,7 +1853,7 @@ Partial Class FrmG0012
         '
         Me.btnOpenKYOIKU_FILE_PATH.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnOpenKYOIKU_FILE_PATH.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.btnOpenKYOIKU_FILE_PATH.Location = New System.Drawing.Point(490, 11)
+        Me.btnOpenKYOIKU_FILE_PATH.Location = New System.Drawing.Point(490, 13)
         Me.btnOpenKYOIKU_FILE_PATH.Name = "btnOpenKYOIKU_FILE_PATH"
         Me.btnOpenKYOIKU_FILE_PATH.Size = New System.Drawing.Size(54, 24)
         Me.btnOpenKYOIKU_FILE_PATH.TabIndex = 1
@@ -1950,6 +1963,7 @@ Partial Class FrmG0012
         Me.tab_CAR_SUB_2_.Controls.Add(Me.mtxLOT)
         Me.tab_CAR_SUB_2_.Controls.Add(Me.cmbKENSA_TANTO)
         Me.tab_CAR_SUB_2_.Controls.Add(Me.mtxGOKI)
+        Me.tab_CAR_SUB_2_.HitEnabled = False
         Me.tab_CAR_SUB_2_.Location = New System.Drawing.Point(4, 26)
         Me.tab_CAR_SUB_2_.Name = "tab_CAR_SUB_2_"
         Me.tab_CAR_SUB_2_.Size = New System.Drawing.Size(1231, 381)
@@ -2346,6 +2360,7 @@ Partial Class FrmG0012
         Me.tabSTAGE02.Controls.Add(Me.cmbKONPON_YOIN_KB1)
         Me.tabSTAGE02.Controls.Add(Me.Label2)
         Me.tabSTAGE02.Controls.Add(Me.cmbKONPON_YOIN_TANTO)
+        Me.tabSTAGE02.HitEnabled = False
         Me.tabSTAGE02.Location = New System.Drawing.Point(4, 26)
         Me.tabSTAGE02.Name = "tabSTAGE02"
         Me.tabSTAGE02.Padding = New System.Windows.Forms.Padding(3)
@@ -2358,7 +2373,7 @@ Partial Class FrmG0012
         '
         Me.dtFUTEKIGO_HASSEI_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.dtFUTEKIGO_HASSEI_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtFUTEKIGO_HASSEI_YMD.Location = New System.Drawing.Point(141, 11)
+        Me.dtFUTEKIGO_HASSEI_YMD.Location = New System.Drawing.Point(99, 12)
         Me.dtFUTEKIGO_HASSEI_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtFUTEKIGO_HASSEI_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtFUTEKIGO_HASSEI_YMD.MinimumSize = New System.Drawing.Size(98, 24)
@@ -2375,7 +2390,7 @@ Partial Class FrmG0012
         Me.Label3.Location = New System.Drawing.Point(8, 16)
         Me.Label3.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(127, 15)
+        Me.Label3.Size = New System.Drawing.Size(85, 15)
         Me.Label3.TabIndex = 277
         Me.Label3.Text = "不適合発生日:"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2657,6 +2672,7 @@ Partial Class FrmG0012
         Me.tab_CAR_SUB_3_.Controls.Add(Me.Label49)
         Me.tab_CAR_SUB_3_.Controls.Add(Me.fpnltmpFile1)
         Me.tab_CAR_SUB_3_.Controls.Add(Me.btnOpentmpFile1)
+        Me.tab_CAR_SUB_3_.HitEnabled = False
         Me.tab_CAR_SUB_3_.Location = New System.Drawing.Point(4, 26)
         Me.tab_CAR_SUB_3_.Name = "tab_CAR_SUB_3_"
         Me.tab_CAR_SUB_3_.Size = New System.Drawing.Size(1231, 381)
@@ -3054,7 +3070,7 @@ Partial Class FrmG0012
         '
         'cmbDestTANTO
         '
-        Me.cmbDestTANTO.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.cmbDestTANTO.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmbDestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbDestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbDestTANTO.BackColor = System.Drawing.SystemColors.Window
@@ -3071,13 +3087,13 @@ Partial Class FrmG0012
         Me.cmbDestTANTO.ReadOnly = False
         Me.cmbDestTANTO.Selected = False
         Me.cmbDestTANTO.Size = New System.Drawing.Size(134, 25)
-        Me.cmbDestTANTO.TabIndex = 0
+        Me.cmbDestTANTO.TabIndex = 1
         Me.cmbDestTANTO.Text = "(選択)"
         Me.cmbDestTANTO.ValueMember = "VALUE"
         '
         'mtxNextStageName
         '
-        Me.mtxNextStageName.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.mtxNextStageName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.mtxNextStageName.BackColor = System.Drawing.SystemColors.Window
         Me.mtxNextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxNextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -3088,13 +3104,14 @@ Partial Class FrmG0012
         Me.mtxNextStageName.ReadOnly = True
         Me.mtxNextStageName.ShowRemaining = True
         Me.mtxNextStageName.Size = New System.Drawing.Size(254, 19)
-        Me.mtxNextStageName.TabIndex = 250
+        Me.mtxNextStageName.TabIndex = 0
+        Me.mtxNextStageName.TabStop = False
         Me.mtxNextStageName.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxNextStageName.WatermarkText = Nothing
         '
         'Label97
         '
-        Me.Label97.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label97.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label97.AutoSize = True
         Me.Label97.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label97.Location = New System.Drawing.Point(656, 156)
@@ -3107,7 +3124,7 @@ Partial Class FrmG0012
         '
         'lblDestTANTO
         '
-        Me.lblDestTANTO.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblDestTANTO.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblDestTANTO.AutoSize = True
         Me.lblDestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lblDestTANTO.Location = New System.Drawing.Point(1020, 155)
@@ -3201,6 +3218,9 @@ Partial Class FrmG0012
         Me.Controls.SetChildIndex(Me.lbl_Modoshi_Riyu, 0)
         Me.Controls.SetChildIndex(Me.lblDestTANTO, 0)
         Me.Controls.SetChildIndex(Me.TabSTAGE, 0)
+        Me.Controls.SetChildIndex(Me.chkZESEI_SYOCHI_YUKO_UMU, 0)
+        Me.Controls.SetChildIndex(Me.FlowLayoutPanel1, 0)
+        Me.Controls.SetChildIndex(Me.Label81, 0)
         Me.Controls.SetChildIndex(Me.lblRecordCount, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc3, 0)
@@ -3215,9 +3235,6 @@ Partial Class FrmG0012
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
-        Me.Controls.SetChildIndex(Me.chkZESEI_SYOCHI_YUKO_UMU, 0)
-        Me.Controls.SetChildIndex(Me.FlowLayoutPanel1, 0)
-        Me.Controls.SetChildIndex(Me.Label81, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
@@ -3264,7 +3281,7 @@ Partial Class FrmG0012
     Friend WithEvents Label5 As Label
     Friend WithEvents mtxBUMON_KB As MaskedTextBoxEx
     Friend WithEvents TabSTAGE As TabControl
-    Friend WithEvents tabSTAGE01 As TabPage
+    Friend WithEvents tabSTAGE01 As TabPageEx
     Friend WithEvents mtxFUTEKIGO_KB As MaskedTextBoxEx
     Friend WithEvents mtxFUTEKIGO_S_KB As MaskedTextBoxEx
     Friend WithEvents Label9 As Label
@@ -3276,7 +3293,7 @@ Partial Class FrmG0012
     Friend WithEvents mtxST01_UPD_YMD As MaskedTextBoxEx
     Friend WithEvents lblSETUMON_1 As Label
     Friend WithEvents txtKAITO_1 As TextBoxEx
-    Friend WithEvents tabSTAGE02 As TabPage
+    Friend WithEvents tabSTAGE02 As TabPageEx
     Friend WithEvents Label7 As Label
     Friend WithEvents Label18 As Label
     Friend WithEvents cmbKONPON_YOIN_KB2 As ComboboxEx
@@ -3288,7 +3305,7 @@ Partial Class FrmG0012
     Friend WithEvents mtxNextStageName As MaskedTextBoxEx
     Friend WithEvents Label97 As Label
     Friend WithEvents lblDestTANTO As Label
-    Friend WithEvents tab_CAR_SUB_1_ As TabPage
+    Friend WithEvents tab_CAR_SUB_1_ As TabPageEx
     Friend WithEvents cmbSYOCHI_C_TANTO As ComboboxEx
     Friend WithEvents cmbSYOCHI_A_TANTO As ComboboxEx
     Friend WithEvents cmbSYOCHI_B_TANTO As ComboboxEx
@@ -3314,7 +3331,7 @@ Partial Class FrmG0012
     Friend WithEvents Label41 As Label
     Friend WithEvents dtSYOCHI_B_YMD As DateTextBoxEx
     Friend WithEvents dtSYOCHI_A_YMD As DateTextBoxEx
-    Friend WithEvents tab_CAR_SUB_2_ As TabPage
+    Friend WithEvents tab_CAR_SUB_2_ As TabPageEx
     Friend WithEvents fpnlSYOSAI_FILE_PATH As FlowLayoutPanel
     Friend WithEvents lblSYOSAI_FILE_PATH As LinkLabel
     Friend WithEvents lblSYOSAI_FILE_PATH_Clear As LinkLabel
@@ -3340,7 +3357,7 @@ Partial Class FrmG0012
     Friend WithEvents mtxLOT As MaskedTextBoxEx
     Friend WithEvents cmbKENSA_TANTO As ComboboxEx
     Friend WithEvents mtxGOKI As MaskedTextBoxEx
-    Friend WithEvents tab_CAR_SUB_3_ As TabPage
+    Friend WithEvents tab_CAR_SUB_3_ As TabPageEx
     Friend WithEvents fpnltmpFile2 As FlowLayoutPanel
     Friend WithEvents lbltmpFile2 As LinkLabel
     Friend WithEvents lbltmpFile2_Clear As LinkLabel

@@ -89,7 +89,7 @@ Public Class FrmG0011
         D003NCRJBindingSource.DataSource = _D003_NCR_J
 
         mtxHOKUKO_NO.ReadOnly = True
-        dtDraft.Enabled = False
+        dtDraft.ReadOnly = False
         cmbKISO_TANTO.ReadOnly = True
         mtxHINMEI.ReadOnly = True
         pnlPict1.AllowDrop = True
@@ -117,7 +117,7 @@ Public Class FrmG0011
         cmbST09_DestTANTO.NullValue = 0
         cmbST10_DestTANTO.NullValue = 0
         cmbST11_DestTANTO.NullValue = 0
-
+        txtST01_YOKYU_NAIYO.ShowRemaining = True
     End Sub
 
 #End Region
@@ -2884,9 +2884,6 @@ Public Class FrmG0011
 #Region "               10"
             If intStageID >= ENM_NCR_STAGE._10_ãNëêì¸óÕ Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_ãNëêì¸óÕ))
-                'dt = tblTANTO_SYONIN.AsEnumerable.
-                '                            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_ãNëêì¸óÕ)).
-                '                            CopyToDataTable
                 cmbST01_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST01_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
@@ -2921,9 +2918,6 @@ Public Class FrmG0011
 #Region "               20"
             If intStageID >= ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL))
-                'dt = tblTANTO_SYONIN.AsEnumerable.
-                'Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL)).
-                'CopyToDataTable
                 cmbST02_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
 
@@ -2963,9 +2957,6 @@ Public Class FrmG0011
 #Region "               30"
             If intStageID >= ENM_NCR_STAGE._30_ãNëêämîFåüç∏ Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_ãNëêämîFåüç∏))
-                'dt = tblTANTO_SYONIN.AsEnumerable.
-                '                Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_ãNëêämîFåüç∏)).
-                '                CopyToDataTable
                 cmbST03_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
 
@@ -3005,9 +2996,6 @@ Public Class FrmG0011
 #Region "               40"
             If intStageID >= ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË))
-                'dt = tblTANTO_SYONIN.AsEnumerable.
-                '                            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË)).
-                '                            CopyToDataTable
                 cmbST04_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
 
@@ -3071,9 +3059,6 @@ Public Class FrmG0011
 #Region "               50"
             If intStageID >= ENM_NCR_STAGE._50_éñëOêRç∏ämîF Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._50_éñëOêRç∏ämîF))
-                'dt = tblTANTO_SYONIN.AsEnumerable.
-                '                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._50_éñëOêRç∏ämîF)).
-                '                        CopyToDataTable
                 cmbST05_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST05_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._50_éñëOêRç∏ämîF))
@@ -3109,9 +3094,6 @@ Public Class FrmG0011
 #Region "               60"
             If intStageID = ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\ Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\))
-                'dt = tblTANTO_SYONIN.AsEnumerable.
-                '                        Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\)).
-                '                        CopyToDataTable
                 cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST06_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\))
@@ -3169,9 +3151,6 @@ Public Class FrmG0011
             If intStageID >= ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\ Then
                 If FunExistAchievement(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\) Then
                     dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\))
-                    'dt = tblTANTO_SYONIN.AsEnumerable.
-                    '                    Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\)).
-                    '                    CopyToDataTable
                     cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     mtxST06_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\))
@@ -3292,9 +3271,6 @@ Public Class FrmG0011
             If intStageID >= ENM_NCR_STAGE._80_èàíué¿é{ Then
                 If FunExistAchievement(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._80_èàíué¿é{) Then
                     dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_èàíué¿é{))
-                    'dt = tblTANTO_SYONIN.AsEnumerable.
-                    '      Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_èàíué¿é{)).
-                    '      CopyToDataTable
                     cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_èàíué¿é{))
@@ -3409,9 +3385,6 @@ Public Class FrmG0011
             '81
             If intStageID = ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ))
-                'dt = tblTANTO_SYONIN.AsEnumerable.
-                '          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ)).
-                '          CopyToDataTable
                 cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ))
@@ -3440,9 +3413,6 @@ Public Class FrmG0011
             '82
             If intStageID = ENM_NCR_STAGE._82_èàíué¿é{_êªë¢ Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢))
-                'dt = tblTANTO_SYONIN.AsEnumerable.
-                '          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢)).
-                '          CopyToDataTable
                 cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢))
@@ -3471,10 +3441,6 @@ Public Class FrmG0011
             '83
             If intStageID >= ENM_NCR_STAGE._83_èàíué¿é{_åüç∏ Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏))
-                'dt = tblTANTO_SYONIN.AsEnumerable.
-                '          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏)).
-                '          CopyToDataTable
-
                 cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏))
@@ -3502,9 +3468,6 @@ Public Class FrmG0011
 #Region "               90"
             If intStageID >= ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT))
-                'dt = tblTANTO_SYONIN.AsEnumerable.
-                '            Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT)).
-                '            CopyToDataTable
                 cmbST09_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST09_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT))
@@ -3540,9 +3503,6 @@ Public Class FrmG0011
 #Region "               100"
             If intStageID >= ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑ Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑))
-                'dt = tblTANTO_SYONIN.AsEnumerable.
-                '    Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑)).
-                '    CopyToDataTable
                 cmbST10_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST10_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑))
@@ -3578,9 +3538,6 @@ Public Class FrmG0011
 #Region "               110"
             If intStageID >= ENM_NCR_STAGE._110_abcdeèàíuíSìñ Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcdeèàíuíSìñ))
-                'dt = tblTANTO_SYONIN.AsEnumerable.
-                '          Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = 1 And r.Field(Of Integer)("SYONIN_JUN") = FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcdeèàíuíSìñ)).
-                '          CopyToDataTable
                 cmbST11_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST11_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcdeèàíuíSìñ))
@@ -5145,7 +5102,7 @@ Public Class FrmG0011
                         mtxHOKUKO_NO.ReadOnly = True
                         cmbBUMON.ReadOnly = True
                         cmbKISO_TANTO.ReadOnly = True
-                        dtDraft.Enabled = False
+                        dtDraft.ReadOnly = False
                         cmbKISYU.ReadOnly = True
                         cmbBUHIN_BANGO.ReadOnly = True
                         mtxGOUKI.ReadOnly = True
@@ -5620,7 +5577,6 @@ Public Class FrmG0011
         Return intSTAGE_ID
     End Function
 
-
     ''' <summary>
     ''' çƒî≠îªíË
     ''' </summary>
@@ -5703,11 +5659,6 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
-
-
-
-
-
 
 
 #End Region

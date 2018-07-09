@@ -33,8 +33,8 @@
     ''' <param name="index">変更するTabPageのIndex番号</param>
     ''' <param name="blnVisible">表示するときはTrue。
     ''' 非表示にするときはFalse。</param>
-    Public Sub ChangeTabPageVisible(
-        ByVal index As Integer, ByVal blnVisible As Boolean)
+    Public Sub ChangeTabPageVisible(ByVal index As Integer, ByVal blnVisible As Boolean)
+
         If _tabPageInfos(index).Visible = blnVisible Then
             Return
         End If
@@ -48,5 +48,6 @@
             End If
         Next i
         _tabControl.ResumeLayout()
+
     End Sub
 End Class

@@ -36,8 +36,6 @@ Public Class ComboboxEx
 
 #Region "プロパティ"
 
-
-
     Public Property [ReadOnly] As Boolean
         Get
             Return _ReadOnly
@@ -48,7 +46,7 @@ Public Class ComboboxEx
             If Value Then
                 Cursor = Cursors.Default
                 'DEBUG:Combobox ReadOnly時の背景色
-                BackColor = _BackColorOrg 'System.Drawing.SystemColors.Control
+                BackColor = System.Drawing.SystemColors.Control
                 SetStyle(ControlStyles.UserMouse, True)
             Else
                 Cursor = _CursorOrg
@@ -503,16 +501,26 @@ Public Class ComboboxEx
 #End Region
 #Region "OnGotFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnGotFocus(ByVal e As EventArgs)
-        'フォーカス時は背景色変更
-        MyBase.BackColor = _GotForcusedColor
+
+        If Me.Enabled = False Or Me.ReadOnly = True Then
+            MyBase.BackColor = clrDisableControlGotFocusedColor
+        Else
+            'フォーカス時は背景色変更
+            MyBase.BackColor = _GotForcusedColor
+        End If
         MyBase.OnGotFocus(e) '基底クラス呼び出し
 
     End Sub
 #End Region
 #Region "OnLostFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnLostFocus(ByVal e As EventArgs)
-        'フォーカスがないときは背景色＝白設定
-        MyBase.BackColor = _BackColorDefault
+
+        If Me.Enabled = False Or Me.ReadOnly = True Then
+            MyBase.BackColor = clrDisableControlGotFocusedColor
+        Else
+            'フォーカスがないときは背景色＝白設定
+            MyBase.BackColor = _BackColorDefault
+        End If
         MyBase.OnLostFocus(e) '基底クラス呼び出し
 
     End Sub

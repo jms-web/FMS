@@ -1253,6 +1253,8 @@ Public Class FrmG0010
                     If FunMakeReportNCR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
                         Return False
                     End If
+
+
                 Case ENM_SYONIN_HOKOKUSYO_ID._2_CAR
                     'ƒtƒ@ƒCƒ‹–¼
                     strOutputFileName = "CAR_" & strHOKOKU_NO & "_Work.xls"
@@ -1274,6 +1276,8 @@ Public Class FrmG0010
                     If FunMakeReportCAR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
                         Return False
                     End If
+
+
                 Case Else
                     'err
                     Return False
@@ -1286,6 +1290,7 @@ Public Class FrmG0010
             Me.Cursor = Cursors.Default
         End Try
     End Function
+
 
     Private Function FunMakeReportNCR_SP(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean
 

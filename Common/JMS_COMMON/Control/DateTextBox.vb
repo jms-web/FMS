@@ -18,11 +18,6 @@ Imports System.ComponentModel
 Public Class DateTextBoxEx
     Inherits UserControl
 
-    Private _GotForcusedColor As Color  'フォーカス時の背景色
-    Private _BackColorDefault As Color 'フォーカス喪失時時の背景色
-
-
-
 #Region "メンバ"
     Friend WithEvents DateTimePicker1 As System.Windows.Forms.DateTimePicker
     Private Const _strMaxDate As String = "9998/12/31"
@@ -35,6 +30,13 @@ Public Class DateTextBoxEx
 
 
     Private _oldValue As String
+
+    Private _GotForcusedColor As Color 'フォーカス時の背景色
+    Private _BackColorDefault As Color 'フォーカス喪失時時の背景色
+
+    Private _BackColorOrg As System.Drawing.Color
+    Private _ReadOnly As Boolean
+    Private _CursorOrg As Cursor
 #End Region
 
 #Region "コンストラクタ"
@@ -535,20 +537,54 @@ Public Class DateTextBoxEx
 #End Region
 #Region "OnGotFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnGotFocus(ByVal e As EventArgs)
-        'フォーカス時は背景色変更
-        MyBase.BackColor = _GotForcusedColor
+
+        If Me.Enabled = False Or Me.ReadOnly = True Then
+            MyBase.BackColor = clrDisableControlGotFocusedColor
+            MaskedTextBox1.BackColor = clrDisableControlGotFocusedColor
+        Else
+            'フォーカス時は背景色変更
+            MyBase.BackColor = _GotForcusedColor
+            MaskedTextBox1.BackColor = _GotForcusedColor
+        End If
+
         MyBase.OnGotFocus(e) '基底クラス呼び出し
 
     End Sub
 #End Region
 #Region "OnLostFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnLostFocus(ByVal e As EventArgs)
-        'フォーカスがないときは背景色＝白設定
-        MyBase.BackColor = _BackColorDefault
+        If Me.Enabled = False Or Me.ReadOnly = True Then
+            MyBase.BackColor = clrDisableControlGotFocusedColor
+            MaskedTextBox1.BackColor = clrDisableControlGotFocusedColor
+        Else
+            'フォーカスがないときは背景色＝白設定
+            MyBase.BackColor = _BackColorDefault
+            MaskedTextBox1.BackColor = _GotForcusedColor
+        End If
         MyBase.OnLostFocus(e) '基底クラス呼び出し
 
     End Sub
 #End Region
+
+    Public Property [ReadOnly] As Boolean
+        Get
+            Return _ReadOnly
+        End Get
+
+        Set(ByVal Value As Boolean)
+            _ReadOnly = Value
+            If Value Then
+                Cursor = Cursors.Default
+                'DEBUG:Combobox ReadOnly時の背景色
+                BackColor = System.Drawing.SystemColors.Control
+                SetStyle(ControlStyles.UserMouse, True)
+            Else
+                Cursor = _CursorOrg
+                BackColor = _BackColorOrg
+                SetStyle(ControlStyles.UserMouse, False)
+            End If
+        End Set
+    End Property
 
 #Region "Undo メソッド"
     Public Overloads Sub Undo()
@@ -629,8 +665,6 @@ Public Class DateTextBoxEx
     End Sub
 
     Friend WithEvents MaskedTextBox1 As MaskedTextBoxEx
-
-
 
 #End Region
 

@@ -142,6 +142,7 @@
     <Reference Include="SpreadsheetGear2012.Drawing">
       <HintPath>..\..\..\Libs\SpreadsheetGear2012.Drawing.dll</HintPath>
     </Reference>
+    <Reference Include="SpreadsheetGear2012.Windows.Forms, Version=7.4.14.104, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -220,6 +221,12 @@
     <Compile Include="View\FrmG0017.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="View\FrmG0019.Designer.vb">
+      <DependentUpon>FrmG0019.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\FrmG0019.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="View\FrmG0018.Designer.vb">
       <DependentUpon>FrmG0018.vb</DependentUpon>
     </Compile>
@@ -279,6 +286,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\FrmG0017.resx">
       <DependentUpon>FrmG0017.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FrmG0019.resx">
+      <DependentUpon>FrmG0019.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="View\FrmG0018.resx">

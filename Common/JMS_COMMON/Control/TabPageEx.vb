@@ -82,7 +82,7 @@ Public Class TabPageEx
                         Case GetType(ComboboxEx)
                             DirectCast(ctl, ComboboxEx).ReadOnly = Not enabled
                         Case GetType(DateTextBoxEx)
-                            DirectCast(ctl, DateTextBoxEx).Enabled = enabled
+                            DirectCast(ctl, DateTextBoxEx).ReadOnly = enabled
                         Case GetType(RadioButton)
                             DirectCast(ctl, RadioButton).Enabled = enabled
 

@@ -443,7 +443,7 @@ Partial Class FrmG0011
         '
         Me.cmdFunc10.Image = Global.FMS.My.Resources.Resources._imgPrint32x32
         Me.cmdFunc10.Location = New System.Drawing.Point(630, 643)
-        Me.cmdFunc10.Text = "印刷(F10)"
+        Me.cmdFunc10.Text = "印刷プレビュー(F10)"
         '
         'cmdFunc7
         '
@@ -851,6 +851,7 @@ Partial Class FrmG0011
         Me.mtxHOKUKO_NO.ShowRemaining = False
         Me.mtxHOKUKO_NO.Size = New System.Drawing.Size(134, 24)
         Me.mtxHOKUKO_NO.TabIndex = 0
+        Me.mtxHOKUKO_NO.TabStop = False
         Me.mtxHOKUKO_NO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.mtxHOKUKO_NO.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxHOKUKO_NO.WatermarkText = Nothing
@@ -1215,6 +1216,7 @@ Partial Class FrmG0011
         Me.mtxST01_NextStageName.ShowRemaining = True
         Me.mtxST01_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST01_NextStageName.TabIndex = 3
+        Me.mtxST01_NextStageName.TabStop = False
         Me.mtxST01_NextStageName.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST01_NextStageName.WatermarkText = Nothing
         '
@@ -1267,6 +1269,7 @@ Partial Class FrmG0011
         Me.mtxST01_UPD_YMD.ShowRemaining = True
         Me.mtxST01_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST01_UPD_YMD.TabIndex = 2
+        Me.mtxST01_UPD_YMD.TabStop = False
         Me.mtxST01_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.mtxST01_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST01_UPD_YMD.WatermarkText = Nothing
@@ -1410,6 +1413,7 @@ Partial Class FrmG0011
         Me.mtxST02_NextStageName.ShowRemaining = True
         Me.mtxST02_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST02_NextStageName.TabIndex = 1
+        Me.mtxST02_NextStageName.TabStop = False
         Me.mtxST02_NextStageName.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST02_NextStageName.WatermarkText = Nothing
         '
@@ -1491,6 +1495,7 @@ Partial Class FrmG0011
         Me.mtxST02_UPD_YMD.ShowRemaining = True
         Me.mtxST02_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST02_UPD_YMD.TabIndex = 0
+        Me.mtxST02_UPD_YMD.TabStop = False
         Me.mtxST02_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.mtxST02_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST02_UPD_YMD.WatermarkText = Nothing
@@ -1575,6 +1580,7 @@ Partial Class FrmG0011
         Me.mtxST03_NextStageName.ShowRemaining = True
         Me.mtxST03_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST03_NextStageName.TabIndex = 1
+        Me.mtxST03_NextStageName.TabStop = False
         Me.mtxST03_NextStageName.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST03_NextStageName.WatermarkText = Nothing
         '
@@ -1656,6 +1662,7 @@ Partial Class FrmG0011
         Me.mtxST03_UPD_YMD.ShowRemaining = True
         Me.mtxST03_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST03_UPD_YMD.TabIndex = 0
+        Me.mtxST03_UPD_YMD.TabStop = False
         Me.mtxST03_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.mtxST03_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST03_UPD_YMD.WatermarkText = Nothing
@@ -1865,6 +1872,7 @@ Partial Class FrmG0011
         Me.mtxST04_NextStageName.ShowRemaining = True
         Me.mtxST04_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST04_NextStageName.TabIndex = 3
+        Me.mtxST04_NextStageName.TabStop = False
         Me.mtxST04_NextStageName.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST04_NextStageName.WatermarkText = Nothing
         '
@@ -1946,6 +1954,7 @@ Partial Class FrmG0011
         Me.mtxST04_UPD_YMD.ShowRemaining = True
         Me.mtxST04_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST04_UPD_YMD.TabIndex = 2
+        Me.mtxST04_UPD_YMD.TabStop = False
         Me.mtxST04_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.mtxST04_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST04_UPD_YMD.WatermarkText = Nothing
@@ -2107,6 +2116,7 @@ Partial Class FrmG0011
         Me.mtxST05_NextStageName.ShowRemaining = True
         Me.mtxST05_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST05_NextStageName.TabIndex = 1
+        Me.mtxST05_NextStageName.TabStop = False
         Me.mtxST05_NextStageName.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST05_NextStageName.WatermarkText = Nothing
         '
@@ -2188,6 +2198,7 @@ Partial Class FrmG0011
         Me.mtxST05_UPD_YMD.ShowRemaining = True
         Me.mtxST05_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST05_UPD_YMD.TabIndex = 0
+        Me.mtxST05_UPD_YMD.TabStop = False
         Me.mtxST05_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.mtxST05_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST05_UPD_YMD.WatermarkText = Nothing
@@ -2277,6 +2288,7 @@ Partial Class FrmG0011
         Me.mtxST06_NextStageName.ShowRemaining = True
         Me.mtxST06_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST06_NextStageName.TabIndex = 3
+        Me.mtxST06_NextStageName.TabStop = False
         Me.mtxST06_NextStageName.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST06_NextStageName.WatermarkText = Nothing
         '
@@ -2358,6 +2370,7 @@ Partial Class FrmG0011
         Me.mtxST06_UPD_YMD.ShowRemaining = True
         Me.mtxST06_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST06_UPD_YMD.TabIndex = 2
+        Me.mtxST06_UPD_YMD.TabStop = False
         Me.mtxST06_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.mtxST06_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST06_UPD_YMD.WatermarkText = Nothing
@@ -2576,6 +2589,7 @@ Partial Class FrmG0011
         Me.mtxST07_NextStageName.ShowRemaining = True
         Me.mtxST07_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST07_NextStageName.TabIndex = 7
+        Me.mtxST07_NextStageName.TabStop = False
         Me.mtxST07_NextStageName.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST07_NextStageName.WatermarkText = Nothing
         '
@@ -2657,6 +2671,7 @@ Partial Class FrmG0011
         Me.mtxST07_UPD_YMD.ShowRemaining = True
         Me.mtxST07_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST07_UPD_YMD.TabIndex = 6
+        Me.mtxST07_UPD_YMD.TabStop = False
         Me.mtxST07_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.mtxST07_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST07_UPD_YMD.WatermarkText = Nothing
@@ -2923,6 +2938,7 @@ Partial Class FrmG0011
         Me.mtxST08_NextStageName.ShowRemaining = True
         Me.mtxST08_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST08_NextStageName.TabIndex = 2
+        Me.mtxST08_NextStageName.TabStop = False
         Me.mtxST08_NextStageName.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST08_NextStageName.WatermarkText = Nothing
         '
@@ -3004,6 +3020,7 @@ Partial Class FrmG0011
         Me.mtxST08_UPD_YMD.ShowRemaining = True
         Me.mtxST08_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST08_UPD_YMD.TabIndex = 1
+        Me.mtxST08_UPD_YMD.TabStop = False
         Me.mtxST08_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST08_UPD_YMD.WatermarkText = Nothing
         '
@@ -3844,6 +3861,7 @@ Partial Class FrmG0011
         Me.mtxST09_NextStageName.ShowRemaining = True
         Me.mtxST09_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST09_NextStageName.TabIndex = 1
+        Me.mtxST09_NextStageName.TabStop = False
         Me.mtxST09_NextStageName.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST09_NextStageName.WatermarkText = Nothing
         '
@@ -3925,6 +3943,7 @@ Partial Class FrmG0011
         Me.mtxST09_UPD_YMD.ShowRemaining = True
         Me.mtxST09_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST09_UPD_YMD.TabIndex = 0
+        Me.mtxST09_UPD_YMD.TabStop = False
         Me.mtxST09_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST09_UPD_YMD.WatermarkText = Nothing
         '
@@ -4008,6 +4027,7 @@ Partial Class FrmG0011
         Me.mtxST10_NextStageName.ShowRemaining = True
         Me.mtxST10_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST10_NextStageName.TabIndex = 1
+        Me.mtxST10_NextStageName.TabStop = False
         Me.mtxST10_NextStageName.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST10_NextStageName.WatermarkText = Nothing
         '
@@ -4089,6 +4109,7 @@ Partial Class FrmG0011
         Me.mtxST10_UPD_YMD.ShowRemaining = True
         Me.mtxST10_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST10_UPD_YMD.TabIndex = 0
+        Me.mtxST10_UPD_YMD.TabStop = False
         Me.mtxST10_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST10_UPD_YMD.WatermarkText = Nothing
         '
@@ -4142,7 +4163,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 228.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 233.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.Panel7, 3, 7)
@@ -4188,7 +4209,7 @@ Partial Class FrmG0011
         '
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_T)
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_F)
-        Me.Panel7.Location = New System.Drawing.Point(527, 200)
+        Me.Panel7.Location = New System.Drawing.Point(522, 200)
         Me.Panel7.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(175, 28)
@@ -4225,7 +4246,7 @@ Partial Class FrmG0011
         '
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_T)
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_F)
-        Me.Panel2.Location = New System.Drawing.Point(527, 171)
+        Me.Panel2.Location = New System.Drawing.Point(522, 171)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(175, 28)
@@ -4262,7 +4283,7 @@ Partial Class FrmG0011
         '
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_T)
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_F)
-        Me.Panel6.Location = New System.Drawing.Point(527, 117)
+        Me.Panel6.Location = New System.Drawing.Point(522, 117)
         Me.Panel6.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(175, 28)
@@ -4299,7 +4320,7 @@ Partial Class FrmG0011
         '
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_T)
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_F)
-        Me.Panel5.Location = New System.Drawing.Point(527, 88)
+        Me.Panel5.Location = New System.Drawing.Point(522, 88)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(175, 28)
@@ -4336,7 +4357,7 @@ Partial Class FrmG0011
         '
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_T)
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_F)
-        Me.Panel4.Location = New System.Drawing.Point(527, 59)
+        Me.Panel4.Location = New System.Drawing.Point(522, 59)
         Me.Panel4.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(175, 28)
@@ -4373,7 +4394,7 @@ Partial Class FrmG0011
         '
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_T)
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_F)
-        Me.Panel3.Location = New System.Drawing.Point(527, 30)
+        Me.Panel3.Location = New System.Drawing.Point(522, 30)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(175, 28)
@@ -4464,7 +4485,7 @@ Partial Class FrmG0011
         Me.Label126.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label126.Location = New System.Drawing.Point(25, 117)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(498, 28)
+        Me.Label126.Size = New System.Drawing.Size(493, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "影響有の場合、顧客への通知の要否"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4478,7 +4499,7 @@ Partial Class FrmG0011
         Me.Label127.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label127.Location = New System.Drawing.Point(25, 88)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(498, 28)
+        Me.Label127.Size = New System.Drawing.Size(493, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "当該不適合による顧客への影響"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4492,7 +4513,7 @@ Partial Class FrmG0011
         Me.Label128.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label128.Location = New System.Drawing.Point(25, 59)
         Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(498, 28)
+        Me.Label128.Size = New System.Drawing.Size(493, 28)
         Me.Label128.TabIndex = 241
         Me.Label128.Text = "廃却処置は本来の意図した使用又は適用ができない方法だったか？"
         Me.Label128.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4519,7 +4540,7 @@ Partial Class FrmG0011
         Me.Label130.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label130.Location = New System.Drawing.Point(25, 30)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(498, 28)
+        Me.Label130.Size = New System.Drawing.Size(493, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "社内権限者により、又は顧客再審の場合は顧客により判定されたか？"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4573,7 +4594,7 @@ Partial Class FrmG0011
         Me.Label134.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label134.Location = New System.Drawing.Point(25, 171)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(498, 28)
+        Me.Label134.Size = New System.Drawing.Size(493, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "当該不適合による他のプロセスへの影響"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4600,7 +4621,7 @@ Partial Class FrmG0011
         Me.Label136.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label136.Location = New System.Drawing.Point(25, 200)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(498, 28)
+        Me.Label136.Size = New System.Drawing.Size(493, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "影響有の場合、封じ込め処置の要否"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4614,7 +4635,7 @@ Partial Class FrmG0011
         Me.Label137.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label137.Location = New System.Drawing.Point(25, 1)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(498, 28)
+        Me.Label137.Size = New System.Drawing.Size(493, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "検出された不適合を除去する処置（廃却を含む）は確実にとられたか？"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4637,7 +4658,7 @@ Partial Class FrmG0011
         '
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_T)
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_F)
-        Me.Panel1.Location = New System.Drawing.Point(527, 1)
+        Me.Panel1.Location = New System.Drawing.Point(522, 1)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(175, 28)
@@ -4800,6 +4821,7 @@ Partial Class FrmG0011
         Me.mtxST11_NextStageName.ShowRemaining = True
         Me.mtxST11_NextStageName.Size = New System.Drawing.Size(295, 24)
         Me.mtxST11_NextStageName.TabIndex = 1
+        Me.mtxST11_NextStageName.TabStop = False
         Me.mtxST11_NextStageName.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST11_NextStageName.WatermarkText = Nothing
         '
@@ -4882,6 +4904,7 @@ Partial Class FrmG0011
         Me.mtxST11_UPD_YMD.ShowRemaining = True
         Me.mtxST11_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST11_UPD_YMD.TabIndex = 0
+        Me.mtxST11_UPD_YMD.TabStop = False
         Me.mtxST11_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST11_UPD_YMD.WatermarkText = Nothing
         '

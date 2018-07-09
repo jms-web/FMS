@@ -22,6 +22,7 @@ Public Class TextBoxEx
         Me._BackColorDefault = clrControlDefaultBackColor
         Me.EnterBehavior = 0
 
+        Me.ShowRemaining = True
     End Sub
 #End Region
 
@@ -372,20 +373,21 @@ Public Class TextBoxEx
 
 #Region "　Change メソッド(Overrides)"
     Protected Overrides Sub OnTextChanged(e As EventArgs)
-        MyBase.OnTextChanged(e)
 
+        Me.Refresh()
+        MyBase.OnTextChanged(e)
         If ShowRemaining Then
             Using g As Graphics = Graphics.FromHwnd(Me.Handle)
-                'テキストボックス外に残り入力可能文字数を描画
-                Dim rect As Rectangle = Me.ClientRectangle
-                rect.Offset(50, 0)
+                'テキストボックス内に残り入力可能文字数を描画
+                'Dim rect As Rectangle = Me.ClientRectangle
+                'rect.Offset(0, 0)
                 TextRenderer.DrawText(g,
-                                      "残り " & (Me.MaxLength - Me.Text.ToString.GetByteLength) / 2 & "文字",
+                                      "残り " & (Me.MaxLength - (Me.Text.ToString.Length)).ToString("000") & "文字",
                                       New Font(Me.Font.Name, Me.Font.Size, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte)),
-                                      rect,
-                                      Color.Black,
-                                      Me.BackColor,
-                                      TextFormatFlags.Right)
+                                      Me.ClientRectangle,
+                                      SystemColors.GrayText,
+                                      Color.Transparent,
+                                      TextFormatFlags.Bottom Or TextFormatFlags.Right)
             End Using
         End If
     End Sub
@@ -423,7 +425,6 @@ Public Class TextBoxEx
     End Property
 #End Region
 
-
 #Region "EnterBehavior"
 
     <Category("動作"),
@@ -447,24 +448,48 @@ Public Class TextBoxEx
                     Case Else 'and 0
                 End Select
         End Select
+
     End Sub
 #End Region
 #Region "OnGotFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnGotFocus(ByVal e As EventArgs)
-        'フォーカス時は背景色変更
-        MyBase.BackColor = _GotForcusedColor
+        If Me.Enabled = False Or Me.ReadOnly = True Then
+            MyBase.BackColor = clrDisableControlGotFocusedColor
+        Else
+            'フォーカス時は背景色変更
+            MyBase.BackColor = _GotForcusedColor
+        End If
         MyBase.OnGotFocus(e) '基底クラス呼び出し
 
     End Sub
 #End Region
 #Region "OnLostFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnLostFocus(ByVal e As EventArgs)
-        'フォーカスがないときは背景色＝白設定
-        MyBase.BackColor = _BackColorDefault
+        If Me.Enabled = False Or Me.ReadOnly = True Then
+            MyBase.BackColor = clrDisableControlGotFocusedColor
+        Else
+            'フォーカスがないときは背景色＝白設定
+            MyBase.BackColor = _BackColorDefault
+        End If
         MyBase.OnLostFocus(e) '基底クラス呼び出し
 
     End Sub
 #End Region
+
+    Protected Overrides Sub OnReadOnlyChanged(e As EventArgs)
+        If Me.ReadOnly = True Then
+            MyBase.BackColor = clrDisableControlGotFocusedColor
+        End If
+        MyBase.OnReadOnlyChanged(e)
+    End Sub
+
+    Protected Overrides Sub OnEnabledChanged(e As EventArgs)
+        If Me.Enabled = False Then
+            MyBase.BackColor = clrDisableControlGotFocusedColor
+        End If
+
+        MyBase.OnEnabledChanged(e)
+    End Sub
 
 #Region "Undo メソッド"
     Public Overloads Sub Undo()

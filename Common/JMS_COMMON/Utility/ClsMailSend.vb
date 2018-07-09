@@ -22,7 +22,7 @@
             'メールの実際の差出人
             writer.FromAddress = FromAddress
             'メールヘッダの差出人情報
-            If strFromName <> "" Then
+            If strFromName.IsNullOrWhiteSpace = False Then
                 writer.Headers.Add("From", strFromName & " <" & FromAddress & ">")
             End If
 

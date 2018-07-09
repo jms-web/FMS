@@ -21,6 +21,7 @@ Module mdlINTSYR
     Public pub_SYSTEM_INI_FILE As String
 
     Public clrControlGotFocusedColor As Color = Color.FromArgb(190, 180, 255) 'フォーカス時の背景色
+    Public clrDisableControlGotFocusedColor As Color = SystemColors.Control
     Public clrControlDefaultBackColor As Color = Color.White  'フォーカス喪失時時の背景色
     Public clrControlErrorBackColor As Color = Color.FromArgb(255, 255, 128)  'エラー時の背景色
 

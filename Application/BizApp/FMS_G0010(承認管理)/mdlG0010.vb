@@ -1148,18 +1148,16 @@ Module mdlG0010
             ssgSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.Excel8)
             ssgWorkbook.WorkbookSet.ReleaseLock()
 
-            '-----Spire版 直接PDF発行するならこっち
-            Dim workbook As New Spire.Xls.Workbook
-            workbook.LoadFromFile(strFilePath)
-            Dim pdfFilePath As String
-            pdfFilePath = System.IO.Path.GetDirectoryName(strFilePath) & "\" & System.IO.Path.GetFileNameWithoutExtension(strFilePath) & ".pdf"
-            workbook.SaveToFile(pdfFilePath, Spire.Xls.FileFormat.PDF)
+            ''-----Spire版 直接PDF発行するならこっち
+            'Dim workbook As New Spire.Xls.Workbook
+            'workbook.LoadFromFile(strFilePath)
+            'Dim pdfFilePath As String
+            'pdfFilePath = System.IO.Path.GetDirectoryName(strFilePath) & "\" & System.IO.Path.GetFileNameWithoutExtension(strFilePath) & ".pdf"
+            'workbook.SaveToFile(pdfFilePath, Spire.Xls.FileFormat.PDF)
+            '''PDF表示
+            'System.Diagnostics.Process.Start(pdfFilePath)
 
-            ''PDF表示
-            System.Diagnostics.Process.Start(pdfFilePath)
-
-            'Excel起動
-            'Return FunOpenExcelApp(strFilePath)
+            Call FunOpenWorkbook(strFilePath)
 
             'Excel作業ファイルを削除
             Try
@@ -1306,15 +1304,16 @@ Module mdlG0010
             spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.Excel8)
             spWorkbook.WorkbookSet.ReleaseLock()
 
-            '-----Spire版 直接PDF発行するならこっち
-            Dim workbook As New Spire.Xls.Workbook
-            workbook.LoadFromFile(strFilePath)
-            Dim pdfFilePath As String
-            pdfFilePath = System.IO.Path.GetDirectoryName(strFilePath) & "\" & System.IO.Path.GetFileNameWithoutExtension(strFilePath) & ".pdf"
-            workbook.SaveToFile(pdfFilePath, Spire.Xls.FileFormat.PDF)
+            ''-----Spire版 直接PDF発行するならこっち
+            'Dim workbook As New Spire.Xls.Workbook
+            'workbook.LoadFromFile(strFilePath)
+            'Dim pdfFilePath As String
+            'pdfFilePath = System.IO.Path.GetDirectoryName(strFilePath) & "\" & System.IO.Path.GetFileNameWithoutExtension(strFilePath) & ".pdf"
+            'workbook.SaveToFile(pdfFilePath, Spire.Xls.FileFormat.PDF)
+            ''PDF表示
+            'System.Diagnostics.Process.Start(pdfFilePath)
 
-            'PDF表示
-            System.Diagnostics.Process.Start(pdfFilePath)
+            Call FunOpenWorkbook(strFilePath)
 
             'Excel作業ファイルを削除
             Try
@@ -1334,6 +1333,35 @@ Module mdlG0010
 
         End Try
     End Function
+
+
+    Private Function FunOpenWorkbook(filePath As String) As Boolean
+        Dim workbookView As New SpreadsheetGear.Windows.Forms.WorkbookView
+        Try
+            WorkbookView.GetLock()
+            Dim workbookSet As SpreadsheetGear.IWorkbookSet = SpreadsheetGear.Factory.GetWorkbookSet(System.Globalization.CultureInfo.CurrentCulture)
+            Dim workbook As SpreadsheetGear.IWorkbook = workbookSet.Workbooks.Open(filePath)
+            Dim worksheet As SpreadsheetGear.IWorksheet = workbook.Worksheets(0)
+
+            'worksheet.ProtectContents = True
+            'worksheet.WindowInfo.DisplayGridlines = False
+            'worksheet.WindowInfo.DisplayHeadings = False
+            'worksheet.WindowInfo.DisplayOutline = False
+            'worksheet.WindowInfo.DisplayZeros = False
+
+            workbookView.ActiveWorkbook = workbook
+            workbookView.PrintPreview()
+
+            Return True
+
+        Catch ex As Exception
+            Throw
+            Return False
+        Finally
+            WorkbookView.ReleaseLock()
+        End Try
+    End Function
+
 
 #End Region
 

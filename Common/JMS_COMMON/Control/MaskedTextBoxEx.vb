@@ -450,20 +450,46 @@ Public Class MaskedTextBoxEx
 #End Region
 #Region "OnGotFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnGotFocus(ByVal e As EventArgs)
-        'フォーカス時は背景色変更
-        MyBase.BackColor = _GotForcusedColor
-        MyBase.OnGotFocus(e) '基底クラス呼び出し
 
+        If Me.Enabled = False Or Me.ReadOnly = True Then
+            MyBase.BackColor = clrDisableControlGotFocusedColor
+        Else
+            'フォーカス時は背景色変更
+            MyBase.BackColor = _GotForcusedColor
+        End If
+
+        MyBase.OnGotFocus(e) '基底クラス呼び出し
     End Sub
 #End Region
 #Region "OnLostFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnLostFocus(ByVal e As EventArgs)
-        'フォーカスがないときは背景色＝白設定
-        MyBase.BackColor = _BackColorDefault
+
+        If Me.Enabled = False Or Me.ReadOnly = True Then
+            MyBase.BackColor = clrDisableControlGotFocusedColor
+        Else
+            'フォーカスがないときは背景色＝白設定
+            MyBase.BackColor = _BackColorDefault
+        End If
         MyBase.OnLostFocus(e) '基底クラス呼び出し
 
     End Sub
 #End Region
+
+
+    Protected Overrides Sub OnReadOnlyChanged(e As EventArgs)
+        If Me.ReadOnly = True Then
+            MyBase.BackColor = clrDisableControlGotFocusedColor
+        End If
+        MyBase.OnReadOnlyChanged(e)
+    End Sub
+
+    Protected Overrides Sub OnEnabledChanged(e As EventArgs)
+        If Me.Enabled = False Then
+            MyBase.BackColor = clrDisableControlGotFocusedColor
+        End If
+
+        MyBase.OnEnabledChanged(e)
+    End Sub
 
     Public Property ShowRemaining As Boolean
 
