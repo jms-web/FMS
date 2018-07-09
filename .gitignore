@@ -25,6 +25,7 @@ ClickOnce/EXE/
 ClickOnce/EXE_DEBUG/
 RESOURCE/Image/
 
+
 # Visual Studio 2015 cache/options directory
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot
@@ -74,6 +75,10 @@ artifacts/
 *.scc
 *.exe
 *.zip
+*.xls
+*.XLS
+*.xlsx
+*.XLSX
 
 # Chutzpah Test files
 _Chutzpah*
