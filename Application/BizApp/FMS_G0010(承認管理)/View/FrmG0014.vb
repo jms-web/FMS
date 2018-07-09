@@ -91,8 +91,10 @@ Public Class FrmG0014
             With dgv
                 .AutoGenerateColumns = False
                 .ReadOnly = False
-                '.RowsDefaultCellStyle.BackColor = Color.White
-                '.AlternatingRowsDefaultCellStyle.BackColor = Color.White
+                .RowsDefaultCellStyle.BackColor = Color.White
+                .AlternatingRowsDefaultCellStyle.BackColor = Color.White
+                .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
+                .ColumnHeadersDefaultCellStyle.Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
 
                 Dim cmbclmn1 As New DataGridViewCheckBoxColumn With {
                         .Name = "SELECTED",

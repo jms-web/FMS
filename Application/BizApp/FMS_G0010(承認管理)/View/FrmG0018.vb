@@ -72,6 +72,8 @@ Public Class FrmG0018
         Try
             With dgv
                 .AutoGenerateColumns = False
+                .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
+                .ColumnHeadersDefaultCellStyle.Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
 
                 .Columns.Add("KOMOKU_NAME", "ïœçXçÄñ⁄ñº")
                 .Columns(.ColumnCount - 1).Width = 150

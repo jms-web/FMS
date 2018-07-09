@@ -74,13 +74,15 @@ Public Class FrmG0011
 
         'ツールチップメッセージ
         'MyBase.ToolTip.SetToolTip(Me.cmdFunc3, My.Resources.infoToolTipMsgNotFoundData)
-        MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "新規登録時は使用出来ません")
-        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "新規登録時は使用出来ません")
-        MyBase.ToolTip.SetToolTip(Me.cmdFunc10, "新規登録時は使用出来ません")
-        MyBase.ToolTip.SetToolTip(Me.cmdFunc11, "新規登録時は使用出来ません")
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc1, "処置担当者以外は登録内容の変更は出来ません")
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc2, "処置担当者以外は承認依頼出来ません")
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "このステージでは使用出来ません")
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "このステージでは使用出来ません")
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc10, "このステージでは使用出来ません")
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc11, "このステージでは使用出来ません")
 
         If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
-            MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "新規登録時は使用出来ません")
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "このステージでは使用出来ません")
         Else
             MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "編集権限がありません")
         End If
@@ -89,7 +91,7 @@ Public Class FrmG0011
         D003NCRJBindingSource.DataSource = _D003_NCR_J
 
         mtxHOKUKO_NO.ReadOnly = True
-        dtDraft.ReadOnly = False
+        dtDraft.ReadOnly = True
         cmbKISO_TANTO.ReadOnly = True
         mtxHINMEI.ReadOnly = True
         pnlPict1.AllowDrop = True
@@ -117,7 +119,10 @@ Public Class FrmG0011
         cmbST09_DestTANTO.NullValue = 0
         cmbST10_DestTANTO.NullValue = 0
         cmbST11_DestTANTO.NullValue = 0
-        txtST01_YOKYU_NAIYO.ShowRemaining = True
+
+        'UNDONE: txtST01だけLostFocus時にBackcolor Whiteになってしまう
+
+        'txtST01_YOKYU_NAIYO.ShowRemaining = True
     End Sub
 
 #End Region
@@ -2722,7 +2727,7 @@ Public Class FrmG0011
                         cmdFunc9.Enabled = True
                     Else
                         If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
-                            MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "新規登録時は使用出来ません")
+                            MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "このステージでは使用出来ません")
                         Else
                             MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "是正処置不要のため作成されていません")
                         End If
@@ -2832,13 +2837,12 @@ Public Class FrmG0011
                             If Val(page.Name.Substring(8)) = intCurrentTabNo Then
                                 page.Enabled = True
                             Else
-                                page.Enabled = False
+                                page.EnableDisablePages(False, 2)
+                                'page.Enabled = False
                             End If
                         Else
                             'カレントユーザー以外は参照のみ
-
-                            'page.Enabled = FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrDataRow("HOKOKU_NO"), FunConvertSTAGE_NO_TO_SYONIN_JUN(intTabNo))
-                            page.EnableDisablePages(FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO, FunConvertSTAGE_NO_TO_SYONIN_JUN2(intTabNo)))
+                            page.EnableDisablePages(FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO, FunConvertSTAGE_NO_TO_SYONIN_JUN2(intTabNo)), 2)
                             'page.EnableDisablePages(FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrDataRow("HOKOKU_NO"), PrCurrentStage))
                         End If
                     End If
@@ -3007,7 +3011,7 @@ Public Class FrmG0011
 
 
                 dt = FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
-                cmbST04_HASSEI_KOTEI_GL_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                cmbST04_HASSEI_KOTEI_GL_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, ENM_SYONIN_HOKOKUSYO_ID._2_CAR, ENM_CAR_STAGE._10_起草入力)
                 cmbST04_CAR_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -5082,8 +5086,6 @@ Public Class FrmG0011
                     End Select
                     _D003_NCR_J.SURYO = 1
 
-
-
                     Me.TabSTAGE.Visible = False 'ちらつき防止
                     Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage))
                     Call FunInitializeSTAGE(PrCurrentStage)
@@ -5102,7 +5104,7 @@ Public Class FrmG0011
                         mtxHOKUKO_NO.ReadOnly = True
                         cmbBUMON.ReadOnly = True
                         cmbKISO_TANTO.ReadOnly = True
-                        dtDraft.ReadOnly = False
+                        dtDraft.ReadOnly = True
                         cmbKISYU.ReadOnly = True
                         cmbBUHIN_BANGO.ReadOnly = True
                         mtxGOUKI.ReadOnly = True
@@ -5659,6 +5661,10 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
+
+    Private Sub dtDraft_Enter(sender As Object, e As EventArgs) Handles dtDraft.Enter
+        Stop
+    End Sub
 
 
 #End Region

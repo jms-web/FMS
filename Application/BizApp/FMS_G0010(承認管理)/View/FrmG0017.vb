@@ -77,6 +77,8 @@ Public Class FrmG0017
         Try
             With dgv
                 .AutoGenerateColumns = False
+                .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
+                .ColumnHeadersDefaultCellStyle.Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
 
                 .Columns.Add("ADD_YMDHNS", "ˆ—“ú")
                 .Columns(.ColumnCount - 1).Width = 140

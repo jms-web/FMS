@@ -18,6 +18,7 @@ Imports System.ComponentModel
 Public Class DateTextBoxEx
     Inherits UserControl
 
+
 #Region "メンバ"
     Friend WithEvents DateTimePicker1 As System.Windows.Forms.DateTimePicker
     Private Const _strMaxDate As String = "9998/12/31"
@@ -329,6 +330,7 @@ Public Class DateTextBoxEx
         Me.MaskedTextBox1.Location = New System.Drawing.Point(2, 3)
         Me.MaskedTextBox1.Margin = New System.Windows.Forms.Padding(1)
         Me.MaskedTextBox1.Mask = "0000/00/00"
+        Me.MaskedTextBox1.MaxByteLength = 0
         Me.MaskedTextBox1.Name = "MaskedTextBox1"
         Me.MaskedTextBox1.Size = New System.Drawing.Size(79, 17)
         Me.MaskedTextBox1.TabIndex = 1
@@ -473,9 +475,9 @@ Public Class DateTextBoxEx
 #End Region
 
 #Region "MaskedTextBox1_Load:コントロールのLoad時"
-    Private Sub DateTextBox_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        'Me.DateTimePicker1.Text = System.DateTime.Now.ToString("yyyy/MM/dd")
-    End Sub
+    'Private Sub DateTextBox_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    '    'Me.DateTimePicker1.Text = System.DateTime.Now.ToString("yyyy/MM/dd")
+    'End Sub
 #End Region
 
 #Region "ユーザーコントロールにTEXT値が変更時のイベントを追加"
@@ -541,29 +543,46 @@ Public Class DateTextBoxEx
         If Me.Enabled = False Or Me.ReadOnly = True Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
             MaskedTextBox1.BackColor = clrDisableControlGotFocusedColor
+            'DateTimePicker1.Enabled = False
+            'MaskedTextBox1.ReadOnly = True
         Else
             'フォーカス時は背景色変更
             MyBase.BackColor = _GotForcusedColor
             MaskedTextBox1.BackColor = _GotForcusedColor
+            'DateTimePicker1.Enabled = True
+            'MaskedTextBox1.ReadOnly = False
         End If
 
         MyBase.OnGotFocus(e) '基底クラス呼び出し
 
     End Sub
+
+    Private Sub MaskedTextBox1_Enter(sender As Object, e As EventArgs) Handles MaskedTextBox1.Enter
+        Call OnGotFocus(e)
+    End Sub
+
 #End Region
 #Region "OnLostFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnLostFocus(ByVal e As EventArgs)
         If Me.Enabled = False Or Me.ReadOnly = True Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
             MaskedTextBox1.BackColor = clrDisableControlGotFocusedColor
+            'DateTimePicker1.Enabled = False
+            'MaskedTextBox1.ReadOnly = True
         Else
             'フォーカスがないときは背景色＝白設定
             MyBase.BackColor = _BackColorDefault
             MaskedTextBox1.BackColor = _GotForcusedColor
+            'DateTimePicker1.Enabled = True
+            'MaskedTextBox1.ReadOnly = False
         End If
         MyBase.OnLostFocus(e) '基底クラス呼び出し
-
     End Sub
+
+    Private Sub MaskedTextBox1_Leave(sender As Object, e As EventArgs) Handles MaskedTextBox1.Leave
+        Call OnLostFocus(e)
+    End Sub
+
 #End Region
 
     Public Property [ReadOnly] As Boolean
@@ -575,16 +594,28 @@ Public Class DateTextBoxEx
             _ReadOnly = Value
             If Value Then
                 Cursor = Cursors.Default
-                'DEBUG:Combobox ReadOnly時の背景色
                 BackColor = System.Drawing.SystemColors.Control
-                SetStyle(ControlStyles.UserMouse, True)
+                MaskedTextBox1.ReadOnly = True
+                DateTimePicker1.Enabled = False
+                'SetStyle(ControlStyles.UserMouse, True)
+                'SetStyle(ControlStyles.Selectable, False)
+                'UpdateStyles()
+                'RecreateHandle()
             Else
                 Cursor = _CursorOrg
                 BackColor = _BackColorOrg
-                SetStyle(ControlStyles.UserMouse, False)
+                MaskedTextBox1.ReadOnly = False
+                DateTimePicker1.Enabled = True
+                'SetStyle(ControlStyles.UserMouse, False)
+                'SetStyle(ControlStyles.Selectable, True)
+                'UpdateStyles()
+                'RecreateHandle()
             End If
         End Set
     End Property
+
+
+
 
 #Region "Undo メソッド"
     Public Overloads Sub Undo()
@@ -665,6 +696,8 @@ Public Class DateTextBoxEx
     End Sub
 
     Friend WithEvents MaskedTextBox1 As MaskedTextBoxEx
+
+
 
 #End Region
 

@@ -27,7 +27,6 @@ Public Class MaskedTextBoxEx
 
         Me._GotForcusedColor = clrControlGotFocusedColor
         Me._BackColorDefault = clrControlDefaultBackColor
-        ShowRemaining = False
     End Sub
 #End Region
 
@@ -491,6 +490,7 @@ Public Class MaskedTextBoxEx
         MyBase.OnEnabledChanged(e)
     End Sub
 
+    <Bindable(True), Category("Appearance"), DefaultValue(False)>
     Public Property ShowRemaining As Boolean
 
 #Region "　Change メソッド(Overrides)"

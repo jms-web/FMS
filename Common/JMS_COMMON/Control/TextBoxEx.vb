@@ -365,9 +365,11 @@ Public Class TextBoxEx
         If Me.SelectAllText = True Then
             BeginInvoke(New MethodInvokerForTextBox(AddressOf MaskedTextBoxSelectAll), Me)
         End If
+        MyBase.OnEnter(e)
     End Sub
 #End Region
 
+    <Bindable(True), Category("Appearance"), DefaultValue(False)>
     Public Property ShowRemaining As Boolean
 
 
@@ -465,6 +467,7 @@ Public Class TextBoxEx
 #End Region
 #Region "OnLostFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnLostFocus(ByVal e As EventArgs)
+
         If Me.Enabled = False Or Me.ReadOnly = True Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
         Else

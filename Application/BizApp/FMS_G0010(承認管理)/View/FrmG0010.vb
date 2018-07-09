@@ -219,9 +219,11 @@ Public Class FrmG0010
             With dgv
                 .AutoGenerateColumns = False
                 .ReadOnly = False
-
+                .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
+                .ColumnHeadersDefaultCellStyle.Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
                 .RowsDefaultCellStyle.BackColor = Color.White
                 .AlternatingRowsDefaultCellStyle.BackColor = Color.White
+
 
                 Dim cmbclmn1 As New DataGridViewCheckBoxColumn With {
                 .Name = NameOf(_Model.SELECTED),
@@ -246,7 +248,7 @@ Public Class FrmG0010
 
                 .Columns.Add(NameOf(_Model.HOKOKU_NO), "報告書No")
                 .Columns(.ColumnCount - 1).Width = 80
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
@@ -316,15 +318,16 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
+                .Columns(.ColumnCount - 1).Visible = False
 
                 .Columns.Add(NameOf(_Model.JIZEN_SINSA_HANTEI_NAME), "事前判定区分")
-                .Columns(.ColumnCount - 1).Width = 180
+                .Columns(.ColumnCount - 1).Width = 140
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
                 .Columns.Add(NameOf(_Model.SAISIN_IINKAI_HANTEI_NAME), "再審判定区分")
-                .Columns(.ColumnCount - 1).Width = 180
+                .Columns(.ColumnCount - 1).Width = 140
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
@@ -410,6 +413,46 @@ Public Class FrmG0010
         Call FunSetDgvCellFormat(sender)
     End Sub
 
+    '行書式
+    Private Function FunSetDgvCellFormat(ByVal dgv As DataGridView) As Boolean
+        Dim _Model As New MODEL.ST02_FUTEKIGO_ICHIRAN
+        Try
+            For i As Integer = 0 To dgv.Rows.Count - 1
+
+                '#55
+                ''差し戻し
+                'If dgvDATA.Rows(i).Cells(NameOf(_Model.SASIMOTO_SYONIN_JUN)).Value > 0 Then
+                '    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrCautionCellBackColor
+                'End If
+
+                ''滞留
+                If dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU_FG)).Value = 1 Then
+                    'Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrWarningCellBackColor
+                    Me.dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU_NISSU)).Style.ForeColor = Color.Red
+                    Me.dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU_NISSU)).Style.SelectionForeColor = Color.Red
+                End If
+
+                'Closed
+                If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.CLOSE_FG)).Value > 0 Then
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
+                End If
+
+                'Deleted
+                If dgvDATA.Rows(i).Cells(NameOf(_Model.DEL_YMDHNS)).Value <> "" Then
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
+                    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
+                End If
+            Next i
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+        Finally
+        End Try
+    End Function
+
+
 #Region "　グリッド編集関連"
 
     ''' <summary>
@@ -477,42 +520,6 @@ Public Class FrmG0010
         End Try
     End Sub
 
-    '行書式
-    Private Function FunSetDgvCellFormat(ByVal dgv As DataGridView) As Boolean
-        Dim _Model As New MODEL.ST02_FUTEKIGO_ICHIRAN
-        Try
-            For i As Integer = 0 To dgv.Rows.Count - 1
-
-                '#55
-                ''差し戻し
-                'If dgvDATA.Rows(i).Cells(NameOf(_Model.SASIMOTO_SYONIN_JUN)).Value > 0 Then
-                '    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrCautionCellBackColor
-                'End If
-
-                ''滞留
-                'If dgvDATA.Rows(i).Cells(NameOf(_Model.TAIRYU_FG)).Value = 1 Then
-                '    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrWarningCellBackColor
-                'End If
-
-                'Closed
-                If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.CLOSE_FG)).Value > 0 Then
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
-                End If
-
-                'Deleted
-                If dgvDATA.Rows(i).Cells(NameOf(_Model.DEL_YMDHNS)).Value <> "" Then
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
-                    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
-                End If
-            Next i
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-        Finally
-        End Try
-    End Function
 
 #Region "編集可能セルOnMouse時カーソル変更"
     Private Sub Dgv_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvDATA.CellMouseMove

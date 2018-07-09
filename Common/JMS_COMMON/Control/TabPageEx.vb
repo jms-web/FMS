@@ -42,8 +42,6 @@ Public Class TabPageEx
     End Sub
 #End Region
 
-    'UNDONE: ComboboxExのSetStyleを各種Exコントロールに実装する→見た目を変えずにEnable=False
-
     Public Sub EnableDisablePages(ByVal enabled As Boolean, Optional ByVal intProperty As Integer = 1)
 
         Select Case intProperty
@@ -82,7 +80,7 @@ Public Class TabPageEx
                         Case GetType(ComboboxEx)
                             DirectCast(ctl, ComboboxEx).ReadOnly = Not enabled
                         Case GetType(DateTextBoxEx)
-                            DirectCast(ctl, DateTextBoxEx).ReadOnly = enabled
+                            DirectCast(ctl, DateTextBoxEx).ReadOnly = Not enabled
                         Case GetType(RadioButton)
                             DirectCast(ctl, RadioButton).Enabled = enabled
 
