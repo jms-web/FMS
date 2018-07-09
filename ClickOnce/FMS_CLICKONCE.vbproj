@@ -189,6 +189,8 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="TEMPLATE\TEMP_CAR.xls" />
+    <None Include="TEMPLATE\TEMP_NCR.xls" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7">
@@ -211,7 +213,6 @@
     <Folder Include="EXE\" />
     <Folder Include="EXE_DEBUG\" />
     <Folder Include="LOG\" />
-    <Folder Include="TEMPLATE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
