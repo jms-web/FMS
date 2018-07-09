@@ -173,37 +173,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Content Include="EXE\C1.Win.C1FlexGrid.4.dll" />
-    <Content Include="EXE\FMS_G0010.exe" />
-    <Content Include="EXE\FMS_M0000.exe" />
-    <Content Include="EXE\FMS_M0010.exe" />
-    <Content Include="EXE\FMS_M0040.exe" />
-    <Content Include="EXE\FMS_M0060.exe" />
-    <Content Include="EXE\FMS_MODEL.dll" />
-    <Content Include="EXE\JMS_COMMON.dll" />
-    <Content Include="EXE\MetroFramework.dll" />
-    <Content Include="EXE\Microsoft.WindowsAPICodePack.dll" />
-    <Content Include="EXE\PropertyChanged.dll" />
-    <Content Include="EXE\Spire.Common.dll" />
-    <Content Include="EXE\Spire.License.dll" />
-    <Content Include="EXE\Spire.Pdf.dll" />
-    <Content Include="EXE\Spire.XLS.dll" />
-    <Content Include="EXE\SpreadsheetGear2012.Core.dll" />
-    <Content Include="EXE\SpreadsheetGear2012.Drawing.dll" />
-    <Content Include="EXE\TKMP.dll" />
-    <Content Include="EXE_DEBUG\C1.Win.C1FlexGrid.4.dll" />
-    <Content Include="EXE_DEBUG\FMS_G0010.exe" />
-    <Content Include="EXE_DEBUG\FMS_M0000.exe" />
-    <Content Include="EXE_DEBUG\FMS_M0010.exe" />
-    <Content Include="EXE_DEBUG\FMS_M0040.exe" />
-    <Content Include="EXE_DEBUG\FMS_M0060.exe" />
-    <Content Include="EXE_DEBUG\FMS_MODEL.dll" />
-    <Content Include="EXE_DEBUG\JMS_COMMON.dll" />
-    <Content Include="EXE_DEBUG\MetroFramework.dll" />
-    <Content Include="EXE_DEBUG\MetroFramework.Fonts.dll" />
-    <Content Include="EXE_DEBUG\Microsoft.WindowsAPICodePack.dll" />
-    <Content Include="EXE_DEBUG\Microsoft.WindowsAPICodePack.Shell.dll" />
-    <Content Include="EXE_DEBUG\TKMP.dll" />
     <Content Include="favicon.ico" />
     <Content Include="INI\RIREKI.TXT" />
     <Content Include="INI\SYSTEM.INI" />
@@ -220,12 +189,6 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <Content Include="TEMPLATE\TEMP_CAR.xls">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TEMPLATE\TEMP_NCR.xls">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7">
@@ -245,7 +208,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="EXE\" />
+    <Folder Include="EXE_DEBUG\" />
     <Folder Include="LOG\" />
+    <Folder Include="TEMPLATE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
