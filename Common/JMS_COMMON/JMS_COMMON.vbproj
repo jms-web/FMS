@@ -585,9 +585,6 @@
     <None Include="Resources\_imgFork.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\machiningCenter.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\_imgMachiningCenter.png" />
   </ItemGroup>
   <ItemGroup>
@@ -646,9 +643,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\_icoSendmail.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\_imgSendMail.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\差し戻し.png" />
@@ -710,7 +704,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_ReplaceNonNumerics="False" />
+      <UserProperties BuildVersion_ReplaceNonNumerics="False" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
