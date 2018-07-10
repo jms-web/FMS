@@ -100,6 +100,14 @@ Module mdlG0010
 
     End Enum
 
+    '80 NCRèàíué¿é{ É^ÉuÉyÅ[ÉW
+    Public Enum ENM_NCR_STAGE80_TABPAGES
+        _1_îpãpé¿é{ãLò^ = 1
+        _2_çƒâ¡çHéwé¶_ãLò^ = 2
+        _3_ï‘ãpé¿é{ãLò^ = 3
+        _4_ì]ópêÊãLò^ = 4
+    End Enum
+
     ''' <summary>
     ''' å¥àˆï™êÕãÊï™
     ''' </summary>
@@ -597,17 +605,21 @@ Module mdlG0010
     ''' </summary>
     ''' <param name="intCurrentStageID"></param>
     ''' <returns></returns>
-    Public Function FunGetCurrentStageName(ByVal intCurrentStageID As Integer) As String
+    Public Function FunGetCurrentStageName(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal intCurrentStageID As Integer) As String
         Try
+            Dim drList As List(Of DataRow)
 
-            Dim drList As List(Of DataRow) = tblNCR.AsEnumerable().
-                                                Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
-            Dim strBUFF As String = ""
-            If drList.Count > 0 Then
-                strBUFF = drList(0).Item("DISP")
-            End If
+            Select Case intSYONIN_HOKOKUSYO_ID
+                Case ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+                    drList = tblNCR.AsEnumerable().Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
+                Case ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+                    drList = tblCAR.AsEnumerable().Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
+                Case Else
+                    Return vbEmpty
+            End Select
 
-            Return strBUFF
+            Return drList(0)?.Item("DISP")
+
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return vbEmpty
@@ -935,7 +947,7 @@ Module mdlG0010
         Dim ssgWorkbook As SpreadsheetGear.IWorkbook
         Dim ssgWorksheets As SpreadsheetGear.IWorksheets
         Dim ssgSheet1 As SpreadsheetGear.IWorksheet
-
+        Dim ssgShapes As SpreadsheetGear.Shapes.IShapes
 
         Try
 
@@ -946,6 +958,58 @@ Module mdlG0010
             ssgWorkbook.WorkbookSet.GetLock()
             ssgWorksheets = ssgWorkbook.Worksheets
             ssgSheet1 = ssgWorksheets.Item(0) 'sheet1
+
+            '---ê}å`éÊìæ
+            Dim shapeLINE_SAISIN_IINKAI As SpreadsheetGear.Shapes.IShape
+            Dim shapeLINE_KOKYAKU_SAISIN As SpreadsheetGear.Shapes.IShape
+            Dim shapeLINE_HAIKYAKU As SpreadsheetGear.Shapes.IShape
+            Dim shapeLINE_SAIKAKO As SpreadsheetGear.Shapes.IShape
+            Dim shapeLINE_HENKYAKU As SpreadsheetGear.Shapes.IShape
+            Dim shapeLINE_TENYO As SpreadsheetGear.Shapes.IShape
+            Dim shapeLINE_SYOCHI_D As SpreadsheetGear.Shapes.IShape
+            Dim shapeLINE_SYOCHI_E As SpreadsheetGear.Shapes.IShape
+            ssgShapes = ssgSheet1.Shapes
+            For Each shape As SpreadsheetGear.Shapes.IShape In ssgShapes
+                Select Case shape.Name
+                    Case "LINE_SAISIN_IINKAI"
+                        shapeLINE_SAISIN_IINKAI = shape
+                    Case "LINE_KOKYAKU_SAISIN"
+                        shapeLINE_KOKYAKU_SAISIN = shape
+                    Case "LINE_HAIKYAKU"
+                        shapeLINE_HAIKYAKU = shape
+                    Case "LINE_SAIKAKO"
+                        shapeLINE_SAIKAKO = shape
+                    Case "LINE_HENKYAKU"
+                        shapeLINE_HENKYAKU = shape
+                    Case "LINE_TENYO"
+                        shapeLINE_TENYO = shape
+                    Case "LINE_SYOCHI_D"
+                        shapeLINE_SYOCHI_D = shape
+                    Case "LINE_SYOCHI_E"
+                        shapeLINE_SYOCHI_E = shape
+                End Select
+            Next shape
+            '---
+
+            Select Case _V002_NCR_J.JIZEN_SINSA_HANTEI_KB
+                Case ENM_JIZEN_SINSA_HANTEI_KB._2_çƒêRàœàıâÔëóÇË
+                    shapeLINE_SAISIN_IINKAI.Visible = False
+                Case ENM_JIZEN_SINSA_HANTEI_KB._3_å⁄ãqçƒêRê\êø
+                    shapeLINE_KOKYAKU_SAISIN.Visible = False
+                Case Else
+                    shapeLINE_KOKYAKU_SAISIN.Visible = True
+                    shapeLINE_SAISIN_IINKAI.Visible = True
+            End Select
+
+            Dim SYOCHI_KB As ENM_NCR_STAGE80_TABPAGES
+
+            SYOCHI_KB = FunGetST08SubPageName(_V002_NCR_J)
+            shapeLINE_HAIKYAKU.Visible = (SYOCHI_KB <> ENM_NCR_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^)
+            shapeLINE_HENKYAKU.Visible = (SYOCHI_KB <> ENM_NCR_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^)
+            shapeLINE_TENYO.Visible = (SYOCHI_KB <> ENM_NCR_STAGE80_TABPAGES._4_ì]ópêÊãLò^)
+            shapeLINE_SAIKAKO.Visible = (SYOCHI_KB <> ENM_NCR_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^)
+            shapeLINE_SYOCHI_D.Visible = (_V002_NCR_J.SYOCHI_D_UMU_KB = "1")
+            shapeLINE_SYOCHI_E.Visible = (_V002_NCR_J.SYOCHI_E_UMU_KB = "1")
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_BANGO)).Value = _V002_NCR_J.BUHIN_BANGO
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_NAME)).Value = _V002_NCR_J.BUHIN_NAME
@@ -1362,6 +1426,46 @@ Module mdlG0010
     End Function
 
 
+    ''' <summary>
+    ''' NCR ÉXÉeÅ[ÉW80 èàíuîªíË
+    ''' </summary>
+    ''' <returns></returns>
+    Private Function FunGetST08SubPageName(entity As MODEL.V002_NCR_J) As ENM_NCR_STAGE80_TABPAGES
+        Select Case entity.KOKYAKU_SAISYU_HANTEI_KB
+            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._3_îpãpÇ∑ÇÈ
+                Return ENM_NCR_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
+            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._4_ï‘ãpÇ∑ÇÈ
+                Return ENM_NCR_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
+            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._5_ì]ópÇ∑ÇÈ
+                Return ENM_NCR_STAGE80_TABPAGES._4_ì]ópêÊãLò^
+            Case ENM_KOKYAKU_SAISYU_HANTEI_KB._6_çƒâ¡çHÇ∑ÇÈ
+                Return ENM_NCR_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
+            Case Else
+                Select Case entity.SAISIN_IINKAI_HANTEI_KB
+                    Case ENM_SAISIN_IINKAI_HANTEI_KB._3_îpãpÇ∑ÇÈ
+                        Return ENM_NCR_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
+                    Case ENM_SAISIN_IINKAI_HANTEI_KB._4_ï‘ãpÇ∑ÇÈ
+                        Return ENM_NCR_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
+                    Case ENM_SAISIN_IINKAI_HANTEI_KB._5_ì]ópÇ∑ÇÈ
+                        Return ENM_NCR_STAGE80_TABPAGES._4_ì]ópêÊãLò^
+                    Case ENM_SAISIN_IINKAI_HANTEI_KB._6_çƒâ¡çHÇ∑ÇÈ
+                        Return ENM_NCR_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
+                    Case Else
+                        Select Case entity.JIZEN_SINSA_HANTEI_KB
+                            Case ENM_JIZEN_SINSA_HANTEI_KB._4_îpãpÇ∑ÇÈ
+                                Return ENM_NCR_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
+                            Case ENM_JIZEN_SINSA_HANTEI_KB._5_ï‘ãpÇ∑ÇÈ
+                                Return ENM_NCR_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
+                            Case ENM_JIZEN_SINSA_HANTEI_KB._6_ì]ópÇ∑ÇÈ
+                                Return ENM_NCR_STAGE80_TABPAGES._4_ì]ópêÊãLò^
+                            Case ENM_JIZEN_SINSA_HANTEI_KB._7_çƒâ¡çHÇ∑ÇÈ
+                                Return ENM_NCR_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
+                            Case Else
+                                'Err
+                        End Select
+                End Select
+        End Select
+    End Function
 #End Region
 
 #End Region

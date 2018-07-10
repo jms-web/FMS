@@ -11,15 +11,6 @@ Public Class FrmG0011
     Private _tabPageManagerST08Sub As TabPageManager
 
 
-    '80 NCRèàíué¿é{ É^ÉuÉyÅ[ÉW
-    Private Enum ENM_STAGE80_TABPAGES
-        _1_îpãpé¿é{ãLò^ = 1
-        _2_çƒâ¡çHéwé¶_ãLò^ = 2
-        _3_ï‘ãpé¿é{ãLò^ = 3
-        _4_ì]ópêÊãLò^ = 4
-    End Enum
-
-
     'Model
     Private _V002_NCR_J As New MODEL.V002_NCR_J
     Private _V003_SYONIN_J_KANRI_List As New List(Of MODEL.V003_SYONIN_J_KANRI)
@@ -1083,7 +1074,7 @@ Public Class FrmG0011
             Case "INSERT"
                 If PrCurrentStage < ENM_NCR_STAGE._120_abcdeèàíuämîF AndAlso _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False Then
                     'è≥îFàÀóäÉÅÅ[ÉãëóêM
-                    Call FunSendRequestMail()
+                    Call FunSendRequestMail_NCR()
                 End If
 
             Case "UPDATE"
@@ -1110,6 +1101,8 @@ Public Class FrmG0011
             _D003_NCR_J._ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_óv Then
 
             If FunSAVE_D005(DB) Then
+                'è≥îFàÀóäÉÅÅ[ÉãëóêM
+                Call FunSendRequestMail_CAR()
                 blnEnableCAREdit = True
             Else
                 Return False
@@ -1123,7 +1116,7 @@ Public Class FrmG0011
     ''' è≥îFàÀóäÉÅÅ[ÉãëóêM
     ''' </summary>
     ''' <returns></returns>
-    Private Function FunSendRequestMail()
+    Private Function FunSendRequestMail_NCR()
         Dim KISYU_NAME As String = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
         Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
         Dim strSubject As String = "ÅyïsìKçáïièàíuàÀóäÅz{0}ÅE{1}"
@@ -1144,7 +1137,48 @@ Public Class FrmG0011
         strBody = String.Format(strBody,
                                 Fun_GetUSER_NAME(_D004_SYONIN_J_KANRI.SYAIN_ID),
                                 _D004_SYONIN_J_KANRI.HOKOKU_NO,
-                                FunGetCurrentStageName(_D004_SYONIN_J_KANRI.SYONIN_JUN),
+                                FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D004_SYONIN_J_KANRI.SYONIN_JUN),
+                                KISYU_NAME,
+                                _D003_NCR_J.BUHIN_BANGO,
+                                Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
+                                SYONIN_HANTEI_NAME,
+                                _D004_SYONIN_J_KANRI.COMMENT)
+
+
+        If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=_D004_SYONIN_J_KANRI.SYAIN_ID) Then
+            Return True
+        Else
+            MessageBox.Show("ÉÅÅ[ÉãëóêMÇ…é∏îsÇµÇ‹ÇµÇΩÅB", "ÉÅÅ[ÉãëóêMé∏îs", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return False
+        End If
+    End Function
+
+    ''' <summary>
+    ''' è≥îFàÀóäÉÅÅ[ÉãëóêM
+    ''' </summary>
+    ''' <returns></returns>
+    Private Function FunSendRequestMail_CAR()
+        Dim KISYU_NAME As String = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
+        Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
+        Dim strSubject As String = "ÅyïsìKçáïièàíuàÀóäÅz{0}ÅE{1}"
+        Dim strBody As String = <sql><![CDATA[
+        {0} ìa
+        ïsìKçáêªïiÇÃèàíuàÀóäÇ™óàÇ‹ÇµÇΩÇÃÇ≈ëŒâûÇÇ®äËÇ¢ÇµÇ‹Ç∑ÅB
+        
+        ÅyïÒçêèëNoÅz{1}
+        Åyè≥îFì‡óe(ÉXÉeÅ[ÉW)Åz{2}
+        Åyã@éÌÅz{3}
+        Åyïîïiî‘çÜÅz{4}
+        ÅyàÀóäé“Åz{5}
+        ÅyàÀóäé“èàíuì‡óeÅz{6}
+        ÅyÉRÉÅÉìÉgÅz{7}                        
+        ]]></sql>.Value.Trim
+
+        strSubject = String.Format(strSubject, KISYU_NAME, _D003_NCR_J.BUHIN_BANGO)
+        strBody = String.Format(strBody,
+                                Fun_GetUSER_NAME(_D004_SYONIN_J_KANRI.SYAIN_ID),
+                                _D004_SYONIN_J_KANRI.HOKOKU_NO,
+                                FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _D004_SYONIN_J_KANRI.SYONIN_JUN),
                                 KISYU_NAME,
                                 _D003_NCR_J.BUHIN_BANGO,
                                 Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
@@ -1245,9 +1279,9 @@ Public Class FrmG0011
 
 
         If FunSAVE_R003(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
-            Else
-                Return False
-            End If
+        Else
+            Return False
+        End If
 
 
         Return True
@@ -2899,7 +2933,7 @@ Public Class FrmG0011
 
                 mtxST01_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                 mtxST01_UPD_YMD.ReadOnly = True
-                mtxST01_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_ãNëêì¸óÕ))
+                mtxST01_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_ãNëêì¸óÕ))
                 mtxST01_NextStageName.ReadOnly = True
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
@@ -2937,7 +2971,7 @@ Public Class FrmG0011
 
 
                 mtxST02_UPD_YMD.ReadOnly = True
-                mtxST02_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL))
+                mtxST02_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL))
                 mtxST02_NextStageName.ReadOnly = True
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
@@ -2979,7 +3013,7 @@ Public Class FrmG0011
                 cmbST03_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
 
-                mtxST03_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_ãNëêämîFåüç∏))
+                mtxST03_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_ãNëêämîFåüç∏))
                 mtxST03_UPD_YMD.ReadOnly = True
                 mtxST03_NextStageName.ReadOnly = True
 
@@ -3021,7 +3055,7 @@ Public Class FrmG0011
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË))
                 cmbST04_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST04_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË))
+                mtxST04_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË))
                 mtxST04_UPD_YMD.ReadOnly = True
                 mtxST04_NextStageName.ReadOnly = True
 
@@ -3085,7 +3119,7 @@ Public Class FrmG0011
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._50_éñëOêRç∏ämîF))
                 cmbST05_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST05_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._50_éñëOêRç∏ämîF))
+                mtxST05_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._50_éñëOêRç∏ämîF))
                 mtxST05_UPD_YMD.ReadOnly = True
                 mtxST05_NextStageName.ReadOnly = True
 
@@ -3124,7 +3158,7 @@ Public Class FrmG0011
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\))
                 cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST06_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\))
+                mtxST06_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\))
                 cmbST06_SAISIN_IINKAI_HANTEI.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 mtxST06_NextStageName.ReadOnly = True
                 mtxST06_UPD_YMD.ReadOnly = True
@@ -3185,7 +3219,7 @@ Public Class FrmG0011
                     dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\))
                     cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                    mtxST06_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\))
+                    mtxST06_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\))
                     cmbST06_SAISIN_IINKAI_HANTEI.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     mtxST06_UPD_YMD.ReadOnly = True
                     mtxST06_NextStageName.ReadOnly = True
@@ -3241,7 +3275,7 @@ Public Class FrmG0011
                 If FunExistAchievement(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag) Then
                     dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag))
                     cmbST07_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                    mtxST07_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag))
+                    mtxST07_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag))
                     mtxST07_UPD_YMD.ReadOnly = True
                     mtxST07_NextStageName.ReadOnly = True
 
@@ -3313,7 +3347,7 @@ Public Class FrmG0011
                     dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_èàíué¿é{))
                     cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                    mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_èàíué¿é{))
+                    mtxST08_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_èàíué¿é{))
                     mtxST08_UPD_YMD.ReadOnly = True
                     mtxST08_NextStageName.ReadOnly = True
                     cmbST08_1_HAIKYAKU_KB.SetDataSource(tblHAIKYAKU_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -3427,7 +3461,7 @@ Public Class FrmG0011
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ))
                 cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ))
+                mtxST08_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ))
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -3459,7 +3493,7 @@ Public Class FrmG0011
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢))
                 cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢))
+                mtxST08_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢))
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -3491,7 +3525,7 @@ Public Class FrmG0011
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏))
                 cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST08_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏))
+                mtxST08_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏))
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -3522,7 +3556,7 @@ Public Class FrmG0011
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT))
                 cmbST09_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST09_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT))
+                mtxST09_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT))
                 mtxST09_UPD_YMD.ReadOnly = True
                 mtxST09_NextStageName.ReadOnly = True
 
@@ -3561,7 +3595,7 @@ Public Class FrmG0011
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑))
                 cmbST10_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST10_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑))
+                mtxST10_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑))
                 mtxST10_UPD_YMD.ReadOnly = True
                 mtxST10_NextStageName.ReadOnly = True
 
@@ -3600,7 +3634,7 @@ Public Class FrmG0011
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcdeèàíuíSìñ))
                 cmbST11_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST11_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcdeèàíuíSìñ))
+                mtxST11_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcdeèàíuíSìñ))
                 mtxST11_UPD_YMD.ReadOnly = True
                 mtxST11_NextStageName.ReadOnly = True
 
@@ -3710,33 +3744,33 @@ Public Class FrmG0011
     Private Function FunGetST08SubPageName() As String
         Select Case _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
             Case ENM_KOKYAKU_SAISYU_HANTEI_KB._3_îpãpÇ∑ÇÈ
-                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
+                Return "tabSTAGE08_" & ENM_NCR_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
             Case ENM_KOKYAKU_SAISYU_HANTEI_KB._4_ï‘ãpÇ∑ÇÈ
-                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
+                Return "tabSTAGE08_" & ENM_NCR_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
             Case ENM_KOKYAKU_SAISYU_HANTEI_KB._5_ì]ópÇ∑ÇÈ
-                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_ì]ópêÊãLò^
+                Return "tabSTAGE08_" & ENM_NCR_STAGE80_TABPAGES._4_ì]ópêÊãLò^
             Case ENM_KOKYAKU_SAISYU_HANTEI_KB._6_çƒâ¡çHÇ∑ÇÈ
-                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
+                Return "tabSTAGE08_" & ENM_NCR_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
             Case Else
                 Select Case _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB
                     Case ENM_SAISIN_IINKAI_HANTEI_KB._3_îpãpÇ∑ÇÈ
-                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
+                        Return "tabSTAGE08_" & ENM_NCR_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
                     Case ENM_SAISIN_IINKAI_HANTEI_KB._4_ï‘ãpÇ∑ÇÈ
-                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
+                        Return "tabSTAGE08_" & ENM_NCR_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
                     Case ENM_SAISIN_IINKAI_HANTEI_KB._5_ì]ópÇ∑ÇÈ
-                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_ì]ópêÊãLò^
+                        Return "tabSTAGE08_" & ENM_NCR_STAGE80_TABPAGES._4_ì]ópêÊãLò^
                     Case ENM_SAISIN_IINKAI_HANTEI_KB._6_çƒâ¡çHÇ∑ÇÈ
-                        Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
+                        Return "tabSTAGE08_" & ENM_NCR_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
                     Case Else
                         Select Case _D003_NCR_J.JIZEN_SINSA_HANTEI_KB
                             Case ENM_JIZEN_SINSA_HANTEI_KB._4_îpãpÇ∑ÇÈ
-                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
+                                Return "tabSTAGE08_" & ENM_NCR_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
                             Case ENM_JIZEN_SINSA_HANTEI_KB._5_ï‘ãpÇ∑ÇÈ
-                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
+                                Return "tabSTAGE08_" & ENM_NCR_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
                             Case ENM_JIZEN_SINSA_HANTEI_KB._6_ì]ópÇ∑ÇÈ
-                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._4_ì]ópêÊãLò^
+                                Return "tabSTAGE08_" & ENM_NCR_STAGE80_TABPAGES._4_ì]ópêÊãLò^
                             Case ENM_JIZEN_SINSA_HANTEI_KB._7_çƒâ¡çHÇ∑ÇÈ
-                                Return "tabSTAGE08_" & ENM_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
+                                Return "tabSTAGE08_" & ENM_NCR_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
                             Case Else
                                 'Err
                                 Throw New ArgumentException("80-2.áC JIZEN_SINSA_HANTEI_KB")
@@ -4353,7 +4387,7 @@ Public Class FrmG0011
 #Region "   STAGE6"
     Private Sub CmbST06_SAISIN_IINKAI_HANTEI_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbST06_SAISIN_IINKAI_HANTEI.SelectedValueChanged
         'éüÉXÉeÅ[ÉWñºçXêV
-        mtxST06_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(PrCurrentStage))
+        mtxST06_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(PrCurrentStage))
         Dim dt As DataTable
         dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(PrCurrentStage))
         cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -4411,7 +4445,7 @@ Public Class FrmG0011
         Dim dt As DataTable
         dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag))
         cmbST07_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-        mtxST07_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag))
+        mtxST07_NextStageName.Text = FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag))
     End Function
 
     Private Sub CmbST07_SAISIN_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_SAISIN_TANTO.Validating
@@ -5348,17 +5382,17 @@ Public Class FrmG0011
 
                         Dim strPageName As String = FunGetST08SubPageName()
                         Select Case Val(strPageName.Substring(11, 1))
-                            Case ENM_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
+                            Case ENM_NCR_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
                                 Call CmbST08_1_HAIKYAKU_KB_Validating(cmbST08_1_HAIKYAKU_KB, Nothing)
                                 Call CmbST08_1_HAIKYAKU_TANTO_Validating(cmbST08_1_HAIKYAKU_TANTO, Nothing)
-                            Case ENM_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
+                            Case ENM_NCR_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
                                 Call CmbST08_2_KENSA_KEKKA_Validating(cmbST08_2_KENSA_KEKKA, Nothing)
                                 Call CmbST08_2_TANTO_KENSA_Validating(cmbST08_2_TANTO_KENSA, Nothing)
                                 Call CmbST08_2_TANTO_SEIGI_Validating(cmbST08_2_TANTO_SEIGI, Nothing)
                                 Call CmbST08_2_TANTO_SEIZO_Validating(cmbST08_2_TANTO_SEIZO, Nothing)
-                            Case ENM_STAGE80_TABPAGES._4_ì]ópêÊãLò^
+                            Case ENM_NCR_STAGE80_TABPAGES._4_ì]ópêÊãLò^
                                 Call CmbST08_3_HENKYAKU_TANTO_Validating(cmbST08_3_HENKYAKU_TANTO, Nothing)
-                            Case ENM_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
+                            Case ENM_NCR_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
                                 Call CmbST08_4_BUHIN_BANGO_Validating(cmbST08_4_BUHIN_BANGO, Nothing)
                                 Call CmbST08_4_KISYU_Validating(cmbST08_4_KISYU, Nothing)
                             Case Else

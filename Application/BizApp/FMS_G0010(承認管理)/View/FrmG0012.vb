@@ -1102,7 +1102,7 @@ Public Class FrmG0012
         strBody = String.Format(strBody,
                                 Fun_GetUSER_NAME(_D004_SYONIN_J_KANRI.SYAIN_ID),
                                 _D004_SYONIN_J_KANRI.HOKOKU_NO,
-                                FunGetCurrentStageName(_D004_SYONIN_J_KANRI.SYONIN_JUN),
+                                FunGetCurrentStageName(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _D004_SYONIN_J_KANRI.SYONIN_JUN),
                                 KISYU_NAME,
                                 _V002_NCR_J.BUHIN_BANGO,
                                 Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
@@ -2057,13 +2057,13 @@ Public Class FrmG0012
     Private Sub rbtnSEKKEI_TANTO_YOHI_YES_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnSEKKEI_TANTO_YOHI_YES.CheckedChanged
 
         Dim blnChecked As Boolean = rbtnSEKKEI_TANTO_YOHI_NO.Checked
-        _D005_CAR_J.SETUMON_23 = True
+        _D005_CAR_J.SETUMON_23 = "1"
     End Sub
 
     Private Sub rbtnSEKKEI_TANTO_YOHI_NO_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnSEKKEI_TANTO_YOHI_NO.CheckedChanged
 
         Dim blnChecked As Boolean = rbtnSEKKEI_TANTO_YOHI_NO.Checked
-        _D005_CAR_J.SETUMON_23 = False
+        _D005_CAR_J.SETUMON_23 = "0"
     End Sub
 
     Private Sub chkSEKKEI_TANTO_YOHI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkSEKKEI_TANTO_YOHI_KB.CheckedChanged
@@ -2651,6 +2651,7 @@ Public Class FrmG0012
             'mtxFUTEKIGO_S_KB.DataBindings.Add(New Binding(NameOf(mtxFUTEKIGO_S_KB.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged))
             cmbDestTANTO.DataBindings.Add(New Binding(NameOf(cmbDestTANTO.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
             'txtComment.DataBindings.Add(New Binding(NameOf(txtComment.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+            chkSEKKEI_TANTO_YOHI_KB.DataBindings.Add(New Binding(NameOf(cmbDestTANTO.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
             'CARçÄñ⁄
             txtKAITO_1.DataBindings.Add(New Binding(NameOf(txtKAITO_1.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_1), False, DataSourceUpdateMode.OnPropertyChanged, ""))

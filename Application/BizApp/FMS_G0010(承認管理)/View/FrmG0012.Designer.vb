@@ -3224,6 +3224,7 @@ Partial Class FrmG0012
         Me.Label81.TabIndex = 253
         Me.Label81.Text = "設計開発担当者の確認の要否:"
         Me.Label81.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label81.Visible = False
         '
         'FlowLayoutPanel1
         '
@@ -3232,8 +3233,9 @@ Partial Class FrmG0012
         Me.FlowLayoutPanel1.Controls.Add(Me.rbtnSEKKEI_TANTO_YOHI_NO)
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(762, 177)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(95, 23)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(90, 23)
         Me.FlowLayoutPanel1.TabIndex = 251
+        Me.FlowLayoutPanel1.Visible = False
         '
         'rbtnSEKKEI_TANTO_YOHI_YES
         '
@@ -3266,6 +3268,7 @@ Partial Class FrmG0012
         Me.chkSEKKEI_TANTO_YOHI_KB.TabIndex = 252
         Me.chkSEKKEI_TANTO_YOHI_KB.Text = "chkZESEI"
         Me.chkSEKKEI_TANTO_YOHI_KB.UseVisualStyleBackColor = True
+        Me.chkSEKKEI_TANTO_YOHI_KB.Visible = False
         '
         'FrmG0012
         '
