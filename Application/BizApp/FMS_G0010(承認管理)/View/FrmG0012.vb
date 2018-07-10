@@ -1718,7 +1718,7 @@ Public Class FrmG0012
 
         Try
             frmDLG.PrSYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKUSYO_ID._2_CAR
-            frmDLG.PrHOKOKU_NO = _V002_NCR_J.HOKOKU_NO
+            frmDLG.PrHOKOKU_NO = _D005_CAR_J.HOKOKU_NO
             frmDLG.PrBUMON_KB = _V002_NCR_J.BUMON_KB
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
@@ -1750,7 +1750,7 @@ Public Class FrmG0012
 
         Try
             frmDLG.PrSYONIN_HOKOKUSYO_ID = ENM_SYONIN_HOKOKUSYO_ID._2_CAR
-            frmDLG.PrHOKOKU_NO = _V002_NCR_J.HOKOKU_NO
+            frmDLG.PrHOKOKU_NO = _D005_CAR_J.HOKOKU_NO
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
@@ -2026,6 +2026,7 @@ Public Class FrmG0012
                 Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
                 If blnIsAdmin Then
                     cmdFunc4.Enabled = True
+                    cmdFunc5.Enabled = True
                 End If
             End If
 
@@ -2051,6 +2052,28 @@ Public Class FrmG0012
 #Region "コントロールイベント"
 
 #Region "   タブ別"
+
+#Region "ヘッダ"
+    Private Sub rbtnSEKKEI_TANTO_YOHI_YES_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnSEKKEI_TANTO_YOHI_YES.CheckedChanged
+
+        Dim blnChecked As Boolean = rbtnSEKKEI_TANTO_YOHI_NO.Checked
+        _D005_CAR_J.SETUMON_23 = True
+    End Sub
+
+    Private Sub rbtnSEKKEI_TANTO_YOHI_NO_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnSEKKEI_TANTO_YOHI_NO.CheckedChanged
+
+        Dim blnChecked As Boolean = rbtnSEKKEI_TANTO_YOHI_NO.Checked
+        _D005_CAR_J.SETUMON_23 = False
+    End Sub
+
+    Private Sub chkSEKKEI_TANTO_YOHI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkSEKKEI_TANTO_YOHI_KB.CheckedChanged
+        If chkSEKKEI_TANTO_YOHI_KB.Checked Then
+            rbtnSEKKEI_TANTO_YOHI_YES.Checked = True
+        Else
+            rbtnSEKKEI_TANTO_YOHI_NO.Checked = True
+        End If
+    End Sub
+#End Region
 
 #Region "   1.発生状況"
 
@@ -2205,13 +2228,13 @@ Public Class FrmG0012
 #Region "   6.処置水平展開"
     Private Sub RbtnKAITO14_T_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnKAITO_14_T.CheckedChanged
 
-        Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
+        Dim blnChecked As Boolean = rbtnSEKKEI_TANTO_YOHI_NO.Checked
         _D005_CAR_J.KAITO_14 = ENM_YOHI_KB._1_要
     End Sub
 
     Private Sub RbtnKAITO14_F_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnKAITO_14_T.CheckedChanged
 
-        Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
+        Dim blnChecked As Boolean = rbtnSEKKEI_TANTO_YOHI_NO.Checked
         _D005_CAR_J.KAITO_14 = ENM_YOHI_KB._0_否
     End Sub
 
@@ -2409,21 +2432,20 @@ Public Class FrmG0012
     End Sub
 #End Region
 
-
 #Region "是正処置有効性の問題の有無"
-    Private Sub rbtnZESEI_SYOCHI_YES_CheckedChanged(sender As Object, e As EventArgs)
+    Private Sub rbtnZESEI_SYOCHI_YES_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnZESEI_SYOCHI_YES.CheckedChanged
 
         Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
         _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = True
     End Sub
 
-    Private Sub rbtnZESEI_SYOCHI_NO_CheckedChanged(sender As Object, e As EventArgs)
+    Private Sub rbtnZESEI_SYOCHI_NO_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnZESEI_SYOCHI_NO.CheckedChanged
 
         Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
         _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = False
     End Sub
 
-    Private Sub chkZESEI_SYOCHI_YUKO_UMU_CheckedChanged(sender As Object, e As EventArgs)
+    Private Sub chkZESEI_SYOCHI_YUKO_UMU_CheckedChanged(sender As Object, e As EventArgs) Handles chkZESEI_SYOCHI_YUKO_UMU.CheckedChanged
         If chkZESEI_SYOCHI_YUKO_UMU.Checked Then
             rbtnZESEI_SYOCHI_YES.Checked = True
         Else
@@ -2431,7 +2453,6 @@ Public Class FrmG0012
         End If
     End Sub
 #End Region
-
 
 #End Region
 #Region "   添付資料"
@@ -2676,7 +2697,7 @@ Public Class FrmG0012
 
             If PrCurrentStage >= ENM_CAR_STAGE._100_是正有効性記入 Then
                 '是正処置有効性レビュー
-                chkZESEI_SYOCHI_YUKO_UMU.DataBindings.Add(New Binding(NameOf(chkZESEI_SYOCHI_YUKO_UMU.Checked), _D005_CAR_J, NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU), False, DataSourceUpdateMode.OnPropertyChanged, False))
+                chkSEKKEI_TANTO_YOHI_KB.DataBindings.Add(New Binding(NameOf(chkSEKKEI_TANTO_YOHI_KB.Checked), _D005_CAR_J, NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU), False, DataSourceUpdateMode.OnPropertyChanged, False))
                 mtxGOKI.DataBindings.Add(New Binding(NameOf(mtxGOKI.Text), _D005_CAR_J, NameOf(_D005_CAR_J.GOKI), False, DataSourceUpdateMode.OnPropertyChanged, ""))
                 mtxLOT.DataBindings.Add(New Binding(NameOf(mtxLOT.Text), _D005_CAR_J, NameOf(_D005_CAR_J.LOT), False, DataSourceUpdateMode.OnPropertyChanged, 0))
                 lblSYOSAI_FILE_PATH.DataBindings.Add(New Binding(NameOf(lblSYOSAI_FILE_PATH.Tag), _D005_CAR_J, NameOf(_D005_CAR_J.SYOSAI_FILE_PATH), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -2718,7 +2739,9 @@ Public Class FrmG0012
                 Return False
             End If
 
+
             mtxBUMON_KB.Text = _V002_NCR_J.BUMON_NAME
+            mtxHOKUKO_NO.Text = _V002_NCR_J.HOKOKU_NO
             mtxKISYU.Text = _V002_NCR_J.KISYU_NAME
             mtxADD_SYAIN_NAME.Text = _V005_CAR_J.SYONIN_NAME10
             mtxFUTEKIGO_KB.Text = _V002_NCR_J.FUTEKIGO_NAME
@@ -2743,11 +2766,12 @@ Public Class FrmG0012
                     '_tabPageManager.ChangeTabPageVisible(2, False)'tab_CAR_SUB_2_.Visible = False
 
                 Case ENM_CAR_STAGE._80_処置実施記録入力, ENM_CAR_STAGE._90_処置実施確認
+                    tabSTAGE01.EnableDisablePages(False)
                     tab_CAR_SUB_1_.Enabled = blnOwn 'tab_CAR_SUB_1_.EnableDisablePages(blnOwn) 
                     TabSTAGE.TabPages.Remove(tab_CAR_SUB_2_)
 
                 Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
-
+                    tabSTAGE01.EnableDisablePages(False)
                     tab_CAR_SUB_1_.Enabled = False 'tab_CAR_SUB_1_.EnableDisablePages(False)
                     tab_CAR_SUB_2_.Enabled = blnOwn 'tab_CAR_SUB_2_.EnableDisablePages(blnOwn)
                 Case Else
@@ -2771,6 +2795,10 @@ Public Class FrmG0012
                     lbl_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
                 End If
             End If
+
+            txtKAITO_1.Focus()
+            ErrorProvider.ClearError(cmbDestTANTO)
+
 
             Return True
 

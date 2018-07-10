@@ -39,13 +39,13 @@
     <InstallUrl>http://SV91:8000/</InstallUrl>
     <ProductName>フジワラシステム</ProductName>
     <PublisherName>JMS</PublisherName>
-    <MinimumRequiredVersion>0.9.18186.859</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.9.18191.257</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>859</ApplicationRevision>
-    <ApplicationVersion>0.9.18186.859</ApplicationVersion>
+    <ApplicationRevision>257</ApplicationRevision>
+    <ApplicationVersion>0.9.18191.257</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -173,6 +173,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="EXE\C1.Win.C1FlexGrid.4.dll" />
+    <Content Include="EXE\FMS_G0010.exe" />
+    <Content Include="EXE\FMS_M0000.exe" />
+    <Content Include="EXE\FMS_M0010.exe" />
+    <Content Include="EXE\FMS_M0040.exe" />
+    <Content Include="EXE\FMS_M0060.exe" />
+    <Content Include="EXE\FMS_M0130.exe" />
+    <Content Include="EXE\FMS_MODEL.dll" />
+    <Content Include="EXE\JMS_COMMON.dll" />
+    <Content Include="EXE\Microsoft.WindowsAPICodePack.dll" />
+    <Content Include="EXE\PropertyChanged.dll" />
+    <Content Include="EXE\SpreadsheetGear2012.Core.dll" />
+    <Content Include="EXE\SpreadsheetGear2012.Drawing.dll" />
+    <Content Include="EXE\SpreadsheetGear2012.Windows.Forms.dll" />
+    <Content Include="EXE\TKMP.dll" />
     <Content Include="favicon.ico" />
     <Content Include="INI\RIREKI.TXT" />
     <Content Include="INI\SYSTEM.INI" />
@@ -189,8 +204,8 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="TEMPLATE\TEMP_CAR.xls" />
-    <None Include="TEMPLATE\TEMP_NCR.xls" />
+    <Content Include="TEMPLATE\TEMP_CAR.xls" />
+    <Content Include="TEMPLATE\TEMP_NCR.xls" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7">
@@ -210,7 +225,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="EXE\" />
     <Folder Include="EXE_DEBUG\" />
     <Folder Include="LOG\" />
   </ItemGroup>

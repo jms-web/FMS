@@ -404,6 +404,12 @@ Public Class FrmG0011
 
                 If MessageBox.Show(strMsg, "ファイル保存先アクセス不可", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) <> vbOK Then
                     Me.DialogResult = DialogResult.Abort
+                    _D003_NCR_J.FILE_PATH = ""
+                    _D003_NCR_J.G_FILE_PATH1 = ""
+                    _D003_NCR_J.G_FILE_PATH2 = ""
+                    Return True
+                Else
+                    Me.DialogResult = DialogResult.Abort
                     Return True
                 End If
             Else
@@ -2627,14 +2633,14 @@ Public Class FrmG0011
             ssgWorkbook.WorkbookSet.ReleaseLock()
 
             '-----Spire版 直接PDF発行するならこっち
-            Dim workbook As New Spire.Xls.Workbook
-            workbook.LoadFromFile(strFilePath)
-            Dim pdfFilePath As String
-            pdfFilePath = System.IO.Path.GetDirectoryName(strFilePath) & "\" & System.IO.Path.GetFileNameWithoutExtension(strFilePath) & ".pdf"
-            workbook.SaveToFile(pdfFilePath, Spire.Xls.FileFormat.PDF)
+            'Dim workbook As New Spire.Xls.Workbook
+            'workbook.LoadFromFile(strFilePath)
+            'Dim pdfFilePath As String
+            'pdfFilePath = System.IO.Path.GetDirectoryName(strFilePath) & "\" & System.IO.Path.GetFileNameWithoutExtension(strFilePath) & ".pdf"
+            'workbook.SaveToFile(pdfFilePath, Spire.Xls.FileFormat.PDF)
 
             ''PDF表示
-            System.Diagnostics.Process.Start(pdfFilePath)
+            'System.Diagnostics.Process.Start(pdfFilePath)
 
             'Excel作業ファイルを削除
             Try
@@ -2761,6 +2767,7 @@ Public Class FrmG0011
                 Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
                 If blnIsAdmin Then
                     cmdFunc4.Enabled = True
+                    cmdFunc5.Enabled = True
                 End If
             End If
 
@@ -2911,7 +2918,11 @@ Public Class FrmG0011
                             '転送時
                             lblST01_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
                         End If
-                        cmbST01_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                            cmbST01_DestTANTO.SelectedValue = 0
+                        Else
+                            cmbST01_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        End If
                         If intStageID > ENM_NCR_STAGE._10_起草入力 Then
                             cmbST01_DestTANTO.ReadOnly = True
                         End If
@@ -2934,7 +2945,11 @@ Public Class FrmG0011
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_起草確認製造GL).
                                 FirstOrDefault
 
-                    cmbST02_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                    If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                        cmbST02_DestTANTO.SelectedValue = 0
+                    Else
+                        cmbST02_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                    End If
                     txtST02_Comment.Text = _V003.COMMENT
 
                     If _V003 IsNot Nothing Then
@@ -2974,7 +2989,11 @@ Public Class FrmG0011
                                 FirstOrDefault
 
                     If _V003 IsNot Nothing Then
-                        cmbST03_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                            cmbST03_DestTANTO.SelectedValue = 0
+                        Else
+                            cmbST03_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        End If
                         txtST03_Comment.Text = _V003.COMMENT
 
                         mtxST03_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
@@ -3002,21 +3021,18 @@ Public Class FrmG0011
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定))
                 cmbST04_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-
                 mtxST04_NextStageName.Text = FunGetCurrentStageName(FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定))
                 mtxST04_UPD_YMD.ReadOnly = True
                 mtxST04_NextStageName.ReadOnly = True
 
                 cmbST04_JIZENSINSA_HANTEI.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-
-                dt = FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, ENM_NCR_STAGE._20_起草確認製造GL) 'FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
                 cmbST04_HASSEI_KOTEI_GL_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, ENM_SYONIN_HOKOKUSYO_ID._2_CAR, ENM_CAR_STAGE._10_起草入力)
                 cmbST04_CAR_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 cmbST04_CAR_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
-
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -3034,7 +3050,11 @@ Public Class FrmG0011
                     _D003_NCR_J.ZESEI_NASI_RIYU = _V002_NCR_J.ZESEI_NASI_RIYU
 
                     If _V003 IsNot Nothing Then
-                        cmbST04_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                            cmbST04_DestTANTO.SelectedValue = 0
+                        Else
+                            cmbST04_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        End If
                         txtST04_Comment.Text = _V003.COMMENT
                         mtxST04_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 Then lblST04_Modoshi_Riyu.Visible = True
@@ -3075,7 +3095,11 @@ Public Class FrmG0011
                                 FirstOrDefault
 
                     If _V003 IsNot Nothing Then
-                        cmbST05_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                            cmbST05_DestTANTO.SelectedValue = 0
+                        Else
+                            cmbST05_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        End If
                         txtST05_Comment.Text = _V003.COMMENT
                         mtxST05_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._50_事前審査確認 Then lblST05_Modoshi_Riyu.Visible = True
@@ -3130,7 +3154,11 @@ Public Class FrmG0011
                     _D003_NCR_J.SAISIN_IINKAI_SIRYO_NO = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
 
                     If _V003 IsNot Nothing Then
-                        cmbST06_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                            cmbST06_DestTANTO.SelectedValue = 0
+                        Else
+                            cmbST06_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        End If
                         txtST06_Comment.Text = _V003.COMMENT
                         mtxST06_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._60_再審審査判定_技術代表 Then lblST06_Modoshi_Riyu.Visible = True
@@ -3175,7 +3203,11 @@ Public Class FrmG0011
                         _D003_NCR_J.SAISIN_IINKAI_SIRYO_NO = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
 
                         If _V003 IsNot Nothing Then
-                            cmbST06_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                            If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                                cmbST06_DestTANTO.SelectedValue = 0
+                            Else
+                                cmbST06_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                            End If
                             txtST06_Comment.Text = _V003.COMMENT
                             mtxST06_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                             If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._61_再審審査判定_品証代表 Then lblST06_Modoshi_Riyu.Visible = True
@@ -3240,7 +3272,11 @@ Public Class FrmG0011
                         End If
 
                         If _V003 IsNot Nothing Then
-                            cmbST07_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                            If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                                cmbST07_DestTANTO.SelectedValue = 0
+                            Else
+                                cmbST07_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                            End If
                             txtST07_Comment.Text = _V003.COMMENT
                             mtxST07_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                             If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag Then lblST07_Modoshi_Riyu.Visible = True
@@ -3336,7 +3372,11 @@ Public Class FrmG0011
                         _D003_NCR_J.TENYO_YMD = _V002_NCR_J.TENYO_YMD
 
                         If _V003 IsNot Nothing Then
-                            cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                            If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                                cmbST08_DestTANTO.SelectedValue = 0
+                            Else
+                                cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                            End If
                             txtST08_Comment.Text = _V003.COMMENT
                             mtxST08_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                             If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._80_処置実施 Then lblST08_Modoshi_Riyu.Visible = True
@@ -3380,10 +3420,6 @@ Public Class FrmG0011
                 End If
             End If
 
-
-
-
-
 #End Region
 #Region "               81"
             '81
@@ -3399,7 +3435,11 @@ Public Class FrmG0011
                                 FirstOrDefault
 
                     If _V003 IsNot Nothing Then
-                        cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                            cmbST08_DestTANTO.SelectedValue = 0
+                        Else
+                            cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        End If
                         txtST08_Comment.Text = _V003.COMMENT
                         mtxST08_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._81_処置実施_生技 Then lblST08_Modoshi_Riyu.Visible = True
@@ -3427,7 +3467,11 @@ Public Class FrmG0011
                                 FirstOrDefault
 
                     If _V003 IsNot Nothing Then
-                        cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                            cmbST08_DestTANTO.SelectedValue = 0
+                        Else
+                            cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        End If
                         txtST08_Comment.Text = _V003.COMMENT
                         mtxST08_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._82_処置実施_製造 Then lblST08_Modoshi_Riyu.Visible = True
@@ -3455,7 +3499,11 @@ Public Class FrmG0011
                                 FirstOrDefault
 
                     If _V003 IsNot Nothing Then
-                        cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                            cmbST08_DestTANTO.SelectedValue = 0
+                        Else
+                            cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        End If
                         txtST08_Comment.Text = _V003.COMMENT
                         mtxST08_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._83_処置実施_検査 Then lblST08_Modoshi_Riyu.Visible = True
@@ -3484,7 +3532,11 @@ Public Class FrmG0011
                                 FirstOrDefault
 
                     If _V003 IsNot Nothing Then
-                        cmbST09_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                            cmbST09_DestTANTO.SelectedValue = 0
+                        Else
+                            cmbST09_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        End If
                         txtST09_Comment.Text = _V003.COMMENT
                         mtxST09_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._90_処置実施確認_管理T Then lblST09_Modoshi_Riyu.Visible = True
@@ -3519,7 +3571,11 @@ Public Class FrmG0011
                                 FirstOrDefault
 
                     If _V003 IsNot Nothing Then
-                        cmbST10_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                            cmbST10_DestTANTO.SelectedValue = 0
+                        Else
+                            cmbST10_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        End If
                         txtST10_Comment.Text = _V003.COMMENT
                         mtxST10_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長 Then lblST10_Modoshi_Riyu.Visible = True
@@ -3608,7 +3664,11 @@ Public Class FrmG0011
                     _D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU = _V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU
 
                     If _V003 IsNot Nothing Then
-                        cmbST11_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                            cmbST11_DestTANTO.SelectedValue = 0
+                        Else
+                            cmbST11_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        End If
                         txtST11_Comment.Text = _V003.COMMENT
                         mtxST11_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._110_abcde処置担当 Then lblST11_Modoshi_Riyu.Visible = True
@@ -5661,11 +5721,6 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
-
-    Private Sub dtDraft_Enter(sender As Object, e As EventArgs) Handles dtDraft.Enter
-        Stop
-    End Sub
-
 
 #End Region
 

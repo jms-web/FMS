@@ -138,7 +138,7 @@ Public Class FrmG0013
                         If PrMODE = 1 Then
                             Dim cmbclmn2 As New DataGridViewCheckBoxColumn With {
                         .Name = "DAIHYO",
-                        .HeaderText = "‘ã•\",
+                        .HeaderText = "Žå—vˆö",
                         .DataPropertyName = .Name
                         }
                             cmbclmn1.DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter

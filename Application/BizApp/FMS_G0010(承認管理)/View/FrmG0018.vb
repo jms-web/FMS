@@ -72,24 +72,39 @@ Public Class FrmG0018
         Try
             With dgv
                 .AutoGenerateColumns = False
+                '.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+
+                ''表示列の幅を取得する
+                'Dim allWidth As Integer = .Columns.GetColumnsWidth(DataGridViewElementStates.Visible)
+
+                'If allWidth <= .Width - SystemInformation.VerticalScrollBarWidth Then
+                '    '表示されているすべての列幅がデータグリッドビュー幅より狭い場合、最後の列幅を広げる
+                '    .Columns.GetLastColumn(DataGridViewElementStates.Visible, Nothing).Width = .Width - (allWidth - .Columns.GetLastColumn(DataGridViewElementStates.Visible, Nothing).Width + SystemInformation.VerticalScrollBarWidth)
+                'End If
+
                 .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
                 .ColumnHeadersDefaultCellStyle.Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
 
                 .Columns.Add("KOMOKU_NAME", "変更項目名")
                 .Columns(.ColumnCount - 1).Width = 150
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                .Columns.Add("MAE_NAIYO", "変更前内容")
-                .Columns(.ColumnCount - 1).Width = 400
+                .Columns.Add("ATO_NAIYO", "変更前内容")
+                .Columns(.ColumnCount - 1).Width = 535
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).DefaultCellStyle.WrapMode = DataGridViewTriState.True
 
-                .Columns.Add("ATO_NAIYO", "変更後内容")
-                .Columns(.ColumnCount - 1).Width = 400
+                .Columns.Add("MAE_NAIYO", "変更後内容")
+                .Columns(.ColumnCount - 1).Width = 535
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).DefaultCellStyle.WrapMode = DataGridViewTriState.True
 
+                For Each c As DataGridViewColumn In .Columns
+                    c.SortMode = DataGridViewColumnSortMode.NotSortable
+                Next c
             End With
 
             Return True
@@ -260,7 +275,14 @@ Public Class FrmG0018
     Private Function FunSetDgvCellFormat(ByVal dgv As DataGridView) As Boolean
 
         Try
-            Dim _Model As New MODEL.M001_SETTING
+            'Dim _Model As New MODEL.M001_SETTING
+
+            Dim tgtList As New List(Of String) From {"要求内容", "観察結果", "是正処置無理由", "廃却方法内容",
+                                       "返却実施備考", "処置d処置記録", "処置e処置記録", "", "",
+                                       "不適合発生状況（誰が、いつ、何をしていて、どうなったか）",
+                                       "不適合要因（関係する要因（人、設備・治工具、材料、方法、など）の調査）",
+                                       "根本原因（不適合の発生に至った根本原因をなぜなぜ分析により究明）"}
+
             For i As Integer = 0 To dgv.Rows.Count - 1
                 With dgv.Rows(i)
                     'If CBool(Me.dgvDATA.Rows(i).Cells(NameOf(_Model.DEL_FLG)).Value) = True Then
@@ -268,6 +290,12 @@ Public Class FrmG0018
                     '    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
                     '    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
                     'End If
+                    If tgtList.Contains(dgvDATA.Rows(i).Cells("KOMOKU_NAME").Value) Then
+                        dgvDATA.Rows(i).Height = 70
+                        'dgvDATA.Rows(i).Cells(0).Style.Alignment = DataGridViewContentAlignment.TopCenter
+                        dgvDATA.Rows(i).Cells(1).Style.Alignment = DataGridViewContentAlignment.TopLeft
+                        dgvDATA.Rows(i).Cells(2).Style.Alignment = DataGridViewContentAlignment.TopLeft
+                    End If
                 End With
             Next i
         Catch ex As Exception

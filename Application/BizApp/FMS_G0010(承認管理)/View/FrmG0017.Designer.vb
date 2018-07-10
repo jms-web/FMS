@@ -339,7 +339,7 @@ Partial Class FrmG0017
         '
         'mtxHENKYAKU_RIYU
         '
-        Me.mtxHENKYAKU_RIYU.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxHENKYAKU_RIYU.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxHENKYAKU_RIYU, 24)
         Me.mtxHENKYAKU_RIYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxHENKYAKU_RIYU.ImeMode = System.Windows.Forms.ImeMode.[On]
@@ -348,7 +348,6 @@ Partial Class FrmG0017
         Me.mtxHENKYAKU_RIYU.MaxByteLength = 0
         Me.mtxHENKYAKU_RIYU.Name = "mtxHENKYAKU_RIYU"
         Me.mtxHENKYAKU_RIYU.ReadOnly = True
-        Me.mtxHENKYAKU_RIYU.ShowRemaining = True
         Me.mtxHENKYAKU_RIYU.Size = New System.Drawing.Size(474, 24)
         Me.mtxHENKYAKU_RIYU.TabIndex = 12
         Me.mtxHENKYAKU_RIYU.Visible = False
@@ -390,7 +389,7 @@ Partial Class FrmG0017
         '
         'mtxZUBAN_KIKAKU
         '
-        Me.mtxZUBAN_KIKAKU.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxZUBAN_KIKAKU.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxZUBAN_KIKAKU, 18)
         Me.mtxZUBAN_KIKAKU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxZUBAN_KIKAKU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -400,7 +399,6 @@ Partial Class FrmG0017
         Me.mtxZUBAN_KIKAKU.MaxByteLength = 60
         Me.mtxZUBAN_KIKAKU.Name = "mtxZUBAN_KIKAKU"
         Me.mtxZUBAN_KIKAKU.ReadOnly = True
-        Me.mtxZUBAN_KIKAKU.ShowRemaining = True
         Me.mtxZUBAN_KIKAKU.Size = New System.Drawing.Size(354, 24)
         Me.mtxZUBAN_KIKAKU.TabIndex = 15
         Me.mtxZUBAN_KIKAKU.WatermarkColor = System.Drawing.Color.Empty
@@ -421,7 +419,7 @@ Partial Class FrmG0017
         '
         'mtxHOKUKO_NO
         '
-        Me.mtxHOKUKO_NO.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxHOKUKO_NO.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxHOKUKO_NO, 7)
         Me.mtxHOKUKO_NO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxHOKUKO_NO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -431,7 +429,6 @@ Partial Class FrmG0017
         Me.mtxHOKUKO_NO.MaxByteLength = 0
         Me.mtxHOKUKO_NO.Name = "mtxHOKUKO_NO"
         Me.mtxHOKUKO_NO.ReadOnly = True
-        Me.mtxHOKUKO_NO.ShowRemaining = True
         Me.mtxHOKUKO_NO.Size = New System.Drawing.Size(134, 24)
         Me.mtxHOKUKO_NO.TabIndex = 0
         Me.mtxHOKUKO_NO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -484,7 +481,7 @@ Partial Class FrmG0017
         '
         'mtxHINMEI
         '
-        Me.mtxHINMEI.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxHINMEI.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxHINMEI, 18)
         Me.mtxHINMEI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxHINMEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -494,7 +491,6 @@ Partial Class FrmG0017
         Me.mtxHINMEI.MaxByteLength = 0
         Me.mtxHINMEI.Name = "mtxHINMEI"
         Me.mtxHINMEI.ReadOnly = True
-        Me.mtxHINMEI.ShowRemaining = True
         Me.mtxHINMEI.Size = New System.Drawing.Size(354, 24)
         Me.mtxHINMEI.TabIndex = 6
         Me.mtxHINMEI.WatermarkColor = System.Drawing.Color.Empty
@@ -513,7 +509,7 @@ Partial Class FrmG0017
         '
         'mtxGOUKI
         '
-        Me.mtxGOUKI.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxGOUKI.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxGOUKI, 7)
         Me.mtxGOUKI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxGOUKI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -523,7 +519,6 @@ Partial Class FrmG0017
         Me.mtxGOUKI.MaxByteLength = 0
         Me.mtxGOUKI.Name = "mtxGOUKI"
         Me.mtxGOUKI.ReadOnly = True
-        Me.mtxGOUKI.ShowRemaining = True
         Me.mtxGOUKI.Size = New System.Drawing.Size(134, 24)
         Me.mtxGOUKI.TabIndex = 7
         Me.mtxGOUKI.WatermarkColor = System.Drawing.Color.Empty
@@ -606,13 +601,14 @@ Partial Class FrmG0017
         '
         Me.dtDraft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tlpFilter.SetColumnSpan(Me.dtDraft, 5)
-        Me.dtDraft.Enabled = False
+        Me.dtDraft.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtDraft.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtDraft.Location = New System.Drawing.Point(943, 33)
         Me.dtDraft.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtDraft.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtDraft.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtDraft.Name = "dtDraft"
+        Me.dtDraft.ReadOnly = True
         Me.dtDraft.Size = New System.Drawing.Size(98, 24)
         Me.dtDraft.TabIndex = 3
         Me.dtDraft.Value = ""
@@ -620,7 +616,7 @@ Partial Class FrmG0017
         '
         'mtxKISYU
         '
-        Me.mtxKISYU.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKISYU.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxKISYU, 7)
         Me.mtxKISYU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxKISYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -630,7 +626,6 @@ Partial Class FrmG0017
         Me.mtxKISYU.MaxByteLength = 0
         Me.mtxKISYU.Name = "mtxKISYU"
         Me.mtxKISYU.ReadOnly = True
-        Me.mtxKISYU.ShowRemaining = True
         Me.mtxKISYU.Size = New System.Drawing.Size(134, 24)
         Me.mtxKISYU.TabIndex = 122
         Me.mtxKISYU.WatermarkColor = System.Drawing.Color.Empty
@@ -638,7 +633,7 @@ Partial Class FrmG0017
         '
         'mtxFUTEKIGO_JYOTAI
         '
-        Me.mtxFUTEKIGO_JYOTAI.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxFUTEKIGO_JYOTAI.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxFUTEKIGO_JYOTAI, 7)
         Me.mtxFUTEKIGO_JYOTAI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxFUTEKIGO_JYOTAI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -648,7 +643,6 @@ Partial Class FrmG0017
         Me.mtxFUTEKIGO_JYOTAI.MaxByteLength = 0
         Me.mtxFUTEKIGO_JYOTAI.Name = "mtxFUTEKIGO_JYOTAI"
         Me.mtxFUTEKIGO_JYOTAI.ReadOnly = True
-        Me.mtxFUTEKIGO_JYOTAI.ShowRemaining = True
         Me.mtxFUTEKIGO_JYOTAI.Size = New System.Drawing.Size(134, 24)
         Me.mtxFUTEKIGO_JYOTAI.TabIndex = 123
         Me.mtxFUTEKIGO_JYOTAI.WatermarkColor = System.Drawing.Color.Empty
@@ -656,7 +650,7 @@ Partial Class FrmG0017
         '
         'mtxFUTEKIGO_KB
         '
-        Me.mtxFUTEKIGO_KB.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxFUTEKIGO_KB.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxFUTEKIGO_KB, 7)
         Me.mtxFUTEKIGO_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxFUTEKIGO_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -666,7 +660,6 @@ Partial Class FrmG0017
         Me.mtxFUTEKIGO_KB.MaxByteLength = 0
         Me.mtxFUTEKIGO_KB.Name = "mtxFUTEKIGO_KB"
         Me.mtxFUTEKIGO_KB.ReadOnly = True
-        Me.mtxFUTEKIGO_KB.ShowRemaining = True
         Me.mtxFUTEKIGO_KB.Size = New System.Drawing.Size(134, 24)
         Me.mtxFUTEKIGO_KB.TabIndex = 124
         Me.mtxFUTEKIGO_KB.WatermarkColor = System.Drawing.Color.Empty
@@ -674,7 +667,7 @@ Partial Class FrmG0017
         '
         'mtxFUTEKIGO_S_KB
         '
-        Me.mtxFUTEKIGO_S_KB.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxFUTEKIGO_S_KB.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxFUTEKIGO_S_KB, 10)
         Me.mtxFUTEKIGO_S_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxFUTEKIGO_S_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -684,7 +677,6 @@ Partial Class FrmG0017
         Me.mtxFUTEKIGO_S_KB.MaxByteLength = 0
         Me.mtxFUTEKIGO_S_KB.Name = "mtxFUTEKIGO_S_KB"
         Me.mtxFUTEKIGO_S_KB.ReadOnly = True
-        Me.mtxFUTEKIGO_S_KB.ShowRemaining = True
         Me.mtxFUTEKIGO_S_KB.Size = New System.Drawing.Size(194, 24)
         Me.mtxFUTEKIGO_S_KB.TabIndex = 125
         Me.mtxFUTEKIGO_S_KB.WatermarkColor = System.Drawing.Color.Empty
@@ -692,7 +684,7 @@ Partial Class FrmG0017
         '
         'mtxSYANAI_CD
         '
-        Me.mtxSYANAI_CD.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxSYANAI_CD.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxSYANAI_CD, 7)
         Me.mtxSYANAI_CD.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxSYANAI_CD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -702,7 +694,6 @@ Partial Class FrmG0017
         Me.mtxSYANAI_CD.MaxByteLength = 0
         Me.mtxSYANAI_CD.Name = "mtxSYANAI_CD"
         Me.mtxSYANAI_CD.ReadOnly = True
-        Me.mtxSYANAI_CD.ShowRemaining = True
         Me.mtxSYANAI_CD.Size = New System.Drawing.Size(134, 24)
         Me.mtxSYANAI_CD.TabIndex = 126
         Me.mtxSYANAI_CD.Visible = False
@@ -711,7 +702,7 @@ Partial Class FrmG0017
         '
         'mtxBUHIN_BANGO
         '
-        Me.mtxBUHIN_BANGO.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxBUHIN_BANGO.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxBUHIN_BANGO, 10)
         Me.mtxBUHIN_BANGO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxBUHIN_BANGO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -721,7 +712,6 @@ Partial Class FrmG0017
         Me.mtxBUHIN_BANGO.MaxByteLength = 0
         Me.mtxBUHIN_BANGO.Name = "mtxBUHIN_BANGO"
         Me.mtxBUHIN_BANGO.ReadOnly = True
-        Me.mtxBUHIN_BANGO.ShowRemaining = True
         Me.mtxBUHIN_BANGO.Size = New System.Drawing.Size(194, 24)
         Me.mtxBUHIN_BANGO.TabIndex = 127
         Me.mtxBUHIN_BANGO.WatermarkColor = System.Drawing.Color.Empty
@@ -729,7 +719,7 @@ Partial Class FrmG0017
         '
         'mtxBUMON_KB
         '
-        Me.mtxBUMON_KB.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxBUMON_KB.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxBUMON_KB, 5)
         Me.mtxBUMON_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -739,7 +729,6 @@ Partial Class FrmG0017
         Me.mtxBUMON_KB.MaxByteLength = 0
         Me.mtxBUMON_KB.Name = "mtxBUMON_KB"
         Me.mtxBUMON_KB.ReadOnly = True
-        Me.mtxBUMON_KB.ShowRemaining = True
         Me.mtxBUMON_KB.Size = New System.Drawing.Size(94, 24)
         Me.mtxBUMON_KB.TabIndex = 128
         Me.mtxBUMON_KB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -748,7 +737,7 @@ Partial Class FrmG0017
         '
         'mtxKISOU_TANTO
         '
-        Me.mtxKISOU_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKISOU_TANTO.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxKISOU_TANTO, 8)
         Me.mtxKISOU_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxKISOU_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -758,7 +747,6 @@ Partial Class FrmG0017
         Me.mtxKISOU_TANTO.MaxByteLength = 0
         Me.mtxKISOU_TANTO.Name = "mtxKISOU_TANTO"
         Me.mtxKISOU_TANTO.ReadOnly = True
-        Me.mtxKISOU_TANTO.ShowRemaining = True
         Me.mtxKISOU_TANTO.Size = New System.Drawing.Size(154, 24)
         Me.mtxKISOU_TANTO.TabIndex = 129
         Me.mtxKISOU_TANTO.WatermarkColor = System.Drawing.Color.Empty
@@ -777,7 +765,7 @@ Partial Class FrmG0017
         '
         'mtxSYONIN_HOKOKUSYO_NAME
         '
-        Me.mtxSYONIN_HOKOKUSYO_NAME.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxSYONIN_HOKOKUSYO_NAME.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxSYONIN_HOKOKUSYO_NAME, 18)
         Me.mtxSYONIN_HOKOKUSYO_NAME.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxSYONIN_HOKOKUSYO_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -787,7 +775,6 @@ Partial Class FrmG0017
         Me.mtxSYONIN_HOKOKUSYO_NAME.MaxByteLength = 0
         Me.mtxSYONIN_HOKOKUSYO_NAME.Name = "mtxSYONIN_HOKOKUSYO_NAME"
         Me.mtxSYONIN_HOKOKUSYO_NAME.ReadOnly = True
-        Me.mtxSYONIN_HOKOKUSYO_NAME.ShowRemaining = True
         Me.mtxSYONIN_HOKOKUSYO_NAME.Size = New System.Drawing.Size(354, 24)
         Me.mtxSYONIN_HOKOKUSYO_NAME.TabIndex = 131
         Me.mtxSYONIN_HOKOKUSYO_NAME.TextAlign = System.Windows.Forms.HorizontalAlignment.Center

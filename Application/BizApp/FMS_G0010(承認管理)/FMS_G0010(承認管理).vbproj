@@ -124,25 +124,16 @@
     <Reference Include="PropertyChanged, Version=2.5.6.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\PropertyChanged.Fody.2.5.6\lib\net452\PropertyChanged.dll</HintPath>
     </Reference>
-    <Reference Include="Spire.Common, Version=1.2.788.14040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\FreeSpire.XLS.8.3.0\lib\net40\Spire.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Spire.License, Version=1.3.6.40, Culture=neutral, PublicKeyToken=b1144360237c8b3f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\FreeSpire.XLS.8.3.0\lib\net40\Spire.License.dll</HintPath>
-    </Reference>
-    <Reference Include="Spire.Pdf, Version=4.3.6.14040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\FreeSpire.XLS.8.3.0\lib\net40\Spire.Pdf.dll</HintPath>
-    </Reference>
-    <Reference Include="Spire.XLS, Version=8.3.0.61040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\FreeSpire.XLS.8.3.0\lib\net40\Spire.XLS.dll</HintPath>
-    </Reference>
     <Reference Include="SpreadsheetGear2012.Core">
       <HintPath>..\..\..\Libs\SpreadsheetGear2012.Core.dll</HintPath>
     </Reference>
     <Reference Include="SpreadsheetGear2012.Drawing">
       <HintPath>..\..\..\Libs\SpreadsheetGear2012.Drawing.dll</HintPath>
     </Reference>
-    <Reference Include="SpreadsheetGear2012.Windows.Forms, Version=7.4.14.104, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL" />
+    <Reference Include="SpreadsheetGear2012.Windows.Forms, Version=7.4.14.104, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libs\SpreadsheetGear2012.Windows.Forms.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />

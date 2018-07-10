@@ -1161,7 +1161,7 @@ Module mdlG0010
 
             'Excel作業ファイルを削除
             Try
-                'System.IO.File.Delete(strFilePath)
+                System.IO.File.Delete(strFilePath)
             Catch ex As UnauthorizedAccessException
             End Try
 
@@ -1233,8 +1233,8 @@ Module mdlG0010
             End If
 
             '現状未使用のフィールド
-            'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_21)).Value = _V005_CAR_J.KAITO_21
-            'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_22)).Value = _V005_CAR_J.KAITO_22
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_21)).Value = _V005_CAR_J.KAITO_21
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_22)).Value = _V005_CAR_J.KAITO_22
             'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_23)).Value = _V005_CAR_J.KAITO_23
             'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_24)).Value = _V005_CAR_J.KAITO_24
             'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_25)).Value = _V005_CAR_J.KAITO_25
@@ -1317,7 +1317,7 @@ Module mdlG0010
 
             'Excel作業ファイルを削除
             Try
-                'System.IO.File.Delete(strFilePath)
+                System.IO.File.Delete(strFilePath)
             Catch ex As UnauthorizedAccessException
             End Try
 
@@ -1333,7 +1333,6 @@ Module mdlG0010
 
         End Try
     End Function
-
 
     Private Function FunOpenWorkbook(filePath As String) As Boolean
         Dim workbookView As New SpreadsheetGear.Windows.Forms.WorkbookView

@@ -25,12 +25,12 @@ Partial Class FrmG0018
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
         Me.gbxFilter = New System.Windows.Forms.GroupBox()
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.mtxADD_SYAIN_NAME = New JMS_COMMON.MaskedTextBoxEx()
+        Me.mtxSYOCHI = New JMS_COMMON.MaskedTextBoxEx()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.mtxCurrentStageName = New JMS_COMMON.MaskedTextBoxEx()
-        Me.mtxSYOCHI = New JMS_COMMON.MaskedTextBoxEx()
+        Me.mtxADD_SYAIN_NAME = New JMS_COMMON.MaskedTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
@@ -228,17 +228,6 @@ Partial Class FrmG0018
         Me.tlpFilter.Size = New System.Drawing.Size(1234, 35)
         Me.tlpFilter.TabIndex = 56
         '
-        'Label5
-        '
-        Me.tlpFilter.SetColumnSpan(Me.Label5, 4)
-        Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label5.Location = New System.Drawing.Point(343, 0)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(74, 30)
-        Me.Label5.TabIndex = 114
-        Me.Label5.Text = "èàíu:"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'Label6
         '
         Me.tlpFilter.SetColumnSpan(Me.Label6, 4)
@@ -250,23 +239,34 @@ Partial Class FrmG0018
         Me.Label6.Text = "èàíuíSìñ:"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'mtxADD_SYAIN_NAME
+        'mtxSYOCHI
         '
-        Me.mtxADD_SYAIN_NAME.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.mtxADD_SYAIN_NAME, 8)
-        Me.mtxADD_SYAIN_NAME.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxADD_SYAIN_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxADD_SYAIN_NAME.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxADD_SYAIN_NAME.InputRequired = False
-        Me.mtxADD_SYAIN_NAME.Location = New System.Drawing.Point(663, 3)
-        Me.mtxADD_SYAIN_NAME.MaxByteLength = 0
-        Me.mtxADD_SYAIN_NAME.Name = "mtxADD_SYAIN_NAME"
-        Me.mtxADD_SYAIN_NAME.ReadOnly = True
-        Me.mtxADD_SYAIN_NAME.ShowRemaining = True
-        Me.mtxADD_SYAIN_NAME.Size = New System.Drawing.Size(154, 24)
-        Me.mtxADD_SYAIN_NAME.TabIndex = 86
-        Me.mtxADD_SYAIN_NAME.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxADD_SYAIN_NAME.WatermarkText = Nothing
+        Me.mtxSYOCHI.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.mtxSYOCHI.BackColor = System.Drawing.SystemColors.Control
+        Me.tlpFilter.SetColumnSpan(Me.mtxSYOCHI, 8)
+        Me.mtxSYOCHI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxSYOCHI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxSYOCHI.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxSYOCHI.InputRequired = False
+        Me.mtxSYOCHI.Location = New System.Drawing.Point(423, 3)
+        Me.mtxSYOCHI.MaxByteLength = 0
+        Me.mtxSYOCHI.Name = "mtxSYOCHI"
+        Me.mtxSYOCHI.ReadOnly = True
+        Me.mtxSYOCHI.Size = New System.Drawing.Size(154, 24)
+        Me.mtxSYOCHI.TabIndex = 239
+        Me.mtxSYOCHI.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxSYOCHI.WatermarkText = Nothing
+        '
+        'Label5
+        '
+        Me.tlpFilter.SetColumnSpan(Me.Label5, 4)
+        Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label5.Location = New System.Drawing.Point(343, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(74, 30)
+        Me.Label5.TabIndex = 114
+        Me.Label5.Text = "èàíu:"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label1
         '
@@ -281,7 +281,7 @@ Partial Class FrmG0018
         '
         'mtxCurrentStageName
         '
-        Me.mtxCurrentStageName.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxCurrentStageName.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxCurrentStageName, 13)
         Me.mtxCurrentStageName.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxCurrentStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -291,30 +291,27 @@ Partial Class FrmG0018
         Me.mtxCurrentStageName.MaxByteLength = 0
         Me.mtxCurrentStageName.Name = "mtxCurrentStageName"
         Me.mtxCurrentStageName.ReadOnly = True
-        Me.mtxCurrentStageName.ShowRemaining = True
         Me.mtxCurrentStageName.Size = New System.Drawing.Size(254, 24)
         Me.mtxCurrentStageName.TabIndex = 111
         Me.mtxCurrentStageName.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxCurrentStageName.WatermarkText = Nothing
         '
-        'mtxSYOCHI
+        'mtxADD_SYAIN_NAME
         '
-        Me.mtxSYOCHI.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.mtxSYOCHI.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.mtxSYOCHI, 8)
-        Me.mtxSYOCHI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxSYOCHI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxSYOCHI.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxSYOCHI.InputRequired = False
-        Me.mtxSYOCHI.Location = New System.Drawing.Point(423, 3)
-        Me.mtxSYOCHI.MaxByteLength = 0
-        Me.mtxSYOCHI.Name = "mtxSYOCHI"
-        Me.mtxSYOCHI.ReadOnly = True
-        Me.mtxSYOCHI.ShowRemaining = True
-        Me.mtxSYOCHI.Size = New System.Drawing.Size(154, 24)
-        Me.mtxSYOCHI.TabIndex = 239
-        Me.mtxSYOCHI.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxSYOCHI.WatermarkText = Nothing
+        Me.mtxADD_SYAIN_NAME.BackColor = System.Drawing.SystemColors.Control
+        Me.tlpFilter.SetColumnSpan(Me.mtxADD_SYAIN_NAME, 8)
+        Me.mtxADD_SYAIN_NAME.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxADD_SYAIN_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxADD_SYAIN_NAME.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxADD_SYAIN_NAME.InputRequired = False
+        Me.mtxADD_SYAIN_NAME.Location = New System.Drawing.Point(663, 3)
+        Me.mtxADD_SYAIN_NAME.MaxByteLength = 0
+        Me.mtxADD_SYAIN_NAME.Name = "mtxADD_SYAIN_NAME"
+        Me.mtxADD_SYAIN_NAME.ReadOnly = True
+        Me.mtxADD_SYAIN_NAME.Size = New System.Drawing.Size(154, 24)
+        Me.mtxADD_SYAIN_NAME.TabIndex = 86
+        Me.mtxADD_SYAIN_NAME.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxADD_SYAIN_NAME.WatermarkText = Nothing
         '
         'FrmG0018
         '

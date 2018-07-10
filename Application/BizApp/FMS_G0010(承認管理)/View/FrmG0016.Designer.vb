@@ -162,7 +162,6 @@ Partial Class FrmG0016
         Me.mtxTANTO_ID.Location = New System.Drawing.Point(253, 52)
         Me.mtxTANTO_ID.MaxByteLength = 200
         Me.mtxTANTO_ID.Name = "mtxTANTO_ID"
-        Me.mtxTANTO_ID.ShowRemaining = False
         Me.mtxTANTO_ID.Size = New System.Drawing.Size(52, 24)
         Me.mtxTANTO_ID.TabIndex = 69
         Me.mtxTANTO_ID.Visible = False
@@ -224,8 +223,7 @@ Partial Class FrmG0016
         '
         'mtxTANTO_NAME
         '
-        Me.mtxTANTO_NAME.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxTANTO_NAME.Enabled = False
+        Me.mtxTANTO_NAME.BackColor = System.Drawing.SystemColors.Control
         Me.mtxTANTO_NAME.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxTANTO_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxTANTO_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
@@ -233,7 +231,7 @@ Partial Class FrmG0016
         Me.mtxTANTO_NAME.Location = New System.Drawing.Point(99, 52)
         Me.mtxTANTO_NAME.MaxByteLength = 200
         Me.mtxTANTO_NAME.Name = "mtxTANTO_NAME"
-        Me.mtxTANTO_NAME.ShowRemaining = False
+        Me.mtxTANTO_NAME.ReadOnly = True
         Me.mtxTANTO_NAME.Size = New System.Drawing.Size(148, 24)
         Me.mtxTANTO_NAME.TabIndex = 3
         Me.mtxTANTO_NAME.WatermarkColor = System.Drawing.Color.Empty
@@ -249,7 +247,6 @@ Partial Class FrmG0016
         Me.mtxMODOSI_RIYU.Location = New System.Drawing.Point(99, 82)
         Me.mtxMODOSI_RIYU.MaxByteLength = 200
         Me.mtxMODOSI_RIYU.Name = "mtxMODOSI_RIYU"
-        Me.mtxMODOSI_RIYU.ShowRemaining = False
         Me.mtxMODOSI_RIYU.Size = New System.Drawing.Size(612, 24)
         Me.mtxMODOSI_RIYU.TabIndex = 3
         Me.mtxMODOSI_RIYU.WatermarkColor = System.Drawing.Color.Empty
