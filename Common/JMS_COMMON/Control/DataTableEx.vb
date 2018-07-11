@@ -186,7 +186,8 @@ Public Class DataTableEx
     ''' <remarks></remarks>
     Overloads Function Find(ByVal Key As String, Optional ByVal Member As String = "DISP") As String
         Try
-            If Key IsNot Nothing AndAlso Key <> "" AndAlso Key <> vbNullString Then
+            If Key.IsNullOrWhiteSpace Then
+            Else
                 If Me.Rows.Find(Key) IsNot Nothing Then
                     Return Me.Rows.Find(Key).Item(Member).ToString.TrimEnd
                 Else

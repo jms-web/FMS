@@ -99,7 +99,9 @@ Public Class FrmG0012
             cmbKAITO_14.SetDataSource(tblYOHI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             '-----âÊñ èâä˙âª
-            Call FunInitializeControls()
+            If FunInitializeControls() Then
+
+            End If
         Finally
             FunInitFuncButtonEnabled()
         End Try
@@ -1992,7 +1994,7 @@ Public Class FrmG0012
 
             For intFunc As Integer = 1 To 12
                 With Me.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).Trim = "" Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
                         .Text = ""
                         .Visible = False
                     End If
@@ -2146,13 +2148,13 @@ Public Class FrmG0012
                     DAIHYO = DirectCast(frmDLG, FrmG0014).PrDAIHYO
                 End If
 
-                If DAIHYO.ITEM_NAME <> "" Then
-                    mtxGENIN1_DISP.Text = DAIHYO.ITEM_DISP
-                    mtxGENIN1.Text = DAIHYO.ITEM_NAME & "," & DAIHYO.ITEM_VALUE
-                Else
+                If DAIHYO.ITEM_NAME.IsNullOrWhiteSpace Then
                     PrGenin1.Clear()
                     mtxGENIN1_DISP.Text = ""
                     mtxGENIN1.Text = ""
+                Else
+                    mtxGENIN1_DISP.Text = DAIHYO.ITEM_DISP
+                    mtxGENIN1.Text = DAIHYO.ITEM_NAME & "," & DAIHYO.ITEM_VALUE
                 End If
             End If
 
@@ -2199,13 +2201,13 @@ Public Class FrmG0012
                     DAIHYO = DirectCast(frmDLG, FrmG0014).PrDAIHYO
                 End If
 
-                If DAIHYO.ITEM_NAME <> "" Then
-                    mtxGENIN2_DISP.Text = DAIHYO.ITEM_DISP
-                    mtxGENIN2.Text = DAIHYO.ITEM_NAME & "," & DAIHYO.ITEM_VALUE
-                Else
+                If DAIHYO.ITEM_NAME.IsNullOrWhiteSpace Then
                     PrGenin2.Clear()
                     mtxGENIN2_DISP.Text = ""
                     mtxGENIN2.Text = ""
+                Else
+                    mtxGENIN2_DISP.Text = DAIHYO.ITEM_DISP
+                    mtxGENIN2.Text = DAIHYO.ITEM_NAME & "," & DAIHYO.ITEM_VALUE
                 End If
             End If
 
@@ -2651,7 +2653,8 @@ Public Class FrmG0012
             'mtxFUTEKIGO_S_KB.DataBindings.Add(New Binding(NameOf(mtxFUTEKIGO_S_KB.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged))
             cmbDestTANTO.DataBindings.Add(New Binding(NameOf(cmbDestTANTO.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
             'txtComment.DataBindings.Add(New Binding(NameOf(txtComment.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            chkSEKKEI_TANTO_YOHI_KB.DataBindings.Add(New Binding(NameOf(cmbDestTANTO.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
+            'chkSEKKEI_TANTO_YOHI_KB.DataBindings.Add(New Binding(NameOf(cmbDestTANTO.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
             'CARçÄñ⁄
             txtKAITO_1.DataBindings.Add(New Binding(NameOf(txtKAITO_1.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_1), False, DataSourceUpdateMode.OnPropertyChanged, ""))

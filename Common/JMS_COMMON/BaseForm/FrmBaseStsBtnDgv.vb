@@ -179,21 +179,19 @@ Public Class FrmBaseStsBtnDgv
                 e.PaintBackground(e.ClipBounds, blnSelected)
 
                 '描画するテキスト
-                If e.Value IsNot Nothing AndAlso e.Value.ToString <> "" Then
-                    If e.CellStyle.Format <> "" Then
+                If e.Value IsNot Nothing AndAlso Not e.Value.ToString.IsNullOrWhiteSpace Then
+                    If e.CellStyle.Format.IsNullOrWhiteSpace Then
 
+                        '書式なしのセルの場合
+                        strText = e.Value.ToString
+                    Else
                         '書式付のセルの場合
                         If IsNumeric(e.Value) = True Then
                             strText = Val(e.Value).ToString(e.CellStyle.Format)
                         Else
                             strText = e.Value.ToString(e.CellStyle.Format)
                         End If
-
-                    Else
-                        '書式なしのセルの場合
-                        strText = e.Value.ToString
                     End If
-
                 Else
                     strText = ""
                 End If

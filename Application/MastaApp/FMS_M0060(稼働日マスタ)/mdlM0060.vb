@@ -72,7 +72,7 @@ Module mdlM0060
 
             For intFunc As Integer = 1 To 12
                 With frm.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).Trim = "" Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
                         .Text = ""
                         .Visible = False
                     End If
