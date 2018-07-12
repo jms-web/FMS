@@ -1994,7 +1994,7 @@ Public Class FrmG0012
 
             For intFunc As Integer = 1 To 12
                 With Me.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).Trim = "" Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
                         .Text = ""
                         .Visible = False
                     End If
@@ -2148,13 +2148,13 @@ Public Class FrmG0012
                     DAIHYO = DirectCast(frmDLG, FrmG0014).PrDAIHYO
                 End If
 
-                If DAIHYO.ITEM_NAME <> "" Then
-                    mtxGENIN1_DISP.Text = DAIHYO.ITEM_DISP
-                    mtxGENIN1.Text = DAIHYO.ITEM_NAME & "," & DAIHYO.ITEM_VALUE
-                Else
+                If DAIHYO.ITEM_NAME.IsNullOrWhiteSpace Then
                     PrGenin1.Clear()
                     mtxGENIN1_DISP.Text = ""
                     mtxGENIN1.Text = ""
+                Else
+                    mtxGENIN1_DISP.Text = DAIHYO.ITEM_DISP
+                    mtxGENIN1.Text = DAIHYO.ITEM_NAME & "," & DAIHYO.ITEM_VALUE
                 End If
             End If
 
@@ -2201,13 +2201,13 @@ Public Class FrmG0012
                     DAIHYO = DirectCast(frmDLG, FrmG0014).PrDAIHYO
                 End If
 
-                If DAIHYO.ITEM_NAME <> "" Then
-                    mtxGENIN2_DISP.Text = DAIHYO.ITEM_DISP
-                    mtxGENIN2.Text = DAIHYO.ITEM_NAME & "," & DAIHYO.ITEM_VALUE
-                Else
+                If DAIHYO.ITEM_NAME.IsNullOrWhiteSpace Then
                     PrGenin2.Clear()
                     mtxGENIN2_DISP.Text = ""
                     mtxGENIN2.Text = ""
+                Else
+                    mtxGENIN2_DISP.Text = DAIHYO.ITEM_DISP
+                    mtxGENIN2.Text = DAIHYO.ITEM_NAME & "," & DAIHYO.ITEM_VALUE
                 End If
             End If
 

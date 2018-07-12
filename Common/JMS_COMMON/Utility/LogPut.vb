@@ -27,10 +27,10 @@ Public Class ErrMsg
         End If
 
         '-----ファイル名
-        If Trim(strLogFileName) <> "" Then
-            LogFileName = strLogFileName
-        Else
+        If Trim(strLogFileName).IsNullOrWhiteSpace Then
             LogFileName = My.Application.Info.AssemblyName & ".ERRLOG"
+        Else
+            LogFileName = strLogFileName
         End If
         LogFileName = FunValidFileName(LogFileName)
 
@@ -247,10 +247,10 @@ Public Class WriteLog
         End If
 
         '-----ファイル名
-        If Trim(strLogFileName) <> "" Then
-            LogFileName = strLogFileName
-        Else
+        If Trim(strLogFileName).IsNullOrWhiteSpace Then
             LogFileName = My.Application.Info.AssemblyName & ".LOG"
+        Else
+            LogFileName = strLogFileName
         End If
         LogFileName = FunValidFileName(LogFileName)
 

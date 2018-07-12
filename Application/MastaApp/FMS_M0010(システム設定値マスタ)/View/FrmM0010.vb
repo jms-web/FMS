@@ -496,7 +496,8 @@ Public Class FrmM0010
             End Using
             Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
 
-            If strComboVal <> "" Then
+            If strComboVal.IsNullOrWhiteSpace Then
+            Else
                 Me.cmbKOMO_NM.Text = strComboVal
             End If
             If Me.cmbKOMO_NM.SelectedIndex <= 0 Then
@@ -525,7 +526,7 @@ Public Class FrmM0010
 
         For intFunc As Integer = 1 To 12
             With Me.Controls("cmdFunc" & intFunc)
-                If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).Trim = "" Then
+                If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
                     .Text = ""
                     .Visible = False
                 End If

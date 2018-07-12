@@ -396,7 +396,7 @@ Public Class FrmG0010
     Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs) Handles dgvDATA.SelectionChanged
         Try
             If Me.dgvDATA.CurrentRow IsNot Nothing Then
-                If Me.dgvDATA.CurrentRow.Cells("CLOSE_FG").Value = "1" Or Me.dgvDATA.CurrentRow.Cells("DEL_YMDHNS").Value.ToString.Trim <> "" Then
+                If Me.dgvDATA.CurrentRow.Cells("CLOSE_FG").Value = "1" Or Me.dgvDATA.CurrentRow.Cells("DEL_YMDHNS").Value.ToString.IsNullOrWhiteSpace Then
                     Me.dgvDATA.CurrentRow.ReadOnly = True
                 Else
                     Me.dgvDATA.CurrentRow.ReadOnly = False
@@ -699,7 +699,7 @@ Public Class FrmG0010
             'UNDONE: 削除済み表示切替 可能ならストアドパラメータに条件設定を移行したい
             If chkDleteRowVisibled.Checked Then
             Else
-                Dim drs As List(Of DataRow) = dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of String)("DEL_YMDHNS").Trim = "").ToList
+                Dim drs As List(Of DataRow) = dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of String)("DEL_YMDHNS").IsNullOrWhiteSpace).ToList
                 If drs.Count > 0 Then
                     dtBUFF = drs.CopyToDataTable
                 Else
@@ -971,7 +971,7 @@ Public Class FrmG0010
     Private Function FunSelectAll() As Boolean
 
         Try
-            Dim rows = DirectCast(Me.dgvDATA.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("CLOSE_FG") = "0" And r.Field(Of String)("DEL_YMDHNS").Trim = "").ToList
+            Dim rows = DirectCast(Me.dgvDATA.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("CLOSE_FG") = "0" And r.Field(Of String)("DEL_YMDHNS").IsNullOrWhiteSpace).ToList
             If rows.Count > 0 Then
                 For Each row As DataRow In rows
                     row.Item("SELECTED") = True '"●"
@@ -1030,7 +1030,7 @@ Public Class FrmG0010
 
             If dt.Count > 0 Then
                 For Each dr As DataRow In dt.CopyToDataTable.Rows
-                    If strTantoNameList = "" Then
+                    If strTantoNameList.IsNullOrWhiteSpace Then
                         strTantoNameList = dr.Item("GEN_TANTO_NAME")
                     Else
                         strTantoNameList &= vbCrLf & dr.Item("GEN_TANTO_NAME")
@@ -2076,9 +2076,7 @@ Public Class FrmG0010
         sbParam.Append("," & ParamModel.SYONIN_HOKOKUSYO_ID & "")
         sbParam.Append("," & ParamModel.KISYU_ID & "")
 
-        If ParamModel.BUHIN_BANGO <> "" Then
-            sbParam.Append(",'" & ParamModel.BUHIN_BANGO & "'")
-        ElseIf Not cmbBUHIN_BANGO.Text.IsNullOrWhiteSpace And cmbBUHIN_BANGO.SelectedValue <> cmbBUHIN_BANGO.NullValue Then
+        If Not cmbBUHIN_BANGO.Text.IsNullOrWhiteSpace And cmbBUHIN_BANGO.SelectedValue <> cmbBUHIN_BANGO.NullValue Then
             sbParam.Append(",'" & cmbBUHIN_BANGO.Text.Trim & "'")
         Else
             sbParam.Append(",'" & ParamModel.BUHIN_BANGO & "'")

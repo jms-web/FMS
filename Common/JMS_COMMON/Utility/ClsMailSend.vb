@@ -129,7 +129,8 @@
             'メールの実際の差出人
             writer.FromAddress = "funato@jms-web.co.jp" 'FromAddress
             'メールヘッダの差出人情報
-            If strFromName <> "" Then
+            If strFromName.IsNullOrWhiteSpace Then
+            Else
                 writer.Headers.Add("From", strFromName & " <" & FromAddress & ">")
             End If
 

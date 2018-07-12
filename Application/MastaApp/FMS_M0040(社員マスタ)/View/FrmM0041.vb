@@ -420,7 +420,7 @@ Public Class FrmM0041
         Try
             For intFunc As Integer = 1 To 12
                 With frm.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).Trim = "" Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
                         .Text = ""
                         .Visible = False
                     End If
@@ -486,21 +486,21 @@ Public Class FrmM0041
 
         Try
             'íSìñé“CD
-            If Me.mtxTANTO_CD.Text.Trim = "" Then
+            If Me.mtxTANTO_CD.Text.IsNullOrWhiteSpace Then
                 MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "íSìñé“CD"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Me.mtxTANTO_CD.Focus()
                 Return False
             End If
 
             'êEî‘
-            If Me.mtxSYOKUBAN.Text.Trim = "" Then
+            If Me.mtxSYOKUBAN.Text.IsNullOrWhiteSpace Then
                 MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "êEî‘"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Me.mtxSYOKUBAN.Focus()
                 Return False
             End If
 
             'íSìñé“ñº
-            If Me.mtxTANTO_NAME.Text = "" Then
+            If Me.mtxTANTO_NAME.Text.IsNullOrWhiteSpace Then
                 MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "íSìñé“ñº"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Me.mtxTANTO_NAME.Focus()
                 Return False
