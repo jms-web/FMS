@@ -99,7 +99,9 @@ Public Class FrmG0012
             cmbKAITO_14.SetDataSource(tblYOHI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             '-----âÊñ èâä˙âª
-            Call FunInitializeControls()
+            If FunInitializeControls() Then
+
+            End If
         Finally
             FunInitFuncButtonEnabled()
         End Try
@@ -2651,7 +2653,8 @@ Public Class FrmG0012
             'mtxFUTEKIGO_S_KB.DataBindings.Add(New Binding(NameOf(mtxFUTEKIGO_S_KB.Text), _D005_CAR_J, NameOf(_D005_CAR_J.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged))
             cmbDestTANTO.DataBindings.Add(New Binding(NameOf(cmbDestTANTO.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
             'txtComment.DataBindings.Add(New Binding(NameOf(txtComment.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            chkSEKKEI_TANTO_YOHI_KB.DataBindings.Add(New Binding(NameOf(cmbDestTANTO.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
+            'chkSEKKEI_TANTO_YOHI_KB.DataBindings.Add(New Binding(NameOf(cmbDestTANTO.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
             'CARçÄñ⁄
             txtKAITO_1.DataBindings.Add(New Binding(NameOf(txtKAITO_1.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -3023,6 +3026,14 @@ Public Class FrmG0012
 
             PrGenin1.Clear()
             PrGenin2.Clear()
+
+
+            'UNDONE: aggregateÇ≈ForEachè»ó™
+            Dim array = {"hoge", "fuga", "piyo"}
+            Dim result = array.Aggregate(Function(a, n) n & "," & a)
+            ' piyo,fuga,hoge
+            Console.WriteLine(result)
+
 
             For Each row As DataRow In dsList.Tables(0).Rows
                 If row.Item(NameOf(_D006_CAR_GENIN.RENBAN)) = 1 Then
