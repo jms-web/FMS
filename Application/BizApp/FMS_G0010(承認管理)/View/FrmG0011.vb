@@ -1130,15 +1130,15 @@ Public Class FrmG0011
         Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
         Dim strBody As String = <sql><![CDATA[
         {0} 殿<br />
-        不適合製品の処置依頼が来ましたので対応をお願いします。<br />
+        　不適合製品の処置依頼が来ましたので対応をお願いします。<br />
         <br />
-        【報告書No】{1}<br />
-        【起草日  】{2}<br />
-        【機種    】{3}<br />
-        【部品番号】{4}<br />
-        【依頼者  】{5}<br />
-        【依頼者処置内容】{6}<br />
-        【コメント】{7}<br />
+        　　【報告書No】{1}<br />
+        　　【起草日　】{2}<br />
+        　　【機種　　】{3}<br />
+        　　【部品番号】{4}<br />
+        　　【依頼者　】{5}<br />
+        　　【依頼者処置内容】{6}<br />
+        　　【コメント】{7}<br />
         <br />
         <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}" >処置画面へ</a><br />
         <br />
@@ -1178,15 +1178,15 @@ Public Class FrmG0011
         Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & ENM_SYONIN_HOKOKUSYO_ID._2_CAR & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
         Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
         Dim strBody As String = <sql><![CDATA[
-        {0} 殿<br />
+        {0} 殿
         <br />
-        {1} 殿より{0} 殿宛にCARの起草入力依頼がありました。<br />
-        不適合管理システムから該当するデータを選択し、起草入力を行って下さい。<br />
+        　{1} 殿より{0} 殿宛にCARの起草入力依頼がありました。<br />
+        　不適合管理システムから該当するデータを選択し、起草入力を行って下さい。<br />
         <br />
-        【報告書No】{2}<br />
-        【機種    】{3}<br />
-        【部品番号】{4}<br />
-        【依頼者  】{1}<br />
+        　　【報告書No】{2}<br />
+        　　【機種　　】{3}<br />
+        　　【部品番号】{4}<br />
+        　　【依頼者　】{1}<br />
         <br />
         <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={5}&EXEPATH={6}&PARAMS={7}" >処置画面へ</a><br />
         <br />
@@ -4797,6 +4797,12 @@ Public Class FrmG0011
 
 #End Region
 
+#Region "STAGE12"
+    Private Sub BtnST12_SYONIN_Click(sender As Object, e As EventArgs) Handles btnST12_SYONIN.Click
+        cmdFunc2.PerformClick()
+    End Sub
+
+#End Region
 
 
 #Region "添付資料"
@@ -5864,6 +5870,7 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
+
 
 #End Region
 

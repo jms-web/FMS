@@ -1061,14 +1061,14 @@ Public Class FrmG0010
                                 Dim strBody As String = <body><![CDATA[
                                 {0} 殿<br />
                                 <br />
-                                不適合製品の処置依頼から【滞留日数】{1}日が経過しています。<br />
-                                早急に対応をお願いします。<br />
+                                　不適合製品の処置依頼から【滞留日数】{1}日が経過しています。<br />
+                                　早急に対応をお願いします。<br />
                                 <br />
-                                【報告書No】{2}<br />
-                                【起草日  】{3}<br />
-                                【機種    】{4}<br />
-                                【部品番号】{5}<br />
-                                【依頼者  】{6}<br />
+                                　　【報告書No】{2}<br />
+                                　　【起草日　】{3}<br />
+                                　　【機種　　】{4}<br />
+                                　　【部品番号】{5}<br />
+                                　　【依頼者　】{6}<br />
                                 <br />
                                 <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}" > 処置画面へ</a><br />
                                 <br />
@@ -1127,14 +1127,14 @@ Public Class FrmG0010
                     Dim strBody As String = <body><![CDATA[
                     {0} 殿<br />
                     <br />
-                    不適合製品の処置依頼から【滞留日数】{1}日が経過しています。<br />
-                    早急に対応をお願いします。<br />
+                    　不適合製品の処置依頼から【滞留日数】{1}日が経過しています。<br />
+                    　早急に対応をお願いします。<br />
                     <br />
-                    【報告書No】{2}<br />
-                    【起草日  】{3}<br />
-                    【機種    】{4}<br />
-                    【部品番号】{5}<br />
-                    【依頼者  】{6}<br />
+                    　　【報告書No】{2}<br />
+                    　　【起草日　】{3}<br />
+                    　　【機種　　】{4}<br />
+                    　　【部品番号】{5}<br />
+                    　　【依頼者　】{6}<br />
                     <br />
                     <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}" > 処置画面へ</a><br />
                     <br />

@@ -70,6 +70,7 @@ Public Class FrmG0012
         cmbKAITO_10.NullValue = 0
         cmbKAITO_17.NullValue = 0
         cmbKONPON_YOIN_TANTO.NullValue = 0
+        Me.Height = 750
 
     End Sub
 
@@ -104,9 +105,16 @@ Public Class FrmG0012
             AddHandler rbtnSEKKEI_TANTO_YOHI_YES.CheckedChanged, AddressOf RbtnSEKKEI_TANTO_YOHI_YES_CheckedChanged
             AddHandler rbtnSEKKEI_TANTO_YOHI_NO.CheckedChanged, AddressOf RbtnSEKKEI_TANTO_YOHI_NO_CheckedChanged
 
+            'panel mouse wheel
+            AddHandler tabSTAGE01.MouseWheel, AddressOf TabPageMouseWheel
+
         Finally
             FunInitFuncButtonEnabled()
         End Try
+    End Sub
+
+    Private Sub TabPageMouseWheel(sender As Object, e As MouseEventArgs)
+        tabSTAGE01.Focus()
     End Sub
 
     'Shown
@@ -1092,15 +1100,15 @@ Public Class FrmG0012
         Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
         Dim strBody As String = <sql><![CDATA[
         {0} 殿<br />
-        不適合製品の処置依頼が来ましたので対応をお願いします。<br />
+        　不適合製品の処置依頼が来ましたので対応をお願いします。<br />
         <br />
-        【報告書No】{1}<br />
-        【起草日  】{2}<br />
-        【機種    】{3}<br />
-        【部品番号】{4}<br />
-        【依頼者  】{5}<br />
-        【依頼者処置内容】{6}<br />
-        【コメント】{7}<br />
+        　　【報告書No】{1}<br />
+        　　【起草日　】{2}<br />
+        　　【機種　　】{3}<br />
+        　　【部品番号】{4}<br />
+        　　【依頼者　】{5}<br />
+        　　【依頼者処置内容】{6}<br />
+        　　【コメント】{7}<br />
         <br />
         <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}" > 処置画面へ</a><br />
         <br />
@@ -1783,6 +1791,10 @@ Public Class FrmG0012
 
 #Region "   タブ別"
 
+    Private Sub tabSTAGE01_Click(sender As Object, e As EventArgs) Handles tabSTAGE01.Click
+        sender.Focus
+    End Sub
+
 #Region "ヘッダ"
     Private Sub RbtnSEKKEI_TANTO_YOHI_YES_CheckedChanged(sender As Object, e As EventArgs)
         _D005_CAR_J.KAITO_23 = "1"
@@ -1998,7 +2010,7 @@ Public Class FrmG0012
 
 #Region "       教育記録"
     'ファイル選択
-    Private Sub btnOpenKYOIKU_FILE_PATH_Click(sender As Object, e As EventArgs) Handles btnOpenKYOIKU_FILE_PATH.Click
+    Private Sub btnOpenKYOIKU_FILE_PATH_Click(sender As Object, e As EventArgs)
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
             .FilterIndex = 1,
@@ -2021,7 +2033,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリック
-    Private Sub lblKYOIKU_FILE_PATH_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblKYOIKU_FILE_PATH.LinkClicked
+    Private Sub lblKYOIKU_FILE_PATH_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         Dim hProcess As New System.Diagnostics.Process
         Dim strEXE As String
         'Dim strARG As String
@@ -2069,7 +2081,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリア
-    Private Sub lblKYOIKU_FILE_PATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblKYOIKU_FILE_PATH_Clear.LinkClicked
+    Private Sub lblKYOIKU_FILE_PATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         lblKYOIKU_FILE_PATH.Text = ""
         lblKYOIKU_FILE_PATH.Links.Clear()
         lblKYOIKU_FILE_PATH.Visible = False
@@ -2084,7 +2096,7 @@ Public Class FrmG0012
 
 #Region "       詳細資料"
     'ファイル選択
-    Private Sub BtnOpenSYOSAI_FILE_PATH_Click(sender As Object, e As EventArgs) Handles btnOpenSYOSAI_FILE_PATH.Click
+    Private Sub BtnOpenSYOSAI_FILE_PATH_Click(sender As Object, e As EventArgs)
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
             .FilterIndex = 1,
@@ -2107,7 +2119,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリック
-    Private Sub LblSYOSAI_FILE_PATH_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblSYOSAI_FILE_PATH.LinkClicked
+    Private Sub LblSYOSAI_FILE_PATH_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         Dim hProcess As New System.Diagnostics.Process
         Dim strEXE As String
         'Dim strARG As String
@@ -2155,7 +2167,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリア
-    Private Sub LblSYOSAI_FILE_PATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblSYOSAI_FILE_PATH_Clear.LinkClicked
+    Private Sub LblSYOSAI_FILE_PATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         lblSYOSAI_FILE_PATH.Text = ""
         lblSYOSAI_FILE_PATH.Tag = ""
         lblSYOSAI_FILE_PATH.Links.Clear()
@@ -2166,19 +2178,19 @@ Public Class FrmG0012
 #End Region
 
 #Region "是正処置有効性の問題の有無"
-    Private Sub rbtnZESEI_SYOCHI_YES_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnZESEI_SYOCHI_YES.CheckedChanged
+    Private Sub rbtnZESEI_SYOCHI_YES_CheckedChanged(sender As Object, e As EventArgs)
 
         Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
         _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = True
     End Sub
 
-    Private Sub rbtnZESEI_SYOCHI_NO_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnZESEI_SYOCHI_NO.CheckedChanged
+    Private Sub rbtnZESEI_SYOCHI_NO_CheckedChanged(sender As Object, e As EventArgs)
 
         Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
         _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = False
     End Sub
 
-    Private Sub chkZESEI_SYOCHI_YUKO_UMU_CheckedChanged(sender As Object, e As EventArgs) Handles chkZESEI_SYOCHI_YUKO_UMU.CheckedChanged
+    Private Sub chkZESEI_SYOCHI_YUKO_UMU_CheckedChanged(sender As Object, e As EventArgs)
         If chkZESEI_SYOCHI_YUKO_UMU.Checked Then
             rbtnZESEI_SYOCHI_YES.Checked = True
         Else
@@ -2192,7 +2204,7 @@ Public Class FrmG0012
 
 #Region "       添付資料1"
     'ファイル選択
-    Private Sub BtnOpentmpFile1_Click(sender As Object, e As EventArgs) Handles btnOpentmpFile1.Click
+    Private Sub BtnOpentmpFile1_Click(sender As Object, e As EventArgs)
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
             .FilterIndex = 1,
@@ -2215,7 +2227,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリック
-    Private Sub LbltmpFile1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1.LinkClicked
+    Private Sub LbltmpFile1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         Dim hProcess As New System.Diagnostics.Process
         Dim strEXE As String
         'Dim strARG As String
@@ -2263,7 +2275,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリア
-    Private Sub LbltmpFile1_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1_Clear.LinkClicked
+    Private Sub LbltmpFile1_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         lbltmpFile1.Text = ""
         lbltmpFile1.Tag = ""
         lbltmpFile1.Links.Clear()
@@ -2275,7 +2287,7 @@ Public Class FrmG0012
 #End Region
 #Region "       添付資料2"
     'ファイル選択
-    Private Sub btnOpentmpFile2_Click(sender As Object, e As EventArgs) Handles btnOpentmpFile2.Click
+    Private Sub btnOpentmpFile2_Click(sender As Object, e As EventArgs)
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
             .FilterIndex = 1,
@@ -2298,7 +2310,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリック
-    Private Sub lbltmpFile2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile2.LinkClicked
+    Private Sub lbltmpFile2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         Dim hProcess As New System.Diagnostics.Process
         Dim strEXE As String
         'Dim strARG As String
@@ -2346,7 +2358,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリア
-    Private Sub lbltmpFile2_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile2_Clear.LinkClicked
+    Private Sub lbltmpFile2_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         lbltmpFile2.Text = ""
         lbltmpFile2.Tag = ""
         lbltmpFile2.Links.Clear()
@@ -2893,6 +2905,8 @@ Public Class FrmG0012
             Return 0
         End Try
     End Function
+
+
 
 
 #End Region
