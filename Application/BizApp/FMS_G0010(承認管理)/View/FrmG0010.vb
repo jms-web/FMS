@@ -68,7 +68,7 @@ Public Class FrmG0010
         cmbGEN_TANTO.NullValue = 0
 
         Select Case pub_intOPEN_MODE
-            Case ENM_OPEN_MODE._1_新規作成
+            Case ENM_OPEN_MODE._1_新規作成, ENM_OPEN_MODE._2_処置画面起動
                 Me.WindowState = FormWindowState.Minimized
         End Select
 
@@ -198,6 +198,12 @@ Public Class FrmG0010
                     Me.cmdFunc1.PerformClick()
                 Case ENM_OPEN_MODE._1_新規作成
                     Me.cmdFunc2.PerformClick()
+                    Me.WindowState = FormWindowState.Normal
+                Case ENM_OPEN_MODE._2_処置画面起動
+                    ParamModel.HOKOKU_NO = pub_PrHOKOKU_NO
+                    ParamModel.SYONIN_HOKOKUSYO_ID = pub_PrSYONIN_HOKOKUSYO_ID
+                    Me.cmdFunc1.PerformClick()
+                    Me.cmdFunc4.PerformClick()
                     Me.WindowState = FormWindowState.Normal
                 Case Else
                     Me.cmdFunc1.PerformClick()
@@ -1050,28 +1056,38 @@ Public Class FrmG0010
                                                    strTantoNameList
                         If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
                             For Each dr As DataRow In dt.CopyToDataTable.Rows
+                                Dim strEXEParam As String = dr.Item("GEN_TANTO_ID") & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & dr.Item("SYONIN_HOKOKUSYO_ID") & "," & dr.Item("HOKOKU_NO")
                                 Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
-                                Dim strBody As String = <sql><![CDATA[
-                    {0} 殿
-                    不適合製品の処置依頼から【滞留日数】{1}日が経過しています。
-                    早急に対応をお願いします。
-        
-                    【報告書No】{2}
-                    【承認内容(ステージ)】{3}
-                    【機種】{4}
-                    【部品番号】{5}
-                    【依頼者】{6}                    
-                    ]]></sql>.Value.Trim
+                                Dim strBody As String = <body><![CDATA[
+                                {0} 殿<br />
+                                <br />
+                                不適合製品の処置依頼から【滞留日数】{1}日が経過しています。<br />
+                                早急に対応をお願いします。<br />
+                                <br />
+                                【報告書No】{2}<br />
+                                【起草日  】{3}<br />
+                                【機種    】{4}<br />
+                                【部品番号】{5}<br />
+                                【依頼者  】{6}<br />
+                                <br />
+                                <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}" > 処置画面へ</a><br />
+                                <br />
+                                ※このメールは配信専用です。(返信できません)<br />
+                                返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
+                                ]]></body>.Value.Trim
 
                                 strSubject = String.Format(strSubject, dr.Item("KISYU_NAME"), dr.Item("BUHIN_BANGO"))
                                 strBody = String.Format(strBody,
-                                        dr.Item("GEN_TANTO_NAME"),
-                                        dr.Item("TAIRYU_NISSU"),
-                                        dr.Item("HOKOKU_NO"),
-                                        dr.Item("SYONIN_NAIYO"),
-                                        dr.Item("KISYU_NAME"),
-                                        dr.Item("BUHIN_BANGO"),
-                                        Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID))
+                                dr.Item("GEN_TANTO_NAME"),
+                                dr.Item("TAIRYU_NISSU"),
+                                dr.Item("HOKOKU_NO"),
+                                CDate(dr.Item("KISO_YMD")).ToString("yyyy/MM/dd"),
+                                dr.Item("KISYU_NAME"),
+                                dr.Item("BUHIN_BANGO"),
+                                Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
+                                dr.Item("GEN_TANTO_ID"),
+                                "FMS_G0010.exe",
+                                strEXEParam)
 
                                 If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=dr.Item("GEN_TANTO_ID")) Then
                                     If FunSAVE_R001(DB, dr) Then
@@ -1106,28 +1122,39 @@ Public Class FrmG0010
 
                 If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
 
+                    Dim strEXEParam As String = dr.Item("GEN_TANTO_ID") & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & dr.Item("SYONIN_HOKOKUSYO_ID") & "," & dr.Item("HOKOKU_NO")
                     Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
-                    Dim strBody As String = <sql><![CDATA[
-                    {0} 殿
-                    不適合製品の処置依頼から{1}日が経過しています。
-                    早急に対応をお願いします。
-        
-                    【報告書No】{2}
-                    【承認内容(ステージ)】{3}
-                    【機種】{4}
-                    【部品番号】{5}
-                    【依頼者】{6}                    
-                    ]]></sql>.Value.Trim
+                    Dim strBody As String = <body><![CDATA[
+                    {0} 殿<br />
+                    <br />
+                    不適合製品の処置依頼から【滞留日数】{1}日が経過しています。<br />
+                    早急に対応をお願いします。<br />
+                    <br />
+                    【報告書No】{2}<br />
+                    【起草日  】{3}<br />
+                    【機種    】{4}<br />
+                    【部品番号】{5}<br />
+                    【依頼者  】{6}<br />
+                    <br />
+                    <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}" > 処置画面へ</a><br />
+                    <br />
+                    ※このメールは配信専用です。(返信できません)<br />
+                    返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
+
+                    ]]></body>.Value.Trim
 
                     strSubject = String.Format(strSubject, dr.Item("KISYU_NAME"), dr.Item("BUHIN_BANGO"))
                     strBody = String.Format(strBody,
                                 dr.Item("GEN_TANTO_NAME"),
                                 dr.Item("TAIRYU_NISSU"),
                                 dr.Item("HOKOKU_NO"),
-                                dr.Item("SYONIN_NAIYO"),
+                                CDate(dr.Item("KISO_YMD")).ToString("yyyy/MM/dd"),
                                 dr.Item("KISYU_NAME"),
                                 dr.Item("BUHIN_BANGO"),
-                                Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID))
+                                Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
+                                dr.Item("GEN_TANTO_ID"),
+                                "FMS_G0010.exe",
+                                strEXEParam)
 
                     If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=dr.Item("GEN_TANTO_ID")) Then
 
@@ -1503,21 +1530,18 @@ Public Class FrmG0010
 
                 '選択行がClosedの場合
                 If dgvDATA.CurrentRow.Cells.Item(NameOf(_D003_NCR_J.CLOSE_FG)).Value = 1 Then
-                    cmdFunc4.Enabled = False
+                    cmdFunc4.Text = "内容確認(F4)"
                     cmdFunc5.Enabled = False
-                    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "クローズ済のため変更出来ません")
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "クローズ済のため削除出来ません")
                 Else
-                    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, My.Resources.infoToolTipMsgNotFoundData)
+                    cmdFunc4.Text = "変更・承認(F4)"
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
-
-
-                    If FunblnAllowSyonin() Then
-                        cmdFunc4.Enabled = True
-                    Else
-                        cmdFunc4.Enabled = False
-                        MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "変更承認権限がありません")
-                    End If
+                End If
+                If FunblnAllowSyonin() Then
+                    cmdFunc4.Enabled = True
+                Else
+                    cmdFunc4.Enabled = False
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "変更承認権限がありません")
                 End If
 
                 If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then

@@ -28,27 +28,40 @@
 
             'メールの実際の宛先
             writer.ToAddressList.Add(ToAddress)
-            'メールヘッダの宛先情報       
+            'メールヘッダの宛先情報
             writer.Headers.Add("To", "<" & ToAddress & ">")
+
+            'CC
+            If Not CCAddress.IsNullOrWhiteSpace Then
+                writer.ToAddressList.Add(CCAddress)
+                writer.Headers.Add("Cc", "<" & CCAddress & ">")
+            End If
+
+            'BCC
+            If Not BCCAddress.IsNullOrWhiteSpace Then
+                writer.ToAddressList.Add(BCCAddress)
+            End If
 
             '件名
             writer.Headers.Add("Subject", strSubject)
 
             '本文のパート
             Dim txtPart As New TKMP.Writer.TextPart(strBody)
+            Dim headerPart As New TKMP.Writer.TextPart(strBody)
+            headerPart.Headers.Add("Content-Type", headerPart.Headers("Content-Type").Replace("plain", "html"))
+            Dim multiPart As TKMP.Writer.MultiPart
 
-            'UNDONE: 本文をHTML形式に変換する処理を追加
             If isHTML Then
-
+                multiPart = New TKMP.Writer.MultiPart(txtPart, headerPart)
+                multiPart.Headers.Add("Content-Type", multiPart.Headers("Content-Type").Replace("mixed", "alternative"))
+                writer.MainPart = multiPart
+            Else
+                writer.MainPart = New TKMP.Writer.MultiPart(txtPart)
             End If
 
             '添付ファイル
             Dim filePart As TKMP.Writer.FilePart
-            If strAttachment.IsNullOrWhiteSpace Then
-                filePart = Nothing
-                '本文と添付ファイルを持つ、マルチパートクラスを作成
-                writer.MainPart = New TKMP.Writer.MultiPart(txtPart)
-            Else
+            If Not strAttachment.IsNullOrWhiteSpace Then
                 filePart = New TKMP.Writer.FilePart(strAttachment)
                 '本文と添付ファイルを持つ、マルチパートクラスを作成
                 writer.MainPart = New TKMP.Writer.MultiPart(txtPart, filePart)

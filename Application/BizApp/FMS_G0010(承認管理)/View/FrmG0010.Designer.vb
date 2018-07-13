@@ -398,6 +398,7 @@ Partial Class FrmG0010
         Me.dtJisiFrom.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtJisiFrom.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtJisiFrom.Name = "dtJisiFrom"
+        Me.dtJisiFrom.ReadOnly = False
         Me.dtJisiFrom.Size = New System.Drawing.Size(98, 24)
         Me.dtJisiFrom.TabIndex = 10
         Me.dtJisiFrom.Value = ""
@@ -425,6 +426,7 @@ Partial Class FrmG0010
         Me.dtJisiTo.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtJisiTo.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtJisiTo.Name = "dtJisiTo"
+        Me.dtJisiTo.ReadOnly = False
         Me.dtJisiTo.Size = New System.Drawing.Size(98, 24)
         Me.dtJisiTo.TabIndex = 11
         Me.dtJisiTo.Value = ""
@@ -663,7 +665,6 @@ Partial Class FrmG0010
         Me.mtxHINMEI.Location = New System.Drawing.Point(843, 33)
         Me.mtxHINMEI.MaxByteLength = 100
         Me.mtxHINMEI.Name = "mtxHINMEI"
-        Me.mtxHINMEI.ShowRemaining = False
         Me.mtxHINMEI.Size = New System.Drawing.Size(294, 24)
         Me.mtxHINMEI.TabIndex = 6
         Me.mtxHINMEI.WatermarkColor = System.Drawing.Color.Empty
@@ -691,7 +692,6 @@ Partial Class FrmG0010
         Me.mtxGOKI.Location = New System.Drawing.Point(163, 63)
         Me.mtxGOKI.MaxByteLength = 10
         Me.mtxGOKI.Name = "mtxGOKI"
-        Me.mtxGOKI.ShowRemaining = False
         Me.mtxGOKI.Size = New System.Drawing.Size(134, 24)
         Me.mtxGOKI.TabIndex = 8
         Me.mtxGOKI.WatermarkColor = System.Drawing.Color.Empty
@@ -751,7 +751,6 @@ Partial Class FrmG0010
         Me.mtxHOKUKO_NO.Location = New System.Drawing.Point(163, 3)
         Me.mtxHOKUKO_NO.MaxByteLength = 10
         Me.mtxHOKUKO_NO.Name = "mtxHOKUKO_NO"
-        Me.mtxHOKUKO_NO.ShowRemaining = False
         Me.mtxHOKUKO_NO.Size = New System.Drawing.Size(134, 24)
         Me.mtxHOKUKO_NO.TabIndex = 1
         Me.mtxHOKUKO_NO.WatermarkColor = System.Drawing.Color.Empty
@@ -1389,7 +1388,7 @@ Partial Class FrmG0010
         '
         'mtxGENIN1_DISP
         '
-        Me.mtxGENIN1_DISP.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxGENIN1_DISP.BackColor = System.Drawing.SystemColors.Control
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxGENIN1_DISP, 24)
         Me.mtxGENIN1_DISP.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxGENIN1_DISP.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -1398,7 +1397,6 @@ Partial Class FrmG0010
         Me.mtxGENIN1_DISP.MaxByteLength = 0
         Me.mtxGENIN1_DISP.Name = "mtxGENIN1_DISP"
         Me.mtxGENIN1_DISP.ReadOnly = True
-        Me.mtxGENIN1_DISP.ShowRemaining = False
         Me.mtxGENIN1_DISP.Size = New System.Drawing.Size(474, 24)
         Me.mtxGENIN1_DISP.TabIndex = 82
         Me.mtxGENIN1_DISP.WatermarkColor = System.Drawing.Color.Empty
@@ -1406,7 +1404,7 @@ Partial Class FrmG0010
         '
         'mtxGENIN2_DISP
         '
-        Me.mtxGENIN2_DISP.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxGENIN2_DISP.BackColor = System.Drawing.SystemColors.Control
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxGENIN2_DISP, 24)
         Me.mtxGENIN2_DISP.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxGENIN2_DISP.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -1415,7 +1413,6 @@ Partial Class FrmG0010
         Me.mtxGENIN2_DISP.MaxByteLength = 0
         Me.mtxGENIN2_DISP.Name = "mtxGENIN2_DISP"
         Me.mtxGENIN2_DISP.ReadOnly = True
-        Me.mtxGENIN2_DISP.ShowRemaining = False
         Me.mtxGENIN2_DISP.Size = New System.Drawing.Size(474, 24)
         Me.mtxGENIN2_DISP.TabIndex = 104
         Me.mtxGENIN2_DISP.WatermarkColor = System.Drawing.Color.Empty
@@ -1487,7 +1484,6 @@ Partial Class FrmG0010
         Me.mtxGENIN1.Location = New System.Drawing.Point(543, 63)
         Me.mtxGENIN1.MaxByteLength = 0
         Me.mtxGENIN1.Name = "mtxGENIN1"
-        Me.mtxGENIN1.ShowRemaining = False
         Me.mtxGENIN1.Size = New System.Drawing.Size(474, 24)
         Me.mtxGENIN1.TabIndex = 109
         Me.mtxGENIN1.Visible = False
@@ -1504,7 +1500,6 @@ Partial Class FrmG0010
         Me.mtxGENIN2.Location = New System.Drawing.Point(543, 93)
         Me.mtxGENIN2.MaxByteLength = 0
         Me.mtxGENIN2.Name = "mtxGENIN2"
-        Me.mtxGENIN2.ShowRemaining = False
         Me.mtxGENIN2.Size = New System.Drawing.Size(474, 24)
         Me.mtxGENIN2.TabIndex = 110
         Me.mtxGENIN2.Visible = False

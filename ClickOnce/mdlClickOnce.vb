@@ -25,10 +25,13 @@ Module mdlClickOnce
         'Dim hVerInfo As System.Diagnostics.FileVersionInfo
         'Dim strFILEVersionORG As String
         'Dim strFILEVersionNEW As String
-        Dim strFILEPATHNEW As String
+
 
         Try
+            Dim strParams As String = GetUriParameters()
 
+#If DEBUG = False Then
+            Dim strFILEPATHNEW As String
 
             ''-----Appliation Refarenceをデスクトップにコピー
             ''.appref-ms取得
@@ -184,11 +187,11 @@ Module mdlClickOnce
             ''-----フォントインストールVBS起動
             'Shell("C:\ADCM\EXE\FONTINSTALL.VBS", AppWinStyle.NormalFocus)
 
-            Dim strParams As String '= GetUriParameters()
+#End If
 
             '-----メニュー起動
-            If strParams <> "" Then
-                Shell(CON_ROOTDIR & "\" & EXE_PATH & "\" & CON_STARTUP_EXE & Space(1) & strParams, AppWinStyle.NormalFocus)
+            If Not String.IsNullOrWhiteSpace(strParams) Then
+                Shell(CON_ROOTDIR & "\" & EXE_PATH & "\" & strParams, AppWinStyle.NormalFocus)
             Else
                 Shell(CON_ROOTDIR & "\" & EXE_PATH & "\" & CON_STARTUP_EXE, AppWinStyle.NormalFocus)
             End If
@@ -197,54 +200,61 @@ Module mdlClickOnce
             'コピー失敗時
             MsgBox("起動中のシステムを全て終了後、再度システムを開始して下さい。(" & strBUFF & ")" & vbCrLf & ex.Message, MsgBoxStyle.Information)
         End Try
-
-
     End Sub
 
 
     Public Function GetUriParameters() As String
-        ' ClickOnceアプリの場合のときのみ以下のコードを実行
-        If Deployment.Application.ApplicationDeployment.IsNetworkDeployed = False Then
-            Return vbNullString
-        End If
+        Try
+            Dim url As String
 
-        ' 起動URLを取得
-        Dim url As String = Deployment.Application.ApplicationDeployment.CurrentDeployment.ActivationUri.AbsoluteUri
-
-        ' クエリ部分を抽出
-        Dim myUri As Uri = New Uri(url)
-        Dim queryString As String = myUri.Query
-        If String.IsNullOrEmpty(queryString) Then
-            Return vbNullString
-        End If
-
-        ' 各パラメータを分離して抽出
-        Dim SYAIN_ID As Integer
-        Dim PG_PATH As String = ""
-        Dim PARAMS As String = ""
-        Dim nameValuePairs() As String = queryString.Split("&"c)
-        For Each pair As String In nameValuePairs
-            Dim vars() As String = pair.Split("="c)
-            If vars.Length <> 2 Then
-                Continue For
+#If DEBUG Then
+            url = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID=999999&EXEPATH=FMS_G0010.exe&PARAMS=999999,2,1,20181180"
+#Else
+                   ' ClickOnceアプリの場合のときのみ以下のコードを実行
+            If Deployment.Application.ApplicationDeployment.IsNetworkDeployed = False Then
+                Return ""
             End If
-            vars(0) = vars(0).Replace("?", "")  ' “?”は削る
 
-            Select Case vars(0)
-                Case "SYAIN_ID"
-                    SYAIN_ID = CInt(Web.HttpUtility.UrlDecode(vars(1)))
-                Case "PG_PATH"
-                    PG_PATH = Web.HttpUtility.UrlDecode(vars(1))
-                Case "PARAMS"
-                    PARAMS = Web.HttpUtility.UrlDecode(vars(1))
-            End Select
-        Next pair
+            ' 起動URLを取得
+            url = Deployment.Application.ApplicationDeployment.CurrentDeployment.ActivationUri.AbsoluteUri
+#End If
 
-        Dim strParam As String = SYAIN_ID & Space(1) & PG_PATH & Space(1) & PARAMS
+            ' クエリ部分を抽出
+            Dim myUri As Uri = New Uri(url)
+            Dim queryString As String = myUri.Query
+            If String.IsNullOrEmpty(queryString) Then
+                Return vbNullString
+            End If
 
-        Return strParam
+            ' 各パラメータを分離して抽出
+            Dim SYAIN_ID As Integer
+            Dim PG_PATH As String = ""
+            Dim PARAMS As String = ""
+            Dim nameValuePairs() As String = queryString.Split("&"c)
+            For Each pair As String In nameValuePairs
+                Dim vars() As String = pair.Split("="c)
+                If vars.Length <> 2 Then
+                    Continue For
+                End If
+                vars(0) = vars(0).Replace("?", "")  ' “?”は削る
 
+                Select Case vars(0)
+                    Case "SYAIN_ID"
+                        SYAIN_ID = CInt(Web.HttpUtility.UrlDecode(vars(1)))
+                    Case "EXEPATH"
+                        PG_PATH = Web.HttpUtility.UrlDecode(vars(1))
+                    Case "PARAMS"
+                        Dim strList As List(Of String) = Web.HttpUtility.UrlDecode(vars(1)).Split(",").ToList
+                        For Each param As String In strList
+                            PARAMS &= param & Space(1)
+                        Next
+                End Select
+            Next pair
 
+            Return PG_PATH & Space(1) & PARAMS
+        Catch ex As Exception
+            Return ""
+        End Try
     End Function
 
 End Module

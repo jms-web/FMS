@@ -62,6 +62,10 @@ Public Class TabPageEx
                             DirectCast(ctl, DateTextBoxEx).Enabled = enabled
                         Case GetType(RadioButton)
                             DirectCast(ctl, RadioButton).Enabled = enabled
+                        Case GetType(TableLayoutPanel)
+                            '再帰的に見たい
+                            'EnableDisablePages(enabled, intProperty)
+                            DirectCast(ctl, TableLayoutPanel).Enabled = enabled
                         Case Else
                             '無視
                     End Select
@@ -83,7 +87,10 @@ Public Class TabPageEx
                             DirectCast(ctl, DateTextBoxEx).ReadOnly = Not enabled
                         Case GetType(RadioButton)
                             DirectCast(ctl, RadioButton).Enabled = enabled
-
+                        Case GetType(TableLayoutPanel)
+                            '再帰的に見たい
+                            'EnableDisablePages(enabled, intProperty)
+                            DirectCast(ctl, TableLayoutPanel).Enabled = enabled
                         Case Else
                             '無視
                     End Select

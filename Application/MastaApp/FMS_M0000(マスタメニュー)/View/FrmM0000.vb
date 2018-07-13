@@ -119,18 +119,13 @@ Public Class FrmM0000
             Me.Show()
             Application.DoEvents()
 
-
-            'メールリンクパラメータを展開
-            If Not pubLinkSyainID.IsNullOrWhiteSpace Then
-                Me.txtUSER.Text = Fun_GetSYAIN_NO(pubLinkSyainID)
-
-                'オルタナティブモードでパスワード認証を回避して自動ログイン
-                blnAltMode = True
-                Call CmdLOGIN_Click(Nothing, Nothing)
-
-
-            End If
-
+            ''メールリンクパラメータを展開
+            'If Not pubLinkSyainID.IsNullOrWhiteSpace Then
+            '    Me.txtUSER.Text = Fun_GetSYAIN_NO(pubLinkSyainID)
+            '    'オルタナティブモードでパスワード認証を回避して自動ログイン
+            '    blnAltMode = True
+            '    Call CmdLOGIN_Click(Nothing, Nothing)
+            'End If
 
             '-----先回ログインユーザー表示
             Using iniIF As New IniFile(pub_SYSTEM_INI_FILE)
@@ -710,6 +705,14 @@ Public Class FrmM0000
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
     End Sub
+#End Region
+
+#Region "メールリンク起動"
+    Private Sub FuncExecOverMailLink()
+        Dim hProcess As New System.Diagnostics.Process
+
+    End Sub
+
 #End Region
 
 #Region "ファンクションに割り当てられた実行ファイルを起動する"

@@ -68,7 +68,7 @@ Partial Public Class D005_CAR_J
         SETUMON_22 = ""
         KAITO_22 = ""
         SETUMON_23 = ""
-        KAITO_23 = ""
+        KAITO_23 = False
         SETUMON_24 = ""
         KAITO_24 = ""
         SETUMON_25 = ""
@@ -420,6 +420,7 @@ Partial Public Class D005_CAR_J
     <StringLength(150)>
     <ComponentModel.DisplayName("設問回答22")>
     Public Property KAITO_22 As String
+
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(100)>
@@ -427,10 +428,23 @@ Partial Public Class D005_CAR_J
     Public Property SETUMON_23 As String
 
     <Required>
-    <Column(TypeName:="nvarchar")>
-    <StringLength(150)>
+    <Column(NameOf(KAITO_23), TypeName:="nvarchar")>
+    <StringLength(100)>
     <ComponentModel.DisplayName("設問回答23")>
-    Public Property KAITO_23 As String
+    Public Property _KAITO_23 As String
+
+    <ComponentModel.DisplayName("設問回答23")>
+    <NotMapped>
+    Public Property KAITO_23 As Boolean
+        Get
+            Return IIf(_KAITO_23 = "0", False, True)
+        End Get
+        Set(value As Boolean)
+            _KAITO_23 = IIf(value, "1", "0")
+            'OnPropertyChanged(NameOf(CLOSE_FG))
+        End Set
+    End Property
+
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(100)>

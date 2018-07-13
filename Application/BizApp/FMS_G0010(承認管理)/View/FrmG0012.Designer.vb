@@ -441,7 +441,6 @@ Partial Class FrmG0012
         Me.mtxKISYU.MaxByteLength = 0
         Me.mtxKISYU.Name = "mtxKISYU"
         Me.mtxKISYU.ReadOnly = True
-        Me.mtxKISYU.ShowRemaining = True
         Me.mtxKISYU.Size = New System.Drawing.Size(114, 24)
         Me.mtxKISYU.TabIndex = 2
         Me.mtxKISYU.TabStop = False
@@ -471,7 +470,6 @@ Partial Class FrmG0012
         Me.mtxADD_SYAIN_NAME.MaxByteLength = 0
         Me.mtxADD_SYAIN_NAME.Name = "mtxADD_SYAIN_NAME"
         Me.mtxADD_SYAIN_NAME.ReadOnly = True
-        Me.mtxADD_SYAIN_NAME.ShowRemaining = True
         Me.mtxADD_SYAIN_NAME.Size = New System.Drawing.Size(154, 24)
         Me.mtxADD_SYAIN_NAME.TabIndex = 3
         Me.mtxADD_SYAIN_NAME.TabStop = False
@@ -501,7 +499,6 @@ Partial Class FrmG0012
         Me.mtxCurrentStageName.MaxByteLength = 0
         Me.mtxCurrentStageName.Name = "mtxCurrentStageName"
         Me.mtxCurrentStageName.ReadOnly = True
-        Me.mtxCurrentStageName.ShowRemaining = True
         Me.mtxCurrentStageName.Size = New System.Drawing.Size(254, 24)
         Me.mtxCurrentStageName.TabIndex = 4
         Me.mtxCurrentStageName.TabStop = False
@@ -533,7 +530,6 @@ Partial Class FrmG0012
         Me.mtxFUTEKIGO_KB.MaxByteLength = 0
         Me.mtxFUTEKIGO_KB.Name = "mtxFUTEKIGO_KB"
         Me.mtxFUTEKIGO_KB.ReadOnly = True
-        Me.mtxFUTEKIGO_KB.ShowRemaining = True
         Me.mtxFUTEKIGO_KB.Size = New System.Drawing.Size(154, 24)
         Me.mtxFUTEKIGO_KB.TabIndex = 5
         Me.mtxFUTEKIGO_KB.TabStop = False
@@ -565,7 +561,6 @@ Partial Class FrmG0012
         Me.mtxFUTEKIGO_S_KB.MaxByteLength = 0
         Me.mtxFUTEKIGO_S_KB.Name = "mtxFUTEKIGO_S_KB"
         Me.mtxFUTEKIGO_S_KB.ReadOnly = True
-        Me.mtxFUTEKIGO_S_KB.ShowRemaining = True
         Me.mtxFUTEKIGO_S_KB.Size = New System.Drawing.Size(154, 24)
         Me.mtxFUTEKIGO_S_KB.TabIndex = 6
         Me.mtxFUTEKIGO_S_KB.TabStop = False
@@ -595,7 +590,6 @@ Partial Class FrmG0012
         Me.mtxHOKUKO_NO.MaxByteLength = 0
         Me.mtxHOKUKO_NO.Name = "mtxHOKUKO_NO"
         Me.mtxHOKUKO_NO.ReadOnly = True
-        Me.mtxHOKUKO_NO.ShowRemaining = True
         Me.mtxHOKUKO_NO.Size = New System.Drawing.Size(94, 24)
         Me.mtxHOKUKO_NO.TabIndex = 1
         Me.mtxHOKUKO_NO.TabStop = False
@@ -615,7 +609,6 @@ Partial Class FrmG0012
         Me.mtxBUMON_KB.MaxByteLength = 0
         Me.mtxBUMON_KB.Name = "mtxBUMON_KB"
         Me.mtxBUMON_KB.ReadOnly = True
-        Me.mtxBUMON_KB.ShowRemaining = True
         Me.mtxBUMON_KB.Size = New System.Drawing.Size(74, 24)
         Me.mtxBUMON_KB.TabIndex = 0
         Me.mtxBUMON_KB.TabStop = False
@@ -836,7 +829,6 @@ Partial Class FrmG0012
         Me.mtxKAITO_18.Location = New System.Drawing.Point(692, 353)
         Me.mtxKAITO_18.MaxByteLength = 300
         Me.mtxKAITO_18.Name = "mtxKAITO_18"
-        Me.mtxKAITO_18.ShowRemaining = True
         Me.mtxKAITO_18.Size = New System.Drawing.Size(114, 24)
         Me.mtxKAITO_18.TabIndex = 20
         Me.mtxKAITO_18.WatermarkColor = System.Drawing.Color.Empty
@@ -883,7 +875,6 @@ Partial Class FrmG0012
         Me.mtxKAITO_15.Location = New System.Drawing.Point(879, 292)
         Me.mtxKAITO_15.MaxByteLength = 300
         Me.mtxKAITO_15.Name = "mtxKAITO_15"
-        Me.mtxKAITO_15.ShowRemaining = True
         Me.mtxKAITO_15.Size = New System.Drawing.Size(340, 24)
         Me.mtxKAITO_15.TabIndex = 17
         Me.mtxKAITO_15.WatermarkColor = System.Drawing.Color.Empty
@@ -898,7 +889,6 @@ Partial Class FrmG0012
         Me.mtxKAITO_19.Location = New System.Drawing.Point(879, 353)
         Me.mtxKAITO_19.MaxByteLength = 300
         Me.mtxKAITO_19.Name = "mtxKAITO_19"
-        Me.mtxKAITO_19.ShowRemaining = True
         Me.mtxKAITO_19.Size = New System.Drawing.Size(81, 24)
         Me.mtxKAITO_19.TabIndex = 21
         Me.mtxKAITO_19.WatermarkColor = System.Drawing.Color.Empty
@@ -1038,7 +1028,6 @@ Partial Class FrmG0012
         Me.mtxKAITO_11.Location = New System.Drawing.Point(693, 234)
         Me.mtxKAITO_11.MaxByteLength = 300
         Me.mtxKAITO_11.Name = "mtxKAITO_11"
-        Me.mtxKAITO_11.ShowRemaining = True
         Me.mtxKAITO_11.Size = New System.Drawing.Size(114, 24)
         Me.mtxKAITO_11.TabIndex = 14
         Me.mtxKAITO_11.WatermarkColor = System.Drawing.Color.Empty
@@ -1075,7 +1064,6 @@ Partial Class FrmG0012
         Me.mtxKAITO_12.Location = New System.Drawing.Point(879, 234)
         Me.mtxKAITO_12.MaxByteLength = 300
         Me.mtxKAITO_12.Name = "mtxKAITO_12"
-        Me.mtxKAITO_12.ShowRemaining = True
         Me.mtxKAITO_12.Size = New System.Drawing.Size(81, 24)
         Me.mtxKAITO_12.TabIndex = 15
         Me.mtxKAITO_12.WatermarkColor = System.Drawing.Color.Empty
@@ -1195,7 +1183,6 @@ Partial Class FrmG0012
         Me.mtxKAITO_6.Location = New System.Drawing.Point(693, 105)
         Me.mtxKAITO_6.MaxByteLength = 300
         Me.mtxKAITO_6.Name = "mtxKAITO_6"
-        Me.mtxKAITO_6.ShowRemaining = True
         Me.mtxKAITO_6.Size = New System.Drawing.Size(114, 24)
         Me.mtxKAITO_6.TabIndex = 7
         Me.mtxKAITO_6.WatermarkColor = System.Drawing.Color.Empty
@@ -1232,7 +1219,6 @@ Partial Class FrmG0012
         Me.mtxKAITO_7.Location = New System.Drawing.Point(879, 105)
         Me.mtxKAITO_7.MaxByteLength = 300
         Me.mtxKAITO_7.Name = "mtxKAITO_7"
-        Me.mtxKAITO_7.ShowRemaining = True
         Me.mtxKAITO_7.Size = New System.Drawing.Size(81, 24)
         Me.mtxKAITO_7.TabIndex = 8
         Me.mtxKAITO_7.WatermarkColor = System.Drawing.Color.Empty
@@ -1432,7 +1418,6 @@ Partial Class FrmG0012
         Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 399)
         Me.mtxST01_NextStageName.MaxByteLength = 0
         Me.mtxST01_NextStageName.Name = "mtxST01_NextStageName"
-        Me.mtxST01_NextStageName.ShowRemaining = True
         Me.mtxST01_NextStageName.Size = New System.Drawing.Size(296, 24)
         Me.mtxST01_NextStageName.TabIndex = 214
         Me.mtxST01_NextStageName.WatermarkColor = System.Drawing.Color.Empty
@@ -1487,7 +1472,6 @@ Partial Class FrmG0012
         Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 399)
         Me.mtxST01_UPD_YMD.MaxByteLength = 0
         Me.mtxST01_UPD_YMD.Name = "mtxST01_UPD_YMD"
-        Me.mtxST01_UPD_YMD.ShowRemaining = True
         Me.mtxST01_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST01_UPD_YMD.TabIndex = 210
         Me.mtxST01_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
@@ -2372,7 +2356,6 @@ Partial Class FrmG0012
         Me.mtxLOT.Location = New System.Drawing.Point(189, 70)
         Me.mtxLOT.MaxByteLength = 300
         Me.mtxLOT.Name = "mtxLOT"
-        Me.mtxLOT.ShowRemaining = True
         Me.mtxLOT.Size = New System.Drawing.Size(156, 24)
         Me.mtxLOT.TabIndex = 6
         Me.mtxLOT.Visible = False
@@ -2410,7 +2393,6 @@ Partial Class FrmG0012
         Me.mtxGOKI.Location = New System.Drawing.Point(189, 42)
         Me.mtxGOKI.MaxByteLength = 300
         Me.mtxGOKI.Name = "mtxGOKI"
-        Me.mtxGOKI.ShowRemaining = True
         Me.mtxGOKI.Size = New System.Drawing.Size(156, 24)
         Me.mtxGOKI.TabIndex = 3
         Me.mtxGOKI.WatermarkColor = System.Drawing.Color.Empty
@@ -2486,7 +2468,6 @@ Partial Class FrmG0012
         Me.mtxGENIN2.MaxByteLength = 0
         Me.mtxGENIN2.Name = "mtxGENIN2"
         Me.mtxGENIN2.ReadOnly = True
-        Me.mtxGENIN2.ShowRemaining = True
         Me.mtxGENIN2.Size = New System.Drawing.Size(69, 24)
         Me.mtxGENIN2.TabIndex = 275
         Me.mtxGENIN2.Visible = False
@@ -2504,7 +2485,6 @@ Partial Class FrmG0012
         Me.mtxGENIN1.MaxByteLength = 0
         Me.mtxGENIN1.Name = "mtxGENIN1"
         Me.mtxGENIN1.ReadOnly = True
-        Me.mtxGENIN1.ShowRemaining = True
         Me.mtxGENIN1.Size = New System.Drawing.Size(69, 24)
         Me.mtxGENIN1.TabIndex = 274
         Me.mtxGENIN1.Visible = False
@@ -2522,7 +2502,6 @@ Partial Class FrmG0012
         Me.mtxGENIN2_DISP.MaxByteLength = 0
         Me.mtxGENIN2_DISP.Name = "mtxGENIN2_DISP"
         Me.mtxGENIN2_DISP.ReadOnly = True
-        Me.mtxGENIN2_DISP.ShowRemaining = True
         Me.mtxGENIN2_DISP.Size = New System.Drawing.Size(251, 24)
         Me.mtxGENIN2_DISP.TabIndex = 4
         Me.mtxGENIN2_DISP.WatermarkColor = System.Drawing.Color.Empty
@@ -2539,7 +2518,6 @@ Partial Class FrmG0012
         Me.mtxGENIN1_DISP.MaxByteLength = 0
         Me.mtxGENIN1_DISP.Name = "mtxGENIN1_DISP"
         Me.mtxGENIN1_DISP.ReadOnly = True
-        Me.mtxGENIN1_DISP.ShowRemaining = True
         Me.mtxGENIN1_DISP.Size = New System.Drawing.Size(251, 24)
         Me.mtxGENIN1_DISP.TabIndex = 1
         Me.mtxGENIN1_DISP.WatermarkColor = System.Drawing.Color.Empty
@@ -3181,7 +3159,6 @@ Partial Class FrmG0012
         Me.mtxNextStageName.MaxByteLength = 0
         Me.mtxNextStageName.Name = "mtxNextStageName"
         Me.mtxNextStageName.ReadOnly = True
-        Me.mtxNextStageName.ShowRemaining = True
         Me.mtxNextStageName.Size = New System.Drawing.Size(254, 19)
         Me.mtxNextStageName.TabIndex = 0
         Me.mtxNextStageName.TabStop = False
@@ -3224,7 +3201,6 @@ Partial Class FrmG0012
         Me.Label81.TabIndex = 253
         Me.Label81.Text = "設計開発担当者の確認の要否:"
         Me.Label81.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label81.Visible = False
         '
         'FlowLayoutPanel1
         '
@@ -3235,27 +3211,26 @@ Partial Class FrmG0012
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(90, 23)
         Me.FlowLayoutPanel1.TabIndex = 251
-        Me.FlowLayoutPanel1.Visible = False
         '
         'rbtnSEKKEI_TANTO_YOHI_YES
         '
         Me.rbtnSEKKEI_TANTO_YOHI_YES.AutoSize = True
+        Me.rbtnSEKKEI_TANTO_YOHI_YES.Checked = True
         Me.rbtnSEKKEI_TANTO_YOHI_YES.Location = New System.Drawing.Point(3, 3)
         Me.rbtnSEKKEI_TANTO_YOHI_YES.Name = "rbtnSEKKEI_TANTO_YOHI_YES"
         Me.rbtnSEKKEI_TANTO_YOHI_YES.Size = New System.Drawing.Size(35, 16)
         Me.rbtnSEKKEI_TANTO_YOHI_YES.TabIndex = 0
+        Me.rbtnSEKKEI_TANTO_YOHI_YES.TabStop = True
         Me.rbtnSEKKEI_TANTO_YOHI_YES.Text = "要"
         Me.rbtnSEKKEI_TANTO_YOHI_YES.UseVisualStyleBackColor = True
         '
         'rbtnSEKKEI_TANTO_YOHI_NO
         '
         Me.rbtnSEKKEI_TANTO_YOHI_NO.AutoSize = True
-        Me.rbtnSEKKEI_TANTO_YOHI_NO.Checked = True
         Me.rbtnSEKKEI_TANTO_YOHI_NO.Location = New System.Drawing.Point(44, 3)
         Me.rbtnSEKKEI_TANTO_YOHI_NO.Name = "rbtnSEKKEI_TANTO_YOHI_NO"
         Me.rbtnSEKKEI_TANTO_YOHI_NO.Size = New System.Drawing.Size(35, 16)
         Me.rbtnSEKKEI_TANTO_YOHI_NO.TabIndex = 1
-        Me.rbtnSEKKEI_TANTO_YOHI_NO.TabStop = True
         Me.rbtnSEKKEI_TANTO_YOHI_NO.Text = "否"
         Me.rbtnSEKKEI_TANTO_YOHI_NO.UseVisualStyleBackColor = True
         '
@@ -3268,7 +3243,6 @@ Partial Class FrmG0012
         Me.chkSEKKEI_TANTO_YOHI_KB.TabIndex = 252
         Me.chkSEKKEI_TANTO_YOHI_KB.Text = "chkZESEI"
         Me.chkSEKKEI_TANTO_YOHI_KB.UseVisualStyleBackColor = True
-        Me.chkSEKKEI_TANTO_YOHI_KB.Visible = False
         '
         'FrmG0012
         '

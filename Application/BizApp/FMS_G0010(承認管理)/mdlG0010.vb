@@ -32,6 +32,11 @@ Module mdlG0010
         ''' 新規作成モード…新規登録画面を直接表示、登録後検索画面に戻らず
         ''' </summary>
         _1_新規作成 = 1
+
+        ''' <summary>
+        ''' メールリンク等で処置画面へ直接遷移
+        ''' </summary>
+        _2_処置画面起動 = 2
     End Enum
 
     Public Enum ENM_SAVE_MODE
@@ -76,7 +81,7 @@ Module mdlG0010
         _100_処置実施決裁_製造課長 = 100
         _110_abcde処置担当 = 110
         _120_abcde処置確認 = 120
-        _990_Closed = 990
+        _999_Closed = 999
     End Enum
 
     ''' <summary>
@@ -96,7 +101,7 @@ Module mdlG0010
         _110_是正有効性確認_検査GL = 110
         _120_是正有効性確認_品証TL = 120
         _130_是正有効性確認_品証担当課長 = 130
-        _990_Closed = 990
+        _999_Closed = 999
 
     End Enum
 
@@ -312,9 +317,10 @@ Module mdlG0010
                 cmds = System.Environment.GetCommandLineArgs
 
                 If cmds.Length = 5 Then
-                    'メールリンク用 
+                    'メールリンク用
                     pub_PrHOKOKU_NO = Val(cmds(4))
                     pub_PrSYONIN_HOKOKUSYO_ID = Val(cmds(3))
+                    pub_intOPEN_MODE = Val(cmds(2))
                 ElseIf cmds.Length = 3 Then
                     pub_intOPEN_MODE = Val(cmds(2))
                 Else
@@ -605,7 +611,7 @@ Module mdlG0010
     ''' </summary>
     ''' <param name="intCurrentStageID"></param>
     ''' <returns></returns>
-    Public Function FunGetCurrentStageName(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal intCurrentStageID As Integer) As String
+    Public Function FunGetStageName(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal intCurrentStageID As Integer) As String
         Try
             Dim drList As List(Of DataRow)
 
@@ -620,28 +626,6 @@ Module mdlG0010
 
             Return drList(0)?.Item("DISP")
 
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return vbEmpty
-        End Try
-    End Function
-
-    ''' <summary>
-    ''' 次ステージ名を取得
-    ''' </summary>
-    ''' <param name="intCurrentStageID">現ステージID</param>
-    ''' <returns></returns>
-    Public Function FunGetNextStageName(ByVal intCurrentStageID As Integer) As String
-        Try
-
-            Dim drList As List(Of DataRow) = tblCAR.AsEnumerable().
-                                                Where(Function(r) Val(r.Field(Of Integer)("VALUE")) > intCurrentStageID).ToList
-            Dim strBUFF As String = ""
-            If drList.Count > 0 Then
-                strBUFF = drList(0).Item("DISP")
-            End If
-
-            Return strBUFF
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return vbEmpty
@@ -704,6 +688,7 @@ Module mdlG0010
         Dim intSmtpPort As Integer
         Dim strFromAddress As String
         Dim strToAddress As String
+        Dim strCCAddress As String
         Dim strUserID As String
         Dim strPassword As String
         Dim blnSend As Boolean
@@ -712,8 +697,6 @@ Module mdlG0010
 
         Dim strMsg As String
         Try
-
-
 
             Using DB As ClsDbUtility = DBOpen()
                 strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
@@ -748,14 +731,9 @@ Module mdlG0010
                 sbSQL.Append(" WHERE SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID & "")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
                 If dsList.Tables(0).Rows.Count > 0 Then
-#If DEBUG Then
-                    strToAddress = "funato@jms-web.co.jp"
                     strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
-                    'strToAddress = "i2u5r6p1d7l9o6s3@jms-web.slack.com"
-#Else
-                    strFromAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
-#End If
-                    strFromSyainName = dsList.Tables(0).Rows(0).Item("SIMEI")
+                    'strFromSyainName = dsList.Tables(0).Rows(0).Item("SIMEI")
+                    strCCAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
                 Else
                     Return False
                 End If
@@ -775,12 +753,13 @@ Module mdlG0010
                            intSmtpPort,
                            strFromAddress,
                            strToAddress,
-                           CCAddress:=strFromAddress,
+                           CCAddress:=strCCAddress,
                            BCCAddress:="",
                            strSubject:=strSubject,
                            strBody:=strBody,
                            strAttachment:="",
-                           strFromName:="不適合管理システム")
+                           strFromName:="不適合管理システム",
+                           isHTML:=True)
 
             '認証あり JMS
             'blnSend = ClsMailSend.FunSendMailoverAUTH(strSmtpServer,
@@ -1299,7 +1278,7 @@ Module mdlG0010
             '現状未使用のフィールド
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_21)).Value = _V005_CAR_J.KAITO_21
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_22)).Value = _V005_CAR_J.KAITO_22
-            'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_23)).Value = _V005_CAR_J.KAITO_23
+
             'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_24)).Value = _V005_CAR_J.KAITO_24
             'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_25)).Value = _V005_CAR_J.KAITO_25
 
@@ -1341,10 +1320,24 @@ Module mdlG0010
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD40)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD40.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME40)).Value = _V005_CAR_J.SYONIN_NAME40
             End If
-            If Not _V005_CAR_J.SYONIN_YMD50.IsNullOrWhiteSpace Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD50)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD50.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-                spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME50)).Value = _V005_CAR_J.SYONIN_NAME50
+
+            If CBool(_V005_CAR_J.KAITO_23) Then
+                If Not _V005_CAR_J.SYONIN_YMD50.IsNullOrWhiteSpace Then
+                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD50)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD50.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME50)).Value = _V005_CAR_J.SYONIN_NAME50
+                End If
+
+                Dim ssgShapes As SpreadsheetGear.Shapes.IShapes
+                ssgShapes = spSheet1.Shapes
+                For Each shape As SpreadsheetGear.Shapes.IShape In ssgShapes
+                    If shape.Name = "LINE_SEKKEI_TANTO" Then
+                        shape.Visible = False
+                        shape.PrintObject = False
+                        Exit For
+                    End If
+                Next shape
             End If
+
             If Not _V005_CAR_J.SYONIN_YMD60.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD60)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD60.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME60)).Value = _V005_CAR_J.SYONIN_NAME60

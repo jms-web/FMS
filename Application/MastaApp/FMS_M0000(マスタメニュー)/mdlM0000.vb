@@ -89,12 +89,12 @@ Module mdlM0000
                 Dim cmds() As String
                 cmds = System.Environment.GetCommandLineArgs
 
-                If cmds.Length = 4 Then
-                    'メールリンク用 
-                    pubLinkSyainID = cmds(1)
-                    pubLinkEXE = cmds(2)
-                    pubLinkParams = cmds(3)
-                End If
+                'If cmds.Length = 4 Then
+                '    'メールリンク用
+                '    pubLinkSyainID = cmds(1)
+                '    pubLinkEXE = cmds(2)
+                '    pubLinkParams = cmds(3)
+                'End If
 
                 '前回ログインユーザーが空欄の場合=バージョンアップ後初回起動時
                 If strBUFF.IsNullOrWhiteSpace Then
