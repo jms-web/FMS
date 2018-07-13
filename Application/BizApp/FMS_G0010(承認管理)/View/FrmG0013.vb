@@ -470,11 +470,11 @@ Public Class FrmG0013
                             Dim bln As Boolean = PrSelectedList.Contains((strValue, .Item("ITEM_VALUE").ToString.Trim, .Item("ITEM_DISP").ToString.Trim))
                             Trow("SELECTED") = bln
                         End If
-                        If PrDAIHYO.ITEM_VALUE <> "" Then
+                        If PrDAIHYO.ITEM_VALUE.IsNullOrWhiteSpace Then
+                            Trow("DAIHYO") = False
+                        Else
                             Dim bln As Boolean = (PrDAIHYO.ITEM_DISP = dsList.Tables(0).Rows(intCNT).Item("ITEM_DISP").ToString.Trim) And (PrDAIHYO.ITEM_NAME.Trim = strValue) And (PrDAIHYO.ITEM_VALUE.Trim = dsList.Tables(0).Rows(intCNT).Item("ITEM_VALUE").ToString.Trim)
                             Trow("DAIHYO") = bln
-                        Else
-                            Trow("DAIHYO") = False
                         End If
                         dt.Rows.Add(Trow)
                     End With

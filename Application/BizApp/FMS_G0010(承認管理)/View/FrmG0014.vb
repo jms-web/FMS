@@ -309,11 +309,11 @@ Public Class FrmG0014
                         Else
                             Trow("SELECTED") = PrSelectedList.Contains((GeninBunsekiKB, .Item("ITEM_VALUE").ToString.Trim, .Item("ITEM_DISP").ToString.Trim))
                         End If
-                        If PrDAIHYO.ITEM_VALUE <> "" Then
+                        If PrDAIHYO.ITEM_VALUE.IsNullOrWhiteSpace Then
+                            Trow("DAIHYO") = False
+                        Else
                             Dim bln As Boolean = (PrDAIHYO.ITEM_DISP = .Item("ITEM_DISP").ToString.Trim And PrDAIHYO.ITEM_NAME = GeninBunsekiKB And PrDAIHYO.ITEM_VALUE = .Item("ITEM_VALUE").ToString.Trim)
                             Trow("DAIHYO") = bln
-                        Else
-                            Trow("DAIHYO") = False
                         End If
                         dt.Rows.Add(Trow)
                     End With

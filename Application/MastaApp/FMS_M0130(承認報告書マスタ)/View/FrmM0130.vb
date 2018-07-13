@@ -306,7 +306,8 @@ Public Class FrmM0130
         End If
 
         '---íSìñé“ñºåüçı
-        If Me.mtxTANTO_NAME.Text <> "" Then
+        If Me.mtxTANTO_NAME.Text.IsNullOrWhiteSpace Then
+        Else
             If sbSQLWHERE.Length = 0 Then
                 sbSQLWHERE.Append(" WHERE TANTO_NAME LIKE '%" & Me.mtxTANTO_NAME.Text.Trim & "%'")
             End If
@@ -373,7 +374,8 @@ Public Class FrmM0130
                 Else
                     Trow("NYUSYA_YMD") = .Rows(intCNT).Item("NYUSYA_YMD")
                 End If
-                If .Rows(intCNT).Item("NYUSYA_YMD").ToString.Trim <> "" Then
+                If .Rows(intCNT).Item("NYUSYA_YMD").ToString.IsNullOrWhiteSpace Then
+                Else
                     Trow("NYUSYA_YMD") = String.Format("{0}/{1}/{2}", .Rows(intCNT).Item("NYUSYA_YMD").ToString.Substring(0, 4),
                                                                 .Rows(intCNT).Item("NYUSYA_YMD").ToString.Substring(4, 2),
                                                                 .Rows(intCNT).Item("NYUSYA_YMD").ToString.Substring(6, 2))
@@ -383,7 +385,8 @@ Public Class FrmM0130
                 Else
                     Trow("TAISYA_YMD") = .Rows(intCNT).Item("TAISYA_YMD")
                 End If
-                If .Rows(intCNT).Item("TAISYA_YMD").ToString.Trim <> "" Then
+                If .Rows(intCNT).Item("TAISYA_YMD").ToString.IsNullOrWhiteSpace Then
+                Else
                     Trow("TAISYA_YMD") = String.Format("{0}/{1}/{2}", .Rows(intCNT).Item("TAISYA_YMD").ToString.Substring(0, 4),
                                                                 .Rows(intCNT).Item("TAISYA_YMD").ToString.Substring(4, 2),
                                                                 .Rows(intCNT).Item("TAISYA_YMD").ToString.Substring(6, 2))
@@ -397,7 +400,8 @@ Public Class FrmM0130
                 Else
                     Trow("BIRTHDAY") = .Rows(intCNT).Item("BIRTHDAY")
                 End If
-                If .Rows(intCNT).Item("BIRTHDAY").ToString.Trim <> "" Then
+                If .Rows(intCNT).Item("BIRTHDAY").ToString.IsNullOrWhiteSpace Then
+                Else
                     Trow("BIRTHDAY") = String.Format("{0}/{1}/{2}", .Rows(intCNT).Item("BIRTHDAY").ToString.Substring(0, 4),
                                                                 .Rows(intCNT).Item("BIRTHDAY").ToString.Substring(4, 2),
                                                                 .Rows(intCNT).Item("BIRTHDAY").ToString.Substring(6, 2))
@@ -646,7 +650,7 @@ Public Class FrmM0130
         Try
             For intFunc As Integer = 1 To 12
                 With frm.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).Trim = "" Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
                         .Text = ""
                         .Visible = False
                     End If

@@ -201,7 +201,8 @@ Public NotInheritable Class ClsPubMethod
     ''' <param name="strPath"></param>
     Public Shared Sub SubConvPathString(ByRef strPath As String)
         Try
-            If strPath <> "" Then
+            If strPath.IsNullOrWhiteSpace Then
+            Else
                 If strPath.LastIndexOf("\") <> strPath.Length - 1 Then
                     'パスの最後に\を付ける
                     strPath &= "\"
@@ -1041,7 +1042,7 @@ Public NotInheritable Class ClsPubMethod
 
             '-----パス無し時
             strBUFF = System.IO.Path.GetDirectoryName(strEXCEL_FILE)
-            If strBUFF = "" Then
+            If strBUFF.IsNullOrWhiteSpace Then
                 'Call MsgBox(INI_EXCELFILENAME & "にEXCEL出力先フォルダが設定されていません。", MsgBoxStyle.Exclamation)
                 'WL.WriteLogDat(INI_EXCELFILENAME & "にEXCEL出力先フォルダが設定されていません。")
                 Return False
@@ -1199,7 +1200,9 @@ Public NotInheritable Class ClsPubMethod
         Dim strPATH As String
 
         Try
-            If strOUT_FOLDER <> "" Then
+            If strOUT_FOLDER.IsNullOrWhiteSpace Then
+                Return False
+            Else
                 'パス文字列変換
                 Call SubConvPathString(strOUT_FOLDER)
 
@@ -1216,8 +1219,7 @@ Public NotInheritable Class ClsPubMethod
                 System.IO.File.WriteAllLines(strOUT_FOLDER & strFILE, strDATA, enc)
 
                 Return True
-            Else
-                Return False
+
             End If
 
         Catch ex As Exception
@@ -1579,7 +1581,7 @@ Public NotInheritable Class ClsPubMethod
 
             '▼空文字に対しては常に空文字を返す
 
-            If str = "" Then
+            If str.IsNullOrWhiteSpace Then
                 Return ""
             End If
 
@@ -1712,7 +1714,7 @@ Public NotInheritable Class ClsPubMethod
     Public Shared Function FunDATESPAN(ByVal strYMD As String, Optional ByVal strNAME As String = "") As Integer
 
         Try
-            If strNAME = "" Then
+            If strNAME.IsNullOrWhiteSpace Then
                 strNAME = "日付"
             End If
 

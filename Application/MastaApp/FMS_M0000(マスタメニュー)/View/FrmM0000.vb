@@ -135,7 +135,8 @@ Public Class FrmM0000
             '-----先回ログインユーザー表示
             Using iniIF As New IniFile(pub_SYSTEM_INI_FILE)
                 strBUFF = iniIF.GetIniString("SYSTEM", "USERID")
-                If strBUFF <> "" Then
+                If strBUFF.IsNullOrWhiteSpace Then
+                Else
                     Me.txtUSER.Text = strBUFF
                     Me.txtPASSWORD.Focus()
                 End If
@@ -425,7 +426,8 @@ Public Class FrmM0000
             '-----先回ログインユーザー表示
             Using iniIF As New IniFile(pub_SYSTEM_INI_FILE)
                 strBUFF = iniIF.GetIniString("SYSTEM", "USERID")
-                If strBUFF <> "" Then
+                If strBUFF.IsNullOrWhiteSpace Then
+                Else
                     Me.txtUSER.Text = strBUFF
                     Me.txtPASSWORD.Focus()
                 End If
@@ -688,12 +690,12 @@ Public Class FrmM0000
 
                 '-----使用可不可
                 'ボタンタイトルなし
-                If arrNOW_CMDS(lngL).Title = "" Then
+                If arrNOW_CMDS(lngL).Title.IsNullOrWhiteSpace Then
                     Me.cmdFunc(lngL).Enabled = False
                     Me.pnlFunc(lngL).Enabled = False
 
                     'PASSなし
-                ElseIf arrNOW_CMDS(lngL).Path = "" Then
+                ElseIf arrNOW_CMDS(lngL).Path.IsNullOrWhiteSpace Then
                     Me.cmdFunc(lngL).Enabled = False
                     Me.pnlFunc(lngL).Enabled = False
 
@@ -991,7 +993,7 @@ Public Class FrmM0000
                 Me.lblCALENDER.Text = ""
                 Me.lblCALENDER.Cursor = Cursors.Default
                 With dsList.Tables(0)
-                    If .Rows(0).Item("MAX_YMD").ToString.TrimEnd = "" Then
+                    If .Rows(0).Item("MAX_YMD").ToString.IsNullOrWhiteSpace Then
                         Me.lblCALENDER.Text = "稼働日マスタを登録して下さい。"
                         Me.lblCALENDER.Cursor = Cursors.Hand
                     Else

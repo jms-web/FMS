@@ -349,19 +349,19 @@ Module mdlINTSYR
                     End If
 
                     'フォーム背景色
-                    If iniIF.GetIniString("SYSTEM", "FORMBACK_R") <> "" AndAlso iniIF.GetIniString("SYSTEM", "FORMBACK_G") <> "" AndAlso iniIF.GetIniString("SYSTEM", "FORMBACK_B") <> "" Then
-                        .clrFORM_BACK = Color.FromArgb(Val(iniIF.GetIniString("SYSTEM", "FORMBACK_R")), Val(iniIF.GetIniString("SYSTEM", "FORMBACK_G")), Val(iniIF.GetIniString("SYSTEM", "FORMBACK_B")))
-                    Else
+                    If iniIF.GetIniString("SYSTEM", "FORMBACK_R").IsNullOrWhiteSpace AndAlso iniIF.GetIniString("SYSTEM", "FORMBACK_G").IsNullOrWhiteSpace AndAlso iniIF.GetIniString("SYSTEM", "FORMBACK_B").IsNullOrWhiteSpace Then
                         'SYSTEM.INIのデフォルト設定を使用
                         .clrFORM_BACK = pub_SYSTEM_INFO.clrDefaultFormBack
+                    Else
+                        .clrFORM_BACK = Color.FromArgb(Val(iniIF.GetIniString("SYSTEM", "FORMBACK_R")), Val(iniIF.GetIniString("SYSTEM", "FORMBACK_G")), Val(iniIF.GetIniString("SYSTEM", "FORMBACK_B")))
                     End If
 
                     'タイトルラベル
-                    If iniIF.GetIniString("SYSTEM", "TITLELABEL_R") <> "" AndAlso iniIF.GetIniString("SYSTEM", "TITLELABEL_G") <> "" AndAlso iniIF.GetIniString("SYSTEM", "TITLELABEL_B") <> "" Then
-                        .clrTITLE_LABEL = Color.FromArgb(Val(iniIF.GetIniString("SYSTEM", "TITLELABEL_R")), Val(iniIF.GetIniString("SYSTEM", "TITLELABEL_G")), Val(iniIF.GetIniString("SYSTEM", "TITLELABEL_B")))
-                    Else
+                    If iniIF.GetIniString("SYSTEM", "TITLELABEL_R").IsNullOrWhiteSpace AndAlso iniIF.GetIniString("SYSTEM", "TITLELABEL_G").IsNullOrWhiteSpace AndAlso iniIF.GetIniString("SYSTEM", "TITLELABEL_B").IsNullOrWhiteSpace Then
                         'SYSTEM.INIのデフォルト設定を使用
                         .clrTITLE_LABEL = pub_SYSTEM_INFO.clrDefaultTitleBack
+                    Else
+                        .clrTITLE_LABEL = Color.FromArgb(Val(iniIF.GetIniString("SYSTEM", "TITLELABEL_R")), Val(iniIF.GetIniString("SYSTEM", "TITLELABEL_G")), Val(iniIF.GetIniString("SYSTEM", "TITLELABEL_B")))
                     End If
                 End Using
             End With
@@ -585,11 +585,11 @@ Module mdlINTSYR
 
 #Region "DB操作関連"
     Public Function DBOpen() As ClsDbUtility
-        If pub_SYSTEM_INFO.DbProviderFactories <> "" And pub_SYSTEM_INFO.CONNECTIONSTRING <> "" Then
+        If pub_SYSTEM_INFO.DbProviderFactories.IsNullOrWhiteSpace And pub_SYSTEM_INFO.CONNECTIONSTRING.IsNullOrWhiteSpace Then
+            Return Nothing
+        Else
             Dim DB As New ClsDbUtility(pub_SYSTEM_INFO.DbProviderFactories, pub_SYSTEM_INFO.CONNECTIONSTRING)
             Return DB
-        Else
-            Return Nothing
         End If
     End Function
 
