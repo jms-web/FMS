@@ -110,12 +110,30 @@ Public Class FrmG0011
         cmbST08_DestTANTO.NullValue = 0
         cmbST09_DestTANTO.NullValue = 0
         cmbST10_DestTANTO.NullValue = 0
-        cmbST11_DestTANTO.NullValue = 0
+        cmbST15_DestTANTO.NullValue = 0
 
         'UNDONE: txtST01だけLostFocus時にBackcolor Whiteになってしまう
 
         'txtST01_YOKYU_NAIYO.ShowRemaining = True
+
+        pnlST01.BackColor = Color.Transparent
+        pnlST02.BackColor = Color.Transparent
+        pnlST03.BackColor = Color.Transparent
+        pnlST04.BackColor = Color.Transparent
+        pnlST05.BackColor = Color.Transparent
+        pnlST06.BackColor = Color.Transparent
+        pnlST07.BackColor = Color.Transparent
+        pnlST08.BackColor = Color.Transparent
+        pnlST09.BackColor = Color.Transparent
+        pnlST10.BackColor = Color.Transparent
+        pnlST11.BackColor = Color.Transparent
+        pnlST12.BackColor = Color.Transparent
+        pnlST13.BackColor = Color.Transparent
+        pnlST14.BackColor = Color.Transparent
+        pnlST15.BackColor = Color.Transparent
+        pnlST16.BackColor = Color.Transparent
     End Sub
+
 
 #End Region
 
@@ -952,7 +970,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
         sbSQL.Append(" )")
-        sbSQL.Append("OUTPUT $action AS RESULT") 'INSERT OR UPDATE をncarchar(10)で取得する場合
+        sbSQL.Append("OUTPUT $action AS RESULT")
         sbSQL.Append(";")
         strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
         Select Case strRET
@@ -2850,69 +2868,75 @@ Public Class FrmG0011
         Try
             _tabPageManager = New TabPageManager(TabSTAGE)
 
-            For Each page As TabPageEx In TabSTAGE.TabPages
-                If page.Name <> "tabAttachment" Then
-                    Dim intTabNo As Integer = Val(page.Name.Substring(8))
+            For Each ctrl As Control In tabSTAGE01.Controls
+                If ctrl.GetType Is GetType(PanelEx) Then
+                    Dim panel As PanelEx = DirectCast(ctrl, PanelEx)
 
-                    If intTabNo < intCurrentTabNo Then
-                        'SPEC: 10-2.③
-                        strStageName = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN2(Val(page.Name.Substring(8)))).FirstOrDefault.Item("DISP")
-                        page.Text = strStageName
+                    If panel.Name <> "pnlTEMP_SIRYO" Then
+                        Dim intTabNo As Integer = Val(panel.Name.Substring(5))
 
-                        Dim ctrlLabel As Control() = Me.Controls.Find("lblSTAGE" & intTabNo.ToString("00"), True)
-                        If ctrlLabel.Length > 0 Then
-                            Dim lblSTAGE As Label = ctrlLabel(0)
-                            lblSTAGE.Text = strStageName
-                        End If
+                        If intTabNo < intCurrentTabNo Then
+                            'SPEC: 10-2.③
+                            strStageName = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN2(intTabNo)).FirstOrDefault.Item("DISP")
 
-                    ElseIf intTabNo = intCurrentTabNo Then
-                        page.Text = "現ステージ"
-                        strStageName = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN2(Val(page.Name.Substring(8)))).FirstOrDefault.Item("DISP")
-                        Dim ctrlLabel As Control() = Me.Controls.Find("lblSTAGE" & intTabNo.ToString("00"), True)
-                        If ctrlLabel.Length > 0 Then
-                            Dim lblSTAGE As Label = ctrlLabel(0)
-                            lblSTAGE.Text = strStageName
-                        End If
-
-                        '次ステージの承認担当者・コメント欄をバインド
-                        Dim ctrlTANTO As Control() = Me.Controls.Find("cmbST" & intCurrentTabNo.ToString("00") & "_DestTANTO", True)
-                        If ctrlTANTO.Length > 0 Then
-                            Dim cmbTANTO As ComboboxEx = ctrlTANTO(0)
-                            cmbTANTO.NullValue = 0
-                            cmbTANTO.DataBindings.Add(New Binding(NameOf(cmbTANTO.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-                        End If
-                        Dim ctrlCOMMENT As Control() = Me.Controls.Find("txtST" & intCurrentTabNo.ToString("00") & "_Comment", True)
-                        If ctrlCOMMENT.Length > 0 Then
-                            Dim txtCOMMENT As TextBoxEx = ctrlCOMMENT(0)
-                            txtCOMMENT.DataBindings.Add(New Binding(NameOf(txtCOMMENT.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-                        End If
-
-                    ElseIf intTabNo > intCurrentTabNo Then
-                        'SPEC: 10-2 ②
-                        _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
-                    End If
-
-                    'SPEC: 10-2.⑤
-                    If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
-                        '新規作成時
-                        'SPEC: (3).B
-                        page.Enabled = True
-                    Else
-                        If PrCurrentStage >= ENM_NCR_STAGE._90_処置実施確認_管理T Then
-                            If Val(page.Name.Substring(8)) = intCurrentTabNo Then
-                                page.Enabled = True
-                            Else
-                                page.EnableDisablePages(False, 2)
-                                'page.Enabled = False
+                            Dim ctrlLabel As Control() = Me.Controls.Find("lblSTAGE" & intTabNo.ToString("00"), True)
+                            If ctrlLabel.Length > 0 Then
+                                Dim lblSTAGE As Label = ctrlLabel(0)
+                                lblSTAGE.Text = strStageName
                             End If
+
+                        ElseIf intTabNo = intCurrentTabNo Then
+                            strStageName = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN2(intTabNo)).FirstOrDefault.Item("DISP")
+                            Dim ctrlLabel As Control() = Me.Controls.Find("lblSTAGE" & intTabNo.ToString("00"), True)
+                            If ctrlLabel.Length > 0 Then
+                                Dim lblSTAGE As Label = ctrlLabel(0)
+                                lblSTAGE.Text = strStageName
+                            End If
+
+                            '次ステージの承認担当者・コメント欄をバインド
+                            Dim ctrlTANTO As Control() = Me.Controls.Find("cmbST" & intCurrentTabNo.ToString("00") & "_DestTANTO", True)
+                            If ctrlTANTO.Length > 0 Then
+                                Dim cmbTANTO As ComboboxEx = ctrlTANTO(0)
+                                cmbTANTO.NullValue = 0
+                                cmbTANTO.DataBindings.Add(New Binding(NameOf(cmbTANTO.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+                            End If
+                            Dim ctrlCOMMENT As Control() = Me.Controls.Find("txtST" & intCurrentTabNo.ToString("00") & "_Comment", True)
+                            If ctrlCOMMENT.Length > 0 Then
+                                Dim txtCOMMENT As TextBoxEx = ctrlCOMMENT(0)
+                                txtCOMMENT.DataBindings.Add(New Binding(NameOf(txtCOMMENT.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+                            End If
+
+                        ElseIf intTabNo > intCurrentTabNo Then
+                            'SPEC: 10-2 ②
+                            '_tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
+                            panel.Visible = False
+                        End If
+
+                        'SPEC: 10-2.⑤
+                        If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
+                            '新規作成時
+                            'SPEC: (3).B
+                            'page.Enabled = True
+                            panel.Enabled = True
                         Else
-                            'カレントユーザー以外は参照のみ
-                            page.EnableDisablePages(FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO, FunConvertSTAGE_NO_TO_SYONIN_JUN2(intTabNo)), 2)
-                            'page.EnableDisablePages(FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrDataRow("HOKOKU_NO"), PrCurrentStage))
+                            If PrCurrentStage >= ENM_NCR_STAGE._90_処置実施確認_管理T Then
+                                If intTabNo = intCurrentTabNo Then
+                                    panel.Enabled = True
+                                Else
+                                    panel.DisableContaints(False, 2)
+                                    'page.Enabled = False
+                                End If
+                            Else
+                                'カレントユーザー以外は参照のみ
+                                'page.EnableDisablePages(FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO, FunConvertSTAGE_NO_TO_SYONIN_JUN2(intTabNo)), 2)
+                                panel.DisableContaints(FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO, FunConvertSTAGE_NO_TO_SYONIN_JUN2(intTabNo)), 2)
+                            End If
                         End If
                     End If
+                Else
+                    Continue For
                 End If
-            Next page
+            Next ctrl
 
             '添付資料タブ初期化
             Dim strRootDir As String
@@ -2939,6 +2963,102 @@ Public Class FrmG0011
             Return False
         Finally
         End Try
+    End Function
+
+    Private Function OLDFunInitializeTabControl(ByVal intCurrentTabNo As Integer) As Boolean
+        'Dim strStageName As String
+        'Try
+        '    _tabPageManager = New TabPageManager(TabSTAGE)
+
+        '    For Each page As TabPageEx In TabSTAGE.TabPages
+        '        If page.Name <> "tabAttachment" Then
+        '            Dim intTabNo As Integer = Val(page.Name.Substring(8))
+
+        '            If intTabNo < intCurrentTabNo Then
+        '                'SPEC: 10-2.③
+        '                strStageName = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN2(Val(page.Name.Substring(8)))).FirstOrDefault.Item("DISP")
+        '                page.Text = strStageName
+
+        '                Dim ctrlLabel As Control() = Me.Controls.Find("lblSTAGE" & intTabNo.ToString("00"), True)
+        '                If ctrlLabel.Length > 0 Then
+        '                    Dim lblSTAGE As Label = ctrlLabel(0)
+        '                    lblSTAGE.Text = strStageName
+        '                End If
+
+        '            ElseIf intTabNo = intCurrentTabNo Then
+        '                page.Text = "現ステージ"
+        '                strStageName = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN2(Val(page.Name.Substring(8)))).FirstOrDefault.Item("DISP")
+        '                Dim ctrlLabel As Control() = Me.Controls.Find("lblSTAGE" & intTabNo.ToString("00"), True)
+        '                If ctrlLabel.Length > 0 Then
+        '                    Dim lblSTAGE As Label = ctrlLabel(0)
+        '                    lblSTAGE.Text = strStageName
+        '                End If
+
+        '                '次ステージの承認担当者・コメント欄をバインド
+        '                Dim ctrlTANTO As Control() = Me.Controls.Find("cmbST" & intCurrentTabNo.ToString("00") & "_DestTANTO", True)
+        '                If ctrlTANTO.Length > 0 Then
+        '                    Dim cmbTANTO As ComboboxEx = ctrlTANTO(0)
+        '                    cmbTANTO.NullValue = 0
+        '                    cmbTANTO.DataBindings.Add(New Binding(NameOf(cmbTANTO.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+        '                End If
+        '                Dim ctrlCOMMENT As Control() = Me.Controls.Find("txtST" & intCurrentTabNo.ToString("00") & "_Comment", True)
+        '                If ctrlCOMMENT.Length > 0 Then
+        '                    Dim txtCOMMENT As TextBoxEx = ctrlCOMMENT(0)
+        '                    txtCOMMENT.DataBindings.Add(New Binding(NameOf(txtCOMMENT.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        '                End If
+
+        '            ElseIf intTabNo > intCurrentTabNo Then
+        '                'SPEC: 10-2 ②
+        '                _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
+        '            End If
+
+        '            'SPEC: 10-2.⑤
+        '            If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
+        '                '新規作成時
+        '                'SPEC: (3).B
+        '                page.Enabled = True
+        '            Else
+        '                If PrCurrentStage >= ENM_NCR_STAGE._90_処置実施確認_管理T Then
+        '                    If Val(page.Name.Substring(8)) = intCurrentTabNo Then
+        '                        page.Enabled = True
+        '                    Else
+        '                        page.EnableDisablePages(False, 2)
+        '                        'page.Enabled = False
+        '                    End If
+        '                Else
+        '                    'カレントユーザー以外は参照のみ
+        '                    page.EnableDisablePages(FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO, FunConvertSTAGE_NO_TO_SYONIN_JUN2(intTabNo)), 2)
+        '                    'page.EnableDisablePages(FunblnOwnCreated(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrDataRow("HOKOKU_NO"), PrCurrentStage))
+        '                End If
+        '            End If
+        '        End If
+        '    Next page
+
+        '    '添付資料タブ初期化
+        '    Dim strRootDir As String
+        '    Using DB As ClsDbUtility = DBOpen()
+        '        strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
+        '    End Using
+        '    If Not _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace Then
+        '        lbltmpFile1.Text = CompactString(_D003_NCR_J.FILE_PATH, lbltmpFile1, EllipsisFormat._4_Path)
+        '        lbltmpFile1.Links.Clear()
+        '        lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH)
+        '        lbltmpFile1.Visible = True
+        '        lbltmpFile1_Clear.Visible = True
+        '    End If
+        '    If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace Then
+        '        Call SetPict1Data({strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1})
+        '    End If
+        '    If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace Then
+        '        Call SetPict2Data({strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2})
+        '    End If
+
+        '    Return True
+        'Catch ex As Exception
+        '    EM.ErrorSyori(ex, False, conblnNonMsg)
+        '    Return False
+        'Finally
+        'End Try
     End Function
 
 #End Region
@@ -3693,11 +3813,11 @@ Public Class FrmG0011
 
             If intStageID >= ENM_NCR_STAGE._110_abcde処置担当 Then
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcde処置担当))
-                cmbST11_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                cmbST15_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST11_NextStageName.Text = FunGetStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcde処置担当))
+                mtxST15_NextStageName.Text = FunGetStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcde処置担当))
                 mtxST11_UPD_YMD.ReadOnly = True
-                mtxST11_NextStageName.ReadOnly = True
+                mtxST15_NextStageName.ReadOnly = True
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -3759,11 +3879,11 @@ Public Class FrmG0011
 
                     If _V003 IsNot Nothing Then
                         If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
-                            cmbST11_DestTANTO.SelectedValue = 0
+                            cmbST15_DestTANTO.SelectedValue = 0
                         Else
-                            cmbST11_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                            cmbST15_DestTANTO.SelectedValue = _V003.SYAIN_ID
                         End If
-                        txtST11_Comment.Text = _V003.COMMENT
+                        txtST15_Comment.Text = _V003.COMMENT
                         mtxST11_UPD_YMD.Text = DateTime.ParseExact(_V003.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyy/MM/dd")
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._110_abcde処置担当 Then lblST11_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -3773,8 +3893,8 @@ Public Class FrmG0011
                             lblST11_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
                         End If
                         If intStageID > ENM_NCR_STAGE._110_abcde処置担当 Then
-                            cmbST11_DestTANTO.ReadOnly = True
-                            txtST11_Comment.ReadOnly = True
+                            cmbST15_DestTANTO.ReadOnly = True
+                            txtST15_Comment.ReadOnly = True
                         End If
                     Else
                         mtxST11_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
@@ -4307,17 +4427,7 @@ Public Class FrmG0011
 
 #Region "申請先社員"
 
-    Private Sub CmbDestTANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST01_DestTANTO.Validating,
-                                                                                                              cmbST02_DestTANTO.Validating,
-                                                                                                              cmbST03_DestTANTO.Validating,
-                                                                                                              cmbST04_DestTANTO.Validating,
-                                                                                                              cmbST05_DestTANTO.Validating,
-                                                                                                              cmbST06_DestTANTO.Validating,
-                                                                                                              cmbST07_DestTANTO.Validating,
-                                                                                                              cmbST08_DestTANTO.Validating,
-                                                                                                              cmbST09_DestTANTO.Validating,
-                                                                                                              cmbST10_DestTANTO.Validating,
-                                                                                                              cmbST11_DestTANTO.Validating
+    Private Sub CmbDestTANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST01_DestTANTO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
         If cmb.SelectedValue = cmb.NullValue Then
             'e.Cancel = True
@@ -4378,7 +4488,7 @@ Public Class FrmG0011
 
 #Region "   STAGE4"
 
-    Private Sub RbtnST04_ZESEI_YES_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST04_ZESEI_YES.CheckedChanged
+    Private Sub RbtnST04_ZESEI_YES_CheckedChanged(sender As Object, e As EventArgs)
 
         Dim blnChecked As Boolean = rbtnST04_ZESEI_NO.Checked
         lbltxtST04_RIYU.Visible = blnChecked
@@ -4392,7 +4502,7 @@ Public Class FrmG0011
         _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = True
     End Sub
 
-    Private Sub RbtnST04_ZESEI_NO_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST04_ZESEI_NO.CheckedChanged
+    Private Sub RbtnST04_ZESEI_NO_CheckedChanged(sender As Object, e As EventArgs)
 
         Dim blnChecked As Boolean = rbtnST04_ZESEI_NO.Checked
         lbltxtST04_RIYU.Visible = blnChecked
@@ -4406,7 +4516,7 @@ Public Class FrmG0011
         _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = False
     End Sub
 
-    Private Sub ChkZESEI_SYOCHI_YOHI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkST04_ZESEI_SYOCHI_YOHI_KB.CheckedChanged
+    Private Sub ChkZESEI_SYOCHI_YOHI_KB_CheckedChanged(sender As Object, e As EventArgs)
         If chkST04_ZESEI_SYOCHI_YOHI_KB.Checked Then
             rbtnST04_ZESEI_YES.Checked = True
         Else
@@ -4414,7 +4524,7 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub TxtST04_RIYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtST04_RIYU.Validating
+    Private Sub TxtST04_RIYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
         If txt.Enabled = True AndAlso txt.Text.IsNullOrWhiteSpace = True Then
@@ -4428,7 +4538,7 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub CmbST04_JIZENSINSA_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST04_JIZENSINSA_HANTEI.Validating
+    Private Sub CmbST04_JIZENSINSA_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If cmb.SelectedValue = cmb.NullValue Then
@@ -4442,7 +4552,7 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub CmbST04_CAR_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST04_CAR_TANTO.Validating
+    Private Sub CmbST04_CAR_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If cmb.SelectedValue = cmb.NullValue Then
@@ -4456,7 +4566,7 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub CmbST04_HASSEI_KOTEI_GL_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST04_HASSEI_KOTEI_GL_TANTO.Validating
+    Private Sub CmbST04_HASSEI_KOTEI_GL_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If cmb.SelectedValue = cmb.NullValue Then
@@ -4480,7 +4590,7 @@ Public Class FrmG0011
 
 #Region "   STAGE6"
 
-    Private Sub CmbST06_SAISIN_IINKAI_HANTEI_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbST06_SAISIN_IINKAI_HANTEI.SelectedValueChanged
+    Private Sub CmbST06_SAISIN_IINKAI_HANTEI_SelectedValueChanged(sender As Object, e As EventArgs)
         '次ステージ名更新
         mtxST06_NextStageName.Text = FunGetStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(PrCurrentStage))
         Dim dt As DataTable
@@ -4488,7 +4598,7 @@ Public Class FrmG0011
         cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
     End Sub
 
-    Private Sub CmbST06_SAISIN_IINKAI_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST06_SAISIN_IINKAI_HANTEI.Validating
+    Private Sub CmbST06_SAISIN_IINKAI_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If cmb.SelectedValue = cmb.NullValue Then
@@ -4506,7 +4616,7 @@ Public Class FrmG0011
 
 #Region "   STAGE7"
 
-    Private Sub rbtnST07_Yes_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST07_Yes.CheckedChanged
+    Private Sub rbtnST07_Yes_CheckedChanged(sender As Object, e As EventArgs)
 
         Dim blnChecked As Boolean = rbtnST07_No.Checked
         _D003_NCR_J.SAIKAKO_SIJI_FG = True
@@ -4514,7 +4624,7 @@ Public Class FrmG0011
         Call FunUpdateNextStageInfo()
     End Sub
 
-    Private Sub rbtnST07_No_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST07_No.CheckedChanged
+    Private Sub rbtnST07_No_CheckedChanged(sender As Object, e As EventArgs)
 
         Dim blnChecked As Boolean = rbtnST07_No.Checked
         _D003_NCR_J.SAIKAKO_SIJI_FG = False
@@ -4522,7 +4632,7 @@ Public Class FrmG0011
         Call FunUpdateNextStageInfo()
     End Sub
 
-    Private Sub ChkST07_SAIKAKO_SIJI_FLG_CheckedChanged(sender As Object, e As EventArgs) Handles chkST07_SAIKAKO_SIJI_FLG.CheckedChanged
+    Private Sub ChkST07_SAIKAKO_SIJI_FLG_CheckedChanged(sender As Object, e As EventArgs)
         If chkST07_SAIKAKO_SIJI_FLG.Checked Then
             rbtnST07_Yes.Checked = True
         Else
@@ -4530,7 +4640,7 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub CmbST07_KOKYAKU_SAISYU_HANTEI_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbST07_KOKYAKU_SAISYU_HANTEI.SelectedValueChanged
+    Private Sub CmbST07_KOKYAKU_SAISYU_HANTEI_SelectedValueChanged(sender As Object, e As EventArgs)
         Call FunUpdateNextStageInfo()
     End Sub
 
@@ -4545,7 +4655,7 @@ Public Class FrmG0011
         mtxST07_NextStageName.Text = FunGetStageName(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_顧客再審処置_I_tag))
     End Function
 
-    Private Sub CmbST07_SAISIN_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_SAISIN_TANTO.Validating
+    Private Sub CmbST07_SAISIN_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If cmb.SelectedValue = cmb.NullValue Then
@@ -4559,7 +4669,7 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub CmbST07_KOKYAKU_HANTEI_SIJI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_KOKYAKU_HANTEI_SIJI.Validating
+    Private Sub CmbST07_KOKYAKU_HANTEI_SIJI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If cmb.SelectedValue = cmb.NullValue Then
@@ -4573,7 +4683,7 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub CmbST07_KOKYAKU_SAISYU_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_KOKYAKU_SAISYU_HANTEI.Validating
+    Private Sub CmbST07_KOKYAKU_SAISYU_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If cmb.SelectedValue = cmb.NullValue Then
@@ -4593,7 +4703,7 @@ Public Class FrmG0011
 
 #Region "       8-1"
 
-    Private Sub CmbST08_1_HAIKYAKU_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_1_HAIKYAKU_KB.Validating
+    Private Sub CmbST08_1_HAIKYAKU_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.SelectedValue = cmb.NullValue Then
@@ -4607,7 +4717,7 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub CmbST08_1_HAIKYAKU_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_1_HAIKYAKU_TANTO.Validating
+    Private Sub CmbST08_1_HAIKYAKU_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.SelectedValue = cmb.NullValue Then
@@ -4625,7 +4735,7 @@ Public Class FrmG0011
 
 #Region "       8-2"
 
-    Private Sub CmbST08_2_KENSA_KEKKA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_2_KENSA_KEKKA.Validating
+    Private Sub CmbST08_2_KENSA_KEKKA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
@@ -4639,7 +4749,7 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub CmbST08_2_TANTO_SEIZO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_2_TANTO_SEIZO.Validating
+    Private Sub CmbST08_2_TANTO_SEIZO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
@@ -4653,7 +4763,7 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub CmbST08_2_TANTO_SEIGI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_2_TANTO_SEIGI.Validating
+    Private Sub CmbST08_2_TANTO_SEIGI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
@@ -4667,7 +4777,7 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub CmbST08_2_TANTO_KENSA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_2_TANTO_KENSA.Validating
+    Private Sub CmbST08_2_TANTO_KENSA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
@@ -4685,7 +4795,7 @@ Public Class FrmG0011
 
 #Region "       8-3"
 
-    Private Sub CmbST08_3_HENKYAKU_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_3_HENKYAKU_TANTO.Validating
+    Private Sub CmbST08_3_HENKYAKU_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If tabST08_SUB.SelectedIndex = 2 AndAlso cmb.SelectedValue = cmb.NullValue Then
@@ -4703,7 +4813,7 @@ Public Class FrmG0011
 
 #Region "       8-4"
 
-    Private Sub CmbST08_4_KISYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_4_KISYU.Validating
+    Private Sub CmbST08_4_KISYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.SelectedValue = cmb.NullValue Then
@@ -4717,7 +4827,7 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub CmbST08_4_BUHIN_BANGO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST08_4_BUHIN_BANGO.Validating
+    Private Sub CmbST08_4_BUHIN_BANGO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.SelectedValue = cmb.NullValue Then
@@ -4749,13 +4859,7 @@ Public Class FrmG0011
 
 #Region "   STAGE11"
 
-    Private Sub ChkST11_CheckedChanged(sender As Object, e As EventArgs) Handles chkST11_A1.CheckedChanged,
-        chkST11_B1.CheckedChanged,
-        chkST11_C1.CheckedChanged,
-        chkST11_D1.CheckedChanged,
-        chkST11_D2.CheckedChanged,
-        chkST11_E1.CheckedChanged,
-        chkST11_E2.CheckedChanged
+    Private Sub ChkST11_CheckedChanged(sender As Object, e As EventArgs)
 
         Dim chk As CheckBox = DirectCast(sender, CheckBox)
         Dim strNameSuffix As String
@@ -4771,20 +4875,7 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub RbtnST11_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST11_A1_T.CheckedChanged,
-                                                                                      rbtnST11_B1_T.CheckedChanged,
-                                                                                      rbtnST11_C1_T.CheckedChanged,
-                                                                                      rbtnST11_D1_T.CheckedChanged,
-                                                                                      rbtnST11_D2_T.CheckedChanged,
-                                                                                      rbtnST11_E1_T.CheckedChanged,
-                                                                                      rbtnST11_E2_T.CheckedChanged,
-                                                                                      rbtnST11_A1_F.CheckedChanged,
-                                                                                      rbtnST11_B1_F.CheckedChanged,
-                                                                                      rbtnST11_C1_F.CheckedChanged,
-                                                                                      rbtnST11_D1_F.CheckedChanged,
-                                                                                      rbtnST11_D2_F.CheckedChanged,
-                                                                                      rbtnST11_E1_F.CheckedChanged,
-                                                                                      rbtnST11_E2_F.CheckedChanged
+    Private Sub RbtnST11_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST11_A1_F.CheckedChanged
         Dim rbtn As RadioButton = DirectCast(sender, RadioButton)
         Dim strNameSuffix As String = rbtn.Name.Substring(12, 1)
 
@@ -4798,19 +4889,19 @@ Public Class FrmG0011
 #End Region
 
 #Region "STAGE12"
-    Private Sub BtnST12_SYONIN_Click(sender As Object, e As EventArgs) Handles btnST12_SYONIN.Click
+
+    Private Sub BtnST12_SYONIN_Click(sender As Object, e As EventArgs)
         cmdFunc2.PerformClick()
     End Sub
 
 #End Region
-
 
 #Region "添付資料"
 
 #Region "添付ファイル"
 
     '添付ファイル選択
-    Private Sub BtnOpenTempFileDialog_Click(sender As Object, e As EventArgs) Handles btnOpenTempFileDialog.Click
+    Private Sub BtnOpenTempFileDialog_Click(sender As Object, e As EventArgs)
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
             .FilterIndex = 1,
@@ -4833,7 +4924,7 @@ Public Class FrmG0011
     End Sub
 
     'リンククリック
-    Private Sub LbltmpFile1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1.LinkClicked
+    Private Sub LbltmpFile1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         Dim hProcess As New System.Diagnostics.Process
         Dim strEXE As String
         'Dim strARG As String
@@ -4886,7 +4977,7 @@ Public Class FrmG0011
     End Sub
 
     'リンククリア
-    Private Sub LbltmpFile1_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1_Clear.LinkClicked
+    Private Sub LbltmpFile1_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         lbltmpFile1.Text = ""
         _D003_NCR_J.FILE_PATH = ""
         lbltmpFile1.Links.Clear()
@@ -4899,7 +4990,7 @@ Public Class FrmG0011
 #Region "画像1"
 
     '画像1選択
-    Private Sub BtnOpenPict1Dialog_Click(sender As Object, e As EventArgs) Handles btnOpenPict1Dialog.Click
+    Private Sub BtnOpenPict1Dialog_Click(sender As Object, e As EventArgs)
         Try
             Dim ofd As New OpenFileDialog With {
          .Filter = "画像(*.bmp;*.gif;*.jpg;*.png)|*.bmp;*.gif;*.jpg;*.png",
@@ -4921,7 +5012,7 @@ Public Class FrmG0011
     End Sub
 
     '画像1クリック
-    Private Sub PnlPict1_Click(sender As Object, e As EventArgs) Handles pnlPict1.Click
+    Private Sub PnlPict1_Click(sender As Object, e As EventArgs)
         If pnlPict1.Image IsNot Nothing Then
             picZoom.Image = pnlPict1.Image
             picZoom.BringToFront()
@@ -4929,7 +5020,7 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub PnlPict1_DragEnter(sender As Object, e As DragEventArgs) Handles pnlPict1.DragEnter
+    Private Sub PnlPict1_DragEnter(sender As Object, e As DragEventArgs)
         'ドラッグされたデータ形式を調べ、ファイルのときはコピーとする
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.Copy
@@ -4938,12 +5029,12 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub PnlPict1_DragDrop(sender As Object, e As DragEventArgs) Handles pnlPict1.DragDrop
+    Private Sub PnlPict1_DragDrop(sender As Object, e As DragEventArgs)
         Call SetPict1Data(e.Data.GetData(DataFormats.FileDrop, False))
     End Sub
 
     'リンククリア
-    Private Sub LblPict1Path_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblPict1Path_Clear.LinkClicked
+    Private Sub LblPict1Path_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         lblPict1Path.Text = ""
         _D003_NCR_J.G_FILE_PATH1 = ""
         lblPict1Path.Links.Clear()
@@ -4992,7 +5083,7 @@ Public Class FrmG0011
 #Region "画像2"
 
     '画像2選択
-    Private Sub BtnOpenPict2Dialog_Click(sender As Object, e As EventArgs) Handles btnOpenPict2Dialog.Click
+    Private Sub BtnOpenPict2Dialog_Click(sender As Object, e As EventArgs)
         Dim ofd As New OpenFileDialog With {
             .Filter = "画像(*.bmp;*.gif;*.jpg;*.png)|*.bmp;*.gif;*.jpg;*.png",
             .FilterIndex = 1,
@@ -5010,7 +5101,7 @@ Public Class FrmG0011
     End Sub
 
     '画像2クリック
-    Private Sub PnlPict2_Click(sender As Object, e As EventArgs) Handles pnlPict2.Click
+    Private Sub PnlPict2_Click(sender As Object, e As EventArgs)
         If pnlPict2.Image IsNot Nothing Then
             picZoom.Image = pnlPict2.Image
             picZoom.BringToFront()
@@ -5019,7 +5110,7 @@ Public Class FrmG0011
     End Sub
 
     'リンククリア
-    Private Sub LblPict2Path_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblPict2Path_Clear.LinkClicked
+    Private Sub LblPict2Path_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         lblPict2Path.Text = ""
         _D003_NCR_J.G_FILE_PATH2 = ""
         lblPict2Path.Links.Clear()
@@ -5075,7 +5166,7 @@ Public Class FrmG0011
 #End Region
 
     '拡大画像クリック
-    Private Sub PicZoom_Click(sender As Object, e As EventArgs) Handles picZoom.Click
+    Private Sub PicZoom_Click(sender As Object, e As EventArgs)
         picZoom.Image = Nothing
         picZoom.Visible = False
         picZoom.SendToBack()
@@ -5304,7 +5395,7 @@ Public Class FrmG0011
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
 
-                    'PrCurrentStage = PrDataRow.Item("SYONIN_JUN")
+                    ''PrCurrentStage = PrDataRow.Item("SYONIN_JUN")
 
                     'SPEC: 10-2.①
                     Call FunSetEntityModel()
@@ -5524,7 +5615,7 @@ Public Class FrmG0011
                         Call CmbDestTANTO_Validating(cmbST10_DestTANTO, Nothing)
 
                     Case ENM_NCR_STAGE._110_abcde処置担当
-                        Call CmbDestTANTO_Validating(cmbST11_DestTANTO, Nothing)
+                        Call CmbDestTANTO_Validating(cmbST15_DestTANTO, Nothing)
 
                     Case ENM_NCR_STAGE._120_abcde処置確認
 
@@ -5870,7 +5961,6 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
-
 
 #End Region
 

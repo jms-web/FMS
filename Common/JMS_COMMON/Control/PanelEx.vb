@@ -1,8 +1,16 @@
 Imports System.ComponentModel
 Imports JMS_COMMON.ClsPubConst
 
-Public Class TabPageEx
-    Inherits TabPage
+Public Class PanelEx
+    Inherits Panel
+
+#Region "定数"
+    Public Enum ENM_PROPERTY
+        _1_Enabled = 1
+        _2_ReadOnly = 2
+    End Enum
+
+#End Region
 
 #Region "　コンストラクタ　"
     Public Sub New()
@@ -21,7 +29,6 @@ Public Class TabPageEx
     <DefaultValue(True)>
     <Description("WndMessageを無効化することで、見た目を変えずにEnabled=Falseと同等の状態にします")>
     Public Property HitEnabled As Boolean
-
 
     ''' <summary>
     ''' 自動的にパネル内のオブジェクト位置にスクロールするかどうか
@@ -50,7 +57,22 @@ Public Class TabPageEx
     End Sub
 #End Region
 
-    Public Sub EnableDisablePages(ByVal enabled As Boolean, Optional ByVal intProperty As Integer = 1)
+    Protected Overrides Function ScrollToControl(activeControl As Control) As Point
+        If Me.IsAutoScroll Then
+            Return MyBase.ScrollToControl(activeControl)
+        Else
+            Return New Point(-Me.HorizontalScroll.Value, -Me.VerticalScroll.Value)
+        End If
+    End Function
+
+
+    Public Sub DisableContaints(ByVal enabled As Boolean, Optional ByVal intProperty As ENM_PROPERTY = ENM_PROPERTY._1_Enabled)
+
+        If enabled Then
+            Me.BackColor = SystemColors.Control
+        Else
+            Me.BackColor = SystemColors.GrayText
+        End If
 
         Select Case intProperty
             Case 1 'Enabled
@@ -97,7 +119,7 @@ Public Class TabPageEx
                             DirectCast(ctl, RadioButton).Enabled = enabled
                         Case GetType(TableLayoutPanel)
                             '再帰的に見たい
-                            'EnableDisablePages(enabled, intProperty)
+                            'DisableContains(enabled, intProperty)
                             DirectCast(ctl, TableLayoutPanel).Enabled = enabled
                         Case Else
                             '無視
@@ -106,12 +128,9 @@ Public Class TabPageEx
         End Select
     End Sub
 
-    Protected Overrides Function ScrollToControl(activeControl As Control) As Point
-        If Me.IsAutoScroll Then
-            Return MyBase.ScrollToControl(activeControl)
-        Else
-            Return New Point(-Me.HorizontalScroll.Value, -Me.VerticalScroll.Value)
-        End If
-    End Function
+    Protected Overrides Sub OnClick(e As EventArgs)
+        'Me.Focus()
+        MyBase.OnClick(e)
+    End Sub
 End Class
 

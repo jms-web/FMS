@@ -40,6 +40,96 @@ Partial Class FrmG0012
         Me.D005CARJBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.TabSTAGE = New System.Windows.Forms.TabControl()
         Me.tabSTAGE01 = New JMS_COMMON.TabPageEx()
+        Me.pnlTEMP_SIRYO = New JMS_COMMON.PanelEx()
+        Me.fpnltmpFile2 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.lbltmpFile2 = New System.Windows.Forms.LinkLabel()
+        Me.lbltmpFile2_Clear = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel31 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel32 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel33 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel34 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel35 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel36 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel37 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel38 = New System.Windows.Forms.LinkLabel()
+        Me.Label48 = New System.Windows.Forms.Label()
+        Me.btnOpentmpFile2 = New System.Windows.Forms.Button()
+        Me.Label49 = New System.Windows.Forms.Label()
+        Me.fpnltmpFile1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.lbltmpFile1 = New System.Windows.Forms.LinkLabel()
+        Me.lbltmpFile1_Clear = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel21 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel22 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel23 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel24 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel25 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel26 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel27 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel28 = New System.Windows.Forms.LinkLabel()
+        Me.btnOpentmpFile1 = New System.Windows.Forms.Button()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.pnlZESEI_SYOCHI = New JMS_COMMON.PanelEx()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.FlowLayoutPanel3 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.rbtnZESEI_SYOCHI_YES = New System.Windows.Forms.RadioButton()
+        Me.rbtnZESEI_SYOCHI_NO = New System.Windows.Forms.RadioButton()
+        Me.chkZESEI_SYOCHI_YUKO_UMU = New System.Windows.Forms.CheckBox()
+        Me.fpnlSYOSAI_FILE_PATH = New System.Windows.Forms.FlowLayoutPanel()
+        Me.lblSYOSAI_FILE_PATH = New System.Windows.Forms.LinkLabel()
+        Me.lblSYOSAI_FILE_PATH_Clear = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel4 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel5 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel6 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel7 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel8 = New System.Windows.Forms.LinkLabel()
+        Me.btnOpenSYOSAI_FILE_PATH = New System.Windows.Forms.Button()
+        Me.Label42 = New System.Windows.Forms.Label()
+        Me.Label75 = New System.Windows.Forms.Label()
+        Me.cmbKENSA_GL_TANTO = New JMS_COMMON.ComboboxEx()
+        Me.dtKENSA_TOROKU = New JMS_COMMON.DateTextBoxEx()
+        Me.Label47 = New System.Windows.Forms.Label()
+        Me.Label44 = New System.Windows.Forms.Label()
+        Me.dtKENSA_GL_TOROKU = New JMS_COMMON.DateTextBoxEx()
+        Me.Label46 = New System.Windows.Forms.Label()
+        Me.Label52 = New System.Windows.Forms.Label()
+        Me.Label45 = New System.Windows.Forms.Label()
+        Me.mtxLOT = New JMS_COMMON.MaskedTextBoxEx()
+        Me.cmbKENSA_TANTO = New JMS_COMMON.ComboboxEx()
+        Me.mtxGOKI = New JMS_COMMON.MaskedTextBoxEx()
+        Me.pnlSYOCHI_KIROKU = New JMS_COMMON.PanelEx()
+        Me.dtSYOCHI_A_YMD = New JMS_COMMON.DateTextBoxEx()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.lblSTAGE12 = New System.Windows.Forms.Label()
+        Me.dtSYOCHI_B_YMD = New JMS_COMMON.DateTextBoxEx()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label41 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.dtSYOCHI_C_YMD = New JMS_COMMON.DateTextBoxEx()
+        Me.cmbSYOCHI_C_TANTO = New JMS_COMMON.ComboboxEx()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.cmbSYOCHI_A_TANTO = New JMS_COMMON.ComboboxEx()
+        Me.Label50 = New System.Windows.Forms.Label()
+        Me.cmbSYOCHI_B_TANTO = New JMS_COMMON.ComboboxEx()
+        Me.Label74 = New System.Windows.Forms.Label()
+        Me.Label73 = New System.Windows.Forms.Label()
+        Me.btnOpenKYOIKU_FILE_PATH = New System.Windows.Forms.Button()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.fpnlKYOIKU_FILE_PATH = New System.Windows.Forms.FlowLayoutPanel()
+        Me.lblKYOIKU_FILE_PATH = New System.Windows.Forms.LinkLabel()
+        Me.lblKYOIKU_FILE_PATH_Clear = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel11 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel12 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel13 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel14 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel15 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel16 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel17 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel18 = New System.Windows.Forms.LinkLabel()
         Me.lblSETUMON_22 = New System.Windows.Forms.Label()
         Me.lblSETUMON_21 = New System.Windows.Forms.Label()
         Me.txtKAITO_21 = New JMS_COMMON.TextBoxEx()
@@ -99,8 +189,6 @@ Partial Class FrmG0012
         Me.mtxST01_UPD_YMD = New JMS_COMMON.MaskedTextBoxEx()
         Me.lblSETUMON_1 = New System.Windows.Forms.Label()
         Me.txtKAITO_1 = New JMS_COMMON.TextBoxEx()
-        Me.tab_CAR_SUB_1_ = New JMS_COMMON.TabPageEx()
-        Me.tab_CAR_SUB_2_ = New JMS_COMMON.TabPageEx()
         Me.tabSTAGE02 = New JMS_COMMON.TabPageEx()
         Me.dtFUTEKIGO_HASSEI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -122,7 +210,6 @@ Partial Class FrmG0012
         Me.cmbKONPON_YOIN_KB1 = New JMS_COMMON.ComboboxEx()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cmbKONPON_YOIN_TANTO = New JMS_COMMON.ComboboxEx()
-        Me.tab_CAR_SUB_3_ = New JMS_COMMON.TabPageEx()
         Me.cmbDestTANTO = New JMS_COMMON.ComboboxEx()
         Me.mtxNextStageName = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label97 = New System.Windows.Forms.Label()
@@ -132,120 +219,46 @@ Partial Class FrmG0012
         Me.rbtnSEKKEI_TANTO_YOHI_YES = New System.Windows.Forms.RadioButton()
         Me.rbtnSEKKEI_TANTO_YOHI_NO = New System.Windows.Forms.RadioButton()
         Me.chkSEKKEI_TANTO_YOHI_KB = New System.Windows.Forms.CheckBox()
-        Me.pnlSYOCHI_KIROKU = New System.Windows.Forms.Panel()
-        Me.dtSYOCHI_A_YMD = New JMS_COMMON.DateTextBoxEx()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.dtSYOCHI_B_YMD = New JMS_COMMON.DateTextBoxEx()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.Label41 = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.dtSYOCHI_C_YMD = New JMS_COMMON.DateTextBoxEx()
-        Me.cmbSYOCHI_C_TANTO = New JMS_COMMON.ComboboxEx()
-        Me.Label39 = New System.Windows.Forms.Label()
-        Me.cmbSYOCHI_A_TANTO = New JMS_COMMON.ComboboxEx()
-        Me.Label50 = New System.Windows.Forms.Label()
-        Me.cmbSYOCHI_B_TANTO = New JMS_COMMON.ComboboxEx()
-        Me.Label74 = New System.Windows.Forms.Label()
-        Me.Label73 = New System.Windows.Forms.Label()
-        Me.btnOpenKYOIKU_FILE_PATH = New System.Windows.Forms.Button()
-        Me.Label38 = New System.Windows.Forms.Label()
-        Me.Label40 = New System.Windows.Forms.Label()
-        Me.fpnlKYOIKU_FILE_PATH = New System.Windows.Forms.FlowLayoutPanel()
-        Me.lblKYOIKU_FILE_PATH = New System.Windows.Forms.LinkLabel()
-        Me.lblKYOIKU_FILE_PATH_Clear = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel11 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel12 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel13 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel14 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel15 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel16 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel17 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel18 = New System.Windows.Forms.LinkLabel()
-        Me.lblSTAGE12 = New System.Windows.Forms.Label()
-        Me.pnlZESEI_SYOCHI = New System.Windows.Forms.Panel()
-        Me.Label31 = New System.Windows.Forms.Label()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.FlowLayoutPanel3 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.rbtnZESEI_SYOCHI_YES = New System.Windows.Forms.RadioButton()
-        Me.rbtnZESEI_SYOCHI_NO = New System.Windows.Forms.RadioButton()
-        Me.chkZESEI_SYOCHI_YUKO_UMU = New System.Windows.Forms.CheckBox()
-        Me.fpnlSYOSAI_FILE_PATH = New System.Windows.Forms.FlowLayoutPanel()
-        Me.lblSYOSAI_FILE_PATH = New System.Windows.Forms.LinkLabel()
-        Me.lblSYOSAI_FILE_PATH_Clear = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel4 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel5 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel6 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel7 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel8 = New System.Windows.Forms.LinkLabel()
-        Me.btnOpenSYOSAI_FILE_PATH = New System.Windows.Forms.Button()
-        Me.Label42 = New System.Windows.Forms.Label()
-        Me.Label75 = New System.Windows.Forms.Label()
-        Me.cmbKENSA_GL_TANTO = New JMS_COMMON.ComboboxEx()
-        Me.dtKENSA_TOROKU = New JMS_COMMON.DateTextBoxEx()
-        Me.Label47 = New System.Windows.Forms.Label()
-        Me.Label44 = New System.Windows.Forms.Label()
-        Me.dtKENSA_GL_TOROKU = New JMS_COMMON.DateTextBoxEx()
-        Me.Label46 = New System.Windows.Forms.Label()
-        Me.Label52 = New System.Windows.Forms.Label()
-        Me.Label45 = New System.Windows.Forms.Label()
-        Me.mtxLOT = New JMS_COMMON.MaskedTextBoxEx()
-        Me.cmbKENSA_TANTO = New JMS_COMMON.ComboboxEx()
-        Me.mtxGOKI = New JMS_COMMON.MaskedTextBoxEx()
-        Me.pnlTEMP_SIRYO = New System.Windows.Forms.Panel()
-        Me.Label20 = New System.Windows.Forms.Label()
-        Me.fpnltmpFile2 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.lbltmpFile2 = New System.Windows.Forms.LinkLabel()
-        Me.lbltmpFile2_Clear = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel31 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel32 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel33 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel34 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel35 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel36 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel37 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel38 = New System.Windows.Forms.LinkLabel()
-        Me.Label48 = New System.Windows.Forms.Label()
-        Me.btnOpentmpFile2 = New System.Windows.Forms.Button()
-        Me.Label49 = New System.Windows.Forms.Label()
-        Me.fpnltmpFile1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.lbltmpFile1 = New System.Windows.Forms.LinkLabel()
-        Me.lbltmpFile1_Clear = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel21 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel22 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel23 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel24 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel25 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel26 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel27 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel28 = New System.Windows.Forms.LinkLabel()
-        Me.btnOpentmpFile1 = New System.Windows.Forms.Button()
+        Me.FlowLayoutPanel4 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.rsbtnST01 = New JMS_COMMON.RibbonShapeButton()
+        Me.rsbtnST02 = New JMS_COMMON.RibbonShapeButton()
+        Me.rsbtnST03 = New JMS_COMMON.RibbonShapeButton()
+        Me.rsbtnST04 = New JMS_COMMON.RibbonShapeButton()
+        Me.rsbtnST05 = New JMS_COMMON.RibbonShapeButton()
+        Me.rsbtnST06 = New JMS_COMMON.RibbonShapeButton()
+        Me.rsbtnST07 = New JMS_COMMON.RibbonShapeButton()
+        Me.rsbtnST08 = New JMS_COMMON.RibbonShapeButton()
+        Me.rsbtnST09 = New JMS_COMMON.RibbonShapeButton()
+        Me.rsbtnST10 = New JMS_COMMON.RibbonShapeButton()
+        Me.rsbtnST11 = New JMS_COMMON.RibbonShapeButton()
+        Me.rsbtnST12 = New JMS_COMMON.RibbonShapeButton()
+        Me.rsbtnST13 = New JMS_COMMON.RibbonShapeButton()
+        Me.RibbonShapeButton14 = New JMS_COMMON.RibbonShapeButton()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
         CType(Me.D005CARJBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabSTAGE.SuspendLayout()
         Me.tabSTAGE01.SuspendLayout()
-        Me.FlowLayoutPanel2.SuspendLayout()
-        Me.tabSTAGE02.SuspendLayout()
-        Me.FlowLayoutPanel1.SuspendLayout()
-        Me.pnlSYOCHI_KIROKU.SuspendLayout()
-        Me.fpnlKYOIKU_FILE_PATH.SuspendLayout()
-        Me.pnlZESEI_SYOCHI.SuspendLayout()
-        Me.FlowLayoutPanel3.SuspendLayout()
-        Me.fpnlSYOSAI_FILE_PATH.SuspendLayout()
         Me.pnlTEMP_SIRYO.SuspendLayout()
         Me.fpnltmpFile2.SuspendLayout()
         Me.fpnltmpFile1.SuspendLayout()
+        Me.pnlZESEI_SYOCHI.SuspendLayout()
+        Me.FlowLayoutPanel3.SuspendLayout()
+        Me.fpnlSYOSAI_FILE_PATH.SuspendLayout()
+        Me.pnlSYOCHI_KIROKU.SuspendLayout()
+        Me.fpnlKYOIKU_FILE_PATH.SuspendLayout()
+        Me.FlowLayoutPanel2.SuspendLayout()
+        Me.tabSTAGE02.SuspendLayout()
+        Me.FlowLayoutPanel1.SuspendLayout()
+        Me.FlowLayoutPanel4.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblRecordCount
         '
         Me.lblRecordCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblRecordCount.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblRecordCount.Location = New System.Drawing.Point(578, 147)
+        Me.lblRecordCount.Location = New System.Drawing.Point(578, 189)
         Me.lblRecordCount.Size = New System.Drawing.Size(43, 24)
         '
         'cmdFunc1
@@ -328,7 +341,7 @@ Partial Class FrmG0012
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.gbxFilter.Controls.Add(Me.tlpFilter)
         Me.gbxFilter.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.gbxFilter.Location = New System.Drawing.Point(12, 60)
+        Me.gbxFilter.Location = New System.Drawing.Point(12, 102)
         Me.gbxFilter.Name = "gbxFilter"
         Me.gbxFilter.Size = New System.Drawing.Size(1236, 87)
         Me.gbxFilter.TabIndex = 59
@@ -636,7 +649,7 @@ Partial Class FrmG0012
         '
         Me.lbl_Modoshi_Riyu.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lbl_Modoshi_Riyu.ForeColor = System.Drawing.Color.Red
-        Me.lbl_Modoshi_Riyu.Location = New System.Drawing.Point(16, 151)
+        Me.lbl_Modoshi_Riyu.Location = New System.Drawing.Point(16, 193)
         Me.lbl_Modoshi_Riyu.Name = "lbl_Modoshi_Riyu"
         Me.lbl_Modoshi_Riyu.Size = New System.Drawing.Size(556, 24)
         Me.lbl_Modoshi_Riyu.TabIndex = 217
@@ -654,17 +667,14 @@ Partial Class FrmG0012
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TabSTAGE.Controls.Add(Me.tabSTAGE01)
-        Me.TabSTAGE.Controls.Add(Me.tab_CAR_SUB_1_)
-        Me.TabSTAGE.Controls.Add(Me.tab_CAR_SUB_2_)
         Me.TabSTAGE.Controls.Add(Me.tabSTAGE02)
-        Me.TabSTAGE.Controls.Add(Me.tab_CAR_SUB_3_)
         Me.TabSTAGE.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.TabSTAGE.HotTrack = True
-        Me.TabSTAGE.Location = New System.Drawing.Point(9, 200)
+        Me.TabSTAGE.Location = New System.Drawing.Point(9, 243)
         Me.TabSTAGE.Multiline = True
         Me.TabSTAGE.Name = "TabSTAGE"
         Me.TabSTAGE.SelectedIndex = 0
-        Me.TabSTAGE.Size = New System.Drawing.Size(1239, 389)
+        Me.TabSTAGE.Size = New System.Drawing.Size(1243, 346)
         Me.TabSTAGE.TabIndex = 218
         '
         'tabSTAGE01
@@ -734,1725 +744,437 @@ Partial Class FrmG0012
         Me.tabSTAGE01.Location = New System.Drawing.Point(4, 26)
         Me.tabSTAGE01.Name = "tabSTAGE01"
         Me.tabSTAGE01.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabSTAGE01.Size = New System.Drawing.Size(1231, 359)
+        Me.tabSTAGE01.Size = New System.Drawing.Size(1235, 316)
         Me.tabSTAGE01.TabIndex = 0
         Me.tabSTAGE01.Text = "CAR項目"
         Me.tabSTAGE01.UseVisualStyleBackColor = True
         '
-        'lblSETUMON_22
+        'pnlTEMP_SIRYO
         '
-        Me.lblSETUMON_22.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_22.Location = New System.Drawing.Point(615, 161)
-        Me.lblSETUMON_22.Name = "lblSETUMON_22"
-        Me.lblSETUMON_22.Size = New System.Drawing.Size(72, 15)
-        Me.lblSETUMON_22.TabIndex = 311
-        Me.lblSETUMON_22.Text = "いつまで:"
-        Me.lblSETUMON_22.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblSETUMON_21
-        '
-        Me.lblSETUMON_21.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_21.Location = New System.Drawing.Point(615, 29)
-        Me.lblSETUMON_21.Name = "lblSETUMON_21"
-        Me.lblSETUMON_21.Size = New System.Drawing.Size(72, 15)
-        Me.lblSETUMON_21.TabIndex = 310
-        Me.lblSETUMON_21.Text = "いつまで:"
-        Me.lblSETUMON_21.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'txtKAITO_21
-        '
-        Me.txtKAITO_21.BackColor = System.Drawing.SystemColors.Window
-        Me.txtKAITO_21.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtKAITO_21.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.txtKAITO_21.Location = New System.Drawing.Point(692, 26)
-        Me.txtKAITO_21.MaxByteLength = 160
-        Me.txtKAITO_21.MaxLength = 80
-        Me.txtKAITO_21.Multiline = True
-        Me.txtKAITO_21.Name = "txtKAITO_21"
-        Me.txtKAITO_21.ShowRemaining = True
-        Me.txtKAITO_21.Size = New System.Drawing.Size(521, 43)
-        Me.txtKAITO_21.TabIndex = 3
-        Me.txtKAITO_21.WatermarkText = Nothing
-        '
-        'txtKAITO_22
-        '
-        Me.txtKAITO_22.BackColor = System.Drawing.SystemColors.Window
-        Me.txtKAITO_22.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtKAITO_22.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.txtKAITO_22.Location = New System.Drawing.Point(692, 156)
-        Me.txtKAITO_22.MaxByteLength = 160
-        Me.txtKAITO_22.MaxLength = 80
-        Me.txtKAITO_22.Multiline = True
-        Me.txtKAITO_22.Name = "txtKAITO_22"
-        Me.txtKAITO_22.ShowRemaining = True
-        Me.txtKAITO_22.Size = New System.Drawing.Size(521, 43)
-        Me.txtKAITO_22.TabIndex = 10
-        Me.txtKAITO_22.WatermarkText = Nothing
-        '
-        'FlowLayoutPanel2
-        '
-        Me.FlowLayoutPanel2.Controls.Add(Me.rbtnKAITO_14_T)
-        Me.FlowLayoutPanel2.Controls.Add(Me.rbtnKAITO_14_F)
-        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(692, 291)
-        Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
-        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(95, 29)
-        Me.FlowLayoutPanel2.TabIndex = 306
-        '
-        'rbtnKAITO_14_T
-        '
-        Me.rbtnKAITO_14_T.AutoSize = True
-        Me.rbtnKAITO_14_T.Location = New System.Drawing.Point(3, 3)
-        Me.rbtnKAITO_14_T.Name = "rbtnKAITO_14_T"
-        Me.rbtnKAITO_14_T.Size = New System.Drawing.Size(39, 21)
-        Me.rbtnKAITO_14_T.TabIndex = 0
-        Me.rbtnKAITO_14_T.Text = "要"
-        Me.rbtnKAITO_14_T.UseVisualStyleBackColor = True
-        '
-        'rbtnKAITO_14_F
-        '
-        Me.rbtnKAITO_14_F.AutoSize = True
-        Me.rbtnKAITO_14_F.Checked = True
-        Me.rbtnKAITO_14_F.Location = New System.Drawing.Point(48, 3)
-        Me.rbtnKAITO_14_F.Name = "rbtnKAITO_14_F"
-        Me.rbtnKAITO_14_F.Size = New System.Drawing.Size(39, 21)
-        Me.rbtnKAITO_14_F.TabIndex = 1
-        Me.rbtnKAITO_14_F.TabStop = True
-        Me.rbtnKAITO_14_F.Text = "否"
-        Me.rbtnKAITO_14_F.UseVisualStyleBackColor = True
-        '
-        'chkKAITO_14
-        '
-        Me.chkKAITO_14.AutoSize = True
-        Me.chkKAITO_14.Location = New System.Drawing.Point(701, 297)
-        Me.chkKAITO_14.Name = "chkKAITO_14"
-        Me.chkKAITO_14.Size = New System.Drawing.Size(86, 21)
-        Me.chkKAITO_14.TabIndex = 307
-        Me.chkKAITO_14.Text = "chkZESEI"
-        Me.chkKAITO_14.UseVisualStyleBackColor = True
-        '
-        'mtxKAITO_18
-        '
-        Me.mtxKAITO_18.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxKAITO_18.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxKAITO_18.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxKAITO_18.InputRequired = False
-        Me.mtxKAITO_18.Location = New System.Drawing.Point(692, 353)
-        Me.mtxKAITO_18.MaxByteLength = 300
-        Me.mtxKAITO_18.Name = "mtxKAITO_18"
-        Me.mtxKAITO_18.Size = New System.Drawing.Size(114, 24)
-        Me.mtxKAITO_18.TabIndex = 20
-        Me.mtxKAITO_18.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxKAITO_18.WatermarkText = Nothing
-        '
-        'lblSETUMON_20
-        '
-        Me.lblSETUMON_20.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_20.Location = New System.Drawing.Point(966, 358)
-        Me.lblSETUMON_20.Name = "lblSETUMON_20"
-        Me.lblSETUMON_20.Size = New System.Drawing.Size(72, 15)
-        Me.lblSETUMON_20.TabIndex = 305
-        Me.lblSETUMON_20.Text = "日付:"
-        Me.lblSETUMON_20.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbKAITO_14
-        '
-        Me.cmbKAITO_14.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbKAITO_14.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKAITO_14.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbKAITO_14.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbKAITO_14.DisplayMember = "DISP"
-        Me.cmbKAITO_14.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbKAITO_14.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbKAITO_14.FormattingEnabled = True
-        Me.cmbKAITO_14.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKAITO_14.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbKAITO_14.Location = New System.Drawing.Point(764, 293)
-        Me.cmbKAITO_14.Name = "cmbKAITO_14"
-        Me.cmbKAITO_14.NullValue = " "
-        Me.cmbKAITO_14.ReadOnly = False
-        Me.cmbKAITO_14.Selected = False
-        Me.cmbKAITO_14.Size = New System.Drawing.Size(15, 25)
-        Me.cmbKAITO_14.TabIndex = 15
-        Me.cmbKAITO_14.Text = "(選択)"
-        Me.cmbKAITO_14.ValueMember = "VALUE"
-        '
-        'mtxKAITO_15
-        '
-        Me.mtxKAITO_15.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxKAITO_15.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxKAITO_15.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.mtxKAITO_15.InputRequired = False
-        Me.mtxKAITO_15.Location = New System.Drawing.Point(879, 292)
-        Me.mtxKAITO_15.MaxByteLength = 300
-        Me.mtxKAITO_15.Name = "mtxKAITO_15"
-        Me.mtxKAITO_15.Size = New System.Drawing.Size(334, 24)
-        Me.mtxKAITO_15.TabIndex = 17
-        Me.mtxKAITO_15.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxKAITO_15.WatermarkText = Nothing
-        '
-        'mtxKAITO_19
-        '
-        Me.mtxKAITO_19.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxKAITO_19.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxKAITO_19.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxKAITO_19.InputRequired = False
-        Me.mtxKAITO_19.Location = New System.Drawing.Point(879, 353)
-        Me.mtxKAITO_19.MaxByteLength = 300
-        Me.mtxKAITO_19.Name = "mtxKAITO_19"
-        Me.mtxKAITO_19.Size = New System.Drawing.Size(81, 24)
-        Me.mtxKAITO_19.TabIndex = 21
-        Me.mtxKAITO_19.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxKAITO_19.WatermarkText = Nothing
-        '
-        'cmbKAITO_17
-        '
-        Me.cmbKAITO_17.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbKAITO_17.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKAITO_17.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbKAITO_17.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbKAITO_17.DisplayMember = "DISP"
-        Me.cmbKAITO_17.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbKAITO_17.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbKAITO_17.FormattingEnabled = True
-        Me.cmbKAITO_17.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKAITO_17.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbKAITO_17.Location = New System.Drawing.Point(879, 322)
-        Me.cmbKAITO_17.Name = "cmbKAITO_17"
-        Me.cmbKAITO_17.NullValue = " "
-        Me.cmbKAITO_17.ReadOnly = False
-        Me.cmbKAITO_17.Selected = False
-        Me.cmbKAITO_17.Size = New System.Drawing.Size(154, 25)
-        Me.cmbKAITO_17.TabIndex = 19
-        Me.cmbKAITO_17.Text = "(選択)"
-        Me.cmbKAITO_17.ValueMember = "VALUE"
-        '
-        'lblSETUMON_17
-        '
-        Me.lblSETUMON_17.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_17.Location = New System.Drawing.Point(814, 327)
-        Me.lblSETUMON_17.Name = "lblSETUMON_17"
-        Me.lblSETUMON_17.Size = New System.Drawing.Size(60, 15)
-        Me.lblSETUMON_17.TabIndex = 299
-        Me.lblSETUMON_17.Text = "誰が:"
-        Me.lblSETUMON_17.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblSETUMON_15
-        '
-        Me.lblSETUMON_15.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_15.Location = New System.Drawing.Point(814, 297)
-        Me.lblSETUMON_15.Name = "lblSETUMON_15"
-        Me.lblSETUMON_15.Size = New System.Drawing.Size(60, 15)
-        Me.lblSETUMON_15.TabIndex = 300
-        Me.lblSETUMON_15.Text = "展開先:"
-        Me.lblSETUMON_15.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblSETUMON_14
-        '
-        Me.lblSETUMON_14.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_14.Location = New System.Drawing.Point(615, 297)
-        Me.lblSETUMON_14.Name = "lblSETUMON_14"
-        Me.lblSETUMON_14.Size = New System.Drawing.Size(72, 15)
-        Me.lblSETUMON_14.TabIndex = 302
-        Me.lblSETUMON_14.Text = "要否:"
-        Me.lblSETUMON_14.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblSETUMON_19
-        '
-        Me.lblSETUMON_19.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_19.Location = New System.Drawing.Point(824, 358)
-        Me.lblSETUMON_19.Name = "lblSETUMON_19"
-        Me.lblSETUMON_19.Size = New System.Drawing.Size(49, 15)
-        Me.lblSETUMON_19.TabIndex = 301
-        Me.lblSETUMON_19.Text = "LOT:"
-        Me.lblSETUMON_19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblSETUMON_18
-        '
-        Me.lblSETUMON_18.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_18.Location = New System.Drawing.Point(615, 358)
-        Me.lblSETUMON_18.Name = "lblSETUMON_18"
-        Me.lblSETUMON_18.Size = New System.Drawing.Size(72, 15)
-        Me.lblSETUMON_18.TabIndex = 303
-        Me.lblSETUMON_18.Text = "有効号機:"
-        Me.lblSETUMON_18.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblSETUMON_16
-        '
-        Me.lblSETUMON_16.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_16.Location = New System.Drawing.Point(615, 327)
-        Me.lblSETUMON_16.Name = "lblSETUMON_16"
-        Me.lblSETUMON_16.Size = New System.Drawing.Size(72, 15)
-        Me.lblSETUMON_16.TabIndex = 304
-        Me.lblSETUMON_16.Text = "いつまで:"
-        Me.lblSETUMON_16.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'dtKAITO_20
-        '
-        Me.dtKAITO_20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtKAITO_20.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtKAITO_20.Location = New System.Drawing.Point(1044, 353)
-        Me.dtKAITO_20.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtKAITO_20.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtKAITO_20.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_20.Name = "dtKAITO_20"
-        Me.dtKAITO_20.ReadOnly = False
-        Me.dtKAITO_20.Size = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_20.TabIndex = 22
-        Me.dtKAITO_20.Value = ""
-        Me.dtKAITO_20.ValueNonFormat = ""
-        '
-        'dtKAITO_16
-        '
-        Me.dtKAITO_16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtKAITO_16.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtKAITO_16.Location = New System.Drawing.Point(692, 322)
-        Me.dtKAITO_16.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtKAITO_16.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtKAITO_16.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_16.Name = "dtKAITO_16"
-        Me.dtKAITO_16.ReadOnly = False
-        Me.dtKAITO_16.Size = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_16.TabIndex = 18
-        Me.dtKAITO_16.Value = ""
-        Me.dtKAITO_16.ValueNonFormat = ""
-        '
-        'Label35
-        '
-        Me.Label35.AutoSize = True
-        Me.Label35.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label35.ForeColor = System.Drawing.Color.Red
-        Me.Label35.Location = New System.Drawing.Point(628, 266)
-        Me.Label35.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(167, 15)
-        Me.Label35.TabIndex = 298
-        Me.Label35.Text = "[ C ] 処置の水平展開(横通し)"
-        Me.Label35.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'mtxKAITO_11
-        '
-        Me.mtxKAITO_11.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxKAITO_11.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxKAITO_11.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxKAITO_11.InputRequired = False
-        Me.mtxKAITO_11.Location = New System.Drawing.Point(693, 234)
-        Me.mtxKAITO_11.MaxByteLength = 300
-        Me.mtxKAITO_11.Name = "mtxKAITO_11"
-        Me.mtxKAITO_11.Size = New System.Drawing.Size(114, 24)
-        Me.mtxKAITO_11.TabIndex = 14
-        Me.mtxKAITO_11.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxKAITO_11.WatermarkText = Nothing
-        '
-        'lblSETUMON_13
-        '
-        Me.lblSETUMON_13.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_13.Location = New System.Drawing.Point(988, 239)
-        Me.lblSETUMON_13.Name = "lblSETUMON_13"
-        Me.lblSETUMON_13.Size = New System.Drawing.Size(50, 15)
-        Me.lblSETUMON_13.TabIndex = 290
-        Me.lblSETUMON_13.Text = "日付:"
-        Me.lblSETUMON_13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Button2
-        '
-        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Button2.Location = New System.Drawing.Point(1039, 205)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(54, 25)
-        Me.Button2.TabIndex = 13
-        Me.Button2.Text = "検索"
-        Me.Button2.UseVisualStyleBackColor = True
-        Me.Button2.Visible = False
-        '
-        'mtxKAITO_12
-        '
-        Me.mtxKAITO_12.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxKAITO_12.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxKAITO_12.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxKAITO_12.InputRequired = False
-        Me.mtxKAITO_12.Location = New System.Drawing.Point(879, 234)
-        Me.mtxKAITO_12.MaxByteLength = 300
-        Me.mtxKAITO_12.Name = "mtxKAITO_12"
-        Me.mtxKAITO_12.Size = New System.Drawing.Size(81, 24)
-        Me.mtxKAITO_12.TabIndex = 15
-        Me.mtxKAITO_12.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxKAITO_12.WatermarkText = Nothing
-        '
-        'cmbKAITO_10
-        '
-        Me.cmbKAITO_10.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbKAITO_10.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKAITO_10.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbKAITO_10.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbKAITO_10.DisplayMember = "DISP"
-        Me.cmbKAITO_10.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbKAITO_10.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbKAITO_10.FormattingEnabled = True
-        Me.cmbKAITO_10.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKAITO_10.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbKAITO_10.Location = New System.Drawing.Point(879, 205)
-        Me.cmbKAITO_10.Name = "cmbKAITO_10"
-        Me.cmbKAITO_10.NullValue = " "
-        Me.cmbKAITO_10.ReadOnly = False
-        Me.cmbKAITO_10.Selected = False
-        Me.cmbKAITO_10.Size = New System.Drawing.Size(154, 25)
-        Me.cmbKAITO_10.TabIndex = 12
-        Me.cmbKAITO_10.Text = "(選択)"
-        Me.cmbKAITO_10.ValueMember = "VALUE"
-        '
-        'lblSETUMON_10
-        '
-        Me.lblSETUMON_10.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_10.Location = New System.Drawing.Point(825, 210)
-        Me.lblSETUMON_10.Name = "lblSETUMON_10"
-        Me.lblSETUMON_10.Size = New System.Drawing.Size(48, 15)
-        Me.lblSETUMON_10.TabIndex = 285
-        Me.lblSETUMON_10.Text = "誰が:"
-        Me.lblSETUMON_10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblSETUMON_12
-        '
-        Me.lblSETUMON_12.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_12.Location = New System.Drawing.Point(825, 239)
-        Me.lblSETUMON_12.Name = "lblSETUMON_12"
-        Me.lblSETUMON_12.Size = New System.Drawing.Size(48, 15)
-        Me.lblSETUMON_12.TabIndex = 286
-        Me.lblSETUMON_12.Text = "LOT:"
-        Me.lblSETUMON_12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblSETUMON_11
-        '
-        Me.lblSETUMON_11.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_11.Location = New System.Drawing.Point(615, 239)
-        Me.lblSETUMON_11.Name = "lblSETUMON_11"
-        Me.lblSETUMON_11.Size = New System.Drawing.Size(72, 15)
-        Me.lblSETUMON_11.TabIndex = 287
-        Me.lblSETUMON_11.Text = "有効号機:"
-        Me.lblSETUMON_11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblSETUMON_9
-        '
-        Me.lblSETUMON_9.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_9.Location = New System.Drawing.Point(615, 210)
-        Me.lblSETUMON_9.Name = "lblSETUMON_9"
-        Me.lblSETUMON_9.Size = New System.Drawing.Size(72, 15)
-        Me.lblSETUMON_9.TabIndex = 288
-        Me.lblSETUMON_9.Text = "いつまで:"
-        Me.lblSETUMON_9.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'dtKAITO_13
-        '
-        Me.dtKAITO_13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtKAITO_13.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtKAITO_13.Location = New System.Drawing.Point(1044, 234)
-        Me.dtKAITO_13.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtKAITO_13.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtKAITO_13.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_13.Name = "dtKAITO_13"
-        Me.dtKAITO_13.ReadOnly = False
-        Me.dtKAITO_13.Size = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_13.TabIndex = 16
-        Me.dtKAITO_13.Value = ""
-        Me.dtKAITO_13.ValueNonFormat = ""
-        '
-        'dtKAITO_9
-        '
-        Me.dtKAITO_9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtKAITO_9.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtKAITO_9.Location = New System.Drawing.Point(693, 205)
-        Me.dtKAITO_9.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtKAITO_9.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtKAITO_9.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_9.Name = "dtKAITO_9"
-        Me.dtKAITO_9.ReadOnly = False
-        Me.dtKAITO_9.Size = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_9.TabIndex = 11
-        Me.dtKAITO_9.Value = ""
-        Me.dtKAITO_9.ValueNonFormat = ""
-        '
-        'Label29
-        '
-        Me.Label29.AutoSize = True
-        Me.Label29.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label29.ForeColor = System.Drawing.Color.Red
-        Me.Label29.Location = New System.Drawing.Point(629, 138)
-        Me.Label29.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(262, 15)
-        Me.Label29.TabIndex = 279
-        Me.Label29.Text = "[ B ] 是正処置(根本原因に対する再発防止処置)"
-        Me.Label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'mtxKAITO_6
-        '
-        Me.mtxKAITO_6.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxKAITO_6.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxKAITO_6.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxKAITO_6.InputRequired = False
-        Me.mtxKAITO_6.Location = New System.Drawing.Point(693, 105)
-        Me.mtxKAITO_6.MaxByteLength = 300
-        Me.mtxKAITO_6.Name = "mtxKAITO_6"
-        Me.mtxKAITO_6.Size = New System.Drawing.Size(114, 24)
-        Me.mtxKAITO_6.TabIndex = 7
-        Me.mtxKAITO_6.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxKAITO_6.WatermarkText = Nothing
-        '
-        'lblSETUMON_8
-        '
-        Me.lblSETUMON_8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_8.Location = New System.Drawing.Point(988, 110)
-        Me.lblSETUMON_8.Name = "lblSETUMON_8"
-        Me.lblSETUMON_8.Size = New System.Drawing.Size(50, 15)
-        Me.lblSETUMON_8.TabIndex = 272
-        Me.lblSETUMON_8.Text = "日付:"
-        Me.lblSETUMON_8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Button1
-        '
-        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Button1.Location = New System.Drawing.Point(1039, 74)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(54, 25)
-        Me.Button1.TabIndex = 6
-        Me.Button1.Text = "検索"
-        Me.Button1.UseVisualStyleBackColor = True
-        Me.Button1.Visible = False
-        '
-        'mtxKAITO_7
-        '
-        Me.mtxKAITO_7.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxKAITO_7.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxKAITO_7.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxKAITO_7.InputRequired = False
-        Me.mtxKAITO_7.Location = New System.Drawing.Point(879, 105)
-        Me.mtxKAITO_7.MaxByteLength = 300
-        Me.mtxKAITO_7.Name = "mtxKAITO_7"
-        Me.mtxKAITO_7.Size = New System.Drawing.Size(81, 24)
-        Me.mtxKAITO_7.TabIndex = 8
-        Me.mtxKAITO_7.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxKAITO_7.WatermarkText = Nothing
-        '
-        'cmbKAITO_5
-        '
-        Me.cmbKAITO_5.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbKAITO_5.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKAITO_5.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbKAITO_5.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbKAITO_5.DisplayMember = "DISP"
-        Me.cmbKAITO_5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbKAITO_5.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbKAITO_5.FormattingEnabled = True
-        Me.cmbKAITO_5.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKAITO_5.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbKAITO_5.Location = New System.Drawing.Point(879, 74)
-        Me.cmbKAITO_5.Name = "cmbKAITO_5"
-        Me.cmbKAITO_5.NullValue = " "
-        Me.cmbKAITO_5.ReadOnly = False
-        Me.cmbKAITO_5.Selected = False
-        Me.cmbKAITO_5.Size = New System.Drawing.Size(154, 25)
-        Me.cmbKAITO_5.TabIndex = 5
-        Me.cmbKAITO_5.Text = "(選択)"
-        Me.cmbKAITO_5.ValueMember = "VALUE"
-        '
-        'lblSETUMON_5
-        '
-        Me.lblSETUMON_5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_5.Location = New System.Drawing.Point(825, 79)
-        Me.lblSETUMON_5.Name = "lblSETUMON_5"
-        Me.lblSETUMON_5.Size = New System.Drawing.Size(48, 15)
-        Me.lblSETUMON_5.TabIndex = 267
-        Me.lblSETUMON_5.Text = "誰が:"
-        Me.lblSETUMON_5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblSETUMON_7
-        '
-        Me.lblSETUMON_7.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_7.Location = New System.Drawing.Point(825, 110)
-        Me.lblSETUMON_7.Name = "lblSETUMON_7"
-        Me.lblSETUMON_7.Size = New System.Drawing.Size(48, 15)
-        Me.lblSETUMON_7.TabIndex = 268
-        Me.lblSETUMON_7.Text = "LOT:"
-        Me.lblSETUMON_7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblSETUMON_6
-        '
-        Me.lblSETUMON_6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_6.Location = New System.Drawing.Point(615, 110)
-        Me.lblSETUMON_6.Name = "lblSETUMON_6"
-        Me.lblSETUMON_6.Size = New System.Drawing.Size(72, 15)
-        Me.lblSETUMON_6.TabIndex = 269
-        Me.lblSETUMON_6.Text = "有効号機:"
-        Me.lblSETUMON_6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblSETUMON_4
-        '
-        Me.lblSETUMON_4.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_4.Location = New System.Drawing.Point(615, 79)
-        Me.lblSETUMON_4.Name = "lblSETUMON_4"
-        Me.lblSETUMON_4.Size = New System.Drawing.Size(72, 15)
-        Me.lblSETUMON_4.TabIndex = 270
-        Me.lblSETUMON_4.Text = "いつまで:"
-        Me.lblSETUMON_4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'dtKAITO_8
-        '
-        Me.dtKAITO_8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtKAITO_8.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtKAITO_8.Location = New System.Drawing.Point(1044, 105)
-        Me.dtKAITO_8.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtKAITO_8.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtKAITO_8.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_8.Name = "dtKAITO_8"
-        Me.dtKAITO_8.ReadOnly = False
-        Me.dtKAITO_8.Size = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_8.TabIndex = 9
-        Me.dtKAITO_8.Value = ""
-        Me.dtKAITO_8.ValueNonFormat = ""
-        '
-        'dtKAITO_4
-        '
-        Me.dtKAITO_4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtKAITO_4.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtKAITO_4.Location = New System.Drawing.Point(693, 74)
-        Me.dtKAITO_4.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtKAITO_4.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtKAITO_4.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_4.Name = "dtKAITO_4"
-        Me.dtKAITO_4.ReadOnly = False
-        Me.dtKAITO_4.Size = New System.Drawing.Size(98, 24)
-        Me.dtKAITO_4.TabIndex = 4
-        Me.dtKAITO_4.Value = ""
-        Me.dtKAITO_4.ValueNonFormat = ""
-        '
-        'lbl
-        '
-        Me.lbl.AutoSize = True
-        Me.lbl.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lbl.ForeColor = System.Drawing.Color.Red
-        Me.lbl.Location = New System.Drawing.Point(629, 6)
-        Me.lbl.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.lbl.Name = "lbl"
-        Me.lbl.Size = New System.Drawing.Size(376, 15)
-        Me.lbl.TabIndex = 266
-        Me.lbl.Text = "[ A ] 修正・応急処置(不適合状態の修正、直接原因の応急的是正処置)"
-        Me.lbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblSETUMON_3
-        '
-        Me.lblSETUMON_3.AutoSize = True
-        Me.lblSETUMON_3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_3.ForeColor = System.Drawing.Color.Red
-        Me.lblSETUMON_3.Location = New System.Drawing.Point(3, 239)
-        Me.lblSETUMON_3.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.lblSETUMON_3.Name = "lblSETUMON_3"
-        Me.lblSETUMON_3.Size = New System.Drawing.Size(39, 15)
-        Me.lblSETUMON_3.TabIndex = 248
-        Me.lblSETUMON_3.Text = "設問3"
-        Me.lblSETUMON_3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'txtKAITO_3
-        '
-        Me.txtKAITO_3.BackColor = System.Drawing.SystemColors.Window
-        Me.txtKAITO_3.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtKAITO_3.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.txtKAITO_3.Location = New System.Drawing.Point(6, 257)
-        Me.txtKAITO_3.MaxByteLength = 400
-        Me.txtKAITO_3.MaxLength = 200
-        Me.txtKAITO_3.Multiline = True
-        Me.txtKAITO_3.Name = "txtKAITO_3"
-        Me.txtKAITO_3.ShowRemaining = True
-        Me.txtKAITO_3.Size = New System.Drawing.Size(608, 118)
-        Me.txtKAITO_3.TabIndex = 2
-        Me.txtKAITO_3.WatermarkText = Nothing
-        '
-        'lblSETUMON_2
-        '
-        Me.lblSETUMON_2.AutoSize = True
-        Me.lblSETUMON_2.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_2.ForeColor = System.Drawing.Color.Red
-        Me.lblSETUMON_2.Location = New System.Drawing.Point(3, 113)
-        Me.lblSETUMON_2.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.lblSETUMON_2.Name = "lblSETUMON_2"
-        Me.lblSETUMON_2.Size = New System.Drawing.Size(39, 15)
-        Me.lblSETUMON_2.TabIndex = 246
-        Me.lblSETUMON_2.Text = "設問2"
-        Me.lblSETUMON_2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'txtKAITO_2
-        '
-        Me.txtKAITO_2.BackColor = System.Drawing.SystemColors.Window
-        Me.txtKAITO_2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtKAITO_2.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.txtKAITO_2.Location = New System.Drawing.Point(6, 131)
-        Me.txtKAITO_2.MaxByteLength = 400
-        Me.txtKAITO_2.MaxLength = 200
-        Me.txtKAITO_2.Multiline = True
-        Me.txtKAITO_2.Name = "txtKAITO_2"
-        Me.txtKAITO_2.ShowRemaining = True
-        Me.txtKAITO_2.Size = New System.Drawing.Size(608, 102)
-        Me.txtKAITO_2.TabIndex = 1
-        Me.txtKAITO_2.WatermarkText = Nothing
-        '
-        'cmbST01_DestTANTO
-        '
-        Me.cmbST01_DestTANTO.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.cmbST01_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbST01_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST01_DestTANTO.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbST01_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbST01_DestTANTO.DisplayMember = "DISP"
-        Me.cmbST01_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbST01_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbST01_DestTANTO.FormattingEnabled = True
-        Me.cmbST01_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST01_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 804)
-        Me.cmbST01_DestTANTO.Name = "cmbST01_DestTANTO"
-        Me.cmbST01_DestTANTO.NullValue = " "
-        Me.cmbST01_DestTANTO.ReadOnly = False
-        Me.cmbST01_DestTANTO.Selected = False
-        Me.cmbST01_DestTANTO.Size = New System.Drawing.Size(154, 25)
-        Me.cmbST01_DestTANTO.TabIndex = 215
-        Me.cmbST01_DestTANTO.Text = "(選択)"
-        Me.cmbST01_DestTANTO.ValueMember = "VALUE"
-        '
-        'mtxST01_NextStageName
-        '
-        Me.mtxST01_NextStageName.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.mtxST01_NextStageName.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST01_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxST01_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxST01_NextStageName.InputRequired = False
-        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 804)
-        Me.mtxST01_NextStageName.MaxByteLength = 0
-        Me.mtxST01_NextStageName.Name = "mtxST01_NextStageName"
-        Me.mtxST01_NextStageName.Size = New System.Drawing.Size(296, 24)
-        Me.mtxST01_NextStageName.TabIndex = 214
-        Me.mtxST01_NextStageName.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxST01_NextStageName.WatermarkText = Nothing
-        '
-        'Label123
-        '
-        Me.Label123.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label123.AutoSize = True
-        Me.Label123.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label123.Location = New System.Drawing.Point(255, 809)
-        Me.Label123.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label123.Name = "Label123"
-        Me.Label123.Size = New System.Drawing.Size(98, 15)
-        Me.Label123.TabIndex = 213
-        Me.Label123.Text = "承認先ステージ名:"
-        Me.Label123.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label124
-        '
-        Me.Label124.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label124.AutoSize = True
-        Me.Label124.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label124.Location = New System.Drawing.Point(661, 809)
-        Me.Label124.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label124.Name = "Label124"
-        Me.Label124.Size = New System.Drawing.Size(72, 15)
-        Me.Label124.TabIndex = 212
-        Me.Label124.Text = "申請先社員:"
-        Me.Label124.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label139
-        '
-        Me.Label139.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label139.AutoSize = True
-        Me.Label139.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label139.Location = New System.Drawing.Point(10, 809)
-        Me.Label139.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label139.Name = "Label139"
-        Me.Label139.Size = New System.Drawing.Size(102, 15)
-        Me.Label139.TabIndex = 211
-        Me.Label139.Text = "承認・申請年月日:"
-        Me.Label139.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'mtxST01_UPD_YMD
-        '
-        Me.mtxST01_UPD_YMD.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.mtxST01_UPD_YMD.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST01_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxST01_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxST01_UPD_YMD.InputRequired = False
-        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 804)
-        Me.mtxST01_UPD_YMD.MaxByteLength = 0
-        Me.mtxST01_UPD_YMD.Name = "mtxST01_UPD_YMD"
-        Me.mtxST01_UPD_YMD.Size = New System.Drawing.Size(115, 24)
-        Me.mtxST01_UPD_YMD.TabIndex = 210
-        Me.mtxST01_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxST01_UPD_YMD.WatermarkText = Nothing
-        '
-        'lblSETUMON_1
-        '
-        Me.lblSETUMON_1.AutoSize = True
-        Me.lblSETUMON_1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSETUMON_1.ForeColor = System.Drawing.Color.Red
-        Me.lblSETUMON_1.Location = New System.Drawing.Point(3, 6)
-        Me.lblSETUMON_1.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.lblSETUMON_1.Name = "lblSETUMON_1"
-        Me.lblSETUMON_1.Size = New System.Drawing.Size(39, 15)
-        Me.lblSETUMON_1.TabIndex = 84
-        Me.lblSETUMON_1.Text = "設問1"
-        Me.lblSETUMON_1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'txtKAITO_1
-        '
-        Me.txtKAITO_1.BackColor = System.Drawing.SystemColors.Window
-        Me.txtKAITO_1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtKAITO_1.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.txtKAITO_1.Location = New System.Drawing.Point(6, 24)
-        Me.txtKAITO_1.MaxByteLength = 360
-        Me.txtKAITO_1.MaxLength = 180
-        Me.txtKAITO_1.Multiline = True
-        Me.txtKAITO_1.Name = "txtKAITO_1"
-        Me.txtKAITO_1.ShowRemaining = True
-        Me.txtKAITO_1.Size = New System.Drawing.Size(608, 83)
-        Me.txtKAITO_1.TabIndex = 0
-        Me.txtKAITO_1.WatermarkText = Nothing
-        '
-        'tab_CAR_SUB_1_
-        '
-        Me.tab_CAR_SUB_1_.AutoScroll = True
-        Me.tab_CAR_SUB_1_.HitEnabled = False
-        Me.tab_CAR_SUB_1_.Location = New System.Drawing.Point(4, 26)
-        Me.tab_CAR_SUB_1_.Name = "tab_CAR_SUB_1_"
-        Me.tab_CAR_SUB_1_.Size = New System.Drawing.Size(1231, 359)
-        Me.tab_CAR_SUB_1_.TabIndex = 7
-        Me.tab_CAR_SUB_1_.Text = "処置実施記録"
-        Me.tab_CAR_SUB_1_.UseVisualStyleBackColor = True
-        '
-        'tab_CAR_SUB_2_
-        '
-        Me.tab_CAR_SUB_2_.AutoScroll = True
-        Me.tab_CAR_SUB_2_.HitEnabled = False
-        Me.tab_CAR_SUB_2_.Location = New System.Drawing.Point(4, 26)
-        Me.tab_CAR_SUB_2_.Name = "tab_CAR_SUB_2_"
-        Me.tab_CAR_SUB_2_.Size = New System.Drawing.Size(1231, 359)
-        Me.tab_CAR_SUB_2_.TabIndex = 8
-        Me.tab_CAR_SUB_2_.Text = "是正処置有効性レビュー"
-        Me.tab_CAR_SUB_2_.UseVisualStyleBackColor = True
-        '
-        'tabSTAGE02
-        '
-        Me.tabSTAGE02.AutoScroll = True
-        Me.tabSTAGE02.Controls.Add(Me.dtFUTEKIGO_HASSEI_YMD)
-        Me.tabSTAGE02.Controls.Add(Me.Label3)
-        Me.tabSTAGE02.Controls.Add(Me.mtxGENIN2)
-        Me.tabSTAGE02.Controls.Add(Me.mtxGENIN1)
-        Me.tabSTAGE02.Controls.Add(Me.mtxGENIN2_DISP)
-        Me.tabSTAGE02.Controls.Add(Me.mtxGENIN1_DISP)
-        Me.tabSTAGE02.Controls.Add(Me.btnSelectGenin2)
-        Me.tabSTAGE02.Controls.Add(Me.btnSelectGenin1)
-        Me.tabSTAGE02.Controls.Add(Me.Label16)
-        Me.tabSTAGE02.Controls.Add(Me.Label17)
-        Me.tabSTAGE02.Controls.Add(Me.Label51)
-        Me.tabSTAGE02.Controls.Add(Me.cmbKISEKI_KOTEI)
-        Me.tabSTAGE02.Controls.Add(Me.Label19)
-        Me.tabSTAGE02.Controls.Add(Me.Label7)
-        Me.tabSTAGE02.Controls.Add(Me.Label18)
-        Me.tabSTAGE02.Controls.Add(Me.cmbKONPON_YOIN_KB2)
-        Me.tabSTAGE02.Controls.Add(Me.Label4)
-        Me.tabSTAGE02.Controls.Add(Me.cmbKONPON_YOIN_KB1)
-        Me.tabSTAGE02.Controls.Add(Me.Label2)
-        Me.tabSTAGE02.Controls.Add(Me.cmbKONPON_YOIN_TANTO)
-        Me.tabSTAGE02.HitEnabled = False
-        Me.tabSTAGE02.Location = New System.Drawing.Point(4, 26)
-        Me.tabSTAGE02.Name = "tabSTAGE02"
-        Me.tabSTAGE02.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabSTAGE02.Size = New System.Drawing.Size(1231, 359)
-        Me.tabSTAGE02.TabIndex = 1
-        Me.tabSTAGE02.Text = "分析項目"
-        Me.tabSTAGE02.UseVisualStyleBackColor = True
-        '
-        'dtFUTEKIGO_HASSEI_YMD
-        '
-        Me.dtFUTEKIGO_HASSEI_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtFUTEKIGO_HASSEI_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtFUTEKIGO_HASSEI_YMD.Location = New System.Drawing.Point(99, 12)
-        Me.dtFUTEKIGO_HASSEI_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtFUTEKIGO_HASSEI_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtFUTEKIGO_HASSEI_YMD.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtFUTEKIGO_HASSEI_YMD.Name = "dtFUTEKIGO_HASSEI_YMD"
-        Me.dtFUTEKIGO_HASSEI_YMD.ReadOnly = False
-        Me.dtFUTEKIGO_HASSEI_YMD.Size = New System.Drawing.Size(98, 24)
-        Me.dtFUTEKIGO_HASSEI_YMD.TabIndex = 276
-        Me.dtFUTEKIGO_HASSEI_YMD.Value = ""
-        Me.dtFUTEKIGO_HASSEI_YMD.ValueNonFormat = ""
-        Me.dtFUTEKIGO_HASSEI_YMD.Visible = False
-        '
-        'Label3
-        '
-        Me.Label3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label3.Location = New System.Drawing.Point(8, 16)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(85, 15)
-        Me.Label3.TabIndex = 277
-        Me.Label3.Text = "不適合発生日:"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label3.Visible = False
-        '
-        'mtxGENIN2
-        '
-        Me.mtxGENIN2.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxGENIN2.Enabled = False
-        Me.mtxGENIN2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxGENIN2.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxGENIN2.InputRequired = False
-        Me.mtxGENIN2.Location = New System.Drawing.Point(752, 111)
-        Me.mtxGENIN2.MaxByteLength = 0
-        Me.mtxGENIN2.Name = "mtxGENIN2"
-        Me.mtxGENIN2.ReadOnly = True
-        Me.mtxGENIN2.Size = New System.Drawing.Size(69, 24)
-        Me.mtxGENIN2.TabIndex = 275
-        Me.mtxGENIN2.Visible = False
-        Me.mtxGENIN2.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxGENIN2.WatermarkText = Nothing
-        '
-        'mtxGENIN1
-        '
-        Me.mtxGENIN1.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxGENIN1.Enabled = False
-        Me.mtxGENIN1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxGENIN1.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxGENIN1.InputRequired = False
-        Me.mtxGENIN1.Location = New System.Drawing.Point(752, 82)
-        Me.mtxGENIN1.MaxByteLength = 0
-        Me.mtxGENIN1.Name = "mtxGENIN1"
-        Me.mtxGENIN1.ReadOnly = True
-        Me.mtxGENIN1.Size = New System.Drawing.Size(69, 24)
-        Me.mtxGENIN1.TabIndex = 274
-        Me.mtxGENIN1.Visible = False
-        Me.mtxGENIN1.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxGENIN1.WatermarkText = Nothing
-        '
-        'mtxGENIN2_DISP
-        '
-        Me.mtxGENIN2_DISP.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxGENIN2_DISP.Enabled = False
-        Me.mtxGENIN2_DISP.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxGENIN2_DISP.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxGENIN2_DISP.InputRequired = False
-        Me.mtxGENIN2_DISP.Location = New System.Drawing.Point(435, 110)
-        Me.mtxGENIN2_DISP.MaxByteLength = 0
-        Me.mtxGENIN2_DISP.Name = "mtxGENIN2_DISP"
-        Me.mtxGENIN2_DISP.ReadOnly = True
-        Me.mtxGENIN2_DISP.Size = New System.Drawing.Size(251, 24)
-        Me.mtxGENIN2_DISP.TabIndex = 4
-        Me.mtxGENIN2_DISP.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxGENIN2_DISP.WatermarkText = Nothing
-        '
-        'mtxGENIN1_DISP
-        '
-        Me.mtxGENIN1_DISP.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxGENIN1_DISP.Enabled = False
-        Me.mtxGENIN1_DISP.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxGENIN1_DISP.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxGENIN1_DISP.InputRequired = False
-        Me.mtxGENIN1_DISP.Location = New System.Drawing.Point(435, 81)
-        Me.mtxGENIN1_DISP.MaxByteLength = 0
-        Me.mtxGENIN1_DISP.Name = "mtxGENIN1_DISP"
-        Me.mtxGENIN1_DISP.ReadOnly = True
-        Me.mtxGENIN1_DISP.Size = New System.Drawing.Size(251, 24)
-        Me.mtxGENIN1_DISP.TabIndex = 1
-        Me.mtxGENIN1_DISP.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxGENIN1_DISP.WatermarkText = Nothing
-        '
-        'btnSelectGenin2
-        '
-        Me.btnSelectGenin2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnSelectGenin2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.btnSelectGenin2.Location = New System.Drawing.Point(692, 110)
-        Me.btnSelectGenin2.Name = "btnSelectGenin2"
-        Me.btnSelectGenin2.Size = New System.Drawing.Size(54, 24)
-        Me.btnSelectGenin2.TabIndex = 5
-        Me.btnSelectGenin2.Text = "選択"
-        Me.btnSelectGenin2.UseVisualStyleBackColor = True
-        '
-        'btnSelectGenin1
-        '
-        Me.btnSelectGenin1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnSelectGenin1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.btnSelectGenin1.Location = New System.Drawing.Point(692, 81)
-        Me.btnSelectGenin1.Name = "btnSelectGenin1"
-        Me.btnSelectGenin1.Size = New System.Drawing.Size(54, 24)
-        Me.btnSelectGenin1.TabIndex = 2
-        Me.btnSelectGenin1.Text = "選択"
-        Me.btnSelectGenin1.UseVisualStyleBackColor = True
-        '
-        'Label16
-        '
-        Me.Label16.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label16.Location = New System.Drawing.Point(296, 107)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(133, 30)
-        Me.Label16.TabIndex = 271
-        Me.Label16.Text = "要因2に対する原因:"
-        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label17
-        '
-        Me.Label17.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label17.Location = New System.Drawing.Point(296, 78)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(133, 30)
-        Me.Label17.TabIndex = 270
-        Me.Label17.Text = "要因1に対する原因:"
-        Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label51
-        '
-        Me.Label51.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label51.Location = New System.Drawing.Point(296, 139)
-        Me.Label51.Name = "Label51"
-        Me.Label51.Size = New System.Drawing.Size(133, 30)
-        Me.Label51.TabIndex = 269
-        Me.Label51.Text = "帰責工程:"
-        Me.Label51.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbKISEKI_KOTEI
-        '
-        Me.cmbKISEKI_KOTEI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbKISEKI_KOTEI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKISEKI_KOTEI.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbKISEKI_KOTEI.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbKISEKI_KOTEI.DisplayMember = "DISP"
-        Me.cmbKISEKI_KOTEI.DropDownWidth = 220
-        Me.cmbKISEKI_KOTEI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbKISEKI_KOTEI.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbKISEKI_KOTEI.FormattingEnabled = True
-        Me.cmbKISEKI_KOTEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKISEKI_KOTEI.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbKISEKI_KOTEI.Location = New System.Drawing.Point(435, 142)
-        Me.cmbKISEKI_KOTEI.Name = "cmbKISEKI_KOTEI"
-        Me.cmbKISEKI_KOTEI.NullValue = " "
-        Me.cmbKISEKI_KOTEI.ReadOnly = False
-        Me.cmbKISEKI_KOTEI.Selected = False
-        Me.cmbKISEKI_KOTEI.Size = New System.Drawing.Size(251, 25)
-        Me.cmbKISEKI_KOTEI.TabIndex = 7
-        Me.cmbKISEKI_KOTEI.Text = "(選択)"
-        Me.cmbKISEKI_KOTEI.ValueMember = "VALUE"
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label19.Location = New System.Drawing.Point(350, 58)
-        Me.Label19.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(79, 15)
-        Me.Label19.TabIndex = 268
-        Me.Label19.Text = "原因分析区分"
-        Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label7.Location = New System.Drawing.Point(14, 56)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(79, 15)
-        Me.Label7.TabIndex = 243
-        Me.Label7.Text = "根本要因区分"
-        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label18
-        '
-        Me.Label18.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label18.Location = New System.Drawing.Point(6, 107)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(87, 30)
-        Me.Label18.TabIndex = 224
-        Me.Label18.Text = "要因2:"
-        Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbKONPON_YOIN_KB2
-        '
-        Me.cmbKONPON_YOIN_KB2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbKONPON_YOIN_KB2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKONPON_YOIN_KB2.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbKONPON_YOIN_KB2.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbKONPON_YOIN_KB2.DisplayMember = "DISP"
-        Me.cmbKONPON_YOIN_KB2.DropDownWidth = 220
-        Me.cmbKONPON_YOIN_KB2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbKONPON_YOIN_KB2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbKONPON_YOIN_KB2.FormattingEnabled = True
-        Me.cmbKONPON_YOIN_KB2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKONPON_YOIN_KB2.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbKONPON_YOIN_KB2.Location = New System.Drawing.Point(96, 110)
-        Me.cmbKONPON_YOIN_KB2.Name = "cmbKONPON_YOIN_KB2"
-        Me.cmbKONPON_YOIN_KB2.NullValue = " "
-        Me.cmbKONPON_YOIN_KB2.ReadOnly = False
-        Me.cmbKONPON_YOIN_KB2.Selected = False
-        Me.cmbKONPON_YOIN_KB2.Size = New System.Drawing.Size(194, 25)
-        Me.cmbKONPON_YOIN_KB2.TabIndex = 3
-        Me.cmbKONPON_YOIN_KB2.Text = "(選択)"
-        Me.cmbKONPON_YOIN_KB2.ValueMember = "VALUE"
-        '
-        'Label4
-        '
-        Me.Label4.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label4.Location = New System.Drawing.Point(6, 78)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(87, 30)
-        Me.Label4.TabIndex = 223
-        Me.Label4.Text = "要因1:"
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbKONPON_YOIN_KB1
-        '
-        Me.cmbKONPON_YOIN_KB1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbKONPON_YOIN_KB1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKONPON_YOIN_KB1.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbKONPON_YOIN_KB1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbKONPON_YOIN_KB1.DisplayMember = "DISP"
-        Me.cmbKONPON_YOIN_KB1.DropDownWidth = 220
-        Me.cmbKONPON_YOIN_KB1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbKONPON_YOIN_KB1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbKONPON_YOIN_KB1.FormattingEnabled = True
-        Me.cmbKONPON_YOIN_KB1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKONPON_YOIN_KB1.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbKONPON_YOIN_KB1.Location = New System.Drawing.Point(96, 81)
-        Me.cmbKONPON_YOIN_KB1.Name = "cmbKONPON_YOIN_KB1"
-        Me.cmbKONPON_YOIN_KB1.NullValue = " "
-        Me.cmbKONPON_YOIN_KB1.ReadOnly = False
-        Me.cmbKONPON_YOIN_KB1.Selected = False
-        Me.cmbKONPON_YOIN_KB1.Size = New System.Drawing.Size(194, 25)
-        Me.cmbKONPON_YOIN_KB1.TabIndex = 0
-        Me.cmbKONPON_YOIN_KB1.Text = "(選択)"
-        Me.cmbKONPON_YOIN_KB1.ValueMember = "VALUE"
-        '
-        'Label2
-        '
-        Me.Label2.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label2.Location = New System.Drawing.Point(6, 139)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(87, 30)
-        Me.Label2.TabIndex = 220
-        Me.Label2.Text = "作業者名:"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbKONPON_YOIN_TANTO
-        '
-        Me.cmbKONPON_YOIN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbKONPON_YOIN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKONPON_YOIN_TANTO.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbKONPON_YOIN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbKONPON_YOIN_TANTO.DisplayMember = "DISP"
-        Me.cmbKONPON_YOIN_TANTO.DropDownWidth = 220
-        Me.cmbKONPON_YOIN_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbKONPON_YOIN_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbKONPON_YOIN_TANTO.FormattingEnabled = True
-        Me.cmbKONPON_YOIN_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKONPON_YOIN_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbKONPON_YOIN_TANTO.Location = New System.Drawing.Point(96, 142)
-        Me.cmbKONPON_YOIN_TANTO.Name = "cmbKONPON_YOIN_TANTO"
-        Me.cmbKONPON_YOIN_TANTO.NullValue = " "
-        Me.cmbKONPON_YOIN_TANTO.ReadOnly = False
-        Me.cmbKONPON_YOIN_TANTO.Selected = False
-        Me.cmbKONPON_YOIN_TANTO.Size = New System.Drawing.Size(194, 25)
-        Me.cmbKONPON_YOIN_TANTO.TabIndex = 6
-        Me.cmbKONPON_YOIN_TANTO.Text = "(選択)"
-        Me.cmbKONPON_YOIN_TANTO.ValueMember = "VALUE"
-        '
-        'tab_CAR_SUB_3_
-        '
-        Me.tab_CAR_SUB_3_.AutoScroll = True
-        Me.tab_CAR_SUB_3_.HitEnabled = False
-        Me.tab_CAR_SUB_3_.Location = New System.Drawing.Point(4, 26)
-        Me.tab_CAR_SUB_3_.Name = "tab_CAR_SUB_3_"
-        Me.tab_CAR_SUB_3_.Size = New System.Drawing.Size(1231, 359)
-        Me.tab_CAR_SUB_3_.TabIndex = 9
-        Me.tab_CAR_SUB_3_.Text = "添付資料"
-        Me.tab_CAR_SUB_3_.UseVisualStyleBackColor = True
-        '
-        'cmbDestTANTO
-        '
-        Me.cmbDestTANTO.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmbDestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbDestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbDestTANTO.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbDestTANTO.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbDestTANTO.DisplayMember = "DISP"
-        Me.cmbDestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbDestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbDestTANTO.FormattingEnabled = True
-        Me.cmbDestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbDestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbDestTANTO.Location = New System.Drawing.Point(1098, 151)
-        Me.cmbDestTANTO.Name = "cmbDestTANTO"
-        Me.cmbDestTANTO.NullValue = " "
-        Me.cmbDestTANTO.ReadOnly = False
-        Me.cmbDestTANTO.Selected = False
-        Me.cmbDestTANTO.Size = New System.Drawing.Size(134, 25)
-        Me.cmbDestTANTO.TabIndex = 1
-        Me.cmbDestTANTO.Text = "(選択)"
-        Me.cmbDestTANTO.ValueMember = "VALUE"
-        '
-        'mtxNextStageName
-        '
-        Me.mtxNextStageName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.mtxNextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxNextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxNextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxNextStageName.InputRequired = False
-        Me.mtxNextStageName.Location = New System.Drawing.Point(760, 155)
-        Me.mtxNextStageName.MaxByteLength = 0
-        Me.mtxNextStageName.Name = "mtxNextStageName"
-        Me.mtxNextStageName.ReadOnly = True
-        Me.mtxNextStageName.Size = New System.Drawing.Size(254, 19)
-        Me.mtxNextStageName.TabIndex = 0
-        Me.mtxNextStageName.TabStop = False
-        Me.mtxNextStageName.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxNextStageName.WatermarkText = Nothing
-        '
-        'Label97
-        '
-        Me.Label97.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label97.AutoSize = True
-        Me.Label97.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label97.Location = New System.Drawing.Point(656, 156)
-        Me.Label97.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label97.Name = "Label97"
-        Me.Label97.Size = New System.Drawing.Size(98, 15)
-        Me.Label97.TabIndex = 249
-        Me.Label97.Text = "承認先ステージ名:"
-        Me.Label97.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblDestTANTO
-        '
-        Me.lblDestTANTO.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblDestTANTO.AutoSize = True
-        Me.lblDestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblDestTANTO.Location = New System.Drawing.Point(1020, 155)
-        Me.lblDestTANTO.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.lblDestTANTO.Name = "lblDestTANTO"
-        Me.lblDestTANTO.Size = New System.Drawing.Size(72, 15)
-        Me.lblDestTANTO.TabIndex = 248
-        Me.lblDestTANTO.Text = "申請先社員:"
-        Me.lblDestTANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label81
-        '
-        Me.Label81.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label81.Location = New System.Drawing.Point(558, 181)
-        Me.Label81.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label81.Name = "Label81"
-        Me.Label81.Size = New System.Drawing.Size(196, 16)
-        Me.Label81.TabIndex = 253
-        Me.Label81.Text = "設計開発担当者の確認の要否:"
-        Me.Label81.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'FlowLayoutPanel1
-        '
-        Me.FlowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.FlowLayoutPanel1.Controls.Add(Me.rbtnSEKKEI_TANTO_YOHI_YES)
-        Me.FlowLayoutPanel1.Controls.Add(Me.rbtnSEKKEI_TANTO_YOHI_NO)
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(762, 177)
-        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(90, 23)
-        Me.FlowLayoutPanel1.TabIndex = 251
-        '
-        'rbtnSEKKEI_TANTO_YOHI_YES
-        '
-        Me.rbtnSEKKEI_TANTO_YOHI_YES.AutoSize = True
-        Me.rbtnSEKKEI_TANTO_YOHI_YES.Checked = True
-        Me.rbtnSEKKEI_TANTO_YOHI_YES.Location = New System.Drawing.Point(3, 3)
-        Me.rbtnSEKKEI_TANTO_YOHI_YES.Name = "rbtnSEKKEI_TANTO_YOHI_YES"
-        Me.rbtnSEKKEI_TANTO_YOHI_YES.Size = New System.Drawing.Size(35, 16)
-        Me.rbtnSEKKEI_TANTO_YOHI_YES.TabIndex = 0
-        Me.rbtnSEKKEI_TANTO_YOHI_YES.TabStop = True
-        Me.rbtnSEKKEI_TANTO_YOHI_YES.Text = "要"
-        Me.rbtnSEKKEI_TANTO_YOHI_YES.UseVisualStyleBackColor = True
-        '
-        'rbtnSEKKEI_TANTO_YOHI_NO
-        '
-        Me.rbtnSEKKEI_TANTO_YOHI_NO.AutoSize = True
-        Me.rbtnSEKKEI_TANTO_YOHI_NO.Location = New System.Drawing.Point(44, 3)
-        Me.rbtnSEKKEI_TANTO_YOHI_NO.Name = "rbtnSEKKEI_TANTO_YOHI_NO"
-        Me.rbtnSEKKEI_TANTO_YOHI_NO.Size = New System.Drawing.Size(35, 16)
-        Me.rbtnSEKKEI_TANTO_YOHI_NO.TabIndex = 1
-        Me.rbtnSEKKEI_TANTO_YOHI_NO.Text = "否"
-        Me.rbtnSEKKEI_TANTO_YOHI_NO.UseVisualStyleBackColor = True
-        '
-        'chkSEKKEI_TANTO_YOHI_KB
-        '
-        Me.chkSEKKEI_TANTO_YOHI_KB.AutoSize = True
-        Me.chkSEKKEI_TANTO_YOHI_KB.Location = New System.Drawing.Point(766, 182)
-        Me.chkSEKKEI_TANTO_YOHI_KB.Name = "chkSEKKEI_TANTO_YOHI_KB"
-        Me.chkSEKKEI_TANTO_YOHI_KB.Size = New System.Drawing.Size(73, 16)
-        Me.chkSEKKEI_TANTO_YOHI_KB.TabIndex = 252
-        Me.chkSEKKEI_TANTO_YOHI_KB.Text = "chkZESEI"
-        Me.chkSEKKEI_TANTO_YOHI_KB.UseVisualStyleBackColor = True
-        '
-        'pnlSYOCHI_KIROKU
-        '
-        Me.pnlSYOCHI_KIROKU.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.pnlTEMP_SIRYO.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.pnlSYOCHI_KIROKU.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.dtSYOCHI_A_YMD)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label13)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.lblSTAGE12)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.dtSYOCHI_B_YMD)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label12)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label41)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label11)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.dtSYOCHI_C_YMD)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.cmbSYOCHI_C_TANTO)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label39)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.cmbSYOCHI_A_TANTO)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label50)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.cmbSYOCHI_B_TANTO)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label74)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label73)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.btnOpenKYOIKU_FILE_PATH)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label38)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label40)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.fpnlKYOIKU_FILE_PATH)
-        Me.pnlSYOCHI_KIROKU.Location = New System.Drawing.Point(6, 387)
-        Me.pnlSYOCHI_KIROKU.Margin = New System.Windows.Forms.Padding(0)
-        Me.pnlSYOCHI_KIROKU.Name = "pnlSYOCHI_KIROKU"
-        Me.pnlSYOCHI_KIROKU.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlSYOCHI_KIROKU.Size = New System.Drawing.Size(1205, 167)
-        Me.pnlSYOCHI_KIROKU.TabIndex = 312
+        Me.pnlTEMP_SIRYO.BackColor = System.Drawing.Color.Transparent
+        Me.pnlTEMP_SIRYO.Controls.Add(Me.fpnltmpFile2)
+        Me.pnlTEMP_SIRYO.Controls.Add(Me.Label48)
+        Me.pnlTEMP_SIRYO.Controls.Add(Me.btnOpentmpFile2)
+        Me.pnlTEMP_SIRYO.Controls.Add(Me.Label49)
+        Me.pnlTEMP_SIRYO.Controls.Add(Me.fpnltmpFile1)
+        Me.pnlTEMP_SIRYO.Controls.Add(Me.btnOpentmpFile1)
+        Me.pnlTEMP_SIRYO.Controls.Add(Me.Label20)
+        Me.pnlTEMP_SIRYO.HitEnabled = False
+        Me.pnlTEMP_SIRYO.Location = New System.Drawing.Point(640, 9)
+        Me.pnlTEMP_SIRYO.Margin = New System.Windows.Forms.Padding(2)
+        Me.pnlTEMP_SIRYO.Name = "pnlTEMP_SIRYO"
+        Me.pnlTEMP_SIRYO.Padding = New System.Windows.Forms.Padding(2)
+        Me.pnlTEMP_SIRYO.Size = New System.Drawing.Size(573, 119)
+        Me.pnlTEMP_SIRYO.TabIndex = 315
         '
-        'dtSYOCHI_A_YMD
+        'fpnltmpFile2
         '
-        Me.dtSYOCHI_A_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtSYOCHI_A_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtSYOCHI_A_YMD.Location = New System.Drawing.Point(96, 135)
-        Me.dtSYOCHI_A_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtSYOCHI_A_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtSYOCHI_A_YMD.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtSYOCHI_A_YMD.Name = "dtSYOCHI_A_YMD"
-        Me.dtSYOCHI_A_YMD.ReadOnly = False
-        Me.dtSYOCHI_A_YMD.Size = New System.Drawing.Size(98, 24)
-        Me.dtSYOCHI_A_YMD.TabIndex = 3
-        Me.dtSYOCHI_A_YMD.Value = ""
-        Me.dtSYOCHI_A_YMD.ValueNonFormat = ""
+        Me.fpnltmpFile2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.fpnltmpFile2.Controls.Add(Me.lbltmpFile2)
+        Me.fpnltmpFile2.Controls.Add(Me.lbltmpFile2_Clear)
+        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel31)
+        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel32)
+        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel33)
+        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel34)
+        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel35)
+        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel36)
+        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel37)
+        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel38)
+        Me.fpnltmpFile2.Location = New System.Drawing.Point(85, 64)
+        Me.fpnltmpFile2.Name = "fpnltmpFile2"
+        Me.fpnltmpFile2.Size = New System.Drawing.Size(386, 22)
+        Me.fpnltmpFile2.TabIndex = 317
         '
-        'Label13
+        'lbltmpFile2
         '
-        Me.Label13.AutoSize = True
-        Me.Label13.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label13.ForeColor = System.Drawing.Color.Red
-        Me.Label13.Location = New System.Drawing.Point(448, 81)
-        Me.Label13.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(262, 15)
-        Me.Label13.TabIndex = 269
-        Me.Label13.Text = "[ B ] 是正処置(根本原因に対する再発防止処置)"
-        Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lbltmpFile2.AutoSize = True
+        Me.lbltmpFile2.Location = New System.Drawing.Point(0, 0)
+        Me.lbltmpFile2.Margin = New System.Windows.Forms.Padding(0)
+        Me.lbltmpFile2.Name = "lbltmpFile2"
+        Me.lbltmpFile2.Size = New System.Drawing.Size(37, 17)
+        Me.lbltmpFile2.TabIndex = 126
+        Me.lbltmpFile2.TabStop = True
+        Me.lbltmpFile2.Text = "link1"
+        Me.lbltmpFile2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbltmpFile2.Visible = False
         '
-        'dtSYOCHI_B_YMD
+        'lbltmpFile2_Clear
         '
-        Me.dtSYOCHI_B_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtSYOCHI_B_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtSYOCHI_B_YMD.Location = New System.Drawing.Point(488, 135)
-        Me.dtSYOCHI_B_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtSYOCHI_B_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtSYOCHI_B_YMD.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtSYOCHI_B_YMD.Name = "dtSYOCHI_B_YMD"
-        Me.dtSYOCHI_B_YMD.ReadOnly = False
-        Me.dtSYOCHI_B_YMD.Size = New System.Drawing.Size(98, 24)
-        Me.dtSYOCHI_B_YMD.TabIndex = 5
-        Me.dtSYOCHI_B_YMD.Value = ""
-        Me.dtSYOCHI_B_YMD.ValueNonFormat = ""
+        Me.lbltmpFile2_Clear.AutoSize = True
+        Me.lbltmpFile2_Clear.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnltmpFile2.SetFlowBreak(Me.lbltmpFile2_Clear, True)
+        Me.lbltmpFile2_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lbltmpFile2_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.lbltmpFile2_Clear.LinkColor = System.Drawing.Color.Red
+        Me.lbltmpFile2_Clear.Location = New System.Drawing.Point(37, 0)
+        Me.lbltmpFile2_Clear.Margin = New System.Windows.Forms.Padding(0)
+        Me.lbltmpFile2_Clear.Name = "lbltmpFile2_Clear"
+        Me.lbltmpFile2_Clear.Size = New System.Drawing.Size(19, 17)
+        Me.lbltmpFile2_Clear.TabIndex = 128
+        Me.lbltmpFile2_Clear.TabStop = True
+        Me.lbltmpFile2_Clear.Text = "×"
+        Me.lbltmpFile2_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbltmpFile2_Clear.Visible = False
         '
-        'Label12
+        'LinkLabel31
         '
-        Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label12.ForeColor = System.Drawing.Color.Red
-        Me.Label12.Location = New System.Drawing.Point(772, 81)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(167, 15)
-        Me.Label12.TabIndex = 268
-        Me.Label12.Text = "[ C ] 処置の水平展開(横通し)"
-        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LinkLabel31.AutoSize = True
+        Me.LinkLabel31.Location = New System.Drawing.Point(0, 17)
+        Me.LinkLabel31.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel31.Name = "LinkLabel31"
+        Me.LinkLabel31.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel31.TabIndex = 129
+        Me.LinkLabel31.TabStop = True
+        Me.LinkLabel31.Text = "link2"
+        Me.LinkLabel31.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel31.Visible = False
         '
-        'Label41
+        'LinkLabel32
         '
-        Me.Label41.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label41.Location = New System.Drawing.Point(727, 140)
-        Me.Label41.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(79, 15)
-        Me.Label41.TabIndex = 230
-        Me.Label41.Text = "実施日:"
-        Me.Label41.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LinkLabel32.AutoSize = True
+        Me.LinkLabel32.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnltmpFile2.SetFlowBreak(Me.LinkLabel32, True)
+        Me.LinkLabel32.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel32.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel32.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel32.Location = New System.Drawing.Point(37, 17)
+        Me.LinkLabel32.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel32.Name = "LinkLabel32"
+        Me.LinkLabel32.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel32.TabIndex = 130
+        Me.LinkLabel32.TabStop = True
+        Me.LinkLabel32.Text = "×"
+        Me.LinkLabel32.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel32.Visible = False
         '
-        'Label11
+        'LinkLabel33
         '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label11.ForeColor = System.Drawing.Color.Red
-        Me.Label11.Location = New System.Drawing.Point(56, 81)
-        Me.Label11.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(376, 15)
-        Me.Label11.TabIndex = 267
-        Me.Label11.Text = "[ A ] 修正・応急処置(不適合状態の修正、直接原因の応急的是正処置)"
-        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LinkLabel33.AutoSize = True
+        Me.LinkLabel33.Location = New System.Drawing.Point(0, 34)
+        Me.LinkLabel33.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel33.Name = "LinkLabel33"
+        Me.LinkLabel33.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel33.TabIndex = 129
+        Me.LinkLabel33.TabStop = True
+        Me.LinkLabel33.Text = "link3"
+        Me.LinkLabel33.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel33.Visible = False
         '
-        'dtSYOCHI_C_YMD
+        'LinkLabel34
         '
-        Me.dtSYOCHI_C_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtSYOCHI_C_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtSYOCHI_C_YMD.Location = New System.Drawing.Point(812, 135)
-        Me.dtSYOCHI_C_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtSYOCHI_C_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtSYOCHI_C_YMD.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtSYOCHI_C_YMD.Name = "dtSYOCHI_C_YMD"
-        Me.dtSYOCHI_C_YMD.ReadOnly = False
-        Me.dtSYOCHI_C_YMD.Size = New System.Drawing.Size(98, 24)
-        Me.dtSYOCHI_C_YMD.TabIndex = 6
-        Me.dtSYOCHI_C_YMD.Value = ""
-        Me.dtSYOCHI_C_YMD.ValueNonFormat = ""
+        Me.LinkLabel34.AutoSize = True
+        Me.LinkLabel34.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnltmpFile2.SetFlowBreak(Me.LinkLabel34, True)
+        Me.LinkLabel34.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel34.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel34.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel34.Location = New System.Drawing.Point(37, 34)
+        Me.LinkLabel34.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel34.Name = "LinkLabel34"
+        Me.LinkLabel34.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel34.TabIndex = 130
+        Me.LinkLabel34.TabStop = True
+        Me.LinkLabel34.Text = "×"
+        Me.LinkLabel34.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel34.Visible = False
         '
-        'cmbSYOCHI_C_TANTO
+        'LinkLabel35
         '
-        Me.cmbSYOCHI_C_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbSYOCHI_C_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYOCHI_C_TANTO.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbSYOCHI_C_TANTO.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbSYOCHI_C_TANTO.DisplayMember = "DISP"
-        Me.cmbSYOCHI_C_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbSYOCHI_C_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbSYOCHI_C_TANTO.FormattingEnabled = True
-        Me.cmbSYOCHI_C_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbSYOCHI_C_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSYOCHI_C_TANTO.Location = New System.Drawing.Point(812, 104)
-        Me.cmbSYOCHI_C_TANTO.Name = "cmbSYOCHI_C_TANTO"
-        Me.cmbSYOCHI_C_TANTO.NullValue = " "
-        Me.cmbSYOCHI_C_TANTO.ReadOnly = False
-        Me.cmbSYOCHI_C_TANTO.Selected = False
-        Me.cmbSYOCHI_C_TANTO.Size = New System.Drawing.Size(154, 25)
-        Me.cmbSYOCHI_C_TANTO.TabIndex = 4
-        Me.cmbSYOCHI_C_TANTO.Text = "(選択)"
-        Me.cmbSYOCHI_C_TANTO.ValueMember = "VALUE"
+        Me.LinkLabel35.AutoSize = True
+        Me.LinkLabel35.Location = New System.Drawing.Point(0, 51)
+        Me.LinkLabel35.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel35.Name = "LinkLabel35"
+        Me.LinkLabel35.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel35.TabIndex = 129
+        Me.LinkLabel35.TabStop = True
+        Me.LinkLabel35.Text = "link4"
+        Me.LinkLabel35.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel35.Visible = False
         '
-        'Label39
+        'LinkLabel36
         '
-        Me.Label39.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label39.Location = New System.Drawing.Point(403, 140)
-        Me.Label39.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(79, 15)
-        Me.Label39.TabIndex = 230
-        Me.Label39.Text = "実施日:"
-        Me.Label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LinkLabel36.AutoSize = True
+        Me.LinkLabel36.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnltmpFile2.SetFlowBreak(Me.LinkLabel36, True)
+        Me.LinkLabel36.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel36.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel36.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel36.Location = New System.Drawing.Point(37, 51)
+        Me.LinkLabel36.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel36.Name = "LinkLabel36"
+        Me.LinkLabel36.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel36.TabIndex = 130
+        Me.LinkLabel36.TabStop = True
+        Me.LinkLabel36.Text = "×"
+        Me.LinkLabel36.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel36.Visible = False
         '
-        'cmbSYOCHI_A_TANTO
+        'LinkLabel37
         '
-        Me.cmbSYOCHI_A_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbSYOCHI_A_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYOCHI_A_TANTO.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbSYOCHI_A_TANTO.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbSYOCHI_A_TANTO.DisplayMember = "DISP"
-        Me.cmbSYOCHI_A_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbSYOCHI_A_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbSYOCHI_A_TANTO.FormattingEnabled = True
-        Me.cmbSYOCHI_A_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbSYOCHI_A_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSYOCHI_A_TANTO.Location = New System.Drawing.Point(96, 104)
-        Me.cmbSYOCHI_A_TANTO.Name = "cmbSYOCHI_A_TANTO"
-        Me.cmbSYOCHI_A_TANTO.NullValue = " "
-        Me.cmbSYOCHI_A_TANTO.ReadOnly = False
-        Me.cmbSYOCHI_A_TANTO.Selected = False
-        Me.cmbSYOCHI_A_TANTO.Size = New System.Drawing.Size(154, 25)
-        Me.cmbSYOCHI_A_TANTO.TabIndex = 2
-        Me.cmbSYOCHI_A_TANTO.Text = "(選択)"
-        Me.cmbSYOCHI_A_TANTO.ValueMember = "VALUE"
+        Me.LinkLabel37.AutoSize = True
+        Me.LinkLabel37.Location = New System.Drawing.Point(0, 68)
+        Me.LinkLabel37.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel37.Name = "LinkLabel37"
+        Me.LinkLabel37.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel37.TabIndex = 129
+        Me.LinkLabel37.TabStop = True
+        Me.LinkLabel37.Text = "link5"
+        Me.LinkLabel37.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel37.Visible = False
         '
-        'Label50
+        'LinkLabel38
         '
-        Me.Label50.AutoSize = True
-        Me.Label50.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label50.Location = New System.Drawing.Point(5, 49)
-        Me.Label50.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label50.Name = "Label50"
-        Me.Label50.Size = New System.Drawing.Size(87, 15)
-        Me.Label50.TabIndex = 255
-        Me.Label50.Text = "教育記録リンク:"
-        Me.Label50.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.LinkLabel38.AutoSize = True
+        Me.LinkLabel38.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnltmpFile2.SetFlowBreak(Me.LinkLabel38, True)
+        Me.LinkLabel38.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel38.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel38.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel38.Location = New System.Drawing.Point(37, 68)
+        Me.LinkLabel38.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel38.Name = "LinkLabel38"
+        Me.LinkLabel38.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel38.TabIndex = 130
+        Me.LinkLabel38.TabStop = True
+        Me.LinkLabel38.Text = "×"
+        Me.LinkLabel38.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel38.Visible = False
         '
-        'cmbSYOCHI_B_TANTO
+        'Label48
         '
-        Me.cmbSYOCHI_B_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbSYOCHI_B_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYOCHI_B_TANTO.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbSYOCHI_B_TANTO.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbSYOCHI_B_TANTO.DisplayMember = "DISP"
-        Me.cmbSYOCHI_B_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbSYOCHI_B_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbSYOCHI_B_TANTO.FormattingEnabled = True
-        Me.cmbSYOCHI_B_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbSYOCHI_B_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSYOCHI_B_TANTO.Location = New System.Drawing.Point(488, 104)
-        Me.cmbSYOCHI_B_TANTO.Name = "cmbSYOCHI_B_TANTO"
-        Me.cmbSYOCHI_B_TANTO.NullValue = " "
-        Me.cmbSYOCHI_B_TANTO.ReadOnly = False
-        Me.cmbSYOCHI_B_TANTO.Selected = False
-        Me.cmbSYOCHI_B_TANTO.Size = New System.Drawing.Size(154, 25)
-        Me.cmbSYOCHI_B_TANTO.TabIndex = 3
-        Me.cmbSYOCHI_B_TANTO.Text = "(選択)"
-        Me.cmbSYOCHI_B_TANTO.ValueMember = "VALUE"
+        Me.Label48.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label48.Location = New System.Drawing.Point(11, 37)
+        Me.Label48.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label48.Name = "Label48"
+        Me.Label48.Size = New System.Drawing.Size(68, 15)
+        Me.Label48.TabIndex = 319
+        Me.Label48.Text = "添付資料1:"
+        Me.Label48.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label74
+        'btnOpentmpFile2
         '
-        Me.Label74.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label74.Location = New System.Drawing.Point(11, 140)
-        Me.Label74.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label74.Name = "Label74"
-        Me.Label74.Size = New System.Drawing.Size(79, 15)
-        Me.Label74.TabIndex = 230
-        Me.Label74.Text = "実施日:"
-        Me.Label74.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnOpentmpFile2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnOpentmpFile2.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
+        Me.btnOpentmpFile2.Location = New System.Drawing.Point(477, 62)
+        Me.btnOpentmpFile2.Name = "btnOpentmpFile2"
+        Me.btnOpentmpFile2.Size = New System.Drawing.Size(54, 24)
+        Me.btnOpentmpFile2.TabIndex = 318
+        Me.btnOpentmpFile2.UseVisualStyleBackColor = True
         '
-        'Label73
+        'Label49
         '
-        Me.Label73.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label73.Location = New System.Drawing.Point(11, 110)
-        Me.Label73.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label73.Name = "Label73"
-        Me.Label73.Size = New System.Drawing.Size(79, 15)
-        Me.Label73.TabIndex = 228
-        Me.Label73.Text = "担当GL:"
-        Me.Label73.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label49.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label49.Location = New System.Drawing.Point(11, 67)
+        Me.Label49.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label49.Name = "Label49"
+        Me.Label49.Size = New System.Drawing.Size(68, 15)
+        Me.Label49.TabIndex = 320
+        Me.Label49.Text = "添付資料2:"
+        Me.Label49.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'btnOpenKYOIKU_FILE_PATH
+        'fpnltmpFile1
         '
-        Me.btnOpenKYOIKU_FILE_PATH.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnOpenKYOIKU_FILE_PATH.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.btnOpenKYOIKU_FILE_PATH.Location = New System.Drawing.Point(488, 41)
-        Me.btnOpenKYOIKU_FILE_PATH.Name = "btnOpenKYOIKU_FILE_PATH"
-        Me.btnOpenKYOIKU_FILE_PATH.Size = New System.Drawing.Size(54, 24)
-        Me.btnOpenKYOIKU_FILE_PATH.TabIndex = 1
-        Me.btnOpenKYOIKU_FILE_PATH.UseVisualStyleBackColor = True
+        Me.fpnltmpFile1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.fpnltmpFile1.Controls.Add(Me.lbltmpFile1)
+        Me.fpnltmpFile1.Controls.Add(Me.lbltmpFile1_Clear)
+        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel21)
+        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel22)
+        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel23)
+        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel24)
+        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel25)
+        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel26)
+        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel27)
+        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel28)
+        Me.fpnltmpFile1.Location = New System.Drawing.Point(85, 34)
+        Me.fpnltmpFile1.Name = "fpnltmpFile1"
+        Me.fpnltmpFile1.Size = New System.Drawing.Size(386, 22)
+        Me.fpnltmpFile1.TabIndex = 315
         '
-        'Label38
+        'lbltmpFile1
         '
-        Me.Label38.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label38.Location = New System.Drawing.Point(403, 110)
-        Me.Label38.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(79, 15)
-        Me.Label38.TabIndex = 228
-        Me.Label38.Text = "担当GL:"
-        Me.Label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lbltmpFile1.AutoSize = True
+        Me.lbltmpFile1.Location = New System.Drawing.Point(0, 0)
+        Me.lbltmpFile1.Margin = New System.Windows.Forms.Padding(0)
+        Me.lbltmpFile1.Name = "lbltmpFile1"
+        Me.lbltmpFile1.Size = New System.Drawing.Size(37, 17)
+        Me.lbltmpFile1.TabIndex = 126
+        Me.lbltmpFile1.TabStop = True
+        Me.lbltmpFile1.Text = "link1"
+        Me.lbltmpFile1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbltmpFile1.Visible = False
         '
-        'Label40
+        'lbltmpFile1_Clear
         '
-        Me.Label40.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label40.Location = New System.Drawing.Point(727, 110)
-        Me.Label40.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(79, 15)
-        Me.Label40.TabIndex = 228
-        Me.Label40.Text = "担当GL:"
-        Me.Label40.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lbltmpFile1_Clear.AutoSize = True
+        Me.lbltmpFile1_Clear.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnltmpFile1.SetFlowBreak(Me.lbltmpFile1_Clear, True)
+        Me.lbltmpFile1_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lbltmpFile1_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.lbltmpFile1_Clear.LinkColor = System.Drawing.Color.Red
+        Me.lbltmpFile1_Clear.Location = New System.Drawing.Point(37, 0)
+        Me.lbltmpFile1_Clear.Margin = New System.Windows.Forms.Padding(0)
+        Me.lbltmpFile1_Clear.Name = "lbltmpFile1_Clear"
+        Me.lbltmpFile1_Clear.Size = New System.Drawing.Size(19, 17)
+        Me.lbltmpFile1_Clear.TabIndex = 128
+        Me.lbltmpFile1_Clear.TabStop = True
+        Me.lbltmpFile1_Clear.Text = "×"
+        Me.lbltmpFile1_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbltmpFile1_Clear.Visible = False
         '
-        'fpnlKYOIKU_FILE_PATH
+        'LinkLabel21
         '
-        Me.fpnlKYOIKU_FILE_PATH.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.lblKYOIKU_FILE_PATH)
-        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.lblKYOIKU_FILE_PATH_Clear)
-        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel11)
-        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel12)
-        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel13)
-        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel14)
-        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel15)
-        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel16)
-        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel17)
-        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel18)
-        Me.fpnlKYOIKU_FILE_PATH.Location = New System.Drawing.Point(96, 42)
-        Me.fpnlKYOIKU_FILE_PATH.Name = "fpnlKYOIKU_FILE_PATH"
-        Me.fpnlKYOIKU_FILE_PATH.Size = New System.Drawing.Size(386, 22)
-        Me.fpnlKYOIKU_FILE_PATH.TabIndex = 0
+        Me.LinkLabel21.AutoSize = True
+        Me.LinkLabel21.Location = New System.Drawing.Point(0, 17)
+        Me.LinkLabel21.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel21.Name = "LinkLabel21"
+        Me.LinkLabel21.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel21.TabIndex = 129
+        Me.LinkLabel21.TabStop = True
+        Me.LinkLabel21.Text = "link2"
+        Me.LinkLabel21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel21.Visible = False
         '
-        'lblKYOIKU_FILE_PATH
+        'LinkLabel22
         '
-        Me.lblKYOIKU_FILE_PATH.AutoSize = True
-        Me.lblKYOIKU_FILE_PATH.Dock = System.Windows.Forms.DockStyle.Left
-        Me.lblKYOIKU_FILE_PATH.Location = New System.Drawing.Point(0, 0)
-        Me.lblKYOIKU_FILE_PATH.Margin = New System.Windows.Forms.Padding(0)
-        Me.lblKYOIKU_FILE_PATH.Name = "lblKYOIKU_FILE_PATH"
-        Me.lblKYOIKU_FILE_PATH.Size = New System.Drawing.Size(37, 17)
-        Me.lblKYOIKU_FILE_PATH.TabIndex = 126
-        Me.lblKYOIKU_FILE_PATH.TabStop = True
-        Me.lblKYOIKU_FILE_PATH.Text = "link1"
-        Me.lblKYOIKU_FILE_PATH.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblKYOIKU_FILE_PATH.Visible = False
+        Me.LinkLabel22.AutoSize = True
+        Me.LinkLabel22.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnltmpFile1.SetFlowBreak(Me.LinkLabel22, True)
+        Me.LinkLabel22.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel22.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel22.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel22.Location = New System.Drawing.Point(37, 17)
+        Me.LinkLabel22.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel22.Name = "LinkLabel22"
+        Me.LinkLabel22.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel22.TabIndex = 130
+        Me.LinkLabel22.TabStop = True
+        Me.LinkLabel22.Text = "×"
+        Me.LinkLabel22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel22.Visible = False
         '
-        'lblKYOIKU_FILE_PATH_Clear
+        'LinkLabel23
         '
-        Me.lblKYOIKU_FILE_PATH_Clear.AutoSize = True
-        Me.lblKYOIKU_FILE_PATH_Clear.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lblKYOIKU_FILE_PATH_Clear.Dock = System.Windows.Forms.DockStyle.Right
-        Me.fpnlKYOIKU_FILE_PATH.SetFlowBreak(Me.lblKYOIKU_FILE_PATH_Clear, True)
-        Me.lblKYOIKU_FILE_PATH_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblKYOIKU_FILE_PATH_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.lblKYOIKU_FILE_PATH_Clear.LinkColor = System.Drawing.Color.Red
-        Me.lblKYOIKU_FILE_PATH_Clear.Location = New System.Drawing.Point(37, 0)
-        Me.lblKYOIKU_FILE_PATH_Clear.Margin = New System.Windows.Forms.Padding(0)
-        Me.lblKYOIKU_FILE_PATH_Clear.Name = "lblKYOIKU_FILE_PATH_Clear"
-        Me.lblKYOIKU_FILE_PATH_Clear.Size = New System.Drawing.Size(19, 17)
-        Me.lblKYOIKU_FILE_PATH_Clear.TabIndex = 128
-        Me.lblKYOIKU_FILE_PATH_Clear.TabStop = True
-        Me.lblKYOIKU_FILE_PATH_Clear.Text = "×"
-        Me.lblKYOIKU_FILE_PATH_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.lblKYOIKU_FILE_PATH_Clear.Visible = False
+        Me.LinkLabel23.AutoSize = True
+        Me.LinkLabel23.Location = New System.Drawing.Point(0, 34)
+        Me.LinkLabel23.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel23.Name = "LinkLabel23"
+        Me.LinkLabel23.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel23.TabIndex = 129
+        Me.LinkLabel23.TabStop = True
+        Me.LinkLabel23.Text = "link3"
+        Me.LinkLabel23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel23.Visible = False
         '
-        'LinkLabel11
+        'LinkLabel24
         '
-        Me.LinkLabel11.AutoSize = True
-        Me.LinkLabel11.Location = New System.Drawing.Point(0, 17)
-        Me.LinkLabel11.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel11.Name = "LinkLabel11"
-        Me.LinkLabel11.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel11.TabIndex = 129
-        Me.LinkLabel11.TabStop = True
-        Me.LinkLabel11.Text = "link2"
-        Me.LinkLabel11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel11.Visible = False
+        Me.LinkLabel24.AutoSize = True
+        Me.LinkLabel24.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnltmpFile1.SetFlowBreak(Me.LinkLabel24, True)
+        Me.LinkLabel24.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel24.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel24.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel24.Location = New System.Drawing.Point(37, 34)
+        Me.LinkLabel24.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel24.Name = "LinkLabel24"
+        Me.LinkLabel24.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel24.TabIndex = 130
+        Me.LinkLabel24.TabStop = True
+        Me.LinkLabel24.Text = "×"
+        Me.LinkLabel24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel24.Visible = False
         '
-        'LinkLabel12
+        'LinkLabel25
         '
-        Me.LinkLabel12.AutoSize = True
-        Me.LinkLabel12.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnlKYOIKU_FILE_PATH.SetFlowBreak(Me.LinkLabel12, True)
-        Me.LinkLabel12.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel12.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel12.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel12.Location = New System.Drawing.Point(37, 17)
-        Me.LinkLabel12.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel12.Name = "LinkLabel12"
-        Me.LinkLabel12.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel12.TabIndex = 130
-        Me.LinkLabel12.TabStop = True
-        Me.LinkLabel12.Text = "×"
-        Me.LinkLabel12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel12.Visible = False
+        Me.LinkLabel25.AutoSize = True
+        Me.LinkLabel25.Location = New System.Drawing.Point(0, 51)
+        Me.LinkLabel25.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel25.Name = "LinkLabel25"
+        Me.LinkLabel25.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel25.TabIndex = 129
+        Me.LinkLabel25.TabStop = True
+        Me.LinkLabel25.Text = "link4"
+        Me.LinkLabel25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel25.Visible = False
         '
-        'LinkLabel13
+        'LinkLabel26
         '
-        Me.LinkLabel13.AutoSize = True
-        Me.LinkLabel13.Location = New System.Drawing.Point(0, 34)
-        Me.LinkLabel13.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel13.Name = "LinkLabel13"
-        Me.LinkLabel13.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel13.TabIndex = 129
-        Me.LinkLabel13.TabStop = True
-        Me.LinkLabel13.Text = "link3"
-        Me.LinkLabel13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel13.Visible = False
+        Me.LinkLabel26.AutoSize = True
+        Me.LinkLabel26.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnltmpFile1.SetFlowBreak(Me.LinkLabel26, True)
+        Me.LinkLabel26.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel26.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel26.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel26.Location = New System.Drawing.Point(37, 51)
+        Me.LinkLabel26.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel26.Name = "LinkLabel26"
+        Me.LinkLabel26.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel26.TabIndex = 130
+        Me.LinkLabel26.TabStop = True
+        Me.LinkLabel26.Text = "×"
+        Me.LinkLabel26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel26.Visible = False
         '
-        'LinkLabel14
+        'LinkLabel27
         '
-        Me.LinkLabel14.AutoSize = True
-        Me.LinkLabel14.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnlKYOIKU_FILE_PATH.SetFlowBreak(Me.LinkLabel14, True)
-        Me.LinkLabel14.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel14.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel14.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel14.Location = New System.Drawing.Point(37, 34)
-        Me.LinkLabel14.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel14.Name = "LinkLabel14"
-        Me.LinkLabel14.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel14.TabIndex = 130
-        Me.LinkLabel14.TabStop = True
-        Me.LinkLabel14.Text = "×"
-        Me.LinkLabel14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel14.Visible = False
+        Me.LinkLabel27.AutoSize = True
+        Me.LinkLabel27.Location = New System.Drawing.Point(0, 68)
+        Me.LinkLabel27.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel27.Name = "LinkLabel27"
+        Me.LinkLabel27.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel27.TabIndex = 129
+        Me.LinkLabel27.TabStop = True
+        Me.LinkLabel27.Text = "link5"
+        Me.LinkLabel27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel27.Visible = False
         '
-        'LinkLabel15
+        'LinkLabel28
         '
-        Me.LinkLabel15.AutoSize = True
-        Me.LinkLabel15.Location = New System.Drawing.Point(0, 51)
-        Me.LinkLabel15.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel15.Name = "LinkLabel15"
-        Me.LinkLabel15.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel15.TabIndex = 129
-        Me.LinkLabel15.TabStop = True
-        Me.LinkLabel15.Text = "link4"
-        Me.LinkLabel15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel15.Visible = False
+        Me.LinkLabel28.AutoSize = True
+        Me.LinkLabel28.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnltmpFile1.SetFlowBreak(Me.LinkLabel28, True)
+        Me.LinkLabel28.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel28.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel28.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel28.Location = New System.Drawing.Point(37, 68)
+        Me.LinkLabel28.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel28.Name = "LinkLabel28"
+        Me.LinkLabel28.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel28.TabIndex = 130
+        Me.LinkLabel28.TabStop = True
+        Me.LinkLabel28.Text = "×"
+        Me.LinkLabel28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel28.Visible = False
         '
-        'LinkLabel16
+        'btnOpentmpFile1
         '
-        Me.LinkLabel16.AutoSize = True
-        Me.LinkLabel16.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnlKYOIKU_FILE_PATH.SetFlowBreak(Me.LinkLabel16, True)
-        Me.LinkLabel16.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel16.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel16.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel16.Location = New System.Drawing.Point(37, 51)
-        Me.LinkLabel16.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel16.Name = "LinkLabel16"
-        Me.LinkLabel16.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel16.TabIndex = 130
-        Me.LinkLabel16.TabStop = True
-        Me.LinkLabel16.Text = "×"
-        Me.LinkLabel16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel16.Visible = False
+        Me.btnOpentmpFile1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnOpentmpFile1.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
+        Me.btnOpentmpFile1.Location = New System.Drawing.Point(477, 32)
+        Me.btnOpentmpFile1.Name = "btnOpentmpFile1"
+        Me.btnOpentmpFile1.Size = New System.Drawing.Size(54, 24)
+        Me.btnOpentmpFile1.TabIndex = 316
+        Me.btnOpentmpFile1.UseVisualStyleBackColor = True
         '
-        'LinkLabel17
+        'Label20
         '
-        Me.LinkLabel17.AutoSize = True
-        Me.LinkLabel17.Location = New System.Drawing.Point(0, 68)
-        Me.LinkLabel17.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel17.Name = "LinkLabel17"
-        Me.LinkLabel17.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel17.TabIndex = 0
-        Me.LinkLabel17.TabStop = True
-        Me.LinkLabel17.Text = "link5"
-        Me.LinkLabel17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel17.Visible = False
-        '
-        'LinkLabel18
-        '
-        Me.LinkLabel18.AutoSize = True
-        Me.LinkLabel18.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnlKYOIKU_FILE_PATH.SetFlowBreak(Me.LinkLabel18, True)
-        Me.LinkLabel18.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel18.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel18.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel18.Location = New System.Drawing.Point(37, 68)
-        Me.LinkLabel18.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel18.Name = "LinkLabel18"
-        Me.LinkLabel18.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel18.TabIndex = 130
-        Me.LinkLabel18.TabStop = True
-        Me.LinkLabel18.Text = "×"
-        Me.LinkLabel18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel18.Visible = False
-        '
-        'lblSTAGE12
-        '
-        Me.lblSTAGE12.AutoSize = True
-        Me.lblSTAGE12.BackColor = System.Drawing.Color.Wheat
-        Me.lblSTAGE12.Font = New System.Drawing.Font("Meiryo UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSTAGE12.Location = New System.Drawing.Point(4, 5)
-        Me.lblSTAGE12.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.lblSTAGE12.Name = "lblSTAGE12"
-        Me.lblSTAGE12.Size = New System.Drawing.Size(124, 24)
-        Me.lblSTAGE12.TabIndex = 313
-        Me.lblSTAGE12.Text = "処置実施記録"
-        Me.lblSTAGE12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label20.AutoSize = True
+        Me.Label20.BackColor = System.Drawing.Color.Wheat
+        Me.Label20.Font = New System.Drawing.Font("Meiryo UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label20.Location = New System.Drawing.Point(3, 5)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(86, 24)
+        Me.Label20.TabIndex = 314
+        Me.Label20.Text = "添付資料"
+        Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'pnlZESEI_SYOCHI
         '
         Me.pnlZESEI_SYOCHI.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.pnlZESEI_SYOCHI.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.pnlZESEI_SYOCHI.BackColor = System.Drawing.Color.Transparent
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.Label31)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.Label15)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.FlowLayoutPanel3)
@@ -2472,11 +1194,12 @@ Partial Class FrmG0012
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.mtxLOT)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.cmbKENSA_TANTO)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.mtxGOKI)
-        Me.pnlZESEI_SYOCHI.Location = New System.Drawing.Point(6, 558)
-        Me.pnlZESEI_SYOCHI.Margin = New System.Windows.Forms.Padding(0)
+        Me.pnlZESEI_SYOCHI.HitEnabled = False
+        Me.pnlZESEI_SYOCHI.Location = New System.Drawing.Point(6, 935)
+        Me.pnlZESEI_SYOCHI.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlZESEI_SYOCHI.Name = "pnlZESEI_SYOCHI"
         Me.pnlZESEI_SYOCHI.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlZESEI_SYOCHI.Size = New System.Drawing.Size(1205, 126)
+        Me.pnlZESEI_SYOCHI.Size = New System.Drawing.Size(1139, 126)
         Me.pnlZESEI_SYOCHI.TabIndex = 313
         '
         'Label31
@@ -2916,430 +1639,1890 @@ Partial Class FrmG0012
         Me.mtxGOKI.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxGOKI.WatermarkText = Nothing
         '
-        'pnlTEMP_SIRYO
+        'pnlSYOCHI_KIROKU
         '
-        Me.pnlTEMP_SIRYO.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.pnlSYOCHI_KIROKU.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.pnlTEMP_SIRYO.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.pnlTEMP_SIRYO.Controls.Add(Me.fpnltmpFile2)
-        Me.pnlTEMP_SIRYO.Controls.Add(Me.Label48)
-        Me.pnlTEMP_SIRYO.Controls.Add(Me.btnOpentmpFile2)
-        Me.pnlTEMP_SIRYO.Controls.Add(Me.Label49)
-        Me.pnlTEMP_SIRYO.Controls.Add(Me.fpnltmpFile1)
-        Me.pnlTEMP_SIRYO.Controls.Add(Me.btnOpentmpFile1)
-        Me.pnlTEMP_SIRYO.Controls.Add(Me.Label20)
-        Me.pnlTEMP_SIRYO.Location = New System.Drawing.Point(6, 689)
-        Me.pnlTEMP_SIRYO.Margin = New System.Windows.Forms.Padding(0)
-        Me.pnlTEMP_SIRYO.Name = "pnlTEMP_SIRYO"
-        Me.pnlTEMP_SIRYO.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlTEMP_SIRYO.Size = New System.Drawing.Size(1205, 97)
-        Me.pnlTEMP_SIRYO.TabIndex = 315
+        Me.pnlSYOCHI_KIROKU.BackColor = System.Drawing.Color.Transparent
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.dtSYOCHI_A_YMD)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label13)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.lblSTAGE12)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.dtSYOCHI_B_YMD)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label12)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label41)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label11)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.dtSYOCHI_C_YMD)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.cmbSYOCHI_C_TANTO)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label39)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.cmbSYOCHI_A_TANTO)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label50)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.cmbSYOCHI_B_TANTO)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label74)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label73)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.btnOpenKYOIKU_FILE_PATH)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label38)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label40)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.fpnlKYOIKU_FILE_PATH)
+        Me.pnlSYOCHI_KIROKU.HitEnabled = False
+        Me.pnlSYOCHI_KIROKU.Location = New System.Drawing.Point(6, 764)
+        Me.pnlSYOCHI_KIROKU.Margin = New System.Windows.Forms.Padding(2)
+        Me.pnlSYOCHI_KIROKU.Name = "pnlSYOCHI_KIROKU"
+        Me.pnlSYOCHI_KIROKU.Padding = New System.Windows.Forms.Padding(2)
+        Me.pnlSYOCHI_KIROKU.Size = New System.Drawing.Size(1139, 167)
+        Me.pnlSYOCHI_KIROKU.TabIndex = 312
         '
-        'Label20
+        'dtSYOCHI_A_YMD
         '
-        Me.Label20.AutoSize = True
-        Me.Label20.BackColor = System.Drawing.Color.Wheat
-        Me.Label20.Font = New System.Drawing.Font("Meiryo UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label20.Location = New System.Drawing.Point(3, 5)
-        Me.Label20.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(86, 24)
-        Me.Label20.TabIndex = 314
-        Me.Label20.Text = "添付資料"
-        Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.dtSYOCHI_A_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtSYOCHI_A_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtSYOCHI_A_YMD.Location = New System.Drawing.Point(96, 135)
+        Me.dtSYOCHI_A_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtSYOCHI_A_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtSYOCHI_A_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtSYOCHI_A_YMD.Name = "dtSYOCHI_A_YMD"
+        Me.dtSYOCHI_A_YMD.ReadOnly = False
+        Me.dtSYOCHI_A_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtSYOCHI_A_YMD.TabIndex = 3
+        Me.dtSYOCHI_A_YMD.Value = ""
+        Me.dtSYOCHI_A_YMD.ValueNonFormat = ""
         '
-        'fpnltmpFile2
+        'Label13
         '
-        Me.fpnltmpFile2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.fpnltmpFile2.Controls.Add(Me.lbltmpFile2)
-        Me.fpnltmpFile2.Controls.Add(Me.lbltmpFile2_Clear)
-        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel31)
-        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel32)
-        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel33)
-        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel34)
-        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel35)
-        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel36)
-        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel37)
-        Me.fpnltmpFile2.Controls.Add(Me.LinkLabel38)
-        Me.fpnltmpFile2.Location = New System.Drawing.Point(85, 64)
-        Me.fpnltmpFile2.Name = "fpnltmpFile2"
-        Me.fpnltmpFile2.Size = New System.Drawing.Size(386, 22)
-        Me.fpnltmpFile2.TabIndex = 317
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label13.ForeColor = System.Drawing.Color.Red
+        Me.Label13.Location = New System.Drawing.Point(448, 81)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(262, 15)
+        Me.Label13.TabIndex = 269
+        Me.Label13.Text = "[ B ] 是正処置(根本原因に対する再発防止処置)"
+        Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'lbltmpFile2
+        'lblSTAGE12
         '
-        Me.lbltmpFile2.AutoSize = True
-        Me.lbltmpFile2.Location = New System.Drawing.Point(0, 0)
-        Me.lbltmpFile2.Margin = New System.Windows.Forms.Padding(0)
-        Me.lbltmpFile2.Name = "lbltmpFile2"
-        Me.lbltmpFile2.Size = New System.Drawing.Size(37, 17)
-        Me.lbltmpFile2.TabIndex = 126
-        Me.lbltmpFile2.TabStop = True
-        Me.lbltmpFile2.Text = "link1"
-        Me.lbltmpFile2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lbltmpFile2.Visible = False
+        Me.lblSTAGE12.AutoSize = True
+        Me.lblSTAGE12.BackColor = System.Drawing.Color.Wheat
+        Me.lblSTAGE12.Font = New System.Drawing.Font("Meiryo UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSTAGE12.Location = New System.Drawing.Point(4, 5)
+        Me.lblSTAGE12.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblSTAGE12.Name = "lblSTAGE12"
+        Me.lblSTAGE12.Size = New System.Drawing.Size(124, 24)
+        Me.lblSTAGE12.TabIndex = 313
+        Me.lblSTAGE12.Text = "処置実施記録"
+        Me.lblSTAGE12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'lbltmpFile2_Clear
+        'dtSYOCHI_B_YMD
         '
-        Me.lbltmpFile2_Clear.AutoSize = True
-        Me.lbltmpFile2_Clear.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnltmpFile2.SetFlowBreak(Me.lbltmpFile2_Clear, True)
-        Me.lbltmpFile2_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lbltmpFile2_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.lbltmpFile2_Clear.LinkColor = System.Drawing.Color.Red
-        Me.lbltmpFile2_Clear.Location = New System.Drawing.Point(37, 0)
-        Me.lbltmpFile2_Clear.Margin = New System.Windows.Forms.Padding(0)
-        Me.lbltmpFile2_Clear.Name = "lbltmpFile2_Clear"
-        Me.lbltmpFile2_Clear.Size = New System.Drawing.Size(19, 17)
-        Me.lbltmpFile2_Clear.TabIndex = 128
-        Me.lbltmpFile2_Clear.TabStop = True
-        Me.lbltmpFile2_Clear.Text = "×"
-        Me.lbltmpFile2_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lbltmpFile2_Clear.Visible = False
+        Me.dtSYOCHI_B_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtSYOCHI_B_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtSYOCHI_B_YMD.Location = New System.Drawing.Point(488, 135)
+        Me.dtSYOCHI_B_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtSYOCHI_B_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtSYOCHI_B_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtSYOCHI_B_YMD.Name = "dtSYOCHI_B_YMD"
+        Me.dtSYOCHI_B_YMD.ReadOnly = False
+        Me.dtSYOCHI_B_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtSYOCHI_B_YMD.TabIndex = 5
+        Me.dtSYOCHI_B_YMD.Value = ""
+        Me.dtSYOCHI_B_YMD.ValueNonFormat = ""
         '
-        'LinkLabel31
+        'Label12
         '
-        Me.LinkLabel31.AutoSize = True
-        Me.LinkLabel31.Location = New System.Drawing.Point(0, 17)
-        Me.LinkLabel31.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel31.Name = "LinkLabel31"
-        Me.LinkLabel31.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel31.TabIndex = 129
-        Me.LinkLabel31.TabStop = True
-        Me.LinkLabel31.Text = "link2"
-        Me.LinkLabel31.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel31.Visible = False
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label12.ForeColor = System.Drawing.Color.Red
+        Me.Label12.Location = New System.Drawing.Point(772, 81)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(167, 15)
+        Me.Label12.TabIndex = 268
+        Me.Label12.Text = "[ C ] 処置の水平展開(横通し)"
+        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'LinkLabel32
+        'Label41
         '
-        Me.LinkLabel32.AutoSize = True
-        Me.LinkLabel32.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnltmpFile2.SetFlowBreak(Me.LinkLabel32, True)
-        Me.LinkLabel32.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel32.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel32.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel32.Location = New System.Drawing.Point(37, 17)
-        Me.LinkLabel32.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel32.Name = "LinkLabel32"
-        Me.LinkLabel32.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel32.TabIndex = 130
-        Me.LinkLabel32.TabStop = True
-        Me.LinkLabel32.Text = "×"
-        Me.LinkLabel32.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel32.Visible = False
+        Me.Label41.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label41.Location = New System.Drawing.Point(727, 140)
+        Me.Label41.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label41.Name = "Label41"
+        Me.Label41.Size = New System.Drawing.Size(79, 15)
+        Me.Label41.TabIndex = 230
+        Me.Label41.Text = "実施日:"
+        Me.Label41.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'LinkLabel33
+        'Label11
         '
-        Me.LinkLabel33.AutoSize = True
-        Me.LinkLabel33.Location = New System.Drawing.Point(0, 34)
-        Me.LinkLabel33.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel33.Name = "LinkLabel33"
-        Me.LinkLabel33.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel33.TabIndex = 129
-        Me.LinkLabel33.TabStop = True
-        Me.LinkLabel33.Text = "link3"
-        Me.LinkLabel33.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel33.Visible = False
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label11.ForeColor = System.Drawing.Color.Red
+        Me.Label11.Location = New System.Drawing.Point(56, 81)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(376, 15)
+        Me.Label11.TabIndex = 267
+        Me.Label11.Text = "[ A ] 修正・応急処置(不適合状態の修正、直接原因の応急的是正処置)"
+        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'LinkLabel34
+        'dtSYOCHI_C_YMD
         '
-        Me.LinkLabel34.AutoSize = True
-        Me.LinkLabel34.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnltmpFile2.SetFlowBreak(Me.LinkLabel34, True)
-        Me.LinkLabel34.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel34.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel34.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel34.Location = New System.Drawing.Point(37, 34)
-        Me.LinkLabel34.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel34.Name = "LinkLabel34"
-        Me.LinkLabel34.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel34.TabIndex = 130
-        Me.LinkLabel34.TabStop = True
-        Me.LinkLabel34.Text = "×"
-        Me.LinkLabel34.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel34.Visible = False
+        Me.dtSYOCHI_C_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtSYOCHI_C_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtSYOCHI_C_YMD.Location = New System.Drawing.Point(812, 135)
+        Me.dtSYOCHI_C_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtSYOCHI_C_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtSYOCHI_C_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtSYOCHI_C_YMD.Name = "dtSYOCHI_C_YMD"
+        Me.dtSYOCHI_C_YMD.ReadOnly = False
+        Me.dtSYOCHI_C_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtSYOCHI_C_YMD.TabIndex = 6
+        Me.dtSYOCHI_C_YMD.Value = ""
+        Me.dtSYOCHI_C_YMD.ValueNonFormat = ""
         '
-        'LinkLabel35
+        'cmbSYOCHI_C_TANTO
         '
-        Me.LinkLabel35.AutoSize = True
-        Me.LinkLabel35.Location = New System.Drawing.Point(0, 51)
-        Me.LinkLabel35.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel35.Name = "LinkLabel35"
-        Me.LinkLabel35.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel35.TabIndex = 129
-        Me.LinkLabel35.TabStop = True
-        Me.LinkLabel35.Text = "link4"
-        Me.LinkLabel35.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel35.Visible = False
+        Me.cmbSYOCHI_C_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYOCHI_C_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSYOCHI_C_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSYOCHI_C_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSYOCHI_C_TANTO.DisplayMember = "DISP"
+        Me.cmbSYOCHI_C_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSYOCHI_C_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSYOCHI_C_TANTO.FormattingEnabled = True
+        Me.cmbSYOCHI_C_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbSYOCHI_C_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbSYOCHI_C_TANTO.Location = New System.Drawing.Point(812, 104)
+        Me.cmbSYOCHI_C_TANTO.Name = "cmbSYOCHI_C_TANTO"
+        Me.cmbSYOCHI_C_TANTO.NullValue = " "
+        Me.cmbSYOCHI_C_TANTO.ReadOnly = False
+        Me.cmbSYOCHI_C_TANTO.Selected = False
+        Me.cmbSYOCHI_C_TANTO.Size = New System.Drawing.Size(154, 25)
+        Me.cmbSYOCHI_C_TANTO.TabIndex = 4
+        Me.cmbSYOCHI_C_TANTO.Text = "(選択)"
+        Me.cmbSYOCHI_C_TANTO.ValueMember = "VALUE"
         '
-        'LinkLabel36
+        'Label39
         '
-        Me.LinkLabel36.AutoSize = True
-        Me.LinkLabel36.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnltmpFile2.SetFlowBreak(Me.LinkLabel36, True)
-        Me.LinkLabel36.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel36.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel36.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel36.Location = New System.Drawing.Point(37, 51)
-        Me.LinkLabel36.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel36.Name = "LinkLabel36"
-        Me.LinkLabel36.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel36.TabIndex = 130
-        Me.LinkLabel36.TabStop = True
-        Me.LinkLabel36.Text = "×"
-        Me.LinkLabel36.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel36.Visible = False
+        Me.Label39.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label39.Location = New System.Drawing.Point(403, 140)
+        Me.Label39.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(79, 15)
+        Me.Label39.TabIndex = 230
+        Me.Label39.Text = "実施日:"
+        Me.Label39.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'LinkLabel37
+        'cmbSYOCHI_A_TANTO
         '
-        Me.LinkLabel37.AutoSize = True
-        Me.LinkLabel37.Location = New System.Drawing.Point(0, 68)
-        Me.LinkLabel37.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel37.Name = "LinkLabel37"
-        Me.LinkLabel37.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel37.TabIndex = 129
-        Me.LinkLabel37.TabStop = True
-        Me.LinkLabel37.Text = "link5"
-        Me.LinkLabel37.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel37.Visible = False
+        Me.cmbSYOCHI_A_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYOCHI_A_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSYOCHI_A_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSYOCHI_A_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSYOCHI_A_TANTO.DisplayMember = "DISP"
+        Me.cmbSYOCHI_A_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSYOCHI_A_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSYOCHI_A_TANTO.FormattingEnabled = True
+        Me.cmbSYOCHI_A_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbSYOCHI_A_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbSYOCHI_A_TANTO.Location = New System.Drawing.Point(96, 104)
+        Me.cmbSYOCHI_A_TANTO.Name = "cmbSYOCHI_A_TANTO"
+        Me.cmbSYOCHI_A_TANTO.NullValue = " "
+        Me.cmbSYOCHI_A_TANTO.ReadOnly = False
+        Me.cmbSYOCHI_A_TANTO.Selected = False
+        Me.cmbSYOCHI_A_TANTO.Size = New System.Drawing.Size(154, 25)
+        Me.cmbSYOCHI_A_TANTO.TabIndex = 2
+        Me.cmbSYOCHI_A_TANTO.Text = "(選択)"
+        Me.cmbSYOCHI_A_TANTO.ValueMember = "VALUE"
         '
-        'LinkLabel38
+        'Label50
         '
-        Me.LinkLabel38.AutoSize = True
-        Me.LinkLabel38.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnltmpFile2.SetFlowBreak(Me.LinkLabel38, True)
-        Me.LinkLabel38.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel38.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel38.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel38.Location = New System.Drawing.Point(37, 68)
-        Me.LinkLabel38.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel38.Name = "LinkLabel38"
-        Me.LinkLabel38.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel38.TabIndex = 130
-        Me.LinkLabel38.TabStop = True
-        Me.LinkLabel38.Text = "×"
-        Me.LinkLabel38.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel38.Visible = False
+        Me.Label50.AutoSize = True
+        Me.Label50.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label50.Location = New System.Drawing.Point(5, 49)
+        Me.Label50.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label50.Name = "Label50"
+        Me.Label50.Size = New System.Drawing.Size(87, 15)
+        Me.Label50.TabIndex = 255
+        Me.Label50.Text = "教育記録リンク:"
+        Me.Label50.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label48
+        'cmbSYOCHI_B_TANTO
         '
-        Me.Label48.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label48.Location = New System.Drawing.Point(11, 37)
-        Me.Label48.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label48.Name = "Label48"
-        Me.Label48.Size = New System.Drawing.Size(68, 15)
-        Me.Label48.TabIndex = 319
-        Me.Label48.Text = "添付資料1:"
-        Me.Label48.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmbSYOCHI_B_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYOCHI_B_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSYOCHI_B_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSYOCHI_B_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSYOCHI_B_TANTO.DisplayMember = "DISP"
+        Me.cmbSYOCHI_B_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSYOCHI_B_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSYOCHI_B_TANTO.FormattingEnabled = True
+        Me.cmbSYOCHI_B_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbSYOCHI_B_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbSYOCHI_B_TANTO.Location = New System.Drawing.Point(488, 104)
+        Me.cmbSYOCHI_B_TANTO.Name = "cmbSYOCHI_B_TANTO"
+        Me.cmbSYOCHI_B_TANTO.NullValue = " "
+        Me.cmbSYOCHI_B_TANTO.ReadOnly = False
+        Me.cmbSYOCHI_B_TANTO.Selected = False
+        Me.cmbSYOCHI_B_TANTO.Size = New System.Drawing.Size(154, 25)
+        Me.cmbSYOCHI_B_TANTO.TabIndex = 3
+        Me.cmbSYOCHI_B_TANTO.Text = "(選択)"
+        Me.cmbSYOCHI_B_TANTO.ValueMember = "VALUE"
         '
-        'btnOpentmpFile2
+        'Label74
         '
-        Me.btnOpentmpFile2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnOpentmpFile2.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.btnOpentmpFile2.Location = New System.Drawing.Point(477, 62)
-        Me.btnOpentmpFile2.Name = "btnOpentmpFile2"
-        Me.btnOpentmpFile2.Size = New System.Drawing.Size(54, 24)
-        Me.btnOpentmpFile2.TabIndex = 318
-        Me.btnOpentmpFile2.UseVisualStyleBackColor = True
+        Me.Label74.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label74.Location = New System.Drawing.Point(11, 140)
+        Me.Label74.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label74.Name = "Label74"
+        Me.Label74.Size = New System.Drawing.Size(79, 15)
+        Me.Label74.TabIndex = 230
+        Me.Label74.Text = "実施日:"
+        Me.Label74.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label49
+        'Label73
         '
-        Me.Label49.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label49.Location = New System.Drawing.Point(11, 67)
-        Me.Label49.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(68, 15)
-        Me.Label49.TabIndex = 320
-        Me.Label49.Text = "添付資料2:"
-        Me.Label49.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label73.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label73.Location = New System.Drawing.Point(11, 110)
+        Me.Label73.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label73.Name = "Label73"
+        Me.Label73.Size = New System.Drawing.Size(79, 15)
+        Me.Label73.TabIndex = 228
+        Me.Label73.Text = "担当GL:"
+        Me.Label73.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'fpnltmpFile1
+        'btnOpenKYOIKU_FILE_PATH
         '
-        Me.fpnltmpFile1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.fpnltmpFile1.Controls.Add(Me.lbltmpFile1)
-        Me.fpnltmpFile1.Controls.Add(Me.lbltmpFile1_Clear)
-        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel21)
-        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel22)
-        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel23)
-        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel24)
-        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel25)
-        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel26)
-        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel27)
-        Me.fpnltmpFile1.Controls.Add(Me.LinkLabel28)
-        Me.fpnltmpFile1.Location = New System.Drawing.Point(85, 34)
-        Me.fpnltmpFile1.Name = "fpnltmpFile1"
-        Me.fpnltmpFile1.Size = New System.Drawing.Size(386, 22)
-        Me.fpnltmpFile1.TabIndex = 315
+        Me.btnOpenKYOIKU_FILE_PATH.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnOpenKYOIKU_FILE_PATH.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
+        Me.btnOpenKYOIKU_FILE_PATH.Location = New System.Drawing.Point(488, 41)
+        Me.btnOpenKYOIKU_FILE_PATH.Name = "btnOpenKYOIKU_FILE_PATH"
+        Me.btnOpenKYOIKU_FILE_PATH.Size = New System.Drawing.Size(54, 24)
+        Me.btnOpenKYOIKU_FILE_PATH.TabIndex = 1
+        Me.btnOpenKYOIKU_FILE_PATH.UseVisualStyleBackColor = True
         '
-        'lbltmpFile1
+        'Label38
         '
-        Me.lbltmpFile1.AutoSize = True
-        Me.lbltmpFile1.Location = New System.Drawing.Point(0, 0)
-        Me.lbltmpFile1.Margin = New System.Windows.Forms.Padding(0)
-        Me.lbltmpFile1.Name = "lbltmpFile1"
-        Me.lbltmpFile1.Size = New System.Drawing.Size(37, 17)
-        Me.lbltmpFile1.TabIndex = 126
-        Me.lbltmpFile1.TabStop = True
-        Me.lbltmpFile1.Text = "link1"
-        Me.lbltmpFile1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lbltmpFile1.Visible = False
+        Me.Label38.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label38.Location = New System.Drawing.Point(403, 110)
+        Me.Label38.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(79, 15)
+        Me.Label38.TabIndex = 228
+        Me.Label38.Text = "担当GL:"
+        Me.Label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'lbltmpFile1_Clear
+        'Label40
         '
-        Me.lbltmpFile1_Clear.AutoSize = True
-        Me.lbltmpFile1_Clear.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnltmpFile1.SetFlowBreak(Me.lbltmpFile1_Clear, True)
-        Me.lbltmpFile1_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lbltmpFile1_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.lbltmpFile1_Clear.LinkColor = System.Drawing.Color.Red
-        Me.lbltmpFile1_Clear.Location = New System.Drawing.Point(37, 0)
-        Me.lbltmpFile1_Clear.Margin = New System.Windows.Forms.Padding(0)
-        Me.lbltmpFile1_Clear.Name = "lbltmpFile1_Clear"
-        Me.lbltmpFile1_Clear.Size = New System.Drawing.Size(19, 17)
-        Me.lbltmpFile1_Clear.TabIndex = 128
-        Me.lbltmpFile1_Clear.TabStop = True
-        Me.lbltmpFile1_Clear.Text = "×"
-        Me.lbltmpFile1_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lbltmpFile1_Clear.Visible = False
+        Me.Label40.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label40.Location = New System.Drawing.Point(727, 110)
+        Me.Label40.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label40.Name = "Label40"
+        Me.Label40.Size = New System.Drawing.Size(79, 15)
+        Me.Label40.TabIndex = 228
+        Me.Label40.Text = "担当GL:"
+        Me.Label40.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'LinkLabel21
+        'fpnlKYOIKU_FILE_PATH
         '
-        Me.LinkLabel21.AutoSize = True
-        Me.LinkLabel21.Location = New System.Drawing.Point(0, 17)
-        Me.LinkLabel21.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel21.Name = "LinkLabel21"
-        Me.LinkLabel21.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel21.TabIndex = 129
-        Me.LinkLabel21.TabStop = True
-        Me.LinkLabel21.Text = "link2"
-        Me.LinkLabel21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel21.Visible = False
+        Me.fpnlKYOIKU_FILE_PATH.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.lblKYOIKU_FILE_PATH)
+        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.lblKYOIKU_FILE_PATH_Clear)
+        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel11)
+        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel12)
+        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel13)
+        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel14)
+        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel15)
+        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel16)
+        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel17)
+        Me.fpnlKYOIKU_FILE_PATH.Controls.Add(Me.LinkLabel18)
+        Me.fpnlKYOIKU_FILE_PATH.Location = New System.Drawing.Point(96, 42)
+        Me.fpnlKYOIKU_FILE_PATH.Name = "fpnlKYOIKU_FILE_PATH"
+        Me.fpnlKYOIKU_FILE_PATH.Size = New System.Drawing.Size(386, 22)
+        Me.fpnlKYOIKU_FILE_PATH.TabIndex = 0
         '
-        'LinkLabel22
+        'lblKYOIKU_FILE_PATH
         '
-        Me.LinkLabel22.AutoSize = True
-        Me.LinkLabel22.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnltmpFile1.SetFlowBreak(Me.LinkLabel22, True)
-        Me.LinkLabel22.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel22.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel22.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel22.Location = New System.Drawing.Point(37, 17)
-        Me.LinkLabel22.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel22.Name = "LinkLabel22"
-        Me.LinkLabel22.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel22.TabIndex = 130
-        Me.LinkLabel22.TabStop = True
-        Me.LinkLabel22.Text = "×"
-        Me.LinkLabel22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel22.Visible = False
+        Me.lblKYOIKU_FILE_PATH.AutoSize = True
+        Me.lblKYOIKU_FILE_PATH.Dock = System.Windows.Forms.DockStyle.Left
+        Me.lblKYOIKU_FILE_PATH.Location = New System.Drawing.Point(0, 0)
+        Me.lblKYOIKU_FILE_PATH.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblKYOIKU_FILE_PATH.Name = "lblKYOIKU_FILE_PATH"
+        Me.lblKYOIKU_FILE_PATH.Size = New System.Drawing.Size(37, 17)
+        Me.lblKYOIKU_FILE_PATH.TabIndex = 126
+        Me.lblKYOIKU_FILE_PATH.TabStop = True
+        Me.lblKYOIKU_FILE_PATH.Text = "link1"
+        Me.lblKYOIKU_FILE_PATH.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblKYOIKU_FILE_PATH.Visible = False
         '
-        'LinkLabel23
+        'lblKYOIKU_FILE_PATH_Clear
         '
-        Me.LinkLabel23.AutoSize = True
-        Me.LinkLabel23.Location = New System.Drawing.Point(0, 34)
-        Me.LinkLabel23.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel23.Name = "LinkLabel23"
-        Me.LinkLabel23.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel23.TabIndex = 129
-        Me.LinkLabel23.TabStop = True
-        Me.LinkLabel23.Text = "link3"
-        Me.LinkLabel23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel23.Visible = False
+        Me.lblKYOIKU_FILE_PATH_Clear.AutoSize = True
+        Me.lblKYOIKU_FILE_PATH_Clear.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.lblKYOIKU_FILE_PATH_Clear.Dock = System.Windows.Forms.DockStyle.Right
+        Me.fpnlKYOIKU_FILE_PATH.SetFlowBreak(Me.lblKYOIKU_FILE_PATH_Clear, True)
+        Me.lblKYOIKU_FILE_PATH_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblKYOIKU_FILE_PATH_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.lblKYOIKU_FILE_PATH_Clear.LinkColor = System.Drawing.Color.Red
+        Me.lblKYOIKU_FILE_PATH_Clear.Location = New System.Drawing.Point(37, 0)
+        Me.lblKYOIKU_FILE_PATH_Clear.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblKYOIKU_FILE_PATH_Clear.Name = "lblKYOIKU_FILE_PATH_Clear"
+        Me.lblKYOIKU_FILE_PATH_Clear.Size = New System.Drawing.Size(19, 17)
+        Me.lblKYOIKU_FILE_PATH_Clear.TabIndex = 128
+        Me.lblKYOIKU_FILE_PATH_Clear.TabStop = True
+        Me.lblKYOIKU_FILE_PATH_Clear.Text = "×"
+        Me.lblKYOIKU_FILE_PATH_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblKYOIKU_FILE_PATH_Clear.Visible = False
         '
-        'LinkLabel24
+        'LinkLabel11
         '
-        Me.LinkLabel24.AutoSize = True
-        Me.LinkLabel24.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnltmpFile1.SetFlowBreak(Me.LinkLabel24, True)
-        Me.LinkLabel24.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel24.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel24.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel24.Location = New System.Drawing.Point(37, 34)
-        Me.LinkLabel24.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel24.Name = "LinkLabel24"
-        Me.LinkLabel24.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel24.TabIndex = 130
-        Me.LinkLabel24.TabStop = True
-        Me.LinkLabel24.Text = "×"
-        Me.LinkLabel24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel24.Visible = False
+        Me.LinkLabel11.AutoSize = True
+        Me.LinkLabel11.Location = New System.Drawing.Point(0, 17)
+        Me.LinkLabel11.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel11.Name = "LinkLabel11"
+        Me.LinkLabel11.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel11.TabIndex = 129
+        Me.LinkLabel11.TabStop = True
+        Me.LinkLabel11.Text = "link2"
+        Me.LinkLabel11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel11.Visible = False
         '
-        'LinkLabel25
+        'LinkLabel12
         '
-        Me.LinkLabel25.AutoSize = True
-        Me.LinkLabel25.Location = New System.Drawing.Point(0, 51)
-        Me.LinkLabel25.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel25.Name = "LinkLabel25"
-        Me.LinkLabel25.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel25.TabIndex = 129
-        Me.LinkLabel25.TabStop = True
-        Me.LinkLabel25.Text = "link4"
-        Me.LinkLabel25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel25.Visible = False
+        Me.LinkLabel12.AutoSize = True
+        Me.LinkLabel12.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlKYOIKU_FILE_PATH.SetFlowBreak(Me.LinkLabel12, True)
+        Me.LinkLabel12.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel12.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel12.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel12.Location = New System.Drawing.Point(37, 17)
+        Me.LinkLabel12.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel12.Name = "LinkLabel12"
+        Me.LinkLabel12.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel12.TabIndex = 130
+        Me.LinkLabel12.TabStop = True
+        Me.LinkLabel12.Text = "×"
+        Me.LinkLabel12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel12.Visible = False
         '
-        'LinkLabel26
+        'LinkLabel13
         '
-        Me.LinkLabel26.AutoSize = True
-        Me.LinkLabel26.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnltmpFile1.SetFlowBreak(Me.LinkLabel26, True)
-        Me.LinkLabel26.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel26.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel26.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel26.Location = New System.Drawing.Point(37, 51)
-        Me.LinkLabel26.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel26.Name = "LinkLabel26"
-        Me.LinkLabel26.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel26.TabIndex = 130
-        Me.LinkLabel26.TabStop = True
-        Me.LinkLabel26.Text = "×"
-        Me.LinkLabel26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel26.Visible = False
+        Me.LinkLabel13.AutoSize = True
+        Me.LinkLabel13.Location = New System.Drawing.Point(0, 34)
+        Me.LinkLabel13.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel13.Name = "LinkLabel13"
+        Me.LinkLabel13.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel13.TabIndex = 129
+        Me.LinkLabel13.TabStop = True
+        Me.LinkLabel13.Text = "link3"
+        Me.LinkLabel13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel13.Visible = False
         '
-        'LinkLabel27
+        'LinkLabel14
         '
-        Me.LinkLabel27.AutoSize = True
-        Me.LinkLabel27.Location = New System.Drawing.Point(0, 68)
-        Me.LinkLabel27.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel27.Name = "LinkLabel27"
-        Me.LinkLabel27.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel27.TabIndex = 129
-        Me.LinkLabel27.TabStop = True
-        Me.LinkLabel27.Text = "link5"
-        Me.LinkLabel27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel27.Visible = False
+        Me.LinkLabel14.AutoSize = True
+        Me.LinkLabel14.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlKYOIKU_FILE_PATH.SetFlowBreak(Me.LinkLabel14, True)
+        Me.LinkLabel14.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel14.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel14.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel14.Location = New System.Drawing.Point(37, 34)
+        Me.LinkLabel14.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel14.Name = "LinkLabel14"
+        Me.LinkLabel14.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel14.TabIndex = 130
+        Me.LinkLabel14.TabStop = True
+        Me.LinkLabel14.Text = "×"
+        Me.LinkLabel14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel14.Visible = False
         '
-        'LinkLabel28
+        'LinkLabel15
         '
-        Me.LinkLabel28.AutoSize = True
-        Me.LinkLabel28.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnltmpFile1.SetFlowBreak(Me.LinkLabel28, True)
-        Me.LinkLabel28.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel28.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel28.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel28.Location = New System.Drawing.Point(37, 68)
-        Me.LinkLabel28.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel28.Name = "LinkLabel28"
-        Me.LinkLabel28.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel28.TabIndex = 130
-        Me.LinkLabel28.TabStop = True
-        Me.LinkLabel28.Text = "×"
-        Me.LinkLabel28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel28.Visible = False
+        Me.LinkLabel15.AutoSize = True
+        Me.LinkLabel15.Location = New System.Drawing.Point(0, 51)
+        Me.LinkLabel15.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel15.Name = "LinkLabel15"
+        Me.LinkLabel15.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel15.TabIndex = 129
+        Me.LinkLabel15.TabStop = True
+        Me.LinkLabel15.Text = "link4"
+        Me.LinkLabel15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel15.Visible = False
         '
-        'btnOpentmpFile1
+        'LinkLabel16
         '
-        Me.btnOpentmpFile1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnOpentmpFile1.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.btnOpentmpFile1.Location = New System.Drawing.Point(477, 32)
-        Me.btnOpentmpFile1.Name = "btnOpentmpFile1"
-        Me.btnOpentmpFile1.Size = New System.Drawing.Size(54, 24)
-        Me.btnOpentmpFile1.TabIndex = 316
-        Me.btnOpentmpFile1.UseVisualStyleBackColor = True
+        Me.LinkLabel16.AutoSize = True
+        Me.LinkLabel16.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlKYOIKU_FILE_PATH.SetFlowBreak(Me.LinkLabel16, True)
+        Me.LinkLabel16.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel16.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel16.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel16.Location = New System.Drawing.Point(37, 51)
+        Me.LinkLabel16.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel16.Name = "LinkLabel16"
+        Me.LinkLabel16.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel16.TabIndex = 130
+        Me.LinkLabel16.TabStop = True
+        Me.LinkLabel16.Text = "×"
+        Me.LinkLabel16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel16.Visible = False
+        '
+        'LinkLabel17
+        '
+        Me.LinkLabel17.AutoSize = True
+        Me.LinkLabel17.Location = New System.Drawing.Point(0, 68)
+        Me.LinkLabel17.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel17.Name = "LinkLabel17"
+        Me.LinkLabel17.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel17.TabIndex = 0
+        Me.LinkLabel17.TabStop = True
+        Me.LinkLabel17.Text = "link5"
+        Me.LinkLabel17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel17.Visible = False
+        '
+        'LinkLabel18
+        '
+        Me.LinkLabel18.AutoSize = True
+        Me.LinkLabel18.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlKYOIKU_FILE_PATH.SetFlowBreak(Me.LinkLabel18, True)
+        Me.LinkLabel18.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel18.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel18.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel18.Location = New System.Drawing.Point(37, 68)
+        Me.LinkLabel18.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel18.Name = "LinkLabel18"
+        Me.LinkLabel18.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel18.TabIndex = 130
+        Me.LinkLabel18.TabStop = True
+        Me.LinkLabel18.Text = "×"
+        Me.LinkLabel18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel18.Visible = False
+        '
+        'lblSETUMON_22
+        '
+        Me.lblSETUMON_22.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_22.Location = New System.Drawing.Point(17, 536)
+        Me.lblSETUMON_22.Name = "lblSETUMON_22"
+        Me.lblSETUMON_22.Size = New System.Drawing.Size(72, 15)
+        Me.lblSETUMON_22.TabIndex = 311
+        Me.lblSETUMON_22.Text = "いつまで:"
+        Me.lblSETUMON_22.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSETUMON_21
+        '
+        Me.lblSETUMON_21.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_21.Location = New System.Drawing.Point(17, 404)
+        Me.lblSETUMON_21.Name = "lblSETUMON_21"
+        Me.lblSETUMON_21.Size = New System.Drawing.Size(72, 15)
+        Me.lblSETUMON_21.TabIndex = 310
+        Me.lblSETUMON_21.Text = "いつまで:"
+        Me.lblSETUMON_21.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtKAITO_21
+        '
+        Me.txtKAITO_21.BackColor = System.Drawing.SystemColors.Window
+        Me.txtKAITO_21.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.txtKAITO_21.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtKAITO_21.Location = New System.Drawing.Point(94, 401)
+        Me.txtKAITO_21.MaxByteLength = 160
+        Me.txtKAITO_21.MaxLength = 80
+        Me.txtKAITO_21.Multiline = True
+        Me.txtKAITO_21.Name = "txtKAITO_21"
+        Me.txtKAITO_21.ShowRemaining = True
+        Me.txtKAITO_21.Size = New System.Drawing.Size(520, 43)
+        Me.txtKAITO_21.TabIndex = 3
+        Me.txtKAITO_21.WatermarkText = Nothing
+        '
+        'txtKAITO_22
+        '
+        Me.txtKAITO_22.BackColor = System.Drawing.SystemColors.Window
+        Me.txtKAITO_22.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.txtKAITO_22.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtKAITO_22.Location = New System.Drawing.Point(94, 531)
+        Me.txtKAITO_22.MaxByteLength = 160
+        Me.txtKAITO_22.MaxLength = 80
+        Me.txtKAITO_22.Multiline = True
+        Me.txtKAITO_22.Name = "txtKAITO_22"
+        Me.txtKAITO_22.ShowRemaining = True
+        Me.txtKAITO_22.Size = New System.Drawing.Size(521, 43)
+        Me.txtKAITO_22.TabIndex = 10
+        Me.txtKAITO_22.WatermarkText = Nothing
+        '
+        'FlowLayoutPanel2
+        '
+        Me.FlowLayoutPanel2.Controls.Add(Me.rbtnKAITO_14_T)
+        Me.FlowLayoutPanel2.Controls.Add(Me.rbtnKAITO_14_F)
+        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(94, 666)
+        Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
+        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(95, 29)
+        Me.FlowLayoutPanel2.TabIndex = 306
+        '
+        'rbtnKAITO_14_T
+        '
+        Me.rbtnKAITO_14_T.AutoSize = True
+        Me.rbtnKAITO_14_T.Location = New System.Drawing.Point(3, 3)
+        Me.rbtnKAITO_14_T.Name = "rbtnKAITO_14_T"
+        Me.rbtnKAITO_14_T.Size = New System.Drawing.Size(39, 21)
+        Me.rbtnKAITO_14_T.TabIndex = 0
+        Me.rbtnKAITO_14_T.Text = "要"
+        Me.rbtnKAITO_14_T.UseVisualStyleBackColor = True
+        '
+        'rbtnKAITO_14_F
+        '
+        Me.rbtnKAITO_14_F.AutoSize = True
+        Me.rbtnKAITO_14_F.Checked = True
+        Me.rbtnKAITO_14_F.Location = New System.Drawing.Point(48, 3)
+        Me.rbtnKAITO_14_F.Name = "rbtnKAITO_14_F"
+        Me.rbtnKAITO_14_F.Size = New System.Drawing.Size(39, 21)
+        Me.rbtnKAITO_14_F.TabIndex = 1
+        Me.rbtnKAITO_14_F.TabStop = True
+        Me.rbtnKAITO_14_F.Text = "否"
+        Me.rbtnKAITO_14_F.UseVisualStyleBackColor = True
+        '
+        'chkKAITO_14
+        '
+        Me.chkKAITO_14.AutoSize = True
+        Me.chkKAITO_14.Location = New System.Drawing.Point(103, 672)
+        Me.chkKAITO_14.Name = "chkKAITO_14"
+        Me.chkKAITO_14.Size = New System.Drawing.Size(86, 21)
+        Me.chkKAITO_14.TabIndex = 307
+        Me.chkKAITO_14.Text = "chkZESEI"
+        Me.chkKAITO_14.UseVisualStyleBackColor = True
+        '
+        'mtxKAITO_18
+        '
+        Me.mtxKAITO_18.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKAITO_18.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxKAITO_18.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxKAITO_18.InputRequired = False
+        Me.mtxKAITO_18.Location = New System.Drawing.Point(94, 728)
+        Me.mtxKAITO_18.MaxByteLength = 300
+        Me.mtxKAITO_18.Name = "mtxKAITO_18"
+        Me.mtxKAITO_18.Size = New System.Drawing.Size(114, 24)
+        Me.mtxKAITO_18.TabIndex = 20
+        Me.mtxKAITO_18.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxKAITO_18.WatermarkText = Nothing
+        '
+        'lblSETUMON_20
+        '
+        Me.lblSETUMON_20.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_20.Location = New System.Drawing.Point(368, 733)
+        Me.lblSETUMON_20.Name = "lblSETUMON_20"
+        Me.lblSETUMON_20.Size = New System.Drawing.Size(72, 15)
+        Me.lblSETUMON_20.TabIndex = 305
+        Me.lblSETUMON_20.Text = "日付:"
+        Me.lblSETUMON_20.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbKAITO_14
+        '
+        Me.cmbKAITO_14.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbKAITO_14.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbKAITO_14.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKAITO_14.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbKAITO_14.DisplayMember = "DISP"
+        Me.cmbKAITO_14.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbKAITO_14.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbKAITO_14.FormattingEnabled = True
+        Me.cmbKAITO_14.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKAITO_14.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKAITO_14.Location = New System.Drawing.Point(166, 668)
+        Me.cmbKAITO_14.Name = "cmbKAITO_14"
+        Me.cmbKAITO_14.NullValue = " "
+        Me.cmbKAITO_14.ReadOnly = False
+        Me.cmbKAITO_14.Selected = False
+        Me.cmbKAITO_14.Size = New System.Drawing.Size(15, 25)
+        Me.cmbKAITO_14.TabIndex = 15
+        Me.cmbKAITO_14.Text = "(選択)"
+        Me.cmbKAITO_14.ValueMember = "VALUE"
+        '
+        'mtxKAITO_15
+        '
+        Me.mtxKAITO_15.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKAITO_15.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxKAITO_15.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxKAITO_15.InputRequired = False
+        Me.mtxKAITO_15.Location = New System.Drawing.Point(281, 667)
+        Me.mtxKAITO_15.MaxByteLength = 300
+        Me.mtxKAITO_15.Name = "mtxKAITO_15"
+        Me.mtxKAITO_15.Size = New System.Drawing.Size(334, 24)
+        Me.mtxKAITO_15.TabIndex = 17
+        Me.mtxKAITO_15.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxKAITO_15.WatermarkText = Nothing
+        '
+        'mtxKAITO_19
+        '
+        Me.mtxKAITO_19.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKAITO_19.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxKAITO_19.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxKAITO_19.InputRequired = False
+        Me.mtxKAITO_19.Location = New System.Drawing.Point(281, 728)
+        Me.mtxKAITO_19.MaxByteLength = 300
+        Me.mtxKAITO_19.Name = "mtxKAITO_19"
+        Me.mtxKAITO_19.Size = New System.Drawing.Size(81, 24)
+        Me.mtxKAITO_19.TabIndex = 21
+        Me.mtxKAITO_19.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxKAITO_19.WatermarkText = Nothing
+        '
+        'cmbKAITO_17
+        '
+        Me.cmbKAITO_17.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbKAITO_17.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbKAITO_17.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKAITO_17.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbKAITO_17.DisplayMember = "DISP"
+        Me.cmbKAITO_17.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbKAITO_17.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbKAITO_17.FormattingEnabled = True
+        Me.cmbKAITO_17.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKAITO_17.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKAITO_17.Location = New System.Drawing.Point(281, 697)
+        Me.cmbKAITO_17.Name = "cmbKAITO_17"
+        Me.cmbKAITO_17.NullValue = " "
+        Me.cmbKAITO_17.ReadOnly = False
+        Me.cmbKAITO_17.Selected = False
+        Me.cmbKAITO_17.Size = New System.Drawing.Size(154, 25)
+        Me.cmbKAITO_17.TabIndex = 19
+        Me.cmbKAITO_17.Text = "(選択)"
+        Me.cmbKAITO_17.ValueMember = "VALUE"
+        '
+        'lblSETUMON_17
+        '
+        Me.lblSETUMON_17.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_17.Location = New System.Drawing.Point(216, 702)
+        Me.lblSETUMON_17.Name = "lblSETUMON_17"
+        Me.lblSETUMON_17.Size = New System.Drawing.Size(60, 15)
+        Me.lblSETUMON_17.TabIndex = 299
+        Me.lblSETUMON_17.Text = "誰が:"
+        Me.lblSETUMON_17.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSETUMON_15
+        '
+        Me.lblSETUMON_15.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_15.Location = New System.Drawing.Point(216, 672)
+        Me.lblSETUMON_15.Name = "lblSETUMON_15"
+        Me.lblSETUMON_15.Size = New System.Drawing.Size(60, 15)
+        Me.lblSETUMON_15.TabIndex = 300
+        Me.lblSETUMON_15.Text = "展開先:"
+        Me.lblSETUMON_15.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSETUMON_14
+        '
+        Me.lblSETUMON_14.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_14.Location = New System.Drawing.Point(17, 672)
+        Me.lblSETUMON_14.Name = "lblSETUMON_14"
+        Me.lblSETUMON_14.Size = New System.Drawing.Size(72, 15)
+        Me.lblSETUMON_14.TabIndex = 302
+        Me.lblSETUMON_14.Text = "要否:"
+        Me.lblSETUMON_14.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSETUMON_19
+        '
+        Me.lblSETUMON_19.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_19.Location = New System.Drawing.Point(226, 733)
+        Me.lblSETUMON_19.Name = "lblSETUMON_19"
+        Me.lblSETUMON_19.Size = New System.Drawing.Size(49, 15)
+        Me.lblSETUMON_19.TabIndex = 301
+        Me.lblSETUMON_19.Text = "LOT:"
+        Me.lblSETUMON_19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSETUMON_18
+        '
+        Me.lblSETUMON_18.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_18.Location = New System.Drawing.Point(17, 733)
+        Me.lblSETUMON_18.Name = "lblSETUMON_18"
+        Me.lblSETUMON_18.Size = New System.Drawing.Size(72, 15)
+        Me.lblSETUMON_18.TabIndex = 303
+        Me.lblSETUMON_18.Text = "有効号機:"
+        Me.lblSETUMON_18.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSETUMON_16
+        '
+        Me.lblSETUMON_16.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_16.Location = New System.Drawing.Point(17, 702)
+        Me.lblSETUMON_16.Name = "lblSETUMON_16"
+        Me.lblSETUMON_16.Size = New System.Drawing.Size(72, 15)
+        Me.lblSETUMON_16.TabIndex = 304
+        Me.lblSETUMON_16.Text = "いつまで:"
+        Me.lblSETUMON_16.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'dtKAITO_20
+        '
+        Me.dtKAITO_20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtKAITO_20.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtKAITO_20.Location = New System.Drawing.Point(446, 728)
+        Me.dtKAITO_20.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtKAITO_20.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtKAITO_20.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtKAITO_20.Name = "dtKAITO_20"
+        Me.dtKAITO_20.ReadOnly = False
+        Me.dtKAITO_20.Size = New System.Drawing.Size(98, 24)
+        Me.dtKAITO_20.TabIndex = 22
+        Me.dtKAITO_20.Value = ""
+        Me.dtKAITO_20.ValueNonFormat = ""
+        '
+        'dtKAITO_16
+        '
+        Me.dtKAITO_16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtKAITO_16.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtKAITO_16.Location = New System.Drawing.Point(94, 697)
+        Me.dtKAITO_16.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtKAITO_16.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtKAITO_16.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtKAITO_16.Name = "dtKAITO_16"
+        Me.dtKAITO_16.ReadOnly = False
+        Me.dtKAITO_16.Size = New System.Drawing.Size(98, 24)
+        Me.dtKAITO_16.TabIndex = 18
+        Me.dtKAITO_16.Value = ""
+        Me.dtKAITO_16.ValueNonFormat = ""
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label35.ForeColor = System.Drawing.Color.Red
+        Me.Label35.Location = New System.Drawing.Point(3, 641)
+        Me.Label35.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(167, 15)
+        Me.Label35.TabIndex = 298
+        Me.Label35.Text = "[ C ] 処置の水平展開(横通し)"
+        Me.Label35.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'mtxKAITO_11
+        '
+        Me.mtxKAITO_11.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKAITO_11.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxKAITO_11.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxKAITO_11.InputRequired = False
+        Me.mtxKAITO_11.Location = New System.Drawing.Point(95, 609)
+        Me.mtxKAITO_11.MaxByteLength = 300
+        Me.mtxKAITO_11.Name = "mtxKAITO_11"
+        Me.mtxKAITO_11.Size = New System.Drawing.Size(114, 24)
+        Me.mtxKAITO_11.TabIndex = 14
+        Me.mtxKAITO_11.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxKAITO_11.WatermarkText = Nothing
+        '
+        'lblSETUMON_13
+        '
+        Me.lblSETUMON_13.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_13.Location = New System.Drawing.Point(390, 614)
+        Me.lblSETUMON_13.Name = "lblSETUMON_13"
+        Me.lblSETUMON_13.Size = New System.Drawing.Size(50, 15)
+        Me.lblSETUMON_13.TabIndex = 290
+        Me.lblSETUMON_13.Text = "日付:"
+        Me.lblSETUMON_13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Button2
+        '
+        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Button2.Location = New System.Drawing.Point(441, 580)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(54, 25)
+        Me.Button2.TabIndex = 13
+        Me.Button2.Text = "検索"
+        Me.Button2.UseVisualStyleBackColor = True
+        Me.Button2.Visible = False
+        '
+        'mtxKAITO_12
+        '
+        Me.mtxKAITO_12.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKAITO_12.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxKAITO_12.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxKAITO_12.InputRequired = False
+        Me.mtxKAITO_12.Location = New System.Drawing.Point(281, 609)
+        Me.mtxKAITO_12.MaxByteLength = 300
+        Me.mtxKAITO_12.Name = "mtxKAITO_12"
+        Me.mtxKAITO_12.Size = New System.Drawing.Size(81, 24)
+        Me.mtxKAITO_12.TabIndex = 15
+        Me.mtxKAITO_12.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxKAITO_12.WatermarkText = Nothing
+        '
+        'cmbKAITO_10
+        '
+        Me.cmbKAITO_10.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbKAITO_10.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbKAITO_10.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKAITO_10.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbKAITO_10.DisplayMember = "DISP"
+        Me.cmbKAITO_10.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbKAITO_10.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbKAITO_10.FormattingEnabled = True
+        Me.cmbKAITO_10.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKAITO_10.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKAITO_10.Location = New System.Drawing.Point(281, 580)
+        Me.cmbKAITO_10.Name = "cmbKAITO_10"
+        Me.cmbKAITO_10.NullValue = " "
+        Me.cmbKAITO_10.ReadOnly = False
+        Me.cmbKAITO_10.Selected = False
+        Me.cmbKAITO_10.Size = New System.Drawing.Size(154, 25)
+        Me.cmbKAITO_10.TabIndex = 12
+        Me.cmbKAITO_10.Text = "(選択)"
+        Me.cmbKAITO_10.ValueMember = "VALUE"
+        '
+        'lblSETUMON_10
+        '
+        Me.lblSETUMON_10.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_10.Location = New System.Drawing.Point(227, 585)
+        Me.lblSETUMON_10.Name = "lblSETUMON_10"
+        Me.lblSETUMON_10.Size = New System.Drawing.Size(48, 15)
+        Me.lblSETUMON_10.TabIndex = 285
+        Me.lblSETUMON_10.Text = "誰が:"
+        Me.lblSETUMON_10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSETUMON_12
+        '
+        Me.lblSETUMON_12.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_12.Location = New System.Drawing.Point(227, 614)
+        Me.lblSETUMON_12.Name = "lblSETUMON_12"
+        Me.lblSETUMON_12.Size = New System.Drawing.Size(48, 15)
+        Me.lblSETUMON_12.TabIndex = 286
+        Me.lblSETUMON_12.Text = "LOT:"
+        Me.lblSETUMON_12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSETUMON_11
+        '
+        Me.lblSETUMON_11.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_11.Location = New System.Drawing.Point(17, 614)
+        Me.lblSETUMON_11.Name = "lblSETUMON_11"
+        Me.lblSETUMON_11.Size = New System.Drawing.Size(72, 15)
+        Me.lblSETUMON_11.TabIndex = 287
+        Me.lblSETUMON_11.Text = "有効号機:"
+        Me.lblSETUMON_11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSETUMON_9
+        '
+        Me.lblSETUMON_9.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_9.Location = New System.Drawing.Point(17, 585)
+        Me.lblSETUMON_9.Name = "lblSETUMON_9"
+        Me.lblSETUMON_9.Size = New System.Drawing.Size(72, 15)
+        Me.lblSETUMON_9.TabIndex = 288
+        Me.lblSETUMON_9.Text = "いつまで:"
+        Me.lblSETUMON_9.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'dtKAITO_13
+        '
+        Me.dtKAITO_13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtKAITO_13.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtKAITO_13.Location = New System.Drawing.Point(446, 609)
+        Me.dtKAITO_13.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtKAITO_13.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtKAITO_13.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtKAITO_13.Name = "dtKAITO_13"
+        Me.dtKAITO_13.ReadOnly = False
+        Me.dtKAITO_13.Size = New System.Drawing.Size(98, 24)
+        Me.dtKAITO_13.TabIndex = 16
+        Me.dtKAITO_13.Value = ""
+        Me.dtKAITO_13.ValueNonFormat = ""
+        '
+        'dtKAITO_9
+        '
+        Me.dtKAITO_9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtKAITO_9.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtKAITO_9.Location = New System.Drawing.Point(95, 580)
+        Me.dtKAITO_9.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtKAITO_9.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtKAITO_9.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtKAITO_9.Name = "dtKAITO_9"
+        Me.dtKAITO_9.ReadOnly = False
+        Me.dtKAITO_9.Size = New System.Drawing.Size(98, 24)
+        Me.dtKAITO_9.TabIndex = 11
+        Me.dtKAITO_9.Value = ""
+        Me.dtKAITO_9.ValueNonFormat = ""
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label29.ForeColor = System.Drawing.Color.Red
+        Me.Label29.Location = New System.Drawing.Point(3, 513)
+        Me.Label29.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(262, 15)
+        Me.Label29.TabIndex = 279
+        Me.Label29.Text = "[ B ] 是正処置(根本原因に対する再発防止処置)"
+        Me.Label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'mtxKAITO_6
+        '
+        Me.mtxKAITO_6.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKAITO_6.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxKAITO_6.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxKAITO_6.InputRequired = False
+        Me.mtxKAITO_6.Location = New System.Drawing.Point(95, 480)
+        Me.mtxKAITO_6.MaxByteLength = 300
+        Me.mtxKAITO_6.Name = "mtxKAITO_6"
+        Me.mtxKAITO_6.Size = New System.Drawing.Size(114, 24)
+        Me.mtxKAITO_6.TabIndex = 7
+        Me.mtxKAITO_6.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxKAITO_6.WatermarkText = Nothing
+        '
+        'lblSETUMON_8
+        '
+        Me.lblSETUMON_8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_8.Location = New System.Drawing.Point(390, 485)
+        Me.lblSETUMON_8.Name = "lblSETUMON_8"
+        Me.lblSETUMON_8.Size = New System.Drawing.Size(50, 15)
+        Me.lblSETUMON_8.TabIndex = 272
+        Me.lblSETUMON_8.Text = "日付:"
+        Me.lblSETUMON_8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Button1
+        '
+        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Button1.Location = New System.Drawing.Point(441, 449)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(54, 25)
+        Me.Button1.TabIndex = 6
+        Me.Button1.Text = "検索"
+        Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
+        '
+        'mtxKAITO_7
+        '
+        Me.mtxKAITO_7.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKAITO_7.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxKAITO_7.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxKAITO_7.InputRequired = False
+        Me.mtxKAITO_7.Location = New System.Drawing.Point(281, 480)
+        Me.mtxKAITO_7.MaxByteLength = 300
+        Me.mtxKAITO_7.Name = "mtxKAITO_7"
+        Me.mtxKAITO_7.Size = New System.Drawing.Size(81, 24)
+        Me.mtxKAITO_7.TabIndex = 8
+        Me.mtxKAITO_7.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxKAITO_7.WatermarkText = Nothing
+        '
+        'cmbKAITO_5
+        '
+        Me.cmbKAITO_5.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbKAITO_5.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbKAITO_5.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKAITO_5.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbKAITO_5.DisplayMember = "DISP"
+        Me.cmbKAITO_5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbKAITO_5.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbKAITO_5.FormattingEnabled = True
+        Me.cmbKAITO_5.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKAITO_5.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKAITO_5.Location = New System.Drawing.Point(281, 449)
+        Me.cmbKAITO_5.Name = "cmbKAITO_5"
+        Me.cmbKAITO_5.NullValue = " "
+        Me.cmbKAITO_5.ReadOnly = False
+        Me.cmbKAITO_5.Selected = False
+        Me.cmbKAITO_5.Size = New System.Drawing.Size(154, 25)
+        Me.cmbKAITO_5.TabIndex = 5
+        Me.cmbKAITO_5.Text = "(選択)"
+        Me.cmbKAITO_5.ValueMember = "VALUE"
+        '
+        'lblSETUMON_5
+        '
+        Me.lblSETUMON_5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_5.Location = New System.Drawing.Point(227, 454)
+        Me.lblSETUMON_5.Name = "lblSETUMON_5"
+        Me.lblSETUMON_5.Size = New System.Drawing.Size(48, 15)
+        Me.lblSETUMON_5.TabIndex = 267
+        Me.lblSETUMON_5.Text = "誰が:"
+        Me.lblSETUMON_5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSETUMON_7
+        '
+        Me.lblSETUMON_7.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_7.Location = New System.Drawing.Point(227, 485)
+        Me.lblSETUMON_7.Name = "lblSETUMON_7"
+        Me.lblSETUMON_7.Size = New System.Drawing.Size(48, 15)
+        Me.lblSETUMON_7.TabIndex = 268
+        Me.lblSETUMON_7.Text = "LOT:"
+        Me.lblSETUMON_7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSETUMON_6
+        '
+        Me.lblSETUMON_6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_6.Location = New System.Drawing.Point(17, 485)
+        Me.lblSETUMON_6.Name = "lblSETUMON_6"
+        Me.lblSETUMON_6.Size = New System.Drawing.Size(72, 15)
+        Me.lblSETUMON_6.TabIndex = 269
+        Me.lblSETUMON_6.Text = "有効号機:"
+        Me.lblSETUMON_6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSETUMON_4
+        '
+        Me.lblSETUMON_4.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_4.Location = New System.Drawing.Point(17, 454)
+        Me.lblSETUMON_4.Name = "lblSETUMON_4"
+        Me.lblSETUMON_4.Size = New System.Drawing.Size(72, 15)
+        Me.lblSETUMON_4.TabIndex = 270
+        Me.lblSETUMON_4.Text = "いつまで:"
+        Me.lblSETUMON_4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'dtKAITO_8
+        '
+        Me.dtKAITO_8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtKAITO_8.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtKAITO_8.Location = New System.Drawing.Point(446, 480)
+        Me.dtKAITO_8.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtKAITO_8.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtKAITO_8.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtKAITO_8.Name = "dtKAITO_8"
+        Me.dtKAITO_8.ReadOnly = False
+        Me.dtKAITO_8.Size = New System.Drawing.Size(98, 24)
+        Me.dtKAITO_8.TabIndex = 9
+        Me.dtKAITO_8.Value = ""
+        Me.dtKAITO_8.ValueNonFormat = ""
+        '
+        'dtKAITO_4
+        '
+        Me.dtKAITO_4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtKAITO_4.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtKAITO_4.Location = New System.Drawing.Point(95, 449)
+        Me.dtKAITO_4.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtKAITO_4.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtKAITO_4.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtKAITO_4.Name = "dtKAITO_4"
+        Me.dtKAITO_4.ReadOnly = False
+        Me.dtKAITO_4.Size = New System.Drawing.Size(98, 24)
+        Me.dtKAITO_4.TabIndex = 4
+        Me.dtKAITO_4.Value = ""
+        Me.dtKAITO_4.ValueNonFormat = ""
+        '
+        'lbl
+        '
+        Me.lbl.AutoSize = True
+        Me.lbl.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lbl.ForeColor = System.Drawing.Color.Red
+        Me.lbl.Location = New System.Drawing.Point(3, 381)
+        Me.lbl.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lbl.Name = "lbl"
+        Me.lbl.Size = New System.Drawing.Size(376, 15)
+        Me.lbl.TabIndex = 266
+        Me.lbl.Text = "[ A ] 修正・応急処置(不適合状態の修正、直接原因の応急的是正処置)"
+        Me.lbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSETUMON_3
+        '
+        Me.lblSETUMON_3.AutoSize = True
+        Me.lblSETUMON_3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_3.ForeColor = System.Drawing.Color.Red
+        Me.lblSETUMON_3.Location = New System.Drawing.Point(3, 239)
+        Me.lblSETUMON_3.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblSETUMON_3.Name = "lblSETUMON_3"
+        Me.lblSETUMON_3.Size = New System.Drawing.Size(39, 15)
+        Me.lblSETUMON_3.TabIndex = 248
+        Me.lblSETUMON_3.Text = "設問3"
+        Me.lblSETUMON_3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtKAITO_3
+        '
+        Me.txtKAITO_3.BackColor = System.Drawing.SystemColors.Window
+        Me.txtKAITO_3.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.txtKAITO_3.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtKAITO_3.Location = New System.Drawing.Point(6, 257)
+        Me.txtKAITO_3.MaxByteLength = 400
+        Me.txtKAITO_3.MaxLength = 200
+        Me.txtKAITO_3.Multiline = True
+        Me.txtKAITO_3.Name = "txtKAITO_3"
+        Me.txtKAITO_3.ShowRemaining = True
+        Me.txtKAITO_3.Size = New System.Drawing.Size(608, 118)
+        Me.txtKAITO_3.TabIndex = 2
+        Me.txtKAITO_3.WatermarkText = Nothing
+        '
+        'lblSETUMON_2
+        '
+        Me.lblSETUMON_2.AutoSize = True
+        Me.lblSETUMON_2.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_2.ForeColor = System.Drawing.Color.Red
+        Me.lblSETUMON_2.Location = New System.Drawing.Point(3, 113)
+        Me.lblSETUMON_2.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblSETUMON_2.Name = "lblSETUMON_2"
+        Me.lblSETUMON_2.Size = New System.Drawing.Size(39, 15)
+        Me.lblSETUMON_2.TabIndex = 246
+        Me.lblSETUMON_2.Text = "設問2"
+        Me.lblSETUMON_2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtKAITO_2
+        '
+        Me.txtKAITO_2.BackColor = System.Drawing.SystemColors.Window
+        Me.txtKAITO_2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.txtKAITO_2.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtKAITO_2.Location = New System.Drawing.Point(6, 131)
+        Me.txtKAITO_2.MaxByteLength = 400
+        Me.txtKAITO_2.MaxLength = 200
+        Me.txtKAITO_2.Multiline = True
+        Me.txtKAITO_2.Name = "txtKAITO_2"
+        Me.txtKAITO_2.ShowRemaining = True
+        Me.txtKAITO_2.Size = New System.Drawing.Size(608, 102)
+        Me.txtKAITO_2.TabIndex = 1
+        Me.txtKAITO_2.WatermarkText = Nothing
+        '
+        'cmbST01_DestTANTO
+        '
+        Me.cmbST01_DestTANTO.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.cmbST01_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbST01_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbST01_DestTANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST01_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbST01_DestTANTO.DisplayMember = "DISP"
+        Me.cmbST01_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbST01_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbST01_DestTANTO.FormattingEnabled = True
+        Me.cmbST01_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbST01_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 3775)
+        Me.cmbST01_DestTANTO.Name = "cmbST01_DestTANTO"
+        Me.cmbST01_DestTANTO.NullValue = " "
+        Me.cmbST01_DestTANTO.ReadOnly = False
+        Me.cmbST01_DestTANTO.Selected = False
+        Me.cmbST01_DestTANTO.Size = New System.Drawing.Size(154, 25)
+        Me.cmbST01_DestTANTO.TabIndex = 215
+        Me.cmbST01_DestTANTO.Text = "(選択)"
+        Me.cmbST01_DestTANTO.ValueMember = "VALUE"
+        '
+        'mtxST01_NextStageName
+        '
+        Me.mtxST01_NextStageName.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.mtxST01_NextStageName.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxST01_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxST01_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxST01_NextStageName.InputRequired = False
+        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 3775)
+        Me.mtxST01_NextStageName.MaxByteLength = 0
+        Me.mtxST01_NextStageName.Name = "mtxST01_NextStageName"
+        Me.mtxST01_NextStageName.Size = New System.Drawing.Size(296, 24)
+        Me.mtxST01_NextStageName.TabIndex = 214
+        Me.mtxST01_NextStageName.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxST01_NextStageName.WatermarkText = Nothing
+        '
+        'Label123
+        '
+        Me.Label123.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label123.AutoSize = True
+        Me.Label123.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label123.Location = New System.Drawing.Point(255, 3780)
+        Me.Label123.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label123.Name = "Label123"
+        Me.Label123.Size = New System.Drawing.Size(98, 15)
+        Me.Label123.TabIndex = 213
+        Me.Label123.Text = "承認先ステージ名:"
+        Me.Label123.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label124
+        '
+        Me.Label124.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label124.AutoSize = True
+        Me.Label124.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label124.Location = New System.Drawing.Point(661, 3780)
+        Me.Label124.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label124.Name = "Label124"
+        Me.Label124.Size = New System.Drawing.Size(72, 15)
+        Me.Label124.TabIndex = 212
+        Me.Label124.Text = "申請先社員:"
+        Me.Label124.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label139
+        '
+        Me.Label139.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label139.AutoSize = True
+        Me.Label139.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label139.Location = New System.Drawing.Point(10, 3780)
+        Me.Label139.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label139.Name = "Label139"
+        Me.Label139.Size = New System.Drawing.Size(102, 15)
+        Me.Label139.TabIndex = 211
+        Me.Label139.Text = "承認・申請年月日:"
+        Me.Label139.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'mtxST01_UPD_YMD
+        '
+        Me.mtxST01_UPD_YMD.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.mtxST01_UPD_YMD.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxST01_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxST01_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxST01_UPD_YMD.InputRequired = False
+        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 3775)
+        Me.mtxST01_UPD_YMD.MaxByteLength = 0
+        Me.mtxST01_UPD_YMD.Name = "mtxST01_UPD_YMD"
+        Me.mtxST01_UPD_YMD.Size = New System.Drawing.Size(115, 24)
+        Me.mtxST01_UPD_YMD.TabIndex = 210
+        Me.mtxST01_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxST01_UPD_YMD.WatermarkText = Nothing
+        '
+        'lblSETUMON_1
+        '
+        Me.lblSETUMON_1.AutoSize = True
+        Me.lblSETUMON_1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSETUMON_1.ForeColor = System.Drawing.Color.Red
+        Me.lblSETUMON_1.Location = New System.Drawing.Point(3, 6)
+        Me.lblSETUMON_1.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblSETUMON_1.Name = "lblSETUMON_1"
+        Me.lblSETUMON_1.Size = New System.Drawing.Size(39, 15)
+        Me.lblSETUMON_1.TabIndex = 84
+        Me.lblSETUMON_1.Text = "設問1"
+        Me.lblSETUMON_1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtKAITO_1
+        '
+        Me.txtKAITO_1.BackColor = System.Drawing.SystemColors.Window
+        Me.txtKAITO_1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.txtKAITO_1.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtKAITO_1.Location = New System.Drawing.Point(6, 24)
+        Me.txtKAITO_1.MaxByteLength = 360
+        Me.txtKAITO_1.MaxLength = 180
+        Me.txtKAITO_1.Multiline = True
+        Me.txtKAITO_1.Name = "txtKAITO_1"
+        Me.txtKAITO_1.ShowRemaining = True
+        Me.txtKAITO_1.Size = New System.Drawing.Size(608, 83)
+        Me.txtKAITO_1.TabIndex = 0
+        Me.txtKAITO_1.WatermarkText = Nothing
+        '
+        'tabSTAGE02
+        '
+        Me.tabSTAGE02.AutoScroll = True
+        Me.tabSTAGE02.Controls.Add(Me.dtFUTEKIGO_HASSEI_YMD)
+        Me.tabSTAGE02.Controls.Add(Me.Label3)
+        Me.tabSTAGE02.Controls.Add(Me.mtxGENIN2)
+        Me.tabSTAGE02.Controls.Add(Me.mtxGENIN1)
+        Me.tabSTAGE02.Controls.Add(Me.mtxGENIN2_DISP)
+        Me.tabSTAGE02.Controls.Add(Me.mtxGENIN1_DISP)
+        Me.tabSTAGE02.Controls.Add(Me.btnSelectGenin2)
+        Me.tabSTAGE02.Controls.Add(Me.btnSelectGenin1)
+        Me.tabSTAGE02.Controls.Add(Me.Label16)
+        Me.tabSTAGE02.Controls.Add(Me.Label17)
+        Me.tabSTAGE02.Controls.Add(Me.Label51)
+        Me.tabSTAGE02.Controls.Add(Me.cmbKISEKI_KOTEI)
+        Me.tabSTAGE02.Controls.Add(Me.Label19)
+        Me.tabSTAGE02.Controls.Add(Me.Label7)
+        Me.tabSTAGE02.Controls.Add(Me.Label18)
+        Me.tabSTAGE02.Controls.Add(Me.cmbKONPON_YOIN_KB2)
+        Me.tabSTAGE02.Controls.Add(Me.Label4)
+        Me.tabSTAGE02.Controls.Add(Me.cmbKONPON_YOIN_KB1)
+        Me.tabSTAGE02.Controls.Add(Me.Label2)
+        Me.tabSTAGE02.Controls.Add(Me.cmbKONPON_YOIN_TANTO)
+        Me.tabSTAGE02.HitEnabled = False
+        Me.tabSTAGE02.Location = New System.Drawing.Point(4, 26)
+        Me.tabSTAGE02.Name = "tabSTAGE02"
+        Me.tabSTAGE02.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabSTAGE02.Size = New System.Drawing.Size(1235, 551)
+        Me.tabSTAGE02.TabIndex = 1
+        Me.tabSTAGE02.Text = "分析項目"
+        Me.tabSTAGE02.UseVisualStyleBackColor = True
+        '
+        'dtFUTEKIGO_HASSEI_YMD
+        '
+        Me.dtFUTEKIGO_HASSEI_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtFUTEKIGO_HASSEI_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtFUTEKIGO_HASSEI_YMD.Location = New System.Drawing.Point(99, 12)
+        Me.dtFUTEKIGO_HASSEI_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtFUTEKIGO_HASSEI_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtFUTEKIGO_HASSEI_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtFUTEKIGO_HASSEI_YMD.Name = "dtFUTEKIGO_HASSEI_YMD"
+        Me.dtFUTEKIGO_HASSEI_YMD.ReadOnly = False
+        Me.dtFUTEKIGO_HASSEI_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtFUTEKIGO_HASSEI_YMD.TabIndex = 276
+        Me.dtFUTEKIGO_HASSEI_YMD.Value = ""
+        Me.dtFUTEKIGO_HASSEI_YMD.ValueNonFormat = ""
+        '
+        'Label3
+        '
+        Me.Label3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label3.Location = New System.Drawing.Point(8, 16)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(85, 15)
+        Me.Label3.TabIndex = 277
+        Me.Label3.Text = "不適合発生日:"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'mtxGENIN2
+        '
+        Me.mtxGENIN2.BackColor = System.Drawing.SystemColors.Control
+        Me.mtxGENIN2.Enabled = False
+        Me.mtxGENIN2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxGENIN2.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxGENIN2.InputRequired = False
+        Me.mtxGENIN2.Location = New System.Drawing.Point(752, 111)
+        Me.mtxGENIN2.MaxByteLength = 0
+        Me.mtxGENIN2.Name = "mtxGENIN2"
+        Me.mtxGENIN2.ReadOnly = True
+        Me.mtxGENIN2.Size = New System.Drawing.Size(69, 24)
+        Me.mtxGENIN2.TabIndex = 275
+        Me.mtxGENIN2.Visible = False
+        Me.mtxGENIN2.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxGENIN2.WatermarkText = Nothing
+        '
+        'mtxGENIN1
+        '
+        Me.mtxGENIN1.BackColor = System.Drawing.SystemColors.Control
+        Me.mtxGENIN1.Enabled = False
+        Me.mtxGENIN1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxGENIN1.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxGENIN1.InputRequired = False
+        Me.mtxGENIN1.Location = New System.Drawing.Point(752, 82)
+        Me.mtxGENIN1.MaxByteLength = 0
+        Me.mtxGENIN1.Name = "mtxGENIN1"
+        Me.mtxGENIN1.ReadOnly = True
+        Me.mtxGENIN1.Size = New System.Drawing.Size(69, 24)
+        Me.mtxGENIN1.TabIndex = 274
+        Me.mtxGENIN1.Visible = False
+        Me.mtxGENIN1.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxGENIN1.WatermarkText = Nothing
+        '
+        'mtxGENIN2_DISP
+        '
+        Me.mtxGENIN2_DISP.BackColor = System.Drawing.SystemColors.Control
+        Me.mtxGENIN2_DISP.Enabled = False
+        Me.mtxGENIN2_DISP.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxGENIN2_DISP.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxGENIN2_DISP.InputRequired = False
+        Me.mtxGENIN2_DISP.Location = New System.Drawing.Point(435, 110)
+        Me.mtxGENIN2_DISP.MaxByteLength = 0
+        Me.mtxGENIN2_DISP.Name = "mtxGENIN2_DISP"
+        Me.mtxGENIN2_DISP.ReadOnly = True
+        Me.mtxGENIN2_DISP.Size = New System.Drawing.Size(251, 24)
+        Me.mtxGENIN2_DISP.TabIndex = 4
+        Me.mtxGENIN2_DISP.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxGENIN2_DISP.WatermarkText = Nothing
+        '
+        'mtxGENIN1_DISP
+        '
+        Me.mtxGENIN1_DISP.BackColor = System.Drawing.SystemColors.Control
+        Me.mtxGENIN1_DISP.Enabled = False
+        Me.mtxGENIN1_DISP.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxGENIN1_DISP.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxGENIN1_DISP.InputRequired = False
+        Me.mtxGENIN1_DISP.Location = New System.Drawing.Point(435, 81)
+        Me.mtxGENIN1_DISP.MaxByteLength = 0
+        Me.mtxGENIN1_DISP.Name = "mtxGENIN1_DISP"
+        Me.mtxGENIN1_DISP.ReadOnly = True
+        Me.mtxGENIN1_DISP.Size = New System.Drawing.Size(251, 24)
+        Me.mtxGENIN1_DISP.TabIndex = 1
+        Me.mtxGENIN1_DISP.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxGENIN1_DISP.WatermarkText = Nothing
+        '
+        'btnSelectGenin2
+        '
+        Me.btnSelectGenin2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSelectGenin2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnSelectGenin2.Location = New System.Drawing.Point(692, 110)
+        Me.btnSelectGenin2.Name = "btnSelectGenin2"
+        Me.btnSelectGenin2.Size = New System.Drawing.Size(54, 24)
+        Me.btnSelectGenin2.TabIndex = 5
+        Me.btnSelectGenin2.Text = "選択"
+        Me.btnSelectGenin2.UseVisualStyleBackColor = True
+        '
+        'btnSelectGenin1
+        '
+        Me.btnSelectGenin1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSelectGenin1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnSelectGenin1.Location = New System.Drawing.Point(692, 81)
+        Me.btnSelectGenin1.Name = "btnSelectGenin1"
+        Me.btnSelectGenin1.Size = New System.Drawing.Size(54, 24)
+        Me.btnSelectGenin1.TabIndex = 2
+        Me.btnSelectGenin1.Text = "選択"
+        Me.btnSelectGenin1.UseVisualStyleBackColor = True
+        '
+        'Label16
+        '
+        Me.Label16.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label16.Location = New System.Drawing.Point(296, 107)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(133, 30)
+        Me.Label16.TabIndex = 271
+        Me.Label16.Text = "要因2に対する原因:"
+        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label17
+        '
+        Me.Label17.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label17.Location = New System.Drawing.Point(296, 78)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(133, 30)
+        Me.Label17.TabIndex = 270
+        Me.Label17.Text = "要因1に対する原因:"
+        Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label51
+        '
+        Me.Label51.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label51.Location = New System.Drawing.Point(296, 139)
+        Me.Label51.Name = "Label51"
+        Me.Label51.Size = New System.Drawing.Size(133, 30)
+        Me.Label51.TabIndex = 269
+        Me.Label51.Text = "帰責工程:"
+        Me.Label51.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbKISEKI_KOTEI
+        '
+        Me.cmbKISEKI_KOTEI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbKISEKI_KOTEI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbKISEKI_KOTEI.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKISEKI_KOTEI.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbKISEKI_KOTEI.DisplayMember = "DISP"
+        Me.cmbKISEKI_KOTEI.DropDownWidth = 220
+        Me.cmbKISEKI_KOTEI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbKISEKI_KOTEI.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbKISEKI_KOTEI.FormattingEnabled = True
+        Me.cmbKISEKI_KOTEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKISEKI_KOTEI.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKISEKI_KOTEI.Location = New System.Drawing.Point(435, 142)
+        Me.cmbKISEKI_KOTEI.Name = "cmbKISEKI_KOTEI"
+        Me.cmbKISEKI_KOTEI.NullValue = " "
+        Me.cmbKISEKI_KOTEI.ReadOnly = False
+        Me.cmbKISEKI_KOTEI.Selected = False
+        Me.cmbKISEKI_KOTEI.Size = New System.Drawing.Size(251, 25)
+        Me.cmbKISEKI_KOTEI.TabIndex = 7
+        Me.cmbKISEKI_KOTEI.Text = "(選択)"
+        Me.cmbKISEKI_KOTEI.ValueMember = "VALUE"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label19.Location = New System.Drawing.Point(350, 58)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(79, 15)
+        Me.Label19.TabIndex = 268
+        Me.Label19.Text = "原因分析区分"
+        Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label7.Location = New System.Drawing.Point(14, 56)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(79, 15)
+        Me.Label7.TabIndex = 243
+        Me.Label7.Text = "根本要因区分"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label18
+        '
+        Me.Label18.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label18.Location = New System.Drawing.Point(6, 107)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(87, 30)
+        Me.Label18.TabIndex = 224
+        Me.Label18.Text = "要因2:"
+        Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbKONPON_YOIN_KB2
+        '
+        Me.cmbKONPON_YOIN_KB2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbKONPON_YOIN_KB2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbKONPON_YOIN_KB2.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKONPON_YOIN_KB2.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbKONPON_YOIN_KB2.DisplayMember = "DISP"
+        Me.cmbKONPON_YOIN_KB2.DropDownWidth = 220
+        Me.cmbKONPON_YOIN_KB2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbKONPON_YOIN_KB2.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbKONPON_YOIN_KB2.FormattingEnabled = True
+        Me.cmbKONPON_YOIN_KB2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKONPON_YOIN_KB2.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKONPON_YOIN_KB2.Location = New System.Drawing.Point(96, 110)
+        Me.cmbKONPON_YOIN_KB2.Name = "cmbKONPON_YOIN_KB2"
+        Me.cmbKONPON_YOIN_KB2.NullValue = " "
+        Me.cmbKONPON_YOIN_KB2.ReadOnly = False
+        Me.cmbKONPON_YOIN_KB2.Selected = False
+        Me.cmbKONPON_YOIN_KB2.Size = New System.Drawing.Size(194, 25)
+        Me.cmbKONPON_YOIN_KB2.TabIndex = 3
+        Me.cmbKONPON_YOIN_KB2.Text = "(選択)"
+        Me.cmbKONPON_YOIN_KB2.ValueMember = "VALUE"
+        '
+        'Label4
+        '
+        Me.Label4.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label4.Location = New System.Drawing.Point(6, 78)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(87, 30)
+        Me.Label4.TabIndex = 223
+        Me.Label4.Text = "要因1:"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbKONPON_YOIN_KB1
+        '
+        Me.cmbKONPON_YOIN_KB1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbKONPON_YOIN_KB1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbKONPON_YOIN_KB1.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKONPON_YOIN_KB1.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbKONPON_YOIN_KB1.DisplayMember = "DISP"
+        Me.cmbKONPON_YOIN_KB1.DropDownWidth = 220
+        Me.cmbKONPON_YOIN_KB1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbKONPON_YOIN_KB1.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbKONPON_YOIN_KB1.FormattingEnabled = True
+        Me.cmbKONPON_YOIN_KB1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKONPON_YOIN_KB1.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKONPON_YOIN_KB1.Location = New System.Drawing.Point(96, 81)
+        Me.cmbKONPON_YOIN_KB1.Name = "cmbKONPON_YOIN_KB1"
+        Me.cmbKONPON_YOIN_KB1.NullValue = " "
+        Me.cmbKONPON_YOIN_KB1.ReadOnly = False
+        Me.cmbKONPON_YOIN_KB1.Selected = False
+        Me.cmbKONPON_YOIN_KB1.Size = New System.Drawing.Size(194, 25)
+        Me.cmbKONPON_YOIN_KB1.TabIndex = 0
+        Me.cmbKONPON_YOIN_KB1.Text = "(選択)"
+        Me.cmbKONPON_YOIN_KB1.ValueMember = "VALUE"
+        '
+        'Label2
+        '
+        Me.Label2.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label2.Location = New System.Drawing.Point(6, 139)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(87, 30)
+        Me.Label2.TabIndex = 220
+        Me.Label2.Text = "作業者名:"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbKONPON_YOIN_TANTO
+        '
+        Me.cmbKONPON_YOIN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbKONPON_YOIN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbKONPON_YOIN_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKONPON_YOIN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbKONPON_YOIN_TANTO.DisplayMember = "DISP"
+        Me.cmbKONPON_YOIN_TANTO.DropDownWidth = 220
+        Me.cmbKONPON_YOIN_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbKONPON_YOIN_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbKONPON_YOIN_TANTO.FormattingEnabled = True
+        Me.cmbKONPON_YOIN_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKONPON_YOIN_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKONPON_YOIN_TANTO.Location = New System.Drawing.Point(96, 142)
+        Me.cmbKONPON_YOIN_TANTO.Name = "cmbKONPON_YOIN_TANTO"
+        Me.cmbKONPON_YOIN_TANTO.NullValue = " "
+        Me.cmbKONPON_YOIN_TANTO.ReadOnly = False
+        Me.cmbKONPON_YOIN_TANTO.Selected = False
+        Me.cmbKONPON_YOIN_TANTO.Size = New System.Drawing.Size(194, 25)
+        Me.cmbKONPON_YOIN_TANTO.TabIndex = 6
+        Me.cmbKONPON_YOIN_TANTO.Text = "(選択)"
+        Me.cmbKONPON_YOIN_TANTO.ValueMember = "VALUE"
+        '
+        'cmbDestTANTO
+        '
+        Me.cmbDestTANTO.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmbDestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbDestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbDestTANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbDestTANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbDestTANTO.DisplayMember = "DISP"
+        Me.cmbDestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbDestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbDestTANTO.FormattingEnabled = True
+        Me.cmbDestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbDestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbDestTANTO.Location = New System.Drawing.Point(1098, 199)
+        Me.cmbDestTANTO.Name = "cmbDestTANTO"
+        Me.cmbDestTANTO.NullValue = " "
+        Me.cmbDestTANTO.ReadOnly = False
+        Me.cmbDestTANTO.Selected = False
+        Me.cmbDestTANTO.Size = New System.Drawing.Size(134, 25)
+        Me.cmbDestTANTO.TabIndex = 1
+        Me.cmbDestTANTO.Text = "(選択)"
+        Me.cmbDestTANTO.ValueMember = "VALUE"
+        '
+        'mtxNextStageName
+        '
+        Me.mtxNextStageName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.mtxNextStageName.BackColor = System.Drawing.SystemColors.Control
+        Me.mtxNextStageName.Font = New System.Drawing.Font("MS UI Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxNextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxNextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxNextStageName.InputRequired = False
+        Me.mtxNextStageName.Location = New System.Drawing.Point(760, 195)
+        Me.mtxNextStageName.MaxByteLength = 0
+        Me.mtxNextStageName.Name = "mtxNextStageName"
+        Me.mtxNextStageName.ReadOnly = True
+        Me.mtxNextStageName.Size = New System.Drawing.Size(254, 20)
+        Me.mtxNextStageName.TabIndex = 0
+        Me.mtxNextStageName.TabStop = False
+        Me.mtxNextStageName.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxNextStageName.WatermarkText = Nothing
+        '
+        'Label97
+        '
+        Me.Label97.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label97.AutoSize = True
+        Me.Label97.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label97.Location = New System.Drawing.Point(656, 198)
+        Me.Label97.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label97.Name = "Label97"
+        Me.Label97.Size = New System.Drawing.Size(98, 15)
+        Me.Label97.TabIndex = 249
+        Me.Label97.Text = "承認先ステージ名:"
+        Me.Label97.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblDestTANTO
+        '
+        Me.lblDestTANTO.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblDestTANTO.AutoSize = True
+        Me.lblDestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblDestTANTO.Location = New System.Drawing.Point(1020, 203)
+        Me.lblDestTANTO.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblDestTANTO.Name = "lblDestTANTO"
+        Me.lblDestTANTO.Size = New System.Drawing.Size(72, 15)
+        Me.lblDestTANTO.TabIndex = 248
+        Me.lblDestTANTO.Text = "申請先社員:"
+        Me.lblDestTANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label81
+        '
+        Me.Label81.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label81.Location = New System.Drawing.Point(558, 224)
+        Me.Label81.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label81.Name = "Label81"
+        Me.Label81.Size = New System.Drawing.Size(196, 16)
+        Me.Label81.TabIndex = 253
+        Me.Label81.Text = "設計開発担当者の確認の要否:"
+        Me.Label81.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'FlowLayoutPanel1
+        '
+        Me.FlowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.FlowLayoutPanel1.Controls.Add(Me.rbtnSEKKEI_TANTO_YOHI_YES)
+        Me.FlowLayoutPanel1.Controls.Add(Me.rbtnSEKKEI_TANTO_YOHI_NO)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(762, 220)
+        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(90, 23)
+        Me.FlowLayoutPanel1.TabIndex = 251
+        '
+        'rbtnSEKKEI_TANTO_YOHI_YES
+        '
+        Me.rbtnSEKKEI_TANTO_YOHI_YES.AutoSize = True
+        Me.rbtnSEKKEI_TANTO_YOHI_YES.Checked = True
+        Me.rbtnSEKKEI_TANTO_YOHI_YES.Location = New System.Drawing.Point(3, 3)
+        Me.rbtnSEKKEI_TANTO_YOHI_YES.Name = "rbtnSEKKEI_TANTO_YOHI_YES"
+        Me.rbtnSEKKEI_TANTO_YOHI_YES.Size = New System.Drawing.Size(35, 16)
+        Me.rbtnSEKKEI_TANTO_YOHI_YES.TabIndex = 0
+        Me.rbtnSEKKEI_TANTO_YOHI_YES.TabStop = True
+        Me.rbtnSEKKEI_TANTO_YOHI_YES.Text = "要"
+        Me.rbtnSEKKEI_TANTO_YOHI_YES.UseVisualStyleBackColor = True
+        '
+        'rbtnSEKKEI_TANTO_YOHI_NO
+        '
+        Me.rbtnSEKKEI_TANTO_YOHI_NO.AutoSize = True
+        Me.rbtnSEKKEI_TANTO_YOHI_NO.Location = New System.Drawing.Point(44, 3)
+        Me.rbtnSEKKEI_TANTO_YOHI_NO.Name = "rbtnSEKKEI_TANTO_YOHI_NO"
+        Me.rbtnSEKKEI_TANTO_YOHI_NO.Size = New System.Drawing.Size(35, 16)
+        Me.rbtnSEKKEI_TANTO_YOHI_NO.TabIndex = 1
+        Me.rbtnSEKKEI_TANTO_YOHI_NO.Text = "否"
+        Me.rbtnSEKKEI_TANTO_YOHI_NO.UseVisualStyleBackColor = True
+        '
+        'chkSEKKEI_TANTO_YOHI_KB
+        '
+        Me.chkSEKKEI_TANTO_YOHI_KB.AutoSize = True
+        Me.chkSEKKEI_TANTO_YOHI_KB.Location = New System.Drawing.Point(766, 225)
+        Me.chkSEKKEI_TANTO_YOHI_KB.Name = "chkSEKKEI_TANTO_YOHI_KB"
+        Me.chkSEKKEI_TANTO_YOHI_KB.Size = New System.Drawing.Size(73, 16)
+        Me.chkSEKKEI_TANTO_YOHI_KB.TabIndex = 252
+        Me.chkSEKKEI_TANTO_YOHI_KB.Text = "chkZESEI"
+        Me.chkSEKKEI_TANTO_YOHI_KB.UseVisualStyleBackColor = True
+        '
+        'FlowLayoutPanel4
+        '
+        Me.FlowLayoutPanel4.Controls.Add(Me.rsbtnST01)
+        Me.FlowLayoutPanel4.Controls.Add(Me.rsbtnST02)
+        Me.FlowLayoutPanel4.Controls.Add(Me.rsbtnST03)
+        Me.FlowLayoutPanel4.Controls.Add(Me.rsbtnST04)
+        Me.FlowLayoutPanel4.Controls.Add(Me.rsbtnST05)
+        Me.FlowLayoutPanel4.Controls.Add(Me.rsbtnST06)
+        Me.FlowLayoutPanel4.Controls.Add(Me.rsbtnST07)
+        Me.FlowLayoutPanel4.Controls.Add(Me.rsbtnST08)
+        Me.FlowLayoutPanel4.Controls.Add(Me.rsbtnST09)
+        Me.FlowLayoutPanel4.Controls.Add(Me.rsbtnST10)
+        Me.FlowLayoutPanel4.Controls.Add(Me.rsbtnST11)
+        Me.FlowLayoutPanel4.Controls.Add(Me.rsbtnST12)
+        Me.FlowLayoutPanel4.Controls.Add(Me.rsbtnST13)
+        Me.FlowLayoutPanel4.Controls.Add(Me.RibbonShapeButton14)
+        Me.FlowLayoutPanel4.Location = New System.Drawing.Point(12, 63)
+        Me.FlowLayoutPanel4.Name = "FlowLayoutPanel4"
+        Me.FlowLayoutPanel4.Size = New System.Drawing.Size(1240, 31)
+        Me.FlowLayoutPanel4.TabIndex = 254
+        '
+        'rsbtnST01
+        '
+        Me.rsbtnST01.AutoSize = True
+        Me.rsbtnST01.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST01.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST01.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST01.Location = New System.Drawing.Point(3, 3)
+        Me.rsbtnST01.Name = "rsbtnST01"
+        Me.rsbtnST01.Size = New System.Drawing.Size(82, 25)
+        Me.rsbtnST01.TabIndex = 0
+        Me.rsbtnST01.Text = "ST1"
+        Me.rsbtnST01.UseVisualStyleBackColor = True
+        '
+        'rsbtnST02
+        '
+        Me.rsbtnST02.AutoSize = True
+        Me.rsbtnST02.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST02.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST02.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST02.Location = New System.Drawing.Point(91, 3)
+        Me.rsbtnST02.Name = "rsbtnST02"
+        Me.rsbtnST02.Size = New System.Drawing.Size(82, 25)
+        Me.rsbtnST02.TabIndex = 1
+        Me.rsbtnST02.Text = "ST2"
+        Me.rsbtnST02.UseVisualStyleBackColor = True
+        '
+        'rsbtnST03
+        '
+        Me.rsbtnST03.AutoSize = True
+        Me.rsbtnST03.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST03.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST03.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST03.Location = New System.Drawing.Point(179, 3)
+        Me.rsbtnST03.Name = "rsbtnST03"
+        Me.rsbtnST03.Size = New System.Drawing.Size(82, 25)
+        Me.rsbtnST03.TabIndex = 2
+        Me.rsbtnST03.Text = "ST3"
+        Me.rsbtnST03.UseVisualStyleBackColor = True
+        '
+        'rsbtnST04
+        '
+        Me.rsbtnST04.AutoSize = True
+        Me.rsbtnST04.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST04.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST04.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST04.Location = New System.Drawing.Point(267, 3)
+        Me.rsbtnST04.Name = "rsbtnST04"
+        Me.rsbtnST04.Size = New System.Drawing.Size(82, 25)
+        Me.rsbtnST04.TabIndex = 3
+        Me.rsbtnST04.Text = "ST4"
+        Me.rsbtnST04.UseVisualStyleBackColor = True
+        '
+        'rsbtnST05
+        '
+        Me.rsbtnST05.AutoSize = True
+        Me.rsbtnST05.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST05.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST05.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST05.Location = New System.Drawing.Point(355, 3)
+        Me.rsbtnST05.Name = "rsbtnST05"
+        Me.rsbtnST05.Size = New System.Drawing.Size(82, 25)
+        Me.rsbtnST05.TabIndex = 4
+        Me.rsbtnST05.Text = "ST5"
+        Me.rsbtnST05.UseVisualStyleBackColor = True
+        '
+        'rsbtnST06
+        '
+        Me.rsbtnST06.AutoSize = True
+        Me.rsbtnST06.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST06.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST06.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST06.Location = New System.Drawing.Point(443, 3)
+        Me.rsbtnST06.Name = "rsbtnST06"
+        Me.rsbtnST06.Size = New System.Drawing.Size(82, 25)
+        Me.rsbtnST06.TabIndex = 5
+        Me.rsbtnST06.Text = "ST6"
+        Me.rsbtnST06.UseVisualStyleBackColor = True
+        '
+        'rsbtnST07
+        '
+        Me.rsbtnST07.AutoSize = True
+        Me.rsbtnST07.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST07.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST07.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST07.Location = New System.Drawing.Point(531, 3)
+        Me.rsbtnST07.Name = "rsbtnST07"
+        Me.rsbtnST07.Size = New System.Drawing.Size(82, 25)
+        Me.rsbtnST07.TabIndex = 6
+        Me.rsbtnST07.Text = "ST7"
+        Me.rsbtnST07.UseVisualStyleBackColor = True
+        '
+        'rsbtnST08
+        '
+        Me.rsbtnST08.AutoSize = True
+        Me.rsbtnST08.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST08.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST08.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST08.Location = New System.Drawing.Point(619, 3)
+        Me.rsbtnST08.Name = "rsbtnST08"
+        Me.rsbtnST08.Size = New System.Drawing.Size(82, 25)
+        Me.rsbtnST08.TabIndex = 7
+        Me.rsbtnST08.Text = "ST8"
+        Me.rsbtnST08.UseVisualStyleBackColor = True
+        '
+        'rsbtnST09
+        '
+        Me.rsbtnST09.AutoSize = True
+        Me.rsbtnST09.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST09.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST09.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST09.Location = New System.Drawing.Point(707, 3)
+        Me.rsbtnST09.Name = "rsbtnST09"
+        Me.rsbtnST09.Size = New System.Drawing.Size(82, 25)
+        Me.rsbtnST09.TabIndex = 8
+        Me.rsbtnST09.Text = "ST9"
+        Me.rsbtnST09.UseVisualStyleBackColor = True
+        '
+        'rsbtnST10
+        '
+        Me.rsbtnST10.AutoSize = True
+        Me.rsbtnST10.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST10.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST10.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST10.Location = New System.Drawing.Point(795, 3)
+        Me.rsbtnST10.Name = "rsbtnST10"
+        Me.rsbtnST10.Size = New System.Drawing.Size(82, 25)
+        Me.rsbtnST10.TabIndex = 9
+        Me.rsbtnST10.Text = "ST10"
+        Me.rsbtnST10.UseVisualStyleBackColor = True
+        '
+        'rsbtnST11
+        '
+        Me.rsbtnST11.AutoSize = True
+        Me.rsbtnST11.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST11.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST11.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST11.Location = New System.Drawing.Point(883, 3)
+        Me.rsbtnST11.Name = "rsbtnST11"
+        Me.rsbtnST11.Size = New System.Drawing.Size(82, 25)
+        Me.rsbtnST11.TabIndex = 10
+        Me.rsbtnST11.Text = "ST11"
+        Me.rsbtnST11.UseVisualStyleBackColor = True
+        '
+        'rsbtnST12
+        '
+        Me.rsbtnST12.AutoSize = True
+        Me.rsbtnST12.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST12.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST12.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST12.Location = New System.Drawing.Point(971, 3)
+        Me.rsbtnST12.Name = "rsbtnST12"
+        Me.rsbtnST12.Size = New System.Drawing.Size(82, 25)
+        Me.rsbtnST12.TabIndex = 11
+        Me.rsbtnST12.Text = "ST12"
+        Me.rsbtnST12.UseVisualStyleBackColor = True
+        '
+        'rsbtnST13
+        '
+        Me.rsbtnST13.AutoSize = True
+        Me.rsbtnST13.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST13.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST13.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST13.Location = New System.Drawing.Point(1059, 3)
+        Me.rsbtnST13.Name = "rsbtnST13"
+        Me.rsbtnST13.Size = New System.Drawing.Size(82, 25)
+        Me.rsbtnST13.TabIndex = 12
+        Me.rsbtnST13.Text = "ST13"
+        Me.rsbtnST13.UseVisualStyleBackColor = True
+        '
+        'RibbonShapeButton14
+        '
+        Me.RibbonShapeButton14.AutoSize = True
+        Me.RibbonShapeButton14.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.RibbonShapeButton14.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.RibbonShapeButton14.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.RibbonShapeButton14.Location = New System.Drawing.Point(1147, 3)
+        Me.RibbonShapeButton14.Name = "RibbonShapeButton14"
+        Me.RibbonShapeButton14.Size = New System.Drawing.Size(89, 25)
+        Me.RibbonShapeButton14.TabIndex = 13
+        Me.RibbonShapeButton14.Text = "Closed"
+        Me.RibbonShapeButton14.UseVisualStyleBackColor = True
         '
         'FrmG0012
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1264, 712)
+        Me.Controls.Add(Me.FlowLayoutPanel4)
         Me.Controls.Add(Me.Label81)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.chkSEKKEI_TANTO_YOHI_KB)
@@ -3379,6 +3562,7 @@ Partial Class FrmG0012
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
+        Me.Controls.SetChildIndex(Me.FlowLayoutPanel4, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
@@ -3387,28 +3571,30 @@ Partial Class FrmG0012
         Me.TabSTAGE.ResumeLayout(False)
         Me.tabSTAGE01.ResumeLayout(False)
         Me.tabSTAGE01.PerformLayout()
-        Me.FlowLayoutPanel2.ResumeLayout(False)
-        Me.FlowLayoutPanel2.PerformLayout()
-        Me.tabSTAGE02.ResumeLayout(False)
-        Me.tabSTAGE02.PerformLayout()
-        Me.FlowLayoutPanel1.ResumeLayout(False)
-        Me.FlowLayoutPanel1.PerformLayout()
-        Me.pnlSYOCHI_KIROKU.ResumeLayout(False)
-        Me.pnlSYOCHI_KIROKU.PerformLayout()
-        Me.fpnlKYOIKU_FILE_PATH.ResumeLayout(False)
-        Me.fpnlKYOIKU_FILE_PATH.PerformLayout()
-        Me.pnlZESEI_SYOCHI.ResumeLayout(False)
-        Me.pnlZESEI_SYOCHI.PerformLayout()
-        Me.FlowLayoutPanel3.ResumeLayout(False)
-        Me.FlowLayoutPanel3.PerformLayout()
-        Me.fpnlSYOSAI_FILE_PATH.ResumeLayout(False)
-        Me.fpnlSYOSAI_FILE_PATH.PerformLayout()
         Me.pnlTEMP_SIRYO.ResumeLayout(False)
         Me.pnlTEMP_SIRYO.PerformLayout()
         Me.fpnltmpFile2.ResumeLayout(False)
         Me.fpnltmpFile2.PerformLayout()
         Me.fpnltmpFile1.ResumeLayout(False)
         Me.fpnltmpFile1.PerformLayout()
+        Me.pnlZESEI_SYOCHI.ResumeLayout(False)
+        Me.pnlZESEI_SYOCHI.PerformLayout()
+        Me.FlowLayoutPanel3.ResumeLayout(False)
+        Me.FlowLayoutPanel3.PerformLayout()
+        Me.fpnlSYOSAI_FILE_PATH.ResumeLayout(False)
+        Me.fpnlSYOSAI_FILE_PATH.PerformLayout()
+        Me.pnlSYOCHI_KIROKU.ResumeLayout(False)
+        Me.pnlSYOCHI_KIROKU.PerformLayout()
+        Me.fpnlKYOIKU_FILE_PATH.ResumeLayout(False)
+        Me.fpnlKYOIKU_FILE_PATH.PerformLayout()
+        Me.FlowLayoutPanel2.ResumeLayout(False)
+        Me.FlowLayoutPanel2.PerformLayout()
+        Me.tabSTAGE02.ResumeLayout(False)
+        Me.tabSTAGE02.PerformLayout()
+        Me.FlowLayoutPanel1.ResumeLayout(False)
+        Me.FlowLayoutPanel1.PerformLayout()
+        Me.FlowLayoutPanel4.ResumeLayout(False)
+        Me.FlowLayoutPanel4.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3452,9 +3638,6 @@ Partial Class FrmG0012
     Friend WithEvents mtxNextStageName As MaskedTextBoxEx
     Friend WithEvents Label97 As Label
     Friend WithEvents lblDestTANTO As Label
-    Friend WithEvents tab_CAR_SUB_1_ As TabPageEx
-    Friend WithEvents tab_CAR_SUB_2_ As TabPageEx
-    Friend WithEvents tab_CAR_SUB_3_ As TabPageEx
     Friend WithEvents Label10 As Label
     Friend WithEvents mtxKAITO_6 As MaskedTextBoxEx
     Friend WithEvents lblSETUMON_8 As Label
@@ -3525,7 +3708,7 @@ Partial Class FrmG0012
     Friend WithEvents rbtnSEKKEI_TANTO_YOHI_YES As RadioButton
     Friend WithEvents rbtnSEKKEI_TANTO_YOHI_NO As RadioButton
     Friend WithEvents chkSEKKEI_TANTO_YOHI_KB As CheckBox
-    Friend WithEvents pnlSYOCHI_KIROKU As Panel
+    Friend WithEvents pnlSYOCHI_KIROKU As PanelEx
     Friend WithEvents dtSYOCHI_A_YMD As DateTextBoxEx
     Friend WithEvents Label13 As Label
     Friend WithEvents dtSYOCHI_B_YMD As DateTextBoxEx
@@ -3555,7 +3738,7 @@ Partial Class FrmG0012
     Friend WithEvents LinkLabel17 As LinkLabel
     Friend WithEvents LinkLabel18 As LinkLabel
     Friend WithEvents Label31 As Label
-    Friend WithEvents pnlZESEI_SYOCHI As Panel
+    Friend WithEvents pnlZESEI_SYOCHI As PanelEx
     Friend WithEvents Label15 As Label
     Friend WithEvents FlowLayoutPanel3 As FlowLayoutPanel
     Friend WithEvents rbtnZESEI_SYOCHI_YES As RadioButton
@@ -3587,7 +3770,7 @@ Partial Class FrmG0012
     Friend WithEvents cmbKENSA_TANTO As ComboboxEx
     Friend WithEvents mtxGOKI As MaskedTextBoxEx
     Friend WithEvents lblSTAGE12 As Label
-    Friend WithEvents pnlTEMP_SIRYO As Panel
+    Friend WithEvents pnlTEMP_SIRYO As PanelEx
     Friend WithEvents fpnltmpFile2 As FlowLayoutPanel
     Friend WithEvents lbltmpFile2 As LinkLabel
     Friend WithEvents lbltmpFile2_Clear As LinkLabel
@@ -3615,4 +3798,19 @@ Partial Class FrmG0012
     Friend WithEvents LinkLabel28 As LinkLabel
     Friend WithEvents btnOpentmpFile1 As Button
     Friend WithEvents Label20 As Label
+    Friend WithEvents FlowLayoutPanel4 As FlowLayoutPanel
+    Friend WithEvents rsbtnST01 As RibbonShapeButton
+    Friend WithEvents rsbtnST02 As RibbonShapeButton
+    Friend WithEvents rsbtnST03 As RibbonShapeButton
+    Friend WithEvents rsbtnST04 As RibbonShapeButton
+    Friend WithEvents rsbtnST05 As RibbonShapeButton
+    Friend WithEvents rsbtnST06 As RibbonShapeButton
+    Friend WithEvents rsbtnST07 As RibbonShapeButton
+    Friend WithEvents rsbtnST08 As RibbonShapeButton
+    Friend WithEvents rsbtnST09 As RibbonShapeButton
+    Friend WithEvents rsbtnST10 As RibbonShapeButton
+    Friend WithEvents rsbtnST11 As RibbonShapeButton
+    Friend WithEvents rsbtnST12 As RibbonShapeButton
+    Friend WithEvents rsbtnST13 As RibbonShapeButton
+    Friend WithEvents RibbonShapeButton14 As RibbonShapeButton
 End Class

@@ -2507,21 +2507,33 @@ Public Class FrmG0012
             'SPEC: C10-2.④
             Select Case PrCurrentStage
                 Case ENM_CAR_STAGE._10_起草入力 To ENM_CAR_STAGE._70_起草確認_品証課長
-                    'UNDONE #60 実質再表示の必要がないので退避させずにタブ削除
-                    TabSTAGE.TabPages.Remove(tab_CAR_SUB_1_)
-                    TabSTAGE.TabPages.Remove(tab_CAR_SUB_2_)
+                    '実質再表示の必要がないので退避させずにタブ削除
+                    'TabSTAGE.TabPages.Remove(tab_CAR_SUB_1_)
+                    'TabSTAGE.TabPages.Remove(tab_CAR_SUB_2_)
+
                     '_tabPageManager.ChangeTabPageVisible(1, False) 'tab_CAR_SUB_1_.Visible = False
                     '_tabPageManager.ChangeTabPageVisible(2, False)'tab_CAR_SUB_2_.Visible = False
 
+                    pnlSYOCHI_KIROKU.Visible = False
+                    pnlZESEI_SYOCHI.Visible = False
+
                 Case ENM_CAR_STAGE._80_処置実施記録入力, ENM_CAR_STAGE._90_処置実施確認
                     tabSTAGE01.EnableDisablePages(False)
-                    tab_CAR_SUB_1_.Enabled = blnOwn 'tab_CAR_SUB_1_.EnableDisablePages(blnOwn)
-                    TabSTAGE.TabPages.Remove(tab_CAR_SUB_2_)
+
+                    'tab_CAR_SUB_1_.Enabled = blnOwn 'tab_CAR_SUB_1_.EnableDisablePages(blnOwn)
+                    'TabSTAGE.TabPages.Remove(tab_CAR_SUB_2_)
+
+                    pnlSYOCHI_KIROKU.DisableContaints(blnOwn)
+                    pnlZESEI_SYOCHI.Visible = False
 
                 Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
                     tabSTAGE01.EnableDisablePages(False)
-                    tab_CAR_SUB_1_.Enabled = False 'tab_CAR_SUB_1_.EnableDisablePages(False)
-                    tab_CAR_SUB_2_.Enabled = blnOwn 'tab_CAR_SUB_2_.EnableDisablePages(blnOwn)
+
+                    pnlSYOCHI_KIROKU.DisableContaints(False)
+                    pnlZESEI_SYOCHI.DisableContaints(blnOwn)
+
+                    'tab_CAR_SUB_1_.Enabled = False 'tab_CAR_SUB_1_.EnableDisablePages(False)
+                    'tab_CAR_SUB_2_.Enabled = blnOwn 'tab_CAR_SUB_2_.EnableDisablePages(blnOwn)
                 Case Else
             End Select
 
@@ -2879,7 +2891,7 @@ Public Class FrmG0012
             If .Rows.Count = 0 Then
                 Return ""
             Else
-                Return .Rows(0).Item("SYONIN_JUN") & "." & .Rows(0).Item("SYONIN_NAIYO")
+                Return .Rows(0).Item("SYONIN_NAIYO") '.Rows(0).Item("SYONIN_JUN") & "." & .Rows(0).Item("SYONIN_NAIYO")
             End If
         End With
     End Function

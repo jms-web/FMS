@@ -1,7 +1,7 @@
 Imports JMS_COMMON.ClsPubMethod
-Imports Spire.Xls
-Imports Spire.Pdf
-Imports Spire.Xls.Converter
+'Imports Spire.Xls
+'Imports Spire.Pdf
+'Imports Spire.Xls.Converter
 
 ''' <summary>
 ''' ïsìKçáåüçıâÊñ 
@@ -763,8 +763,8 @@ Public Class FrmG0010
                                 Case Else
                                     'ì¡íËóÒÇÃÇ›â¡çH
                                     Select Case p.Name
-                                        Case "SYONIN_NAIYO"
-                                            Trow(p.Name) = row.Item("SYONIN_JUN") & "." & row.Item(p.Name).ToString.Trim
+                                        'Case "SYONIN_NAIYO"
+                                        '    Trow(p.Name) = row.Item("SYONIN_JUN") & "." & row.Item(p.Name).ToString.Trim
                                         Case "SASIMOTO_SYONIN_NAIYO"
                                             If row.Item("SASIMOTO_SYONIN_JUN") = "0" Then
                                                 Trow(p.Name) = ""

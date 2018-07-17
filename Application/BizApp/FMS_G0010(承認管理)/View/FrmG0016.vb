@@ -722,7 +722,7 @@ Public Class FrmG0016
         With dsList.Tables(0)
             For intCNT = 0 To .Rows.Count - 1
                 Dim Trow As DataRow = dt.NewRow()
-                Trow("DISP") = .Rows(intCNT).Item("SYONIN_JUN") & "." & .Rows(intCNT).Item("SYONIN_NAIYO") & " " & .Rows(intCNT).Item("UPD_SYAIN_NAME")
+                Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO") & " " & .Rows(intCNT).Item("UPD_SYAIN_NAME") '.Rows(intCNT).Item("SYONIN_JUN") & "." & .Rows(intCNT).Item("SYONIN_NAIYO") & " " & .Rows(intCNT).Item("UPD_SYAIN_NAME")
                 Trow("VALUE") = .Rows(intCNT).Item("SYONIN_JUN")
                 Trow("SYAIN_NAME") = .Rows(intCNT).Item("UPD_SYAIN_NAME")
                 'Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))

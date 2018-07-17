@@ -256,7 +256,7 @@ Public Class FrmG0017
                     Trow("SOUSA_KB") = .Rows(intCNT).Item("SOUSA_KB")
                     Trow("SOUSA_NAME") = .Rows(intCNT).Item("SOUSA_NAME")
                     Trow("SYAIN_ID") = .Rows(intCNT).Item("SYAIN_ID")
-                    Trow("SYONIN_NAIYO") = .Rows(intCNT).Item("SYONIN_JUN") & "." & .Rows(intCNT).Item("SYONIN_NAIYO")
+                    Trow("SYONIN_NAIYO") = .Rows(intCNT).Item("SYONIN_NAIYO") '.Rows(intCNT).Item("SYONIN_JUN") & "." & .Rows(intCNT).Item("SYONIN_NAIYO")
                     Trow("SYAIN_NAME") = .Rows(intCNT).Item("SYAIN_NAME")
                     Trow("SYONIN_HANTEI_KB") = .Rows(intCNT).Item("SYONIN_HANTEI_KB")
                     Trow("SYONIN_HANTEI_NAME") = .Rows(intCNT).Item("SYONIN_HANTEI_NAME")

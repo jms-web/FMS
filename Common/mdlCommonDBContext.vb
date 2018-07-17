@@ -351,7 +351,7 @@ Public Module mdlDBContext
                         For intCNT = 0 To .Rows.Count - 1
                             Dim Trow As DataRow = dt.NewRow()
                             Trow("VALUE") = .Rows(intCNT).Item("SYONIN_JUN")
-                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_JUN") & " " & .Rows(intCNT).Item("SYONIN_NAIYO")
+                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO") '.Rows(intCNT).Item("SYONIN_JUN") & " " & .Rows(intCNT).Item("SYONIN_NAIYO")
                             Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                             Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
                             dt.Rows.Add(Trow)
@@ -381,7 +381,7 @@ Public Module mdlDBContext
                         For intCNT = 0 To .Rows.Count - 1
                             Dim Trow As DataRow = dt.NewRow()
                             Trow("VALUE") = .Rows(intCNT).Item("SYONIN_JUN")
-                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_JUN") & " " & .Rows(intCNT).Item("SYONIN_NAIYO")
+                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO") '.Rows(intCNT).Item("SYONIN_JUN") & " " & .Rows(intCNT).Item("SYONIN_NAIYO")
                             Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                             Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
                             dt.Rows.Add(Trow)
