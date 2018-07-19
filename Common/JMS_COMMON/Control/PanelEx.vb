@@ -15,7 +15,8 @@ Public Class PanelEx
 #Region "　コンストラクタ　"
     Public Sub New()
         Call InitializeComponent()
-
+        BorderColor = Color.Transparent
+        Me.SetStyle(ControlStyles.UserPaint, True)
     End Sub
 #End Region
 
@@ -35,11 +36,14 @@ Public Class PanelEx
     ''' </summary>
     ''' <returns></returns>
     <DefaultValue(False)>
-    Public Property IsAutoScroll As Boolean
+    Public Property AutoScrollControlIntoView As Boolean
 
+    <DefaultValue(GetType(Color), "Transparent")>
+    Public Property BorderColor As Color
 #End Region
 
-#Region "　WndProc メソッド (Overrides)　"
+#Region "Overridesメソッド"
+
     '-----入力・ペーストのWINDOWSメッセージを取得
     '<System.Diagnostics.DebuggerStepThrough()>
     Protected Overrides Sub WndProc(ByRef m As System.Windows.Forms.Message)
@@ -55,23 +59,40 @@ Public Class PanelEx
 
         MyBase.WndProc(m)
     End Sub
-#End Region
 
     Protected Overrides Function ScrollToControl(activeControl As Control) As Point
-        If Me.IsAutoScroll Then
+        If Me.AutoScrollControlIntoView Then
             Return MyBase.ScrollToControl(activeControl)
         Else
             Return New Point(-Me.HorizontalScroll.Value, -Me.VerticalScroll.Value)
         End If
     End Function
 
+    Protected Overrides Sub OnClick(e As EventArgs)
+        Me.Focus()
+        MyBase.OnClick(e)
+    End Sub
 
+    Protected Overrides Sub OnPaint(e As PaintEventArgs)
+        MyBase.OnPaint(e)
+        e.Graphics.DrawRectangle(New Pen(New SolidBrush(BorderColor), 1), e.ClipRectangle)
+    End Sub
+
+    Protected Overrides Sub OnScroll(se As ScrollEventArgs)
+        Me.Refresh()
+        MyBase.OnScroll(se)
+    End Sub
+
+#End Region
+
+#Region "メソッド"
     Public Sub DisableContaints(ByVal enabled As Boolean, Optional ByVal intProperty As ENM_PROPERTY = ENM_PROPERTY._1_Enabled)
 
+        'UNDONE:panel backcolor
         If enabled Then
             Me.BackColor = SystemColors.Control
         Else
-            Me.BackColor = SystemColors.GrayText
+            Me.BackColor = SystemColors.Control
         End If
 
         Select Case intProperty
@@ -128,9 +149,7 @@ Public Class PanelEx
         End Select
     End Sub
 
-    Protected Overrides Sub OnClick(e As EventArgs)
-        'Me.Focus()
-        MyBase.OnClick(e)
-    End Sub
+#End Region
+
 End Class
 

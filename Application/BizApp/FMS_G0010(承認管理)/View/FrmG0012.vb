@@ -72,6 +72,7 @@ Public Class FrmG0012
         cmbKONPON_YOIN_TANTO.NullValue = 0
         Me.Height = 750
 
+        rsbtnST99.Enabled = False
     End Sub
 
 #End Region
@@ -105,9 +106,7 @@ Public Class FrmG0012
             AddHandler rbtnSEKKEI_TANTO_YOHI_YES.CheckedChanged, AddressOf RbtnSEKKEI_TANTO_YOHI_YES_CheckedChanged
             AddHandler rbtnSEKKEI_TANTO_YOHI_NO.CheckedChanged, AddressOf RbtnSEKKEI_TANTO_YOHI_NO_CheckedChanged
 
-            'panel mouse wheel
-            AddHandler tabSTAGE01.MouseWheel, AddressOf TabPageMouseWheel
-
+            Me.tabSTAGE01.Focus()
         Finally
             FunInitFuncButtonEnabled()
         End Try
@@ -1414,7 +1413,7 @@ Public Class FrmG0012
             End Using
 
             frmDLG.PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE
-            frmDLG.PrDialog = True
+            frmDLG.PrIsDialog = True
             frmDLG.PrCurrentStage = dsList.Tables(0).Rows(0).Item("SYONIN_JUN")
             frmDLG.PrHOKOKU_NO = dsList.Tables(0).Rows(0).Item("HOKOKU_NO")
 
@@ -1790,12 +1789,41 @@ Public Class FrmG0012
 #Region "コントロールイベント"
 
 #Region "   タブ別"
+#Region "ヘッダ"
+
+    Private Sub RsbtnST_CheckedChanged(sender As Object, e As EventArgs) Handles rsbtnST01.CheckedChanged,
+                                                                        rsbtnST02.CheckedChanged,
+                                                                        rsbtnST03.CheckedChanged,
+                                                                        rsbtnST04.CheckedChanged,
+                                                                        rsbtnST05.CheckedChanged,
+                                                                        rsbtnST06.CheckedChanged,
+                                                                        rsbtnST07.CheckedChanged,
+                                                                        rsbtnST08.CheckedChanged,
+                                                                        rsbtnST09.CheckedChanged,
+                                                                        rsbtnST10.CheckedChanged,
+                                                                        rsbtnST11.CheckedChanged,
+                                                                        rsbtnST12.CheckedChanged,
+                                                                        rsbtnST13.CheckedChanged
+
+        Dim btn As RibbonShapeRadioButton = DirectCast(sender, RibbonShapeRadioButton)
+        Dim intStageID As Integer = Val(btn.Name.Substring(7))
+        tabSTAGE01.AutoScrollControlIntoView = True
+        Select Case intStageID
+            Case ENM_CAR_STAGE2._1_起草入力 To ENM_CAR_STAGE2._7_起草確認_品証課長
+                tabSTAGE01.ScrollControlIntoView(lblSETUMON_1)
+            Case ENM_CAR_STAGE2._8_処置実施記録入力, ENM_CAR_STAGE2._9_処置実施確認
+                tabSTAGE01.ScrollControlIntoView(lblSYOCHI_KIROKUFlame)
+            Case ENM_CAR_STAGE2._10_是正有効性記入 To ENM_CAR_STAGE2._13_是正有効性確認_品証担当課長
+                tabSTAGE01.ScrollControlIntoView(lblZESEI_SYOCHIFlame)
+        End Select
+        tabSTAGE01.AutoScrollControlIntoView = False
+    End Sub
 
     Private Sub tabSTAGE01_Click(sender As Object, e As EventArgs) Handles tabSTAGE01.Click
         sender.Focus
     End Sub
 
-#Region "ヘッダ"
+
     Private Sub RbtnSEKKEI_TANTO_YOHI_YES_CheckedChanged(sender As Object, e As EventArgs)
         _D005_CAR_J.KAITO_23 = "1"
         mtxNextStageName.Text = FunGetStageName(ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
@@ -2010,7 +2038,7 @@ Public Class FrmG0012
 
 #Region "       教育記録"
     'ファイル選択
-    Private Sub btnOpenKYOIKU_FILE_PATH_Click(sender As Object, e As EventArgs)
+    Private Sub BtnOpenKYOIKU_FILE_PATH_Click(sender As Object, e As EventArgs) Handles btnOpenKYOIKU_FILE_PATH.Click
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
             .FilterIndex = 1,
@@ -2033,7 +2061,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリック
-    Private Sub lblKYOIKU_FILE_PATH_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
+    Private Sub LblKYOIKU_FILE_PATH_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblKYOIKU_FILE_PATH.LinkClicked
         Dim hProcess As New System.Diagnostics.Process
         Dim strEXE As String
         'Dim strARG As String
@@ -2081,7 +2109,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリア
-    Private Sub lblKYOIKU_FILE_PATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
+    Private Sub LblKYOIKU_FILE_PATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblKYOIKU_FILE_PATH_Clear.LinkClicked
         lblKYOIKU_FILE_PATH.Text = ""
         lblKYOIKU_FILE_PATH.Links.Clear()
         lblKYOIKU_FILE_PATH.Visible = False
@@ -2096,7 +2124,7 @@ Public Class FrmG0012
 
 #Region "       詳細資料"
     'ファイル選択
-    Private Sub BtnOpenSYOSAI_FILE_PATH_Click(sender As Object, e As EventArgs)
+    Private Sub BtnOpenSYOSAI_FILE_PATH_Click(sender As Object, e As EventArgs) Handles btnOpenSYOSAI_FILE_PATH.Click
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
             .FilterIndex = 1,
@@ -2119,7 +2147,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリック
-    Private Sub LblSYOSAI_FILE_PATH_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
+    Private Sub LblSYOSAI_FILE_PATH_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblSYOSAI_FILE_PATH.LinkClicked
         Dim hProcess As New System.Diagnostics.Process
         Dim strEXE As String
         'Dim strARG As String
@@ -2167,7 +2195,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリア
-    Private Sub LblSYOSAI_FILE_PATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
+    Private Sub LblSYOSAI_FILE_PATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblSYOSAI_FILE_PATH_Clear.LinkClicked
         lblSYOSAI_FILE_PATH.Text = ""
         lblSYOSAI_FILE_PATH.Tag = ""
         lblSYOSAI_FILE_PATH.Links.Clear()
@@ -2178,19 +2206,19 @@ Public Class FrmG0012
 #End Region
 
 #Region "是正処置有効性の問題の有無"
-    Private Sub rbtnZESEI_SYOCHI_YES_CheckedChanged(sender As Object, e As EventArgs)
+    Private Sub RbtnZESEI_SYOCHI_YES_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnZESEI_SYOCHI_YES.CheckedChanged
 
         Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
         _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = True
     End Sub
 
-    Private Sub rbtnZESEI_SYOCHI_NO_CheckedChanged(sender As Object, e As EventArgs)
+    Private Sub RbtnZESEI_SYOCHI_NO_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnZESEI_SYOCHI_NO.CheckedChanged
 
         Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
         _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = False
     End Sub
 
-    Private Sub chkZESEI_SYOCHI_YUKO_UMU_CheckedChanged(sender As Object, e As EventArgs)
+    Private Sub ChkZESEI_SYOCHI_YUKO_UMU_CheckedChanged(sender As Object, e As EventArgs) Handles chkZESEI_SYOCHI_YUKO_UMU.CheckedChanged
         If chkZESEI_SYOCHI_YUKO_UMU.Checked Then
             rbtnZESEI_SYOCHI_YES.Checked = True
         Else
@@ -2204,7 +2232,7 @@ Public Class FrmG0012
 
 #Region "       添付資料1"
     'ファイル選択
-    Private Sub BtnOpentmpFile1_Click(sender As Object, e As EventArgs)
+    Private Sub BtnOpentmpFile1_Click(sender As Object, e As EventArgs) Handles btnOpentmpFile1.Click
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
             .FilterIndex = 1,
@@ -2227,7 +2255,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリック
-    Private Sub LbltmpFile1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
+    Private Sub LbltmpFile1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1.LinkClicked
         Dim hProcess As New System.Diagnostics.Process
         Dim strEXE As String
         'Dim strARG As String
@@ -2275,7 +2303,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリア
-    Private Sub LbltmpFile1_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
+    Private Sub LbltmpFile1_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1_Clear.LinkClicked
         lbltmpFile1.Text = ""
         lbltmpFile1.Tag = ""
         lbltmpFile1.Links.Clear()
@@ -2287,7 +2315,7 @@ Public Class FrmG0012
 #End Region
 #Region "       添付資料2"
     'ファイル選択
-    Private Sub btnOpentmpFile2_Click(sender As Object, e As EventArgs)
+    Private Sub BtnOpentmpFile2_Click(sender As Object, e As EventArgs) Handles btnOpentmpFile2.Click
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
             .FilterIndex = 1,
@@ -2310,7 +2338,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリック
-    Private Sub lbltmpFile2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
+    Private Sub LbltmpFile2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile2.LinkClicked
         Dim hProcess As New System.Diagnostics.Process
         Dim strEXE As String
         'Dim strARG As String
@@ -2358,7 +2386,7 @@ Public Class FrmG0012
     End Sub
 
     'リンククリア
-    Private Sub lbltmpFile2_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
+    Private Sub LbltmpFile2_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile2_Clear.LinkClicked
         lbltmpFile2.Text = ""
         lbltmpFile2.Tag = ""
         lbltmpFile2.Links.Clear()
@@ -2486,6 +2514,13 @@ Public Class FrmG0012
                 Return False
             End If
 
+            'ナビゲートリンク選択
+            If PrCurrentStage = ENM_CAR_STAGE._999_Closed Then
+                rsbtnST99.Checked = True
+            Else
+                Dim rbtn As RibbonShapeRadioButton = DirectCast(flpnlStageIndex.Controls("rsbtnST" & (PrCurrentStage / 10).ToString("00")), RibbonShapeRadioButton)
+                rbtn.Checked = True
+            End If
 
             mtxBUMON_KB.Text = _V002_NCR_J.BUMON_NAME
             mtxHOKUKO_NO.Text = _V002_NCR_J.HOKOKU_NO
@@ -2536,6 +2571,11 @@ Public Class FrmG0012
                     'tab_CAR_SUB_2_.Enabled = blnOwn 'tab_CAR_SUB_2_.EnableDisablePages(blnOwn)
                 Case Else
             End Select
+
+            For Each val As Integer In [Enum].GetValues(GetType(ENM_CAR_STAGE2))
+                flpnlStageIndex.Controls("rsbtnST" & val.ToString("00")).Enabled = (PrCurrentStage / 10) >= val
+            Next val
+            rsbtnST05.Visible = CBool(_V005_CAR_J.KAITO_23)
 
             If PrCurrentStage = ENM_CAR_STAGE._130_是正有効性確認_品証担当課長 Then
                 lblDestTANTO.Visible = False
@@ -2917,6 +2957,7 @@ Public Class FrmG0012
             Return 0
         End Try
     End Function
+
 
 
 

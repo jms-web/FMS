@@ -28,7 +28,7 @@ Public Class TabPageEx
     ''' </summary>
     ''' <returns></returns>
     <DefaultValue(False)>
-    Public Property IsAutoScroll As Boolean
+    Public Property AutoScrollControlIntoView As Boolean
 
 #End Region
 
@@ -107,7 +107,7 @@ Public Class TabPageEx
     End Sub
 
     Protected Overrides Function ScrollToControl(activeControl As Control) As Point
-        If Me.IsAutoScroll Then
+        If Me.AutoScrollControlIntoView Then
             Return MyBase.ScrollToControl(activeControl)
         Else
             Return New Point(-Me.HorizontalScroll.Value, -Me.VerticalScroll.Value)

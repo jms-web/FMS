@@ -177,9 +177,7 @@ Partial Class FrmG0010
         'cmdFunc7
         '
         Me.cmdFunc7.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmdFunc7.Image = Global.FMS.My.Resources.Resources._imgStatusAnnotations_Complete_and_ok_32x32
         Me.cmdFunc7.Location = New System.Drawing.Point(9, 643)
-        Me.cmdFunc7.Text = "全選択(F7)"
         '
         'cmdFunc9
         '
@@ -191,9 +189,7 @@ Partial Class FrmG0010
         'cmdFunc8
         '
         Me.cmdFunc8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmdFunc8.Image = Global.FMS.My.Resources.Resources._imgStatusAnnotations_Complete_and_ok_mono32x32
         Me.cmdFunc8.Location = New System.Drawing.Point(216, 643)
-        Me.cmdFunc8.Text = "全選択解除(F8)"
         '
         'lblTytle
         '
