@@ -28,9 +28,9 @@ Partial Class FrmM0160
         Me.Label1 = New System.Windows.Forms.Label()
         Me.CmbSYONIN_HOKOKUSYO_ID = New JMS_COMMON.ComboboxEx()
         Me.CmbSYONIN_JUN = New JMS_COMMON.ComboboxEx()
-        Me.CmbSYAIN_ID = New JMS_COMMON.ComboboxEx()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
+        Me.CmbSYAIN_ID = New JMS_COMMON.ComboboxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
@@ -148,10 +148,10 @@ Partial Class FrmM0160
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 134.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 250.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 113.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 186.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 350.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 119.0!))
         Me.tlpFilter.Controls.Add(Me.Label3, 2, 0)
         Me.tlpFilter.Controls.Add(Me.chkDeletedRowVisibled, 7, 0)
@@ -224,29 +224,13 @@ Partial Class FrmM0160
         Me.CmbSYONIN_JUN.NullValue = " "
         Me.CmbSYONIN_JUN.ReadOnly = False
         Me.CmbSYONIN_JUN.Selected = False
-        Me.CmbSYONIN_JUN.Size = New System.Drawing.Size(137, 25)
+        Me.CmbSYONIN_JUN.Size = New System.Drawing.Size(244, 25)
         Me.CmbSYONIN_JUN.TabIndex = 57
         Me.CmbSYONIN_JUN.ValueMember = "VALUE"
         '
-        'CmbSYAIN_ID
-        '
-        Me.CmbSYAIN_ID.BackColor = System.Drawing.SystemColors.Window
-        Me.CmbSYAIN_ID.Cursor = System.Windows.Forms.Cursors.Default
-        Me.CmbSYAIN_ID.DisplayMember = "DISP"
-        Me.CmbSYAIN_ID.FormattingEnabled = True
-        Me.CmbSYAIN_ID.GotFocusedColor = System.Drawing.Color.Empty
-        Me.CmbSYAIN_ID.Location = New System.Drawing.Point(578, 3)
-        Me.CmbSYAIN_ID.Name = "CmbSYAIN_ID"
-        Me.CmbSYAIN_ID.NullValue = " "
-        Me.CmbSYAIN_ID.ReadOnly = False
-        Me.CmbSYAIN_ID.Selected = False
-        Me.CmbSYAIN_ID.Size = New System.Drawing.Size(180, 25)
-        Me.CmbSYAIN_ID.TabIndex = 58
-        Me.CmbSYAIN_ID.ValueMember = "VALUE"
-        '
         'Label2
         '
-        Me.Label2.Location = New System.Drawing.Point(465, 0)
+        Me.Label2.Location = New System.Drawing.Point(572, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(107, 27)
         Me.Label2.TabIndex = 59
@@ -264,6 +248,22 @@ Partial Class FrmM0160
         Me.dgvDATA.RowTemplate.Height = 21
         Me.dgvDATA.Size = New System.Drawing.Size(1225, 436)
         Me.dgvDATA.TabIndex = 60
+        '
+        'CmbSYAIN_ID
+        '
+        Me.CmbSYAIN_ID.BackColor = System.Drawing.SystemColors.Window
+        Me.CmbSYAIN_ID.Cursor = System.Windows.Forms.Cursors.Default
+        Me.CmbSYAIN_ID.DisplayMember = "DISP"
+        Me.CmbSYAIN_ID.FormattingEnabled = True
+        Me.CmbSYAIN_ID.GotFocusedColor = System.Drawing.Color.Empty
+        Me.CmbSYAIN_ID.Location = New System.Drawing.Point(685, 3)
+        Me.CmbSYAIN_ID.Name = "CmbSYAIN_ID"
+        Me.CmbSYAIN_ID.NullValue = " "
+        Me.CmbSYAIN_ID.ReadOnly = False
+        Me.CmbSYAIN_ID.Selected = False
+        Me.CmbSYAIN_ID.Size = New System.Drawing.Size(180, 25)
+        Me.CmbSYAIN_ID.TabIndex = 58
+        Me.CmbSYAIN_ID.ValueMember = "VALUE"
         '
         'FrmM0160
         '
@@ -310,6 +310,6 @@ Partial Class FrmM0160
     Friend WithEvents Label1 As Label
     Friend WithEvents CmbSYONIN_HOKOKUSYO_ID As ComboboxEx
     Friend WithEvents CmbSYONIN_JUN As ComboboxEx
-    Friend WithEvents CmbSYAIN_ID As ComboboxEx
     Friend WithEvents Label2 As Label
+    Friend WithEvents CmbSYAIN_ID As ComboboxEx
 End Class

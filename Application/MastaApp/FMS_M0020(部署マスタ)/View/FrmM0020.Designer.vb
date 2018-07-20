@@ -29,12 +29,12 @@ Partial Class FrmM0020
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.dgvDATA = New System.Windows.Forms.DataGridView()
         Me.CmbBUMON_KB = New JMS_COMMON.ComboboxEx()
         Me.CmbBUSYO_KB = New JMS_COMMON.ComboboxEx()
         Me.TxtBUSYO_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.CmbOYA_BUSYO_ID = New JMS_COMMON.ComboboxEx()
         Me.CmbSYOZOKUCYO_ID = New JMS_COMMON.ComboboxEx()
+        Me.dgvDATA = New System.Windows.Forms.DataGridView()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
@@ -232,18 +232,6 @@ Partial Class FrmM0020
         Me.Label5.Text = "èäëÆí∑é–àıID"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'dgvDATA
-        '
-        Me.dgvDATA.AllowUserToAddRows = False
-        Me.dgvDATA.AllowUserToDeleteRows = False
-        Me.dgvDATA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvDATA.Location = New System.Drawing.Point(19, 144)
-        Me.dgvDATA.Name = "dgvDATA"
-        Me.dgvDATA.ReadOnly = True
-        Me.dgvDATA.RowTemplate.Height = 21
-        Me.dgvDATA.Size = New System.Drawing.Size(1225, 418)
-        Me.dgvDATA.TabIndex = 60
-        '
         'CmbBUMON_KB
         '
         Me.CmbBUMON_KB.BackColor = System.Drawing.SystemColors.Window
@@ -321,6 +309,18 @@ Partial Class FrmM0020
         Me.CmbSYOZOKUCYO_ID.Size = New System.Drawing.Size(176, 25)
         Me.CmbSYOZOKUCYO_ID.TabIndex = 65
         Me.CmbSYOZOKUCYO_ID.ValueMember = "VALUE"
+        '
+        'dgvDATA
+        '
+        Me.dgvDATA.AllowUserToAddRows = False
+        Me.dgvDATA.AllowUserToDeleteRows = False
+        Me.dgvDATA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvDATA.Location = New System.Drawing.Point(19, 144)
+        Me.dgvDATA.Name = "dgvDATA"
+        Me.dgvDATA.ReadOnly = True
+        Me.dgvDATA.RowTemplate.Height = 21
+        Me.dgvDATA.Size = New System.Drawing.Size(1225, 418)
+        Me.dgvDATA.TabIndex = 60
         '
         'FrmM0020
         '

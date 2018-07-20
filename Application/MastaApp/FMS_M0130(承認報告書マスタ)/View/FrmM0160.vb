@@ -18,6 +18,7 @@ Public Class FrmM0160
         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
 
+
     End Sub
 #End Region
 
@@ -37,14 +38,14 @@ Public Class FrmM0160
             Call FunSetDgvCulumns(Me.dgvDATA)
 
             '-----コントロールデータソース設定
-            'cmbSYOKUBAN.SetDataSource(tblSYOKUBAN.ExcludeDeleted, True)
+            CmbSYONIN_HOKOKUSYO_ID.SetDataSource(tblSYONIN_HOKOKUSYO_ID, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             '-----イベントハンドラ設定
             AddHandler CmbSYONIN_HOKOKUSYO_ID.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
             '検索実行
-            'Me.cmdFunc1.PerformClick()
+            Me.cmdFunc1.PerformClick()
 
         Finally
 
@@ -67,17 +68,32 @@ Public Class FrmM0160
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
+                .Columns.Add("SYONIN_HOKOKUSYO_R_NAME", "承認報告書名")
+                .Columns(.ColumnCount - 1).Width = 120
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+
                 .Columns.Add("SYONIN_JUN", "承認順")
-                .Columns(.ColumnCount - 1).Width = 100
+                .Columns(.ColumnCount - 1).Width = 70
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+
+                .Columns.Add("SYONIN_NAIYO", "ステージ名")
+                .Columns(.ColumnCount - 1).Width = 300
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+
 
                 .Columns.Add("SYAIN_ID", "社員ID")
-                .Columns(.ColumnCount - 1).Width = 100
+                .Columns(.ColumnCount - 1).Width = 90
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
 
+                .Columns.Add("SYAIN_NAME", "社員名")
+                .Columns(.ColumnCount - 1).Width = 120
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
 
 
@@ -206,11 +222,11 @@ Public Class FrmM0160
         Dim dsList As New System.Data.DataSet
         Dim sbSQL As New System.Text.StringBuilder
         Dim sbSQLWHERE As New System.Text.StringBuilder
-
+        Dim _Model As MODEL.VWM016_SYONIN_TANTO
         '----WHERE句作成
         sbSQLWHERE.Remove(0, sbSQLWHERE.Length)
 
-        '---職番検索
+        ''---職番検索
         'If Me.CmbSYONIN_HOKOKUSYO_ID.SelectedValue <> "" Then
         '    If sbSQLWHERE.Length = 0 Then
         '        sbSQLWHERE.Append(" WHERE SYOKUBAN = '" & Me.CmbSYONIN_HOKOKUSYO_ID.SelectedValue & "' ")
@@ -253,7 +269,7 @@ Public Class FrmM0160
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("SELECT")
         sbSQL.Append(" *")
-        sbSQL.Append(" FROM VWM016_SYONIN_TANTO")
+        sbSQL.Append(" FROM " & NameOf(MODEL.VWM016_SYONIN_TANTO) & "")
         sbSQL.Append(sbSQLWHERE)
         sbSQL.Append(" ORDER BY SYONIN_HOKOKUSYO_ID,SYONIN_JUN,SYAIN_ID")
 
@@ -267,82 +283,25 @@ Public Class FrmM0160
             End If
         End If
 
-        Dim dt As New DataTable
-        dt.Columns.Add("TANTO_CD", GetType(Decimal))
-        dt.Columns.Add("SYOKUBAN", GetType(Integer))
-        dt.Columns.Add("TANTO_NAME", GetType(String))
-        dt.Columns.Add("TANTO_NAME_KANA", GetType(String))
-        dt.Columns.Add("CYOKKAN_KB_DISP", GetType(String))
-        dt.Columns.Add("NYUSYA_YMD", GetType(String))
-        dt.Columns.Add("TAISYA_YMD", GetType(String))
-        dt.Columns.Add("YAKUSYOKU_KB_DISP", GetType(String))
-        dt.Columns.Add("BU_CD", GetType(Decimal))
-        dt.Columns.Add("KA_CD", GetType(Decimal))
-        dt.Columns.Add("BIRTHDAY", GetType(String))
-        dt.Columns.Add("PASSWORD", GetType(String))
-        dt.Columns.Add("EDIT_YMDHNS", GetType(String))
-        dt.Columns.Add("DEL_YMDHNS", GetType(String))
-        dt.Columns.Add("DEL_TANTO_CD", GetType(String))
-        dt.Columns.Add("DEL_FLG", GetType(Boolean))
+        '----DBから取得したDatatableをModel定義をもとに加工(データ型の変更や書式の追加)
+        'Modelからフィールド情報(フィールド名やデータ型)を取得
+        Dim tplModelInfo As (dt As DataTable, properties As Reflection.PropertyInfo()) = FunGetTableFromModel(GetType(MODEL.VWM016_SYONIN_TANTO))
+        '上で取得したレコードを1行ずつ処理
+        For Each dr As DataRow In dsList.Tables(0).Rows
+            Dim Trow As DataRow = tplModelInfo.dt.NewRow()
+            'モデル定義のフィールド毎に処理
+            For Each p As Reflection.PropertyInfo In tplModelInfo.properties
+                '各フィールドに値をセット
+                Trow(p.Name) = dr.Item(p.Name)
+            Next p
+            'グリッドに渡すDatatableに行を追加
+            tplModelInfo.dt.Rows.Add(Trow)
+        Next dr
+        'Datatableの変更内容を確定
+        tplModelInfo.dt.AcceptChanges()
+        '----
 
-        'With dsList.Tables(0)
-        '    For intCNT As Integer = 0 To .Rows.Count - 1
-        '        Dim Trow As DataRow = dt.NewRow()
-        '        Trow("TANTO_CD") = .Rows(intCNT).Item("TANTO_CD")
-        '        Trow("SYOKUBAN") = .Rows(intCNT).Item("SYOKUBAN")
-        '        Trow("TANTO_NAME") = .Rows(intCNT).Item("TANTO_NAME")
-        '        Trow("TANTO_NAME_KANA") = .Rows(intCNT).Item("TANTO_NAME_KANA")
-        '        Trow("CYOKKAN_KB_DISP") = .Rows(intCNT).Item("CYOKKAN_KB_DISP")
-
-        '        If .Rows(intCNT).Item("NYUSYA_YMD").ToString.Trim = "/" Then
-        '            Trow("NYUSYA_YMD") = ""
-        '        Else
-        '            Trow("NYUSYA_YMD") = .Rows(intCNT).Item("NYUSYA_YMD")
-        '        End If
-        '        If .Rows(intCNT).Item("NYUSYA_YMD").ToString.IsNullOrWhiteSpace Then
-        '        Else
-        '            Trow("NYUSYA_YMD") = String.Format("{0}/{1}/{2}", .Rows(intCNT).Item("NYUSYA_YMD").ToString.Substring(0, 4),
-        '                                                        .Rows(intCNT).Item("NYUSYA_YMD").ToString.Substring(4, 2),
-        '                                                        .Rows(intCNT).Item("NYUSYA_YMD").ToString.Substring(6, 2))
-        '        End If
-        '        If .Rows(intCNT).Item("TAISYA_YMD").ToString.Trim = "/" Then
-        '            Trow("TAISYA_YMD") = ""
-        '        Else
-        '            Trow("TAISYA_YMD") = .Rows(intCNT).Item("TAISYA_YMD")
-        '        End If
-        '        If .Rows(intCNT).Item("TAISYA_YMD").ToString.IsNullOrWhiteSpace Then
-        '        Else
-        '            Trow("TAISYA_YMD") = String.Format("{0}/{1}/{2}", .Rows(intCNT).Item("TAISYA_YMD").ToString.Substring(0, 4),
-        '                                                        .Rows(intCNT).Item("TAISYA_YMD").ToString.Substring(4, 2),
-        '                                                        .Rows(intCNT).Item("TAISYA_YMD").ToString.Substring(6, 2))
-        '        End If
-        '        Trow("YAKUSYOKU_KB_DISP") = .Rows(intCNT).Item("YAKUSYOKU_KB_DISP")
-        '        Trow("BU_CD") = .Rows(intCNT).Item("BU_CD")
-        '        Trow("KA_CD") = .Rows(intCNT).Item("KA_CD")
-        '        Trow("BIRTHDAY") = .Rows(intCNT).Item("BIRTHDAY")
-        '        If .Rows(intCNT).Item("BIRTHDAY").ToString.Trim = "/" Then
-        '            Trow("BIRTHDAY") = ""
-        '        Else
-        '            Trow("BIRTHDAY") = .Rows(intCNT).Item("BIRTHDAY")
-        '        End If
-        '        If .Rows(intCNT).Item("BIRTHDAY").ToString.IsNullOrWhiteSpace Then
-        '        Else
-        '            Trow("BIRTHDAY") = String.Format("{0}/{1}/{2}", .Rows(intCNT).Item("BIRTHDAY").ToString.Substring(0, 4),
-        '                                                        .Rows(intCNT).Item("BIRTHDAY").ToString.Substring(4, 2),
-        '                                                        .Rows(intCNT).Item("BIRTHDAY").ToString.Substring(6, 2))
-        '        End If
-        '        Trow("PASSWORD") = .Rows(intCNT).Item("PASSWORD")
-        '        Trow("EDIT_YMDHNS") = .Rows(intCNT).Item("EDIT_YMDHNS")
-        '        Trow("DEL_YMDHNS") = .Rows(intCNT).Item("DEL_YMDHNS")
-        '        Trow("DEL_TANTO_CD") = .Rows(intCNT).Item("DEL_TANTO_CD")
-        '        Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-
-        '        dt.Rows.Add(Trow)
-
-        '    Next intCNT
-        '    dt.AcceptChanges()
-        'End With
-        Return dt
+        Return tplModelInfo.dt
     End Function
 #End Region
     Private Function FunSetDgvData(ByVal dgv As DataGridView, ByVal dt As DataTable) As Boolean
@@ -409,22 +368,22 @@ Public Class FrmM0160
     Private Function FunSetDgvCellFormat(ByVal dgv As DataGridView) As Boolean
 
         Try
-            Dim strFieldList As New List(Of String)
-            strFieldList.AddRange(New String() {"DEL_FLG"})
+            'Dim strFieldList As New List(Of String)
+            'strFieldList.AddRange(New String() {"DEL_FLG"})
 
-            For i As Integer = 0 To dgv.Rows.Count - 1
-                With dgv.Rows(i)
-                    For Each field As String In strFieldList
+            'For i As Integer = 0 To dgv.Rows.Count - 1
+            '    With dgv.Rows(i)
+            '        For Each field As String In strFieldList
 
-                        If Me.dgvDATA.Rows(i).Cells("DEL_FLG").Value = True Then
-                            Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
-                            Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
-                            Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
-                        Else
-                        End If
-                    Next
-                End With
-            Next i
+            '            If Me.dgvDATA.Rows(i).Cells("DEL_FLG").Value = True Then
+            '                Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
+            '                Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
+            '                Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
+            '            Else
+            '            End If
+            '        Next
+            '    End With
+            'Next i
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -599,28 +558,28 @@ Public Class FrmM0160
             End If
 
             Dim dgv As DataGridView = DirectCast(frm.Controls("dgvDATA"), DataGridView)
-            If dgv.SelectedRows.Count > 0 Then
-                If dgv.CurrentRow IsNot Nothing AndAlso dgv.CurrentRow.Cells.Item("DEL_FLG").Value = True Then
-                    '削除済データの場合
-                    frm.cmdFunc4.Enabled = False
-                    frm.cmdFunc5.Text = "完全削除(F5)"
-                    frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._6_DELETE
+            'If dgv.SelectedRows.Count > 0 Then
+            '    If dgv.CurrentRow IsNot Nothing AndAlso dgv.CurrentRow.Cells.Item("DEL_FLG").Value = True Then
+            '        '削除済データの場合
+            '        frm.cmdFunc4.Enabled = False
+            '        frm.cmdFunc5.Text = "完全削除(F5)"
+            '        frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._6_DELETE
 
-                    '復元
-                    frm.cmdFunc6.Text = "復元(F6)"
-                    frm.cmdFunc6.Visible = True
-                    frm.cmdFunc6.Tag = ENM_DATA_OPERATION_MODE._5_RESTORE
-                Else
-                    frm.cmdFunc5.Text = "削除(F5)"
-                    frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._4_DISABLE
+            '        '復元
+            '        frm.cmdFunc6.Text = "復元(F6)"
+            '        frm.cmdFunc6.Visible = True
+            '        frm.cmdFunc6.Tag = ENM_DATA_OPERATION_MODE._5_RESTORE
+            '    Else
+            '        frm.cmdFunc5.Text = "削除(F5)"
+            '        frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._4_DISABLE
 
-                    frm.cmdFunc6.Text = ""
-                    frm.cmdFunc6.Visible = False
-                    frm.cmdFunc6.Tag = ""
-                End If
-            Else
-                frm.cmdFunc6.Visible = False
-            End If
+            '        frm.cmdFunc6.Text = ""
+            '        frm.cmdFunc6.Visible = False
+            '        frm.cmdFunc6.Tag = ""
+            '    End If
+            'Else
+            '    frm.cmdFunc6.Visible = False
+            'End If
 
             Return True
         Catch ex As Exception
@@ -640,8 +599,23 @@ Public Class FrmM0160
         Me.cmdFunc1.PerformClick()
     End Sub
 
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
+    Private Sub CmbSYONIN_HOKOKUSYO_ID_SelectedValueChanged(sender As Object, e As EventArgs) Handles CmbSYONIN_HOKOKUSYO_ID.SelectedValueChanged
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
+
+
+        Using DB As ClsDbUtility = DBOpen()
+            Select Case cmb.SelectedValue
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+                    Call FunGetCodeDataTable(DB, "NCR", tblNCR)
+                    CmbSYONIN_JUN.SetDataSource(tblNCR, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+                    Call FunGetCodeDataTable(DB, "CAR", tblCAR)
+                    CmbSYONIN_JUN.SetDataSource(tblCAR, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                Case Else
+                    CmbSYONIN_JUN.DataSource = Nothing
+            End Select
+        End Using
     End Sub
 
 #End Region

@@ -101,6 +101,13 @@ Namespace Context
             _3_複合材 = 3
         End Enum
 
+        ''' <summary>
+        ''' 承認報告書ID
+        ''' </summary>
+        Public Enum ENM_SYONIN_HOKOKUSYO_ID
+            _1_NCR = 1
+            _2_CAR = 2
+        End Enum
 #End Region
 
     End Module
@@ -158,6 +165,12 @@ Public Module mdlDBContext
 #End Region
 
 #Region "不適合関連"
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    Public tblSYONIN_HOKOKUSYO_ID As DataTableEx
+
 
     ''' <summary>
     ''' 製品処置(NCR ステージ
@@ -327,6 +340,37 @@ Public Module mdlDBContext
 
             Select Case strKOMOKU
 
+#Region "               承認報告書ID"
+                Case "承認報告書ID"
+
+                    dt = New DataTableEx("System.Int32")
+
+                    sbSQL.Append("SELECT * FROM " & "M013_SYONIN_HOKOKU" & " ")
+                    If strWhere.IsNullOrWhiteSpace = False Then
+                        sbSQL.Append("WHERE " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        'sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+                    sbSQL.Append(" ORDER BY SYONIN_HOKOKUSYO_ID")
+
+
+                    '主キー設定
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            '
+                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_R_NAME")
+                            Trow("VALUE") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
+                            'Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            dt.Rows.Add(Trow)
+                        Next intCNT
+                    End With
+#End Region
 #Region "               NCR"
                 Case "NCR"
 
@@ -814,41 +858,6 @@ Public Module mdlDBContext
                     '    End With
 
 
-                    'Case "属性"
-
-                    '    sbSQL.Append("SELECT *")
-                    '    sbSQL.Append(" FROM " & NameOf(VWM15_ZOKUSEI) & "() ")
-                    '    If strWhere <> "" Then
-                    '        sbSQL.Append("WHERE " & strWhere & "")
-                    '    Else
-                    '        sbSQL.Append("WHERE 0=0")
-                    '    End If
-                    '    If blnIncludeDeleted = False Then
-                    '        sbSQL.Append(" And DEL_FLG='0'")
-                    '    End If
-                    '    sbSQL.Append(" ORDER BY DISP_ORDER")
-
-                    '    '主キー設定
-                    '    dt.PrimaryKey = {dt.Columns("VALUE")}
-                    '    dt.Columns.Add("DISP_ORDER", GetType(Integer))
-                    '    dt.Columns.Add("ZOKUSEI_FLG", GetType(Integer))
-                    '    dt.Columns.Add("HISSU_FLG", GetType(Boolean))
-                    '    dt.Columns.Add("DISPwithHISSU_FLG", GetType(String))
-
-                    '    dsList = DB.GetDataSet(sbSQL.ToString, False)
-                    '    With dsList.Tables(0)
-                    '        For intCNT = 0 To .Rows.Count - 1
-                    '            Dim Trow As DataRow = dt.NewRow()
-                    '            Trow("DISP") = .Rows(intCNT).Item("ZOKUSEI_NAME")
-                    '            Trow("VALUE") = .Rows(intCNT).Item("ZOKUSEI_CD")
-                    '            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                    '            Trow("DISP_ORDER") = .Rows(intCNT).Item("DISP_ORDER")
-                    '            Trow("ZOKUSEI_FLG") = .Rows(intCNT).Item("ZOKUSEI_FLG")
-                    '            Trow("HISSU_FLG") = CBool(.Rows(intCNT).Item("HISSU_FLG"))
-                    '            Trow("DISPwithHISSU_FLG") = .Rows(intCNT).Item("ZOKUSEI_NAME") & IIf(CBool(.Rows(intCNT).Item("HISSU_FLG")), "＊", "")
-                    '            dt.Rows.Add(Trow)
-                    '        Next intCNT
-                    '    End With
 
 
                     'Case "NullTable"

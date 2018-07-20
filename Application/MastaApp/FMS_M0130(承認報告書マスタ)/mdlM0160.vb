@@ -1,6 +1,6 @@
 Imports JMS_COMMON.ClsPubMethod
 
-Module mdlM0130
+Module mdlM0160
 
 #Region "定数・変数"
 
@@ -48,16 +48,14 @@ Module mdlM0130
 
                 '-----共通データ取得
                 Using DB As ClsDbUtility = DBOpen()
-                    'Call FunGetCodeDataTable(DB, "部", tblBU)
-                    'Call FunGetCodeDataTable(DB, "課", tblKA)
-                    'Call FunGetCodeDataTable(DB, "役職区分", tblYAKU_KBN)
+                    Call FunGetCodeDataTable(DB, "承認報告書ID", tblSYONIN_HOKOKUSYO_ID)
                     'Call FunGetCodeDataTable(DB, "直間区分", tblCYOKKAN_KBN)
                     'Call FunGetCodeDataTable(DB, "職番", tblSYOKUBAN)
                 End Using
 
                 '-----一覧画面表示
                 frmLIST = New FrmM0160
-                 Application.Run(frmLIST)
+                Application.Run(frmLIST)
             End Using
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)

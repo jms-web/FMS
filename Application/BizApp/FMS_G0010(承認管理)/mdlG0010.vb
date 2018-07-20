@@ -46,14 +46,6 @@ Module mdlG0010
 
 
     ''' <summary>
-    ''' ³”F•ñ‘ID
-    ''' </summary>
-    Public Enum ENM_SYONIN_HOKOKUSYO_ID
-        _1_NCR = 1
-        _2_CAR = 2
-    End Enum
-
-    ''' <summary>
     ''' ŒŸ¸Œ‹‰Ê‹æ•ª
     ''' </summary>
     Public Enum ENM_KENSA_KEKKA_KB
