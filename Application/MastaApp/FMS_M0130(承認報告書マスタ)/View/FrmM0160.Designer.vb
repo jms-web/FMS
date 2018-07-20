@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FrmM0130
+Partial Class FrmM0160
     Inherits JMS_COMMON.frmBaseStsBtnDgv
 
     'Form overrides dispose to clean up the component list.
@@ -24,10 +24,12 @@ Partial Class FrmM0130
         Me.Label3 = New System.Windows.Forms.Label()
         Me.gbxFilter = New System.Windows.Forms.GroupBox()
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
-        Me.mtxTANTO_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.chkDeletedRowVisibled = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.cmbSYOKUBAN = New JMS_COMMON.ComboboxEx()
+        Me.CmbSYONIN_HOKOKUSYO_ID = New JMS_COMMON.ComboboxEx()
+        Me.CmbSYONIN_JUN = New JMS_COMMON.ComboboxEx()
+        Me.CmbSYAIN_ID = New JMS_COMMON.ComboboxEx()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
@@ -109,7 +111,11 @@ Partial Class FrmM0130
         'lblTytle
         '
         Me.lblTytle.Font = New System.Drawing.Font("Meiryo UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTytle.Text = "担当者マスタ"
+        Me.lblTytle.Text = "承認担当者マスタ"
+        '
+        'ToolTip
+        '
+        Me.ToolTip.InitialDelay = 700
         '
         'Label3
         '
@@ -120,7 +126,7 @@ Partial Class FrmM0130
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(73, 30)
         Me.Label3.TabIndex = 54
-        Me.Label3.Text = "担当者名"
+        Me.Label3.Text = "承認順"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'gbxFilter
@@ -139,19 +145,21 @@ Partial Class FrmM0130
         'tlpFilter
         '
         Me.tlpFilter.ColumnCount = 8
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 67.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 173.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 134.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 113.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 186.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 350.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 119.0!))
-        Me.tlpFilter.Controls.Add(Me.mtxTANTO_NAME, 3, 0)
         Me.tlpFilter.Controls.Add(Me.Label3, 2, 0)
         Me.tlpFilter.Controls.Add(Me.chkDeletedRowVisibled, 7, 0)
         Me.tlpFilter.Controls.Add(Me.Label1, 0, 0)
-        Me.tlpFilter.Controls.Add(Me.cmbSYOKUBAN, 1, 0)
+        Me.tlpFilter.Controls.Add(Me.CmbSYONIN_HOKOKUSYO_ID, 1, 0)
+        Me.tlpFilter.Controls.Add(Me.CmbSYONIN_JUN, 3, 0)
+        Me.tlpFilter.Controls.Add(Me.CmbSYAIN_ID, 5, 0)
+        Me.tlpFilter.Controls.Add(Me.Label2, 4, 0)
         Me.tlpFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpFilter.Location = New System.Drawing.Point(3, 20)
         Me.tlpFilter.Name = "tlpFilter"
@@ -160,22 +168,6 @@ Partial Class FrmM0130
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpFilter.Size = New System.Drawing.Size(1230, 37)
         Me.tlpFilter.TabIndex = 56
-        '
-        'mtxTANTO_NAME
-        '
-        Me.mtxTANTO_NAME.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxTANTO_NAME.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.mtxTANTO_NAME.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxTANTO_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxTANTO_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.mtxTANTO_NAME.InputRequired = False
-        Me.mtxTANTO_NAME.Location = New System.Drawing.Point(322, 3)
-        Me.mtxTANTO_NAME.MaxByteLength = 100
-        Me.mtxTANTO_NAME.Name = "mtxTANTO_NAME"
-        Me.mtxTANTO_NAME.Size = New System.Drawing.Size(137, 24)
-        Me.mtxTANTO_NAME.TabIndex = 0
-        Me.mtxTANTO_NAME.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxTANTO_NAME.WatermarkText = Nothing
         '
         'chkDeletedRowVisibled
         '
@@ -196,24 +188,70 @@ Partial Class FrmM0130
         Me.Label1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label1.Location = New System.Drawing.Point(3, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(61, 30)
+        Me.Label1.Size = New System.Drawing.Size(100, 30)
         Me.Label1.TabIndex = 55
-        Me.Label1.Text = "職番"
+        Me.Label1.Text = "承認報告書ID"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'cmbSYOKUBAN
+        'CmbSYONIN_HOKOKUSYO_ID
         '
-        Me.cmbSYOKUBAN.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbSYOKUBAN.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbSYOKUBAN.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbSYOKUBAN.FormattingEnabled = True
-        Me.cmbSYOKUBAN.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbSYOKUBAN.Location = New System.Drawing.Point(70, 3)
-        Me.cmbSYOKUBAN.Name = "cmbSYOKUBAN"
-        Me.cmbSYOKUBAN.Selected = False
-        Me.cmbSYOKUBAN.Size = New System.Drawing.Size(121, 25)
-        Me.cmbSYOKUBAN.TabIndex = 56
-        Me.cmbSYOKUBAN.Text = "(選択)"
+        Me.CmbSYONIN_HOKOKUSYO_ID.BackColor = System.Drawing.SystemColors.Window
+        Me.CmbSYONIN_HOKOKUSYO_ID.Cursor = System.Windows.Forms.Cursors.Default
+        Me.CmbSYONIN_HOKOKUSYO_ID.DisplayMember = "DISP"
+        Me.CmbSYONIN_HOKOKUSYO_ID.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.CmbSYONIN_HOKOKUSYO_ID.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.CmbSYONIN_HOKOKUSYO_ID.FormattingEnabled = True
+        Me.CmbSYONIN_HOKOKUSYO_ID.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.CmbSYONIN_HOKOKUSYO_ID.Location = New System.Drawing.Point(109, 3)
+        Me.CmbSYONIN_HOKOKUSYO_ID.Name = "CmbSYONIN_HOKOKUSYO_ID"
+        Me.CmbSYONIN_HOKOKUSYO_ID.NullValue = " "
+        Me.CmbSYONIN_HOKOKUSYO_ID.ReadOnly = False
+        Me.CmbSYONIN_HOKOKUSYO_ID.Selected = False
+        Me.CmbSYONIN_HOKOKUSYO_ID.Size = New System.Drawing.Size(128, 25)
+        Me.CmbSYONIN_HOKOKUSYO_ID.TabIndex = 56
+        Me.CmbSYONIN_HOKOKUSYO_ID.Text = "(選択)"
+        Me.CmbSYONIN_HOKOKUSYO_ID.ValueMember = "VALUE"
+        '
+        'CmbSYONIN_JUN
+        '
+        Me.CmbSYONIN_JUN.BackColor = System.Drawing.SystemColors.Window
+        Me.CmbSYONIN_JUN.Cursor = System.Windows.Forms.Cursors.Default
+        Me.CmbSYONIN_JUN.DisplayMember = "DISP"
+        Me.CmbSYONIN_JUN.FormattingEnabled = True
+        Me.CmbSYONIN_JUN.GotFocusedColor = System.Drawing.Color.Empty
+        Me.CmbSYONIN_JUN.Location = New System.Drawing.Point(322, 3)
+        Me.CmbSYONIN_JUN.Name = "CmbSYONIN_JUN"
+        Me.CmbSYONIN_JUN.NullValue = " "
+        Me.CmbSYONIN_JUN.ReadOnly = False
+        Me.CmbSYONIN_JUN.Selected = False
+        Me.CmbSYONIN_JUN.Size = New System.Drawing.Size(137, 25)
+        Me.CmbSYONIN_JUN.TabIndex = 57
+        Me.CmbSYONIN_JUN.ValueMember = "VALUE"
+        '
+        'CmbSYAIN_ID
+        '
+        Me.CmbSYAIN_ID.BackColor = System.Drawing.SystemColors.Window
+        Me.CmbSYAIN_ID.Cursor = System.Windows.Forms.Cursors.Default
+        Me.CmbSYAIN_ID.DisplayMember = "DISP"
+        Me.CmbSYAIN_ID.FormattingEnabled = True
+        Me.CmbSYAIN_ID.GotFocusedColor = System.Drawing.Color.Empty
+        Me.CmbSYAIN_ID.Location = New System.Drawing.Point(578, 3)
+        Me.CmbSYAIN_ID.Name = "CmbSYAIN_ID"
+        Me.CmbSYAIN_ID.NullValue = " "
+        Me.CmbSYAIN_ID.ReadOnly = False
+        Me.CmbSYAIN_ID.Selected = False
+        Me.CmbSYAIN_ID.Size = New System.Drawing.Size(180, 25)
+        Me.CmbSYAIN_ID.TabIndex = 58
+        Me.CmbSYAIN_ID.ValueMember = "VALUE"
+        '
+        'Label2
+        '
+        Me.Label2.Location = New System.Drawing.Point(465, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(107, 27)
+        Me.Label2.TabIndex = 59
+        Me.Label2.Text = "社員ID"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'dgvDATA
         '
@@ -227,14 +265,14 @@ Partial Class FrmM0130
         Me.dgvDATA.Size = New System.Drawing.Size(1225, 436)
         Me.dgvDATA.TabIndex = 60
         '
-        'FrmM0130
+        'FrmM0160
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.ClientSize = New System.Drawing.Size(1264, 712)
         Me.Controls.Add(Me.dgvDATA)
         Me.Controls.Add(Me.gbxFilter)
         Me.HelpButton = True
-        Me.Name = "FrmM0130"
+        Me.Name = "FrmM0160"
         Me.ShowStatusBar = True
         Me.Text = ""
         Me.Controls.SetChildIndex(Me.lblRecordCount, 0)
@@ -268,8 +306,10 @@ Partial Class FrmM0130
     Friend WithEvents gbxFilter As GroupBox
     Public WithEvents dgvDATA As DataGridView
     Friend WithEvents tlpFilter As TableLayoutPanel
-    Friend WithEvents mtxTANTO_NAME As MaskedTextBoxEx
     Friend WithEvents chkDeletedRowVisibled As CheckBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents cmbSYOKUBAN As ComboboxEx
+    Friend WithEvents CmbSYONIN_HOKOKUSYO_ID As ComboboxEx
+    Friend WithEvents CmbSYONIN_JUN As ComboboxEx
+    Friend WithEvents CmbSYAIN_ID As ComboboxEx
+    Friend WithEvents Label2 As Label
 End Class

@@ -144,6 +144,10 @@ Partial Class FrmM0060
         Me.lblTytle.Size = New System.Drawing.Size(1496, 45)
         Me.lblTytle.Text = "‰Ò“­“úƒ}ƒXƒ^"
         '
+        'ToolTip
+        '
+        Me.ToolTip.InitialDelay = 700
+        '
         'gbxFilter
         '
         Me.gbxFilter.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -201,6 +205,7 @@ Partial Class FrmM0060
         Me.dtYM.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtYM.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtYM.Name = "dtYM"
+        Me.dtYM.ReadOnly = False
         Me.dtYM.Size = New System.Drawing.Size(98, 25)
         Me.dtYM.TabIndex = 72
         Me.dtYM.Value = ""

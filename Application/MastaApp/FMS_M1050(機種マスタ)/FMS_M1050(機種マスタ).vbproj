@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{57184F60-8A6B-4D9D-9D7D-F07CBC7EADDB}</ProjectGuid>
+    <ProjectGuid>{5371D46A-CB53-4DD9-A136-4089FAB4EF7D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <StartupObject>Sub Main</StartupObject>
     <RootNamespace>FMS</RootNamespace>
-    <AssemblyName>FMS_M0130</AssemblyName>
+    <AssemblyName>FMS_M1050</AssemblyName>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
     <SccProjectName>
     </SccProjectName>
@@ -140,7 +140,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="mdlM0130.vb" />
+    <Compile Include="mdlM1050.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -151,16 +151,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="View\FrmM0130.Designer.vb">
-      <DependentUpon>FrmM0130.vb</DependentUpon>
+    <Compile Include="View\FrmM1050.Designer.vb">
+      <DependentUpon>FrmM1050.vb</DependentUpon>
     </Compile>
-    <Compile Include="View\FrmM0130.vb">
+    <Compile Include="View\FrmM1050.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\FrmM0131.Designer.vb">
-      <DependentUpon>FrmM0131.vb</DependentUpon>
+    <Compile Include="View\FrmM1051.Designer.vb">
+      <DependentUpon>FrmM1051.vb</DependentUpon>
     </Compile>
-    <Compile Include="View\FrmM0131.vb">
+    <Compile Include="View\FrmM1051.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -176,12 +176,12 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\FrmM0130.resx">
-      <DependentUpon>FrmM0130.vb</DependentUpon>
+    <EmbeddedResource Include="View\FrmM1050.resx">
+      <DependentUpon>FrmM1050.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\FrmM0131.resx">
-      <DependentUpon>FrmM0131.vb</DependentUpon>
+    <EmbeddedResource Include="View\FrmM1051.resx">
+      <DependentUpon>FrmM1051.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

@@ -1,13 +1,13 @@
 Imports JMS_COMMON.ClsPubMethod
 
-Module mdlM0130
+Module mdlM0020
 
 #Region "’è”E•Ï”"
 
     ''' <summary>
     ''' ˆê——‰æ–Ê
     ''' </summary>
-    Public frmLIST As FrmM0160
+    Public frmLIST As FrmM0020
 
 #End Region
 
@@ -56,7 +56,7 @@ Module mdlM0130
                 End Using
 
                 '-----ˆê——‰æ–Ê•\¦
-                frmLIST = New FrmM0160
+                frmLIST = New FrmM0020
                  Application.Run(frmLIST)
             End Using
         Catch ex As Exception

@@ -149,6 +149,10 @@ Partial Class FrmM0041
         Me.lblTytle.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblTytle.Text = "追加/変更/削除"
         '
+        'ToolTip
+        '
+        Me.ToolTip.InitialDelay = 700
+        '
         'ErrorProvider
         '
         Me.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
@@ -287,16 +291,20 @@ Partial Class FrmM0041
         'cmbBUSYO_CD
         '
         Me.cmbBUSYO_CD.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbBUSYO_CD.DisplayMember = "DISP"
         Me.cmbBUSYO_CD.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbBUSYO_CD.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUSYO_CD.FormattingEnabled = True
         Me.cmbBUSYO_CD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbBUSYO_CD.Location = New System.Drawing.Point(103, 127)
         Me.cmbBUSYO_CD.Name = "cmbBUSYO_CD"
+        Me.cmbBUSYO_CD.NullValue = " "
+        Me.cmbBUSYO_CD.ReadOnly = False
         Me.cmbBUSYO_CD.Selected = False
         Me.cmbBUSYO_CD.Size = New System.Drawing.Size(121, 25)
         Me.cmbBUSYO_CD.TabIndex = 9
         Me.cmbBUSYO_CD.Text = "(選択)"
+        Me.cmbBUSYO_CD.ValueMember = "VALUE"
         '
         'dtbBIRTHDAY
         '
@@ -308,6 +316,7 @@ Partial Class FrmM0041
         Me.dtbBIRTHDAY.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtbBIRTHDAY.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtbBIRTHDAY.Name = "dtbBIRTHDAY"
+        Me.dtbBIRTHDAY.ReadOnly = False
         Me.dtbBIRTHDAY.Size = New System.Drawing.Size(115, 24)
         Me.dtbBIRTHDAY.TabIndex = 12
         Me.dtbBIRTHDAY.Value = ""
@@ -323,6 +332,7 @@ Partial Class FrmM0041
         Me.dtbTAISYA_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtbTAISYA_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtbTAISYA_YMD.Name = "dtbTAISYA_YMD"
+        Me.dtbTAISYA_YMD.ReadOnly = False
         Me.dtbTAISYA_YMD.Size = New System.Drawing.Size(115, 24)
         Me.dtbTAISYA_YMD.TabIndex = 7
         Me.dtbTAISYA_YMD.Value = ""
@@ -458,6 +468,7 @@ Partial Class FrmM0041
         Me.dtbNYUSYA_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtbNYUSYA_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtbNYUSYA_YMD.Name = "dtbNYUSYA_YMD"
+        Me.dtbNYUSYA_YMD.ReadOnly = False
         Me.dtbNYUSYA_YMD.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.dtbNYUSYA_YMD.Size = New System.Drawing.Size(115, 24)
         Me.dtbNYUSYA_YMD.TabIndex = 6
@@ -502,16 +513,20 @@ Partial Class FrmM0041
         'cmbKA_CD
         '
         Me.cmbKA_CD.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKA_CD.DisplayMember = "DISP"
         Me.cmbKA_CD.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKA_CD.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKA_CD.FormattingEnabled = True
         Me.cmbKA_CD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbKA_CD.Location = New System.Drawing.Point(373, 127)
         Me.cmbKA_CD.Name = "cmbKA_CD"
+        Me.cmbKA_CD.NullValue = " "
+        Me.cmbKA_CD.ReadOnly = False
         Me.cmbKA_CD.Selected = False
         Me.cmbKA_CD.Size = New System.Drawing.Size(121, 25)
         Me.cmbKA_CD.TabIndex = 10
         Me.cmbKA_CD.Text = "(選択)"
+        Me.cmbKA_CD.ValueMember = "VALUE"
         '
         'mtxTANTO_CD
         '
@@ -532,16 +547,20 @@ Partial Class FrmM0041
         'cmbCYOKKAN_KB
         '
         Me.cmbCYOKKAN_KB.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbCYOKKAN_KB.DisplayMember = "DISP"
         Me.cmbCYOKKAN_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbCYOKKAN_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbCYOKKAN_KB.FormattingEnabled = True
         Me.cmbCYOKKAN_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbCYOKKAN_KB.Location = New System.Drawing.Point(373, 33)
         Me.cmbCYOKKAN_KB.Name = "cmbCYOKKAN_KB"
+        Me.cmbCYOKKAN_KB.NullValue = " "
+        Me.cmbCYOKKAN_KB.ReadOnly = False
         Me.cmbCYOKKAN_KB.Selected = False
         Me.cmbCYOKKAN_KB.Size = New System.Drawing.Size(121, 25)
         Me.cmbCYOKKAN_KB.TabIndex = 3
         Me.cmbCYOKKAN_KB.Text = "(選択)"
+        Me.cmbCYOKKAN_KB.ValueMember = "VALUE"
         '
         'mtxPASSWORD
         '
@@ -561,16 +580,20 @@ Partial Class FrmM0041
         'cmbYAKUSYOKU_KB
         '
         Me.cmbYAKUSYOKU_KB.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbYAKUSYOKU_KB.DisplayMember = "DISP"
         Me.cmbYAKUSYOKU_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbYAKUSYOKU_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbYAKUSYOKU_KB.FormattingEnabled = True
         Me.cmbYAKUSYOKU_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbYAKUSYOKU_KB.Location = New System.Drawing.Point(103, 154)
         Me.cmbYAKUSYOKU_KB.Name = "cmbYAKUSYOKU_KB"
+        Me.cmbYAKUSYOKU_KB.NullValue = " "
+        Me.cmbYAKUSYOKU_KB.ReadOnly = False
         Me.cmbYAKUSYOKU_KB.Selected = False
         Me.cmbYAKUSYOKU_KB.Size = New System.Drawing.Size(121, 25)
         Me.cmbYAKUSYOKU_KB.TabIndex = 11
         Me.cmbYAKUSYOKU_KB.Text = "(選択)"
+        Me.cmbYAKUSYOKU_KB.ValueMember = "VALUE"
         '
         'mtxTANTO_NAME_KANA
         '
