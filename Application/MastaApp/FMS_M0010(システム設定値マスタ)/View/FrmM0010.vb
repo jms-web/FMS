@@ -1,6 +1,8 @@
 Imports JMS_COMMON.ClsPubMethod
 
-
+''' <summary>
+''' コードマスタ検索画面
+''' </summary>
 Public Class FrmM0010
 
 #Region "コンストラクタ"
@@ -43,7 +45,7 @@ Public Class FrmM0010
             AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
             '検索実行
-            Me.cmdFunc1.PerformClick()
+            cmdFunc1.PerformClick()
         Finally
 
         End Try
@@ -238,46 +240,30 @@ Public Class FrmM0010
                 End If
             End If
 
-
-            '------DataTableに変換
-            Dim dt As New DataTable
-
-            Dim t As Type = GetType(MODEL.VWM001_SETTING)
-            Dim properties As Reflection.PropertyInfo() = t.GetProperties(
-                 Reflection.BindingFlags.Public Or
-                 Reflection.BindingFlags.NonPublic Or
-                 Reflection.BindingFlags.Instance Or
-                 Reflection.BindingFlags.Static)
-
-            For Each p As Reflection.PropertyInfo In properties
-                'If IsAutoGenerateField(t, p.Name) = True Then
-                dt.Columns.Add(p.Name, p.PropertyType)
-                'End If
-            Next p
+            Dim tplModelInfo = FunGetTableFromModel(GetType(MODEL.VWM001_SETTING))
 
             With dsList.Tables(0)
                 For Each row As DataRow In .Rows
-                    Dim Trow As DataRow = dt.NewRow()
-                    For Each p As Reflection.PropertyInfo In properties
-                        If IsAutoGenerateField(t, p.Name) = True Then
-                            Select Case p.PropertyType
-                                Case GetType(Integer)
-                                    Trow(p.Name) = Val(row.Item(p.Name))
-                                Case GetType(Decimal)
-                                    Trow(p.Name) = CDec(row.Item(p.Name))
-                                Case GetType(Boolean)
-                                    Trow(p.Name) = CBool(row.Item(p.Name))
-                                Case Else
-                                    Trow(p.Name) = row.Item(p.Name)
-                            End Select
-                        End If
+                    Dim Trow As DataRow = tplModelInfo.dt.NewRow()
+                    For Each p As Reflection.PropertyInfo In tplModelInfo.properties
+                        Select Case p.PropertyType
+                            Case GetType(Integer)
+                                Trow(p.Name) = Val(row.Item(p.Name))
+                            Case GetType(Decimal)
+                                Trow(p.Name) = CDec(row.Item(p.Name))
+                            Case GetType(Boolean)
+                                Trow(p.Name) = CBool(row.Item(p.Name))
+                            Case Else
+                                Trow(p.Name) = row.Item(p.Name)
+                        End Select
                     Next p
-                    dt.Rows.Add(Trow)
+                    tplModelInfo.dt.Rows.Add(Trow)
                 Next row
-                dt.AcceptChanges()
+                tplModelInfo.dt.AcceptChanges()
             End With
 
-            Return dt
+            Return tplModelInfo.dt
+
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return Nothing
@@ -301,24 +287,21 @@ Public Class FrmM0010
             If flx.Rows.Count > 0 Then
                 '-----選択行設定
                 Try
-
                     flx.RowSel = intCURROW
-
                 Catch dgvEx As Exception
                 End Try
-                Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, flx.Rows.Count - flx.Rows.Fixed.ToString)
+                lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, flx.Rows.Count - flx.Rows.Fixed.ToString)
             Else
-                Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
+                lblRecordCount.Text = My.Resources.infoSearchResultNotFound
             End If
 
             Return True
+
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
 
-            '-----一覧可視
-            'dgv.Visible = True
             flx.EndUpdate()
         End Try
     End Function

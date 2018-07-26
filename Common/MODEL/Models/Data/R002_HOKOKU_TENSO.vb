@@ -9,6 +9,7 @@ Imports PropertyChanged
 <Table(NameOf(R002_HOKOKU_TENSO), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
 Partial Public Class R002_HOKOKU_TENSO
+    Inherits ModelBase
 
     Public Sub New()
         Call clear()

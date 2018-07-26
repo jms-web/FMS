@@ -9,6 +9,7 @@ Imports System.Data.Entity.Spatial
 ''' </summary>
 <Table("M001_SETTING", Schema:="dbo")>
 Partial Public Class M001_SETTING
+    Inherits ModelBase
     Implements IDisposable
 
     <Key>
@@ -70,31 +71,27 @@ Partial Public Class M001_SETTING
     'ã§í çÄñ⁄------------------------------------
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="Char")>
     Public Property ADD_YMDHNS As String
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property ADD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="Char")>
     Public Property UPD_YMDHNS As String
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property UPD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="char")>
     Public Property DEL_YMDHNS As String
 
     <ComponentModel.DisplayName("çÌèúçœ")>
+    <Display(AutoGenerateField:=False)>
     <NotMapped>
     Public ReadOnly Property DEL_FLG As Boolean
         Get
@@ -103,7 +100,6 @@ Partial Public Class M001_SETTING
     End Property
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property DEL_SYAIN_ID As Integer
 
 #Region "IDisposable Support"

@@ -40,7 +40,7 @@ Partial Class FrmG0012
         Me.D005CARJBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.TabSTAGE = New System.Windows.Forms.TabControl()
         Me.tabSTAGE01 = New JMS_COMMON.TabPageEx()
-        Me.pnl = New JMS_COMMON.PanelEx()
+        Me.pnlST05 = New JMS_COMMON.PanelEx()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.Label81 = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
@@ -246,7 +246,7 @@ Partial Class FrmG0012
         CType(Me.D005CARJBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabSTAGE.SuspendLayout()
         Me.tabSTAGE01.SuspendLayout()
-        Me.pnl.SuspendLayout()
+        Me.pnlST05.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.pnlCAR.SuspendLayout()
         Me.FlowLayoutPanel2.SuspendLayout()
@@ -689,7 +689,7 @@ Partial Class FrmG0012
         '
         Me.tabSTAGE01.AutoScroll = True
         Me.tabSTAGE01.BackColor = System.Drawing.SystemColors.Control
-        Me.tabSTAGE01.Controls.Add(Me.pnl)
+        Me.tabSTAGE01.Controls.Add(Me.pnlST05)
         Me.tabSTAGE01.Controls.Add(Me.pnlCAR)
         Me.tabSTAGE01.Controls.Add(Me.pnlTEMP_SIRYO)
         Me.tabSTAGE01.Controls.Add(Me.pnlZESEI_SYOCHI)
@@ -708,23 +708,23 @@ Partial Class FrmG0012
         Me.tabSTAGE01.TabIndex = 0
         Me.tabSTAGE01.Text = "CAR項目"
         '
-        'pnl
+        'pnlST05
         '
-        Me.pnl.Controls.Add(Me.Label21)
-        Me.pnl.Controls.Add(Me.Label81)
-        Me.pnl.Controls.Add(Me.FlowLayoutPanel1)
-        Me.pnl.Controls.Add(Me.chkSEKKEI_TANTO_YOHI_KB)
-        Me.pnl.HitEnabled = False
-        Me.pnl.Location = New System.Drawing.Point(630, 124)
-        Me.pnl.Name = "pnl"
-        Me.pnl.Size = New System.Drawing.Size(350, 34)
-        Me.pnl.TabIndex = 317
+        Me.pnlST05.Controls.Add(Me.Label21)
+        Me.pnlST05.Controls.Add(Me.Label81)
+        Me.pnlST05.Controls.Add(Me.FlowLayoutPanel1)
+        Me.pnlST05.Controls.Add(Me.chkSEKKEI_TANTO_YOHI_KB)
+        Me.pnlST05.HitEnabled = False
+        Me.pnlST05.Location = New System.Drawing.Point(630, 124)
+        Me.pnlST05.Name = "pnlST05"
+        Me.pnlST05.Size = New System.Drawing.Size(304, 34)
+        Me.pnlST05.TabIndex = 317
         '
         'Label21
         '
         Me.Label21.BackColor = System.Drawing.Color.Black
         Me.Label21.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Label21.Location = New System.Drawing.Point(337, 0)
+        Me.Label21.Location = New System.Drawing.Point(291, 0)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(13, 34)
         Me.Label21.TabIndex = 316
@@ -732,11 +732,12 @@ Partial Class FrmG0012
         '
         'Label81
         '
+        Me.Label81.Dock = System.Windows.Forms.DockStyle.Left
         Me.Label81.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label81.Location = New System.Drawing.Point(1, 6)
+        Me.Label81.Location = New System.Drawing.Point(0, 0)
         Me.Label81.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label81.Name = "Label81"
-        Me.Label81.Size = New System.Drawing.Size(196, 16)
+        Me.Label81.Size = New System.Drawing.Size(181, 34)
         Me.Label81.TabIndex = 253
         Me.Label81.Text = "設計開発担当者の確認の要否:"
         Me.Label81.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -746,9 +747,9 @@ Partial Class FrmG0012
         Me.FlowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.FlowLayoutPanel1.Controls.Add(Me.rbtnSEKKEI_TANTO_YOHI_YES)
         Me.FlowLayoutPanel1.Controls.Add(Me.rbtnSEKKEI_TANTO_YOHI_NO)
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(205, 2)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(184, 4)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(101, 26)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(102, 26)
         Me.FlowLayoutPanel1.TabIndex = 251
         '
         'rbtnSEKKEI_TANTO_YOHI_YES
@@ -776,7 +777,7 @@ Partial Class FrmG0012
         'chkSEKKEI_TANTO_YOHI_KB
         '
         Me.chkSEKKEI_TANTO_YOHI_KB.AutoSize = True
-        Me.chkSEKKEI_TANTO_YOHI_KB.Location = New System.Drawing.Point(209, 7)
+        Me.chkSEKKEI_TANTO_YOHI_KB.Location = New System.Drawing.Point(188, 9)
         Me.chkSEKKEI_TANTO_YOHI_KB.Name = "chkSEKKEI_TANTO_YOHI_KB"
         Me.chkSEKKEI_TANTO_YOHI_KB.Size = New System.Drawing.Size(86, 21)
         Me.chkSEKKEI_TANTO_YOHI_KB.TabIndex = 252
@@ -1554,7 +1555,7 @@ Partial Class FrmG0012
         Me.pnlTEMP_SIRYO.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlTEMP_SIRYO.Name = "pnlTEMP_SIRYO"
         Me.pnlTEMP_SIRYO.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlTEMP_SIRYO.Size = New System.Drawing.Size(537, 119)
+        Me.pnlTEMP_SIRYO.Size = New System.Drawing.Size(566, 119)
         Me.pnlTEMP_SIRYO.TabIndex = 315
         '
         'fpnltmpFile2
@@ -1990,14 +1991,14 @@ Partial Class FrmG0012
         Me.pnlZESEI_SYOCHI.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlZESEI_SYOCHI.Name = "pnlZESEI_SYOCHI"
         Me.pnlZESEI_SYOCHI.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlZESEI_SYOCHI.Size = New System.Drawing.Size(1156, 126)
+        Me.pnlZESEI_SYOCHI.Size = New System.Drawing.Size(1122, 126)
         Me.pnlZESEI_SYOCHI.TabIndex = 313
         '
         'lblZESEI_SYOCHIFlame
         '
         Me.lblZESEI_SYOCHIFlame.BackColor = System.Drawing.Color.Black
         Me.lblZESEI_SYOCHIFlame.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblZESEI_SYOCHIFlame.Location = New System.Drawing.Point(1141, 2)
+        Me.lblZESEI_SYOCHIFlame.Location = New System.Drawing.Point(1107, 2)
         Me.lblZESEI_SYOCHIFlame.Name = "lblZESEI_SYOCHIFlame"
         Me.lblZESEI_SYOCHIFlame.Size = New System.Drawing.Size(13, 122)
         Me.lblZESEI_SYOCHIFlame.TabIndex = 315
@@ -2468,14 +2469,14 @@ Partial Class FrmG0012
         Me.pnlSYOCHI_KIROKU.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlSYOCHI_KIROKU.Name = "pnlSYOCHI_KIROKU"
         Me.pnlSYOCHI_KIROKU.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlSYOCHI_KIROKU.Size = New System.Drawing.Size(1156, 167)
+        Me.pnlSYOCHI_KIROKU.Size = New System.Drawing.Size(1122, 167)
         Me.pnlSYOCHI_KIROKU.TabIndex = 312
         '
         'lblSYOCHI_KIROKUFlame
         '
         Me.lblSYOCHI_KIROKUFlame.BackColor = System.Drawing.Color.Black
         Me.lblSYOCHI_KIROKUFlame.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSYOCHI_KIROKUFlame.Location = New System.Drawing.Point(1141, 2)
+        Me.lblSYOCHI_KIROKUFlame.Location = New System.Drawing.Point(1107, 2)
         Me.lblSYOCHI_KIROKUFlame.Name = "lblSYOCHI_KIROKUFlame"
         Me.lblSYOCHI_KIROKUFlame.Size = New System.Drawing.Size(13, 163)
         Me.lblSYOCHI_KIROKUFlame.TabIndex = 314
@@ -2921,7 +2922,7 @@ Partial Class FrmG0012
         Me.cmbST01_DestTANTO.FormattingEnabled = True
         Me.cmbST01_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST01_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 11294)
+        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 12446)
         Me.cmbST01_DestTANTO.Name = "cmbST01_DestTANTO"
         Me.cmbST01_DestTANTO.NullValue = " "
         Me.cmbST01_DestTANTO.ReadOnly = False
@@ -2938,7 +2939,7 @@ Partial Class FrmG0012
         Me.mtxST01_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST01_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_NextStageName.InputRequired = False
-        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 11294)
+        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 12446)
         Me.mtxST01_NextStageName.MaxByteLength = 0
         Me.mtxST01_NextStageName.Name = "mtxST01_NextStageName"
         Me.mtxST01_NextStageName.Size = New System.Drawing.Size(296, 24)
@@ -2951,7 +2952,7 @@ Partial Class FrmG0012
         Me.Label123.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label123.AutoSize = True
         Me.Label123.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label123.Location = New System.Drawing.Point(255, 11299)
+        Me.Label123.Location = New System.Drawing.Point(255, 12451)
         Me.Label123.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label123.Name = "Label123"
         Me.Label123.Size = New System.Drawing.Size(98, 15)
@@ -2964,7 +2965,7 @@ Partial Class FrmG0012
         Me.Label124.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label124.AutoSize = True
         Me.Label124.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label124.Location = New System.Drawing.Point(661, 11299)
+        Me.Label124.Location = New System.Drawing.Point(661, 12451)
         Me.Label124.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label124.Name = "Label124"
         Me.Label124.Size = New System.Drawing.Size(72, 15)
@@ -2977,7 +2978,7 @@ Partial Class FrmG0012
         Me.Label139.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label139.AutoSize = True
         Me.Label139.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label139.Location = New System.Drawing.Point(10, 11299)
+        Me.Label139.Location = New System.Drawing.Point(10, 12451)
         Me.Label139.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(102, 15)
@@ -2992,7 +2993,7 @@ Partial Class FrmG0012
         Me.mtxST01_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST01_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_UPD_YMD.InputRequired = False
-        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 11294)
+        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 12446)
         Me.mtxST01_UPD_YMD.MaxByteLength = 0
         Me.mtxST01_UPD_YMD.Name = "mtxST01_UPD_YMD"
         Me.mtxST01_UPD_YMD.Size = New System.Drawing.Size(115, 24)
@@ -3335,7 +3336,7 @@ Partial Class FrmG0012
         Me.cmbDestTANTO.FormattingEnabled = True
         Me.cmbDestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbDestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbDestTANTO.Location = New System.Drawing.Point(1098, 199)
+        Me.cmbDestTANTO.Location = New System.Drawing.Point(1098, 198)
         Me.cmbDestTANTO.Name = "cmbDestTANTO"
         Me.cmbDestTANTO.NullValue = " "
         Me.cmbDestTANTO.ReadOnly = False
@@ -3353,7 +3354,7 @@ Partial Class FrmG0012
         Me.mtxNextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxNextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxNextStageName.InputRequired = False
-        Me.mtxNextStageName.Location = New System.Drawing.Point(760, 195)
+        Me.mtxNextStageName.Location = New System.Drawing.Point(760, 200)
         Me.mtxNextStageName.MaxByteLength = 0
         Me.mtxNextStageName.Name = "mtxNextStageName"
         Me.mtxNextStageName.ReadOnly = True
@@ -3368,7 +3369,7 @@ Partial Class FrmG0012
         Me.Label97.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label97.AutoSize = True
         Me.Label97.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label97.Location = New System.Drawing.Point(656, 198)
+        Me.Label97.Location = New System.Drawing.Point(656, 203)
         Me.Label97.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label97.Name = "Label97"
         Me.Label97.Size = New System.Drawing.Size(98, 15)
@@ -3653,8 +3654,8 @@ Partial Class FrmG0012
         Me.TabSTAGE.ResumeLayout(False)
         Me.tabSTAGE01.ResumeLayout(False)
         Me.tabSTAGE01.PerformLayout()
-        Me.pnl.ResumeLayout(False)
-        Me.pnl.PerformLayout()
+        Me.pnlST05.ResumeLayout(False)
+        Me.pnlST05.PerformLayout()
         Me.FlowLayoutPanel1.ResumeLayout(False)
         Me.FlowLayoutPanel1.PerformLayout()
         Me.pnlCAR.ResumeLayout(False)
@@ -3902,6 +3903,6 @@ Partial Class FrmG0012
     Friend WithEvents lblSYOCHI_KIROKUFlame As Label
     Friend WithEvents pnlCAR As PanelEx
     Friend WithEvents lblCARFlame As Label
-    Friend WithEvents pnl As PanelEx
+    Friend WithEvents pnlST05 As PanelEx
     Friend WithEvents Label21 As Label
 End Class

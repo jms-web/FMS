@@ -972,12 +972,15 @@ Public NotInheritable Class ClsPubMethod
     Public Shared Function FunGetTableFromModel(ByVal _type As Type) As (dt As DataTable, properties As Reflection.PropertyInfo())
         Dim dt As New DataTable
         Dim properties As Reflection.PropertyInfo() = _type.GetProperties(Reflection.BindingFlags.Public Or
-                                                                              Reflection.BindingFlags.NonPublic Or
                                                                               Reflection.BindingFlags.Instance Or
-                                                                              Reflection.BindingFlags.Static Or
-                                                                              Reflection.BindingFlags.DeclaredOnly)
+                                                                              Reflection.BindingFlags.Static)
         For Each p As Reflection.PropertyInfo In properties
-            dt.Columns.Add(p.Name, p.PropertyType)
+            If IsAutoGenerateField(_type, p.Name) Then
+                Dim dc As New DataColumn With {.ColumnName = p.Name,
+                                              .DataType = p.PropertyType,
+                                              .Caption = p.DisplayName}
+                dt.Columns.Add(dc)
+            End If
         Next p
 
         Return (dt, properties)

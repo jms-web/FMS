@@ -121,6 +121,9 @@
   <ItemGroup>
     <Reference Include="mscorlib" />
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PanelManager">
+      <HintPath>..\..\..\Libs\PanelManager.dll</HintPath>
+    </Reference>
     <Reference Include="PropertyChanged, Version=2.5.6.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\PropertyChanged.Fody.2.5.6\lib\net452\PropertyChanged.dll</HintPath>
     </Reference>

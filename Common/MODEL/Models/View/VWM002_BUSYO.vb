@@ -26,7 +26,4 @@ Partial Public Class VWM002_BUSYO
     Public Property DEL_SYAIN_ID As Integer
     Public Property DEL_SYAIN_NAME As String
 
-
-
-
 End Class

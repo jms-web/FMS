@@ -9,6 +9,7 @@ Imports PropertyChanged
 <Table(NameOf(D003_NCR_J), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
 Partial Public Class D003_NCR_J
+    Inherits ModelBase
     'Inherits NotifyChangedBase
 
     Public Sub New()
@@ -110,17 +111,6 @@ Partial Public Class D003_NCR_J
         DEL_SYAIN_ID = 0
 
     End Sub
-
-    <Display(AutoGenerateField:=False)>
-    Default Public Property Item(ByVal propertyName As String) As Object
-        Get
-            Return GetType(D003_NCR_J).GetProperty(propertyName).GetValue(Me)
-        End Get
-        Set(value As Object)
-            GetType(D003_NCR_J).GetProperty(propertyName).SetValue(Me, value)
-        End Set
-    End Property
-
 
     <Key>
     <Column(Order:=0, TypeName:="char")>

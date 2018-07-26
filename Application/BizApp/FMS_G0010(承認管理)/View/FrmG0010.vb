@@ -88,9 +88,13 @@ Public Class FrmG0010
 
             '-----グリッド初期設定(親フォームから呼び出し)
             Call FunInitializeDataGridView(dgvDATA)
+            Call FunInitializeDataGridView(dgvNCR)
+            Call FunInitializeDataGridView(dgvCAR)
 
             '-----グリッド列作成
             Call FunSetDgvCulumns(dgvDATA)
+            Call FunSetDgvCulumnsNCRCAR(dgvNCR)
+            Call FunSetDgvCulumnsNCRCAR(dgvCAR)
 
             'SPEC: PF01.2-(1) A データソース
 
@@ -218,7 +222,7 @@ Public Class FrmG0010
 
 #Region "DataGridView関連"
 
-    'フィールド定義
+#Region "フィールド定義"
     Private Shared Function FunSetDgvCulumns(ByVal dgv As DataGridView) As Boolean
         Dim _Model As New MODEL.ST02_FUTEKIGO_ICHIRAN
         Try
@@ -385,8 +389,56 @@ Public Class FrmG0010
         End Try
     End Function
 
+    Private Shared Function FunSetDgvCulumnsNCRCAR(ByVal dgv As DataGridView) As Boolean
+
+        Try
+            With dgv
+                .AutoGenerateColumns = False
+                .ReadOnly = False
+                .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
+                .ColumnHeadersDefaultCellStyle.Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
+                .RowsDefaultCellStyle.BackColor = Color.White
+                .AlternatingRowsDefaultCellStyle.BackColor = Color.White
+
+                Dim cmbclmn1 As New DataGridViewCheckBoxColumn With {
+                .Name = "SELECTED",
+                .HeaderText = "",
+                .DataPropertyName = .Name
+                }
+                cmbclmn1.DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+                .Columns.Add(cmbclmn1)
+                .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
+                .Columns(.ColumnCount - 1).Width = 30
+
+                .Columns.Add("SYONIN_JUN", "")
+                .Columns(.ColumnCount - 1).Width = 50
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).ReadOnly = True
+
+                .Columns.Add("SYONIN_NAIYO", "ステージ名")
+                .Columns(.ColumnCount - 1).Width = 210
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).ReadOnly = True
+
+                .Columns.Add("COUNT", "件数")
+                .Columns(.ColumnCount - 1).Width = 50
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+                .Columns(.ColumnCount - 1).ReadOnly = True
+
+            End With
+
+            Return True
+        Finally
+        End Try
+    End Function
+
+#End Region
+
     'グリッドセル(行)ダブルクリック時イベント
-    Private Sub DgvDATA_CellDoubleClick(sender As System.Object, e As DataGridViewCellEventArgs) Handles dgvDATA.CellDoubleClick
+    Private Sub DgvDATA_CellDoubleClick(sender As System.Object, e As DataGridViewCellEventArgs)
         Try
             'ヘッダ以外のセルダブルクリック時
             If e.RowIndex >= 0 Then
@@ -399,7 +451,7 @@ Public Class FrmG0010
     End Sub
 
     '行選択時イベント
-    Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs) Handles dgvDATA.SelectionChanged
+    Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs)
         Try
             If Me.dgvDATA.CurrentRow IsNot Nothing Then
                 If Me.dgvDATA.CurrentRow.Cells("CLOSE_FG").Value = "1" Or Me.dgvDATA.CurrentRow.Cells("DEL_YMDHNS").Value.ToString.IsNullOrWhiteSpace Then
@@ -415,7 +467,7 @@ Public Class FrmG0010
     End Sub
 
     'ソート時イベント
-    Private Sub DgvDATA_Sorted(sender As Object, e As EventArgs) Handles dgvDATA.Sorted
+    Private Sub DgvDATA_Sorted(sender As Object, e As EventArgs)
         Call FunSetDgvCellFormat(sender)
     End Sub
 
@@ -458,7 +510,6 @@ Public Class FrmG0010
         End Try
     End Function
 
-
 #Region "　グリッド編集関連"
 
     ''' <summary>
@@ -467,14 +518,14 @@ Public Class FrmG0010
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks>グリッド編集前処理</remarks>
-    Private Sub DgvDATA_CellBeginEdit(sender As Object, e As System.Windows.Forms.DataGridViewCellCancelEventArgs) Handles dgvDATA.CellBeginEdit
+    Private Sub DgvDATA_CellBeginEdit(sender As Object, e As System.Windows.Forms.DataGridViewCellCancelEventArgs)
 
         ' 編集前の値を待避しておく
         'pri_intPrevCellValue = Val(Me.dgvDATA.CurrentCell.Value)
     End Sub
 
     'セル編集完了イベント
-    Private Sub DgvDATA_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDATA.CellEndEdit
+    Private Sub DgvDATA_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs)
         Try
 
             'Dim intEditedCellValue As Integer
@@ -500,25 +551,25 @@ Public Class FrmG0010
     End Sub
 
     'セルクリック時イベント
-    Private Sub DgvDATA_CellClick(sender As System.Object, e As DataGridViewCellEventArgs) Handles dgvDATA.CellClick
+    Private Sub DgvDATA_CellClick(sender As System.Object, e As DataGridViewCellEventArgs)
 
         Try
             Dim dgv As DataGridView = DirectCast(sender, DataGridView)
 
-            'If e.RowIndex >= 0 Then
-            '    Select Case dgv.Columns(e.ColumnIndex).Name
-            '        Case "SELECTED"
-            '            If Me.dgvDATA.CurrentRow.Cells("CLOSE_FG").Value = "1" Or Me.dgvDATA.CurrentRow.Cells("DEL_YMDHNS").Value.ToString.Trim <> "" Then
-            '                Me.dgvDATA.CurrentRow.Cells("SELECTED").Value = False 'Not CBool(Me.dgvDATA.CurrentRow.Cells("SELECTED").Value)
-            '            Else
-            '                '    '選択不可
-            '                '    Me.dgvDATA.CurrentRow.Cells("SELECTED").Value = False
-            '                '    MessageBox.Show("未発注データ以外は選択出来ません。", "選択不可", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            '            End If
+            If e.RowIndex >= 0 Then
+                Select Case dgv.Columns(e.ColumnIndex).Name
+                    Case "SELECTED"
+                        If Me.dgvDATA.CurrentRow.Cells("CLOSE_FG").Value = "1" Or Me.dgvDATA.CurrentRow.Cells("DEL_YMDHNS").Value.ToString.Trim <> "" Then
+                            Me.dgvDATA.CurrentRow.Cells("SELECTED").Value = False 'Not CBool(Me.dgvDATA.CurrentRow.Cells("SELECTED").Value)
+                        Else
+                            Me.dgvDATA.CurrentRow.Cells("SELECTED").Value = Not CBool(Me.dgvDATA.CurrentRow.Cells("SELECTED").Value)
+                            '    '選択不可
+                            '    Me.dgvDATA.CurrentRow.Cells("SELECTED").Value = False
+                            '    MessageBox.Show("未発注データ以外は選択出来ません。", "選択不可", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        End If
+                End Select
 
-            '    End Select
-
-            'End If
+            End If
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -528,7 +579,7 @@ Public Class FrmG0010
 
 
 #Region "編集可能セルOnMouse時カーソル変更"
-    Private Sub Dgv_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvDATA.CellMouseMove
+    Private Sub Dgv_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs)
         Dim dgv As DataGridView = DirectCast(sender, DataGridView)
         If e.RowIndex >= 0 Then
             Select Case dgv.Columns(e.ColumnIndex).Name
@@ -546,7 +597,7 @@ Public Class FrmG0010
         End If
     End Sub
 
-    Private Sub Dgv_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDATA.CellMouseLeave
+    Private Sub Dgv_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs)
         Dim dgv As DataGridView = DirectCast(sender, DataGridView)
         dgv.Cursor = Cursors.Default
     End Sub
@@ -555,7 +606,7 @@ Public Class FrmG0010
 
 #Region "入力制限"
     'EditingControlShowingイベント
-    Private Sub DataGridView1_EditingControlShowing(ByVal sender As Object, ByVal e As DataGridViewEditingControlShowingEventArgs) Handles dgvDATA.EditingControlShowing
+    Private Sub DataGridView1_EditingControlShowing(ByVal sender As Object, ByVal e As DataGridViewEditingControlShowingEventArgs)
         '表示されているコントロールがDataGridViewTextBoxEditingControlか調べる
         If TypeOf e.Control Is DataGridViewTextBoxEditingControl Then
             Dim dgv As DataGridView = CType(sender, DataGridView)
@@ -643,13 +694,15 @@ Public Class FrmG0010
                         MessageBox.Show("該当データが選択されていません。", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     End If
 
-                Case 7 '全選択
+                Case 7 '検索条件変更
+                    panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlCondition))
+                    Call FunSetStageList(dgvNCR, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR)
+                    Call FunSetStageList(dgvCAR, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)
 
-                    Call FunSelectAll()
+                Case 8 '全選択'全選択解除
 
-                Case 8 '全選択解除
-
-                    Call FunUnSelectAll()
+                    'Call FunSelectAll()
+                    'Call FunUnSelectAll()
 
                 Case 9 'メール送信
 
@@ -714,28 +767,14 @@ Public Class FrmG0010
             End If
 
             '------DataTableに変換
-            Dim dt As New DataTable
 
-            Dim t As Type = GetType(MODEL.ST02_FUTEKIGO_ICHIRAN)
-            Dim properties As Reflection.PropertyInfo() = t.GetProperties(
-                 Reflection.BindingFlags.Public Or
-                 Reflection.BindingFlags.Instance Or
-                 Reflection.BindingFlags.Static)
-
-            For Each p As Reflection.PropertyInfo In properties
-                If IsAutoGenerateField(t, p.Name) = True Then
-                    Dim dc As New DataColumn With {.ColumnName = p.Name,
-                                                   .DataType = p.PropertyType,
-                                                   .Caption = p.DisplayName}
-                    dt.Columns.Add(dc)
-                End If
-            Next p
+            Dim tplDataModel = FunGetTableFromModel(GetType(MODEL.ST02_FUTEKIGO_ICHIRAN))
 
             With dtBUFF
                 For Each row As DataRow In .Rows
-                    Dim Trow As DataRow = dt.NewRow()
-                    For Each p As Reflection.PropertyInfo In properties
-                        If IsAutoGenerateField(t, p.Name) = True Then
+                    Dim Trow As DataRow = tplDataModel.dt.NewRow()
+                    For Each p As Reflection.PropertyInfo In tplDataModel.properties
+                        If IsAutoGenerateField(GetType(MODEL.ST02_FUTEKIGO_ICHIRAN), p.Name) = True Then
                             Select Case p.PropertyType
                                 Case GetType(Integer)
                                     Trow(p.Name) = Val(row.Item(p.Name))
@@ -777,9 +816,9 @@ Public Class FrmG0010
                             End Select
                         End If
                     Next p
-                    dt.Rows.Add(Trow)
+                    tplDataModel.dt.Rows.Add(Trow)
                 Next row
-                dt.AcceptChanges()
+                tplDataModel.dt.AcceptChanges()
             End With
 
             'CHECK: 部門抽出条件適用 ログインユーザーの所属と異なる部門条件の場合・・・(すべて)を含む
@@ -790,21 +829,21 @@ Public Class FrmG0010
                 If pub_SYAIN_INFO.BUMON_KB <> ParamModel.BUMON_KB Then
                     Select Case pub_SYAIN_INFO.BUMON_KB
                         Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
-                            Dim qdt = dt.AsEnumerable.Where(Function(r) r.Field(Of String)("BUMON_KB") = 1 Or r.Field(Of String)("BUMON_KB") = 2).ToList
+                            Dim qdt = tplDataModel.dt.AsEnumerable.Where(Function(r) r.Field(Of String)("BUMON_KB") = 1 Or r.Field(Of String)("BUMON_KB") = 2).ToList
                             If qdt.Count > 0 Then
-                                dt = qdt.CopyToDataTable
+                                tplDataModel.dt = qdt.CopyToDataTable
                             End If
 
                         Case Context.ENM_BUMON_KB._3_複合材
-                            Dim qdt = dt.AsEnumerable.Where(Function(r) r.Field(Of String)("BUMON_KB") = 3).ToList
+                            Dim qdt = tplDataModel.dt.AsEnumerable.Where(Function(r) r.Field(Of String)("BUMON_KB") = 3).ToList
                             If qdt.Count > 0 Then
-                                dt = qdt.CopyToDataTable
+                                tplDataModel.dt = qdt.CopyToDataTable
                             End If
                     End Select
                 End If
             End If
 
-            Return dt
+            Return tplDataModel.dt
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return Nothing
@@ -814,6 +853,9 @@ Public Class FrmG0010
     Private Function FunSRCH(ByVal dgv As DataGridView, ByVal dt As DataTable) As Boolean
         Dim intCURROW As Integer
         Try
+
+            panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlDataGrid))
+
             '-----選択行記憶
             If dgv.RowCount > 0 Then
                 intCURROW = dgv.CurrentRow.Index
@@ -839,6 +881,26 @@ Public Class FrmG0010
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
+        End Try
+    End Function
+
+    Private Function FunSetStageList(dgv As DataGridView, SYONIN_HOKOKUSYO_ID As Context.ENM_SYONIN_HOKOKUSYO_ID) As Boolean
+        Try
+
+            Dim retTable As New DataTable
+
+            Dim param As New ST02_ParamModel With {.SYONIN_HOKOKUSYO_ID = SYONIN_HOKOKUSYO_ID}
+            Dim dtBUFF As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(param)
+
+            Dim group = dtBUFF.AsEnumerable.GroupBy(Function(g) Tuple.Create(g.Field(Of Integer)("SYONIN_HOKOKUSYO_ID"), g.Field(Of Integer)("SYONIN_JUN"))).ToList
+
+
+
+            Return True
+
+        Catch ex As Exception
+            Throw
+            Return False
         End Try
     End Function
 
@@ -1211,7 +1273,7 @@ Public Class FrmG0010
         'End If
 
         '-----データモデル更新
-        _R001_HOKOKU_SOUSA.clear()
+        _R001_HOKOKU_SOUSA.Clear()
         _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = dr.Item("SYONIN_HOKOKUSYO_ID")
         _R001_HOKOKU_SOUSA.HOKOKU_NO = dr.Item("HOKOKU_NO")
         _R001_HOKOKU_SOUSA.SYONIN_JUN = dr.Item("SYONIN_JUN")
@@ -1621,7 +1683,7 @@ Public Class FrmG0010
 
 
 #Region "検索条件クリア"
-    Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click, btnClearSrchFilter2.Click, btnClearSrchFilter3.Click
+    Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click
         ParamModel.Clear()
         chkDleteRowVisibled.Checked = False
     End Sub
@@ -2209,9 +2271,6 @@ Public Class FrmG0010
             Return False
         End If
     End Function
-
-
-
 
 #End Region
 

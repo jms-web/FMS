@@ -148,7 +148,7 @@ Public Class FrmG0011
             Call FunClearBindingD003()
             _D003_NCR_J.Clear()
             _D004_SYONIN_J_KANRI.clear()
-            _R001_HOKOKU_SOUSA.clear()
+            _R001_HOKOKU_SOUSA.Clear()
             _R002_HOKOKU_TENSO.clear()
 
             '-----コントロールデータソース設定
