@@ -180,6 +180,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="mdlG0010.vb" />
+    <Compile Include="Model\STAGE_LIST.vb" />
     <Compile Include="Model\ST02_SerchFilterModel.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

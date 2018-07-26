@@ -35,6 +35,7 @@ Partial Class FrmM0020
         Me.CmbOYA_BUSYO_ID = New JMS_COMMON.ComboboxEx()
         Me.CmbSYOZOKUCYO_ID = New JMS_COMMON.ComboboxEx()
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
+        Me.LabelEx1 = New JMS_COMMON.LabelEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
@@ -168,6 +169,7 @@ Partial Class FrmM0020
         Me.tlpFilter.Controls.Add(Me.TxtBUSYO_NAME, 5, 0)
         Me.tlpFilter.Controls.Add(Me.CmbOYA_BUSYO_ID, 1, 1)
         Me.tlpFilter.Controls.Add(Me.CmbSYOZOKUCYO_ID, 3, 1)
+        Me.tlpFilter.Controls.Add(Me.LabelEx1, 4, 1)
         Me.tlpFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpFilter.Location = New System.Drawing.Point(3, 20)
         Me.tlpFilter.Name = "tlpFilter"
@@ -322,6 +324,17 @@ Partial Class FrmM0020
         Me.dgvDATA.Size = New System.Drawing.Size(1225, 418)
         Me.dgvDATA.TabIndex = 60
         '
+        'LabelEx1
+        '
+        Me.LabelEx1.AutoSize = True
+        Me.LabelEx1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LabelEx1.Location = New System.Drawing.Point(556, 30)
+        Me.LabelEx1.Name = "LabelEx1"
+        Me.LabelEx1.Size = New System.Drawing.Size(65, 15)
+        Me.LabelEx1.TabIndex = 66
+        Me.LabelEx1.Text = "LabelEx1"
+        Me.LabelEx1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'FrmM0020
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -373,4 +386,5 @@ Partial Class FrmM0020
     Friend WithEvents TxtBUSYO_NAME As MaskedTextBoxEx
     Friend WithEvents CmbOYA_BUSYO_ID As ComboboxEx
     Friend WithEvents CmbSYOZOKUCYO_ID As ComboboxEx
+    Friend WithEvents LabelEx1 As LabelEx
 End Class

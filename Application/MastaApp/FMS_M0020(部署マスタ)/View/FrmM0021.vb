@@ -24,6 +24,16 @@ Public Class FrmM0021
 
 #End Region
 
+#Region "コンストラクタ"
+    Public Sub New()
+
+        ' この呼び出しはデザイナーで必要です。
+        InitializeComponent()
+
+
+    End Sub
+#End Region
+
 #Region "FORMイベント"
     Private Sub Frm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 

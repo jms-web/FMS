@@ -1459,6 +1459,9 @@ Partial Class FrmG0010
         '
         'panelMan
         '
+        Me.panelMan.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.panelMan.Controls.Add(Me.mpnlCondition)
         Me.panelMan.Controls.Add(Me.mpnlDataGrid)
         Me.panelMan.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))

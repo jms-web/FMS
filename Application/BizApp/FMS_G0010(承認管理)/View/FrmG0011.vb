@@ -2909,6 +2909,7 @@ Public Class FrmG0011
                             '_tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
                             panel.Visible = False
                             flpnlStageIndex.Controls("rsbtnST" & intTabNo.ToString("00")).Enabled = False
+                            flpnlStageIndex.Controls("rsbtnST" & intTabNo.ToString("00")).BackColor = SystemColors.GrayText
                         End If
 
                         'SPEC: 10-2.‡D

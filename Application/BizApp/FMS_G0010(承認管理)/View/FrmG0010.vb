@@ -892,9 +892,16 @@ Public Class FrmG0010
             Dim param As New ST02_ParamModel With {.SYONIN_HOKOKUSYO_ID = SYONIN_HOKOKUSYO_ID}
             Dim dtBUFF As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(param)
 
-            Dim group = dtBUFF.AsEnumerable.GroupBy(Function(g) Tuple.Create(g.Field(Of Integer)("SYONIN_HOKOKUSYO_ID"), g.Field(Of Integer)("SYONIN_JUN"))).ToList
+            Dim lst = dtBUFF.AsEnumerable.
+                GroupBy(Function(g) Tuple.Create(g.Field(Of Integer)("SYONIN_HOKOKUSYO_ID"),
+                                                 g.Field(Of Integer)("SYONIN_JUN"),
+                                                 g.Field(Of String)("SYONIN_NAIYO"))).
+                Select(Function(r) New STAGE_LIST With {.SYONIN_HOKOKUSYO_ID = r.Key.Item1,
+                                             .SYONIN_JUN = r.Key.Item2,
+                                             .SYONIN_NAIYO = r.Key.Item3,
+                                             .COUNT = r.Count(Function(s) s.Field(Of Integer)("SYONIN_NAIYO"))}).ToList
 
-
+            dgv.DataSource = lst
 
             Return True
 
