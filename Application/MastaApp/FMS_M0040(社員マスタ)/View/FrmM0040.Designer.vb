@@ -111,6 +111,10 @@ Partial Class FrmM0040
         Me.lblTytle.Font = New System.Drawing.Font("Meiryo UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTytle.Text = "担当者マスタ"
         '
+        'ToolTip
+        '
+        Me.ToolTip.InitialDelay = 700
+        '
         'Label3
         '
         Me.Label3.AutoSize = True
@@ -204,16 +208,20 @@ Partial Class FrmM0040
         'cmbSYOKUBAN
         '
         Me.cmbSYOKUBAN.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSYOKUBAN.DisplayMember = "DISP"
         Me.cmbSYOKUBAN.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYOKUBAN.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOKUBAN.FormattingEnabled = True
         Me.cmbSYOKUBAN.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbSYOKUBAN.Location = New System.Drawing.Point(70, 3)
         Me.cmbSYOKUBAN.Name = "cmbSYOKUBAN"
+        Me.cmbSYOKUBAN.NullValue = " "
+        Me.cmbSYOKUBAN.ReadOnly = False
         Me.cmbSYOKUBAN.Selected = False
         Me.cmbSYOKUBAN.Size = New System.Drawing.Size(121, 25)
         Me.cmbSYOKUBAN.TabIndex = 56
         Me.cmbSYOKUBAN.Text = "(選択)"
+        Me.cmbSYOKUBAN.ValueMember = "VALUE"
         '
         'dgvDATA
         '
