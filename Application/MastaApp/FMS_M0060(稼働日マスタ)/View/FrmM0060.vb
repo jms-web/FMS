@@ -181,8 +181,8 @@ Public Class FrmM0060
                     'SQL
                     '-----件数確認
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("SELECT COUNT(*) FROM M12_CALENDAR ")
-                    sbSQL.Append(" WHERE YYYYMMDD =  '" & Me.dtYM.ValueNonFormat & Val(lblDAY(intCNT).Text).ToString("00") & "'")
+                    sbSQL.Append("SELECT COUNT(*) FROM M006_CALENDAR ")
+                    sbSQL.Append(" WHERE YMD =  '" & Me.dtYM.ValueNonFormat & Val(lblDAY(intCNT).Text).ToString("00") & "'")
                     dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
                     If dsList.Tables(0).Rows(0).Item(0).ToString.TrimEnd() <= 0 Then
@@ -190,15 +190,13 @@ Public Class FrmM0060
                         '----データが存在しなかった場合
                         'SQL
                         sbSQL.Remove(0, sbSQL.Length)
-                        sbSQL.Append("INSERT INTO M12_CALENDAR (")
-                        sbSQL.Append("  YYYYMMDD,")
+                        sbSQL.Append("INSERT INTO M006_CALENDAR (")
+                        sbSQL.Append("  YMD,")
                         sbSQL.Append("  KADO_KB,")
-                        sbSQL.Append("  MITU_RENBAN,")
-                        sbSQL.Append("  TEHAI_RENBAN,")
-                        sbSQL.Append("  DEN_RENBAN,")
-                        sbSQL.Append("  SEIZO_RENBAN,")
                         sbSQL.Append("  ADD_YMDHNS,")
-                        sbSQL.Append("  EDIT_YMDHNS")
+                        sbSQL.Append("  ADD_SYAIN_ID,")
+                        sbSQL.Append("  UPD_YMDHNS")
+                        sbSQL.Append("  UPD_SYAIN_ID")
                         sbSQL.Append(" ) VALUES (")
                         sbSQL.Append(" '" & Me.dtYM.ValueNonFormat & Val(lblDAY(intCNT).Text).ToString("00") & "',")
                         If lblDAY(intCNT).ForeColor = System.Drawing.Color.Red Then
@@ -208,12 +206,10 @@ Public Class FrmM0060
                             '稼動時
                             sbSQL.Append(" '1',")
                         End If
-                        sbSQL.Append(" '0',")
-                        sbSQL.Append(" '0',")
-                        sbSQL.Append(" '0',")
-                        sbSQL.Append(" '0',")
                         sbSQL.Append(" dbo.GetSysDateString(), ")
+                        sbSQL.Append(" " & pub_SYAIN_INFO.SYAIN_ID & "")
                         sbSQL.Append(" dbo.GetSysDateString() ")
+                        sbSQL.Append(" " & pub_SYAIN_INFO.SYAIN_ID & "")
                         sbSQL.Append(" )")
 
                         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
@@ -230,15 +226,15 @@ Public Class FrmM0060
                     Else
                         'SQL
                         sbSQL.Remove(0, sbSQL.Length)
-                        sbSQL.Append("UPDATE M12_CALENDAR")
+                        sbSQL.Append("UPDATE M006_CALENDAR")
                         sbSQL.Append(" SET  KADO_KB = ")
                         If lblDAY(intCNT).ForeColor = System.Drawing.Color.Red Then '非稼動時
                             sbSQL.Append(" '0',")
                         Else '稼動時
                             sbSQL.Append(" '1',")
                         End If
-                        sbSQL.Append("  EDIT_YMDHNS  = dbo.GetSysDateString() ")
-                        sbSQL.Append(" WHERE YYYYMMDD = '" & Me.dtYM.ValueNonFormat & Val(lblDAY(intCNT).Text).ToString("00") & "'")
+                        sbSQL.Append("  UPD_YMDHNS  = dbo.GetSysDateString() ")
+                        sbSQL.Append(" WHERE YMD = '" & Me.dtYM.ValueNonFormat & Val(lblDAY(intCNT).Text).ToString("00") & "'")
 
                         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
                     End If
@@ -375,8 +371,8 @@ Public Class FrmM0060
 
                 '-----件数確認
                 sbSQL.Remove(0, sbSQL.Length)
-                sbSQL.Append("SELECT COUNT(*) FROM M12_CALENDAR")
-                sbSQL.Append(" WHERE YYYYMMDD LIKE  '" & Me.dtYM.ValueNonFormat & "__'")
+                sbSQL.Append("SELECT COUNT(*) FROM M006_CALENDAR")
+                sbSQL.Append(" WHERE YMD LIKE  '" & Me.dtYM.ValueNonFormat & "__'")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
                 ''-----未登録表示
@@ -443,8 +439,8 @@ Public Class FrmM0060
 
                 '-----件数確認
                 sbSQL.Remove(0, sbSQL.Length)
-                sbSQL.Append("SELECT COUNT(*) FROM M12_CALENDAR")
-                sbSQL.Append(" WHERE YYYYMMDD LIKE  '" & Me.dtYM.ValueNonFormat & "__'")
+                sbSQL.Append("SELECT COUNT(*) FROM M006_CALENDAR")
+                sbSQL.Append(" WHERE YMD LIKE  '" & Me.dtYM.ValueNonFormat & "__'")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
                 If dsList.Tables(0).Rows(0).Item(0).ToString.TrimEnd() <= 0 Then
@@ -566,18 +562,15 @@ Public Class FrmM0060
                 'SQL
                 sbSQL.Remove(0, sbSQL.Length)
                 sbSQL.Append("SELECT")
-                sbSQL.Append(" SUBSTRING(YYYYMMDD,7,2) AS DT,")
+                sbSQL.Append(" SUBSTRING(YMD,7,2) AS DT,")
                 sbSQL.Append(" KADO_KB,")
-                sbSQL.Append(" MITU_RENBAN,")
-                sbSQL.Append(" TEHAI_RENBAN,")
-                sbSQL.Append(" SEIZO_RENBAN,")
                 sbSQL.Append(" ADD_YMDHNS,")
-                sbSQL.Append(" EDIT_YMDHNS")
-                sbSQL.Append(" FROM M12_CALENDAR ")
-                sbSQL.Append(" WHERE YYYYMMDD LIKE  '" & Me.dtYM.ValueNonFormat & "__'")
+                sbSQL.Append(" UPD_YMDHNS")
+                sbSQL.Append(" FROM M006_CALENDAR ")
+                sbSQL.Append(" WHERE YMD LIKE  '" & Me.dtYM.ValueNonFormat & "__'")
                 sbSQL.Append(" AND KADO_KB='0'") '0:非稼動
                 sbSQL.Append(sbSQLWHERE)
-                sbSQL.Append(" ORDER BY YYYYMMDD")
+                sbSQL.Append(" ORDER BY YMD")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
 

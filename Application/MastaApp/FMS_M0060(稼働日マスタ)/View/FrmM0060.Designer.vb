@@ -89,13 +89,13 @@ Partial Class FrmM0060
         'cmdFunc2
         '
         Me.cmdFunc2.Image = Global.FMS.My.Resources.Resources._imgLeft32x32
-        Me.cmdFunc2.Location = New System.Drawing.Point(303, 595)
+        Me.cmdFunc2.Location = New System.Drawing.Point(219, 595)
         Me.cmdFunc2.Text = "前月(F2)"
         '
         'cmdFunc3
         '
         Me.cmdFunc3.Image = Global.FMS.My.Resources.Resources._imgRight32x32
-        Me.cmdFunc3.Location = New System.Drawing.Point(469, 595)
+        Me.cmdFunc3.Location = New System.Drawing.Point(429, 595)
         Me.cmdFunc3.Text = "次月(F3)"
         Me.cmdFunc3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.cmdFunc3.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
@@ -115,7 +115,7 @@ Partial Class FrmM0060
         'cmdFunc12
         '
         Me.cmdFunc12.Image = Global.FMS.My.Resources.Resources._imgLog_Out32x32
-        Me.cmdFunc12.Location = New System.Drawing.Point(967, 643)
+        Me.cmdFunc12.Location = New System.Drawing.Point(1045, 643)
         Me.cmdFunc12.Text = "閉じる(F12)"
         '
         'cmdFunc11
@@ -141,8 +141,12 @@ Partial Class FrmM0060
         'lblTytle
         '
         Me.lblTytle.Font = New System.Drawing.Font("Meiryo UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTytle.Size = New System.Drawing.Size(1496, 45)
+        Me.lblTytle.Size = New System.Drawing.Size(1237, 45)
         Me.lblTytle.Text = "稼働日マスタ"
+        '
+        'ToolTip
+        '
+        Me.ToolTip.InitialDelay = 700
         '
         'gbxFilter
         '
@@ -152,7 +156,7 @@ Partial Class FrmM0060
         Me.gbxFilter.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.gbxFilter.Location = New System.Drawing.Point(12, 60)
         Me.gbxFilter.Name = "gbxFilter"
-        Me.gbxFilter.Size = New System.Drawing.Size(1240, 60)
+        Me.gbxFilter.Size = New System.Drawing.Size(1237, 60)
         Me.gbxFilter.TabIndex = 62
         Me.gbxFilter.TabStop = False
         Me.gbxFilter.Text = "検索条件"
@@ -174,7 +178,7 @@ Partial Class FrmM0060
         Me.tlpFilter.RowCount = 2
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31.0!))
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpFilter.Size = New System.Drawing.Size(1234, 37)
+        Me.tlpFilter.Size = New System.Drawing.Size(1231, 37)
         Me.tlpFilter.TabIndex = 56
         '
         'Label2
@@ -201,6 +205,7 @@ Partial Class FrmM0060
         Me.dtYM.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtYM.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtYM.Name = "dtYM"
+        Me.dtYM.ReadOnly = False
         Me.dtYM.Size = New System.Drawing.Size(98, 25)
         Me.dtYM.TabIndex = 72
         Me.dtYM.Value = ""
@@ -210,7 +215,7 @@ Partial Class FrmM0060
         '
         Me.lblTOUROKU.BackColor = System.Drawing.SystemColors.Control
         Me.lblTOUROKU.Font = New System.Drawing.Font("Meiryo UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblTOUROKU.Location = New System.Drawing.Point(1077, 0)
+        Me.lblTOUROKU.Location = New System.Drawing.Point(1074, 0)
         Me.lblTOUROKU.Name = "lblTOUROKU"
         Me.lblTOUROKU.Size = New System.Drawing.Size(152, 30)
         Me.lblTOUROKU.TabIndex = 169
@@ -276,7 +281,7 @@ Partial Class FrmM0060
         Me.TableLayoutPanel1.Controls.Add(Me.lblDAY14, 6, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.lblDAY10, 2, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.lblDAY4, 3, 1)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(214, 122)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(362, 122)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 8
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
@@ -841,6 +846,7 @@ Partial Class FrmM0060
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.gbxFilter)
         Me.HelpButton = True
+        Me.MinimumSize = New System.Drawing.Size(1280, 750)
         Me.Name = "FrmM0060"
         Me.ShowStatusBar = True
         Me.Text = ""

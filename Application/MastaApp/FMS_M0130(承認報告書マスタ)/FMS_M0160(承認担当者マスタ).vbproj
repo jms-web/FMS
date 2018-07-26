@@ -140,7 +140,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="mdlM0130.vb" />
+    <Compile Include="mdlM0160.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -151,16 +151,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="View\FrmM0130.Designer.vb">
-      <DependentUpon>FrmM0130.vb</DependentUpon>
+    <Compile Include="View\FrmM0160.Designer.vb">
+      <DependentUpon>FrmM0160.vb</DependentUpon>
     </Compile>
-    <Compile Include="View\FrmM0130.vb">
+    <Compile Include="View\FrmM0160.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\FrmM0131.Designer.vb">
-      <DependentUpon>FrmM0131.vb</DependentUpon>
+    <Compile Include="View\FrmM0161.Designer.vb">
+      <DependentUpon>FrmM0161.vb</DependentUpon>
     </Compile>
-    <Compile Include="View\FrmM0131.vb">
+    <Compile Include="View\FrmM0161.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -176,12 +176,12 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\FrmM0130.resx">
-      <DependentUpon>FrmM0130.vb</DependentUpon>
+    <EmbeddedResource Include="View\FrmM0160.resx">
+      <DependentUpon>FrmM0160.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\FrmM0131.resx">
-      <DependentUpon>FrmM0131.vb</DependentUpon>
+    <EmbeddedResource Include="View\FrmM0161.resx">
+      <DependentUpon>FrmM0161.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

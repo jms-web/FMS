@@ -161,6 +161,9 @@
     <Compile Include="Models\View\V005_CAR_J.vb" />
     <Compile Include="Models\View\V003_SYONIN_J_KANRI.vb" />
     <Compile Include="Models\View\V007_NCR_CAR.vb" />
+    <Compile Include="Models\View\VWM016_SYONIN_TANTO.vb" />
+    <Compile Include="Models\View\VWM005_SYOZOKU_BUSYO.vb" />
+    <Compile Include="Models\View\VWM002_BUSYO.vb" />
     <Compile Include="Models\View\VWM105_KISYU.vb" />
     <Compile Include="Models\View\VWM014_SYONIN_ROUT.vb" />
     <Compile Include="Models\View\VWM001_SETTING.vb" />

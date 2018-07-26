@@ -1,6 +1,6 @@
 Imports JMS_COMMON.ClsPubMethod
 
-Public Class FrmM0131
+Public Class FrmM0021
 
 #Region "変数・定数"
 
@@ -415,7 +415,7 @@ Public Class FrmM0131
     ''' <param name="frm">対象フォーム</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function FunInitFuncButtonEnabled(ByRef frm As FrmM0130) As Boolean
+    Public Function FunInitFuncButtonEnabled(ByRef frm As FrmM0020) As Boolean
 
         Try
             For intFunc As Integer = 1 To 12
@@ -553,6 +553,37 @@ Public Class FrmM0131
             dsList.Dispose()
         End Try
     End Function
+
+    Private Sub Label1_Click(sender As Object, e As EventArgs)
+    End Sub
+
+    Private Sub mtxTANTO_NAME_TextChanged(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
+
+    End Sub
+
+    Private Sub MaskedTextBoxEx3_TextChanged(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub lblTytle_Click(sender As Object, e As EventArgs) Handles lblTytle.Click
+
+    End Sub
+
+    Private Sub TxtKISYU_NAME_TextChanged(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub Label3_Click(sender As Object, e As EventArgs) Handles Label3.Click
+
+    End Sub
+
+    Private Sub DateTextBoxEx1_TxtChanged(sender As Object, e As EventArgs) Handles DtYUKO_YMD.TxtChanged
+
+    End Sub
 
 
 #End Region
