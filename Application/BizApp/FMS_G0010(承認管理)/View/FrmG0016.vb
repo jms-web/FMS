@@ -219,13 +219,13 @@ Public Class FrmG0016
 
                     'ç∑ÇµñﬂÇµéûóöó
                     Select Case PrSYONIN_HOKOKUSYO_ID
-                        Case ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+                        Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
                             If FunSAVE_R003(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
                             Else
                                 blnErr = True
                                 Return False
                             End If
-                        Case ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+                        Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
 
                             If FunSAVE_R004(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
                             Else

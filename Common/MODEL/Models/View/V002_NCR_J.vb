@@ -13,8 +13,6 @@ Partial Public Class V002_NCR_J
         ZESEI_SYOCHI_YOHI_KB = "0"
     End Sub
 
-    'UNDONE: 他のモデルにもインデクサプロパティを実装する
-
     'インデクサプロパティ
     <ComponentModel.DataAnnotations.Display(AutoGenerateField:=False)>
     Default Public Property Item(ByVal propertyName As String) As Object

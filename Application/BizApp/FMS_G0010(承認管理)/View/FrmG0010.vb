@@ -100,7 +100,7 @@ Public Class FrmG0010
             Dim dtAddTANTO As DataTable = tblTANTO_SYONIN.
                                             ExcludeDeleted.
                                             AsEnumerable.
-                                            Where(Function(r) r.Field(Of Integer)("SYONIN_JUN") = ENM_NCR_STAGE._10_起草入力 And r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = ENM_SYONIN_HOKOKUSYO_ID._1_NCR).
+                                            Where(Function(r) r.Field(Of Integer)("SYONIN_JUN") = ENM_NCR_STAGE._10_起草入力 And r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR).
                                             CopyToDataTable
 
             cmbADD_TANTO.SetDataSource(dtAddTANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -857,7 +857,7 @@ Public Class FrmG0010
         Dim dlgRET As DialogResult
 
         Try
-            If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE AndAlso dgvDATA.CurrentRow.Cells("SYONIN_HOKOKUSYO_ID").Value = ENM_SYONIN_HOKOKUSYO_ID._2_CAR Then
+            If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE AndAlso dgvDATA.CurrentRow.Cells("SYONIN_HOKOKUSYO_ID").Value = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR Then
 
                 frmCAR.PrDataRow = dgvDATA.GetDataRow()
                 frmCAR.PrHOKOKU_NO = dgvDATA.GetDataRow().Item("HOKOKU_NO")
@@ -931,9 +931,9 @@ Public Class FrmG0010
             '-----UPDATE
             sbSQL.Remove(0, sbSQL.Length)
             Select Case intSYONIN_HOKOKUSYO_ID
-                Case ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
                     sbSQL.Append("UPDATE " & NameOf(MODEL.D003_NCR_J) & " SET")
-                Case ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
                     sbSQL.Append("UPDATE " & NameOf(MODEL.D005_CAR_J) & " SET")
             End Select
             sbSQL.Append(" DEL_SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID & "")
@@ -1266,7 +1266,7 @@ Public Class FrmG0010
             Dim strHOKOKU_NO As String = dgvDATA.GetDataRow().Item("HOKOKU_NO")
             Me.Cursor = Cursors.WaitCursor
             Select Case dgvDATA.GetDataRow().Item("SYONIN_HOKOKUSYO_ID")
-                Case ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
                     'ファイル名
                     strOutputFileName = "NCR_" & strHOKOKU_NO & "_Work.xls"
 
@@ -1289,7 +1289,7 @@ Public Class FrmG0010
                     End If
 
 
-                Case ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
                     'ファイル名
                     strOutputFileName = "CAR_" & strHOKOKU_NO & "_Work.xls"
 
@@ -1334,7 +1334,7 @@ Public Class FrmG0010
         'Try
 
         '    Dim _V002_NCR_J As MODEL.V002_NCR_J = FunGetV002Model(strHOKOKU_NO)
-        '    Dim _V003_SYONIN_J_KANRI_List As List(Of MODEL.V003_SYONIN_J_KANRI) = FunGetV003Model(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, strHOKOKU_NO)
+        '    Dim _V003_SYONIN_J_KANRI_List As List(Of MODEL.V003_SYONIN_J_KANRI) = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, strHOKOKU_NO)
 
         '    Workbook.LoadFromFile(strFilePath)
         '    Sheet = Workbook.Worksheets(0)
@@ -1646,7 +1646,7 @@ Public Class FrmG0010
         Dim intBUFF As Integer
         intBUFF = cmbADD_TANTO.SelectedValue
         RemoveHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
-        Dim dtADD_TANTO As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, ENM_SYONIN_HOKOKUSYO_ID._1_NCR, ENM_NCR_STAGE._10_起草入力)
+        Dim dtADD_TANTO As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, ENM_NCR_STAGE._10_起草入力)
         cmbADD_TANTO.SetDataSource(dtADD_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
         cmbADD_TANTO.SelectedValue = intBUFF
         AddHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged

@@ -306,12 +306,12 @@ Public Class FrmM0020
         End If
 
         '---íSìñé“ñºåüçı
-        If Me.mtxTANTO_NAME.Text.IsNullOrWhiteSpace Then
-        Else
-            If sbSQLWHERE.Length = 0 Then
-                sbSQLWHERE.Append(" WHERE TANTO_NAME LIKE '%" & Me.mtxTANTO_NAME.Text.Trim & "%'")
-            End If
-        End If
+        'If Me.mtxTANTO_NAME.Text.IsNullOrWhiteSpace Then
+        'Else
+        '    If sbSQLWHERE.Length = 0 Then
+        '        sbSQLWHERE.Append(" WHERE TANTO_NAME LIKE '%" & Me.mtxTANTO_NAME.Text.Trim & "%'")
+        '    End If
+        'End If
 
         If Me.chkDeletedRowVisibled.Checked = False Then
             If sbSQLWHERE.Length = 0 Then

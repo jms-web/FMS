@@ -417,12 +417,11 @@ Public Class FrmG0017
 
         _V002_NCR_J = FunGetV002Model(PrHOKOKU_NO)
         Select Case PrSYONIN_HOKOKUSYO_ID
-            Case ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+            Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
                 mtxSYONIN_HOKOKUSYO_NAME.Text = "不適合製品処置報告書(Non-Conformance Report)"
-            Case ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+            Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
                 mtxSYONIN_HOKOKUSYO_NAME.Text = "不適合是正処置報告書(Corrective Action Report)"
         End Select
-
 
         mtxHOKUKO_NO.Text = _V002_NCR_J.HOKOKU_NO
         mtxBUMON_KB.Text = _V002_NCR_J.BUMON_NAME

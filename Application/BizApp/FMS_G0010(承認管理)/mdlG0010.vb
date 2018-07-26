@@ -650,9 +650,9 @@ Module mdlG0010
             Dim drList As List(Of DataRow)
 
             Select Case intSYONIN_HOKOKUSYO_ID
-                Case ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
                     drList = tblNCR.AsEnumerable().Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
-                Case ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
                     drList = tblCAR.AsEnumerable().Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
                 Case Else
                     Return vbEmpty
@@ -965,7 +965,7 @@ Module mdlG0010
         Try
 
             Dim _V002_NCR_J As MODEL.V002_NCR_J = FunGetV002Model(strHOKOKU_NO)
-            Dim _V003_SYONIN_J_KANRI_List As List(Of MODEL.V003_SYONIN_J_KANRI) = FunGetV003Model(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, strHOKOKU_NO)
+            Dim _V003_SYONIN_J_KANRI_List As List(Of MODEL.V003_SYONIN_J_KANRI) = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, strHOKOKU_NO)
 
             ssgWorkbook = SpreadsheetGear.Factory.GetWorkbook(strFilePath, System.Globalization.CultureInfo.CurrentCulture)
             ssgWorkbook.WorkbookSet.GetLock()
@@ -1113,7 +1113,7 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.SURYO)).Value = _V002_NCR_J.SURYO
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU
 
-            Dim intCurrentStage As Integer = FunGetCurrentSYONIN_JUN(ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _V002_NCR_J.HOKOKU_NO)
+            Dim intCurrentStage As Integer = FunGetCurrentSYONIN_JUN(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _V002_NCR_J.HOKOKU_NO)
             If intCurrentStage >= ENM_NCR_STAGE._110_abcdeèàíuíSìñ Then
                 ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_UMU_NAME)).Value = _V002_NCR_J.SYOCHI_D_UMU_NAME
                 'If _V002_NCR_J.SYOCHI_D_UMU_NAME = "óL" Then
