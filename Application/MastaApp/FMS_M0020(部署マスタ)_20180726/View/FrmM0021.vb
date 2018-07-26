@@ -588,7 +588,7 @@ Public Class FrmM0021
             '-----同一項目名内に同じ表示順が存在する場合、intTergetJyun以降の表示順を全て更新する
             If intBeforeValue < intAfterValue Then
                 sbSQL.Remove(0, sbSQL.Length)
-                sbSQL.Append("UPDATE " & nameof(model.M001_SETTING) & " SET")
+                sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET")
                 sbSQL.Append(" DISP_ORDER = DISP_ORDER-1 ")
                 sbSQL.Append("WHERE")
                 sbSQL.Append(" ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
@@ -597,7 +597,7 @@ Public Class FrmM0021
             Else
                 '元の表示順より小さくした場合、他の項目を1つ後ろにずらす
                 sbSQL.Remove(0, sbSQL.Length)
-                sbSQL.Append("UPDATE " & nameof(model.M001_SETTING) & " SET")
+                sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET")
                 sbSQL.Append(" DISP_ORDER = DISP_ORDER+1 ")
                 sbSQL.Append("WHERE")
                 sbSQL.Append(" ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
@@ -615,7 +615,7 @@ Public Class FrmM0021
 
             '-----UPDATE
             sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append("UPDATE " & nameof(model.M001_SETTING) & " SET")
+            sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET")
             sbSQL.Append(" DISP_ORDER ='" & intAfterValue & "' ")
             sbSQL.Append("WHERE")
             sbSQL.Append(" ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
