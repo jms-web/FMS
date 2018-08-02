@@ -18,6 +18,7 @@ Public Class FrmM0021
     Public Property PrPKeys As (ITEM_NAME As String, ITEM_VALUE As String)
 
     Public Property PrDataRow As C1.Win.C1FlexGrid.Row
+    'Public Property PrDataRow As DataRow
 
 #End Region
 
@@ -43,17 +44,21 @@ Public Class FrmM0021
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO)
 
             '-----位置・サイズ
-            Me.Height = 360
+            Me.Height = 400
             Me.MinimumSize = New Size(1280, 360)
             Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) - 30 ' / 2
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
 
 
             '-----各コントロールのデータソースを設定
-            Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, False)
+            Me.cmbBUSYO_KB.SetDataSource(tblBUSYO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            Me.cmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            Me.cmbOYA_BUSYO_KB.SetDataSource(tblBUSYO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            Me.cmbSYOZOKUCYO.SetDataSource(tblSYAIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
             'イベントハンドラ設定
-            AddHandler cmbKOMO_NM.TextChanged, AddressOf CmbKOMO_NM_TextChanged
+            AddHandler cmbOYA_BUSYO_KB.TextChanged, AddressOf CmbOYA_BUSYO_KB_TextChanged
+            'AddHandler chkYUKO_YMD.CheckedChanged, AddressOf chkYUKO_YMD_CheckedChanged
 
             '-----処理モード別画面初期化
             Call FunInitializeControls(PrMODE)
@@ -94,13 +99,15 @@ Public Class FrmM0021
                             blnRET = FunINS()
                         Case ENM_DATA_OPERATION_MODE._3_UPDATE
                             blnRET = FunUPD()
+                        Case ENM_DATA_OPERATION_MODE._6_DELETE
+
                         Case Else
                             Throw New ArgumentException(My.Resources.ErrMsgException, PrMODE.ToString)
                     End Select
 
                     If blnRET = True Then
                         'プロパティに対象レコードのキーを設定
-                        Me.PrPKeys = (Me.cmbKOMO_NM.Text.Trim, Me.mtxVALUE.Text.Trim)
+                        'Me.PrPKeys = (Me.cmbBUSYO_KB.Text.Trim, Me.mtxYUKO_YMD.Text.Trim)
 
                         Me.DialogResult = Windows.Forms.DialogResult.OK
                         Me.Close()
@@ -147,43 +154,25 @@ Public Class FrmM0021
 
                     '-----存在チェック
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("SELECT * FROM " & NameOf(MODEL.M001_SETTING) & "")
-                    sbSQL.Append(" WHERE ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-                    sbSQL.Append(" AND ITEM_VALUE ='" & Me.mtxVALUE.Text.Trim & "' ")
+                    sbSQL.Append("SELECT * FROM " & NameOf(MODEL.M002_BUSYO) & "")
+                    sbSQL.Append(" WHERE BUSYO_NAME ='" & Me.mtxBUSYO_NAME.Text.Trim & "' ")
                     dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
                     If dsList.Tables(0).Rows.Count > 0 Then '存在時
                         MessageBox.Show("既に登録済みのデータです。" & vbCrLf & "入力データを確認して下さい。", "存在チェック", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         Return False
                     End If
 
-                    '同一項目名の既定値を解除
-                    If Me.chkDefaultVaue.Checked = True Then
-                        sbSQL.Remove(0, sbSQL.Length)
-                        sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET")
-                        sbSQL.Append(" DEF_FLG='0'")
-                        sbSQL.Append("WHERE ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-                        sbSQL.Append(" AND ITEM_VALUE <>'" & Me.mtxVALUE.Text.Trim & "' ")
-
-                        intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                        If sqlEx.InnerException IsNot Nothing Then
-                            'エラーログ出力
-                            Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                            WL.WriteLogDat(strErrMsg)
-                            blnErr = True
-                            Return False
-                        End If
-                    End If
-
                     '-----INSERT
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("INSERT INTO " & NameOf(MODEL.M001_SETTING) & " (")
-                    sbSQL.Append("  ITEM_GROUP")
-                    sbSQL.Append(" ,ITEM_NAME")
-                    sbSQL.Append(" ,ITEM_VALUE")
-                    sbSQL.Append(" ,ITEM_DISP")
-                    sbSQL.Append(" ,DISP_ORDER")
-                    sbSQL.Append(" ,DEF_FLG")
-                    sbSQL.Append(" ,BIKOU")
+                    sbSQL.Append("INSERT INTO " & NameOf(MODEL.M002_BUSYO) & " (")
+                    sbSQL.Append("  BUSYO_ID")
+                    sbSQL.Append(" ,YUKO_YMD")
+                    sbSQL.Append(" ,BUSYO_KB")
+                    sbSQL.Append(" ,BUSYO_NAME")
+                    sbSQL.Append(" ,OYA_BUSYO_ID")
+                    sbSQL.Append(" ,SYOZOKUCYO_ID")
+                    sbSQL.Append(" ,TEL")
+                    sbSQL.Append(" ,BUMON_KB")
                     sbSQL.Append(" ,ADD_YMDHNS")
                     sbSQL.Append(" ,ADD_SYAIN_ID")
                     sbSQL.Append(" ,UPD_YMDHNS")
@@ -191,25 +180,32 @@ Public Class FrmM0021
                     sbSQL.Append(" ,DEL_YMDHNS")
                     sbSQL.Append(" ,DEL_SYAIN_ID")
                     sbSQL.Append(" ) VALUES ( ")
-                    '項目グループ
-                    sbSQL.Append(" '" & Me.mtxKOMO_GROUP.Text.Trim & "'")
-                    '項目名
-                    sbSQL.Append(" ,'" & Me.cmbKOMO_NM.Text.Trim & "'")
-                    '項目値
-                    sbSQL.Append(" ,'" & Me.mtxVALUE.Text.Trim & "'")
-                    '表示値
-                    sbSQL.Append(" ,'" & Nz(Me.mtxDISP.Text.Trim, " ") & "'")
-                    '表示順
-                    sbSQL.Append(" ," & Me.cmbJYUN.SelectedValue & "")
-                    '既定値フラグ
-                    sbSQL.Append(" ,'" & IIf(Me.chkDefaultVaue.Checked = True, "1", "0") & "'")
-                    '備考
-                    sbSQL.Append(" ,'" & Nz(Me.mtxBIKOU.Text.Trim, " ") & "'")
+                    '部署ID
+                    sbSQL.Append(" 　(SELECT isnull(MAX(BUSYO_ID),0) + 1 FROM M002_BUSYO)")
+                    '有効期限
+                    If chkYUKO_YMD.Checked = True Then
+                        sbSQL.Append(" ,'99999999'")
+                    Else
+                        sbSQL.Append(" ,'" & datYUKO_YMD.ValueNonFormat & "'")
+                    End If
+
+                    '部署区分
+                    sbSQL.Append(" ,'" & Me.cmbOYA_BUSYO_KB.SelectedValue & "'")
+                    '部署名
+                    sbSQL.Append(" ,'" & Me.mtxBUSYO_NAME.Text.Trim & "'")
+                    '親部署ID
+                    sbSQL.Append(" ," & Me.cmbOYA_BUSYO.SelectedValue & "")
+                    '所属長社員ID
+                    sbSQL.Append(" ,'" & Me.cmbSYOZOKUCYO.SelectedValue & "'")
+                    'TEL
+                    sbSQL.Append(" ,'" & Me.mtxTEL.Text & "'")
+                    '部門区分
+                    sbSQL.Append(" ,'" & Me.cmbBUMON_KB.SelectedValue & "'")
                     '追加日時
                     sbSQL.Append(" ,dbo.GetSysDateString()")
-                    '追加日時
-                    sbSQL.Append(" ," & pub_SYAIN_INFO.SYAIN_ID & "")
                     '追加担当者
+                    sbSQL.Append(" ," & pub_SYAIN_INFO.SYAIN_ID & "")
+                    '更新日時
                     sbSQL.Append(" ,dbo.GetSysDateString()")
                     '更新担当者
                     sbSQL.Append(" ," & pub_SYAIN_INFO.SYAIN_ID & "")
@@ -264,11 +260,10 @@ Public Class FrmM0021
                     DB.BeginTransaction()
 
                     '-----存在チェック
-                    sbSQL.Append("SELECT * FROM " & NameOf(MODEL.M001_SETTING) & " ")
+                    sbSQL.Append("SELECT * FROM " & NameOf(MODEL.M002_BUSYO) & " ")
                     sbSQL.Append("WHERE")
-                    sbSQL.Append(" ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-                    sbSQL.Append(" AND ITEM_VALUE ='" & Me.mtxVALUE.Text.Trim & "' ")
-                    sbSQL.Append(" AND UPD_YMDHNS ='" & PrDataRow.Item("UPD_YMDHNS").ToString & "' ")
+                    sbSQL.Append(" BUSYO_ID ='" & PrDataRow.Item("BUSYO_ID").ToString & "' ")
+                    sbSQL.Append(" AND UPD_YMDHNS ='" & Replace(Replace(Replace(PrDataRow.Item("UPD_YMDHNS").ToString, "/", ""), ":", ""), " ", "") & "' ")
                     dsList = DB.GetDataSet(sbSQL.ToString)
                     If dsList.Tables(0).Rows.Count = 0 Then '非存在時
                         MessageBox.Show(String.Format(My.Resources.infoSearchDataChange), My.Resources.infoTilteDuplicateCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -276,53 +271,41 @@ Public Class FrmM0021
                     End If
 
                     '-----同一項目名の既定値を解除
-                    If Me.chkDefaultVaue.Checked = True Then
-                        sbSQL.Remove(0, sbSQL.Length)
-                        sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET")
-                        sbSQL.Append(" DEF_FLG='0' ")
-                        sbSQL.Append(" WHERE ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-                        sbSQL.Append(" AND ITEM_VALUE <>'" & Me.mtxVALUE.Text.Trim & "' ")
-
-                        intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                        If sqlEx IsNot Nothing Then
-                            'エラーログ
-                            Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                            WL.WriteLogDat(strErrMsg)
-                            blnErr = True
-                            Return False
-                        End If
-                    End If
-
-                    'TODO: 表示順最終行の表示順が変更出来ない不具合の修正
-
-                    '-----UPDATE(表示順)
-                    If PrDataRow.Item("DISP_ORDER") <> Me.cmbJYUN.SelectedValue Then
-                        If FunUpdateDispOrder(DB, PrDataRow.Item("DISP_ORDER"), Me.cmbJYUN.SelectedValue) = False Then
-                            blnErr = True
-                            Return False
-                        End If
-                    End If
-
-                    '-----UPDATE(表示順以外)
+                    'If Me.chkDefaultVaue.Checked = True Then
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET")
-                    sbSQL.Append(" ITEM_DISP ='" & Me.mtxDISP.Text.Trim & "'")
-                    sbSQL.Append(" ,DEF_FLG ='" & IIf(Me.chkDefaultVaue.Checked = True, "1", "0") & "'")
-                    sbSQL.Append(" ,BIKOU ='" & Me.mtxBIKOU.Text.Trim & "'")
-                    sbSQL.Append(" ,UPD_SYAIN_ID = " & pub_SYAIN_INFO.SYAIN_ID)
-                    sbSQL.Append(" ,UPD_YMDHNS = dbo.GetSysDateString()")
-                    sbSQL.Append("WHERE")
-                    sbSQL.Append(" ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-                    sbSQL.Append(" AND ITEM_VALUE ='" & Me.mtxVALUE.Text.Trim & "' ")
+                    sbSQL.Append("UPDATE " & NameOf(MODEL.M002_BUSYO) & " SET")
+                    If Me.chkYUKO_YMD.Checked = True Then
+                        sbSQL.Append(" YUKO_YMD ='99999999' ")
+                    Else
+                        sbSQL.Append(" YUKO_YMD ='" & datYUKO_YMD.ValueNonFormat & "' ")
+                    End If
+
+                    sbSQL.Append(",BUMON_KB ='" & cmbBUMON_KB.SelectedValue & "' ")
+                    sbSQL.Append(",BUSYO_KB ='" & cmbBUSYO_KB.SelectedValue & "' ")
+                    sbSQL.Append(",BUSYO_NAME ='" & Me.mtxBUSYO_NAME.Text.Trim & "' ")
+
+                    If Me.cmbOYA_BUSYO.SelectedIndex <= 0 Then
+                        sbSQL.Append(",OYA_BUSYO_ID = 0 ")
+                    Else
+                        sbSQL.Append(",OYA_BUSYO_ID = " & Me.cmbOYA_BUSYO.SelectedValue & " ")
+                    End If
+
+
+                    sbSQL.Append(",SYOZOKUCYO_ID = " & Me.cmbSYOZOKUCYO.SelectedValue & " ")
+                    sbSQL.Append(",TEL ='" & Me.mtxTEL.Text & "' ")
+                    sbSQL.Append(",UPD_YMDHNS = dbo.GetSysDateString() ")
+                    sbSQL.Append(",UPD_SYAIN_ID = " & pub_SYAIN_INFO.SYAIN_ID)
+                    sbSQL.Append(" WHERE BUSYO_ID = " & PrDataRow.Item("BUSYO_ID").ToString & " ")
 
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    If intRET <> 1 Then
+                    If sqlEx IsNot Nothing Then
                         'エラーログ
                         Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
                         WL.WriteLogDat(strErrMsg)
                         blnErr = True
                         Return False
                     End If
+
                 Finally
                     'トランザクション
                     DB.Commit(Not blnErr)
@@ -377,55 +360,23 @@ Public Class FrmM0021
 #Region "コントロールイベント"
 
     '項目名コンボボックス変更時イベント
-    Private Sub CmbKOMO_NM_TextChanged(sender As Object, e As EventArgs)
+    Private Sub CmbOYA_BUSYO_KB_TextChanged(sender As Object, e As EventArgs)
         Dim dsList As New DataSet
         Dim sbSQL As New System.Text.StringBuilder
-        Dim intMaxOrder As Integer
+        'Dim intMaxOrder As Integer
 
         Try
 
-            If cmbKOMO_NM.Text.IsNullOrWhiteSpace = False Then
+            If cmbOYA_BUSYO_KB.SelectedIndex <> 0 Then
 
-                Me.cmbJYUN.DataSource = Nothing
+                'Me.cmbOYA_BUSYO.DataSource = Nothing
 
                 Using DB As ClsDbUtility = DBOpen()
-                    sbSQL.Append("SELECT ITEM_VALUE")
-                    sbSQL.Append(" FROM " & NameOf(MODEL.M001_SETTING) & "")
-                    sbSQL.Append(" WHERE ITEM_NAME ='" & cmbKOMO_NM.Text & "'")
-                    dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                    Call FunGetCodeDataTable(DB, "部署", tblBUSYO, " BUSYO_KB = '" & cmbOYA_BUSYO_KB.SelectedValue & "' AND YUKO_YMD >= '" & Replace(Now.ToShortDateString, "/", "") & "'")
                 End Using
 
-                intMaxOrder = dsList.Tables(0).Rows.Count
+                Me.cmbOYA_BUSYO.SetDataSource(tblBUSYO, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
-                Dim intModeDiff As Integer
-                Select Case PrMODE
-                    Case ENM_DATA_OPERATION_MODE._1_ADD, ENM_DATA_OPERATION_MODE._2_ADDREF
-                        intModeDiff = 1
-                    Case ENM_DATA_OPERATION_MODE._3_UPDATE
-                        intModeDiff = 0
-                    Case Else
-                        Throw New ArgumentException(My.Resources.ErrMsgException, PrMODE.ToString)
-                End Select
-
-                Dim dt As New DataTableEx
-                For i As Integer = 1 To intMaxOrder + intModeDiff
-                    Dim Trow As DataRow = dt.NewRow()
-                    Trow("DISP") = i
-                    Trow("VALUE") = i
-                    Trow("DEL_FLG") = False
-                    dt.Rows.Add(Trow)
-                Next i
-
-                Call cmbJYUN.SetDataSource(dt, False)
-
-                Select Case PrMODE
-                    Case ENM_DATA_OPERATION_MODE._1_ADD, ENM_DATA_OPERATION_MODE._2_ADDREF
-                        cmbJYUN.SelectedValue = intMaxOrder + intModeDiff
-                    Case ENM_DATA_OPERATION_MODE._3_UPDATE
-                        cmbJYUN.SelectedValue = PrDataRow.Item("DISP_ORDER")
-                    Case Else
-                        Throw New ArgumentException(My.Resources.ErrMsgException, PrMODE.ToString)
-                End Select
             End If
 
         Catch ex As Exception
@@ -443,18 +394,31 @@ Public Class FrmM0021
         Try
             'TODO: 入力チェック通知はDialogからErrorProviderに変更
 
-            '項目名
-            If cmbKOMO_NM.Text.IsNullOrWhiteSpace Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目名"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.cmbKOMO_NM.Focus()
+            If cmbBUMON_KB.Text.IsNullOrWhiteSpace Then
+                MessageBox.Show(String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Me.cmbBUMON_KB.Focus()
                 Return False
             End If
 
-            '項目値
-            If Me.mtxVALUE.Text.IsNullOrWhiteSpace Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "項目値"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.mtxVALUE.Focus()
+            If cmbBUSYO_KB.Text.IsNullOrWhiteSpace Then
+                MessageBox.Show(String.Format(My.Resources.infoMsgRequireSelectOrInput, "部署区分"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Me.cmbBUSYO_KB.Focus()
                 Return False
+            End If
+
+            If chkYUKO_YMD.Checked = False Then
+                If datYUKO_YMD.ValueNonFormat = "" Then
+                    MessageBox.Show(String.Format(My.Resources.infoMsgRequireSelectOrInput, "有効期限"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Me.datYUKO_YMD.Focus()
+                    Return False
+                End If
+            End If
+
+            If mtxBUSYO_NAME.Text.Trim = "" Then
+                MessageBox.Show(String.Format(My.Resources.infoMsgRequireSelectOrInput, "部署名"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Me.mtxBUSYO_NAME.Focus()
+                Return False
+
             End If
 
             Return True
@@ -477,10 +441,8 @@ Public Class FrmM0021
                     Me.lblTytle.Text = Me.Text
                     Me.cmdFunc1.Text = "追加(F1)"
 
-                    Me.cmbKOMO_NM.Enabled = True
-                    Me.mtxVALUE.Enabled = True
-                    Me.mtxDISP.Enabled = True
-
+                    Me.cmbBUSYO_KB.Enabled = True
+                    Me.mtxBUSYO_NAME.Enabled = True
                     Me.lbllblEDIT_YMDHNS.Visible = False
                     Me.lblEDIT_YMDHNS.Visible = False
                     Me.lbllblEDIT_SYAIN_ID.Visible = False
@@ -493,9 +455,9 @@ Public Class FrmM0021
                     Me.lblTytle.Text = Me.Text
                     Me.cmdFunc1.Text = "追加(F1)"
 
-                    Me.cmbKOMO_NM.Enabled = True
-                    Me.mtxVALUE.Enabled = True
-                    Me.mtxDISP.Enabled = True
+                    Me.cmbBUSYO_KB.Enabled = True
+                    'Me.mtxYUKO_YMD.Enabled = True
+                    Me.mtxBUSYO_NAME.Enabled = True
 
                     Me.lbllblEDIT_YMDHNS.Visible = False
                     Me.lblEDIT_YMDHNS.Visible = False
@@ -509,10 +471,10 @@ Public Class FrmM0021
                     Me.lblTytle.Text = Me.Text
                     Me.cmdFunc1.Text = "変更(F1)"
 
-                    Me.mtxKOMO_GROUP.Enabled = False
-                    Me.cmbKOMO_NM.Enabled = False
-                    Me.mtxVALUE.Enabled = False
-                    Me.mtxDISP.Enabled = True
+                    Me.mtxTEL.Enabled = True
+                    Me.cmbBUSYO_KB.Enabled = True
+                    'Me.mtxYUKO_YMD.Enabled = False
+                    Me.mtxBUSYO_NAME.Enabled = True
 
                     Me.lbllblEDIT_YMDHNS.Visible = True
                     Me.lblEDIT_YMDHNS.Visible = True
@@ -537,30 +499,47 @@ Public Class FrmM0021
     ''' <param name="row"></param>
     ''' <returns></returns>
     Private Function FunSetEntityValues(row As C1.Win.C1FlexGrid.Row) As Boolean
-        Dim _model As New MODEL.VWM001_SETTING
+        Dim _model As New MODEL.VWM002_BUSYO
         Try
 
             '-----コントロールに値をセット
             With row
-                '項目グループ
-                Me.mtxKOMO_GROUP.Text = .Item(NameOf(_model.ITEM_GROUP))
-                '項目名
-                Call FunSetComboboxValue(Me.cmbKOMO_NM, tblKOMO_NM, .Item(NameOf(_model.ITEM_NAME)))
-                '項目値
-                Me.mtxVALUE.Text = .Item(NameOf(_model.ITEM_VALUE)).ToString.Trim
-                '表示値
-                Me.mtxDISP.Text = .Item(NameOf(_model.ITEM_DISP)).ToString.Trim
-                '表示順
-                Me.cmbJYUN.SelectedValue = .Item(NameOf(_model.DISP_ORDER))
-                '既定値フラグ
-                Me.chkDefaultVaue.Checked = .Item(NameOf(_model.DEF_FLG))
 
-                '備考
-                Me.mtxBIKOU.Text = .Item(NameOf(_model.BIKOU)).ToString.Trim
+                '有効期限
+                If .Item(NameOf(_model.YUKO_YMD)) = "9999/99/99" Or .Item(NameOf(_model.YUKO_YMD)) Is Nothing Then
+                    Me.datYUKO_YMD.Text = ""
+                    Me.datYUKO_YMD.Enabled = False
+                    Me.chkYUKO_YMD.Checked = True
+                Else
+                    Me.datYUKO_YMD.Text = .Item(NameOf(_model.YUKO_YMD))
+                    Me.datYUKO_YMD.Enabled = True
+                    Me.chkYUKO_YMD.Checked = False
+                End If
+
+                '部署区分
+                Me.cmbBUSYO_KB.SelectedValue = .Item(NameOf(_model.BUSYO_KB))
+
+                '部署名
+                Me.mtxBUSYO_NAME.Text = .Item(NameOf(_model.BUSYO_NAME))
+
+                '親部署区分
+                Me.cmbOYA_BUSYO_KB.SelectedValue = .Item(NameOf(_model.OYA_BUSYO_KB))
+
+                '親部署ID
+                Me.cmbOYA_BUSYO.SelectedValue = .Item(NameOf(_model.OYA_BUSYO_ID))
+
+                '部門区分
+                Me.cmbBUMON_KB.SelectedValue = .Item(NameOf(_model.BUMON_KB))
+
+                'TEL
+                Me.mtxTEL.Text = .Item(NameOf(_model.TEL))
+
+                '所属長
+                Me.cmbSYOZOKUCYO.SelectedValue = .Item(NameOf(_model.SYOZOKUCYO_ID))
 
                 '更新日時
                 Dim dt As DateTime
-                dt = DateTime.ParseExact(.Item(NameOf(_model.UPD_YMDHNS)).ToString, "yyyyMMddHHmmss", Nothing)
+                dt = DateTime.ParseExact(.Item(NameOf(_model.UPD_YMDHNS)).ToString, "yyyy/MM/dd HH:mm:ss", Nothing)
                 Me.lblEDIT_YMDHNS.Text = dt.ToString("yyyy/MM/dd HH:mm:ss")
 
                 '更新担当
@@ -577,70 +556,21 @@ Public Class FrmM0021
 
 #End Region
 
-#Region "表示順更新"
-    Private Function FunUpdateDispOrder(ByRef DB As ClsDbUtility, ByVal intBeforeValue As Integer, ByVal intAfterValue As Integer) As Boolean
-        Dim sbSQL As New System.Text.StringBuilder
-        Dim intRET As Integer
-        Dim dsList As New System.Data.DataSet
-        Dim sqlEx As New Exception
-        Try
+#Region "有効期限のチェック"
 
-            '-----同一項目名内に同じ表示順が存在する場合、intTergetJyun以降の表示順を全て更新する
-            If intBeforeValue < intAfterValue Then
-                sbSQL.Remove(0, sbSQL.Length)
-                sbSQL.Append("UPDATE " & nameof(model.M001_SETTING) & " SET")
-                sbSQL.Append(" DISP_ORDER = DISP_ORDER-1 ")
-                sbSQL.Append("WHERE")
-                sbSQL.Append(" ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-                sbSQL.Append(" AND DISP_ORDER >" & intBeforeValue & " ")
-                sbSQL.Append(" AND DISP_ORDER <=" & intAfterValue & " ")
-            Else
-                '元の表示順より小さくした場合、他の項目を1つ後ろにずらす
-                sbSQL.Remove(0, sbSQL.Length)
-                sbSQL.Append("UPDATE " & nameof(model.M001_SETTING) & " SET")
-                sbSQL.Append(" DISP_ORDER = DISP_ORDER+1 ")
-                sbSQL.Append("WHERE")
-                sbSQL.Append(" ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-                sbSQL.Append(" AND DISP_ORDER >=" & intAfterValue & " ")
-                sbSQL.Append(" AND DISP_ORDER <" & intBeforeValue & " ")
-            End If
+    Private Sub chkYUKO_YMD_CheckedChanged(sender As Object, e As EventArgs) Handles chkYUKO_YMD.CheckedChanged
 
-            intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-            If intRET = 0 Then
-                'エラーログ
-                Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                WL.WriteLogDat(strErrMsg)
-                Return False
-            End If
+        If Me.chkYUKO_YMD.Checked = True Then
+            datYUKO_YMD.Enabled = False
+        Else
+            datYUKO_YMD.Enabled = True
+        End If
 
-            '-----UPDATE
-            sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append("UPDATE " & nameof(model.M001_SETTING) & " SET")
-            sbSQL.Append(" DISP_ORDER ='" & intAfterValue & "' ")
-            sbSQL.Append("WHERE")
-            sbSQL.Append(" ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-            sbSQL.Append(" AND ITEM_VALUE ='" & Me.mtxVALUE.Text.Trim & "' ")
-            sbSQL.Append(" AND DISP_ORDER =" & intBeforeValue & " ")
-
-            intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-            If intRET <> 1 Then
-                'エラーログ
-                Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                WL.WriteLogDat(strErrMsg)
-                Return False
-            End If
-
-            Return True
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        End Try
-    End Function
+    End Sub
+#End Region
 
 #End Region
 
-
-#End Region
 
 
 End Class

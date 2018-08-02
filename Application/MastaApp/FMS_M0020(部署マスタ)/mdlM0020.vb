@@ -48,6 +48,10 @@ Module mdlM0020
                 '-----共通データ取得
                 Using DB As ClsDbUtility = DBOpen()
                     Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
+                    Call FunGetCodeDataTable(DB, "部門区分", tblBUMON)
+                    Call FunGetCodeDataTable(DB, "部署区分", tblBUSYO_KB)
+                    Call FunGetCodeDataTable(DB, "部署", tblBUSYO, " YUKO_YMD >= '" & Replace(Now.ToShortDateString, "/", "") & "'")
+                    Call FunGetCodeDataTable(DB, "担当", tblSYAIN, " del_ymdhns = '' ")
                 End Using
 
                 '-----一覧画面表示

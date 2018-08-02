@@ -167,6 +167,12 @@ Public Module mdlDBContext
     ''' </summary>
     Public tblBUSYO_KB As DataTableEx
 
+    ''' <summary>
+    '''部署
+    ''' </summary>
+    Public tblBUSYO As DataTableEx
+
+
 #End Region
 
 #Region "不適合関連"
@@ -621,6 +627,39 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+
+#Region "               部署"
+                Case "部署"
+
+                    dt = New DataTableEx("System.Int32")
+
+                    sbSQL.Append("SELECT * FROM " & NameOf(VWM002_BUSYO) & " ")
+                    If strWhere.IsNullOrWhiteSpace = False Then
+                        sbSQL.Append("WHERE " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+                    sbSQL.Append(" ORDER BY BUSYO_ID")
+
+                    '主キー設定
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    dt.Columns.Add("BUSYO_ID", GetType(String))
+                    dt.Columns.Add("BUSYO_NAME", GetType(String))
+
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            Trow("DISP") = .Rows(intCNT).Item("BUSYO_NAME")
+                            Trow("VALUE") = .Rows(intCNT).Item("BUSYO_ID")
+                            dt.Rows.Add(Trow)
+                        Next intCNT
+                    End With
+#End Region
+
 #Region "               社内CD"
                 Case "社内CD"
                     '検索

@@ -39,13 +39,11 @@ Partial Class FrmM0020
         Me.txtOYA_BUSYO_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.VWM002BUSYOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.VWM001SETTINGBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.VWM002BUSYOBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.VWM001SETTINGBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -269,9 +267,9 @@ Partial Class FrmM0020
         Me.Label2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label2.Location = New System.Drawing.Point(669, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(47, 17)
+        Me.Label2.Size = New System.Drawing.Size(60, 17)
         Me.Label2.TabIndex = 54
-        Me.Label2.Text = "—LŒø“ú"
+        Me.Label2.Text = "—LŒøŠúŒÀ"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'datYUKO_YMD
@@ -315,10 +313,10 @@ Partial Class FrmM0020
         '
         Me.txtBUSYO_NAME.BackColor = System.Drawing.SystemColors.Window
         Me.txtBUSYO_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtBUSYO_NAME.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtBUSYO_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtBUSYO_NAME.InputRequired = False
         Me.txtBUSYO_NAME.Location = New System.Drawing.Point(394, 34)
-        Me.txtBUSYO_NAME.MaxByteLength = 0
+        Me.txtBUSYO_NAME.MaxByteLength = 30
         Me.txtBUSYO_NAME.Name = "txtBUSYO_NAME"
         Me.txtBUSYO_NAME.Size = New System.Drawing.Size(192, 24)
         Me.txtBUSYO_NAME.TabIndex = 57
@@ -329,10 +327,10 @@ Partial Class FrmM0020
         '
         Me.txtOYA_BUSYO_NAME.BackColor = System.Drawing.SystemColors.Window
         Me.txtOYA_BUSYO_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtOYA_BUSYO_NAME.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.txtOYA_BUSYO_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtOYA_BUSYO_NAME.InputRequired = False
         Me.txtOYA_BUSYO_NAME.Location = New System.Drawing.Point(83, 34)
-        Me.txtOYA_BUSYO_NAME.MaxByteLength = 0
+        Me.txtOYA_BUSYO_NAME.MaxByteLength = 30
         Me.txtOYA_BUSYO_NAME.Name = "txtOYA_BUSYO_NAME"
         Me.txtOYA_BUSYO_NAME.Size = New System.Drawing.Size(170, 24)
         Me.txtOYA_BUSYO_NAME.TabIndex = 57
@@ -347,22 +345,18 @@ Partial Class FrmM0020
         Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
         Me.flxDATA.DataSource = Me.VWM002BUSYOBindingSource
         Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.flxDATA.Location = New System.Drawing.Point(16, 155)
+        Me.flxDATA.Location = New System.Drawing.Point(14, 153)
         Me.flxDATA.Name = "flxDATA"
         Me.flxDATA.Rows.Count = 1
         Me.flxDATA.Rows.DefaultSize = 23
         Me.flxDATA.Size = New System.Drawing.Size(1236, 407)
         Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
-        Me.flxDATA.TabIndex = 60
+        Me.flxDATA.TabIndex = 61
         Me.flxDATA.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
         '
         'VWM002BUSYOBindingSource
         '
         Me.VWM002BUSYOBindingSource.DataSource = GetType(MODEL.VWM002_BUSYO)
-        '
-        'VWM001SETTINGBindingSource
-        '
-        Me.VWM001SETTINGBindingSource.DataSource = GetType(MODEL.VWM001_SETTING)
         '
         'FrmM0020
         '
@@ -375,7 +369,6 @@ Partial Class FrmM0020
         Me.ShowStatusBar = True
         Me.Text = ""
         Me.Controls.SetChildIndex(Me.gbxFilter, 0)
-        Me.Controls.SetChildIndex(Me.flxDATA, 0)
         Me.Controls.SetChildIndex(Me.lblRecordCount, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc3, 0)
@@ -390,13 +383,13 @@ Partial Class FrmM0020
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
+        Me.Controls.SetChildIndex(Me.flxDATA, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.VWM002BUSYOBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.VWM001SETTINGBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -409,8 +402,6 @@ Partial Class FrmM0020
     Friend WithEvents chkDeletedRowVisibled As CheckBox
     Friend WithEvents tlpFilter As TableLayoutPanel
     Friend WithEvents btnClearSrchFilter As Button
-    Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents VWM001SETTINGBindingSource As BindingSource
     Friend WithEvents Label1 As Label
     Friend WithEvents cmbBUSYO_KB As ComboboxEx
     Friend WithEvents Label2 As Label
@@ -419,5 +410,6 @@ Partial Class FrmM0020
     Friend WithEvents Label5 As Label
     Friend WithEvents txtBUSYO_NAME As MaskedTextBoxEx
     Friend WithEvents txtOYA_BUSYO_NAME As MaskedTextBoxEx
+    Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents VWM002BUSYOBindingSource As BindingSource
 End Class
