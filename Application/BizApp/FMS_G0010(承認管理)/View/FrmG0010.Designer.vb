@@ -317,7 +317,7 @@ Partial Class FrmG0010
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.Size = New System.Drawing.Size(1210, 183)
+        Me.tlpFilter.Size = New System.Drawing.Size(1206, 183)
         Me.tlpFilter.TabIndex = 56
         '
         'Label6
@@ -1380,7 +1380,7 @@ Partial Class FrmG0010
         Me.mtxGENIN1_DISP.MaxByteLength = 0
         Me.mtxGENIN1_DISP.Name = "mtxGENIN1_DISP"
         Me.mtxGENIN1_DISP.ReadOnly = True
-        Me.mtxGENIN1_DISP.Size = New System.Drawing.Size(474, 23)
+        Me.mtxGENIN1_DISP.Size = New System.Drawing.Size(459, 23)
         Me.mtxGENIN1_DISP.TabIndex = 82
         Me.mtxGENIN1_DISP.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxGENIN1_DISP.WatermarkText = Nothing
@@ -1396,7 +1396,7 @@ Partial Class FrmG0010
         Me.mtxGENIN2_DISP.MaxByteLength = 0
         Me.mtxGENIN2_DISP.Name = "mtxGENIN2_DISP"
         Me.mtxGENIN2_DISP.ReadOnly = True
-        Me.mtxGENIN2_DISP.Size = New System.Drawing.Size(474, 23)
+        Me.mtxGENIN2_DISP.Size = New System.Drawing.Size(459, 23)
         Me.mtxGENIN2_DISP.TabIndex = 104
         Me.mtxGENIN2_DISP.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxGENIN2_DISP.WatermarkText = Nothing
@@ -1469,7 +1469,7 @@ Partial Class FrmG0010
         Me.panelMan.Name = "panelMan"
         Me.panelMan.SelectedIndex = 0
         Me.panelMan.SelectedPanel = Me.mpnlCondition
-        Me.panelMan.Size = New System.Drawing.Size(1233, 530)
+        Me.panelMan.Size = New System.Drawing.Size(1233, 502)
         Me.panelMan.TabIndex = 64
         '
         'mpnlCondition
@@ -1480,7 +1480,7 @@ Partial Class FrmG0010
         Me.mpnlCondition.Controls.Add(Me.GroupBox1)
         Me.mpnlCondition.Location = New System.Drawing.Point(0, 0)
         Me.mpnlCondition.Name = "mpnlCondition"
-        Me.mpnlCondition.Size = New System.Drawing.Size(1233, 530)
+        Me.mpnlCondition.Size = New System.Drawing.Size(1233, 502)
         '
         'GroupBox3
         '
@@ -1499,7 +1499,7 @@ Partial Class FrmG0010
         Me.dgvCAR.Location = New System.Drawing.Point(3, 183)
         Me.dgvCAR.Name = "dgvCAR"
         Me.dgvCAR.RowTemplate.Height = 21
-        Me.dgvCAR.Size = New System.Drawing.Size(294, 376)
+        Me.dgvCAR.Size = New System.Drawing.Size(457, 376)
         Me.dgvCAR.TabIndex = 66
         '
         'GroupBox2
@@ -1519,16 +1519,15 @@ Partial Class FrmG0010
         Me.dgvNCR.Location = New System.Drawing.Point(3, 120)
         Me.dgvNCR.Name = "dgvNCR"
         Me.dgvNCR.RowTemplate.Height = 21
-        Me.dgvNCR.Size = New System.Drawing.Size(294, 439)
+        Me.dgvNCR.Size = New System.Drawing.Size(457, 439)
         Me.dgvNCR.TabIndex = 65
         '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.tlpFilter)
-        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1216, 205)
+        Me.GroupBox1.Size = New System.Drawing.Size(1212, 205)
         Me.GroupBox1.TabIndex = 64
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "ã§í åüçıèåè"

@@ -214,6 +214,7 @@
     <Compile Include="Control\ComboboxEx.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Control\DataGridViewCustomCheckBoxHeaderCell.vb" />
     <Compile Include="Control\FlowLayoutRadioBox.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -713,7 +714,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_ReplaceNonNumerics="False" BuildVersion_StartDate="2000/1/1" />
+      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_ReplaceNonNumerics="False" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
