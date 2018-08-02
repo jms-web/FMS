@@ -1,28 +1,5 @@
-﻿Imports System.ComponentModel
-
-'' カスタム列ヘッダクラスを使用するカスタム列クラス
-Public Class DataGridViewCustomCheckBoxHeaderColumn
-    Inherits DataGridViewCheckBoxColumn
-
-    Public Sub New()
-        MyBase.DefaultHeaderCellType = GetType(DataGridViewCustomCheckBoxHeaderCell)
-
-        '' ソート方向を示すグリフ表示をさせないためにソート不可（コード上からのソートのみ）に設定
-        Me.SortMode = DataGridViewColumnSortMode.NotSortable
-    End Sub
-
-    <EditorBrowsable(EditorBrowsableState.Never), Browsable(False),
-        DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
-    Public Shadows ReadOnly Property DefaultHeaderCellType() As Type
-        Get
-            Return GetType(DataGridViewCustomCheckBoxHeaderCell)
-        End Get
-    End Property
-
-End Class
-
-'' カスタム列ヘッダセル
-Public Class DataGridViewCustomCheckBoxHeaderCell
+﻿'' カスタム列ヘッダセル
+Public Class _DataGridViewCustomCheckBoxHeaderCell
     Inherits DataGridViewColumnHeaderCell
 
     Private _checkState As Boolean = True

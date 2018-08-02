@@ -207,6 +207,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="clsPubConst.vb" />
+    <Compile Include="Control\DataGridviewCheckBox.vb" />
+    <Compile Include="Control\DataGridViewCustomCheckBoxHeaderColumn.vb" />
     <Compile Include="Control\clsDataGridViewDateColumn.vb" />
     <Compile Include="Control\ComboboxEx.Designer.vb">
       <DependentUpon>ComboboxEx.vb</DependentUpon>
@@ -214,7 +216,6 @@
     <Compile Include="Control\ComboboxEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Control\DataGridViewCustomCheckBoxHeaderCell.vb" />
     <Compile Include="Control\FlowLayoutRadioBox.vb">
       <SubType>Component</SubType>
     </Compile>

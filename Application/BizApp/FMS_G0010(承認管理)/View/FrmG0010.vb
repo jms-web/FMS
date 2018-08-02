@@ -172,31 +172,31 @@ Public Class FrmG0010
             cmbGEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
 
             ''-----イベントハンドラ設定
-            'AddHandler cmbBUMON.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler cmbKISYU.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler cmbFUTEKIGO_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler cmbFUTEKIGO_JYOTAI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbBUMON.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbKISYU.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbFUTEKIGO_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbFUTEKIGO_JYOTAI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
 
-            'AddHandler mtxHOKUKO_NO.Validated, AddressOf SearchFilterValueChanged
-            'AddHandler mtxGOKI.Validated, AddressOf SearchFilterValueChanged
-            'AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler dtJisiFrom.TxtChanged, AddressOf SearchFilterValueChanged
-            'AddHandler dtJisiTo.TxtChanged, AddressOf SearchFilterValueChanged
-            'AddHandler cmbFUTEKIGO_S_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler mtxHINMEI.Validated, AddressOf SearchFilterValueChanged
-            'AddHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
-            'AddHandler chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
-            'AddHandler chkTairyu.CheckedChanged, AddressOf SearchFilterValueChanged
+            AddHandler mtxHOKUKO_NO.Validated, AddressOf SearchFilterValueChanged
+            AddHandler mtxGOKI.Validated, AddressOf SearchFilterValueChanged
+            AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler dtJisiFrom.TxtChanged, AddressOf SearchFilterValueChanged
+            AddHandler dtJisiTo.TxtChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbFUTEKIGO_S_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler mtxHINMEI.Validated, AddressOf SearchFilterValueChanged
+            AddHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+            AddHandler chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+            AddHandler chkTairyu.CheckedChanged, AddressOf SearchFilterValueChanged
 
-            'AddHandler cmbJIZEN_SINSA_HANTEI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler cmbZESEI_SYOCHI_YOHI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler cmbSAISIN_IINKAI_HANTEI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler cmbKENSA_KEKKA_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbJIZEN_SINSA_HANTEI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbZESEI_SYOCHI_YOHI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbSAISIN_IINKAI_HANTEI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbKENSA_KEKKA_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
 
             Call FunSetStageList(dgvNCR, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR)
             Call FunSetStageList(dgvCAR, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)
@@ -537,7 +537,7 @@ Public Class FrmG0010
 
         dgv.Visible = False
         If dgv.Columns(e.ColumnIndex).Name = "SELECTED" Then
-            Dim cell As DataGridViewCustomCheckBoxHeaderCell = DirectCast(dgv.Columns(e.ColumnIndex).HeaderCell, DataGridViewCustomCheckBoxHeaderCell)
+            Dim cell As _DataGridViewCustomCheckBoxHeaderCell = DirectCast(dgv.Columns(e.ColumnIndex).HeaderCell, _DataGridViewCustomCheckBoxHeaderCell)
 
             For Each dRow As DataGridViewRow In dgv.Rows
                 dRow.Cells("SELECTED").Value = cell.Checked
@@ -1761,7 +1761,7 @@ Public Class FrmG0010
     '検索フィルタ変更時
     Private Sub SearchFilterValueChanged(sender As System.Object, e As System.EventArgs)
         '検索
-        Me.cmdFunc1.PerformClick()
+        Me.cmdFunc7.PerformClick()
     End Sub
 
     'Close済み
