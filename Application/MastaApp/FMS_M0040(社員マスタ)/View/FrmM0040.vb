@@ -44,7 +44,7 @@ Public Class FrmM0040
             AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
             'åüçıé¿çs
-            Me.cmdFunc1.PerformClick()
+            'Me.cmdFunc1.PerformClick()
 
         Finally
 

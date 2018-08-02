@@ -9,13 +9,13 @@ Imports PropertyChanged
 <Table(NameOf(R001_HOKOKU_SOUSA), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
 Partial Public Class R001_HOKOKU_SOUSA
-    Inherits NotifyChangedBase
+    Inherits ModelBase
 
     Public Sub New()
-        Call clear()
+        Call Clear()
     End Sub
 
-    Public Sub clear()
+    Public Sub Clear()
         SYONIN_HOKOKUSYO_ID = 0
         HOKOKU_NO = ""
         ADD_YMDHNS = ""

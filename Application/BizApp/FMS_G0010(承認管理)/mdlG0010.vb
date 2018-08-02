@@ -727,7 +727,7 @@ Module mdlG0010
         Dim strPassword As String
         Dim blnSend As Boolean
         Dim strToSyainName As String
-        Dim strFromSyainName As String
+        'Dim strFromSyainName As String
 
         Dim strMsg As String
         Try
@@ -981,6 +981,7 @@ Module mdlG0010
             Dim shapeLINE_TENYO As SpreadsheetGear.Shapes.IShape
             Dim shapeLINE_SYOCHI_D As SpreadsheetGear.Shapes.IShape
             Dim shapeLINE_SYOCHI_E As SpreadsheetGear.Shapes.IShape
+
             ssgShapes = ssgSheet1.Shapes
             For Each shape As SpreadsheetGear.Shapes.IShape In ssgShapes
                 Select Case shape.Name

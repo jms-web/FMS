@@ -291,6 +291,7 @@ Partial Class FrmM0041
         'cmbBUSYO_CD
         '
         Me.cmbBUSYO_CD.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbBUSYO_CD.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbBUSYO_CD.DisplayMember = "DISP"
         Me.cmbBUSYO_CD.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbBUSYO_CD.ForeColor = System.Drawing.SystemColors.ControlText
@@ -513,6 +514,7 @@ Partial Class FrmM0041
         'cmbKA_CD
         '
         Me.cmbKA_CD.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKA_CD.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbKA_CD.DisplayMember = "DISP"
         Me.cmbKA_CD.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKA_CD.ForeColor = System.Drawing.SystemColors.ControlText
@@ -547,6 +549,7 @@ Partial Class FrmM0041
         'cmbCYOKKAN_KB
         '
         Me.cmbCYOKKAN_KB.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbCYOKKAN_KB.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbCYOKKAN_KB.DisplayMember = "DISP"
         Me.cmbCYOKKAN_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbCYOKKAN_KB.ForeColor = System.Drawing.SystemColors.ControlText
@@ -580,6 +583,7 @@ Partial Class FrmM0041
         'cmbYAKUSYOKU_KB
         '
         Me.cmbYAKUSYOKU_KB.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbYAKUSYOKU_KB.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbYAKUSYOKU_KB.DisplayMember = "DISP"
         Me.cmbYAKUSYOKU_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbYAKUSYOKU_KB.ForeColor = System.Drawing.SystemColors.ControlText

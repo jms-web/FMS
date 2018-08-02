@@ -133,6 +133,10 @@ Partial Class FrmM0011
         '
         Me.lblTytle.Text = "í«â¡/ïœçX"
         '
+        'ToolTip
+        '
+        Me.ToolTip.InitialDelay = 700
+        '
         'ErrorProvider
         '
         Me.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
@@ -287,6 +291,7 @@ Partial Class FrmM0011
         '
         Me.cmbJYUN.BackColor = System.Drawing.SystemColors.Window
         Me.cmbJYUN.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.cmbJYUN.DisplayMember = "DISP"
         Me.cmbJYUN.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbJYUN.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbJYUN.ForeColor = System.Drawing.SystemColors.ControlText
@@ -296,9 +301,12 @@ Partial Class FrmM0011
         Me.cmbJYUN.Location = New System.Drawing.Point(93, 123)
         Me.cmbJYUN.MaxLength = 30
         Me.cmbJYUN.Name = "cmbJYUN"
+        Me.cmbJYUN.NullValue = " "
+        Me.cmbJYUN.ReadOnly = False
         Me.cmbJYUN.Selected = False
         Me.cmbJYUN.Size = New System.Drawing.Size(71, 25)
         Me.cmbJYUN.TabIndex = 4
+        Me.cmbJYUN.ValueMember = "VALUE"
         '
         'mtxDISP
         '
@@ -366,6 +374,7 @@ Partial Class FrmM0011
         Me.cmbKOMO_NM.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbKOMO_NM.BackColor = System.Drawing.SystemColors.Window
         Me.cmbKOMO_NM.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.cmbKOMO_NM.DisplayMember = "DISP"
         Me.cmbKOMO_NM.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKOMO_NM.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKOMO_NM.FormattingEnabled = True
@@ -374,10 +383,13 @@ Partial Class FrmM0011
         Me.cmbKOMO_NM.Location = New System.Drawing.Point(93, 33)
         Me.cmbKOMO_NM.MaxLength = 30
         Me.cmbKOMO_NM.Name = "cmbKOMO_NM"
+        Me.cmbKOMO_NM.NullValue = " "
+        Me.cmbKOMO_NM.ReadOnly = False
         Me.cmbKOMO_NM.Selected = False
         Me.cmbKOMO_NM.Size = New System.Drawing.Size(403, 25)
         Me.cmbKOMO_NM.TabIndex = 1
         Me.cmbKOMO_NM.Text = "(ëIë)"
+        Me.cmbKOMO_NM.ValueMember = "VALUE"
         '
         'Label5
         '

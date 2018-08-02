@@ -238,7 +238,7 @@ Public Class MaskedTextBoxEx
 
 #Region "　WndProc メソッド (Overrides)　"
     '-----入力・ペーストのWINDOWSメッセージを取得
-    '<System.Diagnostics.DebuggerStepThrough()>
+    <System.Diagnostics.DebuggerStepThrough()>
     Protected Overrides Sub WndProc(ByRef m As System.Windows.Forms.Message)
         Const WM_CHAR As Integer = &H102
         Const WM_PASTE As Integer = &H302

@@ -113,6 +113,10 @@ Partial Class FrmM0010
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblTytle.Text = "コードマスタ"
         '
+        'ToolTip
+        '
+        Me.ToolTip.InitialDelay = 700
+        '
         'Label3
         '
         Me.Label3.AutoSize = True
@@ -131,6 +135,7 @@ Partial Class FrmM0010
         Me.cmbKOMO_NM.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbKOMO_NM.BackColor = System.Drawing.SystemColors.Window
         Me.cmbKOMO_NM.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbKOMO_NM.DisplayMember = "DISP"
         Me.cmbKOMO_NM.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmbKOMO_NM.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKOMO_NM.ForeColor = System.Drawing.SystemColors.ControlText
@@ -139,10 +144,13 @@ Partial Class FrmM0010
         Me.cmbKOMO_NM.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKOMO_NM.Location = New System.Drawing.Point(83, 3)
         Me.cmbKOMO_NM.Name = "cmbKOMO_NM"
+        Me.cmbKOMO_NM.NullValue = " "
+        Me.cmbKOMO_NM.ReadOnly = False
         Me.cmbKOMO_NM.Selected = False
         Me.cmbKOMO_NM.Size = New System.Drawing.Size(244, 25)
         Me.cmbKOMO_NM.TabIndex = 0
         Me.cmbKOMO_NM.Text = "(選択)"
+        Me.cmbKOMO_NM.ValueMember = "VALUE"
         '
         'gbxFilter
         '

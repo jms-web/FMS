@@ -208,6 +208,7 @@ Partial Class FrmM0040
         'cmbSYOKUBAN
         '
         Me.cmbSYOKUBAN.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSYOKUBAN.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOKUBAN.DisplayMember = "DISP"
         Me.cmbSYOKUBAN.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYOKUBAN.ForeColor = System.Drawing.SystemColors.ControlText

@@ -35,7 +35,7 @@ Partial Class FrmM0020
         Me.datYUKO_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.txtBUSYO_NAME = New JMS_COMMON.MaskedTextBoxEx()
+        Me.TxtBUSYO_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.txtOYA_BUSYO_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.VWM002BUSYOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
@@ -191,7 +191,7 @@ Partial Class FrmM0020
         Me.tlpFilter.Controls.Add(Me.datYUKO_YMD, 5, 0)
         Me.tlpFilter.Controls.Add(Me.Label4, 0, 1)
         Me.tlpFilter.Controls.Add(Me.Label5, 2, 1)
-        Me.tlpFilter.Controls.Add(Me.txtBUSYO_NAME, 3, 1)
+        Me.tlpFilter.Controls.Add(Me.TxtBUSYO_NAME, 3, 1)
         Me.tlpFilter.Controls.Add(Me.txtOYA_BUSYO_NAME, 1, 1)
         Me.tlpFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpFilter.Location = New System.Drawing.Point(3, 20)
@@ -311,17 +311,17 @@ Partial Class FrmM0020
         '
         'txtBUSYO_NAME
         '
-        Me.txtBUSYO_NAME.BackColor = System.Drawing.SystemColors.Window
-        Me.txtBUSYO_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtBUSYO_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.txtBUSYO_NAME.InputRequired = False
-        Me.txtBUSYO_NAME.Location = New System.Drawing.Point(394, 34)
-        Me.txtBUSYO_NAME.MaxByteLength = 30
-        Me.txtBUSYO_NAME.Name = "txtBUSYO_NAME"
-        Me.txtBUSYO_NAME.Size = New System.Drawing.Size(192, 24)
-        Me.txtBUSYO_NAME.TabIndex = 57
-        Me.txtBUSYO_NAME.WatermarkColor = System.Drawing.Color.Empty
-        Me.txtBUSYO_NAME.WatermarkText = Nothing
+        Me.TxtBUSYO_NAME.BackColor = System.Drawing.SystemColors.Window
+        Me.TxtBUSYO_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.TxtBUSYO_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.TxtBUSYO_NAME.InputRequired = False
+        Me.TxtBUSYO_NAME.Location = New System.Drawing.Point(394, 34)
+        Me.TxtBUSYO_NAME.MaxByteLength = 30
+        Me.TxtBUSYO_NAME.Name = "txtBUSYO_NAME"
+        Me.TxtBUSYO_NAME.Size = New System.Drawing.Size(192, 24)
+        Me.TxtBUSYO_NAME.TabIndex = 57
+        Me.TxtBUSYO_NAME.WatermarkColor = System.Drawing.Color.Empty
+        Me.TxtBUSYO_NAME.WatermarkText = Nothing
         '
         'txtOYA_BUSYO_NAME
         '
@@ -357,6 +357,17 @@ Partial Class FrmM0020
         'VWM002BUSYOBindingSource
         '
         Me.VWM002BUSYOBindingSource.DataSource = GetType(MODEL.VWM002_BUSYO)
+        '
+        'LabelEx1
+        '
+        Me.LabelEx1.AutoSize = True
+        Me.LabelEx1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LabelEx1.Location = New System.Drawing.Point(556, 30)
+        Me.LabelEx1.Name = "LabelEx1"
+        Me.LabelEx1.Size = New System.Drawing.Size(65, 15)
+        Me.LabelEx1.TabIndex = 66
+        Me.LabelEx1.Text = "LabelEx1"
+        Me.LabelEx1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'FrmM0020
         '

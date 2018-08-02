@@ -1,14 +1,15 @@
 ﻿Imports System
-Imports System.Collections.Generic
 Imports System.ComponentModel.DataAnnotations
 Imports System.ComponentModel.DataAnnotations.Schema
-Imports System.Data.Entity.Spatial
+
 
 ''' <summary>
 ''' M002_部署マスタ
 ''' </summary>
 <Table("M002_BUSYO", Schema:="dbo")>
 Partial Public Class M002_BUSYO
+    Inherits ModelBase
+
     <Key>
     <ComponentModel.DisplayName("部署ID")>
     Public Property BUSYO_ID As Integer
@@ -54,7 +55,6 @@ Partial Public Class M002_BUSYO
     '共通項目------------------------------------
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="Char")>
     Public Property ADD_YMDHNS As String
 
@@ -64,22 +64,20 @@ Partial Public Class M002_BUSYO
 
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="Char")>
     Public Property UPD_YMDHNS As String
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property UPD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="char")>
     Public Property DEL_YMDHNS As String
 
     <ComponentModel.DisplayName("削除済")>
     <NotMapped>
+    <Display(AutoGenerateField:=False)>
     Public ReadOnly Property DEL_FLG As Boolean
         Get
             Return DEL_YMDHNS.Trim <> ""
@@ -87,6 +85,5 @@ Partial Public Class M002_BUSYO
     End Property
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property DEL_SYAIN_ID As Integer
 End Class

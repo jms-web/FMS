@@ -121,6 +121,9 @@
   <ItemGroup>
     <Reference Include="mscorlib" />
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PanelManager">
+      <HintPath>..\..\..\Libs\PanelManager.dll</HintPath>
+    </Reference>
     <Reference Include="PropertyChanged, Version=2.5.6.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\PropertyChanged.Fody.2.5.6\lib\net452\PropertyChanged.dll</HintPath>
     </Reference>
@@ -177,6 +180,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="mdlG0010.vb" />
+    <Compile Include="Model\STAGE_LIST.vb" />
     <Compile Include="Model\ST02_SerchFilterModel.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

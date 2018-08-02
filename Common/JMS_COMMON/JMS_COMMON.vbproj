@@ -207,6 +207,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="clsPubConst.vb" />
+    <Compile Include="Control\DataGridviewCheckBox.vb" />
+    <Compile Include="Control\DataGridViewCustomCheckBoxHeaderColumn.vb" />
     <Compile Include="Control\clsDataGridViewDateColumn.vb" />
     <Compile Include="Control\ComboboxEx.Designer.vb">
       <DependentUpon>ComboboxEx.vb</DependentUpon>
@@ -713,7 +715,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_ReplaceNonNumerics="False" BuildVersion_StartDate="2000/1/1" />
+      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_ReplaceNonNumerics="False" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

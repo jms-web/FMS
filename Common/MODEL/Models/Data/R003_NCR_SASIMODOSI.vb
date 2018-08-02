@@ -9,6 +9,7 @@ Imports PropertyChanged
 <Table(NameOf(R003_NCR_SASIMODOSI), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
 Partial Public Class R003_NCR_SASIMODOSI
+    Inherits ModelBase
     'Inherits NotifyChangedBase
 
     Public Sub New()
@@ -90,16 +91,6 @@ Partial Public Class R003_NCR_SASIMODOSI
         HASSEI_KOTEI_GL_SYAIN_ID = 0
 
     End Sub
-
-    <Display(AutoGenerateField:=False)>
-    Default Public Property Item(ByVal propertyName As String) As Object
-        Get
-            Return GetType(R003_NCR_SASIMODOSI).GetProperty(propertyName).GetValue(Me)
-        End Get
-        Set(value As Object)
-            GetType(R003_NCR_SASIMODOSI).GetProperty(propertyName).SetValue(Me, value)
-        End Set
-    End Property
 
     <StringLength(14)>
     Public Property SASIMODOSI_YMDHNS As String

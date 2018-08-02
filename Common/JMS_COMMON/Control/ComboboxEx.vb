@@ -114,7 +114,6 @@ Public Class ComboboxEx
 
 #End Region
 
-    Private _Selected As Boolean
     ''' <summary>
     ''' データソース中のItemの選択状態を取得します
     ''' </summary>
@@ -122,14 +121,10 @@ Public Class ComboboxEx
     <Browsable(False)>
     Public Property Selected As Boolean
         Get
-            Return _Selected
+            Return Me.ReadOnly OrElse (Me.DataSource IsNot Nothing AndAlso Me.SelectedValue <> Me.NullValue)
         End Get
         Set(value As Boolean)
-            If Me.DataSource IsNot Nothing Then
-                Me.SelectedIndex = 0
-            Else
-                Me.SelectedIndex = -1
-            End If
+
         End Set
     End Property
 
