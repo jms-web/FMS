@@ -567,6 +567,5 @@ Public Class MaskedTextBoxEx
 
 #End Region
 
-
 End Class
 

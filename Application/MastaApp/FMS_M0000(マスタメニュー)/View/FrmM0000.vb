@@ -305,7 +305,7 @@ Public Class FrmM0000
             Using DB As ClsDbUtility = DBOpen()
                 '-----USERìoò^É`ÉFÉbÉN
                 'SQL
-                sbSQL.Append("SELECT * FROM " & NameOf(MODEL.VWM004_SYAIN) & " ")
+                sbSQL.Append("SELECT * FROM " & NameOf(MODEL.VWM002_BUSYO) & " ")
                 sbSQL.Append(" WHERE SYAIN_NO ='" & Me.txtUSER.Text & "' ")
                 sbSQL.Append(" AND DEL_FLG ='0' ")
 

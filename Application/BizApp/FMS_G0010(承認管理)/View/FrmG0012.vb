@@ -479,6 +479,7 @@ Public Class FrmG0012
                 sbSQL.Append($" ,SrcT." & NameOf(_D005_CAR_J.SETUMON_20) & " = WK." & NameOf(_D005_CAR_J.SETUMON_20))
                 sbSQL.Append($" ,SrcT." & NameOf(_D005_CAR_J.SETUMON_21) & " = WK." & NameOf(_D005_CAR_J.SETUMON_21))
                 sbSQL.Append($" ,SrcT." & NameOf(_D005_CAR_J.SETUMON_22) & " = WK." & NameOf(_D005_CAR_J.SETUMON_22))
+                sbSQL.Append($" ,SrcT." & NameOf(_D005_CAR_J.SETUMON_23) & " = WK." & NameOf(_D005_CAR_J.SETUMON_23))
 
                 sbSQL.Append($" ,SrcT." & NameOf(_D005_CAR_J.KAITO_1) & " = WK." & NameOf(_D005_CAR_J.KAITO_1))
                 sbSQL.Append($" ,SrcT." & NameOf(_D005_CAR_J.KAITO_2) & " = WK." & NameOf(_D005_CAR_J.KAITO_2))
@@ -502,6 +503,7 @@ Public Class FrmG0012
                 sbSQL.Append($" ,SrcT." & NameOf(_D005_CAR_J.KAITO_20) & " = WK." & NameOf(_D005_CAR_J.KAITO_20))
                 sbSQL.Append($" ,SrcT." & NameOf(_D005_CAR_J.KAITO_21) & " = WK." & NameOf(_D005_CAR_J.KAITO_21))
                 sbSQL.Append($" ,SrcT." & NameOf(_D005_CAR_J.KAITO_22) & " = WK." & NameOf(_D005_CAR_J.KAITO_22))
+                sbSQL.Append($" ,SrcT." & NameOf(_D005_CAR_J.KAITO_23) & " = WK." & NameOf(_D005_CAR_J.KAITO_23))
 
                 sbSQL.Append($" ,SrcT." & NameOf(_D005_CAR_J.KONPON_YOIN_KB1) & " = WK." & NameOf(_D005_CAR_J.KONPON_YOIN_KB1))
                 sbSQL.Append($" ,SrcT." & NameOf(_D005_CAR_J.KONPON_YOIN_KB2) & " = WK." & NameOf(_D005_CAR_J.KONPON_YOIN_KB2))
@@ -1844,18 +1846,18 @@ Public Class FrmG0012
         sender.Focus
     End Sub
 
-    Private Sub RbtnSEKKEI_TANTO_YOHI_YES_CheckedChanged(sender As Object, e As EventArgs)
-        _D005_CAR_J.KAITO_23 = "1"
-        mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
-        Dim dt As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
-        cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+    Private Sub RbtnSEKKEI_TANTO_YOHI_YES_CheckedChanged(sender As Object, e As EventArgs) 'Handles rbtnSEKKEI_TANTO_YOHI_YES.CheckedChanged
+        _D005_CAR_J.KAITO_23 = True
+        'mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
+        'Dim dt As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
+        'cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
     End Sub
 
-    Private Sub RbtnSEKKEI_TANTO_YOHI_NO_CheckedChanged(sender As Object, e As EventArgs)
-        _D005_CAR_J.KAITO_23 = "0"
-        mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
-        Dim dt As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
-        cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+    Private Sub RbtnSEKKEI_TANTO_YOHI_NO_CheckedChanged(sender As Object, e As EventArgs) 'Handles rbtnSEKKEI_TANTO_YOHI_NO.CheckedChanged
+        _D005_CAR_J.KAITO_23 = False
+        'mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
+        'Dim dt As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
+        'cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
     End Sub
 
     Private Sub ChkSEKKEI_TANTO_YOHI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkSEKKEI_TANTO_YOHI_KB.CheckedChanged
@@ -2020,14 +2022,10 @@ Public Class FrmG0012
 #Region "   6.処置水平展開"
 
     Private Sub RbtnKAITO14_T_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnKAITO_14_T.CheckedChanged
-
-        Dim blnChecked As Boolean = rbtnSEKKEI_TANTO_YOHI_NO.Checked
         _D005_CAR_J.KAITO_14 = ENM_YOHI_KB._1_要
     End Sub
 
-    Private Sub RbtnKAITO14_F_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnKAITO_14_T.CheckedChanged
-
-        Dim blnChecked As Boolean = rbtnSEKKEI_TANTO_YOHI_NO.Checked
+    Private Sub RbtnKAITO14_F_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnKAITO_14_F.CheckedChanged
         _D005_CAR_J.KAITO_14 = ENM_YOHI_KB._0_否
     End Sub
 
@@ -2045,8 +2043,7 @@ Public Class FrmG0012
 
     Private Sub CmbDestTANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbDestTANTO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        If cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+        If cmb.Selected = False Then
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "申請先社員"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
@@ -2584,6 +2581,8 @@ Public Class FrmG0012
                     pnlSYOCHI_KIROKU.Visible = False
                     pnlZESEI_SYOCHI.Visible = False
 
+                    pnlST05.Visible = (PrCurrentStage = ENM_CAR_STAGE._50_起草確認_設計開発)
+
                 Case ENM_CAR_STAGE._80_処置実施記録入力, ENM_CAR_STAGE._90_処置実施確認
                     tabSTAGE01.EnableDisablePages(False)
 
@@ -2606,8 +2605,16 @@ Public Class FrmG0012
 
             For Each val As Integer In [Enum].GetValues(GetType(ENM_CAR_STAGE2))
                 flpnlStageIndex.Controls("rsbtnST" & val.ToString("00")).Enabled = (PrCurrentStage / 10) >= val
+                If (PrCurrentStage / 10) >= val Then
+                Else
+                    flpnlStageIndex.Controls("rsbtnST" & val.ToString("00")).BackColor = Color.Silver
+                End If
             Next val
             rsbtnST05.Visible = CBool(_V005_CAR_J.KAITO_23)
+            If _V005_CAR_J.CLOSE_FG = False Then
+                flpnlStageIndex.Controls("rsbtnST99").Enabled = False
+                flpnlStageIndex.Controls("rsbtnST99").BackColor = Color.Silver
+            End If
 
             If PrCurrentStage = ENM_CAR_STAGE._130_是正有効性確認_品証担当課長 Then
                 lblDestTANTO.Visible = False
@@ -2852,11 +2859,6 @@ Public Class FrmG0012
             PrGenin1.Clear()
             PrGenin2.Clear()
 
-            'UNDONE: aggregateでForEach省略
-            Dim array = {"hoge", "fuga", "piyo"}
-            Dim result = array.Aggregate(Function(a, n) n & "," & a)
-            ' piyo,fuga,hoge
-            Console.WriteLine(result)
 
             For Each row As DataRow In dsList.Tables(0).Rows
                 If row.Item(NameOf(_D006_CAR_GENIN.RENBAN)) = 1 Then
@@ -2901,6 +2903,7 @@ Public Class FrmG0012
 
     Private Function FunCheckInput(ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
         Try
+            'フラグリセット
             pri_blnValidated = True
             '-----共通
             If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
@@ -2969,12 +2972,12 @@ Public Class FrmG0012
         Try
             Const stageLength As Integer = 10
 
-            If PrCurrentStage = ENM_CAR_STAGE._40_起草確認_生産技術 And _D005_CAR_J.KAITO_23 = False Then
-                'ステージ50スキップ
-                Return intCurrentStageID + (stageLength * 2)
-            Else
-                Return intCurrentStageID + stageLength
-            End If
+            'If PrCurrentStage = ENM_CAR_STAGE._40_起草確認_生産技術 And _D005_CAR_J.KAITO_23 = False Then
+            '    'ステージ50スキップ
+            '    Return intCurrentStageID + (stageLength * 2)
+            'Else
+            Return intCurrentStageID + stageLength
+            'End If
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return 0

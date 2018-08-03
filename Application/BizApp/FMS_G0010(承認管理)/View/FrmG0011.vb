@@ -2909,7 +2909,7 @@ Public Class FrmG0011
                             '_tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
                             panel.Visible = False
                             flpnlStageIndex.Controls("rsbtnST" & intTabNo.ToString("00")).Enabled = False
-                            flpnlStageIndex.Controls("rsbtnST" & intTabNo.ToString("00")).BackColor = SystemColors.GrayText
+                            flpnlStageIndex.Controls("rsbtnST" & intTabNo.ToString("00")).BackColor = Color.Silver
                         End If
 
                         'SPEC: 10-2.áD
@@ -2956,6 +2956,12 @@ Public Class FrmG0011
             If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace Then
                 Call SetPict2Data({strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2})
             End If
+
+            If _D003_NCR_J.CLOSE_FG = False Then
+                flpnlStageIndex.Controls("rsbtnST99").Enabled = False
+                flpnlStageIndex.Controls("rsbtnST99").BackColor = Color.Silver
+            End If
+
 
             Return True
         Catch ex As Exception
@@ -3339,7 +3345,7 @@ Public Class FrmG0011
                 cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST06_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\))
-                cmbST06_SAISIN_IINKAI_HANTEI.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                cmbST06_SAISIN_IINKAI_HANTEI.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 'SPEC: 60-2.áB
                 cmbKISYU.ReadOnly = True
@@ -3449,7 +3455,8 @@ Public Class FrmG0011
                     '    End If
                     'Next
                     pnlST07.Visible = False
-                    rsbtnST07.Visible = False
+                    rsbtnST07.Enabled = False
+                    rsbtnST07.BackColor = Color.Silver
                 End If
             Else
                 pnlST07.Visible = False
@@ -3527,6 +3534,7 @@ Public Class FrmG0011
                     'Next
                     pnlST08.Visible = False
                     rsbtnST08.Enabled = False
+                    rsbtnST08.BackColor = Color.Silver
                 End If
             Else
                 pnlST08.Visible = False
@@ -3648,6 +3656,7 @@ Public Class FrmG0011
                     'Next
                     pnlST09.Visible = False
                     rsbtnST09.Enabled = False
+                    rsbtnST09.BackColor = Color.Silver
                 End If
             Else
                 pnlST09.Visible = False
@@ -3691,6 +3700,10 @@ Public Class FrmG0011
                             'ì]ëóéû
                             lblST10_Modoshi_Riyu.Text = "ì]ëóóùóRÅF" & _V003.RIYU
                         End If
+                    Else
+                        pnlST10.Visible = False
+                        rsbtnST10.Enabled = False
+                        rsbtnST10.BackColor = Color.Silver
                     End If
                 End If
             Else
@@ -3734,6 +3747,10 @@ Public Class FrmG0011
                             'ì]ëóéû
                             lblST11_Modoshi_Riyu.Text = "ì]ëóóùóRÅF" & _V003.RIYU
                         End If
+                    Else
+                        pnlST11.Visible = False
+                        rsbtnST11.Enabled = False
+                        rsbtnST11.BackColor = Color.Silver
                     End If
                 End If
             Else
@@ -3777,6 +3794,10 @@ Public Class FrmG0011
                             'ì]ëóéû
                             lblST12_Modoshi_Riyu.Text = "ì]ëóóùóRÅF" & _V003.RIYU
                         End If
+                    Else
+                        pnlST12.Visible = False
+                        rsbtnST12.Enabled = False
+                        rsbtnST12.BackColor = Color.Silver
                     End If
                 End If
             Else
@@ -3826,6 +3847,10 @@ Public Class FrmG0011
                     Else
                         mtxST13_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
                     End If
+                Else
+                    pnlST13.Visible = False
+                    rsbtnST13.Enabled = False
+                    rsbtnST13.BackColor = Color.Silver
                 End If
             Else
                 pnlST13.Visible = False
@@ -3988,9 +4013,12 @@ Public Class FrmG0011
 
             If intStageID >= ENM_NCR_STAGE._120_abcdeèàíuämîF Then
                 _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+
+                btnST16_SYONIN.Enabled = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO, ENM_NCR_STAGE._120_abcdeèàíuämîF)
             Else
                 pnlST16.Visible = False
                 rsbtnST16.Enabled = False
+                btnST16_SYONIN.Enabled = False
             End If
 
 #End Region
@@ -4181,19 +4209,16 @@ Public Class FrmG0011
         cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
     End Sub
 
-    'UNDONE: ErrorProvider ï\é¶ñºÇìKêÿÇ… ëIë ì¸óÕÅ@ëIëÇ‹ÇΩÇÕì¸óÕ
-
     Private Sub CmbBUMON_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbBUMON.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "êªïiãÊï™"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -4263,14 +4288,13 @@ Public Class FrmG0011
     Private Sub CmbKISYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKISYU.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ã@éÌ"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -4387,14 +4411,13 @@ Public Class FrmG0011
     Private Sub CmbBUHIN_BANGO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbBUHIN_BANGO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïîïiî‘çÜ"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -4402,17 +4425,16 @@ Public Class FrmG0011
 
 #Region "êªë¢î‘çÜ(çÜã@)"
 
-    Private Sub MtxGOUKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles mtxGOUKI.Validating
+    Private Sub MtxGOUKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles mtxGOUKI.Validating ïKê{çÄñ⁄Ç≈Ç»Ç¢
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
-        If mtx.Text.IsNullOrWhiteSpace = True Then
-            'e.Cancel = True
+        If mtx.ReadOnly OrElse mtx.Text.IsNullOrWhiteSpace Then
+            ErrorProvider.ClearError(mtx)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "êªë¢î‘çÜ(çÜã@)"))
             ErrorProvider.SetIconAlignment(mtx, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(mtx)
-            pri_blnValidated = True
         End If
     End Sub
 
@@ -4432,14 +4454,13 @@ Public Class FrmG0011
     Private Sub CmbFUTEKIGO_STATUS_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbFUTEKIGO_STATUS.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "èÛë‘ãÊï™"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -4450,8 +4471,7 @@ Public Class FrmG0011
     Private Sub MtxFUTEKIGO_NAIYO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxHENKYAKU_RIYU.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
-        If mtx.Enabled = True AndAlso mtx.Text.IsNullOrWhiteSpace = True Then
-            'e.Cancel = True
+        If mtx.Visible = True AndAlso mtx.ReadOnly = False AndAlso mtx.Text.IsNullOrWhiteSpace Then
             ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ï‘ãpóùóR"))
             ErrorProvider.SetIconAlignment(mtx, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
@@ -4488,14 +4508,13 @@ Public Class FrmG0011
     Private Sub CmbFUTEKIGO_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbFUTEKIGO_KB.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïsìKçáãÊï™"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -4511,14 +4530,13 @@ Public Class FrmG0011
     Private Sub CmbFUTEKIGO_S_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbFUTEKIGO_S_KB.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïsìKçáè⁄ç◊ãÊï™"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -4526,7 +4544,7 @@ Public Class FrmG0011
 
 #Region "ê}î‘"
 
-    Private Sub MtxZUBAN_KIKAKU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles mtxZUBAN_KIKAKU.Validating
+    Private Sub MtxZUBAN_KIKAKU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles mtxZUBAN_KIKAKU.Validating ïKê{çÄñ⁄Ç≈Ç»Ç¢
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
         If mtx.Text.IsNullOrWhiteSpace = True Then
@@ -4576,14 +4594,13 @@ Public Class FrmG0011
                                                                                                               cmbST15_DestTANTO.Validating
 
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        If cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ê\êøêÊé–àı"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -4594,7 +4611,7 @@ Public Class FrmG0011
     Private Sub TxtST01_YOKYU_NAIYO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtST01_YOKYU_NAIYO.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
-        If txt.Text.IsNullOrWhiteSpace = True Then
+        If txt.ReadOnly = False AndAlso txt.Text.IsNullOrWhiteSpace = True Then
             'e.Cancel = True
             ErrorProvider.SetError(txt, String.Format(My.Resources.infoMsgRequireSelectOrInput, "óvãÅì‡óe"))
             ErrorProvider.SetIconAlignment(txt, ErrorIconAlignment.MiddleLeft)
@@ -4608,7 +4625,7 @@ Public Class FrmG0011
     Private Sub TxtST01_KEKKA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtST01_KEKKA.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
-        If txt.Text.IsNullOrWhiteSpace = True Then
+        If txt.ReadOnly = False AndAlso txt.Text.IsNullOrWhiteSpace = True Then
             'e.Cancel = True
             ErrorProvider.SetError(txt, String.Format(My.Resources.infoMsgRequireSelectOrInput, "äœé@åãâ "))
             ErrorProvider.SetIconAlignment(txt, ErrorIconAlignment.MiddleLeft)
@@ -4674,7 +4691,7 @@ Public Class FrmG0011
     Private Sub TxtST04_RIYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtST04_RIYU.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
-        If txt.Enabled = True AndAlso txt.Text.IsNullOrWhiteSpace = True Then
+        If txt.ReadOnly = False AndAlso txt.Text.IsNullOrWhiteSpace = True Then
             'e.Cancel = True
             ErrorProvider.SetError(txt, String.Format(My.Resources.infoMsgRequireSelectOrInput, "î€ÇÃóùóR"))
             ErrorProvider.SetIconAlignment(txt, ErrorIconAlignment.MiddleLeft)
@@ -4688,42 +4705,39 @@ Public Class FrmG0011
     Private Sub CmbST04_JIZENSINSA_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST04_JIZENSINSA_HANTEI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
     Private Sub CmbST04_CAR_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST04_CAR_TANTO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "CARãNëêíSìñ"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
     Private Sub CmbST04_HASSEI_KOTEI_GL_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST04_HASSEI_KOTEI_GL_TANTO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "î≠ê∂çHíˆGLíSìñ"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -4738,24 +4752,24 @@ Public Class FrmG0011
 #Region "   STAGE6"
 
     Private Sub CmbST06_SAISIN_IINKAI_HANTEI_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbST06_SAISIN_IINKAI_HANTEI.SelectedValueChanged
+
         'éüÉXÉeÅ[ÉWñºçXêV
-        mtxST06_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(PrCurrentStage))
+        mtxST06_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\)) 'PrCurrentStage
         Dim dt As DataTable
-        dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(PrCurrentStage))
+        dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\))
         cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
     End Sub
 
     Private Sub CmbST06_SAISIN_IINKAI_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST06_SAISIN_IINKAI_HANTEI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -4805,14 +4819,13 @@ Public Class FrmG0011
     Private Sub CmbST07_SAISIN_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_SAISIN_TANTO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çƒêRê\êøíSìñ"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -4820,27 +4833,25 @@ Public Class FrmG0011
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "å⁄ãqîªíËéwé¶"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
     Private Sub CmbST07_KOKYAKU_SAISYU_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_KOKYAKU_SAISYU_HANTEI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "å⁄ãqç≈èIîªíË"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -4853,8 +4864,7 @@ Public Class FrmG0011
     Private Sub CmbST08_1_HAIKYAKU_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.SelectedValue = cmb.NullValue Then
-            'e.Cancel = True
+        If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.Selected = False Then
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "îpãpï˚ñ@"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
@@ -4867,7 +4877,7 @@ Public Class FrmG0011
     Private Sub CmbST08_1_HAIKYAKU_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.SelectedValue = cmb.NullValue Then
+        If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.Selected = False Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "îpãpé¿é{é“"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
@@ -4885,7 +4895,7 @@ Public Class FrmG0011
     Private Sub CmbST08_2_KENSA_KEKKA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
+        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.Selected = False Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "åüç∏åãâ "))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
@@ -4899,7 +4909,7 @@ Public Class FrmG0011
     Private Sub CmbST08_2_TANTO_SEIZO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
+        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.Selected = False Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "êªë¢íSìñ"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
@@ -4913,7 +4923,7 @@ Public Class FrmG0011
     Private Sub CmbST08_2_TANTO_SEIGI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
+        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.Selected = False Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ê∂ãZíSìñ"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
@@ -4927,7 +4937,7 @@ Public Class FrmG0011
     Private Sub CmbST08_2_TANTO_KENSA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = cmb.NullValue Then
+        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = False Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "åüç∏íSìñ"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
@@ -4945,7 +4955,7 @@ Public Class FrmG0011
     Private Sub CmbST08_3_HENKYAKU_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 2 AndAlso cmb.SelectedValue = cmb.NullValue Then
+        If tabST08_SUB.SelectedIndex = 2 AndAlso cmb.Selected = False Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ï‘ãpíSìñ"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
@@ -4963,7 +4973,7 @@ Public Class FrmG0011
     Private Sub CmbST08_4_KISYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.SelectedValue = cmb.NullValue Then
+        If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.Selected = False Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ã@éÌ"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
@@ -4977,7 +4987,7 @@ Public Class FrmG0011
     Private Sub CmbST08_4_BUHIN_BANGO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.SelectedValue = cmb.NullValue Then
+        If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.Selected = False Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïîïiî‘çÜ"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
@@ -5578,7 +5588,7 @@ Public Class FrmG0011
                         numSU.Enabled = False
                     End If
 
-                    Me.TabSTAGE.Visible = False
+                    TabSTAGE.Visible = False
                     Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage))
                     Call FunInitializeSTAGE(PrCurrentStage)
 

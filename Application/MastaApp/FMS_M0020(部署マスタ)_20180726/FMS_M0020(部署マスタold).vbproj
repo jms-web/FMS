@@ -1,13 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{447EBD30-C442-4EBF-B3EC-A9B17BAACA5E}</ProjectGuid>
+    <ProjectGuid>{ED3E912D-C822-4B79-A913-57E8BC92FDC2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <StartupObject>Sub Main</StartupObject>
     <RootNamespace>FMS</RootNamespace>
@@ -54,8 +52,8 @@
     </DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\..\..\Common\JMS_COMMON.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -67,8 +65,6 @@
     </DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -81,8 +77,6 @@
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <DefineTrace>true</DefineTrace>
@@ -94,8 +88,6 @@
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
@@ -107,13 +99,16 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="C1.Win.C1FlexGrid.4, Version=4.0.20173.286, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1FlexGrid.4, Version=4.0.20173.286, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\FMS\EXE\C1.Win.C1FlexGrid.4.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -172,13 +167,20 @@
     <Compile Include="View\FrmM0021.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="View\FrmM0020_old.Designer.vb">
+      <DependentUpon>FrmM0020_old.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\FrmM0020_old.vb" />
+    <Compile Include="View\FrmM0021_old.Designer.vb">
+      <DependentUpon>FrmM0021_old.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\FrmM0021_old.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\..\..\Common\AppStringResources.resx">
       <Link>common\AppStringResources.resx</Link>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppStringResources.Designer.vb</LastGenOutput>
-      <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\..\Common\RESOURCE\Resources.resx">
       <Link>My Project\Resources.resx</Link>
@@ -186,13 +188,20 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="View\FrmM0020.resx">
       <DependentUpon>FrmM0020.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="View\FrmM0021.resx">
       <DependentUpon>FrmM0021.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FrmM0020_old.resx">
+      <DependentUpon>FrmM0020_old.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FrmM0021_old.resx">
+      <DependentUpon>FrmM0021_old.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -202,13 +211,13 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
-    <None Include="My Project\DataSources\MODEL.VWM001_SETTING.datasource" />
-    <None Include="My Project\DataSources\MODEL.VWM002_BUSYO.datasource" />
+    <None Include="My Project\DataSources\IDA_MODEL.M02_SYAIN.datasource" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

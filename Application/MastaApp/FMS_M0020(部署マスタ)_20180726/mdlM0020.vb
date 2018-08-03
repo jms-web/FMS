@@ -15,6 +15,7 @@ Module mdlM0020
     <STAThread()>
     Public Sub Main()
         Try
+
             '-----二重起動抑制
             Using objMutex = New System.Threading.Mutex(False, My.Application.Info.AssemblyName)
                 If objMutex.WaitOne(0, False) = False Then
@@ -36,7 +37,7 @@ Module mdlM0020
 
                 '-----出力先設定ファイル読込処理
                 If FunGetOutputIniFile() = False Then
-                    MsgBox(My.Resources.ErrLogMsgSetOutput, MsgBoxStyle.Critical, My.Application.Info.AssemblyName)
+                    WL.WriteLogDat(My.Resources.ErrLogMsgSetOutput)
                     Exit Sub
                 End If
 
@@ -47,25 +48,28 @@ Module mdlM0020
 
                 '-----共通データ取得
                 Using DB As ClsDbUtility = DBOpen()
-                    Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
-                    Call FunGetCodeDataTable(DB, "部門区分", tblBUMON)
+                    'Call FunGetCodeDataTable(DB, "部", tblBU)
+                    'Call FunGetCodeDataTable(DB, "課", tblKA)
+                    'Call FunGetCodeDataTable(DB, "役職区分", tblYAKU_KBN)
+                    'Call FunGetCodeDataTable(DB, "直間区分", tblCYOKKAN_KBN)
+                    '
                     Call FunGetCodeDataTable(DB, "部署区分", tblBUSYO_KB)
-                    Call FunGetCodeDataTable(DB, "部署", tblBUSYO, " YUKO_YMD >= '" & Replace(Now.ToShortDateString, "/", "") & "'")
-                    Call FunGetCodeDataTable(DB, "担当", tblSYAIN, " del_ymdhns = '' ")
+                    Call FunGetCodeDataTable(DB, "部門区分", tblBUMON)
+                    Call FunGetCodeDataTable(DB, "担当", tblSYAIN)
                 End Using
 
                 '-----一覧画面表示
                 frmLIST = New FrmM0020
-                Application.Run(frmLIST)
-
+                 Application.Run(frmLIST)
             End Using
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             MsgBox(My.Resources.ErrMsgInit, MsgBoxStyle.Critical, My.Application.Info.AssemblyName)
-        Finally
-
         End Try
     End Sub
 #End Region
+
+
+
 
 End Module

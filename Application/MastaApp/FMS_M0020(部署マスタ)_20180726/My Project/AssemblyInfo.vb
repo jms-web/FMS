@@ -8,17 +8,17 @@ Imports System.Runtime.InteropServices
 
 ' アセンブリ属性の値を確認します。
 
-<Assembly: AssemblyTitle("CLICKONCE_FMS")>
-<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyTitle("FMS_M0020")>
+<Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("JMS")>
-<Assembly: AssemblyProduct("")>
-<Assembly: AssemblyCopyright("Copyright ©  2017")> 
-<Assembly: AssemblyTrademark("")> 
+<Assembly: AssemblyProduct("FMS")>
+<Assembly: AssemblyCopyright("Copyright (C) 2017 JMS")>
+<Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
 
 'このプロジェクトが COM に公開される場合、次の GUID がタイプ ライブラリの ID になります。
-<Assembly: Guid("3353C31F-6156-4A5B-924D-29F0217D0001")>
+<Assembly: Guid("3353C31F-6156-4A5B-924D-29F0217D0020")>
 
 ' アセンブリのバージョン情報は、以下の 4 つの値で構成されています:
 '
@@ -30,6 +30,12 @@ Imports System.Runtime.InteropServices
 ' すべての値を指定するか、下のように '*' を使ってビルドおよびリビジョン番号を 
 ' 既定値にすることができます:
 ' <Assembly: AssemblyVersion("1.0.*")> 
+'
+'<Assembly: AssemblyVersion("1.0.0.0")> 
+'<Assembly: AssemblyFileVersion("1.0.0.0")> 
 
-<Assembly: AssemblyVersion("0.9.18214.0931")>
-<Assembly: AssemblyFileVersion("0.9.18214.0931")>
+<Assembly: AssemblyVersion("0.9.18207.0012")>
+'<Assembly: AssemblyFileVersion("1.0.*")> 
+
+
+<Assembly: AssemblyFileVersionAttribute("0.9.18207.0012")>
