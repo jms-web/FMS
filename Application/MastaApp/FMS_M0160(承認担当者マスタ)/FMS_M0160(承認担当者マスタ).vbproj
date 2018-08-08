@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <StartupObject>Sub Main</StartupObject>
     <RootNamespace>FMS</RootNamespace>
-    <AssemblyName>FMS_M0130</AssemblyName>
+    <AssemblyName>FMS_M0160</AssemblyName>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
     <SccProjectName>
     </SccProjectName>

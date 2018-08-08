@@ -1146,6 +1146,7 @@ Public Class FrmG0011
         Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
         Dim strBody As String = <sql><![CDATA[
         {0} 殿<br />
+        <br />
         　不適合製品の処置依頼が来ましたので対応をお願いします。<br />
         <br />
         　　【報告書No】{1}<br />
@@ -1194,7 +1195,7 @@ Public Class FrmG0011
         Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
         Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
         Dim strBody As String = <sql><![CDATA[
-        {0} 殿
+        {0} 殿<br />
         <br />
         　{1} 殿より{0} 殿宛にCARの起草入力依頼がありました。<br />
         　不適合管理システムから該当するデータを選択し、起草入力を行って下さい。<br />
@@ -4832,7 +4833,7 @@ Public Class FrmG0011
     Private Sub CmbST07_KOKYAKU_HANTEI_SIJI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_KOKYAKU_HANTEI_SIJI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue = cmb.NullValue Then
+        If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
             pri_blnValidated = pri_blnValidated AndAlso True
         Else

@@ -13,6 +13,7 @@ Public Class FrmG0010
 
     Private ParamModel As New ST02_ParamModel
 
+
 #End Region
 
 #Region "プロパティ"
@@ -205,7 +206,7 @@ Public Class FrmG0010
             '起動モード別処理
             Select Case pub_intOPEN_MODE
                 Case ENM_OPEN_MODE._0_通常
-                    Me.cmdFunc1.PerformClick()
+                    Me.cmdFunc7.PerformClick()
                 Case ENM_OPEN_MODE._1_新規作成
                     Me.cmdFunc2.PerformClick()
                     Me.WindowState = FormWindowState.Normal
@@ -1241,7 +1242,7 @@ Public Class FrmG0010
                                 dr.Item("GEN_TANTO_NAME"),
                                 dr.Item("TAIRYU_NISSU"),
                                 dr.Item("HOKOKU_NO"),
-                                CDate(dr.Item("KISO_YMD")).ToString("yyyy/MM/dd"),
+                                IIf(dr.Item("KISO_YMD") <> "", CDate(dr.Item("KISO_YMD")).ToString("yyyy/MM/dd"), ""),
                                 dr.Item("KISYU_NAME"),
                                 dr.Item("BUHIN_BANGO"),
                                 Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
@@ -1308,7 +1309,7 @@ Public Class FrmG0010
                                 dr.Item("GEN_TANTO_NAME"),
                                 dr.Item("TAIRYU_NISSU"),
                                 dr.Item("HOKOKU_NO"),
-                                CDate(dr.Item("KISO_YMD")).ToString("yyyy/MM/dd"),
+                                IIf(dr.Item("KISO_YMD") <> "", CDate(dr.Item("KISO_YMD")).ToString("yyyy/MM/dd"), ""),
                                 dr.Item("KISYU_NAME"),
                                 dr.Item("BUHIN_BANGO"),
                                 Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
