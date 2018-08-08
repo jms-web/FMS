@@ -1,5 +1,8 @@
 Imports JMS_COMMON.ClsPubMethod
 
+''' <summary>
+''' 機種マスタ編集画面
+''' </summary>
 Public Class FrmM1051
 
 #Region "変数・定数"
@@ -20,7 +23,7 @@ Public Class FrmM1051
     ''' <summary>
     ''' 一覧の選択行データ
     ''' </summary>
-    Public Property PrdgvCellCollection As DataGridViewCellCollection
+    Public Property PrDataRow As DataRow
 
 #End Region
 
@@ -79,7 +82,7 @@ Public Class FrmM1051
                     Me.lblEDIT_YMDHNS.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._2_ADDREF
-                    Call FunSetEntityValues(PrdgvCellCollection)
+                    Call FunSetEntityValues(PrDataRow)
 
                     lblTytle.Text &= "（類似追加）"
                     Me.cmdFunc1.Text = "追加(F1)"
@@ -94,7 +97,7 @@ Public Class FrmM1051
                     Me.lblEDIT_YMDHNS.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
-                    Call FunSetEntityValues(PrdgvCellCollection)
+                    Call FunSetEntityValues(PrDataRow)
 
                     lblTytle.Text &= "（変更）"
                     Me.cmdFunc1.Text = "変更(F1)"
@@ -123,7 +126,7 @@ Public Class FrmM1051
     ''' </summary>
     ''' <param name="dgvCol"></param>
     ''' <returns></returns>
-    Private Function FunSetEntityValues(dgvCol As DataGridViewCellCollection) As Boolean
+    Private Function FunSetEntityValues(dgvCol As DataRow) As Boolean
 
         Try
             ''-----コントロールに値をセット
@@ -358,7 +361,7 @@ Public Class FrmM1051
                     sbSQL.Append("SELECT * FROM M03_TANTO ")
                     sbSQL.Append(" WHERE")
                     'sbSQL.Append(" TANTO_CD =" & Nz(Me.mtxTANTO_CD.Text.Trim & ""))
-                    sbSQL.Append(" AND EDIT_YMDHNS ='" & PrdgvCellCollection.Item("EDIT_YMDHNS").Value.ToString & "' ")
+                    sbSQL.Append(" AND EDIT_YMDHNS ='" & PrDataRow.Item("EDIT_YMDHNS").Value.ToString & "' ")
                     dsList = DB.GetDataSet(sbSQL.ToString)
                     If dsList.Tables(0).Rows.Count = 0 Then '非存在時
                         MessageBox.Show(String.Format(My.Resources.infoSearchDataChange), My.Resources.infoTilteDuplicateCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -427,45 +430,7 @@ Public Class FrmM1051
                 End With
             Next intFunc
 
-            If frm.dgvDATA.RowCount > 0 Then
-                frm.cmdFunc1.Enabled = True
-                frm.cmdFunc2.Enabled = True
-                frm.cmdFunc3.Enabled = True
-                frm.cmdFunc4.Enabled = True
-                frm.cmdFunc5.Enabled = True
-                frm.cmdFunc10.Enabled = True
-            Else
-                frm.cmdFunc1.Enabled = True
-                frm.cmdFunc2.Enabled = True
-                frm.cmdFunc3.Enabled = False
-                frm.cmdFunc4.Enabled = False
-                frm.cmdFunc5.Enabled = False
-                frm.cmdFunc10.Enabled = False
-            End If
 
-            Dim dgv As DataGridView = DirectCast(frm.Controls("dgvDATA"), DataGridView)
-            If dgv.SelectedRows.Count > 0 Then
-                If dgv.CurrentRow IsNot Nothing AndAlso dgv.CurrentRow.Cells.Item("DEF_FLG").Value <> "" Then
-                    '削除済データの場合
-                    frm.cmdFunc4.Enabled = False
-                    frm.cmdFunc5.Text = "完全削除(F5)"
-                    frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._6_DELETE
-
-                    '復元
-                    frm.cmdFunc6.Text = "復元(F6)"
-                    frm.cmdFunc6.Visible = True
-                    frm.cmdFunc6.Tag = ENM_DATA_OPERATION_MODE._5_RESTORE
-                Else
-                    frm.cmdFunc5.Text = "削除(F5)"
-                    frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._4_DISABLE
-
-                    frm.cmdFunc6.Text = ""
-                    frm.cmdFunc6.Visible = False
-                    frm.cmdFunc6.Tag = ""
-                End If
-            Else
-                frm.cmdFunc6.Visible = False
-            End If
 
             Return True
         Catch ex As Exception
@@ -561,7 +526,7 @@ Public Class FrmM1051
 
     End Sub
 
-    Private Sub Label7_Click(sender As Object, e As EventArgs) Handles Label7.Click
+    Private Sub Label7_Click(sender As Object, e As EventArgs)
 
     End Sub
 

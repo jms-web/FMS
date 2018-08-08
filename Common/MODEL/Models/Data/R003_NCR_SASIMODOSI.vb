@@ -10,13 +10,10 @@ Imports PropertyChanged
 <AddINotifyPropertyChangedInterface>
 Partial Public Class R003_NCR_SASIMODOSI
     Inherits ModelBase
-    'Inherits NotifyChangedBase
 
-    Public Sub New()
-        Call Clear()
-    End Sub
 
-    Public Sub Clear()
+
+    Public Shadows Sub Clear()
         SASIMODOSI_YMDHNS = ""
         HOKOKU_NO = ""
         BUMON_KB = ""
@@ -116,11 +113,10 @@ Partial Public Class R003_NCR_SASIMODOSI
     <NotMapped>
     Public Property CLOSE_FG As Boolean
         Get
-            Return IIf(_CLOSE_FG = "0", False, True)
+            Return (_CLOSE_FG = "1")
         End Get
         Set(value As Boolean)
             _CLOSE_FG = IIf(value, "1", "0")
-            'OnPropertyChanged(NameOf(CLOSE_FG))
         End Set
     End Property
 
@@ -166,11 +162,10 @@ Partial Public Class R003_NCR_SASIMODOSI
     <NotMapped>
     Public Property SAIHATU As Boolean
         Get
-            Return IIf(_SAIHATU = "0", False, True)
+            Return (_SAIHATU = "1")
         End Get
         Set(value As Boolean)
             _SAIHATU = IIf(value, "1", "0")
-            'OnPropertyChanged(NameOf(SAIHATU))
         End Set
     End Property
 
@@ -226,11 +221,10 @@ Partial Public Class R003_NCR_SASIMODOSI
     <NotMapped>
     Public Property ZESEI_SYOCHI_YOHI_KB As Boolean
         Get
-            Return IIf(_ZESEI_SYOCHI_YOHI_KB = "0", False, True)
+            Return (_ZESEI_SYOCHI_YOHI_KB = "1")
         End Get
         Set(value As Boolean)
             _ZESEI_SYOCHI_YOHI_KB = IIf(value, "1", "0")
-            'OnPropertyChanged(NameOf(_ZESEI_SYOCHI_YOHI_KB))
         End Set
     End Property
 
@@ -349,7 +343,7 @@ Partial Public Class R003_NCR_SASIMODOSI
     <NotMapped>
     Public Property SAIKAKO_SIJI_FG As Boolean
         Get
-            Return IIf(_SAIKAKO_SIJI_FG = "0", False, True)
+            Return (_SAIKAKO_SIJI_FG = "1")
         End Get
         Set(value As Boolean)
             _SAIKAKO_SIJI_FG = IIf(value, "1", "0")
@@ -473,7 +467,7 @@ Partial Public Class R003_NCR_SASIMODOSI
     <NotMapped>
     Public Property SYOCHI_KEKKA_A As Boolean
         Get
-            Return IIf(_SYOCHI_KEKKA_A = "0", False, True)
+            Return (_SYOCHI_KEKKA_A = "1")
         End Get
         Set(value As Boolean)
             _SYOCHI_KEKKA_A = IIf(value, "1", "0")
@@ -491,7 +485,7 @@ Partial Public Class R003_NCR_SASIMODOSI
     <NotMapped>
     Public Property SYOCHI_KEKKA_B As Boolean
         Get
-            Return IIf(_SYOCHI_KEKKA_B = "0", False, True)
+            Return (_SYOCHI_KEKKA_B = "1")
         End Get
         Set(value As Boolean)
             _SYOCHI_KEKKA_B = IIf(value, "1", "0")
@@ -509,7 +503,7 @@ Partial Public Class R003_NCR_SASIMODOSI
     <NotMapped>
     Public Property SYOCHI_KEKKA_C As Boolean
         Get
-            Return IIf(_SYOCHI_KEKKA_C = "0", False, True)
+            Return (_SYOCHI_KEKKA_C = "1")
         End Get
         Set(value As Boolean)
             _SYOCHI_KEKKA_C = IIf(value, "1", "0")
@@ -545,7 +539,7 @@ Partial Public Class R003_NCR_SASIMODOSI
     <NotMapped>
     Public Property SYOCHI_D_YOHI_KB As Boolean
         Get
-            Return IIf(_SYOCHI_D_YOHI_KB = "0", False, True)
+            Return (_SYOCHI_D_YOHI_KB = "1")
         End Get
         Set(value As Boolean)
             _SYOCHI_D_YOHI_KB = IIf(value, "1", "0")
@@ -569,7 +563,7 @@ Partial Public Class R003_NCR_SASIMODOSI
     <NotMapped>
     Public Property SYOCHI_E_UMU_KB As Boolean
         Get
-            Return IIf(_SYOCHI_E_UMU_KB = "0", False, True)
+            Return (_SYOCHI_E_UMU_KB = "1")
         End Get
         Set(value As Boolean)
             _SYOCHI_E_UMU_KB = IIf(value, "1", "0")
@@ -587,7 +581,7 @@ Partial Public Class R003_NCR_SASIMODOSI
     <NotMapped>
     Public Property SYOCHI_E_YOHI_KB As Boolean
         Get
-            Return IIf(_SYOCHI_E_YOHI_KB = "0", False, True)
+            Return (_SYOCHI_E_YOHI_KB = "1")
         End Get
         Set(value As Boolean)
             _SYOCHI_E_YOHI_KB = IIf(value, "1", "0")

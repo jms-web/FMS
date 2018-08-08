@@ -1,3 +1,5 @@
+Imports JMS_COMMON.ClsPubMethod
+
 Public Class FrmM0060
 
 #Region "’è”E•Ï”"

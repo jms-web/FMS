@@ -12,14 +12,10 @@ Imports PropertyChanged
 <Table(NameOf(D004_SYONIN_J_KANRI), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
 Partial Public Class D004_SYONIN_J_KANRI
-    Inherits NotifyChangedBase
+    Inherits ModelBase
 
 
-    Public Sub New()
-        Call clear()
-    End Sub
-
-    Public Sub clear()
+    Public Shadows Sub clear()
         SYONIN_HOKOKUSYO_ID = 0
         HOKOKU_NO = ""
         SYONIN_JUN = 0
@@ -38,15 +34,6 @@ Partial Public Class D004_SYONIN_J_KANRI
         UPD_SYAIN_ID = 0
     End Sub
 
-    <Display(AutoGenerateField:=False)>
-    Default Public Property Item(ByVal propertyName As String) As Object
-        Get
-            Return GetType(D004_SYONIN_J_KANRI).GetProperty(propertyName).GetValue(Me)
-        End Get
-        Set(value As Object)
-            GetType(D004_SYONIN_J_KANRI).GetProperty(propertyName).SetValue(Me, value)
-        End Set
-    End Property
 
     <Key>
     <Column(Order:=0)>
@@ -92,11 +79,11 @@ Partial Public Class D004_SYONIN_J_KANRI
     <DoNotNotify>
     Public Property SASIMODOSI_FG As Boolean
         Get
-            Return IIf(_SASIMODOSI_FG = "0", False, True)
+            Return (_SASIMODOSI_FG = "1")
         End Get
         Set(value As Boolean)
             _SASIMODOSI_FG = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(SASIMODOSI_FG))
+
         End Set
     End Property
 
@@ -124,11 +111,11 @@ Partial Public Class D004_SYONIN_J_KANRI
     <DoNotNotify>
     Public Property MAIL_SEND_FG As Boolean
         Get
-            Return IIf(_MAIL_SEND_FG = "0", False, True)
+            Return (_MAIL_SEND_FG = "1")
         End Get
         Set(value As Boolean)
             _MAIL_SEND_FG = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(MAIL_SEND_FG))
+
         End Set
     End Property
 

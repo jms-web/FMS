@@ -12,11 +12,7 @@ Partial Public Class D003_NCR_J
     Inherits ModelBase
     'Inherits NotifyChangedBase
 
-    Public Sub New()
-        Call Clear()
-    End Sub
-
-    Public Sub Clear()
+    Public Shadows Sub Clear()
         HOKOKU_NO = ""
         BUMON_KB = ""
         _CLOSE_FG = "0"

@@ -5,6 +5,6 @@
     Renaming the file extension or editing the content of this file may   
     cause the file to be unrecognizable by the program.
 -->
-<GenericObjectDataSource DisplayName="M118_SETUBI" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>FMS_MODEL.M118_SETUBI, FMS_MODEL, Version=0.9.17340.100, Culture=neutral, PublicKeyToken=null</TypeInfo>
+<GenericObjectDataSource DisplayName="VWM105_KISYU" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+   <TypeInfo>MODEL.VWM105_KISYU, FMS_MODEL, Version=0.9.18220.630, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

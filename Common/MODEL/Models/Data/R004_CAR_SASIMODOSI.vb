@@ -1,9 +1,7 @@
 ﻿Imports System
-Imports System.Collections.Generic
 Imports System.ComponentModel
 Imports System.ComponentModel.DataAnnotations
 Imports System.ComponentModel.DataAnnotations.Schema
-Imports System.Data.Entity.Spatial
 Imports PropertyChanged
 
 ''' <summary>
@@ -12,13 +10,9 @@ Imports PropertyChanged
 <Table(NameOf(R004_CAR_SASIMODOSI), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
 Partial Public Class R004_CAR_SASIMODOSI
-    Inherits NotifyChangedBase
+    Inherits ModelBase
 
-    Public Sub New()
-        Call Clear()
-    End Sub
-
-    Public Sub Clear()
+    Public Shadows Sub Clear()
         SASIMODOSI_YMDHNS = ""
         HOKOKU_NO = ""
         BUMON_KB = ""
@@ -98,15 +92,6 @@ Partial Public Class R004_CAR_SASIMODOSI
 
     End Sub
 
-    Default Public Property Item(ByVal propertyName As String) As Object
-        Get
-            Return GetType(R004_CAR_SASIMODOSI).GetProperty(propertyName).GetValue(Me)
-        End Get
-        Set(value As Object)
-            GetType(R004_CAR_SASIMODOSI).GetProperty(propertyName).SetValue(Me, value)
-        End Set
-    End Property
-
     <StringLength(14)>
     Public Property SASIMODOSI_YMDHNS As String
 
@@ -131,11 +116,10 @@ Partial Public Class R004_CAR_SASIMODOSI
     <DoNotNotify>
     Public Property CLOSE_FG As Boolean
         Get
-            Return IIf(_CLOSE_FG = "0", False, True)
+            Return (_CLOSE_FG = "1")
         End Get
         Set(value As Boolean)
             _CLOSE_FG = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(CLOSE_FG))
         End Set
     End Property
 

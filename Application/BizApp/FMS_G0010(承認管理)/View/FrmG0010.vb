@@ -418,13 +418,13 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).Width = 30
 
                 .Columns.Add("SYONIN_JUN", "")
-                .Columns(.ColumnCount - 1).Width = 50
+                .Columns(.ColumnCount - 1).Width = 45
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
                 .Columns.Add("SYONIN_NAIYO", "ステージ名")
-                .Columns(.ColumnCount - 1).Width = 222
+                .Columns(.ColumnCount - 1).Width = 290
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True

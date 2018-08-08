@@ -46,6 +46,7 @@ Public Class DateTextBoxEx
 
         Me._GotForcusedColor = clrControlGotFocusedColor
         Me._BackColorDefault = clrControlDefaultBackColor
+
     End Sub
 #End Region
 
@@ -330,7 +331,7 @@ Public Class DateTextBoxEx
         Me.MaskedTextBox1.Location = New System.Drawing.Point(2, 3)
         Me.MaskedTextBox1.Margin = New System.Windows.Forms.Padding(1)
         Me.MaskedTextBox1.Mask = "0000/00/00"
-        Me.MaskedTextBox1.MaxByteLength = 0
+        Me.MaskedTextBox1.MaxByteLength = 10
         Me.MaskedTextBox1.Name = "MaskedTextBox1"
         Me.MaskedTextBox1.Size = New System.Drawing.Size(79, 17)
         Me.MaskedTextBox1.TabIndex = 1
@@ -388,9 +389,9 @@ Public Class DateTextBoxEx
             'MessageBox.Show("不正な日付形式が入力されました。。", "日付形式エラー", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             If _blnNullable = True Then
-                Me.MaskedTextBox1.Text = ""
-                'ユーザーコントロールのイベント起動
-                RaiseEvent TxtChanged(Me, System.EventArgs.Empty)
+                'Me.MaskedTextBox1.Text = ""
+                ''ユーザーコントロールのイベント起動
+                'RaiseEvent TxtChanged(Me, System.EventArgs.Empty)
             End If
             Exit Sub
         End If
