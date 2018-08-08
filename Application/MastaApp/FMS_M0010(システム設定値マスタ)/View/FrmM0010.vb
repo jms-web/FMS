@@ -343,9 +343,10 @@ Public Class FrmM0010
                 strComboVal = ""
             End If
 
+
             frmDLG.PrMODE = intMODE
             If flxDATA.RowSel > 0 Then
-                frmDLG.PrDataRow = flxDATA.Rows(flxDATA.RowSel).DataSource
+                frmDLG.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row 'flxDATA.Rows(flxDATA.Row)
             Else
                 frmDLG.PrDataRow = Nothing
             End If

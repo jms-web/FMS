@@ -1,9 +1,13 @@
 Imports JMS_COMMON.ClsPubMethod
 
+''' <summary>
+''' コードマスタ編集画面
+''' </summary>
 Public Class FrmM0011
 
 #Region "変数・定数"
-
+    Private IsValidated As Boolean
+    Private _M001 As New MODEL.M001_SETTING
 #End Region
 
 #Region "プロパティ"
@@ -17,7 +21,7 @@ Public Class FrmM0011
     ''' </summary>
     Public Property PrPKeys As (ITEM_NAME As String, ITEM_VALUE As String)
 
-    Public Property PrDataRow As C1.Win.C1FlexGrid.Row
+    Public Property PrDataRow As DataRow
 
 #End Region
 
@@ -47,23 +51,21 @@ Public Class FrmM0011
 
             '-----位置・サイズ
             Me.Height = 360
-            Me.MinimumSize = New Size(1280, 360)
-            Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) - 30 ' / 2
+            Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) - 26 ' / 2
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
-
+            Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
 
             '-----各コントロールのデータソースを設定
-            Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, False)
+            Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             'イベントハンドラ設定
             AddHandler cmbKOMO_NM.TextChanged, AddressOf CmbKOMO_NM_TextChanged
 
-            '-----処理モード別画面初期化
-            Call FunInitializeControls(PrMODE)
+            Call FunSetBinding()
 
-            '-----ダイアログウィンドウ設定
-            Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
-            Me.ControlBox = False
+            '-----処理モード別画面初期化
+            Call FunInitializeControls()
+
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -77,10 +79,10 @@ Public Class FrmM0011
 #Region "FUNCTIONボタン関連"
 
 #Region "FUNCTIONボタンCLICKイベント"
+
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc9.Click, cmdFunc8.Click, cmdFunc7.Click, cmdFunc6.Click, cmdFunc5.Click, cmdFunc4.Click, cmdFunc3.Click, cmdFunc2.Click, cmdFunc12.Click, cmdFunc11.Click, cmdFunc10.Click, cmdFunc1.Click
         Dim intFUNC As Integer
         Dim intCNT As Integer
-        Dim blnRET As Boolean
 
         Try
             'ボタン不可/ボタンINDEX取得
@@ -91,17 +93,8 @@ Public Class FrmM0011
 
             'ボタンINDEX毎の処理
             Select Case intFUNC
-                Case 1  '追加
-                    Select Case PrMODE
-                        Case ENM_DATA_OPERATION_MODE._1_ADD, ENM_DATA_OPERATION_MODE._2_ADDREF
-                            blnRET = FunINS()
-                        Case ENM_DATA_OPERATION_MODE._3_UPDATE
-                            blnRET = FunUPD()
-                        Case Else
-                            Throw New ArgumentException(My.Resources.ErrMsgException, PrMODE.ToString)
-                    End Select
-
-                    If blnRET = True Then
+                Case 1  '追加変更
+                    If FunSAVE() Then
                         'プロパティに対象レコードのキーを設定
                         Me.PrPKeys = (Me.cmbKOMO_NM.Text.Trim, Me.mtxVALUE.Text.Trim)
 
@@ -113,180 +106,48 @@ Public Class FrmM0011
                     Me.DialogResult = Windows.Forms.DialogResult.Cancel
                     Me.Close()
             End Select
-
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-
+            EM.ErrorSyori(ex)
         Finally
             'ボタン可
             System.Windows.Forms.Application.DoEvents()
             For intCNT = 0 To Me.cmdFunc.Length - 1
                 Me.cmdFunc(intCNT).Enabled = True
             Next
+
+            Call FunInitFuncButtonEnabled()
         End Try
     End Sub
 
 #End Region
 
-#Region "追加"
-    Private Function FunINS() As Boolean
-        Dim dsList As New DataSet
-        Dim sbSQL As New System.Text.StringBuilder
-
-
-        Try
-            '-----入力チェック
-            If FunCheckInput() = False Then
-                Return False
-            End If
-
-            Using DB As ClsDbUtility = DBOpen()
-                Dim intRET As Integer
-                Dim sqlEx As New Exception
-                Dim blnErr As Boolean
-
-                Try
-                    DB.BeginTransaction()
-
-                    '-----存在チェック
-                    sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("SELECT * FROM " & NameOf(MODEL.M001_SETTING) & "")
-                    sbSQL.Append(" WHERE ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-                    sbSQL.Append(" AND ITEM_VALUE ='" & Me.mtxVALUE.Text.Trim & "' ")
-                    dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-                    If dsList.Tables(0).Rows.Count > 0 Then '存在時
-                        MessageBox.Show("既に登録済みのデータです。" & vbCrLf & "入力データを確認して下さい。", "存在チェック", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                        Return False
-                    End If
-
-                    '同一項目名の既定値を解除
-                    If Me.chkDefaultVaue.Checked = True Then
-                        sbSQL.Remove(0, sbSQL.Length)
-                        sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET")
-                        sbSQL.Append(" DEF_FLG='0'")
-                        sbSQL.Append("WHERE ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-                        sbSQL.Append(" AND ITEM_VALUE <>'" & Me.mtxVALUE.Text.Trim & "' ")
-
-                        intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                        If sqlEx.InnerException IsNot Nothing Then
-                            'エラーログ出力
-                            Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                            WL.WriteLogDat(strErrMsg)
-                            blnErr = True
-                            Return False
-                        End If
-                    End If
-
-                    '-----INSERT
-                    sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("INSERT INTO " & NameOf(MODEL.M001_SETTING) & " (")
-                    sbSQL.Append("  ITEM_GROUP")
-                    sbSQL.Append(" ,ITEM_NAME")
-                    sbSQL.Append(" ,ITEM_VALUE")
-                    sbSQL.Append(" ,ITEM_DISP")
-                    sbSQL.Append(" ,DISP_ORDER")
-                    sbSQL.Append(" ,DEF_FLG")
-                    sbSQL.Append(" ,BIKOU")
-                    sbSQL.Append(" ,ADD_YMDHNS")
-                    sbSQL.Append(" ,ADD_SYAIN_ID")
-                    sbSQL.Append(" ,UPD_YMDHNS")
-                    sbSQL.Append(" ,UPD_SYAIN_ID")
-                    sbSQL.Append(" ,DEL_YMDHNS")
-                    sbSQL.Append(" ,DEL_SYAIN_ID")
-                    sbSQL.Append(" ) VALUES ( ")
-                    '項目グループ
-                    sbSQL.Append(" '" & Me.mtxKOMO_GROUP.Text.Trim & "'")
-                    '項目名
-                    sbSQL.Append(" ,'" & Me.cmbKOMO_NM.Text.Trim & "'")
-                    '項目値
-                    sbSQL.Append(" ,'" & Me.mtxVALUE.Text.Trim & "'")
-                    '表示値
-                    sbSQL.Append(" ,'" & Nz(Me.mtxDISP.Text.Trim, " ") & "'")
-                    '表示順
-                    sbSQL.Append(" ," & Me.cmbJYUN.SelectedValue & "")
-                    '既定値フラグ
-                    sbSQL.Append(" ,'" & IIf(Me.chkDefaultVaue.Checked = True, "1", "0") & "'")
-                    '備考
-                    sbSQL.Append(" ,'" & Nz(Me.mtxBIKOU.Text.Trim, " ") & "'")
-                    '追加日時
-                    sbSQL.Append(" ,dbo.GetSysDateString()")
-                    '追加日時
-                    sbSQL.Append(" ," & pub_SYAIN_INFO.SYAIN_ID & "")
-                    '追加担当者
-                    sbSQL.Append(" ,dbo.GetSysDateString()")
-                    '更新担当者
-                    sbSQL.Append(" ," & pub_SYAIN_INFO.SYAIN_ID & "")
-                    '削除日時
-                    sbSQL.Append(" ,' '")
-                    '削除担当者
-                    sbSQL.Append(" ,0")
-                    sbSQL.Append(" )")
-
-                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    If intRET <> 1 Then
-                        'エラーログ出力
-                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                        WL.WriteLogDat(strErrMsg)
-                        blnErr = True
-                        Return False
-                    End If
-                Finally
-                    'トランザクション
-                    DB.Commit(Not blnErr)
-                End Try
-            End Using
-
-            Return True
-        Catch ex As Exception
-            Throw
-            Return False
-        Finally
-            dsList.Dispose()
-        End Try
-    End Function
-#End Region
-
 #Region "更新"
-    Private Function FunUPD() As Boolean
-        Dim sbSQL As New System.Text.StringBuilder
-        Dim dsList As New System.Data.DataSet
 
+    Private Function FunSAVE() As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim strRET As String
+        Dim sqlEx As New Exception
+        Dim strSysDate As String
         Try
+
             '入力チェック
-            If FunCheckInput() = False Then
-                Return False
-            End If
+            If FunCheckInput() = False Then Return False
 
             Using DB As ClsDbUtility = DBOpen()
-                Dim intRET As Integer
-                Dim sqlEx As Exception = Nothing
                 Dim blnErr As Boolean
-
                 Try
-                    'トランザクション
-                    DB.BeginTransaction()
+                    strSysDate = DB.GetSysDateString()
 
-                    '-----存在チェック
-                    sbSQL.Append("SELECT * FROM " & NameOf(MODEL.M001_SETTING) & " ")
-                    sbSQL.Append("WHERE")
-                    sbSQL.Append(" ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-                    sbSQL.Append(" AND ITEM_VALUE ='" & Me.mtxVALUE.Text.Trim & "' ")
-                    sbSQL.Append(" AND UPD_YMDHNS ='" & PrDataRow.Item("UPD_YMDHNS").ToString & "' ")
-                    dsList = DB.GetDataSet(sbSQL.ToString)
-                    If dsList.Tables(0).Rows.Count = 0 Then '非存在時
-                        MessageBox.Show(String.Format(My.Resources.infoSearchDataChange), My.Resources.infoTilteDuplicateCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Return False
-                    End If
+                    Dim ModelInfo As New MODEL.ModelInfo(Of MODEL.M001_SETTING)
 
                     '-----同一項目名の既定値を解除
-                    If Me.chkDefaultVaue.Checked = True Then
-                        sbSQL.Remove(0, sbSQL.Length)
-                        sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET")
-                        sbSQL.Append(" DEF_FLG='0' ")
-                        sbSQL.Append(" WHERE ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-                        sbSQL.Append(" AND ITEM_VALUE <>'" & Me.mtxVALUE.Text.Trim & "' ")
+                    If _M001.DEF_FLG Then
+                        sbSQL.Append($"UPDATE {ModelInfo.Name} SET")
+                        sbSQL.Append($" DEF_FLG='0' ")
+                        sbSQL.Append($" WHERE KOMO_NM ='{_M001.ITEM_NAME}' ")
+                        sbSQL.Append($" AND VALUE <>'{_M001.ITEM_VALUE}' ")
 
-                        intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+                        DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
                         If sqlEx IsNot Nothing Then
                             'エラーログ
                             Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
@@ -296,50 +157,91 @@ Public Class FrmM0011
                         End If
                     End If
 
-                    'TODO: 表示順最終行の表示順が変更出来ない不具合の修正
-
                     '-----UPDATE(表示順)
-                    If PrDataRow.Item("DISP_ORDER") <> Me.cmbJYUN.SelectedValue Then
-                        If FunUpdateDispOrder(DB, PrDataRow.Item("DISP_ORDER"), Me.cmbJYUN.SelectedValue) = False Then
+                    If PrDataRow.Item("DISP_ORDER") <> _M001.DISP_ORDER Then
+                        If FunUpdateDispOrder(DB, PrDataRow.Item("DISP_ORDER"), _M001.DISP_ORDER) = False Then
                             blnErr = True
                             Return False
                         End If
                     End If
 
-                    '-----UPDATE(表示順以外)
+                    '-----MERGE
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET")
-                    sbSQL.Append(" ITEM_DISP ='" & Me.mtxDISP.Text.Trim & "'")
-                    sbSQL.Append(" ,DEF_FLG ='" & IIf(Me.chkDefaultVaue.Checked = True, "1", "0") & "'")
-                    sbSQL.Append(" ,BIKOU ='" & Me.mtxBIKOU.Text.Trim & "'")
-                    sbSQL.Append(" ,UPD_SYAIN_ID = " & pub_SYAIN_INFO.SYAIN_ID)
-                    sbSQL.Append(" ,UPD_YMDHNS = dbo.GetSysDateString()")
-                    sbSQL.Append("WHERE")
-                    sbSQL.Append(" ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-                    sbSQL.Append(" AND ITEM_VALUE ='" & Me.mtxVALUE.Text.Trim & "' ")
+                    sbSQL.Append($"MERGE INTO {ModelInfo.Name} AS TARGET")
+                    sbSQL.Append($" USING (SELECT")
 
-                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    If intRET <> 1 Then
-                        'エラーログ
-                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                        WL.WriteLogDat(strErrMsg)
-                        blnErr = True
-                        Return False
-                    End If
+                    'Merge Source側のSelect文生成 先頭項目と以降で分けている(違いはカンマのみ)
+                    ModelInfo.Properties.Take(1).ForEach(Sub(p)
+                                                             Select Case p.PropertyType
+                                                                 Case GetType(Integer), GetType(Decimal)
+                                                                     sbSQL.Append($" {_M001(p.Name)} AS {p.Name}")
+                                                                 Case Else
+                                                                     '実質Stringのみ
+                                                                     sbSQL.Append($" '{_M001(p.Name).ToString.ConvertSqlEscape}' AS {p.Name}")
+                                                             End Select
+                                                         End Sub)
+                    ModelInfo.Properties.Skip(1).ForEach(Sub(p)
+                                                             Select Case p.PropertyType
+                                                                 Case GetType(Integer), GetType(Decimal)
+                                                                     sbSQL.Append($",{_M001(p.Name)} AS {p.Name}")
+                                                                 Case Else
+                                                                     '実質Stringのみ
+                                                                     sbSQL.Append($",'{_M001(p.Name).ToString.ConvertSqlEscape}' AS {p.Name}")
+                                                             End Select
+                                                         End Sub)
+                    sbSQL.Append($" ) AS WK")
+                    sbSQL.Append($" ON (TARGET.{NameOf(_M001.ITEM_NAME)} = WK.{NameOf(_M001.ITEM_NAME)}")
+                    sbSQL.Append($" AND TARGET.{NameOf(_M001.ITEM_VALUE)} = WK.{NameOf(_M001.ITEM_VALUE)}")
+
+                    '---UPDATE 排他制御 更新日時が変更されていない場合のみ
+                    sbSQL.Append($" WHEN MATCHED AND TARGET.{NameOf(_M001.UPD_YMDHNS)} = WK.{NameOf(_M001.UPD_YMDHNS)} THEN ")
+                    sbSQL.Append($" UPDATE SET")
+                    sbSQL.Append($" TARGET.{NameOf(_M001.ITEM_NAME)} = WK.{NameOf(_M001.ITEM_NAME)}")
+                    sbSQL.Append($",TARGET.{NameOf(_M001.ITEM_GROUP)} = WK.{NameOf(_M001.ITEM_GROUP)}")
+                    sbSQL.Append($",TARGET.{NameOf(_M001.DEF_FLG)} = WK.{NameOf(_M001.DEF_FLG)}")
+                    sbSQL.Append($",TARGET.{NameOf(_M001.BIKOU)} = WK.{NameOf(_M001.BIKOU)}")
+                    sbSQL.Append($",TARGET.{NameOf(_M001.UPD_YMDHNS)} = '{strSysDate}'")
+                    sbSQL.Append($",TARGET.{NameOf(_M001.UPD_SYAIN_ID)} = WK.{NameOf(_M001.UPD_SYAIN_ID)}")
+
+                    '---INSERT
+                    sbSQL.Append($" WHEN NOT MATCHED THEN ")
+                    sbSQL.Append($" INSERT(")
+                    ModelInfo.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {p.Name}"))
+                    ModelInfo.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{p.Name}"))
+                    sbSQL.Append($" ) VALUES(")
+                    ModelInfo.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" WK.{p.Name}"))
+                    ModelInfo.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",WK.{p.Name}"))
+                    sbSQL.Append(" )")
+                    sbSQL.Append("OUTPUT $action As RESULT;")
+
+                    strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+                    Select Case strRET
+                        Case "INSERT"
+
+                        Case "UPDATE"
+
+                        Case Else
+                            If sqlEx.Source IsNot Nothing Then
+                                '-----エラーログ出力
+                                Dim strErrMsg As String = $"{My.Resources.ErrLogSqlExecutionFailure}{sbSQL.ToString}|{sqlEx.Message}"
+                                WL.WriteLogDat(strErrMsg)
+                            Else
+                                '---排他制御
+                                Dim strMsg As String = $"既に他の担当者によって変更されているため保存出来ません。{vbCrLf}再度登録し直して下さい。"
+                                MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                            End If
+                            Return False
+                    End Select
                 Finally
-                    'トランザクション
                     DB.Commit(Not blnErr)
                 End Try
             End Using
 
             Return True
-        Catch ex As Exception
-            Throw
-            Return False
         Finally
-            dsList.Dispose()
         End Try
     End Function
+
 #End Region
 
 #Region "FuncButton有効無効切替"
@@ -348,23 +250,17 @@ Public Class FrmM0011
     ''' 使用しないボタンのキャプションをなくす、かつ非活性にする。
     ''' ファンクションキーを示す(F**)以外の文字がない場合は、未使用とみなす
     ''' </summary>
-    ''' <param name="frm">対象フォーム</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
     Private Function FunInitFuncButtonEnabled() As Boolean
         Try
 
-            For intFunc As Integer = 1 To 12
-                Dim cmd As Button = DirectCast(Me.Controls.Find("cmdFunc" & intFunc, True)(0), Button)
-                With cmd
-                    If cmd IsNot Nothing AndAlso .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
-                        .Text = ""
-                        '.Visible = False
-                        .Enabled = False
-                    End If
-                End With
-            Next intFunc
-
+            For intCNT = 0 To Me.cmdFunc.Length - 1
+                If Me.cmdFunc(intCNT) IsNot Nothing AndAlso Me.cmdFunc(intCNT).Text.Length = 0 OrElse Me.cmdFunc(intCNT).Text.Substring(0, Me.cmdFunc(intCNT).Text.IndexOf("(")).IsNullOrWhiteSpace = True Then
+                    Me.cmdFunc(intCNT).Text = ""
+                    Me.cmdFunc(intCNT).Visible = False
+                End If
+            Next
 
             Return True
         Catch ex As Exception
@@ -442,39 +338,69 @@ Public Class FrmM0011
 #End Region
 
 #Region "入力チェック"
-    Public Function FunCheckInput() As Boolean
+
+    Private Function FunCheckInput() As Boolean
         Try
-            'TODO: 入力チェック通知はDialogからErrorProviderに変更
 
-            '項目名
-            If cmbKOMO_NM.Text.IsNullOrWhiteSpace Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目名"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.cmbKOMO_NM.Focus()
-                Return False
-            End If
+            Call CmbKOMO_NM_Validating(cmbKOMO_NM, Nothing)
+            Call MtxVALUE_Validating(mtxVALUE, Nothing)
 
-            '項目値
-            If Me.mtxVALUE.Text.IsNullOrWhiteSpace Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "項目値"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.mtxVALUE.Focus()
-                Return False
-            End If
-
-            Return True
+            Return IsValidated
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         End Try
     End Function
+
+    Private Sub CmbKOMO_NM_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKOMO_NM.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            IsValidated = (IsValidated AndAlso True)
+        Else
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目名"), ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        End If
+    End Sub
+
+    Private Sub MtxVALUE_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxVALUE.Validating
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+
+        If mtx.Text.IsNullOrWhiteSpace = False Then
+            ErrorProvider.ClearError(mtx)
+            IsValidated = (IsValidated AndAlso True)
+        Else
+            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目値"), ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        End If
+    End Sub
+
 #End Region
 
 #Region "ローカル関数"
 
-#Region "処理モード別画面初期化"
-    Private Function FunInitializeControls(ByVal intMODE As Integer) As Boolean
-        Try
+#Region "バインディング"
 
-            Select Case intMODE
+    Private Function FunSetBinding() As Boolean
+        cmbKOMO_NM.DataBindings.Add(New Binding(NameOf(cmbKOMO_NM.SelectedValue), _M001, NameOf(_M001.ITEM_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        mtxVALUE.DataBindings.Add(New Binding(NameOf(mtxVALUE.Text), _M001, NameOf(_M001.ITEM_VALUE), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        mtxKOMO_GROUP.DataBindings.Add(New Binding(NameOf(mtxKOMO_GROUP.Text), _M001, NameOf(_M001.ITEM_GROUP), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        mtxDISP.DataBindings.Add(New Binding(NameOf(mtxDISP.Text), _M001, NameOf(_M001.ITEM_DISP), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbJYUN.DataBindings.Add(New Binding(NameOf(cmbJYUN.SelectedValue), _M001, NameOf(_M001.DISP_ORDER), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+        mtxBIKOU.DataBindings.Add(New Binding(NameOf(mtxBIKOU.Text), _M001, NameOf(_M001.BIKOU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDefaultVaue.DataBindings.Add(New Binding(NameOf(chkDefaultVaue.Checked), _M001, NameOf(_M001.DEF_FLG), False, DataSourceUpdateMode.OnPropertyChanged, False))
+
+    End Function
+
+#End Region
+
+#Region "処理モード別画面初期化"
+    Private Function FunInitializeControls() As Boolean
+        Try
+            Dim _Model = New MODEL.ModelInfo(Of MODEL.M001_SETTING)(_OnlyAutoGenerateField:=True)
+
+            Select Case PrMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
                     lblTytle.Text &= "（追加）"
                     cmdFunc1.Text = "追加(F1)"
@@ -489,7 +415,6 @@ Public Class FrmM0011
                     lblEDIT_SYAIN_ID.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._2_ADDREF
-                    Call FunSetEntityValues(PrDataRow)
 
                     lblTytle.Text &= "（類似追加）"
                     cmdFunc1.Text = "追加(F1)"
@@ -498,14 +423,15 @@ Public Class FrmM0011
                     mtxVALUE.Enabled = True
                     mtxDISP.Enabled = True
 
+                    '一覧選択行のデータをモデルに読込
+                    _Model.Properties.ForEach(Sub(p) _M001(p.Name) = PrDataRow.Item(p.Name))
+
                     lbllblEDIT_YMDHNS.Visible = False
                     lblEDIT_YMDHNS.Visible = False
                     lbllblEDIT_SYAIN_ID.Visible = False
                     lblEDIT_SYAIN_ID.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
-                    Call FunSetEntityValues(PrDataRow)
-
                     lblTytle.Text &= "（変更）"
                     cmdFunc1.Text = "変更(F1)"
 
@@ -514,61 +440,24 @@ Public Class FrmM0011
                     mtxVALUE.Enabled = False
                     mtxDISP.Enabled = True
 
+                    '一覧選択行のデータをモデルに読込
+                    _Model.Properties.ForEach(Sub(p) _M001(p.Name) = PrDataRow.Item(p.Name))
+
                     lbllblEDIT_YMDHNS.Visible = True
                     lblEDIT_YMDHNS.Visible = True
                     lbllblEDIT_SYAIN_ID.Visible = True
                     lblEDIT_SYAIN_ID.Visible = True
+                    '更新日時
+                    lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrDataRow.Item("UPD_YMDHNS"), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
+                    '更新担当者CD
+                    lblEDIT_SYAIN_ID.Text = PrDataRow.Item("UPD_SYAIN_CD") & " " & Fun_GetUSER_NAME(PrDataRow.Item("UPD_SYAIN_CD"))
 
                 Case Else
-                    Throw New ArgumentException(My.Resources.ErrMsgException, intMODE.ToString)
+                    Throw New ArgumentException(My.Resources.ErrMsgException, PrMODE.ToString)
             End Select
 
             Return True
 
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        End Try
-    End Function
-
-    ''' <summary>
-    ''' 一覧選択行の値をセット
-    ''' </summary>
-    ''' <param name="row"></param>
-    ''' <returns></returns>
-    Private Function FunSetEntityValues(row As C1.Win.C1FlexGrid.Row) As Boolean
-        Dim _model As New MODEL.VWM001_SETTING
-        Try
-
-            '-----コントロールに値をセット
-            With row
-                '項目グループ
-                Me.mtxKOMO_GROUP.Text = .Item(NameOf(_model.ITEM_GROUP))
-                '項目名
-                Call FunSetComboboxValue(Me.cmbKOMO_NM, tblKOMO_NM, .Item(NameOf(_model.ITEM_NAME)))
-                '項目値
-                Me.mtxVALUE.Text = .Item(NameOf(_model.ITEM_VALUE)).ToString.Trim
-                '表示値
-                Me.mtxDISP.Text = .Item(NameOf(_model.ITEM_DISP)).ToString.Trim
-                '表示順
-                Me.cmbJYUN.SelectedValue = .Item(NameOf(_model.DISP_ORDER))
-                '既定値フラグ
-                Me.chkDefaultVaue.Checked = .Item(NameOf(_model.DEF_FLG))
-
-                '備考
-                Me.mtxBIKOU.Text = .Item(NameOf(_model.BIKOU)).ToString.Trim
-
-                '更新日時
-                Dim dt As DateTime
-                dt = DateTime.ParseExact(.Item(NameOf(_model.UPD_YMDHNS)).ToString, "yyyyMMddHHmmss", Nothing)
-                Me.lblEDIT_YMDHNS.Text = dt.ToString("yyyy/MM/dd HH:mm:ss")
-
-                '更新担当
-                Me.lblEDIT_SYAIN_ID.Text = .Item(NameOf(_model.UPD_SYAIN_NAME)).ToString
-
-            End With
-
-            Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -581,28 +470,26 @@ Public Class FrmM0011
     Private Function FunUpdateDispOrder(ByRef DB As ClsDbUtility, ByVal intBeforeValue As Integer, ByVal intAfterValue As Integer) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
         Dim intRET As Integer
-        Dim dsList As New System.Data.DataSet
         Dim sqlEx As New Exception
+
         Try
 
-            '-----同一項目名内に同じ表示順が存在する場合、intTergetJyun以降の表示順を全て更新する
+            '同一項目名内に同じ表示順が存在する場合、intTergetJyun以降の表示順を全て更新する
             If intBeforeValue < intAfterValue Then
-                sbSQL.Remove(0, sbSQL.Length)
-                sbSQL.Append("UPDATE " & nameof(model.M001_SETTING) & " SET")
-                sbSQL.Append(" DISP_ORDER = DISP_ORDER-1 ")
-                sbSQL.Append("WHERE")
-                sbSQL.Append(" ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-                sbSQL.Append(" AND DISP_ORDER >" & intBeforeValue & " ")
-                sbSQL.Append(" AND DISP_ORDER <=" & intAfterValue & " ")
+                sbSQL.Append($"UPDATE {NameOf(MODEL.M001_SETTING)} SET")
+                sbSQL.Append($" DISP_ORDER = DISP_ORDER-1 ")
+                sbSQL.Append($"WHERE")
+                sbSQL.Append($" ITEM_NAME ='{_M001.ITEM_NAME}' ")
+                sbSQL.Append($" AND DISP_ORDER >{intBeforeValue} ")
+                sbSQL.Append($" AND DISP_ORDER <={intAfterValue} ")
             Else
                 '元の表示順より小さくした場合、他の項目を1つ後ろにずらす
-                sbSQL.Remove(0, sbSQL.Length)
-                sbSQL.Append("UPDATE " & nameof(model.M001_SETTING) & " SET")
-                sbSQL.Append(" DISP_ORDER = DISP_ORDER+1 ")
-                sbSQL.Append("WHERE")
-                sbSQL.Append(" ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-                sbSQL.Append(" AND DISP_ORDER >=" & intAfterValue & " ")
-                sbSQL.Append(" AND DISP_ORDER <" & intBeforeValue & " ")
+                sbSQL.Append($"UPDATE {NameOf(MODEL.M001_SETTING)} SET")
+                sbSQL.Append($" DISP_ORDER = DISP_ORDER+1 ")
+                sbSQL.Append($"WHERE")
+                sbSQL.Append($" ITEM_NAME ='{_M001.ITEM_NAME}' ")
+                sbSQL.Append($" AND DISP_ORDER >={intAfterValue} ")
+                sbSQL.Append($" AND DISP_ORDER <{intBeforeValue} ")
             End If
 
             intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
@@ -613,14 +500,14 @@ Public Class FrmM0011
                 Return False
             End If
 
-            '-----UPDATE
+            '変更対象の更新
             sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append("UPDATE " & nameof(model.M001_SETTING) & " SET")
-            sbSQL.Append(" DISP_ORDER ='" & intAfterValue & "' ")
-            sbSQL.Append("WHERE")
-            sbSQL.Append(" ITEM_NAME ='" & Me.cmbKOMO_NM.Text.Trim & "' ")
-            sbSQL.Append(" AND ITEM_VALUE ='" & Me.mtxVALUE.Text.Trim & "' ")
-            sbSQL.Append(" AND DISP_ORDER =" & intBeforeValue & " ")
+            sbSQL.Append($"UPDATE {NameOf(MODEL.M001_SETTING)} SET")
+            sbSQL.Append($" DISP_ORDER ='{intAfterValue}' ")
+            sbSQL.Append($"WHERE")
+            sbSQL.Append($" ITEM_NAME ='{_M001.ITEM_NAME}' ")
+            sbSQL.Append($" AND ITEM_VALUE ='{_M001.ITEM_VALUE}' ")
+            sbSQL.Append($" AND DISP_ORDER ={intBeforeValue}")
 
             intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
             If intRET <> 1 Then
@@ -632,7 +519,7 @@ Public Class FrmM0011
 
             Return True
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Throw
             Return False
         End Try
     End Function
