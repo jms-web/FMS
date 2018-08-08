@@ -207,10 +207,10 @@
     <Compile Include="View\FrmM0000.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\FrmM0010.Designer.vb">
-      <DependentUpon>FrmM0010.vb</DependentUpon>
+    <Compile Include="View\FrmM0001.Designer.vb">
+      <DependentUpon>FrmM0001.vb</DependentUpon>
     </Compile>
-    <Compile Include="View\FrmM0010.vb">
+    <Compile Include="View\FrmM0001.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="mdlM0000.vb" />
@@ -242,9 +242,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>FrmM0000.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\FrmM0010.resx">
+    <EmbeddedResource Include="View\FrmM0001.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>FrmM0010.vb</DependentUpon>
+      <DependentUpon>FrmM0001.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -301,7 +301,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UseGlobalSettings="True" />
+      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

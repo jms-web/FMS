@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FrmM0010
+Partial Class FrmM0001
     Inherits JMS_COMMON.FrmBaseBtn
 
     'Form overrides dispose to clean up the component list.

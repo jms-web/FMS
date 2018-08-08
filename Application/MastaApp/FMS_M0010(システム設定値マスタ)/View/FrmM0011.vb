@@ -41,6 +41,9 @@ Public Class FrmM0011
         Try
             '-----フォーム共通設定
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO)
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
             '-----位置・サイズ
             Me.Height = 360
@@ -473,51 +476,48 @@ Public Class FrmM0011
 
             Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
-                    Me.Text = pub_APP_INFO.strTitle & "（追加）"
-                    Me.lblTytle.Text = Me.Text
-                    Me.cmdFunc1.Text = "追加(F1)"
+                    lblTytle.Text &= "（追加）"
+                    cmdFunc1.Text = "追加(F1)"
 
-                    Me.cmbKOMO_NM.Enabled = True
-                    Me.mtxVALUE.Enabled = True
-                    Me.mtxDISP.Enabled = True
+                    cmbKOMO_NM.Enabled = True
+                    mtxVALUE.Enabled = True
+                    mtxDISP.Enabled = True
 
-                    Me.lbllblEDIT_YMDHNS.Visible = False
-                    Me.lblEDIT_YMDHNS.Visible = False
-                    Me.lbllblEDIT_SYAIN_ID.Visible = False
-                    Me.lblEDIT_SYAIN_ID.Visible = False
+                    lbllblEDIT_YMDHNS.Visible = False
+                    lblEDIT_YMDHNS.Visible = False
+                    lbllblEDIT_SYAIN_ID.Visible = False
+                    lblEDIT_SYAIN_ID.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._2_ADDREF
                     Call FunSetEntityValues(PrDataRow)
 
-                    Me.Text = pub_APP_INFO.strTitle & "（類似追加）"
-                    Me.lblTytle.Text = Me.Text
-                    Me.cmdFunc1.Text = "追加(F1)"
+                    lblTytle.Text &= "（類似追加）"
+                    cmdFunc1.Text = "追加(F1)"
 
-                    Me.cmbKOMO_NM.Enabled = True
-                    Me.mtxVALUE.Enabled = True
-                    Me.mtxDISP.Enabled = True
+                    cmbKOMO_NM.Enabled = True
+                    mtxVALUE.Enabled = True
+                    mtxDISP.Enabled = True
 
-                    Me.lbllblEDIT_YMDHNS.Visible = False
-                    Me.lblEDIT_YMDHNS.Visible = False
-                    Me.lbllblEDIT_SYAIN_ID.Visible = False
-                    Me.lblEDIT_SYAIN_ID.Visible = False
+                    lbllblEDIT_YMDHNS.Visible = False
+                    lblEDIT_YMDHNS.Visible = False
+                    lbllblEDIT_SYAIN_ID.Visible = False
+                    lblEDIT_SYAIN_ID.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
                     Call FunSetEntityValues(PrDataRow)
 
-                    Me.Text = pub_APP_INFO.strTitle & "（変更）"
-                    Me.lblTytle.Text = Me.Text
-                    Me.cmdFunc1.Text = "変更(F1)"
+                    lblTytle.Text &= "（変更）"
+                    cmdFunc1.Text = "変更(F1)"
 
-                    Me.mtxKOMO_GROUP.Enabled = False
-                    Me.cmbKOMO_NM.Enabled = False
-                    Me.mtxVALUE.Enabled = False
-                    Me.mtxDISP.Enabled = True
+                    mtxKOMO_GROUP.Enabled = False
+                    cmbKOMO_NM.Enabled = False
+                    mtxVALUE.Enabled = False
+                    mtxDISP.Enabled = True
 
-                    Me.lbllblEDIT_YMDHNS.Visible = True
-                    Me.lblEDIT_YMDHNS.Visible = True
-                    Me.lbllblEDIT_SYAIN_ID.Visible = True
-                    Me.lblEDIT_SYAIN_ID.Visible = True
+                    lbllblEDIT_YMDHNS.Visible = True
+                    lblEDIT_YMDHNS.Visible = True
+                    lbllblEDIT_SYAIN_ID.Visible = True
+                    lblEDIT_SYAIN_ID.Visible = True
 
                 Case Else
                     Throw New ArgumentException(My.Resources.ErrMsgException, intMODE.ToString)

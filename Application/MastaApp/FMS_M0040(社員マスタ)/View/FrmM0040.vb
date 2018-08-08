@@ -29,6 +29,9 @@ Public Class FrmM0040
         Try
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
             '-----グリッド初期設定(親フォームから呼び出し)
             Call FunInitializeDataGridView(Me.dgvDATA)

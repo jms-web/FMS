@@ -46,8 +46,9 @@ Public Class FrmG0017
         Try
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
-            lblTytle.Text = "処置履歴"
-            Me.Text = lblTytle.Text
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
 
             '-----グリッド初期設定(親フォームから呼び出し)

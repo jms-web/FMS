@@ -89,6 +89,9 @@ Public Class FrmG0010
 
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
             '-----グリッド初期設定(親フォームから呼び出し)
             Call FunInitializeDataGridView(dgvDATA)
@@ -1231,11 +1234,13 @@ Public Class FrmG0010
                                 　　【部品番号】{5}<br />
                                 　　【依頼者　】{6}<br />
                                 <br />
-                                <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}" > 処置画面へ</a><br />
+                                <a href = "http://sv116:8000/CLICKONCE_FMS.application" > 処置画面へ</a><br />
                                 <br />
                                 ※このメールは配信専用です。(返信できません)<br />
                                 返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
                                 ]]></body>.Value.Trim
+
+                                'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
 
                                 strSubject = String.Format(strSubject, dr.Item("KISYU_NAME"), dr.Item("BUHIN_BANGO"))
                                 strBody = String.Format(strBody,
@@ -1297,12 +1302,14 @@ Public Class FrmG0010
                     　　【部品番号】{5}<br />
                     　　【依頼者　】{6}<br />
                     <br />
-                    <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}" > 処置画面へ</a><br />
+                    <a href = "http://sv116:8000/CLICKONCE_FMS.application" > 処置画面へ</a><br />
                     <br />
                     ※このメールは配信専用です。(返信できません)<br />
                     返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
 
                     ]]></body>.Value.Trim
+
+                    'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
 
                     strSubject = String.Format(strSubject, dr.Item("KISYU_NAME"), dr.Item("BUHIN_BANGO"))
                     strBody = String.Format(strBody,

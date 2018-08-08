@@ -141,8 +141,9 @@ Public Class FrmG0011
         Try
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
-            Me.Text = "不適合製品処置報告書(Non-Conformance Report)"
-            lblTytle.Text = Me.Text
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
             'バインディング・モデルクリア
             Call FunClearBindingD003()
@@ -205,11 +206,13 @@ Public Class FrmG0011
 
 #End Region
 
-    'Shown
     Private Sub Frm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         Me.Owner.Visible = False
     End Sub
 
+    Private Sub Frm_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+        Me.Owner.Visible = True
+    End Sub
 #End Region
 
 #Region "FunctionButton関連"
@@ -309,7 +312,11 @@ Public Class FrmG0011
                     Call OpenFormHistory(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO)
 
                 Case 12 '閉じる
-                    Me.Close()
+                    If pub_intOPEN_MODE = 1 Then
+                        Environment.Exit(0)
+                    Else
+                        Me.Close()
+                    End If
             End Select
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -1157,11 +1164,13 @@ Public Class FrmG0011
         　　【依頼者処置内容】{6}<br />
         　　【コメント】{7}<br />
         <br />
-        <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}" >処置画面へ</a><br />
+        <a href = "http://sv116:8000/CLICKONCE_FMS.application" >処置画面へ</a><br />
         <br />
         ※このメールは配信専用です。(返信できません)<br />
         返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
         ]]></sql>.Value.Trim
+
+        'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}
 
         strSubject = String.Format(strSubject, KISYU_NAME, _D003_NCR_J.BUHIN_BANGO)
         strBody = String.Format(strBody,
@@ -1205,11 +1214,13 @@ Public Class FrmG0011
         　　【部品番号】{4}<br />
         　　【依頼者　】{1}<br />
         <br />
-        <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={5}&EXEPATH={6}&PARAMS={7}" >処置画面へ</a><br />
+        <a href = "http://sv116:8000/CLICKONCE_FMS.application" >処置画面へ</a><br />
         <br />
         ※このメールは配信専用です。(返信できません)<br />
         返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
         ]]></sql>.Value.Trim
+
+        'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={5}&EXEPATH={6}&PARAMS={7}
 
         strSubject = String.Format(strSubject, KISYU_NAME, _D003_NCR_J.BUHIN_BANGO)
         strBody = String.Format(strBody,
@@ -2467,14 +2478,16 @@ Public Class FrmG0011
 #Region "CAR"
 
     Private Function OpenFormCAR() As Boolean
-        Dim frmDLG As New FrmG0012
+
         Dim dlgRET As DialogResult
 
         Try
-            frmDLG.PrDialog = True
-            frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
-            frmDLG.PrCurrentStage = ENM_CAR_STAGE._10_起草入力
-            dlgRET = frmDLG.ShowDialog(Me)
+            Using frmDLG As New FrmG0012
+                frmDLG.PrDialog = True
+                frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+                frmDLG.PrCurrentStage = ENM_CAR_STAGE._10_起草入力
+                dlgRET = frmDLG.ShowDialog(Me)
+            End Using
 
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
@@ -2487,9 +2500,7 @@ Public Class FrmG0011
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
-            If frmDLG IsNot Nothing Then
-                frmDLG.Dispose()
-            End If
+
         End Try
     End Function
 
@@ -6095,6 +6106,8 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
+
+
 
 #End Region
 

@@ -43,8 +43,9 @@ Public Class FrmG0016
         Try
             '-----フォーム共通設定
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO)
-            Me.Text = "差戻し登録"
-            Me.lblTytle.Text = Me.Text
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
             '-----位置・サイズ
             Me.Height = 300

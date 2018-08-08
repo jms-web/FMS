@@ -30,6 +30,9 @@ Public Class FrmM0041
         Try
             '-----フォーム共通設定
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO)
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
             '-----ウィンドウ設定
             Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
@@ -62,8 +65,7 @@ Public Class FrmM0041
         Try
             Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
-                    Me.Text = pub_APP_INFO.strTitle & "（追加）"
-                    Me.lblTytle.Text = Me.Text
+                    lblTytle.Text &= "（追加）"
                     Me.cmdFunc1.Text = "追加(F1)"
 
                     Me.mtxTANTO_NAME.Enabled = True
@@ -79,8 +81,7 @@ Public Class FrmM0041
                 Case ENM_DATA_OPERATION_MODE._2_ADDREF
                     Call FunSetEntityValues(PrdgvCellCollection)
 
-                    Me.Text = pub_APP_INFO.strTitle & "（類似追加）"
-                    Me.lblTytle.Text = Me.Text
+                    lblTytle.Text &= "（類似追加）"
                     Me.cmdFunc1.Text = "追加(F1)"
 
                     Me.mtxTANTO_NAME.Enabled = True
@@ -95,8 +96,7 @@ Public Class FrmM0041
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
                     Call FunSetEntityValues(PrdgvCellCollection)
 
-                    Me.Text = pub_APP_INFO.strTitle & "（変更）"
-                    Me.lblTytle.Text = Me.Text
+                    lblTytle.Text &= "（変更）"
                     Me.cmdFunc1.Text = "変更(F1)"
 
                     Me.mtxTANTO_CD.Enabled = False

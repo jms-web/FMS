@@ -29,6 +29,9 @@ Public Class FrmM1050
         Try
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
             '-----グリッド初期設定(親フォームから呼び出し)
             Call FunInitializeDataGridView(Me.dgvDATA)
@@ -40,7 +43,7 @@ Public Class FrmM1050
             'cmbSYOKUBAN.SetDataSource(tblSYOKUBAN.ExcludeDeleted, True)
 
             '-----イベントハンドラ設定
-            AddHandler cmbSYOKUBAN.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            'AddHandler cmbSYOKUBAN.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
             '検索実行
@@ -286,32 +289,32 @@ Public Class FrmM1050
         sbSQLWHERE.Remove(0, sbSQLWHERE.Length)
 
         '---職番検索
-        If Me.cmbSYOKUBAN.SelectedValue <> "" Then
-            If sbSQLWHERE.Length = 0 Then
-                sbSQLWHERE.Append(" WHERE SYOKUBAN = '" & Me.cmbSYOKUBAN.SelectedValue & "' ")
-            Else
-                sbSQLWHERE.Append(" AND SYOKUBAN =  '" & Me.cmbSYOKUBAN.SelectedValue & "' ")
+        'If Me.cmbSYOKUBAN.SelectedValue <> "" Then
+        '    If sbSQLWHERE.Length = 0 Then
+        '        sbSQLWHERE.Append(" WHERE SYOKUBAN = '" & Me.cmbSYOKUBAN.SelectedValue & "' ")
+        '    Else
+        '        sbSQLWHERE.Append(" AND SYOKUBAN =  '" & Me.cmbSYOKUBAN.SelectedValue & "' ")
 
-            End If
-        Else
-            If cmbSYOKUBAN.Text.ToString.IsNullOrWhiteSpace = False Then
+        '    End If
+        'Else
+        '    If cmbSYOKUBAN.Text.ToString.IsNullOrWhiteSpace = False Then
 
-                If sbSQLWHERE.Length = 0 Then
-                    sbSQLWHERE.Append(" WHERE SYOKUBAN  LIKE '%" & Me.cmbSYOKUBAN.Text.Trim & "%' ")
-                Else
-                    sbSQLWHERE.Append(" AND SYOKUBAN  LIKE '%" & Me.cmbSYOKUBAN.Text.Trim & "%' ")
+        '        If sbSQLWHERE.Length = 0 Then
+        '            sbSQLWHERE.Append(" WHERE SYOKUBAN  LIKE '%" & Me.cmbSYOKUBAN.Text.Trim & "%' ")
+        '        Else
+        '            sbSQLWHERE.Append(" AND SYOKUBAN  LIKE '%" & Me.cmbSYOKUBAN.Text.Trim & "%' ")
 
-                End If
-            End If
-        End If
+        '        End If
+        '    End If
+        'End If
 
-        '---担当者名検索
-        If Me.mtxTANTO_NAME.Text.IsNullOrWhiteSpace Then
-        Else
-            If sbSQLWHERE.Length = 0 Then
-                sbSQLWHERE.Append(" WHERE TANTO_NAME LIKE '%" & Me.mtxTANTO_NAME.Text.Trim & "%'")
-            End If
-        End If
+        ''---担当者名検索
+        'If Me.mtxTANTO_NAME.Text.IsNullOrWhiteSpace Then
+        'Else
+        '    If sbSQLWHERE.Length = 0 Then
+        '        sbSQLWHERE.Append(" WHERE TANTO_NAME LIKE '%" & Me.mtxTANTO_NAME.Text.Trim & "%'")
+        '    End If
+        'End If
 
         If Me.chkDeletedRowVisibled.Checked = False Then
             If sbSQLWHERE.Length = 0 Then

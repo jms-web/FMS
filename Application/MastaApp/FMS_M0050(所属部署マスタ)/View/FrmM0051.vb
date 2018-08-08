@@ -473,8 +473,7 @@ Public Class FrmM0051
 
             Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
-                    Me.Text = pub_APP_INFO.strTitle & "（追加）"
-                    Me.lblTytle.Text = Me.Text
+                    lblTytle.Text &= "（追加）"
                     Me.cmdFunc1.Text = "追加(F1)"
 
                     Me.cmbKOMO_NM.Enabled = True
@@ -489,8 +488,7 @@ Public Class FrmM0051
                 Case ENM_DATA_OPERATION_MODE._2_ADDREF
                     Call FunSetEntityValues(PrDataRow)
 
-                    Me.Text = pub_APP_INFO.strTitle & "（類似追加）"
-                    Me.lblTytle.Text = Me.Text
+                    lblTytle.Text &= "（類似追加）"
                     Me.cmdFunc1.Text = "追加(F1)"
 
                     Me.cmbKOMO_NM.Enabled = True
@@ -505,8 +503,7 @@ Public Class FrmM0051
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
                     Call FunSetEntityValues(PrDataRow)
 
-                    Me.Text = pub_APP_INFO.strTitle & "（変更）"
-                    Me.lblTytle.Text = Me.Text
+                    lblTytle.Text &= "（変更）"
                     Me.cmdFunc1.Text = "変更(F1)"
 
                     Me.mtxKOMO_GROUP.Enabled = False

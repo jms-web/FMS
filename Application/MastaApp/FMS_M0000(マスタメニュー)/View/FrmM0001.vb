@@ -1,6 +1,6 @@
 Imports JMS_COMMON.ClsPubMethod
 
-Public Class FrmM0010
+Public Class FrmM0001
 
 #Region "Formイベント"
     'FORM_LOAD
@@ -34,7 +34,9 @@ Public Class FrmM0010
 
 
             '-----タイトル
-            Me.Text = Me.lblTytle.Text
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
 
             '-----履歴表示
