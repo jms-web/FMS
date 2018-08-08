@@ -24,15 +24,15 @@ Public Class FrmM0021
 
 #Region "コンストラクタ"
 
-    ''' <summary>
-    ''' コンストラクタ
-    ''' </summary>
+    '' <summary>
+    '' コンストラクタ
+    '' </summary>
     ''' <remarks>コンストラクタ</remarks>
-    Public Sub New()
+    'Public Sub New()
 
-        ' この呼び出しはデザイナーで必要です。
-        InitializeComponent()
-    End Sub
+    '    ' この呼び出しはデザイナーで必要です。
+    '    InitializeComponent()
+    'End Sub
 
 #End Region
 

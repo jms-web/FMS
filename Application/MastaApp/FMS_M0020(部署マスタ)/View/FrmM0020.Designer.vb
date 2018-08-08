@@ -358,16 +358,16 @@ Partial Class FrmM0020
         '
         Me.VWM002BUSYOBindingSource.DataSource = GetType(MODEL.VWM002_BUSYO)
         '
-        'LabelEx1
-        '
-        Me.LabelEx1.AutoSize = True
-        Me.LabelEx1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LabelEx1.Location = New System.Drawing.Point(556, 30)
-        Me.LabelEx1.Name = "LabelEx1"
-        Me.LabelEx1.Size = New System.Drawing.Size(65, 15)
-        Me.LabelEx1.TabIndex = 66
-        Me.LabelEx1.Text = "LabelEx1"
-        Me.LabelEx1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        ''LabelEx1
+        ''
+        'Me.LabelEx1.AutoSize = True
+        'Me.LabelEx1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        'Me.LabelEx1.Location = New System.Drawing.Point(556, 30)
+        'Me.LabelEx1.Name = "LabelEx1"
+        'Me.LabelEx1.Size = New System.Drawing.Size(65, 15)
+        'Me.LabelEx1.TabIndex = 66
+        'Me.LabelEx1.Text = "LabelEx1"
+        'Me.LabelEx1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'FrmM0020
         '
