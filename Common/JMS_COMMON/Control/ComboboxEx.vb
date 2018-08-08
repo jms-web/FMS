@@ -455,8 +455,6 @@ Public Class ComboboxEx
         End Set
     End Property
 #End Region
-
-
 #Region "OnKeyUp"
     Protected Overrides Sub OnKeyUp(e As KeyEventArgs)
 
@@ -520,6 +518,7 @@ Public Class ComboboxEx
 
     End Sub
 #End Region
+
 #End Region
 
 #Region "メソッド"

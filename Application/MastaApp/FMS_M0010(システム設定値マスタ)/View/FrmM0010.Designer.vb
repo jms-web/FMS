@@ -41,71 +41,71 @@ Partial Class FrmM0010
         'lblRecordCount
         '
         Me.lblRecordCount.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblRecordCount.Location = New System.Drawing.Point(12, 565)
+        Me.lblRecordCount.Location = New System.Drawing.Point(12, 564)
         '
         'cmdFunc1
         '
         Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgSearch32x32
-        Me.cmdFunc1.Location = New System.Drawing.Point(9, 595)
+        Me.cmdFunc1.Location = New System.Drawing.Point(9, 594)
         Me.cmdFunc1.Text = "åüçı(F1)"
         '
         'cmdFunc2
         '
         Me.cmdFunc2.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
-        Me.cmdFunc2.Location = New System.Drawing.Point(216, 595)
+        Me.cmdFunc2.Location = New System.Drawing.Point(216, 594)
         Me.cmdFunc2.Text = "í«â¡(F2)"
         '
         'cmdFunc3
         '
         Me.cmdFunc3.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
-        Me.cmdFunc3.Location = New System.Drawing.Point(423, 595)
+        Me.cmdFunc3.Location = New System.Drawing.Point(423, 594)
         Me.cmdFunc3.Text = "óﬁéóí«â¡(F3)"
         '
         'cmdFunc4
         '
         Me.cmdFunc4.Image = Global.FMS.My.Resources.Resources._imgApplication_form_edit32x32
-        Me.cmdFunc4.Location = New System.Drawing.Point(630, 595)
+        Me.cmdFunc4.Location = New System.Drawing.Point(630, 594)
         Me.cmdFunc4.Text = "ïœçX(F4)"
         '
         'cmdFunc5
         '
         Me.cmdFunc5.Image = Global.FMS.My.Resources.Resources._imgStatusAnnotations_Blocked_32x32_MD
-        Me.cmdFunc5.Location = New System.Drawing.Point(837, 595)
+        Me.cmdFunc5.Location = New System.Drawing.Point(837, 594)
         Me.cmdFunc5.Text = "çÌèú(F5)"
         '
         'cmdFunc6
         '
         Me.cmdFunc6.Image = Global.FMS.My.Resources.Resources._imgRecovery32x32
-        Me.cmdFunc6.Location = New System.Drawing.Point(1044, 595)
+        Me.cmdFunc6.Location = New System.Drawing.Point(1044, 594)
         Me.cmdFunc6.Text = "ïúå≥(F6)"
         '
         'cmdFunc12
         '
         Me.cmdFunc12.Image = Global.FMS.My.Resources.Resources._imgLog_Out32x32
-        Me.cmdFunc12.Location = New System.Drawing.Point(1044, 643)
+        Me.cmdFunc12.Location = New System.Drawing.Point(1044, 642)
         Me.cmdFunc12.Text = "ï¬Ç∂ÇÈ(F12)"
         '
         'cmdFunc11
         '
-        Me.cmdFunc11.Location = New System.Drawing.Point(837, 643)
+        Me.cmdFunc11.Location = New System.Drawing.Point(837, 642)
         '
         'cmdFunc10
         '
         Me.cmdFunc10.Image = Global.FMS.My.Resources.Resources._imgExportToExcel32x32
-        Me.cmdFunc10.Location = New System.Drawing.Point(630, 643)
+        Me.cmdFunc10.Location = New System.Drawing.Point(630, 642)
         Me.cmdFunc10.Text = "CSVèoóÕ(F10)"
         '
         'cmdFunc7
         '
-        Me.cmdFunc7.Location = New System.Drawing.Point(9, 643)
+        Me.cmdFunc7.Location = New System.Drawing.Point(9, 642)
         '
         'cmdFunc9
         '
-        Me.cmdFunc9.Location = New System.Drawing.Point(423, 643)
+        Me.cmdFunc9.Location = New System.Drawing.Point(423, 642)
         '
         'cmdFunc8
         '
-        Me.cmdFunc8.Location = New System.Drawing.Point(216, 643)
+        Me.cmdFunc8.Location = New System.Drawing.Point(216, 642)
         '
         'lblTytle
         '
@@ -223,7 +223,7 @@ Partial Class FrmM0010
         Me.flxDATA.Name = "flxDATA"
         Me.flxDATA.Rows.Count = 1
         Me.flxDATA.Rows.DefaultSize = 23
-        Me.flxDATA.Size = New System.Drawing.Size(1236, 407)
+        Me.flxDATA.Size = New System.Drawing.Size(1236, 406)
         Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
         Me.flxDATA.TabIndex = 60
         Me.flxDATA.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
@@ -235,7 +235,7 @@ Partial Class FrmM0010
         'FrmM0010
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.ClientSize = New System.Drawing.Size(1264, 712)
+        Me.ClientSize = New System.Drawing.Size(1264, 711)
         Me.Controls.Add(Me.flxDATA)
         Me.Controls.Add(Me.gbxFilter)
         Me.HelpButton = True

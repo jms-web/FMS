@@ -1,3 +1,5 @@
+Imports JMS_COMMON.ClsPubMethod
+
 Public Class FrmM0060
 
 #Region "定数・変数"
@@ -17,6 +19,9 @@ Public Class FrmM0060
 
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
             '-----日付ラベル配列
             '日付ラベルの作成

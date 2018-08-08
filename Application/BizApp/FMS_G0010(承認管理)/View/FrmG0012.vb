@@ -88,13 +88,9 @@ Public Class FrmG0012
         Try
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
-            lblTytle.Text = "不適合是正処置報告書（Corrective Action Report）"
-            Me.Text = lblTytle.Text
-            '-----グリッド初期設定(親フォームから呼び出し)
-            'Call FunInitializeDataGridView(Me.dgvDATA)
-
-            '-----グリッド列作成
-            'Call FunSetDgvCulumns(Me.dgvDATA)
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
             '-----コントロールデータソース設定
             cmbKONPON_YOIN_KB1.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
@@ -122,6 +118,10 @@ Public Class FrmG0012
     'Shown
     Private Sub Frm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         Me.Owner.Visible = False
+    End Sub
+
+    Private Sub Frm_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+        Me.Owner.Visible = True
     End Sub
 
 #End Region
@@ -338,18 +338,19 @@ Public Class FrmG0012
 
         'Merge Source側のSelect文生成 先頭項目と以降で分けている(違いはカンマのみ)
         'tplModelInfo.properties.
-        '    Where(Function(p) IsAutoGenerateField(GetType(MODEL.D005_CAR_J), p.Name) = True).
-        '    First(Function(p)
-        '              Select Case p.PropertyType
-        '                  Case GetType(Integer), GetType(Decimal)
-        '                      sbSQL.Append($" {_D005_CAR_J(p.Name)} AS {p.Name}")
-        '                  Case GetType(Boolean)
-        '                      sbSQL.Append($" '{_D005_CAR_J("_" & p.Name)}' AS {p.Name}")
-        '                  Case Else
-        '                      '実質Stringのみ
-        '                      sbSQL.Append($" '{_D005_CAR_J(p.Name).ToString.ConvertSqlEscape}' AS {p.Name}")
-        '              End Select
-        '          End Function)
+        '    Where(Function(p) IsAutoGenerateField(GetType(MODEL.D005_CAR_J), p.Name)).
+        '    Take(1).
+        '    ForEach(Sub(p)
+        '                Select Case p.PropertyType
+        '                    Case GetType(Integer), GetType(Decimal)
+        '                        sbSQL.Append($" {_D005_CAR_J(p.Name)} AS {p.Name}")
+        '                    Case GetType(Boolean)
+        '                        sbSQL.Append($" '{_D005_CAR_J("_" & p.Name)}' AS {p.Name}")
+        '                    Case Else
+        '                        '実質Stringのみ
+        '                        sbSQL.Append($" '{_D005_CAR_J(p.Name).ToString.ConvertSqlEscape}' AS {p.Name}")
+        '                End Select
+        '            End Sub)
         'tplModelInfo.properties.
         '    Where(Function(p) IsAutoGenerateField(GetType(MODEL.D005_CAR_J), p.Name)).
         '    Skip(1).
@@ -547,6 +548,8 @@ Public Class FrmG0012
         'INSERT
         sbSQL.Append($" WHEN NOT MATCHED THEN ")
         sbSQL.Append($"INSERT(")
+
+#Region "列挙"
         sbSQL.Append($"  " & NameOf(_D005_CAR_J.HOKOKU_NO))
         sbSQL.Append($" ," & NameOf(_D005_CAR_J.BUMON_KB))
         sbSQL.Append($" ," & NameOf(_D005_CAR_J.CLOSE_FG))
@@ -628,6 +631,8 @@ Public Class FrmG0012
         sbSQL.Append($" ," & NameOf(_D005_CAR_J.UPD_YMDHNS))
         sbSQL.Append($" ," & NameOf(_D005_CAR_J.DEL_SYAIN_ID))
         sbSQL.Append($" ," & NameOf(_D005_CAR_J.DEL_YMDHNS))
+#End Region
+
         sbSQL.Append($" ) VALUES(")
         sbSQL.Append($" '" & _D005_CAR_J.HOKOKU_NO & "'")
         sbSQL.Append($" ,'" & _D005_CAR_J.BUMON_KB & "'")
@@ -1102,6 +1107,7 @@ Public Class FrmG0012
         Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
         Dim strBody As String = <sql><![CDATA[
         {0} 殿<br />
+        <br />
         　不適合製品の処置依頼が来ましたので対応をお願いします。<br />
         <br />
         　　【報告書No】{1}<br />
@@ -1112,11 +1118,13 @@ Public Class FrmG0012
         　　【依頼者処置内容】{6}<br />
         　　【コメント】{7}<br />
         <br />
-        <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}" > 処置画面へ</a><br />
+        <a href = "http://sv116:8000/CLICKONCE_FMS.application" > 処置画面へ</a><br />
         <br />
         ※このメールは配信専用です。(返信できません)<br />
         返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
         ]]></sql>.Value.Trim
+
+        'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}
 
         strSubject = String.Format(strSubject, KISYU_NAME, _V002_NCR_J.BUHIN_BANGO)
         strBody = String.Format(strBody,
@@ -1394,7 +1402,7 @@ Public Class FrmG0012
 #Region "NCR"
 
     Private Function OpenFormNCR() As Boolean
-        Dim frmDLG As New FrmG0011
+
         Dim dlgRET As DialogResult
 
         Try
@@ -1412,12 +1420,15 @@ Public Class FrmG0012
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
 
-            frmDLG.PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE
-            frmDLG.PrIsDialog = True
-            frmDLG.PrCurrentStage = dsList.Tables(0).Rows(0).Item("SYONIN_JUN")
-            frmDLG.PrHOKOKU_NO = dsList.Tables(0).Rows(0).Item("HOKOKU_NO")
+            Using frmDLG As New FrmG0011
+                frmDLG.PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE
+                frmDLG.PrIsDialog = True
+                frmDLG.PrCurrentStage = dsList.Tables(0).Rows(0).Item("SYONIN_JUN")
+                frmDLG.PrHOKOKU_NO = dsList.Tables(0).Rows(0).Item("HOKOKU_NO")
 
-            dlgRET = frmDLG.ShowDialog(Me)
+                dlgRET = frmDLG.ShowDialog(Me)
+            End Using
+
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
             Else
@@ -1428,9 +1439,7 @@ Public Class FrmG0012
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
-            If frmDLG IsNot Nothing Then
-                frmDLG.Dispose()
-            End If
+
         End Try
     End Function
 
@@ -1817,6 +1826,7 @@ Public Class FrmG0012
                 pnlCAR.BorderStyle = BorderStyle.FixedSingle
                 pnlSYOCHI_KIROKU.BorderStyle = BorderStyle.None
                 pnlZESEI_SYOCHI.BorderStyle = BorderStyle.None
+                pnlST13.BorderStyle = BorderStyle.None
 
             Case ENM_CAR_STAGE2._8_処置実施記録入力, ENM_CAR_STAGE2._9_処置実施確認
                 tabSTAGE01.ScrollControlIntoView(lblSYOCHI_KIROKUFlame)
@@ -1824,13 +1834,22 @@ Public Class FrmG0012
                 pnlCAR.BorderStyle = BorderStyle.None
                 pnlSYOCHI_KIROKU.BorderStyle = BorderStyle.FixedSingle
                 pnlZESEI_SYOCHI.BorderStyle = BorderStyle.None
+                pnlST13.BorderStyle = BorderStyle.None
 
-            Case ENM_CAR_STAGE2._10_是正有効性記入 To ENM_CAR_STAGE2._13_是正有効性確認_品証担当課長
+            Case ENM_CAR_STAGE2._10_是正有効性記入 To ENM_CAR_STAGE2._12_是正有効性確認_品証TL
                 tabSTAGE01.ScrollControlIntoView(lblZESEI_SYOCHIFlame)
 
                 pnlCAR.BorderStyle = BorderStyle.None
                 pnlSYOCHI_KIROKU.BorderStyle = BorderStyle.None
                 pnlZESEI_SYOCHI.BorderStyle = BorderStyle.FixedSingle
+                pnlST13.BorderStyle = BorderStyle.None
+
+            Case ENM_CAR_STAGE2._13_是正有効性確認_品証担当課長
+                tabSTAGE01.ScrollControlIntoView(lblSTAGE16)
+                pnlCAR.BorderStyle = BorderStyle.None
+                pnlSYOCHI_KIROKU.BorderStyle = BorderStyle.None
+                pnlZESEI_SYOCHI.BorderStyle = BorderStyle.None
+                pnlST13.BorderStyle = BorderStyle.FixedSingle
 
         End Select
         tabSTAGE01.AutoScrollControlIntoView = False
@@ -2230,13 +2249,13 @@ Public Class FrmG0012
     Private Sub RbtnZESEI_SYOCHI_YES_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnZESEI_SYOCHI_YES.CheckedChanged
 
         Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
-        _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = True
+        '_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = True
     End Sub
 
     Private Sub RbtnZESEI_SYOCHI_NO_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnZESEI_SYOCHI_NO.CheckedChanged
 
         Dim blnChecked As Boolean = rbtnZESEI_SYOCHI_NO.Checked
-        _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = False
+        '_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = False
     End Sub
 
     Private Sub ChkZESEI_SYOCHI_YUKO_UMU_CheckedChanged(sender As Object, e As EventArgs) Handles chkZESEI_SYOCHI_YUKO_UMU.CheckedChanged
@@ -2575,7 +2594,7 @@ Public Class FrmG0012
 
                     pnlSYOCHI_KIROKU.Visible = False
                     pnlZESEI_SYOCHI.Visible = False
-
+                    pnlST13.Visible = False
                     pnlST05.Visible = (PrCurrentStage = ENM_CAR_STAGE._50_起草確認_設計開発)
 
                 Case ENM_CAR_STAGE._80_処置実施記録入力, ENM_CAR_STAGE._90_処置実施確認
@@ -2586,6 +2605,7 @@ Public Class FrmG0012
 
                     pnlSYOCHI_KIROKU.DisableContaints(blnOwn)
                     pnlZESEI_SYOCHI.Visible = False
+                    pnlST13.Visible = False
 
                 Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
                     tabSTAGE01.EnableDisablePages(False)
@@ -2595,6 +2615,13 @@ Public Class FrmG0012
 
                     'tab_CAR_SUB_1_.Enabled = False 'tab_CAR_SUB_1_.EnableDisablePages(False)
                     'tab_CAR_SUB_2_.Enabled = blnOwn 'tab_CAR_SUB_2_.EnableDisablePages(blnOwn)
+
+                    If PrCurrentStage = ENM_CAR_STAGE._130_是正有効性確認_品証担当課長 Then
+                        pnlST13.Visible = True
+                        btnST13_SYONIN.Enabled = blnOwn
+                    Else
+                        pnlST13.Visible = False
+                    End If
                 Case Else
             End Select
 
@@ -2753,7 +2780,7 @@ Public Class FrmG0012
             _D005_CAR_J.SETUMON_22 = _V005_CAR_J.SETUMON_22
             _D005_CAR_J.KAITO_22 = _V005_CAR_J.KAITO_22
             _D005_CAR_J.SETUMON_23 = _V005_CAR_J.SETUMON_23
-            _D005_CAR_J.KAITO_23 = CBool(_V005_CAR_J.KAITO_23.Trim)
+            _D005_CAR_J.KAITO_23 = IIf(_V005_CAR_J.KAITO_23 = "1", True, False)
             chkSEKKEI_TANTO_YOHI_KB.Checked = IIf(_V005_CAR_J.KAITO_23 = "1", True, False)
 
             _D005_CAR_J.SETUMON_24 = _V005_CAR_J.SETUMON_24
@@ -2892,6 +2919,12 @@ Public Class FrmG0012
         End Try
     End Function
 
+
+    Private Sub btnST13_SYONIN_Click(sender As Object, e As EventArgs) Handles btnST13_SYONIN.Click
+        cmdFunc2.PerformClick()
+    End Sub
+
+
 #End Region
 
 #Region "入力チェック"
@@ -2971,7 +3004,12 @@ Public Class FrmG0012
             '    'ステージ50スキップ
             '    Return intCurrentStageID + (stageLength * 2)
             'Else
-            Return intCurrentStageID + stageLength
+            If intCurrentStageID = ENM_CAR_STAGE._130_是正有効性確認_品証担当課長 Then
+                Return ENM_CAR_STAGE._999_Closed
+            Else
+                Return intCurrentStageID + stageLength
+            End If
+
             'End If
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)

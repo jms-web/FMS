@@ -657,4 +657,10 @@ Public Class ClsDbUtility
     End Function
 #End Region
 
+#Region "GetSysDateString"
+    Public Function GetSysDateString() As String
+        Return Me.ExecuteScalar("SELECT dbo.GetSysDateString()")
+    End Function
+
+#End Region
 End Class

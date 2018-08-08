@@ -1,9 +1,6 @@
-﻿Imports System
-Imports System.Collections.Generic
-Imports System.ComponentModel
+﻿Imports System.ComponentModel
 Imports System.ComponentModel.DataAnnotations
 Imports System.ComponentModel.DataAnnotations.Schema
-Imports System.Data.Entity.Spatial
 Imports PropertyChanged
 
 ''' <summary>
@@ -12,26 +9,7 @@ Imports PropertyChanged
 <Table(NameOf(D006_CAR_GENIN), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
 Partial Public Class D006_CAR_GENIN
-    Inherits NotifyChangedBase
-
-
-    Public Sub New()
-        Call Clear()
-    End Sub
-
-    Public Sub Clear()
-
-    End Sub
-
-    <Display(AutoGenerateField:=False)>
-    Default Public Property Item(ByVal propertyName As String) As Object
-        Get
-            Return GetType(D006_CAR_GENIN).GetProperty(propertyName).GetValue(Me)
-        End Get
-        Set(value As Object)
-            GetType(D006_CAR_GENIN).GetProperty(propertyName).SetValue(Me, value)
-        End Set
-    End Property
+    Inherits ModelBase
 
     <Key>
     <Column(Order:=0, TypeName:="char")>
@@ -68,11 +46,10 @@ Partial Public Class D006_CAR_GENIN
     <DoNotNotify>
     Public Property DAIHYO_FG As Boolean
         Get
-            Return IIf(_DAIHYO_FG = "0", False, True)
+            Return (_DAIHYO_FG = "1")
         End Get
         Set(value As Boolean)
             _DAIHYO_FG = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(DAIHYO_FG))
         End Set
     End Property
 

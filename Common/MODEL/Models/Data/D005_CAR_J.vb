@@ -12,13 +12,11 @@ Imports PropertyChanged
 <Table(NameOf(D005_CAR_J), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
 Partial Public Class D005_CAR_J
-    Inherits NotifyChangedBase
+    Inherits ModelBase
 
-    Public Sub New()
-        Call Clear()
-    End Sub
 
-    Public Sub Clear()
+
+    Public Shadows Sub Clear()
         HOKOKU_NO = ""
         BUMON_KB = ""
         _CLOSE_FG = "0"
@@ -105,16 +103,6 @@ Partial Public Class D005_CAR_J
 
     End Sub
 
-    <Display(AutoGenerateField:=False)>
-    Default Public Property Item(ByVal propertyName As String) As Object
-        Get
-            Return GetType(D005_CAR_J).GetProperty(propertyName).GetValue(Me)
-        End Get
-        Set(value As Object)
-            GetType(D005_CAR_J).GetProperty(propertyName).SetValue(Me, value)
-        End Set
-    End Property
-
     <Key>
     <Column(Order:=0, TypeName:="char")>
     <StringLength(10)>
@@ -140,11 +128,11 @@ Partial Public Class D005_CAR_J
     <DoNotNotify>
     Public Property CLOSE_FG As Boolean
         Get
-            Return IIf(_CLOSE_FG = "0", False, True)
+            Return (_CLOSE_FG = "1")
         End Get
         Set(value As Boolean)
             _CLOSE_FG = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(CLOSE_FG))
+
         End Set
     End Property
 
@@ -437,7 +425,7 @@ Partial Public Class D005_CAR_J
     <NotMapped>
     Public Property KAITO_23 As Boolean
         Get
-            Return IIf(_KAITO_23 = "0", False, True)
+            Return (_KAITO_23 = "1")
         End Get
         Set(value As Boolean)
             _KAITO_23 = IIf(value, "1", "0")
@@ -541,7 +529,7 @@ Partial Public Class D005_CAR_J
     <NotMapped>
     Public Property ZESEI_SYOCHI_YUKO_UMU As Boolean
         Get
-            Return IIf(_ZESEI_SYOCHI_YUKO_UMU = "0", False, True)
+            Return (_ZESEI_SYOCHI_YUKO_UMU = "1")
         End Get
         Set(value As Boolean)
             _ZESEI_SYOCHI_YUKO_UMU = IIf(value, "1", "0")
@@ -650,7 +638,7 @@ Partial Public Class D005_CAR_J
     <Display(AutoGenerateField:=False)>
     Public ReadOnly Property DEL_FLG As Boolean
         Get
-            Return DEL_YMDHNS.Trim <> ""
+            Return Not String.IsNullOrWhiteSpace(DEL_YMDHNS)
         End Get
     End Property
 

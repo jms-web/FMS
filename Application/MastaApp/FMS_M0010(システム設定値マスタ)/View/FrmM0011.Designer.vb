@@ -290,7 +290,7 @@ Partial Class FrmM0011
         'cmbJYUN
         '
         Me.cmbJYUN.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbJYUN.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.cmbJYUN.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbJYUN.DisplayMember = "DISP"
         Me.cmbJYUN.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbJYUN.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -373,7 +373,7 @@ Partial Class FrmM0011
         Me.cmbKOMO_NM.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbKOMO_NM.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbKOMO_NM.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbKOMO_NM.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.cmbKOMO_NM.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbKOMO_NM.DisplayMember = "DISP"
         Me.cmbKOMO_NM.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKOMO_NM.ForeColor = System.Drawing.SystemColors.ControlText

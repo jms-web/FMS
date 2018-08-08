@@ -87,11 +87,12 @@ Partial Class FrmG0010
         Me.mtxGENIN2 = New JMS_COMMON.MaskedTextBoxEx()
         Me.panelMan = New PanelManager.Controls.PanelManager()
         Me.mpnlCondition = New PanelManager.Controls.ManagedPanel()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.dgvCAR = New System.Windows.Forms.DataGridView()
+        Me.PanelEx1 = New JMS_COMMON.PanelEx()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.dgvNCR = New System.Windows.Forms.DataGridView()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.dgvCAR = New System.Windows.Forms.DataGridView()
         Me.mpnlDataGrid = New PanelManager.Controls.ManagedPanel()
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -100,11 +101,12 @@ Partial Class FrmG0010
         Me.TableLayoutPanel2.SuspendLayout()
         Me.panelMan.SuspendLayout()
         Me.mpnlCondition.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
-        CType(Me.dgvCAR, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelEx1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.dgvNCR, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        CType(Me.dgvCAR, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mpnlDataGrid.SuspendLayout()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -317,7 +319,7 @@ Partial Class FrmG0010
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.Size = New System.Drawing.Size(1206, 183)
+        Me.tlpFilter.Size = New System.Drawing.Size(1203, 183)
         Me.tlpFilter.TabIndex = 56
         '
         'Label6
@@ -947,7 +949,7 @@ Partial Class FrmG0010
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(640, 95)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(620, 95)
         Me.TableLayoutPanel1.TabIndex = 64
         '
         'Label13
@@ -1198,7 +1200,7 @@ Partial Class FrmG0010
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(551, 158)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(571, 158)
         Me.TableLayoutPanel2.TabIndex = 64
         '
         'Label27
@@ -1475,40 +1477,32 @@ Partial Class FrmG0010
         'mpnlCondition
         '
         Me.mpnlCondition.AutoScroll = True
-        Me.mpnlCondition.Controls.Add(Me.GroupBox3)
-        Me.mpnlCondition.Controls.Add(Me.GroupBox2)
-        Me.mpnlCondition.Controls.Add(Me.GroupBox1)
+        Me.mpnlCondition.Controls.Add(Me.PanelEx1)
         Me.mpnlCondition.Location = New System.Drawing.Point(0, 0)
         Me.mpnlCondition.Name = "mpnlCondition"
         Me.mpnlCondition.Size = New System.Drawing.Size(1233, 502)
         '
-        'GroupBox3
+        'PanelEx1
         '
-        Me.GroupBox3.Controls.Add(Me.dgvCAR)
-        Me.GroupBox3.Controls.Add(Me.TableLayoutPanel2)
-        Me.GroupBox3.Location = New System.Drawing.Point(655, 208)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(557, 565)
-        Me.GroupBox3.TabIndex = 66
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "CARåüçıèåè"
-        '
-        'dgvCAR
-        '
-        Me.dgvCAR.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvCAR.Location = New System.Drawing.Point(3, 183)
-        Me.dgvCAR.Name = "dgvCAR"
-        Me.dgvCAR.RowTemplate.Height = 21
-        Me.dgvCAR.Size = New System.Drawing.Size(457, 376)
-        Me.dgvCAR.TabIndex = 66
+        Me.PanelEx1.AutoScroll = True
+        Me.PanelEx1.Controls.Add(Me.GroupBox2)
+        Me.PanelEx1.Controls.Add(Me.GroupBox1)
+        Me.PanelEx1.Controls.Add(Me.GroupBox3)
+        Me.PanelEx1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelEx1.HitEnabled = False
+        Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
+        Me.PanelEx1.Name = "PanelEx1"
+        Me.PanelEx1.Size = New System.Drawing.Size(1233, 502)
+        Me.PanelEx1.TabIndex = 66
         '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.dgvNCR)
         Me.GroupBox2.Controls.Add(Me.TableLayoutPanel1)
-        Me.GroupBox2.Location = New System.Drawing.Point(3, 208)
+        Me.GroupBox2.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.GroupBox2.Location = New System.Drawing.Point(6, 214)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(646, 565)
+        Me.GroupBox2.Size = New System.Drawing.Size(626, 559)
         Me.GroupBox2.TabIndex = 65
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "NCRåüçıèåè"
@@ -1525,12 +1519,34 @@ Partial Class FrmG0010
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.tlpFilter)
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
+        Me.GroupBox1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(6, 3)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1212, 205)
+        Me.GroupBox1.Size = New System.Drawing.Size(1209, 205)
         Me.GroupBox1.TabIndex = 64
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "ã§í åüçıèåè"
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.dgvCAR)
+        Me.GroupBox3.Controls.Add(Me.TableLayoutPanel2)
+        Me.GroupBox3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.GroupBox3.Location = New System.Drawing.Point(638, 214)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(577, 559)
+        Me.GroupBox3.TabIndex = 66
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "CARåüçıèåè"
+        '
+        'dgvCAR
+        '
+        Me.dgvCAR.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvCAR.Location = New System.Drawing.Point(3, 183)
+        Me.dgvCAR.Name = "dgvCAR"
+        Me.dgvCAR.RowTemplate.Height = 21
+        Me.dgvCAR.Size = New System.Drawing.Size(457, 376)
+        Me.dgvCAR.TabIndex = 66
         '
         'mpnlDataGrid
         '
@@ -1581,11 +1597,12 @@ Partial Class FrmG0010
         Me.TableLayoutPanel2.PerformLayout()
         Me.panelMan.ResumeLayout(False)
         Me.mpnlCondition.ResumeLayout(False)
-        Me.GroupBox3.ResumeLayout(False)
-        CType(Me.dgvCAR, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelEx1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         CType(Me.dgvNCR, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox3.ResumeLayout(False)
+        CType(Me.dgvCAR, System.ComponentModel.ISupportInitialize).EndInit()
         Me.mpnlDataGrid.ResumeLayout(False)
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -1667,4 +1684,5 @@ Partial Class FrmG0010
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents dgvCAR As DataGridView
     Friend WithEvents dgvNCR As DataGridView
+    Friend WithEvents PanelEx1 As PanelEx
 End Class

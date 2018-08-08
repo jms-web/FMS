@@ -350,6 +350,8 @@ Public Module mdlDBContext
 
 #End Region
 
+
+
 #End Region
 
 #Region "データテーブル取得"

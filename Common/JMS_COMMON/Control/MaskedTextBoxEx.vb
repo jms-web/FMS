@@ -20,7 +20,7 @@ Public Class MaskedTextBoxEx
     Public Sub New()
         Call InitializeComponent()
 
-        'Me.MaxByteLength = 65535
+        Me.MaxByteLength = 100
         Me.SelectAllText = True
         Me.ImeMode = Windows.Forms.ImeMode.Disable
         _watermarkColor = SystemColors.GrayText

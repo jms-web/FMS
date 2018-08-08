@@ -41,6 +41,9 @@ Public Class FrmM0000
         Try
             '画面共通設定
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
             '-----ログイン表示
             Me.grbLOGOUT.Visible = False
@@ -457,7 +460,7 @@ Public Class FrmM0000
         Try
             '-----確認画面表示
             Dim dlgRET As DialogResult
-            Using frmDLG = New FrmM0010
+            Using frmDLG = New FrmM0001
                 dlgRET = frmDLG.ShowDialog(Me)
             End Using
 

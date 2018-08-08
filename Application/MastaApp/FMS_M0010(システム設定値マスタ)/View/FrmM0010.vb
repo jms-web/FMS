@@ -33,9 +33,12 @@ Public Class FrmM0010
         Try
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
-            ''-----グリッド初期設定
-            FunInitializeFlexGrid(flxDATA)
+            '-----グリッド初期設定
+            Call FunInitializeFlexGrid(flxDATA)
 
             '-----コントロールデータソース設定
             Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
@@ -47,7 +50,7 @@ Public Class FrmM0010
             '検索実行
             cmdFunc1.PerformClick()
         Finally
-
+            Call SubInitFuncButtonEnabled()
         End Try
     End Sub
 
@@ -144,22 +147,18 @@ Public Class FrmM0010
                 Case 1  '検索
                     Call FunSRCH(Me.flxDATA, FunGetListData())
                 Case 2  '追加
-
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
                         Call FunSRCH(Me.flxDATA, FunGetListData())
                     End If
                 Case 3  '参照追加
-
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._2_ADDREF) = True Then
                         Call FunSRCH(Me.flxDATA, FunGetListData())
                     End If
                 Case 4  '変更
-
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) = True Then
                         Call FunSRCH(Me.flxDATA, FunGetListData())
                     End If
                 Case 5, 6  '削除/復元/完全削除
-
                     Dim btn As Button = DirectCast(sender, Button)
                     Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(btn.Tag, ENM_DATA_OPERATION_MODE)
                     If FunDEL(ENM_MODE) = True Then
@@ -167,7 +166,6 @@ Public Class FrmM0010
                     End If
 
                 Case 10  'CSV出力
-
                     Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
                     Call FunCSV_OUT(Me.flxDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
@@ -345,9 +343,10 @@ Public Class FrmM0010
                 strComboVal = ""
             End If
 
+
             frmDLG.PrMODE = intMODE
             If flxDATA.RowSel > 0 Then
-                frmDLG.PrDataRow = flxDATA.Rows(flxDATA.RowSel)
+                frmDLG.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row 'flxDATA.Rows(flxDATA.Row)
             Else
                 frmDLG.PrDataRow = Nothing
             End If

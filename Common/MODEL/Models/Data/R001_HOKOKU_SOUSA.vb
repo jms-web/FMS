@@ -11,11 +11,7 @@ Imports PropertyChanged
 Partial Public Class R001_HOKOKU_SOUSA
     Inherits ModelBase
 
-    Public Sub New()
-        Call Clear()
-    End Sub
-
-    Public Sub Clear()
+    Public Shadows Sub Clear()
         SYONIN_HOKOKUSYO_ID = 0
         HOKOKU_NO = ""
         ADD_YMDHNS = ""

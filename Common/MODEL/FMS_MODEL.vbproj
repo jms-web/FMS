@@ -157,6 +157,7 @@
     <Compile Include="Models\Masta\Biz\M118_SETUBI.vb" />
     <Compile Include="Models\Masta\Biz\M119_KOTEI_SETUBI.vb" />
     <Compile Include="Models\ModelBase.vb" />
+    <Compile Include="Models\ModelInfo.vb" />
     <Compile Include="Models\NotifyChangedBase.vb" />
     <Compile Include="Models\View\V004_HOKOKU_SOUSA.vb" />
     <Compile Include="Models\View\V005_CAR_J.vb" />

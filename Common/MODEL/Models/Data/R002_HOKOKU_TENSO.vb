@@ -11,11 +11,7 @@ Imports PropertyChanged
 Partial Public Class R002_HOKOKU_TENSO
     Inherits ModelBase
 
-    Public Sub New()
-        Call clear()
-    End Sub
-
-    Public Sub clear()
+    Public Shadows Sub clear()
         SYONIN_HOKOKUSYO_ID = 0
         HOKOKU_NO = ""
         SYONIN_JUN = 0

@@ -13,6 +13,7 @@ Public Class FrmG0010
 
     Private ParamModel As New ST02_ParamModel
 
+
 #End Region
 
 #Region "プロパティ"
@@ -88,6 +89,9 @@ Public Class FrmG0010
 
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
             '-----グリッド初期設定(親フォームから呼び出し)
             Call FunInitializeDataGridView(dgvDATA)
@@ -205,7 +209,7 @@ Public Class FrmG0010
             '起動モード別処理
             Select Case pub_intOPEN_MODE
                 Case ENM_OPEN_MODE._0_通常
-                    Me.cmdFunc1.PerformClick()
+                    Me.cmdFunc7.PerformClick()
                 Case ENM_OPEN_MODE._1_新規作成
                     Me.cmdFunc2.PerformClick()
                     Me.WindowState = FormWindowState.Normal
@@ -414,13 +418,13 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).Width = 30
 
                 .Columns.Add("SYONIN_JUN", "")
-                .Columns(.ColumnCount - 1).Width = 50
+                .Columns(.ColumnCount - 1).Width = 45
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
                 .Columns.Add("SYONIN_NAIYO", "ステージ名")
-                .Columns(.ColumnCount - 1).Width = 222
+                .Columns(.ColumnCount - 1).Width = 290
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
@@ -1230,18 +1234,20 @@ Public Class FrmG0010
                                 　　【部品番号】{5}<br />
                                 　　【依頼者　】{6}<br />
                                 <br />
-                                <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}" > 処置画面へ</a><br />
+                                <a href = "http://sv116:8000/CLICKONCE_FMS.application" > 処置画面へ</a><br />
                                 <br />
                                 ※このメールは配信専用です。(返信できません)<br />
                                 返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
                                 ]]></body>.Value.Trim
+
+                                'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
 
                                 strSubject = String.Format(strSubject, dr.Item("KISYU_NAME"), dr.Item("BUHIN_BANGO"))
                                 strBody = String.Format(strBody,
                                 dr.Item("GEN_TANTO_NAME"),
                                 dr.Item("TAIRYU_NISSU"),
                                 dr.Item("HOKOKU_NO"),
-                                CDate(dr.Item("KISO_YMD")).ToString("yyyy/MM/dd"),
+                                IIf(dr.Item("KISO_YMD") <> "", CDate(dr.Item("KISO_YMD")).ToString("yyyy/MM/dd"), ""),
                                 dr.Item("KISYU_NAME"),
                                 dr.Item("BUHIN_BANGO"),
                                 Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
@@ -1296,19 +1302,21 @@ Public Class FrmG0010
                     　　【部品番号】{5}<br />
                     　　【依頼者　】{6}<br />
                     <br />
-                    <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}" > 処置画面へ</a><br />
+                    <a href = "http://sv116:8000/CLICKONCE_FMS.application" > 処置画面へ</a><br />
                     <br />
                     ※このメールは配信専用です。(返信できません)<br />
                     返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
 
                     ]]></body>.Value.Trim
 
+                    'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
+
                     strSubject = String.Format(strSubject, dr.Item("KISYU_NAME"), dr.Item("BUHIN_BANGO"))
                     strBody = String.Format(strBody,
                                 dr.Item("GEN_TANTO_NAME"),
                                 dr.Item("TAIRYU_NISSU"),
                                 dr.Item("HOKOKU_NO"),
-                                CDate(dr.Item("KISO_YMD")).ToString("yyyy/MM/dd"),
+                                IIf(dr.Item("KISO_YMD") <> "", CDate(dr.Item("KISO_YMD")).ToString("yyyy/MM/dd"), ""),
                                 dr.Item("KISYU_NAME"),
                                 dr.Item("BUHIN_BANGO"),
                                 Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),

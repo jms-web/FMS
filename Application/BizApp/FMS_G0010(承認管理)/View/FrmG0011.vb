@@ -13,7 +13,6 @@ Public Class FrmG0011
 
     'Model
     Private _V002_NCR_J As New MODEL.V002_NCR_J
-
     Private _V003_SYONIN_J_KANRI_List As New List(Of MODEL.V003_SYONIN_J_KANRI)
     Private _V004_HOKOKU_SOUSA As New MODEL.V004_HOKOKU_SOUSA
     Private _V005_CAR_J As New MODEL.V005_CAR_J
@@ -141,8 +140,9 @@ Public Class FrmG0011
         Try
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
-            Me.Text = "不適合製品処置報告書(Non-Conformance Report)"
-            lblTytle.Text = Me.Text
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
             'バインディング・モデルクリア
             Call FunClearBindingD003()
@@ -205,11 +205,13 @@ Public Class FrmG0011
 
 #End Region
 
-    'Shown
     Private Sub Frm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         Me.Owner.Visible = False
     End Sub
 
+    Private Sub Frm_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+        Me.Owner.Visible = True
+    End Sub
 #End Region
 
 #Region "FunctionButton関連"
@@ -309,7 +311,11 @@ Public Class FrmG0011
                     Call OpenFormHistory(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO)
 
                 Case 12 '閉じる
-                    Me.Close()
+                    If pub_intOPEN_MODE = 1 Then
+                        Environment.Exit(0)
+                    Else
+                        Me.Close()
+                    End If
             End Select
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -1146,6 +1152,7 @@ Public Class FrmG0011
         Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
         Dim strBody As String = <sql><![CDATA[
         {0} 殿<br />
+        <br />
         　不適合製品の処置依頼が来ましたので対応をお願いします。<br />
         <br />
         　　【報告書No】{1}<br />
@@ -1156,11 +1163,13 @@ Public Class FrmG0011
         　　【依頼者処置内容】{6}<br />
         　　【コメント】{7}<br />
         <br />
-        <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}" >処置画面へ</a><br />
+        <a href = "http://sv116:8000/CLICKONCE_FMS.application" >処置画面へ</a><br />
         <br />
         ※このメールは配信専用です。(返信できません)<br />
         返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
         ]]></sql>.Value.Trim
+
+        'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}
 
         strSubject = String.Format(strSubject, KISYU_NAME, _D003_NCR_J.BUHIN_BANGO)
         strBody = String.Format(strBody,
@@ -1194,7 +1203,7 @@ Public Class FrmG0011
         Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
         Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
         Dim strBody As String = <sql><![CDATA[
-        {0} 殿
+        {0} 殿<br />
         <br />
         　{1} 殿より{0} 殿宛にCARの起草入力依頼がありました。<br />
         　不適合管理システムから該当するデータを選択し、起草入力を行って下さい。<br />
@@ -1204,11 +1213,13 @@ Public Class FrmG0011
         　　【部品番号】{4}<br />
         　　【依頼者　】{1}<br />
         <br />
-        <a href = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID={5}&EXEPATH={6}&PARAMS={7}" >処置画面へ</a><br />
+        <a href = "http://sv116:8000/CLICKONCE_FMS.application" >処置画面へ</a><br />
         <br />
         ※このメールは配信専用です。(返信できません)<br />
         返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
         ]]></sql>.Value.Trim
+
+        'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={5}&EXEPATH={6}&PARAMS={7}
 
         strSubject = String.Format(strSubject, KISYU_NAME, _D003_NCR_J.BUHIN_BANGO)
         strBody = String.Format(strBody,
@@ -2466,14 +2477,16 @@ Public Class FrmG0011
 #Region "CAR"
 
     Private Function OpenFormCAR() As Boolean
-        Dim frmDLG As New FrmG0012
+
         Dim dlgRET As DialogResult
 
         Try
-            frmDLG.PrDialog = True
-            frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
-            frmDLG.PrCurrentStage = ENM_CAR_STAGE._10_起草入力
-            dlgRET = frmDLG.ShowDialog(Me)
+            Using frmDLG As New FrmG0012
+                frmDLG.PrDialog = True
+                frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+                frmDLG.PrCurrentStage = ENM_CAR_STAGE._10_起草入力
+                dlgRET = frmDLG.ShowDialog(Me)
+            End Using
 
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
@@ -2486,9 +2499,7 @@ Public Class FrmG0011
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
-            If frmDLG IsNot Nothing Then
-                frmDLG.Dispose()
-            End If
+
         End Try
     End Function
 
@@ -4832,7 +4843,7 @@ Public Class FrmG0011
     Private Sub CmbST07_KOKYAKU_HANTEI_SIJI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_KOKYAKU_HANTEI_SIJI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue = cmb.NullValue Then
+        If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
             pri_blnValidated = pri_blnValidated AndAlso True
         Else
@@ -6094,6 +6105,8 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
+
+
 
 #End Region
 

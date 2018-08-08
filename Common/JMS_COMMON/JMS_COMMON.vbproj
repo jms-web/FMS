@@ -268,10 +268,10 @@
     <Compile Include="Control\DataTableEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Control\DateTextBox.Designer.vb">
-      <DependentUpon>DateTextBox.vb</DependentUpon>
+    <Compile Include="Control\DateTextBoxEx.Designer.vb">
+      <DependentUpon>DateTextBoxEx.vb</DependentUpon>
     </Compile>
-    <Compile Include="Control\DateTextBox.vb">
+    <Compile Include="Control\DateTextBoxEx.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="BaseForm\FrmBase.Designer.vb">
@@ -386,8 +386,8 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Control\DateTextBox.resx">
-      <DependentUpon>DateTextBox.vb</DependentUpon>
+    <EmbeddedResource Include="Control\DateTextBoxEx.resx">
+      <DependentUpon>DateTextBoxEx.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\FrmBase.resx">
       <DependentUpon>FrmBase.vb</DependentUpon>
@@ -715,7 +715,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_ReplaceNonNumerics="False" />
+      <UserProperties BuildVersion_ReplaceNonNumerics="False" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
