@@ -13,7 +13,6 @@ Public Class FrmG0011
 
     'Model
     Private _V002_NCR_J As New MODEL.V002_NCR_J
-
     Private _V003_SYONIN_J_KANRI_List As New List(Of MODEL.V003_SYONIN_J_KANRI)
     Private _V004_HOKOKU_SOUSA As New MODEL.V004_HOKOKU_SOUSA
     Private _V005_CAR_J As New MODEL.V005_CAR_J

@@ -6,7 +6,8 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class FrmM1051
 
 #Region "変数・定数"
-
+    Private IsValidated As Boolean
+    Private _M105 As MODEL.M105_KISYU
 #End Region
 
 #Region "プロパティ"

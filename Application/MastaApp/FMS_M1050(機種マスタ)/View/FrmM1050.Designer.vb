@@ -193,7 +193,7 @@ Partial Class FrmM1050
         Me.Label1.Text = "•”–å‹æ•ª:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'mxtKISYU_NAME
+        'mtxKISYU_NAME
         '
         Me.mtxKISYU_NAME.BackColor = System.Drawing.SystemColors.Window
         Me.mtxKISYU_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -201,7 +201,7 @@ Partial Class FrmM1050
         Me.mtxKISYU_NAME.InputRequired = False
         Me.mtxKISYU_NAME.Location = New System.Drawing.Point(322, 3)
         Me.mtxKISYU_NAME.MaxByteLength = 0
-        Me.mtxKISYU_NAME.Name = "mxtKISYU_NAME"
+        Me.mtxKISYU_NAME.Name = "mtxKISYU_NAME"
         Me.mtxKISYU_NAME.Size = New System.Drawing.Size(165, 24)
         Me.mtxKISYU_NAME.TabIndex = 58
         Me.mtxKISYU_NAME.WatermarkColor = System.Drawing.Color.Empty
