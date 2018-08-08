@@ -172,6 +172,21 @@ Public Module mdlDBContext
     ''' </summary>
     Public tblBUSYO As DataTableEx
 
+    ''' <summary>
+    '''Ğˆõ‹æ•ª
+    ''' </summary>
+    Public tblSYAIN_KB As DataTableEx
+
+    ''' <summary>
+    '''–ğE‹æ•ª
+    ''' </summary>
+    Public tblYAKUSYOKU_KB As DataTableEx
+
+    ''' <summary>
+    '''‘ãs‹æ•ª
+    ''' </summary>
+    Public tblDAIKO_KB As DataTableEx
+
 
 #End Region
 
@@ -287,11 +302,11 @@ Public Module mdlDBContext
     ''' </summary>
     Public tblSYANAI_CD_J As DataTableEx
 
-
     ''' <summary>
     ''' Ğˆõ
     ''' </summary>
     Public tblSYAIN As DataTableEx
+
 
 
 #End Region

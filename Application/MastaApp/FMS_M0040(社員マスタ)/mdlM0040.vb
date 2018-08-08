@@ -48,11 +48,9 @@ Module mdlM0040
 
                 '-----共通データ取得
                 Using DB As ClsDbUtility = DBOpen()
-                    'Call FunGetCodeDataTable(DB, "部", tblBU)
-                    'Call FunGetCodeDataTable(DB, "課", tblKA)
-                    'Call FunGetCodeDataTable(DB, "役職区分", tblYAKU_KBN)
-                    'Call FunGetCodeDataTable(DB, "直間区分", tblCYOKKAN_KBN)
-                    'Call FunGetCodeDataTable(DB, "職番", tblSYOKUBAN)
+                    Call FunGetCodeDataTable(DB, "社員区分", tblSYAIN_KB, "ITEM_NAME = '社員区分'")
+                    Call FunGetCodeDataTable(DB, "役職区分", tblYAKUSYOKU_KB)
+                    Call FunGetCodeDataTable(DB, "承認代行区分", tblDAIKO_KB)
                 End Using
 
                 '-----一覧画面表示

@@ -15,12 +15,9 @@ Public Class FrmM0041
     ''' <summary>
     ''' 新規追加レコードのキー
     ''' </summary>
-    Public Property PrPKeys As String
+    Public Property PrPKeys As (ITEM_NAME As String, ITEM_VALUE As String)
 
-    ''' <summary>
-    ''' 一覧の選択行データ
-    ''' </summary>
-    Public Property PrdgvCellCollection As DataGridViewCellCollection
+    Public Property PrDataRow As C1.Win.C1FlexGrid.Row
 
 #End Region
 
@@ -41,10 +38,9 @@ Public Class FrmM0041
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
 
             '-----コントロールデータソース設定
-            'Me.cmbKA_CD.SetDataSource(tblBU.ExcludeDeleted, True)
-            'Me.cmbBUSYO_CD.SetDataSource(tblKA.ExcludeDeleted, True)
-            'Me.cmbYAKUSYOKU_KB.SetDataSource(tblYAKU_KBN.ExcludeDeleted, True)
-            'Me.cmbCYOKKAN_KB.SetDataSource(tblCYOKKAN_KBN.ExcludeDeleted, True)
+            Me.cmbSYAIN_KB.SetDataSource(tblSYAIN_KB.ExcludeDeleted, True)
+            Me.cmbYAKUSYOKU_KB.SetDataSource(tblYAKUSYOKU_KB.ExcludeDeleted, True)
+            Me.cmbDAIKO.SetDataSource(tblDAIKO_KB.ExcludeDeleted, True)
 
             '-----処理モード別画面初期化
             Call FunInitializeControls(PrMODE)
@@ -65,43 +61,30 @@ Public Class FrmM0041
                     Me.Text = pub_APP_INFO.strTitle & "（追加）"
                     Me.lblTytle.Text = Me.Text
                     Me.cmdFunc1.Text = "追加(F1)"
-
-                    Me.mtxTANTO_NAME.Enabled = True
-                    Me.mtxSYOKUBAN.Enabled = True
-
-                    ''Me.mtxTANTO_CD.Text = "<新規>"
-                    Me.mtxTANTO_CD.Enabled = True
-                    ' Me.mtxTANTO_CD.ReadOnly = True
-
+                    Me.mtxSIMEI.Enabled = True
+                    Me.mtxSYAIN_NO.Enabled = True
                     Me.lbllblEDIT_YMDHNS.Visible = False
                     Me.lblEDIT_YMDHNS.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._2_ADDREF
-                    Call FunSetEntityValues(PrdgvCellCollection)
+                    'Call FunSetEntityValues(PrdgvCellCollection)
 
                     Me.Text = pub_APP_INFO.strTitle & "（類似追加）"
                     Me.lblTytle.Text = Me.Text
                     Me.cmdFunc1.Text = "追加(F1)"
-
-                    Me.mtxTANTO_NAME.Enabled = True
-                    Me.mtxSYOKUBAN.Enabled = True
-
-                    'Me.mtxTANTO_CD.Text = "<新規>"
-                    'Me.mtxTANTO_CD.ReadOnly = True
-                    Me.mtxTANTO_CD.Enabled = True
                     Me.lbllblEDIT_YMDHNS.Visible = False
                     Me.lblEDIT_YMDHNS.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
-                    Call FunSetEntityValues(PrdgvCellCollection)
+                    'Call FunSetEntityValues(PrdgvCellCollection)
 
                     Me.Text = pub_APP_INFO.strTitle & "（変更）"
                     Me.lblTytle.Text = Me.Text
                     Me.cmdFunc1.Text = "変更(F1)"
 
-                    Me.mtxTANTO_CD.Enabled = False
-                    Me.mtxTANTO_NAME.Enabled = True
-                    Me.mtxSYOKUBAN.Enabled = True
+                    Me.mtxSYAIN_ID.Enabled = False
+                    Me.mtxSIMEI.Enabled = True
+                    Me.mtxSYAIN_NO.Enabled = True
 
                     Me.lbllblEDIT_YMDHNS.Visible = True
                     Me.lblEDIT_YMDHNS.Visible = True
@@ -129,27 +112,32 @@ Public Class FrmM0041
             '-----コントロールに値をセット
             With dgvCol
                 '担当者CD
-                Me.mtxTANTO_CD.Text = .Item("TANTO_CD").Value.ToString.Trim
+                Me.mtxSYAIN_ID.Text = .Item("TANTO_CD").Value.ToString.Trim
                 '職番
-                Me.mtxSYOKUBAN.Text = .Item("SYOKUBAN").Value.ToString.Trim
+                Me.mtxSYAIN_NO.Text = .Item("SYOKUBAN").Value.ToString.Trim
                 '担当者名
-                Me.mtxTANTO_NAME.Text = .Item("TANTO_NAME").Value.ToString.Trim
+                Me.mtxSIMEI.Text = .Item("TANTO_NAME").Value.ToString.Trim
                 '担当者名カナ
-                Me.mtxTANTO_NAME_KANA.Text = .Item("TANTO_NAME_KANA").Value.ToString.Trim
-                '直間区分
-                Me.cmbCYOKKAN_KB.Text = .Item("CYOKKAN_KB_DISP").Value.ToString.Trim
+                Me.mtxSIMEI_KANA.Text = .Item("TANTO_NAME_KANA").Value.ToString.Trim
                 '入社日
                 Me.dtbNYUSYA_YMD.Text = .Item("NYUSYA_YMD").Value.ToString.Trim
                 '退社日
                 Me.dtbTAISYA_YMD.Text = .Item("TAISYA_YMD").Value.ToString.Trim
                 '役職区分
                 Me.cmbYAKUSYOKU_KB.Text = .Item("YAKUSYOKU_KB_DISP").Value.ToString.Trim
-                '部CD      
-                Me.cmbBUSYO_CD.Text = .Item("BU_CD").Value
-                '課CD
-                Me.cmbKA_CD.Text = .Item("KA_CD").Value
                 '生年月日
                 Me.dtbBIRTHDAY.Text = .Item("BIRTHDAY").Value.ToString.Trim
+                'パスワード
+                Me.mtxPASS.Text = .Item("PASS").Value.ToString.Trim
+                '社員区分
+                Me.cmbSYAIN_KB.SelectedValue = .Item("SYAIN_KB").Value.ToString.Trim
+                '役職区分
+                Me.cmbYAKUSYOKU_KB.SelectedValue = .Item("YAKUSYOKU_KB").Value.ToString.Trim
+                '代行区分
+                Me.cmbDAIKO.SelectedValue = .Item("DAIKO_KB").Value.ToString.Trim
+                'メールアドレス
+                Me.mtxMAIL_ADD.Text = .Item("MAIL_ADD.").Value.ToString.Trim
+
                 '更新日時
                 Dim dt As DateTime
                 dt = DateTime.ParseExact(.Item("EDIT_YMDHNS").Value.ToString, "yyyyMMddHHmmss", Nothing)
@@ -195,7 +183,7 @@ Public Class FrmM0041
 
                     If blnRET = True Then
                         'プロパティに対象レコードのキーを設定
-                        Me.PrPKeys = Me.mtxTANTO_CD.Text.Trim
+                        'Me.PrPKeys = Me.mtxTANTO_CD.Text.Trim
                         Me.DialogResult = Windows.Forms.DialogResult.OK
                         Me.Close()
                     End If
@@ -238,12 +226,13 @@ Public Class FrmM0041
                     DB.BeginTransaction()
                     '-----存在チェック
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("SELECT * FROM M03_TANTO ")
-                    sbSQL.Append(" WHERE TANTO_CD ='" & Me.mtxTANTO_CD.Text.Trim & "'")
+                    sbSQL.Append("SELECT * FROM M004_SYAIN ")
+                    sbSQL.Append(" WHERE SYAIN_NO ='" & Me.mtxSYAIN_NO.Text.Trim & "'")
+                    sbSQL.Append(" AND TAISYA_YMD <> ' '")
 
                     dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
                     If dsList.Tables(0).Rows.Count > 0 Then '存在時
-                        If MessageBox.Show(String.Format(My.Resources.infoTilteDuplicateData, "担当CD"), My.Resources.infoTilteDuplicateCheck, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) <> DialogResult.OK Then
+                        If MessageBox.Show(String.Format(My.Resources.infoTilteDuplicateData, "未退職の職番"), My.Resources.infoTilteDuplicateCheck, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) <> DialogResult.OK Then
                             Return False
                         End If
                     End If
@@ -253,51 +242,53 @@ Public Class FrmM0041
 
                     '-----INSERT
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("INSERT INTO M03_TANTO(")
-                    sbSQL.Append("  TANTO_CD ")
-                    sbSQL.Append(" ,SYOKUBAN")
-                    sbSQL.Append(" ,TANTO_NAME")
-                    sbSQL.Append(" ,TANTO_NAME_KANA")
-                    sbSQL.Append(" ,CYOKKAN_KB")
+                    sbSQL.Append("INSERT INTO M004_SYAIN(")
+                    sbSQL.Append("  SYAIN_ID ")
+                    sbSQL.Append(" ,SYAIN_NO ")
+                    sbSQL.Append(" ,SIMEI")
+                    sbSQL.Append(" ,SIMEI_KANA")
+                    sbSQL.Append(" ,SYAIN_KB")
+                    sbSQL.Append(" ,YAKUSYOKU_KB")
+                    sbSQL.Append(" ,DAIKO_KB")
+                    sbSQL.Append(" ,BIRTH_YMD")
+                    sbSQL.Append(" ,TEL")
+                    sbSQL.Append(" ,MAIL_ADDRESS")
                     sbSQL.Append(" ,NYUSYA_YMD")
                     sbSQL.Append(" ,TAISYA_YMD")
-                    sbSQL.Append(" ,YAKUSYOKU_KB")
-                    sbSQL.Append(" ,BU_CD")
-                    sbSQL.Append(" ,KA_CD")
-                    sbSQL.Append(" ,BIRTHDAY")
-                    sbSQL.Append(" ,PASSWORD")
+                    sbSQL.Append(" ,PASS")
                     sbSQL.Append(" ,ADD_YMDHNS")
-                    sbSQL.Append(" ,ADD_TANTO_CD")
-                    sbSQL.Append(" ,EDIT_YMDHNS")
-                    sbSQL.Append(" ,EDIT_TANTO_CD")
+                    sbSQL.Append(" ,ADD_SYAIN_ID")
+                    sbSQL.Append(" ,UPD_YMDHNS")
+                    sbSQL.Append(" ,UPD_SYAIN_ID")
                     sbSQL.Append(" ,DEL_YMDHNS")
-                    sbSQL.Append(" ,DEL_TANTO_CD")
+                    sbSQL.Append(" ,DEL_SYAIN_ID")
                     sbSQL.Append(" ) VALUES ( ")
-                    '担当者CD
-                    'sbSQL.Append(" " & intNewTANTO_CD & "")
-                    sbSQL.Append(" " & Nz(Me.mtxTANTO_CD.Text.Trim, " ") & "")
-                    '職番
-                    sbSQL.Append(" ," & Me.mtxSYOKUBAN.Text.Trim & "")
-                    '担当者名
-                    sbSQL.Append(" ,'" & Me.mtxTANTO_NAME.Text.Trim & "'")
-                    '担当者名カナ
-                    sbSQL.Append(" ,'" & Me.mtxTANTO_NAME_KANA.Text.Trim & "'")
-                    '直間区分
-                    sbSQL.Append(" ,'" & Me.cmbCYOKKAN_KB.SelectedValue & "'")
-                    '入社日
-                    sbSQL.Append(" ,'" & Nz(Me.dtbNYUSYA_YMD.Text.Trim.Replace("/", ""), " ") & "'")
-                    '退社日
-                    sbSQL.Append(" ,'" & Nz(Me.dtbTAISYA_YMD.Text.Trim.Replace("/", ""), " ") & "'")
+                    '社員ID
+                    sbSQL.Append(" (SELECT MAX(SYAIN_ID)+1 FROM M004_SYAIN)")
+                    '社員NO
+                    sbSQL.Append(" ,'" & Me.mtxSYAIN_NO.Text.Trim & "'")
+                    '氏名
+                    sbSQL.Append(" ,'" & Me.mtxSIMEI.Text.Trim & "'")
+                    '氏名カナ
+                    sbSQL.Append(" ,'" & Me.mtxSIMEI_KANA.Text.Trim & "'")
+                    '社員区分
+                    sbSQL.Append(" ,'" & Me.cmbSYAIN_KB.SelectedValue & "'")
                     '役職区分
                     sbSQL.Append(" ,'" & Me.cmbYAKUSYOKU_KB.SelectedValue & "'")
-                    '部CD
-                    sbSQL.Append(" ," & Nz(Me.cmbBUSYO_CD.SelectedValue, " ") & "")
-                    '課CD
-                    sbSQL.Append(" ," & Nz(Me.cmbKA_CD.SelectedValue, " ") & "")
+                    '承認代行区分
+                    sbSQL.Append(" ,'" & Me.cmbDAIKO.SelectedValue & "'")
                     '生年月日
-                    sbSQL.Append(" ,'" & Nz(Me.dtbBIRTHDAY.Text.Trim.Replace("/", ""), " ") & "'")
+                    sbSQL.Append(" ,'" & Me.dtbBIRTHDAY.ValueNonFormat & "'")
+                    'TEL
+                    sbSQL.Append(" ,'" & Me.mtxTEL.Text.Trim & "'")
+                    'メールアドレス
+                    sbSQL.Append(" ,'" & Me.mtxMAIL_ADD.Text.Trim & "'")
+                    '入社年月日
+                    sbSQL.Append(" ,'" & Me.dtbNYUSYA_YMD.ValueNonFormat & "'")
+                    '退社年月日
+                    sbSQL.Append(" ,'" & Me.dtbTAISYA_YMD.ValueNonFormat& "'")
                     'パスワード
-                    sbSQL.Append(" ,'" & Me.mtxPASSWORD.Text.Trim & "'")
+                    sbSQL.Append(" ,'" & Me.mtxPASS.Text.Trim & "'")
                     '追加日時
                     sbSQL.Append(" ,dbo.GetSysDateString()")
                     '追加担当者
@@ -357,8 +348,8 @@ Public Class FrmM0041
                     '-----存在チェック
                     sbSQL.Append("SELECT * FROM M03_TANTO ")
                     sbSQL.Append(" WHERE")
-                    sbSQL.Append(" TANTO_CD =" & Nz(Me.mtxTANTO_CD.Text.Trim & ""))
-                    sbSQL.Append(" AND EDIT_YMDHNS ='" & PrdgvCellCollection.Item("EDIT_YMDHNS").Value.ToString & "' ")
+                    sbSQL.Append(" TANTO_CD =" & Nz(Me.mtxSYAIN_ID.Text.Trim & ""))
+                    'sbSQL.Append(" AND EDIT_YMDHNS ='" & PrdgvCellCollection.Item("EDIT_YMDHNS").Value.ToString & "' ")
                     dsList = DB.GetDataSet(sbSQL.ToString)
                     If dsList.Tables(0).Rows.Count = 0 Then '非存在時
                         MessageBox.Show(String.Format(My.Resources.infoSearchDataChange), My.Resources.infoTilteDuplicateCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -368,19 +359,19 @@ Public Class FrmM0041
                     '-----UPDATE
                     sbSQL.Remove(0, sbSQL.Length)
                     sbSQL.Append("UPDATE M03_TANTO SET")
-                    sbSQL.Append(" SYOKUBAN =" & Me.mtxSYOKUBAN.Text.Trim & "")
-                    sbSQL.Append(" ,TANTO_NAME ='" & Me.mtxTANTO_NAME.Text.Trim & "'")
-                    sbSQL.Append(" ,TANTO_NAME_KANA ='" & Me.mtxTANTO_NAME_KANA.Text.Trim & "'")
-                    sbSQL.Append(" ,CYOKKAN_KB ='" & Me.cmbCYOKKAN_KB.SelectedValue & "'")
+                    sbSQL.Append(" SYOKUBAN =" & Me.mtxSYAIN_NO.Text.Trim & "")
+                    sbSQL.Append(" ,TANTO_NAME ='" & Me.mtxSIMEI.Text.Trim & "'")
+                    sbSQL.Append(" ,TANTO_NAME_KANA ='" & Me.mtxSIMEI_KANA.Text.Trim & "'")
+                    sbSQL.Append(" ,CYOKKAN_KB ='" & Me.cmbSYAIN_KB.SelectedValue & "'")
                     sbSQL.Append(" ,NYUSYA_YMD ='" & Nz(Me.dtbNYUSYA_YMD.Text.Trim.Replace("/", ""), " ") & "'")
                     sbSQL.Append(" ,TAISYA_YMD ='" & Nz(Me.dtbTAISYA_YMD.Text.Trim.Replace("/", ""), " ") & "'")
                     sbSQL.Append(" ,YAKUSYOKU_KB ='" & Me.cmbYAKUSYOKU_KB.SelectedValue & "'")
-                    sbSQL.Append(" ,BU_CD =" & Nz(Me.cmbBUSYO_CD.SelectedValue, " ") & "")
-                    sbSQL.Append(" ,KA_CD =" & Nz(Me.cmbKA_CD.SelectedValue, " ") & "")
+                    'sbSQL.Append(" ,BU_CD =" & Nz(Me.cmbBUSYO_CD.SelectedValue, " ") & "")
+                    'sbSQL.Append(" ,KA_CD =" & Nz(Me.cmbKA_CD.SelectedValue, " ") & "")
                     sbSQL.Append(" ,BIRTHDAY ='" & Nz(Me.dtbBIRTHDAY.Text.Trim.Replace("/", ""), " ") & "'")
                     sbSQL.Append(" ,EDIT_YMDHNS = dbo.GetSysDateString() ")
                     sbSQL.Append(" WHERE")
-                    sbSQL.Append(" TANTO_CD =" & Nz(Me.mtxTANTO_CD.Text.Trim, " "))
+                    sbSQL.Append(" TANTO_CD =" & Nz(Me.mtxSYAIN_ID.Text.Trim, " "))
 
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
                     If intRET <> 1 Then
@@ -415,57 +406,20 @@ Public Class FrmM0041
     ''' <param name="frm">対象フォーム</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function FunInitFuncButtonEnabled(ByRef frm As FrmM0040) As Boolean
-
+    Private Function FunInitFuncButtonEnabled() As Boolean
         Try
+
             For intFunc As Integer = 1 To 12
-                With frm.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
+                Dim cmd As Button = DirectCast(Me.Controls.Find("cmdFunc" & intFunc, True)(0), Button)
+                With cmd
+                    If cmd IsNot Nothing AndAlso .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
                         .Text = ""
-                        .Visible = False
+                        '.Visible = False
+                        .Enabled = False
                     End If
                 End With
             Next intFunc
 
-            If frm.dgvDATA.RowCount > 0 Then
-                frm.cmdFunc1.Enabled = True
-                frm.cmdFunc2.Enabled = True
-                frm.cmdFunc3.Enabled = True
-                frm.cmdFunc4.Enabled = True
-                frm.cmdFunc5.Enabled = True
-                frm.cmdFunc10.Enabled = True
-            Else
-                frm.cmdFunc1.Enabled = True
-                frm.cmdFunc2.Enabled = True
-                frm.cmdFunc3.Enabled = False
-                frm.cmdFunc4.Enabled = False
-                frm.cmdFunc5.Enabled = False
-                frm.cmdFunc10.Enabled = False
-            End If
-
-            Dim dgv As DataGridView = DirectCast(frm.Controls("dgvDATA"), DataGridView)
-            If dgv.SelectedRows.Count > 0 Then
-                If dgv.CurrentRow IsNot Nothing AndAlso dgv.CurrentRow.Cells.Item("DEF_FLG").Value <> "" Then
-                    '削除済データの場合
-                    frm.cmdFunc4.Enabled = False
-                    frm.cmdFunc5.Text = "完全削除(F5)"
-                    frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._6_DELETE
-
-                    '復元
-                    frm.cmdFunc6.Text = "復元(F6)"
-                    frm.cmdFunc6.Visible = True
-                    frm.cmdFunc6.Tag = ENM_DATA_OPERATION_MODE._5_RESTORE
-                Else
-                    frm.cmdFunc5.Text = "削除(F5)"
-                    frm.cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._4_DISABLE
-
-                    frm.cmdFunc6.Text = ""
-                    frm.cmdFunc6.Visible = False
-                    frm.cmdFunc6.Tag = ""
-                End If
-            Else
-                frm.cmdFunc6.Visible = False
-            End If
 
             Return True
         Catch ex As Exception
@@ -485,38 +439,39 @@ Public Class FrmM0041
     Public Function FunCheckInput() As Boolean
 
         Try
-            '担当者CD
-            If Me.mtxTANTO_CD.Text.IsNullOrWhiteSpace Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "担当者CD"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.mtxTANTO_CD.Focus()
+
+            '職番
+            If Me.mtxSYAIN_NO.Text.IsNullOrWhiteSpace Then
+                MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "職番"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Me.mtxSYAIN_NO.Focus()
                 Return False
             End If
 
-            '職番
-            If Me.mtxSYOKUBAN.Text.IsNullOrWhiteSpace Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "職番"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.mtxSYOKUBAN.Focus()
+            '社員区分
+            If Me.cmbSYAIN_KB.SelectedValue = 0 Then
+                MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "社員区分"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Me.cmbSYAIN_KB.Focus()
                 Return False
             End If
 
             '担当者名
-            If Me.mtxTANTO_NAME.Text.IsNullOrWhiteSpace Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "担当者名"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.mtxTANTO_NAME.Focus()
+            If Me.mtxSIMEI.Text.IsNullOrWhiteSpace Then
+                MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "氏名"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Me.mtxSIMEI.Focus()
                 Return False
             End If
 
-            '部CD
-            If Me.cmbBUSYO_CD.SelectedValue = "" Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireSelect, "部CD"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.cmbBUSYO_CD.Focus()
+            '担当者名カナ
+            If Me.mtxSIMEI_KANA.Text.IsNullOrWhiteSpace Then
+                MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "氏名カナ"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Me.mtxSIMEI_KANA.Focus()
                 Return False
             End If
 
-            '課CD
-            If Me.cmbKA_CD.SelectedValue = "" Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireSelect, "課CD"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.cmbKA_CD.Focus()
+            'パスワード
+            If Me.mtxPASS.Text.IsNullOrWhiteSpace Then
+                MessageBox.Show(String.Format(My.Resources.infoMsgRequireSelect, "パスワード"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Me.mtxPASS.Focus()
                 Return False
             End If
 
