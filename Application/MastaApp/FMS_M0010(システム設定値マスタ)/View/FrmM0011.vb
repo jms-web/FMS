@@ -316,7 +316,7 @@ Public Class FrmM0011
                         Throw New ArgumentException(My.Resources.ErrMsgException, PrMODE.ToString)
                 End Select
 
-                Dim dt As New DataTableEx
+                Dim dt As New DataTableEx("System.Int32")
                 For i As Integer = 1 To intMaxOrder + intModeDiff
                     Dim Trow As DataRow = dt.NewRow()
                     Trow("DISP") = i
@@ -326,7 +326,7 @@ Public Class FrmM0011
                 Next i
                 dt.AcceptChanges()
 
-                Call cmbJYUN.SetDataSource(dt, False)
+                Call cmbJYUN.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
                 Select Case PrMODE
                     Case ENM_DATA_OPERATION_MODE._1_ADD, ENM_DATA_OPERATION_MODE._2_ADDREF

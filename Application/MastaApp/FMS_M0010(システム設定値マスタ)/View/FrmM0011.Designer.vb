@@ -24,10 +24,7 @@ Partial Class FrmM0011
         Me.lbllblEDIT_YMDHNS = New System.Windows.Forms.Label()
         Me.lbllblEDIT_SYAIN_ID = New System.Windows.Forms.Label()
         Me.lblEDIT_SYAIN_ID = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.chkDefaultVaue = New System.Windows.Forms.CheckBox()
         Me.lblEDIT_YMDHNS = New System.Windows.Forms.Label()
-        Me.mtxBIKOU = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cmbJYUN = New JMS_COMMON.ComboboxEx()
         Me.mtxDISP = New JMS_COMMON.MaskedTextBoxEx()
@@ -38,6 +35,9 @@ Partial Class FrmM0011
         Me.cmbKOMO_NM = New JMS_COMMON.ComboboxEx()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.mtxKOMO_GROUP = New JMS_COMMON.MaskedTextBoxEx()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.mtxBIKOU = New JMS_COMMON.MaskedTextBoxEx()
+        Me.chkDefaultVaue = New System.Windows.Forms.CheckBox()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.tlpFields.SuspendLayout()
@@ -229,28 +229,6 @@ Partial Class FrmM0011
         Me.lblEDIT_SYAIN_ID.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.lblEDIT_SYAIN_ID.Visible = False
         '
-        'Label4
-        '
-        Me.Label4.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label4.Location = New System.Drawing.Point(3, 150)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(84, 28)
-        Me.Label4.TabIndex = 45
-        Me.Label4.Text = "備考:"
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'chkDefaultVaue
-        '
-        Me.chkDefaultVaue.AutoSize = True
-        Me.chkDefaultVaue.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkDefaultVaue.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.chkDefaultVaue.Location = New System.Drawing.Point(93, 183)
-        Me.chkDefaultVaue.Name = "chkDefaultVaue"
-        Me.chkDefaultVaue.Size = New System.Drawing.Size(66, 21)
-        Me.chkDefaultVaue.TabIndex = 6
-        Me.chkDefaultVaue.Text = "既定値"
-        Me.chkDefaultVaue.UseVisualStyleBackColor = True
-        '
         'lblEDIT_YMDHNS
         '
         Me.lblEDIT_YMDHNS.BackColor = System.Drawing.Color.Transparent
@@ -263,21 +241,6 @@ Partial Class FrmM0011
         Me.lblEDIT_YMDHNS.Text = "yyyy/MM/dd HH:mm:ss"
         Me.lblEDIT_YMDHNS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.lblEDIT_YMDHNS.Visible = False
-        '
-        'mtxBIKOU
-        '
-        Me.mtxBIKOU.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxBIKOU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxBIKOU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxBIKOU.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.mtxBIKOU.InputRequired = False
-        Me.mtxBIKOU.Location = New System.Drawing.Point(93, 153)
-        Me.mtxBIKOU.MaxByteLength = 200
-        Me.mtxBIKOU.Name = "mtxBIKOU"
-        Me.mtxBIKOU.Size = New System.Drawing.Size(544, 24)
-        Me.mtxBIKOU.TabIndex = 5
-        Me.mtxBIKOU.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxBIKOU.WatermarkText = Nothing
         '
         'Label1
         '
@@ -306,7 +269,7 @@ Partial Class FrmM0011
         Me.cmbJYUN.NullValue = " "
         Me.cmbJYUN.ReadOnly = False
         Me.cmbJYUN.Selected = False
-        Me.cmbJYUN.Size = New System.Drawing.Size(71, 25)
+        Me.cmbJYUN.Size = New System.Drawing.Size(101, 25)
         Me.cmbJYUN.TabIndex = 4
         Me.cmbJYUN.ValueMember = "VALUE"
         '
@@ -419,11 +382,48 @@ Partial Class FrmM0011
         Me.mtxKOMO_GROUP.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxKOMO_GROUP.WatermarkText = Nothing
         '
+        'Label4
+        '
+        Me.Label4.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label4.Location = New System.Drawing.Point(3, 150)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(84, 28)
+        Me.Label4.TabIndex = 45
+        Me.Label4.Text = "備考:"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'mtxBIKOU
+        '
+        Me.mtxBIKOU.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxBIKOU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxBIKOU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxBIKOU.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxBIKOU.InputRequired = False
+        Me.mtxBIKOU.Location = New System.Drawing.Point(93, 153)
+        Me.mtxBIKOU.MaxByteLength = 200
+        Me.mtxBIKOU.Name = "mtxBIKOU"
+        Me.mtxBIKOU.Size = New System.Drawing.Size(544, 24)
+        Me.mtxBIKOU.TabIndex = 5
+        Me.mtxBIKOU.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxBIKOU.WatermarkText = Nothing
+        '
+        'chkDefaultVaue
+        '
+        Me.chkDefaultVaue.AutoSize = True
+        Me.chkDefaultVaue.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkDefaultVaue.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.chkDefaultVaue.Location = New System.Drawing.Point(93, 183)
+        Me.chkDefaultVaue.Name = "chkDefaultVaue"
+        Me.chkDefaultVaue.Size = New System.Drawing.Size(66, 21)
+        Me.chkDefaultVaue.TabIndex = 6
+        Me.chkDefaultVaue.Text = "既定値"
+        Me.chkDefaultVaue.UseVisualStyleBackColor = True
+        '
         'FrmM0011
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(1264, 342)
+        Me.ClientSize = New System.Drawing.Size(1264, 712)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True

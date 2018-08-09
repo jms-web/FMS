@@ -39,7 +39,7 @@ Public Class FrmM0010
             Call FunInitializeFlexGrid(flxDATA)
 
             '-----コントロールデータソース設定
-            cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
+            cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             '-----イベントハンドラ設定
             AddHandler cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
@@ -116,7 +116,7 @@ Public Class FrmM0010
 
     'グリッドセル(行)ダブルクリック時イベント
     Private Sub FlxDATA_DoubleClick(sender As Object, e As EventArgs) Handles flxDATA.DoubleClick
-        If flxDATA.RowSel > 1 Then
+        If flxDATA.RowSel > 0 Then
             Me.cmdFunc4.PerformClick()
         End If
     End Sub
@@ -195,7 +195,7 @@ Public Class FrmM0010
             If cmbKOMO_NM.Selected Then
                 sbSQLWHERE.Append(" WHERE ITEM_NAME ='" & cmbKOMO_NM.SelectedValue & "' ")
             Else
-                If cmbKOMO_NM.Text.IsNullOrWhiteSpace = False Then
+                If cmbKOMO_NM.SelectedIndex > 0 AndAlso cmbKOMO_NM.Text.IsNullOrWhiteSpace = False Then
                     sbSQLWHERE.Append("  WHERE ITEM_NAME  LIKE '%" & cmbKOMO_NM.Text.Trim & "%' ")
                 End If
             End If
