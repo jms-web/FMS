@@ -291,7 +291,7 @@ Partial Class FrmM0021
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(84, 30)
         Me.Label5.TabIndex = 67
-        Me.Label5.Text = "•”–å‹æ•ª:–"
+        Me.Label5.Text = "»•i‹æ•ª:–"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label4

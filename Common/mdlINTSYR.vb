@@ -334,10 +334,10 @@ Module mdlINTSYR
             'PG設定値取得
             With pub_APP_INFO
 
-                'Using DB As ClsDbUtility = DBOpen()
-                '    'タイトル
-                '    .strTitle = FunGetCodeMastaValue(DB, "PG_TITLE", strFileName)
-                'End Using
+                Using DB As ClsDbUtility = DBOpen()
+                    'タイトル
+                    .strTitle = FunGetCodeMastaValue(DB, "PG_TITLE", strFileName)
+                End Using
 
                 Using iniIF As New IniFile(strINIFile)
                     '検索結果最大件数

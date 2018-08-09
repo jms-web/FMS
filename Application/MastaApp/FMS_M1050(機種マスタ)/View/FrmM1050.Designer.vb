@@ -29,7 +29,7 @@ Partial Class FrmM1050
         Me.btnClearSrchFilter = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.mtxKISYU_NAME = New JMS_COMMON.MaskedTextBoxEx()
-        Me.CmbBUMON_KB = New JMS_COMMON.ComboboxEx()
+        Me.cmbBUMON_KB = New JMS_COMMON.ComboboxEx()
         Me.chkDeletedRowVisibled = New System.Windows.Forms.CheckBox()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.VWM105KISYUBindingSource = New System.Windows.Forms.BindingSource(Me.components)
@@ -159,7 +159,7 @@ Partial Class FrmM1050
         Me.tlpFilter.Controls.Add(Me.Label3, 2, 0)
         Me.tlpFilter.Controls.Add(Me.Label1, 0, 0)
         Me.tlpFilter.Controls.Add(Me.mtxKISYU_NAME, 3, 0)
-        Me.tlpFilter.Controls.Add(Me.CmbBUMON_KB, 1, 0)
+        Me.tlpFilter.Controls.Add(Me.cmbBUMON_KB, 1, 0)
         Me.tlpFilter.Controls.Add(Me.chkDeletedRowVisibled, 6, 0)
         Me.tlpFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpFilter.Location = New System.Drawing.Point(3, 20)
@@ -207,24 +207,24 @@ Partial Class FrmM1050
         Me.mtxKISYU_NAME.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxKISYU_NAME.WatermarkText = Nothing
         '
-        'CmbBUMON_KB
+        'cmbBUMON_KB
         '
-        Me.CmbBUMON_KB.BackColor = System.Drawing.SystemColors.Window
-        Me.CmbBUMON_KB.Cursor = System.Windows.Forms.Cursors.Default
-        Me.CmbBUMON_KB.DisplayMember = "DISP"
-        Me.CmbBUMON_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.CmbBUMON_KB.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.CmbBUMON_KB.FormattingEnabled = True
-        Me.CmbBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.CmbBUMON_KB.Location = New System.Drawing.Point(79, 3)
-        Me.CmbBUMON_KB.Name = "CmbBUMON_KB"
-        Me.CmbBUMON_KB.NullValue = " "
-        Me.CmbBUMON_KB.ReadOnly = False
-        Me.CmbBUMON_KB.Selected = False
-        Me.CmbBUMON_KB.Size = New System.Drawing.Size(158, 25)
-        Me.CmbBUMON_KB.TabIndex = 59
-        Me.CmbBUMON_KB.Text = "(‘I‘ð)"
-        Me.CmbBUMON_KB.ValueMember = "VALUE"
+        Me.cmbBUMON_KB.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbBUMON_KB.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbBUMON_KB.DisplayMember = "DISP"
+        Me.cmbBUMON_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbBUMON_KB.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbBUMON_KB.FormattingEnabled = True
+        Me.cmbBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbBUMON_KB.Location = New System.Drawing.Point(79, 3)
+        Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
+        Me.cmbBUMON_KB.NullValue = " "
+        Me.cmbBUMON_KB.ReadOnly = False
+        Me.cmbBUMON_KB.Selected = False
+        Me.cmbBUMON_KB.Size = New System.Drawing.Size(158, 25)
+        Me.cmbBUMON_KB.TabIndex = 59
+        Me.cmbBUMON_KB.Text = "(‘I‘ð)"
+        Me.cmbBUMON_KB.ValueMember = "VALUE"
         '
         'chkDeletedRowVisibled
         '
@@ -305,7 +305,7 @@ Partial Class FrmM1050
     Friend WithEvents chkDeletedRowVisibled As CheckBox
     Friend WithEvents Label1 As Label
     Friend WithEvents mtxKISYU_NAME As MaskedTextBoxEx
-    Friend WithEvents CmbBUMON_KB As ComboboxEx
+    Friend WithEvents cmbBUMON_KB As ComboboxEx
     Friend WithEvents btnClearSrchFilter As Button
     Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents VWM105KISYUBindingSource As BindingSource

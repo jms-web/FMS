@@ -111,7 +111,7 @@ Partial Class FrmM0050
         '
         Me.lblTytle.Font = New System.Drawing.Font("Meiryo UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblTytle.Text = "コードマスタ"
+        Me.lblTytle.Text = "所属部署マスタ"
         '
         'ToolTip
         '
@@ -232,14 +232,14 @@ Partial Class FrmM0050
         '
         Me.VWM001SETTINGBindingSource.DataSource = GetType(MODEL.VWM001_SETTING)
         '
-        'FrmM0010
+        'FrmM0050
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.ClientSize = New System.Drawing.Size(1264, 712)
         Me.Controls.Add(Me.flxDATA)
         Me.Controls.Add(Me.gbxFilter)
         Me.HelpButton = True
-        Me.Name = "FrmM0010"
+        Me.Name = "FrmM0050"
         Me.ShowStatusBar = True
         Me.Text = ""
         Me.Controls.SetChildIndex(Me.lblRecordCount, 0)

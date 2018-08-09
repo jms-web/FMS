@@ -30,28 +30,35 @@ Public Class FrmM1050
     Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
-            '-----フォーム初期設定(親フォームから呼び出し)
-            Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
-            Using DB As ClsDbUtility = DBOpen()
-                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
-            End Using
 
-            '-----グリッド初期設定
-            Call FunInitializeFlexGrid(flxDATA)
+            Try
+                '-----フォーム初期設定(親フォームから呼び出し)
+                Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+                Using DB As ClsDbUtility = DBOpen()
+                    lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+                End Using
 
-            '-----コントロールデータソース設定
-            CmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                ''-----グリッド初期設定
+                FunInitializeFlexGrid(flxDATA)
 
-            '-----イベントハンドラ設定
-            AddHandler CmbBUMON_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            AddHandler mtxKISYU_NAME.Validated, AddressOf SearchFilterValueChanged
-            AddHandler chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+                ''-----グリッド列作成
+                'Call FunSetDgvCulumns(Me.dgvDATA)
 
-            '検索実行
-            cmdFunc1.PerformClick()
-        Finally
-            Call SubInitFuncButtonEnabled()
-        End Try
+                '-----コントロールデータソース設定
+                cmbSYAIN_KB.SetDataSource(tblSYAIN_KB.ExcludeDeleted, True)
+                cmbYAKUSYOKU_KB.SetDataSource(tblYAKUSYOKU_KB.ExcludeDeleted, True)
+
+                '-----イベントハンドラ設定
+                'AddHandler cmbSYOKUBAN.SelectedValueChanged, AddressOf SearchFilterValueChanged
+                AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+                AddHandler Me.chkTaisyokuRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+
+                '検索実行
+                Me.cmdFunc1.PerformClick()
+
+            Finally
+
+            End Try
     End Sub
 
 #End Region
@@ -194,8 +201,8 @@ Public Class FrmM1050
             Dim dsList As New DataSet
             Dim sbSQLWHERE As New System.Text.StringBuilder
 
-            If CmbBUMON_KB.Selected Then
-                sbSQLWHERE.Append($" WHERE BUMON_KB ='{CmbBUMON_KB.SelectedValue}' ")
+            If cmbBUMON_KB.Selected Then
+                sbSQLWHERE.Append($" WHERE BUMON_KB ='{cmbBUMON_KB.SelectedValue}' ")
             End If
 
             If mtxKISYU_NAME.Text.IsNullOrWhiteSpace Then
