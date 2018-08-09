@@ -20,7 +20,7 @@ Public Class ModelInfo(Of T As {New, IDataModel})
 
     Public ReadOnly Property [Name] As String
         Get
-            Return NameOf(T)
+            Return GetType(T).Name
         End Get
     End Property
 
@@ -54,6 +54,8 @@ Public Class ModelInfo(Of T As {New, IDataModel})
     End Function
 
     Public Sub SetDataSource(srcDATA As DataTable)
+        'UNDONE: DBNullの場合エラー
+
         For Each row In srcDATA.Rows
             Dim r As DataRow = Data.NewRow()
             For Each p In Properties()
@@ -104,6 +106,7 @@ End Class
 Public Interface IDataModel
     Default Property Item(propertyName As String) As Object
     Sub Clear()
+
 End Interface
 
 

@@ -1845,7 +1845,7 @@ Public Class FrmG0012
                 pnlST13.BorderStyle = BorderStyle.None
 
             Case ENM_CAR_STAGE2._13_是正有効性確認_品証担当課長
-                tabSTAGE01.ScrollControlIntoView(lblSTAGE16)
+                tabSTAGE01.ScrollControlIntoView(lblSTAGEFlame13)
                 pnlCAR.BorderStyle = BorderStyle.None
                 pnlSYOCHI_KIROKU.BorderStyle = BorderStyle.None
                 pnlZESEI_SYOCHI.BorderStyle = BorderStyle.None
@@ -2473,6 +2473,31 @@ Public Class FrmG0012
 
             chkSEKKEI_TANTO_YOHI_KB.DataBindings.Add(New Binding(NameOf(chkSEKKEI_TANTO_YOHI_KB.Checked), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_23), False, DataSourceUpdateMode.OnPropertyChanged, False))
 
+            '設問内容ラベル
+            lblSETUMON_1.DataBindings.Add(New Binding(NameOf(lblSETUMON_1.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_2.DataBindings.Add(New Binding(NameOf(lblSETUMON_2.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_3.DataBindings.Add(New Binding(NameOf(lblSETUMON_3.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_3), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_4.DataBindings.Add(New Binding(NameOf(lblSETUMON_4.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_4), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_5.DataBindings.Add(New Binding(NameOf(lblSETUMON_5.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_5), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_6.DataBindings.Add(New Binding(NameOf(lblSETUMON_6.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_6), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_7.DataBindings.Add(New Binding(NameOf(lblSETUMON_7.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_7), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_8.DataBindings.Add(New Binding(NameOf(lblSETUMON_8.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_8), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_9.DataBindings.Add(New Binding(NameOf(lblSETUMON_9.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_9), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_10.DataBindings.Add(New Binding(NameOf(lblSETUMON_10.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_10), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_11.DataBindings.Add(New Binding(NameOf(lblSETUMON_11.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_11), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_12.DataBindings.Add(New Binding(NameOf(lblSETUMON_12.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_12), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_13.DataBindings.Add(New Binding(NameOf(lblSETUMON_13.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_13), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_14.DataBindings.Add(New Binding(NameOf(lblSETUMON_14.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_14), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_15.DataBindings.Add(New Binding(NameOf(lblSETUMON_15.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_15), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_16.DataBindings.Add(New Binding(NameOf(lblSETUMON_16.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_16), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_17.DataBindings.Add(New Binding(NameOf(lblSETUMON_17.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_17), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_18.DataBindings.Add(New Binding(NameOf(lblSETUMON_18.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_18), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_19.DataBindings.Add(New Binding(NameOf(lblSETUMON_19.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_19), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_20.DataBindings.Add(New Binding(NameOf(lblSETUMON_20.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_20), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_21.DataBindings.Add(New Binding(NameOf(lblSETUMON_21.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_21), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_22.DataBindings.Add(New Binding(NameOf(lblSETUMON_22.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_22), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            lblSETUMON_23.DataBindings.Add(New Binding(NameOf(lblSETUMON_23.Text), _D005_CAR_J, NameOf(_D005_CAR_J.SETUMON_23), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
             'CAR項目
             txtKAITO_1.DataBindings.Add(New Binding(NameOf(txtKAITO_1.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             txtKAITO_2.DataBindings.Add(New Binding(NameOf(txtKAITO_2.Text), _D005_CAR_J, NameOf(_D005_CAR_J.KAITO_2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -2549,12 +2574,12 @@ Public Class FrmG0012
                 Return False
             End If
 
-            If FunSetSETUMON_NAIYO() Then
+            If FunSetModel() Then
             Else
                 Return False
             End If
 
-            If FunSetModel() Then
+            If FunSetSETUMON_NAIYO() Then
             Else
                 Return False
             End If
@@ -2602,17 +2627,18 @@ Public Class FrmG0012
 
                     'tab_CAR_SUB_1_.Enabled = blnOwn 'tab_CAR_SUB_1_.EnableDisablePages(blnOwn)
                     'TabSTAGE.TabPages.Remove(tab_CAR_SUB_2_)
-
-                    pnlSYOCHI_KIROKU.DisableContaints(blnOwn)
+                    pnlCAR.Enabled = False
+                    pnlST05.Enabled = False
+                    pnlSYOCHI_KIROKU.Enabled = blnOwn
                     pnlZESEI_SYOCHI.Visible = False
                     pnlST13.Visible = False
 
                 Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
-                    tabSTAGE01.EnableDisablePages(False)
 
-                    pnlSYOCHI_KIROKU.DisableContaints(False)
-                    pnlZESEI_SYOCHI.DisableContaints(blnOwn)
-
+                    pnlCAR.Enabled = False
+                    pnlSYOCHI_KIROKU.Enabled = False
+                    pnlZESEI_SYOCHI.Enabled = blnOwn
+                    pnlST05.Enabled = False
                     'tab_CAR_SUB_1_.Enabled = False 'tab_CAR_SUB_1_.EnableDisablePages(False)
                     'tab_CAR_SUB_2_.Enabled = blnOwn 'tab_CAR_SUB_2_.EnableDisablePages(blnOwn)
 
@@ -2622,6 +2648,13 @@ Public Class FrmG0012
                     Else
                         pnlST13.Visible = False
                     End If
+                Case ENM_CAR_STAGE._999_Closed
+                    pnlST05.Enabled = False
+                    tabSTAGE02.Enabled = False
+                    pnlCAR.Enabled = False
+                    pnlSYOCHI_KIROKU.Enabled = False
+                    pnlZESEI_SYOCHI.Enabled = False
+                    pnlST13.Visible = False
                 Case Else
             End Select
 
@@ -2632,13 +2665,13 @@ Public Class FrmG0012
                     flpnlStageIndex.Controls("rsbtnST" & val.ToString("00")).BackColor = Color.Silver
                 End If
             Next val
-            rsbtnST05.Visible = CBool(_V005_CAR_J.KAITO_23)
+            'rsbtnST05.Enabled = CBool(_V005_CAR_J.KAITO_23)
             If _V005_CAR_J.CLOSE_FG = False Then
                 flpnlStageIndex.Controls("rsbtnST99").Enabled = False
                 flpnlStageIndex.Controls("rsbtnST99").BackColor = Color.Silver
             End If
 
-            If PrCurrentStage = ENM_CAR_STAGE._130_是正有効性確認_品証担当課長 Then
+            If PrCurrentStage >= ENM_CAR_STAGE._130_是正有効性確認_品証担当課長 Then
                 lblDestTANTO.Visible = False
                 cmbDestTANTO.Visible = False
             End If
@@ -2670,28 +2703,29 @@ Public Class FrmG0012
     Private Function FunSetSETUMON_NAIYO() As Boolean
         Try
 
-            lblSETUMON_1.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 1).First.Item("DISP")
-            lblSETUMON_2.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 2).First.Item("DISP")
-            lblSETUMON_3.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 3).First.Item("DISP")
-            lblSETUMON_4.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 4).First.Item("DISP")
-            lblSETUMON_5.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 5).First.Item("DISP")
-            lblSETUMON_6.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 6).First.Item("DISP")
-            lblSETUMON_7.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 7).First.Item("DISP")
-            lblSETUMON_8.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 8).First.Item("DISP")
-            lblSETUMON_9.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 9).First.Item("DISP")
-            lblSETUMON_10.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 10).First.Item("DISP")
-            lblSETUMON_11.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 11).First.Item("DISP")
-            lblSETUMON_12.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 12).First.Item("DISP")
-            lblSETUMON_13.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 13).First.Item("DISP")
-            lblSETUMON_14.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 14).First.Item("DISP")
-            lblSETUMON_15.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 15).First.Item("DISP")
-            lblSETUMON_16.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 16).First.Item("DISP")
-            lblSETUMON_17.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 17).First.Item("DISP")
-            lblSETUMON_18.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 18).First.Item("DISP")
-            lblSETUMON_19.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 19).First.Item("DISP")
-            lblSETUMON_20.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 20).First.Item("DISP")
-            lblSETUMON_21.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 21).First.Item("DISP")
-            lblSETUMON_22.Text = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 22).First.Item("DISP")
+            _D005_CAR_J.SETUMON_1 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 1).First.Item("DISP")
+            _D005_CAR_J.SETUMON_2 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 2).First.Item("DISP")
+            _D005_CAR_J.SETUMON_3 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 3).First.Item("DISP")
+            _D005_CAR_J.SETUMON_4 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 4).First.Item("DISP")
+            _D005_CAR_J.SETUMON_5 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 5).First.Item("DISP")
+            _D005_CAR_J.SETUMON_6 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 6).First.Item("DISP")
+            _D005_CAR_J.SETUMON_7 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 7).First.Item("DISP")
+            _D005_CAR_J.SETUMON_8 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 8).First.Item("DISP")
+            _D005_CAR_J.SETUMON_9 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 9).First.Item("DISP")
+            _D005_CAR_J.SETUMON_10 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 10).First.Item("DISP")
+            _D005_CAR_J.SETUMON_11 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 11).First.Item("DISP")
+            _D005_CAR_J.SETUMON_12 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 12).First.Item("DISP")
+            _D005_CAR_J.SETUMON_13 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 13).First.Item("DISP")
+            _D005_CAR_J.SETUMON_14 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 14).First.Item("DISP")
+            _D005_CAR_J.SETUMON_15 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 15).First.Item("DISP")
+            _D005_CAR_J.SETUMON_16 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 16).First.Item("DISP")
+            _D005_CAR_J.SETUMON_17 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 17).First.Item("DISP")
+            _D005_CAR_J.SETUMON_18 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 18).First.Item("DISP")
+            _D005_CAR_J.SETUMON_19 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 19).First.Item("DISP")
+            _D005_CAR_J.SETUMON_20 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 20).First.Item("DISP")
+            _D005_CAR_J.SETUMON_21 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 21).First.Item("DISP")
+            _D005_CAR_J.SETUMON_22 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 22).First.Item("DISP")
+            _D005_CAR_J.SETUMON_23 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 23).First.Item("DISP")
 
             Return True
         Catch ex As Exception
@@ -2807,7 +2841,7 @@ Public Class FrmG0012
             _D005_CAR_J.SYOCHI_C_SYAIN_ID = _V005_CAR_J.SYOCHI_C_SYAIN_ID
             _D005_CAR_J.SYOCHI_C_YMDHNS = _V005_CAR_J.SYOCHI_C_YMDHNS.Trim
 
-            _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = CBool(_V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU.Trim)
+            _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU = CBool(Val(_V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU))
 
             _D005_CAR_J.GOKI = _V005_CAR_J.GOKI
             _D005_CAR_J.LOT = _V005_CAR_J.LOT
@@ -2935,16 +2969,12 @@ Public Class FrmG0012
             pri_blnValidated = True
             '-----共通
             If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
-                Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
                 '-----ステージ別
                 Select Case PrCurrentStage
-                    Case ENM_CAR_STAGE._80_処置実施記録入力, ENM_CAR_STAGE._90_処置実施確認
+                    Case ENM_CAR_STAGE._10_起草入力 To ENM_CAR_STAGE._120_是正有効性確認_品証TL
+                        Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
 
-                    Case ENM_CAR_STAGE._100_是正有効性記入
-
-                    Case ENM_CAR_STAGE._110_是正有効性確認_検査GL
-
-                    Case ENM_CAR_STAGE._120_是正有効性確認_品証TL, ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
+                    Case ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
 
                     Case Else
                         'Err
@@ -3004,11 +3034,12 @@ Public Class FrmG0012
             '    'ステージ50スキップ
             '    Return intCurrentStageID + (stageLength * 2)
             'Else
-            If intCurrentStageID = ENM_CAR_STAGE._130_是正有効性確認_品証担当課長 Then
-                Return ENM_CAR_STAGE._999_Closed
-            Else
-                Return intCurrentStageID + stageLength
-            End If
+            Select Case intCurrentStageID
+                Case ENM_CAR_STAGE._130_是正有効性確認_品証担当課長, ENM_CAR_STAGE._999_Closed
+                    Return ENM_CAR_STAGE._999_Closed
+                Case Else
+                    Return intCurrentStageID + stageLength
+            End Select
 
             'End If
         Catch ex As Exception

@@ -1,10 +1,11 @@
-Imports System
-Imports System.Collections.Generic
 Imports System.ComponentModel.DataAnnotations
 Imports System.ComponentModel.DataAnnotations.Schema
-Imports System.Data.Entity.Spatial
+Imports PropertyChanged
 
+<AddINotifyPropertyChangedInterface>
 Partial Public Class VWM106_BUHIN
+    Inherits ModelBase
+
     <Key>
     <Column(Order:=0)>
     <StringLength(1)>
@@ -36,6 +37,7 @@ Partial Public Class VWM106_BUHIN
     <Key>
     <Column(Order:=5)>
     <StringLength(2)>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property KEIYAKU_KB As String
 
     <StringLength(150)>
@@ -54,6 +56,7 @@ Partial Public Class VWM106_BUHIN
     <Key>
     <Column(Order:=8)>
     <StringLength(2)>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property RIKUKAIKU_KB As String
 
     <StringLength(150)>
@@ -84,6 +87,7 @@ Partial Public Class VWM106_BUHIN
     <Key>
     <Column(Order:=13)>
     <StringLength(14)>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property ADD_YMDHNS As String
 
     <Key>
@@ -92,11 +96,13 @@ Partial Public Class VWM106_BUHIN
     Public Property ADD_SYAIN_ID As Integer
 
     <StringLength(30)>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property ADD_SYAIN_NAME As String
 
     <Key>
     <Column(Order:=15)>
     <StringLength(14)>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property UPD_YMDHNS As String
 
     <Key>
@@ -105,11 +111,13 @@ Partial Public Class VWM106_BUHIN
     Public Property UPD_SYAIN_ID As Integer
 
     <StringLength(30)>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property UPD_SYAIN_NAME As String
 
     <Key>
     <Column(Order:=17)>
     <StringLength(14)>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_YMDHNS As String
 
     <Key>
@@ -118,6 +126,7 @@ Partial Public Class VWM106_BUHIN
     Public Property DEL_SYAIN_ID As Integer
 
     <StringLength(30)>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_SYAIN_NAME As String
 
     <Key>

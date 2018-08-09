@@ -35,6 +35,8 @@ Public Class FrmM0011
 
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
+
+        cmbJYUN.NullValue = 0
     End Sub
 
 #End Region
@@ -50,22 +52,20 @@ Public Class FrmM0011
             End Using
 
             '-----位置・サイズ
-            Me.Height = 360
+            Me.Height = 380
             Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) - 26 ' / 2
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
             Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
+            Me.MaximizeBox = False
+            Me.MinimizeBox = False
 
-            '-----各コントロールのデータソースを設定
-            Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-            'イベントハンドラ設定
-            AddHandler cmbKOMO_NM.TextChanged, AddressOf CmbKOMO_NM_TextChanged
+            '-----データソースを設定
+            cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             Call FunSetBinding()
 
             '-----処理モード別画面初期化
             Call FunInitializeControls()
-
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -136,9 +136,11 @@ Public Class FrmM0011
             Using DB As ClsDbUtility = DBOpen()
                 Dim blnErr As Boolean
                 Try
+                    DB.BeginTransaction()
+
                     strSysDate = DB.GetSysDateString()
 
-                    Dim ModelInfo As New MODEL.ModelInfo(Of MODEL.M001_SETTING)
+                    Dim ModelInfo As New MODEL.ModelInfo(Of MODEL.M001_SETTING)(_OnlyAutoGenerateField:=True)
 
                     '-----同一項目名の既定値を解除
                     If _M001.DEF_FLG Then
@@ -173,6 +175,8 @@ Public Class FrmM0011
                     'Merge Source側のSelect文生成 先頭項目と以降で分けている(違いはカンマのみ)
                     ModelInfo.Properties.Take(1).ForEach(Sub(p)
                                                              Select Case p.PropertyType
+                                                                 Case GetType(Boolean)
+                                                                     sbSQL.Append($" '{_M001("_" & p.Name)}' AS {p.Name}")
                                                                  Case GetType(Integer), GetType(Decimal)
                                                                      sbSQL.Append($" {_M001(p.Name)} AS {p.Name}")
                                                                  Case Else
@@ -182,6 +186,8 @@ Public Class FrmM0011
                                                          End Sub)
                     ModelInfo.Properties.Skip(1).ForEach(Sub(p)
                                                              Select Case p.PropertyType
+                                                                 Case GetType(Boolean)
+                                                                     sbSQL.Append($" ,'{_M001("_" & p.Name)}' AS {p.Name}")
                                                                  Case GetType(Integer), GetType(Decimal)
                                                                      sbSQL.Append($",{_M001(p.Name)} AS {p.Name}")
                                                                  Case Else
@@ -189,14 +195,15 @@ Public Class FrmM0011
                                                                      sbSQL.Append($",'{_M001(p.Name).ToString.ConvertSqlEscape}' AS {p.Name}")
                                                              End Select
                                                          End Sub)
-                    sbSQL.Append($" ) AS WK")
-                    sbSQL.Append($" ON (TARGET.{NameOf(_M001.ITEM_NAME)} = WK.{NameOf(_M001.ITEM_NAME)}")
+                    sbSQL.Append($" ) AS WK ON (")
+                    sbSQL.Append($" TARGET.{NameOf(_M001.ITEM_NAME)} = WK.{NameOf(_M001.ITEM_NAME)}")
                     sbSQL.Append($" AND TARGET.{NameOf(_M001.ITEM_VALUE)} = WK.{NameOf(_M001.ITEM_VALUE)}")
+                    sbSQL.Append($" )")
 
                     '---UPDATE 排他制御 更新日時が変更されていない場合のみ
                     sbSQL.Append($" WHEN MATCHED AND TARGET.{NameOf(_M001.UPD_YMDHNS)} = WK.{NameOf(_M001.UPD_YMDHNS)} THEN ")
                     sbSQL.Append($" UPDATE SET")
-                    sbSQL.Append($" TARGET.{NameOf(_M001.ITEM_NAME)} = WK.{NameOf(_M001.ITEM_NAME)}")
+                    sbSQL.Append($" TARGET.{NameOf(_M001.ITEM_DISP)} = WK.{NameOf(_M001.ITEM_DISP)}")
                     sbSQL.Append($",TARGET.{NameOf(_M001.ITEM_GROUP)} = WK.{NameOf(_M001.ITEM_GROUP)}")
                     sbSQL.Append($",TARGET.{NameOf(_M001.DEF_FLG)} = WK.{NameOf(_M001.DEF_FLG)}")
                     sbSQL.Append($",TARGET.{NameOf(_M001.BIKOU)} = WK.{NameOf(_M001.BIKOU)}")
@@ -238,6 +245,9 @@ Public Class FrmM0011
             End Using
 
             Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
         Finally
         End Try
     End Function
@@ -275,17 +285,17 @@ Public Class FrmM0011
 
 #Region "コントロールイベント"
 
-    '項目名コンボボックス変更時イベント
-    Private Sub CmbKOMO_NM_TextChanged(sender As Object, e As EventArgs)
+
+    Private Sub cmbKOMO_NM_Validated(sender As Object, e As EventArgs) Handles cmbKOMO_NM.Validated
         Dim dsList As New DataSet
         Dim sbSQL As New System.Text.StringBuilder
         Dim intMaxOrder As Integer
 
         Try
 
-            If cmbKOMO_NM.Text.IsNullOrWhiteSpace = False Then
+            If Not cmbKOMO_NM.Text.IsNullOrWhiteSpace Then
 
-                Me.cmbJYUN.DataSource = Nothing
+                'Me.cmbJYUN.DataSource = Nothing
 
                 Using DB As ClsDbUtility = DBOpen()
                     sbSQL.Append("SELECT ITEM_VALUE")
@@ -314,6 +324,7 @@ Public Class FrmM0011
                     Trow("DEL_FLG") = False
                     dt.Rows.Add(Trow)
                 Next i
+                dt.AcceptChanges()
 
                 Call cmbJYUN.SetDataSource(dt, False)
 
@@ -334,13 +345,14 @@ Public Class FrmM0011
         End Try
     End Sub
 
-
 #End Region
 
 #Region "入力チェック"
 
     Private Function FunCheckInput() As Boolean
         Try
+            'フラグ初期化
+            IsValidated = True
 
             Call CmbKOMO_NM_Validating(cmbKOMO_NM, Nothing)
             Call MtxVALUE_Validating(mtxVALUE, Nothing)
@@ -405,9 +417,9 @@ Public Class FrmM0011
                     lblTytle.Text &= "（追加）"
                     cmdFunc1.Text = "追加(F1)"
 
-                    cmbKOMO_NM.Enabled = True
-                    mtxVALUE.Enabled = True
-                    mtxDISP.Enabled = True
+                    cmbKOMO_NM.ReadOnly = False
+                    mtxVALUE.ReadOnly = False
+                    mtxDISP.ReadOnly = False
 
                     lbllblEDIT_YMDHNS.Visible = False
                     lblEDIT_YMDHNS.Visible = False
@@ -419,13 +431,20 @@ Public Class FrmM0011
                     lblTytle.Text &= "（類似追加）"
                     cmdFunc1.Text = "追加(F1)"
 
-                    cmbKOMO_NM.Enabled = True
-                    mtxVALUE.Enabled = True
-                    mtxDISP.Enabled = True
+                    cmbKOMO_NM.ReadOnly = False
+                    mtxVALUE.ReadOnly = False
+                    mtxDISP.ReadOnly = False
 
                     '一覧選択行のデータをモデルに読込
-                    _Model.Properties.ForEach(Sub(p) _M001(p.Name) = PrDataRow.Item(p.Name))
-
+                    _Model.Properties.ForEach(Sub(p)
+                                                  Select Case p.PropertyType
+                                                      Case GetType(Boolean)
+                                                          _M001(p.Name) = CBool(PrDataRow.Item(p.Name))
+                                                      Case Else
+                                                          _M001(p.Name) = PrDataRow.Item(p.Name)
+                                                  End Select
+                                              End Sub)
+                    Call cmbKOMO_NM_Validated(cmbKOMO_NM, Nothing)
                     lbllblEDIT_YMDHNS.Visible = False
                     lblEDIT_YMDHNS.Visible = False
                     lbllblEDIT_SYAIN_ID.Visible = False
@@ -435,22 +454,28 @@ Public Class FrmM0011
                     lblTytle.Text &= "（変更）"
                     cmdFunc1.Text = "変更(F1)"
 
-                    mtxKOMO_GROUP.Enabled = False
-                    cmbKOMO_NM.Enabled = False
-                    mtxVALUE.Enabled = False
-                    mtxDISP.Enabled = True
+                    cmbKOMO_NM.ReadOnly = True
+                    mtxVALUE.ReadOnly = True
+                    mtxDISP.ReadOnly = False
 
                     '一覧選択行のデータをモデルに読込
-                    _Model.Properties.ForEach(Sub(p) _M001(p.Name) = PrDataRow.Item(p.Name))
-
+                    _Model.Properties.ForEach(Sub(p)
+                                                  Select Case p.PropertyType
+                                                      Case GetType(Boolean)
+                                                          _M001(p.Name) = CBool(PrDataRow.Item(p.Name))
+                                                      Case Else
+                                                          _M001(p.Name) = PrDataRow.Item(p.Name)
+                                                  End Select
+                                              End Sub)
+                    Call cmbKOMO_NM_Validated(cmbKOMO_NM, Nothing)
                     lbllblEDIT_YMDHNS.Visible = True
                     lblEDIT_YMDHNS.Visible = True
                     lbllblEDIT_SYAIN_ID.Visible = True
                     lblEDIT_SYAIN_ID.Visible = True
                     '更新日時
-                    lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrDataRow.Item("UPD_YMDHNS"), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
+                    lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrDataRow.Item(NameOf(_M001.UPD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
                     '更新担当者CD
-                    lblEDIT_SYAIN_ID.Text = PrDataRow.Item("UPD_SYAIN_CD") & " " & Fun_GetUSER_NAME(PrDataRow.Item("UPD_SYAIN_CD"))
+                    lblEDIT_SYAIN_ID.Text = PrDataRow.Item(NameOf(_M001.UPD_SYAIN_ID)) & " " & Fun_GetUSER_NAME(PrDataRow.Item(NameOf(_M001.UPD_SYAIN_ID)))
 
                 Case Else
                     Throw New ArgumentException(My.Resources.ErrMsgException, PrMODE.ToString)
@@ -523,6 +548,7 @@ Public Class FrmM0011
             Return False
         End Try
     End Function
+
 
 #End Region
 

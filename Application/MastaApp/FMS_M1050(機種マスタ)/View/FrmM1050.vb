@@ -47,10 +47,11 @@ Public Class FrmM1050
             AddHandler mtxKISYU_NAME.Validated, AddressOf SearchFilterValueChanged
             AddHandler chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
-            'åüçıé¿çs
-            cmdFunc1.PerformClick()
         Finally
             Call SubInitFuncButtonEnabled()
+
+            'åüçıé¿çs
+            cmdFunc1.PerformClick()
         End Try
     End Sub
 
@@ -61,7 +62,7 @@ Public Class FrmM1050
     'èâä˙âª
     Private Function FunInitializeFlexGrid(ByVal flxgrd As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
         With flxgrd
-            .Rows(0).Height = 50
+            .Rows(0).Height = 30
 
             .AutoGenerateColumns = False
             .AutoResize = True
@@ -70,7 +71,7 @@ Public Class FrmM1050
             .AllowDelete = False
             .AllowResizing = C1.Win.C1FlexGrid.AllowResizingEnum.Columns
             .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.MultiColumn
-            .AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
+            '.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
             .AllowFiltering = True
 
             .ShowCellLabels = True

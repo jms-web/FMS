@@ -9,13 +9,10 @@ Imports PropertyChanged
 <Table(NameOf(V005_CAR_J), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
 Partial Public Class V005_CAR_J
-    Inherits NotifyChangedBase
+    Inherits ModelBase
+    Implements IDisposable
 
-    Public Sub New()
-        Call Clear()
-    End Sub
-
-    Public Sub Clear()
+    Public Shadows Sub Clear()
         HOKOKU_NO = ""
         BUMON_KB = ""
         BUMON_NAME = ""
@@ -159,11 +156,11 @@ Partial Public Class V005_CAR_J
     <DoNotNotify>
     Public Property CLOSE_FG As Boolean
         Get
-            Return IIf(_CLOSE_FG = "0", False, True)
+            Return (_CLOSE_FG = "1")
         End Get
         Set(value As Boolean)
             _CLOSE_FG = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(CLOSE_FG))
+
         End Set
     End Property
 
@@ -638,7 +635,6 @@ Partial Public Class V005_CAR_J
     Public Property UPD_YMDHNS As String
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property UPD_SYAIN_ID As Integer
 
     Public Property UPD_SYAIN_NAME As String
@@ -654,7 +650,7 @@ Partial Public Class V005_CAR_J
     <DoNotNotify>
     Public ReadOnly Property DEL_FLG As Boolean
         Get
-            Return DEL_YMDHNS.Trim <> ""
+            Return Not String.IsNullOrEmpty(DEL_YMDHNS)
         End Get
     End Property
 
@@ -690,6 +686,38 @@ Partial Public Class V005_CAR_J
 
     Public Property SYONIN_NAME120 As String
     Public Property SYONIN_YMD120 As String
+
+#Region "IDisposable Support"
+    Private disposedValue As Boolean ' 重複する呼び出しを検出するには
+
+    ' IDisposable
+    Protected Overridable Sub Dispose(disposing As Boolean)
+        If Not disposedValue Then
+            If disposing Then
+                ' TODO: マネージ状態を破棄します (マネージ オブジェクト)。
+            End If
+
+            ' TODO: アンマネージ リソース (アンマネージ オブジェクト) を解放し、下の Finalize() をオーバーライドします。
+            ' TODO: 大きなフィールドを null に設定します。
+        End If
+        disposedValue = True
+    End Sub
+
+    ' TODO: 上の Dispose(disposing As Boolean) にアンマネージ リソースを解放するコードが含まれる場合にのみ Finalize() をオーバーライドします。
+    'Protected Overrides Sub Finalize()
+    '    ' このコードを変更しないでください。クリーンアップ コードを上の Dispose(disposing As Boolean) に記述します。
+    '    Dispose(False)
+    '    MyBase.Finalize()
+    'End Sub
+
+    ' このコードは、破棄可能なパターンを正しく実装できるように Visual Basic によって追加されました。
+    Public Sub Dispose() Implements IDisposable.Dispose
+        ' このコードを変更しないでください。クリーンアップ コードを上の Dispose(disposing As Boolean) に記述します。
+        Dispose(True)
+        ' TODO: 上の Finalize() がオーバーライドされている場合は、次の行のコメントを解除してください。
+        ' GC.SuppressFinalize(Me)
+    End Sub
+#End Region
 
 
 End Class

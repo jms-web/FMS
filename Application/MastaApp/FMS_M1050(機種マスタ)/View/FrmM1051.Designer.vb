@@ -260,14 +260,13 @@ Partial Class FrmM1051
         'TxtKISYU_ID
         '
         Me.TxtKISYU_ID.BackColor = System.Drawing.SystemColors.Window
-        Me.TxtKISYU_ID.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TxtKISYU_ID.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.TxtKISYU_ID.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.TxtKISYU_ID.InputRequired = False
         Me.TxtKISYU_ID.Location = New System.Drawing.Point(103, 3)
         Me.TxtKISYU_ID.MaxByteLength = 0
         Me.TxtKISYU_ID.Name = "TxtKISYU_ID"
-        Me.TxtKISYU_ID.Size = New System.Drawing.Size(179, 23)
+        Me.TxtKISYU_ID.Size = New System.Drawing.Size(79, 23)
         Me.TxtKISYU_ID.TabIndex = 48
         Me.TxtKISYU_ID.WatermarkColor = System.Drawing.Color.Empty
         Me.TxtKISYU_ID.WatermarkText = Nothing

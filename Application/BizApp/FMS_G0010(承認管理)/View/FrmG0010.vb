@@ -735,6 +735,7 @@ Public Class FrmG0010
                     End If
 
                 Case 7 'åüçıèåèïœçX
+                    dgvDATA.DataSource = Nothing
                     panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlCondition))
                     lblRecordCount.Visible = False
                     Call FunSetStageList(dgvNCR, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR)
@@ -920,8 +921,6 @@ Public Class FrmG0010
             PrDt = dt
             dgv.DataSource = dt
 
-            Call FunSetDgvCellFormat(dgv)
-
             If dgv.RowCount > 0 Then
                 '-----ëIëçsê›íË
                 Try
@@ -935,6 +934,8 @@ Public Class FrmG0010
 
             panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlDataGrid))
             lblRecordCount.Visible = True
+            Call FunSetDgvCellFormat(dgv)
+
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -1746,7 +1747,6 @@ Public Class FrmG0010
                 cmdFunc5.Enabled = False
                 cmdFunc7.Enabled = False
                 cmdFunc6.Enabled = False
-                cmdFunc6.Visible = False
                 cmdFunc8.Enabled = False
                 cmdFunc9.Enabled = False
                 cmdFunc10.Enabled = False

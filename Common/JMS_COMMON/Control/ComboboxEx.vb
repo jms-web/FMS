@@ -635,7 +635,6 @@ Public Class ComboboxEx
                 '----先頭に空白行を追加しない場合
 
                 Me.DataSource = srcTable
-                Me.SelectedIndex = -1
 
             End If
 

@@ -304,14 +304,14 @@ Public Class FrmG0015
     Private Sub CmbMODOSI_SAKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbTENSO_SAKI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue = cmb.NullValue Then
+        If cmb.Selected Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送先"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 
@@ -325,7 +325,7 @@ Public Class FrmG0015
             pri_blnValidated = False
         Else
             ErrorProvider.ClearError(mtx)
-            pri_blnValidated = True
+            pri_blnValidated = pri_blnValidated AndAlso True
         End If
     End Sub
 #End Region
@@ -333,6 +333,7 @@ Public Class FrmG0015
 #Region "入力チェック"
     Public Function FunCheckInput() As Boolean
         Try
+            pri_blnValidated = True
             Call CmbMODOSI_SAKI_Validating(cmbTENSO_SAKI, Nothing)
             Call MtxMODOSI_RIYU_Validating(mtxTENSO_RIYU, Nothing)
 

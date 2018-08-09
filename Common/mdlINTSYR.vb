@@ -303,6 +303,10 @@ Module mdlINTSYR
             Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_OUTPUT_INI)
                 '出力先
                 pub_APP_INFO.strOUTPUT_PATH = FunConvPathString(iniIF.GetIniString(My.Application.Info.AssemblyName, "OUT_FOLDER"))
+
+                If pub_APP_INFO.strOUTPUT_PATH.IsNullOrEmpty Then
+                    pub_APP_INFO.strOUTPUT_PATH = FunConvPathString(iniIF.GetIniString("DEFAULT", "OUT_FOLDER"))
+                End If
             End Using
 
             Return True
@@ -334,10 +338,10 @@ Module mdlINTSYR
             'PG設定値取得
             With pub_APP_INFO
 
-                'Using DB As ClsDbUtility = DBOpen()
-                '    'タイトル
-                '    .strTitle = FunGetCodeMastaValue(DB, "PG_TITLE", strFileName)
-                'End Using
+                Using DB As ClsDbUtility = DBOpen()
+                    '    'タイトル
+                    .strTitle = FunGetCodeMastaValue(DB, "PG_TITLE", strFileName)
+                End Using
 
                 Using iniIF As New IniFile(strINIFile)
                     '検索結果最大件数

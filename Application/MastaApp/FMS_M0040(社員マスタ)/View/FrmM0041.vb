@@ -286,7 +286,7 @@ Public Class FrmM0041
                     '入社年月日
                     sbSQL.Append(" ,'" & Me.dtbNYUSYA_YMD.ValueNonFormat & "'")
                     '退社年月日
-                    sbSQL.Append(" ,'" & Me.dtbTAISYA_YMD.ValueNonFormat& "'")
+                    sbSQL.Append(" ,'" & Me.dtbTAISYA_YMD.ValueNonFormat & "'")
                     'パスワード
                     sbSQL.Append(" ,'" & Me.mtxPASS.Text.Trim & "'")
                     '追加日時

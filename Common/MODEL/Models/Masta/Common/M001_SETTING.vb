@@ -1,13 +1,12 @@
-Imports System
-Imports System.Collections.Generic
 Imports System.ComponentModel.DataAnnotations
 Imports System.ComponentModel.DataAnnotations.Schema
-Imports System.Data.Entity.Spatial
+Imports PropertyChanged
 
 ''' <summary>
 ''' M001_システム設定値マスタ
 ''' </summary>
 <Table("M001_SETTING", Schema:="dbo")>
+<AddINotifyPropertyChangedInterface>
 Partial Public Class M001_SETTING
     Inherits ModelBase
     Implements IDisposable
@@ -54,11 +53,7 @@ Partial Public Class M001_SETTING
             Return _DEF_FLG <> "0"
         End Get
         Set(value As Boolean)
-            If value Then
-                _DEF_FLG = "1"
-            Else
-                _DEF_FLG = "0"
-            End If
+            _DEF_FLG = IIf(value, "1", "0")
         End Set
     End Property
 

@@ -1,15 +1,17 @@
-﻿Imports System
-Imports System.Collections.Generic
-Imports System.ComponentModel.DataAnnotations
+﻿Imports System.ComponentModel.DataAnnotations
 Imports System.ComponentModel.DataAnnotations.Schema
-Imports System.Data.Entity.Spatial
 Imports System.Drawing
+Imports PropertyChanged
 
 ''' <summary>
 ''' M106_部品番号マスタ
 ''' </summary>
 <Table("M106_BUHIN", Schema:="dbo")>
+<AddINotifyPropertyChangedInterface>
 Partial Public Class M106_BUHIN
+    Inherits ModelBase
+    Implements IDisposable
+
     <Key>
     <Column(Order:=0, TypeName:="char")>
     <StringLength(1)>
@@ -73,6 +75,7 @@ Partial Public Class M106_BUHIN
     <Required>
     <StringLength(1)>
     <Column("TACHIAI_FLG", TypeName:="Char")>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Never)>
     Public Property _TACHIAI_FLG As String
 
@@ -83,11 +86,7 @@ Partial Public Class M106_BUHIN
             Return _TACHIAI_FLG <> "0"
         End Get
         Set(value As Boolean)
-            If value Then
-                _TACHIAI_FLG = "1"
-            Else
-                _TACHIAI_FLG = "0"
-            End If
+            _TACHIAI_FLG = IIf(value, "1", "0")
         End Set
     End Property
 
@@ -102,6 +101,7 @@ Partial Public Class M106_BUHIN
     Public Property COLOR_CD As String
 
     <NotMapped>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("色")>
     Public Property COLOR As Color
         Get
@@ -116,39 +116,67 @@ Partial Public Class M106_BUHIN
     '共通項目------------------------------------
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="Char")>
     Public Property ADD_YMDHNS As String
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property ADD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="Char")>
     Public Property UPD_YMDHNS As String
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property UPD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
-    <Display(AutoGenerateField:=False)>
     <Column(TypeName:="char")>
     Public Property DEL_YMDHNS As String
 
     <ComponentModel.DisplayName("削除済")>
     <NotMapped>
+    <Display(AutoGenerateField:=False)>
+    <DoNotNotify>
     Public ReadOnly Property DEL_FLG As Boolean
         Get
-            Return DEL_YMDHNS.Trim <> ""
+            Return Not String.IsNullOrEmpty(DEL_YMDHNS)
         End Get
     End Property
 
     <Required>
-    <Display(AutoGenerateField:=False)>
     Public Property DEL_SYAIN_ID As Integer
+
+#Region "IDisposable Support"
+    Private disposedValue As Boolean ' 重複する呼び出しを検出するには
+
+    ' IDisposable
+    Protected Overridable Sub Dispose(disposing As Boolean)
+        If Not disposedValue Then
+            If disposing Then
+                ' TODO: マネージ状態を破棄します (マネージ オブジェクト)。
+            End If
+
+            ' TODO: アンマネージ リソース (アンマネージ オブジェクト) を解放し、下の Finalize() をオーバーライドします。
+            ' TODO: 大きなフィールドを null に設定します。
+        End If
+        disposedValue = True
+    End Sub
+
+    ' TODO: 上の Dispose(disposing As Boolean) にアンマネージ リソースを解放するコードが含まれる場合にのみ Finalize() をオーバーライドします。
+    'Protected Overrides Sub Finalize()
+    '    ' このコードを変更しないでください。クリーンアップ コードを上の Dispose(disposing As Boolean) に記述します。
+    '    Dispose(False)
+    '    MyBase.Finalize()
+    'End Sub
+
+    ' このコードは、破棄可能なパターンを正しく実装できるように Visual Basic によって追加されました。
+    Public Sub Dispose() Implements IDisposable.Dispose
+        ' このコードを変更しないでください。クリーンアップ コードを上の Dispose(disposing As Boolean) に記述します。
+        Dispose(True)
+        ' TODO: 上の Finalize() がオーバーライドされている場合は、次の行のコメントを解除してください。
+        ' GC.SuppressFinalize(Me)
+    End Sub
+#End Region
 End Class

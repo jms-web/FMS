@@ -47,10 +47,11 @@ Public Class FrmM0010
             AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
-            '検索実行
-            cmdFunc1.PerformClick()
         Finally
             Call SubInitFuncButtonEnabled()
+
+            '検索実行
+            cmdFunc1.PerformClick()
         End Try
     End Sub
 
@@ -61,7 +62,7 @@ Public Class FrmM0010
     '初期化
     Private Function FunInitializeFlexGrid(ByVal flxgrd As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
         With flxgrd
-            .Rows(0).Height = 50
+            .Rows(0).Height = 30
 
             .AutoGenerateColumns = False
             .AutoResize = True
@@ -70,7 +71,7 @@ Public Class FrmM0010
             .AllowDelete = False
             .AllowResizing = C1.Win.C1FlexGrid.AllowResizingEnum.Columns
             .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.MultiColumn
-            .AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
+            '.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
             .AllowFiltering = True
 
             .ShowCellLabels = True
@@ -117,7 +118,7 @@ Public Class FrmM0010
 
     'グリッドセル(行)ダブルクリック時イベント
     Private Sub FlxDATA_DoubleClick(sender As Object, e As EventArgs) Handles flxDATA.DoubleClick
-        If flxDATA.RowSel > 0 Then
+        If flxDATA.RowSel > 1 Then
             Me.cmdFunc4.PerformClick()
         End If
     End Sub
@@ -238,29 +239,8 @@ Public Class FrmM0010
                 End If
             End If
 
-            Dim tplModelInfo = FunGetTableFromModel(GetType(MODEL.VWM001_SETTING))
-
-            With dsList.Tables(0)
-                For Each row As DataRow In .Rows
-                    Dim Trow As DataRow = tplModelInfo.dt.NewRow()
-                    For Each p As Reflection.PropertyInfo In tplModelInfo.properties
-                        Select Case p.PropertyType
-                            Case GetType(Integer)
-                                Trow(p.Name) = Val(row.Item(p.Name))
-                            Case GetType(Decimal)
-                                Trow(p.Name) = CDec(row.Item(p.Name))
-                            Case GetType(Boolean)
-                                Trow(p.Name) = CBool(row.Item(p.Name))
-                            Case Else
-                                Trow(p.Name) = row.Item(p.Name)
-                        End Select
-                    Next p
-                    tplModelInfo.dt.Rows.Add(Trow)
-                Next row
-                tplModelInfo.dt.AcceptChanges()
-            End With
-
-            Return tplModelInfo.dt
+            Dim _Model As New MODEL.ModelInfo(Of MODEL.VWM001_SETTING)(srcDATA:=dsList.Tables(0))
+            Return _Model.Data
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
