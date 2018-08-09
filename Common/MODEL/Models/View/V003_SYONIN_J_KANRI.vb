@@ -4,44 +4,7 @@ Imports PropertyChanged
 
 <AddINotifyPropertyChangedInterface>
 Partial Public Class V003_SYONIN_J_KANRI
-    Inherits NotifyChangedBase
-
-
-    Public Sub New()
-        'Call Clear()
-    End Sub
-
-    Public Sub Clear()
-        SYONIN_HOKOKUSYO_ID = 0
-        HOKOKU_NO = ""
-        SYONIN_JUN = 0
-        SYAIN_ID = 0
-        SYAIN_NAME = ""
-        SYONIN_YMDHNS = ""
-        SYONIN_HANTEI_KB = ""
-        SYONIN_HANTEI_NAME = ""
-        SASIMODOSI_FG = False
-        RIYU = ""
-        COMMENT = ""
-        MAIL_SEND_FG = False
-        ADD_YMDHNS = ""
-        ADD_SYAIN_ID = 0
-        ADD_SYAIN_NAME = ""
-        UPD_YMDHNS = ""
-        UPD_SYAIN_ID = 0
-        UPD_SYAIN_NAME = ""
-
-    End Sub
-
-    <ComponentModel.DataAnnotations.Display(AutoGenerateField:=False)>
-    Default Public Property Item(ByVal propertyName As String) As Object
-        Get
-            Return GetType(V003_SYONIN_J_KANRI).GetProperty(propertyName).GetValue(Me)
-        End Get
-        Set(value As Object)
-            GetType(V003_SYONIN_J_KANRI).GetProperty(propertyName).SetValue(Me, value)
-        End Set
-    End Property
+    Inherits ModelBase
 
     Public Property SYONIN_HOKOKUSYO_ID As Integer
 
@@ -64,11 +27,10 @@ Partial Public Class V003_SYONIN_J_KANRI
     <DoNotNotify>
     Public Property SASIMODOSI_FG As Boolean
         Get
-            Return IIf(_SASIMODOSI_FG = "0", False, True)
+            Return (_SASIMODOSI_FG = "1")
         End Get
         Set(value As Boolean)
             _SASIMODOSI_FG = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(SASIMODOSI_FG))
         End Set
     End Property
 
@@ -86,11 +48,10 @@ Partial Public Class V003_SYONIN_J_KANRI
     <DoNotNotify>
     Public Property MAIL_SEND_FG As Boolean
         Get
-            Return IIf(_MAIL_SEND_FG = "0", False, True)
+            Return (_MAIL_SEND_FG = "1")
         End Get
         Set(value As Boolean)
             _MAIL_SEND_FG = IIf(value, "1", "0")
-            OnPropertyChanged(NameOf(MAIL_SEND_FG))
         End Set
     End Property
     Public Property ADD_YMDHNS As String

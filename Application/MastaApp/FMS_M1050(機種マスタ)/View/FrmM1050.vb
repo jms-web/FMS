@@ -26,9 +26,7 @@ Public Class FrmM1050
 
 #Region "Form関連"
 
-    'Loadイベント
     Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
         Try
 
             Try
@@ -53,11 +51,11 @@ Public Class FrmM1050
                 AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
                 AddHandler Me.chkTaisyokuRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
-                '検索実行
-                Me.cmdFunc1.PerformClick()
-
             Finally
+                Call SubInitFuncButtonEnabled()
 
+                '検索実行
+                cmdFunc1.PerformClick()
             End Try
     End Sub
 
@@ -68,7 +66,7 @@ Public Class FrmM1050
     '初期化
     Private Function FunInitializeFlexGrid(ByVal flxgrd As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
         With flxgrd
-            .Rows(0).Height = 50
+            .Rows(0).Height = 30
 
             .AutoGenerateColumns = False
             .AutoResize = True
@@ -77,14 +75,14 @@ Public Class FrmM1050
             .AllowDelete = False
             .AllowResizing = C1.Win.C1FlexGrid.AllowResizingEnum.Columns
             .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.MultiColumn
-            .AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
+            '.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
             .AllowFiltering = True
 
             .ShowCellLabels = True
             .SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row
             .FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.None
 
-            .Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
+            .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
 
             .Styles.Add("DeletedRow")
             .Styles("DeletedRow").BackColor = clrDeletedRowBackColor
@@ -140,10 +138,10 @@ Public Class FrmM1050
 
         Try
             '[処理中]
-            Me.PrPG_STATUS = ENM_PG_STATUS._3_PROCESSING
+            MyBase.PrPG_STATUS = ENM_PG_STATUS._3_PROCESSING
 
             'ボタン不可/ボタンINDEX取得
-            For intCNT = 0 To Me.cmdFunc.Length - 1
+            For intCNT = 0 To cmdFunc.Length - 1
                 Me.cmdFunc(intCNT).Enabled = False
                 If cmdFunc(intCNT) Is sender Then intFUNC = intCNT + 1
             Next
@@ -163,8 +161,7 @@ Public Class FrmM1050
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) Then Call FunSRCH(flxDATA, FunGetListData())
 
                 Case 5, 6  '削除/復元/完全削除
-                    Dim btn As Button = DirectCast(sender, Button)
-                    Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(btn.Tag, ENM_DATA_OPERATION_MODE)
+                    Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(sender, Button).Tag
                     If FunDEL(ENM_MODE) Then Call FunSRCH(flxDATA, FunGetListData())
 
                 Case 10  'CSV出力
@@ -180,15 +177,15 @@ Public Class FrmM1050
         Finally
             'ボタン可
             System.Windows.Forms.Application.DoEvents()
-            For intCNT = 0 To Me.cmdFunc.Length - 1
-                Me.cmdFunc(intCNT).Enabled = True
+            For intCNT = 0 To cmdFunc.Length - 1
+                cmdFunc(intCNT).Enabled = True
             Next
 
             'ファンクションキー有効化初期化
             Call SubInitFuncButtonEnabled()
 
             '[アクティブ]
-            Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
+            MyBase.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
         End Try
     End Sub
 #End Region
@@ -201,13 +198,9 @@ Public Class FrmM1050
             Dim dsList As New DataSet
             Dim sbSQLWHERE As New System.Text.StringBuilder
 
-            If cmbBUMON_KB.Selected Then
-                sbSQLWHERE.Append($" WHERE BUMON_KB ='{cmbBUMON_KB.SelectedValue}' ")
-            End If
+            If CmbBUMON_KB.Selected Then sbSQLWHERE.Append($" WHERE BUMON_KB ='{CmbBUMON_KB.SelectedValue}' ")
 
-            If mtxKISYU_NAME.Text.IsNullOrWhiteSpace Then
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"KISYU_NAME LIKE '%{mtxKISYU_NAME.Text.Trim}%'")
-            End If
+            If Not mtxKISYU_NAME.Text.IsNullOrWhiteSpace Then sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"KISYU_NAME LIKE '%{mtxKISYU_NAME.Text.Trim}%'")
 
             If chkDeletedRowVisibled.Checked Then
                 flxDATA.Cols("DEL_FLG").Visible = True
@@ -305,7 +298,7 @@ Public Class FrmM1050
             Using frmDLG As New FrmM1051
                 frmDLG.PrMODE = intMODE
                 If flxDATA.RowSel > 0 Then
-                    frmDLG.PrDataRow = flxDATA.Rows(flxDATA.RowSel).DataSource
+                    frmDLG.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
                 Else
                     frmDLG.PrDataRow = Nothing
                 End If

@@ -735,6 +735,7 @@ Public Class FrmG0010
                     End If
 
                 Case 7 '検索条件変更
+                    dgvDATA.DataSource = Nothing
                     panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlCondition))
                     lblRecordCount.Visible = False
                     Call FunSetStageList(dgvNCR, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR)
@@ -920,8 +921,6 @@ Public Class FrmG0010
             PrDt = dt
             dgv.DataSource = dt
 
-            Call FunSetDgvCellFormat(dgv)
-
             If dgv.RowCount > 0 Then
                 '-----選択行設定
                 Try
@@ -935,6 +934,8 @@ Public Class FrmG0010
 
             panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlDataGrid))
             lblRecordCount.Visible = True
+            Call FunSetDgvCellFormat(dgv)
+
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -1234,7 +1235,7 @@ Public Class FrmG0010
                                 　　【部品番号】{5}<br />
                                 　　【依頼者　】{6}<br />
                                 <br />
-                                <a href = "http://sv116:8000/CLICKONCE_FMS.application" > 処置画面へ</a><br />
+                                <a href = "http://sv116:8000/CLICKONCE_FMS.application" > システム起動</a><br />
                                 <br />
                                 ※このメールは配信専用です。(返信できません)<br />
                                 返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
@@ -1302,7 +1303,7 @@ Public Class FrmG0010
                     　　【部品番号】{5}<br />
                     　　【依頼者　】{6}<br />
                     <br />
-                    <a href = "http://sv116:8000/CLICKONCE_FMS.application" > 処置画面へ</a><br />
+                    <a href = "http://sv116:8000/CLICKONCE_FMS.application" > システム起動</a><br />
                     <br />
                     ※このメールは配信専用です。(返信できません)<br />
                     返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
@@ -1746,7 +1747,6 @@ Public Class FrmG0010
                 cmdFunc5.Enabled = False
                 cmdFunc7.Enabled = False
                 cmdFunc6.Enabled = False
-                cmdFunc6.Visible = False
                 cmdFunc8.Enabled = False
                 cmdFunc9.Enabled = False
                 cmdFunc10.Enabled = False

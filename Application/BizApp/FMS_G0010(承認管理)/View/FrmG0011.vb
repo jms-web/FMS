@@ -1163,7 +1163,7 @@ Public Class FrmG0011
         　　【依頼者処置内容】{6}<br />
         　　【コメント】{7}<br />
         <br />
-        <a href = "http://sv116:8000/CLICKONCE_FMS.application" >処置画面へ</a><br />
+        <a href = "http://sv116:8000/CLICKONCE_FMS.application" >システム起動</a><br />
         <br />
         ※このメールは配信専用です。(返信できません)<br />
         返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
@@ -1213,7 +1213,7 @@ Public Class FrmG0011
         　　【部品番号】{4}<br />
         　　【依頼者　】{1}<br />
         <br />
-        <a href = "http://sv116:8000/CLICKONCE_FMS.application" >処置画面へ</a><br />
+        <a href = "http://sv116:8000/CLICKONCE_FMS.application" >システム起動</a><br />
         <br />
         ※このメールは配信専用です。(返信できません)<br />
         返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
@@ -2881,7 +2881,14 @@ Public Class FrmG0011
                 If ctrl.GetType Is GetType(PanelEx) Then
                     Dim panel As PanelEx = DirectCast(ctrl, PanelEx)
 
-                    If panel.Name <> "pnlTEMP_SIRYO" Then
+                    If panel.Name = "pnlTEMP_SIRYO" Then
+                        If _D003_NCR_J.CLOSE_FG Then
+                            'panel.DisableContaints(False, 1)
+                            btnOpenPict1Dialog.Enabled = False
+                            btnOpenPict2Dialog.Enabled = False
+                            btnOpenTempFileDialog.Enabled = False
+                        End If
+                    Else
                         Dim intTabNo As Integer = Val(panel.Name.Substring(5))
 
                         If intTabNo < intCurrentTabNo Then
@@ -2943,7 +2950,9 @@ Public Class FrmG0011
                                 panel.DisableContaints(FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO, FunConvertSTAGE_NO_TO_SYONIN_JUN(intTabNo)), 2)
                             End If
                         End If
+                        If _D003_NCR_J.CLOSE_FG Then panel.DisableContaints(False, 2)
                     End If
+
                 Else
                     Continue For
                 End If
@@ -2968,7 +2977,8 @@ Public Class FrmG0011
                 Call SetPict2Data({strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2})
             End If
 
-            If _D003_NCR_J.CLOSE_FG = False Then
+            If _D003_NCR_J.CLOSE_FG Then
+            Else
                 flpnlStageIndex.Controls("rsbtnST99").Enabled = False
                 flpnlStageIndex.Controls("rsbtnST99").BackColor = Color.Silver
             End If

@@ -149,7 +149,7 @@ Public Class FrmG0016
                     sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID) & "=" & pub_SYAIN_INFO.SYAIN_ID & "") '
                     sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS) & "=dbo.GetSysDateString()")
                     sbSQL.Append(" WHERE " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID) & "=" & PrSYONIN_HOKOKUSYO_ID & "")
-                    sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & "='" & _D003_NCR_J.HOKOKU_NO & "'")
+                    sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & "='" & PrHOKOKU_NO & "'")
                     sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN) & "=" & cmbMODOSI_SAKI.SelectedValue & "")
                     '-----SQL実行
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
@@ -165,7 +165,7 @@ Public Class FrmG0016
                     sbSQL.Remove(0, sbSQL.Length)
                     sbSQL.Append("DELETE FROM " & NameOf(MODEL.D004_SYONIN_J_KANRI) & "")
                     sbSQL.Append(" WHERE " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID) & "=" & PrSYONIN_HOKOKUSYO_ID & "")
-                    sbSQL.Append(" AND RTRIM(" & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & ")='" & _D003_NCR_J.HOKOKU_NO.Trim & "'")
+                    sbSQL.Append(" AND RTRIM(" & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & ")='" & PrHOKOKU_NO & "'")
                     sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN) & ">" & cmbMODOSI_SAKI.SelectedValue & ";")
                     '-----SQL実行
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
@@ -426,6 +426,7 @@ Public Class FrmG0016
         sbSQL.Append(" " & NameOf(_R004_CAR_SASIMODOSI.SASIMODOSI_YMDHNS))
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.HOKOKU_NO))
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.BUMON_KB))
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.CLOSE_FG))
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_1))
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_2))
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.SETUMON_3))
@@ -497,7 +498,7 @@ Public Class FrmG0016
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.KENSA_GL_YMDHNS))
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.FILE_PATH1))
         sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.FILE_PATH2))
-
+        sbSQL.Append(" ," & NameOf(_R004_CAR_SASIMODOSI.FUTEKIGO_HASSEI_YMD))
         sbSQL.Append(" ) VALUES(")
         sbSQL.Append(" '" & strYMDHNS & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.HOKOKU_NO & "'")
@@ -550,7 +551,7 @@ Public Class FrmG0016
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_20 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_21 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_22 & "'")
-        sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_23 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J._KAITO_23 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_24 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_25 & "'")
 
@@ -565,7 +566,7 @@ Public Class FrmG0016
         sbSQL.Append(" ,'" & _D005_CAR_J.SYOCHI_C_SYAIN_ID & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.SYOCHI_C_YMDHNS & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KYOIKU_FILE_PATH & "'")
-        sbSQL.Append(" ,'" & _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J._ZESEI_SYOCHI_YUKO_UMU & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.SYOSAI_FILE_PATH & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.GOKI & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.LOT & "'")
@@ -575,6 +576,7 @@ Public Class FrmG0016
         sbSQL.Append(" ,'" & _D005_CAR_J.KENSA_GL_YMDHNS & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH1 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH2 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.FUTEKIGO_HASSEI_YMD & "'")
         sbSQL.Append(" );")
         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
         If intRET <> 1 Then
@@ -645,28 +647,26 @@ Public Class FrmG0016
     Private Sub CmbMODOSI_SAKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbMODOSI_SAKI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.SelectedValue Is Nothing And cmb.Text.IsNullOrWhiteSpace = True Then
-            'e.Cancel = True
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "差戻し先"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = True
         End If
     End Sub
 
     Private Sub MtxMODOSI_RIYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxMODOSI_RIYU.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
-        If mtx.Text.IsNullOrWhiteSpace = True Then
-            'e.Cancel = True
+        If Not mtx.Text.IsNullOrWhiteSpace Then
+            ErrorProvider.ClearError(mtx)
+            pri_blnValidated = pri_blnValidated AndAlso True
+        Else
             ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "差戻し理由"))
             ErrorProvider.SetIconAlignment(mtx, ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(mtx)
-            pri_blnValidated = True
         End If
     End Sub
 
@@ -675,6 +675,7 @@ Public Class FrmG0016
 #Region "入力チェック"
     Public Function FunCheckInput() As Boolean
         Try
+            pri_blnValidated = True
             Call CmbMODOSI_SAKI_Validating(cmbMODOSI_SAKI, Nothing)
             Call MtxMODOSI_RIYU_Validating(mtxMODOSI_RIYU, Nothing)
 
