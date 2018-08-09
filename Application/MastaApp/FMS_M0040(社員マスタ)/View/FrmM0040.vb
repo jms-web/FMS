@@ -46,9 +46,10 @@ Public Class FrmM0040
             '-----イベントハンドラ設定
             'AddHandler cmbSYOKUBAN.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+            AddHandler Me.chkTaisyokuRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
             '検索実行
-            'Me.cmdFunc1.PerformClick()
+            Me.cmdFunc1.PerformClick()
 
         Finally
 
@@ -125,9 +126,6 @@ Public Class FrmM0040
 
 #End Region
 
-
-
-
 #Region "FunctionButton関連"
 
 #Region "FUNCTIONボタンCLICKイベント"
@@ -160,12 +158,11 @@ Public Class FrmM0040
                     End If
 
                 Case 4  '変更
-
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) = True Then
                         Call FunSRCH(Me.flxDATA, FunGetListData())
                     End If
-                Case 5, 6  '削除/復元/完全削除
 
+                Case 5, 6  '削除/復元/完全削除
                     Dim btn As Button = DirectCast(sender, Button)
                     Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(btn.Tag, ENM_DATA_OPERATION_MODE)
                     If FunDEL(ENM_MODE) = True Then
@@ -173,8 +170,7 @@ Public Class FrmM0040
                     End If
 
                 Case 10  'CSV出力
-
-                    Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
+                    Dim strFileName As String = lblTytle.Text & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
                     Call FunCSV_OUT(Me.flxDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
 
@@ -388,93 +384,6 @@ Public Class FrmM0040
         End Try
     End Function
 
-    'Private Function FunSetDgvData(ByVal dgv As DataGridView, ByVal dt As DataTable) As Boolean
-
-    '    Dim waitDlg As WaitDialog = Nothing
-    '    Dim lngCURROW As Long = 0
-    '    Try
-    '        If dt Is Nothing Then
-    '            Return False
-    '        End If
-
-    '        '-----選択行記憶
-    '        If dgv.RowCount > 0 Then
-    '            lngCURROW = dgv.CurrentRow.Index
-    '        End If
-
-    '        '-----進行状況ダイアログ
-    '        waitDlg = New WaitDialog()
-    '        With waitDlg
-    '            .Owner = Me
-    '            .MainMsg = My.Resources.infoMsgProgressStatus
-    '            .ProgressMax = 0  ' 全体の処理件数
-    '            .ProgressMin = 0 ' 処理件数の最小値（0件から開始）
-    '            .ProgressStep = 1 ' 何件ごとにメーターを進めるか
-    '            .ProgressValue = 0 ' 最初の件数
-    '            .SubMsg = ""
-    '            .ProgressMsg = My.Resources.infoToolTipMsgSearching
-    '            '表示
-    '            waitDlg.Show()
-    '        End With
-
-    '        Me.dgvDATA.DataSource = dt
-
-    '        Call FunSetDgvCellFormat(Me.dgvDATA)
-    '        If dgv.RowCount > 0 Then
-    '            '-----選択行設定
-    '            Try
-    '                dgv.CurrentCell = dgv.Rows(lngCURROW).Cells(0)
-    '            Catch dgvEx As Exception
-    '            End Try
-
-    '            Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, dgv.RowCount.ToString) '.PadLeft(5)
-    '        Else
-    '            Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
-    '        End If
-
-    '        Return True
-
-    '    Catch ex As Exception
-    '        EM.ErrorSyori(ex, False, conblnNonMsg)
-    '        Return False
-
-    '    Finally
-    '        '-----開放
-    '        If waitDlg IsNot Nothing Then
-    '            waitDlg.Close()
-    '        End If
-
-    '        '-----一覧可視
-    '        dgv.Visible = True
-    '    End Try
-    'End Function
-
-    'Private Function FunSetDgvCellFormat(ByVal dgv As DataGridView) As Boolean
-
-    '    Try
-    '        Dim strFieldList As New List(Of String)
-    '        strFieldList.AddRange(New String() {"DEL_FLG"})
-
-    '        For i As Integer = 0 To dgv.Rows.Count - 1
-    '            With dgv.Rows(i)
-    '                For Each field As String In strFieldList
-
-    '                    If Me.flxDATA.Rows(i).Cells("DEL_FLG").Value = True Then
-    '                        Me.flxDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
-    '                        Me.flxDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
-    '                        Me.flxDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
-    '                    Else
-    '                    End If
-    '                Next
-    '            End With
-    '        Next i
-
-    '    Catch ex As Exception
-    '        EM.ErrorSyori(ex, False, conblnNonMsg)
-    '    End Try
-    'End Function
-
-
 #Region "追加・変更"
     ''' <summary>
     ''' レコード追加変更処理
@@ -484,10 +393,9 @@ Public Class FrmM0040
         Dim frmDLG As New FrmM0041
         Dim dlgRET As DialogResult
         Dim PKeys As (ITEM_NAME As String, ITEM_VALUE As String)
-        Dim strComboVal As String
+
 
         Try
-
             frmDLG.PrMODE = intMODE
             If flxDATA.RowSel > 0 Then
                 frmDLG.PrDataRow = flxDATA.Rows(flxDATA.RowSel)
@@ -518,9 +426,6 @@ Public Class FrmM0040
 
 #End Region
 
-
-
-
 #Region "削除"
     Private Function FunDEL(ByVal ENM_MODE As ENM_DATA_OPERATION_MODE) As Boolean
 
@@ -533,30 +438,30 @@ Public Class FrmM0040
             sbSQL.Remove(0, sbSQL.Length)
             Select Case ENM_MODE
                 Case ENM_DATA_OPERATION_MODE._4_DISABLE
-                    sbSQL.Append("UPDATE M03_TANTO SET ")
+                    sbSQL.Append("UPDATE M004_SYAIN SET ")
                     '変更日時
-                    sbSQL.Append(" EDIT_YMDHNS = dbo.GetSysDateString() ")
+                    sbSQL.Append(" UPD_YMDHNS = dbo.GetSysDateString() ")
                     '削除日時
                     sbSQL.Append(" ,DEL_YMDHNS = dbo.GetSysDateString() ")
                     '更新社員ID
-                    sbSQL.Append(" ,DEL_TANTO_CD = " & pub_SYAIN_INFO.SYAIN_ID & "")
+                    sbSQL.Append(" ,DEL_SYAIN_ID = " & pub_SYAIN_INFO.SYAIN_ID & "")
 
                     strMsg = My.Resources.infoMsgDeleteOperationDisable
                     strTitle = My.Resources.infoTitleDeleteOperationDisable
 
                 Case ENM_DATA_OPERATION_MODE._5_RESTORE
-                    sbSQL.Append("UPDATE M03_TANTO SET ")
+                    sbSQL.Append("UPDATE M004_SYAIN SET ")
                     '削除日時
                     sbSQL.Append(" DEL_YMDHNS = ' ' ")
                     '更新社員ID
-                    sbSQL.Append(" ,DEL_TANTO_CD = " & pub_SYAIN_INFO.SYAIN_ID & "")
+                    sbSQL.Append(" ,DEL_SYAIN_ID = " & pub_SYAIN_INFO.SYAIN_ID & "")
 
                     strMsg = My.Resources.infoMsgDeleteOperationRestore
                     strTitle = My.Resources.infoTitleDeleteOperationRestore
 
                 Case ENM_DATA_OPERATION_MODE._6_DELETE
 
-                    sbSQL.Append("DELETE FROM M03_TANTO ")
+                    sbSQL.Append("DELETE FROM M004_SYAIN ")
 
                     strMsg = My.Resources.infoMsgDeleteOperationDelete
                     strTitle = My.Resources.infoTitleDeleteOperationDelete
@@ -566,7 +471,7 @@ Public Class FrmM0040
                     Return False
             End Select
             sbSQL.Append(" WHERE")
-            'sbSQL.Append(" TANTO_CD = '" & Me.flxDATA.CurrentRow.Cells.Item("TANTO_CD").Value & "' ")
+            sbSQL.Append(" SYAIN_ID = '" & flxDATA.Rows(flxDATA.RowSel).Item("SYAIN_ID").ToString & "' ")
 
             '確認メッセージ表示
             If MessageBox.Show(strMsg, strTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> Windows.Forms.DialogResult.Yes Then
@@ -674,8 +579,6 @@ Public Class FrmM0040
         '検索
         Me.cmdFunc1.PerformClick()
     End Sub
-
-
 
 #End Region
 

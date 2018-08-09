@@ -41,12 +41,17 @@ Public Class FrmM0041
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
 
             '-----コントロールデータソース設定
-            Me.cmbSYAIN_KB.SetDataSource(tblSYAIN_KB.ExcludeDeleted, True)
+            Me.cmbSYAIN_KB.SetDataSource(tblSYAIN_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             Me.cmbYAKUSYOKU_KB.SetDataSource(tblYAKUSYOKU_KB.ExcludeDeleted, True)
             Me.cmbDAIKO.SetDataSource(tblDAIKO_KB.ExcludeDeleted, True)
 
             '-----処理モード別画面初期化
             Call FunInitializeControls(PrMODE)
+
+            '-----ダイアログウィンドウ設定
+            Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
+            Me.ControlBox = False
+
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -69,22 +74,26 @@ Public Class FrmM0041
                     Me.lblEDIT_YMDHNS.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._2_ADDREF
-                    'Call FunSetEntityValues(PrdgvCellCollection)
+
+                    Call FunSetEntityValues(PrDataRow)
 
                     lblTytle.Text &= "（類似追加）"
                     Me.cmdFunc1.Text = "追加(F1)"
+                    Me.mtxSYAIN_ID.Text = ""
+                    Me.mtxSYAIN_NO.Text = ""
                     Me.lbllblEDIT_YMDHNS.Visible = False
                     Me.lblEDIT_YMDHNS.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
-                    'Call FunSetEntityValues(PrdgvCellCollection)
+
+                    Call FunSetEntityValues(PrDataRow)
 
                     lblTytle.Text &= "（変更）"
                     Me.cmdFunc1.Text = "変更(F1)"
 
                     Me.mtxSYAIN_ID.Enabled = False
+                    Me.mtxSYAIN_NO.Enabled = False
                     Me.mtxSIMEI.Enabled = True
-                    Me.mtxSYAIN_NO.Enabled = True
 
                     Me.lbllblEDIT_YMDHNS.Visible = True
                     Me.lblEDIT_YMDHNS.Visible = True
@@ -106,44 +115,48 @@ Public Class FrmM0041
     ''' </summary>
     ''' <param name="dgvCol"></param>
     ''' <returns></returns>
-    Private Function FunSetEntityValues(dgvCol As DataGridViewCellCollection) As Boolean
-
+    Private Function FunSetEntityValues(row As C1.Win.C1FlexGrid.Row) As Boolean
+        Dim _model As New MODEL.VWM004_SYAIN
         Try
             '-----コントロールに値をセット
-            With dgvCol
-                '担当者CD
-                Me.mtxSYAIN_ID.Text = .Item("TANTO_CD").Value.ToString.Trim
-                '職番
-                Me.mtxSYAIN_NO.Text = .Item("SYOKUBAN").Value.ToString.Trim
+            With row
+
+                '社員ID
+                Me.mtxSYAIN_ID.Text = .Item(NameOf(_model.SYAIN_ID)) '.Item("SYAIN_ID").Value.ToString.Trim
+                '社員NO（職番）
+                Me.mtxSYAIN_NO.Text = .Item(NameOf(_model.SYAIN_NO))
                 '担当者名
-                Me.mtxSIMEI.Text = .Item("TANTO_NAME").Value.ToString.Trim
+                Me.mtxSIMEI.Text = .Item(NameOf(_model.SIMEI))
                 '担当者名カナ
-                Me.mtxSIMEI_KANA.Text = .Item("TANTO_NAME_KANA").Value.ToString.Trim
+                Me.mtxSIMEI_KANA.Text = .Item(NameOf(_model.SIMEI_KANA))
                 '入社日
-                Me.dtbNYUSYA_YMD.Text = .Item("NYUSYA_YMD").Value.ToString.Trim
+                Me.dtbNYUSYA_YMD.Text = .Item(NameOf(_model.NYUSYA_YMD))
                 '退社日
-                Me.dtbTAISYA_YMD.Text = .Item("TAISYA_YMD").Value.ToString.Trim
+                Me.dtbTAISYA_YMD.Text = .Item(NameOf(_model.TAISYA_YMD))
                 '役職区分
-                Me.cmbYAKUSYOKU_KB.Text = .Item("YAKUSYOKU_KB_DISP").Value.ToString.Trim
+                Me.cmbYAKUSYOKU_KB.SelectedValue = .Item(NameOf(_model.YAKUSYOKU_KB))
                 '生年月日
-                Me.dtbBIRTHDAY.Text = .Item("BIRTHDAY").Value.ToString.Trim
+                Me.dtbBIRTHDAY.Text = .Item(NameOf(_model.BIRTH_YMD))
                 'パスワード
-                Me.mtxPASS.Text = .Item("PASS").Value.ToString.Trim
+                Me.mtxPASS.Text = .Item(NameOf(_model.PASS))
                 '社員区分
-                Me.cmbSYAIN_KB.SelectedValue = .Item("SYAIN_KB").Value.ToString.Trim
+                Me.cmbSYAIN_KB.SelectedValue = .Item(NameOf(_model.SYAIN_KB))
                 '役職区分
-                Me.cmbYAKUSYOKU_KB.SelectedValue = .Item("YAKUSYOKU_KB").Value.ToString.Trim
+                Me.cmbYAKUSYOKU_KB.SelectedValue = .Item(NameOf(_model.YAKUSYOKU_KB))
                 '代行区分
-                Me.cmbDAIKO.SelectedValue = .Item("DAIKO_KB").Value.ToString.Trim
+                Me.cmbDAIKO.SelectedValue = .Item(NameOf(_model.DAIKO_KB))
                 'メールアドレス
-                Me.mtxMAIL_ADD.Text = .Item("MAIL_ADD.").Value.ToString.Trim
+                Me.mtxMAIL_ADD.Text = .Item(NameOf(_model.MAIL_ADDRESS))
+                'TEL
+                Me.mtxTEL.Text = .Item(NameOf(_model.TEL))
 
                 '更新日時
                 Dim dt As DateTime
-                dt = DateTime.ParseExact(.Item("EDIT_YMDHNS").Value.ToString, "yyyyMMddHHmmss", Nothing)
+                dt = DateTime.ParseExact(.Item(NameOf(_model.UPD_YMDHNS)).ToString, "yyyy/MM/dd HH:mm:ss", Nothing)
                 Me.lblEDIT_YMDHNS.Text = dt.ToString("yyyy/MM/dd HH:mm:ss")
-                '更新担当者CD
-                Me.lblEDIT_SYAIN_ID.Text = .Item("EDIT_TANTO_CD").Value & " " & Fun_GetUSER_NAME(.Item("EDIT_TANTO_CD").Value)
+
+                '更新担当
+                Me.lblEDIT_SYAIN_ID.Text = .Item(NameOf(_model.UPD_SYAIN_NAME)).ToString
 
             End With
             Return True
@@ -154,6 +167,7 @@ Public Class FrmM0041
     End Function
 
 #End Region
+
 #Region "FUNCTIONボタンCLICK"
 
 #Region "ボタンクリックイベント"
@@ -286,7 +300,7 @@ Public Class FrmM0041
                     '入社年月日
                     sbSQL.Append(" ,'" & Me.dtbNYUSYA_YMD.ValueNonFormat & "'")
                     '退社年月日
-                    sbSQL.Append(" ,'" & Me.dtbTAISYA_YMD.ValueNonFormat& "'")
+                    sbSQL.Append(" ,'" & Me.dtbTAISYA_YMD.ValueNonFormat & "'")
                     'パスワード
                     sbSQL.Append(" ,'" & Me.mtxPASS.Text.Trim & "'")
                     '追加日時
@@ -346,10 +360,10 @@ Public Class FrmM0041
                     'トランザクション
                     DB.BeginTransaction()
                     '-----存在チェック
-                    sbSQL.Append("SELECT * FROM M03_TANTO ")
+                    sbSQL.Append("SELECT * FROM M004_SYAIN ")
                     sbSQL.Append(" WHERE")
-                    sbSQL.Append(" TANTO_CD =" & Nz(Me.mtxSYAIN_ID.Text.Trim & ""))
-                    'sbSQL.Append(" AND EDIT_YMDHNS ='" & PrdgvCellCollection.Item("EDIT_YMDHNS").Value.ToString & "' ")
+                    sbSQL.Append(" SYAIN_ID =" & Nz(Me.mtxSYAIN_ID.Text.Trim & ""))
+
                     dsList = DB.GetDataSet(sbSQL.ToString)
                     If dsList.Tables(0).Rows.Count = 0 Then '非存在時
                         MessageBox.Show(String.Format(My.Resources.infoSearchDataChange), My.Resources.infoTilteDuplicateCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -358,20 +372,22 @@ Public Class FrmM0041
 
                     '-----UPDATE
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("UPDATE M03_TANTO SET")
-                    sbSQL.Append(" SYOKUBAN =" & Me.mtxSYAIN_NO.Text.Trim & "")
-                    sbSQL.Append(" ,TANTO_NAME ='" & Me.mtxSIMEI.Text.Trim & "'")
-                    sbSQL.Append(" ,TANTO_NAME_KANA ='" & Me.mtxSIMEI_KANA.Text.Trim & "'")
-                    sbSQL.Append(" ,CYOKKAN_KB ='" & Me.cmbSYAIN_KB.SelectedValue & "'")
-                    sbSQL.Append(" ,NYUSYA_YMD ='" & Nz(Me.dtbNYUSYA_YMD.Text.Trim.Replace("/", ""), " ") & "'")
-                    sbSQL.Append(" ,TAISYA_YMD ='" & Nz(Me.dtbTAISYA_YMD.Text.Trim.Replace("/", ""), " ") & "'")
+                    sbSQL.Append("UPDATE M004_SYAIN SET")
+                    sbSQL.Append("  SIMEI        ='" & Me.mtxSIMEI.Text.Trim & "'")
+                    sbSQL.Append(" ,SIMEI_KANA   ='" & Me.mtxSIMEI_KANA.Text.Trim & "'")
+                    sbSQL.Append(" ,SYAIN_KB     ='" & Me.cmbSYAIN_KB.SelectedValue & "'")
                     sbSQL.Append(" ,YAKUSYOKU_KB ='" & Me.cmbYAKUSYOKU_KB.SelectedValue & "'")
-                    'sbSQL.Append(" ,BU_CD =" & Nz(Me.cmbBUSYO_CD.SelectedValue, " ") & "")
-                    'sbSQL.Append(" ,KA_CD =" & Nz(Me.cmbKA_CD.SelectedValue, " ") & "")
-                    sbSQL.Append(" ,BIRTHDAY ='" & Nz(Me.dtbBIRTHDAY.Text.Trim.Replace("/", ""), " ") & "'")
-                    sbSQL.Append(" ,EDIT_YMDHNS = dbo.GetSysDateString() ")
+                    sbSQL.Append(" ,DAIKO_KB     ='" & Me.cmbDAIKO.SelectedValue & "'")
+                    sbSQL.Append(" ,BIRTH_YMD    ='" & Me.dtbBIRTHDAY.ValueNonFormat & "'")
+                    sbSQL.Append(" ,TEL          ='" & Me.mtxTEL.Text.Trim & "'")
+                    sbSQL.Append(" ,MAIL_ADDRESS ='" & Me.mtxMAIL_ADD.Text.Trim & "'")
+                    sbSQL.Append(" ,NYUSYA_YMD   ='" & Me.dtbNYUSYA_YMD.ValueNonFormat & "'")
+                    sbSQL.Append(" ,TAISYA_YMD   ='" & Me.dtbTAISYA_YMD.ValueNonFormat & "'")
+                    sbSQL.Append(" ,PASS         ='" & Me.mtxPASS.Text.Trim & "'")
+                    sbSQL.Append(" ,UPD_YMDHNS   = dbo.GetSysDateString() ")
+                    sbSQL.Append(" ,UPD_SYAIN_ID = " & pub_SYAIN_INFO.SYAIN_ID & " ")
                     sbSQL.Append(" WHERE")
-                    sbSQL.Append(" TANTO_CD =" & Nz(Me.mtxSYAIN_ID.Text.Trim, " "))
+                    sbSQL.Append(" SYAIN_ID =" & Nz(Me.mtxSYAIN_ID.Text.Trim, " "))
 
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
                     If intRET <> 1 Then
@@ -482,32 +498,9 @@ Public Class FrmM0041
         End Try
     End Function
 
-
 #Region "ローカル関数"
 
-    Private Function FunGetNextTANTO_CD() As Integer
 
-        Dim dsList As New System.Data.DataSet
-        Try
-            Dim intRET As Integer
-            Dim sbSQL As New System.Text.StringBuilder
-
-            sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append("SELECT MAX(TANTO_CD) FROM M03_TANTO ")
-            Using DB As ClsDbUtility = DBOpen()
-                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-            End Using
-
-            intRET = Val(dsList.Tables(0).Rows(0).Item(0)) + 1
-
-            Return intRET
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return -1
-        Finally
-            dsList.Dispose()
-        End Try
-    End Function
 
 
 #End Region

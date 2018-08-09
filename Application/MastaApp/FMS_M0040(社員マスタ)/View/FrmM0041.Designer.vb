@@ -26,7 +26,6 @@ Partial Class FrmM0041
         Me.lbllblEDIT_SYAIN_ID = New System.Windows.Forms.Label()
         Me.lblEDIT_YMDHNS = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.dtbBIRTHDAY = New JMS_COMMON.DateTextBoxEx()
         Me.dtbTAISYA_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.mtxSYAIN_NO = New JMS_COMMON.MaskedTextBoxEx()
@@ -36,18 +35,19 @@ Partial Class FrmM0041
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
         Me.mtxSIMEI = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.mtxSYAIN_ID = New JMS_COMMON.MaskedTextBoxEx()
         Me.cmbSYAIN_KB = New JMS_COMMON.ComboboxEx()
         Me.mtxPASS = New JMS_COMMON.MaskedTextBoxEx()
-        Me.cmbYAKUSYOKU_KB = New JMS_COMMON.ComboboxEx()
         Me.mtxSIMEI_KANA = New JMS_COMMON.MaskedTextBoxEx()
+        Me.cmbYAKUSYOKU_KB = New JMS_COMMON.ComboboxEx()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.dtbNYUSYA_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.cmbDAIKO = New JMS_COMMON.ComboboxEx()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.dtbBIRTHDAY = New JMS_COMMON.DateTextBoxEx()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.mtxMAIL_ADD = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -292,22 +292,6 @@ Partial Class FrmM0041
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(954, 206)
         Me.TableLayoutPanel1.TabIndex = 47
         '
-        'dtbBIRTHDAY
-        '
-        Me.dtbBIRTHDAY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtbBIRTHDAY.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.dtbBIRTHDAY.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtbBIRTHDAY.Location = New System.Drawing.Point(694, 97)
-        Me.dtbBIRTHDAY.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtbBIRTHDAY.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtbBIRTHDAY.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtbBIRTHDAY.Name = "dtbBIRTHDAY"
-        Me.dtbBIRTHDAY.ReadOnly = False
-        Me.dtbBIRTHDAY.Size = New System.Drawing.Size(115, 24)
-        Me.dtbBIRTHDAY.TabIndex = 12
-        Me.dtbBIRTHDAY.Value = ""
-        Me.dtbBIRTHDAY.ValueNonFormat = ""
-        '
         'dtbTAISYA_YMD
         '
         Me.dtbTAISYA_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -320,7 +304,7 @@ Partial Class FrmM0041
         Me.dtbTAISYA_YMD.Name = "dtbTAISYA_YMD"
         Me.dtbTAISYA_YMD.ReadOnly = False
         Me.dtbTAISYA_YMD.Size = New System.Drawing.Size(115, 24)
-        Me.dtbTAISYA_YMD.TabIndex = 7
+        Me.dtbTAISYA_YMD.TabIndex = 6
         Me.dtbTAISYA_YMD.Value = ""
         Me.dtbTAISYA_YMD.ValueNonFormat = ""
         '
@@ -346,7 +330,7 @@ Partial Class FrmM0041
         Me.mtxSYAIN_NO.Name = "mtxSYAIN_NO"
         Me.mtxSYAIN_NO.PermitNumChars = True
         Me.mtxSYAIN_NO.Size = New System.Drawing.Size(82, 24)
-        Me.mtxSYAIN_NO.TabIndex = 2
+        Me.mtxSYAIN_NO.TabIndex = 1
         Me.mtxSYAIN_NO.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxSYAIN_NO.WatermarkText = Nothing
         '
@@ -412,27 +396,6 @@ Partial Class FrmM0041
         Me.Label2.Text = "入社日"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label9
-        '
-        Me.Label9.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label9.Location = New System.Drawing.Point(3, 124)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(94, 26)
-        Me.Label9.TabIndex = 47
-        Me.Label9.Text = "役職区分"
-        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label10
-        '
-        Me.Label10.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label10.Location = New System.Drawing.Point(614, 94)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(74, 25)
-        Me.Label10.TabIndex = 48
-        Me.Label10.Text = "生年月日"
-        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
         'mtxSIMEI
         '
         Me.mtxSIMEI.BackColor = System.Drawing.SystemColors.Window
@@ -444,7 +407,7 @@ Partial Class FrmM0041
         Me.mtxSIMEI.MaxByteLength = 20
         Me.mtxSIMEI.Name = "mtxSIMEI"
         Me.mtxSIMEI.Size = New System.Drawing.Size(179, 24)
-        Me.mtxSIMEI.TabIndex = 4
+        Me.mtxSIMEI.TabIndex = 3
         Me.mtxSIMEI.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxSIMEI.WatermarkText = Nothing
         '
@@ -480,18 +443,19 @@ Partial Class FrmM0041
         Me.cmbSYAIN_KB.BackColor = System.Drawing.SystemColors.Window
         Me.cmbSYAIN_KB.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYAIN_KB.DisplayMember = "DISP"
+        Me.cmbSYAIN_KB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbSYAIN_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYAIN_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYAIN_KB.FormattingEnabled = True
         Me.cmbSYAIN_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbSYAIN_KB.ItemHeight = 17
         Me.cmbSYAIN_KB.Location = New System.Drawing.Point(391, 33)
         Me.cmbSYAIN_KB.Name = "cmbSYAIN_KB"
         Me.cmbSYAIN_KB.NullValue = " "
         Me.cmbSYAIN_KB.ReadOnly = False
         Me.cmbSYAIN_KB.Selected = False
         Me.cmbSYAIN_KB.Size = New System.Drawing.Size(121, 25)
-        Me.cmbSYAIN_KB.TabIndex = 3
-        Me.cmbSYAIN_KB.Text = "(選択)"
+        Me.cmbSYAIN_KB.TabIndex = 2
         Me.cmbSYAIN_KB.ValueMember = "VALUE"
         '
         'mtxPASS
@@ -505,28 +469,9 @@ Partial Class FrmM0041
         Me.mtxPASS.MaxByteLength = 20
         Me.mtxPASS.Name = "mtxPASS"
         Me.mtxPASS.Size = New System.Drawing.Size(122, 24)
-        Me.mtxPASS.TabIndex = 13
+        Me.mtxPASS.TabIndex = 12
         Me.mtxPASS.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxPASS.WatermarkText = Nothing
-        '
-        'cmbYAKUSYOKU_KB
-        '
-        Me.cmbYAKUSYOKU_KB.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbYAKUSYOKU_KB.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbYAKUSYOKU_KB.DisplayMember = "DISP"
-        Me.cmbYAKUSYOKU_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbYAKUSYOKU_KB.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbYAKUSYOKU_KB.FormattingEnabled = True
-        Me.cmbYAKUSYOKU_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbYAKUSYOKU_KB.Location = New System.Drawing.Point(103, 127)
-        Me.cmbYAKUSYOKU_KB.Name = "cmbYAKUSYOKU_KB"
-        Me.cmbYAKUSYOKU_KB.NullValue = " "
-        Me.cmbYAKUSYOKU_KB.ReadOnly = False
-        Me.cmbYAKUSYOKU_KB.Selected = False
-        Me.cmbYAKUSYOKU_KB.Size = New System.Drawing.Size(121, 25)
-        Me.cmbYAKUSYOKU_KB.TabIndex = 11
-        Me.cmbYAKUSYOKU_KB.Text = "(選択)"
-        Me.cmbYAKUSYOKU_KB.ValueMember = "VALUE"
         '
         'mtxSIMEI_KANA
         '
@@ -539,9 +484,39 @@ Partial Class FrmM0041
         Me.mtxSIMEI_KANA.MaxByteLength = 20
         Me.mtxSIMEI_KANA.Name = "mtxSIMEI_KANA"
         Me.mtxSIMEI_KANA.Size = New System.Drawing.Size(171, 24)
-        Me.mtxSIMEI_KANA.TabIndex = 5
+        Me.mtxSIMEI_KANA.TabIndex = 4
         Me.mtxSIMEI_KANA.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxSIMEI_KANA.WatermarkText = Nothing
+        '
+        'cmbYAKUSYOKU_KB
+        '
+        Me.cmbYAKUSYOKU_KB.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbYAKUSYOKU_KB.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbYAKUSYOKU_KB.DisplayMember = "DISP"
+        Me.cmbYAKUSYOKU_KB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbYAKUSYOKU_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbYAKUSYOKU_KB.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbYAKUSYOKU_KB.FormattingEnabled = True
+        Me.cmbYAKUSYOKU_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbYAKUSYOKU_KB.Location = New System.Drawing.Point(103, 127)
+        Me.cmbYAKUSYOKU_KB.Name = "cmbYAKUSYOKU_KB"
+        Me.cmbYAKUSYOKU_KB.NullValue = " "
+        Me.cmbYAKUSYOKU_KB.ReadOnly = False
+        Me.cmbYAKUSYOKU_KB.Selected = False
+        Me.cmbYAKUSYOKU_KB.Size = New System.Drawing.Size(121, 25)
+        Me.cmbYAKUSYOKU_KB.TabIndex = 8
+        Me.cmbYAKUSYOKU_KB.ValueMember = "VALUE"
+        '
+        'Label9
+        '
+        Me.Label9.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label9.Location = New System.Drawing.Point(3, 124)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(94, 26)
+        Me.Label9.TabIndex = 47
+        Me.Label9.Text = "役職区分"
+        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'dtbNYUSYA_YMD
         '
@@ -555,7 +530,7 @@ Partial Class FrmM0041
         Me.dtbNYUSYA_YMD.Name = "dtbNYUSYA_YMD"
         Me.dtbNYUSYA_YMD.ReadOnly = False
         Me.dtbNYUSYA_YMD.Size = New System.Drawing.Size(115, 24)
-        Me.dtbNYUSYA_YMD.TabIndex = 64
+        Me.dtbNYUSYA_YMD.TabIndex = 5
         Me.dtbNYUSYA_YMD.Value = ""
         Me.dtbNYUSYA_YMD.ValueNonFormat = ""
         '
@@ -575,6 +550,7 @@ Partial Class FrmM0041
         Me.cmbDAIKO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbDAIKO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbDAIKO.DisplayMember = "DISP"
+        Me.cmbDAIKO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbDAIKO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbDAIKO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbDAIKO.FormattingEnabled = True
@@ -585,9 +561,34 @@ Partial Class FrmM0041
         Me.cmbDAIKO.ReadOnly = False
         Me.cmbDAIKO.Selected = False
         Me.cmbDAIKO.Size = New System.Drawing.Size(115, 25)
-        Me.cmbDAIKO.TabIndex = 66
-        Me.cmbDAIKO.Text = "(選択)"
+        Me.cmbDAIKO.TabIndex = 9
         Me.cmbDAIKO.ValueMember = "VALUE"
+        '
+        'Label10
+        '
+        Me.Label10.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label10.Location = New System.Drawing.Point(614, 94)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(74, 25)
+        Me.Label10.TabIndex = 48
+        Me.Label10.Text = "生年月日"
+        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'dtbBIRTHDAY
+        '
+        Me.dtbBIRTHDAY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtbBIRTHDAY.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.dtbBIRTHDAY.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtbBIRTHDAY.Location = New System.Drawing.Point(694, 97)
+        Me.dtbBIRTHDAY.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtbBIRTHDAY.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtbBIRTHDAY.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtbBIRTHDAY.Name = "dtbBIRTHDAY"
+        Me.dtbBIRTHDAY.ReadOnly = False
+        Me.dtbBIRTHDAY.Size = New System.Drawing.Size(115, 24)
+        Me.dtbBIRTHDAY.TabIndex = 7
+        Me.dtbBIRTHDAY.Value = ""
+        Me.dtbBIRTHDAY.ValueNonFormat = ""
         '
         'Label11
         '
@@ -611,7 +612,7 @@ Partial Class FrmM0041
         Me.mtxMAIL_ADD.MaxByteLength = 20
         Me.mtxMAIL_ADD.Name = "mtxMAIL_ADD"
         Me.mtxMAIL_ADD.Size = New System.Drawing.Size(213, 24)
-        Me.mtxMAIL_ADD.TabIndex = 68
+        Me.mtxMAIL_ADD.TabIndex = 11
         Me.mtxMAIL_ADD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxMAIL_ADD.WatermarkText = Nothing
         '
@@ -637,7 +638,7 @@ Partial Class FrmM0041
         Me.mtxTEL.MaxByteLength = 20
         Me.mtxTEL.Name = "mtxTEL"
         Me.mtxTEL.Size = New System.Drawing.Size(139, 24)
-        Me.mtxTEL.TabIndex = 69
+        Me.mtxTEL.TabIndex = 10
         Me.mtxTEL.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxTEL.WatermarkText = Nothing
         '
