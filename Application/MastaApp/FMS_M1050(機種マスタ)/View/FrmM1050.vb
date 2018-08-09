@@ -26,9 +26,7 @@ Public Class FrmM1050
 
 #Region "Form関連"
 
-    'Loadイベント
     Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
         Try
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
@@ -78,7 +76,7 @@ Public Class FrmM1050
             .SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row
             .FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.None
 
-            .Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
+            .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
 
             .Styles.Add("DeletedRow")
             .Styles("DeletedRow").BackColor = clrDeletedRowBackColor
@@ -134,10 +132,10 @@ Public Class FrmM1050
 
         Try
             '[処理中]
-            Me.PrPG_STATUS = ENM_PG_STATUS._3_PROCESSING
+            MyBase.PrPG_STATUS = ENM_PG_STATUS._3_PROCESSING
 
             'ボタン不可/ボタンINDEX取得
-            For intCNT = 0 To Me.cmdFunc.Length - 1
+            For intCNT = 0 To cmdFunc.Length - 1
                 Me.cmdFunc(intCNT).Enabled = False
                 If cmdFunc(intCNT) Is sender Then intFUNC = intCNT + 1
             Next
@@ -157,8 +155,7 @@ Public Class FrmM1050
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) Then Call FunSRCH(flxDATA, FunGetListData())
 
                 Case 5, 6  '削除/復元/完全削除
-                    Dim btn As Button = DirectCast(sender, Button)
-                    Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(btn.Tag, ENM_DATA_OPERATION_MODE)
+                    Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(sender, Button).Tag
                     If FunDEL(ENM_MODE) Then Call FunSRCH(flxDATA, FunGetListData())
 
                 Case 10  'CSV出力
@@ -174,15 +171,15 @@ Public Class FrmM1050
         Finally
             'ボタン可
             System.Windows.Forms.Application.DoEvents()
-            For intCNT = 0 To Me.cmdFunc.Length - 1
-                Me.cmdFunc(intCNT).Enabled = True
+            For intCNT = 0 To cmdFunc.Length - 1
+                cmdFunc(intCNT).Enabled = True
             Next
 
             'ファンクションキー有効化初期化
             Call SubInitFuncButtonEnabled()
 
             '[アクティブ]
-            Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
+            MyBase.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
         End Try
     End Sub
 #End Region
@@ -195,13 +192,9 @@ Public Class FrmM1050
             Dim dsList As New DataSet
             Dim sbSQLWHERE As New System.Text.StringBuilder
 
-            If CmbBUMON_KB.Selected Then
-                sbSQLWHERE.Append($" WHERE BUMON_KB ='{CmbBUMON_KB.SelectedValue}' ")
-            End If
+            If CmbBUMON_KB.Selected Then sbSQLWHERE.Append($" WHERE BUMON_KB ='{CmbBUMON_KB.SelectedValue}' ")
 
-            If mtxKISYU_NAME.Text.IsNullOrWhiteSpace Then
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"KISYU_NAME LIKE '%{mtxKISYU_NAME.Text.Trim}%'")
-            End If
+            If Not mtxKISYU_NAME.Text.IsNullOrWhiteSpace Then sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"KISYU_NAME LIKE '%{mtxKISYU_NAME.Text.Trim}%'")
 
             If chkDeletedRowVisibled.Checked Then
                 flxDATA.Cols("DEL_FLG").Visible = True
@@ -299,7 +292,7 @@ Public Class FrmM1050
             Using frmDLG As New FrmM1051
                 frmDLG.PrMODE = intMODE
                 If flxDATA.RowSel > 0 Then
-                    frmDLG.PrDataRow = flxDATA.Rows(flxDATA.RowSel).DataSource
+                    frmDLG.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
                 Else
                     frmDLG.PrDataRow = Nothing
                 End If

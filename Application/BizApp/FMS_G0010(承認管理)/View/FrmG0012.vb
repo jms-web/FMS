@@ -1861,14 +1861,14 @@ Public Class FrmG0012
     End Sub
 
     Private Sub RbtnSEKKEI_TANTO_YOHI_YES_CheckedChanged(sender As Object, e As EventArgs) 'Handles rbtnSEKKEI_TANTO_YOHI_YES.CheckedChanged
-        _D005_CAR_J.KAITO_23 = True
+        _D005_CAR_J._KAITO_23 = 1
         'mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
         'Dim dt As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
         'cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
     End Sub
 
     Private Sub RbtnSEKKEI_TANTO_YOHI_NO_CheckedChanged(sender As Object, e As EventArgs) 'Handles rbtnSEKKEI_TANTO_YOHI_NO.CheckedChanged
-        _D005_CAR_J.KAITO_23 = False
+        _D005_CAR_J._KAITO_23 = 0
         'mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
         'Dim dt As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
         'cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -2815,7 +2815,8 @@ Public Class FrmG0012
             _D005_CAR_J.KAITO_22 = _V005_CAR_J.KAITO_22
             _D005_CAR_J.SETUMON_23 = _V005_CAR_J.SETUMON_23
             _D005_CAR_J.KAITO_23 = IIf(_V005_CAR_J.KAITO_23 = "1", True, False)
-            chkSEKKEI_TANTO_YOHI_KB.Checked = IIf(_V005_CAR_J.KAITO_23 = "1", True, False)
+            rbtnSEKKEI_TANTO_YOHI_YES.Checked = IIf(_V005_CAR_J.KAITO_23 = "1", True, False)
+            rbtnSEKKEI_TANTO_YOHI_NO.Checked = IIf(_V005_CAR_J.KAITO_23 = "0", True, False)
 
             _D005_CAR_J.SETUMON_24 = _V005_CAR_J.SETUMON_24
             _D005_CAR_J.KAITO_24 = _V005_CAR_J.KAITO_24
@@ -3047,6 +3048,8 @@ Public Class FrmG0012
             Return 0
         End Try
     End Function
+
+
 
 #End Region
 

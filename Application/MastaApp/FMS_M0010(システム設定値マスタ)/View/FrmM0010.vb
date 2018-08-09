@@ -27,9 +27,7 @@ Public Class FrmM0010
 
 #Region "Form関連"
 
-    'Loadイベント
     Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
         Try
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
@@ -41,11 +39,11 @@ Public Class FrmM0010
             Call FunInitializeFlexGrid(flxDATA)
 
             '-----コントロールデータソース設定
-            Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
+            cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
 
-            ''-----イベントハンドラ設定
-            AddHandler Me.cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+            '-----イベントハンドラ設定
+            AddHandler cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
         Finally
             Call SubInitFuncButtonEnabled()
@@ -78,7 +76,7 @@ Public Class FrmM0010
             .SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row
             .FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.None
 
-            .Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
+            .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
 
             .Styles.Add("DeletedRow")
             .Styles("DeletedRow").BackColor = clrDeletedRowBackColor
@@ -135,10 +133,10 @@ Public Class FrmM0010
 
         Try
             '[処理中]
-            Me.PrPG_STATUS = ENM_PG_STATUS._3_PROCESSING
+            MyBase.PrPG_STATUS = ENM_PG_STATUS._3_PROCESSING
 
             'ボタン不可/ボタンINDEX取得
-            For intCNT = 0 To Me.cmdFunc.Length - 1
+            For intCNT = 0 To cmdFunc.Length - 1
                 Me.cmdFunc(intCNT).Enabled = False
                 If cmdFunc(intCNT) Is sender Then intFUNC = intCNT + 1
             Next
@@ -146,30 +144,23 @@ Public Class FrmM0010
             'ボタンINDEX毎の処理
             Select Case intFUNC
                 Case 1  '検索
-                    Call FunSRCH(Me.flxDATA, FunGetListData())
+                    Call FunSRCH(flxDATA, FunGetListData())
                 Case 2  '追加
-                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
-                        Call FunSRCH(Me.flxDATA, FunGetListData())
-                    End If
+                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) Then Call FunSRCH(flxDATA, FunGetListData())
+
                 Case 3  '参照追加
-                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._2_ADDREF) = True Then
-                        Call FunSRCH(Me.flxDATA, FunGetListData())
-                    End If
+                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._2_ADDREF) Then Call FunSRCH(flxDATA, FunGetListData())
+
                 Case 4  '変更
-                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) = True Then
-                        Call FunSRCH(Me.flxDATA, FunGetListData())
-                    End If
+                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) Then Call FunSRCH(flxDATA, FunGetListData())
+
                 Case 5, 6  '削除/復元/完全削除
-                    Dim btn As Button = DirectCast(sender, Button)
-                    Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(btn.Tag, ENM_DATA_OPERATION_MODE)
-                    If FunDEL(ENM_MODE) = True Then
-                        Call FunSRCH(Me.flxDATA, FunGetListData())
-                    End If
+                    Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(sender, Button).Tag
+                    If FunDEL(ENM_MODE) Then Call FunSRCH(flxDATA, FunGetListData())
 
                 Case 10  'CSV出力
                     Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
-                    Call FunCSV_OUT(Me.flxDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
-
+                    Call FunCSV_OUT(flxDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
                 Case 12 '閉じる
                     Me.Close()
@@ -179,17 +170,16 @@ Public Class FrmM0010
         Finally
             'ボタン可
             System.Windows.Forms.Application.DoEvents()
-            For intCNT = 0 To Me.cmdFunc.Length - 1
-                Me.cmdFunc(intCNT).Enabled = True
+            For intCNT = 0 To cmdFunc.Length - 1
+                cmdFunc(intCNT).Enabled = True
             Next
 
             'ファンクションキー有効化初期化
             Call SubInitFuncButtonEnabled()
 
             '[アクティブ]
-            Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
+            MyBase.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
         End Try
-
     End Sub
 
 #End Region
@@ -202,28 +192,21 @@ Public Class FrmM0010
             Dim dsList As New DataSet
             Dim sbSQLWHERE As New System.Text.StringBuilder
 
-            ''----DBデータ取得
-            sbSQLWHERE.Remove(0, sbSQLWHERE.Length)
-            If Me.cmbKOMO_NM.SelectedValue <> "" Then
-                sbSQLWHERE.Append(" WHERE ITEM_NAME ='" & Me.cmbKOMO_NM.SelectedValue & "' ")
+            If cmbKOMO_NM.Selected Then
+                sbSQLWHERE.Append(" WHERE ITEM_NAME ='" & cmbKOMO_NM.SelectedValue & "' ")
             Else
                 If cmbKOMO_NM.Text.IsNullOrWhiteSpace = False Then
-                    sbSQLWHERE.Append("  WHERE ITEM_NAME  LIKE '%" & Me.cmbKOMO_NM.Text.Trim & "%' ")
+                    sbSQLWHERE.Append("  WHERE ITEM_NAME  LIKE '%" & cmbKOMO_NM.Text.Trim & "%' ")
                 End If
             End If
 
-            If Me.chkDeletedRowVisibled.Checked = False Then
-                If sbSQLWHERE.Length = 0 Then
-                    sbSQLWHERE.Append(" WHERE DEL_FLG <> 1 ")
-                Else
-                    sbSQLWHERE.Append(" AND DEL_FLG <> 1 ")
-                End If
-                flxDATA.Cols("DEL_FLG").Visible = False
-            Else
+            If chkDeletedRowVisibled.Checked Then
                 flxDATA.Cols("DEL_FLG").Visible = True
+            Else
+                flxDATA.Cols("DEL_FLG").Visible = False
+                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & "DEL_FLG <> 1 ")
             End If
 
-            sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append("SELECT")
             sbSQL.Append(" *")
             sbSQL.Append(" FROM " & NameOf(MODEL.VWM001_SETTING) & " ")
@@ -309,7 +292,6 @@ Public Class FrmM0010
     ''' <param name="intMODE">処理モード</param>
     ''' <returns></returns>
     Private Function FunUpdateEntity(ByVal intMODE As ENM_DATA_OPERATION_MODE) As Boolean
-        Dim frmDLG As New FrmM0011
         Dim dlgRET As DialogResult
         Dim PKeys As (ITEM_NAME As String, ITEM_VALUE As String)
         Dim strComboVal As String
@@ -323,15 +305,16 @@ Public Class FrmM0010
                 strComboVal = ""
             End If
 
-
-            frmDLG.PrMODE = intMODE
-            If flxDATA.RowSel > 0 Then
-                frmDLG.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row 'flxDATA.Rows(flxDATA.Row)
-            Else
-                frmDLG.PrDataRow = Nothing
-            End If
-            dlgRET = frmDLG.ShowDialog(Me)
-            PKeys = frmDLG.PrPKeys
+            Using frmDLG As New FrmM0011
+                frmDLG.PrMODE = intMODE
+                If flxDATA.RowSel > 0 Then
+                    frmDLG.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row 'flxDATA.Rows(flxDATA.Row)
+                Else
+                    frmDLG.PrDataRow = Nothing
+                End If
+                dlgRET = frmDLG.ShowDialog(Me)
+                PKeys = frmDLG.PrPKeys
+            End Using
 
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
@@ -363,9 +346,6 @@ Public Class FrmM0010
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
-            If frmDLG IsNot Nothing Then
-                frmDLG.Dispose()
-            End If
         End Try
     End Function
 
@@ -541,7 +521,7 @@ Public Class FrmM0010
     '検索フィルタ変更
     Private Sub SearchFilterValueChanged(sender As System.Object, e As System.EventArgs)
         '検索
-        Me.cmdFunc1.PerformClick()
+        cmdFunc1.PerformClick()
 
     End Sub
 
