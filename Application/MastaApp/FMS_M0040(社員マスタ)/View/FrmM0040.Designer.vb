@@ -428,7 +428,7 @@ Partial Class FrmM0040
         Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
         Me.flxDATA.DataSource = Me.VWM004SYAINBindingSource
         Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.flxDATA.Location = New System.Drawing.Point(17, 150)
+        Me.flxDATA.Location = New System.Drawing.Point(14, 150)
         Me.flxDATA.Name = "flxDATA"
         Me.flxDATA.Rows.Count = 1
         Me.flxDATA.Rows.DefaultSize = 23
