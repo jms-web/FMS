@@ -12,295 +12,399 @@ Partial Public Class V002_NCR_J
     End Sub
 
     <StringLength(10)>
+    <ComponentModel.DisplayName("•ñ‘No")>
     Public Property HOKOKU_NO As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("•”–å‹æ•ª")>
     Public Property BUMON_KB As String
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("•”–å–¼")>
     Public Property BUMON_NAME As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("ƒNƒ[ƒYƒtƒ‰ƒO")>
     Public Property CLOSE_FG As String
 
+    <ComponentModel.DisplayName("‹@ŽíID")>
     Public Property KISYU_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("‹@Ží")>
     Public Property KISYU As String
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("‹@Ží–¼")>
     Public Property KISYU_NAME As String
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("ŽÐ“àƒR[ƒh")>
     Public Property SYANAI_CD As String
 
     <StringLength(60)>
+    <ComponentModel.DisplayName("•”•i”Ô†")>
     Public Property BUHIN_BANGO As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("•”•i–¼Ì")>
     Public Property BUHIN_NAME As String
 
     <StringLength(5)>
+    <ComponentModel.DisplayName("†‹@")>
     Public Property GOKI As String
 
+    <ComponentModel.DisplayName("”—Ê")>
     Public Property SURYO As Integer
 
     <StringLength(10)>
+    <ComponentModel.DisplayName("Ä”­")>
     Public Property SAIHATU As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("•s“K‡ó‘Ô‹æ•ª")>
     Public Property FUTEKIGO_JYOTAI_KB As String
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("•s“K‡ó‘Ô‹æ•ª–¼")>
     Public Property FUTEKIGO_JYOTAI_NAME As String
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("•s“K‡ó‘Ô“à—e")>
     Public Property FUTEKIGO_NAIYO As String
 
+    <ComponentModel.DisplayName("•s“K‡‹æ•ª")>
     Public Property FUTEKIGO_KB As String
 
+    <ComponentModel.DisplayName("•s“K‡‹æ•ª–¼")>
     Public Property FUTEKIGO_NAME As String
 
+    <ComponentModel.DisplayName("•s“K‡Ú×‹æ•ª")>
     Public Property FUTEKIGO_S_KB As String
 
+    <ComponentModel.DisplayName("•s“K‡Ú×‹æ•ª–¼")>
     Public Property FUTEKIGO_S_NAME As String
 
-
     <StringLength(30)>
+    <ComponentModel.DisplayName("}–Ê‹KŠi")>
     Public Property ZUMEN_KIKAKU As String
 
     <StringLength(500)>
+    <ComponentModel.DisplayName("—v‹“à—e")>
     Public Property YOKYU_NAIYO As String
 
     <StringLength(500)>
+    <ComponentModel.DisplayName("ŠÏŽ@Œ‹‰Ê")>
     Public Property KANSATU_KEKKA As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("¥³ˆ’u—v”Û‹æ•ª")>
     Public Property ZESEI_SYOCHI_YOHI_KB As String
 
     <StringLength(100)>
+    <ComponentModel.DisplayName("¥³ˆ’u–³——R")>
     Public Property ZESEI_NASI_RIYU As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("Ž–‘OR¸”»’è‹æ•ª")>
     Public Property JIZEN_SINSA_HANTEI_KB As String
 
+    <ComponentModel.DisplayName("Ž–‘OR¸ŽÐˆõID")>
     Public Property JIZEN_SINSA_SYAIN_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("Ž–‘OR¸ŽÐˆõ–¼")>
     Public Property JIZEN_SINSA_SYAIN_NAME As String
 
     <StringLength(8)>
+    <ComponentModel.DisplayName("Ž–‘OR¸“ú")>
     Public Property JIZEN_SINSA_YMD As String
 
+    <ComponentModel.DisplayName("ÄRˆÏˆõŠm”FŽÐˆõID")>
     Public Property SAISIN_KAKUNIN_SYAIN_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("ÄRˆÏˆõŠm”FŽÐˆõ–¼")>
     Public Property SAISIN_KAKUNIN_SYAIN_NAME As String
 
     <StringLength(8)>
+    <ComponentModel.DisplayName("ÄRˆÏˆõŠm”F“ú")>
     Public Property SAISIN_KAKUNIN_YMD As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("ÄRˆÏˆõ‰ï”»’è‹æ•ª")>
     Public Property SAISIN_IINKAI_HANTEI_KB As String
 
+    <ComponentModel.DisplayName("ÄRˆÏˆõ‹ZpŽÐˆõID")>
     Public Property SAISIN_GIJYUTU_SYAIN_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("ÄRˆÏˆõ‹ZpŽÐˆõ–¼")>
     Public Property SAISIN_GIJYUTU_SYAIN_NAME As String
 
     <StringLength(8)>
+    <ComponentModel.DisplayName("ÄRˆÏˆõ‹ZpŠm”F“ú")>
     Public Property SAISIN_GIJYUTU_YMD As String
 
+    <ComponentModel.DisplayName("ÄRˆÏˆõ•iØŽÐˆõID")>
     Public Property SAISIN_HINSYO_SYAIN_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("ÄRˆÏˆõ•iØŽÐˆõ–¼")>
     Public Property SAISIN_HINSYO_SYAIN_NAME As String
 
     <StringLength(8)>
+    <ComponentModel.DisplayName("ÄRˆÏˆõ•iØŠm”F“ú")>
     Public Property SAISIN_HINSYO_YMD As String
 
     <StringLength(2)>
+    <ComponentModel.DisplayName("ÄRˆÏˆõ‰ïŽ‘—¿No")>
     Public Property SAISIN_IINKAI_SIRYO_NO As String
 
     <StringLength(20)>
+    <ComponentModel.DisplayName("ITAGNo")>
     Public Property ITAG_NO As String
 
+    <ComponentModel.DisplayName("ŒÚ‹qÄR\¿’S“–ID")>
     Public Property KOKYAKU_SAISIN_TANTO_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("ŒÚ‹qÄR\¿’S“––¼")>
     Public Property KOKYAKU_SAISIN_TANTO_NAME As String
 
     <StringLength(8)>
+    <ComponentModel.DisplayName("ŒÚ‹qÄR\¿“ú")>
     Public Property KOKYAKU_SAISIN_YMD As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("ŒÚ‹q”»’èŽwŽ¦‹æ•ª")>
     Public Property KOKYAKU_HANTEI_SIJI_KB As String
 
     <StringLength(50)>
+    <ComponentModel.DisplayName("ŒÚ‹q”»’èŽwŽ¦‹æ•ª–¼")>
     Public Property KOKYAKU_HANTEI_SIJI_NAME As String
 
     <StringLength(8)>
+    <ComponentModel.DisplayName("ŒÚ‹q”»’èŽwŽ¦“ú")>
     Public Property KOKYAKU_HANTEI_SIJI_YMD As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("ŒÚ‹qÅI”»’è‹æ•ª")>
     Public Property KOKYAKU_SAISYU_HANTEI_KB As String
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("ŒÚ‹qÅI”»’è‹æ•ª–¼")>
     Public Property KOKYAKU_SAISYU_HANTEI_NAME As String
 
     <StringLength(8)>
+    <ComponentModel.DisplayName("ŒÚ‹qÅI”»’è“ú")>
     Public Property KOKYAKU_SAISYU_HANTEI_YMD As String
 
     <StringLength(8)>
+    <ComponentModel.DisplayName("”p‹p”NŒŽ“ú")>
     Public Property HAIKYAKU_YMD As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("”p‹p•û–@‹æ•ª")>
     Public Property HAIKYAKU_KB As String
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("”p‹p•û–@‹æ•ª–¼")>
     Public Property HAIKYAKU_KB_NAME As String
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("”p‹p•û–@“à—e")>
     Public Property HAIKYAKU_HOUHOU As String
 
+    <ComponentModel.DisplayName("”p‹pŽÀŽ{ŽÒID")>
     Public Property HAIKYAKU_TANTO_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("”p‹pŽÀŽ{ŽÒ–¼")>
     Public Property HAIKYAKU_TANTO_NAME As String
 
     <StringLength(10)>
+    <ComponentModel.DisplayName("Ä‰ÁHŽwŽ¦•¶‘No")>
     Public Property SAIKAKO_SIJI_NO As String
 
+    <ComponentModel.DisplayName("Ä‰ÁHŽwŽ¦ƒtƒ‰ƒO")>
     Public Property SAIKAKO_SIJI_FG As String
 
     <StringLength(8)>
+    <ComponentModel.DisplayName("Ä‰ÁHì‹ÆŠ®—¹“ú")>
     Public Property SAIKAKO_SAGYO_KAN_YMD As String
 
     <StringLength(8)>
+    <ComponentModel.DisplayName("Ä‰ÁHŒŸ¸”NŒŽ“ú")>
     Public Property SAIKAKO_KENSA_YMD As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("ŒŸ¸Œ‹‰Ê‹æ•ª")>
     Public Property KENSA_KEKKA_KB As String
 
     <StringLength(50)>
+    <ComponentModel.DisplayName("ŒŸ¸Œ‹‰Ê‹æ•ª–¼")>
     Public Property KENSA_KEKKA_NAME As String
 
+    <ComponentModel.DisplayName("¶‹ZŽÐˆõID")>
     Public Property SEIGI_TANTO_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("¶‹ZŽÐˆõ–¼")>
     Public Property SEIGI_TANTO_NAME As String
 
     <StringLength(8)>
+    <ComponentModel.DisplayName("¶‹ZŠm”F”NŒŽ“ú")>
     Public Property SEIGI_KAKUNIN_YMD As String
 
+    <ComponentModel.DisplayName("»‘¢ŽÐˆõID")>
     Public Property SEIZO_TANTO_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("»‘¢ŽÐˆõ–¼")>
     Public Property SEIZO_TANTO_NAME As String
 
     <StringLength(8)>
+    <ComponentModel.DisplayName("»‘¢Šm”F”NŒŽ“ú")>
     Public Property SEIZO_KAKUNIN_YMD As String
 
+    <ComponentModel.DisplayName("ŒŸ¸ŽÐˆõID")>
     Public Property KENSA_TANTO_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("ŒŸ¸ŽÐˆõ–¼")>
     Public Property KENSA_TANTO_NAME As String
 
     <StringLength(8)>
+    <ComponentModel.DisplayName("ŒŸ¸Šm”F”NŒŽ“ú")>
     Public Property KENSA_KAKUNIN_YMD As String
 
     <StringLength(8)>
+    <ComponentModel.DisplayName("•Ô‹p”NŒŽ“ú")>
     Public Property HENKYAKU_YMD As String
 
     <StringLength(60)>
+    <ComponentModel.DisplayName("•Ô‹pæ")>
     Public Property HENKYAKU_SAKI As String
 
+    <ComponentModel.DisplayName("•Ô‹pŽÀŽ{ŽÒID")>
     Public Property HENKYAKU_TANTO_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("•Ô‹pŽÀŽ{ŽÒ–¼")>
     Public Property HENKYAKU_TANTO_NAME As String
 
     <StringLength(100)>
+    <ComponentModel.DisplayName("•Ô‹pŽÀŽ{”õl")>
     Public Property HENKYAKU_BIKO As String
 
+    <ComponentModel.DisplayName("“]—pæ‹@ŽíID")>
     Public Property TENYO_KISYU_ID As Integer
 
     <StringLength(50)>
+    <ComponentModel.DisplayName("“]—pæ‹@Ží")>
     Public Property TENYO_KISYU As String
 
     <StringLength(60)>
+    <ComponentModel.DisplayName("“]—pæ•”•i”Ô†")>
     Public Property TENYO_BUHIN_BANGO As String
 
     <StringLength(5)>
+    <ComponentModel.DisplayName("“]—pæ†‹@")>
     Public Property TENYO_GOKI As String
 
+    <ComponentModel.DisplayName("“]—pæLOT")>
     Public Property TENYO_LOT As Integer
 
     <StringLength(8)>
+    <ComponentModel.DisplayName("“]—p”NŒŽ“ú")>
     Public Property TENYO_YMD As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("ˆ’uŒ‹‰Êa")>
     Public Property SYOCHI_KEKKA_A As String
 
     <StringLength(50)>
+    <ComponentModel.DisplayName("ˆ’uŒ‹‰Êa–¼")>
     Public Property SYOCHI_KEKKA_A_NAME As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("ˆ’uŒ‹‰Êb")>
     Public Property SYOCHI_KEKKA_B As String
 
     <StringLength(50)>
+    <ComponentModel.DisplayName("ˆ’uŒ‹‰Êb–¼")>
     Public Property SYOCHI_KEKKA_B_NAME As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("ˆ’uŒ‹‰Êc")>
     Public Property SYOCHI_KEKKA_C As String
 
     <StringLength(50)>
+    <ComponentModel.DisplayName("ˆ’uŒ‹‰Êc–¼")>
     Public Property SYOCHI_KEKKA_C_NAME As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("ˆ’ud—L–³‹æ•ª")>
     Public Property SYOCHI_D_UMU_KB As String
 
     <StringLength(10)>
+    <ComponentModel.DisplayName("ˆ’ud—L–³‹æ•ª–¼")>
     Public Property SYOCHI_D_UMU_NAME As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("ˆ’ud—v”Û‹æ•ª")>
     Public Property SYOCHI_D_YOHI_KB As String
 
     <StringLength(10)>
+    <ComponentModel.DisplayName("ˆ’ud—v”Û‹æ•ª–¼")>
     Public Property SYOCHI_D_YOHI_NAME As String
 
     <StringLength(100)>
+    <ComponentModel.DisplayName("ˆ’udˆ’u‹L˜^")>
     Public Property SYOCHI_D_SYOCHI_KIROKU As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("ˆ’ue—L–³‹æ•ª")>
     Public Property SYOCHI_E_UMU_KB As String
 
     <StringLength(10)>
+    <ComponentModel.DisplayName("ˆ’ue—L–³‹æ•ª–¼")>
     Public Property SYOCHI_E_UMU_NAME As String
 
     <StringLength(1)>
+    <ComponentModel.DisplayName("ˆ’ue—v”Û‹æ•ª")>
     Public Property SYOCHI_E_YOHI_KB As String
 
     <StringLength(10)>
+    <ComponentModel.DisplayName("ˆ’ue—v”Û‹æ•ª–¼")>
     Public Property SYOCHI_E_YOHI_NAME As String
 
     <StringLength(100)>
+    <ComponentModel.DisplayName("ˆ’ueˆ’u‹L˜^")>
     Public Property SYOCHI_E_SYOCHI_KIROKU As String
 
     <StringLength(200)>
+    <ComponentModel.DisplayName("ƒtƒ@ƒCƒ‹ƒpƒX")>
     Public Property FILE_PATH As String
 
     <StringLength(200)>
+    <ComponentModel.DisplayName("‰æ‘œƒtƒ@ƒCƒ‹ƒpƒX1")>
     Public Property G_FILE_PATH1 As String
 
     <StringLength(200)>
+    <ComponentModel.DisplayName("‰æ‘œƒtƒ@ƒCƒ‹ƒpƒX2")>
     Public Property G_FILE_PATH2 As String
 
+    <ComponentModel.DisplayName("”­¶H’öGLŠm”F’S“–")>
     Public Property HASSEI_KOTEI_GL_SYAIN_ID As Integer
 
     <StringLength(14)>
+    <ComponentModel.DisplayName("’Ç‰Á“úŽž")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property ADD_YMDHNS As String
 
+    <DoNotNotify>
     <Display(AutoGenerateField:=False)>
     <NotMapped>
     Public ReadOnly Property ADD_YMD As String
@@ -315,31 +419,49 @@ Partial Public Class V002_NCR_J
         End Get
     End Property
 
+    <ComponentModel.DisplayName("’Ç‰Á’S“–ID")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property ADD_SYAIN_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("’Ç‰Á’S“–ŽÒ")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property ADD_SYAIN_NAME As String
 
     <StringLength(14)>
+    <ComponentModel.DisplayName("XV“úŽž")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property UPD_YMDHNS As String
 
+    <ComponentModel.DisplayName("XV’S“–ID")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property UPD_SYAIN_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("XV’S“–ŽÒ")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property UPD_SYAIN_NAME As String
 
     <StringLength(14)>
+    <ComponentModel.DisplayName("íœ“úŽž")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_YMDHNS As String
 
+    <ComponentModel.DisplayName("íœ’S“–ID")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_SYAIN_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("íœ’S“–ŽÒ")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_SYAIN_NAME As String
 
     <StringLength(14)>
+    <ComponentModel.DisplayName("”­¶H’öGL”NŒŽ“ú")>
     Public Property HASSEI_KOTEI_GL_YMD As String
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("”­¶H’öGLŠm”F’S“–ŽÒ")>
     Public Property HASSEI_KOTEI_GL_SYAIN_NAME As String
 
 #Region "IDisposable Support"
