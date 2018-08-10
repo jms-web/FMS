@@ -43,7 +43,6 @@ Partial Public Class M001_SETTING
     <StringLength(1)>
     <Column(NameOf(DEF_FLG), TypeName:="char")>
     <Display(AutoGenerateField:=False)>
-    <ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Never)>
     Public Property _DEF_FLG As String
 
     <NotMapped>
@@ -90,7 +89,7 @@ Partial Public Class M001_SETTING
     <NotMapped>
     Public ReadOnly Property DEL_FLG As Boolean
         Get
-            Return String.IsNullOrWhiteSpace(DEL_YMDHNS) = False
+            Return Not String.IsNullOrWhiteSpace(DEL_YMDHNS)
         End Get
     End Property
 
