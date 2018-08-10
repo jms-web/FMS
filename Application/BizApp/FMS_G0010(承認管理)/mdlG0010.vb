@@ -800,7 +800,7 @@ Module mdlG0010
                 WL.WriteLogDat(strMsg)
 
                 'DEBUG:
-                If FunGetCodeMastaValue(DB, "ƒ[ƒ‹İ’è", "ENABLE") = "FALSE" Then
+                If FunGetCodeMastaValue(DB, "ƒ[ƒ‹İ’è", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                     Return True
                 End If
             End Using
