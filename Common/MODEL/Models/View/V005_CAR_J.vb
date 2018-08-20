@@ -135,15 +135,19 @@ Partial Public Class V005_CAR_J
     <DisplayName("部門区分")>
     Public Property BUMON_KB As String
 
-    <DisplayName("部門区分")>
+    <DisplayName("部門区分名")>
     Public Property BUMON_NAME As String
 
+    <ComponentModel.DisplayName("機種ID")>
     Public Property KISYU_ID As Integer
 
+    <ComponentModel.DisplayName("機種")>
     Public Property KISYU As String
 
+    <ComponentModel.DisplayName("機種名")>
     Public Property KISYU_NAME As String
 
+    <DoNotNotify>
     <Required>
     <StringLength(1)>
     <Column(NameOf(CLOSE_FG), TypeName:="char")>
@@ -466,6 +470,7 @@ Partial Public Class V005_CAR_J
     <ComponentModel.DisplayName("根本要因区分1")>
     Public Property KONPON_YOIN_KB1 As String
 
+    <ComponentModel.DisplayName("根本要因区分1名")>
     Public Property KONPON_YOIN_NAME1 As String
 
     <Required>
@@ -474,12 +479,14 @@ Partial Public Class V005_CAR_J
     <ComponentModel.DisplayName("根本要因区分2")>
     Public Property KONPON_YOIN_NAME2 As String
 
+    <ComponentModel.DisplayName("根本要因区分2名")>
     Public Property KONPON_YOIN_KB2 As String
 
     <Required>
     <ComponentModel.DisplayName("根本要因社員ID")>
     Public Property KONPON_YOIN_SYAIN_ID As Integer
 
+    <ComponentModel.DisplayName("根本要因社員名")>
     Public Property KONPON_YOIN_SYAIN_NAME As String
 
     <Required>
@@ -488,12 +495,14 @@ Partial Public Class V005_CAR_J
     <ComponentModel.DisplayName("帰責工程区分")>
     Public Property KISEKI_KOTEI_KB As String
 
+    <ComponentModel.DisplayName("帰責工程区分名")>
     Public Property KISEKI_KOTEI_NAME As String
 
     <Required>
     <ComponentModel.DisplayName("処置実施A社員ID")>
     Public Property SYOCHI_A_SYAIN_ID As Integer
 
+    <ComponentModel.DisplayName("処置実施A社員名")>
     Public Property SYOCHI_A_SYAIN_NAME As String
 
     <Required>
@@ -506,6 +515,7 @@ Partial Public Class V005_CAR_J
     <ComponentModel.DisplayName("処置実施B社員ID")>
     Public Property SYOCHI_B_SYAIN_ID As Integer
 
+    <ComponentModel.DisplayName("処置実施B社員名")>
     Public Property SYOCHI_B_SYAIN_NAME As String
 
     <Required>
@@ -518,6 +528,7 @@ Partial Public Class V005_CAR_J
     <ComponentModel.DisplayName("処置実施C社員ID")>
     Public Property SYOCHI_C_SYAIN_ID As Integer
 
+    <ComponentModel.DisplayName("処置実施C社員名")>
     Public Property SYOCHI_C_SYAIN_NAME As String
 
     <Required>
@@ -539,6 +550,7 @@ Partial Public Class V005_CAR_J
     <ComponentModel.DisplayName("是正処置有効性有無")>
     Public Property ZESEI_SYOCHI_YUKO_UMU As String
 
+    <ComponentModel.DisplayName("是正処置有効性有無")>
     Public Property ZESEI_SYOCHI_YUKO_UMU_NAME As String
 
     <Required>
@@ -563,6 +575,7 @@ Partial Public Class V005_CAR_J
     <ComponentModel.DisplayName("検査社員ID")>
     Public Property KENSA_TANTO_ID As Integer
 
+    <ComponentModel.DisplayName("検査社員名")>
     Public Property KENSA_TANTO_NAME As String
 
     <Required>
@@ -575,6 +588,7 @@ Partial Public Class V005_CAR_J
     <ComponentModel.DisplayName("検査GL社員ID")>
     Public Property KENSA_GL_SYAIN_ID As Integer
 
+    <ComponentModel.DisplayName("検査GL社員名")>
     Public Property KENSA_GL_SYAIN_NAME As String
 
     <Required>
@@ -607,6 +621,8 @@ Partial Public Class V005_CAR_J
     <Required>
     <StringLength(14)>
     <Column(TypeName:="char")>
+    <ComponentModel.DisplayName("追加日時")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property ADD_YMDHNS As String
 
     <NotMapped>
@@ -624,27 +640,35 @@ Partial Public Class V005_CAR_J
         End Get
     End Property
 
-    <Required>
+
+    <ComponentModel.DisplayName("追加担当ID")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property ADD_SYAIN_ID As Integer
 
+    <ComponentModel.DisplayName("追加担当者")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property ADD_SYAIN_NAME As String
 
-    <Required>
-    <StringLength(14)>
-    <Column(TypeName:="char")>
+    <ComponentModel.DisplayName("更新日時")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property UPD_YMDHNS As String
 
-    <Required>
+    <ComponentModel.DisplayName("更新担当ID")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property UPD_SYAIN_ID As Integer
 
+    <ComponentModel.DisplayName("更新担当者")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property UPD_SYAIN_NAME As String
 
     <Required>
     <StringLength(14)>
     <Column(TypeName:="char")>
+    <ComponentModel.DisplayName("削除日時")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_YMDHNS As String
 
-    <ComponentModel.DisplayName("削除済")>
+    <ComponentModel.DisplayName("削除フラグ")>
     <ComponentModel.DataAnnotations.Display(AutoGenerateField:=False)>
     <NotMapped>
     <DoNotNotify>
@@ -654,37 +678,59 @@ Partial Public Class V005_CAR_J
         End Get
     End Property
 
-    <Required>
+
+    <ComponentModel.DisplayName("削除担当ID")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_SYAIN_ID As Integer
 
+    <ComponentModel.DisplayName("削除担当者")>
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_SYAIN_NAME As String
 
 
+    <ComponentModel.DisplayName("CAR起草入力(10)")>
     Public Property SYONIN_NAME10 As String
+    <ComponentModel.DisplayName("CAR起草入力承認日(10)")>
     Public Property SYONIN_YMD10 As String
 
+    <ComponentModel.DisplayName("起草元GL（20）")>
     Public Property SYONIN_NAME20 As String
+    <ComponentModel.DisplayName("起草元GL承認日（20）")>
     Public Property SYONIN_YMD20 As String
 
+    <ComponentModel.DisplayName("担当課長（30）")>
     Public Property SYONIN_NAME30 As String
+    <ComponentModel.DisplayName("担当課長承認日（30）")>
     Public Property SYONIN_YMD30 As String
 
+    <ComponentModel.DisplayName("生技（40）")>
     Public Property SYONIN_NAME40 As String
+    <ComponentModel.DisplayName("生技承認日（40）")>
     Public Property SYONIN_YMD40 As String
 
+    <ComponentModel.DisplayName("設計（50）")>
     Public Property SYONIN_NAME50 As String
+    <ComponentModel.DisplayName("設計承認日（50）")>
     Public Property SYONIN_YMD50 As String
 
+    <ComponentModel.DisplayName("検査員（60）")>
     Public Property SYONIN_NAME60 As String
+    <ComponentModel.DisplayName("検査員承認日（60）")>
     Public Property SYONIN_YMD60 As String
 
+    <ComponentModel.DisplayName("担当課長（90）")>
     Public Property SYONIN_NAME90 As String
+    <ComponentModel.DisplayName("担当課長承認日（90）")>
     Public Property SYONIN_YMD90 As String
 
+    <ComponentModel.DisplayName("検査員（100）")>
     Public Property SYONIN_NAME100 As String
+    <ComponentModel.DisplayName("検査員承認日（100）")>
     Public Property SYONIN_YMD100 As String
 
+    <ComponentModel.DisplayName("品証TL確認（120）")>
     Public Property SYONIN_NAME120 As String
+    <ComponentModel.DisplayName("品証TL確認承認日（120）")>
     Public Property SYONIN_YMD120 As String
 
 #Region "IDisposable Support"

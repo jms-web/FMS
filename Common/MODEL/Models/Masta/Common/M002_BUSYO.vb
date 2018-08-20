@@ -57,25 +57,30 @@ Partial Public Class M002_BUSYO
     <Required>
     <StringLength(14)>
     <Column(TypeName:="Char")>
+    <ComponentModel.DisplayName("追加日時")>
     Public Property ADD_YMDHNS As String
 
     <Required>
-    <Display(AutoGenerateField:=False)>
+    <ComponentModel.DisplayName("追加社員ID")>
     Public Property ADD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
     <Column(TypeName:="Char")>
+    <ComponentModel.DisplayName("更新日時")>
     Public Property UPD_YMDHNS As String
 
     <Required>
+    <ComponentModel.DisplayName("更新社員ID")>
     Public Property UPD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
     <Column(TypeName:="char")>
+    <ComponentModel.DisplayName("削除日時")>
     Public Property DEL_YMDHNS As String
 
+    <DoNotNotify>
     <ComponentModel.DisplayName("削除フラグ")>
     <NotMapped>
     <Display(AutoGenerateField:=False)>
@@ -86,6 +91,7 @@ Partial Public Class M002_BUSYO
     End Property
 
     <Required>
+    <ComponentModel.DisplayName("削除社員ID")>
     Public Property DEL_SYAIN_ID As Integer
 
 #Region "IDisposable Support"
