@@ -1513,6 +1513,7 @@ Public Class FrmG0011
         Dim _D005_CAR_J As New MODEL.D005_CAR_J
         _D005_CAR_J.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
         _D005_CAR_J.BUMON_KB = _D003_NCR_J.BUMON_KB
+        _D005_CAR_J._CLOSE_FG = "0"
 
         '-----INSERT
         sbSQL.Remove(0, sbSQL.Length)
@@ -2942,11 +2943,9 @@ Public Class FrmG0011
                                     panel.Enabled = True
                                 Else
                                     panel.DisableContaints(False, 2)
-                                    'page.Enabled = False
                                 End If
                             Else
                                 'カレントユーザー以外は参照のみ
-                                'page.EnableDisablePages(FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO, FunConvertSTAGE_NO_TO_SYONIN_JUN2(intTabNo)), 2)
                                 panel.DisableContaints(FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO, FunConvertSTAGE_NO_TO_SYONIN_JUN(intTabNo)), 2)
                             End If
                         End If
