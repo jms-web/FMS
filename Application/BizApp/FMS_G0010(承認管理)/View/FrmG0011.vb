@@ -497,7 +497,8 @@ Public Class FrmG0011
         End If
 
         '-----モデル更新
-        If (PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso Val(_D003_NCR_J.KENSA_KEKKA_KB) = ENM_KENSA_KEKKA_KB._1_不合格) Or PrCurrentStage = ENM_NCR_STAGE._120_abcde処置確認 Then
+        If (PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso Val(_D003_NCR_J.KENSA_KEKKA_KB) = ENM_KENSA_KEKKA_KB._1_不合格) Or
+            (PrCurrentStage = ENM_NCR_STAGE._120_abcde処置確認 And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請) Then
             _D003_NCR_J._CLOSE_FG = 1
         End If
 
@@ -2993,9 +2994,7 @@ Public Class FrmG0011
             Else
                 flpnlStageIndex.Controls("rsbtnST99").Enabled = False
                 flpnlStageIndex.Controls("rsbtnST99").BackColor = Color.Silver
-
             End If
-
 
             Return True
         Catch ex As Exception

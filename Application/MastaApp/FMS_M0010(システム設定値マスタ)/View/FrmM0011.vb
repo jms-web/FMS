@@ -14,7 +14,7 @@ Public Class FrmM0011
     ''' <summary>
     ''' 処理モード
     ''' </summary>
-    Public Property PrMODE As Integer
+    Public Property PrDATA_OP_MODE As Integer
 
     ''' <summary>
     ''' 新規追加レコードのキー
@@ -36,6 +36,11 @@ Public Class FrmM0011
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
 
+        Me.Height = 380
+        Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
+
         cmbJYUN.NullValue = 0
     End Sub
 
@@ -52,14 +57,10 @@ Public Class FrmM0011
             End Using
 
             '-----位置・サイズ
-            Me.Height = 380
             Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) - 26 ' / 2
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
-            Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
-            Me.MaximizeBox = False
-            Me.MinimizeBox = False
 
-            '-----データソースを設定
+            '-----コントロールデータソース設定
             cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             Call FunSetBinding()
@@ -96,7 +97,7 @@ Public Class FrmM0011
                 Case 1  '追加変更
                     If FunSAVE() Then
                         'プロパティに対象レコードのキーを設定
-                        Me.PrPKeys = (Me.cmbKOMO_NM.Text.Trim, Me.mtxVALUE.Text.Trim)
+                        Me.PrPKeys = (cmbKOMO_NM.Text.Trim, mtxVALUE.Text.Trim)
 
                         Me.DialogResult = Windows.Forms.DialogResult.OK
                         Me.Close()
@@ -286,7 +287,7 @@ Public Class FrmM0011
 #Region "コントロールイベント"
 
 
-    Private Sub cmbKOMO_NM_Validated(sender As Object, e As EventArgs) Handles cmbKOMO_NM.Validated
+    Private Sub CmbKOMO_NM_Validated(sender As Object, e As EventArgs) Handles cmbKOMO_NM.Validated
         Dim dsList As New DataSet
         Dim sbSQL As New System.Text.StringBuilder
         Dim intMaxOrder As Integer
@@ -294,8 +295,6 @@ Public Class FrmM0011
         Try
 
             If Not cmbKOMO_NM.Text.IsNullOrWhiteSpace Then
-
-                'Me.cmbJYUN.DataSource = Nothing
 
                 Using DB As ClsDbUtility = DBOpen()
                     sbSQL.Append("SELECT ITEM_VALUE")
@@ -307,13 +306,13 @@ Public Class FrmM0011
                 intMaxOrder = dsList.Tables(0).Rows.Count
 
                 Dim intModeDiff As Integer
-                Select Case PrMODE
+                Select Case PrDATA_OP_MODE
                     Case ENM_DATA_OPERATION_MODE._1_ADD, ENM_DATA_OPERATION_MODE._2_ADDREF
                         intModeDiff = 1
                     Case ENM_DATA_OPERATION_MODE._3_UPDATE
                         intModeDiff = 0
                     Case Else
-                        Throw New ArgumentException(My.Resources.ErrMsgException, PrMODE.ToString)
+                        Throw New ArgumentException(My.Resources.ErrMsgException, PrDATA_OP_MODE.ToString)
                 End Select
 
                 Dim dt As New DataTableEx("System.Int32")
@@ -328,13 +327,13 @@ Public Class FrmM0011
 
                 Call cmbJYUN.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
-                Select Case PrMODE
+                Select Case PrDATA_OP_MODE
                     Case ENM_DATA_OPERATION_MODE._1_ADD, ENM_DATA_OPERATION_MODE._2_ADDREF
                         cmbJYUN.SelectedValue = intMaxOrder + intModeDiff
                     Case ENM_DATA_OPERATION_MODE._3_UPDATE
                         cmbJYUN.SelectedValue = PrDataRow.Item("DISP_ORDER")
                     Case Else
-                        Throw New ArgumentException(My.Resources.ErrMsgException, PrMODE.ToString)
+                        Throw New ArgumentException(My.Resources.ErrMsgException, PrDATA_OP_MODE.ToString)
                 End Select
             End If
 
@@ -343,49 +342,6 @@ Public Class FrmM0011
         Finally
             dsList.Dispose()
         End Try
-    End Sub
-
-#End Region
-
-#Region "入力チェック"
-
-    Private Function FunCheckInput() As Boolean
-        Try
-            'フラグ初期化
-            IsValidated = True
-
-            Call CmbKOMO_NM_Validating(cmbKOMO_NM, Nothing)
-            Call MtxVALUE_Validating(mtxVALUE, Nothing)
-
-            Return IsValidated
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        End Try
-    End Function
-
-    Private Sub CmbKOMO_NM_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKOMO_NM.Validating
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
-        If cmb.Selected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = (IsValidated AndAlso True)
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目名"), ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
-    End Sub
-
-    Private Sub MtxVALUE_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxVALUE.Validating
-        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-
-        If mtx.Text.IsNullOrWhiteSpace = False Then
-            ErrorProvider.ClearError(mtx)
-            IsValidated = (IsValidated AndAlso True)
-        Else
-            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目値"), ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
     End Sub
 
 #End Region
@@ -412,7 +368,7 @@ Public Class FrmM0011
         Try
             Dim _Model = New MODEL.ModelInfo(Of MODEL.M001_SETTING)(_OnlyAutoGenerateField:=True)
 
-            Select Case PrMODE
+            Select Case PrDATA_OP_MODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
                     lblTytle.Text &= "（追加）"
                     cmdFunc1.Text = "追加(F1)"
@@ -478,7 +434,7 @@ Public Class FrmM0011
                     lblEDIT_SYAIN_ID.Text = PrDataRow.Item(NameOf(_M001.UPD_SYAIN_ID)) & " " & Fun_GetUSER_NAME(PrDataRow.Item(NameOf(_M001.UPD_SYAIN_ID)))
 
                 Case Else
-                    Throw New ArgumentException(My.Resources.ErrMsgException, PrMODE.ToString)
+                    Throw New ArgumentException(My.Resources.ErrMsgException, PrDATA_OP_MODE.ToString)
             End Select
 
             Return True
@@ -488,6 +444,49 @@ Public Class FrmM0011
             Return False
         End Try
     End Function
+
+#End Region
+
+#Region "入力チェック"
+
+    Private Function FunCheckInput() As Boolean
+        Try
+            'フラグ初期化
+            IsValidated = True
+
+            Call CmbKOMO_NM_Validating(cmbKOMO_NM, Nothing)
+            Call MtxVALUE_Validating(mtxVALUE, Nothing)
+
+            Return IsValidated
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        End Try
+    End Function
+
+    Private Sub CmbKOMO_NM_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKOMO_NM.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            IsValidated = (IsValidated AndAlso True)
+        Else
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目名"), ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        End If
+    End Sub
+
+    Private Sub MtxVALUE_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxVALUE.Validating
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+
+        If mtx.Text.IsNullOrWhiteSpace = False Then
+            ErrorProvider.ClearError(mtx)
+            IsValidated = (IsValidated AndAlso True)
+        Else
+            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目値"), ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        End If
+    End Sub
 
 #End Region
 
@@ -551,7 +550,6 @@ Public Class FrmM0011
 
 
 #End Region
-
 
 #End Region
 

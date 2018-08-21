@@ -131,8 +131,8 @@ Public Class FrmM1050
         Dim intCNT As Integer
 
         Try
-            '[処理中]
             MyBase.PrPG_STATUS = ENM_PG_STATUS._3_PROCESSING
+            Me.Cursor = Cursors.WaitCursor
 
             'ボタン不可/ボタンINDEX取得
             For intCNT = 0 To cmdFunc.Length - 1
@@ -178,8 +178,8 @@ Public Class FrmM1050
             'ファンクションキー有効化初期化
             Call SubInitFuncButtonEnabled()
 
-            '[アクティブ]
             MyBase.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
+            Me.Cursor = Cursors.Default
         End Try
     End Sub
 #End Region
@@ -196,10 +196,8 @@ Public Class FrmM1050
 
             If Not mtxKISYU_NAME.Text.IsNullOrWhiteSpace Then sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"KISYU_NAME LIKE '%{mtxKISYU_NAME.Text.Trim}%'")
 
-            If chkDeletedRowVisibled.Checked Then
-                flxDATA.Cols("DEL_FLG").Visible = True
-            Else
-                flxDATA.Cols("DEL_FLG").Visible = False
+            flxDATA.Cols("DEL_FLG").Visible = chkDeletedRowVisibled.Checked
+            If chkDeletedRowVisibled.Checked = False Then
                 sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & "DEL_FLG <> 1 ")
             End If
 
@@ -290,7 +288,7 @@ Public Class FrmM1050
 
         Try
             Using frmDLG As New FrmM1051
-                frmDLG.PrMODE = intMODE
+                frmDLG.PrDATA_OP_MODE = intMODE
                 If flxDATA.RowSel > 0 Then
                     frmDLG.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
                 Else
@@ -422,7 +420,7 @@ Public Class FrmM1050
             End With
         Next intFunc
 
-        If flxDATA.Rows.Count > 0 Then
+        If flxDATA.RowSel > 0 Then
             cmdFunc3.Enabled = True
             cmdFunc4.Enabled = True
             cmdFunc5.Enabled = True

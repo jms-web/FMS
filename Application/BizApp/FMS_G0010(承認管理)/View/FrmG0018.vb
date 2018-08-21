@@ -220,16 +220,16 @@ Public Class FrmG0018
             '主キー設定
             dt.PrimaryKey = {dt.Columns("KOMOKU_NAME")}
 
-            With dsList.Tables(0)
-                For intCNT = 0 To .Rows.Count - 1
+
+            For Each row In dsList.Tables(0).Rows
+                If dt.Rows.Contains(row.Item("KOMOKU_NAME")) = False Then
                     Dim Trow As DataRow = dt.NewRow()
-                    '
-                    Trow("KOMOKU_NAME") = .Rows(intCNT).Item("KOMOKU_NAME")
-                    Trow("MAE_NAIYO") = .Rows(intCNT).Item("MAE_NAIYO")
-                    Trow("ATO_NAIYO") = .Rows(intCNT).Item("ATO_NAIYO")
+                    Trow("KOMOKU_NAME") = row.Item("KOMOKU_NAME")
+                    Trow("MAE_NAIYO") = row.Item("MAE_NAIYO")
+                    Trow("ATO_NAIYO") = row.Item("ATO_NAIYO")
                     dt.Rows.Add(Trow)
-                Next intCNT
-            End With
+                End If
+            Next row
 
             Return dt
         Catch ex As Exception
@@ -279,10 +279,11 @@ Public Class FrmG0018
             'Dim _Model As New MODEL.M001_SETTING
 
             Dim tgtList As New List(Of String) From {"要求内容", "観察結果", "是正処置無理由", "廃却方法内容",
-                                       "返却実施備考", "処置d処置記録", "処置e処置記録", "", "",
-                                       "不適合発生状況（誰が、いつ、何をしていて、どうなったか）",
-                                       "不適合要因（関係する要因（人、設備・治工具、材料、方法、など）の調査）",
-                                       "根本原因（不適合の発生に至った根本原因をなぜなぜ分析により究明）"}
+                                       "返却実施備考", "処置d処置記録", "処置e処置記録",
+                                       "不適合発生状況（誰が、いつ、何をしていて、どうなったか）:",
+                                       "不適合要因（関係する要因（人、設備・治工具、材料、方法、など）の調査）:",
+                                       "根本原因（不適合の発生に至った根本原因をなぜなぜ分析により究明）:",
+                                       "備考:"}
 
             For i As Integer = 0 To dgv.Rows.Count - 1
                 With dgv.Rows(i)
@@ -292,7 +293,7 @@ Public Class FrmG0018
                     '    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
                     'End If
                     If tgtList.Contains(dgvDATA.Rows(i).Cells("KOMOKU_NAME").Value) Then
-                        dgvDATA.Rows(i).Height = 70
+                        dgvDATA.Rows(i).Height = 80
                         'dgvDATA.Rows(i).Cells(0).Style.Alignment = DataGridViewContentAlignment.TopCenter
                         dgvDATA.Rows(i).Cells(1).Style.Alignment = DataGridViewContentAlignment.TopLeft
                         dgvDATA.Rows(i).Cells(2).Style.Alignment = DataGridViewContentAlignment.TopLeft

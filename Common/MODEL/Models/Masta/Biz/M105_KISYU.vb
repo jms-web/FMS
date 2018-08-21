@@ -21,6 +21,13 @@ Partial Public Class M105_KISYU
     <ComponentModel.DisplayName("機種名")>
     Public Property KISYU_NAME As String
 
+    <Required>
+    <Column(TypeName:="char")>
+    <StringLength(1)>
+    <ComponentModel.DisplayName("部門区分")>
+    Public Property BUMON_KB As String
+
+
     '共通項目------------------------------------
     <Required>
     <StringLength(14)>

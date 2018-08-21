@@ -1138,7 +1138,7 @@ Partial Class FrmG0011
         Me.mtxHENKYAKU_RIYU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxHENKYAKU_RIYU.InputRequired = False
         Me.mtxHENKYAKU_RIYU.Location = New System.Drawing.Point(683, 63)
-        Me.mtxHENKYAKU_RIYU.MaxByteLength = 0
+        Me.mtxHENKYAKU_RIYU.MaxByteLength = 100
         Me.mtxHENKYAKU_RIYU.Name = "mtxHENKYAKU_RIYU"
         Me.mtxHENKYAKU_RIYU.Size = New System.Drawing.Size(474, 24)
         Me.mtxHENKYAKU_RIYU.TabIndex = 12
@@ -1416,7 +1416,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 163.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 165.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.Panel7, 3, 7)
@@ -1463,7 +1463,7 @@ Partial Class FrmG0011
         Me.Panel7.BackColor = System.Drawing.SystemColors.Window
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_T)
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_F)
-        Me.Panel7.Location = New System.Drawing.Point(598, 200)
+        Me.Panel7.Location = New System.Drawing.Point(596, 200)
         Me.Panel7.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(158, 28)
@@ -1501,7 +1501,7 @@ Partial Class FrmG0011
         Me.Panel2.BackColor = System.Drawing.SystemColors.Window
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_T)
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_F)
-        Me.Panel2.Location = New System.Drawing.Point(598, 171)
+        Me.Panel2.Location = New System.Drawing.Point(596, 171)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(158, 28)
@@ -1539,7 +1539,7 @@ Partial Class FrmG0011
         Me.Panel6.BackColor = System.Drawing.SystemColors.Window
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_T)
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_F)
-        Me.Panel6.Location = New System.Drawing.Point(598, 117)
+        Me.Panel6.Location = New System.Drawing.Point(596, 117)
         Me.Panel6.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(158, 28)
@@ -1577,7 +1577,7 @@ Partial Class FrmG0011
         Me.Panel5.BackColor = System.Drawing.SystemColors.Window
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_T)
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_F)
-        Me.Panel5.Location = New System.Drawing.Point(598, 88)
+        Me.Panel5.Location = New System.Drawing.Point(596, 88)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(158, 28)
@@ -1615,7 +1615,7 @@ Partial Class FrmG0011
         Me.Panel4.BackColor = System.Drawing.SystemColors.Window
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_T)
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_F)
-        Me.Panel4.Location = New System.Drawing.Point(598, 59)
+        Me.Panel4.Location = New System.Drawing.Point(596, 59)
         Me.Panel4.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(158, 28)
@@ -1653,7 +1653,7 @@ Partial Class FrmG0011
         Me.Panel3.BackColor = System.Drawing.SystemColors.Window
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_T)
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_F)
-        Me.Panel3.Location = New System.Drawing.Point(598, 30)
+        Me.Panel3.Location = New System.Drawing.Point(596, 30)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(158, 28)
@@ -1746,7 +1746,7 @@ Partial Class FrmG0011
         Me.Label126.Location = New System.Drawing.Point(22, 117)
         Me.Label126.Margin = New System.Windows.Forms.Padding(0)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(575, 28)
+        Me.Label126.Size = New System.Drawing.Size(573, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "影響有の場合、顧客への通知の要否"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1761,7 +1761,7 @@ Partial Class FrmG0011
         Me.Label127.Location = New System.Drawing.Point(22, 88)
         Me.Label127.Margin = New System.Windows.Forms.Padding(0)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(575, 28)
+        Me.Label127.Size = New System.Drawing.Size(573, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "当該不適合による顧客への影響"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1776,7 +1776,7 @@ Partial Class FrmG0011
         Me.Label128.Location = New System.Drawing.Point(22, 59)
         Me.Label128.Margin = New System.Windows.Forms.Padding(0)
         Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(575, 28)
+        Me.Label128.Size = New System.Drawing.Size(573, 28)
         Me.Label128.TabIndex = 241
         Me.Label128.Text = "廃却処置は本来の意図した使用又は適用ができない方法だったか？"
         Me.Label128.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1805,7 +1805,7 @@ Partial Class FrmG0011
         Me.Label130.Location = New System.Drawing.Point(22, 30)
         Me.Label130.Margin = New System.Windows.Forms.Padding(0)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(575, 28)
+        Me.Label130.Size = New System.Drawing.Size(573, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "社内権限者により、又は顧客再審の場合は顧客により判定されたか？"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1862,7 +1862,7 @@ Partial Class FrmG0011
         Me.Label134.Location = New System.Drawing.Point(22, 171)
         Me.Label134.Margin = New System.Windows.Forms.Padding(0)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(575, 28)
+        Me.Label134.Size = New System.Drawing.Size(573, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "当該不適合による他のプロセスへの影響"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1891,7 +1891,7 @@ Partial Class FrmG0011
         Me.Label136.Location = New System.Drawing.Point(22, 200)
         Me.Label136.Margin = New System.Windows.Forms.Padding(0)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(575, 28)
+        Me.Label136.Size = New System.Drawing.Size(573, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "影響有の場合、封じ込め処置の要否"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1906,7 +1906,7 @@ Partial Class FrmG0011
         Me.Label137.Location = New System.Drawing.Point(22, 1)
         Me.Label137.Margin = New System.Windows.Forms.Padding(0)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(575, 28)
+        Me.Label137.Size = New System.Drawing.Size(573, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "検出された不適合を除去する処置（廃却を含む）は確実にとられたか？"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1930,7 +1930,7 @@ Partial Class FrmG0011
         Me.Panel1.BackColor = System.Drawing.SystemColors.Window
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_T)
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_F)
-        Me.Panel1.Location = New System.Drawing.Point(598, 1)
+        Me.Panel1.Location = New System.Drawing.Point(596, 1)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(158, 28)
@@ -6628,6 +6628,7 @@ Partial Class FrmG0011
         Me.flpPict1Path.AllowDrop = True
         Me.flpPict1Path.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.flpPict1Path.BackColor = System.Drawing.SystemColors.Window
         Me.flpPict1Path.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.flpPict1Path.Controls.Add(Me.lblPict1Path_Clear)
         Me.flpPict1Path.Controls.Add(Me.lblPict1Path)
@@ -6640,7 +6641,6 @@ Partial Class FrmG0011
         '
         Me.lblPict1Path_Clear.AutoSize = True
         Me.lblPict1Path_Clear.BackColor = System.Drawing.SystemColors.Window
-        Me.lblPict1Path_Clear.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblPict1Path_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lblPict1Path_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.lblPict1Path_Clear.LinkColor = System.Drawing.Color.Red
@@ -6659,11 +6659,12 @@ Partial Class FrmG0011
         Me.lblPict1Path.AllowDrop = True
         Me.lblPict1Path.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblPict1Path.AutoSize = True
         Me.lblPict1Path.BackColor = System.Drawing.SystemColors.Window
         Me.lblPict1Path.Location = New System.Drawing.Point(0, 0)
         Me.lblPict1Path.Margin = New System.Windows.Forms.Padding(0)
         Me.lblPict1Path.Name = "lblPict1Path"
-        Me.lblPict1Path.Size = New System.Drawing.Size(285, 18)
+        Me.lblPict1Path.Size = New System.Drawing.Size(37, 17)
         Me.lblPict1Path.TabIndex = 126
         Me.lblPict1Path.TabStop = True
         Me.lblPict1Path.Text = "link1"
@@ -6743,11 +6744,12 @@ Partial Class FrmG0011
         Me.lblPict2Path.AllowDrop = True
         Me.lblPict2Path.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblPict2Path.AutoSize = True
         Me.lblPict2Path.BackColor = System.Drawing.SystemColors.Window
         Me.lblPict2Path.Location = New System.Drawing.Point(0, 0)
         Me.lblPict2Path.Margin = New System.Windows.Forms.Padding(0)
         Me.lblPict2Path.Name = "lblPict2Path"
-        Me.lblPict2Path.Size = New System.Drawing.Size(285, 18)
+        Me.lblPict2Path.Size = New System.Drawing.Size(37, 17)
         Me.lblPict2Path.TabIndex = 0
         Me.lblPict2Path.TabStop = True
         Me.lblPict2Path.Text = "link1"
@@ -6822,10 +6824,14 @@ Partial Class FrmG0011
         '
         'lbltmpFile1
         '
+        Me.lbltmpFile1.AllowDrop = True
+        Me.lbltmpFile1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbltmpFile1.AutoSize = True
         Me.lbltmpFile1.Location = New System.Drawing.Point(0, 0)
         Me.lbltmpFile1.Margin = New System.Windows.Forms.Padding(0)
         Me.lbltmpFile1.Name = "lbltmpFile1"
-        Me.lbltmpFile1.Size = New System.Drawing.Size(279, 17)
+        Me.lbltmpFile1.Size = New System.Drawing.Size(37, 17)
         Me.lbltmpFile1.TabIndex = 126
         Me.lbltmpFile1.TabStop = True
         Me.lbltmpFile1.Text = "link1"
@@ -6840,7 +6846,7 @@ Partial Class FrmG0011
         Me.lbltmpFile1_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lbltmpFile1_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.lbltmpFile1_Clear.LinkColor = System.Drawing.Color.Red
-        Me.lbltmpFile1_Clear.Location = New System.Drawing.Point(279, 0)
+        Me.lbltmpFile1_Clear.Location = New System.Drawing.Point(37, 0)
         Me.lbltmpFile1_Clear.Margin = New System.Windows.Forms.Padding(0)
         Me.lbltmpFile1_Clear.Name = "lbltmpFile1_Clear"
         Me.lbltmpFile1_Clear.Size = New System.Drawing.Size(19, 17)
