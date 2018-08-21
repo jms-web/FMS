@@ -2616,6 +2616,7 @@ Public Class FrmG0012
 
                     '_tabPageManager.ChangeTabPageVisible(1, False) 'tab_CAR_SUB_1_.Visible = False
                     '_tabPageManager.ChangeTabPageVisible(2, False)'tab_CAR_SUB_2_.Visible = False
+                    pnlCAR.DisableContaints(blnOwn, PanelEx.ENM_PROPERTY._2_ReadOnly)
 
                     pnlSYOCHI_KIROKU.Visible = False
                     pnlZESEI_SYOCHI.Visible = False
@@ -2655,6 +2656,10 @@ Public Class FrmG0012
                     pnlSYOCHI_KIROKU.Enabled = False
                     pnlZESEI_SYOCHI.Enabled = False
                     pnlST13.Visible = False
+                    lbltmpFile1_Clear.Enabled = False
+                    lbltmpFile2_Clear.Enabled = False
+                    btnOpentmpFile1.Enabled = False
+                    btnOpentmpFile2.Enabled = False
                 Case Else
             End Select
 

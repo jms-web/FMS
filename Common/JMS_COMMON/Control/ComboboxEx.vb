@@ -13,7 +13,7 @@ Public Class ComboboxEx
     Const CON_TOP_ROW_CAPTION_1 As String = "(すべて)"
     Const CON_TOP_ROW_CAPTION_2 As String = "(未選択)"
 
-    Private _GotForcusedColor As Color 'フォーカス時の背景色
+    Private _GotFocusedColor As Color 'フォーカス時の背景色
     Private _BackColorDefault As Color 'フォーカス喪失時時の背景色
 
     Private _BackColorOrg As System.Drawing.Color
@@ -436,10 +436,10 @@ Public Class ComboboxEx
     <Bindable(True), Category("Appearance"), DefaultValue("")>
     Property [GotFocusedColor]() As System.Drawing.Color
         Get
-            Return _GotForcusedColor
+            Return _GotFocusedColor
         End Get
         Set(ByVal value As Color)
-            _GotForcusedColor = value
+            _GotFocusedColor = value
         End Set
     End Property
 #End Region
@@ -499,7 +499,7 @@ Public Class ComboboxEx
             MyBase.BackColor = clrDisableControlGotFocusedColor
         Else
             'フォーカス時は背景色変更
-            MyBase.BackColor = _GotForcusedColor
+            MyBase.BackColor = _GotFocusedColor
         End If
         MyBase.OnGotFocus(e) '基底クラス呼び出し
 

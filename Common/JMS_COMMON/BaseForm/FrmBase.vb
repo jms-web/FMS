@@ -131,7 +131,7 @@ Public Class FrmBase
                   ' UIスレッドで進捗表示を呼び出す
                   Me.BeginInvoke(callUpdateProgress, i)
                   ' 1秒間待機
-                  System.Threading.Thread.Sleep(1000)
+                  System.Threading.Thread.Sleep(1500)
               Next
           End Sub) _
           .ContinueWith(

@@ -1,19 +1,10 @@
-'----------------------------------------
-'変更履歴
-'2007/09/03 MASKEDTEXTBOXの継承コントロールとして作成、フォーカス時に全選択
-'2007/09/15 MaxByteLengthプロパティ
-'2007/10/01 PermitNumCharsプロパティ
-'2007/11/01 SelectAllTextプロパティ
-'----------------------------------------
-
 Imports System.ComponentModel
 
 <DefaultEvent("TextChanged")>
-<DefaultProperty("DefaultProperty")>
+<DefaultProperty(NameOf(MaskedTextBoxEx.Text))>
 Public Class MaskedTextBoxEx
     Inherits MaskedTextBox
 
-    Private _GotForcusedColor As Color  'フォーカス時の背景色
     Private _BackColorDefault As Color 'フォーカス喪失時時の背景色
 
 #Region "　コンストラクタ　"
@@ -25,12 +16,17 @@ Public Class MaskedTextBoxEx
         Me.ImeMode = Windows.Forms.ImeMode.Disable
         _watermarkColor = SystemColors.GrayText
 
-        Me._GotForcusedColor = clrControlGotFocusedColor
+        GotFocusedColor = clrControlGotFocusedColor
         Me._BackColorDefault = clrControlDefaultBackColor
     End Sub
+
 #End Region
 
 #Region "　プロパティ　"
+
+#Region "GotFocusedColor"
+    Public Property GotFocusedColor As Color
+#End Region
 
 #Region "InputRequired プロパティ"
     Private _InputRequired As Boolean
@@ -40,13 +36,13 @@ Public Class MaskedTextBoxEx
         End Get
         Set(value As Boolean)
             _InputRequired = value
-            If value Then
-                Me.WatermarkText = "<必須>"
-                Me.WatermarkColor = Color.Red
-            Else
-                Me.WatermarkText = _watermarkText
-                Me.WatermarkColor = _foreColor
-            End If
+            'If value Then
+            '    Me.WatermarkText = "<必須>"
+            '    Me.WatermarkColor = Color.Red
+            'Else
+            '    Me.WatermarkText = _watermarkText
+            '    Me.WatermarkColor = _foreColor
+            'End If
         End Set
     End Property
 
@@ -210,6 +206,19 @@ Public Class MaskedTextBoxEx
     '        End If
     '    End Set
     'End Property
+
+#End Region
+
+#Region "ReadOnly"
+    Public Shadows Property [ReadOnly] As Boolean
+        Get
+            Return MyBase.ReadOnly
+        End Get
+        Set(value As Boolean)
+            SetStyle(ControlStyles.UserMouse, value)
+            MyBase.ReadOnly = value
+        End Set
+    End Property
 
 #End Region
 
@@ -412,17 +421,6 @@ Public Class MaskedTextBoxEx
     End Sub
 #End Region
 
-#Region "GotFocusedColor"
-    <Bindable(True), Category("Appearance"), DefaultValue("")>
-    Property [GotFocusedColor]() As System.Drawing.Color
-        Get
-            Return _GotForcusedColor
-        End Get
-        Set(ByVal value As Color)
-            _GotForcusedColor = value
-        End Set
-    End Property
-#End Region
 #Region "BackColor"
     <Bindable(True), Category("Appearance"), DefaultValue("")>
     Overrides Property [BackColor]() As System.Drawing.Color
@@ -454,7 +452,7 @@ Public Class MaskedTextBoxEx
             MyBase.BackColor = clrDisableControlGotFocusedColor
         Else
             'フォーカス時は背景色変更
-            MyBase.BackColor = _GotForcusedColor
+            MyBase.BackColor = GotFocusedColor
         End If
 
         MyBase.OnGotFocus(e) '基底クラス呼び出し
@@ -478,6 +476,7 @@ Public Class MaskedTextBoxEx
     Protected Overrides Sub OnReadOnlyChanged(e As EventArgs)
         If Me.ReadOnly = True Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
+            _BackColorDefault = clrDisableControlGotFocusedColor
         End If
         MyBase.OnReadOnlyChanged(e)
     End Sub
@@ -485,6 +484,7 @@ Public Class MaskedTextBoxEx
     Protected Overrides Sub OnEnabledChanged(e As EventArgs)
         If Me.Enabled = False Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
+            _BackColorDefault = clrDisableControlGotFocusedColor
         End If
 
         MyBase.OnEnabledChanged(e)

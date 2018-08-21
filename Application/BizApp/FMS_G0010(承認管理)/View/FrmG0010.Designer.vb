@@ -181,6 +181,7 @@ Partial Class FrmG0010
         '
         'cmdFunc7
         '
+        Me.cmdFunc7.Enabled = False
         Me.cmdFunc7.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc7.Image = Global.FMS.My.Resources.Resources._imgFilter32x32
         Me.cmdFunc7.Location = New System.Drawing.Point(9, 643)

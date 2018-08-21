@@ -7,13 +7,12 @@ Public Class TextBoxEx
     Private _GotForcusedColor As Color 'フォーカス時の背景色
     Private _BackColorDefault As Color  'フォーカス喪失時時の背景色
 
-
-
 #Region "　コンストラクタ　"
     Public Sub New()
         Call InitializeComponent()
 
         'Me.MaxByteLength = 65535
+        Me.MaxByteLength = 100
         Me.SelectAllText = True
         Me.ImeMode = Windows.Forms.ImeMode.Disable
         _watermarkColor = SystemColors.GrayText
@@ -372,6 +371,18 @@ Public Class TextBoxEx
     <Bindable(True), Category("Appearance"), DefaultValue(False)>
     Public Property ShowRemaining As Boolean
 
+#Region "ReadOnly"
+    Public Shadows Property [ReadOnly] As Boolean
+        Get
+            Return MyBase.ReadOnly
+        End Get
+        Set(value As Boolean)
+            SetStyle(ControlStyles.UserMouse, value)
+            MyBase.ReadOnly = value
+        End Set
+    End Property
+
+#End Region
 
 #Region "　Change メソッド(Overrides)"
     Protected Overrides Sub OnTextChanged(e As EventArgs)
@@ -422,7 +433,8 @@ Public Class TextBoxEx
         End Get
         Set(ByVal value As System.Drawing.Color)
             MyBase.BackColor = value
-            _BackColorDefault = value
+
+            'BackColorDefault = value
         End Set
     End Property
 #End Region
@@ -482,6 +494,7 @@ Public Class TextBoxEx
     Protected Overrides Sub OnReadOnlyChanged(e As EventArgs)
         If Me.ReadOnly = True Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
+            _BackColorDefault = clrDisableControlGotFocusedColor
         End If
         MyBase.OnReadOnlyChanged(e)
     End Sub
@@ -489,6 +502,7 @@ Public Class TextBoxEx
     Protected Overrides Sub OnEnabledChanged(e As EventArgs)
         If Me.Enabled = False Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
+            _BackColorDefault = clrDisableControlGotFocusedColor
         End If
 
         MyBase.OnEnabledChanged(e)

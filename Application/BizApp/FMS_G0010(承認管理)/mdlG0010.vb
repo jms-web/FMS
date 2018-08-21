@@ -803,6 +803,10 @@ Module mdlG0010
                 If FunGetCodeMastaValue(DB, "ÉÅÅ[Éãê›íË", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                     Return True
                 End If
+
+#If DEBUG Then
+                Return True
+#End If
             End Using
 
 
@@ -1380,7 +1384,7 @@ Module mdlG0010
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME40)).Value = _V005_CAR_J.SYONIN_NAME40
             End If
 
-            If CBool(_V005_CAR_J.KAITO_23) Then
+            If CBool(Val(_V005_CAR_J.KAITO_23)) Then
                 If Not _V005_CAR_J.SYONIN_YMD50.IsNullOrWhiteSpace Then
                     spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD50)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD50.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                     spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME50)).Value = _V005_CAR_J.SYONIN_NAME50

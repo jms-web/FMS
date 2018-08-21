@@ -13,7 +13,6 @@ Public Class FrmG0010
 
     Private ParamModel As New ST02_ParamModel
 
-
 #End Region
 
 #Region "プロパティ"
@@ -144,6 +143,7 @@ Public Class FrmG0010
             AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
             AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
 
+
             '-----既定値設定
             Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
             If blnIsAdmin Then
@@ -193,7 +193,6 @@ Public Class FrmG0010
             AddHandler mtxHINMEI.Validated, AddressOf SearchFilterValueChanged
             AddHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
             AddHandler chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
-            AddHandler chkTairyu.CheckedChanged, AddressOf SearchFilterValueChanged
 
             AddHandler cmbJIZEN_SINSA_HANTEI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler cmbZESEI_SYOCHI_YOHI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
@@ -202,9 +201,8 @@ Public Class FrmG0010
             AddHandler cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler cmbKENSA_KEKKA_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
 
-            Call FunSetStageList(dgvNCR, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR)
-            Call FunSetStageList(dgvCAR, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)
-            ParamModel.SYONIN_HOKOKUSYO_ID = 0
+            Call FunInitFuncButtonEnabled()
+            Call SetStageList()
 
             '起動モード別処理
             Select Case pub_intOPEN_MODE
@@ -421,10 +419,10 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).Width = 45
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
-                .Columns(.ColumnCount - 1).ReadOnly = True
+                .Columns(.ColumnCount - 1).Visible = False
 
                 .Columns.Add("SYONIN_NAIYO", "ステージ名")
-                .Columns(.ColumnCount - 1).Width = 290
+                .Columns(.ColumnCount - 1).Width = 345
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
@@ -500,7 +498,7 @@ Public Class FrmG0010
                 End If
 
                 'Closed
-                If Me.dgvDATA.Rows(i).Cells(NameOf(_Model.CLOSE_FG)).Value > 0 Then
+                If Val(Me.dgvDATA.Rows(i).Cells(NameOf(_Model.CLOSE_FG)).Value) > 0 Then
                     Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
                     Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
                     Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
@@ -699,6 +697,7 @@ Public Class FrmG0010
         Try
             '[処理中]
             Me.PrPG_STATUS = ENM_PG_STATUS._3_PROCESSING
+            Me.Cursor = Cursors.WaitCursor
 
             'ボタン不可/ボタンINDEX取得
             For intCNT = 0 To Me.cmdFunc.Length - 1
@@ -735,12 +734,9 @@ Public Class FrmG0010
                     End If
 
                 Case 7 '検索条件変更
-                    dgvDATA.DataSource = Nothing
-                    panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlCondition))
-                    lblRecordCount.Visible = False
-                    Call FunSetStageList(dgvNCR, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR)
-                    Call FunSetStageList(dgvCAR, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)
-                    ParamModel.SYONIN_HOKOKUSYO_ID = 0
+
+                    Call SetStageList()
+
                 Case 8 '全選択'全選択解除
 
                     'Call FunSelectAll()
@@ -776,6 +772,8 @@ Public Class FrmG0010
 
             '[アクティブ]
             Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
+
+            Me.Cursor = Cursors.Default
         End Try
 
     End Sub
@@ -963,11 +961,20 @@ Public Class FrmG0010
                     Return False
             End Select
 
-            Dim JISSEKI_LIST = dtBUFF.AsEnumerable.
-                Where(Function(r) r.Field(Of String)("DEL_YMDHNS").IsNullOrWhiteSpace = chkClosedRowVisibled.Checked).
-                GroupBy(Function(g) Tuple.Create(g.Field(Of Integer)(NameOf(ParamModel.SYONIN_HOKOKUSYO_ID)),
-                                                 g.Field(Of Integer)("SYONIN_JUN"),
-                                                 g.Field(Of String)("SYONIN_NAIYO"))) '.OrderBy(Function(o) o.Key.Item2)
+            Dim JISSEKI_LIST As IEnumerable(Of IGrouping(Of Tuple(Of Integer, Integer, String), DataRow))
+
+            If chkDleteRowVisibled.Checked Then
+                JISSEKI_LIST = dtBUFF.AsEnumerable.
+                                    GroupBy(Function(g) Tuple.Create(g.Field(Of Integer)(NameOf(ParamModel.SYONIN_HOKOKUSYO_ID)),
+                                                                     g.Field(Of Integer)("SYONIN_JUN"),
+                                                                     g.Field(Of String)("SYONIN_NAIYO")))
+            Else
+                JISSEKI_LIST = dtBUFF.AsEnumerable.
+                                    Where(Function(r) r.Field(Of String)("DEL_YMDHNS").IsNullOrWhiteSpace = Not chkDleteRowVisibled.Checked).
+                                    GroupBy(Function(g) Tuple.Create(g.Field(Of Integer)(NameOf(ParamModel.SYONIN_HOKOKUSYO_ID)),
+                                                                     g.Field(Of Integer)("SYONIN_JUN"),
+                                                                     g.Field(Of String)("SYONIN_NAIYO")))
+            End If
 
             Dim retTable As New DataTable
             retTable.Columns.Add("SELECTED", GetType(Boolean))
@@ -1687,14 +1694,14 @@ Public Class FrmG0010
                 cmdFunc3.Enabled = True
                 cmdFunc4.Enabled = True
                 cmdFunc5.Enabled = True
-                cmdFunc7.Enabled = True
+                'cmdFunc7.Enabled = True
                 cmdFunc8.Enabled = True
                 cmdFunc9.Enabled = True
                 cmdFunc10.Enabled = True
                 cmdFunc11.Enabled = True
 
                 '選択行がClosedの場合
-                If dgvDATA.CurrentRow.Cells.Item(NameOf(_D003_NCR_J.CLOSE_FG)).Value = 1 Then
+                If Val(dgvDATA.CurrentRow.Cells.Item(NameOf(_D003_NCR_J.CLOSE_FG)).Value) = 1 Then
                     cmdFunc4.Text = "内容確認(F4)"
                     cmdFunc5.Enabled = False
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "クローズ済のため削除出来ません")
@@ -1745,13 +1752,16 @@ Public Class FrmG0010
                 cmdFunc3.Enabled = False
                 cmdFunc4.Enabled = False
                 cmdFunc5.Enabled = False
-                cmdFunc7.Enabled = False
+                'cmdFunc7.Enabled = False
                 cmdFunc6.Enabled = False
                 cmdFunc8.Enabled = False
                 cmdFunc9.Enabled = False
                 cmdFunc10.Enabled = False
                 cmdFunc11.Enabled = False
             End If
+
+            cmdFunc7.Enabled = (panelMan.SelectedIndex = 1)
+
 
             Return True
         Catch ex As Exception
@@ -1768,22 +1778,43 @@ Public Class FrmG0010
 
     '検索フィルタ変更時
     Private Sub SearchFilterValueChanged(sender As System.Object, e As System.EventArgs)
-        '検索
-        Me.cmdFunc7.PerformClick()
+        Call SetStageList()
     End Sub
 
     'Close済み
     Private Sub chkClosedRowVisibled_Click(sender As Object, e As EventArgs) Handles chkClosedRowVisibled.Click
         If chkClosedRowVisibled.Checked Then
+            RemoveHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
             cmbGEN_TANTO.SelectedValue = 0
+            AddHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
         End If
     End Sub
+
+    Private Sub chkTairyu_CheckedChanged(sender As Object, e As EventArgs) Handles chkTairyu.CheckedChanged
+
+        If chkTairyu.Checked Then
+            RemoveHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+            RemoveHandler chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+            chkClosedRowVisibled.Checked = False
+            chkDleteRowVisibled.Checked = False
+            AddHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+            AddHandler chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+        End If
+
+        Call SetStageList()
+
+    End Sub
+
 
 #Region "検索条件クリア"
 
     Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click
         ParamModel.Clear()
+        RemoveHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
         chkDleteRowVisibled.Checked = False
+        AddHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+
+        Call SetStageList()
     End Sub
 
 #End Region
@@ -2366,6 +2397,20 @@ Public Class FrmG0010
             Return False
         End If
     End Function
+
+
+    Private Sub SetStageList()
+        Application.DoEvents()
+
+        dgvDATA.DataSource = Nothing
+        panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlCondition))
+        Me.Refresh()
+        lblRecordCount.Visible = False
+        Call FunSetStageList(dgvNCR, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR)
+        Call FunSetStageList(dgvCAR, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)
+        ParamModel.SYONIN_HOKOKUSYO_ID = 0
+    End Sub
+
 
 #End Region
 

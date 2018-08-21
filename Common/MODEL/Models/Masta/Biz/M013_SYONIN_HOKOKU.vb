@@ -88,8 +88,8 @@ Partial Public Class M013_SYONIN_HOKOKU
                 ' TODO: マネージ状態を破棄します (マネージ オブジェクト)。
             End If
 
-            ' TODO: アンマネージ リソース (アンマネージ オブジェクト) を解放し、下の Finalize() をオーバーライドします。
-            ' TODO: 大きなフィールドを null に設定します。
+            ' UNDONE: アンマネージ リソース (アンマネージ オブジェクト) を解放し、下の Finalize() をオーバーライドします。
+            ' UNDONE: 大きなフィールドを null に設定します。
         End If
         disposedValue = True
     End Sub
@@ -105,7 +105,7 @@ Partial Public Class M013_SYONIN_HOKOKU
     Public Sub Dispose() Implements IDisposable.Dispose
         ' このコードを変更しないでください。クリーンアップ コードを上の Dispose(disposing As Boolean) に記述します。
         Dispose(True)
-        ' TODO: 上の Finalize() がオーバーライドされている場合は、次の行のコメントを解除してください。
+        ' UNDONE: 上の Finalize() がオーバーライドされている場合は、次の行のコメントを解除してください。
         ' GC.SuppressFinalize(Me)
     End Sub
 #End Region

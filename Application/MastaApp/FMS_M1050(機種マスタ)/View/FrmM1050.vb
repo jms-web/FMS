@@ -28,35 +28,29 @@ Public Class FrmM1050
 
     Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
+            '-----フォーム初期設定(親フォームから呼び出し)
+            Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
-            Try
-                '-----フォーム初期設定(親フォームから呼び出し)
-                Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
-                Using DB As ClsDbUtility = DBOpen()
-                    lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
-                End Using
+            '-----グリッド初期設定
+            Call FunInitializeFlexGrid(flxDATA)
 
-                ''-----グリッド初期設定
-                FunInitializeFlexGrid(flxDATA)
+            '-----コントロールデータソース設定
+            cmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-                ''-----グリッド列作成
-                'Call FunSetDgvCulumns(Me.dgvDATA)
+            '-----イベントハンドラ設定
+            AddHandler cmbBUMON_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler mtxKISYU_NAME.Validated, AddressOf SearchFilterValueChanged
+            AddHandler chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
-                '-----コントロールデータソース設定
-                cmbSYAIN_KB.SetDataSource(tblSYAIN_KB.ExcludeDeleted, True)
-                cmbYAKUSYOKU_KB.SetDataSource(tblYAKUSYOKU_KB.ExcludeDeleted, True)
+        Finally
+            Call SubInitFuncButtonEnabled()
 
-                '-----イベントハンドラ設定
-                'AddHandler cmbSYOKUBAN.SelectedValueChanged, AddressOf SearchFilterValueChanged
-                AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
-                AddHandler Me.chkTaisyokuRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
-
-            Finally
-                Call SubInitFuncButtonEnabled()
-
-                '検索実行
-                cmdFunc1.PerformClick()
-            End Try
+            '検索実行
+            cmdFunc1.PerformClick()
+        End Try
     End Sub
 
 #End Region
