@@ -81,7 +81,7 @@ Public Class FrmG0011
         D003NCRJBindingSource.DataSource = _D003_NCR_J
         mtxHOKUKO_NO.ReadOnly = True
         dtDraft.ReadOnly = True
-        cmbKISO_TANTO.ReadOnly = True
+        'cmbKISO_TANTO.ReadOnly = True
         mtxHINMEI.ReadOnly = True
         pnlPict1.AllowDrop = True
         pnlPict2.AllowDrop = True
@@ -2949,7 +2949,7 @@ Public Class FrmG0011
                         Else
                             If PrCurrentStage >= ENM_NCR_STAGE._90_ˆ’uŽÀŽ{Šm”F_ŠÇ—T Then
                                 If intTabNo = intCurrentTabNo Then
-                                    panel.Enabled = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, PrCurrentStage)
+                                    panel.DisableContaints(FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, PrCurrentStage), PanelEx.ENM_PROPERTY._2_ReadOnly)
                                 Else
                                     panel.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
                                 End If
@@ -3383,20 +3383,20 @@ Public Class FrmG0011
                 cmbST06_SAISIN_IINKAI_HANTEI.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 'SPEC: 60-2.‡B
-                cmbKISYU.ReadOnly = True
-                cmbSYANAI_CD.ReadOnly = True
-                cmbFUTEKIGO_STATUS.ReadOnly = True
-                cmbFUTEKIGO_KB.ReadOnly = True
-                cmbFUTEKIGO_S_KB.ReadOnly = True
-                'cmbBUMON.ReadOnly = True
-                mtxGOUKI.ReadOnly = True
-                cmbBUHIN_BANGO.ReadOnly = True
-                mtxHENKYAKU_RIYU.ReadOnly = True
-                cmbFUTEKIGO_S_KB.ReadOnly = True
-                cmbKISO_TANTO.ReadOnly = True
-                mtxHINMEI.ReadOnly = True
-                mtxZUBAN_KIKAKU.ReadOnly = True
-                numSU.Enabled = False
+                'cmbKISYU.ReadOnly = True
+                'cmbSYANAI_CD.ReadOnly = True
+                'cmbFUTEKIGO_STATUS.ReadOnly = True
+                'cmbFUTEKIGO_KB.ReadOnly = True
+                'cmbFUTEKIGO_S_KB.ReadOnly = True
+                ''cmbBUMON.ReadOnly = True
+                'mtxGOUKI.ReadOnly = True
+                'cmbBUHIN_BANGO.ReadOnly = True
+                'mtxHENKYAKU_RIYU.ReadOnly = True
+                'cmbFUTEKIGO_S_KB.ReadOnly = True
+                'cmbKISO_TANTO.ReadOnly = True
+                'mtxHINMEI.ReadOnly = True
+                'mtxZUBAN_KIKAKU.ReadOnly = True
+                'numSU.Enabled = False
 
                 _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._60_ÄRR¸”»’è_‹Zp‘ã•\).
@@ -6165,7 +6165,6 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
-
 
 #End Region
 
