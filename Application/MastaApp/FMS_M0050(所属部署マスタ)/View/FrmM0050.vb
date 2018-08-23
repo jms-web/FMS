@@ -86,7 +86,7 @@ Public Class FrmM0050
             .AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
             .AllowDelete = False
             .AllowResizing = C1.Win.C1FlexGrid.AllowResizingEnum.Columns
-            .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.MultiColumn
+            .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.SingleColumn
             .AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
             .AllowFiltering = True
 

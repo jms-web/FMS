@@ -338,6 +338,8 @@ Partial Class FrmM0020
         Me.flxDATA.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.flxDATA.AutoGenerateColumns = False
+        Me.flxDATA.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.XpThemes
         Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
         Me.flxDATA.DataSource = Me.VWM002BUSYOBindingSource
         Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
