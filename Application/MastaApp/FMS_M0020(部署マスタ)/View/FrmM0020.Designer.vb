@@ -121,10 +121,6 @@ Partial Class FrmM0020
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblTytle.Text = "ïîèêÉ}ÉXÉ^"
         '
-        'ToolTip
-        '
-        Me.ToolTip.InitialDelay = 700
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
@@ -147,7 +143,7 @@ Partial Class FrmM0020
         Me.cmbBUMON_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUMON_KB.FormattingEnabled = True
         Me.cmbBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUMON_KB.Location = New System.Drawing.Point(83, 3)
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
@@ -250,7 +246,7 @@ Partial Class FrmM0020
         Me.cmbBUSYO_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUSYO_KB.FormattingEnabled = True
         Me.cmbBUSYO_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbBUSYO_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbBUSYO_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUSYO_KB.Location = New System.Drawing.Point(394, 3)
         Me.cmbBUSYO_KB.Name = "cmbBUSYO_KB"
         Me.cmbBUSYO_KB.NullValue = " "
@@ -342,6 +338,8 @@ Partial Class FrmM0020
         Me.flxDATA.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.flxDATA.AutoGenerateColumns = False
+        Me.flxDATA.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.XpThemes
         Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
         Me.flxDATA.DataSource = Me.VWM002BUSYOBindingSource
         Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))

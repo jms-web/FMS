@@ -12,6 +12,9 @@ Partial Public Class VWM005_SYOZOKU_BUSYO
 
     <ComponentModel.DisplayName("ŽÐˆõID")>
     Public Property SYAIN_ID As Integer
+    <ComponentModel.DisplayName("ŽÐˆõNO")>
+    Public Property SYAIN_NO As String
+
     Public Property SIMEI As String
     Public Property SIMEI_KANA As String
     Public Property SYAIN_KB As String
@@ -84,6 +87,7 @@ Partial Public Class VWM005_SYOZOKU_BUSYO
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_SYAIN_NAME As String
 
+    'Public Property DEL_FLG As String
 
     '<DoNotNotify>
     '<Column(NameOf(KENMU_FLG), TypeName:="char")>

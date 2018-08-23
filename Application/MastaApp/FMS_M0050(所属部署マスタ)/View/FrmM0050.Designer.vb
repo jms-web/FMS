@@ -30,7 +30,7 @@ Partial Class FrmM0050
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cmbBUSYO_NAME = New JMS_COMMON.ComboboxEx()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.VWM005SYOZOKUBUSYOBindingSource4 = New System.Windows.Forms.BindingSource(Me.components)
+        Me.VWM005SYOZOKUBUSYOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.GroupBoxEx1 = New JMS_COMMON.GroupBoxEx()
         Me.radKAISI_YMD = New System.Windows.Forms.RadioButton()
         Me.radKENMU = New System.Windows.Forms.RadioButton()
@@ -52,7 +52,7 @@ Partial Class FrmM0050
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.VWM005SYOZOKUBUSYOBindingSource4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.VWM005SYOZOKUBUSYOBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBoxEx1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.flxDATA_SYAIN, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -160,7 +160,7 @@ Partial Class FrmM0050
         Me.cmbBUSYO_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUSYO_KB.FormattingEnabled = True
         Me.cmbBUSYO_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbBUSYO_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbBUSYO_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUSYO_KB.Location = New System.Drawing.Point(86, 3)
         Me.cmbBUSYO_KB.Name = "cmbBUSYO_KB"
         Me.cmbBUSYO_KB.NullValue = " "
@@ -226,7 +226,7 @@ Partial Class FrmM0050
         Me.cmbBUSYO_NAME.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUSYO_NAME.FormattingEnabled = True
         Me.cmbBUSYO_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbBUSYO_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbBUSYO_NAME.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUSYO_NAME.Location = New System.Drawing.Point(259, 3)
         Me.cmbBUSYO_NAME.Name = "cmbBUSYO_NAME"
         Me.cmbBUSYO_NAME.NullValue = " "
@@ -242,7 +242,7 @@ Partial Class FrmM0050
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
-        Me.flxDATA.DataSource = Me.VWM005SYOZOKUBUSYOBindingSource4
+        Me.flxDATA.DataSource = Me.VWM005SYOZOKUBUSYOBindingSource
         Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.flxDATA.Location = New System.Drawing.Point(14, 127)
         Me.flxDATA.Name = "flxDATA"
@@ -253,9 +253,9 @@ Partial Class FrmM0050
         Me.flxDATA.TabIndex = 60
         Me.flxDATA.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
         '
-        'VWM005SYOZOKUBUSYOBindingSource4
+        'VWM005SYOZOKUBUSYOBindingSource
         '
-        Me.VWM005SYOZOKUBUSYOBindingSource4.DataSource = GetType(MODEL.VWM005_SYOZOKU_BUSYO)
+        Me.VWM005SYOZOKUBUSYOBindingSource.DataSource = GetType(MODEL.VWM005_SYOZOKU_BUSYO)
         '
         'GroupBoxEx1
         '
@@ -395,7 +395,7 @@ Partial Class FrmM0050
         Me.cmbYAKUSYOKU_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbYAKUSYOKU_KB.FormattingEnabled = True
         Me.cmbYAKUSYOKU_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbYAKUSYOKU_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbYAKUSYOKU_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbYAKUSYOKU_KB.Location = New System.Drawing.Point(277, 33)
         Me.cmbYAKUSYOKU_KB.Name = "cmbYAKUSYOKU_KB"
         Me.cmbYAKUSYOKU_KB.NullValue = " "
@@ -441,7 +441,7 @@ Partial Class FrmM0050
         Me.cmbSYAIN_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYAIN_KB.FormattingEnabled = True
         Me.cmbSYAIN_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbSYAIN_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbSYAIN_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbSYAIN_KB.Location = New System.Drawing.Point(70, 33)
         Me.cmbSYAIN_KB.Name = "cmbSYAIN_KB"
         Me.cmbSYAIN_KB.NullValue = " "
@@ -537,7 +537,7 @@ Partial Class FrmM0050
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.VWM005SYOZOKUBUSYOBindingSource4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.VWM005SYOZOKUBUSYOBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBoxEx1.ResumeLayout(False)
         Me.GroupBoxEx1.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
@@ -558,7 +558,6 @@ Partial Class FrmM0050
     Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Label1 As Label
     Friend WithEvents cmbBUSYO_NAME As ComboboxEx
-    Friend WithEvents VWM005SYOZOKUBUSYOBindingSource4 As BindingSource
     Friend WithEvents GroupBoxEx1 As GroupBoxEx
     Friend WithEvents dtbKAISI_YMD As DateTextBoxEx
     Friend WithEvents Label2 As Label
@@ -573,7 +572,8 @@ Partial Class FrmM0050
     Friend WithEvents mtxSIMEI_KANA As MaskedTextBoxEx
     Friend WithEvents flxDATA_SYAIN As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents VWM004SYAINBindingSource As BindingSource
     Friend WithEvents radKAISI_YMD As RadioButton
     Friend WithEvents radKENMU As RadioButton
+    Friend WithEvents VWM004SYAINBindingSource As BindingSource
+    Friend WithEvents VWM005SYOZOKUBUSYOBindingSource As BindingSource
 End Class

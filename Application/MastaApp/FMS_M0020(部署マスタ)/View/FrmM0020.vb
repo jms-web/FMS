@@ -68,7 +68,7 @@ Public Class FrmM0020
             .AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
             .AllowDelete = False
             .AllowResizing = C1.Win.C1FlexGrid.AllowResizingEnum.Columns
-            .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.MultiColumn
+            .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.SingleColumn
             .AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
             .AllowFiltering = True
 
@@ -275,26 +275,29 @@ Public Class FrmM0020
                     Dim Trow As DataRow = dt.NewRow()
                     For Each p As Reflection.PropertyInfo In properties
 
-                        If IsAutoGenerateField(t, p.Name) = True Then
-                            Select Case p.PropertyType
-                                Case GetType(Integer)
-                                    Trow(p.Name) = Val(row.Item(p.Name))
-                                Case GetType(Decimal)
-                                    Trow(p.Name) = CDec(row.Item(p.Name))
-                                Case GetType(Boolean)
-                                    Trow(p.Name) = CBool(row.Item(p.Name))
-                                Case Else
-                                    Select Case p.Name
-                                        Case "YUKO_YMD"
-                                            Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2)
-                                        Case "UPD_YMDHNS", "ADD_YMDHNS"
-                                            Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2) & " " & Mid(row.Item(p.Name), 9, 2) & ":" & Mid(row.Item(p.Name), 11, 2) & ":" & Mid(row.Item(p.Name), 13, 2)
+                        'If IsAutoGenerateField(t, p.Name) = True Then
+                        Select Case p.PropertyType
+                            Case GetType(Integer)
+                                Trow(p.Name) = Val(row.Item(p.Name))
+                            Case GetType(Decimal)
+                                Trow(p.Name) = CDec(row.Item(p.Name))
+                            Case GetType(Boolean)
+                                Trow(p.Name) = CBool(row.Item(p.Name))
+                            Case Else
+                                Select Case p.Name
+                                    Case "YUKO_YMD"
+                                        Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2)
+                                    Case "UPD_YMDHNS", "ADD_YMDHNS"
+                                        Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2) & " " & Mid(row.Item(p.Name), 9, 2) & ":" & Mid(row.Item(p.Name), 11, 2) & ":" & Mid(row.Item(p.Name), 13, 2)
+                                    Case "DEL_FLG"
+                                        Trow(p.Name) = CBool(row.Item(p.Name))
+                                    Case "Item"
 
-                                        Case Else
-                                            Trow(p.Name) = row.Item(p.Name)
-                                    End Select
-                            End Select
-                        End If
+                                    Case Else
+                                        Trow(p.Name) = row.Item(p.Name)
+                                End Select
+                        End Select
+                        'End If
                     Next p
                     dt.Rows.Add(Trow)
                 Next row
@@ -585,6 +588,10 @@ Public Class FrmM0020
     Private Sub SearchFilterValueChanged(sender As System.Object, e As System.EventArgs)
         'åüçı
         Me.cmdFunc1.PerformClick()
+
+    End Sub
+
+    Private Sub chkDeletedRowVisibled_CheckedChanged(sender As Object, e As EventArgs) Handles chkDeletedRowVisibled.CheckedChanged
 
     End Sub
 

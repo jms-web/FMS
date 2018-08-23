@@ -41,13 +41,13 @@ Partial Class FrmM0040
         Me.Label7 = New System.Windows.Forms.Label()
         Me.dtbNYUSYA_YMD_FROM = New JMS_COMMON.DateTextBoxEx()
         Me.dtbNYUSYA_YMD_To = New JMS_COMMON.DateTextBoxEx()
-        Me.VWM004SYAINBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.VWM004SYAINBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
-        CType(Me.VWM004SYAINBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.VWM004SYAINBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -252,7 +252,7 @@ Partial Class FrmM0040
         Me.cmbYAKUSYOKU_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbYAKUSYOKU_KB.FormattingEnabled = True
         Me.cmbYAKUSYOKU_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbYAKUSYOKU_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbYAKUSYOKU_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbYAKUSYOKU_KB.Location = New System.Drawing.Point(70, 33)
         Me.cmbYAKUSYOKU_KB.Name = "cmbYAKUSYOKU_KB"
         Me.cmbYAKUSYOKU_KB.NullValue = " "
@@ -302,7 +302,7 @@ Partial Class FrmM0040
         Me.cmbSYAIN_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYAIN_KB.FormattingEnabled = True
         Me.cmbSYAIN_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbSYAIN_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbSYAIN_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbSYAIN_KB.Location = New System.Drawing.Point(829, 3)
         Me.cmbSYAIN_KB.Name = "cmbSYAIN_KB"
         Me.cmbSYAIN_KB.NullValue = " "
@@ -412,10 +412,6 @@ Partial Class FrmM0040
         Me.dtbNYUSYA_YMD_To.Value = ""
         Me.dtbNYUSYA_YMD_To.ValueNonFormat = ""
         '
-        'VWM004SYAINBindingSource
-        '
-        Me.VWM004SYAINBindingSource.DataSource = GetType(MODEL.VWM004_SYAIN)
-        '
         'flxDATA
         '
         Me.flxDATA.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -432,6 +428,10 @@ Partial Class FrmM0040
         Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
         Me.flxDATA.TabIndex = 62
         Me.flxDATA.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
+        '
+        'VWM004SYAINBindingSource
+        '
+        Me.VWM004SYAINBindingSource.DataSource = GetType(MODEL.VWM004_SYAIN)
         '
         'FrmM0040
         '
@@ -463,8 +463,8 @@ Partial Class FrmM0040
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()
-        CType(Me.VWM004SYAINBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.VWM004SYAINBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -489,6 +489,6 @@ Partial Class FrmM0040
     Friend WithEvents Label7 As Label
     Friend WithEvents dtbNYUSYA_YMD_FROM As DateTextBoxEx
     Friend WithEvents dtbNYUSYA_YMD_To As DateTextBoxEx
-    Friend WithEvents VWM004SYAINBindingSource As BindingSource
     Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents VWM004SYAINBindingSource As BindingSource
 End Class
