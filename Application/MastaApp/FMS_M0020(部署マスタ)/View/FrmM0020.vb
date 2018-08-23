@@ -590,6 +590,7 @@ Public Class FrmM0020
 
 
 
+
 #End Region
 
 End Class

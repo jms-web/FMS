@@ -126,10 +126,6 @@ Partial Class FrmM0040
         Me.lblTytle.Font = New System.Drawing.Font("Meiryo UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTytle.Text = "’S“–ŽÒƒ}ƒXƒ^"
         '
-        'ToolTip
-        '
-        Me.ToolTip.InitialDelay = 700
-        '
         'Label3
         '
         Me.Label3.AutoSize = True

@@ -287,7 +287,8 @@ Public Class FrmM0040
 
             '---ëﬁêEé“
             If Me.chkTaisyokuRowVisibled.Checked = False Then
-                sbSQLWHERE.Append(" AND TAISYA_YMD = ' ' ")
+                'sbSQLWHERE.Append(" AND TAISYA_YMD = ' ' ")
+                sbSQLWHERE.Append(" AND (TAISYA_YMD >= '" & DateTime.Now.ToString("yyyyMMdd") & "' OR TAISYA_YMD = '')")
             End If
 
             If Me.chkDeletedRowVisibled.Checked = False Then
@@ -579,6 +580,8 @@ Public Class FrmM0040
         'åüçı
         Me.cmdFunc1.PerformClick()
     End Sub
+
+
 
 #End Region
 

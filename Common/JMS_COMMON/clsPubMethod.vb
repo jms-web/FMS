@@ -1282,10 +1282,8 @@ Public NotInheritable Class ClsPubMethod
                 'ファイル名
                 strFileName = System.IO.Path.GetFileName(sfd.FileName)
 
-
                 '-----配列用意
                 ReDim strARY(0 To dt.Rows.Count)
-
 
                 If blnWriteHeader = True Then
                     sb.Remove(0, sb.Length)
