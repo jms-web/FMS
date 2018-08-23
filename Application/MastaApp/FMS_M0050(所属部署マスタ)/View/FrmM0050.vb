@@ -268,12 +268,25 @@ Public Class FrmM0050
                 End If
             End If
 
-            Dim tplModelInfo = FunGetTableFromModel(GetType(MODEL.VWM005_SYOZOKU_BUSYO))
+            Dim dt As New DataTable
+
+            Dim t As Type = GetType(MODEL.VWM005_SYOZOKU_BUSYO)
+            Dim properties As Reflection.PropertyInfo() = t.GetProperties(
+                 Reflection.BindingFlags.Public Or
+                 Reflection.BindingFlags.NonPublic Or
+                 Reflection.BindingFlags.Instance Or
+                 Reflection.BindingFlags.Static)
+
+            For Each p As Reflection.PropertyInfo In properties
+                dt.Columns.Add(p.Name, p.PropertyType)
+            Next p
 
             With dsList.Tables(0)
                 For Each row As DataRow In .Rows
-                    Dim Trow As DataRow = tplModelInfo.dt.NewRow()
-                    For Each p As Reflection.PropertyInfo In tplModelInfo.properties
+                    Dim Trow As DataRow = dt.NewRow()
+                    For Each p As Reflection.PropertyInfo In properties
+
+                        'If IsAutoGenerateField(t, p.Name) = True Then
                         Select Case p.PropertyType
                             Case GetType(Integer)
                                 Trow(p.Name) = Val(row.Item(p.Name))
@@ -283,21 +296,27 @@ Public Class FrmM0050
                                 Trow(p.Name) = CBool(row.Item(p.Name))
                             Case Else
                                 Select Case p.Name
-                                    Case "YUKO_YMD", "SYOZOKU_YUKO_YMD", "BUSYO_YUKO_YMD"
+                                    Case "YUKO_YMD", "BIRTH_YMD", "NYUSYA_YMD", "TAISYA_YMD", "SYOZOKU_YUKO_YMD", "BUSYO_YUKO_YMD"
                                         Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2)
                                     Case "UPD_YMDHNS", "ADD_YMDHNS"
                                         Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2) & " " & Mid(row.Item(p.Name), 9, 2) & ":" & Mid(row.Item(p.Name), 11, 2) & ":" & Mid(row.Item(p.Name), 13, 2)
+                                    Case "DEL_FLG"
+                                        Trow(p.Name) = CBool(row.Item(p.Name))
+                                    Case "Item"
+
                                     Case Else
                                         Trow(p.Name) = row.Item(p.Name)
                                 End Select
                         End Select
+                        'End If
                     Next p
-                    tplModelInfo.dt.Rows.Add(Trow)
+                    dt.Rows.Add(Trow)
                 Next row
-                tplModelInfo.dt.AcceptChanges()
+                dt.AcceptChanges()
             End With
 
-            Return tplModelInfo.dt
+            Return dt
+
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -333,6 +352,7 @@ Public Class FrmM0050
             End If
 
             sbSQLWHERE.Append(" AND (TAISYA_YMD >= '" & DateTime.Now.ToString("yyyyMMdd") & "' OR TAISYA_YMD = '')")
+            sbSQLWHERE.Append(" AND DEL_FLG = '0' ")
 
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append("SELECT")
@@ -350,12 +370,25 @@ Public Class FrmM0050
                 End If
             End If
 
-            Dim tplModelInfo = FunGetTableFromModel(GetType(MODEL.VWM004_SYAIN))
+            Dim dt As New DataTable
+
+            Dim t As Type = GetType(MODEL.VWM004_SYAIN)
+            Dim properties As Reflection.PropertyInfo() = t.GetProperties(
+                 Reflection.BindingFlags.Public Or
+                 Reflection.BindingFlags.NonPublic Or
+                 Reflection.BindingFlags.Instance Or
+                 Reflection.BindingFlags.Static)
+
+            For Each p As Reflection.PropertyInfo In properties
+                dt.Columns.Add(p.Name, p.PropertyType)
+            Next p
 
             With dsList.Tables(0)
                 For Each row As DataRow In .Rows
-                    Dim Trow As DataRow = tplModelInfo.dt.NewRow()
-                    For Each p As Reflection.PropertyInfo In tplModelInfo.properties
+                    Dim Trow As DataRow = dt.NewRow()
+                    For Each p As Reflection.PropertyInfo In properties
+
+                        'If IsAutoGenerateField(t, p.Name) = True Then
                         Select Case p.PropertyType
                             Case GetType(Integer)
                                 Trow(p.Name) = Val(row.Item(p.Name))
@@ -365,21 +398,26 @@ Public Class FrmM0050
                                 Trow(p.Name) = CBool(row.Item(p.Name))
                             Case Else
                                 Select Case p.Name
-                                    Case "YUKO_YMD", "SYOZOKU_YUKO_YMD", "BUSYO_YUKO_YMD"
+                                    Case "YUKO_YMD", "BIRTH_YMD", "NYUSYA_YMD", "TAISYA_YMD", "SYOZOKU_YUKO_YMD", "BUSYO_YUKO_YMD"
                                         Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2)
                                     Case "UPD_YMDHNS", "ADD_YMDHNS"
                                         Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2) & " " & Mid(row.Item(p.Name), 9, 2) & ":" & Mid(row.Item(p.Name), 11, 2) & ":" & Mid(row.Item(p.Name), 13, 2)
+                                    Case "DEL_FLG"
+                                        Trow(p.Name) = CBool(row.Item(p.Name))
+                                    Case "Item"
+
                                     Case Else
                                         Trow(p.Name) = row.Item(p.Name)
                                 End Select
                         End Select
+                        'End If
                     Next p
-                    tplModelInfo.dt.Rows.Add(Trow)
+                    dt.Rows.Add(Trow)
                 Next row
-                tplModelInfo.dt.AcceptChanges()
+                dt.AcceptChanges()
             End With
 
-            Return tplModelInfo.dt
+            Return dt
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)

@@ -12,6 +12,9 @@ Partial Public Class VWM005_SYOZOKU_BUSYO
 
     <ComponentModel.DisplayName("社員ID")>
     Public Property SYAIN_ID As Integer
+    <ComponentModel.DisplayName("社員NO")>
+    Public Property SYAIN_NO As String
+
     Public Property SIMEI As String
     Public Property SIMEI_KANA As String
     Public Property SYAIN_KB As String
@@ -84,23 +87,16 @@ Partial Public Class VWM005_SYOZOKU_BUSYO
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_SYAIN_NAME As String
 
+    'Public Property DEL_FLG As String
 
     <DoNotNotify>
-    <Column(NameOf(KENMU_FLG), TypeName:="char")>
+    <ComponentModel.DisplayName("削除フラグ")>
     <Display(AutoGenerateField:=False)>
-    Public Property _KENMU_FLG As String
-
-
     <NotMapped>
-    <ComponentModel.DisplayName("兼務フラグ")>
-    Public Property KENMU_FLG As Boolean
+    Public ReadOnly Property DEL_FLG As Boolean
         Get
-            Return IIf(_KENMU_FLG = "0", False, True)
+            Return Not String.IsNullOrWhiteSpace(DEL_YMDHNS)
         End Get
-        Set(value As Boolean)
-            _KENMU_FLG = IIf(value, "1", "0")
-            'OnPropertyChanged(NameOf(CLOSE_FG))
-        End Set
     End Property
 
 #Region "IDisposable Support"

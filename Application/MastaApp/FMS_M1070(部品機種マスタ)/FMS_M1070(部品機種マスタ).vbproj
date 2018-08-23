@@ -203,6 +203,7 @@
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
     <None Include="My Project\DataSources\MODEL.VWM001_SETTING.datasource" />
+    <None Include="My Project\DataSources\MODEL.VWM004_SYAIN.datasource" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
