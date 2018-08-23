@@ -212,6 +212,7 @@ Partial Class FrmM1050
         Me.cmbBUMON_KB.BackColor = System.Drawing.SystemColors.Window
         Me.cmbBUMON_KB.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbBUMON_KB.DisplayMember = "DISP"
+        Me.cmbBUMON_KB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbBUMON_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbBUMON_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUMON_KB.FormattingEnabled = True
@@ -223,7 +224,6 @@ Partial Class FrmM1050
         Me.cmbBUMON_KB.Selected = False
         Me.cmbBUMON_KB.Size = New System.Drawing.Size(158, 25)
         Me.cmbBUMON_KB.TabIndex = 59
-        Me.cmbBUMON_KB.Text = "(‘I‘ð)"
         Me.cmbBUMON_KB.ValueMember = "VALUE"
         '
         'chkDeletedRowVisibled

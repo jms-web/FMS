@@ -39,11 +39,11 @@ Partial Public Class M001_SETTING
     <ComponentModel.DisplayName("表示順")>
     Public Property DISP_ORDER As Integer
 
+    <DoNotNotify>
     <Required>
     <StringLength(1)>
     <Column(NameOf(DEF_FLG), TypeName:="char")>
     <Display(AutoGenerateField:=False)>
-    <ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Never)>
     Public Property _DEF_FLG As String
 
     <NotMapped>
@@ -67,34 +67,41 @@ Partial Public Class M001_SETTING
     <Required>
     <StringLength(14)>
     <Column(TypeName:="Char")>
+    <ComponentModel.DisplayName("追加日時")>
     Public Property ADD_YMDHNS As String
 
     <Required>
+    <ComponentModel.DisplayName("追加社員ID")>
     Public Property ADD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
     <Column(TypeName:="Char")>
+    <ComponentModel.DisplayName("更新日時")>
     Public Property UPD_YMDHNS As String
 
     <Required>
+    <ComponentModel.DisplayName("更新社員ID")>
     Public Property UPD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
     <Column(TypeName:="char")>
+    <ComponentModel.DisplayName("削除日時")>
     Public Property DEL_YMDHNS As String
 
-    <ComponentModel.DisplayName("削除済")>
+    <DoNotNotify>
+    <ComponentModel.DisplayName("削除フラグ")>
     <Display(AutoGenerateField:=False)>
     <NotMapped>
     Public ReadOnly Property DEL_FLG As Boolean
         Get
-            Return String.IsNullOrWhiteSpace(DEL_YMDHNS) = False
+            Return Not String.IsNullOrWhiteSpace(DEL_YMDHNS)
         End Get
     End Property
 
     <Required>
+    <ComponentModel.DisplayName("削除社員ID")>
     Public Property DEL_SYAIN_ID As Integer
 
 #Region "IDisposable Support"

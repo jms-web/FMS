@@ -11,87 +11,108 @@ Partial Public Class VWM001_SETTING
     <Key>
     <Column(Order:=0)>
     <StringLength(50)>
+    <ComponentModel.DisplayName("項目グループ")>
     Public Property ITEM_GROUP As String
 
     <Key>
     <Column(Order:=1)>
     <StringLength(50)>
+    <ComponentModel.DisplayName("項目名")>
     Public Property ITEM_NAME As String
 
     <Key>
     <Column(Order:=2)>
     <StringLength(50)>
+    <ComponentModel.DisplayName("項目値")>
     Public Property ITEM_VALUE As String
 
     <Key>
     <Column(Order:=3)>
     <StringLength(150)>
+    <ComponentModel.DisplayName("項目表示")>
     Public Property ITEM_DISP As String
 
     <Key>
     <Column(Order:=4)>
+    <ComponentModel.DisplayName("表示順")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DISP_ORDER As Integer
 
     <Key>
     <Column(Order:=5)>
     <StringLength(1)>
+    <ComponentModel.DisplayName("既定値フラグ")>
     Public Property DEF_FLG As String
 
     <Key>
     <Column(Order:=6)>
     <StringLength(200)>
+    <ComponentModel.DisplayName("備考")>
     Public Property BIKOU As String
 
     <Key>
     <Column(Order:=7)>
     <StringLength(14)>
+    <ComponentModel.DisplayName("追加日時")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property ADD_YMDHNS As String
 
     <Key>
     <Column(Order:=8)>
+    <ComponentModel.DisplayName("追加担当ID")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property ADD_SYAIN_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("追加担当者")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property ADD_SYAIN_NAME As String
 
     <Key>
     <Column(Order:=9)>
     <StringLength(14)>
+    <ComponentModel.DisplayName("更新日時")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property UPD_YMDHNS As String
 
     <Key>
     <Column(Order:=10)>
+    <ComponentModel.DisplayName("更新担当ID")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property UPD_SYAIN_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("更新担当者")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property UPD_SYAIN_NAME As String
 
     <Key>
     <Column(Order:=11)>
     <StringLength(14)>
+    <ComponentModel.DisplayName("削除日時")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_YMDHNS As String
 
     <Key>
     <Column(Order:=12)>
+    <ComponentModel.DisplayName("削除担当ID")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_SYAIN_ID As Integer
 
     <StringLength(30)>
+    <ComponentModel.DisplayName("削除担当者")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_SYAIN_NAME As String
 
-    <Key>
-    <Column(Order:=13)>
-    <StringLength(1)>
-    Public Property DEL_FLG As String
+    <DoNotNotify>
+    <ComponentModel.DisplayName("削除フラグ")>
+    <Display(AutoGenerateField:=False)>
+    <NotMapped>
+    Public ReadOnly Property DEL_FLG As Boolean
+        Get
+            Return Not String.IsNullOrWhiteSpace(DEL_YMDHNS)
+        End Get
+    End Property
 
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' 重複する呼び出しを検出するには

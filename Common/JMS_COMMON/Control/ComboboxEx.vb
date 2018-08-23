@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports System.Security.Permissions
 Imports JMS_COMMON.ClsPubMethod
 
 <DefaultEvent("SelectedValueChanged")>
@@ -13,12 +14,14 @@ Public Class ComboboxEx
     Const CON_TOP_ROW_CAPTION_1 As String = "(すべて)"
     Const CON_TOP_ROW_CAPTION_2 As String = "(未選択)"
 
-    Private _GotForcusedColor As Color 'フォーカス時の背景色
+    Private _GotFocusedColor As Color 'フォーカス時の背景色
     Private _BackColorDefault As Color 'フォーカス喪失時時の背景色
 
     Private _BackColorOrg As System.Drawing.Color
     Private _ReadOnly As Boolean
     Private _CursorOrg As Cursor
+    Private keyPressHandled As Boolean
+    Private _imeMode As ImeMode
 #End Region
 
 #Region "コンストラクタ"
@@ -29,7 +32,7 @@ Public Class ComboboxEx
         'SetDatasourceから移行 SelectedValueChanged等を発火させないため
         DisplayMember = "DISP"
         ValueMember = "VALUE"
-
+        _imeMode = Me.ImeMode
         NullValue = " "
     End Sub
 #End Region
@@ -47,11 +50,15 @@ Public Class ComboboxEx
                 Cursor = Cursors.Default
                 'DEBUG:Combobox ReadOnly時の背景色
                 BackColor = System.Drawing.SystemColors.Control
+                ContextMenu = New ContextMenu
                 SetStyle(ControlStyles.UserMouse, True)
+                Me.ImeMode = _imeMode
             Else
                 Cursor = _CursorOrg
                 BackColor = _BackColorOrg
+                ContextMenu = Nothing
                 SetStyle(ControlStyles.UserMouse, False)
+                Me.ImeMode = ImeMode.Disable
             End If
         End Set
     End Property
@@ -436,10 +443,10 @@ Public Class ComboboxEx
     <Bindable(True), Category("Appearance"), DefaultValue("")>
     Property [GotFocusedColor]() As System.Drawing.Color
         Get
-            Return _GotForcusedColor
+            Return _GotFocusedColor
         End Get
         Set(ByVal value As Color)
-            _GotForcusedColor = value
+            _GotFocusedColor = value
         End Set
     End Property
 #End Region
@@ -455,43 +462,98 @@ Public Class ComboboxEx
         End Set
     End Property
 #End Region
-#Region "OnKeyUp"
-    Protected Overrides Sub OnKeyUp(e As KeyEventArgs)
 
-        If _ReadOnly Then
-            e.Handled = True
-            Return
-        End If
-
-        MyBase.OnKeyUp(e)
-    End Sub
-#End Region
 #Region "OnKeyPress"
     Protected Overrides Sub OnKeyPress(e As KeyPressEventArgs)
-        If _ReadOnly Then
-            e.Handled = True
+        If Not Me.ReadOnly Then
+            'If ToUpper Then
+            '    Dim keyAscii As Integer = AscW(e.KeyChar)
+
+            '    '変換したｷｰｺｰﾄﾞをｷｰｲﾍﾞﾝﾄに返す
+            '    e.KeyChar = ChrW(AscW(Char.ToUpper(ChrW(keyAscii))))
+            '    If keyAscii = 0 Then
+            '        e.Handled = True
+            '    End If
+            'End If
+            Me.keyPressHandled = False
             Return
         End If
 
-        MyBase.OnKeyPress(e)
+        If Me.keyPressHandled Then
+            e.Handled = True
+            Me.keyPressHandled = False
+            Return
+        End If
+
+        If Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+
+        Me.keyPressHandled = False
     End Sub
 #End Region
 #Region "OnKeyDown"
     Protected Overrides Sub OnKeyDown(ByVal e As KeyEventArgs)
 
-        If _ReadOnly Then
+        If Not Me.ReadOnly Then
+            Select Case e.KeyCode
+                Case Keys.Enter     'Enter:Tab
+                    SendKeys.Send("{Tab}") 'Enterを押した際、次の項目へ移動する為Tabを送信する
+            End Select
+
+            Return
+        End If
+
+        If Me.ImeMode = ImeMode.Disable Then
+            Stop
+        End If
+
+        If e.KeyCode = Keys.Delete Then
             e.Handled = True
             Return
         End If
 
-        MyBase.OnKeyDown(e)
+        If e.KeyCode = Keys.Back Then
+            Me.keyPressHandled = True
+            Return
+        End If
 
-        Select Case e.KeyCode
-            Case Keys.Enter     'Enter:Tab
-                SendKeys.Send("{Tab}") 'Enterを押した際、次の項目へ移動する為Tabを送信する
-        End Select
+        If e.Control Then
+            Select Case e.KeyCode
+                Case Keys.V, Keys.X
+                    Me.keyPressHandled = True
+                    Return
+            End Select
+        End If
+
+        If e.KeyCode = Keys.Up OrElse e.KeyCode = Keys.PageUp OrElse e.KeyCode = Keys.Down OrElse e.KeyCode = Keys.PageDown Then
+            e.Handled = True
+            Return
+        End If
+
+        Me.keyPressHandled = False
     End Sub
 #End Region
+
+    <SecurityPermission(SecurityAction.Demand, Flags:=SecurityPermissionFlag.UnmanagedCode)>
+    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
+
+        If ((keyData And Keys.Control) = Keys.Control AndAlso
+                (keyData And Keys.KeyCode) = Keys.V) OrElse
+                ((keyData And Keys.Shift) = Keys.Shift AndAlso
+                 (keyData And Keys.KeyCode) = Keys.Insert) Then
+            If Me.ReadOnly Then
+                Return True
+            Else
+                Return MyBase.ProcessCmdKey(msg, keyData)
+            End If
+        Else
+            Return MyBase.ProcessCmdKey(msg, keyData)
+        End If
+
+    End Function
+
+
 #Region "OnGotFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnGotFocus(ByVal e As EventArgs)
 
@@ -499,7 +561,7 @@ Public Class ComboboxEx
             MyBase.BackColor = clrDisableControlGotFocusedColor
         Else
             'フォーカス時は背景色変更
-            MyBase.BackColor = _GotForcusedColor
+            MyBase.BackColor = _GotFocusedColor
         End If
         MyBase.OnGotFocus(e) '基底クラス呼び出し
 

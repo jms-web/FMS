@@ -126,14 +126,13 @@ Public Class FrmM0010
 #Region "FunctionButton関連"
 
 #Region "ボタンクリックイベント"
-
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc1.Click, cmdFunc2.Click, cmdFunc3.Click, cmdFunc4.Click, cmdFunc5.Click, cmdFunc6.Click, cmdFunc7.Click, cmdFunc8.Click, cmdFunc9.Click, cmdFunc10.Click, cmdFunc11.Click, cmdFunc12.Click
         Dim intFUNC As Integer
         Dim intCNT As Integer
 
         Try
-            '[処理中]
             MyBase.PrPG_STATUS = ENM_PG_STATUS._3_PROCESSING
+            Me.Cursor = Cursors.WaitCursor
 
             'ボタン不可/ボタンINDEX取得
             For intCNT = 0 To cmdFunc.Length - 1
@@ -177,8 +176,8 @@ Public Class FrmM0010
             'ファンクションキー有効化初期化
             Call SubInitFuncButtonEnabled()
 
-            '[アクティブ]
             MyBase.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
+            Me.Cursor = Cursors.Default
         End Try
     End Sub
 
@@ -200,10 +199,8 @@ Public Class FrmM0010
                 End If
             End If
 
-            If chkDeletedRowVisibled.Checked Then
-                flxDATA.Cols("DEL_FLG").Visible = True
-            Else
-                flxDATA.Cols("DEL_FLG").Visible = False
+            flxDATA.Cols("DEL_FLG").Visible = chkDeletedRowVisibled.Checked
+            If chkDeletedRowVisibled.Checked = False Then
                 sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & "DEL_FLG <> 1 ")
             End If
 
@@ -306,7 +303,7 @@ Public Class FrmM0010
             End If
 
             Using frmDLG As New FrmM0011
-                frmDLG.PrMODE = intMODE
+                frmDLG.PrDATA_OP_MODE = intMODE
                 If flxDATA.RowSel > 0 Then
                     frmDLG.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row 'flxDATA.Rows(flxDATA.Row)
                 Else
@@ -475,7 +472,7 @@ Public Class FrmM0010
             End With
         Next intFunc
 
-        If flxDATA.Rows.Count > 0 Then
+        If flxDATA.RowSel > 0 Then
             cmdFunc3.Enabled = True
             cmdFunc4.Enabled = True
             cmdFunc5.Enabled = True

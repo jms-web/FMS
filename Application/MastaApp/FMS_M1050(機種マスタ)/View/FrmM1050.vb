@@ -28,35 +28,29 @@ Public Class FrmM1050
 
     Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
+            '-----フォーム初期設定(親フォームから呼び出し)
+            Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
-            Try
-                '-----フォーム初期設定(親フォームから呼び出し)
-                Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
-                Using DB As ClsDbUtility = DBOpen()
-                    lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
-                End Using
+            '-----グリッド初期設定
+            Call FunInitializeFlexGrid(flxDATA)
 
-                ''-----グリッド初期設定
-                FunInitializeFlexGrid(flxDATA)
+            '-----コントロールデータソース設定
+            cmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-                ''-----グリッド列作成
-                'Call FunSetDgvCulumns(Me.dgvDATA)
+            '-----イベントハンドラ設定
+            AddHandler cmbBUMON_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler mtxKISYU_NAME.Validated, AddressOf SearchFilterValueChanged
+            AddHandler chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
-                '-----コントロールデータソース設定
-                cmbSYAIN_KB.SetDataSource(tblSYAIN_KB.ExcludeDeleted, True)
-                cmbYAKUSYOKU_KB.SetDataSource(tblYAKUSYOKU_KB.ExcludeDeleted, True)
+        Finally
+            Call SubInitFuncButtonEnabled()
 
-                '-----イベントハンドラ設定
-                'AddHandler cmbSYOKUBAN.SelectedValueChanged, AddressOf SearchFilterValueChanged
-                AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
-                AddHandler Me.chkTaisyokuRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
-
-            Finally
-                Call SubInitFuncButtonEnabled()
-
-                '検索実行
-                cmdFunc1.PerformClick()
-            End Try
+            '検索実行
+            cmdFunc1.PerformClick()
+        End Try
     End Sub
 
 #End Region
@@ -137,8 +131,8 @@ Public Class FrmM1050
         Dim intCNT As Integer
 
         Try
-            '[処理中]
             MyBase.PrPG_STATUS = ENM_PG_STATUS._3_PROCESSING
+            Me.Cursor = Cursors.WaitCursor
 
             'ボタン不可/ボタンINDEX取得
             For intCNT = 0 To cmdFunc.Length - 1
@@ -184,8 +178,8 @@ Public Class FrmM1050
             'ファンクションキー有効化初期化
             Call SubInitFuncButtonEnabled()
 
-            '[アクティブ]
             MyBase.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
+            Me.Cursor = Cursors.Default
         End Try
     End Sub
 #End Region
@@ -202,10 +196,8 @@ Public Class FrmM1050
 
             If Not mtxKISYU_NAME.Text.IsNullOrWhiteSpace Then sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"KISYU_NAME LIKE '%{mtxKISYU_NAME.Text.Trim}%'")
 
-            If chkDeletedRowVisibled.Checked Then
-                flxDATA.Cols("DEL_FLG").Visible = True
-            Else
-                flxDATA.Cols("DEL_FLG").Visible = False
+            flxDATA.Cols("DEL_FLG").Visible = chkDeletedRowVisibled.Checked
+            If chkDeletedRowVisibled.Checked = False Then
                 sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & "DEL_FLG <> 1 ")
             End If
 
@@ -296,7 +288,7 @@ Public Class FrmM1050
 
         Try
             Using frmDLG As New FrmM1051
-                frmDLG.PrMODE = intMODE
+                frmDLG.PrDATA_OP_MODE = intMODE
                 If flxDATA.RowSel > 0 Then
                     frmDLG.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
                 Else
@@ -428,7 +420,7 @@ Public Class FrmM1050
             End With
         Next intFunc
 
-        If flxDATA.Rows.Count > 0 Then
+        If flxDATA.RowSel > 0 Then
             cmdFunc3.Enabled = True
             cmdFunc4.Enabled = True
             cmdFunc5.Enabled = True

@@ -81,7 +81,7 @@ Public Class FrmG0011
         D003NCRJBindingSource.DataSource = _D003_NCR_J
         mtxHOKUKO_NO.ReadOnly = True
         dtDraft.ReadOnly = True
-        cmbKISO_TANTO.ReadOnly = True
+        'cmbKISO_TANTO.ReadOnly = True
         mtxHINMEI.ReadOnly = True
         pnlPict1.AllowDrop = True
         pnlPict2.AllowDrop = True
@@ -125,6 +125,8 @@ Public Class FrmG0011
         pnlST14.BackColor = Color.Transparent
         pnlST15.BackColor = Color.Transparent
         pnlST16.BackColor = Color.Transparent
+
+        txtST01_KEKKA.Multiline = True
 
         rsbtnST99.Enabled = False
     End Sub
@@ -191,6 +193,8 @@ Public Class FrmG0011
             'バインディングセット
             Call FunSetBindingD003()
 
+
+            Me.Cursor = Cursors.WaitCursor
             '-----処理モード別画面初期化
             If FunInitializeControls(PrMODE) Then
             Else
@@ -200,6 +204,7 @@ Public Class FrmG0011
             Me.tabSTAGE01.Focus()
         Finally
             Call FunInitFuncButtonEnabled()
+            Me.Cursor = Cursors.Default
         End Try
     End Sub
 
@@ -225,6 +230,8 @@ Public Class FrmG0011
         Try
             '[処理中]
             Me.PrPG_STATUS = ENM_PG_STATUS._3_PROCESSING
+
+            Me.Cursor = Cursors.WaitCursor
 
             'ボタン不可/ボタンINDEX取得
             For intCNT = 0 To Me.cmdFunc.Length - 1
@@ -331,8 +338,9 @@ Public Class FrmG0011
 
             '[アクティブ]
             Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
-        End Try
 
+            Me.Cursor = Cursors.Default
+        End Try
     End Sub
 
 #End Region
@@ -489,7 +497,8 @@ Public Class FrmG0011
         End If
 
         '-----モデル更新
-        If (PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso Val(_D003_NCR_J.KENSA_KEKKA_KB) = ENM_KENSA_KEKKA_KB._1_不合格) Or PrCurrentStage = ENM_NCR_STAGE._120_abcde処置確認 Then
+        If (PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso Val(_D003_NCR_J.KENSA_KEKKA_KB) = ENM_KENSA_KEKKA_KB._1_不合格) Or
+            (PrCurrentStage = ENM_NCR_STAGE._120_abcde処置確認 And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請) Then
             _D003_NCR_J._CLOSE_FG = 1
         End If
 
@@ -1513,6 +1522,7 @@ Public Class FrmG0011
         Dim _D005_CAR_J As New MODEL.D005_CAR_J
         _D005_CAR_J.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
         _D005_CAR_J.BUMON_KB = _D003_NCR_J.BUMON_KB
+        _D005_CAR_J._CLOSE_FG = "0"
 
         '-----INSERT
         sbSQL.Remove(0, sbSQL.Length)
@@ -2930,7 +2940,7 @@ Public Class FrmG0011
                             flpnlStageIndex.Controls("rsbtnST" & intTabNo.ToString("00")).BackColor = Color.Silver
                         End If
 
-                        'SPEC: 10-2.⑤
+                        'SPEC: 10-2.⑤ ステージパネル有効無効判定
                         If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
                             '新規作成時
                             'SPEC: (3).B
@@ -2939,18 +2949,18 @@ Public Class FrmG0011
                         Else
                             If PrCurrentStage >= ENM_NCR_STAGE._90_処置実施確認_管理T Then
                                 If intTabNo = intCurrentTabNo Then
-                                    panel.Enabled = True
+                                    panel.DisableContaints(FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, PrCurrentStage), PanelEx.ENM_PROPERTY._2_ReadOnly)
                                 Else
-                                    panel.DisableContaints(False, 2)
-                                    'page.Enabled = False
+                                    panel.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
                                 End If
                             Else
+                                'Mod #70
                                 'カレントユーザー以外は参照のみ
-                                'page.EnableDisablePages(FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO, FunConvertSTAGE_NO_TO_SYONIN_JUN2(intTabNo)), 2)
-                                panel.DisableContaints(FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO, FunConvertSTAGE_NO_TO_SYONIN_JUN(intTabNo)), 2)
+                                'panel.DisableContaints(FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO, FunConvertSTAGE_NO_TO_SYONIN_JUN(intTabNo)), 2)
+                                panel.DisableContaints(intTabNo = intCurrentTabNo, PanelEx.ENM_PROPERTY._2_ReadOnly)
                             End If
                         End If
-                        If _D003_NCR_J.CLOSE_FG Then panel.DisableContaints(False, 2)
+                        If _D003_NCR_J.CLOSE_FG Then panel.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     End If
 
                 Else
@@ -2978,11 +2988,13 @@ Public Class FrmG0011
             End If
 
             If _D003_NCR_J.CLOSE_FG Then
+                lbltmpFile1_Clear.Visible = False
+                lblPict1Path_Clear.Visible = False
+                lblPict2Path_Clear.Visible = False
             Else
                 flpnlStageIndex.Controls("rsbtnST99").Enabled = False
                 flpnlStageIndex.Controls("rsbtnST99").BackColor = Color.Silver
             End If
-
 
             Return True
         Catch ex As Exception
@@ -3128,6 +3140,8 @@ Public Class FrmG0011
                         End If
                         If intStageID > ENM_NCR_STAGE._10_起草入力 Then
                             cmbST01_DestTANTO.ReadOnly = True
+                            txtST01_KEKKA.ReadOnly = True
+                            txtST01_YOKYU_NAIYO.ReadOnly = True
                         End If
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
@@ -3369,20 +3383,20 @@ Public Class FrmG0011
                 cmbST06_SAISIN_IINKAI_HANTEI.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 'SPEC: 60-2.③
-                cmbKISYU.ReadOnly = True
-                cmbSYANAI_CD.ReadOnly = True
-                cmbFUTEKIGO_STATUS.ReadOnly = True
-                cmbFUTEKIGO_KB.ReadOnly = True
-                cmbFUTEKIGO_S_KB.ReadOnly = True
-                'cmbBUMON.ReadOnly = True
-                mtxGOUKI.ReadOnly = True
-                cmbBUHIN_BANGO.ReadOnly = True
-                mtxHENKYAKU_RIYU.ReadOnly = True
-                cmbFUTEKIGO_S_KB.ReadOnly = True
-                cmbKISO_TANTO.ReadOnly = True
-                mtxHINMEI.ReadOnly = True
-                mtxZUBAN_KIKAKU.ReadOnly = True
-                numSU.Enabled = False
+                'cmbKISYU.ReadOnly = True
+                'cmbSYANAI_CD.ReadOnly = True
+                'cmbFUTEKIGO_STATUS.ReadOnly = True
+                'cmbFUTEKIGO_KB.ReadOnly = True
+                'cmbFUTEKIGO_S_KB.ReadOnly = True
+                ''cmbBUMON.ReadOnly = True
+                'mtxGOUKI.ReadOnly = True
+                'cmbBUHIN_BANGO.ReadOnly = True
+                'mtxHENKYAKU_RIYU.ReadOnly = True
+                'cmbFUTEKIGO_S_KB.ReadOnly = True
+                'cmbKISO_TANTO.ReadOnly = True
+                'mtxHINMEI.ReadOnly = True
+                'mtxZUBAN_KIKAKU.ReadOnly = True
+                'numSU.Enabled = False
 
                 _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._60_再審審査判定_技術代表).
@@ -3417,6 +3431,9 @@ Public Class FrmG0011
                     End If
                 Else
                     mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                    pnlST06.Visible = False
+                    rsbtnST06.Enabled = False
+                    rsbtnST06.BackColor = Color.Silver
                 End If
             Else
                 pnlST06.Visible = False
@@ -3466,6 +3483,9 @@ Public Class FrmG0011
                         End If
                     Else
                         mtxST07_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        pnlST07.Visible = False
+                        rsbtnST07.Enabled = False
+                        rsbtnST07.BackColor = Color.Silver
                     End If
                 Else
                     '次ステージが取得出来ない場合=登録内容により処理がスキップされた場合等はタブごと非表示
@@ -3544,6 +3564,9 @@ Public Class FrmG0011
                         End If
                     Else
                         mtxST08_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        pnlST08.Visible = False
+                        rsbtnST08.Enabled = False
+                        rsbtnST08.BackColor = Color.Silver
                     End If
                 Else
                     '次ステージが取得出来ない場合=登録内容により処理がスキップされた場合等はタブごと非表示
@@ -3653,6 +3676,9 @@ Public Class FrmG0011
                         End If
                     Else
                         mtxST09_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        pnlST09.Visible = False
+                        rsbtnST09.Enabled = False
+                        rsbtnST09.BackColor = Color.Silver
                     End If
 
                     'SPEC: 80-2.④
@@ -3684,6 +3710,9 @@ Public Class FrmG0011
                 rsbtnST09.Enabled = False
             End If
 
+            If intStageID > ENM_NCR_STAGE._80_処置実施 Then
+                flpnlST08_SAIKAKO.Enabled = False
+            End If
 #End Region
 
 #Region "               81 10"
@@ -5059,7 +5088,21 @@ Public Class FrmG0011
         End If
     End Sub
 
-    Private Sub RbtnST11_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST11_A1_F.CheckedChanged
+    Private Sub RbtnST11_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST11_A1_F.CheckedChanged,
+                                                                                  rbtnST11_E2_T.CheckedChanged,
+                                                                                  rbtnST11_E2_F.CheckedChanged,
+                                                                                  rbtnST11_E1_T.CheckedChanged,
+                                                                                  rbtnST11_E1_F.CheckedChanged,
+                                                                                  rbtnST11_D2_T.CheckedChanged,
+                                                                                  rbtnST11_D2_F.CheckedChanged,
+                                                                                  rbtnST11_D1_T.CheckedChanged,
+                                                                                  rbtnST11_D1_F.CheckedChanged,
+                                                                                  rbtnST11_C1_T.CheckedChanged,
+                                                                                  rbtnST11_C1_F.CheckedChanged,
+                                                                                  rbtnST11_B1_T.CheckedChanged,
+                                                                                  rbtnST11_B1_F.CheckedChanged,
+                                                                                  rbtnST11_A1_T.CheckedChanged
+
         Dim rbtn As RadioButton = DirectCast(sender, RadioButton)
         Dim strNameSuffix As String = rbtn.Name.Substring(12, 1)
 
@@ -5070,9 +5113,12 @@ Public Class FrmG0011
         End If
     End Sub
 
+
+
+
 #End Region
 
-#Region "　STAGE12"
+#Region "   STAGE12"
 
     Private Sub BtnST16_SYONIN_Click(sender As Object, e As EventArgs) Handles btnST16_SYONIN.Click
         cmdFunc2.PerformClick()
@@ -5582,7 +5628,9 @@ Public Class FrmG0011
 
                     Me.TabSTAGE.Visible = False 'ちらつき防止
                     Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage))
+                    Application.DoEvents()
                     Call FunInitializeSTAGE(PrCurrentStage)
+                    Application.DoEvents()
                     Me.TabSTAGE.Visible = True
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
@@ -5611,7 +5659,9 @@ Public Class FrmG0011
 
                     TabSTAGE.Visible = False
                     Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage))
+                    Application.DoEvents()
                     Call FunInitializeSTAGE(PrCurrentStage)
+                    Application.DoEvents()
 
                     For Each page As TabPage In TabSTAGE.TabPages
                         If page.Text = "現ステージ" Then
@@ -5962,8 +6012,8 @@ Public Class FrmG0011
                 intStageTabNo = 4
             Case ENM_NCR_STAGE._50_事前審査確認
                 intStageTabNo = 5
-            Case ENM_NCR_STAGE._60_再審審査判定_技術代表,
-                 intStageTabNo = 6
+            Case ENM_NCR_STAGE._60_再審審査判定_技術代表
+                intStageTabNo = 6
             Case ENM_NCR_STAGE._61_再審審査判定_品証代表
                 intStageTabNo = 7
             Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
@@ -5984,6 +6034,8 @@ Public Class FrmG0011
                 intStageTabNo = 15
             Case ENM_NCR_STAGE._120_abcde処置確認
                 intStageTabNo = 16
+            Case ENM_NCR_STAGE._999_Closed
+                intStageTabNo = 999
             Case Else
                 'Err
         End Select
@@ -6027,7 +6079,7 @@ Public Class FrmG0011
             Case ENM_NCR_STAGE2._16_abcde処置確認
                 intSTAGE_ID = ENM_NCR_STAGE._120_abcde処置確認
             Case Else
-                intSTAGE_ID = 15
+                intSTAGE_ID = 999
         End Select
 
         Return intSTAGE_ID
@@ -6115,8 +6167,6 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
-
-
 
 #End Region
 

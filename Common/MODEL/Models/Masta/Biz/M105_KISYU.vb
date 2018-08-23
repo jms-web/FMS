@@ -21,30 +21,43 @@ Partial Public Class M105_KISYU
     <ComponentModel.DisplayName("機種名")>
     Public Property KISYU_NAME As String
 
+    <Required>
+    <Column(TypeName:="char")>
+    <StringLength(1)>
+    <ComponentModel.DisplayName("部門区分")>
+    Public Property BUMON_KB As String
+
+
     '共通項目------------------------------------
     <Required>
     <StringLength(14)>
     <Column(TypeName:="Char")>
+    <ComponentModel.DisplayName("追加日時")>
     Public Property ADD_YMDHNS As String
 
     <Required>
+    <ComponentModel.DisplayName("追加社員ID")>
     Public Property ADD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
     <Column(TypeName:="Char")>
+    <ComponentModel.DisplayName("更新日時")>
     Public Property UPD_YMDHNS As String
 
     <Required>
+    <ComponentModel.DisplayName("更新社員ID")>
     Public Property UPD_SYAIN_ID As Integer
 
     <Required>
     <StringLength(14)>
     <Column(TypeName:="char")>
+    <ComponentModel.DisplayName("削除日時")>
     Public Property DEL_YMDHNS As String
 
+    <DoNotNotify>
     <Display(AutoGenerateField:=False)>
-    <ComponentModel.DisplayName("削除済")>
+    <ComponentModel.DisplayName("削除フラグ")>
     <NotMapped>
     Public ReadOnly Property DEL_FLG As Boolean
         Get
@@ -53,6 +66,7 @@ Partial Public Class M105_KISYU
     End Property
 
     <Required>
+    <ComponentModel.DisplayName("削除社員ID")>
     Public Property DEL_SYAIN_ID As Integer
 
 #Region "IDisposable Support"

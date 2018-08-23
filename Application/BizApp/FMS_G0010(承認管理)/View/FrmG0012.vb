@@ -2616,6 +2616,7 @@ Public Class FrmG0012
 
                     '_tabPageManager.ChangeTabPageVisible(1, False) 'tab_CAR_SUB_1_.Visible = False
                     '_tabPageManager.ChangeTabPageVisible(2, False)'tab_CAR_SUB_2_.Visible = False
+                    pnlCAR.DisableContaints(blnOwn, PanelEx.ENM_PROPERTY._2_ReadOnly)
 
                     pnlSYOCHI_KIROKU.Visible = False
                     pnlZESEI_SYOCHI.Visible = False
@@ -2627,18 +2628,18 @@ Public Class FrmG0012
 
                     'tab_CAR_SUB_1_.Enabled = blnOwn 'tab_CAR_SUB_1_.EnableDisablePages(blnOwn)
                     'TabSTAGE.TabPages.Remove(tab_CAR_SUB_2_)
-                    pnlCAR.Enabled = False
-                    pnlST05.Enabled = False
-                    pnlSYOCHI_KIROKU.Enabled = blnOwn
+                    pnlCAR.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
+                    pnlST05.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
+                    pnlSYOCHI_KIROKU.DisableContaints(blnOwn, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     pnlZESEI_SYOCHI.Visible = False
                     pnlST13.Visible = False
 
                 Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
 
-                    pnlCAR.Enabled = False
-                    pnlSYOCHI_KIROKU.Enabled = False
-                    pnlZESEI_SYOCHI.Enabled = blnOwn
-                    pnlST05.Enabled = False
+                    pnlCAR.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
+                    pnlSYOCHI_KIROKU.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
+                    pnlZESEI_SYOCHI.DisableContaints(blnOwn, PanelEx.ENM_PROPERTY._2_ReadOnly)
+                    pnlST05.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     'tab_CAR_SUB_1_.Enabled = False 'tab_CAR_SUB_1_.EnableDisablePages(False)
                     'tab_CAR_SUB_2_.Enabled = blnOwn 'tab_CAR_SUB_2_.EnableDisablePages(blnOwn)
 
@@ -2649,12 +2650,16 @@ Public Class FrmG0012
                         pnlST13.Visible = False
                     End If
                 Case ENM_CAR_STAGE._999_Closed
-                    pnlST05.Enabled = False
-                    tabSTAGE02.Enabled = False
-                    pnlCAR.Enabled = False
-                    pnlSYOCHI_KIROKU.Enabled = False
-                    pnlZESEI_SYOCHI.Enabled = False
+                    pnlST05.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
+                    tabSTAGE02.EnableDisablePages(False)
+                    pnlCAR.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
+                    pnlSYOCHI_KIROKU.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
+                    pnlZESEI_SYOCHI.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     pnlST13.Visible = False
+                    lbltmpFile1_Clear.Enabled = False
+                    lbltmpFile2_Clear.Enabled = False
+                    btnOpentmpFile1.Enabled = False
+                    btnOpentmpFile2.Enabled = False
                 Case Else
             End Select
 

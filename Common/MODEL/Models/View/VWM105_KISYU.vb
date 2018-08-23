@@ -6,6 +6,7 @@ Imports PropertyChanged
 <AddINotifyPropertyChangedInterface>
 Partial Public Class VWM105_KISYU
     Inherits ModelBase
+    Implements IDisposable
 
     <ComponentModel.DisplayName("機種ID")>
     Public Property KISYU_ID As Integer
@@ -17,10 +18,6 @@ Partial Public Class VWM105_KISYU
     <ComponentModel.DisplayName("部門区分")>
     Public Property BUMON_KB_DISP As String
 
-    ''' <summary>
-    ''' 未使用
-    ''' </summary>
-    ''' <returns></returns>
     <ComponentModel.DisplayName("機種")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property KISYU As String
@@ -65,6 +62,7 @@ Partial Public Class VWM105_KISYU
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_SYAIN_NAME As String
 
+    <DoNotNotify>
     <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("削除フラグ")>
     Public ReadOnly Property DEL_FLG As Boolean
@@ -72,4 +70,36 @@ Partial Public Class VWM105_KISYU
             Return Not String.IsNullOrEmpty(DEL_YMDHNS)
         End Get
     End Property
+
+#Region "IDisposable Support"
+    Private disposedValue As Boolean ' 重複する呼び出しを検出するには
+
+    ' IDisposable
+    Protected Overridable Sub Dispose(disposing As Boolean)
+        If Not disposedValue Then
+            If disposing Then
+                ' TODO: マネージ状態を破棄します (マネージ オブジェクト)。
+            End If
+
+            ' TODO: アンマネージ リソース (アンマネージ オブジェクト) を解放し、下の Finalize() をオーバーライドします。
+            ' TODO: 大きなフィールドを null に設定します。
+        End If
+        disposedValue = True
+    End Sub
+
+    ' TODO: 上の Dispose(disposing As Boolean) にアンマネージ リソースを解放するコードが含まれる場合にのみ Finalize() をオーバーライドします。
+    'Protected Overrides Sub Finalize()
+    '    ' このコードを変更しないでください。クリーンアップ コードを上の Dispose(disposing As Boolean) に記述します。
+    '    Dispose(False)
+    '    MyBase.Finalize()
+    'End Sub
+
+    ' このコードは、破棄可能なパターンを正しく実装できるように Visual Basic によって追加されました。
+    Public Sub Dispose() Implements IDisposable.Dispose
+        ' このコードを変更しないでください。クリーンアップ コードを上の Dispose(disposing As Boolean) に記述します。
+        Dispose(True)
+        ' TODO: 上の Finalize() がオーバーライドされている場合は、次の行のコメントを解除してください。
+        ' GC.SuppressFinalize(Me)
+    End Sub
+#End Region
 End Class

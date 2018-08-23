@@ -109,14 +109,17 @@ Public Class PanelEx
                             DirectCast(ctl, MaskedTextBoxEx).Enabled = enabled
                         Case GetType(ComboboxEx)
                             DirectCast(ctl, ComboboxEx).Enabled = enabled
+                        Case GetType(CheckBox)
+                            DirectCast(ctl, CheckBox).Enabled = enabled
+                        Case GetType(Button)
+                            DirectCast(ctl, Button).Enabled = enabled
                         Case GetType(DateTextBoxEx)
                             DirectCast(ctl, DateTextBoxEx).Enabled = enabled
                         Case GetType(RadioButton)
                             DirectCast(ctl, RadioButton).Enabled = enabled
-                        Case GetType(TableLayoutPanel)
-                            '再帰的に見たい
-                            'EnableDisablePages(enabled, intProperty)
-                            DirectCast(ctl, TableLayoutPanel).Enabled = enabled
+                        Case GetType(TableLayoutPanel), GetType(Panel), GetType(PanelEx)
+
+                            DisableContaints(ctl, enabled, intProperty)
                         Case Else
                             '無視
                     End Select
@@ -134,6 +137,73 @@ Public Class PanelEx
                             DirectCast(ctl, MaskedTextBoxEx).ReadOnly = Not enabled
                         Case GetType(ComboboxEx)
                             DirectCast(ctl, ComboboxEx).ReadOnly = Not enabled
+                        Case GetType(CheckBox)
+                            DirectCast(ctl, CheckBox).Enabled = enabled
+                        Case GetType(Button)
+                            DirectCast(ctl, Button).Enabled = enabled
+                        Case GetType(DateTextBoxEx)
+                            DirectCast(ctl, DateTextBoxEx).ReadOnly = Not enabled
+                        Case GetType(RadioButton)
+                            DirectCast(ctl, RadioButton).Enabled = enabled
+                        Case GetType(TableLayoutPanel), GetType(Panel), GetType(PanelEx), GetType(FlowLayoutPanel)
+
+                            DisableContaints(ctl, enabled, intProperty)
+                        Case Else
+                            '無視
+                    End Select
+                Next
+        End Select
+    End Sub
+
+    Public Sub DisableContaints(ctrl As Control, enabled As Boolean, Optional intProperty As ENM_PROPERTY = ENM_PROPERTY._1_Enabled)
+
+        Select Case intProperty
+            Case 1 'Enabled
+                For Each ctl As Control In ctrl.Controls
+                    Select Case ctl.GetType
+                        Case GetType(TextBox)
+                            DirectCast(ctl, TextBox).Enabled = enabled
+                        Case GetType(TextBoxEx)
+                            DirectCast(ctl, TextBoxEx).Enabled = enabled
+                        Case GetType(MaskedTextBox)
+                            DirectCast(ctl, MaskedTextBox).Enabled = enabled
+                        Case GetType(MaskedTextBoxEx)
+                            DirectCast(ctl, MaskedTextBoxEx).Enabled = enabled
+                        Case GetType(ComboboxEx)
+                            DirectCast(ctl, ComboboxEx).Enabled = enabled
+                        Case GetType(CheckBox)
+                            DirectCast(ctl, CheckBox).Enabled = enabled
+                        Case GetType(Button)
+                            DirectCast(ctl, Button).Enabled = enabled
+                        Case GetType(DateTextBoxEx)
+                            DirectCast(ctl, DateTextBoxEx).Enabled = enabled
+                        Case GetType(RadioButton)
+                            DirectCast(ctl, RadioButton).Enabled = enabled
+                        Case GetType(TableLayoutPanel)
+                            '再帰的に見たい
+                            'EnableDisablePages(enabled, intProperty)
+                            DirectCast(ctl, TableLayoutPanel).Enabled = enabled
+                        Case Else
+                            '無視
+                    End Select
+                Next
+            Case 2 'ReadOnly
+                For Each ctl As Control In ctrl.Controls
+                    Select Case ctl.GetType
+                        Case GetType(TextBox)
+                            DirectCast(ctl, TextBox).ReadOnly = Not enabled
+                        Case GetType(TextBoxEx)
+                            DirectCast(ctl, TextBoxEx).ReadOnly = Not enabled
+                        Case GetType(MaskedTextBox)
+                            DirectCast(ctl, MaskedTextBox).ReadOnly = Not enabled
+                        Case GetType(MaskedTextBoxEx)
+                            DirectCast(ctl, MaskedTextBoxEx).ReadOnly = Not enabled
+                        Case GetType(ComboboxEx)
+                            DirectCast(ctl, ComboboxEx).ReadOnly = Not enabled
+                        Case GetType(CheckBox)
+                            DirectCast(ctl, CheckBox).Enabled = enabled
+                        Case GetType(Button)
+                            DirectCast(ctl, Button).Enabled = enabled
                         Case GetType(DateTextBoxEx)
                             DirectCast(ctl, DateTextBoxEx).ReadOnly = Not enabled
                         Case GetType(RadioButton)

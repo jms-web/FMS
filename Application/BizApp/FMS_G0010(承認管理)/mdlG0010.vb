@@ -800,9 +800,13 @@ Module mdlG0010
                 WL.WriteLogDat(strMsg)
 
                 'DEBUG:
-                If FunGetCodeMastaValue(DB, "ÉÅÅ[Éãê›íË", "ENABLE") = "FALSE" Then
+                If FunGetCodeMastaValue(DB, "ÉÅÅ[Éãê›íË", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                     Return True
                 End If
+
+#If DEBUG Then
+                Return True
+#End If
             End Using
 
 
@@ -997,14 +1001,14 @@ Module mdlG0010
             ssgSheet1 = ssgWorksheets.Item(0) 'sheet1
 
             '---ê}å`éÊìæ
-            Dim shapeLINE_SAISIN_IINKAI As SpreadsheetGear.Shapes.IShape
-            Dim shapeLINE_KOKYAKU_SAISIN As SpreadsheetGear.Shapes.IShape
-            Dim shapeLINE_HAIKYAKU As SpreadsheetGear.Shapes.IShape
-            Dim shapeLINE_SAIKAKO As SpreadsheetGear.Shapes.IShape
-            Dim shapeLINE_HENKYAKU As SpreadsheetGear.Shapes.IShape
-            Dim shapeLINE_TENYO As SpreadsheetGear.Shapes.IShape
-            Dim shapeLINE_SYOCHI_D As SpreadsheetGear.Shapes.IShape
-            Dim shapeLINE_SYOCHI_E As SpreadsheetGear.Shapes.IShape
+            Dim shapeLINE_SAISIN_IINKAI As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_KOKYAKU_SAISIN As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_HAIKYAKU As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_SAIKAKO As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_HENKYAKU As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_TENYO As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_SYOCHI_D As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_SYOCHI_E As SpreadsheetGear.Shapes.IShape = Nothing
 
             ssgShapes = ssgSheet1.Shapes
             For Each shape As SpreadsheetGear.Shapes.IShape In ssgShapes
@@ -1032,8 +1036,32 @@ Module mdlG0010
             Select Case _V002_NCR_J.JIZEN_SINSA_HANTEI_KB
                 Case ENM_JIZEN_SINSA_HANTEI_KB._2_çƒêRàœàıâÔëóÇË
                     shapeLINE_SAISIN_IINKAI.Visible = False
+                    If Not _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB.IsNullOrWhiteSpace Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_HANTEI_KB) & _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB).Value = "TRUE"
+                    End If
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME
+                    If Not _V002_NCR_J.SAISIN_HINSYO_YMD.IsNullOrWhiteSpace Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SAISIN_HINSYO_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    End If
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_SIRYO_NO)).Value = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
+
                 Case ENM_JIZEN_SINSA_HANTEI_KB._3_å⁄ãqçƒêRê\êø
                     shapeLINE_KOKYAKU_SAISIN.Visible = False
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.ITAG_NO)).Value = _V002_NCR_J.ITAG_NO
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_SAISIN_TANTO_NAME)).Value = _V002_NCR_J.KOKYAKU_SAISIN_TANTO_NAME
+                    If Not _V002_NCR_J.KOKYAKU_SAISIN_YMD.IsNullOrWhiteSpace Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_SAISIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.KOKYAKU_SAISIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    End If
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_HANTEI_SIJI_NAME)).Value = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_NAME
+                    If Not _V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD.IsNullOrWhiteSpace Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    End If
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_SAISYU_HANTEI_NAME)).Value = _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_NAME
+                    If Not _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD.IsNullOrWhiteSpace Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    End If
+
                 Case Else
                     shapeLINE_KOKYAKU_SAISIN.Visible = True
                     shapeLINE_SAISIN_IINKAI.Visible = True
@@ -1042,13 +1070,72 @@ Module mdlG0010
             Dim SYOCHI_KB As ENM_NCR_STAGE80_TABPAGES
 
             SYOCHI_KB = FunGetST08SubPageName(_V002_NCR_J)
+            Select Case SYOCHI_KB
+                Case ENM_NCR_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^
+                    If Not _V002_NCR_J.HAIKYAKU_YMD.IsNullOrWhiteSpace Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.HAIKYAKU_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    End If
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_HOUHOU)).Value = $"(ÇªÇÃëºÇÃì‡óeÅF{_V002_NCR_J.HAIKYAKU_HOUHOU.PadRight(30)})"
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_KB_NAME)).Value = _V002_NCR_J.HAIKYAKU_KB_NAME
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_TANTO_NAME)).Value = _V002_NCR_J.HAIKYAKU_TANTO_NAME
+                Case ENM_NCR_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
+                    If Not _V002_NCR_J.SAIKAKO_KENSA_YMD.IsNullOrWhiteSpace Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.SAIKAKO_KENSA_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SAIKAKO_KENSA_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    End If
+                    If Not _V002_NCR_J.SAIKAKO_SAGYO_KAN_YMD.IsNullOrWhiteSpace Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.SAIKAKO_SAGYO_KAN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SAIKAKO_SAGYO_KAN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    End If
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.SAIKAKO_SIJI_NO)).Value = _V002_NCR_J.SAIKAKO_SIJI_NO
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_KEKKA_NAME)).Value = _V002_NCR_J.KENSA_KEKKA_NAME
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.SEIGI_TANTO_NAME)).Value = _V002_NCR_J.SEIGI_TANTO_NAME
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.SEIZO_TANTO_NAME)).Value = _V002_NCR_J.SEIZO_TANTO_NAME
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_TANTO_NAME)).Value = _V002_NCR_J.KENSA_TANTO_NAME
+                    If Not _V002_NCR_J.SEIGI_KAKUNIN_YMD.IsNullOrWhiteSpace Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.SEIGI_KAKUNIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SEIGI_KAKUNIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    End If
+                    If Not _V002_NCR_J.SEIZO_KAKUNIN_YMD.IsNullOrWhiteSpace Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.SEIZO_KAKUNIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SEIZO_KAKUNIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    End If
+                    If Not _V002_NCR_J.KENSA_KAKUNIN_YMD.IsNullOrWhiteSpace Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_KAKUNIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.KENSA_KAKUNIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    End If
+
+                Case ENM_NCR_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_BIKO)).Value = _V002_NCR_J.HENKYAKU_BIKO
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_SAKI)).Value = _V002_NCR_J.HENKYAKU_SAKI
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_TANTO_NAME)).Value = _V002_NCR_J.HENKYAKU_TANTO_NAME
+                    If Not _V002_NCR_J.HENKYAKU_YMD.IsNullOrWhiteSpace Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.HENKYAKU_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    End If
+
+                Case ENM_NCR_STAGE80_TABPAGES._4_ì]ópêÊãLò^
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_BUHIN_BANGO)).Value = _V002_NCR_J.TENYO_BUHIN_BANGO
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_GOKI)).Value = _V002_NCR_J.TENYO_GOKI
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_KISYU)).Value = _V002_NCR_J.TENYO_KISYU
+                    If Not _V002_NCR_J.TENYO_YMD.IsNullOrWhiteSpace Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.TENYO_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    End If
+
+                Case Else
+                    Throw New ArgumentException(NameOf(SYOCHI_KB))
+            End Select
             shapeLINE_HAIKYAKU.Visible = (SYOCHI_KB <> ENM_NCR_STAGE80_TABPAGES._1_îpãpé¿é{ãLò^)
+            shapeLINE_SAIKAKO.Visible = (SYOCHI_KB <> ENM_NCR_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^)
             shapeLINE_HENKYAKU.Visible = (SYOCHI_KB <> ENM_NCR_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^)
             shapeLINE_TENYO.Visible = (SYOCHI_KB <> ENM_NCR_STAGE80_TABPAGES._4_ì]ópêÊãLò^)
-            shapeLINE_SAIKAKO.Visible = (SYOCHI_KB <> ENM_NCR_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^)
+
+
+            If Not _V002_NCR_J.JIZEN_SINSA_HANTEI_KB.IsNullOrWhiteSpace Then
+                ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_HANTEI_KB) & _V002_NCR_J.JIZEN_SINSA_HANTEI_KB).Value = "TRUE"
+            End If
+            If Not _V002_NCR_J.SAISIN_KAKUNIN_YMD.IsNullOrWhiteSpace Then
+                ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SAISIN_KAKUNIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+            End If
+
+
+
             shapeLINE_SYOCHI_D.Visible = (_V002_NCR_J.SYOCHI_D_UMU_KB = "1")
             shapeLINE_SYOCHI_E.Visible = (_V002_NCR_J.SYOCHI_E_UMU_KB = "1")
-
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_BANGO)).Value = _V002_NCR_J.BUHIN_BANGO
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_NAME)).Value = _V002_NCR_J.BUHIN_NAME
             If Not _V002_NCR_J.FUTEKIGO_JYOTAI_KB.IsNullOrWhiteSpace Then
@@ -1056,23 +1143,10 @@ Module mdlG0010
             End If
             ssgSheet1.Range(NameOf(_V002_NCR_J.FUTEKIGO_NAIYO)).Value = _V002_NCR_J.FUTEKIGO_NAIYO
             ssgSheet1.Range(NameOf(_V002_NCR_J.GOKI)).Value = _V002_NCR_J.GOKI
-            ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_HOUHOU)).Value = "(ÇªÇÃëºÇÃì‡óeÅF" & _V002_NCR_J.HAIKYAKU_HOUHOU.PadRight(30) & ")"
-            ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_KB_NAME)).Value = _V002_NCR_J.HAIKYAKU_KB_NAME
-            ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_TANTO_NAME)).Value = _V002_NCR_J.HAIKYAKU_TANTO_NAME
-            If Not _V002_NCR_J.HAIKYAKU_YMD.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.HAIKYAKU_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            End If
-            ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_BIKO)).Value = _V002_NCR_J.HENKYAKU_BIKO
-            ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_SAKI)).Value = _V002_NCR_J.HENKYAKU_SAKI
-            ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_TANTO_NAME)).Value = _V002_NCR_J.HENKYAKU_TANTO_NAME
-            If Not _V002_NCR_J.HENKYAKU_YMD.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.HENKYAKU_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            End If
+
             ssgSheet1.Range(NameOf(_V002_NCR_J.HOKOKU_NO)).Value = _V002_NCR_J.HOKOKU_NO
-            ssgSheet1.Range(NameOf(_V002_NCR_J.ITAG_NO)).Value = _V002_NCR_J.ITAG_NO
-            If Not _V002_NCR_J.JIZEN_SINSA_HANTEI_KB.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_HANTEI_KB) & _V002_NCR_J.JIZEN_SINSA_HANTEI_KB).Value = "TRUE"
-            End If
+
+
             ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_SYAIN_NAME)).Value = _V002_NCR_J.JIZEN_SINSA_SYAIN_NAME
             If Not _V002_NCR_J.JIZEN_SINSA_YMD.IsNullOrWhiteSpace Then
                 ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.JIZEN_SINSA_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
@@ -1084,56 +1158,23 @@ Module mdlG0010
                     ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.HASSEI_KOTEI_GL_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                 End If
             End If
-            ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_SAISIN_TANTO_NAME)).Value = _V002_NCR_J.KOKYAKU_SAISIN_TANTO_NAME
-            If Not _V002_NCR_J.KOKYAKU_SAISIN_YMD.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_SAISIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.KOKYAKU_SAISIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            End If
 
-            If Not _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            End If
-            ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_SAISYU_HANTEI_NAME)).Value = _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_NAME
+
+
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.KANSATU_KEKKA)).Value = _V002_NCR_J.KANSATU_KEKKA
-            ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_KEKKA_NAME)).Value = _V002_NCR_J.KENSA_KEKKA_NAME
+
             ssgSheet1.Range(NameOf(_V002_NCR_J.KISYU)).Value = _V002_NCR_J.KISYU
-            ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_HANTEI_SIJI_NAME)).Value = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_NAME
-            If Not _V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            End If
+
+
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAIHATU)).Value = _V002_NCR_J.SAIHATU
-            If Not _V002_NCR_J.SAIKAKO_KENSA_YMD.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.SAIKAKO_KENSA_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SAIKAKO_KENSA_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            End If
-            If Not _V002_NCR_J.SAIKAKO_SAGYO_KAN_YMD.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.SAIKAKO_SAGYO_KAN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SAIKAKO_SAGYO_KAN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            End If
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SAIKAKO_SIJI_NO)).Value = _V002_NCR_J.SAIKAKO_SIJI_NO
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME
-            If Not _V002_NCR_J.SAISIN_HINSYO_YMD.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SAISIN_HINSYO_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            End If
-            If Not _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_HANTEI_KB) & _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB).Value = "TRUE"
-            End If
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_SIRYO_NO)).Value = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
+
+
+
+
+
+
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME
-            If Not _V002_NCR_J.SAISIN_KAKUNIN_YMD.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SAISIN_KAKUNIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            End If
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SEIGI_TANTO_NAME)).Value = _V002_NCR_J.SEIGI_TANTO_NAME
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SEIZO_TANTO_NAME)).Value = _V002_NCR_J.SEIZO_TANTO_NAME
-            ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_TANTO_NAME)).Value = _V002_NCR_J.KENSA_TANTO_NAME
-            If Not _V002_NCR_J.SEIGI_KAKUNIN_YMD.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.SEIGI_KAKUNIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SEIGI_KAKUNIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            End If
-            If Not _V002_NCR_J.SEIZO_KAKUNIN_YMD.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.SEIZO_KAKUNIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SEIZO_KAKUNIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            End If
-            If Not _V002_NCR_J.KENSA_KAKUNIN_YMD.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_KAKUNIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.KENSA_KAKUNIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            End If
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.SURYO)).Value = _V002_NCR_J.SURYO
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU
@@ -1154,13 +1195,7 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_A_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_A_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_B_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_B_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_C_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_C_NAME
-            ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_BUHIN_BANGO)).Value = _V002_NCR_J.TENYO_BUHIN_BANGO
-            ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_GOKI)).Value = _V002_NCR_J.TENYO_GOKI
-            ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_KISYU)).Value = _V002_NCR_J.TENYO_KISYU
 
-            If Not _V002_NCR_J.TENYO_YMD.IsNullOrWhiteSpace Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.TENYO_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            End If
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.YOKYU_NAIYO)).Value = _V002_NCR_J.YOKYU_NAIYO
             ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = _V002_NCR_J.ZUMEN_KIKAKU
@@ -1380,7 +1415,7 @@ Module mdlG0010
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME40)).Value = _V005_CAR_J.SYONIN_NAME40
             End If
 
-            If CBool(_V005_CAR_J.KAITO_23) Then
+            If CBool(Val(_V005_CAR_J.KAITO_23)) Then
                 If Not _V005_CAR_J.SYONIN_YMD50.IsNullOrWhiteSpace Then
                     spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD50)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD50.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                     spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME50)).Value = _V005_CAR_J.SYONIN_NAME50

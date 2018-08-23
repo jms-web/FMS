@@ -62,6 +62,8 @@ Public Class FrmG0016
 
             cmbMODOSI_SAKI.SetDataSource(FunGetMODISI_SAKI(PrSYONIN_HOKOKUSYO_ID, PrHOKOKU_NO, PrCurrentStage), ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
+            _D004_SYONIN_J_KANRI.RIYU = ""
+
             'バインディング
             Call FunSetBinding()
         Catch ex As Exception
@@ -151,10 +153,9 @@ Public Class FrmG0016
                     sbSQL.Append(" WHERE " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID) & "=" & PrSYONIN_HOKOKUSYO_ID & "")
                     sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & "='" & PrHOKOKU_NO & "'")
                     sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN) & "=" & cmbMODOSI_SAKI.SelectedValue & "")
-                    '-----SQL実行
+
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
                     If intRET <> 1 Then
-                        '-----エラーログ出力
                         Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
                         WL.WriteLogDat(strErrMsg)
                         blnErr = True
@@ -167,15 +168,16 @@ Public Class FrmG0016
                     sbSQL.Append(" WHERE " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID) & "=" & PrSYONIN_HOKOKUSYO_ID & "")
                     sbSQL.Append(" AND RTRIM(" & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & ")='" & PrHOKOKU_NO & "'")
                     sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN) & ">" & cmbMODOSI_SAKI.SelectedValue & ";")
-                    '-----SQL実行
+
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
                     If sqlEx.Source IsNot Nothing Then
-                        '-----エラーログ出力
+
                         Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
                         WL.WriteLogDat(strErrMsg)
                         blnErr = True
                         Return False
                     End If
+
 
                     '-----データモデル更新
                     _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = PrSYONIN_HOKOKUSYO_ID
@@ -332,6 +334,7 @@ Public Class FrmG0016
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.FILE_PATH))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.G_FILE_PATH1))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.G_FILE_PATH2))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HASSEI_KOTEI_GL_SYAIN_ID))
         sbSQL.Append(" ) VALUES(")
         sbSQL.Append(" '" & strYMDHNS & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.HOKOKU_NO & "'")
@@ -404,6 +407,7 @@ Public Class FrmG0016
         sbSQL.Append(" ,'" & _D003_NCR_J.FILE_PATH & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH1 & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH2 & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID & "'")
         sbSQL.Append(" );")
         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
         If intRET <> 1 Then
@@ -699,14 +703,16 @@ Public Class FrmG0016
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
 
-        sbSQL.Append("SELECT * FROM " & "V003_SYONIN_J_KANRI" & " MAIN")
-        sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intSYONIN_HOKOKU_ID & "")
-        sbSQL.Append(" AND HOKOKU_NO='" & strHOKOKU_NO & "'")
+        sbSQL.Append($"SELECT * FROM {NameOf(MODEL.V003_SYONIN_J_KANRI)} MAIN")
+        sbSQL.Append($" WHERE SYONIN_HOKOKUSYO_ID={intSYONIN_HOKOKU_ID}")
+        sbSQL.Append($" AND HOKOKU_NO='{strHOKOKU_NO}'")
         'カレントステージが20以外の場合は差し戻し先として20も追加
         If intCurrentStage = 20 Then
-            sbSQL.Append(" AND (SYONIN_JUN=(SELECT MAX(SYONIN_JUN) FROM V003_SYONIN_J_KANRI AS SUB WHERE SUB.SYONIN_JUN<" & intCurrentStage & "))")
+            sbSQL.Append($" AND (SYONIN_JUN=(SELECT MAX(SYONIN_JUN) FROM V003_SYONIN_J_KANRI AS SUB WHERE SUB.SYONIN_JUN<{intCurrentStage}))")
         Else
-            sbSQL.Append(" AND (SYONIN_JUN=20 OR SYONIN_JUN=(SELECT MAX(SYONIN_JUN) FROM V003_SYONIN_J_KANRI AS SUB WHERE SUB.SYONIN_JUN<" & intCurrentStage & "))")
+            sbSQL.Append($" AND (SYONIN_JUN=20 OR SYONIN_JUN=(SELECT MAX(SYONIN_JUN) FROM V003_SYONIN_J_KANRI AS SUB WHERE SUB.SYONIN_JUN<{intCurrentStage}")
+            sbSQL.Append($" AND SUB.SYONIN_HOKOKUSYO_ID={intSYONIN_HOKOKU_ID}")
+            sbSQL.Append($" AND SUB.HOKOKU_NO='{strHOKOKU_NO}'))")
         End If
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, False)
