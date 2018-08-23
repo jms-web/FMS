@@ -767,7 +767,7 @@ Partial Class FrmG0011
         '
         Me.cmbKISYU.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbKISYU.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKISYU.BackColor = System.Drawing.Color.White
+        Me.cmbKISYU.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.cmbKISYU, 7)
         Me.cmbKISYU.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbKISYU.DisplayMember = "DISP"
@@ -775,7 +775,7 @@ Partial Class FrmG0011
         Me.cmbKISYU.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKISYU.FormattingEnabled = True
         Me.cmbKISYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKISYU.ImeMode = System.Windows.Forms.ImeMode.Off
+        Me.cmbKISYU.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKISYU.Location = New System.Drawing.Point(103, 33)
         Me.cmbKISYU.Name = "cmbKISYU"
         Me.cmbKISYU.NullValue = " "
@@ -801,7 +801,7 @@ Partial Class FrmG0011
         '
         Me.cmbKISO_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbKISO_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKISO_TANTO.BackColor = System.Drawing.Color.White
+        Me.cmbKISO_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.cmbKISO_TANTO, 8)
         Me.cmbKISO_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbKISO_TANTO.DisplayMember = "DISP"
@@ -809,7 +809,7 @@ Partial Class FrmG0011
         Me.cmbKISO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKISO_TANTO.FormattingEnabled = True
         Me.cmbKISO_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKISO_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKISO_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKISO_TANTO.Location = New System.Drawing.Point(683, 3)
         Me.cmbKISO_TANTO.Name = "cmbKISO_TANTO"
         Me.cmbKISO_TANTO.NullValue = " "
@@ -864,7 +864,7 @@ Partial Class FrmG0011
         '
         Me.cmbBUMON.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbBUMON.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbBUMON.BackColor = System.Drawing.Color.White
+        Me.cmbBUMON.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.cmbBUMON, 5)
         Me.cmbBUMON.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbBUMON.DisplayMember = "DISP"
@@ -872,7 +872,7 @@ Partial Class FrmG0011
         Me.cmbBUMON.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUMON.FormattingEnabled = True
         Me.cmbBUMON.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbBUMON.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbBUMON.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUMON.Location = New System.Drawing.Point(363, 3)
         Me.cmbBUMON.Name = "cmbBUMON"
         Me.cmbBUMON.NullValue = " "
@@ -898,7 +898,7 @@ Partial Class FrmG0011
         '
         Me.cmbBUHIN_BANGO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbBUHIN_BANGO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbBUHIN_BANGO.BackColor = System.Drawing.Color.White
+        Me.cmbBUHIN_BANGO.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.cmbBUHIN_BANGO, 11)
         Me.cmbBUHIN_BANGO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbBUHIN_BANGO.DisplayMember = "DISP"
@@ -907,7 +907,7 @@ Partial Class FrmG0011
         Me.cmbBUHIN_BANGO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUHIN_BANGO.FormattingEnabled = True
         Me.cmbBUHIN_BANGO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbBUHIN_BANGO.ImeMode = System.Windows.Forms.ImeMode.Off
+        Me.cmbBUHIN_BANGO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUHIN_BANGO.Location = New System.Drawing.Point(363, 33)
         Me.cmbBUHIN_BANGO.Name = "cmbBUHIN_BANGO"
         Me.cmbBUHIN_BANGO.NullValue = " "
@@ -999,7 +999,7 @@ Partial Class FrmG0011
         '
         Me.cmbSYANAI_CD.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbSYANAI_CD.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYANAI_CD.BackColor = System.Drawing.Color.White
+        Me.cmbSYANAI_CD.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.cmbSYANAI_CD, 7)
         Me.cmbSYANAI_CD.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYANAI_CD.DisplayMember = "DISP"
@@ -1007,7 +1007,7 @@ Partial Class FrmG0011
         Me.cmbSYANAI_CD.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYANAI_CD.FormattingEnabled = True
         Me.cmbSYANAI_CD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbSYANAI_CD.ImeMode = System.Windows.Forms.ImeMode.Off
+        Me.cmbSYANAI_CD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbSYANAI_CD.Location = New System.Drawing.Point(683, 33)
         Me.cmbSYANAI_CD.Name = "cmbSYANAI_CD"
         Me.cmbSYANAI_CD.NullValue = " "
@@ -1061,7 +1061,7 @@ Partial Class FrmG0011
         '
         Me.cmbFUTEKIGO_STATUS.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbFUTEKIGO_STATUS.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbFUTEKIGO_STATUS.BackColor = System.Drawing.Color.White
+        Me.cmbFUTEKIGO_STATUS.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.cmbFUTEKIGO_STATUS, 7)
         Me.cmbFUTEKIGO_STATUS.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbFUTEKIGO_STATUS.DisplayMember = "DISP"
@@ -1069,7 +1069,7 @@ Partial Class FrmG0011
         Me.cmbFUTEKIGO_STATUS.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbFUTEKIGO_STATUS.FormattingEnabled = True
         Me.cmbFUTEKIGO_STATUS.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbFUTEKIGO_STATUS.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbFUTEKIGO_STATUS.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbFUTEKIGO_STATUS.Location = New System.Drawing.Point(363, 63)
         Me.cmbFUTEKIGO_STATUS.Name = "cmbFUTEKIGO_STATUS"
         Me.cmbFUTEKIGO_STATUS.NullValue = " "
@@ -1185,7 +1185,7 @@ Partial Class FrmG0011
         '
         Me.cmbFUTEKIGO_KB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbFUTEKIGO_KB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbFUTEKIGO_KB.BackColor = System.Drawing.Color.White
+        Me.cmbFUTEKIGO_KB.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.cmbFUTEKIGO_KB, 7)
         Me.cmbFUTEKIGO_KB.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbFUTEKIGO_KB.DisplayMember = "DISP"
@@ -1193,7 +1193,7 @@ Partial Class FrmG0011
         Me.cmbFUTEKIGO_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbFUTEKIGO_KB.FormattingEnabled = True
         Me.cmbFUTEKIGO_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbFUTEKIGO_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbFUTEKIGO_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbFUTEKIGO_KB.Location = New System.Drawing.Point(103, 93)
         Me.cmbFUTEKIGO_KB.Name = "cmbFUTEKIGO_KB"
         Me.cmbFUTEKIGO_KB.NullValue = " "
@@ -1208,7 +1208,7 @@ Partial Class FrmG0011
         '
         Me.cmbFUTEKIGO_S_KB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbFUTEKIGO_S_KB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbFUTEKIGO_S_KB.BackColor = System.Drawing.Color.White
+        Me.cmbFUTEKIGO_S_KB.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.cmbFUTEKIGO_S_KB, 10)
         Me.cmbFUTEKIGO_S_KB.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbFUTEKIGO_S_KB.DisplayMember = "DISP"
@@ -1216,7 +1216,7 @@ Partial Class FrmG0011
         Me.cmbFUTEKIGO_S_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbFUTEKIGO_S_KB.FormattingEnabled = True
         Me.cmbFUTEKIGO_S_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbFUTEKIGO_S_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbFUTEKIGO_S_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbFUTEKIGO_S_KB.Location = New System.Drawing.Point(363, 93)
         Me.cmbFUTEKIGO_S_KB.Name = "cmbFUTEKIGO_S_KB"
         Me.cmbFUTEKIGO_S_KB.NullValue = " "
@@ -1416,7 +1416,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 168.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 156.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.Panel7, 3, 7)
@@ -1463,10 +1463,10 @@ Partial Class FrmG0011
         Me.Panel7.BackColor = System.Drawing.SystemColors.Window
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_T)
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_F)
-        Me.Panel7.Location = New System.Drawing.Point(593, 200)
+        Me.Panel7.Location = New System.Drawing.Point(605, 200)
         Me.Panel7.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(158, 28)
+        Me.Panel7.Size = New System.Drawing.Size(155, 28)
         Me.Panel7.TabIndex = 245
         '
         'rbtnST11_E2_T
@@ -1487,7 +1487,7 @@ Partial Class FrmG0011
         '
         Me.rbtnST11_E2_F.BackColor = System.Drawing.SystemColors.Window
         Me.rbtnST11_E2_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_E2_F.Location = New System.Drawing.Point(83, 0)
+        Me.rbtnST11_E2_F.Location = New System.Drawing.Point(80, 0)
         Me.rbtnST11_E2_F.Name = "rbtnST11_E2_F"
         Me.rbtnST11_E2_F.Size = New System.Drawing.Size(75, 28)
         Me.rbtnST11_E2_F.TabIndex = 1
@@ -1501,10 +1501,10 @@ Partial Class FrmG0011
         Me.Panel2.BackColor = System.Drawing.SystemColors.Window
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_T)
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_F)
-        Me.Panel2.Location = New System.Drawing.Point(593, 171)
+        Me.Panel2.Location = New System.Drawing.Point(605, 171)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(158, 28)
+        Me.Panel2.Size = New System.Drawing.Size(155, 28)
         Me.Panel2.TabIndex = 244
         '
         'rbtnST11_E1_T
@@ -1525,7 +1525,7 @@ Partial Class FrmG0011
         '
         Me.rbtnST11_E1_F.BackColor = System.Drawing.SystemColors.Window
         Me.rbtnST11_E1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_E1_F.Location = New System.Drawing.Point(83, 0)
+        Me.rbtnST11_E1_F.Location = New System.Drawing.Point(80, 0)
         Me.rbtnST11_E1_F.Name = "rbtnST11_E1_F"
         Me.rbtnST11_E1_F.Size = New System.Drawing.Size(75, 28)
         Me.rbtnST11_E1_F.TabIndex = 1
@@ -1539,10 +1539,10 @@ Partial Class FrmG0011
         Me.Panel6.BackColor = System.Drawing.SystemColors.Window
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_T)
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_F)
-        Me.Panel6.Location = New System.Drawing.Point(593, 117)
+        Me.Panel6.Location = New System.Drawing.Point(605, 117)
         Me.Panel6.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(158, 28)
+        Me.Panel6.Size = New System.Drawing.Size(155, 28)
         Me.Panel6.TabIndex = 245
         '
         'rbtnST11_D2_T
@@ -1563,7 +1563,7 @@ Partial Class FrmG0011
         '
         Me.rbtnST11_D2_F.BackColor = System.Drawing.SystemColors.Window
         Me.rbtnST11_D2_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_D2_F.Location = New System.Drawing.Point(83, 0)
+        Me.rbtnST11_D2_F.Location = New System.Drawing.Point(80, 0)
         Me.rbtnST11_D2_F.Name = "rbtnST11_D2_F"
         Me.rbtnST11_D2_F.Size = New System.Drawing.Size(75, 28)
         Me.rbtnST11_D2_F.TabIndex = 1
@@ -1577,10 +1577,10 @@ Partial Class FrmG0011
         Me.Panel5.BackColor = System.Drawing.SystemColors.Window
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_T)
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_F)
-        Me.Panel5.Location = New System.Drawing.Point(593, 88)
+        Me.Panel5.Location = New System.Drawing.Point(605, 88)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(158, 28)
+        Me.Panel5.Size = New System.Drawing.Size(155, 28)
         Me.Panel5.TabIndex = 245
         '
         'rbtnST11_D1_T
@@ -1601,7 +1601,7 @@ Partial Class FrmG0011
         '
         Me.rbtnST11_D1_F.BackColor = System.Drawing.SystemColors.Window
         Me.rbtnST11_D1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_D1_F.Location = New System.Drawing.Point(83, 0)
+        Me.rbtnST11_D1_F.Location = New System.Drawing.Point(80, 0)
         Me.rbtnST11_D1_F.Name = "rbtnST11_D1_F"
         Me.rbtnST11_D1_F.Size = New System.Drawing.Size(75, 28)
         Me.rbtnST11_D1_F.TabIndex = 1
@@ -1615,10 +1615,10 @@ Partial Class FrmG0011
         Me.Panel4.BackColor = System.Drawing.SystemColors.Window
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_T)
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_F)
-        Me.Panel4.Location = New System.Drawing.Point(593, 59)
+        Me.Panel4.Location = New System.Drawing.Point(605, 59)
         Me.Panel4.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(158, 28)
+        Me.Panel4.Size = New System.Drawing.Size(155, 28)
         Me.Panel4.TabIndex = 245
         '
         'rbtnST11_C1_T
@@ -1639,7 +1639,7 @@ Partial Class FrmG0011
         '
         Me.rbtnST11_C1_F.BackColor = System.Drawing.SystemColors.Window
         Me.rbtnST11_C1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_C1_F.Location = New System.Drawing.Point(83, 0)
+        Me.rbtnST11_C1_F.Location = New System.Drawing.Point(80, 0)
         Me.rbtnST11_C1_F.Name = "rbtnST11_C1_F"
         Me.rbtnST11_C1_F.Size = New System.Drawing.Size(75, 28)
         Me.rbtnST11_C1_F.TabIndex = 1
@@ -1653,10 +1653,10 @@ Partial Class FrmG0011
         Me.Panel3.BackColor = System.Drawing.SystemColors.Window
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_T)
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_F)
-        Me.Panel3.Location = New System.Drawing.Point(593, 30)
+        Me.Panel3.Location = New System.Drawing.Point(605, 30)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(158, 28)
+        Me.Panel3.Size = New System.Drawing.Size(155, 28)
         Me.Panel3.TabIndex = 245
         '
         'rbtnST11_B1_T
@@ -1677,7 +1677,7 @@ Partial Class FrmG0011
         '
         Me.rbtnST11_B1_F.BackColor = System.Drawing.SystemColors.Window
         Me.rbtnST11_B1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_B1_F.Location = New System.Drawing.Point(83, 0)
+        Me.rbtnST11_B1_F.Location = New System.Drawing.Point(80, 0)
         Me.rbtnST11_B1_F.Name = "rbtnST11_B1_F"
         Me.rbtnST11_B1_F.Size = New System.Drawing.Size(75, 28)
         Me.rbtnST11_B1_F.TabIndex = 1
@@ -1746,7 +1746,7 @@ Partial Class FrmG0011
         Me.Label126.Location = New System.Drawing.Point(22, 117)
         Me.Label126.Margin = New System.Windows.Forms.Padding(0)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(570, 28)
+        Me.Label126.Size = New System.Drawing.Size(582, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "âeãøóLÇÃèÍçáÅAå⁄ãqÇ÷ÇÃí ímÇÃóvî€"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1761,7 +1761,7 @@ Partial Class FrmG0011
         Me.Label127.Location = New System.Drawing.Point(22, 88)
         Me.Label127.Margin = New System.Windows.Forms.Padding(0)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(570, 28)
+        Me.Label127.Size = New System.Drawing.Size(582, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "ìñäYïsìKçáÇ…ÇÊÇÈå⁄ãqÇ÷ÇÃâeãø"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1776,7 +1776,7 @@ Partial Class FrmG0011
         Me.Label128.Location = New System.Drawing.Point(22, 59)
         Me.Label128.Margin = New System.Windows.Forms.Padding(0)
         Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(570, 28)
+        Me.Label128.Size = New System.Drawing.Size(582, 28)
         Me.Label128.TabIndex = 241
         Me.Label128.Text = "îpãpèàíuÇÕñ{óàÇÃà”ê}ÇµÇΩégópñîÇÕìKópÇ™Ç≈Ç´Ç»Ç¢ï˚ñ@ÇæÇ¡ÇΩÇ©ÅH"
         Me.Label128.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1805,7 +1805,7 @@ Partial Class FrmG0011
         Me.Label130.Location = New System.Drawing.Point(22, 30)
         Me.Label130.Margin = New System.Windows.Forms.Padding(0)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(570, 28)
+        Me.Label130.Size = New System.Drawing.Size(582, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "é–ì‡å†å¿é“Ç…ÇÊÇËÅAñîÇÕå⁄ãqçƒêRÇÃèÍçáÇÕå⁄ãqÇ…ÇÊÇËîªíËÇ≥ÇÍÇΩÇ©ÅH"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1862,7 +1862,7 @@ Partial Class FrmG0011
         Me.Label134.Location = New System.Drawing.Point(22, 171)
         Me.Label134.Margin = New System.Windows.Forms.Padding(0)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(570, 28)
+        Me.Label134.Size = New System.Drawing.Size(582, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "ìñäYïsìKçáÇ…ÇÊÇÈëºÇÃÉvÉçÉZÉXÇ÷ÇÃâeãø"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1891,7 +1891,7 @@ Partial Class FrmG0011
         Me.Label136.Location = New System.Drawing.Point(22, 200)
         Me.Label136.Margin = New System.Windows.Forms.Padding(0)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(570, 28)
+        Me.Label136.Size = New System.Drawing.Size(582, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "âeãøóLÇÃèÍçáÅAïïÇ∂çûÇﬂèàíuÇÃóvî€"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1906,7 +1906,7 @@ Partial Class FrmG0011
         Me.Label137.Location = New System.Drawing.Point(22, 1)
         Me.Label137.Margin = New System.Windows.Forms.Padding(0)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(570, 28)
+        Me.Label137.Size = New System.Drawing.Size(582, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "åüèoÇ≥ÇÍÇΩïsìKçáÇèúãéÇ∑ÇÈèàíuÅiîpãpÇä‹ÇﬁÅjÇÕämé¿Ç…Ç∆ÇÁÇÍÇΩÇ©ÅH"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1930,10 +1930,10 @@ Partial Class FrmG0011
         Me.Panel1.BackColor = System.Drawing.SystemColors.Window
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_T)
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_F)
-        Me.Panel1.Location = New System.Drawing.Point(593, 1)
+        Me.Panel1.Location = New System.Drawing.Point(605, 1)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(158, 28)
+        Me.Panel1.Size = New System.Drawing.Size(155, 28)
         Me.Panel1.TabIndex = 248
         '
         'rbtnST11_A1_T
@@ -1954,7 +1954,7 @@ Partial Class FrmG0011
         '
         Me.rbtnST11_A1_F.BackColor = System.Drawing.SystemColors.Window
         Me.rbtnST11_A1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_A1_F.Location = New System.Drawing.Point(83, 0)
+        Me.rbtnST11_A1_F.Location = New System.Drawing.Point(80, 0)
         Me.rbtnST11_A1_F.Name = "rbtnST11_A1_F"
         Me.rbtnST11_A1_F.Size = New System.Drawing.Size(75, 28)
         Me.rbtnST11_A1_F.TabIndex = 1
@@ -2062,14 +2062,14 @@ Partial Class FrmG0011
         '
         Me.cmbST15_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST15_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST15_DestTANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST15_DestTANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST15_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST15_DestTANTO.DisplayMember = "DISP"
         Me.cmbST15_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST15_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST15_DestTANTO.FormattingEnabled = True
         Me.cmbST15_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST15_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST15_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST15_DestTANTO.Location = New System.Drawing.Point(909, 103)
         Me.cmbST15_DestTANTO.Name = "cmbST15_DestTANTO"
         Me.cmbST15_DestTANTO.NullValue = " "
@@ -2260,14 +2260,14 @@ Partial Class FrmG0011
         '
         Me.cmbST14_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST14_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST14_DestTANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST14_DestTANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST14_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST14_DestTANTO.DisplayMember = "DISP"
         Me.cmbST14_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST14_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST14_DestTANTO.FormattingEnabled = True
         Me.cmbST14_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST14_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST14_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST14_DestTANTO.Location = New System.Drawing.Point(115, 87)
         Me.cmbST14_DestTANTO.Name = "cmbST14_DestTANTO"
         Me.cmbST14_DestTANTO.NullValue = " "
@@ -2439,14 +2439,14 @@ Partial Class FrmG0011
         '
         Me.cmbST13_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST13_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST13_DestTANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST13_DestTANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST13_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST13_DestTANTO.DisplayMember = "DISP"
         Me.cmbST13_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST13_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST13_DestTANTO.FormattingEnabled = True
         Me.cmbST13_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST13_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST13_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST13_DestTANTO.Location = New System.Drawing.Point(115, 86)
         Me.cmbST13_DestTANTO.Name = "cmbST13_DestTANTO"
         Me.cmbST13_DestTANTO.NullValue = " "
@@ -2598,14 +2598,14 @@ Partial Class FrmG0011
         '
         Me.cmbST12_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST12_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST12_DestTANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST12_DestTANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST12_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST12_DestTANTO.DisplayMember = "DISP"
         Me.cmbST12_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST12_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST12_DestTANTO.FormattingEnabled = True
         Me.cmbST12_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST12_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST12_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST12_DestTANTO.Location = New System.Drawing.Point(116, 114)
         Me.cmbST12_DestTANTO.Name = "cmbST12_DestTANTO"
         Me.cmbST12_DestTANTO.NullValue = " "
@@ -2778,14 +2778,14 @@ Partial Class FrmG0011
         '
         Me.cmbST11_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST11_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST11_DestTANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST11_DestTANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST11_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST11_DestTANTO.DisplayMember = "DISP"
         Me.cmbST11_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST11_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST11_DestTANTO.FormattingEnabled = True
         Me.cmbST11_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST11_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST11_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST11_DestTANTO.Location = New System.Drawing.Point(116, 114)
         Me.cmbST11_DestTANTO.Name = "cmbST11_DestTANTO"
         Me.cmbST11_DestTANTO.NullValue = " "
@@ -3014,14 +3014,14 @@ Partial Class FrmG0011
         '
         Me.ComboboxEx3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.ComboboxEx3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx3.BackColor = System.Drawing.Color.White
+        Me.ComboboxEx3.BackColor = System.Drawing.SystemColors.Window
         Me.ComboboxEx3.Cursor = System.Windows.Forms.Cursors.Default
         Me.ComboboxEx3.DisplayMember = "DISP"
         Me.ComboboxEx3.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.ComboboxEx3.ForeColor = System.Drawing.SystemColors.ControlText
         Me.ComboboxEx3.FormattingEnabled = True
         Me.ComboboxEx3.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ComboboxEx3.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx3.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.ComboboxEx3.Location = New System.Drawing.Point(101, 158)
         Me.ComboboxEx3.Name = "ComboboxEx3"
         Me.ComboboxEx3.NullValue = " "
@@ -3059,14 +3059,14 @@ Partial Class FrmG0011
         '
         Me.ComboboxEx4.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.ComboboxEx4.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx4.BackColor = System.Drawing.Color.White
+        Me.ComboboxEx4.BackColor = System.Drawing.SystemColors.Window
         Me.ComboboxEx4.Cursor = System.Windows.Forms.Cursors.Default
         Me.ComboboxEx4.DisplayMember = "DISP"
         Me.ComboboxEx4.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.ComboboxEx4.ForeColor = System.Drawing.SystemColors.ControlText
         Me.ComboboxEx4.FormattingEnabled = True
         Me.ComboboxEx4.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ComboboxEx4.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx4.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.ComboboxEx4.Location = New System.Drawing.Point(101, 127)
         Me.ComboboxEx4.Name = "ComboboxEx4"
         Me.ComboboxEx4.NullValue = " "
@@ -3108,14 +3108,14 @@ Partial Class FrmG0011
         '
         Me.ComboboxEx5.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.ComboboxEx5.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx5.BackColor = System.Drawing.Color.White
+        Me.ComboboxEx5.BackColor = System.Drawing.SystemColors.Window
         Me.ComboboxEx5.Cursor = System.Windows.Forms.Cursors.Default
         Me.ComboboxEx5.DisplayMember = "DISP"
         Me.ComboboxEx5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.ComboboxEx5.ForeColor = System.Drawing.SystemColors.ControlText
         Me.ComboboxEx5.FormattingEnabled = True
         Me.ComboboxEx5.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ComboboxEx5.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx5.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.ComboboxEx5.Location = New System.Drawing.Point(101, 96)
         Me.ComboboxEx5.Name = "ComboboxEx5"
         Me.ComboboxEx5.NullValue = " "
@@ -3168,14 +3168,14 @@ Partial Class FrmG0011
         '
         Me.ComboboxEx6.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.ComboboxEx6.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx6.BackColor = System.Drawing.Color.White
+        Me.ComboboxEx6.BackColor = System.Drawing.SystemColors.Window
         Me.ComboboxEx6.Cursor = System.Windows.Forms.Cursors.Default
         Me.ComboboxEx6.DisplayMember = "DISP"
         Me.ComboboxEx6.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.ComboboxEx6.ForeColor = System.Drawing.SystemColors.ControlText
         Me.ComboboxEx6.FormattingEnabled = True
         Me.ComboboxEx6.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ComboboxEx6.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx6.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.ComboboxEx6.Location = New System.Drawing.Point(101, 189)
         Me.ComboboxEx6.Name = "ComboboxEx6"
         Me.ComboboxEx6.NullValue = " "
@@ -3283,14 +3283,14 @@ Partial Class FrmG0011
         '
         Me.ComboboxEx1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.ComboboxEx1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx1.BackColor = System.Drawing.Color.White
+        Me.ComboboxEx1.BackColor = System.Drawing.SystemColors.Window
         Me.ComboboxEx1.Cursor = System.Windows.Forms.Cursors.Default
         Me.ComboboxEx1.DisplayMember = "DISP"
         Me.ComboboxEx1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.ComboboxEx1.ForeColor = System.Drawing.SystemColors.ControlText
         Me.ComboboxEx1.FormattingEnabled = True
         Me.ComboboxEx1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ComboboxEx1.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx1.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.ComboboxEx1.Location = New System.Drawing.Point(101, 97)
         Me.ComboboxEx1.Name = "ComboboxEx1"
         Me.ComboboxEx1.NullValue = " "
@@ -3346,14 +3346,14 @@ Partial Class FrmG0011
         '
         Me.ComboboxEx2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.ComboboxEx2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx2.BackColor = System.Drawing.Color.White
+        Me.ComboboxEx2.BackColor = System.Drawing.SystemColors.Window
         Me.ComboboxEx2.Cursor = System.Windows.Forms.Cursors.Default
         Me.ComboboxEx2.DisplayMember = "DISP"
         Me.ComboboxEx2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.ComboboxEx2.ForeColor = System.Drawing.SystemColors.ControlText
         Me.ComboboxEx2.FormattingEnabled = True
         Me.ComboboxEx2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ComboboxEx2.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx2.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.ComboboxEx2.Location = New System.Drawing.Point(101, 36)
         Me.ComboboxEx2.Name = "ComboboxEx2"
         Me.ComboboxEx2.NullValue = " "
@@ -3464,14 +3464,14 @@ Partial Class FrmG0011
         '
         Me.ComboboxEx7.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.ComboboxEx7.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx7.BackColor = System.Drawing.Color.White
+        Me.ComboboxEx7.BackColor = System.Drawing.SystemColors.Window
         Me.ComboboxEx7.Cursor = System.Windows.Forms.Cursors.Default
         Me.ComboboxEx7.DisplayMember = "DISP"
         Me.ComboboxEx7.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.ComboboxEx7.ForeColor = System.Drawing.SystemColors.ControlText
         Me.ComboboxEx7.FormattingEnabled = True
         Me.ComboboxEx7.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ComboboxEx7.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx7.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.ComboboxEx7.Location = New System.Drawing.Point(101, 66)
         Me.ComboboxEx7.Name = "ComboboxEx7"
         Me.ComboboxEx7.NullValue = " "
@@ -3573,14 +3573,14 @@ Partial Class FrmG0011
         '
         Me.ComboboxEx8.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.ComboboxEx8.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx8.BackColor = System.Drawing.Color.White
+        Me.ComboboxEx8.BackColor = System.Drawing.SystemColors.Window
         Me.ComboboxEx8.Cursor = System.Windows.Forms.Cursors.Default
         Me.ComboboxEx8.DisplayMember = "DISP"
         Me.ComboboxEx8.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.ComboboxEx8.ForeColor = System.Drawing.SystemColors.ControlText
         Me.ComboboxEx8.FormattingEnabled = True
         Me.ComboboxEx8.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ComboboxEx8.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx8.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.ComboboxEx8.Location = New System.Drawing.Point(101, 36)
         Me.ComboboxEx8.Name = "ComboboxEx8"
         Me.ComboboxEx8.NullValue = " "
@@ -3595,14 +3595,14 @@ Partial Class FrmG0011
         '
         Me.ComboboxEx9.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.ComboboxEx9.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx9.BackColor = System.Drawing.Color.White
+        Me.ComboboxEx9.BackColor = System.Drawing.SystemColors.Window
         Me.ComboboxEx9.Cursor = System.Windows.Forms.Cursors.Default
         Me.ComboboxEx9.DisplayMember = "DISP"
         Me.ComboboxEx9.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.ComboboxEx9.ForeColor = System.Drawing.SystemColors.ControlText
         Me.ComboboxEx9.FormattingEnabled = True
         Me.ComboboxEx9.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ComboboxEx9.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx9.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.ComboboxEx9.Location = New System.Drawing.Point(101, 5)
         Me.ComboboxEx9.Name = "ComboboxEx9"
         Me.ComboboxEx9.NullValue = " "
@@ -3721,14 +3721,14 @@ Partial Class FrmG0011
         '
         Me.cmbST10_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST10_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST10_DestTANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST10_DestTANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST10_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST10_DestTANTO.DisplayMember = "DISP"
         Me.cmbST10_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST10_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST10_DestTANTO.FormattingEnabled = True
         Me.cmbST10_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST10_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST10_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST10_DestTANTO.Location = New System.Drawing.Point(116, 114)
         Me.cmbST10_DestTANTO.Name = "cmbST10_DestTANTO"
         Me.cmbST10_DestTANTO.NullValue = " "
@@ -3946,14 +3946,14 @@ Partial Class FrmG0011
         '
         Me.cmbST08_1_HAIKYAKU_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST08_1_HAIKYAKU_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST08_1_HAIKYAKU_TANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST08_1_HAIKYAKU_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST08_1_HAIKYAKU_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST08_1_HAIKYAKU_TANTO.DisplayMember = "DISP"
         Me.cmbST08_1_HAIKYAKU_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST08_1_HAIKYAKU_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST08_1_HAIKYAKU_TANTO.FormattingEnabled = True
         Me.cmbST08_1_HAIKYAKU_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST08_1_HAIKYAKU_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST08_1_HAIKYAKU_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST08_1_HAIKYAKU_TANTO.Location = New System.Drawing.Point(101, 97)
         Me.cmbST08_1_HAIKYAKU_TANTO.Name = "cmbST08_1_HAIKYAKU_TANTO"
         Me.cmbST08_1_HAIKYAKU_TANTO.NullValue = " "
@@ -4009,14 +4009,14 @@ Partial Class FrmG0011
         '
         Me.cmbST08_1_HAIKYAKU_KB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST08_1_HAIKYAKU_KB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST08_1_HAIKYAKU_KB.BackColor = System.Drawing.Color.White
+        Me.cmbST08_1_HAIKYAKU_KB.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST08_1_HAIKYAKU_KB.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST08_1_HAIKYAKU_KB.DisplayMember = "DISP"
         Me.cmbST08_1_HAIKYAKU_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST08_1_HAIKYAKU_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST08_1_HAIKYAKU_KB.FormattingEnabled = True
         Me.cmbST08_1_HAIKYAKU_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST08_1_HAIKYAKU_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST08_1_HAIKYAKU_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST08_1_HAIKYAKU_KB.Location = New System.Drawing.Point(101, 36)
         Me.cmbST08_1_HAIKYAKU_KB.Name = "cmbST08_1_HAIKYAKU_KB"
         Me.cmbST08_1_HAIKYAKU_KB.NullValue = " "
@@ -4108,14 +4108,14 @@ Partial Class FrmG0011
         '
         Me.cmbST08_2_TANTO_SEIGI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST08_2_TANTO_SEIGI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST08_2_TANTO_SEIGI.BackColor = System.Drawing.Color.White
+        Me.cmbST08_2_TANTO_SEIGI.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST08_2_TANTO_SEIGI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST08_2_TANTO_SEIGI.DisplayMember = "DISP"
         Me.cmbST08_2_TANTO_SEIGI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST08_2_TANTO_SEIGI.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST08_2_TANTO_SEIGI.FormattingEnabled = True
         Me.cmbST08_2_TANTO_SEIGI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST08_2_TANTO_SEIGI.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST08_2_TANTO_SEIGI.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST08_2_TANTO_SEIGI.Location = New System.Drawing.Point(198, 90)
         Me.cmbST08_2_TANTO_SEIGI.Name = "cmbST08_2_TANTO_SEIGI"
         Me.cmbST08_2_TANTO_SEIGI.NullValue = " "
@@ -4153,14 +4153,14 @@ Partial Class FrmG0011
         '
         Me.cmbST08_2_TANTO_SEIZO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST08_2_TANTO_SEIZO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST08_2_TANTO_SEIZO.BackColor = System.Drawing.Color.White
+        Me.cmbST08_2_TANTO_SEIZO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST08_2_TANTO_SEIZO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST08_2_TANTO_SEIZO.DisplayMember = "DISP"
         Me.cmbST08_2_TANTO_SEIZO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST08_2_TANTO_SEIZO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST08_2_TANTO_SEIZO.FormattingEnabled = True
         Me.cmbST08_2_TANTO_SEIZO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST08_2_TANTO_SEIZO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST08_2_TANTO_SEIZO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST08_2_TANTO_SEIZO.Location = New System.Drawing.Point(38, 90)
         Me.cmbST08_2_TANTO_SEIZO.Name = "cmbST08_2_TANTO_SEIZO"
         Me.cmbST08_2_TANTO_SEIZO.NullValue = " "
@@ -4202,14 +4202,14 @@ Partial Class FrmG0011
         '
         Me.cmbST08_2_KENSA_KEKKA.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST08_2_KENSA_KEKKA.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST08_2_KENSA_KEKKA.BackColor = System.Drawing.Color.White
+        Me.cmbST08_2_KENSA_KEKKA.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST08_2_KENSA_KEKKA.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST08_2_KENSA_KEKKA.DisplayMember = "DISP"
         Me.cmbST08_2_KENSA_KEKKA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST08_2_KENSA_KEKKA.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST08_2_KENSA_KEKKA.FormattingEnabled = True
         Me.cmbST08_2_KENSA_KEKKA.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST08_2_KENSA_KEKKA.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST08_2_KENSA_KEKKA.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST08_2_KENSA_KEKKA.Location = New System.Drawing.Point(101, 36)
         Me.cmbST08_2_KENSA_KEKKA.Name = "cmbST08_2_KENSA_KEKKA"
         Me.cmbST08_2_KENSA_KEKKA.NullValue = " "
@@ -4262,14 +4262,14 @@ Partial Class FrmG0011
         '
         Me.cmbST08_2_TANTO_KENSA.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST08_2_TANTO_KENSA.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST08_2_TANTO_KENSA.BackColor = System.Drawing.Color.White
+        Me.cmbST08_2_TANTO_KENSA.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST08_2_TANTO_KENSA.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST08_2_TANTO_KENSA.DisplayMember = "DISP"
         Me.cmbST08_2_TANTO_KENSA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST08_2_TANTO_KENSA.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST08_2_TANTO_KENSA.FormattingEnabled = True
         Me.cmbST08_2_TANTO_KENSA.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST08_2_TANTO_KENSA.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST08_2_TANTO_KENSA.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST08_2_TANTO_KENSA.Location = New System.Drawing.Point(362, 90)
         Me.cmbST08_2_TANTO_KENSA.Name = "cmbST08_2_TANTO_KENSA"
         Me.cmbST08_2_TANTO_KENSA.NullValue = " "
@@ -4404,14 +4404,14 @@ Partial Class FrmG0011
         '
         Me.cmbST08_3_HENKYAKU_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST08_3_HENKYAKU_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST08_3_HENKYAKU_TANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST08_3_HENKYAKU_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST08_3_HENKYAKU_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST08_3_HENKYAKU_TANTO.DisplayMember = "DISP"
         Me.cmbST08_3_HENKYAKU_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST08_3_HENKYAKU_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST08_3_HENKYAKU_TANTO.FormattingEnabled = True
         Me.cmbST08_3_HENKYAKU_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST08_3_HENKYAKU_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST08_3_HENKYAKU_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST08_3_HENKYAKU_TANTO.Location = New System.Drawing.Point(101, 36)
         Me.cmbST08_3_HENKYAKU_TANTO.Name = "cmbST08_3_HENKYAKU_TANTO"
         Me.cmbST08_3_HENKYAKU_TANTO.NullValue = " "
@@ -4513,14 +4513,14 @@ Partial Class FrmG0011
         '
         Me.cmbST08_4_BUHIN_BANGO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST08_4_BUHIN_BANGO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST08_4_BUHIN_BANGO.BackColor = System.Drawing.Color.White
+        Me.cmbST08_4_BUHIN_BANGO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST08_4_BUHIN_BANGO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST08_4_BUHIN_BANGO.DisplayMember = "DISP"
         Me.cmbST08_4_BUHIN_BANGO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST08_4_BUHIN_BANGO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST08_4_BUHIN_BANGO.FormattingEnabled = True
         Me.cmbST08_4_BUHIN_BANGO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST08_4_BUHIN_BANGO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST08_4_BUHIN_BANGO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST08_4_BUHIN_BANGO.Location = New System.Drawing.Point(307, 5)
         Me.cmbST08_4_BUHIN_BANGO.Name = "cmbST08_4_BUHIN_BANGO"
         Me.cmbST08_4_BUHIN_BANGO.NullValue = " "
@@ -4535,14 +4535,14 @@ Partial Class FrmG0011
         '
         Me.cmbST08_4_KISYU.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST08_4_KISYU.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST08_4_KISYU.BackColor = System.Drawing.Color.White
+        Me.cmbST08_4_KISYU.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST08_4_KISYU.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST08_4_KISYU.DisplayMember = "DISP"
         Me.cmbST08_4_KISYU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST08_4_KISYU.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST08_4_KISYU.FormattingEnabled = True
         Me.cmbST08_4_KISYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST08_4_KISYU.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST08_4_KISYU.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST08_4_KISYU.Location = New System.Drawing.Point(101, 5)
         Me.cmbST08_4_KISYU.Name = "cmbST08_4_KISYU"
         Me.cmbST08_4_KISYU.NullValue = " "
@@ -4661,14 +4661,14 @@ Partial Class FrmG0011
         '
         Me.cmbST09_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST09_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST09_DestTANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST09_DestTANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST09_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST09_DestTANTO.DisplayMember = "DISP"
         Me.cmbST09_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST09_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST09_DestTANTO.FormattingEnabled = True
         Me.cmbST09_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST09_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST09_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST09_DestTANTO.Location = New System.Drawing.Point(118, 252)
         Me.cmbST09_DestTANTO.Name = "cmbST09_DestTANTO"
         Me.cmbST09_DestTANTO.NullValue = " "
@@ -4853,14 +4853,14 @@ Partial Class FrmG0011
         '
         Me.cmbST08_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST08_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST08_DestTANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST08_DestTANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST08_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST08_DestTANTO.DisplayMember = "DISP"
         Me.cmbST08_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST08_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST08_DestTANTO.FormattingEnabled = True
         Me.cmbST08_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST08_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST08_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST08_DestTANTO.Location = New System.Drawing.Point(118, 252)
         Me.cmbST08_DestTANTO.Name = "cmbST08_DestTANTO"
         Me.cmbST08_DestTANTO.NullValue = " "
@@ -4974,14 +4974,14 @@ Partial Class FrmG0011
         '
         Me.cmbST07_SAISIN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST07_SAISIN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST07_SAISIN_TANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST07_SAISIN_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST07_SAISIN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST07_SAISIN_TANTO.DisplayMember = "DISP"
         Me.cmbST07_SAISIN_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST07_SAISIN_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST07_SAISIN_TANTO.FormattingEnabled = True
         Me.cmbST07_SAISIN_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST07_SAISIN_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST07_SAISIN_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST07_SAISIN_TANTO.Location = New System.Drawing.Point(390, 59)
         Me.cmbST07_SAISIN_TANTO.Name = "cmbST07_SAISIN_TANTO"
         Me.cmbST07_SAISIN_TANTO.NullValue = " "
@@ -5106,14 +5106,14 @@ Partial Class FrmG0011
         '
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST07_KOKYAKU_SAISYU_HANTEI.BackColor = System.Drawing.Color.White
+        Me.cmbST07_KOKYAKU_SAISYU_HANTEI.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.DisplayMember = "DISP"
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.FormattingEnabled = True
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST07_KOKYAKU_SAISYU_HANTEI.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST07_KOKYAKU_SAISYU_HANTEI.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.Location = New System.Drawing.Point(116, 121)
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.Name = "cmbST07_KOKYAKU_SAISYU_HANTEI"
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.NullValue = " "
@@ -5152,14 +5152,14 @@ Partial Class FrmG0011
         '
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST07_KOKYAKU_HANTEI_SIJI.BackColor = System.Drawing.Color.White
+        Me.cmbST07_KOKYAKU_HANTEI_SIJI.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.DisplayMember = "DISP"
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.FormattingEnabled = True
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST07_KOKYAKU_HANTEI_SIJI.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST07_KOKYAKU_HANTEI_SIJI.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.Location = New System.Drawing.Point(116, 90)
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.Name = "cmbST07_KOKYAKU_HANTEI_SIJI"
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.NullValue = " "
@@ -5273,14 +5273,14 @@ Partial Class FrmG0011
         '
         Me.cmbST07_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST07_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST07_DestTANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST07_DestTANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST07_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST07_DestTANTO.DisplayMember = "DISP"
         Me.cmbST07_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST07_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST07_DestTANTO.FormattingEnabled = True
         Me.cmbST07_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST07_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST07_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST07_DestTANTO.Location = New System.Drawing.Point(115, 144)
         Me.cmbST07_DestTANTO.Name = "cmbST07_DestTANTO"
         Me.cmbST07_DestTANTO.NullValue = " "
@@ -5456,14 +5456,14 @@ Partial Class FrmG0011
         '
         Me.cmbST06_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST06_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST06_DestTANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST06_DestTANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST06_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST06_DestTANTO.DisplayMember = "DISP"
         Me.cmbST06_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST06_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST06_DestTANTO.FormattingEnabled = True
         Me.cmbST06_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST06_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST06_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST06_DestTANTO.Location = New System.Drawing.Point(115, 144)
         Me.cmbST06_DestTANTO.Name = "cmbST06_DestTANTO"
         Me.cmbST06_DestTANTO.NullValue = " "
@@ -5519,14 +5519,14 @@ Partial Class FrmG0011
         '
         Me.cmbST06_SAISIN_IINKAI_HANTEI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST06_SAISIN_IINKAI_HANTEI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST06_SAISIN_IINKAI_HANTEI.BackColor = System.Drawing.Color.White
+        Me.cmbST06_SAISIN_IINKAI_HANTEI.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST06_SAISIN_IINKAI_HANTEI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST06_SAISIN_IINKAI_HANTEI.DisplayMember = "DISP"
         Me.cmbST06_SAISIN_IINKAI_HANTEI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST06_SAISIN_IINKAI_HANTEI.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST06_SAISIN_IINKAI_HANTEI.FormattingEnabled = True
         Me.cmbST06_SAISIN_IINKAI_HANTEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST06_SAISIN_IINKAI_HANTEI.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST06_SAISIN_IINKAI_HANTEI.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST06_SAISIN_IINKAI_HANTEI.Location = New System.Drawing.Point(115, 53)
         Me.cmbST06_SAISIN_IINKAI_HANTEI.Name = "cmbST06_SAISIN_IINKAI_HANTEI"
         Me.cmbST06_SAISIN_IINKAI_HANTEI.NullValue = " "
@@ -5716,14 +5716,14 @@ Partial Class FrmG0011
         '
         Me.cmbST05_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST05_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST05_DestTANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST05_DestTANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST05_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST05_DestTANTO.DisplayMember = "DISP"
         Me.cmbST05_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST05_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST05_DestTANTO.FormattingEnabled = True
         Me.cmbST05_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST05_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST05_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST05_DestTANTO.Location = New System.Drawing.Point(115, 85)
         Me.cmbST05_DestTANTO.Name = "cmbST05_DestTANTO"
         Me.cmbST05_DestTANTO.NullValue = " "
@@ -5878,14 +5878,14 @@ Partial Class FrmG0011
         '
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST04_HASSEI_KOTEI_GL_TANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST04_HASSEI_KOTEI_GL_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.DisplayMember = "DISP"
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.FormattingEnabled = True
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST04_HASSEI_KOTEI_GL_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST04_HASSEI_KOTEI_GL_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.Location = New System.Drawing.Point(416, 205)
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.Name = "cmbST04_HASSEI_KOTEI_GL_TANTO"
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.NullValue = " "
@@ -5926,14 +5926,14 @@ Partial Class FrmG0011
         '
         Me.cmbST04_JIZENSINSA_HANTEI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST04_JIZENSINSA_HANTEI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST04_JIZENSINSA_HANTEI.BackColor = System.Drawing.Color.White
+        Me.cmbST04_JIZENSINSA_HANTEI.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST04_JIZENSINSA_HANTEI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST04_JIZENSINSA_HANTEI.DisplayMember = "DISP"
         Me.cmbST04_JIZENSINSA_HANTEI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST04_JIZENSINSA_HANTEI.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST04_JIZENSINSA_HANTEI.FormattingEnabled = True
         Me.cmbST04_JIZENSINSA_HANTEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST04_JIZENSINSA_HANTEI.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST04_JIZENSINSA_HANTEI.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST04_JIZENSINSA_HANTEI.Location = New System.Drawing.Point(115, 55)
         Me.cmbST04_JIZENSINSA_HANTEI.Name = "cmbST04_JIZENSINSA_HANTEI"
         Me.cmbST04_JIZENSINSA_HANTEI.NullValue = " "
@@ -5948,14 +5948,14 @@ Partial Class FrmG0011
         '
         Me.cmbST04_CAR_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST04_CAR_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST04_CAR_TANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST04_CAR_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST04_CAR_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST04_CAR_TANTO.DisplayMember = "DISP"
         Me.cmbST04_CAR_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST04_CAR_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST04_CAR_TANTO.FormattingEnabled = True
         Me.cmbST04_CAR_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST04_CAR_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST04_CAR_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST04_CAR_TANTO.Location = New System.Drawing.Point(115, 203)
         Me.cmbST04_CAR_TANTO.Name = "cmbST04_CAR_TANTO"
         Me.cmbST04_CAR_TANTO.NullValue = " "
@@ -6111,14 +6111,14 @@ Partial Class FrmG0011
         '
         Me.cmbST04_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST04_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST04_DestTANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST04_DestTANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST04_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST04_DestTANTO.DisplayMember = "DISP"
         Me.cmbST04_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST04_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST04_DestTANTO.FormattingEnabled = True
         Me.cmbST04_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST04_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST04_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST04_DestTANTO.Location = New System.Drawing.Point(115, 264)
         Me.cmbST04_DestTANTO.Name = "cmbST04_DestTANTO"
         Me.cmbST04_DestTANTO.NullValue = " "
@@ -6284,14 +6284,14 @@ Partial Class FrmG0011
         '
         Me.cmbST03_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST03_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST03_DestTANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST03_DestTANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST03_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST03_DestTANTO.DisplayMember = "DISP"
         Me.cmbST03_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST03_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST03_DestTANTO.FormattingEnabled = True
         Me.cmbST03_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST03_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST03_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST03_DestTANTO.Location = New System.Drawing.Point(115, 86)
         Me.cmbST03_DestTANTO.Name = "cmbST03_DestTANTO"
         Me.cmbST03_DestTANTO.NullValue = " "
@@ -6469,14 +6469,14 @@ Partial Class FrmG0011
         '
         Me.cmbST02_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST02_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST02_DestTANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST02_DestTANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST02_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST02_DestTANTO.DisplayMember = "DISP"
         Me.cmbST02_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST02_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST02_DestTANTO.FormattingEnabled = True
         Me.cmbST02_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST02_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST02_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST02_DestTANTO.Location = New System.Drawing.Point(115, 85)
         Me.cmbST02_DestTANTO.Name = "cmbST02_DestTANTO"
         Me.cmbST02_DestTANTO.NullValue = " "
@@ -7072,14 +7072,14 @@ Partial Class FrmG0011
         '
         Me.cmbST01_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST01_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST01_DestTANTO.BackColor = System.Drawing.Color.White
+        Me.cmbST01_DestTANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST01_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST01_DestTANTO.DisplayMember = "DISP"
         Me.cmbST01_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST01_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST01_DestTANTO.FormattingEnabled = True
         Me.cmbST01_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbST01_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbST01_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(590, 453)
         Me.cmbST01_DestTANTO.Name = "cmbST01_DestTANTO"
         Me.cmbST01_DestTANTO.NullValue = " "

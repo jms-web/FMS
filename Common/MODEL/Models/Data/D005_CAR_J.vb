@@ -82,6 +82,7 @@ Partial Public Class D005_CAR_J
         SYOCHI_C_SYAIN_ID = 0
         SYOCHI_C_YMDHNS = ""
         KYOIKU_FILE_PATH = ""
+        _ZESEI_SYOCHI_YUKO_UMU = "0"
         ZESEI_SYOCHI_YUKO_UMU = False
         SYOSAI_FILE_PATH = ""
         GOKI = ""

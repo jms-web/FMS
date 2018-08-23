@@ -6034,6 +6034,8 @@ Public Class FrmG0011
                 intStageTabNo = 15
             Case ENM_NCR_STAGE._120_abcde処置確認
                 intStageTabNo = 16
+            Case ENM_NCR_STAGE._999_Closed
+                intStageTabNo = 999
             Case Else
                 'Err
         End Select
@@ -6077,7 +6079,7 @@ Public Class FrmG0011
             Case ENM_NCR_STAGE2._16_abcde処置確認
                 intSTAGE_ID = ENM_NCR_STAGE._120_abcde処置確認
             Case Else
-                intSTAGE_ID = 15
+                intSTAGE_ID = 999
         End Select
 
         Return intSTAGE_ID
