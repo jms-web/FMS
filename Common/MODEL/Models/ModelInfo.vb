@@ -14,6 +14,8 @@ Public Class ModelInfo(Of T As {New, IDataModel})
 
     Public Property Data As New DataTable
 
+    Public Property Entities As New List(Of T)
+
     Public Property OnlyAutoGenerateField As Boolean
 
     Public Property Entity As T
@@ -37,7 +39,10 @@ Public Class ModelInfo(Of T As {New, IDataModel})
         OnlyAutoGenerateField = _OnlyAutoGenerateField
 
         Properties().ForEach(Sub(p) Data.Columns.Add(p.Name, p.PropertyType))
-        If srcDATA IsNot Nothing Then Call SetDataSource(srcDATA)
+        If srcDATA IsNot Nothing Then
+            Call SetDataSource(srcDATA)
+            Call SetEntities(srcDATA)
+        End If
     End Sub
 
 #End Region
@@ -52,6 +57,53 @@ Public Class ModelInfo(Of T As {New, IDataModel})
         Return _properties
 
     End Function
+
+    Public Sub SetEntities(srcDATA As DataTable)
+        For Each row In srcDATA.Rows
+            Dim _Model As New T
+            For Each p In Properties()
+                Select Case p.PropertyType
+                    Case GetType(Boolean)
+                        _Model(p.Name) = CBool(row(p.Name))
+                    Case GetType(Date), GetType(DateTime)
+                        _Model(p.Name) = CDate(row(p.Name))
+                    Case GetType(Decimal)
+                        _Model(p.Name) = CDec(row(p.Name))
+                    Case GetType(Double)
+                        _Model(p.Name) = CDbl(row(p.Name))
+                    Case GetType(Integer)
+                        _Model(p.Name) = CInt(row(p.Name))
+                    Case GetType(String)
+                        _Model(p.Name) = CStr(row(p.Name))
+                    Case Else
+                        _Model(p.Name) = row(p.Name)
+                End Select
+            Next p
+            Entities.Add(_Model)
+        Next row
+    End Sub
+    Public Sub SetEntity(dr As DataRow)
+        Dim _Model As New T
+        For Each p In Properties()
+            Select Case p.PropertyType
+                Case GetType(Boolean)
+                    _Model(p.Name) = CBool(dr(p.Name))
+                Case GetType(Date), GetType(DateTime)
+                    _Model(p.Name) = CDate(dr(p.Name))
+                Case GetType(Decimal)
+                    _Model(p.Name) = CDec(dr(p.Name))
+                Case GetType(Double)
+                    _Model(p.Name) = CDbl(dr(p.Name))
+                Case GetType(Integer)
+                    _Model(p.Name) = CInt(dr(p.Name))
+                Case GetType(String)
+                    _Model(p.Name) = CStr(dr(p.Name))
+                Case Else
+                    _Model(p.Name) = dr(p.Name)
+            End Select
+        Next p
+        Entities.Add(_Model)
+    End Sub
 
     Public Sub SetDataSource(srcDATA As DataTable)
         'UNDONE: DBNullの場合エラー

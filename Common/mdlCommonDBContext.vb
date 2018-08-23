@@ -627,7 +627,7 @@ Public Module mdlDBContext
                     '主キー設定
                     dt.PrimaryKey = {dt.Columns("VALUE")}
 
-                    dt.Columns.Add("KISYU", GetType(String))
+                    'dt.Columns.Add("KISYU", GetType(String))
                     dt.Columns.Add("BUMON_KB", GetType(String))
 
                     dsList = DB.GetDataSet(sbSQL.ToString, False)
@@ -638,7 +638,7 @@ Public Module mdlDBContext
                             Trow("DISP") = .Rows(intCNT).Item("KISYU_NAME")
                             Trow("VALUE") = .Rows(intCNT).Item("KISYU_ID")
                             Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                            Trow("KISYU") = .Rows(intCNT).Item("KISYU")
+                            'Trow("KISYU") = .Rows(intCNT).Item("KISYU")
                             Trow("BUMON_KB") = .Rows(intCNT).Item("BUMON_KB")
                             dt.Rows.Add(Trow)
                         Next intCNT
@@ -680,7 +680,7 @@ Public Module mdlDBContext
 #Region "               社内CD"
                 Case "社内CD"
                     '検索
-                    sbSQL.Append("SELECT DISTINCT BUMON_KB,SYANAI_CD,BUHIN_BANGO,BUHIN_NAME,KISYU_ID,TOKUI_ID,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
+                    sbSQL.Append("SELECT DISTINCT BUMON_KB,SYANAI_CD,BUHIN_BANGO,BUHIN_NAME,KISYU_ID,TOKUI_ID,DEL_FLG FROM " & "VWM107_BUHIN_KISYU" & " ")
                     sbSQL.Append("WHERE BUMON_KB='2'")
                     If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append(" AND " & strWhere & "")
@@ -728,7 +728,7 @@ Public Module mdlDBContext
                     sbSQL.Append(" ,V106.KISYU_ID")
                     sbSQL.Append(" ,V106.TOKUI_ID")
                     sbSQL.Append(" FROM V007_NCR_CAR V007")
-                    sbSQL.Append(" LEFT JOIN VWM106_BUHIN V106")
+                    sbSQL.Append(" LEFT JOIN VWM107_BUHIN_KISYU V106")
                     sbSQL.Append(" ON V007.SYANAI_CD = V106.SYANAI_CD")
                     sbSQL.Append("　WHERE V007.BUMON_KB='2'")
                     If strWhere.IsNullOrWhiteSpace = False Then
@@ -770,7 +770,7 @@ Public Module mdlDBContext
 #Region "               部品番号"
                 Case "部品番号"
                     '検索
-                    sbSQL.Append("SELECT DISTINCT BUMON_KB,BUHIN_BANGO,BUHIN_NAME,SYANAI_CD,KISYU_ID,TOKUI_ID,DEL_FLG FROM " & "VWM106_BUHIN" & " ")
+                    sbSQL.Append("SELECT DISTINCT BUMON_KB,BUHIN_BANGO,BUHIN_NAME,SYANAI_CD,KISYU_ID,TOKUI_ID,DEL_FLG FROM " & "VWM107_BUHIN_KISYU" & " ")
                     If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append("WHERE " & strWhere & "")
                     End If
@@ -817,7 +817,7 @@ Public Module mdlDBContext
                     sbSQL.Append(" ,V106.KISYU_ID")
                     sbSQL.Append(" ,V106.TOKUI_ID")
                     sbSQL.Append(" FROM V007_NCR_CAR V007")
-                    sbSQL.Append(" LEFT JOIN VWM106_BUHIN V106")
+                    sbSQL.Append(" LEFT JOIN VWM107_BUHIN_KISYU V106")
                     sbSQL.Append(" ON V007.BUHIN_BANGO = V106.BUHIN_BANGO")
 
                     If strWhere.IsNullOrWhiteSpace = False Then
@@ -863,7 +863,7 @@ Public Module mdlDBContext
                     sbSQL.Append("SELECT DISTINCT ")
                     sbSQL.Append(" V007.KISYU_ID")
                     sbSQL.Append(" ,M105.BUMON_KB")
-                    sbSQL.Append(" ,M105.KISYU")
+                    'sbSQL.Append(" ,M105.KISYU")
                     sbSQL.Append(" ,M105.KISYU_NAME")
                     sbSQL.Append(" FROM V007_NCR_CAR V007")
                     sbSQL.Append(" LEFT JOIN M105_KISYU M105")
@@ -879,7 +879,7 @@ Public Module mdlDBContext
                     '主キー設定
                     dt.PrimaryKey = {dt.Columns("VALUE")}
 
-                    dt.Columns.Add("KISYU", GetType(String))
+                    'dt.Columns.Add("KISYU", GetType(String))
                     dt.Columns.Add("BUMON_KB", GetType(String))
 
                     dsList = DB.GetDataSet(sbSQL.ToString, False)
@@ -890,7 +890,7 @@ Public Module mdlDBContext
                             Trow("DISP") = .Rows(intCNT).Item("KISYU_NAME")
                             Trow("VALUE") = .Rows(intCNT).Item("KISYU_ID")
                             'Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
-                            Trow("KISYU") = .Rows(intCNT).Item("KISYU")
+                            'Trow("KISYU") = .Rows(intCNT).Item("KISYU")
                             Trow("BUMON_KB") = .Rows(intCNT).Item("BUMON_KB")
                             dt.Rows.Add(Trow)
                         Next intCNT

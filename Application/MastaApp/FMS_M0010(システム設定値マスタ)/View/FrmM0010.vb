@@ -68,7 +68,7 @@ Public Class FrmM0010
             .AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
             .AllowDelete = False
             .AllowResizing = C1.Win.C1FlexGrid.AllowResizingEnum.Columns
-            .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.MultiColumn
+            .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.SingleColumn
             '.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
             .AllowFiltering = True
 
@@ -185,7 +185,7 @@ Public Class FrmM0010
 
 #Region "検索"
 
-    Private Function FunGetListData() As DataTable
+    Private Function FunGetListData() As IEnumerable
         Try
             Dim sbSQL As New System.Text.StringBuilder
             Dim dsList As New DataSet
@@ -220,7 +220,7 @@ Public Class FrmM0010
             End If
 
             Dim _Model As New MODEL.ModelInfo(Of MODEL.VWM001_SETTING)(srcDATA:=dsList.Tables(0))
-            Return _Model.Data
+            Return _Model.Entities
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -228,7 +228,7 @@ Public Class FrmM0010
         End Try
     End Function
 
-    Private Function FunSRCH(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid, ByVal dt As DataTable) As Boolean
+    Private Function FunSRCH(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid, ByVal dt As IEnumerable) As Boolean
         Dim intCURROW As Integer
         Try
 
@@ -305,9 +305,8 @@ Public Class FrmM0010
             Using frmDLG As New FrmM0011
                 frmDLG.PrDATA_OP_MODE = intMODE
                 If flxDATA.RowSel > 0 Then
-                    frmDLG.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row 'flxDATA.Rows(flxDATA.Row)
-                Else
-                    frmDLG.PrDataRow = Nothing
+                    'frmDLG.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row 'flxDATA.Rows(flxDATA.Row)
+                    frmDLG.PrViewModel = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, MODEL.VWM001_SETTING)
                 End If
                 dlgRET = frmDLG.ShowDialog(Me)
                 PKeys = frmDLG.PrPKeys
@@ -321,12 +320,12 @@ Public Class FrmM0010
                 Using DB As ClsDbUtility = DBOpen()
                     Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
                 End Using
-                Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
+                Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                 Me.cmbKOMO_NM.SelectedValue = strComboVal
 
 
                 '追加したコードの行を選択する
-                For i As Integer = 0 To flxDATA.Rows.Count
+                For i As Integer = 0 To flxDATA.Rows.Count - 1
                     With flxDATA.Rows(i)
                         If .Item("ITEM_NAME") = PKeys.ITEM_NAME And
                             .Item("ITEM_VALUE") = PKeys.ITEM_VALUE Then
@@ -433,15 +432,15 @@ Public Class FrmM0010
                 '検索フィルタデータソース更新
                 Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
             End Using
-            Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
+            Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-            If strComboVal.IsNullOrWhiteSpace Then
-            Else
-                Me.cmbKOMO_NM.Text = strComboVal
-            End If
-            If Me.cmbKOMO_NM.SelectedIndex <= 0 Then
-                Me.cmbKOMO_NM.Text = ""
-            End If
+            'If strComboVal.IsNullOrWhiteSpace Then
+            'Else
+            '    Me.cmbKOMO_NM.Text = strComboVal
+            'End If
+            'If Me.cmbKOMO_NM.SelectedIndex <= 0 Then
+            '    Me.cmbKOMO_NM.SelectedIndex = 0
+            'End If
 
             Return True
         Catch ex As Exception

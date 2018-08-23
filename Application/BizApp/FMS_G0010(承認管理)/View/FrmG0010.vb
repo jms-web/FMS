@@ -85,7 +85,7 @@ Public Class FrmG0010
     Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
-
+            Me.WindowState = FormWindowState.Maximized
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
             Using DB As ClsDbUtility = DBOpen()
@@ -210,13 +210,11 @@ Public Class FrmG0010
                     Me.cmdFunc7.PerformClick()
                 Case ENM_OPEN_MODE._1_新規作成
                     Me.cmdFunc2.PerformClick()
-                    Me.WindowState = FormWindowState.Normal
                 Case ENM_OPEN_MODE._2_処置画面起動
                     ParamModel.HOKOKU_NO = pub_PrHOKOKU_NO
                     ParamModel.SYONIN_HOKOKUSYO_ID = pub_PrSYONIN_HOKOKUSYO_ID
                     Me.cmdFunc1.PerformClick()
                     Me.cmdFunc4.PerformClick()
-                    Me.WindowState = FormWindowState.Normal
                 Case Else
                     Me.cmdFunc1.PerformClick()
             End Select
@@ -242,6 +240,9 @@ Public Class FrmG0010
                 .ColumnHeadersDefaultCellStyle.Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
                 .RowsDefaultCellStyle.BackColor = Color.White
                 .AlternatingRowsDefaultCellStyle.BackColor = Color.White
+                .AllowUserToOrderColumns = True
+                .AllowUserToResizeColumns = True
+
 
                 Dim cmbclmn1 As New DataGridViewCheckBoxColumn With {
                 .Name = NameOf(_Model.SELECTED),

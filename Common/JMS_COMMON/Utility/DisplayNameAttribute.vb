@@ -3,9 +3,9 @@ Imports System.Linq
 Imports System.Linq.Expressions
 Imports System.Reflection
 Imports Base = System.ComponentModel.DisplayNameAttribute
-Imports This = JMS_COMMON.Model.DisplayNameAttribute
+Imports This = JMS_COMMON.Models.DisplayNameAttribute
 
-Namespace Model
+Namespace Models
     <AttributeUsage(AttributeTargets.All, AllowMultiple:=False)>
     Public NotInheritable Class DisplayNameAttribute
         Inherits Base

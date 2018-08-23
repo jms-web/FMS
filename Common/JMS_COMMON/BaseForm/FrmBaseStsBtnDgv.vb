@@ -93,7 +93,7 @@ Public Class FrmBaseStsBtnDgv
                 'ユーザーの行幅変更
                 .AllowUserToResizeRows = False
                 'ユーザーの列幅変更
-                .AllowUserToResizeColumns = False
+                .AllowUserToResizeColumns = True
                 '最終行にデータ入力行表示
                 .AllowUserToAddRows = False
                 '複数セル選択

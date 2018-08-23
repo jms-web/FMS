@@ -197,10 +197,10 @@ Partial Class FrmM1050
         '
         Me.mtxKISYU_NAME.BackColor = System.Drawing.SystemColors.Window
         Me.mtxKISYU_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxKISYU_NAME.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxKISYU_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxKISYU_NAME.InputRequired = False
         Me.mtxKISYU_NAME.Location = New System.Drawing.Point(322, 3)
-        Me.mtxKISYU_NAME.MaxByteLength = 0
+        Me.mtxKISYU_NAME.MaxByteLength = 30
         Me.mtxKISYU_NAME.Name = "mtxKISYU_NAME"
         Me.mtxKISYU_NAME.Size = New System.Drawing.Size(165, 24)
         Me.mtxKISYU_NAME.TabIndex = 58
@@ -217,6 +217,7 @@ Partial Class FrmM1050
         Me.cmbBUMON_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUMON_KB.FormattingEnabled = True
         Me.cmbBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUMON_KB.Location = New System.Drawing.Point(79, 3)
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "

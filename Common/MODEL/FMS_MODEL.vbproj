@@ -170,6 +170,7 @@
     <Compile Include="Models\View\VWM014_SYONIN_ROUT.vb" />
     <Compile Include="Models\View\VWM001_SETTING.vb" />
     <Compile Include="Models\View\VWM004_SYAIN.vb" />
+    <Compile Include="Models\View\VWM107_BUHIN_KISYU.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

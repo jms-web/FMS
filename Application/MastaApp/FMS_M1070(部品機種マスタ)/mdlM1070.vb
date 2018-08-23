@@ -15,6 +15,7 @@ Module mdlM1070
     <STAThread()>
     Public Sub Main()
         Try
+
             '-----二重起動抑制
             Using objMutex = New System.Threading.Mutex(False, My.Application.Info.AssemblyName)
                 If objMutex.WaitOne(0, False) = False Then
@@ -36,7 +37,7 @@ Module mdlM1070
 
                 '-----出力先設定ファイル読込処理
                 If FunGetOutputIniFile() = False Then
-                    MsgBox(My.Resources.ErrLogMsgSetOutput, MsgBoxStyle.Critical, My.Application.Info.AssemblyName)
+                    WL.WriteLogDat(My.Resources.ErrLogMsgSetOutput)
                     Exit Sub
                 End If
 
@@ -47,21 +48,21 @@ Module mdlM1070
 
                 '-----共通データ取得
                 Using DB As ClsDbUtility = DBOpen()
-                    Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
+                    Call FunGetCodeDataTable(DB, "部門区分", tblBUMON)
                 End Using
 
                 '-----一覧画面表示
                 frmLIST = New FrmM1070
                 Application.Run(frmLIST)
-
             End Using
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             MsgBox(My.Resources.ErrMsgInit, MsgBoxStyle.Critical, My.Application.Info.AssemblyName)
-        Finally
-
         End Try
     End Sub
 #End Region
+
+
+
 
 End Module

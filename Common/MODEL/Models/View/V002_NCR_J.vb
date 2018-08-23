@@ -30,9 +30,9 @@ Partial Public Class V002_NCR_J
     <ComponentModel.DisplayName("機種ID")>
     Public Property KISYU_ID As Integer
 
-    <StringLength(30)>
-    <ComponentModel.DisplayName("機種")>
-    Public Property KISYU As String
+    '<StringLength(30)>
+    '<ComponentModel.DisplayName("機種")>
+    'Public Property KISYU As String
 
     <StringLength(30)>
     <ComponentModel.DisplayName("機種名")>
@@ -303,7 +303,7 @@ Partial Public Class V002_NCR_J
 
     <StringLength(50)>
     <ComponentModel.DisplayName("転用先機種")>
-    Public Property TENYO_KISYU As String
+    Public Property TENYO_KISYU_NAME As String
 
     <StringLength(60)>
     <ComponentModel.DisplayName("転用先部品番号")>

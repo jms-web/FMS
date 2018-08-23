@@ -18,10 +18,6 @@ Partial Public Class VWM105_KISYU
     <ComponentModel.DisplayName("•”–å‹æ•ª")>
     Public Property BUMON_KB_DISP As String
 
-    <ComponentModel.DisplayName("‹@Ží")>
-    <DatabaseGenerated(DatabaseGeneratedOption.None)>
-    Public Property KISYU As String
-
     <ComponentModel.DisplayName("‹@Ží–¼")>
     Public Property KISYU_NAME As String
 

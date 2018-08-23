@@ -8,12 +8,12 @@ Public Module mdlExtensionMethod
 #Region "Attribute"
     <Extension()>
     Public Function DisplayName(ByVal provider As System.Reflection.ICustomAttributeProvider) As String
-        Return Model.DisplayNameAttribute.GetAttribute(provider)
+        Return Models.DisplayNameAttribute.GetAttribute(provider)
     End Function
 
     <Extension()>
     Public Function DisplayName(ByVal value As [Enum]) As String
-        Return Model.DisplayNameAttribute.GetAttribute(value)
+        Return Models.DisplayNameAttribute.GetAttribute(value)
     End Function
 #End Region
 

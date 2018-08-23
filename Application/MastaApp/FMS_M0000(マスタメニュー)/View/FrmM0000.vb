@@ -117,6 +117,8 @@ Public Class FrmM0000
                 'lstGYOMU.Items.Add(tblMenuSection.Rows(i).Item("DISP"))
             Next i
 
+            Me.WindowState = FormWindowState.Maximized
+
             '-----表示
             Call FunLOGIN(False) 'ログインパネル表示
             Me.Show()
@@ -139,6 +141,7 @@ Public Class FrmM0000
                     Me.txtPASSWORD.Focus()
                 End If
             End Using
+
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)

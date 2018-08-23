@@ -346,7 +346,7 @@ Partial Class FrmG0010
         Me.cmbGEN_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbGEN_TANTO.FormattingEnabled = True
         Me.cmbGEN_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbGEN_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbGEN_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbGEN_TANTO.Location = New System.Drawing.Point(163, 93)
         Me.cmbGEN_TANTO.Name = "cmbGEN_TANTO"
         Me.cmbGEN_TANTO.NullValue = " "
@@ -434,7 +434,7 @@ Partial Class FrmG0010
         Me.cmbADD_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbADD_TANTO.FormattingEnabled = True
         Me.cmbADD_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbADD_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbADD_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbADD_TANTO.Location = New System.Drawing.Point(843, 3)
         Me.cmbADD_TANTO.Name = "cmbADD_TANTO"
         Me.cmbADD_TANTO.NullValue = " "
@@ -467,7 +467,7 @@ Partial Class FrmG0010
         Me.cmbKISYU.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKISYU.FormattingEnabled = True
         Me.cmbKISYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKISYU.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKISYU.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKISYU.Location = New System.Drawing.Point(163, 33)
         Me.cmbKISYU.Name = "cmbKISYU"
         Me.cmbKISYU.NullValue = " "
@@ -500,7 +500,7 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbFUTEKIGO_KB.FormattingEnabled = True
         Me.cmbFUTEKIGO_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbFUTEKIGO_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbFUTEKIGO_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbFUTEKIGO_KB.Location = New System.Drawing.Point(163, 123)
         Me.cmbFUTEKIGO_KB.Name = "cmbFUTEKIGO_KB"
         Me.cmbFUTEKIGO_KB.NullValue = " "
@@ -533,7 +533,7 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_S_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbFUTEKIGO_S_KB.FormattingEnabled = True
         Me.cmbFUTEKIGO_S_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbFUTEKIGO_S_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbFUTEKIGO_S_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbFUTEKIGO_S_KB.Location = New System.Drawing.Point(463, 123)
         Me.cmbFUTEKIGO_S_KB.Name = "cmbFUTEKIGO_S_KB"
         Me.cmbFUTEKIGO_S_KB.NullValue = " "
@@ -566,7 +566,7 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_JYOTAI_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbFUTEKIGO_JYOTAI_KB.FormattingEnabled = True
         Me.cmbFUTEKIGO_JYOTAI_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbFUTEKIGO_JYOTAI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbFUTEKIGO_JYOTAI_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbFUTEKIGO_JYOTAI_KB.Location = New System.Drawing.Point(163, 153)
         Me.cmbFUTEKIGO_JYOTAI_KB.Name = "cmbFUTEKIGO_JYOTAI_KB"
         Me.cmbFUTEKIGO_JYOTAI_KB.NullValue = " "
@@ -600,7 +600,7 @@ Partial Class FrmG0010
         Me.cmbBUHIN_BANGO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUHIN_BANGO.FormattingEnabled = True
         Me.cmbBUHIN_BANGO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbBUHIN_BANGO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbBUHIN_BANGO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUHIN_BANGO.Location = New System.Drawing.Point(463, 33)
         Me.cmbBUHIN_BANGO.Name = "cmbBUHIN_BANGO"
         Me.cmbBUHIN_BANGO.NullValue = " "
@@ -685,7 +685,7 @@ Partial Class FrmG0010
         Me.cmbSYANAI_CD.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYANAI_CD.FormattingEnabled = True
         Me.cmbSYANAI_CD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbSYANAI_CD.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbSYANAI_CD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbSYANAI_CD.Location = New System.Drawing.Point(463, 63)
         Me.cmbSYANAI_CD.Name = "cmbSYANAI_CD"
         Me.cmbSYANAI_CD.NullValue = " "
@@ -744,7 +744,7 @@ Partial Class FrmG0010
         Me.cmbBUMON.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUMON.FormattingEnabled = True
         Me.cmbBUMON.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbBUMON.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbBUMON.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUMON.Location = New System.Drawing.Point(463, 3)
         Me.cmbBUMON.Name = "cmbBUMON"
         Me.cmbBUMON.NullValue = " "
@@ -829,7 +829,7 @@ Partial Class FrmG0010
         Me.cmbJIZEN_SINSA_HANTEI_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbJIZEN_SINSA_HANTEI_KB.FormattingEnabled = True
         Me.cmbJIZEN_SINSA_HANTEI_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbJIZEN_SINSA_HANTEI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbJIZEN_SINSA_HANTEI_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbJIZEN_SINSA_HANTEI_KB.Location = New System.Drawing.Point(163, 3)
         Me.cmbJIZEN_SINSA_HANTEI_KB.Name = "cmbJIZEN_SINSA_HANTEI_KB"
         Me.cmbJIZEN_SINSA_HANTEI_KB.NullValue = " "
@@ -851,7 +851,7 @@ Partial Class FrmG0010
         Me.cmbSAISIN_IINKAI_HANTEI_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSAISIN_IINKAI_HANTEI_KB.FormattingEnabled = True
         Me.cmbSAISIN_IINKAI_HANTEI_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Location = New System.Drawing.Point(163, 33)
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Name = "cmbSAISIN_IINKAI_HANTEI_KB"
         Me.cmbSAISIN_IINKAI_HANTEI_KB.NullValue = " "
@@ -987,7 +987,7 @@ Partial Class FrmG0010
         Me.cmbZESEI_SYOCHI_YOHI_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbZESEI_SYOCHI_YOHI_KB.FormattingEnabled = True
         Me.cmbZESEI_SYOCHI_YOHI_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbZESEI_SYOCHI_YOHI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbZESEI_SYOCHI_YOHI_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbZESEI_SYOCHI_YOHI_KB.Location = New System.Drawing.Point(483, 3)
         Me.cmbZESEI_SYOCHI_YOHI_KB.Name = "cmbZESEI_SYOCHI_YOHI_KB"
         Me.cmbZESEI_SYOCHI_YOHI_KB.NullValue = " "
@@ -1031,7 +1031,7 @@ Partial Class FrmG0010
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.FormattingEnabled = True
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKOKYAKU_HANTEI_SIJI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKOKYAKU_HANTEI_SIJI_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Location = New System.Drawing.Point(483, 33)
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Name = "cmbKOKYAKU_HANTEI_SIJI_KB"
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.NullValue = " "
@@ -1064,7 +1064,7 @@ Partial Class FrmG0010
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.FormattingEnabled = True
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKOKYAKU_SAISYU_HANTEI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKOKYAKU_SAISYU_HANTEI_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Location = New System.Drawing.Point(163, 63)
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Name = "cmbKOKYAKU_SAISYU_HANTEI_KB"
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.NullValue = " "
@@ -1097,7 +1097,7 @@ Partial Class FrmG0010
         Me.cmbKENSA_KEKKA_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKENSA_KEKKA_KB.FormattingEnabled = True
         Me.cmbKENSA_KEKKA_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKENSA_KEKKA_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKENSA_KEKKA_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKENSA_KEKKA_KB.Location = New System.Drawing.Point(483, 63)
         Me.cmbKENSA_KEKKA_KB.Name = "cmbKENSA_KEKKA_KB"
         Me.cmbKENSA_KEKKA_KB.NullValue = " "
@@ -1316,7 +1316,7 @@ Partial Class FrmG0010
         Me.cmbYOIN1.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbYOIN1.FormattingEnabled = True
         Me.cmbYOIN1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbYOIN1.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbYOIN1.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbYOIN1.Location = New System.Drawing.Point(83, 3)
         Me.cmbYOIN1.Name = "cmbYOIN1"
         Me.cmbYOIN1.NullValue = " "
@@ -1339,7 +1339,7 @@ Partial Class FrmG0010
         Me.cmbYOIN2.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbYOIN2.FormattingEnabled = True
         Me.cmbYOIN2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbYOIN2.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbYOIN2.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbYOIN2.Location = New System.Drawing.Point(83, 33)
         Me.cmbYOIN2.Name = "cmbYOIN2"
         Me.cmbYOIN2.NullValue = " "
@@ -1362,7 +1362,7 @@ Partial Class FrmG0010
         Me.cmbKISEKI_KOTEI_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKISEKI_KOTEI_KB.FormattingEnabled = True
         Me.cmbKISEKI_KOTEI_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKISEKI_KOTEI_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKISEKI_KOTEI_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKISEKI_KOTEI_KB.Location = New System.Drawing.Point(83, 63)
         Me.cmbKISEKI_KOTEI_KB.Name = "cmbKISEKI_KOTEI_KB"
         Me.cmbKISEKI_KOTEI_KB.NullValue = " "
@@ -1554,7 +1554,7 @@ Partial Class FrmG0010
         Me.mpnlDataGrid.Controls.Add(Me.dgvDATA)
         Me.mpnlDataGrid.Location = New System.Drawing.Point(0, 0)
         Me.mpnlDataGrid.Name = "mpnlDataGrid"
-        Me.mpnlDataGrid.Size = New System.Drawing.Size(0, 0)
+        Me.mpnlDataGrid.Size = New System.Drawing.Size(1233, 502)
         '
         'dgvDATA
         '
@@ -1563,7 +1563,7 @@ Partial Class FrmG0010
         Me.dgvDATA.Location = New System.Drawing.Point(0, 0)
         Me.dgvDATA.Name = "dgvDATA"
         Me.dgvDATA.RowTemplate.Height = 21
-        Me.dgvDATA.Size = New System.Drawing.Size(0, 0)
+        Me.dgvDATA.Size = New System.Drawing.Size(1233, 502)
         Me.dgvDATA.TabIndex = 63
         '
         'FrmG0010
