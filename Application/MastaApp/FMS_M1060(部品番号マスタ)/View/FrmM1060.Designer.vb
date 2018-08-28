@@ -395,7 +395,6 @@ Partial Class FrmM1060
     Friend WithEvents mtxKISYU_NAME As MaskedTextBoxEx
     Friend WithEvents cmbBUMON_KB As ComboboxEx
     Friend WithEvents btnClearSrchFilter As Button
-    Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Label2 As Label
     Friend WithEvents ComboboxEx1 As ComboboxEx
     Friend WithEvents Label4 As Label
@@ -403,4 +402,5 @@ Partial Class FrmM1060
     Friend WithEvents Label5 As Label
     Friend WithEvents MaskedTextBoxEx2 As MaskedTextBoxEx
     Friend WithEvents VWM106BUHINBindingSource As BindingSource
+    Private WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
 End Class

@@ -114,47 +114,47 @@ Partial Class FrmG0010
         'lblRecordCount
         '
         Me.lblRecordCount.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblRecordCount.Location = New System.Drawing.Point(12, 565)
+        Me.lblRecordCount.Location = New System.Drawing.Point(12, 564)
         Me.lblRecordCount.Size = New System.Drawing.Size(407, 24)
         '
         'cmdFunc1
         '
         Me.cmdFunc1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgSearch32x32
-        Me.cmdFunc1.Location = New System.Drawing.Point(9, 595)
+        Me.cmdFunc1.Location = New System.Drawing.Point(9, 594)
         Me.cmdFunc1.Text = "検索(F1)"
         '
         'cmdFunc2
         '
         Me.cmdFunc2.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc2.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
-        Me.cmdFunc2.Location = New System.Drawing.Point(216, 595)
+        Me.cmdFunc2.Location = New System.Drawing.Point(216, 594)
         Me.cmdFunc2.Text = "新規作成(F2)"
         '
         'cmdFunc3
         '
         Me.cmdFunc3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmdFunc3.Location = New System.Drawing.Point(423, 595)
+        Me.cmdFunc3.Location = New System.Drawing.Point(423, 594)
         '
         'cmdFunc4
         '
         Me.cmdFunc4.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc4.Image = Global.FMS.My.Resources.Resources._imgApplication_form_edit32x32
-        Me.cmdFunc4.Location = New System.Drawing.Point(630, 595)
+        Me.cmdFunc4.Location = New System.Drawing.Point(630, 594)
         Me.cmdFunc4.Text = "変更・承認(F4)"
         '
         'cmdFunc5
         '
         Me.cmdFunc5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc5.Image = Global.FMS.My.Resources.Resources._imgStatusAnnotations_Blocked32x32_SM
-        Me.cmdFunc5.Location = New System.Drawing.Point(837, 595)
+        Me.cmdFunc5.Location = New System.Drawing.Point(837, 594)
         Me.cmdFunc5.Text = "削除(F5)"
         '
         'cmdFunc6
         '
         Me.cmdFunc6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc6.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
-        Me.cmdFunc6.Location = New System.Drawing.Point(1044, 595)
+        Me.cmdFunc6.Location = New System.Drawing.Point(1044, 594)
         Me.cmdFunc6.Text = "再不適合処置(F6)"
         Me.cmdFunc6.Visible = False
         '
@@ -162,21 +162,21 @@ Partial Class FrmG0010
         '
         Me.cmdFunc12.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc12.Image = Global.FMS.My.Resources.Resources._imgLog_Out32x32
-        Me.cmdFunc12.Location = New System.Drawing.Point(1044, 643)
+        Me.cmdFunc12.Location = New System.Drawing.Point(1044, 642)
         Me.cmdFunc12.Text = "閉じる(F12)"
         '
         'cmdFunc11
         '
         Me.cmdFunc11.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc11.Image = Global.FMS.My.Resources.Resources.履歴
-        Me.cmdFunc11.Location = New System.Drawing.Point(837, 643)
+        Me.cmdFunc11.Location = New System.Drawing.Point(837, 642)
         Me.cmdFunc11.Text = "履歴(F11)"
         '
         'cmdFunc10
         '
         Me.cmdFunc10.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc10.Image = Global.FMS.My.Resources.Resources._imgPrint32x32
-        Me.cmdFunc10.Location = New System.Drawing.Point(630, 643)
+        Me.cmdFunc10.Location = New System.Drawing.Point(630, 642)
         Me.cmdFunc10.Text = "印刷プレビュー(F10)"
         '
         'cmdFunc7
@@ -184,20 +184,20 @@ Partial Class FrmG0010
         Me.cmdFunc7.Enabled = False
         Me.cmdFunc7.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc7.Image = Global.FMS.My.Resources.Resources._imgFilter32x32
-        Me.cmdFunc7.Location = New System.Drawing.Point(9, 643)
+        Me.cmdFunc7.Location = New System.Drawing.Point(9, 642)
         Me.cmdFunc7.Text = "検索条件変更(F7)"
         '
         'cmdFunc9
         '
         Me.cmdFunc9.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc9.Image = Global.FMS.My.Resources.Resources._imgSendMail2
-        Me.cmdFunc9.Location = New System.Drawing.Point(423, 643)
+        Me.cmdFunc9.Location = New System.Drawing.Point(423, 642)
         Me.cmdFunc9.Text = "滞留通知メール送信(F9)"
         '
         'cmdFunc8
         '
         Me.cmdFunc8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmdFunc8.Location = New System.Drawing.Point(216, 643)
+        Me.cmdFunc8.Location = New System.Drawing.Point(216, 642)
         '
         'lblTytle
         '
@@ -205,10 +205,6 @@ Partial Class FrmG0010
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblTytle.Size = New System.Drawing.Size(1233, 45)
         Me.lblTytle.Text = "不適合検索画面"
-        '
-        'ToolTip
-        '
-        Me.ToolTip.InitialDelay = 700
         '
         'tlpFilter
         '
@@ -1472,7 +1468,7 @@ Partial Class FrmG0010
         Me.panelMan.Name = "panelMan"
         Me.panelMan.SelectedIndex = 0
         Me.panelMan.SelectedPanel = Me.mpnlCondition
-        Me.panelMan.Size = New System.Drawing.Size(1233, 502)
+        Me.panelMan.Size = New System.Drawing.Size(1233, 501)
         Me.panelMan.TabIndex = 64
         '
         'mpnlCondition
@@ -1481,7 +1477,7 @@ Partial Class FrmG0010
         Me.mpnlCondition.Controls.Add(Me.PanelEx1)
         Me.mpnlCondition.Location = New System.Drawing.Point(0, 0)
         Me.mpnlCondition.Name = "mpnlCondition"
-        Me.mpnlCondition.Size = New System.Drawing.Size(1233, 502)
+        Me.mpnlCondition.Size = New System.Drawing.Size(1233, 501)
         '
         'PanelEx1
         '
@@ -1493,7 +1489,7 @@ Partial Class FrmG0010
         Me.PanelEx1.HitEnabled = False
         Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
         Me.PanelEx1.Name = "PanelEx1"
-        Me.PanelEx1.Size = New System.Drawing.Size(1233, 502)
+        Me.PanelEx1.Size = New System.Drawing.Size(1233, 501)
         Me.PanelEx1.TabIndex = 66
         '
         'GroupBox2
@@ -1554,7 +1550,7 @@ Partial Class FrmG0010
         Me.mpnlDataGrid.Controls.Add(Me.dgvDATA)
         Me.mpnlDataGrid.Location = New System.Drawing.Point(0, 0)
         Me.mpnlDataGrid.Name = "mpnlDataGrid"
-        Me.mpnlDataGrid.Size = New System.Drawing.Size(1233, 502)
+        Me.mpnlDataGrid.Size = New System.Drawing.Size(0, 0)
         '
         'dgvDATA
         '
@@ -1563,13 +1559,13 @@ Partial Class FrmG0010
         Me.dgvDATA.Location = New System.Drawing.Point(0, 0)
         Me.dgvDATA.Name = "dgvDATA"
         Me.dgvDATA.RowTemplate.Height = 21
-        Me.dgvDATA.Size = New System.Drawing.Size(1233, 502)
+        Me.dgvDATA.Size = New System.Drawing.Size(0, 0)
         Me.dgvDATA.TabIndex = 63
         '
         'FrmG0010
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.ClientSize = New System.Drawing.Size(1264, 712)
+        Me.ClientSize = New System.Drawing.Size(1264, 711)
         Me.Controls.Add(Me.panelMan)
         Me.HelpButton = True
         Me.Name = "FrmG0010"

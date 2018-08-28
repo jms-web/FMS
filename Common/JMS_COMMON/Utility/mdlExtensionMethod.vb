@@ -303,7 +303,34 @@ Public Module mdlExtensionMethod
         Next
     End Sub
 
+    '<Extension>
+    'Public Function [Using](Of T, Tresult)(source As T, process As Func(Of T, Tresult)) As Tresult
+    '    If source Is Nothing Then
+    '        Throw New ArgumentNullException(NameOf(source))
+    '    End If
+    '    If process Is Nothing Then
+    '        Throw New ArgumentNullException(NameOf(process))
+    '    End If
 
+    '    Using source
+    '        Return process(source)
+    '    End Using
+
+    'End Function
+
+
+    <Extension>
+    Public Sub [Using](Of T As IDisposable)(source As T, process As Action(Of T))
+        If source Is Nothing Then
+            Throw New ArgumentNullException(NameOf(source))
+        End If
+        If process Is Nothing Then
+            Throw New ArgumentNullException(NameOf(process))
+        End If
+        Using source
+            process(source)
+        End Using
+    End Sub
 #End Region
 
 #Region "String"
@@ -349,6 +376,58 @@ Public Module mdlExtensionMethod
     Public Function GetByteLength(this As String, Optional encodeName As String = "Shift_JIS") As Integer
         Dim enc As System.Text.Encoding = System.Text.Encoding.GetEncoding(encodeName)
         Return enc.GetByteCount(this)
+    End Function
+
+    ''' <summary>
+    ''' 文字列を日付型に変換
+    ''' </summary>
+    ''' <param name="this"></param>
+    <Extension()>
+    Public Function ToDateTime(this As String, Optional format As String = "") As DateTime
+
+        If format.IsNullOrWhiteSpace Then
+            Return DateTime.Parse(this)
+        Else
+            Return DateTime.ParseExact(this, format, Nothing)
+        End If
+    End Function
+
+
+#End Region
+
+#Region "Generic"
+    ''' <summary>
+    ''' Icomparableなデータ型が指定の値範囲にあるか判定 SQL BETWEEN...AND...
+    ''' </summary>
+    ''' <typeparam name="T"></typeparam>
+    ''' <param name="value"></param>
+    ''' <param name="min"></param>
+    ''' <param name="max"></param>
+    ''' <returns></returns>
+    <Extension>
+    Public Function InBetween(Of T As IComparable(Of T))(value As T, min As T, max As T) As Boolean
+        Return value.CompareTo(min) >= 0 And value.CompareTo(max) <= 0
+    End Function
+
+#End Region
+
+#Region "Control"
+
+    ''' <summary>
+    ''' コントロールに含まれるすべての子孫コントロールを列挙します
+    ''' </summary>
+    ''' <param name="top"></param>
+    ''' <returns></returns>
+    <Extension>
+    Public Iterator Function EnumerateAllChildControls(top As Control) As Generic.IEnumerable(Of Control)
+        For Each c As Control In top.Controls
+            Yield c
+            If c.HasChildren Then
+                For Each cc As Control In EnumerateAllChildControls(c)
+                    Yield cc
+                Next cc
+            End If
+        Next c
     End Function
 
 #End Region
