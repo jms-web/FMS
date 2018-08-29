@@ -115,10 +115,6 @@ Partial Class FrmM1050
         Me.lblTytle.Size = New System.Drawing.Size(1238, 45)
         Me.lblTytle.Text = "機種マスタ"
         '
-        'ToolTip
-        '
-        Me.ToolTip.InitialDelay = 700
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
@@ -217,6 +213,7 @@ Partial Class FrmM1050
         Me.cmbBUMON_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUMON_KB.FormattingEnabled = True
         Me.cmbBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUMON_KB.Location = New System.Drawing.Point(79, 3)
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
