@@ -128,10 +128,6 @@ Partial Class FrmG0017
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblTytle.Text = "èàíuóöó"
         '
-        'ToolTip
-        '
-        Me.ToolTip.InitialDelay = 700
-        '
         'dgvDATA
         '
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft

@@ -733,6 +733,11 @@ Partial Public Class V005_CAR_J
     <ComponentModel.DisplayName("品証TL確認承認日（120）")>
     Public Property SYONIN_YMD120 As String
 
+
+    <ComponentModel.DisplayName("品証TL確認（130）")>
+    Public Property SYONIN_NAME130 As String
+    <ComponentModel.DisplayName("品証TL確認承認日（130）")>
+    Public Property SYONIN_YMD130 As String
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' 重複する呼び出しを検出するには
 

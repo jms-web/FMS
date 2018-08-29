@@ -73,6 +73,17 @@ Public Class FrmG0012
         cmbKAITO_10.NullValue = 0
         cmbKAITO_17.NullValue = 0
         cmbKONPON_YOIN_TANTO.NullValue = 0
+
+        cmbDestTANTO.ImeMode = ImeMode.On
+        cmbKAITO_5.ImeMode = ImeMode.On
+        cmbKAITO_10.ImeMode = ImeMode.On
+        cmbKAITO_17.ImeMode = ImeMode.On
+        cmbKONPON_YOIN_TANTO.ImeMode = ImeMode.On
+        cmbSYOCHI_A_TANTO.ImeMode = ImeMode.On
+        cmbSYOCHI_B_TANTO.ImeMode = ImeMode.On
+        cmbSYOCHI_C_TANTO.ImeMode = ImeMode.On
+        cmbKENSA_TANTO.ImeMode = ImeMode.On
+        cmbKENSA_GL_TANTO.ImeMode = ImeMode.On
         Me.Height = 750
 
         rsbtnST99.Enabled = False
@@ -185,7 +196,22 @@ Public Class FrmG0012
                     Call OpenFormNCR()
 
                 Case 4  '転送
-                    Call OpenFormTENSO()
+
+
+                    'If MessageBox.Show("入力内容を保存しますか？", "登録確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                    If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
+                        If FunSAVE(ENM_SAVE_MODE._1_保存) Then
+                            Me.DialogResult = DialogResult.OK
+
+                            Call OpenFormTENSO()
+                        Else
+                            MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        End If
+                    End If
+                    'Else
+                    '    Call OpenFormTENSO()
+                    'End If
+
                 Case 5  '差し戻し
                     Call OpenFormSASIMODOSI()
 
@@ -745,7 +771,7 @@ Public Class FrmG0012
         Dim sbSQL As New System.Text.StringBuilder
         Dim strRET As String
         Dim sqlEx As New Exception
-
+        Dim strSysDate As String = DB.GetSysDateString
         '-----データモデル更新
         _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
         _D004_SYONIN_J_KANRI.HOKOKU_NO = _V005_CAR_J.HOKOKU_NO
@@ -761,13 +787,13 @@ Public Class FrmG0012
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
                 'UNDONE: getsysdate server
-                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
             Case Else
                 'Err
                 Return False
         End Select
 
-        _D004_SYONIN_J_KANRI.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+        _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
@@ -976,7 +1002,7 @@ Public Class FrmG0012
         Dim sbSQL As New System.Text.StringBuilder
         Dim intRET As Integer
         Dim sqlEx As New Exception
-
+        Dim strSysDate As String = DB.GetSysDateString
         '-----DELETE
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("DELETE FROM " & NameOf(MODEL.D006_CAR_GENIN) & "")
@@ -1010,7 +1036,7 @@ Public Class FrmG0012
                 _D006_CAR_GENIN._DAIHYO_FG = 0
             End If
             _D006_CAR_GENIN.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-            _D006_CAR_GENIN.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+            _D006_CAR_GENIN.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
 
             '-----INSERT
             sbSQL.Remove(0, sbSQL.Length)
@@ -1062,7 +1088,7 @@ Public Class FrmG0012
                 _D006_CAR_GENIN._DAIHYO_FG = 0
             End If
             _D006_CAR_GENIN.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-            _D006_CAR_GENIN.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+            _D006_CAR_GENIN.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
 
             '-----INSERT
             sbSQL.Remove(0, sbSQL.Length)
@@ -1159,7 +1185,7 @@ Public Class FrmG0012
         Dim sbSQL As New System.Text.StringBuilder
         Dim intRET As Integer
         Dim sqlEx As New Exception
-
+        Dim strSysDate As String = DB.GetSysDateString
         '---存在確認
         Dim dsList As New DataSet
         Dim blnExist As Boolean
@@ -1176,7 +1202,7 @@ Public Class FrmG0012
         _R001_HOKOKU_SOUSA.SYONIN_JUN = PrCurrentStage
         _R001_HOKOKU_SOUSA.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
         'UNDONE: getsysdatetime
-        _R001_HOKOKU_SOUSA.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+        _R001_HOKOKU_SOUSA.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
 
         Select Case enmSAVE_MODE
             Case ENM_SAVE_MODE._1_保存

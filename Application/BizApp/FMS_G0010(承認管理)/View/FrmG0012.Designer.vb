@@ -344,10 +344,6 @@ Partial Class FrmG0012
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblTytle.Text = "CARèàíuâÊñ "
         '
-        'ToolTip
-        '
-        Me.ToolTip.InitialDelay = 700
-        '
         'gbxFilter
         '
         Me.gbxFilter.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -1228,7 +1224,7 @@ Partial Class FrmG0012
         Me.cmbKAITO_5.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKAITO_5.FormattingEnabled = True
         Me.cmbKAITO_5.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKAITO_5.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKAITO_5.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKAITO_5.Location = New System.Drawing.Point(285, 445)
         Me.cmbKAITO_5.Name = "cmbKAITO_5"
         Me.cmbKAITO_5.NullValue = " "
@@ -1278,7 +1274,7 @@ Partial Class FrmG0012
         Me.cmbKAITO_17.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKAITO_17.FormattingEnabled = True
         Me.cmbKAITO_17.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKAITO_17.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKAITO_17.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKAITO_17.Location = New System.Drawing.Point(285, 693)
         Me.cmbKAITO_17.Name = "cmbKAITO_17"
         Me.cmbKAITO_17.NullValue = " "
@@ -1536,7 +1532,7 @@ Partial Class FrmG0012
         Me.cmbKAITO_10.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKAITO_10.FormattingEnabled = True
         Me.cmbKAITO_10.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKAITO_10.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKAITO_10.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKAITO_10.Location = New System.Drawing.Point(285, 576)
         Me.cmbKAITO_10.Name = "cmbKAITO_10"
         Me.cmbKAITO_10.NullValue = " "
@@ -2047,14 +2043,14 @@ Partial Class FrmG0012
         Me.pnlZESEI_SYOCHI.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlZESEI_SYOCHI.Name = "pnlZESEI_SYOCHI"
         Me.pnlZESEI_SYOCHI.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlZESEI_SYOCHI.Size = New System.Drawing.Size(1174, 126)
+        Me.pnlZESEI_SYOCHI.Size = New System.Drawing.Size(1157, 126)
         Me.pnlZESEI_SYOCHI.TabIndex = 313
         '
         'lblZESEI_SYOCHIFlame
         '
         Me.lblZESEI_SYOCHIFlame.BackColor = System.Drawing.Color.Black
         Me.lblZESEI_SYOCHIFlame.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblZESEI_SYOCHIFlame.Location = New System.Drawing.Point(1159, 2)
+        Me.lblZESEI_SYOCHIFlame.Location = New System.Drawing.Point(1142, 2)
         Me.lblZESEI_SYOCHIFlame.Name = "lblZESEI_SYOCHIFlame"
         Me.lblZESEI_SYOCHIFlame.Size = New System.Drawing.Size(13, 122)
         Me.lblZESEI_SYOCHIFlame.TabIndex = 315
@@ -2523,14 +2519,14 @@ Partial Class FrmG0012
         Me.pnlSYOCHI_KIROKU.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlSYOCHI_KIROKU.Name = "pnlSYOCHI_KIROKU"
         Me.pnlSYOCHI_KIROKU.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlSYOCHI_KIROKU.Size = New System.Drawing.Size(1174, 167)
+        Me.pnlSYOCHI_KIROKU.Size = New System.Drawing.Size(1157, 167)
         Me.pnlSYOCHI_KIROKU.TabIndex = 312
         '
         'lblSYOCHI_KIROKUFlame
         '
         Me.lblSYOCHI_KIROKUFlame.BackColor = System.Drawing.Color.Black
         Me.lblSYOCHI_KIROKUFlame.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSYOCHI_KIROKUFlame.Location = New System.Drawing.Point(1159, 2)
+        Me.lblSYOCHI_KIROKUFlame.Location = New System.Drawing.Point(1142, 2)
         Me.lblSYOCHI_KIROKUFlame.Name = "lblSYOCHI_KIROKUFlame"
         Me.lblSYOCHI_KIROKUFlame.Size = New System.Drawing.Size(13, 163)
         Me.lblSYOCHI_KIROKUFlame.TabIndex = 314
@@ -2655,7 +2651,7 @@ Partial Class FrmG0012
         Me.cmbSYOCHI_C_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_C_TANTO.FormattingEnabled = True
         Me.cmbSYOCHI_C_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbSYOCHI_C_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbSYOCHI_C_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbSYOCHI_C_TANTO.Location = New System.Drawing.Point(812, 104)
         Me.cmbSYOCHI_C_TANTO.Name = "cmbSYOCHI_C_TANTO"
         Me.cmbSYOCHI_C_TANTO.NullValue = " "
@@ -2688,7 +2684,7 @@ Partial Class FrmG0012
         Me.cmbSYOCHI_A_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_A_TANTO.FormattingEnabled = True
         Me.cmbSYOCHI_A_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbSYOCHI_A_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbSYOCHI_A_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbSYOCHI_A_TANTO.Location = New System.Drawing.Point(96, 104)
         Me.cmbSYOCHI_A_TANTO.Name = "cmbSYOCHI_A_TANTO"
         Me.cmbSYOCHI_A_TANTO.NullValue = " "
@@ -2722,7 +2718,7 @@ Partial Class FrmG0012
         Me.cmbSYOCHI_B_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_B_TANTO.FormattingEnabled = True
         Me.cmbSYOCHI_B_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbSYOCHI_B_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbSYOCHI_B_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbSYOCHI_B_TANTO.Location = New System.Drawing.Point(488, 104)
         Me.cmbSYOCHI_B_TANTO.Name = "cmbSYOCHI_B_TANTO"
         Me.cmbSYOCHI_B_TANTO.NullValue = " "
@@ -2976,7 +2972,7 @@ Partial Class FrmG0012
         Me.cmbST01_DestTANTO.FormattingEnabled = True
         Me.cmbST01_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST01_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 20204)
+        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 20874)
         Me.cmbST01_DestTANTO.Name = "cmbST01_DestTANTO"
         Me.cmbST01_DestTANTO.NullValue = " "
         Me.cmbST01_DestTANTO.ReadOnly = False
@@ -2993,7 +2989,7 @@ Partial Class FrmG0012
         Me.mtxST01_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST01_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_NextStageName.InputRequired = False
-        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 20204)
+        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 20874)
         Me.mtxST01_NextStageName.MaxByteLength = 0
         Me.mtxST01_NextStageName.Name = "mtxST01_NextStageName"
         Me.mtxST01_NextStageName.Size = New System.Drawing.Size(296, 24)
@@ -3006,7 +3002,7 @@ Partial Class FrmG0012
         Me.Label123.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label123.AutoSize = True
         Me.Label123.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label123.Location = New System.Drawing.Point(255, 20209)
+        Me.Label123.Location = New System.Drawing.Point(255, 20879)
         Me.Label123.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label123.Name = "Label123"
         Me.Label123.Size = New System.Drawing.Size(98, 15)
@@ -3019,7 +3015,7 @@ Partial Class FrmG0012
         Me.Label124.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label124.AutoSize = True
         Me.Label124.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label124.Location = New System.Drawing.Point(661, 20209)
+        Me.Label124.Location = New System.Drawing.Point(661, 20879)
         Me.Label124.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label124.Name = "Label124"
         Me.Label124.Size = New System.Drawing.Size(72, 15)
@@ -3032,7 +3028,7 @@ Partial Class FrmG0012
         Me.Label139.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label139.AutoSize = True
         Me.Label139.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label139.Location = New System.Drawing.Point(10, 20209)
+        Me.Label139.Location = New System.Drawing.Point(10, 20879)
         Me.Label139.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(102, 15)
@@ -3047,7 +3043,7 @@ Partial Class FrmG0012
         Me.mtxST01_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST01_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_UPD_YMD.InputRequired = False
-        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 20204)
+        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 20874)
         Me.mtxST01_UPD_YMD.MaxByteLength = 0
         Me.mtxST01_UPD_YMD.Name = "mtxST01_UPD_YMD"
         Me.mtxST01_UPD_YMD.Size = New System.Drawing.Size(115, 24)

@@ -32,7 +32,7 @@ Public Class ComboboxEx
         'SetDatasourceから移行 SelectedValueChanged等を発火させないため
         DisplayMember = "DISP"
         ValueMember = "VALUE"
-        _imeMode = ImeMode
+        '_imeMode = ImeMode
         NullValue = " "
     End Sub
 #End Region
@@ -52,13 +52,13 @@ Public Class ComboboxEx
                 BackColor = System.Drawing.SystemColors.Control
                 ContextMenu = New ContextMenu
                 SetStyle(ControlStyles.UserMouse, True)
-                Me.ImeMode = _imeMode
+                'Me.ImeMode = _imeMode
             Else
                 Cursor = _CursorOrg
                 BackColor = _BackColorOrg
                 ContextMenu = Nothing
                 SetStyle(ControlStyles.UserMouse, False)
-                Me.ImeMode = ImeMode.Disable
+                'Me.ImeMode = ImeMode.Disable
             End If
         End Set
     End Property
@@ -504,9 +504,9 @@ Public Class ComboboxEx
             Return
         End If
 
-        If Me.ImeMode = ImeMode.Disable Then
-            Stop
-        End If
+        'If Me.ImeMode = ImeMode.Disable Then
+        '    Stop
+        'End If
 
         If e.KeyCode = Keys.Delete Then
             e.Handled = True

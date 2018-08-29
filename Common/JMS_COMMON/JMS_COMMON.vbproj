@@ -255,6 +255,12 @@
     <Compile Include="Control\TabControlEx.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Control\CheckBoxEx.Designer.vb">
+      <DependentUpon>CheckBoxEx.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Control\CheckBoxEx.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Control\TextBoxEx.Designer.vb">
       <DependentUpon>TextBoxEx.vb</DependentUpon>
     </Compile>
@@ -715,7 +721,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_ReplaceNonNumerics="False" BuildVersion_StartDate="2000/1/1" />
+      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_ReplaceNonNumerics="False" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

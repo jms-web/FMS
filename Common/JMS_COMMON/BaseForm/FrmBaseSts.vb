@@ -174,6 +174,7 @@ Public Class FrmBaseSts
 
             '-----ÉtÉHÅ[ÉÄã§í ê›íË
             Me.lblTytle.Text = objPG_INFO.strTitle
+            Me.DataBindings.Clear()
             Me.DataBindings.Add(New Binding(NameOf(Me.Text), lblTytle, NameOf(lblTytle.Text), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
             Me.BackColor = objPG_INFO.clrFORM_BACK

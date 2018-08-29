@@ -135,6 +135,7 @@ Public Class FrmG0016
                 Dim intRET As Integer
                 Dim sqlEx As New Exception
                 Dim blnErr As Boolean
+                Dim strSysDate As String = DB.GetSysDateString
 
                 Try
                     '-----トランザクション
@@ -187,7 +188,7 @@ Public Class FrmG0016
                     _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_SOUSA_KB._3_承認差戻
                     _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ""
                     _R001_HOKOKU_SOUSA.RIYU = mtxMODOSI_RIYU.Text
-                    _R001_HOKOKU_SOUSA.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+                    _R001_HOKOKU_SOUSA.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
                     '-----INSERT R001
                     sbSQL.Remove(0, sbSQL.Length)
                     sbSQL.Append("INSERT INTO " & NameOf(MODEL.R001_HOKOKU_SOUSA) & "(")
@@ -202,7 +203,7 @@ Public Class FrmG0016
                     sbSQL.Append(" ) VALUES(")
                     sbSQL.Append("  " & (_R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID))
                     sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.HOKOKU_NO) & "'")
-                    sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.ADD_YMDHNS) & "'")
+                    sbSQL.Append(" ,dbo.GetSysDateString()")
                     sbSQL.Append(" ," & (_R001_HOKOKU_SOUSA.SYONIN_JUN))
                     sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.SOUSA_KB) & "'")
                     sbSQL.Append(" ," & (_R001_HOKOKU_SOUSA.SYAIN_ID))
@@ -638,12 +639,12 @@ Public Class FrmG0016
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         'SPEC: 20-5.②
-        If cmb.SelectedValue = cmb.NullValue Then
-            mtxTANTO_ID.Text = ""
-            mtxTANTO_NAME.Text = ""
-        Else
+        If cmb.Selected Then
             mtxTANTO_NAME.Text = DirectCast(cmbMODOSI_SAKI.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = cmb.SelectedValue).First.Item("SYAIN_NAME")
             mtxTANTO_ID.Text = DirectCast(cmbMODOSI_SAKI.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = cmb.SelectedValue).First.Item("SYAIN_ID")
+        Else
+            mtxTANTO_ID.Text = ""
+            mtxTANTO_NAME.Text = ""
         End If
 
     End Sub

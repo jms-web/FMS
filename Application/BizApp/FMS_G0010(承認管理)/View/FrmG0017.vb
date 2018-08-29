@@ -451,7 +451,7 @@ Public Class FrmG0017
         mtxFUTEKIGO_KB.Text = _V002_NCR_J.FUTEKIGO_NAME
         mtxFUTEKIGO_S_KB.Text = _V002_NCR_J.FUTEKIGO_S_NAME
         mtxZUBAN_KIKAKU.Text = _V002_NCR_J.ZUMEN_KIKAKU
-
+        chkSAIHATU.Checked = _V002_NCR_J.SAIHATU
         Return True
     End Function
 
