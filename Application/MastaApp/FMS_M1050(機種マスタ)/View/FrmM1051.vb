@@ -139,7 +139,7 @@ Public Class FrmM1051
                 Try
                     DB.BeginTransaction()
 
-                    strSysDate = DB.GetSysDateString()
+                    strSysDate = DB.GetSysDateString
 
                     Dim ModelInfo As New MODEL.ModelInfo(Of MODEL.M105_KISYU)(_OnlyAutoGenerateField:=True)
 
@@ -147,7 +147,8 @@ Public Class FrmM1051
                     If PrDATA_OP_MODE <> ENM_DATA_OPERATION_MODE._3_UPDATE Then _M105.KISYU_ID = FunGetNextIdentity()
                     _M105.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
                     _M105.ADD_YMDHNS = strSysDate
-
+                    _M105.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                    '_M105.UPD_YMDHNS = strSysDate
 
                     '-----MERGE
                     sbSQL.Remove(0, sbSQL.Length)
@@ -160,7 +161,7 @@ Public Class FrmM1051
                     sbSQL.Append($",'{_M105.ADD_YMDHNS}' AS {NameOf(_M105.ADD_YMDHNS)}")
                     sbSQL.Append($",{_M105.ADD_SYAIN_ID} AS {NameOf(_M105.ADD_SYAIN_ID)}")
                     sbSQL.Append($",'{_M105.UPD_YMDHNS}' AS {NameOf(_M105.UPD_YMDHNS)}")
-                    sbSQL.Append($",{pub_SYAIN_INFO.SYAIN_ID} AS {NameOf(_M105.UPD_SYAIN_ID)}")
+                    sbSQL.Append($",{_M105.UPD_SYAIN_ID} AS {NameOf(_M105.UPD_SYAIN_ID)}")
                     sbSQL.Append($",'{_M105.DEL_YMDHNS}' AS {NameOf(_M105.DEL_YMDHNS)}")
                     sbSQL.Append($",{_M105.DEL_SYAIN_ID} AS {NameOf(_M105.DEL_SYAIN_ID)}")
 
@@ -326,7 +327,8 @@ Public Class FrmM1051
                     lblEDIT_SYAIN_ID.Visible = True
 
                     '更新日時
-                    lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrDataRow.Item(NameOf(_M105.UPD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
+                    'lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrDataRow.Item(NameOf(_M105.UPD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
+                    lblEDIT_YMDHNS.Text = PrDataRow.Item(NameOf(_M105.UPD_YMDHNS)).ToString
                     '更新担当者CD
                     lblEDIT_SYAIN_ID.Text = PrDataRow.Item(NameOf(_M105.UPD_SYAIN_ID)) & " " & Fun_GetUSER_NAME(PrDataRow.Item(NameOf(_M105.UPD_SYAIN_ID)))
 

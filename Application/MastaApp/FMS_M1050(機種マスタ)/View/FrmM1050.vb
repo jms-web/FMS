@@ -215,9 +215,59 @@ Public Class FrmM1050
                     Return Nothing
                 End If
             End If
+            '------DataTableに変換
+            Dim dt As New DataTable
 
-            Dim _Model As New MODEL.ModelInfo(Of MODEL.VWM105_KISYU)(srcDATA:=dsList.Tables(0))
-            Return _Model.Data
+            Dim t As Type = GetType(MODEL.VWM105_KISYU)
+            Dim properties As Reflection.PropertyInfo() = t.GetProperties(
+                 Reflection.BindingFlags.Public Or
+                 Reflection.BindingFlags.NonPublic Or
+                 Reflection.BindingFlags.Instance Or
+                 Reflection.BindingFlags.Static)
+
+            For Each p As Reflection.PropertyInfo In properties
+                'If IsAutoGenerateField(t, p.Name) = True Then
+                dt.Columns.Add(p.Name, p.PropertyType)
+                'End If
+            Next p
+
+            With dsList.Tables(0)
+                For Each row As DataRow In .Rows
+                    Dim Trow As DataRow = dt.NewRow()
+                    For Each p As Reflection.PropertyInfo In properties
+
+                        'If IsAutoGenerateField(t, p.Name) = True Then
+                        Select Case p.PropertyType
+                            Case GetType(Integer)
+                                Trow(p.Name) = Val(row.Item(p.Name))
+                            Case GetType(Decimal)
+                                Trow(p.Name) = CDec(row.Item(p.Name))
+                            Case GetType(Boolean)
+                                Trow(p.Name) = CBool(row.Item(p.Name))
+                            Case Else
+                                Select Case p.Name
+                                    Case "YUKO_YMD", "BIRTH_YMD", "NYUSYA_YMD", "TAISYA_YMD"
+                                        Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2)
+                                    Case "ADD_YMDHNS"
+                                        Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2) & " " & Mid(row.Item(p.Name), 9, 2) & ":" & Mid(row.Item(p.Name), 11, 2) & ":" & Mid(row.Item(p.Name), 13, 2)
+                                    Case "DEL_FLG"
+                                        Trow(p.Name) = CBool(row.Item(p.Name))
+                                    Case "Item"
+
+                                    Case Else
+                                        Trow(p.Name) = row.Item(p.Name)
+                                End Select
+                        End Select
+                        'End If
+                    Next p
+                    dt.Rows.Add(Trow)
+                Next row
+                dt.AcceptChanges()
+            End With
+
+            Return dt
+            'Dim _Model As New MODEL.ModelInfo(Of MODEL.VWM105_KISYU)(srcDATA:=dsList.Tables(0))
+            'Return _Model.Data
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -269,6 +319,13 @@ Public Class FrmM1050
                     flxDATA.Rows(i).Style = flx.Styles("DeletedRow")
                 End If
             Next i
+
+            'For Each r As C1.Win.C1FlexGrid.Row In flx.Rows
+            '    If r.Index > 0 AndAlso CBool(r.Item("DEL_FLG")) = True Then
+            '        r.Style = flx.Styles("DeletedRow")
+            '    End If
+            'Next
+
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -368,28 +425,50 @@ Public Class FrmM1050
             End If
 
             Using DB As ClsDbUtility = DBOpen()
+                Dim intRET As Integer
                 Dim blnErr As Boolean
-                Dim sqlEx As New Exception
-
+                Dim sqlEx As Exception = Nothing
                 Try
+                    'トランザクション
                     DB.BeginTransaction()
-
                     '-----SQL実行
-                    DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    If sqlEx.Source IsNot Nothing Then
-                        '-----エラーログ出力
+                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+                    If intRET <> 1 Then
+                        'エラーログ
                         Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
                         WL.WriteLogDat(strErrMsg)
-                    Else
-                        '---排他制御
-                        strMsg = "既に他の担当者によって変更されているため保存出来ません。" & vbCrLf & "再度登録し直して下さい。"
-                        MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        blnErr = True
+                        Return False
                     End If
-                    Return False
                 Finally
+                    '-----トランザクション
                     DB.Commit(Not blnErr)
                 End Try
             End Using
+
+            'Using DB As ClsDbUtility = DBOpen()
+            '    Dim blnErr As Boolean
+            '    Dim sqlEx As New Exception
+
+            '    Try
+            '        DB.BeginTransaction()
+
+            '        '-----SQL実行
+            '        DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+            '        If sqlEx.Source IsNot Nothing Then
+            '            '-----エラーログ出力
+            '            Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+            '            WL.WriteLogDat(strErrMsg)
+            '        Else
+            '            '---排他制御
+            '            strMsg = "既に他の担当者によって変更されているため保存出来ません。" & vbCrLf & "再度登録し直して下さい。"
+            '            MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            '        End If
+            '        Return False
+            '    Finally
+            '        DB.Commit(Not blnErr)
+            '    End Try
+            'End Using
 
             Return True
         Catch ex As Exception
@@ -476,6 +555,7 @@ Public Class FrmM1050
         cmdFunc1.Enabled = True
         cmdFunc1.PerformClick()
     End Sub
+
 #End Region
 
 End Class
