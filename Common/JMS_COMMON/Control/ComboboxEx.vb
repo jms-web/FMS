@@ -32,7 +32,7 @@ Public Class ComboboxEx
         'SetDatasourceから移行 SelectedValueChanged等を発火させないため
         DisplayMember = "DISP"
         ValueMember = "VALUE"
-        _imeMode = Me.ImeMode
+        _imeMode = ImeMode
         NullValue = " "
     End Sub
 #End Region

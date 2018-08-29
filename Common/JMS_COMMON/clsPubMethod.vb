@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.ComponentModel
 Imports System.ComponentModel.DataAnnotations
-
+Imports MODEL
 
 Public NotInheritable Class ClsPubMethod
 
@@ -1324,6 +1324,7 @@ Public NotInheritable Class ClsPubMethod
             Return False
         End Try
     End Function
+
 
     ''' <summary>
     ''' 必要ならば、文字列をダブルクォートで囲む

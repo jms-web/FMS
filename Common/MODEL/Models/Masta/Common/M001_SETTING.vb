@@ -39,23 +39,25 @@ Partial Public Class M001_SETTING
     <ComponentModel.DisplayName("•\Ž¦‡")>
     Public Property DISP_ORDER As Integer
 
-    <DoNotNotify>
-    <Required>
-    <StringLength(1)>
-    <Column(NameOf(DEF_FLG), TypeName:="char")>
-    <Display(AutoGenerateField:=False)>
-    Public Property _DEF_FLG As String
+    '<DoNotNotify>
+    '<Required>
+    '<StringLength(1)>
+    '<Column(NameOf(DEF_FLG), TypeName:="char")>
+    '<Display(AutoGenerateField:=False)>
+    'Public Property _DEF_FLG As String
 
     <NotMapped>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("Šù’è’l")>
-    Public Property DEF_FLG As Boolean
+    Public Property DEF_FLG_ As Boolean
         Get
-            Return _DEF_FLG <> "0"
+            Return DEF_FLG <> "0"
         End Get
         Set(value As Boolean)
-            _DEF_FLG = IIf(value, "1", "0")
+            DEF_FLG = IIf(value, "1", "0")
         End Set
     End Property
+    Public Property DEF_FLG As String
 
     <Required>
     <StringLength(200)>

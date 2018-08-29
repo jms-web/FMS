@@ -8,17 +8,7 @@ Imports System.Data.Entity.Spatial
 ''' ST02 不適合報告書一覧 テーブル値関数
 ''' </summary>
 Partial Public Class ST02_FUTEKIGO_ICHIRAN
-
-    'インデクサプロパティ
-    <Display(AutoGenerateField:=False)>
-    Default Public Property Item(ByVal propertyName As String) As Object
-        Get
-            Return GetType(ST02_FUTEKIGO_ICHIRAN).GetProperty(propertyName).GetValue(Me)
-        End Get
-        Set(value As Object)
-            GetType(ST02_FUTEKIGO_ICHIRAN).GetProperty(propertyName).SetValue(Me, value)
-        End Set
-    End Property
+    Inherits MODEL.ModelBase
 
     <NotMapped>
     <ComponentModel.DisplayName("選択")>
@@ -82,9 +72,9 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     <Display(AutoGenerateField:=False)>
     Public Property KISYU_ID As Integer
 
-    <StringLength(100)>
-    <ComponentModel.DisplayName("機種")>
-    Public Property KISYU As String
+    '<StringLength(100)>
+    '<ComponentModel.DisplayName("機種")>
+    'Public Property KISYU As String
 
     <StringLength(100)>
     <ComponentModel.DisplayName("機種")>

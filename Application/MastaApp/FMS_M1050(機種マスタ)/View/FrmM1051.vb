@@ -7,7 +7,7 @@ Public Class FrmM1051
 
 #Region "変数・定数"
     Private IsValidated As Boolean
-    Private _M105 As MODEL.M105_KISYU
+    Private _M105 As New MODEL.M105_KISYU
 #End Region
 
 #Region "プロパティ"
@@ -19,7 +19,7 @@ Public Class FrmM1051
     ''' <summary>
     ''' 新規追加レコードのキー
     ''' </summary>
-    Public Property PrPKeys As String
+    Public Property PrPKeys As Integer
 
     ''' <summary>
     ''' 一覧の選択行データ
@@ -143,34 +143,27 @@ Public Class FrmM1051
 
                     Dim ModelInfo As New MODEL.ModelInfo(Of MODEL.M105_KISYU)(_OnlyAutoGenerateField:=True)
 
+                    'モデル更新
+                    If PrDATA_OP_MODE <> ENM_DATA_OPERATION_MODE._3_UPDATE Then _M105.KISYU_ID = FunGetNextIdentity()
+                    _M105.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                    _M105.ADD_YMDHNS = strSysDate
+
+
                     '-----MERGE
                     sbSQL.Remove(0, sbSQL.Length)
                     sbSQL.Append($"MERGE INTO {ModelInfo.Name} AS TARGET")
                     sbSQL.Append($" USING (SELECT")
 
-                    'Merge Source側のSelect文生成 先頭項目と以降で分けている(違いはカンマのみ)
-                    ModelInfo.Properties.Take(1).ForEach(Sub(p)
-                                                             Select Case p.PropertyType
-                                                                 Case GetType(Boolean)
-                                                                     sbSQL.Append($" '{_M105("_" & p.Name)}' AS {p.Name}")
-                                                                 Case GetType(Integer), GetType(Decimal)
-                                                                     sbSQL.Append($" {_M105(p.Name)} AS {p.Name}")
-                                                                 Case Else
-                                                                     '実質Stringのみ
-                                                                     sbSQL.Append($" '{_M105(p.Name).ToString.ConvertSqlEscape}' AS {p.Name}")
-                                                             End Select
-                                                         End Sub)
-                    ModelInfo.Properties.Skip(1).ForEach(Sub(p)
-                                                             Select Case p.PropertyType
-                                                                 Case GetType(Boolean)
-                                                                     sbSQL.Append($" ,'{_M105("_" & p.Name)}' AS {p.Name}")
-                                                                 Case GetType(Integer), GetType(Decimal)
-                                                                     sbSQL.Append($",{_M105(p.Name)} AS {p.Name}")
-                                                                 Case Else
-                                                                     '実質Stringのみ
-                                                                     sbSQL.Append($",'{_M105(p.Name).ToString.ConvertSqlEscape}' AS {p.Name}")
-                                                             End Select
-                                                         End Sub)
+                    sbSQL.Append($" {_M105.KISYU_ID} AS {NameOf(_M105.KISYU_ID)}")
+                    sbSQL.Append($",'{_M105.BUMON_KB}' AS {NameOf(_M105.BUMON_KB)}")
+                    sbSQL.Append($",'{_M105.KISYU_NAME}' AS {NameOf(_M105.KISYU_NAME)}")
+                    sbSQL.Append($",'{_M105.ADD_YMDHNS}' AS {NameOf(_M105.ADD_YMDHNS)}")
+                    sbSQL.Append($",{_M105.ADD_SYAIN_ID} AS {NameOf(_M105.ADD_SYAIN_ID)}")
+                    sbSQL.Append($",'{_M105.UPD_YMDHNS}' AS {NameOf(_M105.UPD_YMDHNS)}")
+                    sbSQL.Append($",{pub_SYAIN_INFO.SYAIN_ID} AS {NameOf(_M105.UPD_SYAIN_ID)}")
+                    sbSQL.Append($",'{_M105.DEL_YMDHNS}' AS {NameOf(_M105.DEL_YMDHNS)}")
+                    sbSQL.Append($",{_M105.DEL_SYAIN_ID} AS {NameOf(_M105.DEL_SYAIN_ID)}")
+
                     sbSQL.Append($" ) AS WK ON (")
                     sbSQL.Append($" TARGET.{NameOf(_M105.KISYU_ID)} = WK.{NameOf(_M105.KISYU_ID)}")
                     sbSQL.Append($" )")
@@ -265,7 +258,6 @@ Public Class FrmM1051
 
 #Region "バインディング"
     Private Function FunSetBinding() As Boolean
-        mtxKISYU_ID.DataBindings.Add(New Binding(NameOf(mtxKISYU_ID.Text), _M105, NameOf(_M105.KISYU_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
         CmbBUMON_KB.DataBindings.Add(New Binding(NameOf(CmbBUMON_KB.SelectedValue), _M105, NameOf(_M105.BUMON_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         mtxKISYU_NAME.DataBindings.Add(New Binding(NameOf(mtxKISYU_NAME.Text), _M105, NameOf(_M105.KISYU_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
@@ -275,7 +267,7 @@ Public Class FrmM1051
 
 #Region "処理モード別画面初期化"
     Private Function FunInitializeControls() As Boolean
-        Dim _Model = New MODEL.ModelInfo(Of MODEL.M001_SETTING)(_OnlyAutoGenerateField:=True)
+        Dim _Model = New MODEL.ModelInfo(Of MODEL.M105_KISYU)(_OnlyAutoGenerateField:=True)
 
         Try
             Select Case PrDATA_OP_MODE
@@ -292,7 +284,14 @@ Public Class FrmM1051
                     lblEDIT_SYAIN_ID.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._2_ADDREF
-                    'Call FunSetEntityValues(PrDataRow)
+                    _Model.Properties.ForEach(Sub(p)
+                                                  Select Case p.PropertyType
+                                                      Case GetType(Boolean)
+                                                          _M105(p.Name) = CBool(PrDataRow.Item(p.Name))
+                                                      Case Else
+                                                          _M105(p.Name) = PrDataRow.Item(p.Name)
+                                                  End Select
+                                              End Sub)
 
                     lblTytle.Text &= "（類似追加）"
                     cmdFunc1.Text = "追加(F1)"
@@ -300,21 +299,36 @@ Public Class FrmM1051
                     mtxKISYU_ID.Text = "<新規>"
                     mtxKISYU_ID.ReadOnly = True
 
-                    Me.lbllblEDIT_YMDHNS.Visible = False
-                    Me.lblEDIT_YMDHNS.Visible = False
+                    lbllblEDIT_YMDHNS.Visible = False
+                    lblEDIT_YMDHNS.Visible = False
+                    lbllblEDIT_SYAIN_ID.Visible = False
+                    lblEDIT_SYAIN_ID.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
-                    'Call FunSetEntityValues(PrDataRow)
+                    mtxKISYU_ID.DataBindings.Add(New Binding(NameOf(mtxKISYU_ID.Text), _M105, NameOf(_M105.KISYU_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+                    _Model.Properties.ForEach(Sub(p)
+                                                  Select Case p.PropertyType
+                                                      Case GetType(Boolean)
+                                                          _M105(p.Name) = CBool(PrDataRow.Item(p.Name))
+                                                      Case Else
+                                                          _M105(p.Name) = PrDataRow.Item(p.Name)
+                                                  End Select
+                                              End Sub)
 
                     lblTytle.Text &= "（変更）"
                     Me.cmdFunc1.Text = "変更(F1)"
 
-                    'Me.mtxTANTO_CD.Enabled = False
-                    'Me.mtxTANTO_NAME.Enabled = True
-                    'Me.mtxSYOKUBAN.Enabled = True
+                    mtxKISYU_ID.ReadOnly = True
 
-                    Me.lbllblEDIT_YMDHNS.Visible = True
-                    Me.lblEDIT_YMDHNS.Visible = True
+                    lbllblEDIT_YMDHNS.Visible = True
+                    lblEDIT_YMDHNS.Visible = True
+                    lbllblEDIT_SYAIN_ID.Visible = True
+                    lblEDIT_SYAIN_ID.Visible = True
+
+                    '更新日時
+                    lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrDataRow.Item(NameOf(_M105.UPD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
+                    '更新担当者CD
+                    lblEDIT_SYAIN_ID.Text = PrDataRow.Item(NameOf(_M105.UPD_SYAIN_ID)) & " " & Fun_GetUSER_NAME(PrDataRow.Item(NameOf(_M105.UPD_SYAIN_ID)))
 
                 Case Else
                     Throw New ArgumentException(My.Resources.ErrMsgException, PrDATA_OP_MODE.ToString)
@@ -334,9 +348,12 @@ Public Class FrmM1051
     Public Function FunCheckInput() As Boolean
 
         Try
+            IsValidated = True
 
+            Call CmbBUMON_KB_Validating(CmbBUMON_KB, Nothing)
+            Call mtxKISYU_NAME_Validating(mtxKISYU_NAME, Nothing)
 
-            Return True
+            Return IsValidated
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -344,17 +361,33 @@ Public Class FrmM1051
     End Function
 
     Private Sub CmbBUMON_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles CmbBUMON_KB.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
+        If cmb.Selected Then
+            ErrorProvider.ClearError(cmb)
+            IsValidated = (IsValidated AndAlso True)
+        Else
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"), ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        End If
     End Sub
 
-    Private Sub mtxKISYU_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxKISYU_NAME.Validating
+    Private Sub MtxKISYU_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxKISYU_NAME.Validating
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
+        If mtx.Text.IsNullOrWhiteSpace = False Then
+            ErrorProvider.ClearError(mtx)
+            IsValidated = (IsValidated AndAlso True)
+        Else
+            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "機種名"), ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        End If
     End Sub
 
 
 #End Region
 
-    Private Function FunGetNextTANTO_CD() As Integer
+    Private Function FunGetNextIdentity() As Integer
 
         Dim dsList As New System.Data.DataSet
         Try
@@ -362,7 +395,7 @@ Public Class FrmM1051
             Dim sbSQL As New System.Text.StringBuilder
 
             sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append("SELECT MAX(TANTO_CD) FROM M03_TANTO ")
+            sbSQL.Append($"SELECT MAX(KISYU_ID) FROM {NameOf(MODEL.M105_KISYU)}")
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
@@ -377,6 +410,7 @@ Public Class FrmM1051
             dsList.Dispose()
         End Try
     End Function
+
 #End Region
 
 

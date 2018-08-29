@@ -113,10 +113,6 @@ Partial Class FrmM0010
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblTytle.Text = "コードマスタ"
         '
-        'ToolTip
-        '
-        Me.ToolTip.InitialDelay = 700
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
@@ -141,7 +137,7 @@ Partial Class FrmM0010
         Me.cmbKOMO_NM.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKOMO_NM.FormattingEnabled = True
         Me.cmbKOMO_NM.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmbKOMO_NM.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbKOMO_NM.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKOMO_NM.Location = New System.Drawing.Point(83, 3)
         Me.cmbKOMO_NM.Name = "cmbKOMO_NM"
         Me.cmbKOMO_NM.NullValue = " "

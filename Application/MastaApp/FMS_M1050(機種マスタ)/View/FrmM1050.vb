@@ -42,7 +42,7 @@ Public Class FrmM1050
 
             '-----イベントハンドラ設定
             AddHandler cmbBUMON_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            AddHandler mtxKISYU_NAME.Validated, AddressOf SearchFilterValueChanged
+            AddHandler mtxKISYU_NAME.Leave, AddressOf SearchFilterValueChanged
             AddHandler chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
         Finally
@@ -68,7 +68,7 @@ Public Class FrmM1050
             .AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
             .AllowDelete = False
             .AllowResizing = C1.Win.C1FlexGrid.AllowResizingEnum.Columns
-            .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.MultiColumn
+            .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.SingleColumn
             '.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
             .AllowFiltering = True
 
@@ -146,13 +146,13 @@ Public Class FrmM1050
                     Call FunSRCH(flxDATA, FunGetListData())
 
                 Case 2  '追加
-                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) Then Call FunSRCH(flxDATA, FunGetListData())
+                    FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD)
 
                 Case 3  '参照追加
-                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._2_ADDREF) Then Call FunSRCH(flxDATA, FunGetListData())
+                    FunUpdateEntity(ENM_DATA_OPERATION_MODE._2_ADDREF)
 
                 Case 4  '変更
-                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) Then Call FunSRCH(flxDATA, FunGetListData())
+                    FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE)
 
                 Case 5, 6  '削除/復元/完全削除
                     Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(sender, Button).Tag
@@ -264,11 +264,11 @@ Public Class FrmM1050
 
         Try
 
-            For Each r As C1.Win.C1FlexGrid.Row In flx.Rows
-                If r.Index > 0 AndAlso CBool(r.Item("DEL_FLG")) = True Then
-                    r.Style = flx.Styles("DeletedRow")
+            For i As Integer = 1 To flx.Rows.Count - 1
+                If CBool(flxDATA.Rows(i).Item("DEL_FLG")) = True Then
+                    flxDATA.Rows(i).Style = flx.Styles("DeletedRow")
                 End If
-            Next
+            Next i
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -302,15 +302,15 @@ Public Class FrmM1050
                 Return False
             Else
 
-                '追加したコードの行を選択する
-                For i As Integer = 0 To flxDATA.Rows.Count
-                    With flxDATA.Rows(i)
-                        If .Item(0).Value = PKeys Then
-                            flxDATA.RowSel = i
-                            Exit For
-                        End If
-                    End With
-                Next i
+                Call FunSRCH(flxDATA, FunGetListData())
+
+                ''追加したコードの行を選択する
+                'For i As Integer = 1 To flxDATA.Rows.Count - 1
+                '    If flxDATA.Rows(i).Item("KISYU_ID") = PKeys Then
+                '        flxDATA.RowSel = i
+                '        Exit For
+                '    End If
+                'Next i
             End If
 
             Return True
@@ -466,6 +466,14 @@ Public Class FrmM1050
     '検索フィルタ変更
     Private Sub SearchFilterValueChanged(sender As System.Object, e As System.EventArgs)
         '検索
+        cmdFunc1.PerformClick()
+    End Sub
+
+    Private Sub BtnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click
+        cmdFunc1.Enabled = False
+        cmbBUMON_KB.SelectedIndex = 0
+        mtxKISYU_NAME.Text = ""
+        cmdFunc1.Enabled = True
         cmdFunc1.PerformClick()
     End Sub
 #End Region

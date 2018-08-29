@@ -21,7 +21,9 @@ Public Class FrmM0011
     ''' </summary>
     Public Property PrPKeys As (ITEM_NAME As String, ITEM_VALUE As String)
 
-    Public Property PrDataRow As DataRow
+    'Public Property PrDataRow As DataRow
+
+    Public Property PrViewModel As MODEL.VWM001_SETTING
 
 #End Region
 
@@ -161,8 +163,8 @@ Public Class FrmM0011
                     End If
 
                     '-----UPDATE(表示順)
-                    If PrDataRow.Item("DISP_ORDER") <> _M001.DISP_ORDER Then
-                        If FunUpdateDispOrder(DB, PrDataRow.Item("DISP_ORDER"), _M001.DISP_ORDER) = False Then
+                    If PrViewModel.DISP_ORDER <> _M001.DISP_ORDER Then
+                        If FunUpdateDispOrder(DB, PrViewModel.DISP_ORDER, _M001.DISP_ORDER) = False Then
                             blnErr = True
                             Return False
                         End If
@@ -173,29 +175,20 @@ Public Class FrmM0011
                     sbSQL.Append($"MERGE INTO {ModelInfo.Name} AS TARGET")
                     sbSQL.Append($" USING (SELECT")
 
-                    'Merge Source側のSelect文生成 先頭項目と以降で分けている(違いはカンマのみ)
-                    ModelInfo.Properties.Take(1).ForEach(Sub(p)
-                                                             Select Case p.PropertyType
-                                                                 Case GetType(Boolean)
-                                                                     sbSQL.Append($" '{_M001("_" & p.Name)}' AS {p.Name}")
-                                                                 Case GetType(Integer), GetType(Decimal)
-                                                                     sbSQL.Append($" {_M001(p.Name)} AS {p.Name}")
-                                                                 Case Else
-                                                                     '実質Stringのみ
-                                                                     sbSQL.Append($" '{_M001(p.Name).ToString.ConvertSqlEscape}' AS {p.Name}")
-                                                             End Select
-                                                         End Sub)
-                    ModelInfo.Properties.Skip(1).ForEach(Sub(p)
-                                                             Select Case p.PropertyType
-                                                                 Case GetType(Boolean)
-                                                                     sbSQL.Append($" ,'{_M001("_" & p.Name)}' AS {p.Name}")
-                                                                 Case GetType(Integer), GetType(Decimal)
-                                                                     sbSQL.Append($",{_M001(p.Name)} AS {p.Name}")
-                                                                 Case Else
-                                                                     '実質Stringのみ
-                                                                     sbSQL.Append($",'{_M001(p.Name).ToString.ConvertSqlEscape}' AS {p.Name}")
-                                                             End Select
-                                                         End Sub)
+                    sbSQL.Append($" '{_M001.ITEM_NAME}' AS {NameOf(_M001.ITEM_NAME)}")
+                    sbSQL.Append($",'{_M001.ITEM_VALUE}' AS {NameOf(_M001.ITEM_VALUE)}")
+                    sbSQL.Append($",'{_M001.ITEM_GROUP}' AS {NameOf(_M001.ITEM_GROUP)}")
+                    sbSQL.Append($",'{_M001.ITEM_DISP}' AS {NameOf(_M001.ITEM_DISP)}")
+                    sbSQL.Append($",'{_M001.DEF_FLG}' AS {NameOf(_M001.DEF_FLG)}")
+                    sbSQL.Append($",{_M001.DISP_ORDER} AS {NameOf(_M001.DISP_ORDER)}")
+                    sbSQL.Append($",'{_M001.BIKOU}' AS {NameOf(_M001.BIKOU)}")
+                    sbSQL.Append($",'{_M001.ADD_YMDHNS}' AS {NameOf(_M001.ADD_YMDHNS)}")
+                    sbSQL.Append($",{_M001.ADD_SYAIN_ID} AS {NameOf(_M001.ADD_SYAIN_ID)}")
+                    sbSQL.Append($",'{_M001.UPD_YMDHNS}' AS {NameOf(_M001.UPD_YMDHNS)}")
+                    sbSQL.Append($",{_M001.UPD_SYAIN_ID} AS {NameOf(_M001.UPD_SYAIN_ID)}")
+                    sbSQL.Append($",'{_M001.DEL_YMDHNS}' AS {NameOf(_M001.DEL_YMDHNS)}")
+                    sbSQL.Append($",{_M001.DEL_SYAIN_ID} AS {NameOf(_M001.DEL_SYAIN_ID)}")
+
                     sbSQL.Append($" ) AS WK ON (")
                     sbSQL.Append($" TARGET.{NameOf(_M001.ITEM_NAME)} = WK.{NameOf(_M001.ITEM_NAME)}")
                     sbSQL.Append($" AND TARGET.{NameOf(_M001.ITEM_VALUE)} = WK.{NameOf(_M001.ITEM_VALUE)}")
@@ -331,7 +324,7 @@ Public Class FrmM0011
                     Case ENM_DATA_OPERATION_MODE._1_ADD, ENM_DATA_OPERATION_MODE._2_ADDREF
                         cmbJYUN.SelectedValue = intMaxOrder + intModeDiff
                     Case ENM_DATA_OPERATION_MODE._3_UPDATE
-                        cmbJYUN.SelectedValue = PrDataRow.Item("DISP_ORDER")
+                        cmbJYUN.SelectedValue = PrViewModel.DISP_ORDER
                     Case Else
                         Throw New ArgumentException(My.Resources.ErrMsgException, PrDATA_OP_MODE.ToString)
                 End Select
@@ -357,7 +350,7 @@ Public Class FrmM0011
         mtxDISP.DataBindings.Add(New Binding(NameOf(mtxDISP.Text), _M001, NameOf(_M001.ITEM_DISP), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbJYUN.DataBindings.Add(New Binding(NameOf(cmbJYUN.SelectedValue), _M001, NameOf(_M001.DISP_ORDER), False, DataSourceUpdateMode.OnPropertyChanged, 0))
         mtxBIKOU.DataBindings.Add(New Binding(NameOf(mtxBIKOU.Text), _M001, NameOf(_M001.BIKOU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDefaultVaue.DataBindings.Add(New Binding(NameOf(chkDefaultVaue.Checked), _M001, NameOf(_M001.DEF_FLG), False, DataSourceUpdateMode.OnPropertyChanged, False))
+        chkDefaultVaue.DataBindings.Add(New Binding(NameOf(chkDefaultVaue.Checked), _M001, NameOf(_M001.DEF_FLG_), False, DataSourceUpdateMode.OnPropertyChanged, False))
 
     End Function
 
@@ -392,14 +385,8 @@ Public Class FrmM0011
                     mtxDISP.ReadOnly = False
 
                     '一覧選択行のデータをモデルに読込
-                    _Model.Properties.ForEach(Sub(p)
-                                                  Select Case p.PropertyType
-                                                      Case GetType(Boolean)
-                                                          _M001(p.Name) = CBool(PrDataRow.Item(p.Name))
-                                                      Case Else
-                                                          _M001(p.Name) = PrDataRow.Item(p.Name)
-                                                  End Select
-                                              End Sub)
+                    _Model.Properties.ForEach(Sub(p) _M001(p.Name) = PrViewModel(p.Name))
+
                     Call cmbKOMO_NM_Validated(cmbKOMO_NM, Nothing)
                     lbllblEDIT_YMDHNS.Visible = False
                     lblEDIT_YMDHNS.Visible = False
@@ -415,23 +402,24 @@ Public Class FrmM0011
                     mtxDISP.ReadOnly = False
 
                     '一覧選択行のデータをモデルに読込
-                    _Model.Properties.ForEach(Sub(p)
-                                                  Select Case p.PropertyType
-                                                      Case GetType(Boolean)
-                                                          _M001(p.Name) = CBool(PrDataRow.Item(p.Name))
-                                                      Case Else
-                                                          _M001(p.Name) = PrDataRow.Item(p.Name)
-                                                  End Select
-                                              End Sub)
+                    _Model.Properties.ForEach(Sub(p) _M001(p.Name) = PrViewModel(p.Name))
+                    '_Model.Properties.ForEach(Sub(p)
+                    '                              Select Case p.PropertyType
+                    '                                  Case GetType(Boolean)
+                    '                                      _M001(p.Name) = CBool(PrDataRow.Item(p.Name))
+                    '                                  Case Else
+                    '                                      _M001(p.Name) = PrDataRow.Item(p.Name)
+                    '                              End Select
+                    '                          End Sub)
                     Call cmbKOMO_NM_Validated(cmbKOMO_NM, Nothing)
                     lbllblEDIT_YMDHNS.Visible = True
                     lblEDIT_YMDHNS.Visible = True
                     lbllblEDIT_SYAIN_ID.Visible = True
                     lblEDIT_SYAIN_ID.Visible = True
                     '更新日時
-                    lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrDataRow.Item(NameOf(_M001.UPD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
+                    lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrViewModel.UPD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
                     '更新担当者CD
-                    lblEDIT_SYAIN_ID.Text = PrDataRow.Item(NameOf(_M001.UPD_SYAIN_ID)) & " " & Fun_GetUSER_NAME(PrDataRow.Item(NameOf(_M001.UPD_SYAIN_ID)))
+                    lblEDIT_SYAIN_ID.Text = PrViewModel.UPD_SYAIN_ID & " " & Fun_GetUSER_NAME(_M001.UPD_SYAIN_ID)
 
                 Case Else
                     Throw New ArgumentException(My.Resources.ErrMsgException, PrDATA_OP_MODE.ToString)
@@ -493,7 +481,6 @@ Public Class FrmM0011
 #Region "表示順更新"
     Private Function FunUpdateDispOrder(ByRef DB As ClsDbUtility, ByVal intBeforeValue As Integer, ByVal intAfterValue As Integer) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
-        Dim intRET As Integer
         Dim sqlEx As New Exception
 
         Try
@@ -516,8 +503,8 @@ Public Class FrmM0011
                 sbSQL.Append($" AND DISP_ORDER <{intBeforeValue} ")
             End If
 
-            intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-            If intRET = 0 Then
+            DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+            If sqlEx.Source IsNot Nothing Then
                 'エラーログ
                 Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
                 WL.WriteLogDat(strErrMsg)
@@ -533,8 +520,8 @@ Public Class FrmM0011
             sbSQL.Append($" AND ITEM_VALUE ='{_M001.ITEM_VALUE}' ")
             sbSQL.Append($" AND DISP_ORDER ={intBeforeValue}")
 
-            intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-            If intRET <> 1 Then
+            DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+            If sqlEx.Source IsNot Nothing Then
                 'エラーログ
                 Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
                 WL.WriteLogDat(strErrMsg)

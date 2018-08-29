@@ -89,15 +89,23 @@ Partial Public Class VWM005_SYOZOKU_BUSYO
 
     'Public Property DEL_FLG As String
 
-    <DoNotNotify>
-    <ComponentModel.DisplayName("削除フラグ")>
-    <Display(AutoGenerateField:=False)>
-    <NotMapped>
-    Public ReadOnly Property DEL_FLG As Boolean
-        Get
-            Return Not String.IsNullOrWhiteSpace(DEL_YMDHNS)
-        End Get
-    End Property
+    '<DoNotNotify>
+    '<Column(NameOf(KENMU_FLG), TypeName:="char")>
+    '<Display(AutoGenerateField:=False)>
+    'Public Property _KENMU_FLG As String
+
+
+    '<NotMapped>
+    '<ComponentModel.DisplayName("兼務フラグ")>
+    'Public Property KENMU_FLG As Boolean
+    '    Get
+    '        Return IIf(_KENMU_FLG = "0", False, True)
+    '    End Get
+    '    Set(value As Boolean)
+    '        _KENMU_FLG = IIf(value, "1", "0")
+    '        'OnPropertyChanged(NameOf(CLOSE_FG))
+    '    End Set
+    'End Property
 
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' 重複する呼び出しを検出するには

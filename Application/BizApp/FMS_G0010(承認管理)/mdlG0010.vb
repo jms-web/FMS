@@ -545,7 +545,7 @@ Module mdlG0010
                 _model.BUMON_KB = .Item(NameOf(_model.BUMON_KB))
                 _model.BUMON_NAME = .Item(NameOf(_model.BUMON_NAME))
                 _model.KISYU_ID = .Item(NameOf(_model.KISYU_ID))
-                _model.KISYU = .Item(NameOf(_model.KISYU))
+                '_model.KISYU = .Item(NameOf(_model.KISYU))
                 _model.KISYU_NAME = .Item(NameOf(_model.KISYU_NAME))
                 _model.CLOSE_FG = CBool(Val(.Item(NameOf(_model.CLOSE_FG))))
                 _model.SETUMON_1 = .Item(NameOf(_model.SETUMON_1))
@@ -1111,7 +1111,7 @@ Module mdlG0010
                 Case ENM_NCR_STAGE80_TABPAGES._4_ì]ópêÊãLò^
                     ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_BUHIN_BANGO)).Value = _V002_NCR_J.TENYO_BUHIN_BANGO
                     ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_GOKI)).Value = _V002_NCR_J.TENYO_GOKI
-                    ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_KISYU)).Value = _V002_NCR_J.TENYO_KISYU
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_KISYU_NAME)).Value = _V002_NCR_J.TENYO_KISYU_NAME
                     If Not _V002_NCR_J.TENYO_YMD.IsNullOrWhiteSpace Then
                         ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.TENYO_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                     End If
@@ -1160,18 +1160,9 @@ Module mdlG0010
             End If
 
 
-
-
             ssgSheet1.Range(NameOf(_V002_NCR_J.KANSATU_KEKKA)).Value = _V002_NCR_J.KANSATU_KEKKA
-
-            ssgSheet1.Range(NameOf(_V002_NCR_J.KISYU)).Value = _V002_NCR_J.KISYU
-
-
+            'ssgSheet1.Range(NameOf(_V002_NCR_J.KISYU)).Value = _V002_NCR_J.KISYU
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAIHATU)).Value = _V002_NCR_J.SAIHATU
-
-
-
-
 
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME

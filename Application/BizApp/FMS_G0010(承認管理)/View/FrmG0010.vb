@@ -85,7 +85,6 @@ Public Class FrmG0010
     Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
-
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
             Using DB As ClsDbUtility = DBOpen()
@@ -118,7 +117,7 @@ Public Class FrmG0010
 
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbFUTEKIGO_JYOTAI_KB.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbFUTEKIGO_JYOTAI_KB.SetDataSource(tblFUTEKIGO_STATUS_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             'NCR
@@ -210,16 +209,15 @@ Public Class FrmG0010
                     Me.cmdFunc7.PerformClick()
                 Case ENM_OPEN_MODE._1_新規作成
                     Me.cmdFunc2.PerformClick()
-                    Me.WindowState = FormWindowState.Normal
                 Case ENM_OPEN_MODE._2_処置画面起動
                     ParamModel.HOKOKU_NO = pub_PrHOKOKU_NO
                     ParamModel.SYONIN_HOKOKUSYO_ID = pub_PrSYONIN_HOKOKUSYO_ID
                     Me.cmdFunc1.PerformClick()
                     Me.cmdFunc4.PerformClick()
-                    Me.WindowState = FormWindowState.Normal
                 Case Else
                     Me.cmdFunc1.PerformClick()
             End Select
+            Me.WindowState = FormWindowState.Maximized
         Finally
             'ファンクションボタンステータス更新
             Call FunInitFuncButtonEnabled()
@@ -242,6 +240,9 @@ Public Class FrmG0010
                 .ColumnHeadersDefaultCellStyle.Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
                 .RowsDefaultCellStyle.BackColor = Color.White
                 .AlternatingRowsDefaultCellStyle.BackColor = Color.White
+                .AllowUserToOrderColumns = True
+                .AllowUserToResizeColumns = True
+
 
                 Dim cmbclmn1 As New DataGridViewCheckBoxColumn With {
                 .Name = NameOf(_Model.SELECTED),
@@ -315,7 +316,7 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).Width = 180
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
-                .Columns(.ColumnCount - 1).Frozen = True
+                '.Columns(.ColumnCount - 1).Frozen = True
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
                 .Columns.Add(NameOf(_Model.BUHIN_NAME), "部品名")
@@ -404,6 +405,7 @@ Public Class FrmG0010
                 .ColumnHeadersDefaultCellStyle.Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
                 .RowsDefaultCellStyle.BackColor = Color.White
                 .AlternatingRowsDefaultCellStyle.BackColor = Color.White
+                .ColumnHeadersHeight = 30
 
                 Dim cmbclmn1 As New DataGridViewCustomCheckBoxHeaderColumn With {
                 .Name = "SELECTED",
@@ -1759,6 +1761,7 @@ Public Class FrmG0010
                 cmdFunc10.Enabled = False
                 cmdFunc11.Enabled = False
             End If
+
 
             cmdFunc7.Enabled = (panelMan.SelectedIndex = 1)
 

@@ -268,6 +268,7 @@ Partial Class FrmM1051
         Me.mtxKISYU_ID.Name = "mtxKISYU_ID"
         Me.mtxKISYU_ID.Size = New System.Drawing.Size(102, 23)
         Me.mtxKISYU_ID.TabIndex = 48
+        Me.mtxKISYU_ID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.mtxKISYU_ID.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxKISYU_ID.WatermarkText = Nothing
         '
@@ -277,8 +278,10 @@ Partial Class FrmM1051
         Me.CmbBUMON_KB.Cursor = System.Windows.Forms.Cursors.Default
         Me.CmbBUMON_KB.DisplayMember = "DISP"
         Me.CmbBUMON_KB.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CmbBUMON_KB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CmbBUMON_KB.FormattingEnabled = True
         Me.CmbBUMON_KB.GotFocusedColor = System.Drawing.Color.Empty
+        Me.CmbBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.CmbBUMON_KB.Location = New System.Drawing.Point(103, 33)
         Me.CmbBUMON_KB.Name = "CmbBUMON_KB"
         Me.CmbBUMON_KB.NullValue = " "
@@ -306,10 +309,10 @@ Partial Class FrmM1051
         Me.TableLayoutPanel1.SetColumnSpan(Me.mtxKISYU_NAME, 2)
         Me.mtxKISYU_NAME.Dock = System.Windows.Forms.DockStyle.Fill
         Me.mtxKISYU_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxKISYU_NAME.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxKISYU_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxKISYU_NAME.InputRequired = False
         Me.mtxKISYU_NAME.Location = New System.Drawing.Point(103, 63)
-        Me.mtxKISYU_NAME.MaxByteLength = 0
+        Me.mtxKISYU_NAME.MaxByteLength = 60
         Me.mtxKISYU_NAME.Name = "mtxKISYU_NAME"
         Me.mtxKISYU_NAME.Size = New System.Drawing.Size(294, 23)
         Me.mtxKISYU_NAME.TabIndex = 51

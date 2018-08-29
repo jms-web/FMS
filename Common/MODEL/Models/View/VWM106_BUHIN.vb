@@ -35,11 +35,6 @@ Partial Public Class VWM106_BUHIN
     <ComponentModel.DisplayName("社内コード")>
     Public Property SYANAI_CD As String
 
-
-
-
-
-
     <Key>
     <Column(Order:=4)>
     <StringLength(80)>
@@ -92,22 +87,10 @@ Partial Public Class VWM106_BUHIN
     Public Property TACHIAI_FLG As String
 
     <Key>
-    <Column(Order:=11)>
-    <ComponentModel.DisplayName("機種ID")>
-    <DatabaseGenerated(DatabaseGeneratedOption.None)>
-    Public Property KISYU_ID As Integer
-
-    <StringLength(30)>
-    <ComponentModel.DisplayName("機種名")>
-    Public Property KISYU_NAME As String
-
-    <Key>
     <Column(Order:=12)>
     <StringLength(7)>
     <ComponentModel.DisplayName("色CD")>
     Public Property COLOR_CD As String
-
-
 
     <Key>
     <Column(Order:=13)>
