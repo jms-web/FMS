@@ -9,7 +9,7 @@ Module mdlM1010
     ''' </summary>
     Public frmLIST As FrmM1010
 
-    Public priTableName As String = NameOf(Model.VWM02_TORIHIKI)
+    Public priTableName As String = NameOf(MODEL.VWM101_TORIHIKI)
 
 #End Region
 
@@ -50,17 +50,7 @@ Module mdlM1010
 
                 '-----共通データ取得
                 Using DB As ClsDbUtility = DBOpen()
-                    Call FunGetCodeDataTable(DB, "取引種別", tblTORI_SYU)
-                    Call FunGetCodeDataTable(DB, "発注先CD", tblHACYU_CD)
-                    Call FunGetCodeDataTable(DB, "仕入外注区分", tblNAIGAI_KB)
-                    Call FunGetCodeDataTable(DB, "税区分", tblURI_KBN)
-                    Call FunGetCodeDataTable(DB, "税区分", tblSHI_KBN)
-                    Call FunGetCodeDataTable(DB, "端数処理区分", tblTAX_HASU_KB)
-                    Call FunGetCodeDataTable(DB, "取引先略名", tblTORI_SAKI)
-                    Call FunGetCodeDataTable(DB, "取引先CD", tblTORI_SAKI_CD)
-                    Call FunGetCodeDataTable(DB, "担当", tblTANTO)
-                    Call FunGetCodeDataTable(DB, "属性", tblZOKUSEI, "ZOKUSEI_FLG & " & Context.ENM_ZOKUSEI_FLG._1_製品 & "<>0 ")
-                    Call FunGetCodeDataTable(DB, "属性項目", tblZOKUSEI_K)
+                    Call FunGetCodeDataTable(DB, "取引区分", tblTORI_KB)
                 End Using
 
                 '-----一覧画面表示

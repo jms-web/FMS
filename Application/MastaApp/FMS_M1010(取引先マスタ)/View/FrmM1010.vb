@@ -36,22 +36,18 @@ Public Class FrmM1010
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
             '-----グリッド初期設定(親フォームから呼び出し)
             Call FunInitializeDataGridView(dgvDATA)
-            Call FunInitializeDataGridView(dgvTORI_ZOKUSEI)
+
             '-----グリッド列作成
             Call FunSetDgvCulumns(dgvDATA)
-            Call FunSetDgvCulumnsZOKUSEI(dgvTORI_ZOKUSEI)
+
             '-----コントロールデータソース設定
-            cmbTORI_SYU.SetDataSource(tblTORI_SYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbTORI_KB.SetDataSource(tblTORI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             '-----コンボボックス既定値の設定
             'cmbTORI_KBN.SetDefaultValue()
             '-----イベントハンドラ設定
-            AddHandler cmbTORI_SYU.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbTORI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
-            'TODO: データソースをTK01に変更
-            Dim dv As DataView = tblZOKUSEI.DefaultView
-            dv.Sort = "DISP_ORDER"
-            dgvTORI_ZOKUSEI.DataSource = dv
 
             '検索実行
             Me.cmdFunc1.PerformClick()
@@ -75,60 +71,31 @@ Public Class FrmM1010
                 .RowCount = 0
                 .ColumnCount = 0
 
-                .Columns.Add("TORI_CD", "取引先CD")
+                .Columns.Add("TORI_ID", "取引先ID")
                 .Columns(.ColumnCount - 1).Width = 90
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
 
-                .Columns.Add("TORI_SYU_DISP", "取引種別")
-                .Columns(.ColumnCount - 1).Width = 80
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-
-                .Columns.Add("SIIRE_GAICYU_KB_DISP", "仕入外注区分")
-                .Columns(.ColumnCount - 1).Width = 60
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-
-                Dim cmbclmn2 As New DataGridViewCheckBoxColumn With {
-                .Name = "SYOKUCHI_FLG",
-                .HeaderText = "諸口フラグ",
-                .Width = 30
-                }
-                cmbclmn2.DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-                .Columns.Add(cmbclmn2)
-                .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.Automatic
-
-                .Columns.Add("TORI_NAME", "取引先名称")
+                .Columns.Add("TORI_NAME", "取引先名")
                 .Columns(.ColumnCount - 1).Width = 210
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
 
-                .Columns.Add("FURIGANA", "フリガナ")
-                .Columns(.ColumnCount - 1).Width = 190
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-
-                .Columns.Add("TORI_R_NAME", "取引先略名")
-                .Columns(.ColumnCount - 1).Width = 140
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-
-                .Columns.Add("TORI_SITEN_NAME", "取引先支店名")
+                .Columns.Add("TORI_KB_DISP", "取引区分")
                 .Columns(.ColumnCount - 1).Width = 120
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
 
-                .Columns.Add("TORI_TANTO_NAME", "取引先担当者名")
-                .Columns(.ColumnCount - 1).Width = 120
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-
-                .Columns.Add("YUBIN", "郵便番号")
+                .Columns.Add("POST", "郵便番号")
                 .Columns(.ColumnCount - 1).Width = 80
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
 
-                .Columns.Add("ADDRESS1", "住所1")
+                .Columns.Add("ADD1", "住所1")
                 .Columns(.ColumnCount - 1).Width = 180
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
 
-                .Columns.Add("ADDRESS2", "住所2")
+                .Columns.Add("ADD2", "住所2")
                 .Columns(.ColumnCount - 1).Width = 180
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
 
-                .Columns.Add("ADDRESS3", "住所3")
+                .Columns.Add("ADD3", "住所3")
                 .Columns(.ColumnCount - 1).Width = 180
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
 
@@ -140,61 +107,17 @@ Public Class FrmM1010
                 .Columns(.ColumnCount - 1).Width = 120
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
 
-                .Columns.Add("S_TANTO_NAME", "社内担当者")
-                .Columns(.ColumnCount - 1).Width = 110
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-
-                .Columns.Add("SEIKYU_TORI_NAME", "請求先")
-                .Columns(.ColumnCount - 1).Width = 180
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-
-                .Columns.Add("URIZEI_KB_DISP", "売税区分")
-                .Columns(.ColumnCount - 1).Width = 80
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-
-                .Columns.Add("URI_TAX_HASU_KB_DISP", "売税端数処理区分")
-                .Columns(.ColumnCount - 1).Width = 100
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-
-                .Columns.Add("SIZEI_KB_DISP", "仕税区分")
-                .Columns(.ColumnCount - 1).Width = 80
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-
-                .Columns.Add("SIIRE_TAX_HASU_KB_DISP", "仕税端数処理区分")
-                .Columns(.ColumnCount - 1).Width = 100
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-
-                .Columns.Add("LEAD_TIME", "リードタイム")
-                .Columns(.ColumnCount - 1).Width = 90
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Format = "#,0"
-
-                .Columns.Add("SIME_DAY", "締日")
-                .Columns(.ColumnCount - 1).Width = 50
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
-
-                .Columns.Add("SIHARAI_DAY", "支払日")
-                .Columns(.ColumnCount - 1).Width = 50
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
-
-                .Columns.Add("MEMO", "メモ")
-                .Columns(.ColumnCount - 1).Width = 200
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-
-                .Columns.Add("TORI_FUGO", "取引先符号")
-                .Columns(.ColumnCount - 1).Width = 100
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
 
                 .Columns.Add("ADD_YMDHNS", "追加日時")
                 .Columns(.ColumnCount - 1).Visible = False
 
-                .Columns.Add("ADD_TANTO_CD", "追加担当者コード")
+                .Columns.Add("ADD_SYAIN_ID", "追加担当ID")
                 .Columns(.ColumnCount - 1).Visible = False
 
-                .Columns.Add("EDIT_YMDHNS", "更新日時")
+                .Columns.Add("UPD_YMDHNS", "更新日時")
                 .Columns(.ColumnCount - 1).Visible = False
 
-                .Columns.Add("EDIT_TANTO_CD", "更新担当者コード")
+                .Columns.Add("UPD_SYAIN_ID", "更新担当ID")
                 .Columns(.ColumnCount - 1).Visible = False
 
                 Dim cmbclmn1 As New DataGridViewCheckBoxColumn With {
@@ -209,43 +132,26 @@ Public Class FrmM1010
                 .Columns.Add("DEL_YMDHNS", "削除日時")
                 .Columns(.ColumnCount - 1).Visible = False
 
-                .Columns.Add("DEL_TANTO_CD", "削除担当者コード")
+                .Columns.Add("DEL_SYAIN_ID", "削除担当ID")
                 .Columns(.ColumnCount - 1).Visible = False
 
                 '-----バインディング
                 .AutoGenerateColumns = False
-                .Columns("TORI_CD").DataPropertyName = "TORI_CD"
-                .Columns("TORI_SYU_DISP").DataPropertyName = "TORI_SYU_DISP"
-                .Columns("SIIRE_GAICYU_KB_DISP").DataPropertyName = "SIIRE_GAICYU_KB_DISP"
-                .Columns("SYOKUCHI_FLG").DataPropertyName = "SYOKUCHI_FLG"
+                .Columns("TORI_ID").DataPropertyName = "TORI_ID"
                 .Columns("TORI_NAME").DataPropertyName = "TORI_NAME"
-                .Columns("FURIGANA").DataPropertyName = "FURIGANA"
-                .Columns("TORI_R_NAME").DataPropertyName = "TORI_R_NAME"
-                .Columns("TORI_SITEN_NAME").DataPropertyName = "TORI_SITEN_NAME"
-                .Columns("TORI_TANTO_NAME").DataPropertyName = "TORI_TANTO_NAME"
-                .Columns("TORI_FUGO").DataPropertyName = "TORI_FUGO"
-                .Columns("YUBIN").DataPropertyName = "YUBIN"
-                .Columns("ADDRESS1").DataPropertyName = "ADDRESS1"
-                .Columns("ADDRESS2").DataPropertyName = "ADDRESS2"
-                .Columns("ADDRESS3").DataPropertyName = "ADDRESS3"
+                .Columns("TORI_KB_DISP").DataPropertyName = "TORI_KB_DISP"
+                .Columns("POST").DataPropertyName = "POST"
+                .Columns("ADD1").DataPropertyName = "ADD1"
+                .Columns("ADD2").DataPropertyName = "ADD2"
+                .Columns("ADD3").DataPropertyName = "ADD3"
                 .Columns("TEL").DataPropertyName = "TEL"
                 .Columns("FAX").DataPropertyName = "FAX"
-                .Columns("S_TANTO_NAME").DataPropertyName = "S_TANTO_NAME"
-                .Columns("SEIKYU_TORI_NAME").DataPropertyName = "SEIKYU_TORI_NAME"
-                .Columns("URIZEI_KB_DISP").DataPropertyName = "URIZEI_KB_DISP"
-                .Columns("URI_TAX_HASU_KB_DISP").DataPropertyName = "URI_TAX_HASU_KB_DISP"
-                .Columns("SIZEI_KB_DISP").DataPropertyName = "SIZEI_KB_DISP"
-                .Columns("SIIRE_TAX_HASU_KB_DISP").DataPropertyName = "SIIRE_TAX_HASU_KB_DISP"
-                .Columns("LEAD_TIME").DataPropertyName = "LEAD_TIME"
-                .Columns("SIME_DAY").DataPropertyName = "SIME_DAY"
-                .Columns("SIHARAI_DAY").DataPropertyName = "SIHARAI_DAY"
-                .Columns("MEMO").DataPropertyName = "MEMO"
                 .Columns("ADD_YMDHNS").DataPropertyName = "ADD_YMDHNS"
-                .Columns("ADD_TANTO_CD").DataPropertyName = "ADD_TANTO_CD"
-                .Columns("EDIT_YMDHNS").DataPropertyName = "EDIT_YMDHNS"
-                .Columns("EDIT_TANTO_CD").DataPropertyName = "EDIT_TANTO_CD"
+                .Columns("ADD_SYAIN_ID").DataPropertyName = "ADD_SYAIN_ID"
+                .Columns("UPD_YMDHNS").DataPropertyName = "UPD_YMDHNS"
+                .Columns("UPD_SYAIN_ID").DataPropertyName = "UPD_SYAIN_ID"
                 .Columns("DEL_YMDHNS").DataPropertyName = "DEL_YMDHNS"
-                .Columns("DEL_TANTO_CD").DataPropertyName = "DEL_TANTO_CD"
+                .Columns("DEL_SYAIN_ID").DataPropertyName = "DEL_SYAIN_ID"
                 .Columns("DEL_FLG").DataPropertyName = "DEL_FLG"
             End With
 
@@ -279,114 +185,6 @@ Public Class FrmM1010
     End Sub
 
 #End Region
-
-#Region "属性"
-    Private Function FunSetDgvCulumnsZOKUSEI(ByVal dgv As DataGridView) As Boolean
-
-        Try
-            With dgv
-                .ReadOnly = False
-                .AutoGenerateColumns = False
-                .AllowUserToResizeColumns = False
-                .ColumnHeadersHeight = 30
-
-                .Columns.Add("ZOKUSEI_CD", "属性CD")
-                .Columns(.ColumnCount - 1).Visible = False
-                .Columns(.ColumnCount - 1).DataPropertyName = "VALUE"
-
-                .Columns.Add("ZOKUSEI_DISP", "属性分類")
-                .Columns(.ColumnCount - 1).Width = 120
-                .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-                .Columns(.ColumnCount - 1).DataPropertyName = "DISP"
-                .Columns(.ColumnCount - 1).ReadOnly = True
-                .Columns(.ColumnCount - 1).SortMode = DataGridViewColumnSortMode.NotSortable
-
-                'ValueMemberをZOKUSEI_K_CDにするとキー情報不足で項目を特定出来なくなるので、複合キーをValueMemberにする
-                Dim column As New DataGridViewComboBoxColumn With {
-                    .DataPropertyName = "ZOKUSEI_K_CD",
-                    .Name = "ZOKUSEI_K_CD",
-                    .Width = 140,
-                    .DataSource = tblZOKUSEI_K.AddBlankRow,
-                    .HeaderText = "条件",
-                    .ValueMember = "COMP_KEY",
-                    .DisplayMember = "DISP",
-                    .DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton,
-                    .DisplayStyleForCurrentCellOnly = True
-                }
-                column.DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-                .Columns.Add(column)
-                .Columns(.ColumnCount - 1).DataPropertyName = "COMP_KEY"
-
-            End With
-
-            Return True
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        End Try
-    End Function
-
-#End Region
-
-    Private dgvComboboxControl As DataGridViewComboBoxEditingControl = Nothing
-
-    Private Sub Dgv_CellEnter(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles dgvTORI_ZOKUSEI.CellEnter
-        Dim dgv As DataGridView = CType(sender, DataGridView)
-
-        If dgv.Columns(e.ColumnIndex).Name = "ZOKUSEI_K_CD" AndAlso
-        TypeOf dgv.Columns(e.ColumnIndex) Is DataGridViewComboBoxColumn Then
-            'セルクリック時、明示的に編集コントロールを表示
-            dgv.BeginEdit(False)
-            dgvComboboxControl = dgv.EditingControl
-            dgvComboboxControl.DroppedDown = True
-        End If
-    End Sub
-
-    Private Sub Dgv_CellBeginEdit(sender As Object, e As System.Windows.Forms.DataGridViewCellCancelEventArgs) Handles dgvTORI_ZOKUSEI.CellBeginEdit
-
-        '選択済みの値をセットするため、変更前の値を控えておく
-        'valueMemberは {ZOKUSEI_CD,ZOKUSEI_K_CD}なので、そこからZOKUSEI_K_CDだけを控える
-        If dgvTORI_ZOKUSEI.Rows(e.RowIndex).Cells(e.ColumnIndex).Value IsNot Nothing Then
-            pri_objPrevCellValue = dgvTORI_ZOKUSEI.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString.Split(",")(1)
-        Else
-            pri_objPrevCellValue = Nothing
-        End If
-
-    End Sub
-
-    Private Sub Dgv_EditingControlShowing(ByVal sender As Object, ByVal e As DataGridViewEditingControlShowingEventArgs) Handles dgvTORI_ZOKUSEI.EditingControlShowing
-
-        Try
-            '表示されているコントロールがDataGridViewComboBoxEditingControlか調べる
-            If TypeOf e.Control Is DataGridViewComboBoxEditingControl Then
-                Dim dgv As DataGridView = CType(sender, DataGridView)
-                Select Case dgv.CurrentCell.OwningColumn.Name
-                    Case "ZOKUSEI_K_CD"
-                        '編集のために表示されているコントロールを取得
-                        dgvComboboxControl = CType(e.Control, DataGridViewComboBoxEditingControl)
-                        'dgvComboboxControl.DropDownStyle = ComboBoxStyle.DropDownList
-                        'dgvComboboxControl.AutoCompleteMode = AutoCompleteMode.SuggestAppend
-                        Dim ZOKUSEI_CD As Integer = dgv.CurrentRow.Cells("ZOKUSEI_CD").Value
-
-                        Dim dr As List(Of DataRow) = tblZOKUSEI_K.AsEnumerable.Where(Function(r) r.Field(Of Integer)("ZOKUSEI_CD") = ZOKUSEI_CD).ToList
-                        If dr.Count > 0 Then
-                            dgvComboboxControl.DataSource = dr.CopyToDataTable.AddBlankRow
-                            dgvComboboxControl.DisplayMember = "DISP"
-                            dgvComboboxControl.ValueMember = "VALUE"
-                            If pri_objPrevCellValue IsNot Nothing Then
-                                'データソースを変更すると選択済みの値がクリアされてしまうので、編集開始時の値を呼び戻す
-                                dgvComboboxControl.SelectedValue = pri_objPrevCellValue
-                            End If
-                        Else
-                            dgvComboboxControl.DataSource = Nothing
-                        End If
-                End Select
-            End If
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-
-        End Try
-    End Sub
 
 #Region "編集可能セルOnMouse時カーソル変更"
     Private Sub Dgv_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs)
@@ -498,37 +296,30 @@ Public Class FrmM1010
         'Dim lngCURROW As Long = 0
         '-----件数確認
         sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append("SELECT COUNT(*) FROM " & NameOf(Model.VWM02_TORIHIKI) & "")
+        sbSQL.Append("SELECT COUNT(*) FROM " & NameOf(MODEL.VWM101_TORIHIKI) & "")
         sbSQL.Append(sbSQLWHERE)
         '----WHERE句作成
         sbSQLWHERE.Remove(0, sbSQLWHERE.Length)
 
-        '取引種別
-        If Me.cmbTORI_SYU.IsSelected Then
+        '取引区分
+        If Me.cmbTORI_KB.Selected Then
             If sbSQLWHERE.Length = 0 Then
-                sbSQLWHERE.Append(" WHERE TORI_SYU = '" & Me.cmbTORI_SYU.SelectedValue & "' ")
+                sbSQLWHERE.Append(" WHERE TORI_KB = '" & Me.cmbTORI_KB.SelectedValue & "' ")
             Else
-                sbSQLWHERE.Append(" AND TORI_SYU =  '" & Me.cmbTORI_SYU.SelectedValue & "' ")
+                sbSQLWHERE.Append(" AND TORI_KB =  '" & Me.cmbTORI_KB.SelectedValue & "' ")
 
             End If
         Else
-            If cmbTORI_SYU.Text.IsNullOrWhiteSpace = False Then
 
-                If sbSQLWHERE.Length = 0 Then
-                    sbSQLWHERE.Append(" WHERE TORI_SYU  LIKE '%" & Me.cmbTORI_SYU.Text.Trim & "%' ")
-                Else
-                    sbSQLWHERE.Append(" AND TORI_SYU  LIKE '%" & Me.cmbTORI_SYU.Text.Trim & "%' ")
-
-                End If
-            End If
         End If
-        '取引先略名検索
-        If mtxTORI_R_NAME.Text.IsNullOrWhiteSpace = False Then
+
+        '取引先名検索
+        If mtxTORI_NAME.Text.IsNullOrWhiteSpace = False Then
 
             If sbSQLWHERE.Length = 0 Then
-                sbSQLWHERE.Append(" WHERE TORI_R_NAME LIKE '%" & Me.mtxTORI_R_NAME.Text.Trim & "%' ")
+                sbSQLWHERE.Append(" WHERE TORI_NAME LIKE '%" & Me.mtxTORI_NAME.Text.Trim & "%' ")
             Else
-                sbSQLWHERE.Append(" AND TORI_R_NAME LIKE '%" & Me.mtxTORI_R_NAME.Text.Trim & "%' ")
+                sbSQLWHERE.Append(" AND TORI_NAME LIKE '%" & Me.mtxTORI_NAME.Text.Trim & "%' ")
 
             End If
         End If
@@ -550,7 +341,7 @@ Public Class FrmM1010
         sbSQL.Append(" *")
         sbSQL.Append(" FROM " & priTableName & " ")
         sbSQL.Append(sbSQLWHERE)
-        sbSQL.Append(" ORDER BY TORI_CD ")
+        sbSQL.Append(" ORDER BY TORI_ID ")
 
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
@@ -564,7 +355,7 @@ Public Class FrmM1010
 
 
         '------DataTableに変換
-        Dim _Model As New Model.ModelInfo(Of Model.VWM02_TORIHIKI)(srcDATA:=dsList.Tables(0))
+        Dim _Model As New MODEL.ModelInfo(Of MODEL.VWM101_TORIHIKI)(srcDATA:=dsList.Tables(0))
         Return _Model.Data
 
     End Function
@@ -631,30 +422,29 @@ Public Class FrmM1010
         End Try
     End Function
 
+    'Private Function FunGetZOKUSEI_ConditionString(ByVal dgv As DataGridView) As String
+    '    Dim strRET As String = ""
+    '    Dim sbSQL As New System.Text.StringBuilder
 
-    Private Function FunGetZOKUSEI_ConditionString(ByVal dgv As DataGridView) As String
-        Dim strRET As String = ""
-        Dim sbSQL As New System.Text.StringBuilder
-
-        Dim ar = [Enum].GetValues(GetType(Context.ENM_ZOKUSEI_KB))
+    '    Dim ar = [Enum].GetValues(GetType(Context.ENM_ZOKUSEI_KB))
 
 
-        For Each row As DataGridViewRow In dgv.Rows
-            If row.Cells("ZOKUSEI_K_CD").Value <> "" Then
-                If sbSQL.Length > 0 Then
-                    sbSQL.Append(" OR ")
-                End If
-                sbSQL.Append(String.Format("(ZOKUSEI_CD={0} AND ZOKUSEI_K_CD={1})",
-                                row.Cells("ZOKUSEI_CD").Value,
-                                row.Cells("ZOKUSEI_K_CD").Value.ToString.Split(",")(1)))
-            End If
-        Next row
+    '    For Each row As DataGridViewRow In dgv.Rows
+    '        If row.Cells("ZOKUSEI_K_CD").Value <> "" Then
+    '            If sbSQL.Length > 0 Then
+    '                sbSQL.Append(" OR ")
+    '            End If
+    '            sbSQL.Append(String.Format("(ZOKUSEI_CD={0} AND ZOKUSEI_K_CD={1})",
+    '                            row.Cells("ZOKUSEI_CD").Value,
+    '                            row.Cells("ZOKUSEI_K_CD").Value.ToString.Split(",")(1)))
+    '        End If
+    '    Next row
 
-        If sbSQL.Length > 0 Then
-            strRET = " AND (" & sbSQL.ToString & ")"
-        End If
-        Return strRET
-    End Function
+    '    If sbSQL.Length > 0 Then
+    '        strRET = " AND (" & sbSQL.ToString & ")"
+    '    End If
+    '    Return strRET
+    'End Function
 
     Private Function FunSetDgvCellFormat(ByVal dgv As DataGridView) As Boolean
         Try
@@ -736,32 +526,32 @@ Public Class FrmM1010
             sbSQL.Remove(0, sbSQL.Length)
             Select Case ENM_MODE
                 Case ENM_DATA_OPERATION_MODE._4_DISABLE
-                    sbSQL.Append("UPDATE " & NameOf(Model.M02_TORIHIKI) & " SET ")
+                    sbSQL.Append("UPDATE " & NameOf(MODEL.VWM101_TORIHIKI) & " SET ")
                     '変更日時
-                    sbSQL.Append(" EDIT_YMDHNS = dbo.GetSysDateString() ")
+                    sbSQL.Append(" UPD_YMDHNS = dbo.GetSysDateString() ")
                     '削除日時
                     sbSQL.Append(" ,DEL_YMDHNS = dbo.GetSysDateString() ")
                     '更新社員ID
-                    sbSQL.Append(" ,DEL_TANTO_CD = " & pub_SYAIN_INFO.SYAIN_ID & "")
+                    sbSQL.Append(" ,DEL_SYAIN_ID = " & pub_SYAIN_INFO.SYAIN_ID & "")
 
                     strMsg = My.Resources.infoMsgDeleteOperationDisable
                     strTitle = My.Resources.infoTitleDeleteOperationDisable
 
                 Case ENM_DATA_OPERATION_MODE._5_RESTORE
-                    sbSQL.Append("UPDATE " & NameOf(Model.VWM02_TORIHIKI) & " SET ")
+                    sbSQL.Append("UPDATE " & NameOf(MODEL.VWM101_TORIHIKI) & " SET ")
                     '変更日時
-                    sbSQL.Append(" EDIT_YMDHNS = dbo.GetSysDateString() ")
+                    sbSQL.Append(" UPD_YMDHNS = dbo.GetSysDateString() ")
                     '削除日時
                     sbSQL.Append(" ,DEL_YMDHNS = ' ' ")
                     '更新社員ID
-                    sbSQL.Append(" ,DEL_TANTO_CD = " & pub_SYAIN_INFO.SYAIN_ID & "")
+                    sbSQL.Append(" ,DEL_SYAIN_ID = " & pub_SYAIN_INFO.SYAIN_ID & "")
 
                     strMsg = My.Resources.infoMsgDeleteOperationRestore
                     strTitle = My.Resources.infoTitleDeleteOperationRestore
 
                 Case ENM_DATA_OPERATION_MODE._6_DELETE
 
-                    sbSQL.Append("DELETE FROM " & NameOf(Model.VWM02_TORIHIKI) & " ")
+                    sbSQL.Append("DELETE FROM " & NameOf(MODEL.VWM101_TORIHIKI) & " ")
 
                     strMsg = My.Resources.infoMsgDeleteOperationDelete
                     strTitle = My.Resources.infoTitleDeleteOperationDelete
@@ -771,7 +561,7 @@ Public Class FrmM1010
                     Return False
             End Select
             sbSQL.Append(" WHERE")
-            sbSQL.Append(" TORI_CD = '" & Me.dgvDATA.CurrentRow.Cells.Item("TORI_CD").Value & "' ")
+            sbSQL.Append(" TORI_ID = '" & Me.dgvDATA.CurrentRow.Cells.Item("TORI_ID").Value & "' ")
 
             '確認メッセージ表示
             If MessageBox.Show(strMsg, strTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> Windows.Forms.DialogResult.Yes Then
@@ -882,6 +672,7 @@ Public Class FrmM1010
         End Try
     End Function
 #End Region
+
 #End Region
 
 #Region "コントロールイベント"
@@ -893,10 +684,11 @@ Public Class FrmM1010
     '検索フィルタクリア
     Private Sub BtnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click
 
-        mtxTORI_R_NAME.Clear()
+        mtxTORI_NAME.Clear()
         chkDeletedRowVisibled.Checked = False
         Me.cmdFunc1.PerformClick()
     End Sub
 
 #End Region
+
 End Class

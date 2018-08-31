@@ -187,7 +187,10 @@ Public Module mdlDBContext
     ''' </summary>
     Public tblDAIKO_KB As DataTableEx
 
-
+    ''' <summary>
+    ''' æˆø‹æ•ª
+    ''' </summary>
+    Public tblTORI_KB As DataTableEx
 #End Region
 
 #Region "•s“K‡ŠÖ˜A"
