@@ -6191,6 +6191,7 @@ Public Class FrmG0011
             sbSQL.Append(" WHERE BUHIN_BANGO='" & strBUHIN_BANGO & "'")
             sbSQL.Append(" AND FUTEKIGO_KB='" & strFUTEKIGO_KB & "'")
             sbSQL.Append(" AND FUTEKIGO_S_KB='" & strFUTEKIGO_S_KB & "'")
+            sbSQL.Append(" AND RTRIM(DEL_YMDHNS)<>''")
             If Not _D003_NCR_J.HOKOKU_NO.IsNullOrEmpty Then
                 sbSQL.Append(" AND HOKOKU_NO<>'" & _D003_NCR_J.HOKOKU_NO & "'")
             End If
