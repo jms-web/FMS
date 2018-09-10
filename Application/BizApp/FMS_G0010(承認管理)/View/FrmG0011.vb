@@ -109,6 +109,26 @@ Public Class FrmG0011
         cmbST14_DestTANTO.NullValue = 0
         cmbST15_DestTANTO.NullValue = 0
 
+        cmbKISO_TANTO.ImeMode = ImeMode.On
+        cmbST07_SAISIN_TANTO.ImeMode = ImeMode.On
+        cmbST08_1_HAIKYAKU_TANTO.ImeMode = ImeMode.On
+        cmbST08_2_TANTO_SEIZO.ImeMode = ImeMode.On
+        cmbST08_2_TANTO_SEIGI.ImeMode = ImeMode.On
+        cmbST08_2_TANTO_KENSA.ImeMode = ImeMode.On
+        cmbST01_DestTANTO.ImeMode = ImeMode.On
+        cmbST02_DestTANTO.ImeMode = ImeMode.On
+        cmbST03_DestTANTO.ImeMode = ImeMode.On
+        cmbST04_DestTANTO.ImeMode = ImeMode.On
+        cmbST04_HASSEI_KOTEI_GL_TANTO.ImeMode = ImeMode.On
+        cmbST04_CAR_TANTO.ImeMode = ImeMode.On
+        cmbST05_DestTANTO.ImeMode = ImeMode.On
+        cmbST06_DestTANTO.ImeMode = ImeMode.On
+        cmbST08_DestTANTO.ImeMode = ImeMode.On
+        cmbST09_DestTANTO.ImeMode = ImeMode.On
+        cmbST13_DestTANTO.ImeMode = ImeMode.On
+        cmbST14_DestTANTO.ImeMode = ImeMode.On
+        cmbST15_DestTANTO.ImeMode = ImeMode.On
+
         pnlST01.BackColor = Color.Transparent
         pnlST02.BackColor = Color.Transparent
         pnlST03.BackColor = Color.Transparent
@@ -140,6 +160,7 @@ Public Class FrmG0011
     Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
+            Me.Visible = False
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
             Using DB As ClsDbUtility = DBOpen()
@@ -193,7 +214,6 @@ Public Class FrmG0011
             'バインディングセット
             Call FunSetBindingD003()
 
-            Me.WindowState = FormWindowState.Maximized
             Me.Cursor = Cursors.WaitCursor
             '-----処理モード別画面初期化
             If FunInitializeControls(PrMODE) Then
@@ -201,10 +221,13 @@ Public Class FrmG0011
                 'Me.Close()
             End If
 
+            Me.WindowState = FormWindowState.Maximized
+
             Me.tabSTAGE01.Focus()
         Finally
             Call FunInitFuncButtonEnabled()
             Me.Cursor = Cursors.Default
+            Me.Visible = True
         End Try
     End Sub
 
@@ -299,7 +322,22 @@ Public Class FrmG0011
                     End If
 
                 Case 4  '転送
-                    Call OpenFormTENSO()
+
+                    'If MessageBox.Show("入力内容を保存しますか？", "登録確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                    If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
+                        If FunSAVE(ENM_SAVE_MODE._1_保存) Then
+                            Me.DialogResult = DialogResult.OK
+
+                            Call OpenFormTENSO()
+                        Else
+                            MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        End If
+                    End If
+                    'Else
+                    '    Call OpenFormTENSO()
+                    'End If
+
+
                 Case 5  '差戻し
                     Call OpenFormSASIMODOSI()
                 Case 9  'CAR編集
@@ -477,6 +515,9 @@ Public Class FrmG0011
         Dim sbSQL As New System.Text.StringBuilder
         Dim strRET As String
         Dim sqlEx As New Exception
+        Dim strSysDate As String
+
+        strSysDate = DB.GetSysDateString()
 
         '-----未保存時、報告書No取得
         If _D003_NCR_J.HOKOKU_NO.IsNullOrWhiteSpace Or _D003_NCR_J.HOKOKU_NO = "<新規>" Then
@@ -495,6 +536,10 @@ Public Class FrmG0011
                 Return False
             End If
         End If
+
+        _D003_NCR_J.ADD_YMDHNS = strSysDate
+        _D003_NCR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+        _D003_NCR_J.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
 
         '-----モデル更新
         If (PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso Val(_D003_NCR_J.KENSA_KEKKA_KB) = ENM_KENSA_KEKKA_KB._1_不合格) Or
@@ -690,7 +735,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.G_FILE_PATH1) & " = WK." & NameOf(_D003_NCR_J.G_FILE_PATH1))
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.G_FILE_PATH2) & " = WK." & NameOf(_D003_NCR_J.G_FILE_PATH2))
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.UPD_SYAIN_ID) & " = WK." & NameOf(_D003_NCR_J.UPD_SYAIN_ID))
-        sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.UPD_YMDHNS) & " = dbo.GetSysDateString()")
+        sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.UPD_YMDHNS) & " = '" & strSysDate & "'")
 
         'INSERT
         sbSQL.Append(" WHEN NOT MATCHED THEN ")
@@ -892,6 +937,7 @@ Public Class FrmG0011
         Dim sbSQL As New System.Text.StringBuilder
         Dim strRET As String
         Dim sqlEx As New Exception
+        Dim strSysDate As String = DB.GetSysDateString
 
         '-----データモデル更新
         _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
@@ -907,8 +953,8 @@ Public Class FrmG0011
             Case ENM_SAVE_MODE._2_承認申請
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
-                'UNDONE: getsysdate server
-                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+
+                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
             Case Else
                 'Err
                 Return False
@@ -1037,7 +1083,7 @@ Public Class FrmG0011
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
         End Select
 
-        _D004_SYONIN_J_KANRI.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+        _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
@@ -1133,17 +1179,29 @@ Public Class FrmG0011
                 Return False
         End Select
 
-        'SPEC: 40-1
-        If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And
-            PrCurrentStage = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 And
-            _D003_NCR_J._ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_要 Then
 
-            If FunSAVE_D005(DB) Then
-                '承認依頼メール送信
-                Call FunSendRequestMail_CAR()
-                blnEnableCAREdit = True
-            Else
-                Return False
+        '#73
+
+        Dim dsList As New DataSet
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append($"SELECT {NameOf(MODEL.D005_CAR_J.HOKOKU_NO)} FROM {NameOf(MODEL.D005_CAR_J)} ")
+        sbSQL.Append($" WHERE {NameOf(MODEL.D005_CAR_J.HOKOKU_NO)}='{_D004_SYONIN_J_KANRI.HOKOKU_NO}'")
+        'sbSQL.Append($" AND {NameOf(MODEL.D005_CAR_J.HOKOKU_NO)}='{_D004_SYONIN_J_KANRI.HOKOKU_NO}'")
+
+        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        If dsList.Tables(0).Rows.Count = 0 Then
+            'SPEC: 40-1
+            If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And
+                PrCurrentStage = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 And
+                _D003_NCR_J._ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_要 Then
+
+                If FunSAVE_D005(DB) Then
+                    '承認依頼メール送信
+                    Call FunSendRequestMail_CAR()
+                    blnEnableCAREdit = True
+                Else
+                    Return False
+                End If
             End If
         End If
 
@@ -1259,7 +1317,7 @@ Public Class FrmG0011
         Dim sbSQL As New System.Text.StringBuilder
         Dim intRET As Integer
         Dim sqlEx As New Exception
-
+        Dim strSysDate As String = DB.GetSysDateString
         'UNDONE: MERGE INTO に変更
 
         '---存在確認
@@ -1278,7 +1336,7 @@ Public Class FrmG0011
         _R001_HOKOKU_SOUSA.SYONIN_JUN = PrCurrentStage
         _R001_HOKOKU_SOUSA.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
         'UNDONE: getsysdatetime
-        _R001_HOKOKU_SOUSA.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+        _R001_HOKOKU_SOUSA.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
 
         Select Case enmSAVE_MODE
             Case ENM_SAVE_MODE._1_保存
@@ -1872,7 +1930,10 @@ Public Class FrmG0011
 
             Case "UPDATE"
                 'ステージ40以前まで差し戻しされた場合のみUPDATEで登録内容がリセットされる
+
+                '#73 一度起草済みのＣＡＲはリセットしない
                 blnSASIMODOSI = True
+
             Case Else
                 '-----エラーログ出力
                 Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
@@ -2954,10 +3015,14 @@ Public Class FrmG0011
                                     panel.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
                                 End If
                             Else
-                                'Mod #70
-                                'カレントユーザー以外は参照のみ
-                                'panel.DisableContaints(FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO, FunConvertSTAGE_NO_TO_SYONIN_JUN(intTabNo)), 2)
-                                panel.DisableContaints(intTabNo = intCurrentTabNo, PanelEx.ENM_PROPERTY._2_ReadOnly)
+                                If PrCurrentStage = ENM_NCR_STAGE._20_起草確認製造GL Then
+                                    panel.Enabled = True
+                                Else
+                                    'Mod #70
+                                    'カレントユーザー以外は参照のみ
+                                    'panel.DisableContaints(FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, PrHOKOKU_NO, FunConvertSTAGE_NO_TO_SYONIN_JUN(intTabNo)), 2)
+                                    panel.DisableContaints(intTabNo = intCurrentTabNo, PanelEx.ENM_PROPERTY._2_ReadOnly)
+                                End If
                             End If
                         End If
                         If _D003_NCR_J.CLOSE_FG Then panel.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
@@ -3138,7 +3203,7 @@ Public Class FrmG0011
                         Else
                             cmbST01_DestTANTO.SelectedValue = _V003.SYAIN_ID
                         End If
-                        If intStageID > ENM_NCR_STAGE._10_起草入力 Then
+                        If intStageID > ENM_NCR_STAGE._20_起草確認製造GL Then
                             cmbST01_DestTANTO.ReadOnly = True
                             txtST01_KEKKA.ReadOnly = True
                             txtST01_YOKYU_NAIYO.ReadOnly = True
@@ -3272,7 +3337,24 @@ Public Class FrmG0011
 
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, ENM_CAR_STAGE._10_起草入力)
                 cmbST04_CAR_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                '#73
                 cmbST04_CAR_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                Dim dsList As New DataSet
+                Dim sbSQL As New System.Text.StringBuilder
+
+                sbSQL.Remove(0, sbSQL.Length)
+                sbSQL.Append($"SELECT {NameOf(MODEL.D004_SYONIN_J_KANRI.SYAIN_ID)} FROM {NameOf(MODEL.D004_SYONIN_J_KANRI)} ")
+                sbSQL.Append($" WHERE {NameOf(MODEL.D004_SYONIN_J_KANRI.HOKOKU_NO)}='{_V002_NCR_J.HOKOKU_NO}'")
+                sbSQL.Append($" AND {NameOf(MODEL.D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={Val(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)}")
+                sbSQL.Append($" AND {NameOf(MODEL.D004_SYONIN_J_KANRI.SYONIN_JUN)}={Val(ENM_CAR_STAGE._10_起草入力)}")
+
+                Using DB As ClsDbUtility = DBOpen()
+                    dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                End Using
+                If dsList.Tables(0).Rows.Count > 0 Then
+                    cmbST04_CAR_TANTO.SelectedValue = dsList.Tables(0).Rows(0).Item(0)
+                End If
 
                 _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定).
@@ -4540,6 +4622,7 @@ Public Class FrmG0011
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         cmbFUTEKIGO_S_KB.DataBindings.Clear()
+        RemoveHandler cmbFUTEKIGO_S_KB.Validated, AddressOf cmbFUTEKIGO_S_KB_Validated
         If cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace Then
             Dim dt As New DataTableEx
             Using DB As ClsDbUtility = DBOpen()
@@ -4552,7 +4635,8 @@ Public Class FrmG0011
         Else
             cmbFUTEKIGO_S_KB.DataSource = Nothing
         End If
-        cmbFUTEKIGO_S_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_S_KB.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.FUTEKIGO_S_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        AddHandler cmbFUTEKIGO_S_KB.Validated, AddressOf cmbFUTEKIGO_S_KB_Validated
+        cmbFUTEKIGO_S_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_S_KB.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.FUTEKIGO_S_KB), False, DataSourceUpdateMode.OnPropertyChanged, False))
     End Sub
 
     Private Sub CmbFUTEKIGO_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbFUTEKIGO_KB.Validating
@@ -4572,7 +4656,7 @@ Public Class FrmG0011
 
 #Region "不適合詳細区分"
 
-    Private Sub CmbFUTEKIGO_S_KB_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbFUTEKIGO_S_KB.SelectedValueChanged
+    Private Sub cmbFUTEKIGO_S_KB_Validated(sender As Object, e As EventArgs) Handles cmbFUTEKIGO_S_KB.Validated
         '再発チェック
         _D003_NCR_J.SAIHATU = FunIsReIssue(_D003_NCR_J.BUHIN_BANGO, _D003_NCR_J.FUTEKIGO_KB, _D003_NCR_J.FUTEKIGO_S_KB)
     End Sub
@@ -5415,7 +5499,7 @@ Public Class FrmG0011
     Private Function FunSetBindingD003() As Boolean
 
         '共通
-        mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        'mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbBUMON.DataBindings.Add(New Binding(NameOf(cmbBUMON.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.BUMON_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         chkClosed.DataBindings.Add(New Binding(NameOf(chkClosed.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.CLOSE_FG), False, DataSourceUpdateMode.OnPropertyChanged, False))
         dtDraft.DataBindings.Add(New Binding(NameOf(dtDraft.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.ADD_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -5427,7 +5511,7 @@ Public Class FrmG0011
         mtxHINMEI.DataBindings.Add(New Binding(NameOf(mtxHINMEI.Text), _D003_NCR_J, NameOf(_D003_NCR_J.BUHIN_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         numSU.DataBindings.Add(New Binding(NameOf(numSU.Value), _D003_NCR_J, NameOf(_D003_NCR_J.SURYO), False, DataSourceUpdateMode.OnPropertyChanged, 1))
         cmbFUTEKIGO_STATUS.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_STATUS.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.FUTEKIGO_JYOTAI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkSAIHATU.DataBindings.Add(New Binding(NameOf(chkSAIHATU.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SAIHATU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkSAIHATU.DataBindings.Add(New Binding(NameOf(chkSAIHATU.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SAIHATU), False, DataSourceUpdateMode.OnPropertyChanged, False))
         mtxHENKYAKU_RIYU.DataBindings.Add(New Binding(NameOf(mtxHENKYAKU_RIYU.Text), _D003_NCR_J, NameOf(_D003_NCR_J.FUTEKIGO_NAIYO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbFUTEKIGO_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_KB.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.FUTEKIGO_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         'FUTEKIGO_S_KBはFUTEKIGO_KB変更時にバインド
@@ -5616,9 +5700,10 @@ Public Class FrmG0011
             Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
 
-                    _D003_NCR_J.HOKOKU_NO = "<新規>"
+                    mtxHOKUKO_NO.Text = "<新規>"
+                    '_D003_NCR_J.HOKOKU_NO = "<新規>"
                     _D003_NCR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _D003_NCR_J.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+                    '_D003_NCR_J.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
                     Select Case pub_SYAIN_INFO.BUMON_KB
                         Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP, Context.ENM_BUMON_KB._3_複合材
                             _D003_NCR_J.BUMON_KB = pub_SYAIN_INFO.BUMON_KB
@@ -5634,6 +5719,8 @@ Public Class FrmG0011
                     Me.TabSTAGE.Visible = True
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
+
+                    mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
                     'SPEC: 10-2.①
                     Call FunSetEntityModel(PrHOKOKU_NO, PrCurrentStage)
@@ -6104,6 +6191,7 @@ Public Class FrmG0011
             sbSQL.Append(" WHERE BUHIN_BANGO='" & strBUHIN_BANGO & "'")
             sbSQL.Append(" AND FUTEKIGO_KB='" & strFUTEKIGO_KB & "'")
             sbSQL.Append(" AND FUTEKIGO_S_KB='" & strFUTEKIGO_S_KB & "'")
+            sbSQL.Append(" AND RTRIM(DEL_YMDHNS)<>''")
             If Not _D003_NCR_J.HOKOKU_NO.IsNullOrEmpty Then
                 sbSQL.Append(" AND HOKOKU_NO<>'" & _D003_NCR_J.HOKOKU_NO & "'")
             End If
@@ -6167,6 +6255,8 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
+
+
 
 #End Region
 

@@ -85,11 +85,17 @@ Public Class FrmG0010
     Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
+            Me.Visible = False
+
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
             Using DB As ClsDbUtility = DBOpen()
                 lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
             End Using
+
+            Call EnableDoubleBuffering(dgvDATA)
+            Call EnableDoubleBuffering(dgvNCR)
+            Call EnableDoubleBuffering(dgvCAR)
 
             '-----グリッド初期設定(親フォームから呼び出し)
             Call FunInitializeDataGridView(dgvDATA)
@@ -144,9 +150,12 @@ Public Class FrmG0010
 
 
             '-----既定値設定
+            Dim dtGEN_TANTO As DataTable = Nothing
             Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
             If blnIsAdmin Then
                 'システム管理者のみ制限解除
+                dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
+
             Else
                 Select Case pub_SYAIN_INFO.BUMON_KB
                     Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
@@ -156,7 +165,8 @@ Public Class FrmG0010
                                                     CopyToDataTable
                         cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-                        cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+                        'cmbBUMON.SelectedValue = 'pub_SYAIN_INFO.BUMON_KB
+                        dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(Context.ENM_BUMON_KB._1_風防)
 
                     Case Context.ENM_BUMON_KB._3_複合材
                         Dim dt As DataTable = DirectCast(cmbBUMON.DataSource, DataTable).
@@ -164,15 +174,16 @@ Public Class FrmG0010
                                                     Where(Function(r) r.Field(Of String)("VALUE") = pub_SYAIN_INFO.BUMON_KB).
                                                     CopyToDataTable
                         cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-
                         cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+
+                        dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
                     Case Else
 
                 End Select
             End If
-            Dim dtGEN_TANTO As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
             cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbGEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+
 
             ''-----イベントハンドラ設定
             AddHandler cmbBUMON.SelectedValueChanged, AddressOf SearchFilterValueChanged
@@ -208,7 +219,12 @@ Public Class FrmG0010
                 Case ENM_OPEN_MODE._0_通常
                     Me.cmdFunc7.PerformClick()
                 Case ENM_OPEN_MODE._1_新規作成
-                    Me.cmdFunc2.PerformClick()
+                    'Me.cmdFunc2.PerformClick()
+
+                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
+                        Call FunSRCH(dgvDATA, FunGetListData())
+                    End If
+
                 Case ENM_OPEN_MODE._2_処置画面起動
                     ParamModel.HOKOKU_NO = pub_PrHOKOKU_NO
                     ParamModel.SYONIN_HOKOKUSYO_ID = pub_PrSYONIN_HOKOKUSYO_ID
@@ -217,10 +233,13 @@ Public Class FrmG0010
                 Case Else
                     Me.cmdFunc1.PerformClick()
             End Select
-            Me.WindowState = FormWindowState.Maximized
-        Finally
+
             'ファンクションボタンステータス更新
             Call FunInitFuncButtonEnabled()
+            Me.WindowState = FormWindowState.Maximized
+            Me.Visible = True
+        Finally
+
         End Try
     End Sub
 
@@ -476,7 +495,7 @@ Public Class FrmG0010
     End Sub
 
     'ソート時イベント
-    Private Sub DgvDATA_Sorted(sender As Object, e As EventArgs)
+    Private Sub DgvDATA_Sorted(sender As Object, e As EventArgs) Handles dgvDATA.Sorted
         Call FunSetDgvCellFormat(sender)
     End Sub
 
@@ -1374,7 +1393,7 @@ Public Class FrmG0010
         Dim sbSQL As New System.Text.StringBuilder
         Dim intRET As Integer
         Dim sqlEx As New Exception
-
+        Dim strSysDate As String = DB.GetSysDateString
         'UNDONE: MERGE INTO に変更
 
         '---存在確認
@@ -1396,7 +1415,7 @@ Public Class FrmG0010
         _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_SOUSA_KB._4_メール送信
         _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
         _R001_HOKOKU_SOUSA.RIYU = "処置滞留通知送信"
-        _R001_HOKOKU_SOUSA.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+        _R001_HOKOKU_SOUSA.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
 
         '-----INSERT R001
         sbSQL.Remove(0, sbSQL.Length)
@@ -2390,8 +2409,8 @@ Public Class FrmG0010
         sbSQL.Append(" FROM " & NameOf(MODEL.VWM001_SETTING) & " ")
         sbSQL.Append(" WHERE ITEM_NAME='滞留メール送信権限'")
         sbSQL.Append(" AND ITEM_DISP='" & pub_SYAIN_INFO.SYAIN_ID & "'")
-        Using DBa As ClsDbUtility = DBOpen()
-            dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        Using DB As ClsDbUtility = DBOpen()
+            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
         End Using
 
         If dsList.Tables(0).Rows.Count > 0 Then

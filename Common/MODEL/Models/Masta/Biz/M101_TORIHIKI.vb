@@ -60,6 +60,27 @@ Partial Public Class M101_TORIHIKI
     <Phone>
     <ComponentModel.DisplayName("TEL")>
     Public Property TEL As String
+        Get
+            Return $"{TEL_P1}-{TEL_P2}-{TEL_P3}"
+        End Get
+        Set(value As String)
+            If value.Contains("-") Then
+                TEL_P1 = value.Split("-")(0)
+                TEL_P2 = value.Split("-")(1)
+                TEL_P3 = value.Split("-")(2)
+            End If
+        End Set
+    End Property
+
+    <Display(AutoGenerateField:=False)>
+    Public Property TEL_P1 As String
+
+    <Display(AutoGenerateField:=False)>
+    Public Property TEL_P2 As String
+
+    <Display(AutoGenerateField:=False)>
+    Public Property TEL_P3 As String
+
 
     <Required>
     <StringLength(20)>
@@ -67,6 +88,28 @@ Partial Public Class M101_TORIHIKI
     <Phone>
     <ComponentModel.DisplayName("FAX")>
     Public Property FAX As String
+        Get
+            Return $"{FAX_P1}-{FAX_P2}-{FAX_P3}"
+        End Get
+        Set(value As String)
+            If value.Contains("-") Then
+                FAX_P1 = value.Split("-")(0)
+                FAX_P2 = value.Split("-")(1)
+                FAX_P3 = value.Split("-")(2)
+            End If
+        End Set
+    End Property
+
+    <Display(AutoGenerateField:=False)>
+    Public Property FAX_P1 As String
+
+    <Display(AutoGenerateField:=False)>
+    Public Property FAX_P2 As String
+
+    <Display(AutoGenerateField:=False)>
+    Public Property FAX_P3 As String
+
+
 
     '共通項目------------------------------------
     <Required>

@@ -110,6 +110,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FMS_M1060(部品番号マ�
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FMS_M1070(部品機種マスタ)", "Application\MastaApp\FMS_M1070(部品機種マスタ)\FMS_M1070(部品機種マスタ).vbproj", "{6A23EC2C-97B7-44FD-B7B2-266A5F4160F8}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FMS_M1010(取引先マスタ)", "Application\MastaApp\FMS_M1010(取引先マスタ)\FMS_M1010(取引先マスタ).vbproj", "{A2F94BC7-5A2B-4406-B66D-2E6B6EFE6E7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -288,6 +290,18 @@ Global
 		{6A23EC2C-97B7-44FD-B7B2-266A5F4160F8}.Release|x64.Build.0 = Release|Any CPU
 		{6A23EC2C-97B7-44FD-B7B2-266A5F4160F8}.Release|x86.ActiveCfg = Release|x86
 		{6A23EC2C-97B7-44FD-B7B2-266A5F4160F8}.Release|x86.Build.0 = Release|x86
+		{A2F94BC7-5A2B-4406-B66D-2E6B6EFE6E7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2F94BC7-5A2B-4406-B66D-2E6B6EFE6E7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2F94BC7-5A2B-4406-B66D-2E6B6EFE6E7E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A2F94BC7-5A2B-4406-B66D-2E6B6EFE6E7E}.Debug|x64.Build.0 = Debug|Any CPU
+		{A2F94BC7-5A2B-4406-B66D-2E6B6EFE6E7E}.Debug|x86.ActiveCfg = Debug|x86
+		{A2F94BC7-5A2B-4406-B66D-2E6B6EFE6E7E}.Debug|x86.Build.0 = Debug|x86
+		{A2F94BC7-5A2B-4406-B66D-2E6B6EFE6E7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2F94BC7-5A2B-4406-B66D-2E6B6EFE6E7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2F94BC7-5A2B-4406-B66D-2E6B6EFE6E7E}.Release|x64.ActiveCfg = Release|Any CPU
+		{A2F94BC7-5A2B-4406-B66D-2E6B6EFE6E7E}.Release|x64.Build.0 = Release|Any CPU
+		{A2F94BC7-5A2B-4406-B66D-2E6B6EFE6E7E}.Release|x86.ActiveCfg = Release|x86
+		{A2F94BC7-5A2B-4406-B66D-2E6B6EFE6E7E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -310,10 +324,11 @@ Global
 		{57184F60-8A6B-4D9D-9D7D-F07CBC7EADDB} = {1034D131-E395-4208-B99E-F5BDA56C56F9}
 		{035081B4-A56E-4AB5-BF07-3C80C3525779} = {1034D131-E395-4208-B99E-F5BDA56C56F9}
 		{6A23EC2C-97B7-44FD-B7B2-266A5F4160F8} = {1034D131-E395-4208-B99E-F5BDA56C56F9}
+		{A2F94BC7-5A2B-4406-B66D-2E6B6EFE6E7E} = {1034D131-E395-4208-B99E-F5BDA56C56F9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		BuildVersion_UseGlobalSettings = True
-		BuildVersion_StartDate = 2000/1/1
 		SolutionGuid = {7654D903-2DF2-4216-B2D3-7A7E3E63F7E7}
+		BuildVersion_StartDate = 2000/1/1
+		BuildVersion_UseGlobalSettings = True
 	EndGlobalSection
 EndGlobal
