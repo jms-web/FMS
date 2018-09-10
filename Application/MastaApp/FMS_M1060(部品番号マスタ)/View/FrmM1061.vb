@@ -59,11 +59,12 @@ Public Class FrmM1061
             End Using
 
             '-----位置・サイズ
-            Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) - 26 ' / 2
+            Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) - 10 ' / 2
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
 
             '-----コントロールデータソース設定
-            CmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbTOKUI_ID.SetDataSource(tblTORIHIKI.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             Call FunSetBinding()
 
@@ -259,8 +260,8 @@ Public Class FrmM1061
 
 #Region "バインディング"
     Private Function FunSetBinding() As Boolean
-        CmbBUMON_KB.DataBindings.Add(New Binding(NameOf(CmbBUMON_KB.SelectedValue), _M105, NameOf(_M105.BUMON_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        mtxKISYU_NAME.DataBindings.Add(New Binding(NameOf(mtxKISYU_NAME.Text), _M105, NameOf(_M105.KISYU_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbBUMON_KB.DataBindings.Add(New Binding(NameOf(cmbBUMON_KB.SelectedValue), _M105, NameOf(_M105.BUMON_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        mtxTANKA.DataBindings.Add(New Binding(NameOf(mtxTANKA.Text), _M105, NameOf(_M105.KISYU_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
     End Function
 
@@ -276,8 +277,8 @@ Public Class FrmM1061
                     lblTytle.Text &= "（追加）"
                     cmdFunc1.Text = "追加(F1)"
 
-                    mtxKISYU_ID.Text = "<新規>"
-                    mtxKISYU_ID.ReadOnly = True
+                    'mtxKISYU_ID.Text = "<新規>"
+                    'mtxKISYU_ID.ReadOnly = True
 
                     lbllblEDIT_YMDHNS.Visible = False
                     lblEDIT_YMDHNS.Visible = False
@@ -297,8 +298,8 @@ Public Class FrmM1061
                     lblTytle.Text &= "（類似追加）"
                     cmdFunc1.Text = "追加(F1)"
 
-                    mtxKISYU_ID.Text = "<新規>"
-                    mtxKISYU_ID.ReadOnly = True
+                    'mtxKISYU_ID.Text = "<新規>"
+                    'mtxKISYU_ID.ReadOnly = True
 
                     lbllblEDIT_YMDHNS.Visible = False
                     lblEDIT_YMDHNS.Visible = False
@@ -318,7 +319,7 @@ Public Class FrmM1061
                     lblTytle.Text &= "（変更）"
                     Me.cmdFunc1.Text = "変更(F1)"
 
-                    mtxKISYU_ID.ReadOnly = True
+                    'mtxKISYU_ID.ReadOnly = True
 
                     lbllblEDIT_YMDHNS.Visible = True
                     lblEDIT_YMDHNS.Visible = True
@@ -350,8 +351,8 @@ Public Class FrmM1061
         Try
             IsValidated = True
 
-            Call CmbBUMON_KB_Validating(CmbBUMON_KB, Nothing)
-            Call mtxKISYU_NAME_Validating(mtxKISYU_NAME, Nothing)
+            Call CmbBUMON_KB_Validating(cmbBUMON_KB, Nothing)
+            Call MtxKISYU_NAME_Validating(mtxTANKA, Nothing)
 
             Return IsValidated
         Catch ex As Exception
@@ -360,19 +361,26 @@ Public Class FrmM1061
         End Try
     End Function
 
-    Private Sub CmbBUMON_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles CmbBUMON_KB.Validating
+    Private Sub CmbBUMON_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbBUMON_KB.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = (IsValidated AndAlso True)
+
+            '部門区分の選択時の処理
+            If cmbBUMON_KB.SelectedValue = ENM_ERR_KB Then
+
+
+            End If
+
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"), ErrorIconAlignment.MiddleLeft)
             IsValidated = False
         End If
     End Sub
 
-    Private Sub MtxKISYU_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxKISYU_NAME.Validating
+    Private Sub MtxKISYU_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxTANKA.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
         If mtx.Text.IsNullOrWhiteSpace = False Then
@@ -410,6 +418,10 @@ Public Class FrmM1061
             dsList.Dispose()
         End Try
     End Function
+
+    Private Sub cmbBUMON_KB_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON_KB.SelectedValueChanged
+
+    End Sub
 
 #End Region
 

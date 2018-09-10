@@ -39,17 +39,18 @@ Public Class FrmM1060
 
             '-----コントロールデータソース設定
             cmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbTOKUI.SetDataSource(tblTORIHIKI.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             '-----イベントハンドラ設定
-            AddHandler cmbBUMON_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            AddHandler mtxKISYU_NAME.Leave, AddressOf SearchFilterValueChanged
+            'AddHandler cmbBUMON_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            'AddHandler mtxBUHIN_NAME.Leave, AddressOf SearchFilterValueChanged
             AddHandler chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
         Finally
             Call SubInitFuncButtonEnabled()
 
             '検索実行
-            cmdFunc1.PerformClick()
+            'cmdFunc1.PerformClick()
         End Try
     End Sub
 
@@ -192,9 +193,12 @@ Public Class FrmM1060
             Dim dsList As New DataSet
             Dim sbSQLWHERE As New System.Text.StringBuilder
 
-            If CmbBUMON_KB.Selected Then sbSQLWHERE.Append($" WHERE BUMON_KB ='{CmbBUMON_KB.SelectedValue}' ")
-
-            If Not mtxKISYU_NAME.Text.IsNullOrWhiteSpace Then sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"KISYU_NAME LIKE '%{mtxKISYU_NAME.Text.Trim}%'")
+            sbSQLWHERE.Append(" WHERE 1=1 ")
+            If cmbBUMON_KB.Selected Then sbSQLWHERE.Append($" AND BUMON_KB ='{cmbBUMON_KB.SelectedValue}' ")
+            If cmbTOKUI.Selected Then sbSQLWHERE.Append($" AND TOKUI_ID ='{cmbTOKUI.SelectedValue}' ")
+            If mtxBUHIN_BANGO.Text.Trim <> "" Then sbSQLWHERE.Append($" AND BUHIN_BANGO like '%{mtxBUHIN_BANGO.Text}%' ")
+            If mtxBUHIN_NAME.Text.Trim <> "" Then sbSQLWHERE.Append($" AND BUHIN_NAME like '%{mtxBUHIN_NAME.Text}%' ")
+            If mtxSYANAI_CD.Text.Trim <> "" Then sbSQLWHERE.Append($" AND SYANAI_CD like '%{mtxSYANAI_CD.Text}%' ")
 
             flxDATA.Cols("DEL_FLG").Visible = chkDeletedRowVisibled.Checked
             If chkDeletedRowVisibled.Checked = False Then
@@ -203,9 +207,9 @@ Public Class FrmM1060
 
             sbSQL.Append($"SELECT")
             sbSQL.Append($" *")
-            sbSQL.Append($" FROM {NameOf(MODEL.VWM105_KISYU)} ")
+            sbSQL.Append($" FROM {NameOf(MODEL.VWM106_BUHIN)} ")
             sbSQL.Append(sbSQLWHERE)
-            sbSQL.Append($" ORDER BY KISYU_ID ")
+            sbSQL.Append($" ORDER BY BUHIN_BANGO ")
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
@@ -216,7 +220,7 @@ Public Class FrmM1060
                 End If
             End If
 
-            Dim _Model As New MODEL.ModelInfo(Of MODEL.VWM105_KISYU)(srcDATA:=dsList.Tables(0))
+            Dim _Model As New MODEL.ModelInfo(Of MODEL.VWM106_BUHIN)(srcDATA:=dsList.Tables(0))
             Return _Model.Data
 
         Catch ex As Exception
@@ -470,10 +474,11 @@ Public Class FrmM1060
     Private Sub BtnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click
         cmdFunc1.Enabled = False
         cmbBUMON_KB.SelectedIndex = 0
-        mtxKISYU_NAME.Text = ""
+        mtxBUHIN_NAME.Text = ""
         cmdFunc1.Enabled = True
         cmdFunc1.PerformClick()
     End Sub
+
 #End Region
 
 End Class

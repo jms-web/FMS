@@ -48,7 +48,11 @@ Module mdlM1060
 
                 '-----共通データ取得
                 Using DB As ClsDbUtility = DBOpen()
-                    Call FunGetCodeDataTable(DB, "部門区分", tblBUMON)
+                    Call FunGetCodeDataTable(DB, "部門区分", tblBUMON, "ITEM_VALUE<'4' ")
+                    Call FunGetCodeDataTable(DB, "取引先", tblTORIHIKI, "TORI_KB = '0' OR TORI_KB = '3' ")
+                    Call FunGetCodeDataTable(DB, "航空機契約区分", tblKK_KEIYAKU_KB)
+                    Call FunGetCodeDataTable(DB, "LP契約区分", tblLP_KEIYAKU_KB)
+                    Call FunGetCodeDataTable(DB, "陸海空区分", tblRIKUKAIKU_KB)
                 End Using
 
                 '-----一覧画面表示
