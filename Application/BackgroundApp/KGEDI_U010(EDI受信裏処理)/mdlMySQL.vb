@@ -1,3 +1,0 @@
-﻿Module mdlMySQL
-
-End Module

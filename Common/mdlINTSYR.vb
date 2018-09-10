@@ -245,13 +245,14 @@ Module mdlINTSYR
 
                 Return True
             Else
-                If My.Application.Info.AssemblyName <> "FMS_M0000" Then
-                    WL.WriteLogDat("ログインユーザーコードが取得出来ませんでした。")
-                    MessageBox.Show("ログインユーザーコードが取得出来ませんでした。" & vbCrLf & "プログラムを終了します。", My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Return False
-                Else
-                    Return True
-                End If
+                Select Case My.Application.Info.AssemblyName
+                    Case "FMS_M0000", "FMS_U0010"
+                        Return True
+                    Case Else
+                        WL.WriteLogDat("ログインユーザーコードが取得出来ませんでした。")
+                        MessageBox.Show("ログインユーザーコードが取得出来ませんでした。" & vbCrLf & "プログラムを終了します。", My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Return False
+                End Select
             End If
 
         Catch ex As Exception

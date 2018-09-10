@@ -480,7 +480,7 @@ Public Class FrmG0010
     End Sub
 
     '行選択時イベント
-    Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs)
+    Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs) Handles dgvDATA.SelectionChanged
         Try
             If Me.dgvDATA.CurrentRow IsNot Nothing Then
                 If Me.dgvDATA.CurrentRow.Cells("CLOSE_FG").Value = "1" Or Me.dgvDATA.CurrentRow.Cells("DEL_YMDHNS").Value.ToString.IsNullOrWhiteSpace Then
@@ -741,12 +741,23 @@ Public Class FrmG0010
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) = True Then
                         Call FunSRCH(dgvDATA, FunGetListData())
                     End If
-                Case 5, 6  '削除/復元/完全削除
+                Case 5  '削除/復元/完全削除
 
                     If dgvDATA.CurrentRow IsNot Nothing Then
                         If MessageBox.Show("選択されたデータを削除しますか?", "削除確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
                             Dim dr As DataRow = dgvDATA.GetDataRow()
                             If FunDEL(dr.Item("SYONIN_HOKOKUSYO_ID"), dr.Item("HOKOKU_NO")) = True Then
+                                Call FunSRCH(dgvDATA, FunGetListData())
+                            End If
+                        End If
+                    Else
+                        MessageBox.Show("該当データが選択されていません。", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End If
+                Case 6 '復元
+                    If dgvDATA.CurrentRow IsNot Nothing Then
+                        If MessageBox.Show("選択されたデータを復元しますか?", "復元確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
+                            Dim dr As DataRow = dgvDATA.GetDataRow()
+                            If FunRESTORE(dr.Item("SYONIN_HOKOKUSYO_ID"), dr.Item("HOKOKU_NO")) = True Then
                                 Call FunSRCH(dgvDATA, FunGetListData())
                             End If
                         End If
@@ -1130,6 +1141,53 @@ Public Class FrmG0010
             End Select
             sbSQL.Append(" DEL_SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID & "")
             sbSQL.Append(" ,DEL_YMDHNS=dbo.GetSysDateString()")
+            sbSQL.Append(" WHERE HOKOKU_NO='" & strHOKOKU_NO.ConvertSqlEscape & "'")
+
+            'CHECK: 一覧削除ボタン D004やR001等の編集履歴はどうするか
+
+            '-----SQL実行
+            Using DB As ClsDbUtility = DBOpen()
+                Dim sqlEx As New Exception
+                Dim blnErr As Boolean
+                Dim intRET As Integer
+                Try
+                    DB.BeginTransaction()
+
+                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+                    If intRET <> 1 Then
+                        '-----エラーログ出力
+                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                        WL.WriteLogDat(strErrMsg)
+                        blnErr = True
+                        Return False
+                    End If
+                Finally
+                    DB.Commit(Not blnErr)
+                End Try
+            End Using
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        End Try
+    End Function
+
+    Private Function FunRESTORE(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+
+        Try
+
+            '-----UPDATE
+            sbSQL.Remove(0, sbSQL.Length)
+            Select Case intSYONIN_HOKOKUSYO_ID
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+                    sbSQL.Append("UPDATE " & NameOf(MODEL.D003_NCR_J) & " SET")
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+                    sbSQL.Append("UPDATE " & NameOf(MODEL.D005_CAR_J) & " SET")
+            End Select
+            sbSQL.Append(" DEL_SYAIN_ID=" & 0 & "")
+            sbSQL.Append(" ,DEL_YMDHNS=''")
             sbSQL.Append(" WHERE HOKOKU_NO='" & strHOKOKU_NO.ConvertSqlEscape & "'")
 
             'CHECK: 一覧削除ボタン D004やR001等の編集履歴はどうするか
@@ -1746,6 +1804,10 @@ Public Class FrmG0010
                         cmdFunc5.Enabled = False
                         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除済みデータです")
                         dgvDATA.CurrentRow.Cells.Item("SELECTED").ReadOnly = True
+
+                        cmdFunc6.Visible = True
+                    Else
+                        cmdFunc6.Visible = False
                     End If
                 Else
 
@@ -1757,7 +1819,7 @@ Public Class FrmG0010
                         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除済みデータです")
                         dgvDATA.CurrentRow.Cells.Item("SELECTED").ReadOnly = True
                     End If
-
+                    cmdFunc6.Visible = False
                     cmdFunc5.Enabled = False
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除権限の使用には管理者権限が必要です")
                 End If

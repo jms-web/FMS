@@ -153,9 +153,9 @@ Partial Class FrmG0010
         'cmdFunc6
         '
         Me.cmdFunc6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmdFunc6.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
+        Me.cmdFunc6.Image = Global.FMS.My.Resources.Resources._imgRecovery32x32
         Me.cmdFunc6.Location = New System.Drawing.Point(1044, 595)
-        Me.cmdFunc6.Text = "çƒïsìKçáèàíu(F6)"
+        Me.cmdFunc6.Text = "ïúå≥(F6)"
         Me.cmdFunc6.Visible = False
         '
         'cmdFunc12
