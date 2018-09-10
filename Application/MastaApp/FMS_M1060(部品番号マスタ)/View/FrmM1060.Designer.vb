@@ -31,12 +31,12 @@ Partial Class FrmM1060
         Me.cmbBUMON_KB = New JMS_COMMON.ComboboxEx()
         Me.chkDeletedRowVisibled = New System.Windows.Forms.CheckBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.ComboboxEx1 = New JMS_COMMON.ComboboxEx()
+        Me.cmbTOKUI = New JMS_COMMON.ComboboxEx()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.MaskedTextBoxEx1 = New JMS_COMMON.MaskedTextBoxEx()
-        Me.mtxKISYU_NAME = New JMS_COMMON.MaskedTextBoxEx()
+        Me.mtxBUHIN_BANGO = New JMS_COMMON.MaskedTextBoxEx()
+        Me.mtxBUHIN_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.MaskedTextBoxEx2 = New JMS_COMMON.MaskedTextBoxEx()
+        Me.mtxSYANAI_CD = New JMS_COMMON.MaskedTextBoxEx()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.VWM106BUHINBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -124,10 +124,11 @@ Partial Class FrmM1060
         'Label3
         '
         Me.Label3.AutoSize = True
+        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label3.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label3.Location = New System.Drawing.Point(3, 30)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(65, 17)
+        Me.Label3.Size = New System.Drawing.Size(70, 30)
         Me.Label3.TabIndex = 54
         Me.Label3.Text = "部品番号:"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -149,11 +150,11 @@ Partial Class FrmM1060
         '
         Me.tlpFilter.ColumnCount = 8
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 76.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 164.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 196.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 66.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 82.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 414.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 84.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 314.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 124.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 119.0!))
         Me.tlpFilter.Controls.Add(Me.btnClearSrchFilter, 7, 0)
@@ -161,13 +162,13 @@ Partial Class FrmM1060
         Me.tlpFilter.Controls.Add(Me.cmbBUMON_KB, 1, 0)
         Me.tlpFilter.Controls.Add(Me.chkDeletedRowVisibled, 6, 0)
         Me.tlpFilter.Controls.Add(Me.Label2, 2, 0)
-        Me.tlpFilter.Controls.Add(Me.ComboboxEx1, 3, 0)
+        Me.tlpFilter.Controls.Add(Me.cmbTOKUI, 3, 0)
         Me.tlpFilter.Controls.Add(Me.Label3, 0, 1)
         Me.tlpFilter.Controls.Add(Me.Label4, 2, 1)
-        Me.tlpFilter.Controls.Add(Me.MaskedTextBoxEx1, 1, 1)
-        Me.tlpFilter.Controls.Add(Me.mtxKISYU_NAME, 3, 1)
+        Me.tlpFilter.Controls.Add(Me.mtxBUHIN_BANGO, 1, 1)
+        Me.tlpFilter.Controls.Add(Me.mtxBUHIN_NAME, 3, 1)
         Me.tlpFilter.Controls.Add(Me.Label5, 4, 1)
-        Me.tlpFilter.Controls.Add(Me.MaskedTextBoxEx2, 5, 1)
+        Me.tlpFilter.Controls.Add(Me.mtxSYANAI_CD, 5, 1)
         Me.tlpFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpFilter.Location = New System.Drawing.Point(3, 20)
         Me.tlpFilter.Name = "tlpFilter"
@@ -216,7 +217,7 @@ Partial Class FrmM1060
         Me.cmbBUMON_KB.NullValue = " "
         Me.cmbBUMON_KB.ReadOnly = False
         Me.cmbBUMON_KB.Selected = False
-        Me.cmbBUMON_KB.Size = New System.Drawing.Size(158, 25)
+        Me.cmbBUMON_KB.Size = New System.Drawing.Size(117, 25)
         Me.cmbBUMON_KB.TabIndex = 59
         Me.cmbBUMON_KB.ValueMember = "VALUE"
         '
@@ -237,96 +238,98 @@ Partial Class FrmM1060
         'Label2
         '
         Me.Label2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label2.Location = New System.Drawing.Point(243, 0)
+        Me.Label2.Location = New System.Drawing.Point(275, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(70, 30)
+        Me.Label2.Size = New System.Drawing.Size(60, 30)
         Me.Label2.TabIndex = 102
         Me.Label2.Text = "得意先:"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'ComboboxEx1
+        'cmbTOKUI
         '
-        Me.ComboboxEx1.BackColor = System.Drawing.SystemColors.Window
-        Me.ComboboxEx1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ComboboxEx1.DisplayMember = "DISP"
-        Me.ComboboxEx1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboboxEx1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.ComboboxEx1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.ComboboxEx1.FormattingEnabled = True
-        Me.ComboboxEx1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ComboboxEx1.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.ComboboxEx1.Location = New System.Drawing.Point(322, 3)
-        Me.ComboboxEx1.Name = "ComboboxEx1"
-        Me.ComboboxEx1.NullValue = " "
-        Me.ComboboxEx1.ReadOnly = False
-        Me.ComboboxEx1.Selected = False
-        Me.ComboboxEx1.Size = New System.Drawing.Size(166, 25)
-        Me.ComboboxEx1.TabIndex = 103
-        Me.ComboboxEx1.ValueMember = "VALUE"
+        Me.cmbTOKUI.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbTOKUI.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbTOKUI.DisplayMember = "DISP"
+        Me.cmbTOKUI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbTOKUI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbTOKUI.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbTOKUI.FormattingEnabled = True
+        Me.cmbTOKUI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbTOKUI.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbTOKUI.Location = New System.Drawing.Point(341, 3)
+        Me.cmbTOKUI.Name = "cmbTOKUI"
+        Me.cmbTOKUI.NullValue = " "
+        Me.cmbTOKUI.ReadOnly = False
+        Me.cmbTOKUI.Selected = False
+        Me.cmbTOKUI.Size = New System.Drawing.Size(242, 25)
+        Me.cmbTOKUI.TabIndex = 103
+        Me.cmbTOKUI.ValueMember = "VALUE"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
+        Me.Label4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label4.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label4.Location = New System.Drawing.Point(243, 30)
+        Me.Label4.Location = New System.Drawing.Point(275, 30)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(52, 17)
+        Me.Label4.Size = New System.Drawing.Size(60, 30)
         Me.Label4.TabIndex = 104
         Me.Label4.Text = "部品名:"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'MaskedTextBoxEx1
+        'mtxBUHIN_BANGO
         '
-        Me.MaskedTextBoxEx1.BackColor = System.Drawing.SystemColors.Window
-        Me.MaskedTextBoxEx1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.MaskedTextBoxEx1.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.MaskedTextBoxEx1.InputRequired = False
-        Me.MaskedTextBoxEx1.Location = New System.Drawing.Point(79, 33)
-        Me.MaskedTextBoxEx1.MaxByteLength = 30
-        Me.MaskedTextBoxEx1.Name = "MaskedTextBoxEx1"
-        Me.MaskedTextBoxEx1.Size = New System.Drawing.Size(158, 24)
-        Me.MaskedTextBoxEx1.TabIndex = 105
-        Me.MaskedTextBoxEx1.WatermarkColor = System.Drawing.Color.Empty
-        Me.MaskedTextBoxEx1.WatermarkText = Nothing
+        Me.mtxBUHIN_BANGO.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxBUHIN_BANGO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxBUHIN_BANGO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxBUHIN_BANGO.InputRequired = False
+        Me.mtxBUHIN_BANGO.Location = New System.Drawing.Point(79, 33)
+        Me.mtxBUHIN_BANGO.MaxByteLength = 30
+        Me.mtxBUHIN_BANGO.Name = "mtxBUHIN_BANGO"
+        Me.mtxBUHIN_BANGO.Size = New System.Drawing.Size(190, 24)
+        Me.mtxBUHIN_BANGO.TabIndex = 105
+        Me.mtxBUHIN_BANGO.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxBUHIN_BANGO.WatermarkText = Nothing
         '
-        'mtxKISYU_NAME
+        'mtxBUHIN_NAME
         '
-        Me.mtxKISYU_NAME.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxKISYU_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxKISYU_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.mtxKISYU_NAME.InputRequired = False
-        Me.mtxKISYU_NAME.Location = New System.Drawing.Point(322, 33)
-        Me.mtxKISYU_NAME.MaxByteLength = 30
-        Me.mtxKISYU_NAME.Name = "mtxKISYU_NAME"
-        Me.mtxKISYU_NAME.Size = New System.Drawing.Size(165, 24)
-        Me.mtxKISYU_NAME.TabIndex = 58
-        Me.mtxKISYU_NAME.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxKISYU_NAME.WatermarkText = Nothing
+        Me.mtxBUHIN_NAME.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxBUHIN_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxBUHIN_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxBUHIN_NAME.InputRequired = False
+        Me.mtxBUHIN_NAME.Location = New System.Drawing.Point(341, 33)
+        Me.mtxBUHIN_NAME.MaxByteLength = 30
+        Me.mtxBUHIN_NAME.Name = "mtxBUHIN_NAME"
+        Me.mtxBUHIN_NAME.Size = New System.Drawing.Size(242, 24)
+        Me.mtxBUHIN_NAME.TabIndex = 58
+        Me.mtxBUHIN_NAME.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxBUHIN_NAME.WatermarkText = Nothing
         '
         'Label5
         '
         Me.Label5.AutoSize = True
+        Me.Label5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label5.Location = New System.Drawing.Point(494, 30)
+        Me.Label5.Location = New System.Drawing.Point(592, 30)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(70, 17)
+        Me.Label5.Size = New System.Drawing.Size(78, 30)
         Me.Label5.TabIndex = 106
         Me.Label5.Text = "社内コード:"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'MaskedTextBoxEx2
+        'mtxSYANAI_CD
         '
-        Me.MaskedTextBoxEx2.BackColor = System.Drawing.SystemColors.Window
-        Me.MaskedTextBoxEx2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.MaskedTextBoxEx2.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.MaskedTextBoxEx2.InputRequired = False
-        Me.MaskedTextBoxEx2.Location = New System.Drawing.Point(576, 33)
-        Me.MaskedTextBoxEx2.MaxByteLength = 30
-        Me.MaskedTextBoxEx2.Name = "MaskedTextBoxEx2"
-        Me.MaskedTextBoxEx2.Size = New System.Drawing.Size(165, 24)
-        Me.MaskedTextBoxEx2.TabIndex = 107
-        Me.MaskedTextBoxEx2.WatermarkColor = System.Drawing.Color.Empty
-        Me.MaskedTextBoxEx2.WatermarkText = Nothing
+        Me.mtxSYANAI_CD.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxSYANAI_CD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxSYANAI_CD.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxSYANAI_CD.InputRequired = False
+        Me.mtxSYANAI_CD.Location = New System.Drawing.Point(676, 33)
+        Me.mtxSYANAI_CD.MaxByteLength = 30
+        Me.mtxSYANAI_CD.Name = "mtxSYANAI_CD"
+        Me.mtxSYANAI_CD.Size = New System.Drawing.Size(165, 24)
+        Me.mtxSYANAI_CD.TabIndex = 107
+        Me.mtxSYANAI_CD.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxSYANAI_CD.WatermarkText = Nothing
         '
         'flxDATA
         '
@@ -392,15 +395,15 @@ Partial Class FrmM1060
     Friend WithEvents tlpFilter As TableLayoutPanel
     Friend WithEvents chkDeletedRowVisibled As CheckBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents mtxKISYU_NAME As MaskedTextBoxEx
+    Friend WithEvents mtxBUHIN_NAME As MaskedTextBoxEx
     Friend WithEvents cmbBUMON_KB As ComboboxEx
     Friend WithEvents btnClearSrchFilter As Button
     Friend WithEvents Label2 As Label
-    Friend WithEvents ComboboxEx1 As ComboboxEx
+    Friend WithEvents cmbTOKUI As ComboboxEx
     Friend WithEvents Label4 As Label
-    Friend WithEvents MaskedTextBoxEx1 As MaskedTextBoxEx
+    Friend WithEvents mtxBUHIN_BANGO As MaskedTextBoxEx
     Friend WithEvents Label5 As Label
-    Friend WithEvents MaskedTextBoxEx2 As MaskedTextBoxEx
-    Friend WithEvents VWM106BUHINBindingSource As BindingSource
+    Friend WithEvents mtxSYANAI_CD As MaskedTextBoxEx
     Private WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents VWM106BUHINBindingSource As BindingSource
 End Class

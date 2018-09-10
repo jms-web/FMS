@@ -13,6 +13,10 @@ Partial Public Class VWM106_BUHIN
     <ComponentModel.DisplayName("•”–å‹æ•ª")>
     Public Property BUMON_KB As String
 
+    <StringLength(150)>
+    <ComponentModel.DisplayName("•”–å‹æ•ª")>
+    Public Property BUMON_KB_DISP As String
+
     <Key>
     <Column(Order:=1)>
     <ComponentModel.DisplayName("“¾ˆÓæƒR[ƒh")>

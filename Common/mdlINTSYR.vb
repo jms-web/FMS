@@ -166,6 +166,15 @@ Module mdlINTSYR
         _9_システム権限 = 9
     End Enum
 
+    Public Enum ENM_BUMON_KB As Integer
+        _1_風防 = 1
+        _2_LP = 2
+        _3_複合材 = 3
+        _8_業務管理 = 8
+        _9_経営部 = 9
+    End Enum
+
+
     ''' <summary>
     ''' データ処理モード
     ''' </summary>

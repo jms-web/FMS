@@ -138,6 +138,12 @@ Public Module mdlDBContext
     ''' 要否区分
     ''' </summary>
     Public tblYOHI_KB As DataTableEx
+
+    ''' <summary>
+    ''' 取引先
+    ''' </summary>
+    Public tblTORIHIKI As DataTableEx
+
 #End Region
 
 #Region "共通"
@@ -188,9 +194,20 @@ Public Module mdlDBContext
     Public tblDAIKO_KB As DataTableEx
 
     ''' <summary>
-    ''' 取引区分
+    '''航空機契約区分
     ''' </summary>
-    Public tblTORI_KB As DataTableEx
+    Public tblKK_KEIYAKU_KB As DataTableEx
+
+    ''' <summary>
+    '''LP契約区分
+    ''' </summary>
+    Public tblLP_KEIYAKU_KB As DataTableEx
+
+    ''' <summary>
+    '''陸海空区分
+    ''' </summary>
+    Public tblRIKUKAIKU_KB As DataTableEx
+
 #End Region
 
 #Region "不適合関連"
@@ -409,6 +426,7 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+
 #Region "               NCR"
                 Case "NCR"
 
@@ -440,6 +458,7 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+
 #Region "               CAR"
                 Case "CAR"
                     dt = New DataTableEx("System.Int32")
@@ -470,6 +489,7 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+
 #Region "               担当"
                 Case "担当"
 
@@ -510,6 +530,7 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+
 #Region "               承認担当"
                 Case "承認担当"
 
@@ -546,6 +567,7 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+
 #Region "               承認担当一覧"
                 Case "承認担当一覧"
 
@@ -576,6 +598,7 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+
 #Region "               差戻し先"
                 Case "差戻し先"
                     dt = New DataTableEx("System.Int32")
@@ -613,6 +636,7 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+
 #Region "               機種"
                 Case "機種"
 
@@ -720,6 +744,7 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+
 #Region "               社内CD実績"
                 Case "社内CD実績"
                     '検索
@@ -770,6 +795,7 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+
 #Region "               部品番号"
                 Case "部品番号"
                     '検索
@@ -809,6 +835,7 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+
 #Region "               部品番号実績"
                 Case "部品番号実績"
                     '検索
@@ -858,6 +885,7 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+
 #Region "               機種実績"
                 Case "機種実績"
 
@@ -899,6 +927,70 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+
+#Region "               取引先"
+                Case "取引先"
+                    '検索
+                    sbSQL.Append("SELECT ")
+                    sbSQL.Append("TORI_ID")
+                    sbSQL.Append(",TORI_NAME")
+                    sbSQL.Append(",TORI_KB")
+                    sbSQL.Append(",POST")
+                    sbSQL.Append(",ADD1")
+                    sbSQL.Append(",ADD2")
+                    sbSQL.Append(",ADD3")
+                    sbSQL.Append(",TEL")
+                    sbSQL.Append(",FAX")
+                    sbSQL.Append(",DEL_YMDHNS")
+                    sbSQL.Append(",CASE DEL_YMDHNS ")
+                    sbSQL.Append(" WHEN '' THEN '0' ")
+                    sbSQL.Append(" ELSE '1' ")
+                    sbSQL.Append(" END AS DEL_FLG ")
+                    sbSQL.Append(" FROM M101_TORIHIKI ")
+
+                    If strWhere.IsNullOrWhiteSpace = False Then
+                        sbSQL.Append("WHERE " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_YMDHNS=' ' ")
+                    End If
+                    sbSQL.Append(" ORDER BY TORI_NAME")
+
+                    '主キー設定
+                    dt.PrimaryKey = {dt.Columns("TORI_CD")}
+
+                    dt.Columns.Add("TORI_ID", GetType(Integer))
+                    dt.Columns.Add("TORI_NAME", GetType(String))
+                    dt.Columns.Add("TORI_KB", GetType(String))
+                    dt.Columns.Add("POST", GetType(String))
+                    dt.Columns.Add("ADD1", GetType(String))
+                    dt.Columns.Add("ADD2", GetType(String))
+                    dt.Columns.Add("ADD3", GetType(String))
+                    dt.Columns.Add("TEL", GetType(String))
+                    dt.Columns.Add("FAX", GetType(String))
+                    'dt.Columns.Add("DEL_FLG", GetType(Boolean))
+
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            '
+                            Trow("DISP") = .Rows(intCNT).Item("TORI_NAME").ToString
+                            Trow("VALUE") = .Rows(intCNT).Item("TORI_ID").ToString
+                            Trow("TORI_KB") = .Rows(intCNT).Item("TORI_KB")
+                            Trow("POST") = .Rows(intCNT).Item("POST")
+                            Trow("ADD1") = .Rows(intCNT).Item("ADD1")
+                            Trow("ADD2") = .Rows(intCNT).Item("ADD2")
+                            Trow("ADD3") = .Rows(intCNT).Item("ADD3")
+                            Trow("TEL") = .Rows(intCNT).Item("TEL")
+                            Trow("FAX") = .Rows(intCNT).Item("FAX")
+                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_YMDHNS").trim <> "")
+                            dt.Rows.Add(Trow)
+                        Next intCNT
+                    End With
+#End Region
+
 #Region "               temp"
                     'Case "カレンダー"
 
@@ -952,6 +1044,7 @@ Public Module mdlDBContext
                     '    dt.Rows.Add(Trow1)
 
 #End Region
+
 #Region "               項目名"
                 Case "項目名"
                     '検索
@@ -984,6 +1077,7 @@ Public Module mdlDBContext
                         Next intCNT
                     End With
 #End Region
+
 #Region "               Else"
                 Case Else
 
