@@ -8,17 +8,17 @@ Imports System.Runtime.InteropServices
 
 ' アセンブリ属性の値を確認します。
 
-<Assembly: AssemblyTitle("FMS_G010")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("JMS")>
-<Assembly: AssemblyProduct("FMS")>
-<Assembly: AssemblyCopyright("Copyright (C) 2017 JMS")>
-<Assembly: AssemblyTrademark("")>
+<Assembly: AssemblyTitle("KGEDI_U010")> 
+<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyCompany("JMS")> 
+<Assembly: AssemblyProduct("EDI受信システム")> 
+<Assembly: AssemblyCopyright("Copyright © JMS 2016 - 2017")> 
+<Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
 
 'このプロジェクトが COM に公開される場合、次の GUID がタイプ ライブラリの ID になります。
-<Assembly: Guid("3353C31F-6156-4A5B-924D-29F0217D0010")>
+<Assembly: Guid("2EC024F0-C72A-4AC6-8B8D-F3C26F09985D")> 
 
 ' アセンブリのバージョン情報は、以下の 4 つの値で構成されています:
 '
@@ -30,12 +30,6 @@ Imports System.Runtime.InteropServices
 ' すべての値を指定するか、下のように '*' を使ってビルドおよびリビジョン番号を 
 ' 既定値にすることができます:
 ' <Assembly: AssemblyVersion("1.0.*")> 
-'
-'<Assembly: AssemblyVersion("1.0.0.0")> 
-'<Assembly: AssemblyFileVersion("1.0.0.0")> 
 
-<Assembly: AssemblyVersion("0.9.18253.0017")>
-'<Assembly: AssemblyFileVersion("1.0.*")> 
-
-
-<Assembly: AssemblyFileVersionAttribute("0.9.18253.0017")>
+<Assembly: AssemblyVersion("1.3.2.0")> 
+<Assembly: AssemblyFileVersion("1.3.2.0")> 

@@ -385,7 +385,7 @@ Public Class FrmG0011
 
 #Region "保存・承認申請"
 
-#Region "   MAIN"
+#Region "   保存MAIN"
 
     ''' <summary>
     ''' 保存・承認申請処理メイン
@@ -505,6 +505,8 @@ Public Class FrmG0011
     End Function
 
 #End Region
+
+#Region "   D003保存"
 
     ''' <summary>
     ''' NCR実績更新
@@ -927,6 +929,10 @@ Public Class FrmG0011
         Return True
     End Function
 
+#End Region
+
+#Region "   D004保存"
+
     ''' <summary>
     ''' 承認実績管理更新
     ''' </summary>
@@ -1186,7 +1192,6 @@ Public Class FrmG0011
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append($"SELECT {NameOf(MODEL.D005_CAR_J.HOKOKU_NO)} FROM {NameOf(MODEL.D005_CAR_J)} ")
         sbSQL.Append($" WHERE {NameOf(MODEL.D005_CAR_J.HOKOKU_NO)}='{_D004_SYONIN_J_KANRI.HOKOKU_NO}'")
-        'sbSQL.Append($" AND {NameOf(MODEL.D005_CAR_J.HOKOKU_NO)}='{_D004_SYONIN_J_KANRI.HOKOKU_NO}'")
 
         dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
         If dsList.Tables(0).Rows.Count = 0 Then
@@ -1208,6 +1213,10 @@ Public Class FrmG0011
         Return True
     End Function
 
+#End Region
+
+#Region "   承認依頼メール送信"
+
     ''' <summary>
     ''' 承認依頼メール送信
     ''' </summary>
@@ -1217,7 +1226,7 @@ Public Class FrmG0011
         Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
         Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
         Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
-        Dim strBody As String = <sql><![CDATA[
+        Dim strBody As String = <html><![CDATA[
         {0} 殿<br />
         <br />
         　不適合製品の処置依頼が来ましたので対応をお願いします。<br />
@@ -1234,7 +1243,7 @@ Public Class FrmG0011
         <br />
         ※このメールは配信専用です。(返信できません)<br />
         返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
-        ]]></sql>.Value.Trim
+        ]]></html>.Value.Trim
 
         'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}
 
@@ -1268,7 +1277,7 @@ Public Class FrmG0011
         Dim KISYU_NAME As String = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
         Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
         Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
-        Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
+        Dim strSubject As String = $"【不適合品処置依頼】{KISYU_NAME}・{_D003_NCR_J.BUHIN_BANGO}"
         Dim strBody As String = <sql><![CDATA[
         {0} 殿<br />
         <br />
@@ -1288,7 +1297,6 @@ Public Class FrmG0011
 
         'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={5}&EXEPATH={6}&PARAMS={7}
 
-        strSubject = String.Format(strSubject, KISYU_NAME, _D003_NCR_J.BUHIN_BANGO)
         strBody = String.Format(strBody,
                                 Fun_GetUSER_NAME(_D004_SYONIN_J_KANRI.SYAIN_ID),
                                 Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
@@ -1307,6 +1315,9 @@ Public Class FrmG0011
         End If
     End Function
 
+#End Region
+
+#Region "   R001保存"
     ''' <summary>
     ''' 報告書操作履歴更新
     ''' </summary>
@@ -1395,6 +1406,10 @@ Public Class FrmG0011
 
         Return True
     End Function
+
+#End Region
+
+#Region "   R003保存"
 
     ''' <summary>
     ''' 差し戻し履歴登録
@@ -1565,7 +1580,9 @@ Public Class FrmG0011
             Return True
         End If
     End Function
+#End Region
 
+#Region "   Ｄ005保存"
     ''' <summary>
     ''' D005_CAR_J更新
     ''' </summary>
@@ -2056,6 +2073,10 @@ Public Class FrmG0011
         Return True
     End Function
 
+#End Region
+
+#Region "   D003再不適合保存"
+
     ''' <summary>
     ''' NCR再不適合登録
     ''' </summary>
@@ -2542,6 +2563,7 @@ Public Class FrmG0011
 
         Return True
     End Function
+#End Region
 
 #End Region
 
@@ -2586,6 +2608,9 @@ Public Class FrmG0011
             frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
             frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
             frmDLG.PrBUMON_KB = _D003_NCR_J.BUMON_KB
+            frmDLG.PrBUHIN_BANGO = _D003_NCR_J.BUHIN_BANGO
+            frmDLG.PrKISO_YMD = DateTime.ParseExact(_D003_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+            frmDLG.PrKISYU_NAME = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
 
@@ -2618,6 +2643,9 @@ Public Class FrmG0011
             frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
             frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
             frmDLG.PrCurrentStage = Me.PrCurrentStage
+            frmDLG.PrBUHIN_BANGO = _D003_NCR_J.BUHIN_BANGO
+            frmDLG.PrKISO_YMD = DateTime.ParseExact(_D003_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+            frmDLG.PrKISYU_NAME = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
             dlgRET = frmDLG.ShowDialog(Me)
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
