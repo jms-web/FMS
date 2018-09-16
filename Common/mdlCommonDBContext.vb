@@ -204,6 +204,11 @@ Public Module mdlDBContext
     Public tblLP_KEIYAKU_KB As DataTableEx
 
     ''' <summary>
+    '''•¡‡ŞŒ_–ñ‹æ•ª
+    ''' </summary>
+    Public tblFK_KEIYAKU_KB As DataTableEx
+
+    ''' <summary>
     '''—¤ŠC‹ó‹æ•ª
     ''' </summary>
     Public tblRIKUKAIKU_KB As DataTableEx

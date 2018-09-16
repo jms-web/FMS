@@ -53,6 +53,7 @@ Module mdlM1060
                     Call FunGetCodeDataTable(DB, "q‹ó‹@Œ_–ñ‹æ•ª", tblKK_KEIYAKU_KB)
                     Call FunGetCodeDataTable(DB, "LPŒ_–ñ‹æ•ª", tblLP_KEIYAKU_KB)
                     Call FunGetCodeDataTable(DB, "—¤ŠC‹ó‹æ•ª", tblRIKUKAIKU_KB)
+
                 End Using
 
                 '-----ˆê——‰æ–Ê•\¦

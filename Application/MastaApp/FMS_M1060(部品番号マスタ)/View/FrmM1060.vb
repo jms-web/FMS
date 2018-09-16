@@ -234,12 +234,15 @@ Public Class FrmM1060
         Try
 
             '-----選択行記憶
-            If flx.Rows.Count > 0 Then
+            If flx.Rows.Count > 1 Then
                 intCURROW = flx.RowSel
             End If
 
             flx.BeginUpdate()
-            flx.DataSource = dt
+
+            If dt IsNot Nothing Then
+                flx.DataSource = dt
+            End If
 
             Call FunSetGridCellFormat(flx)
 
@@ -307,12 +310,12 @@ Public Class FrmM1060
             Else
 
                 '追加したコードの行を選択する
-                For i As Integer = 0 To flxDATA.Rows.Count
-                    If flxDATA.Rows(i).Item("KISYU_ID") = PKeys Then
-                        flxDATA.RowSel = i
-                        Exit For
-                    End If
-                Next i
+                'For i As Integer = 0 To flxDATA.Rows.Count
+                '    If flxDATA.Rows(i).Item("KISYU_ID") = PKeys Then
+                '        flxDATA.RowSel = i
+                '        Exit For
+                '    End If
+                'Next i
             End If
 
             Return True
@@ -478,6 +481,8 @@ Public Class FrmM1060
         cmdFunc1.Enabled = True
         cmdFunc1.PerformClick()
     End Sub
+
+
 
 #End Region
 
