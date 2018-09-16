@@ -359,8 +359,6 @@ Public Class FrmM0011
 #Region "処理モード別画面初期化"
     Private Function FunInitializeControls() As Boolean
         Try
-            Dim _Model = New MODEL.ModelInfo(Of MODEL.M001_SETTING)(_OnlyAutoGenerateField:=True)
-
             Select Case PrDATA_OP_MODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
                     lblTytle.Text &= "（追加）"
@@ -385,9 +383,9 @@ Public Class FrmM0011
                     mtxDISP.ReadOnly = False
 
                     '一覧選択行のデータをモデルに読込
-                    _Model.Properties.ForEach(Sub(p) _M001(p.Name) = PrViewModel(p.Name))
+                    _M001.Properties.ForEach(Sub(p) _M001(p.Name) = PrViewModel(p.Name))
 
-                    Call cmbKOMO_NM_Validated(cmbKOMO_NM, Nothing)
+                    Call CmbKOMO_NM_Validated(cmbKOMO_NM, Nothing)
                     lbllblEDIT_YMDHNS.Visible = False
                     lblEDIT_YMDHNS.Visible = False
                     lbllblEDIT_SYAIN_ID.Visible = False
@@ -402,16 +400,8 @@ Public Class FrmM0011
                     mtxDISP.ReadOnly = False
 
                     '一覧選択行のデータをモデルに読込
-                    _Model.Properties.ForEach(Sub(p) _M001(p.Name) = PrViewModel(p.Name))
-                    '_Model.Properties.ForEach(Sub(p)
-                    '                              Select Case p.PropertyType
-                    '                                  Case GetType(Boolean)
-                    '                                      _M001(p.Name) = CBool(PrDataRow.Item(p.Name))
-                    '                                  Case Else
-                    '                                      _M001(p.Name) = PrDataRow.Item(p.Name)
-                    '                              End Select
-                    '                          End Sub)
-                    Call cmbKOMO_NM_Validated(cmbKOMO_NM, Nothing)
+                    _M001.Properties.ForEach(Sub(p) _M001(p.Name) = PrViewModel(p.Name))
+                    Call CmbKOMO_NM_Validated(cmbKOMO_NM, Nothing)
                     lbllblEDIT_YMDHNS.Visible = True
                     lblEDIT_YMDHNS.Visible = True
                     lbllblEDIT_SYAIN_ID.Visible = True

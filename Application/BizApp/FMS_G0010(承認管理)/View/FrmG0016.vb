@@ -17,6 +17,12 @@ Public Class FrmG0016
 
     Public Property PrHOKOKU_NO As String
 
+    Public Property PrBUHIN_BANGO As String
+
+    Public Property PrKISYU_NAME As String
+
+    Public Property PrKISO_YMD As String
+
 #End Region
 
 #Region "コンストラクタ"
@@ -61,11 +67,11 @@ Public Class FrmG0016
             '-----各コントロールのデータソースを設定
 
             cmbMODOSI_SAKI.SetDataSource(FunGetMODISI_SAKI(PrSYONIN_HOKOKUSYO_ID, PrHOKOKU_NO, PrCurrentStage), ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-            _D004_SYONIN_J_KANRI.RIYU = ""
-
             'バインディング
             Call FunSetBinding()
+            _D004_SYONIN_J_KANRI.RIYU = ""
+
+
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -247,6 +253,8 @@ Public Class FrmG0016
                 End Try
             End Using
 
+            '通知メール送信
+            Call FunSendRequestMail()
 
             Return True
         Catch ex As Exception
@@ -746,7 +754,57 @@ Public Class FrmG0016
         Return dt
     End Function
 
+    ''' <summary>
+    ''' 承認依頼メール送信
+    ''' </summary>
+    ''' <returns></returns>
+    Private Function FunSendRequestMail()
+        Dim KISYU_NAME As String = PrKISYU_NAME 'tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
+        Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
+        Dim strEXEParam As String = $"{_D004_SYONIN_J_KANRI.SYAIN_ID},{Val(ENM_OPEN_MODE._2_処置画面起動)},{PrSYONIN_HOKOKUSYO_ID},{PrHOKOKU_NO}"
+        Dim strSubject As String = $"【不適合品処置依頼】{KISYU_NAME}・{PrBUHIN_BANGO}"
+        Dim strBody As String = <html><![CDATA[
+        {0} 殿<br />
+        <br />
+        　不適合製品の差戻依頼が来ましたので対応をお願いします。<br />
+        <br />
+        　　【報告書No】{1}<br />
+        　　【起草日　】{2}<br />
+        　　【機種　　】{3}<br />
+        　　【部品番号】{4}<br />
+        　　【依頼者　】{5}<br />
+        　　【依頼者処置内容】{6}<br />
+        　　【コメント】{7}<br />
+        <br />
+        <a href = "http://sv116:8000/CLICKONCE_FMS.application" >システム起動</a><br />
+        <br />
+        ※このメールは配信専用です。(返信できません)<br />
+        返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
+        ]]></html>.Value.Trim
 
+        'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}
+
+        strBody = String.Format(strBody,
+                                Fun_GetUSER_NAME(cmbMODOSI_SAKI.SelectedValue),
+                                PrHOKOKU_NO,
+                                PrKISO_YMD,
+                                KISYU_NAME,
+                                PrBUHIN_BANGO,
+                                Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
+                                SYONIN_HANTEI_NAME,
+                                _D004_SYONIN_J_KANRI.RIYU,
+                                cmbMODOSI_SAKI.SelectedValue,
+                                "FMS_G0010.exe",
+                                strEXEParam)
+
+        If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=cmbMODOSI_SAKI.SelectedValue) Then
+            MessageBox.Show("処置依頼メールを送信しました。", "メール送信完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return True
+        Else
+            MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return False
+        End If
+    End Function
 #End Region
 
 

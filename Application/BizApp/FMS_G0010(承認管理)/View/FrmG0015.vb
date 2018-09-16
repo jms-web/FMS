@@ -19,6 +19,12 @@ Public Class FrmG0015
     Public Property PrCurrentStage As Integer
 
     Public Property PrBUMON_KB As String
+
+    Public Property PrBUHIN_BANGO As String
+
+    Public Property PrKISYU_NAME As String
+
+    Public Property PrKISO_YMD As String
 #End Region
 
 #Region "コンストラクタ"
@@ -71,10 +77,9 @@ Public Class FrmG0015
                 MessageBox.Show("当該ステージの承認担当者がログインユーザー以外に登録されていないため、転送処理は出来ません。", "承認担当者マスタ登録不備", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
-            mtxTENSO_RIYU.Text = ""
-
             'バインディング
             Call FunSetBinding()
+            _D004_SYONIN_J_KANRI.RIYU = ""
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -255,6 +260,7 @@ Public Class FrmG0015
                 End Try
             End Using
 
+            Call FunSendRequestMail()
 
             Return True
         Catch ex As Exception
@@ -350,6 +356,103 @@ Public Class FrmG0015
     Private Function FunSetBinding() As Boolean
         'cmbTENSO_SAKI.DataBindings.Add(New Binding(NameOf(cmbTENSO_SAKI.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
         mtxTENSO_RIYU.DataBindings.Add(New Binding(NameOf(mtxTENSO_RIYU.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.RIYU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+    End Function
+
+    ''' <summary>
+    ''' 承認依頼メール送信
+    ''' </summary>
+    ''' <returns></returns>
+    Private Function FunSendRequestMail()
+        Dim KISYU_NAME As String = PrKISYU_NAME 'tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
+        Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
+        Dim strEXEParam As String = $"{_D004_SYONIN_J_KANRI.SYAIN_ID},{Val(ENM_OPEN_MODE._2_処置画面起動)},{PrSYONIN_HOKOKUSYO_ID},{PrHOKOKU_NO}"
+        Dim strSubject As String = $"【不適合品処置依頼】{KISYU_NAME}・{PrBUHIN_BANGO}"
+        Dim strBody As String = <html><![CDATA[
+        {0} 殿<br />
+        <br />
+        　不適合製品の転送依頼が来ましたので対応をお願いします。<br />
+        <br />
+        　　【報告書No】{1}<br />
+        　　【起草日　】{2}<br />
+        　　【機種　　】{3}<br />
+        　　【部品番号】{4}<br />
+        　　【依頼者　】{5}<br />
+        　　【依頼者処置内容】{6}<br />
+        　　【コメント】{7}<br />
+        <br />
+        <a href = "http://sv116:8000/CLICKONCE_FMS.application" >システム起動</a><br />
+        <br />
+        ※このメールは配信専用です。(返信できません)<br />
+        返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
+        ]]></html>.Value.Trim
+
+        'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}
+
+        strBody = String.Format(strBody,
+                                Fun_GetUSER_NAME(cmbTENSO_SAKI.SelectedValue),
+                                PrHOKOKU_NO,
+                                PrKISO_YMD,
+                                KISYU_NAME,
+                                PrBUHIN_BANGO,
+                                Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
+                                SYONIN_HANTEI_NAME,
+                                _D004_SYONIN_J_KANRI.RIYU,
+                                cmbTENSO_SAKI.SelectedValue,
+                                "FMS_G0010.exe",
+                                strEXEParam)
+
+        If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=cmbTENSO_SAKI.SelectedValue) Then
+            MessageBox.Show("処置依頼メールを送信しました。", "メール送信完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return True
+        Else
+            MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return False
+        End If
+    End Function
+
+    Private Function FunGetKISYU_NAME() As String
+        'Dim dsList As New DataSet
+        'Dim sbSQL As New System.Text.StringBuilder
+        'Dim sbParam As New System.Text.StringBuilder
+
+        ''共通
+        'sbParam.Append($" '{PrBUMON_KB}'")
+        'sbParam.Append($",{PrSYONIN_HOKOKUSYO_ID}")
+        'sbParam.Append(",0")
+        'sbParam.Append(",''")
+        'sbParam.Append(",''")
+        'sbParam.Append(",''")
+        'sbParam.Append(",''")
+        'sbParam.Append(",0")
+        'sbParam.Append(",''")
+        'sbParam.Append(",''")
+        'sbParam.Append($",'{PrHOKOKU_NO}'")
+        'sbParam.Append(",0")
+        'sbParam.Append(",'0'")
+        'sbParam.Append(",''")
+        'sbParam.Append(",''")
+        'sbParam.Append(",''")
+        'sbParam.Append(",''")
+        ''NCR
+        'sbParam.Append(",''")
+        'sbParam.Append(",''")
+        'sbParam.Append(",''")
+        'sbParam.Append(",''")
+        ''CAR
+        'sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB1 & "'")
+        'sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB2 & "'")
+        'sbParam.Append(",'" & ParamModel.KISEKI_KOTEI_KB & "'")
+        'sbParam.Append(",'" & ParamModel.KOKYAKU_HANTEI_SIJI_KB & "'")
+        'sbParam.Append(",'" & ParamModel.KOKYAKU_SAISYU_HANTEI_KB & "'")
+        'sbParam.Append(",'" & ParamModel.GENIN1 & "'")
+        'sbParam.Append(",'" & ParamModel.GENIN2 & "'")
+
+        'sbSQL.Append("EXEC dbo." & NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN) & " " & sbParam.ToString & "")
+        'Using DB As ClsDbUtility = DBOpen()
+        '    dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        'End Using
+
+        'Return dsList?.Tables(0)
     End Function
 #End Region
 
