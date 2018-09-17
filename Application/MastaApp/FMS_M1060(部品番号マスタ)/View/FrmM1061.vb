@@ -343,7 +343,7 @@ Public Class FrmM1061
         mtxTANKA.DataBindings.Add(New Binding(NameOf(mtxTANKA.Text), _M106, NameOf(_M106.TANKA), True, DataSourceUpdateMode.OnPropertyChanged, "", "0.00"))
         mtxHINSYU_BANGO.DataBindings.Add(New Binding(NameOf(mtxHINSYU_BANGO.Text), _M106, NameOf(_M106.HINSYU_BANGO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         chkTachiai.DataBindings.Add(New Binding(NameOf(chkTachiai.Checked), _M106, NameOf(_M106.TACHIAI_FLG), False, DataSourceUpdateMode.OnPropertyChanged, False))
-        'lblSELECTED_COLOR.DataBindings.Add(New Binding(NameOf(lblSELECTED_COLOR.Tag), _M106, NameOf(_M106.COLOR_CD), False, DataSourceUpdateMode.OnPropertyChanged, 0)
+
 
     End Function
 
@@ -352,6 +352,9 @@ Public Class FrmM1061
 #Region "処理モード別画面初期化"
     Private Function FunInitializeControls() As Boolean
         Dim _Model = New MODEL.ModelInfo(Of MODEL.VWM106_BUHIN)(_OnlyAutoGenerateField:=True)
+        Dim C_R As Integer
+        Dim C_G As Integer
+        Dim C_B As Integer
 
         Try
             Select Case PrDATA_OP_MODE
@@ -365,8 +368,6 @@ Public Class FrmM1061
                     lblEDIT_SYAIN_ID.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._2_ADDREF
-
-                    '_M106.Properties.ForEach(Sub(p) _M106(p.Name) = PrDataRow.Item(p.Name))
 
                     _M106.Properties.ForEach(Sub(p)
                                                  Select Case p.PropertyType
@@ -384,7 +385,7 @@ Public Class FrmM1061
                     lbllblEDIT_SYAIN_ID.Visible = False
                     lblEDIT_SYAIN_ID.Visible = False
 
-                Case ENM_DATA_OPERATION_MODE._3_UPDATE
+                Case ENM_DATA_OPERATION_MODE._2_ADDREF, ENM_DATA_OPERATION_MODE._3_UPDATE
 
                     _M106.Properties.ForEach(Sub(p)
                                                  Select Case p.PropertyType
@@ -398,18 +399,78 @@ Public Class FrmM1061
                     lblTytle.Text &= "（変更）"
                     Me.cmdFunc1.Text = "変更(F1)"
 
-                    lbllblEDIT_YMDHNS.Visible = True
-                    lblEDIT_YMDHNS.Visible = True
-                    lbllblEDIT_SYAIN_ID.Visible = True
-                    lblEDIT_SYAIN_ID.Visible = True
 
-                    cmbTOKUI_ID.Enabled = False
-                    mtxBUHIN_BANGO.Enabled = False
 
-                    '更新日時
-                    lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrDataRow.Item(NameOf(_M106.UPD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
-                    '更新担当者CD
-                    lblEDIT_SYAIN_ID.Text = PrDataRow.Item(NameOf(_M106.UPD_SYAIN_ID)) & " " & Fun_GetUSER_NAME(PrDataRow.Item(NameOf(_M106.UPD_SYAIN_ID)))
+                    Using DB As ClsDbUtility = DBOpen()
+
+                        cmbKEIYAKU_KB.DataBindings.Clear()
+
+                        Select Case cmbBUMON_KB.SelectedValue
+                            Case ENM_BUMON_KB._1_風防
+                                mtxBUHIN_NAME.Enabled = True
+
+                                Call FunGetCodeDataTable(DB, "風防契約区分", tblKK_KEIYAKU_KB)
+                                cmbKEIYAKU_KB.SetDataSource(tblKK_KEIYAKU_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                                cmbKEIYAKU_KB.Enabled = True
+                                _M106.ZUBAN_C = ""
+                                mtxZUBAN_C.Enabled = False
+
+                            Case ENM_BUMON_KB._2_LP
+                                mtxBUHIN_NAME.Enabled = True
+
+                                Call FunGetCodeDataTable(DB, "LP契約区分", tblLP_KEIYAKU_KB)
+                                cmbKEIYAKU_KB.SetDataSource(tblLP_KEIYAKU_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                                mtxZUBAN_C.Enabled = True
+
+                            Case ENM_BUMON_KB._3_複合材
+                                mtxBUHIN_NAME.Enabled = False
+                                _M106.BUHIN_NAME = ""
+                                Call FunGetCodeDataTable(DB, "複合材契約区分", tblFK_KEIYAKU_KB)
+                                cmbKEIYAKU_KB.SetDataSource(tblFK_KEIYAKU_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+
+                                _M106.ZUBAN_C = ""
+                                mtxZUBAN_C.Enabled = False
+
+                            Case Else
+
+                        End Select
+                    End Using
+                    cmbKEIYAKU_KB.DataBindings.Add(New Binding(NameOf(cmbKEIYAKU_KB.SelectedValue), _M106, NameOf(_M106.KEIYAKU_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
+                    cmbBUMON_KB.Enabled = False
+
+
+                    If _M106.COLOR_CD.Trim <> "" Then
+                        C_R = CInt("&h" & _M106.COLOR_CD.Substring(1, 2))
+                        C_G = CInt("&h" & _M106.COLOR_CD.Substring(3, 2))
+                        C_B = CInt("&h" & _M106.COLOR_CD.Substring(5, 2))
+                        lblSELECTED_COLOR.BackColor = Color.FromArgb(C_R, C_G, C_B)
+                    End If
+
+                    If PrDATA_OP_MODE = ENM_DATA_OPERATION_MODE._2_ADDREF Then
+                        lblEDIT_YMDHNS.Visible = False
+                        lbllblEDIT_SYAIN_ID.Visible = False
+                        lblEDIT_SYAIN_ID.Visible = False
+                    Else
+                        cmbTOKUI_ID.Enabled = False
+                        mtxBUHIN_BANGO.Enabled = False
+
+                        lbllblEDIT_YMDHNS.Visible = True
+                        lblEDIT_YMDHNS.Visible = True
+                        lbllblEDIT_SYAIN_ID.Visible = True
+                        lblEDIT_SYAIN_ID.Visible = True
+                        '更新日時
+                        If _M106.UPD_YMDHNS.ToString.Trim <> "" Then
+                            lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrDataRow.Item(NameOf(_M106.UPD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
+                            '更新担当者CD
+                            lblEDIT_SYAIN_ID.Text = PrDataRow.Item(NameOf(_M106.UPD_SYAIN_ID)) & " " & Fun_GetUSER_NAME(PrDataRow.Item(NameOf(_M106.UPD_SYAIN_ID)))
+                        Else
+                            lblEDIT_YMDHNS.Text = ""
+                            lblEDIT_SYAIN_ID.Text = ""
+                        End If
+
+
+                    End If
 
                 Case Else
                     Throw New ArgumentException(My.Resources.ErrMsgException, PrDATA_OP_MODE.ToString)

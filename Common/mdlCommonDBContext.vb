@@ -213,6 +213,12 @@ Public Module mdlDBContext
     ''' </summary>
     Public tblRIKUKAIKU_KB As DataTableEx
 
+    ''' <summary>
+    '''æˆø‹æ•ª
+    ''' </summary>f
+    Public tblTORI_KB As DataTableEx
+
+
 #End Region
 
 #Region "•s“K‡ŠÖ˜A"

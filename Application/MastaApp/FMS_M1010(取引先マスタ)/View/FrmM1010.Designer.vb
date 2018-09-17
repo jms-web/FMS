@@ -34,72 +34,76 @@ Partial Class FrmM1010
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
+        'lblRecordCount
+        '
+        Me.lblRecordCount.Location = New System.Drawing.Point(14, 566)
+        '
         'cmdFunc1
         '
         Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgSearch32x32
-        Me.cmdFunc1.Location = New System.Drawing.Point(9, 594)
+        Me.cmdFunc1.Location = New System.Drawing.Point(9, 595)
         Me.cmdFunc1.Text = "検索(F1)"
         '
         'cmdFunc2
         '
         Me.cmdFunc2.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
-        Me.cmdFunc2.Location = New System.Drawing.Point(216, 594)
+        Me.cmdFunc2.Location = New System.Drawing.Point(216, 595)
         Me.cmdFunc2.Text = "追加(F2)"
         '
         'cmdFunc3
         '
         Me.cmdFunc3.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
-        Me.cmdFunc3.Location = New System.Drawing.Point(423, 594)
+        Me.cmdFunc3.Location = New System.Drawing.Point(423, 595)
         Me.cmdFunc3.Text = "類似追加(F3)"
         '
         'cmdFunc4
         '
         Me.cmdFunc4.Image = Global.FMS.My.Resources.Resources._imgApplication_form_edit32x32
-        Me.cmdFunc4.Location = New System.Drawing.Point(630, 594)
+        Me.cmdFunc4.Location = New System.Drawing.Point(630, 595)
         Me.cmdFunc4.Text = "変更(F4)"
         '
         'cmdFunc5
         '
         Me.cmdFunc5.Image = Global.FMS.My.Resources.Resources._imgStatusAnnotations_Blocked_32x32_MD
-        Me.cmdFunc5.Location = New System.Drawing.Point(837, 594)
+        Me.cmdFunc5.Location = New System.Drawing.Point(837, 595)
         Me.cmdFunc5.Text = "削除(F5)"
         '
         'cmdFunc6
         '
         Me.cmdFunc6.Image = Global.FMS.My.Resources.Resources._imgRecovery32x32
-        Me.cmdFunc6.Location = New System.Drawing.Point(1044, 594)
+        Me.cmdFunc6.Location = New System.Drawing.Point(1044, 595)
         Me.cmdFunc6.Text = "復元(F6)"
         '
         'cmdFunc12
         '
         Me.cmdFunc12.Image = Global.FMS.My.Resources.Resources._imgLog_Out32x32
-        Me.cmdFunc12.Location = New System.Drawing.Point(1046, 642)
+        Me.cmdFunc12.Location = New System.Drawing.Point(1046, 643)
         Me.cmdFunc12.Text = "閉じる(F12)"
         '
         'cmdFunc11
         '
-        Me.cmdFunc11.Location = New System.Drawing.Point(837, 642)
+        Me.cmdFunc11.Location = New System.Drawing.Point(837, 643)
         '
         'cmdFunc10
         '
         Me.cmdFunc10.Image = Global.FMS.My.Resources.Resources._imgExportToExcel32x32
-        Me.cmdFunc10.Location = New System.Drawing.Point(630, 642)
+        Me.cmdFunc10.Location = New System.Drawing.Point(630, 643)
         Me.cmdFunc10.Text = "CSV出力(F10)"
         '
         'cmdFunc7
         '
         Me.cmdFunc7.Image = Global.FMS.My.Resources.Resources._imgApplication_form32x32
-        Me.cmdFunc7.Location = New System.Drawing.Point(9, 642)
+        Me.cmdFunc7.Location = New System.Drawing.Point(9, 643)
         Me.cmdFunc7.Text = "拠点マスタ(F7)"
         Me.cmdFunc7.Visible = False
         '
         'cmdFunc9
         '
-        Me.cmdFunc9.Location = New System.Drawing.Point(423, 642)
+        Me.cmdFunc9.Location = New System.Drawing.Point(423, 643)
         '
         'cmdFunc8
         '
-        Me.cmdFunc8.Location = New System.Drawing.Point(216, 642)
+        Me.cmdFunc8.Location = New System.Drawing.Point(216, 643)
         '
         'lblTytle
         '
@@ -305,13 +309,13 @@ Partial Class FrmM1010
         Me.dgvDATA.Location = New System.Drawing.Point(23, 219)
         Me.dgvDATA.Name = "dgvDATA"
         Me.dgvDATA.RowTemplate.Height = 21
-        Me.dgvDATA.Size = New System.Drawing.Size(1230, 336)
+        Me.dgvDATA.Size = New System.Drawing.Size(1230, 337)
         Me.dgvDATA.TabIndex = 60
         '
         'FrmM1010
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.ClientSize = New System.Drawing.Size(1264, 711)
+        Me.ClientSize = New System.Drawing.Size(1264, 712)
         Me.Controls.Add(Me.dgvDATA)
         Me.Controls.Add(Me.gbxFilter)
         Me.HelpButton = True

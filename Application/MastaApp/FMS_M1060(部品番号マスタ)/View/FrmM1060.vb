@@ -83,6 +83,14 @@ Public Class FrmM1060
             .Styles("DeletedRow").BackColor = clrDeletedRowBackColor
             .Styles("DeletedRow").ForeColor = clrDeletedRowForeColor
 
+            .Styles.Add("EvenRow")
+            .Styles("EvenRow").BackColor = clrRowEvenColor
+            '.Styles("EvenRow").ForeColor = clrRowEvenForeColor
+
+            .Styles.Add("OddRow")
+            .Styles("OddRow").BackColor = clrRowOddColor
+            '.Styles("OddRow").ForeColor = clrDeletedRowForeColor
+
             .VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver 'Custom
 
             '以下を適用するにはVisualStyleをCustomにする
@@ -107,6 +115,8 @@ Public Class FrmM1060
             End If
         Next
         intCNT -= flx.Rows.Fixed
+
+        Call FunSetGridCellFormat(flx)
 
         If intCNT > 0 Then
             Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, intCNT)
@@ -201,6 +211,7 @@ Public Class FrmM1060
             If mtxSYANAI_CD.Text.Trim <> "" Then sbSQLWHERE.Append($" AND SYANAI_CD like '%{mtxSYANAI_CD.Text}%' ")
 
             flxDATA.Cols("DEL_FLG").Visible = chkDeletedRowVisibled.Checked
+            flxDATA.Cols("DEL_YMDHNS").Visible = chkDeletedRowVisibled.Checked
             If chkDeletedRowVisibled.Checked = False Then
                 sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & "DEL_FLG <> 1 ")
             End If
@@ -221,6 +232,8 @@ Public Class FrmM1060
             End If
 
             Dim _Model As New MODEL.ModelInfo(Of MODEL.VWM106_BUHIN)(srcDATA:=dsList.Tables(0))
+
+
             Return _Model.Data
 
         Catch ex As Exception
@@ -274,6 +287,13 @@ Public Class FrmM1060
             For i As Integer = 1 To flx.Rows.Count - 1
                 If CBool(flxDATA.Rows(i).Item("DEL_FLG")) = True Then
                     flxDATA.Rows(i).Style = flx.Styles("DeletedRow")
+                Else
+                    If i Mod 2 = 0 Then
+                        flxDATA.Rows(i).Style = flx.Styles("EvenRow")
+                    Else
+                        flxDATA.Rows(i).Style = flx.Styles("OddRow")
+                    End If
+
                 End If
             Next i
 
@@ -333,11 +353,11 @@ Public Class FrmM1060
         Dim sbSQL As New System.Text.StringBuilder
         Dim strMsg As String
         Dim strTitle As String
-
+        Dim intRet As Integer
         Try
             Select Case DATA_OP_MODE
                 Case ENM_DATA_OPERATION_MODE._4_DISABLE
-                    sbSQL.Append($"UPDATE {NameOf(MODEL.M105_KISYU)} SET ")
+                    sbSQL.Append($"UPDATE {NameOf(MODEL.M106_BUHIN)} SET ")
                     sbSQL.Append($" DEL_YMDHNS = dbo.GetSysDateString(), ")
                     sbSQL.Append($" DEL_SYAIN_ID = {pub_SYAIN_INFO.SYAIN_ID}")
 
@@ -345,7 +365,7 @@ Public Class FrmM1060
                     strTitle = My.Resources.infoTitleDeleteOperationDisable
 
                 Case ENM_DATA_OPERATION_MODE._5_RESTORE
-                    sbSQL.Append($"UPDATE {NameOf(MODEL.M105_KISYU)} SET ")
+                    sbSQL.Append($"UPDATE {NameOf(MODEL.M106_BUHIN)} SET ")
                     sbSQL.Append($" DEL_YMDHNS = ' ', ")
                     sbSQL.Append($" DEL_SYAIN_ID = {pub_SYAIN_INFO.SYAIN_ID}")
 
@@ -353,7 +373,7 @@ Public Class FrmM1060
                     strTitle = My.Resources.infoTitleDeleteOperationRestore
 
                 Case ENM_DATA_OPERATION_MODE._6_DELETE
-                    sbSQL.Append($"DELETE FROM {NameOf(MODEL.M105_KISYU)} ")
+                    sbSQL.Append($"DELETE FROM {NameOf(MODEL.M106_BUHIN)} ")
 
                     strMsg = My.Resources.infoMsgDeleteOperationDelete
                     strTitle = My.Resources.infoTitleDeleteOperationDelete
@@ -363,7 +383,9 @@ Public Class FrmM1060
                     Return False
             End Select
 
-            sbSQL.Append($" WHERE KISYU_ID = {flxDATA.Rows(flxDATA.RowSel).Item("KISYU_ID")} ")
+            sbSQL.Append($" WHERE BUMON_KB = '{flxDATA.Rows(flxDATA.RowSel).Item("BUMON_KB")}' ")
+            sbSQL.Append($"  AND  TOKUI_ID = {flxDATA.Rows(flxDATA.RowSel).Item("TOKUI_ID")} ")
+            sbSQL.Append($"  AND  BUHIN_BANGO = '{flxDATA.Rows(flxDATA.RowSel).Item("BUHIN_BANGO")}' ")
 
             '確認メッセージ表示
             If MessageBox.Show(strMsg, strTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> Windows.Forms.DialogResult.Yes Then
@@ -380,17 +402,22 @@ Public Class FrmM1060
                     DB.BeginTransaction()
 
                     '-----SQL実行
-                    DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+                    intRet = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+
                     If sqlEx.Source IsNot Nothing Then
                         '-----エラーログ出力
                         Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
                         WL.WriteLogDat(strErrMsg)
+                        blnErr = True
+                        Return False
                     Else
-                        '---排他制御
-                        strMsg = "既に他の担当者によって変更されているため保存出来ません。" & vbCrLf & "再度登録し直して下さい。"
-                        MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        ''---排他制御
+                        'strMsg = "既に他の担当者によって変更されているため保存出来ません。" & vbCrLf & "再度登録し直して下さい。"
+                        'MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        blnErr = False
+                        Return True
                     End If
-                    Return False
+
                 Finally
                     DB.Commit(Not blnErr)
                 End Try

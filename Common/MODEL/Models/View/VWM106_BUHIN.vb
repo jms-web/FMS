@@ -150,15 +150,20 @@ Partial Public Class VWM106_BUHIN
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_SYAIN_NAME As String
 
-    <DoNotNotify>
+    <StringLength(30)>
     <ComponentModel.DisplayName("削除フラグ")>
-    <Display(AutoGenerateField:=False)>
-    <NotMapped>
-    Public ReadOnly Property DEL_FLG As Boolean
-        Get
-            Return Not String.IsNullOrWhiteSpace(DEL_YMDHNS)
-        End Get
-    End Property
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
+    Public Property DEL_FLG As Boolean
+
+    '<DoNotNotify>
+    '<ComponentModel.DisplayName("削除フラグ")>
+    '<Display(AutoGenerateField:=False)>
+    '<NotMapped>
+    'Public ReadOnly Property DEL_FLG As Boolean
+    '    Get
+    '        Return Not String.IsNullOrWhiteSpace(DEL_YMDHNS)
+    '    End Get
+    'End Property
 
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' 重複する呼び出しを検出するには
