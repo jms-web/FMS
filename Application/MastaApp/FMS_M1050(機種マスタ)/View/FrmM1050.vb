@@ -280,12 +280,15 @@ Public Class FrmM1050
         Try
 
             '-----‘I‘ðs‹L‰¯
-            If flx.Rows.Count > 0 Then
+            If flx.Rows.Count > 1 Then
                 intCURROW = flx.RowSel
             End If
 
             flx.BeginUpdate()
-            flx.DataSource = dt
+
+            If dt IsNot Nothing Then
+                flx.DataSource = dt
+            End If
 
             Call FunSetGridCellFormat(flx)
 
