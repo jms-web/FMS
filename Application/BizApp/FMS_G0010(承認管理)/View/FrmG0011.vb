@@ -11,10 +11,12 @@ Public Class FrmG0011
     ''' タブ非表示管理用
     ''' </summary>
     Private _tabPageManager As TabPageManager
+
     Private _tabPageManagerST08Sub As TabPageManager
 
     'Model
     Private _V002_NCR_J As New MODEL.V002_NCR_J
+
     Private _V003_SYONIN_J_KANRI_List As New List(Of MODEL.V003_SYONIN_J_KANRI)
     Private _V004_HOKOKU_SOUSA As New MODEL.V004_HOKOKU_SOUSA
     Private _V005_CAR_J As New MODEL.V005_CAR_J
@@ -242,6 +244,7 @@ Public Class FrmG0011
     Private Sub Frm_Closed(sender As Object, e As EventArgs) Handles Me.Closed
         Me.Owner.Visible = True
     End Sub
+
 #End Region
 
 #Region "FunctionButton関連"
@@ -338,7 +341,6 @@ Public Class FrmG0011
                     'Else
                     '    Call OpenFormTENSO()
                     'End If
-
 
                 Case 5  '差戻し
                     Call OpenFormSASIMODOSI()
@@ -953,6 +955,7 @@ Public Class FrmG0011
         Dim strSysDate As String = DB.GetSysDateString
 
 #Region "承認"
+
         '-----データモデル更新
         _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
         _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
@@ -1073,6 +1076,7 @@ Public Class FrmG0011
                 End If
                 Return False
         End Select
+
 #End Region
 
 #Region "申請"
@@ -1201,10 +1205,12 @@ Public Class FrmG0011
                 End If
                 Return False
         End Select
+
 #End Region
 
 #Region "CAR起草依頼メール送信"
-        '#73 
+
+        '#73
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append($"SELECT COUNT({NameOf(MODEL.D005_CAR_J.HOKOKU_NO)}) FROM {NameOf(MODEL.D005_CAR_J)} ")
         sbSQL.Append($" WHERE {NameOf(MODEL.D005_CAR_J.HOKOKU_NO)}='{_D004_SYONIN_J_KANRI.HOKOKU_NO}'")
@@ -1224,6 +1230,7 @@ Public Class FrmG0011
                 End If
             End If
         End If
+
 #End Region
 
         Return True
@@ -1333,6 +1340,7 @@ Public Class FrmG0011
 #End Region
 
 #Region "   R001保存"
+
     ''' <summary>
     ''' 報告書操作履歴更新
     ''' </summary>
@@ -1597,9 +1605,11 @@ Public Class FrmG0011
             Return True
         End If
     End Function
+
 #End Region
 
 #Region "   Ｄ005保存"
+
     ''' <summary>
     ''' D005_CAR_J更新
     ''' </summary>
@@ -2585,6 +2595,7 @@ Public Class FrmG0011
 
         Return True
     End Function
+
 #End Region
 
 #End Region
@@ -3045,7 +3056,7 @@ Public Class FrmG0011
                             Dim ctrlYMD As Control() = panel.Controls.Find("dtST" & intCurrentTabNo.ToString("00") & "_UPD_YMD", True)
                             If ctrlYMD.Length > 0 Then
                                 Dim dtSYONIN_SINSEI_YMD As DateTextBoxEx = ctrlYMD(0)
-                                dtSYONIN_SINSEI_YMD.DataBindings.Add(New Binding(NameOf(dtSYONIN_SINSEI_YMD.ValueNonFormat), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+                                dtSYONIN_SINSEI_YMD.DataBindings.Add(New Binding(NameOf(dtSYONIN_SINSEI_YMD.ValueNonFormat), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
                             End If
 
                         ElseIf intTabNo > intCurrentTabNo Then
@@ -3082,7 +3093,6 @@ Public Class FrmG0011
                         End If
                         If _D003_NCR_J.CLOSE_FG Then panel.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     End If
-
                 Else
                     Continue For
                 End If
@@ -3265,16 +3275,16 @@ Public Class FrmG0011
                         End If
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST01_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST01_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                             dtST01_UPD_YMD.ReadOnly = True
                         Else
-                            dtST01_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                     Else
-                        dtST01_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
                 Else
-                    dtST01_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                    _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                 End If
             End If
 
@@ -3310,10 +3320,10 @@ Public Class FrmG0011
 
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        dtST02_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                        dtST02_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                         dtST02_UPD_YMD.ReadOnly = True
                     Else
-                        dtST02_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
 
                     If intStageID > ENM_NCR_STAGE._20_起草確認製造GL Then
@@ -3321,7 +3331,7 @@ Public Class FrmG0011
                         txtST02_Comment.ReadOnly = True
                     End If
                 Else
-                    dtST02_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                    _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                 End If
             Else
                 pnlST02.Visible = False
@@ -3352,10 +3362,10 @@ Public Class FrmG0011
 
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        dtST03_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                        dtST03_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                         dtST03_UPD_YMD.ReadOnly = True
                     Else
-                        dtST03_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
 
                     If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._30_起草確認検査 Then lblST03_Modoshi_Riyu.Visible = True
@@ -3371,7 +3381,7 @@ Public Class FrmG0011
                         txtST03_Comment.ReadOnly = True
                     End If
                 Else
-                    dtST03_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                    _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                 End If
             Else
                 pnlST03.Visible = False
@@ -3437,10 +3447,10 @@ Public Class FrmG0011
                     txtST04_Comment.Text = _V003.COMMENT
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        dtST04_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                        dtST04_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                         dtST04_UPD_YMD.ReadOnly = True
                     Else
-                        dtST04_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
                     If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 Then lblST04_Modoshi_Riyu.Visible = True
                     If _V003.SASIMODOSI_FG Then
@@ -3459,7 +3469,7 @@ Public Class FrmG0011
                         pnlST04_ZESEI.Enabled = False
                     End If
                 Else
-                    dtST04_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                    _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                 End If
             Else
                 pnlST04.Visible = False
@@ -3489,10 +3499,10 @@ Public Class FrmG0011
                     txtST05_Comment.Text = _V003.COMMENT
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        dtST05_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                        dtST05_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                         dtST05_UPD_YMD.ReadOnly = True
                     Else
-                        dtST05_UPD_YMD.ValueNonFormat = Today.ToString("yyyyMMdd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
                     If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._50_事前審査確認 Then lblST05_Modoshi_Riyu.Visible = True
                     If _V003.SASIMODOSI_FG Then
@@ -3506,7 +3516,7 @@ Public Class FrmG0011
                         txtST05_Comment.ReadOnly = True
                     End If
                 Else
-                    dtST05_UPD_YMD.ValueNonFormat = Today.ToString("yyyyMMdd")
+                    _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                 End If
             Else
                 pnlST05.Visible = False
@@ -3556,10 +3566,10 @@ Public Class FrmG0011
                     txtST06_Comment.Text = _V003.COMMENT
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        dtST06_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                        dtST06_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                         dtST06_UPD_YMD.ReadOnly = True
                     Else
-                        dtST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
                     If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._60_再審審査判定_技術代表 Then lblST06_Modoshi_Riyu.Visible = True
                     If _V003.SASIMODOSI_FG Then
@@ -3573,7 +3583,7 @@ Public Class FrmG0011
                         txtST06_Comment.ReadOnly = True
                     End If
                 Else
-                    dtST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                    _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     pnlST06.Visible = False
                     rsbtnST06.Enabled = False
                     rsbtnST06.BackColor = Color.Silver
@@ -3582,6 +3592,7 @@ Public Class FrmG0011
                 pnlST06.Visible = False
                 rsbtnST06.Enabled = False
             End If
+
 #End Region
 
 #Region "               61 7"
@@ -3609,10 +3620,10 @@ Public Class FrmG0011
                         txtST07_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST07_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST07_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                             dtST07_UPD_YMD.ReadOnly = True
                         Else
-                            dtST07_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._61_再審審査判定_品証代表 Then lblST07_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -3626,7 +3637,7 @@ Public Class FrmG0011
                             txtST07_Comment.ReadOnly = True
                         End If
                     Else
-                        dtST07_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         pnlST07.Visible = False
                         rsbtnST07.Enabled = False
                         rsbtnST07.BackColor = Color.Silver
@@ -3691,10 +3702,10 @@ Public Class FrmG0011
                         txtST08_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST08_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST08_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                             dtST08_UPD_YMD.ReadOnly = True
                         Else
-                            dtST08_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag Then lblST08_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -3708,7 +3719,7 @@ Public Class FrmG0011
                             txtST08_Comment.ReadOnly = True
                         End If
                     Else
-                        dtST08_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         pnlST08.Visible = False
                         rsbtnST08.Enabled = False
                         rsbtnST08.BackColor = Color.Silver
@@ -3803,10 +3814,10 @@ Public Class FrmG0011
                         txtST09_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST09_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST09_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                             dtST09_UPD_YMD.ReadOnly = True
                         Else
-                            dtST09_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._80_処置実施 Then lblST09_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -3821,7 +3832,7 @@ Public Class FrmG0011
                             tabST08_SUB.Enabled = False
                         End If
                     Else
-                        dtST09_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         pnlST09.Visible = False
                         rsbtnST09.Enabled = False
                         rsbtnST09.BackColor = Color.Silver
@@ -3859,6 +3870,7 @@ Public Class FrmG0011
             If intStageID > ENM_NCR_STAGE._80_処置実施 Then
                 flpnlST08_SAIKAKO.Enabled = False
             End If
+
 #End Region
 
 #Region "               81 10"
@@ -3884,10 +3896,10 @@ Public Class FrmG0011
                         txtST10_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST10_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST10_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                             dtST10_UPD_YMD.ReadOnly = True
                         Else
-                            dtST10_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
 
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._81_処置実施_生技 Then lblST10_Modoshi_Riyu.Visible = True
@@ -3933,10 +3945,10 @@ Public Class FrmG0011
                         txtST11_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST11_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST11_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                             dtST11_UPD_YMD.ReadOnly = True
                         Else
-                            dtST11_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._82_処置実施_製造 Then lblST11_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -3981,10 +3993,10 @@ Public Class FrmG0011
                         txtST12_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST12_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST12_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                             dtST12_UPD_YMD.ReadOnly = True
                         Else
-                            dtST12_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._83_処置実施_検査 Then lblST12_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -4028,10 +4040,10 @@ Public Class FrmG0011
                         txtST13_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST13_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST13_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                             dtST13_UPD_YMD.ReadOnly = True
                         Else
-                            dtST13_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._90_処置実施確認_管理T Then lblST13_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -4045,7 +4057,7 @@ Public Class FrmG0011
                             txtST13_Comment.ReadOnly = True
                         End If
                     Else
-                        dtST13_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
                 Else
                     pnlST13.Visible = False
@@ -4081,10 +4093,10 @@ Public Class FrmG0011
                         txtST14_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST14_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST14_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                             dtST14_UPD_YMD.ReadOnly = True
                         Else
-                            dtST14_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
 
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長 Then lblST14_Modoshi_Riyu.Visible = True
@@ -4099,7 +4111,7 @@ Public Class FrmG0011
                             txtST14_Comment.ReadOnly = True
                         End If
                     Else
-                        dtST14_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
                 End If
             Else
@@ -4184,10 +4196,10 @@ Public Class FrmG0011
                         txtST15_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST15_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST15_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                             dtST15_UPD_YMD.ReadOnly = True
                         Else
-                            dtST15_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._110_abcde処置担当 Then lblST15_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -4201,7 +4213,7 @@ Public Class FrmG0011
                             txtST15_Comment.ReadOnly = True
                         End If
                     Else
-                        dtST15_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
                 End If
             Else
@@ -4226,11 +4238,13 @@ Public Class FrmG0011
 #End Region
 
 #Region "               999 close"
+
             If intStageID = ENM_NCR_STAGE._999_Closed Then
                 rsbtnST99.Enabled = True
             Else
                 rsbtnST99.Enabled = False
             End If
+
 #End Region
 
             Return True
@@ -4309,9 +4323,6 @@ Public Class FrmG0011
                                                                         rsbtnST07.CheckedChanged,
                                                                         rsbtnST08.CheckedChanged,
                                                                         rsbtnST09.CheckedChanged,
-                                                                        rsbtnST10.CheckedChanged,
-                                                                        rsbtnST11.CheckedChanged,
-                                                                        rsbtnST12.CheckedChanged,
                                                                         rsbtnST13.CheckedChanged,
                                                                         rsbtnST14.CheckedChanged,
                                                                         rsbtnST15.CheckedChanged,
@@ -4811,6 +4822,7 @@ Public Class FrmG0011
 #End Region
 
 #Region "承認申請日"
+
     Private Sub dtUPD_YMD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtST01_UPD_YMD.Validating,
                                                                                                               dtST02_UPD_YMD.Validating,
                                                                                                               dtST03_UPD_YMD.Validating,
@@ -4837,6 +4849,7 @@ Public Class FrmG0011
             IsValidated = IsValidated AndAlso True
         End If
     End Sub
+
 #End Region
 
 #Region "   STAGE1"
@@ -5295,9 +5308,6 @@ Public Class FrmG0011
             chk.Checked = IIf(strNameSuffix = "T", True, False)
         End If
     End Sub
-
-
-
 
 #End Region
 
@@ -6149,20 +6159,20 @@ Public Class FrmG0011
                     End Select
 
                 Case ENM_NCR_STAGE._80_処置実施
-                    If _D003_NCR_J.SAIKAKO_SIJI_FG Then
-                        intNextStageID = ENM_NCR_STAGE._81_処置実施_生技
-                    Else
-                        intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
-                    End If
-
-                Case ENM_NCR_STAGE._81_処置実施_生技
-                    intNextStageID = ENM_NCR_STAGE._82_処置実施_製造
-
-                Case ENM_NCR_STAGE._82_処置実施_製造
-                    intNextStageID = ENM_NCR_STAGE._83_処置実施_検査
-
-                Case ENM_NCR_STAGE._83_処置実施_検査
+                    'If _D003_NCR_J.SAIKAKO_SIJI_FG Then
+                    '    intNextStageID = ENM_NCR_STAGE._81_処置実施_生技
+                    'Else
                     intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
+                    'End If
+
+                'Case ENM_NCR_STAGE._81_処置実施_生技
+                '    intNextStageID = ENM_NCR_STAGE._82_処置実施_製造
+
+                'Case ENM_NCR_STAGE._82_処置実施_製造
+                '    intNextStageID = ENM_NCR_STAGE._83_処置実施_検査
+
+                'Case ENM_NCR_STAGE._83_処置実施_検査
+                '    intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
 
                 Case ENM_NCR_STAGE._90_処置実施確認_管理T
                     intNextStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長
@@ -6378,8 +6388,6 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
-
-
 
 #End Region
 
