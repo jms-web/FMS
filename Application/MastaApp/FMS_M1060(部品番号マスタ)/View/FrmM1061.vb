@@ -369,10 +369,10 @@ Public Class FrmM1061
             IsValidated = (IsValidated AndAlso True)
 
             '•”–å‹æ•ª‚Ì‘I‘ğ‚Ìˆ—
-            If cmbBUMON_KB.SelectedValue = ENM_ERR_KB Then
+            'If cmbBUMON_KB.SelectedValue = ENM_ERR_KB Then
 
 
-            End If
+            'End If
 
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "•”–å‹æ•ª"), ErrorIconAlignment.MiddleLeft)
