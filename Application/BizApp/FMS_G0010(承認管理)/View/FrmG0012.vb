@@ -13,7 +13,7 @@ Public Class FrmG0012
     Private _D006_CAR_GENIN As New MODEL.D006_CAR_GENIN
 
     '入力必須コントロール検証判定
-    Private pri_blnValidated As Boolean
+    Private IsValidated As Boolean
 
     Private _tabPageManager As TabPageManager
 
@@ -248,6 +248,7 @@ Public Class FrmG0012
 
 #Region "保存・承認申請"
 
+#Region "   保存・承認申請処理メイン"
     ''' <summary>
     ''' 保存・承認申請処理メイン
     ''' </summary>
@@ -281,6 +282,9 @@ Public Class FrmG0012
         End Try
     End Function
 
+#End Region
+
+#Region "   CAR添付ファイル保存"
     ''' <summary>
     ''' CAR添付ファイル保存
     ''' </summary>
@@ -337,6 +341,9 @@ Public Class FrmG0012
         End If
     End Function
 
+#End Region
+
+#Region "   D005"
     ''' <summary>
     ''' CAR実績更新
     ''' </summary>
@@ -761,6 +768,9 @@ Public Class FrmG0012
         Return True
     End Function
 
+#End Region
+
+#Region "   D004"
     ''' <summary>
     ''' 承認実績管理更新
     ''' </summary>
@@ -783,11 +793,17 @@ Public Class FrmG0012
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
                 _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
             Case ENM_SAVE_MODE._2_承認申請
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
-                'UNDONE: getsysdate server
-                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
+                'DEBUG: #80 承認申請日は画面で入力
+                If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
+                ElseIf _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.Trim.Length = 8 Then
+                    'datetextboxにバインド時は時刻情報を結合
+                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS &= "000000"
+                End If
             Case Else
                 'Err
                 Return False
@@ -992,6 +1008,8 @@ Public Class FrmG0012
 
         Return True
     End Function
+
+#End Region
 
     ''' <summary>
     ''' 不適合是正処置原因分析情報更新
@@ -2093,14 +2111,30 @@ Public Class FrmG0012
         If cmb.Selected = False Then
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "申請先社員"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         End If
     End Sub
 
 #End Region
+
+#Region "承認申請日"
+    Private Sub dtUPD_YMD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtUPD_YMD.Validating
+
+        Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
+        If dtx.ValueNonFormat.IsNullOrWhiteSpace Then
+            ErrorProvider.SetError(dtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認・申請日"))
+            ErrorProvider.SetIconAlignment(dtx, ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        Else
+            ErrorProvider.ClearError(dtx)
+            IsValidated = IsValidated AndAlso True
+        End If
+    End Sub
+#End Region
+
 
 #Region "   処置実施記録"
 
@@ -2484,8 +2518,7 @@ Public Class FrmG0012
 #Region "ローカル関数"
 
     ''' <summary>
-    ''' コントロールバインディング
-    ''' コントロールバインディング
+    ''' バインディング
     ''' </summary>
     ''' <returns></returns>
     Private Function FunSetBinding() As Boolean
@@ -2589,6 +2622,8 @@ Public Class FrmG0012
             'lbltmpFile1.DataBindings.Add(New Binding(NameOf(lbltmpFile1.Tag), _D005_CAR_J, NameOf(_D005_CAR_J.FILE_PATH1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             'lbltmpFile2.DataBindings.Add(New Binding(NameOf(lbltmpFile2.Tag), _D005_CAR_J, NameOf(_D005_CAR_J.FILE_PATH2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
+            dtUPD_YMD.DataBindings.Add(New Binding(NameOf(dtUPD_YMD.ValueNonFormat), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
             Return True
         Catch ex As Exception
             Throw
@@ -2631,7 +2666,7 @@ Public Class FrmG0012
             mtxFUTEKIGO_KB.Text = _V002_NCR_J.FUTEKIGO_NAME
             mtxFUTEKIGO_S_KB.Text = _V002_NCR_J.FUTEKIGO_S_NAME
             mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO)
-            'mtxUPD_YMD.Text = Now.ToString("yyyy/MM/dd")
+            dtUPD_YMD.Text = Now.ToString("yyyy/MM/dd")
             mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
 
             Dim blnOwn As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO, PrCurrentStage)
@@ -3004,12 +3039,14 @@ Public Class FrmG0012
     Private Function FunCheckInput(ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
         Try
             'フラグリセット
-            pri_blnValidated = True
+            IsValidated = True
             '-----共通
             If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
                 '-----ステージ別
                 Select Case PrCurrentStage
                     Case ENM_CAR_STAGE._10_起草入力 To ENM_CAR_STAGE._120_是正有効性確認_品証TL
+                        Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
+
                         Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
 
                     Case ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
@@ -3020,7 +3057,7 @@ Public Class FrmG0012
             End If
 
             '上記各種Validatingイベントでフラグを更新し、全てOKの場合はTrue
-            Return pri_blnValidated
+            Return IsValidated
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False

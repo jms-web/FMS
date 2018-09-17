@@ -1843,7 +1843,7 @@ Public Class FrmG0010
                 cmdFunc11.Enabled = False
             End If
 
-
+            cmdFunc1.Enabled = Not (panelMan.SelectedIndex = 1)
             cmdFunc7.Enabled = (panelMan.SelectedIndex = 1)
 
 

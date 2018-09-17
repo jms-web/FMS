@@ -464,6 +464,9 @@ Partial Public Class V002_NCR_J
     <ComponentModel.DisplayName("発生工程GL確認担当者")>
     Public Property HASSEI_KOTEI_GL_SYAIN_NAME As String
 
+    <ComponentModel.DisplayName("発生日")>
+    Public Property HASSEI_YMD As String
+
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' 重複する呼び出しを検出するには
 

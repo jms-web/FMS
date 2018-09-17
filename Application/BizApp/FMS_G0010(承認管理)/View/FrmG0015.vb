@@ -70,8 +70,7 @@ Public Class FrmG0015
                     Where(Function(r) r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID)
 
             If drs.Count > 0 Then
-                Dim tbl As DataTable
-                tbl = drs.CopyToDataTable
+                Dim tbl As DataTable = drs.CopyToDataTable
                 Me.cmbTENSO_SAKI.SetDataSource(tbl, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             Else
                 MessageBox.Show("当該ステージの承認担当者がログインユーザー以外に登録されていないため、転送処理は出来ません。", "承認担当者マスタ登録不備", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -254,13 +253,13 @@ Public Class FrmG0015
                         blnErr = True
                         Return False
                     End If
+
+                    If blnErr = False Then Call FunSendRequestMail()
                 Finally
                     '-----トランザクション
                     DB.Commit(Not blnErr)
                 End Try
             End Using
-
-            Call FunSendRequestMail()
 
             Return True
         Catch ex As Exception

@@ -35,7 +35,6 @@ Partial Class FrmG0011
         Me.cmbBUHIN_BANGO = New JMS_COMMON.ComboboxEx()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.dtDraft = New JMS_COMMON.DateTextBoxEx()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.mtxHINMEI = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.lblSYANAI_CD = New System.Windows.Forms.Label()
@@ -44,18 +43,21 @@ Partial Class FrmG0011
         Me.mtxGOUKI = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cmbFUTEKIGO_STATUS = New JMS_COMMON.ComboboxEx()
-        Me.btnSRCH_BUHIN = New System.Windows.Forms.Button()
         Me.lblFUTEKIGO_NAIYO = New System.Windows.Forms.Label()
-        Me.numSU = New System.Windows.Forms.NumericUpDown()
-        Me.chkSAIHATU = New System.Windows.Forms.CheckBox()
         Me.mtxHENKYAKU_RIYU = New JMS_COMMON.MaskedTextBoxEx()
-        Me.chkClosed = New System.Windows.Forms.CheckBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cmbFUTEKIGO_KB = New JMS_COMMON.ComboboxEx()
         Me.cmbFUTEKIGO_S_KB = New JMS_COMMON.ComboboxEx()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.mtxZUBAN_KIKAKU = New JMS_COMMON.MaskedTextBoxEx()
+        Me.chkClosed = New System.Windows.Forms.CheckBox()
+        Me.btnSRCH_BUHIN = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.numSU = New System.Windows.Forms.NumericUpDown()
+        Me.chkSAIHATU = New System.Windows.Forms.CheckBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.dtHASSEI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.picZoom = New System.Windows.Forms.PictureBox()
         Me.D003NCRJBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.TabSTAGE = New JMS_COMMON.TabControlEx()
@@ -65,6 +67,7 @@ Partial Class FrmG0011
         Me.btnST16_SYONIN = New System.Windows.Forms.Button()
         Me.lblSTAGEFlame16 = New System.Windows.Forms.Label()
         Me.pnlST15 = New JMS_COMMON.PanelEx()
+        Me.dtST15_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.tlpST08 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.rbtnST11_E2_T = New System.Windows.Forms.RadioButton()
@@ -122,6 +125,7 @@ Partial Class FrmG0011
         Me.mtxST15_UPD_YMD = New JMS_COMMON.MaskedTextBoxEx()
         Me.lblSTAGEFlame15 = New System.Windows.Forms.Label()
         Me.pnlST14 = New JMS_COMMON.PanelEx()
+        Me.dtST14_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblST14_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.lblSTAGE14 = New System.Windows.Forms.Label()
         Me.mtxST14_UPD_YMD = New JMS_COMMON.MaskedTextBoxEx()
@@ -134,6 +138,7 @@ Partial Class FrmG0011
         Me.Label98 = New System.Windows.Forms.Label()
         Me.lblSTAGEFlame14 = New System.Windows.Forms.Label()
         Me.pnlST13 = New JMS_COMMON.PanelEx()
+        Me.dtST13_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblST13_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.lblSTAGE13 = New System.Windows.Forms.Label()
         Me.mtxST13_UPD_YMD = New JMS_COMMON.MaskedTextBoxEx()
@@ -146,6 +151,7 @@ Partial Class FrmG0011
         Me.Label93 = New System.Windows.Forms.Label()
         Me.lblSTAGEFlame13 = New System.Windows.Forms.Label()
         Me.pnlST12 = New JMS_COMMON.PanelEx()
+        Me.dtST12_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblSTAGE12 = New System.Windows.Forms.Label()
         Me.lblST12_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.cmbST12_DestTANTO = New JMS_COMMON.ComboboxEx()
@@ -158,6 +164,7 @@ Partial Class FrmG0011
         Me.Label192 = New System.Windows.Forms.Label()
         Me.lblSTAGEFlame12 = New System.Windows.Forms.Label()
         Me.pnlST11 = New JMS_COMMON.PanelEx()
+        Me.dtST11_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblSTAGE11 = New System.Windows.Forms.Label()
         Me.lblST11_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.cmbST11_DestTANTO = New JMS_COMMON.ComboboxEx()
@@ -170,6 +177,7 @@ Partial Class FrmG0011
         Me.Label166 = New System.Windows.Forms.Label()
         Me.lblSTAGEFlame11 = New System.Windows.Forms.Label()
         Me.pnlST10 = New JMS_COMMON.PanelEx()
+        Me.dtST10_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblSTAGE10 = New System.Windows.Forms.Label()
         Me.lblST10_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.TabControlEx1 = New JMS_COMMON.TabControlEx()
@@ -232,6 +240,7 @@ Partial Class FrmG0011
         Me.Label121 = New System.Windows.Forms.Label()
         Me.lblSTAGEFlame10 = New System.Windows.Forms.Label()
         Me.pnlST09 = New JMS_COMMON.PanelEx()
+        Me.dtST09_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblST09_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.lblSTAGE09 = New System.Windows.Forms.Label()
         Me.tabST08_SUB = New JMS_COMMON.TabControlEx()
@@ -294,6 +303,7 @@ Partial Class FrmG0011
         Me.Label69 = New System.Windows.Forms.Label()
         Me.lblSTAGEFlame09 = New System.Windows.Forms.Label()
         Me.pnlST08 = New JMS_COMMON.PanelEx()
+        Me.dtST08_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblST08_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.lblSTAGE08 = New System.Windows.Forms.Label()
         Me.cmbST08_DestTANTO = New JMS_COMMON.ComboboxEx()
@@ -323,6 +333,7 @@ Partial Class FrmG0011
         Me.dtST07_KOKYAKU_SAISYU_HANTEI = New JMS_COMMON.DateTextBoxEx()
         Me.lblSTAGEFlame08 = New System.Windows.Forms.Label()
         Me.pnlST07 = New JMS_COMMON.PanelEx()
+        Me.dtST07_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblST07_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.cmbST07_DestTANTO = New JMS_COMMON.ComboboxEx()
@@ -335,6 +346,7 @@ Partial Class FrmG0011
         Me.mtxST07_UPD_YMD = New JMS_COMMON.MaskedTextBoxEx()
         Me.lblSTAGEFlame07 = New System.Windows.Forms.Label()
         Me.pnlST06 = New JMS_COMMON.PanelEx()
+        Me.dtST06_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblST06_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.lblSTAGE06 = New System.Windows.Forms.Label()
         Me.cmbST06_DestTANTO = New JMS_COMMON.ComboboxEx()
@@ -351,6 +363,7 @@ Partial Class FrmG0011
         Me.mtxST06_UPD_YMD = New JMS_COMMON.MaskedTextBoxEx()
         Me.lblSTAGEFlame06 = New System.Windows.Forms.Label()
         Me.pnlST05 = New JMS_COMMON.PanelEx()
+        Me.dtST05_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblST05_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.lblSTAGE05 = New System.Windows.Forms.Label()
         Me.mtxST05_UPD_YMD = New JMS_COMMON.MaskedTextBoxEx()
@@ -363,6 +376,7 @@ Partial Class FrmG0011
         Me.Label46 = New System.Windows.Forms.Label()
         Me.lblSTAGEFlame05 = New System.Windows.Forms.Label()
         Me.pnlST04 = New JMS_COMMON.PanelEx()
+        Me.dtST04_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblSTAGE04 = New System.Windows.Forms.Label()
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO = New JMS_COMMON.ComboboxEx()
         Me.Label41 = New System.Windows.Forms.Label()
@@ -388,6 +402,7 @@ Partial Class FrmG0011
         Me.Label36 = New System.Windows.Forms.Label()
         Me.lblSTAGEFlame04 = New System.Windows.Forms.Label()
         Me.pnlST03 = New JMS_COMMON.PanelEx()
+        Me.dtST03_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblSTAGE03 = New System.Windows.Forms.Label()
         Me.lblST03_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.mtxST03_UPD_YMD = New JMS_COMMON.MaskedTextBoxEx()
@@ -400,6 +415,7 @@ Partial Class FrmG0011
         Me.Label31 = New System.Windows.Forms.Label()
         Me.lblSTAGEFlame03 = New System.Windows.Forms.Label()
         Me.pnlST02 = New JMS_COMMON.PanelEx()
+        Me.dtST02_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblSTAGE02 = New System.Windows.Forms.Label()
         Me.lblST02_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.mtxST02_UPD_YMD = New JMS_COMMON.MaskedTextBoxEx()
@@ -448,10 +464,11 @@ Partial Class FrmG0011
         Me.mtxST01_NextStageName = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label123 = New System.Windows.Forms.Label()
-        Me.mtxST01_UPD_YMD = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label124 = New System.Windows.Forms.Label()
         Me.Label139 = New System.Windows.Forms.Label()
         Me.lblSTAGEFlame01 = New System.Windows.Forms.Label()
+        Me.dtST01_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
+        Me.mtxST01_UPD_YMD = New JMS_COMMON.MaskedTextBoxEx()
         Me.tabSTAGE02 = New JMS_COMMON.TabPageEx()
         Me.tabSTAGE03 = New JMS_COMMON.TabPageEx()
         Me.tabSTAGE04 = New JMS_COMMON.TabPageEx()
@@ -714,7 +731,6 @@ Partial Class FrmG0011
         Me.tlpFilter.Controls.Add(Me.cmbBUHIN_BANGO, 18, 1)
         Me.tlpFilter.Controls.Add(Me.Label6, 42, 0)
         Me.tlpFilter.Controls.Add(Me.dtDraft, 47, 0)
-        Me.tlpFilter.Controls.Add(Me.Label2, 52, 0)
         Me.tlpFilter.Controls.Add(Me.mtxHINMEI, 47, 1)
         Me.tlpFilter.Controls.Add(Me.Label7, 42, 1)
         Me.tlpFilter.Controls.Add(Me.lblSYANAI_CD, 29, 1)
@@ -723,18 +739,21 @@ Partial Class FrmG0011
         Me.tlpFilter.Controls.Add(Me.mtxGOUKI, 5, 2)
         Me.tlpFilter.Controls.Add(Me.Label1, 13, 2)
         Me.tlpFilter.Controls.Add(Me.cmbFUTEKIGO_STATUS, 18, 2)
-        Me.tlpFilter.Controls.Add(Me.btnSRCH_BUHIN, 53, 3)
         Me.tlpFilter.Controls.Add(Me.lblFUTEKIGO_NAIYO, 29, 2)
-        Me.tlpFilter.Controls.Add(Me.numSU, 55, 0)
-        Me.tlpFilter.Controls.Add(Me.chkSAIHATU, 59, 0)
         Me.tlpFilter.Controls.Add(Me.mtxHENKYAKU_RIYU, 34, 2)
-        Me.tlpFilter.Controls.Add(Me.chkClosed, 58, 3)
         Me.tlpFilter.Controls.Add(Me.Label12, 0, 3)
         Me.tlpFilter.Controls.Add(Me.Label5, 13, 3)
         Me.tlpFilter.Controls.Add(Me.cmbFUTEKIGO_KB, 5, 3)
         Me.tlpFilter.Controls.Add(Me.cmbFUTEKIGO_S_KB, 18, 3)
         Me.tlpFilter.Controls.Add(Me.Label13, 29, 3)
         Me.tlpFilter.Controls.Add(Me.mtxZUBAN_KIKAKU, 34, 3)
+        Me.tlpFilter.Controls.Add(Me.chkClosed, 58, 2)
+        Me.tlpFilter.Controls.Add(Me.btnSRCH_BUHIN, 26, 0)
+        Me.tlpFilter.Controls.Add(Me.Label2, 52, 3)
+        Me.tlpFilter.Controls.Add(Me.numSU, 55, 3)
+        Me.tlpFilter.Controls.Add(Me.chkSAIHATU, 59, 3)
+        Me.tlpFilter.Controls.Add(Me.Label3, 52, 0)
+        Me.tlpFilter.Controls.Add(Me.dtHASSEI_YMD, 56, 0)
         Me.tlpFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpFilter.Location = New System.Drawing.Point(3, 20)
         Me.tlpFilter.Name = "tlpFilter"
@@ -941,17 +960,6 @@ Partial Class FrmG0011
         Me.dtDraft.Value = ""
         Me.dtDraft.ValueNonFormat = ""
         '
-        'Label2
-        '
-        Me.tlpFilter.SetColumnSpan(Me.Label2, 3)
-        Me.Label2.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label2.Location = New System.Drawing.Point(1043, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(54, 30)
-        Me.Label2.TabIndex = 88
-        Me.Label2.Text = "個数:"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'mtxHINMEI
         '
         Me.mtxHINMEI.BackColor = System.Drawing.SystemColors.Window
@@ -1076,17 +1084,6 @@ Partial Class FrmG0011
         Me.cmbFUTEKIGO_STATUS.Text = "(選択)"
         Me.cmbFUTEKIGO_STATUS.ValueMember = "VALUE"
         '
-        'btnSRCH_BUHIN
-        '
-        Me.tlpFilter.SetColumnSpan(Me.btnSRCH_BUHIN, 3)
-        Me.btnSRCH_BUHIN.Location = New System.Drawing.Point(1063, 93)
-        Me.btnSRCH_BUHIN.Name = "btnSRCH_BUHIN"
-        Me.btnSRCH_BUHIN.Size = New System.Drawing.Size(54, 24)
-        Me.btnSRCH_BUHIN.TabIndex = 9
-        Me.btnSRCH_BUHIN.Text = "検索"
-        Me.btnSRCH_BUHIN.UseVisualStyleBackColor = True
-        Me.btnSRCH_BUHIN.Visible = False
-        '
         'lblFUTEKIGO_NAIYO
         '
         Me.tlpFilter.SetColumnSpan(Me.lblFUTEKIGO_NAIYO, 5)
@@ -1098,32 +1095,6 @@ Partial Class FrmG0011
         Me.lblFUTEKIGO_NAIYO.Text = "返却品の場合:"
         Me.lblFUTEKIGO_NAIYO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.lblFUTEKIGO_NAIYO.Visible = False
-        '
-        'numSU
-        '
-        Me.tlpFilter.SetColumnSpan(Me.numSU, 3)
-        Me.numSU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.numSU.Location = New System.Drawing.Point(1103, 3)
-        Me.numSU.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.numSU.Name = "numSU"
-        Me.numSU.Size = New System.Drawing.Size(54, 24)
-        Me.numSU.TabIndex = 10
-        Me.numSU.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numSU.Value = New Decimal(New Integer() {1, 0, 0, 0})
-        '
-        'chkSAIHATU
-        '
-        Me.chkSAIHATU.AutoSize = True
-        Me.tlpFilter.SetColumnSpan(Me.chkSAIHATU, 3)
-        Me.chkSAIHATU.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.chkSAIHATU.Enabled = False
-        Me.chkSAIHATU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.chkSAIHATU.Location = New System.Drawing.Point(1183, 3)
-        Me.chkSAIHATU.Name = "chkSAIHATU"
-        Me.chkSAIHATU.Size = New System.Drawing.Size(53, 24)
-        Me.chkSAIHATU.TabIndex = 12
-        Me.chkSAIHATU.Text = "再発"
-        Me.chkSAIHATU.UseVisualStyleBackColor = True
         '
         'mtxHENKYAKU_RIYU
         '
@@ -1141,19 +1112,6 @@ Partial Class FrmG0011
         Me.mtxHENKYAKU_RIYU.Visible = False
         Me.mtxHENKYAKU_RIYU.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxHENKYAKU_RIYU.WatermarkText = Nothing
-        '
-        'chkClosed
-        '
-        Me.chkClosed.AutoSize = True
-        Me.tlpFilter.SetColumnSpan(Me.chkClosed, 4)
-        Me.chkClosed.Enabled = False
-        Me.chkClosed.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.chkClosed.Location = New System.Drawing.Point(1163, 93)
-        Me.chkClosed.Name = "chkClosed"
-        Me.chkClosed.Size = New System.Drawing.Size(69, 21)
-        Me.chkClosed.TabIndex = 121
-        Me.chkClosed.Text = "Closed"
-        Me.chkClosed.Visible = False
         '
         'Label12
         '
@@ -1249,6 +1207,94 @@ Partial Class FrmG0011
         Me.mtxZUBAN_KIKAKU.TabIndex = 15
         Me.mtxZUBAN_KIKAKU.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxZUBAN_KIKAKU.WatermarkText = Nothing
+        '
+        'chkClosed
+        '
+        Me.chkClosed.AutoSize = True
+        Me.tlpFilter.SetColumnSpan(Me.chkClosed, 4)
+        Me.chkClosed.Enabled = False
+        Me.chkClosed.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.chkClosed.Location = New System.Drawing.Point(1163, 63)
+        Me.chkClosed.Name = "chkClosed"
+        Me.chkClosed.Size = New System.Drawing.Size(69, 21)
+        Me.chkClosed.TabIndex = 121
+        Me.chkClosed.Text = "Closed"
+        Me.chkClosed.Visible = False
+        '
+        'btnSRCH_BUHIN
+        '
+        Me.tlpFilter.SetColumnSpan(Me.btnSRCH_BUHIN, 3)
+        Me.btnSRCH_BUHIN.Location = New System.Drawing.Point(523, 3)
+        Me.btnSRCH_BUHIN.Name = "btnSRCH_BUHIN"
+        Me.btnSRCH_BUHIN.Size = New System.Drawing.Size(54, 24)
+        Me.btnSRCH_BUHIN.TabIndex = 9
+        Me.btnSRCH_BUHIN.Text = "検索"
+        Me.btnSRCH_BUHIN.UseVisualStyleBackColor = True
+        Me.btnSRCH_BUHIN.Visible = False
+        '
+        'Label2
+        '
+        Me.tlpFilter.SetColumnSpan(Me.Label2, 3)
+        Me.Label2.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label2.Location = New System.Drawing.Point(1043, 90)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(54, 30)
+        Me.Label2.TabIndex = 88
+        Me.Label2.Text = "個数:"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'numSU
+        '
+        Me.tlpFilter.SetColumnSpan(Me.numSU, 3)
+        Me.numSU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.numSU.Location = New System.Drawing.Point(1103, 93)
+        Me.numSU.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numSU.Name = "numSU"
+        Me.numSU.Size = New System.Drawing.Size(54, 24)
+        Me.numSU.TabIndex = 10
+        Me.numSU.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numSU.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'chkSAIHATU
+        '
+        Me.chkSAIHATU.AutoSize = True
+        Me.tlpFilter.SetColumnSpan(Me.chkSAIHATU, 3)
+        Me.chkSAIHATU.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkSAIHATU.Enabled = False
+        Me.chkSAIHATU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.chkSAIHATU.Location = New System.Drawing.Point(1183, 93)
+        Me.chkSAIHATU.Name = "chkSAIHATU"
+        Me.chkSAIHATU.Size = New System.Drawing.Size(53, 24)
+        Me.chkSAIHATU.TabIndex = 12
+        Me.chkSAIHATU.Text = "再発"
+        Me.chkSAIHATU.UseVisualStyleBackColor = True
+        '
+        'Label3
+        '
+        Me.tlpFilter.SetColumnSpan(Me.Label3, 4)
+        Me.Label3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label3.Location = New System.Drawing.Point(1043, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(74, 30)
+        Me.Label3.TabIndex = 122
+        Me.Label3.Text = "発生日:"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'dtHASSEI_YMD
+        '
+        Me.dtHASSEI_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tlpFilter.SetColumnSpan(Me.dtHASSEI_YMD, 5)
+        Me.dtHASSEI_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtHASSEI_YMD.Location = New System.Drawing.Point(1123, 3)
+        Me.dtHASSEI_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtHASSEI_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtHASSEI_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtHASSEI_YMD.Name = "dtHASSEI_YMD"
+        Me.dtHASSEI_YMD.ReadOnly = False
+        Me.dtHASSEI_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtHASSEI_YMD.TabIndex = 123
+        Me.dtHASSEI_YMD.Value = ""
+        Me.dtHASSEI_YMD.ValueNonFormat = ""
         '
         'picZoom
         '
@@ -1377,6 +1423,7 @@ Partial Class FrmG0011
         '
         Me.pnlST15.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.pnlST15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST15.Controls.Add(Me.dtST15_UPD_YMD)
         Me.pnlST15.Controls.Add(Me.tlpST08)
         Me.pnlST15.Controls.Add(Me.chkST11_E2)
         Me.pnlST15.Controls.Add(Me.chkST11_D1)
@@ -1402,6 +1449,21 @@ Partial Class FrmG0011
         Me.pnlST15.Size = New System.Drawing.Size(1209, 306)
         Me.pnlST15.TabIndex = 250
         '
+        'dtST15_UPD_YMD
+        '
+        Me.dtST15_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST15_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST15_UPD_YMD.Location = New System.Drawing.Point(909, 44)
+        Me.dtST15_UPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST15_UPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST15_UPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST15_UPD_YMD.Name = "dtST15_UPD_YMD"
+        Me.dtST15_UPD_YMD.ReadOnly = False
+        Me.dtST15_UPD_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST15_UPD_YMD.TabIndex = 123
+        Me.dtST15_UPD_YMD.Value = ""
+        Me.dtST15_UPD_YMD.ValueNonFormat = ""
+        '
         'tlpST08
         '
         Me.tlpST08.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -1412,7 +1474,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 163.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 167.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.Panel7, 3, 7)
@@ -1459,7 +1521,7 @@ Partial Class FrmG0011
         Me.Panel7.BackColor = System.Drawing.SystemColors.Window
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_T)
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_F)
-        Me.Panel7.Location = New System.Drawing.Point(598, 200)
+        Me.Panel7.Location = New System.Drawing.Point(594, 200)
         Me.Panel7.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(155, 28)
@@ -1497,7 +1559,7 @@ Partial Class FrmG0011
         Me.Panel2.BackColor = System.Drawing.SystemColors.Window
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_T)
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_F)
-        Me.Panel2.Location = New System.Drawing.Point(598, 171)
+        Me.Panel2.Location = New System.Drawing.Point(594, 171)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(155, 28)
@@ -1535,7 +1597,7 @@ Partial Class FrmG0011
         Me.Panel6.BackColor = System.Drawing.SystemColors.Window
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_T)
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_F)
-        Me.Panel6.Location = New System.Drawing.Point(598, 117)
+        Me.Panel6.Location = New System.Drawing.Point(594, 117)
         Me.Panel6.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(155, 28)
@@ -1573,7 +1635,7 @@ Partial Class FrmG0011
         Me.Panel5.BackColor = System.Drawing.SystemColors.Window
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_T)
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_F)
-        Me.Panel5.Location = New System.Drawing.Point(598, 88)
+        Me.Panel5.Location = New System.Drawing.Point(594, 88)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(155, 28)
@@ -1611,7 +1673,7 @@ Partial Class FrmG0011
         Me.Panel4.BackColor = System.Drawing.SystemColors.Window
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_T)
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_F)
-        Me.Panel4.Location = New System.Drawing.Point(598, 59)
+        Me.Panel4.Location = New System.Drawing.Point(594, 59)
         Me.Panel4.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(155, 28)
@@ -1649,7 +1711,7 @@ Partial Class FrmG0011
         Me.Panel3.BackColor = System.Drawing.SystemColors.Window
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_T)
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_F)
-        Me.Panel3.Location = New System.Drawing.Point(598, 30)
+        Me.Panel3.Location = New System.Drawing.Point(594, 30)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(155, 28)
@@ -1742,7 +1804,7 @@ Partial Class FrmG0011
         Me.Label126.Location = New System.Drawing.Point(22, 117)
         Me.Label126.Margin = New System.Windows.Forms.Padding(0)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(575, 28)
+        Me.Label126.Size = New System.Drawing.Size(571, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "影響有の場合、顧客への通知の要否"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1757,7 +1819,7 @@ Partial Class FrmG0011
         Me.Label127.Location = New System.Drawing.Point(22, 88)
         Me.Label127.Margin = New System.Windows.Forms.Padding(0)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(575, 28)
+        Me.Label127.Size = New System.Drawing.Size(571, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "当該不適合による顧客への影響"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1772,7 +1834,7 @@ Partial Class FrmG0011
         Me.Label128.Location = New System.Drawing.Point(22, 59)
         Me.Label128.Margin = New System.Windows.Forms.Padding(0)
         Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(575, 28)
+        Me.Label128.Size = New System.Drawing.Size(571, 28)
         Me.Label128.TabIndex = 241
         Me.Label128.Text = "廃却処置は本来の意図した使用又は適用ができない方法だったか？"
         Me.Label128.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1801,7 +1863,7 @@ Partial Class FrmG0011
         Me.Label130.Location = New System.Drawing.Point(22, 30)
         Me.Label130.Margin = New System.Windows.Forms.Padding(0)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(575, 28)
+        Me.Label130.Size = New System.Drawing.Size(571, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "社内権限者により、又は顧客再審の場合は顧客により判定されたか？"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1858,7 +1920,7 @@ Partial Class FrmG0011
         Me.Label134.Location = New System.Drawing.Point(22, 171)
         Me.Label134.Margin = New System.Windows.Forms.Padding(0)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(575, 28)
+        Me.Label134.Size = New System.Drawing.Size(571, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "当該不適合による他のプロセスへの影響"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1887,7 +1949,7 @@ Partial Class FrmG0011
         Me.Label136.Location = New System.Drawing.Point(22, 200)
         Me.Label136.Margin = New System.Windows.Forms.Padding(0)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(575, 28)
+        Me.Label136.Size = New System.Drawing.Size(571, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "影響有の場合、封じ込め処置の要否"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1902,7 +1964,7 @@ Partial Class FrmG0011
         Me.Label137.Location = New System.Drawing.Point(22, 1)
         Me.Label137.Margin = New System.Windows.Forms.Padding(0)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(575, 28)
+        Me.Label137.Size = New System.Drawing.Size(571, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "検出された不適合を除去する処置（廃却を含む）は確実にとられたか？"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1926,7 +1988,7 @@ Partial Class FrmG0011
         Me.Panel1.BackColor = System.Drawing.SystemColors.Window
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_T)
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_F)
-        Me.Panel1.Location = New System.Drawing.Point(598, 1)
+        Me.Panel1.Location = New System.Drawing.Point(594, 1)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(155, 28)
@@ -2174,6 +2236,7 @@ Partial Class FrmG0011
         Me.mtxST15_UPD_YMD.TabIndex = 244
         Me.mtxST15_UPD_YMD.TabStop = False
         Me.mtxST15_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxST15_UPD_YMD.Visible = False
         Me.mtxST15_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST15_UPD_YMD.WatermarkText = Nothing
         '
@@ -2191,6 +2254,7 @@ Partial Class FrmG0011
         '
         Me.pnlST14.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.pnlST14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST14.Controls.Add(Me.dtST14_UPD_YMD)
         Me.pnlST14.Controls.Add(Me.lblST14_Modoshi_Riyu)
         Me.pnlST14.Controls.Add(Me.lblSTAGE14)
         Me.pnlST14.Controls.Add(Me.mtxST14_UPD_YMD)
@@ -2208,6 +2272,21 @@ Partial Class FrmG0011
         Me.pnlST14.Name = "pnlST14"
         Me.pnlST14.Size = New System.Drawing.Size(602, 182)
         Me.pnlST14.TabIndex = 249
+        '
+        'dtST14_UPD_YMD
+        '
+        Me.dtST14_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST14_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST14_UPD_YMD.Location = New System.Drawing.Point(115, 57)
+        Me.dtST14_UPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST14_UPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST14_UPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST14_UPD_YMD.Name = "dtST14_UPD_YMD"
+        Me.dtST14_UPD_YMD.ReadOnly = False
+        Me.dtST14_UPD_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST14_UPD_YMD.TabIndex = 123
+        Me.dtST14_UPD_YMD.Value = ""
+        Me.dtST14_UPD_YMD.ValueNonFormat = ""
         '
         'lblST14_Modoshi_Riyu
         '
@@ -2249,6 +2328,7 @@ Partial Class FrmG0011
         Me.mtxST14_UPD_YMD.TabIndex = 0
         Me.mtxST14_UPD_YMD.TabStop = False
         Me.mtxST14_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxST14_UPD_YMD.Visible = False
         Me.mtxST14_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST14_UPD_YMD.WatermarkText = Nothing
         '
@@ -2370,6 +2450,7 @@ Partial Class FrmG0011
         '
         Me.pnlST13.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.pnlST13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST13.Controls.Add(Me.dtST13_UPD_YMD)
         Me.pnlST13.Controls.Add(Me.lblST13_Modoshi_Riyu)
         Me.pnlST13.Controls.Add(Me.lblSTAGE13)
         Me.pnlST13.Controls.Add(Me.mtxST13_UPD_YMD)
@@ -2387,6 +2468,21 @@ Partial Class FrmG0011
         Me.pnlST13.Name = "pnlST13"
         Me.pnlST13.Size = New System.Drawing.Size(602, 182)
         Me.pnlST13.TabIndex = 248
+        '
+        'dtST13_UPD_YMD
+        '
+        Me.dtST13_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST13_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST13_UPD_YMD.Location = New System.Drawing.Point(115, 57)
+        Me.dtST13_UPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST13_UPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST13_UPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST13_UPD_YMD.Name = "dtST13_UPD_YMD"
+        Me.dtST13_UPD_YMD.ReadOnly = False
+        Me.dtST13_UPD_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST13_UPD_YMD.TabIndex = 123
+        Me.dtST13_UPD_YMD.Value = ""
+        Me.dtST13_UPD_YMD.ValueNonFormat = ""
         '
         'lblST13_Modoshi_Riyu
         '
@@ -2428,6 +2524,7 @@ Partial Class FrmG0011
         Me.mtxST13_UPD_YMD.TabIndex = 0
         Me.mtxST13_UPD_YMD.TabStop = False
         Me.mtxST13_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxST13_UPD_YMD.Visible = False
         Me.mtxST13_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST13_UPD_YMD.WatermarkText = Nothing
         '
@@ -2547,6 +2644,7 @@ Partial Class FrmG0011
         '
         Me.pnlST12.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.pnlST12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST12.Controls.Add(Me.dtST12_UPD_YMD)
         Me.pnlST12.Controls.Add(Me.lblSTAGE12)
         Me.pnlST12.Controls.Add(Me.lblST12_Modoshi_Riyu)
         Me.pnlST12.Controls.Add(Me.cmbST12_DestTANTO)
@@ -2564,6 +2662,21 @@ Partial Class FrmG0011
         Me.pnlST12.Name = "pnlST12"
         Me.pnlST12.Size = New System.Drawing.Size(399, 225)
         Me.pnlST12.TabIndex = 247
+        '
+        'dtST12_UPD_YMD
+        '
+        Me.dtST12_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST12_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST12_UPD_YMD.Location = New System.Drawing.Point(116, 54)
+        Me.dtST12_UPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST12_UPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST12_UPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST12_UPD_YMD.Name = "dtST12_UPD_YMD"
+        Me.dtST12_UPD_YMD.ReadOnly = False
+        Me.dtST12_UPD_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST12_UPD_YMD.TabIndex = 123
+        Me.dtST12_UPD_YMD.Value = ""
+        Me.dtST12_UPD_YMD.ValueNonFormat = ""
         '
         'lblSTAGE12
         '
@@ -2627,6 +2740,7 @@ Partial Class FrmG0011
         Me.mtxST12_UPD_YMD.TabIndex = 1
         Me.mtxST12_UPD_YMD.TabStop = False
         Me.mtxST12_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxST12_UPD_YMD.Visible = False
         Me.mtxST12_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST12_UPD_YMD.WatermarkText = Nothing
         '
@@ -2728,6 +2842,7 @@ Partial Class FrmG0011
         '
         Me.pnlST11.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.pnlST11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST11.Controls.Add(Me.dtST11_UPD_YMD)
         Me.pnlST11.Controls.Add(Me.lblSTAGE11)
         Me.pnlST11.Controls.Add(Me.lblST11_Modoshi_Riyu)
         Me.pnlST11.Controls.Add(Me.cmbST11_DestTANTO)
@@ -2744,6 +2859,21 @@ Partial Class FrmG0011
         Me.pnlST11.Name = "pnlST11"
         Me.pnlST11.Size = New System.Drawing.Size(399, 225)
         Me.pnlST11.TabIndex = 246
+        '
+        'dtST11_UPD_YMD
+        '
+        Me.dtST11_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST11_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST11_UPD_YMD.Location = New System.Drawing.Point(116, 54)
+        Me.dtST11_UPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST11_UPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST11_UPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST11_UPD_YMD.Name = "dtST11_UPD_YMD"
+        Me.dtST11_UPD_YMD.ReadOnly = False
+        Me.dtST11_UPD_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST11_UPD_YMD.TabIndex = 123
+        Me.dtST11_UPD_YMD.Value = ""
+        Me.dtST11_UPD_YMD.ValueNonFormat = ""
         '
         'lblSTAGE11
         '
@@ -2807,6 +2937,7 @@ Partial Class FrmG0011
         Me.mtxST11_UPD_YMD.TabIndex = 1
         Me.mtxST11_UPD_YMD.TabStop = False
         Me.mtxST11_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxST11_UPD_YMD.Visible = False
         Me.mtxST11_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST11_UPD_YMD.WatermarkText = Nothing
         '
@@ -2908,6 +3039,7 @@ Partial Class FrmG0011
         '
         Me.pnlST10.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.pnlST10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST10.Controls.Add(Me.dtST10_UPD_YMD)
         Me.pnlST10.Controls.Add(Me.lblSTAGE10)
         Me.pnlST10.Controls.Add(Me.lblST10_Modoshi_Riyu)
         Me.pnlST10.Controls.Add(Me.TabControlEx1)
@@ -2926,6 +3058,21 @@ Partial Class FrmG0011
         Me.pnlST10.Name = "pnlST10"
         Me.pnlST10.Size = New System.Drawing.Size(399, 225)
         Me.pnlST10.TabIndex = 245
+        '
+        'dtST10_UPD_YMD
+        '
+        Me.dtST10_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST10_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST10_UPD_YMD.Location = New System.Drawing.Point(116, 54)
+        Me.dtST10_UPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST10_UPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST10_UPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST10_UPD_YMD.Name = "dtST10_UPD_YMD"
+        Me.dtST10_UPD_YMD.ReadOnly = False
+        Me.dtST10_UPD_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST10_UPD_YMD.TabIndex = 123
+        Me.dtST10_UPD_YMD.Value = ""
+        Me.dtST10_UPD_YMD.ValueNonFormat = ""
         '
         'lblSTAGE10
         '
@@ -3750,6 +3897,7 @@ Partial Class FrmG0011
         Me.mtxST10_UPD_YMD.TabIndex = 1
         Me.mtxST10_UPD_YMD.TabStop = False
         Me.mtxST10_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxST10_UPD_YMD.Visible = False
         Me.mtxST10_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST10_UPD_YMD.WatermarkText = Nothing
         '
@@ -3851,6 +3999,7 @@ Partial Class FrmG0011
         '
         Me.pnlST09.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.pnlST09.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST09.Controls.Add(Me.dtST09_UPD_YMD)
         Me.pnlST09.Controls.Add(Me.lblST09_Modoshi_Riyu)
         Me.pnlST09.Controls.Add(Me.lblSTAGE09)
         Me.pnlST09.Controls.Add(Me.tabST08_SUB)
@@ -3869,6 +4018,21 @@ Partial Class FrmG0011
         Me.pnlST09.Name = "pnlST09"
         Me.pnlST09.Size = New System.Drawing.Size(601, 346)
         Me.pnlST09.TabIndex = 244
+        '
+        'dtST09_UPD_YMD
+        '
+        Me.dtST09_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST09_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST09_UPD_YMD.Location = New System.Drawing.Point(116, 222)
+        Me.dtST09_UPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST09_UPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST09_UPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST09_UPD_YMD.Name = "dtST09_UPD_YMD"
+        Me.dtST09_UPD_YMD.ReadOnly = False
+        Me.dtST09_UPD_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST09_UPD_YMD.TabIndex = 123
+        Me.dtST09_UPD_YMD.Value = ""
+        Me.dtST09_UPD_YMD.ValueNonFormat = ""
         '
         'lblST09_Modoshi_Riyu
         '
@@ -4686,6 +4850,7 @@ Partial Class FrmG0011
         Me.mtxST09_UPD_YMD.TabIndex = 1
         Me.mtxST09_UPD_YMD.TabStop = False
         Me.mtxST09_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxST09_UPD_YMD.Visible = False
         Me.mtxST09_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST09_UPD_YMD.WatermarkText = Nothing
         '
@@ -4783,6 +4948,7 @@ Partial Class FrmG0011
         '
         Me.pnlST08.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.pnlST08.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST08.Controls.Add(Me.dtST08_UPD_YMD)
         Me.pnlST08.Controls.Add(Me.lblST08_Modoshi_Riyu)
         Me.pnlST08.Controls.Add(Me.lblSTAGE08)
         Me.pnlST08.Controls.Add(Me.cmbST08_DestTANTO)
@@ -4815,6 +4981,21 @@ Partial Class FrmG0011
         Me.pnlST08.Name = "pnlST08"
         Me.pnlST08.Size = New System.Drawing.Size(602, 346)
         Me.pnlST08.TabIndex = 243
+        '
+        'dtST08_UPD_YMD
+        '
+        Me.dtST08_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST08_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST08_UPD_YMD.Location = New System.Drawing.Point(118, 222)
+        Me.dtST08_UPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST08_UPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST08_UPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST08_UPD_YMD.Name = "dtST08_UPD_YMD"
+        Me.dtST08_UPD_YMD.ReadOnly = False
+        Me.dtST08_UPD_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST08_UPD_YMD.TabIndex = 123
+        Me.dtST08_UPD_YMD.Value = ""
+        Me.dtST08_UPD_YMD.ValueNonFormat = ""
         '
         'lblST08_Modoshi_Riyu
         '
@@ -5064,6 +5245,7 @@ Partial Class FrmG0011
         Me.mtxST08_UPD_YMD.TabIndex = 6
         Me.mtxST08_UPD_YMD.TabStop = False
         Me.mtxST08_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxST08_UPD_YMD.Visible = False
         Me.mtxST08_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST08_UPD_YMD.WatermarkText = Nothing
         '
@@ -5217,6 +5399,7 @@ Partial Class FrmG0011
         '
         Me.pnlST07.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.pnlST07.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST07.Controls.Add(Me.dtST07_UPD_YMD)
         Me.pnlST07.Controls.Add(Me.lblST07_Modoshi_Riyu)
         Me.pnlST07.Controls.Add(Me.Label10)
         Me.pnlST07.Controls.Add(Me.cmbST07_DestTANTO)
@@ -5234,6 +5417,21 @@ Partial Class FrmG0011
         Me.pnlST07.Name = "pnlST07"
         Me.pnlST07.Size = New System.Drawing.Size(602, 236)
         Me.pnlST07.TabIndex = 242
+        '
+        'dtST07_UPD_YMD
+        '
+        Me.dtST07_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST07_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST07_UPD_YMD.Location = New System.Drawing.Point(115, 115)
+        Me.dtST07_UPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST07_UPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST07_UPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST07_UPD_YMD.Name = "dtST07_UPD_YMD"
+        Me.dtST07_UPD_YMD.ReadOnly = False
+        Me.dtST07_UPD_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST07_UPD_YMD.TabIndex = 123
+        Me.dtST07_UPD_YMD.Value = ""
+        Me.dtST07_UPD_YMD.ValueNonFormat = ""
         '
         'lblST07_Modoshi_Riyu
         '
@@ -5379,6 +5577,7 @@ Partial Class FrmG0011
         Me.mtxST07_UPD_YMD.TabIndex = 2
         Me.mtxST07_UPD_YMD.TabStop = False
         Me.mtxST07_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxST07_UPD_YMD.Visible = False
         Me.mtxST07_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST07_UPD_YMD.WatermarkText = Nothing
         '
@@ -5396,6 +5595,7 @@ Partial Class FrmG0011
         '
         Me.pnlST06.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.pnlST06.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST06.Controls.Add(Me.dtST06_UPD_YMD)
         Me.pnlST06.Controls.Add(Me.lblST06_Modoshi_Riyu)
         Me.pnlST06.Controls.Add(Me.lblSTAGE06)
         Me.pnlST06.Controls.Add(Me.cmbST06_DestTANTO)
@@ -5417,6 +5617,21 @@ Partial Class FrmG0011
         Me.pnlST06.Name = "pnlST06"
         Me.pnlST06.Size = New System.Drawing.Size(602, 236)
         Me.pnlST06.TabIndex = 241
+        '
+        'dtST06_UPD_YMD
+        '
+        Me.dtST06_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST06_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST06_UPD_YMD.Location = New System.Drawing.Point(115, 114)
+        Me.dtST06_UPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST06_UPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST06_UPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST06_UPD_YMD.Name = "dtST06_UPD_YMD"
+        Me.dtST06_UPD_YMD.ReadOnly = False
+        Me.dtST06_UPD_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST06_UPD_YMD.TabIndex = 123
+        Me.dtST06_UPD_YMD.Value = ""
+        Me.dtST06_UPD_YMD.ValueNonFormat = ""
         '
         'lblST06_Modoshi_Riyu
         '
@@ -5623,6 +5838,7 @@ Partial Class FrmG0011
         Me.mtxST06_UPD_YMD.TabIndex = 2
         Me.mtxST06_UPD_YMD.TabStop = False
         Me.mtxST06_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxST06_UPD_YMD.Visible = False
         Me.mtxST06_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST06_UPD_YMD.WatermarkText = Nothing
         '
@@ -5640,6 +5856,7 @@ Partial Class FrmG0011
         '
         Me.pnlST05.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.pnlST05.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST05.Controls.Add(Me.dtST05_UPD_YMD)
         Me.pnlST05.Controls.Add(Me.lblST05_Modoshi_Riyu)
         Me.pnlST05.Controls.Add(Me.lblSTAGE05)
         Me.pnlST05.Controls.Add(Me.mtxST05_UPD_YMD)
@@ -5657,6 +5874,21 @@ Partial Class FrmG0011
         Me.pnlST05.Name = "pnlST05"
         Me.pnlST05.Size = New System.Drawing.Size(602, 354)
         Me.pnlST05.TabIndex = 240
+        '
+        'dtST05_UPD_YMD
+        '
+        Me.dtST05_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST05_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST05_UPD_YMD.Location = New System.Drawing.Point(115, 55)
+        Me.dtST05_UPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST05_UPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST05_UPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST05_UPD_YMD.Name = "dtST05_UPD_YMD"
+        Me.dtST05_UPD_YMD.ReadOnly = False
+        Me.dtST05_UPD_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST05_UPD_YMD.TabIndex = 123
+        Me.dtST05_UPD_YMD.Value = ""
+        Me.dtST05_UPD_YMD.ValueNonFormat = ""
         '
         'lblST05_Modoshi_Riyu
         '
@@ -5700,6 +5932,7 @@ Partial Class FrmG0011
         Me.mtxST05_UPD_YMD.TabIndex = 0
         Me.mtxST05_UPD_YMD.TabStop = False
         Me.mtxST05_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxST05_UPD_YMD.Visible = False
         Me.mtxST05_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST05_UPD_YMD.WatermarkText = Nothing
         '
@@ -5823,6 +6056,7 @@ Partial Class FrmG0011
         '
         Me.pnlST04.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.pnlST04.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST04.Controls.Add(Me.dtST04_UPD_YMD)
         Me.pnlST04.Controls.Add(Me.lblSTAGE04)
         Me.pnlST04.Controls.Add(Me.cmbST04_HASSEI_KOTEI_GL_TANTO)
         Me.pnlST04.Controls.Add(Me.Label41)
@@ -5851,6 +6085,21 @@ Partial Class FrmG0011
         Me.pnlST04.Name = "pnlST04"
         Me.pnlST04.Size = New System.Drawing.Size(602, 355)
         Me.pnlST04.TabIndex = 239
+        '
+        'dtST04_UPD_YMD
+        '
+        Me.dtST04_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST04_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST04_UPD_YMD.Location = New System.Drawing.Point(115, 234)
+        Me.dtST04_UPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST04_UPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST04_UPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST04_UPD_YMD.Name = "dtST04_UPD_YMD"
+        Me.dtST04_UPD_YMD.ReadOnly = False
+        Me.dtST04_UPD_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST04_UPD_YMD.TabIndex = 123
+        Me.dtST04_UPD_YMD.Value = ""
+        Me.dtST04_UPD_YMD.ValueNonFormat = ""
         '
         'lblSTAGE04
         '
@@ -6071,6 +6320,7 @@ Partial Class FrmG0011
         Me.mtxST04_UPD_YMD.TabIndex = 2
         Me.mtxST04_UPD_YMD.TabStop = False
         Me.mtxST04_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxST04_UPD_YMD.Visible = False
         Me.mtxST04_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST04_UPD_YMD.WatermarkText = Nothing
         '
@@ -6207,6 +6457,7 @@ Partial Class FrmG0011
         '
         Me.pnlST03.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.pnlST03.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST03.Controls.Add(Me.dtST03_UPD_YMD)
         Me.pnlST03.Controls.Add(Me.lblSTAGE03)
         Me.pnlST03.Controls.Add(Me.lblST03_Modoshi_Riyu)
         Me.pnlST03.Controls.Add(Me.mtxST03_UPD_YMD)
@@ -6224,6 +6475,21 @@ Partial Class FrmG0011
         Me.pnlST03.Name = "pnlST03"
         Me.pnlST03.Size = New System.Drawing.Size(602, 182)
         Me.pnlST03.TabIndex = 222
+        '
+        'dtST03_UPD_YMD
+        '
+        Me.dtST03_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST03_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST03_UPD_YMD.Location = New System.Drawing.Point(115, 56)
+        Me.dtST03_UPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST03_UPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST03_UPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST03_UPD_YMD.Name = "dtST03_UPD_YMD"
+        Me.dtST03_UPD_YMD.ReadOnly = False
+        Me.dtST03_UPD_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST03_UPD_YMD.TabIndex = 123
+        Me.dtST03_UPD_YMD.Value = ""
+        Me.dtST03_UPD_YMD.ValueNonFormat = ""
         '
         'lblSTAGE03
         '
@@ -6268,6 +6534,7 @@ Partial Class FrmG0011
         Me.mtxST03_UPD_YMD.TabIndex = 0
         Me.mtxST03_UPD_YMD.TabStop = False
         Me.mtxST03_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxST03_UPD_YMD.Visible = False
         Me.mtxST03_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST03_UPD_YMD.WatermarkText = Nothing
         '
@@ -6392,6 +6659,7 @@ Partial Class FrmG0011
         '
         Me.pnlST02.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.pnlST02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST02.Controls.Add(Me.dtST02_UPD_YMD)
         Me.pnlST02.Controls.Add(Me.lblSTAGE02)
         Me.pnlST02.Controls.Add(Me.lblST02_Modoshi_Riyu)
         Me.pnlST02.Controls.Add(Me.mtxST02_UPD_YMD)
@@ -6409,6 +6677,21 @@ Partial Class FrmG0011
         Me.pnlST02.Name = "pnlST02"
         Me.pnlST02.Size = New System.Drawing.Size(602, 182)
         Me.pnlST02.TabIndex = 221
+        '
+        'dtST02_UPD_YMD
+        '
+        Me.dtST02_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST02_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST02_UPD_YMD.Location = New System.Drawing.Point(115, 55)
+        Me.dtST02_UPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST02_UPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST02_UPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST02_UPD_YMD.Name = "dtST02_UPD_YMD"
+        Me.dtST02_UPD_YMD.ReadOnly = False
+        Me.dtST02_UPD_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST02_UPD_YMD.TabIndex = 123
+        Me.dtST02_UPD_YMD.Value = ""
+        Me.dtST02_UPD_YMD.ValueNonFormat = ""
         '
         'lblSTAGE02
         '
@@ -6453,6 +6736,7 @@ Partial Class FrmG0011
         Me.mtxST02_UPD_YMD.TabIndex = 0
         Me.mtxST02_UPD_YMD.TabStop = False
         Me.mtxST02_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxST02_UPD_YMD.Visible = False
         Me.mtxST02_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST02_UPD_YMD.WatermarkText = Nothing
         '
@@ -6992,10 +7276,11 @@ Partial Class FrmG0011
         Me.pnlST01.Controls.Add(Me.mtxST01_NextStageName)
         Me.pnlST01.Controls.Add(Me.Label17)
         Me.pnlST01.Controls.Add(Me.Label123)
-        Me.pnlST01.Controls.Add(Me.mtxST01_UPD_YMD)
         Me.pnlST01.Controls.Add(Me.Label124)
         Me.pnlST01.Controls.Add(Me.Label139)
         Me.pnlST01.Controls.Add(Me.lblSTAGEFlame01)
+        Me.pnlST01.Controls.Add(Me.dtST01_UPD_YMD)
+        Me.pnlST01.Controls.Add(Me.mtxST01_UPD_YMD)
         Me.pnlST01.HitEnabled = False
         Me.pnlST01.Location = New System.Drawing.Point(0, 8)
         Me.pnlST01.Margin = New System.Windows.Forms.Padding(2)
@@ -7139,24 +7424,6 @@ Partial Class FrmG0011
         Me.Label123.Text = "承認先ステージ名:"
         Me.Label123.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'mtxST01_UPD_YMD
-        '
-        Me.mtxST01_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST01_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxST01_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxST01_UPD_YMD.InputRequired = False
-        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(115, 453)
-        Me.mtxST01_UPD_YMD.MaxByteLength = 0
-        Me.mtxST01_UPD_YMD.Name = "mtxST01_UPD_YMD"
-        Me.mtxST01_UPD_YMD.ReadOnly = True
-        Me.mtxST01_UPD_YMD.ShowRemaining = True
-        Me.mtxST01_UPD_YMD.Size = New System.Drawing.Size(115, 24)
-        Me.mtxST01_UPD_YMD.TabIndex = 2
-        Me.mtxST01_UPD_YMD.TabStop = False
-        Me.mtxST01_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.mtxST01_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxST01_UPD_YMD.WatermarkText = Nothing
-        '
         'Label124
         '
         Me.Label124.AutoSize = True
@@ -7190,6 +7457,40 @@ Partial Class FrmG0011
         Me.lblSTAGEFlame01.Size = New System.Drawing.Size(13, 482)
         Me.lblSTAGEFlame01.TabIndex = 219
         Me.lblSTAGEFlame01.Visible = False
+        '
+        'dtST01_UPD_YMD
+        '
+        Me.dtST01_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST01_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST01_UPD_YMD.Location = New System.Drawing.Point(115, 453)
+        Me.dtST01_UPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST01_UPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST01_UPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST01_UPD_YMD.Name = "dtST01_UPD_YMD"
+        Me.dtST01_UPD_YMD.ReadOnly = False
+        Me.dtST01_UPD_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST01_UPD_YMD.TabIndex = 123
+        Me.dtST01_UPD_YMD.Value = ""
+        Me.dtST01_UPD_YMD.ValueNonFormat = ""
+        '
+        'mtxST01_UPD_YMD
+        '
+        Me.mtxST01_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
+        Me.mtxST01_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxST01_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxST01_UPD_YMD.InputRequired = False
+        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(115, 453)
+        Me.mtxST01_UPD_YMD.MaxByteLength = 0
+        Me.mtxST01_UPD_YMD.Name = "mtxST01_UPD_YMD"
+        Me.mtxST01_UPD_YMD.ReadOnly = True
+        Me.mtxST01_UPD_YMD.ShowRemaining = True
+        Me.mtxST01_UPD_YMD.Size = New System.Drawing.Size(115, 24)
+        Me.mtxST01_UPD_YMD.TabIndex = 2
+        Me.mtxST01_UPD_YMD.TabStop = False
+        Me.mtxST01_UPD_YMD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxST01_UPD_YMD.Visible = False
+        Me.mtxST01_UPD_YMD.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxST01_UPD_YMD.WatermarkText = Nothing
         '
         'tabSTAGE02
         '
@@ -7606,6 +7907,7 @@ Partial Class FrmG0011
         Me.Controls.SetChildIndex(Me.picZoom, 0)
         Me.Controls.SetChildIndex(Me.TabSTAGE, 0)
         Me.Controls.SetChildIndex(Me.flpnlStageIndex, 0)
+        Me.Controls.SetChildIndex(Me.gbxFilter, 0)
         Me.Controls.SetChildIndex(Me.lblRecordCount, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc3, 0)
@@ -7620,7 +7922,6 @@ Partial Class FrmG0011
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
-        Me.Controls.SetChildIndex(Me.gbxFilter, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
@@ -8179,4 +8480,21 @@ Partial Class FrmG0011
     Friend WithEvents lblSTAGEFlame03 As Label
     Friend WithEvents lblSTAGEFlame01 As Label
     Friend WithEvents txtST01_YOKYU_NAIYO As TextBoxEx
+    Friend WithEvents Label3 As Label
+    Friend WithEvents dtHASSEI_YMD As DateTextBoxEx
+    Friend WithEvents dtST01_UPD_YMD As DateTextBoxEx
+    Friend WithEvents dtST15_UPD_YMD As DateTextBoxEx
+    Friend WithEvents dtST14_UPD_YMD As DateTextBoxEx
+    Friend WithEvents dtST13_UPD_YMD As DateTextBoxEx
+    Friend WithEvents dtST12_UPD_YMD As DateTextBoxEx
+    Friend WithEvents dtST11_UPD_YMD As DateTextBoxEx
+    Friend WithEvents dtST10_UPD_YMD As DateTextBoxEx
+    Friend WithEvents dtST09_UPD_YMD As DateTextBoxEx
+    Friend WithEvents dtST08_UPD_YMD As DateTextBoxEx
+    Friend WithEvents dtST07_UPD_YMD As DateTextBoxEx
+    Friend WithEvents dtST06_UPD_YMD As DateTextBoxEx
+    Friend WithEvents dtST05_UPD_YMD As DateTextBoxEx
+    Friend WithEvents dtST04_UPD_YMD As DateTextBoxEx
+    Friend WithEvents dtST03_UPD_YMD As DateTextBoxEx
+    Friend WithEvents dtST02_UPD_YMD As DateTextBoxEx
 End Class
