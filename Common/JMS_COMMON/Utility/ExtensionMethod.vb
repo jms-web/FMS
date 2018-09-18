@@ -3,18 +3,36 @@
 ''' <summary>
 ''' 拡張メソッドの定義
 ''' </summary>
-Public Module mdlExtensionMethod
+Public Module ExtensionMethod
 
 #Region "Attribute"
+
     <Extension()>
     Public Function DisplayName(ByVal provider As System.Reflection.ICustomAttributeProvider) As String
-        Return Models.DisplayNameAttribute.GetAttribute(provider)
+        Return ModelEx.DisplayNameAttribute.GetAttribute(provider)
     End Function
 
     <Extension()>
     Public Function DisplayName(ByVal value As [Enum]) As String
-        Return Models.DisplayNameAttribute.GetAttribute(value)
+        Return ModelEx.DisplayNameAttribute.GetAttribute(value)
     End Function
+
+#End Region
+
+#Region "BindingSource"
+
+    ''' <summary>
+    ''' BindingSourceの選択行のentityを置き換える
+    ''' </summary>
+    ''' <param name="bindSrc"></param>
+    ''' <param name="entity"></param>
+    <Extension()>
+    Public Sub CurrentUpdate(bindSrc As BindingSource, entity As MODEL.IDataModel)
+        Dim intPosition As Integer = bindSrc.Position
+        bindSrc.Remove(bindSrc.Current)
+        bindSrc.Insert(intPosition, entity)
+    End Sub
+
 #End Region
 
 #Region "DataGridView"
@@ -40,6 +58,7 @@ Public Module mdlExtensionMethod
 #End Region
 
 #Region "DataTable"
+
     <Extension()>
     Public Function ExcludeDeleted(ByVal dt As DataTable) As DataTable
         If dt.Rows.Count > 0 Then
@@ -54,7 +73,12 @@ Public Module mdlExtensionMethod
         End If
     End Function
 
-#Region "ブランク行追加"
+
+    ''' <summary>
+    ''' ブランク行追加
+    ''' </summary>
+    ''' <param name="dt"></param>
+    ''' <returns></returns>
     <Extension()>
     Public Function AddBlankRow(ByVal dt As DataTable) As DataTable
 
@@ -84,11 +108,23 @@ Public Module mdlExtensionMethod
 
     End Function
 
-#End Region
+    ''' <summary>
+    ''' DatatableのDataRowsを
+    ''' </summary>
+    ''' <typeparam name="T"></typeparam>
+    ''' <param name="dt"></param>
+    ''' <returns></returns>
+    <Extension()>
+    Public Iterator Function AsEnumerableEntity(Of T As {New, MODEL.IDataModel})(dt As DataTable) As Generic.IEnumerable(Of T)
 
+        For Each r As DataRow In dt.Rows
+            Yield r.ToEntity(Of T)
+        Next r
+    End Function
 #End Region
 
 #Region "Date"
+
     ''' <summary>
     ''' 月初
     ''' </summary>
@@ -110,7 +146,19 @@ Public Module mdlExtensionMethod
         Return New DateTime(theDay.Year, theDay.Month, intDay)
     End Function
 
+#End Region
 
+#Region "Datarow"
+    ''' <summary>
+    ''' DataRowをModelEntityクラスにマッピング
+    ''' </summary>
+    ''' <returns></returns>
+    <Extension()>
+    Public Function ToEntity(Of T As {New, MODEL.IDataModel})(dr As DataRow) As T
+        Dim resultData = New T
+        resultData.Properties.ForEach(Sub(p) resultData(p.Name) = dr(p.Name))
+        Return resultData
+    End Function
 #End Region
 
 #Region "Datetime"
@@ -121,20 +169,20 @@ Public Module mdlExtensionMethod
     ''' <param name="theDay"></param>
     ''' <returns></returns>
     <Extension()>
-        Public Function GetBeginOfMonth(ByVal theDay As DateTime) As DateTime
-            Return New DateTime(theDay.Year, theDay.Month, 1)
-        End Function
+    Public Function GetBeginOfMonth(ByVal theDay As DateTime) As DateTime
+        Return New DateTime(theDay.Year, theDay.Month, 1)
+    End Function
 
-        ''' <summary>
-        ''' 月末
-        ''' </summary>
-        ''' <param name="theDay"></param>
-        ''' <returns></returns>
-        <Extension()>
-        Public Function GetEndOfMonth(ByVal theDay As DateTime) As DateTime
-            Dim intDay As Integer = DateTime.DaysInMonth(theDay.Year, theDay.Month)
-            Return New DateTime(theDay.Year, theDay.Month, intDay)
-        End Function
+    ''' <summary>
+    ''' 月末
+    ''' </summary>
+    ''' <param name="theDay"></param>
+    ''' <returns></returns>
+    <Extension()>
+    Public Function GetEndOfMonth(ByVal theDay As DateTime) As DateTime
+        Dim intDay As Integer = DateTime.DaysInMonth(theDay.Year, theDay.Month)
+        Return New DateTime(theDay.Year, theDay.Month, intDay)
+    End Function
 
     <Extension()>
     Public Function FunGetWarekiFormat(ByVal targetDate As DateTime, Optional ByVal strFormat As String = "ggyyyy年MM月dd日") As String
@@ -143,7 +191,6 @@ Public Module mdlExtensionMethod
         Dim result As String = targetDate.ToString(strFormat, culture)
         Return result
     End Function
-
 
 #End Region
 
@@ -201,7 +248,6 @@ Public Module mdlExtensionMethod
         Return System.Math.Round(dValue, iDigits)
     End Function
 
-
     '有効桁数に丸める(JIS丸め 銀行丸め)(5桁まで対応)
     Public Function ToYuukouKeta(ByVal dValue As Double, ByVal iDigits As Integer) As Double
         Dim dblWORK As Double
@@ -228,8 +274,9 @@ Public Module mdlExtensionMethod
 #End Region
 
 #Region "ErrorProvider"
+
     <Extension>
-    Public Sub SetError(ByVal provider As ErrorProvider, ByVal control As Control, ByVal message As String, ByVal alignment As ErrorIconAlignment, Optional ByVal intPadding As Integer = 2)
+    Public Sub SetError(provider As ErrorProvider, control As Control, message As String, Optional alignment As ErrorIconAlignment = ErrorIconAlignment.MiddleLeft, Optional intPadding As Integer = 2)
         provider.SetError(control, message)
         provider.SetIconAlignment(control, alignment)
         provider.SetIconPadding(control, intPadding)
@@ -250,9 +297,11 @@ Public Module mdlExtensionMethod
         provider.SetError(control, "")
         control.BackColor = clrControlDefaultBackColor
     End Sub
+
 #End Region
 
 #Region "Exception"
+
     ''' <summary>
     ''' 完全なメッセージを取得します
     ''' </summary>
@@ -292,6 +341,7 @@ Public Module mdlExtensionMethod
         act.Invoke(source)
         Return s.ToString
     End Function
+
 #End Region
 
 #Region "LINQ"
@@ -302,6 +352,7 @@ Public Module mdlExtensionMethod
             AppliedAction(item)
         Next
     End Sub
+
 
     '<Extension>
     'Public Function [Using](Of T, Tresult)(source As T, process As Func(Of T, Tresult)) As Tresult
@@ -331,17 +382,16 @@ Public Module mdlExtensionMethod
             process(source)
         End Using
     End Sub
+
 #End Region
 
 #Region "String"
 
-    <Diagnostics.DebuggerStepThrough()>
     <Extension()>
     Public Function IsNullOrEmpty(ByVal value As String) As Boolean
         Return String.IsNullOrEmpty(value)
     End Function
 
-    <Diagnostics.DebuggerStepThrough()>
     <Extension()>
     Public Function IsNullOrWhiteSpace(ByVal this As String) As Boolean
         Return String.IsNullOrWhiteSpace(this)
@@ -379,6 +429,20 @@ Public Module mdlExtensionMethod
     End Function
 
     ''' <summary>
+    ''' 数値(整数)型に変換 Val
+    ''' </summary>
+    ''' <param name="this"></param>
+    ''' <returns></returns>
+    <Extension()>
+    Public Function ToVal(this As String) As Integer
+        Dim intRET As Integer
+        Integer.TryParse(this, intRET)
+
+        Return intRET
+    End Function
+
+
+    ''' <summary>
     ''' 文字列を日付型に変換
     ''' </summary>
     ''' <param name="this"></param>
@@ -390,23 +454,6 @@ Public Module mdlExtensionMethod
         Else
             Return DateTime.ParseExact(this, format, Nothing)
         End If
-    End Function
-
-
-#End Region
-
-#Region "Generic"
-    ''' <summary>
-    ''' Icomparableなデータ型が指定の値範囲にあるか判定 SQL BETWEEN...AND...
-    ''' </summary>
-    ''' <typeparam name="T"></typeparam>
-    ''' <param name="value"></param>
-    ''' <param name="min"></param>
-    ''' <param name="max"></param>
-    ''' <returns></returns>
-    <Extension>
-    Public Function InBetween(Of T As IComparable(Of T))(value As T, min As T, max As T) As Boolean
-        Return value.CompareTo(min) >= 0 And value.CompareTo(max) <= 0
     End Function
 
 #End Region
