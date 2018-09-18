@@ -92,10 +92,6 @@ Partial Public Class M106_BUHIN
     End Property
 
     <Required>
-    <ComponentModel.DisplayName("機種ID")>
-    Public Property KISYU_ID As Integer
-
-    <Required>
     <StringLength(7)>
     <Column(TypeName:="char")>
     <ComponentModel.DisplayName("色CD")>

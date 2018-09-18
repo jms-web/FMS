@@ -246,15 +246,13 @@ Public Class FrmG0016
                             Throw New ArgumentException()
                     End Select
 
-
+                    '通知メール送信
+                    If blnErr = False Then Call FunSendRequestMail()
                 Finally
                     '-----トランザクション
                     DB.Commit(Not blnErr)
                 End Try
             End Using
-
-            '通知メール送信
-            Call FunSendRequestMail()
 
             Return True
         Catch ex As Exception
@@ -341,6 +339,7 @@ Public Class FrmG0016
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SYOCHI_E_YOHI_KB))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SYOCHI_E_SYOCHI_KIROKU))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.FILE_PATH))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HASSEI_YMD))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.G_FILE_PATH1))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.G_FILE_PATH2))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HASSEI_KOTEI_GL_SYAIN_ID))
@@ -414,6 +413,7 @@ Public Class FrmG0016
         sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_E_YOHI_KB & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.FILE_PATH & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J.HASSEI_YMD & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH1 & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH2 & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID & "'")
@@ -785,7 +785,7 @@ Public Class FrmG0016
         'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}
 
         strBody = String.Format(strBody,
-                                Fun_GetUSER_NAME(cmbMODOSI_SAKI.SelectedValue),
+                                Fun_GetUSER_NAME(mtxTANTO_ID.Text),
                                 PrHOKOKU_NO,
                                 PrKISO_YMD,
                                 KISYU_NAME,
@@ -793,11 +793,11 @@ Public Class FrmG0016
                                 Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
                                 SYONIN_HANTEI_NAME,
                                 _D004_SYONIN_J_KANRI.RIYU,
-                                cmbMODOSI_SAKI.SelectedValue,
+                                mtxTANTO_ID.Text,
                                 "FMS_G0010.exe",
                                 strEXEParam)
 
-        If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=cmbMODOSI_SAKI.SelectedValue) Then
+        If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=mtxTANTO_ID.Text) Then
             MessageBox.Show("処置依頼メールを送信しました。", "メール送信完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return True
         Else

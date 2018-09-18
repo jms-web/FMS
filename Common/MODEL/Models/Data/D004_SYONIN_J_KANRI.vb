@@ -61,6 +61,28 @@ Partial Public Class D004_SYONIN_J_KANRI
     <ComponentModel.DisplayName("承認日時")>
     Public Property SYONIN_YMDHNS As String
 
+    <NotMapped>
+    <Display(AutoGenerateField:=False)>
+    Public Property SYONIN_YMD As String
+        Get
+            Dim strRET As String
+            If SYONIN_YMDHNS IsNot Nothing AndAlso SYONIN_YMDHNS.Length = 14 Then
+                strRET = DateTime.ParseExact(SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyyMMdd")
+            Else
+                strRET = ""
+            End If
+            Return strRET
+        End Get
+        Set(value As String)
+            If value.Trim.Length = 8 Then
+                SYONIN_YMDHNS = value.Trim & "000000"
+            Else
+                SYONIN_YMDHNS = ""
+            End If
+        End Set
+    End Property
+
+
     <Required>
     <Column(TypeName:="char")>
     <StringLength(1)>
@@ -129,7 +151,7 @@ Partial Public Class D004_SYONIN_J_KANRI
     <NotMapped>
     <DoNotNotify>
     <Display(AutoGenerateField:=False)>
-    Public ReadOnly Property ADD_YMD As String
+    Public Property ADD_YMD As String
         Get
             Dim strRET As String
             If ADD_YMDHNS IsNot Nothing AndAlso ADD_YMDHNS.Length = 14 Then
@@ -139,6 +161,13 @@ Partial Public Class D004_SYONIN_J_KANRI
             End If
             Return strRET
         End Get
+        Set(value As String)
+            If value.Trim.Length = 8 Then
+                ADD_YMDHNS = value.Trim & "000000"
+            Else
+                ADD_YMDHNS = ""
+            End If
+        End Set
     End Property
 
     <Required>

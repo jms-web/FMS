@@ -86,12 +86,11 @@ Partial Public Class R003_NCR_SASIMODOSI
         G_FILE_PATH1 = ""
         G_FILE_PATH2 = ""
         HASSEI_KOTEI_GL_SYAIN_ID = 0
-
+        HASSEI_YMD = ""
     End Sub
 
     <StringLength(14)>
     Public Property SASIMODOSI_YMDHNS As String
-
 
     <StringLength(10)>
     <DisplayName("報告書No")>
@@ -618,4 +617,8 @@ Partial Public Class R003_NCR_SASIMODOSI
     <Required>
     <ComponentModel.DisplayName("発生工程GL確認担当")>
     Public Property HASSEI_KOTEI_GL_SYAIN_ID As Integer
+
+    <Required>
+    <ComponentModel.DisplayName("発生日")>
+    Public Property HASSEI_YMD As String
 End Class

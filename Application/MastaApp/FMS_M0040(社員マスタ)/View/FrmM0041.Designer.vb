@@ -468,6 +468,7 @@ Partial Class FrmM0041
         Me.mtxPASS.Location = New System.Drawing.Point(694, 154)
         Me.mtxPASS.MaxByteLength = 20
         Me.mtxPASS.Name = "mtxPASS"
+        Me.mtxPASS.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.mtxPASS.Size = New System.Drawing.Size(122, 24)
         Me.mtxPASS.TabIndex = 12
         Me.mtxPASS.WatermarkColor = System.Drawing.Color.Empty

@@ -36,20 +36,20 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://SV116:8000/</InstallUrl>
+    <InstallUrl>http://172.20.5.8:8000/</InstallUrl>
     <ProductName>フジワラシステム</ProductName>
     <PublisherName>JMS</PublisherName>
-    <MinimumRequiredVersion>0.9.18253.813</MinimumRequiredVersion>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <MinimumRequiredVersion>0.9.18260.559</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>813</ApplicationRevision>
-    <ApplicationVersion>0.9.18253.813</ApplicationVersion>
+    <ApplicationRevision>559</ApplicationRevision>
+    <ApplicationVersion>0.9.18260.559</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <BootstrapperComponentsLocation>Relative</BootstrapperComponentsLocation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -243,7 +243,6 @@
   <PropertyGroup>
     <PreBuildEvent>xcopy "C:\FMS\EXE_DEBUG" "C:\FMS\SRC\VB.NET\FMS\ClickOnce\EXE_DEBUG" /D/E/C/I/H/Y
 xcopy "C:\FMS\EXE" "C:\FMS\SRC\VB.NET\FMS\ClickOnce\EXE" /D/E/C/I/H/Y
-xcopy "C:\FMS\INI" "C:\FMS\SRC\VB.NET\FMS\ClickOnce\INI" /D/E/C/I/H/Y
 xcopy "C:\FMS\TEMPLATE" "C:\FMS\SRC\VB.NET\FMS\ClickOnce\TEMPLATE" /D/E/C/I/H/Y</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
