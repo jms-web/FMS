@@ -310,7 +310,7 @@ Public Class FrmM0050
                                         Trow(p.Name) = row.Item(p.Name)
                                 End Select
                         End Select
-                        End If
+                        'End If
                     Next p
                     dt.Rows.Add(Trow)
                 Next row
@@ -414,7 +414,7 @@ Public Class FrmM0050
                                         Trow(p.Name) = row.Item(p.Name)
                                 End Select
                         End Select
-                        End If
+                        'End If
                     Next p
                     dt.Rows.Add(Trow)
                 Next row
