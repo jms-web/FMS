@@ -1,4 +1,5 @@
 Imports JMS_COMMON.ClsPubMethod
+Imports MODEL
 
 'Imports Spire.Xls
 'Imports Spire.Pdf
@@ -369,7 +370,7 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
-                .Columns.Add(NameOf(_Model.KISO_YMD), "ãNëêì˙")
+                .Columns.Add(NameOf(_Model.HASSEI_YMD), "î≠ê∂ì˙")
                 .Columns(.ColumnCount - 1).Width = 100
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name

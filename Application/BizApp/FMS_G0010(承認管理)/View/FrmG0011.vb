@@ -3025,7 +3025,8 @@ Public Class FrmG0011
 
                         If intTabNo < intCurrentTabNo Then
                             'SPEC: 10-2.áB
-                            strStageName = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN(intTabNo)).FirstOrDefault.Item("DISP")
+                            Dim dr = tblNCR.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = FunConvertSTAGE_NO_TO_SYONIN_JUN(intTabNo)).FirstOrDefault
+                            If dr IsNot Nothing Then strStageName = dr.Item("DISP")
 
                             Dim ctrlLabel As Control() = panel.Controls.Find("lblSTAGE" & intTabNo.ToString("00"), True)
                             If ctrlLabel.Length > 0 Then
@@ -3873,149 +3874,151 @@ Public Class FrmG0011
 
 #End Region
 
-#Region "               81 10"
+#Region "ãå çƒâ¡çHÉXÉeÅ[ÉW"
+            '#Region "               81 10"
 
-            '81
-            If intStageID >= ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ Then
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ))
-                cmbST10_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            '            '81
+            '            If intStageID >= ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ Then
+            '                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ))
+            '                cmbST10_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST10_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ))
+            '                mtxST10_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ))
 
-                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ).
-                                FirstOrDefault
+            '                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+            '                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+            '                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ).
+            '                                FirstOrDefault
 
-                    If _V003 IsNot Nothing Then
-                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
-                            cmbST10_DestTANTO.SelectedValue = 0
-                        Else
-                            cmbST10_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        End If
-                        txtST10_Comment.Text = _V003.COMMENT
-                        Dim dtSYONIN_YMD As Date
-                        If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST10_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST10_UPD_YMD.ReadOnly = True
-                        Else
-                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
-                        End If
+            '                    If _V003 IsNot Nothing Then
+            '                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+            '                            cmbST10_DestTANTO.SelectedValue = 0
+            '                        Else
+            '                            cmbST10_DestTANTO.SelectedValue = _V003.SYAIN_ID
+            '                        End If
+            '                        txtST10_Comment.Text = _V003.COMMENT
+            '                        Dim dtSYONIN_YMD As Date
+            '                        If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
+            '                            dtST10_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+            '                            dtST10_UPD_YMD.ReadOnly = True
+            '                        Else
+            '                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
+            '                        End If
 
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ Then lblST10_Modoshi_Riyu.Visible = True
-                        If _V003.SASIMODOSI_FG Then
-                            lblST10_Modoshi_Riyu.Text = "ç∑ñﬂóùóRÅF" & _V003.RIYU
-                        Else
-                            'ì]ëóéû
-                            lblST10_Modoshi_Riyu.Text = "ì]ëóóùóRÅF" & _V003.RIYU
-                        End If
-                    Else
-                        pnlST10.Visible = False
-                        rsbtnST10.Enabled = False
-                        rsbtnST10.BackColor = Color.Silver
-                    End If
-                End If
-            Else
-                pnlST10.Visible = False
-                rsbtnST10.Enabled = False
-            End If
+            '                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ Then lblST10_Modoshi_Riyu.Visible = True
+            '                        If _V003.SASIMODOSI_FG Then
+            '                            lblST10_Modoshi_Riyu.Text = "ç∑ñﬂóùóRÅF" & _V003.RIYU
+            '                        Else
+            '                            'ì]ëóéû
+            '                            lblST10_Modoshi_Riyu.Text = "ì]ëóóùóRÅF" & _V003.RIYU
+            '                        End If
+            '                    Else
+            '                        pnlST10.Visible = False
+            '                        rsbtnST10.Enabled = False
+            '                        rsbtnST10.BackColor = Color.Silver
+            '                    End If
+            '                End If
+            '            Else
+            '                pnlST10.Visible = False
+            '                rsbtnST10.Enabled = False
+            '            End If
 
-#End Region
+            '#End Region
 
-#Region "               82 11"
+            '#Region "               82 11"
 
-            '82
-            If intStageID >= ENM_NCR_STAGE._82_èàíué¿é{_êªë¢ Then
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢))
-                cmbST11_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            '            '82
+            '            If intStageID >= ENM_NCR_STAGE._82_èàíué¿é{_êªë¢ Then
+            '                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢))
+            '                cmbST11_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST11_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢))
+            '                mtxST11_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢))
 
-                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._82_èàíué¿é{_êªë¢).
-                                FirstOrDefault
+            '                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+            '                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+            '                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._82_èàíué¿é{_êªë¢).
+            '                                FirstOrDefault
 
-                    If _V003 IsNot Nothing Then
-                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
-                            cmbST11_DestTANTO.SelectedValue = 0
-                        Else
-                            cmbST11_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        End If
-                        txtST11_Comment.Text = _V003.COMMENT
-                        Dim dtSYONIN_YMD As Date
-                        If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST11_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST11_UPD_YMD.ReadOnly = True
-                        Else
-                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
-                        End If
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._82_èàíué¿é{_êªë¢ Then lblST11_Modoshi_Riyu.Visible = True
-                        If _V003.SASIMODOSI_FG Then
-                            lblST11_Modoshi_Riyu.Text = "ç∑ñﬂóùóRÅF" & _V003.RIYU
-                        Else
-                            'ì]ëóéû
-                            lblST11_Modoshi_Riyu.Text = "ì]ëóóùóRÅF" & _V003.RIYU
-                        End If
-                    Else
-                        pnlST11.Visible = False
-                        rsbtnST11.Enabled = False
-                        rsbtnST11.BackColor = Color.Silver
-                    End If
-                End If
-            Else
-                pnlST11.Visible = False
-                rsbtnST11.Enabled = False
-            End If
+            '                    If _V003 IsNot Nothing Then
+            '                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+            '                            cmbST11_DestTANTO.SelectedValue = 0
+            '                        Else
+            '                            cmbST11_DestTANTO.SelectedValue = _V003.SYAIN_ID
+            '                        End If
+            '                        txtST11_Comment.Text = _V003.COMMENT
+            '                        Dim dtSYONIN_YMD As Date
+            '                        If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
+            '                            dtST11_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+            '                            dtST11_UPD_YMD.ReadOnly = True
+            '                        Else
+            '                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
+            '                        End If
+            '                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._82_èàíué¿é{_êªë¢ Then lblST11_Modoshi_Riyu.Visible = True
+            '                        If _V003.SASIMODOSI_FG Then
+            '                            lblST11_Modoshi_Riyu.Text = "ç∑ñﬂóùóRÅF" & _V003.RIYU
+            '                        Else
+            '                            'ì]ëóéû
+            '                            lblST11_Modoshi_Riyu.Text = "ì]ëóóùóRÅF" & _V003.RIYU
+            '                        End If
+            '                    Else
+            '                        pnlST11.Visible = False
+            '                        rsbtnST11.Enabled = False
+            '                        rsbtnST11.BackColor = Color.Silver
+            '                    End If
+            '                End If
+            '            Else
+            '                pnlST11.Visible = False
+            '                rsbtnST11.Enabled = False
+            '            End If
 
-#End Region
+            '#End Region
 
-#Region "               83 12"
+            '#Region "               83 12"
 
-            '83
-            If intStageID >= ENM_NCR_STAGE._83_èàíué¿é{_åüç∏ Then
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏))
-                cmbST12_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            '            '83
+            '            If intStageID >= ENM_NCR_STAGE._83_èàíué¿é{_åüç∏ Then
+            '                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏))
+            '                cmbST12_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST12_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏))
+            '                mtxST12_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏))
 
-                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._83_èàíué¿é{_åüç∏).
-                                FirstOrDefault
+            '                If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
+            '                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+            '                                Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._83_èàíué¿é{_åüç∏).
+            '                                FirstOrDefault
 
-                    If _V003 IsNot Nothing Then
-                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
-                            cmbST12_DestTANTO.SelectedValue = 0
-                        Else
-                            cmbST12_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        End If
-                        txtST12_Comment.Text = _V003.COMMENT
-                        Dim dtSYONIN_YMD As Date
-                        If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST12_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST12_UPD_YMD.ReadOnly = True
-                        Else
-                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
-                        End If
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._83_èàíué¿é{_åüç∏ Then lblST12_Modoshi_Riyu.Visible = True
-                        If _V003.SASIMODOSI_FG Then
-                            lblST12_Modoshi_Riyu.Text = "ç∑ñﬂóùóRÅF" & _V003.RIYU
-                        Else
-                            'ì]ëóéû
-                            lblST12_Modoshi_Riyu.Text = "ì]ëóóùóRÅF" & _V003.RIYU
-                        End If
-                    Else
-                        pnlST12.Visible = False
-                        rsbtnST12.Enabled = False
-                        rsbtnST12.BackColor = Color.Silver
-                    End If
-                End If
-            Else
-                pnlST12.Visible = False
-                rsbtnST12.Enabled = False
-            End If
+            '                    If _V003 IsNot Nothing Then
+            '                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+            '                            cmbST12_DestTANTO.SelectedValue = 0
+            '                        Else
+            '                            cmbST12_DestTANTO.SelectedValue = _V003.SYAIN_ID
+            '                        End If
+            '                        txtST12_Comment.Text = _V003.COMMENT
+            '                        Dim dtSYONIN_YMD As Date
+            '                        If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
+            '                            dtST12_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+            '                            dtST12_UPD_YMD.ReadOnly = True
+            '                        Else
+            '                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
+            '                        End If
+            '                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._83_èàíué¿é{_åüç∏ Then lblST12_Modoshi_Riyu.Visible = True
+            '                        If _V003.SASIMODOSI_FG Then
+            '                            lblST12_Modoshi_Riyu.Text = "ç∑ñﬂóùóRÅF" & _V003.RIYU
+            '                        Else
+            '                            'ì]ëóéû
+            '                            lblST12_Modoshi_Riyu.Text = "ì]ëóóùóRÅF" & _V003.RIYU
+            '                        End If
+            '                    Else
+            '                        pnlST12.Visible = False
+            '                        rsbtnST12.Enabled = False
+            '                        rsbtnST12.BackColor = Color.Silver
+            '                    End If
+            '                End If
+            '            Else
+            '                pnlST12.Visible = False
+            '                rsbtnST12.Enabled = False
+            '            End If
 
+            '#End Region
 #End Region
 
 #Region "               90 13"

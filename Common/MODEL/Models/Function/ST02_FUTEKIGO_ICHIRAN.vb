@@ -247,5 +247,21 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     <ComponentModel.DisplayName("íœ“úŽž")>
     Public Property DEL_YMDHNS As String
 
+    <Display(AutoGenerateField:=False)>
+    <StringLength(8)>
+    <Column(NameOf(HASSEI_YMD), TypeName:="String")>
+    <ComponentModel.DisplayName("”­¶“ú")>
+    Public Property _HASSEI_YMD As String
 
+    <NotMapped>
+    <ComponentModel.DisplayName("”­¶“ú")>
+    Public Property HASSEI_YMD As DateTime
+        Get
+            Return DateTime.ParseExact(_HASSEI_YMD, "yyyyMMdd", Nothing)
+        End Get
+        Set(value As Date)
+
+            _HASSEI_YMD = value.ToString("yyyyMMdd")
+        End Set
+    End Property
 End Class

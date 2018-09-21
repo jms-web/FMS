@@ -1,11 +1,14 @@
 ﻿Imports System.Runtime.CompilerServices
+Imports System.Collections.Generic
+Imports System.Linq
 
 ''' <summary>
 ''' 拡張メソッドの定義
 ''' </summary>
-Public Module mdlExtensionMethod
+Public Module ExtensionMethod
 
 #Region "Attribute"
+
     <Extension()>
     Public Function DisplayName(ByVal provider As System.Reflection.ICustomAttributeProvider) As String
         Return Models.DisplayNameAttribute.GetAttribute(provider)
@@ -15,6 +18,93 @@ Public Module mdlExtensionMethod
     Public Function DisplayName(ByVal value As [Enum]) As String
         Return Models.DisplayNameAttribute.GetAttribute(value)
     End Function
+
+#End Region
+
+#Region "BindingSource"
+
+    ''' <summary>
+    ''' BindingSourceの選択行のentityを置き換える
+    ''' </summary>
+    ''' <param name="bindSrc"></param>
+    ''' <param name="entity"></param>
+    <Extension()>
+    Public Sub CurrentUpdate(bindSrc As BindingSource, entity As MODEL.IDataModel)
+        Dim intPosition As Integer = bindSrc.Position
+        bindSrc.Remove(bindSrc.Current)
+        bindSrc.Insert(intPosition, entity)
+    End Sub
+
+    <Extension()>
+    Public Sub Update(bindSrc As BindingSource, entity As MODEL.IDataModel, index As Integer)
+        bindSrc.Insert(index - 1, entity)
+        bindSrc.Remove(index)
+    End Sub
+
+#End Region
+
+#Region "Control"
+
+    ''' <summary>
+    ''' コントロールに含まれるすべての子孫コントロールを列挙します
+    ''' </summary>
+    ''' <param name="top"></param>
+    ''' <returns></returns>
+    <Extension>
+    Public Iterator Function EnumerateAllChildControls(top As Control) As IEnumerable(Of Control)
+        For Each c As Control In top.Controls
+            Yield c
+            If c.HasChildren Then
+                For Each cc As Control In EnumerateAllChildControls(c)
+                    Yield cc
+                Next cc
+            End If
+        Next c
+    End Function
+
+    'UNDONE: GetAllControlsをキャッシュして使いまわせるようにする
+
+    ''' <summary>
+    ''' self内のすべてのコントロールを取得する
+    ''' </summary>
+    ''' <param name="self"></param>
+    ''' <returns></returns>
+    <Extension>
+    Public Function GetAllControls(self As Control) As List(Of Control)
+        Dim buf As New List(Of Control)
+        self.Controls.OfType(Of Control).
+                      ToList.
+                      ForEach(Sub(c)
+                                  buf.Add(c)
+                                  buf.AddRange(c.GetAllControls())
+                              End Sub)
+        Return buf
+    End Function
+
+    ''' <summary>
+    ''' self内でBindingObject.PropertyNameをバインドしているコントロールを1つ取得する
+    ''' </summary>
+    ''' <param name="self"></param>
+    ''' <param name="BindingObject"></param>
+    ''' <param name="PropertyName"></param>
+    ''' <returns></returns>
+    Public Function ControlOf(self As Control, BindingObject As Object, PropertyName As String) As Control
+        Return self.GetAllControls.
+                    FirstOrDefault(Function(c) c.DataBindings.OfType(Of Binding).
+                                                              Any(Function(b) b.BindingManagerBase.Current = BindingObject And
+                                                                              b.BindingMemberInfo.BindingField = PropertyName))
+    End Function
+
+    Public Function ControlsOf(self As Control, BindingObject As Object, PropertyName As String) As IEnumerable(Of Control)
+
+        Return self.GetAllControls.
+                    Where(Function(c) c.DataBindings.OfType(Of Binding).
+                                                     Any(Function(b) b.BindingManagerBase.Current = BindingObject And
+                                                                     b.BindingMemberInfo.BindingField = PropertyName))
+    End Function
+
+
+
 #End Region
 
 #Region "DataGridView"
@@ -39,7 +129,21 @@ Public Module mdlExtensionMethod
 
 #End Region
 
+#Region "Datarow"
+    ''' <summary>
+    ''' DataRowをModelEntityクラスにマッピング
+    ''' </summary>
+    ''' <returns></returns>
+    <Extension()>
+    Public Function ToEntity(Of T As {New, MODEL.IDataModel})(dr As DataRow) As T
+        Dim resultData = New T
+        resultData.Properties.ForEach(Sub(p) resultData(p.Name) = dr(p.Name))
+        Return resultData
+    End Function
+#End Region
+
 #Region "DataTable"
+
     <Extension()>
     Public Function ExcludeDeleted(ByVal dt As DataTable) As DataTable
         If dt.Rows.Count > 0 Then
@@ -54,7 +158,12 @@ Public Module mdlExtensionMethod
         End If
     End Function
 
-#Region "ブランク行追加"
+
+    ''' <summary>
+    ''' ブランク行追加
+    ''' </summary>
+    ''' <param name="dt"></param>
+    ''' <returns></returns>
     <Extension()>
     Public Function AddBlankRow(ByVal dt As DataTable) As DataTable
 
@@ -84,11 +193,23 @@ Public Module mdlExtensionMethod
 
     End Function
 
-#End Region
+    ''' <summary>
+    ''' DatatableのDataRowsを
+    ''' </summary>
+    ''' <typeparam name="T"></typeparam>
+    ''' <param name="dt"></param>
+    ''' <returns></returns>
+    <Extension()>
+    Public Iterator Function AsEnumerableEntity(Of T As {New, MODEL.IDataModel})(dt As DataTable) As Generic.IEnumerable(Of T)
 
+        For Each r As DataRow In dt.Rows
+            Yield r.ToEntity(Of T)
+        Next r
+    End Function
 #End Region
 
 #Region "Date"
+
     ''' <summary>
     ''' 月初
     ''' </summary>
@@ -110,7 +231,6 @@ Public Module mdlExtensionMethod
         Return New DateTime(theDay.Year, theDay.Month, intDay)
     End Function
 
-
 #End Region
 
 #Region "Datetime"
@@ -121,20 +241,20 @@ Public Module mdlExtensionMethod
     ''' <param name="theDay"></param>
     ''' <returns></returns>
     <Extension()>
-        Public Function GetBeginOfMonth(ByVal theDay As DateTime) As DateTime
-            Return New DateTime(theDay.Year, theDay.Month, 1)
-        End Function
+    Public Function GetBeginOfMonth(ByVal theDay As DateTime) As DateTime
+        Return New DateTime(theDay.Year, theDay.Month, 1)
+    End Function
 
-        ''' <summary>
-        ''' 月末
-        ''' </summary>
-        ''' <param name="theDay"></param>
-        ''' <returns></returns>
-        <Extension()>
-        Public Function GetEndOfMonth(ByVal theDay As DateTime) As DateTime
-            Dim intDay As Integer = DateTime.DaysInMonth(theDay.Year, theDay.Month)
-            Return New DateTime(theDay.Year, theDay.Month, intDay)
-        End Function
+    ''' <summary>
+    ''' 月末
+    ''' </summary>
+    ''' <param name="theDay"></param>
+    ''' <returns></returns>
+    <Extension()>
+    Public Function GetEndOfMonth(ByVal theDay As DateTime) As DateTime
+        Dim intDay As Integer = DateTime.DaysInMonth(theDay.Year, theDay.Month)
+        Return New DateTime(theDay.Year, theDay.Month, intDay)
+    End Function
 
     <Extension()>
     Public Function FunGetWarekiFormat(ByVal targetDate As DateTime, Optional ByVal strFormat As String = "ggyyyy年MM月dd日") As String
@@ -143,7 +263,6 @@ Public Module mdlExtensionMethod
         Dim result As String = targetDate.ToString(strFormat, culture)
         Return result
     End Function
-
 
 #End Region
 
@@ -201,7 +320,6 @@ Public Module mdlExtensionMethod
         Return System.Math.Round(dValue, iDigits)
     End Function
 
-
     '有効桁数に丸める(JIS丸め 銀行丸め)(5桁まで対応)
     Public Function ToYuukouKeta(ByVal dValue As Double, ByVal iDigits As Integer) As Double
         Dim dblWORK As Double
@@ -227,9 +345,26 @@ Public Module mdlExtensionMethod
 
 #End Region
 
-#Region "ErrorProvider"
+#Region "Enum"
     <Extension>
-    Public Sub SetError(ByVal provider As ErrorProvider, ByVal control As Control, ByVal message As String, ByVal alignment As ErrorIconAlignment, Optional ByVal intPadding As Integer = 2)
+    Public Function [Value](Of T As {IComparable, IConvertible, IFormattable})(enm As T) As Integer
+        If enm.GetType.IsEnum Then
+            'Dim fieldInfo As Reflection.FieldInfo = enm.GetType.GetField(enm.ToString)
+            'If fieldInfo Is Nothing Then Return Nothing
+            'Dim attr = fieldInfo.GetCustomAttributes("System.ComponentModel.DescriptionAttribute")
+            Return Val(enm)
+        Else
+            Throw New System.ComponentModel.InvalidEnumArgumentException
+        End If
+    End Function
+
+
+#End Region
+
+#Region "ErrorProvider"
+
+    <Extension>
+    Public Sub SetError(provider As ErrorProvider, control As Control, message As String, Optional alignment As ErrorIconAlignment = ErrorIconAlignment.MiddleLeft, Optional intPadding As Integer = 2)
         provider.SetError(control, message)
         provider.SetIconAlignment(control, alignment)
         provider.SetIconPadding(control, intPadding)
@@ -250,9 +385,11 @@ Public Module mdlExtensionMethod
         provider.SetError(control, "")
         control.BackColor = clrControlDefaultBackColor
     End Sub
+
 #End Region
 
 #Region "Exception"
+
     ''' <summary>
     ''' 完全なメッセージを取得します
     ''' </summary>
@@ -292,16 +429,19 @@ Public Module mdlExtensionMethod
         act.Invoke(source)
         Return s.ToString
     End Function
+
 #End Region
 
 #Region "LINQ"
 
+    <System.Diagnostics.DebuggerStepThrough()>
     <Extension>
     Public Sub ForEach(Of T)(ItemSource As System.Collections.Generic.IEnumerable(Of T), AppliedAction As Action(Of T))
         For Each item As T In ItemSource
             AppliedAction(item)
         Next
     End Sub
+
 
     '<Extension>
     'Public Function [Using](Of T, Tresult)(source As T, process As Func(Of T, Tresult)) As Tresult
@@ -331,17 +471,25 @@ Public Module mdlExtensionMethod
             process(source)
         End Using
     End Sub
+
+#End Region
+
+#Region "List"
+    <Extension>
+    Public Sub ReplaceItem(Of T)(list As Generic.List(Of T), oldItemSelector As Predicate(Of T), newItem As T)
+        Dim oldItemIndex As Integer = list.FindIndex(oldItemSelector)
+        list(oldItemIndex) = newItem
+    End Sub
+
 #End Region
 
 #Region "String"
 
-    <Diagnostics.DebuggerStepThrough()>
     <Extension()>
     Public Function IsNullOrEmpty(ByVal value As String) As Boolean
         Return String.IsNullOrEmpty(value)
     End Function
 
-    <Diagnostics.DebuggerStepThrough()>
     <Extension()>
     Public Function IsNullOrWhiteSpace(ByVal this As String) As Boolean
         Return String.IsNullOrWhiteSpace(this)
@@ -379,6 +527,20 @@ Public Module mdlExtensionMethod
     End Function
 
     ''' <summary>
+    ''' 数値(整数)型に変換 Val
+    ''' </summary>
+    ''' <param name="this"></param>
+    ''' <returns></returns>
+    <Extension()>
+    Public Function ToVal(this As String) As Integer
+        Dim intRET As Integer
+        Integer.TryParse(this, intRET)
+
+        Return intRET
+    End Function
+
+
+    ''' <summary>
     ''' 文字列を日付型に変換
     ''' </summary>
     ''' <param name="this"></param>
@@ -392,44 +554,8 @@ Public Module mdlExtensionMethod
         End If
     End Function
 
-
 #End Region
 
-#Region "Generic"
-    ''' <summary>
-    ''' Icomparableなデータ型が指定の値範囲にあるか判定 SQL BETWEEN...AND...
-    ''' </summary>
-    ''' <typeparam name="T"></typeparam>
-    ''' <param name="value"></param>
-    ''' <param name="min"></param>
-    ''' <param name="max"></param>
-    ''' <returns></returns>
-    <Extension>
-    Public Function InBetween(Of T As IComparable(Of T))(value As T, min As T, max As T) As Boolean
-        Return value.CompareTo(min) >= 0 And value.CompareTo(max) <= 0
-    End Function
 
-#End Region
-
-#Region "Control"
-
-    ''' <summary>
-    ''' コントロールに含まれるすべての子孫コントロールを列挙します
-    ''' </summary>
-    ''' <param name="top"></param>
-    ''' <returns></returns>
-    <Extension>
-    Public Iterator Function EnumerateAllChildControls(top As Control) As Generic.IEnumerable(Of Control)
-        For Each c As Control In top.Controls
-            Yield c
-            If c.HasChildren Then
-                For Each cc As Control In EnumerateAllChildControls(c)
-                    Yield cc
-                Next cc
-            End If
-        Next c
-    End Function
-
-#End Region
 
 End Module
