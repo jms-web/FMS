@@ -49,8 +49,7 @@ Public Class ModelBase
                   ForEach(Sub(p) If IsAutoGenerateField(p.Name) = True Then _properties.Add(p))
 
         Return _properties
-        End Get
-        End Property
+    End Function
 
     ''' <summary>
     '''自動生成対象フィールド(テーブルのフィールド)かどうか判定

@@ -56,17 +56,16 @@ Public Class ModelInfo(Of T As {New, IDataModel})
     ''' モデルのフィールド一覧を取得
     ''' </summary>
     ''' <returns></returns>
-    Public ReadOnly Property Properties As Generic.List(Of PropertyInfo)
-        Get
-            Dim _properties = New Generic.List(Of Reflection.PropertyInfo)
-            [GetType].GetProperties(BindingFlags.Public Or
+    Public Function Properties() As Generic.List(Of PropertyInfo)
+        Dim _properties = New Generic.List(Of Reflection.PropertyInfo)
+        [GetType].GetProperties(BindingFlags.Public Or
                                 BindingFlags.Instance Or
                                 BindingFlags.Static).
                   ForEach(Sub(p) If OnlyAutoGenerateField = False Or IsAutoGenerateField(p.Name) = True Then _properties.Add(p))
 
-            Return _properties
+        Return _properties
 
-            End Function
+    End Function
 
     Public Sub SetEntities(srcDATA As DataTable)
         For Each row In srcDATA.Rows
@@ -168,9 +167,6 @@ End Class
 Public Interface IDataModel
     <Display(AutoGenerateField:=False)>
     Default Property Item(propertyName As String) As Object
-
-    <Display(AutoGenerateField:=False)>
-    ReadOnly Property Properties As Generic.List(Of PropertyInfo)
 
     Sub Clear()
     Function Properties() As Generic.List(Of PropertyInfo)

@@ -233,19 +233,6 @@ Public Module ExtensionMethod
 
 #End Region
 
-#Region "Datarow"
-    ''' <summary>
-    ''' DataRowをModelEntityクラスにマッピング
-    ''' </summary>
-    ''' <returns></returns>
-    <Extension()>
-    Public Function ToEntity(Of T As {New, MODEL.IDataModel})(dr As DataRow) As T
-        Dim resultData = New T
-        resultData.Properties.ForEach(Sub(p) resultData(p.Name) = dr(p.Name))
-        Return resultData
-    End Function
-#End Region
-
 #Region "Datetime"
 
     ''' <summary>

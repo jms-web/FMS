@@ -519,7 +519,6 @@ Public Class FrmM1010
 #End Region
 
 
-
     Private Function FunGetListData() As DataTable
         Dim dsList As New System.Data.DataSet
         Dim sbSQL As New System.Text.StringBuilder
@@ -624,6 +623,7 @@ Public Class FrmM1010
         End Try
     End Function
 #End Region
+
     Private Function FunSetGridCellFormat(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
 
         Try

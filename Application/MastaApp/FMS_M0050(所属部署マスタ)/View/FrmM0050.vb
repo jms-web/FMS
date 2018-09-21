@@ -278,9 +278,9 @@ Public Class FrmM0050
                  Reflection.BindingFlags.Static)
 
             For Each p As Reflection.PropertyInfo In properties
-                If IsAutoGenerateField(t, p.Name) = True Then
-                    dt.Columns.Add(p.Name, p.PropertyType)
-                End If
+                'If IsAutoGenerateField(t, p.Name) = True Then
+                dt.Columns.Add(p.Name, p.PropertyType)
+                'End If
             Next p
 
             With dsList.Tables(0)
@@ -382,9 +382,9 @@ Public Class FrmM0050
                  Reflection.BindingFlags.Static)
 
             For Each p As Reflection.PropertyInfo In properties
-                If IsAutoGenerateField(t, p.Name) = True Then
-                    dt.Columns.Add(p.Name, p.PropertyType)
-                End If
+                'If IsAutoGenerateField(t, p.Name) = True Then
+                dt.Columns.Add(p.Name, p.PropertyType)
+                'End If
             Next p
 
             With dsList.Tables(0)
