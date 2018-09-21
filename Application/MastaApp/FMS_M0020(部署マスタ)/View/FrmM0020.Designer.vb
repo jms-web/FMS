@@ -19,7 +19,6 @@ Partial Class FrmM0020
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmM0020))
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
@@ -38,7 +37,7 @@ Partial Class FrmM0020
         Me.txtBUSYO_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.txtOYA_BUSYO_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.VWM002BUSYOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.VWM002BUSYOBindingSource = New System.Windows.Forms.BindingSource()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()

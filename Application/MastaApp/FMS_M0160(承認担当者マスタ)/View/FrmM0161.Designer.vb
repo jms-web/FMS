@@ -266,7 +266,7 @@ Partial Class FrmM0161
         'CmbSYONIN_HOKOKUSYO_ID
         '
         Me.CmbSYONIN_HOKOKUSYO_ID.BackColor = System.Drawing.SystemColors.Window
-        Me.CmbSYONIN_HOKOKUSYO_ID.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.CmbSYONIN_HOKOKUSYO_ID.Cursor = System.Windows.Forms.Cursors.Default
         Me.CmbSYONIN_HOKOKUSYO_ID.DisplayMember = "DISP"
         Me.CmbSYONIN_HOKOKUSYO_ID.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CmbSYONIN_HOKOKUSYO_ID.FormattingEnabled = True
@@ -283,7 +283,7 @@ Partial Class FrmM0161
         'CmbSYONIN_JUN
         '
         Me.CmbSYONIN_JUN.BackColor = System.Drawing.SystemColors.Window
-        Me.CmbSYONIN_JUN.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.CmbSYONIN_JUN.Cursor = System.Windows.Forms.Cursors.Default
         Me.CmbSYONIN_JUN.DisplayMember = "DISP"
         Me.CmbSYONIN_JUN.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CmbSYONIN_JUN.FormattingEnabled = True

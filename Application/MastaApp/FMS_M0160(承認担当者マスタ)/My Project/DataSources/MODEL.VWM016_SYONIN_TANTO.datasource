@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="VWM016_SYONIN_TANTO" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>MODEL.VWM016_SYONIN_TANTO, FMS_MODEL, Version=0.9.18264.445, Culture=neutral, PublicKeyToken=null</TypeInfo>
+   <TypeInfo>MODEL.VWM016_SYONIN_TANTO, FMS_MODEL, Version=0.9.18264.505, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

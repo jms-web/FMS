@@ -11,6 +11,8 @@ Public Class FrmM0161
 #Region "プロパティ"
     ''' <summary>
     ''' 処理モード
+    ''' <summary>
+    ''' 処理モード
     ''' </summary>
     Public Property PrMODE As Integer
 
@@ -19,10 +21,7 @@ Public Class FrmM0161
     ''' </summary>
     Public Property PrPKeys As (ITEM_NAME As String, ITEM_VALUE As String)
 
-    ''' <summary>
-    ''' 一覧の選択行データ
-    ''' </summary>
-    Public Property PrViewModel As MODEL.VWM016_SYONIN_TANTO
+    Public Property PrDataRow As C1.Win.C1FlexGrid.Row
 
 #End Region
 
@@ -68,7 +67,7 @@ Public Class FrmM0161
             Call FunSetBinding()
 
             '-----処理モード別画面初期化
-            Call FunInitializeControls()
+            Call FunInitializeControls(PrMODE)
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -79,41 +78,49 @@ Public Class FrmM0161
 #End Region
 
 #Region "処理モード別画面初期化"
-    Private Function FunInitializeControls() As Boolean
-
+    Private Function FunInitializeControls(ByVal intMODE As Integer) As Boolean
         Try
-            Select Case PrMODE
+
+            Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
-                    lblTytle.Text &= "（追加）"
+                    Me.Text = pub_APP_INFO.strTitle & "（追加）"
+                    Me.lblTytle.Text = Me.Text
                     Me.cmdFunc1.Text = "追加(F1)"
 
                     Me.lbllblEDIT_YMDHNS.Visible = False
                     Me.lblEDIT_YMDHNS.Visible = False
+                    Me.lbllblEDIT_SYAIN_ID.Visible = False
+                    Me.lblEDIT_SYAIN_ID.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._2_ADDREF
-                    _M016.Properties.ForEach(Sub(p) _M016(p.Name) = PrViewModel(p.Name))
-                    _M016.SYAIN_ID = 0
+                    Call FunSetEntityValues(PrDataRow)
 
-                    lblTytle.Text &= "（類似追加）"
+                    Me.Text = pub_APP_INFO.strTitle & "（類似追加）"
+                    Me.lblTytle.Text = Me.Text
                     Me.cmdFunc1.Text = "追加(F1)"
 
                     Me.lbllblEDIT_YMDHNS.Visible = False
                     Me.lblEDIT_YMDHNS.Visible = False
+                    Me.lbllblEDIT_SYAIN_ID.Visible = False
+                    Me.lblEDIT_SYAIN_ID.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
-                    CmbSYONIN_HOKOKUSYO_ID.SelectedValue = PrViewModel(NameOf(_M016.SYONIN_HOKOKUSYO_ID))
-                    CmbSYONIN_JUN.SelectedValue = PrViewModel(NameOf(_M016.SYONIN_JUN))
+                    Call FunSetEntityValues(PrDataRow)
 
-                    lblTytle.Text &= "（変更）"
+                    Me.Text = pub_APP_INFO.strTitle & "（変更）"
+                    Me.lblTytle.Text = Me.Text
                     Me.cmdFunc1.Text = "変更(F1)"
 
-                    CmbSYONIN_HOKOKUSYO_ID.ReadOnly = True
-                    CmbSYONIN_JUN.ReadOnly = True
-                    'Me.lbllblEDIT_YMDHNS.Visible = True
-                    'Me.lblEDIT_YMDHNS.Visible = True
+                    CmbSYONIN_HOKOKUSYO_ID.Enabled = False
+                    CmbSYONIN_JUN.Enabled = False
+
+                    Me.lbllblEDIT_YMDHNS.Visible = True
+                    Me.lblEDIT_YMDHNS.Visible = True
+                    Me.lbllblEDIT_SYAIN_ID.Visible = True
+                    Me.lblEDIT_SYAIN_ID.Visible = True
 
                 Case Else
-                    Throw New ArgumentException(My.Resources.ErrMsgException, PrMODE.ToString)
+                    Throw New ArgumentException(My.Resources.ErrMsgException, intMODE.ToString)
             End Select
 
             Return True
@@ -123,7 +130,31 @@ Public Class FrmM0161
             Return False
         End Try
     End Function
+    Private Function FunSetEntityValues(row As C1.Win.C1FlexGrid.Row) As Boolean
+        Dim _model As New MODEL.M016_SYONIN_TANTO
+        Try
 
+            '-----コントロールに値をセット
+            With row
+
+                '報告書ID
+                Me.CmbSYONIN_HOKOKUSYO_ID.SelectedValue = .Item(NameOf(_model.SYONIN_HOKOKUSYO_ID))
+
+                '承認順
+                Me.CmbSYONIN_JUN.SelectedValue = .Item(NameOf(_model.SYONIN_JUN))
+
+                '親部署区分
+                Me.CmbSYAIN_ID.SelectedValue = .Item(NameOf(_model.SYAIN_ID))
+
+
+            End With
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        End Try
+    End Function
 #End Region
 
 #Region "FUNCTIONボタンCLICK"
@@ -235,8 +266,8 @@ Public Class FrmM0161
                                 WL.WriteLogDat(strErrMsg)
                             Else
                                 '---排他制御
-                                Dim strMsg As String = $"既に他の担当者によって変更されているため保存出来ません。{vbCrLf}再度登録し直して下さい。"
-                                MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                                Dim strMsg As String = $"既に登録されています。{vbCrLf}再度、検索しなおしてください。"
+                                MessageBox.Show(strMsg, "重複登録エラー", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                             End If
                             Return False
                     End Select

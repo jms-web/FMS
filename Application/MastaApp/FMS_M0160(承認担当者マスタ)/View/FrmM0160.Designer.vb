@@ -30,8 +30,8 @@ Partial Class FrmM0160
         Me.Label1 = New System.Windows.Forms.Label()
         Me.CmbSYONIN_HOKOKUSYO_ID = New JMS_COMMON.ComboboxEx()
         Me.CmbSYONIN_JUN = New JMS_COMMON.ComboboxEx()
-        Me.CmbSYAIN_ID = New JMS_COMMON.ComboboxEx()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.mtxSIMEI = New JMS_COMMON.MaskedTextBoxEx()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.VWM016SYONINTANTOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -62,12 +62,14 @@ Partial Class FrmM0160
         Me.cmdFunc3.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
         Me.cmdFunc3.Location = New System.Drawing.Point(427, 596)
         Me.cmdFunc3.Text = "óﬁéóí«â¡(F3)"
+        Me.cmdFunc3.Visible = False
         '
         'cmdFunc4
         '
         Me.cmdFunc4.Image = Global.FMS.My.Resources.Resources._imgApplication_form_edit32x32
         Me.cmdFunc4.Location = New System.Drawing.Point(636, 596)
         Me.cmdFunc4.Text = "ïœçX(F4)"
+        Me.cmdFunc4.Visible = False
         '
         'cmdFunc5
         '
@@ -137,7 +139,7 @@ Partial Class FrmM0160
         Me.gbxFilter.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.gbxFilter.Location = New System.Drawing.Point(14, 60)
         Me.gbxFilter.Name = "gbxFilter"
-        Me.gbxFilter.Size = New System.Drawing.Size(1236, 60)
+        Me.gbxFilter.Size = New System.Drawing.Size(1236, 58)
         Me.gbxFilter.TabIndex = 59
         Me.gbxFilter.TabStop = False
         Me.gbxFilter.Text = "åüçıèåè"
@@ -158,15 +160,15 @@ Partial Class FrmM0160
         Me.tlpFilter.Controls.Add(Me.Label1, 0, 0)
         Me.tlpFilter.Controls.Add(Me.CmbSYONIN_HOKOKUSYO_ID, 1, 0)
         Me.tlpFilter.Controls.Add(Me.CmbSYONIN_JUN, 3, 0)
-        Me.tlpFilter.Controls.Add(Me.CmbSYAIN_ID, 5, 0)
         Me.tlpFilter.Controls.Add(Me.Label2, 4, 0)
+        Me.tlpFilter.Controls.Add(Me.mtxSIMEI, 5, 0)
         Me.tlpFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpFilter.Location = New System.Drawing.Point(3, 20)
         Me.tlpFilter.Name = "tlpFilter"
         Me.tlpFilter.RowCount = 2
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpFilter.Size = New System.Drawing.Size(1230, 37)
+        Me.tlpFilter.Size = New System.Drawing.Size(1230, 35)
         Me.tlpFilter.TabIndex = 56
         '
         'chkDeletedRowVisibled
@@ -230,50 +232,39 @@ Partial Class FrmM0160
         Me.CmbSYONIN_JUN.TabIndex = 57
         Me.CmbSYONIN_JUN.ValueMember = "VALUE"
         '
-        'CmbSYAIN_ID
-        '
-        Me.CmbSYAIN_ID.BackColor = System.Drawing.SystemColors.Window
-        Me.CmbSYAIN_ID.Cursor = System.Windows.Forms.Cursors.Default
-        Me.CmbSYAIN_ID.DisplayMember = "DISP"
-        Me.CmbSYAIN_ID.FormattingEnabled = True
-        Me.CmbSYAIN_ID.GotFocusedColor = System.Drawing.Color.Empty
-        Me.CmbSYAIN_ID.Location = New System.Drawing.Point(743, 3)
-        Me.CmbSYAIN_ID.Name = "CmbSYAIN_ID"
-        Me.CmbSYAIN_ID.NullValue = " "
-        Me.CmbSYAIN_ID.ReadOnly = False
-        Me.CmbSYAIN_ID.Selected = False
-        Me.CmbSYAIN_ID.Size = New System.Drawing.Size(180, 25)
-        Me.CmbSYAIN_ID.TabIndex = 58
-        Me.CmbSYAIN_ID.ValueMember = "VALUE"
-        '
         'Label2
         '
         Me.Label2.Location = New System.Drawing.Point(630, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(107, 27)
         Me.Label2.TabIndex = 59
-        Me.Label2.Text = "é–àı:"
+        Me.Label2.Text = "é–àıñº:"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'mtxSIMEI
+        '
+        Me.mtxSIMEI.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxSIMEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxSIMEI.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxSIMEI.InputRequired = False
+        Me.mtxSIMEI.Location = New System.Drawing.Point(743, 3)
+        Me.mtxSIMEI.MaxByteLength = 30
+        Me.mtxSIMEI.Name = "mtxSIMEI"
+        Me.mtxSIMEI.Size = New System.Drawing.Size(170, 24)
+        Me.mtxSIMEI.TabIndex = 60
+        Me.mtxSIMEI.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxSIMEI.WatermarkText = Nothing
         '
         'flxDATA
         '
-        Me.flxDATA.AllowEditing = False
-        Me.flxDATA.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.flxDATA.AutoGenerateColumns = False
-        Me.flxDATA.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.XpThemes
         Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
         Me.flxDATA.DataSource = Me.VWM016SYONINTANTOBindingSource
-        Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.flxDATA.Location = New System.Drawing.Point(14, 126)
+        Me.flxDATA.Location = New System.Drawing.Point(17, 121)
         Me.flxDATA.Name = "flxDATA"
         Me.flxDATA.Rows.Count = 1
-        Me.flxDATA.Rows.DefaultSize = 23
-        Me.flxDATA.Size = New System.Drawing.Size(1236, 434)
-        Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
-        Me.flxDATA.TabIndex = 62
-        Me.flxDATA.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
+        Me.flxDATA.Rows.DefaultSize = 18
+        Me.flxDATA.Size = New System.Drawing.Size(1235, 428)
+        Me.flxDATA.TabIndex = 60
         '
         'VWM016SYONINTANTOBindingSource
         '
@@ -325,7 +316,7 @@ Partial Class FrmM0160
     Friend WithEvents CmbSYONIN_HOKOKUSYO_ID As ComboboxEx
     Friend WithEvents CmbSYONIN_JUN As ComboboxEx
     Friend WithEvents Label2 As Label
-    Friend WithEvents CmbSYAIN_ID As ComboboxEx
+    Friend WithEvents mtxSIMEI As MaskedTextBoxEx
     Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents VWM016SYONINTANTOBindingSource As BindingSource
 End Class
