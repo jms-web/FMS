@@ -93,26 +93,26 @@ Public Class FrmM0000
             Call Sub_MenuSet()
 
 
-            '業務分類セット
-            Dim imgList As New ImageList
-            imgList.Images.Add(My.Resources._imgBilling1)
             'imgList.Images.Add(My.Resources._imgBasket)
-            imgList.Images.Add(My.Resources._imgBox)
             'imgList.Images.Add(My.Resources._imgBarcode_reader)
             'imgList.Images.Add(My.Resources._imgMachiningCenter)
             'imgList.Images.Add(My.Resources._imgMachiningCenter)
             'imgList.Images.Add(My.Resources._imgDelivery)
-            imgList.Images.Add(My.Resources._imgShelf)
             'imgList.Images.Add(My.Resources._imgCalculator)
-            imgList.Images.Add(My.Resources._imgStatusAnnotations_Warning32x32)
-            imgList.Images.Add(My.Resources._imgBase_cog32x32)
+            '業務分類セット
+            Dim imgList As New ImageList
+            'imgList.Images.Add(My.Resources._imgBilling1) 'MenuSection1
+            'imgList.Images.Add(My.Resources._imgBox) 'MenuSection2
+            'imgList.Images.Add(My.Resources._imgShelf) 'MenuSection3
+            imgList.Images.Add(My.Resources._imgStatusAnnotations_Warning32x32) 'MenuSection4
+            imgList.Images.Add(My.Resources._imgBase_cog32x32) 'MenuSection5
             imgList.ImageSize = New Size(32, 32)
             imgList.ColorDepth = ColorDepth.Depth32Bit
             lstGYOMU.SmallImageList = imgList
             lstGYOMU.View = View.List
             lstGYOMU.Items.Clear()
-            For i As Integer = 0 To tblMenuSection.Rows.Count - 1
-                Dim item As New ListViewItem(tblMenuSection.Rows(i).Item("DISP").ToString, i)
+            For i As Integer = 0 To tblMenuSection.ExcludeDeleted.Rows.Count - 1
+                Dim item As New ListViewItem(tblMenuSection.ExcludeDeleted.Rows(i).Item("DISP").ToString, i)
                 lstGYOMU.Items.Add(item)
                 'lstGYOMU.Items.Add(tblMenuSection.Rows(i).Item("DISP"))
             Next i
@@ -487,7 +487,8 @@ Public Class FrmM0000
             If Me.lstGYOMU.SelectedItems.Count > 0 Then
 
                 '-----メニューボタン初期値セット
-                Call Fun_GetMenuIniFile(Me.lstGYOMU.SelectedItems(0).Text, Me.lstGYOMU.SelectedItems(0).Index + 1)
+                'DEBUG: 一時的に非表示にしたセクション数3
+                Call Fun_GetMenuIniFile(Me.lstGYOMU.SelectedItems(0).Text, Me.lstGYOMU.SelectedItems(0).Index + 1 + 3)
 
                 'メニュー設定
                 For intL = 0 To 11
