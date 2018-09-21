@@ -1,23 +1,12 @@
 USE [FMS]
 GO
 
-/****** Object:  StoredProcedure [dbo].[ST02_FUTEKIGO_ICHIRAN]    Script Date: 2018/06/05 14:37:43 ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
 
-
-
-
-
-
-
-
 -- =============================================
--- Author:		JMS-
--- Create date: 2018.
 -- Description:	不適合報告書一覧
 -- =============================================
 ALTER PROCEDURE [dbo].[ST02_FUTEKIGO_ICHIRAN]
@@ -27,7 +16,7 @@ ALTER PROCEDURE [dbo].[ST02_FUTEKIGO_ICHIRAN]
  ,@BUHIN_BANGO				char(60)		--部品番号
  ,@SYANAI_CD				char(10)		--社内コード
  ,@BUHIN_NAME				char(100)		--部品名称
- ,@GOKI						char(5)			--号機
+ ,@GOKI						nvarchar(20)			--号機
  ,@GEN_TANTO_ID				int				--現処置担当者ID
  ,@SYONIN_YMDHNS_FROM		char(8)			--処置実施日From（承認日時を検索対象とする）
  ,@SYONIN_YMDHNS_TO			char(8)			--処置実施日To（承認日時を検索対象とする）
@@ -49,11 +38,12 @@ ALTER PROCEDURE [dbo].[ST02_FUTEKIGO_ICHIRAN]
  ,@KOKYAKU_SAISYU_HANTEI_KB char(2)			--顧客最終判定区分
  ,@GENIN_BUNSEKI_KB1		nvarchar(500)	--原因分析区分1でWHERE条件の内容をそのままセットする
  ,@GENIN_BUNSEKI_KB2		nvarchar(500)	--原因分析区分2でWHERE条件の内容をそのままセットする
+ ,@HASSEI_YMD_FROM			char(8)
+ ,@HASSEI_YMD_TO				char(8)
 AS
 BEGIN TRY
-	
 	DECLARE @ErrorMessage varchar(4000);
-	DECLARE @ErrorProcedure NVARCHAR(126)  
+	DECLARE @ErrorProcedure NVARCHAR(126);
 
 	DECLARE @W_HOKOKU_NO					char(10);		-- 1.報告書No
 	DECLARE @W_SYONIN_JUN					int;			-- 2.承認順
@@ -67,11 +57,11 @@ BEGIN TRY
 	DECLARE @W_TAIRYU_NISSU					int;			--10.滞留日数
 	DECLARE @W_TAIRYU_FG					char(1);		--11.滞留フラグ
 	DECLARE @W_KISYU_ID						int;			--12.機種ID
-	DECLARE @W_KISYU						char(100);		--13.機種
+	--DECLARE @W_KISYU						char(100);		--13.機種
 	DECLARE @W_KISYU_NAME					char(100);		--14.機種名
 	DECLARE @W_BUHIN_BANGO					char(60);		--15.部品番号
 	DECLARE @W_BUHIN_NAME					char(80);		--16.部品名
-	DECLARE @W_GOKI							char(5);		--17.号機
+	DECLARE @W_GOKI							 nvarchar(20);		--17.号機
 	DECLARE @W_SYANAI_CD					char(10);		--18.社内コード
 	DECLARE @W_FUTEKIGO_KB					char(2);		--19.不適合区分
 	DECLARE @W_FUTEKIGO_NAME				char(50);		--20.不適合区分名
@@ -107,6 +97,8 @@ BEGIN TRY
 	DECLARE @W_KOKYAKU_HANTEI_SIJI_NAME		nvarchar(150);	--50.顧客判定指示区分名
 	DECLARE @W_KOKYAKU_SAISYU_HANTEI_KB	    char(2);		--51.顧客最終判定区分
 	DECLARE @W_KOKYAKU_SAISYU_HANTEI_NAME	nvarchar(150);	--52.顧客最終判定区分名
+	DECLARE @W_DEL_YMDHNS char(14);
+	DECLARE @W_HASSEI_YMD char(8);
 
 	DECLARE @retTBL TABLE(
 	 HOKOKU_NO					char(10)		-- 1.報告書No
@@ -121,11 +113,11 @@ BEGIN TRY
 	,TAIRYU_NISSU				int				--10.滞留日数
 	,TAIRYU_FG					char(1)			--11.滞留フラグ
 	,KISYU_ID					int				--12.機種ID
-	,KISYU						char(100)		--13.機種
+	--,KISYU						char(100)		--13.機種
 	,KISYU_NAME					char(100)		--14.機種名
 	,BUHIN_BANGO				char(60)		--15.部品番号
 	,BUHIN_NAME					char(80)		--16.部品名
-	,GOKI						char(5)			--17.号機
+	,GOKI						nvarchar(20)			--17.号機
 	,SYANAI_CD					char(10)		--18.社内コード
 	,FUTEKIGO_KB				char(2)			--19.不適合区分
 	,FUTEKIGO_NAME				char(50)		--20.不適合区分名
@@ -138,9 +130,9 @@ BEGIN TRY
 	,ZESEI_SYOCHI_YOHI_KB		char(2)			--27.是正処置要否区分
 	,ZESEI_SYOCHI_YOHI_NAME		char(50)		--28.是正処置要否区分名
 	,SAISIN_IINKAI_HANTEI_KB	char(2)			--29.再審委員会判定区分
-	,SAISIN_IINKAI_HANTEI_NAME	char(2)			--30.再審委員会判定区分名
+	,SAISIN_IINKAI_HANTEI_NAME	char(50)			--30.再審委員会判定区分名
 	,KENSA_KEKKA_KB				char(2)			--31.検査結果区分
-	,KENSA_KEKKA_NAME			char(2)			--32.検査結果区分名
+	,KENSA_KEKKA_NAME			char(50)			--32.検査結果区分名
 	,KONPON_YOIN_KB1			char(2)			--33.根本要因区分1
 	,KONPON_YOIN_NAME1			char(50)		--34.根本要因区分名1
 	,KONPON_YOIN_KB2			char(2)			--35.根本要因区分2
@@ -162,6 +154,8 @@ BEGIN TRY
 	,KOKYAKU_HANTEI_SIJI_NAME	nvarchar(150)	--50.顧客判定指示区分名
 	,KOKYAKU_SAISYU_HANTEI_KB	char(2)			--51.顧客最終判定区分
 	,KOKYAKU_SAISYU_HANTEI_NAME nvarchar(150)	--52.顧客最終判定区分名
+	,DEL_YMDHNS char(14)
+	,HASSEI_YMD char(8)
 	);
 
 	--SQL を作成する変数宣言
@@ -170,7 +164,7 @@ BEGIN TRY
 	--カーソルを実行するSQLを作成する
 
 	SET @SQL = N'';
-	SET @SQL = @SQL + N' SELECT  '; 
+	SET @SQL = @SQL + N' SELECT  ';
 	SET @SQL = @SQL + N' HOKOKU_NO';					-- 1.報告書No
 	SET @SQL = @SQL + N',SYONIN_JUN';					-- 2.承認順
 	SET @SQL = @SQL + N',SYONIN_NAIYO';					-- 3.承認内容（ステージ）
@@ -183,7 +177,7 @@ BEGIN TRY
 	SET @SQL = @SQL + N',TAIRYU_NISSU';					--10.滞留日数
 	SET @SQL = @SQL + N',TAIRYU_FG';					--11.滞留フラグ
 	SET @SQL = @SQL + N',KISYU_ID';						--12.機種ID
-	SET @SQL = @SQL + N',KISYU';						--13.機種
+	--SET @SQL = @SQL + N',KISYU';						--13.機種
 	SET @SQL = @SQL + N',KISYU_NAME';					--14.機種名
 	SET @SQL = @SQL + N',BUHIN_BANGO';					--15.部品番号
 	SET @SQL = @SQL + N',BUHIN_NAME';					--16.部品名
@@ -223,19 +217,20 @@ BEGIN TRY
 	SET @SQL = @SQL + N',KOKYAKU_HANTEI_SIJI_NAME';		--50.顧客判定指示区分名
 	SET @SQL = @SQL + N',KOKYAKU_SAISYU_HANTEI_KB';		--51.顧客最終判定区分
 	SET @SQL = @SQL + N',KOKYAKU_SAISYU_HANTEI_NAME';	--52.顧客最終判定区分名
+	SET @SQL = @SQL + N',DEL_YMDHNS';	--2018.06.05 Add by funato
+	SET @SQL = @SQL + N',HASSEI_YMD';	--2018.06.05 Add by funato
+	SET @SQL = @SQL + N' FROM V007_NCR_CAR ';
 
-	SET @SQL = @SQL + N' FROM V007_NCR_CAR '; 
-		
-	SET @SQL = @SQL + N' WHERE HOKOKU_NO <> '''' ' 
+	SET @SQL = @SQL + N' WHERE HOKOKU_NO <> '''' '
 
 	--部門区分
-	IF RTRIM(LTRIM(@BUMON_KB)) <> '' 
+	IF RTRIM(LTRIM(@BUMON_KB)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND BUMON_KB = ''' + RTRIM(LTRIM(@BUMON_KB)) + ''' ';
 	END
-	
+
 	--承認報告書ID
-	IF @SYONIN_HOKOKUSYO_ID <> 0 
+	IF @SYONIN_HOKOKUSYO_ID <> 0
 	BEGIN
 		SET @SQL = @SQL + N' AND SYONIN_HOKOKUSYO_ID = ' + CONVERT(char,@SYONIN_HOKOKUSYO_ID) + '';
 	END
@@ -245,27 +240,27 @@ BEGIN TRY
 	BEGIN
 		SET @SQL = @SQL + N' AND KISYU_ID = ' + CONVERT(char,@KISYU_ID) + '';
 	END
-	
+
 	--部品番号
-	IF RTRIM(LTRIM(@BUHIN_BANGO)) <> '' 
+	IF RTRIM(LTRIM(@BUHIN_BANGO)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND BUHIN_BANGO LIKE ''%' + RTRIM(LTRIM(@BUHIN_BANGO)) + '%'' ';
 	END
-	
+
 	--社内コード
-	IF RTRIM(LTRIM(@SYANAI_CD)) <> '' 
+	IF RTRIM(LTRIM(@SYANAI_CD)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND SYANAI_CD LIKE ''%' + RTRIM(LTRIM(@SYANAI_CD)) + '%'' ';
 	END
-	
+
 	--部品名称
-	IF RTRIM(LTRIM(@BUHIN_NAME)) <> '' 
+	IF RTRIM(LTRIM(@BUHIN_NAME)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND BUHIN_NAME LIKE ''%' + RTRIM(LTRIM(@BUHIN_NAME)) + '%'' ';
 	END
 
 	--号機
-	IF RTRIM(LTRIM(@GOKI)) <> '' 
+	IF RTRIM(LTRIM(@GOKI)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND GOKI LIKE ''%' + RTRIM(LTRIM(@GOKI)) + '%'' ';
 	END
@@ -277,19 +272,19 @@ BEGIN TRY
 	END
 
 	--処置実施日From
-	IF RTRIM(LTRIM(@SYONIN_YMDHNS_FROM)) <> '' 
+	IF RTRIM(LTRIM(@SYONIN_YMDHNS_FROM)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND substring(SYONIN_YMDHNS,1,8) >= ''' + RTRIM(LTRIM(@SYONIN_YMDHNS_FROM)) + ''' ';
-	END 
+	END
 
 	--処置実施日To
-	IF RTRIM(LTRIM(@SYONIN_YMDHNS_TO)) <> '' 
+	IF RTRIM(LTRIM(@SYONIN_YMDHNS_TO)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND substring(SYONIN_YMDHNS,1,8) <= ''' + RTRIM(LTRIM(@SYONIN_YMDHNS_TO)) + ''' ';
-	END 
+	END
 
 	--報告書No
-	IF RTRIM(LTRIM(@HOKOKU_NO)) <> '' 
+	IF RTRIM(LTRIM(@HOKOKU_NO)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND HOKOKU_NO =''' + RTRIM(LTRIM(@HOKOKU_NO)) + ''' ';
 	END
@@ -301,101 +296,114 @@ BEGIN TRY
 	END
 
 	--クローズフラグ
-	IF RTRIM(LTRIM(@CLOSE_FG)) <> '' 
+	IF RTRIM(LTRIM(@CLOSE_FG)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND CLOSE_FG = ''' + RTRIM(LTRIM(@CLOSE_FG)) + ''' ';
 	END
 
 	--滞留フラグ
-	IF RTRIM(LTRIM(@TAIRYU_FG)) <> '' 
+	IF RTRIM(LTRIM(@TAIRYU_FG)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND TAIRYU_FG = ''' + RTRIM(LTRIM(@TAIRYU_FG)) + ''' ';
 	END
 
 	--不適合区分
-	IF RTRIM(LTRIM(@FUTEKIGO_KB)) <> '' 
+	IF RTRIM(LTRIM(@FUTEKIGO_KB)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND FUTEKIGO_KB = ''' + RTRIM(LTRIM(@FUTEKIGO_KB)) + ''' ';
 	END
 
 	--不適合詳細区分
-	IF RTRIM(LTRIM(@FUTEKIGO_S_KB)) <> '' 
+	IF RTRIM(LTRIM(@FUTEKIGO_S_KB)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND FUTEKIGO_S_KB = ''' + RTRIM(LTRIM(@FUTEKIGO_S_KB)) + ''' ';
 	END
 
 	--不適合状態区分
-	IF RTRIM(LTRIM(@FUTEKIGO_JYOTAI_KB)) <> '' 
+	IF RTRIM(LTRIM(@FUTEKIGO_JYOTAI_KB)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND FUTEKIGO_JYOTAI_KB = ''' + RTRIM(LTRIM(@FUTEKIGO_JYOTAI_KB)) + ''' ';
 	END
 
 	--事前審査判定区分
-	IF RTRIM(LTRIM(@JIZEN_SINSA_HANTEI_KB)) <> '' 
+	IF RTRIM(LTRIM(@JIZEN_SINSA_HANTEI_KB)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND JIZEN_SINSA_HANTEI_KB = ''' + RTRIM(LTRIM(@JIZEN_SINSA_HANTEI_KB)) + ''' ';
 	END
 
 	--是正処置要否区分
-	IF RTRIM(LTRIM(@ZESEI_SYOCHI_YOHI_KB)) <> '' 
+	IF RTRIM(LTRIM(@ZESEI_SYOCHI_YOHI_KB)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND ZESEI_SYOCHI_YOHI_KB = ''' + RTRIM(LTRIM(@ZESEI_SYOCHI_YOHI_KB)) + ''' ';
 	END
 
 	--再審委員会判定区分
-	IF RTRIM(LTRIM(@SAISIN_IINKAI_HANTEI_KB)) <> '' 
+	IF RTRIM(LTRIM(@SAISIN_IINKAI_HANTEI_KB)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND SAISIN_IINKAI_HANTEI_KB = ''' + RTRIM(LTRIM(@SAISIN_IINKAI_HANTEI_KB)) + ''' ';
 	END
 
 	--検査結果区分
-	IF RTRIM(LTRIM(@KENSA_KEKKA_KB)) <> '' 
+	IF RTRIM(LTRIM(@KENSA_KEKKA_KB)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND KENSA_KEKKA_KB = ''' + RTRIM(LTRIM(@KENSA_KEKKA_KB)) + ''' ';
 	END
-	
+
 	--根本要因区分1
-	IF RTRIM(LTRIM(@KONPON_YOIN_KB1)) <> '' 
+	IF RTRIM(LTRIM(@KONPON_YOIN_KB1)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND KONPON_YOIN_KB1 = ''' + RTRIM(LTRIM(@KONPON_YOIN_KB1)) + ''' ';
 	END
-	
+
 	--根本要因区分2
-	IF RTRIM(LTRIM(@KONPON_YOIN_KB2)) <> '' 
+	IF RTRIM(LTRIM(@KONPON_YOIN_KB2)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND KONPON_YOIN_KB2 = ''' + RTRIM(LTRIM(@KONPON_YOIN_KB2)) + ''' ';
 	END
 
 	--帰責工程区分
-	IF RTRIM(LTRIM(@KISEKI_KOTEI_KB)) <> '' 
+	IF RTRIM(LTRIM(@KISEKI_KOTEI_KB)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND KISEKI_KOTEI_KB = ''' + RTRIM(LTRIM(@KISEKI_KOTEI_KB)) + ''' ';
 	END
 
 	--原因分析区分1
-	IF RTRIM(LTRIM(@GENIN_BUNSEKI_KB1)) <> '' 
+	IF RTRIM(LTRIM(@GENIN_BUNSEKI_KB1)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' ' + @GENIN_BUNSEKI_KB1 + ' ';
 	END
 
 	--原因分析区分2
-	IF RTRIM(LTRIM(@GENIN_BUNSEKI_KB2)) <> '' 
+	IF RTRIM(LTRIM(@GENIN_BUNSEKI_KB2)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' ' + @GENIN_BUNSEKI_KB2 + ' ';
 	END
 	/*
 	--顧客判定指示区分
-	IF RTRIM(LTRIM(@KOKYAKU_HANTEI_SIJI_KB)) <> '' 
+	IF RTRIM(LTRIM(@KOKYAKU_HANTEI_SIJI_KB)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND KOKYAKU_HANTEI_SIJI_KB = ''' + @KOKYAKU_HANTEI_SIJI_KB + ''' ';
 	END
 
 	--顧客最終判定区分
-	IF RTRIM(LTRIM(@KOKYAKU_SAISYU_HANTEI_KB)) <> '' 
+	IF RTRIM(LTRIM(@KOKYAKU_SAISYU_HANTEI_KB)) <> ''
 	BEGIN
 		SET @SQL = @SQL + N' AND KOKYAKU_SAISYU_HANTEI_KB = ''' + @KOKYAKU_SAISYU_HANTEI_KB + ''' ';
 	END
 	*/
+
+	--発生日From
+	IF RTRIM(LTRIM(@HASSEI_YMD_FROM)) <> ''
+	BEGIN
+		SET @SQL = @SQL + N' AND HASSEI_YMD >= ''' + RTRIM(LTRIM(@HASSEI_YMD_FROM)) + ''' ';
+	END
+
+	--発生日To
+	IF RTRIM(LTRIM(@HASSEI_YMD_TO)) <> ''
+	BEGIN
+		SET @SQL = @SQL + N' AND HASSEI_YMD <= ''' + RTRIM(LTRIM(@HASSEI_YMD_TO)) + ''' ';
+	END
+
 	--カーソル定義
 	EXECUTE (' DECLARE curTB_A CURSOR FOR ' + @SQL);
 
@@ -404,9 +412,9 @@ BEGIN TRY
 	WHILE 1 = 1
 	BEGIN
 
-		FETCH NEXT FROM curTB_A	INTO 
+		FETCH NEXT FROM curTB_A	INTO
 		 @W_HOKOKU_NO					-- 1.報告書No
-		
+
 		,@W_SYONIN_JUN					-- 2.承認順
 		,@W_SYONIN_NAIYO				-- 3.承認内容（ステージ）
 		,@W_SYONIN_HOKOKUSYO_ID			-- 4.承認報告書ID
@@ -418,7 +426,7 @@ BEGIN TRY
 		,@W_TAIRYU_NISSU				--10.滞留日数
 		,@W_TAIRYU_FG					--11.滞留フラグ
 		,@W_KISYU_ID					--12.機種ID
-		,@W_KISYU						--13.機種
+		--,@W_KISYU						--13.機種
 		,@W_KISYU_NAME					--14.機種名
 		,@W_BUHIN_BANGO					--15.部品番号
 		,@W_BUHIN_NAME					--16.部品名
@@ -458,7 +466,9 @@ BEGIN TRY
 		,@W_KOKYAKU_HANTEI_SIJI_NAME	--50.顧客判定指示区分名
 		,@W_KOKYAKU_SAISYU_HANTEI_KB	--51.顧客最終判定区分
 		,@W_KOKYAKU_SAISYU_HANTEI_NAME	--52.顧客最終判定区分名
-		
+		,@W_DEL_YMDHNS --2018.06.05 Add by funato
+		,@W_HASSEI_YMD
+
 		IF @@FETCH_STATUS <> 0
 		BEGIN
 			BREAK;
@@ -477,7 +487,7 @@ BEGIN TRY
 		,TAIRYU_NISSU				--10.滞留日数
 		,TAIRYU_FG					--11.滞留フラグ
 		,KISYU_ID					--12.機種ID
-		,KISYU						--13.機種
+		--,KISYU						--13.機種
 		,KISYU_NAME					--14.機種名
 		,BUHIN_BANGO				--15.部品番号
 		,BUHIN_NAME					--16.部品名
@@ -517,6 +527,8 @@ BEGIN TRY
 		,KOKYAKU_HANTEI_SIJI_NAME	--50.顧客判定指示区分名
 		,KOKYAKU_SAISYU_HANTEI_KB	--51.顧客最終判定区分
 		,KOKYAKU_SAISYU_HANTEI_NAME	--52.顧客最終判定区分名
+		,DEL_YMDHNS
+		,HASSEI_YMD
 		) VALUES (
 		@W_HOKOKU_NO					-- 1.報告書No
 		,@W_SYONIN_JUN					-- 2.承認順
@@ -530,7 +542,7 @@ BEGIN TRY
 		,@W_TAIRYU_NISSU				--10.滞留日数
 		,@W_TAIRYU_FG					--11.滞留フラグ
 		,@W_KISYU_ID					--12.機種ID
-		,@W_KISYU						--13.機種
+		--,@W_KISYU						--13.機種
 		,@W_KISYU_NAME					--14.機種名
 		,@W_BUHIN_BANGO					--15.部品番号
 		,@W_BUHIN_NAME					--16.部品名
@@ -570,8 +582,10 @@ BEGIN TRY
 		,@W_KOKYAKU_HANTEI_SIJI_NAME	--50.顧客判定指示区分名
 		,@W_KOKYAKU_SAISYU_HANTEI_KB	--51.顧客最終判定区分
 		,@W_KOKYAKU_SAISYU_HANTEI_NAME	--52.顧客最終判定区分名
+		,@W_DEL_YMDHNS -- 2018.06.05 Add by funato
+		,@W_HASSEI_YMD
 		);
-		
+
 	END
 
 	CLOSE curTB_A;
@@ -584,16 +598,13 @@ BEGIN TRY
 END TRY
 
 BEGIN CATCH
- SET @ErrorMessage = ERROR_MESSAGE()  
- SET @ErrorProcedure = ERROR_PROCEDURE() 
+ SET @ErrorMessage = CONVERT(char,ERROR_LINE()) + ERROR_MESSAGE()
+ SET @ErrorProcedure = ERROR_PROCEDURE()
  EXECUTE [loopback].[FMS].[dbo].spERRLOG ' ', 'ST02_FUTEKIGO_ICHIRAN',  @ErrorMessage
  RETURN -1
 END CATCH
 
 
 
-
-
-GO
 
 

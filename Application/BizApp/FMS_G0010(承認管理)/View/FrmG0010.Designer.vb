@@ -95,6 +95,10 @@ Partial Class FrmG0010
         Me.dgvCAR = New System.Windows.Forms.DataGridView()
         Me.mpnlDataGrid = New PanelManager.Controls.ManagedPanel()
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.dtHASSEI_YMD_FROM = New JMS_COMMON.DateTextBoxEx()
+        Me.dtHASSEI_YMD_TO = New JMS_COMMON.DateTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpFilter.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -298,12 +302,16 @@ Partial Class FrmG0010
         Me.tlpFilter.Controls.Add(Me.chkClosedRowVisibled, 42, 4)
         Me.tlpFilter.Controls.Add(Me.chkTairyu, 49, 4)
         Me.tlpFilter.Controls.Add(Me.chkDleteRowVisibled, 35, 4)
-        Me.tlpFilter.Controls.Add(Me.Label5, 34, 2)
-        Me.tlpFilter.Controls.Add(Me.dtJisiFrom, 42, 2)
         Me.tlpFilter.Controls.Add(Me.Label7, 47, 2)
-        Me.tlpFilter.Controls.Add(Me.dtJisiTo, 48, 2)
         Me.tlpFilter.Controls.Add(Me.Label40, 15, 3)
         Me.tlpFilter.Controls.Add(Me.cmbFUTEKIGO_JYOTAI_KB, 23, 3)
+        Me.tlpFilter.Controls.Add(Me.Label5, 34, 3)
+        Me.tlpFilter.Controls.Add(Me.dtJisiFrom, 42, 3)
+        Me.tlpFilter.Controls.Add(Me.Label24, 47, 3)
+        Me.tlpFilter.Controls.Add(Me.dtJisiTo, 48, 3)
+        Me.tlpFilter.Controls.Add(Me.Label23, 34, 2)
+        Me.tlpFilter.Controls.Add(Me.dtHASSEI_YMD_FROM, 42, 2)
+        Me.tlpFilter.Controls.Add(Me.dtHASSEI_YMD_TO, 48, 2)
         Me.tlpFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpFilter.Location = New System.Drawing.Point(3, 19)
         Me.tlpFilter.Name = "tlpFilter"
@@ -728,7 +736,7 @@ Partial Class FrmG0010
         '
         Me.tlpFilter.SetColumnSpan(Me.Label5, 8)
         Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label5.Location = New System.Drawing.Point(683, 60)
+        Me.Label5.Location = New System.Drawing.Point(683, 90)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(154, 30)
         Me.Label5.TabIndex = 63
@@ -740,7 +748,7 @@ Partial Class FrmG0010
         Me.dtJisiFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tlpFilter.SetColumnSpan(Me.dtJisiFrom, 5)
         Me.dtJisiFrom.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtJisiFrom.Location = New System.Drawing.Point(843, 63)
+        Me.dtJisiFrom.Location = New System.Drawing.Point(843, 93)
         Me.dtJisiFrom.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtJisiFrom.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtJisiFrom.MinimumSize = New System.Drawing.Size(98, 24)
@@ -768,7 +776,7 @@ Partial Class FrmG0010
         Me.dtJisiTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tlpFilter.SetColumnSpan(Me.dtJisiTo, 5)
         Me.dtJisiTo.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtJisiTo.Location = New System.Drawing.Point(963, 63)
+        Me.dtJisiTo.Location = New System.Drawing.Point(963, 93)
         Me.dtJisiTo.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtJisiTo.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtJisiTo.MinimumSize = New System.Drawing.Size(98, 24)
@@ -1561,6 +1569,61 @@ Partial Class FrmG0010
         Me.dgvDATA.Size = New System.Drawing.Size(0, 0)
         Me.dgvDATA.TabIndex = 63
         '
+        'Label23
+        '
+        Me.tlpFilter.SetColumnSpan(Me.Label23, 8)
+        Me.Label23.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label23.Location = New System.Drawing.Point(683, 60)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(154, 30)
+        Me.Label23.TabIndex = 63
+        Me.Label23.Text = "î≠ê∂ì˙:"
+        Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label24.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label24.Location = New System.Drawing.Point(943, 90)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(14, 30)
+        Me.Label24.TabIndex = 66
+        Me.Label24.Text = "~"
+        Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'dtHASSEI_YMD_FROM
+        '
+        Me.dtHASSEI_YMD_FROM.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tlpFilter.SetColumnSpan(Me.dtHASSEI_YMD_FROM, 5)
+        Me.dtHASSEI_YMD_FROM.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtHASSEI_YMD_FROM.Location = New System.Drawing.Point(843, 63)
+        Me.dtHASSEI_YMD_FROM.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtHASSEI_YMD_FROM.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtHASSEI_YMD_FROM.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtHASSEI_YMD_FROM.Name = "dtHASSEI_YMD_FROM"
+        Me.dtHASSEI_YMD_FROM.ReadOnly = False
+        Me.dtHASSEI_YMD_FROM.Size = New System.Drawing.Size(98, 24)
+        Me.dtHASSEI_YMD_FROM.TabIndex = 10
+        Me.dtHASSEI_YMD_FROM.Value = ""
+        Me.dtHASSEI_YMD_FROM.ValueNonFormat = ""
+        '
+        'dtHASSEI_YMD_TO
+        '
+        Me.dtHASSEI_YMD_TO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tlpFilter.SetColumnSpan(Me.dtHASSEI_YMD_TO, 5)
+        Me.dtHASSEI_YMD_TO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtHASSEI_YMD_TO.Location = New System.Drawing.Point(963, 63)
+        Me.dtHASSEI_YMD_TO.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtHASSEI_YMD_TO.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtHASSEI_YMD_TO.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtHASSEI_YMD_TO.Name = "dtHASSEI_YMD_TO"
+        Me.dtHASSEI_YMD_TO.ReadOnly = False
+        Me.dtHASSEI_YMD_TO.Size = New System.Drawing.Size(98, 24)
+        Me.dtHASSEI_YMD_TO.TabIndex = 11
+        Me.dtHASSEI_YMD_TO.Value = ""
+        Me.dtHASSEI_YMD_TO.ValueNonFormat = ""
+        '
         'FrmG0010
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -1681,4 +1744,8 @@ Partial Class FrmG0010
     Friend WithEvents dgvCAR As DataGridView
     Friend WithEvents dgvNCR As DataGridView
     Friend WithEvents PanelEx1 As PanelEx
+    Friend WithEvents Label24 As Label
+    Friend WithEvents Label23 As Label
+    Friend WithEvents dtHASSEI_YMD_FROM As DateTextBoxEx
+    Friend WithEvents dtHASSEI_YMD_TO As DateTextBoxEx
 End Class
