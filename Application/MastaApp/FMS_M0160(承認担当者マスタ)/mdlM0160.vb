@@ -49,7 +49,7 @@ Module mdlM0160
                 '-----共通データ取得
                 Using DB As ClsDbUtility = DBOpen()
                     Call FunGetCodeDataTable(DB, "承認報告書ID", tblSYONIN_HOKOKUSYO_ID)
-                    'Call FunGetCodeDataTable(DB, "直間区分", tblCYOKKAN_KBN)
+                    Call FunGetCodeDataTable(DB, "担当", tblTANTO)
                     'Call FunGetCodeDataTable(DB, "職番", tblSYOKUBAN)
                 End Using
 

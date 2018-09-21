@@ -770,10 +770,9 @@ Public Class FrmG0010
 
                     Call SetStageList()
 
-                Case 8 '全選択'全選択解除
-
-                    'Call FunSelectAll()
-                    'Call FunUnSelectAll()
+                Case 8 'CSV出力
+                    Dim strFileName As String = $"{pub_APP_INFO.strTitle}_{DateTime.Now:yyyyMMddHHmmss}.CSV"
+                    Call FunCSV_OUT(dgvDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
                 Case 9 'メール送信
 
@@ -1274,6 +1273,10 @@ Public Class FrmG0010
             Return False
         End Try
     End Function
+
+#End Region
+
+#Region "CSV出力"
 
 #End Region
 
@@ -2349,6 +2352,10 @@ Public Class FrmG0010
         cmbFUTEKIGO_JYOTAI_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_JYOTAI_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_JYOTAI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         chkClosedRowVisibled.DataBindings.Add(New Binding(NameOf(chkClosedRowVisibled.Checked), ParamModel, NameOf(ParamModel.VISIBLE_CLOSE), False, DataSourceUpdateMode.OnPropertyChanged, False))
         chkTairyu.DataBindings.Add(New Binding(NameOf(chkTairyu.Checked), ParamModel, NameOf(ParamModel.VISIBLE_TAIRYU), False, DataSourceUpdateMode.OnPropertyChanged, False))
+
+        dtHASSEI_YMD_FROM.DataBindings.Add(New Binding(NameOf(dtHASSEI_YMD_FROM.ValueNonFormat), ParamModel, NameOf(ParamModel.HASSEI_FROM), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        dtHASSEI_YMD_TO.DataBindings.Add(New Binding(NameOf(dtHASSEI_YMD_TO.ValueNonFormat), ParamModel, NameOf(ParamModel.HASSEI_TO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
         'NCR
         cmbJIZEN_SINSA_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbJIZEN_SINSA_HANTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.JIZEN_SINSA_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbZESEI_SYOCHI_YOHI_KB.DataBindings.Add(New Binding(NameOf(cmbZESEI_SYOCHI_YOHI_KB.SelectedValue), ParamModel, NameOf(ParamModel.ZESEI_SYOCHI_YOHI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -2408,6 +2415,8 @@ Public Class FrmG0010
         sbParam.Append(",'" & ParamModel.KOKYAKU_SAISYU_HANTEI_KB & "'")
         sbParam.Append(",'" & ParamModel.GENIN1 & "'")
         sbParam.Append(",'" & ParamModel.GENIN2 & "'")
+        sbParam.Append(",'" & ParamModel.HASSEI_FROM & "'")
+        sbParam.Append(",'" & ParamModel.HASSEI_TO & "'")
 
         sbSQL.Append("EXEC dbo." & NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN) & " " & sbParam.ToString & "")
         Using DB As ClsDbUtility = DBOpen()
@@ -2494,6 +2503,10 @@ Public Class FrmG0010
         Call FunSetStageList(dgvNCR, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR)
         Call FunSetStageList(dgvCAR, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)
         ParamModel.SYONIN_HOKOKUSYO_ID = 0
+    End Sub
+
+    Private Sub FrmG0010_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
+        Refresh()
     End Sub
 
 

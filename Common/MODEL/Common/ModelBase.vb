@@ -40,20 +40,16 @@ Public Class ModelBase
         Next
     End Sub
 
-    Public Property Properties() As Generic.List(Of PropertyInfo) Implements IDataModel.Properties
-        Get
-            Dim _properties = New Generic.List(Of Reflection.PropertyInfo)
-            [GetType].GetProperties(BindingFlags.Public Or
-                                    BindingFlags.Instance Or
-                                    BindingFlags.Static).
-                      ForEach(Sub(p) If IsAutoGenerateField(p.Name) = True Then _properties.Add(p))
 
-            Return _properties
-        End Get
-        Set(value As Generic.List(Of PropertyInfo))
+    Public Function Properties() As Generic.List(Of PropertyInfo) Implements IDataModel.Properties
+        Dim _properties = New Generic.List(Of Reflection.PropertyInfo)
+        [GetType].GetProperties(BindingFlags.Public Or
+                                BindingFlags.Instance Or
+                                BindingFlags.Static).
+                  ForEach(Sub(p) If IsAutoGenerateField(p.Name) = True Then _properties.Add(p))
 
-        End Set
-    End Property
+        Return _properties
+    End Function
 
     ''' <summary>
     '''自動生成対象フィールド(テーブルのフィールド)かどうか判定

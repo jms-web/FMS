@@ -5,6 +5,6 @@
     Renaming the file extension or editing the content of this file may   
     cause the file to be unrecognizable by the program.
 -->
-<GenericObjectDataSource DisplayName="M02_SYAIN" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>IDA_MODEL.M02_SYAIN, IDA_MODEL, Version=1.0.17334.204, Culture=neutral, PublicKeyToken=null</TypeInfo>
+<GenericObjectDataSource DisplayName="VWM016_SYONIN_TANTO" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+   <TypeInfo>MODEL.VWM016_SYONIN_TANTO, FMS_MODEL, Version=0.9.18264.445, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

@@ -42,6 +42,8 @@ Public Class ST02_ParamModel
         GENIN1 = ""
         GENIN2 = ""
 
+        HASSEI_FROM = ""
+        HASSEI_TO = ""
     End Sub
 
     'インデクサプロパティ
@@ -108,6 +110,9 @@ Public Class ST02_ParamModel
             OnPropertyChanged(NameOf(VISIBLE_TAIRYU))
         End Set
     End Property
+
+    Public Property HASSEI_FROM As String
+    Public Property HASSEI_TO As String
 
     'NCR
     Public Property JIZEN_SINSA_HANTEI_KB As String

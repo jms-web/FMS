@@ -20,11 +20,11 @@ Partial Class FrmM0161
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.lbllblEDIT_YMDHNS = New System.Windows.Forms.Label()
-        Me.lblEDIT_SYAIN_ID = New System.Windows.Forms.Label()
-        Me.lbllblEDIT_SYAIN_ID = New System.Windows.Forms.Label()
-        Me.lblEDIT_YMDHNS = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblEDIT_SYAIN_ID = New System.Windows.Forms.Label()
+        Me.lbllblEDIT_YMDHNS = New System.Windows.Forms.Label()
+        Me.lblEDIT_YMDHNS = New System.Windows.Forms.Label()
+        Me.lbllblEDIT_SYAIN_ID = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -149,55 +149,6 @@ Partial Class FrmM0161
         Me.GroupBox1.TabIndex = 31
         Me.GroupBox1.TabStop = False
         '
-        'lbllblEDIT_YMDHNS
-        '
-        Me.lbllblEDIT_YMDHNS.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lbllblEDIT_YMDHNS.Location = New System.Drawing.Point(938, 0)
-        Me.lbllblEDIT_YMDHNS.Name = "lbllblEDIT_YMDHNS"
-        Me.lbllblEDIT_YMDHNS.Size = New System.Drawing.Size(94, 30)
-        Me.lbllblEDIT_YMDHNS.TabIndex = 56
-        Me.lbllblEDIT_YMDHNS.Text = "最終更新日時"
-        Me.lbllblEDIT_YMDHNS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblEDIT_SYAIN_ID
-        '
-        Me.lblEDIT_SYAIN_ID.BackColor = System.Drawing.Color.Transparent
-        Me.lblEDIT_SYAIN_ID.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblEDIT_SYAIN_ID.Enabled = False
-        Me.lblEDIT_SYAIN_ID.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblEDIT_SYAIN_ID.Location = New System.Drawing.Point(1050, 30)
-        Me.lblEDIT_SYAIN_ID.Name = "lblEDIT_SYAIN_ID"
-        Me.lblEDIT_SYAIN_ID.Size = New System.Drawing.Size(176, 30)
-        Me.lblEDIT_SYAIN_ID.TabIndex = 66
-        Me.lblEDIT_SYAIN_ID.Text = "xxx xxx"
-        Me.lblEDIT_SYAIN_ID.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.lblEDIT_SYAIN_ID.Visible = False
-        '
-        'lbllblEDIT_SYAIN_ID
-        '
-        Me.lbllblEDIT_SYAIN_ID.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lbllblEDIT_SYAIN_ID.Location = New System.Drawing.Point(938, 30)
-        Me.lbllblEDIT_SYAIN_ID.Name = "lbllblEDIT_SYAIN_ID"
-        Me.lbllblEDIT_SYAIN_ID.Size = New System.Drawing.Size(94, 30)
-        Me.lbllblEDIT_SYAIN_ID.TabIndex = 65
-        Me.lbllblEDIT_SYAIN_ID.Text = "最終更新者"
-        Me.lbllblEDIT_SYAIN_ID.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.lbllblEDIT_SYAIN_ID.Visible = False
-        '
-        'lblEDIT_YMDHNS
-        '
-        Me.lblEDIT_YMDHNS.BackColor = System.Drawing.Color.Transparent
-        Me.lblEDIT_YMDHNS.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblEDIT_YMDHNS.Enabled = False
-        Me.lblEDIT_YMDHNS.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblEDIT_YMDHNS.Location = New System.Drawing.Point(1050, 0)
-        Me.lblEDIT_YMDHNS.Name = "lblEDIT_YMDHNS"
-        Me.lblEDIT_YMDHNS.Size = New System.Drawing.Size(176, 30)
-        Me.lblEDIT_YMDHNS.TabIndex = 43
-        Me.lblEDIT_YMDHNS.Text = "yyyy/MM/dd HH:mm:ss"
-        Me.lblEDIT_YMDHNS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.lblEDIT_YMDHNS.Visible = False
-        '
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.ColumnCount = 6
@@ -221,16 +172,66 @@ Partial Class FrmM0161
         Me.TableLayoutPanel1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 18)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 7
+        Me.TableLayoutPanel1.RowCount = 6
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1233, 206)
         Me.TableLayoutPanel1.TabIndex = 47
+        '
+        'lblEDIT_SYAIN_ID
+        '
+        Me.lblEDIT_SYAIN_ID.BackColor = System.Drawing.Color.Transparent
+        Me.lblEDIT_SYAIN_ID.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblEDIT_SYAIN_ID.Enabled = False
+        Me.lblEDIT_SYAIN_ID.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblEDIT_SYAIN_ID.Location = New System.Drawing.Point(1050, 30)
+        Me.lblEDIT_SYAIN_ID.Name = "lblEDIT_SYAIN_ID"
+        Me.lblEDIT_SYAIN_ID.Size = New System.Drawing.Size(176, 30)
+        Me.lblEDIT_SYAIN_ID.TabIndex = 66
+        Me.lblEDIT_SYAIN_ID.Text = "xxx xxx"
+        Me.lblEDIT_SYAIN_ID.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblEDIT_SYAIN_ID.Visible = False
+        '
+        'lbllblEDIT_YMDHNS
+        '
+        Me.lbllblEDIT_YMDHNS.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lbllblEDIT_YMDHNS.Location = New System.Drawing.Point(938, 0)
+        Me.lbllblEDIT_YMDHNS.Name = "lbllblEDIT_YMDHNS"
+        Me.lbllblEDIT_YMDHNS.Size = New System.Drawing.Size(94, 30)
+        Me.lbllblEDIT_YMDHNS.TabIndex = 56
+        Me.lbllblEDIT_YMDHNS.Text = "最終更新日時"
+        Me.lbllblEDIT_YMDHNS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lbllblEDIT_YMDHNS.Visible = False
+        '
+        'lblEDIT_YMDHNS
+        '
+        Me.lblEDIT_YMDHNS.BackColor = System.Drawing.Color.Transparent
+        Me.lblEDIT_YMDHNS.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblEDIT_YMDHNS.Enabled = False
+        Me.lblEDIT_YMDHNS.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblEDIT_YMDHNS.Location = New System.Drawing.Point(1050, 0)
+        Me.lblEDIT_YMDHNS.Name = "lblEDIT_YMDHNS"
+        Me.lblEDIT_YMDHNS.Size = New System.Drawing.Size(176, 30)
+        Me.lblEDIT_YMDHNS.TabIndex = 43
+        Me.lblEDIT_YMDHNS.Text = "yyyy/MM/dd HH:mm:ss"
+        Me.lblEDIT_YMDHNS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblEDIT_YMDHNS.Visible = False
+        '
+        'lbllblEDIT_SYAIN_ID
+        '
+        Me.lbllblEDIT_SYAIN_ID.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lbllblEDIT_SYAIN_ID.Location = New System.Drawing.Point(938, 30)
+        Me.lbllblEDIT_SYAIN_ID.Name = "lbllblEDIT_SYAIN_ID"
+        Me.lbllblEDIT_SYAIN_ID.Size = New System.Drawing.Size(94, 30)
+        Me.lbllblEDIT_SYAIN_ID.TabIndex = 65
+        Me.lbllblEDIT_SYAIN_ID.Text = "最終更新者"
+        Me.lbllblEDIT_SYAIN_ID.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lbllblEDIT_SYAIN_ID.Visible = False
         '
         'Label5
         '
@@ -239,8 +240,8 @@ Partial Class FrmM0161
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(94, 30)
         Me.Label5.TabIndex = 37
-        Me.Label5.Text = "承認報告書ID"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label5.Text = "承認報告書:"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label6
         '
@@ -249,8 +250,8 @@ Partial Class FrmM0161
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(94, 30)
         Me.Label6.TabIndex = 38
-        Me.Label6.Text = "承認順"
-        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label6.Text = "承認順:"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label7
         '
@@ -259,13 +260,15 @@ Partial Class FrmM0161
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(94, 30)
         Me.Label7.TabIndex = 36
-        Me.Label7.Text = "社員ID"
-        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label7.Text = "社員:"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'CmbSYONIN_HOKOKUSYO_ID
         '
         Me.CmbSYONIN_HOKOKUSYO_ID.BackColor = System.Drawing.SystemColors.Window
+        Me.CmbSYONIN_HOKOKUSYO_ID.Cursor = System.Windows.Forms.Cursors.Hand
         Me.CmbSYONIN_HOKOKUSYO_ID.DisplayMember = "DISP"
+        Me.CmbSYONIN_HOKOKUSYO_ID.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CmbSYONIN_HOKOKUSYO_ID.FormattingEnabled = True
         Me.CmbSYONIN_HOKOKUSYO_ID.GotFocusedColor = System.Drawing.Color.Empty
         Me.CmbSYONIN_HOKOKUSYO_ID.Location = New System.Drawing.Point(103, 3)
@@ -280,7 +283,9 @@ Partial Class FrmM0161
         'CmbSYONIN_JUN
         '
         Me.CmbSYONIN_JUN.BackColor = System.Drawing.SystemColors.Window
+        Me.CmbSYONIN_JUN.Cursor = System.Windows.Forms.Cursors.Hand
         Me.CmbSYONIN_JUN.DisplayMember = "DISP"
+        Me.CmbSYONIN_JUN.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CmbSYONIN_JUN.FormattingEnabled = True
         Me.CmbSYONIN_JUN.GotFocusedColor = System.Drawing.Color.Empty
         Me.CmbSYONIN_JUN.Location = New System.Drawing.Point(103, 33)
@@ -295,7 +300,9 @@ Partial Class FrmM0161
         'CmbSYAIN_ID
         '
         Me.CmbSYAIN_ID.BackColor = System.Drawing.SystemColors.Window
+        Me.CmbSYAIN_ID.Cursor = System.Windows.Forms.Cursors.Default
         Me.CmbSYAIN_ID.DisplayMember = "DISP"
+        Me.CmbSYAIN_ID.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CmbSYAIN_ID.FormattingEnabled = True
         Me.CmbSYAIN_ID.GotFocusedColor = System.Drawing.Color.Empty
         Me.CmbSYAIN_ID.Location = New System.Drawing.Point(103, 63)
@@ -307,7 +314,7 @@ Partial Class FrmM0161
         Me.CmbSYAIN_ID.TabIndex = 41
         Me.CmbSYAIN_ID.ValueMember = "VALUE"
         '
-        'FrmM0131
+        'FrmM0161
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.BackColor = System.Drawing.SystemColors.Control
@@ -316,7 +323,7 @@ Partial Class FrmM0161
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True
         Me.MinimumSize = New System.Drawing.Size(1280, 300)
-        Me.Name = "FrmM0131"
+        Me.Name = "FrmM0161"
         Me.ShowInTaskbar = False
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.Controls.SetChildIndex(Me.lblTytle, 0)
