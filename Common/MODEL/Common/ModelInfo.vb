@@ -1,4 +1,5 @@
-﻿Imports System.ComponentModel.DataAnnotations
+﻿Imports System.ComponentModel
+Imports System.ComponentModel.DataAnnotations
 Imports System.Reflection
 
 
@@ -16,6 +17,7 @@ Public Class ModelInfo(Of T As {New, IDataModel})
 
     Public Property Entities As New List(Of T)
 
+    <DefaultValue(True)>
     Public Property OnlyAutoGenerateField As Boolean
 
     Public Property Entity As T
@@ -32,13 +34,16 @@ Public Class ModelInfo(Of T As {New, IDataModel})
 #Region "コンストラクタ"
 
     Public Sub New()
-
+        OnlyAutoGenerateField = True
+        Properties.ForEach(Sub(p) Data.Columns.Add(p.Name, p.PropertyType))
+        Entity = New T
     End Sub
 
     Public Sub New(Optional _OnlyAutoGenerateField As Boolean = True, Optional srcDATA As DataTable = Nothing)
         OnlyAutoGenerateField = _OnlyAutoGenerateField
 
         Properties().ForEach(Sub(p) Data.Columns.Add(p.Name, p.PropertyType))
+        Entity = New T
         If srcDATA IsNot Nothing Then
             Call SetDataSource(srcDATA)
             Call SetEntities(srcDATA)
@@ -47,16 +52,21 @@ Public Class ModelInfo(Of T As {New, IDataModel})
 
 #End Region
 
-    Public Function Properties() As Generic.List(Of PropertyInfo)
-        Dim _properties = New Generic.List(Of Reflection.PropertyInfo)
-        [GetType].GetProperties(BindingFlags.Public Or
+    ''' <summary>
+    ''' モデルのフィールド一覧を取得
+    ''' </summary>
+    ''' <returns></returns>
+    Public ReadOnly Property Properties As Generic.List(Of PropertyInfo)
+        Get
+            Dim _properties = New Generic.List(Of Reflection.PropertyInfo)
+            [GetType].GetProperties(BindingFlags.Public Or
                                 BindingFlags.Instance Or
                                 BindingFlags.Static).
                   ForEach(Sub(p) If OnlyAutoGenerateField = False Or IsAutoGenerateField(p.Name) = True Then _properties.Add(p))
 
-        Return _properties
-
-    End Function
+            Return _properties
+        End Get
+    End Property
 
     Public Sub SetEntities(srcDATA As DataTable)
         For Each row In srcDATA.Rows
@@ -156,9 +166,13 @@ Public Class ModelInfo(Of T As {New, IDataModel})
 End Class
 
 Public Interface IDataModel
+    <Display(AutoGenerateField:=False)>
     Default Property Item(propertyName As String) As Object
-    Sub Clear()
 
+    <Display(AutoGenerateField:=False)>
+    ReadOnly Property Properties As Generic.List(Of PropertyInfo)
+
+    Sub Clear()
 End Interface
 
 

@@ -1788,14 +1788,14 @@ Public Class FrmG0010
                     cmdFunc4.Text = "変更・承認(F4)"
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
                 End If
-                If FunblnAllowSyonin() Then
-                    cmdFunc4.Enabled = True
-                Else
-                    cmdFunc4.Enabled = False
-                    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "変更承認権限がありません")
-                End If
+                'If FunblnAllowSyonin() Then
+                cmdFunc4.Enabled = True
+                    'Else
+                    '    cmdFunc4.Enabled = False
+                    '    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "変更承認権限がありません")
+                    'End If
 
-                If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+                    If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
 
                     If dgvDATA.CurrentRow.Cells.Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).Value <> "" Then
                         '削除済み
@@ -1843,7 +1843,7 @@ Public Class FrmG0010
                 cmdFunc11.Enabled = False
             End If
 
-
+            cmdFunc1.Enabled = Not (panelMan.SelectedIndex = 1)
             cmdFunc7.Enabled = (panelMan.SelectedIndex = 1)
 
 

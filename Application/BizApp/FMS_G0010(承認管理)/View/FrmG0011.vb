@@ -1,5 +1,8 @@
 Imports JMS_COMMON.ClsPubMethod
 
+''' <summary>
+''' NCR入力画面
+''' </summary>
 Public Class FrmG0011
 
 #Region "定数・変数"
@@ -13,12 +16,13 @@ Public Class FrmG0011
 
     'Model
     Private _V002_NCR_J As New MODEL.V002_NCR_J
+
     Private _V003_SYONIN_J_KANRI_List As New List(Of MODEL.V003_SYONIN_J_KANRI)
     Private _V004_HOKOKU_SOUSA As New MODEL.V004_HOKOKU_SOUSA
     Private _V005_CAR_J As New MODEL.V005_CAR_J
 
     '入力必須コントロール検証判定
-    Private pri_blnValidated As Boolean = True
+    Private IsValidated As Boolean = True
 
     '是正処置要否判定=CAR編集画面起動判定
     Private blnEnableCAREdit As Boolean
@@ -81,7 +85,7 @@ Public Class FrmG0011
         D003NCRJBindingSource.DataSource = _D003_NCR_J
         mtxHOKUKO_NO.ReadOnly = True
         dtDraft.ReadOnly = True
-        'cmbKISO_TANTO.ReadOnly = True
+        cmbKISO_TANTO.ReadOnly = True
         mtxHINMEI.ReadOnly = True
         pnlPict1.AllowDrop = True
         pnlPict2.AllowDrop = True
@@ -240,6 +244,7 @@ Public Class FrmG0011
     Private Sub Frm_Closed(sender As Object, e As EventArgs) Handles Me.Closed
         Me.Owner.Visible = True
     End Sub
+
 #End Region
 
 #Region "FunctionButton関連"
@@ -336,7 +341,6 @@ Public Class FrmG0011
                     'Else
                     '    Call OpenFormTENSO()
                     'End If
-
 
                 Case 5  '差戻し
                     Call OpenFormSASIMODOSI()
@@ -650,6 +654,8 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_E_YOHI_KB & "' AS " & NameOf(_D003_NCR_J.SYOCHI_E_YOHI_KB))
         sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU.ConvertSqlEscape & "' AS " & NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU))
 
+        sbSQL.Append(" ,'" & _D003_NCR_J.HASSEI_YMD & "' AS " & NameOf(_D003_NCR_J.HASSEI_YMD))
+
         sbSQL.Append(" ,'" & _D003_NCR_J.FILE_PATH.ConvertSqlEscape & "' AS " & NameOf(_D003_NCR_J.FILE_PATH))
         sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH1.ConvertSqlEscape & "' AS " & NameOf(_D003_NCR_J.G_FILE_PATH1))
         sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH2.ConvertSqlEscape & "' AS " & NameOf(_D003_NCR_J.G_FILE_PATH2))
@@ -732,6 +738,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.SYOCHI_E_UMU_KB) & " = WK." & NameOf(_D003_NCR_J.SYOCHI_E_UMU_KB))
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.SYOCHI_E_YOHI_KB) & " = WK." & NameOf(_D003_NCR_J.SYOCHI_E_YOHI_KB))
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU) & " = WK." & NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU))
+        sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.HASSEI_YMD) & " = WK." & NameOf(_D003_NCR_J.HASSEI_YMD))
 
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.FILE_PATH) & " = WK." & NameOf(_D003_NCR_J.FILE_PATH))
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.G_FILE_PATH1) & " = WK." & NameOf(_D003_NCR_J.G_FILE_PATH1))
@@ -811,6 +818,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_UMU_KB))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_YOHI_KB))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU))
+        sbSQL.Append(" ," & NameOf(_D003_NCR_J.HASSEI_YMD))
         '---
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.FILE_PATH))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.G_FILE_PATH1))
@@ -891,6 +899,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,'0'") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_UMU_KB))
         sbSQL.Append(" ,'0'") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_YOHI_KB))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU))
+        sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.HASSEI_YMD))
         '---
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.FILE_PATH))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.G_FILE_PATH1))
@@ -945,6 +954,8 @@ Public Class FrmG0011
         Dim sqlEx As New Exception
         Dim strSysDate As String = DB.GetSysDateString
 
+#Region "承認"
+
         '-----データモデル更新
         _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
         _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
@@ -956,11 +967,18 @@ Public Class FrmG0011
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
                 _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
             Case ENM_SAVE_MODE._2_承認申請
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
 
-                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
+                'DEBUG: #80 承認申請日は画面で入力
+                If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
+                ElseIf _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.Trim.Length = 8 Then
+                    'datetextboxにバインド時は時刻情報を結合
+                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS &= "000000"
+                End If
             Case Else
                 'Err
                 Return False
@@ -1031,7 +1049,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS))
+        sbSQL.Append(" ,dbo.GetSysDateString()") 'ADD_YMDHNS
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
         sbSQL.Append(" )")
@@ -1059,7 +1077,10 @@ Public Class FrmG0011
                 Return False
         End Select
 
-        '-----承認申請
+#End Region
+
+#Region "申請"
+
         Select Case enmSAVE_MODE
             Case ENM_SAVE_MODE._1_保存
                 '保存実績のみ
@@ -1185,16 +1206,16 @@ Public Class FrmG0011
                 Return False
         End Select
 
+#End Region
+
+#Region "CAR起草依頼メール送信"
 
         '#73
-
-        Dim dsList As New DataSet
         sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append($"SELECT {NameOf(MODEL.D005_CAR_J.HOKOKU_NO)} FROM {NameOf(MODEL.D005_CAR_J)} ")
+        sbSQL.Append($"SELECT COUNT({NameOf(MODEL.D005_CAR_J.HOKOKU_NO)}) FROM {NameOf(MODEL.D005_CAR_J)} ")
         sbSQL.Append($" WHERE {NameOf(MODEL.D005_CAR_J.HOKOKU_NO)}='{_D004_SYONIN_J_KANRI.HOKOKU_NO}'")
-
-        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-        If dsList.Tables(0).Rows.Count = 0 Then
+        strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg)
+        If Val(strRET) = 0 Then
             'SPEC: 40-1
             If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And
                 PrCurrentStage = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 And
@@ -1209,6 +1230,8 @@ Public Class FrmG0011
                 End If
             End If
         End If
+
+#End Region
 
         Return True
     End Function
@@ -1225,7 +1248,7 @@ Public Class FrmG0011
         Dim KISYU_NAME As String = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
         Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
         Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
-        Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
+        Dim strSubject As String = $"【不適合品処置依頼】{KISYU_NAME}・{_D003_NCR_J.BUHIN_BANGO}"
         Dim strBody As String = <html><![CDATA[
         {0} 殿<br />
         <br />
@@ -1247,7 +1270,6 @@ Public Class FrmG0011
 
         'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}
 
-        strSubject = String.Format(strSubject, KISYU_NAME, _D003_NCR_J.BUHIN_BANGO)
         strBody = String.Format(strBody,
                                 Fun_GetUSER_NAME(_D004_SYONIN_J_KANRI.SYAIN_ID),
                                 _D004_SYONIN_J_KANRI.HOKOKU_NO,
@@ -1318,6 +1340,7 @@ Public Class FrmG0011
 #End Region
 
 #Region "   R001保存"
+
     ''' <summary>
     ''' 報告書操作履歴更新
     ''' </summary>
@@ -1496,6 +1519,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.FILE_PATH))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.G_FILE_PATH1))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.G_FILE_PATH2))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HASSEI_YMD))
         sbSQL.Append(" ) VALUES(")
         sbSQL.Append(" '" & strYMDHNS & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.HOKOKU_NO & "'")
@@ -1569,6 +1593,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & _D003_NCR_J.FILE_PATH & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH1 & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH2 & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J.HASSEI_YMD & "'")
         sbSQL.Append(" );")
         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
         If intRET <> 1 Then
@@ -1580,9 +1605,11 @@ Public Class FrmG0011
             Return True
         End If
     End Function
+
 #End Region
 
 #Region "   Ｄ005保存"
+
     ''' <summary>
     ''' D005_CAR_J更新
     ''' </summary>
@@ -2167,6 +2194,8 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & "" & "' AS " & NameOf(_D003_NCR_J.G_FILE_PATH1))
         sbSQL.Append(" ,'" & "" & "' AS " & NameOf(_D003_NCR_J.G_FILE_PATH2))
         sbSQL.Append(" ," & "0" & " AS " & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID))
+        sbSQL.Append(" ," & "" & " AS " & NameOf(_D003_NCR_J.HASSEI_YMD))
+
         sbSQL.Append(" ," & pub_SYAIN_INFO.SYAIN_ID & " AS " & NameOf(_D003_NCR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ,dbo.GetSysDateString() AS " & NameOf(_D003_NCR_J.ADD_YMDHNS))
         sbSQL.Append(" ," & 0 & " AS " & NameOf(_D003_NCR_J.UPD_SYAIN_ID))
@@ -2250,6 +2279,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.G_FILE_PATH1) & " = WK." & NameOf(_D003_NCR_J.G_FILE_PATH1))
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.G_FILE_PATH2) & " = WK." & NameOf(_D003_NCR_J.G_FILE_PATH2))
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID) & " = WK." & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID))
+        sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.HASSEI_YMD) & " = WK." & NameOf(_D003_NCR_J.HASSEI_YMD))
 
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.UPD_SYAIN_ID) & " = " & pub_SYAIN_INFO.SYAIN_ID)
         sbSQL.Append(" ,SrcT." & NameOf(_D003_NCR_J.UPD_YMDHNS) & " = dbo.GetSysDateString()")
@@ -2328,6 +2358,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.G_FILE_PATH1))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.G_FILE_PATH2))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_D003_NCR_J.HASSEI_YMD))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.ADD_YMDHNS))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.UPD_SYAIN_ID))
@@ -2406,6 +2437,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.G_FILE_PATH1))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.G_FILE_PATH2))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID))
+        sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.HASSEI_YMD))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.ADD_SYAIN_ID))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.ADD_YMDHNS))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.UPD_SYAIN_ID))
@@ -2563,6 +2595,7 @@ Public Class FrmG0011
 
         Return True
     End Function
+
 #End Region
 
 #End Region
@@ -3008,7 +3041,7 @@ Public Class FrmG0011
                                 lblSTAGE.Text = strStageName
                             End If
 
-                            '次ステージの承認担当者・コメント欄をバインド
+                            '次ステージの承認担当者・コメント欄・承認申請日をバインド
                             Dim ctrlTANTO As Control() = panel.Controls.Find("cmbST" & intCurrentTabNo.ToString("00") & "_DestTANTO", True)
                             If ctrlTANTO.Length > 0 Then
                                 Dim cmbTANTO As ComboboxEx = ctrlTANTO(0)
@@ -3019,6 +3052,11 @@ Public Class FrmG0011
                             If ctrlCOMMENT.Length > 0 Then
                                 Dim txtCOMMENT As TextBoxEx = ctrlCOMMENT(0)
                                 txtCOMMENT.DataBindings.Add(New Binding(NameOf(txtCOMMENT.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+                            End If
+                            Dim ctrlYMD As Control() = panel.Controls.Find("dtST" & intCurrentTabNo.ToString("00") & "_UPD_YMD", True)
+                            If ctrlYMD.Length > 0 Then
+                                Dim dtSYONIN_SINSEI_YMD As DateTextBoxEx = ctrlYMD(0)
+                                dtSYONIN_SINSEI_YMD.DataBindings.Add(New Binding(NameOf(dtSYONIN_SINSEI_YMD.ValueNonFormat), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
                             End If
 
                         ElseIf intTabNo > intCurrentTabNo Then
@@ -3055,7 +3093,6 @@ Public Class FrmG0011
                         End If
                         If _D003_NCR_J.CLOSE_FG Then panel.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     End If
-
                 Else
                     Continue For
                 End If
@@ -3231,22 +3268,23 @@ Public Class FrmG0011
                         Else
                             cmbST01_DestTANTO.SelectedValue = _V003.SYAIN_ID
                         End If
-                        If intStageID > ENM_NCR_STAGE._20_起草確認製造GL Then
+                        If intStageID >= ENM_NCR_STAGE._20_起草確認製造GL Then
                             cmbST01_DestTANTO.ReadOnly = True
                             txtST01_KEKKA.ReadOnly = True
                             txtST01_YOKYU_NAIYO.ReadOnly = True
                         End If
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            mtxST01_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST01_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST01_UPD_YMD.ReadOnly = True
                         Else
-                            mtxST01_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                     Else
-                        mtxST01_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
                 Else
-                    mtxST01_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                    _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                 End If
             End If
 
@@ -3282,9 +3320,10 @@ Public Class FrmG0011
 
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        mtxST02_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                        dtST02_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                        dtST02_UPD_YMD.ReadOnly = True
                     Else
-                        mtxST02_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
 
                     If intStageID > ENM_NCR_STAGE._20_起草確認製造GL Then
@@ -3292,7 +3331,7 @@ Public Class FrmG0011
                         txtST02_Comment.ReadOnly = True
                     End If
                 Else
-                    mtxST02_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                    _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                 End If
             Else
                 pnlST02.Visible = False
@@ -3323,9 +3362,10 @@ Public Class FrmG0011
 
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        mtxST03_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                        dtST03_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                        dtST03_UPD_YMD.ReadOnly = True
                     Else
-                        mtxST03_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
 
                     If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._30_起草確認検査 Then lblST03_Modoshi_Riyu.Visible = True
@@ -3341,7 +3381,7 @@ Public Class FrmG0011
                         txtST03_Comment.ReadOnly = True
                     End If
                 Else
-                    mtxST03_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                    _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                 End If
             Else
                 pnlST03.Visible = False
@@ -3407,9 +3447,10 @@ Public Class FrmG0011
                     txtST04_Comment.Text = _V003.COMMENT
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        mtxST04_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                        dtST04_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                        dtST04_UPD_YMD.ReadOnly = True
                     Else
-                        mtxST04_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
                     If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 Then lblST04_Modoshi_Riyu.Visible = True
                     If _V003.SASIMODOSI_FG Then
@@ -3428,7 +3469,7 @@ Public Class FrmG0011
                         pnlST04_ZESEI.Enabled = False
                     End If
                 Else
-                    mtxST04_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                    _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                 End If
             Else
                 pnlST04.Visible = False
@@ -3458,9 +3499,10 @@ Public Class FrmG0011
                     txtST05_Comment.Text = _V003.COMMENT
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        mtxST05_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                        dtST05_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                        dtST05_UPD_YMD.ReadOnly = True
                     Else
-                        mtxST05_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
                     If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._50_事前審査確認 Then lblST05_Modoshi_Riyu.Visible = True
                     If _V003.SASIMODOSI_FG Then
@@ -3474,7 +3516,7 @@ Public Class FrmG0011
                         txtST05_Comment.ReadOnly = True
                     End If
                 Else
-                    mtxST05_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                    _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                 End If
             Else
                 pnlST05.Visible = False
@@ -3524,9 +3566,10 @@ Public Class FrmG0011
                     txtST06_Comment.Text = _V003.COMMENT
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        mtxST06_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                        dtST06_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                        dtST06_UPD_YMD.ReadOnly = True
                     Else
-                        mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
                     If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._60_再審審査判定_技術代表 Then lblST06_Modoshi_Riyu.Visible = True
                     If _V003.SASIMODOSI_FG Then
@@ -3540,7 +3583,7 @@ Public Class FrmG0011
                         txtST06_Comment.ReadOnly = True
                     End If
                 Else
-                    mtxST06_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                    _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     pnlST06.Visible = False
                     rsbtnST06.Enabled = False
                     rsbtnST06.BackColor = Color.Silver
@@ -3549,6 +3592,7 @@ Public Class FrmG0011
                 pnlST06.Visible = False
                 rsbtnST06.Enabled = False
             End If
+
 #End Region
 
 #Region "               61 7"
@@ -3576,9 +3620,10 @@ Public Class FrmG0011
                         txtST07_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            mtxST07_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST07_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST07_UPD_YMD.ReadOnly = True
                         Else
-                            mtxST07_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._61_再審審査判定_品証代表 Then lblST07_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -3592,7 +3637,7 @@ Public Class FrmG0011
                             txtST07_Comment.ReadOnly = True
                         End If
                     Else
-                        mtxST07_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         pnlST07.Visible = False
                         rsbtnST07.Enabled = False
                         rsbtnST07.BackColor = Color.Silver
@@ -3657,9 +3702,10 @@ Public Class FrmG0011
                         txtST08_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            mtxST08_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST08_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST08_UPD_YMD.ReadOnly = True
                         Else
-                            mtxST08_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag Then lblST08_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -3673,7 +3719,7 @@ Public Class FrmG0011
                             txtST08_Comment.ReadOnly = True
                         End If
                     Else
-                        mtxST08_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         pnlST08.Visible = False
                         rsbtnST08.Enabled = False
                         rsbtnST08.BackColor = Color.Silver
@@ -3768,9 +3814,10 @@ Public Class FrmG0011
                         txtST09_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            mtxST09_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST09_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST09_UPD_YMD.ReadOnly = True
                         Else
-                            mtxST09_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._80_処置実施 Then lblST09_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -3785,7 +3832,7 @@ Public Class FrmG0011
                             tabST08_SUB.Enabled = False
                         End If
                     Else
-                        mtxST09_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         pnlST09.Visible = False
                         rsbtnST09.Enabled = False
                         rsbtnST09.BackColor = Color.Silver
@@ -3823,6 +3870,7 @@ Public Class FrmG0011
             If intStageID > ENM_NCR_STAGE._80_処置実施 Then
                 flpnlST08_SAIKAKO.Enabled = False
             End If
+
 #End Region
 
 #Region "               81 10"
@@ -3848,9 +3896,10 @@ Public Class FrmG0011
                         txtST10_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            mtxST10_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST10_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST10_UPD_YMD.ReadOnly = True
                         Else
-                            mtxST10_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
 
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._81_処置実施_生技 Then lblST10_Modoshi_Riyu.Visible = True
@@ -3896,9 +3945,10 @@ Public Class FrmG0011
                         txtST11_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            mtxST11_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST11_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST11_UPD_YMD.ReadOnly = True
                         Else
-                            mtxST11_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._82_処置実施_製造 Then lblST11_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -3943,9 +3993,10 @@ Public Class FrmG0011
                         txtST12_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            mtxST12_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST12_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST12_UPD_YMD.ReadOnly = True
                         Else
-                            mtxST12_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._83_処置実施_検査 Then lblST12_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -3989,9 +4040,10 @@ Public Class FrmG0011
                         txtST13_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            mtxST13_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST13_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST13_UPD_YMD.ReadOnly = True
                         Else
-                            mtxST13_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._90_処置実施確認_管理T Then lblST13_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -4005,7 +4057,7 @@ Public Class FrmG0011
                             txtST13_Comment.ReadOnly = True
                         End If
                     Else
-                        mtxST13_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
                 Else
                     pnlST13.Visible = False
@@ -4041,9 +4093,10 @@ Public Class FrmG0011
                         txtST14_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            mtxST14_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST14_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST14_UPD_YMD.ReadOnly = True
                         Else
-                            mtxST14_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
 
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長 Then lblST14_Modoshi_Riyu.Visible = True
@@ -4058,7 +4111,7 @@ Public Class FrmG0011
                             txtST14_Comment.ReadOnly = True
                         End If
                     Else
-                        mtxST14_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
                 End If
             Else
@@ -4143,9 +4196,10 @@ Public Class FrmG0011
                         txtST15_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            mtxST15_UPD_YMD.Text = dtSYONIN_YMD.ToString("yyyy/MM/dd")
+                            dtST15_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST15_UPD_YMD.ReadOnly = True
                         Else
-                            mtxST15_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
                         If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._110_abcde処置担当 Then lblST15_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -4159,7 +4213,7 @@ Public Class FrmG0011
                             txtST15_Comment.ReadOnly = True
                         End If
                     Else
-                        mtxST15_UPD_YMD.Text = Today.ToString("yyyy/MM/dd")
+                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
                 End If
             Else
@@ -4184,11 +4238,13 @@ Public Class FrmG0011
 #End Region
 
 #Region "               999 close"
+
             If intStageID = ENM_NCR_STAGE._999_Closed Then
                 rsbtnST99.Enabled = True
             Else
                 rsbtnST99.Enabled = False
             End If
+
 #End Region
 
             Return True
@@ -4267,9 +4323,6 @@ Public Class FrmG0011
                                                                         rsbtnST07.CheckedChanged,
                                                                         rsbtnST08.CheckedChanged,
                                                                         rsbtnST09.CheckedChanged,
-                                                                        rsbtnST10.CheckedChanged,
-                                                                        rsbtnST11.CheckedChanged,
-                                                                        rsbtnST12.CheckedChanged,
                                                                         rsbtnST13.CheckedChanged,
                                                                         rsbtnST14.CheckedChanged,
                                                                         rsbtnST15.CheckedChanged,
@@ -4374,11 +4427,11 @@ Public Class FrmG0011
 
         If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         End If
     End Sub
 
@@ -4450,11 +4503,11 @@ Public Class FrmG0011
 
         If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "機種"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         End If
     End Sub
 
@@ -4573,11 +4626,11 @@ Public Class FrmG0011
 
         If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品番号"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         End If
     End Sub
 
@@ -4590,11 +4643,11 @@ Public Class FrmG0011
 
         If mtx.ReadOnly OrElse mtx.Text.IsNullOrWhiteSpace Then
             ErrorProvider.ClearError(mtx)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         Else
             ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製造番号(号機)"))
             ErrorProvider.SetIconAlignment(mtx, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         End If
     End Sub
 
@@ -4616,11 +4669,11 @@ Public Class FrmG0011
 
         If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "状態区分"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         End If
     End Sub
 
@@ -4634,10 +4687,10 @@ Public Class FrmG0011
         If mtx.Visible = True AndAlso mtx.ReadOnly = False AndAlso mtx.Text.IsNullOrWhiteSpace Then
             ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "返却理由"))
             ErrorProvider.SetIconAlignment(mtx, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         Else
             ErrorProvider.ClearError(mtx)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         End If
     End Sub
 
@@ -4672,11 +4725,11 @@ Public Class FrmG0011
 
         If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "不適合区分"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         End If
     End Sub
 
@@ -4694,11 +4747,11 @@ Public Class FrmG0011
 
         If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "不適合詳細区分"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         End If
     End Sub
 
@@ -4713,10 +4766,10 @@ Public Class FrmG0011
             'e.Cancel = True
             ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "図番"))
             ErrorProvider.SetIconAlignment(mtx, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         Else
             ErrorProvider.ClearError(mtx)
-            pri_blnValidated = True
+            IsValidated = True
         End If
     End Sub
 
@@ -4758,11 +4811,42 @@ Public Class FrmG0011
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
         If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "申請先社員"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
+        End If
+    End Sub
+
+#End Region
+
+#Region "承認申請日"
+
+    Private Sub dtUPD_YMD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtST01_UPD_YMD.Validating,
+                                                                                                              dtST02_UPD_YMD.Validating,
+                                                                                                              dtST03_UPD_YMD.Validating,
+                                                                                                              dtST04_UPD_YMD.Validating,
+                                                                                                              dtST05_UPD_YMD.Validating,
+                                                                                                              dtST06_UPD_YMD.Validating,
+                                                                                                              dtST07_UPD_YMD.Validating,
+                                                                                                              dtST08_UPD_YMD.Validating,
+                                                                                                              dtST09_UPD_YMD.Validating,
+                                                                                                              dtST10_UPD_YMD.Validating,
+                                                                                                              dtST11_UPD_YMD.Validating,
+                                                                                                              dtST12_UPD_YMD.Validating,
+                                                                                                              dtST13_UPD_YMD.Validating,
+                                                                                                              dtST14_UPD_YMD.Validating,
+                                                                                                              dtST15_UPD_YMD.Validating
+
+        Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
+        If dtx.ValueNonFormat.IsNullOrWhiteSpace Then
+            ErrorProvider.SetError(dtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認・申請日"))
+            ErrorProvider.SetIconAlignment(dtx, ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        Else
+            ErrorProvider.ClearError(dtx)
+            IsValidated = IsValidated AndAlso True
         End If
     End Sub
 
@@ -4777,10 +4861,10 @@ Public Class FrmG0011
             'e.Cancel = True
             ErrorProvider.SetError(txt, String.Format(My.Resources.infoMsgRequireSelectOrInput, "要求内容"))
             ErrorProvider.SetIconAlignment(txt, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         Else
             ErrorProvider.ClearError(txt)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         End If
     End Sub
 
@@ -4791,10 +4875,10 @@ Public Class FrmG0011
             'e.Cancel = True
             ErrorProvider.SetError(txt, String.Format(My.Resources.infoMsgRequireSelectOrInput, "観察結果"))
             ErrorProvider.SetIconAlignment(txt, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         Else
             ErrorProvider.ClearError(txt)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         End If
     End Sub
 
@@ -4857,10 +4941,10 @@ Public Class FrmG0011
             'e.Cancel = True
             ErrorProvider.SetError(txt, String.Format(My.Resources.infoMsgRequireSelectOrInput, "否の理由"))
             ErrorProvider.SetIconAlignment(txt, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         Else
             ErrorProvider.ClearError(txt)
-            pri_blnValidated = True
+            IsValidated = True
         End If
     End Sub
 
@@ -4869,11 +4953,11 @@ Public Class FrmG0011
 
         If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "事前審査判定"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         End If
     End Sub
 
@@ -4882,11 +4966,11 @@ Public Class FrmG0011
 
         If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "CAR起草担当"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         End If
     End Sub
 
@@ -4895,11 +4979,11 @@ Public Class FrmG0011
 
         If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "発生工程GL担当"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         End If
     End Sub
 
@@ -4927,11 +5011,11 @@ Public Class FrmG0011
 
         If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "事前審査判定"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         End If
     End Sub
 
@@ -4983,11 +5067,11 @@ Public Class FrmG0011
 
         If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "再審申請担当"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         End If
     End Sub
 
@@ -4996,11 +5080,11 @@ Public Class FrmG0011
 
         If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "顧客判定指示"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         End If
     End Sub
 
@@ -5009,11 +5093,11 @@ Public Class FrmG0011
 
         If cmb.Selected Then
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         Else
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "顧客最終判定"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         End If
     End Sub
 
@@ -5029,10 +5113,10 @@ Public Class FrmG0011
         If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.Selected = False Then
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "廃却方法"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         End If
     End Sub
 
@@ -5043,10 +5127,10 @@ Public Class FrmG0011
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "廃却実施者"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         End If
     End Sub
 
@@ -5061,10 +5145,10 @@ Public Class FrmG0011
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "検査結果"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         End If
     End Sub
 
@@ -5075,10 +5159,10 @@ Public Class FrmG0011
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製造担当"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         End If
     End Sub
 
@@ -5089,10 +5173,10 @@ Public Class FrmG0011
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "生技担当"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         End If
     End Sub
 
@@ -5103,10 +5187,10 @@ Public Class FrmG0011
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "検査担当"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         End If
     End Sub
 
@@ -5121,10 +5205,10 @@ Public Class FrmG0011
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "返却担当"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         End If
     End Sub
 
@@ -5139,10 +5223,10 @@ Public Class FrmG0011
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "機種"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         End If
     End Sub
 
@@ -5153,10 +5237,10 @@ Public Class FrmG0011
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品番号"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
+            IsValidated = False
         Else
             ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
+            IsValidated = IsValidated AndAlso True
         End If
     End Sub
 
@@ -5224,9 +5308,6 @@ Public Class FrmG0011
             chk.Checked = IIf(strNameSuffix = "T", True, False)
         End If
     End Sub
-
-
-
 
 #End Region
 
@@ -5522,7 +5603,7 @@ Public Class FrmG0011
 
 #Region "ローカル関数"
 
-#Region "Model - Control バインディング"
+#Region "バインディング"
 
     Private Function FunSetBindingD003() As Boolean
 
@@ -5544,6 +5625,7 @@ Public Class FrmG0011
         cmbFUTEKIGO_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_KB.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.FUTEKIGO_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         'FUTEKIGO_S_KBはFUTEKIGO_KB変更時にバインド
         mtxZUBAN_KIKAKU.DataBindings.Add(New Binding(NameOf(mtxZUBAN_KIKAKU.Text), _D003_NCR_J, NameOf(_D003_NCR_J.ZUMEN_KIKAKU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        dtHASSEI_YMD.DataBindings.Add(New Binding(NameOf(dtHASSEI_YMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.HASSEI_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
         '添付資料
         lbltmpFile1.DataBindings.Add(New Binding(NameOf(lbltmpFile1.Tag), _D003_NCR_J, NameOf(_D003_NCR_J.FILE_PATH), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -5729,16 +5811,14 @@ Public Class FrmG0011
                 Case ENM_DATA_OPERATION_MODE._1_ADD
 
                     mtxHOKUKO_NO.Text = "<新規>"
-                    '_D003_NCR_J.HOKOKU_NO = "<新規>"
                     _D003_NCR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    '_D003_NCR_J.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
+                    _D003_NCR_J.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
                     Select Case pub_SYAIN_INFO.BUMON_KB
                         Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP, Context.ENM_BUMON_KB._3_複合材
                             _D003_NCR_J.BUMON_KB = pub_SYAIN_INFO.BUMON_KB
                         Case Else
                     End Select
                     _D003_NCR_J.SURYO = 1
-
                     Me.TabSTAGE.Visible = False 'ちらつき防止
                     Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage))
                     Application.DoEvents()
@@ -5770,6 +5850,7 @@ Public Class FrmG0011
                         cmbFUTEKIGO_S_KB.ReadOnly = True
                         mtxZUBAN_KIKAKU.ReadOnly = True
                         numSU.Enabled = False
+                        dtHASSEI_YMD.ReadOnly = True
                     End If
 
                     TabSTAGE.Visible = False
@@ -5892,7 +5973,7 @@ Public Class FrmG0011
     Private Function FunCheckInput(ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
         Try
             'フラグリセット
-            pri_blnValidated = True
+            IsValidated = True
 
             '-----共通
             Call CmbBUMON_Validating(cmbBUMON, Nothing)
@@ -5911,34 +5992,45 @@ Public Class FrmG0011
                         Call TxtST01_YOKYU_NAIYO_Validating(txtST01_YOKYU_NAIYO, Nothing)
                         Call TxtST01_KEKKA_Validating(txtST01_KEKKA, Nothing)
                         Call CmbDestTANTO_Validating(cmbST01_DestTANTO, Nothing)
+                        Call dtUPD_YMD_Validating(dtST01_UPD_YMD, Nothing)
 
                     Case ENM_NCR_STAGE._20_起草確認製造GL
                         Call CmbDestTANTO_Validating(cmbST02_DestTANTO, Nothing)
-
+                        Call dtUPD_YMD_Validating(dtST02_UPD_YMD, Nothing)
                     Case ENM_NCR_STAGE._30_起草確認検査
                         Call CmbDestTANTO_Validating(cmbST03_DestTANTO, Nothing)
+                        Call dtUPD_YMD_Validating(dtST03_UPD_YMD, Nothing)
 
                     Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
                         Call CmbST04_JIZENSINSA_HANTEI_Validating(cmbST04_JIZENSINSA_HANTEI, Nothing)
-                        Call CmbST04_CAR_TANTO_Validating(cmbST04_CAR_TANTO, Nothing)
+                        Call CmbDestTANTO_Validating(cmbST04_DestTANTO, Nothing)
+                        Call dtUPD_YMD_Validating(dtST04_UPD_YMD, Nothing)
 
                         If chkST04_ZESEI_SYOCHI_YOHI_KB.Checked = True Then
+                            Call CmbST04_CAR_TANTO_Validating(cmbST04_CAR_TANTO, Nothing)
                             Call CmbST04_HASSEI_KOTEI_GL_TANTO_Validating(cmbST04_HASSEI_KOTEI_GL_TANTO, Nothing)
-                            Call CmbDestTANTO_Validating(cmbST04_DestTANTO, Nothing)
                         End If
 
                     Case ENM_NCR_STAGE._50_事前審査確認
                         Call CmbDestTANTO_Validating(cmbST05_DestTANTO, Nothing)
+                        Call dtUPD_YMD_Validating(dtST05_UPD_YMD, Nothing)
 
-                    Case ENM_NCR_STAGE._60_再審審査判定_技術代表, ENM_NCR_STAGE._61_再審審査判定_品証代表
+                    Case ENM_NCR_STAGE._60_再審審査判定_技術代表
                         Call CmbST06_SAISIN_IINKAI_HANTEI_Validating(cmbST06_SAISIN_IINKAI_HANTEI, Nothing)
                         Call CmbDestTANTO_Validating(cmbST06_DestTANTO, Nothing)
+                        Call dtUPD_YMD_Validating(dtST06_UPD_YMD, Nothing)
+
+                    Case ENM_NCR_STAGE._61_再審審査判定_品証代表
+                        Call CmbST06_SAISIN_IINKAI_HANTEI_Validating(cmbST06_SAISIN_IINKAI_HANTEI, Nothing)
+                        Call CmbDestTANTO_Validating(cmbST07_DestTANTO, Nothing)
+                        Call dtUPD_YMD_Validating(dtST07_UPD_YMD, Nothing)
 
                     Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
                         Call CmbST07_SAISIN_TANTO_Validating(cmbST07_SAISIN_TANTO, Nothing)
                         Call CmbST07_KOKYAKU_HANTEI_SIJI_Validating(cmbST07_KOKYAKU_HANTEI_SIJI, Nothing)
                         Call CmbST07_KOKYAKU_SAISYU_HANTEI_Validating(cmbST07_KOKYAKU_SAISYU_HANTEI, Nothing)
                         Call CmbDestTANTO_Validating(cmbST08_DestTANTO, Nothing)
+                        Call dtUPD_YMD_Validating(dtST08_UPD_YMD, Nothing)
 
                     Case ENM_NCR_STAGE._80_処置実施, ENM_NCR_STAGE._81_処置実施_生技, ENM_NCR_STAGE._82_処置実施_製造, ENM_NCR_STAGE._83_処置実施_検査
 
@@ -5961,7 +6053,20 @@ Public Class FrmG0011
                                 Throw New ArgumentException("80-2.④ JIZEN_SINSA_HANTEI_KB")
                         End Select
 
-                        Call CmbDestTANTO_Validating(cmbST09_DestTANTO, Nothing)
+                        Select Case PrCurrentStage
+                            Case ENM_NCR_STAGE._80_処置実施
+                                Call CmbDestTANTO_Validating(cmbST09_DestTANTO, Nothing)
+                                Call dtUPD_YMD_Validating(dtST09_UPD_YMD, Nothing)
+                            Case ENM_NCR_STAGE._81_処置実施_生技
+                                Call CmbDestTANTO_Validating(cmbST10_DestTANTO, Nothing)
+                                Call dtUPD_YMD_Validating(dtST10_UPD_YMD, Nothing)
+                            Case ENM_NCR_STAGE._82_処置実施_製造
+                                Call CmbDestTANTO_Validating(cmbST11_DestTANTO, Nothing)
+                                Call dtUPD_YMD_Validating(dtST11_UPD_YMD, Nothing)
+                            Case ENM_NCR_STAGE._83_処置実施_検査
+                                Call CmbDestTANTO_Validating(cmbST12_DestTANTO, Nothing)
+                                Call dtUPD_YMD_Validating(dtST12_UPD_YMD, Nothing)
+                        End Select
 
                     Case ENM_NCR_STAGE._90_処置実施確認_管理T
                         Call CmbDestTANTO_Validating(cmbST13_DestTANTO, Nothing)
@@ -5980,7 +6085,7 @@ Public Class FrmG0011
             End If
 
             '上記各種Validatingイベントでフラグを更新し、全てOKの場合はTrue
-            Return pri_blnValidated
+            Return IsValidated
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -6054,20 +6159,20 @@ Public Class FrmG0011
                     End Select
 
                 Case ENM_NCR_STAGE._80_処置実施
-                    If _D003_NCR_J.SAIKAKO_SIJI_FG Then
-                        intNextStageID = ENM_NCR_STAGE._81_処置実施_生技
-                    Else
-                        intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
-                    End If
-
-                Case ENM_NCR_STAGE._81_処置実施_生技
-                    intNextStageID = ENM_NCR_STAGE._82_処置実施_製造
-
-                Case ENM_NCR_STAGE._82_処置実施_製造
-                    intNextStageID = ENM_NCR_STAGE._83_処置実施_検査
-
-                Case ENM_NCR_STAGE._83_処置実施_検査
+                    'If _D003_NCR_J.SAIKAKO_SIJI_FG Then
+                    '    intNextStageID = ENM_NCR_STAGE._81_処置実施_生技
+                    'Else
                     intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
+                    'End If
+
+                'Case ENM_NCR_STAGE._81_処置実施_生技
+                '    intNextStageID = ENM_NCR_STAGE._82_処置実施_製造
+
+                'Case ENM_NCR_STAGE._82_処置実施_製造
+                '    intNextStageID = ENM_NCR_STAGE._83_処置実施_検査
+
+                'Case ENM_NCR_STAGE._83_処置実施_検査
+                '    intNextStageID = ENM_NCR_STAGE._90_処置実施確認_管理T
 
                 Case ENM_NCR_STAGE._90_処置実施確認_管理T
                     intNextStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長
@@ -6283,8 +6388,6 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
-
-
 
 #End Region
 

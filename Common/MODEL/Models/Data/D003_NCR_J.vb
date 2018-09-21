@@ -106,6 +106,7 @@ Partial Public Class D003_NCR_J
         DEL_YMDHNS = ""
         DEL_SYAIN_ID = 0
 
+        HASSEI_YMD = 0
     End Sub
 
     <Key>
@@ -647,6 +648,9 @@ Partial Public Class D003_NCR_J
     <ComponentModel.DisplayName("発生工程GL確認担当")>
     Public Property HASSEI_KOTEI_GL_SYAIN_ID As Integer
 
+    <Required>
+    <ComponentModel.DisplayName("発生日")>
+    Public Property HASSEI_YMD As String
 
     ''共通項目------------------------------------
     <Required>
@@ -695,5 +699,7 @@ Partial Public Class D003_NCR_J
 
     <Required>
     Public Property DEL_SYAIN_ID As Integer
+
+
 
 End Class
