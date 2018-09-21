@@ -115,10 +115,6 @@ Partial Class FrmM1050
         Me.lblTytle.Size = New System.Drawing.Size(1238, 45)
         Me.lblTytle.Text = "機種マスタ"
         '
-        'ToolTip
-        '
-        Me.ToolTip.InitialDelay = 700
-        '
         'Label3
         '
         Me.Label3.AutoSize = True

@@ -13,6 +13,10 @@ Partial Public Class VWM107_BUHIN_KISYU
     <ComponentModel.DisplayName("部門区分")>
     Public Property BUMON_KB As String
 
+    <StringLength(150)>
+    <ComponentModel.DisplayName("部門区分")>
+    Public Property BUMON_KB_DISP As String
+
     <Key>
     <Column(Order:=1)>
     <ComponentModel.DisplayName("得意先コード")>
@@ -34,11 +38,6 @@ Partial Public Class VWM107_BUHIN_KISYU
     <StringLength(10)>
     <ComponentModel.DisplayName("社内コード")>
     Public Property SYANAI_CD As String
-
-
-
-
-
 
     <Key>
     <Column(Order:=4)>
@@ -107,8 +106,6 @@ Partial Public Class VWM107_BUHIN_KISYU
     <ComponentModel.DisplayName("色CD")>
     Public Property COLOR_CD As String
 
-
-
     <Key>
     <Column(Order:=13)>
     <StringLength(14)>
@@ -163,15 +160,10 @@ Partial Public Class VWM107_BUHIN_KISYU
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_SYAIN_NAME As String
 
-    <DoNotNotify>
+    <StringLength(30)>
     <ComponentModel.DisplayName("削除フラグ")>
-    <Display(AutoGenerateField:=False)>
-    <NotMapped>
-    Public ReadOnly Property DEL_FLG As Boolean
-        Get
-            Return Not String.IsNullOrWhiteSpace(DEL_YMDHNS)
-        End Get
-    End Property
+    <DatabaseGenerated(DatabaseGeneratedOption.None)>
+    Public Property DEL_FLG As Boolean
 
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' 重複する呼び出しを検出するには
