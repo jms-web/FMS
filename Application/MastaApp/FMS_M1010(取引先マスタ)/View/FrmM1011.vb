@@ -10,37 +10,27 @@ Public Class FrmM1011
 #End Region
 
 #Region "プロパティ"
-    ''' <summary>
-    ''' 処理モード
-    ''' </summary>
-    Public Property PrMODE As Integer
-        Get
-            Return _intMODE
-        End Get
-        Set(value As Integer)
-            _intMODE = value
-        End Set
-    End Property
-    Private _intMODE As Integer      '処理モード
 
     ''' <summary>
     ''' 新規追加レコードのキー
     ''' </summary>
-    Public Property PrPKeys As Integer
-        Get
-            Return _PKs
-        End Get
-        Set(value As Integer)
-            _PKs = value
-        End Set
-    End Property
-    Private _PKs As String
+
 
     ''' <summary>
     ''' 一覧選択レコード
     ''' </summary>
     ''' <returns></returns>
-    Public Property PrDataRow As DataRow
+    'Public Property PrDataRow As DataRow
+
+    Public Property PrMODE As Integer
+
+    ''' <summary>
+    ''' 新規追加レコードのキー
+    ''' </summary>
+    Public Property PrPKeys As (ITEM_NAME As String, ITEM_VALUE As String)
+
+    Public Property PrDataRow As C1.Win.C1FlexGrid.Row
+
 
 #End Region
 
@@ -57,14 +47,13 @@ Public Class FrmM1011
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
 
             '-----各コントロールのデータソースを設定
-            'Me.cmbTORI_KB.SetDataSource(tblTORI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            Me.cmbTORI_KB.SetDataSource(tblTORI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
 
             Dim intTORI_SYU As Integer
             For Each item As Integer In [Enum].GetValues(GetType(Context.ENM_TORI_SYU))
                 intTORI_SYU = intTORI_SYU + item
             Next
-
 
             Call FunSetBinding()
 
@@ -102,7 +91,7 @@ Public Class FrmM1011
                 Case 1  '追加変更
                     If FunSAVE() Then
                         'プロパティに対象レコードのキーを設定
-                        Me.PrPKeys = _M101.TORI_ID
+                        'Me.PrPKeys = _M101.TORI_ID
 
                         Me.DialogResult = Windows.Forms.DialogResult.OK
                         Me.Close()
@@ -150,6 +139,12 @@ Public Class FrmM1011
                     _M101.ADD_YMDHNS = strSysDate
                     _M101.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
                     _M101.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+
+                    _M101.UPD_YMDHNS = _M101.UPD_YMDHNS.Replace("/", "").Replace(":", "").Replace(" ", "")
+
+
+                    _M101.POST = _M101.POST.ToString.Replace("〒", "")
+
                     'Select Case PrMODE
                     '    Case ENM_DATA_OPERATION_MODE._1_ADD, ENM_DATA_OPERATION_MODE._2_ADDREF
                     '        _M02.TORI_ID = FunGetNextTORI_ID()
@@ -166,7 +161,6 @@ Public Class FrmM1011
 
                     'UNDONE: すべてのフィールドを追加
                     sbSQL.Append($",'{_M101.TORI_KB}' AS {NameOf(_M101.TORI_KB)}")
-
                     sbSQL.Append($",'{_M101.POST}' AS {NameOf(_M101.POST)}")
                     sbSQL.Append($",'{_M101.ADD1}' AS {NameOf(_M101.ADD1)}")
                     sbSQL.Append($",'{_M101.ADD2}' AS {NameOf(_M101.ADD2)}")
@@ -277,21 +271,26 @@ Public Class FrmM1011
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
 
-            With dsList.Tables(0)
-                If .Rows.Count > 0 Then
-                    Me.mtxADD1.Text = .Rows(0).Item("都道府県名").ToString & .Rows(0).Item("市区町村名").ToString & .Rows(0).Item("町域名").ToString
-                    Me.mtxADD1.Focus()
-                    SendKeys.Send("{RIGHT}")
-                Else
-                    MessageBox.Show("入力された郵便番号に該当する住所が存在しません。", "住所検索", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Me.mtxPOST.Focus()
-                End If
-            End With
+            If dsList IsNot Nothing Then
+                With dsList.Tables(0)
+                    If .Rows.Count > 0 Then
+                        Me.mtxADD1.Text = .Rows(0).Item("都道府県名").ToString & .Rows(0).Item("市区町村名").ToString & .Rows(0).Item("町域名").ToString
+                        Me.mtxADD1.Focus()
+                        SendKeys.Send("{RIGHT}")
+                    Else
+                        MessageBox.Show("入力された郵便番号に該当する住所が存在しません。", "住所検索", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Me.mtxPOST.Focus()
+                    End If
+                End With
+            End If
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
-            dsList.Dispose()
+            If dsList IsNot Nothing Then
+                dsList.Dispose()
+            End If
+
         End Try
     End Sub
 
@@ -356,6 +355,7 @@ Public Class FrmM1011
 
     Private Function FunSetBinding() As Boolean
 
+        mtxTORI_ID.DataBindings.Add(New Binding(NameOf(mtxTORI_ID.Text), _M101, NameOf(_M101.TORI_ID), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
         cmbTORI_KB.DataBindings.Add(New Binding(NameOf(cmbTORI_KB.SelectedValue), _M101, NameOf(_M101.TORI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         mtxTORI_NAME.DataBindings.Add(New Binding(NameOf(mtxTORI_NAME.Text), _M101, NameOf(_M101.TORI_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -372,6 +372,7 @@ Public Class FrmM1011
         mtxFAX2.DataBindings.Add(New Binding(NameOf(mtxFAX2.Text), _M101, NameOf(_M101.FAX_P2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         mtxFAX3.DataBindings.Add(New Binding(NameOf(mtxFAX3.Text), _M101, NameOf(_M101.FAX_P3), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
+        lblEDIT_YMDHNS.DataBindings.Add(New Binding(NameOf(lblEDIT_YMDHNS.Text), _M101, NameOf(_M101.UPD_YMDHNS), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
     End Function
 
@@ -390,49 +391,34 @@ Public Class FrmM1011
 
             Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
-                    Me.Text = pub_APP_INFO.strTitle & "（追加）"
-                    Me.lblTytle.Text = Me.Text
+                    lblTytle.Text &= "（追加）"
                     Me.cmdFunc1.Text = "追加(F1)"
-
-                    Me.lbllblUPD_YMDHNS.Visible = False
-                    Me.lblUPD_YMDHNS.Visible = False
-                    Me.lblEDIT_SYAIN_ID.Visible = False
-                    Me.lbllblEDIT_SYAIN_ID.Visible = False
-
+                    Me.lblEDIT_YMDHNS.Visible = False
                     Me.cmbTORI_KB.SelectedValue = "1"
 
                     'Me.mtxTORI_ID.Text = "<新規>"
                     'Me.mtxTORI_ID.ReadOnly = True
                 Case ENM_DATA_OPERATION_MODE._2_ADDREF
                     '一覧選択行のデータをモデルに読込
-                    _Model.Properties.ForEach(Sub(p) _M101(p.Name) = PrDataRow.Item(p.Name))
+                    Call FunSetEntityValues(PrDataRow)
 
-                    Me.Text = pub_APP_INFO.strTitle & "（類似追加）"
-                    Me.lblTytle.Text = Me.Text
+                    lblTytle.Text &= "（類似追加）"
                     Me.cmdFunc1.Text = "追加(F1)"
+                    Me.lblEDIT_YMDHNS.Visible = False
+                    Me.lblEDIT_YMDHNS.Visible = False
 
-                    Me.lbllblUPD_YMDHNS.Visible = False
-                    Me.lblUPD_YMDHNS.Visible = False
-                    Me.lblEDIT_SYAIN_ID.Visible = False
-                    Me.lbllblEDIT_SYAIN_ID.Visible = False
-
-                                        'Me.mtxTORI_ID.Text = "<新規>"
-                    'Me.mtxTORI_ID.ReadOnly = True
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
-                    mtxTORI_ID.DataBindings.Add(New Binding(NameOf(mtxTORI_ID.Text), _M101, NameOf(_M101.TORI_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
 
-                    '一覧選択行のデータをモデルに読込
-                    _Model.Properties.ForEach(Sub(p) _M101(p.Name) = PrDataRow.Item(p.Name))
+                    Call FunSetEntityValues(PrDataRow)
 
-                    Me.Text = pub_APP_INFO.strTitle & "（変更）"
-                    Me.lblTytle.Text = Me.Text
+                    lblTytle.Text &= "（変更）"
                     Me.cmdFunc1.Text = "変更(F1)"
 
                     Me.mtxTORI_ID.Enabled = False
-                    Me.mtxTORI_NAME.Enabled = False
+                    Me.mtxTORI_NAME.Enabled = True
                     Me.lbllblUPD_YMDHNS.Visible = True
-                    Me.lblUPD_YMDHNS.Visible = True
+                    Me.lblEDIT_YMDHNS.Visible = True
                     Me.lblEDIT_SYAIN_ID.Visible = True
                     Me.lbllblEDIT_SYAIN_ID.Visible = True
 
@@ -454,40 +440,41 @@ Public Class FrmM1011
     ''' </summary>
     ''' <param name="dgvCol"></param>
     ''' <returns></returns>
-    Private Function FunSetEntityValues(dgvCol As DataGridViewCellCollection) As Boolean
+    Private Function FunSetEntityValues(row As C1.Win.C1FlexGrid.Row) As Boolean
         Try
             '-----コントロールに値をセット
-            With dgvCol
+            With row
                 '取引先CD
-                Me.mtxTORI_ID.Text = .Item("TORI_ID").Value
+                Me.mtxTORI_ID.Text = .Item("TORI_ID")
                 '取引種別
-                Me.cmbTORI_KB.Text = .Item("TORI_KB_DISP").Value.ToString.Trim
+                Me.cmbTORI_KB.Text = .Item("TORI_KB_DISP")
                 '取引先名称
-                Me.mtxTORI_NAME.Text = .Item("TORI_NAME").Value.ToString.Trim
+                Me.mtxTORI_NAME.Text = .Item("TORI_NAME")
                 '郵便番号
-                Me.mtxPOST.Text = .Item("POST").Value
+                Me.mtxPOST.Text = .Item("POST")
                 '住所1-3
-                Me.mtxADD1.Text = .Item("ADD1").Value.ToString.Trim
-                Me.mtxADD2.Text = .Item("ADD2").Value.ToString.Trim
-                Me.mtxADD3.Text = .Item("ADD3").Value.ToString.Trim
+                Me.mtxADD1.Text = .Item("ADD1")
+                Me.mtxADD2.Text = .Item("ADD2")
+                Me.mtxADD3.Text = .Item("ADD3")
                 'TEL
-                If .Item("TEL").Value.ToString.IsNullOrWhiteSpace = False Then
-                    Me.mtxTEL1.Text = .Item("TEL").Value.ToString.Split("-")(0)
-                    Me.mtxTEL2.Text = .Item("TEL").Value.ToString.Split("-")(1)
-                    Me.mtxTEL3.Text = .Item("TEL").Value.ToString.Split("-")(2)
+                If .Item("TEL").ToString.IsNullOrWhiteSpace = False Then
+                    Me.mtxTEL1.Text = .Item("TEL").ToString.Split("-")(0)
+                    Me.mtxTEL2.Text = .Item("TEL").ToString.Split("-")(1)
+                    Me.mtxTEL3.Text = .Item("TEL").ToString.Split("-")(2)
                 End If
                 'FAX
-                If .Item("FAX").Value.ToString.IsNullOrWhiteSpace = False Then
-                    Me.mtxFAX1.Text = .Item("FAX").Value.ToString.Split("-")(0)
-                    Me.mtxFAX2.Text = .Item("FAX").Value.ToString.Split("-")(1)
-                    Me.mtxFAX3.Text = .Item("FAX").Value.ToString.Split("-")(2)
+                If .Item("FAX").ToString.IsNullOrWhiteSpace = False Then
+                    Me.mtxFAX1.Text = .Item("FAX").ToString.Split("-")(0)
+                    Me.mtxFAX2.Text = .Item("FAX").ToString.Split("-")(1)
+                    Me.mtxFAX3.Text = .Item("FAX").ToString.Split("-")(2)
                 End If
                 '更新日時
                 Dim dt As DateTime
-                dt = DateTime.ParseExact(.Item("UPD_YMDHNS").Value.ToString, "yyyyMMddHHmmss", Nothing)
-                Me.lblUPD_YMDHNS.Text = dt.ToString("yyyy/MM/dd HH:mm:ss")
+                dt = DateTime.ParseExact(.Item("UPD_YMDHNS").ToString, "yyyy/MM/dd HH:mm:ss", Nothing)
+                Me.lblEDIT_YMDHNS.Text = dt.ToString("yyyy/MM/dd HH:mm:ss")
+
                 '更新担当者コード
-                Me.lblEDIT_SYAIN_ID.Text = .Item("UPD_SYAIN_ID").Value.ToString.Trim & " " & Fun_GetUSER_NAME(.Item("UPD_SYAIN_ID").Value.ToString.Trim)
+                Me.lblEDIT_SYAIN_ID.Text = .Item("UPD_SYAIN_ID").ToString.Trim & " " & Fun_GetUSER_NAME(.Item("UPD_SYAIN_ID").ToString.Trim)
 
             End With
 
@@ -528,6 +515,10 @@ Public Class FrmM1011
             ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "取引先名"), ErrorIconAlignment.MiddleLeft)
             pri_blnValidated = False
         End If
+    End Sub
+
+    Private Sub TableLayoutPanel2_Paint(sender As Object, e As PaintEventArgs) Handles TableLayoutPanel2.Paint
+
     End Sub
 
 #End Region

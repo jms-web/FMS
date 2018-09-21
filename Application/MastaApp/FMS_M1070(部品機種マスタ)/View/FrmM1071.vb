@@ -129,7 +129,7 @@ Public Class FrmM1071
 
     Private Function FunSAVE() As Boolean
         Dim sbSQL As New System.Text.StringBuilder
-        Dim strRET As String
+        Dim intRET As Integer
         Dim sqlEx As New Exception
         Dim strSysDate As String
         Dim dsList As New DataSet
@@ -153,7 +153,7 @@ Public Class FrmM1071
                     sbSQL.Append("     BUMON_KB    = '" & _VWM107.BUMON_KB & "'")
                     sbSQL.Append(" AND TOKUI_ID    =  " & _VWM107.TOKUI_ID & " ")
                     sbSQL.Append(" AND BUHIN_BANGO = '" & _VWM107.BUHIN_BANGO & "'")
-                    'sbSQL.Append(" AND KISYU_ID    =  " & flxDATA.GetCellRange( & " ")
+                    sbSQL.Append(" AND KISYU_ID    =  " & Me.flxDATA.Rows(Me.flxDATA.RowSel).Item("KISYU_ID") & " ")
 
                     dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
@@ -162,76 +162,44 @@ Public Class FrmM1071
                         Return False
                     End If
 
+                    sbSQL.Remove(0, sbSQL.Length)
+                    sbSQL.Append("INSERT INTO " & ModelInfo.Name & "(")
+                    sbSQL.Append(" BUMON_KB")
+                    sbSQL.Append(",TOKUI_ID")
+                    sbSQL.Append(",BUHIN_BANGO")
+                    sbSQL.Append(",KISYU_ID")
+                    sbSQL.Append(",ADD_YMDHNS")
+                    sbSQL.Append(",ADD_SYAIN_ID")
+                    sbSQL.Append(",UPD_YMDHNS")
+                    sbSQL.Append(",UPD_SYAIN_ID")
+                    sbSQL.Append(",DEL_YMDHNS")
+                    sbSQL.Append(",DEL_SYAIN_ID")
+                    sbSQL.Append(") VALUES (")
+                    sbSQL.Append(" '" & _VWM107.BUMON_KB & "'")
+                    sbSQL.Append(", " & _VWM107.TOKUI_ID & " ")
+                    sbSQL.Append(",'" & _VWM107.BUHIN_BANGO & "'")
+                    sbSQL.Append(", " & Me.flxDATA.Rows(Me.flxDATA.RowSel).Item("KISYU_ID") & " ")
+                    sbSQL.Append(",'" & strSysDate & "'")
+                    sbSQL.Append(", " & pub_SYAIN_INFO.SYAIN_ID & " ")
+                    sbSQL.Append(",' '")
+                    sbSQL.Append(", " & 0 & " ")
+                    sbSQL.Append(",' '")
+                    sbSQL.Append(", " & 0 & " ")
+                    sbSQL.Append(")")
 
+                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
 
-                    sbSQL.Append("INSERT INTO ")
+                    If intRET <> 1 Then
+                        Dim strErrMsg As String = $"{My.Resources.ErrLogSqlExecutionFailure}{sbSQL.ToString}|{sqlEx.Message}"
+                        WL.WriteLogDat(strErrMsg)
+                        blnErr = True
+                        Return False
+                    End If
 
-                    strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+                    blnErr = False
 
+                    Return True
 
-                    'モデル更新
-                    'If PrDATA_OP_MODE <> ENM_DATA_OPERATION_MODE._3_UPDATE Then _M105.KISYU_ID = FunGetNextIdentity()
-                    '_M105.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    '_M105.ADD_YMDHNS = strSysDate
-                    '_M105.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    '_M105.UPD_YMDHNS = strSysDate
-
-                    ''-----MERGE
-                    'sbSQL.Remove(0, sbSQL.Length)
-                    'sbSQL.Append($"MERGE INTO {ModelInfo.Name} AS TARGET")
-                    'sbSQL.Append($" USING (SELECT")
-
-                    'sbSQL.Append($" {_M105.KISYU_ID} AS {NameOf(_M105.KISYU_ID)}")
-                    'sbSQL.Append($",'{_M105.BUMON_KB}' AS {NameOf(_M105.BUMON_KB)}")
-                    'sbSQL.Append($",'{_M105.KISYU_NAME}' AS {NameOf(_M105.KISYU_NAME)}")
-                    'sbSQL.Append($",'{_M105.ADD_YMDHNS}' AS {NameOf(_M105.ADD_YMDHNS)}")
-                    'sbSQL.Append($",{_M105.ADD_SYAIN_ID} AS {NameOf(_M105.ADD_SYAIN_ID)}")
-                    'sbSQL.Append($",'{_M105.UPD_YMDHNS}' AS {NameOf(_M105.UPD_YMDHNS)}")
-                    'sbSQL.Append($",{_M105.UPD_SYAIN_ID} AS {NameOf(_M105.UPD_SYAIN_ID)}")
-                    'sbSQL.Append($",'{_M105.DEL_YMDHNS}' AS {NameOf(_M105.DEL_YMDHNS)}")
-                    'sbSQL.Append($",{_M105.DEL_SYAIN_ID} AS {NameOf(_M105.DEL_SYAIN_ID)}")
-
-                    'sbSQL.Append($" ) AS WK ON (")
-                    'sbSQL.Append($" TARGET.{NameOf(_M105.KISYU_ID)} = WK.{NameOf(_M105.KISYU_ID)}")
-                    'sbSQL.Append($" )")
-
-                    '---UPDATE 排他制御 更新日時が変更されていない場合のみ
-                    'sbSQL.Append($" WHEN MATCHED AND TARGET.{NameOf(_M105.UPD_YMDHNS)} = WK.{NameOf(_M105.UPD_YMDHNS)} THEN ")
-                    'sbSQL.Append($" UPDATE SET")
-                    'sbSQL.Append($" TARGET.{NameOf(_M105.BUMON_KB)} = WK.{NameOf(_M105.BUMON_KB)}")
-                    'sbSQL.Append($",TARGET.{NameOf(_M105.KISYU_NAME)} = WK.{NameOf(_M105.KISYU_NAME)}")
-                    'sbSQL.Append($",TARGET.{NameOf(_M105.UPD_YMDHNS)} = '{strSysDate}'")
-                    'sbSQL.Append($",TARGET.{NameOf(_M105.UPD_SYAIN_ID)} = WK.{NameOf(_M105.UPD_SYAIN_ID)}")
-
-                    '---INSERT
-                    sbSQL.Append($" WHEN NOT MATCHED THEN ")
-                    sbSQL.Append($" INSERT(")
-                    ModelInfo.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {p.Name}"))
-                    ModelInfo.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{p.Name}"))
-                    sbSQL.Append($" ) VALUES(")
-                    ModelInfo.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" WK.{p.Name}"))
-                    ModelInfo.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",WK.{p.Name}"))
-                    sbSQL.Append(" )")
-                    sbSQL.Append("OUTPUT $action As RESULT;")
-
-                    strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    Select Case strRET
-                        Case "INSERT"
-
-                        Case "UPDATE"
-
-                        Case Else
-                            If sqlEx.Source IsNot Nothing Then
-                                '-----エラーログ出力
-                                Dim strErrMsg As String = $"{My.Resources.ErrLogSqlExecutionFailure}{sbSQL.ToString}|{sqlEx.Message}"
-                                WL.WriteLogDat(strErrMsg)
-                            Else
-                                '---排他制御
-                                Dim strMsg As String = $"既に他の担当者によって変更されているため保存出来ません。{vbCrLf}再度登録し直して下さい。"
-                                MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                            End If
-                            Return False
-                    End Select
                 Finally
                     DB.Commit(Not blnErr)
                 End Try

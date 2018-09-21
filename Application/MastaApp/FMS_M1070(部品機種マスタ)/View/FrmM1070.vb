@@ -156,7 +156,7 @@ Public Class FrmM1070
 
                 Case 5, 6  '削除/復元/完全削除
                     Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(sender, Button).Tag
-                    If FunDEL(ENM_MODE) Then Call FunSRCH(flxDATA, FunGetListData())
+                    If FunDEL(ENM_MODE) = True Then Call FunSRCH(flxDATA, FunGetListData())
 
                 Case 10  'CSV出力
                     Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
@@ -315,12 +315,12 @@ Public Class FrmM1070
             Else
 
                 '追加したコードの行を選択する
-                For i As Integer = 0 To flxDATA.Rows.Count
-                    If flxDATA.Rows(i).Item("KISYU_ID") = PKeys Then
-                        flxDATA.RowSel = i
-                        Exit For
-                    End If
-                Next i
+                'For i As Integer = 0 To flxDATA.Rows.Count
+                '    If flxDATA.Rows(i).Item("KISYU_ID") = PKeys Then
+                '        flxDATA.RowSel = i
+                '        Exit For
+                '    End If
+                'Next i
             End If
 
             Return True
@@ -338,11 +338,11 @@ Public Class FrmM1070
         Dim sbSQL As New System.Text.StringBuilder
         Dim strMsg As String
         Dim strTitle As String
-
+        Dim intRET As Integer
         Try
             Select Case DATA_OP_MODE
                 Case ENM_DATA_OPERATION_MODE._4_DISABLE
-                    sbSQL.Append($"UPDATE {NameOf(MODEL.M105_KISYU)} SET ")
+                    sbSQL.Append($"UPDATE {NameOf(MODEL.M107_BUHIN_KISYU)} SET ")
                     sbSQL.Append($" DEL_YMDHNS = dbo.GetSysDateString(), ")
                     sbSQL.Append($" DEL_SYAIN_ID = {pub_SYAIN_INFO.SYAIN_ID}")
 
@@ -350,7 +350,7 @@ Public Class FrmM1070
                     strTitle = My.Resources.infoTitleDeleteOperationDisable
 
                 Case ENM_DATA_OPERATION_MODE._5_RESTORE
-                    sbSQL.Append($"UPDATE {NameOf(MODEL.M105_KISYU)} SET ")
+                    sbSQL.Append($"UPDATE {NameOf(MODEL.M107_BUHIN_KISYU)} SET ")
                     sbSQL.Append($" DEL_YMDHNS = ' ', ")
                     sbSQL.Append($" DEL_SYAIN_ID = {pub_SYAIN_INFO.SYAIN_ID}")
 
@@ -358,7 +358,7 @@ Public Class FrmM1070
                     strTitle = My.Resources.infoTitleDeleteOperationRestore
 
                 Case ENM_DATA_OPERATION_MODE._6_DELETE
-                    sbSQL.Append($"DELETE FROM {NameOf(MODEL.M105_KISYU)} ")
+                    sbSQL.Append($"DELETE FROM {NameOf(MODEL.M107_BUHIN_KISYU)} ")
 
                     strMsg = My.Resources.infoMsgDeleteOperationDelete
                     strTitle = My.Resources.infoTitleDeleteOperationDelete
@@ -367,8 +367,10 @@ Public Class FrmM1070
                     Throw New ArgumentException()
                     Return False
             End Select
-
-            sbSQL.Append($" WHERE KISYU_ID = {flxDATA.Rows(flxDATA.RowSel).Item("KISYU_ID")} ")
+            sbSQL.Append($" WHERE BUMON_KB = '{flxDATA.Rows(flxDATA.RowSel).Item("BUMON_KB")}' ")
+            sbSQL.Append($"   AND TOKUI_ID = {flxDATA.Rows(flxDATA.RowSel).Item("TOKUI_ID")} ")
+            sbSQL.Append($"   AND BUHIN_BANGO = '{flxDATA.Rows(flxDATA.RowSel).Item("BUHIN_BANGO")}' ")
+            sbSQL.Append($"   AND KISYU_ID = {flxDATA.Rows(flxDATA.RowSel).Item("KISYU_ID")} ")
 
             '確認メッセージ表示
             If MessageBox.Show(strMsg, strTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> Windows.Forms.DialogResult.Yes Then
@@ -385,17 +387,18 @@ Public Class FrmM1070
                     DB.BeginTransaction()
 
                     '-----SQL実行
-                    DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    If sqlEx.Source IsNot Nothing Then
+                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+                    If intRET <> 1 Then
                         '-----エラーログ出力
                         Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
                         WL.WriteLogDat(strErrMsg)
+                        blnErr = True
+                        Return False
                     Else
-                        '---排他制御
-                        strMsg = "既に他の担当者によって変更されているため保存出来ません。" & vbCrLf & "再度登録し直して下さい。"
-                        MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        blnErr = False
+                        Return True
                     End If
-                    Return False
+
                 Finally
                     DB.Commit(Not blnErr)
                 End Try

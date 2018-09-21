@@ -28,14 +28,14 @@ Partial Class FrmM1070
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
         Me.btnClearSrchFilter = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.mtxKISYU_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.cmbBUMON_KB = New JMS_COMMON.ComboboxEx()
         Me.chkDeletedRowVisibled = New System.Windows.Forms.CheckBox()
-        Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.mtxBUHIN_BANGO = New JMS_COMMON.MaskedTextBoxEx()
         Me.mtxBUHIN_NAME = New JMS_COMMON.MaskedTextBoxEx()
+        Me.mtxBUHIN_BANGO = New JMS_COMMON.MaskedTextBoxEx()
+        Me.mtxKISYU_NAME = New JMS_COMMON.MaskedTextBoxEx()
+        Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.VWM107BUHINKISYUBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
@@ -199,20 +199,6 @@ Partial Class FrmM1070
         Me.Label1.Text = "ïîñÂãÊï™:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'mtxKISYU_NAME
-        '
-        Me.mtxKISYU_NAME.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxKISYU_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxKISYU_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.mtxKISYU_NAME.InputRequired = False
-        Me.mtxKISYU_NAME.Location = New System.Drawing.Point(82, 33)
-        Me.mtxKISYU_NAME.MaxByteLength = 30
-        Me.mtxKISYU_NAME.Name = "mtxKISYU_NAME"
-        Me.mtxKISYU_NAME.Size = New System.Drawing.Size(155, 24)
-        Me.mtxKISYU_NAME.TabIndex = 58
-        Me.mtxKISYU_NAME.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxKISYU_NAME.WatermarkText = Nothing
-        '
         'cmbBUMON_KB
         '
         Me.cmbBUMON_KB.BackColor = System.Drawing.SystemColors.Window
@@ -247,23 +233,6 @@ Partial Class FrmM1070
         Me.chkDeletedRowVisibled.Text = "çÌèúçœÇ‡ï\é¶"
         Me.chkDeletedRowVisibled.UseVisualStyleBackColor = True
         '
-        'flxDATA
-        '
-        Me.flxDATA.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
-        Me.flxDATA.DataSource = Me.VWM107BUHINKISYUBindingSource
-        Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.flxDATA.Location = New System.Drawing.Point(14, 156)
-        Me.flxDATA.Name = "flxDATA"
-        Me.flxDATA.Rows.Count = 1
-        Me.flxDATA.Rows.DefaultSize = 23
-        Me.flxDATA.Size = New System.Drawing.Size(1236, 407)
-        Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
-        Me.flxDATA.TabIndex = 61
-        Me.flxDATA.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
-        '
         'Label2
         '
         Me.Label2.AutoSize = True
@@ -288,6 +257,20 @@ Partial Class FrmM1070
         Me.Label4.Text = "ïîïiñº:"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'mtxBUHIN_NAME
+        '
+        Me.mtxBUHIN_NAME.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxBUHIN_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxBUHIN_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxBUHIN_NAME.InputRequired = False
+        Me.mtxBUHIN_NAME.Location = New System.Drawing.Point(576, 3)
+        Me.mtxBUHIN_NAME.MaxByteLength = 30
+        Me.mtxBUHIN_NAME.Name = "mtxBUHIN_NAME"
+        Me.mtxBUHIN_NAME.Size = New System.Drawing.Size(242, 24)
+        Me.mtxBUHIN_NAME.TabIndex = 107
+        Me.mtxBUHIN_NAME.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxBUHIN_NAME.WatermarkText = Nothing
+        '
         'mtxBUHIN_BANGO
         '
         Me.mtxBUHIN_BANGO.BackColor = System.Drawing.SystemColors.Window
@@ -302,19 +285,36 @@ Partial Class FrmM1070
         Me.mtxBUHIN_BANGO.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxBUHIN_BANGO.WatermarkText = Nothing
         '
-        'mtxBUHIN_NAME
+        'mtxKISYU_NAME
         '
-        Me.mtxBUHIN_NAME.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxBUHIN_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxBUHIN_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.mtxBUHIN_NAME.InputRequired = False
-        Me.mtxBUHIN_NAME.Location = New System.Drawing.Point(576, 3)
-        Me.mtxBUHIN_NAME.MaxByteLength = 30
-        Me.mtxBUHIN_NAME.Name = "mtxBUHIN_NAME"
-        Me.mtxBUHIN_NAME.Size = New System.Drawing.Size(242, 24)
-        Me.mtxBUHIN_NAME.TabIndex = 107
-        Me.mtxBUHIN_NAME.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxBUHIN_NAME.WatermarkText = Nothing
+        Me.mtxKISYU_NAME.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKISYU_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxKISYU_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxKISYU_NAME.InputRequired = False
+        Me.mtxKISYU_NAME.Location = New System.Drawing.Point(82, 33)
+        Me.mtxKISYU_NAME.MaxByteLength = 30
+        Me.mtxKISYU_NAME.Name = "mtxKISYU_NAME"
+        Me.mtxKISYU_NAME.Size = New System.Drawing.Size(155, 24)
+        Me.mtxKISYU_NAME.TabIndex = 58
+        Me.mtxKISYU_NAME.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxKISYU_NAME.WatermarkText = Nothing
+        '
+        'flxDATA
+        '
+        Me.flxDATA.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
+        Me.flxDATA.DataSource = Me.VWM107BUHINKISYUBindingSource
+        Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.flxDATA.Location = New System.Drawing.Point(14, 156)
+        Me.flxDATA.Name = "flxDATA"
+        Me.flxDATA.Rows.Count = 1
+        Me.flxDATA.Rows.DefaultSize = 23
+        Me.flxDATA.Size = New System.Drawing.Size(1236, 407)
+        Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
+        Me.flxDATA.TabIndex = 61
+        Me.flxDATA.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
         '
         'VWM107BUHINKISYUBindingSource
         '

@@ -309,7 +309,6 @@ Partial Class FrmM1071
         Me.mtxTORI_NAME.Name = "mtxTORI_NAME"
         Me.mtxTORI_NAME.Size = New System.Drawing.Size(287, 23)
         Me.mtxTORI_NAME.TabIndex = 69
-        Me.mtxTORI_NAME.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.mtxTORI_NAME.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxTORI_NAME.WatermarkText = Nothing
         '

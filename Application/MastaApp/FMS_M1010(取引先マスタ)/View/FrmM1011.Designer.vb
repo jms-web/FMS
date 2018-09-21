@@ -24,7 +24,7 @@ Partial Class FrmM1011
         Me.lbllblUPD_YMDHNS = New System.Windows.Forms.Label()
         Me.lblEDIT_SYAIN_ID = New System.Windows.Forms.Label()
         Me.lbllblEDIT_SYAIN_ID = New System.Windows.Forms.Label()
-        Me.lblUPD_YMDHNS = New System.Windows.Forms.Label()
+        Me.lblEDIT_YMDHNS = New System.Windows.Forms.Label()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.mtxTORI_ID = New JMS_COMMON.MaskedTextBoxEx()
@@ -181,7 +181,7 @@ Partial Class FrmM1011
         Me.TableLayoutPanel1.Controls.Add(Me.lbllblUPD_YMDHNS, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.lblEDIT_SYAIN_ID, 1, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.lbllblEDIT_SYAIN_ID, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblUPD_YMDHNS, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblEDIT_YMDHNS, 1, 0)
         Me.TableLayoutPanel1.ForeColor = System.Drawing.SystemColors.ControlDark
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(953, 16)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
@@ -233,20 +233,19 @@ Partial Class FrmM1011
         Me.lbllblEDIT_SYAIN_ID.Text = "ç≈èIçXêVé“"
         Me.lbllblEDIT_SYAIN_ID.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'lblUPD_YMDHNS
+        'lblEDIT_YMDHNS
         '
-        Me.lblUPD_YMDHNS.BackColor = System.Drawing.Color.Transparent
-        Me.lblUPD_YMDHNS.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblUPD_YMDHNS.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblUPD_YMDHNS.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblUPD_YMDHNS.Location = New System.Drawing.Point(103, 3)
-        Me.lblUPD_YMDHNS.Margin = New System.Windows.Forms.Padding(3)
-        Me.lblUPD_YMDHNS.Name = "lblUPD_YMDHNS"
-        Me.lblUPD_YMDHNS.Size = New System.Drawing.Size(176, 24)
-        Me.lblUPD_YMDHNS.TabIndex = 43
-        Me.lblUPD_YMDHNS.Text = "yyyy/MM/dd HH:mm:ss"
-        Me.lblUPD_YMDHNS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.lblUPD_YMDHNS.Visible = False
+        Me.lblEDIT_YMDHNS.BackColor = System.Drawing.Color.Transparent
+        Me.lblEDIT_YMDHNS.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblEDIT_YMDHNS.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblEDIT_YMDHNS.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblEDIT_YMDHNS.Location = New System.Drawing.Point(103, 3)
+        Me.lblEDIT_YMDHNS.Margin = New System.Windows.Forms.Padding(3)
+        Me.lblEDIT_YMDHNS.Name = "lblEDIT_YMDHNS"
+        Me.lblEDIT_YMDHNS.Size = New System.Drawing.Size(176, 24)
+        Me.lblEDIT_YMDHNS.TabIndex = 43
+        Me.lblEDIT_YMDHNS.Text = "yyyy/MM/dd HH:mm:ss"
+        Me.lblEDIT_YMDHNS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'TableLayoutPanel2
         '
@@ -386,7 +385,7 @@ Partial Class FrmM1011
         Me.mtxTORI_ID.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxTORI_ID.InputRequired = False
         Me.mtxTORI_ID.Location = New System.Drawing.Point(113, 3)
-        Me.mtxTORI_ID.MaxByteLength = 5
+        Me.mtxTORI_ID.MaxByteLength = 6
         Me.mtxTORI_ID.Name = "mtxTORI_ID"
         Me.mtxTORI_ID.Size = New System.Drawing.Size(84, 24)
         Me.mtxTORI_ID.TabIndex = 0
@@ -785,7 +784,7 @@ Partial Class FrmM1011
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(1264, 711)
+        Me.ClientSize = New System.Drawing.Size(1264, 712)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True
@@ -816,7 +815,7 @@ Partial Class FrmM1011
 
     End Sub
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Public WithEvents lblUPD_YMDHNS As System.Windows.Forms.Label
+    Public WithEvents lblEDIT_YMDHNS As System.Windows.Forms.Label
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
     Friend WithEvents mtxTORI_NAME As MaskedTextBoxEx
     Friend WithEvents Label2 As Label
