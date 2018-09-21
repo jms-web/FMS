@@ -42,7 +42,7 @@ Public Class FrmM1070
 
             '-----イベントハンドラ設定
             AddHandler cmbBUMON_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            AddHandler mtxKISYU_NAME.Leave, AddressOf SearchFilterValueChanged
+            'AddHandler mtxKISYU_NAME.Leave, AddressOf SearchFilterValueChanged
             AddHandler chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
         Finally
@@ -149,14 +149,14 @@ Public Class FrmM1070
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) Then Call FunSRCH(flxDATA, FunGetListData())
 
                 Case 3  '参照追加
-                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._2_ADDREF) Then Call FunSRCH(flxDATA, FunGetListData())
+                    'If FunUpdateEntity(ENM_DATA_OPERATION_MODE._2_ADDREF) Then Call FunSRCH(flxDATA, FunGetListData())
 
                 Case 4  '変更
-                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) Then Call FunSRCH(flxDATA, FunGetListData())
+                    'If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) Then Call FunSRCH(flxDATA, FunGetListData())
 
                 Case 5, 6  '削除/復元/完全削除
                     Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(sender, Button).Tag
-                    If FunDEL(ENM_MODE) Then Call FunSRCH(flxDATA, FunGetListData())
+                    If FunDEL(ENM_MODE) = True Then Call FunSRCH(flxDATA, FunGetListData())
 
                 Case 10  'CSV出力
                     Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
@@ -193,7 +193,8 @@ Public Class FrmM1070
             Dim sbSQLWHERE As New System.Text.StringBuilder
 
             If CmbBUMON_KB.Selected Then sbSQLWHERE.Append($" WHERE BUMON_KB ='{CmbBUMON_KB.SelectedValue}' ")
-
+            If Not mtxBUHIN_BANGO.Text.IsNullOrWhiteSpace Then sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"BUHIN_BANGO LIKE '%{mtxBUHIN_BANGO.Text.Trim}%'")
+            If Not mtxBUHIN_NAME.Text.IsNullOrWhiteSpace Then sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"BUHIN_NAME LIKE '%{mtxBUHIN_NAME.Text.Trim}%'")
             If Not mtxKISYU_NAME.Text.IsNullOrWhiteSpace Then sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"KISYU_NAME LIKE '%{mtxKISYU_NAME.Text.Trim}%'")
 
             flxDATA.Cols("DEL_FLG").Visible = chkDeletedRowVisibled.Checked
@@ -203,9 +204,9 @@ Public Class FrmM1070
 
             sbSQL.Append($"SELECT")
             sbSQL.Append($" *")
-            sbSQL.Append($" FROM {NameOf(MODEL.VWM105_KISYU)} ")
+            sbSQL.Append($" FROM {NameOf(MODEL.VWM107_BUHIN_KISYU)} ")
             sbSQL.Append(sbSQLWHERE)
-            sbSQL.Append($" ORDER BY KISYU_ID ")
+            sbSQL.Append($" ORDER BY BUMON_KB,TOKUI_ID,BUHIN_BANGO ")
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
@@ -216,7 +217,7 @@ Public Class FrmM1070
                 End If
             End If
 
-            Dim _Model As New MODEL.ModelInfo(Of MODEL.VWM105_KISYU)(srcDATA:=dsList.Tables(0))
+            Dim _Model As New MODEL.ModelInfo(Of MODEL.VWM107_BUHIN_KISYU)(srcDATA:=dsList.Tables(0))
             Return _Model.Data
 
         Catch ex As Exception
@@ -235,7 +236,11 @@ Public Class FrmM1070
             End If
 
             flx.BeginUpdate()
-            flx.DataSource = dt
+            'flx.DataSource = dt
+
+            If dt IsNot Nothing Then
+                flx.DataSource = dt
+            End If
 
             Call FunSetGridCellFormat(flx)
 
@@ -267,6 +272,13 @@ Public Class FrmM1070
             For i As Integer = 1 To flx.Rows.Count - 1
                 If CBool(flxDATA.Rows(i).Item("DEL_FLG")) = True Then
                     flxDATA.Rows(i).Style = flx.Styles("DeletedRow")
+                Else
+                    If i Mod 2 = 0 Then
+                        flxDATA.Rows(i).Style = flx.Styles("EvenRow")
+                    Else
+                        flxDATA.Rows(i).Style = flx.Styles("OddRow")
+                    End If
+
                 End If
             Next i
 
@@ -303,12 +315,12 @@ Public Class FrmM1070
             Else
 
                 '追加したコードの行を選択する
-                For i As Integer = 0 To flxDATA.Rows.Count
-                    If flxDATA.Rows(i).Item("KISYU_ID") = PKeys Then
-                        flxDATA.RowSel = i
-                        Exit For
-                    End If
-                Next i
+                'For i As Integer = 0 To flxDATA.Rows.Count
+                '    If flxDATA.Rows(i).Item("KISYU_ID") = PKeys Then
+                '        flxDATA.RowSel = i
+                '        Exit For
+                '    End If
+                'Next i
             End If
 
             Return True
@@ -326,11 +338,11 @@ Public Class FrmM1070
         Dim sbSQL As New System.Text.StringBuilder
         Dim strMsg As String
         Dim strTitle As String
-
+        Dim intRET As Integer
         Try
             Select Case DATA_OP_MODE
                 Case ENM_DATA_OPERATION_MODE._4_DISABLE
-                    sbSQL.Append($"UPDATE {NameOf(MODEL.M105_KISYU)} SET ")
+                    sbSQL.Append($"UPDATE {NameOf(MODEL.M107_BUHIN_KISYU)} SET ")
                     sbSQL.Append($" DEL_YMDHNS = dbo.GetSysDateString(), ")
                     sbSQL.Append($" DEL_SYAIN_ID = {pub_SYAIN_INFO.SYAIN_ID}")
 
@@ -338,7 +350,7 @@ Public Class FrmM1070
                     strTitle = My.Resources.infoTitleDeleteOperationDisable
 
                 Case ENM_DATA_OPERATION_MODE._5_RESTORE
-                    sbSQL.Append($"UPDATE {NameOf(MODEL.M105_KISYU)} SET ")
+                    sbSQL.Append($"UPDATE {NameOf(MODEL.M107_BUHIN_KISYU)} SET ")
                     sbSQL.Append($" DEL_YMDHNS = ' ', ")
                     sbSQL.Append($" DEL_SYAIN_ID = {pub_SYAIN_INFO.SYAIN_ID}")
 
@@ -346,7 +358,7 @@ Public Class FrmM1070
                     strTitle = My.Resources.infoTitleDeleteOperationRestore
 
                 Case ENM_DATA_OPERATION_MODE._6_DELETE
-                    sbSQL.Append($"DELETE FROM {NameOf(MODEL.M105_KISYU)} ")
+                    sbSQL.Append($"DELETE FROM {NameOf(MODEL.M107_BUHIN_KISYU)} ")
 
                     strMsg = My.Resources.infoMsgDeleteOperationDelete
                     strTitle = My.Resources.infoTitleDeleteOperationDelete
@@ -355,8 +367,10 @@ Public Class FrmM1070
                     Throw New ArgumentException()
                     Return False
             End Select
-
-            sbSQL.Append($" WHERE KISYU_ID = {flxDATA.Rows(flxDATA.RowSel).Item("KISYU_ID")} ")
+            sbSQL.Append($" WHERE BUMON_KB = '{flxDATA.Rows(flxDATA.RowSel).Item("BUMON_KB")}' ")
+            sbSQL.Append($"   AND TOKUI_ID = {flxDATA.Rows(flxDATA.RowSel).Item("TOKUI_ID")} ")
+            sbSQL.Append($"   AND BUHIN_BANGO = '{flxDATA.Rows(flxDATA.RowSel).Item("BUHIN_BANGO")}' ")
+            sbSQL.Append($"   AND KISYU_ID = {flxDATA.Rows(flxDATA.RowSel).Item("KISYU_ID")} ")
 
             '確認メッセージ表示
             If MessageBox.Show(strMsg, strTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> Windows.Forms.DialogResult.Yes Then
@@ -373,17 +387,18 @@ Public Class FrmM1070
                     DB.BeginTransaction()
 
                     '-----SQL実行
-                    DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    If sqlEx.Source IsNot Nothing Then
+                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+                    If intRET <> 1 Then
                         '-----エラーログ出力
                         Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
                         WL.WriteLogDat(strErrMsg)
+                        blnErr = True
+                        Return False
                     Else
-                        '---排他制御
-                        strMsg = "既に他の担当者によって変更されているため保存出来ません。" & vbCrLf & "再度登録し直して下さい。"
-                        MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        blnErr = False
+                        Return True
                     End If
-                    Return False
+
                 Finally
                     DB.Commit(Not blnErr)
                 End Try
@@ -419,13 +434,11 @@ Public Class FrmM1070
         Next intFunc
 
         If flxDATA.RowSel > 0 Then
-            cmdFunc3.Enabled = True
-            cmdFunc4.Enabled = True
+            cmdFunc2.Enabled = True
             cmdFunc5.Enabled = True
             cmdFunc10.Enabled = True
         Else
-            cmdFunc3.Enabled = False
-            cmdFunc4.Enabled = False
+            cmdFunc2.Enabled = False
             cmdFunc5.Enabled = False
             cmdFunc10.Enabled = False
         End If

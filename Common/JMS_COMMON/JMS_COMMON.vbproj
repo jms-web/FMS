@@ -326,7 +326,7 @@
     <Compile Include="Control\MaskedTextBoxEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Utility\mdlExtensionMethod.vb" />
+    <Compile Include="Utility\ExtensionMethod.vb" />
     <Compile Include="Utility\mdlIMEModeEdit.vb" />
     <Compile Include="Utility\ClsMailSend.vb" />
     <Compile Include="Utility\Navigators.vb" />
@@ -721,7 +721,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_ReplaceNonNumerics="False" />
+      <UserProperties BuildVersion_ReplaceNonNumerics="False" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

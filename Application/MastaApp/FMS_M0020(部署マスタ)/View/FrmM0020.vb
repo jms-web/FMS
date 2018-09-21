@@ -275,6 +275,8 @@ Public Class FrmM0020
                     Dim Trow As DataRow = dt.NewRow()
                     For Each p As Reflection.PropertyInfo In properties
 
+                        Debug.Print(p.Name)
+
                         'If IsAutoGenerateField(t, p.Name) = True Then
                         Select Case p.PropertyType
                             Case GetType(Integer)
@@ -291,7 +293,7 @@ Public Class FrmM0020
                                         Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2) & " " & Mid(row.Item(p.Name), 9, 2) & ":" & Mid(row.Item(p.Name), 11, 2) & ":" & Mid(row.Item(p.Name), 13, 2)
                                     Case "DEL_FLG"
                                         Trow(p.Name) = CBool(row.Item(p.Name))
-                                    Case "Item"
+                                    Case "Item", "Properties"
 
                                     Case Else
                                         Trow(p.Name) = row.Item(p.Name)

@@ -342,26 +342,26 @@ Public Class FrmM0040
 
                         'If IsAutoGenerateField(t, p.Name) = True Then
                         Select Case p.PropertyType
-                                Case GetType(Integer)
-                                    Trow(p.Name) = Val(row.Item(p.Name))
-                                Case GetType(Decimal)
-                                    Trow(p.Name) = CDec(row.Item(p.Name))
-                                Case GetType(Boolean)
-                                    Trow(p.Name) = CBool(row.Item(p.Name))
-                                Case Else
-                                    Select Case p.Name
+                            Case GetType(Integer)
+                                Trow(p.Name) = Val(row.Item(p.Name))
+                            Case GetType(Decimal)
+                                Trow(p.Name) = CDec(row.Item(p.Name))
+                            Case GetType(Boolean)
+                                Trow(p.Name) = CBool(row.Item(p.Name))
+                            Case Else
+                                Select Case p.Name
                                     Case "YUKO_YMD", "BIRTH_YMD", "NYUSYA_YMD", "TAISYA_YMD"
                                         Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2)
                                     Case "UPD_YMDHNS", "ADD_YMDHNS"
                                         Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2) & " " & Mid(row.Item(p.Name), 9, 2) & ":" & Mid(row.Item(p.Name), 11, 2) & ":" & Mid(row.Item(p.Name), 13, 2)
                                     Case "DEL_FLG"
                                         Trow(p.Name) = CBool(row.Item(p.Name))
-                                    Case "Item"
+                                    Case "Item", "Properties"
 
                                     Case Else
-                                            Trow(p.Name) = row.Item(p.Name)
-                                    End Select
-                            End Select
+                                        Trow(p.Name) = row.Item(p.Name)
+                                End Select
+                        End Select
                         'End If
                     Next p
                     dt.Rows.Add(Trow)
@@ -375,6 +375,7 @@ Public Class FrmM0040
             Return Nothing
         End Try
     End Function
+
 #End Region
     Private Function FunSetGridCellFormat(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
 

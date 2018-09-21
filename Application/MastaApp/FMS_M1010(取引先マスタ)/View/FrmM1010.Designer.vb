@@ -19,6 +19,8 @@ Partial Class FrmM1010
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmM1010))
         Me.Label3 = New System.Windows.Forms.Label()
         Me.gbxFilter = New System.Windows.Forms.GroupBox()
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
@@ -27,11 +29,13 @@ Partial Class FrmM1010
         Me.cmbTORI_KB = New JMS_COMMON.ComboboxEx()
         Me.mtxTORI_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.btnClearSrchFilter = New System.Windows.Forms.Button()
-        Me.dgvDATA = New System.Windows.Forms.DataGridView()
+        Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.VWM101TORIHIKIBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
-        CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.VWM101TORIHIKIBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -131,7 +135,7 @@ Partial Class FrmM1010
         Me.gbxFilter.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.gbxFilter.Location = New System.Drawing.Point(14, 60)
         Me.gbxFilter.Name = "gbxFilter"
-        Me.gbxFilter.Size = New System.Drawing.Size(1236, 153)
+        Me.gbxFilter.Size = New System.Drawing.Size(1236, 89)
         Me.gbxFilter.TabIndex = 59
         Me.gbxFilter.TabStop = False
         Me.gbxFilter.Text = "åüçıèåè"
@@ -221,7 +225,7 @@ Partial Class FrmM1010
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpFilter.Size = New System.Drawing.Size(1230, 130)
+        Me.tlpFilter.Size = New System.Drawing.Size(1230, 66)
         Me.tlpFilter.TabIndex = 56
         '
         'chkDeletedRowVisibled
@@ -301,22 +305,32 @@ Partial Class FrmM1010
         Me.btnClearSrchFilter.Text = "èåèÉNÉäÉA"
         Me.btnClearSrchFilter.UseVisualStyleBackColor = True
         '
-        'dgvDATA
+        'flxDATA
         '
-        Me.dgvDATA.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.dgvDATA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvDATA.Location = New System.Drawing.Point(23, 219)
-        Me.dgvDATA.Name = "dgvDATA"
-        Me.dgvDATA.RowTemplate.Height = 21
-        Me.dgvDATA.Size = New System.Drawing.Size(1230, 337)
-        Me.dgvDATA.TabIndex = 60
+        Me.flxDATA.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
+        Me.flxDATA.DataSource = Me.VWM101TORIHIKIBindingSource
+        Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.flxDATA.Location = New System.Drawing.Point(16, 155)
+        Me.flxDATA.Name = "flxDATA"
+        Me.flxDATA.Rows.Count = 1
+        Me.flxDATA.Rows.DefaultSize = 23
+        Me.flxDATA.Size = New System.Drawing.Size(1236, 396)
+        Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
+        Me.flxDATA.TabIndex = 63
+        Me.flxDATA.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
+        '
+        'VWM101TORIHIKIBindingSource
+        '
+        Me.VWM101TORIHIKIBindingSource.DataSource = GetType(MODEL.VWM101_TORIHIKI)
         '
         'FrmM1010
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.ClientSize = New System.Drawing.Size(1264, 712)
-        Me.Controls.Add(Me.dgvDATA)
+        Me.Controls.Add(Me.flxDATA)
         Me.Controls.Add(Me.gbxFilter)
         Me.HelpButton = True
         Me.Name = "FrmM1010"
@@ -324,7 +338,6 @@ Partial Class FrmM1010
         Me.Text = ""
         Me.Controls.SetChildIndex(Me.lblRecordCount, 0)
         Me.Controls.SetChildIndex(Me.gbxFilter, 0)
-        Me.Controls.SetChildIndex(Me.dgvDATA, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc3, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc4, 0)
@@ -338,22 +351,25 @@ Partial Class FrmM1010
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
+        Me.Controls.SetChildIndex(Me.flxDATA, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()
-        CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.VWM101TORIHIKIBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents Label3 As Label
     Friend WithEvents gbxFilter As GroupBox
-    Public WithEvents dgvDATA As DataGridView
     Friend WithEvents chkDeletedRowVisibled As CheckBox
     Friend WithEvents tlpFilter As TableLayoutPanel
     Friend WithEvents Label2 As Label
     Friend WithEvents cmbTORI_KB As ComboboxEx
     Friend WithEvents mtxTORI_NAME As MaskedTextBoxEx
     Friend WithEvents btnClearSrchFilter As Button
+    Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents VWM101TORIHIKIBindingSource As BindingSource
 End Class

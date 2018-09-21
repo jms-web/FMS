@@ -7,7 +7,7 @@ Public Class FrmM1071
 
 #Region "変数・定数"
     Private IsValidated As Boolean
-    Private _M105 As New MODEL.M105_KISYU
+    Private _VWM107 As New MODEL.VWM107_BUHIN_KISYU
 #End Region
 
 #Region "プロパティ"
@@ -39,7 +39,7 @@ Public Class FrmM1071
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
 
-        Me.Height = 300
+        Me.Height = 560
         Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -59,11 +59,14 @@ Public Class FrmM1071
             End Using
 
             '-----位置・サイズ
+
             Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) - 26 ' / 2
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
 
             '-----コントロールデータソース設定
-            CmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            'cmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            '-----グリッド初期設定
+            Call FunInitializeFlexGrid(flxDATA)
 
             Call FunSetBinding()
 
@@ -98,7 +101,7 @@ Public Class FrmM1071
                 Case 1  '追加
                     If FunSAVE() Then
                         'プロパティに対象レコードのキーを設定
-                        Me.PrPKeys = _M105.KISYU_ID
+                        Me.PrPKeys = _VWM107.KISYU_ID
 
                         Me.DialogResult = Windows.Forms.DialogResult.OK
                         Me.Close()
@@ -126,13 +129,14 @@ Public Class FrmM1071
 
     Private Function FunSAVE() As Boolean
         Dim sbSQL As New System.Text.StringBuilder
-        Dim strRET As String
+        Dim intRET As Integer
         Dim sqlEx As New Exception
         Dim strSysDate As String
+        Dim dsList As New DataSet
         Try
 
             '入力チェック
-            If FunCheckInput() = False Then Return False
+            'If FunCheckInput() = False Then Return False
 
             Using DB As ClsDbUtility = DBOpen()
                 Dim blnErr As Boolean
@@ -141,71 +145,61 @@ Public Class FrmM1071
 
                     strSysDate = DB.GetSysDateString()
 
-                    Dim ModelInfo As New MODEL.ModelInfo(Of MODEL.M105_KISYU)(_OnlyAutoGenerateField:=True)
+                    Dim ModelInfo As New MODEL.ModelInfo(Of MODEL.M107_BUHIN_KISYU)(_OnlyAutoGenerateField:=True)
 
-                    'モデル更新
-                    If PrDATA_OP_MODE <> ENM_DATA_OPERATION_MODE._3_UPDATE Then _M105.KISYU_ID = FunGetNextIdentity()
-                    _M105.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _M105.ADD_YMDHNS = strSysDate
-                    _M105.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _M105.UPD_YMDHNS = strSysDate
-
-                    '-----MERGE
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append($"MERGE INTO {ModelInfo.Name} AS TARGET")
-                    sbSQL.Append($" USING (SELECT")
+                    sbSQL.Append("SELECT * FROM " & ModelInfo.Name & " ")
+                    sbSQL.Append(" WHERE ")
+                    sbSQL.Append("     BUMON_KB    = '" & _VWM107.BUMON_KB & "'")
+                    sbSQL.Append(" AND TOKUI_ID    =  " & _VWM107.TOKUI_ID & " ")
+                    sbSQL.Append(" AND BUHIN_BANGO = '" & _VWM107.BUHIN_BANGO & "'")
+                    sbSQL.Append(" AND KISYU_ID    =  " & Me.flxDATA.Rows(Me.flxDATA.RowSel).Item("KISYU_ID") & " ")
 
-                    sbSQL.Append($" {_M105.KISYU_ID} AS {NameOf(_M105.KISYU_ID)}")
-                    sbSQL.Append($",'{_M105.BUMON_KB}' AS {NameOf(_M105.BUMON_KB)}")
-                    sbSQL.Append($",'{_M105.KISYU_NAME}' AS {NameOf(_M105.KISYU_NAME)}")
-                    sbSQL.Append($",'{_M105.ADD_YMDHNS}' AS {NameOf(_M105.ADD_YMDHNS)}")
-                    sbSQL.Append($",{_M105.ADD_SYAIN_ID} AS {NameOf(_M105.ADD_SYAIN_ID)}")
-                    sbSQL.Append($",'{_M105.UPD_YMDHNS}' AS {NameOf(_M105.UPD_YMDHNS)}")
-                    sbSQL.Append($",{_M105.UPD_SYAIN_ID} AS {NameOf(_M105.UPD_SYAIN_ID)}")
-                    sbSQL.Append($",'{_M105.DEL_YMDHNS}' AS {NameOf(_M105.DEL_YMDHNS)}")
-                    sbSQL.Append($",{_M105.DEL_SYAIN_ID} AS {NameOf(_M105.DEL_SYAIN_ID)}")
+                    dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
-                    sbSQL.Append($" ) AS WK ON (")
-                    sbSQL.Append($" TARGET.{NameOf(_M105.KISYU_ID)} = WK.{NameOf(_M105.KISYU_ID)}")
-                    sbSQL.Append($" )")
+                    If dsList.Tables(0).Rows.Count > 0 Then
+                        Call MsgBox("既に追加されている機種です。別の機種を選択してください。", vbExclamation + vbOKOnly, "重複登録")
+                        Return False
+                    End If
 
-                    '---UPDATE 排他制御 更新日時が変更されていない場合のみ
-                    sbSQL.Append($" WHEN MATCHED AND TARGET.{NameOf(_M105.UPD_YMDHNS)} = WK.{NameOf(_M105.UPD_YMDHNS)} THEN ")
-                    sbSQL.Append($" UPDATE SET")
-                    sbSQL.Append($" TARGET.{NameOf(_M105.BUMON_KB)} = WK.{NameOf(_M105.BUMON_KB)}")
-                    sbSQL.Append($",TARGET.{NameOf(_M105.KISYU_NAME)} = WK.{NameOf(_M105.KISYU_NAME)}")
-                    sbSQL.Append($",TARGET.{NameOf(_M105.UPD_YMDHNS)} = '{strSysDate}'")
-                    sbSQL.Append($",TARGET.{NameOf(_M105.UPD_SYAIN_ID)} = WK.{NameOf(_M105.UPD_SYAIN_ID)}")
+                    sbSQL.Remove(0, sbSQL.Length)
+                    sbSQL.Append("INSERT INTO " & ModelInfo.Name & "(")
+                    sbSQL.Append(" BUMON_KB")
+                    sbSQL.Append(",TOKUI_ID")
+                    sbSQL.Append(",BUHIN_BANGO")
+                    sbSQL.Append(",KISYU_ID")
+                    sbSQL.Append(",ADD_YMDHNS")
+                    sbSQL.Append(",ADD_SYAIN_ID")
+                    sbSQL.Append(",UPD_YMDHNS")
+                    sbSQL.Append(",UPD_SYAIN_ID")
+                    sbSQL.Append(",DEL_YMDHNS")
+                    sbSQL.Append(",DEL_SYAIN_ID")
+                    sbSQL.Append(") VALUES (")
+                    sbSQL.Append(" '" & _VWM107.BUMON_KB & "'")
+                    sbSQL.Append(", " & _VWM107.TOKUI_ID & " ")
+                    sbSQL.Append(",'" & _VWM107.BUHIN_BANGO & "'")
+                    sbSQL.Append(", " & Me.flxDATA.Rows(Me.flxDATA.RowSel).Item("KISYU_ID") & " ")
+                    sbSQL.Append(",'" & strSysDate & "'")
+                    sbSQL.Append(", " & pub_SYAIN_INFO.SYAIN_ID & " ")
+                    sbSQL.Append(",' '")
+                    sbSQL.Append(", " & 0 & " ")
+                    sbSQL.Append(",' '")
+                    sbSQL.Append(", " & 0 & " ")
+                    sbSQL.Append(")")
 
-                    '---INSERT
-                    sbSQL.Append($" WHEN NOT MATCHED THEN ")
-                    sbSQL.Append($" INSERT(")
-                    ModelInfo.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {p.Name}"))
-                    ModelInfo.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{p.Name}"))
-                    sbSQL.Append($" ) VALUES(")
-                    ModelInfo.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" WK.{p.Name}"))
-                    ModelInfo.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",WK.{p.Name}"))
-                    sbSQL.Append(" )")
-                    sbSQL.Append("OUTPUT $action As RESULT;")
+                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
 
-                    strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    Select Case strRET
-                        Case "INSERT"
+                    If intRET <> 1 Then
+                        Dim strErrMsg As String = $"{My.Resources.ErrLogSqlExecutionFailure}{sbSQL.ToString}|{sqlEx.Message}"
+                        WL.WriteLogDat(strErrMsg)
+                        blnErr = True
+                        Return False
+                    End If
 
-                        Case "UPDATE"
+                    blnErr = False
 
-                        Case Else
-                            If sqlEx.Source IsNot Nothing Then
-                                '-----エラーログ出力
-                                Dim strErrMsg As String = $"{My.Resources.ErrLogSqlExecutionFailure}{sbSQL.ToString}|{sqlEx.Message}"
-                                WL.WriteLogDat(strErrMsg)
-                            Else
-                                '---排他制御
-                                Dim strMsg As String = $"既に他の担当者によって変更されているため保存出来ません。{vbCrLf}再度登録し直して下さい。"
-                                MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                            End If
-                            Return False
-                    End Select
+                    Return True
+
                 Finally
                     DB.Commit(Not blnErr)
                 End Try
@@ -216,6 +210,7 @@ Public Class FrmM1071
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
+
         End Try
     End Function
 
@@ -259,8 +254,10 @@ Public Class FrmM1071
 
 #Region "バインディング"
     Private Function FunSetBinding() As Boolean
-        CmbBUMON_KB.DataBindings.Add(New Binding(NameOf(CmbBUMON_KB.SelectedValue), _M105, NameOf(_M105.BUMON_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        mtxKISYU_NAME.DataBindings.Add(New Binding(NameOf(mtxKISYU_NAME.Text), _M105, NameOf(_M105.KISYU_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        mtxBumon_KB.DataBindings.Add(New Binding(NameOf(mtxBumon_KB.Text), _VWM107, NameOf(_VWM107.BUMON_KB_DISP), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        mtxTORI_NAME.DataBindings.Add(New Binding(NameOf(mtxTORI_NAME.Text), _VWM107, NameOf(_VWM107.TORI_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        mtxBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(mtxBUHIN_BANGO.Text), _VWM107, NameOf(_VWM107.BUHIN_BANGO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        mtxBUHIN_NAME.DataBindings.Add(New Binding(NameOf(mtxBUHIN_NAME.Text), _VWM107, NameOf(_VWM107.BUHIN_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
     End Function
 
@@ -268,7 +265,7 @@ Public Class FrmM1071
 
 #Region "処理モード別画面初期化"
     Private Function FunInitializeControls() As Boolean
-        Dim _Model = New MODEL.ModelInfo(Of MODEL.M105_KISYU)(_OnlyAutoGenerateField:=True)
+        Dim _Model = New MODEL.ModelInfo(Of MODEL.VWM107_BUHIN_KISYU)(_OnlyAutoGenerateField:=True)
 
         Try
             Select Case PrDATA_OP_MODE
@@ -276,8 +273,14 @@ Public Class FrmM1071
                     lblTytle.Text &= "（追加）"
                     cmdFunc1.Text = "追加(F1)"
 
-                    mtxKISYU_ID.Text = "<新規>"
-                    mtxKISYU_ID.ReadOnly = True
+                    _Model.Properties.ForEach(Sub(p)
+                                                  Select Case p.PropertyType
+                                                      Case GetType(Boolean)
+                                                          _VWM107(p.Name) = CBool(PrDataRow.Item(p.Name))
+                                                      Case Else
+                                                          _VWM107(p.Name) = PrDataRow.Item(p.Name)
+                                                  End Select
+                                              End Sub)
 
                     lbllblEDIT_YMDHNS.Visible = False
                     lblEDIT_YMDHNS.Visible = False
@@ -285,50 +288,43 @@ Public Class FrmM1071
                     lblEDIT_SYAIN_ID.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._2_ADDREF
-                    _Model.Properties.ForEach(Sub(p)
-                                                  Select Case p.PropertyType
-                                                      Case GetType(Boolean)
-                                                          _M105(p.Name) = CBool(PrDataRow.Item(p.Name))
-                                                      Case Else
-                                                          _M105(p.Name) = PrDataRow.Item(p.Name)
-                                                  End Select
-                                              End Sub)
 
-                    lblTytle.Text &= "（類似追加）"
-                    cmdFunc1.Text = "追加(F1)"
 
-                    mtxKISYU_ID.Text = "<新規>"
-                    mtxKISYU_ID.ReadOnly = True
+                    'lblTytle.Text &= "（類似追加）"
+                    'cmdFunc1.Text = "追加(F1)"
 
-                    lbllblEDIT_YMDHNS.Visible = False
-                    lblEDIT_YMDHNS.Visible = False
-                    lbllblEDIT_SYAIN_ID.Visible = False
-                    lblEDIT_SYAIN_ID.Visible = False
+                    'mtxKISYU_ID.Text = "<新規>"
+                    'mtxKISYU_ID.ReadOnly = True
+
+                    'lbllblEDIT_YMDHNS.Visible = False
+                    'lblEDIT_YMDHNS.Visible = False
+                    'lbllblEDIT_SYAIN_ID.Visible = False
+                    'lblEDIT_SYAIN_ID.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
-                    _Model.Properties.ForEach(Sub(p)
-                                                  Select Case p.PropertyType
-                                                      Case GetType(Boolean)
-                                                          _M105(p.Name) = CBool(PrDataRow.Item(p.Name))
-                                                      Case Else
-                                                          _M105(p.Name) = PrDataRow.Item(p.Name)
-                                                  End Select
-                                              End Sub)
+                    '_Model.Properties.ForEach(Sub(p)
+                    '                              Select Case p.PropertyType
+                    '                                  Case GetType(Boolean)
+                    '                                      _M105(p.Name) = CBool(PrDataRow.Item(p.Name))
+                    '                                  Case Else
+                    '                                      _M105(p.Name) = PrDataRow.Item(p.Name)
+                    '                              End Select
+                    '                          End Sub)
 
-                    lblTytle.Text &= "（変更）"
-                    Me.cmdFunc1.Text = "変更(F1)"
+                    'lblTytle.Text &= "（変更）"
+                    'Me.cmdFunc1.Text = "変更(F1)"
 
-                    mtxKISYU_ID.ReadOnly = True
+                    ''mtxKISYU_ID.ReadOnly = True
 
-                    lbllblEDIT_YMDHNS.Visible = True
-                    lblEDIT_YMDHNS.Visible = True
-                    lbllblEDIT_SYAIN_ID.Visible = True
-                    lblEDIT_SYAIN_ID.Visible = True
+                    'lbllblEDIT_YMDHNS.Visible = True
+                    'lblEDIT_YMDHNS.Visible = True
+                    'lbllblEDIT_SYAIN_ID.Visible = True
+                    'lblEDIT_SYAIN_ID.Visible = True
 
-                    '更新日時
-                    lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrDataRow.Item(NameOf(_M105.UPD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
-                    '更新担当者CD
-                    lblEDIT_SYAIN_ID.Text = PrDataRow.Item(NameOf(_M105.UPD_SYAIN_ID)) & " " & Fun_GetUSER_NAME(PrDataRow.Item(NameOf(_M105.UPD_SYAIN_ID)))
+                    ''更新日時
+                    'lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrDataRow.Item(NameOf(_M105.UPD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
+                    ''更新担当者CD
+                    'lblEDIT_SYAIN_ID.Text = PrDataRow.Item(NameOf(_M105.UPD_SYAIN_ID)) & " " & Fun_GetUSER_NAME(PrDataRow.Item(NameOf(_M105.UPD_SYAIN_ID)))
 
                 Case Else
                     Throw New ArgumentException(My.Resources.ErrMsgException, PrDATA_OP_MODE.ToString)
@@ -350,9 +346,6 @@ Public Class FrmM1071
         Try
             IsValidated = True
 
-            Call CmbBUMON_KB_Validating(CmbBUMON_KB, Nothing)
-            Call mtxKISYU_NAME_Validating(mtxKISYU_NAME, Nothing)
-
             Return IsValidated
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -360,29 +353,39 @@ Public Class FrmM1071
         End Try
     End Function
 
-    Private Sub CmbBUMON_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles CmbBUMON_KB.Validating
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+    '初期化
+    Private Function FunInitializeFlexGrid(ByVal flxgrd As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
+        With flxgrd
+            .Rows(0).Height = 30
 
-        If cmb.Selected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = (IsValidated AndAlso True)
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"), ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
-    End Sub
+            .AutoGenerateColumns = False
+            .AutoResize = True
+            .AllowEditing = False
+            .AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
+            .AllowDelete = False
+            .AllowResizing = C1.Win.C1FlexGrid.AllowResizingEnum.Columns
+            .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.SingleColumn
+            '.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
+            .AllowFiltering = True
 
-    Private Sub MtxKISYU_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxKISYU_NAME.Validating
-        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+            .ShowCellLabels = True
+            .SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row
+            .FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.None
 
-        If mtx.Text.IsNullOrWhiteSpace = False Then
-            ErrorProvider.ClearError(mtx)
-            IsValidated = (IsValidated AndAlso True)
-        Else
-            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "機種名"), ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
-    End Sub
+            .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
+
+            .Styles.Add("DeletedRow")
+            .Styles("DeletedRow").BackColor = Color.FromArgb(200, 200, 200)
+            .Styles("DeletedRow").ForeColor = Color.FromArgb(74, 74, 74)
+
+            .VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver 'Custom
+
+            '以下を適用するにはVisualStyleをCustomにする
+            .Styles.Alternate.BackColor = Color.White
+            .Styles.Normal.BackColor = Color.Bisque
+            .Styles.Focus.BackColor = Color.Cyan
+        End With
+    End Function
 
 
 #End Region
@@ -410,6 +413,82 @@ Public Class FrmM1071
             dsList.Dispose()
         End Try
     End Function
+
+    Private Sub C1Button1_Click(sender As Object, e As EventArgs) Handles C1Button1.Click
+
+        Call FunSRCH(Me.flxDATA, FunGetListData())
+
+    End Sub
+
+    Private Function FunSRCH(flx As C1.Win.C1FlexGrid.C1FlexGrid, dt As DataTable) As Boolean
+        Dim intCURROW As Integer
+        Try
+
+            '-----選択行記憶
+            If flx.Rows.Count > 0 Then
+                intCURROW = flx.RowSel
+            End If
+
+            flx.BeginUpdate()
+            flx.DataSource = dt
+
+            'Call FunSetGridCellFormat(flx)
+
+            If flx.Rows.Count > 0 Then
+                '-----選択行設定
+                Try
+                    flx.RowSel = intCURROW
+                Catch dgvEx As Exception
+                End Try
+                'lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, flx.Rows.Count - flx.Rows.Fixed.ToString)
+            Else
+                'lblRecordCount.Text = My.Resources.infoSearchResultNotFound
+            End If
+
+            Return True
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            flx.EndUpdate()
+        End Try
+    End Function
+
+    Private Function FunGetListData() As DataTable
+        Try
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
+            Dim sbSQLWHERE As New System.Text.StringBuilder
+
+            sbSQLWHERE.Append(" WHERE  DEL_FLG = 0 ")
+            sbSQLWHERE.Append(" AND BUMON_KB ='" & _VWM107.BUMON_KB & "'")
+            If Not mtxKISYU_NAME.Text.IsNullOrWhiteSpace Then sbSQLWHERE.Append(" AND " & $"KISYU_NAME LIKE '%{mtxKISYU_NAME.Text.Trim}%'")
+
+            sbSQL.Append($"SELECT")
+            sbSQL.Append($" * ")
+            sbSQL.Append($" FROM {NameOf(MODEL.VWM105_KISYU)} ")
+            sbSQL.Append(sbSQLWHERE)
+            sbSQL.Append($" ORDER BY KISYU_NAME ")
+            Using DB As ClsDbUtility = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            If dsList.Tables(0).Rows.Count > pub_APP_INFO.intSEARCHMAX Then
+                If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
+                    Return Nothing
+                End If
+            End If
+
+            Dim _Model As New MODEL.ModelInfo(Of MODEL.VWM105_KISYU)(srcDATA:=dsList.Tables(0))
+            Return _Model.Data
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return Nothing
+        End Try
+    End Function
+
 
 #End Region
 

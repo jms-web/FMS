@@ -11,12 +11,12 @@ Public Module ExtensionMethod
 
     <Extension()>
     Public Function DisplayName(ByVal provider As System.Reflection.ICustomAttributeProvider) As String
-        Return Models.DisplayNameAttribute.GetAttribute(provider)
+        Return ModelEx.DisplayNameAttribute.GetAttribute(provider)
     End Function
 
     <Extension()>
     Public Function DisplayName(ByVal value As [Enum]) As String
-        Return Models.DisplayNameAttribute.GetAttribute(value)
+        Return ModelEx.DisplayNameAttribute.GetAttribute(value)
     End Function
 
 #End Region
@@ -231,6 +231,19 @@ Public Module ExtensionMethod
         Return New DateTime(theDay.Year, theDay.Month, intDay)
     End Function
 
+#End Region
+
+#Region "Datarow"
+    ''' <summary>
+    ''' DataRowをModelEntityクラスにマッピング
+    ''' </summary>
+    ''' <returns></returns>
+    <Extension()>
+    Public Function ToEntity(Of T As {New, MODEL.IDataModel})(dr As DataRow) As T
+        Dim resultData = New T
+        resultData.Properties.ForEach(Sub(p) resultData(p.Name) = dr(p.Name))
+        Return resultData
+    End Function
 #End Region
 
 #Region "Datetime"
