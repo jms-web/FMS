@@ -48,7 +48,7 @@ Module mdlM1050
 
                 '-----共通データ取得
                 Using DB As ClsDbUtility = DBOpen()
-                    Call FunGetCodeDataTable(DB, "部門区分", tblBUMON)
+                    Call FunGetCodeDataTable(DB, "部門区分", tblBUMON, " ITEM_VALUE < '4'")
                 End Using
 
                 '-----一覧画面表示
