@@ -47,16 +47,21 @@ Public Class ModelInfo(Of T As {New, IDataModel})
 
 #End Region
 
-    Public Function Properties() As Generic.List(Of PropertyInfo)
-        Dim _properties = New Generic.List(Of Reflection.PropertyInfo)
-        [GetType].GetProperties(BindingFlags.Public Or
-                                BindingFlags.Instance Or
-                                BindingFlags.Static).
-                  ForEach(Sub(p) If OnlyAutoGenerateField = False Or IsAutoGenerateField(p.Name) = True Then _properties.Add(p))
+    Public Property Properties() As Generic.List(Of PropertyInfo)
+        Get
+            Dim _properties = New Generic.List(Of Reflection.PropertyInfo)
+            [GetType].GetProperties(BindingFlags.Public Or
+                                    BindingFlags.Instance Or
+                                    BindingFlags.Static).
+                      ForEach(Sub(p) If OnlyAutoGenerateField = False Or IsAutoGenerateField(p.Name) = True Then _properties.Add(p))
 
-        Return _properties
+            Return _properties
+        End Get
+        Set(value As Generic.List(Of PropertyInfo))
 
-    End Function
+        End Set
+    End Property
+
 
     Public Sub SetEntities(srcDATA As DataTable)
         For Each row In srcDATA.Rows
@@ -158,6 +163,7 @@ End Class
 Public Interface IDataModel
     Default Property Item(propertyName As String) As Object
     Sub Clear()
+    Property Properties As Generic.List(Of PropertyInfo)
 
 End Interface
 

@@ -27,6 +27,9 @@ Public Class ComboboxEx
 #Region "コンストラクタ"
     Public Sub New()
         InitializeComponent()
+        If DropDownStyle = ComboBoxStyle.DropDownList Then
+            Cursor = Cursors.Hand
+        End If
         _BackColorOrg = BackColor
         _CursorOrg = Cursor
         'SetDatasourceから移行 SelectedValueChanged等を発火させないため

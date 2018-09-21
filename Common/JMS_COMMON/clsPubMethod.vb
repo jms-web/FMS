@@ -1326,6 +1326,95 @@ Public NotInheritable Class ClsPubMethod
     End Function
 
 
+    Public Shared Function FunCSV_OUT(ByVal entities As List(Of MODEL.IDataModel), ByVal strFileName As String, ByVal strOutPath As String, Optional ByVal blnWriteHeader As Boolean = True) As Boolean
+
+        Dim strARY() As String
+
+        Dim intROW As Integer
+        'Dim intCOL As Integer
+        Dim strOUT_PATH As String
+        Dim dlgRET As DialogResult
+        Dim sb As New System.Text.StringBuilder
+        Try
+
+            '出力データチェック
+            If entities.Count = 0 Then
+                MessageBox.Show("出力データがありません", "CSV出力", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return False
+            End If
+
+            '出力先フォルダ作成(+相対パス→絶対パス変換)
+            If FunCreateDirectory(strOutPath) = False Then
+                '出力先フォルダ作成失敗
+            End If
+
+            Using sfd As New SaveFileDialog
+                With sfd
+                    .Title = "出力先を選択して下さい"
+                    .Filter = "CSVファイル(*.CSV)|*.CSV"
+                    .FileName = strFileName
+                    .InitialDirectory = strOutPath
+                    .CheckPathExists = True
+
+                    'ダイアログ表示
+                    dlgRET = sfd.ShowDialog
+                End With
+
+                Application.DoEvents()
+
+                If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                    Return False
+                Else
+                    '出力先
+                    strOUT_PATH = FunConvPathString(System.IO.Path.GetDirectoryName(sfd.FileName))
+                End If
+                'ファイル名
+                strFileName = System.IO.Path.GetFileName(sfd.FileName)
+
+                '-----配列用意
+                ReDim strARY(0 To entities.Count)
+
+                If blnWriteHeader = True Then
+                    sb.Remove(0, sb.Length)
+                    For Each p As Reflection.PropertyInfo In entities(0).Properties
+                        If sb.Length > 0 Then
+                            sb.Append(","c)
+                        End If
+                        sb.Append(EncloseDoubleQuotesIfNeed(p.Name.ToString.Replace(vbCrLf, "")))
+                    Next p
+                    strARY(intROW) = sb.ToString
+                intROW += 1
+                End If
+
+                '-----データ書込
+                For Each _entity As IDataModel In entities
+                    sb.Remove(0, sb.Length)
+                    For Each p As Reflection.PropertyInfo In _entity.Properties
+                        If sb.Length > 0 Then
+                            sb.Append(","c)
+                        End If
+                        sb.Append(EncloseDoubleQuotesIfNeed(_entity(p.Name).ToString.Replace(vbCrLf, "")))
+                    Next p
+                    strARY(intROW) = sb.ToString
+                    intROW += 1
+                Next _entity
+
+            End Using
+
+            '-----CSV出力
+            Call WRITE_CSV_FILE(strOUT_PATH, strFileName, strARY)
+
+            MessageBox.Show("｢" & strOUT_PATH & strFileName & "｣に出力しました。", "CSV出力", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            Return True
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        End Try
+    End Function
+
+
     ''' <summary>
     ''' 必要ならば、文字列をダブルクォートで囲む
     ''' </summary>
