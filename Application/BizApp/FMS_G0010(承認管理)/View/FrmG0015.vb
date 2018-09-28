@@ -216,7 +216,7 @@ Public Class FrmG0015
                     _R002_HOKOKU_TENSO.HOKOKU_NO = PrHOKOKU_NO
                     _R002_HOKOKU_TENSO.SYONIN_JUN = PrCurrentStage
                     _R002_HOKOKU_TENSO.TENSO_M_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _R002_HOKOKU_TENSO.TENSO_S_SYAIN_ID = _D004_SYONIN_J_KANRI.SYAIN_ID
+                    _R002_HOKOKU_TENSO.TENSO_S_SYAIN_ID = cmbTENSO_SAKI.SelectedValue '_D004_SYONIN_J_KANRI.SYAIN_ID
                     _R002_HOKOKU_TENSO.RIYU = _D004_SYONIN_J_KANRI.RIYU
 
                     '-----INSERT R002
@@ -401,7 +401,13 @@ Public Class FrmG0015
                                 strEXEParam)
 
         If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=cmbTENSO_SAKI.SelectedValue) Then
-            MessageBox.Show("処置依頼メールを送信しました。", "メール送信完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Using DB As ClsDbUtility = DBOpen()
+                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                Else
+                    MessageBox.Show("処置依頼メールを送信しました。", "メール送信完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End Using
+
             Return True
         Else
             MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)

@@ -1347,10 +1347,14 @@ Public Class FrmG0010
                                 strEXEParam)
 
                                 If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=dr.Item("GEN_TANTO_ID")) Then
-                                    If FunSAVE_R001(DB, dr) Then
+                                    If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                                     Else
-                                        blnErr = True
-                                        Return False
+                                        If FunSAVE_R001(DB, dr) Then
+                                            MessageBox.Show("処置依頼メールを送信しました。", "メール送信完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                        Else
+                                            blnErr = True
+                                            Return False
+                                        End If
                                     End If
                                 Else
                                     MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)

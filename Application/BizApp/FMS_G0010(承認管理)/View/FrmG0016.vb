@@ -798,7 +798,13 @@ Public Class FrmG0016
                                 strEXEParam)
 
         If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=mtxTANTO_ID.Text) Then
-            MessageBox.Show("処置依頼メールを送信しました。", "メール送信完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Using DB As ClsDbUtility = DBOpen()
+                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                Else
+                    MessageBox.Show("処置依頼メールを送信しました。", "メール送信完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End Using
+
             Return True
         Else
             MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)

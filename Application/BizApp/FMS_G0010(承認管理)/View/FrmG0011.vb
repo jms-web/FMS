@@ -1,4 +1,5 @@
 Imports JMS_COMMON.ClsPubMethod
+Imports MODEL
 
 ''' <summary>
 ''' NCR入力画面
@@ -328,19 +329,20 @@ Public Class FrmG0011
 
                 Case 4  '転送
 
-                    'If MessageBox.Show("入力内容を保存しますか？", "登録確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                     If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
-                        If FunSAVE(ENM_SAVE_MODE._1_保存) Then
-                            Me.DialogResult = DialogResult.OK
-
-                            Call OpenFormTENSO()
-                        Else
-                            MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        If OpenFormTENSO() Then
+                            If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+                                Me.DialogResult = DialogResult.OK
+                            Else
+                                If FunSAVE(ENM_SAVE_MODE._1_保存) Then
+                                    Me.DialogResult = DialogResult.OK
+                                Else
+                                    MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                End If
+                            End If
                         End If
                     End If
-                    'Else
-                    '    Call OpenFormTENSO()
-                    'End If
+
 
                 Case 5  '差戻し
                     Call OpenFormSASIMODOSI()
@@ -566,31 +568,33 @@ Public Class FrmG0011
             _D003_NCR_J._CLOSE_FG = 1
         End If
 
-        If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
-            Select Case PrCurrentStage
-                Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
-                    If _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = 0 Then _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    'UNDONE: getdbsysdate
-                    _D003_NCR_J.JIZEN_SINSA_YMD = Now.ToString("yyyyMMdd")
-                Case ENM_NCR_STAGE._50_事前審査確認
-                    _D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _D003_NCR_J.SAISIN_KAKUNIN_YMD = Now.ToString("yyyyMMdd")
-                Case ENM_NCR_STAGE._60_再審審査判定_技術代表
-                    _D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _D003_NCR_J.SAISIN_GIJYUTU_YMD = Now.ToString("yyyyMMdd")
-                Case ENM_NCR_STAGE._61_再審審査判定_品証代表
-                    _D003_NCR_J.SAISIN_HINSYO_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _D003_NCR_J.SAISIN_HINSYO_YMD = Now.ToString("yyyyMMdd")
-                Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
-                    _D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _D003_NCR_J.KOKYAKU_SAISIN_YMD = Now.ToString("yyyyMMdd")
+        Select Case enmSAVE_MODE
+            Case ENM_SAVE_MODE._1_保存
+            Case ENM_SAVE_MODE._2_承認申請
+                Select Case PrCurrentStage
+                    Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
+                        If _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = 0 Then _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                        'UNDONE: getdbsysdate
+                        _D003_NCR_J.JIZEN_SINSA_YMD = Now.ToString("yyyyMMdd")
+                    Case ENM_NCR_STAGE._50_事前審査確認
+                        _D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                        _D003_NCR_J.SAISIN_KAKUNIN_YMD = Now.ToString("yyyyMMdd")
+                    Case ENM_NCR_STAGE._60_再審審査判定_技術代表
+                        _D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                        _D003_NCR_J.SAISIN_GIJYUTU_YMD = Now.ToString("yyyyMMdd")
+                    Case ENM_NCR_STAGE._61_再審審査判定_品証代表
+                        _D003_NCR_J.SAISIN_HINSYO_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                        _D003_NCR_J.SAISIN_HINSYO_YMD = Now.ToString("yyyyMMdd")
+                    Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
+                        _D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
+                        _D003_NCR_J.KOKYAKU_SAISIN_YMD = Now.ToString("yyyyMMdd")
 
-                Case ENM_NCR_STAGE._110_abcde処置担当
+                    Case ENM_NCR_STAGE._110_abcde処置担当
 
-                Case Else
-                    'UNDONE: Err
-            End Select
-        End If
+                    Case Else
+                        'UNDONE: Err
+                End Select
+        End Select
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
@@ -974,24 +978,26 @@ Public Class FrmG0011
         _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
         _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
         _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-        '-----レコード保存
+
+
+        '#80 承認申請日は画面で入力
+        If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+            _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
+        ElseIf _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.Trim.Length = 8 Then
+            'datetextboxにバインド時は時刻情報を結合
+            _D004_SYONIN_J_KANRI.SYONIN_YMDHNS &= "000000"
+        End If
+
         Select Case enmSAVE_MODE
             Case ENM_SAVE_MODE._1_保存
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
                 _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
+                '_D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
             Case ENM_SAVE_MODE._2_承認申請
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
 
-                'DEBUG: #80 承認申請日は画面で入力
-                If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
-                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
-                ElseIf _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.Trim.Length = 8 Then
-                    'datetextboxにバインド時は時刻情報を結合
-                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS &= "000000"
-                End If
             Case Else
                 'Err
                 Return False
@@ -1110,6 +1116,7 @@ Public Class FrmG0011
                 _D004_SYONIN_J_KANRI.RIYU = ""
                 _D004_SYONIN_J_KANRI.COMMENT = ""
                 _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False
+                _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
 
             Case Else
                 'Err
@@ -2460,21 +2467,6 @@ Public Class FrmG0011
         sbSQL.Append(" )")
         sbSQL.Append("OUTPUT $action AS RESULT;")
 
-        '----D004
-        '-----データモデル更新
-        _D004_SYONIN_J_KANRI.clear()
-        _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-        _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
-        _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_CAR_STAGE._10_起草入力
-        _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-        _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
-        _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
-        _D004_SYONIN_J_KANRI.SASIMODOSI_FG = False
-        _D004_SYONIN_J_KANRI.RIYU = ""
-        _D004_SYONIN_J_KANRI.COMMENT = ""
-        _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
-        _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-
         Using DB As ClsDbUtility = DBOpen()
             Dim blnErr As Boolean
             Try
@@ -2506,6 +2498,21 @@ Public Class FrmG0011
                         End If
                         Return False
                 End Select
+
+                '----D004
+                '-----データモデル更新
+                _D004_SYONIN_J_KANRI.clear()
+                _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+                _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+                _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_CAR_STAGE._10_起草入力
+                _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
+                _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
+                _D004_SYONIN_J_KANRI.SASIMODOSI_FG = False
+                _D004_SYONIN_J_KANRI.RIYU = ""
+                _D004_SYONIN_J_KANRI.COMMENT = ""
+                _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
+                _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
 
                 strRET = ""
                 '-----D004
@@ -2660,12 +2667,12 @@ Public Class FrmG0011
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
 
-            If dlgRET = Windows.Forms.DialogResult.Cancel Then
-                Return False
-            Else
+            If dlgRET = Windows.Forms.DialogResult.OK Then
                 Me.DialogResult = DialogResult.OK
                 Me.Close()
                 Return True
+            Else
+                Return False
             End If
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -3289,8 +3296,13 @@ Public Class FrmG0011
                         End If
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST01_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST01_UPD_YMD.ReadOnly = True
+                            If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                                dtST01_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                dtST01_UPD_YMD.ReadOnly = True
+                            Else
+                                '一時保存時の日付を読み込み 変更可能
+                                _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            End If
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
@@ -3334,8 +3346,13 @@ Public Class FrmG0011
 
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        dtST02_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                        dtST02_UPD_YMD.ReadOnly = True
+                        If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                            dtST02_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST02_UPD_YMD.ReadOnly = True
+                        Else
+                            '一時保存時の日付を読み込み 変更可能
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                        End If
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
@@ -3376,8 +3393,13 @@ Public Class FrmG0011
 
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        dtST03_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                        dtST03_UPD_YMD.ReadOnly = True
+                        If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                            dtST03_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST03_UPD_YMD.ReadOnly = True
+                        Else
+                            '一時保存時の日付を読み込み 変更可能
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                        End If
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
@@ -3461,8 +3483,13 @@ Public Class FrmG0011
                     txtST04_Comment.Text = _V003.COMMENT
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        dtST04_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                        dtST04_UPD_YMD.ReadOnly = True
+                        If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                            dtST04_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST04_UPD_YMD.ReadOnly = True
+                        Else
+                            '一時保存時の日付を読み込み 変更可能
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                        End If
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
@@ -3513,8 +3540,13 @@ Public Class FrmG0011
                     txtST05_Comment.Text = _V003.COMMENT
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        dtST05_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                        dtST05_UPD_YMD.ReadOnly = True
+                        If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                            dtST05_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST05_UPD_YMD.ReadOnly = True
+                        Else
+                            '一時保存時の日付を読み込み 変更可能
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                        End If
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
@@ -3580,8 +3612,13 @@ Public Class FrmG0011
                     txtST06_Comment.Text = _V003.COMMENT
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        dtST06_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                        dtST06_UPD_YMD.ReadOnly = True
+                        If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                            dtST06_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST06_UPD_YMD.ReadOnly = True
+                        Else
+                            '一時保存時の日付を読み込み 変更可能
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                        End If
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
@@ -3634,8 +3671,13 @@ Public Class FrmG0011
                         txtST07_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST07_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST07_UPD_YMD.ReadOnly = True
+                            If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                                dtST07_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                dtST07_UPD_YMD.ReadOnly = True
+                            Else
+                                '一時保存時の日付を読み込み 変更可能
+                                _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            End If
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
@@ -3716,8 +3758,13 @@ Public Class FrmG0011
                         txtST08_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST08_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST08_UPD_YMD.ReadOnly = True
+                            If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                                dtST08_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                dtST08_UPD_YMD.ReadOnly = True
+                            Else
+                                '一時保存時の日付を読み込み 変更可能
+                                _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            End If
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
@@ -3828,8 +3875,13 @@ Public Class FrmG0011
                         txtST09_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST09_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST09_UPD_YMD.ReadOnly = True
+                            If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                                dtST09_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                dtST09_UPD_YMD.ReadOnly = True
+                            Else
+                                '一時保存時の日付を読み込み 変更可能
+                                _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            End If
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
@@ -4056,8 +4108,13 @@ Public Class FrmG0011
                         txtST13_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST13_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST13_UPD_YMD.ReadOnly = True
+                            If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                                dtST13_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                dtST13_UPD_YMD.ReadOnly = True
+                            Else
+                                '一時保存時の日付を読み込み 変更可能
+                                _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            End If
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
@@ -4109,8 +4166,13 @@ Public Class FrmG0011
                         txtST14_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST14_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST14_UPD_YMD.ReadOnly = True
+                            If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                                dtST14_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                dtST14_UPD_YMD.ReadOnly = True
+                            Else
+                                '一時保存時の日付を読み込み 変更可能
+                                _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            End If
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
@@ -4212,8 +4274,13 @@ Public Class FrmG0011
                         txtST15_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST15_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST15_UPD_YMD.ReadOnly = True
+                            If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                                dtST15_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                dtST15_UPD_YMD.ReadOnly = True
+                            Else
+                                '一時保存時の日付を読み込み 変更可能
+                                _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            End If
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If

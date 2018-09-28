@@ -197,21 +197,19 @@ Public Class FrmG0012
 
                 Case 4  '転送
 
-
-                    'If MessageBox.Show("入力内容を保存しますか？", "登録確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                     If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
-                        If FunSAVE(ENM_SAVE_MODE._1_保存) Then
-                            Me.DialogResult = DialogResult.OK
-
-                            Call OpenFormTENSO()
-                        Else
-                            MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        If OpenFormTENSO() Then
+                            If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+                                Me.DialogResult = DialogResult.OK
+                            Else
+                                If FunSAVE(ENM_SAVE_MODE._1_保存) Then
+                                    Me.DialogResult = DialogResult.OK
+                                Else
+                                    MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                End If
+                            End If
                         End If
                     End If
-                    'Else
-                    '    Call OpenFormTENSO()
-                    'End If
-
                 Case 5  '差し戻し
                     Call OpenFormSASIMODOSI()
 
@@ -770,7 +768,7 @@ Public Class FrmG0012
 
 #End Region
 
-#Region "   D004"
+#Region "   D004 承認実績管理更新"
     ''' <summary>
     ''' 承認実績管理更新
     ''' </summary>
@@ -1011,6 +1009,7 @@ Public Class FrmG0012
 
 #End Region
 
+#Region "   D006 不適合是正処置原因分析情報更新"
     ''' <summary>
     ''' 不適合是正処置原因分析情報更新
     ''' </summary>
@@ -1140,6 +1139,9 @@ Public Class FrmG0012
 
         Return True
     End Function
+#End Region
+
+
 
     ''' <summary>
     ''' 承認依頼メール送信
@@ -1506,11 +1508,11 @@ Public Class FrmG0012
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
 
-            If dlgRET = Windows.Forms.DialogResult.Cancel Then
-                Return False
-            Else
+            If dlgRET = Windows.Forms.DialogResult.OK Then
                 Me.DialogResult = DialogResult.OK
                 Me.Close()
+            Else
+                Return False
             End If
 
             Return True
@@ -3151,9 +3153,6 @@ Public Class FrmG0012
             Return 0
         End Try
     End Function
-
-
-
 
 #End Region
 
