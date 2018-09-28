@@ -268,7 +268,7 @@ Partial Class FrmM0011
         Me.cmbJYUN.Name = "cmbJYUN"
         Me.cmbJYUN.NullValue = " "
         Me.cmbJYUN.ReadOnly = False
-        Me.cmbJYUN.Selected = False
+        Me.cmbJYUN.IsSelected = False
         Me.cmbJYUN.Size = New System.Drawing.Size(101, 25)
         Me.cmbJYUN.TabIndex = 4
         Me.cmbJYUN.ValueMember = "VALUE"
@@ -350,7 +350,7 @@ Partial Class FrmM0011
         Me.cmbKOMO_NM.Name = "cmbKOMO_NM"
         Me.cmbKOMO_NM.NullValue = " "
         Me.cmbKOMO_NM.ReadOnly = False
-        Me.cmbKOMO_NM.Selected = False
+        Me.cmbKOMO_NM.IsSelected = False
         Me.cmbKOMO_NM.Size = New System.Drawing.Size(403, 25)
         Me.cmbKOMO_NM.TabIndex = 1
         Me.cmbKOMO_NM.Text = "(‘I‘ð)"

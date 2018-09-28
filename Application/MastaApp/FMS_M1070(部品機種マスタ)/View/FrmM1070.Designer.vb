@@ -214,7 +214,7 @@ Partial Class FrmM1070
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
         Me.cmbBUMON_KB.ReadOnly = False
-        Me.cmbBUMON_KB.Selected = False
+        Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Size = New System.Drawing.Size(155, 25)
         Me.cmbBUMON_KB.TabIndex = 59
         Me.cmbBUMON_KB.ValueMember = "VALUE"

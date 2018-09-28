@@ -647,7 +647,7 @@ Public Class FrmG0016
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         'SPEC: 20-5.‡A
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             mtxTANTO_NAME.Text = DirectCast(cmbMODOSI_SAKI.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = cmb.SelectedValue).First.Item("SYAIN_NAME")
             mtxTANTO_ID.Text = DirectCast(cmbMODOSI_SAKI.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = cmb.SelectedValue).First.Item("SYAIN_ID")
         Else
@@ -660,7 +660,7 @@ Public Class FrmG0016
     Private Sub CmbMODOSI_SAKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbMODOSI_SAKI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             pri_blnValidated = pri_blnValidated AndAlso True
         Else

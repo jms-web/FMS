@@ -147,7 +147,7 @@ Partial Class FrmM0020
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
         Me.cmbBUMON_KB.ReadOnly = False
-        Me.cmbBUMON_KB.Selected = False
+        Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Size = New System.Drawing.Size(113, 25)
         Me.cmbBUMON_KB.TabIndex = 0
         Me.cmbBUMON_KB.Text = "(‘I‘ð)"
@@ -250,7 +250,7 @@ Partial Class FrmM0020
         Me.cmbBUSYO_KB.Name = "cmbBUSYO_KB"
         Me.cmbBUSYO_KB.NullValue = " "
         Me.cmbBUSYO_KB.ReadOnly = False
-        Me.cmbBUSYO_KB.Selected = False
+        Me.cmbBUSYO_KB.IsSelected = False
         Me.cmbBUSYO_KB.Size = New System.Drawing.Size(135, 25)
         Me.cmbBUSYO_KB.TabIndex = 0
         Me.cmbBUSYO_KB.Text = "(‘I‘ð)"

@@ -275,7 +275,7 @@ Partial Class FrmM0161
         Me.CmbSYONIN_HOKOKUSYO_ID.Name = "CmbSYONIN_HOKOKUSYO_ID"
         Me.CmbSYONIN_HOKOKUSYO_ID.NullValue = " "
         Me.CmbSYONIN_HOKOKUSYO_ID.ReadOnly = False
-        Me.CmbSYONIN_HOKOKUSYO_ID.Selected = False
+        Me.CmbSYONIN_HOKOKUSYO_ID.IsSelected = False
         Me.CmbSYONIN_HOKOKUSYO_ID.Size = New System.Drawing.Size(211, 23)
         Me.CmbSYONIN_HOKOKUSYO_ID.TabIndex = 39
         Me.CmbSYONIN_HOKOKUSYO_ID.ValueMember = "VALUE"
@@ -292,7 +292,7 @@ Partial Class FrmM0161
         Me.CmbSYONIN_JUN.Name = "CmbSYONIN_JUN"
         Me.CmbSYONIN_JUN.NullValue = " "
         Me.CmbSYONIN_JUN.ReadOnly = False
-        Me.CmbSYONIN_JUN.Selected = False
+        Me.CmbSYONIN_JUN.IsSelected = False
         Me.CmbSYONIN_JUN.Size = New System.Drawing.Size(211, 23)
         Me.CmbSYONIN_JUN.TabIndex = 40
         Me.CmbSYONIN_JUN.ValueMember = "VALUE"
@@ -309,7 +309,7 @@ Partial Class FrmM0161
         Me.CmbSYAIN_ID.Name = "CmbSYAIN_ID"
         Me.CmbSYAIN_ID.NullValue = " "
         Me.CmbSYAIN_ID.ReadOnly = False
-        Me.CmbSYAIN_ID.Selected = False
+        Me.CmbSYAIN_ID.IsSelected = False
         Me.CmbSYAIN_ID.Size = New System.Drawing.Size(211, 23)
         Me.CmbSYAIN_ID.TabIndex = 41
         Me.CmbSYAIN_ID.ValueMember = "VALUE"

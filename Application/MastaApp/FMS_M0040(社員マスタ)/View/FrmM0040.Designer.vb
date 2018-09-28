@@ -253,11 +253,11 @@ Partial Class FrmM0040
         Me.cmbYAKUSYOKU_KB.FormattingEnabled = True
         Me.cmbYAKUSYOKU_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbYAKUSYOKU_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbYAKUSYOKU_KB.IsSelected = False
         Me.cmbYAKUSYOKU_KB.Location = New System.Drawing.Point(70, 33)
         Me.cmbYAKUSYOKU_KB.Name = "cmbYAKUSYOKU_KB"
         Me.cmbYAKUSYOKU_KB.NullValue = " "
         Me.cmbYAKUSYOKU_KB.ReadOnly = False
-        Me.cmbYAKUSYOKU_KB.Selected = False
         Me.cmbYAKUSYOKU_KB.Size = New System.Drawing.Size(103, 25)
         Me.cmbYAKUSYOKU_KB.TabIndex = 63
         Me.cmbYAKUSYOKU_KB.Text = "(‘I‘ð)"
@@ -303,11 +303,11 @@ Partial Class FrmM0040
         Me.cmbSYAIN_KB.FormattingEnabled = True
         Me.cmbSYAIN_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbSYAIN_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYAIN_KB.IsSelected = False
         Me.cmbSYAIN_KB.Location = New System.Drawing.Point(829, 3)
         Me.cmbSYAIN_KB.Name = "cmbSYAIN_KB"
         Me.cmbSYAIN_KB.NullValue = " "
         Me.cmbSYAIN_KB.ReadOnly = False
-        Me.cmbSYAIN_KB.Selected = False
         Me.cmbSYAIN_KB.Size = New System.Drawing.Size(103, 25)
         Me.cmbSYAIN_KB.TabIndex = 61
         Me.cmbSYAIN_KB.Text = "(‘I‘ð)"

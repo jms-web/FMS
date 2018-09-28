@@ -1936,7 +1936,9 @@ Public Class FrmG0012
 
 #End Region
 
+#Region "   1.NCR"
 
+#End Region
 
 #Region "   2.要因"
 
@@ -2082,8 +2084,6 @@ Public Class FrmG0012
 
 #End Region
 
-
-
 #Region "   6.処置水平展開"
 
     Private Sub RbtnKAITO14_T_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnKAITO_14_T.CheckedChanged
@@ -2108,7 +2108,7 @@ Public Class FrmG0012
 
     Private Sub CmbDestTANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbDestTANTO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        If cmb.Selected = False Then
+        If cmb.IsSelected = False Then
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "申請先社員"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             IsValidated = False
@@ -2134,7 +2134,6 @@ Public Class FrmG0012
         End If
     End Sub
 #End Region
-
 
 #Region "   処置実施記録"
 
@@ -2517,10 +2516,7 @@ Public Class FrmG0012
 
 #Region "ローカル関数"
 
-    ''' <summary>
-    ''' バインディング
-    ''' </summary>
-    ''' <returns></returns>
+#Region "バインディング"
     Private Function FunSetBinding() As Boolean
 
         Try
@@ -2631,6 +2627,8 @@ Public Class FrmG0012
         End Try
     End Function
 
+#End Region
+
 #Region "処理モード別画面初期化"
 
     Private Function FunInitializeControls() As Boolean
@@ -2700,6 +2698,7 @@ Public Class FrmG0012
                     pnlSYOCHI_KIROKU.DisableContaints(blnOwn, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     pnlZESEI_SYOCHI.Visible = False
                     pnlST13.Visible = False
+                    lblKYOIKU_FILE_PATH_Clear.Enabled = blnOwn
 
                 Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
 
@@ -2709,13 +2708,16 @@ Public Class FrmG0012
                     pnlST05.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     'tab_CAR_SUB_1_.Enabled = False 'tab_CAR_SUB_1_.EnableDisablePages(False)
                     'tab_CAR_SUB_2_.Enabled = blnOwn 'tab_CAR_SUB_2_.EnableDisablePages(blnOwn)
+                    lblKYOIKU_FILE_PATH_Clear.Enabled = False
 
                     If PrCurrentStage = ENM_CAR_STAGE._130_是正有効性確認_品証担当課長 Then
                         pnlST13.Visible = True
                         btnST13_SYONIN.Enabled = blnOwn
+                        lblSYOSAI_FILE_PATH_Clear.Enabled = False
                     Else
                         pnlST13.Visible = False
                     End If
+
                 Case ENM_CAR_STAGE._999_Closed
                     pnlST05.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     tabSTAGE02.EnableDisablePages(False)
@@ -2727,6 +2729,8 @@ Public Class FrmG0012
                     lbltmpFile2_Clear.Enabled = False
                     btnOpentmpFile1.Enabled = False
                     btnOpentmpFile2.Enabled = False
+                    lblKYOIKU_FILE_PATH_Clear.Enabled = False
+                    lblSYOSAI_FILE_PATH_Clear.Enabled = False
                 Case Else
             End Select
 
@@ -3047,8 +3051,6 @@ Public Class FrmG0012
                     Case ENM_CAR_STAGE._10_起草入力 To ENM_CAR_STAGE._120_是正有効性確認_品証TL
                         Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
 
-                        Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
-
                     Case ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
 
                     Case Else
@@ -3064,6 +3066,33 @@ Public Class FrmG0012
         End Try
     End Function
 
+    Private Sub TxtKAITO_21_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtKAITO_21.Validating
+        Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
+
+        If txt.ReadOnly = False AndAlso txt.Text.IsNullOrWhiteSpace = True Then
+            'e.Cancel = True
+            ErrorProvider.SetError(txt, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置A内容"))
+            ErrorProvider.SetIconAlignment(txt, ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        Else
+            ErrorProvider.ClearError(txt)
+            IsValidated = IsValidated AndAlso True
+        End If
+    End Sub
+
+    Private Sub TxtKAITO_22_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtKAITO_22.Validating
+        Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
+
+        If txt.ReadOnly = False AndAlso txt.Text.IsNullOrWhiteSpace = True Then
+            'e.Cancel = True
+            ErrorProvider.SetError(txt, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置B内容"))
+            ErrorProvider.SetIconAlignment(txt, ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        Else
+            ErrorProvider.ClearError(txt)
+            IsValidated = IsValidated AndAlso True
+        End If
+    End Sub
 #End Region
 
     ''' <summary>
@@ -3122,6 +3151,7 @@ Public Class FrmG0012
             Return 0
         End Try
     End Function
+
 
 
 

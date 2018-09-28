@@ -278,7 +278,7 @@ Partial Class FrmM0021
         Me.cmbBUSYO_KB.Name = "cmbBUSYO_KB"
         Me.cmbBUSYO_KB.NullValue = " "
         Me.cmbBUSYO_KB.ReadOnly = False
-        Me.cmbBUSYO_KB.Selected = False
+        Me.cmbBUSYO_KB.IsSelected = False
         Me.cmbBUSYO_KB.Size = New System.Drawing.Size(158, 25)
         Me.cmbBUSYO_KB.TabIndex = 1
         Me.cmbBUSYO_KB.ValueMember = "VALUE"
@@ -357,7 +357,7 @@ Partial Class FrmM0021
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
         Me.cmbBUMON_KB.ReadOnly = False
-        Me.cmbBUMON_KB.Selected = False
+        Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Size = New System.Drawing.Size(158, 25)
         Me.cmbBUMON_KB.TabIndex = 69
         Me.cmbBUMON_KB.ValueMember = "VALUE"
@@ -401,7 +401,7 @@ Partial Class FrmM0021
         Me.cmbSYOZOKUCYO.Name = "cmbSYOZOKUCYO"
         Me.cmbSYOZOKUCYO.NullValue = " "
         Me.cmbSYOZOKUCYO.ReadOnly = False
-        Me.cmbSYOZOKUCYO.Selected = False
+        Me.cmbSYOZOKUCYO.IsSelected = False
         Me.cmbSYOZOKUCYO.Size = New System.Drawing.Size(270, 25)
         Me.cmbSYOZOKUCYO.TabIndex = 72
         Me.cmbSYOZOKUCYO.ValueMember = "VALUE"
@@ -439,7 +439,7 @@ Partial Class FrmM0021
         Me.cmbOYA_BUSYO.Name = "cmbOYA_BUSYO"
         Me.cmbOYA_BUSYO.NullValue = " "
         Me.cmbOYA_BUSYO.ReadOnly = False
-        Me.cmbOYA_BUSYO.Selected = False
+        Me.cmbOYA_BUSYO.IsSelected = False
         Me.cmbOYA_BUSYO.Size = New System.Drawing.Size(292, 25)
         Me.cmbOYA_BUSYO.TabIndex = 4
         Me.cmbOYA_BUSYO.ValueMember = "VALUE"
@@ -484,7 +484,7 @@ Partial Class FrmM0021
         Me.cmbOYA_BUSYO_KB.Name = "cmbOYA_BUSYO_KB"
         Me.cmbOYA_BUSYO_KB.NullValue = " "
         Me.cmbOYA_BUSYO_KB.ReadOnly = False
-        Me.cmbOYA_BUSYO_KB.Selected = False
+        Me.cmbOYA_BUSYO_KB.IsSelected = False
         Me.cmbOYA_BUSYO_KB.Size = New System.Drawing.Size(158, 25)
         Me.cmbOYA_BUSYO_KB.TabIndex = 74
         Me.cmbOYA_BUSYO_KB.ValueMember = "VALUE"

@@ -129,7 +129,7 @@ Public Class ComboboxEx
     ''' </summary>
     ''' <returns></returns>
     <Browsable(False)>
-    Public Property Selected As Boolean
+    Public Property IsSelected As Boolean
         Get
             Return Me.ReadOnly OrElse (Me.DataSource IsNot Nothing AndAlso Me.SelectedValue <> Me.NullValue)
         End Get

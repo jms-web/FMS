@@ -83,14 +83,6 @@ Public Class FrmM1060
             .Styles("DeletedRow").BackColor = clrDeletedRowBackColor
             .Styles("DeletedRow").ForeColor = clrDeletedRowForeColor
 
-            .Styles.Add("EvenRow")
-            .Styles("EvenRow").BackColor = clrRowEvenColor
-            '.Styles("EvenRow").ForeColor = clrRowEvenForeColor
-
-            .Styles.Add("OddRow")
-            .Styles("OddRow").BackColor = clrRowOddColor
-            '.Styles("OddRow").ForeColor = clrDeletedRowForeColor
-
             .VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver 'Custom
 
             'ˆÈ‰º‚ð“K—p‚·‚é‚É‚ÍVisualStyle‚ðCustom‚É‚·‚é
@@ -204,8 +196,8 @@ Public Class FrmM1060
             Dim sbSQLWHERE As New System.Text.StringBuilder
 
             sbSQLWHERE.Append(" WHERE 1=1 ")
-            If cmbBUMON_KB.Selected Then sbSQLWHERE.Append($" AND BUMON_KB ='{cmbBUMON_KB.SelectedValue}' ")
-            If cmbTOKUI.Selected Then sbSQLWHERE.Append($" AND TOKUI_ID ='{cmbTOKUI.SelectedValue}' ")
+            If cmbBUMON_KB.IsSelected Then sbSQLWHERE.Append($" AND BUMON_KB ='{cmbBUMON_KB.SelectedValue}' ")
+            If cmbTOKUI.IsSelected Then sbSQLWHERE.Append($" AND TOKUI_ID ='{cmbTOKUI.SelectedValue}' ")
             If mtxBUHIN_BANGO.Text.Trim <> "" Then sbSQLWHERE.Append($" AND BUHIN_BANGO like '%{mtxBUHIN_BANGO.Text}%' ")
             If mtxBUHIN_NAME.Text.Trim <> "" Then sbSQLWHERE.Append($" AND BUHIN_NAME like '%{mtxBUHIN_NAME.Text}%' ")
             If mtxSYANAI_CD.Text.Trim <> "" Then sbSQLWHERE.Append($" AND SYANAI_CD like '%{mtxSYANAI_CD.Text}%' ")

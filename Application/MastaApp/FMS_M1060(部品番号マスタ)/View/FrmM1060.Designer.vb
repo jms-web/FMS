@@ -212,11 +212,11 @@ Partial Class FrmM1060
         Me.cmbBUMON_KB.FormattingEnabled = True
         Me.cmbBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Location = New System.Drawing.Point(79, 3)
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
         Me.cmbBUMON_KB.ReadOnly = False
-        Me.cmbBUMON_KB.Selected = False
         Me.cmbBUMON_KB.Size = New System.Drawing.Size(117, 25)
         Me.cmbBUMON_KB.TabIndex = 59
         Me.cmbBUMON_KB.ValueMember = "VALUE"
@@ -256,11 +256,11 @@ Partial Class FrmM1060
         Me.cmbTOKUI.FormattingEnabled = True
         Me.cmbTOKUI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbTOKUI.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbTOKUI.IsSelected = False
         Me.cmbTOKUI.Location = New System.Drawing.Point(341, 3)
         Me.cmbTOKUI.Name = "cmbTOKUI"
         Me.cmbTOKUI.NullValue = " "
         Me.cmbTOKUI.ReadOnly = False
-        Me.cmbTOKUI.Selected = False
         Me.cmbTOKUI.Size = New System.Drawing.Size(242, 25)
         Me.cmbTOKUI.TabIndex = 103
         Me.cmbTOKUI.ValueMember = "VALUE"

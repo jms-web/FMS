@@ -508,7 +508,7 @@ Public Class FrmM1061
     Private Sub CmbBUMON_KB_Validating(sender As Object, e As System.EventArgs) Handles cmbBUMON_KB.Validated
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = (IsValidated AndAlso True)
 
@@ -565,7 +565,7 @@ Public Class FrmM1061
     Private Sub CmbTOKUI_ID_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbTOKUI_ID.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = (IsValidated AndAlso True)
         Else

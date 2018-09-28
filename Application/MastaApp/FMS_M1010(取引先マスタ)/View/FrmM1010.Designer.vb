@@ -272,7 +272,7 @@ Partial Class FrmM1010
         Me.cmbTORI_KB.Name = "cmbTORI_KB"
         Me.cmbTORI_KB.NullValue = " "
         Me.cmbTORI_KB.ReadOnly = False
-        Me.cmbTORI_KB.Selected = False
+        Me.cmbTORI_KB.IsSelected = False
         Me.cmbTORI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbTORI_KB.TabIndex = 59
         Me.cmbTORI_KB.ValueMember = "VALUE"

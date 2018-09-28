@@ -165,7 +165,7 @@ Partial Class FrmG0015
         Me.cmbTENSO_SAKI.Location = New System.Drawing.Point(99, 21)
         Me.cmbTENSO_SAKI.MaxLength = 30
         Me.cmbTENSO_SAKI.Name = "cmbTENSO_SAKI"
-        Me.cmbTENSO_SAKI.Selected = False
+        Me.cmbTENSO_SAKI.IsSelected = False
         Me.cmbTENSO_SAKI.Size = New System.Drawing.Size(239, 25)
         Me.cmbTENSO_SAKI.TabIndex = 1
         Me.cmbTENSO_SAKI.Text = "(‘I‘ð)"

@@ -51,6 +51,7 @@ Module mdlM0160
                     Call FunGetCodeDataTable(DB, "³”F•ñ‘ID", tblSYONIN_HOKOKUSYO_ID)
                     Call FunGetCodeDataTable(DB, "’S“–", tblTANTO)
                     'Call FunGetCodeDataTable(DB, "E”Ô", tblSYOKUBAN)
+                    Call FunGetCodeDataTable(DB, "•”–å‹æ•ª", tblBUMON)
                 End Using
 
                 '-----ˆê——‰æ–Ê•\¦

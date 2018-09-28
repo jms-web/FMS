@@ -342,7 +342,7 @@ Partial Class FrmM1061
         Me.cmbTOKUI_ID.Name = "cmbTOKUI_ID"
         Me.cmbTOKUI_ID.NullValue = " "
         Me.cmbTOKUI_ID.ReadOnly = False
-        Me.cmbTOKUI_ID.Selected = False
+        Me.cmbTOKUI_ID.IsSelected = False
         Me.cmbTOKUI_ID.Size = New System.Drawing.Size(243, 23)
         Me.cmbTOKUI_ID.TabIndex = 68
         Me.cmbTOKUI_ID.ValueMember = "VALUE"
@@ -420,7 +420,7 @@ Partial Class FrmM1061
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
         Me.cmbBUMON_KB.ReadOnly = False
-        Me.cmbBUMON_KB.Selected = False
+        Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Size = New System.Drawing.Size(126, 23)
         Me.cmbBUMON_KB.TabIndex = 49
         Me.cmbBUMON_KB.ValueMember = "VALUE"
@@ -448,7 +448,7 @@ Partial Class FrmM1061
         Me.cmbKEIYAKU_KB.Name = "cmbKEIYAKU_KB"
         Me.cmbKEIYAKU_KB.NullValue = " "
         Me.cmbKEIYAKU_KB.ReadOnly = False
-        Me.cmbKEIYAKU_KB.Selected = False
+        Me.cmbKEIYAKU_KB.IsSelected = False
         Me.cmbKEIYAKU_KB.Size = New System.Drawing.Size(126, 23)
         Me.cmbKEIYAKU_KB.TabIndex = 77
         Me.cmbKEIYAKU_KB.ValueMember = "VALUE"
@@ -466,7 +466,7 @@ Partial Class FrmM1061
         Me.cmbRIKUKAIKU_KB.Name = "cmbRIKUKAIKU_KB"
         Me.cmbRIKUKAIKU_KB.NullValue = " "
         Me.cmbRIKUKAIKU_KB.ReadOnly = False
-        Me.cmbRIKUKAIKU_KB.Selected = False
+        Me.cmbRIKUKAIKU_KB.IsSelected = False
         Me.cmbRIKUKAIKU_KB.Size = New System.Drawing.Size(102, 23)
         Me.cmbRIKUKAIKU_KB.TabIndex = 78
         Me.cmbRIKUKAIKU_KB.ValueMember = "VALUE"
