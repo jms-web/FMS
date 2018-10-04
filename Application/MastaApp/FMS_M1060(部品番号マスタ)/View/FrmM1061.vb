@@ -508,7 +508,7 @@ Public Class FrmM1061
     Private Sub CmbBUMON_KB_Validating(sender As Object, e As System.EventArgs) Handles cmbBUMON_KB.Validated
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = (IsValidated AndAlso True)
 
@@ -524,8 +524,8 @@ Public Class FrmM1061
                         Call FunGetCodeDataTable(DB, "ïóñhå_ñÒãÊï™", tblKK_KEIYAKU_KB)
                         cmbKEIYAKU_KB.SetDataSource(tblKK_KEIYAKU_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                         cmbKEIYAKU_KB.Enabled = True
-                        _M106.ZUBAN_C = ""
-                        mtxZUBAN_C.Enabled = False
+                        '_M106.ZUBAN_C = ""
+                        'mtxZUBAN_C.Enabled = False
 
                     Case ENM_BUMON_KB._2_LP
                         mtxBUHIN_NAME.Enabled = True
@@ -540,8 +540,8 @@ Public Class FrmM1061
                         Call FunGetCodeDataTable(DB, "ï°çáçﬁå_ñÒãÊï™", tblFK_KEIYAKU_KB)
                         cmbKEIYAKU_KB.SetDataSource(tblFK_KEIYAKU_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-                        _M106.ZUBAN_C = ""
-                        mtxZUBAN_C.Enabled = False
+                        '_M106.ZUBAN_C = ""
+                        'mtxZUBAN_C.Enabled = False
 
                     Case Else
 
@@ -565,7 +565,7 @@ Public Class FrmM1061
     Private Sub CmbTOKUI_ID_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbTOKUI_ID.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = (IsValidated AndAlso True)
         Else

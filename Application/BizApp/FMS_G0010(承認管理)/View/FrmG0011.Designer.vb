@@ -35,7 +35,6 @@ Partial Class FrmG0011
         Me.cmbBUHIN_BANGO = New JMS_COMMON.ComboboxEx()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.dtDraft = New JMS_COMMON.DateTextBoxEx()
-        Me.mtxHINMEI = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.lblSYANAI_CD = New System.Windows.Forms.Label()
         Me.cmbSYANAI_CD = New JMS_COMMON.ComboboxEx()
@@ -58,6 +57,7 @@ Partial Class FrmG0011
         Me.chkSAIHATU = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.dtHASSEI_YMD = New JMS_COMMON.DateTextBoxEx()
+        Me.cmbHINMEI = New JMS_COMMON.ComboboxEx()
         Me.picZoom = New System.Windows.Forms.PictureBox()
         Me.D003NCRJBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.TabSTAGE = New JMS_COMMON.TabControlEx()
@@ -731,7 +731,6 @@ Partial Class FrmG0011
         Me.tlpFilter.Controls.Add(Me.cmbBUHIN_BANGO, 18, 1)
         Me.tlpFilter.Controls.Add(Me.Label6, 42, 0)
         Me.tlpFilter.Controls.Add(Me.dtDraft, 47, 0)
-        Me.tlpFilter.Controls.Add(Me.mtxHINMEI, 47, 1)
         Me.tlpFilter.Controls.Add(Me.Label7, 42, 1)
         Me.tlpFilter.Controls.Add(Me.lblSYANAI_CD, 29, 1)
         Me.tlpFilter.Controls.Add(Me.cmbSYANAI_CD, 34, 1)
@@ -754,6 +753,7 @@ Partial Class FrmG0011
         Me.tlpFilter.Controls.Add(Me.chkSAIHATU, 59, 3)
         Me.tlpFilter.Controls.Add(Me.Label3, 52, 0)
         Me.tlpFilter.Controls.Add(Me.dtHASSEI_YMD, 56, 0)
+        Me.tlpFilter.Controls.Add(Me.cmbHINMEI, 47, 1)
         Me.tlpFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpFilter.Location = New System.Drawing.Point(3, 20)
         Me.tlpFilter.Name = "tlpFilter"
@@ -791,11 +791,11 @@ Partial Class FrmG0011
         Me.cmbKISYU.FormattingEnabled = True
         Me.cmbKISYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbKISYU.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbKISYU.IsSelected = False
         Me.cmbKISYU.Location = New System.Drawing.Point(103, 33)
         Me.cmbKISYU.Name = "cmbKISYU"
         Me.cmbKISYU.NullValue = " "
         Me.cmbKISYU.ReadOnly = False
-        Me.cmbKISYU.Selected = False
         Me.cmbKISYU.Size = New System.Drawing.Size(134, 25)
         Me.cmbKISYU.TabIndex = 4
         Me.cmbKISYU.Text = "(選択)"
@@ -825,11 +825,11 @@ Partial Class FrmG0011
         Me.cmbKISO_TANTO.FormattingEnabled = True
         Me.cmbKISO_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbKISO_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbKISO_TANTO.IsSelected = False
         Me.cmbKISO_TANTO.Location = New System.Drawing.Point(683, 3)
         Me.cmbKISO_TANTO.Name = "cmbKISO_TANTO"
         Me.cmbKISO_TANTO.NullValue = " "
         Me.cmbKISO_TANTO.ReadOnly = False
-        Me.cmbKISO_TANTO.Selected = False
         Me.cmbKISO_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbKISO_TANTO.TabIndex = 2
         Me.cmbKISO_TANTO.Text = "(選択)"
@@ -888,11 +888,11 @@ Partial Class FrmG0011
         Me.cmbBUMON.FormattingEnabled = True
         Me.cmbBUMON.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbBUMON.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbBUMON.IsSelected = False
         Me.cmbBUMON.Location = New System.Drawing.Point(363, 3)
         Me.cmbBUMON.Name = "cmbBUMON"
         Me.cmbBUMON.NullValue = " "
         Me.cmbBUMON.ReadOnly = False
-        Me.cmbBUMON.Selected = False
         Me.cmbBUMON.Size = New System.Drawing.Size(94, 25)
         Me.cmbBUMON.TabIndex = 1
         Me.cmbBUMON.Text = "(選択)"
@@ -923,11 +923,11 @@ Partial Class FrmG0011
         Me.cmbBUHIN_BANGO.FormattingEnabled = True
         Me.cmbBUHIN_BANGO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbBUHIN_BANGO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbBUHIN_BANGO.IsSelected = False
         Me.cmbBUHIN_BANGO.Location = New System.Drawing.Point(363, 33)
         Me.cmbBUHIN_BANGO.Name = "cmbBUHIN_BANGO"
         Me.cmbBUHIN_BANGO.NullValue = " "
         Me.cmbBUHIN_BANGO.ReadOnly = False
-        Me.cmbBUHIN_BANGO.Selected = False
         Me.cmbBUHIN_BANGO.Size = New System.Drawing.Size(214, 25)
         Me.cmbBUHIN_BANGO.TabIndex = 5
         Me.cmbBUHIN_BANGO.Text = "(選択)"
@@ -960,26 +960,10 @@ Partial Class FrmG0011
         Me.dtDraft.Value = ""
         Me.dtDraft.ValueNonFormat = ""
         '
-        'mtxHINMEI
-        '
-        Me.mtxHINMEI.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.mtxHINMEI, 14)
-        Me.mtxHINMEI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxHINMEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxHINMEI.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxHINMEI.InputRequired = False
-        Me.mtxHINMEI.Location = New System.Drawing.Point(943, 33)
-        Me.mtxHINMEI.MaxByteLength = 0
-        Me.mtxHINMEI.Name = "mtxHINMEI"
-        Me.mtxHINMEI.Size = New System.Drawing.Size(274, 24)
-        Me.mtxHINMEI.TabIndex = 6
-        Me.mtxHINMEI.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxHINMEI.WatermarkText = Nothing
-        '
         'Label7
         '
         Me.tlpFilter.SetColumnSpan(Me.Label7, 5)
-        Me.Label7.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label7.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label7.Location = New System.Drawing.Point(843, 30)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(94, 30)
@@ -1004,7 +988,7 @@ Partial Class FrmG0011
         Me.cmbSYANAI_CD.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbSYANAI_CD.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbSYANAI_CD.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbSYANAI_CD, 7)
+        Me.tlpFilter.SetColumnSpan(Me.cmbSYANAI_CD, 8)
         Me.cmbSYANAI_CD.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYANAI_CD.DisplayMember = "DISP"
         Me.cmbSYANAI_CD.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -1012,12 +996,12 @@ Partial Class FrmG0011
         Me.cmbSYANAI_CD.FormattingEnabled = True
         Me.cmbSYANAI_CD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbSYANAI_CD.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYANAI_CD.IsSelected = False
         Me.cmbSYANAI_CD.Location = New System.Drawing.Point(683, 33)
         Me.cmbSYANAI_CD.Name = "cmbSYANAI_CD"
         Me.cmbSYANAI_CD.NullValue = " "
         Me.cmbSYANAI_CD.ReadOnly = False
-        Me.cmbSYANAI_CD.Selected = False
-        Me.cmbSYANAI_CD.Size = New System.Drawing.Size(134, 25)
+        Me.cmbSYANAI_CD.Size = New System.Drawing.Size(154, 25)
         Me.cmbSYANAI_CD.TabIndex = 8
         Me.cmbSYANAI_CD.Text = "(選択)"
         Me.cmbSYANAI_CD.ValueMember = "VALUE"
@@ -1074,11 +1058,11 @@ Partial Class FrmG0011
         Me.cmbFUTEKIGO_STATUS.FormattingEnabled = True
         Me.cmbFUTEKIGO_STATUS.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbFUTEKIGO_STATUS.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbFUTEKIGO_STATUS.IsSelected = False
         Me.cmbFUTEKIGO_STATUS.Location = New System.Drawing.Point(363, 63)
         Me.cmbFUTEKIGO_STATUS.Name = "cmbFUTEKIGO_STATUS"
         Me.cmbFUTEKIGO_STATUS.NullValue = " "
         Me.cmbFUTEKIGO_STATUS.ReadOnly = False
-        Me.cmbFUTEKIGO_STATUS.Selected = False
         Me.cmbFUTEKIGO_STATUS.Size = New System.Drawing.Size(134, 25)
         Me.cmbFUTEKIGO_STATUS.TabIndex = 11
         Me.cmbFUTEKIGO_STATUS.Text = "(選択)"
@@ -1148,11 +1132,11 @@ Partial Class FrmG0011
         Me.cmbFUTEKIGO_KB.FormattingEnabled = True
         Me.cmbFUTEKIGO_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbFUTEKIGO_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbFUTEKIGO_KB.IsSelected = False
         Me.cmbFUTEKIGO_KB.Location = New System.Drawing.Point(103, 93)
         Me.cmbFUTEKIGO_KB.Name = "cmbFUTEKIGO_KB"
         Me.cmbFUTEKIGO_KB.NullValue = " "
         Me.cmbFUTEKIGO_KB.ReadOnly = False
-        Me.cmbFUTEKIGO_KB.Selected = False
         Me.cmbFUTEKIGO_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbFUTEKIGO_KB.TabIndex = 13
         Me.cmbFUTEKIGO_KB.Text = "(選択)"
@@ -1163,7 +1147,7 @@ Partial Class FrmG0011
         Me.cmbFUTEKIGO_S_KB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbFUTEKIGO_S_KB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbFUTEKIGO_S_KB.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbFUTEKIGO_S_KB, 10)
+        Me.tlpFilter.SetColumnSpan(Me.cmbFUTEKIGO_S_KB, 11)
         Me.cmbFUTEKIGO_S_KB.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbFUTEKIGO_S_KB.DisplayMember = "DISP"
         Me.cmbFUTEKIGO_S_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -1171,12 +1155,12 @@ Partial Class FrmG0011
         Me.cmbFUTEKIGO_S_KB.FormattingEnabled = True
         Me.cmbFUTEKIGO_S_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbFUTEKIGO_S_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbFUTEKIGO_S_KB.IsSelected = False
         Me.cmbFUTEKIGO_S_KB.Location = New System.Drawing.Point(363, 93)
         Me.cmbFUTEKIGO_S_KB.Name = "cmbFUTEKIGO_S_KB"
         Me.cmbFUTEKIGO_S_KB.NullValue = " "
         Me.cmbFUTEKIGO_S_KB.ReadOnly = False
-        Me.cmbFUTEKIGO_S_KB.Selected = False
-        Me.cmbFUTEKIGO_S_KB.Size = New System.Drawing.Size(194, 25)
+        Me.cmbFUTEKIGO_S_KB.Size = New System.Drawing.Size(214, 25)
         Me.cmbFUTEKIGO_S_KB.TabIndex = 14
         Me.cmbFUTEKIGO_S_KB.Text = "(選択)"
         Me.cmbFUTEKIGO_S_KB.ValueMember = "VALUE"
@@ -1295,6 +1279,29 @@ Partial Class FrmG0011
         Me.dtHASSEI_YMD.TabIndex = 123
         Me.dtHASSEI_YMD.Value = ""
         Me.dtHASSEI_YMD.ValueNonFormat = ""
+        '
+        'cmbHINMEI
+        '
+        Me.cmbHINMEI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbHINMEI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbHINMEI.BackColor = System.Drawing.SystemColors.Window
+        Me.tlpFilter.SetColumnSpan(Me.cmbHINMEI, 14)
+        Me.cmbHINMEI.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbHINMEI.DisplayMember = "DISP"
+        Me.cmbHINMEI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbHINMEI.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbHINMEI.FormattingEnabled = True
+        Me.cmbHINMEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbHINMEI.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbHINMEI.IsSelected = False
+        Me.cmbHINMEI.Location = New System.Drawing.Point(943, 33)
+        Me.cmbHINMEI.Name = "cmbHINMEI"
+        Me.cmbHINMEI.NullValue = " "
+        Me.cmbHINMEI.ReadOnly = False
+        Me.cmbHINMEI.Size = New System.Drawing.Size(274, 25)
+        Me.cmbHINMEI.TabIndex = 124
+        Me.cmbHINMEI.Text = "(選択)"
+        Me.cmbHINMEI.ValueMember = "VALUE"
         '
         'picZoom
         '
@@ -1474,7 +1481,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 168.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 172.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.Panel7, 3, 7)
@@ -1521,7 +1528,7 @@ Partial Class FrmG0011
         Me.Panel7.BackColor = System.Drawing.SystemColors.Window
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_T)
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_F)
-        Me.Panel7.Location = New System.Drawing.Point(593, 200)
+        Me.Panel7.Location = New System.Drawing.Point(589, 200)
         Me.Panel7.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(155, 28)
@@ -1559,7 +1566,7 @@ Partial Class FrmG0011
         Me.Panel2.BackColor = System.Drawing.SystemColors.Window
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_T)
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_F)
-        Me.Panel2.Location = New System.Drawing.Point(593, 171)
+        Me.Panel2.Location = New System.Drawing.Point(589, 171)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(155, 28)
@@ -1597,7 +1604,7 @@ Partial Class FrmG0011
         Me.Panel6.BackColor = System.Drawing.SystemColors.Window
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_T)
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_F)
-        Me.Panel6.Location = New System.Drawing.Point(593, 117)
+        Me.Panel6.Location = New System.Drawing.Point(589, 117)
         Me.Panel6.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(155, 28)
@@ -1635,7 +1642,7 @@ Partial Class FrmG0011
         Me.Panel5.BackColor = System.Drawing.SystemColors.Window
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_T)
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_F)
-        Me.Panel5.Location = New System.Drawing.Point(593, 88)
+        Me.Panel5.Location = New System.Drawing.Point(589, 88)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(155, 28)
@@ -1673,7 +1680,7 @@ Partial Class FrmG0011
         Me.Panel4.BackColor = System.Drawing.SystemColors.Window
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_T)
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_F)
-        Me.Panel4.Location = New System.Drawing.Point(593, 59)
+        Me.Panel4.Location = New System.Drawing.Point(589, 59)
         Me.Panel4.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(155, 28)
@@ -1711,7 +1718,7 @@ Partial Class FrmG0011
         Me.Panel3.BackColor = System.Drawing.SystemColors.Window
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_T)
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_F)
-        Me.Panel3.Location = New System.Drawing.Point(593, 30)
+        Me.Panel3.Location = New System.Drawing.Point(589, 30)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(155, 28)
@@ -1804,7 +1811,7 @@ Partial Class FrmG0011
         Me.Label126.Location = New System.Drawing.Point(22, 117)
         Me.Label126.Margin = New System.Windows.Forms.Padding(0)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(570, 28)
+        Me.Label126.Size = New System.Drawing.Size(566, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "影響有の場合、顧客への通知の要否"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1819,7 +1826,7 @@ Partial Class FrmG0011
         Me.Label127.Location = New System.Drawing.Point(22, 88)
         Me.Label127.Margin = New System.Windows.Forms.Padding(0)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(570, 28)
+        Me.Label127.Size = New System.Drawing.Size(566, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "当該不適合による顧客への影響"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1834,7 +1841,7 @@ Partial Class FrmG0011
         Me.Label128.Location = New System.Drawing.Point(22, 59)
         Me.Label128.Margin = New System.Windows.Forms.Padding(0)
         Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(570, 28)
+        Me.Label128.Size = New System.Drawing.Size(566, 28)
         Me.Label128.TabIndex = 241
         Me.Label128.Text = "廃却処置は本来の意図した使用又は適用ができない方法だったか？"
         Me.Label128.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1863,7 +1870,7 @@ Partial Class FrmG0011
         Me.Label130.Location = New System.Drawing.Point(22, 30)
         Me.Label130.Margin = New System.Windows.Forms.Padding(0)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(570, 28)
+        Me.Label130.Size = New System.Drawing.Size(566, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "社内権限者により、又は顧客再審の場合は顧客により判定されたか？"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1920,7 +1927,7 @@ Partial Class FrmG0011
         Me.Label134.Location = New System.Drawing.Point(22, 171)
         Me.Label134.Margin = New System.Windows.Forms.Padding(0)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(570, 28)
+        Me.Label134.Size = New System.Drawing.Size(566, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "当該不適合による他のプロセスへの影響"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1949,7 +1956,7 @@ Partial Class FrmG0011
         Me.Label136.Location = New System.Drawing.Point(22, 200)
         Me.Label136.Margin = New System.Windows.Forms.Padding(0)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(570, 28)
+        Me.Label136.Size = New System.Drawing.Size(566, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "影響有の場合、封じ込め処置の要否"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1964,7 +1971,7 @@ Partial Class FrmG0011
         Me.Label137.Location = New System.Drawing.Point(22, 1)
         Me.Label137.Margin = New System.Windows.Forms.Padding(0)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(570, 28)
+        Me.Label137.Size = New System.Drawing.Size(566, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "検出された不適合を除去する処置（廃却を含む）は確実にとられたか？"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1988,7 +1995,7 @@ Partial Class FrmG0011
         Me.Panel1.BackColor = System.Drawing.SystemColors.Window
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_T)
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_F)
-        Me.Panel1.Location = New System.Drawing.Point(593, 1)
+        Me.Panel1.Location = New System.Drawing.Point(589, 1)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(155, 28)
@@ -2128,11 +2135,11 @@ Partial Class FrmG0011
         Me.cmbST15_DestTANTO.FormattingEnabled = True
         Me.cmbST15_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST15_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST15_DestTANTO.IsSelected = False
         Me.cmbST15_DestTANTO.Location = New System.Drawing.Point(909, 103)
         Me.cmbST15_DestTANTO.Name = "cmbST15_DestTANTO"
         Me.cmbST15_DestTANTO.NullValue = " "
         Me.cmbST15_DestTANTO.ReadOnly = False
-        Me.cmbST15_DestTANTO.Selected = False
         Me.cmbST15_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST15_DestTANTO.TabIndex = 246
         Me.cmbST15_DestTANTO.Text = "(選択)"
@@ -2344,11 +2351,11 @@ Partial Class FrmG0011
         Me.cmbST14_DestTANTO.FormattingEnabled = True
         Me.cmbST14_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST14_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST14_DestTANTO.IsSelected = False
         Me.cmbST14_DestTANTO.Location = New System.Drawing.Point(115, 87)
         Me.cmbST14_DestTANTO.Name = "cmbST14_DestTANTO"
         Me.cmbST14_DestTANTO.NullValue = " "
         Me.cmbST14_DestTANTO.ReadOnly = False
-        Me.cmbST14_DestTANTO.Selected = False
         Me.cmbST14_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST14_DestTANTO.TabIndex = 2
         Me.cmbST14_DestTANTO.Text = "(選択)"
@@ -2540,11 +2547,11 @@ Partial Class FrmG0011
         Me.cmbST13_DestTANTO.FormattingEnabled = True
         Me.cmbST13_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST13_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST13_DestTANTO.IsSelected = False
         Me.cmbST13_DestTANTO.Location = New System.Drawing.Point(115, 86)
         Me.cmbST13_DestTANTO.Name = "cmbST13_DestTANTO"
         Me.cmbST13_DestTANTO.NullValue = " "
         Me.cmbST13_DestTANTO.ReadOnly = False
-        Me.cmbST13_DestTANTO.Selected = False
         Me.cmbST13_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST13_DestTANTO.TabIndex = 2
         Me.cmbST13_DestTANTO.Text = "(選択)"
@@ -2715,11 +2722,11 @@ Partial Class FrmG0011
         Me.cmbST12_DestTANTO.FormattingEnabled = True
         Me.cmbST12_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST12_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST12_DestTANTO.IsSelected = False
         Me.cmbST12_DestTANTO.Location = New System.Drawing.Point(116, 114)
         Me.cmbST12_DestTANTO.Name = "cmbST12_DestTANTO"
         Me.cmbST12_DestTANTO.NullValue = " "
         Me.cmbST12_DestTANTO.ReadOnly = False
-        Me.cmbST12_DestTANTO.Selected = False
         Me.cmbST12_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST12_DestTANTO.TabIndex = 3
         Me.cmbST12_DestTANTO.Text = "(選択)"
@@ -2912,11 +2919,11 @@ Partial Class FrmG0011
         Me.cmbST11_DestTANTO.FormattingEnabled = True
         Me.cmbST11_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST11_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST11_DestTANTO.IsSelected = False
         Me.cmbST11_DestTANTO.Location = New System.Drawing.Point(116, 114)
         Me.cmbST11_DestTANTO.Name = "cmbST11_DestTANTO"
         Me.cmbST11_DestTANTO.NullValue = " "
         Me.cmbST11_DestTANTO.ReadOnly = False
-        Me.cmbST11_DestTANTO.Selected = False
         Me.cmbST11_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST11_DestTANTO.TabIndex = 3
         Me.cmbST11_DestTANTO.Text = "(選択)"
@@ -3165,11 +3172,11 @@ Partial Class FrmG0011
         Me.ComboboxEx3.FormattingEnabled = True
         Me.ComboboxEx3.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.ComboboxEx3.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.ComboboxEx3.IsSelected = False
         Me.ComboboxEx3.Location = New System.Drawing.Point(101, 158)
         Me.ComboboxEx3.Name = "ComboboxEx3"
         Me.ComboboxEx3.NullValue = " "
         Me.ComboboxEx3.ReadOnly = False
-        Me.ComboboxEx3.Selected = False
         Me.ComboboxEx3.Size = New System.Drawing.Size(154, 25)
         Me.ComboboxEx3.TabIndex = 6
         Me.ComboboxEx3.Text = "(選択)"
@@ -3210,11 +3217,11 @@ Partial Class FrmG0011
         Me.ComboboxEx4.FormattingEnabled = True
         Me.ComboboxEx4.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.ComboboxEx4.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.ComboboxEx4.IsSelected = False
         Me.ComboboxEx4.Location = New System.Drawing.Point(101, 127)
         Me.ComboboxEx4.Name = "ComboboxEx4"
         Me.ComboboxEx4.NullValue = " "
         Me.ComboboxEx4.ReadOnly = False
-        Me.ComboboxEx4.Selected = False
         Me.ComboboxEx4.Size = New System.Drawing.Size(154, 25)
         Me.ComboboxEx4.TabIndex = 4
         Me.ComboboxEx4.Text = "(選択)"
@@ -3259,11 +3266,11 @@ Partial Class FrmG0011
         Me.ComboboxEx5.FormattingEnabled = True
         Me.ComboboxEx5.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.ComboboxEx5.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.ComboboxEx5.IsSelected = False
         Me.ComboboxEx5.Location = New System.Drawing.Point(101, 96)
         Me.ComboboxEx5.Name = "ComboboxEx5"
         Me.ComboboxEx5.NullValue = " "
         Me.ComboboxEx5.ReadOnly = False
-        Me.ComboboxEx5.Selected = False
         Me.ComboboxEx5.Size = New System.Drawing.Size(154, 25)
         Me.ComboboxEx5.TabIndex = 3
         Me.ComboboxEx5.Text = "(選択)"
@@ -3319,11 +3326,11 @@ Partial Class FrmG0011
         Me.ComboboxEx6.FormattingEnabled = True
         Me.ComboboxEx6.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.ComboboxEx6.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.ComboboxEx6.IsSelected = False
         Me.ComboboxEx6.Location = New System.Drawing.Point(101, 189)
         Me.ComboboxEx6.Name = "ComboboxEx6"
         Me.ComboboxEx6.NullValue = " "
         Me.ComboboxEx6.ReadOnly = False
-        Me.ComboboxEx6.Selected = False
         Me.ComboboxEx6.Size = New System.Drawing.Size(154, 25)
         Me.ComboboxEx6.TabIndex = 8
         Me.ComboboxEx6.Text = "(選択)"
@@ -3434,11 +3441,11 @@ Partial Class FrmG0011
         Me.ComboboxEx1.FormattingEnabled = True
         Me.ComboboxEx1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.ComboboxEx1.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.ComboboxEx1.IsSelected = False
         Me.ComboboxEx1.Location = New System.Drawing.Point(101, 97)
         Me.ComboboxEx1.Name = "ComboboxEx1"
         Me.ComboboxEx1.NullValue = " "
         Me.ComboboxEx1.ReadOnly = False
-        Me.ComboboxEx1.Selected = False
         Me.ComboboxEx1.Size = New System.Drawing.Size(154, 25)
         Me.ComboboxEx1.TabIndex = 3
         Me.ComboboxEx1.Text = "(選択)"
@@ -3497,11 +3504,11 @@ Partial Class FrmG0011
         Me.ComboboxEx2.FormattingEnabled = True
         Me.ComboboxEx2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.ComboboxEx2.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.ComboboxEx2.IsSelected = False
         Me.ComboboxEx2.Location = New System.Drawing.Point(101, 36)
         Me.ComboboxEx2.Name = "ComboboxEx2"
         Me.ComboboxEx2.NullValue = " "
         Me.ComboboxEx2.ReadOnly = False
-        Me.ComboboxEx2.Selected = False
         Me.ComboboxEx2.Size = New System.Drawing.Size(154, 25)
         Me.ComboboxEx2.TabIndex = 1
         Me.ComboboxEx2.Text = "(選択)"
@@ -3615,11 +3622,11 @@ Partial Class FrmG0011
         Me.ComboboxEx7.FormattingEnabled = True
         Me.ComboboxEx7.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.ComboboxEx7.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.ComboboxEx7.IsSelected = False
         Me.ComboboxEx7.Location = New System.Drawing.Point(101, 66)
         Me.ComboboxEx7.Name = "ComboboxEx7"
         Me.ComboboxEx7.NullValue = " "
         Me.ComboboxEx7.ReadOnly = False
-        Me.ComboboxEx7.Selected = False
         Me.ComboboxEx7.Size = New System.Drawing.Size(154, 25)
         Me.ComboboxEx7.TabIndex = 2
         Me.ComboboxEx7.Text = "(選択)"
@@ -3724,11 +3731,11 @@ Partial Class FrmG0011
         Me.ComboboxEx8.FormattingEnabled = True
         Me.ComboboxEx8.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.ComboboxEx8.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.ComboboxEx8.IsSelected = False
         Me.ComboboxEx8.Location = New System.Drawing.Point(101, 36)
         Me.ComboboxEx8.Name = "ComboboxEx8"
         Me.ComboboxEx8.NullValue = " "
         Me.ComboboxEx8.ReadOnly = False
-        Me.ComboboxEx8.Selected = False
         Me.ComboboxEx8.Size = New System.Drawing.Size(219, 25)
         Me.ComboboxEx8.TabIndex = 1
         Me.ComboboxEx8.Text = "(選択)"
@@ -3746,11 +3753,11 @@ Partial Class FrmG0011
         Me.ComboboxEx9.FormattingEnabled = True
         Me.ComboboxEx9.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.ComboboxEx9.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.ComboboxEx9.IsSelected = False
         Me.ComboboxEx9.Location = New System.Drawing.Point(101, 5)
         Me.ComboboxEx9.Name = "ComboboxEx9"
         Me.ComboboxEx9.NullValue = " "
         Me.ComboboxEx9.ReadOnly = False
-        Me.ComboboxEx9.Selected = False
         Me.ComboboxEx9.Size = New System.Drawing.Size(134, 25)
         Me.ComboboxEx9.TabIndex = 0
         Me.ComboboxEx9.Text = "(選択)"
@@ -3872,11 +3879,11 @@ Partial Class FrmG0011
         Me.cmbST10_DestTANTO.FormattingEnabled = True
         Me.cmbST10_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST10_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST10_DestTANTO.IsSelected = False
         Me.cmbST10_DestTANTO.Location = New System.Drawing.Point(116, 114)
         Me.cmbST10_DestTANTO.Name = "cmbST10_DestTANTO"
         Me.cmbST10_DestTANTO.NullValue = " "
         Me.cmbST10_DestTANTO.ReadOnly = False
-        Me.cmbST10_DestTANTO.Selected = False
         Me.cmbST10_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST10_DestTANTO.TabIndex = 3
         Me.cmbST10_DestTANTO.Text = "(選択)"
@@ -4114,11 +4121,11 @@ Partial Class FrmG0011
         Me.cmbST08_1_HAIKYAKU_TANTO.FormattingEnabled = True
         Me.cmbST08_1_HAIKYAKU_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST08_1_HAIKYAKU_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST08_1_HAIKYAKU_TANTO.IsSelected = False
         Me.cmbST08_1_HAIKYAKU_TANTO.Location = New System.Drawing.Point(101, 97)
         Me.cmbST08_1_HAIKYAKU_TANTO.Name = "cmbST08_1_HAIKYAKU_TANTO"
         Me.cmbST08_1_HAIKYAKU_TANTO.NullValue = " "
         Me.cmbST08_1_HAIKYAKU_TANTO.ReadOnly = False
-        Me.cmbST08_1_HAIKYAKU_TANTO.Selected = False
         Me.cmbST08_1_HAIKYAKU_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST08_1_HAIKYAKU_TANTO.TabIndex = 3
         Me.cmbST08_1_HAIKYAKU_TANTO.Text = "(選択)"
@@ -4177,11 +4184,11 @@ Partial Class FrmG0011
         Me.cmbST08_1_HAIKYAKU_KB.FormattingEnabled = True
         Me.cmbST08_1_HAIKYAKU_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST08_1_HAIKYAKU_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST08_1_HAIKYAKU_KB.IsSelected = False
         Me.cmbST08_1_HAIKYAKU_KB.Location = New System.Drawing.Point(101, 36)
         Me.cmbST08_1_HAIKYAKU_KB.Name = "cmbST08_1_HAIKYAKU_KB"
         Me.cmbST08_1_HAIKYAKU_KB.NullValue = " "
         Me.cmbST08_1_HAIKYAKU_KB.ReadOnly = False
-        Me.cmbST08_1_HAIKYAKU_KB.Selected = False
         Me.cmbST08_1_HAIKYAKU_KB.Size = New System.Drawing.Size(154, 25)
         Me.cmbST08_1_HAIKYAKU_KB.TabIndex = 1
         Me.cmbST08_1_HAIKYAKU_KB.Text = "(選択)"
@@ -4276,11 +4283,11 @@ Partial Class FrmG0011
         Me.cmbST08_2_TANTO_SEIGI.FormattingEnabled = True
         Me.cmbST08_2_TANTO_SEIGI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST08_2_TANTO_SEIGI.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST08_2_TANTO_SEIGI.IsSelected = False
         Me.cmbST08_2_TANTO_SEIGI.Location = New System.Drawing.Point(347, 5)
         Me.cmbST08_2_TANTO_SEIGI.Name = "cmbST08_2_TANTO_SEIGI"
         Me.cmbST08_2_TANTO_SEIGI.NullValue = " "
         Me.cmbST08_2_TANTO_SEIGI.ReadOnly = False
-        Me.cmbST08_2_TANTO_SEIGI.Selected = False
         Me.cmbST08_2_TANTO_SEIGI.Size = New System.Drawing.Size(154, 25)
         Me.cmbST08_2_TANTO_SEIGI.TabIndex = 1
         Me.cmbST08_2_TANTO_SEIGI.Text = "(選択)"
@@ -4321,11 +4328,11 @@ Partial Class FrmG0011
         Me.cmbST08_2_TANTO_SEIZO.FormattingEnabled = True
         Me.cmbST08_2_TANTO_SEIZO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST08_2_TANTO_SEIZO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST08_2_TANTO_SEIZO.IsSelected = False
         Me.cmbST08_2_TANTO_SEIZO.Location = New System.Drawing.Point(348, 36)
         Me.cmbST08_2_TANTO_SEIZO.Name = "cmbST08_2_TANTO_SEIZO"
         Me.cmbST08_2_TANTO_SEIZO.NullValue = " "
         Me.cmbST08_2_TANTO_SEIZO.ReadOnly = False
-        Me.cmbST08_2_TANTO_SEIZO.Selected = False
         Me.cmbST08_2_TANTO_SEIZO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST08_2_TANTO_SEIZO.TabIndex = 3
         Me.cmbST08_2_TANTO_SEIZO.Text = "(選択)"
@@ -4370,11 +4377,11 @@ Partial Class FrmG0011
         Me.cmbST08_2_KENSA_KEKKA.FormattingEnabled = True
         Me.cmbST08_2_KENSA_KEKKA.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST08_2_KENSA_KEKKA.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST08_2_KENSA_KEKKA.IsSelected = False
         Me.cmbST08_2_KENSA_KEKKA.Location = New System.Drawing.Point(101, 96)
         Me.cmbST08_2_KENSA_KEKKA.Name = "cmbST08_2_KENSA_KEKKA"
         Me.cmbST08_2_KENSA_KEKKA.NullValue = " "
         Me.cmbST08_2_KENSA_KEKKA.ReadOnly = False
-        Me.cmbST08_2_KENSA_KEKKA.Selected = False
         Me.cmbST08_2_KENSA_KEKKA.Size = New System.Drawing.Size(115, 25)
         Me.cmbST08_2_KENSA_KEKKA.TabIndex = 5
         Me.cmbST08_2_KENSA_KEKKA.Text = "(選択)"
@@ -4429,11 +4436,11 @@ Partial Class FrmG0011
         Me.cmbST08_2_TANTO_KENSA.FormattingEnabled = True
         Me.cmbST08_2_TANTO_KENSA.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST08_2_TANTO_KENSA.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST08_2_TANTO_KENSA.IsSelected = False
         Me.cmbST08_2_TANTO_KENSA.Location = New System.Drawing.Point(347, 78)
         Me.cmbST08_2_TANTO_KENSA.Name = "cmbST08_2_TANTO_KENSA"
         Me.cmbST08_2_TANTO_KENSA.NullValue = " "
         Me.cmbST08_2_TANTO_KENSA.ReadOnly = False
-        Me.cmbST08_2_TANTO_KENSA.Selected = False
         Me.cmbST08_2_TANTO_KENSA.Size = New System.Drawing.Size(154, 25)
         Me.cmbST08_2_TANTO_KENSA.TabIndex = 6
         Me.cmbST08_2_TANTO_KENSA.Text = "(選択)"
@@ -4571,11 +4578,11 @@ Partial Class FrmG0011
         Me.cmbST08_3_HENKYAKU_TANTO.FormattingEnabled = True
         Me.cmbST08_3_HENKYAKU_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST08_3_HENKYAKU_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST08_3_HENKYAKU_TANTO.IsSelected = False
         Me.cmbST08_3_HENKYAKU_TANTO.Location = New System.Drawing.Point(101, 36)
         Me.cmbST08_3_HENKYAKU_TANTO.Name = "cmbST08_3_HENKYAKU_TANTO"
         Me.cmbST08_3_HENKYAKU_TANTO.NullValue = " "
         Me.cmbST08_3_HENKYAKU_TANTO.ReadOnly = False
-        Me.cmbST08_3_HENKYAKU_TANTO.Selected = False
         Me.cmbST08_3_HENKYAKU_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST08_3_HENKYAKU_TANTO.TabIndex = 2
         Me.cmbST08_3_HENKYAKU_TANTO.Text = "(選択)"
@@ -4679,11 +4686,11 @@ Partial Class FrmG0011
         Me.cmbST08_4_BUHIN_BANGO.FormattingEnabled = True
         Me.cmbST08_4_BUHIN_BANGO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST08_4_BUHIN_BANGO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST08_4_BUHIN_BANGO.IsSelected = False
         Me.cmbST08_4_BUHIN_BANGO.Location = New System.Drawing.Point(307, 5)
         Me.cmbST08_4_BUHIN_BANGO.Name = "cmbST08_4_BUHIN_BANGO"
         Me.cmbST08_4_BUHIN_BANGO.NullValue = " "
         Me.cmbST08_4_BUHIN_BANGO.ReadOnly = False
-        Me.cmbST08_4_BUHIN_BANGO.Selected = False
         Me.cmbST08_4_BUHIN_BANGO.Size = New System.Drawing.Size(214, 25)
         Me.cmbST08_4_BUHIN_BANGO.TabIndex = 1
         Me.cmbST08_4_BUHIN_BANGO.Text = "(選択)"
@@ -4701,11 +4708,11 @@ Partial Class FrmG0011
         Me.cmbST08_4_KISYU.FormattingEnabled = True
         Me.cmbST08_4_KISYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST08_4_KISYU.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST08_4_KISYU.IsSelected = False
         Me.cmbST08_4_KISYU.Location = New System.Drawing.Point(101, 5)
         Me.cmbST08_4_KISYU.Name = "cmbST08_4_KISYU"
         Me.cmbST08_4_KISYU.NullValue = " "
         Me.cmbST08_4_KISYU.ReadOnly = False
-        Me.cmbST08_4_KISYU.Selected = False
         Me.cmbST08_4_KISYU.Size = New System.Drawing.Size(134, 25)
         Me.cmbST08_4_KISYU.TabIndex = 0
         Me.cmbST08_4_KISYU.Text = "(選択)"
@@ -4825,11 +4832,11 @@ Partial Class FrmG0011
         Me.cmbST09_DestTANTO.FormattingEnabled = True
         Me.cmbST09_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST09_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST09_DestTANTO.IsSelected = False
         Me.cmbST09_DestTANTO.Location = New System.Drawing.Point(118, 252)
         Me.cmbST09_DestTANTO.Name = "cmbST09_DestTANTO"
         Me.cmbST09_DestTANTO.NullValue = " "
         Me.cmbST09_DestTANTO.ReadOnly = False
-        Me.cmbST09_DestTANTO.Selected = False
         Me.cmbST09_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST09_DestTANTO.TabIndex = 3
         Me.cmbST09_DestTANTO.Text = "(選択)"
@@ -5034,11 +5041,11 @@ Partial Class FrmG0011
         Me.cmbST08_DestTANTO.FormattingEnabled = True
         Me.cmbST08_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST08_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST08_DestTANTO.IsSelected = False
         Me.cmbST08_DestTANTO.Location = New System.Drawing.Point(118, 252)
         Me.cmbST08_DestTANTO.Name = "cmbST08_DestTANTO"
         Me.cmbST08_DestTANTO.NullValue = " "
         Me.cmbST08_DestTANTO.ReadOnly = False
-        Me.cmbST08_DestTANTO.Selected = False
         Me.cmbST08_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST08_DestTANTO.TabIndex = 8
         Me.cmbST08_DestTANTO.Text = "(選択)"
@@ -5155,11 +5162,11 @@ Partial Class FrmG0011
         Me.cmbST07_SAISIN_TANTO.FormattingEnabled = True
         Me.cmbST07_SAISIN_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST07_SAISIN_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST07_SAISIN_TANTO.IsSelected = False
         Me.cmbST07_SAISIN_TANTO.Location = New System.Drawing.Point(390, 59)
         Me.cmbST07_SAISIN_TANTO.Name = "cmbST07_SAISIN_TANTO"
         Me.cmbST07_SAISIN_TANTO.NullValue = " "
         Me.cmbST07_SAISIN_TANTO.ReadOnly = False
-        Me.cmbST07_SAISIN_TANTO.Selected = False
         Me.cmbST07_SAISIN_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST07_SAISIN_TANTO.TabIndex = 1
         Me.cmbST07_SAISIN_TANTO.Text = "(選択)"
@@ -5287,11 +5294,11 @@ Partial Class FrmG0011
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.FormattingEnabled = True
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST07_KOKYAKU_SAISYU_HANTEI.IsSelected = False
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.Location = New System.Drawing.Point(116, 121)
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.Name = "cmbST07_KOKYAKU_SAISYU_HANTEI"
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.NullValue = " "
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.ReadOnly = False
-        Me.cmbST07_KOKYAKU_SAISYU_HANTEI.Selected = False
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.Size = New System.Drawing.Size(154, 25)
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.TabIndex = 4
         Me.cmbST07_KOKYAKU_SAISYU_HANTEI.Text = "(選択)"
@@ -5333,11 +5340,11 @@ Partial Class FrmG0011
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.FormattingEnabled = True
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST07_KOKYAKU_HANTEI_SIJI.IsSelected = False
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.Location = New System.Drawing.Point(116, 90)
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.Name = "cmbST07_KOKYAKU_HANTEI_SIJI"
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.NullValue = " "
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.ReadOnly = False
-        Me.cmbST07_KOKYAKU_HANTEI_SIJI.Selected = False
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.Size = New System.Drawing.Size(154, 25)
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.TabIndex = 2
         Me.cmbST07_KOKYAKU_HANTEI_SIJI.Text = "(選択)"
@@ -5470,11 +5477,11 @@ Partial Class FrmG0011
         Me.cmbST07_DestTANTO.FormattingEnabled = True
         Me.cmbST07_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST07_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST07_DestTANTO.IsSelected = False
         Me.cmbST07_DestTANTO.Location = New System.Drawing.Point(115, 144)
         Me.cmbST07_DestTANTO.Name = "cmbST07_DestTANTO"
         Me.cmbST07_DestTANTO.NullValue = " "
         Me.cmbST07_DestTANTO.ReadOnly = False
-        Me.cmbST07_DestTANTO.Selected = False
         Me.cmbST07_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST07_DestTANTO.TabIndex = 4
         Me.cmbST07_DestTANTO.Text = "(選択)"
@@ -5670,11 +5677,11 @@ Partial Class FrmG0011
         Me.cmbST06_DestTANTO.FormattingEnabled = True
         Me.cmbST06_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST06_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST06_DestTANTO.IsSelected = False
         Me.cmbST06_DestTANTO.Location = New System.Drawing.Point(115, 144)
         Me.cmbST06_DestTANTO.Name = "cmbST06_DestTANTO"
         Me.cmbST06_DestTANTO.NullValue = " "
         Me.cmbST06_DestTANTO.ReadOnly = False
-        Me.cmbST06_DestTANTO.Selected = False
         Me.cmbST06_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST06_DestTANTO.TabIndex = 4
         Me.cmbST06_DestTANTO.Text = "(選択)"
@@ -5733,11 +5740,11 @@ Partial Class FrmG0011
         Me.cmbST06_SAISIN_IINKAI_HANTEI.FormattingEnabled = True
         Me.cmbST06_SAISIN_IINKAI_HANTEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST06_SAISIN_IINKAI_HANTEI.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST06_SAISIN_IINKAI_HANTEI.IsSelected = False
         Me.cmbST06_SAISIN_IINKAI_HANTEI.Location = New System.Drawing.Point(115, 53)
         Me.cmbST06_SAISIN_IINKAI_HANTEI.Name = "cmbST06_SAISIN_IINKAI_HANTEI"
         Me.cmbST06_SAISIN_IINKAI_HANTEI.NullValue = " "
         Me.cmbST06_SAISIN_IINKAI_HANTEI.ReadOnly = False
-        Me.cmbST06_SAISIN_IINKAI_HANTEI.Selected = False
         Me.cmbST06_SAISIN_IINKAI_HANTEI.Size = New System.Drawing.Size(118, 25)
         Me.cmbST06_SAISIN_IINKAI_HANTEI.TabIndex = 0
         Me.cmbST06_SAISIN_IINKAI_HANTEI.Text = "(選択)"
@@ -5948,11 +5955,11 @@ Partial Class FrmG0011
         Me.cmbST05_DestTANTO.FormattingEnabled = True
         Me.cmbST05_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST05_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST05_DestTANTO.IsSelected = False
         Me.cmbST05_DestTANTO.Location = New System.Drawing.Point(115, 85)
         Me.cmbST05_DestTANTO.Name = "cmbST05_DestTANTO"
         Me.cmbST05_DestTANTO.NullValue = " "
         Me.cmbST05_DestTANTO.ReadOnly = False
-        Me.cmbST05_DestTANTO.Selected = False
         Me.cmbST05_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST05_DestTANTO.TabIndex = 2
         Me.cmbST05_DestTANTO.Text = "(選択)"
@@ -6126,11 +6133,11 @@ Partial Class FrmG0011
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.FormattingEnabled = True
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST04_HASSEI_KOTEI_GL_TANTO.IsSelected = False
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.Location = New System.Drawing.Point(416, 205)
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.Name = "cmbST04_HASSEI_KOTEI_GL_TANTO"
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.NullValue = " "
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.ReadOnly = False
-        Me.cmbST04_HASSEI_KOTEI_GL_TANTO.Selected = False
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.TabIndex = 236
         Me.cmbST04_HASSEI_KOTEI_GL_TANTO.Text = "(選択)"
@@ -6174,11 +6181,11 @@ Partial Class FrmG0011
         Me.cmbST04_JIZENSINSA_HANTEI.FormattingEnabled = True
         Me.cmbST04_JIZENSINSA_HANTEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST04_JIZENSINSA_HANTEI.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST04_JIZENSINSA_HANTEI.IsSelected = False
         Me.cmbST04_JIZENSINSA_HANTEI.Location = New System.Drawing.Point(115, 55)
         Me.cmbST04_JIZENSINSA_HANTEI.Name = "cmbST04_JIZENSINSA_HANTEI"
         Me.cmbST04_JIZENSINSA_HANTEI.NullValue = " "
         Me.cmbST04_JIZENSINSA_HANTEI.ReadOnly = False
-        Me.cmbST04_JIZENSINSA_HANTEI.Selected = False
         Me.cmbST04_JIZENSINSA_HANTEI.Size = New System.Drawing.Size(118, 25)
         Me.cmbST04_JIZENSINSA_HANTEI.TabIndex = 0
         Me.cmbST04_JIZENSINSA_HANTEI.Text = "(選択)"
@@ -6196,11 +6203,11 @@ Partial Class FrmG0011
         Me.cmbST04_CAR_TANTO.FormattingEnabled = True
         Me.cmbST04_CAR_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST04_CAR_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST04_CAR_TANTO.IsSelected = False
         Me.cmbST04_CAR_TANTO.Location = New System.Drawing.Point(115, 203)
         Me.cmbST04_CAR_TANTO.Name = "cmbST04_CAR_TANTO"
         Me.cmbST04_CAR_TANTO.NullValue = " "
         Me.cmbST04_CAR_TANTO.ReadOnly = False
-        Me.cmbST04_CAR_TANTO.Selected = False
         Me.cmbST04_CAR_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST04_CAR_TANTO.TabIndex = 234
         Me.cmbST04_CAR_TANTO.Text = "(選択)"
@@ -6360,11 +6367,11 @@ Partial Class FrmG0011
         Me.cmbST04_DestTANTO.FormattingEnabled = True
         Me.cmbST04_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST04_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST04_DestTANTO.IsSelected = False
         Me.cmbST04_DestTANTO.Location = New System.Drawing.Point(115, 264)
         Me.cmbST04_DestTANTO.Name = "cmbST04_DestTANTO"
         Me.cmbST04_DestTANTO.NullValue = " "
         Me.cmbST04_DestTANTO.ReadOnly = False
-        Me.cmbST04_DestTANTO.Selected = False
         Me.cmbST04_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST04_DestTANTO.TabIndex = 4
         Me.cmbST04_DestTANTO.Text = "(選択)"
@@ -6550,11 +6557,11 @@ Partial Class FrmG0011
         Me.cmbST03_DestTANTO.FormattingEnabled = True
         Me.cmbST03_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST03_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST03_DestTANTO.IsSelected = False
         Me.cmbST03_DestTANTO.Location = New System.Drawing.Point(115, 86)
         Me.cmbST03_DestTANTO.Name = "cmbST03_DestTANTO"
         Me.cmbST03_DestTANTO.NullValue = " "
         Me.cmbST03_DestTANTO.ReadOnly = False
-        Me.cmbST03_DestTANTO.Selected = False
         Me.cmbST03_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST03_DestTANTO.TabIndex = 2
         Me.cmbST03_DestTANTO.Text = "(選択)"
@@ -6752,11 +6759,11 @@ Partial Class FrmG0011
         Me.cmbST02_DestTANTO.FormattingEnabled = True
         Me.cmbST02_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST02_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST02_DestTANTO.IsSelected = False
         Me.cmbST02_DestTANTO.Location = New System.Drawing.Point(115, 85)
         Me.cmbST02_DestTANTO.Name = "cmbST02_DestTANTO"
         Me.cmbST02_DestTANTO.NullValue = " "
         Me.cmbST02_DestTANTO.ReadOnly = False
-        Me.cmbST02_DestTANTO.Selected = False
         Me.cmbST02_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST02_DestTANTO.TabIndex = 2
         Me.cmbST02_DestTANTO.Text = "(選択)"
@@ -7356,11 +7363,11 @@ Partial Class FrmG0011
         Me.cmbST01_DestTANTO.FormattingEnabled = True
         Me.cmbST01_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST01_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbST01_DestTANTO.IsSelected = False
         Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(590, 453)
         Me.cmbST01_DestTANTO.Name = "cmbST01_DestTANTO"
         Me.cmbST01_DestTANTO.NullValue = " "
         Me.cmbST01_DestTANTO.ReadOnly = False
-        Me.cmbST01_DestTANTO.Selected = False
         Me.cmbST01_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST01_DestTANTO.TabIndex = 4
         Me.cmbST01_DestTANTO.Text = "(選択)"
@@ -8036,7 +8043,6 @@ Partial Class FrmG0011
     Friend WithEvents cmbBUHIN_BANGO As ComboboxEx
     Friend WithEvents btnSRCH_BUHIN As Button
     Friend WithEvents Label7 As Label
-    Friend WithEvents mtxHINMEI As MaskedTextBoxEx
     Friend WithEvents lblFUTEKIGO_NAIYO As Label
     Friend WithEvents Label13 As Label
     Friend WithEvents Label12 As Label
@@ -8500,4 +8506,5 @@ Partial Class FrmG0011
     Friend WithEvents rsbtnST10 As RibbonShapeRadioButton
     Friend WithEvents rsbtnST11 As RibbonShapeRadioButton
     Friend WithEvents rsbtnST12 As RibbonShapeRadioButton
+    Friend WithEvents cmbHINMEI As ComboboxEx
 End Class

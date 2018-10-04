@@ -191,7 +191,7 @@ Public Class FrmM0010
             Dim dsList As New DataSet
             Dim sbSQLWHERE As New System.Text.StringBuilder
 
-            If cmbKOMO_NM.Selected Then
+            If cmbKOMO_NM.IsSelected Then
                 sbSQLWHERE.Append(" WHERE ITEM_NAME ='" & cmbKOMO_NM.SelectedValue & "' ")
             Else
                 If cmbKOMO_NM.SelectedIndex > 0 AndAlso cmbKOMO_NM.Text.IsNullOrWhiteSpace = False Then

@@ -142,7 +142,7 @@ Partial Class FrmM0010
         Me.cmbKOMO_NM.Name = "cmbKOMO_NM"
         Me.cmbKOMO_NM.NullValue = " "
         Me.cmbKOMO_NM.ReadOnly = False
-        Me.cmbKOMO_NM.Selected = False
+        Me.cmbKOMO_NM.IsSelected = False
         Me.cmbKOMO_NM.Size = New System.Drawing.Size(244, 25)
         Me.cmbKOMO_NM.TabIndex = 0
         Me.cmbKOMO_NM.Text = "(‘I‘ð)"

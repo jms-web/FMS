@@ -172,7 +172,7 @@ Public Class FrmM0000
 
                 If blnAltMode Then
                     ToolStripStatusLabelMASSAGE.Text = "テストモード"
-                    MessageBox.Show("テストモードに切り替えました。" & "ログイン時パスワードが不要になり、メール送信機能が無効になります。", "テストモード", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show("テストモードに切り替えました。" & "ログイン時パスワードが不要になります。", "テストモード", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Me.PrPG_STATUS = ENM_PG_STATUS._4_ALTMODE
 
                 Else

@@ -60,7 +60,7 @@ Public Class FrmM0020
     '初期化
     Private Function FunInitializeFlexGrid(ByVal flxgrd As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
         With flxgrd
-            .Rows(0).Height = 50
+            .Rows(0).Height = 30
 
             .AutoGenerateColumns = False
             .AutoResize = True
@@ -69,14 +69,14 @@ Public Class FrmM0020
             .AllowDelete = False
             .AllowResizing = C1.Win.C1FlexGrid.AllowResizingEnum.Columns
             .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.SingleColumn
-            .AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
+            '.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
             .AllowFiltering = True
 
             .ShowCellLabels = True
             .SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row
             .FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.None
 
-            .Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
+            .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
 
             .Styles.Add("DeletedRow")
             .Styles("DeletedRow").BackColor = clrDeletedRowBackColor
@@ -433,9 +433,6 @@ Public Class FrmM0020
 
         Try
 
-            'コンボボックスの選択値
-            strComboVal = Me.cmbBUMON_KB.Text.Trim
-
             '-----SQL
             sbSQL.Remove(0, sbSQL.Length)
             Select Case ENM_MODE
@@ -504,18 +501,7 @@ Public Class FrmM0020
                     DB.Commit(Not blnErr)
                 End Try
 
-                '検索フィルタデータソース更新
-                Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
             End Using
-            Me.cmbBUMON_KB.SetDataSource(tblKOMO_NM.ExcludeDeleted, True)
-
-            If strComboVal.IsNullOrWhiteSpace Then
-            Else
-                Me.cmbBUMON_KB.Text = strComboVal
-            End If
-            If Me.cmbBUMON_KB.SelectedIndex <= 0 Then
-                Me.cmbBUMON_KB.Text = ""
-            End If
 
             Return True
         Catch ex As Exception

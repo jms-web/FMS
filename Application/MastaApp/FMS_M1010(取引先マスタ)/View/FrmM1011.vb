@@ -495,7 +495,7 @@ Public Class FrmM1011
     Private Sub CmbTORI_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbTORI_KB.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             pri_blnValidated = (pri_blnValidated AndAlso True)
         Else

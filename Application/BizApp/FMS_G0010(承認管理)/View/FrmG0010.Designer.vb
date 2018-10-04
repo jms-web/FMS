@@ -356,7 +356,7 @@ Partial Class FrmG0010
         Me.cmbGEN_TANTO.Name = "cmbGEN_TANTO"
         Me.cmbGEN_TANTO.NullValue = " "
         Me.cmbGEN_TANTO.ReadOnly = False
-        Me.cmbGEN_TANTO.Selected = False
+        Me.cmbGEN_TANTO.IsSelected = False
         Me.cmbGEN_TANTO.Size = New System.Drawing.Size(134, 25)
         Me.cmbGEN_TANTO.TabIndex = 9
         Me.cmbGEN_TANTO.ValueMember = "VALUE"
@@ -389,7 +389,7 @@ Partial Class FrmG0010
         Me.cmbADD_TANTO.Name = "cmbADD_TANTO"
         Me.cmbADD_TANTO.NullValue = " "
         Me.cmbADD_TANTO.ReadOnly = False
-        Me.cmbADD_TANTO.Selected = False
+        Me.cmbADD_TANTO.IsSelected = False
         Me.cmbADD_TANTO.Size = New System.Drawing.Size(134, 25)
         Me.cmbADD_TANTO.TabIndex = 2
         Me.cmbADD_TANTO.ValueMember = "VALUE"
@@ -422,7 +422,7 @@ Partial Class FrmG0010
         Me.cmbKISYU.Name = "cmbKISYU"
         Me.cmbKISYU.NullValue = " "
         Me.cmbKISYU.ReadOnly = False
-        Me.cmbKISYU.Selected = False
+        Me.cmbKISYU.IsSelected = False
         Me.cmbKISYU.Size = New System.Drawing.Size(134, 25)
         Me.cmbKISYU.TabIndex = 3
         Me.cmbKISYU.ValueMember = "VALUE"
@@ -455,7 +455,7 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_KB.Name = "cmbFUTEKIGO_KB"
         Me.cmbFUTEKIGO_KB.NullValue = " "
         Me.cmbFUTEKIGO_KB.ReadOnly = False
-        Me.cmbFUTEKIGO_KB.Selected = False
+        Me.cmbFUTEKIGO_KB.IsSelected = False
         Me.cmbFUTEKIGO_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbFUTEKIGO_KB.TabIndex = 12
         Me.cmbFUTEKIGO_KB.ValueMember = "VALUE"
@@ -488,7 +488,7 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_S_KB.Name = "cmbFUTEKIGO_S_KB"
         Me.cmbFUTEKIGO_S_KB.NullValue = " "
         Me.cmbFUTEKIGO_S_KB.ReadOnly = False
-        Me.cmbFUTEKIGO_S_KB.Selected = False
+        Me.cmbFUTEKIGO_S_KB.IsSelected = False
         Me.cmbFUTEKIGO_S_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbFUTEKIGO_S_KB.TabIndex = 13
         Me.cmbFUTEKIGO_S_KB.ValueMember = "VALUE"
@@ -522,7 +522,7 @@ Partial Class FrmG0010
         Me.cmbBUHIN_BANGO.Name = "cmbBUHIN_BANGO"
         Me.cmbBUHIN_BANGO.NullValue = " "
         Me.cmbBUHIN_BANGO.ReadOnly = False
-        Me.cmbBUHIN_BANGO.Selected = False
+        Me.cmbBUHIN_BANGO.IsSelected = False
         Me.cmbBUHIN_BANGO.Size = New System.Drawing.Size(214, 25)
         Me.cmbBUHIN_BANGO.TabIndex = 4
         Me.cmbBUHIN_BANGO.ValueMember = "VALUE"
@@ -607,7 +607,7 @@ Partial Class FrmG0010
         Me.cmbSYANAI_CD.Name = "cmbSYANAI_CD"
         Me.cmbSYANAI_CD.NullValue = " "
         Me.cmbSYANAI_CD.ReadOnly = False
-        Me.cmbSYANAI_CD.Selected = False
+        Me.cmbSYANAI_CD.IsSelected = False
         Me.cmbSYANAI_CD.Size = New System.Drawing.Size(134, 25)
         Me.cmbSYANAI_CD.TabIndex = 7
         Me.cmbSYANAI_CD.ValueMember = "VALUE"
@@ -666,7 +666,7 @@ Partial Class FrmG0010
         Me.cmbBUMON.Name = "cmbBUMON"
         Me.cmbBUMON.NullValue = " "
         Me.cmbBUMON.ReadOnly = False
-        Me.cmbBUMON.Selected = False
+        Me.cmbBUMON.IsSelected = False
         Me.cmbBUMON.Size = New System.Drawing.Size(94, 25)
         Me.cmbBUMON.TabIndex = 0
         Me.cmbBUMON.ValueMember = "VALUE"
@@ -774,7 +774,7 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_JYOTAI_KB.Name = "cmbFUTEKIGO_JYOTAI_KB"
         Me.cmbFUTEKIGO_JYOTAI_KB.NullValue = " "
         Me.cmbFUTEKIGO_JYOTAI_KB.ReadOnly = False
-        Me.cmbFUTEKIGO_JYOTAI_KB.Selected = False
+        Me.cmbFUTEKIGO_JYOTAI_KB.IsSelected = False
         Me.cmbFUTEKIGO_JYOTAI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbFUTEKIGO_JYOTAI_KB.TabIndex = 14
         Me.cmbFUTEKIGO_JYOTAI_KB.ValueMember = "VALUE"
@@ -894,7 +894,7 @@ Partial Class FrmG0010
         Me.cmbJIZEN_SINSA_HANTEI_KB.Name = "cmbJIZEN_SINSA_HANTEI_KB"
         Me.cmbJIZEN_SINSA_HANTEI_KB.NullValue = " "
         Me.cmbJIZEN_SINSA_HANTEI_KB.ReadOnly = False
-        Me.cmbJIZEN_SINSA_HANTEI_KB.Selected = False
+        Me.cmbJIZEN_SINSA_HANTEI_KB.IsSelected = False
         Me.cmbJIZEN_SINSA_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbJIZEN_SINSA_HANTEI_KB.TabIndex = 68
         Me.cmbJIZEN_SINSA_HANTEI_KB.ValueMember = "VALUE"
@@ -916,7 +916,7 @@ Partial Class FrmG0010
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Name = "cmbSAISIN_IINKAI_HANTEI_KB"
         Me.cmbSAISIN_IINKAI_HANTEI_KB.NullValue = " "
         Me.cmbSAISIN_IINKAI_HANTEI_KB.ReadOnly = False
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.Selected = False
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.IsSelected = False
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbSAISIN_IINKAI_HANTEI_KB.TabIndex = 77
         Me.cmbSAISIN_IINKAI_HANTEI_KB.ValueMember = "VALUE"
@@ -1052,7 +1052,7 @@ Partial Class FrmG0010
         Me.cmbZESEI_SYOCHI_YOHI_KB.Name = "cmbZESEI_SYOCHI_YOHI_KB"
         Me.cmbZESEI_SYOCHI_YOHI_KB.NullValue = " "
         Me.cmbZESEI_SYOCHI_YOHI_KB.ReadOnly = False
-        Me.cmbZESEI_SYOCHI_YOHI_KB.Selected = False
+        Me.cmbZESEI_SYOCHI_YOHI_KB.IsSelected = False
         Me.cmbZESEI_SYOCHI_YOHI_KB.Size = New System.Drawing.Size(94, 25)
         Me.cmbZESEI_SYOCHI_YOHI_KB.TabIndex = 104
         Me.cmbZESEI_SYOCHI_YOHI_KB.ValueMember = "VALUE"
@@ -1096,7 +1096,7 @@ Partial Class FrmG0010
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Name = "cmbKOKYAKU_HANTEI_SIJI_KB"
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.NullValue = " "
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.ReadOnly = False
-        Me.cmbKOKYAKU_HANTEI_SIJI_KB.Selected = False
+        Me.cmbKOKYAKU_HANTEI_SIJI_KB.IsSelected = False
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Size = New System.Drawing.Size(94, 25)
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.TabIndex = 106
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.ValueMember = "VALUE"
@@ -1129,7 +1129,7 @@ Partial Class FrmG0010
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Name = "cmbKOKYAKU_SAISYU_HANTEI_KB"
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.NullValue = " "
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.ReadOnly = False
-        Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Selected = False
+        Me.cmbKOKYAKU_SAISYU_HANTEI_KB.IsSelected = False
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.TabIndex = 70
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.ValueMember = "VALUE"
@@ -1162,7 +1162,7 @@ Partial Class FrmG0010
         Me.cmbKENSA_KEKKA_KB.Name = "cmbKENSA_KEKKA_KB"
         Me.cmbKENSA_KEKKA_KB.NullValue = " "
         Me.cmbKENSA_KEKKA_KB.ReadOnly = False
-        Me.cmbKENSA_KEKKA_KB.Selected = False
+        Me.cmbKENSA_KEKKA_KB.IsSelected = False
         Me.cmbKENSA_KEKKA_KB.Size = New System.Drawing.Size(94, 25)
         Me.cmbKENSA_KEKKA_KB.TabIndex = 78
         Me.cmbKENSA_KEKKA_KB.ValueMember = "VALUE"
@@ -1380,7 +1380,7 @@ Partial Class FrmG0010
         Me.cmbYOIN1.Name = "cmbYOIN1"
         Me.cmbYOIN1.NullValue = " "
         Me.cmbYOIN1.ReadOnly = False
-        Me.cmbYOIN1.Selected = False
+        Me.cmbYOIN1.IsSelected = False
         Me.cmbYOIN1.Size = New System.Drawing.Size(194, 25)
         Me.cmbYOIN1.TabIndex = 0
         Me.cmbYOIN1.ValueMember = "VALUE"
@@ -1403,7 +1403,7 @@ Partial Class FrmG0010
         Me.cmbYOIN2.Name = "cmbYOIN2"
         Me.cmbYOIN2.NullValue = " "
         Me.cmbYOIN2.ReadOnly = False
-        Me.cmbYOIN2.Selected = False
+        Me.cmbYOIN2.IsSelected = False
         Me.cmbYOIN2.Size = New System.Drawing.Size(194, 25)
         Me.cmbYOIN2.TabIndex = 103
         Me.cmbYOIN2.ValueMember = "VALUE"
@@ -1426,7 +1426,7 @@ Partial Class FrmG0010
         Me.cmbKISEKI_KOTEI_KB.Name = "cmbKISEKI_KOTEI_KB"
         Me.cmbKISEKI_KOTEI_KB.NullValue = " "
         Me.cmbKISEKI_KOTEI_KB.ReadOnly = False
-        Me.cmbKISEKI_KOTEI_KB.Selected = False
+        Me.cmbKISEKI_KOTEI_KB.IsSelected = False
         Me.cmbKISEKI_KOTEI_KB.Size = New System.Drawing.Size(194, 25)
         Me.cmbKISEKI_KOTEI_KB.TabIndex = 106
         Me.cmbKISEKI_KOTEI_KB.ValueMember = "VALUE"

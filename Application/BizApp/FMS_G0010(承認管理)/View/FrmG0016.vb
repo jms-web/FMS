@@ -647,7 +647,7 @@ Public Class FrmG0016
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         'SPEC: 20-5.②
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             mtxTANTO_NAME.Text = DirectCast(cmbMODOSI_SAKI.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = cmb.SelectedValue).First.Item("SYAIN_NAME")
             mtxTANTO_ID.Text = DirectCast(cmbMODOSI_SAKI.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = cmb.SelectedValue).First.Item("SYAIN_ID")
         Else
@@ -660,7 +660,7 @@ Public Class FrmG0016
     Private Sub CmbMODOSI_SAKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbMODOSI_SAKI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             pri_blnValidated = pri_blnValidated AndAlso True
         Else
@@ -798,7 +798,13 @@ Public Class FrmG0016
                                 strEXEParam)
 
         If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=mtxTANTO_ID.Text) Then
-            MessageBox.Show("処置依頼メールを送信しました。", "メール送信完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Using DB As ClsDbUtility = DBOpen()
+                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                Else
+                    MessageBox.Show("処置依頼メールを送信しました。", "メール送信完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End Using
+
             Return True
         Else
             MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)

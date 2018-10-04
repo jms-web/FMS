@@ -43,12 +43,13 @@ Public Class FrmM0160
 
             '-----コントロールデータソース設定
             CmbSYONIN_HOKOKUSYO_ID.SetDataSource(tblSYONIN_HOKOKUSYO_ID, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            'CmbSYAIN_ID.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             '-----イベントハンドラ設定
             AddHandler CmbSYONIN_HOKOKUSYO_ID.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler CmbSYONIN_JUN.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            'AddHandler CmbSYAIN_ID.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbBUMON_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler mtxSIMEI.Validated, AddressOf SearchFilterValueChanged
             AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
             '検索実行
@@ -67,6 +68,8 @@ Public Class FrmM0160
         With flxgrd
             .Rows(0).Height = 30
 
+            .Rows(0).Height = 30
+
             .AutoGenerateColumns = False
             .AutoResize = True
             .AllowEditing = False
@@ -74,14 +77,14 @@ Public Class FrmM0160
             .AllowDelete = False
             .AllowResizing = C1.Win.C1FlexGrid.AllowResizingEnum.Columns
             .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.SingleColumn
-            .AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
+            '.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
             .AllowFiltering = True
 
             .ShowCellLabels = True
             .SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row
             .FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.None
 
-            .Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
+            .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
 
             .Styles.Add("DeletedRow")
             .Styles("DeletedRow").BackColor = clrDeletedRowBackColor
@@ -250,11 +253,15 @@ Public Class FrmM0160
 
             '----WHERE句作成
             sbSQLWHERE.Append($" WHERE 1 = 1")
-            If CmbSYONIN_HOKOKUSYO_ID.Selected Then
+            If cmbBUMON_KB.IsSelected Then
+                sbSQLWHERE.Append($" AND {NameOf(MODEL.VWM016_SYONIN_TANTO.BUMON_KB)} ='{cmbBUMON_KB.SelectedValue}'")
+            End If
+
+            If CmbSYONIN_HOKOKUSYO_ID.IsSelected Then
                 sbSQLWHERE.Append($"AND {NameOf(MODEL.VWM016_SYONIN_TANTO.SYONIN_HOKOKUSYO_ID)}={CmbSYONIN_HOKOKUSYO_ID.SelectedValue}")
             End If
 
-            If CmbSYONIN_JUN.Selected Then
+            If CmbSYONIN_JUN.IsSelected Then
                 sbSQLWHERE.Append($"AND {NameOf(MODEL.VWM016_SYONIN_TANTO.SYONIN_JUN)}={CmbSYONIN_JUN.SelectedValue}")
             End If
 

@@ -1,4 +1,5 @@
 Imports JMS_COMMON.ClsPubMethod
+Imports MODEL
 
 ''' <summary>
 ''' NCR入力画面
@@ -86,7 +87,7 @@ Public Class FrmG0011
         mtxHOKUKO_NO.ReadOnly = True
         dtDraft.ReadOnly = True
         cmbKISO_TANTO.ReadOnly = True
-        mtxHINMEI.ReadOnly = True
+        cmbHINMEI.ReadOnly = True
         pnlPict1.AllowDrop = True
         pnlPict2.AllowDrop = True
 
@@ -328,19 +329,20 @@ Public Class FrmG0011
 
                 Case 4  '転送
 
-                    'If MessageBox.Show("入力内容を保存しますか？", "登録確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                     If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
-                        If FunSAVE(ENM_SAVE_MODE._1_保存) Then
-                            Me.DialogResult = DialogResult.OK
-
-                            Call OpenFormTENSO()
-                        Else
-                            MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        If OpenFormTENSO() Then
+                            If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+                                Me.DialogResult = DialogResult.OK
+                            Else
+                                If FunSAVE(ENM_SAVE_MODE._1_保存) Then
+                                    Me.DialogResult = DialogResult.OK
+                                Else
+                                    MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                End If
+                            End If
                         End If
                     End If
-                    'Else
-                    '    Call OpenFormTENSO()
-                    'End If
+
 
                 Case 5  '差戻し
                     Call OpenFormSASIMODOSI()
@@ -408,32 +410,18 @@ Public Class FrmG0011
                         Case ENM_NCR_STAGE._81_処置実施_生技 To ENM_NCR_STAGE._100_処置実施決裁_製造課長
                             'データは更新しない
                         Case Else
+                            'マスタ更新
+                            If FunSAVE_M106(DB) = False Then blnErr = True : Return False
+
                             'SPEC: 2.(3).D.①.レコード更新
-                            If FunSAVE_D003(DB, enmSAVE_MODE) Then
-                            Else
-                                blnErr = True
-                                Return False
-                            End If
-                            If FunSAVE_FILE(DB) Then
-                            Else
-                                blnErr = True
-                                Return False
-                            End If
+                            If FunSAVE_D003(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
+                            If FunSAVE_FILE(DB) = False Then blnErr = True : Return False
                     End Select
-
                     '
-                    If FunSAVE_D004(DB, enmSAVE_MODE) Then
-                    Else
-                        blnErr = True
-                        Return False
-                    End If
-
+                    If FunSAVE_D004(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                     '
-                    If FunSAVE_R001(DB, enmSAVE_MODE) Then
-                    Else
-                        blnErr = True
-                        Return False
-                    End If
+                    If FunSAVE_R001(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
+
                 Finally
                     DB.Commit(Not blnErr)
                 End Try
@@ -510,6 +498,33 @@ Public Class FrmG0011
 
 #End Region
 
+#Region "   マスタ更新"
+
+    ''' <summary>
+    ''' 部品番号マスタ更新
+    ''' </summary>
+    ''' <param name="DB"></param>
+    ''' <param name="enmSAVE_MODE"></param>
+    ''' <returns></returns>
+    Private Function FunSAVE_M106(ByRef DB As ClsDbUtility) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim intRET As Integer
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append($"UPDATE {NameOf(MODEL.M106_BUHIN)} SET")
+        sbSQL.Append($" {NameOf(MODEL.M106_BUHIN.BUHIN_NAME)}='{_D003_NCR_J.BUHIN_NAME.Trim}'")
+        sbSQL.Append($" ,{NameOf(MODEL.M106_BUHIN.UPD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
+        sbSQL.Append($" ,{NameOf(MODEL.M106_BUHIN.UPD_YMDHNS)}=dbo.GetSysDateString()")
+        sbSQL.Append($" WHERE {NameOf(MODEL.M106_BUHIN.BUMON_KB)}='{_D003_NCR_J.BUMON_KB}'")
+        sbSQL.Append($" AND {NameOf(MODEL.M106_BUHIN.BUHIN_BANGO)}='{_D003_NCR_J.BUHIN_BANGO}'")
+
+        intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg)
+
+        Return True
+    End Function
+
+
+#End Region
+
 #Region "   D003保存"
 
     ''' <summary>
@@ -553,31 +568,33 @@ Public Class FrmG0011
             _D003_NCR_J._CLOSE_FG = 1
         End If
 
-        If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
-            Select Case PrCurrentStage
-                Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
-                    If _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = 0 Then _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    'UNDONE: getdbsysdate
-                    _D003_NCR_J.JIZEN_SINSA_YMD = Now.ToString("yyyyMMdd")
-                Case ENM_NCR_STAGE._50_事前審査確認
-                    _D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _D003_NCR_J.SAISIN_KAKUNIN_YMD = Now.ToString("yyyyMMdd")
-                Case ENM_NCR_STAGE._60_再審審査判定_技術代表
-                    _D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _D003_NCR_J.SAISIN_GIJYUTU_YMD = Now.ToString("yyyyMMdd")
-                Case ENM_NCR_STAGE._61_再審審査判定_品証代表
-                    _D003_NCR_J.SAISIN_HINSYO_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _D003_NCR_J.SAISIN_HINSYO_YMD = Now.ToString("yyyyMMdd")
-                Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
-                    _D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _D003_NCR_J.KOKYAKU_SAISIN_YMD = Now.ToString("yyyyMMdd")
+        Select Case enmSAVE_MODE
+            Case ENM_SAVE_MODE._1_保存
+            Case ENM_SAVE_MODE._2_承認申請
+                Select Case PrCurrentStage
+                    Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
+                        If _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = 0 Then _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                        'UNDONE: getdbsysdate
+                        _D003_NCR_J.JIZEN_SINSA_YMD = Now.ToString("yyyyMMdd")
+                    Case ENM_NCR_STAGE._50_事前審査確認
+                        _D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                        _D003_NCR_J.SAISIN_KAKUNIN_YMD = Now.ToString("yyyyMMdd")
+                    Case ENM_NCR_STAGE._60_再審審査判定_技術代表
+                        _D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                        _D003_NCR_J.SAISIN_GIJYUTU_YMD = Now.ToString("yyyyMMdd")
+                    Case ENM_NCR_STAGE._61_再審審査判定_品証代表
+                        _D003_NCR_J.SAISIN_HINSYO_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                        _D003_NCR_J.SAISIN_HINSYO_YMD = Now.ToString("yyyyMMdd")
+                    Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
+                        _D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
+                        _D003_NCR_J.KOKYAKU_SAISIN_YMD = Now.ToString("yyyyMMdd")
 
-                Case ENM_NCR_STAGE._110_abcde処置担当
+                    Case ENM_NCR_STAGE._110_abcde処置担当
 
-                Case Else
-                    'UNDONE: Err
-            End Select
-        End If
+                    Case Else
+                        'UNDONE: Err
+                End Select
+        End Select
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
@@ -961,24 +978,26 @@ Public Class FrmG0011
         _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
         _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
         _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-        '-----レコード保存
+
+
+        '#80 承認申請日は画面で入力
+        If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+            _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
+        ElseIf _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.Trim.Length = 8 Then
+            'datetextboxにバインド時は時刻情報を結合
+            _D004_SYONIN_J_KANRI.SYONIN_YMDHNS &= "000000"
+        End If
+
         Select Case enmSAVE_MODE
             Case ENM_SAVE_MODE._1_保存
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
                 _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
+                '_D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
             Case ENM_SAVE_MODE._2_承認申請
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
 
-                'DEBUG: #80 承認申請日は画面で入力
-                If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
-                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
-                ElseIf _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.Trim.Length = 8 Then
-                    'datetextboxにバインド時は時刻情報を結合
-                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS &= "000000"
-                End If
             Case Else
                 'Err
                 Return False
@@ -1097,6 +1116,7 @@ Public Class FrmG0011
                 _D004_SYONIN_J_KANRI.RIYU = ""
                 _D004_SYONIN_J_KANRI.COMMENT = ""
                 _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False
+                _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
 
             Case Else
                 'Err
@@ -2447,21 +2467,6 @@ Public Class FrmG0011
         sbSQL.Append(" )")
         sbSQL.Append("OUTPUT $action AS RESULT;")
 
-        '----D004
-        '-----データモデル更新
-        _D004_SYONIN_J_KANRI.clear()
-        _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-        _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
-        _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_CAR_STAGE._10_起草入力
-        _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-        _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
-        _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
-        _D004_SYONIN_J_KANRI.SASIMODOSI_FG = False
-        _D004_SYONIN_J_KANRI.RIYU = ""
-        _D004_SYONIN_J_KANRI.COMMENT = ""
-        _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
-        _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-
         Using DB As ClsDbUtility = DBOpen()
             Dim blnErr As Boolean
             Try
@@ -2493,6 +2498,21 @@ Public Class FrmG0011
                         End If
                         Return False
                 End Select
+
+                '----D004
+                '-----データモデル更新
+                _D004_SYONIN_J_KANRI.clear()
+                _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+                _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+                _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_CAR_STAGE._10_起草入力
+                _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
+                _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
+                _D004_SYONIN_J_KANRI.SASIMODOSI_FG = False
+                _D004_SYONIN_J_KANRI.RIYU = ""
+                _D004_SYONIN_J_KANRI.COMMENT = ""
+                _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
+                _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
 
                 strRET = ""
                 '-----D004
@@ -2647,12 +2667,12 @@ Public Class FrmG0011
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
 
-            If dlgRET = Windows.Forms.DialogResult.Cancel Then
-                Return False
-            Else
+            If dlgRET = Windows.Forms.DialogResult.OK Then
                 Me.DialogResult = DialogResult.OK
                 Me.Close()
                 Return True
+            Else
+                Return False
             End If
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -3276,8 +3296,13 @@ Public Class FrmG0011
                         End If
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST01_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST01_UPD_YMD.ReadOnly = True
+                            If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                                dtST01_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                dtST01_UPD_YMD.ReadOnly = True
+                            Else
+                                '一時保存時の日付を読み込み 変更可能
+                                _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            End If
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
@@ -3321,8 +3346,13 @@ Public Class FrmG0011
 
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        dtST02_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                        dtST02_UPD_YMD.ReadOnly = True
+                        If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                            dtST02_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST02_UPD_YMD.ReadOnly = True
+                        Else
+                            '一時保存時の日付を読み込み 変更可能
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                        End If
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
@@ -3363,8 +3393,13 @@ Public Class FrmG0011
 
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        dtST03_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                        dtST03_UPD_YMD.ReadOnly = True
+                        If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                            dtST03_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST03_UPD_YMD.ReadOnly = True
+                        Else
+                            '一時保存時の日付を読み込み 変更可能
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                        End If
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
@@ -3448,8 +3483,13 @@ Public Class FrmG0011
                     txtST04_Comment.Text = _V003.COMMENT
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        dtST04_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                        dtST04_UPD_YMD.ReadOnly = True
+                        If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                            dtST04_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST04_UPD_YMD.ReadOnly = True
+                        Else
+                            '一時保存時の日付を読み込み 変更可能
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                        End If
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
@@ -3500,8 +3540,13 @@ Public Class FrmG0011
                     txtST05_Comment.Text = _V003.COMMENT
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        dtST05_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                        dtST05_UPD_YMD.ReadOnly = True
+                        If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                            dtST05_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST05_UPD_YMD.ReadOnly = True
+                        Else
+                            '一時保存時の日付を読み込み 変更可能
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                        End If
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
@@ -3567,8 +3612,13 @@ Public Class FrmG0011
                     txtST06_Comment.Text = _V003.COMMENT
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                        dtST06_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                        dtST06_UPD_YMD.ReadOnly = True
+                        If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                            dtST06_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            dtST06_UPD_YMD.ReadOnly = True
+                        Else
+                            '一時保存時の日付を読み込み 変更可能
+                            _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                        End If
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
@@ -3621,8 +3671,13 @@ Public Class FrmG0011
                         txtST07_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST07_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST07_UPD_YMD.ReadOnly = True
+                            If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                                dtST07_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                dtST07_UPD_YMD.ReadOnly = True
+                            Else
+                                '一時保存時の日付を読み込み 変更可能
+                                _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            End If
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
@@ -3703,8 +3758,13 @@ Public Class FrmG0011
                         txtST08_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST08_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST08_UPD_YMD.ReadOnly = True
+                            If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                                dtST08_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                dtST08_UPD_YMD.ReadOnly = True
+                            Else
+                                '一時保存時の日付を読み込み 変更可能
+                                _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            End If
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
@@ -3815,8 +3875,13 @@ Public Class FrmG0011
                         txtST09_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST09_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST09_UPD_YMD.ReadOnly = True
+                            If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                                dtST09_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                dtST09_UPD_YMD.ReadOnly = True
+                            Else
+                                '一時保存時の日付を読み込み 変更可能
+                                _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            End If
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
@@ -4043,8 +4108,13 @@ Public Class FrmG0011
                         txtST13_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST13_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST13_UPD_YMD.ReadOnly = True
+                            If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                                dtST13_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                dtST13_UPD_YMD.ReadOnly = True
+                            Else
+                                '一時保存時の日付を読み込み 変更可能
+                                _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            End If
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
@@ -4096,8 +4166,13 @@ Public Class FrmG0011
                         txtST14_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST14_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST14_UPD_YMD.ReadOnly = True
+                            If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                                dtST14_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                dtST14_UPD_YMD.ReadOnly = True
+                            Else
+                                '一時保存時の日付を読み込み 変更可能
+                                _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            End If
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
@@ -4199,8 +4274,13 @@ Public Class FrmG0011
                         txtST15_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            dtST15_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                            dtST15_UPD_YMD.ReadOnly = True
+                            If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                                dtST15_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                dtST15_UPD_YMD.ReadOnly = True
+                            Else
+                                '一時保存時の日付を読み込み 変更可能
+                                _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                            End If
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
@@ -4363,9 +4443,17 @@ Public Class FrmG0011
             Case Context.ENM_BUMON_KB._2_LP
                 lblSYANAI_CD.Visible = True
                 cmbSYANAI_CD.Visible = True
+                cmbHINMEI.ReadOnly = False
+
+                Dim tblLP_HINMEI As New DataTableEx
+                Using DB As ClsDbUtility = DBOpen()
+                    Call FunGetCodeDataTable(DB, "LP部品名称", tblLP_HINMEI)
+                End Using
+                cmbHINMEI.SetDataSource(tblLP_HINMEI, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             Case Else
                 lblSYANAI_CD.Visible = False
                 cmbSYANAI_CD.Visible = False
+                cmbHINMEI.ReadOnly = True
         End Select
 
         Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
@@ -4428,7 +4516,7 @@ Public Class FrmG0011
     Private Sub CmbBUMON_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbBUMON.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = IsValidated AndAlso True
         Else
@@ -4504,7 +4592,7 @@ Public Class FrmG0011
     Private Sub CmbKISYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKISYU.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = IsValidated AndAlso True
         Else
@@ -4521,19 +4609,22 @@ Public Class FrmG0011
     Private Sub CmbSYANAI_CD_SelectedValueChanged(sender As Object, e As EventArgs)
         Try
             Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-            Dim blnSelected As Boolean = (cmb.SelectedValue <> cmb.NullValue AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
 
             RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
 
             '部品番号
             RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
             cmbBUHIN_BANGO.DataBindings.Clear()
-            If blnSelected Then
+            If cmb.IsSelected Then
                 Dim drs = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.SYANAI_CD)) = cmb.SelectedValue).ToList
                 If drs.Count > 0 Then
                     Dim dt As DataTable = drs.CopyToDataTable
                     cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                    _D003_NCR_J.BUHIN_BANGO = ""
+                    If drs.Count = 1 Then
+                        _D003_NCR_J.BUHIN_BANGO = drs(0).Item("DISP")
+                    Else
+                        _D003_NCR_J.BUHIN_BANGO = " "
+                    End If
                 End If
             Else
                 cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -4546,14 +4637,20 @@ Public Class FrmG0011
             RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
             cmbKISYU.DataBindings.Clear()
             cmbBUHIN_BANGO.DataBindings.Clear()
-            If blnSelected Then
-                Dim dr As DataRow = DirectCast(cmbSYANAI_CD.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbSYANAI_CD.SelectedValue).FirstOrDefault
-                _D003_NCR_J.BUHIN_BANGO = dr.Item("BUHIN_BANGO")
-                _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
-                If dr.Item("KISYU_ID") <> 0 Then _D003_NCR_J.KISYU_ID = dr.Item("KISYU_ID")
+            If cmb.IsSelected Then
+                Dim dr As DataRow = DirectCast(cmbSYANAI_CD.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmb.SelectedValue).FirstOrDefault
+                If dr IsNot Nothing Then
+                    _D003_NCR_J.BUHIN_BANGO = dr.Item("BUHIN_BANGO")
+                    If dr.Item("BUHIN_NAME").ToString.IsNullOrWhiteSpace = False Then _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
+                    If dr.Item("KISYU_ID") <> 0 Then _D003_NCR_J.KISYU_ID = dr.Item("KISYU_ID")
+                Else
+                    _D003_NCR_J.BUHIN_BANGO = " "
+                    _D003_NCR_J.BUHIN_NAME = "(必須)"
+                    _D003_NCR_J.KISYU_ID = 0
+                End If
             Else
-                _D003_NCR_J.BUHIN_BANGO = ""
-                _D003_NCR_J.BUHIN_NAME = ""
+                _D003_NCR_J.BUHIN_BANGO = " "
+                _D003_NCR_J.BUHIN_NAME = "(必須)"
                 _D003_NCR_J.KISYU_ID = 0
             End If
             cmbKISYU.DataBindings.Add(New Binding(NameOf(cmbKISYU.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KISYU_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
@@ -4606,8 +4703,10 @@ Public Class FrmG0011
             Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbBUHIN_BANGO.SelectedValue).FirstOrDefault
             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
                 _D003_NCR_J.SYANAI_CD = dr.Item("SYANAI_CD")
+                If dr.Item("BUHIN_NAME").ToString.IsNullOrWhiteSpace = False Then _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
+            Else
+                _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
             End If
-            _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
 
             RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
             If dr.Item("KISYU_ID") <> 0 Then _D003_NCR_J.KISYU_ID = dr.Item("KISYU_ID")
@@ -4627,7 +4726,7 @@ Public Class FrmG0011
     Private Sub CmbBUHIN_BANGO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbBUHIN_BANGO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = IsValidated AndAlso True
         Else
@@ -4670,7 +4769,7 @@ Public Class FrmG0011
     Private Sub CmbFUTEKIGO_STATUS_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbFUTEKIGO_STATUS.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = IsValidated AndAlso True
         Else
@@ -4726,7 +4825,7 @@ Public Class FrmG0011
     Private Sub CmbFUTEKIGO_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbFUTEKIGO_KB.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = IsValidated AndAlso True
         Else
@@ -4748,7 +4847,7 @@ Public Class FrmG0011
     Private Sub CmbFUTEKIGO_S_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbFUTEKIGO_S_KB.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = IsValidated AndAlso True
         Else
@@ -4789,6 +4888,20 @@ Public Class FrmG0011
 
 #End Region
 
+#Region "発生日"
+    Private Sub DtHASSEI_YMD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtHASSEI_YMD.Validating
+        Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
+        If dtx.ValueNonFormat.IsNullOrWhiteSpace Then
+            ErrorProvider.SetError(dtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "発生日"))
+            ErrorProvider.SetIconAlignment(dtx, ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        Else
+            ErrorProvider.ClearError(dtx)
+            IsValidated = IsValidated AndAlso True
+        End If
+    End Sub
+#End Region
+
 #End Region
 
 #Region "STAGE別"
@@ -4812,7 +4925,7 @@ Public Class FrmG0011
                                                                                                               cmbST15_DestTANTO.Validating
 
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = IsValidated AndAlso True
         Else
@@ -4954,7 +5067,7 @@ Public Class FrmG0011
     Private Sub CmbST04_JIZENSINSA_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST04_JIZENSINSA_HANTEI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = IsValidated AndAlso True
         Else
@@ -4967,7 +5080,7 @@ Public Class FrmG0011
     Private Sub CmbST04_CAR_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST04_CAR_TANTO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = IsValidated AndAlso True
         Else
@@ -4980,7 +5093,7 @@ Public Class FrmG0011
     Private Sub CmbST04_HASSEI_KOTEI_GL_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST04_HASSEI_KOTEI_GL_TANTO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = IsValidated AndAlso True
         Else
@@ -5012,7 +5125,7 @@ Public Class FrmG0011
     Private Sub CmbST06_SAISIN_IINKAI_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST06_SAISIN_IINKAI_HANTEI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = IsValidated AndAlso True
         Else
@@ -5068,7 +5181,7 @@ Public Class FrmG0011
     Private Sub CmbST07_SAISIN_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_SAISIN_TANTO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = IsValidated AndAlso True
         Else
@@ -5081,7 +5194,7 @@ Public Class FrmG0011
     Private Sub CmbST07_KOKYAKU_HANTEI_SIJI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_KOKYAKU_HANTEI_SIJI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = IsValidated AndAlso True
         Else
@@ -5094,7 +5207,7 @@ Public Class FrmG0011
     Private Sub CmbST07_KOKYAKU_SAISYU_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_KOKYAKU_SAISYU_HANTEI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.Selected Then
+        If cmb.IsSelected Then
             ErrorProvider.ClearError(cmb)
             IsValidated = IsValidated AndAlso True
         Else
@@ -5113,7 +5226,7 @@ Public Class FrmG0011
     Private Sub CmbST08_1_HAIKYAKU_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.Selected = False Then
+        If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.IsSelected = False Then
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "廃却方法"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
             IsValidated = False
@@ -5126,7 +5239,7 @@ Public Class FrmG0011
     Private Sub CmbST08_1_HAIKYAKU_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.Selected = False Then
+        If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.IsSelected = False Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "廃却実施者"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
@@ -5144,7 +5257,7 @@ Public Class FrmG0011
     Private Sub CmbST08_2_KENSA_KEKKA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.Selected = False Then
+        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.IsSelected = False Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "検査結果"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
@@ -5158,7 +5271,7 @@ Public Class FrmG0011
     Private Sub CmbST08_2_TANTO_SEIZO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.Selected = False Then
+        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.IsSelected = False Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製造担当"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
@@ -5172,7 +5285,7 @@ Public Class FrmG0011
     Private Sub CmbST08_2_TANTO_SEIGI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.Selected = False Then
+        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.IsSelected = False Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "生技担当"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
@@ -5204,7 +5317,7 @@ Public Class FrmG0011
     Private Sub CmbST08_3_HENKYAKU_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 2 AndAlso cmb.Selected = False Then
+        If tabST08_SUB.SelectedIndex = 2 AndAlso cmb.IsSelected = False Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "返却担当"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
@@ -5222,7 +5335,7 @@ Public Class FrmG0011
     Private Sub CmbST08_4_KISYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.Selected = False Then
+        If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.IsSelected = False Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "機種"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
@@ -5236,7 +5349,7 @@ Public Class FrmG0011
     Private Sub CmbST08_4_BUHIN_BANGO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.Selected = False Then
+        If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.IsSelected = False Then
             'e.Cancel = True
             ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品番号"))
             ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
@@ -5620,7 +5733,7 @@ Public Class FrmG0011
         mtxGOUKI.DataBindings.Add(New Binding(NameOf(mtxGOUKI.Text), _D003_NCR_J, NameOf(_D003_NCR_J.GOKI), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         'cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         'cmbBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbBUHIN_BANGO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.BUHIN_BANGO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        mtxHINMEI.DataBindings.Add(New Binding(NameOf(mtxHINMEI.Text), _D003_NCR_J, NameOf(_D003_NCR_J.BUHIN_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbHINMEI.DataBindings.Add(New Binding(NameOf(cmbHINMEI.Text), _D003_NCR_J, NameOf(_D003_NCR_J.BUHIN_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         numSU.DataBindings.Add(New Binding(NameOf(numSU.Value), _D003_NCR_J, NameOf(_D003_NCR_J.SURYO), False, DataSourceUpdateMode.OnPropertyChanged, 1))
         cmbFUTEKIGO_STATUS.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_STATUS.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.FUTEKIGO_JYOTAI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         chkSAIHATU.DataBindings.Add(New Binding(NameOf(chkSAIHATU.Checked), _D003_NCR_J, NameOf(_D003_NCR_J.SAIHATU), False, DataSourceUpdateMode.OnPropertyChanged, False))
@@ -5720,7 +5833,7 @@ Public Class FrmG0011
         dtDraft.DataBindings.Clear()
         cmbKISO_TANTO.DataBindings.Clear()
         mtxGOUKI.DataBindings.Clear()
-        mtxHINMEI.DataBindings.Clear()
+        cmbHINMEI.DataBindings.Clear()
         numSU.DataBindings.Clear()
         cmbFUTEKIGO_STATUS.DataBindings.Clear()
         chkSAIHATU.DataBindings.Clear()
@@ -5987,6 +6100,7 @@ Public Class FrmG0011
             Call MtxFUTEKIGO_NAIYO_Validating(mtxHENKYAKU_RIYU, Nothing)
             Call CmbFUTEKIGO_KB_Validating(cmbFUTEKIGO_KB, Nothing)
             Call CmbFUTEKIGO_S_KB_Validating(cmbFUTEKIGO_S_KB, Nothing)
+            Call DtHASSEI_YMD_Validating(dtHASSEI_YMD, Nothing)
 
             If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
                 '-----ステージ別
@@ -6391,6 +6505,8 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
+
+
 
 #End Region
 

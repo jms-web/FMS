@@ -25,6 +25,9 @@ Partial Public Class VWM005_SYOZOKU_BUSYO
     Public Property DAIKO_KB_DISP As String
     Public Property TAISYA_YMD As String
 
+    Public Property BUMON_KB As String
+    Public Property BUMON_KB_DISP As String
+
     <ComponentModel.DisplayName("•”ID")>
     Public Property BUSYO_ID As Integer
     Public Property SYOZOKU_YUKO_YMD As String

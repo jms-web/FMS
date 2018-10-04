@@ -144,17 +144,18 @@ Partial Public Class D003_NCR_J
     <ComponentModel.DisplayName("機種ID")>
     Public Property KISYU_ID As Integer
 
-    <Required>
-    <Column(TypeName:="varchar")>
-    <StringLength(10)>
-    <ComponentModel.DisplayName("社内コード")>
-    Public Property SYANAI_CD As String
 
     <Required>
     <Column(TypeName:="varchar")>
     <StringLength(60)>
     <ComponentModel.DisplayName("部品番号")>
     Public Property BUHIN_BANGO As String
+
+    <Required>
+    <Column(TypeName:="varchar")>
+    <StringLength(10)>
+    <ComponentModel.DisplayName("社内コード")>
+    Public Property SYANAI_CD As String
 
     <Required>
     <Column(TypeName:="nvarchar")>

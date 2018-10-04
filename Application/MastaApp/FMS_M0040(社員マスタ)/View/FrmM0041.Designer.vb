@@ -453,7 +453,7 @@ Partial Class FrmM0041
         Me.cmbSYAIN_KB.Name = "cmbSYAIN_KB"
         Me.cmbSYAIN_KB.NullValue = " "
         Me.cmbSYAIN_KB.ReadOnly = False
-        Me.cmbSYAIN_KB.Selected = False
+        Me.cmbSYAIN_KB.IsSelected = False
         Me.cmbSYAIN_KB.Size = New System.Drawing.Size(121, 25)
         Me.cmbSYAIN_KB.TabIndex = 2
         Me.cmbSYAIN_KB.ValueMember = "VALUE"
@@ -503,7 +503,7 @@ Partial Class FrmM0041
         Me.cmbYAKUSYOKU_KB.Name = "cmbYAKUSYOKU_KB"
         Me.cmbYAKUSYOKU_KB.NullValue = " "
         Me.cmbYAKUSYOKU_KB.ReadOnly = False
-        Me.cmbYAKUSYOKU_KB.Selected = False
+        Me.cmbYAKUSYOKU_KB.IsSelected = False
         Me.cmbYAKUSYOKU_KB.Size = New System.Drawing.Size(121, 25)
         Me.cmbYAKUSYOKU_KB.TabIndex = 8
         Me.cmbYAKUSYOKU_KB.ValueMember = "VALUE"
@@ -560,7 +560,7 @@ Partial Class FrmM0041
         Me.cmbDAIKO.Name = "cmbDAIKO"
         Me.cmbDAIKO.NullValue = " "
         Me.cmbDAIKO.ReadOnly = False
-        Me.cmbDAIKO.Selected = False
+        Me.cmbDAIKO.IsSelected = False
         Me.cmbDAIKO.Size = New System.Drawing.Size(115, 25)
         Me.cmbDAIKO.TabIndex = 9
         Me.cmbDAIKO.ValueMember = "VALUE"

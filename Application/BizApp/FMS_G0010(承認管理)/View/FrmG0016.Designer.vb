@@ -205,7 +205,7 @@ Partial Class FrmG0016
         Me.cmbMODOSI_SAKI.Name = "cmbMODOSI_SAKI"
         Me.cmbMODOSI_SAKI.NullValue = " "
         Me.cmbMODOSI_SAKI.ReadOnly = False
-        Me.cmbMODOSI_SAKI.Selected = False
+        Me.cmbMODOSI_SAKI.IsSelected = False
         Me.cmbMODOSI_SAKI.Size = New System.Drawing.Size(409, 25)
         Me.cmbMODOSI_SAKI.TabIndex = 1
         Me.cmbMODOSI_SAKI.Text = "(‘I‘ð)"

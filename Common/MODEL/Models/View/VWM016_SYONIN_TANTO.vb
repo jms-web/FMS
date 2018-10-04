@@ -27,6 +27,12 @@ Partial Public Class VWM016_SYONIN_TANTO
     <ComponentModel.DisplayName("ŽÐˆõ–¼")>
     Public Property SYAIN_NAME As String
 
+    <ComponentModel.DisplayName("•”–å‹æ•ª")>
+    Public Property BUMON_KB As String
+
+    <ComponentModel.DisplayName("•”–å‹æ•ª")>
+    Public Property BUMON_KB_DISP As String
+
     <ComponentModel.DisplayName("’Ç‰Á“úŽž")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property ADD_YMDHNS As String
