@@ -847,30 +847,6 @@ Module mdlG0010
 
 #End Region
 
-#Region "ŠÇ—ÒŒ ŒÀŠm”F"
-
-    Public Function HasAdminAuth(ByVal intSYAIN_ID As Integer) As Boolean
-        Dim sbSQL As New System.Text.StringBuilder
-        Dim dsList As New DataSet
-
-        sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append("SELECT")
-        sbSQL.Append(" *")
-        sbSQL.Append(" FROM " & NameOf(MODEL.VWM001_SETTING) & " ")
-        sbSQL.Append(" WHERE ITEM_NAME='ŠÇ—ÒŒ ŒÀ'")
-        sbSQL.Append(" AND ITEM_DISP='" & intSYAIN_ID & "'")
-        Using DBa As ClsDbUtility = DBOpen()
-            dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
-        End Using
-
-        If dsList.Tables(0).Rows.Count > 0 Then
-            Return True
-        Else
-            Return False
-        End If
-    End Function
-#End Region
-
 #Region "³”FŠ‘®Ğˆõæ“¾"
     'TV02_SYONIN_SYOZOKU_SYAIN
 

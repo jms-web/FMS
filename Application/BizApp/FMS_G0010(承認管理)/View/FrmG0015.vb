@@ -147,6 +147,8 @@ Public Class FrmG0015
                 Dim blnErr As Boolean
 
                 Try
+                    Dim strSysDate As String = DB.GetSysDateString
+
                     '-----トランザクション
                     DB.BeginTransaction()
 
@@ -158,7 +160,7 @@ Public Class FrmG0015
                     sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID) & "=" & pub_SYAIN_INFO.SYAIN_ID & "")
                     sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB) & "='" & ENM_SYONIN_HANTEI_KB._0_未承認.Value & "'")
                     sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG) & "='" & 0 & "'")
-                    sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS) & "=dbo.GetSysDateString()")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}='{strSysDate}'")
                     sbSQL.Append(" WHERE " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID) & "=" & PrSYONIN_HOKOKUSYO_ID & "")
                     sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & "='" & PrHOKOKU_NO & "'")
                     sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN) & "=" & PrCurrentStage & "")
@@ -195,7 +197,7 @@ Public Class FrmG0015
                     sbSQL.Append(" ) VALUES(")
                     sbSQL.Append("  " & (_R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID))
                     sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.HOKOKU_NO) & "'")
-                    sbSQL.Append(" ,dbo.GetSysDateString()") 'ADD_YMDHNS
+                    sbSQL.Append($" ,'{strSysDate}'") 'ADD_YMDHNS
                     sbSQL.Append(" ," & (_R001_HOKOKU_SOUSA.SYONIN_JUN))
                     sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.SOUSA_KB) & "'")
                     sbSQL.Append(" ," & (_R001_HOKOKU_SOUSA.SYAIN_ID))
@@ -242,7 +244,7 @@ Public Class FrmG0015
                     sbSQL.Append(" ," & (_R002_HOKOKU_TENSO.TENSO_M_SYAIN_ID))
                     sbSQL.Append(" ," & (_R002_HOKOKU_TENSO.TENSO_S_SYAIN_ID))
                     sbSQL.Append(" ,'" & (_R002_HOKOKU_TENSO.RIYU) & "'")
-                    sbSQL.Append(" ,dbo.GetSysDateString()") 'ADD_YMDHNS
+                    sbSQL.Append($" ,'{strSysDate}'") 'ADD_YMDHNS
                     sbSQL.Append(" )")
 
                     '-----SQL実行

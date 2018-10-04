@@ -1075,7 +1075,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
         sbSQL.Append(" ,dbo.GetSysDateString()") 'ADD_YMDHNS
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
+        sbSQL.Append(" ,dbo.GetSysDateString()")
         sbSQL.Append(" )")
         sbSQL.Append("OUTPUT $action AS RESULT")
         sbSQL.Append(";")

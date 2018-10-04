@@ -873,9 +873,9 @@ Public Class FrmG0012
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS))
+        sbSQL.Append($" ,{strSysDate}")
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
+        sbSQL.Append($" ,{strSysDate}")
         sbSQL.Append(" )")
         sbSQL.Append("OUTPUT $action AS RESULT") 'INSERT OR UPDATE Çncarchar(10)Ç≈éÊìæÇ∑ÇÈèÍçá
         sbSQL.Append(";")
@@ -2667,7 +2667,14 @@ Public Class FrmG0012
             mtxFUTEKIGO_KB.Text = _V002_NCR_J.FUTEKIGO_NAME
             mtxFUTEKIGO_S_KB.Text = _V002_NCR_J.FUTEKIGO_S_NAME
             mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO)
-            dtUPD_YMD.Text = Now.ToString("yyyy/MM/dd")
+
+
+            If PrDataRow.Item("SYONIN_YMDHNS").ToString.IsNullOrWhiteSpace Then
+                dtUPD_YMD.Text = Now.ToString("yyyy/MM/dd")
+            Else
+                dtUPD_YMD.Text = CDate(PrDataRow.Item("SYONIN_YMDHNS")).ToString("yyyy/MM/dd")
+            End If
+
             mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
 
             Dim blnOwn As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO, PrCurrentStage)
