@@ -196,7 +196,7 @@ Partial Class FrmM1070
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(73, 30)
         Me.Label1.TabIndex = 55
-        Me.Label1.Text = "•”–å‹æ•ª:"
+        Me.Label1.Text = "»•i‹æ•ª:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'cmbBUMON_KB

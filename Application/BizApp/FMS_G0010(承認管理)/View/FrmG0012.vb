@@ -785,23 +785,23 @@ Public Class FrmG0012
         _D004_SYONIN_J_KANRI.HOKOKU_NO = _V005_CAR_J.HOKOKU_NO
         _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
         _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-        '-----レコード保存
+
+
+        '#80 承認申請日は画面で入力
+        If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+            _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
+        ElseIf _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.Trim.Length = 8 Then
+            'datetextboxにバインド時は時刻情報を結合
+            _D004_SYONIN_J_KANRI.SYONIN_YMDHNS &= "000000"
+        End If
         Select Case enmSAVE_MODE
             Case ENM_SAVE_MODE._1_保存
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
                 _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
             Case ENM_SAVE_MODE._2_承認申請
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
-                'DEBUG: #80 承認申請日は画面で入力
-                If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
-                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
-                ElseIf _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.Trim.Length = 8 Then
-                    'datetextboxにバインド時は時刻情報を結合
-                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS &= "000000"
-                End If
             Case Else
                 'Err
                 Return False
@@ -902,6 +902,7 @@ Public Class FrmG0012
                 _D004_SYONIN_J_KANRI.SYAIN_ID = cmbDestTANTO.SelectedValue
                 _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
                 _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False
+                _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
 
             Case Else
                 'Err

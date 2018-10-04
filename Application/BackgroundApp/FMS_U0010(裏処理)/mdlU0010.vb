@@ -108,6 +108,8 @@ Module mdlU0010
         sbParam.Append(",'" & ParamModel.KOKYAKU_SAISYU_HANTEI_KB & "'")
         sbParam.Append(",'" & ParamModel.GENIN1 & "'")
         sbParam.Append(",'" & ParamModel.GENIN2 & "'")
+        sbParam.Append(",'" & ParamModel.HASSEI_FROM & "'")
+        sbParam.Append(",'" & ParamModel.HASSEI_TO & "'")
 
         sbSQL.Append($"EXEC dbo.{NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN)} {sbParam.ToString}")
         Using DB As ClsDbUtility = DBOpen()

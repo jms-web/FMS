@@ -39,13 +39,12 @@ Partial Class FrmM1071
         Me.mtxKISYU_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.VWM105KISYUBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.C1Button1 = New C1.Win.C1Input.C1Button()
+        Me.btnSRCH = New System.Windows.Forms.Button()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.VWM105KISYUBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.C1Button1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'cmdFunc1
@@ -399,24 +398,25 @@ Partial Class FrmM1071
         '
         Me.VWM105KISYUBindingSource.DataSource = GetType(MODEL.VWM105_KISYU)
         '
-        'C1Button1
+        'btnSRCH
         '
-        Me.C1Button1.Font = New System.Drawing.Font("Meiryo UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.C1Button1.Image = Global.FMS.My.Resources.Resources._imgSearch32x32
-        Me.C1Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.C1Button1.Location = New System.Drawing.Point(309, 167)
-        Me.C1Button1.Name = "C1Button1"
-        Me.C1Button1.Size = New System.Drawing.Size(121, 42)
-        Me.C1Button1.TabIndex = 63
-        Me.C1Button1.Text = "åüçı"
-        Me.C1Button1.UseVisualStyleBackColor = True
+        Me.btnSRCH.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSRCH.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnSRCH.Image = Global.FMS.My.Resources.Resources._imgSearch32x32
+        Me.btnSRCH.Location = New System.Drawing.Point(314, 168)
+        Me.btnSRCH.Name = "btnSRCH"
+        Me.btnSRCH.Size = New System.Drawing.Size(121, 42)
+        Me.btnSRCH.TabIndex = 64
+        Me.btnSRCH.Text = "åüçı"
+        Me.btnSRCH.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnSRCH.UseVisualStyleBackColor = True
         '
         'FrmM1071
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(1264, 712)
-        Me.Controls.Add(Me.C1Button1)
+        Me.Controls.Add(Me.btnSRCH)
         Me.Controls.Add(Me.flxDATA)
         Me.Controls.Add(Me.mtxKISYU_NAME)
         Me.Controls.Add(Me.Label2)
@@ -443,14 +443,13 @@ Partial Class FrmM1071
         Me.Controls.SetChildIndex(Me.Label2, 0)
         Me.Controls.SetChildIndex(Me.mtxKISYU_NAME, 0)
         Me.Controls.SetChildIndex(Me.flxDATA, 0)
-        Me.Controls.SetChildIndex(Me.C1Button1, 0)
+        Me.Controls.SetChildIndex(Me.btnSRCH, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.VWM105KISYUBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.C1Button1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -473,5 +472,5 @@ Partial Class FrmM1071
     Friend WithEvents mtxKISYU_NAME As MaskedTextBoxEx
     Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents VWM105KISYUBindingSource As BindingSource
-    Friend WithEvents C1Button1 As C1.Win.C1Input.C1Button
+    Friend WithEvents btnSRCH As Button
 End Class

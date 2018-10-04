@@ -228,7 +228,11 @@ Public Class FrmG0011
 
             Me.WindowState = FormWindowState.Maximized
 
-            Me.tabSTAGE01.Focus()
+            If _D003_NCR_J.BUMON_KB = Context.ENM_BUMON_KB._2_LP Then
+                Me.ActiveControl = cmbSYANAI_CD
+            Else
+                Me.ActiveControl = cmbKISYU
+            End If
         Finally
             Call FunInitFuncButtonEnabled()
             Me.Cursor = Cursors.Default
@@ -993,6 +997,7 @@ Public Class FrmG0011
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
                 _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                '一時保存時も入力された承認申請日を保存する
                 '_D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
             Case ENM_SAVE_MODE._2_承認申請
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
@@ -4443,17 +4448,21 @@ Public Class FrmG0011
             Case Context.ENM_BUMON_KB._2_LP
                 lblSYANAI_CD.Visible = True
                 cmbSYANAI_CD.Visible = True
+                cmbSYANAI_CD.GotFocusedColor = Color.Orange
                 cmbHINMEI.ReadOnly = False
+                Me.ActiveControl = cmbSYANAI_CD
 
                 Dim tblLP_HINMEI As New DataTableEx
                 Using DB As ClsDbUtility = DBOpen()
                     Call FunGetCodeDataTable(DB, "LP部品名称", tblLP_HINMEI)
                 End Using
                 cmbHINMEI.SetDataSource(tblLP_HINMEI, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
             Case Else
                 lblSYANAI_CD.Visible = False
                 cmbSYANAI_CD.Visible = False
                 cmbHINMEI.ReadOnly = True
+                Me.ActiveControl = cmbKISYU
         End Select
 
         Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
@@ -4657,6 +4666,10 @@ Public Class FrmG0011
             cmbBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbBUHIN_BANGO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.BUHIN_BANGO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
             AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+
+            ErrorProvider.ClearError(cmbKISYU)
+            ErrorProvider.ClearError(cmbBUHIN_BANGO)
+
         Finally
             AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
         End Try

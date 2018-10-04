@@ -797,7 +797,7 @@ Partial Class FrmG0011
         Me.cmbKISYU.NullValue = " "
         Me.cmbKISYU.ReadOnly = False
         Me.cmbKISYU.Size = New System.Drawing.Size(134, 25)
-        Me.cmbKISYU.TabIndex = 4
+        Me.cmbKISYU.TabIndex = 5
         Me.cmbKISYU.Text = "(選択)"
         Me.cmbKISYU.ValueMember = "VALUE"
         '
@@ -929,7 +929,7 @@ Partial Class FrmG0011
         Me.cmbBUHIN_BANGO.NullValue = " "
         Me.cmbBUHIN_BANGO.ReadOnly = False
         Me.cmbBUHIN_BANGO.Size = New System.Drawing.Size(214, 25)
-        Me.cmbBUHIN_BANGO.TabIndex = 5
+        Me.cmbBUHIN_BANGO.TabIndex = 6
         Me.cmbBUHIN_BANGO.Text = "(選択)"
         Me.cmbBUHIN_BANGO.ValueMember = "VALUE"
         '
@@ -1002,7 +1002,7 @@ Partial Class FrmG0011
         Me.cmbSYANAI_CD.NullValue = " "
         Me.cmbSYANAI_CD.ReadOnly = False
         Me.cmbSYANAI_CD.Size = New System.Drawing.Size(154, 25)
-        Me.cmbSYANAI_CD.TabIndex = 8
+        Me.cmbSYANAI_CD.TabIndex = 7
         Me.cmbSYANAI_CD.Text = "(選択)"
         Me.cmbSYANAI_CD.ValueMember = "VALUE"
         Me.cmbSYANAI_CD.Visible = False
@@ -1030,7 +1030,7 @@ Partial Class FrmG0011
         Me.mtxGOUKI.MaxByteLength = 20
         Me.mtxGOUKI.Name = "mtxGOUKI"
         Me.mtxGOUKI.Size = New System.Drawing.Size(134, 24)
-        Me.mtxGOUKI.TabIndex = 7
+        Me.mtxGOUKI.TabIndex = 9
         Me.mtxGOUKI.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxGOUKI.WatermarkText = Nothing
         '
@@ -1064,7 +1064,7 @@ Partial Class FrmG0011
         Me.cmbFUTEKIGO_STATUS.NullValue = " "
         Me.cmbFUTEKIGO_STATUS.ReadOnly = False
         Me.cmbFUTEKIGO_STATUS.Size = New System.Drawing.Size(134, 25)
-        Me.cmbFUTEKIGO_STATUS.TabIndex = 11
+        Me.cmbFUTEKIGO_STATUS.TabIndex = 10
         Me.cmbFUTEKIGO_STATUS.Text = "(選択)"
         Me.cmbFUTEKIGO_STATUS.ValueMember = "VALUE"
         '
@@ -1092,7 +1092,7 @@ Partial Class FrmG0011
         Me.mtxHENKYAKU_RIYU.MaxByteLength = 100
         Me.mtxHENKYAKU_RIYU.Name = "mtxHENKYAKU_RIYU"
         Me.mtxHENKYAKU_RIYU.Size = New System.Drawing.Size(474, 24)
-        Me.mtxHENKYAKU_RIYU.TabIndex = 12
+        Me.mtxHENKYAKU_RIYU.TabIndex = 11
         Me.mtxHENKYAKU_RIYU.Visible = False
         Me.mtxHENKYAKU_RIYU.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxHENKYAKU_RIYU.WatermarkText = Nothing
@@ -1138,7 +1138,7 @@ Partial Class FrmG0011
         Me.cmbFUTEKIGO_KB.NullValue = " "
         Me.cmbFUTEKIGO_KB.ReadOnly = False
         Me.cmbFUTEKIGO_KB.Size = New System.Drawing.Size(134, 25)
-        Me.cmbFUTEKIGO_KB.TabIndex = 13
+        Me.cmbFUTEKIGO_KB.TabIndex = 12
         Me.cmbFUTEKIGO_KB.Text = "(選択)"
         Me.cmbFUTEKIGO_KB.ValueMember = "VALUE"
         '
@@ -1161,7 +1161,7 @@ Partial Class FrmG0011
         Me.cmbFUTEKIGO_S_KB.NullValue = " "
         Me.cmbFUTEKIGO_S_KB.ReadOnly = False
         Me.cmbFUTEKIGO_S_KB.Size = New System.Drawing.Size(214, 25)
-        Me.cmbFUTEKIGO_S_KB.TabIndex = 14
+        Me.cmbFUTEKIGO_S_KB.TabIndex = 13
         Me.cmbFUTEKIGO_S_KB.Text = "(選択)"
         Me.cmbFUTEKIGO_S_KB.ValueMember = "VALUE"
         '
@@ -1188,7 +1188,7 @@ Partial Class FrmG0011
         Me.mtxZUBAN_KIKAKU.MaxByteLength = 60
         Me.mtxZUBAN_KIKAKU.Name = "mtxZUBAN_KIKAKU"
         Me.mtxZUBAN_KIKAKU.Size = New System.Drawing.Size(354, 24)
-        Me.mtxZUBAN_KIKAKU.TabIndex = 15
+        Me.mtxZUBAN_KIKAKU.TabIndex = 14
         Me.mtxZUBAN_KIKAKU.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxZUBAN_KIKAKU.WatermarkText = Nothing
         '
@@ -1235,7 +1235,7 @@ Partial Class FrmG0011
         Me.numSU.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numSU.Name = "numSU"
         Me.numSU.Size = New System.Drawing.Size(54, 24)
-        Me.numSU.TabIndex = 10
+        Me.numSU.TabIndex = 15
         Me.numSU.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.numSU.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
@@ -1276,7 +1276,7 @@ Partial Class FrmG0011
         Me.dtHASSEI_YMD.Name = "dtHASSEI_YMD"
         Me.dtHASSEI_YMD.ReadOnly = False
         Me.dtHASSEI_YMD.Size = New System.Drawing.Size(98, 24)
-        Me.dtHASSEI_YMD.TabIndex = 123
+        Me.dtHASSEI_YMD.TabIndex = 4
         Me.dtHASSEI_YMD.Value = ""
         Me.dtHASSEI_YMD.ValueNonFormat = ""
         '
@@ -1299,7 +1299,7 @@ Partial Class FrmG0011
         Me.cmbHINMEI.NullValue = " "
         Me.cmbHINMEI.ReadOnly = False
         Me.cmbHINMEI.Size = New System.Drawing.Size(274, 25)
-        Me.cmbHINMEI.TabIndex = 124
+        Me.cmbHINMEI.TabIndex = 8
         Me.cmbHINMEI.Text = "(選択)"
         Me.cmbHINMEI.ValueMember = "VALUE"
         '
@@ -1481,7 +1481,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 172.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 174.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.Panel7, 3, 7)
@@ -1528,7 +1528,7 @@ Partial Class FrmG0011
         Me.Panel7.BackColor = System.Drawing.SystemColors.Window
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_T)
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_F)
-        Me.Panel7.Location = New System.Drawing.Point(589, 200)
+        Me.Panel7.Location = New System.Drawing.Point(587, 200)
         Me.Panel7.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(155, 28)
@@ -1566,7 +1566,7 @@ Partial Class FrmG0011
         Me.Panel2.BackColor = System.Drawing.SystemColors.Window
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_T)
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_F)
-        Me.Panel2.Location = New System.Drawing.Point(589, 171)
+        Me.Panel2.Location = New System.Drawing.Point(587, 171)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(155, 28)
@@ -1604,7 +1604,7 @@ Partial Class FrmG0011
         Me.Panel6.BackColor = System.Drawing.SystemColors.Window
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_T)
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_F)
-        Me.Panel6.Location = New System.Drawing.Point(589, 117)
+        Me.Panel6.Location = New System.Drawing.Point(587, 117)
         Me.Panel6.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(155, 28)
@@ -1642,7 +1642,7 @@ Partial Class FrmG0011
         Me.Panel5.BackColor = System.Drawing.SystemColors.Window
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_T)
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_F)
-        Me.Panel5.Location = New System.Drawing.Point(589, 88)
+        Me.Panel5.Location = New System.Drawing.Point(587, 88)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(155, 28)
@@ -1680,7 +1680,7 @@ Partial Class FrmG0011
         Me.Panel4.BackColor = System.Drawing.SystemColors.Window
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_T)
         Me.Panel4.Controls.Add(Me.rbtnST11_C1_F)
-        Me.Panel4.Location = New System.Drawing.Point(589, 59)
+        Me.Panel4.Location = New System.Drawing.Point(587, 59)
         Me.Panel4.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(155, 28)
@@ -1718,7 +1718,7 @@ Partial Class FrmG0011
         Me.Panel3.BackColor = System.Drawing.SystemColors.Window
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_T)
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_F)
-        Me.Panel3.Location = New System.Drawing.Point(589, 30)
+        Me.Panel3.Location = New System.Drawing.Point(587, 30)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(155, 28)
@@ -1811,7 +1811,7 @@ Partial Class FrmG0011
         Me.Label126.Location = New System.Drawing.Point(22, 117)
         Me.Label126.Margin = New System.Windows.Forms.Padding(0)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(566, 28)
+        Me.Label126.Size = New System.Drawing.Size(564, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "影響有の場合、顧客への通知の要否"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1826,7 +1826,7 @@ Partial Class FrmG0011
         Me.Label127.Location = New System.Drawing.Point(22, 88)
         Me.Label127.Margin = New System.Windows.Forms.Padding(0)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(566, 28)
+        Me.Label127.Size = New System.Drawing.Size(564, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "当該不適合による顧客への影響"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1841,7 +1841,7 @@ Partial Class FrmG0011
         Me.Label128.Location = New System.Drawing.Point(22, 59)
         Me.Label128.Margin = New System.Windows.Forms.Padding(0)
         Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(566, 28)
+        Me.Label128.Size = New System.Drawing.Size(564, 28)
         Me.Label128.TabIndex = 241
         Me.Label128.Text = "廃却処置は本来の意図した使用又は適用ができない方法だったか？"
         Me.Label128.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1870,7 +1870,7 @@ Partial Class FrmG0011
         Me.Label130.Location = New System.Drawing.Point(22, 30)
         Me.Label130.Margin = New System.Windows.Forms.Padding(0)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(566, 28)
+        Me.Label130.Size = New System.Drawing.Size(564, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "社内権限者により、又は顧客再審の場合は顧客により判定されたか？"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1927,7 +1927,7 @@ Partial Class FrmG0011
         Me.Label134.Location = New System.Drawing.Point(22, 171)
         Me.Label134.Margin = New System.Windows.Forms.Padding(0)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(566, 28)
+        Me.Label134.Size = New System.Drawing.Size(564, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "当該不適合による他のプロセスへの影響"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1956,7 +1956,7 @@ Partial Class FrmG0011
         Me.Label136.Location = New System.Drawing.Point(22, 200)
         Me.Label136.Margin = New System.Windows.Forms.Padding(0)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(566, 28)
+        Me.Label136.Size = New System.Drawing.Size(564, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "影響有の場合、封じ込め処置の要否"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1971,7 +1971,7 @@ Partial Class FrmG0011
         Me.Label137.Location = New System.Drawing.Point(22, 1)
         Me.Label137.Margin = New System.Windows.Forms.Padding(0)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(566, 28)
+        Me.Label137.Size = New System.Drawing.Size(564, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "検出された不適合を除去する処置（廃却を含む）は確実にとられたか？"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1995,7 +1995,7 @@ Partial Class FrmG0011
         Me.Panel1.BackColor = System.Drawing.SystemColors.Window
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_T)
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_F)
-        Me.Panel1.Location = New System.Drawing.Point(589, 1)
+        Me.Panel1.Location = New System.Drawing.Point(587, 1)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(155, 28)
