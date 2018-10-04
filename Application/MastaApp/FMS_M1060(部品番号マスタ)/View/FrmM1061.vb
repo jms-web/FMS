@@ -423,8 +423,8 @@ Public Class FrmM1061
                                 mtxZUBAN_C.Enabled = True
 
                             Case ENM_BUMON_KB._3_•¡‡Þ
-                                mtxBUHIN_NAME.Enabled = False
-                                _M106.BUHIN_NAME = ""
+                                mtxBUHIN_NAME.Enabled = True
+                                '_M106.BUHIN_NAME = ""
                                 Call FunGetCodeDataTable(DB, "•¡‡ÞŒ_–ñ‹æ•ª", tblFK_KEIYAKU_KB)
                                 cmbKEIYAKU_KB.SetDataSource(tblFK_KEIYAKU_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
@@ -535,8 +535,8 @@ Public Class FrmM1061
                         mtxZUBAN_C.Enabled = True
 
                     Case ENM_BUMON_KB._3_•¡‡Þ
-                        mtxBUHIN_NAME.Enabled = False
-                        _M106.BUHIN_NAME = ""
+                        mtxBUHIN_NAME.Enabled = True
+                        '_M106.BUHIN_NAME = ""
                         Call FunGetCodeDataTable(DB, "•¡‡ÞŒ_–ñ‹æ•ª", tblFK_KEIYAKU_KB)
                         cmbKEIYAKU_KB.SetDataSource(tblFK_KEIYAKU_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
