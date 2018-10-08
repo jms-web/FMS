@@ -3030,7 +3030,7 @@ Public Class FrmG0011
 #Region "‰Šú‰»"
 
     Private Function FunInitializeTabControl(ByVal intCurrentTabNo As Integer) As Boolean
-        Dim strStageName As String
+        Dim strStageName As String = ""
         Try
             _tabPageManager = New TabPageManager(TabSTAGE)
 
