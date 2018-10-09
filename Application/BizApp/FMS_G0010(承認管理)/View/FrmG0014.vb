@@ -120,15 +120,15 @@ Public Class FrmG0014
                     .Columns(.ColumnCount - 1).Width = 30
                 End If
 
-                .Columns.Add("ITEM_NAME", "ITEM_NAME")
+                .Columns.Add(NameOf(MODEL.VWM001_SETTING.ITEM_NAME), "ITEM_NAME")
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).Visible = False
 
-                .Columns.Add("ITEM_VALUE", "ITEM_VALUE")
+                .Columns.Add(NameOf(MODEL.VWM001_SETTING.ITEM_VALUE), "ITEM_VALUE")
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).Visible = False
 
-                .Columns.Add("ITEM_DISP", "çÄñ⁄ñº")
+                .Columns.Add(NameOf(MODEL.VWM001_SETTING.ITEM_DISP), "çÄñ⁄ñº")
                 .Columns(.ColumnCount - 1).Width = 280
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
@@ -151,13 +151,13 @@ Public Class FrmG0014
                     Case "SELECTED"
                         dgv.CurrentRow.Cells("SELECTED").Value = Not CBool(dgv.CurrentRow.Cells("SELECTED").Value)
                         If CBool(dgv.CurrentRow.Cells("SELECTED").Value) Then
-                            PrSelectedList.Add((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
+                            PrSelectedList.Add((dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_NAME)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_VALUE)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_DISP)).Value))
                             If PrDAIHYO.ITEM_VALUE.IsNullOrWhiteSpace And PrMODE = 1 Then
                                 dgv.CurrentRow.Cells("DAIHYO").Value = True
-                                PrDAIHYO = (dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value)
+                                PrDAIHYO = (dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_NAME)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_VALUE)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_DISP)).Value)
                             End If
                         Else
-                            PrSelectedList.Remove((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
+                            PrSelectedList.Remove((dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_NAME)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_VALUE)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_DISP)).Value))
                             If PrMODE = 1 Then
                                 dgv.CurrentRow.Cells("DAIHYO").Value = False
                                 PrDAIHYO = Nothing
@@ -166,10 +166,10 @@ Public Class FrmG0014
                     Case "DAIHYO"
                         If Not CBool(dgv.CurrentRow.Cells("SELECTED").Value) Then
                             dgv.CurrentRow.Cells("SELECTED").Value = True
-                            PrSelectedList.Add((dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value))
+                            PrSelectedList.Add((dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_NAME)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_VALUE)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_DISP)).Value))
                         End If
                         dgv.CurrentRow.Cells("DAIHYO").Value = Not CBool(dgv.CurrentRow.Cells("DAIHYO").Value)
-                        PrDAIHYO = (dgv.CurrentRow.Cells("ITEM_NAME").Value, dgv.CurrentRow.Cells("ITEM_VALUE").Value, dgv.CurrentRow.Cells("ITEM_DISP").Value)
+                        PrDAIHYO = (dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_NAME)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_VALUE)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_DISP)).Value)
                 End Select
             End If
         Catch ex As Exception
@@ -273,11 +273,11 @@ Public Class FrmG0014
             Dim dsList As New DataSet
 
             sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append("SELECT")
-            sbSQL.Append(" *")
-            sbSQL.Append(" FROM " & NameOf(MODEL.VWM001_SETTING) & " ")
-            sbSQL.Append(" WHERE ITEM_NAME='" & strItemName & "'")
-            sbSQL.Append(" ORDER BY DISP_ORDER ")
+            sbSQL.Append($"SELECT")
+            sbSQL.Append($" *")
+            sbSQL.Append($" FROM {NameOf(MODEL.VWM001_SETTING)} ")
+            sbSQL.Append($" WHERE {NameOf(MODEL.VWM001_SETTING.ITEM_NAME)}='{strItemName}'")
+            sbSQL.Append($" ORDER BY {NameOf(MODEL.VWM001_SETTING.DISP_ORDER)} ")
             Using DBa As ClsDbUtility = DBOpen()
                 dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using

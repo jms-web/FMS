@@ -162,6 +162,8 @@
     <Compile Include="Models\View\V004_HOKOKU_SOUSA.vb" />
     <Compile Include="Models\View\V005_CAR_J.vb" />
     <Compile Include="Models\View\V003_SYONIN_J_KANRI.vb" />
+    <Compile Include="Models\View\V006_CAR_GENIN.vb" />
+    <Compile Include="Models\Function\TV01_HENKO_HIKAKU.vb" />
     <Compile Include="Models\View\V007_NCR_CAR.vb" />
     <Compile Include="Models\View\VWM101_TORIHIKI.vb" />
     <Compile Include="Models\View\VWM016_SYONIN_TANTO.vb" />
