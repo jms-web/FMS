@@ -81,7 +81,7 @@ Partial Class FrmG0011
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.rbtnST11_D1_T = New System.Windows.Forms.RadioButton()
         Me.rbtnST11_D1_F = New System.Windows.Forms.RadioButton()
-        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.pnlSYOCHI_C = New System.Windows.Forms.Panel()
         Me.rbtnST11_C1_T = New System.Windows.Forms.RadioButton()
         Me.rbtnST11_C1_F = New System.Windows.Forms.RadioButton()
         Me.Panel3 = New System.Windows.Forms.Panel()
@@ -92,8 +92,8 @@ Partial Class FrmG0011
         Me.Label125 = New System.Windows.Forms.Label()
         Me.Label126 = New System.Windows.Forms.Label()
         Me.Label127 = New System.Windows.Forms.Label()
-        Me.Label128 = New System.Windows.Forms.Label()
-        Me.Label129 = New System.Windows.Forms.Label()
+        Me.lblSYOCHI_C_2 = New System.Windows.Forms.Label()
+        Me.lblSYOCHI_C_1 = New System.Windows.Forms.Label()
         Me.Label130 = New System.Windows.Forms.Label()
         Me.Label131 = New System.Windows.Forms.Label()
         Me.Label132 = New System.Windows.Forms.Label()
@@ -516,7 +516,7 @@ Partial Class FrmG0011
         Me.Panel2.SuspendLayout()
         Me.Panel6.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        Me.Panel4.SuspendLayout()
+        Me.pnlSYOCHI_C.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.pnlST14.SuspendLayout()
@@ -639,6 +639,7 @@ Partial Class FrmG0011
         '
         Me.lblTytle.Font = New System.Drawing.Font("Meiryo UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.lblTytle.Size = New System.Drawing.Size(996, 45)
         Me.lblTytle.Text = "NCR処置画面"
         '
         'gbxFilter
@@ -1481,22 +1482,22 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 174.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 157.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.Panel7, 3, 7)
         Me.tlpST08.Controls.Add(Me.Panel2, 3, 6)
         Me.tlpST08.Controls.Add(Me.Panel6, 3, 4)
         Me.tlpST08.Controls.Add(Me.Panel5, 3, 3)
-        Me.tlpST08.Controls.Add(Me.Panel4, 3, 2)
+        Me.tlpST08.Controls.Add(Me.pnlSYOCHI_C, 3, 2)
         Me.tlpST08.Controls.Add(Me.Panel3, 3, 1)
         Me.tlpST08.Controls.Add(Me.mtxST11_E_Comment, 2, 8)
         Me.tlpST08.Controls.Add(Me.mtxST11_D_Comment, 2, 5)
         Me.tlpST08.Controls.Add(Me.Label125, 1, 8)
         Me.tlpST08.Controls.Add(Me.Label126, 1, 4)
         Me.tlpST08.Controls.Add(Me.Label127, 1, 3)
-        Me.tlpST08.Controls.Add(Me.Label128, 1, 2)
-        Me.tlpST08.Controls.Add(Me.Label129, 0, 2)
+        Me.tlpST08.Controls.Add(Me.lblSYOCHI_C_2, 1, 2)
+        Me.tlpST08.Controls.Add(Me.lblSYOCHI_C_1, 0, 2)
         Me.tlpST08.Controls.Add(Me.Label130, 1, 1)
         Me.tlpST08.Controls.Add(Me.Label131, 0, 1)
         Me.tlpST08.Controls.Add(Me.Label132, 0, 0)
@@ -1528,7 +1529,7 @@ Partial Class FrmG0011
         Me.Panel7.BackColor = System.Drawing.SystemColors.Window
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_T)
         Me.Panel7.Controls.Add(Me.rbtnST11_E2_F)
-        Me.Panel7.Location = New System.Drawing.Point(587, 200)
+        Me.Panel7.Location = New System.Drawing.Point(604, 200)
         Me.Panel7.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(155, 28)
@@ -1566,7 +1567,7 @@ Partial Class FrmG0011
         Me.Panel2.BackColor = System.Drawing.SystemColors.Window
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_T)
         Me.Panel2.Controls.Add(Me.rbtnST11_E1_F)
-        Me.Panel2.Location = New System.Drawing.Point(587, 171)
+        Me.Panel2.Location = New System.Drawing.Point(604, 171)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(155, 28)
@@ -1604,7 +1605,7 @@ Partial Class FrmG0011
         Me.Panel6.BackColor = System.Drawing.SystemColors.Window
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_T)
         Me.Panel6.Controls.Add(Me.rbtnST11_D2_F)
-        Me.Panel6.Location = New System.Drawing.Point(587, 117)
+        Me.Panel6.Location = New System.Drawing.Point(604, 117)
         Me.Panel6.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(155, 28)
@@ -1642,7 +1643,7 @@ Partial Class FrmG0011
         Me.Panel5.BackColor = System.Drawing.SystemColors.Window
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_T)
         Me.Panel5.Controls.Add(Me.rbtnST11_D1_F)
-        Me.Panel5.Location = New System.Drawing.Point(587, 88)
+        Me.Panel5.Location = New System.Drawing.Point(604, 88)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(155, 28)
@@ -1675,16 +1676,16 @@ Partial Class FrmG0011
         Me.rbtnST11_D1_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_D1_F.UseVisualStyleBackColor = False
         '
-        'Panel4
+        'pnlSYOCHI_C
         '
-        Me.Panel4.BackColor = System.Drawing.SystemColors.Window
-        Me.Panel4.Controls.Add(Me.rbtnST11_C1_T)
-        Me.Panel4.Controls.Add(Me.rbtnST11_C1_F)
-        Me.Panel4.Location = New System.Drawing.Point(587, 59)
-        Me.Panel4.Margin = New System.Windows.Forms.Padding(0)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(155, 28)
-        Me.Panel4.TabIndex = 245
+        Me.pnlSYOCHI_C.BackColor = System.Drawing.SystemColors.Window
+        Me.pnlSYOCHI_C.Controls.Add(Me.rbtnST11_C1_T)
+        Me.pnlSYOCHI_C.Controls.Add(Me.rbtnST11_C1_F)
+        Me.pnlSYOCHI_C.Location = New System.Drawing.Point(604, 59)
+        Me.pnlSYOCHI_C.Margin = New System.Windows.Forms.Padding(0)
+        Me.pnlSYOCHI_C.Name = "pnlSYOCHI_C"
+        Me.pnlSYOCHI_C.Size = New System.Drawing.Size(155, 28)
+        Me.pnlSYOCHI_C.TabIndex = 245
         '
         'rbtnST11_C1_T
         '
@@ -1718,7 +1719,7 @@ Partial Class FrmG0011
         Me.Panel3.BackColor = System.Drawing.SystemColors.Window
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_T)
         Me.Panel3.Controls.Add(Me.rbtnST11_B1_F)
-        Me.Panel3.Location = New System.Drawing.Point(587, 30)
+        Me.Panel3.Location = New System.Drawing.Point(604, 30)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(155, 28)
@@ -1811,7 +1812,7 @@ Partial Class FrmG0011
         Me.Label126.Location = New System.Drawing.Point(22, 117)
         Me.Label126.Margin = New System.Windows.Forms.Padding(0)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(564, 28)
+        Me.Label126.Size = New System.Drawing.Size(581, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "影響有の場合、顧客への通知の要否"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1826,39 +1827,39 @@ Partial Class FrmG0011
         Me.Label127.Location = New System.Drawing.Point(22, 88)
         Me.Label127.Margin = New System.Windows.Forms.Padding(0)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(564, 28)
+        Me.Label127.Size = New System.Drawing.Size(581, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "当該不適合による顧客への影響"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label128
+        'lblSYOCHI_C_2
         '
-        Me.Label128.AutoSize = True
-        Me.Label128.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpST08.SetColumnSpan(Me.Label128, 2)
-        Me.Label128.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label128.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label128.Location = New System.Drawing.Point(22, 59)
-        Me.Label128.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(564, 28)
-        Me.Label128.TabIndex = 241
-        Me.Label128.Text = "廃却処置は本来の意図した使用又は適用ができない方法だったか？"
-        Me.Label128.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblSYOCHI_C_2.AutoSize = True
+        Me.lblSYOCHI_C_2.BackColor = System.Drawing.SystemColors.Window
+        Me.tlpST08.SetColumnSpan(Me.lblSYOCHI_C_2, 2)
+        Me.lblSYOCHI_C_2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSYOCHI_C_2.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_C_2.Location = New System.Drawing.Point(22, 59)
+        Me.lblSYOCHI_C_2.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblSYOCHI_C_2.Name = "lblSYOCHI_C_2"
+        Me.lblSYOCHI_C_2.Size = New System.Drawing.Size(581, 28)
+        Me.lblSYOCHI_C_2.TabIndex = 241
+        Me.lblSYOCHI_C_2.Text = "廃却処置は本来の意図した使用又は適用ができない方法だったか？"
+        Me.lblSYOCHI_C_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label129
+        'lblSYOCHI_C_1
         '
-        Me.Label129.AutoSize = True
-        Me.Label129.BackColor = System.Drawing.SystemColors.Window
-        Me.Label129.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label129.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label129.Location = New System.Drawing.Point(1, 59)
-        Me.Label129.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label129.Name = "Label129"
-        Me.Label129.Size = New System.Drawing.Size(20, 28)
-        Me.Label129.TabIndex = 243
-        Me.Label129.Text = "C"
-        Me.Label129.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblSYOCHI_C_1.AutoSize = True
+        Me.lblSYOCHI_C_1.BackColor = System.Drawing.SystemColors.Window
+        Me.lblSYOCHI_C_1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSYOCHI_C_1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_C_1.Location = New System.Drawing.Point(1, 59)
+        Me.lblSYOCHI_C_1.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblSYOCHI_C_1.Name = "lblSYOCHI_C_1"
+        Me.lblSYOCHI_C_1.Size = New System.Drawing.Size(20, 28)
+        Me.lblSYOCHI_C_1.TabIndex = 243
+        Me.lblSYOCHI_C_1.Text = "C"
+        Me.lblSYOCHI_C_1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label130
         '
@@ -1870,7 +1871,7 @@ Partial Class FrmG0011
         Me.Label130.Location = New System.Drawing.Point(22, 30)
         Me.Label130.Margin = New System.Windows.Forms.Padding(0)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(564, 28)
+        Me.Label130.Size = New System.Drawing.Size(581, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "社内権限者により、又は顧客再審の場合は顧客により判定されたか？"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1927,7 +1928,7 @@ Partial Class FrmG0011
         Me.Label134.Location = New System.Drawing.Point(22, 171)
         Me.Label134.Margin = New System.Windows.Forms.Padding(0)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(564, 28)
+        Me.Label134.Size = New System.Drawing.Size(581, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "当該不適合による他のプロセスへの影響"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1956,7 +1957,7 @@ Partial Class FrmG0011
         Me.Label136.Location = New System.Drawing.Point(22, 200)
         Me.Label136.Margin = New System.Windows.Forms.Padding(0)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(564, 28)
+        Me.Label136.Size = New System.Drawing.Size(581, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "影響有の場合、封じ込め処置の要否"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1971,7 +1972,7 @@ Partial Class FrmG0011
         Me.Label137.Location = New System.Drawing.Point(22, 1)
         Me.Label137.Margin = New System.Windows.Forms.Padding(0)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(564, 28)
+        Me.Label137.Size = New System.Drawing.Size(581, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "検出された不適合を除去する処置（廃却を含む）は確実にとられたか？"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1995,7 +1996,7 @@ Partial Class FrmG0011
         Me.Panel1.BackColor = System.Drawing.SystemColors.Window
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_T)
         Me.Panel1.Controls.Add(Me.rbtnST11_A1_F)
-        Me.Panel1.Location = New System.Drawing.Point(587, 1)
+        Me.Panel1.Location = New System.Drawing.Point(604, 1)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(155, 28)
@@ -7910,7 +7911,6 @@ Partial Class FrmG0011
         Me.Controls.Add(Me.TabSTAGE)
         Me.Controls.Add(Me.picZoom)
         Me.HelpButton = True
-        Me.MinimumSize = New System.Drawing.Size(1278, 750)
         Me.Name = "FrmG0011"
         Me.ShowStatusBar = True
         Me.Text = ""
@@ -7951,7 +7951,7 @@ Partial Class FrmG0011
         Me.Panel2.ResumeLayout(False)
         Me.Panel6.ResumeLayout(False)
         Me.Panel5.ResumeLayout(False)
-        Me.Panel4.ResumeLayout(False)
+        Me.pnlSYOCHI_C.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.pnlST14.ResumeLayout(False)
@@ -8409,7 +8409,7 @@ Partial Class FrmG0011
     Friend WithEvents Panel5 As Panel
     Friend WithEvents rbtnST11_D1_T As RadioButton
     Friend WithEvents rbtnST11_D1_F As RadioButton
-    Friend WithEvents Panel4 As Panel
+    Friend WithEvents pnlSYOCHI_C As Panel
     Friend WithEvents rbtnST11_C1_T As RadioButton
     Friend WithEvents rbtnST11_C1_F As RadioButton
     Friend WithEvents Panel3 As Panel
@@ -8420,8 +8420,8 @@ Partial Class FrmG0011
     Friend WithEvents Label125 As Label
     Friend WithEvents Label126 As Label
     Friend WithEvents Label127 As Label
-    Friend WithEvents Label128 As Label
-    Friend WithEvents Label129 As Label
+    Friend WithEvents lblSYOCHI_C_2 As Label
+    Friend WithEvents lblSYOCHI_C_1 As Label
     Friend WithEvents Label130 As Label
     Friend WithEvents Label131 As Label
     Friend WithEvents Label132 As Label

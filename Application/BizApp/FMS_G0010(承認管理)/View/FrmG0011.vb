@@ -228,7 +228,7 @@ Public Class FrmG0011
 
             Me.WindowState = FormWindowState.Maximized
 
-            If _D003_NCR_J.BUMON_KB = Context.ENM_BUMON_KB._2_LP Then
+            If _D003_NCR_J.BUMON_KB.ToVal = Context.ENM_BUMON_KB._2_LP Then
                 Me.ActiveControl = cmbSYANAI_CD
             Else
                 Me.ActiveControl = cmbKISYU
@@ -338,7 +338,7 @@ Public Class FrmG0011
                             If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
                                 Me.DialogResult = DialogResult.OK
                             Else
-                                If FunSAVE(ENM_SAVE_MODE._1_ï€ë∂) Then
+                                If FunSAVE(ENM_SAVE_MODE._1_ï€ë∂, True) Then
                                     Me.DialogResult = DialogResult.OK
                                 Else
                                     MessageBox.Show("ï€ë∂èàóùÇ…é∏îsÇµÇ‹ÇµÇΩÅB", "ï€ë∂é∏îs", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -402,7 +402,7 @@ Public Class FrmG0011
     ''' </summary>
     ''' <param name="enmSAVE_MODE"></param>
     ''' <returns></returns>
-    Private Function FunSAVE(ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
+    Private Function FunSAVE(ByVal enmSAVE_MODE As ENM_SAVE_MODE, Optional blnTENSO As Boolean = False) As Boolean
         Try
 
             Using DB As ClsDbUtility = DBOpen()
@@ -421,11 +421,11 @@ Public Class FrmG0011
                             If FunSAVE_D003(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                             If FunSAVE_FILE(DB) = False Then blnErr = True : Return False
                     End Select
-                    '
-                    If FunSAVE_D004(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
-                    '
-                    If FunSAVE_R001(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
 
+                    If Not blnTENSO Then
+                        If FunSAVE_D004(DB, enmSAVE_MODE) = False Then blnErr = True : Return False                        '
+                        If FunSAVE_R001(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
+                    End If
                 Finally
                     DB.Commit(Not blnErr)
                 End Try
@@ -4212,6 +4212,12 @@ Public Class FrmG0011
 
                 mtxST15_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcdeèàíuíSìñ))
 
+                '#90
+                Dim blnDISP As Boolean = (_D003_NCR_J.JIZEN_SINSA_HANTEI_KB.ToVal = ENM_JIZEN_SINSA_HANTEI_KB._4_îpãpÇ∑ÇÈ)
+                lblSYOCHI_C_1.Visible = blnDISP
+                lblSYOCHI_C_2.Visible = blnDISP
+                pnlSYOCHI_C.Visible = blnDISP
+
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._110_abcdeèàíuíSìñ).
@@ -4439,6 +4445,8 @@ Public Class FrmG0011
 #End Region
 
 #Region "ïîñÂãÊï™"
+
+    'DEBUG: selectedvaluechange Å® validated
 
     Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
@@ -4673,6 +4681,20 @@ Public Class FrmG0011
         Finally
             AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
         End Try
+    End Sub
+
+    Private Sub CmbSYANAI_CD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbSYANAI_CD.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        If _D003_NCR_J.BUMON_KB.ToVal = Context.ENM_BUMON_KB._2_LP Then
+            If cmb.IsSelected Then
+                ErrorProvider.ClearError(cmb)
+                IsValidated = IsValidated AndAlso True
+            Else
+                ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "é–ì‡ÉRÅ[Éh"))
+                ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+                IsValidated = False
+            End If
+        End If
     End Sub
 
 #End Region
@@ -5400,17 +5422,17 @@ Public Class FrmG0011
                                                                                  chkST11_E2.CheckedChanged
 
         Dim chk As CheckBox = DirectCast(sender, CheckBox)
-        Dim strNameSuffix As String
-        If chk.Checked Then
-            strNameSuffix = "T"
-        Else
-            strNameSuffix = "F"
-        End If
-        Dim ctrlLabel As Control() = Me.Controls.Find("rbtnST11_" & chk.Name.Substring(8, 2) & "_" & strNameSuffix, True)
-        If ctrlLabel.Length > 0 Then
-            Dim rbtn As RadioButton = ctrlLabel(0)
-            rbtn.Checked = True
-        End If
+        'Dim strNameSuffix As String
+        'If chk.Checked Then
+        '    strNameSuffix = "T"
+        'Else
+        '    strNameSuffix = "F"
+        'End If
+        'Dim ctrlLabel As Control() = Me.Controls.Find("rbtnST11_" & chk.Name.Substring(8, 2) & "_" & strNameSuffix, True)
+        'If ctrlLabel.Length > 0 Then
+        '    Dim rbtn As RadioButton = ctrlLabel(0)
+        '    rbtn.Checked = True
+        'End If
     End Sub
 
     Private Sub RbtnST11_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST11_A1_F.CheckedChanged,
@@ -5932,8 +5954,8 @@ Public Class FrmG0011
             If PrCurrentStage = ENM_NCR_STAGE._999_Closed Then
                 rsbtnST99.Checked = True
             Else
-                Dim rbtn As RibbonShapeRadioButton = DirectCast(flpnlStageIndex.Controls("rsbtnST" & FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage).ToString("00")), RibbonShapeRadioButton)
-                rbtn.Checked = True
+                Dim rbtn As RibbonShapeRadioButton = CType(flpnlStageIndex.Controls("rsbtnST" & FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage).ToString("00")), RibbonShapeRadioButton)
+                If rbtn IsNot Nothing Then rbtn.Checked = True
             End If
 
             Select Case intMODE
@@ -5942,11 +5964,13 @@ Public Class FrmG0011
                     mtxHOKUKO_NO.Text = "<êVãK>"
                     _D003_NCR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
                     _D003_NCR_J.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
-                    Select Case pub_SYAIN_INFO.BUMON_KB
-                        Case Context.ENM_BUMON_KB._1_ïóñh, Context.ENM_BUMON_KB._2_LP, Context.ENM_BUMON_KB._3_ï°çáçﬁ
-                            _D003_NCR_J.BUMON_KB = pub_SYAIN_INFO.BUMON_KB
-                        Case Else
-                    End Select
+
+
+                    If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+                    Else
+                        _D003_NCR_J.BUMON_KB = pub_SYAIN_INFO.BUMON_KB
+                    End If
+
                     _D003_NCR_J.SURYO = 1
                     Me.TabSTAGE.Visible = False 'ÇøÇÁÇ¬Ç´ñhé~
                     Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage))
@@ -5962,7 +5986,8 @@ Public Class FrmG0011
                     'SPEC: 10-2.á@
                     Call FunSetEntityModel(PrHOKOKU_NO, PrCurrentStage)
 
-                    If PrCurrentStage > ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL Then
+                    '#90 ãNëêà»ç~ïœçXïsâ¬
+                    If PrCurrentStage > ENM_NCR_STAGE._10_ãNëêì¸óÕ Then
 
                         'UNDONE: ÉwÉbÉ_çÄñ⁄Ç‡ïœçXïsâ¬ Ç∆ÇËÇ†Ç¶Ç∏ÉRÉìÉgÉçÅ[ÉãÇíºê⁄êßå‰ â¬î\Ç»ÇÁÉpÉlÉãíPà Ç≈êßå‰ÇµÇΩÇ¢
                         mtxHOKUKO_NO.ReadOnly = True
@@ -5971,6 +5996,7 @@ Public Class FrmG0011
                         dtDraft.ReadOnly = True
                         cmbKISYU.ReadOnly = True
                         cmbBUHIN_BANGO.ReadOnly = True
+                        cmbHINMEI.ReadOnly = True
                         mtxGOUKI.ReadOnly = True
                         cmbSYANAI_CD.ReadOnly = True
                         cmbFUTEKIGO_STATUS.ReadOnly = True
@@ -5980,6 +6006,7 @@ Public Class FrmG0011
                         mtxZUBAN_KIKAKU.ReadOnly = True
                         numSU.Enabled = False
                         dtHASSEI_YMD.ReadOnly = True
+
                     End If
 
                     TabSTAGE.Visible = False
@@ -6108,7 +6135,7 @@ Public Class FrmG0011
             Call CmbBUMON_Validating(cmbBUMON, Nothing)
             Call CmbKISYU_Validating(cmbKISYU, Nothing)
             Call CmbBUHIN_BANGO_Validating(cmbBUHIN_BANGO, Nothing)
-
+            Call CmbSYANAI_CD_Validating(cmbSYANAI_CD, Nothing)
             Call CmbFUTEKIGO_STATUS_Validating(cmbFUTEKIGO_STATUS, Nothing)
             Call MtxFUTEKIGO_NAIYO_Validating(mtxHENKYAKU_RIYU, Nothing)
             Call CmbFUTEKIGO_KB_Validating(cmbFUTEKIGO_KB, Nothing)
@@ -6518,6 +6545,7 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
+
 
 
 

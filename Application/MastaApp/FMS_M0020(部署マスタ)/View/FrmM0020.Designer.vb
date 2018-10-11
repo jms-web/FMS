@@ -19,6 +19,7 @@ Partial Class FrmM0020
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmM0020))
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
@@ -37,7 +38,7 @@ Partial Class FrmM0020
         Me.txtBUSYO_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.txtOYA_BUSYO_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.VWM002BUSYOBindingSource = New System.Windows.Forms.BindingSource()
+        Me.VWM002BUSYOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
@@ -143,11 +144,11 @@ Partial Class FrmM0020
         Me.cmbBUMON_KB.FormattingEnabled = True
         Me.cmbBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Location = New System.Drawing.Point(83, 3)
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
         Me.cmbBUMON_KB.ReadOnly = False
-        Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Size = New System.Drawing.Size(113, 25)
         Me.cmbBUMON_KB.TabIndex = 0
         Me.cmbBUMON_KB.Text = "(‘I‘ð)"
@@ -246,11 +247,11 @@ Partial Class FrmM0020
         Me.cmbBUSYO_KB.FormattingEnabled = True
         Me.cmbBUSYO_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbBUSYO_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbBUSYO_KB.IsSelected = False
         Me.cmbBUSYO_KB.Location = New System.Drawing.Point(394, 3)
         Me.cmbBUSYO_KB.Name = "cmbBUSYO_KB"
         Me.cmbBUSYO_KB.NullValue = " "
         Me.cmbBUSYO_KB.ReadOnly = False
-        Me.cmbBUSYO_KB.IsSelected = False
         Me.cmbBUSYO_KB.Size = New System.Drawing.Size(135, 25)
         Me.cmbBUSYO_KB.TabIndex = 0
         Me.cmbBUSYO_KB.Text = "(‘I‘ð)"

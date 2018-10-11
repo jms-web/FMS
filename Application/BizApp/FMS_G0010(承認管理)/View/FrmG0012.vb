@@ -87,6 +87,7 @@ Public Class FrmG0012
         Me.Height = 750
 
         rsbtnST99.Enabled = False
+        dtFUTEKIGO_HASSEI_YMD.ReadOnly = True
     End Sub
 
 #End Region
@@ -202,7 +203,7 @@ Public Class FrmG0012
                             If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
                                 Me.DialogResult = DialogResult.OK
                             Else
-                                If FunSAVE(ENM_SAVE_MODE._1_保存) Then
+                                If FunSAVE(ENM_SAVE_MODE._1_保存, True) Then
                                     Me.DialogResult = DialogResult.OK
                                 Else
                                     MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -252,7 +253,7 @@ Public Class FrmG0012
     ''' </summary>
     ''' <param name="enmSAVE_MODE"></param>
     ''' <returns></returns>
-    Private Function FunSAVE(ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
+    Private Function FunSAVE(ByVal enmSAVE_MODE As ENM_SAVE_MODE, Optional blnTENSO As Boolean = False) As Boolean
         Try
 
             Using DB As ClsDbUtility = DBOpen()
@@ -265,8 +266,10 @@ Public Class FrmG0012
                     If FunSAVE_D006(DB) = False Then blnErr = True : Return False
                     If FunSAVE_FILE(DB) = False Then blnErr = True : Return False
 
-                    If FunSAVE_D004(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
-                    If FunSAVE_R001(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
+                    If Not blnTENSO Then
+                        If FunSAVE_D004(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
+                        If FunSAVE_R001(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
+                    End If
                 Finally
                     DB.Commit(Not blnErr)
                 End Try
@@ -786,7 +789,6 @@ Public Class FrmG0012
         _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
         _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
 
-
         '#80 承認申請日は画面で入力
         If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
             _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
@@ -799,6 +801,7 @@ Public Class FrmG0012
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
                 _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                '_D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
             Case ENM_SAVE_MODE._2_承認申請
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
@@ -1789,7 +1792,7 @@ Public Class FrmG0012
                 End With
             Next intFunc
 
-            'カレントステージが自身の担当でない場合は無効
+
             If FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, PrHOKOKU_NO, PrCurrentStage) Then '
                 cmdFunc1.Enabled = True
                 cmdFunc2.Enabled = True
@@ -1805,10 +1808,13 @@ Public Class FrmG0012
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
                 End If
             Else
+                'カレントステージが自身の担当でない場合は無効
                 cmdFunc1.Enabled = False
                 cmdFunc2.Enabled = False
                 cmdFunc4.Enabled = False
                 cmdFunc5.Enabled = False
+
+                dtUPD_YMD.ReadOnly = True
 
                 MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "登録権限がありません")
 
@@ -2848,6 +2854,8 @@ Public Class FrmG0012
 
             dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
             cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+            _D005_CAR_J.FUTEKIGO_HASSEI_YMD = _V002_NCR_J.HASSEI_YMD
 
             _D005_CAR_J.HOKOKU_NO = _V005_CAR_J.HOKOKU_NO
             _D005_CAR_J.BUMON_KB = _V005_CAR_J.BUMON_KB
