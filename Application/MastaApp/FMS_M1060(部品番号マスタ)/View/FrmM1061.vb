@@ -557,7 +557,7 @@ Public Class FrmM1061
             End Using
 
         Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"), ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetErrorInfo(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"))
             IsValidated = False
         End If
     End Sub
@@ -569,7 +569,7 @@ Public Class FrmM1061
             ErrorProvider.ClearError(cmb)
             IsValidated = (IsValidated AndAlso True)
         Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "得意先"), ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetErrorInfo(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "得意先"))
             IsValidated = False
         End If
     End Sub
@@ -581,7 +581,7 @@ Public Class FrmM1061
             ErrorProvider.ClearError(mtx)
             IsValidated = (IsValidated AndAlso True)
         Else
-            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品番号"), ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetErrorInfo(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品番号"))
             IsValidated = False
         End If
     End Sub
@@ -594,7 +594,7 @@ Public Class FrmM1061
             ErrorProvider.ClearError(mtx)
             IsValidated = (IsValidated AndAlso True)
         Else
-            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "単価"), ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetErrorInfo(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "単価"))
             IsValidated = False
         End If
 

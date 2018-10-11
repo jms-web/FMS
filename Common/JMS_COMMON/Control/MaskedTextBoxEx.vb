@@ -1,31 +1,53 @@
+'----------------------------------------
+'変更履歴
+'2007/09/03 MASKEDTEXTBOXの継承コントロールとして作成、フォーカス時に全選択
+'2007/09/15 MaxByteLengthプロパティ
+'2007/10/01 PermitNumCharsプロパティ
+'2007/11/01 SelectAllTextプロパティ
+'----------------------------------------
+
 Imports System.ComponentModel
 
 <DefaultEvent("TextChanged")>
-<DefaultProperty(NameOf(MaskedTextBoxEx.Text))>
+<DefaultProperty("DefaultProperty")>
 Public Class MaskedTextBoxEx
     Inherits MaskedTextBox
 
+
+    Private _GotForcusedColor As Color  'フォーカス時の背景色
     Private _BackColorDefault As Color 'フォーカス喪失時時の背景色
 
 #Region "　コンストラクタ　"
     Public Sub New()
         Call InitializeComponent()
 
-        Me.MaxByteLength = 100
+        'Me.MaxByteLength = 65535
         Me.SelectAllText = True
         Me.ImeMode = Windows.Forms.ImeMode.Disable
         _watermarkColor = SystemColors.GrayText
 
-        GotFocusedColor = clrControlGotFocusedColor
+        Me._GotForcusedColor = clrControlGotFocusedColor
         Me._BackColorDefault = clrControlDefaultBackColor
     End Sub
-
 #End Region
 
 #Region "　プロパティ　"
 
-#Region "GotFocusedColor"
-    Public Property GotFocusedColor As Color
+#Region "ReadOnly"
+
+    Protected Shadows Property [ReadOnly] As Boolean
+        Get
+            Return MyBase.ReadOnly
+        End Get
+        Set(value As Boolean)
+            MyBase.ReadOnly = value
+            TabStop = Not value
+            SetStyle(ControlStyles.UserMouse, value)
+            SetStyle(ControlStyles.Selectable, value)
+            'UpdateStyles()
+            'RecreateHandle()
+        End Set
+    End Property
 #End Region
 
 #Region "InputRequired プロパティ"
@@ -36,13 +58,13 @@ Public Class MaskedTextBoxEx
         End Get
         Set(value As Boolean)
             _InputRequired = value
-            'If value Then
-            '    Me.WatermarkText = "<必須>"
-            '    Me.WatermarkColor = Color.Red
-            'Else
-            '    Me.WatermarkText = _watermarkText
-            '    Me.WatermarkColor = _foreColor
-            'End If
+            If value Then
+                Me.WatermarkText = "<必須>"
+                Me.WatermarkColor = Color.Red
+            Else
+                Me.WatermarkText = _watermarkText
+                Me.WatermarkColor = _foreColor
+            End If
         End Set
     End Property
 
@@ -114,7 +136,7 @@ Public Class MaskedTextBoxEx
 
     <Category("動作"),
      DefaultValue(65535),
-     Description("エディット コントロールに入力できる最大文字バイト数を指定します。")>
+     Description("エディット コントロールに入力できる最大文字バイト数を指定します。0の場合は実質無制限")>
     Public Property MaxByteLength() As Integer
         Get
             Return Me.MaxByteLengthValue
@@ -209,29 +231,17 @@ Public Class MaskedTextBoxEx
 
 #End Region
 
-#Region "ReadOnly"
-    Public Shadows Property [ReadOnly] As Boolean
-        Get
-            Return MyBase.ReadOnly
-        End Get
-        Set(value As Boolean)
-            SetStyle(ControlStyles.UserMouse, value)
-            MyBase.ReadOnly = value
-        End Set
-    End Property
-
-#End Region
-
 #End Region
 
 #Region "　イベント　"
 
     Protected Sub Ctrl_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
-        If e.KeyCode = Keys.Escape Then
+
+        If e.KeyCode = Keys.Escape Or ((e.KeyCode = Windows.Forms.Keys.Z) And (e.Modifiers = Keys.Control)) Then
             Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-            If mtx.CanUndo = True Then
-                mtx.Undo()
-            End If
+            'If mtx.CanUndo = True Then
+            mtx.Undo()
+            'End If
         End If
     End Sub
 
@@ -290,7 +300,7 @@ Public Class MaskedTextBoxEx
 
                 'New Font("Yu Gothic UI", Me.Font.Size, FontStyle.Italic, GraphicsUnit.Point, CType(128, Byte)),
 
-                'CHECK:右クリック無効の場合は、コメントアウト解除
+                'CHECK: 右クリック無効の場合は、コメントアウト解除
                 'Case WM_CONTEXTMENU
                 '    Return
         End Select
@@ -319,7 +329,8 @@ Public Class MaskedTextBoxEx
         Dim inputByteCount As Integer = sjisEncoding.GetByteCount(e.KeyChar.ToString())
         Dim selectedTextByteCount As Integer = sjisEncoding.GetByteCount(Me.SelectedText)
 
-        If textByteCount + inputByteCount - selectedTextByteCount > Me.MaxByteLength Then
+
+        If Me.MaxByteLength > 0 AndAlso textByteCount + inputByteCount - selectedTextByteCount > Me.MaxByteLength Then
             e.Handled = True
         End If
     End Sub
@@ -345,30 +356,33 @@ Public Class MaskedTextBoxEx
                 clipboardText = Me.SelectedText
             End If
 
-            '-----ペーストを最大文字バイト数に制限
-            If Me.MaxLength * 2 >= Me.MaxByteLength Then
+            If Me.MaxLength = 0 Or Me.MaxByteLength = 0 Then
+                Me.SelectedText = inputText
+            Else
+                '-----ペーストを最大文字バイト数に制限
+                If Me.MaxLength * 2 >= Me.MaxByteLength Then
 
-                inputText = clipboardText.ToString()
-                Dim textByteCount As Integer = sjisEncoding.GetByteCount(Me.Text)
-                Dim inputByteCount As Integer = sjisEncoding.GetByteCount(inputText)
-                selectedTextByteCount = sjisEncoding.GetByteCount(Me.SelectedText)
-                Dim remainByteCount As Integer = Me.MaxByteLength - (textByteCount - selectedTextByteCount)
+                    inputText = clipboardText.ToString()
+                    Dim textByteCount As Integer = sjisEncoding.GetByteCount(Me.Text)
+                    Dim inputByteCount As Integer = sjisEncoding.GetByteCount(inputText)
+                    selectedTextByteCount = sjisEncoding.GetByteCount(Me.SelectedText)
+                    Dim remainByteCount As Integer = Me.MaxByteLength - (textByteCount - selectedTextByteCount)
 
 
-                If remainByteCount <= 0 Or MaxByteLength - (textByteCount + inputByteCount) <= 0 Then
-                    Return
-                End If
-
-                If remainByteCount >= inputByteCount Then
-                    Me.SelectedText = inputText
-                Else
-                    textByteCount = sjisEncoding.GetByteCount(inputText)
-                    If textByteCount > Me.MaxByteLength Then
-                        Me.SelectedText = ClsPubMethod.MidB(inputText, 1, Me.MaxByteLength)
-                    Else
-                        Me.SelectedText = inputText.Substring(0, remainByteCount)
+                    If remainByteCount <= 0 Or MaxByteLength - (textByteCount + inputByteCount) <= 0 Then
+                        Return
                     End If
 
+                    If remainByteCount >= inputByteCount Then
+                        Me.SelectedText = inputText
+                    Else
+                        textByteCount = sjisEncoding.GetByteCount(inputText)
+                        If textByteCount > Me.MaxByteLength Then
+                            Me.SelectedText = ClsPubMethod.MidB(inputText, 1, Me.MaxByteLength)
+                        Else
+                            Me.SelectedText = inputText.Substring(0, remainByteCount)
+                        End If
+                    End If
                 End If
             End If
 
@@ -421,6 +435,17 @@ Public Class MaskedTextBoxEx
     End Sub
 #End Region
 
+#Region "GotFocusedColor"
+    <Bindable(True), Category("Appearance"), DefaultValue("")>
+    Property [GotFocusedColor]() As System.Drawing.Color
+        Get
+            Return _GotForcusedColor
+        End Get
+        Set(ByVal value As Color)
+            _GotForcusedColor = value
+        End Set
+    End Property
+#End Region
 #Region "BackColor"
     <Bindable(True), Category("Appearance"), DefaultValue("")>
     Overrides Property [BackColor]() As System.Drawing.Color
@@ -434,25 +459,50 @@ Public Class MaskedTextBoxEx
     End Property
 #End Region
 
+#Region "ProcessDialogKey"
+    Protected Overrides Function ProcessDialogKey(keyData As Keys) As Boolean
+        'Returnキーが押されているか調べる
+        'AltかCtrlキーが押されている時は、本来の動作をさせる
+        If ((keyData And Keys.KeyCode) = Keys.Return) AndAlso
+            ((keyData And (Keys.Alt Or Keys.Control)) = Keys.None) Then
+            'Tabキーを押した時と同じ動作をさせる
+            'Shiftキーが押されている時は、逆順にする
+            'Me.ProcessDialogKey(Keys.Tab)
+            'If (keyData And Keys.KeyCode) = (Keys.Enter Or Keys.Shift) Then
+            If keyData = (Keys.Enter Or Keys.Shift) Then
+                Me.ProcessDialogKey((Keys.Tab Or Keys.Shift))
+            Else
+                Me.ProcessDialogKey(Keys.Tab)
+            End If
+
+            '本来の処理はさせない
+            Return True
+        End If
+
+        Return MyBase.ProcessDialogKey(keyData)
+    End Function
+
+#End Region
+
 #Region "OnKeyDown(ByVal e As KeyEventArgs)"
-    Protected Overrides Sub OnKeyDown(ByVal e As KeyEventArgs)
+    'Protected Overrides Sub OnKeyDown(ByVal e As KeyEventArgs)
 
-        MyBase.OnKeyDown(e)
+    '    MyBase.OnKeyDown(e)
 
-        Select Case e.KeyCode
-            Case Keys.Enter     'Enter:Tab
-                SendKeys.Send("{Tab}") 'Enterを押した際、次の項目へ移動する為Tabを送信する
-        End Select
-    End Sub
+    '    Select Case e.KeyCode
+    '        Case Keys.Enter     'Enter:Tab
+    '            SendKeys.Send("{Tab}") 'Enterを押した際、次の項目へ移動する為Tabを送信する
+    '    End Select
+    'End Sub
 #End Region
 #Region "OnGotFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnGotFocus(ByVal e As EventArgs)
 
-        If Me.Enabled = False Or Me.ReadOnly = True Then
+        If Me.ReadOnly Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
         Else
             'フォーカス時は背景色変更
-            MyBase.BackColor = GotFocusedColor
+            MyBase.BackColor = _GotForcusedColor
         End If
 
         MyBase.OnGotFocus(e) '基底クラス呼び出し
@@ -461,7 +511,7 @@ Public Class MaskedTextBoxEx
 #Region "OnLostFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnLostFocus(ByVal e As EventArgs)
 
-        If Me.Enabled = False Or Me.ReadOnly = True Then
+        If Me.ReadOnly Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
         Else
             'フォーカスがないときは背景色＝白設定
@@ -476,7 +526,6 @@ Public Class MaskedTextBoxEx
     Protected Overrides Sub OnReadOnlyChanged(e As EventArgs)
         If Me.ReadOnly = True Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
-            _BackColorDefault = clrDisableControlGotFocusedColor
         End If
         MyBase.OnReadOnlyChanged(e)
     End Sub
@@ -484,7 +533,6 @@ Public Class MaskedTextBoxEx
     Protected Overrides Sub OnEnabledChanged(e As EventArgs)
         If Me.Enabled = False Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
-            _BackColorDefault = clrDisableControlGotFocusedColor
         End If
 
         MyBase.OnEnabledChanged(e)
@@ -492,6 +540,7 @@ Public Class MaskedTextBoxEx
 
     <Bindable(True), Category("Appearance"), DefaultValue(False)>
     Public Property ShowRemaining As Boolean
+
 
 #Region "　Change メソッド(Overrides)"
     Protected Overrides Sub OnTextChanged(e As EventArgs)
@@ -567,5 +616,5 @@ Public Class MaskedTextBoxEx
 
 #End Region
 
-End Class
 
+End Class

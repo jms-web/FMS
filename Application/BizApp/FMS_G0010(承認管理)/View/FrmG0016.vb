@@ -148,18 +148,18 @@ Public Class FrmG0016
                     DB.BeginTransaction()
 
                     '-----UPDATE
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.D004_SYONIN_J_KANRI) & " SET")
-                    sbSQL.Append(" " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS) & "=' '")
-                    sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB) & "='" & ENM_SYONIN_HANTEI_KB._0_未承認.Value & "'") '
-                    sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG) & "='" & 1 & "'")
-                    sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.RIYU) & "='" & _D004_SYONIN_J_KANRI.RIYU & "'")
-                    sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG) & "='" & 0 & "'")
-                    sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID) & "=" & mtxTANTO_ID.Text & "")
-                    sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID) & "=" & pub_SYAIN_INFO.SYAIN_ID & "") '
+                    sbSQL.Append($"UPDATE {NameOf(MODEL.D004_SYONIN_J_KANRI)} SET")
+                    sbSQL.Append($" {NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)}=' '")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}='{ENM_SYONIN_HANTEI_KB._0_未承認.Value}'") '
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}='1'")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.RIYU)}='{_D004_SYONIN_J_KANRI.RIYU}'")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)}='0'")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}={mtxTANTO_ID.Text}")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}") '
                     sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}='{strSysDate}'")
-                    sbSQL.Append(" WHERE " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID) & "=" & PrSYONIN_HOKOKUSYO_ID & "")
-                    sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & "='" & PrHOKOKU_NO & "'")
-                    sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN) & "=" & cmbMODOSI_SAKI.SelectedValue & "")
+                    sbSQL.Append($" WHERE {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={PrSYONIN_HOKOKUSYO_ID}")
+                    sbSQL.Append($" AND {NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}='{PrHOKOKU_NO}'")
+                    sbSQL.Append($" AND {NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)}={cmbMODOSI_SAKI.SelectedValue}")
 
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
                     If intRET <> 1 Then
@@ -171,10 +171,10 @@ Public Class FrmG0016
 
                     '-----差し戻されたステージ以降の承認済み実績を削除
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("DELETE FROM " & NameOf(MODEL.D004_SYONIN_J_KANRI) & "")
-                    sbSQL.Append(" WHERE " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID) & "=" & PrSYONIN_HOKOKUSYO_ID & "")
-                    sbSQL.Append(" AND RTRIM(" & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & ")='" & PrHOKOKU_NO & "'")
-                    sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN) & ">" & cmbMODOSI_SAKI.SelectedValue & ";")
+                    sbSQL.Append($"DELETE FROM {NameOf(MODEL.D004_SYONIN_J_KANRI)}")
+                    sbSQL.Append($" WHERE {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={PrSYONIN_HOKOKUSYO_ID}")
+                    sbSQL.Append($" AND RTRIM({NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)})='{PrHOKOKU_NO}'")
+                    sbSQL.Append($" AND {NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)}>{cmbMODOSI_SAKI.SelectedValue};")
 
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
                     If sqlEx.Source IsNot Nothing Then
@@ -713,15 +713,15 @@ Public Class FrmG0016
         Dim dsList As New DataSet
 
         sbSQL.Append($"SELECT * FROM {NameOf(MODEL.V003_SYONIN_J_KANRI)} MAIN")
-        sbSQL.Append($" WHERE SYONIN_HOKOKUSYO_ID={intSYONIN_HOKOKU_ID}")
-        sbSQL.Append($" AND HOKOKU_NO='{strHOKOKU_NO}'")
+        sbSQL.Append($" WHERE {NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={intSYONIN_HOKOKU_ID}")
+        sbSQL.Append($" AND {NameOf(MODEL.V003_SYONIN_J_KANRI.HOKOKU_NO)}='{strHOKOKU_NO}'")
         'カレントステージが20以外の場合は差し戻し先として20も追加
         If intCurrentStage = 20 Then
-            sbSQL.Append($" AND (SYONIN_JUN=(SELECT MAX(SYONIN_JUN) FROM V003_SYONIN_J_KANRI AS SUB WHERE SUB.SYONIN_JUN<{intCurrentStage}))")
+            sbSQL.Append($" AND ({NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}=(SELECT MAX({NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}) FROM {NameOf(MODEL.V003_SYONIN_J_KANRI)} AS SUB WHERE SUB.{NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}<{intCurrentStage}))")
         Else
-            sbSQL.Append($" AND (SYONIN_JUN=20 OR SYONIN_JUN=(SELECT MAX(SYONIN_JUN) FROM V003_SYONIN_J_KANRI AS SUB WHERE SUB.SYONIN_JUN<{intCurrentStage}")
-            sbSQL.Append($" AND SUB.SYONIN_HOKOKUSYO_ID={intSYONIN_HOKOKU_ID}")
-            sbSQL.Append($" AND SUB.HOKOKU_NO='{strHOKOKU_NO}'))")
+            sbSQL.Append($" AND ({NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}=20 OR {NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}=(SELECT MAX({NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}) FROM {NameOf(MODEL.V003_SYONIN_J_KANRI)} AS SUB WHERE SUB.{NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}<{intCurrentStage}")
+            sbSQL.Append($" AND SUB.{NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={intSYONIN_HOKOKU_ID}")
+            sbSQL.Append($" AND SUB.{NameOf(MODEL.V003_SYONIN_J_KANRI.HOKOKU_NO)}='{strHOKOKU_NO}'))")
         End If
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, False)

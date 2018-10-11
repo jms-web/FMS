@@ -195,11 +195,12 @@ Module mdlU0010
 
                     'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
 
+
                     strBody = String.Format(strBody,
                         dr.Item("GEN_TANTO_NAME").ToString.Trim,
                         dr.Item("TAIRYU_NISSU").ToString.Trim,
                         dr.Item("HOKOKU_NO").ToString.Trim,
-                        IIf(dr.Item("KISO_YMD").ToString.Trim <> "", DateTime.ParseExact(dr.Item("KISO_YMD"), "yyyyMMdd", Nothing).ToString("yyyy/MM/dd"), ""),
+                        dr.Item("KISO_YMD").ToString,
                         dr.Item("KISYU_NAME").ToString.Trim,
                         dr.Item("BUHIN_BANGO").ToString.Trim,
                         "不適合管理システム",

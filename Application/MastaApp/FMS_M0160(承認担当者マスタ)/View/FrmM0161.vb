@@ -359,7 +359,7 @@ Public Class FrmM0161
             ErrorProvider.ClearError(cmb)
             IsValidated = (IsValidated AndAlso True)
         Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認報告書"), ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetErrorInfo(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認報告書"))
             IsValidated = False
         End If
     End Sub
@@ -371,7 +371,7 @@ Public Class FrmM0161
             ErrorProvider.ClearError(cmb)
             IsValidated = (IsValidated AndAlso True)
         Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認順"), ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetErrorInfo(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認順"))
             IsValidated = False
         End If
     End Sub
@@ -383,7 +383,7 @@ Public Class FrmM0161
             ErrorProvider.ClearError(cmb)
             IsValidated = (IsValidated AndAlso True)
         Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "社員"), ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetErrorInfo(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "社員"))
             IsValidated = False
         End If
     End Sub

@@ -983,6 +983,7 @@ Module mdlG0010
             Dim shapeLINE_SAIKAKO As SpreadsheetGear.Shapes.IShape = Nothing
             Dim shapeLINE_HENKYAKU As SpreadsheetGear.Shapes.IShape = Nothing
             Dim shapeLINE_TENYO As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_SYOCHI_C As SpreadsheetGear.Shapes.IShape = Nothing
             Dim shapeLINE_SYOCHI_D As SpreadsheetGear.Shapes.IShape = Nothing
             Dim shapeLINE_SYOCHI_E As SpreadsheetGear.Shapes.IShape = Nothing
 
@@ -1001,6 +1002,8 @@ Module mdlG0010
                         shapeLINE_HENKYAKU = shape
                     Case "LINE_TENYO"
                         shapeLINE_TENYO = shape
+                    Case "LINE_SYOCHI_C"
+                        shapeLINE_SYOCHI_C = shape
                     Case "LINE_SYOCHI_D"
                         shapeLINE_SYOCHI_D = shape
                     Case "LINE_SYOCHI_E"
@@ -1109,8 +1112,9 @@ Module mdlG0010
 
 
 
-            shapeLINE_SYOCHI_D.Visible = (_V002_NCR_J.SYOCHI_D_UMU_KB = "1")
-            shapeLINE_SYOCHI_E.Visible = (_V002_NCR_J.SYOCHI_E_UMU_KB = "1")
+            shapeLINE_SYOCHI_D.Visible = (_V002_NCR_J.SYOCHI_D_UMU_KB = "0")
+            shapeLINE_SYOCHI_E.Visible = (_V002_NCR_J.SYOCHI_E_UMU_KB = "0")
+
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_BANGO)).Value = _V002_NCR_J.BUHIN_BANGO
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_NAME)).Value = _V002_NCR_J.BUHIN_NAME
             If Not _V002_NCR_J.FUTEKIGO_JYOTAI_KB.IsNullOrWhiteSpace Then
@@ -1148,20 +1152,25 @@ Module mdlG0010
             Dim intCurrentStage As Integer = FunGetCurrentSYONIN_JUN(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _V002_NCR_J.HOKOKU_NO)
             If intCurrentStage >= ENM_NCR_STAGE._110_abcdeèàíuíSìñ Then
                 ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_UMU_NAME)).Value = _V002_NCR_J.SYOCHI_D_UMU_NAME
-                'If _V002_NCR_J.SYOCHI_D_UMU_NAME = "óL" Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_D_YOHI_NAME
-                'End If
+                If _V002_NCR_J.SYOCHI_D_UMU_KB = "1" Then
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_D_YOHI_NAME
+                End If
                 ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_UMU_NAME)).Value = _V002_NCR_J.SYOCHI_E_UMU_NAME
-                'If _V002_NCR_J.SYOCHI_E_UMU_NAME = "óL" Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_E_YOHI_NAME
-                'End If
+                If _V002_NCR_J.SYOCHI_E_UMU_KB = "1" Then
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_E_YOHI_NAME
+                End If
             End If
 
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU
+                ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_A_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_A_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_B_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_B_NAME
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_C_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_C_NAME
 
+            If _V002_NCR_J.JIZEN_SINSA_HANTEI_KB = ENM_JIZEN_SINSA_HANTEI_KB._4_îpãpÇ∑ÇÈ Then
+                shapeLINE_SYOCHI_C.Visible = False
+                ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_C_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_C_NAME
+            Else
+                shapeLINE_SYOCHI_C.Visible = True
+            End If
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.YOKYU_NAIYO)).Value = _V002_NCR_J.YOKYU_NAIYO
             ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = _V002_NCR_J.ZUMEN_KIKAKU

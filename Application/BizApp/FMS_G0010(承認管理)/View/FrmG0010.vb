@@ -278,7 +278,7 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).Visible = False
 
-                .Columns.Add(NameOf(_Model.BUMON_NAME), "製品" & vbCrLf & "区分")
+                .Columns.Add(NameOf(_Model.BUMON_NAME), $"製品{vbCrLf}区分")
                 .Columns(.ColumnCount - 1).Width = 60
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
@@ -320,7 +320,7 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).Visible = False
 
-                .Columns.Add(NameOf(_Model.TAIRYU_NISSU), "滞留" & vbCrLf & "日数")
+                .Columns.Add(NameOf(_Model.TAIRYU_NISSU), $"滞留{vbCrLf}日数")
                 .Columns(.ColumnCount - 1).Width = 60
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleRight
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
@@ -376,7 +376,7 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
 
-                .Columns.Add(NameOf(_Model.SYONIN_YMDHNS), "前処理" & vbCrLf & "実施日")
+                .Columns.Add(NameOf(_Model.SYONIN_YMDHNS), $"前処理{vbCrLf}実施日")
                 .Columns(.ColumnCount - 1).Width = 100
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
@@ -484,7 +484,7 @@ Public Class FrmG0010
     Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs) Handles dgvDATA.SelectionChanged
         Try
             If Me.dgvDATA.CurrentRow IsNot Nothing Then
-                If Me.dgvDATA.CurrentRow.Cells("CLOSE_FG").Value = "1" Or Me.dgvDATA.CurrentRow.Cells("DEL_YMDHNS").Value.ToString.IsNullOrWhiteSpace Then
+                If Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.CLOSE_FG)).Value = "1" Or Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)).Value.ToString.IsNullOrWhiteSpace Then
                     Me.dgvDATA.CurrentRow.ReadOnly = True
                 Else
                     Me.dgvDATA.CurrentRow.ReadOnly = False
@@ -618,10 +618,10 @@ Public Class FrmG0010
             If e.RowIndex >= 0 Then
                 Select Case dgv.Columns(e.ColumnIndex).Name
                     Case "SELECTED"
-                        If Me.dgvDATA.CurrentRow.Cells("CLOSE_FG").Value = "1" Or Me.dgvDATA.CurrentRow.Cells("DEL_YMDHNS").Value.ToString.Trim <> "" Then
-                            Me.dgvDATA.CurrentRow.Cells("SELECTED").Value = False 'Not CBool(Me.dgvDATA.CurrentRow.Cells("SELECTED").Value)
+                        If Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.CLOSE_FG)).Value = "1" Or Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)).Value.ToString.Trim <> "" Then
+                            Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SELECTED)).Value = False 'Not CBool(Me.dgvDATA.CurrentRow.Cells("SELECTED").Value)
                         Else
-                            Me.dgvDATA.CurrentRow.Cells("SELECTED").Value = Not CBool(Me.dgvDATA.CurrentRow.Cells("SELECTED").Value)
+                            Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SELECTED)).Value = Not CBool(Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SELECTED)).Value)
                             '    '選択不可
                             '    Me.dgvDATA.CurrentRow.Cells("SELECTED").Value = False
                             '    MessageBox.Show("未発注データ以外は選択出来ません。", "選択不可", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -747,7 +747,7 @@ Public Class FrmG0010
                     If dgvDATA.CurrentRow IsNot Nothing Then
                         If MessageBox.Show("選択されたデータを削除しますか?", "削除確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
                             Dim dr As DataRow = dgvDATA.GetDataRow()
-                            If FunDEL(dr.Item("SYONIN_HOKOKUSYO_ID"), dr.Item("HOKOKU_NO")) = True Then
+                            If FunDEL(dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)), dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))) = True Then
                                 Call FunSRCH(dgvDATA, FunGetListData())
                             End If
                         End If
@@ -758,7 +758,7 @@ Public Class FrmG0010
                     If dgvDATA.CurrentRow IsNot Nothing Then
                         If MessageBox.Show("選択されたデータを復元しますか?", "復元確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
                             Dim dr As DataRow = dgvDATA.GetDataRow()
-                            If FunRESTORE(dr.Item("SYONIN_HOKOKUSYO_ID"), dr.Item("HOKOKU_NO")) = True Then
+                            If FunRESTORE(dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)), dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))) = True Then
                                 Call FunSRCH(dgvDATA, FunGetListData())
                             End If
                         End If
@@ -1061,11 +1061,11 @@ Public Class FrmG0010
         Dim dlgRET As DialogResult
 
         Try
-            If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE AndAlso dgvDATA.CurrentRow.Cells("SYONIN_HOKOKUSYO_ID").Value = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR Then
+            If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE AndAlso dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)).Value = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR Then
 
                 frmCAR.PrDataRow = dgvDATA.GetDataRow()
                 frmCAR.PrHOKOKU_NO = dgvDATA.GetDataRow().Item("HOKOKU_NO")
-                frmCAR.PrCurrentStage = dgvDATA.GetDataRow().Item("SYONIN_JUN")
+                frmCAR.PrCurrentStage = IIf(dgvDATA.GetDataRow().Item("SYONIN_JUN") = 0, 999, dgvDATA.GetDataRow().Item("SYONIN_JUN"))
                 dlgRET = frmCAR.ShowDialog(Me)
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
                     Return False
@@ -1081,7 +1081,7 @@ Public Class FrmG0010
                 Else
                     'frmNCR.PrDataRow = dgvDATA.GetDataRow()
                     frmNCR.PrHOKOKU_NO = dgvDATA.GetDataRow().Item("HOKOKU_NO")
-                    frmNCR.PrCurrentStage = dgvDATA.GetDataRow().Item("SYONIN_JUN")
+                    frmNCR.PrCurrentStage = IIf(dgvDATA.GetDataRow().Item("SYONIN_JUN") = 0, 999, dgvDATA.GetDataRow().Item("SYONIN_JUN"))
                 End If
                 dlgRET = frmNCR.ShowDialog(Me)
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
@@ -1135,13 +1135,13 @@ Public Class FrmG0010
             sbSQL.Remove(0, sbSQL.Length)
             Select Case intSYONIN_HOKOKUSYO_ID
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.D003_NCR_J) & " SET")
+                    sbSQL.Append($"UPDATE {NameOf(MODEL.D003_NCR_J)} SET")
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.D005_CAR_J) & " SET")
+                    sbSQL.Append($"UPDATE {NameOf(MODEL.D005_CAR_J)} SET")
             End Select
-            sbSQL.Append(" DEL_SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID & "")
-            sbSQL.Append(" ,DEL_YMDHNS=dbo.GetSysDateString()")
-            sbSQL.Append(" WHERE HOKOKU_NO='" & strHOKOKU_NO.ConvertSqlEscape & "'")
+            sbSQL.Append($" {NameOf(MODEL.D003_NCR_J.DEL_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
+            sbSQL.Append($" ,{NameOf(MODEL.D003_NCR_J.DEL_YMDHNS)}=dbo.GetSysDateString()")
+            sbSQL.Append($" WHERE {NameOf(MODEL.D003_NCR_J.HOKOKU_NO)}='{strHOKOKU_NO.ConvertSqlEscape}'")
 
             'CHECK: 一覧削除ボタン D004やR001等の編集履歴はどうするか
 
@@ -1182,13 +1182,13 @@ Public Class FrmG0010
             sbSQL.Remove(0, sbSQL.Length)
             Select Case intSYONIN_HOKOKUSYO_ID
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.D003_NCR_J) & " SET")
+                    sbSQL.Append($"UPDATE {NameOf(MODEL.D003_NCR_J)} SET")
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.D005_CAR_J) & " SET")
+                    sbSQL.Append($"UPDATE {NameOf(MODEL.D005_CAR_J)} SET")
             End Select
-            sbSQL.Append(" DEL_SYAIN_ID=" & 0 & "")
-            sbSQL.Append(" ,DEL_YMDHNS=''")
-            sbSQL.Append(" WHERE HOKOKU_NO='" & strHOKOKU_NO.ConvertSqlEscape & "'")
+            sbSQL.Append($" {NameOf(MODEL.D003_NCR_J.DEL_SYAIN_ID)}={0}")
+            sbSQL.Append($" ,{NameOf(MODEL.D003_NCR_J.DEL_YMDHNS)}=''")
+            sbSQL.Append($" WHERE {NameOf(MODEL.D003_NCR_J.HOKOKU_NO)}='{strHOKOKU_NO.ConvertSqlEscape}'")
 
             'CHECK: 一覧削除ボタン D004やR001等の編集履歴はどうするか
 
@@ -1292,9 +1292,9 @@ Public Class FrmG0010
             If dt.Count > 0 Then
                 For Each dr As DataRow In dt.CopyToDataTable.Rows
                     If strTantoNameList.IsNullOrWhiteSpace Then
-                        strTantoNameList = dr.Item("GEN_TANTO_NAME")
+                        strTantoNameList = dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_NAME))
                     Else
-                        strTantoNameList &= vbCrLf & dr.Item("GEN_TANTO_NAME")
+                        strTantoNameList &= vbCrLf & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_NAME))
                     End If
                 Next dr
 
@@ -1311,7 +1311,7 @@ Public Class FrmG0010
                                                    strTantoNameList
                         If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
                             For Each dr As DataRow In dt.CopyToDataTable.Rows
-                                Dim strEXEParam As String = dr.Item("GEN_TANTO_ID") & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & dr.Item("SYONIN_HOKOKUSYO_ID") & "," & dr.Item("HOKOKU_NO")
+                                Dim strEXEParam As String = dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_ID)) & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)) & "," & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
                                 Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
                                 Dim strBody As String = <body><![CDATA[
                                 {0} 殿<br />
@@ -1333,16 +1333,16 @@ Public Class FrmG0010
 
                                 'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
 
-                                strSubject = String.Format(strSubject, dr.Item("KISYU_NAME"), dr.Item("BUHIN_BANGO"))
+                                strSubject = String.Format(strSubject, dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.KISYU_NAME)), dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.BUHIN_BANGO)))
                                 strBody = String.Format(strBody,
                                 dr.Item("GEN_TANTO_NAME"),
                                 dr.Item("TAIRYU_NISSU"),
                                 dr.Item("HOKOKU_NO"),
-                                IIf(dr.Item("KISO_YMD") <> "", CDate(dr.Item("KISO_YMD")).ToString("yyyy/MM/dd"), ""),
+                                dr.Item("KISO_YMD").ToString,
                                 dr.Item("KISYU_NAME"),
                                 dr.Item("BUHIN_BANGO"),
                                 Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
-                                dr.Item("GEN_TANTO_ID"),
+                                dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_ID)),
                                 "FMS_G0010.exe",
                                 strEXEParam)
 
@@ -1379,11 +1379,11 @@ Public Class FrmG0010
                 Dim strMsg As String = "以下の担当者に処置滞留通知メールを送信します。" & vbCrLf &
                                     "よろしいですか？" & vbCrLf &
                                     vbCrLf &
-                                    dr.Item("GEN_TANTO_NAME")
+                                    dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_NAME))
 
                 If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
 
-                    Dim strEXEParam As String = dr.Item("GEN_TANTO_ID") & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & dr.Item("SYONIN_HOKOKUSYO_ID") & "," & dr.Item("HOKOKU_NO")
+                    Dim strEXEParam As String = dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_ID)) & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)) & "," & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
                     Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
                     Dim strBody As String = <body><![CDATA[
                     {0} 殿<br />
@@ -1406,20 +1406,20 @@ Public Class FrmG0010
 
                     'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
 
-                    strSubject = String.Format(strSubject, dr.Item("KISYU_NAME"), dr.Item("BUHIN_BANGO"))
+                    strSubject = String.Format(strSubject, dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.KISYU_NAME)), dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.BUHIN_BANGO)))
                     strBody = String.Format(strBody,
                                 dr.Item("GEN_TANTO_NAME"),
                                 dr.Item("TAIRYU_NISSU"),
                                 dr.Item("HOKOKU_NO"),
-                                IIf(dr.Item("KISO_YMD") <> "", CDate(dr.Item("KISO_YMD")).ToString("yyyy/MM/dd"), ""),
+                                dr.Item("KISO_YMD").ToString,
                                 dr.Item("KISYU_NAME"),
                                 dr.Item("BUHIN_BANGO"),
                                 Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
-                                dr.Item("GEN_TANTO_ID"),
+                                dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_ID)),
                                 "FMS_G0010.exe",
                                 strEXEParam)
 
-                    If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=dr.Item("GEN_TANTO_ID")) Then
+                    If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_ID))) Then
 
                         Using DB As ClsDbUtility = DBOpen()
                             Dim blnErr As Boolean
@@ -1474,9 +1474,9 @@ Public Class FrmG0010
 
         '-----データモデル更新
         _R001_HOKOKU_SOUSA.Clear()
-        _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = dr.Item("SYONIN_HOKOKUSYO_ID")
-        _R001_HOKOKU_SOUSA.HOKOKU_NO = dr.Item("HOKOKU_NO")
-        _R001_HOKOKU_SOUSA.SYONIN_JUN = dr.Item("SYONIN_JUN")
+        _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID))
+        _R001_HOKOKU_SOUSA.HOKOKU_NO = dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
+        _R001_HOKOKU_SOUSA.SYONIN_JUN = dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_JUN))
         _R001_HOKOKU_SOUSA.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
         _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_SOUSA_KB._4_メール送信
         _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
@@ -1526,12 +1526,12 @@ Public Class FrmG0010
         Dim strTEMPFILE As String
         'Dim intRET As Integer
         Try
-            Dim strHOKOKU_NO As String = dgvDATA.GetDataRow().Item("HOKOKU_NO")
+            Dim strHOKOKU_NO As String = dgvDATA.GetDataRow().Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
             Me.Cursor = Cursors.WaitCursor
-            Select Case dgvDATA.GetDataRow().Item("SYONIN_HOKOKUSYO_ID")
+            Select Case dgvDATA.GetDataRow().Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID))
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
                     'ファイル名
-                    strOutputFileName = "NCR_" & strHOKOKU_NO & "_Work.xls"
+                    strOutputFileName = $"NCR_{strHOKOKU_NO}_Work.xls"
 
                     '既存ファイル削除
                     If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
@@ -1722,8 +1722,8 @@ Public Class FrmG0010
         Try
 
             If dgvDATA.CurrentRow IsNot Nothing Then
-                frmDLG.PrSYONIN_HOKOKUSYO_ID = dgvDATA.GetDataRow().Item("SYONIN_HOKOKUSYO_ID")
-                frmDLG.PrHOKOKU_NO = dgvDATA.GetDataRow().Item("HOKOKU_NO")
+                frmDLG.PrSYONIN_HOKOKUSYO_ID = dgvDATA.GetDataRow().Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID))
+                frmDLG.PrHOKOKU_NO = dgvDATA.GetDataRow().Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
             Else
                 'parameter error
                 Return False
@@ -1798,12 +1798,12 @@ Public Class FrmG0010
                 End If
                 'If FunblnAllowSyonin() Then
                 cmdFunc4.Enabled = True
-                    'Else
-                    '    cmdFunc4.Enabled = False
-                    '    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "変更承認権限がありません")
-                    'End If
+                'Else
+                '    cmdFunc4.Enabled = False
+                '    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "変更承認権限がありません")
+                'End If
 
-                    If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+                If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
 
                     If dgvDATA.CurrentRow.Cells.Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).Value <> "" Then
                         '削除済み
@@ -2242,7 +2242,7 @@ Public Class FrmG0010
                             mtxGENIN1_DISP.Text &= ", " & item.ITEM_DISP
                         End If
 
-                        sbWhere.Append(" AND (GENIN_BUNSEKI_KB='" & item.ITEM_NAME & "' AND GENIN_BUNSEKI_S_KB='" & item.ITEM_VALUE & "')")
+                        sbWhere.Append($" AND (GENIN_BUNSEKI_KB='{item.ITEM_NAME}' AND GENIN_BUNSEKI_S_KB='{item.ITEM_VALUE}')")
 
                     Next item
                     ParamModel.GENIN1 = String.Format(strWhereBase, sbWhere.ToString)
@@ -2299,7 +2299,7 @@ Public Class FrmG0010
                             mtxGENIN2_DISP.Text &= ", " & item.ITEM_DISP
                         End If
 
-                        sbWhere.Append(" AND (GENIN_BUNSEKI_KB='" & item.ITEM_NAME & "' AND GENIN_BUNSEKI_S_KB='" & item.ITEM_VALUE & "')")
+                        sbWhere.Append($" AND (GENIN_BUNSEKI_KB='{item.ITEM_NAME}' AND GENIN_BUNSEKI_S_KB='{item.ITEM_VALUE}')")
                     Next item
                     ParamModel.GENIN2 = String.Format(strWhereBase, sbWhere.ToString)
                 Else
@@ -2321,7 +2321,7 @@ Public Class FrmG0010
         If cmbFUTEKIGO_KB.SelectedValue <> "" Then
             Dim dt As New DataTableEx
             Using DB As ClsDbUtility = DBOpen()
-                FunGetCodeDataTable(DB, "不適合" & cmbFUTEKIGO_KB.Text.Replace("・", "") & "区分", dt)
+                FunGetCodeDataTable(DB, $"不適合{cmbFUTEKIGO_KB.Text.Replace("・", "")}区分", dt)
             End Using
             cmbFUTEKIGO_S_KB.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
         Else
@@ -2381,48 +2381,48 @@ Public Class FrmG0010
         Dim dsList As New DataSet
 
         '共通
-        sbParam.Append(" '" & ParamModel.BUMON_KB & "'")
-        sbParam.Append("," & ParamModel.SYONIN_HOKOKUSYO_ID & "")
-        sbParam.Append("," & ParamModel.KISYU_ID & "")
+        sbParam.Append($" '{ParamModel.BUMON_KB}'")
+        sbParam.Append($",{ParamModel.SYONIN_HOKOKUSYO_ID}")
+        sbParam.Append($",{ParamModel.KISYU_ID}")
 
         If Not cmbBUHIN_BANGO.Text.IsNullOrWhiteSpace And cmbBUHIN_BANGO.SelectedValue <> cmbBUHIN_BANGO.NullValue Then
-            sbParam.Append(",'" & cmbBUHIN_BANGO.Text.Trim & "'")
+            sbParam.Append($",'{cmbBUHIN_BANGO.Text.Trim}'")
         Else
-            sbParam.Append(",'" & ParamModel.BUHIN_BANGO & "'")
+            sbParam.Append($",'{ParamModel.BUHIN_BANGO}'")
         End If
 
-        sbParam.Append(",'" & ParamModel.SYANAI_CD & "'")
-        sbParam.Append(",'" & ParamModel.BUHIN_NAME & "'")
-        sbParam.Append(",'" & ParamModel.GOUKI & "'")
-        sbParam.Append("," & ParamModel.SYOCHI_TANTO & "")
-        sbParam.Append(",'" & ParamModel.JISI_YMD_FROM & "'")
-        sbParam.Append(",'" & ParamModel.JISI_YMD_TO & "'")
-        sbParam.Append(",'" & ParamModel.HOKOKU_NO & "'")
-        sbParam.Append("," & ParamModel.ADD_TANTO & "")
-        sbParam.Append(",'" & IIf(ParamModel._VISIBLE_CLOSE = 1, "", ParamModel._VISIBLE_CLOSE) & "'")
-        sbParam.Append(",'" & IIf(ParamModel._VISIBLE_TAIRYU = 1, ParamModel._VISIBLE_TAIRYU, "") & "'")
-        sbParam.Append(",'" & ParamModel.FUTEKIGO_KB & "'")
-        sbParam.Append(",'" & ParamModel.FUTEKIGO_S_KB & "'")
-        sbParam.Append(",'" & ParamModel.FUTEKIGO_JYOTAI_KB & "'")
+        sbParam.Append($",'{ParamModel.SYANAI_CD}'")
+        sbParam.Append($",'{ParamModel.BUHIN_NAME}'")
+        sbParam.Append($",'{ParamModel.GOUKI}'")
+        sbParam.Append($",{ParamModel.SYOCHI_TANTO}")
+        sbParam.Append($",'{ParamModel.JISI_YMD_FROM}'")
+        sbParam.Append($",'{ParamModel.JISI_YMD_TO}'")
+        sbParam.Append($",'{ParamModel.HOKOKU_NO}'")
+        sbParam.Append($",{ParamModel.ADD_TANTO}")
+        sbParam.Append($",'{IIf(ParamModel._VISIBLE_CLOSE = 1, "", ParamModel._VISIBLE_CLOSE)}'")
+        sbParam.Append($",'{IIf(ParamModel._VISIBLE_TAIRYU = 1, ParamModel._VISIBLE_TAIRYU, "")}'")
+        sbParam.Append($",'{ParamModel.FUTEKIGO_KB}'")
+        sbParam.Append($",'{ParamModel.FUTEKIGO_S_KB}'")
+        sbParam.Append($",'{ParamModel.FUTEKIGO_JYOTAI_KB}'")
 
         'NCR
-        sbParam.Append(",'" & ParamModel.JIZEN_SINSA_HANTEI_KB & "'")
-        sbParam.Append(",'" & ParamModel.ZESEI_SYOCHI_YOHI_KB & "'")
-        sbParam.Append(",'" & ParamModel.SAISIN_IINKAI_HANTEI_KB & "'")
-        sbParam.Append(",'" & ParamModel.KENSA_KEKKA_KB & "'")
+        sbParam.Append($",'{ParamModel.JIZEN_SINSA_HANTEI_KB}'")
+        sbParam.Append($",'{ParamModel.ZESEI_SYOCHI_YOHI_KB}'")
+        sbParam.Append($",'{ParamModel.SAISIN_IINKAI_HANTEI_KB}'")
+        sbParam.Append($",'{ParamModel.KENSA_KEKKA_KB}'")
 
         'CAR
-        sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB1 & "'")
-        sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB2 & "'")
-        sbParam.Append(",'" & ParamModel.KISEKI_KOTEI_KB & "'")
-        sbParam.Append(",'" & ParamModel.KOKYAKU_HANTEI_SIJI_KB & "'")
-        sbParam.Append(",'" & ParamModel.KOKYAKU_SAISYU_HANTEI_KB & "'")
-        sbParam.Append(",'" & ParamModel.GENIN1 & "'")
-        sbParam.Append(",'" & ParamModel.GENIN2 & "'")
-        sbParam.Append(",'" & ParamModel.HASSEI_FROM & "'")
-        sbParam.Append(",'" & ParamModel.HASSEI_TO & "'")
+        sbParam.Append($",'{ParamModel.KONPON_YOIN_KB1}'")
+        sbParam.Append($",'{ParamModel.KONPON_YOIN_KB2}'")
+        sbParam.Append($",'{ParamModel.KISEKI_KOTEI_KB}'")
+        sbParam.Append($",'{ParamModel.KOKYAKU_HANTEI_SIJI_KB}'")
+        sbParam.Append($",'{ParamModel.KOKYAKU_SAISYU_HANTEI_KB}'")
+        sbParam.Append($",'{ParamModel.GENIN1}'")
+        sbParam.Append($",'{ParamModel.GENIN2}'")
+        sbParam.Append($",'{ParamModel.HASSEI_FROM}'")
+        sbParam.Append($",'{ParamModel.HASSEI_TO}'")
 
-        sbSQL.Append("EXEC dbo." & NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN) & " " & sbParam.ToString & "")
+        sbSQL.Append($"EXEC dbo.{NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN)} {sbParam.ToString}")
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
         End Using
@@ -2437,10 +2437,10 @@ Public Class FrmG0010
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("SELECT")
         sbSQL.Append(" *")
-        sbSQL.Append(" FROM " & NameOf(MODEL.M016_SYONIN_TANTO) & " ")
-        sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID IN(1,2)")
-        sbSQL.Append(" AND SYONIN_JUN=10")
-        sbSQL.Append(" AND SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID)
+        sbSQL.Append($" FROM {NameOf(MODEL.M016_SYONIN_TANTO)} ")
+        sbSQL.Append($" WHERE {NameOf(MODEL.M016_SYONIN_TANTO.SYONIN_HOKOKUSYO_ID)} IN(1,2)")
+        sbSQL.Append($" AND {NameOf(MODEL.M016_SYONIN_TANTO.SYONIN_JUN)}=10")
+        sbSQL.Append($" AND {NameOf(MODEL.M016_SYONIN_TANTO.SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
         Using DBa As ClsDbUtility = DBOpen()
             dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
         End Using
@@ -2460,10 +2460,10 @@ Public Class FrmG0010
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("SELECT")
         sbSQL.Append(" *")
-        sbSQL.Append(" FROM " & NameOf(MODEL.M016_SYONIN_TANTO) & " ")
-        sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID IN(1,2)")
-        sbSQL.Append(" AND SYONIN_JUN>10")
-        sbSQL.Append(" AND SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID)
+        sbSQL.Append($" FROM {NameOf(MODEL.M016_SYONIN_TANTO)} ")
+        sbSQL.Append($" WHERE {NameOf(MODEL.M016_SYONIN_TANTO.SYONIN_HOKOKUSYO_ID)} IN(1,2)")
+        sbSQL.Append($" AND {NameOf(MODEL.M016_SYONIN_TANTO.SYONIN_JUN)}>10")
+        sbSQL.Append($" AND {NameOf(MODEL.M016_SYONIN_TANTO.SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
         Using DBa As ClsDbUtility = DBOpen()
             dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
         End Using
@@ -2482,9 +2482,9 @@ Public Class FrmG0010
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("SELECT")
         sbSQL.Append(" *")
-        sbSQL.Append(" FROM " & NameOf(MODEL.VWM001_SETTING) & " ")
-        sbSQL.Append(" WHERE ITEM_NAME='滞留メール送信権限'")
-        sbSQL.Append(" AND ITEM_DISP='" & pub_SYAIN_INFO.SYAIN_ID & "'")
+        sbSQL.Append($" FROM {NameOf(MODEL.VWM001_SETTING)} ")
+        sbSQL.Append($" WHERE {NameOf(MODEL.VWM001_SETTING.ITEM_NAME)}='滞留メール送信権限'")
+        sbSQL.Append($" AND {NameOf(MODEL.VWM001_SETTING.ITEM_DISP)}='{pub_SYAIN_INFO.SYAIN_ID}'")
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
         End Using
