@@ -3068,6 +3068,16 @@ Public Class FrmG0012
                 Select Case PrCurrentStage
                     Case ENM_CAR_STAGE._10_起草入力 To ENM_CAR_STAGE._120_是正有効性確認_品証TL
                         Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
+                        Call ＤtKAITO_4_Validating(dtKAITO_4, Nothing)
+                        Call CmbKAITO_5_Validating(cmbKAITO_5, Nothing)
+                        Call KAITO_678_Validating(mtxKAITO_6, Nothing)
+                        Call DtKAITO_9_Validating(dtKAITO_9, Nothing)
+                        Call cmbKAITO_10_Validating(cmbKAITO_10, Nothing)
+                        Call KAITO_111213_Validating(mtxKAITO_11, Nothing)
+                        Call dtKAITO_16_Validating(dtKAITO_16, Nothing)
+                        Call cmbKAITO_17_Validating(cmbKAITO_17, Nothing)
+                        Call KAITO_181920_Validating(mtxKAITO_18, Nothing)
+
 
                     Case ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
 
@@ -3089,7 +3099,7 @@ Public Class FrmG0012
 
         If txt.ReadOnly = False AndAlso txt.Text.IsNullOrWhiteSpace = True Then
             'e.Cancel = True
-            ErrorProvider.SetError(txt, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置A内容"))
+            ErrorProvider.SetError(txt, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:内容"))
             ErrorProvider.SetIconAlignment(txt, ErrorIconAlignment.MiddleLeft)
             IsValidated = False
         Else
@@ -3103,7 +3113,7 @@ Public Class FrmG0012
 
         If txt.ReadOnly = False AndAlso txt.Text.IsNullOrWhiteSpace = True Then
             'e.Cancel = True
-            ErrorProvider.SetError(txt, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置B内容"))
+            ErrorProvider.SetError(txt, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:内容"))
             ErrorProvider.SetIconAlignment(txt, ErrorIconAlignment.MiddleLeft)
             IsValidated = False
         Else
@@ -3111,6 +3121,151 @@ Public Class FrmG0012
             IsValidated = IsValidated AndAlso True
         End If
     End Sub
+
+    Private Sub ＤtKAITO_4_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtKAITO_4.Validating
+        Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
+
+        If dtx.ValueNonFormat.IsNullOrWhiteSpace Then
+            ErrorProvider.SetError(dtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:いつまで"))
+            ErrorProvider.SetIconAlignment(dtx, ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        Else
+            ErrorProvider.ClearError(dtx)
+            IsValidated = IsValidated AndAlso True
+        End If
+    End Sub
+
+    Private Sub CmbKAITO_5_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKAITO_5.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If cmb.IsSelected Then
+            ErrorProvider.ClearError(cmb)
+            IsValidated = IsValidated AndAlso True
+        Else
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:誰が"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        End If
+    End Sub
+
+    Private Sub KAITO_678_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxKAITO_6.Validating, mtxKAITO_7.Validating, dtKAITO_8.Validating
+        Dim mtxGOKI As MaskedTextBoxEx = mtxKAITO_6
+        Dim mtxLOT As MaskedTextBoxEx = mtxKAITO_7
+        Dim dtYMD As DateTextBoxEx = dtKAITO_8
+
+        If mtxGOKI.Text.IsNullOrWhiteSpace AndAlso mtxLOT.Text.IsNullOrWhiteSpace AndAlso dtYMD.ValueNonFormat.IsNullOrWhiteSpace Then
+            ErrorProvider.SetError(mtxGOKI, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:有効号機・LOT・日付のいづれかの入力が必要です"))
+            ErrorProvider.SetIconAlignment(mtxGOKI, ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetError(mtxLOT, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:有効号機・LOT・日付のいづれかの入力が必要です"))
+            ErrorProvider.SetIconAlignment(mtxLOT, ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetError(dtYMD, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:有効号機・LOT・日付のいづれかの入力が必要です"))
+            ErrorProvider.SetIconAlignment(dtYMD, ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        Else
+            ErrorProvider.ClearError(mtxGOKI)
+            ErrorProvider.ClearError(mtxLOT)
+            ErrorProvider.ClearError(dtYMD)
+            IsValidated = IsValidated AndAlso True
+        End If
+    End Sub
+
+
+
+    Private Sub DtKAITO_9_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtKAITO_9.Validating
+        Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
+
+        If dtx.ValueNonFormat.IsNullOrWhiteSpace Then
+            ErrorProvider.SetError(dtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:いつまで"))
+            ErrorProvider.SetIconAlignment(dtx, ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        Else
+            ErrorProvider.ClearError(dtx)
+            IsValidated = IsValidated AndAlso True
+        End If
+    End Sub
+
+    Private Sub cmbKAITO_10_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKAITO_10.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If cmb.IsSelected Then
+            ErrorProvider.ClearError(cmb)
+            IsValidated = IsValidated AndAlso True
+        Else
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:誰が"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        End If
+    End Sub
+
+    Private Sub KAITO_111213_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxKAITO_11.Validating, mtxKAITO_12.Validating, dtKAITO_13.Validating
+        Dim mtxGOKI As MaskedTextBoxEx = mtxKAITO_11
+        Dim mtxLOT As MaskedTextBoxEx = mtxKAITO_12
+        Dim dtYMD As DateTextBoxEx = dtKAITO_13
+
+        If mtxGOKI.Text.IsNullOrWhiteSpace AndAlso mtxLOT.Text.IsNullOrWhiteSpace AndAlso dtYMD.ValueNonFormat.IsNullOrWhiteSpace Then
+            ErrorProvider.SetError(mtxGOKI, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:有効号機・LOT・日付のいづれかの入力が必要です"))
+            ErrorProvider.SetIconAlignment(mtxGOKI, ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetError(mtxLOT, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:有効号機・LOT・日付のいづれかの入力が必要です"))
+            ErrorProvider.SetIconAlignment(mtxLOT, ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetError(dtYMD, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:有効号機・LOT・日付のいづれかの入力が必要です"))
+            ErrorProvider.SetIconAlignment(dtYMD, ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        Else
+            ErrorProvider.ClearError(mtxGOKI)
+            ErrorProvider.ClearError(mtxLOT)
+            ErrorProvider.ClearError(dtYMD)
+            IsValidated = IsValidated AndAlso True
+        End If
+    End Sub
+
+
+    Private Sub dtKAITO_16_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtKAITO_16.Validating
+        Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
+
+        If dtx.ValueNonFormat.IsNullOrWhiteSpace Then
+            ErrorProvider.SetError(dtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:いつまで"))
+            ErrorProvider.SetIconAlignment(dtx, ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        Else
+            ErrorProvider.ClearError(dtx)
+            IsValidated = IsValidated AndAlso True
+        End If
+    End Sub
+
+    Private Sub cmbKAITO_17_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKAITO_17.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If cmb.IsSelected Then
+            ErrorProvider.ClearError(cmb)
+            IsValidated = IsValidated AndAlso True
+        Else
+            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:誰が"))
+            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        End If
+    End Sub
+
+    Private Sub KAITO_181920_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxKAITO_18.Validating
+        Dim mtxGOKI As MaskedTextBoxEx = mtxKAITO_18
+        Dim mtxLOT As MaskedTextBoxEx = mtxKAITO_19
+        Dim dtYMD As DateTextBoxEx = dtKAITO_20
+
+        If mtxGOKI.Text.IsNullOrWhiteSpace AndAlso mtxLOT.Text.IsNullOrWhiteSpace AndAlso dtYMD.ValueNonFormat.IsNullOrWhiteSpace Then
+            ErrorProvider.SetError(mtxGOKI, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
+            ErrorProvider.SetIconAlignment(mtxGOKI, ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetError(mtxLOT, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
+            ErrorProvider.SetIconAlignment(mtxLOT, ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetError(dtYMD, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:有効号機・LOT・日付のいづれかの入力が必要です"))
+            ErrorProvider.SetIconAlignment(dtYMD, ErrorIconAlignment.MiddleLeft)
+            IsValidated = False
+        Else
+            ErrorProvider.ClearError(mtxGOKI)
+            ErrorProvider.ClearError(mtxLOT)
+            ErrorProvider.ClearError(dtYMD)
+            IsValidated = IsValidated AndAlso True
+        End If
+    End Sub
+
 #End Region
 
     ''' <summary>
@@ -3169,6 +3324,10 @@ Public Class FrmG0012
             Return 0
         End Try
     End Function
+
+
+
+
 
 #End Region
 

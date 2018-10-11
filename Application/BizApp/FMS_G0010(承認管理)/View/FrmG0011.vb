@@ -3268,7 +3268,7 @@ Public Class FrmG0011
 #Region "               10"
 
             If intStageID >= ENM_NCR_STAGE._10_起草入力 Then
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_起草入力))
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_起草入力))
                 cmbST01_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST01_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_起草入力))
@@ -4305,6 +4305,13 @@ Public Class FrmG0011
                         If intStageID > ENM_NCR_STAGE._110_abcde処置担当 Then
                             cmbST15_DestTANTO.ReadOnly = True
                             txtST15_Comment.ReadOnly = True
+                            pnlSYOCHI_A.Enabled = False
+                            pnlSYOCHI_B.Enabled = False
+                            pnlSYOCHI_C.Enabled = False
+                            pnlSYOCHI_D1.Enabled = False
+                            pnlSYOCHI_D2.Enabled = False
+                            pnlSYOCHI_E1.Enabled = False
+                            pnlSYOCHI_E2.Enabled = False
                         End If
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
@@ -4472,6 +4479,10 @@ Public Class FrmG0011
                 cmbHINMEI.ReadOnly = True
                 Me.ActiveControl = cmbKISYU
         End Select
+        If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
+            Dim dtTANTO = FunGetSYONIN_SYOZOKU_SYAIN(cmb.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_起草入力))
+            cmbST01_DestTANTO.SetDataSource(dtTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+        End If
 
         Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
 
@@ -5951,12 +5962,13 @@ Public Class FrmG0011
 
         Try
             'ナビゲートリンク選択
-            If PrCurrentStage = ENM_NCR_STAGE._999_Closed Then
-                rsbtnST99.Checked = True
-            Else
-                Dim rbtn As RibbonShapeRadioButton = CType(flpnlStageIndex.Controls("rsbtnST" & FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage).ToString("00")), RibbonShapeRadioButton)
-                If rbtn IsNot Nothing Then rbtn.Checked = True
-            End If
+            Select Case PrCurrentStage
+                Case 0, ENM_NCR_STAGE._999_Closed
+                    rsbtnST99.Checked = True
+                Case Else
+                    Dim rbtn As RibbonShapeRadioButton = CType(flpnlStageIndex.Controls("rsbtnST" & FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage).ToString("00")), RibbonShapeRadioButton)
+                    If rbtn IsNot Nothing Then rbtn.Checked = True
+            End Select
 
             Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
@@ -6415,6 +6427,7 @@ Public Class FrmG0011
                 intStageTabNo = 999
             Case Else
                 'Err
+                intStageTabNo = 999
         End Select
 
         Return intStageTabNo

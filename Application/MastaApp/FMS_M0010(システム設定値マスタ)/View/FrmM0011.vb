@@ -449,7 +449,7 @@ Public Class FrmM0011
             ErrorProvider.ClearError(cmb)
             IsValidated = (IsValidated AndAlso True)
         Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çÄñ⁄ñº"), ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetErrorInfo(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çÄñ⁄ñº"))
             IsValidated = False
         End If
     End Sub
@@ -461,7 +461,7 @@ Public Class FrmM0011
             ErrorProvider.ClearError(mtx)
             IsValidated = (IsValidated AndAlso True)
         Else
-            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çÄñ⁄íl"), ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetErrorInfo(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çÄñ⁄íl"))
             IsValidated = False
         End If
     End Sub

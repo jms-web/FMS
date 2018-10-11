@@ -1065,7 +1065,7 @@ Public Class FrmG0010
 
                 frmCAR.PrDataRow = dgvDATA.GetDataRow()
                 frmCAR.PrHOKOKU_NO = dgvDATA.GetDataRow().Item("HOKOKU_NO")
-                frmCAR.PrCurrentStage = dgvDATA.GetDataRow().Item("SYONIN_JUN")
+                frmCAR.PrCurrentStage = IIf(dgvDATA.GetDataRow().Item("SYONIN_JUN") = 0, 999, dgvDATA.GetDataRow().Item("SYONIN_JUN"))
                 dlgRET = frmCAR.ShowDialog(Me)
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
                     Return False
@@ -1081,7 +1081,7 @@ Public Class FrmG0010
                 Else
                     'frmNCR.PrDataRow = dgvDATA.GetDataRow()
                     frmNCR.PrHOKOKU_NO = dgvDATA.GetDataRow().Item("HOKOKU_NO")
-                    frmNCR.PrCurrentStage = dgvDATA.GetDataRow().Item("SYONIN_JUN")
+                    frmNCR.PrCurrentStage = IIf(dgvDATA.GetDataRow().Item("SYONIN_JUN") = 0, 999, dgvDATA.GetDataRow().Item("SYONIN_JUN"))
                 End If
                 dlgRET = frmNCR.ShowDialog(Me)
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then

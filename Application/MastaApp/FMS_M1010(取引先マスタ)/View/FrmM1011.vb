@@ -499,7 +499,7 @@ Public Class FrmM1011
             ErrorProvider.ClearError(cmb)
             pri_blnValidated = (pri_blnValidated AndAlso True)
         Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "æˆø‹æ•ª"), ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetErrorInfo(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "æˆø‹æ•ª"))
             pri_blnValidated = False
         End If
     End Sub
@@ -512,7 +512,7 @@ Public Class FrmM1011
             ErrorProvider.ClearError(mtx)
             pri_blnValidated = (pri_blnValidated AndAlso True)
         Else
-            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "æˆøæ–¼"), ErrorIconAlignment.MiddleLeft)
+            ErrorProvider.SetErrorInfo(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "æˆøæ–¼"))
             pri_blnValidated = False
         End If
     End Sub
