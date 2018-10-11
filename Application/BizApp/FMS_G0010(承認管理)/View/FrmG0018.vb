@@ -86,18 +86,18 @@ Public Class FrmG0018
                 .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
                 .ColumnHeadersDefaultCellStyle.Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
 
-                .Columns.Add("KOMOKU_NAME", "変更項目名")
+                .Columns.Add(NameOf(MODEL.TV01_HENKO_HIKAKU.KOMOKU_NAME), "変更項目名")
                 .Columns(.ColumnCount - 1).Width = 150
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                .Columns.Add("ATO_NAIYO", "変更前内容")
+                .Columns.Add(NameOf(MODEL.TV01_HENKO_HIKAKU.ATO_NAIYO), "変更前内容")
                 .Columns(.ColumnCount - 1).Width = 535
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).DefaultCellStyle.WrapMode = DataGridViewTriState.True
 
-                .Columns.Add("MAE_NAIYO", "変更後内容")
+                .Columns.Add(NameOf(MODEL.TV01_HENKO_HIKAKU.MAE_NAIYO), "変更後内容")
                 .Columns(.ColumnCount - 1).Width = 535
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
@@ -190,11 +190,11 @@ Public Class FrmG0018
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append("SELECT")
             sbSQL.Append(" *")
-            sbSQL.Append(" FROM TV01_HENKO_HIKAKU(")
-            sbSQL.Append("'" & PrDataRow.Item("SASIMODOSI_YMDHNS") & "'")
-            sbSQL.Append("," & PrDataRow.Item("SYONIN_HOKOKUSYO_ID") & "")
-            sbSQL.Append(",'" & PrDataRow.Item("HOKOKU_NO") & "'")
-            sbSQL.Append(")")
+            sbSQL.Append($" FROM {NameOf(MODEL.TV01_HENKO_HIKAKU)}(")
+            sbSQL.Append($"'{PrDataRow.Item("SASIMODOSI_YMDHNS")}'")
+            sbSQL.Append($",{PrDataRow.Item("SYONIN_HOKOKUSYO_ID")}")
+            sbSQL.Append($",'{PrDataRow.Item("HOKOKU_NO")}'")
+            sbSQL.Append($")")
             Using DBa As ClsDbUtility = DBOpen()
                 dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
@@ -292,7 +292,7 @@ Public Class FrmG0018
                     '    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
                     '    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
                     'End If
-                    If tgtList.Contains(dgvDATA.Rows(i).Cells("KOMOKU_NAME").Value) Then
+                    If tgtList.Contains(dgvDATA.Rows(i).Cells(NameOf(MODEL.TV01_HENKO_HIKAKU.KOMOKU_NAME)).Value) Then
                         dgvDATA.Rows(i).Height = 80
                         'dgvDATA.Rows(i).Cells(0).Style.Alignment = DataGridViewContentAlignment.TopCenter
                         dgvDATA.Rows(i).Cells(1).Style.Alignment = DataGridViewContentAlignment.TopLeft

@@ -16,6 +16,9 @@ Partial Public Class V003_SYONIN_J_KANRI
     <ComponentModel.DisplayName("³”F‡")>
     Public Property SYONIN_JUN As Integer
 
+    <ComponentModel.DisplayName("³”F“à—e")>
+    Public Property SYONIN_NAIYO As Integer
+
     <ComponentModel.DisplayName("ŽÐˆõID")>
     Public Property SYAIN_ID As Integer
 

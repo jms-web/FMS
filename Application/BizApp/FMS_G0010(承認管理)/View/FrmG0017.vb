@@ -81,39 +81,39 @@ Public Class FrmG0017
                 .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
                 .ColumnHeadersDefaultCellStyle.Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
 
-                .Columns.Add("ADD_YMDHNS", "処理日時")
+                .Columns.Add(NameOf(MODEL.V004_HOKOKU_SOUSA.ADD_YMDHNS), "処理日時")
                 .Columns(.ColumnCount - 1).Width = 140
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleCenter
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ValueType = GetType(DateTime)
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Format = "yyyy/MM/dd HH:mm"
 
-                .Columns.Add("SYONIN_JUN", "承認順")
+                .Columns.Add(NameOf(MODEL.V004_HOKOKU_SOUSA.SYONIN_JUN), "承認順")
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).Visible = False
 
-                .Columns.Add("SYONIN_NAIYO", "ステージ")
+                .Columns.Add(NameOf(MODEL.V004_HOKOKU_SOUSA.SYONIN_NAIYO), "ステージ")
                 .Columns(.ColumnCount - 1).Width = 220
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                .Columns.Add("SOUSA_NAME", "処置")
+                .Columns.Add(NameOf(MODEL.V004_HOKOKU_SOUSA.SOUSA_NAME), "処置")
                 .Columns(.ColumnCount - 1).Width = 120
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                .Columns.Add("SYAIN_NAME", "処置担当者")
+                .Columns.Add(NameOf(MODEL.V004_HOKOKU_SOUSA.SYAIN_NAME), "処置担当者")
                 .Columns(.ColumnCount - 1).Width = 150
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
-                .Columns.Add("MODOSI_SAKI_SYAIN_NAME", "差戻先・転送先")
+                .Columns.Add(NameOf(MODEL.V004_HOKOKU_SOUSA.MODOSI_SAKI_SYAIN_NAME), "差戻先・転送先")
                 .Columns(.ColumnCount - 1).Width = 150
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).Visible = False
 
-                .Columns.Add("RIYU", "内容・理由")
+                .Columns.Add(NameOf(MODEL.V004_HOKOKU_SOUSA.RIYU), "内容・理由")
                 .Columns(.ColumnCount - 1).Width = 300
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
@@ -207,12 +207,12 @@ Public Class FrmG0017
             Dim dsList As New DataSet
 
             'SPEC: 20-7.①
-            sbSQL.Append("SELECT")
-            sbSQL.Append(" *")
-            sbSQL.Append(" FROM " & NameOf(MODEL.V004_HOKOKU_SOUSA) & "")
-            sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & PrSYONIN_HOKOKUSYO_ID & "")
-            sbSQL.Append(" AND HOKOKU_NO='" & PrHOKOKU_NO & "'")
-            sbSQL.Append(" ORDER BY SASIMODOSI_YMDHNS")
+            sbSQL.Append($"SELECT")
+            sbSQL.Append($" *")
+            sbSQL.Append($" FROM {NameOf(MODEL.V004_HOKOKU_SOUSA)}")
+            sbSQL.Append($" WHERE {NameOf(MODEL.V004_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID)}={PrSYONIN_HOKOKUSYO_ID}")
+            sbSQL.Append($" AND {NameOf(MODEL.V004_HOKOKU_SOUSA.HOKOKU_NO)}='{PrHOKOKU_NO}'")
+            sbSQL.Append($" ORDER BY {NameOf(MODEL.V004_HOKOKU_SOUSA.SASIMODOSI_YMDHNS)}")
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
