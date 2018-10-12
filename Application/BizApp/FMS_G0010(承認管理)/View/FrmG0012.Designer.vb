@@ -2980,7 +2980,7 @@ Partial Class FrmG0012
         Me.cmbST01_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmbST01_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST01_DestTANTO.IsSelected = False
-        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 28929)
+        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 29772)
         Me.cmbST01_DestTANTO.Name = "cmbST01_DestTANTO"
         Me.cmbST01_DestTANTO.NullValue = " "
         Me.cmbST01_DestTANTO.ReadOnly = False
@@ -2996,7 +2996,7 @@ Partial Class FrmG0012
         Me.mtxST01_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST01_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_NextStageName.InputRequired = False
-        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 28929)
+        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 29772)
         Me.mtxST01_NextStageName.MaxByteLength = 0
         Me.mtxST01_NextStageName.Name = "mtxST01_NextStageName"
         Me.mtxST01_NextStageName.Size = New System.Drawing.Size(296, 24)
@@ -3009,7 +3009,7 @@ Partial Class FrmG0012
         Me.Label123.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label123.AutoSize = True
         Me.Label123.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label123.Location = New System.Drawing.Point(255, 28934)
+        Me.Label123.Location = New System.Drawing.Point(255, 29777)
         Me.Label123.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label123.Name = "Label123"
         Me.Label123.Size = New System.Drawing.Size(98, 15)
@@ -3022,7 +3022,7 @@ Partial Class FrmG0012
         Me.Label124.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label124.AutoSize = True
         Me.Label124.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label124.Location = New System.Drawing.Point(661, 28934)
+        Me.Label124.Location = New System.Drawing.Point(661, 29777)
         Me.Label124.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label124.Name = "Label124"
         Me.Label124.Size = New System.Drawing.Size(72, 15)
@@ -3035,7 +3035,7 @@ Partial Class FrmG0012
         Me.Label139.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label139.AutoSize = True
         Me.Label139.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label139.Location = New System.Drawing.Point(10, 28934)
+        Me.Label139.Location = New System.Drawing.Point(10, 29777)
         Me.Label139.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(102, 15)
@@ -3050,7 +3050,7 @@ Partial Class FrmG0012
         Me.mtxST01_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST01_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_UPD_YMD.InputRequired = False
-        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 28929)
+        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 29772)
         Me.mtxST01_UPD_YMD.MaxByteLength = 0
         Me.mtxST01_UPD_YMD.Name = "mtxST01_UPD_YMD"
         Me.mtxST01_UPD_YMD.Size = New System.Drawing.Size(115, 24)

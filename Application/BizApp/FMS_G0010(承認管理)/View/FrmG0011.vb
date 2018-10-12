@@ -5659,6 +5659,7 @@ Public Class FrmG0011
             pnlPict1.Image = Image.FromFile(strFileName(0))
             'End Using
         Catch ex As OutOfMemoryException
+        Catch ex2 As io.FileNotFoundException
             '
         End Try
     End Sub
@@ -5744,6 +5745,7 @@ Public Class FrmG0011
 
             pnlPict2.Image = Image.FromFile(strFileName(0))
         Catch ex As OutOfMemoryException
+        Catch ex2 As io.FileNotFoundException
             '
         End Try
     End Sub
