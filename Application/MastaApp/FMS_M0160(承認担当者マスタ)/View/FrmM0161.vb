@@ -354,38 +354,20 @@ Public Class FrmM0161
 
     Private Sub CmbSYONIN_HOKOKUSYO_ID_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles CmbSYONIN_HOKOKUSYO_ID.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認報告書"))
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = (IsValidated AndAlso True)
-        Else
-            ErrorProvider.SetErrorInfo(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認報告書"))
-            IsValidated = False
-        End If
     End Sub
 
     Private Sub CmbSYONIN_JUN_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles CmbSYONIN_JUN.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認順"))
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = (IsValidated AndAlso True)
-        Else
-            ErrorProvider.SetErrorInfo(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認順"))
-            IsValidated = False
-        End If
     End Sub
 
     Private Sub CmbSYAIN_ID_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles CmbSYAIN_ID.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "社員"))
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = (IsValidated AndAlso True)
-        Else
-            ErrorProvider.SetErrorInfo(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "社員"))
-            IsValidated = False
-        End If
     End Sub
 #End Region
 

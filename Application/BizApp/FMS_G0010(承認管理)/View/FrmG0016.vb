@@ -7,7 +7,7 @@ Public Class FrmG0016
 
 #Region "変数・定数"
     '入力必須コントロール検証判定
-    Private pri_blnValidated As Boolean
+    Private IsValidated As Boolean
 #End Region
 
 #Region "プロパティ"
@@ -660,27 +660,17 @@ Public Class FrmG0016
     Private Sub CmbMODOSI_SAKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbMODOSI_SAKI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "差戻し先"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "差戻し先"))
+
+
     End Sub
 
     Private Sub MtxMODOSI_RIYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxMODOSI_RIYU.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
-        If Not mtx.Text.IsNullOrWhiteSpace Then
-            ErrorProvider.ClearError(mtx)
-            pri_blnValidated = pri_blnValidated AndAlso True
-        Else
-            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "差戻し理由"))
-            ErrorProvider.SetIconAlignment(mtx, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "差戻し理由"))
+
+
     End Sub
 
 #End Region
@@ -688,11 +678,11 @@ Public Class FrmG0016
 #Region "入力チェック"
     Public Function FunCheckInput() As Boolean
         Try
-            pri_blnValidated = True
+            IsValidated = True
             Call CmbMODOSI_SAKI_Validating(cmbMODOSI_SAKI, Nothing)
             Call MtxMODOSI_RIYU_Validating(mtxMODOSI_RIYU, Nothing)
 
-            Return pri_blnValidated
+            Return IsValidated
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
