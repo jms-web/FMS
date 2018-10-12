@@ -444,14 +444,7 @@ Public Class FrmM0011
 
     Private Sub CmbKOMO_NM_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKOMO_NM.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = (IsValidated AndAlso True)
-        Else
-            ErrorProvider.SetErrorInfo(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çÄñ⁄ñº"))
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çÄñ⁄ñº"))
     End Sub
 
     Private Sub MtxVALUE_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxVALUE.Validating

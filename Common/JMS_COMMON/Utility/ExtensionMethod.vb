@@ -368,12 +368,12 @@ Public Module ExtensionMethod
     ''' </summary>
     ''' <param name="provider">ErrorProvider</param>
     ''' <param name="control">エラーを通知するコントロール</param>
-    ''' <param name="ExpressionResult">評価結果</param>
+    ''' <param name="ExpressionResult">評価結果 入力Errorかどうかの判定</param>
     ''' <param name="message">ExpressionResult=false時にアイコンに表示するメッセージ</param>
     ''' <param name="IconAlignment">(オプション) アイコン表示位置</param>
     ''' <param name="IconPadding">(オプション)アイコン、コントロール間の余白</param>
     ''' <param name="ErrorIcon">(オプション)表示するアイコン ※アイコンは16x16に対応したものにすること </param>
-    ''' <returns>エラーチェック評価結果=ExpressionResult</returns>
+    ''' <returns>エラーチェック評価結果=ExpressionResult 入力チェックのフラグ更新等に利用できます</returns>
     <Extension>
     Public Function UpdateErrorInfo(provider As ErrorProvider,
                               control As Control,
