@@ -3,7 +3,7 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class FrmM0021
 
 #Region "変数・定数"
-
+    Private IsValidated As Boolean
 #End Region
 
 #Region "プロパティ"
@@ -388,41 +388,46 @@ Public Class FrmM0021
 #Region "入力チェック"
     Public Function FunCheckInput() As Boolean
         Try
-            'TODO: 入力チェック通知はDialogからErrorProviderに変更
+            IsValidated = True
 
-            If cmbBUMON_KB.Text.IsNullOrWhiteSpace Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.cmbBUMON_KB.Focus()
-                Return False
-            End If
-
-            If cmbBUSYO_KB.Text.IsNullOrWhiteSpace Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireSelectOrInput, "部署区分"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.cmbBUSYO_KB.Focus()
-                Return False
-            End If
+            Call cmbBUMON_KB_Validating(cmbBUMON_KB, Nothing)
+            Call cmbBUSYO_KB_Validating(cmbBUSYO_KB, Nothing)
 
             If chkYUKO_YMD.Checked = False Then
-                If datYUKO_YMD.ValueNonFormat = "" Then
-                    MessageBox.Show(String.Format(My.Resources.infoMsgRequireSelectOrInput, "有効期限"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Me.datYUKO_YMD.Focus()
-                    Return False
-                End If
+                Call datYUKO_YMD_Validating(datYUKO_YMD, Nothing)
             End If
 
-            If mtxBUSYO_NAME.Text.Trim = "" Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireSelectOrInput, "部署名"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.mtxBUSYO_NAME.Focus()
-                Return False
+            Call mtxBUSYO_NAME_Validating(mtxBUSYO_NAME, Nothing)
 
-            End If
-
-            Return True
+            Return IsValidated
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         End Try
+
     End Function
+
+    Private Sub cmbBUMON_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbBUMON_KB.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"))
+    End Sub
+
+    Private Sub cmbBUSYO_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbBUSYO_KB.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部署区分"))
+    End Sub
+
+    Private Sub datYUKO_YMD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles datYUKO_YMD.Validating
+        Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "有効期限"))
+    End Sub
+
+    Private Sub mtxBUSYO_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxBUSYO_NAME.Validating
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部署名"))
+    End Sub
+
+
 #End Region
 
 #Region "ローカル関数"
