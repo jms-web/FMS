@@ -18,7 +18,6 @@ Imports System.ComponentModel
 Public Class DateTextBoxEx
     Inherits UserControl
 
-
 #Region "メンバ"
     Friend WithEvents DateTimePicker1 As System.Windows.Forms.DateTimePicker
     Private Const _strMaxDate As String = "9998/12/31"
@@ -217,13 +216,14 @@ Public Class DateTextBoxEx
          Description("テキストボックスBACKCOLORを取得・設定"),
          RefreshProperties(RefreshProperties.All),
          DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
-    Public Shadows Property BackColor() As System.Drawing.Color
+    Public Overrides Property BackColor() As System.Drawing.Color
         Get
-            Return Me.MaskedTextBox1.BackColor
+            Return MyBase.BackColor
         End Get
         Set(ByVal value As System.Drawing.Color)
-            Me.MaskedTextBox1.BackColor = value
             _BackColorDefault = value
+            MyBase.BackColor = value
+            If value <> Color.Transparent Then Me.MaskedTextBox1.BackColor = value
         End Set
     End Property
 #End Region
@@ -331,7 +331,7 @@ Public Class DateTextBoxEx
         Me.MaskedTextBox1.Location = New System.Drawing.Point(2, 3)
         Me.MaskedTextBox1.Margin = New System.Windows.Forms.Padding(1)
         Me.MaskedTextBox1.Mask = "0000/00/00"
-        Me.MaskedTextBox1.MaxByteLength = 10
+        Me.MaskedTextBox1.MaxByteLength = 0
         Me.MaskedTextBox1.Name = "MaskedTextBox1"
         Me.MaskedTextBox1.Size = New System.Drawing.Size(79, 17)
         Me.MaskedTextBox1.TabIndex = 1
@@ -389,9 +389,9 @@ Public Class DateTextBoxEx
             'MessageBox.Show("不正な日付形式が入力されました。。", "日付形式エラー", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             If _blnNullable = True Then
-                'Me.MaskedTextBox1.Text = ""
-                ''ユーザーコントロールのイベント起動
-                'RaiseEvent TxtChanged(Me, System.EventArgs.Empty)
+                Me.MaskedTextBox1.Text = ""
+                'ユーザーコントロールのイベント起動
+                RaiseEvent TxtChanged(Me, System.EventArgs.Empty)
             End If
             Exit Sub
         End If
@@ -541,7 +541,7 @@ Public Class DateTextBoxEx
 #Region "OnGotFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnGotFocus(ByVal e As EventArgs)
 
-        If Me.Enabled = False Or Me.ReadOnly = True Then
+        If Me.ReadOnly Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
             MaskedTextBox1.BackColor = clrDisableControlGotFocusedColor
             'DateTimePicker1.Enabled = False
@@ -565,7 +565,7 @@ Public Class DateTextBoxEx
 #End Region
 #Region "OnLostFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnLostFocus(ByVal e As EventArgs)
-        If Me.Enabled = False Or Me.ReadOnly = True Then
+        If Me.ReadOnly Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
             MaskedTextBox1.BackColor = clrDisableControlGotFocusedColor
             'DateTimePicker1.Enabled = False
@@ -596,22 +596,17 @@ Public Class DateTextBoxEx
             If Value Then
                 Cursor = Cursors.Default
                 BackColor = System.Drawing.SystemColors.Control
-                MaskedTextBox1.ReadOnly = True
-                DateTimePicker1.Enabled = False
-                'SetStyle(ControlStyles.UserMouse, True)
-                'SetStyle(ControlStyles.Selectable, False)
-                'UpdateStyles()
-                'RecreateHandle()
             Else
                 Cursor = _CursorOrg
                 BackColor = _BackColorOrg
-                MaskedTextBox1.ReadOnly = False
-                DateTimePicker1.Enabled = True
-                'SetStyle(ControlStyles.UserMouse, False)
-                'SetStyle(ControlStyles.Selectable, True)
-                'UpdateStyles()
-                'RecreateHandle()
             End If
+            DateTimePicker1.Enabled = Not Value
+            MaskedTextBox1.ReadOnly = Value
+            TabStop = Not Value
+            SetStyle(ControlStyles.UserMouse, Value)
+            SetStyle(ControlStyles.Selectable, Value)
+            'UpdateStyles()
+            'RecreateHandle()
         End Set
     End Property
 
@@ -698,7 +693,11 @@ Public Class DateTextBoxEx
 
     Friend WithEvents MaskedTextBox1 As MaskedTextBoxEx
 
-
+    Private Sub DateTextBoxEx_BackColorChanged(sender As Object, e As EventArgs) Handles MyBase.BackColorChanged
+        'If MyBase.BackColor <> Color.Transparent Then
+        '    Me.MaskedTextBox1.BackColor = MyBase.BackColor
+        'End If
+    End Sub
 
 #End Region
 
