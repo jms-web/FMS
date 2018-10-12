@@ -450,13 +450,8 @@ Public Class FrmM0011
     Private Sub MtxVALUE_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxVALUE.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
-        If mtx.Text.IsNullOrWhiteSpace = False Then
-            ErrorProvider.ClearError(mtx)
-            IsValidated = (IsValidated AndAlso True)
-        Else
-            ErrorProvider.SetErrorInfo(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çÄñ⁄íl"))
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çÄñ⁄íl"))
+
     End Sub
 
 #End Region

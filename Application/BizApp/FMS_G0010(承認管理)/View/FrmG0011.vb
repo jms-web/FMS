@@ -4544,14 +4544,8 @@ Public Class FrmG0011
     Private Sub CmbBUMON_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbBUMON.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "êªïiãÊï™"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "êªïiãÊï™"))
+
     End Sub
 
 #End Region
@@ -4620,14 +4614,9 @@ Public Class FrmG0011
     Private Sub CmbKISYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKISYU.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ã@éÌ"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ã@éÌ"))
+
+
     End Sub
 
 #End Region
@@ -4697,14 +4686,9 @@ Public Class FrmG0011
     Private Sub CmbSYANAI_CD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbSYANAI_CD.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
         If _D003_NCR_J.BUMON_KB.ToVal = Context.ENM_BUMON_KB._2_LP Then
-            If cmb.IsSelected Then
-                ErrorProvider.ClearError(cmb)
-                IsValidated = IsValidated AndAlso True
-            Else
-                ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "é–ì‡ÉRÅ[Éh"))
-                ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-                IsValidated = False
-            End If
+
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "é–ì‡ÉRÅ[Éh"))
+
         End If
     End Sub
 
@@ -4772,14 +4756,8 @@ Public Class FrmG0011
     Private Sub CmbBUHIN_BANGO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbBUHIN_BANGO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïîïiî‘çÜ"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïîïiî‘çÜ"))
+
     End Sub
 
 #End Region
@@ -4789,14 +4767,9 @@ Public Class FrmG0011
     Private Sub MtxGOUKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles mtxGOUKI.Validating ïKê{çÄñ⁄Ç≈Ç»Ç¢
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
-        If mtx.ReadOnly OrElse mtx.Text.IsNullOrWhiteSpace Then
-            ErrorProvider.ClearError(mtx)
-            IsValidated = IsValidated AndAlso True
-        Else
-            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "êªë¢î‘çÜ(çÜã@)"))
-            ErrorProvider.SetIconAlignment(mtx, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, (mtx.ReadOnly AndAlso Not mtx.Text.IsNullOrWhiteSpace), String.Format(My.Resources.infoMsgRequireSelectOrInput, "êªë¢î‘çÜ(çÜã@)"))
+
+
     End Sub
 
 #End Region
@@ -4815,14 +4788,8 @@ Public Class FrmG0011
     Private Sub CmbFUTEKIGO_STATUS_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbFUTEKIGO_STATUS.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "èÛë‘ãÊï™"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "èÛë‘ãÊï™"))
+
     End Sub
 
 #End Region
@@ -4831,15 +4798,9 @@ Public Class FrmG0011
 
     Private Sub MtxFUTEKIGO_NAIYO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxHENKYAKU_RIYU.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        Dim result As Boolean = Not (mtx.Visible = True AndAlso mtx.ReadOnly = False AndAlso mtx.Text.IsNullOrWhiteSpace)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ï‘ãpóùóR"))
 
-        If mtx.Visible = True AndAlso mtx.ReadOnly = False AndAlso mtx.Text.IsNullOrWhiteSpace Then
-            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ï‘ãpóùóR"))
-            ErrorProvider.SetIconAlignment(mtx, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(mtx)
-            IsValidated = IsValidated AndAlso True
-        End If
     End Sub
 
 #End Region
@@ -4871,14 +4832,9 @@ Public Class FrmG0011
     Private Sub CmbFUTEKIGO_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbFUTEKIGO_KB.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïsìKçáãÊï™"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïsìKçáãÊï™"))
+
+
     End Sub
 
 #End Region
@@ -4893,14 +4849,9 @@ Public Class FrmG0011
     Private Sub CmbFUTEKIGO_S_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbFUTEKIGO_S_KB.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïsìKçáè⁄ç◊ãÊï™"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïsìKçáè⁄ç◊ãÊï™"))
+
+
     End Sub
 
 #End Region
@@ -4910,15 +4861,8 @@ Public Class FrmG0011
     Private Sub MtxZUBAN_KIKAKU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles mtxZUBAN_KIKAKU.Validating ïKê{çÄñ⁄Ç≈Ç»Ç¢
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
-        If mtx.Text.IsNullOrWhiteSpace = True Then
-            'e.Cancel = True
-            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ê}î‘"))
-            ErrorProvider.SetIconAlignment(mtx, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(mtx)
-            IsValidated = True
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ê}î‘"))
+
     End Sub
 
 #End Region
@@ -4937,14 +4881,10 @@ Public Class FrmG0011
 #Region "î≠ê∂ì˙"
     Private Sub DtHASSEI_YMD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtHASSEI_YMD.Validating
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
-        If dtx.ValueNonFormat.IsNullOrWhiteSpace Then
-            ErrorProvider.SetError(dtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "î≠ê∂ì˙"))
-            ErrorProvider.SetIconAlignment(dtx, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(dtx)
-            IsValidated = IsValidated AndAlso True
-        End If
+
+        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "î≠ê∂ì˙"))
+
+
     End Sub
 #End Region
 
@@ -4971,14 +4911,8 @@ Public Class FrmG0011
                                                                                                               cmbST15_DestTANTO.Validating
 
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ê\êøêÊé–àı"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ê\êøêÊé–àı"))
+
     End Sub
 
 #End Region
@@ -5002,14 +4936,9 @@ Public Class FrmG0011
                                                                                                               dtST15_UPD_YMD.Validating
 
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
-        If dtx.ValueNonFormat.IsNullOrWhiteSpace Then
-            ErrorProvider.SetError(dtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "è≥îFÅEê\êøì˙"))
-            ErrorProvider.SetIconAlignment(dtx, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(dtx)
-            IsValidated = IsValidated AndAlso True
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "è≥îFÅEê\êøì˙"))
+
+
     End Sub
 
 #End Region
@@ -5019,29 +4948,15 @@ Public Class FrmG0011
     Private Sub TxtST01_YOKYU_NAIYO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtST01_YOKYU_NAIYO.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
-        If txt.ReadOnly = False AndAlso txt.Text.IsNullOrWhiteSpace = True Then
-            'e.Cancel = True
-            ErrorProvider.SetError(txt, String.Format(My.Resources.infoMsgRequireSelectOrInput, "óvãÅì‡óe"))
-            ErrorProvider.SetIconAlignment(txt, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(txt)
-            IsValidated = IsValidated AndAlso True
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, (txt.ReadOnly AndAlso Not txt.Text.IsNullOrWhiteSpace), String.Format(My.Resources.infoMsgRequireSelectOrInput, "óvãÅì‡óe"))
+
     End Sub
 
     Private Sub TxtST01_KEKKA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtST01_KEKKA.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
-        If txt.ReadOnly = False AndAlso txt.Text.IsNullOrWhiteSpace = True Then
-            'e.Cancel = True
-            ErrorProvider.SetError(txt, String.Format(My.Resources.infoMsgRequireSelectOrInput, "äœé@åãâ "))
-            ErrorProvider.SetIconAlignment(txt, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(txt)
-            IsValidated = IsValidated AndAlso True
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, (txt.ReadOnly AndAlso Not txt.Text.IsNullOrWhiteSpace), String.Format(My.Resources.infoMsgRequireSelectOrInput, "äœé@åãâ "))
+
     End Sub
 
 #End Region
@@ -5099,54 +5014,29 @@ Public Class FrmG0011
     Private Sub TxtST04_RIYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtST04_RIYU.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
-        If txt.ReadOnly = False AndAlso txt.Text.IsNullOrWhiteSpace = True Then
-            'e.Cancel = True
-            ErrorProvider.SetError(txt, String.Format(My.Resources.infoMsgRequireSelectOrInput, "î€ÇÃóùóR"))
-            ErrorProvider.SetIconAlignment(txt, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(txt)
-            IsValidated = True
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, (txt.ReadOnly AndAlso Not txt.Text.IsNullOrWhiteSpace), String.Format(My.Resources.infoMsgRequireSelectOrInput, "î€ÇÃóùóR"))
+
     End Sub
 
     Private Sub CmbST04_JIZENSINSA_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST04_JIZENSINSA_HANTEI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+
     End Sub
 
     Private Sub CmbST04_CAR_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST04_CAR_TANTO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "CARãNëêíSìñ"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "CARãNëêíSìñ"))
+
     End Sub
 
     Private Sub CmbST04_HASSEI_KOTEI_GL_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST04_HASSEI_KOTEI_GL_TANTO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "î≠ê∂çHíˆGLíSìñ"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "î≠ê∂çHíˆGLíSìñ"))
+
     End Sub
 
 #End Region
@@ -5171,14 +5061,8 @@ Public Class FrmG0011
     Private Sub CmbST06_SAISIN_IINKAI_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST06_SAISIN_IINKAI_HANTEI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éñëOêRç∏îªíË"))
+
     End Sub
 
 #End Region
@@ -5227,40 +5111,22 @@ Public Class FrmG0011
     Private Sub CmbST07_SAISIN_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_SAISIN_TANTO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çƒêRê\êøíSìñ"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çƒêRê\êøíSìñ"))
+
     End Sub
 
     Private Sub CmbST07_KOKYAKU_HANTEI_SIJI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_KOKYAKU_HANTEI_SIJI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "å⁄ãqîªíËéwé¶"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "å⁄ãqîªíËéwé¶"))
+
     End Sub
 
     Private Sub CmbST07_KOKYAKU_SAISYU_HANTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST07_KOKYAKU_SAISYU_HANTEI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "å⁄ãqç≈èIîªíË"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "å⁄ãqç≈èIîªíË"))
+
     End Sub
 
 #End Region
@@ -5272,28 +5138,17 @@ Public Class FrmG0011
     Private Sub CmbST08_1_HAIKYAKU_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.IsSelected = False Then
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "îpãpï˚ñ@"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 0 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "îpãpï˚ñ@"))
+
+
     End Sub
 
     Private Sub CmbST08_1_HAIKYAKU_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 0 AndAlso cmb.IsSelected = False Then
-            'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "îpãpé¿é{é“"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 0 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "îpãpé¿íné“"))
+
+
     End Sub
 
 #End Region
@@ -5303,57 +5158,31 @@ Public Class FrmG0011
     Private Sub CmbST08_2_KENSA_KEKKA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.IsSelected = False Then
-            'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "åüç∏åãâ "))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 1 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "åüç∏åãâ "))
+
+
     End Sub
 
     Private Sub CmbST08_2_TANTO_SEIZO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.IsSelected = False Then
-            'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "êªë¢íSìñ"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 1 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "êªë¢íSìñ"))
+
+
     End Sub
 
     Private Sub CmbST08_2_TANTO_SEIGI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.IsSelected = False Then
-            'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ê∂ãZíSìñ"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 1 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ê∂ãZíSìñ"))
+
     End Sub
 
     Private Sub CmbST08_2_TANTO_KENSA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 1 AndAlso cmb.SelectedValue = False Then
-            'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "åüç∏íSìñ"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 1 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "åüç∏íSìñ"))
+
     End Sub
 
 #End Region
@@ -5363,15 +5192,9 @@ Public Class FrmG0011
     Private Sub CmbST08_3_HENKYAKU_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 2 AndAlso cmb.IsSelected = False Then
-            'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ï‘ãpíSìñ"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 2 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ï‘ãpíSìñ"))
+
+
     End Sub
 
 #End Region
@@ -5381,29 +5204,17 @@ Public Class FrmG0011
     Private Sub CmbST08_4_KISYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.IsSelected = False Then
-            'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ã@éÌ"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 3 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ã@éÌ"))
+
+
     End Sub
 
     Private Sub CmbST08_4_BUHIN_BANGO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If tabST08_SUB.SelectedIndex = 3 AndAlso cmb.IsSelected = False Then
-            'e.Cancel = True
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïîïiî‘çÜ"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        Else
-            ErrorProvider.ClearError(cmb)
-            IsValidated = IsValidated AndAlso True
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 3 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïîïiî‘çÜ"))
+
+
     End Sub
 
 #End Region
