@@ -1948,23 +1948,23 @@ Public Class FrmG0012
 #Region "   1.NCR"
     Private Sub RbtnKAITO_14_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnKAITO_14_T.CheckedChanged, rbtnKAITO_14_F.CheckedChanged
 
-        Dim result As Boolean = (_D005_CAR_J.KAITO_14 = "0")
+        Dim result As Boolean = (rbtnKAITO_14_F.Checked)
 
         If result Then
-            _D005_CAR_J.KAITO_15 = ""
-            _D005_CAR_J.KAITO_16 = ""
-            _D005_CAR_J.KAITO_17 = 0
-            _D005_CAR_J.KAITO_18 = ""
-            _D005_CAR_J.KAITO_19 = ""
-            _D005_CAR_J.KAITO_20 = ""
+            mtxKAITO_15.Text = ""
+            dtKAITO_16.ValueNonFormat = ""
+            cmbKAITO_17.SelectedValue = 0
+            mtxKAITO_18.Text = ""
+            mtxKAITO_19.Text = ""
+            dtKAITO_20.ValueNonFormat = ""
         End If
 
-        mtxKAITO_15.Enabled = result
-        dtKAITO_16.Enabled = result
-        cmbKAITO_17.Enabled = result
-        mtxKAITO_18.Enabled = result
-        mtxKAITO_19.Enabled = result
-        dtKAITO_20.Enabled = result
+        mtxKAITO_15.ReadOnly = result
+        dtKAITO_16.ReadOnly = result
+        cmbKAITO_17.ReadOnly = result
+        mtxKAITO_18.ReadOnly = result
+        mtxKAITO_19.ReadOnly = result
+        dtKAITO_20.ReadOnly = result
 
         Call dtKAITO_16_Validating(dtKAITO_16, Nothing)
         Call cmbKAITO_17_Validating(cmbKAITO_17, Nothing)
@@ -2787,6 +2787,8 @@ Public Class FrmG0012
                 End If
             End If
 
+            Call RbtnKAITO_14_CheckedChanged(rbtnKAITO_14_F, Nothing)
+
             txtKAITO_1.Focus()
             ErrorProvider.ClearError(cmbDestTANTO)
 
@@ -3179,7 +3181,7 @@ Public Class FrmG0012
     Private Sub dtKAITO_16_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtKAITO_16.Validating
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, dtx.Enabled = False OrElse Not dtx.ValueNonFormat.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:いつまで"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, dtx.ReadOnly = True OrElse Not dtx.ValueNonFormat.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:いつまで"))
 
 
     End Sub
@@ -3187,7 +3189,7 @@ Public Class FrmG0012
     Private Sub cmbKAITO_17_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKAITO_17.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.Enabled = False OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:誰が"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly = True OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:誰が"))
 
 
     End Sub
@@ -3197,7 +3199,7 @@ Public Class FrmG0012
         Dim mtxLOT As MaskedTextBoxEx = mtxKAITO_19
         Dim dtYMD As DateTextBoxEx = dtKAITO_20
 
-        Dim result As Boolean = (mtxGOKI.Enabled = False OrElse Not (mtxGOKI.Text.IsNullOrWhiteSpace AndAlso mtxLOT.Text.IsNullOrWhiteSpace AndAlso dtYMD.ValueNonFormat.IsNullOrWhiteSpace))
+        Dim result As Boolean = (mtxGOKI.ReadOnly = True OrElse Not (mtxGOKI.Text.IsNullOrWhiteSpace AndAlso mtxLOT.Text.IsNullOrWhiteSpace AndAlso dtYMD.ValueNonFormat.IsNullOrWhiteSpace))
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtxGOKI, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtxLOT, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
         IsValidated *= ErrorProvider.UpdateErrorInfo(dtYMD, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))

@@ -1130,13 +1130,14 @@ Partial Class FrmG0012
         '
         'mtxKAITO_18
         '
-        Me.mtxKAITO_18.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKAITO_18.BackColor = System.Drawing.SystemColors.Control
         Me.mtxKAITO_18.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxKAITO_18.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxKAITO_18.InputRequired = False
         Me.mtxKAITO_18.Location = New System.Drawing.Point(112, 893)
         Me.mtxKAITO_18.MaxByteLength = 300
         Me.mtxKAITO_18.Name = "mtxKAITO_18"
+        Me.mtxKAITO_18.ReadOnly = True
         Me.mtxKAITO_18.Size = New System.Drawing.Size(99, 24)
         Me.mtxKAITO_18.TabIndex = 20
         Me.mtxKAITO_18.WatermarkColor = System.Drawing.Color.Empty
@@ -1182,13 +1183,12 @@ Partial Class FrmG0012
         Me.cmbKAITO_14.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKAITO_14.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKAITO_14.FormattingEnabled = True
-        Me.cmbKAITO_14.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKAITO_14.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbKAITO_14.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKAITO_14.IsSelected = False
         Me.cmbKAITO_14.Location = New System.Drawing.Point(184, 833)
         Me.cmbKAITO_14.Name = "cmbKAITO_14"
         Me.cmbKAITO_14.NullValue = " "
-        Me.cmbKAITO_14.ReadOnly = False
         Me.cmbKAITO_14.Size = New System.Drawing.Size(15, 25)
         Me.cmbKAITO_14.TabIndex = 15
         Me.cmbKAITO_14.Text = "(選択)"
@@ -1206,13 +1206,14 @@ Partial Class FrmG0012
         '
         'mtxKAITO_15
         '
-        Me.mtxKAITO_15.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKAITO_15.BackColor = System.Drawing.SystemColors.Control
         Me.mtxKAITO_15.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxKAITO_15.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxKAITO_15.InputRequired = False
         Me.mtxKAITO_15.Location = New System.Drawing.Point(299, 832)
         Me.mtxKAITO_15.MaxByteLength = 300
         Me.mtxKAITO_15.Name = "mtxKAITO_15"
+        Me.mtxKAITO_15.ReadOnly = True
         Me.mtxKAITO_15.Size = New System.Drawing.Size(334, 24)
         Me.mtxKAITO_15.TabIndex = 17
         Me.mtxKAITO_15.WatermarkColor = System.Drawing.Color.Empty
@@ -1228,13 +1229,12 @@ Partial Class FrmG0012
         Me.cmbKAITO_5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKAITO_5.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKAITO_5.FormattingEnabled = True
-        Me.cmbKAITO_5.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKAITO_5.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbKAITO_5.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKAITO_5.IsSelected = False
         Me.cmbKAITO_5.Location = New System.Drawing.Point(299, 530)
         Me.cmbKAITO_5.Name = "cmbKAITO_5"
         Me.cmbKAITO_5.NullValue = " "
-        Me.cmbKAITO_5.ReadOnly = False
         Me.cmbKAITO_5.Size = New System.Drawing.Size(154, 25)
         Me.cmbKAITO_5.TabIndex = 5
         Me.cmbKAITO_5.Text = "(選択)"
@@ -1242,13 +1242,14 @@ Partial Class FrmG0012
         '
         'mtxKAITO_19
         '
-        Me.mtxKAITO_19.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxKAITO_19.BackColor = System.Drawing.SystemColors.Control
         Me.mtxKAITO_19.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxKAITO_19.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxKAITO_19.InputRequired = False
         Me.mtxKAITO_19.Location = New System.Drawing.Point(299, 893)
         Me.mtxKAITO_19.MaxByteLength = 300
         Me.mtxKAITO_19.Name = "mtxKAITO_19"
+        Me.mtxKAITO_19.ReadOnly = True
         Me.mtxKAITO_19.Size = New System.Drawing.Size(81, 24)
         Me.mtxKAITO_19.TabIndex = 21
         Me.mtxKAITO_19.WatermarkColor = System.Drawing.Color.Empty
@@ -1272,21 +1273,22 @@ Partial Class FrmG0012
         '
         Me.cmbKAITO_17.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbKAITO_17.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKAITO_17.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKAITO_17.BackColor = System.Drawing.SystemColors.Control
         Me.cmbKAITO_17.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbKAITO_17.DisplayMember = "DISP"
         Me.cmbKAITO_17.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKAITO_17.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKAITO_17.FormattingEnabled = True
-        Me.cmbKAITO_17.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKAITO_17.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbKAITO_17.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.cmbKAITO_17.IsSelected = False
+        Me.cmbKAITO_17.IsSelected = True
         Me.cmbKAITO_17.Location = New System.Drawing.Point(299, 862)
         Me.cmbKAITO_17.Name = "cmbKAITO_17"
         Me.cmbKAITO_17.NullValue = " "
-        Me.cmbKAITO_17.ReadOnly = False
+        Me.cmbKAITO_17.ReadOnly = True
         Me.cmbKAITO_17.Size = New System.Drawing.Size(154, 25)
         Me.cmbKAITO_17.TabIndex = 19
+        Me.cmbKAITO_17.TabStop = False
         Me.cmbKAITO_17.Text = "(選択)"
         Me.cmbKAITO_17.ValueMember = "VALUE"
         '
@@ -1441,16 +1443,19 @@ Partial Class FrmG0012
         '
         'dtKAITO_20
         '
+        Me.dtKAITO_20.BackColor = System.Drawing.SystemColors.Control
         Me.dtKAITO_20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtKAITO_20.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtKAITO_20.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtKAITO_20.Location = New System.Drawing.Point(464, 893)
         Me.dtKAITO_20.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtKAITO_20.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtKAITO_20.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtKAITO_20.Name = "dtKAITO_20"
-        Me.dtKAITO_20.ReadOnly = False
+        Me.dtKAITO_20.ReadOnly = True
         Me.dtKAITO_20.Size = New System.Drawing.Size(98, 24)
         Me.dtKAITO_20.TabIndex = 22
+        Me.dtKAITO_20.TabStop = False
         Me.dtKAITO_20.Value = ""
         Me.dtKAITO_20.ValueNonFormat = ""
         '
@@ -1466,16 +1471,19 @@ Partial Class FrmG0012
         '
         'dtKAITO_16
         '
+        Me.dtKAITO_16.BackColor = System.Drawing.SystemColors.Control
         Me.dtKAITO_16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtKAITO_16.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtKAITO_16.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtKAITO_16.Location = New System.Drawing.Point(112, 862)
         Me.dtKAITO_16.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtKAITO_16.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtKAITO_16.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtKAITO_16.Name = "dtKAITO_16"
-        Me.dtKAITO_16.ReadOnly = False
+        Me.dtKAITO_16.ReadOnly = True
         Me.dtKAITO_16.Size = New System.Drawing.Size(98, 24)
         Me.dtKAITO_16.TabIndex = 18
+        Me.dtKAITO_16.TabStop = False
         Me.dtKAITO_16.Value = ""
         Me.dtKAITO_16.ValueNonFormat = ""
         '
@@ -1536,13 +1544,12 @@ Partial Class FrmG0012
         Me.cmbKAITO_10.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKAITO_10.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKAITO_10.FormattingEnabled = True
-        Me.cmbKAITO_10.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKAITO_10.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbKAITO_10.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKAITO_10.IsSelected = False
         Me.cmbKAITO_10.Location = New System.Drawing.Point(299, 738)
         Me.cmbKAITO_10.Name = "cmbKAITO_10"
         Me.cmbKAITO_10.NullValue = " "
-        Me.cmbKAITO_10.ReadOnly = False
         Me.cmbKAITO_10.Size = New System.Drawing.Size(154, 25)
         Me.cmbKAITO_10.TabIndex = 12
         Me.cmbKAITO_10.Text = "(選択)"
@@ -2346,13 +2353,12 @@ Partial Class FrmG0012
         Me.cmbKENSA_GL_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKENSA_GL_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKENSA_GL_TANTO.FormattingEnabled = True
-        Me.cmbKENSA_GL_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKENSA_GL_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbKENSA_GL_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKENSA_GL_TANTO.IsSelected = False
         Me.cmbKENSA_GL_TANTO.Location = New System.Drawing.Point(518, 92)
         Me.cmbKENSA_GL_TANTO.Name = "cmbKENSA_GL_TANTO"
         Me.cmbKENSA_GL_TANTO.NullValue = " "
-        Me.cmbKENSA_GL_TANTO.ReadOnly = False
         Me.cmbKENSA_GL_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbKENSA_GL_TANTO.TabIndex = 279
         Me.cmbKENSA_GL_TANTO.Text = "(選択)"
@@ -2469,13 +2475,12 @@ Partial Class FrmG0012
         Me.cmbKENSA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKENSA_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKENSA_TANTO.FormattingEnabled = True
-        Me.cmbKENSA_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKENSA_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbKENSA_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKENSA_TANTO.IsSelected = False
         Me.cmbKENSA_TANTO.Location = New System.Drawing.Point(518, 61)
         Me.cmbKENSA_TANTO.Name = "cmbKENSA_TANTO"
         Me.cmbKENSA_TANTO.NullValue = " "
-        Me.cmbKENSA_TANTO.ReadOnly = False
         Me.cmbKENSA_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbKENSA_TANTO.TabIndex = 276
         Me.cmbKENSA_TANTO.Text = "(選択)"
@@ -2657,13 +2662,12 @@ Partial Class FrmG0012
         Me.cmbSYOCHI_C_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYOCHI_C_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_C_TANTO.FormattingEnabled = True
-        Me.cmbSYOCHI_C_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbSYOCHI_C_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbSYOCHI_C_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbSYOCHI_C_TANTO.IsSelected = False
         Me.cmbSYOCHI_C_TANTO.Location = New System.Drawing.Point(812, 104)
         Me.cmbSYOCHI_C_TANTO.Name = "cmbSYOCHI_C_TANTO"
         Me.cmbSYOCHI_C_TANTO.NullValue = " "
-        Me.cmbSYOCHI_C_TANTO.ReadOnly = False
         Me.cmbSYOCHI_C_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbSYOCHI_C_TANTO.TabIndex = 4
         Me.cmbSYOCHI_C_TANTO.Text = "(選択)"
@@ -2690,13 +2694,12 @@ Partial Class FrmG0012
         Me.cmbSYOCHI_A_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYOCHI_A_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_A_TANTO.FormattingEnabled = True
-        Me.cmbSYOCHI_A_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbSYOCHI_A_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbSYOCHI_A_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbSYOCHI_A_TANTO.IsSelected = False
         Me.cmbSYOCHI_A_TANTO.Location = New System.Drawing.Point(96, 104)
         Me.cmbSYOCHI_A_TANTO.Name = "cmbSYOCHI_A_TANTO"
         Me.cmbSYOCHI_A_TANTO.NullValue = " "
-        Me.cmbSYOCHI_A_TANTO.ReadOnly = False
         Me.cmbSYOCHI_A_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbSYOCHI_A_TANTO.TabIndex = 2
         Me.cmbSYOCHI_A_TANTO.Text = "(選択)"
@@ -2724,13 +2727,12 @@ Partial Class FrmG0012
         Me.cmbSYOCHI_B_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYOCHI_B_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_B_TANTO.FormattingEnabled = True
-        Me.cmbSYOCHI_B_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbSYOCHI_B_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbSYOCHI_B_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbSYOCHI_B_TANTO.IsSelected = False
         Me.cmbSYOCHI_B_TANTO.Location = New System.Drawing.Point(488, 104)
         Me.cmbSYOCHI_B_TANTO.Name = "cmbSYOCHI_B_TANTO"
         Me.cmbSYOCHI_B_TANTO.NullValue = " "
-        Me.cmbSYOCHI_B_TANTO.ReadOnly = False
         Me.cmbSYOCHI_B_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbSYOCHI_B_TANTO.TabIndex = 3
         Me.cmbSYOCHI_B_TANTO.Text = "(選択)"
@@ -2977,13 +2979,12 @@ Partial Class FrmG0012
         Me.cmbST01_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbST01_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbST01_DestTANTO.FormattingEnabled = True
-        Me.cmbST01_DestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbST01_DestTANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST01_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST01_DestTANTO.IsSelected = False
-        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 29772)
+        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 31458)
         Me.cmbST01_DestTANTO.Name = "cmbST01_DestTANTO"
         Me.cmbST01_DestTANTO.NullValue = " "
-        Me.cmbST01_DestTANTO.ReadOnly = False
         Me.cmbST01_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST01_DestTANTO.TabIndex = 215
         Me.cmbST01_DestTANTO.Text = "(選択)"
@@ -2996,7 +2997,7 @@ Partial Class FrmG0012
         Me.mtxST01_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST01_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_NextStageName.InputRequired = False
-        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 29772)
+        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 31458)
         Me.mtxST01_NextStageName.MaxByteLength = 0
         Me.mtxST01_NextStageName.Name = "mtxST01_NextStageName"
         Me.mtxST01_NextStageName.Size = New System.Drawing.Size(296, 24)
@@ -3009,7 +3010,7 @@ Partial Class FrmG0012
         Me.Label123.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label123.AutoSize = True
         Me.Label123.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label123.Location = New System.Drawing.Point(255, 29777)
+        Me.Label123.Location = New System.Drawing.Point(255, 31463)
         Me.Label123.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label123.Name = "Label123"
         Me.Label123.Size = New System.Drawing.Size(98, 15)
@@ -3022,7 +3023,7 @@ Partial Class FrmG0012
         Me.Label124.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label124.AutoSize = True
         Me.Label124.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label124.Location = New System.Drawing.Point(661, 29777)
+        Me.Label124.Location = New System.Drawing.Point(661, 31463)
         Me.Label124.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label124.Name = "Label124"
         Me.Label124.Size = New System.Drawing.Size(72, 15)
@@ -3035,7 +3036,7 @@ Partial Class FrmG0012
         Me.Label139.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label139.AutoSize = True
         Me.Label139.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label139.Location = New System.Drawing.Point(10, 29777)
+        Me.Label139.Location = New System.Drawing.Point(10, 31463)
         Me.Label139.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(102, 15)
@@ -3050,7 +3051,7 @@ Partial Class FrmG0012
         Me.mtxST01_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST01_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_UPD_YMD.InputRequired = False
-        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 29772)
+        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 31458)
         Me.mtxST01_UPD_YMD.MaxByteLength = 0
         Me.mtxST01_UPD_YMD.Name = "mtxST01_UPD_YMD"
         Me.mtxST01_UPD_YMD.Size = New System.Drawing.Size(115, 24)
@@ -3245,13 +3246,12 @@ Partial Class FrmG0012
         Me.cmbKISEKI_KOTEI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKISEKI_KOTEI.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKISEKI_KOTEI.FormattingEnabled = True
-        Me.cmbKISEKI_KOTEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKISEKI_KOTEI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbKISEKI_KOTEI.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKISEKI_KOTEI.IsSelected = False
         Me.cmbKISEKI_KOTEI.Location = New System.Drawing.Point(435, 142)
         Me.cmbKISEKI_KOTEI.Name = "cmbKISEKI_KOTEI"
         Me.cmbKISEKI_KOTEI.NullValue = " "
-        Me.cmbKISEKI_KOTEI.ReadOnly = False
         Me.cmbKISEKI_KOTEI.Size = New System.Drawing.Size(251, 25)
         Me.cmbKISEKI_KOTEI.TabIndex = 7
         Me.cmbKISEKI_KOTEI.Text = "(選択)"
@@ -3302,13 +3302,12 @@ Partial Class FrmG0012
         Me.cmbKONPON_YOIN_KB2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKONPON_YOIN_KB2.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKONPON_YOIN_KB2.FormattingEnabled = True
-        Me.cmbKONPON_YOIN_KB2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKONPON_YOIN_KB2.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbKONPON_YOIN_KB2.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKONPON_YOIN_KB2.IsSelected = False
         Me.cmbKONPON_YOIN_KB2.Location = New System.Drawing.Point(96, 110)
         Me.cmbKONPON_YOIN_KB2.Name = "cmbKONPON_YOIN_KB2"
         Me.cmbKONPON_YOIN_KB2.NullValue = " "
-        Me.cmbKONPON_YOIN_KB2.ReadOnly = False
         Me.cmbKONPON_YOIN_KB2.Size = New System.Drawing.Size(194, 25)
         Me.cmbKONPON_YOIN_KB2.TabIndex = 3
         Me.cmbKONPON_YOIN_KB2.Text = "(選択)"
@@ -3335,13 +3334,12 @@ Partial Class FrmG0012
         Me.cmbKONPON_YOIN_KB1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKONPON_YOIN_KB1.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKONPON_YOIN_KB1.FormattingEnabled = True
-        Me.cmbKONPON_YOIN_KB1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKONPON_YOIN_KB1.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbKONPON_YOIN_KB1.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKONPON_YOIN_KB1.IsSelected = False
         Me.cmbKONPON_YOIN_KB1.Location = New System.Drawing.Point(96, 81)
         Me.cmbKONPON_YOIN_KB1.Name = "cmbKONPON_YOIN_KB1"
         Me.cmbKONPON_YOIN_KB1.NullValue = " "
-        Me.cmbKONPON_YOIN_KB1.ReadOnly = False
         Me.cmbKONPON_YOIN_KB1.Size = New System.Drawing.Size(194, 25)
         Me.cmbKONPON_YOIN_KB1.TabIndex = 0
         Me.cmbKONPON_YOIN_KB1.Text = "(選択)"
@@ -3368,13 +3366,12 @@ Partial Class FrmG0012
         Me.cmbKONPON_YOIN_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKONPON_YOIN_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKONPON_YOIN_TANTO.FormattingEnabled = True
-        Me.cmbKONPON_YOIN_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKONPON_YOIN_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbKONPON_YOIN_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKONPON_YOIN_TANTO.IsSelected = False
         Me.cmbKONPON_YOIN_TANTO.Location = New System.Drawing.Point(96, 142)
         Me.cmbKONPON_YOIN_TANTO.Name = "cmbKONPON_YOIN_TANTO"
         Me.cmbKONPON_YOIN_TANTO.NullValue = " "
-        Me.cmbKONPON_YOIN_TANTO.ReadOnly = False
         Me.cmbKONPON_YOIN_TANTO.Size = New System.Drawing.Size(194, 25)
         Me.cmbKONPON_YOIN_TANTO.TabIndex = 6
         Me.cmbKONPON_YOIN_TANTO.Text = "(選択)"
@@ -3391,13 +3388,12 @@ Partial Class FrmG0012
         Me.cmbDestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbDestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbDestTANTO.FormattingEnabled = True
-        Me.cmbDestTANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbDestTANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbDestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbDestTANTO.IsSelected = False
         Me.cmbDestTANTO.Location = New System.Drawing.Point(1098, 221)
         Me.cmbDestTANTO.Name = "cmbDestTANTO"
         Me.cmbDestTANTO.NullValue = " "
-        Me.cmbDestTANTO.ReadOnly = False
         Me.cmbDestTANTO.Size = New System.Drawing.Size(134, 25)
         Me.cmbDestTANTO.TabIndex = 1
         Me.cmbDestTANTO.Text = "(選択)"
