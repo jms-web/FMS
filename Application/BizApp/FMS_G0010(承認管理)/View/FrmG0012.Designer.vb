@@ -2982,7 +2982,7 @@ Partial Class FrmG0012
         Me.cmbST01_DestTANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST01_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST01_DestTANTO.IsSelected = False
-        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 31458)
+        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 30615)
         Me.cmbST01_DestTANTO.Name = "cmbST01_DestTANTO"
         Me.cmbST01_DestTANTO.NullValue = " "
         Me.cmbST01_DestTANTO.Size = New System.Drawing.Size(154, 25)

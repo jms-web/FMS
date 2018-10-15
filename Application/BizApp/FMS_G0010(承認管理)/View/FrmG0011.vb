@@ -1114,25 +1114,21 @@ Public Class FrmG0011
 
                 If PrCurrentStage = ENM_NCR_STAGE._120_abcde処置確認 Then
                     _D004_SYONIN_J_KANRI.SYAIN_ID = 0
+                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
+                    _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
+                    _D004_SYONIN_J_KANRI.SYONIN_JUN = 999 'Close
                 Else
                     _D004_SYONIN_J_KANRI.SYAIN_ID = FunGetNextSYONIN_TANTO_ID(PrCurrentStage)
+                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
+                    _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
                 End If
-                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
                 _D004_SYONIN_J_KANRI.RIYU = ""
                 _D004_SYONIN_J_KANRI.COMMENT = ""
                 _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False
-                _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
 
             Case Else
                 'Err
                 Return False
-        End Select
-
-        '-----モデル更新
-        Select Case PrCurrentStage
-            Case ENM_NCR_STAGE._120_abcde処置確認
-                _D004_SYONIN_J_KANRI.SYONIN_JUN = 999 'Close
-                _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
         End Select
 
         _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
