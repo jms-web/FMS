@@ -447,6 +447,12 @@ Public Class ComboboxEx
 
 #Region "オーバーライド"
 
+    Protected Overrides Sub OnMouseWheel(e As MouseEventArgs)
+        Dim eventargs As HandledMouseEventArgs = DirectCast(e, HandledMouseEventArgs)
+        If [ReadOnly] Then eventargs.Handled = True
+        MyBase.OnMouseWheel(e)
+    End Sub
+
     Protected Overrides Sub OnEnter(ByVal e As System.EventArgs)
         _OldValue = Me.SelectedValue
         'If _HasWaterMark Then

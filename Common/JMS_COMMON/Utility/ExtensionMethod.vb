@@ -418,6 +418,8 @@ Public Module ExtensionMethod
                 '既に同一コメントが設定されている場合は何もしない(ちらつきの原因になる)
             End If
         End If
+
+        Return ExpressionResult
     End Function
 
 
