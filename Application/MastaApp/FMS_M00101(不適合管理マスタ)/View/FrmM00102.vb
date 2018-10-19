@@ -524,7 +524,7 @@ Public Class FrmM00102
             IsValidated = True
 
             'Call CmbKOMO_NM_Validating(cmbKOMO_NM, Nothing)
-            Call MtxVALUE_Validating(mtxVALUE, Nothing)
+            'Call MtxVALUE_Validating(mtxVALUE, Nothing)
 
             Return IsValidated
         Catch ex As Exception
@@ -533,29 +533,29 @@ Public Class FrmM00102
         End Try
     End Function
 
-    Private Sub CmbKOMO_NM_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+    'Private Sub CmbKOMO_NM_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
+    '    Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = (IsValidated AndAlso True)
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çÄñ⁄ñº"), ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
-    End Sub
+    '    If cmb.IsSelected Then
+    '        ErrorProvider.ClearError(cmb)
+    '        IsValidated = (IsValidated AndAlso True)
+    '    Else
+    '        ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çÄñ⁄ñº"), ErrorIconAlignment.MiddleLeft)
+    '        IsValidated = False
+    '    End If
+    'End Sub
 
-    Private Sub MtxVALUE_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
-        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+    'Private Sub MtxVALUE_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
+    '    Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
-        If mtx.Text.IsNullOrWhiteSpace = False Then
-            ErrorProvider.ClearError(mtx)
-            IsValidated = (IsValidated AndAlso True)
-        Else
-            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çÄñ⁄íl"), ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
-    End Sub
+    '    If mtx.Text.IsNullOrWhiteSpace = False Then
+    '        ErrorProvider.ClearError(mtx)
+    '        IsValidated = (IsValidated AndAlso True)
+    '    Else
+    '        ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çÄñ⁄íl"), ErrorIconAlignment.MiddleLeft)
+    '        IsValidated = False
+    '    End If
+    'End Sub
 
 #End Region
 
