@@ -83,60 +83,60 @@ Partial Class FrmM0060
         'cmdFunc1
         '
         Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgBase_floppydisk32x32
-        Me.cmdFunc1.Location = New System.Drawing.Point(9, 595)
+        Me.cmdFunc1.Location = New System.Drawing.Point(9, 596)
         Me.cmdFunc1.Text = "Šm’è(F1)"
         '
         'cmdFunc2
         '
         Me.cmdFunc2.Image = Global.FMS.My.Resources.Resources._imgLeft32x32
-        Me.cmdFunc2.Location = New System.Drawing.Point(219, 595)
+        Me.cmdFunc2.Location = New System.Drawing.Point(219, 596)
         Me.cmdFunc2.Text = "‘OŒŽ(F2)"
         '
         'cmdFunc3
         '
         Me.cmdFunc3.Image = Global.FMS.My.Resources.Resources._imgRight32x32
-        Me.cmdFunc3.Location = New System.Drawing.Point(429, 595)
+        Me.cmdFunc3.Location = New System.Drawing.Point(429, 596)
         Me.cmdFunc3.Text = "ŽŸŒŽ(F3)"
         Me.cmdFunc3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.cmdFunc3.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         '
         'cmdFunc4
         '
-        Me.cmdFunc4.Location = New System.Drawing.Point(635, 595)
+        Me.cmdFunc4.Location = New System.Drawing.Point(635, 596)
         '
         'cmdFunc5
         '
-        Me.cmdFunc5.Location = New System.Drawing.Point(801, 595)
+        Me.cmdFunc5.Location = New System.Drawing.Point(801, 596)
         '
         'cmdFunc6
         '
-        Me.cmdFunc6.Location = New System.Drawing.Point(967, 595)
+        Me.cmdFunc6.Location = New System.Drawing.Point(967, 596)
         '
         'cmdFunc12
         '
         Me.cmdFunc12.Image = Global.FMS.My.Resources.Resources._imgLog_Out32x32
-        Me.cmdFunc12.Location = New System.Drawing.Point(1045, 643)
+        Me.cmdFunc12.Location = New System.Drawing.Point(1045, 644)
         Me.cmdFunc12.Text = "•Â‚¶‚é(F12)"
         '
         'cmdFunc11
         '
-        Me.cmdFunc11.Location = New System.Drawing.Point(801, 643)
+        Me.cmdFunc11.Location = New System.Drawing.Point(801, 644)
         '
         'cmdFunc10
         '
-        Me.cmdFunc10.Location = New System.Drawing.Point(635, 643)
+        Me.cmdFunc10.Location = New System.Drawing.Point(635, 644)
         '
         'cmdFunc7
         '
-        Me.cmdFunc7.Location = New System.Drawing.Point(9, 643)
+        Me.cmdFunc7.Location = New System.Drawing.Point(9, 644)
         '
         'cmdFunc9
         '
-        Me.cmdFunc9.Location = New System.Drawing.Point(469, 643)
+        Me.cmdFunc9.Location = New System.Drawing.Point(469, 644)
         '
         'cmdFunc8
         '
-        Me.cmdFunc8.Location = New System.Drawing.Point(303, 643)
+        Me.cmdFunc8.Location = New System.Drawing.Point(303, 644)
         '
         'lblTytle
         '
@@ -842,7 +842,7 @@ Partial Class FrmM0060
         'FrmM0060
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.ClientSize = New System.Drawing.Size(1264, 711)
+        Me.ClientSize = New System.Drawing.Size(1264, 712)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.gbxFilter)
         Me.HelpButton = True

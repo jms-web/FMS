@@ -123,4 +123,19 @@
   <metadata name="ErrorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>231, 17</value>
   </metadata>
+  <metadata name="SaveFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>362, 17</value>
+  </metadata>
+  <metadata name="OpenFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>501, 17</value>
+  </metadata>
+  <data name="flxDATA.ColumnInfo" xml:space="preserve">
+    <value>18,1,0,0,0,115,Columns:1{Name:"SEIHIN_KB";Caption:"製品区分";Visible:False;Style:"DataType:System.String;TextAlign:LeftCenter;";}	2{Name:"SEIHIN_KB_NAME";Caption:"製品区分名";Style:"DataType:System.String;TextAlign:LeftCenter;";}	3{Name:"FUTEKIGO_KB";Caption:"不適合区分";Style:"DataType:System.String;TextAlign:LeftCenter;";}	4{Name:"FUTEKIGO_KB_NAME";Caption:"不適合区分";Style:"DataType:System.String;TextAlign:LeftCenter;";}	5{Name:"FUTEKIGO_S_KB";Caption:"不適合詳細区分";Style:"DataType:System.String;TextAlign:LeftCenter;";}	6{Name:"FUTEKIGO_S_KB_NAME";Caption:"不適合詳細区分名";Style:"DataType:System.String;TextAlign:LeftCenter;";}	7{Name:"DISP_ORDER";Caption:"表示順";Style:"DataType:System.Int32;TextAlign:GeneralCenter;";}	8{Name:"ADD_YMDHNS";Caption:"追加日時";Visible:False;Style:"DataType:System.String;TextAlign:LeftCenter;";}	9{Name:"ADD_SYAIN_ID";Caption:"追加担当ID";Visible:False;Style:"DataType:System.Int32;TextAlign:GeneralCenter;";}	10{Name:"ADD_SYAIN_NAME";Caption:"追加担当者";Visible:False;Style:"DataType:System.String;TextAlign:LeftCenter;";}	11{Name:"UPD_YMDHNS";Caption:"更新日時";Visible:False;Style:"DataType:System.String;TextAlign:LeftCenter;";}	12{Name:"UPD_SYAIN_ID";Caption:"更新担当ID";Visible:False;Style:"DataType:System.Int32;TextAlign:GeneralCenter;";}	13{Name:"UPD_SYAIN_NAME";Caption:"更新担当者";Visible:False;Style:"DataType:System.String;TextAlign:LeftCenter;";}	14{Name:"DEL_YMDHNS";Caption:"削除日時";Visible:False;Style:"DataType:System.String;TextAlign:LeftCenter;";}	15{Name:"DEL_SYAIN_ID";Caption:"削除担当ID";Visible:False;Style:"DataType:System.Int32;TextAlign:GeneralCenter;";}	16{Name:"DEL_SYAIN_NAME";Caption:"削除担当者";Visible:False;Style:"DataType:System.String;TextAlign:LeftCenter;";}	17{Name:"DEL_FLG";Caption:"削除フラグ";Visible:False;AllowEditing:False;Style:"DataType:System.Boolean;TextAlign:LeftCenter;ImageAlign:CenterCenter;";}	</value>
+  </data>
+  <metadata name="TV05FUTEKIGOCODEBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>642, 17</value>
+  </metadata>
+  <data name="flxDATA.StyleInfo" xml:space="preserve">
+    <value>Normal{Border:None,1,Black,Both;}	Alternate{}	Fixed{BackColor:Control;ForeColor:ControlText;Border:Flat,1,ControlDark,Both;BackgroundImageLayout:Hide;}	Highlight{BackColor:Highlight;ForeColor:ControlText;SearchBackColor:Orange;}	Focus{}	Editor{}	Search{BackColor:Highlight;ForeColor:HighlightText;}	Frozen{BackColor:Beige;}	FrozenAlternate{}	NewRow{ForeColor:GrayText;}	EmptyArea{BackColor:AppWorkspace;}	SelectedColumnHeader{}	SelectedRowHeader{}	GrandTotal{BackColor:Black;ForeColor:White;}	Subtotal0{BackColor:ControlDarkDark;ForeColor:White;}	Subtotal1{BackColor:ControlDarkDark;ForeColor:White;}	Subtotal2{BackColor:ControlDarkDark;ForeColor:White;}	Subtotal3{BackColor:ControlDarkDark;ForeColor:White;}	Subtotal4{BackColor:ControlDarkDark;ForeColor:White;}	Subtotal5{BackColor:ControlDarkDark;ForeColor:White;}	FilterEditor{}	FirstCustomStyle{}	</value>
+  </data>
 </root>
