@@ -4944,14 +4944,14 @@ Public Class FrmG0011
     Private Sub TxtST01_YOKYU_NAIYO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtST01_YOKYU_NAIYO.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, (txt.ReadOnly AndAlso Not txt.Text.IsNullOrWhiteSpace), String.Format(My.Resources.infoMsgRequireSelectOrInput, "óvãÅì‡óe"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, (txt.ReadOnly OrElse Not txt.Text.IsNullOrWhiteSpace), String.Format(My.Resources.infoMsgRequireSelectOrInput, "óvãÅì‡óe"))
 
     End Sub
 
     Private Sub TxtST01_KEKKA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtST01_KEKKA.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, (txt.ReadOnly AndAlso Not txt.Text.IsNullOrWhiteSpace), String.Format(My.Resources.infoMsgRequireSelectOrInput, "äœé@åãâ "))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, (txt.ReadOnly OrElse Not txt.Text.IsNullOrWhiteSpace), String.Format(My.Resources.infoMsgRequireSelectOrInput, "äœé@åãâ "))
 
     End Sub
 
@@ -5010,7 +5010,7 @@ Public Class FrmG0011
     Private Sub TxtST04_RIYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtST04_RIYU.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, (txt.ReadOnly AndAlso Not txt.Text.IsNullOrWhiteSpace), String.Format(My.Resources.infoMsgRequireSelectOrInput, "î€ÇÃóùóR"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, (txt.ReadOnly OrElse Not txt.Text.IsNullOrWhiteSpace), String.Format(My.Resources.infoMsgRequireSelectOrInput, "î€ÇÃóùóR"))
 
     End Sub
 
@@ -5134,7 +5134,7 @@ Public Class FrmG0011
     Private Sub CmbST08_1_HAIKYAKU_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 0 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "îpãpï˚ñ@"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 0 OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "îpãpï˚ñ@"))
 
 
     End Sub
@@ -5142,7 +5142,7 @@ Public Class FrmG0011
     Private Sub CmbST08_1_HAIKYAKU_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 0 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "îpãpé¿íné“"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 0 OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "îpãpé¿íné“"))
 
 
     End Sub
@@ -5154,7 +5154,7 @@ Public Class FrmG0011
     Private Sub CmbST08_2_KENSA_KEKKA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 1 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "åüç∏åãâ "))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 1 OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "åüç∏åãâ "))
 
 
     End Sub
@@ -5162,7 +5162,7 @@ Public Class FrmG0011
     Private Sub CmbST08_2_TANTO_SEIZO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 1 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "êªë¢íSìñ"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 1 OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "êªë¢íSìñ"))
 
 
     End Sub
@@ -5170,14 +5170,14 @@ Public Class FrmG0011
     Private Sub CmbST08_2_TANTO_SEIGI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 1 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ê∂ãZíSìñ"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 1 OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ê∂ãZíSìñ"))
 
     End Sub
 
     Private Sub CmbST08_2_TANTO_KENSA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 1 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "åüç∏íSìñ"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 1 OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "åüç∏íSìñ"))
 
     End Sub
 
@@ -5188,7 +5188,7 @@ Public Class FrmG0011
     Private Sub CmbST08_3_HENKYAKU_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 2 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ï‘ãpíSìñ"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 2 OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ï‘ãpíSìñ"))
 
 
     End Sub
@@ -5200,7 +5200,7 @@ Public Class FrmG0011
     Private Sub CmbST08_4_KISYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 3 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ã@éÌ"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 3 OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ã@éÌ"))
 
 
     End Sub
@@ -5208,7 +5208,7 @@ Public Class FrmG0011
     Private Sub CmbST08_4_BUHIN_BANGO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 3 AndAlso cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïîïiî‘çÜ"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 3 OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïîïiî‘çÜ"))
 
 
     End Sub

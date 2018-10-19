@@ -727,12 +727,13 @@ Module mdlG0010
         sbSQL.Append(" FROM " & NameOf(MODEL.V007_NCR_CAR) & " ")
         sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intSYONIN_HOKOKUSYO_ID & "")
         sbSQL.Append(" AND HOKOKU_NO='" & HOKOKU_NO & "'")
+        sbSQL.Append(" ORDER BY SYONIN_JUN DESC")
         Using DBa As ClsDbUtility = DBOpen()
             dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
         End Using
 
         If dsList.Tables(0).Rows.Count > 0 Then
-            Return dsList.Tables(0).Rows(0).Item(0)
+            Return If(dsList.Tables(0).Rows(0).Item(0).ToString.ToVal = 0, 999, dsList.Tables(0).Rows(0).Item(0).ToString.ToVal)
         Else
             Return 0
         End If
