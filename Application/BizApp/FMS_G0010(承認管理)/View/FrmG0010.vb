@@ -123,7 +123,7 @@ Public Class FrmG0010
             cmbKISYU.SetDataSource(tblKISYU_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            'cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbFUTEKIGO_JYOTAI_KB.SetDataSource(tblFUTEKIGO_STATUS_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
@@ -1994,6 +1994,9 @@ Public Class FrmG0010
         End If
         AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
         cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
+        Dim dtx As DataTableEx = FunGetFUTEKIGO_KB(cmb.SelectedValue)
+        cmbFUTEKIGO_KB.SetDataSource(dtx.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
     End Sub
 
 #End Region
@@ -2318,16 +2321,15 @@ Public Class FrmG0010
     '不適合区分
     Private Sub CmbFUTEKIGO_KB_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbFUTEKIGO_KB.SelectedValueChanged
 
-        If cmbFUTEKIGO_KB.SelectedValue <> "" Then
-            Dim dt As New DataTableEx
-            Using DB As ClsDbUtility = DBOpen()
-                FunGetCodeDataTable(DB, $"不適合{cmbFUTEKIGO_KB.Text.Replace("・", "")}区分", dt)
-            End Using
+        If cmbFUTEKIGO_KB.IsSelected Then
+            Dim dt As DataTableEx = FunGetFUTEKIGO_S_KB(cmbBUMON.SelectedValue, cmbFUTEKIGO_KB.SelectedValue)
+            'Using DB As ClsDbUtility = DBOpen()
+            '    FunGetCodeDataTable(DB, $"不適合{cmbFUTEKIGO_KB.Text.Replace("・", "")}区分", dt)
+            'End Using
             cmbFUTEKIGO_S_KB.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
         Else
             cmbFUTEKIGO_S_KB.DataSource = Nothing
         End If
-
     End Sub
 
 #End Region

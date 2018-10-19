@@ -596,6 +596,13 @@ Partial Public Class D005_CAR_J
     Public Property FUTEKIGO_HASSEI_YMD As String
 
 
+    <Required>
+    <StringLength(8)>
+    <Column(TypeName:="char")>
+    <ComponentModel.DisplayName("次回製作予定日")>
+    Public Property SYOCHI_YOTEI_YMD As String
+
+
     ''共通項目------------------------------------
     <Required>
     <StringLength(14)>

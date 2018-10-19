@@ -184,7 +184,9 @@ Public Class FrmG0011
             cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbFUTEKIGO_STATUS.SetDataSource(tblFUTEKIGO_STATUS_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+            'cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             'DEBUG:再不適合後エラー？
@@ -3258,6 +3260,7 @@ Public Class FrmG0011
 
     Private Function FunInitializeSTAGE(ByVal intStageID As Integer) As Boolean
         Dim dt As New DataTable
+        Dim drs As IEnumerable(Of DataRow)
         Dim _V003 As New MODEL.V003_SYONIN_J_KANRI
         Try
 
@@ -3728,8 +3731,9 @@ Public Class FrmG0011
 
                     '部門所属社員取得
                     dt = FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
+                    drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+                    If drs.Count > 0 Then cmbST07_SAISIN_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                    cmbST07_SAISIN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     cmbST07_KOKYAKU_HANTEI_SIJI.SetDataSource(tblKOKYAKU_HANTEI_SIJI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     cmbST07_KOKYAKU_SAISYU_HANTEI.SetDataSource(tblKOKYAKU_SAISYU_HANTEI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
@@ -3817,115 +3821,126 @@ Public Class FrmG0011
                     cmbST08_1_HAIKYAKU_KB.SetDataSource(tblHAIKYAKU_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     cmbST08_2_KENSA_KEKKA.SetDataSource(tblKENSA_KEKKA_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
+
+                    'UNDONE:
                     '部門所属社員取得
                     dt = FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
-                    cmbST08_1_HAIKYAKU_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                    cmbST08_2_TANTO_SEIZO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    cmbST08_2_TANTO_SEIGI.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    cmbST08_2_TANTO_KENSA.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    cmbST08_3_HENKYAKU_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                    Dim drs = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = _D003_NCR_J.BUMON_KB).ToList
+                    drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+                    If drs.Count > 0 Then cmbST08_1_HAIKYAKU_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                    drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+                    If drs.Count > 0 Then cmbST08_2_TANTO_SEIZO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
+                    drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+                    If drs.Count > 0 Then cmbST08_2_TANTO_SEIGI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
+                    drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+                    If drs.Count > 0 Then cmbST08_2_TANTO_KENSA.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
+                    drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+                    If drs.Count > 0 Then cmbST08_3_HENKYAKU_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                    drs = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = _D003_NCR_J.BUMON_KB).ToList
                     If drs.Count > 0 Then
-                        dt = drs.CopyToDataTable
-                        cmbST08_4_KISYU.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                        cmbST08_4_KISYU.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
                         '_D003_NCR_J.KISYU_ID = 0
                     End If
 
                     drs = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = _D003_NCR_J.BUMON_KB).ToList
-                    If drs.Count > 0 Then
-                        dt = drs.CopyToDataTable
-                        cmbST08_4_BUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                        '_D003_NCR_J.BUHIN_BANGO = ""
-                    End If
+                        If drs.Count > 0 Then
+                            dt = drs.CopyToDataTable
+                            cmbST08_4_BUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                            '_D003_NCR_J.BUHIN_BANGO = ""
+                        End If
 
-                    _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+                        _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                     Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._80_処置実施).
                                     FirstOrDefault
 
-                    _D003_NCR_J.HAIKYAKU_YMD = _V002_NCR_J.HAIKYAKU_YMD
-                    _D003_NCR_J.HAIKYAKU_HOUHOU = _V002_NCR_J.HAIKYAKU_HOUHOU
-                    _D003_NCR_J.HENKYAKU_BIKO = _V002_NCR_J.HENKYAKU_BIKO
-                    _D003_NCR_J.HAIKYAKU_TANTO_ID = _V002_NCR_J.HAIKYAKU_TANTO_ID
-                    _D003_NCR_J.SAIKAKO_SIJI_NO = _V002_NCR_J.SAIKAKO_SIJI_NO
-                    _D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD = _V002_NCR_J.SAIKAKO_SAGYO_KAN_YMD
-                    _D003_NCR_J.SAIKAKO_KENSA_YMD = _V002_NCR_J.SAIKAKO_KENSA_YMD
+                        _D003_NCR_J.HAIKYAKU_YMD = _V002_NCR_J.HAIKYAKU_YMD
+                        _D003_NCR_J.HAIKYAKU_HOUHOU = _V002_NCR_J.HAIKYAKU_HOUHOU
+                        _D003_NCR_J.HENKYAKU_BIKO = _V002_NCR_J.HENKYAKU_BIKO
+                        _D003_NCR_J.HAIKYAKU_TANTO_ID = _V002_NCR_J.HAIKYAKU_TANTO_ID
+                        _D003_NCR_J.SAIKAKO_SIJI_NO = _V002_NCR_J.SAIKAKO_SIJI_NO
+                        _D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD = _V002_NCR_J.SAIKAKO_SAGYO_KAN_YMD
+                        _D003_NCR_J.SAIKAKO_KENSA_YMD = _V002_NCR_J.SAIKAKO_KENSA_YMD
 
-                    _D003_NCR_J.KENSA_KEKKA_KB = _V002_NCR_J.KENSA_KEKKA_KB
-                    _D003_NCR_J.SEIZO_TANTO_ID = _V002_NCR_J.SEIZO_TANTO_ID
-                    _D003_NCR_J.SEIGI_TANTO_ID = _V002_NCR_J.SEIGI_TANTO_ID
-                    _D003_NCR_J.KENSA_TANTO_ID = _V002_NCR_J.KENSA_TANTO_ID
+                        _D003_NCR_J.KENSA_KEKKA_KB = _V002_NCR_J.KENSA_KEKKA_KB
+                        _D003_NCR_J.SEIZO_TANTO_ID = _V002_NCR_J.SEIZO_TANTO_ID
+                        _D003_NCR_J.SEIGI_TANTO_ID = _V002_NCR_J.SEIGI_TANTO_ID
+                        _D003_NCR_J.KENSA_TANTO_ID = _V002_NCR_J.KENSA_TANTO_ID
 
-                    _D003_NCR_J.HENKYAKU_YMD = _V002_NCR_J.HENKYAKU_YMD
-                    _D003_NCR_J.HENKYAKU_SAKI = _V002_NCR_J.HENKYAKU_SAKI
-                    _D003_NCR_J.HENKYAKU_BIKO = _V002_NCR_J.HENKYAKU_BIKO
-                    _D003_NCR_J.HENKYAKU_TANTO_ID = _V002_NCR_J.HENKYAKU_TANTO_ID
+                        _D003_NCR_J.HENKYAKU_YMD = _V002_NCR_J.HENKYAKU_YMD
+                        _D003_NCR_J.HENKYAKU_SAKI = _V002_NCR_J.HENKYAKU_SAKI
+                        _D003_NCR_J.HENKYAKU_BIKO = _V002_NCR_J.HENKYAKU_BIKO
+                        _D003_NCR_J.HENKYAKU_TANTO_ID = _V002_NCR_J.HENKYAKU_TANTO_ID
 
-                    _D003_NCR_J.TENYO_KISYU_ID = _V002_NCR_J.TENYO_KISYU_ID
-                    _D003_NCR_J.TENYO_BUHIN_BANGO = _V002_NCR_J.TENYO_BUHIN_BANGO
-                    _D003_NCR_J.TENYO_GOKI = _V002_NCR_J.TENYO_GOKI
-                    _D003_NCR_J.TENYO_LOT = _V002_NCR_J.TENYO_LOT
-                    _D003_NCR_J.TENYO_YMD = _V002_NCR_J.TENYO_YMD
+                        _D003_NCR_J.TENYO_KISYU_ID = _V002_NCR_J.TENYO_KISYU_ID
+                        _D003_NCR_J.TENYO_BUHIN_BANGO = _V002_NCR_J.TENYO_BUHIN_BANGO
+                        _D003_NCR_J.TENYO_GOKI = _V002_NCR_J.TENYO_GOKI
+                        _D003_NCR_J.TENYO_LOT = _V002_NCR_J.TENYO_LOT
+                        _D003_NCR_J.TENYO_YMD = _V002_NCR_J.TENYO_YMD
 
-                    If _V003 IsNot Nothing Then
-                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
-                            cmbST09_DestTANTO.SelectedValue = 0
-                        Else
-                            cmbST09_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        End If
-                        txtST09_Comment.Text = _V003.COMMENT
-                        Dim dtSYONIN_YMD As Date
-                        If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
-                            If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
-                                dtST09_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
-                                dtST09_UPD_YMD.ReadOnly = True
+                        If _V003 IsNot Nothing Then
+                            If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                                cmbST09_DestTANTO.SelectedValue = 0
                             Else
-                                '一時保存時の日付を読み込み 変更可能
-                                _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                cmbST09_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                            End If
+                            txtST09_Comment.Text = _V003.COMMENT
+                            Dim dtSYONIN_YMD As Date
+                            If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
+                                If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+                                    dtST09_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                    dtST09_UPD_YMD.ReadOnly = True
+                                Else
+                                    '一時保存時の日付を読み込み 変更可能
+                                    _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+                                End If
+                            Else
+                                _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
+                            End If
+                            If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._80_処置実施 Then lblST09_Modoshi_Riyu.Visible = True
+                            If _V003.SASIMODOSI_FG Then
+                                lblST09_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+                            Else
+                                '転送時
+                                lblST09_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+                            End If
+                            If intStageID > ENM_NCR_STAGE._80_処置実施 Then
+                                'cmbST08_DestTANTO.ReadOnly = True
+                                'txtST08_Comment.Enabled = False
+                                tabST08_SUB.Enabled = False
                             End If
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
+                            pnlST09.Visible = False
+                            rsbtnST09.Enabled = False
+                            rsbtnST09.BackColor = Color.Silver
                         End If
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._80_処置実施 Then lblST09_Modoshi_Riyu.Visible = True
-                        If _V003.SASIMODOSI_FG Then
-                            lblST09_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
-                        Else
-                            '転送時
-                            lblST09_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
-                        End If
-                        If intStageID > ENM_NCR_STAGE._80_処置実施 Then
-                            'cmbST08_DestTANTO.ReadOnly = True
-                            'txtST08_Comment.Enabled = False
-                            tabST08_SUB.Enabled = False
-                        End If
-                    Else
-                        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
-                        pnlST09.Visible = False
-                        rsbtnST09.Enabled = False
-                        rsbtnST09.BackColor = Color.Silver
-                    End If
 
-                    'SPEC: 80-2.④
-                    _tabPageManagerST08Sub = New TabPageManager(tabST08_SUB)
-                    Dim strTabpageName As String
-                    strTabpageName = FunGetST08SubPageName()
-                    For Each page As TabPage In tabST08_SUB.TabPages
-                        If page.Name = strTabpageName Then
-                            tabST08_SUB.SelectedIndex = page.TabIndex
-                        Else
-                            '非表示
-                            _tabPageManagerST08Sub.ChangeTabPageVisible(page.TabIndex, False)
-                        End If
-                    Next page
-                Else
-                    '次ステージが取得出来ない場合=登録内容により処理がスキップされた場合等はタブごと非表示
-                    'For Each page As TabPage In TabSTAGE.TabPages
-                    '    If Val(page.Name.Substring(8)) = FunConvertSYONIN_JUN_TO_STAGE_NO(ENM_NCR_STAGE._80_処置実施).ToString("00") Then
-                    '        _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
-                    '        Exit For
-                    '    End If
-                    'Next
-                    pnlST09.Visible = False
+                        'SPEC: 80-2.④
+                        _tabPageManagerST08Sub = New TabPageManager(tabST08_SUB)
+                        Dim strTabpageName As String
+                        strTabpageName = FunGetST08SubPageName()
+                        For Each page As TabPage In tabST08_SUB.TabPages
+                            If page.Name = strTabpageName Then
+                                tabST08_SUB.SelectedIndex = page.TabIndex
+                            Else
+                                '非表示
+                                _tabPageManagerST08Sub.ChangeTabPageVisible(page.TabIndex, False)
+                            End If
+                        Next page
+                    Else
+                        '次ステージが取得出来ない場合=登録内容により処理がスキップされた場合等はタブごと非表示
+                        'For Each page As TabPage In TabSTAGE.TabPages
+                        '    If Val(page.Name.Substring(8)) = FunConvertSYONIN_JUN_TO_STAGE_NO(ENM_NCR_STAGE._80_処置実施).ToString("00") Then
+                        '        _tabPageManager.ChangeTabPageVisible(page.TabIndex, False)
+                        '        Exit For
+                        '    End If
+                        'Next
+                        pnlST09.Visible = False
                     rsbtnST09.Enabled = False
                     rsbtnST09.BackColor = Color.Silver
                 End If
@@ -4535,6 +4550,10 @@ Public Class FrmG0011
         End If
         AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
         cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
+        Dim dtx As DataTableEx = FunGetFUTEKIGO_KB(cmb.SelectedValue)
+        cmbFUTEKIGO_KB.SetDataSource(dtx.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
     End Sub
 
     Private Sub CmbBUMON_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbBUMON.Validating
@@ -6367,7 +6386,6 @@ Public Class FrmG0011
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
-
 
 
 

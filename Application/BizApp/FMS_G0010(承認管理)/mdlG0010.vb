@@ -261,6 +261,20 @@ Module mdlG0010
         _5_転送 = 5
     End Enum
 
+    ''' <summary>
+    ''' 業務グループ
+    ''' </summary>
+    Public Enum ENM_GYOMU_GROUP_ID
+        _1_ = 1
+        _2_ = 2
+        _3_ = 3
+        _4_ = 4
+        _5_ = 5
+        _6_ = 6
+        _7_ = 7
+        _8_ = 8
+        _9_ = 9
+    End Enum
 
 #End Region
 
@@ -272,7 +286,7 @@ Module mdlG0010
     Public _R001_HOKOKU_SOUSA As New MODEL.R001_HOKOKU_SOUSA
     Public _R002_HOKOKU_TENSO As New MODEL.R002_HOKOKU_TENSO
     Public _R003_NCR_SASIMODOSI As New MODEL.R003_NCR_SASIMODOSI
-    Public _R004_CAR_SASIMODOSI As New MODEL.R004_CAR_SASIMODOSI
+    Public _R004 As New MODEL.R004_CAR_SASIMODOSI
 #End Region
 
 #End Region
@@ -320,7 +334,7 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "機種", tblKISYU)
                     Call FunGetCodeDataTable(DB, "機種実績", tblKISYU_J)
 
-                    Call FunGetCodeDataTable(DB, "不適合区分", tblFUTEKIGO_KB)
+                    'Call FunGetCodeDataTable(DB, "不適合区分", tblFUTEKIGO_KB)
                     Call FunGetCodeDataTable(DB, "不適合状態区分", tblFUTEKIGO_STATUS_KB)
                     Call FunGetCodeDataTable(DB, "事前審査判定区分", tblJIZEN_SINSA_HANTEI_KB)
                     Call FunGetCodeDataTable(DB, "再審委員会判定区分", tblSAISIN_IINKAI_HANTEI_KB)
@@ -897,41 +911,112 @@ Module mdlG0010
 #Region "所属社員取得"
     'TV03_SYONIN_SYAIN
 
-    Public Function FunGetSYOZOKU_SYAIN(ByVal Optional BUMON_KB As String = "", ByVal Optional BUSYO_ID As Integer = 0) As DataTable
+    Public Function FunGetSYOZOKU_SYAIN(Optional BUMON_KB As String = "", Optional BUSYO_ID As Integer = 0, Optional GYOMU_GROUP_ID As Integer = 0) As DataTableEx
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
 
-        Dim dt As DataTableEx
-
-        dt = New DataTableEx("System.Int32")
-
-        sbSQL.Append("SELECT * FROM TV03_SYOZOKU_SYAIN('" & BUMON_KB & "')")
+        sbSQL.Append($"SELECT * FROM TV03_SYOZOKU_SYAIN('{BUMON_KB}')")
+        sbSQL.Append(" WHERE 1=1")
+        If GYOMU_GROUP_ID > 0 Then
+            sbSQL.Append(" AND GYOMU_GROUP_ID=" & GYOMU_GROUP_ID & "")
+        End If
         If BUSYO_ID > 0 Then
-            sbSQL.Append(" WHERE BUSYO_ID=" & BUSYO_ID & "")
+            sbSQL.Append(" AND BUSYO_ID=" & BUSYO_ID & "")
         End If
         sbSQL.Append(" ORDER BY SYAIN_ID")
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, False)
         End Using
 
+        Dim dt As DataTableEx = New DataTableEx("System.Int32")
+        dt.Columns.Add("BUSYO_ID", GetType(Integer))
+        dt.Columns.Add("GYOMU_GROUP_ID", GetType(Integer))
+
+
         dt.PrimaryKey = {dt.Columns("VALUE")} ', dt.Columns("SYONIN_JUN"), dt.Columns("SYONIN_HOKOKUSYO_ID")
 
-        With dsList.Tables(0)
-            For intCNT = 0 To .Rows.Count - 1
-                Dim Trow As DataRow = dt.NewRow()
-                If Not dt.Rows.Contains(.Rows(intCNT).Item("SYAIN_ID")) Then
-                    Trow("VALUE") = .Rows(intCNT).Item("SYAIN_ID")
-                    Trow("DISP") = .Rows(intCNT).Item("SIMEI")
-                    'Trow("DEF_FLG") = False
-                    'Trow("DEL_FLG") = False
-                    'Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
-                    'Trow("SYONIN_JUN") = .Rows(intCNT).Item("SYONIN_JUN")
-                    dt.Rows.Add(Trow)
-                End If
-            Next intCNT
-        End With
+        For Each row As DataRow In dsList.Tables(0).Rows
+            Dim Trow As DataRow = dt.NewRow()
+            If Not dt.Rows.Contains(row.Item("SYAIN_ID")) Then
+                Trow("VALUE") = row.Item("SYAIN_ID")
+                Trow("DISP") = row.Item("SIMEI")
+                Trow("BUSYO_ID") = row.Item("BUSYO_ID")
+                Trow("GYOMU_GROUP_ID") = row.Item("GYOMU_GROUP_ID")
+                dt.Rows.Add(Trow)
+            End If
+        Next row
+
 
         Return dt
+    End Function
+
+#End Region
+
+#Region "部門別不適合区分取得"
+    Public Function FunGetFUTEKIGO_KB(BUMON_KB As String) As DataTableEx
+        Dim dt As New DataTableEx
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+        Try
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append($"SELECT DISTINCT FUTEKIGO_KB,FUTEKIGO_KB_NAME")
+            sbSQL.Append($" FROM TV05_FUTEKIGO_CODE('{BUMON_KB}') ")
+            sbSQL.Append($" ORDER BY FUTEKIGO_KB")
+            Using DB As ClsDbUtility = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            '主キー設定
+            dt.PrimaryKey = {dt.Columns("VALUE")}
+
+            For Each row In dsList.Tables(0).Rows
+                Dim Trow As DataRow = dt.NewRow()
+                Trow("DISP") = row.Item("FUTEKIGO_KB_NAME").ToString.Trim
+                Trow("VALUE") = row.Item("FUTEKIGO_KB").ToString.Trim
+                Trow("DEL_FLG") = False
+                dt.Rows.Add(Trow)
+            Next
+
+            Return dt
+        Catch ex As Exception
+            Throw
+            Return Nothing
+        End Try
+    End Function
+
+#End Region
+
+#Region "部門別不適合詳細区分取得"
+    Public Function FunGetFUTEKIGO_S_KB(BUMON_KB As String, FUTEKIGO_KB As String) As DataTableEx
+        Dim dt As New DataTableEx
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+        Try
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append($"SELECT DISTINCT FUTEKIGO_KB,FUTEKIGO_KB_NAME,FUTEKIGO_S_KB,FUTEKIGO_S_KB_NAME")
+            sbSQL.Append($" FROM TV05_FUTEKIGO_CODE('{BUMON_KB}') ")
+            sbSQL.Append($" WHERE FUTEKIGO_KB='{FUTEKIGO_KB}'")
+            sbSQL.Append($" ORDER BY FUTEKIGO_S_KB")
+            Using DB As ClsDbUtility = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            '主キー設定
+            dt.PrimaryKey = {dt.Columns("VALUE")}
+
+            For Each row In dsList.Tables(0).Rows
+                Dim Trow As DataRow = dt.NewRow()
+                Trow("DISP") = row.Item("FUTEKIGO_S_KB_NAME").ToString.Trim
+                Trow("VALUE") = row.Item("FUTEKIGO_S_KB").ToString.Trim
+                Trow("DEL_FLG") = False
+                dt.Rows.Add(Trow)
+            Next
+
+            Return dt
+        Catch ex As Exception
+            Throw
+            Return Nothing
+        End Try
     End Function
 
 #End Region
@@ -1139,7 +1224,6 @@ Module mdlG0010
                 End If
             End If
 
-
             ssgSheet1.Range(NameOf(_V002_NCR_J.KANSATU_KEKKA)).Value = _V002_NCR_J.KANSATU_KEKKA
             ssgSheet1.Range(NameOf(_V002_NCR_J.KISYU_NAME)).Value = _V002_NCR_J.KISYU_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAIHATU)).Value = _V002_NCR_J.SAIHATU
@@ -1166,7 +1250,7 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_A_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_A_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_B_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_B_NAME
 
-            If _V002_NCR_J.JIZEN_SINSA_HANTEI_KB = ENM_JIZEN_SINSA_HANTEI_KB._4_廃却する Then
+            If _V002_NCR_J.JIZEN_SINSA_HANTEI_KB.ToVal = ENM_JIZEN_SINSA_HANTEI_KB._4_廃却する.Value Then
                 shapeLINE_SYOCHI_C.Visible = False
                 ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_C_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_C_NAME
             Else
