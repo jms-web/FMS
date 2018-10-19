@@ -25,6 +25,7 @@ Partial Public Class FMS_Context
     Public Overridable Property M014_SYONIN_ROUT As DbSet(Of VW014_SYONIN_ROUT)
     Public Overridable Property M015_SYONIN_NYURYOKU As DbSet(Of M015_SYONIN_NYURYOKU)
     Public Overridable Property M016_SYONIN_TANTO As DbSet(Of M016_SYONIN_TANTO)
+    'Public Overridable Property M017_FUTEKIGO_CODE As DbSet(Of M017_FUTEKIGO_CODE)
 
     Public Overridable Property M101_TORIHIKI As DbSet(Of M101_TORIHIKI)
     Public Overridable Property M102_TORI_KYOTEN As DbSet(Of M102_TORI_KYOTEN)

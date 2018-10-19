@@ -200,7 +200,7 @@ Public Class FrmM0060
                         sbSQL.Append("  KADO_KB,")
                         sbSQL.Append("  ADD_YMDHNS,")
                         sbSQL.Append("  ADD_SYAIN_ID,")
-                        sbSQL.Append("  UPD_YMDHNS")
+                        sbSQL.Append("  UPD_YMDHNS,")
                         sbSQL.Append("  UPD_SYAIN_ID")
                         sbSQL.Append(" ) VALUES (")
                         sbSQL.Append(" '" & Me.dtYM.ValueNonFormat & Val(lblDAY(intCNT).Text).ToString("00") & "',")
@@ -212,8 +212,8 @@ Public Class FrmM0060
                             sbSQL.Append(" '1',")
                         End If
                         sbSQL.Append(" dbo.GetSysDateString(), ")
-                        sbSQL.Append(" " & pub_SYAIN_INFO.SYAIN_ID & "")
-                        sbSQL.Append(" dbo.GetSysDateString() ")
+                        sbSQL.Append(" " & pub_SYAIN_INFO.SYAIN_ID & ",")
+                        sbSQL.Append(" dbo.GetSysDateString() ,")
                         sbSQL.Append(" " & pub_SYAIN_INFO.SYAIN_ID & "")
                         sbSQL.Append(" )")
 

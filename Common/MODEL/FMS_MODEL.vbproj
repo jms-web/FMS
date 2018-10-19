@@ -159,12 +159,14 @@
     <Compile Include="Common\ModelBase.vb" />
     <Compile Include="Common\ModelInfo.vb" />
     <Compile Include="Common\NotifyChangedBase.vb" />
+    <Compile Include="Models\View\TV05_FUTEKIGO_CODE.vb" />
     <Compile Include="Models\View\V004_HOKOKU_SOUSA.vb" />
     <Compile Include="Models\View\V005_CAR_J.vb" />
     <Compile Include="Models\View\V003_SYONIN_J_KANRI.vb" />
     <Compile Include="Models\View\V006_CAR_GENIN.vb" />
     <Compile Include="Models\Function\TV01_HENKO_HIKAKU.vb" />
     <Compile Include="Models\View\V007_NCR_CAR.vb" />
+    <Compile Include="Models\View\VWM017_FUTEKIGO_CODE.vb" />
     <Compile Include="Models\View\VWM101_TORIHIKI.vb" />
     <Compile Include="Models\View\VWM016_SYONIN_TANTO.vb" />
     <Compile Include="Models\View\VWM005_SYOZOKU_BUSYO.vb" />
@@ -242,9 +244,14 @@
   <ItemGroup>
     <Content Include="DDL\Function\SC01_GET_KADO_YMD.sql" />
     <Content Include="DDL\Function\SC02_GET_TAIRYU_NISSU.sql" />
+    <Content Include="DDL\Function\SC03_HENKOU_FIELD_COUNT.sql" />
+    <Content Include="DDL\Function\SC04_GET_FUTEKIGO_S_KB_DISP.sql" />
+    <Content Include="DDL\Function\SC05_GET_FUTEKIGO_KB_DISP.sql" />
     <Content Include="DDL\Function\TV01_HENKO_HIKAKU.sql" />
     <Content Include="DDL\Function\TV02_SYONIN_SYOZOKU_SYAIN.sql" />
     <Content Include="DDL\Function\TV03_SYOZOKU_SYAIN.sql" />
+    <Content Include="DDL\Function\TV04_BUSYO_SYOZOKU_SYAIN.sql" />
+    <Content Include="DDL\Function\TV05_FUTEKIGO_CODE.sql" />
     <Content Include="DDL\StoredFunction\spERRLOG.sql" />
     <Content Include="DDL\StoredFunction\ST01_GET_HOKOKU_NO.sql" />
     <Content Include="DDL\StoredFunction\ST02_FUTEKIGO_ICHIRAN.sql" />
