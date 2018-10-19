@@ -4,7 +4,7 @@ Public Class FrmM1011
 
 #Region "変数・定数"
     '入力必須コントロール検証判定
-    Private pri_blnValidated As Boolean
+    Private IsValidated As Boolean
 
     Private _M101 As New MODEL.M101_TORIHIKI
 #End Region
@@ -300,7 +300,7 @@ Public Class FrmM1011
     Public Function FunCheckInput() As Boolean
 
         Try
-            pri_blnValidated = True
+            IsValidated = True
 
             '取引区分
             Call CmbTORI_KB_Validating(cmbTORI_KB, Nothing)
@@ -309,7 +309,7 @@ Public Class FrmM1011
             Call MtxTORI_NAME_Validating(mtxTORI_NAME, Nothing)
 
 
-            Return pri_blnValidated
+            Return IsValidated
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -494,27 +494,15 @@ Public Class FrmM1011
     '取引区分
     Private Sub CmbTORI_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbTORI_KB.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "取引区分"))
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = (pri_blnValidated AndAlso True)
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "取引区分"), ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
-        End If
     End Sub
 
     '取引先名
     Private Sub MtxTORI_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxTORI_NAME.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "取引先名"))
 
-        If mtx.Text.IsNullOrWhiteSpace = False Then
-            ErrorProvider.ClearError(mtx)
-            pri_blnValidated = (pri_blnValidated AndAlso True)
-        Else
-            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "取引先名"), ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
-        End If
     End Sub
 
     Private Sub TableLayoutPanel2_Paint(sender As Object, e As PaintEventArgs) Handles TableLayoutPanel2.Paint

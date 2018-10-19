@@ -781,6 +781,16 @@ Public Class FrmM0050
             cmdFunc5.Visible = False
         End If
 
+        If Not HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+            cmdFunc2.Enabled = False
+            cmdFunc3.Enabled = False
+            cmdFunc5.Enabled = False
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc2, "管理者権限が必要です")
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc3, "管理者権限が必要です")
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "管理者権限が必要です")
+
+        End If
+
     End Function
 
 #End Region

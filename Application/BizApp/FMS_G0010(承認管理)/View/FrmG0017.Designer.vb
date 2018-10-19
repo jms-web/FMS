@@ -545,6 +545,7 @@ Partial Class FrmG0017
         'numSU
         '
         Me.tlpFilter.SetColumnSpan(Me.numSU, 3)
+        Me.numSU.Enabled = False
         Me.numSU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.numSU.Location = New System.Drawing.Point(943, 93)
         Me.numSU.Minimum = New Decimal(New Integer() {1, 0, 0, 0})

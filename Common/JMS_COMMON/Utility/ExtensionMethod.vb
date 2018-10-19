@@ -363,18 +363,91 @@ Public Module ExtensionMethod
 
 #Region "ErrorProvider"
 
+    ''' <summary>
+    ''' コントロールにErrorProviderを設定する
+    ''' </summary>
+    ''' <param name="provider">ErrorProvider</param>
+    ''' <param name="control">エラーを通知するコントロール</param>
+    ''' <param name="ExpressionResult">評価結果 入力Errorかどうかの判定</param>
+    ''' <param name="message">ExpressionResult=false時にアイコンに表示するメッセージ</param>
+    ''' <param name="IconAlignment">(オプション) アイコン表示位置</param>
+    ''' <param name="IconPadding">(オプション)アイコン、コントロール間の余白</param>
+    ''' <param name="ErrorIcon">(オプション)表示するアイコン ※アイコンは16x16に対応したものにすること </param>
+    ''' <returns>エラーチェック評価結果=ExpressionResult 入力チェックのフラグ更新等に利用できます</returns>
     <Extension>
-    Public Sub SetError(provider As ErrorProvider, control As Control, message As String, Optional alignment As ErrorIconAlignment = ErrorIconAlignment.MiddleLeft, Optional intPadding As Integer = 2)
-        provider.SetError(control, message)
-        provider.SetIconAlignment(control, alignment)
-        provider.SetIconPadding(control, intPadding)
+    Public Function UpdateErrorInfo(provider As ErrorProvider,
+                              control As Control,
+                              ExpressionResult As Boolean,
+                              message As String,
+                              Optional IconAlignment As ErrorIconAlignment = ErrorIconAlignment.MiddleLeft,
+                              Optional IconPadding As Integer = 2,
+                              Optional ErrorIcon As Icon = Nothing) As Boolean
 
-        If message.IsNullOrWhiteSpace = True Then
+        If ExpressionResult Then
+            'Clear Error
+            Call provider.ClearError(control)
+        Else
+            'Set Error
+            If provider.GetError(control).Trim <> message Then
+
+                provider.BlinkStyle = ErrorBlinkStyle.NeverBlink
+                If ErrorIcon IsNot Nothing Then provider.Icon = ErrorIcon
+                provider.SetIconAlignment(control, IconAlignment)
+                provider.SetIconPadding(control, IconPadding)
+                provider.SetError(control, message)
+
+                If message.IsNullOrWhiteSpace Then
+                    control.BackColor = clrControlDefaultBackColor
+                Else
+                    Select Case control.GetType
+                        Case GetType(TextBoxEx), GetType(MaskedTextBoxEx), GetType(DateTextBoxEx), GetType(NumericUpDown)
+                            control.BackColor = clrControlErrorBackColor
+                        Case GetType(ComboboxEx)
+                            control.BackColor = clrControlErrorBackColor
+                            Dim cmb As ComboboxEx = DirectCast(control, ComboboxEx)
+                            Dim _defaultStyle = cmb.DropDownStyle
+                            Application.DoEvents()
+                            cmb.DropDownStyle = ComboBoxStyle.DropDown
+                            cmb.FlatStyle = FlatStyle.Flat
+                            cmb.BorderStyle = ButtonBorderStyle.Solid
+                            cmb.DropDownStyle = _defaultStyle
+                        Case Else
+                    End Select
+                End If
+            Else
+                '既に同一コメントが設定されている場合は何もしない(ちらつきの原因になる)
+            End If
+        End If
+
+        Return ExpressionResult
+    End Function
+
+
+    <Obsolete("拡張メソッド.UpdateErrorInfoを使用して下さい 例)ErrorProvider.UpdateErrorInfo(Combobox1,Combobox1.IsSelected,'選択されていません')")>
+    <Extension>
+    Public Sub SetErrorInfo(provider As ErrorProvider, control As Control, message As String, Optional IconAlignment As ErrorIconAlignment = ErrorIconAlignment.MiddleLeft, Optional IconPadding As Integer = 2, Optional ErrorIcon As Icon = Nothing)
+
+        provider.BlinkStyle = ErrorBlinkStyle.NeverBlink
+        If ErrorIcon IsNot Nothing Then provider.Icon = ErrorIcon
+        provider.SetIconAlignment(control, IconAlignment)
+        provider.SetIconPadding(control, IconPadding)
+        provider.SetError(control, message)
+
+        If message.IsNullOrWhiteSpace Then
             control.BackColor = clrControlDefaultBackColor
         Else
             Select Case control.GetType
-                Case GetType(TextBoxEx), GetType(MaskedTextBoxEx), GetType(DateTextBoxEx), GetType(ComboboxEx)
+                Case GetType(TextBoxEx), GetType(MaskedTextBoxEx), GetType(DateTextBoxEx), GetType(NumericUpDown)
                     control.BackColor = clrControlErrorBackColor
+                Case GetType(ComboboxEx)
+                    control.BackColor = clrControlErrorBackColor
+                    Dim cmb As ComboboxEx = DirectCast(control, ComboboxEx)
+                    Dim _defaultStyle = cmb.DropDownStyle
+                    Application.DoEvents()
+                    cmb.DropDownStyle = ComboBoxStyle.DropDown
+                    cmb.FlatStyle = FlatStyle.Flat
+                    cmb.BorderStyle = ButtonBorderStyle.Solid
+                    cmb.DropDownStyle = _defaultStyle
                 Case Else
             End Select
         End If
@@ -384,6 +457,13 @@ Public Module ExtensionMethod
     Public Sub ClearError(ByVal provider As ErrorProvider, ByVal control As Control)
         provider.SetError(control, "")
         control.BackColor = clrControlDefaultBackColor
+
+        Select Case control.GetType
+            Case GetType(ComboboxEx)
+                Application.DoEvents()
+                DirectCast(control, ComboboxEx).FlatStyle = FlatStyle.Standard
+                DirectCast(control, ComboboxEx).BorderStyle = ButtonBorderStyle.None
+        End Select
     End Sub
 
 #End Region

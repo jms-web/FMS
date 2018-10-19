@@ -509,9 +509,6 @@ Public Class FrmM1061
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = (IsValidated AndAlso True)
-
             '部門区分の選択時の処理
             Using DB As ClsDbUtility = DBOpen()
 
@@ -557,46 +554,29 @@ Public Class FrmM1061
             End Using
 
         Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"), ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
+
         End If
+
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"))
     End Sub
     '得意先　入力チェック
     Private Sub CmbTOKUI_ID_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbTOKUI_ID.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "得意先"))
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            IsValidated = (IsValidated AndAlso True)
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "得意先"), ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
     End Sub
     '部品番号　入力チェック
     Private Sub MtxBUHIN_BANGO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxBUHIN_BANGO.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品番号"))
 
-        If mtx.Text.IsNullOrWhiteSpace = False Then
-            ErrorProvider.ClearError(mtx)
-            IsValidated = (IsValidated AndAlso True)
-        Else
-            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品番号"), ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
     End Sub
 
     '部品番号　入力チェック
     Private Sub MtxTANKA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxTANKA.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "単価"))
 
-        If mtx.Text.IsNullOrWhiteSpace = False Then
-            ErrorProvider.ClearError(mtx)
-            IsValidated = (IsValidated AndAlso True)
-        Else
-            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "単価"), ErrorIconAlignment.MiddleLeft)
-            IsValidated = False
-        End If
 
     End Sub
 

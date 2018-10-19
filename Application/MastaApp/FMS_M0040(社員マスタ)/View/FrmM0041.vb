@@ -3,7 +3,7 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class FrmM0041
 
 #Region "変数・定数"
-
+    Private IsValidated As Boolean
 #End Region
 
 #Region "プロパティ"
@@ -455,48 +455,55 @@ Public Class FrmM0041
     Public Function FunCheckInput() As Boolean
 
         Try
+            IsValidated = True
 
             '職番
-            If Me.mtxSYAIN_NO.Text.IsNullOrWhiteSpace Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "職番"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.mtxSYAIN_NO.Focus()
-                Return False
-            End If
+            Call mtxSYAIN_NO_Validating(mtxSYAIN_NO, Nothing)
 
             '社員区分
-            If Me.cmbSYAIN_KB.SelectedValue = 0 Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "社員区分"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.cmbSYAIN_KB.Focus()
-                Return False
-            End If
+            Call cmbSYAIN_KB_Validating(cmbSYAIN_KB, Nothing)
 
             '担当者名
-            If Me.mtxSIMEI.Text.IsNullOrWhiteSpace Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "氏名"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.mtxSIMEI.Focus()
-                Return False
-            End If
+            Call mtxSIMEI_Validating(mtxSIMEI, Nothing)
 
             '担当者名カナ
-            If Me.mtxSIMEI_KANA.Text.IsNullOrWhiteSpace Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireInput, "氏名カナ"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.mtxSIMEI_KANA.Focus()
-                Return False
-            End If
+            Call mtxSIMEI_KANA_Validating(mtxSIMEI_KANA, Nothing)
 
             'パスワード
-            If Me.mtxPASS.Text.IsNullOrWhiteSpace Then
-                MessageBox.Show(String.Format(My.Resources.infoMsgRequireSelect, "パスワード"), My.Resources.infoTitleInputCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Me.mtxPASS.Focus()
-                Return False
-            End If
+            Call mtxPASS_Validating(mtxPASS, Nothing)
 
-            Return True
+
+            Return IsValidated
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         End Try
     End Function
+
+    Private Sub mtxSYAIN_NO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxSYAIN_NO.Validating
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "職番"))
+    End Sub
+
+    Private Sub cmbSYAIN_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbSYAIN_KB.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "社員区分"))
+    End Sub
+
+    Private Sub mtxSIMEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxSIMEI.Validating
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "氏名"))
+    End Sub
+
+    Private Sub mtxSIMEI_KANA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxSIMEI_KANA.Validating
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "氏名カナ"))
+    End Sub
+
+    Private Sub mtxPASS_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxPASS.Validating
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "パスワード"))
+    End Sub
 
 #Region "ローカル関数"
 
@@ -504,6 +511,7 @@ Public Class FrmM0041
 
 
 #End Region
+
 #End Region
 
 End Class

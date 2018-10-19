@@ -4,15 +4,17 @@ Imports System.ComponentModel
 Public Class TextBoxEx
     Inherits TextBox
 
+
     Private _GotForcusedColor As Color 'フォーカス時の背景色
     Private _BackColorDefault As Color  'フォーカス喪失時時の背景色
+
+
 
 #Region "　コンストラクタ　"
     Public Sub New()
         Call InitializeComponent()
 
         'Me.MaxByteLength = 65535
-        Me.MaxByteLength = 100
         Me.SelectAllText = True
         Me.ImeMode = Windows.Forms.ImeMode.Disable
         _watermarkColor = SystemColors.GrayText
@@ -27,7 +29,7 @@ Public Class TextBoxEx
 
 #Region "Undo"
     Protected Sub Ctrl_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
-        If e.KeyCode = Keys.Escape Then
+        If e.KeyCode = Keys.Escape Or ((e.KeyCode = Windows.Forms.Keys.Z) And (e.Modifiers = Keys.Control)) Then
             Dim mtx As TextBoxEx = DirectCast(sender, TextBoxEx)
             If mtx.CanUndo = True Then
                 mtx.Undo()
@@ -43,6 +45,23 @@ Public Class TextBoxEx
             DirectCast(sender, Control).Capture = False
         End If
     End Sub
+#End Region
+
+#Region "ReadOnly"
+
+    Protected Shadows Property [ReadOnly] As Boolean
+        Get
+            Return MyBase.ReadOnly
+        End Get
+        Set(value As Boolean)
+            MyBase.ReadOnly = value
+            SetStyle(ControlStyles.UserMouse, value)
+            SetStyle(ControlStyles.Selectable, value)
+            TabStop = Not value
+            'UpdateStyles()
+            'RecreateHandle()
+        End Set
+    End Property
 #End Region
 
 #Region "　WatermarkTextプロパティ"
@@ -244,7 +263,7 @@ Public Class TextBoxEx
                     End Using
                 End If
 
-                'CHECK:右クリック無効の場合は、コメントアウト解除
+                'CHECK: 右クリック無効の場合は、コメントアウト解除
                 'Case WM_CONTEXTMENU
                 '    Return
         End Select
@@ -371,18 +390,6 @@ Public Class TextBoxEx
     <Bindable(True), Category("Appearance"), DefaultValue(False)>
     Public Property ShowRemaining As Boolean
 
-#Region "ReadOnly"
-    Public Shadows Property [ReadOnly] As Boolean
-        Get
-            Return MyBase.ReadOnly
-        End Get
-        Set(value As Boolean)
-            SetStyle(ControlStyles.UserMouse, value)
-            MyBase.ReadOnly = value
-        End Set
-    End Property
-
-#End Region
 
 #Region "　Change メソッド(Overrides)"
     Protected Overrides Sub OnTextChanged(e As EventArgs)
@@ -433,8 +440,7 @@ Public Class TextBoxEx
         End Get
         Set(ByVal value As System.Drawing.Color)
             MyBase.BackColor = value
-
-            'BackColorDefault = value
+            _BackColorDefault = value
         End Set
     End Property
 #End Region
@@ -467,7 +473,7 @@ Public Class TextBoxEx
 #End Region
 #Region "OnGotFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnGotFocus(ByVal e As EventArgs)
-        If Me.Enabled = False Or Me.ReadOnly = True Then
+        If Me.ReadOnly Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
         Else
             'フォーカス時は背景色変更
@@ -480,7 +486,7 @@ Public Class TextBoxEx
 #Region "OnLostFocus(ByVal e As EventArgs)"
     Protected Overrides Sub OnLostFocus(ByVal e As EventArgs)
 
-        If Me.Enabled = False Or Me.ReadOnly = True Then
+        If Me.ReadOnly Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
         Else
             'フォーカスがないときは背景色＝白設定
@@ -494,7 +500,6 @@ Public Class TextBoxEx
     Protected Overrides Sub OnReadOnlyChanged(e As EventArgs)
         If Me.ReadOnly = True Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
-            _BackColorDefault = clrDisableControlGotFocusedColor
         End If
         MyBase.OnReadOnlyChanged(e)
     End Sub
@@ -502,7 +507,6 @@ Public Class TextBoxEx
     Protected Overrides Sub OnEnabledChanged(e As EventArgs)
         If Me.Enabled = False Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
-            _BackColorDefault = clrDisableControlGotFocusedColor
         End If
 
         MyBase.OnEnabledChanged(e)
@@ -544,4 +548,3 @@ Public Class TextBoxEx
 #End Region
 
 End Class
-

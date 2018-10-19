@@ -414,11 +414,11 @@ Public Class FrmM1071
         End Try
     End Function
 
-    Private Sub C1Button1_Click(sender As Object, e As EventArgs) Handles C1Button1.Click
 
+    Private Sub btnSRCH_Click(sender As Object, e As EventArgs) Handles btnSRCH.Click
         Call FunSRCH(Me.flxDATA, FunGetListData())
-
     End Sub
+
 
     Private Function FunSRCH(flx As C1.Win.C1FlexGrid.C1FlexGrid, dt As DataTable) As Boolean
         Dim intCURROW As Integer
@@ -488,6 +488,8 @@ Public Class FrmM1071
             Return Nothing
         End Try
     End Function
+
+
 
 
 #End Region

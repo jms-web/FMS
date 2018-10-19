@@ -12,6 +12,7 @@ Module mdlU0010
 #End Region
 
 #Region "MAIN"
+
     <STAThread()>
     Public Sub Main()
 
@@ -64,8 +65,8 @@ Module mdlU0010
             'MsgBox(My.Resources.ErrMsgInit, MsgBoxStyle.Critical, My.Application.Info.AssemblyName)
         End Try
     End Sub
-#End Region
 
+#End Region
 
 #Region "ローカル関数"
 
@@ -108,6 +109,8 @@ Module mdlU0010
         sbParam.Append(",'" & ParamModel.KOKYAKU_SAISYU_HANTEI_KB & "'")
         sbParam.Append(",'" & ParamModel.GENIN1 & "'")
         sbParam.Append(",'" & ParamModel.GENIN2 & "'")
+        sbParam.Append(",'" & ParamModel.HASSEI_FROM & "'")
+        sbParam.Append(",'" & ParamModel.HASSEI_TO & "'")
 
         sbSQL.Append($"EXEC dbo.{NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN)} {sbParam.ToString}")
         Using DB As ClsDbUtility = DBOpen()
@@ -131,52 +134,48 @@ Module mdlU0010
         Dim strSubject As String
         Dim intSendCount As Integer
 
-        Try
+        Dim dt As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(New ST02_ParamModel)
 
-            Dim dt As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(New ST02_ParamModel)
+        Using DB As ClsDbUtility = DBOpen()
+            If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                WL.WriteLogDat($"メール送信設定が無効(FALSE)に設定されています")
+                Return 0
+            End If
 
-            Using DB As ClsDbUtility = DBOpen()
-                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
-                    Return 0
-                End If
+            strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
+            intSmtpPort = Val(FunGetCodeMastaValue(DB, "メール設定", "SMTP_PORT"))
+            strUserID = FunGetCodeMastaValue(DB, "メール設定", "SMTP_USER")
+            strPassword = FunGetCodeMastaValue(DB, "メール設定", "SMTP_PASS")
+            strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
 
-                strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
-                intSmtpPort = Val(FunGetCodeMastaValue(DB, "メール設定", "SMTP_PORT"))
-                strUserID = FunGetCodeMastaValue(DB, "メール設定", "SMTP_USER")
-                strPassword = FunGetCodeMastaValue(DB, "メール設定", "SMTP_PASS")
-                strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
-
-                Dim blnErr As Boolean
+            For Each dr As DataRow In dt.Rows
                 Try
-                    DB.BeginTransaction()
+                    If dr.Item("DEL_YMDHNS").ToString.Trim <> "" Then
+                        '削除済みは除外
+                        Continue For
+                    End If
 
-                    For Each dr As DataRow In dt.Rows
-                        If dr.Item("DEL_YMDHNS").ToString.Trim <> "" Then
-                            '削除済みは除外
-                            Continue For
-                        End If
+                    '---申請先担当者のメールアドレス取得
+                    Dim sbSQL As New System.Text.StringBuilder
+                    Dim dsList As New DataSet
+                    sbSQL.Remove(0, sbSQL.Length)
+                    sbSQL.Append("SELECT")
+                    sbSQL.Append(" SIMEI")
+                    sbSQL.Append(" ,MAIL_ADDRESS")
+                    sbSQL.Append(" FROM M004_SYAIN ")
+                    sbSQL.Append(" WHERE SYAIN_ID=" & dr.Item("GEN_TANTO_ID") & "")
+                    dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                    If dsList.Tables(0).Rows.Count > 0 Then
+                        strToAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
+                        strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI").ToString.Trim
+                    Else
+                        WL.WriteLogDat($"【メール送信失敗】担当者ID:{dr.Item("GEN_TANTO_ID")}のメールアドレスが取得できませんでした")
+                        Continue For
+                    End If
 
-                        '---申請先担当者のメールアドレス取得
-                        Dim sbSQL As New System.Text.StringBuilder
-                        Dim dsList As New DataSet
-                        sbSQL.Remove(0, sbSQL.Length)
-                        sbSQL.Append("SELECT")
-                        sbSQL.Append(" SIMEI")
-                        sbSQL.Append(" ,MAIL_ADDRESS")
-                        sbSQL.Append(" FROM M004_SYAIN ")
-                        sbSQL.Append(" WHERE SYAIN_ID=" & dr.Item("GEN_TANTO_ID") & "")
-                        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-                        If dsList.Tables(0).Rows.Count > 0 Then
-                            strToAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
-                            strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI").ToString.Trim
-                        Else
-                            WL.WriteLogDat($"【メール送信失敗】担当者ID:{dr.Item("GEN_TANTO_ID")}のメールアドレスが取得できませんでした")
-                            Continue For
-                        End If
-
-                        Dim strEXEParam As String = $"{dr.Item("GEN_TANTO_ID")},{2},{dr.Item("SYONIN_HOKOKUSYO_ID")},{dr.Item("HOKOKU_NO").ToString.Trim}"
-                        strSubject = $"【不適合品処置依頼】{dr.Item("KISYU_NAME").ToString.Trim}・{dr.Item("BUHIN_BANGO").ToString.Trim}"
-                        Dim strBody As String = <body><![CDATA[
+                    Dim strEXEParam As String = $"{dr.Item("GEN_TANTO_ID")},{2},{dr.Item("SYONIN_HOKOKUSYO_ID")},{dr.Item("HOKOKU_NO").ToString.Trim}"
+                    strSubject = $"【不適合品処置依頼】{dr.Item("KISYU_NAME").ToString.Trim}・{dr.Item("BUHIN_BANGO").ToString.Trim}"
+                    Dim strBody As String = <body><![CDATA[
                             {0} 殿<br />
                             <br />
                                 　不適合製品の処置依頼から【滞留日数】{1}日が経過しています。<br />
@@ -194,13 +193,14 @@ Module mdlU0010
                             返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
                             ]]></body>.Value.Trim
 
-                        'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
+                    'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
 
-                        strBody = String.Format(strBody,
+
+                    strBody = String.Format(strBody,
                         dr.Item("GEN_TANTO_NAME").ToString.Trim,
                         dr.Item("TAIRYU_NISSU").ToString.Trim,
                         dr.Item("HOKOKU_NO").ToString.Trim,
-                        IIf(dr.Item("KISO_YMD").ToString.Trim <> "", DateTime.ParseExact(dr.Item("KISO_YMD"), "yyyyMMdd", Nothing).ToString("yyyy/MM/dd"), ""),
+                        dr.Item("KISO_YMD").ToString,
                         dr.Item("KISYU_NAME").ToString.Trim,
                         dr.Item("BUHIN_BANGO").ToString.Trim,
                         "不適合管理システム",
@@ -208,7 +208,7 @@ Module mdlU0010
                         "FMS_G0010.exe",
                         strEXEParam)
 
-                        blnSend = ClsMailSend.FunSendMail(strSmtpServer,
+                    blnSend = ClsMailSend.FunSendMail(strSmtpServer,
                            intSmtpPort,
                            strFromAddress,
                            strToAddress,
@@ -220,28 +220,24 @@ Module mdlU0010
                            strFromName:="不適合管理システム",
                            isHTML:=True)
 
-                        If blnSend Then
-                            WL.WriteLogDat($"【メール送信成功】TO:{strToSyainName}({strToAddress}) SUBJECT:{strSubject}")
-                            intSendCount += 1
-                        Else
-                            'MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                            WL.WriteLogDat($"【メール送信失敗】送信処理失敗 Subject:{strSubject} To:{strToAddress}")
-                            Continue For
-                        End If
-                        System.Threading.Thread.Sleep(1000)
-                    Next dr
-
-                    Return intSendCount
-                Finally
-                    DB.Commit(Not blnErr)
+                    If blnSend Then
+                        WL.WriteLogDat($"【メール送信成功】TO:{strToSyainName}({strToAddress}) SUBJECT:{strSubject}")
+                        intSendCount += 1
+                    Else
+                        'MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        WL.WriteLogDat($"【メール送信失敗】送信処理失敗 Subject:{strSubject} To:{strToAddress}")
+                        Continue For
+                    End If
+                    System.Threading.Thread.Sleep(1000)
+                Catch ex As Exception
+                    strMsg = $"【メール送信失敗】TO:{strToSyainName}({strToAddress}) SUBJECT:{strSubject}{vbCrLf}{Err.Description}"
+                    WL.WriteLogDat(strMsg)
+                    Continue For
                 End Try
-            End Using
-        Catch ex As Exception
-            strMsg = $"【メール送信失敗】TO:{strToSyainName}({strToAddress}) SUBJECT:{strSubject}{vbCrLf}{Err.Description}"
-            WL.WriteLogDat(strMsg)
-        Finally
+            Next dr
 
-        End Try
+            Return intSendCount
+        End Using
     End Function
 
 #End Region

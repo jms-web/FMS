@@ -14,13 +14,16 @@ Partial Public Class V004_HOKOKU_SOUSA
     Public Property SYONIN_HOKOKUSYO_ID As Integer
 
     <ComponentModel.DisplayName("報告書No")>
-    Public Property HOKOKUSYO_NO As String
+    Public Property HOKOKU_NO As String
 
     <ComponentModel.DisplayName("追加日時")>
     Public Property ADD_YMDHNS As String
 
     <ComponentModel.DisplayName("承認順")>
     Public Property SYONIN_JUN As Integer
+
+    <ComponentModel.DisplayName("ステージ")>
+    Public Property SYONIN_NAIYO As Integer
 
     <ComponentModel.DisplayName("操作区分")>
     Public Property SOUSA_KB As String
@@ -42,6 +45,9 @@ Partial Public Class V004_HOKOKU_SOUSA
 
     <ComponentModel.DisplayName("理由")>
     Public Property RIYU As String
+
+    <ComponentModel.DisplayName("差戻日時")>
+    Public Property SASIMODOSI_YMDHNS As String
 
     <ComponentModel.DisplayName("変更件数")>
     Public Property HENKOU_KENSU As Integer

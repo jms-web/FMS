@@ -7,7 +7,7 @@ Public Class FrmG0015
 
 #Region "変数・定数"
     '入力必須コントロール検証判定
-    Private pri_blnValidated As Boolean
+    Private IsValidated As Boolean
 #End Region
 
 #Region "プロパティ"
@@ -147,20 +147,23 @@ Public Class FrmG0015
                 Dim blnErr As Boolean
 
                 Try
+                    Dim strSysDate As String = DB.GetSysDateString
+
                     '-----トランザクション
                     DB.BeginTransaction()
 
                     '-----UPDATE D004
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.D004_SYONIN_J_KANRI) & " SET")
-                    sbSQL.Append(" " & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID) & "=" & cmbTENSO_SAKI.SelectedValue & "")
-                    sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.RIYU) & "='" & _D004_SYONIN_J_KANRI.RIYU & "'")
-                    sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID) & "=" & pub_SYAIN_INFO.SYAIN_ID & "")
-                    sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG) & "='" & 0 & "'")
-                    sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS) & "=dbo.GetSysDateString()")
-                    sbSQL.Append(" WHERE " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID) & "=" & PrSYONIN_HOKOKUSYO_ID & "")
-                    sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO) & "='" & PrHOKOKU_NO & "'")
-                    sbSQL.Append(" AND " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN) & "=" & PrCurrentStage & "")
+                    sbSQL.Append($"UPDATE {NameOf(MODEL.D004_SYONIN_J_KANRI)} SET")
+                    sbSQL.Append($" {NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}={cmbTENSO_SAKI.SelectedValue}")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.RIYU)}='{_D004_SYONIN_J_KANRI.RIYU}'")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}='{ENM_SYONIN_HANTEI_KB._0_未承認.Value}'")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}='0'")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}='{strSysDate}'")
+                    sbSQL.Append($" WHERE {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={PrSYONIN_HOKOKUSYO_ID}")
+                    sbSQL.Append($" AND {NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}='{PrHOKOKU_NO}'")
+                    sbSQL.Append($" AND {NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)}={PrCurrentStage}")
 
                     '-----SQL実行
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
@@ -194,7 +197,7 @@ Public Class FrmG0015
                     sbSQL.Append(" ) VALUES(")
                     sbSQL.Append("  " & (_R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID))
                     sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.HOKOKU_NO) & "'")
-                    sbSQL.Append(" ,dbo.GetSysDateString()") 'ADD_YMDHNS
+                    sbSQL.Append($" ,'{strSysDate}'") 'ADD_YMDHNS
                     sbSQL.Append(" ," & (_R001_HOKOKU_SOUSA.SYONIN_JUN))
                     sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.SOUSA_KB) & "'")
                     sbSQL.Append(" ," & (_R001_HOKOKU_SOUSA.SYAIN_ID))
@@ -241,7 +244,7 @@ Public Class FrmG0015
                     sbSQL.Append(" ," & (_R002_HOKOKU_TENSO.TENSO_M_SYAIN_ID))
                     sbSQL.Append(" ," & (_R002_HOKOKU_TENSO.TENSO_S_SYAIN_ID))
                     sbSQL.Append(" ,'" & (_R002_HOKOKU_TENSO.RIYU) & "'")
-                    sbSQL.Append(" ,dbo.GetSysDateString()") 'ADD_YMDHNS
+                    sbSQL.Append($" ,'{strSysDate}'") 'ADD_YMDHNS
                     sbSQL.Append(" )")
 
                     '-----SQL実行
@@ -311,39 +314,28 @@ Public Class FrmG0015
     Private Sub CmbMODOSI_SAKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbTENSO_SAKI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        If cmb.IsSelected Then
-            ErrorProvider.ClearError(cmb)
-            pri_blnValidated = pri_blnValidated AndAlso True
-        Else
-            ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送先"))
-            ErrorProvider.SetIconAlignment(cmb, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送先"))
+
+
     End Sub
 
     Private Sub MtxMODOSI_RIYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxTENSO_RIYU.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
-        If mtx.Text.IsNullOrWhiteSpace = True Then
-            'e.Cancel = True
-            ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送理由"))
-            ErrorProvider.SetIconAlignment(mtx, ErrorIconAlignment.MiddleLeft)
-            pri_blnValidated = False
-        Else
-            ErrorProvider.ClearError(mtx)
-            pri_blnValidated = pri_blnValidated AndAlso True
-        End If
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送理由"))
+
+
     End Sub
 #End Region
 
 #Region "入力チェック"
     Public Function FunCheckInput() As Boolean
         Try
-            pri_blnValidated = True
+            IsValidated = True
             Call CmbMODOSI_SAKI_Validating(cmbTENSO_SAKI, Nothing)
             Call MtxMODOSI_RIYU_Validating(mtxTENSO_RIYU, Nothing)
 
-            Return pri_blnValidated
+            Return IsValidated
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False

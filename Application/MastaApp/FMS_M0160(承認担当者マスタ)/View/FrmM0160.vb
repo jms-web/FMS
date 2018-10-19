@@ -583,6 +583,13 @@ Public Class FrmM0160
             Else
                 cmdFunc6.Visible = False
             End If
+            If Not HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+                cmdFunc2.Enabled = False
+                cmdFunc3.Enabled = False
+                cmdFunc4.Enabled = False
+                cmdFunc5.Enabled = False
+                cmdFunc6.Enabled = False
+            End If
 
             Return True
         Catch ex As Exception

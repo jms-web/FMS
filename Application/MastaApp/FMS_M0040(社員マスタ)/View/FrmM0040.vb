@@ -171,7 +171,10 @@ Public Class FrmM0040
 
                 Case 10  'CSV出力
                     Dim strFileName As String = lblTytle.Text & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
-                    Call FunCSV_OUT(Me.flxDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
+
+                    Dim dtWork As DataTable = DirectCast(flxDATA.DataSource, DataTable).Copy
+                    dtWork.Columns.Remove(NameOf(MODEL.M004_SYAIN.PASS))
+                    Call FunCSV_OUT(dtWork, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
 
                 Case 12 '閉じる
@@ -573,7 +576,18 @@ Public Class FrmM0040
         Else
             cmdFunc6.Visible = False
         End If
-
+        If Not HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+            cmdFunc2.Enabled = False
+            cmdFunc3.Enabled = False
+            cmdFunc4.Enabled = False
+            cmdFunc5.Enabled = False
+            cmdFunc6.Enabled = False
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc2, "管理者権限が必要です")
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc3, "管理者権限が必要です")
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "管理者権限が必要です")
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "管理者権限が必要です")
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc6, "管理者権限が必要です")
+        End If
     End Function
 
 #End Region
