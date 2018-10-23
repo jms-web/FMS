@@ -357,7 +357,7 @@ Partial Class FrmG0010
         Me.cmbGEN_TANTO.Name = "cmbGEN_TANTO"
         Me.cmbGEN_TANTO.NullValue = " "
         Me.cmbGEN_TANTO.Size = New System.Drawing.Size(134, 25)
-        Me.cmbGEN_TANTO.TabIndex = 9
+        Me.cmbGEN_TANTO.TabIndex = 11
         Me.cmbGEN_TANTO.ValueMember = "VALUE"
         '
         'Label14
@@ -389,7 +389,7 @@ Partial Class FrmG0010
         Me.cmbADD_TANTO.Name = "cmbADD_TANTO"
         Me.cmbADD_TANTO.NullValue = " "
         Me.cmbADD_TANTO.Size = New System.Drawing.Size(134, 25)
-        Me.cmbADD_TANTO.TabIndex = 2
+        Me.cmbADD_TANTO.TabIndex = 3
         Me.cmbADD_TANTO.ValueMember = "VALUE"
         '
         'Label9
@@ -421,7 +421,7 @@ Partial Class FrmG0010
         Me.cmbKISYU.Name = "cmbKISYU"
         Me.cmbKISYU.NullValue = " "
         Me.cmbKISYU.Size = New System.Drawing.Size(134, 25)
-        Me.cmbKISYU.TabIndex = 3
+        Me.cmbKISYU.TabIndex = 4
         Me.cmbKISYU.ValueMember = "VALUE"
         '
         'Label15
@@ -453,7 +453,7 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_KB.Name = "cmbFUTEKIGO_KB"
         Me.cmbFUTEKIGO_KB.NullValue = " "
         Me.cmbFUTEKIGO_KB.Size = New System.Drawing.Size(134, 25)
-        Me.cmbFUTEKIGO_KB.TabIndex = 12
+        Me.cmbFUTEKIGO_KB.TabIndex = 15
         Me.cmbFUTEKIGO_KB.ValueMember = "VALUE"
         '
         'Label16
@@ -485,7 +485,7 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_S_KB.Name = "cmbFUTEKIGO_S_KB"
         Me.cmbFUTEKIGO_S_KB.NullValue = " "
         Me.cmbFUTEKIGO_S_KB.Size = New System.Drawing.Size(134, 25)
-        Me.cmbFUTEKIGO_S_KB.TabIndex = 13
+        Me.cmbFUTEKIGO_S_KB.TabIndex = 16
         Me.cmbFUTEKIGO_S_KB.ValueMember = "VALUE"
         '
         'Label11
@@ -518,7 +518,7 @@ Partial Class FrmG0010
         Me.cmbBUHIN_BANGO.Name = "cmbBUHIN_BANGO"
         Me.cmbBUHIN_BANGO.NullValue = " "
         Me.cmbBUHIN_BANGO.Size = New System.Drawing.Size(214, 25)
-        Me.cmbBUHIN_BANGO.TabIndex = 4
+        Me.cmbBUHIN_BANGO.TabIndex = 5
         Me.cmbBUHIN_BANGO.ValueMember = "VALUE"
         '
         'Label2
@@ -536,6 +536,7 @@ Partial Class FrmG0010
         '
         Me.mtxHINMEI.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxHINMEI, 15)
+        Me.mtxHINMEI.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxHINMEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxHINMEI.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxHINMEI.InputRequired = False
@@ -551,14 +552,15 @@ Partial Class FrmG0010
         '
         Me.mtxGOKI.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxGOKI, 7)
+        Me.mtxGOKI.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxGOKI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxGOKI.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxGOKI.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxGOKI.InputRequired = False
         Me.mtxGOKI.Location = New System.Drawing.Point(163, 63)
         Me.mtxGOKI.MaxByteLength = 10
         Me.mtxGOKI.Name = "mtxGOKI"
         Me.mtxGOKI.Size = New System.Drawing.Size(134, 23)
-        Me.mtxGOKI.TabIndex = 8
+        Me.mtxGOKI.TabIndex = 7
         Me.mtxGOKI.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxGOKI.WatermarkText = Nothing
         '
@@ -602,7 +604,7 @@ Partial Class FrmG0010
         Me.cmbSYANAI_CD.Name = "cmbSYANAI_CD"
         Me.cmbSYANAI_CD.NullValue = " "
         Me.cmbSYANAI_CD.Size = New System.Drawing.Size(134, 25)
-        Me.cmbSYANAI_CD.TabIndex = 7
+        Me.cmbSYANAI_CD.TabIndex = 8
         Me.cmbSYANAI_CD.ValueMember = "VALUE"
         '
         'mtxHOKUKO_NO
@@ -660,7 +662,7 @@ Partial Class FrmG0010
         Me.cmbBUMON.Name = "cmbBUMON"
         Me.cmbBUMON.NullValue = " "
         Me.cmbBUMON.Size = New System.Drawing.Size(94, 25)
-        Me.cmbBUMON.TabIndex = 0
+        Me.cmbBUMON.TabIndex = 2
         Me.cmbBUMON.ValueMember = "VALUE"
         '
         'btnSECH_BUHIN
@@ -683,7 +685,7 @@ Partial Class FrmG0010
         Me.btnClearSrchFilter.Name = "btnClearSrchFilter"
         Me.tlpFilter.SetRowSpan(Me.btnClearSrchFilter, 2)
         Me.btnClearSrchFilter.Size = New System.Drawing.Size(74, 54)
-        Me.btnClearSrchFilter.TabIndex = 100
+        Me.btnClearSrchFilter.TabIndex = 20
         Me.btnClearSrchFilter.Text = "条件クリア"
         Me.btnClearSrchFilter.UseVisualStyleBackColor = True
         '
@@ -696,7 +698,7 @@ Partial Class FrmG0010
         Me.chkClosedRowVisibled.Location = New System.Drawing.Point(843, 123)
         Me.chkClosedRowVisibled.Name = "chkClosedRowVisibled"
         Me.chkClosedRowVisibled.Size = New System.Drawing.Size(113, 21)
-        Me.chkClosedRowVisibled.TabIndex = 15
+        Me.chkClosedRowVisibled.TabIndex = 18
         Me.chkClosedRowVisibled.Text = "Close済も表示"
         Me.chkClosedRowVisibled.UseVisualStyleBackColor = True
         '
@@ -709,7 +711,7 @@ Partial Class FrmG0010
         Me.chkTairyu.Location = New System.Drawing.Point(983, 123)
         Me.chkTairyu.Name = "chkTairyu"
         Me.chkTairyu.Size = New System.Drawing.Size(102, 21)
-        Me.chkTairyu.TabIndex = 16
+        Me.chkTairyu.TabIndex = 19
         Me.chkTairyu.Text = "滞留のみ表示"
         Me.chkTairyu.UseVisualStyleBackColor = True
         '
@@ -722,7 +724,7 @@ Partial Class FrmG0010
         Me.chkDleteRowVisibled.Location = New System.Drawing.Point(703, 123)
         Me.chkDleteRowVisibled.Name = "chkDleteRowVisibled"
         Me.chkDleteRowVisibled.Size = New System.Drawing.Size(103, 21)
-        Me.chkDleteRowVisibled.TabIndex = 114
+        Me.chkDleteRowVisibled.TabIndex = 17
         Me.chkDleteRowVisibled.Text = "削除済も表示"
         Me.chkDleteRowVisibled.UseVisualStyleBackColor = True
         '
@@ -767,7 +769,7 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_JYOTAI_KB.Name = "cmbFUTEKIGO_JYOTAI_KB"
         Me.cmbFUTEKIGO_JYOTAI_KB.NullValue = " "
         Me.cmbFUTEKIGO_JYOTAI_KB.Size = New System.Drawing.Size(134, 25)
-        Me.cmbFUTEKIGO_JYOTAI_KB.TabIndex = 14
+        Me.cmbFUTEKIGO_JYOTAI_KB.TabIndex = 12
         Me.cmbFUTEKIGO_JYOTAI_KB.ValueMember = "VALUE"
         '
         'Label5
@@ -793,7 +795,7 @@ Partial Class FrmG0010
         Me.dtJisiFrom.Name = "dtJisiFrom"
         Me.dtJisiFrom.ReadOnly = False
         Me.dtJisiFrom.Size = New System.Drawing.Size(98, 24)
-        Me.dtJisiFrom.TabIndex = 10
+        Me.dtJisiFrom.TabIndex = 13
         Me.dtJisiFrom.Value = ""
         Me.dtJisiFrom.ValueNonFormat = ""
         '
@@ -821,7 +823,7 @@ Partial Class FrmG0010
         Me.dtJisiTo.Name = "dtJisiTo"
         Me.dtJisiTo.ReadOnly = False
         Me.dtJisiTo.Size = New System.Drawing.Size(98, 24)
-        Me.dtJisiTo.TabIndex = 11
+        Me.dtJisiTo.TabIndex = 14
         Me.dtJisiTo.Value = ""
         Me.dtJisiTo.ValueNonFormat = ""
         '
@@ -848,7 +850,7 @@ Partial Class FrmG0010
         Me.dtHASSEI_YMD_FROM.Name = "dtHASSEI_YMD_FROM"
         Me.dtHASSEI_YMD_FROM.ReadOnly = False
         Me.dtHASSEI_YMD_FROM.Size = New System.Drawing.Size(98, 24)
-        Me.dtHASSEI_YMD_FROM.TabIndex = 10
+        Me.dtHASSEI_YMD_FROM.TabIndex = 9
         Me.dtHASSEI_YMD_FROM.Value = ""
         Me.dtHASSEI_YMD_FROM.ValueNonFormat = ""
         '
@@ -864,7 +866,7 @@ Partial Class FrmG0010
         Me.dtHASSEI_YMD_TO.Name = "dtHASSEI_YMD_TO"
         Me.dtHASSEI_YMD_TO.ReadOnly = False
         Me.dtHASSEI_YMD_TO.Size = New System.Drawing.Size(98, 24)
-        Me.dtHASSEI_YMD_TO.TabIndex = 11
+        Me.dtHASSEI_YMD_TO.TabIndex = 10
         Me.dtHASSEI_YMD_TO.Value = ""
         Me.dtHASSEI_YMD_TO.ValueNonFormat = ""
         '
@@ -886,7 +888,7 @@ Partial Class FrmG0010
         Me.cmbJIZEN_SINSA_HANTEI_KB.Name = "cmbJIZEN_SINSA_HANTEI_KB"
         Me.cmbJIZEN_SINSA_HANTEI_KB.NullValue = " "
         Me.cmbJIZEN_SINSA_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
-        Me.cmbJIZEN_SINSA_HANTEI_KB.TabIndex = 68
+        Me.cmbJIZEN_SINSA_HANTEI_KB.TabIndex = 21
         Me.cmbJIZEN_SINSA_HANTEI_KB.ValueMember = "VALUE"
         '
         'cmbSAISIN_IINKAI_HANTEI_KB
@@ -907,7 +909,7 @@ Partial Class FrmG0010
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Name = "cmbSAISIN_IINKAI_HANTEI_KB"
         Me.cmbSAISIN_IINKAI_HANTEI_KB.NullValue = " "
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.TabIndex = 77
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.TabIndex = 23
         Me.cmbSAISIN_IINKAI_HANTEI_KB.ValueMember = "VALUE"
         '
         'TableLayoutPanel1
@@ -1042,7 +1044,7 @@ Partial Class FrmG0010
         Me.cmbZESEI_SYOCHI_YOHI_KB.Name = "cmbZESEI_SYOCHI_YOHI_KB"
         Me.cmbZESEI_SYOCHI_YOHI_KB.NullValue = " "
         Me.cmbZESEI_SYOCHI_YOHI_KB.Size = New System.Drawing.Size(94, 25)
-        Me.cmbZESEI_SYOCHI_YOHI_KB.TabIndex = 104
+        Me.cmbZESEI_SYOCHI_YOHI_KB.TabIndex = 22
         Me.cmbZESEI_SYOCHI_YOHI_KB.ValueMember = "VALUE"
         '
         'Label19
@@ -1085,7 +1087,7 @@ Partial Class FrmG0010
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Name = "cmbKOKYAKU_HANTEI_SIJI_KB"
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.NullValue = " "
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Size = New System.Drawing.Size(94, 25)
-        Me.cmbKOKYAKU_HANTEI_SIJI_KB.TabIndex = 106
+        Me.cmbKOKYAKU_HANTEI_SIJI_KB.TabIndex = 24
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.ValueMember = "VALUE"
         '
         'Label12
@@ -1117,7 +1119,7 @@ Partial Class FrmG0010
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Name = "cmbKOKYAKU_SAISYU_HANTEI_KB"
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.NullValue = " "
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
-        Me.cmbKOKYAKU_SAISYU_HANTEI_KB.TabIndex = 70
+        Me.cmbKOKYAKU_SAISYU_HANTEI_KB.TabIndex = 25
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.ValueMember = "VALUE"
         '
         'Label17
@@ -1149,7 +1151,7 @@ Partial Class FrmG0010
         Me.cmbKENSA_KEKKA_KB.Name = "cmbKENSA_KEKKA_KB"
         Me.cmbKENSA_KEKKA_KB.NullValue = " "
         Me.cmbKENSA_KEKKA_KB.Size = New System.Drawing.Size(94, 25)
-        Me.cmbKENSA_KEKKA_KB.TabIndex = 78
+        Me.cmbKENSA_KEKKA_KB.TabIndex = 26
         Me.cmbKENSA_KEKKA_KB.ValueMember = "VALUE"
         '
         'TableLayoutPanel2
@@ -1366,7 +1368,7 @@ Partial Class FrmG0010
         Me.cmbYOIN1.Name = "cmbYOIN1"
         Me.cmbYOIN1.NullValue = " "
         Me.cmbYOIN1.Size = New System.Drawing.Size(194, 25)
-        Me.cmbYOIN1.TabIndex = 0
+        Me.cmbYOIN1.TabIndex = 28
         Me.cmbYOIN1.ValueMember = "VALUE"
         '
         'cmbYOIN2
@@ -1388,7 +1390,7 @@ Partial Class FrmG0010
         Me.cmbYOIN2.Name = "cmbYOIN2"
         Me.cmbYOIN2.NullValue = " "
         Me.cmbYOIN2.Size = New System.Drawing.Size(194, 25)
-        Me.cmbYOIN2.TabIndex = 103
+        Me.cmbYOIN2.TabIndex = 29
         Me.cmbYOIN2.ValueMember = "VALUE"
         '
         'cmbKISEKI_KOTEI_KB
@@ -1410,7 +1412,7 @@ Partial Class FrmG0010
         Me.cmbKISEKI_KOTEI_KB.Name = "cmbKISEKI_KOTEI_KB"
         Me.cmbKISEKI_KOTEI_KB.NullValue = " "
         Me.cmbKISEKI_KOTEI_KB.Size = New System.Drawing.Size(194, 25)
-        Me.cmbKISEKI_KOTEI_KB.TabIndex = 106
+        Me.cmbKISEKI_KOTEI_KB.TabIndex = 30
         Me.cmbKISEKI_KOTEI_KB.ValueMember = "VALUE"
         '
         'mtxGENIN1_DISP
@@ -1535,7 +1537,7 @@ Partial Class FrmG0010
         Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
         Me.PanelEx1.Name = "PanelEx1"
         Me.PanelEx1.Size = New System.Drawing.Size(1233, 502)
-        Me.PanelEx1.TabIndex = 66
+        Me.PanelEx1.TabIndex = 0
         '
         'GroupBox2
         '
@@ -1556,7 +1558,7 @@ Partial Class FrmG0010
         Me.dgvNCR.Name = "dgvNCR"
         Me.dgvNCR.RowTemplate.Height = 21
         Me.dgvNCR.Size = New System.Drawing.Size(457, 497)
-        Me.dgvNCR.TabIndex = 65
+        Me.dgvNCR.TabIndex = 27
         '
         'GroupBox1
         '
@@ -1565,7 +1567,7 @@ Partial Class FrmG0010
         Me.GroupBox1.Location = New System.Drawing.Point(6, 3)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(1209, 177)
-        Me.GroupBox1.TabIndex = 64
+        Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "共通検索条件"
         '
@@ -1588,7 +1590,7 @@ Partial Class FrmG0010
         Me.dgvCAR.Name = "dgvCAR"
         Me.dgvCAR.RowTemplate.Height = 21
         Me.dgvCAR.Size = New System.Drawing.Size(457, 434)
-        Me.dgvCAR.TabIndex = 66
+        Me.dgvCAR.TabIndex = 31
         '
         'mpnlDataGrid
         '

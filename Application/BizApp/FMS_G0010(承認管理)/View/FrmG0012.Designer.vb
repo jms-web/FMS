@@ -804,6 +804,7 @@ Partial Class FrmG0012
         Me.pnlST05.Name = "pnlST05"
         Me.pnlST05.Size = New System.Drawing.Size(302, 34)
         Me.pnlST05.TabIndex = 317
+        Me.pnlST05.Visible = False
         '
         'Label21
         '
@@ -1163,7 +1164,7 @@ Partial Class FrmG0012
         '
         Me.mtxKAITO_18.BackColor = System.Drawing.SystemColors.Control
         Me.mtxKAITO_18.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxKAITO_18.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxKAITO_18.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxKAITO_18.InputRequired = False
         Me.mtxKAITO_18.Location = New System.Drawing.Point(112, 893)
         Me.mtxKAITO_18.MaxByteLength = 300
@@ -1369,7 +1370,7 @@ Partial Class FrmG0012
         '
         Me.mtxKAITO_6.BackColor = System.Drawing.SystemColors.Window
         Me.mtxKAITO_6.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxKAITO_6.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxKAITO_6.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxKAITO_6.InputRequired = False
         Me.mtxKAITO_6.Location = New System.Drawing.Point(113, 561)
         Me.mtxKAITO_6.MaxByteLength = 300
@@ -1555,7 +1556,7 @@ Partial Class FrmG0012
         '
         Me.mtxKAITO_11.BackColor = System.Drawing.SystemColors.Window
         Me.mtxKAITO_11.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.mtxKAITO_11.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxKAITO_11.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxKAITO_11.InputRequired = False
         Me.mtxKAITO_11.Location = New System.Drawing.Point(113, 767)
         Me.mtxKAITO_11.MaxByteLength = 300

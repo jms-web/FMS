@@ -517,8 +517,6 @@ Public Class FrmG0012
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KISEKI_KOTEI_KB)} = WK.{NameOf(_D005_CAR_J.KISEKI_KOTEI_KB)}")
 
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD)} = WK.{NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD)}")
-
-
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.ADD_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.ADD_SYAIN_ID)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.ADD_YMDHNS)} = WK.{NameOf(_D005_CAR_J.ADD_YMDHNS)}")
 
@@ -806,7 +804,7 @@ Public Class FrmG0012
         sbSQL.Append($" , {_D004_SYONIN_J_KANRI.ADD_SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}")
         sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.ADD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS)}")
         sbSQL.Append($" , {pub_SYAIN_INFO.SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.UPD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}")
+        sbSQL.Append($" ,'{strSysDate}' AS {NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}")
         sbSQL.Append($" ) AS WK")
         sbSQL.Append($" ON (SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
         sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)} = WK.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
@@ -1925,7 +1923,7 @@ Public Class FrmG0012
 
 #End Region
 
-#Region "   1.NCR"
+#Region "   1.CAR"
     Private Sub RbtnKAITO_14_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnKAITO_14_T.CheckedChanged, rbtnKAITO_14_F.CheckedChanged
 
         Dim result As Boolean = rbtnKAITO_14_F.Checked
@@ -2662,11 +2660,6 @@ Public Class FrmG0012
             mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO)
 
 
-            If PrDataRow.Item("SYONIN_YMDHNS").ToString.IsNullOrWhiteSpace Then
-                dtUPD_YMD.Text = Now.ToString("yyyy/MM/dd")
-            Else
-                dtUPD_YMD.ValueNonFormat = CDate(PrDataRow.Item("SYONIN_YMDHNS")).ToString("yyyyMMdd")
-            End If
 
             mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
 
@@ -2767,6 +2760,13 @@ Public Class FrmG0012
                     '“]‘—Žž
                     lbl_Modoshi_Riyu.Text = "“]‘———RF" & _V003.RIYU
                 End If
+
+                Dim dtSYONIN_YMD As Date
+                If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
+                    dtUPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+                Else
+                    dtUPD_YMD.Text = Now.ToString("yyyy/MM/dd")
+                End If
             End If
 
             Call RbtnKAITO_14_CheckedChanged(rbtnKAITO_14_F, Nothing)
@@ -2819,7 +2819,7 @@ Public Class FrmG0012
         Try
             Dim sbSQL As New System.Text.StringBuilder
             Dim dsList As New DataSet
-
+            Dim InList As New List(Of Integer)
             _V002_NCR_J.Clear()
             _V002_NCR_J = FunGetV002Model(PrHOKOKU_NO)
 
@@ -2831,23 +2831,38 @@ Public Class FrmG0012
             'ƒf[ƒ^ƒ\[ƒXÝ’è
             Dim dt As DataTable = FunGetSYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB)
             Dim drs As IEnumerable(Of DataRow)
-            drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+
+            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._2_»‘¢.Value, ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
             If drs.Count > 0 Then cmbKONPON_YOIN_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+
+            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._2_»‘¢.Value, ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
             If drs.Count > 0 Then cmbKAITO_5.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+
+            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._2_»‘¢.Value, ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
             If drs.Count > 0 Then cmbKAITO_10.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+
+            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._2_»‘¢.Value, ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
             If drs.Count > 0 Then cmbKAITO_17.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+
+            drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Boolean)("IS_LEADER") = True)
             If drs.Count > 0 Then cmbSYOCHI_A_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-            drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+
+            drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Boolean)("IS_LEADER") = True)
             If drs.Count > 0 Then cmbSYOCHI_B_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-            drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+
+            drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Boolean)("IS_LEADER") = True)
             If drs.Count > 0 Then cmbSYOCHI_C_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-            drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+
+            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value})
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
             If drs.Count > 0 Then cmbKENSA_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+
+            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value})
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))) And r.Field(Of Boolean)("IS_LEADER") = True)
             If drs.Count > 0 Then cmbKENSA_GL_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))

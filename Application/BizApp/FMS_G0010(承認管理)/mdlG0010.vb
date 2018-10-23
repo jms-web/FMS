@@ -265,15 +265,11 @@ Module mdlG0010
     ''' ã∆ñ±ÉOÉãÅ[Év
     ''' </summary>
     Public Enum ENM_GYOMU_GROUP_ID
-        _1_ = 1
-        _2_ = 2
-        _3_ = 3
-        _4_ = 4
-        _5_ = 5
-        _6_ = 6
-        _7_ = 7
-        _8_ = 8
-        _9_ = 9
+        _1_ãZèp = 1
+        _2_êªë¢ = 2
+        _3_åüç∏ = 3
+        _4_ïièÿ = 4
+        _5_ÇªÇÃëº_âº = 5
     End Enum
 
 #End Region
@@ -923,14 +919,16 @@ Module mdlG0010
         If BUSYO_ID > 0 Then
             sbSQL.Append(" AND BUSYO_ID=" & BUSYO_ID & "")
         End If
-        sbSQL.Append(" ORDER BY SYAIN_ID")
+        sbSQL.Append(" ORDER BY SYAIN_ID, IS_LEADER DESC")
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, False)
         End Using
 
         Dim dt As DataTableEx = New DataTableEx("System.Int32")
+        dt.Columns.Add("BUMON_KB", GetType(String))
         dt.Columns.Add("BUSYO_ID", GetType(Integer))
         dt.Columns.Add("GYOMU_GROUP_ID", GetType(Integer))
+        dt.Columns.Add("IS_LEADER", GetType(Boolean))
 
 
         dt.PrimaryKey = {dt.Columns("VALUE")} ', dt.Columns("SYONIN_JUN"), dt.Columns("SYONIN_HOKOKUSYO_ID")
@@ -940,8 +938,10 @@ Module mdlG0010
             If Not dt.Rows.Contains(row.Item("SYAIN_ID")) Then
                 Trow("VALUE") = row.Item("SYAIN_ID")
                 Trow("DISP") = row.Item("SIMEI")
+                Trow("BUMON_KB") = row.Item("BUMON_KB")
                 Trow("BUSYO_ID") = row.Item("BUSYO_ID")
                 Trow("GYOMU_GROUP_ID") = row.Item("GYOMU_GROUP_ID")
+                Trow("IS_LEADER") = CBool(row.Item("IS_LEADER").ToString.ToVal)
                 dt.Rows.Add(Trow)
             End If
         Next row

@@ -19,6 +19,7 @@ Partial Class FrmM00101
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmM00101))
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
@@ -31,7 +32,7 @@ Partial Class FrmM00101
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cmbBUMON_KB = New JMS_COMMON.ComboboxEx()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.TV05FUTEKIGOCODEBindingSource = New System.Windows.Forms.BindingSource()
+        Me.TV05FUTEKIGOCODEBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
@@ -130,18 +131,18 @@ Partial Class FrmM00101
         Me.cmbKOMO_NM.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbKOMO_NM.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbKOMO_NM.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKOMO_NM.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbKOMO_NM.DisplayMember = "DISP"
         Me.cmbKOMO_NM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbKOMO_NM.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKOMO_NM.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKOMO_NM.FormattingEnabled = True
-        Me.cmbKOMO_NM.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKOMO_NM.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbKOMO_NM.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKOMO_NM.IsSelected = False
         Me.cmbKOMO_NM.Location = New System.Drawing.Point(293, 3)
         Me.cmbKOMO_NM.Name = "cmbKOMO_NM"
         Me.cmbKOMO_NM.NullValue = " "
-        Me.cmbKOMO_NM.ReadOnly = False
         Me.cmbKOMO_NM.Size = New System.Drawing.Size(244, 25)
         Me.cmbKOMO_NM.TabIndex = 0
         Me.cmbKOMO_NM.ValueMember = "VALUE"
@@ -224,18 +225,18 @@ Partial Class FrmM00101
         Me.cmbBUMON_KB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbBUMON_KB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbBUMON_KB.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbBUMON_KB.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbBUMON_KB.DisplayMember = "DISP"
         Me.cmbBUMON_KB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbBUMON_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbBUMON_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUMON_KB.FormattingEnabled = True
-        Me.cmbBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbBUMON_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Location = New System.Drawing.Point(83, 3)
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
-        Me.cmbBUMON_KB.ReadOnly = False
         Me.cmbBUMON_KB.Size = New System.Drawing.Size(113, 25)
         Me.cmbBUMON_KB.TabIndex = 57
         Me.cmbBUMON_KB.ValueMember = "VALUE"

@@ -1648,6 +1648,7 @@ Public Class FrmG0011
         _D005_CAR_J.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
         _D005_CAR_J.BUMON_KB = _D003_NCR_J.BUMON_KB
         _D005_CAR_J._CLOSE_FG = "0"
+        _D005_CAR_J.FUTEKIGO_HASSEI_YMD = _D003_NCR_J.HASSEI_YMD
 
         '-----INSERT
         sbSQL.Remove(0, sbSQL.Length)
@@ -1731,6 +1732,7 @@ Public Class FrmG0011
         sbSQL.Append($" ,'{_D005_CAR_J.FILE_PATH1}' AS {NameOf(_D005_CAR_J.FILE_PATH1)}")
         sbSQL.Append($" ,'{_D005_CAR_J.FILE_PATH2}' AS {NameOf(_D005_CAR_J.FILE_PATH2)}")
         sbSQL.Append($" ,'{_D005_CAR_J.FUTEKIGO_HASSEI_YMD}' AS {NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD)}")
+        sbSQL.Append($" ,'{_D005_CAR_J.SYOCHI_YOTEI_YMD}' AS {NameOf(_D005_CAR_J.SYOCHI_YOTEI_YMD)}")
 
         sbSQL.Append($" ,{_D005_CAR_J.ADD_SYAIN_ID} AS {NameOf(_D005_CAR_J.ADD_SYAIN_ID)}")
         sbSQL.Append($" ,'{_D005_CAR_J.ADD_YMDHNS}' AS {NameOf(_D005_CAR_J.ADD_YMDHNS)}")
@@ -1814,6 +1816,7 @@ Public Class FrmG0011
         sbSQL.Append($" , SrcT.{NameOf(_D005_CAR_J.FILE_PATH1)} = WK.{NameOf(_D005_CAR_J.FILE_PATH1)}")
         sbSQL.Append($" , SrcT.{NameOf(_D005_CAR_J.FILE_PATH2)} = WK.{NameOf(_D005_CAR_J.FILE_PATH2)}")
         sbSQL.Append($" , SrcT.{NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD)} = WK.{NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD)}")
+        sbSQL.Append($" , SrcT.{NameOf(_D005_CAR_J.SYOCHI_YOTEI_YMD)} = WK.{NameOf(_D005_CAR_J.SYOCHI_YOTEI_YMD)}")
 
         sbSQL.Append($" , SrcT.{NameOf(_D005_CAR_J.UPD_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.UPD_SYAIN_ID)}")
         sbSQL.Append($" , SrcT.{NameOf(_D005_CAR_J.UPD_YMDHNS)} = WK.{NameOf(_D005_CAR_J.UPD_YMDHNS)}")
@@ -1903,6 +1906,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.FILE_PATH1))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.FILE_PATH2))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD))
+        sbSQL.Append(" ," & NameOf(_D005_CAR_J.SYOCHI_YOTEI_YMD))
         sbSQL.Append(" ) VALUES(")
         sbSQL.Append(" '" & _D005_CAR_J.HOKOKU_NO & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.BUMON_KB & "'")
@@ -1985,6 +1989,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH1 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH2 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.FUTEKIGO_HASSEI_YMD & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SYOCHI_YOTEI_YMD & "'")
         sbSQL.Append(")")
         sbSQL.Append("OUTPUT $action AS RESULT")
         sbSQL.Append(";")
@@ -3262,6 +3267,7 @@ Public Class FrmG0011
         Dim dt As New DataTable
         Dim drs As IEnumerable(Of DataRow)
         Dim _V003 As New MODEL.V003_SYONIN_J_KANRI
+        Dim InList As New List(Of Integer)
         Try
 
 #Region "               10"
@@ -3731,7 +3737,10 @@ Public Class FrmG0011
 
                     'ïîñÂèäëÆé–àıéÊìæ
                     dt = FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
-                    drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+                    InList.Clear()
+                    InList.AddRange({ENM_GYOMU_GROUP_ID._3_åüç∏.Value, ENM_GYOMU_GROUP_ID._4_ïièÿ.Value})
+                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+
                     If drs.Count > 0 Then cmbST07_SAISIN_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     cmbST07_KOKYAKU_HANTEI_SIJI.SetDataSource(tblKOKYAKU_HANTEI_SIJI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -3826,19 +3835,29 @@ Public Class FrmG0011
                     'ïîñÂèäëÆé–àıéÊìæ
                     dt = FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
 
-                    drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+                    'îpãpé¿é{é“
+                    InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._3_åüç∏.Value, ENM_GYOMU_GROUP_ID._4_ïièÿ.Value})
+                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
                     If drs.Count > 0 Then cmbST08_1_HAIKYAKU_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                    drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
-                    If drs.Count > 0 Then cmbST08_2_TANTO_SEIZO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-
-                    drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+                    'çƒâ¡çH/ê∂ãZíSìñ
+                    InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_ãZèp.Value})
+                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
                     If drs.Count > 0 Then cmbST08_2_TANTO_SEIGI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
-                    drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+                    'çƒâ¡çH/êªë¢íSìñ
+                    InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._2_êªë¢.Value})
+                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+                    If drs.Count > 0 Then cmbST08_2_TANTO_SEIZO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
+                    'çƒâ¡çH/åüç∏íSìñ
+                    InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._3_åüç∏.Value})
+                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
                     If drs.Count > 0 Then cmbST08_2_TANTO_KENSA.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
-                    drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._1_.Value)
+                    'çƒâ¡çH/ï‘ãpé¿é{é“
+                    InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_ãZèp.Value, ENM_GYOMU_GROUP_ID._2_êªë¢.Value, ENM_GYOMU_GROUP_ID._3_åüç∏.Value, ENM_GYOMU_GROUP_ID._4_ïièÿ.Value})
+                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
                     If drs.Count > 0 Then cmbST08_3_HENKYAKU_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     drs = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = _D003_NCR_J.BUMON_KB).ToList
@@ -4551,6 +4570,7 @@ Public Class FrmG0011
         AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
         cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
+        'ïsìKçáãÊï™
         Dim dtx As DataTableEx = FunGetFUTEKIGO_KB(cmb.SelectedValue)
         cmbFUTEKIGO_KB.SetDataSource(dtx.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
@@ -4569,14 +4589,13 @@ Public Class FrmG0011
 
     Private Sub CmbKISYU_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKISYU.SelectedValueChanged
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
 
         cmbSYANAI_CD.ValueMember = "VALUE"
         cmbSYANAI_CD.DisplayMember = "DISP"
 
         'ïîïiî‘çÜ
         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
-        If blnSelected Then
+        If cmb.IsSelected Then
             Dim drs = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue).ToList
             If drs.Count > 0 Then
                 Dim dt As DataTable = drs.CopyToDataTable
@@ -4602,7 +4621,7 @@ Public Class FrmG0011
 
         'é–ì‡ÉRÅ[Éh
         RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-        If blnSelected Then
+        If cmb.IsSelected Then
             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
                 Dim drs = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue).ToList
                 If drs.Count > 0 Then
@@ -4743,7 +4762,7 @@ Public Class FrmG0011
         End If
         AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
 
-        'íäèo
+        'íäèo îªíË
         If blnSelected Then
             Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbBUHIN_BANGO.SelectedValue).FirstOrDefault
             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
@@ -4829,10 +4848,10 @@ Public Class FrmG0011
         cmbFUTEKIGO_S_KB.DataBindings.Clear()
         RemoveHandler cmbFUTEKIGO_S_KB.Validated, AddressOf cmbFUTEKIGO_S_KB_Validated
         If cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace Then
-            Dim dt As New DataTableEx
-            Using DB As ClsDbUtility = DBOpen()
-                FunGetCodeDataTable(DB, "ïsìKçá" & cmb.Text.Replace("ÅE", "") & "ãÊï™", dt)
-            End Using
+            Dim dt As DataTableEx = FunGetFUTEKIGO_S_KB(cmbBUMON.SelectedValue, cmb.SelectedValue)
+            'Using DB As ClsDbUtility = DBOpen()
+            '    FunGetCodeDataTable(DB, "ïsìKçá" & cmb.Text.Replace("ÅE", "") & "ãÊï™", dt)
+            'End Using
             cmbFUTEKIGO_S_KB.ValueMember = "VALUE"
             cmbFUTEKIGO_S_KB.DisplayMember = "DISP"
             cmbFUTEKIGO_S_KB.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)

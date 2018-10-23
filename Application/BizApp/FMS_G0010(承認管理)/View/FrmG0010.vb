@@ -2010,7 +2010,7 @@ Public Class FrmG0010
 
         '部品番号
         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
-        If blnSelected Then
+        If cmb.IsSelected Then
             Dim drs = tblBUHIN_J.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue)
             If drs.Count > 0 Then
                 Dim dt As DataTable = drs.CopyToDataTable
@@ -2152,6 +2152,21 @@ Public Class FrmG0010
         AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
     End Sub
 
+#End Region
+
+#Region "不適合区分"
+    Private Sub CmbFUTEKIGO_KB_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbFUTEKIGO_KB.SelectedValueChanged
+
+        If cmbFUTEKIGO_KB.IsSelected Then
+            Dim dt As DataTableEx = FunGetFUTEKIGO_S_KB(cmbBUMON.SelectedValue, cmbFUTEKIGO_KB.SelectedValue)
+            'Using DB As ClsDbUtility = DBOpen()
+            '    FunGetCodeDataTable(DB, $"不適合{cmbFUTEKIGO_KB.Text.Replace("・", "")}区分", dt)
+            'End Using
+            cmbFUTEKIGO_S_KB.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+        Else
+            cmbFUTEKIGO_S_KB.DataSource = Nothing
+        End If
+    End Sub
 #End Region
 
 #End Region
@@ -2318,19 +2333,7 @@ Public Class FrmG0010
         End Try
     End Sub
 
-    '不適合区分
-    Private Sub CmbFUTEKIGO_KB_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbFUTEKIGO_KB.SelectedValueChanged
 
-        If cmbFUTEKIGO_KB.IsSelected Then
-            Dim dt As DataTableEx = FunGetFUTEKIGO_S_KB(cmbBUMON.SelectedValue, cmbFUTEKIGO_KB.SelectedValue)
-            'Using DB As ClsDbUtility = DBOpen()
-            '    FunGetCodeDataTable(DB, $"不適合{cmbFUTEKIGO_KB.Text.Replace("・", "")}区分", dt)
-            'End Using
-            cmbFUTEKIGO_S_KB.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-        Else
-            cmbFUTEKIGO_S_KB.DataSource = Nothing
-        End If
-    End Sub
 
 #End Region
 
@@ -2338,6 +2341,7 @@ Public Class FrmG0010
 
 #Region "ローカル関数"
 
+#Region "バインディング"
     Private Function FunSetBinding() As Boolean
 
         '共通
@@ -2375,6 +2379,8 @@ Public Class FrmG0010
         cmbKISEKI_KOTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKISEKI_KOTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.KISEKI_KOTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
     End Function
+
+#End Region
 
     Public Function FunGetDtST02_FUTEKIGO_ICHIRAN(ByVal ParamModel As ST02_ParamModel) As DataTable
 

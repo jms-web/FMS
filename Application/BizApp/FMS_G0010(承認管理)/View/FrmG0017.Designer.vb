@@ -596,6 +596,7 @@ Partial Class FrmG0017
         '
         'dtDraft
         '
+        Me.dtDraft.BackColor = System.Drawing.SystemColors.Control
         Me.dtDraft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tlpFilter.SetColumnSpan(Me.dtDraft, 5)
         Me.dtDraft.Cursor = System.Windows.Forms.Cursors.Default
@@ -608,6 +609,7 @@ Partial Class FrmG0017
         Me.dtDraft.ReadOnly = True
         Me.dtDraft.Size = New System.Drawing.Size(98, 24)
         Me.dtDraft.TabIndex = 3
+        Me.dtDraft.TabStop = False
         Me.dtDraft.Value = ""
         Me.dtDraft.ValueNonFormat = ""
         '

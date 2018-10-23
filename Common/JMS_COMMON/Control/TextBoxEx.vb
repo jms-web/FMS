@@ -15,7 +15,7 @@ Public Class TextBoxEx
         Call InitializeComponent()
 
         'Me.MaxByteLength = 65535
-        Me.SelectAllText = True
+        Me.SelectAllText = False
         Me.ImeMode = Windows.Forms.ImeMode.Disable
         _watermarkColor = SystemColors.GrayText
 
@@ -58,6 +58,7 @@ Public Class TextBoxEx
             SetStyle(ControlStyles.UserMouse, value)
             SetStyle(ControlStyles.Selectable, value)
             TabStop = Not value
+            SelectAllText = Not value
             'UpdateStyles()
             'RecreateHandle()
         End Set

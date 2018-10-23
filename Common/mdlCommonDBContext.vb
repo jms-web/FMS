@@ -92,6 +92,15 @@ Namespace Context
             _2_»•i = 2
             _3_Á–Õ•i–è‹ï = 3
         End Enum
+
+        ''' <summary>
+        ''' Š‘®’·”»’è‹æ•ª
+        ''' </summary>
+        Public Enum ENM_SYOZOKUCYO_KB
+            _0_ˆê”Ê = 0
+            _1_Š‘®’· = 1
+        End Enum
+
 #End Region
 
 #Region "‹¤’Ê"

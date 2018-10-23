@@ -22,7 +22,7 @@ Public Class MaskedTextBoxEx
         Call InitializeComponent()
 
         'Me.MaxByteLength = 65535
-        Me.SelectAllText = True
+        Me.SelectAllText = False
         Me.ImeMode = Windows.Forms.ImeMode.Disable
         _watermarkColor = SystemColors.GrayText
 
@@ -42,6 +42,7 @@ Public Class MaskedTextBoxEx
         Set(value As Boolean)
             MyBase.ReadOnly = value
             TabStop = Not value
+            SelectAllText = Not value
             SetStyle(ControlStyles.UserMouse, value)
             SetStyle(ControlStyles.Selectable, value)
             'UpdateStyles()
