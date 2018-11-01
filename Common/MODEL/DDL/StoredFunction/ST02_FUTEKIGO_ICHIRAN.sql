@@ -286,7 +286,7 @@ BEGIN TRY
 	--ïÒçêèëNo
 	IF RTRIM(LTRIM(@HOKOKU_NO)) <> ''
 	BEGIN
-		SET @SQL = @SQL + N' AND HOKOKU_NO =''' + RTRIM(LTRIM(@HOKOKU_NO)) + ''' ';
+		SET @SQL = @SQL + N' AND HOKOKU_NO LIKE ''%' + RTRIM(LTRIM(@HOKOKU_NO)) + '%'' ';
 	END
 
 	--ãNëêíSìñé“ID
@@ -603,7 +603,6 @@ BEGIN CATCH
  EXECUTE [loopback].[FMS].[dbo].spERRLOG ' ', 'ST02_FUTEKIGO_ICHIRAN',  @ErrorMessage
  RETURN -1
 END CATCH
-
 
 
 

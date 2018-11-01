@@ -8,7 +8,7 @@ Imports System.Runtime.InteropServices
 
 ' アセンブリ属性の値を確認します。
 
-<Assembly: AssemblyTitle("FMS_M1010")>
+<Assembly: AssemblyTitle("FMS_M0030")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("JMS")>
 <Assembly: AssemblyProduct("FMS")>
@@ -18,7 +18,7 @@ Imports System.Runtime.InteropServices
 <Assembly: ComVisible(False)>
 
 'このプロジェクトが COM に公開される場合、次の GUID がタイプ ライブラリの ID になります。
-<Assembly: Guid("3353C31F-6156-4A5B-924D-29F0217D1010")>
+<Assembly: Guid("3353C31F-6156-4A5B-924D-29F0217D0030")>
 
 ' アセンブリのバージョン情報は、以下の 4 つの値で構成されています:
 '

@@ -445,14 +445,13 @@ Partial Class FrmM1011
         Me.cmbTORI_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbTORI_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbTORI_KB.FormattingEnabled = True
-        Me.cmbTORI_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbTORI_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbTORI_KB.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cmbTORI_KB.IsSelected = False
         Me.cmbTORI_KB.Location = New System.Drawing.Point(113, 73)
         Me.cmbTORI_KB.MaxLength = 30
         Me.cmbTORI_KB.Name = "cmbTORI_KB"
         Me.cmbTORI_KB.NullValue = " "
-        Me.cmbTORI_KB.ReadOnly = False
-        Me.cmbTORI_KB.IsSelected = False
         Me.cmbTORI_KB.Size = New System.Drawing.Size(135, 25)
         Me.cmbTORI_KB.TabIndex = 1
         Me.cmbTORI_KB.ValueMember = "VALUE"

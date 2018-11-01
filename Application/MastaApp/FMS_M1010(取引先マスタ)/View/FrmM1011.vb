@@ -145,11 +145,11 @@ Public Class FrmM1011
 
                     _M101.POST = _M101.POST.ToString.Replace("〒", "")
 
-                    'Select Case PrMODE
-                    '    Case ENM_DATA_OPERATION_MODE._1_ADD, ENM_DATA_OPERATION_MODE._2_ADDREF
-                    '        _M02.TORI_ID = FunGetNextTORI_ID()
-                    '    Case Else
-                    'End Select
+                    Select Case PrMODE
+                        Case ENM_DATA_OPERATION_MODE._1_ADD, ENM_DATA_OPERATION_MODE._2_ADDREF
+                            _M101.TORI_ID = FunGetNextTORI_ID()
+                        Case Else
+                    End Select
 
                     '-----MERGE
                     sbSQL.Remove(0, sbSQL.Length)
@@ -180,11 +180,9 @@ Public Class FrmM1011
                     sbSQL.Append($" ON (TARGET.{NameOf(_M101.TORI_ID)} = WK.{NameOf(_M101.TORI_ID)})")
 
                     '---UPDATE 排他制御 更新日時が変更されていない場合のみ
-                    sbSQL.Append($" WHEN MATCHED AND TARGET.{NameOf(_M101.UPD_YMDHNS)} = WK.{NameOf(_M101.UPD_YMDHNS)} THEN ")
+                    sbSQL.Append($" WHEN MATCHED AND TARGET.{NameOf(_M101.UPD_YMDHNS)} = WK.{NameOf(_M101.UPD_YMDHNS)} THEN")
                     sbSQL.Append($" UPDATE SET")
                     sbSQL.Append($" TARGET.{NameOf(_M101.TORI_NAME)} = WK.{NameOf(_M101.TORI_NAME)}")
-
-                    'UNDONE: キー項目と追加削除担当者・日時を除くフィールドを追加
                     sbSQL.Append($" ,TARGET.{NameOf(_M101.TORI_KB)} = WK.{NameOf(_M101.TORI_KB)}")
                     sbSQL.Append($" ,TARGET.{NameOf(_M101.POST)} = WK.{NameOf(_M101.POST)}")
                     sbSQL.Append($" ,TARGET.{NameOf(_M101.ADD1)} = WK.{NameOf(_M101.ADD1)}")
@@ -197,7 +195,7 @@ Public Class FrmM1011
                     sbSQL.Append($",TARGET.{NameOf(_M101.UPD_SYAIN_ID)} = WK.{NameOf(_M101.UPD_SYAIN_ID)}")
 
                     '---INSERT
-                    sbSQL.Append($" WHEN NOT MATCHED THEN ")
+                    sbSQL.Append($" WHEN NOT MATCHED THEN")
                     sbSQL.Append($" INSERT(")
                     ModelInfo.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {p.Name}"))
                     ModelInfo.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{p.Name}"))
@@ -213,6 +211,7 @@ Public Class FrmM1011
 
                         Case "UPDATE"
 
+
                         Case Else
                             If sqlEx.Source IsNot Nothing Then
                                 '-----エラーログ出力
@@ -223,6 +222,7 @@ Public Class FrmM1011
                                 Dim strMsg As String = $"既に他の担当者によって変更されているため保存出来ません。{vbCrLf}再度登録し直して下さい。"
                                 MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                             End If
+                            blnErr = True
                             Return False
                     End Select
                 Finally

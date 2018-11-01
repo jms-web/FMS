@@ -1,9 +1,7 @@
 Imports JMS_COMMON.ClsPubMethod
 
-''' <summary>
-''' コードマスタ検索画面
-''' </summary>
-Public Class FrmM00101
+
+Public Class FrmM0030
 
 #Region "コンストラクタ"
 
@@ -27,33 +25,31 @@ Public Class FrmM00101
 
 #Region "Form関連"
 
+    'Loadイベント
     Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
         Try
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
-            Using DB As ClsDbUtility = DBOpen()
-                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
-            End Using
 
-            '-----グリッド初期設定
-            Call FunInitializeFlexGrid(flxDATA)
+            ''-----グリッド初期設定
+            FunInitializeFlexGrid(flxDATA)
 
             '-----コントロールデータソース設定
-            cmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            'cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbBUMON_KB.SelectedValue = 1
+            Me.cmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-            Call FunSRCH(flxDATA, FunGetListData())
+            Me.cmbBUSYO_KB.SetDataSource(tblBUSYO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-            '-----イベントハンドラ設定
-            'AddHandler cmbKOMO_NM.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            AddHandler chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
-        Finally
-            Call SubInitFuncButtonEnabled()
+            ''-----イベントハンドラ設定
+            AddHandler Me.cmbBUMON_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler Me.cmbBUSYO_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
             '検索実行
-            'cmdFunc1.PerformClick()
+            Me.cmdFunc1.PerformClick()
+        Finally
+
         End Try
     End Sub
 
@@ -100,7 +96,7 @@ Public Class FrmM00101
         Call SubInitFuncButtonEnabled()
     End Sub
     '列フィルタ適用
-    Private Sub FlxDATA_AfterFilter(sender As Object, e As EventArgs) Handles flxDATA.AfterFilter
+    Private Sub FlxDATA_AfterFilter(sender As Object, e As EventArgs)
         Dim flx As C1.Win.C1FlexGrid.C1FlexGrid = DirectCast(sender, C1.Win.C1FlexGrid.C1FlexGrid)
         Dim intCNT As Integer
 
@@ -119,7 +115,7 @@ Public Class FrmM00101
     End Sub
 
     'グリッドセル(行)ダブルクリック時イベント
-    Private Sub FlxDATA_DoubleClick(sender As Object, e As EventArgs) Handles flxDATA.DoubleClick
+    Private Sub FlxDATA_DoubleClick(sender As Object, e As EventArgs)
         If flxDATA.RowSel > 0 Then
             Me.cmdFunc4.PerformClick()
         End If
@@ -130,16 +126,17 @@ Public Class FrmM00101
 #Region "FunctionButton関連"
 
 #Region "ボタンクリックイベント"
+
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc1.Click, cmdFunc2.Click, cmdFunc3.Click, cmdFunc4.Click, cmdFunc5.Click, cmdFunc6.Click, cmdFunc7.Click, cmdFunc8.Click, cmdFunc9.Click, cmdFunc10.Click, cmdFunc11.Click, cmdFunc12.Click
         Dim intFUNC As Integer
         Dim intCNT As Integer
 
         Try
-            MyBase.PrPG_STATUS = ENM_PG_STATUS._3_PROCESSING
-            Me.Cursor = Cursors.WaitCursor
+            '[処理中]
+            Me.PrPG_STATUS = ENM_PG_STATUS._3_PROCESSING
 
             'ボタン不可/ボタンINDEX取得
-            For intCNT = 0 To cmdFunc.Length - 1
+            For intCNT = 0 To Me.cmdFunc.Length - 1
                 Me.cmdFunc(intCNT).Enabled = False
                 If cmdFunc(intCNT) Is sender Then intFUNC = intCNT + 1
             Next
@@ -147,37 +144,35 @@ Public Class FrmM00101
             'ボタンINDEX毎の処理
             Select Case intFUNC
                 Case 1  '検索
-                    If cmbBUMON_KB.IsSelected = False Then
-                        Call MsgBox("部門区分の指定をしてください", vbOKOnly + vbExclamation, "")
-                        Exit Sub
-                    End If
-                    Call FunSRCH(flxDATA, FunGetListData())
-
+                    Call FunSRCH(Me.flxDATA, FunGetListData())
                 Case 2  '追加
-                    If cmbBUMON_KB.IsSelected = False Then
-                        Call MsgBox("部門区分の指定をしてください", vbOKOnly + vbExclamation, "")
-                        Exit Sub
+                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
+                        Call FunSRCH(Me.flxDATA, FunGetListData())
                     End If
-                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) Then Call FunSRCH(flxDATA, FunGetListData())
 
-                'Case 3  '参照追加
-                '    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._2_ADDREF) Then Call FunSRCH(flxDATA, FunGetListData())
+                Case 3  '参照追加
+                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._2_ADDREF) = True Then
+                        Call FunSRCH(Me.flxDATA, FunGetListData())
+                    End If
 
                 Case 4  '変更
-                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) Then Call FunSRCH(flxDATA, FunGetListData())
 
+                    If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) = True Then
+                        Call FunSRCH(Me.flxDATA, FunGetListData())
+                    End If
                 Case 5, 6  '削除/復元/完全削除
-                    Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(sender, Button).Tag
-                    If FunDEL(ENM_MODE) Then Call FunSRCH(flxDATA, FunGetListData())
+
+                    Dim btn As Button = DirectCast(sender, Button)
+                    Dim ENM_MODE As ENM_DATA_OPERATION_MODE = DirectCast(btn.Tag, ENM_DATA_OPERATION_MODE)
+                    If FunDEL(ENM_MODE) = True Then
+                        Call FunSRCH(Me.flxDATA, FunGetListData())
+                    End If
 
                 Case 10  'CSV出力
+
                     Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
+                    Call FunCSV_OUT(Me.flxDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
-                    'Call FunCSV_OUT(flxDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
-                    'Dim strFileName As String = lblTytle.Text & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
-
-                    Dim dtWork As DataTable = DirectCast(flxDATA.DataSource, DataTable)                    'dtWork.Columns.Remove(NameOf(MODEL.TV05_FUTEKIGO_CODE.PASS))
-                    Call FunCSV_OUT(dtWork, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
                 Case 12 '閉じる
                     Me.Close()
@@ -187,44 +182,67 @@ Public Class FrmM00101
         Finally
             'ボタン可
             System.Windows.Forms.Application.DoEvents()
-            For intCNT = 0 To cmdFunc.Length - 1
-                cmdFunc(intCNT).Enabled = True
+            For intCNT = 0 To Me.cmdFunc.Length - 1
+                Me.cmdFunc(intCNT).Enabled = True
             Next
 
             'ファンクションキー有効化初期化
             Call SubInitFuncButtonEnabled()
 
-            MyBase.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
-            Me.Cursor = Cursors.Default
+            '[アクティブ]
+            Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
         End Try
+
     End Sub
 
 #End Region
 
 #Region "検索"
 
-    Private Function FunGetListData() As IEnumerable
+    Private Function FunGetListData() As DataTable
         Try
             Dim sbSQL As New System.Text.StringBuilder
             Dim dsList As New DataSet
             Dim sbSQLWHERE As New System.Text.StringBuilder
 
-            sbSQLWHERE.Append(" WHERE 1=1 ")
+            ''----DBデータ取得
+            sbSQLWHERE.Remove(0, sbSQLWHERE.Length)
 
-            If cmbKOMO_NM.IsSelected Then
-                sbSQLWHERE.Append(" AND FUTEKIGO_KB ='" & cmbKOMO_NM.SelectedValue & "'　")
+            sbSQLWHERE.Append(" WHERE 1 = 1 ")
+
+            If Me.cmbBUMON_KB.SelectedIndex <> 0 Then
+                sbSQLWHERE.Append(" AND BUMON_KB ='" & Me.cmbBUMON_KB.SelectedValue & "' ")
             End If
 
-            flxDATA.Cols("DEL_FLG").Visible = chkDeletedRowVisibled.Checked
-            If chkDeletedRowVisibled.Checked = False Then
-                sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & "DEL_FLG <> 1 ")
+            If Me.cmbBUSYO_KB.SelectedIndex <> 0 Then
+                sbSQLWHERE.Append(" AND BUSYO_KB = '" & Me.cmbBUSYO_KB.SelectedValue & "' ")
             End If
 
+            If Me.datYUKO_YMD.ValueNonFormat.Trim <> "" Then
+                sbSQLWHERE.Append(" AND YUKO_YMD >= '" & Me.datYUKO_YMD.ValueNonFormat & "' ")
+            End If
+
+            If Me.txtOYA_BUSYO_NAME.Text.Trim <> "" Then
+                sbSQLWHERE.Append(" AND OYA_BUSYO_NAME like '%" & Me.txtOYA_BUSYO_NAME.Text & "%' ")
+            End If
+
+            If Me.txtBUSYO_NAME.Text.Trim <> "" Then
+                sbSQLWHERE.Append(" AND BUSYO_NAME like '%" & Me.txtBUSYO_NAME.Text.Trim & "%' ")
+            End If
+
+            If Me.chkDeletedRowVisibled.Checked = False Then
+                sbSQLWHERE.Append(" AND DEL_YMDHNS = ' ' ")
+                flxDATA.Cols("DEL_FLG").Visible = False
+            Else
+                flxDATA.Cols("DEL_FLG").Visible = True
+            End If
+
+            sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append("SELECT")
-            sbSQL.Append(" *")
-            sbSQL.Append(" FROM " & NameOf(MODEL.TV05_FUTEKIGO_CODE) & "('" & cmbBUMON_KB.SelectedValue & "') ")
+            sbSQL.Append(" * ")
+            sbSQL.Append(" FROM " & NameOf(MODEL.VWM002_BUSYO) & " ")
             sbSQL.Append(sbSQLWHERE)
-            sbSQL.Append(" ORDER BY FUTEKIGO_KB,DISP_ORDER")
+            sbSQL.Append(" ORDER BY BUSYO_ID ")
             Using DBa As ClsDbUtility = DBOpen()
                 dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
@@ -235,50 +253,104 @@ Public Class FrmM00101
                 End If
             End If
 
-            Dim _Model As New MODEL.ModelInfo(Of MODEL.TV05_FUTEKIGO_CODE)(srcDATA:=dsList.Tables(0))
-            Return _Model.Entities
 
+            '------DataTableに変換
+            Dim dt As New DataTable
+
+            Dim t As Type = GetType(MODEL.VWM002_BUSYO)
+            Dim properties As Reflection.PropertyInfo() = t.GetProperties(
+                 Reflection.BindingFlags.Public Or
+                 Reflection.BindingFlags.NonPublic Or
+                 Reflection.BindingFlags.Instance Or
+                 Reflection.BindingFlags.Static)
+
+            For Each p As Reflection.PropertyInfo In properties
+                'If IsAutoGenerateField(t, p.Name) = True Then
+                dt.Columns.Add(p.Name, p.PropertyType)
+                'End If
+            Next p
+
+            With dsList.Tables(0)
+                For Each row As DataRow In .Rows
+                    Dim Trow As DataRow = dt.NewRow()
+                    For Each p As Reflection.PropertyInfo In properties
+
+                        Debug.Print(p.Name)
+
+                        'If IsAutoGenerateField(t, p.Name) = True Then
+                        Select Case p.PropertyType
+                            Case GetType(Integer)
+                                Trow(p.Name) = Val(row.Item(p.Name))
+                            Case GetType(Decimal)
+                                Trow(p.Name) = CDec(row.Item(p.Name))
+                            Case GetType(Boolean)
+                                Trow(p.Name) = CBool(row.Item(p.Name))
+                            Case Else
+                                Select Case p.Name
+                                    Case "YUKO_YMD"
+                                        Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2)
+                                    Case "UPD_YMDHNS", "ADD_YMDHNS"
+                                        Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2) & " " & Mid(row.Item(p.Name), 9, 2) & ":" & Mid(row.Item(p.Name), 11, 2) & ":" & Mid(row.Item(p.Name), 13, 2)
+                                    Case "DEL_FLG"
+                                        Trow(p.Name) = CBool(row.Item(p.Name))
+                                    Case "Item", "Properties"
+
+                                    Case Else
+                                        Trow(p.Name) = row.Item(p.Name)
+                                End Select
+                        End Select
+                        'End If
+                    Next p
+                    dt.Rows.Add(Trow)
+                Next row
+                dt.AcceptChanges()
+            End With
+
+            Return dt
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return Nothing
         End Try
     End Function
 
-    Private Function FunSRCH(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid, ByVal dt As IEnumerable) As Boolean
+    Private Function FunSRCH(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid, ByVal dt As DataTable) As Boolean
         Dim intCURROW As Integer
         Try
 
-            If cmbBUMON_KB.IsSelected = False Then
-                Exit Function
-            End If
             '-----選択行記憶
-            If flx.Rows.Count > 0 Then
+            If flx.Rows.Count > 1 Then
                 intCURROW = flx.RowSel
             End If
 
             flx.BeginUpdate()
-            flx.DataSource = dt
+
+            If dt IsNot Nothing Then
+                flx.DataSource = dt
+            End If
 
             Call FunSetGridCellFormat(flx)
 
             If flx.Rows.Count > 0 Then
                 '-----選択行設定
                 Try
+
                     flx.RowSel = intCURROW
+
                 Catch dgvEx As Exception
                 End Try
-                lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, flx.Rows.Count - flx.Rows.Fixed.ToString)
+                Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, flx.Rows.Count - flx.Rows.Fixed.ToString)
             Else
-                lblRecordCount.Text = My.Resources.infoSearchResultNotFound
+                Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
             End If
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
 
+            '-----一覧可視
+            'dgv.Visible = True
             flx.EndUpdate()
         End Try
     End Function
@@ -308,6 +380,7 @@ Public Class FrmM00101
     ''' <param name="intMODE">処理モード</param>
     ''' <returns></returns>
     Private Function FunUpdateEntity(ByVal intMODE As ENM_DATA_OPERATION_MODE) As Boolean
+        Dim frmDLG As New FrmM0031
         Dim dlgRET As DialogResult
         Dim PKeys As (ITEM_NAME As String, ITEM_VALUE As String)
         Dim strComboVal As String
@@ -315,45 +388,26 @@ Public Class FrmM00101
         Try
 
             'コンボボックスの選択値を記憶
-            If cmbKOMO_NM.SelectedValue IsNot Nothing Then
-                strComboVal = cmbKOMO_NM.SelectedValue
+            If cmbBUMON_KB.SelectedValue IsNot Nothing Then
+                strComboVal = cmbBUMON_KB.SelectedValue
             Else
                 strComboVal = ""
             End If
 
-            Using frmDLG As New FrmM00102
-                frmDLG.PrDATA_OP_MODE = intMODE
-                If flxDATA.RowSel > 0 Then
-                    'frmDLG.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row 'flxDATA.Rows(flxDATA.Row)
-                    frmDLG.PrViewModel = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, MODEL.TV05_FUTEKIGO_CODE)
-                End If
-                dlgRET = frmDLG.ShowDialog(Me)
-                'PKeys = frmDLG.PrPKeys
-            End Using
+            frmDLG.PrMODE = intMODE
+            If flxDATA.RowSel > 0 Then
+                frmDLG.PrDataRow = flxDATA.Rows(flxDATA.RowSel)
+            Else
+                frmDLG.PrDataRow = Nothing
+            End If
+
+            dlgRET = frmDLG.ShowDialog(Me)
+            PKeys = frmDLG.PrPKeys
 
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
             Else
 
-                '-----項目名が追加になった場合、検索フィルタのコンボボックスのデータソースを再設定
-                'Using DB As ClsDbUtility = DBOpen()
-                '    Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
-                'End Using
-                'Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                'Me.cmbKOMO_NM.SelectedValue = strComboVal
-
-
-                ''追加したコードの行を選択する
-                'For i As Integer = 0 To flxDATA.Rows.Count - 1
-                '    With flxDATA.Rows(i)
-                '        If .Item("ITEM_NAME") = PKeys.ITEM_NAME And
-                '            .Item("ITEM_VALUE") = PKeys.ITEM_VALUE Then
-
-                '            flxDATA.RowSel = i
-                '            Exit For
-                '        End If
-                '    End With
-                'Next i
             End If
 
             Return True
@@ -361,6 +415,9 @@ Public Class FrmM00101
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
+            If frmDLG IsNot Nothing Then
+                frmDLG.Dispose()
+            End If
         End Try
     End Function
 
@@ -376,15 +433,12 @@ Public Class FrmM00101
 
         Try
 
-            'コンボボックスの選択値
-            strComboVal = Me.cmbKOMO_NM.Text.Trim
-
             '-----SQL
             sbSQL.Remove(0, sbSQL.Length)
             Select Case ENM_MODE
                 Case ENM_DATA_OPERATION_MODE._4_DISABLE
                     '-----更新
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET ")
+                    sbSQL.Append("UPDATE " & NameOf(MODEL.M002_BUSYO) & " SET ")
                     '削除日時
                     sbSQL.Append(" DEL_YMDHNS = dbo.GetSysDateString(), ")
                     '削除担当者
@@ -395,7 +449,7 @@ Public Class FrmM00101
 
                 Case ENM_DATA_OPERATION_MODE._5_RESTORE
                     '-----更新
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.M001_SETTING) & " SET ")
+                    sbSQL.Append("UPDATE " & NameOf(MODEL.M002_BUSYO) & " SET ")
                     '削除日時
                     sbSQL.Append(" DEL_YMDHNS = ' ', ")
                     '削除担当者
@@ -407,7 +461,7 @@ Public Class FrmM00101
                 Case ENM_DATA_OPERATION_MODE._6_DELETE
 
                     '-----削除
-                    sbSQL.Append("DELETE FROM " & NameOf(MODEL.M001_SETTING) & " ")
+                    sbSQL.Append("DELETE FROM " & NameOf(MODEL.M002_BUSYO) & " ")
 
                     strMsg = My.Resources.infoMsgDeleteOperationDelete
                     strTitle = My.Resources.infoTitleDeleteOperationDelete
@@ -417,8 +471,7 @@ Public Class FrmM00101
                     Return False
             End Select
             sbSQL.Append(" WHERE")
-            sbSQL.Append(" ITEM_NAME = '" & pub_FUTEKIGO_KB_HENKAN(flxDATA.Rows(flxDATA.RowSel).Item("SEIHIN_KB").ToString.Trim, flxDATA.Rows(flxDATA.RowSel).Item("FUTEKIGO_KB").ToString.Trim) & "' ")
-            sbSQL.Append(" AND ITEM_VALUE = '" & flxDATA.Rows(flxDATA.RowSel).Item("FUTEKIGO_S_KB").ToString & "' ")
+            sbSQL.Append(" BUSYO_ID = '" & flxDATA.Rows(flxDATA.RowSel).Item("BUSYO_ID").ToString & "' ")
 
             '確認メッセージ表示
             If MessageBox.Show(strMsg, strTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> Windows.Forms.DialogResult.Yes Then
@@ -448,13 +501,7 @@ Public Class FrmM00101
                     DB.Commit(Not blnErr)
                 End Try
 
-                '検索フィルタデータソース更新
-                'Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
-
             End Using
-
-            'Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-
 
             Return True
         Catch ex As Exception
@@ -485,7 +532,7 @@ Public Class FrmM00101
             End With
         Next intFunc
 
-        If flxDATA.RowSel > 0 Then
+        If flxDATA.Rows.Count > 0 Then
             cmdFunc3.Enabled = True
             cmdFunc4.Enabled = True
             cmdFunc5.Enabled = True
@@ -520,6 +567,19 @@ Public Class FrmM00101
             cmdFunc6.Visible = False
         End If
 
+        If Not HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+            cmdFunc2.Enabled = False
+            cmdFunc3.Enabled = False
+            cmdFunc4.Enabled = False
+            cmdFunc5.Enabled = False
+            cmdFunc6.Enabled = False
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc2, "管理者権限が必要です")
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc3, "管理者権限が必要です")
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "管理者権限が必要です")
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "管理者権限が必要です")
+            MyBase.ToolTip.SetToolTip(Me.cmdFunc6, "管理者権限が必要です")
+        End If
+
     End Function
 
 #End Region
@@ -531,35 +591,16 @@ Public Class FrmM00101
     '検索フィルタ変更
     Private Sub SearchFilterValueChanged(sender As System.Object, e As System.EventArgs)
         '検索
-        'If cmbKOMO_NM.IsSelected = True Then
-        '    cmdFunc1.PerformClick()
-        'End If
+        Me.cmdFunc1.PerformClick()
 
     End Sub
 
-    Private Sub cmbBUMON_KB_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON_KB.SelectedValueChanged
-
-        Using DB As ClsDbUtility = DBOpen()
-
-            If Me.cmbBUMON_KB.IsSelected = True Then
-                Select Case Me.cmbBUMON_KB.SelectedValue
-                    Case "1"    '風防
-                        Call FunGetCodeDataTable(DB, "風防_不適合区分", tblKOMO_NM)
-                    Case "2"    'LP
-                        Call FunGetCodeDataTable(DB, "LP_不適合区分", tblKOMO_NM)
-                    Case "3"    '複合材
-                        Call FunGetCodeDataTable(DB, "複合材_不適合区分", tblKOMO_NM)
-                End Select
-                cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            End If
-
-        End Using
+    Private Sub chkDeletedRowVisibled_CheckedChanged(sender As Object, e As EventArgs) Handles chkDeletedRowVisibled.CheckedChanged
 
     End Sub
 
-    Private Sub cmbKOMO_NM_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKOMO_NM.SelectedValueChanged
-        Call FunSRCH(flxDATA, FunGetListData())
-    End Sub
+
+
 
 #End Region
 

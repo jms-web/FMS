@@ -265,6 +265,17 @@ Public Class FrmM1061
 
                         Case "UPDATE"
 
+                            Select Case PrDATA_OP_MODE
+                                Case ENM_DATA_OPERATION_MODE._1_ADD, ENM_DATA_OPERATION_MODE._2_ADDREF
+                                    '新規追加・類似追加でUPDATEは無効
+                                    Dim strMsg As String = $"({cmbBUMON_KB.Text},{cmbTOKUI_ID.Text},{mtxBUHIN_BANGO.Text})は既に登録されています。{vbCrLf}現在の登録内容で上書きしますか？"
+
+                                    If MessageBox.Show(strMsg, "重複チェック", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                                    Else
+                                        blnErr = True
+                                        Return False
+                                    End If
+                            End Select
                         Case Else
                             If sqlEx.Source IsNot Nothing Then
                                 '-----エラーログ出力
@@ -275,6 +286,7 @@ Public Class FrmM1061
                                 Dim strMsg As String = $"既に他の担当者によって変更されているため保存出来ません。{vbCrLf}再度登録し直して下さい。"
                                 MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                             End If
+                            blnErr = True
                             Return False
                     End Select
                 Finally

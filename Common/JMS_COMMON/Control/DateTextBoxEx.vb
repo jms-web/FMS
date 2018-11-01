@@ -45,7 +45,7 @@ Public Class DateTextBoxEx
 
         Me._GotForcusedColor = clrControlGotFocusedColor
         Me._BackColorDefault = clrControlDefaultBackColor
-
+        MaskedTextBox1.SelectAllText = False
     End Sub
 #End Region
 
@@ -388,7 +388,7 @@ Public Class DateTextBoxEx
         Else
             'MessageBox.Show("不正な日付形式が入力されました。。", "日付形式エラー", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            If _blnNullable = True Then
+            If _blnNullable = True And (MaskedTextBox1.Text.Length = 7 Or MaskedTextBox1.Text.Length = 10) Then
                 Me.MaskedTextBox1.Text = ""
                 'ユーザーコントロールのイベント起動
                 RaiseEvent TxtChanged(Me, System.EventArgs.Empty)
@@ -603,6 +603,7 @@ Public Class DateTextBoxEx
             DateTimePicker1.Enabled = Not Value
             MaskedTextBox1.ReadOnly = Value
             TabStop = Not Value
+            MaskedTextBox1.SelectAllText = Not Value
             SetStyle(ControlStyles.UserMouse, Value)
             SetStyle(ControlStyles.Selectable, Value)
             'UpdateStyles()

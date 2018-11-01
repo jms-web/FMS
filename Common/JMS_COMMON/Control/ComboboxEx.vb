@@ -36,7 +36,7 @@ Public Class ComboboxEx
         BorderColor = Color.Gray
         BorderStyle = ButtonBorderStyle.None
         BorderWidth = 1
-
+        SelectAllText = False
         'SetDatasourceから移行 SelectedValueChanged等を発火させないため
         DisplayMember = "DISP"
         ValueMember = "VALUE"
@@ -88,6 +88,7 @@ Public Class ComboboxEx
                 BackColor = _BackColorOrg
             End If
             TabStop = Not Value
+            SelectAllText = Not Value
             SetStyle(ControlStyles.UserMouse, Value)
             SetStyle(ControlStyles.Selectable, Value)
             'UpdateStyles()
@@ -115,6 +116,49 @@ Public Class ComboboxEx
     <Bindable(True)>
     <Browsable(True)>
     Public Property HorizontalContentAlignment As StringAlignment
+
+#Region "　SelectAllText プロパティ (Overridable)　"
+    '-----Focus時の全選択を設定します。
+    Private SelectAllTextValue As Boolean
+
+    <Category("動作"),
+     DefaultValue(True),
+     Description("Focus時の全選択を設定します。")>
+    Public Property SelectAllText() As Boolean
+        Get
+            Return Me.SelectAllTextValue
+        End Get
+
+        Set(ByVal value As Boolean)
+            If Me.SelectAllTextValue <> value Then
+                Me.SelectAllTextValue = value
+            End If
+        End Set
+    End Property
+#End Region
+
+#Region "　OnEnter メソッド (Overrides)　"
+    '-----フォーカス時に全選択
+    Protected Overrides Sub OnEnter(ByVal e As System.EventArgs)
+        _OldValue = Me.SelectedValue
+
+        'If _HasWaterMark Then
+        '    '解除
+        '    Call ResetWatermark("")
+        'End If
+        If Me.SelectAllText = True Then
+            BeginInvoke(New MethodInvokerForComboBox(AddressOf MaskedTextBoxSelectAll), Me)
+        End If
+        MyBase.OnEnter(e)
+    End Sub
+
+#End Region
+#Region "　SelectAll メソッド (Delegate)　"
+    Private Delegate Sub MethodInvokerForComboBox(ByVal pTarget As ComboBox)
+    Private Shared Sub MaskedTextBoxSelectAll(ByVal pTarget As ComboBox)
+        If pTarget IsNot Nothing Then pTarget.SelectAll()
+    End Sub
+#End Region
 
 #Region "オーバーロード"
 
@@ -453,14 +497,7 @@ Public Class ComboboxEx
         MyBase.OnMouseWheel(e)
     End Sub
 
-    Protected Overrides Sub OnEnter(ByVal e As System.EventArgs)
-        _OldValue = Me.SelectedValue
-        'If _HasWaterMark Then
-        '    '解除
-        '    Call ResetWatermark("")
-        'End If
-        MyBase.OnEnter(e)
-    End Sub
+
 
     Protected Overrides Sub OnLeave(ByVal e As EventArgs)
         MyBase.OnLeave(e)
