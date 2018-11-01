@@ -460,7 +460,7 @@ Public Module ExtensionMethod
 
         Select Case control.GetType
             Case GetType(ComboboxEx)
-                Application.DoEvents()
+                'Application.DoEvents()
                 DirectCast(control, ComboboxEx).FlatStyle = FlatStyle.Standard
                 DirectCast(control, ComboboxEx).BorderStyle = ButtonBorderStyle.None
         End Select

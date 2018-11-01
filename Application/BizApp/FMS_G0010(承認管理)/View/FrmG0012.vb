@@ -3095,6 +3095,8 @@ Public Class FrmG0012
                         Call cmbKAITO_17_Validating(cmbKAITO_17, Nothing)
                         Call KAITO_181920_Validating(mtxKAITO_18, Nothing)
 
+                        Call mtxGOKI_Validating(mtxGOKI, Nothing)
+
 
                     Case ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
 
@@ -3217,6 +3219,13 @@ Public Class FrmG0012
 
     End Sub
 
+    Private Sub mtxGOKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxGOKI.Validating
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, mtx.ReadOnly OrElse Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置有効性レビュー：号機・LOT"))
+
+    End Sub
+
 #End Region
 
     ''' <summary>
@@ -3275,6 +3284,8 @@ Public Class FrmG0012
             Return 0
         End Try
     End Function
+
+
 
 
 
