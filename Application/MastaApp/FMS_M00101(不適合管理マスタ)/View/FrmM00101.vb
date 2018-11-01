@@ -172,7 +172,12 @@ Public Class FrmM00101
 
                 Case 10  'CSV出力
                     Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
-                    Call FunCSV_OUT(flxDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
+
+                    'Call FunCSV_OUT(flxDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
+                    'Dim strFileName As String = lblTytle.Text & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
+
+                    Dim dtWork As DataTable = DirectCast(flxDATA.DataSource, DataTable)                    'dtWork.Columns.Remove(NameOf(MODEL.TV05_FUTEKIGO_CODE.PASS))
+                    Call FunCSV_OUT(dtWork, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
                 Case 12 '閉じる
                     Me.Close()
@@ -207,22 +212,7 @@ Public Class FrmM00101
             sbSQLWHERE.Append(" WHERE 1=1 ")
 
             If cmbKOMO_NM.IsSelected Then
-
                 sbSQLWHERE.Append(" AND FUTEKIGO_KB ='" & cmbKOMO_NM.SelectedValue & "'　")
-
-                'Select Case cmbKOMO_NM.SelectedValue
-                '    Case "0"    '外観
-                '        sbSQLWHERE.Append(" AND ITEM_NAME ='不適合外観区分'　")
-                '    Case "1"    '寸法
-                '        sbSQLWHERE.Append(" AND ITEM_NAME ='不適合寸法区分'　")
-                '    Case "2"    '形状
-                '        sbSQLWHERE.Append(" AND ITEM_NAME ='不適合形状区分'　")
-                '    Case "3"    '機能・性能
-                '        sbSQLWHERE.Append(" AND ITEM_NAME ='不適合機能性能区分'　")
-                '    Case "9"    'その他
-                '        sbSQLWHERE.Append(" AND ITEM_NAME ='不適合その他区分'　")
-                'End Select
-
             End If
 
             flxDATA.Cols("DEL_FLG").Visible = chkDeletedRowVisibled.Checked
@@ -234,7 +224,7 @@ Public Class FrmM00101
             sbSQL.Append(" *")
             sbSQL.Append(" FROM " & NameOf(MODEL.TV05_FUTEKIGO_CODE) & "('" & cmbBUMON_KB.SelectedValue & "') ")
             sbSQL.Append(sbSQLWHERE)
-            sbSQL.Append(" ORDER BY FUTEKIGO_KB,FUTEKIGO_S_KB")
+            sbSQL.Append(" ORDER BY FUTEKIGO_KB,DISP_ORDER")
             Using DBa As ClsDbUtility = DBOpen()
                 dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
@@ -427,8 +417,8 @@ Public Class FrmM00101
                     Return False
             End Select
             sbSQL.Append(" WHERE")
-            sbSQL.Append(" ITEM_NAME = '" & flxDATA.Rows(flxDATA.RowSel).Item("ITEM_NAME").ToString & "' ")
-            sbSQL.Append(" AND ITEM_VALUE = '" & flxDATA.Rows(flxDATA.RowSel).Item("ITEM_VALUE").ToString & "' ")
+            sbSQL.Append(" ITEM_NAME = '" & pub_FUTEKIGO_KB_HENKAN(flxDATA.Rows(flxDATA.RowSel).Item("SEIHIN_KB").ToString.Trim, flxDATA.Rows(flxDATA.RowSel).Item("FUTEKIGO_KB").ToString.Trim) & "' ")
+            sbSQL.Append(" AND ITEM_VALUE = '" & flxDATA.Rows(flxDATA.RowSel).Item("FUTEKIGO_S_KB").ToString & "' ")
 
             '確認メッセージ表示
             If MessageBox.Show(strMsg, strTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> Windows.Forms.DialogResult.Yes Then
@@ -459,17 +449,12 @@ Public Class FrmM00101
                 End Try
 
                 '検索フィルタデータソース更新
-                Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
-            End Using
-            Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                'Call FunGetCodeDataTable(DB, "項目名", tblKOMO_NM)
 
-            'If strComboVal.IsNullOrWhiteSpace Then
-            'Else
-            '    Me.cmbKOMO_NM.Text = strComboVal
-            'End If
-            'If Me.cmbKOMO_NM.SelectedIndex <= 0 Then
-            '    Me.cmbKOMO_NM.SelectedIndex = 0
-            'End If
+            End Using
+
+            'Me.cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+
 
             Return True
         Catch ex As Exception
@@ -570,6 +555,10 @@ Public Class FrmM00101
 
         End Using
 
+    End Sub
+
+    Private Sub cmbKOMO_NM_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKOMO_NM.SelectedValueChanged
+        Call FunSRCH(flxDATA, FunGetListData())
     End Sub
 
 #End Region

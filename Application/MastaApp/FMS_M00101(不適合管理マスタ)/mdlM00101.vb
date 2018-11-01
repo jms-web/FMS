@@ -64,4 +64,71 @@ Module mdlM00101
     End Sub
 #End Region
 
+    Public Function pub_FUTEKIGO_KB_HENKAN(strSEIHIN_KB As String, strFUTEKIGO_KB As String) As String
+        Dim strWork As String
+        Try
+            Select Case strSEIHIN_KB
+                Case "1"    '風防
+                    strWork = "風防_"
+                    Select Case strFUTEKIGO_KB
+                        Case "0"    '外観
+                            strWork = strWork & "不適合外観区分"
+                        Case "1"    '寸法 
+                            strWork = strWork & "不適合寸法区分"
+                        Case "2"    '形状
+                            strWork = strWork & "不適合形状区分"
+                        Case "3"    '機能・性能
+                            strWork = strWork & "不適合機能性能区分"
+                        Case Else '"9"    'その他
+                            strWork = strWork & "不適合その他区分"
+                    End Select
+
+                Case "2"    'LP
+                    strWork = "LP_"
+                    Select Case strFUTEKIGO_KB
+                        Case "0"    '外観
+                            strWork = strWork & "不適合外観区分"
+                        Case "1"    '寸法 
+                            strWork = strWork & "不適合寸法区分"
+                        Case "2"    '形状
+                            strWork = strWork & "不適合形状区分"
+                        Case "3"    '機能・性能
+                            strWork = strWork & "不適合機能性能区分"
+                        Case Else '"9"    'その他
+                            strWork = strWork & "不適合その他区分"
+                    End Select
+
+                Case "3"    '複合材
+                    strWork = "複合材_"
+                    Select Case strFUTEKIGO_KB
+                        Case "0"    '寸法
+                            strWork = strWork & "不適合寸法区分"
+                        Case "1"    '形状 
+                            strWork = strWork & "不適合形状区分"
+                        Case "2"    '穿孔
+                            strWork = strWork & "不適合穿孔区分"
+                        Case "3"    '外観
+                            strWork = strWork & "不適合外観区分"
+                        Case "4"    '内部欠陥
+                            strWork = strWork & "不適合内部欠陥区分"
+                        Case "5"
+                            strWork = strWork & "不適合硬化条件区分"
+                        Case "6"
+                            strWork = strWork & "不適合プロセス区分"
+                        Case Else '"9"    'その他
+                            strWork = strWork & "不適合その他区分"
+                    End Select
+                Case Else
+                    strWork = ""
+            End Select
+
+            Return strWork
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        End Try
+    End Function
+
+
 End Module

@@ -267,19 +267,19 @@ Partial Class FrmM00102
         'cmbJYUN
         '
         Me.cmbJYUN.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbJYUN.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbJYUN.DisplayMember = "DISP"
         Me.cmbJYUN.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbJYUN.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbJYUN.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbJYUN.FormattingEnabled = True
-        Me.cmbJYUN.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbJYUN.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbJYUN.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.cmbJYUN.IsSelected = False
         Me.cmbJYUN.Location = New System.Drawing.Point(139, 123)
         Me.cmbJYUN.MaxLength = 30
         Me.cmbJYUN.Name = "cmbJYUN"
         Me.cmbJYUN.NullValue = " "
-        Me.cmbJYUN.ReadOnly = False
         Me.cmbJYUN.Size = New System.Drawing.Size(101, 25)
         Me.cmbJYUN.TabIndex = 4
         Me.cmbJYUN.ValueMember = "VALUE"
@@ -361,19 +361,19 @@ Partial Class FrmM00102
         'cmbFUTEKIGO_KB
         '
         Me.cmbFUTEKIGO_KB.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbFUTEKIGO_KB.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbFUTEKIGO_KB.DisplayMember = "DISP"
         Me.cmbFUTEKIGO_KB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbFUTEKIGO_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbFUTEKIGO_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbFUTEKIGO_KB.FormattingEnabled = True
-        Me.cmbFUTEKIGO_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbFUTEKIGO_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbFUTEKIGO_KB.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.cmbFUTEKIGO_KB.IsSelected = False
         Me.cmbFUTEKIGO_KB.Location = New System.Drawing.Point(139, 33)
         Me.cmbFUTEKIGO_KB.MaxLength = 30
         Me.cmbFUTEKIGO_KB.Name = "cmbFUTEKIGO_KB"
         Me.cmbFUTEKIGO_KB.NullValue = " "
-        Me.cmbFUTEKIGO_KB.ReadOnly = False
         Me.cmbFUTEKIGO_KB.Size = New System.Drawing.Size(142, 25)
         Me.cmbFUTEKIGO_KB.TabIndex = 1
         Me.cmbFUTEKIGO_KB.ValueMember = "VALUE"

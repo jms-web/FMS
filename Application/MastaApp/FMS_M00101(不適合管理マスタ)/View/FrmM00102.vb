@@ -66,11 +66,6 @@ Public Class FrmM00102
             '-----コントロールデータソース設定
             'cmbKOMO_NM.SetDataSource(tblKOMO_NM.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-            Call FunSetBinding()
-
-            '-----処理モード別画面初期化
-            Call FunInitializeControls()
-
             Using DB As ClsDbUtility = DBOpen()
 
                 Select Case _TV05.SEIHIN_KB
@@ -91,6 +86,11 @@ Public Class FrmM00102
                 Me.mtxDISP.Text = ""
                 'Me.cmbJYUN.SelectedIndex = 0
             End If
+
+            Call FunSetBinding()
+
+            '-----処理モード別画面初期化
+            Call FunInitializeControls()
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -168,24 +168,9 @@ Public Class FrmM00102
 
                     Dim ModelInfo As New MODEL.ModelInfo(Of MODEL.M001_SETTING)(_OnlyAutoGenerateField:=True)
 
-                    ''-----同一項目名の既定値を解除
-                    'If _M001.DEF_FLG Then
-                    '    sbSQL.Append($"UPDATE {ModelInfo.Name} SET")
-                    '    sbSQL.Append($" DEF_FLG='0' ")
-                    '    sbSQL.Append($" WHERE KOMO_NM ='{_M001.ITEM_NAME}' ")
-                    '    sbSQL.Append($" AND VALUE <>'{_M001.ITEM_VALUE}' ")
-
-                    '    DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    '    If sqlEx IsNot Nothing Then
-                    '        'エラーログ
-                    '        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                    '        WL.WriteLogDat(strErrMsg)
-                    '        blnErr = True
-                    '        Return False
-                    '    End If
-                    'End If
                     _M001.ADD_YMDHNS = strSysDate
                     _M001.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+
                     _M001.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
                     _M001.DEF_FLG = "0"
 
@@ -201,76 +186,19 @@ Public Class FrmM00102
                     sbSQL.Remove(0, sbSQL.Length)
                     sbSQL.Append($"MERGE INTO {ModelInfo.Name} AS TARGET")
                     sbSQL.Append($" USING (SELECT")
-
-                    Select Case _TV05.SEIHIN_KB
-                        Case "1"    '風防
-                            strWork = "風防_"
-                            Select Case _TV05.FUTEKIGO_KB.Trim
-                                Case "0"    '外観
-                                    strWork = strWork & "不適合外観区分"
-                                Case "1"    '寸法 
-                                    strWork = strWork & "不適合寸法区分"
-                                Case "2"    '形状
-                                    strWork = strWork & "不適合形状区分"
-                                Case "3"    '機能・性能
-                                    strWork = strWork & "不適合機能性能区分"
-                                Case Else '"9"    'その他
-                                    strWork = strWork & "不適合その他区分"
-                            End Select
-
-                        Case "2"    'LP
-                            strWork = "LP_"
-                            Select Case _TV05.FUTEKIGO_KB.Trim
-                                Case "0"    '外観
-                                    strWork = strWork & "不適合外観区分"
-                                Case "1"    '寸法 
-                                    strWork = strWork & "不適合寸法区分"
-                                Case "2"    '形状
-                                    strWork = strWork & "不適合形状区分"
-                                Case "3"    '機能・性能
-                                    strWork = strWork & "不適合機能性能区分"
-                                Case Else '"9"    'その他
-                                    strWork = strWork & "不適合その他区分"
-                            End Select
-
-                        Case "3"    '複合材
-                            strWork = "複合材_"
-                            Select Case _TV05.FUTEKIGO_KB.Trim
-                                Case "0"    '寸法
-                                    strWork = strWork & "不適合寸法区分"
-                                Case "1"    '形状 
-                                    strWork = strWork & "不適合形状区分"
-                                Case "2"    '穿孔
-                                    strWork = strWork & "不適合穿孔区分"
-                                Case "3"    '外観
-                                    strWork = strWork & "不適合外観区分"
-                                Case "4"    '内部欠陥
-                                    strWork = strWork & "不適合内部欠陥区分"
-                                Case "5"
-                                    strWork = strWork & "不適合硬化条件区分"
-                                Case "6"
-                                    strWork = strWork & "不適合プロセス区分"
-                                Case Else '"9"    'その他
-                                    strWork = strWork & "不適合その他区分"
-                            End Select
-                        Case Else
-                            strWork = ""
-                    End Select
-
-                    sbSQL.Append($" '{strWork}' AS {NameOf(_M001.ITEM_NAME)}")
-
+                    sbSQL.Append($" '{pub_FUTEKIGO_KB_HENKAN(_TV05.SEIHIN_KB.Trim, _TV05.FUTEKIGO_KB.Trim)}' AS {NameOf(_M001.ITEM_NAME)}")
                     sbSQL.Append($",'{_TV05.FUTEKIGO_S_KB}' AS {NameOf(_M001.ITEM_VALUE)}")
                     sbSQL.Append($",'承認関連' AS {NameOf(_M001.ITEM_GROUP)}")
                     sbSQL.Append($",'{_TV05.FUTEKIGO_S_KB_NAME.Trim}' AS {NameOf(_M001.ITEM_DISP)}")
-                    sbSQL.Append($",'{_M001.DEF_FLG}' AS {NameOf(_M001.DEF_FLG)}")
+                    sbSQL.Append($",'{0}' AS {NameOf(_M001.DEF_FLG)}")
                     sbSQL.Append($",{_TV05.DISP_ORDER} AS {NameOf(_M001.DISP_ORDER)}")
                     sbSQL.Append($",' ' AS {NameOf(_M001.BIKOU)}")
-                    sbSQL.Append($",'{_M001.ADD_YMDHNS}' AS {NameOf(_M001.ADD_YMDHNS)}")
-                    sbSQL.Append($",{_M001.ADD_SYAIN_ID} AS {NameOf(_M001.ADD_SYAIN_ID)}")
-                    sbSQL.Append($",'{_M001.UPD_YMDHNS}' AS {NameOf(_M001.UPD_YMDHNS)}")
-                    sbSQL.Append($",{_M001.UPD_SYAIN_ID} AS {NameOf(_M001.UPD_SYAIN_ID)}")
-                    sbSQL.Append($",'{_M001.DEL_YMDHNS}' AS {NameOf(_M001.DEL_YMDHNS)}")
-                    sbSQL.Append($",{_M001.DEL_SYAIN_ID} AS {NameOf(_M001.DEL_SYAIN_ID)}")
+                    sbSQL.Append($",'{_TV05.ADD_YMDHNS}' AS {NameOf(_M001.ADD_YMDHNS)}")
+                    sbSQL.Append($",{_TV05.ADD_SYAIN_ID} AS {NameOf(_M001.ADD_SYAIN_ID)}")
+                    sbSQL.Append($",'{_TV05.UPD_YMDHNS}' AS {NameOf(_M001.UPD_YMDHNS)}")
+                    sbSQL.Append($",{_TV05.UPD_SYAIN_ID} AS {NameOf(_M001.UPD_SYAIN_ID)}")
+                    sbSQL.Append($",'{_TV05.DEL_YMDHNS}' AS {NameOf(_M001.DEL_YMDHNS)}")
+                    sbSQL.Append($",{_TV05.DEL_SYAIN_ID} AS {NameOf(_M001.DEL_SYAIN_ID)}")
 
                     sbSQL.Append($" ) AS WK ON (")
                     sbSQL.Append($" TARGET.{NameOf(_M001.ITEM_NAME)} = WK.{NameOf(_M001.ITEM_NAME)}")
@@ -282,6 +210,7 @@ Public Class FrmM00102
                     sbSQL.Append($" UPDATE SET")
                     sbSQL.Append($" TARGET.{NameOf(_M001.ITEM_DISP)} = WK.{NameOf(_M001.ITEM_DISP)}")
                     sbSQL.Append($",TARGET.{NameOf(_M001.ITEM_GROUP)} = WK.{NameOf(_M001.ITEM_GROUP)}")
+                    sbSQL.Append($",TARGET.{NameOf(_M001.DISP_ORDER)} = WK.{NameOf(_M001.DISP_ORDER)}")
                     sbSQL.Append($",TARGET.{NameOf(_M001.DEF_FLG)} = WK.{NameOf(_M001.DEF_FLG)}")
                     sbSQL.Append($",TARGET.{NameOf(_M001.BIKOU)} = WK.{NameOf(_M001.BIKOU)}")
                     sbSQL.Append($",TARGET.{NameOf(_M001.UPD_YMDHNS)} = '{strSysDate}'")
@@ -330,6 +259,8 @@ Public Class FrmM00102
     End Function
 
 #End Region
+
+
 
 #Region "FuncButton有効無効切替"
 
@@ -459,6 +390,9 @@ Public Class FrmM00102
                     mtxVALUE.ReadOnly = False
                     mtxDISP.ReadOnly = False
 
+                    mtxVALUE.Text = ""
+                    mtxDISP.Text = ""
+
                     lbllblEDIT_YMDHNS.Visible = False
                     lblEDIT_YMDHNS.Visible = False
                     lbllblEDIT_SYAIN_ID.Visible = False
@@ -487,24 +421,34 @@ Public Class FrmM00102
                     cmdFunc1.Text = "変更(F1)"
 
                     'cmbKOMO_NM.ReadOnly = True
-                    mtxVALUE.ReadOnly = True
+                    mtxVALUE.Enabled = False
                     mtxDISP.ReadOnly = False
 
                     '一覧選択行のデータをモデルに読込
-                    _M001.Properties.ForEach(Sub(p) _M001(p.Name) = PrViewModel(p.Name))
+                    _TV05.Properties.ForEach(Sub(p) _TV05(p.Name) = PrViewModel(p.Name))
                     'Call CmbKOMO_NM_Validated(cmbKOMO_NM, Nothing)
+                    Me.cmbFUTEKIGO_KB.Enabled = False
+
+
                     lbllblEDIT_YMDHNS.Visible = True
                     lblEDIT_YMDHNS.Visible = True
                     lbllblEDIT_SYAIN_ID.Visible = True
                     lblEDIT_SYAIN_ID.Visible = True
                     '更新日時
-                    lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrViewModel.UPD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
+                    If PrViewModel.UPD_YMDHNS.Trim <> "" Then
+                        lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrViewModel.UPD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
+                    End If
+
                     '更新担当者CD
                     lblEDIT_SYAIN_ID.Text = PrViewModel.UPD_SYAIN_ID & " " & Fun_GetUSER_NAME(_M001.UPD_SYAIN_ID)
+
+                    Call CmbFUTEKIGO_KB_Validated(Me.cmbFUTEKIGO_KB, Nothing)
+
 
                 Case Else
                     Throw New ArgumentException(My.Resources.ErrMsgException, PrDATA_OP_MODE.ToString)
             End Select
+            _TV05.FUTEKIGO_S_KB_NAME = _TV05.FUTEKIGO_S_KB_NAME.Trim
 
             Return True
 
@@ -523,39 +467,12 @@ Public Class FrmM00102
             'フラグ初期化
             IsValidated = True
 
-            'Call CmbKOMO_NM_Validating(cmbKOMO_NM, Nothing)
-            'Call MtxVALUE_Validating(mtxVALUE, Nothing)
-
             Return IsValidated
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         End Try
     End Function
-
-    'Private Sub CmbKOMO_NM_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
-    '    Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
-    '    If cmb.IsSelected Then
-    '        ErrorProvider.ClearError(cmb)
-    '        IsValidated = (IsValidated AndAlso True)
-    '    Else
-    '        ErrorProvider.SetError(cmb, String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目名"), ErrorIconAlignment.MiddleLeft)
-    '        IsValidated = False
-    '    End If
-    'End Sub
-
-    'Private Sub MtxVALUE_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
-    '    Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-
-    '    If mtx.Text.IsNullOrWhiteSpace = False Then
-    '        ErrorProvider.ClearError(mtx)
-    '        IsValidated = (IsValidated AndAlso True)
-    '    Else
-    '        ErrorProvider.SetError(mtx, String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目値"), ErrorIconAlignment.MiddleLeft)
-    '        IsValidated = False
-    '    End If
-    'End Sub
 
 #End Region
 
