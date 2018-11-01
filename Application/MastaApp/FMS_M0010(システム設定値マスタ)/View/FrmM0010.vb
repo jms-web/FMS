@@ -159,7 +159,7 @@ Public Class FrmM0010
 
                 Case 10  'CSVèoóÕ
                     Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
-                    Call FunCSV_OUT(flxDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
+                    Call FunCSV_OUT(CType(flxDATA.DataSource, List(Of MODEL.VWM001_SETTING)), strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
                 Case 12 'ï¬Ç∂ÇÈ
                     Me.Close()

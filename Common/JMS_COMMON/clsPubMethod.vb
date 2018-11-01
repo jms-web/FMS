@@ -1326,7 +1326,7 @@ Public NotInheritable Class ClsPubMethod
     End Function
 
 
-    Public Shared Function FunCSV_OUT(ByVal entities As List(Of MODEL.IDataModel), ByVal strFileName As String, ByVal strOutPath As String, Optional ByVal blnWriteHeader As Boolean = True) As Boolean
+    Public Shared Function FunCSV_OUT(Of T As IDataModel)(ByVal entities As List(Of T), ByVal strFileName As String, ByVal strOutPath As String, Optional ByVal blnWriteHeader As Boolean = True) As Boolean
 
         Dim strARY() As String
 
