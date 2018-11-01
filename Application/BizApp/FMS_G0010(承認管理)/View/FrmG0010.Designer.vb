@@ -356,6 +356,7 @@ Partial Class FrmG0010
         Me.cmbGEN_TANTO.Location = New System.Drawing.Point(163, 93)
         Me.cmbGEN_TANTO.Name = "cmbGEN_TANTO"
         Me.cmbGEN_TANTO.NullValue = " "
+        Me.cmbGEN_TANTO.SelectAllText = False
         Me.cmbGEN_TANTO.Size = New System.Drawing.Size(134, 25)
         Me.cmbGEN_TANTO.TabIndex = 11
         Me.cmbGEN_TANTO.ValueMember = "VALUE"
@@ -388,6 +389,7 @@ Partial Class FrmG0010
         Me.cmbADD_TANTO.Location = New System.Drawing.Point(843, 3)
         Me.cmbADD_TANTO.Name = "cmbADD_TANTO"
         Me.cmbADD_TANTO.NullValue = " "
+        Me.cmbADD_TANTO.SelectAllText = False
         Me.cmbADD_TANTO.Size = New System.Drawing.Size(134, 25)
         Me.cmbADD_TANTO.TabIndex = 3
         Me.cmbADD_TANTO.ValueMember = "VALUE"
@@ -420,6 +422,7 @@ Partial Class FrmG0010
         Me.cmbKISYU.Location = New System.Drawing.Point(163, 33)
         Me.cmbKISYU.Name = "cmbKISYU"
         Me.cmbKISYU.NullValue = " "
+        Me.cmbKISYU.SelectAllText = False
         Me.cmbKISYU.Size = New System.Drawing.Size(134, 25)
         Me.cmbKISYU.TabIndex = 4
         Me.cmbKISYU.ValueMember = "VALUE"
@@ -452,6 +455,7 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_KB.Location = New System.Drawing.Point(163, 123)
         Me.cmbFUTEKIGO_KB.Name = "cmbFUTEKIGO_KB"
         Me.cmbFUTEKIGO_KB.NullValue = " "
+        Me.cmbFUTEKIGO_KB.SelectAllText = False
         Me.cmbFUTEKIGO_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbFUTEKIGO_KB.TabIndex = 15
         Me.cmbFUTEKIGO_KB.ValueMember = "VALUE"
@@ -484,6 +488,7 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_S_KB.Location = New System.Drawing.Point(463, 123)
         Me.cmbFUTEKIGO_S_KB.Name = "cmbFUTEKIGO_S_KB"
         Me.cmbFUTEKIGO_S_KB.NullValue = " "
+        Me.cmbFUTEKIGO_S_KB.SelectAllText = False
         Me.cmbFUTEKIGO_S_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbFUTEKIGO_S_KB.TabIndex = 16
         Me.cmbFUTEKIGO_S_KB.ValueMember = "VALUE"
@@ -517,6 +522,7 @@ Partial Class FrmG0010
         Me.cmbBUHIN_BANGO.Location = New System.Drawing.Point(463, 33)
         Me.cmbBUHIN_BANGO.Name = "cmbBUHIN_BANGO"
         Me.cmbBUHIN_BANGO.NullValue = " "
+        Me.cmbBUHIN_BANGO.SelectAllText = False
         Me.cmbBUHIN_BANGO.Size = New System.Drawing.Size(214, 25)
         Me.cmbBUHIN_BANGO.TabIndex = 5
         Me.cmbBUHIN_BANGO.ValueMember = "VALUE"
@@ -543,6 +549,7 @@ Partial Class FrmG0010
         Me.mtxHINMEI.Location = New System.Drawing.Point(843, 33)
         Me.mtxHINMEI.MaxByteLength = 100
         Me.mtxHINMEI.Name = "mtxHINMEI"
+        Me.mtxHINMEI.SelectAllText = False
         Me.mtxHINMEI.Size = New System.Drawing.Size(294, 23)
         Me.mtxHINMEI.TabIndex = 6
         Me.mtxHINMEI.WatermarkColor = System.Drawing.Color.Empty
@@ -559,6 +566,7 @@ Partial Class FrmG0010
         Me.mtxGOKI.Location = New System.Drawing.Point(163, 63)
         Me.mtxGOKI.MaxByteLength = 10
         Me.mtxGOKI.Name = "mtxGOKI"
+        Me.mtxGOKI.SelectAllText = False
         Me.mtxGOKI.Size = New System.Drawing.Size(134, 23)
         Me.mtxGOKI.TabIndex = 7
         Me.mtxGOKI.WatermarkColor = System.Drawing.Color.Empty
@@ -603,6 +611,7 @@ Partial Class FrmG0010
         Me.cmbSYANAI_CD.Location = New System.Drawing.Point(463, 63)
         Me.cmbSYANAI_CD.Name = "cmbSYANAI_CD"
         Me.cmbSYANAI_CD.NullValue = " "
+        Me.cmbSYANAI_CD.SelectAllText = False
         Me.cmbSYANAI_CD.Size = New System.Drawing.Size(134, 25)
         Me.cmbSYANAI_CD.TabIndex = 8
         Me.cmbSYANAI_CD.ValueMember = "VALUE"
@@ -617,6 +626,7 @@ Partial Class FrmG0010
         Me.mtxHOKUKO_NO.Location = New System.Drawing.Point(163, 3)
         Me.mtxHOKUKO_NO.MaxByteLength = 10
         Me.mtxHOKUKO_NO.Name = "mtxHOKUKO_NO"
+        Me.mtxHOKUKO_NO.SelectAllText = False
         Me.mtxHOKUKO_NO.Size = New System.Drawing.Size(134, 23)
         Me.mtxHOKUKO_NO.TabIndex = 1
         Me.mtxHOKUKO_NO.WatermarkColor = System.Drawing.Color.Empty
@@ -661,6 +671,7 @@ Partial Class FrmG0010
         Me.cmbBUMON.Location = New System.Drawing.Point(463, 3)
         Me.cmbBUMON.Name = "cmbBUMON"
         Me.cmbBUMON.NullValue = " "
+        Me.cmbBUMON.SelectAllText = False
         Me.cmbBUMON.Size = New System.Drawing.Size(94, 25)
         Me.cmbBUMON.TabIndex = 2
         Me.cmbBUMON.ValueMember = "VALUE"
@@ -768,6 +779,7 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_JYOTAI_KB.Location = New System.Drawing.Point(463, 93)
         Me.cmbFUTEKIGO_JYOTAI_KB.Name = "cmbFUTEKIGO_JYOTAI_KB"
         Me.cmbFUTEKIGO_JYOTAI_KB.NullValue = " "
+        Me.cmbFUTEKIGO_JYOTAI_KB.SelectAllText = False
         Me.cmbFUTEKIGO_JYOTAI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbFUTEKIGO_JYOTAI_KB.TabIndex = 12
         Me.cmbFUTEKIGO_JYOTAI_KB.ValueMember = "VALUE"
@@ -887,6 +899,7 @@ Partial Class FrmG0010
         Me.cmbJIZEN_SINSA_HANTEI_KB.Location = New System.Drawing.Point(163, 3)
         Me.cmbJIZEN_SINSA_HANTEI_KB.Name = "cmbJIZEN_SINSA_HANTEI_KB"
         Me.cmbJIZEN_SINSA_HANTEI_KB.NullValue = " "
+        Me.cmbJIZEN_SINSA_HANTEI_KB.SelectAllText = False
         Me.cmbJIZEN_SINSA_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbJIZEN_SINSA_HANTEI_KB.TabIndex = 21
         Me.cmbJIZEN_SINSA_HANTEI_KB.ValueMember = "VALUE"
@@ -908,6 +921,7 @@ Partial Class FrmG0010
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Location = New System.Drawing.Point(163, 33)
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Name = "cmbSAISIN_IINKAI_HANTEI_KB"
         Me.cmbSAISIN_IINKAI_HANTEI_KB.NullValue = " "
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.SelectAllText = False
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbSAISIN_IINKAI_HANTEI_KB.TabIndex = 23
         Me.cmbSAISIN_IINKAI_HANTEI_KB.ValueMember = "VALUE"
@@ -1043,6 +1057,7 @@ Partial Class FrmG0010
         Me.cmbZESEI_SYOCHI_YOHI_KB.Location = New System.Drawing.Point(483, 3)
         Me.cmbZESEI_SYOCHI_YOHI_KB.Name = "cmbZESEI_SYOCHI_YOHI_KB"
         Me.cmbZESEI_SYOCHI_YOHI_KB.NullValue = " "
+        Me.cmbZESEI_SYOCHI_YOHI_KB.SelectAllText = False
         Me.cmbZESEI_SYOCHI_YOHI_KB.Size = New System.Drawing.Size(94, 25)
         Me.cmbZESEI_SYOCHI_YOHI_KB.TabIndex = 22
         Me.cmbZESEI_SYOCHI_YOHI_KB.ValueMember = "VALUE"
@@ -1086,6 +1101,7 @@ Partial Class FrmG0010
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Location = New System.Drawing.Point(483, 33)
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Name = "cmbKOKYAKU_HANTEI_SIJI_KB"
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.NullValue = " "
+        Me.cmbKOKYAKU_HANTEI_SIJI_KB.SelectAllText = False
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Size = New System.Drawing.Size(94, 25)
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.TabIndex = 24
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.ValueMember = "VALUE"
@@ -1118,6 +1134,7 @@ Partial Class FrmG0010
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Location = New System.Drawing.Point(163, 63)
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Name = "cmbKOKYAKU_SAISYU_HANTEI_KB"
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.NullValue = " "
+        Me.cmbKOKYAKU_SAISYU_HANTEI_KB.SelectAllText = False
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.TabIndex = 25
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.ValueMember = "VALUE"
@@ -1150,6 +1167,7 @@ Partial Class FrmG0010
         Me.cmbKENSA_KEKKA_KB.Location = New System.Drawing.Point(483, 63)
         Me.cmbKENSA_KEKKA_KB.Name = "cmbKENSA_KEKKA_KB"
         Me.cmbKENSA_KEKKA_KB.NullValue = " "
+        Me.cmbKENSA_KEKKA_KB.SelectAllText = False
         Me.cmbKENSA_KEKKA_KB.Size = New System.Drawing.Size(94, 25)
         Me.cmbKENSA_KEKKA_KB.TabIndex = 26
         Me.cmbKENSA_KEKKA_KB.ValueMember = "VALUE"
@@ -1367,6 +1385,7 @@ Partial Class FrmG0010
         Me.cmbYOIN1.Location = New System.Drawing.Point(83, 3)
         Me.cmbYOIN1.Name = "cmbYOIN1"
         Me.cmbYOIN1.NullValue = " "
+        Me.cmbYOIN1.SelectAllText = False
         Me.cmbYOIN1.Size = New System.Drawing.Size(194, 25)
         Me.cmbYOIN1.TabIndex = 28
         Me.cmbYOIN1.ValueMember = "VALUE"
@@ -1389,6 +1408,7 @@ Partial Class FrmG0010
         Me.cmbYOIN2.Location = New System.Drawing.Point(83, 33)
         Me.cmbYOIN2.Name = "cmbYOIN2"
         Me.cmbYOIN2.NullValue = " "
+        Me.cmbYOIN2.SelectAllText = False
         Me.cmbYOIN2.Size = New System.Drawing.Size(194, 25)
         Me.cmbYOIN2.TabIndex = 29
         Me.cmbYOIN2.ValueMember = "VALUE"
@@ -1411,6 +1431,7 @@ Partial Class FrmG0010
         Me.cmbKISEKI_KOTEI_KB.Location = New System.Drawing.Point(83, 63)
         Me.cmbKISEKI_KOTEI_KB.Name = "cmbKISEKI_KOTEI_KB"
         Me.cmbKISEKI_KOTEI_KB.NullValue = " "
+        Me.cmbKISEKI_KOTEI_KB.SelectAllText = False
         Me.cmbKISEKI_KOTEI_KB.Size = New System.Drawing.Size(194, 25)
         Me.cmbKISEKI_KOTEI_KB.TabIndex = 30
         Me.cmbKISEKI_KOTEI_KB.ValueMember = "VALUE"
@@ -1426,6 +1447,7 @@ Partial Class FrmG0010
         Me.mtxGENIN1_DISP.MaxByteLength = 0
         Me.mtxGENIN1_DISP.Name = "mtxGENIN1_DISP"
         Me.mtxGENIN1_DISP.ReadOnly = True
+        Me.mtxGENIN1_DISP.SelectAllText = False
         Me.mtxGENIN1_DISP.Size = New System.Drawing.Size(434, 23)
         Me.mtxGENIN1_DISP.TabIndex = 82
         Me.mtxGENIN1_DISP.WatermarkColor = System.Drawing.Color.Empty
@@ -1442,6 +1464,7 @@ Partial Class FrmG0010
         Me.mtxGENIN2_DISP.MaxByteLength = 0
         Me.mtxGENIN2_DISP.Name = "mtxGENIN2_DISP"
         Me.mtxGENIN2_DISP.ReadOnly = True
+        Me.mtxGENIN2_DISP.SelectAllText = False
         Me.mtxGENIN2_DISP.Size = New System.Drawing.Size(434, 23)
         Me.mtxGENIN2_DISP.TabIndex = 104
         Me.mtxGENIN2_DISP.WatermarkColor = System.Drawing.Color.Empty
@@ -1481,6 +1504,7 @@ Partial Class FrmG0010
         Me.mtxGENIN1.Location = New System.Drawing.Point(463, 3)
         Me.mtxGENIN1.MaxByteLength = 0
         Me.mtxGENIN1.Name = "mtxGENIN1"
+        Me.mtxGENIN1.SelectAllText = False
         Me.mtxGENIN1.Size = New System.Drawing.Size(74, 23)
         Me.mtxGENIN1.TabIndex = 109
         Me.mtxGENIN1.Visible = False
@@ -1497,6 +1521,7 @@ Partial Class FrmG0010
         Me.mtxGENIN2.Location = New System.Drawing.Point(463, 33)
         Me.mtxGENIN2.MaxByteLength = 0
         Me.mtxGENIN2.Name = "mtxGENIN2"
+        Me.mtxGENIN2.SelectAllText = False
         Me.mtxGENIN2.Size = New System.Drawing.Size(74, 23)
         Me.mtxGENIN2.TabIndex = 110
         Me.mtxGENIN2.Visible = False

@@ -425,7 +425,7 @@ Public Class FrmG0011
                     End Select
 
                     If Not blnTENSO Then
-                        If FunSAVE_D004(DB, enmSAVE_MODE) = False Then blnErr = True : Return False                        '
+                        If FunSAVE_D004(DB, enmSAVE_MODE) = False Then blnErr = True : Return False '
                         If FunSAVE_R001(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                     End If
                 Finally

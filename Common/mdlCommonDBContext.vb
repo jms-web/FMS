@@ -869,6 +869,7 @@ Public Module mdlDBContext
                     sbSQL.Append(" FROM V007_NCR_CAR V007")
                     sbSQL.Append(" LEFT JOIN VWM107_BUHIN_KISYU V106")
                     sbSQL.Append(" ON V007.BUHIN_BANGO = V106.BUHIN_BANGO")
+                    sbSQL.Append(" WHERE V007.BUHIN_BANGO IS NOT NULL")
 
                     If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append("WHERE " & strWhere & "")

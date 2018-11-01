@@ -98,14 +98,12 @@ Public Class FrmG0016
             'É{É^ÉìINDEXñàÇÃèàóù
             Select Case intFUNC
                 Case 1  '
-                    If FunCheckInput() Then
+                    If FunSAVE() Then
 
-                        If FunSAVE() Then
-
-                            Me.DialogResult = Windows.Forms.DialogResult.OK
-                            Me.Close()
-                        End If
+                        Me.DialogResult = Windows.Forms.DialogResult.OK
+                        Me.Close()
                     End If
+
                 Case 12 'ñﬂÇÈ
                     Me.DialogResult = Windows.Forms.DialogResult.Cancel
                     Me.Close()
@@ -512,6 +510,7 @@ Public Class FrmG0016
         sbSQL.Append(" ," & NameOf(_R004.FILE_PATH1))
         sbSQL.Append(" ," & NameOf(_R004.FILE_PATH2))
         sbSQL.Append(" ," & NameOf(_R004.FUTEKIGO_HASSEI_YMD))
+        sbSQL.Append(" ," & NameOf(_R004.SYOCHI_YOTEI_YMD))
         sbSQL.Append(" ) VALUES(")
         sbSQL.Append(" '" & strYMDHNS & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.HOKOKU_NO & "'")
@@ -590,6 +589,7 @@ Public Class FrmG0016
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH1 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.FILE_PATH2 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.FUTEKIGO_HASSEI_YMD & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.SYOCHI_YOTEI_YMD & "'")
         sbSQL.Append(" );")
         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
         If intRET <> 1 Then

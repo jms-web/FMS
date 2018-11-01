@@ -2056,13 +2056,12 @@ Public Class FrmG0010
 
     Private Sub CmbSYANAI_CD_SelectedValueChanged(sender As Object, e As EventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
 
         RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
 
         '•”•i”Ô†
         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
-        If blnSelected Then
+        If cmb.IsSelected Then
             Dim drs = tblBUHIN.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.SYANAI_CD)) = cmb.SelectedValue).ToList
             If drs.Count > 0 Then
                 Dim dt As DataTable = drs.CopyToDataTable
@@ -2078,7 +2077,7 @@ Public Class FrmG0010
         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
         RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
         cmbSYANAI_CD.DataBindings.Clear()
-        If blnSelected Then
+        If cmb.IsSelected Then
             Dim dr As DataRow = DirectCast(cmbSYANAI_CD.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbSYANAI_CD.SelectedValue).FirstOrDefault
             ParamModel.BUHIN_BANGO = dr.Item("BUHIN_BANGO")
             ParamModel.BUHIN_NAME = dr.Item("BUHIN_NAME")

@@ -1935,6 +1935,8 @@ Public Class FrmG0012
             mtxKAITO_18.Text = ""
             mtxKAITO_19.Text = ""
             dtKAITO_20.ValueNonFormat = ""
+            cmbSYOCHI_C_TANTO.SelectedValue = 0
+            dtSYOCHI_C_YMD.ValueNonFormat = ""
         End If
 
         mtxKAITO_15.ReadOnly = result
@@ -1943,6 +1945,8 @@ Public Class FrmG0012
         mtxKAITO_18.ReadOnly = result
         mtxKAITO_19.ReadOnly = result
         dtKAITO_20.ReadOnly = result
+        cmbSYOCHI_C_TANTO.ReadOnly = result
+        dtSYOCHI_C_YMD.ReadOnly = result
 
         Call dtKAITO_16_Validating(dtKAITO_16, Nothing)
         Call cmbKAITO_17_Validating(cmbKAITO_17, Nothing)

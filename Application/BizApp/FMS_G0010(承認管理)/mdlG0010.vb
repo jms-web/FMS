@@ -1415,9 +1415,21 @@ Module mdlG0010
             End If
             If Not _V005_CAR_J.KAITO_14.IsNullOrWhiteSpace AndAlso CBool(_V005_CAR_J.KAITO_14) Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_14) & "_YOU").Value = "TRUE"
+
+                Dim ssgShapes As SpreadsheetGear.Shapes.IShapes
+                ssgShapes = spSheet1.Shapes
+                For Each shape As SpreadsheetGear.Shapes.IShape In ssgShapes
+                    If shape.Name = "LINE_SYOCHI_C" Then
+                        shape.Visible = False
+                        shape.PrintObject = False
+                        Exit For
+                    End If
+                Next shape
             Else
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_14) & "_HI").Value = "TRUE"
             End If
+
+
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_15)).Value = _V005_CAR_J.KAITO_15
             If Not _V005_CAR_J.KAITO_16.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_16)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_16.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
