@@ -172,12 +172,8 @@ Public Class FrmM00101
 
                 Case 10  'CSVèoóÕ
                     Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
+                    Call FunCSV_OUT(CType(flxDATA.DataSource, List(Of MODEL.TV05_FUTEKIGO_CODE)), strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
-                    'Call FunCSV_OUT(flxDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
-                    'Dim strFileName As String = lblTytle.Text & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
-
-                    Dim dtWork As DataTable = DirectCast(flxDATA.DataSource, DataTable)                    'dtWork.Columns.Remove(NameOf(MODEL.TV05_FUTEKIGO_CODE.PASS))
-                    Call FunCSV_OUT(dtWork, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
                 Case 12 'ï¬Ç∂ÇÈ
                     Me.Close()

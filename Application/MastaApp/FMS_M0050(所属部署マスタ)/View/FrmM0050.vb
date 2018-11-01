@@ -186,6 +186,9 @@ Public Class FrmM0050
                         Call FunSRCH(Me.flxDATA, FunGetListData())
                     End If
 
+                Case 9 'èäëÆé–àıàÍóó
+                    Call FunUpdateEntity_ICHIRAN()
+
                 Case 10  'CSVèoóÕ
                     Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
 
@@ -835,5 +838,32 @@ Public Class FrmM0050
 
 
 #End Region
+
+    Private Function FunUpdateEntity_ICHIRAN() As Boolean
+        Dim frmDLG As New FrmM0051
+        Dim dlgRET As DialogResult
+        'Dim PKeys As (ITEM_NAME As String, ITEM_VALUE As String)
+
+        Try
+
+            dlgRET = frmDLG.ShowDialog(Me)
+            'PKeys = frmDLG.PrPKeys
+
+            If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                Return False
+            Else
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            If frmDLG IsNot Nothing Then
+                frmDLG.Dispose()
+            End If
+        End Try
+    End Function
 
 End Class
