@@ -621,4 +621,8 @@ Partial Public Class R003_NCR_SASIMODOSI
     <Required>
     <ComponentModel.DisplayName("発生日")>
     Public Property HASSEI_YMD As String
+
+    <Required>
+    <ComponentModel.DisplayName("再不適合起草担当")>
+    Public Property SAI_FUTEKIGO_KISO_TANTO_ID As Integer
 End Class

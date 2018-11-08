@@ -181,9 +181,17 @@ Public Class FrmG0012
 
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._2_承認申請) Then
-                        If MessageBox.Show("申請しますか？", "申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                        If MessageBox.Show("申請しますか？", "承認・申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                             If FunSAVE(ENM_SAVE_MODE._2_承認申請) Then
-                                MessageBox.Show("申請しました", "申請処理完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                                Dim strMsg As String
+                                If PrCurrentStage = ENM_NCR_STAGE._120_abcde処置確認 Then
+                                    strMsg = "承認しました"
+                                Else
+                                    strMsg = "承認・申請しました"
+                                End If
+
+                                MessageBox.Show(strMsg, "承認・申請処理完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
                                 Me.DialogResult = DialogResult.OK
 
                                 'SPEC: 2.(3).E.④

@@ -552,7 +552,7 @@ Public Class MaskedTextBoxEx
                 Dim rect As Rectangle = Me.ClientRectangle
                 rect.Offset(50, 0)
                 TextRenderer.DrawText(g,
-                                         "Žc‚è " & (Me.MaxLength - Me.Text.ToString.GetByteLength) / 2 & "•¶Žš",
+                                         "Žc‚è " & (Me.MaxByteLength - Me.Text.ToString.GetByteLength) / 2 & "•¶Žš",
                                           New Font(Me.Font.Name, Me.Font.Size, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte)),
                                           rect,
                                           Color.Black,

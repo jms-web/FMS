@@ -653,6 +653,10 @@ Partial Public Class D003_NCR_J
     <ComponentModel.DisplayName("発生日")>
     Public Property HASSEI_YMD As String
 
+    <Required>
+    <ComponentModel.DisplayName("再不適合起草担当")>
+    Public Property SAI_FUTEKIGO_KISO_TANTO_ID As Integer
+
     ''共通項目------------------------------------
     <Required>
     <StringLength(14)>

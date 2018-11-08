@@ -869,7 +869,7 @@ Module mdlG0010
 
         dt = New DataTableEx("System.Int32")
 
-        sbSQL.Append("SELECT * FROM TV02_SYONIN_SYOZOKU_SYAIN('" & BUMON_KB & "')")
+        sbSQL.Append("SELECT * FROM TV02_SYONIN_SYOZOKU_SYAIN('" & BUMON_KB.Trim & "')")
         If SYONIN_HOUKOKUSYO_ID > 0 Then
             sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & SYONIN_HOUKOKUSYO_ID & "")
             sbSQL.Append(" AND SYONIN_JUN=" & SYONIN_JUN & "")
@@ -1140,7 +1140,7 @@ Module mdlG0010
                     If Not _V002_NCR_J.HAIKYAKU_YMD.IsNullOrWhiteSpace Then
                         ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.HAIKYAKU_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                     End If
-                    ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_HOUHOU)).Value = $"(その他の内容：{_V002_NCR_J.HAIKYAKU_HOUHOU.PadRight(30)})"
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_HOUHOU)).Value = $"その他の内容：{_V002_NCR_J.HAIKYAKU_HOUHOU.PadRight(30)}"
                     ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_KB_NAME)).Value = _V002_NCR_J.HAIKYAKU_KB_NAME
                     ssgSheet1.Range(NameOf(_V002_NCR_J.HAIKYAKU_TANTO_NAME)).Value = _V002_NCR_J.HAIKYAKU_TANTO_NAME
                 Case ENM_NCR_STAGE80_TABPAGES._2_再加工指示_記録
@@ -1224,7 +1224,7 @@ Module mdlG0010
                 End If
             End If
 
-            ssgSheet1.Range(NameOf(_V002_NCR_J.KANSATU_KEKKA)).Value = _V002_NCR_J.KANSATU_KEKKA
+            ssgSheet1.Range(NameOf(_V002_NCR_J.KANSATU_KEKKA)).Value = _V002_NCR_J.KANSATU_KEKKA.Replace(Environment.NewLine, "")
             ssgSheet1.Range(NameOf(_V002_NCR_J.KISYU_NAME)).Value = _V002_NCR_J.KISYU_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAIHATU)).Value = _V002_NCR_J.SAIHATU
 
@@ -1257,7 +1257,7 @@ Module mdlG0010
                 shapeLINE_SYOCHI_C.Visible = True
             End If
 
-            ssgSheet1.Range(NameOf(_V002_NCR_J.YOKYU_NAIYO)).Value = _V002_NCR_J.YOKYU_NAIYO
+            ssgSheet1.Range(NameOf(_V002_NCR_J.YOKYU_NAIYO)).Value = _V002_NCR_J.YOKYU_NAIYO.Replace(Environment.NewLine, "")
             ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = _V002_NCR_J.ZUMEN_KIKAKU
 
             Dim strYMDHNS As String
@@ -1392,9 +1392,9 @@ Module mdlG0010
 
             spSheet1.Range(NameOf(_V005_CAR_J.GOKI)).Value = _V005_CAR_J.GOKI
             spSheet1.Range(NameOf(_V005_CAR_J.HOKOKU_NO)).Value = _V005_CAR_J.HOKOKU_NO
-            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_1)).Value = _V005_CAR_J.KAITO_1
-            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_2)).Value = _V005_CAR_J.KAITO_2
-            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_3)).Value = _V005_CAR_J.KAITO_3
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_1)).Value = _V005_CAR_J.KAITO_1.Replace(Environment.NewLine, "")
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_2)).Value = _V005_CAR_J.KAITO_2.Replace(Environment.NewLine, "")
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_3)).Value = _V005_CAR_J.KAITO_3.Replace(Environment.NewLine, "")
             If Not _V005_CAR_J.KAITO_4.IsNullOrWhiteSpace Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_4)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_4.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
@@ -1442,8 +1442,8 @@ Module mdlG0010
             End If
 
 
-            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_21)).Value = _V005_CAR_J.KAITO_21
-            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_22)).Value = _V005_CAR_J.KAITO_22
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_21)).Value = _V005_CAR_J.KAITO_21.Replace(Environment.NewLine, "")
+            spSheet1.Range(NameOf(_V005_CAR_J.KAITO_22)).Value = _V005_CAR_J.KAITO_22.Replace(Environment.NewLine, "")
 
             '現状未使用のフィールド
             'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_24)).Value = _V005_CAR_J.KAITO_24

@@ -29,7 +29,7 @@ Public Class FrmBase
 
     End Sub
 
-    Private Async Sub Frm_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs) Handles MyBase.MouseMove
+    Private Sub Frm_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs) Handles MyBase.MouseMove
 
         'Enable=FalseのコントロールでもToolTipを表示可にする
         Dim control As Control = GetChildAtPoint(e.Location)
@@ -42,7 +42,7 @@ Public Class FrmBase
                     Dim toolTipString As String = ToolTip.GetToolTip(control)
                     '表示位置(相対位置指定) 右上あたり
 
-                    Await FunDelayDispToolTip(toolTipString, control, control.Width - 25, -15)
+                    FunDelayDispToolTip(toolTipString, control, control.Width - 25, -15)
 
                     _currentToolTipControl = control
                 End If
@@ -72,24 +72,25 @@ Public Class FrmBase
         ToolTip.Show(strMessage, ctrl, intX, intY)
     End Sub
 
-    Private Async Function FunDelayDispToolTip(ByVal strMessage As String, ByVal ctrl As Control, intX As Integer, intY As Integer) As Threading.Tasks.Task(Of String)
+    Private Async Sub FunDelayDispToolTip(ByVal strMessage As String, ByVal ctrl As Control, intX As Integer, intY As Integer)  'As Threading.Tasks.Task(Of String)
         Try
 
-            Dim strRET As String = ""
-            Await Threading.Tasks.Task.Run(Sub()
-                                               Try
-                                                   Threading.Thread.Sleep(ToolTip.InitialDelay)
-                                                   Invoke(del, New Object() {strMessage, ctrl, intX, intY})
-                                               Catch ex As InvalidOperationException
-                                               End Try
-                                           End Sub)
-            Return strRET
+            'Dim strRET As String = ""
+            Await Threading.Tasks.Task.Run(
+                Sub()
+                    Try
+                        Threading.Thread.Sleep(ToolTip.InitialDelay)
+                        Invoke(del, New Object() {strMessage, ctrl, intX, intY})
+                    Catch ex As InvalidOperationException
+                    End Try
+                End Sub)
+            'Return strRET
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return ""
+            'Return ""
         End Try
-    End Function
+    End Sub
 
 #End Region
 
