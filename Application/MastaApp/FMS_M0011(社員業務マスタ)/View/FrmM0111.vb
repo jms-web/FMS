@@ -282,7 +282,7 @@ Public Class FrmM0111
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append("SELECT")
             sbSQL.Append(" *")
-            sbSQL.Append(" FROM " & NameOf(MODEL.V010_SYAIN_SYOZOKU_BUSYO) & " ")
+            sbSQL.Append(" FROM " & NameOf(MODEL.VWM011_SYAIN_GYOMU_ICHIRAN) & " ")
             sbSQL.Append(sbSQLWHERE)
             sbSQL.Append(" ORDER BY SIMEI_KANA ")
 
@@ -299,7 +299,7 @@ Public Class FrmM0111
             '------DataTable‚É•ÏŠ·
             Dim dt As New DataTable
 
-            Dim t As Type = GetType(MODEL.V010_SYAIN_SYOZOKU_BUSYO)
+            Dim t As Type = GetType(MODEL.VWM011_SYAIN_GYOMU_ICHIRAN)
             Dim properties As Reflection.PropertyInfo() = t.GetProperties(
                  Reflection.BindingFlags.Public Or
                  Reflection.BindingFlags.NonPublic Or

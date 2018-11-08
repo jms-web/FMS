@@ -206,6 +206,7 @@
     <None Include="My Project\DataSources\MODEL.VWM004_SYAIN.datasource" />
     <None Include="My Project\DataSources\MODEL.VWM005_SYOZOKU_BUSYO.datasource" />
     <None Include="My Project\DataSources\MODEL.VWM011_SYAIN_GYOMU.datasource" />
+    <None Include="My Project\DataSources\MODEL.VWM011_SYAIN_GYOMU_ICHIRAN.datasource" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>

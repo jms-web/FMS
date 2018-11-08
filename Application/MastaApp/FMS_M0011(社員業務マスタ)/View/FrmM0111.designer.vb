@@ -38,12 +38,16 @@ Partial Class FrmM0111
         Me.mtxSIMEI_KANA = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.VWM011SYAINGYOMUICHIRANBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.V010SYAINSYOZOKUBUSYOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.VWM011SYAINGYOMUICHIRANBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.VWM011SYAINGYOMUICHIRANBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.V010SYAINSYOZOKUBUSYOBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.VWM011SYAINGYOMUICHIRANBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -343,29 +347,37 @@ Partial Class FrmM0111
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
-        Me.flxDATA.DataSource = Me.V010SYAINSYOZOKUBUSYOBindingSource
+        Me.flxDATA.DataSource = Me.VWM011SYAINGYOMUICHIRANBindingSource1
         Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.flxDATA.Location = New System.Drawing.Point(14, 150)
         Me.flxDATA.Name = "flxDATA"
         Me.flxDATA.Rows.Count = 1
         Me.flxDATA.Rows.DefaultSize = 23
-        Me.flxDATA.Size = New System.Drawing.Size(1236, 407)
+        Me.flxDATA.Size = New System.Drawing.Size(1236, 413)
         Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
         Me.flxDATA.TabIndex = 62
         Me.flxDATA.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
+        '
+        'VWM011SYAINGYOMUICHIRANBindingSource
+        '
+        Me.VWM011SYAINGYOMUICHIRANBindingSource.DataSource = GetType(MODEL.VWM011_SYAIN_GYOMU_ICHIRAN)
         '
         'V010SYAINSYOZOKUBUSYOBindingSource
         '
         Me.V010SYAINSYOZOKUBUSYOBindingSource.DataSource = GetType(MODEL.V010_SYAIN_SYOZOKU_BUSYO)
         '
-        'FrmM0051
+        'VWM011SYAINGYOMUICHIRANBindingSource1
+        '
+        Me.VWM011SYAINGYOMUICHIRANBindingSource1.DataSource = GetType(MODEL.VWM011_SYAIN_GYOMU_ICHIRAN)
+        '
+        'FrmM0111
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.ClientSize = New System.Drawing.Size(1264, 712)
         Me.Controls.Add(Me.flxDATA)
         Me.Controls.Add(Me.gbxFilter)
         Me.HelpButton = True
-        Me.Name = "FrmM0051"
+        Me.Name = "FrmM0111"
         Me.ShowStatusBar = True
         Me.Text = ""
         Me.Controls.SetChildIndex(Me.gbxFilter, 0)
@@ -389,7 +401,9 @@ Partial Class FrmM0111
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.VWM011SYAINGYOMUICHIRANBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.V010SYAINSYOZOKUBUSYOBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.VWM011SYAINGYOMUICHIRANBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -412,4 +426,6 @@ Partial Class FrmM0111
     Friend WithEvents chkTaisyokuRowVisibled As CheckBox
     Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents V010SYAINSYOZOKUBUSYOBindingSource As BindingSource
+    Friend WithEvents VWM011SYAINGYOMUICHIRANBindingSource As BindingSource
+    Friend WithEvents VWM011SYAINGYOMUICHIRANBindingSource1 As BindingSource
 End Class

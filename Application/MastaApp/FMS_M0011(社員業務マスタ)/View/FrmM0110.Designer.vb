@@ -115,7 +115,7 @@ Partial Class FrmM0110
         '
         Me.cmdFunc9.Image = Global.FMS.My.Resources.Resources._imgPreview32x32
         Me.cmdFunc9.Location = New System.Drawing.Point(423, 643)
-        Me.cmdFunc9.Text = "ĞˆõŠ‘®ˆê——(F9)"
+        Me.cmdFunc9.Text = "Ğˆõ‹Æ–±ˆê——(F9)"
         '
         'cmdFunc8
         '
