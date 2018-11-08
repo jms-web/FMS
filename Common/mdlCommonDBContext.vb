@@ -730,7 +730,7 @@ Public Module mdlDBContext
 
                     dt = New DataTableEx("System.Int32")
 
-                    sbSQL.Append("SELECT * FROM " & NameOf(VWM011_SYAIN_GYOMU) & " ")
+                    sbSQL.Append("SELECT * FROM " & NameOf(M003_GYOMU_GROUP) & " ")
                     If strWhere.IsNullOrWhiteSpace = False Then
                         sbSQL.Append("WHERE " & strWhere & "")
                     End If
@@ -752,7 +752,7 @@ Public Module mdlDBContext
                             Dim Trow As DataRow = dt.NewRow()
                             Trow("DISP") = .Rows(intCNT).Item("GYOMU_GROUP_NAME")
                             Trow("VALUE") = .Rows(intCNT).Item("GYOMU_GROUP_ID")
-                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            'Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With

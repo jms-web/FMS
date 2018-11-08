@@ -29,11 +29,6 @@ Partial Class FrmM0110
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.VWM011SYAINGYOMUBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.GroupBoxEx1 = New JMS_COMMON.GroupBoxEx()
-        Me.radKAISI_YMD = New System.Windows.Forms.RadioButton()
-        Me.radKENMU = New System.Windows.Forms.RadioButton()
-        Me.dtbKAISI_YMD = New JMS_COMMON.DateTextBoxEx()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.mtxSIMEI = New JMS_COMMON.MaskedTextBoxEx()
@@ -51,7 +46,6 @@ Partial Class FrmM0110
         Me.tlpFilter.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.VWM011SYAINGYOMUBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBoxEx1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.flxDATA_SYAIN, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.VWM004SYAINBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -72,17 +66,15 @@ Partial Class FrmM0110
         '
         'cmdFunc2
         '
-        Me.cmdFunc2.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
-        Me.cmdFunc2.Location = New System.Drawing.Point(606, 331)
-        Me.cmdFunc2.Size = New System.Drawing.Size(178, 42)
-        Me.cmdFunc2.Text = "主務追加(F2)"
+        Me.cmdFunc2.Location = New System.Drawing.Point(216, 595)
+        Me.cmdFunc2.Visible = False
         '
         'cmdFunc3
         '
         Me.cmdFunc3.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
-        Me.cmdFunc3.Location = New System.Drawing.Point(606, 379)
+        Me.cmdFunc3.Location = New System.Drawing.Point(606, 318)
         Me.cmdFunc3.Size = New System.Drawing.Size(178, 42)
-        Me.cmdFunc3.Text = "兼務追加(F3)"
+        Me.cmdFunc3.Text = "←追加(F3)"
         '
         'cmdFunc4
         '
@@ -91,7 +83,7 @@ Partial Class FrmM0110
         'cmdFunc5
         '
         Me.cmdFunc5.Image = Global.FMS.My.Resources.Resources._imgStatusAnnotations_Blocked_32x32_MD
-        Me.cmdFunc5.Location = New System.Drawing.Point(606, 469)
+        Me.cmdFunc5.Location = New System.Drawing.Point(606, 382)
         Me.cmdFunc5.Size = New System.Drawing.Size(178, 42)
         Me.cmdFunc5.Text = "選択削除(F5)"
         '
@@ -219,70 +211,6 @@ Partial Class FrmM0110
         'VWM011SYAINGYOMUBindingSource
         '
         Me.VWM011SYAINGYOMUBindingSource.DataSource = GetType(MODEL.VWM011_SYAIN_GYOMU)
-        '
-        'GroupBoxEx1
-        '
-        Me.GroupBoxEx1.BackColor = System.Drawing.SystemColors.Control
-        Me.GroupBoxEx1.Controls.Add(Me.radKAISI_YMD)
-        Me.GroupBoxEx1.Controls.Add(Me.radKENMU)
-        Me.GroupBoxEx1.Controls.Add(Me.dtbKAISI_YMD)
-        Me.GroupBoxEx1.Controls.Add(Me.Label2)
-        Me.GroupBoxEx1.Font = New System.Drawing.Font("MS UI Gothic", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.GroupBoxEx1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GroupBoxEx1.Location = New System.Drawing.Point(593, 210)
-        Me.GroupBoxEx1.Name = "GroupBoxEx1"
-        Me.GroupBoxEx1.Size = New System.Drawing.Size(199, 106)
-        Me.GroupBoxEx1.TabIndex = 72
-        Me.GroupBoxEx1.TabStop = False
-        Me.GroupBoxEx1.Text = "既存主務更新パターン選択"
-        '
-        'radKAISI_YMD
-        '
-        Me.radKAISI_YMD.AutoSize = True
-        Me.radKAISI_YMD.Location = New System.Drawing.Point(13, 76)
-        Me.radKAISI_YMD.Name = "radKAISI_YMD"
-        Me.radKAISI_YMD.Size = New System.Drawing.Size(118, 19)
-        Me.radKAISI_YMD.TabIndex = 72
-        Me.radKAISI_YMD.TabStop = True
-        Me.radKAISI_YMD.Text = "開始日で切替"
-        Me.radKAISI_YMD.UseVisualStyleBackColor = True
-        '
-        'radKENMU
-        '
-        Me.radKENMU.AutoSize = True
-        Me.radKENMU.Location = New System.Drawing.Point(13, 22)
-        Me.radKENMU.Name = "radKENMU"
-        Me.radKENMU.Size = New System.Drawing.Size(102, 19)
-        Me.radKENMU.TabIndex = 71
-        Me.radKENMU.TabStop = True
-        Me.radKENMU.Text = "兼務に切替"
-        Me.radKENMU.UseVisualStyleBackColor = True
-        '
-        'dtbKAISI_YMD
-        '
-        Me.dtbKAISI_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtbKAISI_YMD.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.dtbKAISI_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtbKAISI_YMD.Location = New System.Drawing.Point(63, 46)
-        Me.dtbKAISI_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtbKAISI_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtbKAISI_YMD.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtbKAISI_YMD.Name = "dtbKAISI_YMD"
-        Me.dtbKAISI_YMD.ReadOnly = False
-        Me.dtbKAISI_YMD.Size = New System.Drawing.Size(114, 24)
-        Me.dtbKAISI_YMD.TabIndex = 65
-        Me.dtbKAISI_YMD.Value = ""
-        Me.dtbKAISI_YMD.ValueNonFormat = ""
-        '
-        'Label2
-        '
-        Me.Label2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label2.Location = New System.Drawing.Point(10, 44)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(51, 30)
-        Me.Label2.TabIndex = 68
-        Me.Label2.Text = "開始日"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TableLayoutPanel1
         '
@@ -471,7 +399,6 @@ Partial Class FrmM0110
         Me.ClientSize = New System.Drawing.Size(1264, 712)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.flxDATA_SYAIN)
-        Me.Controls.Add(Me.GroupBoxEx1)
         Me.Controls.Add(Me.flxDATA)
         Me.Controls.Add(Me.gbxFilter)
         Me.HelpButton = True
@@ -494,7 +421,6 @@ Partial Class FrmM0110
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
-        Me.Controls.SetChildIndex(Me.GroupBoxEx1, 0)
         Me.Controls.SetChildIndex(Me.flxDATA_SYAIN, 0)
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
@@ -503,8 +429,6 @@ Partial Class FrmM0110
         Me.tlpFilter.PerformLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.VWM011SYAINGYOMUBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBoxEx1.ResumeLayout(False)
-        Me.GroupBoxEx1.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         CType(Me.flxDATA_SYAIN, System.ComponentModel.ISupportInitialize).EndInit()
@@ -521,9 +445,6 @@ Partial Class FrmM0110
     Friend WithEvents gbxFilter As GroupBox
     Friend WithEvents tlpFilter As TableLayoutPanel
     Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents GroupBoxEx1 As GroupBoxEx
-    Friend WithEvents dtbKAISI_YMD As DateTextBoxEx
-    Friend WithEvents Label2 As Label
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents Label4 As Label
     Friend WithEvents mtxSIMEI As MaskedTextBoxEx
@@ -535,8 +456,6 @@ Partial Class FrmM0110
     Friend WithEvents mtxSIMEI_KANA As MaskedTextBoxEx
     Friend WithEvents flxDATA_SYAIN As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents radKAISI_YMD As RadioButton
-    Friend WithEvents radKENMU As RadioButton
     Friend WithEvents VWM004SYAINBindingSource As BindingSource
     Friend WithEvents VWM011SYAINGYOMUBindingSource As BindingSource
 End Class

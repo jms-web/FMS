@@ -42,7 +42,7 @@ Public Class FrmM0110
             FunInitializeFlexGrid(flxDATA_SYAIN)
 
             '-----コントロールデータソース設定
-            Me.cmbGYOMU_GROUP.SetDataSource(tblGYOMU_GROUP.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            Me.cmbGYOMU_GROUP.SetDataSource(tblGYOMU_GROUP, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             Me.cmbSYAIN_KB.SetDataSource(tblSYAIN_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
             Me.cmbYAKUSYOKU_KB.SetDataSource(tblYAKUSYOKU_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
@@ -171,13 +171,10 @@ Public Class FrmM0110
                 Case 1  '検索
                     Call FunSRCH(Me.flxDATA_SYAIN, FunGetListData_SYAIN())
 
-                Case 2  '主務追加
-                    If FunUpdateEntity(0) = True Then
-                        Call FunSRCH(Me.flxDATA, FunGetListData())
-                    End If
+                Case 2  '
 
-                Case 3  '兼務追加
-                    If FunUpdateEntity(1) = True Then
+                Case 3  '追加
+                    If FunUpdateEntity() = True Then
                         Call FunSRCH(Me.flxDATA, FunGetListData())
                     End If
 
@@ -195,10 +192,10 @@ Public Class FrmM0110
                     sbSQL.Remove(0, sbSQL.Length)
                     sbSQL.Append("SELECT")
                     sbSQL.Append(" * ")
-                    sbSQL.Append(" FROM " & NameOf(MODEL.VWM005_SYOZOKU_BUSYO) & " ")
+                    sbSQL.Append(" FROM " & NameOf(MODEL.VWM011_SYAIN_GYOMU) & " ")
                     sbSQL.Append(" WHERE ")
                     sbSQL.Append(" DEL_FLG = '0'")
-                    sbSQL.Append(" ORDER BY BUSYO_KB,BUSYO_ID,SYAIN_ID")
+                    sbSQL.Append(" ORDER BY GYOMU_GROUP_ID")
                     Using DB As ClsDbUtility = DBOpen()
                         dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
                     End Using
@@ -243,13 +240,10 @@ Public Class FrmM0110
             sbSQLWHERE.Append(" WHERE 0 = 0 ")
 
             If Me.cmbGYOMU_GROUP.SelectedValue <> 0 Then
-                sbSQLWHERE.Append(" AND BUSYO_ID = " & Me.cmbGYOMU_GROUP.SelectedValue & " ")
+                sbSQLWHERE.Append(" AND GYOMU_GROUP_ID = " & Me.cmbGYOMU_GROUP.SelectedValue & " ")
             Else
-                sbSQLWHERE.Append(" AND BUSYO_ID = 0 ")
+                sbSQLWHERE.Append(" AND GYOMU_GROUP_ID = 0 ")
             End If
-            sbSQLWHERE.Append(" AND BUSYO_YUKO_YMD >= '" & DateTime.Now.ToString("yyyyMMdd") & "'")
-
-            sbSQLWHERE.Append(" AND (TAISYA_YMD >= '" & DateTime.Now.ToString("yyyyMMdd") & "' OR TAISYA_YMD = '')")
 
             'If Me.chkDeletedRowVisibled.Checked = False Then
             '    sbSQLWHERE.Append(" AND DEL_FLG <> 1 ")
@@ -258,7 +252,7 @@ Public Class FrmM0110
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append("SELECT")
             sbSQL.Append(" *")
-            sbSQL.Append(" FROM " & NameOf(MODEL.VWM005_SYOZOKU_BUSYO) & " ")
+            sbSQL.Append(" FROM " & NameOf(MODEL.VWM011_SYAIN_GYOMU) & " ")
             sbSQL.Append(sbSQLWHERE)
             sbSQL.Append(" ORDER BY SIMEI_KANA ")
             Using DBa As ClsDbUtility = DBOpen()
@@ -273,7 +267,7 @@ Public Class FrmM0110
 
             Dim dt As New DataTable
 
-            Dim t As Type = GetType(MODEL.VWM005_SYOZOKU_BUSYO)
+            Dim t As Type = GetType(MODEL.VWM011_SYAIN_GYOMU)
             Dim properties As Reflection.PropertyInfo() = t.GetProperties(
                  Reflection.BindingFlags.Public Or
                  Reflection.BindingFlags.NonPublic Or
@@ -448,7 +442,7 @@ Public Class FrmM0110
             End If
 
 
-            Call FunSetGridCellFormat(flx)
+            'Call FunSetGridCellFormat(flx)
 
             If flx.RowSel > 0 Then
                 '-----選択行設定
@@ -498,7 +492,7 @@ Public Class FrmM0110
     ''' </summary>
     ''' <param name="intMODE">処理モード</param>
     ''' <returns></returns>
-    Private Function FunUpdateEntity(ByVal intKENMU_FLG As Integer) As Boolean
+    Private Function FunUpdateEntity() As Boolean
         'intKENMU_FLG　→　０：主務、１：兼務
 
         Dim sbSQL As New System.Text.StringBuilder
@@ -519,12 +513,12 @@ Public Class FrmM0110
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append("SELECT")
             sbSQL.Append(" *")
-            sbSQL.Append(" FROM " & NameOf(MODEL.VWM005_SYOZOKU_BUSYO) & " ")
+            sbSQL.Append(" FROM " & NameOf(MODEL.VWM011_SYAIN_GYOMU) & " ")
             sbSQL.Append(" WHERE ")
             sbSQL.Append("     SYAIN_ID = " & intSyain_id)
-            sbSQL.Append(" AND BUSYO_ID = " & Me.cmbGYOMU_GROUP.SelectedValue)
+            sbSQL.Append(" AND GYOMU_GROUP_ID = " & Me.cmbGYOMU_GROUP.SelectedValue)
             sbSQL.Append(" AND DEL_FLG = '0'")
-            sbSQL.Append(" AND SYOZOKU_YUKO_YMD = '99999999'")
+
 
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
@@ -544,86 +538,11 @@ Public Class FrmM0110
                 Try
                     DB.BeginTransaction()
 
-                    If intKENMU_FLG = 0 Then
-
-                        sbSQL.Remove(0, sbSQL.Length)
-                        sbSQL.Append("SELECT")
-                        sbSQL.Append(" *")
-                        sbSQL.Append(" FROM " & NameOf(MODEL.VWM005_SYOZOKU_BUSYO) & " ")
-                        sbSQL.Append(" WHERE ")
-                        sbSQL.Append("     SYAIN_ID = " & intSyain_id)
-                        sbSQL.Append(" AND KENMU_FLG = '0'")
-                        sbSQL.Append(" AND SYOZOKU_YUKO_YMD = '99999999'")
-
-                        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-
-                        If dsList.Tables(0).Rows.Count > 0 Then
-
-                            If Me.radKENMU.Checked = False And radKAISI_YMD.Checked = False Then
-                                Call MsgBox("主務の追加の場合は、既存主務更新パターンを選択してください", vbOKOnly + vbInformation, "二重登録")
-                                blnErr = True
-                                Return False
-                            End If
-
-                            If Me.radKAISI_YMD.Checked = True And dtbKAISI_YMD.ValueNonFormat.Trim = "" Then
-                                Call MsgBox("主務の追加で開始日で切り替えの場合は、開始日を指定してください", vbOKOnly + vbInformation, "二重登録")
-                                blnErr = True
-                                Return False
-                            End If
-
-                            '既存主務を兼務に切り替える場合
-                            If Me.radKENMU.Checked = True Then
-
-                                sbSQL.Remove(0, sbSQL.Length)
-                                sbSQL.Append("UPDATE " & NameOf(MODEL.M005_SYOZOKU_BUSYO) & " SET ")
-                                sbSQL.Append("KENMU_FLG = '1' ")
-                                sbSQL.Append("WHERE ")
-                                sbSQL.Append("     SYAIN_ID = " & intSyain_id)
-                                sbSQL.Append(" AND KENMU_FLG = '0' ")
-
-                                '-----SQL実行
-                                intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-
-                            Else
-                                '既存の主務の終了日を更新する場合
-
-                                '開始日の前日を取得する
-                                Dim dtSTART As DateTime = DateTime.Parse(dtbKAISI_YMD.Value)
-                                ' 1日減算する
-                                'dtSTART = dtSTART.AddDays(-1)
-                                strPreDate = dtSTART.AddDays(-1).ToString("yyyyMMdd")
-
-                                sbSQL.Remove(0, sbSQL.Length)
-                                sbSQL.Append("UPDATE " & NameOf(MODEL.M005_SYOZOKU_BUSYO) & " SET ")
-                                sbSQL.Append("YUKO_YMD = '" & strPreDate & "' ")
-                                sbSQL.Append("WHERE ")
-                                sbSQL.Append("     SYAIN_ID = " & intSyain_id)
-                                sbSQL.Append(" AND KENMU_FLG = '0' ")
-                                sbSQL.Append(" AND YUKO_YMD = '99999999'")
-                                'sbSQL.Append(" AND YUKO_YMD = (SELECT MAX(YUKO_YMD) FROM " & NameOf(MODEL.M005_SYOZOKU_BUSYO) & "")
-                                'sbSQL.Append("                 WHERE ")
-                                'sbSQL.Append("                     SYAIN_ID = " & intSyain_id)
-                                'sbSQL.Append(" And KENMU_FLG = '0' ")
-                                'sbSQL.Append("                 AND YUKO_YMD < '" & dtSTART.ToString("yyyyMMdd") & "'")
-                                'sbSQL.Append(")")
-                                '-----SQL実行
-                                intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-
-                            End If
-                        End If
-
-                    Else
-                        '１：兼務の場合
-
-                    End If
-
                     '新規にレコード追加
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("INSERT INTO " & NameOf(MODEL.M005_SYOZOKU_BUSYO) & " (")
+                    sbSQL.Append("INSERT INTO M011_SYAIN_GYOMU (")
                     sbSQL.Append(" SYAIN_ID")
-                    sbSQL.Append(",BUSYO_ID")
-                    sbSQL.Append(",YUKO_YMD")
-                    sbSQL.Append(",KENMU_FLG")
+                    sbSQL.Append(",GYOMU_GROUP_ID")
                     sbSQL.Append(",ADD_YMDHNS")
                     sbSQL.Append(",ADD_SYAIN_ID")
                     sbSQL.Append(",UPD_YMDHNS")
@@ -633,8 +552,6 @@ Public Class FrmM0110
                     sbSQL.Append(") VALUES (")
                     sbSQL.Append("" & intSyain_id & "")
                     sbSQL.Append("," & Me.cmbGYOMU_GROUP.SelectedValue & "")
-                    sbSQL.Append(",'99999999'")
-                    sbSQL.Append(",'" & intKENMU_FLG & "'")
                     sbSQL.Append(",'" & DateTime.Now.ToString("yyyyMMddHHmmss") & "'")
                     sbSQL.Append(", " & pub_SYAIN_INFO.SYAIN_ID & "")
                     sbSQL.Append(",' '")
@@ -699,10 +616,10 @@ Public Class FrmM0110
                     '削除処理
                     '-----SQL
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append(" DELETE FROM " & NameOf(MODEL.M005_SYOZOKU_BUSYO) & " ")
+                    sbSQL.Append(" DELETE FROM " & NameOf(MODEL.M011_SYAIN_GYOMU) & " ")
                     sbSQL.Append(" WHERE ")
                     sbSQL.Append("     SYAIN_ID = " & intSyain_id & " ")
-                    sbSQL.Append(" AND BUSYO_ID = " & Me.cmbGYOMU_GROUP.SelectedValue & " ")
+                    sbSQL.Append(" AND GYOMU_GROUP_ID = " & Me.cmbGYOMU_GROUP.SelectedValue & " ")
 
                     '-----SQL実行
                     intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
@@ -712,27 +629,6 @@ Public Class FrmM0110
                         WL.WriteLogDat(strErrMsg)
                         blnErr = True
                         Return False
-                    End If
-
-                    '削除されたデータが主務の場合で有効期限が９９９９９９９９のレコードが存在しない場合、
-                    '主務の最大の有効期限を９９９９９９９９で更新する
-                    '-----SQL
-                    sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.M005_SYOZOKU_BUSYO) & " ")
-                    sbSQL.Append("SET YUKO_YMD = '99999999' ")
-                    sbSQL.Append("WHERE ")
-                    sbSQL.Append("     SYAIN_ID = '" & intSyain_id & "' ")
-                    sbSQL.Append(" AND KENMU_FLG = '0' ")
-                    sbSQL.Append(" AND YUKO_YMD = isnull((SELECT MAX(YUKO_YMD) FROM " & NameOf(MODEL.M005_SYOZOKU_BUSYO) & "")
-                    sbSQL.Append("                 WHERE ")
-                    sbSQL.Append("                     SYAIN_ID = " & intSyain_id)
-                    sbSQL.Append("                 AND KENMU_FLG = '0' ")
-                    sbSQL.Append("),' ')")
-
-                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-
-                    If intRET = 0 Then
-
                     End If
 
                 Finally
@@ -771,10 +667,10 @@ Public Class FrmM0110
         Next intFunc
 
         If flxDATA_SYAIN.RowSel > 0 Then
-            cmdFunc2.Enabled = True
+            'cmdFunc2.Enabled = True
             cmdFunc3.Enabled = True
         Else
-            cmdFunc2.Enabled = False
+            'cmdFunc2.Enabled = False
             cmdFunc3.Enabled = False
         End If
 
@@ -785,10 +681,10 @@ Public Class FrmM0110
         End If
 
         If Not HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
-            cmdFunc2.Enabled = False
+            'cmdFunc2.Enabled = False
             cmdFunc3.Enabled = False
             cmdFunc5.Enabled = False
-            MyBase.ToolTip.SetToolTip(Me.cmdFunc2, "管理者権限が必要です")
+            'MyBase.ToolTip.SetToolTip(Me.cmdFunc2, "管理者権限が必要です")
             MyBase.ToolTip.SetToolTip(Me.cmdFunc3, "管理者権限が必要です")
             MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "管理者権限が必要です")
 
@@ -808,32 +704,6 @@ Public Class FrmM0110
         'Me.cmdFunc1.PerformClick()
         Call FunSRCH(Me.flxDATA, FunGetListData())
 
-    End Sub
-
-    Private Sub cmbBUSYO_KB_TextChanged(sender As Object, e As EventArgs) Handles cmbGYOMU_GROUP.TextChanged
-        Dim dsList As New DataSet
-        Dim sbSQL As New System.Text.StringBuilder
-        'Dim intMaxOrder As Integer
-
-        Try
-
-            If cmbGYOMU_GROUP.SelectedIndex <> 0 Then
-
-                'Me.cmbOYA_BUSYO.DataSource = Nothing
-
-                Using DB As ClsDbUtility = DBOpen()
-                    Call FunGetCodeDataTable(DB, "部署", tblBUSYO, " BUSYO_KB = '" & cmbGYOMU_GROUP.SelectedValue & "' AND YUKO_YMD >= '" & Replace(Now.ToShortDateString, "/", "") & "'")
-                End Using
-
-                Me.cmbGYOMU_GROUP.SetDataSource(tblBUSYO, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-
-            End If
-
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-        Finally
-            dsList.Dispose()
-        End Try
     End Sub
 
 
@@ -865,5 +735,6 @@ Public Class FrmM0110
             End If
         End Try
     End Function
+
 
 End Class
