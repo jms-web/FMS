@@ -159,6 +159,7 @@
     <Compile Include="Common\ModelBase.vb" />
     <Compile Include="Common\ModelInfo.vb" />
     <Compile Include="Common\NotifyChangedBase.vb" />
+    <Compile Include="Models\View\VWM011_SYAIN_GYOMU.vb" />
     <Compile Include="Models\View\TV05_FUTEKIGO_CODE.vb" />
     <Compile Include="Models\View\V004_HOKOKU_SOUSA.vb" />
     <Compile Include="Models\View\V005_CAR_J.vb" />

@@ -227,6 +227,7 @@ Public Module mdlDBContext
     ''' </summary>’
     Public tblTORI_KB As DataTableEx
 
+    Public tblGYOMU_GROUP As DataTableEx
 
 #End Region
 
@@ -719,6 +720,39 @@ Public Module mdlDBContext
                             Dim Trow As DataRow = dt.NewRow()
                             Trow("DISP") = .Rows(intCNT).Item("BUSYO_NAME")
                             Trow("VALUE") = .Rows(intCNT).Item("BUSYO_ID")
+                            dt.Rows.Add(Trow)
+                        Next intCNT
+                    End With
+#End Region
+
+#Region "               業務グループ"
+                Case "業務グループ"
+
+                    dt = New DataTableEx("System.Int32")
+
+                    sbSQL.Append("SELECT * FROM " & NameOf(VWM011_SYAIN_GYOMU) & " ")
+                    If strWhere.IsNullOrWhiteSpace = False Then
+                        sbSQL.Append("WHERE " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+                    sbSQL.Append(" ORDER BY GYOMU_GROUP_ID")
+
+                    '主キー設定
+                    dt.PrimaryKey = {dt.Columns("GYOMU_GROUP_ID")}
+
+                    dt.Columns.Add("GYOMU_GROUP_ID", GetType(Integer))
+                    dt.Columns.Add("GYOMU_GROUP_NAME", GetType(String))
+
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            Trow("DISP") = .Rows(intCNT).Item("GYOMU_GROUP_NAME")
+                            Trow("VALUE") = .Rows(intCNT).Item("GYOMU_GROUP_ID")
+                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
