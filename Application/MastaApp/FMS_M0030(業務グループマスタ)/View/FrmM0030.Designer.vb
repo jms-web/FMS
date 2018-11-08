@@ -19,7 +19,6 @@ Partial Class FrmM0030
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmM0030))
         Me.SaveFileDialog = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
@@ -38,12 +37,10 @@ Partial Class FrmM0030
         Me.txtBUSYO_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.txtOYA_BUSYO_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.VWM002BUSYOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.VWM002BUSYOBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -119,7 +116,7 @@ Partial Class FrmM0030
         '
         Me.lblTytle.Font = New System.Drawing.Font("Meiryo UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblTytle.Text = "部署マスタ"
+        Me.lblTytle.Text = "業務グループマスタ"
         '
         'Label3
         '
@@ -142,13 +139,12 @@ Partial Class FrmM0030
         Me.cmbBUMON_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbBUMON_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUMON_KB.FormattingEnabled = True
-        Me.cmbBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbBUMON_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Location = New System.Drawing.Point(83, 3)
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
-        Me.cmbBUMON_KB.ReadOnly = False
         Me.cmbBUMON_KB.Size = New System.Drawing.Size(113, 25)
         Me.cmbBUMON_KB.TabIndex = 0
         Me.cmbBUMON_KB.Text = "(選択)"
@@ -245,13 +241,12 @@ Partial Class FrmM0030
         Me.cmbBUSYO_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbBUSYO_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUSYO_KB.FormattingEnabled = True
-        Me.cmbBUSYO_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbBUSYO_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbBUSYO_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUSYO_KB.IsSelected = False
         Me.cmbBUSYO_KB.Location = New System.Drawing.Point(394, 3)
         Me.cmbBUSYO_KB.Name = "cmbBUSYO_KB"
         Me.cmbBUSYO_KB.NullValue = " "
-        Me.cmbBUSYO_KB.ReadOnly = False
         Me.cmbBUSYO_KB.Size = New System.Drawing.Size(135, 25)
         Me.cmbBUSYO_KB.TabIndex = 0
         Me.cmbBUSYO_KB.Text = "(選択)"
@@ -314,6 +309,7 @@ Partial Class FrmM0030
         Me.txtBUSYO_NAME.Location = New System.Drawing.Point(394, 34)
         Me.txtBUSYO_NAME.MaxByteLength = 30
         Me.txtBUSYO_NAME.Name = "txtBUSYO_NAME"
+        Me.txtBUSYO_NAME.SelectAllText = False
         Me.txtBUSYO_NAME.Size = New System.Drawing.Size(192, 24)
         Me.txtBUSYO_NAME.TabIndex = 57
         Me.txtBUSYO_NAME.WatermarkColor = System.Drawing.Color.Empty
@@ -328,6 +324,7 @@ Partial Class FrmM0030
         Me.txtOYA_BUSYO_NAME.Location = New System.Drawing.Point(83, 34)
         Me.txtOYA_BUSYO_NAME.MaxByteLength = 30
         Me.txtOYA_BUSYO_NAME.Name = "txtOYA_BUSYO_NAME"
+        Me.txtOYA_BUSYO_NAME.SelectAllText = False
         Me.txtOYA_BUSYO_NAME.Size = New System.Drawing.Size(170, 24)
         Me.txtOYA_BUSYO_NAME.TabIndex = 57
         Me.txtOYA_BUSYO_NAME.WatermarkColor = System.Drawing.Color.Empty
@@ -340,8 +337,9 @@ Partial Class FrmM0030
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.flxDATA.AutoGenerateColumns = False
         Me.flxDATA.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.XpThemes
-        Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
-        Me.flxDATA.DataSource = Me.VWM002BUSYOBindingSource
+        Me.flxDATA.ColumnInfo = "24,1,0,0,0,115,Columns:1{Visible:False;}" & Global.Microsoft.VisualBasic.ChrW(9) & "5{Visible:False;}" & Global.Microsoft.VisualBasic.ChrW(9) & "8{Visible:False;}" & Global.Microsoft.VisualBasic.ChrW(9) & "9{Vi" &
+    "sible:False;}" & Global.Microsoft.VisualBasic.ChrW(9) & "11{Visible:False;}" & Global.Microsoft.VisualBasic.ChrW(9) & "15{Visible:False;}" & Global.Microsoft.VisualBasic.ChrW(9) & "18{Visible:False;}" & Global.Microsoft.VisualBasic.ChrW(9) & "21{Visibl" &
+    "e:False;}" & Global.Microsoft.VisualBasic.ChrW(9) & "23{Visible:False;}" & Global.Microsoft.VisualBasic.ChrW(9)
         Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.flxDATA.Location = New System.Drawing.Point(14, 153)
         Me.flxDATA.Name = "flxDATA"
@@ -352,18 +350,14 @@ Partial Class FrmM0030
         Me.flxDATA.TabIndex = 61
         Me.flxDATA.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
         '
-        'VWM002BUSYOBindingSource
-        '
-        Me.VWM002BUSYOBindingSource.DataSource = GetType(MODEL.VWM002_BUSYO)
-        '
-        'FrmM0020
+        'FrmM0030
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.ClientSize = New System.Drawing.Size(1264, 712)
         Me.Controls.Add(Me.flxDATA)
         Me.Controls.Add(Me.gbxFilter)
         Me.HelpButton = True
-        Me.Name = "FrmM0020"
+        Me.Name = "FrmM0030"
         Me.ShowStatusBar = True
         Me.Text = ""
         Me.Controls.SetChildIndex(Me.gbxFilter, 0)
@@ -387,7 +381,6 @@ Partial Class FrmM0030
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.VWM002BUSYOBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -409,5 +402,4 @@ Partial Class FrmM0030
     Friend WithEvents txtBUSYO_NAME As MaskedTextBoxEx
     Friend WithEvents txtOYA_BUSYO_NAME As MaskedTextBoxEx
     Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents VWM002BUSYOBindingSource As BindingSource
 End Class

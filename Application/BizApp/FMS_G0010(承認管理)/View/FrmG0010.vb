@@ -1920,90 +1920,92 @@ Public Class FrmG0010
     Private Async Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
-        Await Task.Run(Sub()
-                           Me.Invoke(Sub()
+        Await Task.Run(
+            Sub()
+                Me.Invoke(
+                Sub()
 
-                                         Select Case cmb.SelectedValue?.ToString.Trim
-                                             Case ""
-                                             Case Context.ENM_BUMON_KB._2_LP
-                                                 lblSyanaiCD.Visible = True
-                                                 cmbSYANAI_CD.Visible = True
-                                             Case Else
-                                                 lblSyanaiCD.Visible = False
-                                                 cmbSYANAI_CD.Visible = False
-                                         End Select
+                    Select Case cmb.SelectedValue?.ToString.Trim
+                        Case ""
+                        Case Context.ENM_BUMON_KB._2_LP
+                            lblSyanaiCD.Visible = True
+                            cmbSYANAI_CD.Visible = True
+                        Case Else
+                            lblSyanaiCD.Visible = False
+                            cmbSYANAI_CD.Visible = False
+                    End Select
 
-                                         Dim intBUFF As Integer
-                                         intBUFF = cmbADD_TANTO.SelectedValue
-                                         'RemoveHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
-                                         Dim dtADD_TANTO As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, ENM_NCR_STAGE._10_起草入力)
-                                         cmbADD_TANTO.SetDataSource(dtADD_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                                         cmbADD_TANTO.SelectedValue = intBUFF
-                                         'AddHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
+                    Dim intBUFF As Integer
+                    intBUFF = cmbADD_TANTO.SelectedValue
+                    'RemoveHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
+                    Dim dtADD_TANTO As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, ENM_NCR_STAGE._10_起草入力)
+                    cmbADD_TANTO.SetDataSource(dtADD_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                    cmbADD_TANTO.SelectedValue = intBUFF
+                    'AddHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
 
-                                         intBUFF = cmbGEN_TANTO.SelectedValue
-                                         'RemoveHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
-                                         Dim dtGEN_TANTO As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
-                                         cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                                         cmbGEN_TANTO.SelectedValue = intBUFF
-                                         'AddHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
+                    intBUFF = cmbGEN_TANTO.SelectedValue
+                    'RemoveHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
+                    Dim dtGEN_TANTO As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
+                    cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                    cmbGEN_TANTO.SelectedValue = intBUFF
+                    'AddHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
 
-                                         Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
+                    Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
 
-                                         '機種
-                                         'RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-                                         If blnSelected Then
-                                             Dim drs = tblKISYU_J.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUMON_KB)) = cmb.SelectedValue)
-                                             If drs.Count > 0 Then
-                                                 Dim dt As DataTable = drs.CopyToDataTable
-                                                 cmbKISYU.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                                                 ParamModel.KISYU_ID = 0
-                                             End If
-                                         Else
-                                             cmbKISYU.SetDataSource(tblKISYU_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                                         End If
-                                         'AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+                    '機種
+                    'RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+                    If blnSelected Then
+                        Dim drs = tblKISYU_J.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUMON_KB)) = cmb.SelectedValue)
+                        If drs.Count > 0 Then
+                            Dim dt As DataTable = drs.CopyToDataTable
+                            cmbKISYU.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                            ParamModel.KISYU_ID = 0
+                        End If
+                    Else
+                        cmbKISYU.SetDataSource(tblKISYU_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                    End If
+                    'AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
 
-                                         '部品番号
-                                         'RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
-                                         If blnSelected Then
-                                             Dim drs = tblBUHIN_J.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUMON_KB)) = cmb.SelectedValue)
-                                             If drs.Count > 0 Then
-                                                 Dim dt As DataTable = drs.CopyToDataTable
-                                                 cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                                                 ParamModel.BUHIN_BANGO = ""
-                                             End If
-                                         Else
-                                             cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                                         End If
-                                         'AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+                    '部品番号
+                    'RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
+                    If blnSelected Then
+                        Dim drs = tblBUHIN_J.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUMON_KB)) = cmb.SelectedValue)
+                        If drs.Count > 0 Then
+                            Dim dt As DataTable = drs.CopyToDataTable
+                            cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                            ParamModel.BUHIN_BANGO = ""
+                        End If
+                    Else
+                        cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                    End If
+                    'AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
 
-                                         '社内コード
-                                         'RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-                                         'cmbSYANAI_CD.DataBindings.Clear()
-                                         If blnSelected Then
-                                             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                                                 Dim drs = tblSYANAI_CD_J.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUMON_KB)) = cmb.SelectedValue)
-                                                 If drs.Count > 0 Then
-                                                     Dim dt As DataTable = drs.CopyToDataTable
-                                                     cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                                                 Else
-                                                     cmbSYANAI_CD.DataSource = Nothing
-                                                 End If
-                                             Else
-                                                 'cmbSYANAI_CD.DataSource = Nothing
-                                             End If
-                                             ParamModel.SYANAI_CD = ""
-                                         Else
-                                             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                                         End If
-                                         'AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-                                         'cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+                    '社内コード
+                    'RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
+                    'cmbSYANAI_CD.DataBindings.Clear()
+                    If blnSelected Then
+                        If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
+                            Dim drs = tblSYANAI_CD_J.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUMON_KB)) = cmb.SelectedValue)
+                            If drs.Count > 0 Then
+                                Dim dt As DataTable = drs.CopyToDataTable
+                                cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                            Else
+                                cmbSYANAI_CD.DataSource = Nothing
+                            End If
+                        Else
+                            'cmbSYANAI_CD.DataSource = Nothing
+                        End If
+                        ParamModel.SYANAI_CD = ""
+                    Else
+                        cmbSYANAI_CD.SetDataSource(tblSYANAI_CD_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                    End If
+                    'AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
+                    'cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
-                                         Dim dtx As DataTableEx = FunGetFUTEKIGO_KB(cmb.SelectedValue)
-                                         cmbFUTEKIGO_KB.SetDataSource(dtx.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                                     End Sub)
-                       End Sub)
+                    Dim dtx As DataTableEx = FunGetFUTEKIGO_KB(cmb.SelectedValue)
+                    cmbFUTEKIGO_KB.SetDataSource(dtx.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                End Sub)
+            End Sub)
 
     End Sub
 

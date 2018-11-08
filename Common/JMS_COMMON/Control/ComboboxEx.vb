@@ -23,6 +23,7 @@ Public Class ComboboxEx
 
     Private _BorderWidth As Integer
     Private _OldValue As String
+    Private blnIgnoreChangeEvent As Boolean
 #End Region
 
 #Region "コンストラクタ"
@@ -511,6 +512,9 @@ Public Class ComboboxEx
         '    ResetWatermark(Me.Text)
         'End If
 
+        'SetDatasource時などSelectedValueChangedイベントは無視
+        'If blnIgnoreChangeEvent Then Exit Sub
+
         If OldValue = Me.SelectedValue Then
         Else
             'If Me.SelectedValue = Nothing AndAlso MyBase.DataSource IsNot Nothing Then
@@ -728,6 +732,7 @@ Public Class ComboboxEx
     Public Sub SetDataSource(ByVal srcTable As DataTable, Optional ByVal InsertBlankRow As Boolean = True, Optional drowMode As DrawMode = DrawMode.Normal)
 
         Try
+            blnIgnoreChangeEvent = True
 
             '-----オーナードロー設定
             Me.DrawMode = drowMode
@@ -782,6 +787,8 @@ Public Class ComboboxEx
             End If
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
+        Finally
+            blnIgnoreChangeEvent = False
         End Try
     End Sub
 
@@ -794,6 +801,8 @@ Public Class ComboboxEx
     Public Sub SetDataSource(ByVal srcTable As DataTable, Optional ByVal TopRow As ENM_COMBO_SELECT_VALUE_TYPE = ENM_COMBO_SELECT_VALUE_TYPE._0_Required, Optional drowMode As DrawMode = DrawMode.Normal)
 
         Try
+            blnIgnoreChangeEvent = True
+
 
             '-----オーナードロー設定
             Me.DrawMode = drowMode
@@ -863,19 +872,20 @@ Public Class ComboboxEx
                 '空白行のみのデータテーブルとデータソースのデータテーブルを結合
                 dtx.Merge(srcTable)
 
-                'データソースを設定する前にコンボボックスのSelectedIndexChangedイベントが発生しないように一時的にイベントハンドラを外す
-
                 Me.DataSource = dtx
+
                 '先頭ブランクの場合はウォーターマーク表示
                 'Call TrySetWatermark()
             Else
                 '----先頭に空白行を追加しない場合
 
                 Me.DataSource = srcTable
-
             End If
+
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
+        Finally
+            blnIgnoreChangeEvent = False
         End Try
     End Sub
 
