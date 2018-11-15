@@ -5,7 +5,6 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class ComboboxEx
     Inherits ComboBox
 
-
 #Region "定数・変数"
 
     'メタ選択肢定数
@@ -20,10 +19,9 @@ Public Class ComboboxEx
     Private _ReadOnly As Boolean
     Private _CursorOrg As Cursor
 
-
     Private _BorderWidth As Integer
     Private _OldValue As String
-    Private blnIgnoreChangeEvent As Boolean
+    Private _NullValue As Object
 #End Region
 
 #Region "コンストラクタ"
@@ -37,7 +35,7 @@ Public Class ComboboxEx
         BorderColor = Color.Gray
         BorderStyle = ButtonBorderStyle.None
         BorderWidth = 1
-        SelectAllText = False
+
         'SetDatasourceから移行 SelectedValueChanged等を発火させないため
         DisplayMember = "DISP"
         ValueMember = "VALUE"
@@ -47,134 +45,61 @@ Public Class ComboboxEx
 
 #End Region
 
-
 #Region "プロパティ"
 
-
-    <DefaultValue(GetType(Color), NameOf(Color.Gray))>
-    <Category("表示")>
-    Public Property BorderColor As Color
-
-    <DefaultValue(GetType(ButtonBorderStyle), NameOf(ButtonBorderStyle.None))>
-    <Category("表示")>
-    Public Property BorderStyle As ButtonBorderStyle
-
-    <DefaultValue(1)>
-    <Category("表示")>
-    Public Property BorderWidth As Integer
-        Get
-            Return Me._BorderWidth
-        End Get
-        Set(ByVal value As Integer)
-            If value < 0 Then value = 1
-            If value > 3 Then value = 3
-            Me._BorderWidth = value
-        End Set
-    End Property
-
-    <DefaultValue(False)>
-    Public Property [ReadOnly] As Boolean
-        Get
-            Return _ReadOnly
-        End Get
-
-        Set(ByVal Value As Boolean)
-            _ReadOnly = Value
-            If Value Then
-                Cursor = Cursors.Default
-                'DEBUG:Combobox ReadOnly時の背景色
-                BackColor = System.Drawing.SystemColors.Control
-            Else
-                Cursor = _CursorOrg
-                BackColor = _BackColorOrg
-            End If
-            TabStop = Not Value
-            SelectAllText = Not Value
-            SetStyle(ControlStyles.UserMouse, Value)
-            SetStyle(ControlStyles.Selectable, Value)
-            'UpdateStyles()
-            'RecreateHandle()
-        End Set
-    End Property
-
-    Private _NullValue As Object
-
-    Public Property NullValue As Object
-        Get
-
-            If _NullValue Is Nothing Then
-                Return " "
-            Else
-                Return _NullValue
-            End If
-
-        End Get
-        Set(value As Object)
-            _NullValue = value
-        End Set
-    End Property
-
-    <Bindable(True)>
-    <Browsable(True)>
-    Public Property HorizontalContentAlignment As StringAlignment
-
-#Region "　SelectAllText プロパティ (Overridable)　"
-    '-----Focus時の全選択を設定します。
-    Private SelectAllTextValue As Boolean
-
-    <Category("動作"),
-     DefaultValue(True),
-     Description("Focus時の全選択を設定します。")>
-    Public Property SelectAllText() As Boolean
-        Get
-            Return Me.SelectAllTextValue
-        End Get
-
-        Set(ByVal value As Boolean)
-            If Me.SelectAllTextValue <> value Then
-                Me.SelectAllTextValue = value
-            End If
-        End Set
-    End Property
-#End Region
-
-#Region "　OnEnter メソッド (Overrides)　"
-    '-----フォーカス時に全選択
-    Protected Overrides Sub OnEnter(ByVal e As System.EventArgs)
-        _OldValue = Me.SelectedValue
-
-        'If _HasWaterMark Then
-        '    '解除
-        '    Call ResetWatermark("")
-        'End If
-        If Me.SelectAllText = True Then
-            BeginInvoke(New MethodInvokerForComboBox(AddressOf MaskedTextBoxSelectAll), Me)
-        End If
-        MyBase.OnEnter(e)
-    End Sub
-
-#End Region
-#Region "　SelectAll メソッド (Delegate)　"
-    Private Delegate Sub MethodInvokerForComboBox(ByVal pTarget As ComboBox)
-    Private Shared Sub MaskedTextBoxSelectAll(ByVal pTarget As ComboBox)
-        If pTarget IsNot Nothing Then pTarget.SelectAll()
-    End Sub
-#End Region
-
-#Region "オーバーロード"
-
-    <System.Diagnostics.DebuggerStepThrough()>
+#Region "IsSelected"
+    ''' <summary>
+    ''' データソース中のItemの選択状態を取得します
+    ''' </summary>
+    ''' <returns></returns>
     <Browsable(False)>
-    Protected Overrides Sub WndProc(ByRef m As Message)
+    Public Property IsSelected As Boolean
+        Get
+            Return Me.ReadOnly OrElse (Me.DataSource IsNot Nothing AndAlso Me.SelectedValue <> Me.NullValue)
+        End Get
+        Set(value As Boolean)
+            If Me.DataSource IsNot Nothing Then Me.SelectedIndex = 0
+        End Set
+    End Property
+#End Region
 
-        MyBase.WndProc(m)
+#Region "GotFocusedColor"
 
-        Select Case m.Msg
-            Case WM_PAINT
-                Call DrawRectangle()
-        End Select
-    End Sub
+    <Bindable(True), Category("Appearance"), DefaultValue(GetType(Color), "190, 180, 255")>
+    Property GotFocusedColor As System.Drawing.Color
 
+#End Region
+
+#Region "BackColor"
+
+    <Bindable(True), Category("Appearance")>
+    Overrides Property [BackColor]() As System.Drawing.Color
+        Get
+            Return MyBase.BackColor
+        End Get
+        Set(ByVal value As System.Drawing.Color)
+            MyBase.BackColor = value
+            _BackColorDefault = value
+        End Set
+    End Property
+
+#End Region
+
+#Region "OldValue"
+    ''' <summary>
+    ''' 変更前の値を取得します
+    ''' </summary>
+    ''' <returns></returns>
+    <Browsable(False)>
+    Public ReadOnly Property OldValue As String
+        Get
+            Return _OldValue
+        End Get
+    End Property
+#End Region
+
+
+#Region "SelectedValue"
     <Bindable(True)>
     <Browsable(False)>
     Public Overloads Property SelectedValue As Object
@@ -198,6 +123,9 @@ Public Class ComboboxEx
             MyBase.SelectedValue = value
         End Set
     End Property
+#End Region
+
+#Region "Text"
 
     <EditorBrowsable(EditorBrowsableState.Always)>
     <Browsable(True)>
@@ -224,169 +152,110 @@ Public Class ComboboxEx
 
 #End Region
 
-    ''' <summary>
-    ''' データソース中のItemの選択状態を取得します
-    ''' </summary>
-    ''' <returns></returns>
-    <Browsable(False)>
-    Public Property IsSelected As Boolean
+#Region "BorderColor"
+
+    <DefaultValue(GetType(Color), NameOf(Color.Gray))>
+    <Category("表示")>
+    Public Property BorderColor As Color
+#End Region
+
+
+#Region "BorderStyle"
+
+    <DefaultValue(GetType(ButtonBorderStyle), NameOf(ButtonBorderStyle.None))>
+    <Category("表示")>
+    Public Property BorderStyle As ButtonBorderStyle
+#End Region
+
+
+#Region "BorderWidth"
+    <DefaultValue(1)>
+    <Category("表示")>
+    Public Property BorderWidth As Integer
         Get
-            Return Me.ReadOnly OrElse (Me.DataSource IsNot Nothing AndAlso Me.SelectedValue <> Me.NullValue)
+            Return Me._BorderWidth
         End Get
-        Set(value As Boolean)
-            If Me.DataSource IsNot Nothing Then Me.SelectedIndex = 0
+        Set(ByVal value As Integer)
+            If value < 0 Then value = 1
+            If value > 3 Then value = 3
+            Me._BorderWidth = value
         End Set
     End Property
 
 
+#End Region
 
-    ''' <summary>
-    ''' 変更前の値を取得します
-    ''' </summary>
-    ''' <returns></returns>
-    <Browsable(False)>
-    Public ReadOnly Property OldValue As String
+#Region "ReadOnly"
+
+    <DefaultValue(False)>
+    Public Property [ReadOnly] As Boolean
         Get
-            Return _OldValue
+            Return _ReadOnly
         End Get
+
+        Set(ByVal Value As Boolean)
+            _ReadOnly = Value
+            If Value Then
+                Cursor = Cursors.Default
+                BackColor = System.Drawing.SystemColors.Control
+            Else
+                Cursor = _CursorOrg
+                BackColor = _BackColorOrg
+            End If
+            'SetStyle(ControlStyles.UserMouse, Value)
+            'SetStyle(ControlStyles.Selectable, Value)
+        End Set
+    End Property
+#End Region
+
+
+#Region "　SelectAllText プロパティ (Overridable)　"
+    '-----Focus時の全選択を設定します。
+    Private SelectAllTextValue As Boolean
+
+    <Category("動作"),
+     DefaultValue(False),
+     Description("Focus時の全選択を設定します。")>
+    Public Property SelectAllText() As Boolean
+        Get
+            Return False
+        End Get
+
+        Set(ByVal value As Boolean)
+
+        End Set
+    End Property
+#End Region
+
+#Region ""
+    Public Property NullValue As Object
+        Get
+
+            If _NullValue Is Nothing Then
+                Return " "
+            Else
+                Return _NullValue
+            End If
+
+        End Get
+        Set(value As Object)
+            _NullValue = value
+        End Set
     End Property
 
-#Region "Watermark関連"
-
-    '#Region "InputRequired プロパティ"
-    '    Private _InputRequired As Boolean
-    '    Public Property InputRequired As Boolean
-    '        Get
-    '            Return _InputRequired
-    '        End Get
-    '        Set(value As Boolean)
-    '            _InputRequired = value
-    '            If value Then
-    '                Me.WatermarkText = "<必須>"
-    '                Me.WatermarkColor = Color.Red
-    '            Else
-    '                Me.WatermarkText = _watermarkText
-    '                Me.WatermarkColor = _foreColor
-    '            End If
-    '        End Set
-    '    End Property
-
-    '#End Region
-
-    '#Region "WatermarkTextプロパティ"
-    '    Private _watermarkText As String
-    '    Private _HasWaterMark As Boolean
-    '    Private _isDropDownList As Boolean
-    '    Private _watermarkColor As Color
-    '    Private _foreColor As Color
-
-    '    '<RefreshProperties(RefreshProperties.Repaint)>
-    '    ''' <summary>
-    '    ''' テキストが空の場合に表示する文字列を取得・設定します。
-    '    ''' </summary>
-    '    ''' <returns></returns>
-    '    <Category("表示")>
-    '    <DefaultValue("(選択)")>
-    '    <Description("テキストが空の場合に表示する文字列です。")>
-    '    Public Property WatermarkText As String
-    '        Get
-    '            Return _watermarkText
-    '        End Get
-    '        Set(value As String)
-    '            _watermarkText = value
-    '            Call TrySetWatermark()
-    '        End Set
-    '    End Property
-
-    '    Public ReadOnly Property HasWatermark As Boolean
-    '        Get
-    '            Return _HasWaterMark
-    '        End Get
-    '    End Property
-
-    '#End Region
-
-    '    ''' <summary>
-    '    ''' テキストが空の場合に表示する文字列の色を取得・設定します。
-    '    ''' </summary>
-    '    ''' <returns></returns>
-    '    <Category("表示")>
-    '    <DefaultValue(GetType(Color), "GrayText")>
-    '    <Description("テキストが空の場合に表示する文字列の色です。")>
-    '    Public Property WatermarkColor As Color
-    '        Get
-    '            Return _watermarkColor
-    '        End Get
-    '        Set(value As Color)
-    '            _watermarkColor = value
-    '            Call TrySetWatermark()
-    '        End Set
-    '    End Property
-
-    '#Region " Text プロパティ "
-    '    <RefreshProperties(RefreshProperties.Repaint)>
-    '    Public Overrides Property Text As String
-    '        Get
-    '            Return IIf(_watermarkText.IsNullOrWhiteSpace, String.Empty, MyBase.Text)
-    '        End Get
-    '        Set(value As String)
-    '            If value.IsNullOrWhiteSpace Then
-    '                '空文字列が指定された
-    '                Call TrySetWatermark() 'ウォーターマーク表示を試みる
-    '            ElseIf _HasWaterMark Then
-    '                '適切な文字列が設定された。ウォーターマーク表示設定解除
-    '                Call ResetWatermark(value)
-    '            Else
-    '                'テキスト上書き
-    '                MyBase.Text = value
-    '            End If
-    '        End Set
-    '    End Property
-    '#End Region
-
-    '#Region " ForeColor プロパティ "
-    '    Public Overrides Property ForeColor As Color
-    '        Get
-    '            If DesignMode Then
-    '                Return _foreColor
-    '            Else
-    '                Return MyBase.ForeColor
-    '            End If
-    '        End Get
-    '        Set(value As Color)
-    '            _foreColor = value
-    '            If _HasWaterMark = False Then
-    '                MyBase.ForeColor = value
-    '            End If
-    '        End Set
-    '    End Property
-
-    '    '<RefreshProperties(RefreshProperties.Repaint)>
-    '    'Public Overrides Property Text As String
-    '    '    Get
-    '    '        Return IIf(_watermarkText.IsNullOrWhiteSpace, String.Empty, MyBase.Text)
-    '    '    End Get
-    '    '    Set(value As String)
-    '    '        If value.IsNullOrWhiteSpace Then
-    '    '            '空文字列が指定された
-    '    '            Call TrySetWatermark() 'ウォーターマーク表示を試みる
-    '    '        ElseIf _hasWatermark Then
-    '    '            '適切な文字列が設定された。ウォーターマーク表示設定解除
-    '    '            Call ResetWatermark(value)
-    '    '        Else
-    '    '            'テキスト上書き
-    '    '            MyBase.Text = value
-    '    '        End If
-    '    '    End Set
-    '    'End Property
-
 #End Region
+
+#Region "HorizontalContentAlignment"
+
+    <Bindable(True)>
+    <Browsable(True)>
+    Public Property HorizontalContentAlignment As StringAlignment
 
 #End Region
 
 #Region "イベント"
 
-#Region "コンボボックス項目描画時イベント"
+#Region "Combobox_DrawItem"
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub Combobox_DrawItem(ByVal sender As Object, ByVal e As System.Windows.Forms.DrawItemEventArgs)
@@ -490,30 +359,24 @@ Public Class ComboboxEx
 
 #End Region
 
-#Region "オーバーライド"
-
-    Protected Overrides Sub OnMouseWheel(e As MouseEventArgs)
-        Dim eventargs As HandledMouseEventArgs = DirectCast(e, HandledMouseEventArgs)
-        If [ReadOnly] Then eventargs.Handled = True
-        MyBase.OnMouseWheel(e)
+#Region "OnEnter"
+    Protected Overrides Sub OnEnter(ByVal e As System.EventArgs)
+        _OldValue = Me.SelectedValue
+        'If _HasWaterMark Then
+        '    '解除
+        '    Call ResetWatermark("")
+        'End If
+        MyBase.OnEnter(e)
     End Sub
+#End Region
 
 
-
-    Protected Overrides Sub OnLeave(ByVal e As EventArgs)
-        MyBase.OnLeave(e)
-        'Call TrySetWatermark()
-
-    End Sub
-
+#Region "OnSelectedValueChanged"
     Protected Overrides Sub OnSelectedValueChanged(ByVal e As EventArgs)
         'If Me.SelectedValue IsNot Nothing Then
         '    '解除
         '    ResetWatermark(Me.Text)
         'End If
-
-        'SetDatasource時などSelectedValueChangedイベントは無視
-        'If blnIgnoreChangeEvent Then Exit Sub
 
         If OldValue = Me.SelectedValue Then
         Else
@@ -524,7 +387,9 @@ Public Class ComboboxEx
             MyBase.OnSelectedValueChanged(e)
         End If
     End Sub
+#End Region
 
+#Region "OnMouseHover"
     Protected Overrides Sub OnMouseHover(e As EventArgs)
         If DropDownStyle = ComboBoxStyle.DropDownList Then
             Cursor = Cursors.Hand
@@ -533,29 +398,6 @@ Public Class ComboboxEx
         End If
         MyBase.OnMouseHover(e)
     End Sub
-
-#End Region
-
-#Region "GotFocusedColor"
-
-    <Bindable(True), Category("Appearance"), DefaultValue(GetType(Color), "190, 180, 255")>
-    Property GotFocusedColor As System.Drawing.Color
-
-#End Region
-
-#Region "BackColor"
-
-    <Bindable(True), Category("Appearance")>
-    Overrides Property [BackColor]() As System.Drawing.Color
-        Get
-            Return MyBase.BackColor
-        End Get
-        Set(ByVal value As System.Drawing.Color)
-            MyBase.BackColor = value
-            _BackColorDefault = value
-        End Set
-    End Property
-
 #End Region
 
 #Region "OnKeyUp"
@@ -613,28 +455,28 @@ Public Class ComboboxEx
 
 #Region "OnKeyDown"
 
-    'Protected Overrides Sub OnKeyDown(ByVal e As KeyEventArgs)
+    Protected Overrides Sub OnKeyDown(ByVal e As KeyEventArgs)
 
-    '    If _ReadOnly Then
-    '        e.Handled = True
-    '        Return
-    '    End If
+        'If _ReadOnly Then
+        '    e.Handled = True
+        '    Return
+        'End If
 
-    '    If e.KeyCode = Keys.Escape Or ((e.KeyCode = Windows.Forms.Keys.Z) And (e.Modifiers = Keys.Control)) Then
-    '        Undo()
-    '    End If
+        'If e.KeyCode = Keys.Escape Or ((e.KeyCode = Windows.Forms.Keys.Z) And (e.Modifiers = Keys.Control)) Then
+        '    Undo()
+        'End If
 
-    '    MyBase.OnKeyDown(e)
+        MyBase.OnKeyDown(e)
 
-    '    Select Case e.KeyCode
-    '        Case Keys.Enter     'Enter:Tab
-    '            SendKeys.Send("{Tab}") 'Enterを押した際、次の項目へ移動する為Tabを送信する
-    '    End Select
-    'End Sub
+        'Select Case e.KeyCode
+        '    Case Keys.Enter     'Enter:Tab
+        '        SendKeys.Send("{Tab}") 'Enterを押した際、次の項目へ移動する為Tabを送信する
+        'End Select
+    End Sub
 
 #End Region
 
-#Region "OnGotFocus(ByVal e As EventArgs)"
+#Region "OnGotFocus"
 
     Protected Overrides Sub OnGotFocus(ByVal e As EventArgs)
 
@@ -650,9 +492,12 @@ Public Class ComboboxEx
 
 #End Region
 
-#Region "OnLostFocus(ByVal e As EventArgs)"
+#Region "OnLostFocus"
 
     Protected Overrides Sub OnLostFocus(ByVal e As EventArgs)
+
+
+        MyBase.OnLostFocus(e) '基底クラス呼び出し
 
         If Me.ReadOnly Then
             MyBase.BackColor = clrDisableControlGotFocusedColor
@@ -660,8 +505,29 @@ Public Class ComboboxEx
             'フォーカスがないときは背景色＝白設定
             MyBase.BackColor = _BackColorDefault
         End If
-        MyBase.OnLostFocus(e) '基底クラス呼び出し
 
+
+    End Sub
+
+#End Region
+
+
+    Protected Overrides Sub OnMouseWheel(e As MouseEventArgs)
+        Dim eventargs As HandledMouseEventArgs = DirectCast(e, HandledMouseEventArgs)
+        If [ReadOnly] Then eventargs.Handled = True
+        MyBase.OnMouseWheel(e)
+    End Sub
+
+    <System.Diagnostics.DebuggerStepThrough()>
+    <Browsable(False)>
+    Protected Overrides Sub WndProc(ByRef m As Message)
+
+        MyBase.WndProc(m)
+
+        Select Case m.Msg
+            Case WM_PAINT
+                Call DrawRectangle()
+        End Select
     End Sub
 
 #End Region
@@ -669,57 +535,6 @@ Public Class ComboboxEx
 #End Region
 
 #Region "メソッド"
-
-#Region "WaterMark関連"
-
-    'Private Function TrySetWatermark() As Boolean
-    '    Try
-
-    '        If _watermarkText.IsNullOrWhiteSpace = False And
-    '        MyBase.Text.IsNullOrWhiteSpace = True And MyBase.Focused = False Then '
-
-    '            'MyBase.SelectedIndex < 0 And
-
-    '            'DropDownListは、ウォーターマーク表示のためDropDownにスタイル変更
-    '            _isDropDownList = (MyBase.DropDownStyle = ComboBoxStyle.DropDownList And DesignMode = False)
-
-    '            If _isDropDownList Then
-    '                MyBase.DropDownStyle = ComboBoxStyle.DropDown
-    '            End If
-
-    '            'ウォーターマーク設定
-    '            MyBase.ForeColor = _watermarkColor
-    '            MyBase.Text = _watermarkText
-    '            _HasWaterMark = True
-
-    '            Return True
-    '        Else
-    '            'DEBUG: ブランク行が選択された場合 ハンドル作成エラー いっそブランク行の文字をウォーターマークテキストで置き換える？
-
-    '            'MyBase.DropDownStyle = ComboBoxStyle.DropDownList
-
-    '            _HasWaterMark = False
-    '            Return False
-    '        End If
-    '    Catch ex As Exception
-    '        EM.ErrorSyori(ex, False, conblnNonMsg)
-    '    End Try
-    'End Function
-
-    'Private Sub ResetWatermark(ByVal value As String)
-    '    If _isDropDownList Then
-    '        MyBase.DropDownStyle = ComboBoxStyle.DropDownList
-    '        _isDropDownList = False
-    '    Else
-    '        If value IsNot Nothing Then
-    '            MyBase.Text = value
-    '        End If
-    '        MyBase.ForeColor = _foreColor
-    '        _HasWaterMark = False
-    '    End If
-    'End Sub
-
-#End Region
 
 #Region "SetDatasource"
 
@@ -732,7 +547,6 @@ Public Class ComboboxEx
     Public Sub SetDataSource(ByVal srcTable As DataTable, Optional ByVal InsertBlankRow As Boolean = True, Optional drowMode As DrawMode = DrawMode.Normal)
 
         Try
-            blnIgnoreChangeEvent = True
 
             '-----オーナードロー設定
             Me.DrawMode = drowMode
@@ -787,8 +601,6 @@ Public Class ComboboxEx
             End If
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
-        Finally
-            blnIgnoreChangeEvent = False
         End Try
     End Sub
 
@@ -801,8 +613,6 @@ Public Class ComboboxEx
     Public Sub SetDataSource(ByVal srcTable As DataTable, Optional ByVal TopRow As ENM_COMBO_SELECT_VALUE_TYPE = ENM_COMBO_SELECT_VALUE_TYPE._0_Required, Optional drowMode As DrawMode = DrawMode.Normal)
 
         Try
-            blnIgnoreChangeEvent = True
-
 
             '-----オーナードロー設定
             Me.DrawMode = drowMode
@@ -872,20 +682,19 @@ Public Class ComboboxEx
                 '空白行のみのデータテーブルとデータソースのデータテーブルを結合
                 dtx.Merge(srcTable)
 
-                Me.DataSource = dtx
+                'データソースを設定する前にコンボボックスのSelectedIndexChangedイベントが発生しないように一時的にイベントハンドラを外す
 
+                Me.DataSource = dtx
                 '先頭ブランクの場合はウォーターマーク表示
                 'Call TrySetWatermark()
             Else
                 '----先頭に空白行を追加しない場合
 
                 Me.DataSource = srcTable
-            End If
 
+            End If
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
-        Finally
-            blnIgnoreChangeEvent = False
         End Try
     End Sub
 

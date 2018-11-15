@@ -29,6 +29,7 @@ Partial Class FrmG0016
         Me.mtxMODOSI_RIYU = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label11 = New System.Windows.Forms.Label()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -36,42 +37,42 @@ Partial Class FrmG0016
         '
         Me.cmdFunc1.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgBase_floppydisk32x32
-        Me.cmdFunc1.Location = New System.Drawing.Point(13, 207)
+        Me.cmdFunc1.Location = New System.Drawing.Point(13, 208)
         Me.cmdFunc1.TabIndex = 0
         Me.cmdFunc1.Text = "ìoò^(F1)"
         '
         'cmdFunc2
         '
         Me.cmdFunc2.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc2.Location = New System.Drawing.Point(443, 223)
+        Me.cmdFunc2.Location = New System.Drawing.Point(331, 223)
         Me.cmdFunc2.Size = New System.Drawing.Size(20, 27)
         Me.cmdFunc2.Visible = False
         '
         'cmdFunc3
         '
         Me.cmdFunc3.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc3.Location = New System.Drawing.Point(298, 222)
+        Me.cmdFunc3.Location = New System.Drawing.Point(186, 222)
         Me.cmdFunc3.Size = New System.Drawing.Size(20, 27)
         Me.cmdFunc3.Visible = False
         '
         'cmdFunc4
         '
         Me.cmdFunc4.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc4.Location = New System.Drawing.Point(501, 222)
+        Me.cmdFunc4.Location = New System.Drawing.Point(389, 222)
         Me.cmdFunc4.Size = New System.Drawing.Size(20, 27)
         Me.cmdFunc4.Visible = False
         '
         'cmdFunc5
         '
         Me.cmdFunc5.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc5.Location = New System.Drawing.Point(704, 222)
+        Me.cmdFunc5.Location = New System.Drawing.Point(592, 222)
         Me.cmdFunc5.Size = New System.Drawing.Size(20, 27)
         Me.cmdFunc5.Visible = False
         '
         'cmdFunc6
         '
         Me.cmdFunc6.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc6.Location = New System.Drawing.Point(604, 223)
+        Me.cmdFunc6.Location = New System.Drawing.Point(492, 223)
         Me.cmdFunc6.Size = New System.Drawing.Size(120, 27)
         Me.cmdFunc6.TabIndex = 1
         Me.cmdFunc6.Visible = False
@@ -80,57 +81,53 @@ Partial Class FrmG0016
         '
         Me.cmdFunc12.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.cmdFunc12.Image = Global.FMS.My.Resources.Resources._imgLog_Out32x32
-        Me.cmdFunc12.Location = New System.Drawing.Point(836, 207)
+        Me.cmdFunc12.Location = New System.Drawing.Point(612, 207)
         Me.cmdFunc12.Text = "ÉLÉÉÉìÉZÉã(F12)"
         '
         'cmdFunc11
         '
         Me.cmdFunc11.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc11.Location = New System.Drawing.Point(704, 222)
+        Me.cmdFunc11.Location = New System.Drawing.Point(592, 222)
         Me.cmdFunc11.Size = New System.Drawing.Size(20, 27)
         Me.cmdFunc11.Visible = False
         '
         'cmdFunc10
         '
         Me.cmdFunc10.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc10.Location = New System.Drawing.Point(501, 222)
+        Me.cmdFunc10.Location = New System.Drawing.Point(389, 222)
         Me.cmdFunc10.Size = New System.Drawing.Size(20, 27)
         Me.cmdFunc10.Visible = False
         '
         'cmdFunc7
         '
         Me.cmdFunc7.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc7.Location = New System.Drawing.Point(477, 223)
+        Me.cmdFunc7.Location = New System.Drawing.Point(365, 223)
         Me.cmdFunc7.Size = New System.Drawing.Size(18, 27)
         Me.cmdFunc7.Visible = False
         '
         'cmdFunc9
         '
         Me.cmdFunc9.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc9.Location = New System.Drawing.Point(298, 222)
+        Me.cmdFunc9.Location = New System.Drawing.Point(186, 222)
         Me.cmdFunc9.Size = New System.Drawing.Size(20, 27)
         Me.cmdFunc9.Visible = False
         '
         'cmdFunc8
         '
         Me.cmdFunc8.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc8.Location = New System.Drawing.Point(443, 223)
+        Me.cmdFunc8.Location = New System.Drawing.Point(331, 223)
         Me.cmdFunc8.Size = New System.Drawing.Size(20, 27)
         Me.cmdFunc8.Visible = False
         '
         'lblTytle
         '
         Me.lblTytle.Location = New System.Drawing.Point(13, 12)
-        Me.lblTytle.Size = New System.Drawing.Size(982, 45)
+        Me.lblTytle.Size = New System.Drawing.Size(758, 45)
         Me.lblTytle.Text = "ç∑ñﬂÇµìoò^"
         '
         'ToolTip
         '
         Me.ToolTip.InitialDelay = 700
-        '
-        'ErrorProvider
-        '
-        Me.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         '
         'GroupBox1
         '
@@ -147,7 +144,7 @@ Partial Class FrmG0016
         Me.GroupBox1.Font = New System.Drawing.Font("ÇlÇr ÉSÉVÉbÉN", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(13, 60)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(982, 141)
+        Me.GroupBox1.Size = New System.Drawing.Size(758, 141)
         Me.GroupBox1.TabIndex = 31
         Me.GroupBox1.TabStop = False
         '
@@ -162,6 +159,7 @@ Partial Class FrmG0016
         Me.mtxTANTO_ID.Location = New System.Drawing.Point(253, 52)
         Me.mtxTANTO_ID.MaxByteLength = 200
         Me.mtxTANTO_ID.Name = "mtxTANTO_ID"
+        Me.mtxTANTO_ID.SelectAllText = False
         Me.mtxTANTO_ID.Size = New System.Drawing.Size(52, 24)
         Me.mtxTANTO_ID.TabIndex = 69
         Me.mtxTANTO_ID.Visible = False
@@ -198,14 +196,13 @@ Partial Class FrmG0016
         Me.cmbMODOSI_SAKI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbMODOSI_SAKI.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbMODOSI_SAKI.FormattingEnabled = True
-        Me.cmbMODOSI_SAKI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbMODOSI_SAKI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbMODOSI_SAKI.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbMODOSI_SAKI.IsSelected = False
         Me.cmbMODOSI_SAKI.Location = New System.Drawing.Point(99, 21)
         Me.cmbMODOSI_SAKI.MaxLength = 30
         Me.cmbMODOSI_SAKI.Name = "cmbMODOSI_SAKI"
         Me.cmbMODOSI_SAKI.NullValue = " "
-        Me.cmbMODOSI_SAKI.ReadOnly = False
-        Me.cmbMODOSI_SAKI.IsSelected = False
         Me.cmbMODOSI_SAKI.Size = New System.Drawing.Size(409, 25)
         Me.cmbMODOSI_SAKI.TabIndex = 1
         Me.cmbMODOSI_SAKI.Text = "(ëIë)"
@@ -232,6 +229,7 @@ Partial Class FrmG0016
         Me.mtxTANTO_NAME.MaxByteLength = 200
         Me.mtxTANTO_NAME.Name = "mtxTANTO_NAME"
         Me.mtxTANTO_NAME.ReadOnly = True
+        Me.mtxTANTO_NAME.SelectAllText = False
         Me.mtxTANTO_NAME.Size = New System.Drawing.Size(148, 24)
         Me.mtxTANTO_NAME.TabIndex = 3
         Me.mtxTANTO_NAME.WatermarkColor = System.Drawing.Color.Empty
@@ -247,6 +245,7 @@ Partial Class FrmG0016
         Me.mtxMODOSI_RIYU.Location = New System.Drawing.Point(99, 82)
         Me.mtxMODOSI_RIYU.MaxByteLength = 200
         Me.mtxMODOSI_RIYU.Name = "mtxMODOSI_RIYU"
+        Me.mtxMODOSI_RIYU.SelectAllText = False
         Me.mtxMODOSI_RIYU.Size = New System.Drawing.Size(612, 24)
         Me.mtxMODOSI_RIYU.TabIndex = 3
         Me.mtxMODOSI_RIYU.WatermarkColor = System.Drawing.Color.Empty
@@ -268,7 +267,7 @@ Partial Class FrmG0016
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(1008, 712)
+        Me.ClientSize = New System.Drawing.Size(784, 712)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True
@@ -289,6 +288,7 @@ Partial Class FrmG0016
         Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc1, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)

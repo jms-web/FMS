@@ -87,10 +87,11 @@ Public Class FrmG0011
         D003NCRJBindingSource.DataSource = _D003_NCR_J
         mtxHOKUKO_NO.ReadOnly = True
         dtDraft.ReadOnly = True
-        cmbKISO_TANTO.ReadOnly = True
         cmbHINMEI.ReadOnly = True
         pnlPict1.AllowDrop = True
         pnlPict2.AllowDrop = True
+        dtHASSEI_YMD.MaxDate = Today
+
 
         '未選択時ウォーターマーク+バインドが必要なコンボボックスのための設定
         cmbKISO_TANTO.NullValue = 0
@@ -250,7 +251,7 @@ Public Class FrmG0011
         Me.Owner.Visible = False
     End Sub
 
-    Private Sub Frm_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+    Private Sub Frm_Closing(sender As Object, e As EventArgs) Handles Me.Closing
         Me.Owner.Visible = True
     End Sub
 
@@ -287,6 +288,7 @@ Public Class FrmG0011
                             If FunSAVE(ENM_SAVE_MODE._1_保存) Then
                                 Me.DialogResult = DialogResult.OK
                                 MessageBox.Show("入力内容を保存しました", "保存完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                'Call ShowSnackbar("入力内容を保存しました", BackColor:=Color.Green)
 
                                 If blnEnableCAREdit Then
                                     If MessageBox.Show("CAR起草入力画面を表示しますか?", "CAR起草入力", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
@@ -583,32 +585,32 @@ Public Class FrmG0011
             _D003_NCR_J._CLOSE_FG = 1
         End If
 
-        Select Case enmSAVE_MODE
-            Case ENM_SAVE_MODE._1_保存
-            Case ENM_SAVE_MODE._2_承認申請
-                Select Case PrCurrentStage
-                    Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
-                        If _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = 0 Then _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                        _D003_NCR_J.JIZEN_SINSA_YMD = _D004_SYONIN_J_KANRI.SYONIN_YMD'Now.ToString("yyyyMMdd")
-                    Case ENM_NCR_STAGE._50_事前審査確認
-                        _D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                        _D003_NCR_J.SAISIN_KAKUNIN_YMD = _D004_SYONIN_J_KANRI.SYONIN_YMD'Now.ToString("yyyyMMdd")
-                    Case ENM_NCR_STAGE._60_再審審査判定_技術代表
-                        _D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                        _D003_NCR_J.SAISIN_GIJYUTU_YMD = _D004_SYONIN_J_KANRI.SYONIN_YMD'Now.ToString("yyyyMMdd")
-                    Case ENM_NCR_STAGE._61_再審審査判定_品証代表
-                        _D003_NCR_J.SAISIN_HINSYO_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                        _D003_NCR_J.SAISIN_HINSYO_YMD = _D004_SYONIN_J_KANRI.SYONIN_YMD'Now.ToString("yyyyMMdd")
-                    Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
-                        _D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
-                        _D003_NCR_J.KOKYAKU_SAISIN_YMD = _D004_SYONIN_J_KANRI.SYONIN_YMD'Now.ToString("yyyyMMdd")
+        '        Select Case enmSAVE_MODE
+        '            Case ENM_SAVE_MODE._1_保存
+        '            Case ENM_SAVE_MODE._2_承認申請
+        Select Case PrCurrentStage
+            Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
+                If _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = 0 Then _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                _D003_NCR_J.JIZEN_SINSA_YMD = _D004_SYONIN_J_KANRI.SYONIN_YMD'Now.ToString("yyyyMMdd")
+            Case ENM_NCR_STAGE._50_事前審査確認
+                _D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                _D003_NCR_J.SAISIN_KAKUNIN_YMD = _D004_SYONIN_J_KANRI.SYONIN_YMD'Now.ToString("yyyyMMdd")
+            Case ENM_NCR_STAGE._60_再審審査判定_技術代表
+                _D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                _D003_NCR_J.SAISIN_GIJYUTU_YMD = _D004_SYONIN_J_KANRI.SYONIN_YMD'Now.ToString("yyyyMMdd")
+            Case ENM_NCR_STAGE._61_再審審査判定_品証代表
+                _D003_NCR_J.SAISIN_HINSYO_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                _D003_NCR_J.SAISIN_HINSYO_YMD = _D004_SYONIN_J_KANRI.SYONIN_YMD'Now.ToString("yyyyMMdd")
+            Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
+                _D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
+                _D003_NCR_J.KOKYAKU_SAISIN_YMD = _D004_SYONIN_J_KANRI.SYONIN_YMD'Now.ToString("yyyyMMdd")
 
-                    Case ENM_NCR_STAGE._110_abcde処置担当
+            Case ENM_NCR_STAGE._110_abcde処置担当
 
-                    Case Else
-                        'UNDONE: Err
-                End Select
+            Case Else
+                'UNDONE:         Err()
         End Select
+        '        End Select
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)

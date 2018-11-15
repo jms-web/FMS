@@ -120,6 +120,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="C1.Win.C1FlexGrid.4, Version=4.0.20173.286, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="mscorlib" />
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PanelManager">
@@ -268,6 +269,7 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="View\FrmG0012.resx">
       <DependentUpon>FrmG0012.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -319,6 +321,7 @@
     <None Include="My Project\DataSources\MODEL.D004_SYONIN_J_KANRI.datasource" />
     <None Include="My Project\DataSources\MODEL.D005_CAR_J.datasource" />
     <None Include="My Project\DataSources\MODEL.D006_CAR_GENIN.datasource" />
+    <None Include="My Project\DataSources\MODEL.ST02_FUTEKIGO_ICHIRAN.datasource" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>

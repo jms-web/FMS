@@ -85,7 +85,7 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Public Property BUHIN_BANGO As String
 
     <StringLength(100)>
-    <ComponentModel.DisplayName("品名")>
+    <ComponentModel.DisplayName("部品名")>
     Public Property BUHIN_NAME As String '部品名
 
     <StringLength(5)>
@@ -93,7 +93,7 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Public Property GOKI As String
 
     <StringLength(10)>
-    <ComponentModel.DisplayName("号機")>
+    <ComponentModel.DisplayName("社内コード")>
     Public Property SYANAI_CD As String
 
     <StringLength(2)>
@@ -101,11 +101,11 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Public Property FUTEKIGO_KB As String
 
     <StringLength(50)>
-    <ComponentModel.DisplayName("不適合区分名")>
+    <ComponentModel.DisplayName("不適合区分")>
     Public Property FUTEKIGO_NAME As String
 
     <StringLength(50)>
-    <ComponentModel.DisplayName("不適合詳細区分名")>
+    <ComponentModel.DisplayName("不適合詳細区分")>
     Public Property FUTEKIGO_S_NAME As String
 
     <StringLength(2)>
@@ -125,7 +125,7 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Public Property JIZEN_SINSA_HANTEI_KB As String
 
     <StringLength(50)>
-    <ComponentModel.DisplayName("事前判定区分名")>
+    <ComponentModel.DisplayName("事前判定区分")>
     Public Property JIZEN_SINSA_HANTEI_NAME As String
 
     <StringLength(1)>
@@ -133,7 +133,7 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Public Property ZESEI_SYOCHI_YOHI_KB As String
 
     <StringLength(150)>
-    <ComponentModel.DisplayName("是正処置要否区分名")>
+    <ComponentModel.DisplayName("是正処置要否区分")>
     Public Property ZESEI_SYOCHI_YOHI_NAME As String
 
     <StringLength(1)>
@@ -141,7 +141,7 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Public Property SAISIN_IINKAI_HANTEI_KB As String
 
     <StringLength(50)>
-    <ComponentModel.DisplayName("再審委員会判定区分名")>
+    <ComponentModel.DisplayName("再審委員会判定区分")>
     Public Property SAISIN_IINKAI_HANTEI_NAME As String
 
     <StringLength(1)>
@@ -149,7 +149,7 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Public Property KENSA_KEKKA_KB As String
 
     <StringLength(50)>
-    <ComponentModel.DisplayName("検査結果区分名")>
+    <ComponentModel.DisplayName("検査結果区分")>
     Public Property KENSA_KEKKA_NAME As String
 
     <StringLength(1)>
@@ -157,7 +157,7 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Public Property KONPON_YOIN_KB1 As String
 
     <StringLength(50)>
-    <ComponentModel.DisplayName("根本要因区分名1")>
+    <ComponentModel.DisplayName("根本要因区分1")>
     Public Property KONPON_YOIN_NAME1 As String
 
     <StringLength(1)>
@@ -165,7 +165,7 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Public Property KONPON_YOIN_KB2 As String
 
     <StringLength(50)>
-    <ComponentModel.DisplayName("根本要因区分名2")>
+    <ComponentModel.DisplayName("根本要因区分2")>
     Public Property KONPON_YOIN_NAME2 As String
 
     <StringLength(1)>
@@ -232,7 +232,7 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Public Property KOKYAKU_HANTEI_SIJI_KB As String
 
     <StringLength(150)>
-    <ComponentModel.DisplayName("顧客判定指示区分名")>
+    <ComponentModel.DisplayName("顧客判定指示区分")>
     Public Property KOKYAKU_HANTEI_SIJI_NAME As String
 
     <StringLength(2)>
@@ -240,7 +240,7 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Public Property KOKYAKU_SAISYU_HANTEI_KB As String
 
     <StringLength(150)>
-    <ComponentModel.DisplayName("顧客最終判定区分名")>
+    <ComponentModel.DisplayName("顧客最終判定区分")>
     Public Property KOKYAKU_SAISYU_HANTEI_NAME As String
 
     <StringLength(14)>

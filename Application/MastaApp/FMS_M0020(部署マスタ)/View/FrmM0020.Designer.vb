@@ -40,6 +40,7 @@ Partial Class FrmM0020
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.VWM002BUSYOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -142,13 +143,12 @@ Partial Class FrmM0020
         Me.cmbBUMON_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbBUMON_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUMON_KB.FormattingEnabled = True
-        Me.cmbBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbBUMON_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Location = New System.Drawing.Point(83, 3)
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
-        Me.cmbBUMON_KB.ReadOnly = False
         Me.cmbBUMON_KB.Size = New System.Drawing.Size(113, 25)
         Me.cmbBUMON_KB.TabIndex = 0
         Me.cmbBUMON_KB.Text = "(‘I‘ð)"
@@ -245,13 +245,12 @@ Partial Class FrmM0020
         Me.cmbBUSYO_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbBUSYO_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUSYO_KB.FormattingEnabled = True
-        Me.cmbBUSYO_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbBUSYO_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbBUSYO_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUSYO_KB.IsSelected = False
         Me.cmbBUSYO_KB.Location = New System.Drawing.Point(394, 3)
         Me.cmbBUSYO_KB.Name = "cmbBUSYO_KB"
         Me.cmbBUSYO_KB.NullValue = " "
-        Me.cmbBUSYO_KB.ReadOnly = False
         Me.cmbBUSYO_KB.Size = New System.Drawing.Size(135, 25)
         Me.cmbBUSYO_KB.TabIndex = 0
         Me.cmbBUSYO_KB.Text = "(‘I‘ð)"
@@ -314,6 +313,7 @@ Partial Class FrmM0020
         Me.txtBUSYO_NAME.Location = New System.Drawing.Point(394, 34)
         Me.txtBUSYO_NAME.MaxByteLength = 30
         Me.txtBUSYO_NAME.Name = "txtBUSYO_NAME"
+        Me.txtBUSYO_NAME.SelectAllText = False
         Me.txtBUSYO_NAME.Size = New System.Drawing.Size(192, 24)
         Me.txtBUSYO_NAME.TabIndex = 57
         Me.txtBUSYO_NAME.WatermarkColor = System.Drawing.Color.Empty
@@ -328,6 +328,7 @@ Partial Class FrmM0020
         Me.txtOYA_BUSYO_NAME.Location = New System.Drawing.Point(83, 34)
         Me.txtOYA_BUSYO_NAME.MaxByteLength = 30
         Me.txtOYA_BUSYO_NAME.Name = "txtOYA_BUSYO_NAME"
+        Me.txtOYA_BUSYO_NAME.SelectAllText = False
         Me.txtOYA_BUSYO_NAME.Size = New System.Drawing.Size(170, 24)
         Me.txtOYA_BUSYO_NAME.TabIndex = 57
         Me.txtOYA_BUSYO_NAME.WatermarkColor = System.Drawing.Color.Empty
@@ -383,6 +384,7 @@ Partial Class FrmM0020
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
         Me.Controls.SetChildIndex(Me.flxDATA, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()

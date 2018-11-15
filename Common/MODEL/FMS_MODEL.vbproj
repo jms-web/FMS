@@ -259,7 +259,7 @@
     <Content Include="DDL\StoredFunction\ST01_GET_HOKOKU_NO.sql" />
     <Content Include="DDL\StoredFunction\ST02_FUTEKIGO_ICHIRAN.sql" />
     <Content Include="DDL\View\R004_CAR_R.sql" />
-    <Content Include="DDL\View\V001_SYONIN_TANTO].sql" />
+    <Content Include="DDL\View\V001_SYONIN_TANTO.sql" />
     <Content Include="DDL\View\V002_NCR_J.sql" />
     <Content Include="DDL\View\V003_SYONIN_J_KANRI.sql" />
     <Content Include="DDL\View\V004_HOKOKU_SOUSA.sql" />
@@ -268,6 +268,7 @@
     <Content Include="DDL\View\V007_NCR_CAR.sql" />
     <Content Include="DDL\View\V008_NCR_R.sql" />
     <Content Include="DDL\View\V009_CAR_R.sql" />
+    <Content Include="DDL\View\VWM004_SYAIN.sql" />
     <Content Include="DDL\View\VWM106_BUHIN.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

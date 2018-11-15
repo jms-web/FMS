@@ -278,10 +278,15 @@ Public Class FrmBaseSts
     ''' </summary>
     ''' <param name="message"></param>
     ''' <param name="lifetime">milisec</param>
-    Public Async Sub ShowSnackbar(message As String, Optional lifetime As Integer = 2000)
+    Public Async Sub ShowSnackbar(message As String,
+                   Optional lifeTime As Integer = 2000,
+                   Optional methodType As FormAnimator.AnimationMethod = FormAnimator.AnimationMethod.Slide,
+                   Optional Direction As FormAnimator.AnimationDirection = FormAnimator.AnimationDirection.Up,
+                   Optional duration As Integer = 300,
+                   Optional BackColor As Color = Nothing)
         Await Task.Run(
             Sub()
-                Dim tf As New ToastForm(lifetime, message)
+                Dim tf As New ToastForm(lifeTime, message, methodType, Direction, duration, BackColor)
                 Me.Invoke(Sub() tf.ShowDialog(Me))
             End Sub)
     End Sub

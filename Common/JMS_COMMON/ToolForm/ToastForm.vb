@@ -75,7 +75,7 @@ Public Class ToastForm
         Me.lifeTimer.Interval = lifeTime
         Me.messageLabel.Text = message
         Me.messageLabel.ForeColor = Color.White
-        Me.BackColor = Color.DodgerBlue
+        Me.BackColor = IIf(BackColor = Nothing, Color.DodgerBlue, BackColor)
         Me.FormBorderStyle = FormBorderStyle.None
         Me.animator = New FormAnimator(Me, methodType, Direction, duration)
         Me.DoubleBuffered = True
@@ -110,7 +110,7 @@ Public Class ToastForm
         '                        Screen.PrimaryScreen.WorkingArea.Height - Me.Height - 5)
 
         Me.Height = 30
-        Me.Location = New Point(Owner.Left + 8, Owner.Top + Owner.Height - 6)
+        Me.Location = New Point(Owner.Left + 8, Owner.Top + Owner.Height - 6 - 30)
         Me.Width = Owner.Width - 16
 
         'Move each open form upwards to make room for this one.
@@ -138,7 +138,19 @@ Public Class ToastForm
         Me.allowFocus = True
 
         'Close the form by sliding down.
-        Me.animator.Direction = FormAnimator.AnimationDirection.Up
+        Dim closeDirection As FormAnimator.AnimationDirection
+        Select Case Me.animator.Direction
+            Case FormAnimator.AnimationDirection.Up
+                closeDirection = FormAnimator.AnimationDirection.Down
+            Case FormAnimator.AnimationDirection.Left
+                closeDirection = FormAnimator.AnimationDirection.Right
+            Case FormAnimator.AnimationDirection.Right
+                closeDirection = FormAnimator.AnimationDirection.Left
+            Case FormAnimator.AnimationDirection.Down
+                closeDirection = FormAnimator.AnimationDirection.Up
+        End Select
+
+        Me.animator.Direction = closeDirection
     End Sub
 
     Private Sub ToastForm_FormClosed(ByVal sender As Object, ByVal e As FormClosedEventArgs) Handles MyBase.FormClosed

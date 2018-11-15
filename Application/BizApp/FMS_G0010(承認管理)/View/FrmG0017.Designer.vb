@@ -61,6 +61,7 @@ Partial Class FrmG0017
         Me.Label3 = New System.Windows.Forms.Label()
         Me.mtxSYONIN_HOKOKUSYO_NAME = New JMS_COMMON.MaskedTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
@@ -344,6 +345,7 @@ Partial Class FrmG0017
         Me.mtxHENKYAKU_RIYU.MaxByteLength = 0
         Me.mtxHENKYAKU_RIYU.Name = "mtxHENKYAKU_RIYU"
         Me.mtxHENKYAKU_RIYU.ReadOnly = True
+        Me.mtxHENKYAKU_RIYU.SelectAllText = False
         Me.mtxHENKYAKU_RIYU.Size = New System.Drawing.Size(474, 24)
         Me.mtxHENKYAKU_RIYU.TabIndex = 12
         Me.mtxHENKYAKU_RIYU.Visible = False
@@ -395,6 +397,7 @@ Partial Class FrmG0017
         Me.mtxZUBAN_KIKAKU.MaxByteLength = 60
         Me.mtxZUBAN_KIKAKU.Name = "mtxZUBAN_KIKAKU"
         Me.mtxZUBAN_KIKAKU.ReadOnly = True
+        Me.mtxZUBAN_KIKAKU.SelectAllText = False
         Me.mtxZUBAN_KIKAKU.Size = New System.Drawing.Size(354, 24)
         Me.mtxZUBAN_KIKAKU.TabIndex = 15
         Me.mtxZUBAN_KIKAKU.WatermarkColor = System.Drawing.Color.Empty
@@ -425,6 +428,7 @@ Partial Class FrmG0017
         Me.mtxHOKUKO_NO.MaxByteLength = 0
         Me.mtxHOKUKO_NO.Name = "mtxHOKUKO_NO"
         Me.mtxHOKUKO_NO.ReadOnly = True
+        Me.mtxHOKUKO_NO.SelectAllText = False
         Me.mtxHOKUKO_NO.Size = New System.Drawing.Size(134, 24)
         Me.mtxHOKUKO_NO.TabIndex = 0
         Me.mtxHOKUKO_NO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -487,6 +491,7 @@ Partial Class FrmG0017
         Me.mtxHINMEI.MaxByteLength = 0
         Me.mtxHINMEI.Name = "mtxHINMEI"
         Me.mtxHINMEI.ReadOnly = True
+        Me.mtxHINMEI.SelectAllText = False
         Me.mtxHINMEI.Size = New System.Drawing.Size(354, 24)
         Me.mtxHINMEI.TabIndex = 6
         Me.mtxHINMEI.WatermarkColor = System.Drawing.Color.Empty
@@ -515,6 +520,7 @@ Partial Class FrmG0017
         Me.mtxGOUKI.MaxByteLength = 0
         Me.mtxGOUKI.Name = "mtxGOUKI"
         Me.mtxGOUKI.ReadOnly = True
+        Me.mtxGOUKI.SelectAllText = False
         Me.mtxGOUKI.Size = New System.Drawing.Size(134, 24)
         Me.mtxGOUKI.TabIndex = 7
         Me.mtxGOUKI.WatermarkColor = System.Drawing.Color.Empty
@@ -625,6 +631,7 @@ Partial Class FrmG0017
         Me.mtxKISYU.MaxByteLength = 0
         Me.mtxKISYU.Name = "mtxKISYU"
         Me.mtxKISYU.ReadOnly = True
+        Me.mtxKISYU.SelectAllText = False
         Me.mtxKISYU.Size = New System.Drawing.Size(134, 24)
         Me.mtxKISYU.TabIndex = 122
         Me.mtxKISYU.WatermarkColor = System.Drawing.Color.Empty
@@ -642,6 +649,7 @@ Partial Class FrmG0017
         Me.mtxFUTEKIGO_JYOTAI.MaxByteLength = 0
         Me.mtxFUTEKIGO_JYOTAI.Name = "mtxFUTEKIGO_JYOTAI"
         Me.mtxFUTEKIGO_JYOTAI.ReadOnly = True
+        Me.mtxFUTEKIGO_JYOTAI.SelectAllText = False
         Me.mtxFUTEKIGO_JYOTAI.Size = New System.Drawing.Size(134, 24)
         Me.mtxFUTEKIGO_JYOTAI.TabIndex = 123
         Me.mtxFUTEKIGO_JYOTAI.WatermarkColor = System.Drawing.Color.Empty
@@ -659,6 +667,7 @@ Partial Class FrmG0017
         Me.mtxFUTEKIGO_KB.MaxByteLength = 0
         Me.mtxFUTEKIGO_KB.Name = "mtxFUTEKIGO_KB"
         Me.mtxFUTEKIGO_KB.ReadOnly = True
+        Me.mtxFUTEKIGO_KB.SelectAllText = False
         Me.mtxFUTEKIGO_KB.Size = New System.Drawing.Size(134, 24)
         Me.mtxFUTEKIGO_KB.TabIndex = 124
         Me.mtxFUTEKIGO_KB.WatermarkColor = System.Drawing.Color.Empty
@@ -676,6 +685,7 @@ Partial Class FrmG0017
         Me.mtxFUTEKIGO_S_KB.MaxByteLength = 0
         Me.mtxFUTEKIGO_S_KB.Name = "mtxFUTEKIGO_S_KB"
         Me.mtxFUTEKIGO_S_KB.ReadOnly = True
+        Me.mtxFUTEKIGO_S_KB.SelectAllText = False
         Me.mtxFUTEKIGO_S_KB.Size = New System.Drawing.Size(194, 24)
         Me.mtxFUTEKIGO_S_KB.TabIndex = 125
         Me.mtxFUTEKIGO_S_KB.WatermarkColor = System.Drawing.Color.Empty
@@ -693,6 +703,7 @@ Partial Class FrmG0017
         Me.mtxSYANAI_CD.MaxByteLength = 0
         Me.mtxSYANAI_CD.Name = "mtxSYANAI_CD"
         Me.mtxSYANAI_CD.ReadOnly = True
+        Me.mtxSYANAI_CD.SelectAllText = False
         Me.mtxSYANAI_CD.Size = New System.Drawing.Size(134, 24)
         Me.mtxSYANAI_CD.TabIndex = 126
         Me.mtxSYANAI_CD.Visible = False
@@ -711,6 +722,7 @@ Partial Class FrmG0017
         Me.mtxBUHIN_BANGO.MaxByteLength = 0
         Me.mtxBUHIN_BANGO.Name = "mtxBUHIN_BANGO"
         Me.mtxBUHIN_BANGO.ReadOnly = True
+        Me.mtxBUHIN_BANGO.SelectAllText = False
         Me.mtxBUHIN_BANGO.Size = New System.Drawing.Size(194, 24)
         Me.mtxBUHIN_BANGO.TabIndex = 127
         Me.mtxBUHIN_BANGO.WatermarkColor = System.Drawing.Color.Empty
@@ -728,6 +740,7 @@ Partial Class FrmG0017
         Me.mtxBUMON_KB.MaxByteLength = 0
         Me.mtxBUMON_KB.Name = "mtxBUMON_KB"
         Me.mtxBUMON_KB.ReadOnly = True
+        Me.mtxBUMON_KB.SelectAllText = False
         Me.mtxBUMON_KB.Size = New System.Drawing.Size(94, 24)
         Me.mtxBUMON_KB.TabIndex = 128
         Me.mtxBUMON_KB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -746,6 +759,7 @@ Partial Class FrmG0017
         Me.mtxKISOU_TANTO.MaxByteLength = 0
         Me.mtxKISOU_TANTO.Name = "mtxKISOU_TANTO"
         Me.mtxKISOU_TANTO.ReadOnly = True
+        Me.mtxKISOU_TANTO.SelectAllText = False
         Me.mtxKISOU_TANTO.Size = New System.Drawing.Size(154, 24)
         Me.mtxKISOU_TANTO.TabIndex = 129
         Me.mtxKISOU_TANTO.WatermarkColor = System.Drawing.Color.Empty
@@ -774,6 +788,7 @@ Partial Class FrmG0017
         Me.mtxSYONIN_HOKOKUSYO_NAME.MaxByteLength = 0
         Me.mtxSYONIN_HOKOKUSYO_NAME.Name = "mtxSYONIN_HOKOKUSYO_NAME"
         Me.mtxSYONIN_HOKOKUSYO_NAME.ReadOnly = True
+        Me.mtxSYONIN_HOKOKUSYO_NAME.SelectAllText = False
         Me.mtxSYONIN_HOKOKUSYO_NAME.Size = New System.Drawing.Size(354, 24)
         Me.mtxSYONIN_HOKOKUSYO_NAME.TabIndex = 131
         Me.mtxSYONIN_HOKOKUSYO_NAME.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -807,6 +822,7 @@ Partial Class FrmG0017
         Me.Controls.SetChildIndex(Me.cmdFunc1, 0)
         Me.Controls.SetChildIndex(Me.lblRecordCount, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)

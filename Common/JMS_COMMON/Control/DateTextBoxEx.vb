@@ -602,10 +602,10 @@ Public Class DateTextBoxEx
             End If
             DateTimePicker1.Enabled = Not Value
             MaskedTextBox1.ReadOnly = Value
-            TabStop = Not Value
+            'TabStop = Not Value
             MaskedTextBox1.SelectAllText = Not Value
-            SetStyle(ControlStyles.UserMouse, Value)
-            SetStyle(ControlStyles.Selectable, Value)
+            'SetStyle(ControlStyles.UserMouse, Value)
+            'SetStyle(ControlStyles.Selectable, Value)
             'UpdateStyles()
             'RecreateHandle()
         End Set
