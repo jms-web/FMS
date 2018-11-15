@@ -67,6 +67,7 @@ Partial Class FrmM0050
         '
         'cmdFunc1
         '
+        Me.cmdFunc1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgSearch32x32
         Me.cmdFunc1.Location = New System.Drawing.Point(1126, 162)
         Me.cmdFunc1.Size = New System.Drawing.Size(122, 42)
@@ -74,6 +75,7 @@ Partial Class FrmM0050
         '
         'cmdFunc2
         '
+        Me.cmdFunc2.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.cmdFunc2.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
         Me.cmdFunc2.Location = New System.Drawing.Point(606, 331)
         Me.cmdFunc2.Size = New System.Drawing.Size(178, 42)
@@ -81,6 +83,7 @@ Partial Class FrmM0050
         '
         'cmdFunc3
         '
+        Me.cmdFunc3.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.cmdFunc3.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
         Me.cmdFunc3.Location = New System.Drawing.Point(606, 379)
         Me.cmdFunc3.Size = New System.Drawing.Size(178, 42)
@@ -92,6 +95,7 @@ Partial Class FrmM0050
         '
         'cmdFunc5
         '
+        Me.cmdFunc5.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.cmdFunc5.Image = Global.FMS.My.Resources.Resources._imgStatusAnnotations_Blocked_32x32_MD
         Me.cmdFunc5.Location = New System.Drawing.Point(606, 469)
         Me.cmdFunc5.Size = New System.Drawing.Size(178, 42)
@@ -261,6 +265,7 @@ Partial Class FrmM0050
         '
         'GroupBoxEx1
         '
+        Me.GroupBoxEx1.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.GroupBoxEx1.BackColor = System.Drawing.SystemColors.Control
         Me.GroupBoxEx1.Controls.Add(Me.radKAISI_YMD)
         Me.GroupBoxEx1.Controls.Add(Me.radKENMU)
@@ -472,8 +477,7 @@ Partial Class FrmM0050
         '
         'flxDATA_SYAIN
         '
-        Me.flxDATA_SYAIN.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.flxDATA_SYAIN.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.flxDATA_SYAIN.ColumnInfo = resources.GetString("flxDATA_SYAIN.ColumnInfo")
         Me.flxDATA_SYAIN.DataSource = Me.VWM004SYAINBindingSource
@@ -493,8 +497,7 @@ Partial Class FrmM0050
         '
         'GroupBox1
         '
-        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.TableLayoutPanel1)
         Me.GroupBox1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(795, 60)

@@ -67,7 +67,7 @@ Public Class FrmM0110
         ''===================================
         'Call SetButtonSize(Me.Width, cmdFunc)
 
-        MyBase.FrmBaseStsBtn_Resize(Me, e)
+        'MyBase.FrmBaseStsBtn_Resize(Me, e)
 
     End Sub
 
