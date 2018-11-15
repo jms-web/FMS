@@ -2845,24 +2845,20 @@ Public Class FrmG0012
             Dim drs As IEnumerable(Of DataRow)
 
             InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._2_»‘¢.Value, ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
-            'drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
-            'If drs.Count > 0 Then cmbKONPON_YOIN_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKONPON_YOIN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+            If drs.Count > 0 Then cmbKONPON_YOIN_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._2_»‘¢.Value, ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
-            'drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
-            'If drs.Count > 0 Then cmbKAITO_5.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKAITO_5.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+            If drs.Count > 0 Then cmbKAITO_5.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._2_»‘¢.Value, ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
-            'drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
-            'If drs.Count > 0 Then cmbKAITO_10.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKAITO_10.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+            If drs.Count > 0 Then cmbKAITO_10.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._2_»‘¢.Value, ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
-            'drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
-            'If drs.Count > 0 Then cmbKAITO_17.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKAITO_17.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+            If drs.Count > 0 Then cmbKAITO_17.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Boolean)("IS_LEADER") = True)
             If drs.Count > 0 Then cmbSYOCHI_A_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
@@ -2874,14 +2870,12 @@ Public Class FrmG0012
             If drs.Count > 0 Then cmbSYOCHI_C_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
             InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value})
-            'drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
-            'If drs.Count > 0 Then cmbKENSA_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKENSA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+            If drs.Count > 0 Then cmbKENSA_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value})
-            'drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))) And r.Field(Of Boolean)("IS_LEADER") = True)
-            'If drs.Count > 0 Then cmbKENSA_GL_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKENSA_GL_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))) And r.Field(Of Boolean)("IS_LEADER") = True)
+            If drs.Count > 0 Then cmbKENSA_GL_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
             cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
