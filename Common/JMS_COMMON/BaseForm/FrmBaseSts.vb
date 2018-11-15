@@ -1,3 +1,4 @@
+Imports System.Threading.Tasks
 Imports JMS_COMMON.ClsPubMethod
 
 Public Class FrmBaseSts
@@ -5,7 +6,7 @@ Public Class FrmBaseSts
 #Region "変数・定数"
     Private WithEvents TssTime As New Windows.Forms.ToolStripStatusLabel
 
-    Protected clrPG_STATUS_INACTIVE As Color = SystemColors.InactiveBorder
+    Public Shared clrPG_STATUS_INACTIVE As Color = SystemColors.InactiveBorder
     Public Shared clrPG_STATUS_ACTIVE As Color = Color.FromArgb(0, 140, 255) 'Color.FromArgb(0, 161, 255)
     Public Shared clrPG_STATUS_PROCESSING As Color = Color.FromArgb(255, 110, 30) 'Color.OrangeRed 'Color.DarkOrange
     Public Shared clrPG_STATUS_ERROR As Color = Color.Red
@@ -13,7 +14,6 @@ Public Class FrmBaseSts
 
     Private priblnMode As Boolean
 
-    'DEBUG:
     Public blnAltMode As Boolean
 #End Region
 
@@ -177,6 +177,12 @@ Public Class FrmBaseSts
             Me.DataBindings.Clear()
             Me.DataBindings.Add(New Binding(NameOf(Me.Text), lblTytle, NameOf(lblTytle.Text), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
+            'If Owner IsNot Nothing And Me.FormBorderStyle = FormBorderStyle.FixedDialog Then
+            '    Me.Height = Owner.Height - 26
+            '    'Me.Top = Owner.Top + (Owner.Height - Me.Height) / 2
+            '    Me.Left = Owner.Left + (Owner.Width - Me.Width) / 2
+            'End If
+
             Me.BackColor = objPG_INFO.clrFORM_BACK
             Me.lblTytle.BackColor = objPG_INFO.clrTITLE_LABEL
 
@@ -216,9 +222,10 @@ Public Class FrmBaseSts
                 PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
             End If
 
+            PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
             For Each item As ToolStripStatusLabel In Me.StatusStrip.Items
-                item.BorderSides = ToolStripStatusLabelBorderSides.None
                 item.BorderStyle = Border3DStyle.SunkenOuter
+                item.BorderSides = ToolStripStatusLabelBorderSides.None
                 item.ForeColor = Color.White
                 item.Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
                 item.LinkColor = item.ForeColor
@@ -265,5 +272,18 @@ Public Class FrmBaseSts
     End Sub
 #End Region
 
+
+    ''' <summary>
+    ''' 通知バーを表示
+    ''' </summary>
+    ''' <param name="message"></param>
+    ''' <param name="lifetime">milisec</param>
+    Public Async Sub ShowSnackbar(message As String, Optional lifetime As Integer = 2000)
+        Await Task.Run(
+            Sub()
+                Dim tf As New ToastForm(lifetime, message)
+                Me.Invoke(Sub() tf.ShowDialog(Me))
+            End Sub)
+    End Sub
 
 End Class

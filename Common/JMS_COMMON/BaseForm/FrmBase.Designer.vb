@@ -26,7 +26,9 @@ Partial Class FrmBase
         Me.lblTytle = New System.Windows.Forms.Label()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.ErrorProvider = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.WarningErrorProvider = New System.Windows.Forms.ErrorProvider(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblTytle
@@ -54,7 +56,13 @@ Partial Class FrmBase
         '
         'ErrorProvider
         '
+        Me.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         Me.ErrorProvider.ContainerControl = Me
+        '
+        'WarningErrorProvider
+        '
+        Me.WarningErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
+        Me.WarningErrorProvider.ContainerControl = Me
         '
         'FrmBase
         '
@@ -68,6 +76,7 @@ Partial Class FrmBase
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = " "
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -75,6 +84,7 @@ Partial Class FrmBase
     Protected WithEvents lblTytle As Label
     Public WithEvents ToolTip As ToolTip
     Public WithEvents ErrorProvider As ErrorProvider
+    Public WithEvents WarningErrorProvider As ErrorProvider
 
     Protected Overrides ReadOnly Property CreateParams() As System.Windows.Forms.CreateParams
         Get

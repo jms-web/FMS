@@ -207,9 +207,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="clsPubConst.vb" />
-    <Compile Include="Control\DataGridviewCheckBox.vb" />
-    <Compile Include="Control\DataGridViewCustomCheckBoxHeaderColumn.vb" />
-    <Compile Include="Control\clsDataGridViewDateColumn.vb" />
+    <Compile Include="Control\Data\DataGridviewCheckBox.vb" />
+    <Compile Include="Control\Data\DataGridViewCustomCheckBoxHeaderColumn.vb" />
+    <Compile Include="Control\Data\clsDataGridViewDateColumn.vb" />
     <Compile Include="Control\ComboboxEx.Designer.vb">
       <DependentUpon>ComboboxEx.vb</DependentUpon>
     </Compile>
@@ -219,7 +219,7 @@
     <Compile Include="Control\FlowLayoutRadioBox.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Control\GroupBoxEx.vb">
+    <Compile Include="Control\container\GroupBoxEx.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Control\RibbonShapeButton.vb">
@@ -237,22 +237,22 @@
     <Compile Include="Control\LabelEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Control\PanelEx.Designer.vb">
+    <Compile Include="Control\container\PanelEx.Designer.vb">
       <DependentUpon>PanelEx.vb</DependentUpon>
     </Compile>
-    <Compile Include="Control\PanelEx.vb">
+    <Compile Include="Control\container\PanelEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Control\TabPageEx.Designer.vb">
+    <Compile Include="Control\container\TabPageEx.Designer.vb">
       <DependentUpon>TabPageEx.vb</DependentUpon>
     </Compile>
-    <Compile Include="Control\TabPageEx.vb">
+    <Compile Include="Control\container\TabPageEx.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Control\TabControlEx.Designer.vb">
+    <Compile Include="Control\container\TabControlEx.Designer.vb">
       <DependentUpon>TabControlEx.vb</DependentUpon>
     </Compile>
-    <Compile Include="Control\TabControlEx.vb">
+    <Compile Include="Control\container\TabControlEx.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Control\CheckBoxEx.Designer.vb">
@@ -267,11 +267,17 @@
     <Compile Include="Control\TextBoxEx.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ToolForm\ToastForm.Designer.vb">
+      <DependentUpon>ToastForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ToolForm\ToastForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utility\AbstractSingleton.vb" />
     <Compile Include="Utility\CaptureScreen.vb" />
     <Compile Include="Utility\clsDbUtility.vb" />
     <Compile Include="clsPubMethod.vb" />
-    <Compile Include="Control\DataTableEx.vb">
+    <Compile Include="Control\Data\DataTableEx.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Control\DateTextBoxEx.Designer.vb">
@@ -313,6 +319,7 @@
     <Compile Include="Utility\DatarowEqualityComparer.vb" />
     <Compile Include="Utility\ExceptionEx.vb" />
     <Compile Include="Utility\DisplayNameAttribute.vb" />
+    <Compile Include="Utility\FormAnimator.vb" />
     <Compile Include="Utility\GoogleCalendarAPI.vb" />
     <Compile Include="Utility\mdlDWM.vb" />
     <Compile Include="Utility\IniFile.vb" />
@@ -409,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\FrmBaseStsBtnDgv.resx">
       <DependentUpon>FrmBaseStsBtnDgv.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolForm\ToastForm.resx">
+      <DependentUpon>ToastForm.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -721,7 +731,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_ReplaceNonNumerics="False" BuildVersion_StartDate="2000/1/1" />
+      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_ReplaceNonNumerics="False" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

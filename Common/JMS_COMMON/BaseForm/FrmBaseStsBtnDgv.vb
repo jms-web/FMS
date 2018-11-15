@@ -29,6 +29,7 @@ Public Class FrmBaseStsBtnDgv
     '注意背景色
     Protected clrCautionCellBackColor As Color = Color.Gold
 
+
     'グリッドデータの選択行を記録
     Public intDgvCurrentRow As Integer = 0
 
@@ -47,15 +48,14 @@ Public Class FrmBaseStsBtnDgv
 
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
-    End Sub
-#End Region
 
-#Region "FORMイベント"
-    Private Sub Frm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If Me.DesignMode = False Then
             lblRecordCount.BorderStyle = BorderStyle.None
         End If
     End Sub
+#End Region
+
+#Region "FORMイベント"
 
     Overrides Sub FrmBaseStsBtn_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Resize
         If Me.Visible = False Then Exit Sub
@@ -66,9 +66,7 @@ Public Class FrmBaseStsBtnDgv
         ''   ボタン位置、サイズ設定
         ''===================================
         Call SetButtonSize(Me.Width, cmdFunc)
-
         MyBase.FrmBaseStsBtn_Resize(Me, e)
-
     End Sub
 #End Region
 
@@ -142,9 +140,9 @@ Public Class FrmBaseStsBtnDgv
     '選択行変更時イベント
     Protected Sub dgvDATA_SelectionChanged(sender As Object, e As System.EventArgs)
         Dim dgv As DataGridView = DirectCast(sender, DataGridView)
-        If dgv.CurrentCell IsNot Nothing Then
-            intDgvCurrentRow = dgv.CurrentCell.RowIndex
-        End If
+        'If dgv.CurrentCell IsNot Nothing Then
+        '    intDgvCurrentRow = dgv.CurrentCell.RowIndex
+        'End If
     End Sub
 
     'セル描画時イベント
@@ -181,10 +179,10 @@ Public Class FrmBaseStsBtnDgv
                 '描画するテキスト
                 If e.Value IsNot Nothing AndAlso Not e.Value.ToString.IsNullOrWhiteSpace Then
                     If e.CellStyle.Format.IsNullOrWhiteSpace Then
-
                         '書式なしのセルの場合
                         strText = e.Value.ToString
                     Else
+
                         '書式付のセルの場合
                         If IsNumeric(e.Value) = True Then
                             strText = Val(e.Value).ToString(e.CellStyle.Format)

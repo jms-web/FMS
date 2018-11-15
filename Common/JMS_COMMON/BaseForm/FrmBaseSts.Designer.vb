@@ -111,6 +111,7 @@ Partial Class FrmBaseSts
         Me.ToolStripStatusLabelMASSAGE.Name = "ToolStripStatusLabelMASSAGE"
         Me.ToolStripStatusLabelMASSAGE.Size = New System.Drawing.Size(170, 21)
         '
+        '
         'FrmBaseSts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)

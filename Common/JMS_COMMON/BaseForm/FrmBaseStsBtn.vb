@@ -100,7 +100,7 @@ Public Class FrmBaseStsBtn
 
     End Sub
 
-    Private Sub cmdFunc_MouseMove(sender As Object, e As MouseEventArgs)
+    Protected Friend Sub cmdFunc_MouseMove(sender As Object, e As MouseEventArgs)
         Dim control As Control = GetChildAtPoint(e.Location)
         If control IsNot Nothing Then
             MyBase.ToolTip.Active = Not control.Enabled

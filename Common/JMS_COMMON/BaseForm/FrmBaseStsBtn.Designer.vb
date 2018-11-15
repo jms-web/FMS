@@ -258,9 +258,6 @@ Partial Class FrmBaseStsBtn
 
     End Sub
 
-    Protected Overrides Sub Finalize()
-        MyBase.Finalize()
-    End Sub
 
     Protected Overrides ReadOnly Property CreateParams() As System.Windows.Forms.CreateParams
         Get

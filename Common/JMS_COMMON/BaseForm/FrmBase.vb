@@ -1,3 +1,4 @@
+Imports System.Threading.Tasks
 Imports Microsoft.WindowsAPICodePack.Taskbar
 
 Public Class FrmBase
@@ -23,12 +24,9 @@ Public Class FrmBase
         'Me.Left = 0
         Me.StartPosition = FormStartPosition.CenterScreen
 
-        ErrorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink
-        'ErrorProvider.BlinkRate = 250
-        ToolTip.InitialDelay = 700
-
     End Sub
 
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub Frm_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs) Handles MyBase.MouseMove
 
         'Enable=FalseのコントロールでもToolTipを表示可にする
@@ -42,7 +40,7 @@ Public Class FrmBase
                     Dim toolTipString As String = ToolTip.GetToolTip(control)
                     '表示位置(相対位置指定) 右上あたり
 
-                    FunDelayDispToolTip(toolTipString, control, control.Width - 25, -15)
+                    Call FunDelayDispToolTip(toolTipString, control, control.Width - 25, -15)
 
                     _currentToolTipControl = control
                 End If
@@ -72,23 +70,22 @@ Public Class FrmBase
         ToolTip.Show(strMessage, ctrl, intX, intY)
     End Sub
 
-    Private Async Sub FunDelayDispToolTip(ByVal strMessage As String, ByVal ctrl As Control, intX As Integer, intY As Integer)  'As Threading.Tasks.Task(Of String)
+    <System.Diagnostics.DebuggerStepThrough()>
+    Private Async Sub FunDelayDispToolTip(ByVal strMessage As String, ByVal ctrl As Control, intX As Integer, intY As Integer)
         Try
 
-            'Dim strRET As String = ""
-            Await Threading.Tasks.Task.Run(
+            Await Task.Run(
                 Sub()
                     Try
                         Threading.Thread.Sleep(ToolTip.InitialDelay)
-                        Invoke(del, New Object() {strMessage, ctrl, intX, intY})
+                        Me.Invoke(del, New Object() {strMessage, ctrl, intX, intY})
                     Catch ex As InvalidOperationException
                     End Try
                 End Sub)
-            'Return strRET
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
-            'Return ""
+
         End Try
     End Sub
 

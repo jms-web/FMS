@@ -69,6 +69,8 @@ Public Class FrmBaseBtn
 
         If Me.DesignMode = True Then Exit Sub
 
+        If Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog Then Exit Sub
+
         ''===================================
         ''   ボタン位置、サイズ設定
         ''===================================
@@ -82,7 +84,15 @@ Public Class FrmBaseBtn
 
             '-----フォーム共通設定
             Me.lblTytle.Text = objPG_INFO.strTitle
-            Me.Text = Me.lblTytle.Text
+            'Me.DataBindings.Clear()
+            'Me.DataBindings.Add(New Binding(NameOf(Me.Text), lblTytle, NameOf(lblTytle.Text), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
+            'If Owner IsNot Nothing And Me.FormBorderStyle = FormBorderStyle.FixedDialog Then
+            '    'Me.Height = Owner.Height - 26
+            '    Me.Top = Owner.Top + (Owner.Height - Me.Height) / 2
+            '    Me.Left = Owner.Left + (Owner.Width - Me.Width) / 2
+            'End If
+
             Me.BackColor = objPG_INFO.clrFORM_BACK
             Me.lblTytle.BackColor = objPG_INFO.clrTITLE_LABEL
 
