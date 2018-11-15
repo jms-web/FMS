@@ -211,6 +211,7 @@ Partial Class FrmM0040
         Me.mtxSIMEI.Location = New System.Drawing.Point(299, 3)
         Me.mtxSIMEI.MaxByteLength = 100
         Me.mtxSIMEI.Name = "mtxSIMEI"
+        Me.mtxSIMEI.SelectAllText = False
         Me.mtxSIMEI.Size = New System.Drawing.Size(127, 24)
         Me.mtxSIMEI.TabIndex = 0
         Me.mtxSIMEI.WatermarkColor = System.Drawing.Color.Empty
@@ -236,6 +237,7 @@ Partial Class FrmM0040
         Me.mtxSYAIN_NO.Location = New System.Drawing.Point(70, 3)
         Me.mtxSYAIN_NO.MaxByteLength = 100
         Me.mtxSYAIN_NO.Name = "mtxSYAIN_NO"
+        Me.mtxSYAIN_NO.SelectAllText = False
         Me.mtxSYAIN_NO.Size = New System.Drawing.Size(93, 24)
         Me.mtxSYAIN_NO.TabIndex = 56
         Me.mtxSYAIN_NO.WatermarkColor = System.Drawing.Color.Empty
@@ -251,13 +253,13 @@ Partial Class FrmM0040
         Me.cmbYAKUSYOKU_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbYAKUSYOKU_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbYAKUSYOKU_KB.FormattingEnabled = True
-        Me.cmbYAKUSYOKU_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbYAKUSYOKU_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbYAKUSYOKU_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbYAKUSYOKU_KB.IsSelected = False
         Me.cmbYAKUSYOKU_KB.Location = New System.Drawing.Point(70, 33)
         Me.cmbYAKUSYOKU_KB.Name = "cmbYAKUSYOKU_KB"
         Me.cmbYAKUSYOKU_KB.NullValue = " "
-        Me.cmbYAKUSYOKU_KB.ReadOnly = False
+        Me.cmbYAKUSYOKU_KB.SelectAllText = False
         Me.cmbYAKUSYOKU_KB.Size = New System.Drawing.Size(103, 25)
         Me.cmbYAKUSYOKU_KB.TabIndex = 63
         Me.cmbYAKUSYOKU_KB.Text = "(‘I‘ð)"
@@ -301,13 +303,13 @@ Partial Class FrmM0040
         Me.cmbSYAIN_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYAIN_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYAIN_KB.FormattingEnabled = True
-        Me.cmbSYAIN_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbSYAIN_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbSYAIN_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbSYAIN_KB.IsSelected = False
         Me.cmbSYAIN_KB.Location = New System.Drawing.Point(829, 3)
         Me.cmbSYAIN_KB.Name = "cmbSYAIN_KB"
         Me.cmbSYAIN_KB.NullValue = " "
-        Me.cmbSYAIN_KB.ReadOnly = False
+        Me.cmbSYAIN_KB.SelectAllText = False
         Me.cmbSYAIN_KB.Size = New System.Drawing.Size(103, 25)
         Me.cmbSYAIN_KB.TabIndex = 61
         Me.cmbSYAIN_KB.Text = "(‘I‘ð)"
@@ -335,6 +337,7 @@ Partial Class FrmM0040
         Me.mtxSIMEI_KANA.Location = New System.Drawing.Point(592, 3)
         Me.mtxSIMEI_KANA.MaxByteLength = 100
         Me.mtxSIMEI_KANA.Name = "mtxSIMEI_KANA"
+        Me.mtxSIMEI_KANA.SelectAllText = False
         Me.mtxSIMEI_KANA.Size = New System.Drawing.Size(137, 24)
         Me.mtxSIMEI_KANA.TabIndex = 58
         Me.mtxSIMEI_KANA.WatermarkColor = System.Drawing.Color.Empty

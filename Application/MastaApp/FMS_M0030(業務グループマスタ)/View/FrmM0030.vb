@@ -31,19 +31,22 @@ Public Class FrmM0030
         Try
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
 
             ''-----グリッド初期設定
             FunInitializeFlexGrid(flxDATA)
 
             '-----コントロールデータソース設定
-            Me.cmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            'Me.cmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-            Me.cmbBUSYO_KB.SetDataSource(tblBUSYO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            'Me.cmbBUSYO_KB.SetDataSource(tblBUSYO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
 
             ''-----イベントハンドラ設定
-            AddHandler Me.cmbBUMON_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            AddHandler Me.cmbBUSYO_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            'AddHandler Me.cmbBUMON_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            'AddHandler Me.cmbBUSYO_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler Me.chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
             '検索実行
@@ -92,7 +95,7 @@ Public Class FrmM0030
     End Function
 
     '行選択時イベント
-    Private Sub FlxDATA_RowColChange(sender As Object, e As EventArgs) Handles flxDATA.RowColChange
+    Private Sub FlxDATA_RowColChange(sender As Object, e As EventArgs)
         Call SubInitFuncButtonEnabled()
     End Sub
     '列フィルタ適用
@@ -210,39 +213,40 @@ Public Class FrmM0030
 
             sbSQLWHERE.Append(" WHERE 1 = 1 ")
 
-            If Me.cmbBUMON_KB.SelectedIndex <> 0 Then
-                sbSQLWHERE.Append(" AND BUMON_KB ='" & Me.cmbBUMON_KB.SelectedValue & "' ")
-            End If
+            'If Me.cmbBUMON_KB.SelectedIndex <> 0 Then
+            '    sbSQLWHERE.Append(" AND BUMON_KB ='" & Me.cmbBUMON_KB.SelectedValue & "' ")
+            'End If
 
-            If Me.cmbBUSYO_KB.SelectedIndex <> 0 Then
-                sbSQLWHERE.Append(" AND BUSYO_KB = '" & Me.cmbBUSYO_KB.SelectedValue & "' ")
-            End If
+            'If Me.cmbBUSYO_KB.SelectedIndex <> 0 Then
+            '    sbSQLWHERE.Append(" AND BUSYO_KB = '" & Me.cmbBUSYO_KB.SelectedValue & "' ")
+            'End If
 
-            If Me.datYUKO_YMD.ValueNonFormat.Trim <> "" Then
-                sbSQLWHERE.Append(" AND YUKO_YMD >= '" & Me.datYUKO_YMD.ValueNonFormat & "' ")
-            End If
+            'If Me.datYUKO_YMD.ValueNonFormat.Trim <> "" Then
+            '    sbSQLWHERE.Append(" AND YUKO_YMD >= '" & Me.datYUKO_YMD.ValueNonFormat & "' ")
+            'End If
 
-            If Me.txtOYA_BUSYO_NAME.Text.Trim <> "" Then
-                sbSQLWHERE.Append(" AND OYA_BUSYO_NAME like '%" & Me.txtOYA_BUSYO_NAME.Text & "%' ")
-            End If
+            'If Me.txtOYA_BUSYO_NAME.Text.Trim <> "" Then
+            '    sbSQLWHERE.Append(" AND OYA_BUSYO_NAME like '%" & Me.txtOYA_BUSYO_NAME.Text & "%' ")
+            'End If
 
-            If Me.txtBUSYO_NAME.Text.Trim <> "" Then
-                sbSQLWHERE.Append(" AND BUSYO_NAME like '%" & Me.txtBUSYO_NAME.Text.Trim & "%' ")
-            End If
+            'If Me.txtBUSYO_NAME.Text.Trim <> "" Then
+            '    sbSQLWHERE.Append(" AND BUSYO_NAME like '%" & Me.txtBUSYO_NAME.Text.Trim & "%' ")
+            'End If
 
             If Me.chkDeletedRowVisibled.Checked = False Then
                 sbSQLWHERE.Append(" AND DEL_YMDHNS = ' ' ")
-                flxDATA.Cols("DEL_FLG").Visible = False
+                'flxDATA.Cols("DEL_FLG").Visible = False
             Else
-                flxDATA.Cols("DEL_FLG").Visible = True
+                'flxDATA.Cols("DEL_FLG").Visible = True
             End If
 
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append("SELECT")
             sbSQL.Append(" * ")
-            sbSQL.Append(" FROM " & NameOf(MODEL.VWM002_BUSYO) & " ")
+            sbSQL.Append(",(CASE WHEN DEL_YMDHNS='' THEN '0' ELSE '1' END) DEL_FLG ")
+            sbSQL.Append(" FROM " & NameOf(MODEL.M003_GYOMU_GROUP) & " ")
             sbSQL.Append(sbSQLWHERE)
-            sbSQL.Append(" ORDER BY BUSYO_ID ")
+            sbSQL.Append($" ORDER BY {NameOf(MODEL.M003_GYOMU_GROUP.GYOMU_GROUP_ID)} ")
             Using DBa As ClsDbUtility = DBOpen()
                 dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
@@ -257,7 +261,7 @@ Public Class FrmM0030
             '------DataTableに変換
             Dim dt As New DataTable
 
-            Dim t As Type = GetType(MODEL.VWM002_BUSYO)
+            Dim t As Type = GetType(MODEL.M003_GYOMU_GROUP)
             Dim properties As Reflection.PropertyInfo() = t.GetProperties(
                  Reflection.BindingFlags.Public Or
                  Reflection.BindingFlags.NonPublic Or
@@ -388,11 +392,11 @@ Public Class FrmM0030
         Try
 
             'コンボボックスの選択値を記憶
-            If cmbBUMON_KB.SelectedValue IsNot Nothing Then
-                strComboVal = cmbBUMON_KB.SelectedValue
-            Else
-                strComboVal = ""
-            End If
+            'If cmbBUMON_KB.SelectedValue IsNot Nothing Then
+            '    strComboVal = cmbBUMON_KB.SelectedValue
+            'Else
+            '    strComboVal = ""
+            'End If
 
             frmDLG.PrMODE = intMODE
             If flxDATA.RowSel > 0 Then
@@ -438,7 +442,7 @@ Public Class FrmM0030
             Select Case ENM_MODE
                 Case ENM_DATA_OPERATION_MODE._4_DISABLE
                     '-----更新
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.M002_BUSYO) & " SET ")
+                    sbSQL.Append("UPDATE " & NameOf(MODEL.M003_GYOMU_GROUP) & " SET ")
                     '削除日時
                     sbSQL.Append(" DEL_YMDHNS = dbo.GetSysDateString(), ")
                     '削除担当者
@@ -449,7 +453,7 @@ Public Class FrmM0030
 
                 Case ENM_DATA_OPERATION_MODE._5_RESTORE
                     '-----更新
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.M002_BUSYO) & " SET ")
+                    sbSQL.Append("UPDATE " & NameOf(MODEL.M003_GYOMU_GROUP) & " SET ")
                     '削除日時
                     sbSQL.Append(" DEL_YMDHNS = ' ', ")
                     '削除担当者
@@ -461,7 +465,7 @@ Public Class FrmM0030
                 Case ENM_DATA_OPERATION_MODE._6_DELETE
 
                     '-----削除
-                    sbSQL.Append("DELETE FROM " & NameOf(MODEL.M002_BUSYO) & " ")
+                    sbSQL.Append("DELETE FROM " & NameOf(MODEL.M003_GYOMU_GROUP) & " ")
 
                     strMsg = My.Resources.infoMsgDeleteOperationDelete
                     strTitle = My.Resources.infoTitleDeleteOperationDelete
@@ -595,9 +599,6 @@ Public Class FrmM0030
 
     End Sub
 
-    Private Sub chkDeletedRowVisibled_CheckedChanged(sender As Object, e As EventArgs) Handles chkDeletedRowVisibled.CheckedChanged
-
-    End Sub
 
 
 

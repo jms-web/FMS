@@ -931,11 +931,11 @@ Module mdlG0010
         dt.Columns.Add("IS_LEADER", GetType(Boolean))
 
 
-        dt.PrimaryKey = {dt.Columns("VALUE")} ', dt.Columns("SYONIN_JUN"), dt.Columns("SYONIN_HOKOKUSYO_ID")
+        dt.PrimaryKey = {dt.Columns("VALUE"), dt.Columns("GYOMU_GROUP_ID")} ', dt.Columns("SYONIN_JUN"), dt.Columns("SYONIN_HOKOKUSYO_ID")
 
         For Each row As DataRow In dsList.Tables(0).Rows
             Dim Trow As DataRow = dt.NewRow()
-            If Not dt.Rows.Contains(row.Item("SYAIN_ID")) Then
+            If Not dt.Rows.Contains({row.Item("SYAIN_ID"), row.Item("GYOMU_GROUP_ID")}) Then
                 Trow("VALUE") = row.Item("SYAIN_ID")
                 Trow("DISP") = row.Item("SIMEI")
                 Trow("BUMON_KB") = row.Item("BUMON_KB")

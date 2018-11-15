@@ -3757,10 +3757,11 @@ Public Class FrmG0011
                     '•”–åŠ‘®ŽÐˆõŽæ“¾
                     dt = FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
                     InList.Clear()
-                    InList.AddRange({ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
-                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+                    'InList.AddRange({ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
+                    'drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
 
-                    If drs.Count > 0 Then cmbST07_SAISIN_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                    'If drs.Count > 0 Then cmbST07_SAISIN_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                    cmbST07_SAISIN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     cmbST07_KOKYAKU_HANTEI_SIJI.SetDataSource(tblKOKYAKU_HANTEI_SIJI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     cmbST07_KOKYAKU_SAISYU_HANTEI.SetDataSource(tblKOKYAKU_SAISYU_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -3856,28 +3857,33 @@ Public Class FrmG0011
 
                     '”p‹pŽÀŽ{ŽÒ
                     InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
-                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
-                    If drs.Count > 0 Then cmbST08_1_HAIKYAKU_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                    'drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+                    'If drs.Count > 0 Then cmbST08_1_HAIKYAKU_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                    cmbST08_1_HAIKYAKU_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     'Ä‰ÁH/¶‹Z’S“–
-                    InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value})
-                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
-                    If drs.Count > 0 Then cmbST08_2_TANTO_SEIGI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                    InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
+                    'drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+                    'If drs.Count > 0 Then cmbST08_2_TANTO_SEIGI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                    cmbST08_2_TANTO_SEIGI.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
                     'Ä‰ÁH/»‘¢’S“–
                     InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._2_»‘¢.Value})
-                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
-                    If drs.Count > 0 Then cmbST08_2_TANTO_SEIZO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                    'drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+                    'If drs.Count > 0 Then cmbST08_2_TANTO_SEIZO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                    cmbST08_2_TANTO_SEIZO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
                     'Ä‰ÁH/ŒŸ¸’S“–
                     InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value})
-                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
-                    If drs.Count > 0 Then cmbST08_2_TANTO_KENSA.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                    'drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+                    'If drs.Count > 0 Then cmbST08_2_TANTO_KENSA.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                    cmbST08_2_TANTO_KENSA.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
                     'Ä‰ÁH/•Ô‹pŽÀŽ{ŽÒ
                     InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._2_»‘¢.Value, ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
-                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
-                    If drs.Count > 0 Then cmbST08_3_HENKYAKU_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                    'drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+                    'If drs.Count > 0 Then cmbST08_3_HENKYAKU_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                    cmbST08_3_HENKYAKU_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     drs = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = _D003_NCR_J.BUMON_KB).ToList
                     If drs.Count > 0 Then
