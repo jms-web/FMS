@@ -198,6 +198,7 @@ Partial Class FrmM1050
         Me.mtxKISYU_NAME.Location = New System.Drawing.Point(322, 3)
         Me.mtxKISYU_NAME.MaxByteLength = 30
         Me.mtxKISYU_NAME.Name = "mtxKISYU_NAME"
+        Me.mtxKISYU_NAME.SelectAllText = False
         Me.mtxKISYU_NAME.Size = New System.Drawing.Size(165, 24)
         Me.mtxKISYU_NAME.TabIndex = 58
         Me.mtxKISYU_NAME.WatermarkColor = System.Drawing.Color.Empty
@@ -212,12 +213,11 @@ Partial Class FrmM1050
         Me.cmbBUMON_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbBUMON_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUMON_KB.FormattingEnabled = True
-        Me.cmbBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbBUMON_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Location = New System.Drawing.Point(79, 3)
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
-        Me.cmbBUMON_KB.ReadOnly = False
-        Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Size = New System.Drawing.Size(158, 25)
         Me.cmbBUMON_KB.TabIndex = 59
         Me.cmbBUMON_KB.ValueMember = "VALUE"
