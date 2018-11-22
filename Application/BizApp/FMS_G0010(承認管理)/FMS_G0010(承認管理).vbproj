@@ -121,6 +121,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="C1.Win.C1FlexGrid.4, Version=4.0.20173.286, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1Input.4, Version=4.0.20173.286, Culture=neutral, PublicKeyToken=7e7ff60f0c214f9a" />
+    <Reference Include="C1.Win.C1TrueDBGrid.4, Version=4.0.20173.286, Culture=neutral, PublicKeyToken=75ae3fb0e2b1e0da, processorArchitecture=MSIL" />
     <Reference Include="mscorlib" />
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PanelManager">
@@ -180,6 +182,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="common\DateFilter.vb" />
+    <Compile Include="common\DateFilterEditor.Designer.vb">
+      <DependentUpon>DateFilterEditor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="common\DateFilterEditor.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="mdlG0010.vb" />
     <Compile Include="Model\STAGE_LIST.vb" />
@@ -268,6 +277,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="common\DateFilterEditor.resx">
+      <DependentUpon>DateFilterEditor.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="View\FrmG0012.resx">

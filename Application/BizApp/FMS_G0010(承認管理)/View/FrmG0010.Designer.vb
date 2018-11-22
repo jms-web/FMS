@@ -21,9 +21,9 @@ Partial Class FrmG0010
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmG0010))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cmbGEN_TANTO = New JMS_COMMON.ComboboxEx()
@@ -105,7 +105,15 @@ Partial Class FrmG0010
         Me.mpnlDataGrid = New PanelManager.Controls.ManagedPanel()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ST02FUTEKIGOICHIRANBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.mpSummaryGrid = New PanelManager.Controls.ManagedPanel()
+        Me.tdbDATA = New C1.Win.C1TrueDBGrid.C1TrueDBGrid()
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
+        Me.btnSummaryPage = New System.Windows.Forms.Button()
+        Me.FlexContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.EqualFilter = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NotEqualFilter = New System.Windows.Forms.ToolStripMenuItem()
+        Me.IncludeFilter = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NotIncludeFilter = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpFilter.SuspendLayout()
@@ -122,7 +130,10 @@ Partial Class FrmG0010
         Me.mpnlDataGrid.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ST02FUTEKIGOICHIRANBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.mpSummaryGrid.SuspendLayout()
+        CType(Me.tdbDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.FlexContextMenu.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -1527,6 +1538,7 @@ Partial Class FrmG0010
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.panelMan.Controls.Add(Me.mpnlCondition)
         Me.panelMan.Controls.Add(Me.mpnlDataGrid)
+        Me.panelMan.Controls.Add(Me.mpSummaryGrid)
         Me.panelMan.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.panelMan.Location = New System.Drawing.Point(12, 60)
         Me.panelMan.Name = "panelMan"
@@ -1637,44 +1649,118 @@ Partial Class FrmG0010
         '
         Me.ST02FUTEKIGOICHIRANBindingSource.DataSource = GetType(MODEL.ST02_FUTEKIGO_ICHIRAN)
         '
+        'mpSummaryGrid
+        '
+        Me.mpSummaryGrid.Controls.Add(Me.tdbDATA)
+        Me.mpSummaryGrid.Location = New System.Drawing.Point(0, 0)
+        Me.mpSummaryGrid.Name = "mpSummaryGrid"
+        Me.mpSummaryGrid.Size = New System.Drawing.Size(0, 0)
+        Me.mpSummaryGrid.Text = "ManagedPanel1"
+        '
+        'tdbDATA
+        '
+        Me.tdbDATA.AllowUpdate = False
+        Me.tdbDATA.CaptionHeight = 16
+        Me.tdbDATA.DataSource = Me.ST02FUTEKIGOICHIRANBindingSource
+        Me.tdbDATA.DataView = C1.Win.C1TrueDBGrid.DataViewEnum.GroupBy
+        Me.tdbDATA.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tdbDATA.FlatStyle = C1.Win.C1TrueDBGrid.FlatModeEnum.Standard
+        Me.tdbDATA.GroupByCaption = "列でグループ化するには、ここに列ヘッダをドラッグします。"
+        Me.tdbDATA.Images.Add(CType(resources.GetObject("tdbDATA.Images"), System.Drawing.Image))
+        Me.tdbDATA.Location = New System.Drawing.Point(0, 0)
+        Me.tdbDATA.Name = "tdbDATA"
+        Me.tdbDATA.PreviewInfo.Caption = "印刷プレビューウィンドウ"
+        Me.tdbDATA.PreviewInfo.Location = New System.Drawing.Point(0, 0)
+        Me.tdbDATA.PreviewInfo.Size = New System.Drawing.Size(0, 0)
+        Me.tdbDATA.PreviewInfo.ZoomFactor = 75.0R
+        Me.tdbDATA.PrintInfo.PageSettings = CType(resources.GetObject("tdbDATA.PrintInfo.PageSettings"), System.Drawing.Printing.PageSettings)
+        Me.tdbDATA.RowHeight = 14
+        Me.tdbDATA.Size = New System.Drawing.Size(0, 0)
+        Me.tdbDATA.TabIndex = 0
+        Me.tdbDATA.UseCompatibleTextRendering = False
+        Me.tdbDATA.VisualStyle = C1.Win.C1TrueDBGrid.VisualStyle.Office2010Silver
+        Me.tdbDATA.PropBag = resources.GetString("tdbDATA.PropBag")
+        '
         'dgvDATA
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvDATA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle8
         Me.dgvDATA.Location = New System.Drawing.Point(84, 12)
         Me.dgvDATA.Name = "dgvDATA"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.dgvDATA.RowTemplate.Height = 21
         Me.dgvDATA.Size = New System.Drawing.Size(75, 26)
         Me.dgvDATA.TabIndex = 63
         Me.dgvDATA.Visible = False
         '
+        'btnSummaryPage
+        '
+        Me.btnSummaryPage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnSummaryPage.Location = New System.Drawing.Point(1104, 565)
+        Me.btnSummaryPage.Name = "btnSummaryPage"
+        Me.btnSummaryPage.Size = New System.Drawing.Size(144, 28)
+        Me.btnSummaryPage.TabIndex = 65
+        Me.btnSummaryPage.Text = "データ集計画面へ"
+        Me.btnSummaryPage.UseVisualStyleBackColor = True
+        Me.btnSummaryPage.Visible = False
+        '
+        'FlexContextMenu
+        '
+        Me.FlexContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EqualFilter, Me.NotEqualFilter, Me.IncludeFilter, Me.NotIncludeFilter})
+        Me.FlexContextMenu.Name = "FlexContextMenu"
+        Me.FlexContextMenu.Size = New System.Drawing.Size(184, 92)
+        '
+        'EqualFilter
+        '
+        Me.EqualFilter.Name = "EqualFilter"
+        Me.EqualFilter.Size = New System.Drawing.Size(183, 22)
+        Me.EqualFilter.Text = """{0}"" に等しい"
+        '
+        'NotEqualFilter
+        '
+        Me.NotEqualFilter.Name = "NotEqualFilter"
+        Me.NotEqualFilter.Size = New System.Drawing.Size(183, 22)
+        Me.NotEqualFilter.Text = """{0}"" に等しくない"
+        '
+        'IncludeFilter
+        '
+        Me.IncludeFilter.Name = "IncludeFilter"
+        Me.IncludeFilter.Size = New System.Drawing.Size(183, 22)
+        Me.IncludeFilter.Text = """{0}"" を含む"
+        '
+        'NotIncludeFilter
+        '
+        Me.NotIncludeFilter.Name = "NotIncludeFilter"
+        Me.NotIncludeFilter.Size = New System.Drawing.Size(183, 22)
+        Me.NotIncludeFilter.Text = """{0}"" を含まない"
+        '
         'FrmG0010
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.ClientSize = New System.Drawing.Size(1264, 712)
+        Me.Controls.Add(Me.btnSummaryPage)
         Me.Controls.Add(Me.panelMan)
         Me.Controls.Add(Me.dgvDATA)
         Me.HelpButton = True
@@ -1697,6 +1783,7 @@ Partial Class FrmG0010
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
         Me.Controls.SetChildIndex(Me.dgvDATA, 0)
         Me.Controls.SetChildIndex(Me.panelMan, 0)
+        Me.Controls.SetChildIndex(Me.btnSummaryPage, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tlpFilter.ResumeLayout(False)
@@ -1715,7 +1802,10 @@ Partial Class FrmG0010
         Me.mpnlDataGrid.ResumeLayout(False)
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ST02FUTEKIGOICHIRANBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.mpSummaryGrid.ResumeLayout(False)
+        CType(Me.tdbDATA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.FlexContextMenu.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1802,4 +1892,12 @@ Partial Class FrmG0010
     Friend WithEvents dtHASSEI_YMD_TO As DateTextBoxEx
     Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents ST02FUTEKIGOICHIRANBindingSource As BindingSource
+    Friend WithEvents mpSummaryGrid As PanelManager.Controls.ManagedPanel
+    Friend WithEvents tdbDATA As C1.Win.C1TrueDBGrid.C1TrueDBGrid
+    Friend WithEvents btnSummaryPage As Button
+    Friend WithEvents FlexContextMenu As ContextMenuStrip
+    Friend WithEvents EqualFilter As ToolStripMenuItem
+    Friend WithEvents NotEqualFilter As ToolStripMenuItem
+    Friend WithEvents IncludeFilter As ToolStripMenuItem
+    Friend WithEvents NotIncludeFilter As ToolStripMenuItem
 End Class

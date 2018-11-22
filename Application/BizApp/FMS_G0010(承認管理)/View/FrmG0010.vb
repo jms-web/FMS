@@ -1,5 +1,6 @@
 Imports System.Threading.Tasks
 Imports JMS_COMMON.ClsPubMethod
+Imports C1.Win.C1FlexGrid
 
 'Imports Spire.Xls
 'Imports Spire.Pdf
@@ -75,6 +76,10 @@ Public Class FrmG0010
             Case ENM_OPEN_MODE._1_新規作成, ENM_OPEN_MODE._2_処置画面起動
                 Me.WindowState = FormWindowState.Minimized
         End Select
+
+#Region "FlexGridGroupPanel"
+
+#End Region
 
     End Sub
 
@@ -252,7 +257,7 @@ Public Class FrmG0010
 
             .AutoGenerateColumns = False
             .AutoResize = True
-            .AllowEditing = False
+            .AllowEditing = True
             .AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
             .AllowDelete = False
             .AllowResizing = C1.Win.C1FlexGrid.AllowResizingEnum.Columns
@@ -262,6 +267,7 @@ Public Class FrmG0010
 
             .ShowCellLabels = True
             .SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row
+
             .FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.None
 
             .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
@@ -273,7 +279,7 @@ Public Class FrmG0010
             .Styles.Add("delStyle")
             .Styles("delStyle").ForeColor = Color.Red
 
-
+            .Cols("HASSEI_YMD").Filter = New DateFilter
             .VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver 'Custom
 
             '以下を適用するにはVisualStyleをCustomにする
@@ -307,9 +313,9 @@ Public Class FrmG0010
 
     'グリッドセル(行)ダブルクリック時イベント
     Private Sub FlxDATA_DoubleClick(sender As Object, e As EventArgs) Handles flxDATA.DoubleClick
-        If flxDATA.RowSel > 0 Then
-            Me.cmdFunc4.PerformClick()
-        End If
+        'If flxDATA.RowSel > 0 Then
+        '    Me.cmdFunc4.PerformClick()
+        'End If
     End Sub
 
     Private Sub flxDATA_AfterSort(sender As Object, e As C1.Win.C1FlexGrid.SortColEventArgs) Handles flxDATA.AfterSort
@@ -323,25 +329,26 @@ Public Class FrmG0010
 
             For Each r As C1.Win.C1FlexGrid.Row In flx.Rows
                 If r.Index > 0 Then
+
+                    'Closed
+                    If Val(r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.CLOSE_FG))) > 0 Or r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)) <> "" Then
+                        r.Style = flx.Styles("DeletedRow")
+                    Else
+                        r.Style = Nothing
+                    End If
+
+                    ''Deleted
+                    'If r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)) <> "" Then
+                    '    r.Style = flx.Styles("DeletedRow")
+                    'Else
+                    '    r.Style = Nothing
+                    'End If
+
                     ''滞留
                     If r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.TAIRYU_FG)) = 1 Then
                         flx.SetCellStyle(r.Index, NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.TAIRYU_NISSU), delStyle)
                     Else
                         flx.SetCellStyle(r.Index, NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.TAIRYU_NISSU), Nothing)
-                    End If
-
-                    'Closed
-                    If Val(r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.CLOSE_FG))) > 0 Then
-                        r.Style = flx.Styles("DeletedRow")
-                    Else
-                        r.Style = Nothing
-                    End If
-
-                    'Deleted
-                    If r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)) <> "" Then
-                        r.Style = flx.Styles("DeletedRow")
-                    Else
-                        r.Style = Nothing
                     End If
                 End If
             Next
@@ -351,6 +358,46 @@ Public Class FrmG0010
         End Try
     End Function
 
+    Private Sub EqualFilter_Click(sender As Object, e As EventArgs) Handles EqualFilter.Click, NotEqualFilter.Click, IncludeFilter.Click, NotIncludeFilter.Click
+        Dim filter = New C1.Win.C1FlexGrid.ConditionFilter
+        Select Case DirectCast(sender, ToolStripMenuItem).Name
+            Case NameOf(EqualFilter)
+                filter.Condition1.Operator = ConditionOperator.Equals
+            Case NameOf(NotEqualFilter)
+                filter.Condition1.Operator = ConditionOperator.NotEquals
+            Case NameOf(IncludeFilter)
+                filter.Condition1.Operator = ConditionOperator.Contains
+            Case NameOf(NotIncludeFilter)
+                filter.Condition1.Operator = ConditionOperator.DoesNotContain
+        End Select
+
+        Dim tpl = CType(FlexContextMenu.Tag, (ColSel As Integer, selctValue As Object))
+        filter.Condition1.Parameter = tpl.selctValue
+        flxDATA.Cols(tpl.ColSel).Filter = filter
+        flxDATA.ApplyFilters()
+    End Sub
+
+
+    Private Sub flex_BeforeMouseDown(ByVal sender As Object, ByVal e As C1.Win.C1FlexGrid.BeforeMouseDownEventArgs) Handles flxDATA.BeforeMouseDown
+        ' 右クリック時
+        If e.Button = Windows.Forms.MouseButtons.Right Then
+            ' クリックされた位置を取得
+            Dim h As C1.Win.C1FlexGrid.HitTestInfo
+            h = flxDATA.HitTest(e.X, e.Y)
+            ' カレントセルを移動
+            flxDATA.Select(h.Row, h.Column)
+
+            Dim selctValue As Object = flxDATA.Rows(flxDATA.RowSel).Item(flxDATA.ColSel)
+
+            EqualFilter.Text = $"""{selctValue}"" に等しい"
+            NotEqualFilter.Text = $"""{selctValue}"" に等しくない"
+            IncludeFilter.Text = $"""{selctValue}"" を含む"
+            NotIncludeFilter.Text = $"""{selctValue}"" を含まない"
+            Dim tpl = (flxDATA.ColSel, selctValue)
+            FlexContextMenu.Tag = tpl
+            flxDATA.ContextMenuStrip = FlexContextMenu
+        End If
+    End Sub
 
 #End Region
 
@@ -1105,6 +1152,7 @@ Public Class FrmG0010
 
             If dt IsNot Nothing Then
                 flx.DataSource = dt
+                tdbDATA.DataSource = dt
             End If
 
             flx.ClearFilter()
@@ -2712,6 +2760,9 @@ Public Class FrmG0010
         Refresh()
     End Sub
 
+    Private Sub btnSummaryPage_Click(sender As Object, e As EventArgs) Handles btnSummaryPage.Click
+        panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpSummaryGrid))
+    End Sub
 
 
 #End Region
