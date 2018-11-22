@@ -164,84 +164,95 @@ Public Class FrmG0011
 
 #Region "LOAD"
 
-    Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Async Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
             Me.Visible = False
-            '-----フォーム初期設定(親フォームから呼び出し)
-            Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
-            Using DB As ClsDbUtility = DBOpen()
-                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
-            End Using
 
-            'バインディング・モデルクリア
-            Call FunClearBindingD003()
-            _D003_NCR_J.Clear()
-            _D004_SYONIN_J_KANRI.clear()
-            _R001_HOKOKU_SOUSA.Clear()
-            _R002_HOKOKU_TENSO.clear()
+            Await Task.Run(
+                Sub()
+                    Me.Invoke(
+                    Sub()
+                        '-----フォーム初期設定(親フォームから呼び出し)
+                        Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+                        Using DB As ClsDbUtility = DBOpen()
+                            lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+                        End Using
 
-            '-----コントロールデータソース設定
-            cmbKISO_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbFUTEKIGO_STATUS.SetDataSource(tblFUTEKIGO_STATUS_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            'cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required) 
-            'cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-            cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
-            If blnIsAdmin Then
-                'システム管理者のみ制限解除
-            Else
-                Select Case pub_SYAIN_INFO.BUMON_KB
-                    Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
-                        Dim dt As DataTable = DirectCast(cmbBUMON.DataSource, DataTable).
-                                                    AsEnumerable.
-                                                    Where(Function(r) r.Field(Of String)("VALUE") = "1" Or r.Field(Of String)("VALUE") = "2").
-                                                    CopyToDataTable
-                        cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-                        cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+                        'バインディング・モデルクリア
+                        Call FunClearBindingD003()
+                        _D003_NCR_J.Clear()
+                        _D004_SYONIN_J_KANRI.clear()
+                        _R001_HOKOKU_SOUSA.Clear()
+                        _R002_HOKOKU_TENSO.clear()
 
-                    Case Context.ENM_BUMON_KB._3_複合材
-                        Dim dt As DataTable = DirectCast(cmbBUMON.DataSource, DataTable).
-                                                    AsEnumerable.
-                                                    Where(Function(r) r.Field(Of String)("VALUE") = pub_SYAIN_INFO.BUMON_KB).
-                                                    CopyToDataTable
-                        cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                        '-----コントロールデータソース設定
+                        cmbKISO_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                        cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                        cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                        cmbFUTEKIGO_STATUS.SetDataSource(tblFUTEKIGO_STATUS_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                        'cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required) 
+                        'cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                        cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
-                    Case Else
-                        'Err
-                End Select
-            End If
+                        cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                        Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
+                        If blnIsAdmin Then
+                            'システム管理者のみ制限解除
+                        Else
+                            Select Case pub_SYAIN_INFO.BUMON_KB
+                                Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
+                                    Dim dt As DataTable = DirectCast(cmbBUMON.DataSource, DataTable).
+                                                                AsEnumerable.
+                                                                Where(Function(r) r.Field(Of String)("VALUE") = "1" Or r.Field(Of String)("VALUE") = "2").
+                                                                CopyToDataTable
+                                    cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-            'バインディングセット
-            Call FunSetBindingD003()
+                                    cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
 
-            Me.Cursor = Cursors.WaitCursor
-            '-----処理モード別画面初期化
-            If FunInitializeControls(PrMODE) Then
-            Else
-                'Me.Close()
-            End If
+                                Case Context.ENM_BUMON_KB._3_複合材
+                                    Dim dt As DataTable = DirectCast(cmbBUMON.DataSource, DataTable).
+                                                                AsEnumerable.
+                                                                Where(Function(r) r.Field(Of String)("VALUE") = pub_SYAIN_INFO.BUMON_KB).
+                                                                CopyToDataTable
+                                    cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-            Me.WindowState = FormWindowState.Maximized
+                                    cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+                                Case Else
+                                    'Err
+                            End Select
+                        End If
 
-            Select Case _D003_NCR_J.BUMON_KB.ToVal
-                Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._3_複合材
-                    Me.ActiveControl = cmbKISYU
-                Case Context.ENM_BUMON_KB._2_LP
-                    Me.ActiveControl = cmbSYANAI_CD
-                Case Else
-                    Me.ActiveControl = cmbBUMON
-            End Select
+                        'バインディングセット
+                        Call FunSetBindingD003()
+
+                        Me.Cursor = Cursors.WaitCursor
+                        '-----処理モード別画面初期化
+                        If FunInitializeControls(PrMODE) Then
+                        Else
+                            'Me.Close()
+                        End If
+
+
+                        Select Case _D003_NCR_J.BUMON_KB.ToVal
+                            Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._3_複合材
+                                Me.ActiveControl = cmbKISYU
+                            Case Context.ENM_BUMON_KB._2_LP
+                                Me.ActiveControl = cmbSYANAI_CD
+                            Case Else
+                                Me.ActiveControl = cmbBUMON
+                        End Select
+                    End Sub)
+                End Sub)
+
+
 
         Finally
             Call FunInitFuncButtonEnabled()
             Me.Cursor = Cursors.Default
             Me.Visible = True
+            Me.WindowState = Me.Owner.WindowState
         End Try
     End Sub
 

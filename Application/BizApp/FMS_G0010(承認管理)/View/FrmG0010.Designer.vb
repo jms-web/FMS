@@ -19,6 +19,11 @@ Partial Class FrmG0010
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmG0010))
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cmbGEN_TANTO = New JMS_COMMON.ComboboxEx()
@@ -98,8 +103,11 @@ Partial Class FrmG0010
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.dgvCAR = New System.Windows.Forms.DataGridView()
         Me.mpnlDataGrid = New PanelManager.Controls.ManagedPanel()
+        Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.ST02FUTEKIGOICHIRANBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpFilter.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
@@ -112,6 +120,8 @@ Partial Class FrmG0010
         Me.GroupBox3.SuspendLayout()
         CType(Me.dgvCAR, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mpnlDataGrid.SuspendLayout()
+        CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ST02FUTEKIGOICHIRANBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -356,7 +366,6 @@ Partial Class FrmG0010
         Me.cmbGEN_TANTO.Location = New System.Drawing.Point(163, 93)
         Me.cmbGEN_TANTO.Name = "cmbGEN_TANTO"
         Me.cmbGEN_TANTO.NullValue = " "
-        Me.cmbGEN_TANTO.SelectAllText = False
         Me.cmbGEN_TANTO.Size = New System.Drawing.Size(134, 25)
         Me.cmbGEN_TANTO.TabIndex = 11
         Me.cmbGEN_TANTO.ValueMember = "VALUE"
@@ -389,7 +398,6 @@ Partial Class FrmG0010
         Me.cmbADD_TANTO.Location = New System.Drawing.Point(843, 3)
         Me.cmbADD_TANTO.Name = "cmbADD_TANTO"
         Me.cmbADD_TANTO.NullValue = " "
-        Me.cmbADD_TANTO.SelectAllText = False
         Me.cmbADD_TANTO.Size = New System.Drawing.Size(134, 25)
         Me.cmbADD_TANTO.TabIndex = 3
         Me.cmbADD_TANTO.ValueMember = "VALUE"
@@ -422,7 +430,6 @@ Partial Class FrmG0010
         Me.cmbKISYU.Location = New System.Drawing.Point(163, 33)
         Me.cmbKISYU.Name = "cmbKISYU"
         Me.cmbKISYU.NullValue = " "
-        Me.cmbKISYU.SelectAllText = False
         Me.cmbKISYU.Size = New System.Drawing.Size(134, 25)
         Me.cmbKISYU.TabIndex = 4
         Me.cmbKISYU.ValueMember = "VALUE"
@@ -455,7 +462,6 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_KB.Location = New System.Drawing.Point(163, 123)
         Me.cmbFUTEKIGO_KB.Name = "cmbFUTEKIGO_KB"
         Me.cmbFUTEKIGO_KB.NullValue = " "
-        Me.cmbFUTEKIGO_KB.SelectAllText = False
         Me.cmbFUTEKIGO_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbFUTEKIGO_KB.TabIndex = 15
         Me.cmbFUTEKIGO_KB.ValueMember = "VALUE"
@@ -488,7 +494,6 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_S_KB.Location = New System.Drawing.Point(463, 123)
         Me.cmbFUTEKIGO_S_KB.Name = "cmbFUTEKIGO_S_KB"
         Me.cmbFUTEKIGO_S_KB.NullValue = " "
-        Me.cmbFUTEKIGO_S_KB.SelectAllText = False
         Me.cmbFUTEKIGO_S_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbFUTEKIGO_S_KB.TabIndex = 16
         Me.cmbFUTEKIGO_S_KB.ValueMember = "VALUE"
@@ -522,7 +527,6 @@ Partial Class FrmG0010
         Me.cmbBUHIN_BANGO.Location = New System.Drawing.Point(463, 33)
         Me.cmbBUHIN_BANGO.Name = "cmbBUHIN_BANGO"
         Me.cmbBUHIN_BANGO.NullValue = " "
-        Me.cmbBUHIN_BANGO.SelectAllText = False
         Me.cmbBUHIN_BANGO.Size = New System.Drawing.Size(214, 25)
         Me.cmbBUHIN_BANGO.TabIndex = 5
         Me.cmbBUHIN_BANGO.ValueMember = "VALUE"
@@ -611,7 +615,6 @@ Partial Class FrmG0010
         Me.cmbSYANAI_CD.Location = New System.Drawing.Point(463, 63)
         Me.cmbSYANAI_CD.Name = "cmbSYANAI_CD"
         Me.cmbSYANAI_CD.NullValue = " "
-        Me.cmbSYANAI_CD.SelectAllText = False
         Me.cmbSYANAI_CD.Size = New System.Drawing.Size(134, 25)
         Me.cmbSYANAI_CD.TabIndex = 8
         Me.cmbSYANAI_CD.ValueMember = "VALUE"
@@ -671,7 +674,6 @@ Partial Class FrmG0010
         Me.cmbBUMON.Location = New System.Drawing.Point(463, 3)
         Me.cmbBUMON.Name = "cmbBUMON"
         Me.cmbBUMON.NullValue = " "
-        Me.cmbBUMON.SelectAllText = False
         Me.cmbBUMON.Size = New System.Drawing.Size(94, 25)
         Me.cmbBUMON.TabIndex = 2
         Me.cmbBUMON.ValueMember = "VALUE"
@@ -779,7 +781,6 @@ Partial Class FrmG0010
         Me.cmbFUTEKIGO_JYOTAI_KB.Location = New System.Drawing.Point(463, 93)
         Me.cmbFUTEKIGO_JYOTAI_KB.Name = "cmbFUTEKIGO_JYOTAI_KB"
         Me.cmbFUTEKIGO_JYOTAI_KB.NullValue = " "
-        Me.cmbFUTEKIGO_JYOTAI_KB.SelectAllText = False
         Me.cmbFUTEKIGO_JYOTAI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbFUTEKIGO_JYOTAI_KB.TabIndex = 12
         Me.cmbFUTEKIGO_JYOTAI_KB.ValueMember = "VALUE"
@@ -899,7 +900,6 @@ Partial Class FrmG0010
         Me.cmbJIZEN_SINSA_HANTEI_KB.Location = New System.Drawing.Point(163, 3)
         Me.cmbJIZEN_SINSA_HANTEI_KB.Name = "cmbJIZEN_SINSA_HANTEI_KB"
         Me.cmbJIZEN_SINSA_HANTEI_KB.NullValue = " "
-        Me.cmbJIZEN_SINSA_HANTEI_KB.SelectAllText = False
         Me.cmbJIZEN_SINSA_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbJIZEN_SINSA_HANTEI_KB.TabIndex = 21
         Me.cmbJIZEN_SINSA_HANTEI_KB.ValueMember = "VALUE"
@@ -921,7 +921,6 @@ Partial Class FrmG0010
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Location = New System.Drawing.Point(163, 33)
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Name = "cmbSAISIN_IINKAI_HANTEI_KB"
         Me.cmbSAISIN_IINKAI_HANTEI_KB.NullValue = " "
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.SelectAllText = False
         Me.cmbSAISIN_IINKAI_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbSAISIN_IINKAI_HANTEI_KB.TabIndex = 23
         Me.cmbSAISIN_IINKAI_HANTEI_KB.ValueMember = "VALUE"
@@ -1057,7 +1056,6 @@ Partial Class FrmG0010
         Me.cmbZESEI_SYOCHI_YOHI_KB.Location = New System.Drawing.Point(483, 3)
         Me.cmbZESEI_SYOCHI_YOHI_KB.Name = "cmbZESEI_SYOCHI_YOHI_KB"
         Me.cmbZESEI_SYOCHI_YOHI_KB.NullValue = " "
-        Me.cmbZESEI_SYOCHI_YOHI_KB.SelectAllText = False
         Me.cmbZESEI_SYOCHI_YOHI_KB.Size = New System.Drawing.Size(94, 25)
         Me.cmbZESEI_SYOCHI_YOHI_KB.TabIndex = 22
         Me.cmbZESEI_SYOCHI_YOHI_KB.ValueMember = "VALUE"
@@ -1101,7 +1099,6 @@ Partial Class FrmG0010
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Location = New System.Drawing.Point(483, 33)
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Name = "cmbKOKYAKU_HANTEI_SIJI_KB"
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.NullValue = " "
-        Me.cmbKOKYAKU_HANTEI_SIJI_KB.SelectAllText = False
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.Size = New System.Drawing.Size(94, 25)
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.TabIndex = 24
         Me.cmbKOKYAKU_HANTEI_SIJI_KB.ValueMember = "VALUE"
@@ -1134,7 +1131,6 @@ Partial Class FrmG0010
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Location = New System.Drawing.Point(163, 63)
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Name = "cmbKOKYAKU_SAISYU_HANTEI_KB"
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.NullValue = " "
-        Me.cmbKOKYAKU_SAISYU_HANTEI_KB.SelectAllText = False
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.TabIndex = 25
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB.ValueMember = "VALUE"
@@ -1167,7 +1163,6 @@ Partial Class FrmG0010
         Me.cmbKENSA_KEKKA_KB.Location = New System.Drawing.Point(483, 63)
         Me.cmbKENSA_KEKKA_KB.Name = "cmbKENSA_KEKKA_KB"
         Me.cmbKENSA_KEKKA_KB.NullValue = " "
-        Me.cmbKENSA_KEKKA_KB.SelectAllText = False
         Me.cmbKENSA_KEKKA_KB.Size = New System.Drawing.Size(94, 25)
         Me.cmbKENSA_KEKKA_KB.TabIndex = 26
         Me.cmbKENSA_KEKKA_KB.ValueMember = "VALUE"
@@ -1385,7 +1380,6 @@ Partial Class FrmG0010
         Me.cmbYOIN1.Location = New System.Drawing.Point(83, 3)
         Me.cmbYOIN1.Name = "cmbYOIN1"
         Me.cmbYOIN1.NullValue = " "
-        Me.cmbYOIN1.SelectAllText = False
         Me.cmbYOIN1.Size = New System.Drawing.Size(194, 25)
         Me.cmbYOIN1.TabIndex = 28
         Me.cmbYOIN1.ValueMember = "VALUE"
@@ -1408,7 +1402,6 @@ Partial Class FrmG0010
         Me.cmbYOIN2.Location = New System.Drawing.Point(83, 33)
         Me.cmbYOIN2.Name = "cmbYOIN2"
         Me.cmbYOIN2.NullValue = " "
-        Me.cmbYOIN2.SelectAllText = False
         Me.cmbYOIN2.Size = New System.Drawing.Size(194, 25)
         Me.cmbYOIN2.TabIndex = 29
         Me.cmbYOIN2.ValueMember = "VALUE"
@@ -1431,7 +1424,6 @@ Partial Class FrmG0010
         Me.cmbKISEKI_KOTEI_KB.Location = New System.Drawing.Point(83, 63)
         Me.cmbKISEKI_KOTEI_KB.Name = "cmbKISEKI_KOTEI_KB"
         Me.cmbKISEKI_KOTEI_KB.NullValue = " "
-        Me.cmbKISEKI_KOTEI_KB.SelectAllText = False
         Me.cmbKISEKI_KOTEI_KB.Size = New System.Drawing.Size(194, 25)
         Me.cmbKISEKI_KOTEI_KB.TabIndex = 30
         Me.cmbKISEKI_KOTEI_KB.ValueMember = "VALUE"
@@ -1538,8 +1530,8 @@ Partial Class FrmG0010
         Me.panelMan.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.panelMan.Location = New System.Drawing.Point(12, 60)
         Me.panelMan.Name = "panelMan"
-        Me.panelMan.SelectedIndex = 0
-        Me.panelMan.SelectedPanel = Me.mpnlCondition
+        Me.panelMan.SelectedIndex = 1
+        Me.panelMan.SelectedPanel = Me.mpnlDataGrid
         Me.panelMan.Size = New System.Drawing.Size(1233, 502)
         Me.panelMan.TabIndex = 64
         '
@@ -1549,7 +1541,7 @@ Partial Class FrmG0010
         Me.mpnlCondition.Controls.Add(Me.PanelEx1)
         Me.mpnlCondition.Location = New System.Drawing.Point(0, 0)
         Me.mpnlCondition.Name = "mpnlCondition"
-        Me.mpnlCondition.Size = New System.Drawing.Size(1233, 502)
+        Me.mpnlCondition.Size = New System.Drawing.Size(0, 0)
         '
         'PanelEx1
         '
@@ -1561,7 +1553,7 @@ Partial Class FrmG0010
         Me.PanelEx1.HitEnabled = False
         Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
         Me.PanelEx1.Name = "PanelEx1"
-        Me.PanelEx1.Size = New System.Drawing.Size(1233, 502)
+        Me.PanelEx1.Size = New System.Drawing.Size(0, 0)
         Me.PanelEx1.TabIndex = 0
         '
         'GroupBox2
@@ -1620,26 +1612,71 @@ Partial Class FrmG0010
         'mpnlDataGrid
         '
         Me.mpnlDataGrid.AutoScroll = True
-        Me.mpnlDataGrid.Controls.Add(Me.dgvDATA)
+        Me.mpnlDataGrid.Controls.Add(Me.flxDATA)
         Me.mpnlDataGrid.Location = New System.Drawing.Point(0, 0)
         Me.mpnlDataGrid.Name = "mpnlDataGrid"
-        Me.mpnlDataGrid.Size = New System.Drawing.Size(0, 0)
+        Me.mpnlDataGrid.Size = New System.Drawing.Size(1233, 502)
+        '
+        'flxDATA
+        '
+        Me.flxDATA.AutoResize = True
+        Me.flxDATA.ClipboardCopyMode = C1.Win.C1FlexGrid.ClipboardCopyModeEnum.DataAndColumnHeaders
+        Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
+        Me.flxDATA.DataSource = Me.ST02FUTEKIGOICHIRANBindingSource
+        Me.flxDATA.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.flxDATA.Location = New System.Drawing.Point(0, 0)
+        Me.flxDATA.Name = "flxDATA"
+        Me.flxDATA.Rows.Count = 1
+        Me.flxDATA.Rows.DefaultSize = 23
+        Me.flxDATA.Size = New System.Drawing.Size(1233, 502)
+        Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
+        Me.flxDATA.TabIndex = 64
+        '
+        'ST02FUTEKIGOICHIRANBindingSource
+        '
+        Me.ST02FUTEKIGOICHIRANBindingSource.DataSource = GetType(MODEL.ST02_FUTEKIGO_ICHIRAN)
         '
         'dgvDATA
         '
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvDATA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvDATA.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvDATA.Location = New System.Drawing.Point(0, 0)
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvDATA.Location = New System.Drawing.Point(84, 12)
         Me.dgvDATA.Name = "dgvDATA"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvDATA.RowTemplate.Height = 21
-        Me.dgvDATA.Size = New System.Drawing.Size(0, 0)
+        Me.dgvDATA.Size = New System.Drawing.Size(75, 26)
         Me.dgvDATA.TabIndex = 63
+        Me.dgvDATA.Visible = False
         '
         'FrmG0010
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.ClientSize = New System.Drawing.Size(1264, 712)
         Me.Controls.Add(Me.panelMan)
+        Me.Controls.Add(Me.dgvDATA)
         Me.HelpButton = True
         Me.Name = "FrmG0010"
         Me.ShowStatusBar = True
@@ -1658,8 +1695,10 @@ Partial Class FrmG0010
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
+        Me.Controls.SetChildIndex(Me.dgvDATA, 0)
         Me.Controls.SetChildIndex(Me.panelMan, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
@@ -1674,6 +1713,8 @@ Partial Class FrmG0010
         Me.GroupBox3.ResumeLayout(False)
         CType(Me.dgvCAR, System.ComponentModel.ISupportInitialize).EndInit()
         Me.mpnlDataGrid.ResumeLayout(False)
+        CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ST02FUTEKIGOICHIRANBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -1759,4 +1800,6 @@ Partial Class FrmG0010
     Friend WithEvents Label23 As Label
     Friend WithEvents dtHASSEI_YMD_FROM As DateTextBoxEx
     Friend WithEvents dtHASSEI_YMD_TO As DateTextBoxEx
+    Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents ST02FUTEKIGOICHIRANBindingSource As BindingSource
 End Class

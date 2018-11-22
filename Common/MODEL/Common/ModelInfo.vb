@@ -7,6 +7,7 @@ Public Class ModelInfo(Of T As {New, IDataModel})
 
 #Region "プロパティ"
 
+    <Display(AutoGenerateField:=False)>
     Public Shadows ReadOnly Property [GetType] As Type
         Get
             Return GetType(T)
@@ -67,29 +68,54 @@ Public Class ModelInfo(Of T As {New, IDataModel})
 
     End Function
 
-    Public Sub SetEntities(srcDATA As DataTable)
-        For Each row In srcDATA.Rows
+    Public Sub SetEntities(srcDATA As DataTable, Optional propList As List(Of PropertyInfo) = Nothing)
+        Dim list As New List(Of T)
+        If propList Is Nothing Then propList = Properties()
+
+        For Each row As DataRow In srcDATA.Rows
             Dim _Model As New T
-            For Each p In Properties()
-                Select Case p.PropertyType
-                    Case GetType(Boolean)
-                        _Model(p.Name) = CBool(row(p.Name))
-                    Case GetType(Date), GetType(DateTime)
-                        _Model(p.Name) = CDate(row(p.Name))
-                    Case GetType(Decimal)
-                        _Model(p.Name) = CDec(row(p.Name))
-                    Case GetType(Double)
-                        _Model(p.Name) = CDbl(row(p.Name))
-                    Case GetType(Integer)
-                        _Model(p.Name) = CInt(row(p.Name))
-                    Case GetType(String)
-                        _Model(p.Name) = CStr(row(p.Name))
-                    Case Else
-                        _Model(p.Name) = row(p.Name)
-                End Select
+            For Each p In propList
+                Try
+                    Select Case p.PropertyType
+                        Case GetType(Boolean)
+                            _Model(p.Name) = CBool(row(p.Name))
+                        Case GetType(Date), GetType(DateTime)
+                            If Not String.IsNullOrWhiteSpace(row(p.Name).ToString) Then
+                                _Model(p.Name) = CDate(row(p.Name))
+                            End If
+                        Case GetType(Decimal)
+                            _Model(p.Name) = CDec(row(p.Name))
+                        Case GetType(Double)
+                            _Model(p.Name) = CDbl(row(p.Name))
+                        Case GetType(Integer)
+                            _Model(p.Name) = CInt(row(p.Name))
+                        Case GetType(String)
+                            If p.Name.Contains("YMD") Then
+                                Dim _date As DateTime
+                                If DateTime.TryParseExact(row(p.Name), "yyyyMMddHHmmss", Nothing, Nothing, _date) Then
+                                    _Model(p.Name) = _date.ToString("yyyy/MM/dd HH:mm:ss")
+                                Else
+                                    If DateTime.TryParseExact(row(p.Name), "yyyyMMdd", Nothing, Nothing, _date) Then
+                                        _Model(p.Name) = _date.ToString("yyyy/MM/dd")
+                                    Else
+                                        _Model(p.Name) = CStr(row(p.Name))
+                                    End If
+                                End If
+                            Else
+                                _Model(p.Name) = CStr(row(p.Name))
+                            End If
+                        Case GetType(DBNull)
+                            '_Model(p.Name) = row(p.Name)
+                    End Select
+                Catch ex As ArgumentException
+                    'Throw
+                Finally
+                End Try
             Next p
-            Entities.Add(_Model)
+            list.Add(_Model)
         Next row
+
+        Entities = list 'New DataObjectView(Of T)(list)
     End Sub
     Public Sub SetEntity(dr As DataRow)
         Dim _Model As New T
@@ -120,6 +146,9 @@ Public Class ModelInfo(Of T As {New, IDataModel})
         For Each row In srcDATA.Rows
             Dim r As DataRow = Data.NewRow()
             For Each p In Properties()
+
+                If row.Item(p.Name).GetType = GetType(DBNull) Then Continue For
+
                 Select Case p.PropertyType
                     Case GetType(Boolean)
                         r(p.Name) = CBool(row.Item(p.Name))
@@ -140,6 +169,7 @@ Public Class ModelInfo(Of T As {New, IDataModel})
             Data.Rows.Add(r)
         Next row
         Data.AcceptChanges()
+
     End Sub
 
 
