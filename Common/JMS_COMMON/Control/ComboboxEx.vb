@@ -55,7 +55,7 @@ Public Class ComboboxEx
     <Browsable(False)>
     Public Property IsSelected As Boolean
         Get
-            Return Me.ReadOnly OrElse (Me.DataSource IsNot Nothing AndAlso Me.SelectedValue <> Me.NullValue)
+            Return Me.ReadOnly OrElse (Me.DataSource IsNot Nothing AndAlso Me.SelectedValue IsNot Nothing AndAlso Me.SelectedValue <> Me.NullValue)
         End Get
         Set(value As Boolean)
             If Me.DataSource IsNot Nothing Then Me.SelectedIndex = 0
