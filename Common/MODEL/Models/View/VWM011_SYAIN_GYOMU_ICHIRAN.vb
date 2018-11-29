@@ -31,6 +31,28 @@ Partial Public Class VWM011_SYAIN_GYOMU_ICHIRAN
     Public Property GYOMU_GROUP_ID As Integer
     <ComponentModel.DisplayName("業務グループ名")>
     Public Property GYOMU_GROUP_NAME As String
+
+    <Key>
+    <Column(Order:=15)>
+    <ComponentModel.DisplayName("部門区分")>
+    Public Property BUMON_KB As String
+
+    <Key>
+    <Column(Order:=15)>
+    <ComponentModel.DisplayName("部門区分名")>
+    Public Property BUMON_KB_DISP As String
+
+    <Key>
+    <Column(Order:=15)>
+    <ComponentModel.DisplayName("部署ID")>
+    Public Property BUSYO_ID As Integer
+
+    <Key>
+    <Column(Order:=19)>
+    <StringLength(30)>
+    <ComponentModel.DisplayName("部署名")>
+    Public Property BUSYO_NAME As String
+
     <Key>
     <Column(Order:=14)>
     <StringLength(8)>

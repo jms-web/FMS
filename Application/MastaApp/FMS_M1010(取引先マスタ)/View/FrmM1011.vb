@@ -470,8 +470,15 @@ Public Class FrmM1011
                 End If
                 '更新日時
                 Dim dt As DateTime
-                dt = DateTime.ParseExact(.Item("UPD_YMDHNS").ToString, "yyyy/MM/dd HH:mm:ss", Nothing)
-                Me.lblEDIT_YMDHNS.Text = dt.ToString("yyyy/MM/dd HH:mm:ss")
+                If .Item("UPD_YMDHNS").ToString.Replace("/", "").Replace(":", "").Trim = "" Then
+                    'dt = DateTime.Now
+                    Me.lblEDIT_YMDHNS.Text = ""
+                Else
+                    dt = DateTime.ParseExact(.Item("UPD_YMDHNS").ToString, "yyyy/MM/dd HH:mm:ss", Nothing)
+                    Me.lblEDIT_YMDHNS.Text = dt.ToString("yyyy/MM/dd HH:mm:ss")
+                End If
+
+
 
                 '更新担当者コード
                 Me.lblEDIT_SYAIN_ID.Text = .Item("UPD_SYAIN_ID").ToString.Trim & " " & Fun_GetUSER_NAME(.Item("UPD_SYAIN_ID").ToString.Trim)

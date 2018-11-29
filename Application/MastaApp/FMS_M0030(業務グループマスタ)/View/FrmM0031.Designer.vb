@@ -26,10 +26,11 @@ Partial Class FrmM0031
         Me.lblEDIT_SYAIN_ID = New System.Windows.Forms.Label()
         Me.lblEDIT_YMDHNS = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.mtxGYOMU_GROUP_ID = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.mtxBUSYO_NAME = New JMS_COMMON.MaskedTextBoxEx()
-        Me.MaskedTextBoxEx1 = New JMS_COMMON.MaskedTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.tlpFields.SuspendLayout()
         Me.SuspendLayout()
@@ -129,10 +130,6 @@ Partial Class FrmM0031
         '
         Me.ToolTip.InitialDelay = 700
         '
-        'ErrorProvider
-        '
-        Me.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
-        '
         'GroupBox1
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -159,7 +156,7 @@ Partial Class FrmM0031
         Me.tlpFields.Controls.Add(Me.lblEDIT_SYAIN_ID, 5, 1)
         Me.tlpFields.Controls.Add(Me.lblEDIT_YMDHNS, 5, 0)
         Me.tlpFields.Controls.Add(Me.Label5, 0, 0)
-        Me.tlpFields.Controls.Add(Me.MaskedTextBoxEx1, 1, 0)
+        Me.tlpFields.Controls.Add(Me.mtxGYOMU_GROUP_ID, 1, 0)
         Me.tlpFields.Controls.Add(Me.Label11, 0, 1)
         Me.tlpFields.Controls.Add(Me.mtxBUSYO_NAME, 1, 1)
         Me.tlpFields.Dock = System.Windows.Forms.DockStyle.Fill
@@ -236,6 +233,24 @@ Partial Class FrmM0031
         Me.Label5.Text = "ID:Åñ"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'mtxGYOMU_GROUP_ID
+        '
+        Me.mtxGYOMU_GROUP_ID.BackColor = System.Drawing.SystemColors.Control
+        Me.tlpFields.SetColumnSpan(Me.mtxGYOMU_GROUP_ID, 2)
+        Me.mtxGYOMU_GROUP_ID.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxGYOMU_GROUP_ID.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxGYOMU_GROUP_ID.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxGYOMU_GROUP_ID.InputRequired = False
+        Me.mtxGYOMU_GROUP_ID.Location = New System.Drawing.Point(129, 3)
+        Me.mtxGYOMU_GROUP_ID.MaxByteLength = 200
+        Me.mtxGYOMU_GROUP_ID.Name = "mtxGYOMU_GROUP_ID"
+        Me.mtxGYOMU_GROUP_ID.ReadOnly = True
+        Me.mtxGYOMU_GROUP_ID.SelectAllText = False
+        Me.mtxGYOMU_GROUP_ID.Size = New System.Drawing.Size(63, 24)
+        Me.mtxGYOMU_GROUP_ID.TabIndex = 68
+        Me.mtxGYOMU_GROUP_ID.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxGYOMU_GROUP_ID.WatermarkText = Nothing
+        '
         'Label11
         '
         Me.Label11.Dock = System.Windows.Forms.DockStyle.Fill
@@ -264,29 +279,11 @@ Partial Class FrmM0031
         Me.mtxBUSYO_NAME.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxBUSYO_NAME.WatermarkText = Nothing
         '
-        'MaskedTextBoxEx1
-        '
-        Me.MaskedTextBoxEx1.BackColor = System.Drawing.SystemColors.Control
-        Me.tlpFields.SetColumnSpan(Me.MaskedTextBoxEx1, 2)
-        Me.MaskedTextBoxEx1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.MaskedTextBoxEx1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.MaskedTextBoxEx1.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.MaskedTextBoxEx1.InputRequired = False
-        Me.MaskedTextBoxEx1.Location = New System.Drawing.Point(129, 3)
-        Me.MaskedTextBoxEx1.MaxByteLength = 200
-        Me.MaskedTextBoxEx1.Name = "MaskedTextBoxEx1"
-        Me.MaskedTextBoxEx1.ReadOnly = True
-        Me.MaskedTextBoxEx1.SelectAllText = False
-        Me.MaskedTextBoxEx1.Size = New System.Drawing.Size(63, 24)
-        Me.MaskedTextBoxEx1.TabIndex = 68
-        Me.MaskedTextBoxEx1.WatermarkColor = System.Drawing.Color.Empty
-        Me.MaskedTextBoxEx1.WatermarkText = Nothing
-        '
         'FrmM0031
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(1264, 212)
+        Me.ClientSize = New System.Drawing.Size(1264, 712)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True
@@ -307,6 +304,7 @@ Partial Class FrmM0031
         Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc1, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.tlpFields.ResumeLayout(False)
         Me.tlpFields.PerformLayout()
@@ -322,5 +320,5 @@ Partial Class FrmM0031
     Friend WithEvents lbllblEDIT_SYAIN_ID As Label
     Public WithEvents lblEDIT_YMDHNS As Label
     Friend WithEvents Label5 As Label
-    Friend WithEvents MaskedTextBoxEx1 As MaskedTextBoxEx
+    Friend WithEvents mtxGYOMU_GROUP_ID As MaskedTextBoxEx
 End Class

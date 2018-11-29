@@ -123,16 +123,19 @@
   <metadata name="ErrorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>231, 17</value>
   </metadata>
-  <metadata name="SaveFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="WarningErrorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>362, 17</value>
   </metadata>
+  <metadata name="SaveFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>544, 17</value>
+  </metadata>
   <metadata name="OpenFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>501, 17</value>
+    <value>683, 17</value>
   </metadata>
   <data name="flxDATA.ColumnInfo" xml:space="preserve">
     <value>10,1,0,0,0,90,Columns:1{Name:"GYOMU_GROUP_ID";Caption:"業務グループID";Style:"DataType:System.Int32;TextAlign:GeneralCenter;";}	2{Name:"GYOMU_GROUP_NAME";Caption:"業務グループ名";Style:"DataType:System.String;TextAlign:LeftCenter;";}	3{Name:"ADD_YMDHNS";Caption:"追加日時";Style:"DataType:System.String;TextAlign:LeftCenter;";}	4{Name:"ADD_SYAIN_ID";Caption:"追加社員ID";Style:"DataType:System.Int32;TextAlign:GeneralCenter;";}	5{Name:"UPD_YMDHNS";Caption:"更新日時";Style:"DataType:System.String;TextAlign:LeftCenter;";}	6{Name:"UPD_SYAIN_ID";Caption:"更新社員ID";Style:"DataType:System.Int32;TextAlign:GeneralCenter;";}	7{Name:"DEL_YMDHNS";Caption:"削除日時";Style:"DataType:System.String;TextAlign:LeftCenter;";}	8{Name:"DEL_FLG";Caption:"削除フラグ";Visible:False;AllowEditing:False;Style:"DataType:System.Boolean;TextAlign:LeftCenter;ImageAlign:CenterCenter;";}	9{Name:"DEL_SYAIN_ID";Caption:"削除社員ID";Style:"DataType:System.Int32;TextAlign:GeneralCenter;";}	</value>
   </data>
   <metadata name="M003GYOMUGROUPBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 58</value>
+    <value>824, 17</value>
   </metadata>
 </root>

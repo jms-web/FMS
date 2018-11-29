@@ -37,9 +37,12 @@ Partial Class FrmM0051
         Me.Label4 = New System.Windows.Forms.Label()
         Me.mtxSIMEI_KANA = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.cmbBumon = New JMS_COMMON.ComboboxEx()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.V010SYAINSYOZOKUBUSYOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -162,6 +165,8 @@ Partial Class FrmM0051
         Me.tlpFilter.Controls.Add(Me.Label4, 7, 0)
         Me.tlpFilter.Controls.Add(Me.mtxSIMEI_KANA, 6, 0)
         Me.tlpFilter.Controls.Add(Me.Label2, 5, 0)
+        Me.tlpFilter.Controls.Add(Me.Label6, 2, 1)
+        Me.tlpFilter.Controls.Add(Me.cmbBumon, 3, 1)
         Me.tlpFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpFilter.Location = New System.Drawing.Point(3, 20)
         Me.tlpFilter.Name = "tlpFilter"
@@ -241,7 +246,6 @@ Partial Class FrmM0051
         Me.cmbYAKUSYOKU_KB.Location = New System.Drawing.Point(70, 33)
         Me.cmbYAKUSYOKU_KB.Name = "cmbYAKUSYOKU_KB"
         Me.cmbYAKUSYOKU_KB.NullValue = " "
-        Me.cmbYAKUSYOKU_KB.SelectAllText = False
         Me.cmbYAKUSYOKU_KB.Size = New System.Drawing.Size(103, 25)
         Me.cmbYAKUSYOKU_KB.TabIndex = 63
         Me.cmbYAKUSYOKU_KB.Text = "(選択)"
@@ -291,7 +295,6 @@ Partial Class FrmM0051
         Me.cmbSYAIN_KB.Location = New System.Drawing.Point(829, 3)
         Me.cmbSYAIN_KB.Name = "cmbSYAIN_KB"
         Me.cmbSYAIN_KB.NullValue = " "
-        Me.cmbSYAIN_KB.SelectAllText = False
         Me.cmbSYAIN_KB.Size = New System.Drawing.Size(103, 25)
         Me.cmbSYAIN_KB.TabIndex = 61
         Me.cmbSYAIN_KB.Text = "(選択)"
@@ -336,6 +339,39 @@ Partial Class FrmM0051
         Me.Label2.TabIndex = 57
         Me.Label2.Text = "担当者名カナ"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label6.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label6.Location = New System.Drawing.Point(215, 30)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(78, 31)
+        Me.Label6.TabIndex = 65
+        Me.Label6.Text = "部門区分"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'cmbBumon
+        '
+        Me.cmbBumon.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbBumon.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbBumon.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbBumon.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbBumon.DisplayMember = "DISP"
+        Me.cmbBumon.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbBumon.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbBumon.FormattingEnabled = True
+        Me.cmbBumon.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbBumon.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbBumon.IsSelected = False
+        Me.cmbBumon.Location = New System.Drawing.Point(299, 33)
+        Me.cmbBumon.Name = "cmbBumon"
+        Me.cmbBumon.NullValue = " "
+        Me.cmbBumon.Size = New System.Drawing.Size(127, 25)
+        Me.cmbBumon.TabIndex = 66
+        Me.cmbBumon.Text = "(選択)"
+        Me.cmbBumon.ValueMember = "VALUE"
         '
         'flxDATA
         '
@@ -385,6 +421,7 @@ Partial Class FrmM0051
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
         Me.Controls.SetChildIndex(Me.flxDATA, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()
@@ -412,4 +449,6 @@ Partial Class FrmM0051
     Friend WithEvents chkTaisyokuRowVisibled As CheckBox
     Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents V010SYAINSYOZOKUBUSYOBindingSource As BindingSource
+    Friend WithEvents Label6 As Label
+    Friend WithEvents cmbBumon As ComboboxEx
 End Class

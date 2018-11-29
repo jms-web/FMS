@@ -81,7 +81,7 @@ Public Class FrmM0031
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc9.Click, cmdFunc8.Click, cmdFunc7.Click, cmdFunc6.Click, cmdFunc5.Click, cmdFunc4.Click, cmdFunc3.Click, cmdFunc2.Click, cmdFunc12.Click, cmdFunc11.Click, cmdFunc10.Click, cmdFunc1.Click
         Dim intFUNC As Integer
         Dim intCNT As Integer
-
+        Dim blnRET As Boolean
         Try
             'ボタン不可/ボタンINDEX取得
             For intCNT = 0 To Me.cmdFunc.Length - 1
@@ -92,13 +92,29 @@ Public Class FrmM0031
             'ボタンINDEX毎の処理
             Select Case intFUNC
                 Case 1  '追加変更
-                    If FunSAVE() Then
-                        'プロパティに対象レコードのキーを設定
-                        'Me.PrPKeys = (cmbKOMO_NM.Text.Trim, mtxVALUE.Text.Trim)
+                    Select Case PrMODE
+                        Case ENM_DATA_OPERATION_MODE._1_ADD, ENM_DATA_OPERATION_MODE._2_ADDREF
+                            blnRET = FunINS()
+                        Case ENM_DATA_OPERATION_MODE._3_UPDATE
+                            blnRET = FunUPD()
+                        Case Else
+                            Throw New ArgumentException(My.Resources.ErrMsgException, PrMODE.ToString)
+                    End Select
 
+                    If blnRET = True Then
+                        'プロパティに対象レコードのキーを設定
+                        'Me.PrPKeys = Me.mtxTANTO_CD.Text.Trim
                         Me.DialogResult = Windows.Forms.DialogResult.OK
                         Me.Close()
                     End If
+
+                    'If FunSAVE() Then
+                    '    'プロパティに対象レコードのキーを設定
+                    '    'Me.PrPKeys = (cmbKOMO_NM.Text.Trim, mtxVALUE.Text.Trim)
+
+                    '    Me.DialogResult = Windows.Forms.DialogResult.OK
+                    '    Me.Close()
+                    'End If
 
                 Case 12 '戻る
                     Me.DialogResult = Windows.Forms.DialogResult.Cancel
@@ -119,103 +135,246 @@ Public Class FrmM0031
 
 #End Region
 
-#Region "更新"
+#Region "追加"
+    Private Function FunINS() As Boolean
 
-    Private Function FunSAVE() As Boolean
+        Dim dsList As New System.Data.DataSet
         Dim sbSQL As New System.Text.StringBuilder
-        Dim strRET As String
-        Dim sqlEx As New Exception
-        Dim strSysDate As String
         Try
-
-            '入力チェック
-            If FunCheckInput() = False Then Return False
+            '-----入力チェック
+            If FunCheckInput() = False Then
+                Return False
+            End If
 
             Using DB As ClsDbUtility = DBOpen()
+                Dim intRET As Integer
+                Dim sqlEx As New Exception
                 Dim blnErr As Boolean
                 Try
+                    'トランザクション
                     DB.BeginTransaction()
 
-                    strSysDate = DB.GetSysDateString()
-
-                    '-----MERGE
+                    '-----INSERT
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append($"MERGE INTO {NameOf(MODEL.M003_GYOMU_GROUP)} AS TARGET")
-                    sbSQL.Append($" USING (SELECT")
-                    sbSQL.Append($"  {_M003.GYOMU_GROUP_ID} AS {NameOf(_M003.GYOMU_GROUP_ID)}")
-                    sbSQL.Append($",'{_M003.GYOMU_GROUP_NAME}' AS {NameOf(_M003.GYOMU_GROUP_NAME)}")
-                    sbSQL.Append($",'{_M003.ADD_YMDHNS}' AS {NameOf(_M003.ADD_YMDHNS)}")
-                    sbSQL.Append($",{_M003.ADD_SYAIN_ID} AS {NameOf(_M003.ADD_SYAIN_ID)}")
-                    sbSQL.Append($",'{_M003.UPD_YMDHNS}' AS {NameOf(_M003.UPD_YMDHNS)}")
-                    sbSQL.Append($",{_M003.UPD_SYAIN_ID} AS {NameOf(_M003.UPD_SYAIN_ID)}")
-                    sbSQL.Append($",'{_M003.DEL_YMDHNS}' AS {NameOf(_M003.DEL_YMDHNS)}")
-                    sbSQL.Append($",{_M003.DEL_SYAIN_ID} AS {NameOf(_M003.DEL_SYAIN_ID)}")
-
-                    sbSQL.Append($" ) AS WK ON (")
-                    sbSQL.Append($" TARGET.{NameOf(_M003.GYOMU_GROUP_ID)} = WK.{NameOf(_M003.GYOMU_GROUP_ID)}")
-                    sbSQL.Append($" )")
-
-                    '---UPDATE 排他制御 更新日時が変更されていない場合のみ
-                    sbSQL.Append($" WHEN MATCHED AND TARGET.{NameOf(_M003.UPD_YMDHNS)} = WK.{NameOf(_M003.UPD_YMDHNS)} THEN ")
-                    sbSQL.Append($" UPDATE SET")
-                    sbSQL.Append($" TARGET.{NameOf(_M003.GYOMU_GROUP_NAME)} = WK.{NameOf(_M003.GYOMU_GROUP_NAME)}")
-                    sbSQL.Append($",TARGET.{NameOf(_M003.UPD_YMDHNS)} = '{strSysDate}'")
-                    sbSQL.Append($",TARGET.{NameOf(_M003.UPD_SYAIN_ID)} = WK.{NameOf(_M003.UPD_SYAIN_ID)}")
-
-
-                    '---INSERT
-                    sbSQL.Append($" WHEN NOT MATCHED THEN ")
-                    sbSQL.Append($" INSERT(")
-                    _M003.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {p.Name}"))
-                    _M003.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{p.Name}"))
-                    sbSQL.Append($" ) VALUES(")
-                    _M003.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" WK.{p.Name}"))
-                    _M003.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",WK.{p.Name}"))
+                    sbSQL.Append("INSERT INTO M003_GYOMU_GROUP(")
+                    sbSQL.Append("  GYOMU_GROUP_ID ")
+                    sbSQL.Append(" ,GYOMU_GROUP_NAME ")
+                    sbSQL.Append(" ,ADD_YMDHNS")
+                    sbSQL.Append(" ,ADD_SYAIN_ID")
+                    sbSQL.Append(" ,UPD_YMDHNS")
+                    sbSQL.Append(" ,UPD_SYAIN_ID")
+                    sbSQL.Append(" ,DEL_YMDHNS")
+                    sbSQL.Append(" ,DEL_SYAIN_ID")
+                    sbSQL.Append(" ) VALUES ( ")
+                    '業務グループID
+                    sbSQL.Append(" (SELECT MAX(GYOMU_GROUP_ID)+1 FROM M003_GYOMU_GROUP)")
+                    '業務グループ名
+                    sbSQL.Append(" ,'" & Me.mtxBUSYO_NAME.Text.Trim & "'")
+                    '追加日時
+                    sbSQL.Append(" ,dbo.GetSysDateString()")
+                    '追加担当者
+                    sbSQL.Append(" ," & pub_SYAIN_INFO.SYAIN_ID & "")
+                    '更新日時
+                    sbSQL.Append(" ,dbo.GetSysDateString()")
+                    '更新担当者
+                    sbSQL.Append(" ," & pub_SYAIN_INFO.SYAIN_ID & "")
+                    '削除日時
+                    sbSQL.Append(" ,''")
+                    '削除担当者
+                    sbSQL.Append(" ,0")
                     sbSQL.Append(" )")
-                    sbSQL.Append("OUTPUT $action As RESULT;")
 
-                    strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    Select Case strRET
-                        Case "INSERT"
-
-                        Case "UPDATE"
-
-                            Select Case PrMODE
-                                Case ENM_DATA_OPERATION_MODE._1_ADD, ENM_DATA_OPERATION_MODE._2_ADDREF
-                                    '新規追加・類似追加でUPDATEは無効
-                                    Dim strMsg As String = $"({_M003.GYOMU_GROUP_NAME})は既に登録されています。"
-
-                                    'If MessageBox.Show(strMsg, "重複チェック", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
-                                    'Else
-                                    '    blnErr = True
-                                    '    Return False
-                                    'End If
-                            End Select
-                        Case Else
-                            If sqlEx.Source IsNot Nothing Then
-                                '-----エラーログ出力
-                                Dim strErrMsg As String = $"{My.Resources.ErrLogSqlExecutionFailure}{sbSQL.ToString}|{sqlEx.Message}"
-                                WL.WriteLogDat(strErrMsg)
-                            Else
-                                '---排他制御
-                                Dim strMsg As String = $"既に他の担当者によって変更されているため保存出来ません。{vbCrLf}再度登録し直して下さい。"
-                                MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                            End If
-                            blnErr = True
-                            Return False
-                    End Select
+                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+                    If intRET <> 1 Then
+                        'エラーログ出力
+                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                        WL.WriteLogDat(strErrMsg)
+                        blnErr = True
+                        Return False
+                    End If
                 Finally
+                    'トランザクション
                     DB.Commit(Not blnErr)
                 End Try
             End Using
 
             Return True
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Throw
             Return False
         Finally
+            dsList.Dispose()
         End Try
     End Function
+#End Region
+
+#Region "更新"
+    Private Function FunUPD() As Boolean
+
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+        Dim intRET As Integer
+        Dim sqlEx As Exception = Nothing
+        Dim blnErr As Boolean
+        Try
+            '入力チェック
+            If FunCheckInput() = False Then
+                Return False
+            End If
+
+            Using DB As ClsDbUtility = DBOpen()
+                Try
+                    'トランザクション
+                    DB.BeginTransaction()
+                    '-----存在チェック
+                    sbSQL.Append("SELECT * FROM M003_GYOMU_GROUP ")
+                    sbSQL.Append(" WHERE")
+                    sbSQL.Append(" GYOMU_GROUP_ID =" & Nz(Me.mtxGYOMU_GROUP_ID.Text.Trim & ""))
+
+                    dsList = DB.GetDataSet(sbSQL.ToString)
+                    If dsList.Tables(0).Rows.Count = 0 Then '非存在時
+                        MessageBox.Show(String.Format(My.Resources.infoSearchDataChange), My.Resources.infoTilteDuplicateCheck, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Return False
+                    End If
+
+                    '-----UPDATE
+                    sbSQL.Remove(0, sbSQL.Length)
+                    sbSQL.Append("UPDATE M003_GYOMU_GROUP SET")
+                    sbSQL.Append("  GYOMU_GROUP_NAME ='" & Me.mtxBUSYO_NAME.Text.Trim & "'")
+                    sbSQL.Append(" ,UPD_YMDHNS   = dbo.GetSysDateString() ")
+                    sbSQL.Append(" ,UPD_SYAIN_ID = " & pub_SYAIN_INFO.SYAIN_ID & " ")
+                    sbSQL.Append(" WHERE")
+                    sbSQL.Append(" GYOMU_GROUP_ID =" & Nz(Me.mtxGYOMU_GROUP_ID.Text.Trim, " "))
+
+                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+                    If intRET <> 1 Then
+                        'エラーログ
+                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                        WL.WriteLogDat(strErrMsg)
+                        blnErr = True
+                        Return False
+                    End If
+
+                Finally
+                    'トランザクション
+                    DB.Commit(Not blnErr)
+                End Try
+            End Using
+
+            Return True
+        Catch ex As Exception
+            Throw
+            Return False
+        Finally
+            dsList.Dispose()
+        End Try
+    End Function
+#End Region
+    '#Region "更新"
+
+    '    Private Function FunSAVE() As Boolean
+    '        Dim sbSQL As New System.Text.StringBuilder
+    '        Dim strRET As String
+    '        Dim sqlEx As New Exception
+    '        Dim strSysDate As String
+    '        Try
+
+    '            '入力チェック
+    '            If FunCheckInput() = False Then Return False
+
+    '            Using DB As ClsDbUtility = DBOpen()
+    '                Dim blnErr As Boolean
+    '                Try
+    '                    DB.BeginTransaction()
+
+    '                    strSysDate = DB.GetSysDateString()
+
+
+
+    '                    '-----MERGE
+    '                    sbSQL.Remove(0, sbSQL.Length)
+    '                    sbSQL.Append($"MERGE INTO {NameOf(MODEL.M003_GYOMU_GROUP)} AS TARGET")
+    '                    sbSQL.Append($" USING (SELECT")
+
+    '                    If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Or PrMODE = ENM_DATA_OPERATION_MODE._2_ADDREF Then
+    '                        sbSQL.Append($"  (SELECT GYOMU_GROUP_ID + 1 FROM {NameOf(MODEL.M003_GYOMU_GROUP)} ) AS {NameOf(_M003.GYOMU_GROUP_ID)}")
+    '                    Else
+    '                        sbSQL.Append($"  {_M003.GYOMU_GROUP_ID} AS {NameOf(_M003.GYOMU_GROUP_ID)}")
+    '                    End If
+
+    '                    sbSQL.Append($",'{_M003.GYOMU_GROUP_NAME}' AS {NameOf(_M003.GYOMU_GROUP_NAME)}")
+    '                    sbSQL.Append($",'{_M003.ADD_YMDHNS}' AS {NameOf(_M003.ADD_YMDHNS)}")
+    '                    sbSQL.Append($",{_M003.ADD_SYAIN_ID} AS {NameOf(_M003.ADD_SYAIN_ID)}")
+    '                    sbSQL.Append($",'{_M003.UPD_YMDHNS}' AS {NameOf(_M003.UPD_YMDHNS)}")
+    '                    sbSQL.Append($",{_M003.UPD_SYAIN_ID} AS {NameOf(_M003.UPD_SYAIN_ID)}")
+    '                    sbSQL.Append($",'{_M003.DEL_YMDHNS}' AS {NameOf(_M003.DEL_YMDHNS)}")
+    '                    sbSQL.Append($",{_M003.DEL_SYAIN_ID} AS {NameOf(_M003.DEL_SYAIN_ID)}")
+
+    '                    sbSQL.Append($" ) AS WK ON (")
+    '                    sbSQL.Append($" TARGET.{NameOf(_M003.GYOMU_GROUP_ID)} = WK.{NameOf(_M003.GYOMU_GROUP_ID)}")
+    '                    sbSQL.Append($" )")
+
+    '                    '---UPDATE 排他制御 更新日時が変更されていない場合のみ
+    '                    sbSQL.Append($" WHEN MATCHED AND TARGET.{NameOf(_M003.UPD_YMDHNS)} = WK.{NameOf(_M003.UPD_YMDHNS)} THEN ")
+    '                    sbSQL.Append($" UPDATE SET")
+    '                    sbSQL.Append($" TARGET.{NameOf(_M003.GYOMU_GROUP_NAME)} = WK.{NameOf(_M003.GYOMU_GROUP_NAME)}")
+    '                    sbSQL.Append($",TARGET.{NameOf(_M003.UPD_YMDHNS)} = '{strSysDate}'")
+    '                    sbSQL.Append($",TARGET.{NameOf(_M003.UPD_SYAIN_ID)} = WK.{NameOf(_M003.UPD_SYAIN_ID)}")
+
+
+    '                    '---INSERT
+    '                    sbSQL.Append($" WHEN NOT MATCHED THEN ")
+    '                    sbSQL.Append($" INSERT(")
+    '                    _M003.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {p.Name}"))
+    '                    _M003.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{p.Name}"))
+    '                    sbSQL.Append($" ) VALUES(")
+    '                    _M003.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" WK.{p.Name}"))
+    '                    _M003.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",WK.{p.Name}"))
+    '                    sbSQL.Append(" )")
+    '                    sbSQL.Append("OUTPUT $action As RESULT;")
+
+    '                    strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+    '                    Select Case strRET
+    '                        Case "INSERT"
+
+    '                        Case "UPDATE"
+
+    '                            Select Case PrMODE
+    '                                Case ENM_DATA_OPERATION_MODE._1_ADD, ENM_DATA_OPERATION_MODE._2_ADDREF
+    '                                    '新規追加・類似追加でUPDATEは無効
+    '                                    Dim strMsg As String = $"({_M003.GYOMU_GROUP_NAME})は既に登録されています。"
+
+    '                                    'If MessageBox.Show(strMsg, "重複チェック", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+    '                                    'Else
+    '                                    '    blnErr = True
+    '                                    '    Return False
+    '                                    'End If
+    '                            End Select
+    '                        Case Else
+    '                            If sqlEx.Source IsNot Nothing Then
+    '                                '-----エラーログ出力
+    '                                Dim strErrMsg As String = $"{My.Resources.ErrLogSqlExecutionFailure}{sbSQL.ToString}|{sqlEx.Message}"
+    '                                WL.WriteLogDat(strErrMsg)
+    '                            Else
+    '                                '---排他制御
+    '                                Dim strMsg As String = $"既に他の担当者によって変更されているため保存出来ません。{vbCrLf}再度登録し直して下さい。"
+    '                                MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    '                            End If
+    '                            blnErr = True
+    '                            Return False
+    '                    End Select
+    '                Finally
+    '                    DB.Commit(Not blnErr)
+    '                End Try
+    '            End Using
+
+    '            Return True
+    '        Catch ex As Exception
+    '            EM.ErrorSyori(ex, False, conblnNonMsg)
+    '            Return False
+    '        Finally
+    '        End Try
+    '    End Function
 
 #End Region
 
@@ -252,7 +411,6 @@ Public Class FrmM0031
 
 #End Region
 
-#End Region
 
 #Region "コントロールイベント"
 
@@ -358,7 +516,7 @@ Public Class FrmM0031
     ''' <param name="row"></param>
     ''' <returns></returns>
     Private Function FunSetEntityValues(row As C1.Win.C1FlexGrid.Row) As Boolean
-        Dim _model As New MODEL.VWM002_BUSYO
+        Dim _model As New MODEL.M003_GYOMU_GROUP
         Try
 
             '-----コントロールに値をセット
@@ -371,8 +529,11 @@ Public Class FrmM0031
                 dt = DateTime.ParseExact(.Item(NameOf(_model.UPD_YMDHNS)).ToString, "yyyy/MM/dd HH:mm:ss", Nothing)
                 Me.lblEDIT_YMDHNS.Text = dt.ToString("yyyy/MM/dd HH:mm:ss")
 
+                Me.mtxGYOMU_GROUP_ID.Text = .Item(NameOf(_model.GYOMU_GROUP_ID))
+                Me.mtxBUSYO_NAME.Text = .Item(NameOf(_model.GYOMU_GROUP_NAME))
+
                 '更新担当
-                Me.lblEDIT_SYAIN_ID.Text = .Item(NameOf(_model.UPD_SYAIN_NAME)).ToString
+                'Me.lblEDIT_SYAIN_ID.Text = .Item(NameOf(_model.UPD_SYAIN_NAME)).ToString
 
             End With
 

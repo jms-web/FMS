@@ -50,6 +50,7 @@ Module mdlM0110
                     Call FunGetCodeDataTable(DB, "業務グループ", tblGYOMU_GROUP)
                     Call FunGetCodeDataTable(DB, "社員区分", tblSYAIN_KB, "ITEM_NAME = '社員区分'")
                     Call FunGetCodeDataTable(DB, "役職区分", tblYAKUSYOKU_KB)
+                    Call FunGetCodeDataTable(DB, "部門区分", tblBUMON)
                 End Using
 
                 '-----一覧画面表示
