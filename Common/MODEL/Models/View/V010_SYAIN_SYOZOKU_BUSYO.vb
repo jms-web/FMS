@@ -97,6 +97,16 @@ Partial Public Class V010_SYAIN_SYOZOKU_BUSYO
 
     <Key>
     <Column(Order:=15)>
+    <ComponentModel.DisplayName("•”–å‹æ•ª")>
+    Public Property BUMON_KB As String
+
+    <Key>
+    <Column(Order:=15)>
+    <ComponentModel.DisplayName("•”–å‹æ•ª–¼")>
+    Public Property BUMON_KB_DISP As String
+
+    <Key>
+    <Column(Order:=15)>
     <ComponentModel.DisplayName("•”ID")>
     Public Property BUSYO_ID As Integer
 

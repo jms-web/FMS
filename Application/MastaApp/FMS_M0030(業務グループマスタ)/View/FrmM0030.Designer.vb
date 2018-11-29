@@ -61,6 +61,7 @@ Partial Class FrmM0030
         Me.cmdFunc3.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
         Me.cmdFunc3.Location = New System.Drawing.Point(423, 595)
         Me.cmdFunc3.Text = "—ÞŽ—’Ç‰Á(F3)"
+        Me.cmdFunc3.Visible = False
         '
         'cmdFunc4
         '

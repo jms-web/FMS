@@ -475,7 +475,7 @@ Public Class FrmM0030
                     Return False
             End Select
             sbSQL.Append(" WHERE")
-            sbSQL.Append(" BUSYO_ID = '" & flxDATA.Rows(flxDATA.RowSel).Item("BUSYO_ID").ToString & "' ")
+            sbSQL.Append(" GYOMU_GROUP_ID = '" & flxDATA.Rows(flxDATA.RowSel).Item("GYOMU_GROUP_ID").ToString & "' ")
 
             '確認メッセージ表示
             If MessageBox.Show(strMsg, strTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> Windows.Forms.DialogResult.Yes Then

@@ -39,15 +39,14 @@ Partial Class FrmM0111
         Me.Label2 = New System.Windows.Forms.Label()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.VWM011SYAINGYOMUICHIRANBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.V010SYAINSYOZOKUBUSYOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.VWM011SYAINGYOMUICHIRANBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.cmbBumon = New JMS_COMMON.ComboboxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.VWM011SYAINGYOMUICHIRANBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.V010SYAINSYOZOKUBUSYOBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.VWM011SYAINGYOMUICHIRANBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -114,7 +113,7 @@ Partial Class FrmM0111
         'lblTytle
         '
         Me.lblTytle.Font = New System.Drawing.Font("Meiryo UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTytle.Text = "社員所属部署一覧"
+        Me.lblTytle.Text = "社員業務グループ一覧"
         '
         'Label3
         '
@@ -159,13 +158,15 @@ Partial Class FrmM0111
         Me.tlpFilter.Controls.Add(Me.Label3, 2, 0)
         Me.tlpFilter.Controls.Add(Me.Label1, 0, 0)
         Me.tlpFilter.Controls.Add(Me.mtxSYAIN_NO, 1, 0)
-        Me.tlpFilter.Controls.Add(Me.cmbYAKUSYOKU_KB, 1, 1)
         Me.tlpFilter.Controls.Add(Me.chkDeletedRowVisibled, 9, 0)
         Me.tlpFilter.Controls.Add(Me.chkTaisyokuRowVisibled, 9, 1)
         Me.tlpFilter.Controls.Add(Me.cmbSYAIN_KB, 8, 0)
         Me.tlpFilter.Controls.Add(Me.Label4, 7, 0)
         Me.tlpFilter.Controls.Add(Me.mtxSIMEI_KANA, 6, 0)
         Me.tlpFilter.Controls.Add(Me.Label2, 5, 0)
+        Me.tlpFilter.Controls.Add(Me.Label6, 2, 1)
+        Me.tlpFilter.Controls.Add(Me.cmbYAKUSYOKU_KB, 1, 1)
+        Me.tlpFilter.Controls.Add(Me.cmbBumon, 3, 1)
         Me.tlpFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpFilter.Location = New System.Drawing.Point(3, 20)
         Me.tlpFilter.Name = "tlpFilter"
@@ -245,7 +246,6 @@ Partial Class FrmM0111
         Me.cmbYAKUSYOKU_KB.Location = New System.Drawing.Point(70, 33)
         Me.cmbYAKUSYOKU_KB.Name = "cmbYAKUSYOKU_KB"
         Me.cmbYAKUSYOKU_KB.NullValue = " "
-        Me.cmbYAKUSYOKU_KB.SelectAllText = False
         Me.cmbYAKUSYOKU_KB.Size = New System.Drawing.Size(103, 25)
         Me.cmbYAKUSYOKU_KB.TabIndex = 63
         Me.cmbYAKUSYOKU_KB.Text = "(選択)"
@@ -295,7 +295,6 @@ Partial Class FrmM0111
         Me.cmbSYAIN_KB.Location = New System.Drawing.Point(829, 3)
         Me.cmbSYAIN_KB.Name = "cmbSYAIN_KB"
         Me.cmbSYAIN_KB.NullValue = " "
-        Me.cmbSYAIN_KB.SelectAllText = False
         Me.cmbSYAIN_KB.Size = New System.Drawing.Size(103, 25)
         Me.cmbSYAIN_KB.TabIndex = 61
         Me.cmbSYAIN_KB.Text = "(選択)"
@@ -347,7 +346,7 @@ Partial Class FrmM0111
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
-        Me.flxDATA.DataSource = Me.VWM011SYAINGYOMUICHIRANBindingSource1
+        Me.flxDATA.DataSource = Me.VWM011SYAINGYOMUICHIRANBindingSource
         Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.flxDATA.Location = New System.Drawing.Point(14, 150)
         Me.flxDATA.Name = "flxDATA"
@@ -362,13 +361,38 @@ Partial Class FrmM0111
         '
         Me.VWM011SYAINGYOMUICHIRANBindingSource.DataSource = GetType(MODEL.VWM011_SYAIN_GYOMU_ICHIRAN)
         '
-        'V010SYAINSYOZOKUBUSYOBindingSource
+        'Label6
         '
-        Me.V010SYAINSYOZOKUBUSYOBindingSource.DataSource = GetType(MODEL.V010_SYAIN_SYOZOKU_BUSYO)
+        Me.Label6.AutoSize = True
+        Me.Label6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label6.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label6.Location = New System.Drawing.Point(215, 30)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(78, 31)
+        Me.Label6.TabIndex = 66
+        Me.Label6.Text = "部門区分"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'VWM011SYAINGYOMUICHIRANBindingSource1
+        'cmbBumon
         '
-        Me.VWM011SYAINGYOMUICHIRANBindingSource1.DataSource = GetType(MODEL.VWM011_SYAIN_GYOMU_ICHIRAN)
+        Me.cmbBumon.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbBumon.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbBumon.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbBumon.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbBumon.DisplayMember = "DISP"
+        Me.cmbBumon.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbBumon.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbBumon.FormattingEnabled = True
+        Me.cmbBumon.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbBumon.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbBumon.IsSelected = False
+        Me.cmbBumon.Location = New System.Drawing.Point(299, 33)
+        Me.cmbBumon.Name = "cmbBumon"
+        Me.cmbBumon.NullValue = " "
+        Me.cmbBumon.Size = New System.Drawing.Size(127, 25)
+        Me.cmbBumon.TabIndex = 67
+        Me.cmbBumon.Text = "(選択)"
+        Me.cmbBumon.ValueMember = "VALUE"
         '
         'FrmM0111
         '
@@ -397,13 +421,12 @@ Partial Class FrmM0111
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
         Me.Controls.SetChildIndex(Me.flxDATA, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.VWM011SYAINGYOMUICHIRANBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.V010SYAINSYOZOKUBUSYOBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.VWM011SYAINGYOMUICHIRANBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -425,7 +448,7 @@ Partial Class FrmM0111
     Friend WithEvents cmbYAKUSYOKU_KB As ComboboxEx
     Friend WithEvents chkTaisyokuRowVisibled As CheckBox
     Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents V010SYAINSYOZOKUBUSYOBindingSource As BindingSource
     Friend WithEvents VWM011SYAINGYOMUICHIRANBindingSource As BindingSource
-    Friend WithEvents VWM011SYAINGYOMUICHIRANBindingSource1 As BindingSource
+    Friend WithEvents Label6 As Label
+    Friend WithEvents cmbBumon As ComboboxEx
 End Class

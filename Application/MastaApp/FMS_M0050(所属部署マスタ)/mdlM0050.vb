@@ -50,6 +50,7 @@ Module mdlM0050
                     Call FunGetCodeDataTable(DB, "•”‹æ•ª", tblBUSYO_KB)
                     Call FunGetCodeDataTable(DB, "Ğˆõ‹æ•ª", tblSYAIN_KB, "ITEM_NAME = 'Ğˆõ‹æ•ª'")
                     Call FunGetCodeDataTable(DB, "–ğE‹æ•ª", tblYAKUSYOKU_KB)
+                    Call FunGetCodeDataTable(DB, "•”–å‹æ•ª", tblBUMON)
                 End Using
 
                 '-----ˆê——‰æ–Ê•\¦

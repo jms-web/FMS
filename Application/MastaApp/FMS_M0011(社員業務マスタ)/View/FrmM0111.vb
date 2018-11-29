@@ -42,6 +42,7 @@ Public Class FrmM0111
             '-----コントロールデータソース設定
             cmbSYAIN_KB.SetDataSource(tblSYAIN_KB.ExcludeDeleted, True)
             cmbYAKUSYOKU_KB.SetDataSource(tblYAKUSYOKU_KB.ExcludeDeleted, True)
+            cmbBumon.SetDataSource(tblBUMON.ExcludeDeleted, True)
 
             '-----イベントハンドラ設定
             'AddHandler cmbSYOKUBAN.SelectedValueChanged, AddressOf SearchFilterValueChanged
@@ -269,6 +270,11 @@ Public Class FrmM0111
             If Me.chkTaisyokuRowVisibled.Checked = False Then
                 'sbSQLWHERE.Append(" AND TAISYA_YMD = ' ' ")
                 sbSQLWHERE.Append(" AND (TAISYA_YMD >= '" & DateTime.Now.ToString("yyyyMMdd") & "' OR TAISYA_YMD = '')")
+            End If
+
+            '---部門区分
+            If Me.cmbBumon.SelectedIndex <> 0 Then
+                sbSQLWHERE.Append(" AND BUMON_KB = '" & Me.cmbBumon.SelectedValue & "'")
             End If
 
             If Me.chkDeletedRowVisibled.Checked = False Then
