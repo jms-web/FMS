@@ -1,3 +1,4 @@
+Imports System.Threading.Tasks
 Imports JMS_COMMON.ClsPubMethod
 Imports MODEL
 
@@ -96,32 +97,42 @@ Public Class FrmG0012
 #Region "Form関連"
 
     'Loadイベント
-    Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Async Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
-            '-----フォーム初期設定(親フォームから呼び出し)
-            Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
-            Using DB As ClsDbUtility = DBOpen()
-                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
-            End Using
+            Me.Visible = False
+            Await Task.Run(
+                Sub()
+                    Me.Invoke(
+                    Sub()
+                        '-----フォーム初期設定(親フォームから呼び出し)
+                        Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
+                        Using DB As ClsDbUtility = DBOpen()
+                            lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+                        End Using
 
-            '-----コントロールデータソース設定
-            cmbKONPON_YOIN_KB1.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-            cmbKONPON_YOIN_KB2.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                        '-----コントロールデータソース設定
+                        cmbKONPON_YOIN_KB1.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                        cmbKONPON_YOIN_KB2.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
-            cmbKISEKI_KOTEI.SetDataSource(tblKISEKI_KOUTEI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKAITO_14.SetDataSource(tblYOHI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                        cmbKISEKI_KOTEI.SetDataSource(tblKISEKI_KOUTEI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                        cmbKAITO_14.SetDataSource(tblYOHI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-            Me.WindowState = FormWindowState.Maximized
-            '-----画面初期化
-            Call FunInitializeControls()
 
-            AddHandler rbtnSEKKEI_TANTO_YOHI_YES.CheckedChanged, AddressOf RbtnSEKKEI_TANTO_YOHI_YES_CheckedChanged
-            AddHandler rbtnSEKKEI_TANTO_YOHI_NO.CheckedChanged, AddressOf RbtnSEKKEI_TANTO_YOHI_NO_CheckedChanged
+                        '-----画面初期化
+                        Call FunInitializeControls()
 
-            Me.tabSTAGE01.Focus()
+                        AddHandler rbtnSEKKEI_TANTO_YOHI_YES.CheckedChanged, AddressOf RbtnSEKKEI_TANTO_YOHI_YES_CheckedChanged
+                        AddHandler rbtnSEKKEI_TANTO_YOHI_NO.CheckedChanged, AddressOf RbtnSEKKEI_TANTO_YOHI_NO_CheckedChanged
+
+                        Me.tabSTAGE01.Focus()
+                    End Sub)
+                End Sub)
+
         Finally
             FunInitFuncButtonEnabled()
+            Me.Visible = True
+            Me.WindowState = Me.Owner.WindowState
         End Try
     End Sub
 
@@ -3104,8 +3115,9 @@ Public Class FrmG0012
                         Call KAITO_181920_Validating(mtxKAITO_18, Nothing)
 
                     Case ENM_CAR_STAGE._90_処置実施確認 To ENM_CAR_STAGE._100_是正有効性記入
-
+                        Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
                     Case ENM_CAR_STAGE._110_是正有効性確認_検査GL To ENM_CAR_STAGE._120_是正有効性確認_品証TL
+                        Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
                         Call mtxGOKI_Validating(mtxGOKI, Nothing)
 
                     Case Else

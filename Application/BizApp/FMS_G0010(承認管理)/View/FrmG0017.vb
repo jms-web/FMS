@@ -49,6 +49,7 @@ Public Class FrmG0017
             Using DB As ClsDbUtility = DBOpen()
                 lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
             End Using
+            Me.WindowState = Me.Owner.WindowState
 
 
             '-----グリッド初期設定(親フォームから呼び出し)

@@ -1,5 +1,6 @@
 Imports System.Threading.Tasks
 Imports JMS_COMMON.ClsPubMethod
+Imports C1.Win.C1FlexGrid
 
 'Imports Spire.Xls
 'Imports Spire.Pdf
@@ -76,6 +77,10 @@ Public Class FrmG0010
                 Me.WindowState = FormWindowState.Minimized
         End Select
 
+#Region "FlexGridGroupPanel"
+
+#End Region
+
     End Sub
 
 #End Region
@@ -94,17 +99,18 @@ Public Class FrmG0010
                 lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
             End Using
 
-            Call EnableDoubleBuffering(dgvDATA)
+            'Call EnableDoubleBuffering(dgvDATA)
             Call EnableDoubleBuffering(dgvNCR)
             Call EnableDoubleBuffering(dgvCAR)
 
             '-----グリッド初期設定(親フォームから呼び出し)
-            Call FunInitializeDataGridView(dgvDATA)
+            'Call FunInitializeDataGridView(dgvDATA)
+            Call FunInitializeFlexGrid(flxDATA)
             Call FunInitializeDataGridView(dgvNCR)
             Call FunInitializeDataGridView(dgvCAR)
 
             '-----グリッド列作成
-            Call FunSetDgvCulumns(dgvDATA)
+            'Call FunSetDgvCulumns(dgvDATA)
             Call FunSetDgvCulumnsNCRCAR(dgvNCR)
             Call FunSetDgvCulumnsNCRCAR(dgvCAR)
 
@@ -220,7 +226,7 @@ Public Class FrmG0010
                     'Me.cmdFunc2.PerformClick()
 
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
-                        Call FunSRCH(dgvDATA, FunGetListData())
+                        Call FunSRCH(flxDATA, FunGetListData())
                     End If
 
                 Case ENM_OPEN_MODE._2_処置画面起動
@@ -243,6 +249,158 @@ Public Class FrmG0010
 
 #End Region
 
+#Region "FlexGrid関連"
+    '初期化
+    Private Function FunInitializeFlexGrid(ByVal flxgrd As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
+        With flxgrd
+            .Rows(0).Height = 30
+
+            .AutoGenerateColumns = False
+            .AutoResize = True
+            .AllowEditing = True
+            .AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
+            .AllowDelete = False
+            .AllowResizing = C1.Win.C1FlexGrid.AllowResizingEnum.Columns
+            .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.SingleColumn
+            '.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
+            .AllowFiltering = True
+
+            .ShowCellLabels = True
+            .SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row
+
+            .FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.None
+
+            .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
+
+            .Styles.Add("DeletedRow")
+            .Styles("DeletedRow").BackColor = clrDeletedRowBackColor
+            .Styles("DeletedRow").ForeColor = clrDeletedRowForeColor
+
+            .Styles.Add("delStyle")
+            .Styles("delStyle").ForeColor = Color.Red
+
+            .Cols("HASSEI_YMD").Filter = New DateFilter
+            .VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver 'Custom
+
+            '以下を適用するにはVisualStyleをCustomにする
+            '.Styles.Alternate.BackColor = clrRowEvenColor
+            '.Styles.Normal.BackColor = clrRowOddColor
+            .Styles.Focus.BackColor = clrRowEnterColor
+        End With
+    End Function
+
+    Private Sub FlxDATA_RowColChange(sender As Object, e As EventArgs) Handles flxDATA.RowColChange
+        Call FunInitFuncButtonEnabled()
+    End Sub
+
+    Private Sub FlxDATA_AfterFilter(sender As Object, e As EventArgs) Handles flxDATA.AfterFilter
+        Dim flx As C1.Win.C1FlexGrid.C1FlexGrid = DirectCast(sender, C1.Win.C1FlexGrid.C1FlexGrid)
+        Dim intCNT As Integer
+
+        For Each r As C1.Win.C1FlexGrid.Row In flx.Rows
+            If r.Visible = True Then
+                intCNT += 1
+            End If
+        Next
+        intCNT -= flx.Rows.Fixed
+
+        If intCNT > 0 Then
+            Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, intCNT)
+        Else
+            Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
+        End If
+    End Sub
+
+    'グリッドセル(行)ダブルクリック時イベント
+    Private Sub FlxDATA_DoubleClick(sender As Object, e As EventArgs) Handles flxDATA.DoubleClick
+        'If flxDATA.RowSel > 0 Then
+        '    Me.cmdFunc4.PerformClick()
+        'End If
+    End Sub
+
+    Private Sub flxDATA_AfterSort(sender As Object, e As C1.Win.C1FlexGrid.SortColEventArgs) Handles flxDATA.AfterSort
+        Call FunSetGridCellFormat(flxDATA)
+    End Sub
+
+    Private Function FunSetGridCellFormat(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
+
+        Try
+            Dim delStyle As C1.Win.C1FlexGrid.CellStyle = flx.Styles("delStyle")
+
+            For Each r As C1.Win.C1FlexGrid.Row In flx.Rows
+                If r.Index > 0 Then
+
+                    'Closed
+                    If Val(r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.CLOSE_FG))) > 0 Or r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)) <> "" Then
+                        r.Style = flx.Styles("DeletedRow")
+                    Else
+                        r.Style = Nothing
+                    End If
+
+                    ''Deleted
+                    'If r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)) <> "" Then
+                    '    r.Style = flx.Styles("DeletedRow")
+                    'Else
+                    '    r.Style = Nothing
+                    'End If
+
+                    ''滞留
+                    If r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.TAIRYU_FG)) = 1 Then
+                        flx.SetCellStyle(r.Index, NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.TAIRYU_NISSU), delStyle)
+                    Else
+                        flx.SetCellStyle(r.Index, NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.TAIRYU_NISSU), Nothing)
+                    End If
+                End If
+            Next
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+        End Try
+    End Function
+
+    Private Sub EqualFilter_Click(sender As Object, e As EventArgs) Handles EqualFilter.Click, NotEqualFilter.Click, IncludeFilter.Click, NotIncludeFilter.Click
+        Dim filter = New C1.Win.C1FlexGrid.ConditionFilter
+        Select Case DirectCast(sender, ToolStripMenuItem).Name
+            Case NameOf(EqualFilter)
+                filter.Condition1.Operator = ConditionOperator.Equals
+            Case NameOf(NotEqualFilter)
+                filter.Condition1.Operator = ConditionOperator.NotEquals
+            Case NameOf(IncludeFilter)
+                filter.Condition1.Operator = ConditionOperator.Contains
+            Case NameOf(NotIncludeFilter)
+                filter.Condition1.Operator = ConditionOperator.DoesNotContain
+        End Select
+
+        Dim tpl = CType(FlexContextMenu.Tag, (ColSel As Integer, selctValue As Object))
+        filter.Condition1.Parameter = tpl.selctValue
+        flxDATA.Cols(tpl.ColSel).Filter = filter
+        flxDATA.ApplyFilters()
+    End Sub
+
+
+    Private Sub flex_BeforeMouseDown(ByVal sender As Object, ByVal e As C1.Win.C1FlexGrid.BeforeMouseDownEventArgs) Handles flxDATA.BeforeMouseDown
+        ' 右クリック時
+        If e.Button = Windows.Forms.MouseButtons.Right Then
+            ' クリックされた位置を取得
+            Dim h As C1.Win.C1FlexGrid.HitTestInfo
+            h = flxDATA.HitTest(e.X, e.Y)
+            ' カレントセルを移動
+            flxDATA.Select(h.Row, h.Column)
+
+            Dim selctValue As Object = flxDATA.Rows(flxDATA.RowSel).Item(flxDATA.ColSel)
+
+            EqualFilter.Text = $"""{selctValue}"" に等しい"
+            NotEqualFilter.Text = $"""{selctValue}"" に等しくない"
+            IncludeFilter.Text = $"""{selctValue}"" を含む"
+            NotIncludeFilter.Text = $"""{selctValue}"" を含まない"
+            Dim tpl = (flxDATA.ColSel, selctValue)
+            FlexContextMenu.Tag = tpl
+            flxDATA.ContextMenuStrip = FlexContextMenu
+        End If
+    End Sub
+
+#End Region
+
 #Region "DataGridView関連"
 
 #Region "フィールド定義"
@@ -261,7 +419,7 @@ Public Class FrmG0010
                 .AllowUserToResizeColumns = True
 
                 Dim cmbclmn1 As New DataGridViewCheckBoxColumn With {
-                .Name = NameOf(_Model.SELECTED),
+                .Name = "SELECTED",'NameOf(_Model.SELECTED),
                 .HeaderText = "選択",
                 .DataPropertyName = .Name
                 }
@@ -500,7 +658,7 @@ Public Class FrmG0010
 
     'ソート時イベント
     Private Sub DgvDATA_Sorted(sender As Object, e As EventArgs) Handles dgvDATA.Sorted
-        Call FunSetDgvCellFormat(sender)
+        'Call FunSetDgvCellFormat(sender)
     End Sub
 
     '行書式
@@ -622,9 +780,9 @@ Public Class FrmG0010
                 Select Case dgv.Columns(e.ColumnIndex).Name
                     Case "SELECTED"
                         If Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.CLOSE_FG)).Value = "1" Or Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)).Value.ToString.Trim <> "" Then
-                            Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SELECTED)).Value = False 'Not CBool(Me.dgvDATA.CurrentRow.Cells("SELECTED").Value)
+                            Me.dgvDATA.CurrentRow.Cells("SELECTED").Value = False 'Not CBool(Me.dgvDATA.CurrentRow.Cells("SELECTED").Value)
                         Else
-                            Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SELECTED)).Value = Not CBool(Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SELECTED)).Value)
+                            Me.dgvDATA.CurrentRow.Cells("SELECTED").Value = Not CBool(Me.dgvDATA.CurrentRow.Cells("SELECTED").Value)
                             '    '選択不可
                             '    Me.dgvDATA.CurrentRow.Cells("SELECTED").Value = False
                             '    MessageBox.Show("未発注データ以外は選択出来ません。", "選択不可", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -733,36 +891,36 @@ Public Class FrmG0010
             'ボタンINDEX毎の処理
             Select Case intFUNC
                 Case 1  '検索
-                    Call FunSRCH(dgvDATA, FunGetListData())
+                    Call FunSRCH(flxDATA, FunGetListData())
                 Case 2  '追加
 
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
-                        Call FunSRCH(dgvDATA, FunGetListData())
+                        Call FunSRCH(flxDATA, FunGetListData())
                     End If
 
                 Case 4  '変更
 
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) = True Then
-                        Call FunSRCH(dgvDATA, FunGetListData())
+                        Call FunSRCH(flxDATA, FunGetListData())
                     End If
                 Case 5  '削除/復元/完全削除
 
-                    If dgvDATA.CurrentRow IsNot Nothing Then
+                    If flxDATA.Rows(flxDATA.RowSel) IsNot Nothing Then
                         If MessageBox.Show("選択されたデータを削除しますか?", "削除確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
-                            Dim dr As DataRow = dgvDATA.GetDataRow()
+                            Dim dr As DataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
                             If FunDEL(dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)), dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))) = True Then
-                                Call FunSRCH(dgvDATA, FunGetListData())
+                                Call FunSRCH(flxDATA, FunGetListData())
                             End If
                         End If
                     Else
                         MessageBox.Show("該当データが選択されていません。", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     End If
                 Case 6 '復元
-                    If dgvDATA.CurrentRow IsNot Nothing Then
+                    If flxDATA.Rows(flxDATA.RowSel) IsNot Nothing Then
                         If MessageBox.Show("選択されたデータを復元しますか?", "復元確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
-                            Dim dr As DataRow = dgvDATA.GetDataRow()
+                            Dim dr As DataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
                             If FunRESTORE(dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)), dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))) = True Then
-                                Call FunSRCH(dgvDATA, FunGetListData())
+                                Call FunSRCH(flxDATA, FunGetListData())
                             End If
                         End If
                     Else
@@ -775,7 +933,7 @@ Public Class FrmG0010
 
                 Case 8 'CSV出力
                     Dim strFileName As String = $"{pub_APP_INFO.strTitle}_{DateTime.Now:yyyyMMddHHmmss}.CSV"
-                    Call FunCSV_OUT(dgvDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
+                    Call FunCSV_OUT(flxDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
                 Case 9 'メール送信
 
@@ -937,6 +1095,10 @@ Public Class FrmG0010
             End If
 
             Return tplDataModel.dt
+
+            'Dim _Model As New MODEL.ModelInfo(Of MODEL.ST02_FUTEKIGO_ICHIRAN)(srcDATA:=tplDataModel.dt)
+            'Return _Model.Entities
+
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return Nothing
@@ -967,7 +1129,7 @@ Public Class FrmG0010
 
             panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlDataGrid))
             lblRecordCount.Visible = True
-            Call FunSetDgvCellFormat(dgv)
+            'Call FunSetDgvCellFormat(dgv)
 
             Return True
         Catch ex As Exception
@@ -977,8 +1139,56 @@ Public Class FrmG0010
         End Try
     End Function
 
+    Private Function FunSRCH(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid, ByVal dt As DataTable) As Boolean
+        Dim intCURROW As Integer
+        Try
+
+            '-----選択行記憶
+            If flx.Rows.Count > 1 Then
+                intCURROW = flx.RowSel
+            End If
+
+            flx.BeginUpdate()
+
+            If dt IsNot Nothing Then
+                flx.DataSource = dt
+                tdbDATA.DataSource = dt
+            End If
+
+            flx.ClearFilter()
+            Call FunSetGridCellFormat(flx)
+
+            If flx.Rows.Count > 0 Then
+                '-----選択行設定
+                Try
+
+                    flx.RowSel = intCURROW
+
+                Catch dgvEx As Exception
+                End Try
+                Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, flx.Rows.Count - flx.Rows.Fixed.ToString)
+            Else
+                Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
+            End If
+
+            panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlDataGrid))
+            lblRecordCount.Visible = True
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+
+            '-----一覧可視
+            'dgv.Visible = True
+            flx.EndUpdate()
+        End Try
+    End Function
+
     Private Function FunSetStageList(dgv As DataGridView, SYONIN_HOKOKUSYO_ID As Context.ENM_SYONIN_HOKOKUSYO_ID) As Boolean
         Try
+
             Dim dtWK As DataTable
             If dgv.DataSource IsNot Nothing Then dtWK = dgv.DataSource
 
@@ -1040,6 +1250,7 @@ Public Class FrmG0010
             Next s
             retTable.AcceptChanges()
 
+
             dgv.DataSource = retTable.AsEnumerable.OrderBy(Function(r) r.Field(Of Integer)("SYONIN_JUN")).CopyToDataTable
 
             Return True
@@ -1064,11 +1275,11 @@ Public Class FrmG0010
         Dim dlgRET As DialogResult
 
         Try
-            If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE AndAlso dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)).Value = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR Then
+            If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE AndAlso flxDATA.Rows(flxDATA.RowSel).Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)) = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR Then
 
-                frmCAR.PrDataRow = dgvDATA.GetDataRow()
-                frmCAR.PrHOKOKU_NO = dgvDATA.GetDataRow().Item("HOKOKU_NO")
-                frmCAR.PrCurrentStage = IIf(dgvDATA.GetDataRow().Item("SYONIN_JUN") = 0, 999, dgvDATA.GetDataRow().Item("SYONIN_JUN"))
+                frmCAR.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row 'dgvDATA.GetDataRow()
+                frmCAR.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item("HOKOKU_NO")
+                frmCAR.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
                 dlgRET = frmCAR.ShowDialog(Me)
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
                     Return False
@@ -1083,8 +1294,8 @@ Public Class FrmG0010
                     'frmNCR.PrDataRow = Nothing
                 Else
                     'frmNCR.PrDataRow = dgvDATA.GetDataRow()
-                    frmNCR.PrHOKOKU_NO = dgvDATA.GetDataRow().Item("HOKOKU_NO")
-                    frmNCR.PrCurrentStage = IIf(dgvDATA.GetDataRow().Item("SYONIN_JUN") = 0, 999, dgvDATA.GetDataRow().Item("SYONIN_JUN"))
+                    frmNCR.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item("HOKOKU_NO")
+                    frmNCR.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
                 End If
                 dlgRET = frmNCR.ShowDialog(Me)
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
@@ -1284,7 +1495,7 @@ Public Class FrmG0010
     Private Function FunMailSending() As Boolean
         Try
             Me.Cursor = Cursors.WaitCursor
-            Dim dt = DirectCast(dgvDATA.DataSource, DataTable).AsEnumerable.
+            Dim dt = DirectCast(flxDATA.DataSource, DataTable).AsEnumerable.
                                     Where(Function(r) r.Field(Of Boolean)("SELECTED") = True)
             Dim strTantoNameList As String = ""
 
@@ -1372,7 +1583,7 @@ Public Class FrmG0010
                     End Try
                 End Using
             Else
-                Dim dr As DataRow = dgvDATA.GetDataRow
+                Dim dr As DataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
 
                 '選択チェックは入っていない場合、選択行のみ
                 Dim strMsg As String = "以下の担当者に処置滞留通知メールを送信します。" & vbCrLf &
@@ -1525,9 +1736,9 @@ Public Class FrmG0010
         Dim strTEMPFILE As String
         'Dim intRET As Integer
         Try
-            Dim strHOKOKU_NO As String = dgvDATA.GetDataRow().Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
+            Dim strHOKOKU_NO As String = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
             Me.Cursor = Cursors.WaitCursor
-            Select Case dgvDATA.GetDataRow().Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID))
+            Select Case flxDATA.Rows(flxDATA.RowSel).Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID))
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
                     'ファイル名
                     strOutputFileName = $"NCR_{strHOKOKU_NO}_Work.xls"
@@ -1720,9 +1931,9 @@ Public Class FrmG0010
 
         Try
 
-            If dgvDATA.CurrentRow IsNot Nothing Then
-                frmDLG.PrSYONIN_HOKOKUSYO_ID = dgvDATA.GetDataRow().Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID))
-                frmDLG.PrHOKOKU_NO = dgvDATA.GetDataRow().Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
+            If flxDATA.Rows(flxDATA.RowSel) IsNot Nothing Then
+                frmDLG.PrSYONIN_HOKOKUSYO_ID = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID))
+                frmDLG.PrHOKOKU_NO = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
             Else
                 'parameter error
                 Return False
@@ -1776,7 +1987,7 @@ Public Class FrmG0010
                 MyBase.ToolTip.SetToolTip(Me.cmdFunc2, "起票権限がありません")
             End If
 
-            If dgvDATA.RowCount > 0 Then
+            If flxDATA.RowSel >= 0 Then
                 cmdFunc3.Enabled = True
                 cmdFunc4.Enabled = True
                 cmdFunc5.Enabled = True
@@ -1787,7 +1998,8 @@ Public Class FrmG0010
                 cmdFunc11.Enabled = True
 
                 '選択行がClosedの場合
-                If Val(dgvDATA.CurrentRow.Cells.Item(NameOf(_D003_NCR_J.CLOSE_FG)).Value) = 1 Then
+                'If Val(dgvDATA.CurrentRow.Cells.Item(NameOf(_D003_NCR_J.CLOSE_FG)).Value) = 1 Then
+                If Val(flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.CLOSE_FG))) = 1 Then
                     cmdFunc4.Text = "内容確認(F4)"
                     cmdFunc5.Enabled = False
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "クローズ済のため削除出来ません")
@@ -1804,13 +2016,13 @@ Public Class FrmG0010
 
                 If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
 
-                    If dgvDATA.CurrentRow.Cells.Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).Value <> "" Then
+                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)) <> "" Then
                         '削除済み
                         cmdFunc4.Enabled = False
                         MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "削除済みデータです")
                         cmdFunc5.Enabled = False
                         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除済みデータです")
-                        dgvDATA.CurrentRow.Cells.Item("SELECTED").ReadOnly = True
+                        'flxDATA.Rows(flxDATA.RowSel).Item("SELECTED").ReadOnly = True
 
                         cmdFunc6.Visible = True
                     Else
@@ -1818,13 +2030,13 @@ Public Class FrmG0010
                     End If
                 Else
 
-                    If dgvDATA.CurrentRow.Cells.Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).Value <> "" Then
+                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)) <> "" Then
                         '削除済み
                         cmdFunc4.Enabled = False
                         MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "削除済みデータです")
                         cmdFunc5.Enabled = False
                         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除済みデータです")
-                        dgvDATA.CurrentRow.Cells.Item("SELECTED").ReadOnly = True
+                        'flxDATA.Rows(flxDATA.RowSel).Item("SELECTED").ReadOnly = True
                     End If
                     cmdFunc6.Visible = False
                     cmdFunc5.Enabled = False
@@ -2535,7 +2747,7 @@ Public Class FrmG0010
     Private Sub SetStageList()
         Application.DoEvents()
 
-        dgvDATA.DataSource = Nothing
+        'flxDATA.DataSource = Nothing
         panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlCondition))
         Me.Refresh()
         lblRecordCount.Visible = False
@@ -2547,6 +2759,11 @@ Public Class FrmG0010
     Private Sub FrmG0010_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
         Refresh()
     End Sub
+
+    Private Sub btnSummaryPage_Click(sender As Object, e As EventArgs) Handles btnSummaryPage.Click
+        panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpSummaryGrid))
+    End Sub
+
 
 #End Region
 

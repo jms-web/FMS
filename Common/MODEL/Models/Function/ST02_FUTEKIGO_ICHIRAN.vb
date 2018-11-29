@@ -9,10 +9,19 @@ Imports System.Data.Entity.Spatial
 ''' </summary>
 Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Inherits MODEL.ModelBase
+    Implements IDisposable
 
-    <NotMapped>
-    <ComponentModel.DisplayName("選択")>
-    Public Property SELECTED As Boolean
+    '<NotMapped>
+    '<ComponentModel.DisplayName("選択")>
+    'Public Property SELECTED As Boolean
+
+    <StringLength(1)>
+    <ComponentModel.DisplayName("製品区分")>
+    Public Property BUMON_KB As String
+
+    <StringLength(50)>
+    <ComponentModel.DisplayName("製品区分")>
+    Public Property BUMON_NAME As String
 
     <StringLength(10)>
     <ComponentModel.DisplayName("報告書No")>
@@ -219,13 +228,7 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     <ComponentModel.DisplayName("要求内容")>
     Public Property YOKYU_NAIYO As String
 
-    <StringLength(1)>
-    <ComponentModel.DisplayName("部門区分")>
-    Public Property BUMON_KB As String
 
-    <StringLength(50)>
-    <ComponentModel.DisplayName("部門区分")>
-    Public Property BUMON_NAME As String
 
     <StringLength(2)>
     <ComponentModel.DisplayName("顧客判定指示区分")>
@@ -264,4 +267,36 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
             _HASSEI_YMD = value.ToString("yyyyMMdd")
         End Set
     End Property
+
+#Region "IDisposable Support"
+    Private disposedValue As Boolean ' 重複する呼び出しを検出するには
+
+    ' IDisposable
+    Protected Overridable Sub Dispose(disposing As Boolean)
+        If Not disposedValue Then
+            If disposing Then
+                ' TODO: マネージド状態を破棄します (マネージド オブジェクト)。
+            End If
+
+            ' TODO: アンマネージド リソース (アンマネージド オブジェクト) を解放し、下の Finalize() をオーバーライドします。
+            ' TODO: 大きなフィールドを null に設定します。
+        End If
+        disposedValue = True
+    End Sub
+
+    ' TODO: 上の Dispose(disposing As Boolean) にアンマネージド リソースを解放するコードが含まれる場合にのみ Finalize() をオーバーライドします。
+    'Protected Overrides Sub Finalize()
+    '    ' このコードを変更しないでください。クリーンアップ コードを上の Dispose(disposing As Boolean) に記述します。
+    '    Dispose(False)
+    '    MyBase.Finalize()
+    'End Sub
+
+    ' このコードは、破棄可能なパターンを正しく実装できるように Visual Basic によって追加されました。
+    Public Sub Dispose() Implements IDisposable.Dispose
+        ' このコードを変更しないでください。クリーンアップ コードを上の Dispose(disposing As Boolean) に記述します。
+        Dispose(True)
+        ' TODO: 上の Finalize() がオーバーライドされている場合は、次の行のコメントを解除してください。
+        ' GC.SuppressFinalize(Me)
+    End Sub
+#End Region
 End Class
