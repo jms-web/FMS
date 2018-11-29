@@ -1542,8 +1542,8 @@ Partial Class FrmG0010
         Me.panelMan.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.panelMan.Location = New System.Drawing.Point(12, 60)
         Me.panelMan.Name = "panelMan"
-        Me.panelMan.SelectedIndex = 2
-        Me.panelMan.SelectedPanel = Me.mpSummaryGrid
+        Me.panelMan.SelectedIndex = 1
+        Me.panelMan.SelectedPanel = Me.mpnlDataGrid
         Me.panelMan.Size = New System.Drawing.Size(1233, 502)
         Me.panelMan.TabIndex = 64
         '
@@ -1553,7 +1553,7 @@ Partial Class FrmG0010
         Me.mpnlCondition.Controls.Add(Me.PanelEx1)
         Me.mpnlCondition.Location = New System.Drawing.Point(0, 0)
         Me.mpnlCondition.Name = "mpnlCondition"
-        Me.mpnlCondition.Size = New System.Drawing.Size(0, 0)
+        Me.mpnlCondition.Size = New System.Drawing.Size(1233, 502)
         '
         'PanelEx1
         '
@@ -1565,7 +1565,7 @@ Partial Class FrmG0010
         Me.PanelEx1.HitEnabled = False
         Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
         Me.PanelEx1.Name = "PanelEx1"
-        Me.PanelEx1.Size = New System.Drawing.Size(0, 0)
+        Me.PanelEx1.Size = New System.Drawing.Size(1233, 502)
         Me.PanelEx1.TabIndex = 0
         '
         'GroupBox2
@@ -1627,7 +1627,7 @@ Partial Class FrmG0010
         Me.mpnlDataGrid.Controls.Add(Me.flxDATA)
         Me.mpnlDataGrid.Location = New System.Drawing.Point(0, 0)
         Me.mpnlDataGrid.Name = "mpnlDataGrid"
-        Me.mpnlDataGrid.Size = New System.Drawing.Size(0, 0)
+        Me.mpnlDataGrid.Size = New System.Drawing.Size(1233, 502)
         '
         'flxDATA
         '
@@ -1641,7 +1641,7 @@ Partial Class FrmG0010
         Me.flxDATA.Name = "flxDATA"
         Me.flxDATA.Rows.Count = 1
         Me.flxDATA.Rows.DefaultSize = 23
-        Me.flxDATA.Size = New System.Drawing.Size(0, 0)
+        Me.flxDATA.Size = New System.Drawing.Size(1233, 502)
         Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
         Me.flxDATA.TabIndex = 64
         '

@@ -279,6 +279,7 @@ Public Class FrmG0010
             .Styles("delStyle").ForeColor = Color.Red
 
             .Cols("HASSEI_YMD").Filter = New DateFilter
+            .Cols("SYOCHI_YOTEI_YMD").Filter = New DateFilter
             .VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver 'Custom
 
             'ˆÈ‰º‚ð“K—p‚·‚é‚É‚ÍVisualStyle‚ðCustom‚É‚·‚é

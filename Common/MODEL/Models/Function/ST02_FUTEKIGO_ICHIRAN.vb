@@ -202,6 +202,7 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
         End Set
     End Property
 
+
     <ComponentModel.DisplayName("起草担当者ID")>
     Public Property KISO_TANTO_ID As Integer
 
@@ -250,6 +251,24 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     <ComponentModel.DisplayName("削除日時")>
     Public Property DEL_YMDHNS As String
 
+    <ComponentModel.DisplayName("処置予定日")>
+    <Display(AutoGenerateField:=False)>
+    <Column(NameOf(SYOCHI_YOTEI_YMD), TypeName:="String")>
+    Public Property _SYOCHI_YOTEI_YMD As String
+
+    <NotMapped>
+    <ComponentModel.DisplayName("処置予定日")>
+    Public Property SYOCHI_YOTEI_YMD As Date
+        Get
+            Return DateTime.ParseExact(_SYOCHI_YOTEI_YMD, "yyyyMMdd", Nothing)
+        End Get
+        Set(value As Date)
+
+            _SYOCHI_YOTEI_YMD = value.ToString("yyyyMMdd")
+        End Set
+    End Property
+
+
     <Display(AutoGenerateField:=False)>
     <StringLength(8)>
     <Column(NameOf(HASSEI_YMD), TypeName:="String")>
@@ -267,6 +286,9 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
             _HASSEI_YMD = value.ToString("yyyyMMdd")
         End Set
     End Property
+
+
+
 
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' 重複する呼び出しを検出するには

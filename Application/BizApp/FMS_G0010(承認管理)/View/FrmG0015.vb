@@ -66,8 +66,17 @@ Public Class FrmG0015
             Me.ControlBox = False
 
             '-----各コントロールのデータソースを設定
-            Dim drs = FunGetSYONIN_SYOZOKU_SYAIN(PrBUMON_KB, PrSYONIN_HOKOKUSYO_ID, PrCurrentStage).AsEnumerable.
-                    Where(Function(r) r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID)
+            Dim drs As List(Of DataRow)
+            If PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR And PrCurrentStage = ENM_CAR_STAGE._10_起草入力 Then
+                drs = FunGetSYOZOKU_SYAIN(PrBUMON_KB).AsEnumerable.
+                        Where(Function(r) r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).
+                        ToList
+            Else
+                drs = FunGetSYONIN_SYOZOKU_SYAIN(PrBUMON_KB, PrSYONIN_HOKOKUSYO_ID, PrCurrentStage).AsEnumerable.
+                        Where(Function(r) r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).
+                        ToList
+            End If
+
 
             If drs.Count > 0 Then
                 Dim tbl As DataTable = drs.CopyToDataTable

@@ -90,6 +90,8 @@ Public Class FrmG0012
 
         rsbtnST99.Enabled = False
         dtFUTEKIGO_HASSEI_YMD.ReadOnly = True
+
+        dtSYOCHI_YOTEI_YMD.MinDate = Date.Today
     End Sub
 
 #End Region
@@ -781,6 +783,7 @@ Public Class FrmG0012
         _D004_SYONIN_J_KANRI.HOKOKU_NO = _V005_CAR_J.HOKOKU_NO
         _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
         _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+        _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
 
         '#80 è≥îFê\êøì˙ÇÕâÊñ Ç≈ì¸óÕ
         If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
@@ -822,8 +825,8 @@ Public Class FrmG0012
         sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI._MAIL_SEND_FG}' AS {NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)}")
         sbSQL.Append($" , {_D004_SYONIN_J_KANRI.ADD_SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}")
         sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.ADD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS)}")
-        sbSQL.Append($" , {pub_SYAIN_INFO.SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}")
-        sbSQL.Append($" ,'{strSysDate}' AS {NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}")
+        sbSQL.Append($" , {_D004_SYONIN_J_KANRI.UPD_SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}")
+        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.UPD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}")
         sbSQL.Append($" ) AS WK")
         sbSQL.Append($" ON (SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
         sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)} = WK.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
@@ -832,14 +835,14 @@ Public Class FrmG0012
         sbSQL.Append($" WHEN MATCHED THEN")
         sbSQL.Append($" UPDATE SET")
         sbSQL.Append($"  SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)} = WK.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)} = WK.{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)} = WK.{NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.RIYU)} = WK.{NameOf(_D004_SYONIN_J_KANRI.RIYU)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)} = {pub_SYAIN_INFO.SYAIN_ID}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)} = '{strSysDate}'")
         'INSERT
         sbSQL.Append(" WHEN NOT MATCHED THEN ")
         sbSQL.Append(" INSERT(")
@@ -869,9 +872,9 @@ Public Class FrmG0012
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
-        sbSQL.Append($" ,{strSysDate}")
+        sbSQL.Append($" ,'{strSysDate}'")
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
-        sbSQL.Append($" ,{strSysDate}")
+        sbSQL.Append($" ,'{strSysDate}'")
         sbSQL.Append(" )")
         sbSQL.Append("OUTPUT $action AS RESULT") 'INSERT OR UPDATE Çncarchar(10)Ç≈éÊìæÇ∑ÇÈèÍçá
         sbSQL.Append(";")
@@ -912,6 +915,7 @@ Public Class FrmG0012
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF
                 _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
         End Select
+        _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
@@ -929,9 +933,9 @@ Public Class FrmG0012
         sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.COMMENT}' AS {NameOf(_D004_SYONIN_J_KANRI.COMMENT)}")
         sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI._MAIL_SEND_FG}' AS {NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)}")
         sbSQL.Append($" ,{_D004_SYONIN_J_KANRI.ADD_SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}")
-        sbSQL.Append($" ,dbo.GetSysDateString() AS {NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS)}")
+        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.ADD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS)}")
         sbSQL.Append($" ,{pub_SYAIN_INFO.SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}")
-        sbSQL.Append($" ,dbo.GetSysDateString() AS {NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}")
+        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.UPD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}")
         sbSQL.Append($" ) AS WK")
         sbSQL.Append($" ON (SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
         sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)} = WK.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
@@ -941,8 +945,8 @@ Public Class FrmG0012
         sbSQL.Append($" UPDATE SET")
         sbSQL.Append($"  SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)} = WK.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)} = WK.{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)} = {pub_SYAIN_INFO.SYAIN_ID}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)} = '{strSysDate}'")
         'INSERT
         sbSQL.Append(" WHEN NOT MATCHED THEN ")
         sbSQL.Append(" INSERT(")
@@ -972,9 +976,9 @@ Public Class FrmG0012
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS))
+        sbSQL.Append($" ,'{strSysDate}'")
         sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
+        sbSQL.Append($" ,'{strSysDate}'")
         sbSQL.Append(" )")
         sbSQL.Append("OUTPUT $action AS RESULT") 'INSERT OR UPDATE Çncarchar(10)Ç≈éÊìæÇ∑ÇÈèÍçá
         sbSQL.Append(";")
@@ -2681,7 +2685,6 @@ Public Class FrmG0012
             mtxFUTEKIGO_KB.Text = _V002_NCR_J.FUTEKIGO_NAME
             mtxFUTEKIGO_S_KB.Text = _V002_NCR_J.FUTEKIGO_S_NAME
             mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO)
-
 
 
             mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))

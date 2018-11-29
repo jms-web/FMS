@@ -183,6 +183,19 @@ Module mdlClickOnce
                 End If
             Next
 
+            '---サーバ移転用
+
+            'System.IO.File.Copy(".\INI" & "\フジワラシステム_インストール", System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) & "\フジワラシステム_インストール")
+            'Dim strMsg As String
+            'strMsg = "サーバーの入れ替えに伴いプログラムの更新が必要です" & vbCrLf &
+            '          "既存の「フジワラシステム」をアンインストールした上で、" & vbCrLf &
+            '          "デスクトップの「フジワラシステム_インストール」を実行するか、" & vbCrLf &
+            '          "下記の配信アドレスにアクセスして更新プログラムをインストールして下さい" & vbCrLf & vbCrLf &
+            '          "http://SV04:8000/"
+
+            'MessageBox.Show(strMsg, "システム更新のお願い")
+            '---
+
 
             ''-----フォントインストールVBS起動
             'Shell("C:\ADCM\EXE\FONTINSTALL.VBS", AppWinStyle.NormalFocus)
