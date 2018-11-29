@@ -38,7 +38,8 @@ Public Class DateFilterEditor
     End Sub
 
     Public Sub Initialize(ByVal grid As C1.Win.C1FlexGrid.C1FlexGridBase, ByVal columnIndex As Integer, ByVal filter As C1.Win.C1FlexGrid.IC1ColumnFilter) Implements C1.Win.C1FlexGrid.IC1ColumnFilterEditor.Initialize
-
+        Me.BackColor = Color.Transparent
+        _calendar.Location = New Point(8, 11)
         _filter = CType(filter, DateFilter)
 
     End Sub

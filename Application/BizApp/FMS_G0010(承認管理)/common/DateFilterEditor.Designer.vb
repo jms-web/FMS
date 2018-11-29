@@ -22,12 +22,12 @@ Partial Class DateFilterEditor
     'コード エディタを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me._chkCalendar = New System.Windows.Forms.CheckBox
-        Me._calendar = New System.Windows.Forms.MonthCalendar
-        Me._chkYesterday = New System.Windows.Forms.CheckBox
-        Me._chkEarlierThisWeek = New System.Windows.Forms.CheckBox
-        Me._chkLastWeek = New System.Windows.Forms.CheckBox
-        Me._chkLongAgo = New System.Windows.Forms.CheckBox
+        Me._chkCalendar = New System.Windows.Forms.CheckBox()
+        Me._calendar = New System.Windows.Forms.MonthCalendar()
+        Me._chkYesterday = New System.Windows.Forms.CheckBox()
+        Me._chkEarlierThisWeek = New System.Windows.Forms.CheckBox()
+        Me._chkLastWeek = New System.Windows.Forms.CheckBox()
+        Me._chkLongAgo = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         '_chkCalendar
@@ -36,14 +36,14 @@ Partial Class DateFilterEditor
         Me._chkCalendar.Location = New System.Drawing.Point(2, 0)
         Me._chkCalendar.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me._chkCalendar.Name = "_chkCalendar"
-        Me._chkCalendar.Size = New System.Drawing.Size(187, 16)
+        Me._chkCalendar.Size = New System.Drawing.Size(177, 16)
         Me._chkCalendar.TabIndex = 0
         Me._chkCalendar.Text = "指定された日付でフィルタの設定"
         Me._chkCalendar.UseVisualStyleBackColor = True
         '
         '_calendar
         '
-        Me._calendar.Location = New System.Drawing.Point(8, 11)
+        Me._calendar.Location = New System.Drawing.Point(101, 8)
         Me._calendar.Margin = New System.Windows.Forms.Padding(7, 3, 7, 3)
         Me._calendar.MaxSelectionCount = 30
         Me._calendar.Name = "_calendar"
@@ -101,7 +101,7 @@ Partial Class DateFilterEditor
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
-        Me.BackColor = System.Drawing.Color.Transparent
+        Me.BackColor = System.Drawing.Color.White
         Me.Controls.Add(Me._chkCalendar)
         Me.Controls.Add(Me._calendar)
         Me.Controls.Add(Me._chkYesterday)
@@ -109,7 +109,7 @@ Partial Class DateFilterEditor
         Me.Controls.Add(Me._chkLastWeek)
         Me.Controls.Add(Me._chkLongAgo)
         Me.Name = "DateFilterEditor"
-        Me.Size = New System.Drawing.Size(235, 229)
+        Me.Size = New System.Drawing.Size(328, 229)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

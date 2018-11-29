@@ -872,6 +872,7 @@ Module mdlG0010
         sbSQL.Append("SELECT * FROM TV02_SYONIN_SYOZOKU_SYAIN('" & BUMON_KB.Trim & "')")
         If SYONIN_HOUKOKUSYO_ID > 0 Then
             sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & SYONIN_HOUKOKUSYO_ID & "")
+            '承認順単独で検索されることはない
             sbSQL.Append(" AND SYONIN_JUN=" & SYONIN_JUN & "")
         End If
         sbSQL.Append(" ORDER BY SYONIN_HOKOKUSYO_ID,SYONIN_JUN,SYAIN_ID")
@@ -883,6 +884,14 @@ Module mdlG0010
         'dt.Columns.Add("SYONIN_JUN", GetType(Integer))
 
         dt.PrimaryKey = {dt.Columns("VALUE")} ', dt.Columns("SYONIN_JUN"), dt.Columns("SYONIN_HOKOKUSYO_ID")
+
+        '#109 ログインユーザーを処置担当リストに追加
+        Dim Trow2 As DataRow = dt.NewRow()
+        If Not dt.Rows.Contains(pub_SYAIN_INFO.SYAIN_ID) Then
+            Trow2("VALUE") = pub_SYAIN_INFO.SYAIN_ID
+            Trow2("DISP") = pub_SYAIN_INFO.SYAIN_NAME
+            dt.Rows.Add(Trow2)
+        End If
 
         With dsList.Tables(0)
             For intCNT = 0 To .Rows.Count - 1

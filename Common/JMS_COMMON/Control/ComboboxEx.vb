@@ -396,6 +396,7 @@ Public Class ComboboxEx
         Else
             Cursor = Cursors.Default
         End If
+        MyBase.Focus()
         MyBase.OnMouseHover(e)
     End Sub
 #End Region

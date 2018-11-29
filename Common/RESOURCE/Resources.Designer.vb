@@ -1215,6 +1215,36 @@ Namespace My.Resources
         '''<summary>
         '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         '''</summary>
+        Friend ReadOnly Property InsertPoint() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("InsertPoint", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        '''</summary>
+        Friend ReadOnly Property SortDn() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("SortDn", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        '''</summary>
+        Friend ReadOnly Property SortUp() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("SortUp", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        '''</summary>
         Friend ReadOnly Property 履歴() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("履歴", resourceCulture)

@@ -6,7 +6,12 @@ Public MustInherit Class NotifyChangedBase
     Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 
     Protected Sub OnPropertyChanged(ByVal propertyName As String)
-        RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+        Try
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+        Catch ex As ArgumentOutOfRangeException
+
+        End Try
+
     End Sub
 
 End Class

@@ -189,7 +189,7 @@ Public Class FrmG0011
                         _R002_HOKOKU_TENSO.clear()
 
                         '-----コントロールデータソース設定
-                        cmbKISO_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                        cmbKISO_TANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                         cmbKISYU.SetDataSource(tblKISYU.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                         cmbBUHIN_BANGO.SetDataSource(tblBUHIN.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                         cmbFUTEKIGO_STATUS.SetDataSource(tblFUTEKIGO_STATUS_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -219,10 +219,12 @@ Public Class FrmG0011
                                     cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
                                     cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+
                                 Case Else
                                     'Err
                             End Select
                         End If
+
 
                         'バインディングセット
                         Call FunSetBindingD003()
@@ -4531,13 +4533,14 @@ Public Class FrmG0011
 
     Private Async Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
+        Dim dtBUFF As DataTable
         Await Task.Run(
             Sub()
                 Me.Invoke(
                 Sub()
                     Select Case cmb.SelectedValue?.ToString.Trim
                         Case ""
+                            dtBUFF = tblTANTO
                         Case Context.ENM_BUMON_KB._2_LP
                             lblSYANAI_CD.Visible = True
                             cmbSYANAI_CD.Visible = True
@@ -4551,12 +4554,36 @@ Public Class FrmG0011
                             End Using
                             cmbHINMEI.SetDataSource(tblLP_HINMEI, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
+                            dtBUFF = FunGetSYOZOKU_SYAIN(cmbBUMON.SelectedValue)
                         Case Else
                             lblSYANAI_CD.Visible = False
                             cmbSYANAI_CD.Visible = False
                             cmbHINMEI.ReadOnly = True
                             Me.ActiveControl = cmbKISYU
+                            dtBUFF = FunGetSYOZOKU_SYAIN(cmbBUMON.SelectedValue)
                     End Select
+
+                    Dim intBUFF As Integer
+                    intBUFF = cmbKISO_TANTO.SelectedValue
+
+                    Dim dtADD_TANTO As New DataTableEx
+                    Dim Trow2 As DataRow = dtADD_TANTO.NewRow()
+                    If Not dtADD_TANTO.Rows.Contains(pub_SYAIN_INFO.SYAIN_ID) Then
+                        Trow2("VALUE") = pub_SYAIN_INFO.SYAIN_ID
+                        Trow2("DISP") = pub_SYAIN_INFO.SYAIN_NAME
+                        dtADD_TANTO.Rows.Add(Trow2)
+                    End If
+                    For Each row As DataRow In dtBUFF.Rows
+                        Dim Trow As DataRow = dtADD_TANTO.NewRow()
+                        If Not dtADD_TANTO.Rows.Contains(row.Item("VALUE")) Then
+                            Trow("VALUE") = row.Item("VALUE")
+                            Trow("DISP") = row.Item("DISP")
+                            dtADD_TANTO.Rows.Add(Trow)
+                        End If
+                    Next row
+                    cmbKISO_TANTO.SetDataSource(dtADD_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                    cmbKISO_TANTO.SelectedValue = intBUFF
+
                     If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
                         If cmb.IsSelected Then
                             Dim dtTANTO = FunGetSYONIN_SYOZOKU_SYAIN(cmb.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_起草入力))

@@ -57,7 +57,16 @@ Public Class ST02_ParamModel
     End Property
 
     '共通
+    Dim _BUMON_KB As String
     Public Property BUMON_KB As String
+        Get
+            Return _BUMON_KB
+        End Get
+        Set(value As String)
+            _BUMON_KB = value
+        End Set
+    End Property
+
     Public Property SYONIN_HOKOKUSYO_ID As Integer
     Public Property HOKOKU_NO As String
 
