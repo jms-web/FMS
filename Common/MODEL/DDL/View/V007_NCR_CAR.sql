@@ -1,11 +1,13 @@
 USE [FMS]
 GO
 
+/****** Object:  View [dbo].[V007_NCR_CAR]    Script Date: 2018/11/29 16:54:39 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 

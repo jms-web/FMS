@@ -267,8 +267,11 @@
     <Content Include="DDL\View\V006_CAR_GENIN.sql" />
     <Content Include="DDL\View\V007_NCR_CAR.sql" />
     <Content Include="DDL\View\V008_NCR_R.sql" />
+    <Content Include="DDL\View\V010_SYAIN_SYOZOKU_BUSYO.sql" />
     <Content Include="DDL\View\V009_CAR_R.sql" />
     <Content Include="DDL\View\VWM004_SYAIN.sql" />
+    <Content Include="DDL\View\VWM011_SYAIN_GYOMU_ICHIRAN.sql" />
+    <Content Include="DDL\View\VWM011_SYAIN_GYOMU.sql" />
     <Content Include="DDL\View\VWM106_BUHIN.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

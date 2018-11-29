@@ -1,6 +1,6 @@
 USE [FMS]
 GO
-/****** Object:  StoredProcedure [dbo].[ST02_FUTEKIGO_ICHIRAN]    Script Date: 2018/11/29 13:12:38 ******/
+/****** Object:  StoredProcedure [dbo].[ST02_FUTEKIGO_ICHIRAN]    Script Date: 2018/11/29 16:55:05 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
