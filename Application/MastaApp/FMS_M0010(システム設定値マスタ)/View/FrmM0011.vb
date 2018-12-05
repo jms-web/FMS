@@ -481,6 +481,7 @@ Public Class FrmM0011
                 sbSQL.Append($" DISP_ORDER = DISP_ORDER-1 ")
                 sbSQL.Append($"WHERE")
                 sbSQL.Append($" ITEM_NAME ='{_M001.ITEM_NAME}' ")
+                sbSQL.Append($" AND {NameOf(MODEL.M001_SETTING.ITEM_VALUE)} <> '{_M001.ITEM_VALUE}' ")
                 sbSQL.Append($" AND DISP_ORDER >{intBeforeValue} ")
                 sbSQL.Append($" AND DISP_ORDER <={intAfterValue} ")
             Else
@@ -489,6 +490,7 @@ Public Class FrmM0011
                 sbSQL.Append($" DISP_ORDER = DISP_ORDER+1 ")
                 sbSQL.Append($"WHERE")
                 sbSQL.Append($" ITEM_NAME ='{_M001.ITEM_NAME}' ")
+                sbSQL.Append($" AND {NameOf(MODEL.M001_SETTING.ITEM_VALUE)} <> '{_M001.ITEM_VALUE}' ")
                 sbSQL.Append($" AND DISP_ORDER >={intAfterValue} ")
                 sbSQL.Append($" AND DISP_ORDER <{intBeforeValue} ")
             End If
