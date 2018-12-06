@@ -49,9 +49,9 @@ Public Class FlexGroupControl
             _sf = New StringFormat(StringFormat.GenericDefault)
             _sf.Alignment = StringAlignment.Center
             _sf.LineAlignment = StringAlignment.Center
-            _bmpInsert = LoadBitmap("InsertPoint", Color.White)
-            _bmpSortUp = LoadBitmap("SortUp", Color.Red)
-            _bmpSortDn = LoadBitmap("SortDn", Color.Red)
+            _bmpInsert = Global.FMS.My.Resources.Resources.InsertPoint 'LoadBitmap("InsertPoint", Color.White)
+            _bmpSortUp = Global.FMS.My.Resources.Resources.SortUp 'LoadBitmap("SortUp", Color.Red)
+            _bmpSortDn = Global.FMS.My.Resources.Resources.SortDn 'LoadBitmap("SortDn", Color.Red)
         End If
 
         ' 含まれるFlex コントロールの初期化
@@ -479,6 +479,7 @@ Public Class FlexGroupControl
             If (col.Visible) OrElse (Not _groups(i).Equals(col)) Then Return True
         Next
 
+
         ' 残りの列を表示します。
         For i = iFixed + _groups.Count To cols.Count - 1
             If Not cols(i).Visible Then Return True
@@ -515,6 +516,10 @@ Public Class FlexGroupControl
                 col.Sort = SortFlags.Ascending
             End If
         Next
+
+        'TODO: 常に非表示にしたい列をあらかじめ指定する
+
+        'グループ列以外全て表示
         For index = index To cols.Count - 1
             cols(index).Visible = True
         Next
@@ -528,11 +533,12 @@ Public Class FlexGroupControl
         ' ツリーのコンテンツが左寄せ（またはマージされていない）かどうか確認します。
         _flex.Cols(_flex.Tree.Column).TextAlign = TextAlignEnum.LeftCenter
 
+
         ' サブトータルを挿入します。
         For index = 0 To _groups.Count - 1
             Dim icol As Integer = index + cols.Fixed
             Dim fmt As String = cols(icol).Caption + ": {0}"
-            _flex.Subtotal(AggregateEnum.None, index, icol, 0, fmt)
+            _flex.Subtotal(AggregateEnum.Count, index, icol, cols.Count - 1, fmt)
         Next
 
         ' 完了です。

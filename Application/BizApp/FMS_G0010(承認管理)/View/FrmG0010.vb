@@ -102,6 +102,7 @@ Public Class FrmG0010
             '-----グリッド初期設定(親フォームから呼び出し)
             'Call FunInitializeDataGridView(dgvDATA)
             Call FunInitializeFlexGrid(flxDATA)
+            Call FunInitializeFlexGrid(_flexGroup.Grid)
             Call FunInitializeDataGridView(dgvNCR)
             Call FunInitializeDataGridView(dgvCAR)
 
@@ -253,10 +254,9 @@ Public Class FrmG0010
     Private Function FunInitializeFlexGrid(ByVal flxgrd As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
         With flxgrd
             .Rows(0).Height = 30
-
             .AutoGenerateColumns = False
             .AutoResize = True
-            .AllowEditing = True
+            .AllowEditing = False
             .AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
             .AllowDelete = False
             .AllowResizing = C1.Win.C1FlexGrid.AllowResizingEnum.Columns
@@ -1137,7 +1137,7 @@ Public Class FrmG0010
     End Function
 
     Private Function FunSRCH(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid, ByVal dt As DataTable) As Boolean
-        Dim intCURROW As Integer
+        'Dim intCURROW As Integer
         Try
 
             '-----選択行記憶
@@ -1169,6 +1169,7 @@ Public Class FrmG0010
 
             panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlDataGrid))
             lblRecordCount.Visible = True
+            btnSummaryPage.Visible = True
 
             Return True
         Catch ex As Exception
@@ -2103,7 +2104,7 @@ Public Class FrmG0010
     End Sub
 
     Private Sub btnSummaryPage_Click(sender As Object, e As EventArgs) Handles btnSummaryPage.Click
-        '_flexGroup.Grid.DataSource = flxDATA.DataSource
+        _flexGroup.Grid.DataSource = flxDATA.DataSource
         panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpSummaryGrid))
     End Sub
 
@@ -2114,7 +2115,7 @@ Public Class FrmG0010
         RemoveHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
         chkDleteRowVisibled.Checked = False
         AddHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
-
+        btnSummaryPage.Visible = False
         Call SetStageList()
     End Sub
 
@@ -2782,6 +2783,7 @@ Public Class FrmG0010
         Application.DoEvents()
 
         'flxDATA.DataSource = Nothing
+        btnSummaryPage.Visible = False
         panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlCondition))
         Me.Refresh()
         lblRecordCount.Visible = False

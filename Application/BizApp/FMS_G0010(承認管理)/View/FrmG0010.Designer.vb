@@ -106,6 +106,7 @@ Partial Class FrmG0010
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ST02FUTEKIGOICHIRANBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.mpSummaryGrid = New PanelManager.Controls.ManagedPanel()
+        Me._flexGroup = New FMS.FlexGroupControl()
         Me.tdbDATA = New C1.Win.C1TrueDBGrid.C1TrueDBGrid()
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
         Me.btnSummaryPage = New System.Windows.Forms.Button()
@@ -131,6 +132,8 @@ Partial Class FrmG0010
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ST02FUTEKIGOICHIRANBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mpSummaryGrid.SuspendLayout()
+        CType(Me._flexGroup, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me._flexGroup.Grid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tdbDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FlexContextMenu.SuspendLayout()
@@ -558,7 +561,6 @@ Partial Class FrmG0010
         Me.mtxHINMEI.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxHINMEI, 15)
         Me.mtxHINMEI.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxHINMEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxHINMEI.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxHINMEI.InputRequired = False
         Me.mtxHINMEI.Location = New System.Drawing.Point(843, 33)
@@ -575,7 +577,6 @@ Partial Class FrmG0010
         Me.mtxGOKI.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxGOKI, 7)
         Me.mtxGOKI.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxGOKI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxGOKI.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxGOKI.InputRequired = False
         Me.mtxGOKI.Location = New System.Drawing.Point(163, 63)
@@ -634,7 +635,6 @@ Partial Class FrmG0010
         '
         Me.mtxHOKUKO_NO.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxHOKUKO_NO, 7)
-        Me.mtxHOKUKO_NO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxHOKUKO_NO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxHOKUKO_NO.InputRequired = False
         Me.mtxHOKUKO_NO.Location = New System.Drawing.Point(163, 3)
@@ -1443,7 +1443,6 @@ Partial Class FrmG0010
         '
         Me.mtxGENIN1_DISP.BackColor = System.Drawing.SystemColors.Control
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxGENIN1_DISP, 22)
-        Me.mtxGENIN1_DISP.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxGENIN1_DISP.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxGENIN1_DISP.InputRequired = False
         Me.mtxGENIN1_DISP.Location = New System.Drawing.Point(83, 93)
@@ -1460,7 +1459,6 @@ Partial Class FrmG0010
         '
         Me.mtxGENIN2_DISP.BackColor = System.Drawing.SystemColors.Control
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxGENIN2_DISP, 22)
-        Me.mtxGENIN2_DISP.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxGENIN2_DISP.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxGENIN2_DISP.InputRequired = False
         Me.mtxGENIN2_DISP.Location = New System.Drawing.Point(83, 123)
@@ -1501,7 +1499,6 @@ Partial Class FrmG0010
         '
         Me.mtxGENIN1.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxGENIN1, 4)
-        Me.mtxGENIN1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxGENIN1.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxGENIN1.InputRequired = False
         Me.mtxGENIN1.Location = New System.Drawing.Point(463, 3)
@@ -1518,7 +1515,6 @@ Partial Class FrmG0010
         '
         Me.mtxGENIN2.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxGENIN2, 4)
-        Me.mtxGENIN2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxGENIN2.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxGENIN2.InputRequired = False
         Me.mtxGENIN2.Location = New System.Drawing.Point(463, 33)
@@ -1542,8 +1538,8 @@ Partial Class FrmG0010
         Me.panelMan.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.panelMan.Location = New System.Drawing.Point(12, 60)
         Me.panelMan.Name = "panelMan"
-        Me.panelMan.SelectedIndex = 1
-        Me.panelMan.SelectedPanel = Me.mpnlDataGrid
+        Me.panelMan.SelectedIndex = 2
+        Me.panelMan.SelectedPanel = Me.mpSummaryGrid
         Me.panelMan.Size = New System.Drawing.Size(1233, 502)
         Me.panelMan.TabIndex = 64
         '
@@ -1553,7 +1549,7 @@ Partial Class FrmG0010
         Me.mpnlCondition.Controls.Add(Me.PanelEx1)
         Me.mpnlCondition.Location = New System.Drawing.Point(0, 0)
         Me.mpnlCondition.Name = "mpnlCondition"
-        Me.mpnlCondition.Size = New System.Drawing.Size(1233, 502)
+        Me.mpnlCondition.Size = New System.Drawing.Size(0, 0)
         '
         'PanelEx1
         '
@@ -1565,7 +1561,7 @@ Partial Class FrmG0010
         Me.PanelEx1.HitEnabled = False
         Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
         Me.PanelEx1.Name = "PanelEx1"
-        Me.PanelEx1.Size = New System.Drawing.Size(1233, 502)
+        Me.PanelEx1.Size = New System.Drawing.Size(0, 0)
         Me.PanelEx1.TabIndex = 0
         '
         'GroupBox2
@@ -1627,7 +1623,7 @@ Partial Class FrmG0010
         Me.mpnlDataGrid.Controls.Add(Me.flxDATA)
         Me.mpnlDataGrid.Location = New System.Drawing.Point(0, 0)
         Me.mpnlDataGrid.Name = "mpnlDataGrid"
-        Me.mpnlDataGrid.Size = New System.Drawing.Size(1233, 502)
+        Me.mpnlDataGrid.Size = New System.Drawing.Size(0, 0)
         '
         'flxDATA
         '
@@ -1641,7 +1637,7 @@ Partial Class FrmG0010
         Me.flxDATA.Name = "flxDATA"
         Me.flxDATA.Rows.Count = 1
         Me.flxDATA.Rows.DefaultSize = 23
-        Me.flxDATA.Size = New System.Drawing.Size(1233, 502)
+        Me.flxDATA.Size = New System.Drawing.Size(0, 0)
         Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
         Me.flxDATA.TabIndex = 64
         '
@@ -1651,11 +1647,44 @@ Partial Class FrmG0010
         '
         'mpSummaryGrid
         '
+        Me.mpSummaryGrid.Controls.Add(Me._flexGroup)
         Me.mpSummaryGrid.Controls.Add(Me.tdbDATA)
         Me.mpSummaryGrid.Location = New System.Drawing.Point(0, 0)
         Me.mpSummaryGrid.Name = "mpSummaryGrid"
         Me.mpSummaryGrid.Size = New System.Drawing.Size(1233, 502)
         Me.mpSummaryGrid.Text = "ManagedPanel1"
+        '
+        '_flexGroup
+        '
+        Me._flexGroup.BackColor = System.Drawing.SystemColors.ControlDark
+        Me._flexGroup.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me._flexGroup.Dock = System.Windows.Forms.DockStyle.Fill
+        Me._flexGroup.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        '
+        '
+        '
+        Me._flexGroup.Grid.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.Nodes
+        Me._flexGroup.Grid.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
+        Me._flexGroup.Grid.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.None
+        Me._flexGroup.Grid.ColumnInfo = resources.GetString("_flexGroup.Grid.ColumnInfo")
+        Me._flexGroup.Grid.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me._flexGroup.Grid.DrawMode = C1.Win.C1FlexGrid.DrawModeEnum.OwnerDraw
+        Me._flexGroup.Grid.Location = New System.Drawing.Point(0, 36)
+        Me._flexGroup.Grid.Name = ""
+        Me._flexGroup.Grid.Rows.DefaultSize = 18
+        Me._flexGroup.Grid.Rows.Fixed = 2
+        Me._flexGroup.Grid.ShowCursor = True
+        Me._flexGroup.Grid.Size = New System.Drawing.Size(1229, 462)
+        Me._flexGroup.Grid.StyleInfo = resources.GetString("_flexGroup.Grid.StyleInfo")
+        Me._flexGroup.Grid.TabIndex = 1
+        Me._flexGroup.Grid.Tree.Style = C1.Win.C1FlexGrid.TreeStyleFlags.Symbols
+        Me._flexGroup.Image = Nothing
+        Me._flexGroup.Location = New System.Drawing.Point(0, 0)
+        Me._flexGroup.Name = "_flexGroup"
+        Me._flexGroup.ShowGroups = True
+        Me._flexGroup.Size = New System.Drawing.Size(1233, 502)
+        Me._flexGroup.TabIndex = 66
+        Me._flexGroup.TabStop = False
         '
         'tdbDATA
         '
@@ -1673,12 +1702,12 @@ Partial Class FrmG0010
         Me.tdbDATA.PreviewInfo.Size = New System.Drawing.Size(0, 0)
         Me.tdbDATA.PreviewInfo.ZoomFactor = 75.0R
         Me.tdbDATA.PrintInfo.PageSettings = CType(resources.GetObject("tdbDATA.PrintInfo.PageSettings"), System.Drawing.Printing.PageSettings)
-        Me.tdbDATA.PropBag = resources.GetString("tdbDATA.PropBag")
         Me.tdbDATA.RowHeight = 14
         Me.tdbDATA.Size = New System.Drawing.Size(0, 0)
         Me.tdbDATA.TabIndex = 0
         Me.tdbDATA.UseCompatibleTextRendering = False
         Me.tdbDATA.VisualStyle = C1.Win.C1TrueDBGrid.VisualStyle.Office2010Silver
+        Me.tdbDATA.PropBag = resources.GetString("tdbDATA.PropBag")
         '
         'dgvDATA
         '
@@ -1802,6 +1831,8 @@ Partial Class FrmG0010
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ST02FUTEKIGOICHIRANBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.mpSummaryGrid.ResumeLayout(False)
+        CType(Me._flexGroup.Grid, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me._flexGroup, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tdbDATA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FlexContextMenu.ResumeLayout(False)
@@ -1899,5 +1930,5 @@ Partial Class FrmG0010
     Friend WithEvents NotEqualFilter As ToolStripMenuItem
     Friend WithEvents IncludeFilter As ToolStripMenuItem
     Friend WithEvents NotIncludeFilter As ToolStripMenuItem
-
+    Friend WithEvents _flexGroup As FlexGroupControl
 End Class
