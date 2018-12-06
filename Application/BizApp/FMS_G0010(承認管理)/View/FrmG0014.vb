@@ -152,7 +152,7 @@ Public Class FrmG0014
                         dgv.CurrentRow.Cells("SELECTED").Value = Not CBool(dgv.CurrentRow.Cells("SELECTED").Value)
                         If CBool(dgv.CurrentRow.Cells("SELECTED").Value) Then
                             PrSelectedList.Add((dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_NAME)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_VALUE)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_DISP)).Value))
-                            If PrDAIHYO.ITEM_VALUE.IsNullOrWhiteSpace And PrMODE = 1 Then
+                            If PrDAIHYO.ITEM_VALUE.IsNulOrWS And PrMODE = 1 Then
                                 dgv.CurrentRow.Cells("DAIHYO").Value = True
                                 PrDAIHYO = (dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_NAME)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_VALUE)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_DISP)).Value)
                             End If
@@ -311,7 +311,7 @@ Public Class FrmG0014
                         Else
                             Trow("SELECTED") = PrSelectedList.Contains((GeninBunsekiKB, .Item("ITEM_VALUE").ToString.Trim, .Item("ITEM_DISP").ToString.Trim))
                         End If
-                        If PrDAIHYO.ITEM_VALUE.IsNullOrWhiteSpace Then
+                        If PrDAIHYO.ITEM_VALUE.IsNulOrWS Then
                             Trow("DAIHYO") = False
                         Else
                             Dim bln As Boolean = (PrDAIHYO.ITEM_DISP = .Item("ITEM_DISP").ToString.Trim And PrDAIHYO.ITEM_NAME = GeninBunsekiKB And PrDAIHYO.ITEM_VALUE = .Item("ITEM_VALUE").ToString.Trim)
@@ -401,7 +401,7 @@ Public Class FrmG0014
 
             For intFunc As Integer = 1 To 12
                 With Me.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNulOrWS Then
                         .Text = ""
                         .Visible = False
                     End If

@@ -477,14 +477,14 @@ Public Class FrmG0011
     ''' <returns></returns>
     Private Function FunSAVE_FILE(ByRef DB As ClsDbUtility) As Boolean
 
-        If _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace And _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace And _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace Then
+        If _D003_NCR_J.FILE_PATH.IsNulOrWS And _D003_NCR_J.G_FILE_PATH1.IsNulOrWS And _D003_NCR_J.G_FILE_PATH2.IsNulOrWS Then
             Return True
         Else
             'SPEC: 2.(3).D.②.添付ファイル保存
             Dim strRootDir As String
             Dim strMsg As String
             strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
-            If strRootDir.IsNullOrWhiteSpace OrElse Not System.IO.Directory.Exists(strRootDir) Then
+            If strRootDir.IsNulOrWS OrElse Not System.IO.Directory.Exists(strRootDir) Then
 
                 strMsg = "添付ファイル保存先が設定されていないか、アクセス出来ません。" & vbCrLf &
                          "添付ファイルはシステムに保存されませんが、" & vbCrLf &
@@ -503,13 +503,13 @@ Public Class FrmG0011
             Else
                 Try
                     System.IO.Directory.CreateDirectory(strRootDir & _D003_NCR_J.HOKOKU_NO)
-                    If Not _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH) Then
+                    If Not _D003_NCR_J.FILE_PATH.IsNulOrWS AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH) Then
                         System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH, True)
                     End If
-                    If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1) Then
+                    If Not _D003_NCR_J.G_FILE_PATH1.IsNulOrWS AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1) Then
                         System.IO.File.Copy(lblPict1Path.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1, True)
                     End If
-                    If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2) Then
+                    If Not _D003_NCR_J.G_FILE_PATH2.IsNulOrWS AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2) Then
                         System.IO.File.Copy(lblPict2Path.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2, True)
                     End If
 
@@ -572,7 +572,7 @@ Public Class FrmG0011
         strSysDate = DB.GetSysDateString()
 
         '-----未保存時、報告書No取得
-        If _D003_NCR_J.HOKOKU_NO.IsNullOrWhiteSpace Or _D003_NCR_J.HOKOKU_NO = "<新規>" Then
+        If _D003_NCR_J.HOKOKU_NO.IsNulOrWS Or _D003_NCR_J.HOKOKU_NO = "<新規>" Then
             Dim objParam As System.Data.Common.DbParameter = DB.DbCommand.CreateParameter
             Dim lstParam As New List(Of System.Data.Common.DbParameter)
             With objParam
@@ -1014,7 +1014,7 @@ Public Class FrmG0011
         _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
 
         '#80 承認申請日は画面で入力
-        If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+        If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNulOrWS Then
             _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
         ElseIf _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.Trim.Length = 8 Then
             'datetextboxにバインド時は時刻情報を結合
@@ -2821,7 +2821,7 @@ Public Class FrmG0011
             'spWork.Range("RECORD_FRAME").ClearContents()
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_BANGO)).Value = _V002_NCR_J.BUHIN_BANGO
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_NAME)).Value = _V002_NCR_J.BUHIN_NAME
-            If Not _V002_NCR_J.FUTEKIGO_JYOTAI_KB.IsNullOrWhiteSpace Then
+            If Not _V002_NCR_J.FUTEKIGO_JYOTAI_KB.IsNulOrWS Then
                 ssgSheet1.Range(NameOf(_V002_NCR_J.FUTEKIGO_JYOTAI_KB) & _V002_NCR_J.FUTEKIGO_JYOTAI_KB).Value = "TRUE"
             End If
             ssgSheet1.Range(NameOf(_V002_NCR_J.FUTEKIGO_NAIYO)).Value = _V002_NCR_J.FUTEKIGO_NAIYO
@@ -2838,7 +2838,7 @@ Public Class FrmG0011
             ssgSheet1.Range(NameOf(_V002_NCR_J.HENKYAKU_YMD)).Value = _V002_NCR_J.HENKYAKU_YMD
             ssgSheet1.Range(NameOf(_V002_NCR_J.HOKOKU_NO)).Value = _V002_NCR_J.HOKOKU_NO
             ssgSheet1.Range(NameOf(_V002_NCR_J.ITAG_NO)).Value = _V002_NCR_J.ITAG_NO
-            If Not _V002_NCR_J.JIZEN_SINSA_HANTEI_KB.IsNullOrWhiteSpace Then
+            If Not _V002_NCR_J.JIZEN_SINSA_HANTEI_KB.IsNulOrWS Then
                 ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_HANTEI_KB) & _V002_NCR_J.JIZEN_SINSA_HANTEI_KB).Value = "TRUE"
             End If
             ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_SYAIN_NAME)).Value = _V002_NCR_J.JIZEN_SINSA_SYAIN_NAME
@@ -2856,7 +2856,7 @@ Public Class FrmG0011
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_YMD)).Value = _V002_NCR_J.SAISIN_HINSYO_YMD
-            If Not _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB.IsNullOrWhiteSpace Then
+            If Not _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB.IsNulOrWS Then
                 ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_HANTEI_KB) & _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB).Value = "TRUE"
             End If
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_SIRYO_NO)).Value = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
@@ -2970,7 +2970,7 @@ Public Class FrmG0011
 
             For intFunc As Integer = 1 To 12
                 With Me.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNulOrWS Then
                         .Text = ""
                         .Visible = False
                     End If
@@ -3166,17 +3166,17 @@ Public Class FrmG0011
             Using DB As ClsDbUtility = DBOpen()
                 strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
             End Using
-            If Not _D003_NCR_J.FILE_PATH.IsNullOrWhiteSpace Then
+            If Not _D003_NCR_J.FILE_PATH.IsNulOrWS Then
                 lbltmpFile1.Text = CompactString(_D003_NCR_J.FILE_PATH, lbltmpFile1, EllipsisFormat._4_Path)
                 lbltmpFile1.Links.Clear()
                 lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH)
                 lbltmpFile1.Visible = True
                 lbltmpFile1_Clear.Visible = True
             End If
-            If Not _D003_NCR_J.G_FILE_PATH1.IsNullOrWhiteSpace Then
+            If Not _D003_NCR_J.G_FILE_PATH1.IsNulOrWS Then
                 Call SetPict1Data({strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1})
             End If
-            If Not _D003_NCR_J.G_FILE_PATH2.IsNullOrWhiteSpace Then
+            If Not _D003_NCR_J.G_FILE_PATH2.IsNulOrWS Then
                 Call SetPict2Data({strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2})
             End If
 
@@ -3321,14 +3321,14 @@ Public Class FrmG0011
                                 FirstOrDefault
 
                     If _V003 IsNot Nothing Then
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._10_起草入力 Then lblST01_Modoshi_Riyu.Visible = True
+                        If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._10_起草入力 Then lblST01_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
                             lblST01_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
                         Else
                             '転送時
                             lblST01_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
                         End If
-                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                        If _V003.SYONIN_YMDHNS.IsNulOrWS Then
                             cmbST01_DestTANTO.SelectedValue = 0
                         Else
                             cmbST01_DestTANTO.SelectedValue = _V003.SYAIN_ID
@@ -3372,7 +3372,7 @@ Public Class FrmG0011
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_起草確認製造GL).
                                 FirstOrDefault
 
-                If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                If _V003.SYONIN_YMDHNS.IsNulOrWS Then
                     cmbST02_DestTANTO.SelectedValue = 0
                 Else
                     cmbST02_DestTANTO.SelectedValue = _V003.SYAIN_ID
@@ -3380,7 +3380,7 @@ Public Class FrmG0011
                 txtST02_Comment.Text = _V003.COMMENT
 
                 If _V003 IsNot Nothing Then
-                    If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._20_起草確認製造GL Then lblST02_Modoshi_Riyu.Visible = True
+                    If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._20_起草確認製造GL Then lblST02_Modoshi_Riyu.Visible = True
                     If _V003.SASIMODOSI_FG Then
                         lblST02_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
                     Else
@@ -3428,7 +3428,7 @@ Public Class FrmG0011
                                 FirstOrDefault
 
                 If _V003 IsNot Nothing Then
-                    If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                    If _V003.SYONIN_YMDHNS.IsNulOrWS Then
                         cmbST03_DestTANTO.SelectedValue = 0
                     Else
                         cmbST03_DestTANTO.SelectedValue = _V003.SYAIN_ID
@@ -3448,7 +3448,7 @@ Public Class FrmG0011
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
 
-                    If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._30_起草確認検査 Then lblST03_Modoshi_Riyu.Visible = True
+                    If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._30_起草確認検査 Then lblST03_Modoshi_Riyu.Visible = True
 
                     If _V003.SASIMODOSI_FG Then
                         lblST03_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
@@ -3519,7 +3519,7 @@ Public Class FrmG0011
                 _D003_NCR_J.ZESEI_NASI_RIYU = _V002_NCR_J.ZESEI_NASI_RIYU
 
                 If _V003 IsNot Nothing Then
-                    If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                    If _V003.SYONIN_YMDHNS.IsNulOrWS Then
                         cmbST04_DestTANTO.SelectedValue = 0
                     Else
                         cmbST04_DestTANTO.SelectedValue = _V003.SYAIN_ID
@@ -3537,7 +3537,7 @@ Public Class FrmG0011
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
-                    If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 Then lblST04_Modoshi_Riyu.Visible = True
+                    If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 Then lblST04_Modoshi_Riyu.Visible = True
                     If _V003.SASIMODOSI_FG Then
                         lblST04_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
                     Else
@@ -3576,7 +3576,7 @@ Public Class FrmG0011
                                 FirstOrDefault
 
                 If _V003 IsNot Nothing Then
-                    If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                    If _V003.SYONIN_YMDHNS.IsNulOrWS Then
                         cmbST05_DestTANTO.SelectedValue = 0
                     Else
                         cmbST05_DestTANTO.SelectedValue = _V003.SYAIN_ID
@@ -3594,7 +3594,7 @@ Public Class FrmG0011
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
-                    If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._50_事前審査確認 Then lblST05_Modoshi_Riyu.Visible = True
+                    If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._50_事前審査確認 Then lblST05_Modoshi_Riyu.Visible = True
                     If _V003.SASIMODOSI_FG Then
                         lblST05_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
                     Else
@@ -3648,7 +3648,7 @@ Public Class FrmG0011
                 _D003_NCR_J.SAISIN_IINKAI_SIRYO_NO = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
 
                 If _V003 IsNot Nothing Then
-                    If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                    If _V003.SYONIN_YMDHNS.IsNulOrWS Then
                         cmbST06_DestTANTO.SelectedValue = 0
                     Else
                         cmbST06_DestTANTO.SelectedValue = _V003.SYAIN_ID
@@ -3666,7 +3666,7 @@ Public Class FrmG0011
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     End If
-                    If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._60_再審審査判定_技術代表 Then lblST06_Modoshi_Riyu.Visible = True
+                    If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._60_再審審査判定_技術代表 Then lblST06_Modoshi_Riyu.Visible = True
                     If _V003.SASIMODOSI_FG Then
                         lblST06_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
                     Else
@@ -3707,7 +3707,7 @@ Public Class FrmG0011
                     _D003_NCR_J.SAISIN_IINKAI_SIRYO_NO = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
 
                     If _V003 IsNot Nothing Then
-                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                        If _V003.SYONIN_YMDHNS.IsNulOrWS Then
                             cmbST07_DestTANTO.SelectedValue = 0
                         Else
                             cmbST07_DestTANTO.SelectedValue = _V003.SYAIN_ID
@@ -3725,7 +3725,7 @@ Public Class FrmG0011
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._61_再審審査判定_品証代表 Then lblST07_Modoshi_Riyu.Visible = True
+                        If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._61_再審審査判定_品証代表 Then lblST07_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
                             lblST07_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
                         Else
@@ -3798,7 +3798,7 @@ Public Class FrmG0011
                     End If
 
                     If _V003 IsNot Nothing Then
-                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                        If _V003.SYONIN_YMDHNS.IsNulOrWS Then
                             cmbST08_DestTANTO.SelectedValue = 0
                         Else
                             cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
@@ -3816,7 +3816,7 @@ Public Class FrmG0011
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag Then lblST08_Modoshi_Riyu.Visible = True
+                        If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag Then lblST08_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
                             lblST08_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
                         Else
@@ -3951,7 +3951,7 @@ Public Class FrmG0011
                     _D003_NCR_J.TENYO_YMD = _V002_NCR_J.TENYO_YMD
 
                     If _V003 IsNot Nothing Then
-                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                        If _V003.SYONIN_YMDHNS.IsNulOrWS Then
                             cmbST09_DestTANTO.SelectedValue = 0
                         Else
                             cmbST09_DestTANTO.SelectedValue = _V003.SYAIN_ID
@@ -3969,7 +3969,7 @@ Public Class FrmG0011
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._80_処置実施 Then lblST09_Modoshi_Riyu.Visible = True
+                        If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._80_処置実施 Then lblST09_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
                             lblST09_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
                         Else
@@ -4184,7 +4184,7 @@ Public Class FrmG0011
                                 FirstOrDefault
 
                     If _V003 IsNot Nothing Then
-                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                        If _V003.SYONIN_YMDHNS.IsNulOrWS Then
                             cmbST13_DestTANTO.SelectedValue = 0
                         Else
                             cmbST13_DestTANTO.SelectedValue = _V003.SYAIN_ID
@@ -4202,7 +4202,7 @@ Public Class FrmG0011
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._90_処置実施確認_管理T Then lblST13_Modoshi_Riyu.Visible = True
+                        If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._90_処置実施確認_管理T Then lblST13_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
                             lblST13_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
                         Else
@@ -4242,7 +4242,7 @@ Public Class FrmG0011
                                 FirstOrDefault
 
                     If _V003 IsNot Nothing Then
-                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                        If _V003.SYONIN_YMDHNS.IsNulOrWS Then
                             cmbST14_DestTANTO.SelectedValue = 0
                         Else
                             cmbST14_DestTANTO.SelectedValue = _V003.SYAIN_ID
@@ -4261,7 +4261,7 @@ Public Class FrmG0011
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
 
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長 Then lblST14_Modoshi_Riyu.Visible = True
+                        If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._100_処置実施決裁_製造課長 Then lblST14_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
                             lblST14_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
                         Else
@@ -4356,7 +4356,7 @@ Public Class FrmG0011
                     _D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU = _V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU
 
                     If _V003 IsNot Nothing Then
-                        If _V003.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+                        If _V003.SYONIN_YMDHNS.IsNulOrWS Then
                             cmbST15_DestTANTO.SelectedValue = 0
                         Else
                             cmbST15_DestTANTO.SelectedValue = _V003.SYAIN_ID
@@ -4374,7 +4374,7 @@ Public Class FrmG0011
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         End If
-                        If Not _V003.RIYU.IsNullOrWhiteSpace And intStageID = ENM_NCR_STAGE._110_abcde処置担当 Then lblST15_Modoshi_Riyu.Visible = True
+                        If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._110_abcde処置担当 Then lblST15_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
                             lblST15_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
                         Else
@@ -4783,7 +4783,7 @@ Public Class FrmG0011
                             Dim dr = DirectCast(cmbSYANAI_CD.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmb.SelectedValue).FirstOrDefault
                             If dr IsNot Nothing Then
                                 _D003_NCR_J.BUHIN_BANGO = dr.Item(NameOf(D003_NCR_J.BUHIN_BANGO))
-                                If _D003_NCR_J.BUHIN_NAME.IsNullOrWhiteSpace Then _D003_NCR_J.BUHIN_NAME = dr.Item(NameOf(D003_NCR_J.BUHIN_NAME))
+                                If _D003_NCR_J.BUHIN_NAME.IsNulOrWS Then _D003_NCR_J.BUHIN_NAME = dr.Item(NameOf(D003_NCR_J.BUHIN_NAME))
                                 If dr.Item(NameOf(D003_NCR_J.KISYU_ID)) <> 0 Then _D003_NCR_J.KISYU_ID = dr.Item(NameOf(D003_NCR_J.KISYU_ID))
                             Else
                                 _D003_NCR_J.BUHIN_BANGO = " "
@@ -4861,7 +4861,7 @@ Public Class FrmG0011
                         Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbBUHIN_BANGO.SelectedValue).FirstOrDefault
                         If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
                             _D003_NCR_J.SYANAI_CD = dr.Item("SYANAI_CD")
-                            If dr.Item("BUHIN_NAME").ToString.IsNullOrWhiteSpace = False Then _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
+                            If dr.Item("BUHIN_NAME").ToString.IsNulOrWS = False Then _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
                         Else
                             _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
                         End If
@@ -4899,7 +4899,7 @@ Public Class FrmG0011
     Private Sub MtxGOUKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles mtxGOUKI.Validating 必須項目でない
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, (mtx.ReadOnly AndAlso Not mtx.Text.IsNullOrWhiteSpace), String.Format(My.Resources.infoMsgRequireSelectOrInput, "製造番号(号機)"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, (mtx.ReadOnly AndAlso Not mtx.Text.IsNulOrWS), String.Format(My.Resources.infoMsgRequireSelectOrInput, "製造番号(号機)"))
 
 
     End Sub
@@ -4930,7 +4930,7 @@ Public Class FrmG0011
 
     Private Sub MtxFUTEKIGO_NAIYO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxHENKYAKU_RIYU.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        Dim result As Boolean = Not (mtx.Visible = True AndAlso mtx.ReadOnly = False AndAlso mtx.Text.IsNullOrWhiteSpace)
+        Dim result As Boolean = Not (mtx.Visible = True AndAlso mtx.ReadOnly = False AndAlso mtx.Text.IsNulOrWS)
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "返却理由"))
 
     End Sub
@@ -4999,7 +4999,7 @@ Public Class FrmG0011
     Private Sub MtxZUBAN_KIKAKU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles mtxZUBAN_KIKAKU.Validating 必須項目でない
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "図番"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "図番"))
 
     End Sub
 
@@ -5020,7 +5020,7 @@ Public Class FrmG0011
     Private Sub DtHASSEI_YMD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtHASSEI_YMD.Validating
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "発生日"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "発生日"))
 
 
     End Sub
@@ -5074,7 +5074,7 @@ Public Class FrmG0011
                                                                                                               dtST15_UPD_YMD.Validating
 
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認・申請日"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認・申請日"))
 
 
     End Sub
@@ -5086,14 +5086,14 @@ Public Class FrmG0011
     Private Sub TxtST01_YOKYU_NAIYO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtST01_YOKYU_NAIYO.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, (txt.ReadOnly OrElse Not txt.Text.IsNullOrWhiteSpace), String.Format(My.Resources.infoMsgRequireSelectOrInput, "要求内容"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, (txt.ReadOnly OrElse Not txt.Text.IsNulOrWS), String.Format(My.Resources.infoMsgRequireSelectOrInput, "要求内容"))
 
     End Sub
 
     Private Sub TxtST01_KEKKA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtST01_KEKKA.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, (txt.ReadOnly OrElse Not txt.Text.IsNullOrWhiteSpace), String.Format(My.Resources.infoMsgRequireSelectOrInput, "観察結果"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, (txt.ReadOnly OrElse Not txt.Text.IsNulOrWS), String.Format(My.Resources.infoMsgRequireSelectOrInput, "観察結果"))
 
     End Sub
 
@@ -5152,7 +5152,7 @@ Public Class FrmG0011
     Private Sub TxtST04_RIYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtST04_RIYU.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, (txt.ReadOnly OrElse Not txt.Text.IsNullOrWhiteSpace), String.Format(My.Resources.infoMsgRequireSelectOrInput, "否の理由"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, (txt.ReadOnly OrElse Not txt.Text.IsNulOrWS), String.Format(My.Resources.infoMsgRequireSelectOrInput, "否の理由"))
 
     End Sub
 
@@ -5484,7 +5484,7 @@ Public Class FrmG0011
         Try
 
             strEXE = lbltmpFile1.Links(0).LinkData
-            If strEXE.IsNullOrWhiteSpace Then
+            If strEXE.IsNulOrWS Then
             Else
                 If System.IO.File.Exists(strEXE) = True Then
                     hProcess.StartInfo.FileName = strEXE
@@ -6057,7 +6057,12 @@ Public Class FrmG0011
                         Case blnFieldList.Contains(p.Name)
                             _D003_NCR_J(p.Name) = CBool(_V002_NCR_J(p.Name))
                         Case Else
-                            _D003_NCR_J(p.Name) = _V002_NCR_J(p.Name)
+                            If p.PropertyType Is GetType(String) Then
+                                _D003_NCR_J(p.Name) = _V002_NCR_J(p.Name).ToString.Trim
+                            Else
+                                _D003_NCR_J(p.Name) = _V002_NCR_J(p.Name)
+                            End If
+
                     End Select
                 End If
             Next p
@@ -6456,7 +6461,7 @@ Public Class FrmG0011
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
 
-        If strBUHIN_BANGO.IsNullOrWhiteSpace Or strFUTEKIGO_KB.IsNullOrWhiteSpace Or strFUTEKIGO_S_KB.IsNullOrWhiteSpace Then
+        If strBUHIN_BANGO.IsNulOrWS Or strFUTEKIGO_KB.IsNulOrWS Or strFUTEKIGO_S_KB.IsNulOrWS Then
             Return False
         Else
             sbSQL.Remove(0, sbSQL.Length)
@@ -6487,7 +6492,7 @@ Public Class FrmG0011
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
 
-        If strHOKOKU_NO.IsNullOrWhiteSpace Or intSYAIN_ID = 0 Then
+        If strHOKOKU_NO.IsNulOrWS Or intSYAIN_ID = 0 Then
             Return False
         Else
             sbSQL.Remove(0, sbSQL.Length)

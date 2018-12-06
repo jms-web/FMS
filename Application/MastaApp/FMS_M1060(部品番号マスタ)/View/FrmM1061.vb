@@ -317,7 +317,7 @@ Public Class FrmM1061
         Try
             For intFunc As Integer = 1 To 12
                 With Me.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNulOrWS Then
                         .Text = ""
                         .Visible = False
                     End If
@@ -580,14 +580,14 @@ Public Class FrmM1061
     '部品番号　入力チェック
     Private Sub MtxBUHIN_BANGO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxBUHIN_BANGO.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品番号"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品番号"))
 
     End Sub
 
     '部品番号　入力チェック
     Private Sub MtxTANKA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxTANKA.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "単価"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "単価"))
 
 
     End Sub

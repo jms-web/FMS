@@ -92,6 +92,8 @@ Public Class FrmG0012
         dtFUTEKIGO_HASSEI_YMD.ReadOnly = True
 
         dtSYOCHI_YOTEI_YMD.MinDate = Date.Today
+
+        dtFUTEKIGO_HASSEI_YMD.ReadOnly = True
     End Sub
 
 #End Region
@@ -315,17 +317,17 @@ Public Class FrmG0012
     ''' <returns></returns>
     Private Function FunSAVE_FILE(ByRef DB As ClsDbUtility) As Boolean
 
-        If _D005_CAR_J.KYOIKU_FILE_PATH.IsNullOrWhiteSpace And
-            _D005_CAR_J.SYOSAI_FILE_PATH.IsNullOrWhiteSpace And
-            _D005_CAR_J.FILE_PATH1.IsNullOrWhiteSpace And
-            _D005_CAR_J.FILE_PATH2.IsNullOrWhiteSpace Then
+        If _D005_CAR_J.KYOIKU_FILE_PATH.IsNulOrWS And
+            _D005_CAR_J.SYOSAI_FILE_PATH.IsNulOrWS And
+            _D005_CAR_J.FILE_PATH1.IsNulOrWS And
+            _D005_CAR_J.FILE_PATH2.IsNulOrWS Then
             Return True
         Else
             'SPEC: 2.(3).D.②.添付ファイル保存
             Dim strRootDir As String
             Dim strMsg As String
             strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
-            If strRootDir.IsNullOrWhiteSpace OrElse Not System.IO.Directory.Exists(strRootDir) Then
+            If strRootDir.IsNulOrWS OrElse Not System.IO.Directory.Exists(strRootDir) Then
 
                 strMsg = "添付ファイル保存先が設定されていないか、アクセス出来ません。" & vbCrLf &
                          "添付ファイルはシステムに保存されませんが、" & vbCrLf &
@@ -338,16 +340,16 @@ Public Class FrmG0012
             Else
                 Try
                     System.IO.Directory.CreateDirectory(strRootDir & _D005_CAR_J.HOKOKU_NO)
-                    If Not _D005_CAR_J.KYOIKU_FILE_PATH.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH) Then
+                    If Not _D005_CAR_J.KYOIKU_FILE_PATH.IsNulOrWS AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH) Then
                         System.IO.File.Copy(lblKYOIKU_FILE_PATH.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH, True)
                     End If
-                    If Not _D005_CAR_J.SYOSAI_FILE_PATH.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH) Then
+                    If Not _D005_CAR_J.SYOSAI_FILE_PATH.IsNulOrWS AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH) Then
                         System.IO.File.Copy(lblSYOSAI_FILE_PATH.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH, True)
                     End If
-                    If Not _D005_CAR_J.FILE_PATH1.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1) Then
+                    If Not _D005_CAR_J.FILE_PATH1.IsNulOrWS AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1) Then
                         System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1, True)
                     End If
-                    If Not _D005_CAR_J.FILE_PATH2.IsNullOrWhiteSpace AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2) Then
+                    If Not _D005_CAR_J.FILE_PATH2.IsNulOrWS AndAlso Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2) Then
                         System.IO.File.Copy(lbltmpFile2.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2, True)
                     End If
 
@@ -786,7 +788,7 @@ Public Class FrmG0012
         _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
 
         '#80 承認申請日は画面で入力
-        If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNullOrWhiteSpace Then
+        If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNulOrWS Then
             _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
         ElseIf _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.Trim.Length = 8 Then
             'datetextboxにバインド時は時刻情報を結合
@@ -1786,7 +1788,7 @@ Public Class FrmG0012
 
             For intFunc As Integer = 1 To 12
                 With Me.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNulOrWS Then
                         .Text = ""
                         .Visible = False
                     End If
@@ -2026,7 +2028,7 @@ Public Class FrmG0012
                 DirectCast(frmDLG, FrmG0013).PrMODE = 1
                 DirectCast(frmDLG, FrmG0013).PrYOIN = (cmbKONPON_YOIN_KB1.SelectedValue, cmbKONPON_YOIN_KB1.Text)
                 DirectCast(frmDLG, FrmG0013).PrSelectedList = PrGenin1
-                If Not mtxGENIN1.Text.IsNullOrWhiteSpace Then
+                If Not mtxGENIN1.Text.IsNulOrWS Then
                     DirectCast(frmDLG, FrmG0013).PrDAIHYO = (mtxGENIN1.Text.Split(",")(0), mtxGENIN1.Text.Split(",")(1), mtxGENIN1_DISP.Text)
                 End If
             Else
@@ -2034,7 +2036,7 @@ Public Class FrmG0012
                 DirectCast(frmDLG, FrmG0014).PrMODE = 1
                 DirectCast(frmDLG, FrmG0014).PrYOIN = (cmbKONPON_YOIN_KB1.SelectedValue, cmbKONPON_YOIN_KB1.Text)
                 DirectCast(frmDLG, FrmG0014).PrSelectedList = PrGenin1
-                If Not mtxGENIN1.Text.IsNullOrWhiteSpace Then
+                If Not mtxGENIN1.Text.IsNulOrWS Then
                     DirectCast(frmDLG, FrmG0014).PrDAIHYO = (mtxGENIN1.Text.Split(",")(0), mtxGENIN1.Text.Split(",")(1), mtxGENIN1_DISP.Text)
                 End If
             End If
@@ -2051,7 +2053,7 @@ Public Class FrmG0012
                     DAIHYO = DirectCast(frmDLG, FrmG0014).PrDAIHYO
                 End If
 
-                If DAIHYO.ITEM_NAME.IsNullOrWhiteSpace Then
+                If DAIHYO.ITEM_NAME.IsNulOrWS Then
                     PrGenin1.Clear()
                     mtxGENIN1_DISP.Text = ""
                     mtxGENIN1.Text = ""
@@ -2078,7 +2080,7 @@ Public Class FrmG0012
                 DirectCast(frmDLG, FrmG0013).PrMODE = 1
                 DirectCast(frmDLG, FrmG0013).PrYOIN = (cmbKONPON_YOIN_KB2.SelectedValue, cmbKONPON_YOIN_KB2.Text)
                 DirectCast(frmDLG, FrmG0013).PrSelectedList = PrGenin2
-                If Not mtxGENIN2.Text.IsNullOrWhiteSpace Then
+                If Not mtxGENIN2.Text.IsNulOrWS Then
                     DirectCast(frmDLG, FrmG0013).PrDAIHYO = (mtxGENIN2.Text.Split(",")(0), mtxGENIN2.Text.Split(",")(1), mtxGENIN2_DISP.Text)
                 End If
             Else
@@ -2086,7 +2088,7 @@ Public Class FrmG0012
                 DirectCast(frmDLG, FrmG0014).PrMODE = 1
                 DirectCast(frmDLG, FrmG0014).PrYOIN = (cmbKONPON_YOIN_KB2.SelectedValue, cmbKONPON_YOIN_KB2.Text)
                 DirectCast(frmDLG, FrmG0014).PrSelectedList = PrGenin2
-                If Not mtxGENIN2.Text.IsNullOrWhiteSpace Then
+                If Not mtxGENIN2.Text.IsNulOrWS Then
                     DirectCast(frmDLG, FrmG0014).PrDAIHYO = (mtxGENIN2.Text.Split(",")(0), mtxGENIN2.Text.Split(",")(1), mtxGENIN2_DISP.Text)
                 End If
             End If
@@ -2103,7 +2105,7 @@ Public Class FrmG0012
                     DAIHYO = DirectCast(frmDLG, FrmG0014).PrDAIHYO
                 End If
 
-                If DAIHYO.ITEM_NAME.IsNullOrWhiteSpace Then
+                If DAIHYO.ITEM_NAME.IsNulOrWS Then
                     PrGenin2.Clear()
                     mtxGENIN2_DISP.Text = ""
                     mtxGENIN2.Text = ""
@@ -2159,7 +2161,7 @@ Public Class FrmG0012
 
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認・申請日"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認・申請日"))
 
 
     End Sub
@@ -2200,7 +2202,7 @@ Public Class FrmG0012
         Try
 
             strEXE = lblKYOIKU_FILE_PATH.Links(0).LinkData
-            If strEXE.IsNullOrWhiteSpace Then
+            If strEXE.IsNulOrWS Then
             Else
                 If System.IO.File.Exists(strEXE) = True Then
                     hProcess.StartInfo.FileName = strEXE
@@ -2288,7 +2290,7 @@ Public Class FrmG0012
         Try
 
             strEXE = lblSYOSAI_FILE_PATH.Links(0).LinkData
-            If strEXE.IsNullOrWhiteSpace Then
+            If strEXE.IsNulOrWS Then
             Else
                 If System.IO.File.Exists(strEXE) = True Then
                     hProcess.StartInfo.FileName = strEXE
@@ -2390,7 +2392,7 @@ Public Class FrmG0012
         Try
 
             strEXE = lbltmpFile1.Links(0).LinkData
-            If strEXE.IsNullOrWhiteSpace Then
+            If strEXE.IsNulOrWS Then
             Else
                 If System.IO.File.Exists(strEXE) = True Then
                     hProcess.StartInfo.FileName = strEXE
@@ -2475,7 +2477,7 @@ Public Class FrmG0012
         Try
 
             strEXE = lbltmpFile2.Links(0).LinkData
-            If strEXE.IsNullOrWhiteSpace Then
+            If strEXE.IsNulOrWS Then
             Else
                 If System.IO.File.Exists(strEXE) = True Then
                     hProcess.StartInfo.FileName = strEXE
@@ -2779,7 +2781,7 @@ Public Class FrmG0012
                                 Where(Function(r) r.SYONIN_JUN = PrCurrentStage).
                                 FirstOrDefault
             If _V003 IsNot Nothing Then
-                If Not _V003.RIYU.IsNullOrWhiteSpace Then lbl_Modoshi_Riyu.Visible = True
+                If Not _V003.RIYU.IsNulOrWS Then lbl_Modoshi_Riyu.Visible = True
                 If _V003.SASIMODOSI_FG Then
                     lbl_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
                 Else
@@ -2957,11 +2959,11 @@ Public Class FrmG0012
             _D005_CAR_J.KAITO_25 = _V005_CAR_J.KAITO_25
 
             _D005_CAR_J.KONPON_YOIN_KB1 = _V005_CAR_J.KONPON_YOIN_KB1
-            If Not _V005_CAR_J.KONPON_YOIN_KB1.IsNullOrWhiteSpace Then
+            If Not _V005_CAR_J.KONPON_YOIN_KB1.IsNulOrWS Then
                 btnSelectGenin1.Enabled = True
             End If
             _D005_CAR_J.KONPON_YOIN_KB2 = _V005_CAR_J.KONPON_YOIN_KB2
-            If Not _V005_CAR_J.KONPON_YOIN_KB2.IsNullOrWhiteSpace Then
+            If Not _V005_CAR_J.KONPON_YOIN_KB2.IsNulOrWS Then
                 btnSelectGenin2.Enabled = True
             End If
 
@@ -3000,7 +3002,7 @@ Public Class FrmG0012
             Using DB As ClsDbUtility = DBOpen()
                 strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
             End Using
-            If Not _D005_CAR_J.KYOIKU_FILE_PATH.IsNullOrWhiteSpace Then
+            If Not _D005_CAR_J.KYOIKU_FILE_PATH.IsNulOrWS Then
                 _D005_CAR_J.KYOIKU_FILE_PATH = _V005_CAR_J.KYOIKU_FILE_PATH
                 lblKYOIKU_FILE_PATH.Text = CompactString(_V005_CAR_J.KYOIKU_FILE_PATH, lblKYOIKU_FILE_PATH, EllipsisFormat._4_Path)
                 lblKYOIKU_FILE_PATH.Links.Clear()
@@ -3008,7 +3010,7 @@ Public Class FrmG0012
                 lblKYOIKU_FILE_PATH.Visible = True
                 lblKYOIKU_FILE_PATH_Clear.Visible = True
             End If
-            If Not _D005_CAR_J.SYOSAI_FILE_PATH.IsNullOrWhiteSpace Then
+            If Not _D005_CAR_J.SYOSAI_FILE_PATH.IsNulOrWS Then
                 _D005_CAR_J.SYOSAI_FILE_PATH = _V005_CAR_J.SYOSAI_FILE_PATH
                 lblSYOSAI_FILE_PATH.Text = CompactString(_V005_CAR_J.SYOSAI_FILE_PATH, lblKYOIKU_FILE_PATH, EllipsisFormat._4_Path)
                 lblSYOSAI_FILE_PATH.Links.Clear()
@@ -3016,7 +3018,7 @@ Public Class FrmG0012
                 lblSYOSAI_FILE_PATH.Visible = True
                 lblSYOSAI_FILE_PATH_Clear.Visible = True
             End If
-            If Not _D005_CAR_J.FILE_PATH1.IsNullOrWhiteSpace Then
+            If Not _D005_CAR_J.FILE_PATH1.IsNulOrWS Then
                 _D005_CAR_J.FILE_PATH1 = _V005_CAR_J.FILE_PATH1
                 lbltmpFile1.Text = CompactString(_V005_CAR_J.FILE_PATH1, lbltmpFile1, EllipsisFormat._4_Path)
                 lbltmpFile1.Links.Clear()
@@ -3024,7 +3026,7 @@ Public Class FrmG0012
                 lbltmpFile1.Visible = True
                 lbltmpFile1_Clear.Visible = True
             End If
-            If Not _D005_CAR_J.FILE_PATH2.IsNullOrWhiteSpace Then
+            If Not _D005_CAR_J.FILE_PATH2.IsNulOrWS Then
                 _D005_CAR_J.FILE_PATH2 = _V005_CAR_J.FILE_PATH2
                 lbltmpFile2.Text = CompactString(_V005_CAR_J.FILE_PATH2, lbltmpFile2, EllipsisFormat._4_Path)
                 lbltmpFile2.Links.Clear()
@@ -3139,7 +3141,7 @@ Public Class FrmG0012
     Private Sub TxtKAITO_21_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtKAITO_21.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, txt.ReadOnly OrElse Not txt.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:内容"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, txt.ReadOnly OrElse Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:内容"))
 
 
     End Sub
@@ -3147,7 +3149,7 @@ Public Class FrmG0012
     Private Sub TxtKAITO_22_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtKAITO_22.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, txt.ReadOnly OrElse Not txt.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:内容"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, txt.ReadOnly OrElse Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:内容"))
 
 
     End Sub
@@ -3155,7 +3157,7 @@ Public Class FrmG0012
     Private Sub ＤtKAITO_4_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtKAITO_4.Validating
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:いつまで"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:いつまで"))
 
 
     End Sub
@@ -3173,7 +3175,7 @@ Public Class FrmG0012
         Dim mtxLOT As MaskedTextBoxEx = mtxKAITO_7
         Dim dtYMD As DateTextBoxEx = dtKAITO_8
 
-        Dim result As Boolean = Not (mtxGOKI.Text.IsNullOrWhiteSpace AndAlso mtxLOT.Text.IsNullOrWhiteSpace AndAlso dtYMD.ValueNonFormat.IsNullOrWhiteSpace)
+        Dim result As Boolean = Not (mtxGOKI.Text.IsNulOrWS AndAlso mtxLOT.Text.IsNulOrWS AndAlso dtYMD.ValueNonFormat.IsNulOrWS)
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtxGOKI, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:有効号機・LOT・日付のいづれかの入力が必要です"))
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtxLOT, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:有効号機・LOT・日付のいづれかの入力が必要です"))
         IsValidated *= ErrorProvider.UpdateErrorInfo(dtYMD, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:有効号機・LOT・日付のいづれかの入力が必要です"))
@@ -3186,7 +3188,7 @@ Public Class FrmG0012
     Private Sub DtKAITO_9_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtKAITO_9.Validating
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:いつまで"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:いつまで"))
 
 
     End Sub
@@ -3204,7 +3206,7 @@ Public Class FrmG0012
         Dim mtxLOT As MaskedTextBoxEx = mtxKAITO_12
         Dim dtYMD As DateTextBoxEx = dtKAITO_13
 
-        Dim result As Boolean = Not (mtxGOKI.Text.IsNullOrWhiteSpace AndAlso mtxLOT.Text.IsNullOrWhiteSpace AndAlso dtYMD.ValueNonFormat.IsNullOrWhiteSpace)
+        Dim result As Boolean = Not (mtxGOKI.Text.IsNulOrWS AndAlso mtxLOT.Text.IsNulOrWS AndAlso dtYMD.ValueNonFormat.IsNulOrWS)
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtxGOKI, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:有効号機・LOT・日付のいづれかの入力が必要です"))
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtxLOT, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:有効号機・LOT・日付のいづれかの入力が必要です"))
         IsValidated *= ErrorProvider.UpdateErrorInfo(dtYMD, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:有効号機・LOT・日付のいづれかの入力が必要です"))
@@ -3216,7 +3218,7 @@ Public Class FrmG0012
     Private Sub dtKAITO_16_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtKAITO_16.Validating
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, dtx.ReadOnly OrElse Not dtx.ValueNonFormat.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:いつまで"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, dtx.ReadOnly OrElse Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:いつまで"))
 
 
     End Sub
@@ -3234,7 +3236,7 @@ Public Class FrmG0012
         Dim mtxLOT As MaskedTextBoxEx = mtxKAITO_19
         Dim dtYMD As DateTextBoxEx = dtKAITO_20
 
-        Dim result As Boolean = (mtxGOKI.ReadOnly OrElse Not (mtxGOKI.Text.IsNullOrWhiteSpace AndAlso mtxLOT.Text.IsNullOrWhiteSpace AndAlso dtYMD.ValueNonFormat.IsNullOrWhiteSpace))
+        Dim result As Boolean = (mtxGOKI.ReadOnly OrElse Not (mtxGOKI.Text.IsNulOrWS AndAlso mtxLOT.Text.IsNulOrWS AndAlso dtYMD.ValueNonFormat.IsNulOrWS))
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtxGOKI, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtxLOT, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
         IsValidated *= ErrorProvider.UpdateErrorInfo(dtYMD, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
@@ -3245,7 +3247,7 @@ Public Class FrmG0012
     Private Sub mtxGOKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxGOKI.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, mtx.ReadOnly OrElse Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置有効性レビュー：号機・LOT"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, mtx.ReadOnly OrElse Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置有効性レビュー：号機・LOT"))
 
     End Sub
 

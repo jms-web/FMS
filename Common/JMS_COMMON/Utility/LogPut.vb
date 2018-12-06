@@ -27,7 +27,7 @@ Public Class ErrMsg
         End If
 
         '-----ファイル名
-        If Trim(strLogFileName).IsNullOrWhiteSpace Then
+        If Trim(strLogFileName).IsNulOrWS Then
             LogFileName = My.Application.Info.AssemblyName & ".ERRLOG"
         Else
             LogFileName = strLogFileName
@@ -247,7 +247,7 @@ Public Class WriteLog
         End If
 
         '-----ファイル名
-        If Trim(strLogFileName).IsNullOrWhiteSpace Then
+        If Trim(strLogFileName).IsNulOrWS Then
             LogFileName = My.Application.Info.AssemblyName & ".LOG"
         Else
             LogFileName = strLogFileName

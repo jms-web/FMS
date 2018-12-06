@@ -284,7 +284,7 @@ Public Class FrmM0060
         Try
             For intFunc As Integer = 1 To 12
                 With frm.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNulOrWS Then
                         .Text = ""
                         .Visible = False
                     End If
@@ -373,7 +373,7 @@ Public Class FrmM0060
             Next
 
             '日付表示無し時抜ける
-            If lblDAY(intINDEX).Text.IsNullOrWhiteSpace Then
+            If lblDAY(intINDEX).Text.IsNulOrWS Then
                 Exit Sub
             End If
 
@@ -441,7 +441,7 @@ Public Class FrmM0060
                 End If
             End If
 
-            If dtYM.ValueNonFormat.IsNullOrWhiteSpace Then
+            If dtYM.ValueNonFormat.IsNulOrWS Then
                 Exit Sub
             End If
 
@@ -487,7 +487,7 @@ Public Class FrmM0060
         '未登録データがある場合のみ確定ボタンを表示する
         If Me.lblTOUROKU.Text = "未登録" Then
             cmdFunc1.Enabled = True
-        ElseIf Me.lblTOUROKU.Text.IsNullOrWhiteSpace Then
+        ElseIf Me.lblTOUROKU.Text.IsNulOrWS Then
             cmdFunc1.Enabled = False
         End If
     End Sub

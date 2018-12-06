@@ -171,7 +171,7 @@ Partial Class FrmM0050
         Me.cmbBUSYO_KB.Location = New System.Drawing.Point(86, 3)
         Me.cmbBUSYO_KB.Name = "cmbBUSYO_KB"
         Me.cmbBUSYO_KB.NullValue = " "
-        Me.cmbBUSYO_KB.SelectAllText = False
+
         Me.cmbBUSYO_KB.Size = New System.Drawing.Size(99, 25)
         Me.cmbBUSYO_KB.TabIndex = 0
         Me.cmbBUSYO_KB.ValueMember = "VALUE"
@@ -237,7 +237,7 @@ Partial Class FrmM0050
         Me.cmbBUSYO_NAME.Location = New System.Drawing.Point(259, 3)
         Me.cmbBUSYO_NAME.Name = "cmbBUSYO_NAME"
         Me.cmbBUSYO_NAME.NullValue = " "
-        Me.cmbBUSYO_NAME.SelectAllText = False
+
         Me.cmbBUSYO_NAME.Size = New System.Drawing.Size(198, 25)
         Me.cmbBUSYO_NAME.TabIndex = 57
         Me.cmbBUSYO_NAME.ValueMember = "VALUE"
@@ -408,7 +408,7 @@ Partial Class FrmM0050
         Me.cmbYAKUSYOKU_KB.Location = New System.Drawing.Point(277, 33)
         Me.cmbYAKUSYOKU_KB.Name = "cmbYAKUSYOKU_KB"
         Me.cmbYAKUSYOKU_KB.NullValue = " "
-        Me.cmbYAKUSYOKU_KB.SelectAllText = False
+
         Me.cmbYAKUSYOKU_KB.Size = New System.Drawing.Size(137, 25)
         Me.cmbYAKUSYOKU_KB.TabIndex = 63
         Me.cmbYAKUSYOKU_KB.ValueMember = "VALUE"
@@ -454,7 +454,7 @@ Partial Class FrmM0050
         Me.cmbSYAIN_KB.Location = New System.Drawing.Point(70, 33)
         Me.cmbSYAIN_KB.Name = "cmbSYAIN_KB"
         Me.cmbSYAIN_KB.NullValue = " "
-        Me.cmbSYAIN_KB.SelectAllText = False
+
         Me.cmbSYAIN_KB.Size = New System.Drawing.Size(109, 25)
         Me.cmbSYAIN_KB.TabIndex = 61
         Me.cmbSYAIN_KB.ValueMember = "VALUE"

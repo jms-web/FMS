@@ -274,7 +274,7 @@ Public Class FrmM00102
         Try
 
             For intCNT = 0 To Me.cmdFunc.Length - 1
-                If Me.cmdFunc(intCNT) IsNot Nothing AndAlso Me.cmdFunc(intCNT).Text.Length = 0 OrElse Me.cmdFunc(intCNT).Text.Substring(0, Me.cmdFunc(intCNT).Text.IndexOf("(")).IsNullOrWhiteSpace = True Then
+                If Me.cmdFunc(intCNT) IsNot Nothing AndAlso Me.cmdFunc(intCNT).Text.Length = 0 OrElse Me.cmdFunc(intCNT).Text.Substring(0, Me.cmdFunc(intCNT).Text.IndexOf("(")).IsNulOrWS = True Then
                     Me.cmdFunc(intCNT).Text = ""
                     Me.cmdFunc(intCNT).Visible = False
                 End If

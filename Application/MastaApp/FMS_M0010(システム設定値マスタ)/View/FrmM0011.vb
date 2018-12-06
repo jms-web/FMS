@@ -272,7 +272,7 @@ Public Class FrmM0011
         Try
 
             For intCNT = 0 To Me.cmdFunc.Length - 1
-                If Me.cmdFunc(intCNT) IsNot Nothing AndAlso Me.cmdFunc(intCNT).Text.Length = 0 OrElse Me.cmdFunc(intCNT).Text.Substring(0, Me.cmdFunc(intCNT).Text.IndexOf("(")).IsNullOrWhiteSpace = True Then
+                If Me.cmdFunc(intCNT) IsNot Nothing AndAlso Me.cmdFunc(intCNT).Text.Length = 0 OrElse Me.cmdFunc(intCNT).Text.Substring(0, Me.cmdFunc(intCNT).Text.IndexOf("(")).IsNulOrWS = True Then
                     Me.cmdFunc(intCNT).Text = ""
                     Me.cmdFunc(intCNT).Visible = False
                 End If
@@ -299,7 +299,7 @@ Public Class FrmM0011
 
         Try
 
-            If Not cmbKOMO_NM.Text.IsNullOrWhiteSpace Then
+            If Not cmbKOMO_NM.Text.IsNulOrWS Then
 
                 Using DB As ClsDbUtility = DBOpen()
                     sbSQL.Append("SELECT ITEM_VALUE")
@@ -462,7 +462,7 @@ Public Class FrmM0011
     Private Sub MtxVALUE_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxVALUE.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çÄñ⁄íl"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çÄñ⁄íl"))
 
     End Sub
 

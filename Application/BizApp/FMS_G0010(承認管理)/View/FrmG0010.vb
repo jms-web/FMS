@@ -643,7 +643,7 @@ Public Class FrmG0010
     Private Overloads Sub DgvDATA_SelectionChanged(sender As System.Object, e As System.EventArgs) Handles dgvDATA.SelectionChanged
         Try
             If Me.dgvDATA.CurrentRow IsNot Nothing Then
-                If Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.CLOSE_FG)).Value = "1" Or Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)).Value.ToString.IsNullOrWhiteSpace Then
+                If Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.CLOSE_FG)).Value = "1" Or Me.dgvDATA.CurrentRow.Cells(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)).Value.ToString.IsNulOrWS Then
                     Me.dgvDATA.CurrentRow.ReadOnly = True
                 Else
                     Me.dgvDATA.CurrentRow.ReadOnly = False
@@ -989,7 +989,7 @@ Public Class FrmG0010
             'UNDONE: 削除済み表示切替 可能ならストアドパラメータに条件設定を移行したい
             If chkDleteRowVisibled.Checked Then
             Else
-                Dim drs As List(Of DataRow) = dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of String)("DEL_YMDHNS").IsNullOrWhiteSpace).ToList
+                Dim drs As List(Of DataRow) = dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of String)("DEL_YMDHNS").IsNulOrWS).ToList
                 If drs.Count > 0 Then
                     dtBUFF = drs.CopyToDataTable
                 Else
@@ -1037,7 +1037,7 @@ Public Class FrmG0010
                                     End If
 
                                 Case GetType(Date), GetType(DateTime)
-                                    If row.Item(p.Name).ToString.IsNullOrWhiteSpace = False Then
+                                    If row.Item(p.Name).ToString.IsNulOrWS = False Then
                                         Select Case row.Item(p.Name).ToString.Length
                                             Case 8 'yyyyMMdd
                                                 Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMdd", Nothing)
@@ -1141,9 +1141,9 @@ Public Class FrmG0010
         Try
 
             '-----選択行記憶
-            If flx.Rows.Count > 1 Then
-                intCURROW = flx.RowSel
-            End If
+            'If flx.Rows.Count > 1 Then
+            '    intCURROW = flx.RowSel
+            'End If
 
             flx.BeginUpdate()
 
@@ -1159,7 +1159,7 @@ Public Class FrmG0010
                 '-----選択行設定
                 Try
 
-                    flx.RowSel = intCURROW
+                    'flx.RowSel = intCURROW
                 Catch dgvEx As Exception
                 End Try
                 Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, flx.Rows.Count - flx.Rows.Fixed.ToString)
@@ -1211,7 +1211,7 @@ Public Class FrmG0010
                                                                      g.Field(Of String)("SYONIN_NAIYO")))
             Else
                 JISSEKI_LIST = dtBUFF.AsEnumerable.
-                                    Where(Function(r) r.Field(Of String)("DEL_YMDHNS").IsNullOrWhiteSpace = Not chkDleteRowVisibled.Checked).
+                                    Where(Function(r) r.Field(Of String)("DEL_YMDHNS").IsNulOrWS = Not chkDleteRowVisibled.Checked).
                                     GroupBy(Function(g) Tuple.Create(g.Field(Of Integer)(NameOf(ParamModel.SYONIN_HOKOKUSYO_ID)),
                                                                      g.Field(Of Integer)("SYONIN_JUN"),
                                                                      g.Field(Of String)("SYONIN_NAIYO")))
@@ -1436,7 +1436,7 @@ Public Class FrmG0010
     Private Function FunSelectAll() As Boolean
 
         Try
-            Dim rows = DirectCast(Me.dgvDATA.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("CLOSE_FG") = "0" And r.Field(Of String)("DEL_YMDHNS").IsNullOrWhiteSpace).ToList
+            Dim rows = DirectCast(Me.dgvDATA.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("CLOSE_FG") = "0" And r.Field(Of String)("DEL_YMDHNS").IsNulOrWS).ToList
             If rows.Count > 0 Then
                 For Each row As DataRow In rows
                     row.Item("SELECTED") = True '"●"
@@ -1496,7 +1496,7 @@ Public Class FrmG0010
 
             If dt.Count > 0 Then
                 For Each dr As DataRow In dt.CopyToDataTable.Rows
-                    If strTantoNameList.IsNullOrWhiteSpace Then
+                    If strTantoNameList.IsNulOrWS Then
                         strTantoNameList = dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_NAME))
                     Else
                         strTantoNameList &= vbCrLf & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_NAME))
@@ -1968,7 +1968,7 @@ Public Class FrmG0010
 
             For intFunc As Integer = 1 To 12
                 With Me.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNulOrWS Then
                         .Text = ""
                         .Visible = False
                     End If
@@ -1977,7 +1977,7 @@ Public Class FrmG0010
 
             cmdFunc2.Enabled = True
 
-            If flxDATA.RowSel >= 0 Then
+            If flxDATA.RowSel > 0 Then
                 cmdFunc3.Enabled = True
                 cmdFunc4.Enabled = True
                 cmdFunc5.Enabled = True
@@ -2006,7 +2006,7 @@ Public Class FrmG0010
 
                 If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
 
-                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)) <> "" Then
+                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).ToString.Trim <> "" Then
                         '削除済み
                         cmdFunc4.Enabled = False
                         MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "削除済みデータです")
@@ -2020,7 +2020,7 @@ Public Class FrmG0010
                     End If
                 Else
 
-                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)) <> "" Then
+                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).ToString.Trim <> "" Then
                         '削除済み
                         cmdFunc4.Enabled = False
                         MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "削除済みデータです")
@@ -2179,7 +2179,7 @@ Public Class FrmG0010
                     AddHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
                     cmbGEN_TANTO.DataBindings.Add(New Binding(NameOf(cmbGEN_TANTO.SelectedValue), ParamModel, NameOf(ParamModel.SYOCHI_TANTO), False, DataSourceUpdateMode.OnPropertyChanged, 0))
 
-                    Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNullOrWhiteSpace)
+                    Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNulOrWS)
 
                     '機種
                     RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
@@ -2529,7 +2529,7 @@ Public Class FrmG0010
                 mtxGENIN1_DISP.Text = ""
                 If PrGenin1.Count > 0 Then
                     For Each item In PrGenin1
-                        If mtxGENIN1_DISP.Text.IsNullOrWhiteSpace Then
+                        If mtxGENIN1_DISP.Text.IsNulOrWS Then
                             mtxGENIN1_DISP.Text = item.ITEM_DISP
                         Else
                             mtxGENIN1_DISP.Text &= ", " & item.ITEM_DISP
@@ -2586,7 +2586,7 @@ Public Class FrmG0010
                 mtxGENIN2_DISP.Text = ""
                 If PrGenin2.Count > 0 Then
                     For Each item In PrGenin2
-                        If mtxGENIN2_DISP.Text.IsNullOrWhiteSpace Then
+                        If mtxGENIN2_DISP.Text.IsNulOrWS Then
                             mtxGENIN2_DISP.Text = item.ITEM_DISP
                         Else
                             mtxGENIN2_DISP.Text &= ", " & item.ITEM_DISP
@@ -2667,7 +2667,7 @@ Public Class FrmG0010
         sbParam.Append($",{ParamModel.SYONIN_HOKOKUSYO_ID}")
         sbParam.Append($",{Nz(cmbKISYU.SelectedValue, 0)}")
 
-        If Not cmbBUHIN_BANGO.Text.IsNullOrWhiteSpace And cmbBUHIN_BANGO.SelectedValue <> cmbBUHIN_BANGO.NullValue Then
+        If Not cmbBUHIN_BANGO.Text.IsNulOrWS And cmbBUHIN_BANGO.SelectedValue <> cmbBUHIN_BANGO.NullValue Then
             sbParam.Append($",'{cmbBUHIN_BANGO.Text.Trim}'")
         Else
             sbParam.Append($",'{ParamModel.BUHIN_BANGO}'")

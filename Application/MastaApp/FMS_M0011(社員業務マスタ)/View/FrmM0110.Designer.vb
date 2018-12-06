@@ -160,7 +160,6 @@ Partial Class FrmM0110
         Me.cmbGYOMU_GROUP.Location = New System.Drawing.Point(103, 3)
         Me.cmbGYOMU_GROUP.Name = "cmbGYOMU_GROUP"
         Me.cmbGYOMU_GROUP.NullValue = " "
-        Me.cmbGYOMU_GROUP.SelectAllText = False
         Me.cmbGYOMU_GROUP.Size = New System.Drawing.Size(163, 25)
         Me.cmbGYOMU_GROUP.TabIndex = 0
         Me.cmbGYOMU_GROUP.ValueMember = "VALUE"
@@ -295,7 +294,7 @@ Partial Class FrmM0110
         Me.cmbYAKUSYOKU_KB.Location = New System.Drawing.Point(277, 33)
         Me.cmbYAKUSYOKU_KB.Name = "cmbYAKUSYOKU_KB"
         Me.cmbYAKUSYOKU_KB.NullValue = " "
-        Me.cmbYAKUSYOKU_KB.SelectAllText = False
+
         Me.cmbYAKUSYOKU_KB.Size = New System.Drawing.Size(137, 25)
         Me.cmbYAKUSYOKU_KB.TabIndex = 63
         Me.cmbYAKUSYOKU_KB.ValueMember = "VALUE"
@@ -341,7 +340,6 @@ Partial Class FrmM0110
         Me.cmbSYAIN_KB.Location = New System.Drawing.Point(70, 33)
         Me.cmbSYAIN_KB.Name = "cmbSYAIN_KB"
         Me.cmbSYAIN_KB.NullValue = " "
-        Me.cmbSYAIN_KB.SelectAllText = False
         Me.cmbSYAIN_KB.Size = New System.Drawing.Size(109, 25)
         Me.cmbSYAIN_KB.TabIndex = 61
         Me.cmbSYAIN_KB.ValueMember = "VALUE"

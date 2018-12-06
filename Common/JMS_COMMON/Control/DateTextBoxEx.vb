@@ -131,7 +131,7 @@ Public Class DateTextBoxEx
          DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
     Public Shadows Property Value() As String
         Get
-            If Me.MaskedTextBox1.Text.Replace("/", "").IsNullOrWhiteSpace = True Then
+            If Me.MaskedTextBox1.Text.Replace("/", "").IsNulOrWS = True Then
                 '未入力時
                 Return ""
             Else
@@ -172,7 +172,7 @@ Public Class DateTextBoxEx
          DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
     Public Shadows Property ValueNonFormat() As String
         Get
-            If Me.MaskedTextBox1.Text.Replace("/", "").IsNullOrWhiteSpace = True Then
+            If Me.MaskedTextBox1.Text.Replace("/", "").IsNulOrWS = True Then
                 Return ""
             Else
                 Select Case Me.DisplayFormat
@@ -436,7 +436,7 @@ Public Class DateTextBoxEx
 
         '日付値以外時
         If intRET = -1 Or intRET = -2 Then
-            If Me.MaskedTextBox1.Text.Replace("/", "").IsNullOrWhiteSpace = True Then
+            If Me.MaskedTextBox1.Text.Replace("/", "").IsNulOrWS = True Then
                 '未入力時
                 Exit Sub
             Else
@@ -630,7 +630,7 @@ Public Class DateTextBoxEx
         Dim dteBUFF As Date
 
         '不正日付時
-        If strDATE.Replace("/", "").IsNullOrWhiteSpace = True Then
+        If strDATE.Replace("/", "").IsNulOrWS = True Then
             Return -2
         End If
 

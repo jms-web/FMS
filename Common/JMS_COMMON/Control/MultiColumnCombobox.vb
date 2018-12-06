@@ -179,7 +179,7 @@ Public Class MultiColumnCombobox
                 Dim columnIndex As String = Me.DropDownColumns(i).Member
 
                 '列のメンバーがない場合またはデータテーブルの列でない場合は除外
-                If columnIndex.IsNullOrWhiteSpace OrElse dt.Columns.IndexOf(columnIndex) = -1 Then
+                If columnIndex.IsNulOrWS OrElse dt.Columns.IndexOf(columnIndex) = -1 Then
                     x += width
                     Continue For
                 End If

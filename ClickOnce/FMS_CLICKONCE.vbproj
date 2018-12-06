@@ -36,16 +36,16 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://SV04:8000/</InstallUrl>
+    <InstallUrl>http://172.16.11.7:8000/</InstallUrl>
     <ProductName>フジワラシステム</ProductName>
     <PublisherName>JMS</PublisherName>
-    <MinimumRequiredVersion>0.9.18340.129</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.9.18340.214</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>129</ApplicationRevision>
-    <ApplicationVersion>0.9.18340.129</ApplicationVersion>
+    <ApplicationRevision>214</ApplicationRevision>
+    <ApplicationVersion>0.9.18340.214</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

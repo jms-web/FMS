@@ -135,7 +135,7 @@ Public Class FrmM0000
             '-----先回ログインユーザー表示
             Using iniIF As New IniFile(pub_SYSTEM_INI_FILE)
                 strBUFF = iniIF.GetIniString("SYSTEM", "USERID")
-                If strBUFF.IsNullOrWhiteSpace Then
+                If strBUFF.IsNulOrWS Then
                 Else
                     Me.txtUSER.Text = strBUFF
                     Me.txtPASSWORD.Focus()
@@ -328,7 +328,7 @@ Public Class FrmM0000
                     '-----PASSWORDチェック
                     With DS.Tables(0).Rows(0)
                         'DEBUG: パスワード認証回避
-                        If (Not .Item("PASS").ToString.IsNullOrWhiteSpace AndAlso txtPASSWORD.Text.Trim = .Item("PASS").ToString.Trim) Or blnAltMode Then '入力PASSWORD一致時
+                        If (Not .Item("PASS").ToString.IsNulOrWS AndAlso txtPASSWORD.Text.Trim = .Item("PASS").ToString.Trim) Or blnAltMode Then '入力PASSWORD一致時
                             '記憶
                             pub_SYAIN_INFO = New SYAIN_INFO With {
                             .SYAIN_ID = DS.Tables(0).Rows(0).Item("SYAIN_ID"),
@@ -427,7 +427,7 @@ Public Class FrmM0000
             '-----先回ログインユーザー表示
             Using iniIF As New IniFile(pub_SYSTEM_INI_FILE)
                 strBUFF = iniIF.GetIniString("SYSTEM", "USERID")
-                If strBUFF.IsNullOrWhiteSpace Then
+                If strBUFF.IsNulOrWS Then
                 Else
                     Me.txtUSER.Text = strBUFF
                     Me.txtPASSWORD.Focus()
@@ -692,12 +692,12 @@ Public Class FrmM0000
 
                 '-----使用可不可
                 'ボタンタイトルなし
-                If arrNOW_CMDS(lngL).Title.IsNullOrWhiteSpace Then
+                If arrNOW_CMDS(lngL).Title.IsNulOrWS Then
                     Me.cmdFunc(lngL).Enabled = False
                     Me.pnlFunc(lngL).Enabled = False
 
                     'PASSなし
-                ElseIf arrNOW_CMDS(lngL).Path.IsNullOrWhiteSpace Then
+                ElseIf arrNOW_CMDS(lngL).Path.IsNulOrWS Then
                     Me.cmdFunc(lngL).Enabled = False
                     Me.pnlFunc(lngL).Enabled = False
 
@@ -1003,7 +1003,7 @@ Public Class FrmM0000
                 Me.lblCALENDER.Text = ""
                 Me.lblCALENDER.Cursor = Cursors.Default
                 With dsList.Tables(0)
-                    If .Rows(0).Item("MAX_YMD").ToString.IsNullOrWhiteSpace Then
+                    If .Rows(0).Item("MAX_YMD").ToString.IsNulOrWS Then
                         Me.lblCALENDER.Text = "稼働日マスタを登録して下さい。"
                         Me.lblCALENDER.Cursor = Cursors.Hand
                     Else

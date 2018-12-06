@@ -229,7 +229,7 @@ Public Class FrmM1071
         Try
             For intFunc As Integer = 1 To 12
                 With Me.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNulOrWS Then
                         .Text = ""
                         .Visible = False
                     End If
@@ -463,7 +463,7 @@ Public Class FrmM1071
 
             sbSQLWHERE.Append(" WHERE  DEL_FLG = 0 ")
             sbSQLWHERE.Append(" AND BUMON_KB ='" & _VWM107.BUMON_KB & "'")
-            If Not mtxKISYU_NAME.Text.IsNullOrWhiteSpace Then sbSQLWHERE.Append(" AND " & $"KISYU_NAME LIKE '%{mtxKISYU_NAME.Text.Trim}%'")
+            If Not mtxKISYU_NAME.Text.IsNulOrWS Then sbSQLWHERE.Append(" AND " & $"KISYU_NAME LIKE '%{mtxKISYU_NAME.Text.Trim}%'")
 
             sbSQL.Append($"SELECT")
             sbSQL.Append($" * ")

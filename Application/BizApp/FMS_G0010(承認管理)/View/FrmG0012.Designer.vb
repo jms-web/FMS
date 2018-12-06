@@ -251,6 +251,7 @@ Partial Class FrmG0012
         Me.dtSYOCHI_YOTEI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label23 = New System.Windows.Forms.Label()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
         CType(Me.D005CARJBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -428,7 +429,9 @@ Partial Class FrmG0012
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFilter.Controls.Add(Me.dtFUTEKIGO_HASSEI_YMD, 34, 1)
         Me.tlpFilter.Controls.Add(Me.Label14, 19, 0)
+        Me.tlpFilter.Controls.Add(Me.Label3, 29, 1)
         Me.tlpFilter.Controls.Add(Me.mtxKISYU, 23, 0)
         Me.tlpFilter.Controls.Add(Me.Label6, 30, 0)
         Me.tlpFilter.Controls.Add(Me.mtxADD_SYAIN_NAME, 34, 0)
@@ -468,7 +471,6 @@ Partial Class FrmG0012
         Me.mtxKISYU.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxKISYU, 6)
         Me.mtxKISYU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxKISYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxKISYU.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxKISYU.InputRequired = False
         Me.mtxKISYU.Location = New System.Drawing.Point(463, 3)
@@ -498,7 +500,6 @@ Partial Class FrmG0012
         Me.mtxADD_SYAIN_NAME.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxADD_SYAIN_NAME, 8)
         Me.mtxADD_SYAIN_NAME.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxADD_SYAIN_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxADD_SYAIN_NAME.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxADD_SYAIN_NAME.InputRequired = False
         Me.mtxADD_SYAIN_NAME.Location = New System.Drawing.Point(683, 3)
@@ -528,7 +529,6 @@ Partial Class FrmG0012
         Me.mtxCurrentStageName.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxCurrentStageName, 13)
         Me.mtxCurrentStageName.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxCurrentStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxCurrentStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxCurrentStageName.InputRequired = False
         Me.mtxCurrentStageName.Location = New System.Drawing.Point(963, 3)
@@ -560,7 +560,6 @@ Partial Class FrmG0012
         Me.mtxFUTEKIGO_KB.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxFUTEKIGO_KB, 8)
         Me.mtxFUTEKIGO_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxFUTEKIGO_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxFUTEKIGO_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxFUTEKIGO_KB.InputRequired = False
         Me.mtxFUTEKIGO_KB.Location = New System.Drawing.Point(83, 33)
@@ -592,7 +591,6 @@ Partial Class FrmG0012
         Me.mtxFUTEKIGO_S_KB.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxFUTEKIGO_S_KB, 8)
         Me.mtxFUTEKIGO_S_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxFUTEKIGO_S_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxFUTEKIGO_S_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxFUTEKIGO_S_KB.InputRequired = False
         Me.mtxFUTEKIGO_S_KB.Location = New System.Drawing.Point(383, 33)
@@ -622,7 +620,6 @@ Partial Class FrmG0012
         Me.mtxHOKUKO_NO.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxHOKUKO_NO, 5)
         Me.mtxHOKUKO_NO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxHOKUKO_NO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxHOKUKO_NO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxHOKUKO_NO.InputRequired = False
         Me.mtxHOKUKO_NO.Location = New System.Drawing.Point(83, 3)
@@ -642,7 +639,6 @@ Partial Class FrmG0012
         Me.mtxBUMON_KB.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxBUMON_KB, 4)
         Me.mtxBUMON_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxBUMON_KB.InputRequired = False
         Me.mtxBUMON_KB.Location = New System.Drawing.Point(283, 3)
@@ -738,15 +734,15 @@ Partial Class FrmG0012
         'txtKAITO_24
         '
         Me.txtKAITO_24.BackColor = System.Drawing.SystemColors.Window
-        Me.txtKAITO_24.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtKAITO_24.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtKAITO_24.InputRequired = False
         Me.txtKAITO_24.Location = New System.Drawing.Point(658, 155)
         Me.txtKAITO_24.MaxByteLength = 400
         Me.txtKAITO_24.MaxLength = 200
         Me.txtKAITO_24.Multiline = True
         Me.txtKAITO_24.Name = "txtKAITO_24"
         Me.txtKAITO_24.SelectAllText = False
-        Me.txtKAITO_24.ShowRemaining = True
+        Me.txtKAITO_24.ShowRemainingChars = True
         Me.txtKAITO_24.Size = New System.Drawing.Size(553, 118)
         Me.txtKAITO_24.TabIndex = 319
         Me.txtKAITO_24.WatermarkText = Nothing
@@ -954,15 +950,15 @@ Partial Class FrmG0012
         'txtKAITO_1
         '
         Me.txtKAITO_1.BackColor = System.Drawing.SystemColors.Window
-        Me.txtKAITO_1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtKAITO_1.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtKAITO_1.InputRequired = False
         Me.txtKAITO_1.Location = New System.Drawing.Point(21, 30)
         Me.txtKAITO_1.MaxByteLength = 360
         Me.txtKAITO_1.MaxLength = 180
         Me.txtKAITO_1.Multiline = True
         Me.txtKAITO_1.Name = "txtKAITO_1"
         Me.txtKAITO_1.SelectAllText = False
-        Me.txtKAITO_1.ShowRemaining = True
+        Me.txtKAITO_1.ShowRemainingChars = True
         Me.txtKAITO_1.Size = New System.Drawing.Size(608, 83)
         Me.txtKAITO_1.TabIndex = 0
         Me.txtKAITO_1.WatermarkText = Nothing
@@ -970,15 +966,15 @@ Partial Class FrmG0012
         'txtKAITO_2
         '
         Me.txtKAITO_2.BackColor = System.Drawing.SystemColors.Window
-        Me.txtKAITO_2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtKAITO_2.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtKAITO_2.InputRequired = False
         Me.txtKAITO_2.Location = New System.Drawing.Point(21, 137)
         Me.txtKAITO_2.MaxByteLength = 400
         Me.txtKAITO_2.MaxLength = 200
         Me.txtKAITO_2.Multiline = True
         Me.txtKAITO_2.Name = "txtKAITO_2"
         Me.txtKAITO_2.SelectAllText = False
-        Me.txtKAITO_2.ShowRemaining = True
+        Me.txtKAITO_2.ShowRemainingChars = True
         Me.txtKAITO_2.Size = New System.Drawing.Size(608, 102)
         Me.txtKAITO_2.TabIndex = 1
         Me.txtKAITO_2.WatermarkText = Nothing
@@ -1010,15 +1006,15 @@ Partial Class FrmG0012
         'txtKAITO_3
         '
         Me.txtKAITO_3.BackColor = System.Drawing.SystemColors.Window
-        Me.txtKAITO_3.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtKAITO_3.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtKAITO_3.InputRequired = False
         Me.txtKAITO_3.Location = New System.Drawing.Point(21, 263)
         Me.txtKAITO_3.MaxByteLength = 400
         Me.txtKAITO_3.MaxLength = 200
         Me.txtKAITO_3.Multiline = True
         Me.txtKAITO_3.Name = "txtKAITO_3"
         Me.txtKAITO_3.SelectAllText = False
-        Me.txtKAITO_3.ShowRemaining = True
+        Me.txtKAITO_3.ShowRemainingChars = True
         Me.txtKAITO_3.Size = New System.Drawing.Size(608, 118)
         Me.txtKAITO_3.TabIndex = 2
         Me.txtKAITO_3.WatermarkText = Nothing
@@ -1050,15 +1046,15 @@ Partial Class FrmG0012
         'txtKAITO_21
         '
         Me.txtKAITO_21.BackColor = System.Drawing.SystemColors.Window
-        Me.txtKAITO_21.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtKAITO_21.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtKAITO_21.InputRequired = False
         Me.txtKAITO_21.Location = New System.Drawing.Point(21, 406)
         Me.txtKAITO_21.MaxByteLength = 400
         Me.txtKAITO_21.MaxLength = 200
         Me.txtKAITO_21.Multiline = True
         Me.txtKAITO_21.Name = "txtKAITO_21"
         Me.txtKAITO_21.SelectAllText = False
-        Me.txtKAITO_21.ShowRemaining = True
+        Me.txtKAITO_21.ShowRemainingChars = True
         Me.txtKAITO_21.Size = New System.Drawing.Size(608, 118)
         Me.txtKAITO_21.TabIndex = 3
         Me.txtKAITO_21.WatermarkText = Nothing
@@ -1079,15 +1075,15 @@ Partial Class FrmG0012
         'txtKAITO_22
         '
         Me.txtKAITO_22.BackColor = System.Drawing.SystemColors.Window
-        Me.txtKAITO_22.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtKAITO_22.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtKAITO_22.InputRequired = False
         Me.txtKAITO_22.Location = New System.Drawing.Point(21, 614)
         Me.txtKAITO_22.MaxByteLength = 400
         Me.txtKAITO_22.MaxLength = 200
         Me.txtKAITO_22.Multiline = True
         Me.txtKAITO_22.Name = "txtKAITO_22"
         Me.txtKAITO_22.SelectAllText = False
-        Me.txtKAITO_22.ShowRemaining = True
+        Me.txtKAITO_22.ShowRemainingChars = True
         Me.txtKAITO_22.Size = New System.Drawing.Size(608, 118)
         Me.txtKAITO_22.TabIndex = 10
         Me.txtKAITO_22.WatermarkText = Nothing
@@ -1176,7 +1172,6 @@ Partial Class FrmG0012
         'mtxKAITO_18
         '
         Me.mtxKAITO_18.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxKAITO_18.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxKAITO_18.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxKAITO_18.InputRequired = False
         Me.mtxKAITO_18.Location = New System.Drawing.Point(112, 893)
@@ -1235,7 +1230,6 @@ Partial Class FrmG0012
         Me.cmbKAITO_14.Location = New System.Drawing.Point(184, 833)
         Me.cmbKAITO_14.Name = "cmbKAITO_14"
         Me.cmbKAITO_14.NullValue = " "
-        Me.cmbKAITO_14.SelectAllText = False
         Me.cmbKAITO_14.Size = New System.Drawing.Size(15, 25)
         Me.cmbKAITO_14.TabIndex = 15
         Me.cmbKAITO_14.Text = "(選択)"
@@ -1254,7 +1248,6 @@ Partial Class FrmG0012
         'mtxKAITO_15
         '
         Me.mtxKAITO_15.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxKAITO_15.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxKAITO_15.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxKAITO_15.InputRequired = False
         Me.mtxKAITO_15.Location = New System.Drawing.Point(299, 832)
@@ -1283,7 +1276,6 @@ Partial Class FrmG0012
         Me.cmbKAITO_5.Location = New System.Drawing.Point(299, 530)
         Me.cmbKAITO_5.Name = "cmbKAITO_5"
         Me.cmbKAITO_5.NullValue = " "
-        Me.cmbKAITO_5.SelectAllText = False
         Me.cmbKAITO_5.Size = New System.Drawing.Size(154, 25)
         Me.cmbKAITO_5.TabIndex = 5
         Me.cmbKAITO_5.Text = "(選択)"
@@ -1292,7 +1284,6 @@ Partial Class FrmG0012
         'mtxKAITO_19
         '
         Me.mtxKAITO_19.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxKAITO_19.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxKAITO_19.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxKAITO_19.InputRequired = False
         Me.mtxKAITO_19.Location = New System.Drawing.Point(299, 893)
@@ -1308,7 +1299,6 @@ Partial Class FrmG0012
         'mtxKAITO_7
         '
         Me.mtxKAITO_7.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxKAITO_7.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxKAITO_7.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxKAITO_7.InputRequired = False
         Me.mtxKAITO_7.Location = New System.Drawing.Point(299, 561)
@@ -1337,7 +1327,6 @@ Partial Class FrmG0012
         Me.cmbKAITO_17.Name = "cmbKAITO_17"
         Me.cmbKAITO_17.NullValue = " "
         Me.cmbKAITO_17.ReadOnly = True
-        Me.cmbKAITO_17.SelectAllText = False
         Me.cmbKAITO_17.Size = New System.Drawing.Size(154, 25)
         Me.cmbKAITO_17.TabIndex = 19
         Me.cmbKAITO_17.TabStop = False
@@ -1389,7 +1378,6 @@ Partial Class FrmG0012
         'mtxKAITO_6
         '
         Me.mtxKAITO_6.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxKAITO_6.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxKAITO_6.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxKAITO_6.InputRequired = False
         Me.mtxKAITO_6.Location = New System.Drawing.Point(113, 561)
@@ -1576,7 +1564,6 @@ Partial Class FrmG0012
         'mtxKAITO_11
         '
         Me.mtxKAITO_11.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxKAITO_11.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxKAITO_11.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxKAITO_11.InputRequired = False
         Me.mtxKAITO_11.Location = New System.Drawing.Point(113, 767)
@@ -1604,7 +1591,6 @@ Partial Class FrmG0012
         Me.cmbKAITO_10.Location = New System.Drawing.Point(299, 738)
         Me.cmbKAITO_10.Name = "cmbKAITO_10"
         Me.cmbKAITO_10.NullValue = " "
-        Me.cmbKAITO_10.SelectAllText = False
         Me.cmbKAITO_10.Size = New System.Drawing.Size(154, 25)
         Me.cmbKAITO_10.TabIndex = 12
         Me.cmbKAITO_10.Text = "(選択)"
@@ -1623,7 +1609,6 @@ Partial Class FrmG0012
         'mtxKAITO_12
         '
         Me.mtxKAITO_12.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxKAITO_12.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxKAITO_12.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxKAITO_12.InputRequired = False
         Me.mtxKAITO_12.Location = New System.Drawing.Point(299, 767)
@@ -2415,7 +2400,6 @@ Partial Class FrmG0012
         Me.cmbKENSA_GL_TANTO.Location = New System.Drawing.Point(518, 92)
         Me.cmbKENSA_GL_TANTO.Name = "cmbKENSA_GL_TANTO"
         Me.cmbKENSA_GL_TANTO.NullValue = " "
-        Me.cmbKENSA_GL_TANTO.SelectAllText = False
         Me.cmbKENSA_GL_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbKENSA_GL_TANTO.TabIndex = 279
         Me.cmbKENSA_GL_TANTO.Text = "(選択)"
@@ -2510,7 +2494,6 @@ Partial Class FrmG0012
         'mtxLOT
         '
         Me.mtxLOT.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxLOT.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxLOT.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxLOT.InputRequired = False
         Me.mtxLOT.Location = New System.Drawing.Point(189, 93)
@@ -2539,7 +2522,6 @@ Partial Class FrmG0012
         Me.cmbKENSA_TANTO.Location = New System.Drawing.Point(518, 61)
         Me.cmbKENSA_TANTO.Name = "cmbKENSA_TANTO"
         Me.cmbKENSA_TANTO.NullValue = " "
-        Me.cmbKENSA_TANTO.SelectAllText = False
         Me.cmbKENSA_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbKENSA_TANTO.TabIndex = 276
         Me.cmbKENSA_TANTO.Text = "(選択)"
@@ -2548,7 +2530,6 @@ Partial Class FrmG0012
         'mtxGOKI
         '
         Me.mtxGOKI.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxGOKI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxGOKI.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxGOKI.InputRequired = False
         Me.mtxGOKI.Location = New System.Drawing.Point(189, 65)
@@ -2728,7 +2709,6 @@ Partial Class FrmG0012
         Me.cmbSYOCHI_C_TANTO.Location = New System.Drawing.Point(812, 104)
         Me.cmbSYOCHI_C_TANTO.Name = "cmbSYOCHI_C_TANTO"
         Me.cmbSYOCHI_C_TANTO.NullValue = " "
-        Me.cmbSYOCHI_C_TANTO.SelectAllText = False
         Me.cmbSYOCHI_C_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbSYOCHI_C_TANTO.TabIndex = 4
         Me.cmbSYOCHI_C_TANTO.Text = "(選択)"
@@ -2761,7 +2741,6 @@ Partial Class FrmG0012
         Me.cmbSYOCHI_A_TANTO.Location = New System.Drawing.Point(96, 104)
         Me.cmbSYOCHI_A_TANTO.Name = "cmbSYOCHI_A_TANTO"
         Me.cmbSYOCHI_A_TANTO.NullValue = " "
-        Me.cmbSYOCHI_A_TANTO.SelectAllText = False
         Me.cmbSYOCHI_A_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbSYOCHI_A_TANTO.TabIndex = 2
         Me.cmbSYOCHI_A_TANTO.Text = "(選択)"
@@ -2795,7 +2774,6 @@ Partial Class FrmG0012
         Me.cmbSYOCHI_B_TANTO.Location = New System.Drawing.Point(488, 104)
         Me.cmbSYOCHI_B_TANTO.Name = "cmbSYOCHI_B_TANTO"
         Me.cmbSYOCHI_B_TANTO.NullValue = " "
-        Me.cmbSYOCHI_B_TANTO.SelectAllText = False
         Me.cmbSYOCHI_B_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbSYOCHI_B_TANTO.TabIndex = 3
         Me.cmbSYOCHI_B_TANTO.Text = "(選択)"
@@ -3048,7 +3026,6 @@ Partial Class FrmG0012
         Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 32767)
         Me.cmbST01_DestTANTO.Name = "cmbST01_DestTANTO"
         Me.cmbST01_DestTANTO.NullValue = " "
-        Me.cmbST01_DestTANTO.SelectAllText = False
         Me.cmbST01_DestTANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbST01_DestTANTO.TabIndex = 215
         Me.cmbST01_DestTANTO.Text = "(選択)"
@@ -3058,7 +3035,6 @@ Partial Class FrmG0012
         '
         Me.mtxST01_NextStageName.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.mtxST01_NextStageName.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST01_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST01_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_NextStageName.InputRequired = False
         Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 32767)
@@ -3113,7 +3089,6 @@ Partial Class FrmG0012
         '
         Me.mtxST01_UPD_YMD.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.mtxST01_UPD_YMD.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST01_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST01_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_UPD_YMD.InputRequired = False
         Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 32767)
@@ -3129,8 +3104,6 @@ Partial Class FrmG0012
         '
         Me.tabSTAGE02.AutoScroll = True
         Me.tabSTAGE02.BackColor = System.Drawing.SystemColors.Control
-        Me.tabSTAGE02.Controls.Add(Me.dtFUTEKIGO_HASSEI_YMD)
-        Me.tabSTAGE02.Controls.Add(Me.Label3)
         Me.tabSTAGE02.Controls.Add(Me.mtxGENIN2)
         Me.tabSTAGE02.Controls.Add(Me.mtxGENIN1)
         Me.tabSTAGE02.Controls.Add(Me.mtxGENIN2_DISP)
@@ -3159,14 +3132,16 @@ Partial Class FrmG0012
         '
         'dtFUTEKIGO_HASSEI_YMD
         '
+        Me.dtFUTEKIGO_HASSEI_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtFUTEKIGO_HASSEI_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtFUTEKIGO_HASSEI_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtFUTEKIGO_HASSEI_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtFUTEKIGO_HASSEI_YMD.Location = New System.Drawing.Point(99, 12)
+        Me.dtFUTEKIGO_HASSEI_YMD.Location = New System.Drawing.Point(683, 33)
         Me.dtFUTEKIGO_HASSEI_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtFUTEKIGO_HASSEI_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtFUTEKIGO_HASSEI_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtFUTEKIGO_HASSEI_YMD.Name = "dtFUTEKIGO_HASSEI_YMD"
-        Me.dtFUTEKIGO_HASSEI_YMD.ReadOnly = False
+        Me.dtFUTEKIGO_HASSEI_YMD.ReadOnly = True
         Me.dtFUTEKIGO_HASSEI_YMD.Size = New System.Drawing.Size(98, 24)
         Me.dtFUTEKIGO_HASSEI_YMD.TabIndex = 276
         Me.dtFUTEKIGO_HASSEI_YMD.Value = ""
@@ -3174,11 +3149,12 @@ Partial Class FrmG0012
         '
         'Label3
         '
-        Me.Label3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label3.Location = New System.Drawing.Point(8, 16)
+        Me.tlpFilter.SetColumnSpan(Me.Label3, 5)
+        Me.Label3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label3.Location = New System.Drawing.Point(583, 33)
         Me.Label3.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(85, 15)
+        Me.Label3.Size = New System.Drawing.Size(94, 27)
         Me.Label3.TabIndex = 277
         Me.Label3.Text = "不適合発生日:"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -3187,7 +3163,6 @@ Partial Class FrmG0012
         '
         Me.mtxGENIN2.BackColor = System.Drawing.SystemColors.Control
         Me.mtxGENIN2.Enabled = False
-        Me.mtxGENIN2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxGENIN2.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxGENIN2.InputRequired = False
         Me.mtxGENIN2.Location = New System.Drawing.Point(752, 111)
@@ -3205,7 +3180,6 @@ Partial Class FrmG0012
         '
         Me.mtxGENIN1.BackColor = System.Drawing.SystemColors.Control
         Me.mtxGENIN1.Enabled = False
-        Me.mtxGENIN1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxGENIN1.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxGENIN1.InputRequired = False
         Me.mtxGENIN1.Location = New System.Drawing.Point(752, 82)
@@ -3223,7 +3197,6 @@ Partial Class FrmG0012
         '
         Me.mtxGENIN2_DISP.BackColor = System.Drawing.SystemColors.Control
         Me.mtxGENIN2_DISP.Enabled = False
-        Me.mtxGENIN2_DISP.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxGENIN2_DISP.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxGENIN2_DISP.InputRequired = False
         Me.mtxGENIN2_DISP.Location = New System.Drawing.Point(435, 110)
@@ -3240,7 +3213,6 @@ Partial Class FrmG0012
         '
         Me.mtxGENIN1_DISP.BackColor = System.Drawing.SystemColors.Control
         Me.mtxGENIN1_DISP.Enabled = False
-        Me.mtxGENIN1_DISP.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxGENIN1_DISP.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxGENIN1_DISP.InputRequired = False
         Me.mtxGENIN1_DISP.Location = New System.Drawing.Point(435, 81)
@@ -3322,7 +3294,6 @@ Partial Class FrmG0012
         Me.cmbKISEKI_KOTEI.Location = New System.Drawing.Point(435, 142)
         Me.cmbKISEKI_KOTEI.Name = "cmbKISEKI_KOTEI"
         Me.cmbKISEKI_KOTEI.NullValue = " "
-        Me.cmbKISEKI_KOTEI.SelectAllText = False
         Me.cmbKISEKI_KOTEI.Size = New System.Drawing.Size(251, 25)
         Me.cmbKISEKI_KOTEI.TabIndex = 7
         Me.cmbKISEKI_KOTEI.Text = "(選択)"
@@ -3379,7 +3350,6 @@ Partial Class FrmG0012
         Me.cmbKONPON_YOIN_KB2.Location = New System.Drawing.Point(96, 110)
         Me.cmbKONPON_YOIN_KB2.Name = "cmbKONPON_YOIN_KB2"
         Me.cmbKONPON_YOIN_KB2.NullValue = " "
-        Me.cmbKONPON_YOIN_KB2.SelectAllText = False
         Me.cmbKONPON_YOIN_KB2.Size = New System.Drawing.Size(194, 25)
         Me.cmbKONPON_YOIN_KB2.TabIndex = 3
         Me.cmbKONPON_YOIN_KB2.Text = "(選択)"
@@ -3399,7 +3369,7 @@ Partial Class FrmG0012
         '
         Me.cmbKONPON_YOIN_KB1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbKONPON_YOIN_KB1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKONPON_YOIN_KB1.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKONPON_YOIN_KB1.BackColor = System.Drawing.Color.White
         Me.cmbKONPON_YOIN_KB1.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbKONPON_YOIN_KB1.DisplayMember = "DISP"
         Me.cmbKONPON_YOIN_KB1.DropDownWidth = 220
@@ -3412,7 +3382,6 @@ Partial Class FrmG0012
         Me.cmbKONPON_YOIN_KB1.Location = New System.Drawing.Point(96, 81)
         Me.cmbKONPON_YOIN_KB1.Name = "cmbKONPON_YOIN_KB1"
         Me.cmbKONPON_YOIN_KB1.NullValue = " "
-        Me.cmbKONPON_YOIN_KB1.SelectAllText = False
         Me.cmbKONPON_YOIN_KB1.Size = New System.Drawing.Size(194, 25)
         Me.cmbKONPON_YOIN_KB1.TabIndex = 0
         Me.cmbKONPON_YOIN_KB1.Text = "(選択)"
@@ -3445,7 +3414,6 @@ Partial Class FrmG0012
         Me.cmbKONPON_YOIN_TANTO.Location = New System.Drawing.Point(96, 142)
         Me.cmbKONPON_YOIN_TANTO.Name = "cmbKONPON_YOIN_TANTO"
         Me.cmbKONPON_YOIN_TANTO.NullValue = " "
-        Me.cmbKONPON_YOIN_TANTO.SelectAllText = False
         Me.cmbKONPON_YOIN_TANTO.Size = New System.Drawing.Size(194, 25)
         Me.cmbKONPON_YOIN_TANTO.TabIndex = 6
         Me.cmbKONPON_YOIN_TANTO.Text = "(選択)"
@@ -3468,7 +3436,6 @@ Partial Class FrmG0012
         Me.cmbDestTANTO.Location = New System.Drawing.Point(1098, 221)
         Me.cmbDestTANTO.Name = "cmbDestTANTO"
         Me.cmbDestTANTO.NullValue = " "
-        Me.cmbDestTANTO.SelectAllText = False
         Me.cmbDestTANTO.Size = New System.Drawing.Size(134, 25)
         Me.cmbDestTANTO.TabIndex = 1
         Me.cmbDestTANTO.Text = "(選択)"
@@ -3479,7 +3446,6 @@ Partial Class FrmG0012
         Me.mtxNextStageName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.mtxNextStageName.BackColor = System.Drawing.SystemColors.Control
         Me.mtxNextStageName.Font = New System.Drawing.Font("MS UI Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxNextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxNextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxNextStageName.InputRequired = False
         Me.mtxNextStageName.Location = New System.Drawing.Point(760, 223)
@@ -3842,6 +3808,7 @@ Partial Class FrmG0012
         Me.Controls.SetChildIndex(Me.Label23, 0)
         Me.Controls.SetChildIndex(Me.dtSYOCHI_YOTEI_YMD, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()

@@ -259,7 +259,7 @@ Partial Class FrmM0040
         Me.cmbYAKUSYOKU_KB.Location = New System.Drawing.Point(70, 33)
         Me.cmbYAKUSYOKU_KB.Name = "cmbYAKUSYOKU_KB"
         Me.cmbYAKUSYOKU_KB.NullValue = " "
-        Me.cmbYAKUSYOKU_KB.SelectAllText = False
+
         Me.cmbYAKUSYOKU_KB.Size = New System.Drawing.Size(103, 25)
         Me.cmbYAKUSYOKU_KB.TabIndex = 63
         Me.cmbYAKUSYOKU_KB.Text = "(‘I‘ð)"
@@ -309,7 +309,7 @@ Partial Class FrmM0040
         Me.cmbSYAIN_KB.Location = New System.Drawing.Point(829, 3)
         Me.cmbSYAIN_KB.Name = "cmbSYAIN_KB"
         Me.cmbSYAIN_KB.NullValue = " "
-        Me.cmbSYAIN_KB.SelectAllText = False
+
         Me.cmbSYAIN_KB.Size = New System.Drawing.Size(103, 25)
         Me.cmbSYAIN_KB.TabIndex = 61
         Me.cmbSYAIN_KB.Text = "(‘I‘ð)"

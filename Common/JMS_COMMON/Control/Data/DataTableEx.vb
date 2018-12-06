@@ -124,7 +124,7 @@ Public Class DataTableEx
 
 
             'ソースデータテーブルにフィルタをかける
-            If strSort.IsNullOrWhiteSpace = False Then
+            If strSort.IsNulOrWS = False Then
                 dtr = Me.Select(strFilter, strSort)
             Else
                 dtr = Me.Select(strFilter)
@@ -186,7 +186,7 @@ Public Class DataTableEx
     ''' <remarks></remarks>
     Overloads Function Find(ByVal Key As String, Optional ByVal Member As String = "DISP") As String
         Try
-            If Key.IsNullOrWhiteSpace Then
+            If Key.IsNulOrWS Then
             Else
                 If Me.Rows.Find(Key) IsNot Nothing Then
                     Return Me.Rows.Find(Key).Item(Member).ToString.TrimEnd
