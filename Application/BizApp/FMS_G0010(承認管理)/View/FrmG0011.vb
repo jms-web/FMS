@@ -1313,7 +1313,7 @@ Public Class FrmG0011
         　　【依頼者処置内容】{6}<br />
         　　【コメント】{7}<br />
         <br />
-        <a href = "http://sv116:8000/CLICKONCE_FMS.application" >システム起動</a><br />
+        <a href = "http://sv04:8000/CLICKONCE_FMS.application" >システム起動</a><br />
         <br />
         ※このメールは配信専用です。(返信できません)<br />
         返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
@@ -1362,7 +1362,7 @@ Public Class FrmG0011
         　　【部品番号】{4}<br />
         　　【依頼者　】{1}<br />
         <br />
-        <a href = "http://sv116:8000/CLICKONCE_FMS.application" >システム起動</a><br />
+        <a href = "http://sv04:8000/CLICKONCE_FMS.application" >システム起動</a><br />
         <br />
         ※このメールは配信専用です。(返信できません)<br />
         返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
@@ -3870,7 +3870,7 @@ Public Class FrmG0011
                     dt = FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
 
                     '廃却実施者
-                    InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._3_検査.Value, ENM_GYOMU_GROUP_ID._4_品証.Value})
+                    InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._2_製造.Value})
                     drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
                     If drs.Count > 0 Then cmbST08_1_HAIKYAKU_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 

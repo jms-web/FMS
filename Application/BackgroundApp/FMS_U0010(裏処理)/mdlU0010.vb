@@ -187,7 +187,7 @@ Module mdlU0010
                                 　　【部品番号】{5}<br />
                                 　　【依頼者　】{6}<br />
                             <br />
-                            <a href = "http://sv116:8000/CLICKONCE_FMS.application" > システム起動</a><br />
+                            <a href = "http://sv04:8000/CLICKONCE_FMS.application" > システム起動</a><br />
                             <br />
                             ※このメールは配信専用です。(返信できません)<br />
                             返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
