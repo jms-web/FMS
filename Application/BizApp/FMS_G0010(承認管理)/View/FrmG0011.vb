@@ -4553,7 +4553,10 @@ Public Class FrmG0011
                             Using DB As ClsDbUtility = DBOpen()
                                 Call FunGetCodeDataTable(DB, "LP部品名称", tblLP_HINMEI)
                             End Using
+
+                            cmbHINMEI.DataBindings.Clear()
                             cmbHINMEI.SetDataSource(tblLP_HINMEI, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                            cmbHINMEI.DataBindings.Add(New Binding(NameOf(cmbHINMEI.Text), _D003_NCR_J, NameOf(_D003_NCR_J.BUHIN_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
                             dtBUFF = FunGetSYOZOKU_SYAIN(cmbBUMON.SelectedValue)
                         Case Else
@@ -5971,10 +5974,10 @@ Public Class FrmG0011
                     Call FunSetEntityModel(PrHOKOKU_NO, PrCurrentStage)
 
                     '#90 起草以降変更不可
-                    If PrCurrentStage > ENM_NCR_STAGE._10_起草入力 Then
+                    'If PrCurrentStage > ENM_NCR_STAGE._10_起草入力 Then
 
-                        'UNDONE: ヘッダ項目も変更不可 とりあえずコントロールを直接制御 可能ならパネル単位で制御したい
-                        mtxHOKUKO_NO.ReadOnly = True
+                    'UNDONE: ヘッダ項目も変更不可 とりあえずコントロールを直接制御 可能ならパネル単位で制御したい
+                    mtxHOKUKO_NO.ReadOnly = True
                         cmbBUMON.ReadOnly = True
                         cmbKISO_TANTO.ReadOnly = True
                         dtDraft.ReadOnly = True
@@ -5991,9 +5994,9 @@ Public Class FrmG0011
                         numSU.Enabled = False
                         dtHASSEI_YMD.ReadOnly = True
 
-                    End If
+                        'End If
 
-                    TabSTAGE.Visible = False
+                        TabSTAGE.Visible = False
                     Call FunInitializeTabControl(FunConvertSYONIN_JUN_TO_STAGE_NO(PrCurrentStage))
                     Application.DoEvents()
                     Call FunInitializeSTAGE(PrCurrentStage)
@@ -6007,6 +6010,26 @@ Public Class FrmG0011
                         End If
                     Next page
                     Me.TabSTAGE.Visible = True
+
+                    If PrCurrentStage = ENM_NCR_STAGE._10_起草入力 Then
+
+                        cmbBUMON.ReadOnly = False
+                        cmbKISO_TANTO.ReadOnly = False
+                        dtDraft.ReadOnly = False
+                        cmbKISYU.ReadOnly = False
+                        cmbBUHIN_BANGO.ReadOnly = False
+                        cmbHINMEI.ReadOnly = False
+                        mtxGOUKI.ReadOnly = False
+                        cmbSYANAI_CD.ReadOnly = False
+                        cmbFUTEKIGO_STATUS.ReadOnly = False
+                        mtxHENKYAKU_RIYU.ReadOnly = False
+                        cmbFUTEKIGO_KB.ReadOnly = False
+                        cmbFUTEKIGO_S_KB.ReadOnly = False
+                        mtxZUBAN_KIKAKU.ReadOnly = False
+                        numSU.Enabled = False
+                        dtHASSEI_YMD.ReadOnly = False
+
+                    End If
 
                 Case Else
                     'Throw New ArgumentException(My.Resources.ErrMsgException, intMODE.ToString)

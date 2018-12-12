@@ -1169,7 +1169,7 @@ Public Class FrmG0010
 
             panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlDataGrid))
             lblRecordCount.Visible = True
-            btnSummaryPage.Visible = True
+            'btnSummaryPage.Visible = True
 
             Return True
         Catch ex As Exception
@@ -1228,6 +1228,10 @@ Public Class FrmG0010
 
             For Each g In JISSEKI_LIST
                 Dim dr As DataRow = retTable.NewRow
+
+                '2018.12.12 削除済みはステージリストに追加しない
+                If g.Key.Item2 = 0 Then Continue For
+
                 dr("SELECTED") = True
                 dr("SYONIN_JUN") = g.Key.Item2
                 dr("SYONIN_NAIYO") = g.Key.Item3
