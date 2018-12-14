@@ -18,6 +18,11 @@ Module mdlINTSYR
     Public Const CON_TEMPLATE_INI As String = "EXCELTEMPLATE.INI"
     Public Const CON_ERR_LOG As String = CON_SOLUTION_NAME & "_ERROR.LOG"
 
+    Public Const WM_CUT As Integer = &H300
+    Public Const WM_COPY As Integer = &H301
+    Public Const WM_PASTE As Integer = &H302
+    Public Const WM_CONTEXTMENU As Integer = &H7B
+
     Public pub_SYSTEM_INI_FILE As String
 
     Public clrControlGotFocusedColor As Color = Color.FromArgb(190, 180, 255) 'フォーカス時の背景色

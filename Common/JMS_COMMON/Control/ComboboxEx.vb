@@ -15,6 +15,7 @@ Public Class ComboboxEx
 
     Const WM_PAINT As Integer = &HF
 
+
     ''' <summary>
     ''' フォーカス喪失時時の背景色
     ''' </summary>
@@ -64,7 +65,7 @@ Public Class ComboboxEx
             Return MyBase.BackColor
         End Get
         Set(ByVal value As Color)
-            MyBase.BackColor = value
+            If value <> Color.Transparent Then MyBase.BackColor = value
             'If Not [ReadOnly] Then _ActiveBackColor = value
         End Set
     End Property
@@ -494,16 +495,19 @@ Public Class ComboboxEx
 
 #Region "   WndProc"
 
-    <System.Diagnostics.DebuggerStepThrough()>
+    '<System.Diagnostics.DebuggerStepThrough()>
     <Browsable(False)>
     Protected Overrides Sub WndProc(ByRef m As Message)
 
-        MyBase.WndProc(m)
-
         Select Case m.Msg
+            Case WM_CONTEXTMENU, WM_CUT, WM_PASTE
+                '
+                If [ReadOnly] Then Return
             Case WM_PAINT
                 Call DrawRectangle()
         End Select
+
+        MyBase.WndProc(m)
     End Sub
 
 #End Region

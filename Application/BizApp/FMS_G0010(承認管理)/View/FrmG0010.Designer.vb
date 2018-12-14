@@ -51,7 +51,7 @@ Partial Class FrmG0010
         Me.btnClearSrchFilter = New System.Windows.Forms.Button()
         Me.chkClosedRowVisibled = New System.Windows.Forms.CheckBox()
         Me.chkTairyu = New System.Windows.Forms.CheckBox()
-        Me.chkDleteRowVisibled = New System.Windows.Forms.CheckBox()
+        Me.chkDeleteRowVisibled = New System.Windows.Forms.CheckBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label40 = New System.Windows.Forms.Label()
         Me.cmbFUTEKIGO_JYOTAI_KB = New JMS_COMMON.ComboboxEx()
@@ -107,7 +107,6 @@ Partial Class FrmG0010
         Me.ST02FUTEKIGOICHIRANBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.mpSummaryGrid = New PanelManager.Controls.ManagedPanel()
         Me._flexGroup = New FMS.FlexGroupControl()
-        Me.tdbDATA = New C1.Win.C1TrueDBGrid.C1TrueDBGrid()
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
         Me.btnSummaryPage = New System.Windows.Forms.Button()
         Me.FlexContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -134,7 +133,6 @@ Partial Class FrmG0010
         Me.mpSummaryGrid.SuspendLayout()
         CType(Me._flexGroup, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me._flexGroup.Grid, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tdbDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FlexContextMenu.SuspendLayout()
         Me.SuspendLayout()
@@ -327,7 +325,7 @@ Partial Class FrmG0010
         Me.tlpFilter.Controls.Add(Me.btnClearSrchFilter, 56, 3)
         Me.tlpFilter.Controls.Add(Me.chkClosedRowVisibled, 42, 4)
         Me.tlpFilter.Controls.Add(Me.chkTairyu, 49, 4)
-        Me.tlpFilter.Controls.Add(Me.chkDleteRowVisibled, 35, 4)
+        Me.tlpFilter.Controls.Add(Me.chkDeleteRowVisibled, 35, 4)
         Me.tlpFilter.Controls.Add(Me.Label7, 47, 2)
         Me.tlpFilter.Controls.Add(Me.Label40, 15, 3)
         Me.tlpFilter.Controls.Add(Me.cmbFUTEKIGO_JYOTAI_KB, 23, 3)
@@ -739,18 +737,18 @@ Partial Class FrmG0010
         Me.chkTairyu.Text = "滞留のみ表示"
         Me.chkTairyu.UseVisualStyleBackColor = True
         '
-        'chkDleteRowVisibled
+        'chkDeleteRowVisibled
         '
-        Me.chkDleteRowVisibled.AutoSize = True
-        Me.tlpFilter.SetColumnSpan(Me.chkDleteRowVisibled, 7)
-        Me.chkDleteRowVisibled.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkDleteRowVisibled.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.chkDleteRowVisibled.Location = New System.Drawing.Point(703, 123)
-        Me.chkDleteRowVisibled.Name = "chkDleteRowVisibled"
-        Me.chkDleteRowVisibled.Size = New System.Drawing.Size(103, 21)
-        Me.chkDleteRowVisibled.TabIndex = 17
-        Me.chkDleteRowVisibled.Text = "削除済も表示"
-        Me.chkDleteRowVisibled.UseVisualStyleBackColor = True
+        Me.chkDeleteRowVisibled.AutoSize = True
+        Me.tlpFilter.SetColumnSpan(Me.chkDeleteRowVisibled, 7)
+        Me.chkDeleteRowVisibled.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkDeleteRowVisibled.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.chkDeleteRowVisibled.Location = New System.Drawing.Point(703, 123)
+        Me.chkDeleteRowVisibled.Name = "chkDeleteRowVisibled"
+        Me.chkDeleteRowVisibled.Size = New System.Drawing.Size(103, 21)
+        Me.chkDeleteRowVisibled.TabIndex = 17
+        Me.chkDeleteRowVisibled.Text = "削除済も表示"
+        Me.chkDeleteRowVisibled.UseVisualStyleBackColor = True
         '
         'Label7
         '
@@ -1538,8 +1536,8 @@ Partial Class FrmG0010
         Me.panelMan.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.panelMan.Location = New System.Drawing.Point(12, 60)
         Me.panelMan.Name = "panelMan"
-        Me.panelMan.SelectedIndex = 2
-        Me.panelMan.SelectedPanel = Me.mpSummaryGrid
+        Me.panelMan.SelectedIndex = 0
+        Me.panelMan.SelectedPanel = Me.mpnlCondition
         Me.panelMan.Size = New System.Drawing.Size(1233, 502)
         Me.panelMan.TabIndex = 64
         '
@@ -1549,7 +1547,7 @@ Partial Class FrmG0010
         Me.mpnlCondition.Controls.Add(Me.PanelEx1)
         Me.mpnlCondition.Location = New System.Drawing.Point(0, 0)
         Me.mpnlCondition.Name = "mpnlCondition"
-        Me.mpnlCondition.Size = New System.Drawing.Size(0, 0)
+        Me.mpnlCondition.Size = New System.Drawing.Size(1233, 502)
         '
         'PanelEx1
         '
@@ -1561,7 +1559,7 @@ Partial Class FrmG0010
         Me.PanelEx1.HitEnabled = False
         Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
         Me.PanelEx1.Name = "PanelEx1"
-        Me.PanelEx1.Size = New System.Drawing.Size(0, 0)
+        Me.PanelEx1.Size = New System.Drawing.Size(1233, 502)
         Me.PanelEx1.TabIndex = 0
         '
         'GroupBox2
@@ -1648,10 +1646,9 @@ Partial Class FrmG0010
         'mpSummaryGrid
         '
         Me.mpSummaryGrid.Controls.Add(Me._flexGroup)
-        Me.mpSummaryGrid.Controls.Add(Me.tdbDATA)
         Me.mpSummaryGrid.Location = New System.Drawing.Point(0, 0)
         Me.mpSummaryGrid.Name = "mpSummaryGrid"
-        Me.mpSummaryGrid.Size = New System.Drawing.Size(1233, 502)
+        Me.mpSummaryGrid.Size = New System.Drawing.Size(0, 0)
         Me.mpSummaryGrid.Text = "ManagedPanel1"
         '
         '_flexGroup
@@ -1669,12 +1666,12 @@ Partial Class FrmG0010
         Me._flexGroup.Grid.ColumnInfo = resources.GetString("_flexGroup.Grid.ColumnInfo")
         Me._flexGroup.Grid.Dock = System.Windows.Forms.DockStyle.Bottom
         Me._flexGroup.Grid.DrawMode = C1.Win.C1FlexGrid.DrawModeEnum.OwnerDraw
-        Me._flexGroup.Grid.Location = New System.Drawing.Point(0, 36)
+        Me._flexGroup.Grid.Location = New System.Drawing.Point(0, 0)
         Me._flexGroup.Grid.Name = ""
         Me._flexGroup.Grid.Rows.DefaultSize = 18
         Me._flexGroup.Grid.Rows.Fixed = 2
         Me._flexGroup.Grid.ShowCursor = True
-        Me._flexGroup.Grid.Size = New System.Drawing.Size(1229, 462)
+        Me._flexGroup.Grid.Size = New System.Drawing.Size(0, 0)
         Me._flexGroup.Grid.StyleInfo = resources.GetString("_flexGroup.Grid.StyleInfo")
         Me._flexGroup.Grid.TabIndex = 1
         Me._flexGroup.Grid.Tree.Style = C1.Win.C1FlexGrid.TreeStyleFlags.Symbols
@@ -1682,32 +1679,9 @@ Partial Class FrmG0010
         Me._flexGroup.Location = New System.Drawing.Point(0, 0)
         Me._flexGroup.Name = "_flexGroup"
         Me._flexGroup.ShowGroups = True
-        Me._flexGroup.Size = New System.Drawing.Size(1233, 502)
+        Me._flexGroup.Size = New System.Drawing.Size(0, 0)
         Me._flexGroup.TabIndex = 66
         Me._flexGroup.TabStop = False
-        '
-        'tdbDATA
-        '
-        Me.tdbDATA.AllowUpdate = False
-        Me.tdbDATA.CaptionHeight = 16
-        Me.tdbDATA.DataSource = Me.ST02FUTEKIGOICHIRANBindingSource
-        Me.tdbDATA.DataView = C1.Win.C1TrueDBGrid.DataViewEnum.GroupBy
-        Me.tdbDATA.FlatStyle = C1.Win.C1TrueDBGrid.FlatModeEnum.Standard
-        Me.tdbDATA.GroupByCaption = "列でグループ化するには、ここに列ヘッダをドラッグします。"
-        Me.tdbDATA.Images.Add(CType(resources.GetObject("tdbDATA.Images"), System.Drawing.Image))
-        Me.tdbDATA.Location = New System.Drawing.Point(0, 0)
-        Me.tdbDATA.Name = "tdbDATA"
-        Me.tdbDATA.PreviewInfo.Caption = "印刷プレビューウィンドウ"
-        Me.tdbDATA.PreviewInfo.Location = New System.Drawing.Point(0, 0)
-        Me.tdbDATA.PreviewInfo.Size = New System.Drawing.Size(0, 0)
-        Me.tdbDATA.PreviewInfo.ZoomFactor = 75.0R
-        Me.tdbDATA.PrintInfo.PageSettings = CType(resources.GetObject("tdbDATA.PrintInfo.PageSettings"), System.Drawing.Printing.PageSettings)
-        Me.tdbDATA.RowHeight = 14
-        Me.tdbDATA.Size = New System.Drawing.Size(0, 0)
-        Me.tdbDATA.TabIndex = 0
-        Me.tdbDATA.UseCompatibleTextRendering = False
-        Me.tdbDATA.VisualStyle = C1.Win.C1TrueDBGrid.VisualStyle.Office2010Silver
-        Me.tdbDATA.PropBag = resources.GetString("tdbDATA.PropBag")
         '
         'dgvDATA
         '
@@ -1758,7 +1732,7 @@ Partial Class FrmG0010
         '
         Me.FlexContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EqualFilter, Me.NotEqualFilter, Me.IncludeFilter, Me.NotIncludeFilter})
         Me.FlexContextMenu.Name = "FlexContextMenu"
-        Me.FlexContextMenu.Size = New System.Drawing.Size(184, 92)
+        Me.FlexContextMenu.Size = New System.Drawing.Size(184, 114)
         '
         'EqualFilter
         '
@@ -1833,7 +1807,6 @@ Partial Class FrmG0010
         Me.mpSummaryGrid.ResumeLayout(False)
         CType(Me._flexGroup.Grid, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me._flexGroup, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tdbDATA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FlexContextMenu.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -1905,7 +1878,7 @@ Partial Class FrmG0010
     Friend WithEvents Label3 As Label
     Friend WithEvents Label22 As Label
     Friend WithEvents cmbSYANAI_CD As ComboboxEx
-    Friend WithEvents chkDleteRowVisibled As CheckBox
+    Friend WithEvents chkDeleteRowVisibled As CheckBox
     Friend WithEvents panelMan As PanelManager.Controls.PanelManager
     Friend WithEvents mpnlCondition As PanelManager.Controls.ManagedPanel
     Friend WithEvents mpnlDataGrid As PanelManager.Controls.ManagedPanel
@@ -1923,7 +1896,6 @@ Partial Class FrmG0010
     Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents ST02FUTEKIGOICHIRANBindingSource As BindingSource
     Friend WithEvents mpSummaryGrid As PanelManager.Controls.ManagedPanel
-    Friend WithEvents tdbDATA As C1.Win.C1TrueDBGrid.C1TrueDBGrid
     Friend WithEvents btnSummaryPage As Button
     Friend WithEvents FlexContextMenu As ContextMenuStrip
     Friend WithEvents EqualFilter As ToolStripMenuItem

@@ -15,6 +15,7 @@ Public Class FrmG0010
 
     Private ParamModel As New ST02_ParamModel
 
+
 #End Region
 
 #Region "プロパティ"
@@ -199,7 +200,7 @@ Public Class FrmG0010
             AddHandler cmbFUTEKIGO_S_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler mtxHINMEI.Validated, AddressOf SearchFilterValueChanged
-            AddHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+            AddHandler chkDeleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
             AddHandler chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
             AddHandler cmbJIZEN_SINSA_HANTEI_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
@@ -987,7 +988,7 @@ Public Class FrmG0010
             End If
 
             'UNDONE: 削除済み表示切替 可能ならストアドパラメータに条件設定を移行したい
-            If chkDleteRowVisibled.Checked Then
+            If chkDeleteRowVisibled.Checked Then
             Else
                 Dim drs As List(Of DataRow) = dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of String)("DEL_YMDHNS").IsNulOrWS).ToList
                 If drs.Count > 0 Then
@@ -1205,14 +1206,14 @@ Public Class FrmG0010
 
             Dim JISSEKI_LIST As IEnumerable(Of IGrouping(Of Tuple(Of Integer, Integer, String), DataRow))
 
-            If chkDleteRowVisibled.Checked Then
+            If chkDeleteRowVisibled.Checked Then
                 JISSEKI_LIST = dtBUFF.AsEnumerable.
                                     GroupBy(Function(g) Tuple.Create(g.Field(Of Integer)(NameOf(ParamModel.SYONIN_HOKOKUSYO_ID)),
                                                                      g.Field(Of Integer)("SYONIN_JUN"),
                                                                      g.Field(Of String)("SYONIN_NAIYO")))
             Else
                 JISSEKI_LIST = dtBUFF.AsEnumerable.
-                                    Where(Function(r) r.Field(Of String)("DEL_YMDHNS").IsNulOrWS = Not chkDleteRowVisibled.Checked).
+                                    Where(Function(r) r.Field(Of String)("DEL_YMDHNS").IsNulOrWS = Not chkDeleteRowVisibled.Checked).
                                     GroupBy(Function(g) Tuple.Create(g.Field(Of Integer)(NameOf(ParamModel.SYONIN_HOKOKUSYO_ID)),
                                                                      g.Field(Of Integer)("SYONIN_JUN"),
                                                                      g.Field(Of String)("SYONIN_NAIYO")))
@@ -1228,9 +1229,6 @@ Public Class FrmG0010
 
             For Each g In JISSEKI_LIST
                 Dim dr As DataRow = retTable.NewRow
-
-                '2018.12.12 削除済みはステージリストに追加しない
-                If g.Key.Item2 = 0 Then Continue For
 
                 dr("SELECTED") = True
                 dr("SYONIN_JUN") = g.Key.Item2
@@ -1251,7 +1249,9 @@ Public Class FrmG0010
             Next s
             retTable.AcceptChanges()
 
-            dgv.DataSource = retTable.AsEnumerable.OrderBy(Function(r) r.Field(Of Integer)("SYONIN_JUN")).CopyToDataTable
+
+            dgv.DataSource = retTable.AsEnumerable.OrderBy(Function(r) r.Field(Of Integer)("SYONIN_JUN")).
+                                                   CopyToDataTable
 
             Return True
         Catch ex As Exception
@@ -1982,7 +1982,8 @@ Public Class FrmG0010
 
             cmdFunc2.Enabled = True
 
-            If flxDATA.RowSel > 0 Then
+            If flxDATA.RowSel > 0 And panelMan.SelectedIndex = 1 Then
+                cmdFunc1.Enabled = False
                 cmdFunc3.Enabled = True
                 cmdFunc4.Enabled = True
                 cmdFunc5.Enabled = True
@@ -2049,7 +2050,7 @@ Public Class FrmG0010
                 cmdFunc3.Enabled = False
                 cmdFunc4.Enabled = False
                 cmdFunc5.Enabled = False
-                'cmdFunc7.Enabled = False
+                cmdFunc7.Enabled = False
                 cmdFunc6.Enabled = False
                 cmdFunc8.Enabled = False
                 cmdFunc9.Enabled = False
@@ -2057,8 +2058,17 @@ Public Class FrmG0010
                 cmdFunc11.Enabled = False
             End If
 
-            cmdFunc1.Enabled = Not (panelMan.SelectedIndex = 1)
-            cmdFunc7.Enabled = (panelMan.SelectedIndex = 1)
+            'cmdFunc1.Enabled = Not (panelMan.SelectedIndex = 1)
+
+            'cmdFunc4.Enabled *= Not (panelMan.SelectedIndex = 1)
+            'cmdFunc5.Enabled *= Not (panelMan.SelectedIndex = 1)
+            'cmdFunc6.Enabled *= Not (panelMan.SelectedIndex = 1)
+            'cmdFunc7.Enabled *= (panelMan.SelectedIndex = 1)
+            'cmdFunc8.Enabled *= Not (panelMan.SelectedIndex = 1)
+            'cmdFunc9.Enabled *= Not (panelMan.SelectedIndex = 1)
+            'cmdFunc10.Enabled *= Not (panelMan.SelectedIndex = 1)
+            'cmdFunc11.Enabled *= Not (panelMan.SelectedIndex = 1)
+
 
             Return True
         Catch ex As Exception
@@ -2096,7 +2106,7 @@ Public Class FrmG0010
             Await Task.Run(Sub()
                                Me.Invoke(Sub()
                                              chkClosedRowVisibled.Checked = False
-                                             chkDleteRowVisibled.Checked = False
+                                             chkDeleteRowVisibled.Checked = False
                                          End Sub)
                            End Sub)
             'AddHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
@@ -2116,9 +2126,9 @@ Public Class FrmG0010
 
     Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click
         ParamModel.Clear()
-        RemoveHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
-        chkDleteRowVisibled.Checked = False
-        AddHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+        RemoveHandler chkDeleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+        chkDeleteRowVisibled.Checked = False
+        AddHandler chkDeleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
         btnSummaryPage.Visible = False
         Call SetStageList()
     End Sub
@@ -2278,7 +2288,7 @@ Public Class FrmG0010
                     AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
                     cmbBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbBUHIN_BANGO.SelectedValue), ParamModel, NameOf(ParamModel.BUHIN_BANGO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
-                    If cmbBUMON.SelectedValue = ENM_BUMON_KB._2_LP Then
+                    If Val(cmbBUMON.SelectedValue) = ENM_BUMON_KB._2_LP Then
                         '社内コード
                         RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
                         cmbSYANAI_CD.DataBindings.Clear()
@@ -2686,7 +2696,7 @@ Public Class FrmG0010
         sbParam.Append($",'{ParamModel.JISI_YMD_TO}'")
         sbParam.Append($",'{ParamModel.HOKOKU_NO}'")
         sbParam.Append($",{ParamModel.ADD_TANTO}")
-        sbParam.Append($",'{IIf(ParamModel._VISIBLE_CLOSE = 1, "", ParamModel._VISIBLE_CLOSE)}'")
+        sbParam.Append($",'{IIf(chkClosedRowVisibled.Checked, "", 0)}'")
         sbParam.Append($",'{IIf(ParamModel._VISIBLE_TAIRYU = 1, ParamModel._VISIBLE_TAIRYU, "")}'")
         sbParam.Append($",'{ParamModel.FUTEKIGO_KB}'")
         sbParam.Append($",'{ParamModel.FUTEKIGO_S_KB}'")
@@ -2794,6 +2804,7 @@ Public Class FrmG0010
         Call FunSetStageList(dgvNCR, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR)
         Call FunSetStageList(dgvCAR, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)
         ParamModel.SYONIN_HOKOKUSYO_ID = 0
+        Application.DoEvents()
     End Sub
 
 #End Region

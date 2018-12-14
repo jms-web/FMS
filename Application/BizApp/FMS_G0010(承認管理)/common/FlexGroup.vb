@@ -191,6 +191,7 @@ Public Class FlexGroupControl
 
             ' 完了
             _flex.EndUpdate()
+
         End Set
     End Property
 
@@ -479,7 +480,7 @@ Public Class FlexGroupControl
             If (col.Visible) OrElse (Not _groups(i).Equals(col)) Then Return True
         Next
 
-
+        'TODO: 常に非表示にしたい列を設定する
         ' 残りの列を表示します。
         For i = iFixed + _groups.Count To cols.Count - 1
             If Not cols(i).Visible Then Return True
@@ -538,7 +539,8 @@ Public Class FlexGroupControl
         For index = 0 To _groups.Count - 1
             Dim icol As Integer = index + cols.Fixed
             Dim fmt As String = cols(icol).Caption + ": {0}"
-            _flex.Subtotal(AggregateEnum.Count, index, icol, cols.Count - 1, fmt)
+            '_flex.Subtotal(AggregateEnum.Count, index, icol, cols.Count - 1, fmt)
+            _flex.Subtotal(AggregateEnum.Count, index, icol, icol + 4, fmt)
         Next
 
         ' 完了です。

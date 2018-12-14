@@ -149,7 +149,7 @@ Public Class MaskedTextBoxEx
             Else
                 BackColor = _BackColorOrg
             End If
-            'SetStyle(ControlStyles.UserMouse, value)
+            SetStyle(ControlStyles.UserMouse, value)
             'SetStyle(ControlStyles.Selectable, value)
         End Set
     End Property
