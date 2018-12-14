@@ -10,35 +10,64 @@ Public Class DateFilterEditor
             _filter.Minimum = _calendar.SelectionRange.Start
             _filter.Maximum = _calendar.SelectionRange.[End]
         Else
-            Dim yesterday = DateTime.Today.AddDays(-1)
+            '
+            Dim today = DateTime.Today
+
             If _chkYesterday.Checked Then
-                _filter.Maximum = yesterday
-                _filter.Minimum = yesterday
+                _filter.Maximum = today.AddDays(-1)
+                _filter.Minimum = today.AddDays(-1)
             End If
-            If _chkEarlierThisWeek.Checked Then
-                _filter.Maximum = yesterday
-                _filter.Minimum = yesterday
+            '
+            If _chkCurrentWeek.Checked Then
+                _filter.Maximum = today
+                While _filter.Maximum.DayOfWeek <> DayOfWeek.Sunday
+                    _filter.Maximum = _filter.Maximum.AddDays(1)
+                End While
+                _filter.Minimum = today
                 While _filter.Minimum.DayOfWeek <> DayOfWeek.Monday
                     _filter.Minimum = _filter.Minimum.AddDays(-1)
                 End While
             End If
+            '
             If _chkLastWeek.Checked Then
-                _filter.Maximum = yesterday
-                _filter.Minimum = yesterday.AddDays(-7)
+                _filter.Maximum = today.AddDays(-7)
+                While _filter.Maximum.DayOfWeek <> DayOfWeek.Sunday
+                    _filter.Maximum = _filter.Maximum.AddDays(1)
+                End While
+                _filter.Minimum = today.AddDays(-7)
                 While _filter.Minimum.DayOfWeek <> DayOfWeek.Monday
                     _filter.Minimum = _filter.Minimum.AddDays(-1)
                 End While
             End If
-            If _chkLongAgo.Checked Then
-                _filter.Maximum = yesterday
-                _filter.Minimum = yesterday.AddYears(-5)
+            '
+            If _chkCurrentMonth.Checked Then
+                _filter.Maximum = DateAndTime.DateSerial(today.Year, today.Month, 1).AddMonths(1).AddDays(-1)
+                _filter.Minimum = DateAndTime.DateSerial(today.Year, today.Month, 1)
             End If
+            '
+            If _chkLastMonth.Checked Then
+                _filter.Maximum = DateAndTime.DateSerial(today.Year, today.Month, 1).AddDays(-1)
+                _filter.Minimum = DateAndTime.DateSerial(today.Year, today.Month, 1).AddMonths(-1)
+            End If
+            '
+            If _chkCurrentYear.Checked Then
+                _filter.Maximum = DateAndTime.DateSerial(today.Year, 12, 31)
+                _filter.Minimum = DateAndTime.DateSerial(today.Year, 1, 1)
+            End If
+            '
+            If _chkLastYear.Checked Then
+                _filter.Maximum = DateAndTime.DateSerial(today.Year - 1, 12, 31)
+                _filter.Minimum = DateAndTime.DateSerial(today.Year - 1, 1, 1)
+            End If
+            '
+
         End If
 
     End Sub
 
     Public Sub Initialize(ByVal grid As C1.Win.C1FlexGrid.C1FlexGridBase, ByVal columnIndex As Integer, ByVal filter As C1.Win.C1FlexGrid.IC1ColumnFilter) Implements C1.Win.C1FlexGrid.IC1ColumnFilterEditor.Initialize
-
+        Me.BackColor = Color.Transparent
+        _calendar.Location = New Point(8, 15)
         _filter = CType(filter, DateFilter)
 
     End Sub

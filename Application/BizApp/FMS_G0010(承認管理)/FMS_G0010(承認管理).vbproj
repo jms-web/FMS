@@ -190,6 +190,10 @@
     <Compile Include="common\DateFilterEditor.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="common\FilterRow.vb" />
+    <Compile Include="common\FlexGroup.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="mdlG0010.vb" />
     <Compile Include="Model\STAGE_LIST.vb" />
     <Compile Include="Model\ST02_SerchFilterModel.vb" />
@@ -281,6 +285,9 @@
     <EmbeddedResource Include="common\DateFilterEditor.resx">
       <DependentUpon>DateFilterEditor.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="common\FlexGroup.resx">
+      <DependentUpon>FlexGroup.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="View\FrmG0012.resx">
       <DependentUpon>FrmG0012.vb</DependentUpon>
@@ -371,7 +378,6 @@
       <Name>FMS_MODEL</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

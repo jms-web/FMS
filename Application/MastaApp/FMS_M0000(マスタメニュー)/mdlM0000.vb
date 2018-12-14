@@ -97,7 +97,7 @@ Module mdlM0000
                 'End If
 
                 '前回ログインユーザーが空欄の場合=バージョンアップ後初回起動時
-                If strBUFF.IsNullOrWhiteSpace Then
+                If strBUFF.IsNulOrWS Then
                     Using frmDLG As New FrmM0001
                         frmDLG.ShowDialog()
                     End Using

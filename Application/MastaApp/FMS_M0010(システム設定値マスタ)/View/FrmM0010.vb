@@ -194,7 +194,7 @@ Public Class FrmM0010
             If cmbKOMO_NM.IsSelected Then
                 sbSQLWHERE.Append(" WHERE ITEM_NAME ='" & cmbKOMO_NM.SelectedValue & "' ")
             Else
-                If cmbKOMO_NM.SelectedIndex > 0 AndAlso cmbKOMO_NM.Text.IsNullOrWhiteSpace = False Then
+                If cmbKOMO_NM.SelectedIndex > 0 AndAlso cmbKOMO_NM.Text.IsNulOrWS = False Then
                     sbSQLWHERE.Append("  WHERE ITEM_NAME  LIKE '%" & cmbKOMO_NM.Text.Trim & "%' ")
                 End If
             End If
@@ -464,7 +464,7 @@ Public Class FrmM0010
 
         For intFunc As Integer = 1 To 12
             With Me.Controls("cmdFunc" & intFunc)
-                If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
+                If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNulOrWS Then
                     .Text = ""
                     .Visible = False
                 End If

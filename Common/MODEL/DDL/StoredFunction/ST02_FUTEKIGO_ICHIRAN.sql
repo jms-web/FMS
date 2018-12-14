@@ -1,10 +1,11 @@
 USE [FMS]
 GO
-
+/****** Object:  StoredProcedure [dbo].[ST02_FUTEKIGO_ICHIRAN]    Script Date: 2018/11/29 16:55:05 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 -- =============================================
 -- Description:	不適合報告書一覧
@@ -99,6 +100,7 @@ BEGIN TRY
 	DECLARE @W_KOKYAKU_SAISYU_HANTEI_NAME	nvarchar(150);	--52.顧客最終判定区分名
 	DECLARE @W_DEL_YMDHNS char(14);
 	DECLARE @W_HASSEI_YMD char(8);
+	DECLARE @W_SYOCHI_YOTEI_YMD char(8);
 
 	DECLARE @retTBL TABLE(
 	 HOKOKU_NO					char(10)		-- 1.報告書No
@@ -156,6 +158,7 @@ BEGIN TRY
 	,KOKYAKU_SAISYU_HANTEI_NAME nvarchar(150)	--52.顧客最終判定区分名
 	,DEL_YMDHNS char(14)
 	,HASSEI_YMD char(8)
+	,SYOCHI_YOTEI_YMD char(8)
 	);
 
 	--SQL を作成する変数宣言
@@ -219,6 +222,7 @@ BEGIN TRY
 	SET @SQL = @SQL + N',KOKYAKU_SAISYU_HANTEI_NAME';	--52.顧客最終判定区分名
 	SET @SQL = @SQL + N',DEL_YMDHNS';	--2018.06.05 Add by funato
 	SET @SQL = @SQL + N',HASSEI_YMD';	--2018.06.05 Add by funato
+	SET @SQL = @SQL + N',SYOCHI_YOTEI_YMD';	--2018.11.29 Add by funato
 	SET @SQL = @SQL + N' FROM V007_NCR_CAR ';
 
 	SET @SQL = @SQL + N' WHERE HOKOKU_NO <> '''' '
@@ -404,6 +408,7 @@ BEGIN TRY
 		SET @SQL = @SQL + N' AND HASSEI_YMD <= ''' + RTRIM(LTRIM(@HASSEI_YMD_TO)) + ''' ';
 	END
 
+
 	--カーソル定義
 	EXECUTE (' DECLARE curTB_A CURSOR FOR ' + @SQL);
 
@@ -468,6 +473,7 @@ BEGIN TRY
 		,@W_KOKYAKU_SAISYU_HANTEI_NAME	--52.顧客最終判定区分名
 		,@W_DEL_YMDHNS --2018.06.05 Add by funato
 		,@W_HASSEI_YMD
+		,@W_SYOCHI_YOTEI_YMD
 
 		IF @@FETCH_STATUS <> 0
 		BEGIN
@@ -529,6 +535,7 @@ BEGIN TRY
 		,KOKYAKU_SAISYU_HANTEI_NAME	--52.顧客最終判定区分名
 		,DEL_YMDHNS
 		,HASSEI_YMD
+		,SYOCHI_YOTEI_YMD
 		) VALUES (
 		@W_HOKOKU_NO					-- 1.報告書No
 		,@W_SYONIN_JUN					-- 2.承認順
@@ -584,6 +591,7 @@ BEGIN TRY
 		,@W_KOKYAKU_SAISYU_HANTEI_NAME	--52.顧客最終判定区分名
 		,@W_DEL_YMDHNS -- 2018.06.05 Add by funato
 		,@W_HASSEI_YMD
+		,@W_SYOCHI_YOTEI_YMD
 		);
 
 	END

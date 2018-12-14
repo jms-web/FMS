@@ -257,17 +257,17 @@ Public Class FrmM0040
             sbSQLWHERE.Append(" WHERE 0 = 0 ")
 
             '---êEî‘
-            If Not (Me.mtxSYAIN_NO.Text.IsNullOrWhiteSpace) Then
+            If Not (Me.mtxSYAIN_NO.Text.IsNulOrWS) Then
                 sbSQLWHERE.Append(" AND SYAIN_NO = " & Me.mtxSYAIN_NO.Text.Trim & " ")
             End If
 
             '---íSìñé“ñºåüçı
-            If Not (Me.mtxSIMEI.Text.IsNullOrWhiteSpace) Then
+            If Not (Me.mtxSIMEI.Text.IsNulOrWS) Then
                 sbSQLWHERE.Append(" AND SIMEI LIKE '%" & Me.mtxSIMEI.Text.Trim & "%'")
             End If
 
             '---íSìñé“ñºÉJÉiåüçı
-            If Not (Me.mtxSIMEI_KANA.Text.IsNullOrWhiteSpace) Then
+            If Not (Me.mtxSIMEI_KANA.Text.IsNulOrWS) Then
                 sbSQLWHERE.Append(" AND SIMEI_KANA LIKE '%" & Me.mtxSIMEI_KANA.Text.Trim & "%'")
             End If
 
@@ -535,7 +535,7 @@ Public Class FrmM0040
 
         For intFunc As Integer = 1 To 12
             With Me.Controls("cmdFunc" & intFunc)
-                If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
+                If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNulOrWS Then
                     .Text = ""
                     .Visible = False
                 End If

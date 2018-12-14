@@ -22,7 +22,7 @@
             'メールの実際の差出人
             writer.FromAddress = FromAddress
             'メールヘッダの差出人情報
-            If strFromName.IsNullOrWhiteSpace = False Then
+            If strFromName.IsNulOrWS = False Then
                 writer.Headers.Add("From", strFromName & " <" & FromAddress & ">")
             End If
 
@@ -32,13 +32,13 @@
             writer.Headers.Add("To", "<" & ToAddress & ">")
 
             'CC
-            If Not CCAddress.IsNullOrWhiteSpace Then
+            If Not CCAddress.IsNulOrWS Then
                 writer.ToAddressList.Add(CCAddress)
                 writer.Headers.Add("Cc", "<" & CCAddress & ">")
             End If
 
             'BCC
-            If Not BCCAddress.IsNullOrWhiteSpace Then
+            If Not BCCAddress.IsNulOrWS Then
                 writer.ToAddressList.Add(BCCAddress)
             End If
 
@@ -61,7 +61,7 @@
 
             '添付ファイル
             Dim filePart As TKMP.Writer.FilePart
-            If Not strAttachment.IsNullOrWhiteSpace Then
+            If Not strAttachment.IsNulOrWS Then
                 filePart = New TKMP.Writer.FilePart(strAttachment)
                 '本文と添付ファイルを持つ、マルチパートクラスを作成
                 writer.MainPart = New TKMP.Writer.MultiPart(txtPart, filePart)
@@ -142,7 +142,7 @@
             'メールの実際の差出人
             writer.FromAddress = "funato@jms-web.co.jp" 'FromAddress
             'メールヘッダの差出人情報
-            If strFromName.IsNullOrWhiteSpace Then
+            If strFromName.IsNulOrWS Then
             Else
                 writer.Headers.Add("From", strFromName & " <" & FromAddress & ">")
             End If
@@ -160,7 +160,7 @@
 
             '添付ファイル
             Dim filePart As TKMP.Writer.FilePart
-            If strAttachment.IsNullOrWhiteSpace Then
+            If strAttachment.IsNulOrWS Then
                 filePart = Nothing
                 '本文と添付ファイルを持つ、マルチパートクラスを作成
                 writer.MainPart = New TKMP.Writer.MultiPart(txtPart)

@@ -396,7 +396,7 @@ Public Module ExtensionMethod
                 provider.SetIconPadding(control, IconPadding)
                 provider.SetError(control, message)
 
-                If message.IsNullOrWhiteSpace Then
+                If message.IsNulOrWS Then
                     control.BackColor = clrControlDefaultBackColor
                 Else
                     Select Case control.GetType
@@ -433,7 +433,7 @@ Public Module ExtensionMethod
         provider.SetIconPadding(control, IconPadding)
         provider.SetError(control, message)
 
-        If message.IsNullOrWhiteSpace Then
+        If message.IsNulOrWS Then
             control.BackColor = clrControlDefaultBackColor
         Else
             Select Case control.GetType
@@ -571,7 +571,7 @@ Public Module ExtensionMethod
     End Function
 
     <Extension()>
-    Public Function IsNullOrWhiteSpace(ByVal this As String) As Boolean
+    Public Function IsNulOrWS(ByVal this As String) As Boolean
         Return String.IsNullOrWhiteSpace(this)
     End Function
 
@@ -627,7 +627,7 @@ Public Module ExtensionMethod
     <Extension()>
     Public Function ToDateTime(this As String, Optional format As String = "") As DateTime
 
-        If format.IsNullOrWhiteSpace Then
+        If format.IsNulOrWS Then
             Return DateTime.Parse(this)
         Else
             Return DateTime.ParseExact(this, format, Nothing)

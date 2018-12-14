@@ -177,8 +177,8 @@ Public Class FrmBaseStsBtnDgv
                 e.PaintBackground(e.ClipBounds, blnSelected)
 
                 '描画するテキスト
-                If e.Value IsNot Nothing AndAlso Not e.Value.ToString.IsNullOrWhiteSpace Then
-                    If e.CellStyle.Format.IsNullOrWhiteSpace Then
+                If e.Value IsNot Nothing AndAlso Not e.Value.ToString.IsNulOrWS Then
+                    If e.CellStyle.Format.IsNulOrWS Then
                         '書式なしのセルの場合
                         strText = e.Value.ToString
                     Else

@@ -503,65 +503,65 @@ Partial Class FrmG0011
         Me.rsbtnST10 = New JMS_COMMON.RibbonShapeRadioButton()
         Me.rsbtnST11 = New JMS_COMMON.RibbonShapeRadioButton()
         Me.rsbtnST12 = New JMS_COMMON.RibbonShapeRadioButton()
-        CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.gbxFilter.SuspendLayout()
-        Me.tlpFilter.SuspendLayout()
-        CType(Me.numSU, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picZoom, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.D003NCRJBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabSTAGE.SuspendLayout()
-        Me.tabSTAGE01.SuspendLayout()
-        Me.pnlST16.SuspendLayout()
-        Me.pnlST15.SuspendLayout()
-        Me.tlpST08.SuspendLayout()
-        Me.pnlSYOCHI_E2.SuspendLayout()
-        Me.pnlSYOCHI_E1.SuspendLayout()
-        Me.pnlSYOCHI_D2.SuspendLayout()
-        Me.pnlSYOCHI_D1.SuspendLayout()
-        Me.pnlSYOCHI_C.SuspendLayout()
-        Me.pnlSYOCHI_B.SuspendLayout()
-        Me.pnlSYOCHI_A.SuspendLayout()
-        Me.pnlST14.SuspendLayout()
-        Me.pnlST13.SuspendLayout()
-        Me.pnlST12.SuspendLayout()
-        Me.pnlST11.SuspendLayout()
-        Me.pnlST10.SuspendLayout()
-        Me.TabControlEx1.SuspendLayout()
-        Me.TabPageEx2.SuspendLayout()
-        Me.TabPageEx1.SuspendLayout()
-        Me.TabPageEx3.SuspendLayout()
-        Me.TabPageEx4.SuspendLayout()
-        Me.pnlST09.SuspendLayout()
-        Me.tabST08_SUB.SuspendLayout()
-        Me.tabSTAGE08_1.SuspendLayout()
-        Me.tabSTAGE08_2.SuspendLayout()
-        Me.tabSTAGE08_3.SuspendLayout()
-        Me.tabSTAGE08_4.SuspendLayout()
-        Me.pnlST08.SuspendLayout()
-        Me.flpnlST08_SAIKAKO.SuspendLayout()
-        Me.pnlST07.SuspendLayout()
-        Me.pnlST06.SuspendLayout()
-        Me.pnlST05.SuspendLayout()
-        Me.pnlST04.SuspendLayout()
-        Me.pnlST04_ZESEI.SuspendLayout()
-        Me.pnlST03.SuspendLayout()
-        Me.pnlST02.SuspendLayout()
-        Me.pnlTEMP_SIRYO.SuspendLayout()
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SplitContainer1.Panel1.SuspendLayout()
-        Me.SplitContainer1.Panel2.SuspendLayout()
-        Me.SplitContainer1.SuspendLayout()
-        Me.flpPict1Path.SuspendLayout()
-        CType(Me.pnlPict1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.flpPict2Path.SuspendLayout()
-        CType(Me.pnlPict2, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.fpnlTempFile.SuspendLayout()
-        Me.pnlST01.SuspendLayout()
-        Me.tabSTAGE12.SuspendLayout()
-        CType(Me.D004SYONINJKANRIBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.flpnlStageIndex.SuspendLayout()
-        Me.SuspendLayout()
+        CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.gbxFilter.SuspendLayout
+        Me.tlpFilter.SuspendLayout
+        CType(Me.numSU, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.picZoom, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.D003NCRJBindingSource, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.TabSTAGE.SuspendLayout
+        Me.tabSTAGE01.SuspendLayout
+        Me.pnlST16.SuspendLayout
+        Me.pnlST15.SuspendLayout
+        Me.tlpST08.SuspendLayout
+        Me.pnlSYOCHI_E2.SuspendLayout
+        Me.pnlSYOCHI_E1.SuspendLayout
+        Me.pnlSYOCHI_D2.SuspendLayout
+        Me.pnlSYOCHI_D1.SuspendLayout
+        Me.pnlSYOCHI_C.SuspendLayout
+        Me.pnlSYOCHI_B.SuspendLayout
+        Me.pnlSYOCHI_A.SuspendLayout
+        Me.pnlST14.SuspendLayout
+        Me.pnlST13.SuspendLayout
+        Me.pnlST12.SuspendLayout
+        Me.pnlST11.SuspendLayout
+        Me.pnlST10.SuspendLayout
+        Me.TabControlEx1.SuspendLayout
+        Me.TabPageEx2.SuspendLayout
+        Me.TabPageEx1.SuspendLayout
+        Me.TabPageEx3.SuspendLayout
+        Me.TabPageEx4.SuspendLayout
+        Me.pnlST09.SuspendLayout
+        Me.tabST08_SUB.SuspendLayout
+        Me.tabSTAGE08_1.SuspendLayout
+        Me.tabSTAGE08_2.SuspendLayout
+        Me.tabSTAGE08_3.SuspendLayout
+        Me.tabSTAGE08_4.SuspendLayout
+        Me.pnlST08.SuspendLayout
+        Me.flpnlST08_SAIKAKO.SuspendLayout
+        Me.pnlST07.SuspendLayout
+        Me.pnlST06.SuspendLayout
+        Me.pnlST05.SuspendLayout
+        Me.pnlST04.SuspendLayout
+        Me.pnlST04_ZESEI.SuspendLayout
+        Me.pnlST03.SuspendLayout
+        Me.pnlST02.SuspendLayout
+        Me.pnlTEMP_SIRYO.SuspendLayout
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.SplitContainer1.Panel1.SuspendLayout
+        Me.SplitContainer1.Panel2.SuspendLayout
+        Me.SplitContainer1.SuspendLayout
+        Me.flpPict1Path.SuspendLayout
+        CType(Me.pnlPict1, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.flpPict2Path.SuspendLayout
+        CType(Me.pnlPict2, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.fpnlTempFile.SuspendLayout
+        Me.pnlST01.SuspendLayout
+        Me.tabSTAGE12.SuspendLayout
+        CType(Me.D004SYONINJKANRIBindingSource, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.flpnlStageIndex.SuspendLayout
+        Me.SuspendLayout
         '
         'lblRecordCount
         '
@@ -1479,7 +1479,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 153.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 155.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.pnlSYOCHI_E2, 3, 7)
@@ -1526,7 +1526,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_E2.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_E2.Controls.Add(Me.rbtnST11_E2_T)
         Me.pnlSYOCHI_E2.Controls.Add(Me.rbtnST11_E2_F)
-        Me.pnlSYOCHI_E2.Location = New System.Drawing.Point(608, 200)
+        Me.pnlSYOCHI_E2.Location = New System.Drawing.Point(606, 200)
         Me.pnlSYOCHI_E2.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_E2.Name = "pnlSYOCHI_E2"
         Me.pnlSYOCHI_E2.Size = New System.Drawing.Size(151, 28)
@@ -1564,7 +1564,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_E1.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_E1.Controls.Add(Me.rbtnST11_E1_T)
         Me.pnlSYOCHI_E1.Controls.Add(Me.rbtnST11_E1_F)
-        Me.pnlSYOCHI_E1.Location = New System.Drawing.Point(608, 171)
+        Me.pnlSYOCHI_E1.Location = New System.Drawing.Point(606, 171)
         Me.pnlSYOCHI_E1.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_E1.Name = "pnlSYOCHI_E1"
         Me.pnlSYOCHI_E1.Size = New System.Drawing.Size(151, 28)
@@ -1602,7 +1602,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_D2.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_D2.Controls.Add(Me.rbtnST11_D2_T)
         Me.pnlSYOCHI_D2.Controls.Add(Me.rbtnST11_D2_F)
-        Me.pnlSYOCHI_D2.Location = New System.Drawing.Point(608, 117)
+        Me.pnlSYOCHI_D2.Location = New System.Drawing.Point(606, 117)
         Me.pnlSYOCHI_D2.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_D2.Name = "pnlSYOCHI_D2"
         Me.pnlSYOCHI_D2.Size = New System.Drawing.Size(151, 28)
@@ -1640,7 +1640,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_D1.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_D1.Controls.Add(Me.rbtnST11_D1_T)
         Me.pnlSYOCHI_D1.Controls.Add(Me.rbtnST11_D1_F)
-        Me.pnlSYOCHI_D1.Location = New System.Drawing.Point(608, 88)
+        Me.pnlSYOCHI_D1.Location = New System.Drawing.Point(606, 88)
         Me.pnlSYOCHI_D1.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_D1.Name = "pnlSYOCHI_D1"
         Me.pnlSYOCHI_D1.Size = New System.Drawing.Size(151, 28)
@@ -1678,7 +1678,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_C.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_C.Controls.Add(Me.rbtnST11_C1_T)
         Me.pnlSYOCHI_C.Controls.Add(Me.rbtnST11_C1_F)
-        Me.pnlSYOCHI_C.Location = New System.Drawing.Point(608, 59)
+        Me.pnlSYOCHI_C.Location = New System.Drawing.Point(606, 59)
         Me.pnlSYOCHI_C.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_C.Name = "pnlSYOCHI_C"
         Me.pnlSYOCHI_C.Size = New System.Drawing.Size(151, 28)
@@ -1716,7 +1716,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_B.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_B.Controls.Add(Me.rbtnST11_B1_T)
         Me.pnlSYOCHI_B.Controls.Add(Me.rbtnST11_B1_F)
-        Me.pnlSYOCHI_B.Location = New System.Drawing.Point(608, 30)
+        Me.pnlSYOCHI_B.Location = New System.Drawing.Point(606, 30)
         Me.pnlSYOCHI_B.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_B.Name = "pnlSYOCHI_B"
         Me.pnlSYOCHI_B.Size = New System.Drawing.Size(151, 28)
@@ -1809,7 +1809,7 @@ Partial Class FrmG0011
         Me.Label126.Location = New System.Drawing.Point(22, 117)
         Me.Label126.Margin = New System.Windows.Forms.Padding(0)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(585, 28)
+        Me.Label126.Size = New System.Drawing.Size(583, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "âeãøóLÇÃèÍçáÅAå⁄ãqÇ÷ÇÃí ímÇÃóvî€"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1824,7 +1824,7 @@ Partial Class FrmG0011
         Me.Label127.Location = New System.Drawing.Point(22, 88)
         Me.Label127.Margin = New System.Windows.Forms.Padding(0)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(585, 28)
+        Me.Label127.Size = New System.Drawing.Size(583, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "ìñäYïsìKçáÇ…ÇÊÇÈå⁄ãqÇ÷ÇÃâeãø"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1839,7 +1839,7 @@ Partial Class FrmG0011
         Me.lblSYOCHI_C_2.Location = New System.Drawing.Point(22, 59)
         Me.lblSYOCHI_C_2.Margin = New System.Windows.Forms.Padding(0)
         Me.lblSYOCHI_C_2.Name = "lblSYOCHI_C_2"
-        Me.lblSYOCHI_C_2.Size = New System.Drawing.Size(585, 28)
+        Me.lblSYOCHI_C_2.Size = New System.Drawing.Size(583, 28)
         Me.lblSYOCHI_C_2.TabIndex = 241
         Me.lblSYOCHI_C_2.Text = "îpãpèàíuÇÕñ{óàÇÃà”ê}ÇµÇΩégópñîÇÕìKópÇ™Ç≈Ç´Ç»Ç¢ï˚ñ@ÇæÇ¡ÇΩÇ©ÅH"
         Me.lblSYOCHI_C_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1868,7 +1868,7 @@ Partial Class FrmG0011
         Me.Label130.Location = New System.Drawing.Point(22, 30)
         Me.Label130.Margin = New System.Windows.Forms.Padding(0)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(585, 28)
+        Me.Label130.Size = New System.Drawing.Size(583, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "é–ì‡å†å¿é“Ç…ÇÊÇËÅAñîÇÕå⁄ãqçƒêRÇÃèÍçáÇÕå⁄ãqÇ…ÇÊÇËîªíËÇ≥ÇÍÇΩÇ©ÅH"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1925,7 +1925,7 @@ Partial Class FrmG0011
         Me.Label134.Location = New System.Drawing.Point(22, 171)
         Me.Label134.Margin = New System.Windows.Forms.Padding(0)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(585, 28)
+        Me.Label134.Size = New System.Drawing.Size(583, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "ìñäYïsìKçáÇ…ÇÊÇÈëºÇÃÉvÉçÉZÉXÇ÷ÇÃâeãø"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1954,7 +1954,7 @@ Partial Class FrmG0011
         Me.Label136.Location = New System.Drawing.Point(22, 200)
         Me.Label136.Margin = New System.Windows.Forms.Padding(0)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(585, 28)
+        Me.Label136.Size = New System.Drawing.Size(583, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "âeãøóLÇÃèÍçáÅAïïÇ∂çûÇﬂèàíuÇÃóvî€"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1969,7 +1969,7 @@ Partial Class FrmG0011
         Me.Label137.Location = New System.Drawing.Point(22, 1)
         Me.Label137.Margin = New System.Windows.Forms.Padding(0)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(585, 28)
+        Me.Label137.Size = New System.Drawing.Size(583, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "åüèoÇ≥ÇÍÇΩïsìKçáÇèúãéÇ∑ÇÈèàíuÅiîpãpÇä‹ÇﬁÅjÇÕämé¿Ç…Ç∆ÇÁÇÍÇΩÇ©ÅH"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1993,7 +1993,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_A.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_A.Controls.Add(Me.rbtnST11_A1_T)
         Me.pnlSYOCHI_A.Controls.Add(Me.rbtnST11_A1_F)
-        Me.pnlSYOCHI_A.Location = New System.Drawing.Point(608, 1)
+        Me.pnlSYOCHI_A.Location = New System.Drawing.Point(606, 1)
         Me.pnlSYOCHI_A.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_A.Name = "pnlSYOCHI_A"
         Me.pnlSYOCHI_A.Size = New System.Drawing.Size(151, 28)
@@ -2153,7 +2153,7 @@ Partial Class FrmG0011
         Me.mtxST15_NextStageName.Name = "mtxST15_NextStageName"
         Me.mtxST15_NextStageName.ReadOnly = True
         Me.mtxST15_NextStageName.SelectAllText = False
-        Me.mtxST15_NextStageName.ShowRemaining = True
+        Me.mtxST15_NextStageName.ShowRemainingChars = True
         Me.mtxST15_NextStageName.Size = New System.Drawing.Size(295, 24)
         Me.mtxST15_NextStageName.TabIndex = 245
         Me.mtxST15_NextStageName.TabStop = False
@@ -2222,7 +2222,7 @@ Partial Class FrmG0011
         Me.txtST15_Comment.Multiline = True
         Me.txtST15_Comment.Name = "txtST15_Comment"
         Me.txtST15_Comment.SelectAllText = False
-        Me.txtST15_Comment.ShowRemaining = True
+        Me.txtST15_Comment.ShowRemainingChars = True
         Me.txtST15_Comment.Size = New System.Drawing.Size(295, 159)
         Me.txtST15_Comment.TabIndex = 247
         Me.txtST15_Comment.WatermarkText = Nothing
@@ -2238,7 +2238,7 @@ Partial Class FrmG0011
         Me.mtxST15_UPD_YMD.Name = "mtxST15_UPD_YMD"
         Me.mtxST15_UPD_YMD.ReadOnly = True
         Me.mtxST15_UPD_YMD.SelectAllText = False
-        Me.mtxST15_UPD_YMD.ShowRemaining = True
+        Me.mtxST15_UPD_YMD.ShowRemainingChars = True
         Me.mtxST15_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST15_UPD_YMD.TabIndex = 244
         Me.mtxST15_UPD_YMD.TabStop = False
@@ -2331,7 +2331,7 @@ Partial Class FrmG0011
         Me.mtxST14_UPD_YMD.Name = "mtxST14_UPD_YMD"
         Me.mtxST14_UPD_YMD.ReadOnly = True
         Me.mtxST14_UPD_YMD.SelectAllText = False
-        Me.mtxST14_UPD_YMD.ShowRemaining = True
+        Me.mtxST14_UPD_YMD.ShowRemainingChars = True
         Me.mtxST14_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST14_UPD_YMD.TabIndex = 0
         Me.mtxST14_UPD_YMD.TabStop = False
@@ -2384,7 +2384,7 @@ Partial Class FrmG0011
         Me.mtxST14_NextStageName.Name = "mtxST14_NextStageName"
         Me.mtxST14_NextStageName.ReadOnly = True
         Me.mtxST14_NextStageName.SelectAllText = False
-        Me.mtxST14_NextStageName.ShowRemaining = True
+        Me.mtxST14_NextStageName.ShowRemainingChars = True
         Me.mtxST14_NextStageName.Size = New System.Drawing.Size(256, 24)
         Me.mtxST14_NextStageName.TabIndex = 1
         Me.mtxST14_NextStageName.TabStop = False
@@ -2404,7 +2404,7 @@ Partial Class FrmG0011
         Me.txtST14_Comment.Multiline = True
         Me.txtST14_Comment.Name = "txtST14_Comment"
         Me.txtST14_Comment.SelectAllText = False
-        Me.txtST14_Comment.ShowRemaining = True
+        Me.txtST14_Comment.ShowRemainingChars = True
         Me.txtST14_Comment.Size = New System.Drawing.Size(481, 58)
         Me.txtST14_Comment.TabIndex = 3
         Me.txtST14_Comment.WatermarkText = Nothing
@@ -2529,7 +2529,7 @@ Partial Class FrmG0011
         Me.mtxST13_UPD_YMD.Name = "mtxST13_UPD_YMD"
         Me.mtxST13_UPD_YMD.ReadOnly = True
         Me.mtxST13_UPD_YMD.SelectAllText = False
-        Me.mtxST13_UPD_YMD.ShowRemaining = True
+        Me.mtxST13_UPD_YMD.ShowRemainingChars = True
         Me.mtxST13_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST13_UPD_YMD.TabIndex = 0
         Me.mtxST13_UPD_YMD.TabStop = False
@@ -2582,7 +2582,7 @@ Partial Class FrmG0011
         Me.mtxST13_NextStageName.Name = "mtxST13_NextStageName"
         Me.mtxST13_NextStageName.ReadOnly = True
         Me.mtxST13_NextStageName.SelectAllText = False
-        Me.mtxST13_NextStageName.ShowRemaining = True
+        Me.mtxST13_NextStageName.ShowRemainingChars = True
         Me.mtxST13_NextStageName.Size = New System.Drawing.Size(253, 24)
         Me.mtxST13_NextStageName.TabIndex = 1
         Me.mtxST13_NextStageName.TabStop = False
@@ -2600,7 +2600,7 @@ Partial Class FrmG0011
         Me.txtST13_Comment.Multiline = True
         Me.txtST13_Comment.Name = "txtST13_Comment"
         Me.txtST13_Comment.SelectAllText = False
-        Me.txtST13_Comment.ShowRemaining = True
+        Me.txtST13_Comment.ShowRemainingChars = True
         Me.txtST13_Comment.Size = New System.Drawing.Size(482, 58)
         Me.txtST13_Comment.TabIndex = 3
         Me.txtST13_Comment.WatermarkText = Nothing
@@ -2746,7 +2746,7 @@ Partial Class FrmG0011
         Me.mtxST12_UPD_YMD.Name = "mtxST12_UPD_YMD"
         Me.mtxST12_UPD_YMD.ReadOnly = True
         Me.mtxST12_UPD_YMD.SelectAllText = False
-        Me.mtxST12_UPD_YMD.ShowRemaining = True
+        Me.mtxST12_UPD_YMD.ShowRemainingChars = True
         Me.mtxST12_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST12_UPD_YMD.TabIndex = 1
         Me.mtxST12_UPD_YMD.TabStop = False
@@ -2768,7 +2768,7 @@ Partial Class FrmG0011
         Me.mtxST12_NextStageName.Name = "mtxST12_NextStageName"
         Me.mtxST12_NextStageName.ReadOnly = True
         Me.mtxST12_NextStageName.SelectAllText = False
-        Me.mtxST12_NextStageName.ShowRemaining = True
+        Me.mtxST12_NextStageName.ShowRemainingChars = True
         Me.mtxST12_NextStageName.Size = New System.Drawing.Size(274, 24)
         Me.mtxST12_NextStageName.TabIndex = 2
         Me.mtxST12_NextStageName.TabStop = False
@@ -2812,7 +2812,7 @@ Partial Class FrmG0011
         Me.txtST12_Comment.Multiline = True
         Me.txtST12_Comment.Name = "txtST12_Comment"
         Me.txtST12_Comment.SelectAllText = False
-        Me.txtST12_Comment.ShowRemaining = True
+        Me.txtST12_Comment.ShowRemainingChars = True
         Me.txtST12_Comment.Size = New System.Drawing.Size(274, 75)
         Me.txtST12_Comment.TabIndex = 4
         Me.txtST12_Comment.WatermarkText = Nothing
@@ -2945,7 +2945,7 @@ Partial Class FrmG0011
         Me.mtxST11_UPD_YMD.Name = "mtxST11_UPD_YMD"
         Me.mtxST11_UPD_YMD.ReadOnly = True
         Me.mtxST11_UPD_YMD.SelectAllText = False
-        Me.mtxST11_UPD_YMD.ShowRemaining = True
+        Me.mtxST11_UPD_YMD.ShowRemainingChars = True
         Me.mtxST11_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST11_UPD_YMD.TabIndex = 1
         Me.mtxST11_UPD_YMD.TabStop = False
@@ -2967,7 +2967,7 @@ Partial Class FrmG0011
         Me.mtxST11_NextStageName.Name = "mtxST11_NextStageName"
         Me.mtxST11_NextStageName.ReadOnly = True
         Me.mtxST11_NextStageName.SelectAllText = False
-        Me.mtxST11_NextStageName.ShowRemaining = True
+        Me.mtxST11_NextStageName.ShowRemainingChars = True
         Me.mtxST11_NextStageName.Size = New System.Drawing.Size(274, 24)
         Me.mtxST11_NextStageName.TabIndex = 2
         Me.mtxST11_NextStageName.TabStop = False
@@ -3011,7 +3011,7 @@ Partial Class FrmG0011
         Me.txtST11_Comment.Multiline = True
         Me.txtST11_Comment.Name = "txtST11_Comment"
         Me.txtST11_Comment.SelectAllText = False
-        Me.txtST11_Comment.ShowRemaining = True
+        Me.txtST11_Comment.ShowRemainingChars = True
         Me.txtST11_Comment.Size = New System.Drawing.Size(274, 75)
         Me.txtST11_Comment.TabIndex = 4
         Me.txtST11_Comment.WatermarkText = Nothing
@@ -3303,7 +3303,7 @@ Partial Class FrmG0011
         Me.MaskedTextBoxEx2.MaxByteLength = 10
         Me.MaskedTextBoxEx2.Name = "MaskedTextBoxEx2"
         Me.MaskedTextBoxEx2.SelectAllText = False
-        Me.MaskedTextBoxEx2.ShowRemaining = True
+        Me.MaskedTextBoxEx2.ShowRemainingChars = True
         Me.MaskedTextBoxEx2.Size = New System.Drawing.Size(115, 24)
         Me.MaskedTextBoxEx2.TabIndex = 0
         Me.MaskedTextBoxEx2.WatermarkColor = System.Drawing.Color.Empty
@@ -3479,7 +3479,7 @@ Partial Class FrmG0011
         Me.MaskedTextBoxEx1.MaxByteLength = 60
         Me.MaskedTextBoxEx1.Name = "MaskedTextBoxEx1"
         Me.MaskedTextBoxEx1.SelectAllText = False
-        Me.MaskedTextBoxEx1.ShowRemaining = True
+        Me.MaskedTextBoxEx1.ShowRemainingChars = True
         Me.MaskedTextBoxEx1.Size = New System.Drawing.Size(0, 24)
         Me.MaskedTextBoxEx1.TabIndex = 2
         Me.MaskedTextBoxEx1.WatermarkColor = System.Drawing.Color.Empty
@@ -3599,7 +3599,7 @@ Partial Class FrmG0011
         Me.TextBoxEx1.Multiline = True
         Me.TextBoxEx1.Name = "TextBoxEx1"
         Me.TextBoxEx1.SelectAllText = False
-        Me.TextBoxEx1.ShowRemaining = True
+        Me.TextBoxEx1.ShowRemainingChars = True
         Me.TextBoxEx1.Size = New System.Drawing.Size(0, 118)
         Me.TextBoxEx1.TabIndex = 4
         Me.TextBoxEx1.WatermarkText = Nothing
@@ -3648,7 +3648,7 @@ Partial Class FrmG0011
         Me.MaskedTextBoxEx3.MaxByteLength = 120
         Me.MaskedTextBoxEx3.Name = "MaskedTextBoxEx3"
         Me.MaskedTextBoxEx3.SelectAllText = False
-        Me.MaskedTextBoxEx3.ShowRemaining = True
+        Me.MaskedTextBoxEx3.ShowRemainingChars = True
         Me.MaskedTextBoxEx3.Size = New System.Drawing.Size(0, 24)
         Me.MaskedTextBoxEx3.TabIndex = 1
         Me.MaskedTextBoxEx3.WatermarkColor = System.Drawing.Color.Empty
@@ -3776,7 +3776,7 @@ Partial Class FrmG0011
         Me.MaskedTextBoxEx4.MaxByteLength = 0
         Me.MaskedTextBoxEx4.Name = "MaskedTextBoxEx4"
         Me.MaskedTextBoxEx4.SelectAllText = False
-        Me.MaskedTextBoxEx4.ShowRemaining = True
+        Me.MaskedTextBoxEx4.ShowRemainingChars = True
         Me.MaskedTextBoxEx4.Size = New System.Drawing.Size(134, 24)
         Me.MaskedTextBoxEx4.TabIndex = 2
         Me.MaskedTextBoxEx4.WatermarkColor = System.Drawing.Color.Empty
@@ -3831,7 +3831,7 @@ Partial Class FrmG0011
         Me.MaskedTextBoxEx5.MaxByteLength = 0
         Me.MaskedTextBoxEx5.Name = "MaskedTextBoxEx5"
         Me.MaskedTextBoxEx5.SelectAllText = False
-        Me.MaskedTextBoxEx5.ShowRemaining = True
+        Me.MaskedTextBoxEx5.ShowRemainingChars = True
         Me.MaskedTextBoxEx5.Size = New System.Drawing.Size(54, 24)
         Me.MaskedTextBoxEx5.TabIndex = 3
         Me.MaskedTextBoxEx5.WatermarkColor = System.Drawing.Color.Empty
@@ -3904,7 +3904,7 @@ Partial Class FrmG0011
         Me.mtxST10_UPD_YMD.Name = "mtxST10_UPD_YMD"
         Me.mtxST10_UPD_YMD.ReadOnly = True
         Me.mtxST10_UPD_YMD.SelectAllText = False
-        Me.mtxST10_UPD_YMD.ShowRemaining = True
+        Me.mtxST10_UPD_YMD.ShowRemainingChars = True
         Me.mtxST10_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST10_UPD_YMD.TabIndex = 1
         Me.mtxST10_UPD_YMD.TabStop = False
@@ -3926,7 +3926,7 @@ Partial Class FrmG0011
         Me.mtxST10_NextStageName.Name = "mtxST10_NextStageName"
         Me.mtxST10_NextStageName.ReadOnly = True
         Me.mtxST10_NextStageName.SelectAllText = False
-        Me.mtxST10_NextStageName.ShowRemaining = True
+        Me.mtxST10_NextStageName.ShowRemainingChars = True
         Me.mtxST10_NextStageName.Size = New System.Drawing.Size(274, 24)
         Me.mtxST10_NextStageName.TabIndex = 2
         Me.mtxST10_NextStageName.TabStop = False
@@ -3970,7 +3970,7 @@ Partial Class FrmG0011
         Me.txtST10_Comment.Multiline = True
         Me.txtST10_Comment.Name = "txtST10_Comment"
         Me.txtST10_Comment.SelectAllText = False
-        Me.txtST10_Comment.ShowRemaining = True
+        Me.txtST10_Comment.ShowRemainingChars = True
         Me.txtST10_Comment.Size = New System.Drawing.Size(274, 75)
         Me.txtST10_Comment.TabIndex = 4
         Me.txtST10_Comment.WatermarkText = Nothing
@@ -4588,7 +4588,7 @@ Partial Class FrmG0011
         Me.txtST08_3_BIKO.Multiline = True
         Me.txtST08_3_BIKO.Name = "txtST08_3_BIKO"
         Me.txtST08_3_BIKO.SelectAllText = False
-        Me.txtST08_3_BIKO.ShowRemaining = True
+        Me.txtST08_3_BIKO.ShowRemainingChars = True
         Me.txtST08_3_BIKO.Size = New System.Drawing.Size(483, 57)
         Me.txtST08_3_BIKO.TabIndex = 4
         Me.txtST08_3_BIKO.WatermarkText = Nothing
@@ -4890,7 +4890,7 @@ Partial Class FrmG0011
         Me.mtxST09_UPD_YMD.Name = "mtxST09_UPD_YMD"
         Me.mtxST09_UPD_YMD.ReadOnly = True
         Me.mtxST09_UPD_YMD.SelectAllText = False
-        Me.mtxST09_UPD_YMD.ShowRemaining = True
+        Me.mtxST09_UPD_YMD.ShowRemainingChars = True
         Me.mtxST09_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST09_UPD_YMD.TabIndex = 1
         Me.mtxST09_UPD_YMD.TabStop = False
@@ -4910,7 +4910,7 @@ Partial Class FrmG0011
         Me.mtxST09_NextStageName.Name = "mtxST09_NextStageName"
         Me.mtxST09_NextStageName.ReadOnly = True
         Me.mtxST09_NextStageName.SelectAllText = False
-        Me.mtxST09_NextStageName.ShowRemaining = True
+        Me.mtxST09_NextStageName.ShowRemainingChars = True
         Me.mtxST09_NextStageName.Size = New System.Drawing.Size(258, 24)
         Me.mtxST09_NextStageName.TabIndex = 2
         Me.mtxST09_NextStageName.TabStop = False
@@ -4952,7 +4952,7 @@ Partial Class FrmG0011
         Me.txtST09_Comment.Multiline = True
         Me.txtST09_Comment.Name = "txtST09_Comment"
         Me.txtST09_Comment.SelectAllText = False
-        Me.txtST09_Comment.ShowRemaining = True
+        Me.txtST09_Comment.ShowRemainingChars = True
         Me.txtST09_Comment.Size = New System.Drawing.Size(480, 58)
         Me.txtST09_Comment.TabIndex = 4
         Me.txtST09_Comment.WatermarkText = Nothing
@@ -5112,7 +5112,7 @@ Partial Class FrmG0011
         Me.mtxST08_NextStageName.Name = "mtxST08_NextStageName"
         Me.mtxST08_NextStageName.ReadOnly = True
         Me.mtxST08_NextStageName.SelectAllText = False
-        Me.mtxST08_NextStageName.ShowRemaining = True
+        Me.mtxST08_NextStageName.ShowRemainingChars = True
         Me.mtxST08_NextStageName.Size = New System.Drawing.Size(255, 24)
         Me.mtxST08_NextStageName.TabIndex = 7
         Me.mtxST08_NextStageName.TabStop = False
@@ -5248,7 +5248,7 @@ Partial Class FrmG0011
         Me.txtST08_Comment.Multiline = True
         Me.txtST08_Comment.Name = "txtST08_Comment"
         Me.txtST08_Comment.SelectAllText = False
-        Me.txtST08_Comment.ShowRemaining = True
+        Me.txtST08_Comment.ShowRemainingChars = True
         Me.txtST08_Comment.Size = New System.Drawing.Size(480, 58)
         Me.txtST08_Comment.TabIndex = 9
         Me.txtST08_Comment.WatermarkText = Nothing
@@ -5288,7 +5288,7 @@ Partial Class FrmG0011
         Me.mtxST08_UPD_YMD.Name = "mtxST08_UPD_YMD"
         Me.mtxST08_UPD_YMD.ReadOnly = True
         Me.mtxST08_UPD_YMD.SelectAllText = False
-        Me.mtxST08_UPD_YMD.ShowRemaining = True
+        Me.mtxST08_UPD_YMD.ShowRemainingChars = True
         Me.mtxST08_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST08_UPD_YMD.TabIndex = 6
         Me.mtxST08_UPD_YMD.TabStop = False
@@ -5537,7 +5537,7 @@ Partial Class FrmG0011
         Me.mtxST07_NextStageName.Name = "mtxST07_NextStageName"
         Me.mtxST07_NextStageName.ReadOnly = True
         Me.mtxST07_NextStageName.SelectAllText = False
-        Me.mtxST07_NextStageName.ShowRemaining = True
+        Me.mtxST07_NextStageName.ShowRemainingChars = True
         Me.mtxST07_NextStageName.Size = New System.Drawing.Size(256, 24)
         Me.mtxST07_NextStageName.TabIndex = 3
         Me.mtxST07_NextStageName.TabStop = False
@@ -5593,7 +5593,7 @@ Partial Class FrmG0011
         Me.txtST07_Comment.Multiline = True
         Me.txtST07_Comment.Name = "txtST07_Comment"
         Me.txtST07_Comment.SelectAllText = False
-        Me.txtST07_Comment.ShowRemaining = True
+        Me.txtST07_Comment.ShowRemainingChars = True
         Me.txtST07_Comment.Size = New System.Drawing.Size(480, 58)
         Me.txtST07_Comment.TabIndex = 5
         Me.txtST07_Comment.WatermarkText = Nothing
@@ -5621,7 +5621,7 @@ Partial Class FrmG0011
         Me.mtxST07_UPD_YMD.Name = "mtxST07_UPD_YMD"
         Me.mtxST07_UPD_YMD.ReadOnly = True
         Me.mtxST07_UPD_YMD.SelectAllText = False
-        Me.mtxST07_UPD_YMD.ShowRemaining = True
+        Me.mtxST07_UPD_YMD.ShowRemainingChars = True
         Me.mtxST07_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST07_UPD_YMD.TabIndex = 2
         Me.mtxST07_UPD_YMD.TabStop = False
@@ -5739,7 +5739,7 @@ Partial Class FrmG0011
         Me.mtxST06_NextStageName.Name = "mtxST06_NextStageName"
         Me.mtxST06_NextStageName.ReadOnly = True
         Me.mtxST06_NextStageName.SelectAllText = False
-        Me.mtxST06_NextStageName.ShowRemaining = True
+        Me.mtxST06_NextStageName.ShowRemainingChars = True
         Me.mtxST06_NextStageName.Size = New System.Drawing.Size(256, 24)
         Me.mtxST06_NextStageName.TabIndex = 3
         Me.mtxST06_NextStageName.TabStop = False
@@ -5837,7 +5837,7 @@ Partial Class FrmG0011
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.MaxByteLength = 6
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.Name = "mtxST06_SAISIN_IINKAI_SIRYO_NO"
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.SelectAllText = False
-        Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.ShowRemaining = True
+        Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.ShowRemainingChars = True
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.Size = New System.Drawing.Size(154, 24)
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.TabIndex = 1
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.WatermarkColor = System.Drawing.Color.Empty
@@ -5856,7 +5856,7 @@ Partial Class FrmG0011
         Me.txtST06_Comment.Multiline = True
         Me.txtST06_Comment.Name = "txtST06_Comment"
         Me.txtST06_Comment.SelectAllText = False
-        Me.txtST06_Comment.ShowRemaining = True
+        Me.txtST06_Comment.ShowRemainingChars = True
         Me.txtST06_Comment.Size = New System.Drawing.Size(480, 58)
         Me.txtST06_Comment.TabIndex = 5
         Me.txtST06_Comment.WatermarkText = Nothing
@@ -5884,7 +5884,7 @@ Partial Class FrmG0011
         Me.mtxST06_UPD_YMD.Name = "mtxST06_UPD_YMD"
         Me.mtxST06_UPD_YMD.ReadOnly = True
         Me.mtxST06_UPD_YMD.SelectAllText = False
-        Me.mtxST06_UPD_YMD.ShowRemaining = True
+        Me.mtxST06_UPD_YMD.ShowRemainingChars = True
         Me.mtxST06_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST06_UPD_YMD.TabIndex = 2
         Me.mtxST06_UPD_YMD.TabStop = False
@@ -5979,7 +5979,7 @@ Partial Class FrmG0011
         Me.mtxST05_UPD_YMD.Name = "mtxST05_UPD_YMD"
         Me.mtxST05_UPD_YMD.ReadOnly = True
         Me.mtxST05_UPD_YMD.SelectAllText = False
-        Me.mtxST05_UPD_YMD.ShowRemaining = True
+        Me.mtxST05_UPD_YMD.ShowRemainingChars = True
         Me.mtxST05_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST05_UPD_YMD.TabIndex = 0
         Me.mtxST05_UPD_YMD.TabStop = False
@@ -6034,7 +6034,7 @@ Partial Class FrmG0011
         Me.mtxST05_NextStageName.Name = "mtxST05_NextStageName"
         Me.mtxST05_NextStageName.ReadOnly = True
         Me.mtxST05_NextStageName.SelectAllText = False
-        Me.mtxST05_NextStageName.ShowRemaining = True
+        Me.mtxST05_NextStageName.ShowRemainingChars = True
         Me.mtxST05_NextStageName.Size = New System.Drawing.Size(237, 24)
         Me.mtxST05_NextStageName.TabIndex = 1
         Me.mtxST05_NextStageName.TabStop = False
@@ -6054,7 +6054,7 @@ Partial Class FrmG0011
         Me.txtST05_Comment.Multiline = True
         Me.txtST05_Comment.Name = "txtST05_Comment"
         Me.txtST05_Comment.SelectAllText = False
-        Me.txtST05_Comment.ShowRemaining = True
+        Me.txtST05_Comment.ShowRemainingChars = True
         Me.txtST05_Comment.Size = New System.Drawing.Size(478, 56)
         Me.txtST05_Comment.TabIndex = 3
         Me.txtST05_Comment.WatermarkText = Nothing
@@ -6293,7 +6293,7 @@ Partial Class FrmG0011
         Me.txtST04_RIYU.Multiline = True
         Me.txtST04_RIYU.Name = "txtST04_RIYU"
         Me.txtST04_RIYU.SelectAllText = False
-        Me.txtST04_RIYU.ShowRemaining = True
+        Me.txtST04_RIYU.ShowRemainingChars = True
         Me.txtST04_RIYU.Size = New System.Drawing.Size(482, 80)
         Me.txtST04_RIYU.TabIndex = 1
         Me.txtST04_RIYU.Visible = False
@@ -6367,7 +6367,7 @@ Partial Class FrmG0011
         Me.mtxST04_UPD_YMD.Name = "mtxST04_UPD_YMD"
         Me.mtxST04_UPD_YMD.ReadOnly = True
         Me.mtxST04_UPD_YMD.SelectAllText = False
-        Me.mtxST04_UPD_YMD.ShowRemaining = True
+        Me.mtxST04_UPD_YMD.ShowRemainingChars = True
         Me.mtxST04_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST04_UPD_YMD.TabIndex = 2
         Me.mtxST04_UPD_YMD.TabStop = False
@@ -6435,7 +6435,7 @@ Partial Class FrmG0011
         Me.txtST04_Comment.Multiline = True
         Me.txtST04_Comment.Name = "txtST04_Comment"
         Me.txtST04_Comment.SelectAllText = False
-        Me.txtST04_Comment.ShowRemaining = True
+        Me.txtST04_Comment.ShowRemainingChars = True
         Me.txtST04_Comment.Size = New System.Drawing.Size(482, 55)
         Me.txtST04_Comment.TabIndex = 5
         Me.txtST04_Comment.WatermarkText = Nothing
@@ -6453,7 +6453,7 @@ Partial Class FrmG0011
         Me.mtxST04_NextStageName.Name = "mtxST04_NextStageName"
         Me.mtxST04_NextStageName.ReadOnly = True
         Me.mtxST04_NextStageName.SelectAllText = False
-        Me.mtxST04_NextStageName.ShowRemaining = True
+        Me.mtxST04_NextStageName.ShowRemainingChars = True
         Me.mtxST04_NextStageName.Size = New System.Drawing.Size(256, 24)
         Me.mtxST04_NextStageName.TabIndex = 3
         Me.mtxST04_NextStageName.TabStop = False
@@ -6583,7 +6583,7 @@ Partial Class FrmG0011
         Me.mtxST03_UPD_YMD.Name = "mtxST03_UPD_YMD"
         Me.mtxST03_UPD_YMD.ReadOnly = True
         Me.mtxST03_UPD_YMD.SelectAllText = False
-        Me.mtxST03_UPD_YMD.ShowRemaining = True
+        Me.mtxST03_UPD_YMD.ShowRemainingChars = True
         Me.mtxST03_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST03_UPD_YMD.TabIndex = 0
         Me.mtxST03_UPD_YMD.TabStop = False
@@ -6638,7 +6638,7 @@ Partial Class FrmG0011
         Me.mtxST03_NextStageName.Name = "mtxST03_NextStageName"
         Me.mtxST03_NextStageName.ReadOnly = True
         Me.mtxST03_NextStageName.SelectAllText = False
-        Me.mtxST03_NextStageName.ShowRemaining = True
+        Me.mtxST03_NextStageName.ShowRemainingChars = True
         Me.mtxST03_NextStageName.Size = New System.Drawing.Size(241, 24)
         Me.mtxST03_NextStageName.TabIndex = 1
         Me.mtxST03_NextStageName.TabStop = False
@@ -6659,7 +6659,7 @@ Partial Class FrmG0011
         Me.txtST03_Comment.Multiline = True
         Me.txtST03_Comment.Name = "txtST03_Comment"
         Me.txtST03_Comment.SelectAllText = False
-        Me.txtST03_Comment.ShowRemaining = True
+        Me.txtST03_Comment.ShowRemainingChars = True
         Me.txtST03_Comment.Size = New System.Drawing.Size(482, 58)
         Me.txtST03_Comment.TabIndex = 3
         Me.txtST03_Comment.WatermarkText = Nothing
@@ -6787,7 +6787,7 @@ Partial Class FrmG0011
         Me.mtxST02_UPD_YMD.Name = "mtxST02_UPD_YMD"
         Me.mtxST02_UPD_YMD.ReadOnly = True
         Me.mtxST02_UPD_YMD.SelectAllText = False
-        Me.mtxST02_UPD_YMD.ShowRemaining = True
+        Me.mtxST02_UPD_YMD.ShowRemainingChars = True
         Me.mtxST02_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST02_UPD_YMD.TabIndex = 0
         Me.mtxST02_UPD_YMD.TabStop = False
@@ -6842,7 +6842,7 @@ Partial Class FrmG0011
         Me.mtxST02_NextStageName.Name = "mtxST02_NextStageName"
         Me.mtxST02_NextStageName.ReadOnly = True
         Me.mtxST02_NextStageName.SelectAllText = False
-        Me.mtxST02_NextStageName.ShowRemaining = True
+        Me.mtxST02_NextStageName.ShowRemainingChars = True
         Me.mtxST02_NextStageName.Size = New System.Drawing.Size(253, 24)
         Me.mtxST02_NextStageName.TabIndex = 1
         Me.mtxST02_NextStageName.TabStop = False
@@ -6863,7 +6863,7 @@ Partial Class FrmG0011
         Me.txtST02_Comment.Multiline = True
         Me.txtST02_Comment.Name = "txtST02_Comment"
         Me.txtST02_Comment.SelectAllText = False
-        Me.txtST02_Comment.ShowRemaining = True
+        Me.txtST02_Comment.ShowRemainingChars = True
         Me.txtST02_Comment.Size = New System.Drawing.Size(482, 58)
         Me.txtST02_Comment.TabIndex = 3
         Me.txtST02_Comment.WatermarkText = Nothing
@@ -7362,7 +7362,7 @@ Partial Class FrmG0011
         Me.txtST01_YOKYU_NAIYO.Name = "txtST01_YOKYU_NAIYO"
         Me.txtST01_YOKYU_NAIYO.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtST01_YOKYU_NAIYO.SelectAllText = False
-        Me.txtST01_YOKYU_NAIYO.ShowRemaining = True
+        Me.txtST01_YOKYU_NAIYO.ShowRemainingChars = True
         Me.txtST01_YOKYU_NAIYO.Size = New System.Drawing.Size(716, 167)
         Me.txtST01_YOKYU_NAIYO.TabIndex = 0
         Me.txtST01_YOKYU_NAIYO.WatermarkText = Nothing
@@ -7441,7 +7441,7 @@ Partial Class FrmG0011
         Me.txtST01_KEKKA.Name = "txtST01_KEKKA"
         Me.txtST01_KEKKA.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtST01_KEKKA.SelectAllText = False
-        Me.txtST01_KEKKA.ShowRemaining = True
+        Me.txtST01_KEKKA.ShowRemainingChars = True
         Me.txtST01_KEKKA.Size = New System.Drawing.Size(713, 170)
         Me.txtST01_KEKKA.TabIndex = 1
         Me.txtST01_KEKKA.WatermarkText = Nothing
@@ -7457,7 +7457,7 @@ Partial Class FrmG0011
         Me.mtxST01_NextStageName.Name = "mtxST01_NextStageName"
         Me.mtxST01_NextStageName.ReadOnly = True
         Me.mtxST01_NextStageName.SelectAllText = False
-        Me.mtxST01_NextStageName.ShowRemaining = True
+        Me.mtxST01_NextStageName.ShowRemainingChars = True
         Me.mtxST01_NextStageName.Size = New System.Drawing.Size(162, 24)
         Me.mtxST01_NextStageName.TabIndex = 3
         Me.mtxST01_NextStageName.TabStop = False
@@ -7548,7 +7548,7 @@ Partial Class FrmG0011
         Me.mtxST01_UPD_YMD.Name = "mtxST01_UPD_YMD"
         Me.mtxST01_UPD_YMD.ReadOnly = True
         Me.mtxST01_UPD_YMD.SelectAllText = False
-        Me.mtxST01_UPD_YMD.ShowRemaining = True
+        Me.mtxST01_UPD_YMD.ShowRemainingChars = True
         Me.mtxST01_UPD_YMD.Size = New System.Drawing.Size(115, 24)
         Me.mtxST01_UPD_YMD.TabIndex = 2
         Me.mtxST01_UPD_YMD.TabStop = False
@@ -7989,22 +7989,22 @@ Partial Class FrmG0011
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
-        CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
-        Me.tlpFilter.PerformLayout()
-        CType(Me.numSU, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picZoom, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.D003NCRJBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tlpFilter.PerformLayout
+        CType(Me.numSU, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.picZoom, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.D003NCRJBindingSource, System.ComponentModel.ISupportInitialize).EndInit
         Me.TabSTAGE.ResumeLayout(False)
         Me.tabSTAGE01.ResumeLayout(False)
         Me.pnlST16.ResumeLayout(False)
-        Me.pnlST16.PerformLayout()
+        Me.pnlST16.PerformLayout
         Me.pnlST15.ResumeLayout(False)
-        Me.pnlST15.PerformLayout()
+        Me.pnlST15.PerformLayout
         Me.tlpST08.ResumeLayout(False)
-        Me.tlpST08.PerformLayout()
+        Me.tlpST08.PerformLayout
         Me.pnlSYOCHI_E2.ResumeLayout(False)
         Me.pnlSYOCHI_E1.ResumeLayout(False)
         Me.pnlSYOCHI_D2.ResumeLayout(False)
@@ -8013,76 +8013,76 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_B.ResumeLayout(False)
         Me.pnlSYOCHI_A.ResumeLayout(False)
         Me.pnlST14.ResumeLayout(False)
-        Me.pnlST14.PerformLayout()
+        Me.pnlST14.PerformLayout
         Me.pnlST13.ResumeLayout(False)
-        Me.pnlST13.PerformLayout()
+        Me.pnlST13.PerformLayout
         Me.pnlST12.ResumeLayout(False)
-        Me.pnlST12.PerformLayout()
+        Me.pnlST12.PerformLayout
         Me.pnlST11.ResumeLayout(False)
-        Me.pnlST11.PerformLayout()
+        Me.pnlST11.PerformLayout
         Me.pnlST10.ResumeLayout(False)
-        Me.pnlST10.PerformLayout()
+        Me.pnlST10.PerformLayout
         Me.TabControlEx1.ResumeLayout(False)
         Me.TabPageEx2.ResumeLayout(False)
-        Me.TabPageEx2.PerformLayout()
+        Me.TabPageEx2.PerformLayout
         Me.TabPageEx1.ResumeLayout(False)
-        Me.TabPageEx1.PerformLayout()
+        Me.TabPageEx1.PerformLayout
         Me.TabPageEx3.ResumeLayout(False)
-        Me.TabPageEx3.PerformLayout()
+        Me.TabPageEx3.PerformLayout
         Me.TabPageEx4.ResumeLayout(False)
-        Me.TabPageEx4.PerformLayout()
+        Me.TabPageEx4.PerformLayout
         Me.pnlST09.ResumeLayout(False)
-        Me.pnlST09.PerformLayout()
+        Me.pnlST09.PerformLayout
         Me.tabST08_SUB.ResumeLayout(False)
         Me.tabSTAGE08_1.ResumeLayout(False)
-        Me.tabSTAGE08_1.PerformLayout()
+        Me.tabSTAGE08_1.PerformLayout
         Me.tabSTAGE08_2.ResumeLayout(False)
-        Me.tabSTAGE08_2.PerformLayout()
+        Me.tabSTAGE08_2.PerformLayout
         Me.tabSTAGE08_3.ResumeLayout(False)
-        Me.tabSTAGE08_3.PerformLayout()
+        Me.tabSTAGE08_3.PerformLayout
         Me.tabSTAGE08_4.ResumeLayout(False)
-        Me.tabSTAGE08_4.PerformLayout()
+        Me.tabSTAGE08_4.PerformLayout
         Me.pnlST08.ResumeLayout(False)
-        Me.pnlST08.PerformLayout()
+        Me.pnlST08.PerformLayout
         Me.flpnlST08_SAIKAKO.ResumeLayout(False)
-        Me.flpnlST08_SAIKAKO.PerformLayout()
+        Me.flpnlST08_SAIKAKO.PerformLayout
         Me.pnlST07.ResumeLayout(False)
-        Me.pnlST07.PerformLayout()
+        Me.pnlST07.PerformLayout
         Me.pnlST06.ResumeLayout(False)
-        Me.pnlST06.PerformLayout()
+        Me.pnlST06.PerformLayout
         Me.pnlST05.ResumeLayout(False)
-        Me.pnlST05.PerformLayout()
+        Me.pnlST05.PerformLayout
         Me.pnlST04.ResumeLayout(False)
-        Me.pnlST04.PerformLayout()
+        Me.pnlST04.PerformLayout
         Me.pnlST04_ZESEI.ResumeLayout(False)
-        Me.pnlST04_ZESEI.PerformLayout()
+        Me.pnlST04_ZESEI.PerformLayout
         Me.pnlST03.ResumeLayout(False)
-        Me.pnlST03.PerformLayout()
+        Me.pnlST03.PerformLayout
         Me.pnlST02.ResumeLayout(False)
-        Me.pnlST02.PerformLayout()
+        Me.pnlST02.PerformLayout
         Me.pnlTEMP_SIRYO.ResumeLayout(False)
-        Me.pnlTEMP_SIRYO.PerformLayout()
+        Me.pnlTEMP_SIRYO.PerformLayout
         Me.SplitContainer1.Panel1.ResumeLayout(False)
-        Me.SplitContainer1.Panel1.PerformLayout()
+        Me.SplitContainer1.Panel1.PerformLayout
         Me.SplitContainer1.Panel2.ResumeLayout(False)
-        Me.SplitContainer1.Panel2.PerformLayout()
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.Panel2.PerformLayout
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit
         Me.SplitContainer1.ResumeLayout(False)
         Me.flpPict1Path.ResumeLayout(False)
-        Me.flpPict1Path.PerformLayout()
-        CType(Me.pnlPict1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.flpPict1Path.PerformLayout
+        CType(Me.pnlPict1, System.ComponentModel.ISupportInitialize).EndInit
         Me.flpPict2Path.ResumeLayout(False)
-        Me.flpPict2Path.PerformLayout()
-        CType(Me.pnlPict2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.flpPict2Path.PerformLayout
+        CType(Me.pnlPict2, System.ComponentModel.ISupportInitialize).EndInit
         Me.fpnlTempFile.ResumeLayout(False)
-        Me.fpnlTempFile.PerformLayout()
+        Me.fpnlTempFile.PerformLayout
         Me.pnlST01.ResumeLayout(False)
-        Me.pnlST01.PerformLayout()
+        Me.pnlST01.PerformLayout
         Me.tabSTAGE12.ResumeLayout(False)
-        CType(Me.D004SYONINJKANRIBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.D004SYONINJKANRIBindingSource, System.ComponentModel.ISupportInitialize).EndInit
         Me.flpnlStageIndex.ResumeLayout(False)
         Me.ResumeLayout(False)
-        Me.PerformLayout()
+        Me.PerformLayout
 
     End Sub
     Friend WithEvents gbxFilter As GroupBox

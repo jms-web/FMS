@@ -201,7 +201,7 @@ Public NotInheritable Class ClsPubMethod
     ''' <param name="strPath"></param>
     Public Shared Sub SubConvPathString(ByRef strPath As String)
         Try
-            If strPath.IsNullOrWhiteSpace Then
+            If strPath.IsNulOrWS Then
             Else
                 If strPath.LastIndexOf("\") <> strPath.Length - 1 Then
                     'パスの最後に\を付ける
@@ -222,7 +222,7 @@ Public NotInheritable Class ClsPubMethod
         Dim strBUFF As String
         Try
 
-            If strPath.IsNullOrWhiteSpace = False Then
+            If strPath.IsNulOrWS = False Then
                 If strPath.LastIndexOf("\") <> strPath.Length - 1 Then
                     'パスの最後に\を付ける
                     strBUFF = strPath & "\"
@@ -1045,7 +1045,7 @@ Public NotInheritable Class ClsPubMethod
 
             '-----パス無し時
             strBUFF = System.IO.Path.GetDirectoryName(strEXCEL_FILE)
-            If strBUFF.IsNullOrWhiteSpace Then
+            If strBUFF.IsNulOrWS Then
                 'Call MsgBox(INI_EXCELFILENAME & "にEXCEL出力先フォルダが設定されていません。", MsgBoxStyle.Exclamation)
                 'WL.WriteLogDat(INI_EXCELFILENAME & "にEXCEL出力先フォルダが設定されていません。")
                 Return False
@@ -1203,7 +1203,7 @@ Public NotInheritable Class ClsPubMethod
         Dim strPATH As String
 
         Try
-            If strOUT_FOLDER.IsNullOrWhiteSpace Then
+            If strOUT_FOLDER.IsNulOrWS Then
                 Return False
             Else
                 'パス文字列変換
@@ -1672,7 +1672,7 @@ Public NotInheritable Class ClsPubMethod
 
             '▼空文字に対しては常に空文字を返す
 
-            If str.IsNullOrWhiteSpace Then
+            If str.IsNulOrWS Then
                 Return ""
             End If
 
@@ -1805,7 +1805,7 @@ Public NotInheritable Class ClsPubMethod
     Public Shared Function FunDATESPAN(ByVal strYMD As String, Optional ByVal strNAME As String = "") As Integer
 
         Try
-            If strNAME.IsNullOrWhiteSpace Then
+            If strNAME.IsNulOrWS Then
                 strNAME = "日付"
             End If
 

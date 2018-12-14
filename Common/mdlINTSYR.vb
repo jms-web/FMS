@@ -363,7 +363,7 @@ Module mdlINTSYR
                     End If
 
                     'フォーム背景色
-                    If iniIF.GetIniString("SYSTEM", "FORMBACK_R").IsNullOrWhiteSpace AndAlso iniIF.GetIniString("SYSTEM", "FORMBACK_G").IsNullOrWhiteSpace AndAlso iniIF.GetIniString("SYSTEM", "FORMBACK_B").IsNullOrWhiteSpace Then
+                    If iniIF.GetIniString("SYSTEM", "FORMBACK_R").IsNulOrWS AndAlso iniIF.GetIniString("SYSTEM", "FORMBACK_G").IsNulOrWS AndAlso iniIF.GetIniString("SYSTEM", "FORMBACK_B").IsNulOrWS Then
                         'SYSTEM.INIのデフォルト設定を使用
                         .clrFORM_BACK = pub_SYSTEM_INFO.clrDefaultFormBack
                     Else
@@ -371,7 +371,7 @@ Module mdlINTSYR
                     End If
 
                     'タイトルラベル
-                    If iniIF.GetIniString("SYSTEM", "TITLELABEL_R").IsNullOrWhiteSpace AndAlso iniIF.GetIniString("SYSTEM", "TITLELABEL_G").IsNullOrWhiteSpace AndAlso iniIF.GetIniString("SYSTEM", "TITLELABEL_B").IsNullOrWhiteSpace Then
+                    If iniIF.GetIniString("SYSTEM", "TITLELABEL_R").IsNulOrWS AndAlso iniIF.GetIniString("SYSTEM", "TITLELABEL_G").IsNulOrWS AndAlso iniIF.GetIniString("SYSTEM", "TITLELABEL_B").IsNulOrWS Then
                         'SYSTEM.INIのデフォルト設定を使用
                         .clrTITLE_LABEL = pub_SYSTEM_INFO.clrDefaultTitleBack
                     Else
@@ -621,7 +621,7 @@ Module mdlINTSYR
 
 #Region "DB操作関連"
     Public Function DBOpen() As ClsDbUtility
-        If pub_SYSTEM_INFO.DbProviderFactories.IsNullOrWhiteSpace And pub_SYSTEM_INFO.CONNECTIONSTRING.IsNullOrWhiteSpace Then
+        If pub_SYSTEM_INFO.DbProviderFactories.IsNulOrWS And pub_SYSTEM_INFO.CONNECTIONSTRING.IsNulOrWS Then
             Return Nothing
         Else
             Dim DB As New ClsDbUtility(pub_SYSTEM_INFO.DbProviderFactories, pub_SYSTEM_INFO.CONNECTIONSTRING)

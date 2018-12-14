@@ -193,9 +193,9 @@ Public Class FrmM1070
             Dim sbSQLWHERE As New System.Text.StringBuilder
 
             If CmbBUMON_KB.IsSelected Then sbSQLWHERE.Append($" WHERE BUMON_KB ='{CmbBUMON_KB.SelectedValue}' ")
-            If Not mtxBUHIN_BANGO.Text.IsNullOrWhiteSpace Then sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"BUHIN_BANGO LIKE '%{mtxBUHIN_BANGO.Text.Trim}%'")
-            If Not mtxBUHIN_NAME.Text.IsNullOrWhiteSpace Then sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"BUHIN_NAME LIKE '%{mtxBUHIN_NAME.Text.Trim}%'")
-            If Not mtxKISYU_NAME.Text.IsNullOrWhiteSpace Then sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"KISYU_NAME LIKE '%{mtxKISYU_NAME.Text.Trim}%'")
+            If Not mtxBUHIN_BANGO.Text.IsNulOrWS Then sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"BUHIN_BANGO LIKE '%{mtxBUHIN_BANGO.Text.Trim}%'")
+            If Not mtxBUHIN_NAME.Text.IsNulOrWS Then sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"BUHIN_NAME LIKE '%{mtxBUHIN_NAME.Text.Trim}%'")
+            If Not mtxKISYU_NAME.Text.IsNulOrWS Then sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"KISYU_NAME LIKE '%{mtxKISYU_NAME.Text.Trim}%'")
 
             flxDATA.Cols("DEL_FLG").Visible = chkDeletedRowVisibled.Checked
             If chkDeletedRowVisibled.Checked = False Then
@@ -426,7 +426,7 @@ Public Class FrmM1070
 
         For intFunc As Integer = 1 To 12
             With Me.Controls("cmdFunc" & intFunc)
-                If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
+                If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNulOrWS Then
                     .Text = ""
                     .Visible = False
                 End If

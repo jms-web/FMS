@@ -457,13 +457,13 @@ Public Class FrmM1011
                 Me.mtxADD2.Text = .Item("ADD2")
                 Me.mtxADD3.Text = .Item("ADD3")
                 'TEL
-                If .Item("TEL").ToString.IsNullOrWhiteSpace = False Then
+                If .Item("TEL").ToString.IsNulOrWS = False Then
                     Me.mtxTEL1.Text = .Item("TEL").ToString.Split("-")(0)
                     Me.mtxTEL2.Text = .Item("TEL").ToString.Split("-")(1)
                     Me.mtxTEL3.Text = .Item("TEL").ToString.Split("-")(2)
                 End If
                 'FAX
-                If .Item("FAX").ToString.IsNullOrWhiteSpace = False Then
+                If .Item("FAX").ToString.IsNulOrWS = False Then
                     Me.mtxFAX1.Text = .Item("FAX").ToString.Split("-")(0)
                     Me.mtxFAX2.Text = .Item("FAX").ToString.Split("-")(1)
                     Me.mtxFAX3.Text = .Item("FAX").ToString.Split("-")(2)
@@ -508,7 +508,7 @@ Public Class FrmM1011
     'éÊà¯êÊñº
     Private Sub MtxTORI_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxTORI_NAME.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNullOrWhiteSpace, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éÊà¯êÊñº"))
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éÊà¯êÊñº"))
 
     End Sub
 

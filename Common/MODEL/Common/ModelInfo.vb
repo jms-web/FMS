@@ -151,7 +151,7 @@ Public Class ModelInfo(Of T As {New, IDataModel})
 
                 Select Case p.PropertyType
                     Case GetType(Boolean)
-                        r(p.Name) = CBool(row.Item(p.Name))
+                        r(p.Name) = CBool(Val(row.Item(p.Name)))
                     Case GetType(Date), GetType(DateTime)
                         r(p.Name) = CDate(row.Item(p.Name))
                     Case GetType(Decimal)
@@ -161,7 +161,7 @@ Public Class ModelInfo(Of T As {New, IDataModel})
                     Case GetType(Integer)
                         r(p.Name) = CInt(row.Item(p.Name))
                     Case GetType(String)
-                        r(p.Name) = CStr(row.Item(p.Name))
+                        r(p.Name) = CStr(row.Item(p.Name)).Trim
                     Case Else
                         r(p.Name) = row.Item(p.Name)
                 End Select

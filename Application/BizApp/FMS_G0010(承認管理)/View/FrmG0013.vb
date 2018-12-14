@@ -187,7 +187,7 @@ Public Class FrmG0013
                                 PrSelectedList.Add((dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_NAME)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_VALUE)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_DISP)).Value))
                             End If
 
-                            If PrDAIHYO.ITEM_VALUE.IsNullOrWhiteSpace And PrMODE = 1 Then
+                            If PrDAIHYO.ITEM_VALUE.IsNulOrWS And PrMODE = 1 Then
                                 dgv.CurrentRow.Cells("DAIHYO").Value = True
                                 PrDAIHYO = (dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_NAME)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_VALUE)).Value, dgv.CurrentRow.Cells(NameOf(MODEL.VWM001_SETTING.ITEM_DISP)).Value)
                             End If
@@ -472,7 +472,7 @@ Public Class FrmG0013
                             Dim bln As Boolean = PrSelectedList.Contains((strValue, .Item("ITEM_VALUE").ToString.Trim, .Item("ITEM_DISP").ToString.Trim))
                             Trow("SELECTED") = bln
                         End If
-                        If PrDAIHYO.ITEM_VALUE.IsNullOrWhiteSpace Then
+                        If PrDAIHYO.ITEM_VALUE.IsNulOrWS Then
                             Trow("DAIHYO") = False
                         Else
                             Dim bln As Boolean = (PrDAIHYO.ITEM_DISP = dsList.Tables(0).Rows(intCNT).Item("ITEM_DISP").ToString.Trim) And (PrDAIHYO.ITEM_NAME.Trim = strValue) And (PrDAIHYO.ITEM_VALUE.Trim = dsList.Tables(0).Rows(intCNT).Item("ITEM_VALUE").ToString.Trim)
@@ -509,7 +509,7 @@ Public Class FrmG0013
 
             For intFunc As Integer = 1 To 12
                 With Me.Controls("cmdFunc" & intFunc)
-                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNullOrWhiteSpace Then
+                    If .Text.Length = 0 OrElse .Text.Substring(0, .Text.IndexOf("(")).IsNulOrWS Then
                         .Text = ""
                         .Visible = False
                     End If

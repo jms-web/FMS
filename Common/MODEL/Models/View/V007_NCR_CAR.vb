@@ -29,6 +29,9 @@ Partial Public Class V007_NCR_CAR
     Public Property SIMEI As String
 
     Public Property HASSEI_YMD As String
+
+    Public Property SYOCHI_YOTEI_YMD As String
+
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' d•¡‚·‚éŒÄ‚Ño‚µ‚ğŒŸo‚·‚é‚É‚Í
 

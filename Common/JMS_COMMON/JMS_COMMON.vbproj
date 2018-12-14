@@ -144,6 +144,12 @@
     <CodeAnalysisRuleSet>JMS_COMMON.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="C1.Win.C1FlexGrid.4, Version=4.0.20173.286, Culture=neutral, PublicKeyToken=79882d576c6336da" />
+    <Reference Include="C1.Win.C1TrueDBGrid.4, Version=4.0.20173.286, Culture=neutral, PublicKeyToken=75ae3fb0e2b1e0da" />
+    <Reference Include="FMS_G0010, Version=0.9.18326.843, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Application\BizApp\FMS_G0010(承認管理)\obj\Debug\FMS_G0010.exe</HintPath>
+    </Reference>
     <Reference Include="MetroFramework, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MetroFramework.RunTime.1.2.0.3\lib\net40-Client\MetroFramework.dll</HintPath>
     </Reference>
@@ -160,6 +166,10 @@
     <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
+    <Reference Include="PanelManager, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="SpreadsheetGear2012.Core, Version=7.4.14.104, Culture=neutral, PublicKeyToken=39c186f5904944ec" />
+    <Reference Include="SpreadsheetGear2012.Drawing, Version=7.4.14.104, Culture=neutral, PublicKeyToken=39c186f5904944ec" />
+    <Reference Include="SpreadsheetGear2012.Windows.Forms, Version=7.4.14.104, Culture=neutral, PublicKeyToken=39c186f5904944ec" />
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -722,6 +732,15 @@
   <ItemGroup>
     <None Include="Resources\履歴2.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InsertPoint.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SortDn.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SortUp.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
     <PreBuildEvent>
@@ -731,7 +750,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_ReplaceNonNumerics="False" />
+      <UserProperties BuildVersion_ReplaceNonNumerics="False" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

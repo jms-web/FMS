@@ -4,6 +4,7 @@ Imports JMS_COMMON.ClsPubMethod
 <DefaultEvent("SelectedValueChanged")>
 Public Class ComboboxEx
     Inherits ComboBox
+    'Implements IReadOnly
 
 #Region "定数・変数"
 
@@ -11,17 +12,23 @@ Public Class ComboboxEx
     Const CON_TOP_ROW_CAPTION_0 As String = "(必須)"
     Const CON_TOP_ROW_CAPTION_1 As String = "(すべて)"
     Const CON_TOP_ROW_CAPTION_2 As String = "(未選択)"
+
     Const WM_PAINT As Integer = &HF
 
-    Private _BackColorDefault As Color 'フォーカス喪失時時の背景色
+    ''' <summary>
+    ''' フォーカス喪失時時の背景色
+    ''' </summary>
+    Private _ActiveBackColor As Color
+    Private _BackColorOrg As Color
+    Private _InvalidBackColor As Color
 
-    Private _BackColorOrg As System.Drawing.Color
-    Private _ReadOnly As Boolean
     Private _CursorOrg As Cursor
+    Private _ReadOnly As Boolean
 
     Private _BorderWidth As Integer
     Private _OldValue As String
     Private _NullValue As Object
+
 #End Region
 
 #Region "コンストラクタ"
@@ -31,7 +38,9 @@ Public Class ComboboxEx
 
         _BackColorOrg = BackColor
         _CursorOrg = Cursor
+        _InvalidBackColor = clrDisableControlGotFocusedColor
         GotFocusedColor = clrControlGotFocusedColor
+        _ActiveBackColor = clrControlDefaultBackColor
         BorderColor = Color.Gray
         BorderStyle = ButtonBorderStyle.None
         BorderWidth = 1
@@ -47,7 +56,71 @@ Public Class ComboboxEx
 
 #Region "プロパティ"
 
-#Region "IsSelected"
+#Region "   BackColor"
+
+    <Bindable(True), Category("Appearance")>
+    Overrides Property BackColor As Color
+        Get
+            Return MyBase.BackColor
+        End Get
+        Set(ByVal value As Color)
+            MyBase.BackColor = value
+            'If Not [ReadOnly] Then _ActiveBackColor = value
+        End Set
+    End Property
+
+#End Region
+
+#Region "   BorderColor"
+
+    <DefaultValue(GetType(Color), NameOf(Color.Gray))>
+    <Category("表示")>
+    Public Property BorderColor As Color
+
+#End Region
+
+#Region "   BorderStyle"
+
+    <DefaultValue(GetType(ButtonBorderStyle), NameOf(ButtonBorderStyle.None))>
+    <Category("表示")>
+    Public Property BorderStyle As ButtonBorderStyle
+
+#End Region
+
+#Region "   BorderWidth"
+
+    <DefaultValue(1)>
+    <Category("表示")>
+    Public Property BorderWidth As Integer
+        Get
+            Return Me._BorderWidth
+        End Get
+        Set(ByVal value As Integer)
+            If value < 0 Then value = 1
+            If value > 3 Then value = 3
+            Me._BorderWidth = value
+        End Set
+    End Property
+
+#End Region
+
+#Region "   GotFocusedColor"
+
+    <Bindable(True), Category("Appearance"), DefaultValue(GetType(Color), "190, 180, 255")>
+    Property GotFocusedColor As Color
+
+#End Region
+
+#Region "   HorizontalContentAlignment"
+
+    <Bindable(True)>
+    <Browsable(True)>
+    Public Property HorizontalContentAlignment As StringAlignment
+
+#End Region
+
+#Region "   IsSelected"
+
     ''' <summary>
     ''' データソース中のItemの選択状態を取得します
     ''' </summary>
@@ -55,37 +128,37 @@ Public Class ComboboxEx
     <Browsable(False)>
     Public Property IsSelected As Boolean
         Get
-            Return Me.ReadOnly OrElse (Me.DataSource IsNot Nothing AndAlso Me.SelectedValue IsNot Nothing AndAlso Me.SelectedValue <> Me.NullValue)
+            Return [ReadOnly] OrElse
+                    (DataSource IsNot Nothing AndAlso SelectedValue IsNot Nothing AndAlso SelectedValue <> NullValue)
         End Get
         Set(value As Boolean)
-            If Me.DataSource IsNot Nothing Then Me.SelectedIndex = 0
+            If DataSource IsNot Nothing Then SelectedIndex = 0
         End Set
     End Property
-#End Region
-
-#Region "GotFocusedColor"
-
-    <Bindable(True), Category("Appearance"), DefaultValue(GetType(Color), "190, 180, 255")>
-    Property GotFocusedColor As System.Drawing.Color
 
 #End Region
 
-#Region "BackColor"
+#Region "   NullValue"
 
-    <Bindable(True), Category("Appearance")>
-    Overrides Property [BackColor]() As System.Drawing.Color
+    Public Property NullValue As Object
         Get
-            Return MyBase.BackColor
+
+            If _NullValue Is Nothing Then
+                Return " "
+            Else
+                Return _NullValue
+            End If
+
         End Get
-        Set(ByVal value As System.Drawing.Color)
-            MyBase.BackColor = value
-            _BackColorDefault = value
+        Set(value As Object)
+            _NullValue = value
         End Set
     End Property
 
 #End Region
 
-#Region "OldValue"
+#Region "   OldValue"
+
     ''' <summary>
     ''' 変更前の値を取得します
     ''' </summary>
@@ -96,10 +169,11 @@ Public Class ComboboxEx
             Return _OldValue
         End Get
     End Property
+
 #End Region
 
+#Region "   SelectedValue"
 
-#Region "SelectedValue"
     <Bindable(True)>
     <Browsable(False)>
     Public Overloads Property SelectedValue As Object
@@ -108,12 +182,11 @@ Public Class ComboboxEx
                 Select Case MyBase.SelectedValue.ToString
                     Case CON_TOP_ROW_CAPTION_0, CON_TOP_ROW_CAPTION_1, CON_TOP_ROW_CAPTION_2
                         'メタ選択肢の場合は、選択されていないものとする
-                        'NullValueが設定されている場合はそれを返す
-                        Return NullValue 'Nothing
+                        Return NullValue
                     Case Else
                         Return MyBase.SelectedValue
                 End Select
-            ElseIf TypeOf MyBase.SelectedValue Is Integer Then
+            ElseIf TypeOf NullValue Is Integer Then
                 Return Val(MyBase.SelectedValue)
             Else
                 Return MyBase.SelectedValue
@@ -123,9 +196,10 @@ Public Class ComboboxEx
             MyBase.SelectedValue = value
         End Set
     End Property
+
 #End Region
 
-#Region "Text"
+#Region "   Text"
 
     <EditorBrowsable(EditorBrowsableState.Always)>
     <Browsable(True)>
@@ -152,43 +226,10 @@ Public Class ComboboxEx
 
 #End Region
 
-#Region "BorderColor"
-
-    <DefaultValue(GetType(Color), NameOf(Color.Gray))>
-    <Category("表示")>
-    Public Property BorderColor As Color
-#End Region
-
-
-#Region "BorderStyle"
-
-    <DefaultValue(GetType(ButtonBorderStyle), NameOf(ButtonBorderStyle.None))>
-    <Category("表示")>
-    Public Property BorderStyle As ButtonBorderStyle
-#End Region
-
-
-#Region "BorderWidth"
-    <DefaultValue(1)>
-    <Category("表示")>
-    Public Property BorderWidth As Integer
-        Get
-            Return Me._BorderWidth
-        End Get
-        Set(ByVal value As Integer)
-            If value < 0 Then value = 1
-            If value > 3 Then value = 3
-            Me._BorderWidth = value
-        End Set
-    End Property
-
-
-#End Region
-
-#Region "ReadOnly"
+#Region "   ReadOnly"
 
     <DefaultValue(False)>
-    Public Property [ReadOnly] As Boolean
+    Public Property [ReadOnly] As Boolean 'Implements IReadOnly.ReadOnly
         Get
             Return _ReadOnly
         End Get
@@ -197,65 +238,23 @@ Public Class ComboboxEx
             _ReadOnly = Value
             If Value Then
                 Cursor = Cursors.Default
-                BackColor = System.Drawing.SystemColors.Control
+                BackColor = _InvalidBackColor
             Else
                 Cursor = _CursorOrg
                 BackColor = _BackColorOrg
             End If
-            'SetStyle(ControlStyles.UserMouse, Value)
+            SetStyle(ControlStyles.UserMouse, Value)
             'SetStyle(ControlStyles.Selectable, Value)
         End Set
     End Property
-#End Region
-
-
-#Region "　SelectAllText プロパティ (Overridable)　"
-    '-----Focus時の全選択を設定します。
-    Private SelectAllTextValue As Boolean
-
-    <Category("動作"),
-     DefaultValue(False),
-     Description("Focus時の全選択を設定します。")>
-    Public Property SelectAllText() As Boolean
-        Get
-            Return False
-        End Get
-
-        Set(ByVal value As Boolean)
-
-        End Set
-    End Property
-#End Region
-
-#Region ""
-    Public Property NullValue As Object
-        Get
-
-            If _NullValue Is Nothing Then
-                Return " "
-            Else
-                Return _NullValue
-            End If
-
-        End Get
-        Set(value As Object)
-            _NullValue = value
-        End Set
-    End Property
 
 #End Region
-
-#Region "HorizontalContentAlignment"
-
-    <Bindable(True)>
-    <Browsable(True)>
-    Public Property HorizontalContentAlignment As StringAlignment
 
 #End Region
 
 #Region "イベント"
 
-#Region "Combobox_DrawItem"
+#Region "   Combobox_DrawItem"
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub Combobox_DrawItem(ByVal sender As Object, ByVal e As System.Windows.Forms.DrawItemEventArgs)
@@ -277,8 +276,8 @@ Public Class ComboboxEx
             '    e.Graphics.FillRectangle(backBrush, colorRect)
             'End Using
 
-            ''背景を描画する
-            ''項目が選択されている時は強調表示される
+            '背景を描画する
+            '項目が選択されている時は強調表示される
             Dim c As Color = SystemColors.MenuHighlight
             If (e.State And DrawItemState.Selected) = DrawItemState.Selected Then
                 Using sb As New SolidBrush(e.BackColor)
@@ -359,48 +358,75 @@ Public Class ComboboxEx
 
 #End Region
 
-#Region "OnEnter"
+#Region "   OnEnter"
+
     Protected Overrides Sub OnEnter(ByVal e As System.EventArgs)
         _OldValue = Me.SelectedValue
-        'If _HasWaterMark Then
-        '    '解除
-        '    Call ResetWatermark("")
-        'End If
+
         MyBase.OnEnter(e)
     End Sub
+
 #End Region
 
+#Region "   OnGotFocus"
 
-#Region "OnSelectedValueChanged"
-    Protected Overrides Sub OnSelectedValueChanged(ByVal e As EventArgs)
-        'If Me.SelectedValue IsNot Nothing Then
-        '    '解除
-        '    ResetWatermark(Me.Text)
-        'End If
+    Protected Overrides Sub OnGotFocus(ByVal e As EventArgs)
 
-        If OldValue = Me.SelectedValue Then
+        If [ReadOnly] Then
+            MyBase.BackColor = _InvalidBackColor
         Else
-            'If Me.SelectedValue = Nothing AndAlso MyBase.DataSource IsNot Nothing Then
-            '    MyBase.SelectedIndex = 0
-            'End If
-            _OldValue = Me.SelectedValue
-            MyBase.OnSelectedValueChanged(e)
+            MyBase.BackColor = GotFocusedColor
         End If
+        MyBase.OnGotFocus(e)
+
     End Sub
+
 #End Region
 
-#Region "OnMouseHover"
+#Region "   OnLostFocus"
+
+    Protected Overrides Sub OnLostFocus(ByVal e As EventArgs)
+
+        If [ReadOnly] Then
+            MyBase.BackColor = _InvalidBackColor
+        Else
+            MyBase.BackColor = _ActiveBackColor
+        End If
+
+        MyBase.OnLostFocus(e)
+    End Sub
+
+#End Region
+
+#Region "   OnMouseHover"
+
     Protected Overrides Sub OnMouseHover(e As EventArgs)
         If DropDownStyle = ComboBoxStyle.DropDownList Then
             Cursor = Cursors.Hand
         Else
             Cursor = Cursors.Default
         End If
+        MyBase.Focus()
         MyBase.OnMouseHover(e)
     End Sub
+
 #End Region
 
-#Region "OnKeyUp"
+
+#Region "   OnKeyPress"
+
+    Protected Overrides Sub OnKeyPress(e As KeyPressEventArgs)
+        If _ReadOnly Then
+            e.Handled = True
+            Return
+        End If
+
+        MyBase.OnKeyPress(e)
+    End Sub
+
+#End Region
+
+#Region "   OnKeyUp"
 
     Protected Overrides Sub OnKeyUp(e As KeyEventArgs)
 
@@ -414,20 +440,33 @@ Public Class ComboboxEx
 
 #End Region
 
-#Region "OnKeyPress"
+#Region "   OnMouseWheel"
 
-    Protected Overrides Sub OnKeyPress(e As KeyPressEventArgs)
-        If _ReadOnly Then
-            e.Handled = True
-            Return
-        End If
-
-        MyBase.OnKeyPress(e)
+    Protected Overrides Sub OnMouseWheel(e As MouseEventArgs)
+        Dim eventargs As HandledMouseEventArgs = DirectCast(e, HandledMouseEventArgs)
+        If [ReadOnly] Then eventargs.Handled = True
+        MyBase.OnMouseWheel(e)
     End Sub
 
 #End Region
 
-#Region "ProcessDialogKey"
+#Region "   OnSelectedValueChanged"
+
+    Protected Overrides Sub OnSelectedValueChanged(ByVal e As EventArgs)
+
+        If OldValue = SelectedValue Then
+        Else
+            'If Me.SelectedValue = Nothing AndAlso MyBase.DataSource IsNot Nothing Then
+            '    MyBase.SelectedIndex = 0
+            'End If
+            _OldValue = Me.SelectedValue
+            MyBase.OnSelectedValueChanged(e)
+        End If
+    End Sub
+
+#End Region
+
+#Region "   ProcessDialogKey"
 
     Protected Overrides Function ProcessDialogKey(keyData As Keys) As Boolean
         'Returnキーが押されているか調べる
@@ -453,70 +492,7 @@ Public Class ComboboxEx
 
 #End Region
 
-#Region "OnKeyDown"
-
-    Protected Overrides Sub OnKeyDown(ByVal e As KeyEventArgs)
-
-        'If _ReadOnly Then
-        '    e.Handled = True
-        '    Return
-        'End If
-
-        'If e.KeyCode = Keys.Escape Or ((e.KeyCode = Windows.Forms.Keys.Z) And (e.Modifiers = Keys.Control)) Then
-        '    Undo()
-        'End If
-
-        MyBase.OnKeyDown(e)
-
-        'Select Case e.KeyCode
-        '    Case Keys.Enter     'Enter:Tab
-        '        SendKeys.Send("{Tab}") 'Enterを押した際、次の項目へ移動する為Tabを送信する
-        'End Select
-    End Sub
-
-#End Region
-
-#Region "OnGotFocus"
-
-    Protected Overrides Sub OnGotFocus(ByVal e As EventArgs)
-
-        If Me.ReadOnly Then
-            MyBase.BackColor = clrDisableControlGotFocusedColor
-        Else
-            'フォーカス時は背景色変更
-            MyBase.BackColor = Me.GotFocusedColor
-        End If
-        MyBase.OnGotFocus(e) '基底クラス呼び出し
-
-    End Sub
-
-#End Region
-
-#Region "OnLostFocus"
-
-    Protected Overrides Sub OnLostFocus(ByVal e As EventArgs)
-
-
-        MyBase.OnLostFocus(e) '基底クラス呼び出し
-
-        If Me.ReadOnly Then
-            MyBase.BackColor = clrDisableControlGotFocusedColor
-        Else
-            'フォーカスがないときは背景色＝白設定
-            MyBase.BackColor = _BackColorDefault
-        End If
-
-
-    End Sub
-
-#End Region
-
-
-    Protected Overrides Sub OnMouseWheel(e As MouseEventArgs)
-        Dim eventargs As HandledMouseEventArgs = DirectCast(e, HandledMouseEventArgs)
-        If [ReadOnly] Then eventargs.Handled = True
-        MyBase.OnMouseWheel(e)
-    End Sub
+#Region "   WndProc"
 
     <System.Diagnostics.DebuggerStepThrough()>
     <Browsable(False)>
@@ -536,7 +512,37 @@ Public Class ComboboxEx
 
 #Region "メソッド"
 
-#Region "SetDatasource"
+#Region "   SetDefaultValue"
+
+    ''' <summary>
+    ''' コンボボックス規定値設定(コードマスタのみ)
+    ''' </summary>
+    ''' <param name="cmbCtrl"></param>
+    ''' <returns></returns>
+    Public Sub SetDefaultValue()
+        Dim strDefaultValue As String
+
+        Try
+
+            'コンボボックスのデータソース取得
+            Dim dt As DataTable = DirectCast(Me.DataSource, DataTable)
+            Dim dtRows As DataRow() = dt.Select("DEF_FLG=True")
+
+            If dtRows.Length > 0 Then
+                strDefaultValue = dtRows(0).Item("VALUE")
+            Else
+                strDefaultValue = ""
+            End If
+
+            Me.SelectedValue = strDefaultValue
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+        End Try
+    End Sub
+
+#End Region
+
+#Region "   SetDatasource"
 
     ''' <summary>
     ''' コンボボックスのデータソースを設定します
@@ -557,6 +563,7 @@ Public Class ComboboxEx
                 AddHandler Me.DrawItem, AddressOf Combobox_DrawItem
             End If
 
+            'バインド時は順番が逆になるので、コンストラクタ内で設定
             '-----コンボボックス表示値と選択値の列設定
             'Me.DisplayMember = "DISP"
             'Me.ValueMember = "VALUE"
@@ -700,40 +707,10 @@ Public Class ComboboxEx
 
 #End Region
 
-#Region "Undo"
+#Region "   Undo"
 
     Public Sub Undo()
         Me.Text = Me.OldValue
-    End Sub
-
-#End Region
-
-#Region "SetDefaultValue"
-
-    ''' <summary>
-    ''' コンボボックス規定値設定(コードマスタのみ)
-    ''' </summary>
-    ''' <param name="cmbCtrl"></param>
-    ''' <returns></returns>
-    Public Sub SetDefaultValue()
-        Dim strDefaultValue As String
-
-        Try
-
-            'コンボボックスのデータソース取得
-            Dim dt As DataTable = DirectCast(Me.DataSource, DataTable)
-            Dim dtRows As DataRow() = dt.Select("DEF_FLG=True")
-
-            If dtRows.Length > 0 Then
-                strDefaultValue = dtRows(0).Item("VALUE")
-            Else
-                strDefaultValue = ""
-            End If
-
-            Me.SelectedValue = strDefaultValue
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-        End Try
     End Sub
 
 #End Region
@@ -753,6 +730,7 @@ Public Class ComboboxEx
         Catch
         End Try
     End Sub
+
 #End Region
 
 End Class
