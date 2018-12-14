@@ -44,6 +44,7 @@ Partial Class FrmM0040
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.VWM004SYAINBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -259,7 +260,6 @@ Partial Class FrmM0040
         Me.cmbYAKUSYOKU_KB.Location = New System.Drawing.Point(70, 33)
         Me.cmbYAKUSYOKU_KB.Name = "cmbYAKUSYOKU_KB"
         Me.cmbYAKUSYOKU_KB.NullValue = " "
-        Me.cmbYAKUSYOKU_KB.SelectAllText = False
         Me.cmbYAKUSYOKU_KB.Size = New System.Drawing.Size(103, 25)
         Me.cmbYAKUSYOKU_KB.TabIndex = 63
         Me.cmbYAKUSYOKU_KB.Text = "(‘I‘ð)"
@@ -309,7 +309,6 @@ Partial Class FrmM0040
         Me.cmbSYAIN_KB.Location = New System.Drawing.Point(829, 3)
         Me.cmbSYAIN_KB.Name = "cmbSYAIN_KB"
         Me.cmbSYAIN_KB.NullValue = " "
-        Me.cmbSYAIN_KB.SelectAllText = False
         Me.cmbSYAIN_KB.Size = New System.Drawing.Size(103, 25)
         Me.cmbSYAIN_KB.TabIndex = 61
         Me.cmbSYAIN_KB.Text = "(‘I‘ð)"
@@ -463,6 +462,7 @@ Partial Class FrmM0040
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
         Me.Controls.SetChildIndex(Me.flxDATA, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()

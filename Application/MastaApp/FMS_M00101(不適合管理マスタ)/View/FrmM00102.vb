@@ -436,7 +436,7 @@ Public Class FrmM00102
                     lblEDIT_SYAIN_ID.Visible = True
                     '更新日時
                     If PrViewModel.UPD_YMDHNS.Trim <> "" Then
-                        lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrViewModel.UPD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
+                        lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrViewModel.UPD_YMDHNS.Replace("/", "").Replace(":", "").Replace(" ", ""), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
                     End If
 
                     '更新担当者CD
