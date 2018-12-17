@@ -729,12 +729,19 @@ Public Class FrmG0016
         With dsList.Tables(0)
             For intCNT = 0 To .Rows.Count - 1
                 Dim Trow As DataRow = dt.NewRow()
-                Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO") & " " & .Rows(intCNT).Item("UPD_SYAIN_NAME") '.Rows(intCNT).Item("SYONIN_JUN") & "." & .Rows(intCNT).Item("SYONIN_NAIYO") & " " & .Rows(intCNT).Item("UPD_SYAIN_NAME")
+
+                If .Rows(intCNT).Item("SYONIN_JUN") = ENM_NCR_STAGE._10_ãNëêì¸óÕ Then
+                    Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO") & " " & .Rows(intCNT).Item("ADD_SYAIN_NAME")
+                    Trow("SYAIN_ID") = .Rows(intCNT).Item("ADD_SYAIN_ID")
+                    Trow("SYAIN_NAME") = .Rows(intCNT).Item("ADD_SYAIN_NAME")
+                Else
+                    Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO") & " " & .Rows(intCNT).Item("UPD_SYAIN_NAME")
+                    Trow("SYAIN_ID") = .Rows(intCNT).Item("UPD_SYAIN_ID")
+                    Trow("SYAIN_NAME") = .Rows(intCNT).Item("UPD_SYAIN_NAME")
+                End If
+
                 Trow("VALUE") = .Rows(intCNT).Item("SYONIN_JUN")
-                Trow("SYAIN_NAME") = .Rows(intCNT).Item("UPD_SYAIN_NAME")
-                'Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                 Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
-                Trow("SYAIN_ID") = .Rows(intCNT).Item("UPD_SYAIN_ID")
                 Trow("HOKOKU_NO") = .Rows(intCNT).Item("HOKOKU_NO")
 
                 dt.Rows.Add(Trow)
