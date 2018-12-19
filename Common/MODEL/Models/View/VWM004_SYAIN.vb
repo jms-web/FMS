@@ -99,6 +99,34 @@ Partial Public Class VWM004_SYAIN
     <ComponentModel.DisplayName("パスワード")>
     Public Property PASS As String
 
+    <StringLength(1)>
+    <ComponentModel.DisplayName("運用管理者")>
+    Public Property ADMIN_OP As String
+
+    '<Display(AutoGenerateField:=False)>
+    'Public Property blnADMIN_OP As Boolean
+    '    Get
+    '        Return ADMIN_OP = "1"
+    '    End Get
+    '    Set(value As Boolean)
+    '        ADMIN_OP = If(value, "1", "0")
+    '    End Set
+    'End Property
+
+
+    <StringLength(1)>
+    <ComponentModel.DisplayName("システム管理者")>
+    Public Property ADMIN_SYS As String
+
+    '<Display(AutoGenerateField:=False)>
+    'Public Property blnADMIN_SYS As Boolean
+    '    Get
+    '        Return ADMIN_SYS = "1"
+    '    End Get
+    '    Set(value As Boolean)
+    '        ADMIN_SYS = If(value, "1", "0")
+    '    End Set
+    'End Property
 
     <ComponentModel.DisplayName("追加日時")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>

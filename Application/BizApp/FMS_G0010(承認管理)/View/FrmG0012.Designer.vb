@@ -22,7 +22,9 @@ Partial Class FrmG0012
         Me.components = New System.ComponentModel.Container()
         Me.gbxFilter = New System.Windows.Forms.GroupBox()
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
+        Me.dtFUTEKIGO_HASSEI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.mtxKISYU = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.mtxADD_SYAIN_NAME = New JMS_COMMON.MaskedTextBoxEx()
@@ -207,8 +209,6 @@ Partial Class FrmG0012
         Me.Label139 = New System.Windows.Forms.Label()
         Me.mtxST01_UPD_YMD = New JMS_COMMON.MaskedTextBoxEx()
         Me.tabSTAGE02 = New JMS_COMMON.TabPageEx()
-        Me.dtFUTEKIGO_HASSEI_YMD = New JMS_COMMON.DateTextBoxEx()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.mtxGENIN2 = New JMS_COMMON.MaskedTextBoxEx()
         Me.mtxGENIN1 = New JMS_COMMON.MaskedTextBoxEx()
         Me.mtxGENIN2_DISP = New JMS_COMMON.MaskedTextBoxEx()
@@ -455,6 +455,23 @@ Partial Class FrmG0012
         Me.tlpFilter.Size = New System.Drawing.Size(1230, 64)
         Me.tlpFilter.TabIndex = 56
         '
+        'dtFUTEKIGO_HASSEI_YMD
+        '
+        Me.dtFUTEKIGO_HASSEI_YMD.BackColor = System.Drawing.SystemColors.Control
+        Me.dtFUTEKIGO_HASSEI_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtFUTEKIGO_HASSEI_YMD.Cursor = System.Windows.Forms.Cursors.Default
+        Me.dtFUTEKIGO_HASSEI_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtFUTEKIGO_HASSEI_YMD.Location = New System.Drawing.Point(683, 33)
+        Me.dtFUTEKIGO_HASSEI_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtFUTEKIGO_HASSEI_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtFUTEKIGO_HASSEI_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtFUTEKIGO_HASSEI_YMD.Name = "dtFUTEKIGO_HASSEI_YMD"
+        Me.dtFUTEKIGO_HASSEI_YMD.ReadOnly = True
+        Me.dtFUTEKIGO_HASSEI_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtFUTEKIGO_HASSEI_YMD.TabIndex = 276
+        Me.dtFUTEKIGO_HASSEI_YMD.Value = ""
+        Me.dtFUTEKIGO_HASSEI_YMD.ValueNonFormat = ""
+        '
         'Label14
         '
         Me.tlpFilter.SetColumnSpan(Me.Label14, 4)
@@ -465,6 +482,18 @@ Partial Class FrmG0012
         Me.Label14.TabIndex = 85
         Me.Label14.Text = "機種:"
         Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label3
+        '
+        Me.tlpFilter.SetColumnSpan(Me.Label3, 5)
+        Me.Label3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label3.Location = New System.Drawing.Point(583, 33)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(94, 27)
+        Me.Label3.TabIndex = 277
+        Me.Label3.Text = "不適合発生日:"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'mtxKISYU
         '
@@ -745,6 +774,7 @@ Partial Class FrmG0012
         Me.txtKAITO_24.ShowRemainingChars = True
         Me.txtKAITO_24.Size = New System.Drawing.Size(553, 118)
         Me.txtKAITO_24.TabIndex = 319
+        Me.txtKAITO_24.WatermarkColor = System.Drawing.Color.Empty
         Me.txtKAITO_24.WatermarkText = Nothing
         '
         'pnlST13
@@ -961,6 +991,7 @@ Partial Class FrmG0012
         Me.txtKAITO_1.ShowRemainingChars = True
         Me.txtKAITO_1.Size = New System.Drawing.Size(608, 83)
         Me.txtKAITO_1.TabIndex = 0
+        Me.txtKAITO_1.WatermarkColor = System.Drawing.Color.Empty
         Me.txtKAITO_1.WatermarkText = Nothing
         '
         'txtKAITO_2
@@ -977,6 +1008,7 @@ Partial Class FrmG0012
         Me.txtKAITO_2.ShowRemainingChars = True
         Me.txtKAITO_2.Size = New System.Drawing.Size(608, 102)
         Me.txtKAITO_2.TabIndex = 1
+        Me.txtKAITO_2.WatermarkColor = System.Drawing.Color.Empty
         Me.txtKAITO_2.WatermarkText = Nothing
         '
         'lblSETUMON_2
@@ -1017,6 +1049,7 @@ Partial Class FrmG0012
         Me.txtKAITO_3.ShowRemainingChars = True
         Me.txtKAITO_3.Size = New System.Drawing.Size(608, 118)
         Me.txtKAITO_3.TabIndex = 2
+        Me.txtKAITO_3.WatermarkColor = System.Drawing.Color.Empty
         Me.txtKAITO_3.WatermarkText = Nothing
         '
         'lblSETUMON_21
@@ -1057,6 +1090,7 @@ Partial Class FrmG0012
         Me.txtKAITO_21.ShowRemainingChars = True
         Me.txtKAITO_21.Size = New System.Drawing.Size(608, 118)
         Me.txtKAITO_21.TabIndex = 3
+        Me.txtKAITO_21.WatermarkColor = System.Drawing.Color.Empty
         Me.txtKAITO_21.WatermarkText = Nothing
         '
         'lbl
@@ -1086,6 +1120,7 @@ Partial Class FrmG0012
         Me.txtKAITO_22.ShowRemainingChars = True
         Me.txtKAITO_22.Size = New System.Drawing.Size(608, 118)
         Me.txtKAITO_22.TabIndex = 10
+        Me.txtKAITO_22.WatermarkColor = System.Drawing.Color.Empty
         Me.txtKAITO_22.WatermarkText = Nothing
         '
         'dtKAITO_4
@@ -3129,35 +3164,6 @@ Partial Class FrmG0012
         Me.tabSTAGE02.Size = New System.Drawing.Size(1235, 479)
         Me.tabSTAGE02.TabIndex = 1
         Me.tabSTAGE02.Text = "分析項目"
-        '
-        'dtFUTEKIGO_HASSEI_YMD
-        '
-        Me.dtFUTEKIGO_HASSEI_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.dtFUTEKIGO_HASSEI_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtFUTEKIGO_HASSEI_YMD.Cursor = System.Windows.Forms.Cursors.Default
-        Me.dtFUTEKIGO_HASSEI_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtFUTEKIGO_HASSEI_YMD.Location = New System.Drawing.Point(683, 33)
-        Me.dtFUTEKIGO_HASSEI_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtFUTEKIGO_HASSEI_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtFUTEKIGO_HASSEI_YMD.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtFUTEKIGO_HASSEI_YMD.Name = "dtFUTEKIGO_HASSEI_YMD"
-        Me.dtFUTEKIGO_HASSEI_YMD.ReadOnly = True
-        Me.dtFUTEKIGO_HASSEI_YMD.Size = New System.Drawing.Size(98, 24)
-        Me.dtFUTEKIGO_HASSEI_YMD.TabIndex = 276
-        Me.dtFUTEKIGO_HASSEI_YMD.Value = ""
-        Me.dtFUTEKIGO_HASSEI_YMD.ValueNonFormat = ""
-        '
-        'Label3
-        '
-        Me.tlpFilter.SetColumnSpan(Me.Label3, 5)
-        Me.Label3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label3.Location = New System.Drawing.Point(583, 33)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(94, 27)
-        Me.Label3.TabIndex = 277
-        Me.Label3.Text = "不適合発生日:"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'mtxGENIN2
         '

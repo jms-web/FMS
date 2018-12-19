@@ -840,7 +840,6 @@ Partial Class FrmG0011
         '
         Me.mtxHOKUKO_NO.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxHOKUKO_NO, 7)
-        Me.mtxHOKUKO_NO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxHOKUKO_NO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxHOKUKO_NO.InputRequired = False
         Me.mtxHOKUKO_NO.Location = New System.Drawing.Point(103, 3)
@@ -1022,7 +1021,6 @@ Partial Class FrmG0011
         Me.mtxGOUKI.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxGOUKI, 7)
         Me.mtxGOUKI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxGOUKI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxGOUKI.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxGOUKI.InputRequired = False
         Me.mtxGOUKI.Location = New System.Drawing.Point(103, 63)
@@ -1084,7 +1082,6 @@ Partial Class FrmG0011
         Me.mtxHENKYAKU_RIYU.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxHENKYAKU_RIYU, 24)
         Me.mtxHENKYAKU_RIYU.Enabled = False
-        Me.mtxHENKYAKU_RIYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxHENKYAKU_RIYU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxHENKYAKU_RIYU.InputRequired = False
         Me.mtxHENKYAKU_RIYU.Location = New System.Drawing.Point(683, 63)
@@ -1179,7 +1176,6 @@ Partial Class FrmG0011
         Me.mtxZUBAN_KIKAKU.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFilter.SetColumnSpan(Me.mtxZUBAN_KIKAKU, 18)
         Me.mtxZUBAN_KIKAKU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxZUBAN_KIKAKU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxZUBAN_KIKAKU.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxZUBAN_KIKAKU.InputRequired = False
         Me.mtxZUBAN_KIKAKU.Location = New System.Drawing.Point(683, 93)
@@ -1479,7 +1475,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 155.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 156.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.pnlSYOCHI_E2, 3, 7)
@@ -1526,7 +1522,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_E2.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_E2.Controls.Add(Me.rbtnST11_E2_T)
         Me.pnlSYOCHI_E2.Controls.Add(Me.rbtnST11_E2_F)
-        Me.pnlSYOCHI_E2.Location = New System.Drawing.Point(606, 200)
+        Me.pnlSYOCHI_E2.Location = New System.Drawing.Point(605, 200)
         Me.pnlSYOCHI_E2.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_E2.Name = "pnlSYOCHI_E2"
         Me.pnlSYOCHI_E2.Size = New System.Drawing.Size(151, 28)
@@ -1564,7 +1560,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_E1.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_E1.Controls.Add(Me.rbtnST11_E1_T)
         Me.pnlSYOCHI_E1.Controls.Add(Me.rbtnST11_E1_F)
-        Me.pnlSYOCHI_E1.Location = New System.Drawing.Point(606, 171)
+        Me.pnlSYOCHI_E1.Location = New System.Drawing.Point(605, 171)
         Me.pnlSYOCHI_E1.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_E1.Name = "pnlSYOCHI_E1"
         Me.pnlSYOCHI_E1.Size = New System.Drawing.Size(151, 28)
@@ -1602,7 +1598,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_D2.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_D2.Controls.Add(Me.rbtnST11_D2_T)
         Me.pnlSYOCHI_D2.Controls.Add(Me.rbtnST11_D2_F)
-        Me.pnlSYOCHI_D2.Location = New System.Drawing.Point(606, 117)
+        Me.pnlSYOCHI_D2.Location = New System.Drawing.Point(605, 117)
         Me.pnlSYOCHI_D2.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_D2.Name = "pnlSYOCHI_D2"
         Me.pnlSYOCHI_D2.Size = New System.Drawing.Size(151, 28)
@@ -1640,7 +1636,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_D1.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_D1.Controls.Add(Me.rbtnST11_D1_T)
         Me.pnlSYOCHI_D1.Controls.Add(Me.rbtnST11_D1_F)
-        Me.pnlSYOCHI_D1.Location = New System.Drawing.Point(606, 88)
+        Me.pnlSYOCHI_D1.Location = New System.Drawing.Point(605, 88)
         Me.pnlSYOCHI_D1.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_D1.Name = "pnlSYOCHI_D1"
         Me.pnlSYOCHI_D1.Size = New System.Drawing.Size(151, 28)
@@ -1678,7 +1674,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_C.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_C.Controls.Add(Me.rbtnST11_C1_T)
         Me.pnlSYOCHI_C.Controls.Add(Me.rbtnST11_C1_F)
-        Me.pnlSYOCHI_C.Location = New System.Drawing.Point(606, 59)
+        Me.pnlSYOCHI_C.Location = New System.Drawing.Point(605, 59)
         Me.pnlSYOCHI_C.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_C.Name = "pnlSYOCHI_C"
         Me.pnlSYOCHI_C.Size = New System.Drawing.Size(151, 28)
@@ -1716,7 +1712,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_B.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_B.Controls.Add(Me.rbtnST11_B1_T)
         Me.pnlSYOCHI_B.Controls.Add(Me.rbtnST11_B1_F)
-        Me.pnlSYOCHI_B.Location = New System.Drawing.Point(606, 30)
+        Me.pnlSYOCHI_B.Location = New System.Drawing.Point(605, 30)
         Me.pnlSYOCHI_B.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_B.Name = "pnlSYOCHI_B"
         Me.pnlSYOCHI_B.Size = New System.Drawing.Size(151, 28)
@@ -1754,7 +1750,6 @@ Partial Class FrmG0011
         Me.mtxST11_E_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.tlpST08.SetColumnSpan(Me.mtxST11_E_Comment, 2)
         Me.mtxST11_E_Comment.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.mtxST11_E_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST11_E_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxST11_E_Comment.InputRequired = False
         Me.mtxST11_E_Comment.Location = New System.Drawing.Point(88, 229)
@@ -1772,7 +1767,6 @@ Partial Class FrmG0011
         Me.mtxST11_D_Comment.BackColor = System.Drawing.SystemColors.Window
         Me.tlpST08.SetColumnSpan(Me.mtxST11_D_Comment, 2)
         Me.mtxST11_D_Comment.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.mtxST11_D_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST11_D_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxST11_D_Comment.InputRequired = False
         Me.mtxST11_D_Comment.Location = New System.Drawing.Point(88, 146)
@@ -1809,7 +1803,7 @@ Partial Class FrmG0011
         Me.Label126.Location = New System.Drawing.Point(22, 117)
         Me.Label126.Margin = New System.Windows.Forms.Padding(0)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(583, 28)
+        Me.Label126.Size = New System.Drawing.Size(582, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "âeãøóLÇÃèÍçáÅAå⁄ãqÇ÷ÇÃí ímÇÃóvî€"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1824,7 +1818,7 @@ Partial Class FrmG0011
         Me.Label127.Location = New System.Drawing.Point(22, 88)
         Me.Label127.Margin = New System.Windows.Forms.Padding(0)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(583, 28)
+        Me.Label127.Size = New System.Drawing.Size(582, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "ìñäYïsìKçáÇ…ÇÊÇÈå⁄ãqÇ÷ÇÃâeãø"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1839,7 +1833,7 @@ Partial Class FrmG0011
         Me.lblSYOCHI_C_2.Location = New System.Drawing.Point(22, 59)
         Me.lblSYOCHI_C_2.Margin = New System.Windows.Forms.Padding(0)
         Me.lblSYOCHI_C_2.Name = "lblSYOCHI_C_2"
-        Me.lblSYOCHI_C_2.Size = New System.Drawing.Size(583, 28)
+        Me.lblSYOCHI_C_2.Size = New System.Drawing.Size(582, 28)
         Me.lblSYOCHI_C_2.TabIndex = 241
         Me.lblSYOCHI_C_2.Text = "îpãpèàíuÇÕñ{óàÇÃà”ê}ÇµÇΩégópñîÇÕìKópÇ™Ç≈Ç´Ç»Ç¢ï˚ñ@ÇæÇ¡ÇΩÇ©ÅH"
         Me.lblSYOCHI_C_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1868,7 +1862,7 @@ Partial Class FrmG0011
         Me.Label130.Location = New System.Drawing.Point(22, 30)
         Me.Label130.Margin = New System.Windows.Forms.Padding(0)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(583, 28)
+        Me.Label130.Size = New System.Drawing.Size(582, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "é–ì‡å†å¿é“Ç…ÇÊÇËÅAñîÇÕå⁄ãqçƒêRÇÃèÍçáÇÕå⁄ãqÇ…ÇÊÇËîªíËÇ≥ÇÍÇΩÇ©ÅH"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1925,7 +1919,7 @@ Partial Class FrmG0011
         Me.Label134.Location = New System.Drawing.Point(22, 171)
         Me.Label134.Margin = New System.Windows.Forms.Padding(0)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(583, 28)
+        Me.Label134.Size = New System.Drawing.Size(582, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "ìñäYïsìKçáÇ…ÇÊÇÈëºÇÃÉvÉçÉZÉXÇ÷ÇÃâeãø"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1954,7 +1948,7 @@ Partial Class FrmG0011
         Me.Label136.Location = New System.Drawing.Point(22, 200)
         Me.Label136.Margin = New System.Windows.Forms.Padding(0)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(583, 28)
+        Me.Label136.Size = New System.Drawing.Size(582, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "âeãøóLÇÃèÍçáÅAïïÇ∂çûÇﬂèàíuÇÃóvî€"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1969,7 +1963,7 @@ Partial Class FrmG0011
         Me.Label137.Location = New System.Drawing.Point(22, 1)
         Me.Label137.Margin = New System.Windows.Forms.Padding(0)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(583, 28)
+        Me.Label137.Size = New System.Drawing.Size(582, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "åüèoÇ≥ÇÍÇΩïsìKçáÇèúãéÇ∑ÇÈèàíuÅiîpãpÇä‹ÇﬁÅjÇÕämé¿Ç…Ç∆ÇÁÇÍÇΩÇ©ÅH"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1993,7 +1987,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_A.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_A.Controls.Add(Me.rbtnST11_A1_T)
         Me.pnlSYOCHI_A.Controls.Add(Me.rbtnST11_A1_F)
-        Me.pnlSYOCHI_A.Location = New System.Drawing.Point(606, 1)
+        Me.pnlSYOCHI_A.Location = New System.Drawing.Point(605, 1)
         Me.pnlSYOCHI_A.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_A.Name = "pnlSYOCHI_A"
         Me.pnlSYOCHI_A.Size = New System.Drawing.Size(151, 28)
@@ -2145,7 +2139,6 @@ Partial Class FrmG0011
         'mtxST15_NextStageName
         '
         Me.mtxST15_NextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST15_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST15_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST15_NextStageName.InputRequired = False
         Me.mtxST15_NextStageName.Location = New System.Drawing.Point(909, 73)
@@ -2214,8 +2207,8 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST15_Comment.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST15_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST15_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST15_Comment.InputRequired = False
         Me.txtST15_Comment.Location = New System.Drawing.Point(909, 134)
         Me.txtST15_Comment.MaxByteLength = 200
         Me.txtST15_Comment.MaxLength = 100
@@ -2230,7 +2223,6 @@ Partial Class FrmG0011
         'mtxST15_UPD_YMD
         '
         Me.mtxST15_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST15_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST15_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST15_UPD_YMD.InputRequired = False
         Me.mtxST15_UPD_YMD.Location = New System.Drawing.Point(909, 43)
@@ -2323,7 +2315,6 @@ Partial Class FrmG0011
         'mtxST14_UPD_YMD
         '
         Me.mtxST14_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST14_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST14_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST14_UPD_YMD.InputRequired = False
         Me.mtxST14_UPD_YMD.Location = New System.Drawing.Point(115, 57)
@@ -2376,7 +2367,6 @@ Partial Class FrmG0011
         'mtxST14_NextStageName
         '
         Me.mtxST14_NextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST14_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST14_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST14_NextStageName.InputRequired = False
         Me.mtxST14_NextStageName.Location = New System.Drawing.Point(341, 57)
@@ -2396,8 +2386,8 @@ Partial Class FrmG0011
         Me.txtST14_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST14_Comment.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST14_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST14_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST14_Comment.InputRequired = False
         Me.txtST14_Comment.Location = New System.Drawing.Point(115, 118)
         Me.txtST14_Comment.MaxByteLength = 200
         Me.txtST14_Comment.MaxLength = 100
@@ -2521,7 +2511,6 @@ Partial Class FrmG0011
         'mtxST13_UPD_YMD
         '
         Me.mtxST13_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST13_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST13_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST13_UPD_YMD.InputRequired = False
         Me.mtxST13_UPD_YMD.Location = New System.Drawing.Point(115, 56)
@@ -2574,7 +2563,6 @@ Partial Class FrmG0011
         'mtxST13_NextStageName
         '
         Me.mtxST13_NextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST13_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST13_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST13_NextStageName.InputRequired = False
         Me.mtxST13_NextStageName.Location = New System.Drawing.Point(344, 56)
@@ -2592,8 +2580,8 @@ Partial Class FrmG0011
         'txtST13_Comment
         '
         Me.txtST13_Comment.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST13_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST13_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST13_Comment.InputRequired = False
         Me.txtST13_Comment.Location = New System.Drawing.Point(115, 118)
         Me.txtST13_Comment.MaxByteLength = 200
         Me.txtST13_Comment.MaxLength = 100
@@ -2738,7 +2726,6 @@ Partial Class FrmG0011
         'mtxST12_UPD_YMD
         '
         Me.mtxST12_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST12_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST12_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST12_UPD_YMD.InputRequired = False
         Me.mtxST12_UPD_YMD.Location = New System.Drawing.Point(116, 54)
@@ -2760,7 +2747,6 @@ Partial Class FrmG0011
         Me.mtxST12_NextStageName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.mtxST12_NextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST12_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST12_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST12_NextStageName.InputRequired = False
         Me.mtxST12_NextStageName.Location = New System.Drawing.Point(116, 84)
@@ -2804,8 +2790,8 @@ Partial Class FrmG0011
         Me.txtST12_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST12_Comment.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST12_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST12_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST12_Comment.InputRequired = False
         Me.txtST12_Comment.Location = New System.Drawing.Point(116, 145)
         Me.txtST12_Comment.MaxByteLength = 200
         Me.txtST12_Comment.MaxLength = 100
@@ -2937,7 +2923,6 @@ Partial Class FrmG0011
         'mtxST11_UPD_YMD
         '
         Me.mtxST11_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST11_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST11_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST11_UPD_YMD.InputRequired = False
         Me.mtxST11_UPD_YMD.Location = New System.Drawing.Point(116, 54)
@@ -2959,7 +2944,6 @@ Partial Class FrmG0011
         Me.mtxST11_NextStageName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.mtxST11_NextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST11_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST11_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST11_NextStageName.InputRequired = False
         Me.mtxST11_NextStageName.Location = New System.Drawing.Point(116, 84)
@@ -3003,8 +2987,8 @@ Partial Class FrmG0011
         Me.txtST11_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST11_Comment.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST11_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST11_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST11_Comment.InputRequired = False
         Me.txtST11_Comment.Location = New System.Drawing.Point(116, 145)
         Me.txtST11_Comment.MaxByteLength = 200
         Me.txtST11_Comment.MaxLength = 100
@@ -3296,7 +3280,6 @@ Partial Class FrmG0011
         'MaskedTextBoxEx2
         '
         Me.MaskedTextBoxEx2.BackColor = System.Drawing.SystemColors.Window
-        Me.MaskedTextBoxEx2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.MaskedTextBoxEx2.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.MaskedTextBoxEx2.InputRequired = False
         Me.MaskedTextBoxEx2.Location = New System.Drawing.Point(101, 6)
@@ -3472,7 +3455,6 @@ Partial Class FrmG0011
         Me.MaskedTextBoxEx1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MaskedTextBoxEx1.BackColor = System.Drawing.SystemColors.Window
-        Me.MaskedTextBoxEx1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.MaskedTextBoxEx1.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.MaskedTextBoxEx1.InputRequired = False
         Me.MaskedTextBoxEx1.Location = New System.Drawing.Point(101, 67)
@@ -3592,8 +3574,8 @@ Partial Class FrmG0011
         Me.TextBoxEx1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TextBoxEx1.BackColor = System.Drawing.SystemColors.Window
-        Me.TextBoxEx1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.TextBoxEx1.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.TextBoxEx1.InputRequired = False
         Me.TextBoxEx1.Location = New System.Drawing.Point(101, 97)
         Me.TextBoxEx1.MaxByteLength = 200
         Me.TextBoxEx1.Multiline = True
@@ -3641,7 +3623,6 @@ Partial Class FrmG0011
         Me.MaskedTextBoxEx3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MaskedTextBoxEx3.BackColor = System.Drawing.SystemColors.Window
-        Me.MaskedTextBoxEx3.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.MaskedTextBoxEx3.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.MaskedTextBoxEx3.InputRequired = False
         Me.MaskedTextBoxEx3.Location = New System.Drawing.Point(101, 36)
@@ -3769,7 +3750,6 @@ Partial Class FrmG0011
         'MaskedTextBoxEx4
         '
         Me.MaskedTextBoxEx4.BackColor = System.Drawing.SystemColors.Window
-        Me.MaskedTextBoxEx4.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.MaskedTextBoxEx4.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.MaskedTextBoxEx4.InputRequired = False
         Me.MaskedTextBoxEx4.Location = New System.Drawing.Point(101, 66)
@@ -3824,7 +3804,6 @@ Partial Class FrmG0011
         'MaskedTextBoxEx5
         '
         Me.MaskedTextBoxEx5.BackColor = System.Drawing.SystemColors.Window
-        Me.MaskedTextBoxEx5.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.MaskedTextBoxEx5.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.MaskedTextBoxEx5.InputRequired = False
         Me.MaskedTextBoxEx5.Location = New System.Drawing.Point(101, 96)
@@ -3896,7 +3875,6 @@ Partial Class FrmG0011
         'mtxST10_UPD_YMD
         '
         Me.mtxST10_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST10_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST10_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST10_UPD_YMD.InputRequired = False
         Me.mtxST10_UPD_YMD.Location = New System.Drawing.Point(116, 54)
@@ -3918,7 +3896,6 @@ Partial Class FrmG0011
         Me.mtxST10_NextStageName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.mtxST10_NextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST10_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST10_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST10_NextStageName.InputRequired = False
         Me.mtxST10_NextStageName.Location = New System.Drawing.Point(116, 84)
@@ -3962,8 +3939,8 @@ Partial Class FrmG0011
         Me.txtST10_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST10_Comment.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST10_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST10_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST10_Comment.InputRequired = False
         Me.txtST10_Comment.Location = New System.Drawing.Point(116, 145)
         Me.txtST10_Comment.MaxByteLength = 200
         Me.txtST10_Comment.MaxLength = 100
@@ -4154,7 +4131,6 @@ Partial Class FrmG0011
         Me.mtxST08_1_BIKO.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.mtxST08_1_BIKO.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST08_1_BIKO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST08_1_BIKO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxST08_1_BIKO.InputRequired = False
         Me.mtxST08_1_BIKO.Location = New System.Drawing.Point(101, 67)
@@ -4439,7 +4415,6 @@ Partial Class FrmG0011
         'mtxST08_2_DOC_NO
         '
         Me.mtxST08_2_DOC_NO.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST08_2_DOC_NO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST08_2_DOC_NO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST08_2_DOC_NO.InputRequired = False
         Me.mtxST08_2_DOC_NO.Location = New System.Drawing.Point(101, 6)
@@ -4581,8 +4556,8 @@ Partial Class FrmG0011
         Me.txtST08_3_BIKO.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST08_3_BIKO.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST08_3_BIKO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST08_3_BIKO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST08_3_BIKO.InputRequired = False
         Me.txtST08_3_BIKO.Location = New System.Drawing.Point(101, 66)
         Me.txtST08_3_BIKO.MaxByteLength = 200
         Me.txtST08_3_BIKO.Multiline = True
@@ -4630,7 +4605,6 @@ Partial Class FrmG0011
         Me.mtxST08_3_HENKYAKU_SAKI.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.mtxST08_3_HENKYAKU_SAKI.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST08_3_HENKYAKU_SAKI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST08_3_HENKYAKU_SAKI.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxST08_3_HENKYAKU_SAKI.InputRequired = False
         Me.mtxST08_3_HENKYAKU_SAKI.Location = New System.Drawing.Point(259, 6)
@@ -4757,7 +4731,6 @@ Partial Class FrmG0011
         'mtxST08_4_GOUKI
         '
         Me.mtxST08_4_GOUKI.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST08_4_GOUKI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST08_4_GOUKI.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST08_4_GOUKI.InputRequired = False
         Me.mtxST08_4_GOUKI.Location = New System.Drawing.Point(101, 35)
@@ -4811,7 +4784,6 @@ Partial Class FrmG0011
         'mtxST08_4_LOT
         '
         Me.mtxST08_4_LOT.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST08_4_LOT.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST08_4_LOT.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST08_4_LOT.InputRequired = False
         Me.mtxST08_4_LOT.Location = New System.Drawing.Point(307, 35)
@@ -4882,7 +4854,6 @@ Partial Class FrmG0011
         'mtxST09_UPD_YMD
         '
         Me.mtxST09_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST09_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST09_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST09_UPD_YMD.InputRequired = False
         Me.mtxST09_UPD_YMD.Location = New System.Drawing.Point(116, 222)
@@ -4902,7 +4873,6 @@ Partial Class FrmG0011
         'mtxST09_NextStageName
         '
         Me.mtxST09_NextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST09_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST09_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST09_NextStageName.InputRequired = False
         Me.mtxST09_NextStageName.Location = New System.Drawing.Point(340, 222)
@@ -4944,8 +4914,8 @@ Partial Class FrmG0011
         'txtST09_Comment
         '
         Me.txtST09_Comment.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST09_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST09_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST09_Comment.InputRequired = False
         Me.txtST09_Comment.Location = New System.Drawing.Point(118, 283)
         Me.txtST09_Comment.MaxByteLength = 200
         Me.txtST09_Comment.MaxLength = 100
@@ -5104,7 +5074,6 @@ Partial Class FrmG0011
         'mtxST08_NextStageName
         '
         Me.mtxST08_NextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST08_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST08_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST08_NextStageName.InputRequired = False
         Me.mtxST08_NextStageName.Location = New System.Drawing.Point(345, 222)
@@ -5240,8 +5209,8 @@ Partial Class FrmG0011
         Me.txtST08_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST08_Comment.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST08_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST08_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST08_Comment.InputRequired = False
         Me.txtST08_Comment.Location = New System.Drawing.Point(118, 283)
         Me.txtST08_Comment.MaxByteLength = 200
         Me.txtST08_Comment.MaxLength = 100
@@ -5280,7 +5249,6 @@ Partial Class FrmG0011
         'mtxST08_UPD_YMD
         '
         Me.mtxST08_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST08_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST08_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST08_UPD_YMD.InputRequired = False
         Me.mtxST08_UPD_YMD.Location = New System.Drawing.Point(118, 222)
@@ -5300,7 +5268,6 @@ Partial Class FrmG0011
         'mtxST07_ITAG_NO
         '
         Me.mtxST07_ITAG_NO.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST07_ITAG_NO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST07_ITAG_NO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST07_ITAG_NO.InputRequired = False
         Me.mtxST07_ITAG_NO.Location = New System.Drawing.Point(116, 60)
@@ -5529,7 +5496,6 @@ Partial Class FrmG0011
         'mtxST07_NextStageName
         '
         Me.mtxST07_NextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST07_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST07_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST07_NextStageName.InputRequired = False
         Me.mtxST07_NextStageName.Location = New System.Drawing.Point(341, 114)
@@ -5585,8 +5551,8 @@ Partial Class FrmG0011
         Me.txtST07_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST07_Comment.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST07_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST07_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST07_Comment.InputRequired = False
         Me.txtST07_Comment.Location = New System.Drawing.Point(115, 175)
         Me.txtST07_Comment.MaxByteLength = 200
         Me.txtST07_Comment.MaxLength = 100
@@ -5613,7 +5579,6 @@ Partial Class FrmG0011
         'mtxST07_UPD_YMD
         '
         Me.mtxST07_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST07_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST07_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST07_UPD_YMD.InputRequired = False
         Me.mtxST07_UPD_YMD.Location = New System.Drawing.Point(115, 114)
@@ -5731,7 +5696,6 @@ Partial Class FrmG0011
         'mtxST06_NextStageName
         '
         Me.mtxST06_NextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST06_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST06_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST06_NextStageName.InputRequired = False
         Me.mtxST06_NextStageName.Location = New System.Drawing.Point(341, 114)
@@ -5830,7 +5794,6 @@ Partial Class FrmG0011
         'mtxST06_SAISIN_IINKAI_SIRYO_NO
         '
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.InputRequired = False
         Me.mtxST06_SAISIN_IINKAI_SIRYO_NO.Location = New System.Drawing.Point(115, 84)
@@ -5848,8 +5811,8 @@ Partial Class FrmG0011
         Me.txtST06_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST06_Comment.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST06_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST06_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST06_Comment.InputRequired = False
         Me.txtST06_Comment.Location = New System.Drawing.Point(115, 175)
         Me.txtST06_Comment.MaxByteLength = 200
         Me.txtST06_Comment.MaxLength = 100
@@ -5876,7 +5839,6 @@ Partial Class FrmG0011
         'mtxST06_UPD_YMD
         '
         Me.mtxST06_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST06_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST06_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST06_UPD_YMD.InputRequired = False
         Me.mtxST06_UPD_YMD.Location = New System.Drawing.Point(115, 114)
@@ -5971,7 +5933,6 @@ Partial Class FrmG0011
         'mtxST05_UPD_YMD
         '
         Me.mtxST05_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST05_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST05_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST05_UPD_YMD.InputRequired = False
         Me.mtxST05_UPD_YMD.Location = New System.Drawing.Point(115, 55)
@@ -6026,7 +5987,6 @@ Partial Class FrmG0011
         Me.mtxST05_NextStageName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.mtxST05_NextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST05_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST05_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST05_NextStageName.InputRequired = False
         Me.mtxST05_NextStageName.Location = New System.Drawing.Point(356, 55)
@@ -6046,8 +6006,8 @@ Partial Class FrmG0011
         Me.txtST05_Comment.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST05_Comment.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST05_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST05_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST05_Comment.InputRequired = False
         Me.txtST05_Comment.Location = New System.Drawing.Point(115, 116)
         Me.txtST05_Comment.MaxByteLength = 200
         Me.txtST05_Comment.MaxLength = 100
@@ -6285,8 +6245,8 @@ Partial Class FrmG0011
         Me.txtST04_RIYU.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST04_RIYU.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST04_RIYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST04_RIYU.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST04_RIYU.InputRequired = False
         Me.txtST04_RIYU.Location = New System.Drawing.Point(115, 117)
         Me.txtST04_RIYU.MaxByteLength = 200
         Me.txtST04_RIYU.MaxLength = 100
@@ -6359,7 +6319,6 @@ Partial Class FrmG0011
         'mtxST04_UPD_YMD
         '
         Me.mtxST04_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST04_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST04_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST04_UPD_YMD.InputRequired = False
         Me.mtxST04_UPD_YMD.Location = New System.Drawing.Point(115, 234)
@@ -6427,8 +6386,8 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST04_Comment.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST04_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST04_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST04_Comment.InputRequired = False
         Me.txtST04_Comment.Location = New System.Drawing.Point(115, 295)
         Me.txtST04_Comment.MaxByteLength = 200
         Me.txtST04_Comment.MaxLength = 100
@@ -6445,7 +6404,6 @@ Partial Class FrmG0011
         Me.mtxST04_NextStageName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.mtxST04_NextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST04_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST04_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST04_NextStageName.InputRequired = False
         Me.mtxST04_NextStageName.Location = New System.Drawing.Point(341, 236)
@@ -6575,7 +6533,6 @@ Partial Class FrmG0011
         'mtxST03_UPD_YMD
         '
         Me.mtxST03_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST03_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST03_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST03_UPD_YMD.InputRequired = False
         Me.mtxST03_UPD_YMD.Location = New System.Drawing.Point(115, 56)
@@ -6630,7 +6587,6 @@ Partial Class FrmG0011
         Me.mtxST03_NextStageName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.mtxST03_NextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST03_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST03_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST03_NextStageName.InputRequired = False
         Me.mtxST03_NextStageName.Location = New System.Drawing.Point(356, 56)
@@ -6651,8 +6607,8 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST03_Comment.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST03_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST03_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST03_Comment.InputRequired = False
         Me.txtST03_Comment.Location = New System.Drawing.Point(115, 117)
         Me.txtST03_Comment.MaxByteLength = 200
         Me.txtST03_Comment.MaxLength = 100
@@ -6779,7 +6735,6 @@ Partial Class FrmG0011
         'mtxST02_UPD_YMD
         '
         Me.mtxST02_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST02_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST02_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST02_UPD_YMD.InputRequired = False
         Me.mtxST02_UPD_YMD.Location = New System.Drawing.Point(115, 55)
@@ -6834,7 +6789,6 @@ Partial Class FrmG0011
         Me.mtxST02_NextStageName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.mtxST02_NextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST02_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST02_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST02_NextStageName.InputRequired = False
         Me.mtxST02_NextStageName.Location = New System.Drawing.Point(344, 55)
@@ -6855,8 +6809,8 @@ Partial Class FrmG0011
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST02_Comment.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST02_Comment.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST02_Comment.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST02_Comment.InputRequired = False
         Me.txtST02_Comment.Location = New System.Drawing.Point(115, 116)
         Me.txtST02_Comment.MaxByteLength = 200
         Me.txtST02_Comment.MaxLength = 100
@@ -7353,8 +7307,8 @@ Partial Class FrmG0011
         Me.txtST01_YOKYU_NAIYO.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST01_YOKYU_NAIYO.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST01_YOKYU_NAIYO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST01_YOKYU_NAIYO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST01_YOKYU_NAIYO.InputRequired = False
         Me.txtST01_YOKYU_NAIYO.Location = New System.Drawing.Point(28, 58)
         Me.txtST01_YOKYU_NAIYO.MaxByteLength = 500
         Me.txtST01_YOKYU_NAIYO.MaxLength = 250
@@ -7432,8 +7386,8 @@ Partial Class FrmG0011
         Me.txtST01_KEKKA.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtST01_KEKKA.BackColor = System.Drawing.SystemColors.Window
-        Me.txtST01_KEKKA.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtST01_KEKKA.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtST01_KEKKA.InputRequired = False
         Me.txtST01_KEKKA.Location = New System.Drawing.Point(29, 260)
         Me.txtST01_KEKKA.MaxByteLength = 500
         Me.txtST01_KEKKA.MaxLength = 250
@@ -7449,7 +7403,6 @@ Partial Class FrmG0011
         'mtxST01_NextStageName
         '
         Me.mtxST01_NextStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST01_NextStageName.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST01_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_NextStageName.InputRequired = False
         Me.mtxST01_NextStageName.Location = New System.Drawing.Point(344, 453)
@@ -7540,7 +7493,6 @@ Partial Class FrmG0011
         'mtxST01_UPD_YMD
         '
         Me.mtxST01_UPD_YMD.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxST01_UPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxST01_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_UPD_YMD.InputRequired = False
         Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(115, 453)

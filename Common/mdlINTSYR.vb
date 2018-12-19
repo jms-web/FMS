@@ -598,29 +598,82 @@ Module mdlINTSYR
         End Try
     End Function
 
+    ''' <summary>
+    ''' システム管理者権限取得
+    ''' </summary>
+    ''' <param name="SYAIN_ID"></param>
+    ''' <returns></returns>
+    Public Function IsSysAdminUser(SYAIN_ID As Integer) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim strRET As String
+        Try
+
+            sbSQL.Append("SELECT ADMIN_SYS FROM " & "M004_SYAIN" & " ")
+            sbSQL.Append($" WHERE SYAIN_ID ={SYAIN_ID}")
+            Using DB As ClsDbUtility = DBOpen()
+                strRET = DB.ExecuteScalar(sbSQL.ToString)
+            End Using
+
+            Return (strRET = "1")
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False)
+            Return False
+
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' 運用管理者権限取得
+    ''' </summary>
+    ''' <param name="SYAIN_ID"></param>
+    ''' <returns></returns>
+    Public Function IsOPAdminUser(SYAIN_ID As Integer) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim strRET As String
+        Try
+
+            sbSQL.Append("SELECT ADMIN_OP FROM " & "M004_SYAIN" & " ")
+            sbSQL.Append($" WHERE SYAIN_ID ={SYAIN_ID}")
+            Using DB As ClsDbUtility = DBOpen()
+                strRET = DB.ExecuteScalar(sbSQL.ToString)
+            End Using
+
+            Return (strRET = "1")
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False)
+            Return False
+
+        End Try
+    End Function
+
 #End Region
 
 #Region "管理者権限確認"
 
     Public Function HasAdminAuth(ByVal intSYAIN_ID As Integer) As Boolean
-        Dim sbSQL As New System.Text.StringBuilder
-        Dim dsList As New DataSet
+        'Dim sbSQL As New System.Text.StringBuilder
+        'Dim dsList As New DataSet
 
-        sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append("SELECT")
-        sbSQL.Append(" *")
-        sbSQL.Append(" FROM VWM001_SETTING ")
-        sbSQL.Append(" WHERE ITEM_NAME='管理者権限'")
-        sbSQL.Append(" AND ITEM_DISP='" & intSYAIN_ID & "'")
-        Using DB As ClsDbUtility = DBOpen()
-            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-        End Using
+        'sbSQL.Remove(0, sbSQL.Length)
+        'sbSQL.Append("SELECT")
+        'sbSQL.Append(" *")
+        'sbSQL.Append(" FROM VWM001_SETTING ")
+        'sbSQL.Append(" WHERE ITEM_NAME='管理者権限'")
+        'sbSQL.Append(" AND ITEM_DISP='" & intSYAIN_ID & "'")
+        'Using DB As ClsDbUtility = DBOpen()
+        '    dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        'End Using
 
-        If dsList.Tables(0).Rows.Count > 0 Then
-            Return True
-        Else
-            Return False
-        End If
+        'If dsList.Tables(0).Rows.Count > 0 Then
+        '    Return True
+        'Else
+        '    Return False
+        'End If
+
+        Return IsOPAdminUser(intSYAIN_ID)
+
     End Function
 #End Region
 

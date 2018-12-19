@@ -197,7 +197,7 @@ Public Class FrmG0011
                         'cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                         cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                        Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
+                        Dim blnIsAdmin As Boolean = IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID)
                         If blnIsAdmin Then
                             'ÉVÉXÉeÉÄä«óùé“ÇÃÇ›êßå¿âèú
                         Else
@@ -362,7 +362,7 @@ Public Class FrmG0011
 
                     If FunCheckInput(ENM_SAVE_MODE._1_ï€ë∂) Then
                         If OpenFormTENSO() Then
-                            If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+                            If IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID) Then
                                 Me.DialogResult = DialogResult.OK
                             Else
                                 If FunSAVE(ENM_SAVE_MODE._1_ï€ë∂, True) Then
@@ -3031,7 +3031,7 @@ Public Class FrmG0011
                 End Select
 
                 '#52 ä«óùé“å†å¿ÇéùÇ¬èÍçá
-                Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
+                Dim blnIsAdmin As Boolean = IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID)
                 If blnIsAdmin Then
                     cmdFunc4.Enabled = True
                     cmdFunc5.Enabled = True
@@ -5953,7 +5953,7 @@ Public Class FrmG0011
                     _D003_NCR_J.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
 
 
-                    If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+                    If IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID) Then
                     Else
                         _D003_NCR_J.BUMON_KB = pub_SYAIN_INFO.BUMON_KB
                     End If
@@ -6026,7 +6026,7 @@ Public Class FrmG0011
                         cmbFUTEKIGO_KB.ReadOnly = False
                         cmbFUTEKIGO_S_KB.ReadOnly = False
                         mtxZUBAN_KIKAKU.ReadOnly = False
-                        numSU.Enabled = False
+                        numSU.Enabled = True
                         dtHASSEI_YMD.ReadOnly = False
 
                     End If

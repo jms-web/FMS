@@ -41,14 +41,14 @@ Partial Class FrmM0040
         Me.Label7 = New System.Windows.Forms.Label()
         Me.dtbNYUSYA_YMD_FROM = New JMS_COMMON.DateTextBoxEx()
         Me.dtbNYUSYA_YMD_To = New JMS_COMMON.DateTextBoxEx()
-        Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.VWM004SYAINBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
-        CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.VWM004SYAINBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -206,7 +206,6 @@ Partial Class FrmM0040
         '
         Me.mtxSIMEI.BackColor = System.Drawing.SystemColors.Window
         Me.mtxSIMEI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxSIMEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxSIMEI.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxSIMEI.InputRequired = False
         Me.mtxSIMEI.Location = New System.Drawing.Point(299, 3)
@@ -232,7 +231,6 @@ Partial Class FrmM0040
         '
         Me.mtxSYAIN_NO.BackColor = System.Drawing.SystemColors.Window
         Me.mtxSYAIN_NO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxSYAIN_NO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxSYAIN_NO.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxSYAIN_NO.InputRequired = False
         Me.mtxSYAIN_NO.Location = New System.Drawing.Point(70, 3)
@@ -330,7 +328,6 @@ Partial Class FrmM0040
         '
         Me.mtxSIMEI_KANA.BackColor = System.Drawing.SystemColors.Window
         Me.mtxSIMEI_KANA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxSIMEI_KANA.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxSIMEI_KANA.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxSIMEI_KANA.InputRequired = False
         Me.mtxSIMEI_KANA.Location = New System.Drawing.Point(592, 3)
@@ -414,6 +411,10 @@ Partial Class FrmM0040
         Me.dtbNYUSYA_YMD_To.Value = ""
         Me.dtbNYUSYA_YMD_To.ValueNonFormat = ""
         '
+        'VWM004SYAINBindingSource
+        '
+        Me.VWM004SYAINBindingSource.DataSource = GetType(MODEL.VWM004_SYAIN)
+        '
         'flxDATA
         '
         Me.flxDATA.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -431,10 +432,6 @@ Partial Class FrmM0040
         Me.flxDATA.TabIndex = 62
         Me.flxDATA.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
         '
-        'VWM004SYAINBindingSource
-        '
-        Me.VWM004SYAINBindingSource.DataSource = GetType(MODEL.VWM004_SYAIN)
-        '
         'FrmM0040
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -446,6 +443,7 @@ Partial Class FrmM0040
         Me.ShowStatusBar = True
         Me.Text = ""
         Me.Controls.SetChildIndex(Me.gbxFilter, 0)
+        Me.Controls.SetChildIndex(Me.flxDATA, 0)
         Me.Controls.SetChildIndex(Me.lblRecordCount, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc3, 0)
@@ -460,14 +458,13 @@ Partial Class FrmM0040
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
-        Me.Controls.SetChildIndex(Me.flxDATA, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()
-        CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.VWM004SYAINBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -492,6 +489,6 @@ Partial Class FrmM0040
     Friend WithEvents Label7 As Label
     Friend WithEvents dtbNYUSYA_YMD_FROM As DateTextBoxEx
     Friend WithEvents dtbNYUSYA_YMD_To As DateTextBoxEx
-    Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents VWM004SYAINBindingSource As BindingSource
+    Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
 End Class

@@ -36,7 +36,7 @@ Public Class FrmM0041
             Me.ControlBox = False
 
             '-----位置・サイズ
-            Me.Height = 400
+            Me.Height = 430
             Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) - 26 ' / 2
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
 
@@ -52,6 +52,10 @@ Public Class FrmM0041
             Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
             Me.ControlBox = False
 
+            Dim blnSysAdmin As Boolean = IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID)
+            chkADMIN_SYS.Enabled = blnSysAdmin
+            chkADMIN_OP.Enabled = blnSysAdmin
+
 
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -64,6 +68,7 @@ Public Class FrmM0041
     Private Function FunInitializeControls(ByVal intMODE As Integer) As Boolean
 
         Try
+
             Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
                     lblTytle.Text &= "（追加）"
@@ -150,10 +155,18 @@ Public Class FrmM0041
                 'TEL
                 Me.mtxTEL.Text = .Item(NameOf(_model.TEL))
 
+                '運用権限
+                chkADMIN_OP.Checked = .Item(NameOf(_model.ADMIN_OP)) = "1"
+                'システム権限
+                chkADMIN_SYS.Checked = .Item(NameOf(_model.ADMIN_SYS)) = "1"
+
                 '更新日時
-                Dim dt As DateTime
-                dt = DateTime.ParseExact(.Item(NameOf(_model.UPD_YMDHNS)).ToString, "yyyy/MM/dd HH:mm:ss", Nothing)
-                Me.lblEDIT_YMDHNS.Text = dt.ToString("yyyy/MM/dd HH:mm:ss")
+                If Not row.Item(NameOf(_model.UPD_YMDHNS)).ToString.IsNulOrWS Then
+                    Dim dt As DateTime
+                    dt = DateTime.ParseExact(.Item(NameOf(_model.UPD_YMDHNS)).ToString, "yyyy/MM/dd HH:mm:ss", Nothing)
+                    Me.lblEDIT_YMDHNS.Text = dt.ToString("yyyy/MM/dd HH:mm:ss")
+                End If
+
 
                 '更新担当
                 Me.lblEDIT_SYAIN_ID.Text = .Item(NameOf(_model.UPD_SYAIN_NAME)).ToString
@@ -270,6 +283,8 @@ Public Class FrmM0041
                     sbSQL.Append(" ,NYUSYA_YMD")
                     sbSQL.Append(" ,TAISYA_YMD")
                     sbSQL.Append(" ,PASS")
+                    sbSQL.Append(" ,ADMIN_OP")
+                    sbSQL.Append(" ,ADMIN_SYS")
                     sbSQL.Append(" ,ADD_YMDHNS")
                     sbSQL.Append(" ,ADD_SYAIN_ID")
                     sbSQL.Append(" ,UPD_YMDHNS")
@@ -278,7 +293,7 @@ Public Class FrmM0041
                     sbSQL.Append(" ,DEL_SYAIN_ID")
                     sbSQL.Append(" ) VALUES ( ")
                     '社員ID
-                    sbSQL.Append(" (SELECT MAX(SYAIN_ID)+1 FROM M004_SYAIN)")
+                    sbSQL.Append(" (SELECT MAX(SYAIN_ID)+1 FROM M004_SYAIN WHERE SYAIN_ID<999999)")
                     '社員NO
                     sbSQL.Append(" ,'" & Me.mtxSYAIN_NO.Text.Trim & "'")
                     '氏名
@@ -303,6 +318,10 @@ Public Class FrmM0041
                     sbSQL.Append(" ,'" & Me.dtbTAISYA_YMD.ValueNonFormat & "'")
                     'パスワード
                     sbSQL.Append(" ,'" & Me.mtxPASS.Text.Trim & "'")
+                    '運用権限
+                    sbSQL.Append(" ,'" & If(chkADMIN_OP.Checked, "1", "0") & "'")
+                    'システム権限
+                    sbSQL.Append(" ,'" & If(chkADMIN_SYS.Checked, "1", "0") & "'")
                     '追加日時
                     sbSQL.Append(" ,dbo.GetSysDateString()")
                     '追加担当者
@@ -384,6 +403,8 @@ Public Class FrmM0041
                     sbSQL.Append(" ,NYUSYA_YMD   ='" & Me.dtbNYUSYA_YMD.ValueNonFormat & "'")
                     sbSQL.Append(" ,TAISYA_YMD   ='" & Me.dtbTAISYA_YMD.ValueNonFormat & "'")
                     sbSQL.Append(" ,PASS         ='" & Me.mtxPASS.Text.Trim & "'")
+                    sbSQL.Append(" ,ADMIN_OP     ='" & If(chkADMIN_OP.Checked, "1", "0") & "'")
+                    sbSQL.Append(" ,ADMIN_SYS    ='" & If(chkADMIN_SYS.Checked, "1", "0") & "'")
                     sbSQL.Append(" ,UPD_YMDHNS   = dbo.GetSysDateString() ")
                     sbSQL.Append(" ,UPD_SYAIN_ID = " & pub_SYAIN_INFO.SYAIN_ID & " ")
                     sbSQL.Append(" WHERE")
@@ -503,6 +524,11 @@ Public Class FrmM0041
     Private Sub mtxPASS_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxPASS.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "パスワード"))
+    End Sub
+
+    Private Sub chkADMIN_SYS_CheckedChanged(sender As Object, e As EventArgs) Handles chkADMIN_SYS.CheckedChanged
+        If chkADMIN_SYS.Checked Then chkADMIN_OP.Checked = True
+
     End Sub
 
 #Region "ローカル関数"

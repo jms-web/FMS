@@ -359,6 +359,8 @@ Public Class FrmM0040
                                         Trow(p.Name) = Mid(row.Item(p.Name), 1, 4) & "/" & Mid(row.Item(p.Name), 5, 2) & "/" & Mid(row.Item(p.Name), 7, 2) & " " & Mid(row.Item(p.Name), 9, 2) & ":" & Mid(row.Item(p.Name), 11, 2) & ":" & Mid(row.Item(p.Name), 13, 2)
                                     Case "DEL_FLG"
                                         Trow(p.Name) = CBool(row.Item(p.Name))
+                                    Case "DEL_FLG"
+                                        Trow(p.Name) = CBool(row.Item(p.Name))
                                     Case "Item", "Properties"
 
                                     Case Else
@@ -411,7 +413,7 @@ Public Class FrmM0040
             If flxDATA.RowSel > 0 Then
                 frmDLG.PrDataRow = flxDATA.Rows(flxDATA.RowSel)
             Else
-                frmDLG.PrDataRow = Nothing
+                frmDLG.PrDataRow = flxDATA.Rows(1)
             End If
 
             dlgRET = frmDLG.ShowDialog(Me)

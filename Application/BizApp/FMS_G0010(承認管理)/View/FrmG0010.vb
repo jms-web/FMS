@@ -15,7 +15,6 @@ Public Class FrmG0010
 
     Private ParamModel As New ST02_ParamModel
 
-
 #End Region
 
 #Region "プロパティ"
@@ -149,7 +148,7 @@ Public Class FrmG0010
 
             '-----既定値設定
             Dim dtGEN_TANTO As DataTable = Nothing
-            Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
+            Dim blnIsAdmin As Boolean = IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID)
             If blnIsAdmin Then
                 'システム管理者のみ制限解除
                 dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
@@ -179,9 +178,12 @@ Public Class FrmG0010
                 End Select
 
                 cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                cmbGEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
-                If cmbGEN_TANTO.SelectedValue IsNot Nothing Then ParamModel.SYOCHI_TANTO = pub_SYAIN_INFO.SYAIN_ID
 
+                If Not IsOPAdminUser(pub_SYAIN_INFO.SYAIN_ID) Then
+                    cmbGEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                End If
+
+                If cmbGEN_TANTO.SelectedValue IsNot Nothing AndAlso cmbGEN_TANTO.SelectedValue <> 0 Then ParamModel.SYOCHI_TANTO = pub_SYAIN_INFO.SYAIN_ID
             End If
 
             ''-----イベントハンドラ設定
@@ -1072,7 +1074,7 @@ Public Class FrmG0010
             End With
 
             'CHECK: 部門抽出条件適用 ログインユーザーの所属と異なる部門条件の場合・・・(すべて)を含む
-            Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
+            Dim blnIsAdmin As Boolean = IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID)
             If blnIsAdmin Then
                 'システム管理者のみ制限解除
             Else
@@ -1248,7 +1250,6 @@ Public Class FrmG0010
                 End If
             Next s
             retTable.AcceptChanges()
-
 
             dgv.DataSource = retTable.AsEnumerable.OrderBy(Function(r) r.Field(Of Integer)("SYONIN_JUN")).
                                                    CopyToDataTable
@@ -2010,7 +2011,7 @@ Public Class FrmG0010
                 '    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "変更承認権限がありません")
                 'End If
 
-                If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+                If IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID) Then
 
                     If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).ToString.Trim <> "" Then
                         '削除済み
@@ -2068,7 +2069,6 @@ Public Class FrmG0010
             'cmdFunc9.Enabled *= Not (panelMan.SelectedIndex = 1)
             'cmdFunc10.Enabled *= Not (panelMan.SelectedIndex = 1)
             'cmdFunc11.Enabled *= Not (panelMan.SelectedIndex = 1)
-
 
             Return True
         Catch ex As Exception
@@ -2179,7 +2179,6 @@ Public Class FrmG0010
                             dtADD_TANTO.Rows.Add(Trow)
                         End If
                     Next row
-
 
                     cmbADD_TANTO.SetDataSource(dtADD_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     cmbADD_TANTO.SelectedValue = intBUFF

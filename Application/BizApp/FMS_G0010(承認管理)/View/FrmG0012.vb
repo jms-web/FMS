@@ -224,7 +224,7 @@ Public Class FrmG0012
 
                     If FunCheckInput(ENM_SAVE_MODE._1_ï€ë∂) Then
                         If OpenFormTENSO() Then
-                            If HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
+                            If IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID) Then
                                 Me.DialogResult = DialogResult.OK
                             Else
                                 If FunSAVE(ENM_SAVE_MODE._1_ï€ë∂, True) Then
@@ -1822,7 +1822,7 @@ Public Class FrmG0012
                 MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "ìoò^å†å¿Ç™Ç†ÇËÇ‹ÇπÇÒ")
 
                 '#52 ä«óùé“å†å¿ÇéùÇ¬èÍçá
-                Dim blnIsAdmin As Boolean = HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID)
+                Dim blnIsAdmin As Boolean = IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID)
                 If blnIsAdmin Then
                     cmdFunc4.Enabled = True
                     cmdFunc5.Enabled = True
