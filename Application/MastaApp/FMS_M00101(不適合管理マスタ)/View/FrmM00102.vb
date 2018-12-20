@@ -174,6 +174,10 @@ Public Class FrmM00102
                     _M001.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
                     _M001.DEF_FLG = "0"
 
+                    If Not _TV05.ADD_YMDHNS.IsNulOrWS Then _M001.ADD_YMDHNS = CDate(_TV05.ADD_YMDHNS).ToString("yyyyMMddHHmmss")
+                    If Not _TV05.ADD_YMDHNS.IsNulOrWS Then _M001.ADD_YMDHNS = CDate(_TV05.ADD_YMDHNS).ToString("yyyyMMddHHmmss")
+                    If Not _TV05.ADD_YMDHNS.IsNulOrWS Then _M001.ADD_YMDHNS = CDate(_TV05.ADD_YMDHNS).ToString("yyyyMMddHHmmss")
+
                     '-----UPDATE(ï\é¶èá)
                     If PrViewModel.DISP_ORDER <> _M001.DISP_ORDER Then
                         If FunUpdateDispOrder(DB, PrViewModel.DISP_ORDER, _M001.DISP_ORDER) = False Then

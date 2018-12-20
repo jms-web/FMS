@@ -10,7 +10,7 @@ Module mdlG0010
     Public frmLIST As FrmG0010
 
     ''' <summary>
-    ''' 起動モード(0:通常,1:新規作成)
+    ''' 起動モード
     ''' </summary>
     Public pub_intOPEN_MODE As Integer
 
@@ -37,6 +37,11 @@ Module mdlG0010
         ''' メールリンク等で処置画面へ直接遷移
         ''' </summary>
         _2_処置画面起動 = 2
+
+        ''' <summary>
+        ''' 分析集計(のための検索)画面を表示
+        ''' </summary>
+        _3_分析集計 = 3
     End Enum
 
     Public Enum ENM_SAVE_MODE

@@ -1179,7 +1179,7 @@ Partial Class FrmG0011
         Me.mtxZUBAN_KIKAKU.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxZUBAN_KIKAKU.InputRequired = False
         Me.mtxZUBAN_KIKAKU.Location = New System.Drawing.Point(683, 93)
-        Me.mtxZUBAN_KIKAKU.MaxByteLength = 60
+        Me.mtxZUBAN_KIKAKU.MaxByteLength = 30
         Me.mtxZUBAN_KIKAKU.Name = "mtxZUBAN_KIKAKU"
         Me.mtxZUBAN_KIKAKU.SelectAllText = False
         Me.mtxZUBAN_KIKAKU.Size = New System.Drawing.Size(354, 24)
@@ -1475,7 +1475,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 156.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 157.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.pnlSYOCHI_E2, 3, 7)
@@ -1522,7 +1522,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_E2.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_E2.Controls.Add(Me.rbtnST11_E2_T)
         Me.pnlSYOCHI_E2.Controls.Add(Me.rbtnST11_E2_F)
-        Me.pnlSYOCHI_E2.Location = New System.Drawing.Point(605, 200)
+        Me.pnlSYOCHI_E2.Location = New System.Drawing.Point(604, 200)
         Me.pnlSYOCHI_E2.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_E2.Name = "pnlSYOCHI_E2"
         Me.pnlSYOCHI_E2.Size = New System.Drawing.Size(151, 28)
@@ -1560,7 +1560,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_E1.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_E1.Controls.Add(Me.rbtnST11_E1_T)
         Me.pnlSYOCHI_E1.Controls.Add(Me.rbtnST11_E1_F)
-        Me.pnlSYOCHI_E1.Location = New System.Drawing.Point(605, 171)
+        Me.pnlSYOCHI_E1.Location = New System.Drawing.Point(604, 171)
         Me.pnlSYOCHI_E1.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_E1.Name = "pnlSYOCHI_E1"
         Me.pnlSYOCHI_E1.Size = New System.Drawing.Size(151, 28)
@@ -1598,7 +1598,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_D2.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_D2.Controls.Add(Me.rbtnST11_D2_T)
         Me.pnlSYOCHI_D2.Controls.Add(Me.rbtnST11_D2_F)
-        Me.pnlSYOCHI_D2.Location = New System.Drawing.Point(605, 117)
+        Me.pnlSYOCHI_D2.Location = New System.Drawing.Point(604, 117)
         Me.pnlSYOCHI_D2.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_D2.Name = "pnlSYOCHI_D2"
         Me.pnlSYOCHI_D2.Size = New System.Drawing.Size(151, 28)
@@ -1636,7 +1636,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_D1.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_D1.Controls.Add(Me.rbtnST11_D1_T)
         Me.pnlSYOCHI_D1.Controls.Add(Me.rbtnST11_D1_F)
-        Me.pnlSYOCHI_D1.Location = New System.Drawing.Point(605, 88)
+        Me.pnlSYOCHI_D1.Location = New System.Drawing.Point(604, 88)
         Me.pnlSYOCHI_D1.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_D1.Name = "pnlSYOCHI_D1"
         Me.pnlSYOCHI_D1.Size = New System.Drawing.Size(151, 28)
@@ -1674,7 +1674,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_C.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_C.Controls.Add(Me.rbtnST11_C1_T)
         Me.pnlSYOCHI_C.Controls.Add(Me.rbtnST11_C1_F)
-        Me.pnlSYOCHI_C.Location = New System.Drawing.Point(605, 59)
+        Me.pnlSYOCHI_C.Location = New System.Drawing.Point(604, 59)
         Me.pnlSYOCHI_C.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_C.Name = "pnlSYOCHI_C"
         Me.pnlSYOCHI_C.Size = New System.Drawing.Size(151, 28)
@@ -1712,7 +1712,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_B.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_B.Controls.Add(Me.rbtnST11_B1_T)
         Me.pnlSYOCHI_B.Controls.Add(Me.rbtnST11_B1_F)
-        Me.pnlSYOCHI_B.Location = New System.Drawing.Point(605, 30)
+        Me.pnlSYOCHI_B.Location = New System.Drawing.Point(604, 30)
         Me.pnlSYOCHI_B.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_B.Name = "pnlSYOCHI_B"
         Me.pnlSYOCHI_B.Size = New System.Drawing.Size(151, 28)
@@ -1803,7 +1803,7 @@ Partial Class FrmG0011
         Me.Label126.Location = New System.Drawing.Point(22, 117)
         Me.Label126.Margin = New System.Windows.Forms.Padding(0)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(582, 28)
+        Me.Label126.Size = New System.Drawing.Size(581, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "影響有の場合、顧客への通知の要否"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1818,7 +1818,7 @@ Partial Class FrmG0011
         Me.Label127.Location = New System.Drawing.Point(22, 88)
         Me.Label127.Margin = New System.Windows.Forms.Padding(0)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(582, 28)
+        Me.Label127.Size = New System.Drawing.Size(581, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "当該不適合による顧客への影響"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1833,7 +1833,7 @@ Partial Class FrmG0011
         Me.lblSYOCHI_C_2.Location = New System.Drawing.Point(22, 59)
         Me.lblSYOCHI_C_2.Margin = New System.Windows.Forms.Padding(0)
         Me.lblSYOCHI_C_2.Name = "lblSYOCHI_C_2"
-        Me.lblSYOCHI_C_2.Size = New System.Drawing.Size(582, 28)
+        Me.lblSYOCHI_C_2.Size = New System.Drawing.Size(581, 28)
         Me.lblSYOCHI_C_2.TabIndex = 241
         Me.lblSYOCHI_C_2.Text = "廃却処置は本来の意図した使用又は適用ができない方法だったか？"
         Me.lblSYOCHI_C_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1862,7 +1862,7 @@ Partial Class FrmG0011
         Me.Label130.Location = New System.Drawing.Point(22, 30)
         Me.Label130.Margin = New System.Windows.Forms.Padding(0)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(582, 28)
+        Me.Label130.Size = New System.Drawing.Size(581, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "社内権限者により、又は顧客再審の場合は顧客により判定されたか？"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1919,7 +1919,7 @@ Partial Class FrmG0011
         Me.Label134.Location = New System.Drawing.Point(22, 171)
         Me.Label134.Margin = New System.Windows.Forms.Padding(0)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(582, 28)
+        Me.Label134.Size = New System.Drawing.Size(581, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "当該不適合による他のプロセスへの影響"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1948,7 +1948,7 @@ Partial Class FrmG0011
         Me.Label136.Location = New System.Drawing.Point(22, 200)
         Me.Label136.Margin = New System.Windows.Forms.Padding(0)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(582, 28)
+        Me.Label136.Size = New System.Drawing.Size(581, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "影響有の場合、封じ込め処置の要否"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1963,7 +1963,7 @@ Partial Class FrmG0011
         Me.Label137.Location = New System.Drawing.Point(22, 1)
         Me.Label137.Margin = New System.Windows.Forms.Padding(0)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(582, 28)
+        Me.Label137.Size = New System.Drawing.Size(581, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "検出された不適合を除去する処置（廃却を含む）は確実にとられたか？"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1987,7 +1987,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_A.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_A.Controls.Add(Me.rbtnST11_A1_T)
         Me.pnlSYOCHI_A.Controls.Add(Me.rbtnST11_A1_F)
-        Me.pnlSYOCHI_A.Location = New System.Drawing.Point(605, 1)
+        Me.pnlSYOCHI_A.Location = New System.Drawing.Point(604, 1)
         Me.pnlSYOCHI_A.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_A.Name = "pnlSYOCHI_A"
         Me.pnlSYOCHI_A.Size = New System.Drawing.Size(151, 28)
@@ -2218,6 +2218,7 @@ Partial Class FrmG0011
         Me.txtST15_Comment.ShowRemainingChars = True
         Me.txtST15_Comment.Size = New System.Drawing.Size(295, 159)
         Me.txtST15_Comment.TabIndex = 247
+        Me.txtST15_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST15_Comment.WatermarkText = Nothing
         '
         'mtxST15_UPD_YMD
@@ -2397,6 +2398,7 @@ Partial Class FrmG0011
         Me.txtST14_Comment.ShowRemainingChars = True
         Me.txtST14_Comment.Size = New System.Drawing.Size(481, 58)
         Me.txtST14_Comment.TabIndex = 3
+        Me.txtST14_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST14_Comment.WatermarkText = Nothing
         '
         'Label97
@@ -2591,6 +2593,7 @@ Partial Class FrmG0011
         Me.txtST13_Comment.ShowRemainingChars = True
         Me.txtST13_Comment.Size = New System.Drawing.Size(482, 58)
         Me.txtST13_Comment.TabIndex = 3
+        Me.txtST13_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST13_Comment.WatermarkText = Nothing
         '
         'Label92
@@ -2801,6 +2804,7 @@ Partial Class FrmG0011
         Me.txtST12_Comment.ShowRemainingChars = True
         Me.txtST12_Comment.Size = New System.Drawing.Size(274, 75)
         Me.txtST12_Comment.TabIndex = 4
+        Me.txtST12_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST12_Comment.WatermarkText = Nothing
         '
         'Label191
@@ -2998,6 +3002,7 @@ Partial Class FrmG0011
         Me.txtST11_Comment.ShowRemainingChars = True
         Me.txtST11_Comment.Size = New System.Drawing.Size(274, 75)
         Me.txtST11_Comment.TabIndex = 4
+        Me.txtST11_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST11_Comment.WatermarkText = Nothing
         '
         'Label165
@@ -3584,6 +3589,7 @@ Partial Class FrmG0011
         Me.TextBoxEx1.ShowRemainingChars = True
         Me.TextBoxEx1.Size = New System.Drawing.Size(0, 118)
         Me.TextBoxEx1.TabIndex = 4
+        Me.TextBoxEx1.WatermarkColor = System.Drawing.Color.Empty
         Me.TextBoxEx1.WatermarkText = Nothing
         '
         'Button5
@@ -3950,6 +3956,7 @@ Partial Class FrmG0011
         Me.txtST10_Comment.ShowRemainingChars = True
         Me.txtST10_Comment.Size = New System.Drawing.Size(274, 75)
         Me.txtST10_Comment.TabIndex = 4
+        Me.txtST10_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST10_Comment.WatermarkText = Nothing
         '
         'Label120
@@ -4566,6 +4573,7 @@ Partial Class FrmG0011
         Me.txtST08_3_BIKO.ShowRemainingChars = True
         Me.txtST08_3_BIKO.Size = New System.Drawing.Size(483, 57)
         Me.txtST08_3_BIKO.TabIndex = 4
+        Me.txtST08_3_BIKO.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST08_3_BIKO.WatermarkText = Nothing
         '
         'btnST08_3_SRCH_TANTO_HENKYAKU
@@ -4925,6 +4933,7 @@ Partial Class FrmG0011
         Me.txtST09_Comment.ShowRemainingChars = True
         Me.txtST09_Comment.Size = New System.Drawing.Size(480, 58)
         Me.txtST09_Comment.TabIndex = 4
+        Me.txtST09_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST09_Comment.WatermarkText = Nothing
         '
         'Label68
@@ -5220,6 +5229,7 @@ Partial Class FrmG0011
         Me.txtST08_Comment.ShowRemainingChars = True
         Me.txtST08_Comment.Size = New System.Drawing.Size(480, 58)
         Me.txtST08_Comment.TabIndex = 9
+        Me.txtST08_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST08_Comment.WatermarkText = Nothing
         '
         'Label60
@@ -5562,6 +5572,7 @@ Partial Class FrmG0011
         Me.txtST07_Comment.ShowRemainingChars = True
         Me.txtST07_Comment.Size = New System.Drawing.Size(480, 58)
         Me.txtST07_Comment.TabIndex = 5
+        Me.txtST07_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST07_Comment.WatermarkText = Nothing
         '
         'Label40
@@ -5822,6 +5833,7 @@ Partial Class FrmG0011
         Me.txtST06_Comment.ShowRemainingChars = True
         Me.txtST06_Comment.Size = New System.Drawing.Size(480, 58)
         Me.txtST06_Comment.TabIndex = 5
+        Me.txtST06_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST06_Comment.WatermarkText = Nothing
         '
         'Label55
@@ -6017,6 +6029,7 @@ Partial Class FrmG0011
         Me.txtST05_Comment.ShowRemainingChars = True
         Me.txtST05_Comment.Size = New System.Drawing.Size(478, 56)
         Me.txtST05_Comment.TabIndex = 3
+        Me.txtST05_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST05_Comment.WatermarkText = Nothing
         '
         'Label45
@@ -6257,6 +6270,7 @@ Partial Class FrmG0011
         Me.txtST04_RIYU.Size = New System.Drawing.Size(482, 80)
         Me.txtST04_RIYU.TabIndex = 1
         Me.txtST04_RIYU.Visible = False
+        Me.txtST04_RIYU.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST04_RIYU.WatermarkText = Nothing
         '
         'chkST04_ZESEI_SYOCHI_YOHI_KB
@@ -6397,6 +6411,7 @@ Partial Class FrmG0011
         Me.txtST04_Comment.ShowRemainingChars = True
         Me.txtST04_Comment.Size = New System.Drawing.Size(482, 55)
         Me.txtST04_Comment.TabIndex = 5
+        Me.txtST04_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST04_Comment.WatermarkText = Nothing
         '
         'mtxST04_NextStageName
@@ -6618,6 +6633,7 @@ Partial Class FrmG0011
         Me.txtST03_Comment.ShowRemainingChars = True
         Me.txtST03_Comment.Size = New System.Drawing.Size(482, 58)
         Me.txtST03_Comment.TabIndex = 3
+        Me.txtST03_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST03_Comment.WatermarkText = Nothing
         '
         'Label18
@@ -6820,6 +6836,7 @@ Partial Class FrmG0011
         Me.txtST02_Comment.ShowRemainingChars = True
         Me.txtST02_Comment.Size = New System.Drawing.Size(482, 58)
         Me.txtST02_Comment.TabIndex = 3
+        Me.txtST02_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST02_Comment.WatermarkText = Nothing
         '
         'Label27
@@ -7319,6 +7336,7 @@ Partial Class FrmG0011
         Me.txtST01_YOKYU_NAIYO.ShowRemainingChars = True
         Me.txtST01_YOKYU_NAIYO.Size = New System.Drawing.Size(716, 167)
         Me.txtST01_YOKYU_NAIYO.TabIndex = 0
+        Me.txtST01_YOKYU_NAIYO.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST01_YOKYU_NAIYO.WatermarkText = Nothing
         '
         'lblSTAGE01
@@ -7398,6 +7416,7 @@ Partial Class FrmG0011
         Me.txtST01_KEKKA.ShowRemainingChars = True
         Me.txtST01_KEKKA.Size = New System.Drawing.Size(713, 170)
         Me.txtST01_KEKKA.TabIndex = 1
+        Me.txtST01_KEKKA.WatermarkColor = System.Drawing.Color.Empty
         Me.txtST01_KEKKA.WatermarkText = Nothing
         '
         'mtxST01_NextStageName
