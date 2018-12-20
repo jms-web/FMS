@@ -174,9 +174,9 @@ Public Class FrmM00102
                     _M001.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
                     _M001.DEF_FLG = "0"
 
-                    If Not _TV05.ADD_YMDHNS.IsNulOrWS Then _M001.ADD_YMDHNS = CDate(_TV05.ADD_YMDHNS).ToString("yyyyMMddHHmmss")
-                    If Not _TV05.ADD_YMDHNS.IsNulOrWS Then _M001.ADD_YMDHNS = CDate(_TV05.ADD_YMDHNS).ToString("yyyyMMddHHmmss")
-                    If Not _TV05.ADD_YMDHNS.IsNulOrWS Then _M001.ADD_YMDHNS = CDate(_TV05.ADD_YMDHNS).ToString("yyyyMMddHHmmss")
+                    If Not _TV05.ADD_YMDHNS.IsNulOrWS Then _M001.ADD_YMDHNS = CType(_TV05.ADD_YMDHNS, DateTime).ToString("yyyyMMddHHmmss")
+                    If Not _TV05.UPD_YMDHNS.IsNulOrWS Then _M001.UPD_YMDHNS = CType(_TV05.UPD_YMDHNS, DateTime).ToString("yyyyMMddHHmmss")
+                    If Not _TV05.DEL_YMDHNS.IsNulOrWS Then _M001.DEL_YMDHNS = CType(_TV05.DEL_YMDHNS, DateTime).ToString("yyyyMMddHHmmss")
 
                     '-----UPDATE(表示順)
                     If PrViewModel.DISP_ORDER <> _M001.DISP_ORDER Then
@@ -194,14 +194,14 @@ Public Class FrmM00102
                     sbSQL.Append($",'{_TV05.FUTEKIGO_S_KB}' AS {NameOf(_M001.ITEM_VALUE)}")
                     sbSQL.Append($",'承認関連' AS {NameOf(_M001.ITEM_GROUP)}")
                     sbSQL.Append($",'{_TV05.FUTEKIGO_S_KB_NAME.Trim}' AS {NameOf(_M001.ITEM_DISP)}")
-                    sbSQL.Append($",'{0}' AS {NameOf(_M001.DEF_FLG)}")
+                    sbSQL.Append($",'{_M001.DEF_FLG}' AS {NameOf(_M001.DEF_FLG)}")
                     sbSQL.Append($",{_TV05.DISP_ORDER} AS {NameOf(_M001.DISP_ORDER)}")
                     sbSQL.Append($",' ' AS {NameOf(_M001.BIKOU)}")
-                    sbSQL.Append($",'{_TV05.ADD_YMDHNS}' AS {NameOf(_M001.ADD_YMDHNS)}")
-                    sbSQL.Append($",{_TV05.ADD_SYAIN_ID} AS {NameOf(_M001.ADD_SYAIN_ID)}")
-                    sbSQL.Append($",'{_TV05.UPD_YMDHNS}' AS {NameOf(_M001.UPD_YMDHNS)}")
+                    sbSQL.Append($",'{_M001.ADD_YMDHNS}' AS {NameOf(_M001.ADD_YMDHNS)}")
+                    sbSQL.Append($",{_M001.ADD_SYAIN_ID} AS {NameOf(_M001.ADD_SYAIN_ID)}")
+                    sbSQL.Append($",'{_M001.UPD_YMDHNS}' AS {NameOf(_M001.UPD_YMDHNS)}")
                     sbSQL.Append($",{_TV05.UPD_SYAIN_ID} AS {NameOf(_M001.UPD_SYAIN_ID)}")
-                    sbSQL.Append($",'{_TV05.DEL_YMDHNS}' AS {NameOf(_M001.DEL_YMDHNS)}")
+                    sbSQL.Append($",'{_M001.DEL_YMDHNS}' AS {NameOf(_M001.DEL_YMDHNS)}")
                     sbSQL.Append($",{_TV05.DEL_SYAIN_ID} AS {NameOf(_M001.DEL_SYAIN_ID)}")
 
                     sbSQL.Append($" ) AS WK ON (")
@@ -212,12 +212,12 @@ Public Class FrmM00102
                     '---UPDATE 排他制御 更新日時が変更されていない場合のみ
                     sbSQL.Append($" WHEN MATCHED AND TARGET.{NameOf(_M001.UPD_YMDHNS)} = WK.{NameOf(_M001.UPD_YMDHNS)} THEN ")
                     sbSQL.Append($" UPDATE SET")
-                    sbSQL.Append($" TARGET.{NameOf(_M001.ITEM_DISP)} = WK.{NameOf(_M001.ITEM_DISP)}")
-                    sbSQL.Append($",TARGET.{NameOf(_M001.ITEM_GROUP)} = WK.{NameOf(_M001.ITEM_GROUP)}")
-                    sbSQL.Append($",TARGET.{NameOf(_M001.DISP_ORDER)} = WK.{NameOf(_M001.DISP_ORDER)}")
-                    sbSQL.Append($",TARGET.{NameOf(_M001.DEF_FLG)} = WK.{NameOf(_M001.DEF_FLG)}")
-                    sbSQL.Append($",TARGET.{NameOf(_M001.BIKOU)} = WK.{NameOf(_M001.BIKOU)}")
-                    sbSQL.Append($",TARGET.{NameOf(_M001.UPD_YMDHNS)} = '{strSysDate}'")
+                    sbSQL.Append($" TARGET.{NameOf(_M001.ITEM_DISP)}    = WK.{NameOf(_M001.ITEM_DISP)}")
+                    sbSQL.Append($",TARGET.{NameOf(_M001.ITEM_GROUP)}   = WK.{NameOf(_M001.ITEM_GROUP)}")
+                    sbSQL.Append($",TARGET.{NameOf(_M001.DISP_ORDER)}   = WK.{NameOf(_M001.DISP_ORDER)}")
+                    sbSQL.Append($",TARGET.{NameOf(_M001.DEF_FLG)}      = WK.{NameOf(_M001.DEF_FLG)}")
+                    sbSQL.Append($",TARGET.{NameOf(_M001.BIKOU)}        = WK.{NameOf(_M001.BIKOU)}")
+                    sbSQL.Append($",TARGET.{NameOf(_M001.UPD_YMDHNS)}   = '{strSysDate}'")
                     sbSQL.Append($",TARGET.{NameOf(_M001.UPD_SYAIN_ID)} = WK.{NameOf(_M001.UPD_SYAIN_ID)}")
 
                     '---INSERT
