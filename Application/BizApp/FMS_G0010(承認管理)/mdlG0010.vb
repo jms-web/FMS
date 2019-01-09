@@ -819,17 +819,18 @@ Module mdlG0010
                     Return False
                 End If
 
+                If strToAddress.IsNulOrWS Then
+                    MessageBox.Show("依頼先担当者のメールアドレスが設定されていないため、依頼メールは送信されませんでした。", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return True
+                End If
+
                 strMsg = String.Format("【メール送信成功】TO:{0}({1}) SUBJECT:{2}", strToSyainName, strToAddress, strSubject)
                 WL.WriteLogDat(strMsg)
 
-                'DEBUG:
                 If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                     Return True
                 End If
 
-                '#If DEBUG Then
-                '                Return True
-                '#End If
             End Using
 
 
