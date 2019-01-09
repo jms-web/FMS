@@ -556,7 +556,7 @@ Partial Class FrmM0041
         Me.mtxMAIL_ADD.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.mtxMAIL_ADD.InputRequired = False
         Me.mtxMAIL_ADD.Location = New System.Drawing.Point(109, 183)
-        Me.mtxMAIL_ADD.MaxByteLength = 20
+        Me.mtxMAIL_ADD.MaxByteLength = 100
         Me.mtxMAIL_ADD.Name = "mtxMAIL_ADD"
         Me.mtxMAIL_ADD.SelectAllText = False
         Me.mtxMAIL_ADD.Size = New System.Drawing.Size(340, 24)
