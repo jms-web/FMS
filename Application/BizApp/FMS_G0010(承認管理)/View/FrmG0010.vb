@@ -231,9 +231,35 @@ Public Class FrmG0010
                     ParamModel.SYONIN_HOKOKUSYO_ID = pub_PrSYONIN_HOKOKUSYO_ID
                     Me.cmdFunc1.PerformClick()
                     Me.cmdFunc4.PerformClick()
+
+                Case ENM_OPEN_MODE._3_分析集計
+
                 Case Else
                     Me.cmdFunc1.PerformClick()
             End Select
+
+            Dim IsSummaryMode As Boolean = (pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計)
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+            chkDispADD_TANTO.Visible = IsSummaryMode
+
+
+
 
             'ファンクションボタンステータス更新
             Call FunInitFuncButtonEnabled()
