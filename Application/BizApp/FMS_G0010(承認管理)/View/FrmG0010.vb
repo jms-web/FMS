@@ -259,8 +259,6 @@ Public Class FrmG0010
             chkDispADD_TANTO.Visible = IsSummaryMode
 
 
-
-
             'ファンクションボタンステータス更新
             Call FunInitFuncButtonEnabled()
             Me.WindowState = FormWindowState.Maximized
@@ -2014,7 +2012,7 @@ Public Class FrmG0010
                 cmdFunc3.Enabled = True
                 cmdFunc4.Enabled = True
                 cmdFunc5.Enabled = True
-                'cmdFunc7.Enabled = True
+                cmdFunc7.Enabled = True
                 cmdFunc8.Enabled = True
                 cmdFunc9.Enabled = True
                 cmdFunc10.Enabled = True
@@ -2077,7 +2075,8 @@ Public Class FrmG0010
                 cmdFunc3.Enabled = False
                 cmdFunc4.Enabled = False
                 cmdFunc5.Enabled = False
-                cmdFunc7.Enabled = False
+
+                cmdFunc7.Enabled = (panelMan.SelectedIndex = 1) 'False
                 cmdFunc6.Enabled = False
                 cmdFunc8.Enabled = False
                 cmdFunc9.Enabled = False
