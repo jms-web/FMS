@@ -293,7 +293,7 @@ Public Class FrmM0041
                     sbSQL.Append(" ,DEL_SYAIN_ID")
                     sbSQL.Append(" ) VALUES ( ")
                     'ŽÐˆõID
-                    sbSQL.Append(" (SELECT MAX(SYAIN_ID)+1 FROM M004_SYAIN WHERE SYAIN_ID<999999)")
+                    sbSQL.Append(" (SELECT MAX(SYAIN_ID)+1 FROM M004_SYAIN)")
                     'ŽÐˆõNO
                     sbSQL.Append(" ,'" & Me.mtxSYAIN_NO.Text.Trim & "'")
                     'Ž–¼
