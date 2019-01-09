@@ -785,7 +785,7 @@ Module mdlG0010
                 strUserID = FunGetCodeMastaValue(DB, "メール設定", "SMTP_USER")
                 strPassword = FunGetCodeMastaValue(DB, "メール設定", "SMTP_PASS")
 
-                '---申請先担当者のメールアドレス取得
+                '---申請先担当者のメールアドレスなど取得
                 Dim sbSQL As New System.Text.StringBuilder
                 Dim dsList As New DataSet
                 sbSQL.Remove(0, sbSQL.Length)

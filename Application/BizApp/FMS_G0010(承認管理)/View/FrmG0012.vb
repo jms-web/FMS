@@ -119,7 +119,7 @@ Public Class FrmG0012
                         cmbKONPON_YOIN_KB1.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
                         cmbKONPON_YOIN_KB2.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
-                        cmbKISEKI_KOTEI.SetDataSource(tblKISEKI_KOUTEI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                        cmbKISEKI_KOTEI.SetDataSource(tblKISEKI_KOUTEI_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
                         cmbKAITO_14.SetDataSource(tblYOHI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
 
@@ -2006,11 +2006,11 @@ Public Class FrmG0012
     End Sub
 
     'SPEC: 10-1
-    Private Sub CmbKONPON_YOIN_KB1_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKONPON_YOIN_KB1.Validating
+    Private Sub CmbKONPON_YOIN_KB1_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
 
     End Sub
 
-    Private Sub CmbKONPON_YOIN_KB2_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKONPON_YOIN_KB2.Validating
+    Private Sub CmbKONPON_YOIN_KB2_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
 
     End Sub
 
@@ -2711,6 +2711,7 @@ Public Class FrmG0012
                     pnlZESEI_SYOCHI.Visible = False
                     pnlST13.Visible = False
                     pnlST05.Visible = (PrCurrentStage = ENM_CAR_STAGE._50_起草確認_設計開発)
+                    pnlAnalysis.Visible = (PrCurrentStage = ENM_CAR_STAGE._70_起草確認_品証課長)
 
                 Case ENM_CAR_STAGE._80_処置実施記録入力, ENM_CAR_STAGE._90_処置実施確認
                     tabSTAGE01.EnableDisablePages(False)
@@ -2723,6 +2724,7 @@ Public Class FrmG0012
                     pnlZESEI_SYOCHI.Visible = False
                     pnlST13.Visible = False
                     lblKYOIKU_FILE_PATH_Clear.Enabled = blnOwn
+                    pnlAnalysis.Visible = True
 
                 Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
 
@@ -2741,10 +2743,11 @@ Public Class FrmG0012
                     Else
                         pnlST13.Visible = False
                     End If
+                    pnlAnalysis.Visible = True
 
                 Case ENM_CAR_STAGE._999_Closed
                     pnlST05.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
-                    tabSTAGE02.EnableDisablePages(False)
+                    'tabSTAGE02.EnableDisablePages(False)
                     pnlCAR.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     pnlSYOCHI_KIROKU.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     pnlZESEI_SYOCHI.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
@@ -2755,8 +2758,14 @@ Public Class FrmG0012
                     btnOpentmpFile2.Enabled = False
                     lblKYOIKU_FILE_PATH_Clear.Enabled = False
                     lblSYOSAI_FILE_PATH_Clear.Enabled = False
+                    pnlAnalysis.Visible = True
+
                 Case Else
             End Select
+
+            If PrCurrentStage >= ENM_CAR_STAGE._70_起草確認_品証課長 And (_V005_CAR_J.KISEKI_KOTEI_KB.IsNulOrWS Or _V005_CAR_J.KONPON_YOIN_SYAIN_ID = 0) Then
+                lblMessage.Visible = True
+            End If
 
             For Each val As Integer In [Enum].GetValues(GetType(ENM_CAR_STAGE2))
                 flpnlStageIndex.Controls("rsbtnST" & val.ToString("00")).Enabled = (PrCurrentStage / 10) >= val
@@ -2860,9 +2869,7 @@ Public Class FrmG0012
             Dim dt As DataTable = FunGetSYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB)
             Dim drs As IEnumerable(Of DataRow)
 
-            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_技術.Value, ENM_GYOMU_GROUP_ID._2_製造.Value, ENM_GYOMU_GROUP_ID._3_検査.Value, ENM_GYOMU_GROUP_ID._4_品証.Value})
-            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
-            If drs.Count > 0 Then cmbKONPON_YOIN_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKONPON_YOIN_TANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
             InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_技術.Value, ENM_GYOMU_GROUP_ID._2_製造.Value, ENM_GYOMU_GROUP_ID._3_検査.Value, ENM_GYOMU_GROUP_ID._4_品証.Value})
             drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
@@ -3119,6 +3126,12 @@ Public Class FrmG0012
                         Call cmbKAITO_17_Validating(cmbKAITO_17, Nothing)
                         Call KAITO_181920_Validating(mtxKAITO_18, Nothing)
 
+                        'UNDONE: 一旦保留
+                        'If PrCurrentStage = ENM_CAR_STAGE._70_起草確認_品証課長 Then
+                        '    Call cmbKONPON_YOIN_TANTO_Validating(cmbKONPON_YOIN_TANTO, Nothing)
+                        '    Call cmbKISEKI_KOTEI_Validating(cmbKISEKI_KOTEI, Nothing)
+                        'End If
+
                     Case ENM_CAR_STAGE._90_処置実施確認 To ENM_CAR_STAGE._100_是正有効性記入
                         Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
                     Case ENM_CAR_STAGE._110_是正有効性確認_検査GL To ENM_CAR_STAGE._120_是正有効性確認_品証TL
@@ -3251,6 +3264,20 @@ Public Class FrmG0012
 
     End Sub
 
+    Private Sub cmbKONPON_YOIN_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKONPON_YOIN_TANTO.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "分析：作業担当"))
+
+    End Sub
+
+    Private Sub cmbKISEKI_KOTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKISEKI_KOTEI.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "分析：帰責工程"))
+
+    End Sub
+
 #End Region
 
     ''' <summary>
@@ -3309,6 +3336,9 @@ Public Class FrmG0012
             Return 0
         End Try
     End Function
+
+
+
 
 
 

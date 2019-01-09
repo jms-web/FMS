@@ -182,11 +182,11 @@ Public Class FrmM0011
                     sbSQL.Append($",'{_M001.DEF_FLG}' AS {NameOf(_M001.DEF_FLG)}")
                     sbSQL.Append($",{_M001.DISP_ORDER} AS {NameOf(_M001.DISP_ORDER)}")
                     sbSQL.Append($",'{_M001.BIKOU}' AS {NameOf(_M001.BIKOU)}")
-                    sbSQL.Append($",'{_M001.ADD_YMDHNS}' AS {NameOf(_M001.ADD_YMDHNS)}")
+                    sbSQL.Append($",'{_M001.ADD_YMDHNS.Replace("/", "").Replace(":", "").Replace(" ", "")}' AS {NameOf(_M001.ADD_YMDHNS)}")
                     sbSQL.Append($",{_M001.ADD_SYAIN_ID} AS {NameOf(_M001.ADD_SYAIN_ID)}")
-                    sbSQL.Append($",'{_M001.UPD_YMDHNS}' AS {NameOf(_M001.UPD_YMDHNS)}")
+                    sbSQL.Append($",'{_M001.UPD_YMDHNS.Replace("/", "").Replace(":", "").Replace(" ", "")}' AS {NameOf(_M001.UPD_YMDHNS)}")
                     sbSQL.Append($",{_M001.UPD_SYAIN_ID} AS {NameOf(_M001.UPD_SYAIN_ID)}")
-                    sbSQL.Append($",'{_M001.DEL_YMDHNS}' AS {NameOf(_M001.DEL_YMDHNS)}")
+                    sbSQL.Append($",'{_M001.DEL_YMDHNS.Replace("/", "").Replace(":", "").Replace(" ", "")}' AS {NameOf(_M001.DEL_YMDHNS)}")
                     sbSQL.Append($",{_M001.DEL_SYAIN_ID} AS {NameOf(_M001.DEL_SYAIN_ID)}")
 
                     sbSQL.Append($" ) AS WK ON (")
@@ -419,7 +419,7 @@ Public Class FrmM0011
                     lbllblEDIT_SYAIN_ID.Visible = True
                     lblEDIT_SYAIN_ID.Visible = True
                     '更新日時
-                    lblEDIT_YMDHNS.Text = DateTime.ParseExact(PrViewModel.UPD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
+                    lblEDIT_YMDHNS.Text = PrViewModel.UPD_YMDHNS.ToString 'DateTime.ParseExact(PrViewModel.UPD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd HH:mm:ss")
                     '更新担当者CD
                     lblEDIT_SYAIN_ID.Text = PrViewModel.UPD_SYAIN_ID & " " & Fun_GetUSER_NAME(_M001.UPD_SYAIN_ID)
 

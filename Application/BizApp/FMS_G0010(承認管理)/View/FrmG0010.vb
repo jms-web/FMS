@@ -91,9 +91,7 @@ Public Class FrmG0010
 
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
-            Using DB As ClsDbUtility = DBOpen()
-                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
-            End Using
+
 
             'Call EnableDoubleBuffering(dgvDATA)
             Call EnableDoubleBuffering(dgvNCR)
@@ -216,6 +214,10 @@ Public Class FrmG0010
             Call SetStageList()
 
             '起動モード別処理
+
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
             Select Case pub_intOPEN_MODE
                 Case ENM_OPEN_MODE._0_通常
                     Me.cmdFunc7.PerformClick()
@@ -233,30 +235,49 @@ Public Class FrmG0010
                     Me.cmdFunc4.PerformClick()
 
                 Case ENM_OPEN_MODE._3_分析集計
+                    Using DB As ClsDbUtility = DBOpen()
+                        lblTytle.Text = "不適合集計画面"
+                    End Using
+
+
+                    chkDispHOKOKUSYO_ID.Visible = True
+                    chkDispHOKOKUSYO_ID.Checked = True
+                    chkDispHOKOKUSYO_ID.Enabled = False
+                    chkDispKISYU.Visible = True
+                    chkDispGOKI.Visible = True
+                    lblGEN_TANTO.Visible = False
+                    cmbGEN_TANTO.Visible = False
+                    chkDispFUTEKIGO_KB.Visible = True
+
+                    lblHOKUKO_NO.Visible = False
+                    mtxHOKUKO_NO.Visible = False
+                    chkDispBUHIN_BANGO.Visible = True
+                    chkDispSYANAI_CD.Visible = True
+                    chkDispFUTEKIGO_JYOTAI_KB.Visible = True
+                    chkDispFUTEKIGO_S_KB.Visible = True
+
+                    chkDispBUMON.Visible = True
+                    chkDispHINMEI.Visible = True
+                    chkDispHASSEI_YMD.Visible = True
+                    lblJisiYMD.Visible = False
+                    dtJisiFrom.Visible = False
+                    lblJisi.Visible = False
+                    dtJisiTo.Visible = False
+
+                    chkDispADD_TANTO.Visible = True
+                    chkDeleteRowVisibled.Visible = False
+                    chkClosedRowVisibled.Checked = True
+                    chkClosedRowVisibled.Visible = False
+                    chkTairyu.Visible = False
+
+                    dgvCAR.Visible = False
+                    dgvNCR.Visible = False
 
                 Case Else
                     Me.cmdFunc1.PerformClick()
             End Select
 
-            Dim IsSummaryMode As Boolean = (pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計)
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
+
 
 
             'ファンクションボタンステータス更新
@@ -1119,7 +1140,11 @@ Public Class FrmG0010
                 End If
             End If
 
-            Return tplDataModel.dt
+            If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
+                Return FunGetGroupingData(tplDataModel.dt)
+            Else
+                Return tplDataModel.dt
+            End If
 
             'Dim _Model As New MODEL.ModelInfo(Of MODEL.ST02_FUTEKIGO_ICHIRAN)(srcDATA:=tplDataModel.dt)
             'Return _Model.Entities
@@ -1128,6 +1153,25 @@ Public Class FrmG0010
             Return Nothing
         End Try
     End Function
+
+    Private Function FunGetGroupingData(srcData As DataTable) As DataTable
+        Try
+            Dim retDt As New DataTable
+
+            Dim query = srcData.AsEnumerable.
+                        GroupBy(Function(g) Tuple.Create(g.Field(Of Integer)(NameOf(ParamModel.SYONIN_HOKOKUSYO_ID)),
+                                                         g.Field(Of Integer)("SYONIN_JUN"),
+                                                         g.Field(Of String)("SYONIN_NAIYO")))
+
+
+
+            Return retDt
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return Nothing
+        End Try
+    End Function
+
 
     Private Function FunSRCH(ByVal dgv As DataGridView, ByVal dt As DataTable) As Boolean
         Dim intCURROW As Integer
@@ -2489,10 +2533,12 @@ Public Class FrmG0010
 
     Private Sub CmbYOIN1_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbYOIN1.SelectedValueChanged
         If cmbYOIN1.SelectedIndex > 0 Then
+            btnSearchGENIN1.Enabled = True
             mtxGENIN1_DISP.Enabled = True
             btnClearGenin1.Enabled = True
             btnSelectGenin1.Enabled = True
         Else
+            btnSearchGENIN1.Enabled = False
             mtxGENIN1_DISP.Enabled = False
             btnClearGenin1.Enabled = False
             btnSelectGenin1.Enabled = False
@@ -2504,10 +2550,12 @@ Public Class FrmG0010
 
     Private Sub CmbYOIN2_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbYOIN2.SelectedValueChanged
         If cmbYOIN2.SelectedIndex > 0 Then
+            btnSearchGENIN2.Enabled = True
             mtxGENIN2_DISP.Enabled = True
             btnClearGenin2.Enabled = True
             btnSelectGenin2.Enabled = True
         Else
+            btnSearchGENIN2.Enabled = False
             mtxGENIN2_DISP.Enabled = False
             btnClearGenin2.Enabled = False
             btnSelectGenin2.Enabled = False
