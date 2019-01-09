@@ -101,35 +101,45 @@ Partial Public Class V010_SYAIN_SYOZOKU_BUSYO
     Public Property BUMON_KB As String
 
     <Key>
-    <Column(Order:=15)>
+    <Column(Order:=16)>
     <ComponentModel.DisplayName("•”–å‹æ•ª–¼")>
     Public Property BUMON_KB_DISP As String
 
     <Key>
-    <Column(Order:=15)>
+    <Column(Order:=17)>
+    <ComponentModel.DisplayName("Œ“–±ƒtƒ‰ƒO")>
+    Public Property KENMU_FLG As String
+
+    <Key>
+    <Column(Order:=18)>
+    <ComponentModel.DisplayName("Œ“–±")>
+    Public Property KENMU_FLG_DISP As String
+
+    <Key>
+    <Column(Order:=19)>
     <ComponentModel.DisplayName("•”ID")>
     Public Property BUSYO_ID As Integer
 
     <Key>
-    <Column(Order:=16)>
+    <Column(Order:=20)>
     <StringLength(8)>
     <ComponentModel.DisplayName("—LŒøŠúŒÀ")>
     Public Property YUKO_YMD As String
 
     <Key>
-    <Column(Order:=17)>
+    <Column(Order:=21)>
     <StringLength(2)>
     <ComponentModel.DisplayName("•”‹æ•ª")>
     Public Property BUSYO_KB As String
 
     <Key>
-    <Column(Order:=18)>
+    <Column(Order:=22)>
     <StringLength(150)>
     <ComponentModel.DisplayName("•”‹æ•ª–¼")>
     Public Property BUSYO_KB_DISP As String
 
     <Key>
-    <Column(Order:=19)>
+    <Column(Order:=23)>
     <StringLength(30)>
     <ComponentModel.DisplayName("•”–¼")>
     Public Property BUSYO_NAME As String

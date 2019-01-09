@@ -192,7 +192,6 @@ Partial Class FrmM0051
         '
         Me.mtxSIMEI.BackColor = System.Drawing.SystemColors.Window
         Me.mtxSIMEI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxSIMEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxSIMEI.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxSIMEI.InputRequired = False
         Me.mtxSIMEI.Location = New System.Drawing.Point(299, 3)
@@ -218,7 +217,6 @@ Partial Class FrmM0051
         '
         Me.mtxSYAIN_NO.BackColor = System.Drawing.SystemColors.Window
         Me.mtxSYAIN_NO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxSYAIN_NO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxSYAIN_NO.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxSYAIN_NO.InputRequired = False
         Me.mtxSYAIN_NO.Location = New System.Drawing.Point(70, 3)
@@ -316,7 +314,6 @@ Partial Class FrmM0051
         '
         Me.mtxSIMEI_KANA.BackColor = System.Drawing.SystemColors.Window
         Me.mtxSIMEI_KANA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxSIMEI_KANA.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxSIMEI_KANA.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxSIMEI_KANA.InputRequired = False
         Me.mtxSIMEI_KANA.Location = New System.Drawing.Point(592, 3)
@@ -448,7 +445,7 @@ Partial Class FrmM0051
     Friend WithEvents cmbYAKUSYOKU_KB As ComboboxEx
     Friend WithEvents chkTaisyokuRowVisibled As CheckBox
     Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents V010SYAINSYOZOKUBUSYOBindingSource As BindingSource
     Friend WithEvents Label6 As Label
     Friend WithEvents cmbBumon As ComboboxEx
+    Friend WithEvents V010SYAINSYOZOKUBUSYOBindingSource As BindingSource
 End Class
