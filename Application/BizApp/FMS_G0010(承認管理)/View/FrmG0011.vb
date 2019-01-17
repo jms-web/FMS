@@ -400,7 +400,7 @@ Public Class FrmG0011
             Next
 
             'ファンクションキー有効化初期化
-            Call FunInitFuncButtonEnabled()
+            If intFUNC <> 12 Then Call FunInitFuncButtonEnabled()
 
             '[アクティブ]
             Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
@@ -505,6 +505,9 @@ Public Class FrmG0011
                     End If
 
                     Return True
+                Catch exNF As IO.FileNotFoundException
+                    MessageBox.Show(exNF.Message, "ファイル存在チェック", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return False
                 Catch exIO As UnauthorizedAccessException
                     strMsg = "添付ファイル保存先のアクセス権限がありません。" & vbCrLf &
                              "添付ファイル保存先:" & strRootDir
@@ -578,9 +581,8 @@ Public Class FrmG0011
                 Return False
             End If
         End If
-
         _D003_NCR_J.ADD_YMDHNS = strSysDate
-        _D003_NCR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+
         _D003_NCR_J.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
 
         '-----モデル更新
@@ -708,81 +710,82 @@ Public Class FrmG0011
         'UPDATE 排他制御 更新日時が変更されていない場合のみ
         sbSQL.Append($" WHEN MATCHED AND SrcT.{NameOf(_D003_NCR_J.UPD_YMDHNS)} = WK.{NameOf(_D003_NCR_J.UPD_YMDHNS)} THEN ")
         sbSQL.Append(" UPDATE SET")
-        sbSQL.Append($"  SrcT.{NameOf(_D003_NCR_J.KISYU_ID)} = WK.{NameOf(_D003_NCR_J.KISYU_ID)}")
-        sbSQL.Append($" , SrcT.{NameOf(_D003_NCR_J.CLOSE_FG)} = WK.{NameOf(_D003_NCR_J.CLOSE_FG)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYANAI_CD)} = WK.{NameOf(_D003_NCR_J.SYANAI_CD)}")
-        sbSQL.Append($" , SrcT.{NameOf(_D003_NCR_J.BUHIN_BANGO)} = WK.{NameOf(_D003_NCR_J.BUHIN_BANGO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.BUHIN_NAME)} = WK.{NameOf(_D003_NCR_J.BUHIN_NAME)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.GOKI)} = WK.{NameOf(_D003_NCR_J.GOKI)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SURYO)} = WK.{NameOf(_D003_NCR_J.SURYO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAIHATU)} = WK.{NameOf(_D003_NCR_J.SAIHATU)}")
+        sbSQL.Append($"  SrcT.{NameOf(_D003_NCR_J.KISYU_ID)}           = WK.{NameOf(_D003_NCR_J.KISYU_ID)}")
+        sbSQL.Append($" , SrcT.{NameOf(_D003_NCR_J.CLOSE_FG)}          = WK.{NameOf(_D003_NCR_J.CLOSE_FG)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYANAI_CD)}          = WK.{NameOf(_D003_NCR_J.SYANAI_CD)}")
+        sbSQL.Append($" , SrcT.{NameOf(_D003_NCR_J.BUHIN_BANGO)}       = WK.{NameOf(_D003_NCR_J.BUHIN_BANGO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.BUHIN_NAME)}         = WK.{NameOf(_D003_NCR_J.BUHIN_NAME)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.GOKI)}               = WK.{NameOf(_D003_NCR_J.GOKI)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SURYO)}              = WK.{NameOf(_D003_NCR_J.SURYO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAIHATU)}            = WK.{NameOf(_D003_NCR_J.SAIHATU)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.FUTEKIGO_JYOTAI_KB)} = WK.{NameOf(_D003_NCR_J.FUTEKIGO_JYOTAI_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.FUTEKIGO_NAIYO)} = WK.{NameOf(_D003_NCR_J.FUTEKIGO_NAIYO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.FUTEKIGO_KB)} = WK.{NameOf(_D003_NCR_J.FUTEKIGO_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.FUTEKIGO_S_KB)} = WK.{NameOf(_D003_NCR_J.FUTEKIGO_S_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.ZUMEN_KIKAKU)} = WK.{NameOf(_D003_NCR_J.ZUMEN_KIKAKU)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.YOKYU_NAIYO)} = WK.{NameOf(_D003_NCR_J.YOKYU_NAIYO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KANSATU_KEKKA)} = WK.{NameOf(_D003_NCR_J.KANSATU_KEKKA)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.FUTEKIGO_NAIYO)}     = WK.{NameOf(_D003_NCR_J.FUTEKIGO_NAIYO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.FUTEKIGO_KB)}        = WK.{NameOf(_D003_NCR_J.FUTEKIGO_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.FUTEKIGO_S_KB)}      = WK.{NameOf(_D003_NCR_J.FUTEKIGO_S_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.ZUMEN_KIKAKU)}       = WK.{NameOf(_D003_NCR_J.ZUMEN_KIKAKU)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.YOKYU_NAIYO)}        = WK.{NameOf(_D003_NCR_J.YOKYU_NAIYO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KANSATU_KEKKA)}      = WK.{NameOf(_D003_NCR_J.KANSATU_KEKKA)}")
 
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB)} = WK.{NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.ZESEI_NASI_RIYU)} = WK.{NameOf(_D003_NCR_J.ZESEI_NASI_RIYU)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID)} = WK.{NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB)} = WK.{NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID)} = WK.{NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.JIZEN_SINSA_YMD)} = WK.{NameOf(_D003_NCR_J.JIZEN_SINSA_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID)} = WK.{NameOf(_D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_KAKUNIN_YMD)} = WK.{NameOf(_D003_NCR_J.SAISIN_KAKUNIN_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_IINKAI_HANTEI_KB)} = WK.{NameOf(_D003_NCR_J.SAISIN_IINKAI_HANTEI_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID)} = WK.{NameOf(_D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_GIJYUTU_YMD)} = WK.{NameOf(_D003_NCR_J.SAISIN_GIJYUTU_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_HINSYO_SYAIN_ID)} = WK.{NameOf(_D003_NCR_J.SAISIN_HINSYO_SYAIN_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_HINSYO_YMD)} = WK.{NameOf(_D003_NCR_J.SAISIN_HINSYO_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_IINKAI_SIRYO_NO)} = WK.{NameOf(_D003_NCR_J.SAISIN_IINKAI_SIRYO_NO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.ITAG_NO)} = WK.{NameOf(_D003_NCR_J.ITAG_NO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID)} = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD)} = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB)} = WK.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)} = WK.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB)} = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD)} = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAIKAKO_SIJI_FG)} = WK.{NameOf(_D003_NCR_J.SAIKAKO_SIJI_FG)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HAIKYAKU_YMD)} = WK.{NameOf(_D003_NCR_J.HAIKYAKU_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HAIKYAKU_KB)} = WK.{NameOf(_D003_NCR_J.HAIKYAKU_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HAIKYAKU_HOUHOU)} = WK.{NameOf(_D003_NCR_J.HAIKYAKU_HOUHOU)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HAIKYAKU_TANTO_ID)} = WK.{NameOf(_D003_NCR_J.HAIKYAKU_TANTO_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO)} = WK.{NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD)} = WK.{NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD)} = WK.{NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KENSA_KEKKA_KB)} = WK.{NameOf(_D003_NCR_J.KENSA_KEKKA_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SEIGI_TANTO_ID)} = WK.{NameOf(_D003_NCR_J.SEIGI_TANTO_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SEIZO_TANTO_ID)} = WK.{NameOf(_D003_NCR_J.SEIZO_TANTO_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KENSA_TANTO_ID)} = WK.{NameOf(_D003_NCR_J.KENSA_TANTO_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HENKYAKU_YMD)} = WK.{NameOf(_D003_NCR_J.HENKYAKU_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HENKYAKU_SAKI)} = WK.{NameOf(_D003_NCR_J.HENKYAKU_SAKI)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HENKYAKU_TANTO_ID)} = WK.{NameOf(_D003_NCR_J.HENKYAKU_TANTO_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HENKYAKU_BIKO)} = WK.{NameOf(_D003_NCR_J.HENKYAKU_BIKO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.TENYO_KISYU_ID)} = WK.{NameOf(_D003_NCR_J.TENYO_KISYU_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.TENYO_BUHIN_BANGO)} = WK.{NameOf(_D003_NCR_J.TENYO_BUHIN_BANGO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.TENYO_GOKI)} = WK.{NameOf(_D003_NCR_J.TENYO_GOKI)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.TENYO_LOT)} = WK.{NameOf(_D003_NCR_J.TENYO_LOT)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.TENYO_YMD)} = WK.{NameOf(_D003_NCR_J.TENYO_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_KEKKA_A)} = WK.{NameOf(_D003_NCR_J.SYOCHI_KEKKA_A)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_KEKKA_B)} = WK.{NameOf(_D003_NCR_J.SYOCHI_KEKKA_B)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_KEKKA_C)} = WK.{NameOf(_D003_NCR_J.SYOCHI_KEKKA_C)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_D_UMU_KB)} = WK.{NameOf(_D003_NCR_J.SYOCHI_D_UMU_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_D_YOHI_KB)} = WK.{NameOf(_D003_NCR_J.SYOCHI_D_YOHI_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU)} = WK.{NameOf(_D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_E_UMU_KB)} = WK.{NameOf(_D003_NCR_J.SYOCHI_E_UMU_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_E_YOHI_KB)} = WK.{NameOf(_D003_NCR_J.SYOCHI_E_YOHI_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU)} = WK.{NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HASSEI_YMD)} = WK.{NameOf(_D003_NCR_J.HASSEI_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB)}       = WK.{NameOf(_D003_NCR_J.ZESEI_SYOCHI_YOHI_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.ZESEI_NASI_RIYU)}            = WK.{NameOf(_D003_NCR_J.ZESEI_NASI_RIYU)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID)}   = WK.{NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB)}      = WK.{NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID)}       = WK.{NameOf(_D003_NCR_J.JIZEN_SINSA_SYAIN_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.JIZEN_SINSA_YMD)}            = WK.{NameOf(_D003_NCR_J.JIZEN_SINSA_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID)}    = WK.{NameOf(_D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_KAKUNIN_YMD)}         = WK.{NameOf(_D003_NCR_J.SAISIN_KAKUNIN_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_IINKAI_HANTEI_KB)}    = WK.{NameOf(_D003_NCR_J.SAISIN_IINKAI_HANTEI_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID)}    = WK.{NameOf(_D003_NCR_J.SAISIN_GIJYUTU_SYAIN_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_GIJYUTU_YMD)}         = WK.{NameOf(_D003_NCR_J.SAISIN_GIJYUTU_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_HINSYO_SYAIN_ID)}     = WK.{NameOf(_D003_NCR_J.SAISIN_HINSYO_SYAIN_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_HINSYO_YMD)}          = WK.{NameOf(_D003_NCR_J.SAISIN_HINSYO_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAISIN_IINKAI_SIRYO_NO)}     = WK.{NameOf(_D003_NCR_J.SAISIN_IINKAI_SIRYO_NO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.ITAG_NO)}                    = WK.{NameOf(_D003_NCR_J.ITAG_NO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID)}    = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD)}         = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB)}     = WK.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)}    = WK.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB)}   = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD)}  = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAIKAKO_SIJI_FG)}            = WK.{NameOf(_D003_NCR_J.SAIKAKO_SIJI_FG)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HAIKYAKU_YMD)}               = WK.{NameOf(_D003_NCR_J.HAIKYAKU_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HAIKYAKU_KB)}                = WK.{NameOf(_D003_NCR_J.HAIKYAKU_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HAIKYAKU_HOUHOU)}            = WK.{NameOf(_D003_NCR_J.HAIKYAKU_HOUHOU)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HAIKYAKU_TANTO_ID)}          = WK.{NameOf(_D003_NCR_J.HAIKYAKU_TANTO_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO)}            = WK.{NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD)}      = WK.{NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD)}          = WK.{NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KENSA_KEKKA_KB)}             = WK.{NameOf(_D003_NCR_J.KENSA_KEKKA_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SEIGI_TANTO_ID)}             = WK.{NameOf(_D003_NCR_J.SEIGI_TANTO_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SEIZO_TANTO_ID)}             = WK.{NameOf(_D003_NCR_J.SEIZO_TANTO_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KENSA_TANTO_ID)}             = WK.{NameOf(_D003_NCR_J.KENSA_TANTO_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HENKYAKU_YMD)}               = WK.{NameOf(_D003_NCR_J.HENKYAKU_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HENKYAKU_SAKI)}              = WK.{NameOf(_D003_NCR_J.HENKYAKU_SAKI)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HENKYAKU_TANTO_ID)}          = WK.{NameOf(_D003_NCR_J.HENKYAKU_TANTO_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HENKYAKU_BIKO)}              = WK.{NameOf(_D003_NCR_J.HENKYAKU_BIKO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.TENYO_KISYU_ID)}             = WK.{NameOf(_D003_NCR_J.TENYO_KISYU_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.TENYO_BUHIN_BANGO)}          = WK.{NameOf(_D003_NCR_J.TENYO_BUHIN_BANGO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.TENYO_GOKI)}                 = WK.{NameOf(_D003_NCR_J.TENYO_GOKI)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.TENYO_LOT)}                  = WK.{NameOf(_D003_NCR_J.TENYO_LOT)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.TENYO_YMD)}                  = WK.{NameOf(_D003_NCR_J.TENYO_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_KEKKA_A)}             = WK.{NameOf(_D003_NCR_J.SYOCHI_KEKKA_A)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_KEKKA_B)}             = WK.{NameOf(_D003_NCR_J.SYOCHI_KEKKA_B)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_KEKKA_C)}             = WK.{NameOf(_D003_NCR_J.SYOCHI_KEKKA_C)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_D_UMU_KB)}            = WK.{NameOf(_D003_NCR_J.SYOCHI_D_UMU_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_D_YOHI_KB)}           = WK.{NameOf(_D003_NCR_J.SYOCHI_D_YOHI_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU)}     = WK.{NameOf(_D003_NCR_J.SYOCHI_D_SYOCHI_KIROKU)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_E_UMU_KB)}            = WK.{NameOf(_D003_NCR_J.SYOCHI_E_UMU_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_E_YOHI_KB)}           = WK.{NameOf(_D003_NCR_J.SYOCHI_E_YOHI_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU)}     = WK.{NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HASSEI_YMD)}                 = WK.{NameOf(_D003_NCR_J.HASSEI_YMD)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID)} = WK.{NameOf(_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID)}")
 
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.FILE_PATH)} = WK.{NameOf(_D003_NCR_J.FILE_PATH)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.FILE_PATH)}    = WK.{NameOf(_D003_NCR_J.FILE_PATH)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.G_FILE_PATH1)} = WK.{NameOf(_D003_NCR_J.G_FILE_PATH1)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.G_FILE_PATH2)} = WK.{NameOf(_D003_NCR_J.G_FILE_PATH2)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.ADD_SYAIN_ID)} = WK.{NameOf(_D003_NCR_J.ADD_SYAIN_ID)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.UPD_SYAIN_ID)} = WK.{NameOf(_D003_NCR_J.UPD_SYAIN_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.UPD_YMDHNS)} = '{strSysDate}'")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.UPD_YMDHNS)}   = '{strSysDate}'")
 
         'INSERT
         sbSQL.Append(" WHEN NOT MATCHED THEN ")
@@ -6063,6 +6066,11 @@ Public Class FrmG0011
                 End If
             Next p
 
+            '#128
+            If PrCurrentStage = ENM_NCR_STAGE._10_起草入力 AndAlso Not IsRemanded(_D003_NCR_J.HOKOKU_NO) Then
+                _D003_NCR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+            End If
+
 #End Region
 
 #Region "D004"
@@ -6530,6 +6538,26 @@ Public Class FrmG0011
         End Using
 
         Return dsList.Tables(0).Rows.Count > 0
+    End Function
+
+    Private Function IsRemanded(strHOKOKU_NO As String) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim intRET As Integer
+
+        If strHOKOKU_NO.IsNulOrWS Then
+            Return False
+        Else
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append($"SELECT")
+            sbSQL.Append($" COUNT({NameOf(MODEL.R003_NCR_SASIMODOSI.HOKOKU_NO)})")
+            sbSQL.Append($" FROM {NameOf(MODEL.R003_NCR_SASIMODOSI)} ")
+            sbSQL.Append($" WHERE {NameOf(MODEL.R003_NCR_SASIMODOSI.HOKOKU_NO)}='{strHOKOKU_NO}'")
+            Using DB As ClsDbUtility = DBOpen()
+                intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            Return intRET > 0
+        End If
     End Function
 
 #End Region

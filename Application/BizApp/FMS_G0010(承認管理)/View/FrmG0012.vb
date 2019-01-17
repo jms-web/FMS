@@ -259,7 +259,7 @@ Public Class FrmG0012
             Next
 
             'ファンクションキー有効化初期化
-            Call FunInitFuncButtonEnabled()
+            If intFUNC <> 12 Then Call FunInitFuncButtonEnabled()
 
             '[アクティブ]
             Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
@@ -354,6 +354,9 @@ Public Class FrmG0012
                     End If
 
                     Return True
+                Catch exNF As IO.FileNotFoundException
+                    MessageBox.Show(exNF.Message, "ファイル存在チェック", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return False
                 Catch exIO As UnauthorizedAccessException
                     strMsg = $"添付ファイル保存先のアクセス権限がありません。{vbCrLf}添付ファイル保存先:{strRootDir}"
                     MessageBox.Show(strMsg, "ファイル保存先アクセス不可", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -387,6 +390,8 @@ Public Class FrmG0012
             Case Else
 
         End Select
+
+
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
@@ -2683,7 +2688,7 @@ Public Class FrmG0012
             mtxBUMON_KB.Text = _V002_NCR_J.BUMON_NAME
             mtxHOKUKO_NO.Text = _V002_NCR_J.HOKOKU_NO
             mtxKISYU.Text = _V002_NCR_J.KISYU_NAME
-            mtxADD_SYAIN_NAME.Text = _V005_CAR_J.SYONIN_NAME10
+            mtxADD_SYAIN_NAME.Text = _V005_CAR_J.ADD_SYAIN_NAME
             mtxFUTEKIGO_KB.Text = _V002_NCR_J.FUTEKIGO_NAME
             mtxFUTEKIGO_S_KB.Text = _V002_NCR_J.FUTEKIGO_S_NAME
             mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO)
@@ -3042,6 +3047,13 @@ Public Class FrmG0012
                 lbltmpFile2_Clear.Visible = True
             End If
 
+
+            '#128
+            If PrCurrentStage = ENM_CAR_STAGE._10_起草入力 AndAlso Not IsRemanded(_D005_CAR_J.HOKOKU_NO) Then
+                _D005_CAR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+            End If
+
+
             '原因分析区分
             _D006_CAR_GENIN_List.Clear()
 
@@ -3339,7 +3351,25 @@ Public Class FrmG0012
 
 
 
+    Private Function IsRemanded(strHOKOKU_NO As String) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim intRET As Integer
 
+        If strHOKOKU_NO.IsNulOrWS Then
+            Return False
+        Else
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append($"SELECT")
+            sbSQL.Append($" COUNT({NameOf(MODEL.R004_CAR_SASIMODOSI.HOKOKU_NO)})")
+            sbSQL.Append($" FROM {NameOf(MODEL.R004_CAR_SASIMODOSI)} ")
+            sbSQL.Append($" WHERE {NameOf(MODEL.R004_CAR_SASIMODOSI.HOKOKU_NO)}='{strHOKOKU_NO}'")
+            Using DB As ClsDbUtility = DBOpen()
+                intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            Return intRET > 0
+        End If
+    End Function
 
 
 

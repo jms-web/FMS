@@ -149,8 +149,8 @@ Public Class FrmM0011
                     If _M001.DEF_FLG Then
                         sbSQL.Append($"UPDATE {ModelInfo.Name} SET")
                         sbSQL.Append($" DEF_FLG='0' ")
-                        sbSQL.Append($" WHERE KOMO_NM ='{_M001.ITEM_NAME}' ")
-                        sbSQL.Append($" AND VALUE <>'{_M001.ITEM_VALUE}' ")
+                        sbSQL.Append($" WHERE ITEM_NAME ='{_M001.ITEM_NAME}' ")
+                        sbSQL.Append($" AND ITEM_VALUE <>'{_M001.ITEM_VALUE}' ")
 
                         DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
                         If sqlEx IsNot Nothing Then
