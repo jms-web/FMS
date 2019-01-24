@@ -3479,23 +3479,7 @@ Public Class FrmG0011
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, ENM_CAR_STAGE._10_起草入力)
                 cmbST04_CAR_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                '#73
-                cmbST04_CAR_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
-                Dim dsList As New DataSet
-                Dim sbSQL As New System.Text.StringBuilder
 
-                sbSQL.Remove(0, sbSQL.Length)
-                sbSQL.Append($"SELECT {NameOf(MODEL.D004_SYONIN_J_KANRI.SYAIN_ID)} FROM {NameOf(MODEL.D004_SYONIN_J_KANRI)} ")
-                sbSQL.Append($" WHERE {NameOf(MODEL.D004_SYONIN_J_KANRI.HOKOKU_NO)}='{_V002_NCR_J.HOKOKU_NO}'")
-                sbSQL.Append($" AND {NameOf(MODEL.D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={Val(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)}")
-                sbSQL.Append($" AND {NameOf(MODEL.D004_SYONIN_J_KANRI.SYONIN_JUN)}={Val(ENM_CAR_STAGE._10_起草入力)}")
-
-                Using DB As ClsDbUtility = DBOpen()
-                    dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-                End Using
-                If dsList.Tables(0).Rows.Count > 0 Then
-                    cmbST04_CAR_TANTO.SelectedValue = dsList.Tables(0).Rows(0).Item(0)
-                End If
 
                 _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定).
@@ -3510,14 +3494,8 @@ Public Class FrmG0011
                 End If
 
                 _D003_NCR_J.ZESEI_NASI_RIYU = _V002_NCR_J.ZESEI_NASI_RIYU
-
+                cmbST04_CAR_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
                 If _V003 IsNot Nothing Then
-                    If _V003.SYONIN_YMDHNS.IsNulOrWS Then
-                        cmbST04_DestTANTO.SelectedValue = 0
-                    Else
-                        cmbST04_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                    End If
-                    txtST04_Comment.Text = _V003.COMMENT
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
                         If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
@@ -3527,9 +3505,37 @@ Public Class FrmG0011
                             '一時保存時の日付を読み込み 変更可能
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
                         End If
+                        cmbST04_DestTANTO.SelectedValue = _V003.SYAIN_ID
+
+                        '#73
+                        Dim dsList As New DataSet
+                        Dim sbSQL As New System.Text.StringBuilder
+
+                        sbSQL.Remove(0, sbSQL.Length)
+                        sbSQL.Append($"SELECT {NameOf(MODEL.D004_SYONIN_J_KANRI.SYAIN_ID)} FROM {NameOf(MODEL.D004_SYONIN_J_KANRI)} ")
+                        sbSQL.Append($" WHERE {NameOf(MODEL.D004_SYONIN_J_KANRI.HOKOKU_NO)}='{_V002_NCR_J.HOKOKU_NO}'")
+                        sbSQL.Append($" AND {NameOf(MODEL.D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={Val(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)}")
+                        sbSQL.Append($" AND {NameOf(MODEL.D004_SYONIN_J_KANRI.SYONIN_JUN)}={Val(ENM_CAR_STAGE._10_起草入力)}")
+
+                        Using DB As ClsDbUtility = DBOpen()
+                            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                        End Using
+                        If dsList.Tables(0).Rows.Count > 0 Then
+                            cmbST04_CAR_TANTO.SelectedValue = dsList.Tables(0).Rows(0).Item(0)
+                            cmbST04_CAR_TANTO.ReadOnly = True
+                        End If
                     Else
+                        '初回登録時(差戻し時は前回登録内容をクリア)
+                        _D003_NCR_J.JIZEN_SINSA_HANTEI_KB = ""
+                        _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = "1"
+                        _D003_NCR_J.ZESEI_NASI_RIYU = ""
+                        _D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID = 0
+
+
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
+                        cmbST04_DestTANTO.SelectedValue = 0
                     End If
+                    txtST04_Comment.Text = _V003.COMMENT
                     If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 Then lblST04_Modoshi_Riyu.Visible = True
                     If _V003.SASIMODOSI_FG Then
                         lblST04_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
@@ -3637,15 +3643,7 @@ Public Class FrmG0011
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._60_再審審査判定_技術代表).
                                 FirstOrDefault
 
-                _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB = _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB
-                _D003_NCR_J.SAISIN_IINKAI_SIRYO_NO = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
-
                 If _V003 IsNot Nothing Then
-                    If _V003.SYONIN_YMDHNS.IsNulOrWS Then
-                        cmbST06_DestTANTO.SelectedValue = 0
-                    Else
-                        cmbST06_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                    End If
                     txtST06_Comment.Text = _V003.COMMENT
                     Dim dtSYONIN_YMD As Date
                     If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
@@ -3656,8 +3654,13 @@ Public Class FrmG0011
                             '一時保存時の日付を読み込み 変更可能
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
                         End If
+                        cmbST06_DestTANTO.SelectedValue = _V003.SYAIN_ID
+                        _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB = _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB
+                        _D003_NCR_J.SAISIN_IINKAI_SIRYO_NO = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
+
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
+                        cmbST06_DestTANTO.SelectedValue = 0
                     End If
                     If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._60_再審審査判定_技術代表 Then lblST06_Modoshi_Riyu.Visible = True
                     If _V003.SASIMODOSI_FG Then
@@ -3670,6 +3673,7 @@ Public Class FrmG0011
                         cmbST06_DestTANTO.ReadOnly = True
                         txtST06_Comment.ReadOnly = True
                     End If
+
                 Else
                     _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     pnlST06.Visible = False
@@ -3696,18 +3700,15 @@ Public Class FrmG0011
                                     Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._61_再審審査判定_品証代表).
                                     FirstOrDefault
 
-                    _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB = _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB
-                    _D003_NCR_J.SAISIN_IINKAI_SIRYO_NO = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
 
                     If _V003 IsNot Nothing Then
-                        If _V003.SYONIN_YMDHNS.IsNulOrWS Then
-                            cmbST07_DestTANTO.SelectedValue = 0
-                        Else
-                            cmbST07_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        End If
+
                         txtST07_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
+                            _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB = _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB
+                            _D003_NCR_J.SAISIN_IINKAI_SIRYO_NO = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
+
                             If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
                                 dtST07_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                                 dtST07_UPD_YMD.ReadOnly = True
@@ -3715,8 +3716,10 @@ Public Class FrmG0011
                                 '一時保存時の日付を読み込み 変更可能
                                 _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
                             End If
+                            cmbST07_DestTANTO.SelectedValue = _V003.SYAIN_ID
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
+                            cmbST07_DestTANTO.SelectedValue = 0
                         End If
                         If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._61_再審審査判定_品証代表 Then lblST07_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -3776,28 +3779,24 @@ Public Class FrmG0011
                                     Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._70_顧客再審処置_I_tag).
                                     FirstOrDefault
 
-                    _D003_NCR_J.ITAG_NO = _V002_NCR_J.ITAG_NO
-                    _D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID = _V002_NCR_J.KOKYAKU_SAISIN_TANTO_ID
-                    _D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_KB
-                    _D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD
-                    _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB = _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
-                    _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD = _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD
-                    _D003_NCR_J.SAIKAKO_SIJI_FG = CBool(_V002_NCR_J.SAIKAKO_SIJI_FG)
-                    If _D003_NCR_J.SAIKAKO_SIJI_FG Then
-                        rbtnST07_Yes.Checked = True
-                    Else
-                        rbtnST07_No.Checked = True
-                    End If
-
                     If _V003 IsNot Nothing Then
-                        If _V003.SYONIN_YMDHNS.IsNulOrWS Then
-                            cmbST08_DestTANTO.SelectedValue = 0
-                        Else
-                            cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        End If
+
                         txtST08_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
+                            _D003_NCR_J.ITAG_NO = _V002_NCR_J.ITAG_NO
+                            _D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID = _V002_NCR_J.KOKYAKU_SAISIN_TANTO_ID
+                            _D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_KB
+                            _D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD
+                            _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB = _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
+                            _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD = _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_YMD
+                            _D003_NCR_J.SAIKAKO_SIJI_FG = CBool(_V002_NCR_J.SAIKAKO_SIJI_FG)
+                            If _D003_NCR_J.SAIKAKO_SIJI_FG Then
+                                rbtnST07_Yes.Checked = True
+                            Else
+                                rbtnST07_No.Checked = True
+                            End If
+
                             If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
                                 dtST08_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                                 dtST08_UPD_YMD.ReadOnly = True
@@ -3805,8 +3804,10 @@ Public Class FrmG0011
                                 '一時保存時の日付を読み込み 変更可能
                                 _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
                             End If
+                            cmbST08_DestTANTO.SelectedValue = _V003.SYAIN_ID
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
+                            cmbST08_DestTANTO.SelectedValue = 0
                         End If
                         If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._70_顧客再審処置_I_tag Then lblST08_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then
@@ -3826,6 +3827,7 @@ Public Class FrmG0011
                         rsbtnST08.BackColor = Color.Silver
                     End If
                 Else
+                    '一時保存前
                     '次ステージが取得出来ない場合=登録内容により処理がスキップされた場合等はタブごと非表示
                     'For Each page As TabPage In TabSTAGE.TabPages
                     '    If Val(page.Name.Substring(8)) = FunConvertSYONIN_JUN_TO_STAGE_NO(ENM_NCR_STAGE._70_顧客再審処置_I_tag).ToString("00") Then
@@ -3915,39 +3917,35 @@ Public Class FrmG0011
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._80_処置実施).
                                 FirstOrDefault
 
-                    _D003_NCR_J.HAIKYAKU_YMD = _V002_NCR_J.HAIKYAKU_YMD
-                    _D003_NCR_J.HAIKYAKU_KB = _V002_NCR_J.HAIKYAKU_KB
-                    _D003_NCR_J.HAIKYAKU_HOUHOU = _V002_NCR_J.HAIKYAKU_HOUHOU
-                    _D003_NCR_J.HENKYAKU_BIKO = _V002_NCR_J.HENKYAKU_BIKO
-                    _D003_NCR_J.HAIKYAKU_TANTO_ID = _V002_NCR_J.HAIKYAKU_TANTO_ID
-                    _D003_NCR_J.SAIKAKO_SIJI_NO = _V002_NCR_J.SAIKAKO_SIJI_NO
-                    _D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD = _V002_NCR_J.SAIKAKO_SAGYO_KAN_YMD
-                    _D003_NCR_J.SAIKAKO_KENSA_YMD = _V002_NCR_J.SAIKAKO_KENSA_YMD
-
-                    _D003_NCR_J.SEIZO_TANTO_ID = _V002_NCR_J.SEIZO_TANTO_ID
-                    _D003_NCR_J.SEIGI_TANTO_ID = _V002_NCR_J.SEIGI_TANTO_ID
-                    _D003_NCR_J.KENSA_TANTO_ID = _V002_NCR_J.KENSA_TANTO_ID
-
-                    _D003_NCR_J.HENKYAKU_YMD = _V002_NCR_J.HENKYAKU_YMD
-                    _D003_NCR_J.HENKYAKU_SAKI = _V002_NCR_J.HENKYAKU_SAKI
-                    _D003_NCR_J.HENKYAKU_BIKO = _V002_NCR_J.HENKYAKU_BIKO
-                    _D003_NCR_J.HENKYAKU_TANTO_ID = _V002_NCR_J.HENKYAKU_TANTO_ID
-
-                    _D003_NCR_J.TENYO_KISYU_ID = _V002_NCR_J.TENYO_KISYU_ID
-                    _D003_NCR_J.TENYO_BUHIN_BANGO = _V002_NCR_J.TENYO_BUHIN_BANGO
-                    _D003_NCR_J.TENYO_GOKI = _V002_NCR_J.TENYO_GOKI
-                    _D003_NCR_J.TENYO_LOT = _V002_NCR_J.TENYO_LOT
-                    _D003_NCR_J.TENYO_YMD = _V002_NCR_J.TENYO_YMD
-
                     If _V003 IsNot Nothing Then
-                        If _V003.SYONIN_YMDHNS.IsNulOrWS Then
-                            cmbST09_DestTANTO.SelectedValue = 0
-                        Else
-                            cmbST09_DestTANTO.SelectedValue = _V003.SYAIN_ID
-                        End If
+
                         txtST09_Comment.Text = _V003.COMMENT
                         Dim dtSYONIN_YMD As Date
                         If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
+                            _D003_NCR_J.HAIKYAKU_YMD = _V002_NCR_J.HAIKYAKU_YMD
+                            _D003_NCR_J.HAIKYAKU_KB = _V002_NCR_J.HAIKYAKU_KB
+                            _D003_NCR_J.HAIKYAKU_HOUHOU = _V002_NCR_J.HAIKYAKU_HOUHOU
+                            _D003_NCR_J.HENKYAKU_BIKO = _V002_NCR_J.HENKYAKU_BIKO
+                            _D003_NCR_J.HAIKYAKU_TANTO_ID = _V002_NCR_J.HAIKYAKU_TANTO_ID
+                            _D003_NCR_J.SAIKAKO_SIJI_NO = _V002_NCR_J.SAIKAKO_SIJI_NO
+                            _D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD = _V002_NCR_J.SAIKAKO_SAGYO_KAN_YMD
+                            _D003_NCR_J.SAIKAKO_KENSA_YMD = _V002_NCR_J.SAIKAKO_KENSA_YMD
+
+                            _D003_NCR_J.SEIZO_TANTO_ID = _V002_NCR_J.SEIZO_TANTO_ID
+                            _D003_NCR_J.SEIGI_TANTO_ID = _V002_NCR_J.SEIGI_TANTO_ID
+                            _D003_NCR_J.KENSA_TANTO_ID = _V002_NCR_J.KENSA_TANTO_ID
+
+                            _D003_NCR_J.HENKYAKU_YMD = _V002_NCR_J.HENKYAKU_YMD
+                            _D003_NCR_J.HENKYAKU_SAKI = _V002_NCR_J.HENKYAKU_SAKI
+                            _D003_NCR_J.HENKYAKU_BIKO = _V002_NCR_J.HENKYAKU_BIKO
+                            _D003_NCR_J.HENKYAKU_TANTO_ID = _V002_NCR_J.HENKYAKU_TANTO_ID
+
+                            _D003_NCR_J.TENYO_KISYU_ID = _V002_NCR_J.TENYO_KISYU_ID
+                            _D003_NCR_J.TENYO_BUHIN_BANGO = _V002_NCR_J.TENYO_BUHIN_BANGO
+                            _D003_NCR_J.TENYO_GOKI = _V002_NCR_J.TENYO_GOKI
+                            _D003_NCR_J.TENYO_LOT = _V002_NCR_J.TENYO_LOT
+                            _D003_NCR_J.TENYO_YMD = _V002_NCR_J.TENYO_YMD
+
                             If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
                                 dtST09_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                                 dtST09_UPD_YMD.ReadOnly = True
@@ -3955,8 +3953,10 @@ Public Class FrmG0011
                                 '一時保存時の日付を読み込み 変更可能
                                 _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
                             End If
+                            cmbST09_DestTANTO.SelectedValue = _V003.SYAIN_ID
                         Else
                             _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
+                            cmbST09_DestTANTO.SelectedValue = 0
                         End If
                         If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_NCR_STAGE._80_処置実施 Then lblST09_Modoshi_Riyu.Visible = True
                         If _V003.SASIMODOSI_FG Then

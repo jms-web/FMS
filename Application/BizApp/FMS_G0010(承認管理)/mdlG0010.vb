@@ -768,8 +768,9 @@ Module mdlG0010
         Dim strSmtpServer As String
         Dim intSmtpPort As Integer
         Dim strFromAddress As String
-        Dim strToAddress As String
-        Dim strCCAddress As String
+        Dim ToAddressList As New List(Of String)
+        Dim CCAddressList As New List(Of String)
+        Dim BCCAddressList As New List(Of String)
         Dim strUserID As String
         Dim strPassword As String
         Dim blnSend As Boolean
@@ -789,19 +790,37 @@ Module mdlG0010
                 Dim sbSQL As New System.Text.StringBuilder
                 Dim dsList As New DataSet
                 sbSQL.Remove(0, sbSQL.Length)
-                sbSQL.Append("SELECT")
-                sbSQL.Append(" SIMEI")
-                sbSQL.Append(" ,MAIL_ADDRESS")
-                sbSQL.Append(" FROM " & NameOf(MODEL.M004_SYAIN) & " ")
-                sbSQL.Append(" WHERE SYAIN_ID=" & ToSYAIN_ID & "")
+                sbSQL.Append($"SELECT")
+                sbSQL.Append($" M4.SIMEI")
+                sbSQL.Append($",M4.MAIL_ADDRESS")
+                sbSQL.Append($",M5.BUSYO_ID")
+                sbSQL.Append($",M2.BUSYO_NAME")
+                sbSQL.Append($",GL.SIMEI AS GL_SIMEI")
+                sbSQL.Append($",GL.MAIL_ADDRESS AS GL_ADDRESS")
+                sbSQL.Append($" FROM M004_SYAIN AS M4")
+                sbSQL.Append($" LEFT JOIN dbo.M005_SYOZOKU_BUSYO AS M5 ON (M4.SYAIN_ID = M5.SYAIN_ID)")
+                sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS M2 ON (M2.BUSYO_ID = M5.BUSYO_ID)")
+                sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS GL ON (GL.SYAIN_ID = M2.SYOZOKUCYO_ID)")
+                sbSQL.Append($" WHERE M4.SYAIN_ID={ToSYAIN_ID}")
+                sbSQL.Append($" AND M5.KENMU_FLG='0'")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
-                If dsList.Tables(0).Rows.Count > 0 Then
-                    strToAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
-                    strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI")
-                Else
-                    Return False
-                End If
+                With dsList.Tables(0)
+                    If .Rows.Count > 0 Then
+                        ToAddressList.Add(.Rows(0).Item("MAIL_ADDRESS"))
+
+                        If .Rows(0).Item("GL_ADDRESS").ToString.IsNulOrWS = False AndAlso .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("GL_ADDRESS").ToString Then
+                            ToAddressList.Add(.Rows(0).Item("GL_ADDRESS"))
+                        End If
+
+                        strToSyainName = .Rows(0).Item("SIMEI")
+                    Else
+                        Return False
+                    End If
+                End With
+
+                '---システム送信元アドレス取得
+                strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
 
                 '---申請元担当者のメールアドレス取得
                 sbSQL.Remove(0, sbSQL.Length)
@@ -811,20 +830,18 @@ Module mdlG0010
                 sbSQL.Append(" FROM " & NameOf(MODEL.M004_SYAIN) & " ")
                 sbSQL.Append(" WHERE SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID & "")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-                If dsList.Tables(0).Rows.Count > 0 Then
-                    strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
-                    'strFromSyainName = dsList.Tables(0).Rows(0).Item("SIMEI")
-                    strCCAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
-                Else
-                    Return False
+
+                '自身に申請メールを送る場合はCCに追加しない
+                If dsList.Tables(0).Rows.Count > 0 AndAlso Not ToAddressList.Contains(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")) Then
+                    CCAddressList.Add(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS"))
                 End If
 
-                If strToAddress.IsNulOrWS Then
+                If ToAddressList.Count = 0 Then
                     MessageBox.Show("依頼先担当者のメールアドレスが設定されていないため、依頼メールは送信されませんでした。", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Return True
                 End If
 
-                strMsg = String.Format("【メール送信成功】TO:{0}({1}) SUBJECT:{2}", strToSyainName, strToAddress, strSubject)
+                strMsg = String.Format("【メール送信成功】TO:{0}({1}) SUBJECT:{2}", strToSyainName, ToAddressList(0), strSubject)
                 WL.WriteLogDat(strMsg)
 
                 If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
@@ -835,12 +852,12 @@ Module mdlG0010
 
 
             ''認証なし フジワラ
-            blnSend = ClsMailSend.FunSendMail(strSmtpServer,
-                           intSmtpPort,
-                           strFromAddress,
-                           strToAddress,
-                           CCAddress:=strCCAddress,
-                           BCCAddress:="",
+            blnSend = ClsMailSend.FunSendMail(strSmtpServer:=strSmtpServer,
+                           intSmtpPort:=intSmtpPort,
+                           FromAddress:=strFromAddress,
+                           ToAddress:=ToAddressList,
+                           CCAddress:=CCAddressList,
+                           BCCAddress:=BCCAddressList,
                            strSubject:=strSubject,
                            strBody:=strBody,
                            strAttachment:="",
@@ -864,7 +881,7 @@ Module mdlG0010
             Return blnSend
         Catch ex As Exception
             Throw
-            strMsg = String.Format("【メール送信失敗】TO:{0}({1}) SUBJECT:{2}" & vbCrLf & Err.Description, strToSyainName, strToAddress, strSubject)
+            strMsg = String.Format("【メール送信失敗】TO:{0}({1}) SUBJECT:{2}" & vbCrLf & Err.Description, strToSyainName, ToAddressList(0), strSubject)
             WL.WriteLogDat(strMsg)
         End Try
     End Function

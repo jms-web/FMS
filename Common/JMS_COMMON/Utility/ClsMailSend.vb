@@ -1,10 +1,12 @@
-﻿Public Class ClsMailSend
+﻿Imports System.Collections.Generic
+
+Public Class ClsMailSend
     Public Shared Function FunSendMail(ByVal strSmtpServer As String,
                                 ByVal intSmtpPort As Integer,
                                 ByVal FromAddress As String,
-                                ByVal ToAddress As String,
-                                ByVal CCAddress As String,
-                                ByVal BCCAddress As String,
+                                ByVal ToAddress As List(Of String),
+                                ByVal CCAddress As List(Of String),
+                                ByVal BCCAddress As List(Of String),
                                 ByVal strSubject As String,
                                 ByVal strBody As String,
                                 ByVal strAttachment As String,
@@ -13,7 +15,7 @@
 
         Dim smtp As TKMP.Net.SmtpClient = Nothing
         'Dim logon As TKMP.Net.ISmtpLogon
-
+        Dim strAddress As String
         Try
 
             '送信メールの作成クラスを定義
@@ -26,21 +28,22 @@
                 writer.Headers.Add("From", strFromName & " <" & FromAddress & ">")
             End If
 
-            'メールの実際の宛先
-            writer.ToAddressList.Add(ToAddress)
-            'メールヘッダの宛先情報
-            writer.Headers.Add("To", "<" & ToAddress & ">")
+            'メールの実際の宛先,メールヘッダの宛先情報
+            For Each strAddress In ToAddress
+                writer.ToAddressList.Add(strAddress)
+                writer.Headers.Add("To", "<" & strAddress & ">")
+            Next
 
             'CC
-            If Not CCAddress.IsNulOrWS Then
-                writer.ToAddressList.Add(CCAddress)
-                writer.Headers.Add("Cc", "<" & CCAddress & ">")
-            End If
+            For Each strAddress In CCAddress
+                writer.ToAddressList.Add(strAddress)
+                writer.Headers.Add("Cc", "<" & strAddress & ">")
+            Next
 
             'BCC
-            If Not BCCAddress.IsNulOrWS Then
-                writer.ToAddressList.Add(BCCAddress)
-            End If
+            For Each strAddress In BCCAddress
+                writer.ToAddressList.Add(strAddress)
+            Next
 
             '件名
             writer.Headers.Add("Subject", strSubject)
