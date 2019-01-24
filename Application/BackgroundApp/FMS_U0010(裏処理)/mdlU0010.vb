@@ -176,7 +176,7 @@ Module mdlU0010
                     If dsList.Tables(0).Rows.Count > 0 Then
                         ToAddressList.Add(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS"))
 
-                        If dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS") <> dsList.Tables(0).Rows(0).Item("GL_ADDRESS") Then
+                        If dsList.Tables(0).Rows.Count > 0 AndAlso Not ToAddressList.Contains(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")) Then
                             ToAddressList.Add(dsList.Tables(0).Rows(0).Item("GL_ADDRESS"))
                         End If
 

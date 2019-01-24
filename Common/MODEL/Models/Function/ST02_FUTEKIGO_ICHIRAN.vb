@@ -11,9 +11,9 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     Inherits MODEL.ModelBase
     Implements IDisposable
 
-    '<NotMapped>
-    '<ComponentModel.DisplayName("‘I‘ð")>
-    'Public Property SELECTED As Boolean
+    <NotMapped>
+    <ComponentModel.DisplayName("‘I‘ð")>
+    Public Property SELECTED As Boolean
 
     <StringLength(1)>
     <ComponentModel.DisplayName("»•i‹æ•ª")>
