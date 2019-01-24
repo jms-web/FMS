@@ -1672,6 +1672,7 @@ Public Class FrmG0011
         _D005_CAR_J.BUMON_KB = _D003_NCR_J.BUMON_KB
         _D005_CAR_J._CLOSE_FG = "0"
         _D005_CAR_J.FUTEKIGO_HASSEI_YMD = _D003_NCR_J.HASSEI_YMD
+        _D005_CAR_J.ADD_SYAIN_ID = Nz(cmbST04_CAR_TANTO.SelectedValue, 0)
 
         '-----INSERT
         sbSQL.Remove(0, sbSQL.Length)
