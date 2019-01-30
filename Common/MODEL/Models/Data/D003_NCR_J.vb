@@ -358,6 +358,18 @@ Partial Public Class D003_NCR_J
     Public Property KOKYAKU_SAISYU_HANTEI_YMD As String
 
     <Required>
+    <Column(TypeName:="nvarchar")>
+    <StringLength(200)>
+    <ComponentModel.DisplayName("顧客再審申請資料1")>
+    Public Property KOKYAKU_SAISIN_FILEPATH1 As String
+
+    <Required>
+    <Column(TypeName:="nvarchar")>
+    <StringLength(200)>
+    <ComponentModel.DisplayName("顧客再審申請資料2")>
+    Public Property KOKYAKU_SAISIN_FILEPATH2 As String
+
+    <Required>
     <Column(NameOf(SAIKAKO_SIJI_FG), TypeName:="char")>
     <StringLength(1)>
     <Display(AutoGenerateField:=False)>

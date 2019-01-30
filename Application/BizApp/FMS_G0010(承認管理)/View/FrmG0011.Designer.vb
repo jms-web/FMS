@@ -306,10 +306,10 @@ Partial Class FrmG0011
         Me.lblSTAGEFlame09 = New System.Windows.Forms.Label()
         Me.pnlST08 = New JMS_COMMON.PanelEx()
         Me.Label22 = New System.Windows.Forms.Label()
-        Me.Button7 = New System.Windows.Forms.Button()
+        Me.btnST08_OpenTempFileDialog2 = New System.Windows.Forms.Button()
         Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.LinkLabel19 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel20 = New System.Windows.Forms.LinkLabel()
+        Me.lblST08_tmpFile2 = New System.Windows.Forms.LinkLabel()
+        Me.lblST08_tmpFile2_Clear = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel21 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel22 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel23 = New System.Windows.Forms.LinkLabel()
@@ -1502,7 +1502,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 177.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.pnlSYOCHI_E2, 3, 7)
@@ -1549,7 +1549,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_E2.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_E2.Controls.Add(Me.rbtnST11_E2_T)
         Me.pnlSYOCHI_E2.Controls.Add(Me.rbtnST11_E2_F)
-        Me.pnlSYOCHI_E2.Location = New System.Drawing.Point(591, 200)
+        Me.pnlSYOCHI_E2.Location = New System.Drawing.Point(584, 200)
         Me.pnlSYOCHI_E2.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_E2.Name = "pnlSYOCHI_E2"
         Me.pnlSYOCHI_E2.Size = New System.Drawing.Size(151, 28)
@@ -1587,7 +1587,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_E1.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_E1.Controls.Add(Me.rbtnST11_E1_T)
         Me.pnlSYOCHI_E1.Controls.Add(Me.rbtnST11_E1_F)
-        Me.pnlSYOCHI_E1.Location = New System.Drawing.Point(591, 171)
+        Me.pnlSYOCHI_E1.Location = New System.Drawing.Point(584, 171)
         Me.pnlSYOCHI_E1.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_E1.Name = "pnlSYOCHI_E1"
         Me.pnlSYOCHI_E1.Size = New System.Drawing.Size(151, 28)
@@ -1625,7 +1625,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_D2.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_D2.Controls.Add(Me.rbtnST11_D2_T)
         Me.pnlSYOCHI_D2.Controls.Add(Me.rbtnST11_D2_F)
-        Me.pnlSYOCHI_D2.Location = New System.Drawing.Point(591, 117)
+        Me.pnlSYOCHI_D2.Location = New System.Drawing.Point(584, 117)
         Me.pnlSYOCHI_D2.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_D2.Name = "pnlSYOCHI_D2"
         Me.pnlSYOCHI_D2.Size = New System.Drawing.Size(151, 28)
@@ -1663,7 +1663,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_D1.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_D1.Controls.Add(Me.rbtnST11_D1_T)
         Me.pnlSYOCHI_D1.Controls.Add(Me.rbtnST11_D1_F)
-        Me.pnlSYOCHI_D1.Location = New System.Drawing.Point(591, 88)
+        Me.pnlSYOCHI_D1.Location = New System.Drawing.Point(584, 88)
         Me.pnlSYOCHI_D1.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_D1.Name = "pnlSYOCHI_D1"
         Me.pnlSYOCHI_D1.Size = New System.Drawing.Size(151, 28)
@@ -1701,7 +1701,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_C.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_C.Controls.Add(Me.rbtnST11_C1_T)
         Me.pnlSYOCHI_C.Controls.Add(Me.rbtnST11_C1_F)
-        Me.pnlSYOCHI_C.Location = New System.Drawing.Point(591, 59)
+        Me.pnlSYOCHI_C.Location = New System.Drawing.Point(584, 59)
         Me.pnlSYOCHI_C.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_C.Name = "pnlSYOCHI_C"
         Me.pnlSYOCHI_C.Size = New System.Drawing.Size(151, 28)
@@ -1739,7 +1739,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_B.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_B.Controls.Add(Me.rbtnST11_B1_T)
         Me.pnlSYOCHI_B.Controls.Add(Me.rbtnST11_B1_F)
-        Me.pnlSYOCHI_B.Location = New System.Drawing.Point(591, 30)
+        Me.pnlSYOCHI_B.Location = New System.Drawing.Point(584, 30)
         Me.pnlSYOCHI_B.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_B.Name = "pnlSYOCHI_B"
         Me.pnlSYOCHI_B.Size = New System.Drawing.Size(151, 28)
@@ -1830,7 +1830,7 @@ Partial Class FrmG0011
         Me.Label126.Location = New System.Drawing.Point(22, 117)
         Me.Label126.Margin = New System.Windows.Forms.Padding(0)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(568, 28)
+        Me.Label126.Size = New System.Drawing.Size(561, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "âeãøóLÇÃèÍçáÅAå⁄ãqÇ÷ÇÃí ímÇÃóvî€"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1845,7 +1845,7 @@ Partial Class FrmG0011
         Me.Label127.Location = New System.Drawing.Point(22, 88)
         Me.Label127.Margin = New System.Windows.Forms.Padding(0)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(568, 28)
+        Me.Label127.Size = New System.Drawing.Size(561, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "ìñäYïsìKçáÇ…ÇÊÇÈå⁄ãqÇ÷ÇÃâeãø"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1860,7 +1860,7 @@ Partial Class FrmG0011
         Me.lblSYOCHI_C_2.Location = New System.Drawing.Point(22, 59)
         Me.lblSYOCHI_C_2.Margin = New System.Windows.Forms.Padding(0)
         Me.lblSYOCHI_C_2.Name = "lblSYOCHI_C_2"
-        Me.lblSYOCHI_C_2.Size = New System.Drawing.Size(568, 28)
+        Me.lblSYOCHI_C_2.Size = New System.Drawing.Size(561, 28)
         Me.lblSYOCHI_C_2.TabIndex = 241
         Me.lblSYOCHI_C_2.Text = "îpãpèàíuÇÕñ{óàÇÃà”ê}ÇµÇΩégópñîÇÕìKópÇ™Ç≈Ç´Ç»Ç¢ï˚ñ@ÇæÇ¡ÇΩÇ©ÅH"
         Me.lblSYOCHI_C_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1889,7 +1889,7 @@ Partial Class FrmG0011
         Me.Label130.Location = New System.Drawing.Point(22, 30)
         Me.Label130.Margin = New System.Windows.Forms.Padding(0)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(568, 28)
+        Me.Label130.Size = New System.Drawing.Size(561, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "é–ì‡å†å¿é“Ç…ÇÊÇËÅAñîÇÕå⁄ãqçƒêRÇÃèÍçáÇÕå⁄ãqÇ…ÇÊÇËîªíËÇ≥ÇÍÇΩÇ©ÅH"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1946,7 +1946,7 @@ Partial Class FrmG0011
         Me.Label134.Location = New System.Drawing.Point(22, 171)
         Me.Label134.Margin = New System.Windows.Forms.Padding(0)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(568, 28)
+        Me.Label134.Size = New System.Drawing.Size(561, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "ìñäYïsìKçáÇ…ÇÊÇÈëºÇÃÉvÉçÉZÉXÇ÷ÇÃâeãø"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1975,7 +1975,7 @@ Partial Class FrmG0011
         Me.Label136.Location = New System.Drawing.Point(22, 200)
         Me.Label136.Margin = New System.Windows.Forms.Padding(0)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(568, 28)
+        Me.Label136.Size = New System.Drawing.Size(561, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "âeãøóLÇÃèÍçáÅAïïÇ∂çûÇﬂèàíuÇÃóvî€"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1990,7 +1990,7 @@ Partial Class FrmG0011
         Me.Label137.Location = New System.Drawing.Point(22, 1)
         Me.Label137.Margin = New System.Windows.Forms.Padding(0)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(568, 28)
+        Me.Label137.Size = New System.Drawing.Size(561, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "åüèoÇ≥ÇÍÇΩïsìKçáÇèúãéÇ∑ÇÈèàíuÅiîpãpÇä‹ÇﬁÅjÇÕämé¿Ç…Ç∆ÇÁÇÍÇΩÇ©ÅH"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2014,7 +2014,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_A.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_A.Controls.Add(Me.rbtnST11_A1_T)
         Me.pnlSYOCHI_A.Controls.Add(Me.rbtnST11_A1_F)
-        Me.pnlSYOCHI_A.Location = New System.Drawing.Point(591, 1)
+        Me.pnlSYOCHI_A.Location = New System.Drawing.Point(584, 1)
         Me.pnlSYOCHI_A.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_A.Name = "pnlSYOCHI_A"
         Me.pnlSYOCHI_A.Size = New System.Drawing.Size(151, 28)
@@ -5002,7 +5002,7 @@ Partial Class FrmG0011
         Me.pnlST08.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.pnlST08.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pnlST08.Controls.Add(Me.Label22)
-        Me.pnlST08.Controls.Add(Me.Button7)
+        Me.pnlST08.Controls.Add(Me.btnST08_OpenTempFileDialog2)
         Me.pnlST08.Controls.Add(Me.FlowLayoutPanel2)
         Me.pnlST08.Controls.Add(Me.btnST08_OpenTempFileDialog1)
         Me.pnlST08.Controls.Add(Me.fpnlST08_TempFile1)
@@ -5047,30 +5047,28 @@ Partial Class FrmG0011
         Me.Label22.Location = New System.Drawing.Point(235, 156)
         Me.Label22.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(73, 15)
+        Me.Label22.Size = New System.Drawing.Size(60, 15)
         Me.Label22.TabIndex = 241
-        Me.Label22.Text = "ìYïtÉtÉ@ÉCÉã:"
+        Me.Label22.Text = "ìYïtéëóø:"
         Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label22.Visible = False
         '
-        'Button7
+        'btnST08_OpenTempFileDialog2
         '
-        Me.Button7.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button7.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.Button7.Location = New System.Drawing.Point(545, 205)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(54, 24)
-        Me.Button7.TabIndex = 240
-        Me.Button7.TabStop = False
-        Me.Button7.UseVisualStyleBackColor = True
-        Me.Button7.Visible = False
+        Me.btnST08_OpenTempFileDialog2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnST08_OpenTempFileDialog2.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
+        Me.btnST08_OpenTempFileDialog2.Location = New System.Drawing.Point(545, 205)
+        Me.btnST08_OpenTempFileDialog2.Name = "btnST08_OpenTempFileDialog2"
+        Me.btnST08_OpenTempFileDialog2.Size = New System.Drawing.Size(54, 24)
+        Me.btnST08_OpenTempFileDialog2.TabIndex = 240
+        Me.btnST08_OpenTempFileDialog2.TabStop = False
+        Me.btnST08_OpenTempFileDialog2.UseVisualStyleBackColor = True
         '
         'FlowLayoutPanel2
         '
         Me.FlowLayoutPanel2.BackColor = System.Drawing.SystemColors.Window
         Me.FlowLayoutPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.FlowLayoutPanel2.Controls.Add(Me.LinkLabel19)
-        Me.FlowLayoutPanel2.Controls.Add(Me.LinkLabel20)
+        Me.FlowLayoutPanel2.Controls.Add(Me.lblST08_tmpFile2)
+        Me.FlowLayoutPanel2.Controls.Add(Me.lblST08_tmpFile2_Clear)
         Me.FlowLayoutPanel2.Controls.Add(Me.LinkLabel21)
         Me.FlowLayoutPanel2.Controls.Add(Me.LinkLabel22)
         Me.FlowLayoutPanel2.Controls.Add(Me.LinkLabel23)
@@ -5083,41 +5081,40 @@ Partial Class FrmG0011
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
         Me.FlowLayoutPanel2.Size = New System.Drawing.Size(305, 22)
         Me.FlowLayoutPanel2.TabIndex = 239
-        Me.FlowLayoutPanel2.Visible = False
         '
-        'LinkLabel19
+        'lblST08_tmpFile2
         '
-        Me.LinkLabel19.AllowDrop = True
-        Me.LinkLabel19.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.lblST08_tmpFile2.AllowDrop = True
+        Me.lblST08_tmpFile2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LinkLabel19.AutoSize = True
-        Me.LinkLabel19.Location = New System.Drawing.Point(0, 0)
-        Me.LinkLabel19.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel19.Name = "LinkLabel19"
-        Me.LinkLabel19.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel19.TabIndex = 126
-        Me.LinkLabel19.TabStop = True
-        Me.LinkLabel19.Text = "link1"
-        Me.LinkLabel19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel19.Visible = False
+        Me.lblST08_tmpFile2.AutoSize = True
+        Me.lblST08_tmpFile2.Location = New System.Drawing.Point(0, 0)
+        Me.lblST08_tmpFile2.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblST08_tmpFile2.Name = "lblST08_tmpFile2"
+        Me.lblST08_tmpFile2.Size = New System.Drawing.Size(37, 17)
+        Me.lblST08_tmpFile2.TabIndex = 126
+        Me.lblST08_tmpFile2.TabStop = True
+        Me.lblST08_tmpFile2.Text = "link1"
+        Me.lblST08_tmpFile2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblST08_tmpFile2.Visible = False
         '
-        'LinkLabel20
+        'lblST08_tmpFile2_Clear
         '
-        Me.LinkLabel20.AutoSize = True
-        Me.LinkLabel20.Dock = System.Windows.Forms.DockStyle.Right
-        Me.FlowLayoutPanel2.SetFlowBreak(Me.LinkLabel20, True)
-        Me.LinkLabel20.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel20.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel20.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel20.Location = New System.Drawing.Point(37, 0)
-        Me.LinkLabel20.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel20.Name = "LinkLabel20"
-        Me.LinkLabel20.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel20.TabIndex = 128
-        Me.LinkLabel20.TabStop = True
-        Me.LinkLabel20.Text = "Å~"
-        Me.LinkLabel20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel20.Visible = False
+        Me.lblST08_tmpFile2_Clear.AutoSize = True
+        Me.lblST08_tmpFile2_Clear.Dock = System.Windows.Forms.DockStyle.Right
+        Me.FlowLayoutPanel2.SetFlowBreak(Me.lblST08_tmpFile2_Clear, True)
+        Me.lblST08_tmpFile2_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblST08_tmpFile2_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.lblST08_tmpFile2_Clear.LinkColor = System.Drawing.Color.Red
+        Me.lblST08_tmpFile2_Clear.Location = New System.Drawing.Point(37, 0)
+        Me.lblST08_tmpFile2_Clear.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblST08_tmpFile2_Clear.Name = "lblST08_tmpFile2_Clear"
+        Me.lblST08_tmpFile2_Clear.Size = New System.Drawing.Size(19, 17)
+        Me.lblST08_tmpFile2_Clear.TabIndex = 128
+        Me.lblST08_tmpFile2_Clear.TabStop = True
+        Me.lblST08_tmpFile2_Clear.Text = "Å~"
+        Me.lblST08_tmpFile2_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblST08_tmpFile2_Clear.Visible = False
         '
         'LinkLabel21
         '
@@ -5249,7 +5246,6 @@ Partial Class FrmG0011
         Me.btnST08_OpenTempFileDialog1.TabIndex = 238
         Me.btnST08_OpenTempFileDialog1.TabStop = False
         Me.btnST08_OpenTempFileDialog1.UseVisualStyleBackColor = True
-        Me.btnST08_OpenTempFileDialog1.Visible = False
         '
         'fpnlST08_TempFile1
         '
@@ -5269,7 +5265,6 @@ Partial Class FrmG0011
         Me.fpnlST08_TempFile1.Name = "fpnlST08_TempFile1"
         Me.fpnlST08_TempFile1.Size = New System.Drawing.Size(305, 22)
         Me.fpnlST08_TempFile1.TabIndex = 237
-        Me.fpnlST08_TempFile1.Visible = False
         '
         'lblST08_tmpFile1
         '
@@ -8959,10 +8954,10 @@ Partial Class FrmG0011
     Friend WithEvents cmbHINMEI As ComboboxEx
     Friend WithEvents cmbSAI_FUTEKIGO_KISO_TANTO As ComboboxEx
     Friend WithEvents lblSAI_FUTEKIGO_KISO_TANTO As Label
-    Friend WithEvents Button7 As Button
+    Friend WithEvents btnST08_OpenTempFileDialog2 As Button
     Friend WithEvents FlowLayoutPanel2 As FlowLayoutPanel
-    Friend WithEvents LinkLabel19 As LinkLabel
-    Friend WithEvents LinkLabel20 As LinkLabel
+    Friend WithEvents lblST08_tmpFile2 As LinkLabel
+    Friend WithEvents lblST08_tmpFile2_Clear As LinkLabel
     Friend WithEvents LinkLabel21 As LinkLabel
     Friend WithEvents LinkLabel22 As LinkLabel
     Friend WithEvents LinkLabel23 As LinkLabel

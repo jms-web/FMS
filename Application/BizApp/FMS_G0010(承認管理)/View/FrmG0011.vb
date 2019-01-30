@@ -486,6 +486,9 @@ Public Class FrmG0011
                     _D003_NCR_J.FILE_PATH = ""
                     _D003_NCR_J.G_FILE_PATH1 = ""
                     _D003_NCR_J.G_FILE_PATH2 = ""
+
+                    _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1 = ""
+                    _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2 = ""
                     Return True
                 Else
                     Me.DialogResult = DialogResult.Abort
@@ -502,6 +505,13 @@ Public Class FrmG0011
                     End If
                     If Not _D003_NCR_J.G_FILE_PATH2.IsNulOrWS AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2) Then
                         System.IO.File.Copy(lblPict2Path.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2, True)
+                    End If
+
+                    If Not _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1.IsNulOrWS AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1) Then
+                        System.IO.File.Copy(lblST08_tmpFile1.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1, True)
+                    End If
+                    If Not _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2.IsNulOrWS AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2) Then
+                        System.IO.File.Copy(lblST08_tmpFile2.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2, True)
                     End If
 
                     Return True
@@ -657,6 +667,10 @@ Public Class FrmG0011
         sbSQL.Append($" ,'{_D003_NCR_J.ITAG_NO.ConvertSqlEscape}' AS {NameOf(_D003_NCR_J.ITAG_NO)}")
         sbSQL.Append($" ,{_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID} AS {NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID)}")
         sbSQL.Append($" ,'{_D003_NCR_J.KOKYAKU_SAISIN_YMD}' AS {NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD)}")
+
+        sbSQL.Append($" ,'{_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1}' AS {NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1)}")
+        sbSQL.Append($" ,'{_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2}' AS {NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2)}")
+
         sbSQL.Append($" ,'{_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB}' AS {NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB)}")
         sbSQL.Append($" ,'{_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD}' AS {NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)}")
         sbSQL.Append($" ,'{_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB}' AS {NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB)}")
@@ -743,6 +757,10 @@ Public Class FrmG0011
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.ITAG_NO)}                    = WK.{NameOf(_D003_NCR_J.ITAG_NO)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID)}    = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD)}         = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD)}")
+
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1)}         = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2)}         = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2)}")
+
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB)}     = WK.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)}    = WK.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB)}   = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB)}")
@@ -825,6 +843,10 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.ITAG_NO))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD))
+
+        sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1))
+        sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2))
+
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB))
@@ -907,6 +929,10 @@ Public Class FrmG0011
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.ITAG_NO))
         sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD))
+
+        sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1))
+        sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2))
+
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB))
@@ -1526,6 +1552,10 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.ITAG_NO))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KOKYAKU_SAISIN_TANTO_ID))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KOKYAKU_SAISIN_YMD))
+
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KOKYAKU_SAISIN_FILEPATH1))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KOKYAKU_SAISIN_FILEPATH2))
+
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KOKYAKU_HANTEI_SIJI_KB))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KOKYAKU_HANTEI_SIJI_YMD))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KOKYAKU_SAISYU_HANTEI_KB))
@@ -1601,6 +1631,10 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & _D003_NCR_J.ITAG_NO & "'")
         sbSQL.Append(" ," & _D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID & "")
         sbSQL.Append(" ,'" & _D003_NCR_J.KOKYAKU_SAISIN_YMD & "'")
+
+        sbSQL.Append(" ,'" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1 & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2 & "'")
+
         sbSQL.Append(" ,'" & _D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB & "'")
@@ -2208,6 +2242,10 @@ Public Class FrmG0011
         sbSQL.Append($" ,'' AS {NameOf(_D003_NCR_J.ITAG_NO)}")
         sbSQL.Append($" , 0 AS {NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID)}")
         sbSQL.Append($" ,'' AS {NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD)}")
+
+        sbSQL.Append($" ,'' AS {NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1)}")
+        sbSQL.Append($" ,'' AS {NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2)}")
+
         sbSQL.Append($" ,'' AS {NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB)}")
         sbSQL.Append($" ,'' AS {NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)}")
         sbSQL.Append($" ,'' AS {NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB)}")
@@ -2293,6 +2331,10 @@ Public Class FrmG0011
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.ITAG_NO)} = WK.{NameOf(_D003_NCR_J.ITAG_NO)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID)} = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD)} = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD)}")
+
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD)} = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD)} = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2)}")
+
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB)} = WK.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)} = WK.{NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB)} = WK.{NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB)}")
@@ -2374,6 +2416,10 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.ITAG_NO))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD))
+
+        sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1))
+        sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2))
+
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB))
@@ -2454,6 +2500,10 @@ Public Class FrmG0011
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.ITAG_NO))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_TANTO_ID))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_YMD))
+
+        sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1))
+        sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2))
+
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_KB))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.KOKYAKU_HANTEI_SIJI_YMD))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB))
@@ -3155,11 +3205,12 @@ Public Class FrmG0011
                 End If
             Next ctrl
 
-            '添付資料タブ初期化
             Dim strRootDir As String
             Using DB As ClsDbUtility = DBOpen()
                 strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
             End Using
+
+#Region "共通添付資料情報取得"
             If Not _D003_NCR_J.FILE_PATH.IsNulOrWS Then
                 lbltmpFile1.Text = CompactString(_D003_NCR_J.FILE_PATH, lbltmpFile1, EllipsisFormat._4_Path)
                 lbltmpFile1.Links.Clear()
@@ -3173,6 +3224,29 @@ Public Class FrmG0011
             If Not _D003_NCR_J.G_FILE_PATH2.IsNulOrWS Then
                 Call SetPict2Data({strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2})
             End If
+
+
+#End Region
+
+#Region "ST8 添付資料情報取得"
+            If Not _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1.IsNulOrWS Then
+                Dim lblLink As LinkLabel = lblST08_tmpFile1
+                lblLink.Text = CompactString(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1, lblLink, EllipsisFormat._4_Path)
+                lblLink.Links.Clear()
+                lblLink.Links.Add(0, lblLink.Text.Length, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1)
+                lblLink.Visible = True
+                lblST08_tmpFile1_Clear.Visible = True
+            End If
+
+            If Not _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2.IsNulOrWS Then
+                Dim lblLink As LinkLabel = lblST08_tmpFile2
+                lblLink.Text = CompactString(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2, lblLink, EllipsisFormat._4_Path)
+                lblLink.Links.Clear()
+                lblLink.Links.Add(0, lblLink.Text.Length, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2)
+                lblLink.Visible = True
+                lblST08_tmpFile2_Clear.Visible = True
+            End If
+#End Region
 
             If _D003_NCR_J.CLOSE_FG Then
                 lbltmpFile1_Clear.Visible = False
@@ -5255,6 +5329,198 @@ Public Class FrmG0011
 
     End Sub
 
+#Region "添付ファイル1"
+
+    '添付ファイル選択
+    Private Sub BtnST08_OpenTempFileDialog1_Click(sender As Object, e As EventArgs) Handles btnST08_OpenTempFileDialog1.Click
+        Dim ofd As New OpenFileDialog With {
+            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
+            .FilterIndex = 1,
+            .Title = "添付するファイルを選択してください",
+            .RestoreDirectory = True
+        }
+        Dim lblLink As LinkLabel = lblST08_tmpFile1
+        Dim lblLinkClear As LinkLabel = lblST08_tmpFile1_Clear
+
+        If lblLink.Links.Count = 0 Then
+        Else
+            ofd.InitialDirectory = IO.Path.GetDirectoryName(lblLink.Links(0).ToString)
+        End If
+        If ofd.ShowDialog() = DialogResult.OK Then
+            lblLink.Text = IO.Path.GetFileName(ofd.FileName)
+            lblLink.Links.Clear()
+            lblLink.Links.Add(0, lblLink.Text.Length, ofd.FileName)
+
+            _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1 = IO.Path.GetFileName(ofd.FileName)
+            lblLink.Visible = True
+            lblLinkClear.Visible = True
+        End If
+    End Sub
+
+    'リンククリック
+    Private Sub lblST08_tmpFile1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblST08_tmpFile1.LinkClicked
+        Dim hProcess As New System.Diagnostics.Process
+        Dim strEXE As String
+        'Dim strARG As String
+
+        Dim lblLink As LinkLabel = DirectCast(sender, LinkLabel)
+        Try
+
+            strEXE = lblLink.Links(0).LinkData
+            If strEXE.IsNulOrWS Then
+            Else
+                If System.IO.File.Exists(strEXE) = True Then
+                    hProcess.StartInfo.FileName = strEXE
+                    'hProcess.StartInfo.Arguments = strARG
+                    hProcess.SynchronizingObject = Me
+                    'AddHandler hProcess.Exited, AddressOf ProcessExited
+                    hProcess.EnableRaisingEvents = True
+                    hProcess.Start()
+
+                    '最前面
+                    Call SetForegroundWindow(hProcess.Handle)
+
+                    'Call SetTaskbarInfo(ENM_TASKBAR_STATE._2_Normal, 100)
+                    'Call SetTaskbarOverlayIcon(System.Drawing.SystemIcons.Application)
+
+                    'Private Sub ProcessExited(ByVal sender As Object, ByVal e As EventArgs)
+                    '    Call SetTaskbarOverlayIcon(Nothing)
+                    '    Call SetTaskbarInfo(ENM_TASKBAR_STATE._0_NoProgress)
+                    'End Sub
+                Else
+                    Dim strMsg As String
+                    strMsg = "ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
+                                vbCrLf & vbCrLf & strEXE
+                    MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+        Catch exInvalid As InvalidOperationException
+            'EM.ErrorSyori(exInvalid, False, conblnNonMsg)
+        Finally
+            'プロセス終了を待機しない------------------------------------
+            ''-----自分表示
+            'Me.Show()
+            'Me.lstGYOMU.Focus()
+            'Me.Activate()
+            'Me.BringToFront()
+            '------------------------------------------------------------
+
+            '-----開放
+            If hProcess IsNot Nothing Then
+                hProcess.Close()
+            End If
+        End Try
+    End Sub
+
+    'リンククリア
+    Private Sub lblST08_tmpFile1_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblST08_tmpFile1_Clear.LinkClicked
+        Dim lbllink As LinkLabel = lblST08_tmpFile1
+
+        lbllink.Text = ""
+        _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1 = ""
+        lbllink.Links.Clear()
+        lbllink.Visible = False
+        lblST08_tmpFile1_Clear.Visible = False
+    End Sub
+
+#End Region
+
+#Region "添付ファイル2"
+
+    '添付ファイル選択
+    Private Sub BtnST08_OpenTempFileDialog2_Click(sender As Object, e As EventArgs) Handles btnST08_OpenTempFileDialog2.Click
+        Dim ofd As New OpenFileDialog With {
+            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
+            .FilterIndex = 1,
+            .Title = "添付するファイルを選択してください",
+            .RestoreDirectory = True
+        }
+        Dim lblLink As LinkLabel = lblST08_tmpFile2
+        Dim lblLinkClear As LinkLabel = lblST08_tmpFile2_Clear
+
+        If lblLink.Links.Count = 0 Then
+        Else
+            ofd.InitialDirectory = IO.Path.GetDirectoryName(lblLink.Links(0).ToString)
+        End If
+        If ofd.ShowDialog() = DialogResult.OK Then
+            lblLink.Text = IO.Path.GetFileName(ofd.FileName)
+            lblLink.Links.Clear()
+            lblLink.Links.Add(0, lblLink.Text.Length, ofd.FileName)
+
+            _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2 = IO.Path.GetFileName(ofd.FileName)
+            lblLink.Visible = True
+            lblLinkClear.Visible = True
+        End If
+    End Sub
+
+    'リンククリック
+    Private Sub lblST08_tmpFile2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblST08_tmpFile2.LinkClicked
+        Dim hProcess As New System.Diagnostics.Process
+        Dim strEXE As String
+        'Dim strARG As String
+
+        Dim lblLink As LinkLabel = DirectCast(sender, LinkLabel)
+        Try
+
+            strEXE = lblLink.Links(0).LinkData
+            If strEXE.IsNulOrWS Then
+            Else
+                If System.IO.File.Exists(strEXE) = True Then
+                    hProcess.StartInfo.FileName = strEXE
+                    'hProcess.StartInfo.Arguments = strARG
+                    hProcess.SynchronizingObject = Me
+                    'AddHandler hProcess.Exited, AddressOf ProcessExited
+                    hProcess.EnableRaisingEvents = True
+                    hProcess.Start()
+
+                    '最前面
+                    Call SetForegroundWindow(hProcess.Handle)
+
+                    'Call SetTaskbarInfo(ENM_TASKBAR_STATE._2_Normal, 100)
+                    'Call SetTaskbarOverlayIcon(System.Drawing.SystemIcons.Application)
+
+                    'Private Sub ProcessExited(ByVal sender As Object, ByVal e As EventArgs)
+                    '    Call SetTaskbarOverlayIcon(Nothing)
+                    '    Call SetTaskbarInfo(ENM_TASKBAR_STATE._0_NoProgress)
+                    'End Sub
+                Else
+                    Dim strMsg As String
+                    strMsg = "ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
+                                vbCrLf & vbCrLf & strEXE
+                    MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+        Catch exInvalid As InvalidOperationException
+            'EM.ErrorSyori(exInvalid, False, conblnNonMsg)
+        Finally
+            'プロセス終了を待機しない------------------------------------
+            ''-----自分表示
+            'Me.Show()
+            'Me.lstGYOMU.Focus()
+            'Me.Activate()
+            'Me.BringToFront()
+            '------------------------------------------------------------
+
+            '-----開放
+            If hProcess IsNot Nothing Then
+                hProcess.Close()
+            End If
+        End Try
+    End Sub
+
+    'リンククリア
+    Private Sub lblST08_tmpFile2_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblST08_tmpFile2_Clear.LinkClicked
+        Dim lbllink As LinkLabel = lblST08_tmpFile2
+
+        lbllink.Text = ""
+        _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2 = ""
+        lbllink.Links.Clear()
+        lbllink.Visible = False
+        lblST08_tmpFile2_Clear.Visible = False
+    End Sub
+
+#End Region
+
 #End Region
 
 #Region "   STAGE8"
@@ -5744,6 +6010,8 @@ Public Class FrmG0011
         lbltmpFile1.DataBindings.Add(New Binding(NameOf(lbltmpFile1.Tag), _D003_NCR_J, NameOf(_D003_NCR_J.FILE_PATH), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         lblPict1Path.DataBindings.Add(New Binding(NameOf(lblPict1Path.Tag), _D003_NCR_J, NameOf(_D003_NCR_J.G_FILE_PATH1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         lblPict2Path.DataBindings.Add(New Binding(NameOf(lblPict2Path.Tag), _D003_NCR_J, NameOf(_D003_NCR_J.G_FILE_PATH2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        lblST08_tmpFile1.DataBindings.Add(New Binding(NameOf(lblST08_tmpFile1.Tag), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        lblST08_tmpFile2.DataBindings.Add(New Binding(NameOf(lblST08_tmpFile2.Tag), _D003_NCR_J, NameOf(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
         'STAGE01
         txtST01_YOKYU_NAIYO.DataBindings.Add(New Binding(NameOf(txtST01_YOKYU_NAIYO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.YOKYU_NAIYO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -6245,6 +6513,7 @@ Public Class FrmG0011
 
 #End Region
 
+#Region "ステージIDより次ステージの承認順Noを取得"
     ''' <summary>
     ''' 次ステージの承認順Noを取得
     ''' </summary>
@@ -6342,6 +6611,9 @@ Public Class FrmG0011
             Return 0
         End Try
     End Function
+#End Region
+
+
 
     ''' <summary>
     ''' 申請先社員IDを取得

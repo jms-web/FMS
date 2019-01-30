@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' 既定値にすることができます:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("0.9.19028.0753")>
-<Assembly: AssemblyFileVersion("0.9.19028.0753")>
+<Assembly: AssemblyVersion("0.9.19030.0326")>
+<Assembly: AssemblyFileVersion("0.9.19030.0326")>

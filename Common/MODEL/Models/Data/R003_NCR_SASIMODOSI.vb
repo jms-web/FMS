@@ -302,10 +302,18 @@ Partial Public Class R003_NCR_SASIMODOSI
     Public Property KOKYAKU_SAISIN_TANTO_ID As Integer
 
     <Required>
-    <Column(TypeName:="char")>
-    <StringLength(8)>
     <ComponentModel.DisplayName("顧客再審申請日")>
     Public Property KOKYAKU_SAISIN_YMD As String
+
+    <Required>
+    <ComponentModel.DisplayName("顧客再審申請資料1")>
+    Public Property KOKYAKU_SAISIN_FILEPATH1 As String
+
+    <Required>
+    <Column(TypeName:="nvarchar")>
+    <StringLength(200)>
+    <ComponentModel.DisplayName("顧客再審申請資料2")>
+    Public Property KOKYAKU_SAISIN_FILEPATH2 As String
 
     <Required>
     <Column(TypeName:="char")>
