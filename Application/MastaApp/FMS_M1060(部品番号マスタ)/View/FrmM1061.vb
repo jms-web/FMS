@@ -210,9 +210,9 @@ Public Class FrmM1061
 
                     sbSQL.Append($" '{_M106.BUMON_KB}' AS {NameOf(_M106.BUMON_KB)}")
                     sbSQL.Append($", {_M106.TOKUI_ID} AS {NameOf(_M106.TOKUI_ID)}")
-                    sbSQL.Append($",'{_M106.BUHIN_BANGO}' AS {NameOf(_M106.BUHIN_BANGO)}")
-                    sbSQL.Append($",'{_M106.SYANAI_CD}' AS {NameOf(_M106.SYANAI_CD)}")
-                    sbSQL.Append($",'{_M106.BUHIN_NAME}' AS {NameOf(_M106.BUHIN_NAME)}")
+                    sbSQL.Append($",'{_M106.BUHIN_BANGO.Trim}' AS {NameOf(_M106.BUHIN_BANGO)}")
+                    sbSQL.Append($",'{_M106.SYANAI_CD.Trim}' AS {NameOf(_M106.SYANAI_CD)}")
+                    sbSQL.Append($",'{_M106.BUHIN_NAME.Trim}' AS {NameOf(_M106.BUHIN_NAME)}")
                     sbSQL.Append($",'{_M106.KEIYAKU_KB}' AS {NameOf(_M106.KEIYAKU_KB)}")
                     sbSQL.Append($",'{_M106.ZUBAN_C}' AS {NameOf(_M106.ZUBAN_C)}")
                     sbSQL.Append($",'{_M106.HINSYU_BANGO}' AS {NameOf(_M106.HINSYU_BANGO)}")
