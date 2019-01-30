@@ -125,8 +125,9 @@ Module mdlU0010
         Dim strSmtpServer As String
         Dim intSmtpPort As Integer
         Dim strFromAddress As String
-        Dim strToAddress As String
-        Dim strCCAddress As String = ""
+        Dim ToAddressList As New List(Of String)
+        Dim CCAddressList As New List(Of String)
+        Dim BCCAddressList As New List(Of String)
         Dim strUserID As String
         Dim strPassword As String
         Dim blnSend As Boolean
@@ -158,15 +159,27 @@ Module mdlU0010
                     '---\¿æ’S“–Ò‚Ìƒ[ƒ‹ƒAƒhƒŒƒXæ“¾
                     Dim sbSQL As New System.Text.StringBuilder
                     Dim dsList As New DataSet
-                    sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("SELECT")
-                    sbSQL.Append(" SIMEI")
-                    sbSQL.Append(" ,MAIL_ADDRESS")
-                    sbSQL.Append(" FROM M004_SYAIN ")
-                    sbSQL.Append(" WHERE SYAIN_ID=" & dr.Item("GEN_TANTO_ID") & "")
+                    sbSQL.Append($"SELECT")
+                    sbSQL.Append($" M4.SIMEI")
+                    sbSQL.Append($",M4.MAIL_ADDRESS")
+                    sbSQL.Append($",M5.BUSYO_ID")
+                    sbSQL.Append($",M2.BUSYO_NAME")
+                    sbSQL.Append($",GL.SIMEI AS GL_SIMEI")
+                    sbSQL.Append($",GL.MAIL_ADDRESS AS GL_ADDRESS")
+                    sbSQL.Append($" FROM M004_SYAIN AS M4")
+                    sbSQL.Append($" LEFT JOIN dbo.M005_SYOZOKU_BUSYO AS M5 ON (M4.SYAIN_ID = M5.SYAIN_ID)")
+                    sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS M2 ON (M2.BUSYO_ID = M5.BUSYO_ID)")
+                    sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS GL ON (GL.SYAIN_ID = M2.SYOZOKUCYO_ID)")
+                    sbSQL.Append($" WHERE M4.SYAIN_ID={dr.Item("GEN_TANTO_ID")}")
+                    sbSQL.Append($" AND M5.KENMU_FLG='0'")
                     dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
                     If dsList.Tables(0).Rows.Count > 0 Then
-                        strToAddress = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
+                        ToAddressList.Add(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS"))
+
+                        If dsList.Tables(0).Rows.Count > 0 AndAlso Not ToAddressList.Contains(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")) Then
+                            ToAddressList.Add(dsList.Tables(0).Rows(0).Item("GL_ADDRESS"))
+                        End If
+
                         strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI").ToString.Trim
                     Else
                         WL.WriteLogDat($"yƒ[ƒ‹‘—M¸”sz’S“–ÒID:{dr.Item("GEN_TANTO_ID")}‚Ìƒ[ƒ‹ƒAƒhƒŒƒX‚ªæ“¾‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½")
@@ -211,9 +224,9 @@ Module mdlU0010
                     blnSend = ClsMailSend.FunSendMail(strSmtpServer,
                            intSmtpPort,
                            strFromAddress,
-                           strToAddress,
-                           CCAddress:=strCCAddress,
-                           BCCAddress:="",
+                           ToAddressList,
+                           CCAddress:=CCAddressList,
+                           BCCAddress:=BCCAddressList,
                            strSubject:=strSubject,
                            strBody:=strBody,
                            strAttachment:="",
@@ -221,16 +234,16 @@ Module mdlU0010
                            isHTML:=True)
 
                     If blnSend Then
-                        WL.WriteLogDat($"yƒ[ƒ‹‘—M¬Œ÷zTO:{strToSyainName}({strToAddress}) SUBJECT:{strSubject}")
+                        WL.WriteLogDat($"yƒ[ƒ‹‘—M¬Œ÷zTO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}")
                         intSendCount += 1
                     Else
                         'MessageBox.Show("ƒ[ƒ‹‘—M‚É¸”s‚µ‚Ü‚µ‚½B", "ƒ[ƒ‹‘—M¸”s", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        WL.WriteLogDat($"yƒ[ƒ‹‘—M¸”sz‘—Mˆ—¸”s Subject:{strSubject} To:{strToAddress}")
+                        WL.WriteLogDat($"yƒ[ƒ‹‘—M¸”sz‘—Mˆ—¸”s Subject:{strSubject} To:{ToAddressList(0)}")
                         Continue For
                     End If
                     System.Threading.Thread.Sleep(1000)
                 Catch ex As Exception
-                    strMsg = $"yƒ[ƒ‹‘—M¸”szTO:{strToSyainName}({strToAddress}) SUBJECT:{strSubject}{vbCrLf}{Err.Description}"
+                    strMsg = $"yƒ[ƒ‹‘—M¸”szTO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}{vbCrLf}{Err.Description}"
                     WL.WriteLogDat(strMsg)
                     Continue For
                 End Try

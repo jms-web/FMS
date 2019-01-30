@@ -91,9 +91,7 @@ Public Class FrmG0010
 
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
-            Using DB As ClsDbUtility = DBOpen()
-                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
-            End Using
+
 
             'Call EnableDoubleBuffering(dgvDATA)
             Call EnableDoubleBuffering(dgvNCR)
@@ -216,6 +214,10 @@ Public Class FrmG0010
             Call SetStageList()
 
             '起動モード別処理
+
+            Using DB As ClsDbUtility = DBOpen()
+                lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+            End Using
             Select Case pub_intOPEN_MODE
                 Case ENM_OPEN_MODE._0_通常
                     Me.cmdFunc7.PerformClick()
@@ -233,30 +235,49 @@ Public Class FrmG0010
                     Me.cmdFunc4.PerformClick()
 
                 Case ENM_OPEN_MODE._3_分析集計
+                    Using DB As ClsDbUtility = DBOpen()
+                        lblTytle.Text = "不適合集計画面"
+                    End Using
+
+
+                    chkDispHOKOKUSYO_ID.Visible = True
+                    chkDispHOKOKUSYO_ID.Checked = True
+                    chkDispHOKOKUSYO_ID.Enabled = False
+                    chkDispKISYU.Visible = True
+                    chkDispGOKI.Visible = True
+                    lblGEN_TANTO.Visible = False
+                    cmbGEN_TANTO.Visible = False
+                    chkDispFUTEKIGO_KB.Visible = True
+
+                    lblHOKUKO_NO.Visible = False
+                    mtxHOKUKO_NO.Visible = False
+                    chkDispBUHIN_BANGO.Visible = True
+                    chkDispSYANAI_CD.Visible = True
+                    chkDispFUTEKIGO_JYOTAI_KB.Visible = True
+                    chkDispFUTEKIGO_S_KB.Visible = True
+
+                    chkDispBUMON.Visible = True
+                    chkDispHINMEI.Visible = True
+                    chkDispHASSEI_YMD.Visible = True
+                    lblJisiYMD.Visible = False
+                    dtJisiFrom.Visible = False
+                    lblJisi.Visible = False
+                    dtJisiTo.Visible = False
+
+                    chkDispADD_TANTO.Visible = True
+                    chkDeleteRowVisibled.Visible = False
+                    chkClosedRowVisibled.Checked = True
+                    chkClosedRowVisibled.Visible = False
+                    chkTairyu.Visible = False
+
+                    dgvCAR.Visible = False
+                    dgvNCR.Visible = False
 
                 Case Else
                     Me.cmdFunc1.PerformClick()
             End Select
 
-            Dim IsSummaryMode As Boolean = (pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計)
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
-            chkDispADD_TANTO.Visible = IsSummaryMode
+
 
 
             'ファンクションボタンステータス更新
@@ -283,14 +304,13 @@ Public Class FrmG0010
             .Rows(0).Height = 30
             .AutoGenerateColumns = False
             .AutoResize = True
-            .AllowEditing = False
+            .AllowEditing = True
             .AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
             .AllowDelete = False
             .AllowResizing = C1.Win.C1FlexGrid.AllowResizingEnum.Columns
             .AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.SingleColumn
             '.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
             .AllowFiltering = True
-
             .ShowCellLabels = True
             .SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row
 
@@ -337,6 +357,13 @@ Public Class FrmG0010
             Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
         End If
     End Sub
+    'Private Sub flxDATA_Click(sender As Object, e As EventArgs) Handles flxDATA.Click
+    '    If flxDATA.ColSel = 1 Then
+    '        Dim dr As DataRow = DirectCast(bindsrc.Current, DataRowView).Row
+    '        dr.Item(0) = Not CBool(dr.Item(0))
+    '    End If
+    'End Sub
+
 
     'グリッドセル(行)ダブルクリック時イベント
     Private Sub FlxDATA_DoubleClick(sender As Object, e As EventArgs) Handles flxDATA.DoubleClick
@@ -986,7 +1013,7 @@ Public Class FrmG0010
             Next
 
             'ファンクションキー有効化初期化
-            Call FunInitFuncButtonEnabled()
+            If intFUNC <> 12 Then Call FunInitFuncButtonEnabled()
 
             '[アクティブ]
             Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
@@ -1119,7 +1146,11 @@ Public Class FrmG0010
                 End If
             End If
 
-            Return tplDataModel.dt
+            If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
+                Return FunGetGroupingData(tplDataModel.dt)
+            Else
+                Return tplDataModel.dt
+            End If
 
             'Dim _Model As New MODEL.ModelInfo(Of MODEL.ST02_FUTEKIGO_ICHIRAN)(srcDATA:=tplDataModel.dt)
             'Return _Model.Entities
@@ -1128,6 +1159,25 @@ Public Class FrmG0010
             Return Nothing
         End Try
     End Function
+
+    Private Function FunGetGroupingData(srcData As DataTable) As DataTable
+        Try
+            Dim retDt As New DataTable
+
+            Dim query = srcData.AsEnumerable.
+                        GroupBy(Function(g) Tuple.Create(g.Field(Of Integer)(NameOf(ParamModel.SYONIN_HOKOKUSYO_ID)),
+                                                         g.Field(Of Integer)("SYONIN_JUN"),
+                                                         g.Field(Of String)("SYONIN_NAIYO")))
+
+
+
+            Return retDt
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return Nothing
+        End Try
+    End Function
+
 
     Private Function FunSRCH(ByVal dgv As DataGridView, ByVal dt As DataTable) As Boolean
         Dim intCURROW As Integer
@@ -1175,6 +1225,8 @@ Public Class FrmG0010
             flx.BeginUpdate()
 
             If dt IsNot Nothing Then
+
+
                 flx.DataSource = dt
 
             End If
@@ -1466,7 +1518,7 @@ Public Class FrmG0010
     Private Function FunSelectAll() As Boolean
 
         Try
-            Dim rows = DirectCast(Me.dgvDATA.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("CLOSE_FG") = "0" And r.Field(Of String)("DEL_YMDHNS").IsNulOrWS).ToList
+            Dim rows = DirectCast(Me.flxDATA.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("CLOSE_FG") = "0" And r.Field(Of String)("DEL_YMDHNS").IsNulOrWS).ToList
             If rows.Count > 0 Then
                 For Each row As DataRow In rows
                     row.Item("SELECTED") = True '"●"
@@ -1492,20 +1544,10 @@ Public Class FrmG0010
 
         Try
 
-            Dim dt As DataTable = DirectCast(Me.dgvDATA.DataSource, DataTable)
-            Dim rows = dt.Rows 'AsEnumerable().Where(Function(r) r.Field(Of String)("STA") = Context.ENM_HACCYU_STATUS._0_未発注)
-
-            If rows.Count > 0 Then
-                For Each row As DataRow In rows
-                    row.Item("SELECTED") = False '"●"
-                Next row
-
-                '表示更新
-                FunSetDgvCellFormat(Me.dgvDATA)
-            Else
-                'MessageBox.Show("未発注データはありません。", "全選択", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            End If
-
+            'Dim dt As DataTable = DirectCast(Me.dgvDATA.DataSource, DataTable)
+            Dim dt As DataTable = DirectCast(Me.flxDATA.DataSource, DataTable)
+            dt.AsEnumerable.Where(Function(r) r.Field(Of Boolean)("SELECTED") = True).ForEach(Sub(r) r.Item("SELECTED") = False)
+            flxDATA.Update()
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -1529,11 +1571,11 @@ Public Class FrmG0010
                     If strTantoNameList.IsNulOrWS Then
                         strTantoNameList = dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_NAME))
                     Else
-                        strTantoNameList &= vbCrLf & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_NAME))
+                        If Not strTantoNameList.Contains(dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_NAME))) Then
+                            strTantoNameList &= vbCrLf & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_NAME))
+                        End If
                     End If
                 Next dr
-
-                'UNDONE: 同一担当者のデータが複数件ある場合に、確認メッセージに同一担当者名が複数表示されてしまう
 
                 Using DB As ClsDbUtility = DBOpen()
                     Dim blnErr As Boolean
@@ -1585,7 +1627,7 @@ Public Class FrmG0010
                                     If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                                     Else
                                         If FunSAVE_R001(DB, dr) Then
-                                            MessageBox.Show("処置依頼メールを送信しました。", "メール送信完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                            'MessageBox.Show("処置依頼メールを送信しました。", "メール送信完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
                                         Else
                                             blnErr = True
                                             Return False
@@ -1597,6 +1639,8 @@ Public Class FrmG0010
                                     Return False
                                 End If
                             Next dr
+
+                            MessageBox.Show("処置依頼メールを送信しました。", "メール送信完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                             '全選択解除
                             Call FunUnSelectAll()
@@ -2489,10 +2533,12 @@ Public Class FrmG0010
 
     Private Sub CmbYOIN1_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbYOIN1.SelectedValueChanged
         If cmbYOIN1.SelectedIndex > 0 Then
+            btnSearchGENIN1.Enabled = True
             mtxGENIN1_DISP.Enabled = True
             btnClearGenin1.Enabled = True
             btnSelectGenin1.Enabled = True
         Else
+            btnSearchGENIN1.Enabled = False
             mtxGENIN1_DISP.Enabled = False
             btnClearGenin1.Enabled = False
             btnSelectGenin1.Enabled = False
@@ -2504,10 +2550,12 @@ Public Class FrmG0010
 
     Private Sub CmbYOIN2_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbYOIN2.SelectedValueChanged
         If cmbYOIN2.SelectedIndex > 0 Then
+            btnSearchGENIN2.Enabled = True
             mtxGENIN2_DISP.Enabled = True
             btnClearGenin2.Enabled = True
             btnSelectGenin2.Enabled = True
         Else
+            btnSearchGENIN2.Enabled = False
             mtxGENIN2_DISP.Enabled = False
             btnClearGenin2.Enabled = False
             btnSelectGenin2.Enabled = False
@@ -2830,6 +2878,8 @@ Public Class FrmG0010
         ParamModel.SYONIN_HOKOKUSYO_ID = 0
         Application.DoEvents()
     End Sub
+
+
 
 #End Region
 

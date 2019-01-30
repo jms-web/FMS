@@ -31,6 +31,6 @@ Imports System.Runtime.InteropServices
 ' すべての値を指定するか、下のように '*' を使ってビルドおよびリビジョン番号を 
 ' 既定値にすることができます:
 
-<Assembly: AssemblyVersion("0.9.19009.0120")>
-<Assembly: AssemblyFileVersion("0.9.19009.0120")>
+<Assembly: AssemblyVersion("0.9.19030.0326")>
+<Assembly: AssemblyFileVersion("0.9.19030.0326")>
 <Assembly: NeutralResourcesLanguage("")>

@@ -84,7 +84,7 @@ Public Class FrmG0019
             Next
 
             'ファンクションキー有効化初期化
-            Call FunInitFuncButtonEnabled()
+            If intFUNC <> 12 Then Call FunInitFuncButtonEnabled()
 
             '[アクティブ]
             Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE

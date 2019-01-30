@@ -176,6 +176,14 @@ Partial Public Class V002_NCR_J
     <ComponentModel.DisplayName("ŒÚ‹qÄR\¿“ú")>
     Public Property KOKYAKU_SAISIN_YMD As String
 
+    <StringLength(200)>
+    <ComponentModel.DisplayName("ŒÚ‹qÄR\¿“ú")>
+    Public Property KOKYAKU_SAISIN_FILEPATH1 As String
+
+    <StringLength(200)>
+    <ComponentModel.DisplayName("ŒÚ‹qÄR\¿“ú")>
+    Public Property KOKYAKU_SAISIN_FILEPATH2 As String
+
     <StringLength(1)>
     <ComponentModel.DisplayName("ŒÚ‹q”»’èŽwŽ¦‹æ•ª")>
     Public Property KOKYAKU_HANTEI_SIJI_KB As String
