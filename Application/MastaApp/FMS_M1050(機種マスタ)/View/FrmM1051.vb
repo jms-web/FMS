@@ -157,7 +157,7 @@ Public Class FrmM1051
 
                     sbSQL.Append($" {_M105.KISYU_ID} AS {NameOf(_M105.KISYU_ID)}")
                     sbSQL.Append($",'{_M105.BUMON_KB}' AS {NameOf(_M105.BUMON_KB)}")
-                    sbSQL.Append($",'{_M105.KISYU_NAME}' AS {NameOf(_M105.KISYU_NAME)}")
+                    sbSQL.Append($",'{_M105.KISYU_NAME.Trim}' AS {NameOf(_M105.KISYU_NAME)}")
                     sbSQL.Append($",'{_M105.ADD_YMDHNS}' AS {NameOf(_M105.ADD_YMDHNS)}")
                     sbSQL.Append($",{_M105.ADD_SYAIN_ID} AS {NameOf(_M105.ADD_SYAIN_ID)}")
                     sbSQL.Append($",'{_M105.UPD_YMDHNS}' AS {NameOf(_M105.UPD_YMDHNS)}")

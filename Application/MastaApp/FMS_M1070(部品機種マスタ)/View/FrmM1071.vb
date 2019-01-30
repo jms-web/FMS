@@ -152,7 +152,7 @@ Public Class FrmM1071
                     sbSQL.Append(" WHERE ")
                     sbSQL.Append("     BUMON_KB    = '" & _VWM107.BUMON_KB & "'")
                     sbSQL.Append(" AND TOKUI_ID    =  " & _VWM107.TOKUI_ID & " ")
-                    sbSQL.Append(" AND BUHIN_BANGO = '" & _VWM107.BUHIN_BANGO & "'")
+                    sbSQL.Append(" AND BUHIN_BANGO = '" & _VWM107.BUHIN_BANGO.Trim & "'")
                     sbSQL.Append(" AND KISYU_ID    =  " & Me.flxDATA.Rows(Me.flxDATA.RowSel).Item("KISYU_ID") & " ")
 
                     dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
@@ -177,7 +177,7 @@ Public Class FrmM1071
                     sbSQL.Append(") VALUES (")
                     sbSQL.Append(" '" & _VWM107.BUMON_KB & "'")
                     sbSQL.Append(", " & _VWM107.TOKUI_ID & " ")
-                    sbSQL.Append(",'" & _VWM107.BUHIN_BANGO & "'")
+                    sbSQL.Append(",'" & _VWM107.BUHIN_BANGO.Trim & "'")
                     sbSQL.Append(", " & Me.flxDATA.Rows(Me.flxDATA.RowSel).Item("KISYU_ID") & " ")
                     sbSQL.Append(",'" & strSysDate & "'")
                     sbSQL.Append(", " & pub_SYAIN_INFO.SYAIN_ID & " ")

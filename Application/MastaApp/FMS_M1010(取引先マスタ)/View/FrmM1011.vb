@@ -157,16 +157,16 @@ Public Class FrmM1011
                     sbSQL.Append($" USING (SELECT")
 
                     sbSQL.Append($" {_M101.TORI_ID} AS {NameOf(_M101.TORI_ID)}")
-                    sbSQL.Append($",'{_M101.TORI_NAME}' AS {NameOf(_M101.TORI_NAME)}")
+                    sbSQL.Append($",'{_M101.TORI_NAME.Trim}' AS {NameOf(_M101.TORI_NAME)}")
 
                     'UNDONE: すべてのフィールドを追加
                     sbSQL.Append($",'{_M101.TORI_KB}' AS {NameOf(_M101.TORI_KB)}")
-                    sbSQL.Append($",'{_M101.POST}' AS {NameOf(_M101.POST)}")
-                    sbSQL.Append($",'{_M101.ADD1}' AS {NameOf(_M101.ADD1)}")
-                    sbSQL.Append($",'{_M101.ADD2}' AS {NameOf(_M101.ADD2)}")
-                    sbSQL.Append($",'{_M101.ADD3}' AS {NameOf(_M101.ADD3)}")
-                    sbSQL.Append($",'{_M101.TEL}' AS {NameOf(_M101.TEL)}")
-                    sbSQL.Append($",'{_M101.FAX}' AS {NameOf(_M101.FAX)}")
+                    sbSQL.Append($",'{_M101.POST.Trim}' AS {NameOf(_M101.POST)}")
+                    sbSQL.Append($",'{_M101.ADD1.Trim}' AS {NameOf(_M101.ADD1)}")
+                    sbSQL.Append($",'{_M101.ADD2.Trim}' AS {NameOf(_M101.ADD2)}")
+                    sbSQL.Append($",'{_M101.ADD3.Trim}' AS {NameOf(_M101.ADD3)}")
+                    sbSQL.Append($",'{_M101.TEL.Trim}' AS {NameOf(_M101.TEL)}")
+                    sbSQL.Append($",'{_M101.FAX.Trim}' AS {NameOf(_M101.FAX)}")
 
                     sbSQL.Append($",'{_M101.ADD_YMDHNS}' AS {NameOf(_M101.ADD_YMDHNS)}")
                     sbSQL.Append($",{_M101.ADD_SYAIN_ID} AS {NameOf(_M101.ADD_SYAIN_ID)}")
