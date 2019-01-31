@@ -509,6 +509,13 @@ Public Class MaskedTextBoxEx
 
 #End Region
 
+#Region "Onvalidating"
+    Protected Overrides Sub OnValidating(e As CancelEventArgs)
+        Me.Text = Me.Text.Trim
+        MyBase.OnValidating(e)
+    End Sub
+#End Region
+
 #End Region
 
 #Region "ÉÅÉ\ÉbÉh"
