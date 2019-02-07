@@ -2743,7 +2743,7 @@ Public Class FrmG0010
 
 #End Region
 
-    Public Function FunGetDtST02_FUTEKIGO_ICHIRAN(ByVal ParamModel As ST02_ParamModel) As DataTable
+    Public Function FunGetDtST02_FUTEKIGO_ICHIRAN(ParamModel As ST02_ParamModel, Optional mode As Integer = ENM_OPEN_MODE._0_í èÌ) As DataTable
 
         Dim sbSQL As New System.Text.StringBuilder
         Dim sbParam As New System.Text.StringBuilder
@@ -2791,7 +2791,14 @@ Public Class FrmG0010
         sbParam.Append($",'{ParamModel.HASSEI_FROM}'")
         sbParam.Append($",'{ParamModel.HASSEI_TO}'")
 
-        sbSQL.Append($"EXEC dbo.{NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN)} {sbParam.ToString}")
+
+        Select Case mode
+            Case ENM_OPEN_MODE._3_ï™êÕèWåv
+                sbSQL.Append($"EXEC dbo.{NameOf(MODEL.ST03_FUTEKIGO_ICHIRAN_SUMMARY)} {sbParam.ToString}")
+            Case Else
+                sbSQL.Append($"EXEC dbo.{NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN)} {sbParam.ToString}")
+        End Select
+
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
         End Using

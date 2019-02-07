@@ -6425,9 +6425,15 @@ Public Class FrmG0011
                         Call CmbDestTANTO_Validating(cmbST04_DestTANTO, Nothing)
                         Call dtUPD_YMD_Validating(dtST04_UPD_YMD, Nothing)
 
-                        If chkST04_ZESEI_SYOCHI_YOHI_KB.Checked = True Then
+
+
+
+
+                        If rbtnST04_ZESEI_YES.Checked Then 'If chkST04_ZESEI_SYOCHI_YOHI_KB.Checked = True Then
                             Call CmbST04_CAR_TANTO_Validating(cmbST04_CAR_TANTO, Nothing)
                             Call CmbST04_HASSEI_KOTEI_GL_TANTO_Validating(cmbST04_HASSEI_KOTEI_GL_TANTO, Nothing)
+                        Else
+                            Call TxtST04_RIYU_Validating(txtST04_RIYU, Nothing)
                         End If
 
                     Case ENM_NCR_STAGE._50_éñëOêRç∏ämîF
