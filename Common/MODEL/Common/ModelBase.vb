@@ -33,7 +33,7 @@ Public Class ModelBase
                 Case GetType(Integer)
                     Me.Item(p.Name) = 0I
                 Case GetType(String)
-                    Me.Item(p.Name) = " "
+                    Me.Item(p.Name) = ""
                 Case Else
                     Me.Item(p.Name) = Nothing
             End Select
