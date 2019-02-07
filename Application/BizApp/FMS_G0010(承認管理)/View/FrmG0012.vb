@@ -115,6 +115,9 @@ Public Class FrmG0012
                             lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
                         End Using
 
+                        '--- モデルクリア
+                        _D004_SYONIN_J_KANRI.clear()
+
                         '-----コントロールデータソース設定
                         cmbKONPON_YOIN_KB1.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
                         cmbKONPON_YOIN_KB2.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
