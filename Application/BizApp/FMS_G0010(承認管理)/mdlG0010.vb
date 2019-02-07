@@ -334,6 +334,7 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "部門区分", tblBUMON, "DISP_ORDER < 10") '10以降は不適合SYSでは不要
                     Call FunGetCodeDataTable(DB, "機種", tblKISYU)
                     Call FunGetCodeDataTable(DB, "機種実績", tblKISYU_J)
+                    Call FunGetCodeDataTable(DB, "承認報告書ID", tblSYONIN_HOKOKUSYO_ID)
 
                     'Call FunGetCodeDataTable(DB, "不適合区分", tblFUTEKIGO_KB)
                     Call FunGetCodeDataTable(DB, "不適合状態区分", tblFUTEKIGO_STATUS_KB)

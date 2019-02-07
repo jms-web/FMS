@@ -116,6 +116,7 @@ Public Class FrmG0010
             cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbADD_TANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbKISYU.SetDataSource(tblKISYU_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbHOKOKUSYO_ID.SetDataSource(tblSYONIN_HOKOKUSYO_ID, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             'cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -220,9 +221,34 @@ Public Class FrmG0010
             End Using
             Select Case pub_intOPEN_MODE
                 Case ENM_OPEN_MODE._0_通常
+
+                    chkDispBUMON.Checked = True
+                    chkDispADD_TANTO.Checked = True
+                    chkDispKISYU.Checked = True
+                    chkDispBUHIN_BANGO.Checked = True
+                    chkDispHINMEI.Checked = True
+                    chkDispGOKI.Checked = True
+                    chkDispSYANAI_CD.Checked = True
+                    chkDispHASSEI_YMD.Checked = True
+                    chkDispFUTEKIGO_KB.Checked = True
+                    chkDispFUTEKIGO_S_KB.Checked = True
+                    chkDispFUTEKIGO_JYOTAI_KB.Checked = True
+
                     Me.cmdFunc7.PerformClick()
+
                 Case ENM_OPEN_MODE._1_新規作成
-                    'Me.cmdFunc2.PerformClick()
+
+                    chkDispBUMON.Checked = True
+                    chkDispADD_TANTO.Checked = True
+                    chkDispKISYU.Checked = True
+                    chkDispBUHIN_BANGO.Checked = True
+                    chkDispHINMEI.Checked = True
+                    chkDispGOKI.Checked = True
+                    chkDispSYANAI_CD.Checked = True
+                    chkDispHASSEI_YMD.Checked = True
+                    chkDispFUTEKIGO_KB.Checked = True
+                    chkDispFUTEKIGO_S_KB.Checked = True
+                    chkDispFUTEKIGO_JYOTAI_KB.Checked = True
 
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
                         Call FunSRCH(flxDATA, FunGetListData())
@@ -239,6 +265,8 @@ Public Class FrmG0010
                         lblTytle.Text = "不適合集計画面"
                     End Using
 
+                    lblHOKOKUSYO_ID.Visible = True
+                    cmbHOKOKUSYO_ID.Visible = True
 
                     chkDispHOKOKUSYO_ID.Visible = True
                     chkDispHOKOKUSYO_ID.Checked = True
@@ -2749,9 +2777,20 @@ Public Class FrmG0010
         Dim sbParam As New System.Text.StringBuilder
         Dim dsList As New DataSet
 
+
+        'SearchCondition
+        'IF  then ParamModel.BUMON_KB = ""
+
+
         '共通
         sbParam.Append($" '{ParamModel.BUMON_KB}'")
-        sbParam.Append($",{ParamModel.SYONIN_HOKOKUSYO_ID}")
+
+        If mode = ENM_OPEN_MODE._3_分析集計 Then
+            sbParam.Append($",{ParamModel.SYONIN_HOKOKUSYO_ID}")
+        Else
+            sbParam.Append($",{Nz(cmbHOKOKUSYO_ID.SelectedValue, 0)}")
+        End If
+
         sbParam.Append($",{Nz(cmbKISYU.SelectedValue, 0)}")
 
         If Not cmbBUHIN_BANGO.Text.IsNulOrWS And cmbBUHIN_BANGO.SelectedValue <> cmbBUHIN_BANGO.NullValue Then
@@ -2885,7 +2924,6 @@ Public Class FrmG0010
         ParamModel.SYONIN_HOKOKUSYO_ID = 0
         Application.DoEvents()
     End Sub
-
 
 
 #End Region
