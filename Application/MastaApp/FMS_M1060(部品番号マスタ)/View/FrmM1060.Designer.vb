@@ -40,6 +40,7 @@ Partial Class FrmM1060
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.VWM106BUHINBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -210,13 +211,12 @@ Partial Class FrmM1060
         Me.cmbBUMON_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbBUMON_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUMON_KB.FormattingEnabled = True
-        Me.cmbBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbBUMON_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Location = New System.Drawing.Point(79, 3)
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
-        Me.cmbBUMON_KB.ReadOnly = False
         Me.cmbBUMON_KB.Size = New System.Drawing.Size(117, 25)
         Me.cmbBUMON_KB.TabIndex = 59
         Me.cmbBUMON_KB.ValueMember = "VALUE"
@@ -254,13 +254,12 @@ Partial Class FrmM1060
         Me.cmbTOKUI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbTOKUI.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbTOKUI.FormattingEnabled = True
-        Me.cmbTOKUI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbTOKUI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbTOKUI.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbTOKUI.IsSelected = False
         Me.cmbTOKUI.Location = New System.Drawing.Point(341, 3)
         Me.cmbTOKUI.Name = "cmbTOKUI"
         Me.cmbTOKUI.NullValue = " "
-        Me.cmbTOKUI.ReadOnly = False
         Me.cmbTOKUI.Size = New System.Drawing.Size(242, 25)
         Me.cmbTOKUI.TabIndex = 103
         Me.cmbTOKUI.ValueMember = "VALUE"
@@ -280,12 +279,12 @@ Partial Class FrmM1060
         'mtxBUHIN_BANGO
         '
         Me.mtxBUHIN_BANGO.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxBUHIN_BANGO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxBUHIN_BANGO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxBUHIN_BANGO.InputRequired = False
         Me.mtxBUHIN_BANGO.Location = New System.Drawing.Point(79, 33)
         Me.mtxBUHIN_BANGO.MaxByteLength = 30
         Me.mtxBUHIN_BANGO.Name = "mtxBUHIN_BANGO"
+        Me.mtxBUHIN_BANGO.SelectAllText = False
         Me.mtxBUHIN_BANGO.Size = New System.Drawing.Size(190, 24)
         Me.mtxBUHIN_BANGO.TabIndex = 105
         Me.mtxBUHIN_BANGO.WatermarkColor = System.Drawing.Color.Empty
@@ -294,12 +293,12 @@ Partial Class FrmM1060
         'mtxBUHIN_NAME
         '
         Me.mtxBUHIN_NAME.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxBUHIN_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxBUHIN_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxBUHIN_NAME.InputRequired = False
         Me.mtxBUHIN_NAME.Location = New System.Drawing.Point(341, 33)
         Me.mtxBUHIN_NAME.MaxByteLength = 30
         Me.mtxBUHIN_NAME.Name = "mtxBUHIN_NAME"
+        Me.mtxBUHIN_NAME.SelectAllText = False
         Me.mtxBUHIN_NAME.Size = New System.Drawing.Size(242, 24)
         Me.mtxBUHIN_NAME.TabIndex = 58
         Me.mtxBUHIN_NAME.WatermarkColor = System.Drawing.Color.Empty
@@ -320,12 +319,12 @@ Partial Class FrmM1060
         'mtxSYANAI_CD
         '
         Me.mtxSYANAI_CD.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxSYANAI_CD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxSYANAI_CD.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxSYANAI_CD.InputRequired = False
         Me.mtxSYANAI_CD.Location = New System.Drawing.Point(676, 33)
         Me.mtxSYANAI_CD.MaxByteLength = 30
         Me.mtxSYANAI_CD.Name = "mtxSYANAI_CD"
+        Me.mtxSYANAI_CD.SelectAllText = False
         Me.mtxSYANAI_CD.Size = New System.Drawing.Size(165, 24)
         Me.mtxSYANAI_CD.TabIndex = 107
         Me.mtxSYANAI_CD.WatermarkColor = System.Drawing.Color.Empty
@@ -379,6 +378,7 @@ Partial Class FrmM1060
         Me.Controls.SetChildIndex(Me.gbxFilter, 0)
         Me.Controls.SetChildIndex(Me.flxDATA, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()
