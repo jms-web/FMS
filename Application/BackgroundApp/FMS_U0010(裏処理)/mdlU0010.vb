@@ -125,7 +125,6 @@ Module mdlU0010
         Dim strSmtpServer As String
         Dim intSmtpPort As Integer
         Dim strFromAddress As String
-        Dim ToAddressList As New List(Of String)
         Dim CCAddressList As New List(Of String)
         Dim BCCAddressList As New List(Of String)
         Dim strUserID As String
@@ -150,7 +149,9 @@ Module mdlU0010
             strFromAddress = FunGetCodeMastaValue(DB, "ƒ[ƒ‹İ’è", "FROM")
 
             For Each dr As DataRow In dt.Rows
+                Dim ToAddressList As New List(Of String)
                 Try
+
                     If dr.Item("DEL_YMDHNS").ToString.Trim <> "" Then
                         'íœÏ‚İ‚ÍœŠO
                         Continue For
