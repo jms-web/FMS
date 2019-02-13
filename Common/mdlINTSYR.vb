@@ -31,12 +31,9 @@ Module mdlINTSYR
     Public clrControlErrorBackColor As Color = Color.FromArgb(255, 255, 128)  'エラー時の背景色
 
 
-    'デバッグビルド時のみ詳細エラーメッセージ表示
-#If DEBUG = True Then
+    '詳細エラーを常に表示
     Public conblnNonMsg As Boolean = False
-#Else
-    Public conblnNonMsg As Boolean = True
-#End If
+
 
 
     ''' <summary>

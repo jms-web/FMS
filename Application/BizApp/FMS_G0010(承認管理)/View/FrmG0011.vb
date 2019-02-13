@@ -497,21 +497,51 @@ Public Class FrmG0011
             Else
                 Try
                     System.IO.Directory.CreateDirectory(strRootDir & _D003_NCR_J.HOKOKU_NO)
-                    If Not _D003_NCR_J.FILE_PATH.IsNulOrWS AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH) Then
-                        System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH, True)
-                    End If
-                    If Not _D003_NCR_J.G_FILE_PATH1.IsNulOrWS AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1) Then
-                        System.IO.File.Copy(lblPict1Path.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1, True)
-                    End If
-                    If Not _D003_NCR_J.G_FILE_PATH2.IsNulOrWS AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2) Then
-                        System.IO.File.Copy(lblPict2Path.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2, True)
-                    End If
 
-                    If Not _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1.IsNulOrWS AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1) Then
-                        System.IO.File.Copy(lblST08_tmpFile1.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1, True)
+                    If Not _D003_NCR_J.FILE_PATH.IsNulOrWS AndAlso
+                        Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH) Then
+
+                        If System.IO.File.Exists(lbltmpFile1.Links.Item(0).LinkData) Then
+                            System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH, True)
+                        Else
+                            Throw New IO.FileNotFoundException($"添付ファイル:{lbltmpFile1.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                        End If
                     End If
-                    If Not _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2.IsNulOrWS AndAlso Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2) Then
-                        System.IO.File.Copy(lblST08_tmpFile2.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2, True)
+                    If Not _D003_NCR_J.G_FILE_PATH1.IsNulOrWS AndAlso
+                        Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1) Then
+
+                        If System.IO.File.Exists(lblPict1Path.Links.Item(0).LinkData) Then
+                            System.IO.File.Copy(lblPict1Path.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1, True)
+                        Else
+                            Throw New IO.FileNotFoundException($"画像ファイル1:{lblPict1Path.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                        End If
+                    End If
+                    If Not _D003_NCR_J.G_FILE_PATH2.IsNulOrWS AndAlso
+                        Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2) Then
+
+                        If System.IO.File.Exists(lblPict2Path.Links.Item(0).LinkData) Then
+                            System.IO.File.Copy(lblPict2Path.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2, True)
+                        Else
+                            Throw New IO.FileNotFoundException($"画像ファイル2:{lblPict2Path.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                        End If
+                    End If
+                    If Not _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1.IsNulOrWS AndAlso
+                        Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1) Then
+
+                        If System.IO.File.Exists(lblST08_tmpFile1.Links.Item(0).LinkData) Then
+                            System.IO.File.Copy(lblST08_tmpFile1.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1, True)
+                        Else
+                            Throw New IO.FileNotFoundException($"顧客再審資料1:{lblST08_tmpFile1.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                        End If
+                    End If
+                    If Not _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2.IsNulOrWS AndAlso
+                        Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2) Then
+
+                        If System.IO.File.Exists(lblST08_tmpFile2.Links.Item(0).LinkData) Then
+                            System.IO.File.Copy(lblST08_tmpFile2.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2, True)
+                        Else
+                            Throw New IO.FileNotFoundException($"顧客再審資料2:{lblST08_tmpFile2.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                        End If
                     End If
 
                     Return True
@@ -4924,16 +4954,16 @@ Public Class FrmG0011
 
                     '抽出 判定
                     If cmb.IsSelected Then
-                        Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbBUHIN_BANGO.SelectedValue).FirstOrDefault
+                        Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmb.SelectedValue).FirstOrDefault
                         If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
                             _D003_NCR_J.SYANAI_CD = dr.Item("SYANAI_CD")
                             If dr.Item("BUHIN_NAME").ToString.IsNulOrWS = False Then _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
                         Else
-                            _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
+                            _D003_NCR_J.BUHIN_NAME = dr?.Item("BUHIN_NAME")
                         End If
 
                         RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-                        If dr.Item("KISYU_ID") <> 0 Then _D003_NCR_J.KISYU_ID = dr.Item("KISYU_ID")
+                        If dr?.Item("KISYU_ID") <> 0 Then _D003_NCR_J.KISYU_ID = dr?.Item("KISYU_ID")
                         AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
 
                         '再発チェック
