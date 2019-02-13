@@ -68,15 +68,19 @@ Public Class FrmG0015
             '-----各コントロールのデータソースを設定
             Dim drs As List(Of DataRow)
             If PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR And PrCurrentStage = ENM_CAR_STAGE._10_起草入力 Then
+
                 drs = FunGetSYOZOKU_SYAIN(PrBUMON_KB).AsEnumerable.
                         Where(Function(r) r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).
                         ToList
             Else
-                drs = FunGetSYONIN_SYOZOKU_SYAIN(PrBUMON_KB, PrSYONIN_HOKOKUSYO_ID, PrCurrentStage).AsEnumerable.
-                        Where(Function(r) r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).
-                        ToList
+                If PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR And PrCurrentStage = ENM_CAR_STAGE._80_処置実施記録入力 Then
+                    drs = FunGetSYONIN_SYOZOKU_SYAIN(PrBUMON_KB, PrSYONIN_HOKOKUSYO_ID, PrCurrentStage).AsEnumerable.ToList
+                Else
+                    drs = FunGetSYONIN_SYOZOKU_SYAIN(PrBUMON_KB, PrSYONIN_HOKOKUSYO_ID, PrCurrentStage).AsEnumerable.
+                            Where(Function(r) r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).
+                            ToList
+                End If
             End If
-
 
             If drs.Count > 0 Then
                 Dim tbl As DataTable = drs.CopyToDataTable
@@ -118,6 +122,7 @@ Public Class FrmG0015
                 Case 1  '追加
                     If FunCheckInput() Then
                         If FunSAVE() Then
+                            MessageBox.Show("転送しました", "不適合管理-転送", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             Me.DialogResult = Windows.Forms.DialogResult.OK
                             Me.Close()
                         End If
@@ -269,7 +274,12 @@ Public Class FrmG0015
                         Return False
                     End If
 
-                    If blnErr = False Then Call FunSendRequestMail()
+                    If blnErr = False Then
+                        '#146 自分自身への転送時はメール送信しない
+                        If pub_SYAIN_INFO.SYAIN_ID <> cmbTENSO_SAKI.SelectedValue Then
+                            Call FunSendRequestMail()
+                        End If
+                    End If
                 Finally
                     '-----トランザクション
                     DB.Commit(Not blnErr)
