@@ -129,7 +129,7 @@ Public Class ComboboxEx
     <Browsable(False)>
     Public Property IsSelected As Boolean
         Get
-            Return [ReadOnly] OrElse
+            Return ([ReadOnly]) OrElse
                     (DataSource IsNot Nothing AndAlso SelectedValue IsNot Nothing AndAlso SelectedValue <> NullValue)
         End Get
         Set(value As Boolean)
