@@ -524,7 +524,7 @@ Partial Class FrmG0012
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(74, 30)
         Me.Label6.TabIndex = 93
-        Me.Label6.Text = "ãNëêé“:"
+        Me.Label6.Text = "NCRãNëêé“:"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'mtxADD_SYAIN_NAME
@@ -759,7 +759,7 @@ Partial Class FrmG0012
         Me.lblMessage.AutoSize = True
         Me.lblMessage.Font = New System.Drawing.Font("Meiryo UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lblMessage.ForeColor = System.Drawing.Color.Red
-        Me.lblMessage.Location = New System.Drawing.Point(657, 607)
+        Me.lblMessage.Location = New System.Drawing.Point(658, 607)
         Me.lblMessage.Name = "lblMessage"
         Me.lblMessage.Size = New System.Drawing.Size(202, 20)
         Me.lblMessage.TabIndex = 259

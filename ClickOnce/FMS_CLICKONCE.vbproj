@@ -39,13 +39,13 @@
     <InstallUrl>http://172.16.11.7:8000/</InstallUrl>
     <ProductName>フジワラシステム</ProductName>
     <PublisherName>JMS</PublisherName>
-    <MinimumRequiredVersion>0.9.19044.840</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.9.19059.106</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>840</ApplicationRevision>
-    <ApplicationVersion>0.9.19044.840</ApplicationVersion>
+    <ApplicationRevision>106</ApplicationRevision>
+    <ApplicationVersion>0.9.19059.106</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

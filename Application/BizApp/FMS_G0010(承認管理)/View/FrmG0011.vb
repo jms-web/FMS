@@ -6460,9 +6460,11 @@ Public Class FrmG0011
 
 
                         If rbtnST04_ZESEI_YES.Checked Then 'If chkST04_ZESEI_SYOCHI_YOHI_KB.Checked = True Then
+                            _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = True
                             Call CmbST04_CAR_TANTO_Validating(cmbST04_CAR_TANTO, Nothing)
                             Call CmbST04_HASSEI_KOTEI_GL_TANTO_Validating(cmbST04_HASSEI_KOTEI_GL_TANTO, Nothing)
                         Else
+                            _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = False
                             Call TxtST04_RIYU_Validating(txtST04_RIYU, Nothing)
                         End If
 
