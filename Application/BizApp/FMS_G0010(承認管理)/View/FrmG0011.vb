@@ -634,6 +634,8 @@ Public Class FrmG0011
         '            Case ENM_SAVE_MODE._1_保存
         '            Case ENM_SAVE_MODE._2_承認申請
         Select Case PrCurrentStage
+            Case ENM_NCR_STAGE._10_起草入力
+                _D003_NCR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
                 If _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = 0 Then _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
                 _D003_NCR_J.JIZEN_SINSA_YMD = _D004_SYONIN_J_KANRI.SYONIN_YMD'Now.ToString("yyyyMMdd")
@@ -6035,6 +6037,7 @@ Public Class FrmG0011
         'FUTEKIGO_S_KBはFUTEKIGO_KB変更時にバインド
         mtxZUBAN_KIKAKU.DataBindings.Add(New Binding(NameOf(mtxZUBAN_KIKAKU.Text), _D003_NCR_J, NameOf(_D003_NCR_J.ZUMEN_KIKAKU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         dtHASSEI_YMD.DataBindings.Add(New Binding(NameOf(dtHASSEI_YMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.HASSEI_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
 
         '添付資料
         lbltmpFile1.DataBindings.Add(New Binding(NameOf(lbltmpFile1.Tag), _D003_NCR_J, NameOf(_D003_NCR_J.FILE_PATH), False, DataSourceUpdateMode.OnPropertyChanged, ""))

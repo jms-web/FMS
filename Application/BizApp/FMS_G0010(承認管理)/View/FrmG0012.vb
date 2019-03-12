@@ -412,6 +412,8 @@ Public Class FrmG0012
         'モデル更新
 
         Select Case PrCurrentStage
+            Case ENM_CAR_STAGE._10_起草入力
+                _D005_CAR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             Case ENM_CAR_STAGE._130_是正有効性確認_品証担当課長 And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請
                 _D005_CAR_J._CLOSE_FG = 1
             Case Else
@@ -2716,6 +2718,7 @@ Public Class FrmG0012
             mtxHOKUKO_NO.Text = _V002_NCR_J.HOKOKU_NO
             mtxKISYU.Text = _V002_NCR_J.KISYU_NAME
             mtxADD_SYAIN_NAME.Text = _V005_CAR_J.ADD_SYAIN_NAME
+            mtxADD_SYAIN_NAME_NCR.Text = _V002_NCR_J.ADD_SYAIN_NAME
             mtxFUTEKIGO_KB.Text = _V002_NCR_J.FUTEKIGO_NAME
             mtxFUTEKIGO_S_KB.Text = _V002_NCR_J.FUTEKIGO_S_NAME
             mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO)
@@ -2832,8 +2835,10 @@ Public Class FrmG0012
 
                 Dim dtSYONIN_YMD As Date
                 If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
+                    '_D004_SYONIN_J_KANRI.SYONIN_YMDHNS = _V003.SYONIN_YMDHNS
                     dtUPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
                 Else
+                    '_D004_SYONIN_J_KANRI.SYONIN_YMDHNS = Now.ToString("yyyyMMddHHmmss")
                     dtUPD_YMD.Text = Now.ToString("yyyy/MM/dd")
                 End If
             End If
@@ -3035,6 +3040,8 @@ Public Class FrmG0012
             _D005_CAR_J.SYOSAI_FILE_PATH = _V005_CAR_J.SYOSAI_FILE_PATH
             _D005_CAR_J.FILE_PATH1 = _V005_CAR_J.FILE_PATH1
             _D005_CAR_J.FILE_PATH2 = _V005_CAR_J.FILE_PATH2
+            _D005_CAR_J.SYOCHI_YOTEI_YMD = _V005_CAR_J.SYOCHI_YOTEI_YMD
+
 
             '添付ファイル
             Dim strRootDir As String

@@ -594,6 +594,7 @@ Module mdlG0010
                 _model.SETUMON_21 = .Item(NameOf(_model.SETUMON_21)) .ToString.Trim
                 _model.SETUMON_22 = .Item(NameOf(_model.SETUMON_22)).ToString.Trim
                 _model.SETUMON_23 = .Item(NameOf(_model.SETUMON_23)).ToString.Trim
+                _model.SETUMON_24 = .Item(NameOf(_model.SETUMON_24)).ToString.Trim
 
                 _model.KAITO_1 = .Item(NameOf(_model.KAITO_1)).ToString.Trim
                 _model.KAITO_2 = .Item(NameOf(_model.KAITO_2)).ToString.Trim
@@ -683,6 +684,7 @@ Module mdlG0010
                 _model.SYONIN_YMD130 = .Item(NameOf(_model.SYONIN_YMD130))
 
                 _model.FUTEKIGO_HASSEI_YMD = .Item(NameOf(_model.FUTEKIGO_HASSEI_YMD))
+                _model.SYOCHI_YOTEI_YMD = .Item(NameOf(_model.SYOCHI_YOTEI_YMD))
             End With
 
             Return _model
@@ -1516,7 +1518,7 @@ Module mdlG0010
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_C_SYAIN_NAME)).Value = _V005_CAR_J.SYOCHI_C_SYAIN_NAME
             If Not _V005_CAR_J.SYOCHI_C_YMDHNS.IsNulOrWS Then
-                spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_C_YMDHNS)).Value = DateTime.ParseExact(_V005_CAR_J.SYOCHI_B_YMDHNS.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_V005_CAR_J.SYOCHI_C_YMDHNS)).Value = DateTime.ParseExact(_V005_CAR_J.SYOCHI_C_YMDHNS.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
 
             spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME10)).Value = _V005_CAR_J.SYONIN_NAME10
