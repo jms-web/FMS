@@ -51,6 +51,7 @@ Partial Class FrmM1061
         Me.mtxHINSYU_BANGO = New JMS_COMMON.MaskedTextBoxEx()
         Me.ColorDialog1 = New System.Windows.Forms.ColorDialog()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
@@ -151,10 +152,6 @@ Partial Class FrmM1061
         'ToolTip
         '
         Me.ToolTip.InitialDelay = 700
-        '
-        'ErrorProvider
-        '
-        Me.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         '
         'GroupBox1
         '
@@ -318,12 +315,12 @@ Partial Class FrmM1061
         'mtxBUHIN_BANGO
         '
         Me.mtxBUHIN_BANGO.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxBUHIN_BANGO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxBUHIN_BANGO.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxBUHIN_BANGO.InputRequired = False
         Me.mtxBUHIN_BANGO.Location = New System.Drawing.Point(103, 33)
         Me.mtxBUHIN_BANGO.MaxByteLength = 60
         Me.mtxBUHIN_BANGO.Name = "mtxBUHIN_BANGO"
+        Me.mtxBUHIN_BANGO.SelectAllText = False
         Me.mtxBUHIN_BANGO.Size = New System.Drawing.Size(184, 23)
         Me.mtxBUHIN_BANGO.TabIndex = 70
         Me.mtxBUHIN_BANGO.WatermarkColor = System.Drawing.Color.Empty
@@ -337,12 +334,12 @@ Partial Class FrmM1061
         Me.cmbTOKUI_ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbTOKUI_ID.FormattingEnabled = True
         Me.cmbTOKUI_ID.GotFocusedColor = System.Drawing.Color.Empty
+        Me.cmbTOKUI_ID.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbTOKUI_ID.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbTOKUI_ID.IsSelected = False
         Me.cmbTOKUI_ID.Location = New System.Drawing.Point(382, 3)
         Me.cmbTOKUI_ID.Name = "cmbTOKUI_ID"
         Me.cmbTOKUI_ID.NullValue = " "
-        Me.cmbTOKUI_ID.ReadOnly = False
-        Me.cmbTOKUI_ID.IsSelected = False
         Me.cmbTOKUI_ID.Size = New System.Drawing.Size(243, 23)
         Me.cmbTOKUI_ID.TabIndex = 68
         Me.cmbTOKUI_ID.ValueMember = "VALUE"
@@ -350,12 +347,12 @@ Partial Class FrmM1061
         'mtxBUHIN_NAME
         '
         Me.mtxBUHIN_NAME.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxBUHIN_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxBUHIN_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxBUHIN_NAME.InputRequired = False
         Me.mtxBUHIN_NAME.Location = New System.Drawing.Point(382, 33)
         Me.mtxBUHIN_NAME.MaxByteLength = 80
         Me.mtxBUHIN_NAME.Name = "mtxBUHIN_NAME"
+        Me.mtxBUHIN_NAME.SelectAllText = False
         Me.mtxBUHIN_NAME.Size = New System.Drawing.Size(243, 23)
         Me.mtxBUHIN_NAME.TabIndex = 72
         Me.mtxBUHIN_NAME.WatermarkColor = System.Drawing.Color.Empty
@@ -374,12 +371,12 @@ Partial Class FrmM1061
         'mtxSYANAI_CD
         '
         Me.mtxSYANAI_CD.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxSYANAI_CD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxSYANAI_CD.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxSYANAI_CD.InputRequired = False
         Me.mtxSYANAI_CD.Location = New System.Drawing.Point(714, 33)
         Me.mtxSYANAI_CD.MaxByteLength = 10
         Me.mtxSYANAI_CD.Name = "mtxSYANAI_CD"
+        Me.mtxSYANAI_CD.SelectAllText = False
         Me.mtxSYANAI_CD.Size = New System.Drawing.Size(145, 23)
         Me.mtxSYANAI_CD.TabIndex = 74
         Me.mtxSYANAI_CD.WatermarkColor = System.Drawing.Color.Empty
@@ -415,12 +412,12 @@ Partial Class FrmM1061
         Me.cmbBUMON_KB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbBUMON_KB.FormattingEnabled = True
         Me.cmbBUMON_KB.GotFocusedColor = System.Drawing.Color.Empty
+        Me.cmbBUMON_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Location = New System.Drawing.Point(103, 3)
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
-        Me.cmbBUMON_KB.ReadOnly = False
-        Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Size = New System.Drawing.Size(126, 23)
         Me.cmbBUMON_KB.TabIndex = 49
         Me.cmbBUMON_KB.ValueMember = "VALUE"
@@ -443,12 +440,12 @@ Partial Class FrmM1061
         Me.cmbKEIYAKU_KB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbKEIYAKU_KB.FormattingEnabled = True
         Me.cmbKEIYAKU_KB.GotFocusedColor = System.Drawing.Color.Empty
+        Me.cmbKEIYAKU_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbKEIYAKU_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbKEIYAKU_KB.IsSelected = False
         Me.cmbKEIYAKU_KB.Location = New System.Drawing.Point(103, 63)
         Me.cmbKEIYAKU_KB.Name = "cmbKEIYAKU_KB"
         Me.cmbKEIYAKU_KB.NullValue = " "
-        Me.cmbKEIYAKU_KB.ReadOnly = False
-        Me.cmbKEIYAKU_KB.IsSelected = False
         Me.cmbKEIYAKU_KB.Size = New System.Drawing.Size(126, 23)
         Me.cmbKEIYAKU_KB.TabIndex = 77
         Me.cmbKEIYAKU_KB.ValueMember = "VALUE"
@@ -461,12 +458,12 @@ Partial Class FrmM1061
         Me.cmbRIKUKAIKU_KB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbRIKUKAIKU_KB.FormattingEnabled = True
         Me.cmbRIKUKAIKU_KB.GotFocusedColor = System.Drawing.Color.Empty
+        Me.cmbRIKUKAIKU_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbRIKUKAIKU_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbRIKUKAIKU_KB.IsSelected = False
         Me.cmbRIKUKAIKU_KB.Location = New System.Drawing.Point(382, 63)
         Me.cmbRIKUKAIKU_KB.Name = "cmbRIKUKAIKU_KB"
         Me.cmbRIKUKAIKU_KB.NullValue = " "
-        Me.cmbRIKUKAIKU_KB.ReadOnly = False
-        Me.cmbRIKUKAIKU_KB.IsSelected = False
         Me.cmbRIKUKAIKU_KB.Size = New System.Drawing.Size(102, 23)
         Me.cmbRIKUKAIKU_KB.TabIndex = 78
         Me.cmbRIKUKAIKU_KB.ValueMember = "VALUE"
@@ -474,12 +471,12 @@ Partial Class FrmM1061
         'mtxTANKA
         '
         Me.mtxTANKA.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxTANKA.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxTANKA.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxTANKA.InputRequired = False
         Me.mtxTANKA.Location = New System.Drawing.Point(103, 89)
         Me.mtxTANKA.MaxByteLength = 60
         Me.mtxTANKA.Name = "mtxTANKA"
+        Me.mtxTANKA.SelectAllText = False
         Me.mtxTANKA.Size = New System.Drawing.Size(114, 23)
         Me.mtxTANKA.TabIndex = 51
         Me.mtxTANKA.WatermarkColor = System.Drawing.Color.Empty
@@ -517,6 +514,7 @@ Partial Class FrmM1061
         Me.Label10.TabIndex = 82
         Me.Label10.Text = "色コード:"
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label10.Visible = False
         '
         'lblSELECTED_COLOR
         '
@@ -531,6 +529,7 @@ Partial Class FrmM1061
         Me.lblSELECTED_COLOR.TabIndex = 84
         Me.lblSELECTED_COLOR.Text = "選択された色"
         Me.lblSELECTED_COLOR.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblSELECTED_COLOR.Visible = False
         '
         'btnCOLOR_SELECT
         '
@@ -540,16 +539,17 @@ Partial Class FrmM1061
         Me.btnCOLOR_SELECT.TabIndex = 83
         Me.btnCOLOR_SELECT.Text = "色選択"
         Me.btnCOLOR_SELECT.UseVisualStyleBackColor = True
+        Me.btnCOLOR_SELECT.Visible = False
         '
         'mtxZUBAN_C
         '
         Me.mtxZUBAN_C.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxZUBAN_C.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxZUBAN_C.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxZUBAN_C.InputRequired = False
         Me.mtxZUBAN_C.Location = New System.Drawing.Point(714, 63)
         Me.mtxZUBAN_C.MaxByteLength = 20
         Me.mtxZUBAN_C.Name = "mtxZUBAN_C"
+        Me.mtxZUBAN_C.SelectAllText = False
         Me.mtxZUBAN_C.Size = New System.Drawing.Size(145, 23)
         Me.mtxZUBAN_C.TabIndex = 85
         Me.mtxZUBAN_C.WatermarkColor = System.Drawing.Color.Empty
@@ -569,12 +569,12 @@ Partial Class FrmM1061
         'mtxHINSYU_BANGO
         '
         Me.mtxHINSYU_BANGO.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxHINSYU_BANGO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxHINSYU_BANGO.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxHINSYU_BANGO.InputRequired = False
         Me.mtxHINSYU_BANGO.Location = New System.Drawing.Point(1027, 63)
         Me.mtxHINSYU_BANGO.MaxByteLength = 20
         Me.mtxHINSYU_BANGO.Name = "mtxHINSYU_BANGO"
+        Me.mtxHINSYU_BANGO.SelectAllText = False
         Me.mtxHINSYU_BANGO.Size = New System.Drawing.Size(160, 23)
         Me.mtxHINSYU_BANGO.TabIndex = 87
         Me.mtxHINSYU_BANGO.WatermarkColor = System.Drawing.Color.Empty
@@ -606,6 +606,7 @@ Partial Class FrmM1061
         Me.Controls.SetChildIndex(Me.cmdFunc1, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()

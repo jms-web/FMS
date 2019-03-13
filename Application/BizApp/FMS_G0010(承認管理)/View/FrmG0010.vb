@@ -1,6 +1,8 @@
+Imports System.ComponentModel
 Imports System.Threading.Tasks
 Imports C1.Win.C1FlexGrid
 Imports JMS_COMMON.ClsPubMethod
+Imports MODEL
 
 'Imports Spire.Xls
 'Imports Spire.Pdf
@@ -14,7 +16,7 @@ Public Class FrmG0010
 #Region "定数・変数"
 
     Private ParamModel As New ST02_ParamModel
-
+    Private IsValidated As Boolean = True
 #End Region
 
 #Region "プロパティ"
@@ -116,7 +118,8 @@ Public Class FrmG0010
             cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbADD_TANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbKISYU.SetDataSource(tblKISYU_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbHOKOKUSYO_ID.SetDataSource(tblSYONIN_HOKOKUSYO_ID, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbHOKOKUSYO_ID.NullValue = 0
+            cmbHOKOKUSYO_ID.SetDataSource(tblSYONIN_HOKOKUSYO_ID, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             'cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -234,6 +237,18 @@ Public Class FrmG0010
                     chkDispFUTEKIGO_S_KB.Checked = True
                     chkDispFUTEKIGO_JYOTAI_KB.Checked = True
 
+                    chkDispJIZEN_SINSA_HANTEI_KB.Checked = True
+                    chkDispSAISIN_IINKAI_HANTEI_KB.Checked = True
+                    chkDispKOKYAKU_SAISYU_HANTEI_KB.Checked = True
+                    chkDispZESEI_SYOCHI_YOHI_KB.Checked = True
+                    chkDispKOKYAKU_HANTEI_SIJI_KB.Checked = True
+                    chkDispKENSA_KEKKA_KB.Checked = True
+                    chkDispYOIN1.Checked = True
+                    chkDispYOIN2.Checked = True
+                    chkDispKISEKI_KOTEI_KB.Checked = True
+                    chkDispGENIN1.Checked = True
+                    chkDispGENIN2.Checked = True
+
                     Me.cmdFunc7.PerformClick()
 
                 Case ENM_OPEN_MODE._1_新規作成
@@ -250,6 +265,18 @@ Public Class FrmG0010
                     chkDispFUTEKIGO_S_KB.Checked = True
                     chkDispFUTEKIGO_JYOTAI_KB.Checked = True
 
+                    chkDispJIZEN_SINSA_HANTEI_KB.Checked = True
+                    chkDispSAISIN_IINKAI_HANTEI_KB.Checked = True
+                    chkDispKOKYAKU_SAISYU_HANTEI_KB.Checked = True
+                    chkDispZESEI_SYOCHI_YOHI_KB.Checked = True
+                    chkDispKOKYAKU_HANTEI_SIJI_KB.Checked = True
+                    chkDispKENSA_KEKKA_KB.Checked = True
+                    chkDispYOIN1.Checked = True
+                    chkDispYOIN2.Checked = True
+                    chkDispKISEKI_KOTEI_KB.Checked = True
+                    chkDispGENIN1.Checked = True
+                    chkDispGENIN2.Checked = True
+
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
                         Call FunSRCH(flxDATA, FunGetListData())
                     End If
@@ -264,6 +291,14 @@ Public Class FrmG0010
                     Using DB As ClsDbUtility = DBOpen()
                         lblTytle.Text = "不適合集計画面"
                     End Using
+
+                    cmdFunc2.Text = ""
+                    cmdFunc4.Text = ""
+                    cmdFunc5.Text = ""
+                    cmdFunc9.Enabled = False
+                    cmdFunc9.Text = ""
+                    cmdFunc10.Text = ""
+                    cmdFunc11.Text = ""
 
                     lblHOKOKUSYO_ID.Visible = True
                     cmbHOKOKUSYO_ID.Visible = True
@@ -292,6 +327,18 @@ Public Class FrmG0010
                     lblJisi.Visible = False
                     dtJisiTo.Visible = False
 
+                    chkDispJIZEN_SINSA_HANTEI_KB.Visible = True
+                    chkDispSAISIN_IINKAI_HANTEI_KB.Visible = True
+                    chkDispKOKYAKU_SAISYU_HANTEI_KB.Visible = True
+                    chkDispZESEI_SYOCHI_YOHI_KB.Visible = True
+                    chkDispKOKYAKU_HANTEI_SIJI_KB.Visible = True
+                    chkDispKENSA_KEKKA_KB.Visible = True
+                    chkDispYOIN1.Visible = True
+                    chkDispYOIN2.Visible = True
+                    chkDispKISEKI_KOTEI_KB.Visible = True
+                    chkDispGENIN1.Visible = True
+                    chkDispGENIN2.Visible = True
+
                     chkDispADD_TANTO.Visible = True
                     chkDeleteRowVisibled.Visible = False
                     chkClosedRowVisibled.Checked = True
@@ -301,12 +348,34 @@ Public Class FrmG0010
                     dgvCAR.Visible = False
                     dgvNCR.Visible = False
 
+
+                    cmbKISYU.Enabled = False
+                    mtxGOKI.Enabled = False
+                    cmbFUTEKIGO_KB.Enabled = False
+                    cmbBUHIN_BANGO.Enabled = False
+                    cmbSYANAI_CD.Enabled = False
+                    cmbFUTEKIGO_JYOTAI_KB.Enabled = False
+                    cmbFUTEKIGO_S_KB.Enabled = False
+                    cmbBUMON.Enabled = False
+                    mtxHINMEI.Enabled = False
+                    dtHASSEI_YMD_FROM.Enabled = False
+                    dtHASSEI_YMD_TO.Enabled = False
+                    cmbJIZEN_SINSA_HANTEI_KB.Enabled = False
+                    cmbSAISIN_IINKAI_HANTEI_KB.Enabled = False
+                    cmbKOKYAKU_SAISYU_HANTEI_KB.Enabled = False
+                    cmbZESEI_SYOCHI_YOHI_KB.Enabled = False
+                    cmbKOKYAKU_HANTEI_SIJI_KB.Enabled = False
+                    cmbKENSA_KEKKA_KB.Enabled = False
+                    cmbYOIN1.Enabled = False
+                    cmbYOIN2.Enabled = False
+                    cmbKISEKI_KOTEI_KB.Enabled = False
+                    chkDispGENIN1.Checked = False
+                    chkDispGENIN2.Checked = False
+                    cmbADD_TANTO.Enabled = False
+
                 Case Else
                     Me.cmdFunc1.PerformClick()
             End Select
-
-
-
 
             'ファンクションボタンステータス更新
             Call FunInitFuncButtonEnabled()
@@ -407,33 +476,85 @@ Public Class FrmG0010
     Private Function FunSetGridCellFormat(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
 
         Try
-            Dim delStyle As C1.Win.C1FlexGrid.CellStyle = flx.Styles("delStyle")
 
-            For Each r As C1.Win.C1FlexGrid.Row In flx.Rows
-                If r.Index > 0 Then
 
-                    'Closed
-                    If Val(r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.CLOSE_FG))) > 0 Or r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)) <> "" Then
-                        r.Style = flx.Styles("DeletedRow")
-                    Else
-                        r.Style = Nothing
+            If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SELECTED)).Visible = False
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.HOKOKU_NO)).Visible = False
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYONIN_HOKOKUSYO_R_NAME)).Visible = True
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYONIN_NAIYO)).Visible = False
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.GEN_TANTO_NAME)).Visible = False
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.TAIRYU_NISSU)).Visible = False
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.JIZEN_SINSA_HANTEI_NAME)).Visible = False
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SAISIN_IINKAI_HANTEI_NAME)).Visible = False
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYOCHI_YOTEI_YMD)).Visible = False
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SASIMOTO_SYONIN_NAIYO)).Visible = False
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.RIYU)).Visible = False
+
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.KISYU_NAME)).Visible = chkDispKISYU.Checked
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.GOKI)).Visible = chkDispGOKI.Checked
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.FUTEKIGO_NAME)).Visible = chkDispFUTEKIGO_KB.Checked
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.BUHIN_BANGO)).Visible = chkDispBUHIN_BANGO.Checked
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYANAI_CD)).Visible = chkDispSYANAI_CD.Checked
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.FUTEKIGO_JYOTAI_NAME)).Visible = chkDispFUTEKIGO_JYOTAI_KB.Checked
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.FUTEKIGO_S_NAME)).Visible = chkDispFUTEKIGO_S_KB.Checked
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.BUMON_NAME)).Visible = chkDispBUMON.Checked
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.BUHIN_NAME)).Visible = chkDispHINMEI.Checked
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.HASSEI_YMD)).Visible = chkDispHASSEI_YMD.Checked
+
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SURYO)).Visible = True
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.KISO_KENSU)).Visible = True
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYOCHI_KENSU)).Visible = True
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYOCHI_ZANSU)).Visible = True
+            Else
+
+                Dim delStyle As C1.Win.C1FlexGrid.CellStyle = flx.Styles("delStyle")
+
+                For Each r As C1.Win.C1FlexGrid.Row In flx.Rows
+                    If r.Index > 0 Then
+
+                        'Closed
+                        If Val(r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.CLOSE_FG))) > 0 Or r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)) <> "" Then
+                            r.Style = flx.Styles("DeletedRow")
+                        Else
+                            r.Style = Nothing
+                        End If
+
+                        ''Deleted
+                        'If r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)) <> "" Then
+                        '    r.Style = flx.Styles("DeletedRow")
+                        'Else
+                        '    r.Style = Nothing
+                        'End If
+
+                        ''滞留
+                        If r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.TAIRYU_FG)) = 1 Then
+                            flx.SetCellStyle(r.Index, NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.TAIRYU_NISSU), delStyle)
+                        Else
+                            flx.SetCellStyle(r.Index, NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.TAIRYU_NISSU), Nothing)
+                        End If
                     End If
+                Next
 
-                    ''Deleted
-                    'If r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)) <> "" Then
-                    '    r.Style = flx.Styles("DeletedRow")
-                    'Else
-                    '    r.Style = Nothing
-                    'End If
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SELECTED)).Visible = True
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.HOKOKU_NO)).Visible = True
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYONIN_HOKOKUSYO_R_NAME)).Visible = True
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.BUMON_NAME)).Visible = True
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYONIN_NAIYO)).Visible = True
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.GEN_TANTO_NAME)).Visible = True
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.TAIRYU_NISSU)).Visible = True
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.JIZEN_SINSA_HANTEI_NAME)).Visible = True
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SAISIN_IINKAI_HANTEI_NAME)).Visible = True
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYOCHI_YOTEI_YMD)).Visible = True
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SASIMOTO_SYONIN_NAIYO)).Visible = True
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.RIYU)).Visible = True
 
-                    ''滞留
-                    If r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.TAIRYU_FG)) = 1 Then
-                        flx.SetCellStyle(r.Index, NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.TAIRYU_NISSU), delStyle)
-                    Else
-                        flx.SetCellStyle(r.Index, NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.TAIRYU_NISSU), Nothing)
-                    End If
-                End If
-            Next
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SURYO)).Visible = False
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.KISO_KENSU)).Visible = False
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYOCHI_KENSU)).Visible = False
+                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYOCHI_ZANSU)).Visible = False
+            End If
+
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
@@ -971,6 +1092,12 @@ Public Class FrmG0010
             'ボタンINDEX毎の処理
             Select Case intFUNC
                 Case 1  '検索
+                    IsValidated = True
+                    Call CmbHOKOKUSYO_ID_Validating(cmbHOKOKUSYO_ID, Nothing)
+                    If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 AndAlso IsValidated = False Then
+                        Exit Sub
+                    End If
+
                     Call FunSRCH(flxDATA, FunGetListData())
                 Case 2  '追加
 
@@ -1012,7 +1139,14 @@ Public Class FrmG0010
                     Call SetStageList()
 
                 Case 8 'CSV出力
-                    Dim strFileName As String = $"{pub_APP_INFO.strTitle}_{DateTime.Now:yyyyMMddHHmmss}.CSV"
+                    Dim strFileName As String
+
+                    If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
+                        strFileName = $"不適合集計_{DateTime.Now:yyyyMMddHHmmss}.CSV"
+                    Else
+                        strFileName = $"{pub_APP_INFO.strTitle}_{DateTime.Now:yyyyMMddHHmmss}.CSV"
+                    End If
+
                     Call FunCSV_OUT(flxDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
                 Case 9 'メール送信
@@ -1060,7 +1194,7 @@ Public Class FrmG0010
 
             'SPEC: PF01.2-(1) A 検索条件
 
-            Dim dtBUFF As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(ParamModel)
+            Dim dtBUFF As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(ParamModel, pub_intOPEN_MODE)
             If dtBUFF Is Nothing Then Return Nothing
             If dtBUFF.Rows.Count > pub_APP_INFO.intSEARCHMAX Then
                 If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
@@ -1068,44 +1202,55 @@ Public Class FrmG0010
                 End If
             End If
 
-            'UNDONE: 削除済み表示切替 可能ならストアドパラメータに条件設定を移行したい
-            If chkDeleteRowVisibled.Checked Then
+            '------DataTableに変換
+            Dim t As Type
+            If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
+                t = GetType(MODEL.ST03_FUTEKIGO_ICHIRAN_SUMMARY)
             Else
-                Dim drs As List(Of DataRow) = dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of String)("DEL_YMDHNS").IsNulOrWS).ToList
-                If drs.Count > 0 Then
-                    dtBUFF = drs.CopyToDataTable
+                t = GetType(MODEL.ST02_FUTEKIGO_ICHIRAN)
+
+                'UNDONE: 削除済み表示切替 可能ならストアドパラメータに条件設定を移行したい
+                If chkDeleteRowVisibled.Checked Then
                 Else
-                    Return Nothing
+                    Dim drs As List(Of DataRow) = dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of String)("DEL_YMDHNS").IsNulOrWS).ToList
+                    If drs.Count > 0 Then
+                        dtBUFF = drs.CopyToDataTable
+                    Else
+                        Return Nothing
+                    End If
                 End If
+
+                'ステージ検索条件
+                Dim dtWK = dtBUFF.AsEnumerable.Take(0)
+                Dim NCR_Filter = DirectCast(Me.dgvNCR.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Boolean)("SELECTED") = True).ToList
+                For Each row In NCR_Filter
+                    dtWK = dtWK.AsEnumerable.
+                            Union(dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR And
+                                                                        r.Field(Of Integer)("SYONIN_JUN") = row.Item("SYONIN_JUN")))
+                Next row
+                Dim CAR_Filter = DirectCast(Me.dgvCAR.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Boolean)("SELECTED") = True).ToList
+                For Each row In CAR_Filter
+                    dtWK = dtWK.AsEnumerable.
+                     Union(dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR And
+                                                                 r.Field(Of Integer)("SYONIN_JUN") = row.Item("SYONIN_JUN")))
+                Next row
+
+                If dtWK.Count > 0 Then dtBUFF = dtWK.CopyToDataTable
             End If
 
-            'CHECK LINQ OR条件サンプル
-
-            'ステージ検索条件
-            Dim dtWK = dtBUFF.AsEnumerable.Take(0)
-            Dim NCR_Filter = DirectCast(Me.dgvNCR.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Boolean)("SELECTED") = True).ToList
-            For Each row In NCR_Filter
-                dtWK = dtWK.AsEnumerable.
-                        Union(dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR And
-                                                                    r.Field(Of Integer)("SYONIN_JUN") = row.Item("SYONIN_JUN")))
-            Next row
-            Dim CAR_Filter = DirectCast(Me.dgvCAR.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Boolean)("SELECTED") = True).ToList
-            For Each row In CAR_Filter
-                dtWK = dtWK.AsEnumerable.
-                 Union(dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR And
-                                                             r.Field(Of Integer)("SYONIN_JUN") = row.Item("SYONIN_JUN")))
-            Next row
-
-            If dtWK.Count > 0 Then dtBUFF = dtWK.CopyToDataTable
-
-            '------DataTableに変換
-            Dim tplDataModel = FunGetTableFromModel(GetType(MODEL.ST02_FUTEKIGO_ICHIRAN))
+            Dim tplDataModel = FunGetTableFromModel(t)
 
             With dtBUFF
                 For Each row As DataRow In .Rows
                     Dim Trow As DataRow = tplDataModel.dt.NewRow()
                     For Each p As Reflection.PropertyInfo In tplDataModel.properties
-                        If IsAutoGenerateField(GetType(MODEL.ST02_FUTEKIGO_ICHIRAN), p.Name) = True Then
+                        If IsAutoGenerateField(t, p.Name) = True Then
+
+                            If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 And row.Table.Columns.Contains(p.Name) = False Then
+                                '非表示列スキップ
+                                Continue For
+                            End If
+
                             Select Case p.PropertyType
                                 Case GetType(Integer)
                                     Trow(p.Name) = Val(row.Item(p.Name))
@@ -1174,11 +1319,7 @@ Public Class FrmG0010
                 End If
             End If
 
-            If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
-                Return FunGetGroupingData(tplDataModel.dt)
-            Else
-                Return tplDataModel.dt
-            End If
+            Return tplDataModel.dt
 
             'Dim _Model As New MODEL.ModelInfo(Of MODEL.ST02_FUTEKIGO_ICHIRAN)(srcDATA:=tplDataModel.dt)
             'Return _Model.Entities
@@ -1188,23 +1329,6 @@ Public Class FrmG0010
         End Try
     End Function
 
-    Private Function FunGetGroupingData(srcData As DataTable) As DataTable
-        Try
-            Dim retDt As New DataTable
-
-            Dim query = srcData.AsEnumerable.
-                        GroupBy(Function(g) Tuple.Create(g.Field(Of Integer)(NameOf(ParamModel.SYONIN_HOKOKUSYO_ID)),
-                                                         g.Field(Of Integer)("SYONIN_JUN"),
-                                                         g.Field(Of String)("SYONIN_NAIYO")))
-
-
-
-            Return retDt
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return Nothing
-        End Try
-    End Function
 
 
     Private Function FunSRCH(ByVal dgv As DataGridView, ByVal dt As DataTable) As Boolean
@@ -2077,95 +2201,104 @@ Public Class FrmG0010
                 End With
             Next intFunc
 
-            cmdFunc2.Enabled = True
-
-            If flxDATA.RowSel > 0 And panelMan.SelectedIndex = 1 Then
-                cmdFunc1.Enabled = False
-                cmdFunc3.Enabled = True
-                cmdFunc4.Enabled = True
-                cmdFunc5.Enabled = True
-                cmdFunc7.Enabled = True
-                cmdFunc8.Enabled = True
-                cmdFunc9.Enabled = True
-                cmdFunc10.Enabled = True
-                cmdFunc11.Enabled = True
-
-                '選択行がClosedの場合
-                'If Val(dgvDATA.CurrentRow.Cells.Item(NameOf(_D003_NCR_J.CLOSE_FG)).Value) = 1 Then
-                If Val(flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.CLOSE_FG))) = 1 Then
-                    cmdFunc4.Text = "内容確認(F4)"
-                    cmdFunc5.Enabled = False
-                    MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "クローズ済のため削除出来ません")
+            If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
+                If flxDATA.RowSel > 0 And panelMan.SelectedIndex = 1 Then
+                    cmdFunc8.Enabled = True
                 Else
-                    cmdFunc4.Text = "変更・承認(F4)"
-                    MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
-                End If
-                'If FunblnAllowSyonin() Then
-                cmdFunc4.Enabled = True
-                'Else
-                '    cmdFunc4.Enabled = False
-                '    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "変更承認権限がありません")
-                'End If
-
-                If IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID) Then
-
-                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).ToString.Trim <> "" Then
-                        '削除済み
-                        cmdFunc4.Enabled = False
-                        MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "削除済みデータです")
-                        cmdFunc5.Enabled = False
-                        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除済みデータです")
-                        'flxDATA.Rows(flxDATA.RowSel).Item("SELECTED").ReadOnly = True
-
-                        cmdFunc6.Visible = True
-                    Else
-                        cmdFunc6.Visible = False
-                    End If
-                Else
-
-                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).ToString.Trim <> "" Then
-                        '削除済み
-                        cmdFunc4.Enabled = False
-                        MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "削除済みデータです")
-                        cmdFunc5.Enabled = False
-                        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除済みデータです")
-                        'flxDATA.Rows(flxDATA.RowSel).Item("SELECTED").ReadOnly = True
-                    End If
-                    cmdFunc6.Visible = False
-                    cmdFunc5.Enabled = False
-                    MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除権限の使用には管理者権限が必要です")
-                End If
-
-                If FunblnAllowTairyuMailSend() Then
-                    cmdFunc9.Enabled = True
-                    MyBase.ToolTip.SetToolTip(Me.cmdFunc9, My.Resources.infoToolTipMsgNotFoundData)
-                Else
-                    cmdFunc9.Enabled = False
-                    MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "滞留通知メール送信権限がありません")
+                    cmdFunc8.Enabled = False
                 End If
             Else
-                cmdFunc3.Enabled = False
-                cmdFunc4.Enabled = False
-                cmdFunc5.Enabled = False
+                cmdFunc2.Enabled = True
 
-                cmdFunc7.Enabled = (panelMan.SelectedIndex = 1) 'False
-                cmdFunc6.Enabled = False
-                cmdFunc8.Enabled = False
-                cmdFunc9.Enabled = False
-                cmdFunc10.Enabled = False
-                cmdFunc11.Enabled = False
+                If flxDATA.RowSel > 0 And panelMan.SelectedIndex = 1 Then
+                    cmdFunc1.Enabled = False
+                    cmdFunc3.Enabled = True
+                    cmdFunc4.Enabled = True
+                    cmdFunc5.Enabled = True
+                    cmdFunc7.Enabled = True
+                    cmdFunc8.Enabled = True
+                    cmdFunc9.Enabled = True
+                    cmdFunc10.Enabled = True
+                    cmdFunc11.Enabled = True
+
+                    '選択行がClosedの場合
+                    If Val(flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.CLOSE_FG))) = 1 Then
+                        cmdFunc4.Text = "内容確認(F4)"
+                        cmdFunc5.Enabled = False
+                        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "クローズ済のため削除出来ません")
+                    Else
+                        cmdFunc4.Text = "変更・承認(F4)"
+                        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
+                    End If
+                    'If FunblnAllowSyonin() Then
+                    cmdFunc4.Enabled = True
+                    'Else
+                    '    cmdFunc4.Enabled = False
+                    '    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "変更承認権限がありません")
+                    'End If
+
+                    If IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID) Then
+
+                        If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).ToString.Trim <> "" Then
+                            '削除済み
+                            cmdFunc4.Enabled = False
+                            MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "削除済みデータです")
+                            cmdFunc5.Enabled = False
+                            MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除済みデータです")
+                            'flxDATA.Rows(flxDATA.RowSel).Item("SELECTED").ReadOnly = True
+
+                            cmdFunc6.Visible = True
+                        Else
+                            cmdFunc6.Visible = False
+                        End If
+                    Else
+
+                        If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).ToString.Trim <> "" Then
+                            '削除済み
+                            cmdFunc4.Enabled = False
+                            MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "削除済みデータです")
+                            cmdFunc5.Enabled = False
+                            MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除済みデータです")
+                            'flxDATA.Rows(flxDATA.RowSel).Item("SELECTED").ReadOnly = True
+                        End If
+                        cmdFunc6.Visible = False
+                        cmdFunc5.Enabled = False
+                        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除権限の使用には管理者権限が必要です")
+                    End If
+
+                    If FunblnAllowTairyuMailSend() Then
+                        cmdFunc9.Enabled = True
+                        MyBase.ToolTip.SetToolTip(Me.cmdFunc9, My.Resources.infoToolTipMsgNotFoundData)
+                    Else
+                        cmdFunc9.Enabled = False
+                        MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "滞留通知メール送信権限がありません")
+                    End If
+                Else
+                    cmdFunc3.Enabled = False
+                    cmdFunc4.Enabled = False
+                    cmdFunc5.Enabled = False
+
+                    cmdFunc7.Enabled = (panelMan.SelectedIndex = 1) 'False
+                    cmdFunc6.Enabled = False
+                    cmdFunc8.Enabled = False
+                    cmdFunc9.Enabled = False
+                    cmdFunc10.Enabled = False
+                    cmdFunc11.Enabled = False
+                End If
+
+                'cmdFunc1.Enabled = Not (panelMan.SelectedIndex = 1)
+
+                'cmdFunc4.Enabled *= Not (panelMan.SelectedIndex = 1)
+                'cmdFunc5.Enabled *= Not (panelMan.SelectedIndex = 1)
+                'cmdFunc6.Enabled *= Not (panelMan.SelectedIndex = 1)
+                'cmdFunc7.Enabled *= (panelMan.SelectedIndex = 1)
+                'cmdFunc8.Enabled *= Not (panelMan.SelectedIndex = 1)
+                'cmdFunc9.Enabled *= Not (panelMan.SelectedIndex = 1)
+                'cmdFunc10.Enabled *= Not (panelMan.SelectedIndex = 1)
+                'cmdFunc11.Enabled *= Not (panelMan.SelectedIndex = 1)
             End If
 
-            'cmdFunc1.Enabled = Not (panelMan.SelectedIndex = 1)
 
-            'cmdFunc4.Enabled *= Not (panelMan.SelectedIndex = 1)
-            'cmdFunc5.Enabled *= Not (panelMan.SelectedIndex = 1)
-            'cmdFunc6.Enabled *= Not (panelMan.SelectedIndex = 1)
-            'cmdFunc7.Enabled *= (panelMan.SelectedIndex = 1)
-            'cmdFunc8.Enabled *= Not (panelMan.SelectedIndex = 1)
-            'cmdFunc9.Enabled *= Not (panelMan.SelectedIndex = 1)
-            'cmdFunc10.Enabled *= Not (panelMan.SelectedIndex = 1)
-            'cmdFunc11.Enabled *= Not (panelMan.SelectedIndex = 1)
 
             Return True
         Catch ex As Exception
@@ -2219,6 +2352,11 @@ Public Class FrmG0010
         panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpSummaryGrid))
     End Sub
 
+    Private Sub chkDispHASSEI_YMD_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispHASSEI_YMD.CheckedChanged
+        dtHASSEI_YMD_FROM.Enabled = chkDispHASSEI_YMD.Checked
+        dtHASSEI_YMD_TO.Enabled = chkDispHASSEI_YMD.Checked
+    End Sub
+
 #Region "検索条件クリア"
 
     Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click
@@ -2251,9 +2389,11 @@ Public Class FrmG0010
                         Case Context.ENM_BUMON_KB._2_LP
                             lblSyanaiCD.Visible = True
                             cmbSYANAI_CD.Visible = True
+                            chkDispSYANAI_CD.Visible = (pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計)
                         Case Else
                             lblSyanaiCD.Visible = False
                             cmbSYANAI_CD.Visible = False
+                            chkDispSYANAI_CD.Visible = False
                     End Select
 
                     Dim intBUFF As Integer
@@ -2725,6 +2865,15 @@ Public Class FrmG0010
 
 #End Region
 
+#Region "入力チェック"
+    Private Sub CmbHOKOKUSYO_ID_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbHOKOKUSYO_ID.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "報告書名"))
+
+    End Sub
+#End Region
+
 #End Region
 
 #Region "ローカル関数"
@@ -2767,6 +2916,27 @@ Public Class FrmG0010
         mtxGENIN2.DataBindings.Add(New Binding(NameOf(mtxGENIN2.Text), ParamModel, NameOf(ParamModel.GENIN2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbKISEKI_KOTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKISEKI_KOTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.KISEKI_KOTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
+        '集計項目
+        chkDispADD_TANTO.DataBindings.Add(New Binding(NameOf(chkDispADD_TANTO.Checked), cmbADD_TANTO, NameOf(cmbADD_TANTO.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(chkDispBUHIN_BANGO.Checked), cmbBUHIN_BANGO, NameOf(cmbBUHIN_BANGO.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispBUMON.DataBindings.Add(New Binding(NameOf(chkDispBUMON.Checked), cmbBUMON, NameOf(cmbBUMON.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispFUTEKIGO_JYOTAI_KB.DataBindings.Add(New Binding(NameOf(chkDispFUTEKIGO_JYOTAI_KB.Checked), cmbFUTEKIGO_JYOTAI_KB, NameOf(cmbFUTEKIGO_JYOTAI_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispFUTEKIGO_KB.DataBindings.Add(New Binding(NameOf(chkDispFUTEKIGO_KB.Checked), cmbFUTEKIGO_KB, NameOf(cmbFUTEKIGO_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispFUTEKIGO_S_KB.DataBindings.Add(New Binding(NameOf(chkDispFUTEKIGO_S_KB.Checked), cmbFUTEKIGO_S_KB, NameOf(cmbFUTEKIGO_S_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispYOIN1.DataBindings.Add(New Binding(NameOf(chkDispYOIN1.Checked), cmbYOIN1, NameOf(cmbYOIN1.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispYOIN2.DataBindings.Add(New Binding(NameOf(chkDispYOIN2.Checked), cmbYOIN2, NameOf(cmbYOIN2.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispGOKI.DataBindings.Add(New Binding(NameOf(chkDispGOKI.Checked), mtxGOKI, NameOf(mtxGOKI.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispHINMEI.DataBindings.Add(New Binding(NameOf(chkDispHINMEI.Checked), mtxHINMEI, NameOf(mtxHINMEI.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispJIZEN_SINSA_HANTEI_KB.DataBindings.Add(New Binding(NameOf(chkDispJIZEN_SINSA_HANTEI_KB.Checked), cmbJIZEN_SINSA_HANTEI_KB, NameOf(cmbJIZEN_SINSA_HANTEI_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispKENSA_KEKKA_KB.DataBindings.Add(New Binding(NameOf(chkDispKENSA_KEKKA_KB.Checked), cmbKENSA_KEKKA_KB, NameOf(cmbKENSA_KEKKA_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispKISEKI_KOTEI_KB.DataBindings.Add(New Binding(NameOf(chkDispKISEKI_KOTEI_KB.Checked), cmbKISEKI_KOTEI_KB, NameOf(cmbKISEKI_KOTEI_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispZESEI_SYOCHI_YOHI_KB.DataBindings.Add(New Binding(NameOf(chkDispZESEI_SYOCHI_YOHI_KB.Checked), cmbZESEI_SYOCHI_YOHI_KB, NameOf(cmbKISEKI_KOTEI_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispKISYU.DataBindings.Add(New Binding(NameOf(chkDispKISYU.Checked), cmbKISYU, NameOf(cmbKISYU.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispKOKYAKU_HANTEI_SIJI_KB.DataBindings.Add(New Binding(NameOf(chkDispKOKYAKU_HANTEI_SIJI_KB.Checked), cmbKOKYAKU_HANTEI_SIJI_KB, NameOf(cmbKOKYAKU_HANTEI_SIJI_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispKOKYAKU_SAISYU_HANTEI_KB.DataBindings.Add(New Binding(NameOf(chkDispKOKYAKU_SAISYU_HANTEI_KB.Checked), cmbKOKYAKU_SAISYU_HANTEI_KB, NameOf(cmbKOKYAKU_SAISYU_HANTEI_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispSAISIN_IINKAI_HANTEI_KB.DataBindings.Add(New Binding(NameOf(chkDispSAISIN_IINKAI_HANTEI_KB.Checked), cmbSAISIN_IINKAI_HANTEI_KB, NameOf(cmbSAISIN_IINKAI_HANTEI_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkDispSYANAI_CD.DataBindings.Add(New Binding(NameOf(chkDispSYANAI_CD.Checked), cmbSYANAI_CD, NameOf(cmbSYANAI_CD.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
     End Function
 
 #End Region
@@ -2786,9 +2956,9 @@ Public Class FrmG0010
         sbParam.Append($" '{ParamModel.BUMON_KB}'")
 
         If mode = ENM_OPEN_MODE._3_分析集計 Then
-            sbParam.Append($",{ParamModel.SYONIN_HOKOKUSYO_ID}")
-        Else
             sbParam.Append($",{Nz(cmbHOKOKUSYO_ID.SelectedValue, 0)}")
+        Else
+            sbParam.Append($",{ParamModel.SYONIN_HOKOKUSYO_ID}")
         End If
 
         sbParam.Append($",{Nz(cmbKISYU.SelectedValue, 0)}")
@@ -2829,7 +2999,6 @@ Public Class FrmG0010
         sbParam.Append($",'{ParamModel.GENIN2}'")
         sbParam.Append($",'{ParamModel.HASSEI_FROM}'")
         sbParam.Append($",'{ParamModel.HASSEI_TO}'")
-
 
         Select Case mode
             Case ENM_OPEN_MODE._3_分析集計
@@ -2919,11 +3088,16 @@ Public Class FrmG0010
         panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlCondition))
         Me.Refresh()
         lblRecordCount.Visible = False
-        Call FunSetStageList(dgvNCR, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR)
-        Call FunSetStageList(dgvCAR, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)
-        ParamModel.SYONIN_HOKOKUSYO_ID = 0
+
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then
+            Call FunSetStageList(dgvNCR, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR)
+            Call FunSetStageList(dgvCAR, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)
+            ParamModel.SYONIN_HOKOKUSYO_ID = 0
+        End If
+
         Application.DoEvents()
     End Sub
+
 
 
 #End Region

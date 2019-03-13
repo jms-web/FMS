@@ -23,13 +23,16 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
     <ComponentModel.DisplayName("製品区分")>
     Public Property BUMON_NAME As String
 
+    <Display(AutoGenerateField:=False)>
     <StringLength(10)>
     <ComponentModel.DisplayName("報告書No")>
     Public Property HOKOKU_NO As String
 
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("承認順")>
     Public Property SYONIN_JUN As Integer
 
+    <Display(AutoGenerateField:=False)>
     <StringLength(50)>
     <ComponentModel.DisplayName("ステージ")>
     Public Property SYONIN_NAIYO As String
@@ -37,6 +40,7 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
     <ComponentModel.DisplayName("承認報告書ID")>
     Public Property SYONIN_HOKOKUSYO_ID As Integer
 
+    <Display(AutoGenerateField:=False)>
     <StringLength(50)>
     <ComponentModel.DisplayName("報告書名")>
     Public Property SYONIN_HOKOKUSYO_NAME As String '報告書名
@@ -45,13 +49,14 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
     <ComponentModel.DisplayName("種類略名")>
     Public Property SYONIN_HOKOKUSYO_R_NAME As String '報告書略名
 
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("処置担当者社員ID")>
     Public Property GEN_TANTO_ID As Integer
 
+    <Display(AutoGenerateField:=False)>
     <StringLength(30)>
     <ComponentModel.DisplayName("処置担当者名")>
     Public Property GEN_TANTO_NAME As String
-
 
     <ComponentModel.DisplayName("承認日時")>
     <Display(AutoGenerateField:=False)>
@@ -59,6 +64,7 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
     Public Property _SYONIN_YMDHNS As String
 
     <NotMapped>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("承認日時")>
     Public Property SYONIN_YMDHNS As DateTime
         Get
@@ -70,21 +76,24 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
         End Set
     End Property
 
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("滞留日数")>
     Public Property TAIRYU_NISSU As Integer
 
+    <Display(AutoGenerateField:=False)>
     <StringLength(1)>
     <ComponentModel.DisplayName("滞留フラグ")>
     Public Property TAIRYU_FG As String
 
-    <ComponentModel.DisplayName("機種ID")>
     <Display(AutoGenerateField:=False)>
+    <ComponentModel.DisplayName("機種ID")>
     Public Property KISYU_ID As Integer
 
     '<StringLength(100)>
     '<ComponentModel.DisplayName("機種")>
     'Public Property KISYU As String
 
+    <Display(AutoGenerateField:=False)>
     <StringLength(100)>
     <ComponentModel.DisplayName("機種")>
     Public Property KISYU_NAME As String '機種名
@@ -288,6 +297,19 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
     End Property
 
 
+
+    '集計項目------------------------------------------------
+    <ComponentModel.DisplayName("個数")>
+    Public Property SURYO As Integer
+
+    <ComponentModel.DisplayName("起草件数")>
+    Public Property KISO_KENSU As Integer
+
+    <ComponentModel.DisplayName("処置件数")>
+    Public Property SYOCHI_KENSU As Integer
+
+    <ComponentModel.DisplayName("処置残")>
+    Public Property SYOCHI_ZANSU As Integer
 
 
 #Region "IDisposable Support"
