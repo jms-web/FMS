@@ -567,6 +567,13 @@ Public Class ComboboxEx
                 AddHandler Me.DrawItem, AddressOf Combobox_DrawItem
             End If
 
+            '---AutoComplete設定
+            If Me.DropDownStyle = ComboBoxStyle.DropDownList Then
+                Me.AutoCompleteMode = AutoCompleteMode.None
+            Else
+                Me.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+            End If
+
             'バインド時は順番が逆になるので、コンストラクタ内で設定
             '-----コンボボックス表示値と選択値の列設定
             'Me.DisplayMember = "DISP"
@@ -632,6 +639,13 @@ Public Class ComboboxEx
                 Me.ItemHeight = Me.Font.Size + 8
                 Me.IntegralHeight = False
                 AddHandler Me.DrawItem, AddressOf Combobox_DrawItem
+            End If
+
+            '---AutoComplete設定
+            If Me.DropDownStyle = ComboBoxStyle.DropDownList Then
+                Me.AutoCompleteMode = AutoCompleteMode.None
+            Else
+                Me.AutoCompleteMode = AutoCompleteMode.SuggestAppend
             End If
 
             '-----コンボボックス表示値と選択値の列設定
