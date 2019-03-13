@@ -731,9 +731,9 @@ Public Class FrmG0016
                 Dim Trow As DataRow = dt.NewRow()
 
                 If .Rows(intCNT).Item("SYONIN_JUN") = ENM_NCR_STAGE._10_ãNëêì¸óÕ Then
-                    Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO") & " " & .Rows(intCNT).Item("ADD_SYAIN_NAME")
-                    Trow("SYAIN_ID") = .Rows(intCNT).Item("ADD_SYAIN_ID")
-                    Trow("SYAIN_NAME") = .Rows(intCNT).Item("ADD_SYAIN_NAME")
+                    Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO") & " " & .Rows(intCNT).Item("UPD_SYAIN_NAME")
+                    Trow("SYAIN_ID") = .Rows(intCNT).Item("UPD_SYAIN_ID")
+                    Trow("SYAIN_NAME") = .Rows(intCNT).Item("UPD_SYAIN_NAME")
                 Else
                     Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO") & " " & .Rows(intCNT).Item("UPD_SYAIN_NAME")
                     Trow("SYAIN_ID") = .Rows(intCNT).Item("UPD_SYAIN_ID")
