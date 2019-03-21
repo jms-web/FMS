@@ -812,7 +812,9 @@ Module mdlG0010
 
                 With dsList.Tables(0)
                     If .Rows.Count > 0 Then
-                        ToAddressList.Add(.Rows(0).Item("MAIL_ADDRESS"))
+                        If Not .Rows(0).Item("MAIL_ADDRESS").ToString.IsNulOrWS Then
+                            ToAddressList.Add(.Rows(0).Item("MAIL_ADDRESS"))
+                        End If
 
                         If .Rows(0).Item("GL_ADDRESS").ToString.IsNulOrWS = False AndAlso .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("GL_ADDRESS").ToString Then
                             ToAddressList.Add(.Rows(0).Item("GL_ADDRESS"))
@@ -837,7 +839,7 @@ Module mdlG0010
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
                 'Ž©g‚É\¿ƒ[ƒ‹‚ð‘—‚éê‡‚ÍCC‚É’Ç‰Á‚µ‚È‚¢
-                If dsList.Tables(0).Rows.Count > 0 AndAlso Not ToAddressList.Contains(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")) Then
+                If dsList.Tables(0).Rows.Count > 0 AndAlso Not dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS").ToString.IsNulOrWS AndAlso Not ToAddressList.Contains(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")) Then
                     CCAddressList.Add(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS"))
                 End If
 

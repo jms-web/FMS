@@ -3040,7 +3040,12 @@ Public Class FrmG0012
             _D005_CAR_J.SYOSAI_FILE_PATH = _V005_CAR_J.SYOSAI_FILE_PATH
             _D005_CAR_J.FILE_PATH1 = _V005_CAR_J.FILE_PATH1
             _D005_CAR_J.FILE_PATH2 = _V005_CAR_J.FILE_PATH2
-            _D005_CAR_J.SYOCHI_YOTEI_YMD = _V005_CAR_J.SYOCHI_YOTEI_YMD
+            If _V005_CAR_J.SYOCHI_YOTEI_YMD >= Today.ToString("yyyyMMdd") Then
+                _D005_CAR_J.SYOCHI_YOTEI_YMD = _V005_CAR_J.SYOCHI_YOTEI_YMD
+            Else
+                _D005_CAR_J.SYOCHI_YOTEI_YMD = ""
+            End If
+
 
 
             '添付ファイル
