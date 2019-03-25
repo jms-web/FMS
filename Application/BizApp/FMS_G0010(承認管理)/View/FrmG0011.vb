@@ -4810,12 +4810,12 @@ Public Class FrmG0011
                     '社内コード
                     RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
                     If cmb.IsSelected Then
-                        If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
+                        If Val(cmbBUMON.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
                             Dim drs = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue).ToList
                             If drs.Count > 0 Then
                                 Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue
                                 cmbSYANAI_CD.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                                If Not cmbSYANAI_CD.NullValue = _selectedValue Then _D003_NCR_J.SYANAI_CD = _selectedValue
+                                If Val(_selectedValue) > 0 Then _D003_NCR_J.SYANAI_CD = _selectedValue
                             End If
                         Else
                             'cmbSYANAI_CD.DataSource = Nothing
@@ -4957,7 +4957,7 @@ Public Class FrmG0011
                     '抽出 判定
                     If cmb.IsSelected Then
                         Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmb.SelectedValue).FirstOrDefault
-                        If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
+                        If Val(cmbBUMON.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
                             _D003_NCR_J.SYANAI_CD = dr.Item("SYANAI_CD")
                             If dr.Item("BUHIN_NAME").ToString.IsNulOrWS = False Then _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
                         Else
