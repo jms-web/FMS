@@ -1064,6 +1064,10 @@ Public Class FrmG0011
         _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
         _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
 
+        If PrCurrentStage = ENM_NCR_STAGE._10_ãNëêì¸óÕ Then
+            _D004_SYONIN_J_KANRI.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+        End If
+
         '#80 è≥îFê\êøì˙ÇÕâÊñ Ç≈ì¸óÕ
         If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNulOrWS Then
             _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
@@ -3463,7 +3467,7 @@ Public Class FrmG0011
 #Region "               20"
 
             If intStageID >= ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL Then
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL))
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL))
                 cmbST02_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST02_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL))
@@ -3518,7 +3522,7 @@ Public Class FrmG0011
 #Region "               30"
 
             If intStageID >= ENM_NCR_STAGE._30_ãNëêämîFåüç∏ Then
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_ãNëêämîFåüç∏))
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_ãNëêämîFåüç∏))
                 cmbST03_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST03_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_ãNëêämîFåüç∏))
@@ -3573,7 +3577,7 @@ Public Class FrmG0011
 #Region "               40"
 
             If intStageID >= ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË Then
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË))
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË))
                 cmbST04_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST04_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË))
@@ -3672,7 +3676,7 @@ Public Class FrmG0011
 #Region "               50"
 
             If intStageID >= ENM_NCR_STAGE._50_éñëOêRç∏ämîF Then
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._50_éñëOêRç∏ämîF))
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._50_éñëOêRç∏ämîF))
                 cmbST05_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST05_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._50_éñëOêRç∏ämîF))
@@ -3724,7 +3728,7 @@ Public Class FrmG0011
 #Region "               60"
 
             If intStageID >= ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\ Then
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\))
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\))
                 cmbST06_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST06_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._60_çƒêRêRç∏îªíË_ãZèpë„ï\))
@@ -3798,7 +3802,7 @@ Public Class FrmG0011
 
             If intStageID >= ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\ Then
                 If FunExistAchievement(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\) Then
-                    dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\))
+                    dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\))
                     cmbST07_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     mtxST07_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._61_çƒêRêRç∏îªíË_ïièÿë„ï\))
@@ -3868,7 +3872,7 @@ Public Class FrmG0011
 
             If intStageID >= ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag Then
                 If FunExistAchievement(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag) Then
-                    dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag))
+                    dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag))
                     cmbST08_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     mtxST08_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._70_å⁄ãqçƒêRèàíu_I_tag))
 
@@ -3958,7 +3962,7 @@ Public Class FrmG0011
             '80
             If intStageID >= ENM_NCR_STAGE._80_èàíué¿é{ Then
                 If FunExistAchievement(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, ENM_NCR_STAGE._80_èàíué¿é{) Then
-                    dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_èàíué¿é{))
+                    dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_èàíué¿é{))
                     cmbST09_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     mtxST09_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._80_èàíué¿é{))
@@ -4125,7 +4129,7 @@ Public Class FrmG0011
 
             '            '81
             '            If intStageID >= ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ Then
-            '                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ))
+            '                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ))
             '                cmbST10_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             '                mtxST10_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._81_èàíué¿é{_ê∂ãZ))
@@ -4174,7 +4178,7 @@ Public Class FrmG0011
 
             '            '82
             '            If intStageID >= ENM_NCR_STAGE._82_èàíué¿é{_êªë¢ Then
-            '                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢))
+            '                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢))
             '                cmbST11_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             '                mtxST11_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._82_èàíué¿é{_êªë¢))
@@ -4222,7 +4226,7 @@ Public Class FrmG0011
 
             '            '83
             '            If intStageID >= ENM_NCR_STAGE._83_èàíué¿é{_åüç∏ Then
-            '                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏))
+            '                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏))
             '                cmbST12_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             '                mtxST12_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._83_èàíué¿é{_åüç∏))
@@ -4271,7 +4275,7 @@ Public Class FrmG0011
 #Region "               90 13"
 
             If intStageID >= ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT Then
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT))
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT))
                 cmbST13_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST13_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._90_èàíué¿é{ämîF_ä«óùT))
@@ -4329,7 +4333,7 @@ Public Class FrmG0011
 #Region "               100 14"
 
             If intStageID >= ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑ Then
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑))
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑))
                 cmbST14_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST14_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._100_èàíué¿é{åàçŸ_êªë¢â€í∑))
@@ -4384,7 +4388,7 @@ Public Class FrmG0011
 #Region "               110 15"
 
             If intStageID >= ENM_NCR_STAGE._110_abcdeèàíuíSìñ Then
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcdeèàíuíSìñ))
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcdeèàíuíSìñ))
                 cmbST15_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 mtxST15_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcdeèàíuíSìñ))
