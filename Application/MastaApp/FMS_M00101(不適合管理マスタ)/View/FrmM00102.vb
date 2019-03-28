@@ -154,6 +154,7 @@ Public Class FrmM00102
         Dim sqlEx As New Exception
         Dim strSysDate As String
         Dim strWork As String
+        Dim dsList As New DataSet
         Try
 
             '入力チェック
@@ -173,6 +174,22 @@ Public Class FrmM00102
 
                     _M001.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
                     _M001.DEF_FLG = "0"
+
+                    If _TV05.FUTEKIGO_S_KB = "" Then
+
+                        sbSQL.Append("SELECT MAX(ITEM_VALUE) AS FUTEKIGO_S_KB FROM M001_SETTING ")
+                        sbSQL.Append(" WHERE ")
+                        sbSQL.Append(" ITEM_NAME = '" & pub_FUTEKIGO_KB_HENKAN(_TV05.SEIHIN_KB.Trim, _TV05.FUTEKIGO_KB.Trim) & "'")
+
+                        dsList = DB.GetDataSet(sbSQL.ToString, False)
+
+                        If dsList.Tables(0).Rows.Count > 0 Then
+                            _TV05.FUTEKIGO_S_KB = (Val(dsList.Tables(0).Rows(0).Item("FUTEKIGO_S_KB")) + 1).ToString
+                        Else
+                            _TV05.FUTEKIGO_S_KB = "0"
+                        End If
+
+                    End If
 
                     If Not _TV05.ADD_YMDHNS.IsNulOrWS Then _M001.ADD_YMDHNS = CType(_TV05.ADD_YMDHNS, DateTime).ToString("yyyyMMddHHmmss")
                     If Not _TV05.UPD_YMDHNS.IsNulOrWS Then _M001.UPD_YMDHNS = CType(_TV05.UPD_YMDHNS, DateTime).ToString("yyyyMMddHHmmss")
@@ -235,8 +252,14 @@ Public Class FrmM00102
                     Select Case strRET
                         Case "INSERT"
 
-                        Case "UPDATE"
 
+                        Case "UPDATE"
+                            If PrDATA_OP_MODE = ENM_DATA_OPERATION_MODE._1_ADD Then
+                                Dim strMsg As String = $"既に登録済の不適合詳細区分値を使用しています{vbCrLf}変更して登録して下さい。"
+                                MessageBox.Show(strMsg, "キー重複", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                                blnErr = True
+                                Return False
+                            End If
                         Case Else
                             If sqlEx.Source IsNot Nothing Then
                                 '-----エラーログ出力
@@ -247,6 +270,7 @@ Public Class FrmM00102
                                 Dim strMsg As String = $"既に他の担当者によって変更されているため保存出来ません。{vbCrLf}再度登録し直して下さい。"
                                 MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                             End If
+                            blnErr = True
                             Return False
                     End Select
                 Finally
@@ -471,6 +495,8 @@ Public Class FrmM00102
             'フラグ初期化
             IsValidated = True
 
+            Call MtxVALUE_Validating(mtxDISP, Nothing)
+
             Return IsValidated
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -478,6 +504,12 @@ Public Class FrmM00102
         End Try
     End Function
 
+    Private Sub MtxVALUE_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxVALUE.Validating
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目値"))
+
+    End Sub
 #End Region
 
 #Region "表示順更新"

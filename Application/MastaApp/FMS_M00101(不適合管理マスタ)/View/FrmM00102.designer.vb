@@ -37,6 +37,7 @@ Partial Class FrmM00102
         Me.cmbFUTEKIGO_KB = New JMS_COMMON.ComboboxEx()
         Me.mtxKOMO_GROUP = New JMS_COMMON.MaskedTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.tlpFields.SuspendLayout()
         Me.SuspendLayout()
@@ -136,10 +137,6 @@ Partial Class FrmM00102
         '
         Me.ToolTip.InitialDelay = 700
         '
-        'ErrorProvider
-        '
-        Me.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
-        '
         'GroupBox1
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -193,7 +190,6 @@ Partial Class FrmM00102
         '
         Me.mtxVALUE.BackColor = System.Drawing.SystemColors.Window
         Me.mtxVALUE.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxVALUE.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxVALUE.ImeMode = System.Windows.Forms.ImeMode.Off
         Me.mtxVALUE.InputRequired = False
         Me.mtxVALUE.Location = New System.Drawing.Point(139, 63)
@@ -201,6 +197,7 @@ Partial Class FrmM00102
         Me.mtxVALUE.MaxByteLength = 60
         Me.mtxVALUE.Name = "mtxVALUE"
         Me.mtxVALUE.PermitNumChars = True
+        Me.mtxVALUE.SelectAllText = False
         Me.mtxVALUE.Size = New System.Drawing.Size(101, 24)
         Me.mtxVALUE.TabIndex = 2
         Me.mtxVALUE.WatermarkColor = System.Drawing.Color.Empty
@@ -288,12 +285,12 @@ Partial Class FrmM00102
         '
         Me.mtxDISP.BackColor = System.Drawing.SystemColors.Window
         Me.mtxDISP.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxDISP.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxDISP.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxDISP.InputRequired = False
         Me.mtxDISP.Location = New System.Drawing.Point(139, 93)
         Me.mtxDISP.MaxByteLength = 200
         Me.mtxDISP.Name = "mtxDISP"
+        Me.mtxDISP.SelectAllText = False
         Me.mtxDISP.Size = New System.Drawing.Size(331, 24)
         Me.mtxDISP.TabIndex = 3
         Me.mtxDISP.WatermarkColor = System.Drawing.Color.Empty
@@ -347,12 +344,12 @@ Partial Class FrmM00102
         Me.mtxSEIHIN_KB_NAME.BackColor = System.Drawing.SystemColors.MenuBar
         Me.mtxSEIHIN_KB_NAME.Enabled = False
         Me.mtxSEIHIN_KB_NAME.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxSEIHIN_KB_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxSEIHIN_KB_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxSEIHIN_KB_NAME.InputRequired = False
         Me.mtxSEIHIN_KB_NAME.Location = New System.Drawing.Point(139, 3)
         Me.mtxSEIHIN_KB_NAME.MaxByteLength = 60
         Me.mtxSEIHIN_KB_NAME.Name = "mtxSEIHIN_KB_NAME"
+        Me.mtxSEIHIN_KB_NAME.SelectAllText = False
         Me.mtxSEIHIN_KB_NAME.Size = New System.Drawing.Size(101, 24)
         Me.mtxSEIHIN_KB_NAME.TabIndex = 0
         Me.mtxSEIHIN_KB_NAME.WatermarkColor = System.Drawing.Color.Empty
@@ -383,12 +380,12 @@ Partial Class FrmM00102
         Me.mtxKOMO_GROUP.BackColor = System.Drawing.SystemColors.MenuBar
         Me.mtxKOMO_GROUP.Enabled = False
         Me.mtxKOMO_GROUP.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxKOMO_GROUP.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxKOMO_GROUP.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxKOMO_GROUP.InputRequired = False
         Me.mtxKOMO_GROUP.Location = New System.Drawing.Point(93, 3)
         Me.mtxKOMO_GROUP.MaxByteLength = 60
         Me.mtxKOMO_GROUP.Name = "mtxKOMO_GROUP"
+        Me.mtxKOMO_GROUP.SelectAllText = False
         Me.mtxKOMO_GROUP.Size = New System.Drawing.Size(101, 24)
         Me.mtxKOMO_GROUP.TabIndex = 0
         Me.mtxKOMO_GROUP.WatermarkColor = System.Drawing.Color.Empty
@@ -419,6 +416,7 @@ Partial Class FrmM00102
         Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc1, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.tlpFields.ResumeLayout(False)
         Me.tlpFields.PerformLayout()

@@ -39,6 +39,7 @@ Partial Class FrmM0011
         Me.mtxBIKOU = New JMS_COMMON.MaskedTextBoxEx()
         Me.chkDefaultVaue = New System.Windows.Forms.CheckBox()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.tlpFields.SuspendLayout()
         Me.SuspendLayout()
@@ -137,10 +138,6 @@ Partial Class FrmM0011
         'ToolTip
         '
         Me.ToolTip.InitialDelay = 700
-        '
-        'ErrorProvider
-        '
-        Me.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         '
         'GroupBox1
         '
@@ -255,19 +252,19 @@ Partial Class FrmM0011
         'cmbJYUN
         '
         Me.cmbJYUN.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbJYUN.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbJYUN.DisplayMember = "DISP"
         Me.cmbJYUN.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbJYUN.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbJYUN.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbJYUN.FormattingEnabled = True
-        Me.cmbJYUN.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbJYUN.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbJYUN.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.cmbJYUN.IsSelected = False
         Me.cmbJYUN.Location = New System.Drawing.Point(93, 123)
         Me.cmbJYUN.MaxLength = 30
         Me.cmbJYUN.Name = "cmbJYUN"
         Me.cmbJYUN.NullValue = " "
-        Me.cmbJYUN.ReadOnly = False
         Me.cmbJYUN.Size = New System.Drawing.Size(101, 25)
         Me.cmbJYUN.TabIndex = 4
         Me.cmbJYUN.ValueMember = "VALUE"
@@ -276,12 +273,12 @@ Partial Class FrmM0011
         '
         Me.mtxDISP.BackColor = System.Drawing.SystemColors.Window
         Me.mtxDISP.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxDISP.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxDISP.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxDISP.InputRequired = False
         Me.mtxDISP.Location = New System.Drawing.Point(93, 93)
         Me.mtxDISP.MaxByteLength = 200
         Me.mtxDISP.Name = "mtxDISP"
+        Me.mtxDISP.SelectAllText = False
         Me.mtxDISP.Size = New System.Drawing.Size(544, 24)
         Me.mtxDISP.TabIndex = 3
         Me.mtxDISP.WatermarkColor = System.Drawing.Color.Empty
@@ -301,12 +298,12 @@ Partial Class FrmM0011
         '
         Me.mtxVALUE.BackColor = System.Drawing.SystemColors.Window
         Me.mtxVALUE.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxVALUE.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxVALUE.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxVALUE.InputRequired = False
         Me.mtxVALUE.Location = New System.Drawing.Point(93, 63)
         Me.mtxVALUE.MaxByteLength = 60
         Me.mtxVALUE.Name = "mtxVALUE"
+        Me.mtxVALUE.SelectAllText = False
         Me.mtxVALUE.Size = New System.Drawing.Size(237, 24)
         Me.mtxVALUE.TabIndex = 2
         Me.mtxVALUE.WatermarkColor = System.Drawing.Color.Empty
@@ -337,18 +334,18 @@ Partial Class FrmM0011
         Me.cmbKOMO_NM.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbKOMO_NM.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbKOMO_NM.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKOMO_NM.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbKOMO_NM.DisplayMember = "DISP"
         Me.cmbKOMO_NM.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKOMO_NM.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKOMO_NM.FormattingEnabled = True
-        Me.cmbKOMO_NM.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbKOMO_NM.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbKOMO_NM.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKOMO_NM.IsSelected = False
         Me.cmbKOMO_NM.Location = New System.Drawing.Point(93, 33)
         Me.cmbKOMO_NM.MaxLength = 30
         Me.cmbKOMO_NM.Name = "cmbKOMO_NM"
         Me.cmbKOMO_NM.NullValue = " "
-        Me.cmbKOMO_NM.ReadOnly = False
         Me.cmbKOMO_NM.Size = New System.Drawing.Size(403, 25)
         Me.cmbKOMO_NM.TabIndex = 1
         Me.cmbKOMO_NM.Text = "(‘I‘ð)"
@@ -369,12 +366,12 @@ Partial Class FrmM0011
         '
         Me.mtxKOMO_GROUP.BackColor = System.Drawing.SystemColors.Window
         Me.mtxKOMO_GROUP.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxKOMO_GROUP.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxKOMO_GROUP.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxKOMO_GROUP.InputRequired = False
         Me.mtxKOMO_GROUP.Location = New System.Drawing.Point(93, 3)
         Me.mtxKOMO_GROUP.MaxByteLength = 60
         Me.mtxKOMO_GROUP.Name = "mtxKOMO_GROUP"
+        Me.mtxKOMO_GROUP.SelectAllText = False
         Me.mtxKOMO_GROUP.Size = New System.Drawing.Size(237, 24)
         Me.mtxKOMO_GROUP.TabIndex = 0
         Me.mtxKOMO_GROUP.WatermarkColor = System.Drawing.Color.Empty
@@ -394,12 +391,12 @@ Partial Class FrmM0011
         '
         Me.mtxBIKOU.BackColor = System.Drawing.SystemColors.Window
         Me.mtxBIKOU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxBIKOU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxBIKOU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxBIKOU.InputRequired = False
         Me.mtxBIKOU.Location = New System.Drawing.Point(93, 153)
         Me.mtxBIKOU.MaxByteLength = 200
         Me.mtxBIKOU.Name = "mtxBIKOU"
+        Me.mtxBIKOU.SelectAllText = False
         Me.mtxBIKOU.Size = New System.Drawing.Size(544, 24)
         Me.mtxBIKOU.TabIndex = 5
         Me.mtxBIKOU.WatermarkColor = System.Drawing.Color.Empty
@@ -441,6 +438,7 @@ Partial Class FrmM0011
         Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc1, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.tlpFields.ResumeLayout(False)
         Me.tlpFields.PerformLayout()
