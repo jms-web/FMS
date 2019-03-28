@@ -821,6 +821,10 @@ Public Class FrmG0012
         _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
         _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
 
+        If PrCurrentStage = ENM_NCR_STAGE._10_ãNëêì¸óÕ Then
+            _D004_SYONIN_J_KANRI.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+        End If
+
         '#80 è≥îFê\êøì˙ÇÕâÊñ Ç≈ì¸óÕ
         If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNulOrWS Then
             _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
