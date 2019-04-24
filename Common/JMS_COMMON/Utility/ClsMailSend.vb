@@ -71,17 +71,17 @@ Public Class ClsMailSend
             End If
 
             'メールの送信先サーバー名
-
-            Dim address() As System.Net.IPAddress = System.Net.Dns.GetHostEntry(strSmtpServer).AddressList
-
-
+            'Dim address() As System.Net.IPAddress = System.Net.Dns.GetHostEntry(strSmtpServer).AddressList
             'SMTPへの接続クラスを作成
-            smtp = New TKMP.Net.SmtpClient(address(0), intSmtpPort)
+            'smtp = New TKMP.Net.SmtpClient(address(0), intSmtpPort)               
+            Dim address As System.Net.IPAddress = System.Net.IPAddress.Parse(strSmtpServer)
+            smtp = New TKMP.Net.SmtpClient(address, intSmtpPort)
 
             'サーバーへ接続
             If Not smtp.Connect() Then
                 'MessageBox.Show("接続失敗")
                 WL.WriteLogDat("メール送信失敗:サーバ接続エラー")
+                MessageBox.Show($"メールサーバに接続出来ませんでした{vbCrLf}{vbCrLf}MailServer{vbCrLf}{strSmtpServer}", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return False
             End If
             'メール送信
@@ -90,7 +90,8 @@ Public Class ClsMailSend
 
             Return True
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, True)
+            MessageBox.Show($"メールサーバに接続出来ませんでした{vbCrLf}{vbCrLf}MailServer{vbCrLf}{strSmtpServer}", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            'EM.ErrorSyori(ex, False, True)
             Return False
         Finally
             'サーバーから切断
