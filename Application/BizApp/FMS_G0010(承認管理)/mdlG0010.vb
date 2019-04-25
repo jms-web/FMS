@@ -844,8 +844,8 @@ Module mdlG0010
                 End If
 
                 If ToAddressList.Count = 0 Then
-                    MessageBox.Show("依頼先担当者のメールアドレスが設定されていないため、依頼メールは送信されませんでした。", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Return True
+                    MessageBox.Show("依頼先担当者のメールアドレスが設定されていないため、依頼メールを送信できません", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return False
                 End If
 
                 strMsg = String.Format("【メール送信成功】TO:{0}({1}) SUBJECT:{2}", strToSyainName, ToAddressList(0), strSubject)
