@@ -2003,6 +2003,26 @@ Public Class FrmG0012
             dtSYOCHI_C_YMD.ValueNonFormat = ""
         End If
 
+        mtxKAITO_15.Visible = Not result
+        dtKAITO_16.Visible = Not result
+        cmbKAITO_17.Visible = Not result
+        mtxKAITO_18.Visible = Not result
+        mtxKAITO_19.Visible = Not result
+        dtKAITO_20.Visible = Not result
+        cmbSYOCHI_C_TANTO.Visible = Not result
+        dtSYOCHI_C_YMD.Visible = Not result
+
+        lblSETUMON_15.Visible = Not result
+        lblSETUMON_16.Visible = Not result
+        lblSETUMON_17.Visible = Not result
+        lblSETUMON_18.Visible = Not result
+        lblSETUMON_19.Visible = Not result
+        lblSETUMON_20.Visible = Not result
+        lblSYOCHI_C_TANTO.Visible = Not result
+        lblSYOCHI_C_YMD.Visible = Not result
+        lblSYOCHI_C.Visible = Not result
+
+
         mtxKAITO_15.ReadOnly = result
         dtKAITO_16.ReadOnly = result
         cmbKAITO_17.ReadOnly = result
