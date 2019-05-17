@@ -1471,10 +1471,10 @@ Module mdlG0010
                 Dim ssgShapes As SpreadsheetGear.Shapes.IShapes
                 ssgShapes = spSheet1.Shapes
                 For Each shape As SpreadsheetGear.Shapes.IShape In ssgShapes
-                    If shape.Name = "LINE_SYOCHI_C" Then
+                    If shape.Name.Contains("LINE_SYOCHI_C") Then
                         shape.Visible = False
                         shape.PrintObject = False
-                        Exit For
+                        'Exit For
                     End If
                 Next shape
             Else
