@@ -81,6 +81,7 @@ Public Class FrmG0017
                 .AutoGenerateColumns = False
                 .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
                 .ColumnHeadersDefaultCellStyle.Font = New Font("Meiryo UI", 9, FontStyle.Bold, GraphicsUnit.Point, CType(128, Byte))
+                .ReadOnly = True
 
                 .Columns.Add(NameOf(MODEL.V004_HOKOKU_SOUSA.ADD_YMDHNS), "èàóùì˙éû")
                 .Columns(.ColumnCount - 1).Width = 140
@@ -139,7 +140,7 @@ Public Class FrmG0017
 
     Private Sub DgvDATA_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDATA.CellContentClick
         Dim dgv As DataGridView = DirectCast(sender, DataGridView)
-        If dgv.Columns(e.ColumnIndex).Name = "CHANGE" And dgv(e.ColumnIndex, e.RowIndex).Value = "ïœçXÇ†ÇË" Then
+        If dgv.Columns(e.ColumnIndex).Name = "CHANGE" AndAlso dgv(e.ColumnIndex, e.RowIndex).Value = "ïœçXÇ†ÇË" Then
             Call FunOpenCompare()
         End If
     End Sub
