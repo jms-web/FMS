@@ -93,7 +93,7 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
     '<ComponentModel.DisplayName("‹@Ží")>
     'Public Property KISYU As String
 
-    <Display(AutoGenerateField:=False)>
+
     <StringLength(100)>
     <ComponentModel.DisplayName("‹@Ží")>
     Public Property KISYU_NAME As String '‹@Ží–¼

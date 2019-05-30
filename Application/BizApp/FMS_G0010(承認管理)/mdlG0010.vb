@@ -1,4 +1,5 @@
 Imports JMS_COMMON.ClsPubMethod
+Imports MODEL
 
 Module mdlG0010
 
@@ -18,6 +19,7 @@ Module mdlG0010
     Public pub_PrHOKOKU_NO As String
 
 #Region "列挙型"
+
     ''' <summary>
     ''' 起動モード
     ''' </summary>
@@ -42,13 +44,13 @@ Module mdlG0010
         ''' 分析集計(のための検索)画面を表示
         ''' </summary>
         _3_分析集計 = 3
+
     End Enum
 
     Public Enum ENM_SAVE_MODE
         _1_保存 = 1
         _2_承認申請 = 2
     End Enum
-
 
     ''' <summary>
     ''' 検査結果区分
@@ -177,7 +179,6 @@ Module mdlG0010
         _3_方法 = 3
     End Enum
 
-
     ''' <summary>
     ''' 承認判定区分
     ''' </summary>
@@ -191,8 +192,8 @@ Module mdlG0010
     ''' 報告書操作区分
     ''' </summary>
     Public Enum ENM_HOKOKUSYO_SOUSA_KB
-        _0_起草 = 0
-        _1_申請承認依頼 = 1
+        _0_新規作成 = 0
+        _1_申請 = 1
         _2_更新保存 = 2
     End Enum
 
@@ -280,6 +281,7 @@ Module mdlG0010
 #End Region
 
 #Region "Model"
+
     Public _D003_NCR_J As New MODEL.D003_NCR_J
     Public _D004_SYONIN_J_KANRI As New MODEL.D004_SYONIN_J_KANRI
     Public _D005_CAR_J As New MODEL.D005_CAR_J
@@ -288,11 +290,13 @@ Module mdlG0010
     Public _R002_HOKOKU_TENSO As New MODEL.R002_HOKOKU_TENSO
     Public _R003_NCR_SASIMODOSI As New MODEL.R003_NCR_SASIMODOSI
     Public _R004 As New MODEL.R004_CAR_SASIMODOSI
+
 #End Region
 
 #End Region
 
 #Region "MAIN"
+
     <STAThread()>
     Public Sub Main()
         Try
@@ -388,11 +392,13 @@ Module mdlG0010
 
         End Try
     End Sub
+
 #End Region
 
 #Region "共通関数"
 
 #Region "値取得等"
+
     ''' <summary>
     ''' 引数の検索条件を一覧取得ストアドに渡して検索結果のテーブルデータを取得
     ''' </summary>
@@ -562,8 +568,6 @@ Module mdlG0010
 
             Dim _model As New MODEL.V005_CAR_J
 
-
-
             With dsList.Tables(0).Rows(0)
                 _model.HOKOKU_NO = .Item(NameOf(_model.HOKOKU_NO)).ToString.Trim
                 _model.BUMON_KB = .Item(NameOf(_model.BUMON_KB)).ToString.Trim
@@ -591,7 +595,7 @@ Module mdlG0010
                 _model.SETUMON_18 = .Item(NameOf(_model.SETUMON_18)).ToString.Trim
                 _model.SETUMON_19 = .Item(NameOf(_model.SETUMON_19)).ToString.Trim
                 _model.SETUMON_20 = .Item(NameOf(_model.SETUMON_20)).ToString.Trim
-                _model.SETUMON_21 = .Item(NameOf(_model.SETUMON_21)) .ToString.Trim
+                _model.SETUMON_21 = .Item(NameOf(_model.SETUMON_21)).ToString.Trim
                 _model.SETUMON_22 = .Item(NameOf(_model.SETUMON_22)).ToString.Trim
                 _model.SETUMON_23 = .Item(NameOf(_model.SETUMON_23)).ToString.Trim
                 _model.SETUMON_24 = .Item(NameOf(_model.SETUMON_24)).ToString.Trim
@@ -710,7 +714,6 @@ Module mdlG0010
             End Select
 
             Return drList(0)?.Item("DISP")
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return vbEmpty
@@ -743,7 +746,6 @@ Module mdlG0010
 
     End Function
 
-
     Private Function FunGetCurrentSYONIN_JUN(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal HOKOKU_NO As String) As Integer
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
@@ -765,6 +767,7 @@ Module mdlG0010
             Return 0
         End If
     End Function
+
 #End Region
 
 #Region "メール送信"
@@ -848,7 +851,7 @@ Module mdlG0010
                     Return False
                 End If
 
-                strMsg = String.Format("【メール送信成功】TO:{0}({1}) SUBJECT:{2}", strToSyainName, ToAddressList(0), strSubject)
+                strMsg = $"【メール送信成功】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}"
                 WL.WriteLogDat(strMsg)
 
                 If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
@@ -856,7 +859,6 @@ Module mdlG0010
                 End If
 
             End Using
-
 
             ''認証なし フジワラ
             blnSend = ClsMailSend.FunSendMail(strSmtpServer:=strSmtpServer,
@@ -896,6 +898,7 @@ Module mdlG0010
 #End Region
 
 #Region "承認所属社員取得"
+
     'TV02_SYONIN_SYOZOKU_SYAIN
 
     Public Function FunGetSYONIN_SYOZOKU_SYAIN(ByVal Optional BUMON_KB As String = "", ByVal Optional SYONIN_HOUKOKUSYO_ID As Integer = 0, ByVal Optional SYONIN_JUN As Integer = 0) As DataTable
@@ -922,7 +925,6 @@ Module mdlG0010
 
         dt.PrimaryKey = {dt.Columns("VALUE")} ', dt.Columns("SYONIN_JUN"), dt.Columns("SYONIN_HOKOKUSYO_ID")
 
-
         '承認順未指定=報告書ID未指定 or 承認順=ST1 起草登録時はログインユーザーを追加
         Select Case SYONIN_JUN
             Case 0, 10
@@ -934,7 +936,6 @@ Module mdlG0010
                     dt.Rows.Add(Trow2)
                 End If
         End Select
-
 
         With dsList.Tables(0)
             For intCNT = 0 To .Rows.Count - 1
@@ -957,6 +958,7 @@ Module mdlG0010
 #End Region
 
 #Region "所属社員取得"
+
     'TV03_SYONIN_SYAIN
 
     Public Function FunGetSYOZOKU_SYAIN(Optional BUMON_KB As String = "", Optional BUSYO_ID As Integer = 0, Optional GYOMU_GROUP_ID As Integer = 0) As DataTableEx
@@ -982,7 +984,6 @@ Module mdlG0010
         dt.Columns.Add("GYOMU_GROUP_ID", GetType(Integer))
         dt.Columns.Add("IS_LEADER", GetType(Boolean))
 
-
         dt.PrimaryKey = {dt.Columns("VALUE"), dt.Columns("GYOMU_GROUP_ID")} ', dt.Columns("SYONIN_JUN"), dt.Columns("SYONIN_HOKOKUSYO_ID")
 
         For Each row As DataRow In dsList.Tables(0).Rows
@@ -998,13 +999,13 @@ Module mdlG0010
             End If
         Next row
 
-
         Return dt
     End Function
 
 #End Region
 
 #Region "部門別不適合区分取得"
+
     Public Function FunGetFUTEKIGO_KB(BUMON_KB As String) As DataTableEx
         Dim dt As New DataTableEx
         Dim sbSQL As New System.Text.StringBuilder
@@ -1039,6 +1040,7 @@ Module mdlG0010
 #End Region
 
 #Region "部門別不適合詳細区分取得"
+
     Public Function FunGetFUTEKIGO_S_KB(BUMON_KB As String, FUTEKIGO_KB As String) As DataTableEx
         Dim dt As New DataTableEx
         Dim sbSQL As New System.Text.StringBuilder
@@ -1074,6 +1076,7 @@ Module mdlG0010
 #End Region
 
 #Region "報告書登録内容変更判定"
+
     Public Function FunChangedRecord(ByVal intHOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String, strTargetYMDHNS As String) As Boolean
         Dim dsList As New DataSet
         Dim sbSQL As New System.Text.StringBuilder
@@ -1086,7 +1089,6 @@ Module mdlG0010
             End Using
 
             Return dsList.Tables(0).Rows.Count > 0
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -1240,15 +1242,12 @@ Module mdlG0010
             shapeLINE_HENKYAKU.Visible = (SYOCHI_KB <> ENM_NCR_STAGE80_TABPAGES._3_返却実施記録)
             shapeLINE_TENYO.Visible = (SYOCHI_KB <> ENM_NCR_STAGE80_TABPAGES._4_転用先記録)
 
-
             If Not _V002_NCR_J.JIZEN_SINSA_HANTEI_KB.IsNulOrWS Then
                 ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_HANTEI_KB) & _V002_NCR_J.JIZEN_SINSA_HANTEI_KB).Value = "TRUE"
             End If
             If Not _V002_NCR_J.SAISIN_KAKUNIN_YMD.IsNulOrWS Then
                 ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SAISIN_KAKUNIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
-
-
 
             shapeLINE_SYOCHI_D.Visible = (_V002_NCR_J.SYOCHI_D_UMU_KB = "0")
             shapeLINE_SYOCHI_E.Visible = (_V002_NCR_J.SYOCHI_E_UMU_KB = "0")
@@ -1262,7 +1261,6 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.GOKI)).Value = _V002_NCR_J.GOKI
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.HOKOKU_NO)).Value = _V002_NCR_J.HOKOKU_NO
-
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_SYAIN_NAME)).Value = _V002_NCR_J.JIZEN_SINSA_SYAIN_NAME
             If Not _V002_NCR_J.JIZEN_SINSA_YMD.IsNulOrWS Then
@@ -1279,7 +1277,6 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.KANSATU_KEKKA)).Value = _V002_NCR_J.KANSATU_KEKKA.Replace(Environment.NewLine, "")
             ssgSheet1.Range(NameOf(_V002_NCR_J.KISYU_NAME)).Value = _V002_NCR_J.KISYU_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAIHATU)).Value = _V002_NCR_J.SAIHATU
-
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME
 
@@ -1298,7 +1295,7 @@ Module mdlG0010
                 End If
             End If
 
-                ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU
+            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_A_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_A_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_B_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_B_NAME
 
@@ -1415,7 +1412,6 @@ Module mdlG0010
             End Try
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -1481,7 +1477,6 @@ Module mdlG0010
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_14) & "_HI").Value = "TRUE"
             End If
 
-
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_15)).Value = _V005_CAR_J.KAITO_15
             If Not _V005_CAR_J.KAITO_16.IsNulOrWS Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_16)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_16.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
@@ -1492,7 +1487,6 @@ Module mdlG0010
             If Not _V005_CAR_J.KAITO_20.IsNulOrWS Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_20)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_20.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
-
 
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_21)).Value = _V005_CAR_J.KAITO_21.Replace(Environment.NewLine, "")
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_22)).Value = _V005_CAR_J.KAITO_22.Replace(Environment.NewLine, "")
@@ -1603,7 +1597,6 @@ Module mdlG0010
             End Try
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -1618,7 +1611,7 @@ Module mdlG0010
     Private Function FunOpenWorkbook(filePath As String) As Boolean
         Dim workbookView As New SpreadsheetGear.Windows.Forms.WorkbookView
         Try
-            WorkbookView.GetLock()
+            workbookView.GetLock()
             Dim workbookSet As SpreadsheetGear.IWorkbookSet = SpreadsheetGear.Factory.GetWorkbookSet(System.Globalization.CultureInfo.CurrentCulture)
             Dim workbook As SpreadsheetGear.IWorkbook = workbookSet.Workbooks.Open(filePath)
             Dim worksheet As SpreadsheetGear.IWorksheet = workbook.Worksheets(0)
@@ -1633,15 +1626,13 @@ Module mdlG0010
             workbookView.PrintPreview()
 
             Return True
-
         Catch ex As Exception
             Throw
             Return False
         Finally
-            WorkbookView.ReleaseLock()
+            workbookView.ReleaseLock()
         End Try
     End Function
-
 
     ''' <summary>
     ''' NCR ステージ80 処置判定
@@ -1683,12 +1674,30 @@ Module mdlG0010
                 End Select
         End Select
     End Function
-#End Region
 
 #End Region
 
+#Region "Close済み編集権限確認"
+    Public Function HasEditingRight(SYAIN_ID As Integer)
+        Dim dsList As New DataSet
+        Dim sbSQL As New System.Text.StringBuilder
+        Try
 
+            sbSQL.Append($"SELECT {NameOf(M011_SYAIN_GYOMU.SYAIN_ID)} FROM {NameOf(M011_SYAIN_GYOMU)}")
+            sbSQL.Append($" WHERE {NameOf(M011_SYAIN_GYOMU.SYAIN_ID)}={SYAIN_ID}")
+            sbSQL.Append($" AND {NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)}={ENM_GYOMU_GROUP_ID._4_品証.Value}")
+            Using DB As ClsDbUtility = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
 
+            Return dsList.Tables(0).Rows.Count > 0
 
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+#End Region
+
+#End Region
 
 End Module

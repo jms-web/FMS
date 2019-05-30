@@ -19,6 +19,7 @@ Public Class FrmG0012
 
     Private _tabPageManager As TabPageManager
 
+    Private IsEditingClosed As Boolean
 #End Region
 
 #Region "プロパティ"
@@ -48,6 +49,8 @@ Public Class FrmG0012
 
     'NCR編集画面から開かれているか
     Public Property PrDialog As Boolean
+
+    Public Property PrRIYU As String
 
 #End Region
 
@@ -105,6 +108,7 @@ Public Class FrmG0012
 
         Try
             Me.Visible = False
+            PrRIYU = ""
             Await Task.Run(
                 Sub()
                     Me.Invoke(
@@ -125,7 +129,6 @@ Public Class FrmG0012
                         cmbKISEKI_KOTEI.SetDataSource(tblKISEKI_KOUTEI_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
                         cmbKAITO_14.SetDataSource(tblYOHI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-
                         '-----画面初期化
                         Call FunInitializeControls()
 
@@ -135,7 +138,6 @@ Public Class FrmG0012
                         Me.tabSTAGE01.Focus()
                     End Sub)
                 End Sub)
-
         Finally
             FunInitFuncButtonEnabled()
             Me.Visible = True
@@ -182,16 +184,22 @@ Public Class FrmG0012
 
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
-                        If MessageBox.Show("入力内容を保存しますか？", "登録確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                        If IsEditingClosed Then
+                            OpenFormEdit()
+                            If PrRIYU.IsNulOrWS Then
+                                Exit Sub
+                            End If
+                        Else
+                            If MessageBox.Show("入力内容を保存しますか？", "登録確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then Exit Sub
+                        End If
 
-                            If FunSAVE(ENM_SAVE_MODE._1_保存) Then
+                        If FunSAVE(ENM_SAVE_MODE._1_保存) Then
                                 Me.DialogResult = DialogResult.OK
                                 MessageBox.Show("入力内容を保存しました", "保存完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             Else
                                 MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
                             End If
                         End If
-                    End If
 
                 Case 2  '承認申請
                     '申請先タブに切り替え
@@ -275,6 +283,7 @@ Public Class FrmG0012
 #Region "保存・承認申請"
 
 #Region "   保存・承認申請処理メイン"
+
     ''' <summary>
     ''' 保存・承認申請処理メイン
     ''' </summary>
@@ -293,11 +302,10 @@ Public Class FrmG0012
                     If FunSAVE_D006(DB) = False Then blnErr = True : Return False
                     If FunSAVE_FILE(DB) = False Then blnErr = True : Return False
 
-                    If Not blnTENSO Then
+                    If Not blnTENSO And PrCurrentStage < ENM_CAR_STAGE._999_Closed Then
                         If FunSAVE_D004(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                     End If
                     If FunSAVE_R001(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
-
                 Finally
                     DB.Commit(Not blnErr)
                 End Try
@@ -314,6 +322,7 @@ Public Class FrmG0012
 #End Region
 
 #Region "   CAR添付ファイル保存"
+
     ''' <summary>
     ''' CAR添付ファイル保存
     ''' </summary>
@@ -400,6 +409,7 @@ Public Class FrmG0012
 #End Region
 
 #Region "   D005"
+
     ''' <summary>
     ''' CAR実績更新
     ''' </summary>
@@ -420,8 +430,6 @@ Public Class FrmG0012
             Case Else
 
         End Select
-
-
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
@@ -568,7 +576,6 @@ Public Class FrmG0012
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_22)} = WK.{NameOf(_D005_CAR_J.KAITO_22)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_23)} = WK.{NameOf(_D005_CAR_J.KAITO_23)}")
 
-
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)} = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)} = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_SYAIN_ID)}")
@@ -615,6 +622,7 @@ Public Class FrmG0012
         sbSQL.Append($"INSERT(")
 
 #Region "列挙"
+
         sbSQL.Append($"  " & NameOf(_D005_CAR_J.HOKOKU_NO))
         sbSQL.Append($" ," & NameOf(_D005_CAR_J.BUMON_KB))
         sbSQL.Append($" ," & NameOf(_D005_CAR_J.CLOSE_FG))
@@ -697,6 +705,7 @@ Public Class FrmG0012
         sbSQL.Append($" ," & NameOf(_D005_CAR_J.UPD_YMDHNS))
         sbSQL.Append($" ," & NameOf(_D005_CAR_J.DEL_SYAIN_ID))
         sbSQL.Append($" ," & NameOf(_D005_CAR_J.DEL_YMDHNS))
+
 #End Region
 
         sbSQL.Append($" ) VALUES(")
@@ -804,6 +813,7 @@ Public Class FrmG0012
 #End Region
 
 #Region "   D004 承認実績管理更新"
+
     ''' <summary>
     ''' 承認実績管理更新
     ''' </summary>
@@ -1053,6 +1063,7 @@ Public Class FrmG0012
 #End Region
 
 #Region "   D006 不適合是正処置原因分析情報更新"
+
     ''' <summary>
     ''' 不適合是正処置原因分析情報更新
     ''' </summary>
@@ -1182,9 +1193,11 @@ Public Class FrmG0012
 
         Return True
     End Function
+
 #End Region
 
 #Region "承認依頼メール送信"
+
     ''' <summary>
     ''' 承認依頼メール送信
     ''' </summary>
@@ -1193,17 +1206,18 @@ Public Class FrmG0012
         Dim KISYU_NAME As String = _V002_NCR_J.KISYU_NAME
         Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
         Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
-        Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
+        Dim strSubject As String = $"【不適合品処置依頼】[CAR] {KISYU_NAME}・{_V002_NCR_J.BUHIN_BANGO}"
         Dim strBody As String = <sql><![CDATA[
         {0} 殿<br />
         <br />
         　不適合製品の処置依頼が来ましたので対応をお願いします。<br />
         <br />
+        　　【報 告 書】CAR<br />
         　　【報告書No】{1}<br />
-        　　【起草日　】{2}<br />
-        　　【機種　　】{3}<br />
+        　　【起 草 日】{2}<br />
+        　　【機　  種】{3}<br />
         　　【部品番号】{4}<br />
-        　　【依頼者　】{5}<br />
+        　　【依 頼 者】{5}<br />
         　　【依頼者処置内容】{6}<br />
         　　【コメント】{7}<br />
         <br />
@@ -1215,7 +1229,6 @@ Public Class FrmG0012
 
         'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}
 
-        strSubject = String.Format(strSubject, KISYU_NAME, _V002_NCR_J.BUHIN_BANGO)
         strBody = String.Format(strBody,
                                 Fun_GetUSER_NAME(_D004_SYONIN_J_KANRI.SYAIN_ID),
                                 _D004_SYONIN_J_KANRI.HOKOKU_NO,
@@ -1265,17 +1278,23 @@ Public Class FrmG0012
         _R001_HOKOKU_SOUSA.HOKOKU_NO = _V002_NCR_J.HOKOKU_NO
         _R001_HOKOKU_SOUSA.SYONIN_JUN = PrCurrentStage
         _R001_HOKOKU_SOUSA.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+        _R001_HOKOKU_SOUSA.RIYU = PrRIYU
         'UNDONE: getsysdatetime
         _R001_HOKOKU_SOUSA.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
 
         Select Case enmSAVE_MODE
             Case ENM_SAVE_MODE._1_保存
-                '追加しない
-                Return True
+
+                If PrCurrentStage = ENM_CAR_STAGE._999_Closed Then
+                    _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
+                    _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._2_更新保存
+                Else
+                    Return True
+                End If
 
             Case ENM_SAVE_MODE._2_承認申請
                 _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
-                _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._1_申請承認依頼
+                _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._1_申請
         End Select
 
         '-----
@@ -1813,6 +1832,42 @@ Public Class FrmG0012
 
 #End Region
 
+#Region "修正"
+
+    Private Function OpenFormEdit() As Boolean
+        Dim frmDLG As New FrmG0020
+        Dim dlgRET As DialogResult
+
+        Try
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+            frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+            frmDLG.PrBUMON_KB = _D003_NCR_J.BUMON_KB
+            frmDLG.PrBUHIN_BANGO = _D003_NCR_J.BUHIN_BANGO
+            frmDLG.PrKISO_YMD = DateTime.ParseExact(_D003_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+            frmDLG.PrKISYU_NAME = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
+            frmDLG.PrCurrentStage = Me.PrCurrentStage
+
+            dlgRET = frmDLG.ShowDialog(Me)
+
+            If dlgRET = Windows.Forms.DialogResult.OK Then
+                PrRIYU = frmDLG.PrRIYU
+                Me.DialogResult = DialogResult.OK
+                Me.Close()
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            If frmDLG IsNot Nothing Then
+                frmDLG.Dispose()
+            End If
+        End Try
+    End Function
+#End Region
+
 #Region "FuncButton有効無効切替"
 
     ''' <summary>
@@ -1833,7 +1888,6 @@ Public Class FrmG0012
                     End If
                 End With
             Next intFunc
-
 
             If FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, PrHOKOKU_NO, PrCurrentStage) Then '
                 cmdFunc1.Enabled = True
@@ -1877,7 +1931,16 @@ Public Class FrmG0012
             End If
 
             If PrCurrentStage = ENM_CAR_STAGE._999_Closed Then
-                cmdFunc1.Enabled = False
+
+                '#181
+                If IsEditingClosed Then
+                    cmdFunc1.Enabled = True
+                    cmdFunc1.Text = "保存(F1)"
+                Else
+                    cmdFunc1.Enabled = False
+                    cmdFunc1.Text = "一時保存(F1)"
+                End If
+
                 cmdFunc2.Enabled = False
                 cmdFunc4.Enabled = False
                 cmdFunc5.Enabled = False
@@ -1988,6 +2051,7 @@ Public Class FrmG0012
 #End Region
 
 #Region "   1.CAR"
+
     Private Sub RbtnKAITO_14_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnKAITO_14_T.CheckedChanged, rbtnKAITO_14_F.CheckedChanged
 
         Dim result As Boolean = rbtnKAITO_14_F.Checked
@@ -2021,7 +2085,6 @@ Public Class FrmG0012
         lblSYOCHI_C_TANTO.Visible = Not result
         lblSYOCHI_C_YMD.Visible = Not result
         lblSYOCHI_C.Visible = Not result
-
 
         mtxKAITO_15.ReadOnly = result
         dtKAITO_16.ReadOnly = result
@@ -2216,14 +2279,15 @@ Public Class FrmG0012
 #End Region
 
 #Region "承認申請日"
+
     Private Sub dtUPD_YMD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtUPD_YMD.Validating
 
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
 
         IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認・申請日"))
 
-
     End Sub
+
 #End Region
 
 #Region "   処置実施記録"
@@ -2402,7 +2466,6 @@ Public Class FrmG0012
 #End Region
 
 #Region "是正処置有効性の問題の有無"
-
 
     Private Sub ChkZESEI_SYOCHI_YUKO_UMU_CheckedChanged(sender As Object, e As EventArgs) Handles chkZESEI_SYOCHI_YUKO_UMU.CheckedChanged
         If chkZESEI_SYOCHI_YUKO_UMU.Checked Then
@@ -2597,6 +2660,7 @@ Public Class FrmG0012
 #Region "ローカル関数"
 
 #Region "バインディング"
+
     Private Function FunSetBinding() As Boolean
 
         Try
@@ -2748,7 +2812,6 @@ Public Class FrmG0012
             mtxFUTEKIGO_S_KB.Text = _V002_NCR_J.FUTEKIGO_S_NAME
             mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO)
 
-
             mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
 
             Dim blnOwn As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V005_CAR_J.HOKOKU_NO, PrCurrentStage)
@@ -2806,18 +2869,34 @@ Public Class FrmG0012
                     pnlAnalysis.Visible = True
 
                 Case ENM_CAR_STAGE._999_Closed
-                    pnlST05.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     'tabSTAGE02.EnableDisablePages(False)
-                    pnlCAR.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
-                    pnlSYOCHI_KIROKU.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
-                    pnlZESEI_SYOCHI.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
+
+                    If IsEditingClosed Then
+                        pnlCAR.DisableContaints(True, PanelEx.ENM_PROPERTY._2_ReadOnly)
+                        pnlSYOCHI_KIROKU.DisableContaints(True, PanelEx.ENM_PROPERTY._2_ReadOnly)
+                        pnlZESEI_SYOCHI.DisableContaints(True, PanelEx.ENM_PROPERTY._2_ReadOnly)
+
+                        lbltmpFile1_Clear.Enabled = True
+                        lbltmpFile2_Clear.Enabled = True
+                        btnOpentmpFile1.Enabled = True
+                        btnOpentmpFile2.Enabled = True
+                        lblKYOIKU_FILE_PATH_Clear.Enabled = True
+                        lblSYOSAI_FILE_PATH_Clear.Enabled = True
+                    Else
+                        pnlCAR.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
+                        pnlSYOCHI_KIROKU.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
+                        pnlZESEI_SYOCHI.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
+                        pnlST05.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
+
+                        lbltmpFile1_Clear.Enabled = False
+                        lbltmpFile2_Clear.Enabled = False
+                        btnOpentmpFile1.Enabled = False
+                        btnOpentmpFile2.Enabled = False
+                        lblKYOIKU_FILE_PATH_Clear.Enabled = False
+                        lblSYOSAI_FILE_PATH_Clear.Enabled = False
+                    End If
+
                     pnlST13.Visible = False
-                    lbltmpFile1_Clear.Enabled = False
-                    lbltmpFile2_Clear.Enabled = False
-                    btnOpentmpFile1.Enabled = False
-                    btnOpentmpFile2.Enabled = False
-                    lblKYOIKU_FILE_PATH_Clear.Enabled = False
-                    lblSYOSAI_FILE_PATH_Clear.Enabled = False
                     pnlAnalysis.Visible = True
 
                 Case Else
@@ -3071,8 +3150,6 @@ Public Class FrmG0012
                 _D005_CAR_J.SYOCHI_YOTEI_YMD = ""
             End If
 
-
-
             '添付ファイル
             Dim strRootDir As String
             Using DB As ClsDbUtility = DBOpen()
@@ -3111,12 +3188,10 @@ Public Class FrmG0012
                 lbltmpFile2_Clear.Visible = True
             End If
 
-
             '#128
             If PrCurrentStage = ENM_CAR_STAGE._10_起草入力 AndAlso Not IsRemanded(_D005_CAR_J.HOKOKU_NO) Then
                 _D005_CAR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             End If
-
 
             '原因分析区分
             _D006_CAR_GENIN_List.Clear()
@@ -3133,7 +3208,6 @@ Public Class FrmG0012
 
             PrGenin1.Clear()
             PrGenin2.Clear()
-
 
             For Each row As DataRow In dsList.Tables(0).Rows
                 If row.Item(NameOf(_D006_CAR_GENIN.RENBAN)) = 1 Then
@@ -3172,11 +3246,9 @@ Public Class FrmG0012
         End Try
     End Function
 
-
     Private Sub btnST13_SYONIN_Click(sender As Object, e As EventArgs) Handles btnST13_SYONIN.Click
         cmdFunc2.PerformClick()
     End Sub
-
 
 #End Region
 
@@ -3232,14 +3304,12 @@ Public Class FrmG0012
 
         IsValidated *= ErrorProvider.UpdateErrorInfo(txt, txt.ReadOnly OrElse Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:内容"))
 
-
     End Sub
 
     Private Sub TxtKAITO_22_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtKAITO_22.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
         IsValidated *= ErrorProvider.UpdateErrorInfo(txt, txt.ReadOnly OrElse Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:内容"))
-
 
     End Sub
 
@@ -3248,14 +3318,12 @@ Public Class FrmG0012
 
         IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:いつまで"))
 
-
     End Sub
 
     Private Sub CmbKAITO_5_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKAITO_5.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:誰が"))
-
 
     End Sub
 
@@ -3269,16 +3337,12 @@ Public Class FrmG0012
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtxLOT, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:有効号機・LOT・日付のいづれかの入力が必要です"))
         IsValidated *= ErrorProvider.UpdateErrorInfo(dtYMD, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:有効号機・LOT・日付のいづれかの入力が必要です"))
 
-
     End Sub
-
-
 
     Private Sub DtKAITO_9_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtKAITO_9.Validating
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
 
         IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:いつまで"))
-
 
     End Sub
 
@@ -3286,7 +3350,6 @@ Public Class FrmG0012
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:誰が"))
-
 
     End Sub
 
@@ -3300,15 +3363,12 @@ Public Class FrmG0012
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtxLOT, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:有効号機・LOT・日付のいづれかの入力が必要です"))
         IsValidated *= ErrorProvider.UpdateErrorInfo(dtYMD, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:有効号機・LOT・日付のいづれかの入力が必要です"))
 
-
     End Sub
-
 
     Private Sub dtKAITO_16_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtKAITO_16.Validating
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
 
         IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, dtx.ReadOnly OrElse Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:いつまで"))
-
 
     End Sub
 
@@ -3316,7 +3376,6 @@ Public Class FrmG0012
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:誰が"))
-
 
     End Sub
 
@@ -3329,7 +3388,6 @@ Public Class FrmG0012
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtxGOKI, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtxLOT, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
         IsValidated *= ErrorProvider.UpdateErrorInfo(dtYMD, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
-
 
     End Sub
 
@@ -3413,8 +3471,6 @@ Public Class FrmG0012
         End Try
     End Function
 
-
-
     Private Function IsRemanded(strHOKOKU_NO As String) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
         Dim intRET As Integer
@@ -3434,11 +3490,6 @@ Public Class FrmG0012
             Return intRET > 0
         End If
     End Function
-
-
-
-
-
 
 #End Region
 

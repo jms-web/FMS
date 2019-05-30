@@ -3,6 +3,7 @@ Imports System.Threading.Tasks
 Imports C1.Win.C1FlexGrid
 Imports JMS_COMMON.ClsPubMethod
 Imports MODEL
+Imports ST02 = MODEL.ST02_FUTEKIGO_ICHIRAN
 
 'Imports Spire.Xls
 'Imports Spire.Pdf
@@ -1092,13 +1093,11 @@ Public Class FrmG0010
             'ボタンINDEX毎の処理
             Select Case intFUNC
                 Case 1  '検索
-                    IsValidated = True
-                    Call CmbHOKOKUSYO_ID_Validating(cmbHOKOKUSYO_ID, Nothing)
-                    If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 AndAlso IsValidated = False Then
-                        Exit Sub
+
+                    If IsValidatedSearchFilter() Then
+                        Call FunSRCH(flxDATA, FunGetListData())
                     End If
 
-                    Call FunSRCH(flxDATA, FunGetListData())
                 Case 2  '追加
 
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
@@ -1740,19 +1739,20 @@ Public Class FrmG0010
                                                    strTantoNameList
                         If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
                             For Each dr As DataRow In dt.CopyToDataTable.Rows
-                                Dim strEXEParam As String = dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_ID)) & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)) & "," & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
-                                Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
+                                Dim strEXEParam As String = $"{dr.Item(NameOf(ST02.GEN_TANTO_ID))},{ENM_OPEN_MODE._2_処置画面起動},{dr.Item(NameOf(ST02.SYONIN_HOKOKUSYO_ID))},{dr.Item(NameOf(ST02.HOKOKU_NO))}"
+                                Dim strSubject As String = $"【不適合品処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME")}] {dr.Item(NameOf(ST02.KISYU_NAME))}・{dr.Item(NameOf(ST02.BUHIN_BANGO))}"
                                 Dim strBody As String = <body><![CDATA[
                                 {0} 殿<br />
                                 <br />
                                 　不適合製品の処置依頼から【滞留日数】{1}日が経過しています。<br />
                                 　早急に対応をお願いします。<br />
                                 <br />
-                                　　【報告書No】{2}<br />
-                                　　【起草日　】{3}<br />
-                                　　【機種　　】{4}<br />
-                                　　【部品番号】{5}<br />
-                                　　【依頼者　】{6}<br />
+                                　　【報 告 書】{2}<br />
+                                　　【報告書No】{3}<br />
+                                　　【起 草 日】{4}<br />
+                                　　【機　  種】{5}<br />
+                                　　【部品番号】{6}<br />
+                                　　【依 頼 者】{7}<br />
                                 <br />
                                 <a href = "http://sv04:8000/CLICKONCE_FMS.application" > システム起動</a><br />
                                 <br />
@@ -1762,10 +1762,11 @@ Public Class FrmG0010
 
                                 'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
 
-                                strSubject = String.Format(strSubject, dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.KISYU_NAME)), dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.BUHIN_BANGO)))
+
                                 strBody = String.Format(strBody,
-                                dr.Item("GEN_TANTO_NAME"),
+                                dr.Item(NameOf(ST02.GEN_TANTO_NAME)),
                                 dr.Item("TAIRYU_NISSU"),
+                                dr.Item("SYONIN_HOKOKUSYO_R_NAME"),
                                 dr.Item("HOKOKU_NO"),
                                 dr.Item("KISO_YMD").ToString,
                                 dr.Item("KISYU_NAME"),
@@ -1815,32 +1816,32 @@ Public Class FrmG0010
                 If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
 
                     Dim strEXEParam As String = dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_ID)) & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)) & "," & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
-                    Dim strSubject As String = "【不適合品処置依頼】{0}・{1}"
+                    Dim strSubject As String = $"【不適合品処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME")}] {dr.Item(NameOf(ST02.KISYU_NAME))}・{dr.Item(NameOf(ST02.BUHIN_BANGO))}"
                     Dim strBody As String = <body><![CDATA[
                     {0} 殿<br />
                     <br />
                     　不適合製品の処置依頼から【滞留日数】{1}日が経過しています。<br />
                     　早急に対応をお願いします。<br />
                     <br />
-                    　　【報告書No】{2}<br />
-                    　　【起草日　】{3}<br />
-                    　　【機種　　】{4}<br />
-                    　　【部品番号】{5}<br />
-                    　　【依頼者　】{6}<br />
+                    【報 告 書】{2}<br />
+                    【報告書No】{3}<br />
+                    【起 草 日】{4}<br />
+                    【機　  種】{5}<br />
+                    【部品番号】{6}<br />
+                    【依 頼 者】{7}<br />
                     <br />
                     <a href = "http://sv04:8000/CLICKONCE_FMS.application" > システム起動</a><br />
                     <br />
                     ※このメールは配信専用です。(返信できません)<br />
                     返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
-
                     ]]></body>.Value.Trim
 
                     'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
 
-                    strSubject = String.Format(strSubject, dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.KISYU_NAME)), dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.BUHIN_BANGO)))
                     strBody = String.Format(strBody,
                                 dr.Item("GEN_TANTO_NAME"),
                                 dr.Item("TAIRYU_NISSU"),
+                                dr.Item("SYONIN_HOKOKUSYO_R_NAME"),
                                 dr.Item("HOKOKU_NO"),
                                 dr.Item("KISO_YMD").ToString,
                                 dr.Item("KISYU_NAME"),
@@ -2223,7 +2224,13 @@ Public Class FrmG0010
 
                     '選択行がClosedの場合
                     If Val(flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.CLOSE_FG))) = 1 Then
-                        cmdFunc4.Text = "内容確認(F4)"
+
+                        If HasEditingRight(pub_SYAIN_INFO.SYAIN_ID) Then
+                            cmdFunc4.Text = "修正(F4)"
+                        Else
+                            cmdFunc4.Text = "内容確認(F4)"
+                        End If
+
                         cmdFunc5.Enabled = False
                         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "クローズ済のため削除出来ません")
                     Else
@@ -2352,11 +2359,6 @@ Public Class FrmG0010
         panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpSummaryGrid))
     End Sub
 
-    Private Sub chkDispHASSEI_YMD_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispHASSEI_YMD.CheckedChanged
-        dtHASSEI_YMD_FROM.Enabled = chkDispHASSEI_YMD.Checked
-        dtHASSEI_YMD_TO.Enabled = chkDispHASSEI_YMD.Checked
-    End Sub
-
 #Region "検索条件クリア"
 
     Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click
@@ -2364,6 +2366,23 @@ Public Class FrmG0010
         RemoveHandler chkDeleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
         chkDeleteRowVisibled.Checked = False
         AddHandler chkDeleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
+
+        chkDispBUMON.Checked = False
+        chkDispADD_TANTO.Checked = False
+        chkDispKISYU.Checked = False
+        chkDispBUHIN_BANGO.Checked = False
+        chkDispHINMEI.Checked = False
+        chkDispGOKI.Checked = False
+        chkDispSYANAI_CD.Checked = False
+        chkDispHASSEI_YMD.Checked = False
+        chkDispFUTEKIGO_JYOTAI_KB.Checked = False
+        chkDispFUTEKIGO_KB.Checked = False
+        chkDispFUTEKIGO_S_KB.Checked = False
+
+        chkDispFUTEKIGO_JYOTAI_KB.Checked = False
+        chkDispFUTEKIGO_KB.Checked = False
+        chkDispFUTEKIGO_S_KB.Checked = False
+
         btnSummaryPage.Visible = False
         Call SetStageList()
     End Sub
@@ -2867,12 +2886,390 @@ Public Class FrmG0010
 
 #Region "入力チェック"
     Private Sub CmbHOKOKUSYO_ID_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbHOKOKUSYO_ID.Validating
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
         IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "報告書名"))
 
     End Sub
+
+    Private Sub CmbBUMON_Validating(sender As Object, e As CancelEventArgs) Handles cmbBUMON.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
+    End Sub
+
+    Private Sub CmbADD_TANTO_Validating(sender As Object, e As CancelEventArgs) Handles cmbADD_TANTO.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "起草者"))
+    End Sub
+
+    Private Sub CmbKISYU_Validating(sender As Object, e As CancelEventArgs) Handles cmbKISYU.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "機種"))
+    End Sub
+
+    Private Sub CmbBUHIN_BANGO_Validating(sender As Object, e As CancelEventArgs) Handles cmbBUHIN_BANGO.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品番号"))
+    End Sub
+
+    Private Sub MtxHINMEI_Validating(sender As Object, e As CancelEventArgs) Handles mtxHINMEI.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品名称"))
+    End Sub
+
+    Private Sub MtxGOKI_Validating(sender As Object, e As CancelEventArgs) Handles mtxGOKI.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製造番号(号機)"))
+    End Sub
+
+    Private Sub CmbSYANAI_CD_Validating(sender As Object, e As CancelEventArgs) Handles cmbSYANAI_CD.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "社内コード"))
+    End Sub
+
+    Private Sub CmbFUTEKIGO_JYOTAI_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbFUTEKIGO_JYOTAI_KB.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "状態区分"))
+    End Sub
+
+    Private Sub CmbFUTEKIGO_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbFUTEKIGO_KB.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "不適合区分"))
+    End Sub
+
+    Private Sub CmbFUTEKIGO_S_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbFUTEKIGO_S_KB.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "不適合詳細区分"))
+    End Sub
+
+    Private Sub CmbJIZEN_SINSA_HANTEI_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbJIZEN_SINSA_HANTEI_KB.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "事前審査判定区分"))
+    End Sub
+
+    Private Sub CmbZESEI_SYOCHI_YOHI_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbZESEI_SYOCHI_YOHI_KB.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置要否判定区分"))
+    End Sub
+
+    Private Sub CmbSAISIN_IINKAI_HANTEI_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbSAISIN_IINKAI_HANTEI_KB.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "再審委員会判定区分"))
+    End Sub
+
+    Private Sub CmbKOKYAKU_HANTEI_SIJI_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbKOKYAKU_HANTEI_SIJI_KB.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "顧客判定指示区分"))
+    End Sub
+
+    Private Sub CmbKOKYAKU_SAISYU_HANTEI_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbKOKYAKU_SAISYU_HANTEI_KB.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "顧客最終判定区分"))
+    End Sub
+
+    Private Sub CmbKENSA_KEKKA_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbKENSA_KEKKA_KB.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "検査結果"))
+    End Sub
+
+    Private Sub CmbYOIN1_Validating(sender As Object, e As CancelEventArgs) Handles cmbYOIN1.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "要因1"))
+    End Sub
+
+    Private Sub CmbYOIN2_Validating(sender As Object, e As CancelEventArgs) Handles cmbYOIN2.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "要因2"))
+    End Sub
+
+    Private Sub CmbKISEKI_KOTEI_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbKISEKI_KOTEI_KB.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "帰責工程"))
+    End Sub
+
+    Private Sub MtxGENIN1_Validating(sender As Object, e As CancelEventArgs) Handles mtxGENIN1.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "原因1"))
+    End Sub
+
+    Private Sub MtxGENIN2_Validating(sender As Object, e As CancelEventArgs) Handles mtxGENIN2.Validating
+        If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
+
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "原因2"))
+    End Sub
+
+
+    Private Function IsValidatedSearchFilter() As Boolean
+        IsValidated = True
+        Call CmbHOKOKUSYO_ID_Validating(cmbHOKOKUSYO_ID, Nothing)
+
+        If chkDispBUMON.Checked Then Call CmbBUMON_Validating(cmbBUMON, Nothing)
+        If chkDispADD_TANTO.Checked Then Call CmbADD_TANTO_Validating(cmbADD_TANTO, Nothing)
+        If chkDispKISYU.Checked Then Call CmbKISYU_Validating(cmbKISYU, Nothing)
+        If chkDispBUHIN_BANGO.Checked Then Call CmbBUHIN_BANGO_Validating(cmbBUHIN_BANGO, Nothing)
+
+        If chkDispHINMEI.Checked Then Call MtxHINMEI_Validating(mtxHINMEI, Nothing)
+        If chkDispGOKI.Checked Then Call MtxGOKI_Validating(mtxGOKI, Nothing)
+        If chkDispSYANAI_CD.Checked Then Call CmbSYANAI_CD_Validating(cmbSYANAI_CD, Nothing)
+        If chkDispHASSEI_YMD.Checked Then
+
+        End If
+        If chkDispFUTEKIGO_JYOTAI_KB.Checked Then Call CmbFUTEKIGO_JYOTAI_KB_Validating(cmbFUTEKIGO_JYOTAI_KB, Nothing)
+        If chkDispFUTEKIGO_KB.Checked Then Call CmbFUTEKIGO_KB_Validating(cmbFUTEKIGO_KB, Nothing)
+        If chkDispFUTEKIGO_S_KB.Checked Then Call CmbFUTEKIGO_S_KB_Validating(cmbFUTEKIGO_S_KB, Nothing)
+
+        If chkDispJIZEN_SINSA_HANTEI_KB.Checked Then Call CmbJIZEN_SINSA_HANTEI_KB_Validating(cmbJIZEN_SINSA_HANTEI_KB, Nothing)
+        If chkDispZESEI_SYOCHI_YOHI_KB.Checked Then Call CmbZESEI_SYOCHI_YOHI_KB_Validating(cmbZESEI_SYOCHI_YOHI_KB, Nothing)
+        If chkDispSAISIN_IINKAI_HANTEI_KB.Checked Then Call CmbSAISIN_IINKAI_HANTEI_KB_Validating(cmbSAISIN_IINKAI_HANTEI_KB, Nothing)
+        If chkDispKOKYAKU_HANTEI_SIJI_KB.Checked Then Call CmbKOKYAKU_HANTEI_SIJI_KB_Validating(cmbKOKYAKU_HANTEI_SIJI_KB, Nothing)
+        If chkDispKOKYAKU_SAISYU_HANTEI_KB.Checked Then Call CmbKOKYAKU_SAISYU_HANTEI_KB_Validating(cmbKOKYAKU_SAISYU_HANTEI_KB, Nothing)
+        If chkDispKENSA_KEKKA_KB.Checked Then Call CmbKENSA_KEKKA_KB_Validating(cmbKENSA_KEKKA_KB, Nothing)
+        If chkDispYOIN1.Checked Then Call CmbYOIN1_Validating(cmbYOIN1, Nothing)
+        If chkDispYOIN2.Checked Then Call CmbYOIN2_Validating(cmbYOIN2, Nothing)
+        If chkDispKISEKI_KOTEI_KB.Checked Then Call CmbKISEKI_KOTEI_KB_Validating(cmbKISEKI_KOTEI_KB, Nothing)
+        If chkDispGENIN1.Checked Then Call MtxGENIN1_Validating(mtxGENIN1, Nothing)
+        If chkDispGENIN2.Checked Then Call MtxGENIN2_Validating(mtxGENIN2, Nothing)
+
+        If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 AndAlso IsValidated = False Then
+            Return False
+        End If
+
+        Return True
+
+    End Function
+
 #End Region
+
+#Region "集計条件フィルタ チェックボックス"
+    Private Sub ChkDispKISYU_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispKISYU.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbKISYU
+
+        Call CmbKISYU_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispBUMON_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispBUMON.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbBUMON
+
+        Call CmbBUMON_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispADD_TANTO_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispADD_TANTO.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbADD_TANTO
+
+        Call CmbADD_TANTO_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispBUHIN_BANGO_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispBUHIN_BANGO.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbBUHIN_BANGO
+
+        Call CmbBUHIN_BANGO_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispHINMEI_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispHINMEI.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim mtx = mtxHINMEI
+
+        Call MtxHINMEI_Validating(mtx, Nothing)
+        mtx.Enabled = chk.Checked
+        If Not chk.Checked Then mtx.Text = ""
+    End Sub
+
+    Private Sub ChkDispGOKI_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispGOKI.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim mtx = mtxGOKI
+
+        Call MtxGOKI_Validating(mtx, Nothing)
+        mtx.Enabled = chk.Checked
+        If Not chk.Checked Then mtx.Text = ""
+    End Sub
+
+    Private Sub ChkDispSYANAI_CD_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispSYANAI_CD.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbSYANAI_CD
+
+        Call CmbSYANAI_CD_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispFUTEKIGO_JYOTAI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispFUTEKIGO_JYOTAI_KB.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbFUTEKIGO_JYOTAI_KB
+
+        Call CmbFUTEKIGO_JYOTAI_KB_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispFUTEKIGO_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispFUTEKIGO_KB.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbFUTEKIGO_KB
+
+        Call CmbFUTEKIGO_KB_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispFUTEKIGO_S_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispFUTEKIGO_S_KB.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbFUTEKIGO_S_KB
+
+        Call CmbFUTEKIGO_S_KB_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispJIZEN_SINSA_HANTEI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispJIZEN_SINSA_HANTEI_KB.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbJIZEN_SINSA_HANTEI_KB
+
+        Call CmbJIZEN_SINSA_HANTEI_KB_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispZESEI_SYOCHI_YOHI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispZESEI_SYOCHI_YOHI_KB.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbZESEI_SYOCHI_YOHI_KB
+
+        Call CmbZESEI_SYOCHI_YOHI_KB_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispSAISIN_IINKAI_HANTEI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispSAISIN_IINKAI_HANTEI_KB.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbSAISIN_IINKAI_HANTEI_KB
+
+        Call CmbSAISIN_IINKAI_HANTEI_KB_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispKOKYAKU_HANTEI_SIJI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispKOKYAKU_HANTEI_SIJI_KB.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbKOKYAKU_HANTEI_SIJI_KB
+
+        Call CmbKOKYAKU_HANTEI_SIJI_KB_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispKOKYAKU_SAISYU_HANTEI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispKOKYAKU_SAISYU_HANTEI_KB.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbKOKYAKU_SAISYU_HANTEI_KB
+
+        Call CmbKOKYAKU_SAISYU_HANTEI_KB_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispKENSA_KEKKA_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispKENSA_KEKKA_KB.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbKENSA_KEKKA_KB
+
+        Call CmbKENSA_KEKKA_KB_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispYOIN1_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispYOIN1.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbYOIN1
+
+        Call CmbYOIN1_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispYOIN2_CheckStateChanged(sender As Object, e As EventArgs) Handles chkDispYOIN2.CheckStateChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbYOIN2
+
+        Call CmbYOIN2_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispKISEKI_KOTEI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispKISEKI_KOTEI_KB.CheckedChanged
+        Dim chk = DirectCast(sender, CheckBox)
+        Dim cmb = cmbKISEKI_KOTEI_KB
+
+        Call CmbKISEKI_KOTEI_KB_Validating(cmb, Nothing)
+        cmb.Enabled = chk.Checked
+        If Not chk.Checked Then cmb.SelectedValue = Nothing
+    End Sub
+
+    Private Sub ChkDispGENIN1_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispGENIN1.CheckedChanged
+
+    End Sub
+
+    Private Sub ChkDispGENIN2_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispGENIN2.CheckedChanged
+
+    End Sub
+
+
+    Private Sub ChkDispHASSEI_YMD_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispHASSEI_YMD.CheckedChanged
+
+        dtHASSEI_YMD_FROM.Enabled = chkDispHASSEI_YMD.Checked
+        dtHASSEI_YMD_TO.Enabled = chkDispHASSEI_YMD.Checked
+    End Sub
+#End Region
+
 
 #End Region
 
@@ -2916,30 +3313,10 @@ Public Class FrmG0010
         mtxGENIN2.DataBindings.Add(New Binding(NameOf(mtxGENIN2.Text), ParamModel, NameOf(ParamModel.GENIN2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbKISEKI_KOTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKISEKI_KOTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.KISEKI_KOTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
-        '集計項目
-        chkDispADD_TANTO.DataBindings.Add(New Binding(NameOf(chkDispADD_TANTO.Checked), cmbADD_TANTO, NameOf(cmbADD_TANTO.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(chkDispBUHIN_BANGO.Checked), cmbBUHIN_BANGO, NameOf(cmbBUHIN_BANGO.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispBUMON.DataBindings.Add(New Binding(NameOf(chkDispBUMON.Checked), cmbBUMON, NameOf(cmbBUMON.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispFUTEKIGO_JYOTAI_KB.DataBindings.Add(New Binding(NameOf(chkDispFUTEKIGO_JYOTAI_KB.Checked), cmbFUTEKIGO_JYOTAI_KB, NameOf(cmbFUTEKIGO_JYOTAI_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispFUTEKIGO_KB.DataBindings.Add(New Binding(NameOf(chkDispFUTEKIGO_KB.Checked), cmbFUTEKIGO_KB, NameOf(cmbFUTEKIGO_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispFUTEKIGO_S_KB.DataBindings.Add(New Binding(NameOf(chkDispFUTEKIGO_S_KB.Checked), cmbFUTEKIGO_S_KB, NameOf(cmbFUTEKIGO_S_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispYOIN1.DataBindings.Add(New Binding(NameOf(chkDispYOIN1.Checked), cmbYOIN1, NameOf(cmbYOIN1.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispYOIN2.DataBindings.Add(New Binding(NameOf(chkDispYOIN2.Checked), cmbYOIN2, NameOf(cmbYOIN2.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispGOKI.DataBindings.Add(New Binding(NameOf(chkDispGOKI.Checked), mtxGOKI, NameOf(mtxGOKI.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispHINMEI.DataBindings.Add(New Binding(NameOf(chkDispHINMEI.Checked), mtxHINMEI, NameOf(mtxHINMEI.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispJIZEN_SINSA_HANTEI_KB.DataBindings.Add(New Binding(NameOf(chkDispJIZEN_SINSA_HANTEI_KB.Checked), cmbJIZEN_SINSA_HANTEI_KB, NameOf(cmbJIZEN_SINSA_HANTEI_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispKENSA_KEKKA_KB.DataBindings.Add(New Binding(NameOf(chkDispKENSA_KEKKA_KB.Checked), cmbKENSA_KEKKA_KB, NameOf(cmbKENSA_KEKKA_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispKISEKI_KOTEI_KB.DataBindings.Add(New Binding(NameOf(chkDispKISEKI_KOTEI_KB.Checked), cmbKISEKI_KOTEI_KB, NameOf(cmbKISEKI_KOTEI_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispZESEI_SYOCHI_YOHI_KB.DataBindings.Add(New Binding(NameOf(chkDispZESEI_SYOCHI_YOHI_KB.Checked), cmbZESEI_SYOCHI_YOHI_KB, NameOf(cmbKISEKI_KOTEI_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispKISYU.DataBindings.Add(New Binding(NameOf(chkDispKISYU.Checked), cmbKISYU, NameOf(cmbKISYU.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispKOKYAKU_HANTEI_SIJI_KB.DataBindings.Add(New Binding(NameOf(chkDispKOKYAKU_HANTEI_SIJI_KB.Checked), cmbKOKYAKU_HANTEI_SIJI_KB, NameOf(cmbKOKYAKU_HANTEI_SIJI_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispKOKYAKU_SAISYU_HANTEI_KB.DataBindings.Add(New Binding(NameOf(chkDispKOKYAKU_SAISYU_HANTEI_KB.Checked), cmbKOKYAKU_SAISYU_HANTEI_KB, NameOf(cmbKOKYAKU_SAISYU_HANTEI_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispSAISIN_IINKAI_HANTEI_KB.DataBindings.Add(New Binding(NameOf(chkDispSAISIN_IINKAI_HANTEI_KB.Checked), cmbSAISIN_IINKAI_HANTEI_KB, NameOf(cmbSAISIN_IINKAI_HANTEI_KB.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkDispSYANAI_CD.DataBindings.Add(New Binding(NameOf(chkDispSYANAI_CD.Checked), cmbSYANAI_CD, NameOf(cmbSYANAI_CD.Enabled), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-
     End Function
 
 #End Region
+
 
     Public Function FunGetDtST02_FUTEKIGO_ICHIRAN(ParamModel As ST02_ParamModel, Optional mode As Integer = ENM_OPEN_MODE._0_通常) As DataTable
 
@@ -3097,6 +3474,10 @@ Public Class FrmG0010
 
         Application.DoEvents()
     End Sub
+
+
+
+
 
 
 

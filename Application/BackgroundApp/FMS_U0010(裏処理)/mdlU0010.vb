@@ -188,18 +188,19 @@ Module mdlU0010
                     End If
 
                     Dim strEXEParam As String = $"{dr.Item("GEN_TANTO_ID")},{2},{dr.Item("SYONIN_HOKOKUSYO_ID")},{dr.Item("HOKOKU_NO").ToString.Trim}"
-                    strSubject = $"【不適合品処置依頼】{dr.Item("KISYU_NAME").ToString.Trim}・{dr.Item("BUHIN_BANGO").ToString.Trim}"
+                    strSubject = $"【不適合品処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME").ToString.Trim}] {dr.Item("KISYU_NAME").ToString.Trim}・{dr.Item("BUHIN_BANGO").ToString.Trim}"
                     Dim strBody As String = <body><![CDATA[
                             {0} 殿<br />
                             <br />
                                 　不適合製品の処置依頼から【滞留日数】{1}日が経過しています。<br />
                                 　早急に対応をお願いします。<br />
                             <br />
-                                　　【報告書No】{2}<br />
-                                　　【起草日　】{3}<br />
-                                　　【機種　　】{4}<br />
-                                　　【部品番号】{5}<br />
-                                　　【依頼者　】{6}<br />
+                                　　【報 告 書】{2}<br />
+                                　　【報告書No】{3}<br />
+                                　　【起 草 日】{4}<br />
+                                　　【機　  種】{5}<br />
+                                　　【部品番号】{6}<br />
+                                　　【依 頼 者】{7}<br />
                             <br />
                             <a href = "http://sv04:8000/CLICKONCE_FMS.application" > システム起動</a><br />
                             <br />
@@ -213,6 +214,7 @@ Module mdlU0010
                     strBody = String.Format(strBody,
                         dr.Item("GEN_TANTO_NAME").ToString.Trim,
                         dr.Item("TAIRYU_NISSU").ToString.Trim,
+                        dr.Item("SYONIN_HOKOKUSYO_R_NAME").ToString.Trim,
                         dr.Item("HOKOKU_NO").ToString.Trim,
                         dr.Item("KISO_YMD").ToString,
                         dr.Item("KISYU_NAME").ToString.Trim,

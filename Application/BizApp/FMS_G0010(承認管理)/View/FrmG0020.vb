@@ -1,13 +1,15 @@
 Imports JMS_COMMON.ClsPubMethod
 
 ''' <summary>
-''' 転送画面
+''' 修正画面
 ''' </summary>
-Public Class FrmG0015
+Public Class FrmG0020
 
 #Region "変数・定数"
+
     '入力必須コントロール検証判定
     Private IsValidated As Boolean
+
 #End Region
 
 #Region "プロパティ"
@@ -25,6 +27,9 @@ Public Class FrmG0015
     Public Property PrKISYU_NAME As String
 
     Public Property PrKISO_YMD As String
+
+    Public Property PrRIYU As String
+
 #End Region
 
 #Region "コンストラクタ"
@@ -45,6 +50,7 @@ Public Class FrmG0015
 #End Region
 
 #Region "FORMイベント"
+
     Private Sub Frm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
@@ -53,11 +59,13 @@ Public Class FrmG0015
             Using DB As ClsDbUtility = DBOpen()
                 lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
             End Using
+            lblTytle.Text = "修正理由登録"
+
 
             '-----位置・サイズ
-            Me.Height = 300
+            Me.Height = 250
             Me.Width = 800
-            Me.MinimumSize = New Size(800, 300)
+            Me.MinimumSize = New Size(800, 250)
             Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) / 2
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
 
@@ -65,34 +73,9 @@ Public Class FrmG0015
             Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
             Me.ControlBox = False
 
-            '-----各コントロールのデータソースを設定
-            Dim drs As List(Of DataRow)
-            If PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR And PrCurrentStage = ENM_CAR_STAGE._10_起草入力 Then
-
-                drs = FunGetSYOZOKU_SYAIN(PrBUMON_KB).AsEnumerable.
-                        Where(Function(r) r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).
-                        ToList
-            Else
-                If PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR And PrCurrentStage = ENM_CAR_STAGE._80_処置実施記録入力 Then
-                    drs = FunGetSYONIN_SYOZOKU_SYAIN(PrBUMON_KB, PrSYONIN_HOKOKUSYO_ID, PrCurrentStage).AsEnumerable.ToList
-                Else
-                    drs = FunGetSYONIN_SYOZOKU_SYAIN(PrBUMON_KB, PrSYONIN_HOKOKUSYO_ID, PrCurrentStage).AsEnumerable.
-                            Where(Function(r) r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).
-                            ToList
-                End If
-            End If
-
-            If drs.Count > 0 Then
-                Dim tbl As DataTable = drs.CopyToDataTable
-                Me.cmbTENSO_SAKI.SetDataSource(tbl, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            Else
-                MessageBox.Show("当該ステージの承認担当者がログインユーザー以外に登録されていないため、転送処理は出来ません。", "承認担当者マスタ登録不備", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            End If
-
             'バインディング
             Call FunSetBinding()
             _D004_SYONIN_J_KANRI.RIYU = ""
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -105,6 +88,7 @@ Public Class FrmG0015
 #Region "FUNCTIONボタン関連"
 
 #Region "FUNCTIONボタンCLICKイベント"
+
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc9.Click, cmdFunc8.Click, cmdFunc7.Click, cmdFunc6.Click, cmdFunc5.Click, cmdFunc4.Click, cmdFunc3.Click, cmdFunc2.Click, cmdFunc12.Click, cmdFunc11.Click, cmdFunc10.Click, cmdFunc1.Click
         Dim intFUNC As Integer
         Dim intCNT As Integer
@@ -121,21 +105,20 @@ Public Class FrmG0015
             Select Case intFUNC
                 Case 1  '追加
                     If FunCheckInput() Then
-                        If FunSAVE() Then
-                            MessageBox.Show("転送しました", "不適合管理-転送", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                            Me.DialogResult = Windows.Forms.DialogResult.OK
-                            Me.Close()
-                        End If
+                        PrRIYU = mtxRIYU.Text
+                        'If FunSAVE() Then
+                        'MessageBox.Show("修正しました", "不適合管理-修正", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Me.DialogResult = Windows.Forms.DialogResult.OK
+                        Me.Close()
+                        'End If
                     End If
 
                 Case 12 '戻る
                     Me.DialogResult = Windows.Forms.DialogResult.Cancel
                     Me.Close()
             End Select
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
-
         Finally
             'ボタン可
             System.Windows.Forms.Application.DoEvents()
@@ -148,6 +131,7 @@ Public Class FrmG0015
 #End Region
 
 #Region "更新"
+
     Private Function FunSAVE() As Boolean
         Dim dsList As New DataSet
         Dim sbSQL As New System.Text.StringBuilder
@@ -166,38 +150,38 @@ Public Class FrmG0015
                     '-----トランザクション
                     DB.BeginTransaction()
 
-                    '-----UPDATE D004
-                    sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append($"UPDATE {NameOf(MODEL.D004_SYONIN_J_KANRI)} SET")
-                    sbSQL.Append($" {NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}={cmbTENSO_SAKI.SelectedValue}")
-                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.RIYU)}='{_D004_SYONIN_J_KANRI.RIYU}'")
-                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
-                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}='{ENM_SYONIN_HANTEI_KB._0_未承認.Value}'")
-                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}='0'")
-                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}='{strSysDate}'")
-                    If PrCurrentStage = ENM_CAR_STAGE._10_起草入力 Then
-                        sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
-                    End If
-                    sbSQL.Append($" WHERE {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={PrSYONIN_HOKOKUSYO_ID}")
-                    sbSQL.Append($" AND {NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}='{PrHOKOKU_NO}'")
-                    sbSQL.Append($" AND {NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)}={PrCurrentStage}")
+                    ''-----UPDATE D004
+                    'sbSQL.Remove(0, sbSQL.Length)
+                    'sbSQL.Append($"UPDATE {NameOf(MODEL.D004_SYONIN_J_KANRI)} SET")
+                    'sbSQL.Append($" {NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}={cmbTENSO_SAKI.SelectedValue}")
+                    'sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.RIYU)}='{_D004_SYONIN_J_KANRI.RIYU}'")
+                    'sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
+                    'sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}='{ENM_SYONIN_HANTEI_KB._0_未承認.Value}'")
+                    'sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}='0'")
+                    'sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}='{strSysDate}'")
+                    'If PrCurrentStage = ENM_CAR_STAGE._10_起草入力 Then
+                    '    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
+                    'End If
+                    'sbSQL.Append($" WHERE {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={PrSYONIN_HOKOKUSYO_ID}")
+                    'sbSQL.Append($" AND {NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}='{PrHOKOKU_NO}'")
+                    'sbSQL.Append($" AND {NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)}={PrCurrentStage}")
 
-                    '-----SQL実行
-                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    If intRET <> 1 Then
-                        '-----エラーログ出力
-                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                        WL.WriteLogDat(strErrMsg)
-                        blnErr = True
-                        Return False
-                    End If
+                    ''-----SQL実行
+                    'intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+                    'If intRET <> 1 Then
+                    '    '-----エラーログ出力
+                    '    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                    '    WL.WriteLogDat(strErrMsg)
+                    '    blnErr = True
+                    '    Return False
+                    'End If
 
                     '-----データモデル更新
                     _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = PrSYONIN_HOKOKUSYO_ID
                     _R001_HOKOKU_SOUSA.HOKOKU_NO = PrHOKOKU_NO
                     _R001_HOKOKU_SOUSA.SYONIN_JUN = PrCurrentStage
                     _R001_HOKOKU_SOUSA.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_SOUSA_KB._5_転送
+                    _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_SOUSA_KB._2_更新保存
                     _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
                     _R001_HOKOKU_SOUSA.RIYU = _D004_SYONIN_J_KANRI.RIYU
                     '-----INSERT R001
@@ -231,55 +215,55 @@ Public Class FrmG0015
                         Return False
                     End If
 
-                    '-----データモデル更新
-                    _R002_HOKOKU_TENSO.SYONIN_HOKOKUSYO_ID = PrSYONIN_HOKOKUSYO_ID
-                    _R002_HOKOKU_TENSO.HOKOKU_NO = PrHOKOKU_NO
-                    _R002_HOKOKU_TENSO.SYONIN_JUN = PrCurrentStage
-                    _R002_HOKOKU_TENSO.TENSO_M_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _R002_HOKOKU_TENSO.TENSO_S_SYAIN_ID = cmbTENSO_SAKI.SelectedValue '_D004_SYONIN_J_KANRI.SYAIN_ID
-                    _R002_HOKOKU_TENSO.RIYU = _D004_SYONIN_J_KANRI.RIYU
+                    ''-----データモデル更新
+                    '_R002_HOKOKU_TENSO.SYONIN_HOKOKUSYO_ID = PrSYONIN_HOKOKUSYO_ID
+                    '_R002_HOKOKU_TENSO.HOKOKU_NO = PrHOKOKU_NO
+                    '_R002_HOKOKU_TENSO.SYONIN_JUN = PrCurrentStage
+                    '_R002_HOKOKU_TENSO.TENSO_M_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                    '_R002_HOKOKU_TENSO.TENSO_S_SYAIN_ID = cmbTENSO_SAKI.SelectedValue '_D004_SYONIN_J_KANRI.SYAIN_ID
+                    '_R002_HOKOKU_TENSO.RIYU = _D004_SYONIN_J_KANRI.RIYU
 
-                    '-----INSERT R002
-                    sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append(" INSERT INTO " & NameOf(MODEL.R002_HOKOKU_TENSO) & "(")
-                    sbSQL.Append("  " & NameOf(_R002_HOKOKU_TENSO.SYONIN_HOKOKUSYO_ID))
-                    sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.HOKOKU_NO))
-                    sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.SYONIN_JUN))
-                    sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.RENBAN))
-                    sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.TENSO_M_SYAIN_ID))
-                    sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.TENSO_S_SYAIN_ID))
-                    sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.RIYU))
-                    sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.ADD_YMDHNS))
-                    sbSQL.Append(" ) VALUES(")
-                    sbSQL.Append("  " & _R002_HOKOKU_TENSO.SYONIN_HOKOKUSYO_ID)
-                    sbSQL.Append(" ,'" & _R002_HOKOKU_TENSO.HOKOKU_NO & "'")
-                    sbSQL.Append(" ," & _R002_HOKOKU_TENSO.SYONIN_JUN)
-                    sbSQL.Append(" ,(SELECT ISNULL(MAX(RENBAN),0) FROM R002_HOKOKU_TENSO S ")
-                    sbSQL.Append("      WHERE(S.SYONIN_HOKOKUSYO_ID = " & _R002_HOKOKU_TENSO.SYONIN_HOKOKUSYO_ID)
-                    sbSQL.Append("      And S.HOKOKU_NO = '" & _R002_HOKOKU_TENSO.HOKOKU_NO & "'")
-                    sbSQL.Append("      And S.SYONIN_JUN =" & _R002_HOKOKU_TENSO.SYONIN_JUN & ")) + 1")
-                    sbSQL.Append(" ," & (_R002_HOKOKU_TENSO.TENSO_M_SYAIN_ID))
-                    sbSQL.Append(" ," & (_R002_HOKOKU_TENSO.TENSO_S_SYAIN_ID))
-                    sbSQL.Append(" ,'" & (_R002_HOKOKU_TENSO.RIYU) & "'")
-                    sbSQL.Append($" ,'{strSysDate}'") 'ADD_YMDHNS
-                    sbSQL.Append(" )")
+                    ''-----INSERT R002
+                    'sbSQL.Remove(0, sbSQL.Length)
+                    'sbSQL.Append(" INSERT INTO " & NameOf(MODEL.R002_HOKOKU_TENSO) & "(")
+                    'sbSQL.Append("  " & NameOf(_R002_HOKOKU_TENSO.SYONIN_HOKOKUSYO_ID))
+                    'sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.HOKOKU_NO))
+                    'sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.SYONIN_JUN))
+                    'sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.RENBAN))
+                    'sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.TENSO_M_SYAIN_ID))
+                    'sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.TENSO_S_SYAIN_ID))
+                    'sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.RIYU))
+                    'sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.ADD_YMDHNS))
+                    'sbSQL.Append(" ) VALUES(")
+                    'sbSQL.Append("  " & _R002_HOKOKU_TENSO.SYONIN_HOKOKUSYO_ID)
+                    'sbSQL.Append(" ,'" & _R002_HOKOKU_TENSO.HOKOKU_NO & "'")
+                    'sbSQL.Append(" ," & _R002_HOKOKU_TENSO.SYONIN_JUN)
+                    'sbSQL.Append(" ,(SELECT ISNULL(MAX(RENBAN),0) FROM R002_HOKOKU_TENSO S ")
+                    'sbSQL.Append("      WHERE(S.SYONIN_HOKOKUSYO_ID = " & _R002_HOKOKU_TENSO.SYONIN_HOKOKUSYO_ID)
+                    'sbSQL.Append("      And S.HOKOKU_NO = '" & _R002_HOKOKU_TENSO.HOKOKU_NO & "'")
+                    'sbSQL.Append("      And S.SYONIN_JUN =" & _R002_HOKOKU_TENSO.SYONIN_JUN & ")) + 1")
+                    'sbSQL.Append(" ," & (_R002_HOKOKU_TENSO.TENSO_M_SYAIN_ID))
+                    'sbSQL.Append(" ," & (_R002_HOKOKU_TENSO.TENSO_S_SYAIN_ID))
+                    'sbSQL.Append(" ,'" & (_R002_HOKOKU_TENSO.RIYU) & "'")
+                    'sbSQL.Append($" ,'{strSysDate}'") 'ADD_YMDHNS
+                    'sbSQL.Append(" )")
 
-                    '-----SQL実行
-                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    If intRET <> 1 Then
-                        '-----エラーログ出力
-                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                        WL.WriteLogDat(strErrMsg)
-                        blnErr = True
-                        Return False
-                    End If
+                    ''-----SQL実行
+                    'intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+                    'If intRET <> 1 Then
+                    '    '-----エラーログ出力
+                    '    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                    '    WL.WriteLogDat(strErrMsg)
+                    '    blnErr = True
+                    '    Return False
+                    'End If
 
-                    If blnErr = False Then
-                        '#146 自分自身への転送時はメール送信しない
-                        If pub_SYAIN_INFO.SYAIN_ID <> cmbTENSO_SAKI.SelectedValue Then
-                            Call FunSendRequestMail()
-                        End If
-                    End If
+                    'If blnErr = False Then
+                    '    '#146 自分自身への転送時はメール送信しない
+                    '    If pub_SYAIN_INFO.SYAIN_ID <> cmbTENSO_SAKI.SelectedValue Then
+                    '        Call FunSendRequestMail()
+                    '    End If
+                    'End If
                 Finally
                     '-----トランザクション
                     DB.Commit(Not blnErr)
@@ -294,6 +278,7 @@ Public Class FrmG0015
 
         End Try
     End Function
+
 #End Region
 
 #Region "FuncButton有効無効切替"
@@ -319,7 +304,6 @@ Public Class FrmG0015
                 End With
             Next intFunc
 
-
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -338,24 +322,24 @@ Public Class FrmG0015
 
         IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送先"))
 
-
     End Sub
 
-    Private Sub MtxMODOSI_RIYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxTENSO_RIYU.Validating
+    Private Sub MtxMODOSI_RIYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxRIYU.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
 
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送理由"))
 
-
     End Sub
+
 #End Region
 
 #Region "入力チェック"
+
     Public Function FunCheckInput() As Boolean
         Try
             IsValidated = True
-            Call CmbMODOSI_SAKI_Validating(cmbTENSO_SAKI, Nothing)
-            Call MtxMODOSI_RIYU_Validating(mtxTENSO_RIYU, Nothing)
+            'Call CmbMODOSI_SAKI_Validating(cmbTENSO_SAKI, Nothing)
+            Call MtxMODOSI_RIYU_Validating(mtxRIYU, Nothing)
 
             Return IsValidated
         Catch ex As Exception
@@ -363,12 +347,14 @@ Public Class FrmG0015
             Return False
         End Try
     End Function
+
 #End Region
 
 #Region "ローカル関数"
+
     Private Function FunSetBinding() As Boolean
         'cmbTENSO_SAKI.DataBindings.Add(New Binding(NameOf(cmbTENSO_SAKI.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-        mtxTENSO_RIYU.DataBindings.Add(New Binding(NameOf(mtxTENSO_RIYU.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.RIYU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        mtxRIYU.DataBindings.Add(New Binding(NameOf(mtxRIYU.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.RIYU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
     End Function
 
     ''' <summary>
@@ -476,7 +462,7 @@ Public Class FrmG0015
 
         'Return dsList?.Tables(0)
     End Function
-#End Region
 
+#End Region
 
 End Class
