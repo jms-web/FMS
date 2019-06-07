@@ -322,7 +322,7 @@ Partial Public Class V002_NCR_J
     Public Property TENYO_GOKI As String
 
     <ComponentModel.DisplayName("“]—pæLOT")>
-    Public Property TENYO_LOT As Integer
+    Public Property TENYO_LOT As String
 
     <StringLength(8)>
     <ComponentModel.DisplayName("“]—p”NŒŽ“ú")>

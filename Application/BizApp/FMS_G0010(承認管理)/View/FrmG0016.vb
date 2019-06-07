@@ -400,7 +400,7 @@ Public Class FrmG0016
         sbSQL.Append(" ," & _D003_NCR_J.TENYO_KISYU_ID & "")
         sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_BUHIN_BANGO & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_GOKI & "'")
-        sbSQL.Append(" ," & _D003_NCR_J.TENYO_LOT & "")
+        sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_LOT & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_YMD & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_KEKKA_A & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_KEKKA_B & "'")

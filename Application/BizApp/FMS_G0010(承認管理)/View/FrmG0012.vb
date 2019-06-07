@@ -50,7 +50,7 @@ Public Class FrmG0012
     'NCR編集画面から開かれているか
     Public Property PrDialog As Boolean
 
-    Public Property PrRIYU As String
+    Public PrRIYU As String = ""
 
 #End Region
 
@@ -184,13 +184,14 @@ Public Class FrmG0012
 
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
-                        If IsEditingClosed Then
+                        If IsEditingClosed And PrCurrentStage = ENM_NCR_STAGE._999_Closed Then
+
                             OpenFormEdit()
                             If PrRIYU.IsNulOrWS Then
                                 Exit Sub
                             End If
                         Else
-                            If MessageBox.Show("入力内容を保存しますか？", "登録確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then Exit Sub
+                            If MessageBox.Show("入力内容を保存しますか？", "登録確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) <> DialogResult.Yes Then Exit Sub
                         End If
 
                         If FunSAVE(ENM_SAVE_MODE._1_保存) Then

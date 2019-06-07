@@ -74,7 +74,7 @@ Partial Public Class D003_NCR_J
         TENYO_KISYU_ID = 0
         TENYO_BUHIN_BANGO = ""
         TENYO_GOKI = ""
-        TENYO_LOT = 0
+        TENYO_LOT = ""
         TENYO_YMD = ""
         _SYOCHI_KEKKA_A = "0"
         'SYOCHI_KEKKA_A = False
@@ -486,7 +486,7 @@ Partial Public Class D003_NCR_J
 
     <Required>
     <ComponentModel.DisplayName("転用先LOT")>
-    Public Property TENYO_LOT As Integer
+    Public Property TENYO_LOT As String
 
     <Required>
     <Column(TypeName:="char")>

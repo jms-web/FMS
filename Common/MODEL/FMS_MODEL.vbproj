@@ -321,6 +321,7 @@
     <Content Include="DDL\Function\TV05_FUTEKIGO_CODE.sql" />
     <Content Include="DDL\StoredFunction\spERRLOG.sql" />
     <Content Include="DDL\StoredFunction\ST01_GET_HOKOKU_NO.sql" />
+    <Content Include="DDL\StoredFunction\ST03_FUTEKIGO_ICHIRAN_SUMMARY.sql" />
     <Content Include="DDL\StoredFunction\ST02_FUTEKIGO_ICHIRAN.sql" />
     <Content Include="DDL\View\R004_CAR_R.sql" />
     <Content Include="DDL\View\V001_SYONIN_TANTO.sql" />

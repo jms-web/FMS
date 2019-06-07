@@ -4,6 +4,7 @@ Imports C1.Win.C1FlexGrid
 Imports JMS_COMMON.ClsPubMethod
 Imports MODEL
 Imports ST02 = MODEL.ST02_FUTEKIGO_ICHIRAN
+Imports ST03 = MODEL.ST03_FUTEKIGO_ICHIRAN_SUMMARY
 
 'Imports Spire.Xls
 'Imports Spire.Pdf
@@ -18,6 +19,7 @@ Public Class FrmG0010
 
     Private ParamModel As New ST02_ParamModel
     Private IsValidated As Boolean = True
+
 #End Region
 
 #Region "プロパティ"
@@ -94,7 +96,6 @@ Public Class FrmG0010
 
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
-
 
             'Call EnableDoubleBuffering(dgvDATA)
             Call EnableDoubleBuffering(dgvNCR)
@@ -319,7 +320,6 @@ Public Class FrmG0010
                     chkDispSYANAI_CD.Visible = True
                     chkDispFUTEKIGO_JYOTAI_KB.Visible = True
                     chkDispFUTEKIGO_S_KB.Visible = True
-
                     chkDispBUMON.Visible = True
                     chkDispHINMEI.Visible = True
                     chkDispHASSEI_YMD.Visible = True
@@ -349,7 +349,6 @@ Public Class FrmG0010
                     dgvCAR.Visible = False
                     dgvNCR.Visible = False
 
-
                     cmbKISYU.Enabled = False
                     mtxGOKI.Enabled = False
                     cmbFUTEKIGO_KB.Enabled = False
@@ -361,6 +360,9 @@ Public Class FrmG0010
                     mtxHINMEI.Enabled = False
                     dtHASSEI_YMD_FROM.Enabled = False
                     dtHASSEI_YMD_TO.Enabled = False
+                    dtHASSEI_YMD_FROM.DisplayFormat = DateTextBoxEx.EnumType.yyyyMM
+                    dtHASSEI_YMD_TO.DisplayFormat = DateTextBoxEx.EnumType.yyyyMM
+
                     cmbJIZEN_SINSA_HANTEI_KB.Enabled = False
                     cmbSAISIN_IINKAI_HANTEI_KB.Enabled = False
                     cmbKOKYAKU_SAISYU_HANTEI_KB.Enabled = False
@@ -455,13 +457,13 @@ Public Class FrmG0010
             Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
         End If
     End Sub
+
     'Private Sub flxDATA_Click(sender As Object, e As EventArgs) Handles flxDATA.Click
     '    If flxDATA.ColSel = 1 Then
     '        Dim dr As DataRow = DirectCast(bindsrc.Current, DataRowView).Row
     '        dr.Item(0) = Not CBool(dr.Item(0))
     '    End If
     'End Sub
-
 
     'グリッドセル(行)ダブルクリック時イベント
     Private Sub FlxDATA_DoubleClick(sender As Object, e As EventArgs) Handles flxDATA.DoubleClick
@@ -478,35 +480,36 @@ Public Class FrmG0010
 
         Try
 
-
             If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SELECTED)).Visible = False
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.HOKOKU_NO)).Visible = False
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYONIN_HOKOKUSYO_R_NAME)).Visible = True
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYONIN_NAIYO)).Visible = False
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.GEN_TANTO_NAME)).Visible = False
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.TAIRYU_NISSU)).Visible = False
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.JIZEN_SINSA_HANTEI_NAME)).Visible = False
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SAISIN_IINKAI_HANTEI_NAME)).Visible = False
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYOCHI_YOTEI_YMD)).Visible = False
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SASIMOTO_SYONIN_NAIYO)).Visible = False
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.RIYU)).Visible = False
+                flxDATA.Cols(NameOf(ST03.SELECTED)).Visible = False
+                flxDATA.Cols(NameOf(ST03.HOKOKU_NO)).Visible = False
+                flxDATA.Cols(NameOf(ST03.SYONIN_HOKOKUSYO_R_NAME)).Visible = True
+                flxDATA.Cols(NameOf(ST03.SYONIN_NAIYO)).Visible = False
+                flxDATA.Cols(NameOf(ST03.GEN_TANTO_NAME)).Visible = False
+                flxDATA.Cols(NameOf(ST03.TAIRYU_NISSU)).Visible = False
+                flxDATA.Cols(NameOf(ST03.JIZEN_SINSA_HANTEI_NAME)).Visible = False
+                flxDATA.Cols(NameOf(ST03.SAISIN_IINKAI_HANTEI_NAME)).Visible = False
+                flxDATA.Cols(NameOf(ST03.SYOCHI_YOTEI_YMD)).Visible = False
+                flxDATA.Cols(NameOf(ST03.SASIMOTO_SYONIN_NAIYO)).Visible = False
+                flxDATA.Cols(NameOf(ST03.RIYU)).Visible = False
 
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.KISYU_NAME)).Visible = chkDispKISYU.Checked
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.GOKI)).Visible = chkDispGOKI.Checked
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.FUTEKIGO_NAME)).Visible = chkDispFUTEKIGO_KB.Checked
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.BUHIN_BANGO)).Visible = chkDispBUHIN_BANGO.Checked
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYANAI_CD)).Visible = chkDispSYANAI_CD.Checked
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.FUTEKIGO_JYOTAI_NAME)).Visible = chkDispFUTEKIGO_JYOTAI_KB.Checked
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.FUTEKIGO_S_NAME)).Visible = chkDispFUTEKIGO_S_KB.Checked
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.BUMON_NAME)).Visible = chkDispBUMON.Checked
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.BUHIN_NAME)).Visible = chkDispHINMEI.Checked
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.HASSEI_YMD)).Visible = chkDispHASSEI_YMD.Checked
+                flxDATA.Cols(NameOf(ST03.KISYU_NAME)).Visible = chkDispKISYU.Checked
+                flxDATA.Cols(NameOf(ST03.GOKI)).Visible = chkDispGOKI.Checked
+                flxDATA.Cols(NameOf(ST03.FUTEKIGO_NAME)).Visible = chkDispFUTEKIGO_KB.Checked
+                flxDATA.Cols(NameOf(ST03.BUHIN_BANGO)).Visible = chkDispBUHIN_BANGO.Checked
+                flxDATA.Cols(NameOf(ST03.SYANAI_CD)).Visible = chkDispSYANAI_CD.Checked
+                flxDATA.Cols(NameOf(ST03.FUTEKIGO_JYOTAI_NAME)).Visible = chkDispFUTEKIGO_JYOTAI_KB.Checked
+                flxDATA.Cols(NameOf(ST03.FUTEKIGO_S_NAME)).Visible = chkDispFUTEKIGO_S_KB.Checked
+                flxDATA.Cols(NameOf(ST03.BUMON_NAME)).Visible = chkDispBUMON.Checked
+                flxDATA.Cols(NameOf(ST03.BUHIN_NAME)).Visible = chkDispHINMEI.Checked
+                flxDATA.Cols(NameOf(ST03.HASSEI_YMD)).Visible = chkDispHASSEI_YMD.Checked
+                flxDATA.Cols(NameOf(ST03.HASSEI_YMD)).DataType = GetType(Date)
+                flxDATA.Cols(NameOf(ST03.HASSEI_YMD)).Format = "yyyy/MM"
 
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SURYO)).Visible = True
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.KISO_KENSU)).Visible = True
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYOCHI_KENSU)).Visible = True
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYOCHI_ZANSU)).Visible = True
+                flxDATA.Cols(NameOf(ST03.SURYO)).Visible = True
+                flxDATA.Cols(NameOf(ST03.KISO_KENSU)).Visible = True
+                flxDATA.Cols(NameOf(ST03.SYOCHI_KENSU)).Visible = True
+                flxDATA.Cols(NameOf(ST03.SYOCHI_ZANSU)).Visible = True
             Else
 
                 Dim delStyle As C1.Win.C1FlexGrid.CellStyle = flx.Styles("delStyle")
@@ -537,25 +540,24 @@ Public Class FrmG0010
                     End If
                 Next
 
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SELECTED)).Visible = True
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.HOKOKU_NO)).Visible = True
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYONIN_HOKOKUSYO_R_NAME)).Visible = True
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.BUMON_NAME)).Visible = True
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYONIN_NAIYO)).Visible = True
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.GEN_TANTO_NAME)).Visible = True
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.TAIRYU_NISSU)).Visible = True
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.JIZEN_SINSA_HANTEI_NAME)).Visible = True
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SAISIN_IINKAI_HANTEI_NAME)).Visible = True
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYOCHI_YOTEI_YMD)).Visible = True
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SASIMOTO_SYONIN_NAIYO)).Visible = True
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.RIYU)).Visible = True
+                flxDATA.Cols(NameOf(ST03.SELECTED)).Visible = True
+                flxDATA.Cols(NameOf(ST03.HOKOKU_NO)).Visible = True
+                flxDATA.Cols(NameOf(ST03.SYONIN_HOKOKUSYO_R_NAME)).Visible = True
+                flxDATA.Cols(NameOf(ST03.BUMON_NAME)).Visible = True
+                flxDATA.Cols(NameOf(ST03.SYONIN_NAIYO)).Visible = True
+                flxDATA.Cols(NameOf(ST03.GEN_TANTO_NAME)).Visible = True
+                flxDATA.Cols(NameOf(ST03.TAIRYU_NISSU)).Visible = True
+                flxDATA.Cols(NameOf(ST03.JIZEN_SINSA_HANTEI_NAME)).Visible = True
+                flxDATA.Cols(NameOf(ST03.SAISIN_IINKAI_HANTEI_NAME)).Visible = True
+                flxDATA.Cols(NameOf(ST03.SYOCHI_YOTEI_YMD)).Visible = True
+                flxDATA.Cols(NameOf(ST03.SASIMOTO_SYONIN_NAIYO)).Visible = True
+                flxDATA.Cols(NameOf(ST03.RIYU)).Visible = True
 
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SURYO)).Visible = False
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.KISO_KENSU)).Visible = False
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYOCHI_KENSU)).Visible = False
-                flxDATA.Cols(NameOf(ST03_FUTEKIGO_ICHIRAN_SUMMARY.SYOCHI_ZANSU)).Visible = False
+                flxDATA.Cols(NameOf(ST03.SURYO)).Visible = False
+                flxDATA.Cols(NameOf(ST03.KISO_KENSU)).Visible = False
+                flxDATA.Cols(NameOf(ST03.SYOCHI_KENSU)).Visible = False
+                flxDATA.Cols(NameOf(ST03.SYOCHI_ZANSU)).Visible = False
             End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
@@ -1204,9 +1206,9 @@ Public Class FrmG0010
             '------DataTableに変換
             Dim t As Type
             If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
-                t = GetType(MODEL.ST03_FUTEKIGO_ICHIRAN_SUMMARY)
+                t = GetType(ST03_FUTEKIGO_ICHIRAN_SUMMARY)
             Else
-                t = GetType(MODEL.ST02_FUTEKIGO_ICHIRAN)
+                t = GetType(ST02_FUTEKIGO_ICHIRAN)
 
                 'UNDONE: 削除済み表示切替 可能ならストアドパラメータに条件設定を移行したい
                 If chkDeleteRowVisibled.Checked Then
@@ -1265,6 +1267,8 @@ Public Class FrmG0010
                                 Case GetType(Date), GetType(DateTime)
                                     If row.Item(p.Name).ToString.IsNulOrWS = False Then
                                         Select Case row.Item(p.Name).ToString.Length
+                                            Case 6 'yyyyMM
+                                                Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMM", Nothing)
                                             Case 8 'yyyyMMdd
                                                 Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMdd", Nothing)
                                             Case 14 'yyyyMMddHHmmss
@@ -1328,8 +1332,6 @@ Public Class FrmG0010
         End Try
     End Function
 
-
-
     Private Function FunSRCH(ByVal dgv As DataGridView, ByVal dt As DataTable) As Boolean
         Dim intCURROW As Integer
         Try
@@ -1376,7 +1378,6 @@ Public Class FrmG0010
             flx.BeginUpdate()
 
             If dt IsNot Nothing Then
-
 
                 flx.DataSource = dt
 
@@ -1761,7 +1762,6 @@ Public Class FrmG0010
                                 ]]></body>.Value.Trim
 
                                 'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
-
 
                                 strBody = String.Format(strBody,
                                 dr.Item(NameOf(ST02.GEN_TANTO_NAME)),
@@ -2305,8 +2305,6 @@ Public Class FrmG0010
                 'cmdFunc11.Enabled *= Not (panelMan.SelectedIndex = 1)
             End If
 
-
-
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -2435,6 +2433,9 @@ Public Class FrmG0010
                             dtADD_TANTO.Rows.Add(Trow)
                         End If
                     Next row
+
+
+                    'UNDONE:
 
                     cmbADD_TANTO.SetDataSource(dtADD_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     cmbADD_TANTO.SelectedValue = intBUFF
@@ -2885,6 +2886,7 @@ Public Class FrmG0010
 #End Region
 
 #Region "入力チェック"
+
     Private Sub CmbHOKOKUSYO_ID_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbHOKOKUSYO_ID.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
@@ -2893,184 +2895,183 @@ Public Class FrmG0010
 
     End Sub
 
-    Private Sub CmbBUMON_Validating(sender As Object, e As CancelEventArgs) Handles cmbBUMON.Validating
+    Private Sub CmbBUMON_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbBUMON.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
     End Sub
 
-    Private Sub CmbADD_TANTO_Validating(sender As Object, e As CancelEventArgs) Handles cmbADD_TANTO.Validating
+    Private Sub CmbADD_TANTO_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbADD_TANTO.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "起草者"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "起草者"))
     End Sub
 
-    Private Sub CmbKISYU_Validating(sender As Object, e As CancelEventArgs) Handles cmbKISYU.Validating
+    Private Sub CmbKISYU_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbKISYU.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "機種"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "機種"))
     End Sub
 
-    Private Sub CmbBUHIN_BANGO_Validating(sender As Object, e As CancelEventArgs) Handles cmbBUHIN_BANGO.Validating
+    Private Sub CmbBUHIN_BANGO_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbBUHIN_BANGO.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品番号"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品番号"))
     End Sub
 
-    Private Sub MtxHINMEI_Validating(sender As Object, e As CancelEventArgs) Handles mtxHINMEI.Validating
+    Private Sub MtxHINMEI_Validating(sender As Object, e As CancelEventArgs) 'Handles mtxHINMEI.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品名称"))
+        'Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品名称"))
     End Sub
 
-    Private Sub MtxGOKI_Validating(sender As Object, e As CancelEventArgs) Handles mtxGOKI.Validating
+    Private Sub MtxGOKI_Validating(sender As Object, e As CancelEventArgs) 'Handles mtxGOKI.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製造番号(号機)"))
+        'Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製造番号(号機)"))
     End Sub
 
-    Private Sub CmbSYANAI_CD_Validating(sender As Object, e As CancelEventArgs) Handles cmbSYANAI_CD.Validating
+    Private Sub CmbSYANAI_CD_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbSYANAI_CD.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "社内コード"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "社内コード"))
     End Sub
 
-    Private Sub CmbFUTEKIGO_JYOTAI_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbFUTEKIGO_JYOTAI_KB.Validating
+    Private Sub CmbFUTEKIGO_JYOTAI_KB_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbFUTEKIGO_JYOTAI_KB.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "状態区分"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "状態区分"))
     End Sub
 
-    Private Sub CmbFUTEKIGO_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbFUTEKIGO_KB.Validating
+    Private Sub CmbFUTEKIGO_KB_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbFUTEKIGO_KB.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "不適合区分"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "不適合区分"))
     End Sub
 
-    Private Sub CmbFUTEKIGO_S_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbFUTEKIGO_S_KB.Validating
+    Private Sub CmbFUTEKIGO_S_KB_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbFUTEKIGO_S_KB.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "不適合詳細区分"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "不適合詳細区分"))
     End Sub
 
-    Private Sub CmbJIZEN_SINSA_HANTEI_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbJIZEN_SINSA_HANTEI_KB.Validating
+    Private Sub CmbJIZEN_SINSA_HANTEI_KB_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbJIZEN_SINSA_HANTEI_KB.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "事前審査判定区分"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "事前審査判定区分"))
     End Sub
 
-    Private Sub CmbZESEI_SYOCHI_YOHI_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbZESEI_SYOCHI_YOHI_KB.Validating
+    Private Sub CmbZESEI_SYOCHI_YOHI_KB_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbZESEI_SYOCHI_YOHI_KB.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置要否判定区分"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置要否判定区分"))
     End Sub
 
-    Private Sub CmbSAISIN_IINKAI_HANTEI_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbSAISIN_IINKAI_HANTEI_KB.Validating
+    Private Sub CmbSAISIN_IINKAI_HANTEI_KB_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbSAISIN_IINKAI_HANTEI_KB.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "再審委員会判定区分"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "再審委員会判定区分"))
     End Sub
 
-    Private Sub CmbKOKYAKU_HANTEI_SIJI_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbKOKYAKU_HANTEI_SIJI_KB.Validating
+    Private Sub CmbKOKYAKU_HANTEI_SIJI_KB_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbKOKYAKU_HANTEI_SIJI_KB.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "顧客判定指示区分"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "顧客判定指示区分"))
     End Sub
 
     Private Sub CmbKOKYAKU_SAISYU_HANTEI_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbKOKYAKU_SAISYU_HANTEI_KB.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "顧客最終判定区分"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "顧客最終判定区分"))
     End Sub
 
-    Private Sub CmbKENSA_KEKKA_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbKENSA_KEKKA_KB.Validating
+    Private Sub CmbKENSA_KEKKA_KB_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbKENSA_KEKKA_KB.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "検査結果"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "検査結果"))
     End Sub
 
-    Private Sub CmbYOIN1_Validating(sender As Object, e As CancelEventArgs) Handles cmbYOIN1.Validating
+    Private Sub CmbYOIN1_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbYOIN1.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "要因1"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "要因1"))
     End Sub
 
-    Private Sub CmbYOIN2_Validating(sender As Object, e As CancelEventArgs) Handles cmbYOIN2.Validating
+    Private Sub CmbYOIN2_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbYOIN2.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "要因2"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "要因2"))
     End Sub
 
-    Private Sub CmbKISEKI_KOTEI_KB_Validating(sender As Object, e As CancelEventArgs) Handles cmbKISEKI_KOTEI_KB.Validating
+    Private Sub CmbKISEKI_KOTEI_KB_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbKISEKI_KOTEI_KB.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "帰責工程"))
+        'Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "帰責工程"))
     End Sub
 
-    Private Sub MtxGENIN1_Validating(sender As Object, e As CancelEventArgs) Handles mtxGENIN1.Validating
+    Private Sub MtxGENIN1_Validating(sender As Object, e As CancelEventArgs) 'Handles mtxGENIN1.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "原因1"))
+        'Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "原因1"))
     End Sub
 
-    Private Sub MtxGENIN2_Validating(sender As Object, e As CancelEventArgs) Handles mtxGENIN2.Validating
+    Private Sub MtxGENIN2_Validating(sender As Object, e As CancelEventArgs) 'Handles mtxGENIN2.Validating
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
-        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "原因2"))
+        'Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        'IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "原因2"))
     End Sub
-
 
     Private Function IsValidatedSearchFilter() As Boolean
         IsValidated = True
         Call CmbHOKOKUSYO_ID_Validating(cmbHOKOKUSYO_ID, Nothing)
 
-        If chkDispBUMON.Checked Then Call CmbBUMON_Validating(cmbBUMON, Nothing)
-        If chkDispADD_TANTO.Checked Then Call CmbADD_TANTO_Validating(cmbADD_TANTO, Nothing)
-        If chkDispKISYU.Checked Then Call CmbKISYU_Validating(cmbKISYU, Nothing)
-        If chkDispBUHIN_BANGO.Checked Then Call CmbBUHIN_BANGO_Validating(cmbBUHIN_BANGO, Nothing)
+        'If chkDispBUMON.Checked Then Call CmbBUMON_Validating(cmbBUMON, Nothing)
+        'If chkDispADD_TANTO.Checked Then Call CmbADD_TANTO_Validating(cmbADD_TANTO, Nothing)
+        'If chkDispKISYU.Checked Then Call CmbKISYU_Validating(cmbKISYU, Nothing)
+        'If chkDispBUHIN_BANGO.Checked Then Call CmbBUHIN_BANGO_Validating(cmbBUHIN_BANGO, Nothing)
 
-        If chkDispHINMEI.Checked Then Call MtxHINMEI_Validating(mtxHINMEI, Nothing)
-        If chkDispGOKI.Checked Then Call MtxGOKI_Validating(mtxGOKI, Nothing)
-        If chkDispSYANAI_CD.Checked Then Call CmbSYANAI_CD_Validating(cmbSYANAI_CD, Nothing)
-        If chkDispHASSEI_YMD.Checked Then
+        'If chkDispHINMEI.Checked Then Call MtxHINMEI_Validating(mtxHINMEI, Nothing)
+        'If chkDispGOKI.Checked Then Call MtxGOKI_Validating(mtxGOKI, Nothing)
+        'If chkDispSYANAI_CD.Checked Then Call CmbSYANAI_CD_Validating(cmbSYANAI_CD, Nothing)
+        'If chkDispHASSEI_YMD.Checked Then
 
-        End If
-        If chkDispFUTEKIGO_JYOTAI_KB.Checked Then Call CmbFUTEKIGO_JYOTAI_KB_Validating(cmbFUTEKIGO_JYOTAI_KB, Nothing)
-        If chkDispFUTEKIGO_KB.Checked Then Call CmbFUTEKIGO_KB_Validating(cmbFUTEKIGO_KB, Nothing)
-        If chkDispFUTEKIGO_S_KB.Checked Then Call CmbFUTEKIGO_S_KB_Validating(cmbFUTEKIGO_S_KB, Nothing)
+        'End If
+        'If chkDispFUTEKIGO_JYOTAI_KB.Checked Then Call CmbFUTEKIGO_JYOTAI_KB_Validating(cmbFUTEKIGO_JYOTAI_KB, Nothing)
+        'If chkDispFUTEKIGO_KB.Checked Then Call CmbFUTEKIGO_KB_Validating(cmbFUTEKIGO_KB, Nothing)
+        'If chkDispFUTEKIGO_S_KB.Checked Then Call CmbFUTEKIGO_S_KB_Validating(cmbFUTEKIGO_S_KB, Nothing)
 
-        If chkDispJIZEN_SINSA_HANTEI_KB.Checked Then Call CmbJIZEN_SINSA_HANTEI_KB_Validating(cmbJIZEN_SINSA_HANTEI_KB, Nothing)
-        If chkDispZESEI_SYOCHI_YOHI_KB.Checked Then Call CmbZESEI_SYOCHI_YOHI_KB_Validating(cmbZESEI_SYOCHI_YOHI_KB, Nothing)
-        If chkDispSAISIN_IINKAI_HANTEI_KB.Checked Then Call CmbSAISIN_IINKAI_HANTEI_KB_Validating(cmbSAISIN_IINKAI_HANTEI_KB, Nothing)
-        If chkDispKOKYAKU_HANTEI_SIJI_KB.Checked Then Call CmbKOKYAKU_HANTEI_SIJI_KB_Validating(cmbKOKYAKU_HANTEI_SIJI_KB, Nothing)
-        If chkDispKOKYAKU_SAISYU_HANTEI_KB.Checked Then Call CmbKOKYAKU_SAISYU_HANTEI_KB_Validating(cmbKOKYAKU_SAISYU_HANTEI_KB, Nothing)
-        If chkDispKENSA_KEKKA_KB.Checked Then Call CmbKENSA_KEKKA_KB_Validating(cmbKENSA_KEKKA_KB, Nothing)
-        If chkDispYOIN1.Checked Then Call CmbYOIN1_Validating(cmbYOIN1, Nothing)
-        If chkDispYOIN2.Checked Then Call CmbYOIN2_Validating(cmbYOIN2, Nothing)
-        If chkDispKISEKI_KOTEI_KB.Checked Then Call CmbKISEKI_KOTEI_KB_Validating(cmbKISEKI_KOTEI_KB, Nothing)
-        If chkDispGENIN1.Checked Then Call MtxGENIN1_Validating(mtxGENIN1, Nothing)
-        If chkDispGENIN2.Checked Then Call MtxGENIN2_Validating(mtxGENIN2, Nothing)
+        'If chkDispJIZEN_SINSA_HANTEI_KB.Checked Then Call CmbJIZEN_SINSA_HANTEI_KB_Validating(cmbJIZEN_SINSA_HANTEI_KB, Nothing)
+        'If chkDispZESEI_SYOCHI_YOHI_KB.Checked Then Call CmbZESEI_SYOCHI_YOHI_KB_Validating(cmbZESEI_SYOCHI_YOHI_KB, Nothing)
+        'If chkDispSAISIN_IINKAI_HANTEI_KB.Checked Then Call CmbSAISIN_IINKAI_HANTEI_KB_Validating(cmbSAISIN_IINKAI_HANTEI_KB, Nothing)
+        'If chkDispKOKYAKU_HANTEI_SIJI_KB.Checked Then Call CmbKOKYAKU_HANTEI_SIJI_KB_Validating(cmbKOKYAKU_HANTEI_SIJI_KB, Nothing)
+        'If chkDispKOKYAKU_SAISYU_HANTEI_KB.Checked Then Call CmbKOKYAKU_SAISYU_HANTEI_KB_Validating(cmbKOKYAKU_SAISYU_HANTEI_KB, Nothing)
+        'If chkDispKENSA_KEKKA_KB.Checked Then Call CmbKENSA_KEKKA_KB_Validating(cmbKENSA_KEKKA_KB, Nothing)
+        'If chkDispYOIN1.Checked Then Call CmbYOIN1_Validating(cmbYOIN1, Nothing)
+        'If chkDispYOIN2.Checked Then Call CmbYOIN2_Validating(cmbYOIN2, Nothing)
+        'If chkDispKISEKI_KOTEI_KB.Checked Then Call CmbKISEKI_KOTEI_KB_Validating(cmbKISEKI_KOTEI_KB, Nothing)
+        'If chkDispGENIN1.Checked Then Call MtxGENIN1_Validating(mtxGENIN1, Nothing)
+        'If chkDispGENIN2.Checked Then Call MtxGENIN2_Validating(mtxGENIN2, Nothing)
 
         If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 AndAlso IsValidated = False Then
             Return False
@@ -3083,6 +3084,7 @@ Public Class FrmG0010
 #End Region
 
 #Region "集計条件フィルタ チェックボックス"
+
     Private Sub ChkDispKISYU_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispKISYU.CheckedChanged
         Dim chk = DirectCast(sender, CheckBox)
         Dim cmb = cmbKISYU
@@ -3262,14 +3264,13 @@ Public Class FrmG0010
 
     End Sub
 
-
     Private Sub ChkDispHASSEI_YMD_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispHASSEI_YMD.CheckedChanged
 
         dtHASSEI_YMD_FROM.Enabled = chkDispHASSEI_YMD.Checked
         dtHASSEI_YMD_TO.Enabled = chkDispHASSEI_YMD.Checked
     End Sub
-#End Region
 
+#End Region
 
 #End Region
 
@@ -3317,70 +3318,198 @@ Public Class FrmG0010
 
 #End Region
 
-
     Public Function FunGetDtST02_FUTEKIGO_ICHIRAN(ParamModel As ST02_ParamModel, Optional mode As Integer = ENM_OPEN_MODE._0_通常) As DataTable
 
         Dim sbSQL As New System.Text.StringBuilder
         Dim sbParam As New System.Text.StringBuilder
         Dim dsList As New DataSet
 
-
-        'SearchCondition
-        'IF  then ParamModel.BUMON_KB = ""
-
-
-        '共通
-        sbParam.Append($" '{ParamModel.BUMON_KB}'")
-
-        If mode = ENM_OPEN_MODE._3_分析集計 Then
-            sbParam.Append($",{Nz(cmbHOKOKUSYO_ID.SelectedValue, 0)}")
-        Else
-            sbParam.Append($",{ParamModel.SYONIN_HOKOKUSYO_ID}")
-        End If
-
-        sbParam.Append($",{Nz(cmbKISYU.SelectedValue, 0)}")
-
-        If Not cmbBUHIN_BANGO.Text.IsNulOrWS And cmbBUHIN_BANGO.SelectedValue <> cmbBUHIN_BANGO.NullValue Then
-            sbParam.Append($",'{cmbBUHIN_BANGO.Text.Trim}'")
-        Else
-            sbParam.Append($",'{ParamModel.BUHIN_BANGO}'")
-        End If
-
-        sbParam.Append($",'{ParamModel.SYANAI_CD}'")
-        sbParam.Append($",'{ParamModel.BUHIN_NAME}'")
-        sbParam.Append($",'{ParamModel.GOUKI}'")
-        sbParam.Append($",{Nz(cmbGEN_TANTO.SelectedValue, 0)}")
-        sbParam.Append($",'{ParamModel.JISI_YMD_FROM}'")
-        sbParam.Append($",'{ParamModel.JISI_YMD_TO}'")
-        sbParam.Append($",'{ParamModel.HOKOKU_NO}'")
-        sbParam.Append($",{ParamModel.ADD_TANTO}")
-        sbParam.Append($",'{IIf(chkClosedRowVisibled.Checked, "", 0)}'")
-        sbParam.Append($",'{IIf(ParamModel._VISIBLE_TAIRYU = 1, ParamModel._VISIBLE_TAIRYU, "")}'")
-        sbParam.Append($",'{ParamModel.FUTEKIGO_KB}'")
-        sbParam.Append($",'{ParamModel.FUTEKIGO_S_KB}'")
-        sbParam.Append($",'{ParamModel.FUTEKIGO_JYOTAI_KB}'")
-
-        'NCR
-        sbParam.Append($",'{ParamModel.JIZEN_SINSA_HANTEI_KB}'")
-        sbParam.Append($",'{ParamModel.ZESEI_SYOCHI_YOHI_KB}'")
-        sbParam.Append($",'{ParamModel.SAISIN_IINKAI_HANTEI_KB}'")
-        sbParam.Append($",'{ParamModel.KENSA_KEKKA_KB}'")
-
-        'CAR
-        sbParam.Append($",'{ParamModel.KONPON_YOIN_KB1}'")
-        sbParam.Append($",'{ParamModel.KONPON_YOIN_KB2}'")
-        sbParam.Append($",'{ParamModel.KISEKI_KOTEI_KB}'")
-        sbParam.Append($",'{ParamModel.KOKYAKU_HANTEI_SIJI_KB}'")
-        sbParam.Append($",'{ParamModel.KOKYAKU_SAISYU_HANTEI_KB}'")
-        sbParam.Append($",'{ParamModel.GENIN1}'")
-        sbParam.Append($",'{ParamModel.GENIN2}'")
-        sbParam.Append($",'{ParamModel.HASSEI_FROM}'")
-        sbParam.Append($",'{ParamModel.HASSEI_TO}'")
-
         Select Case mode
             Case ENM_OPEN_MODE._3_分析集計
+
+                If chkDispBUMON.Checked Then
+                    sbParam.Append($" '{ParamModel.BUMON_KB}'")
+                Else
+                    sbParam.Append($" DEFAULT")
+                End If
+                sbParam.Append($",{Nz(cmbHOKOKUSYO_ID.SelectedValue, 0)}")
+
+                If chkDispKISYU.Checked Then
+                    sbParam.Append($",{Nz(cmbKISYU.SelectedValue, 0)}")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+
+                If chkDispBUHIN_BANGO.Checked Then
+                    If Not cmbBUHIN_BANGO.Text.IsNulOrWS And cmbBUHIN_BANGO.SelectedValue <> cmbBUHIN_BANGO.NullValue Then
+                        sbParam.Append($",'{cmbBUHIN_BANGO.Text.Trim}'")
+                    Else
+                        sbParam.Append($",'{ParamModel.BUHIN_BANGO}'")
+                    End If
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+                If chkDispSYANAI_CD.Checked Then
+                    sbParam.Append($",'{ParamModel.SYANAI_CD}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+                If chkDispHINMEI.Checked Then
+                    sbParam.Append($",'{ParamModel.BUHIN_NAME}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+                If chkDispGOKI.Checked Then
+                    sbParam.Append($",'{ParamModel.GOUKI}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+
+                sbParam.Append($",{Nz(cmbGEN_TANTO.SelectedValue, 0)}")
+                sbParam.Append($",'{ParamModel.JISI_YMD_FROM}'")
+                sbParam.Append($",'{ParamModel.JISI_YMD_TO}'")
+                sbParam.Append($",'{ParamModel.HOKOKU_NO}'")
+
+                If chkDispADD_TANTO.Checked Then
+                    sbParam.Append($",{ParamModel.ADD_TANTO}")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+
+                sbParam.Append($",'{IIf(chkClosedRowVisibled.Checked, "", 0)}'")
+                sbParam.Append($",'{IIf(ParamModel._VISIBLE_TAIRYU = 1, ParamModel._VISIBLE_TAIRYU, "")}'")
+
+
+                If chkDispFUTEKIGO_KB.Checked Then
+                    sbParam.Append($",'{ParamModel.FUTEKIGO_KB}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+                If chkDispFUTEKIGO_S_KB.Checked Then
+
+                    sbParam.Append($",'{ParamModel.FUTEKIGO_S_KB}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+                If chkDispFUTEKIGO_JYOTAI_KB.Checked Then
+                    sbParam.Append($",'{ParamModel.FUTEKIGO_JYOTAI_KB}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+
+                'NCR
+                If chkDispJIZEN_SINSA_HANTEI_KB.Checked Then
+                    sbParam.Append($",'{ParamModel.JIZEN_SINSA_HANTEI_KB}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+
+                If chkDispZESEI_SYOCHI_YOHI_KB.Checked Then
+                    sbParam.Append($",'{ParamModel.ZESEI_SYOCHI_YOHI_KB}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+                If chkDispSAISIN_IINKAI_HANTEI_KB.Checked Then
+                    sbParam.Append($",'{ParamModel.SAISIN_IINKAI_HANTEI_KB}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+                If chkDispKENSA_KEKKA_KB.Checked Then
+                    sbParam.Append($",'{ParamModel.KENSA_KEKKA_KB}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+
+                'CAR
+                If chkDispYOIN1.Checked Then
+                    sbParam.Append($",'{ParamModel.KONPON_YOIN_KB1}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+                If chkDispYOIN2.Checked Then
+                    sbParam.Append($",'{ParamModel.KONPON_YOIN_KB2}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+                If chkDispKISEKI_KOTEI_KB.Checked Then
+                    sbParam.Append($",'{ParamModel.KISEKI_KOTEI_KB}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+                If chkDispKOKYAKU_HANTEI_SIJI_KB.Checked Then
+                    sbParam.Append($",'{ParamModel.KOKYAKU_HANTEI_SIJI_KB}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+                If chkDispKOKYAKU_SAISYU_HANTEI_KB.Checked Then
+                    sbParam.Append($",'{ParamModel.KOKYAKU_SAISYU_HANTEI_KB}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+                If chkDispGENIN1.Checked Then
+                    sbParam.Append($",'{ParamModel.GENIN1}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+                If chkDispGENIN2.Checked Then
+                    sbParam.Append($",'{ParamModel.GENIN2}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
+
+                If chkDispHASSEI_YMD.Checked Then
+                    sbParam.Append($",'{ParamModel.HASSEI_FROM}'")
+                    sbParam.Append($",'{ParamModel.HASSEI_TO}'")
+                Else
+                    sbParam.Append($",DEFAULT")
+                    sbParam.Append($",DEFAULT")
+                End If
+
                 sbSQL.Append($"EXEC dbo.{NameOf(MODEL.ST03_FUTEKIGO_ICHIRAN_SUMMARY)} {sbParam.ToString}")
             Case Else
+                '共通
+                sbParam.Append($" '{ParamModel.BUMON_KB}'")
+
+                sbParam.Append($",{ParamModel.SYONIN_HOKOKUSYO_ID}")
+                sbParam.Append($",{Nz(cmbKISYU.SelectedValue, 0)}")
+
+                If Not cmbBUHIN_BANGO.Text.IsNulOrWS And cmbBUHIN_BANGO.SelectedValue <> cmbBUHIN_BANGO.NullValue Then
+                    sbParam.Append($",'{cmbBUHIN_BANGO.Text.Trim}'")
+                Else
+                    sbParam.Append($",'{ParamModel.BUHIN_BANGO}'")
+                End If
+
+                sbParam.Append($",'{ParamModel.SYANAI_CD}'")
+                sbParam.Append($",'{ParamModel.BUHIN_NAME}'")
+                sbParam.Append($",'{ParamModel.GOUKI}'")
+                sbParam.Append($",{Nz(cmbGEN_TANTO.SelectedValue, 0)}")
+                sbParam.Append($",'{ParamModel.JISI_YMD_FROM}'")
+                sbParam.Append($",'{ParamModel.JISI_YMD_TO}'")
+                sbParam.Append($",'{ParamModel.HOKOKU_NO}'")
+                sbParam.Append($",{ParamModel.ADD_TANTO}")
+                sbParam.Append($",'{IIf(chkClosedRowVisibled.Checked, "", 0)}'")
+                sbParam.Append($",'{IIf(ParamModel._VISIBLE_TAIRYU = 1, ParamModel._VISIBLE_TAIRYU, "")}'")
+                sbParam.Append($",'{ParamModel.FUTEKIGO_KB}'")
+                sbParam.Append($",'{ParamModel.FUTEKIGO_S_KB}'")
+                sbParam.Append($",'{ParamModel.FUTEKIGO_JYOTAI_KB}'")
+
+                'NCR
+                sbParam.Append($",'{ParamModel.JIZEN_SINSA_HANTEI_KB}'")
+                sbParam.Append($",'{ParamModel.ZESEI_SYOCHI_YOHI_KB}'")
+                sbParam.Append($",'{ParamModel.SAISIN_IINKAI_HANTEI_KB}'")
+                sbParam.Append($",'{ParamModel.KENSA_KEKKA_KB}'")
+
+                'CAR
+                sbParam.Append($",'{ParamModel.KONPON_YOIN_KB1}'")
+                sbParam.Append($",'{ParamModel.KONPON_YOIN_KB2}'")
+                sbParam.Append($",'{ParamModel.KISEKI_KOTEI_KB}'")
+                sbParam.Append($",'{ParamModel.KOKYAKU_HANTEI_SIJI_KB}'")
+                sbParam.Append($",'{ParamModel.KOKYAKU_SAISYU_HANTEI_KB}'")
+                sbParam.Append($",'{ParamModel.GENIN1}'")
+                sbParam.Append($",'{ParamModel.GENIN2}'")
+                sbParam.Append($",'{ParamModel.HASSEI_FROM}'")
+                sbParam.Append($",'{ParamModel.HASSEI_TO}'")
+
                 sbSQL.Append($"EXEC dbo.{NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN)} {sbParam.ToString}")
         End Select
 
@@ -3474,12 +3603,6 @@ Public Class FrmG0010
 
         Application.DoEvents()
     End Sub
-
-
-
-
-
-
 
 #End Region
 

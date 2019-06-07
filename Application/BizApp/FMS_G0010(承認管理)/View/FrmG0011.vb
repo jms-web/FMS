@@ -54,7 +54,7 @@ Public Class FrmG0011
 
     Public Property PrSAI_FUTEKIGO As Boolean
 
-    Public Property PrRIYU As String
+    Public PrRIYU As String = ""
 
 #End Region
 
@@ -298,14 +298,14 @@ Public Class FrmG0011
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
 
-                        If IsEditingClosed Then
+                        If IsEditingClosed And PrCurrentStage = ENM_NCR_STAGE._999_Closed Then
                             Call OpenFormEdit()
 
                             If PrRIYU.IsNulOrWS Then
                                 Exit Sub
                             End If
                         Else
-                            If MessageBox.Show("入力内容を保存しますか？", "登録確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then Exit Sub
+                            If MessageBox.Show("入力内容を保存しますか？", "登録確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) <> DialogResult.Yes Then Exit Sub
                         End If
 
                         If FunSAVE(ENM_SAVE_MODE._1_保存) Then
@@ -743,7 +743,7 @@ Public Class FrmG0011
         sbSQL.Append($" ,{_D003_NCR_J.TENYO_KISYU_ID} AS {NameOf(_D003_NCR_J.TENYO_KISYU_ID)}")
         sbSQL.Append($" ,'{_D003_NCR_J.TENYO_BUHIN_BANGO.ConvertSqlEscape}' AS {NameOf(_D003_NCR_J.TENYO_BUHIN_BANGO)}")
         sbSQL.Append($" ,'{_D003_NCR_J.TENYO_GOKI.ConvertSqlEscape}' AS {NameOf(_D003_NCR_J.TENYO_GOKI)}")
-        sbSQL.Append($" ,{_D003_NCR_J.TENYO_LOT} AS {NameOf(_D003_NCR_J.TENYO_LOT)}")
+        sbSQL.Append($" ,'{_D003_NCR_J.TENYO_LOT}' AS {NameOf(_D003_NCR_J.TENYO_LOT)}")
         sbSQL.Append($" ,'{_D003_NCR_J.TENYO_YMD}' AS {NameOf(_D003_NCR_J.TENYO_YMD)}")
         sbSQL.Append($" ,'{_D003_NCR_J._SYOCHI_KEKKA_A}' AS {NameOf(_D003_NCR_J.SYOCHI_KEKKA_A)}")
         sbSQL.Append($" ,'{_D003_NCR_J._SYOCHI_KEKKA_B}' AS {NameOf(_D003_NCR_J.SYOCHI_KEKKA_B)}")
@@ -1005,7 +1005,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_KISYU_ID))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_BUHIN_BANGO))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_GOKI))
-        sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_LOT))
+        sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_LOT))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.TENYO_YMD))
         sbSQL.Append(" ,'0'") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_KEKKA_A))
         sbSQL.Append(" ,'0'") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_KEKKA_B))
@@ -1711,7 +1711,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & _D003_NCR_J.TENYO_KISYU_ID & "")
         sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_BUHIN_BANGO & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_GOKI & "'")
-        sbSQL.Append(" ," & _D003_NCR_J.TENYO_LOT & "")
+        sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_LOT & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.TENYO_YMD & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_KEKKA_A & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J._SYOCHI_KEKKA_B & "'")
@@ -6348,7 +6348,7 @@ Public Class FrmG0011
                     '#90 起草以降変更不可
                     'If PrCurrentStage > ENM_NCR_STAGE._10_起草入力 Then
 
-                    'UNDONE: ヘッダ項目も変更不可 とりあえずコントロールを直接制御 可能ならパネル単位で制御したい
+                    'ヘッダ項目も変更不可 とりあえずコントロールを直接制御 可能ならパネル単位で制御したい
                     mtxHOKUKO_NO.ReadOnly = True
                     cmbBUMON.ReadOnly = True
                     cmbKISO_TANTO.ReadOnly = True
@@ -6400,7 +6400,9 @@ Public Class FrmG0011
                         mtxZUBAN_KIKAKU.ReadOnly = False
                         numSU.Enabled = True
                         dtHASSEI_YMD.ReadOnly = False
-
+                    ElseIf PrCurrentStage = ENM_NCR_STAGE._999_Closed And IsEditingClosed = True Then
+                        mtxGOUKI.ReadOnly = False
+                        mtxZUBAN_KIKAKU.ReadOnly = False
                     End If
 
                 Case Else
