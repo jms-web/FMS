@@ -96,14 +96,6 @@ Partial Class FrmG0010
         Me.chkDispKOKYAKU_HANTEI_SIJI_KB = New System.Windows.Forms.CheckBox()
         Me.chkDispKENSA_KEKKA_KB = New System.Windows.Forms.CheckBox()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.btnSelectGenin1 = New System.Windows.Forms.Button()
-        Me.btnSelectGenin2 = New System.Windows.Forms.Button()
-        Me.btnClearGenin1 = New System.Windows.Forms.Button()
-        Me.btnClearGenin2 = New System.Windows.Forms.Button()
-        Me.mtxGENIN1 = New JMS_COMMON.MaskedTextBoxEx()
-        Me.mtxGENIN2 = New JMS_COMMON.MaskedTextBoxEx()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label22 = New System.Windows.Forms.Label()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label30 = New System.Windows.Forms.Label()
@@ -117,10 +109,16 @@ Partial Class FrmG0010
         Me.cmbKISEKI_KOTEI_KB = New JMS_COMMON.ComboboxEx()
         Me.mtxGENIN1_DISP = New JMS_COMMON.MaskedTextBoxEx()
         Me.mtxGENIN2_DISP = New JMS_COMMON.MaskedTextBoxEx()
-        Me.btnSearchGENIN1 = New System.Windows.Forms.Button()
-        Me.btnSearchGENIN2 = New System.Windows.Forms.Button()
         Me.chkDispGENIN1 = New System.Windows.Forms.CheckBox()
         Me.chkDispGENIN2 = New System.Windows.Forms.CheckBox()
+        Me.btnSelectGenin1 = New System.Windows.Forms.Button()
+        Me.btnSelectGenin2 = New System.Windows.Forms.Button()
+        Me.mtxGENIN1 = New JMS_COMMON.MaskedTextBoxEx()
+        Me.mtxGENIN2 = New JMS_COMMON.MaskedTextBoxEx()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.btnClearGenin1 = New System.Windows.Forms.Button()
+        Me.btnClearGenin2 = New System.Windows.Forms.Button()
         Me.panelMan = New PanelManager.Controls.PanelManager()
         Me.mpnlCondition = New PanelManager.Controls.ManagedPanel()
         Me.PanelEx1 = New JMS_COMMON.PanelEx()
@@ -1557,14 +1555,6 @@ Partial Class FrmG0010
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.btnSelectGenin1, 39, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnSelectGenin2, 39, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnClearGenin1, 54, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnClearGenin2, 54, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.mtxGENIN1, 24, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.mtxGENIN2, 24, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label3, 16, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label22, 16, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.Label27, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label18, 0, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.Label30, 0, 2)
@@ -1578,10 +1568,16 @@ Partial Class FrmG0010
         Me.TableLayoutPanel2.Controls.Add(Me.cmbKISEKI_KOTEI_KB, 5, 2)
         Me.TableLayoutPanel2.Controls.Add(Me.mtxGENIN1_DISP, 5, 3)
         Me.TableLayoutPanel2.Controls.Add(Me.mtxGENIN2_DISP, 5, 4)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnSearchGENIN1, 21, 3)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnSearchGENIN2, 21, 4)
         Me.TableLayoutPanel2.Controls.Add(Me.chkDispGENIN1, 4, 3)
         Me.TableLayoutPanel2.Controls.Add(Me.chkDispGENIN2, 4, 4)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnSelectGenin1, 21, 3)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnSelectGenin2, 21, 4)
+        Me.TableLayoutPanel2.Controls.Add(Me.mtxGENIN1, 26, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.mtxGENIN2, 26, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label3, 20, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label22, 20, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnClearGenin1, 24, 3)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnClearGenin2, 24, 4)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 19)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
@@ -1595,106 +1591,6 @@ Partial Class FrmG0010
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(594, 158)
         Me.TableLayoutPanel2.TabIndex = 64
-        '
-        'btnSelectGenin1
-        '
-        Me.TableLayoutPanel2.SetColumnSpan(Me.btnSelectGenin1, 3)
-        Me.btnSelectGenin1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnSelectGenin1.Location = New System.Drawing.Point(783, 3)
-        Me.btnSelectGenin1.Name = "btnSelectGenin1"
-        Me.btnSelectGenin1.Size = New System.Drawing.Size(54, 24)
-        Me.btnSelectGenin1.TabIndex = 105
-        Me.btnSelectGenin1.Text = "選択"
-        Me.btnSelectGenin1.UseVisualStyleBackColor = True
-        '
-        'btnSelectGenin2
-        '
-        Me.TableLayoutPanel2.SetColumnSpan(Me.btnSelectGenin2, 3)
-        Me.btnSelectGenin2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnSelectGenin2.Location = New System.Drawing.Point(783, 33)
-        Me.btnSelectGenin2.Name = "btnSelectGenin2"
-        Me.btnSelectGenin2.Size = New System.Drawing.Size(54, 24)
-        Me.btnSelectGenin2.TabIndex = 99
-        Me.btnSelectGenin2.Text = "選択"
-        Me.btnSelectGenin2.UseVisualStyleBackColor = True
-        '
-        'btnClearGenin1
-        '
-        Me.TableLayoutPanel2.SetColumnSpan(Me.btnClearGenin1, 3)
-        Me.btnClearGenin1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnClearGenin1.Location = New System.Drawing.Point(1083, 3)
-        Me.btnClearGenin1.Name = "btnClearGenin1"
-        Me.btnClearGenin1.Size = New System.Drawing.Size(54, 24)
-        Me.btnClearGenin1.TabIndex = 108
-        Me.btnClearGenin1.Text = "クリア"
-        Me.btnClearGenin1.UseVisualStyleBackColor = True
-        '
-        'btnClearGenin2
-        '
-        Me.TableLayoutPanel2.SetColumnSpan(Me.btnClearGenin2, 3)
-        Me.btnClearGenin2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnClearGenin2.Location = New System.Drawing.Point(1083, 33)
-        Me.btnClearGenin2.Name = "btnClearGenin2"
-        Me.btnClearGenin2.Size = New System.Drawing.Size(54, 24)
-        Me.btnClearGenin2.TabIndex = 107
-        Me.btnClearGenin2.Text = "クリア"
-        Me.btnClearGenin2.UseVisualStyleBackColor = True
-        '
-        'mtxGENIN1
-        '
-        Me.mtxGENIN1.BackColor = System.Drawing.SystemColors.Window
-        Me.TableLayoutPanel2.SetColumnSpan(Me.mtxGENIN1, 4)
-        Me.mtxGENIN1.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxGENIN1.InputRequired = False
-        Me.mtxGENIN1.Location = New System.Drawing.Point(483, 3)
-        Me.mtxGENIN1.MaxByteLength = 0
-        Me.mtxGENIN1.Name = "mtxGENIN1"
-        Me.mtxGENIN1.SelectAllText = False
-        Me.mtxGENIN1.Size = New System.Drawing.Size(74, 23)
-        Me.mtxGENIN1.TabIndex = 109
-        Me.mtxGENIN1.Visible = False
-        Me.mtxGENIN1.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxGENIN1.WatermarkText = Nothing
-        '
-        'mtxGENIN2
-        '
-        Me.mtxGENIN2.BackColor = System.Drawing.SystemColors.Window
-        Me.TableLayoutPanel2.SetColumnSpan(Me.mtxGENIN2, 4)
-        Me.mtxGENIN2.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxGENIN2.InputRequired = False
-        Me.mtxGENIN2.Location = New System.Drawing.Point(483, 33)
-        Me.mtxGENIN2.MaxByteLength = 0
-        Me.mtxGENIN2.Name = "mtxGENIN2"
-        Me.mtxGENIN2.SelectAllText = False
-        Me.mtxGENIN2.Size = New System.Drawing.Size(74, 23)
-        Me.mtxGENIN2.TabIndex = 110
-        Me.mtxGENIN2.Visible = False
-        Me.mtxGENIN2.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxGENIN2.WatermarkText = Nothing
-        '
-        'Label3
-        '
-        Me.TableLayoutPanel2.SetColumnSpan(Me.Label3, 8)
-        Me.Label3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label3.Location = New System.Drawing.Point(323, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(154, 30)
-        Me.Label3.TabIndex = 111
-        Me.Label3.Text = "原因1(検索値):"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label3.Visible = False
-        '
-        'Label22
-        '
-        Me.TableLayoutPanel2.SetColumnSpan(Me.Label22, 8)
-        Me.Label22.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label22.Location = New System.Drawing.Point(323, 30)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(154, 30)
-        Me.Label22.TabIndex = 112
-        Me.Label22.Text = "原因2(検索値):"
-        Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label22.Visible = False
         '
         'Label27
         '
@@ -1888,28 +1784,6 @@ Partial Class FrmG0010
         Me.mtxGENIN2_DISP.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxGENIN2_DISP.WatermarkText = Nothing
         '
-        'btnSearchGENIN1
-        '
-        Me.TableLayoutPanel2.SetColumnSpan(Me.btnSearchGENIN1, 3)
-        Me.btnSearchGENIN1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnSearchGENIN1.Location = New System.Drawing.Point(423, 93)
-        Me.btnSearchGENIN1.Name = "btnSearchGENIN1"
-        Me.btnSearchGENIN1.Size = New System.Drawing.Size(54, 24)
-        Me.btnSearchGENIN1.TabIndex = 5
-        Me.btnSearchGENIN1.Text = "検索"
-        Me.btnSearchGENIN1.UseVisualStyleBackColor = True
-        '
-        'btnSearchGENIN2
-        '
-        Me.TableLayoutPanel2.SetColumnSpan(Me.btnSearchGENIN2, 3)
-        Me.btnSearchGENIN2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnSearchGENIN2.Location = New System.Drawing.Point(423, 123)
-        Me.btnSearchGENIN2.Name = "btnSearchGENIN2"
-        Me.btnSearchGENIN2.Size = New System.Drawing.Size(54, 24)
-        Me.btnSearchGENIN2.TabIndex = 5
-        Me.btnSearchGENIN2.Text = "検索"
-        Me.btnSearchGENIN2.UseVisualStyleBackColor = True
-        '
         'chkDispGENIN1
         '
         Me.chkDispGENIN1.AutoSize = True
@@ -1935,6 +1809,106 @@ Partial Class FrmG0010
         Me.chkDispGENIN2.Text = "削除済も表示"
         Me.chkDispGENIN2.UseVisualStyleBackColor = True
         Me.chkDispGENIN2.Visible = False
+        '
+        'btnSelectGenin1
+        '
+        Me.TableLayoutPanel2.SetColumnSpan(Me.btnSelectGenin1, 3)
+        Me.btnSelectGenin1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSelectGenin1.Location = New System.Drawing.Point(423, 93)
+        Me.btnSelectGenin1.Name = "btnSelectGenin1"
+        Me.btnSelectGenin1.Size = New System.Drawing.Size(54, 24)
+        Me.btnSelectGenin1.TabIndex = 105
+        Me.btnSelectGenin1.Text = "検索"
+        Me.btnSelectGenin1.UseVisualStyleBackColor = True
+        '
+        'btnSelectGenin2
+        '
+        Me.TableLayoutPanel2.SetColumnSpan(Me.btnSelectGenin2, 3)
+        Me.btnSelectGenin2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSelectGenin2.Location = New System.Drawing.Point(423, 123)
+        Me.btnSelectGenin2.Name = "btnSelectGenin2"
+        Me.btnSelectGenin2.Size = New System.Drawing.Size(54, 24)
+        Me.btnSelectGenin2.TabIndex = 99
+        Me.btnSelectGenin2.Text = "検索"
+        Me.btnSelectGenin2.UseVisualStyleBackColor = True
+        '
+        'mtxGENIN1
+        '
+        Me.mtxGENIN1.BackColor = System.Drawing.SystemColors.Window
+        Me.TableLayoutPanel2.SetColumnSpan(Me.mtxGENIN1, 3)
+        Me.mtxGENIN1.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxGENIN1.InputRequired = False
+        Me.mtxGENIN1.Location = New System.Drawing.Point(523, 3)
+        Me.mtxGENIN1.MaxByteLength = 0
+        Me.mtxGENIN1.Name = "mtxGENIN1"
+        Me.mtxGENIN1.SelectAllText = False
+        Me.mtxGENIN1.Size = New System.Drawing.Size(54, 23)
+        Me.mtxGENIN1.TabIndex = 109
+        Me.mtxGENIN1.Visible = False
+        Me.mtxGENIN1.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxGENIN1.WatermarkText = Nothing
+        '
+        'mtxGENIN2
+        '
+        Me.mtxGENIN2.BackColor = System.Drawing.SystemColors.Window
+        Me.TableLayoutPanel2.SetColumnSpan(Me.mtxGENIN2, 3)
+        Me.mtxGENIN2.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxGENIN2.InputRequired = False
+        Me.mtxGENIN2.Location = New System.Drawing.Point(523, 33)
+        Me.mtxGENIN2.MaxByteLength = 0
+        Me.mtxGENIN2.Name = "mtxGENIN2"
+        Me.mtxGENIN2.SelectAllText = False
+        Me.mtxGENIN2.Size = New System.Drawing.Size(54, 23)
+        Me.mtxGENIN2.TabIndex = 110
+        Me.mtxGENIN2.Visible = False
+        Me.mtxGENIN2.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxGENIN2.WatermarkText = Nothing
+        '
+        'Label3
+        '
+        Me.TableLayoutPanel2.SetColumnSpan(Me.Label3, 6)
+        Me.Label3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label3.Location = New System.Drawing.Point(403, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(114, 30)
+        Me.Label3.TabIndex = 111
+        Me.Label3.Text = "原因1(検索値):"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label3.Visible = False
+        '
+        'Label22
+        '
+        Me.TableLayoutPanel2.SetColumnSpan(Me.Label22, 6)
+        Me.Label22.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label22.Location = New System.Drawing.Point(403, 30)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(114, 30)
+        Me.Label22.TabIndex = 112
+        Me.Label22.Text = "原因2(検索値):"
+        Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label22.Visible = False
+        '
+        'btnClearGenin1
+        '
+        Me.TableLayoutPanel2.SetColumnSpan(Me.btnClearGenin1, 3)
+        Me.btnClearGenin1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnClearGenin1.Location = New System.Drawing.Point(483, 93)
+        Me.btnClearGenin1.Name = "btnClearGenin1"
+        Me.btnClearGenin1.Size = New System.Drawing.Size(54, 24)
+        Me.btnClearGenin1.TabIndex = 108
+        Me.btnClearGenin1.Text = "クリア"
+        Me.btnClearGenin1.UseVisualStyleBackColor = True
+        '
+        'btnClearGenin2
+        '
+        Me.TableLayoutPanel2.SetColumnSpan(Me.btnClearGenin2, 3)
+        Me.btnClearGenin2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnClearGenin2.Location = New System.Drawing.Point(483, 123)
+        Me.btnClearGenin2.Name = "btnClearGenin2"
+        Me.btnClearGenin2.Size = New System.Drawing.Size(54, 24)
+        Me.btnClearGenin2.TabIndex = 107
+        Me.btnClearGenin2.Text = "クリア"
+        Me.btnClearGenin2.UseVisualStyleBackColor = True
         '
         'panelMan
         '
@@ -2361,8 +2335,6 @@ Partial Class FrmG0010
     Friend WithEvents lblHOKOKUSYO_ID As Label
     Friend WithEvents chkDispHOKOKUSYO_ID As CheckBox
     Friend WithEvents cmbHOKOKUSYO_ID As ComboboxEx
-    Friend WithEvents btnSearchGENIN1 As Button
-    Friend WithEvents btnSearchGENIN2 As Button
     Friend WithEvents chkDispGENIN1 As CheckBox
     Friend WithEvents chkDispGENIN2 As CheckBox
 End Class

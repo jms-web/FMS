@@ -2721,12 +2721,12 @@ Public Class FrmG0010
 
     Private Sub CmbYOIN1_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbYOIN1.SelectedValueChanged
         If cmbYOIN1.SelectedIndex > 0 Then
-            btnSearchGENIN1.Enabled = True
+            'btnSearchGENIN1.Enabled = True
             mtxGENIN1_DISP.Enabled = True
             btnClearGenin1.Enabled = True
             btnSelectGenin1.Enabled = True
         Else
-            btnSearchGENIN1.Enabled = False
+            'btnSearchGENIN1.Enabled = False
             mtxGENIN1_DISP.Enabled = False
             btnClearGenin1.Enabled = False
             btnSelectGenin1.Enabled = False
@@ -2738,12 +2738,12 @@ Public Class FrmG0010
 
     Private Sub CmbYOIN2_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbYOIN2.SelectedValueChanged
         If cmbYOIN2.SelectedIndex > 0 Then
-            btnSearchGENIN2.Enabled = True
+            'btnSearchGENIN2.Enabled = True
             mtxGENIN2_DISP.Enabled = True
             btnClearGenin2.Enabled = True
             btnSelectGenin2.Enabled = True
         Else
-            btnSearchGENIN2.Enabled = False
+            'btnSearchGENIN2.Enabled = False
             mtxGENIN2_DISP.Enabled = False
             btnClearGenin2.Enabled = False
             btnSelectGenin2.Enabled = False
@@ -2766,6 +2766,8 @@ Public Class FrmG0010
         mtxGENIN2_DISP.Text = ""
         PrGenin2.Clear()
     End Sub
+
+
 
     'å¥àˆ1ãÊï™ëIëâÊñ åƒÇ—èoÇµ
     Private Sub BtnSelectGenin1_Click(sender As Object, e As EventArgs) Handles btnSelectGenin1.Click
@@ -3091,7 +3093,7 @@ Public Class FrmG0010
 
         Call CmbKISYU_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = 0
     End Sub
 
     Private Sub ChkDispBUMON_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispBUMON.CheckedChanged
@@ -3100,16 +3102,22 @@ Public Class FrmG0010
 
         Call CmbBUMON_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
     Private Sub ChkDispADD_TANTO_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispADD_TANTO.CheckedChanged
-        Dim chk = DirectCast(sender, CheckBox)
-        Dim cmb = cmbADD_TANTO
 
-        Call CmbADD_TANTO_Validating(cmb, Nothing)
-        cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+
+        Try
+            Dim chk = DirectCast(sender, CheckBox)
+            Dim cmb = cmbADD_TANTO
+
+            Call CmbADD_TANTO_Validating(cmb, Nothing)
+            cmb.Enabled = chk.Checked
+            If Not chk.Checked Then cmb.SelectedValue = 0
+        Catch ex As Exception
+            Throw
+        End Try
     End Sub
 
     Private Sub ChkDispBUHIN_BANGO_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispBUHIN_BANGO.CheckedChanged
@@ -3118,7 +3126,7 @@ Public Class FrmG0010
 
         Call CmbBUHIN_BANGO_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
     Private Sub ChkDispHINMEI_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispHINMEI.CheckedChanged
@@ -3145,7 +3153,7 @@ Public Class FrmG0010
 
         Call CmbSYANAI_CD_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
     Private Sub ChkDispFUTEKIGO_JYOTAI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispFUTEKIGO_JYOTAI_KB.CheckedChanged
@@ -3154,7 +3162,7 @@ Public Class FrmG0010
 
         Call CmbFUTEKIGO_JYOTAI_KB_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
     Private Sub ChkDispFUTEKIGO_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispFUTEKIGO_KB.CheckedChanged
@@ -3163,7 +3171,7 @@ Public Class FrmG0010
 
         Call CmbFUTEKIGO_KB_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
     Private Sub ChkDispFUTEKIGO_S_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispFUTEKIGO_S_KB.CheckedChanged
@@ -3172,7 +3180,7 @@ Public Class FrmG0010
 
         Call CmbFUTEKIGO_S_KB_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
     Private Sub ChkDispJIZEN_SINSA_HANTEI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispJIZEN_SINSA_HANTEI_KB.CheckedChanged
@@ -3181,7 +3189,7 @@ Public Class FrmG0010
 
         Call CmbJIZEN_SINSA_HANTEI_KB_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
     Private Sub ChkDispZESEI_SYOCHI_YOHI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispZESEI_SYOCHI_YOHI_KB.CheckedChanged
@@ -3190,7 +3198,7 @@ Public Class FrmG0010
 
         Call CmbZESEI_SYOCHI_YOHI_KB_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
     Private Sub ChkDispSAISIN_IINKAI_HANTEI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispSAISIN_IINKAI_HANTEI_KB.CheckedChanged
@@ -3199,7 +3207,7 @@ Public Class FrmG0010
 
         Call CmbSAISIN_IINKAI_HANTEI_KB_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
     Private Sub ChkDispKOKYAKU_HANTEI_SIJI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispKOKYAKU_HANTEI_SIJI_KB.CheckedChanged
@@ -3208,7 +3216,7 @@ Public Class FrmG0010
 
         Call CmbKOKYAKU_HANTEI_SIJI_KB_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
     Private Sub ChkDispKOKYAKU_SAISYU_HANTEI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispKOKYAKU_SAISYU_HANTEI_KB.CheckedChanged
@@ -3217,7 +3225,7 @@ Public Class FrmG0010
 
         Call CmbKOKYAKU_SAISYU_HANTEI_KB_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
     Private Sub ChkDispKENSA_KEKKA_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispKENSA_KEKKA_KB.CheckedChanged
@@ -3226,7 +3234,7 @@ Public Class FrmG0010
 
         Call CmbKENSA_KEKKA_KB_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
     Private Sub ChkDispYOIN1_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispYOIN1.CheckedChanged
@@ -3235,7 +3243,7 @@ Public Class FrmG0010
 
         Call CmbYOIN1_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
     Private Sub ChkDispYOIN2_CheckStateChanged(sender As Object, e As EventArgs) Handles chkDispYOIN2.CheckStateChanged
@@ -3244,7 +3252,7 @@ Public Class FrmG0010
 
         Call CmbYOIN2_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
     Private Sub ChkDispKISEKI_KOTEI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispKISEKI_KOTEI_KB.CheckedChanged
@@ -3253,7 +3261,7 @@ Public Class FrmG0010
 
         Call CmbKISEKI_KOTEI_KB_Validating(cmb, Nothing)
         cmb.Enabled = chk.Checked
-        If Not chk.Checked Then cmb.SelectedValue = Nothing
+        If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
     Private Sub ChkDispGENIN1_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispGENIN1.CheckedChanged
@@ -3603,6 +3611,8 @@ Public Class FrmG0010
 
         Application.DoEvents()
     End Sub
+
+
 
 #End Region
 

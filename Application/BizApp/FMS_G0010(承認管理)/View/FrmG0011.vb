@@ -30,6 +30,7 @@ Public Class FrmG0011
     Private blnEnableCAREdit As Boolean
 
     Private IsEditingClosed As Boolean
+
 #End Region
 
 #Region "プロパティ"
@@ -158,7 +159,6 @@ Public Class FrmG0011
         txtST01_KEKKA.Multiline = True
 
         rsbtnST99.Enabled = False
-
 
     End Sub
 
@@ -3311,6 +3311,7 @@ Public Class FrmG0011
             End Using
 
 #Region "共通添付資料情報取得"
+
             If Not _D003_NCR_J.FILE_PATH.IsNulOrWS Then
                 lbltmpFile1.Text = CompactString(_D003_NCR_J.FILE_PATH, lbltmpFile1, EllipsisFormat._4_Path)
                 lbltmpFile1.Links.Clear()
@@ -3325,10 +3326,10 @@ Public Class FrmG0011
                 Call SetPict2Data({strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2})
             End If
 
-
 #End Region
 
 #Region "ST8 添付資料情報取得"
+
             If Not _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1.IsNulOrWS Then
                 Dim lblLink As LinkLabel = lblST08_tmpFile1
                 lblLink.Text = CompactString(_D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1, lblLink, EllipsisFormat._4_Path)
@@ -3346,8 +3347,8 @@ Public Class FrmG0011
                 lblLink.Visible = True
                 lblST08_tmpFile2_Clear.Visible = True
             End If
-#End Region
 
+#End Region
 
             If _D003_NCR_J.CLOSE_FG Then
                 lbltmpFile1_Clear.Visible = False
@@ -3661,8 +3662,6 @@ Public Class FrmG0011
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, ENM_CAR_STAGE._10_起草入力)
                 cmbST04_CAR_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-
-
                 _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定).
                                 FirstOrDefault
@@ -3712,7 +3711,6 @@ Public Class FrmG0011
                         _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = "1"
                         _D003_NCR_J.ZESEI_NASI_RIYU = ""
                         _D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID = 0
-
 
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         cmbST04_DestTANTO.SelectedValue = 0
@@ -3846,7 +3844,6 @@ Public Class FrmG0011
                         cmbST06_DestTANTO.SelectedValue = _V003.SYAIN_ID
                         _D003_NCR_J.SAISIN_IINKAI_HANTEI_KB = _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB
                         _D003_NCR_J.SAISIN_IINKAI_SIRYO_NO = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
-
                     Else
                         _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                         cmbST06_DestTANTO.SelectedValue = 0
@@ -3862,7 +3859,6 @@ Public Class FrmG0011
                         cmbST06_DestTANTO.ReadOnly = True
                         txtST06_Comment.ReadOnly = True
                     End If
-
                 Else
                     _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
                     pnlST06.Visible = False
@@ -3888,7 +3884,6 @@ Public Class FrmG0011
                     _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                     Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._61_再審審査判定_品証代表).
                                     FirstOrDefault
-
 
                     If _V003 IsNot Nothing Then
 
@@ -4015,6 +4010,7 @@ Public Class FrmG0011
                         rsbtnST08.Enabled = False
                         rsbtnST08.BackColor = Color.Silver
                     End If
+
                 Else
                     '一時保存前
                     '次ステージが取得出来ない場合=登録内容により処理がスキップされた場合等はタブごと非表示
@@ -4663,8 +4659,14 @@ Public Class FrmG0011
                             Case ENM_JIZEN_SINSA_HANTEI_KB._7_再加工する
                                 Return "tabSTAGE08_" & ENM_NCR_STAGE80_TABPAGES._2_再加工指示_記録
                             Case Else
-                                'Err
-                                Throw New ArgumentException("80-2.④ JIZEN_SINSA_HANTEI_KB")
+
+                                '#188
+                                If rbtnST07_Yes.Checked Then '_D003_NCR_J.SAIKAKO_SIJI_FG
+                                    Return "tabSTAGE08_" & ENM_NCR_STAGE80_TABPAGES._2_再加工指示_記録
+                                Else
+                                    'Err
+                                    Throw New ArgumentException("FunGetST08SubPageName ST.9 実施処置内容が不明です")
+                                End If
                         End Select
                 End Select
         End Select
@@ -6132,7 +6134,6 @@ Public Class FrmG0011
         mtxZUBAN_KIKAKU.DataBindings.Add(New Binding(NameOf(mtxZUBAN_KIKAKU.Text), _D003_NCR_J, NameOf(_D003_NCR_J.ZUMEN_KIKAKU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         dtHASSEI_YMD.DataBindings.Add(New Binding(NameOf(dtHASSEI_YMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.HASSEI_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
-
         '添付資料
         lbltmpFile1.DataBindings.Add(New Binding(NameOf(lbltmpFile1.Tag), _D003_NCR_J, NameOf(_D003_NCR_J.FILE_PATH), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         lblPict1Path.DataBindings.Add(New Binding(NameOf(lblPict1Path.Tag), _D003_NCR_J, NameOf(_D003_NCR_J.G_FILE_PATH1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -6554,10 +6555,6 @@ Public Class FrmG0011
                         Call CmbDestTANTO_Validating(cmbST04_DestTANTO, Nothing)
                         Call dtUPD_YMD_Validating(dtST04_UPD_YMD, Nothing)
 
-
-
-
-
                         If rbtnST04_ZESEI_YES.Checked Then 'If chkST04_ZESEI_SYOCHI_YOHI_KB.Checked = True Then
                             _D003_NCR_J.ZESEI_SYOCHI_YOHI_KB = True
                             Call CmbST04_CAR_TANTO_Validating(cmbST04_CAR_TANTO, Nothing)
@@ -6651,6 +6648,7 @@ Public Class FrmG0011
 #End Region
 
 #Region "ステージIDより次ステージの承認順Noを取得"
+
     ''' <summary>
     ''' 次ステージの承認順Noを取得
     ''' </summary>
@@ -6703,9 +6701,9 @@ Public Class FrmG0011
 
                 Case ENM_NCR_STAGE._70_顧客再審処置_I_tag
 
-                    'SPEC: #48
                     Select Case Val(cmbST07_KOKYAKU_SAISYU_HANTEI.SelectedValue)'_D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB
                         Case ENM_KOKYAKU_SAISYU_HANTEI_KB._3_廃却する, ENM_KOKYAKU_SAISYU_HANTEI_KB._4_返却する, ENM_KOKYAKU_SAISYU_HANTEI_KB._5_転用する
+                            'SPEC: #48
                             intNextStageID = ENM_NCR_STAGE._80_処置実施
                         Case Else
                             If _D003_NCR_J.SAIKAKO_SIJI_FG Then
@@ -6748,9 +6746,8 @@ Public Class FrmG0011
             Return 0
         End Try
     End Function
+
 #End Region
-
-
 
     ''' <summary>
     ''' 申請先社員IDを取得
