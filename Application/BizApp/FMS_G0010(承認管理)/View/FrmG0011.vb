@@ -300,10 +300,7 @@ Public Class FrmG0011
 
                         If IsEditingClosed And PrCurrentStage = ENM_NCR_STAGE._999_Closed Then
                             Call OpenFormEdit()
-
-                            If PrRIYU.IsNulOrWS Then
-                                Exit Sub
-                            End If
+                            If PrRIYU.IsNulOrWS Then Exit Sub
                         Else
                             If MessageBox.Show("ì¸óÕì‡óeÇï€ë∂ÇµÇ‹Ç∑Ç©ÅH", "ìoò^ämîF", MessageBoxButtons.YesNo, MessageBoxIcon.Information) <> DialogResult.Yes Then Exit Sub
                         End If
@@ -3060,6 +3057,7 @@ Public Class FrmG0011
         Dim dlgRET As DialogResult
 
         Try
+            frmDLG.PrSYORI_NAME = "èCê≥óùóRìoò^"
             frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
             frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
             frmDLG.PrBUMON_KB = _D003_NCR_J.BUMON_KB

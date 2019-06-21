@@ -104,6 +104,10 @@ Public Class FrmG0017
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
+                .Columns.Add(NameOf(MODEL.V004_HOKOKU_SOUSA.SOUSA_KB), "操作区分")
+                .Columns(.ColumnCount - 1).Visible = False
+                .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
+
                 .Columns.Add(NameOf(MODEL.V004_HOKOKU_SOUSA.SYAIN_NAME), "処置担当者")
                 .Columns(.ColumnCount - 1).Width = 150
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -116,7 +120,7 @@ Public Class FrmG0017
                 .Columns(.ColumnCount - 1).Visible = False
 
                 .Columns.Add(NameOf(MODEL.V004_HOKOKU_SOUSA.RIYU), "内容・理由")
-                .Columns(.ColumnCount - 1).Width = 300
+                .Columns(.ColumnCount - 1).Width = 400
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
 
@@ -151,6 +155,11 @@ Public Class FrmG0017
         Finally
             Call FunInitFuncButtonEnabled()
         End Try
+    End Sub
+
+    Private Sub DgvDATA_Sorted(sender As Object, e As EventArgs) Handles dgvDATA.Sorted
+        Dim dgv = DirectCast(sender, DataGridView)
+        Call FunSetDgvCellFormat(dgv)
     End Sub
 
 #End Region
@@ -311,6 +320,8 @@ Public Class FrmG0017
                 lblRecordCount.Text = My.Resources.infoSearchResultNotFound
             End If
 
+
+
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -328,11 +339,12 @@ Public Class FrmG0017
 
             For i As Integer = 0 To dgv.Rows.Count - 1
                 With dgv.Rows(i)
-                    'If CBool(Me.dgvDATA.Rows(i).Cells(NameOf(_Model.DEL_FLG)).Value) = True Then
-                    '    Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = clrDeletedRowForeColor
-                    '    Me.dgvDATA.Rows(i).DefaultCellStyle.BackColor = clrDeletedRowBackColor
-                    '    Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = clrDeletedRowForeColor
-                    'End If
+                    If Me.dgvDATA.Rows(i).Cells(NameOf(MODEL.V004_HOKOKU_SOUSA.SOUSA_KB)).Value = ENM_SOUSA_KB._9_取消 Then
+                        Me.dgvDATA.Rows(i).DefaultCellStyle.ForeColor = Color.Red
+                        Me.dgvDATA.Rows(i).DefaultCellStyle.SelectionForeColor = Color.Red
+                    Else
+
+                    End If
                 End With
             Next i
         Catch ex As Exception
@@ -456,6 +468,7 @@ Public Class FrmG0017
         chkSAIHATU.Checked = _V002_NCR_J.SAIHATU
         Return True
     End Function
+
 
 
 #End Region

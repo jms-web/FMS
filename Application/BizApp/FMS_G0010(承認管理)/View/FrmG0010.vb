@@ -1111,18 +1111,17 @@ Public Class FrmG0010
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) = True Then
                         Call FunSRCH(flxDATA, FunGetListData())
                     End If
+
                 Case 5  '削除/復元/完全削除
 
-                    If flxDATA.Rows(flxDATA.RowSel) IsNot Nothing Then
-                        If MessageBox.Show("選択されたデータを削除しますか?", "削除確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
-                            Dim dr As DataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
-                            If FunDEL(dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)), dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))) = True Then
-                                Call FunSRCH(flxDATA, FunGetListData())
-                            End If
+                    'If MessageBox.Show("選択されたデータを削除しますか?", "削除確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
+                    If OpenFormEdit() Then
+                        Dim dr As DataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
+                        If FunDEL(dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)), dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))) = True Then
+                            Call FunSRCH(flxDATA, FunGetListData())
                         End If
-                    Else
-                        MessageBox.Show("該当データが選択されていません。", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     End If
+
                 Case 6 '復元
                     If flxDATA.Rows(flxDATA.RowSel) IsNot Nothing Then
                         If MessageBox.Show("選択されたデータを復元しますか?", "復元確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
@@ -1660,6 +1659,45 @@ Public Class FrmG0010
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
+        End Try
+    End Function
+
+#End Region
+
+#Region "削除理由ダイアログ"
+
+    Private Function OpenFormEdit() As Boolean
+        Dim frmDLG As New FrmG0020
+        Dim dlgRET As DialogResult
+
+        Try
+
+            With flxDATA.Rows(flxDATA.RowSel)
+                frmDLG.PrSYORI_NAME = "取消登録"
+                frmDLG.PrSYONIN_HOKOKUSYO_ID = .Item(NameOf(V007_NCR_CAR.SYONIN_HOKOKUSYO_ID))
+                frmDLG.PrHOKOKU_NO = .Item(NameOf(V007_NCR_CAR.HOKOKU_NO))
+                frmDLG.PrBUMON_KB = .Item(NameOf(V007_NCR_CAR.BUMON_KB))
+                frmDLG.PrBUHIN_BANGO = .Item(NameOf(V007_NCR_CAR.BUHIN_BANGO))
+                frmDLG.PrKISO_YMD = .Item(NameOf(V007_NCR_CAR.KISO_YMD)) 'DateTime.ParseExact(.Item(NameOf(V007_NCR_CAR.KISO_YMD)), "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                frmDLG.PrKISYU_NAME = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = .Item(NameOf(V007_NCR_CAR.KISYU_ID))).FirstOrDefault?.Item("DISP")
+                frmDLG.PrCurrentStage = .Item(NameOf(V007_NCR_CAR.SYONIN_JUN))
+            End With
+
+            dlgRET = frmDLG.ShowDialog(Me)
+
+            If dlgRET = Windows.Forms.DialogResult.OK Then
+                Me.DialogResult = DialogResult.OK
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            If frmDLG IsNot Nothing Then
+                frmDLG.Dispose()
+            End If
         End Try
     End Function
 
@@ -2231,46 +2269,47 @@ Public Class FrmG0010
                             cmdFunc4.Text = "内容確認(F4)"
                         End If
 
-                        cmdFunc5.Enabled = False
-                        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "クローズ済のため削除出来ません")
+                        'cmdFunc5.Enabled = False
+                        'MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "クローズ済のため取消出来ません")
                     Else
                         cmdFunc4.Text = "変更・承認(F4)"
-                        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
+                        'MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
                     End If
                     'If FunblnAllowSyonin() Then
-                    cmdFunc4.Enabled = True
+                    '    cmdFunc4.Enabled = True
                     'Else
                     '    cmdFunc4.Enabled = False
                     '    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "変更承認権限がありません")
                     'End If
 
-                    If IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID) Then
+                    '削除ボタン
+                    If HasDeleteAuth(pub_SYAIN_INFO.SYAIN_ID,
+                                     flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V007_NCR_CAR.SYONIN_HOKOKUSYO_ID)),
+                                     flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V007_NCR_CAR.HOKOKU_NO))) Then
 
-                        If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).ToString.Trim <> "" Then
+                        If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.CLOSE_FG)) = 1 Then
                             '削除済み
-                            cmdFunc4.Enabled = False
-                            MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "削除済みデータです")
+                            'cmdFunc4.Enabled = False
+                            'MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "取消済みデータです")
                             cmdFunc5.Enabled = False
-                            MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除済みデータです")
+                            MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "取消済みデータです")
                             'flxDATA.Rows(flxDATA.RowSel).Item("SELECTED").ReadOnly = True
+                        Else cmdFunc5.Enabled = True
 
-                            cmdFunc6.Visible = True
-                        Else
-                            cmdFunc6.Visible = False
                         End If
                     Else
 
                         If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).ToString.Trim <> "" Then
                             '削除済み
-                            cmdFunc4.Enabled = False
-                            MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "削除済みデータです")
+                            'cmdFunc4.Enabled = False
+                            'MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "取消済みデータです")
                             cmdFunc5.Enabled = False
-                            MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除済みデータです")
+                            MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "取消済みデータです")
                             'flxDATA.Rows(flxDATA.RowSel).Item("SELECTED").ReadOnly = True
                         End If
-                        cmdFunc6.Visible = False
+                        'cmdFunc6.Visible = False
                         cmdFunc5.Enabled = False
-                        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "削除権限の使用には管理者権限が必要です")
+                        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "取消機能の使用権限がありません")
                     End If
 
                     If FunblnAllowTairyuMailSend() Then
@@ -2433,7 +2472,6 @@ Public Class FrmG0010
                             dtADD_TANTO.Rows.Add(Trow)
                         End If
                     Next row
-
 
                     'UNDONE:
 
@@ -2766,8 +2804,6 @@ Public Class FrmG0010
         mtxGENIN2_DISP.Text = ""
         PrGenin2.Clear()
     End Sub
-
-
 
     '原因1区分選択画面呼び出し
     Private Sub BtnSelectGenin1_Click(sender As Object, e As EventArgs) Handles btnSelectGenin1.Click
@@ -3107,7 +3143,6 @@ Public Class FrmG0010
 
     Private Sub ChkDispADD_TANTO_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispADD_TANTO.CheckedChanged
 
-
         Try
             Dim chk = DirectCast(sender, CheckBox)
             Dim cmb = cmbADD_TANTO
@@ -3387,7 +3422,6 @@ Public Class FrmG0010
                 sbParam.Append($",'{IIf(chkClosedRowVisibled.Checked, "", 0)}'")
                 sbParam.Append($",'{IIf(ParamModel._VISIBLE_TAIRYU = 1, ParamModel._VISIBLE_TAIRYU, "")}'")
 
-
                 If chkDispFUTEKIGO_KB.Checked Then
                     sbParam.Append($",'{ParamModel.FUTEKIGO_KB}'")
                 Else
@@ -3612,7 +3646,28 @@ Public Class FrmG0010
         Application.DoEvents()
     End Sub
 
+#Region "削除ボタン使用権限判定"
 
+    Private Function HasDeleteAuth(SYAIN_ID As Integer, HOKOKUSYO_ID As Integer, HOKOKU_NO As String) As Boolean
+
+        Try
+            'システムユーザーか
+            If IsSysAdminUser(SYAIN_ID) Then Return True
+
+            '指定の業務グループか
+            If HasGYOMUGroupAuth(SYAIN_ID, {ENM_GYOMU_GROUP_ID._3_検査, ENM_GYOMU_GROUP_ID._4_品証}) Then Return True
+
+            '起草者か
+            If IsIssuedUser(SYAIN_ID, HOKOKUSYO_ID, HOKOKU_NO) Then Return True
+
+            Return False
+        Catch ex As Exception
+            Throw
+            Return False
+        End Try
+    End Function
+
+#End Region
 
 #End Region
 

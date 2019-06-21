@@ -1,6 +1,7 @@
 Imports JMS_COMMON.ClsPubMethod
 Imports MODEL
 
+
 Module mdlG0010
 
 #Region "定数・変数"
@@ -265,6 +266,7 @@ Module mdlG0010
         _3_承認差戻 = 3
         _4_メール送信 = 4
         _5_転送 = 5
+        _9_取消 = 9
     End Enum
 
     ''' <summary>
@@ -1677,8 +1679,69 @@ Module mdlG0010
 
 #End Region
 
+#Region "業務グループ権限確認"
+
+    Public Function HasGYOMUGroupAuth(SYAIN_ID As Integer, GROUP_IDs As ENM_GYOMU_GROUP_ID())
+        Dim dsList As New DataSet
+        Dim sbSQL As New System.Text.StringBuilder
+        Try
+            Using DB As ClsDbUtility = DBOpen()
+                For Each id In GROUP_IDs
+                    sbSQL.Clear()
+                    sbSQL.Append($"SELECT {NameOf(M011_SYAIN_GYOMU.SYAIN_ID)} FROM {NameOf(M011_SYAIN_GYOMU)}")
+                    sbSQL.Append($" WHERE {NameOf(M011_SYAIN_GYOMU.SYAIN_ID)}={SYAIN_ID}")
+                    sbSQL.Append($" AND {NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)}={id.Value}")
+
+                    dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                    If dsList.Tables(0).Rows.Count > 0 Then Return True
+                Next
+            End Using
+
+            Return False
+        Catch ex As Exception
+            Throw
+            Return False
+        End Try
+    End Function
+
+#End Region
+
+#Region "報告書起草者判定"
+
+    Public Function IsIssuedUser(SYAIN_ID As Integer, SYONIN_HOKOKUSYO_ID As Integer, HOKOKU_NO As String) As Boolean
+        Dim dsList As New DataSet
+        Dim sbSQL As New System.Text.StringBuilder
+        Try
+
+            sbSQL.Append($"SELECT *")
+            sbSQL.Append($" FROM {NameOf(V004_HOKOKU_SOUSA)}")
+            sbSQL.Append($" WHERE (SELECT CASE {NameOf(V004_HOKOKU_SOUSA.SOUSA_KB)} WHEN '{ENM_SOUSA_KB._5_転送.Value}'")
+            sbSQL.Append($"     THEN {NameOf(V004_HOKOKU_SOUSA.MODOSI_SAKI_SYAIN_ID)} ELSE {NameOf(V004_HOKOKU_SOUSA.SYAIN_ID)} END)={SYAIN_ID}")
+            sbSQL.Append($" AND {NameOf(V004_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID)}={SYONIN_HOKOKUSYO_ID}")
+            sbSQL.Append($" AND {NameOf(V004_HOKOKU_SOUSA.HOKOKU_NO)}='{HOKOKU_NO}'")
+            sbSQL.Append($" AND {NameOf(V004_HOKOKU_SOUSA.SYONIN_JUN)}={ENM_NCR_STAGE._10_起草入力.Value}")
+
+            'sbSQL.Append($"SELECT {NameOf(V007_NCR_CAR.KISO_TANTO_ID)} FROM {NameOf(V007_NCR_CAR)}")
+            'sbSQL.Append($" WHERE {NameOf(V007_NCR_CAR.KISO_TANTO_ID)}={SYAIN_ID}")
+            'sbSQL.Append($" AND {NameOf(V007_NCR_CAR.SYONIN_HOKOKUSYO_ID)}={SYONIN_HOKOKUSYO_ID}")
+            'sbSQL.Append($" AND {NameOf(V007_NCR_CAR.HOKOKU_NO)}='{HOKOKU_NO}'")
+
+
+            Using DB As ClsDbUtility = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            Return dsList.Tables(0).Rows.Count > 0
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
+#End Region
+
 #Region "Close済み編集権限確認"
-    Public Function HasEditingRight(SYAIN_ID As Integer)
+
+    Public Function HasEditingRight(SYAIN_ID As Integer) As Boolean
         Dim dsList As New DataSet
         Dim sbSQL As New System.Text.StringBuilder
         Try
@@ -1691,11 +1754,11 @@ Module mdlG0010
             End Using
 
             Return dsList.Tables(0).Rows.Count > 0
-
         Catch ex As Exception
             Throw
         End Try
     End Function
+
 #End Region
 
 #End Region

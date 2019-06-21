@@ -30,6 +30,8 @@ Public Class FrmG0020
 
     Public Property PrRIYU As String
 
+    Public Property PrSYORI_NAME As String
+
 #End Region
 
 #Region "コンストラクタ"
@@ -59,8 +61,9 @@ Public Class FrmG0020
             Using DB As ClsDbUtility = DBOpen()
                 lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
             End Using
-            lblTytle.Text = "修正理由登録"
-
+            lblTytle.Text = PrSYORI_NAME
+            Me.Text = lblTytle.Text
+            lbl.Text = PrSYORI_NAME.Substring(0, 4)
 
             '-----位置・サイズ
             Me.Height = 250
@@ -106,11 +109,10 @@ Public Class FrmG0020
                 Case 1  '追加
                     If FunCheckInput() Then
                         PrRIYU = mtxRIYU.Text
-                        'If FunSAVE() Then
-                        'MessageBox.Show("修正しました", "不適合管理-修正", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Me.DialogResult = Windows.Forms.DialogResult.OK
-                        Me.Close()
-                        'End If
+                        If FunSAVE() Then
+                            'MessageBox.Show("修正しました", "不適合管理-修正", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            Me.DialogResult = Windows.Forms.DialogResult.OK
+                        End If
                     End If
 
                 Case 12 '戻る
@@ -150,38 +152,38 @@ Public Class FrmG0020
                     '-----トランザクション
                     DB.BeginTransaction()
 
-                    ''-----UPDATE D004
-                    'sbSQL.Remove(0, sbSQL.Length)
-                    'sbSQL.Append($"UPDATE {NameOf(MODEL.D004_SYONIN_J_KANRI)} SET")
-                    'sbSQL.Append($" {NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}={cmbTENSO_SAKI.SelectedValue}")
-                    'sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.RIYU)}='{_D004_SYONIN_J_KANRI.RIYU}'")
-                    'sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
-                    'sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}='{ENM_SYONIN_HANTEI_KB._0_未承認.Value}'")
-                    'sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}='0'")
-                    'sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}='{strSysDate}'")
-                    'If PrCurrentStage = ENM_CAR_STAGE._10_起草入力 Then
-                    '    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
-                    'End If
-                    'sbSQL.Append($" WHERE {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={PrSYONIN_HOKOKUSYO_ID}")
-                    'sbSQL.Append($" AND {NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}='{PrHOKOKU_NO}'")
-                    'sbSQL.Append($" AND {NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)}={PrCurrentStage}")
+                    '-----UPDATE D004
+                    sbSQL.Remove(0, sbSQL.Length)
+                    sbSQL.Append($"UPDATE {NameOf(MODEL.D004_SYONIN_J_KANRI)} SET")
+                    sbSQL.Append($" {NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}={cmbTENSO_SAKI.SelectedValue}")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.RIYU)}='{_D004_SYONIN_J_KANRI.RIYU}'")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}='{ENM_SYONIN_HANTEI_KB._0_未承認.Value}'")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}='0'")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}='{strSysDate}'")
+                    If PrCurrentStage = ENM_CAR_STAGE._10_起草入力 Then
+                        sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
+                    End If
+                    sbSQL.Append($" WHERE {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={PrSYONIN_HOKOKUSYO_ID}")
+                    sbSQL.Append($" AND {NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}='{PrHOKOKU_NO}'")
+                    sbSQL.Append($" AND {NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)}={PrCurrentStage}")
 
-                    ''-----SQL実行
-                    'intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    'If intRET <> 1 Then
-                    '    '-----エラーログ出力
-                    '    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                    '    WL.WriteLogDat(strErrMsg)
-                    '    blnErr = True
-                    '    Return False
-                    'End If
+                    '-----SQL実行
+                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+                    If intRET <> 1 Then
+                        '-----エラーログ出力
+                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                        WL.WriteLogDat(strErrMsg)
+                        blnErr = True
+                        Return False
+                    End If
 
                     '-----データモデル更新
                     _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = PrSYONIN_HOKOKUSYO_ID
                     _R001_HOKOKU_SOUSA.HOKOKU_NO = PrHOKOKU_NO
                     _R001_HOKOKU_SOUSA.SYONIN_JUN = PrCurrentStage
                     _R001_HOKOKU_SOUSA.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_SOUSA_KB._2_更新保存
+                    _R001_HOKOKU_SOUSA.SOUSA_KB = If(PrSYORI_NAME = "取消登録", ENM_SOUSA_KB._9_取消.Value, ENM_SOUSA_KB._2_更新保存.Value)
                     _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
                     _R001_HOKOKU_SOUSA.RIYU = _D004_SYONIN_J_KANRI.RIYU
                     '-----INSERT R001

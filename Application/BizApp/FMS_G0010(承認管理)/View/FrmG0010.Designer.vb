@@ -201,7 +201,7 @@ Partial Class FrmG0010
         Me.cmdFunc5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc5.Image = Global.FMS.My.Resources.Resources._imgStatusAnnotations_Blocked32x32_SM
         Me.cmdFunc5.Location = New System.Drawing.Point(837, 595)
-        Me.cmdFunc5.Text = "çÌèú(F5)"
+        Me.cmdFunc5.Text = "éÊè¡(F5)"
         '
         'cmdFunc6
         '
