@@ -1208,6 +1208,13 @@ Module mdlG0010
                     End If
                     ssgSheet1.Range(NameOf(_V002_NCR_J.SAIKAKO_SIJI_NO)).Value = _V002_NCR_J.SAIKAKO_SIJI_NO
                     ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_KEKKA_NAME)).Value = _V002_NCR_J.KENSA_KEKKA_NAME
+                    If _V002_NCR_J.KENSA_KEKKA_KB = ENM_KENSA_KEKKA_KB._1_ïsçáäi Then
+                        ssgSheet1.Range("SAI_FUTEKIGO_LABEL").Value = "çƒïsìKçá"
+                        ssgSheet1.Range("SAI_FUTEKIGO_HOKOKU_NO").Value = _V002_NCR_J.HOKOKU_NO + 1
+                    Else
+                        ssgSheet1.Range("SAI_FUTEKIGO_LABEL").Value = ""
+                        ssgSheet1.Range("SAI_FUTEKIGO_HOKOKU_NO").Value = ""
+                    End If
                     ssgSheet1.Range(NameOf(_V002_NCR_J.SEIGI_TANTO_NAME)).Value = _V002_NCR_J.SEIGI_TANTO_NAME
                     ssgSheet1.Range(NameOf(_V002_NCR_J.SEIZO_TANTO_NAME)).Value = _V002_NCR_J.SEIZO_TANTO_NAME
                     ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_TANTO_NAME)).Value = _V002_NCR_J.KENSA_TANTO_NAME
