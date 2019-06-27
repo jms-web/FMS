@@ -43,7 +43,10 @@ Public Class FrmM0000
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
             Using DB As ClsDbUtility = DBOpen()
                 lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+                lblDEV_FLG.Visible = FunGetCodeMastaValue(DB, "SYSTEM_SETTING", "開発版") = "TRUE"
             End Using
+
+
 
             '-----ログイン表示
             Me.grbLOGOUT.Visible = False

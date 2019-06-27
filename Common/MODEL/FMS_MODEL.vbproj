@@ -89,6 +89,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ExtensionMethod.vb" />
     <Compile Include="Converter\BoolToStringConverter.vb" />
     <Compile Include="FMS_MODEL.vb" />
     <Compile Include="Migrations\201801300648127_Init.Designer.vb">

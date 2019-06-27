@@ -67,4 +67,38 @@ Public Class ModelBase
 
     End Function
 
+    ''' <summary>
+    ''' ModelインスタンスからMerge文などで使用できるSELECT SQL文字列を生成
+    ''' </summary>
+    ''' <returns></returns>
+    Public Function ToSelectSqlString() As String
+        Dim sbSQL As New System.Text.StringBuilder
+
+        sbSQL.Append("SELECT ")
+
+        Properties.Take(1).ForEach(
+                  Sub(p)
+                      Select Case True
+                          Case p.PropertyType Is GetType(String)
+                              sbSQL.Append($" '{Me.Item(p.Name).ToString.EscapeLiteral}' AS {p.Name}")
+                          Case p.PropertyType Is GetType(Boolean)
+                              sbSQL.Append($" '{If(Me.Item(p.Name), 1, 0)}' AS {p.Name}")
+                          Case Else
+                              sbSQL.Append($" {Me.Item(p.Name)} AS {p.Name}")
+                      End Select
+                  End Sub)
+        Properties.Skip(1).ForEach(
+                    Sub(p)
+                        Select Case True
+                            Case p.PropertyType Is GetType(String)
+                                sbSQL.Append($" ,'{Me.Item(p.Name).ToString.EscapeLiteral}' AS {p.Name}")
+                            Case p.PropertyType Is GetType(Boolean)
+                                sbSQL.Append($" ,'{If(Me.Item(p.Name), 1, 0)}' AS {p.Name}")
+                            Case Else
+                                sbSQL.Append($" ,{Me.Item(p.Name)} AS {p.Name}")
+                        End Select
+                    End Sub)
+
+        Return sbSQL.ToString
+    End Function
 End Class

@@ -66,7 +66,9 @@ Partial Class FrmM0000
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.lblDEV_FLG = New System.Windows.Forms.Label()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.pnlFunc12.SuspendLayout()
         Me.pnlFunc6.SuspendLayout()
@@ -536,14 +538,13 @@ Partial Class FrmM0000
         Me.txtPASSWORD.AllowDrop = True
         Me.txtPASSWORD.BackColor = System.Drawing.SystemColors.Window
         Me.txtPASSWORD.Font = New System.Drawing.Font("Meiryo UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.txtPASSWORD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtPASSWORD.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtPASSWORD.InputRequired = False
         Me.txtPASSWORD.Location = New System.Drawing.Point(3, 89)
         Me.txtPASSWORD.MaxByteLength = 20
         Me.txtPASSWORD.Name = "txtPASSWORD"
         Me.txtPASSWORD.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txtPASSWORD.ShowRemainingChars = False
+        Me.txtPASSWORD.SelectAllText = False
         Me.txtPASSWORD.Size = New System.Drawing.Size(213, 28)
         Me.txtPASSWORD.TabIndex = 63
         Me.txtPASSWORD.WatermarkColor = System.Drawing.Color.Empty
@@ -564,12 +565,12 @@ Partial Class FrmM0000
         Me.txtUSER.AllowDrop = True
         Me.txtUSER.BackColor = System.Drawing.SystemColors.Window
         Me.txtUSER.Font = New System.Drawing.Font("Meiryo UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.txtUSER.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtUSER.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.txtUSER.InputRequired = False
         Me.txtUSER.Location = New System.Drawing.Point(3, 35)
         Me.txtUSER.MaxByteLength = 10
         Me.txtUSER.Name = "txtUSER"
+        Me.txtUSER.SelectAllText = False
         Me.txtUSER.Size = New System.Drawing.Size(213, 28)
         Me.txtUSER.TabIndex = 61
         Me.txtUSER.WatermarkColor = System.Drawing.Color.Empty
@@ -694,7 +695,7 @@ Partial Class FrmM0000
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.TextBox1)
-        Me.GroupBox1.Location = New System.Drawing.Point(248, 27)
+        Me.GroupBox1.Location = New System.Drawing.Point(260, 40)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(151, 92)
         Me.GroupBox1.TabIndex = 73
@@ -721,10 +722,24 @@ Partial Class FrmM0000
         Me.TextBox1.Size = New System.Drawing.Size(1003, 37)
         Me.TextBox1.TabIndex = 0
         '
+        'lblDEV_FLG
+        '
+        Me.lblDEV_FLG.BackColor = System.Drawing.Color.White
+        Me.lblDEV_FLG.Font = New System.Drawing.Font("Meiryo UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblDEV_FLG.ForeColor = System.Drawing.Color.Red
+        Me.lblDEV_FLG.Location = New System.Drawing.Point(19, 17)
+        Me.lblDEV_FLG.Name = "lblDEV_FLG"
+        Me.lblDEV_FLG.Size = New System.Drawing.Size(183, 35)
+        Me.lblDEV_FLG.TabIndex = 66
+        Me.lblDEV_FLG.Text = "TESTÉTÅ[Éoî≈"
+        Me.lblDEV_FLG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblDEV_FLG.Visible = False
+        '
         'FrmM0000
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.ClientSize = New System.Drawing.Size(1264, 712)
+        Me.Controls.Add(Me.lblDEV_FLG)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnRIREKI)
         Me.Controls.Add(Me.grbLOGOUT)
@@ -735,12 +750,14 @@ Partial Class FrmM0000
         Me.PrPG_STATUS = JMS_COMMON.ClsPubMethod.ENM_PG_STATUS._2_ACTIVE
         Me.ShowStatusBar = True
         Me.Controls.SetChildIndex(Me.grbFunc, 0)
-        Me.Controls.SetChildIndex(Me.lblTytle, 0)
         Me.Controls.SetChildIndex(Me.grbLOGIN, 0)
         Me.Controls.SetChildIndex(Me.grbLOGOUT, 0)
         Me.Controls.SetChildIndex(Me.btnRIREKI, 0)
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
+        Me.Controls.SetChildIndex(Me.lblTytle, 0)
+        Me.Controls.SetChildIndex(Me.lblDEV_FLG, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.pnlFunc12.ResumeLayout(False)
         Me.pnlFunc6.ResumeLayout(False)
@@ -807,4 +824,5 @@ Partial Class FrmM0000
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Label1 As Label
     Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents lblDEV_FLG As Label
 End Class

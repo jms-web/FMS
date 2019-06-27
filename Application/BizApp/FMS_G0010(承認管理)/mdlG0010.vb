@@ -15,7 +15,6 @@ Module mdlG0010
     ''' 起動モード
     ''' </summary>
     Public pub_intOPEN_MODE As Integer
-
     Public pub_PrSYONIN_HOKOKUSYO_ID As Integer
     Public pub_PrHOKOKU_NO As String
 
@@ -857,6 +856,7 @@ Module mdlG0010
                 WL.WriteLogDat(strMsg)
 
                 If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                    MessageBox.Show("メール送信が無効に設定されているため、依頼メールは送信されませんでした。", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Return True
                 End If
 

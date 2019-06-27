@@ -191,6 +191,7 @@ Public Class FrmBaseSts
                 Me.ToolStripStatusLabelBLANK.Text = "ÉçÉOÉCÉì:" & objUSER_INFO.SYAIN_CD & " " & objUSER_INFO.SYAIN_NAME
             End If
 
+
             'VERSION
             Me.ToolStripStatusLabelVERSION.Text = "Ver " & strVersion
 

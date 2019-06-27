@@ -590,7 +590,7 @@ Public Module ExtensionMethod
         Dim strRET As String
 
         'UNDONE: SQLエスケープ文字追加
-        strRET = this.Replace("'", """")
+        strRET = this.Replace("'", "''")
 
         Return strRET
     End Function

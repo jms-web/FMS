@@ -3657,8 +3657,21 @@ Public Class FrmG0010
             '指定の業務グループか
             If HasGYOMUGroupAuth(SYAIN_ID, {ENM_GYOMU_GROUP_ID._3_検査, ENM_GYOMU_GROUP_ID._4_品証}) Then Return True
 
-            '起草者か
+            '起草者
             If IsIssuedUser(SYAIN_ID, HOKOKUSYO_ID, HOKOKU_NO) Then Return True
+
+            '未起草(ST1 一時保存か転送)は誰でも許可
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
+            sbSQL.Append($"SELECT ISNULL(MAX({NameOf(D004_SYONIN_J_KANRI.SYONIN_JUN)}),0)")
+            sbSQL.Append($" FROM {NameOf(D004_SYONIN_J_KANRI)} ")
+            sbSQL.Append($" WHERE {NameOf(D004_SYONIN_J_KANRI.HOKOKU_NO)}='{HOKOKU_NO}'")
+            sbSQL.Append($" AND {NameOf(D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={HOKOKUSYO_ID}")
+            sbSQL.Append($" AND {NameOf(D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}='{ENM_SYONIN_HANTEI_KB._0_未承認.Value}'")
+            Using DB As ClsDbUtility = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+            If dsList.Tables(0).Rows(0).Item(0) = ENM_CAR_STAGE._10_起草入力.Value Then Return True
 
             Return False
         Catch ex As Exception

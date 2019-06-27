@@ -216,56 +216,6 @@ Public Class FrmG0020
                         WL.WriteLogDat(strErrMsg)
                         Return False
                     End If
-
-                    ''-----データモデル更新
-                    '_R002_HOKOKU_TENSO.SYONIN_HOKOKUSYO_ID = PrSYONIN_HOKOKUSYO_ID
-                    '_R002_HOKOKU_TENSO.HOKOKU_NO = PrHOKOKU_NO
-                    '_R002_HOKOKU_TENSO.SYONIN_JUN = PrCurrentStage
-                    '_R002_HOKOKU_TENSO.TENSO_M_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    '_R002_HOKOKU_TENSO.TENSO_S_SYAIN_ID = cmbTENSO_SAKI.SelectedValue '_D004_SYONIN_J_KANRI.SYAIN_ID
-                    '_R002_HOKOKU_TENSO.RIYU = _D004_SYONIN_J_KANRI.RIYU
-
-                    ''-----INSERT R002
-                    'sbSQL.Remove(0, sbSQL.Length)
-                    'sbSQL.Append(" INSERT INTO " & NameOf(MODEL.R002_HOKOKU_TENSO) & "(")
-                    'sbSQL.Append("  " & NameOf(_R002_HOKOKU_TENSO.SYONIN_HOKOKUSYO_ID))
-                    'sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.HOKOKU_NO))
-                    'sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.SYONIN_JUN))
-                    'sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.RENBAN))
-                    'sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.TENSO_M_SYAIN_ID))
-                    'sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.TENSO_S_SYAIN_ID))
-                    'sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.RIYU))
-                    'sbSQL.Append(" ," & NameOf(_R002_HOKOKU_TENSO.ADD_YMDHNS))
-                    'sbSQL.Append(" ) VALUES(")
-                    'sbSQL.Append("  " & _R002_HOKOKU_TENSO.SYONIN_HOKOKUSYO_ID)
-                    'sbSQL.Append(" ,'" & _R002_HOKOKU_TENSO.HOKOKU_NO & "'")
-                    'sbSQL.Append(" ," & _R002_HOKOKU_TENSO.SYONIN_JUN)
-                    'sbSQL.Append(" ,(SELECT ISNULL(MAX(RENBAN),0) FROM R002_HOKOKU_TENSO S ")
-                    'sbSQL.Append("      WHERE(S.SYONIN_HOKOKUSYO_ID = " & _R002_HOKOKU_TENSO.SYONIN_HOKOKUSYO_ID)
-                    'sbSQL.Append("      And S.HOKOKU_NO = '" & _R002_HOKOKU_TENSO.HOKOKU_NO & "'")
-                    'sbSQL.Append("      And S.SYONIN_JUN =" & _R002_HOKOKU_TENSO.SYONIN_JUN & ")) + 1")
-                    'sbSQL.Append(" ," & (_R002_HOKOKU_TENSO.TENSO_M_SYAIN_ID))
-                    'sbSQL.Append(" ," & (_R002_HOKOKU_TENSO.TENSO_S_SYAIN_ID))
-                    'sbSQL.Append(" ,'" & (_R002_HOKOKU_TENSO.RIYU) & "'")
-                    'sbSQL.Append($" ,'{strSysDate}'") 'ADD_YMDHNS
-                    'sbSQL.Append(" )")
-
-                    ''-----SQL実行
-                    'intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    'If intRET <> 1 Then
-                    '    '-----エラーログ出力
-                    '    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                    '    WL.WriteLogDat(strErrMsg)
-                    '    blnErr = True
-                    '    Return False
-                    'End If
-
-                    'If blnErr = False Then
-                    '    '#146 自分自身への転送時はメール送信しない
-                    '    If pub_SYAIN_INFO.SYAIN_ID <> cmbTENSO_SAKI.SelectedValue Then
-                    '        Call FunSendRequestMail()
-                    '    End If
-                    'End If
                 Finally
                     '-----トランザクション
                     DB.Commit(Not blnErr)
