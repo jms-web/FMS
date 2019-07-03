@@ -11,6 +11,10 @@ Public NotInheritable Class ClsPubMethod
     Public Shared Function SetForegroundWindow(hWnd As IntPtr) As <Runtime.InteropServices.MarshalAs(Runtime.InteropServices.UnmanagedType.Bool)> Boolean
     End Function
 
+    <Runtime.InteropServices.DllImport("user32.dll")>
+    Public Shared Function SetProcessDPIAware() As Boolean
+    End Function
+
 #End Region
 
 #Region "定数・変数"

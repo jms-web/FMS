@@ -234,6 +234,9 @@ Module mdlINTSYR
                 Return False
             End If
 
+            '-----‚DPI‘Î‰
+            Call SetProcessDPIAware()
+
 
             '-----’[–––¼æ“¾
             pub_SYSTEM_INFO.strPCNM = System.Net.Dns.GetHostName

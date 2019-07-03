@@ -1209,7 +1209,7 @@ Module mdlG0010
                     ssgSheet1.Range(NameOf(_V002_NCR_J.SAIKAKO_SIJI_NO)).Value = _V002_NCR_J.SAIKAKO_SIJI_NO
                     ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_KEKKA_NAME)).Value = _V002_NCR_J.KENSA_KEKKA_NAME
                     If _V002_NCR_J.KENSA_KEKKA_KB = ENM_KENSA_KEKKA_KB._1_不合格 Then
-                        ssgSheet1.Range("SAI_FUTEKIGO_LABEL").Value = "再不適合"
+                        ssgSheet1.Range("SAI_FUTEKIGO_LABEL").Value = "再不適合処置 報告書No"
                         ssgSheet1.Range("SAI_FUTEKIGO_HOKOKU_NO").Value = _V002_NCR_J.HOKOKU_NO + 1
                     Else
                         ssgSheet1.Range("SAI_FUTEKIGO_LABEL").Value = ""
