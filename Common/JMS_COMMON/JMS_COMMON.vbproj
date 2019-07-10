@@ -273,6 +273,9 @@
     <Compile Include="Control\TextBoxEx.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ToolForm\Imagedlg.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ToolForm\ToastForm.Designer.vb">
       <DependentUpon>ToastForm.vb</DependentUpon>
     </Compile>
@@ -322,6 +325,7 @@
     <Compile Include="BaseForm\FrmBaseStsBtnDgv.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utility\Parameter.vb" />
     <Compile Include="Utility\DatarowEqualityComparer.vb" />
     <Compile Include="Utility\ExceptionEx.vb" />
     <Compile Include="Utility\DisplayNameAttribute.vb" />
@@ -422,6 +426,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm\FrmBaseStsBtnDgv.resx">
       <DependentUpon>FrmBaseStsBtnDgv.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolForm\Imagedlg.resx">
+      <DependentUpon>Imagedlg.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ToolForm\ToastForm.resx">
       <DependentUpon>ToastForm.vb</DependentUpon>
@@ -746,7 +753,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_ReplaceNonNumerics="False" />
+      <UserProperties BuildVersion_ReplaceNonNumerics="False" BuildVersion_StartDate="2000/1/1" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

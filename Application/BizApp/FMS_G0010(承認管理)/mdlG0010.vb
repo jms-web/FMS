@@ -382,6 +382,8 @@ Module mdlG0010
                     pub_intOPEN_MODE = ENM_OPEN_MODE._0_通常
                 End If
 
+                Parameter.Init(cmds(1))
+
                 '-----一覧画面表示
                 frmLIST = New FrmG0010
                 Application.Run(frmLIST)
@@ -871,7 +873,7 @@ Module mdlG0010
                            BCCAddress:=BCCAddressList,
                            strSubject:=strSubject,
                            strBody:=strBody,
-                           strAttachment:="",
+                           AttachmentList:=Nothing,
                            strFromName:="不適合管理システム",
                            isHTML:=True)
 
@@ -1208,7 +1210,7 @@ Module mdlG0010
                     End If
                     ssgSheet1.Range(NameOf(_V002_NCR_J.SAIKAKO_SIJI_NO)).Value = _V002_NCR_J.SAIKAKO_SIJI_NO
                     ssgSheet1.Range(NameOf(_V002_NCR_J.KENSA_KEKKA_NAME)).Value = _V002_NCR_J.KENSA_KEKKA_NAME
-                    If _V002_NCR_J.KENSA_KEKKA_KB = ENM_KENSA_KEKKA_KB._1_不合格 Then
+                    If _V002_NCR_J.KENSA_KEKKA_KB.ToVal = ENM_KENSA_KEKKA_KB._1_不合格 Then
                         ssgSheet1.Range("SAI_FUTEKIGO_LABEL").Value = "再不適合処置 報告書No"
                         ssgSheet1.Range("SAI_FUTEKIGO_HOKOKU_NO").Value = _V002_NCR_J.HOKOKU_NO + 1
                     Else
@@ -1275,7 +1277,7 @@ Module mdlG0010
             If Not _V002_NCR_J.JIZEN_SINSA_YMD.IsNulOrWS Then
                 ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.JIZEN_SINSA_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
-            If _V002_NCR_J.ZESEI_SYOCHI_YOHI_KB = ENM_YOHI_KB._1_要 Then
+            If _V002_NCR_J.ZESEI_SYOCHI_YOHI_KB.ToVal = ENM_YOHI_KB._1_要 Then
                 ssgSheet1.Range("CAR_HOKOKU_NO").Value = _V002_NCR_J.HOKOKU_NO
                 ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_SYAIN_NAME)).Value = _V002_NCR_J.HASSEI_KOTEI_GL_SYAIN_NAME
                 If Not _V002_NCR_J.HASSEI_KOTEI_GL_YMD.IsNulOrWS Then
@@ -1320,7 +1322,12 @@ Module mdlG0010
 
             Dim strYMDHNS As String
 
-            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._10_起草入力).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).FirstOrDefault?.ADD_SYAIN_NAME
+
+            Dim kiso_tanto As String = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).FirstOrDefault?.UPD_SYAIN_NAME
+            If kiso_tanto.IsNulOrWS Then kiso_tanto = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).FirstOrDefault?.ADD_SYAIN_NAME
+            ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._10_起草入力).Value = kiso_tanto
+
+
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNulOrWS Then
                 ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._10_起草入力).Value = "'" & DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
@@ -1527,6 +1534,7 @@ Module mdlG0010
             End If
 
             spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME10)).Value = _V005_CAR_J.SYONIN_NAME10
+
             If Not _V005_CAR_J.SYONIN_YMD10.IsNulOrWS Then
                 spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD10)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD10.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If

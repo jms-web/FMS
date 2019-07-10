@@ -1,8 +1,8 @@
+Imports System.Collections.Generic
 Imports System.IO
+Imports System.Net
 Imports System.Threading
 Imports JMS_COMMON.ClsPubMethod
-
-
 
 'エラーログ出力/エラーMSGBOX
 Public Class ErrMsg
@@ -42,7 +42,6 @@ Public Class ErrMsg
         End If
 
     End Sub
-
 
     'エラー発生時の処理
     Public Sub Old_20150515_ErrorSyori(ByVal expEX As Exception, Optional ByVal blnNonLog As Boolean = False, Optional ByVal blnNonMsg As Boolean = False)
@@ -84,19 +83,16 @@ Public Class ErrMsg
                 sbDLGMSG.Append("上記のエラー内容を控えた上でシステム開発元へご連絡下さい")
             End With
 
-
             '-----エラーログ書込
             If blnNonLog = False Then
                 LP.LogPut(strLOGDTTM, sbLOGMSG.ToString, LogFilePath & "\" & LogFileName, LogMax)
             End If
-
 
             '-----エラーメッセージ表示
             If blnNonMsg = False Then
                 System.Windows.Forms.Cursor.Current = Cursors.Default
                 MsgBox(sbDLGMSG.ToString, MsgBoxStyle.Critical + MsgBoxStyle.SystemModal, strDLGTYTLE)
             End If
-
         Catch Ex As Exception
         End Try
 
@@ -158,7 +154,6 @@ Public Class ErrMsg
                 'MSGBOXタイトル
                 strDLGTYTLE = pub_APP_INFO.strTitle '　My.Application.Info.AssemblyName
 
-
                 'MSGBOX内容
                 sbDLGMSG.Append(String.Format("OSVersion：{0}", System.Environment.OSVersion))
                 sbDLGMSG.AppendLine()
@@ -179,7 +174,6 @@ Public Class ErrMsg
                 End Try
             End With
 
-
             '-----エラーログファイル書込
             If blnNonLog = False Then
                 LP.LogPut(strLOGDTTM, sbLOGMSG.ToString, LogFilePath & "\" & LogFileName, LogMax)
@@ -188,14 +182,154 @@ Public Class ErrMsg
             '-----エラーメッセージ表示
             If blnNonMsg = False Then
                 System.Windows.Forms.Cursor.Current = Cursors.Default
-                MsgBox(sbDLGMSG.ToString, MsgBoxStyle.Critical + MsgBoxStyle.SystemModal, strDLGTYTLE)
-            End If
 
+                Fun_GetSystemIniFile()
+                Using DB As ClsDbUtility = DBOpen()
+                    If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                        MsgBox(sbDLGMSG.ToString, MsgBoxStyle.Critical + MsgBoxStyle.SystemModal, strDLGTYTLE)
+                    Else
+                        Call SendFeedback(expEX)
+
+                        Dim msg As String = $"システム例外エラーが発生しました。{vbCrLf}システム担当者にフィードバック情報を送信します。{vbCrLf}"
+                        MsgBox(msg, MsgBoxStyle.Critical + MsgBoxStyle.SystemModal, strDLGTYTLE)
+
+                        Dim imgDlg As New ImageDialog
+                        imgDlg.Show("\\sv04\FMS\RESOURCE\sendmail_256.gif", 4200)
+                    End If
+                End Using
+            End If
         Catch Ex As Exception
         End Try
-
     End Sub
 
+    Private Function SendFeedback(expEX As Exception) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+        Try
+            'スクリーンショット取得
+            Dim screenshot As Bitmap = CaptureScreen.CaptureActiveWindow
+            Dim captureFile As String = $"{FunGetRootPath()}\LOG\capure.png"
+            screenshot.Save(captureFile, System.Drawing.Imaging.ImageFormat.Png)
+            screenshot.Dispose()
+
+            'ログファイル
+            Dim logFile As String = $"{FunGetRootPath()}\LOG\{CON_ERR_LOG}"
+
+            'メール送信
+            Fun_GetSystemIniFile()
+            Using DB As ClsDbUtility = DBOpen()
+                Dim strSmtpServer As String = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
+                Dim intSmtpPort As String = Val(FunGetCodeMastaValue(DB, "メール設定", "SMTP_PORT"))
+                Dim strFromAddress As String = FunGetCodeMastaValue(DB, "メール設定", "FROM")
+                Dim ToAddressList As New List(Of String)
+                Dim CCAddressList As New List(Of String)
+                Dim BCCAddressList As New List(Of String)
+
+                Dim strSubject As String = "フジワラシステム 例外エラー発生"
+                Dim strBody As String = <body><![CDATA[
+                    <br />
+                    フジワラシステムにて下記の例外エラーが発生しました。<br />                    　
+                    <br />
+                    <b>【発生日時】</b><br />
+                        {0}<br />
+                        <br />
+                    <b>【端末情報】</b><br />
+                        {1}:{2}<br />
+                        <br />
+                    <b>【ユーザー情報】</b><br />
+                        部門：{3}<br />
+                        <a href = "mailto:{4}" >{5}</a><br />
+                        <br />
+                    <b>【処理名】</b><br />
+                        {6}<br />
+                        <br />
+                    <b>【エラー詳細】</b><br />
+                        {7}<br />
+                        {8}<br />
+                        {9}<br />
+                        <br />
+                    <b>【スクリーンショット】<br />
+                        <img src="{10}"><br />
+                    ]]></body>.Value.Trim
+                Dim stacktrace As String = expEX.StackTrace.Replace("場所", $"{vbCrLf}場所")
+
+                'ユーザー情報取得
+                sbSQL.Clear()
+                sbSQL.Append($"SELECT")
+                sbSQL.Append($" M4.SIMEI")
+                sbSQL.Append($",M4.MAIL_ADDRESS")
+                sbSQL.Append($",M5.BUSYO_ID")
+                sbSQL.Append($",M2.BUSYO_NAME")
+                sbSQL.Append($",GL.SIMEI AS GL_SIMEI")
+                sbSQL.Append($",GL.MAIL_ADDRESS AS GL_ADDRESS")
+                sbSQL.Append($" FROM M004_SYAIN AS M4")
+                sbSQL.Append($" LEFT JOIN dbo.M005_SYOZOKU_BUSYO AS M5 ON (M4.SYAIN_ID = M5.SYAIN_ID)")
+                sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS M2 ON (M2.BUSYO_ID = M5.BUSYO_ID)")
+                sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS GL ON (GL.SYAIN_ID = M2.SYOZOKUCYO_ID)")
+                sbSQL.Append($" WHERE M4.SYAIN_ID={JMS_COMMON.Parameter.PrSyainId}")
+                sbSQL.Append($" AND M5.KENMU_FLG='0'")
+                dsList = DB.GetDataSet(sbSQL.ToString, True)
+
+                Dim address As IPHostEntry = System.Net.Dns.GetHostEntry(System.Environment.MachineName)
+                Dim ip4Address As String = "-"
+                For Each ip As IPAddress In address.AddressList
+                    If ip.AddressFamily = Net.Sockets.AddressFamily.InterNetwork Then
+                        ip4Address = ip.ToString
+                        Exit For
+                    End If
+                Next
+
+                Dim strBusyoName As String = dsList.Tables(0).Rows(0).Item("BUSYO_NAME")
+                Dim strSyainName As String = dsList.Tables(0).Rows(0).Item("SIMEI")
+                Dim strMailAddress As String = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
+
+                '通知先
+                sbSQL.Clear()
+                sbSQL.Append($"SELECT M004.{NameOf(MODEL.M004_SYAIN.MAIL_ADDRESS)} ")
+                sbSQL.Append($" FROM {NameOf(MODEL.M001_SETTING)} M001")
+                sbSQL.Append($" LEFT JOIN {NameOf(MODEL.M004_SYAIN)} M004")
+                sbSQL.Append($" ON(M001.{NameOf(MODEL.M001_SETTING.ITEM_DISP)} = M004.{NameOf(MODEL.M004_SYAIN.SYAIN_ID)})")
+                sbSQL.Append($" WHERE M001.{NameOf(MODEL.M001_SETTING.ITEM_NAME)}='エラー通知先'")
+                sbSQL.Append($" AND M001.{NameOf(MODEL.M001_SETTING.DEL_SYAIN_ID)}=0")
+                dsList = DB.GetDataSet(sbSQL.ToString, True)
+                For Each row As DataRow In dsList.Tables(0).Rows
+                    If Not row.Item(0).ToString.IsNulOrWS AndAlso Not ToAddressList.Contains(row.Item(0)) Then
+                        ToAddressList.Add(row.Item(0))
+                    End If
+                Next
+
+                strBody = String.Format(strBody,
+                                          Now.ToString("yyyy/MM/dd HH:mm:ss"),'日時
+                                          System.Environment.MachineName,'端末名
+                                          ip4Address,'IPアドレス
+                                          strBusyoName,'部署名
+                                          strMailAddress,'メールアドレス
+                                          strSyainName,'社員名
+                                          $"{expEX.Source()}：{expEX.TargetSite.Name}",'処理名(関数)
+                                          expEX.GetType,'エラー型
+                                          expEX.Message,'エラーメッセージ
+                                          stacktrace,'スタックトレース
+                                          captureFile'スクリーンショット画像
+                                          )
+
+                ClsMailSend.FunSendMail(strSmtpServer:=strSmtpServer,
+                    intSmtpPort:=intSmtpPort,
+                    FromAddress:=strFromAddress,
+                    ToAddress:=ToAddressList,
+                    CCAddress:=CCAddressList,
+                    BCCAddress:=BCCAddressList,
+                    strSubject:=strSubject,
+                    strBody:=strBody,
+                    AttachmentList:=New List(Of String) From {logFile},
+                    strFromName:="不適合管理システム",
+                    isHTML:=True)
+            End Using
+
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
 
     'ファイル名チェック
     Private Function FunValidFileName(ByVal strFileName As String) As String
@@ -213,7 +347,6 @@ Public Class ErrMsg
             Next
 
             Return strValidFileName
-
         Catch ex As Exception
             Return ""
         End Try
@@ -222,7 +355,6 @@ Public Class ErrMsg
 
 End Class
 
-
 'ログ出力
 Public Class WriteLog
     Private Const DefaultLogMax As Long = 10000
@@ -230,7 +362,6 @@ Public Class WriteLog
     Private LogFilePath As String
     Private LogFileName As String
     Private LogMax As Long
-
 
     'マルチスレッドロックに使用するオブジェクト
     Private ReadOnly syncObject As New Object
@@ -263,7 +394,6 @@ Public Class WriteLog
 
     End Sub
 
-
     'ログ出力時の処理
     Public Sub WriteLogDat(ByVal strMSG As String)
         Dim LP As New LogPut
@@ -275,7 +405,6 @@ Public Class WriteLog
                 LP.LogPut(System.DateTime.Now.ToString, strMSG, LogFilePath & "\" & LogFileName, LogMax)
 
             End SyncLock
-
         Catch Ex As Exception
         End Try
 
@@ -297,7 +426,6 @@ Public Class WriteLog
             Next
 
             Return strValidFileName
-
         Catch ex As Exception
             Return ""
         End Try
@@ -305,7 +433,6 @@ Public Class WriteLog
     End Function
 
 End Class
-
 
 'ログ
 Public Class LogPut
@@ -315,24 +442,30 @@ Public Class LogPut
     Private LogMax As Long
 
     'XMLファイルに保存するオブジェクトのためのクラス
-    <System.Xml.Serialization.XmlRoot("LOGDATA")> _
+    <System.Xml.Serialization.XmlRoot("LOGDATA")>
     Public Class LogDataClasses
-        <System.Xml.Serialization.XmlArrayItem(GetType(LogDataClass))> _
+
+        <System.Xml.Serialization.XmlArrayItem(GetType(LogDataClass))>
         Public ClassList As New ArrayList
+
     End Class
 
     'XMLファイルに保存するオブジェクトのためのクラス
-    <System.Xml.Serialization.XmlTypeAttribute("LOG")> _
+    <System.Xml.Serialization.XmlTypeAttribute("LOG")>
     Public Class LogDataClass
-        <System.Xml.Serialization.XmlElement("DATETIME")> _
+
+        <System.Xml.Serialization.XmlElement("DATETIME")>
         Public strLOGDTTM As String
-        <System.Xml.Serialization.XmlElement("MESSAGE")> _
+
+        <System.Xml.Serialization.XmlElement("MESSAGE")>
         Public strLOGMSG As String
+
     End Class
 
     'ログソート
     Public Class LogDataComparer
         Implements IComparer
+
         Public Function Compare(ByVal x As Object, ByVal y As Object) As Integer Implements IComparer.Compare
             Dim logData1 As LogDataClass = CType(x, LogDataClass)
             Dim logData2 As LogDataClass = CType(y, LogDataClass)
@@ -351,6 +484,7 @@ Public Class LogPut
             End If
 
         End Function
+
     End Class
 
     '出力
@@ -393,7 +527,6 @@ Public Class LogPut
                 Exit Do
             Loop
 
-
             '-----ログ取得
             xsLogData = New System.Xml.Serialization.XmlSerializer(GetType(LogDataClasses))
             Try
@@ -403,14 +536,12 @@ Public Class LogPut
                 logClasses = New LogDataClasses
             End Try
 
-
             '-----ログ削除
             If logClasses.ClassList.Count = LogMax Then '最大件数時
                 logClasses.ClassList.RemoveAt(0)
             ElseIf logClasses.ClassList.Count > LogMax Then '最大件数超え時
                 logClasses.ClassList.RemoveRange(0, logClasses.ClassList.Count - LogMax + 1)
             End If
-
 
             '-----ログ追加
             logClass.strLOGDTTM = strLOGDTTM
@@ -421,11 +552,9 @@ Public Class LogPut
             '    logClasses.ClassList.Add(logClass)
             'Next
 
-
             '-----ログソート
             'Dim LogDataComp As IComparer = New LogDataComparer()
             'logClasses.ClassList.Sort(LogDataComp)
-
 
             '-----ログファイル書込
             '先頭ポインタ移動
@@ -434,8 +563,6 @@ Public Class LogPut
             xsLogData.Serialize(fsFile, logClasses)
             fsFile.SetLength(fsFile.Position)
             fsFile.Flush()
-
-
         Catch Ex As Exception
         Finally
             '-----ログファイルCLOSE
@@ -447,5 +574,3 @@ Public Class LogPut
     End Sub
 
 End Class
-
-

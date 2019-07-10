@@ -9,7 +9,7 @@ Public Class ClsMailSend
                                 ByVal BCCAddress As List(Of String),
                                 ByVal strSubject As String,
                                 ByVal strBody As String,
-                                ByVal strAttachment As String,
+                                ByVal AttachmentList As List(Of String),
                                 ByVal Optional strFromName As String = "",
                                 ByVal Optional isHTML As Boolean = False) As Boolean
 
@@ -52,23 +52,17 @@ Public Class ClsMailSend
             Dim txtPart As New TKMP.Writer.TextPart(strBody)
             Dim headerPart As New TKMP.Writer.TextPart(strBody)
             headerPart.Headers.Add("Content-Type", headerPart.Headers("Content-Type").Replace("plain", "html"))
-            Dim multiPart As TKMP.Writer.MultiPart
 
-            If isHTML Then
-                multiPart = New TKMP.Writer.MultiPart(txtPart, headerPart)
-                multiPart.Headers.Add("Content-Type", multiPart.Headers("Content-Type").Replace("mixed", "alternative"))
-                writer.MainPart = multiPart
-            Else
-                writer.MainPart = New TKMP.Writer.MultiPart(txtPart)
-            End If
+            Dim multiPart As New TKMP.Writer.MultiPart
+            multiPart.AddPart(headerPart)
 
-            '添付ファイル
-            Dim filePart As TKMP.Writer.FilePart
-            If Not strAttachment.IsNulOrWS Then
-                filePart = New TKMP.Writer.FilePart(strAttachment)
-                '本文と添付ファイルを持つ、マルチパートクラスを作成
-                writer.MainPart = New TKMP.Writer.MultiPart(txtPart, filePart)
-            End If
+            For Each attachment As String In AttachmentList
+                If Not attachment.IsNulOrWS And IO.File.Exists(attachment) Then
+                    multiPart.AddPart(New TKMP.Writer.FilePart(attachment))
+                End If
+            Next
+            writer.MainPart = multiPart
+            writer.Headers.Add("X-MailSender", "TKMP.DLL")
 
             'メールの送信先サーバー名
             'Dim address() As System.Net.IPAddress = System.Net.Dns.GetHostEntry(strSmtpServer).AddressList
