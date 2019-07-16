@@ -854,13 +854,13 @@ Module mdlG0010
                     Return False
                 End If
 
-                strMsg = $"【メール送信成功】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}"
-                WL.WriteLogDat(strMsg)
-
                 If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                     MessageBox.Show("メール送信が無効に設定されているため、依頼メールは送信されませんでした。", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Return True
                 End If
+
+                strMsg = $"【メール送信成功】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}"
+                WL.WriteLogDat(strMsg)
 
             End Using
 
@@ -873,7 +873,7 @@ Module mdlG0010
                            BCCAddress:=BCCAddressList,
                            strSubject:=strSubject,
                            strBody:=strBody,
-                           AttachmentList:=Nothing,
+                           AttachmentList:=New List(Of String),
                            strFromName:="不適合管理システム",
                            isHTML:=True)
 

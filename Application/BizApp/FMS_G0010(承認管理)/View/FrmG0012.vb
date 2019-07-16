@@ -807,6 +807,7 @@ Public Class FrmG0012
                 WL.WriteLogDat(strErrMsg)
                 Return False
         End Select
+        WL.WriteLogDat($"[DEBUG]CAR 報告書NO:{_D005_CAR_J.HOKOKU_NO}、MERGE D005")
 
         Return True
     End Function
@@ -1041,7 +1042,9 @@ Public Class FrmG0012
             Case "INSERT"
                 If PrCurrentStage < ENM_CAR_STAGE._130_是正有効性確認_品証担当課長 AndAlso _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False Then
                     '承認依頼メール送信
-                    Call FunSendRequestMail()
+                    If FunSendRequestMail() Then
+                        WL.WriteLogDat($"[DEBUG]CAR 報告書NO:{_D005_CAR_J.HOKOKU_NO}、Send Request Mail")
+                    End If
                 End If
 
             Case "UPDATE"
@@ -1053,10 +1056,8 @@ Public Class FrmG0012
                 Return False
         End Select
 
-        If FunSAVE_R004(DB, _D004_SYONIN_J_KANRI.ADD_YMDHNS) Then
-        Else
-            Return False
-        End If
+        WL.WriteLogDat($"[DEBUG]CAR 報告書NO:{_D005_CAR_J.HOKOKU_NO}、MERGE D004")
+
 
         Return True
     End Function
@@ -1331,6 +1332,15 @@ Public Class FrmG0012
             Return False
         End If
 
+        WL.WriteLogDat($"[DEBUG]CAR 報告書NO:{_D005_CAR_J.HOKOKU_NO}、INSERT R001")
+
+        If FunSAVE_R004(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
+        Else
+            Return False
+        End If
+
+
+
         Return True
     End Function
 
@@ -1506,6 +1516,7 @@ Public Class FrmG0012
             WL.WriteLogDat(strErrMsg)
             Return False
         Else
+            WL.WriteLogDat($"[DEBUG]CAR 報告書NO:{_D005_CAR_J.HOKOKU_NO}、INSERT R004")
             Return True
         End If
     End Function

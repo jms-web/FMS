@@ -208,12 +208,24 @@ Public Class ErrMsg
         Try
             'スクリーンショット取得
             Dim screenshot As Bitmap = CaptureScreen.CaptureActiveWindow
-            Dim captureFile As String = $"{FunGetRootPath()}\LOG\capure.png"
+            Dim captureFile As String = $"{FunGetRootPath()}\LOG\スクリーンショット.png"
             screenshot.Save(captureFile, System.Drawing.Imaging.ImageFormat.Png)
             screenshot.Dispose()
 
+            ''Base64文字列に変換して埋め込み
+            'Dim fi As New FileInfo(captureFile)
+            'Dim fs As FileStream = fi.OpenRead
+            'Dim nBytes As Integer = fi.Length
+            'Dim ByteArray(nBytes) As Byte
+            'Dim nBytesRead As Integer = fs.Read(ByteArray, 0, nBytes)
+            'fs.Close()
+            'fs.Dispose()
+            'Dim base64String As String
+            'base64String = System.Convert.ToBase64String(ByteArray)
+
             'ログファイル
-            Dim logFile As String = $"{FunGetRootPath()}\LOG\{CON_ERR_LOG}"
+            Dim errlogFile As String = $"{FunGetRootPath()}\LOG\{CON_ERR_LOG}"
+            Dim applogFile As String = $"{FunGetRootPath()}\LOG\FMS_G0010.LOG"
 
             'メール送信
             Fun_GetSystemIniFile()
@@ -225,7 +237,7 @@ Public Class ErrMsg
                 Dim CCAddressList As New List(Of String)
                 Dim BCCAddressList As New List(Of String)
 
-                Dim strSubject As String = "フジワラシステム 例外エラー発生"
+                Dim strSubject As String = "不適合管理システム 例外エラー発生"
                 Dim strBody As String = <body><![CDATA[
                     <br />
                     フジワラシステムにて下記の例外エラーが発生しました。<br />                    　
@@ -248,10 +260,12 @@ Public Class ErrMsg
                         {8}<br />
                         {9}<br />
                         <br />
-                    <b>【スクリーンショット】<br />
-                        <img src="{10}"><br />
                     ]]></body>.Value.Trim
-                Dim stacktrace As String = expEX.StackTrace.Replace("場所", $"{vbCrLf}場所")
+                Dim stacktrace As String = expEX.StackTrace.Replace("場所", $"<br />{vbCrLf}場所")
+
+                '<b>【スクリーンショット】<br />
+                ' <img src = "data:image/png;base64,{10}" /<> br />
+
 
                 'ユーザー情報取得
                 sbSQL.Clear()
@@ -291,6 +305,8 @@ Public Class ErrMsg
                 sbSQL.Append($" ON(M001.{NameOf(MODEL.M001_SETTING.ITEM_DISP)} = M004.{NameOf(MODEL.M004_SYAIN.SYAIN_ID)})")
                 sbSQL.Append($" WHERE M001.{NameOf(MODEL.M001_SETTING.ITEM_NAME)}='エラー通知先'")
                 sbSQL.Append($" AND M001.{NameOf(MODEL.M001_SETTING.DEL_SYAIN_ID)}=0")
+                sbSQL.Append($" AND M001.{NameOf(MODEL.M001_SETTING.ITEM_VALUE)}=1") 'DEBUG
+
                 dsList = DB.GetDataSet(sbSQL.ToString, True)
                 For Each row As DataRow In dsList.Tables(0).Rows
                     If Not row.Item(0).ToString.IsNulOrWS AndAlso Not ToAddressList.Contains(row.Item(0)) Then
@@ -308,8 +324,7 @@ Public Class ErrMsg
                                           $"{expEX.Source()}：{expEX.TargetSite.Name}",'処理名(関数)
                                           expEX.GetType,'エラー型
                                           expEX.Message,'エラーメッセージ
-                                          stacktrace,'スタックトレース
-                                          captureFile'スクリーンショット画像
+                                          stacktrace'スタックトレース
                                           )
 
                 ClsMailSend.FunSendMail(strSmtpServer:=strSmtpServer,
@@ -320,10 +335,12 @@ Public Class ErrMsg
                     BCCAddress:=BCCAddressList,
                     strSubject:=strSubject,
                     strBody:=strBody,
-                    AttachmentList:=New List(Of String) From {logFile},
-                    strFromName:="不適合管理システム",
+                    AttachmentList:=New List(Of String) From {captureFile, errlogFile, applogFile},
+                    strFromName:="フジワラシステム",
                     isHTML:=True)
             End Using
+
+            If IO.File.Exists(captureFile) Then IO.File.Delete(captureFile)
 
             Return True
         Catch ex As Exception

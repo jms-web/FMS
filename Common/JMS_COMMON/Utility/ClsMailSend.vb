@@ -49,9 +49,11 @@ Public Class ClsMailSend
             writer.Headers.Add("Subject", strSubject)
 
             '本文のパート
-            Dim txtPart As New TKMP.Writer.TextPart(strBody)
-            Dim headerPart As New TKMP.Writer.TextPart(strBody)
+            Dim headerPart As New TKMP.Writer.TextPart(strBody) ', TKMP.Writer.Charsets.UTF8)
             headerPart.Headers.Add("Content-Type", headerPart.Headers("Content-Type").Replace("plain", "html"))
+
+            'Content-Type: Text/ plain; charset=UTF-8
+
 
             Dim multiPart As New TKMP.Writer.MultiPart
             multiPart.AddPart(headerPart)

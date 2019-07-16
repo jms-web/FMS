@@ -232,7 +232,7 @@ Module mdlU0010
                            BCCAddress:=BCCAddressList,
                            strSubject:=strSubject,
                            strBody:=strBody,
-                           AttachmentList:=Nothing,
+                           AttachmentList:=New List(Of String),
                            strFromName:="不適合管理システム",
                            isHTML:=True)
 

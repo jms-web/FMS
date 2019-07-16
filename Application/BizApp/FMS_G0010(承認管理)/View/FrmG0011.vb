@@ -1278,7 +1278,9 @@ Public Class FrmG0011
             Case "INSERT"
                 If PrCurrentStage < ENM_NCR_STAGE._120_abcde処置確認 AndAlso _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False Then
                     '承認依頼メール送信
-                    Call FunSendRequestMail_NCR()
+                    If FunSendRequestMail_NCR() Then
+                        WL.WriteLogDat($"[DEBUG]NCR 報告書NO:{_D003_NCR_J.HOKOKU_NO}、Send Request Mail")
+                    End If
                 End If
 
             Case "UPDATE"
@@ -1299,6 +1301,8 @@ Public Class FrmG0011
                 Return False
         End Select
 
+        WL.WriteLogDat($"[DEBUG]NCR 報告書NO:{_D003_NCR_J.HOKOKU_NO}、MERGE D004")
+
 #End Region
 
 #Region "CAR起草依頼メール送信"
@@ -1316,7 +1320,9 @@ Public Class FrmG0011
 
                 If FunSAVE_D005(DB) Then
                     '承認依頼メール送信
-                    Call FunSendRequestMail_CAR()
+                    If FunSendRequestMail_CAR() Then
+                        WL.WriteLogDat($"[DEBUG]NCR 報告書NO:{_D003_NCR_J.HOKOKU_NO}、INSERT D005 Send Request CAR Mail")
+                    End If
                     blnEnableCAREdit = True
                 Else
                     Return False
@@ -1515,6 +1521,8 @@ Public Class FrmG0011
             Return False
         End If
 
+        WL.WriteLogDat($"[DEBUG]NCR 報告書NO:{_D003_NCR_J.HOKOKU_NO}、MERGE R001")
+
         If FunSAVE_R003(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
         Else
             Return False
@@ -1705,6 +1713,7 @@ Public Class FrmG0011
             WL.WriteLogDat(strErrMsg)
             Return False
         Else
+            WL.WriteLogDat($"[DEBUG]NCR 報告書NO:{_D003_NCR_J.HOKOKU_NO}、INSERT R003")
             Return True
         End If
     End Function
