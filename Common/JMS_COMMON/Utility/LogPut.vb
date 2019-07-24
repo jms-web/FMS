@@ -188,6 +188,9 @@ Public Class ErrMsg
                     If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                         MsgBox(sbDLGMSG.ToString, MsgBoxStyle.Critical + MsgBoxStyle.SystemModal, strDLGTYTLE)
                     Else
+#If DEBUG Then
+                        MsgBox(sbDLGMSG.ToString, MsgBoxStyle.Critical + MsgBoxStyle.SystemModal, strDLGTYTLE)
+#Else
                         Call SendFeedback(expEX)
 
                         Dim msg As String = $"システム例外エラーが発生しました。{vbCrLf}システム担当者にフィードバック情報を送信します。{vbCrLf}"
@@ -195,6 +198,8 @@ Public Class ErrMsg
 
                         Dim imgDlg As New ImageDialog
                         imgDlg.Show("\\sv04\FMS\RESOURCE\sendmail_256.gif", 4200)
+#End If
+
                     End If
                 End Using
             End If
@@ -305,7 +310,7 @@ Public Class ErrMsg
                 sbSQL.Append($" ON(M001.{NameOf(MODEL.M001_SETTING.ITEM_DISP)} = M004.{NameOf(MODEL.M004_SYAIN.SYAIN_ID)})")
                 sbSQL.Append($" WHERE M001.{NameOf(MODEL.M001_SETTING.ITEM_NAME)}='エラー通知先'")
                 sbSQL.Append($" AND M001.{NameOf(MODEL.M001_SETTING.DEL_SYAIN_ID)}=0")
-                sbSQL.Append($" AND M001.{NameOf(MODEL.M001_SETTING.ITEM_VALUE)}=1") 'DEBUG
+                'sbSQL.Append($" AND M001.{NameOf(MODEL.M001_SETTING.ITEM_VALUE)}=1") 'DEBUG
 
                 dsList = DB.GetDataSet(sbSQL.ToString, True)
                 For Each row As DataRow In dsList.Tables(0).Rows

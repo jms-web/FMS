@@ -1109,7 +1109,7 @@ Module mdlG0010
         Dim ssgWorksheets As SpreadsheetGear.IWorksheets
         Dim ssgSheet1 As SpreadsheetGear.IWorksheet
         Dim ssgShapes As SpreadsheetGear.Shapes.IShapes
-
+        Dim strYMDHNS As String
         Try
 
             Dim _V002_NCR_J As MODEL.V002_NCR_J = FunGetV002Model(strHOKOKU_NO)
@@ -1162,20 +1162,34 @@ Module mdlG0010
                     If Not _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB.IsNulOrWS Then
                         ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_HANTEI_KB) & _V002_NCR_J.SAISIN_IINKAI_HANTEI_KB).Value = "TRUE"
                     End If
-                    ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME
-                    ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME
-                    If Not _V002_NCR_J.SAISIN_HINSYO_YMD.IsNulOrWS Then
-                        ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SAISIN_HINSYO_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+
+                    strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._60_再審審査判定_技術代表 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+                    If Not strYMDHNS.IsNulOrWS Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_GIJYUTU_SYAIN_NAME
+                    End If
+
+                    strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._61_再審審査判定_品証代表 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+                    If Not strYMDHNS.IsNulOrWS Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_HINSYO_SYAIN_NAME
+                        If Not _V002_NCR_J.SAISIN_HINSYO_YMD.IsNulOrWS Then
+                            ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_HINSYO_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SAISIN_HINSYO_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                        End If
                     End If
                     ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_IINKAI_SIRYO_NO)).Value = _V002_NCR_J.SAISIN_IINKAI_SIRYO_NO
 
                 Case ENM_JIZEN_SINSA_HANTEI_KB._3_顧客再審申請
                     shapeLINE_KOKYAKU_SAISIN.Visible = False
-                    ssgSheet1.Range(NameOf(_V002_NCR_J.ITAG_NO)).Value = _V002_NCR_J.ITAG_NO
-                    ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_SAISIN_TANTO_NAME)).Value = _V002_NCR_J.KOKYAKU_SAISIN_TANTO_NAME
-                    If Not _V002_NCR_J.KOKYAKU_SAISIN_YMD.IsNulOrWS Then
-                        ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_SAISIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.KOKYAKU_SAISIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+
+                    strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._70_顧客再審処置_I_tag And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+                    If Not strYMDHNS.IsNulOrWS Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_SAISIN_TANTO_NAME)).Value = _V002_NCR_J.KOKYAKU_SAISIN_TANTO_NAME
+                        If Not _V002_NCR_J.KOKYAKU_SAISIN_YMD.IsNulOrWS Then
+                            ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_SAISIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.KOKYAKU_SAISIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                        End If
                     End If
+
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.ITAG_NO)).Value = _V002_NCR_J.ITAG_NO
+
                     ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_HANTEI_SIJI_NAME)).Value = _V002_NCR_J.KOKYAKU_HANTEI_SIJI_NAME
                     If Not _V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD.IsNulOrWS Then
                         ssgSheet1.Range(NameOf(_V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.KOKYAKU_HANTEI_SIJI_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
@@ -1273,10 +1287,7 @@ Module mdlG0010
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.HOKOKU_NO)).Value = _V002_NCR_J.HOKOKU_NO
 
-            ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_SYAIN_NAME)).Value = _V002_NCR_J.JIZEN_SINSA_SYAIN_NAME
-            If Not _V002_NCR_J.JIZEN_SINSA_YMD.IsNulOrWS Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.JIZEN_SINSA_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            End If
+
             If _V002_NCR_J.ZESEI_SYOCHI_YOHI_KB.ToVal = ENM_YOHI_KB._1_要 Then
                 ssgSheet1.Range("CAR_HOKOKU_NO").Value = _V002_NCR_J.HOKOKU_NO
                 ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_SYAIN_NAME)).Value = _V002_NCR_J.HASSEI_KOTEI_GL_SYAIN_NAME
@@ -1288,8 +1299,6 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.KANSATU_KEKKA)).Value = _V002_NCR_J.KANSATU_KEKKA.Replace(Environment.NewLine, "")
             ssgSheet1.Range(NameOf(_V002_NCR_J.KISYU_NAME)).Value = _V002_NCR_J.KISYU_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAIHATU)).Value = _V002_NCR_J.SAIHATU
-
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.SURYO)).Value = _V002_NCR_J.SURYO
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU
@@ -1320,7 +1329,7 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.YOKYU_NAIYO)).Value = _V002_NCR_J.YOKYU_NAIYO.Replace(Environment.NewLine, "")
             ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = _V002_NCR_J.ZUMEN_KIKAKU
 
-            Dim strYMDHNS As String
+
 
 
             Dim kiso_tanto As String = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).FirstOrDefault?.UPD_SYAIN_NAME
@@ -1344,6 +1353,18 @@ Module mdlG0010
                 ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._30_起草確認検査).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
                 ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._30_起草確認検査).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).FirstOrDefault?.UPD_SYAIN_NAME
             End If
+
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            If Not strYMDHNS.IsNulOrWS Then
+                ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_SYAIN_NAME)).Value = _V002_NCR_J.JIZEN_SINSA_SYAIN_NAME
+                ssgSheet1.Range(NameOf(_V002_NCR_J.JIZEN_SINSA_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.JIZEN_SINSA_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+            End If
+
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._50_事前審査確認 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            If Not strYMDHNS.IsNulOrWS Then
+                ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME)).Value = _V002_NCR_J.SAISIN_KAKUNIN_SYAIN_NAME
+            End If
+
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._90_処置実施確認_管理T And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNulOrWS Then
                 ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._90_処置実施確認_管理T).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
