@@ -3,6 +3,7 @@ Imports System.ComponentModel
 Imports System.ComponentModel.DataAnnotations
 Imports MODEL
 
+
 Public NotInheritable Class ClsPubMethod
 
 #Region "WinAPI"
@@ -1104,6 +1105,7 @@ Public NotInheritable Class ClsPubMethod
         End Try
 
     End Function
+
 #End Region
 
 #Region "表示"

@@ -176,7 +176,7 @@ Public Class FrmM1070
             Next
 
             'ファンクションキー有効化初期化
-            Call SubInitFuncButtonEnabled()
+            If intFUNC <> 12 Then Call SubInitFuncButtonEnabled()
 
             MyBase.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
             Me.Cursor = Cursors.Default

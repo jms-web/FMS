@@ -142,7 +142,7 @@ Public Class FrmM0060
             Next
 
             'ファンクションキー有効化初期化
-            Call FunInitFuncButtonEnabled(Me)
+            If intFUNC <> 12 Then Call FunInitFuncButtonEnabled(Me)
 
         End Try
 

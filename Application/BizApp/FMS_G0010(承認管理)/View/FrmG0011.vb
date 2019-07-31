@@ -1398,7 +1398,7 @@ Public Class FrmG0011
     Private Function FunSendRequestMail_CAR()
         Dim KISYU_NAME As String = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
         Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
-        Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
+        Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR.Value & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
         Dim strSubject As String = $"【不適合品処置依頼】[CAR] {KISYU_NAME}・{_D003_NCR_J.BUHIN_BANGO}"
         Dim strBody As String = <sql><![CDATA[
         {0} 殿<br />
@@ -2105,7 +2105,7 @@ Public Class FrmG0011
 
         '----D004
         '-----データモデル更新
-        _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+        _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR.Value
         _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
         _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_CAR_STAGE._10_起草入力
         '#53
@@ -2378,7 +2378,7 @@ Public Class FrmG0011
             '----D004
             '-----データモデル更新
             _D004_SYONIN_J_KANRI.clear()
-            _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+            _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value
             _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
             _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_CAR_STAGE._10_起草入力
             _D004_SYONIN_J_KANRI.SYAIN_ID = _D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID
@@ -2515,7 +2515,7 @@ Public Class FrmG0011
         Dim dlgRET As DialogResult
 
         Try
-            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value
             frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
             frmDLG.PrBUMON_KB = _D003_NCR_J.BUMON_KB
             frmDLG.PrBUHIN_BANGO = _D003_NCR_J.BUHIN_BANGO
@@ -2550,7 +2550,7 @@ Public Class FrmG0011
         Dim dlgRET As DialogResult
 
         Try
-            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value
             frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             frmDLG.PrBUHIN_BANGO = _D003_NCR_J.BUHIN_BANGO
@@ -2779,7 +2779,7 @@ Public Class FrmG0011
 
         Try
             frmDLG.PrSYORI_NAME = "修正理由登録"
-            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value
             frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
             frmDLG.PrBUMON_KB = _D003_NCR_J.BUMON_KB
             frmDLG.PrBUHIN_BANGO = _D003_NCR_J.BUHIN_BANGO
@@ -2862,7 +2862,7 @@ Public Class FrmG0011
                 End If
 
                 'カレントステージが自身の担当でない場合は無効
-                Dim IsOwnCreated As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, PrCurrentStage)
+                Dim IsOwnCreated As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value, _D003_NCR_J.HOKOKU_NO, PrCurrentStage)
                 If IsOwnCreated Then
                     cmdFunc1.Enabled = True
                     cmdFunc2.Enabled = True
@@ -3002,7 +3002,7 @@ Public Class FrmG0011
                         Else
                             If PrCurrentStage >= ENM_NCR_STAGE._90_処置実施確認_管理T Then
                                 If intTabNo = intCurrentTabNo Then
-                                    panel.DisableContaints(FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO, PrCurrentStage), PanelEx.ENM_PROPERTY._2_ReadOnly)
+                                    panel.DisableContaints(FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value, _D003_NCR_J.HOKOKU_NO, PrCurrentStage), PanelEx.ENM_PROPERTY._2_ReadOnly)
                                 Else
                                     panel.DisableContaints(False, PanelEx.ENM_PROPERTY._2_ReadOnly)
                                 End If
@@ -3196,10 +3196,10 @@ Public Class FrmG0011
 #Region "               10"
 
             If intStageID >= ENM_NCR_STAGE._10_起草入力 Then
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_起草入力))
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_起草入力))
                 cmbST01_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST01_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_起草入力))
+                mtxST01_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._10_起草入力))
 
                 If PrMODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
                     _D003_NCR_J.YOKYU_NAIYO = _V002_NCR_J.YOKYU_NAIYO
@@ -3258,10 +3258,10 @@ Public Class FrmG0011
 #Region "               20"
 
             If intStageID >= ENM_NCR_STAGE._20_起草確認製造GL Then
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_起草確認製造GL))
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_起草確認製造GL))
                 cmbST02_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST02_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_起草確認製造GL))
+                mtxST02_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_起草確認製造GL))
 
                 _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_起草確認製造GL).
@@ -3313,10 +3313,10 @@ Public Class FrmG0011
 #Region "               30"
 
             If intStageID >= ENM_NCR_STAGE._30_起草確認検査 Then
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_起草確認検査))
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_起草確認検査))
                 cmbST03_DestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                mtxST03_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_起草確認検査))
+                mtxST03_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_起草確認検査))
 
                 _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).
@@ -6599,26 +6599,31 @@ Public Class FrmG0011
     ''' </summary>
     ''' <returns></returns>
     Private Function FunHasAuthCAREdit(ByVal strHOKOKU_NO As String, ByVal intSYAIN_ID As Integer) As Boolean
-        Dim sbSQL As New System.Text.StringBuilder
-        Dim dsList As New DataSet
 
-        If strHOKOKU_NO.IsNulOrWS Or intSYAIN_ID = 0 Then
-            Return False
-        Else
-            sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append($"SELECT")
-            sbSQL.Append($" {NameOf(MODEL.V003_SYONIN_J_KANRI.HOKOKU_NO)}")
-            sbSQL.Append($" FROM {NameOf(MODEL.V003_SYONIN_J_KANRI)} ")
-            sbSQL.Append($" WHERE {NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR}")
-            sbSQL.Append($" AND {NameOf(MODEL.V003_SYONIN_J_KANRI.HOKOKU_NO)}='{strHOKOKU_NO}'")
-            sbSQL.Append($" AND {NameOf(MODEL.V003_SYONIN_J_KANRI.SYAIN_ID)}={intSYAIN_ID}")
-            Using DB As ClsDbUtility = DBOpen()
-                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-            End Using
+        Try
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
 
-            Return dsList.Tables(0).Rows.Count > 0
-        End If
+            If strHOKOKU_NO.IsNulOrWS Or intSYAIN_ID = 0 Then
+                Return False
+            Else
+                sbSQL.Remove(0, sbSQL.Length)
+                sbSQL.Append($"SELECT")
+                sbSQL.Append($" {NameOf(MODEL.V003_SYONIN_J_KANRI.HOKOKU_NO)}")
+                sbSQL.Append($" FROM {NameOf(MODEL.V003_SYONIN_J_KANRI)} ")
+                sbSQL.Append($" WHERE {NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR.Value}")
+                sbSQL.Append($" AND {NameOf(MODEL.V003_SYONIN_J_KANRI.HOKOKU_NO)}='{strHOKOKU_NO}'")
+                sbSQL.Append($" AND {NameOf(MODEL.V003_SYONIN_J_KANRI.SYAIN_ID)}={intSYAIN_ID}")
+                Using DB As ClsDbUtility = DBOpen()
+                    dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                End Using
 
+                Return dsList.Tables(0).Rows.Count > 0
+            End If
+
+        Catch ex As Exception
+            Throw
+        End Try
     End Function
 
     ''' <summary>

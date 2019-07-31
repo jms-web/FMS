@@ -3625,12 +3625,12 @@ Public Class FrmG0010
     End Function
 
     Private Sub SetStageList()
-        Application.DoEvents()
+        'Application.DoEvents()
 
         'flxDATA.DataSource = Nothing
         btnSummaryPage.Visible = False
         panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlCondition))
-        Me.Refresh()
+        'Me.Refresh()
         lblRecordCount.Visible = False
 
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then
@@ -3639,7 +3639,7 @@ Public Class FrmG0010
             ParamModel.SYONIN_HOKOKUSYO_ID = 0
         End If
 
-        Application.DoEvents()
+        'Application.DoEvents()
     End Sub
 
 #Region "削除ボタン使用権限判定"

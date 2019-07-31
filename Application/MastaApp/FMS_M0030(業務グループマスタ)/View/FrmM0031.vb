@@ -129,7 +129,7 @@ Public Class FrmM0031
                 Me.cmdFunc(intCNT).Enabled = True
             Next
 
-            Call FunInitFuncButtonEnabled()
+            If intFUNC <> 12 Then Call FunInitFuncButtonEnabled()
         End Try
     End Sub
 

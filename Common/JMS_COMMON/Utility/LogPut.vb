@@ -255,6 +255,8 @@ Public Class ErrMsg
                         <br />
                     <b>【ユーザー情報】</b><br />
                         部門：{3}<br />
+                        システムユーザーID：{10}<br />
+                        社員番号：{11}<br />
                         <a href = "mailto:{4}" >{5}</a><br />
                         <br />
                     <b>【処理名】</b><br />
@@ -276,6 +278,8 @@ Public Class ErrMsg
                 sbSQL.Clear()
                 sbSQL.Append($"SELECT")
                 sbSQL.Append($" M4.SIMEI")
+                sbSQL.Append($",M4.SYAIN_ID")
+                sbSQL.Append($",M4.SYAIN_NO")
                 sbSQL.Append($",M4.MAIL_ADDRESS")
                 sbSQL.Append($",M5.BUSYO_ID")
                 sbSQL.Append($",M2.BUSYO_NAME")
@@ -301,6 +305,8 @@ Public Class ErrMsg
                 Dim strBusyoName As String = dsList.Tables(0).Rows(0).Item("BUSYO_NAME")
                 Dim strSyainName As String = dsList.Tables(0).Rows(0).Item("SIMEI")
                 Dim strMailAddress As String = dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")
+                Dim strSyainID As Integer = dsList.Tables(0).Rows(0).Item("SYAIN_ID")
+                Dim strSyainNo As String = dsList.Tables(0).Rows(0).Item("SYAIN_NO")
 
                 '通知先
                 sbSQL.Clear()
@@ -329,7 +335,9 @@ Public Class ErrMsg
                                           $"{expEX.Source()}：{expEX.TargetSite.Name}",'処理名(関数)
                                           expEX.GetType,'エラー型
                                           expEX.Message,'エラーメッセージ
-                                          stacktrace'スタックトレース
+                                          stacktrace,'スタックトレース
+                                          strSyainID,'社員ID
+                                          strSyainNo'社員番号
                                           )
 
                 ClsMailSend.FunSendMail(strSmtpServer:=strSmtpServer,
