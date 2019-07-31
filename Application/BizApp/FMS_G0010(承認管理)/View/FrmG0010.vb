@@ -507,6 +507,8 @@ Public Class FrmG0010
                 flxDATA.Cols(NameOf(ST03.HASSEI_YMD)).Format = "yyyy/MM"
 
                 flxDATA.Cols(NameOf(ST03.SURYO)).Visible = True
+                flxDATA.Cols(NameOf(ST03.SURYO)).Style.BackColor = Color.LightSkyBlue
+
                 flxDATA.Cols(NameOf(ST03.KISO_KENSU)).Visible = True
                 flxDATA.Cols(NameOf(ST03.SYOCHI_KENSU)).Visible = True
                 flxDATA.Cols(NameOf(ST03.SYOCHI_ZANSU)).Visible = True
@@ -553,7 +555,9 @@ Public Class FrmG0010
                 flxDATA.Cols(NameOf(ST03.SASIMOTO_SYONIN_NAIYO)).Visible = True
                 flxDATA.Cols(NameOf(ST03.RIYU)).Visible = True
 
-                flxDATA.Cols(NameOf(ST03.SURYO)).Visible = False
+                flxDATA.Cols(NameOf(ST03.SURYO)).Visible = True
+                flxDATA.Cols(NameOf(ST03.SURYO)).Style.BackColor = Color.White
+
                 flxDATA.Cols(NameOf(ST03.KISO_KENSU)).Visible = False
                 flxDATA.Cols(NameOf(ST03.SYOCHI_KENSU)).Visible = False
                 flxDATA.Cols(NameOf(ST03.SYOCHI_ZANSU)).Visible = False

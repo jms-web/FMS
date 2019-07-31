@@ -661,7 +661,7 @@ Public Class FrmG0011
             Case ENM_NCR_STAGE._10_起草入力
                 _D003_NCR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
-                If _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = 0 Then _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
                 _D003_NCR_J.JIZEN_SINSA_YMD = _D004_SYONIN_J_KANRI.SYONIN_YMD'Now.ToString("yyyyMMdd")
             Case ENM_NCR_STAGE._50_事前審査確認
                 _D003_NCR_J.SAISIN_KAKUNIN_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID

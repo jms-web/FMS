@@ -287,7 +287,8 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
         End Set
     End Property
 
-
+    <ComponentModel.DisplayName("ŒÂ”")>
+    Public Property SURYO As Integer
 
 
 #Region "IDisposable Support"

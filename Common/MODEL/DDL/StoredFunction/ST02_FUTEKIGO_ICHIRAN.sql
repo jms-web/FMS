@@ -1,6 +1,6 @@
 USE [FMS]
 GO
-/****** Object:  StoredProcedure [dbo].[ST02_FUTEKIGO_ICHIRAN]    Script Date: 2018/11/29 16:55:05 ******/
+/****** Object:  StoredProcedure [dbo].[ST02_FUTEKIGO_ICHIRAN]    Script Date: 2019/07/31 13:48:46 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -101,6 +101,7 @@ BEGIN TRY
 	DECLARE @W_DEL_YMDHNS char(14);
 	DECLARE @W_HASSEI_YMD char(8);
 	DECLARE @W_SYOCHI_YOTEI_YMD char(8);
+	DECLARE @W_SURYO						int;
 
 	DECLARE @retTBL TABLE(
 	 HOKOKU_NO					char(10)		-- 1.ïÒçêèëNo
@@ -159,6 +160,7 @@ BEGIN TRY
 	,DEL_YMDHNS char(14)
 	,HASSEI_YMD char(8)
 	,SYOCHI_YOTEI_YMD char(8)
+	,SURYO int
 	);
 
 	--SQL ÇçÏê¨Ç∑ÇÈïœêîêÈåæ
@@ -223,6 +225,7 @@ BEGIN TRY
 	SET @SQL = @SQL + N',DEL_YMDHNS';	--2018.06.05 Add by funato
 	SET @SQL = @SQL + N',HASSEI_YMD';	--2018.06.05 Add by funato
 	SET @SQL = @SQL + N',SYOCHI_YOTEI_YMD';	--2018.11.29 Add by funato
+	SET @SQL = @SQL + N',SURYO';	--2019.07.31 Add by funato
 	SET @SQL = @SQL + N' FROM V007_NCR_CAR ';
 
 	SET @SQL = @SQL + N' WHERE HOKOKU_NO <> '''' '
@@ -474,6 +477,7 @@ BEGIN TRY
 		,@W_DEL_YMDHNS --2018.06.05 Add by funato
 		,@W_HASSEI_YMD
 		,@W_SYOCHI_YOTEI_YMD
+		,@W_SURYO
 
 		IF @@FETCH_STATUS <> 0
 		BEGIN
@@ -536,6 +540,7 @@ BEGIN TRY
 		,DEL_YMDHNS
 		,HASSEI_YMD
 		,SYOCHI_YOTEI_YMD
+		,SURYO
 		) VALUES (
 		@W_HOKOKU_NO					-- 1.ïÒçêèëNo
 		,@W_SYONIN_JUN					-- 2.è≥îFèá
@@ -592,6 +597,7 @@ BEGIN TRY
 		,@W_DEL_YMDHNS -- 2018.06.05 Add by funato
 		,@W_HASSEI_YMD
 		,@W_SYOCHI_YOTEI_YMD
+		,@W_SURYO
 		);
 
 	END
