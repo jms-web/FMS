@@ -1440,6 +1440,7 @@ Module mdlG0010
             '''PDF表示
             'System.Diagnostics.Process.Start(pdfFilePath)
 
+
             Call FunOpenWorkbook(strFilePath)
 
             'Excel作業ファイルを削除

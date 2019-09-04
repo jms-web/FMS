@@ -1106,6 +1106,43 @@ Public NotInheritable Class ClsPubMethod
 
     End Function
 
+
+    Public Shared Function OpenExcelPrintPreview(filePath As String) As Boolean
+        Dim xla As Microsoft.Office.Interop.Excel.Application = Nothing
+        Dim book As Microsoft.Office.Interop.Excel.Workbook = Nothing
+        Dim sheet As Microsoft.Office.Interop.Excel.Worksheet = Nothing
+
+        Try
+            xla = New Microsoft.Office.Interop.Excel.Application
+            book = xla.Workbooks.Open(filePath, [ReadOnly]:=True)
+            sheet = book.ActiveSheet
+            xla.Visible = True
+            sheet.PrintPreview()
+
+            'ガベージ コレクト処理が若干冗長だが、これくらいやらないと作業用EXCEL.EXEが消えてくれない
+            Runtime.InteropServices.Marshal.ReleaseComObject(sheet)
+            sheet = Nothing
+            Runtime.InteropServices.Marshal.ReleaseComObject(book)
+            book = Nothing
+
+            GC.Collect()
+            GC.WaitForPendingFinalizers()
+            GC.Collect()
+
+            xla.Quit()
+            Runtime.InteropServices.Marshal.ReleaseComObject(xla)
+            xla = Nothing
+
+            Return True
+        Catch ex As Exception
+            Throw
+        Finally
+
+            GC.Collect()
+            GC.WaitForPendingFinalizers()
+            GC.Collect()
+        End Try
+    End Function
 #End Region
 
 #Region "表示"

@@ -1682,7 +1682,7 @@ Public Class FrmG0010
                 frmDLG.PrHOKOKU_NO = .Item(NameOf(V007_NCR_CAR.HOKOKU_NO))
                 frmDLG.PrBUMON_KB = .Item(NameOf(V007_NCR_CAR.BUMON_KB))
                 frmDLG.PrBUHIN_BANGO = .Item(NameOf(V007_NCR_CAR.BUHIN_BANGO))
-                frmDLG.PrKISO_YMD = .Item(NameOf(V007_NCR_CAR.KISO_YMD)) 'DateTime.ParseExact(.Item(NameOf(V007_NCR_CAR.KISO_YMD)), "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                'frmDLG.PrKISO_YMD = .Item(NameOf(V007_NCR_CAR.KISO_YMD)) 'DateTime.ParseExact(.Item(NameOf(V007_NCR_CAR.KISO_YMD)), "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                 frmDLG.PrKISYU_NAME = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = .Item(NameOf(V007_NCR_CAR.KISYU_ID))).FirstOrDefault?.Item("DISP")
                 frmDLG.PrCurrentStage = .Item(NameOf(V007_NCR_CAR.SYONIN_JUN))
             End With

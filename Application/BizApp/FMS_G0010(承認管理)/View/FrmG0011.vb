@@ -6651,6 +6651,12 @@ Public Class FrmG0011
         Return dsList.Tables(0).Rows.Count > 0
     End Function
 
+
+    ''' <summary>
+    ''' ç∑ñﬂÇµ
+    ''' </summary>
+    ''' <param name="strHOKOKU_NO"></param>
+    ''' <returns></returns>
     Private Function IsRemanded(strHOKOKU_NO As String) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
         Dim intRET As Integer

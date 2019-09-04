@@ -413,6 +413,17 @@ Public Class ComboboxEx
 
 #End Region
 
+#Region "   OnKeyDown"
+    Protected Overrides Sub OnKeyDown(e As KeyEventArgs)
+        If _ReadOnly Then
+            e.Handled = True
+            Return
+        End If
+
+        MyBase.OnKeyDown(e)
+    End Sub
+#End Region
+
 
 #Region "   OnKeyPress"
 
