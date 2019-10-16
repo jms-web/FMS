@@ -1131,6 +1131,9 @@ Module mdlG0010
             Dim shapeLINE_SYOCHI_D As SpreadsheetGear.Shapes.IShape = Nothing
             Dim shapeLINE_SYOCHI_E As SpreadsheetGear.Shapes.IShape = Nothing
 
+            Dim shapeLINE_CAR_HOKOKU_NO As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_HASSEI_KOTEI_GL As SpreadsheetGear.Shapes.IShape = Nothing
+
             ssgShapes = ssgSheet1.Shapes
             For Each shape As SpreadsheetGear.Shapes.IShape In ssgShapes
                 Select Case shape.Name
@@ -1152,6 +1155,10 @@ Module mdlG0010
                         shapeLINE_SYOCHI_D = shape
                     Case "LINE_SYOCHI_E"
                         shapeLINE_SYOCHI_E = shape
+                    Case "LINE_CAR_HOKOKU_NO"
+                        shapeLINE_CAR_HOKOKU_NO = shape
+                    Case "LINE_HASSEI_KOTEI_GL"
+                        shapeLINE_HASSEI_KOTEI_GL = shape
                 End Select
             Next shape
             '---
@@ -1205,6 +1212,8 @@ Module mdlG0010
             End Select
 
             Dim SYOCHI_KB As ENM_NCR_STAGE80_TABPAGES
+
+
 
             SYOCHI_KB = FunGetST08SubPageName(_V002_NCR_J)
             Select Case SYOCHI_KB
@@ -1294,6 +1303,11 @@ Module mdlG0010
                 If Not _V002_NCR_J.HASSEI_KOTEI_GL_YMD.IsNulOrWS Then
                     ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.HASSEI_KOTEI_GL_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                 End If
+                shapeLINE_CAR_HOKOKU_NO.Visible = False
+                shapeLINE_HASSEI_KOTEI_GL.Visible = False
+            Else
+                shapeLINE_CAR_HOKOKU_NO.Visible = True
+                shapeLINE_HASSEI_KOTEI_GL.Visible = True
             End If
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.KANSATU_KEKKA)).Value = _V002_NCR_J.KANSATU_KEKKA.Replace(Environment.NewLine, "")
