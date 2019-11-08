@@ -823,7 +823,7 @@ Public Class FrmM0050
                 'Me.cmbOYA_BUSYO.DataSource = Nothing
 
                 Using DB As ClsDbUtility = DBOpen()
-                    Call FunGetCodeDataTable(DB, "•”", tblBUSYO, " BUSYO_KB = '" & cmbBUSYO_KB.SelectedValue & "' AND YUKO_YMD >= '" & Replace(Now.ToShortDateString, "/", "") & "'")
+                    Call FunGetCodeDataTable(DB, "•”", tblBUSYO, " BUSYO_KB = '" & cmbBUSYO_KB.SelectedValue & "' AND YUKO_YMD >= '" & Replace(Now.ToShortDateString, "/", "") & "'", False)
                 End Using
 
                 Me.cmbBUSYO_NAME.SetDataSource(tblBUSYO, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
