@@ -2777,6 +2777,7 @@ Public Class FrmG0012
             'lbltmpFile2.DataBindings.Add(New Binding(NameOf(lbltmpFile2.Tag), _D005_CAR_J, NameOf(_D005_CAR_J.FILE_PATH2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
             dtUPD_YMD.DataBindings.Add(New Binding(NameOf(dtUPD_YMD.ValueNonFormat), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            dtST13_KAKUNIN.DataBindings.Add(New Binding(NameOf(dtST13_KAKUNIN.ValueNonFormat), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
             Return True
         Catch ex As Exception
@@ -2874,6 +2875,7 @@ Public Class FrmG0012
                     If PrCurrentStage = ENM_CAR_STAGE._130_是正有効性確認_品証担当課長 Then
                         pnlST13.Visible = True
                         btnST13_SYONIN.Enabled = blnOwn
+                        dtST13_KAKUNIN.ReadOnly = Not blnOwn
                         lblSYOSAI_FILE_PATH_Clear.Enabled = False
                     Else
                         pnlST13.Visible = False
@@ -3242,13 +3244,6 @@ Public Class FrmG0012
                     End If
                 End If
 
-                '_D006_CAR_GENIN_List.Add(New MODEL.D006_CAR_GENIN With {.HOKOKU_NO = row.Item(NameOf(.HOKOKU_NO)),
-                '                                                       .RENBAN = row.Item(NameOf(.RENBAN)),
-                '                                                       .GENIN_BUNSEKI_KB = row.Item(NameOf(.GENIN_BUNSEKI_KB)),
-                '                                                       .GENIN_BUNSEKI_S_KB = row.Item(NameOf(.GENIN_BUNSEKI_S_KB)),
-                '                                                       .DAIHYO_FG = row.Item(NameOf(.DAIHYO_FG)),
-                '                                                       .ADD_SYAIN_ID = row.Item(NameOf(.ADD_SYAIN_ID)),
-                '                                                       .ADD_YMDHNS = row.Item(NameOf(.ADD_YMDHNS))})
             Next row
 
             Return True
@@ -3258,7 +3253,7 @@ Public Class FrmG0012
         End Try
     End Function
 
-    Private Sub btnST13_SYONIN_Click(sender As Object, e As EventArgs) Handles btnST13_SYONIN.Click
+    Private Sub BtnST13_SYONIN_Click(sender As Object, e As EventArgs) Handles btnST13_SYONIN.Click
         cmdFunc2.PerformClick()
     End Sub
 
@@ -3298,6 +3293,8 @@ Public Class FrmG0012
                         Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
                         Call mtxGOKI_Validating(mtxGOKI, Nothing)
 
+                    Case ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
+                        Call ＤtST13_Validating(dtST13_KAKUNIN, Nothing)
                     Case Else
                         'Err
                 End Select
@@ -3421,6 +3418,13 @@ Public Class FrmG0012
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "分析：帰責工程"))
+
+    End Sub
+
+    Private Sub ＤtST13_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtST13_KAKUNIN.Validating
+        Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
+
+        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正有効性確認:確認日"))
 
     End Sub
 

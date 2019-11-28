@@ -1341,9 +1341,7 @@ Module mdlG0010
             End If
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.YOKYU_NAIYO)).Value = _V002_NCR_J.YOKYU_NAIYO.Replace(Environment.NewLine, "")
-            ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = _V002_NCR_J.ZUMEN_KIKAKU
-
-
+            ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = $"(ê}ñ /ãKäiÅF {If(_V002_NCR_J.ZUMEN_KIKAKU.IsNulOrWS, Space(38), _V002_NCR_J.ZUMEN_KIKAKU.Trim)} )"
 
 
             Dim kiso_tanto As String = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).FirstOrDefault?.UPD_SYAIN_NAME
@@ -1488,6 +1486,54 @@ Module mdlG0010
             spWorksheets = spWorkbook.Worksheets
             spSheet1 = spWorksheets.Item(0) 'sheet1
 
+
+            '---ê}å`éÊìæ
+            Dim ssgShapes As SpreadsheetGear.Shapes.IShapes
+            Dim shapeLINE_SYOCHI_A1 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_SYOCHI_A2 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_SYOCHI_A3 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_SYOCHI_B1 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_SYOCHI_B2 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_SYOCHI_B3 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_SYOCHI_C1 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_SYOCHI_C2 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_SYOCHI_C3 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_SYOCHI_C4 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_SYOCHI_C5 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_SEKKEI_TANTO As SpreadsheetGear.Shapes.IShape = Nothing
+
+            ssgShapes = spSheet1.Shapes
+            For Each shape As SpreadsheetGear.Shapes.IShape In ssgShapes
+                Select Case shape.Name
+                    Case "LINE_SYOCHI_A1"
+                        shapeLINE_SYOCHI_A1 = shape
+                    Case "LINE_SYOCHI_A2"
+                        shapeLINE_SYOCHI_A2 = shape
+                    Case "LINE_SYOCHI_A3"
+                        shapeLINE_SYOCHI_A3 = shape
+                    Case "LINE_SYOCHI_B1"
+                        shapeLINE_SYOCHI_B1 = shape
+                    Case "LINE_SYOCHI_B2"
+                        shapeLINE_SYOCHI_B2 = shape
+                    Case "LINE_SYOCHI_B3"
+                        shapeLINE_SYOCHI_B3 = shape
+                    Case "LINE_SYOCHI_C1"
+                        shapeLINE_SYOCHI_C1 = shape
+                    Case "LINE_SYOCHI_C2"
+                        shapeLINE_SYOCHI_C2 = shape
+                    Case "LINE_SYOCHI_C3"
+                        shapeLINE_SYOCHI_C3 = shape
+                    Case "LINE_SYOCHI_C4"
+                        shapeLINE_SYOCHI_C4 = shape
+                    Case "LINE_SYOCHI_C5"
+                        shapeLINE_SYOCHI_C5 = shape
+                    Case "LINE_SEKKEI_TANTO"
+                        shapeLINE_SEKKEI_TANTO = shape
+                End Select
+            Next shape
+            '---
+
+
             Dim _V005_CAR_J As MODEL.V005_CAR_J = FunGetV005Model(strHOKOKU_NO)
 
             spSheet1.Range(NameOf(_V005_CAR_J.GOKI)).Value = _V005_CAR_J.GOKI
@@ -1497,34 +1543,55 @@ Module mdlG0010
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_3)).Value = _V005_CAR_J.KAITO_3.Replace(Environment.NewLine, "")
             If Not _V005_CAR_J.KAITO_4.IsNulOrWS Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_4)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_4.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                shapeLINE_SYOCHI_A1.Visible = False
+                shapeLINE_SYOCHI_A1.PrintObject = False
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_5)).Value = Fun_GetUSER_NAME(_V005_CAR_J.KAITO_5)
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_6)).Value = _V005_CAR_J.KAITO_6
+            If Not _V005_CAR_J.KAITO_6.IsNulOrWS Then
+                shapeLINE_SYOCHI_A2.Visible = False
+                shapeLINE_SYOCHI_A2.PrintObject = False
+            End If
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_7)).Value = _V005_CAR_J.KAITO_7
+            If Not _V005_CAR_J.KAITO_7.IsNulOrWS Then
+                shapeLINE_SYOCHI_A3.Visible = False
+                shapeLINE_SYOCHI_A3.PrintObject = False
+            End If
             If Not _V005_CAR_J.KAITO_8.IsNulOrWS Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_8)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_8.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             If Not _V005_CAR_J.KAITO_9.IsNulOrWS Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_9)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_9.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                shapeLINE_SYOCHI_B1.Visible = False
+                shapeLINE_SYOCHI_B1.PrintObject = False
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_10)).Value = Fun_GetUSER_NAME(_V005_CAR_J.KAITO_10)
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_11)).Value = _V005_CAR_J.KAITO_11
+            If Not _V005_CAR_J.KAITO_11.IsNulOrWS Then
+                shapeLINE_SYOCHI_B2.Visible = False
+                shapeLINE_SYOCHI_B2.PrintObject = False
+            End If
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_12)).Value = _V005_CAR_J.KAITO_12
+            If Not _V005_CAR_J.KAITO_12.IsNulOrWS Then
+                shapeLINE_SYOCHI_B3.Visible = False
+                shapeLINE_SYOCHI_B3.PrintObject = False
+            End If
             If Not _V005_CAR_J.KAITO_13.IsNulOrWS Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_13)).Value = DateTime.ParseExact(_V005_CAR_J.KAITO_13.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
             If Not _V005_CAR_J.KAITO_14.IsNulOrWS AndAlso CBool(_V005_CAR_J.KAITO_14) Then
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_14) & "_YOU").Value = "TRUE"
 
-                Dim ssgShapes As SpreadsheetGear.Shapes.IShapes
-                ssgShapes = spSheet1.Shapes
-                For Each shape As SpreadsheetGear.Shapes.IShape In ssgShapes
-                    If shape.Name.Contains("LINE_SYOCHI_C") Then
-                        shape.Visible = False
-                        shape.PrintObject = False
-                        'Exit For
-                    End If
-                Next shape
+                shapeLINE_SYOCHI_C1.Visible = False
+                shapeLINE_SYOCHI_C1.PrintObject = False
+                shapeLINE_SYOCHI_C2.Visible = False
+                shapeLINE_SYOCHI_C2.PrintObject = False
+                shapeLINE_SYOCHI_C3.Visible = False
+                shapeLINE_SYOCHI_C3.PrintObject = False
+                shapeLINE_SYOCHI_C4.Visible = False
+                shapeLINE_SYOCHI_C4.PrintObject = False
+                shapeLINE_SYOCHI_C5.Visible = False
+                shapeLINE_SYOCHI_C5.PrintObject = False
             Else
                 spSheet1.Range(NameOf(_V005_CAR_J.KAITO_14) & "_HI").Value = "TRUE"
             End If
@@ -1593,15 +1660,8 @@ Module mdlG0010
                     spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME50)).Value = _V005_CAR_J.SYONIN_NAME50
                 End If
 
-                Dim ssgShapes As SpreadsheetGear.Shapes.IShapes
-                ssgShapes = spSheet1.Shapes
-                For Each shape As SpreadsheetGear.Shapes.IShape In ssgShapes
-                    If shape.Name = "LINE_SEKKEI_TANTO" Then
-                        shape.Visible = False
-                        shape.PrintObject = False
-                        Exit For
-                    End If
-                Next shape
+                shapeLINE_SEKKEI_TANTO.Visible = False
+                shapeLINE_SEKKEI_TANTO.PrintObject = False
             End If
 
             If Not _V005_CAR_J.SYONIN_YMD60.IsNulOrWS Then

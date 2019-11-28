@@ -2294,6 +2294,7 @@ Public Class FrmG0010
                             cmdFunc5.Enabled = False
                             MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "éÊè¡çœÇ›ÉfÅ[É^Ç≈Ç∑")
                             'flxDATA.Rows(flxDATA.RowSel).Item("SELECTED").ReadOnly = True
+                            cmdFunc6.Enabled = True
                         Else cmdFunc5.Enabled = True
 
                         End If

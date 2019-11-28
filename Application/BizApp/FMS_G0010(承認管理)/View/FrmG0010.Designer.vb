@@ -2138,30 +2138,30 @@ Partial Class FrmG0010
         '
         Me.FlexContextMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EqualFilter, Me.NotEqualFilter, Me.IncludeFilter, Me.NotIncludeFilter})
         Me.FlexContextMenu.Name = "FlexContextMenu"
-        Me.FlexContextMenu.Size = New System.Drawing.Size(184, 92)
+        Me.FlexContextMenu.Size = New System.Drawing.Size(158, 92)
         '
         'EqualFilter
         '
         Me.EqualFilter.Name = "EqualFilter"
-        Me.EqualFilter.Size = New System.Drawing.Size(183, 22)
+        Me.EqualFilter.Size = New System.Drawing.Size(157, 22)
         Me.EqualFilter.Text = """{0}"" ‚É“™‚µ‚¢"
         '
         'NotEqualFilter
         '
         Me.NotEqualFilter.Name = "NotEqualFilter"
-        Me.NotEqualFilter.Size = New System.Drawing.Size(183, 22)
+        Me.NotEqualFilter.Size = New System.Drawing.Size(157, 22)
         Me.NotEqualFilter.Text = """{0}"" ‚É“™‚µ‚­‚È‚¢"
         '
         'IncludeFilter
         '
         Me.IncludeFilter.Name = "IncludeFilter"
-        Me.IncludeFilter.Size = New System.Drawing.Size(183, 22)
+        Me.IncludeFilter.Size = New System.Drawing.Size(157, 22)
         Me.IncludeFilter.Text = """{0}"" ‚ðŠÜ‚Þ"
         '
         'NotIncludeFilter
         '
         Me.NotIncludeFilter.Name = "NotIncludeFilter"
-        Me.NotIncludeFilter.Size = New System.Drawing.Size(183, 22)
+        Me.NotIncludeFilter.Size = New System.Drawing.Size(157, 22)
         Me.NotIncludeFilter.Text = """{0}"" ‚ðŠÜ‚Ü‚È‚¢"
         '
         'FrmG0010

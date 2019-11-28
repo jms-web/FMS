@@ -69,6 +69,8 @@ Partial Class FrmG0012
         Me.Label22 = New System.Windows.Forms.Label()
         Me.txtKAITO_24 = New JMS_COMMON.TextBoxEx()
         Me.pnlST13 = New JMS_COMMON.PanelEx()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.dtST13_KAKUNIN = New JMS_COMMON.DateTextBoxEx()
         Me.lblSTAGE16 = New System.Windows.Forms.Label()
         Me.btnST13_SYONIN = New System.Windows.Forms.Button()
         Me.lblSTAGEFlame13 = New System.Windows.Forms.Label()
@@ -827,7 +829,7 @@ Partial Class FrmG0012
         Me.pnlAnalysis.Controls.Add(Me.Label51)
         Me.pnlAnalysis.Location = New System.Drawing.Point(658, 630)
         Me.pnlAnalysis.Name = "pnlAnalysis"
-        Me.pnlAnalysis.Size = New System.Drawing.Size(452, 295)
+        Me.pnlAnalysis.Size = New System.Drawing.Size(350, 295)
         Me.pnlAnalysis.TabIndex = 322
         Me.pnlAnalysis.Visible = False
         '
@@ -835,7 +837,7 @@ Partial Class FrmG0012
         '
         Me.Label25.BackColor = System.Drawing.Color.Black
         Me.Label25.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Label25.Location = New System.Drawing.Point(437, 0)
+        Me.Label25.Location = New System.Drawing.Point(335, 0)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(13, 293)
         Me.Label25.TabIndex = 324
@@ -1145,6 +1147,8 @@ Partial Class FrmG0012
         '
         Me.pnlST13.BackColor = System.Drawing.SystemColors.Control
         Me.pnlST13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST13.Controls.Add(Me.Label12)
+        Me.pnlST13.Controls.Add(Me.dtST13_KAKUNIN)
         Me.pnlST13.Controls.Add(Me.lblSTAGE16)
         Me.pnlST13.Controls.Add(Me.btnST13_SYONIN)
         Me.pnlST13.Controls.Add(Me.lblSTAGEFlame13)
@@ -1155,6 +1159,32 @@ Partial Class FrmG0012
         Me.pnlST13.Name = "pnlST13"
         Me.pnlST13.Size = New System.Drawing.Size(1209, 90)
         Me.pnlST13.TabIndex = 318
+        '
+        'Label12
+        '
+        Me.Label12.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label12.Location = New System.Drawing.Point(377, 55)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(134, 15)
+        Me.Label12.TabIndex = 287
+        Me.Label12.Text = "Šm”F“ú:"
+        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'dtST13_KAKUNIN
+        '
+        Me.dtST13_KAKUNIN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST13_KAKUNIN.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST13_KAKUNIN.Location = New System.Drawing.Point(517, 51)
+        Me.dtST13_KAKUNIN.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST13_KAKUNIN.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST13_KAKUNIN.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST13_KAKUNIN.Name = "dtST13_KAKUNIN"
+        Me.dtST13_KAKUNIN.ReadOnly = False
+        Me.dtST13_KAKUNIN.Size = New System.Drawing.Size(98, 24)
+        Me.dtST13_KAKUNIN.TabIndex = 281
+        Me.dtST13_KAKUNIN.Value = ""
+        Me.dtST13_KAKUNIN.ValueNonFormat = ""
         '
         'lblSTAGE16
         '
@@ -4165,4 +4195,6 @@ Partial Class FrmG0012
     Friend WithEvents lblMessage As Label
     Friend WithEvents Label26 As Label
     Friend WithEvents mtxADD_SYAIN_NAME_NCR As MaskedTextBoxEx
+    Friend WithEvents Label12 As Label
+    Friend WithEvents dtST13_KAKUNIN As DateTextBoxEx
 End Class
