@@ -108,6 +108,7 @@ Public Class FrmG0011
         cmbST01_DestTANTO.NullValue = 0
         cmbST02_DestTANTO.NullValue = 0
         cmbST03_DestTANTO.NullValue = 0
+        cmbST03_TANTO_FCR.NullValue = 0
         cmbST04_DestTANTO.NullValue = 0
         cmbST04_HASSEI_KOTEI_GL_TANTO.NullValue = 0
         cmbST04_CAR_TANTO.NullValue = 0
@@ -3318,6 +3319,11 @@ Public Class FrmG0011
 
                 mtxST03_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_起草確認検査))
 
+
+                '#243
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_起草確認製造GL))
+                cmbST03_TANTO_FCR.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
                 _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).
                                 FirstOrDefault
@@ -4905,7 +4911,7 @@ Public Class FrmG0011
 #Region "図番"
 
     Private Sub MtxZUBAN_KIKAKU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles mtxZUBAN_KIKAKU.Validating 必須項目でない
-        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        Dim mtx = DirectCast(sender, TextBoxEx)
 
         IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "図番"))
 
@@ -5015,7 +5021,8 @@ Public Class FrmG0011
 
 #Region "   STAGE3"
 
-    '共通項目のみ
+    '#243
+
 
 #End Region
 
@@ -5847,6 +5854,7 @@ Public Class FrmG0011
         'STAGE02
 
         'STAGE03
+        'cmbST03_TANTO_FCR.DataBindings.Add(New Binding(NameOf(cmbST03_TANTO_FCR.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.FCR_KISO_TANTO_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
 
         'STAGE04
         cmbST04_JIZENSINSA_HANTEI.DataBindings.Add(New Binding(NameOf(cmbST04_JIZENSINSA_HANTEI.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))

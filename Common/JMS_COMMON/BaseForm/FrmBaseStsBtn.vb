@@ -66,7 +66,7 @@ Public Class FrmBaseStsBtn
 
     End Sub
 
-    Private Sub frmBaseStsBtn_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
+    Public Overridable Sub frmBaseStsBtn_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
         Dim KeyCode As Short = e.KeyCode
 
 

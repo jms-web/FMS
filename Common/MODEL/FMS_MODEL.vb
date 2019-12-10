@@ -42,6 +42,8 @@ Partial Public Class FMS_Context
     Public Overridable Property D004_SYONIN_J_KANRI As DbSet(Of D004_SYONIN_J_KANRI)
     Public Overridable Property D005_CAR_J As DbSet(Of D005_CAR_J)
     Public Overridable Property D006_CAR_GENIN As DbSet(Of D006_CAR_GENIN)
+    Public Overridable Property D007_FCR_J As DbSet(Of D007_FCR_J)
+
 
     Public Overridable Property R001_HOKOKU_SOUSA As DbSet(Of R001_HOKOKU_SOUSA)
 

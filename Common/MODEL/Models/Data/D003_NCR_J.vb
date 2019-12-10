@@ -669,6 +669,13 @@ Partial Public Class D003_NCR_J
     <ComponentModel.DisplayName("再不適合起草担当")>
     Public Property SAI_FUTEKIGO_KISO_TANTO_ID As Integer
 
+
+    '<Required>
+    '<ComponentModel.DisplayName("封じ込め調査書起草担当")>
+    'Public Property FCR_KISO_TANTO_ID As Integer
+
+
+
     ''共通項目------------------------------------
     <Required>
     <StringLength(14)>

@@ -127,6 +127,20 @@ Module mdlG0010
     End Enum
 
     ''' <summary>
+    ''' 不適合封じ込め調査書 ステージ
+    ''' </summary>
+    Public Enum ENM_FCR_STAGE
+        _10_起草入力 = 10
+        _20_品証_検査 = 20
+        _30_管理TL = 30
+        _40_生技TL = 40
+        _50_営業TL = 50
+        _60_品証課長 = 60
+        _999_Closed = 999
+    End Enum
+
+
+    ''' <summary>
     ''' CARステージrev2
     ''' </summary>
     Public Enum ENM_CAR_STAGE2
