@@ -12,8 +12,25 @@ Partial Public Class D007_FCR_J
 
     Public Shadows Sub Clear()
         HOKOKU_NO = ""
-        _CLOSE_FG = "0"
         CLOSE_FG = False
+        KOKYAKU_EIKYO_HANTEI_KB = False
+        TAISYOU_KOKYAKU = ""
+        KOKYAKU_EIKYO_HANTEI_COMMENT = ""
+        KOKYAKU_EIKYO_NAIYO = ""
+        KAKUNIN_SYUDAN = ""
+        KOKYAKU_EIKYO_TUCHI_HANTEI_KB = False
+        TUCHI_YMD = ""
+        TUCHI_SYUDAN = ""
+        HITUYO_TETUDUKI_ZIKO = ""
+        KOKYAKU_EIKYO_ETC_COMMENT = ""
+        OTHER_PROCESS_INFLUENCE_KB = False
+        FOLLOW_PROCESS_OUTFLOW_KB = False
+        KOKYAKU_NOUNYU_NAIYOU = ""
+        KOKYAKU_NOUNYU_YMD = ""
+        ZAIKO_SIKAKE_NAIYOU = ""
+        ZAIKO_SIKAKE_YMD = ""
+        OTHER_PROCESS_NAIYOU = ""
+        OTHER_PROCESS_YMD = ""
 
         ADD_SYAIN_ID = 0
         ADD_YMDHNS = ""
@@ -47,7 +64,6 @@ Partial Public Class D007_FCR_J
     ''' クローズフラグ
     ''' </summary>
     ''' <returns></returns>
-    <Display(AutoGenerateField:=False)>
     <NotMapped>
     <DoNotNotify>
     Public Property CLOSE_FG As Boolean
@@ -173,24 +189,6 @@ Partial Public Class D007_FCR_J
     <Column(TypeName:="nvarchar")>
     Public Property KOKYAKU_EIKYO_ETC_COMMENT As String
 
-    ''' <summary>
-    ''' 2 製品範囲 機種、部品番号、数量、(日付FromTo or 号機範囲 or LOT範囲)
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(200)>
-    <Column(TypeName:="nvarchar")>
-    Public Property KISYU_1 As String
-
-    ''' <summary>
-    ''' 3 顧客影響範囲 製品
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(200)>
-    <Column(TypeName:="nvarchar")>
-    Public Property KISYU_2 As String
-
     <Required>
     <Column(NameOf(OTHER_PROCESS_INFLUENCE_KB), TypeName:="char")>
     <StringLength(1)>
@@ -210,7 +208,6 @@ Partial Public Class D007_FCR_J
             _OTHER_PROCESS_INFLUENCE_KB = If(value, "1", "0")
         End Set
     End Property
-
 
     <Required>
     <Column(NameOf(FOLLOW_PROCESS_OUTFLOW_KB), TypeName:="char")>
@@ -282,7 +279,6 @@ Partial Public Class D007_FCR_J
     <StringLength(8)>
     <Column(TypeName:="char")>
     Public Property OTHER_PROCESS_YMD As String
-
 
     ''共通項目------------------------------------
     <Required>

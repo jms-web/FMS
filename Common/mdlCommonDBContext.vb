@@ -116,6 +116,7 @@ Namespace Context
         Public Enum ENM_SYONIN_HOKOKUSYO_ID
             _1_NCR = 1
             _2_CAR = 2
+            _3_FCR = 3
         End Enum
 #End Region
 

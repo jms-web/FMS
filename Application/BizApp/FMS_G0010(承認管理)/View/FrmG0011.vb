@@ -17,11 +17,11 @@ Public Class FrmG0011
     Private _tabPageManagerST08Sub As TabPageManager
 
     'Model
-    Private _V002_NCR_J As New MODEL.V002_NCR_J
+    Private _V002_NCR_J As New V002_NCR_J
 
-    Private _V003_SYONIN_J_KANRI_List As New List(Of MODEL.V003_SYONIN_J_KANRI)
-    Private _V004_HOKOKU_SOUSA As New MODEL.V004_HOKOKU_SOUSA
-    Private _V005_CAR_J As New MODEL.V005_CAR_J
+    Private _V003_SYONIN_J_KANRI_List As New List(Of V003_SYONIN_J_KANRI)
+    Private _V004_HOKOKU_SOUSA As New V004_HOKOKU_SOUSA
+    Private _V005_CAR_J As New V005_CAR_J
 
     '入力必須コントロール検証判定
     Private IsValidated As Boolean = True
@@ -468,7 +468,6 @@ Public Class FrmG0011
                             Return False
                         End If
                     End If
-
                 Finally
                     DB.Commit(Not blnErr)
                 End Try
@@ -600,12 +599,12 @@ Public Class FrmG0011
         Dim sbSQL As New System.Text.StringBuilder
         Dim intRET As Integer
         sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append($"UPDATE {NameOf(MODEL.M106_BUHIN)} SET")
-        sbSQL.Append($" {NameOf(MODEL.M106_BUHIN.BUHIN_NAME)}='{_D003_NCR_J.BUHIN_NAME.Trim}'")
-        sbSQL.Append($" ,{NameOf(MODEL.M106_BUHIN.UPD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
-        sbSQL.Append($" ,{NameOf(MODEL.M106_BUHIN.UPD_YMDHNS)}=dbo.GetSysDateString()")
-        sbSQL.Append($" WHERE {NameOf(MODEL.M106_BUHIN.BUMON_KB)}='{_D003_NCR_J.BUMON_KB}'")
-        sbSQL.Append($" AND {NameOf(MODEL.M106_BUHIN.BUHIN_BANGO)}='{_D003_NCR_J.BUHIN_BANGO}'")
+        sbSQL.Append($"UPDATE {NameOf(M106_BUHIN)} SET")
+        sbSQL.Append($" {NameOf(M106_BUHIN.BUHIN_NAME)}='{_D003_NCR_J.BUHIN_NAME.Trim}'")
+        sbSQL.Append($" ,{NameOf(M106_BUHIN.UPD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
+        sbSQL.Append($" ,{NameOf(M106_BUHIN.UPD_YMDHNS)}=dbo.GetSysDateString()")
+        sbSQL.Append($" WHERE {NameOf(M106_BUHIN.BUMON_KB)}='{_D003_NCR_J.BUMON_KB}'")
+        sbSQL.Append($" AND {NameOf(M106_BUHIN.BUHIN_BANGO)}='{_D003_NCR_J.BUHIN_BANGO}'")
 
         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg)
 
@@ -686,7 +685,7 @@ Public Class FrmG0011
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append($"MERGE INTO {NameOf(MODEL.D003_NCR_J)} AS SrcT")
+        sbSQL.Append($"MERGE INTO {NameOf(D003_NCR_J)} AS SrcT")
         sbSQL.Append(" USING (")
         sbSQL.Append(" SELECT")
         sbSQL.Append($" '{_D003_NCR_J.HOKOKU_NO}' AS {NameOf(_D003_NCR_J.HOKOKU_NO)}")
@@ -1119,7 +1118,7 @@ Public Class FrmG0011
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append($"MERGE INTO {NameOf(MODEL.D004_SYONIN_J_KANRI)} AS SrcT")
+        sbSQL.Append($"MERGE INTO {NameOf(D004_SYONIN_J_KANRI)} AS SrcT")
         sbSQL.Append($" USING (")
         sbSQL.Append($" SELECT")
         sbSQL.Append($"   {_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID} AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
@@ -1310,8 +1309,8 @@ Public Class FrmG0011
 
         '#73
         sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append($"SELECT COUNT({NameOf(MODEL.D005_CAR_J.HOKOKU_NO)}) FROM {NameOf(MODEL.D005_CAR_J)} ")
-        sbSQL.Append($" WHERE {NameOf(MODEL.D005_CAR_J.HOKOKU_NO)}='{_D004_SYONIN_J_KANRI.HOKOKU_NO}'")
+        sbSQL.Append($"SELECT COUNT({NameOf(D005_CAR_J.HOKOKU_NO)}) FROM {NameOf(D005_CAR_J)} ")
+        sbSQL.Append($" WHERE {NameOf(D005_CAR_J.HOKOKU_NO)}='{_D004_SYONIN_J_KANRI.HOKOKU_NO}'")
         strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg)
         If Val(strRET) = 0 Then
             'SPEC: 40-1
@@ -1439,6 +1438,48 @@ Public Class FrmG0011
         End If
     End Function
 
+
+    Private Function FunSendRequestMail_FCR()
+        Dim KISYU_NAME As String = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
+        Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
+        Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR.Value & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
+        Dim strSubject As String = $"【不適合品処置依頼】[CAR] {KISYU_NAME}・{_D003_NCR_J.BUHIN_BANGO}"
+        Dim strBody As String = <sql><![CDATA[
+        {0} 殿<br />
+        <br />
+        　{1} 殿より{0} 殿宛に不適合封じ込め調査書の起草入力依頼がありました。<br />
+        　不適合管理システムから該当するデータを選択し、起草入力を行って下さい。<br />
+        <br />
+        　　【報 告 書】CAR<br />
+        　　【報告書No】{2}<br />
+        　　【機  　種】{3}<br />
+        　　【部品番号】{4}<br />
+        　　【依 頼 者】{1}<br />
+        <br />
+        <a href = "http://sv04:8000/CLICKONCE_FMS.application" >システム起動</a><br />
+        <br />
+        ※このメールは配信専用です。(返信できません)<br />
+        返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
+        ]]></sql>.Value.Trim
+
+        strBody = String.Format(strBody,
+                                Fun_GetUSER_NAME(_D004_SYONIN_J_KANRI.SYAIN_ID),
+                                Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
+                                _D004_SYONIN_J_KANRI.HOKOKU_NO,
+                                KISYU_NAME,
+                                _D003_NCR_J.BUHIN_BANGO,
+                                _D004_SYONIN_J_KANRI.SYAIN_ID,
+                                "FMS_G0010.exe",
+                                strEXEParam)
+
+        If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=_D004_SYONIN_J_KANRI.SYAIN_ID) Then
+            Return True
+        Else
+            MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return False
+        End If
+    End Function
+
 #End Region
 
 #Region "   R001保存"
@@ -1459,8 +1500,8 @@ Public Class FrmG0011
         '---存在確認
         Dim dsList As New DataSet
         Dim blnExist As Boolean
-        sbSQL.Append($"SELECT {NameOf(MODEL.R001_HOKOKU_SOUSA.HOKOKU_NO)} FROM {NameOf(MODEL.R001_HOKOKU_SOUSA)}")
-        sbSQL.Append($" WHERE {NameOf(MODEL.R001_HOKOKU_SOUSA.HOKOKU_NO)} ='{_D003_NCR_J.HOKOKU_NO}'")
+        sbSQL.Append($"SELECT {NameOf(R001_HOKOKU_SOUSA.HOKOKU_NO)} FROM {NameOf(R001_HOKOKU_SOUSA)}")
+        sbSQL.Append($" WHERE {NameOf(R001_HOKOKU_SOUSA.HOKOKU_NO)} ='{_D003_NCR_J.HOKOKU_NO}'")
         dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
         If dsList.Tables(0).Rows.Count > 0 Then
             blnExist = True
@@ -1493,7 +1534,7 @@ Public Class FrmG0011
 
         '-----INSERT
         sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append("INSERT INTO " & NameOf(MODEL.R001_HOKOKU_SOUSA) & "(")
+        sbSQL.Append("INSERT INTO " & NameOf(R001_HOKOKU_SOUSA) & "(")
         sbSQL.Append("  " & NameOf(_R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID))
         sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.HOKOKU_NO))
         sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.ADD_YMDHNS))
@@ -1547,8 +1588,14 @@ Public Class FrmG0011
         Dim intRET As Integer
         Dim sqlEx As New Exception
 
-        '-----MERGE
-        sbSQL.Append(" INSERT INTO " & NameOf(MODEL.R003_NCR_SASIMODOSI) & "(")
+        sbSQL.Append(" INSERT INTO " & NameOf(R003_NCR_SASIMODOSI) & "(")
+        '_R003_NCR_SASIMODOSI.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {p.Name}"))
+        '_R003_NCR_SASIMODOSI.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{p.Name}"))
+        'sbSQL.Append($" ) VALUES(")
+        '_D004_SYONIN_J_KANRI.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" WK.{p.Name}"))
+        '_D004_SYONIN_J_KANRI.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",WK.{p.Name}"))
+        'sbSQL.Append(" )")
+
         sbSQL.Append(" " & NameOf(_R003_NCR_SASIMODOSI.SASIMODOSI_YMDHNS))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HOKOKU_NO))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.BUMON_KB))
@@ -1627,6 +1674,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.G_FILE_PATH2))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HASSEI_YMD))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAI_FUTEKIGO_KISO_TANTO_ID))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.FCR_KISO_TANTO_ID))
         sbSQL.Append(" ) VALUES(")
         sbSQL.Append(" '" & strYMDHNS & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.HOKOKU_NO & "'")
@@ -1706,6 +1754,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH2.ConvertSqlEscape & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.HASSEI_YMD & "'")
         sbSQL.Append(" ," & 0 & "")
+        sbSQL.Append(" ," & _D003_NCR_J.FCR_KISO_TANTO_ID & "")
         sbSQL.Append(" );")
         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
         If intRET <> 1 Then
@@ -1734,7 +1783,7 @@ Public Class FrmG0011
         Dim sqlEx As New Exception
 
         '-----データモデル更新
-        Dim _D005_CAR_J As New MODEL.D005_CAR_J
+        Dim _D005_CAR_J As New D005_CAR_J
         _D005_CAR_J.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
         _D005_CAR_J.BUMON_KB = _D003_NCR_J.BUMON_KB
         _D005_CAR_J._CLOSE_FG = "0"
@@ -1743,7 +1792,7 @@ Public Class FrmG0011
 
         '-----INSERT
         sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append($"MERGE INTO {NameOf(MODEL.D005_CAR_J)} AS SrcT")
+        sbSQL.Append($"MERGE INTO {NameOf(D005_CAR_J)} AS SrcT")
         sbSQL.Append($" USING (")
         sbSQL.Append($" SELECT")
         sbSQL.Append($" '{_D005_CAR_J.HOKOKU_NO}' AS {NameOf(_D005_CAR_J.HOKOKU_NO)}")
@@ -2121,7 +2170,7 @@ Public Class FrmG0011
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append($"MERGE INTO {NameOf(MODEL.D004_SYONIN_J_KANRI)} AS SrcT")
+        sbSQL.Append($"MERGE INTO {NameOf(D004_SYONIN_J_KANRI)} AS SrcT")
         sbSQL.Append($" USING (")
         sbSQL.Append($" SELECT")
         sbSQL.Append($" {_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID} AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
@@ -2221,6 +2270,237 @@ Public Class FrmG0011
 
 #End Region
 
+#Region "   Ｄ007保存"
+
+    ''' <summary>
+    ''' D005_CAR_J更新
+    ''' </summary>
+    ''' <param name="DB"></param>
+    ''' <returns></returns>
+    Private Function FunSAVE_D007(ByRef DB As ClsDbUtility) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim strRET As String
+        Dim sqlEx As New Exception
+
+        '-----データモデル更新
+        Dim _D007 As New D007_FCR_J
+        _D007.Clear()
+        _D007.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+        _D007.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+        _D007.ADD_YMDHNS = DB.GetSysDateString
+
+        '-----MERGE
+        sbSQL.Append($"MERGE INTO {NameOf(D007_FCR_J)} AS SrcT")
+        sbSQL.Append($" USING (")
+        sbSQL.Append($"{_D007.ToSelectSqlString}")
+        sbSQL.Append($" ) AS WK")
+        sbSQL.Append($" ON (SrcT.{NameOf(_D007.HOKOKU_NO)} = WK.{NameOf(_D007.HOKOKU_NO)})")
+        sbSQL.Append(" WHEN MATCHED THEN ")
+        sbSQL.Append(" UPDATE SET")
+        sbSQL.Append($"  SrcT.{NameOf(_D007.KOKYAKU_EIKYO_HANTEI_KB)}       = WK.{NameOf(_D007.KOKYAKU_EIKYO_HANTEI_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.TAISYOU_KOKYAKU)}               = WK.{NameOf(_D007.TAISYOU_KOKYAKU)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_EIKYO_HANTEI_COMMENT)}  = WK.{NameOf(_D007.KOKYAKU_EIKYO_HANTEI_COMMENT)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_EIKYO_NAIYO)}           = WK.{NameOf(_D007.KOKYAKU_EIKYO_NAIYO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.KAKUNIN_SYUDAN)}                = WK.{NameOf(_D007.KAKUNIN_SYUDAN)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_EIKYO_TUCHI_HANTEI_KB)} = WK.{NameOf(_D007.KOKYAKU_EIKYO_TUCHI_HANTEI_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.TUCHI_YMD)}                     = WK.{NameOf(_D007.TUCHI_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.TUCHI_SYUDAN)}                  = WK.{NameOf(_D007.TUCHI_SYUDAN)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.HITUYO_TETUDUKI_ZIKO)}          = WK.{NameOf(_D007.HITUYO_TETUDUKI_ZIKO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_EIKYO_ETC_COMMENT)}     = WK.{NameOf(_D007.KOKYAKU_EIKYO_ETC_COMMENT)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.OTHER_PROCESS_INFLUENCE_KB)}    = WK.{NameOf(_D007.OTHER_PROCESS_INFLUENCE_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.FOLLOW_PROCESS_OUTFLOW_KB)}     = WK.{NameOf(_D007.FOLLOW_PROCESS_OUTFLOW_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_NOUNYU_NAIYOU)}         = WK.{NameOf(_D007.KOKYAKU_NOUNYU_NAIYOU)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_NOUNYU_YMD)}            = WK.{NameOf(_D007.KOKYAKU_NOUNYU_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.ZAIKO_SIKAKE_NAIYOU)}           = WK.{NameOf(_D007.ZAIKO_SIKAKE_NAIYOU)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.ZAIKO_SIKAKE_YMD)}              = WK.{NameOf(_D007.ZAIKO_SIKAKE_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.OTHER_PROCESS_NAIYOU)}          = WK.{NameOf(_D007.OTHER_PROCESS_NAIYOU)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.OTHER_PROCESS_YMD)}             = WK.{NameOf(_D007.OTHER_PROCESS_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.UPD_YMDHNS)}                    = dbo.GetSysDateString()")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.UPD_SYAIN_ID)}                  = {pub_SYAIN_INFO.SYAIN_ID}")
+        sbSQL.Append(" WHEN NOT MATCHED THEN ")
+        sbSQL.Append("INSERT(")
+        _D007.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {p.Name}"))
+        _D007.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{p.Name}"))
+        sbSQL.Append($" ) VALUES(")
+        _D007.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" WK.{p.Name}"))
+        _D007.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",WK.{p.Name}"))
+        sbSQL.Append(")")
+        sbSQL.Append("OUTPUT $action AS RESULT")
+        sbSQL.Append(";")
+        strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+
+        Dim blnSASIMODOSI As Boolean
+
+        Select Case strRET
+            Case "INSERT"
+
+            Case "UPDATE"
+                'ステージ40以前まで差し戻しされた場合のみUPDATEで登録内容がリセットされる
+
+                '#73 一度起草済みのＣＡＲはリセットしない
+                blnSASIMODOSI = True
+
+            Case Else
+                '-----エラーログ出力
+                Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                WL.WriteLogDat(strErrMsg)
+                Return False
+        End Select
+
+        'サブテーブル保存
+        FunSAVE_D008(DB, _D007.ADD_YMDHNS)
+
+        '----D004
+        '-----データモデル更新
+        _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR.Value
+        _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+        _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_FCR_STAGE._10_起草入力
+        '#53
+        _D004_SYONIN_J_KANRI.SYAIN_ID = cmbST03_TANTO_FCR.SelectedValue
+        _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
+        _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
+        _D004_SYONIN_J_KANRI.SASIMODOSI_FG = False
+        _D004_SYONIN_J_KANRI.RIYU = ""
+        _D004_SYONIN_J_KANRI.COMMENT = ""
+        _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
+        _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+
+        '-----MERGE
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append($"MERGE INTO {NameOf(D004_SYONIN_J_KANRI)} AS SrcT")
+        sbSQL.Append($" USING (")
+        sbSQL.Append($" SELECT")
+        sbSQL.Append($" {_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID} AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
+        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.HOKOKU_NO}' AS {NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
+        sbSQL.Append($" ,{_D004_SYONIN_J_KANRI.SYONIN_JUN} AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)}")
+        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYAIN_ID}' AS {NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}")
+        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYONIN_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)}")
+        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB}' AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}")
+        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI._SASIMODOSI_FG}' AS {NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}")
+        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.RIYU}' AS {NameOf(_D004_SYONIN_J_KANRI.RIYU)}")
+        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.COMMENT}' AS {NameOf(_D004_SYONIN_J_KANRI.COMMENT)}")
+        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI._MAIL_SEND_FG}' AS {NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)}")
+        sbSQL.Append($" ,{_D004_SYONIN_J_KANRI.ADD_SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}")
+        sbSQL.Append($" ,dbo.GetSysDateString() AS {NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS)}")
+        sbSQL.Append($" ,{pub_SYAIN_INFO.SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}")
+        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.UPD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}")
+        sbSQL.Append($" ) AS WK")
+        sbSQL.Append($" ON (SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
+        sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)} = WK.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
+        sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)})")
+
+        If blnSASIMODOSI Then
+            sbSQL.Append(" WHEN MATCHED THEN ")
+        Else
+            'UPDATE 排他制御 更新日時が変更されていない場合のみ
+            sbSQL.Append($" WHEN MATCHED AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)} = WK.{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)} THEN ")
+        End If
+        sbSQL.Append(" UPDATE SET")
+        sbSQL.Append($"  SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}         = WK.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}     = WK.{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)}          = WK.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}       = dbo.GetSysDateString()")
+        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}    = WK.{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)}    = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)}     = WK.{NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.RIYU)}             = WK.{NameOf(_D004_SYONIN_J_KANRI.RIYU)}")
+        'INSERT
+        sbSQL.Append(" WHEN NOT MATCHED THEN ")
+        sbSQL.Append(" INSERT(")
+        _D004_SYONIN_J_KANRI.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {p.Name}"))
+        _D004_SYONIN_J_KANRI.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{p.Name}"))
+        sbSQL.Append($" ) VALUES(")
+        _D004_SYONIN_J_KANRI.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" WK.{p.Name}"))
+        _D004_SYONIN_J_KANRI.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",WK.{p.Name}"))
+        sbSQL.Append(" )")
+        sbSQL.Append("OUTPUT $action AS RESULT;")
+        strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+        Select Case strRET
+            Case "INSERT"
+
+            Case "UPDATE"
+
+            Case Else
+                If sqlEx.Source IsNot Nothing Then
+                    '-----エラーログ出力
+                    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                    WL.WriteLogDat(strErrMsg)
+                Else
+                    '---排他制御
+                    Dim strMsg As String
+                    strMsg = "既に他の担当者によって変更されているため保存出来ません。" & vbCrLf &
+                                "再度登録し直して下さい。"
+
+                    MessageBox.Show(strMsg, "同時更新無効", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                End If
+
+                Return False
+        End Select
+
+        Return True
+    End Function
+
+#End Region
+
+#Region "   D008保存"
+    Private Function FunSAVE_D008(ByRef DB As ClsDbUtility, ByVal strYMDHNS As String) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim strRET As String
+        Dim sqlEx As New Exception
+
+        For i As Integer = 1 To 6
+            Dim _D008 As New D008_FCR_J_SUB
+            _D008.Clear()
+            _D008.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
+            _D008.ROW_NO = i
+            _D008.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+            _D008.ADD_YMDHNS = strYMDHNS
+
+            '-----MERGE
+            sbSQL.Append($"MERGE INTO {NameOf(D008_FCR_J_SUB)} AS SrcT")
+            sbSQL.Append($" USING (")
+            sbSQL.Append($"{_D008.ToSelectSqlString}")
+            sbSQL.Append($" ) AS WK")
+            sbSQL.Append($" ON (SrcT.{NameOf(_D008.HOKOKU_NO)} = WK.{NameOf(_D008.HOKOKU_NO)} AND SrcT.{NameOf(_D008.ROW_NO)} = WK.{NameOf(_D008.ROW_NO)})")
+            sbSQL.Append(" WHEN MATCHED THEN ")
+            sbSQL.Append(" UPDATE SET")
+            sbSQL.Append($"  SrcT.{NameOf(_D008.KISYU_ID)} = WK.{NameOf(_D008.KISYU_ID)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D008.BUHIN_INFO)} = WK.{NameOf(_D008.BUHIN_INFO)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D008.SURYO)} = WK.{NameOf(_D008.SURYO)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D008.RANGE_FROM)} = WK.{NameOf(_D008.RANGE_FROM)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D008.RANGE_TO)} = WK.{NameOf(_D008.RANGE_TO)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D008.UPD_SYAIN_ID)} = {pub_SYAIN_INFO.SYAIN_ID}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D008.UPD_YMDHNS)} = '{strYMDHNS}'")
+            'INSERT
+            sbSQL.Append(" WHEN NOT MATCHED THEN ")
+            sbSQL.Append("INSERT(")
+            _D008.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {p.Name}"))
+            _D008.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{p.Name}"))
+            sbSQL.Append($" ) VALUES(")
+            _D008.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" WK.{p.Name}"))
+            _D008.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",WK.{p.Name}"))
+            sbSQL.Append(")")
+            sbSQL.Append("OUTPUT $action AS RESULT")
+            sbSQL.Append(";")
+            strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+
+            Select Case strRET
+                Case "INSERT"
+
+                Case "UPDATE"
+
+                Case Else
+                    '-----エラーログ出力
+                    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                    WL.WriteLogDat(strErrMsg)
+                    Return False
+            End Select
+        Next
+    End Function
+
+#End Region
+
 #Region "   D003再不適合保存"
 
     ''' <summary>
@@ -2238,7 +2518,7 @@ Public Class FrmG0011
 
             '-----MERGE
             sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append($"MERGE INTO {NameOf(MODEL.D003_NCR_J)} AS SrcT")
+            sbSQL.Append($"MERGE INTO {NameOf(D003_NCR_J)} AS SrcT")
             sbSQL.Append($" USING (")
             sbSQL.Append($" SELECT")
             sbSQL.Append($" '{_D003_NCR_J.HOKOKU_NO}' AS {NameOf(_D003_NCR_J.HOKOKU_NO)}")
@@ -2394,7 +2674,7 @@ Public Class FrmG0011
             strRET = ""
             '-----D004
             sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append($"MERGE INTO {NameOf(MODEL.D004_SYONIN_J_KANRI)} AS SrcT")
+            sbSQL.Append($"MERGE INTO {NameOf(D004_SYONIN_J_KANRI)} AS SrcT")
             sbSQL.Append($" USING (")
             sbSQL.Append($" SELECT")
             sbSQL.Append($" {_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID} AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
@@ -2626,7 +2906,7 @@ Public Class FrmG0011
         Dim ssgSheet1 As SpreadsheetGear.IWorksheet
 
         Try
-            Dim _V002_NCR_J As MODEL.V002_NCR_J = FunGetV002Model(strHOKOKU_NO)
+            Dim _V002_NCR_J As V002_NCR_J = FunGetV002Model(strHOKOKU_NO)
 
             ssgWorkbook = SpreadsheetGear.Factory.GetWorkbook(strFilePath, System.Globalization.CultureInfo.CurrentCulture)
             ssgWorkbook.WorkbookSet.GetLock()
@@ -3190,7 +3470,7 @@ Public Class FrmG0011
     Private Function FunInitializeSTAGE(ByVal intStageID As Integer) As Boolean
         Dim dt As New DataTable
         Dim drs As IEnumerable(Of DataRow)
-        Dim _V003 As New MODEL.V003_SYONIN_J_KANRI
+        Dim _V003 As New V003_SYONIN_J_KANRI
         Dim InList As New List(Of Integer)
         Try
 
@@ -3319,7 +3599,6 @@ Public Class FrmG0011
 
                 mtxST03_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._30_起草確認検査))
 
-
                 '#243
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_起草確認製造GL))
                 cmbST03_TANTO_FCR.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -3418,10 +3697,10 @@ Public Class FrmG0011
                         Dim sbSQL As New System.Text.StringBuilder
 
                         sbSQL.Remove(0, sbSQL.Length)
-                        sbSQL.Append($"SELECT {NameOf(MODEL.D004_SYONIN_J_KANRI.SYAIN_ID)} FROM {NameOf(MODEL.D004_SYONIN_J_KANRI)} ")
-                        sbSQL.Append($" WHERE {NameOf(MODEL.D004_SYONIN_J_KANRI.HOKOKU_NO)}='{_V002_NCR_J.HOKOKU_NO}'")
-                        sbSQL.Append($" AND {NameOf(MODEL.D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={Val(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)}")
-                        sbSQL.Append($" AND {NameOf(MODEL.D004_SYONIN_J_KANRI.SYONIN_JUN)}={Val(ENM_CAR_STAGE._10_起草入力)}")
+                        sbSQL.Append($"SELECT {NameOf(D004_SYONIN_J_KANRI.SYAIN_ID)} FROM {NameOf(D004_SYONIN_J_KANRI)} ")
+                        sbSQL.Append($" WHERE {NameOf(D004_SYONIN_J_KANRI.HOKOKU_NO)}='{_V002_NCR_J.HOKOKU_NO}'")
+                        sbSQL.Append($" AND {NameOf(D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={Val(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)}")
+                        sbSQL.Append($" AND {NameOf(D004_SYONIN_J_KANRI.SYONIN_JUN)}={Val(ENM_CAR_STAGE._10_起草入力)}")
 
                         Using DB As ClsDbUtility = DBOpen()
                             dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
@@ -5022,8 +5301,22 @@ Public Class FrmG0011
 #Region "   STAGE3"
 
     '#243
+    Private Sub btnST03_FCR_KISO_Click(sender As Object, e As EventArgs) Handles btnST03_FCR_KISO.Click
+        Try
+            Call funSAVE_FCR_KISO()
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Sub
 
 
+    Private Sub cmbST03_TANTO_FCR_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbST03_TANTO_FCR.Validating
+
+
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "封じ込め調査書起草担当"))
+
+    End Sub
 #End Region
 
 #Region "   STAGE4"
@@ -5854,7 +6147,7 @@ Public Class FrmG0011
         'STAGE02
 
         'STAGE03
-        'cmbST03_TANTO_FCR.DataBindings.Add(New Binding(NameOf(cmbST03_TANTO_FCR.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.FCR_KISO_TANTO_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+        cmbST03_TANTO_FCR.DataBindings.Add(New Binding(NameOf(cmbST03_TANTO_FCR.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.FCR_KISO_TANTO_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
 
         'STAGE04
         cmbST04_JIZENSINSA_HANTEI.DataBindings.Add(New Binding(NameOf(cmbST04_JIZENSINSA_HANTEI.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.JIZEN_SINSA_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -6138,7 +6431,7 @@ Public Class FrmG0011
 
 #Region "D003"
 
-            Dim t As Type = GetType(MODEL.D003_NCR_J)
+            Dim t As Type = GetType(D003_NCR_J)
             Dim properties As Reflection.PropertyInfo() = t.GetProperties(
                  Reflection.BindingFlags.Public Or
                  Reflection.BindingFlags.Instance Or
@@ -6181,12 +6474,12 @@ Public Class FrmG0011
 
 #Region "D004"
 
-            Dim _V003 As New MODEL.V003_SYONIN_J_KANRI
+            Dim _V003 As New V003_SYONIN_J_KANRI
             _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                 Where(Function(r) r.SYONIN_JUN = SYONIN_JUN).
                                 FirstOrDefault
 
-            t = GetType(MODEL.D004_SYONIN_J_KANRI)
+            t = GetType(D004_SYONIN_J_KANRI)
             properties = t.GetProperties(
                  Reflection.BindingFlags.Public Or
                  Reflection.BindingFlags.Instance Or
@@ -6256,6 +6549,7 @@ Public Class FrmG0011
                     Case ENM_NCR_STAGE._30_起草確認検査
                         Call CmbDestTANTO_Validating(cmbST03_DestTANTO, Nothing)
                         Call dtUPD_YMD_Validating(dtST03_UPD_YMD, Nothing)
+                        Call cmbST03_TANTO_FCR_Validating(cmbST03_TANTO_FCR, Nothing)
 
                     Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
                         Call CmbST04_JIZENSINSA_HANTEI_Validating(cmbST04_JIZENSINSA_HANTEI, Nothing)
@@ -6585,13 +6879,13 @@ Public Class FrmG0011
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append($"SELECT")
             sbSQL.Append($" *")
-            sbSQL.Append($" FROM {NameOf(MODEL.D003_NCR_J)} ")
-            sbSQL.Append($" WHERE {NameOf(MODEL.D003_NCR_J.BUHIN_BANGO)} ='{strBUHIN_BANGO}'")
-            sbSQL.Append($" AND {NameOf(MODEL.D003_NCR_J.FUTEKIGO_KB)}='{strFUTEKIGO_KB}'")
-            sbSQL.Append($" AND {NameOf(MODEL.D003_NCR_J.FUTEKIGO_S_KB)}='{strFUTEKIGO_S_KB}'")
-            sbSQL.Append($" AND RTRIM({NameOf(MODEL.D003_NCR_J.DEL_YMDHNS)})<>''")
+            sbSQL.Append($" FROM {NameOf(D003_NCR_J)} ")
+            sbSQL.Append($" WHERE {NameOf(D003_NCR_J.BUHIN_BANGO)} ='{strBUHIN_BANGO}'")
+            sbSQL.Append($" AND {NameOf(D003_NCR_J.FUTEKIGO_KB)}='{strFUTEKIGO_KB}'")
+            sbSQL.Append($" AND {NameOf(D003_NCR_J.FUTEKIGO_S_KB)}='{strFUTEKIGO_S_KB}'")
+            sbSQL.Append($" AND RTRIM({NameOf(D003_NCR_J.DEL_YMDHNS)})<>''")
             If Not _D003_NCR_J.HOKOKU_NO.IsNullOrEmpty Then
-                sbSQL.Append($" AND {NameOf(MODEL.D003_NCR_J.HOKOKU_NO)}<>'{_D003_NCR_J.HOKOKU_NO}'")
+                sbSQL.Append($" AND {NameOf(D003_NCR_J.HOKOKU_NO)}<>'{_D003_NCR_J.HOKOKU_NO}'")
             End If
 
             Using DB As ClsDbUtility = DBOpen()
@@ -6617,18 +6911,17 @@ Public Class FrmG0011
             Else
                 sbSQL.Remove(0, sbSQL.Length)
                 sbSQL.Append($"SELECT")
-                sbSQL.Append($" {NameOf(MODEL.V003_SYONIN_J_KANRI.HOKOKU_NO)}")
-                sbSQL.Append($" FROM {NameOf(MODEL.V003_SYONIN_J_KANRI)} ")
-                sbSQL.Append($" WHERE {NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR.Value}")
-                sbSQL.Append($" AND {NameOf(MODEL.V003_SYONIN_J_KANRI.HOKOKU_NO)}='{strHOKOKU_NO}'")
-                sbSQL.Append($" AND {NameOf(MODEL.V003_SYONIN_J_KANRI.SYAIN_ID)}={intSYAIN_ID}")
+                sbSQL.Append($" {NameOf(V003_SYONIN_J_KANRI.HOKOKU_NO)}")
+                sbSQL.Append($" FROM {NameOf(V003_SYONIN_J_KANRI)} ")
+                sbSQL.Append($" WHERE {NameOf(V003_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR.Value}")
+                sbSQL.Append($" AND {NameOf(V003_SYONIN_J_KANRI.HOKOKU_NO)}='{strHOKOKU_NO}'")
+                sbSQL.Append($" AND {NameOf(V003_SYONIN_J_KANRI.SYAIN_ID)}={intSYAIN_ID}")
                 Using DB As ClsDbUtility = DBOpen()
                     dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
                 End Using
 
                 Return dsList.Tables(0).Rows.Count > 0
             End If
-
         Catch ex As Exception
             Throw
         End Try
@@ -6647,18 +6940,17 @@ Public Class FrmG0011
 
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append($"SELECT")
-        sbSQL.Append($" {NameOf(MODEL.V003_SYONIN_J_KANRI.HOKOKU_NO)}")
-        sbSQL.Append($" FROM {NameOf(MODEL.V003_SYONIN_J_KANRI)} ")
-        sbSQL.Append($" WHERE {NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={intSYONIN_HOKOKUSYO_ID}")
-        sbSQL.Append($" AND {NameOf(MODEL.V003_SYONIN_J_KANRI.HOKOKU_NO)}='{strHOKOKU_NO}'")
-        sbSQL.Append($" AND {NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}={intSYONIN_JUN}")
+        sbSQL.Append($" {NameOf(V003_SYONIN_J_KANRI.HOKOKU_NO)}")
+        sbSQL.Append($" FROM {NameOf(V003_SYONIN_J_KANRI)} ")
+        sbSQL.Append($" WHERE {NameOf(V003_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={intSYONIN_HOKOKUSYO_ID}")
+        sbSQL.Append($" AND {NameOf(V003_SYONIN_J_KANRI.HOKOKU_NO)}='{strHOKOKU_NO}'")
+        sbSQL.Append($" AND {NameOf(V003_SYONIN_J_KANRI.SYONIN_JUN)}={intSYONIN_JUN}")
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
         End Using
 
         Return dsList.Tables(0).Rows.Count > 0
     End Function
-
 
     ''' <summary>
     ''' 差戻し
@@ -6674,15 +6966,63 @@ Public Class FrmG0011
         Else
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append($"SELECT")
-            sbSQL.Append($" COUNT({NameOf(MODEL.R003_NCR_SASIMODOSI.HOKOKU_NO)})")
-            sbSQL.Append($" FROM {NameOf(MODEL.R003_NCR_SASIMODOSI)} ")
-            sbSQL.Append($" WHERE {NameOf(MODEL.R003_NCR_SASIMODOSI.HOKOKU_NO)}='{strHOKOKU_NO}'")
+            sbSQL.Append($" COUNT({NameOf(R003_NCR_SASIMODOSI.HOKOKU_NO)})")
+            sbSQL.Append($" FROM {NameOf(R003_NCR_SASIMODOSI)} ")
+            sbSQL.Append($" WHERE {NameOf(R003_NCR_SASIMODOSI.HOKOKU_NO)}='{strHOKOKU_NO}'")
             Using DB As ClsDbUtility = DBOpen()
                 intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg)
             End Using
 
             Return intRET > 0
         End If
+    End Function
+
+    ''' <summary>
+    ''' FCR起草依頼メール送信
+    ''' </summary>
+    ''' <returns></returns>
+    Private Function funSAVE_FCR_KISO() As Boolean
+        Try
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim intRET As Integer
+
+            '#73
+            'sbSQL.Append($"SELECT COUNT({NameOf(V011_FCR_J.HOKOKU_NO)}) FROM {NameOf(V011_FCR_J)} ")
+            'sbSQL.Append($" WHERE {NameOf(V011_FCR_J.HOKOKU_NO)}='{_D003_NCR_J.HOKOKU_NO}'")
+            'intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg)
+
+            Using DB = DBOpen()
+                Dim blnErr As Boolean
+                Try
+                    DB.BeginTransaction()
+
+                    If PrCurrentStage = ENM_NCR_STAGE._30_起草確認検査 Then
+
+                        If MessageBox.Show("不適合封じ込め調査書の起草申請を発行しますか？", "不適合封じ込め調査書起草申請", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) <> DialogResult.OK Then
+                            Return True
+                        End If
+
+                        If FunSAVE_D007(DB) Then
+                            '承認依頼メール送信
+                            If FunSendRequestMail_FCR() Then
+                                WL.WriteLogDat($"[DEBUG]封込調査書 報告書NO:{_D003_NCR_J.HOKOKU_NO}、INSERT D007 Send Request FCR Mail")
+                            End If
+                            blnEnableCAREdit = True
+                        Else
+                            blnErr = True : Return False
+                        End If
+                    End If
+                Finally
+                    DB.Commit(Not blnErr)
+                End Try
+            End Using
+
+            Return True
+
+        Catch ex As Exception
+            Throw ex
+            Return False
+        End Try
     End Function
 
 #End Region

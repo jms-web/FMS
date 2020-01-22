@@ -132,7 +132,6 @@ Partial Class FrmG0010
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ST03FUTEKIGOICHIRANBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.mpSummaryGrid = New PanelManager.Controls.ManagedPanel()
-        Me._flexGroup = New FMS.FlexGroupControl()
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
         Me.btnSummaryPage = New System.Windows.Forms.Button()
         Me.FlexContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -140,6 +139,7 @@ Partial Class FrmG0010
         Me.NotEqualFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.IncludeFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotIncludeFilter = New System.Windows.Forms.ToolStripMenuItem()
+        Me._flexGroup = New FMS.FlexGroupControl()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpFilter.SuspendLayout()
@@ -158,10 +158,10 @@ Partial Class FrmG0010
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ST03FUTEKIGOICHIRANBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mpSummaryGrid.SuspendLayout()
-        CType(Me._flexGroup, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._flexGroup.Grid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FlexContextMenu.SuspendLayout()
+        CType(Me._flexGroup, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me._flexGroup.Grid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -1921,8 +1921,8 @@ Partial Class FrmG0010
         Me.panelMan.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.panelMan.Location = New System.Drawing.Point(12, 60)
         Me.panelMan.Name = "panelMan"
-        Me.panelMan.SelectedIndex = 1
-        Me.panelMan.SelectedPanel = Me.mpnlDataGrid
+        Me.panelMan.SelectedIndex = 0
+        Me.panelMan.SelectedPanel = Me.mpnlCondition
         Me.panelMan.Size = New System.Drawing.Size(1233, 502)
         Me.panelMan.TabIndex = 64
         '
@@ -1932,7 +1932,7 @@ Partial Class FrmG0010
         Me.mpnlCondition.Controls.Add(Me.PanelEx1)
         Me.mpnlCondition.Location = New System.Drawing.Point(0, 0)
         Me.mpnlCondition.Name = "mpnlCondition"
-        Me.mpnlCondition.Size = New System.Drawing.Size(0, 0)
+        Me.mpnlCondition.Size = New System.Drawing.Size(1233, 502)
         '
         'PanelEx1
         '
@@ -1942,7 +1942,7 @@ Partial Class FrmG0010
         Me.PanelEx1.HitEnabled = False
         Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
         Me.PanelEx1.Name = "PanelEx1"
-        Me.PanelEx1.Size = New System.Drawing.Size(0, 0)
+        Me.PanelEx1.Size = New System.Drawing.Size(1233, 502)
         Me.PanelEx1.TabIndex = 0
         '
         'TableLayoutPanel3
@@ -2054,40 +2054,8 @@ Partial Class FrmG0010
         Me.mpSummaryGrid.Controls.Add(Me._flexGroup)
         Me.mpSummaryGrid.Location = New System.Drawing.Point(0, 0)
         Me.mpSummaryGrid.Name = "mpSummaryGrid"
-        Me.mpSummaryGrid.Size = New System.Drawing.Size(0, 0)
+        Me.mpSummaryGrid.Size = New System.Drawing.Size(1233, 502)
         Me.mpSummaryGrid.Text = "ManagedPanel1"
-        '
-        '_flexGroup
-        '
-        Me._flexGroup.BackColor = System.Drawing.SystemColors.ControlDark
-        Me._flexGroup.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me._flexGroup.Dock = System.Windows.Forms.DockStyle.Fill
-        Me._flexGroup.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        '
-        '
-        '
-        Me._flexGroup.Grid.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.Nodes
-        Me._flexGroup.Grid.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
-        Me._flexGroup.Grid.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.None
-        Me._flexGroup.Grid.ColumnInfo = resources.GetString("_flexGroup.Grid.ColumnInfo")
-        Me._flexGroup.Grid.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me._flexGroup.Grid.DrawMode = C1.Win.C1FlexGrid.DrawModeEnum.OwnerDraw
-        Me._flexGroup.Grid.Location = New System.Drawing.Point(0, 0)
-        Me._flexGroup.Grid.Name = ""
-        Me._flexGroup.Grid.Rows.DefaultSize = 18
-        Me._flexGroup.Grid.Rows.Fixed = 2
-        Me._flexGroup.Grid.ShowCursor = True
-        Me._flexGroup.Grid.Size = New System.Drawing.Size(0, 0)
-        Me._flexGroup.Grid.StyleInfo = resources.GetString("_flexGroup.Grid.StyleInfo")
-        Me._flexGroup.Grid.TabIndex = 1
-        Me._flexGroup.Grid.Tree.Style = C1.Win.C1FlexGrid.TreeStyleFlags.Symbols
-        Me._flexGroup.Image = Nothing
-        Me._flexGroup.Location = New System.Drawing.Point(0, 0)
-        Me._flexGroup.Name = "_flexGroup"
-        Me._flexGroup.ShowGroups = True
-        Me._flexGroup.Size = New System.Drawing.Size(0, 0)
-        Me._flexGroup.TabIndex = 66
-        Me._flexGroup.TabStop = False
         '
         'dgvDATA
         '
@@ -2164,6 +2132,38 @@ Partial Class FrmG0010
         Me.NotIncludeFilter.Size = New System.Drawing.Size(157, 22)
         Me.NotIncludeFilter.Text = """{0}"" ‚ðŠÜ‚Ü‚È‚¢"
         '
+        '_flexGroup
+        '
+        Me._flexGroup.BackColor = System.Drawing.SystemColors.ControlDark
+        Me._flexGroup.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me._flexGroup.Dock = System.Windows.Forms.DockStyle.Fill
+        Me._flexGroup.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        '
+        '
+        '
+        Me._flexGroup.Grid.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.Nodes
+        Me._flexGroup.Grid.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
+        Me._flexGroup.Grid.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.None
+        Me._flexGroup.Grid.ColumnInfo = resources.GetString("_flexGroup.Grid.ColumnInfo")
+        Me._flexGroup.Grid.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me._flexGroup.Grid.DrawMode = C1.Win.C1FlexGrid.DrawModeEnum.OwnerDraw
+        Me._flexGroup.Grid.Location = New System.Drawing.Point(0, 36)
+        Me._flexGroup.Grid.Name = ""
+        Me._flexGroup.Grid.Rows.DefaultSize = 18
+        Me._flexGroup.Grid.Rows.Fixed = 2
+        Me._flexGroup.Grid.ShowCursor = True
+        Me._flexGroup.Grid.Size = New System.Drawing.Size(1229, 462)
+        Me._flexGroup.Grid.StyleInfo = resources.GetString("_flexGroup.Grid.StyleInfo")
+        Me._flexGroup.Grid.TabIndex = 1
+        Me._flexGroup.Grid.Tree.Style = C1.Win.C1FlexGrid.TreeStyleFlags.Symbols
+        Me._flexGroup.Image = Nothing
+        Me._flexGroup.Location = New System.Drawing.Point(0, 0)
+        Me._flexGroup.Name = "_flexGroup"
+        Me._flexGroup.ShowGroups = True
+        Me._flexGroup.Size = New System.Drawing.Size(1233, 502)
+        Me._flexGroup.TabIndex = 66
+        Me._flexGroup.TabStop = False
+        '
         'FrmG0010
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -2213,10 +2213,10 @@ Partial Class FrmG0010
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ST03FUTEKIGOICHIRANBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.mpSummaryGrid.ResumeLayout(False)
-        CType(Me._flexGroup.Grid, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._flexGroup, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FlexContextMenu.ResumeLayout(False)
+        CType(Me._flexGroup.Grid, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me._flexGroup, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

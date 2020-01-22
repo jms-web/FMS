@@ -1,27 +1,47 @@
-﻿Imports System
-Imports System.ComponentModel
-Imports System.ComponentModel.DataAnnotations
+﻿Imports System.ComponentModel.DataAnnotations
 Imports System.ComponentModel.DataAnnotations.Schema
 Imports PropertyChanged
 
 ''' <summary>
-''' R005 不適合封じ込め調査書履歴
+''' D007_不適合封じ込め調査書情報
 ''' </summary>
-<Table(NameOf(R005_FCR_SASIMODOSI), Schema:="dbo")>
+<Table(NameOf(V011_FCR_J), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
-Partial Public Class R005_FCR_SASIMODOSI
+Partial Public Class V011_FCR_J
     Inherits ModelBase
 
     Public Shadows Sub Clear()
-        SASIMODOSI_YMDHNS = ""
         HOKOKU_NO = ""
-
         CLOSE_FG = False
+        KOKYAKU_EIKYO_HANTEI_KB = False
+        TAISYOU_KOKYAKU = ""
+        KOKYAKU_EIKYO_HANTEI_COMMENT = ""
+        KOKYAKU_EIKYO_NAIYO = ""
+        KAKUNIN_SYUDAN = ""
+        KOKYAKU_EIKYO_TUCHI_HANTEI_KB = False
+        TUCHI_YMD = ""
+        TUCHI_SYUDAN = ""
+        HITUYO_TETUDUKI_ZIKO = ""
+        KOKYAKU_EIKYO_ETC_COMMENT = ""
+        OTHER_PROCESS_INFLUENCE_KB = False
+        FOLLOW_PROCESS_OUTFLOW_KB = False
+        KOKYAKU_NOUNYU_NAIYOU = ""
+        KOKYAKU_NOUNYU_YMD = ""
+        ZAIKO_SIKAKE_NAIYOU = ""
+        ZAIKO_SIKAKE_YMD = ""
+        OTHER_PROCESS_NAIYOU = ""
+        OTHER_PROCESS_YMD = ""
+
+        ADD_SYAIN_ID = 0
+        ADD_YMDHNS = ""
+        UPD_SYAIN_ID = 0
+        UPD_YMDHNS = ""
+        DEL_SYAIN_ID = 0
+        DEL_YMDHNS = ""
+
+
 
     End Sub
-
-    <StringLength(14)>
-    Public Property SASIMODOSI_YMDHNS As String
 
     ''' <summary>
     ''' 報告書No
@@ -31,6 +51,58 @@ Partial Public Class R005_FCR_SASIMODOSI
     <Column(Order:=0, TypeName:="char")>
     <StringLength(10)>
     Public Property HOKOKU_NO As String
+
+
+#Region "NCR情報"
+    Public Property BUMON_KB As String
+    Public Property BUMON_NAME As String
+    Public Property KISYU_ID As Integer
+    Public Property KISYU_NAME As String
+    Public Property ADD_SYAIN_NAME_NCR As String
+    Public Property HASSEI_YMD As String
+    Public Property FUTEKIGO_NAME As String
+    Public Property FUTEKIGO_S_NAME As String
+
+#End Region
+
+#Region "詳細項目"
+    Public Property KISYU_ID1 As Integer
+    Public Property KISYU_ID2 As Integer
+    Public Property KISYU_ID3 As Integer
+    Public Property KISYU_ID4 As Integer
+    Public Property KISYU_ID5 As Integer
+    Public Property KISYU_ID6 As Integer
+
+    Public Property BUHIN_INFO1 As String
+    Public Property BUHIN_INFO2 As String
+    Public Property BUHIN_INFO3 As String
+    Public Property BUHIN_INFO4 As String
+    Public Property BUHIN_INFO5 As String
+    Public Property BUHIN_INFO6 As String
+
+    Public Property SURYO1 As Integer
+    Public Property SURYO2 As Integer
+    Public Property SURYO3 As Integer
+    Public Property SURYO4 As Integer
+    Public Property SURYO5 As Integer
+    Public Property SURYO6 As Integer
+
+    Public Property RANGE_FROM1 As String
+    Public Property RANGE_FROM2 As String
+    Public Property RANGE_FROM3 As String
+    Public Property RANGE_FROM4 As String
+    Public Property RANGE_FROM5 As String
+    Public Property RANGE_FROM6 As String
+
+    Public Property RANGE_TO1 As String
+    Public Property RANGE_TO2 As String
+    Public Property RANGE_TO3 As String
+    Public Property RANGE_TO4 As String
+    Public Property RANGE_TO5 As String
+    Public Property RANGE_TO6 As String
+
+#End Region
+
 
     ''' <summary>
     ''' クローズフラグ
@@ -108,7 +180,7 @@ Partial Public Class R005_FCR_SASIMODOSI
     Public Property KOKYAKU_EIKYO_NAIYO As String
 
     ''' <summary>
-    ''' 1-2-b 不適合確認手段
+    ''' 1-2-b 顧客に与える影響
     ''' </summary>
     ''' <returns></returns>
     <Required>
@@ -262,5 +334,57 @@ Partial Public Class R005_FCR_SASIMODOSI
     <StringLength(8)>
     <Column(TypeName:="char")>
     Public Property OTHER_PROCESS_YMD As String
+
+    ''共通項目------------------------------------
+    <Required>
+    <StringLength(14)>
+    <Column(TypeName:="char")>
+    Public Property ADD_YMDHNS As String
+
+    <NotMapped>
+    <DoNotNotify>
+    <Display(AutoGenerateField:=False)>
+    Public ReadOnly Property ADD_YMD As String
+        Get
+            Dim strRET As String
+            If ADD_YMDHNS IsNot Nothing AndAlso ADD_YMDHNS.Length = 14 Then
+                strRET = DateTime.ParseExact(ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+            Else
+                strRET = ""
+            End If
+            Return strRET
+        End Get
+    End Property
+
+    <Required>
+    Public Property ADD_SYAIN_ID As Integer
+    Public Property ADD_SYAIN_NAME As String
+
+    <Required>
+    <StringLength(14)>
+    <Column(TypeName:="char")>
+    Public Property UPD_YMDHNS As String
+
+    <Required>
+    Public Property UPD_SYAIN_ID As Integer
+    Public Property UPD_SYAIN_NAME As String
+
+    <Required>
+    <StringLength(14)>
+    <Column(TypeName:="char")>
+    Public Property DEL_YMDHNS As String
+
+    <ComponentModel.DisplayName("削除済")>
+    <NotMapped>
+    <DoNotNotify>
+    <Display(AutoGenerateField:=False)>
+    Public ReadOnly Property DEL_FLG As Boolean
+        Get
+            Return Not String.IsNullOrWhiteSpace(DEL_YMDHNS)
+        End Get
+    End Property
+
+    <Required>
+    Public Property DEL_SYAIN_ID As Integer
 
 End Class

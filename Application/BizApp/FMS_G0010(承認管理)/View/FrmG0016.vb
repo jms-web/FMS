@@ -196,7 +196,7 @@ Public Class FrmG0016
                     _R001_HOKOKU_SOUSA.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
                     '-----INSERT R001
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("INSERT INTO " & NameOf(MODEL.R001_HOKOKU_SOUSA) & "(")
+                    sbSQL.Append("INSERT INTO " & NameOf(R001_HOKOKU_SOUSA) & "(")
                     sbSQL.Append("  " & NameOf(_R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID))
                     sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.HOKOKU_NO))
                     sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.ADD_YMDHNS))
@@ -237,6 +237,18 @@ Public Class FrmG0016
                         Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
 
                             If FunSAVE_R004(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
+                            Else
+                                blnErr = True
+                                Return False
+                            End If
+                        Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR
+
+                            If FunSAVE_R005(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
+                            Else
+                                blnErr = True
+                                Return False
+                            End If
+                            If FunSAVE_R006(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
                             Else
                                 blnErr = True
                                 Return False
@@ -342,6 +354,7 @@ Public Class FrmG0016
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.G_FILE_PATH1))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.G_FILE_PATH2))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HASSEI_KOTEI_GL_SYAIN_ID))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.FCR_KISO_TANTO_ID))
         sbSQL.Append(" ) VALUES(")
         sbSQL.Append(" '" & strYMDHNS & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.HOKOKU_NO & "'")
@@ -416,6 +429,7 @@ Public Class FrmG0016
         sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH1 & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.G_FILE_PATH2 & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J.FCR_KISO_TANTO_ID & "'")
         sbSQL.Append(" );")
         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
         If intRET <> 1 Then
@@ -603,6 +617,102 @@ Public Class FrmG0016
         End If
     End Function
 
+    Private Function FunSAVE_R005(ByRef DB As ClsDbUtility, ByVal strYMDHNS As String) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim intRET As Integer
+        Dim sqlEx As New Exception
+
+        '-----MERGE
+        sbSQL.Append($" INSERT INTO {NameOf(R005_FCR_SASIMODOSI)}(")
+        sbSQL.Append($"  {NameOf(_R005.SASIMODOSI_YMDHNS)}")
+        sbSQL.Append($" ,{NameOf(_R005.HOKOKU_NO)}")
+        sbSQL.Append($" ,{NameOf(_R005.CLOSE_FG)}")
+        sbSQL.Append($" ,{NameOf(_R005.KOKYAKU_EIKYO_HANTEI_KB)}")
+        sbSQL.Append($" ,{NameOf(_R005.TAISYOU_KOKYAKU)}")
+        sbSQL.Append($" ,{NameOf(_R005.KOKYAKU_EIKYO_HANTEI_COMMENT)}")
+        sbSQL.Append($" ,{NameOf(_R005.KOKYAKU_EIKYO_NAIYO)}")
+        sbSQL.Append($" ,{NameOf(_R005.KAKUNIN_SYUDAN)}")
+        sbSQL.Append($" ,{NameOf(_R005.KOKYAKU_EIKYO_TUCHI_HANTEI_KB)}")
+        sbSQL.Append($" ,{NameOf(_R005.TUCHI_YMD)}")
+        sbSQL.Append($" ,{NameOf(_R005.TUCHI_SYUDAN)}")
+        sbSQL.Append($" ,{NameOf(_R005.HITUYO_TETUDUKI_ZIKO)}")
+        sbSQL.Append($" ,{NameOf(_R005.KOKYAKU_EIKYO_ETC_COMMENT)}")
+        sbSQL.Append($" ,{NameOf(_R005.OTHER_PROCESS_INFLUENCE_KB)}")
+        sbSQL.Append($" ,{NameOf(_R005.FOLLOW_PROCESS_OUTFLOW_KB)}")
+        sbSQL.Append($" ,{NameOf(_R005.KOKYAKU_NOUNYU_NAIYOU)}")
+        sbSQL.Append($" ,{NameOf(_R005.KOKYAKU_NOUNYU_YMD)}")
+        sbSQL.Append($" ,{NameOf(_R005.ZAIKO_SIKAKE_NAIYOU)}")
+        sbSQL.Append($" ,{NameOf(_R005.ZAIKO_SIKAKE_YMD)}")
+        sbSQL.Append($" ,{NameOf(_R005.OTHER_PROCESS_NAIYOU)}")
+        sbSQL.Append($" ,{NameOf(_R005.OTHER_PROCESS_YMD)}")
+        sbSQL.Append(" ) VALUES(")
+        sbSQL.Append($" '{strYMDHNS}'")
+        sbSQL.Append($" ,{_D007.HOKOKU_NO}")
+        sbSQL.Append($" ,{_D007._CLOSE_FG}")
+        sbSQL.Append($" ,{_D007._KOKYAKU_EIKYO_HANTEI_KB}")
+        sbSQL.Append($" ,{_D007.TAISYOU_KOKYAKU}")
+        sbSQL.Append($" ,{_D007.KOKYAKU_EIKYO_HANTEI_COMMENT}")
+        sbSQL.Append($" ,{_D007.KOKYAKU_EIKYO_NAIYO}")
+        sbSQL.Append($" ,{_D007.KAKUNIN_SYUDAN}")
+        sbSQL.Append($" ,{_D007._KOKYAKU_EIKYO_TUCHI_HANTEI_KB}")
+        sbSQL.Append($" ,{_D007.TUCHI_YMD}")
+        sbSQL.Append($" ,{_D007.TUCHI_SYUDAN}")
+        sbSQL.Append($" ,{_D007.HITUYO_TETUDUKI_ZIKO}")
+        sbSQL.Append($" ,{_D007.KOKYAKU_EIKYO_ETC_COMMENT}")
+        sbSQL.Append($" ,{_D007._OTHER_PROCESS_INFLUENCE_KB}")
+        sbSQL.Append($" ,{_D007._FOLLOW_PROCESS_OUTFLOW_KB}")
+        sbSQL.Append($" ,{_D007.KOKYAKU_NOUNYU_NAIYOU}")
+        sbSQL.Append($" ,{_D007.KOKYAKU_NOUNYU_YMD}")
+        sbSQL.Append($" ,{_D007.ZAIKO_SIKAKE_NAIYOU}")
+        sbSQL.Append($" ,{_D007.ZAIKO_SIKAKE_YMD}")
+        sbSQL.Append($" ,{_D007.OTHER_PROCESS_NAIYOU}")
+        sbSQL.Append($" ,{_D007.OTHER_PROCESS_YMD}")
+        sbSQL.Append(" );")
+        intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+        If intRET <> 1 Then
+            '-----エラーログ出力
+            Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+            WL.WriteLogDat(strErrMsg)
+            Return False
+        Else
+            Return True
+        End If
+    End Function
+
+    Private Function FunSAVE_R006(ByRef DB As ClsDbUtility, ByVal strYMDHNS As String) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim intRET As Integer
+        Dim sqlEx As New Exception
+
+        For Each entity In _D008_List
+            sbSQL.Append($" INSERT INTO {NameOf(R006_FCR_SUB_SASIMODOSI)}(")
+            sbSQL.Append($"  {NameOf(R006_FCR_SUB_SASIMODOSI.SASIMODOSI_YMDHNS)}")
+            sbSQL.Append($" ,{NameOf(R006_FCR_SUB_SASIMODOSI.HOKOKU_NO)}")
+            sbSQL.Append($" ,{NameOf(R006_FCR_SUB_SASIMODOSI.ROW_NO)}")
+            sbSQL.Append($" ,{NameOf(R006_FCR_SUB_SASIMODOSI.KISYU_ID)}")
+            sbSQL.Append($" ,{NameOf(R006_FCR_SUB_SASIMODOSI.BUHIN_INFO)}")
+            sbSQL.Append($" ,{NameOf(R006_FCR_SUB_SASIMODOSI.SURYO)}")
+            sbSQL.Append($" ,{NameOf(R006_FCR_SUB_SASIMODOSI.RANGE_FROM)}")
+            sbSQL.Append($" ,{NameOf(R006_FCR_SUB_SASIMODOSI.RANGE_TO)}")
+            sbSQL.Append(" ) VALUES(")
+            sbSQL.Append($" '{strYMDHNS}'")
+            sbSQL.Append($" ,{entity.HOKOKU_NO}")
+            sbSQL.Append($" ,{entity.ROW_NO}")
+            sbSQL.Append($" ,{entity.KISYU_ID}")
+            sbSQL.Append($" ,{entity.BUHIN_INFO}")
+            sbSQL.Append($" ,{entity.SURYO}")
+            sbSQL.Append($" ,{entity.RANGE_FROM}")
+            sbSQL.Append($" ,{entity.RANGE_TO}")
+            sbSQL.Append(" );")
+            intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+            If intRET <> 1 Then
+                '-----エラーログ出力
+                Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                WL.WriteLogDat(strErrMsg)
+                Return False
+            End If
+        Next
+    End Function
 
 #End Region
 

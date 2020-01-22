@@ -43,13 +43,12 @@ Partial Public Class FMS_Context
     Public Overridable Property D005_CAR_J As DbSet(Of D005_CAR_J)
     Public Overridable Property D006_CAR_GENIN As DbSet(Of D006_CAR_GENIN)
     Public Overridable Property D007_FCR_J As DbSet(Of D007_FCR_J)
-
+    Public Overridable Property D008_FCR_J_SUB As DbSet(Of D008_FCR_J_SUB)
 
     Public Overridable Property R001_HOKOKU_SOUSA As DbSet(Of R001_HOKOKU_SOUSA)
-
-
 
     Protected Overrides Sub OnModelCreating(ByVal modelBuilder As DbModelBuilder)
 
     End Sub
+
 End Class

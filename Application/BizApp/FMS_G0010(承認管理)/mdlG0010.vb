@@ -139,6 +139,18 @@ Module mdlG0010
         _999_Closed = 999
     End Enum
 
+    ''' <summary>
+    ''' 不適合封じ込め調査書 ステージ ボタンリスト用
+    ''' </summary>
+    Public Enum ENM_FCR_STAGE2
+        _1_起草入力 = 1
+        _2_品証_検査 = 2
+        _3_管理TL = 3
+        _4_生技TL = 4
+        _5_営業TL = 5
+        _6_品証課長 = 6
+        _99_Closed = 99
+    End Enum
 
     ''' <summary>
     ''' CARステージrev2
@@ -297,14 +309,18 @@ Module mdlG0010
 
 #Region "Model"
 
-    Public _D003_NCR_J As New MODEL.D003_NCR_J
-    Public _D004_SYONIN_J_KANRI As New MODEL.D004_SYONIN_J_KANRI
-    Public _D005_CAR_J As New MODEL.D005_CAR_J
-    Public _D006_CAR_GENIN_List As New List(Of MODEL.D006_CAR_GENIN)
-    Public _R001_HOKOKU_SOUSA As New MODEL.R001_HOKOKU_SOUSA
-    Public _R002_HOKOKU_TENSO As New MODEL.R002_HOKOKU_TENSO
-    Public _R003_NCR_SASIMODOSI As New MODEL.R003_NCR_SASIMODOSI
-    Public _R004 As New MODEL.R004_CAR_SASIMODOSI
+    Public _D003_NCR_J As New D003_NCR_J
+    Public _D004_SYONIN_J_KANRI As New D004_SYONIN_J_KANRI
+    Public _D005_CAR_J As New D005_CAR_J
+    Public _D006_CAR_GENIN_List As New List(Of D006_CAR_GENIN)
+    Public _D007 As New V011_FCR_J
+    Public _D008_List As New List(Of D008_FCR_J_SUB)
+    Public _R001_HOKOKU_SOUSA As New R001_HOKOKU_SOUSA
+    Public _R002_HOKOKU_TENSO As New R002_HOKOKU_TENSO
+    Public _R003_NCR_SASIMODOSI As New R003_NCR_SASIMODOSI
+    Public _R004 As New R004_CAR_SASIMODOSI
+    Public _R005 As New R005_FCR_SASIMODOSI
+    Public _R006_List As New List(Of R006_FCR_SUB_SASIMODOSI)
 
 #End Region
 
@@ -422,7 +438,7 @@ Module mdlG0010
     ''' <param name="ParamModel"></param>
     ''' <returns></returns>
 
-    Public Function FunGetV002Model(ByVal strHOKOKU_NO As String) As MODEL.V002_NCR_J
+    Public Function FunGetV002Model(ByVal strHOKOKU_NO As String) As V002_NCR_J
 
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
@@ -430,7 +446,7 @@ Module mdlG0010
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("SELECT")
         sbSQL.Append(" *")
-        sbSQL.Append(" FROM " & NameOf(MODEL.V002_NCR_J) & " ")
+        sbSQL.Append(" FROM " & NameOf(V002_NCR_J) & " ")
         sbSQL.Append(" WHERE HOKOKU_NO='" & strHOKOKU_NO & "'")
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
@@ -440,8 +456,8 @@ Module mdlG0010
             Return Nothing
         Else
 
-            Dim _model As New MODEL.V002_NCR_J
-            Dim t As Type = GetType(MODEL.V002_NCR_J)
+            Dim _model As New V002_NCR_J
+            Dim t As Type = GetType(V002_NCR_J)
             Dim properties As Reflection.PropertyInfo() = t.GetProperties(
                  Reflection.BindingFlags.Public Or
                  Reflection.BindingFlags.Instance Or
@@ -463,7 +479,7 @@ Module mdlG0010
         End If
     End Function
 
-    Public Function FunGetV003Model(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String) As List(Of MODEL.V003_SYONIN_J_KANRI)
+    Public Function FunGetV003Model(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String) As List(Of V003_SYONIN_J_KANRI)
 
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
@@ -471,7 +487,7 @@ Module mdlG0010
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("SELECT")
         sbSQL.Append(" *")
-        sbSQL.Append(" FROM " & NameOf(MODEL.V003_SYONIN_J_KANRI) & " ")
+        sbSQL.Append(" FROM " & NameOf(V003_SYONIN_J_KANRI) & " ")
         sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID = " & intSYONIN_HOKOKUSYO_ID & "")
         sbSQL.Append(" AND HOKOKU_NO='" & strHOKOKU_NO & "'")
         Using DB As ClsDbUtility = DBOpen()
@@ -481,16 +497,16 @@ Module mdlG0010
         If dsList.Tables(0).Rows.Count = 0 Then
             Return Nothing
         Else
-            Dim t As Type = GetType(MODEL.V003_SYONIN_J_KANRI)
+            Dim t As Type = GetType(V003_SYONIN_J_KANRI)
             Dim properties As Reflection.PropertyInfo() = t.GetProperties(
                          Reflection.BindingFlags.Public Or
                          Reflection.BindingFlags.Instance Or
                          Reflection.BindingFlags.Static)
 
-            Dim entities As New List(Of MODEL.V003_SYONIN_J_KANRI)
+            Dim entities As New List(Of V003_SYONIN_J_KANRI)
             For Each row As DataRow In dsList.Tables(0).Rows
                 With row
-                    Dim _model As New MODEL.V003_SYONIN_J_KANRI
+                    Dim _model As New V003_SYONIN_J_KANRI
                     For Each p As Reflection.PropertyInfo In properties
                         If IsAutoGenerateField(t, p.Name) = True Then
                             Select Case p.PropertyType
@@ -526,7 +542,7 @@ Module mdlG0010
         End If
     End Function
 
-    Public Function FunGetV004Model(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String, ByVal intSYONIN_JUN As Integer) As MODEL.V004_HOKOKU_SOUSA
+    Public Function FunGetV004Model(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String, ByVal intSYONIN_JUN As Integer) As V004_HOKOKU_SOUSA
 
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
@@ -534,7 +550,7 @@ Module mdlG0010
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("SELECT")
         sbSQL.Append(" *")
-        sbSQL.Append(" FROM " & NameOf(MODEL.V004_HOKOKU_SOUSA) & " ")
+        sbSQL.Append(" FROM " & NameOf(V004_HOKOKU_SOUSA) & " ")
         sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intSYONIN_HOKOKUSYO_ID & "")
         sbSQL.Append(" AND HOKOKU_NO='" & strHOKOKU_NO & "'")
         sbSQL.Append(" AND SYONIN_JUN=" & intSYONIN_JUN & "")
@@ -546,8 +562,8 @@ Module mdlG0010
             Return Nothing
         Else
 
-            Dim _model As New MODEL.V004_HOKOKU_SOUSA
-            Dim t As Type = GetType(MODEL.V004_HOKOKU_SOUSA)
+            Dim _model As New V004_HOKOKU_SOUSA
+            Dim t As Type = GetType(V004_HOKOKU_SOUSA)
             Dim properties As Reflection.PropertyInfo() = t.GetProperties(
                  Reflection.BindingFlags.Public Or
                  Reflection.BindingFlags.Instance Or
@@ -565,7 +581,7 @@ Module mdlG0010
         End If
     End Function
 
-    Public Function FunGetV005Model(ByVal strHOKOKU_NO As String) As MODEL.V005_CAR_J
+    Public Function FunGetV005Model(ByVal strHOKOKU_NO As String) As V005_CAR_J
 
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
@@ -573,7 +589,7 @@ Module mdlG0010
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("SELECT")
         sbSQL.Append(" *")
-        sbSQL.Append(" FROM " & NameOf(MODEL.V005_CAR_J) & " ")
+        sbSQL.Append(" FROM " & NameOf(V005_CAR_J) & " ")
         sbSQL.Append(" WHERE HOKOKU_NO='" & strHOKOKU_NO & "'")
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
@@ -583,7 +599,7 @@ Module mdlG0010
             Return Nothing
         Else
 
-            Dim _model As New MODEL.V005_CAR_J
+            Dim _model As New V005_CAR_J
 
             With dsList.Tables(0).Rows(0)
                 _model.HOKOKU_NO = .Item(NameOf(_model.HOKOKU_NO)).ToString.Trim
@@ -712,6 +728,28 @@ Module mdlG0010
         End If
     End Function
 
+    Public Function FunGetV011Model(ByVal strHOKOKU_NO As String) As IDataModel
+
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        sbSQL.Append($"SELECT")
+        sbSQL.Append($" *")
+        sbSQL.Append($" FROM {NameOf(V011_FCR_J)}")
+        sbSQL.Append($" WHERE HOKOKU_NO='{strHOKOKU_NO}'")
+        Using DB = DBOpen()
+            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        If dsList IsNot Nothing AndAlso dsList.Tables(0).Rows.Count = 0 Then
+            Return Nothing
+        Else
+            Dim _Model As New ModelInfo(Of V011_FCR_J)(srcDATA:=dsList.Tables(0))
+            Return _Model.Entity
+        End If
+    End Function
+
+
     ''' <summary>
     ''' 現在のステージ名を取得
     ''' </summary>
@@ -750,7 +788,7 @@ Module mdlG0010
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("SELECT")
         sbSQL.Append(" *")
-        sbSQL.Append(" FROM " & NameOf(MODEL.D004_SYONIN_J_KANRI) & " ")
+        sbSQL.Append(" FROM " & NameOf(D004_SYONIN_J_KANRI) & " ")
         sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intSYONIN_HOKOKUSYO_ID & "")
         sbSQL.Append(" AND HOKOKU_NO='" & strHOKOKU_NO & "'")
         sbSQL.Append(" AND SYONIN_JUN=" & intSYONIN_JUN & "")
@@ -770,7 +808,7 @@ Module mdlG0010
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("SELECT")
         sbSQL.Append(" SYONIN_JUN")
-        sbSQL.Append(" FROM " & NameOf(MODEL.V007_NCR_CAR) & " ")
+        sbSQL.Append(" FROM " & NameOf(V007_NCR_CAR) & " ")
         sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intSYONIN_HOKOKUSYO_ID & "")
         sbSQL.Append(" AND HOKOKU_NO='" & HOKOKU_NO & "'")
         sbSQL.Append(" ORDER BY SYONIN_JUN DESC")
@@ -854,7 +892,7 @@ Module mdlG0010
                 sbSQL.Append("SELECT")
                 sbSQL.Append(" SIMEI")
                 sbSQL.Append(" ,MAIL_ADDRESS")
-                sbSQL.Append(" FROM " & NameOf(MODEL.M004_SYAIN) & " ")
+                sbSQL.Append(" FROM " & NameOf(M004_SYAIN) & " ")
                 sbSQL.Append(" WHERE SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID & "")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
@@ -1100,7 +1138,7 @@ Module mdlG0010
         Dim sbSQL As New System.Text.StringBuilder
         Try
 
-            sbSQL.Append("SELECT * FROM " & NameOf(MODEL.ST01_GET_HOKOKU_NO) & "")
+            sbSQL.Append("SELECT * FROM " & NameOf(ST01_GET_HOKOKU_NO) & "")
             sbSQL.Append("")
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
@@ -1126,8 +1164,8 @@ Module mdlG0010
         Dim strYMDHNS As String
         Try
 
-            Dim _V002_NCR_J As MODEL.V002_NCR_J = FunGetV002Model(strHOKOKU_NO)
-            Dim _V003_SYONIN_J_KANRI_List As List(Of MODEL.V003_SYONIN_J_KANRI) = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, strHOKOKU_NO)
+            Dim _V002_NCR_J As V002_NCR_J = FunGetV002Model(strHOKOKU_NO)
+            Dim _V003_SYONIN_J_KANRI_List As List(Of V003_SYONIN_J_KANRI) = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, strHOKOKU_NO)
 
             ssgWorkbook = SpreadsheetGear.Factory.GetWorkbook(strFilePath, System.Globalization.CultureInfo.CurrentCulture)
             ssgWorkbook.WorkbookSet.GetLock()
@@ -1548,7 +1586,7 @@ Module mdlG0010
             '---
 
 
-            Dim _V005_CAR_J As MODEL.V005_CAR_J = FunGetV005Model(strHOKOKU_NO)
+            Dim _V005_CAR_J As V005_CAR_J = FunGetV005Model(strHOKOKU_NO)
 
             spSheet1.Range(NameOf(_V005_CAR_J.GOKI)).Value = _V005_CAR_J.GOKI
             spSheet1.Range(NameOf(_V005_CAR_J.HOKOKU_NO)).Value = _V005_CAR_J.HOKOKU_NO

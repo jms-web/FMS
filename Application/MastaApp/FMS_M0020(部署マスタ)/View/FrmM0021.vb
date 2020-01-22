@@ -1,4 +1,5 @@
 Imports JMS_COMMON.ClsPubMethod
+Imports MODEL
 
 Public Class FrmM0021
 
@@ -150,7 +151,7 @@ Public Class FrmM0021
 
                     '-----存在チェック
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("SELECT * FROM " & NameOf(MODEL.M002_BUSYO) & "")
+                    sbSQL.Append("SELECT * FROM " & NameOf(M002_BUSYO) & "")
                     sbSQL.Append(" WHERE BUSYO_NAME ='" & Me.mtxBUSYO_NAME.Text.Trim & "' ")
                     dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
                     If dsList.Tables(0).Rows.Count > 0 Then '存在時
@@ -160,7 +161,7 @@ Public Class FrmM0021
 
                     '-----INSERT
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("INSERT INTO " & NameOf(MODEL.M002_BUSYO) & " (")
+                    sbSQL.Append("INSERT INTO " & NameOf(M002_BUSYO) & " (")
                     sbSQL.Append("  BUSYO_ID")
                     sbSQL.Append(" ,YUKO_YMD")
                     sbSQL.Append(" ,BUSYO_KB")
@@ -256,7 +257,7 @@ Public Class FrmM0021
                     DB.BeginTransaction()
 
                     '-----存在チェック
-                    sbSQL.Append("SELECT * FROM " & NameOf(MODEL.M002_BUSYO) & " ")
+                    sbSQL.Append("SELECT * FROM " & NameOf(M002_BUSYO) & " ")
                     sbSQL.Append("WHERE")
                     sbSQL.Append(" BUSYO_ID ='" & PrDataRow.Item("BUSYO_ID").ToString & "' ")
                     sbSQL.Append(" AND UPD_YMDHNS ='" & Replace(Replace(Replace(PrDataRow.Item("UPD_YMDHNS").ToString, "/", ""), ":", ""), " ", "") & "' ")
@@ -269,7 +270,7 @@ Public Class FrmM0021
                     '-----同一項目名の既定値を解除
                     'If Me.chkDefaultVaue.Checked = True Then
                     sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("UPDATE " & NameOf(MODEL.M002_BUSYO) & " SET")
+                    sbSQL.Append("UPDATE " & NameOf(M002_BUSYO) & " SET")
                     If Me.chkYUKO_YMD.Checked = True Then
                         sbSQL.Append(" YUKO_YMD ='99999999' ")
                     Else
@@ -500,7 +501,7 @@ Public Class FrmM0021
     ''' <param name="row"></param>
     ''' <returns></returns>
     Private Function FunSetEntityValues(row As C1.Win.C1FlexGrid.Row) As Boolean
-        Dim _model As New MODEL.VWM002_BUSYO
+        Dim _model As New VWM002_BUSYO
         Try
 
             '-----コントロールに値をセット

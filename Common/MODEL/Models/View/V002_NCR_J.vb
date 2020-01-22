@@ -407,6 +407,9 @@ Partial Public Class V002_NCR_J
     <ComponentModel.DisplayName("”­¶H’öGLŠm”F’S“–")>
     Public Property HASSEI_KOTEI_GL_SYAIN_ID As Integer
 
+    <ComponentModel.DisplayName("••‚¶ž‚ß•ñ‘‹N‘’S“–")>
+    Public Property FCR_KISO_TANTO_ID As Integer
+
     <StringLength(14)>
     <ComponentModel.DisplayName("’Ç‰Á“úŽž")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>

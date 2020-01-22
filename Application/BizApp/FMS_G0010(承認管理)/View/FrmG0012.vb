@@ -195,12 +195,12 @@ Public Class FrmG0012
                         End If
 
                         If FunSAVE(ENM_SAVE_MODE._1_保存) Then
-                                Me.DialogResult = DialogResult.OK
-                                MessageBox.Show("入力内容を保存しました", "保存完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                            Else
-                                MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                            End If
+                            Me.DialogResult = DialogResult.OK
+                            MessageBox.Show("入力内容を保存しました", "保存完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Else
+                            MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         End If
+                    End If
 
                 Case 2  '承認申請
                     '申請先タブに切り替え

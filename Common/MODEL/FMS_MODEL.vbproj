@@ -121,8 +121,10 @@
     </Compile>
     <Compile Include="Migrations\201804050655482_Init31.vb" />
     <Compile Include="Migrations\Configuration.vb" />
+    <Compile Include="Models\Data\D008_FCR_J_SUB.vb" />
     <Compile Include="Models\Data\D007_FCR_J.vb" />
     <Compile Include="Models\Data\R004_CAR_SASIMODOSI.vb" />
+    <Compile Include="Models\Data\R006_FCR_SUB_SASIMODOSI.vb" />
     <Compile Include="Models\Data\R005_FCR_SASIMODOSI.vb" />
     <Compile Include="Models\Data\R003_NCR_SASIMODOSI.vb" />
     <Compile Include="Models\Data\D003_NCR_J.vb" />
@@ -163,6 +165,7 @@
     <Compile Include="Common\ModelBase.vb" />
     <Compile Include="Common\ModelInfo.vb" />
     <Compile Include="Common\NotifyChangedBase.vb" />
+    <Compile Include="Models\View\V011_FCR_J.vb" />
     <Compile Include="Models\View\VWM011_SYAIN_GYOMU_ICHIRAN.vb" />
     <Compile Include="Models\View\VWM011_SYAIN_GYOMU.vb" />
     <Compile Include="Models\View\TV05_FUTEKIGO_CODE.vb" />
@@ -335,6 +338,7 @@
     <Content Include="DDL\View\V006_CAR_GENIN.sql" />
     <Content Include="DDL\View\V007_NCR_CAR.sql" />
     <Content Include="DDL\View\V008_NCR_R.sql" />
+    <Content Include="DDL\View\V011_FCR_J.sql" />
     <Content Include="DDL\View\V010_SYAIN_SYOZOKU_BUSYO.sql" />
     <Content Include="DDL\View\V009_CAR_R.sql" />
     <Content Include="DDL\View\VWM004_SYAIN.sql" />

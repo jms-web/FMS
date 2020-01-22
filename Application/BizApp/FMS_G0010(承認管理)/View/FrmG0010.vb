@@ -383,9 +383,8 @@ Public Class FrmG0010
             'ファンクションボタンステータス更新
             Call FunInitFuncButtonEnabled()
             Me.WindowState = FormWindowState.Maximized
-            Me.Visible = True
         Finally
-
+            Me.Visible = True
         End Try
     End Sub
 
@@ -1239,6 +1238,8 @@ Public Class FrmG0010
                                                                  r.Field(Of Integer)("SYONIN_JUN") = row.Item("SYONIN_JUN")))
                 Next row
 
+                dtWK = dtWK.AsEnumerable.Union(dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR))
+
                 If dtWK.Count > 0 Then dtBUFF = dtWK.CopyToDataTable
             End If
 
@@ -1504,66 +1505,80 @@ Public Class FrmG0010
     Private Function FunUpdateEntity(ByVal intMODE As ENM_DATA_OPERATION_MODE) As Boolean
         Dim frmNCR As New FrmG0011
         Dim frmCAR As New FrmG0012
+        Dim frmFCR As New FrmG0021
         Dim dlgRET As DialogResult
 
         Try
-            If intMODE = ENM_DATA_OPERATION_MODE._3_UPDATE AndAlso flxDATA.Rows(flxDATA.RowSel).Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)) = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR Then
 
-                frmCAR.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row 'dgvDATA.GetDataRow()
-                frmCAR.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item("HOKOKU_NO")
-                frmCAR.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
-                dlgRET = frmCAR.ShowDialog(Me)
-                If dlgRET = Windows.Forms.DialogResult.Cancel Then
-                    Return False
-                Else
-                    Return True
-                End If
-            Else
-                frmNCR.PrMODE = intMODE
-                If intMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
-                    'SPEC: 2.(3).B.②
-                    frmNCR.PrCurrentStage = ENM_NCR_STAGE._10_起草入力
-                    'frmNCR.PrDataRow = Nothing
-                Else
-                    'frmNCR.PrDataRow = dgvDATA.GetDataRow()
-                    frmNCR.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item("HOKOKU_NO")
-                    frmNCR.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
-                End If
-                dlgRET = frmNCR.ShowDialog(Me)
-                If dlgRET = Windows.Forms.DialogResult.Cancel Then
-                    Return False
-                Else
-                    '再不適合登録
-                    If frmNCR.PrSAI_FUTEKIGO Then
+            Select Case flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST02.SYONIN_HOKOKUSYO_ID))
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value
+                    frmNCR.PrMODE = intMODE
+                    If intMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
+                        'SPEC: 2.(3).B.②
+                        frmNCR.PrCurrentStage = ENM_NCR_STAGE._10_起草入力
+                        'frmNCR.PrDataRow = Nothing
+                    Else
+                        'frmNCR.PrDataRow = dgvDATA.GetDataRow()
+                        frmNCR.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item("HOKOKU_NO")
+                        frmNCR.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
+                    End If
+                    dlgRET = frmNCR.ShowDialog(Me)
+                    If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                        Return False
+                    Else
+                        '再不適合登録
+                        If frmNCR.PrSAI_FUTEKIGO Then
 
-                        Dim HOKOKU_NO As String = frmNCR.PrHOKOKU_NO
-                        Dim CurrentStage As String = frmNCR.PrCurrentStage
-                        frmNCR.Dispose()
-                        frmNCR = New FrmG0011 With {
-                            .PrMODE = intMODE,
-                            .PrHOKOKU_NO = HOKOKU_NO,
-                            .PrCurrentStage = CurrentStage
-                        }
+                            Dim HOKOKU_NO As String = frmNCR.PrHOKOKU_NO
+                            Dim CurrentStage As String = frmNCR.PrCurrentStage
+                            frmNCR.Dispose()
+                            frmNCR = New FrmG0011 With {
+                                .PrMODE = intMODE,
+                                .PrHOKOKU_NO = HOKOKU_NO,
+                                .PrCurrentStage = CurrentStage
+                            }
 
-                        dlgRET = frmNCR.ShowDialog(Me)
-                        If dlgRET = Windows.Forms.DialogResult.Cancel Then
-                            Return False
+                            dlgRET = frmNCR.ShowDialog(Me)
+                            If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                                Return False
+                            End If
                         End If
+
+                        Return True
                     End If
 
-                    Return True
-                End If
-            End If
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR.Value
+                    frmCAR.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
+                    frmCAR.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item("HOKOKU_NO")
+                    frmCAR.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
+                    dlgRET = frmCAR.ShowDialog(Me)
+                    If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                        Return False
+                    Else
+                        Return True
+                    End If
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR.Value
+                    frmFCR.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
+                    frmFCR.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item("HOKOKU_NO")
+                    frmFCR.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
+                    dlgRET = frmFCR.ShowDialog(Me)
+                    If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                        Return False
+                    Else
+                        Return True
+                    End If
+
+            End Select
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         Finally
-            If frmNCR IsNot Nothing Then
-                frmNCR.Dispose()
-            End If
-            If frmCAR IsNot Nothing Then
-                frmCAR.Dispose()
-            End If
+            If frmNCR IsNot Nothing Then frmNCR.Dispose()
+
+            If frmCAR IsNot Nothing Then frmCAR.Dispose()
+
+            If frmFCR IsNot Nothing Then frmFCR.Dispose()
+
             Me.Visible = True
         End Try
     End Function
@@ -3376,7 +3391,11 @@ Public Class FrmG0010
                 Else
                     sbParam.Append($" DEFAULT")
                 End If
-                sbParam.Append($",{Nz(cmbHOKOKUSYO_ID.SelectedValue, 0)}")
+                If cmbHOKOKUSYO_ID.IsSelected Then
+                    sbParam.Append($",{Nz(cmbHOKOKUSYO_ID.SelectedValue, 0)}")
+                Else
+                    sbParam.Append($",DEFAULT")
+                End If
 
                 If chkDispKISYU.Checked Then
                     sbParam.Append($",{Nz(cmbKISYU.SelectedValue, 0)}")

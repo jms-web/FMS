@@ -670,9 +670,9 @@ Partial Public Class D003_NCR_J
     Public Property SAI_FUTEKIGO_KISO_TANTO_ID As Integer
 
 
-    '<Required>
-    '<ComponentModel.DisplayName("封じ込め調査書起草担当")>
-    'Public Property FCR_KISO_TANTO_ID As Integer
+    <Required>
+    <ComponentModel.DisplayName("封じ込め調査書起草担当")>
+    Public Property FCR_KISO_TANTO_ID As Integer
 
 
 
