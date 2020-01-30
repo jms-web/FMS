@@ -115,6 +115,8 @@ Public Class PanelEx
                             DirectCast(ctl, Button).Enabled = enabled
                         Case GetType(DateTextBoxEx)
                             DirectCast(ctl, DateTextBoxEx).Enabled = enabled
+                        Case GetType(NumericUpDown)
+                            DirectCast(ctl, NumericUpDown).Enabled = enabled
                         Case GetType(RadioButton)
                             DirectCast(ctl, RadioButton).Enabled = enabled
                         Case GetType(TableLayoutPanel), GetType(Panel), GetType(PanelEx)
@@ -141,6 +143,8 @@ Public Class PanelEx
                             DirectCast(ctl, CheckBox).Enabled = enabled
                         Case GetType(Button)
                             DirectCast(ctl, Button).Enabled = enabled
+                        Case GetType(NumericUpDown)
+                            DirectCast(ctl, NumericUpDown).Enabled = enabled
                         Case GetType(DateTextBoxEx)
                             DirectCast(ctl, DateTextBoxEx).ReadOnly = Not enabled
                         Case GetType(RadioButton)
@@ -175,6 +179,8 @@ Public Class PanelEx
                             DirectCast(ctl, CheckBox).Enabled = enabled
                         Case GetType(Button)
                             DirectCast(ctl, Button).Enabled = enabled
+                        Case GetType(NumericUpDown)
+                            DirectCast(ctl, NumericUpDown).Enabled = enabled
                         Case GetType(DateTextBoxEx)
                             DirectCast(ctl, DateTextBoxEx).Enabled = enabled
                         Case GetType(RadioButton)
@@ -206,6 +212,8 @@ Public Class PanelEx
                             DirectCast(ctl, Button).Enabled = enabled
                         Case GetType(DateTextBoxEx)
                             DirectCast(ctl, DateTextBoxEx).ReadOnly = Not enabled
+                        Case GetType(NumericUpDown)
+                            DirectCast(ctl, NumericUpDown).Enabled = enabled
                         Case GetType(RadioButton)
                             DirectCast(ctl, RadioButton).Enabled = enabled
                         Case GetType(TableLayoutPanel)

@@ -1,7 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.ComponentModel.DataAnnotations
 Imports System.Reflection
-
+Imports System.Windows
 
 Public Class ModelInfo(Of T As {New, IDataModel})
 
@@ -114,7 +114,7 @@ Public Class ModelInfo(Of T As {New, IDataModel})
             Next p
             list.Add(_Model)
         Next row
-
+        Entity = list(0)
         Entities = list 'New DataObjectView(Of T)(list)
     End Sub
     Public Sub SetEntity(dr As DataRow)

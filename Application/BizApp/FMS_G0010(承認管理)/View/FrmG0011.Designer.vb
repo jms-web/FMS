@@ -67,6 +67,7 @@ Partial Class FrmG0011
         Me.btnST16_SYONIN = New System.Windows.Forms.Button()
         Me.lblSTAGEFlame16 = New System.Windows.Forms.Label()
         Me.pnlST15 = New JMS_COMMON.PanelEx()
+        Me.PanelEx1 = New JMS_COMMON.PanelEx()
         Me.dtST15_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.tlpST08 = New System.Windows.Forms.TableLayoutPanel()
         Me.pnlSYOCHI_E2 = New System.Windows.Forms.Panel()
@@ -1460,6 +1461,7 @@ Partial Class FrmG0011
         '
         Me.pnlST15.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.pnlST15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST15.Controls.Add(Me.PanelEx1)
         Me.pnlST15.Controls.Add(Me.dtST15_UPD_YMD)
         Me.pnlST15.Controls.Add(Me.tlpST08)
         Me.pnlST15.Controls.Add(Me.chkST11_E2)
@@ -1486,6 +1488,14 @@ Partial Class FrmG0011
         Me.pnlST15.Size = New System.Drawing.Size(1209, 306)
         Me.pnlST15.TabIndex = 250
         '
+        'PanelEx1
+        '
+        Me.PanelEx1.HitEnabled = False
+        Me.PanelEx1.Location = New System.Drawing.Point(725, 40)
+        Me.PanelEx1.Name = "PanelEx1"
+        Me.PanelEx1.Size = New System.Drawing.Size(56, 239)
+        Me.PanelEx1.TabIndex = 263
+        '
         'dtST15_UPD_YMD
         '
         Me.dtST15_UPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -1511,7 +1521,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 236.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 158.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.pnlSYOCHI_E2, 3, 7)
@@ -1550,7 +1560,7 @@ Partial Class FrmG0011
         Me.tlpST08.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
         Me.tlpST08.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.tlpST08.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpST08.Size = New System.Drawing.Size(762, 255)
+        Me.tlpST08.Size = New System.Drawing.Size(713, 88)
         Me.tlpST08.TabIndex = 253
         '
         'pnlSYOCHI_E2
@@ -1558,11 +1568,12 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_E2.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_E2.Controls.Add(Me.rbtnST11_E2_T)
         Me.pnlSYOCHI_E2.Controls.Add(Me.rbtnST11_E2_F)
-        Me.pnlSYOCHI_E2.Location = New System.Drawing.Point(525, 200)
+        Me.pnlSYOCHI_E2.Location = New System.Drawing.Point(554, 200)
         Me.pnlSYOCHI_E2.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_E2.Name = "pnlSYOCHI_E2"
         Me.pnlSYOCHI_E2.Size = New System.Drawing.Size(151, 28)
         Me.pnlSYOCHI_E2.TabIndex = 245
+        Me.pnlSYOCHI_E2.Visible = False
         '
         'rbtnST11_E2_T
         '
@@ -1577,6 +1588,7 @@ Partial Class FrmG0011
         Me.rbtnST11_E2_T.Text = "要"
         Me.rbtnST11_E2_T.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_E2_T.UseVisualStyleBackColor = False
+        Me.rbtnST11_E2_T.Visible = False
         '
         'rbtnST11_E2_F
         '
@@ -1590,17 +1602,19 @@ Partial Class FrmG0011
         Me.rbtnST11_E2_F.Text = "否"
         Me.rbtnST11_E2_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_E2_F.UseVisualStyleBackColor = False
+        Me.rbtnST11_E2_F.Visible = False
         '
         'pnlSYOCHI_E1
         '
         Me.pnlSYOCHI_E1.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_E1.Controls.Add(Me.rbtnST11_E1_T)
         Me.pnlSYOCHI_E1.Controls.Add(Me.rbtnST11_E1_F)
-        Me.pnlSYOCHI_E1.Location = New System.Drawing.Point(525, 171)
+        Me.pnlSYOCHI_E1.Location = New System.Drawing.Point(554, 171)
         Me.pnlSYOCHI_E1.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_E1.Name = "pnlSYOCHI_E1"
         Me.pnlSYOCHI_E1.Size = New System.Drawing.Size(151, 28)
         Me.pnlSYOCHI_E1.TabIndex = 244
+        Me.pnlSYOCHI_E1.Visible = False
         '
         'rbtnST11_E1_T
         '
@@ -1615,6 +1629,7 @@ Partial Class FrmG0011
         Me.rbtnST11_E1_T.Text = "有"
         Me.rbtnST11_E1_T.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_E1_T.UseVisualStyleBackColor = False
+        Me.rbtnST11_E1_T.Visible = False
         '
         'rbtnST11_E1_F
         '
@@ -1628,17 +1643,19 @@ Partial Class FrmG0011
         Me.rbtnST11_E1_F.Text = "無"
         Me.rbtnST11_E1_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_E1_F.UseVisualStyleBackColor = False
+        Me.rbtnST11_E1_F.Visible = False
         '
         'pnlSYOCHI_D2
         '
         Me.pnlSYOCHI_D2.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_D2.Controls.Add(Me.rbtnST11_D2_T)
         Me.pnlSYOCHI_D2.Controls.Add(Me.rbtnST11_D2_F)
-        Me.pnlSYOCHI_D2.Location = New System.Drawing.Point(525, 117)
+        Me.pnlSYOCHI_D2.Location = New System.Drawing.Point(554, 117)
         Me.pnlSYOCHI_D2.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_D2.Name = "pnlSYOCHI_D2"
         Me.pnlSYOCHI_D2.Size = New System.Drawing.Size(151, 28)
         Me.pnlSYOCHI_D2.TabIndex = 245
+        Me.pnlSYOCHI_D2.Visible = False
         '
         'rbtnST11_D2_T
         '
@@ -1653,6 +1670,7 @@ Partial Class FrmG0011
         Me.rbtnST11_D2_T.Text = "要"
         Me.rbtnST11_D2_T.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_D2_T.UseVisualStyleBackColor = False
+        Me.rbtnST11_D2_T.Visible = False
         '
         'rbtnST11_D2_F
         '
@@ -1666,17 +1684,19 @@ Partial Class FrmG0011
         Me.rbtnST11_D2_F.Text = "否"
         Me.rbtnST11_D2_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_D2_F.UseVisualStyleBackColor = False
+        Me.rbtnST11_D2_F.Visible = False
         '
         'pnlSYOCHI_D1
         '
         Me.pnlSYOCHI_D1.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_D1.Controls.Add(Me.rbtnST11_D1_T)
         Me.pnlSYOCHI_D1.Controls.Add(Me.rbtnST11_D1_F)
-        Me.pnlSYOCHI_D1.Location = New System.Drawing.Point(525, 88)
+        Me.pnlSYOCHI_D1.Location = New System.Drawing.Point(554, 88)
         Me.pnlSYOCHI_D1.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_D1.Name = "pnlSYOCHI_D1"
         Me.pnlSYOCHI_D1.Size = New System.Drawing.Size(151, 28)
         Me.pnlSYOCHI_D1.TabIndex = 245
+        Me.pnlSYOCHI_D1.Visible = False
         '
         'rbtnST11_D1_T
         '
@@ -1691,6 +1711,7 @@ Partial Class FrmG0011
         Me.rbtnST11_D1_T.Text = "有"
         Me.rbtnST11_D1_T.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_D1_T.UseVisualStyleBackColor = False
+        Me.rbtnST11_D1_T.Visible = False
         '
         'rbtnST11_D1_F
         '
@@ -1704,16 +1725,18 @@ Partial Class FrmG0011
         Me.rbtnST11_D1_F.Text = "無"
         Me.rbtnST11_D1_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnST11_D1_F.UseVisualStyleBackColor = False
+        Me.rbtnST11_D1_F.Visible = False
         '
         'pnlSYOCHI_C
         '
         Me.pnlSYOCHI_C.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_C.Controls.Add(Me.rbtnST11_C1_T)
         Me.pnlSYOCHI_C.Controls.Add(Me.rbtnST11_C1_F)
-        Me.pnlSYOCHI_C.Location = New System.Drawing.Point(525, 59)
+        Me.pnlSYOCHI_C.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlSYOCHI_C.Location = New System.Drawing.Point(554, 59)
         Me.pnlSYOCHI_C.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_C.Name = "pnlSYOCHI_C"
-        Me.pnlSYOCHI_C.Size = New System.Drawing.Size(151, 28)
+        Me.pnlSYOCHI_C.Size = New System.Drawing.Size(158, 28)
         Me.pnlSYOCHI_C.TabIndex = 245
         '
         'rbtnST11_C1_T
@@ -1734,7 +1757,7 @@ Partial Class FrmG0011
         '
         Me.rbtnST11_C1_F.BackColor = System.Drawing.SystemColors.Window
         Me.rbtnST11_C1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_C1_F.Location = New System.Drawing.Point(76, 0)
+        Me.rbtnST11_C1_F.Location = New System.Drawing.Point(83, 0)
         Me.rbtnST11_C1_F.Name = "rbtnST11_C1_F"
         Me.rbtnST11_C1_F.Size = New System.Drawing.Size(75, 28)
         Me.rbtnST11_C1_F.TabIndex = 1
@@ -1748,10 +1771,11 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_B.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_B.Controls.Add(Me.rbtnST11_B1_T)
         Me.pnlSYOCHI_B.Controls.Add(Me.rbtnST11_B1_F)
-        Me.pnlSYOCHI_B.Location = New System.Drawing.Point(525, 30)
+        Me.pnlSYOCHI_B.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlSYOCHI_B.Location = New System.Drawing.Point(554, 30)
         Me.pnlSYOCHI_B.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_B.Name = "pnlSYOCHI_B"
-        Me.pnlSYOCHI_B.Size = New System.Drawing.Size(151, 28)
+        Me.pnlSYOCHI_B.Size = New System.Drawing.Size(158, 28)
         Me.pnlSYOCHI_B.TabIndex = 245
         '
         'rbtnST11_B1_T
@@ -1772,7 +1796,7 @@ Partial Class FrmG0011
         '
         Me.rbtnST11_B1_F.BackColor = System.Drawing.SystemColors.Window
         Me.rbtnST11_B1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_B1_F.Location = New System.Drawing.Point(76, 0)
+        Me.rbtnST11_B1_F.Location = New System.Drawing.Point(83, 0)
         Me.rbtnST11_B1_F.Name = "rbtnST11_B1_F"
         Me.rbtnST11_B1_F.Size = New System.Drawing.Size(75, 28)
         Me.rbtnST11_B1_F.TabIndex = 1
@@ -1793,8 +1817,9 @@ Partial Class FrmG0011
         Me.mtxST11_E_Comment.MaxByteLength = 50
         Me.mtxST11_E_Comment.Name = "mtxST11_E_Comment"
         Me.mtxST11_E_Comment.SelectAllText = False
-        Me.mtxST11_E_Comment.Size = New System.Drawing.Size(673, 24)
+        Me.mtxST11_E_Comment.Size = New System.Drawing.Size(624, 24)
         Me.mtxST11_E_Comment.TabIndex = 1
+        Me.mtxST11_E_Comment.Visible = False
         Me.mtxST11_E_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST11_E_Comment.WatermarkText = Nothing
         '
@@ -1810,8 +1835,9 @@ Partial Class FrmG0011
         Me.mtxST11_D_Comment.MaxByteLength = 50
         Me.mtxST11_D_Comment.Name = "mtxST11_D_Comment"
         Me.mtxST11_D_Comment.SelectAllText = False
-        Me.mtxST11_D_Comment.Size = New System.Drawing.Size(673, 24)
+        Me.mtxST11_D_Comment.Size = New System.Drawing.Size(624, 24)
         Me.mtxST11_D_Comment.TabIndex = 0
+        Me.mtxST11_D_Comment.Visible = False
         Me.mtxST11_D_Comment.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxST11_D_Comment.WatermarkText = Nothing
         '
@@ -1828,6 +1854,7 @@ Partial Class FrmG0011
         Me.Label125.TabIndex = 239
         Me.Label125.Text = "処置記録"
         Me.Label125.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Label125.Visible = False
         '
         'Label126
         '
@@ -1839,10 +1866,11 @@ Partial Class FrmG0011
         Me.Label126.Location = New System.Drawing.Point(22, 117)
         Me.Label126.Margin = New System.Windows.Forms.Padding(0)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(502, 28)
+        Me.Label126.Size = New System.Drawing.Size(531, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "影響有の場合、顧客への通知の要否"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label126.Visible = False
         '
         'Label127
         '
@@ -1854,10 +1882,11 @@ Partial Class FrmG0011
         Me.Label127.Location = New System.Drawing.Point(22, 88)
         Me.Label127.Margin = New System.Windows.Forms.Padding(0)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(502, 28)
+        Me.Label127.Size = New System.Drawing.Size(531, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "当該不適合による顧客への影響"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label127.Visible = False
         '
         'lblSYOCHI_C_2
         '
@@ -1869,7 +1898,7 @@ Partial Class FrmG0011
         Me.lblSYOCHI_C_2.Location = New System.Drawing.Point(22, 59)
         Me.lblSYOCHI_C_2.Margin = New System.Windows.Forms.Padding(0)
         Me.lblSYOCHI_C_2.Name = "lblSYOCHI_C_2"
-        Me.lblSYOCHI_C_2.Size = New System.Drawing.Size(502, 28)
+        Me.lblSYOCHI_C_2.Size = New System.Drawing.Size(531, 28)
         Me.lblSYOCHI_C_2.TabIndex = 241
         Me.lblSYOCHI_C_2.Text = "廃却処置は本来の意図した使用又は適用ができない方法だったか？"
         Me.lblSYOCHI_C_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1898,7 +1927,7 @@ Partial Class FrmG0011
         Me.Label130.Location = New System.Drawing.Point(22, 30)
         Me.Label130.Margin = New System.Windows.Forms.Padding(0)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(502, 28)
+        Me.Label130.Size = New System.Drawing.Size(531, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "社内権限者により、又は顧客再審の場合は顧客により判定されたか？"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1944,6 +1973,7 @@ Partial Class FrmG0011
         Me.Label133.TabIndex = 242
         Me.Label133.Text = "E"
         Me.Label133.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Label133.Visible = False
         '
         'Label134
         '
@@ -1955,10 +1985,11 @@ Partial Class FrmG0011
         Me.Label134.Location = New System.Drawing.Point(22, 171)
         Me.Label134.Margin = New System.Windows.Forms.Padding(0)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(502, 28)
+        Me.Label134.Size = New System.Drawing.Size(531, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "当該不適合による他のプロセスへの影響"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label134.Visible = False
         '
         'Label135
         '
@@ -1973,6 +2004,7 @@ Partial Class FrmG0011
         Me.Label135.TabIndex = 246
         Me.Label135.Text = "処置記録"
         Me.Label135.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Label135.Visible = False
         '
         'Label136
         '
@@ -1984,10 +2016,11 @@ Partial Class FrmG0011
         Me.Label136.Location = New System.Drawing.Point(22, 200)
         Me.Label136.Margin = New System.Windows.Forms.Padding(0)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(502, 28)
+        Me.Label136.Size = New System.Drawing.Size(531, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "影響有の場合、封じ込め処置の要否"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label136.Visible = False
         '
         'Label137
         '
@@ -1999,7 +2032,7 @@ Partial Class FrmG0011
         Me.Label137.Location = New System.Drawing.Point(22, 1)
         Me.Label137.Margin = New System.Windows.Forms.Padding(0)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(502, 28)
+        Me.Label137.Size = New System.Drawing.Size(531, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "検出された不適合を除去する処置（廃却を含む）は確実にとられたか？"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2017,16 +2050,18 @@ Partial Class FrmG0011
         Me.Label138.TabIndex = 239
         Me.Label138.Text = "D"
         Me.Label138.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Label138.Visible = False
         '
         'pnlSYOCHI_A
         '
         Me.pnlSYOCHI_A.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_A.Controls.Add(Me.rbtnST11_A1_T)
         Me.pnlSYOCHI_A.Controls.Add(Me.rbtnST11_A1_F)
-        Me.pnlSYOCHI_A.Location = New System.Drawing.Point(525, 1)
+        Me.pnlSYOCHI_A.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlSYOCHI_A.Location = New System.Drawing.Point(554, 1)
         Me.pnlSYOCHI_A.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_A.Name = "pnlSYOCHI_A"
-        Me.pnlSYOCHI_A.Size = New System.Drawing.Size(151, 28)
+        Me.pnlSYOCHI_A.Size = New System.Drawing.Size(158, 28)
         Me.pnlSYOCHI_A.TabIndex = 248
         '
         'rbtnST11_A1_T
@@ -2047,7 +2082,7 @@ Partial Class FrmG0011
         '
         Me.rbtnST11_A1_F.BackColor = System.Drawing.SystemColors.Window
         Me.rbtnST11_A1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_A1_F.Location = New System.Drawing.Point(76, 0)
+        Me.rbtnST11_A1_F.Location = New System.Drawing.Point(83, 0)
         Me.rbtnST11_A1_F.Name = "rbtnST11_A1_F"
         Me.rbtnST11_A1_F.Size = New System.Drawing.Size(75, 28)
         Me.rbtnST11_A1_F.TabIndex = 1
@@ -9051,4 +9086,5 @@ Partial Class FrmG0011
     Friend WithEvents btnST03_FCR_KISO As Button
     Friend WithEvents cmbST03_TANTO_FCR As ComboboxEx
     Friend WithEvents Label35 As Label
+    Friend WithEvents PanelEx1 As PanelEx
 End Class

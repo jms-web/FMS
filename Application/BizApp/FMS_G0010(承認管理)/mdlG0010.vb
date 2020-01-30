@@ -395,6 +395,8 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "承認判定区分", tblSYONIN_HANTEI_KB)
                     Call FunGetCodeDataTable(DB, "廃却方法区分", tblHAIKYAKU_KB)
 
+                    Call FunGetCodeDataTable(DB, "FCR", tblFCR)
+                    Call FunGetCodeDataTable(DB, "不適合封じ込め非の理由", tblKOKYAKU_EIKYO_COMMENT)
                 End Using
 
                 '起動時パラメータを取得
@@ -728,7 +730,7 @@ Module mdlG0010
         End If
     End Function
 
-    Public Function FunGetV011Model(ByVal strHOKOKU_NO As String) As IDataModel
+    Public Function FunGetV011Model(ByVal strHOKOKU_NO As String) As V011_FCR_J
 
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
@@ -764,6 +766,8 @@ Module mdlG0010
                     drList = tblNCR.AsEnumerable().Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
                     drList = tblCAR.AsEnumerable().Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR
+                    drList = tblFCR.AsEnumerable().Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
                 Case Else
                     Return vbEmpty
             End Select
@@ -1773,7 +1777,7 @@ Module mdlG0010
         End Try
     End Function
 
-    Private Function FunOpenWorkbook(filePath As String) As Boolean
+    Public Function FunOpenWorkbook(filePath As String) As Boolean
         Dim workbookView As New SpreadsheetGear.Windows.Forms.WorkbookView
         Try
             workbookView.GetLock()

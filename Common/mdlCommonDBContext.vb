@@ -251,6 +251,16 @@ Public Module mdlDBContext
     Public tblCAR As DataTableEx
 
     ''' <summary>
+    ''' ïïÇ∂çûÇﬂí≤ç∏èë
+    ''' </summary>
+    Public tblFCR As DataTableEx
+
+    ''' <summary>
+    ''' ïïÇ∂çûÇﬂí≤ç∏èëÅ@î€ÇÃóùóR
+    ''' </summary>
+    Public tblKOKYAKU_EIKYO_COMMENT As DataTableEx
+
+    ''' <summary>
     ''' éñëOêRç∏îªíËãÊï™
     ''' </summary>
     Public tblJIZEN_SINSA_HANTEI_KB As DataTableEx
@@ -487,6 +497,37 @@ Public Module mdlDBContext
 
                     sbSQL.Append("SELECT * FROM " & NameOf(VWM014_SYONIN_ROUT) & " ")
                     sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=2")
+                    If strWhere.IsNulOrWS = False Then
+                        sbSQL.Append(" AND " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+                    sbSQL.Append(" ORDER BY SYONIN_HOKOKUSYO_ID, SYONIN_JUN")
+
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    dt.Columns.Add("SYONIN_HOKOKUSYO_ID", GetType(Integer))
+
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            Trow("VALUE") = .Rows(intCNT).Item("SYONIN_JUN")
+                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO") '.Rows(intCNT).Item("SYONIN_JUN") & " " & .Rows(intCNT).Item("SYONIN_NAIYO")
+                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
+                            dt.Rows.Add(Trow)
+                        Next intCNT
+                    End With
+#End Region
+
+#Region "               FCR"
+                Case "FCR"
+                    dt = New DataTableEx("System.Int32")
+
+                    sbSQL.Append("SELECT * FROM " & NameOf(VWM014_SYONIN_ROUT) & " ")
+                    sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=3")
                     If strWhere.IsNulOrWS = False Then
                         sbSQL.Append(" AND " & strWhere & "")
                     End If

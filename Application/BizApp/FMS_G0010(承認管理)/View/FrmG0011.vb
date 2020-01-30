@@ -2600,6 +2600,7 @@ Public Class FrmG0011
             sbSQL.Append($" , 0 AS {NameOf(_D003_NCR_J.HASSEI_KOTEI_GL_SYAIN_ID)}")
             sbSQL.Append($" ,'' AS {NameOf(_D003_NCR_J.HASSEI_YMD)}")
             sbSQL.Append($" ,0 AS {NameOf(_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID)}")
+            sbSQL.Append($" ,0 AS {NameOf(_D003_NCR_J.FCR_KISO_TANTO_ID)}")
 
             sbSQL.Append($" ,{_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID} AS {NameOf(_D003_NCR_J.ADD_SYAIN_ID)}")
             sbSQL.Append($" ,dbo.GetSysDateString() AS {NameOf(_D003_NCR_J.ADD_YMDHNS)}")

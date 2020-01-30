@@ -73,6 +73,13 @@ Partial Public Class V011_FCR_J
     Public Property KISYU_ID5 As Integer
     Public Property KISYU_ID6 As Integer
 
+    Public Property KISYU1_NAME As String
+    Public Property KISYU2_NAME As String
+    Public Property KISYU3_NAME As String
+    Public Property KISYU4_NAME As String
+    Public Property KISYU5_NAME As String
+    Public Property KISYU6_NAME As String
+
     Public Property BUHIN_INFO1 As String
     Public Property BUHIN_INFO2 As String
     Public Property BUHIN_INFO3 As String
@@ -100,6 +107,22 @@ Partial Public Class V011_FCR_J
     Public Property RANGE_TO4 As String
     Public Property RANGE_TO5 As String
     Public Property RANGE_TO6 As String
+
+#End Region
+
+#Region "承認情報項目"
+    'Public Property SYONIN_NAME10 As String
+    'Public Property SYONIN_YMD10 As String
+    'Public Property SYONIN_NAME20 As String
+    'Public Property SYONIN_YMD20 As String
+    'Public Property SYONIN_NAME30 As String
+    'Public Property SYONIN_YMD30 As String
+    'Public Property SYONIN_NAME40 As String
+    'Public Property SYONIN_YMD40 As String
+    'Public Property SYONIN_NAME50 As String
+    'Public Property SYONIN_YMD50 As String
+    'Public Property SYONIN_NAME60 As String
+    'Public Property SYONIN_YMD60 As String
 
 #End Region
 
