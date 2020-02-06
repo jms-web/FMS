@@ -2058,6 +2058,27 @@ Public Class FrmG0010
                         Return False
                     End If
 
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR
+                    'ファイル名
+                    strOutputFileName = "CTS_" & strHOKOKU_NO & "_Work.xls"
+
+                    '既存ファイル削除
+                    If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
+                        Return False
+                    End If
+
+                    Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
+                        strTEMPFILE = FunConvRootPath(iniIF.GetIniString("CTS", "FILEPATH"))
+                    End Using
+
+                    'エクセル出力ファイル用意
+                    If OUT_EXCEL_READY(strTEMPFILE, pub_APP_INFO.strOUTPUT_PATH, strOutputFileName) = False Then
+                        Return False
+                    End If
+                    '-----書込処理
+                    If FunMakeReportFCR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
+                        Return False
+                    End If
                 Case Else
                     'err
                     Return False

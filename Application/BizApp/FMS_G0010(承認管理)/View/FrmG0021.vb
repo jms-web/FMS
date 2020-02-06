@@ -3,7 +3,7 @@ Imports JMS_COMMON.ClsPubMethod
 Imports MODEL
 
 ''' <summary>
-''' CAR登録画面
+''' CTS登録画面
 ''' </summary>
 Public Class FrmG0021
 
@@ -165,7 +165,7 @@ Public Class FrmG0021
 
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
-                        If IsEditingClosed And PrCurrentStage = ENM_NCR_STAGE._999_Closed Then
+                        If IsEditingClosed And PrCurrentStage = ENM_FCR_STAGE._999_Closed Then
 
                             OpenFormEdit()
                             If PrRIYU.IsNulOrWS Then
@@ -185,7 +185,7 @@ Public Class FrmG0021
 
                 Case 2  '承認申請
                     '申請先タブに切り替え
-                    TabSTAGE.SelectedIndex = 6
+                    'TabSTAGE.SelectedIndex = 6
 
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._2_承認申請) Then
@@ -193,7 +193,7 @@ Public Class FrmG0021
                             If FunSAVE(ENM_SAVE_MODE._2_承認申請) Then
 
                                 Dim strMsg As String
-                                If PrCurrentStage = ENM_NCR_STAGE._120_abcde処置確認 Then
+                                If PrCurrentStage = ENM_FCR_STAGE._60_品証課長 Then
                                     strMsg = "承認しました"
                                 Else
                                     strMsg = "承認・申請しました"
@@ -233,10 +233,10 @@ Public Class FrmG0021
 
                 Case 10  '印刷
 
-                    Call FunOpenReportCAR()
+                    Call FunOpenReportFCR()
 
                 Case 11 '履歴
-                    Call OpenFormHistory(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, _V011_FCR_J.HOKOKU_NO)
+                    Call OpenFormHistory(Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR, _V011_FCR_J.HOKOKU_NO)
 
                 Case 12 '閉じる
                     Me.Close()
@@ -281,7 +281,6 @@ Public Class FrmG0021
 
                     'SPEC: 2.(3).D.①.レコード更新
                     If FunSAVE_D007(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
-                    If FunSAVE_FILE(DB) = False Then blnErr = True : Return False
 
                     If Not blnTENSO And PrCurrentStage < ENM_FCR_STAGE._999_Closed Then
                         If FunSAVE_D004(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
@@ -298,93 +297,6 @@ Public Class FrmG0021
             Return False
         Finally
         End Try
-    End Function
-
-#End Region
-
-#Region "   CAR添付ファイル保存"
-
-    ''' <summary>
-    ''' CAR添付ファイル保存
-    ''' </summary>
-    ''' <param name="DB"></param>
-    ''' <returns></returns>
-    Private Function FunSAVE_FILE(ByRef DB As ClsDbUtility) As Boolean
-
-        If _D005_CAR_J.KYOIKU_FILE_PATH.IsNulOrWS And
-            _D005_CAR_J.SYOSAI_FILE_PATH.IsNulOrWS And
-            _D005_CAR_J.FILE_PATH1.IsNulOrWS And
-            _D005_CAR_J.FILE_PATH2.IsNulOrWS Then
-            Return True
-        Else
-            'SPEC: 2.(3).D.②.添付ファイル保存
-            Dim strRootDir As String
-            Dim strMsg As String
-            strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
-            If strRootDir.IsNulOrWS OrElse Not System.IO.Directory.Exists(strRootDir) Then
-
-                strMsg = "添付ファイル保存先が設定されていないか、アクセス出来ません。" & vbCrLf &
-                         "添付ファイルはシステムに保存されませんが、" & vbCrLf &
-                         "登録処理を続行しますか？"
-
-                If MessageBox.Show(strMsg, "ファイル保存先アクセス不可", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) <> vbOK Then
-                    Me.DialogResult = DialogResult.Abort
-                    Return True
-                End If
-            Else
-                Try
-                    System.IO.Directory.CreateDirectory(strRootDir & _D005_CAR_J.HOKOKU_NO)
-                    If Not _D005_CAR_J.KYOIKU_FILE_PATH.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH) Then
-
-                        'If System.IO.File.Exists(lblKYOIKU_FILE_PATH.Links.Item(0).LinkData) Then
-                        '    System.IO.File.Copy(lblKYOIKU_FILE_PATH.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH, True)
-                        'Else
-                        '    Throw New IO.FileNotFoundException($"教育記録リンク:{lblKYOIKU_FILE_PATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
-                        'End If
-                    End If
-                    If Not _D005_CAR_J.SYOSAI_FILE_PATH.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH) Then
-
-                        'If System.IO.File.Exists(lblSYOSAI_FILE_PATH.Links.Item(0).LinkData) Then
-                        '    System.IO.File.Copy(lblSYOSAI_FILE_PATH.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH, True)
-                        'Else
-                        '    Throw New IO.FileNotFoundException($"是正処置詳細資料:{lblSYOSAI_FILE_PATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
-                        'End If
-                    End If
-                    If Not _D005_CAR_J.FILE_PATH1.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1) Then
-
-                        'If System.IO.File.Exists(lbltmpFile1.Links.Item(0).LinkData) Then
-                        '    System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1, True)
-                        'Else
-                        '    Throw New IO.FileNotFoundException($"添付ファイル1:{lbltmpFile1.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
-                        'End If
-                    End If
-                    If Not _D005_CAR_J.FILE_PATH2.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2) Then
-
-                        'If System.IO.File.Exists(lbltmpFile2.Links.Item(0).LinkData) Then
-                        '    System.IO.File.Copy(lbltmpFile2.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2, True)
-                        'Else
-                        '    Throw New IO.FileNotFoundException($"添付ファイル2:{lbltmpFile2.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
-                        'End If
-                    End If
-
-                    Return True
-                Catch exNF As IO.FileNotFoundException
-                    MessageBox.Show(exNF.Message, "ファイル存在チェック", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Return False
-                Catch exIO As UnauthorizedAccessException
-                    strMsg = $"添付ファイル保存先のアクセス権限がありません。{vbCrLf}添付ファイル保存先:{strRootDir}"
-                    MessageBox.Show(strMsg, "ファイル保存先アクセス不可", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Return False
-                Catch ex As Exception
-                    Throw
-                    Return False
-                End Try
-            End If
-        End If
     End Function
 
 #End Region
@@ -407,7 +319,7 @@ Public Class FrmG0021
 
         Dim _D007 As New D007_FCR_J
         _D007.Clear()
-        _D007.HOKOKU_NO = mtxHOKUKO_NO.Text
+        _D007.HOKOKU_NO = PrHOKOKU_NO
         If PrCurrentStage = ENM_FCR_STAGE._60_品証課長 And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
             _D007._CLOSE_FG = 1
         End If
@@ -511,7 +423,7 @@ Public Class FrmG0021
 #Region "   モデル更新"
         If cmbKISYU1.IsSelected Then
             _D008.Clear()
-            _D008.HOKOKU_NO = mtxHOKUKO_NO.Text
+            _D008.HOKOKU_NO = PrHOKOKU_NO
             _D008.ROW_NO = 1
             _D008.KISYU_ID = cmbKISYU1.SelectedValue
             _D008.BUHIN_INFO = txtBUHIN_INFO1.Text
@@ -1021,7 +933,7 @@ Public Class FrmG0021
             WL.WriteLogDat(strErrMsg)
             Return False
         Else
-            WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_D005_CAR_J.HOKOKU_NO}、INSERT R005")
+            WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_V011_FCR_J.HOKOKU_NO}、INSERT R005")
             Return True
         End If
     End Function
@@ -1044,7 +956,7 @@ Public Class FrmG0021
             sbSQL.Append($" {NameOf(V007_NCR_CAR.HOKOKU_NO)},{NameOf(V007_NCR_CAR.SYONIN_JUN)}")
             sbSQL.Append($" FROM {NameOf(V007_NCR_CAR)} ")
             sbSQL.Append($" WHERE {NameOf(V007_NCR_CAR.SYONIN_HOKOKUSYO_ID)}={Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value}")
-            sbSQL.Append($" AND {NameOf(V007_NCR_CAR.HOKOKU_NO)}='{_D005_CAR_J.HOKOKU_NO}'")
+            sbSQL.Append($" AND {NameOf(V007_NCR_CAR.HOKOKU_NO)}='{_V011_FCR_J.HOKOKU_NO}'")
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
@@ -1081,8 +993,8 @@ Public Class FrmG0021
         Dim dlgRET As DialogResult
 
         Try
-            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
-            frmDLG.PrHOKOKU_NO = _D005_CAR_J.HOKOKU_NO
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR
+            frmDLG.PrHOKOKU_NO = PrHOKOKU_NO
             frmDLG.PrBUMON_KB = _V002_NCR_J.BUMON_KB
             frmDLG.PrBUHIN_BANGO = _V002_NCR_J.BUHIN_BANGO
             frmDLG.PrKISO_YMD = DateTime.ParseExact(_V002_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
@@ -1117,8 +1029,8 @@ Public Class FrmG0021
         Dim dlgRET As DialogResult
 
         Try
-            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
-            frmDLG.PrHOKOKU_NO = _D005_CAR_J.HOKOKU_NO
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR
+            frmDLG.PrHOKOKU_NO = PrHOKOKU_NO
             frmDLG.PrBUHIN_BANGO = _V002_NCR_J.BUHIN_BANGO
             frmDLG.PrKISO_YMD = DateTime.ParseExact(_V002_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             frmDLG.PrKISYU_NAME = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _V002_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
@@ -1146,7 +1058,7 @@ Public Class FrmG0021
 
 #Region "印刷"
 
-    Private Function FunOpenReportCAR() As Boolean
+    Private Function FunOpenReportFCR() As Boolean
         Dim strOutputFileName As String
         Dim strTEMPFILE As String
         'Dim intRET As Integer
@@ -1155,7 +1067,7 @@ Public Class FrmG0021
             Me.Cursor = Cursors.WaitCursor
 
             'ファイル名
-            strOutputFileName = "CAR_" & _D005_CAR_J.HOKOKU_NO & "_Work.xls"
+            strOutputFileName = "CTS_" & _V011_FCR_J.HOKOKU_NO & "_Work.xls"
 
             '既存ファイル削除
             If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
@@ -1163,7 +1075,7 @@ Public Class FrmG0021
             End If
 
             Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
-                strTEMPFILE = FunConvRootPath(iniIF.GetIniString("CAR", "FILEPATH"))
+                strTEMPFILE = FunConvRootPath(iniIF.GetIniString("CTS", "FILEPATH"))
             End Using
 
             'エクセル出力ファイル用意
@@ -1171,7 +1083,7 @@ Public Class FrmG0021
                 Return False
             End If
             '-----書込処理
-            If FunMakeReportFCR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, _D005_CAR_J.HOKOKU_NO) = False Then
+            If FunMakeReportFCR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, _V011_FCR_J.HOKOKU_NO) = False Then
                 Return False
             End If
 
@@ -1632,14 +1544,14 @@ Public Class FrmG0021
     End Sub
 
     Private Sub RbtnSEKKEI_TANTO_YOHI_YES_CheckedChanged(sender As Object, e As EventArgs) 'Handles rbtnSEKKEI_TANTO_YOHI_YES.CheckedChanged
-        _D005_CAR_J._KAITO_23 = 1
+        '_D005_CAR_J._KAITO_23 = 1
         'mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
         'Dim dt As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
         'cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
     End Sub
 
     Private Sub RbtnSEKKEI_TANTO_YOHI_NO_CheckedChanged(sender As Object, e As EventArgs) 'Handles rbtnSEKKEI_TANTO_YOHI_NO.CheckedChanged
-        _D005_CAR_J._KAITO_23 = 0
+        '_D005_CAR_J._KAITO_23 = 0
         'mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
         'Dim dt As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
         'cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -1925,6 +1837,8 @@ Public Class FrmG0021
 
     Private Function FunSetModel() As Boolean
         Try
+            _V002_NCR_J.Clear()
+            _V002_NCR_J = FunGetV002Model(PrHOKOKU_NO)
             _V003_SYONIN_J_KANRI_List = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR, PrHOKOKU_NO)
 
             _V011_FCR_J.Clear()
@@ -2162,9 +2076,9 @@ Public Class FrmG0021
         Else
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append($"SELECT")
-            sbSQL.Append($" COUNT({NameOf(R004_CAR_SASIMODOSI.HOKOKU_NO)})")
-            sbSQL.Append($" FROM {NameOf(R004_CAR_SASIMODOSI)} ")
-            sbSQL.Append($" WHERE {NameOf(R004_CAR_SASIMODOSI.HOKOKU_NO)}='{strHOKOKU_NO}'")
+            sbSQL.Append($" COUNT({NameOf(R005_FCR_SASIMODOSI.HOKOKU_NO)})")
+            sbSQL.Append($" FROM {NameOf(R005_FCR_SASIMODOSI)} ")
+            sbSQL.Append($" WHERE {NameOf(R005_FCR_SASIMODOSI.HOKOKU_NO)}='{strHOKOKU_NO}'")
             Using DB As ClsDbUtility = DBOpen()
                 intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg)
             End Using
