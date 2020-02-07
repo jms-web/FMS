@@ -1,7 +1,6 @@
 Imports JMS_COMMON.ClsPubMethod
 Imports MODEL
 
-
 Module mdlG0010
 
 #Region "定数・変数"
@@ -15,6 +14,7 @@ Module mdlG0010
     ''' 起動モード
     ''' </summary>
     Public pub_intOPEN_MODE As Integer
+
     Public pub_PrSYONIN_HOKOKUSYO_ID As Integer
     Public pub_PrHOKOKU_NO As String
 
@@ -313,14 +313,15 @@ Module mdlG0010
     Public _D004_SYONIN_J_KANRI As New D004_SYONIN_J_KANRI
     Public _D005_CAR_J As New D005_CAR_J
     Public _D006_CAR_GENIN_List As New List(Of D006_CAR_GENIN)
-    Public _D007 As New V011_FCR_J
+    Public _D007 As New D007_FCR_J
     Public _D008_List As New List(Of D008_FCR_J_SUB)
     Public _R001_HOKOKU_SOUSA As New R001_HOKOKU_SOUSA
     Public _R002_HOKOKU_TENSO As New R002_HOKOKU_TENSO
     Public _R003_NCR_SASIMODOSI As New R003_NCR_SASIMODOSI
     Public _R004 As New R004_CAR_SASIMODOSI
     Public _R005 As New R005_FCR_SASIMODOSI
-    Public _R006_List As New List(Of R006_FCR_SUB_SASIMODOSI)
+    Public _R006_List As New List(Of R006_FCR_J_SUB_SASIMODOSI)
+    Public _V011_FCR_J As New V011_FCR_J
 
 #End Region
 
@@ -751,7 +752,6 @@ Module mdlG0010
         End If
     End Function
 
-
     ''' <summary>
     ''' 現在のステージ名を取得
     ''' </summary>
@@ -920,6 +920,10 @@ Module mdlG0010
 
             End Using
 
+#If DEBUG Then
+            Return True
+#End If
+
             ''認証なし フジワラ
             blnSend = ClsMailSend.FunSendMail(strSmtpServer:=strSmtpServer,
                            intSmtpPort:=intSmtpPort,
@@ -996,6 +1000,16 @@ Module mdlG0010
                     dt.Rows.Add(Trow2)
                 End If
         End Select
+
+        'システムユーザーログイン時はシステムユーザーを追加
+        If pub_SYAIN_INFO.SYAIN_ID = 999999 Then
+            Dim Trow3 As DataRow = dt.NewRow()
+            If Not dt.Rows.Contains(pub_SYAIN_INFO.SYAIN_ID) Then
+                Trow3("VALUE") = pub_SYAIN_INFO.SYAIN_ID
+                Trow3("DISP") = pub_SYAIN_INFO.SYAIN_NAME
+                dt.Rows.Add(Trow3)
+            End If
+        End If
 
         With dsList.Tables(0)
             For intCNT = 0 To .Rows.Count - 1
@@ -1269,8 +1283,6 @@ Module mdlG0010
 
             Dim SYOCHI_KB As ENM_NCR_STAGE80_TABPAGES
 
-
-
             SYOCHI_KB = FunGetST08SubPageName(_V002_NCR_J)
             Select Case SYOCHI_KB
                 Case ENM_NCR_STAGE80_TABPAGES._1_廃却実施記録
@@ -1352,7 +1364,6 @@ Module mdlG0010
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.HOKOKU_NO)).Value = _V002_NCR_J.HOKOKU_NO
 
-
             If _V002_NCR_J.ZESEI_SYOCHI_YOHI_KB.ToVal = ENM_YOHI_KB._1_要 Then
                 ssgSheet1.Range("CAR_HOKOKU_NO").Value = _V002_NCR_J.HOKOKU_NO
                 ssgSheet1.Range(NameOf(_V002_NCR_J.HASSEI_KOTEI_GL_SYAIN_NAME)).Value = _V002_NCR_J.HASSEI_KOTEI_GL_SYAIN_NAME
@@ -1399,11 +1410,9 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.YOKYU_NAIYO)).Value = _V002_NCR_J.YOKYU_NAIYO.Replace(Environment.NewLine, "")
             ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = $"(図面/規格： {If(_V002_NCR_J.ZUMEN_KIKAKU.IsNulOrWS, Space(38), _V002_NCR_J.ZUMEN_KIKAKU.Trim)} )"
 
-
             Dim kiso_tanto As String = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).FirstOrDefault?.UPD_SYAIN_NAME
             If kiso_tanto.IsNulOrWS Then kiso_tanto = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).FirstOrDefault?.ADD_SYAIN_NAME
             ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._10_起草入力).Value = kiso_tanto
-
 
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNulOrWS Then
@@ -1508,7 +1517,6 @@ Module mdlG0010
             '''PDF表示
             'System.Diagnostics.Process.Start(pdfFilePath)
 
-
             Call FunOpenWorkbook(strFilePath)
 
             'Excel作業ファイルを削除
@@ -1541,7 +1549,6 @@ Module mdlG0010
             spWorkbook.WorkbookSet.GetLock()
             spWorksheets = spWorkbook.Worksheets
             spSheet1 = spWorksheets.Item(0) 'sheet1
-
 
             '---図形取得
             Dim ssgShapes As SpreadsheetGear.Shapes.IShapes
@@ -1588,7 +1595,6 @@ Module mdlG0010
                 End Select
             Next shape
             '---
-
 
             Dim _V005_CAR_J As V005_CAR_J = FunGetV005Model(strHOKOKU_NO)
 
@@ -1777,6 +1783,231 @@ Module mdlG0010
         End Try
     End Function
 
+    Public Function FunMakeReportFCR(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean
+
+        Dim spWorkbook As SpreadsheetGear.IWorkbook
+        Dim spWorksheets As SpreadsheetGear.IWorksheets
+        Dim spSheet1 As SpreadsheetGear.IWorksheet
+        Dim spRangeFrom As SpreadsheetGear.IRange
+        Dim spRangeTo As SpreadsheetGear.IRange
+        Dim ssgShapes As SpreadsheetGear.Shapes.IShapes
+        Try
+            spWorkbook = SpreadsheetGear.Factory.GetWorkbook(strFilePath, System.Globalization.CultureInfo.CurrentCulture)
+
+            spWorkbook.WorkbookSet.GetLock()
+            spWorksheets = spWorkbook.Worksheets
+            spSheet1 = spWorksheets.Item(0) 'sheet1
+
+            Dim spprint As SpreadsheetGear.Printing.PrintWhat = SpreadsheetGear.Printing.PrintWhat.Sheet
+
+            Dim shLINE_KOKYAKU_EIKYO_NAIYO As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shLINE_KAKUNIN_SYUDAN As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shLINE_TUCHI As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shLINE_KOKYAKU_EIKYO_ETC_COMMENT As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shLINE_KISYU1 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shLINE_RANGE1 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shLINE_KISYU2 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shLINE_RANGE2 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shLINE_NAIYO As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shLINE_YMD As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shSCR_KOKYAKU_EIKYO_HANTEI_KB_T As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shSCR_KOKYAKU_EIKYO_HANTEI_KB_F As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shSCR_KOKYAKU_EIKYO_TUCHI_HANTEI_KB_T As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shSCR_KOKYAKU_EIKYO_TUCHI_HANTEI_KB_F As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shSCR_OTHER_PROCESS_INFLUENCE_KB_T As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shSCR_OTHER_PROCESS_INFLUENCE_KB_F As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shSCR_FOLLOW_PROCESS_OUTFLOW_KB_T As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shSCR_FOLLOW_PROCESS_OUTFLOW_KB_F As SpreadsheetGear.Shapes.IShape = Nothing
+
+            Dim strYMDHNS As String
+            ssgShapes = spSheet1.Shapes
+            For Each shape As SpreadsheetGear.Shapes.IShape In ssgShapes
+                Select Case shape.Name
+                    Case "LINE_KOKYAKU_EIKYO_NAIYO"
+                        shLINE_KOKYAKU_EIKYO_NAIYO = shape
+                    Case "LINE_KAKUNIN_SYUDAN"
+                        shLINE_KAKUNIN_SYUDAN = shape
+                    Case "LINE_TUCHI"
+                        shLINE_TUCHI = shape
+                    Case "LINE_KOKYAKU_EIKYO_ETC_COMMENT"
+                        shLINE_KOKYAKU_EIKYO_ETC_COMMENT = shape
+                    Case "LINE_KISYU1"
+                        shLINE_KISYU1 = shape
+                    Case "LINE_RANGE1"
+                        shLINE_RANGE1 = shape
+                    Case "LINE_KISYU2"
+                        shLINE_KISYU2 = shape
+                    Case "LINE_RANGE2"
+                        shLINE_RANGE2 = shape
+                    Case "LINE_NAIYO"
+                        shLINE_NAIYO = shape
+                    Case "LINE_YMD"
+                        shLINE_YMD = shape
+                    Case "SCR_KOKYAKU_EIKYO_HANTEI_KB_T"
+                        shSCR_KOKYAKU_EIKYO_HANTEI_KB_T = shape
+                    Case "SCR_KOKYAKU_EIKYO_HANTEI_KB_F"
+                        shSCR_KOKYAKU_EIKYO_HANTEI_KB_F = shape
+                    Case "SCR_KOKYAKU_EIKYO_TUCHI_HANTEI_KB_T"
+                        shSCR_KOKYAKU_EIKYO_TUCHI_HANTEI_KB_T = shape
+                    Case "SCR_KOKYAKU_EIKYO_TUCHI_HANTEI_KB_F"
+                        shSCR_KOKYAKU_EIKYO_TUCHI_HANTEI_KB_F = shape
+                    Case "SCR_OTHER_PROCESS_INFLUENCE_KB_T"
+                        shSCR_OTHER_PROCESS_INFLUENCE_KB_T = shape
+                    Case "SCR_OTHER_PROCESS_INFLUENCE_KB_F"
+                        shSCR_OTHER_PROCESS_INFLUENCE_KB_F = shape
+                    Case "SCR_FOLLOW_PROCESS_OUTFLOW_KB_T"
+                        shSCR_FOLLOW_PROCESS_OUTFLOW_KB_T = shape
+                    Case "SCR_FOLLOW_PROCESS_OUTFLOW_KB_F"
+                        shSCR_FOLLOW_PROCESS_OUTFLOW_KB_F = shape
+                End Select
+            Next shape
+
+            'レコードフレーム初期化
+
+            Dim _V11 As V011_FCR_J = FunGetV011Model(strHOKOKU_NO)
+            Dim _V003_SYONIN_J_KANRI_List As List(Of V003_SYONIN_J_KANRI) = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR, strHOKOKU_NO)
+
+            spSheet1.Range(NameOf(V011_FCR_J.HOKOKU_NO)).Value = _V11.HOKOKU_NO
+            spSheet1.Range(NameOf(V011_FCR_J.TAISYOU_KOKYAKU)).Value = _V11.TAISYOU_KOKYAKU
+            spSheet1.Range(NameOf(V011_FCR_J.KOKYAKU_EIKYO_HANTEI_COMMENT)).Value = _V11.KOKYAKU_EIKYO_HANTEI_COMMENT
+            spSheet1.Range(NameOf(V011_FCR_J.KOKYAKU_EIKYO_NAIYO)).Value = _V11.KOKYAKU_EIKYO_NAIYO
+            spSheet1.Range(NameOf(V011_FCR_J.KAKUNIN_SYUDAN)).Value = _V11.KAKUNIN_SYUDAN
+            spSheet1.Range(NameOf(V011_FCR_J.KOKYAKU_EIKYO_ETC_COMMENT)).Value = _V11.KOKYAKU_EIKYO_ETC_COMMENT
+
+
+            spSheet1.Range(NameOf(V011_FCR_J.TUCHI_YMD)).Value = _V11.TUCHI_YMD
+            spSheet1.Range(NameOf(V011_FCR_J.TUCHI_SYUDAN)).Value = _V11.TUCHI_SYUDAN
+            spSheet1.Range(NameOf(V011_FCR_J.HITUYO_TETUDUKI_ZIKO)).Value = _V11.HITUYO_TETUDUKI_ZIKO
+
+            Dim blnHANTEI As Boolean = (_V11.KOKYAKU_EIKYO_HANTEI_KB = "1")
+            shSCR_KOKYAKU_EIKYO_HANTEI_KB_T.Visible = blnHANTEI
+            shSCR_KOKYAKU_EIKYO_HANTEI_KB_F.Visible = Not blnHANTEI
+            shLINE_KOKYAKU_EIKYO_NAIYO.Visible = Not blnHANTEI
+            shLINE_KAKUNIN_SYUDAN.Visible = Not blnHANTEI
+            shLINE_TUCHI.Visible = Not blnHANTEI
+            shLINE_KOKYAKU_EIKYO_ETC_COMMENT.Visible = Not blnHANTEI
+            shLINE_KISYU1.Visible = Not blnHANTEI
+            shLINE_KISYU2.Visible = Not blnHANTEI
+            shLINE_RANGE1.Visible = Not blnHANTEI
+            shLINE_RANGE2.Visible = Not blnHANTEI
+            shLINE_NAIYO.Visible = Not blnHANTEI
+            shLINE_YMD.Visible = Not blnHANTEI
+            shSCR_KOKYAKU_EIKYO_TUCHI_HANTEI_KB_T.Visible = (_V11.KOKYAKU_EIKYO_TUCHI_HANTEI_KB = "1")
+            shSCR_KOKYAKU_EIKYO_TUCHI_HANTEI_KB_F.Visible = Not (_V11.KOKYAKU_EIKYO_TUCHI_HANTEI_KB = "1")
+
+            shSCR_OTHER_PROCESS_INFLUENCE_KB_T.Visible = (_V11.OTHER_PROCESS_INFLUENCE_KB = "1")
+            shSCR_OTHER_PROCESS_INFLUENCE_KB_F.Visible = Not (_V11.OTHER_PROCESS_INFLUENCE_KB = "1")
+            shSCR_FOLLOW_PROCESS_OUTFLOW_KB_T.Visible = (_V11.FOLLOW_PROCESS_OUTFLOW_KB = "1")
+            shSCR_FOLLOW_PROCESS_OUTFLOW_KB_F.Visible = Not (_V11.FOLLOW_PROCESS_OUTFLOW_KB = "1")
+
+            spSheet1.Range(NameOf(V011_FCR_J.KISYU1_NAME)).Value = _V11.KISYU1_NAME
+            spSheet1.Range(NameOf(V011_FCR_J.KISYU2_NAME)).Value = _V11.KISYU2_NAME
+            spSheet1.Range(NameOf(V011_FCR_J.KISYU3_NAME)).Value = _V11.KISYU3_NAME
+            spSheet1.Range(NameOf(V011_FCR_J.KISYU4_NAME)).Value = _V11.KISYU4_NAME
+            spSheet1.Range(NameOf(V011_FCR_J.KISYU5_NAME)).Value = _V11.KISYU5_NAME
+            spSheet1.Range(NameOf(V011_FCR_J.KISYU6_NAME)).Value = _V11.KISYU6_NAME
+            spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO1)).Value = _V11.BUHIN_INFO1
+            spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO2)).Value = _V11.BUHIN_INFO2
+            spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO3)).Value = _V11.BUHIN_INFO3
+            spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO4)).Value = _V11.BUHIN_INFO4
+            spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO5)).Value = _V11.BUHIN_INFO5
+            spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO6)).Value = _V11.BUHIN_INFO6
+            spSheet1.Range(NameOf(V011_FCR_J.SURYO1)).Value = _V11.SURYO1
+            spSheet1.Range(NameOf(V011_FCR_J.SURYO2)).Value = _V11.SURYO2
+            spSheet1.Range(NameOf(V011_FCR_J.SURYO3)).Value = _V11.SURYO3
+            spSheet1.Range(NameOf(V011_FCR_J.SURYO4)).Value = _V11.SURYO4
+            spSheet1.Range(NameOf(V011_FCR_J.SURYO5)).Value = _V11.SURYO5
+            spSheet1.Range(NameOf(V011_FCR_J.SURYO6)).Value = _V11.SURYO6
+            spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM1)).Value = _V11.RANGE_FROM1
+            spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM2)).Value = _V11.RANGE_FROM2
+            spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM3)).Value = _V11.RANGE_FROM3
+            spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM4)).Value = _V11.RANGE_FROM4
+            spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM5)).Value = _V11.RANGE_FROM5
+            spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM6)).Value = _V11.RANGE_FROM6
+            spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO1)).Value = _V11.RANGE_TO1
+            spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO2)).Value = _V11.RANGE_TO2
+            spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO3)).Value = _V11.RANGE_TO3
+            spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO4)).Value = _V11.RANGE_TO4
+            spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO5)).Value = _V11.RANGE_TO5
+            spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO6)).Value = _V11.RANGE_TO6
+            spSheet1.Range(NameOf(V011_FCR_J.KOKYAKU_NOUNYU_NAIYOU)).Value = _V11.KOKYAKU_NOUNYU_NAIYOU
+            spSheet1.Range(NameOf(V011_FCR_J.KOKYAKU_NOUNYU_YMD)).Value = _V11.KOKYAKU_NOUNYU_YMD
+            spSheet1.Range(NameOf(V011_FCR_J.ZAIKO_SIKAKE_NAIYOU)).Value = _V11.ZAIKO_SIKAKE_NAIYOU
+            spSheet1.Range(NameOf(V011_FCR_J.ZAIKO_SIKAKE_YMD)).Value = _V11.ZAIKO_SIKAKE_YMD
+            spSheet1.Range(NameOf(V011_FCR_J.OTHER_PROCESS_NAIYOU)).Value = _V11.OTHER_PROCESS_NAIYOU
+            spSheet1.Range(NameOf(V011_FCR_J.OTHER_PROCESS_YMD)).Value = _V11.OTHER_PROCESS_YMD
+
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._10_起草入力 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            If Not strYMDHNS.IsNulOrWS Then
+                spSheet1.Range("SYONIN_YMD" & ENM_FCR_STAGE._10_起草入力).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range("SYONIN_NAME" & ENM_FCR_STAGE._10_起草入力).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._10_起草入力).FirstOrDefault?.UPD_SYAIN_NAME
+            End If
+
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._20_品証_検査 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            If Not strYMDHNS.IsNulOrWS Then
+                spSheet1.Range("SYONIN_YMD" & ENM_FCR_STAGE._20_品証_検査).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range("SYONIN_NAME" & ENM_FCR_STAGE._20_品証_検査).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._20_品証_検査).FirstOrDefault?.UPD_SYAIN_NAME
+            End If
+
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._30_管理TL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            If Not strYMDHNS.IsNulOrWS Then
+                spSheet1.Range("SYONIN_YMD" & ENM_FCR_STAGE._30_管理TL).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range("SYONIN_NAME" & ENM_FCR_STAGE._30_管理TL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._30_管理TL).FirstOrDefault?.UPD_SYAIN_NAME
+            End If
+
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._40_生技TL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            If Not strYMDHNS.IsNulOrWS Then
+                spSheet1.Range("SYONIN_YMD" & ENM_FCR_STAGE._40_生技TL).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range("SYONIN_NAME" & ENM_FCR_STAGE._40_生技TL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._40_生技TL).FirstOrDefault?.UPD_SYAIN_NAME
+            End If
+
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._50_営業TL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            If Not strYMDHNS.IsNulOrWS Then
+                spSheet1.Range("SYONIN_YMD" & ENM_FCR_STAGE._50_営業TL).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range("SYONIN_NAME" & ENM_FCR_STAGE._50_営業TL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._50_営業TL).FirstOrDefault?.UPD_SYAIN_NAME
+            End If
+
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._60_品証課長 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            If Not strYMDHNS.IsNulOrWS Then
+                spSheet1.Range("SYONIN_YMD" & ENM_FCR_STAGE._60_品証課長).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range("SYONIN_NAME" & ENM_FCR_STAGE._60_品証課長).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._60_品証課長).FirstOrDefault?.UPD_SYAIN_NAME
+            End If
+
+            '-----ファイル保存
+            spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.Excel8)
+            spWorkbook.WorkbookSet.ReleaseLock()
+
+            ''-----Spire版 直接PDF発行するならこっち
+            'Dim workbook As New Spire.Xls.Workbook
+            'workbook.LoadFromFile(strFilePath)
+            'Dim pdfFilePath As String
+            'pdfFilePath = System.IO.Path.GetDirectoryName(strFilePath) & "\" & System.IO.Path.GetFileNameWithoutExtension(strFilePath) & ".pdf"
+            'workbook.SaveToFile(pdfFilePath, Spire.Xls.FileFormat.PDF)
+            '''PDF表示
+            'System.Diagnostics.Process.Start(pdfFilePath)
+
+            Call FunOpenWorkbook(strFilePath)
+
+            'Excel作業ファイルを削除
+            Try
+                System.IO.File.Delete(strFilePath)
+            Catch ex As UnauthorizedAccessException
+            End Try
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            spRangeFrom = Nothing
+            spRangeTo = Nothing
+            spSheet1 = Nothing
+            spWorksheets = Nothing
+            spWorkbook = Nothing
+
+        End Try
+    End Function
+
     Public Function FunOpenWorkbook(filePath As String) As Boolean
         Dim workbookView As New SpreadsheetGear.Windows.Forms.WorkbookView
         Try
@@ -1892,7 +2123,6 @@ Module mdlG0010
             'sbSQL.Append($" WHERE {NameOf(V007_NCR_CAR.KISO_TANTO_ID)}={SYAIN_ID}")
             'sbSQL.Append($" AND {NameOf(V007_NCR_CAR.SYONIN_HOKOKUSYO_ID)}={SYONIN_HOKOKUSYO_ID}")
             'sbSQL.Append($" AND {NameOf(V007_NCR_CAR.HOKOKU_NO)}='{HOKOKU_NO}'")
-
 
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)

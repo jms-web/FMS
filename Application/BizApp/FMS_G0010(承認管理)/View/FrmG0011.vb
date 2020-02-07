@@ -939,6 +939,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.HASSEI_YMD))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID))
+        sbSQL.Append(" ," & NameOf(_D003_NCR_J.FCR_KISO_TANTO_ID))
         '---
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.FILE_PATH))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.G_FILE_PATH1))
@@ -1025,6 +1026,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.HASSEI_YMD))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID))
+        sbSQL.Append(" ,0")
         '---
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.FILE_PATH))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.G_FILE_PATH1))
@@ -3608,6 +3610,20 @@ Public Class FrmG0011
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).
                                 FirstOrDefault
 
+
+                '#243
+                Dim sbSQL As New System.Text.StringBuilder
+                Dim intRET As Integer
+                sbSQL.Append($"SELECT COUNT({NameOf(V011_FCR_J.HOKOKU_NO)}) FROM {NameOf(V011_FCR_J)} ")
+                sbSQL.Append($" WHERE {NameOf(V011_FCR_J.HOKOKU_NO)}='{_D003_NCR_J.HOKOKU_NO}'")
+                Using DB = DBOpen()
+                    intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg)
+                End Using
+                If intRET > 0 Then
+                    'btnST03_FCR_KISO.Enabled = False
+                    btnST03_FCR_KISO.Text = "起草済"
+                End If
+
                 If _V003 IsNot Nothing Then
                     If _V003.SYONIN_YMDHNS.IsNulOrWS Then
                         cmbST03_DestTANTO.SelectedValue = 0
@@ -5304,7 +5320,10 @@ Public Class FrmG0011
     '#243
     Private Sub btnST03_FCR_KISO_Click(sender As Object, e As EventArgs) Handles btnST03_FCR_KISO.Click
         Try
-            Call funSAVE_FCR_KISO()
+            If funSAVE_FCR_KISO() Then
+                btnST03_FCR_KISO.Enabled = False
+                btnST03_FCR_KISO.Text = "起草済"
+            End If
         Catch ex As Exception
             Throw ex
         End Try
@@ -6552,6 +6571,19 @@ Public Class FrmG0011
                         Call dtUPD_YMD_Validating(dtST03_UPD_YMD, Nothing)
                         Call cmbST03_TANTO_FCR_Validating(cmbST03_TANTO_FCR, Nothing)
 
+                        If IsValidated Then
+                            If btnST03_FCR_KISO.Text = "起草" Then
+                                Dim msg As String = $"不適合封じ込め調査書が起草されていません{vbCrLf}今すぐ起草しますか？"
+                                If MessageBox.Show(msg, "起草確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) <> DialogResult.OK Then
+                                    IsValidated = False
+                                End If
+                                If funSAVE_FCR_KISO() Then
+                                    btnST03_FCR_KISO.Enabled = False
+                                    btnST03_FCR_KISO.Text = "起草済"
+                                End If
+                            End If
+                        End If
+
                     Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
                         Call CmbST04_JIZENSINSA_HANTEI_Validating(cmbST04_JIZENSINSA_HANTEI, Nothing)
                         Call CmbDestTANTO_Validating(cmbST04_DestTANTO, Nothing)
@@ -6999,7 +7031,15 @@ Public Class FrmG0011
 
                     If PrCurrentStage = ENM_NCR_STAGE._30_起草確認検査 Then
 
-                        If MessageBox.Show("不適合封じ込め調査書の起草申請を発行しますか？", "不適合封じ込め調査書起草申請", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) <> DialogResult.OK Then
+                        Dim msg As String
+
+                        If btnST03_FCR_KISO.Text = "起草済" Then
+                            msg = $"既に起草済みです{vbCrLf}既存の登録をリセットして、選択した担当者宛に再度起草申請を発行しますか？"
+                        Else
+                            msg = $"不適合封じ込め調査書の起草申請を発行しますか？"
+                        End If
+
+                        If MessageBox.Show(msg, "不適合封じ込め調査書起草申請", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) <> DialogResult.OK Then
                             Return True
                         End If
 
@@ -7008,7 +7048,6 @@ Public Class FrmG0011
                             If FunSendRequestMail_FCR() Then
                                 WL.WriteLogDat($"[DEBUG]封込調査書 報告書NO:{_D003_NCR_J.HOKOKU_NO}、INSERT D007 Send Request FCR Mail")
                             End If
-                            blnEnableCAREdit = True
                         Else
                             blnErr = True : Return False
                         End If

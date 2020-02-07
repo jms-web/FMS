@@ -1096,7 +1096,7 @@ Partial Class FrmG0021
         Me.txtTAISYO_KOKYAKU.BackColor = System.Drawing.SystemColors.Window
         Me.txtTAISYO_KOKYAKU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtTAISYO_KOKYAKU.InputRequired = False
-        Me.txtTAISYO_KOKYAKU.Location = New System.Drawing.Point(87, 67)
+        Me.txtTAISYO_KOKYAKU.Location = New System.Drawing.Point(82, 67)
         Me.txtTAISYO_KOKYAKU.MaxByteLength = 100
         Me.txtTAISYO_KOKYAKU.MaxLength = 50
         Me.txtTAISYO_KOKYAKU.Multiline = True
@@ -1486,6 +1486,7 @@ Partial Class FrmG0021
         Me.txtFROM6.Multiline = True
         Me.txtFROM6.Name = "txtFROM6"
         Me.txtFROM6.SelectAllText = False
+        Me.txtFROM6.ShowRemainingChars = True
         Me.txtFROM6.Size = New System.Drawing.Size(213, 23)
         Me.txtFROM6.TabIndex = 318
         Me.txtFROM6.WatermarkColor = System.Drawing.Color.Empty
@@ -1502,6 +1503,7 @@ Partial Class FrmG0021
         Me.txtTO6.Multiline = True
         Me.txtTO6.Name = "txtTO6"
         Me.txtTO6.SelectAllText = False
+        Me.txtTO6.ShowRemainingChars = True
         Me.txtTO6.Size = New System.Drawing.Size(213, 23)
         Me.txtTO6.TabIndex = 319
         Me.txtTO6.WatermarkColor = System.Drawing.Color.Empty
@@ -1550,6 +1552,7 @@ Partial Class FrmG0021
         Me.txtBUHIN_INFO6.Multiline = True
         Me.txtBUHIN_INFO6.Name = "txtBUHIN_INFO6"
         Me.txtBUHIN_INFO6.SelectAllText = False
+        Me.txtBUHIN_INFO6.ShowRemainingChars = True
         Me.txtBUHIN_INFO6.Size = New System.Drawing.Size(214, 23)
         Me.txtBUHIN_INFO6.TabIndex = 1
         Me.txtBUHIN_INFO6.WatermarkColor = System.Drawing.Color.Empty
@@ -1589,6 +1592,7 @@ Partial Class FrmG0021
         Me.txtFROM5.Multiline = True
         Me.txtFROM5.Name = "txtFROM5"
         Me.txtFROM5.SelectAllText = False
+        Me.txtFROM5.ShowRemainingChars = True
         Me.txtFROM5.Size = New System.Drawing.Size(213, 23)
         Me.txtFROM5.TabIndex = 3
         Me.txtFROM5.WatermarkColor = System.Drawing.Color.Empty
@@ -1605,6 +1609,7 @@ Partial Class FrmG0021
         Me.txtTO5.Multiline = True
         Me.txtTO5.Name = "txtTO5"
         Me.txtTO5.SelectAllText = False
+        Me.txtTO5.ShowRemainingChars = True
         Me.txtTO5.Size = New System.Drawing.Size(213, 23)
         Me.txtTO5.TabIndex = 4
         Me.txtTO5.WatermarkColor = System.Drawing.Color.Empty
@@ -1653,6 +1658,7 @@ Partial Class FrmG0021
         Me.txtBUHIN_INFO5.Multiline = True
         Me.txtBUHIN_INFO5.Name = "txtBUHIN_INFO5"
         Me.txtBUHIN_INFO5.SelectAllText = False
+        Me.txtBUHIN_INFO5.ShowRemainingChars = True
         Me.txtBUHIN_INFO5.Size = New System.Drawing.Size(214, 23)
         Me.txtBUHIN_INFO5.TabIndex = 1
         Me.txtBUHIN_INFO5.WatermarkColor = System.Drawing.Color.Empty
@@ -1691,6 +1697,7 @@ Partial Class FrmG0021
         Me.txtFROM4.Multiline = True
         Me.txtFROM4.Name = "txtFROM4"
         Me.txtFROM4.SelectAllText = False
+        Me.txtFROM4.ShowRemainingChars = True
         Me.txtFROM4.Size = New System.Drawing.Size(213, 23)
         Me.txtFROM4.TabIndex = 3
         Me.txtFROM4.WatermarkColor = System.Drawing.Color.Empty
@@ -1707,6 +1714,7 @@ Partial Class FrmG0021
         Me.txtTO4.Multiline = True
         Me.txtTO4.Name = "txtTO4"
         Me.txtTO4.SelectAllText = False
+        Me.txtTO4.ShowRemainingChars = True
         Me.txtTO4.Size = New System.Drawing.Size(213, 23)
         Me.txtTO4.TabIndex = 4
         Me.txtTO4.WatermarkColor = System.Drawing.Color.Empty
@@ -1755,6 +1763,7 @@ Partial Class FrmG0021
         Me.txtBUHIN_INFO4.Multiline = True
         Me.txtBUHIN_INFO4.Name = "txtBUHIN_INFO4"
         Me.txtBUHIN_INFO4.SelectAllText = False
+        Me.txtBUHIN_INFO4.ShowRemainingChars = True
         Me.txtBUHIN_INFO4.Size = New System.Drawing.Size(214, 23)
         Me.txtBUHIN_INFO4.TabIndex = 1
         Me.txtBUHIN_INFO4.WatermarkColor = System.Drawing.Color.Empty
@@ -1884,6 +1893,7 @@ Partial Class FrmG0021
         Me.txtFROM3.Multiline = True
         Me.txtFROM3.Name = "txtFROM3"
         Me.txtFROM3.SelectAllText = False
+        Me.txtFROM3.ShowRemainingChars = True
         Me.txtFROM3.Size = New System.Drawing.Size(213, 23)
         Me.txtFROM3.TabIndex = 318
         Me.txtFROM3.WatermarkColor = System.Drawing.Color.Empty
@@ -1900,6 +1910,7 @@ Partial Class FrmG0021
         Me.txtTO3.Multiline = True
         Me.txtTO3.Name = "txtTO3"
         Me.txtTO3.SelectAllText = False
+        Me.txtTO3.ShowRemainingChars = True
         Me.txtTO3.Size = New System.Drawing.Size(213, 23)
         Me.txtTO3.TabIndex = 319
         Me.txtTO3.WatermarkColor = System.Drawing.Color.Empty
@@ -1948,6 +1959,7 @@ Partial Class FrmG0021
         Me.txtBUHIN_INFO3.Multiline = True
         Me.txtBUHIN_INFO3.Name = "txtBUHIN_INFO3"
         Me.txtBUHIN_INFO3.SelectAllText = False
+        Me.txtBUHIN_INFO3.ShowRemainingChars = True
         Me.txtBUHIN_INFO3.Size = New System.Drawing.Size(214, 23)
         Me.txtBUHIN_INFO3.TabIndex = 1
         Me.txtBUHIN_INFO3.WatermarkColor = System.Drawing.Color.Empty
@@ -1987,6 +1999,7 @@ Partial Class FrmG0021
         Me.txtFROM2.Multiline = True
         Me.txtFROM2.Name = "txtFROM2"
         Me.txtFROM2.SelectAllText = False
+        Me.txtFROM2.ShowRemainingChars = True
         Me.txtFROM2.Size = New System.Drawing.Size(213, 23)
         Me.txtFROM2.TabIndex = 3
         Me.txtFROM2.WatermarkColor = System.Drawing.Color.Empty
@@ -2003,6 +2016,7 @@ Partial Class FrmG0021
         Me.txtTO2.Multiline = True
         Me.txtTO2.Name = "txtTO2"
         Me.txtTO2.SelectAllText = False
+        Me.txtTO2.ShowRemainingChars = True
         Me.txtTO2.Size = New System.Drawing.Size(213, 23)
         Me.txtTO2.TabIndex = 4
         Me.txtTO2.WatermarkColor = System.Drawing.Color.Empty
@@ -2051,6 +2065,7 @@ Partial Class FrmG0021
         Me.txtBUHIN_INFO2.Multiline = True
         Me.txtBUHIN_INFO2.Name = "txtBUHIN_INFO2"
         Me.txtBUHIN_INFO2.SelectAllText = False
+        Me.txtBUHIN_INFO2.ShowRemainingChars = True
         Me.txtBUHIN_INFO2.Size = New System.Drawing.Size(214, 23)
         Me.txtBUHIN_INFO2.TabIndex = 1
         Me.txtBUHIN_INFO2.WatermarkColor = System.Drawing.Color.Empty
@@ -2110,6 +2125,7 @@ Partial Class FrmG0021
         Me.txtFROM1.Multiline = True
         Me.txtFROM1.Name = "txtFROM1"
         Me.txtFROM1.SelectAllText = False
+        Me.txtFROM1.ShowRemainingChars = True
         Me.txtFROM1.Size = New System.Drawing.Size(213, 23)
         Me.txtFROM1.TabIndex = 3
         Me.txtFROM1.WatermarkColor = System.Drawing.Color.Empty
@@ -2126,6 +2142,7 @@ Partial Class FrmG0021
         Me.txtTO1.Multiline = True
         Me.txtTO1.Name = "txtTO1"
         Me.txtTO1.SelectAllText = False
+        Me.txtTO1.ShowRemainingChars = True
         Me.txtTO1.Size = New System.Drawing.Size(213, 23)
         Me.txtTO1.TabIndex = 5
         Me.txtTO1.WatermarkColor = System.Drawing.Color.Empty
@@ -2142,6 +2159,7 @@ Partial Class FrmG0021
         Me.txtBUHIN_INFO1.Multiline = True
         Me.txtBUHIN_INFO1.Name = "txtBUHIN_INFO1"
         Me.txtBUHIN_INFO1.SelectAllText = False
+        Me.txtBUHIN_INFO1.ShowRemainingChars = True
         Me.txtBUHIN_INFO1.Size = New System.Drawing.Size(214, 23)
         Me.txtBUHIN_INFO1.TabIndex = 1
         Me.txtBUHIN_INFO1.WatermarkColor = System.Drawing.Color.Empty

@@ -1510,7 +1510,13 @@ Public Class FrmG0010
 
         Try
 
-            Select Case flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST02.SYONIN_HOKOKUSYO_ID))
+            Dim hokokusyo_id As Integer
+            If flxDATA.Rows.Count > 1 Then
+                hokokusyo_id = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST02.SYONIN_HOKOKUSYO_ID))
+            Else
+                hokokusyo_id = 1
+            End If
+            Select Case hokokusyo_id
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value
                     frmNCR.PrMODE = intMODE
                     If intMODE = ENM_DATA_OPERATION_MODE._1_ADD Then

@@ -7,9 +7,9 @@ Imports PropertyChanged
 ''' <summary>
 ''' R005 不適合封じ込め調査書履歴
 ''' </summary>
-<Table(NameOf(R006_FCR_SUB_SASIMODOSI), Schema:="dbo")>
+<Table(NameOf(R006_FCR_J_SUB_SASIMODOSI), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
-Partial Public Class R006_FCR_SUB_SASIMODOSI
+Partial Public Class R006_FCR_J_SUB_SASIMODOSI
     Inherits ModelBase
 
     Public Shadows Sub Clear()
