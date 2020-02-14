@@ -100,6 +100,7 @@ Public Class FrmG0010
             'Call EnableDoubleBuffering(dgvDATA)
             Call EnableDoubleBuffering(dgvNCR)
             Call EnableDoubleBuffering(dgvCAR)
+            Call EnableDoubleBuffering(dgvCTS)
 
             '-----グリッド初期設定(親フォームから呼び出し)
             'Call FunInitializeDataGridView(dgvDATA)
@@ -107,11 +108,16 @@ Public Class FrmG0010
             Call FunInitializeFlexGrid(_flexGroup.Grid)
             Call FunInitializeDataGridView(dgvNCR)
             Call FunInitializeDataGridView(dgvCAR)
+            Call FunInitializeDataGridView(dgvCTS)
+            dgvNCR.Anchor = AnchorStyles.Top Or AnchorStyles.Left
+            dgvCAR.Anchor = AnchorStyles.Top Or AnchorStyles.Left
+            dgvCTS.Anchor = AnchorStyles.Top Or AnchorStyles.Left
 
             '-----グリッド列作成
             'Call FunSetDgvCulumns(dgvDATA)
-            Call FunSetDgvCulumnsNCRCAR(dgvNCR)
-            Call FunSetDgvCulumnsNCRCAR(dgvCAR)
+            Call FunSetDgvCulumnsHOKOKUSYO_StageFilter(dgvNCR)
+            Call FunSetDgvCulumnsHOKOKUSYO_StageFilter(dgvCAR)
+            Call FunSetDgvCulumnsHOKOKUSYO_StageFilter(dgvCTS)
 
             'SPEC: PF01.2-(1) A データソース
 
@@ -348,6 +354,7 @@ Public Class FrmG0010
 
                     dgvCAR.Visible = False
                     dgvNCR.Visible = False
+                    dgvCTS.Visible = False
 
                     cmbKISYU.Enabled = False
                     mtxGOKI.Enabled = False
@@ -783,7 +790,7 @@ Public Class FrmG0010
         End Try
     End Function
 
-    Private Shared Function FunSetDgvCulumnsNCRCAR(ByVal dgv As DataGridView) As Boolean
+    Private Shared Function FunSetDgvCulumnsHOKOKUSYO_StageFilter(ByVal dgv As DataGridView) As Boolean
 
         Try
             With dgv
@@ -812,7 +819,7 @@ Public Class FrmG0010
                 .Columns(.ColumnCount - 1).Visible = False
 
                 .Columns.Add("SYONIN_NAIYO", "ステージ名")
-                .Columns(.ColumnCount - 1).Width = 345
+                .Columns(.ColumnCount - 1).Width = 305
                 .Columns(.ColumnCount - 1).DefaultCellStyle.Alignment = Windows.Forms.DataGridViewContentAlignment.MiddleLeft
                 .Columns(.ColumnCount - 1).DataPropertyName = .Columns(.ColumnCount - 1).Name
                 .Columns(.ColumnCount - 1).ReadOnly = True
@@ -908,11 +915,11 @@ Public Class FrmG0010
     End Function
 
     Private Sub dgv_ColumnHeaderMouseClick(ByVal sender As System.Object,
-                ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgvNCR.ColumnHeaderMouseClick, dgvCAR.ColumnHeaderMouseClick
+                ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgvNCR.ColumnHeaderMouseClick, dgvCAR.ColumnHeaderMouseClick, dgvCTS.ColumnHeaderMouseClick
         Call dgv_Check(sender, e)
     End Sub
 
-    Private Sub dgv_ColumnHeaderMouseDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgvNCR.ColumnHeaderMouseDoubleClick, dgvCAR.ColumnHeaderMouseDoubleClick
+    Private Sub dgv_ColumnHeaderMouseDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgvNCR.ColumnHeaderMouseDoubleClick, dgvCAR.ColumnHeaderMouseDoubleClick, dgvCTS.ColumnHeaderMouseDoubleClick
         Call dgv_Check(sender, e)
     End Sub
 
@@ -923,6 +930,8 @@ Public Class FrmG0010
                 dgv = dgvNCR
             Case "dgvCAR"
                 dgv = dgvCAR
+            Case "dgvCTS"
+                dgv = dgvCTS
             Case Else
                 Exit Sub
         End Select
@@ -1238,7 +1247,12 @@ Public Class FrmG0010
                                                                  r.Field(Of Integer)("SYONIN_JUN") = row.Item("SYONIN_JUN")))
                 Next row
 
-                dtWK = dtWK.AsEnumerable.Union(dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR))
+                Dim CTS_Filter = DirectCast(Me.dgvCTS.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Boolean)("SELECTED") = True).ToList
+                For Each row In CTS_Filter
+                    dtWK = dtWK.AsEnumerable.
+                     Union(dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS And
+                                                                 r.Field(Of Integer)("SYONIN_JUN") = row.Item("SYONIN_JUN")))
+                Next row
 
                 If dtWK.Count > 0 Then dtBUFF = dtWK.CopyToDataTable
             End If
@@ -1423,8 +1437,6 @@ Public Class FrmG0010
 
             Dim dtWK As DataTable
             If dgv.DataSource IsNot Nothing Then dtWK = dgv.DataSource
-
-            'Dim param As New ST02_ParamModel With {.SYONIN_HOKOKUSYO_ID = SYONIN_HOKOKUSYO_ID, ._VISIBLE_CLOSE = 1}
             ParamModel.SYONIN_HOKOKUSYO_ID = SYONIN_HOKOKUSYO_ID
             Dim dtBUFF As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(ParamModel)
 
@@ -1434,6 +1446,8 @@ Public Class FrmG0010
                     stageLlist = tblNCR
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
                     stageLlist = tblCAR
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
+                    stageLlist = tblCTS
                 Case Else
                     Return False
             End Select
@@ -1483,8 +1497,7 @@ Public Class FrmG0010
             Next s
             retTable.AcceptChanges()
 
-            dgv.DataSource = retTable.AsEnumerable.OrderBy(Function(r) r.Field(Of Integer)("SYONIN_JUN")).
-                                                   CopyToDataTable
+            dgv.DataSource = retTable.AsEnumerable.OrderBy(Function(r) r.Field(Of Integer)("SYONIN_JUN")).CopyToDataTable
 
             Return True
         Catch ex As Exception
@@ -1563,7 +1576,7 @@ Public Class FrmG0010
                     Else
                         Return True
                     End If
-                Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR.Value
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS.Value
                     frmFCR.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
                     frmFCR.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item("HOKOKU_NO")
                     frmFCR.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
@@ -2064,7 +2077,7 @@ Public Class FrmG0010
                         Return False
                     End If
 
-                Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
                     'ファイル名
                     strOutputFileName = "CTS_" & strHOKOKU_NO & "_Work.xls"
 
@@ -2082,7 +2095,7 @@ Public Class FrmG0010
                         Return False
                     End If
                     '-----書込処理
-                    If FunMakeReportFCR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
+                    If FunMakeReportCTS(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
                         Return False
                     End If
                 Case Else
@@ -3616,10 +3629,11 @@ Public Class FrmG0010
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("SELECT")
         sbSQL.Append(" *")
-        sbSQL.Append($" FROM {NameOf(MODEL.M016_SYONIN_TANTO)} ")
-        sbSQL.Append($" WHERE {NameOf(MODEL.M016_SYONIN_TANTO.SYONIN_HOKOKUSYO_ID)} IN(1,2)")
-        sbSQL.Append($" AND {NameOf(MODEL.M016_SYONIN_TANTO.SYONIN_JUN)}=10")
-        sbSQL.Append($" AND {NameOf(MODEL.M016_SYONIN_TANTO.SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
+        sbSQL.Append($" FROM {NameOf(M016_SYONIN_TANTO)} ")
+        sbSQL.Append($" WHERE {NameOf(M016_SYONIN_TANTO.SYONIN_HOKOKUSYO_ID)} ")
+        sbSQL.Append($" IN({Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value},{Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR.Value},{Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS.Value})")
+        sbSQL.Append($" AND {NameOf(M016_SYONIN_TANTO.SYONIN_JUN)}=10")
+        sbSQL.Append($" AND {NameOf(M016_SYONIN_TANTO.SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
         Using DBa As ClsDbUtility = DBOpen()
             dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
         End Using
@@ -3639,10 +3653,11 @@ Public Class FrmG0010
         sbSQL.Remove(0, sbSQL.Length)
         sbSQL.Append("SELECT")
         sbSQL.Append(" *")
-        sbSQL.Append($" FROM {NameOf(MODEL.M016_SYONIN_TANTO)} ")
-        sbSQL.Append($" WHERE {NameOf(MODEL.M016_SYONIN_TANTO.SYONIN_HOKOKUSYO_ID)} IN(1,2)")
-        sbSQL.Append($" AND {NameOf(MODEL.M016_SYONIN_TANTO.SYONIN_JUN)}>10")
-        sbSQL.Append($" AND {NameOf(MODEL.M016_SYONIN_TANTO.SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
+        sbSQL.Append($" FROM {NameOf(M016_SYONIN_TANTO)} ")
+        sbSQL.Append($" WHERE {NameOf(M016_SYONIN_TANTO.SYONIN_HOKOKUSYO_ID)} ")
+        sbSQL.Append($" IN({Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value},{Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR.Value},{Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS.Value})")
+        sbSQL.Append($" AND {NameOf(M016_SYONIN_TANTO.SYONIN_JUN)}>10")
+        sbSQL.Append($" AND {NameOf(M016_SYONIN_TANTO.SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
         Using DBa As ClsDbUtility = DBOpen()
             dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
         End Using
@@ -3687,6 +3702,7 @@ Public Class FrmG0010
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then
             Call FunSetStageList(dgvNCR, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR)
             Call FunSetStageList(dgvCAR, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)
+            Call FunSetStageList(dgvCTS, Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS)
             ParamModel.SYONIN_HOKOKUSYO_ID = 0
         End If
 

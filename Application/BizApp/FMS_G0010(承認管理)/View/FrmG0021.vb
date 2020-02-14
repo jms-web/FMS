@@ -172,7 +172,7 @@ Public Class FrmG0021
 
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
-                        If IsEditingClosed And PrCurrentStage = ENM_FCR_STAGE._999_Closed Then
+                        If IsEditingClosed And PrCurrentStage = ENM_CTS_STAGE._999_Closed Then
 
                             OpenFormEdit()
                             If PrRIYU.IsNulOrWS Then
@@ -197,7 +197,7 @@ Public Class FrmG0021
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._2_承認申請) Then
                         Dim strMsg As String
-                        If PrCurrentStage = ENM_FCR_STAGE._60_品証課長 Then
+                        If PrCurrentStage = ENM_CTS_STAGE._60_品証課長 Then
                             strMsg = "承認しますか？"
                         Else
                             strMsg = "申請しますか？"
@@ -205,7 +205,7 @@ Public Class FrmG0021
 
                         If MessageBox.Show("申請しますか？", "承認・申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                             If FunSAVE(ENM_SAVE_MODE._2_承認申請) Then
-                                If PrCurrentStage = ENM_FCR_STAGE._60_品証課長 Then
+                                If PrCurrentStage = ENM_CTS_STAGE._60_品証課長 Then
                                     strMsg = "承認しました"
                                 Else
                                     strMsg = "承認・申請しました"
@@ -248,7 +248,7 @@ Public Class FrmG0021
                     Call FunOpenReportFCR()
 
                 Case 11 '履歴
-                    Call OpenFormHistory(Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR, _V011_FCR_J.HOKOKU_NO)
+                    Call OpenFormHistory(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, _V011_FCR_J.HOKOKU_NO)
 
                 Case 12 '閉じる
                     Me.Close()
@@ -295,7 +295,7 @@ Public Class FrmG0021
                     If FunSAVE_D007(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                     If FunSAVE_D008(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
 
-                    If Not blnTENSO And PrCurrentStage < ENM_FCR_STAGE._999_Closed Then
+                    If Not blnTENSO And PrCurrentStage < ENM_CTS_STAGE._999_Closed Then
                         If FunSAVE_D004(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                     End If
                     If FunSAVE_R001(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
@@ -331,7 +331,7 @@ Public Class FrmG0021
 
         _D007.Clear()
         _D007.HOKOKU_NO = PrHOKOKU_NO
-        If PrCurrentStage = ENM_FCR_STAGE._60_品証課長 And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
+        If PrCurrentStage = ENM_CTS_STAGE._60_品証課長 And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
             _D007._CLOSE_FG = 1
         End If
         If rbtnKOKYAKU_EIKYO_HANTEI_KB_T.Checked Then
@@ -528,13 +528,13 @@ Public Class FrmG0021
         Dim sqlEx As New Exception
         Dim strSysDate As String = DB.GetSysDateString
         '-----データモデル更新
-        _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR
+        _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
         _D004_SYONIN_J_KANRI.HOKOKU_NO = _V011_FCR_J.HOKOKU_NO
         _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
         _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
         _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
 
-        If PrCurrentStage = ENM_FCR_STAGE._10_起草入力 Then
+        If PrCurrentStage = ENM_CTS_STAGE._10_起草入力 Then
             _D004_SYONIN_J_KANRI.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
         End If
 
@@ -663,7 +663,7 @@ Public Class FrmG0021
 
         '-----モデル更新
         Select Case PrCurrentStage
-            Case ENM_FCR_STAGE._60_品証課長
+            Case ENM_CTS_STAGE._60_品証課長
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = 999 'Close
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
                 _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
@@ -740,7 +740,7 @@ Public Class FrmG0021
         strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
         Select Case strRET
             Case "INSERT"
-                If PrCurrentStage < ENM_FCR_STAGE._60_品証課長 AndAlso _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False Then
+                If PrCurrentStage < ENM_CTS_STAGE._60_品証課長 AndAlso _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False Then
                     '承認依頼メール送信
                     If FunSendRequestMail() Then
                         WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_V011_FCR_J.HOKOKU_NO}、Send Request Mail")
@@ -841,7 +841,7 @@ Public Class FrmG0021
         End If
 
         '-----データモデル更新
-        _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR
+        _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
         _R001_HOKOKU_SOUSA.HOKOKU_NO = _V011_FCR_J.HOKOKU_NO
         _R001_HOKOKU_SOUSA.SYONIN_JUN = PrCurrentStage
         _R001_HOKOKU_SOUSA.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
@@ -852,7 +852,7 @@ Public Class FrmG0021
         Select Case enmSAVE_MODE
             Case ENM_SAVE_MODE._1_保存
 
-                If PrCurrentStage = ENM_FCR_STAGE._999_Closed Then
+                If PrCurrentStage = ENM_CTS_STAGE._999_Closed Then
                     _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
                     _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._2_更新保存
                 Else
@@ -1098,7 +1098,7 @@ Public Class FrmG0021
         Dim dlgRET As DialogResult
 
         Try
-            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
             frmDLG.PrHOKOKU_NO = PrHOKOKU_NO
             frmDLG.PrBUMON_KB = _V002_NCR_J.BUMON_KB
             frmDLG.PrBUHIN_BANGO = _V002_NCR_J.BUHIN_BANGO
@@ -1134,7 +1134,7 @@ Public Class FrmG0021
         Dim dlgRET As DialogResult
 
         Try
-            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
             frmDLG.PrHOKOKU_NO = PrHOKOKU_NO
             frmDLG.PrBUHIN_BANGO = _V002_NCR_J.BUHIN_BANGO
             frmDLG.PrKISO_YMD = DateTime.ParseExact(_V002_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
@@ -1188,7 +1188,7 @@ Public Class FrmG0021
                 Return False
             End If
             '-----書込処理
-            If FunMakeReportFCR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, _V011_FCR_J.HOKOKU_NO) = False Then
+            If FunMakeReportCTS(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, _V011_FCR_J.HOKOKU_NO) = False Then
                 Return False
             End If
 
@@ -1293,7 +1293,7 @@ Public Class FrmG0021
                 End With
             Next intFunc
 
-            If FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR, PrHOKOKU_NO, PrCurrentStage) Then '
+            If FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, PrHOKOKU_NO, PrCurrentStage) Then '
                 cmdFunc1.Enabled = True
                 cmdFunc2.Enabled = True
                 cmdFunc4.Enabled = True
@@ -1335,9 +1335,9 @@ Public Class FrmG0021
             End If
 
             Select Case PrCurrentStage
-                Case ENM_FCR_STAGE._60_品証課長
+                Case ENM_CTS_STAGE._60_品証課長
                     cmdFunc2.Text = "承認(F2)"
-                Case ENM_FCR_STAGE._999_Closed
+                Case ENM_CTS_STAGE._999_Closed
 
                     '#181
                     If IsEditingClosed Then
@@ -1730,14 +1730,14 @@ Public Class FrmG0021
             txtTO5.Text = _V011_FCR_J.RANGE_TO5
             txtTO6.Text = _V011_FCR_J.RANGE_TO6
 
-            mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR, _V011_FCR_J.HOKOKU_NO)
-            mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR, FunGetNextSYONIN_JUN(PrCurrentStage))
-            Dim blnOwn As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR, _V011_FCR_J.HOKOKU_NO, PrCurrentStage)
+            mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, _V011_FCR_J.HOKOKU_NO)
+            mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, FunGetNextSYONIN_JUN(PrCurrentStage))
+            Dim blnOwn As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, _V011_FCR_J.HOKOKU_NO, PrCurrentStage)
 
             _tabPageManager = New TabPageManager(TabSTAGE)
 
             Select Case PrCurrentStage
-                Case ENM_FCR_STAGE._999_Closed
+                Case ENM_CTS_STAGE._999_Closed
                     pnlFCR.DisableContaints(IsEditingClosed, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     pnlSYOCHI_KIROKU.DisableContaints(IsEditingClosed, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     pnlZESEI_SYOCHI.DisableContaints(IsEditingClosed, PanelEx.ENM_PROPERTY._2_ReadOnly)
@@ -1748,7 +1748,7 @@ Public Class FrmG0021
             End Select
 
             '画面上部のカレントステージ遷移ボタン
-            For Each val As Integer In [Enum].GetValues(GetType(ENM_FCR_STAGE2))
+            For Each val As Integer In [Enum].GetValues(GetType(ENM_CTS_STAGE2))
                 flpnlStageIndex.Controls("rsbtnST" & val.ToString("00")).Enabled = (PrCurrentStage / 10) >= val
                 If (PrCurrentStage / 10) >= val Then
                 Else
@@ -1762,7 +1762,7 @@ Public Class FrmG0021
             End If
 
             '最終ステージの場合、申請先担当者欄は非表示
-            If PrCurrentStage >= ENM_FCR_STAGE._60_品証課長 Then
+            If PrCurrentStage >= ENM_CTS_STAGE._60_品証課長 Then
                 lblDestTANTO.Visible = False
                 cmbDestTANTO.Visible = False
             End If
@@ -1803,7 +1803,7 @@ Public Class FrmG0021
         Try
             _V002_NCR_J.Clear()
             _V002_NCR_J = FunGetV002Model(PrHOKOKU_NO)
-            _V003_SYONIN_J_KANRI_List = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR, PrHOKOKU_NO)
+            _V003_SYONIN_J_KANRI_List = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, PrHOKOKU_NO)
 
             _V011_FCR_J.Clear()
             _V011_FCR_J = FunGetV011Model(PrHOKOKU_NO)
@@ -1811,7 +1811,7 @@ Public Class FrmG0021
             'データソース設定
             Dim dt As DataTable = FunGetSYOZOKU_SYAIN(_V011_FCR_J.BUMON_KB)
 
-            dt = FunGetSYONIN_SYOZOKU_SYAIN(_V011_FCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR, FunGetNextSYONIN_JUN(PrCurrentStage))
+            dt = FunGetSYONIN_SYOZOKU_SYAIN(_V011_FCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, FunGetNextSYONIN_JUN(PrCurrentStage))
             cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             '#128
@@ -1835,7 +1835,7 @@ Public Class FrmG0021
             'フラグリセット
             IsValidated = True
             '-----共通
-            If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And PrCurrentStage < ENM_FCR_STAGE._60_品証課長 Then
+            If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And PrCurrentStage < ENM_CTS_STAGE._60_品証課長 Then
                 Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
             End If
 
@@ -1897,8 +1897,8 @@ Public Class FrmG0021
             '    Return intCurrentStageID + (stageLength * 2)
             'Else
             Select Case intCurrentStageID
-                Case ENM_FCR_STAGE._60_品証課長, ENM_FCR_STAGE._999_Closed
-                    Return ENM_FCR_STAGE._999_Closed
+                Case ENM_CTS_STAGE._60_品証課長, ENM_CTS_STAGE._999_Closed
+                    Return ENM_CTS_STAGE._999_Closed
                 Case Else
                     Return intCurrentStageID + stageLength
             End Select

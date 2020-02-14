@@ -129,7 +129,7 @@ Module mdlG0010
     ''' <summary>
     ''' 不適合封じ込め調査書 ステージ
     ''' </summary>
-    Public Enum ENM_FCR_STAGE
+    Public Enum ENM_CTS_STAGE
         _10_起草入力 = 10
         _20_品証_検査 = 20
         _30_管理TL = 30
@@ -142,7 +142,7 @@ Module mdlG0010
     ''' <summary>
     ''' 不適合封じ込め調査書 ステージ ボタンリスト用
     ''' </summary>
-    Public Enum ENM_FCR_STAGE2
+    Public Enum ENM_CTS_STAGE2
         _1_起草入力 = 1
         _2_品証_検査 = 2
         _3_管理TL = 3
@@ -396,7 +396,7 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "承認判定区分", tblSYONIN_HANTEI_KB)
                     Call FunGetCodeDataTable(DB, "廃却方法区分", tblHAIKYAKU_KB)
 
-                    Call FunGetCodeDataTable(DB, "FCR", tblFCR)
+                    Call FunGetCodeDataTable(DB, "FCR", tblCTS)
                     Call FunGetCodeDataTable(DB, "不適合封じ込め非の理由", tblKOKYAKU_EIKYO_COMMENT)
                 End Using
 
@@ -768,8 +768,8 @@ Module mdlG0010
                     drList = tblNCR.AsEnumerable().Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
                     drList = tblCAR.AsEnumerable().Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
-                Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR
-                    drList = tblFCR.AsEnumerable().Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
+                    drList = tblCTS.AsEnumerable().Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
                 Case Else
                     Return vbEmpty
             End Select
@@ -1813,7 +1813,7 @@ Module mdlG0010
         End Try
     End Function
 
-    Public Function FunMakeReportFCR(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean
+    Public Function FunMakeReportCTS(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean
 
         Dim spWorkbook As SpreadsheetGear.IWorkbook
         Dim spWorksheets As SpreadsheetGear.IWorksheets
@@ -1895,7 +1895,7 @@ Module mdlG0010
             'レコードフレーム初期化
 
             Dim _V11 As V011_FCR_J = FunGetV011Model(strHOKOKU_NO)
-            Dim _V003_SYONIN_J_KANRI_List As List(Of V003_SYONIN_J_KANRI) = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR, strHOKOKU_NO)
+            Dim _V003_SYONIN_J_KANRI_List As List(Of V003_SYONIN_J_KANRI) = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, strHOKOKU_NO)
 
             spSheet1.Range(NameOf(V011_FCR_J.HOKOKU_NO)).Value = _V11.HOKOKU_NO
             spSheet1.Range(NameOf(V011_FCR_J.TAISYOU_KOKYAKU)).Value = _V11.TAISYOU_KOKYAKU
@@ -1967,40 +1967,40 @@ Module mdlG0010
             spSheet1.Range(NameOf(V011_FCR_J.OTHER_PROCESS_NAIYOU)).Value = _V11.OTHER_PROCESS_NAIYOU
             spSheet1.Range(NameOf(V011_FCR_J.OTHER_PROCESS_YMD)).Value = _V11.OTHER_PROCESS_YMD
 
-            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._10_起草入力 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._10_起草入力 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNulOrWS Then
-                spSheet1.Range("SYONIN_YMD" & ENM_FCR_STAGE._10_起草入力).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                spSheet1.Range("SYONIN_NAME" & ENM_FCR_STAGE._10_起草入力).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._10_起草入力).FirstOrDefault?.UPD_SYAIN_NAME
+                spSheet1.Range("SYONIN_YMD" & ENM_CTS_STAGE._10_起草入力).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range("SYONIN_NAME" & ENM_CTS_STAGE._10_起草入力).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._10_起草入力).FirstOrDefault?.UPD_SYAIN_NAME
             End If
 
-            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._20_品証_検査 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._20_品証_検査 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNulOrWS Then
-                spSheet1.Range("SYONIN_YMD" & ENM_FCR_STAGE._20_品証_検査).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                spSheet1.Range("SYONIN_NAME" & ENM_FCR_STAGE._20_品証_検査).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._20_品証_検査).FirstOrDefault?.UPD_SYAIN_NAME
+                spSheet1.Range("SYONIN_YMD" & ENM_CTS_STAGE._20_品証_検査).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range("SYONIN_NAME" & ENM_CTS_STAGE._20_品証_検査).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._20_品証_検査).FirstOrDefault?.UPD_SYAIN_NAME
             End If
 
-            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._30_管理TL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._30_管理TL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNulOrWS Then
-                spSheet1.Range("SYONIN_YMD" & ENM_FCR_STAGE._30_管理TL).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                spSheet1.Range("SYONIN_NAME" & ENM_FCR_STAGE._30_管理TL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._30_管理TL).FirstOrDefault?.UPD_SYAIN_NAME
+                spSheet1.Range("SYONIN_YMD" & ENM_CTS_STAGE._30_管理TL).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range("SYONIN_NAME" & ENM_CTS_STAGE._30_管理TL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._30_管理TL).FirstOrDefault?.UPD_SYAIN_NAME
             End If
 
-            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._40_生技TL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._40_生技TL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNulOrWS Then
-                spSheet1.Range("SYONIN_YMD" & ENM_FCR_STAGE._40_生技TL).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                spSheet1.Range("SYONIN_NAME" & ENM_FCR_STAGE._40_生技TL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._40_生技TL).FirstOrDefault?.UPD_SYAIN_NAME
+                spSheet1.Range("SYONIN_YMD" & ENM_CTS_STAGE._40_生技TL).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range("SYONIN_NAME" & ENM_CTS_STAGE._40_生技TL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._40_生技TL).FirstOrDefault?.UPD_SYAIN_NAME
             End If
 
-            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._50_営業TL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._50_営業TL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNulOrWS Then
-                spSheet1.Range("SYONIN_YMD" & ENM_FCR_STAGE._50_営業TL).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                spSheet1.Range("SYONIN_NAME" & ENM_FCR_STAGE._50_営業TL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._50_営業TL).FirstOrDefault?.UPD_SYAIN_NAME
+                spSheet1.Range("SYONIN_YMD" & ENM_CTS_STAGE._50_営業TL).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range("SYONIN_NAME" & ENM_CTS_STAGE._50_営業TL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._50_営業TL).FirstOrDefault?.UPD_SYAIN_NAME
             End If
 
-            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._60_品証課長 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._60_品証課長 And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNulOrWS Then
-                spSheet1.Range("SYONIN_YMD" & ENM_FCR_STAGE._60_品証課長).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                spSheet1.Range("SYONIN_NAME" & ENM_FCR_STAGE._60_品証課長).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_FCR_STAGE._60_品証課長).FirstOrDefault?.UPD_SYAIN_NAME
+                spSheet1.Range("SYONIN_YMD" & ENM_CTS_STAGE._60_品証課長).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range("SYONIN_NAME" & ENM_CTS_STAGE._60_品証課長).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._60_品証課長).FirstOrDefault?.UPD_SYAIN_NAME
             End If
 
             '-----ファイル保存

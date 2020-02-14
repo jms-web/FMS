@@ -241,7 +241,7 @@ Public Class FrmG0016
                                 blnErr = True
                                 Return False
                             End If
-                        Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR
+                        Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
 
                             If FunSAVE_R005(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
                             Else

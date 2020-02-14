@@ -116,7 +116,7 @@ Namespace Context
         Public Enum ENM_SYONIN_HOKOKUSYO_ID
             _1_NCR = 1
             _2_CAR = 2
-            _3_FCR = 3
+            _3_CTS = 3
         End Enum
 #End Region
 
@@ -253,7 +253,7 @@ Public Module mdlDBContext
     ''' <summary>
     ''' ••‚¶‚ß’²¸‘
     ''' </summary>
-    Public tblFCR As DataTableEx
+    Public tblCTS As DataTableEx
 
     ''' <summary>
     ''' ••‚¶‚ß’²¸‘@”Û‚Ì——R

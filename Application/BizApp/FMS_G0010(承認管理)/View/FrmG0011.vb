@@ -1444,7 +1444,7 @@ Public Class FrmG0011
     Private Function FunSendRequestMail_FCR()
         Dim KISYU_NAME As String = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
         Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
-        Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR.Value & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
+        Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS.Value & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
         Dim strSubject As String = $"【不適合品処置依頼】[CAR] {KISYU_NAME}・{_D003_NCR_J.BUHIN_BANGO}"
         Dim strBody As String = <sql><![CDATA[
         {0} 殿<br />
@@ -2354,9 +2354,9 @@ Public Class FrmG0011
 
         '----D004
         '-----データモデル更新
-        _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_FCR.Value
+        _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS.Value
         _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
-        _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_FCR_STAGE._10_起草入力
+        _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_CTS_STAGE._10_起草入力
         '#53
         _D004_SYONIN_J_KANRI.SYAIN_ID = cmbST03_TANTO_FCR.SelectedValue
         _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
