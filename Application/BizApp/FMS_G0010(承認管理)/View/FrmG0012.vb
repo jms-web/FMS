@@ -971,7 +971,12 @@ Public Class FrmG0012
             Case ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = 999 'Close
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
-                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
+
+                If dtST13_KAKUNIN.ValueNonFormat.IsNulOrWS Then
+                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
+                Else
+                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = dtST13_KAKUNIN.ValueNonFormat
+                End If
         End Select
         _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
 
@@ -2882,6 +2887,7 @@ Public Class FrmG0012
                         btnST13_SYONIN.Enabled = blnOwn
                         dtST13_KAKUNIN.ReadOnly = Not blnOwn
                         lblSYOSAI_FILE_PATH_Clear.Enabled = False
+                        dtST13_KAKUNIN.ValueNonFormat = Now.ToString("yyyyMMdd")
                     Else
                         pnlST13.Visible = False
                     End If
@@ -2982,7 +2988,13 @@ Public Class FrmG0012
         Try
 
             _D005_CAR_J.SETUMON_1 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 1).First.Item("DISP")
-            _D005_CAR_J.SETUMON_2 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 2).First.Item("DISP")
+
+
+            If _V005_CAR_J.SYONIN_YMD10 >= "20200213" Then
+                _D005_CAR_J.SETUMON_2 = "不適合要因(関係する要因(4Mなど)の調査) 人的要因 無・有(有の場合は以下に内容を記入)"
+            Else
+                _D005_CAR_J.SETUMON_2 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 2).First.Item("DISP")
+            End If
             _D005_CAR_J.SETUMON_3 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 3).First.Item("DISP")
             _D005_CAR_J.SETUMON_4 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 4).First.Item("DISP")
             _D005_CAR_J.SETUMON_5 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 5).First.Item("DISP")

@@ -723,6 +723,11 @@ Partial Public Class V005_CAR_J
     <ComponentModel.DisplayName("検査員承認日（60）")>
     Public Property SYONIN_YMD60 As String
 
+    <ComponentModel.DisplayName("品証課長（70）")>
+    Public Property SYONIN_NAME70 As String
+    <ComponentModel.DisplayName("品証課長承認日（70）")>
+    Public Property SYONIN_YMD70 As String
+
     <ComponentModel.DisplayName("担当課長（90）")>
     Public Property SYONIN_NAME90 As String
     <ComponentModel.DisplayName("担当課長承認日（90）")>

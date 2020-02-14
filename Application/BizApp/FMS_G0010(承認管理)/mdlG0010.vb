@@ -714,6 +714,8 @@ Module mdlG0010
                 _model.SYONIN_YMD50 = .Item(NameOf(_model.SYONIN_YMD50))
                 _model.SYONIN_NAME60 = .Item(NameOf(_model.SYONIN_NAME60))
                 _model.SYONIN_YMD60 = .Item(NameOf(_model.SYONIN_YMD60))
+                _model.SYONIN_NAME70 = .Item(NameOf(_model.SYONIN_NAME70))
+                _model.SYONIN_YMD70 = .Item(NameOf(_model.SYONIN_YMD70))
                 _model.SYONIN_NAME90 = .Item(NameOf(_model.SYONIN_NAME90))
                 _model.SYONIN_YMD90 = .Item(NameOf(_model.SYONIN_YMD90))
                 _model.SYONIN_NAME100 = .Item(NameOf(_model.SYONIN_NAME100))
@@ -1749,6 +1751,34 @@ Module mdlG0010
             End If
             spSheet1.Range(NameOf(_V005_CAR_J.SYOSAI_FILE_PATH)).Value = _V005_CAR_J.SYOSAI_FILE_PATH
             spSheet1.Range(NameOf(_V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU_NAME)).Value = _V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU_NAME
+
+            '#244
+            If _V005_CAR_J.SYONIN_YMD10 >= "20200213" Then
+                spSheet1.Range("FUTEKIGO_YOIN_CAP").Value = "不適合要因(関係する要因(4Mなど)の調査) 人的要因 無・有(有の場合は以下に内容を記入)"
+                If Not _V005_CAR_J.SYONIN_YMD70.IsNulOrWS Then
+                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD70)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD70.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME70)).Value = _V005_CAR_J.SYONIN_NAME70
+                End If
+
+                Dim border_SYOCHI_KIROKU As SpreadsheetGear.IBorder = spSheet1.Range("A56:Q56").Borders(SpreadsheetGear.BordersIndex.EdgeBottom)
+                border_SYOCHI_KIROKU.LineStyle = SpreadsheetGear.LineStyle.Continuous
+                border_SYOCHI_KIROKU.Weight = SpreadsheetGear.BorderWeight.Thin
+                border_SYOCHI_KIROKU.Color = SpreadsheetGear.Colors.Black
+
+                Dim border_ZESEI_SYOCHI As SpreadsheetGear.IBorder = spSheet1.Range("A60:Q60").Borders(SpreadsheetGear.BordersIndex.EdgeBottom)
+                border_ZESEI_SYOCHI.LineStyle = SpreadsheetGear.LineStyle.Continuous
+                border_ZESEI_SYOCHI.Weight = SpreadsheetGear.BorderWeight.Thick
+                border_ZESEI_SYOCHI.Color = SpreadsheetGear.Colors.Black
+
+                spSheet1.Range("P53").Value = "担当課長"
+                spSheet1.Range("P57").Value = "担当課長"
+                spSheet1.Range("P61").Value = "品証課長"
+
+            Else
+                spSheet1.Range("FUTEKIGO_YOIN_CAP").Value = "不適合要因（関係する要因（人、設備・治工具、材料、方法、など）の調査）"
+                spSheet1.Range("ST7_FLAME").ClearContents()
+            End If
+
 
             '-----ファイル保存
             spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.Excel8)
