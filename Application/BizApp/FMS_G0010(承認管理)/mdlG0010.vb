@@ -1770,15 +1770,28 @@ Module mdlG0010
                 border_ZESEI_SYOCHI.Weight = SpreadsheetGear.BorderWeight.Thick
                 border_ZESEI_SYOCHI.Color = SpreadsheetGear.Colors.Black
 
+                spSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiPj@•Ê†|‚T"
                 spSheet1.Range("P53").Value = "’S“–‰Û’·"
                 spSheet1.Range("P57").Value = "’S“–‰Û’·"
-                spSheet1.Range("P61").Value = "•iØ‰Û’·"
+                spSheet1.Range("P61").Value = "•iØTL"
 
             Else
                 spSheet1.Range("FUTEKIGO_YOIN_CAP").Value = "•s“K‡—vˆöiŠÖŒW‚·‚é—vˆöilAİ”õE¡H‹ïAŞ—¿A•û–@A‚È‚Çj‚Ì’²¸j"
-                spSheet1.Range("ST7_FLAME").ClearContents()
-            End If
+                spSheet1.Range("ST7_FLAME").Clear()
+                Dim borderRePaint As SpreadsheetGear.IBorder = spSheet1.Range("R31:R35").Borders(SpreadsheetGear.BordersIndex.EdgeLeft)
+                borderRePaint.LineStyle = SpreadsheetGear.LineStyle.Continuous
+                borderRePaint.Weight = SpreadsheetGear.BorderWeight.Thin
+                borderRePaint.Color = SpreadsheetGear.Colors.Black
 
+
+                spSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiOj@•Ê†|‚T"
+                spSheet1.Range("P53").Value = "’S“–‰Û’·“™"
+                spSheet1.Range("P53").Value = "’S“–‰Û’·“™"
+                spSheet1.Range("P57").Value = "’S“–‰Û’·“™"
+                spSheet1.Range("P61").Value = "•iØ‰Û’·"
+            End If
+            Dim rev_str = spSheet1.Range("A1").GetCharacters(9, 3)
+            rev_str.Font.Color = SpreadsheetGear.Colors.Red
 
             '-----ƒtƒ@ƒCƒ‹•Û‘¶
             spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.Excel8)
