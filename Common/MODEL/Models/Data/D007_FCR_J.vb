@@ -83,7 +83,7 @@ Partial Public Class D007_FCR_J
     Public Property _KOKYAKU_EIKYO_HANTEI_KB As String
 
     ''' <summary>
-    ''' 1-1 判定
+    ''' 顧客影響判定
     ''' </summary>
     ''' <returns></returns>
     <NotMapped>
@@ -238,7 +238,7 @@ Partial Public Class D007_FCR_J
     <Column(TypeName:="nvarchar")>
     Public Property KOKYAKU_NOUNYU_NAIYOU As String
 
-    ''' 5-1 顧客納入済品 実施日
+    ''' 5-1 顧客納入済品 日付
     ''' </summary>
     ''' <returns></returns>
     <Required>

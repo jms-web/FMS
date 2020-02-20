@@ -135,6 +135,9 @@ Public Class FrmG0012
                         AddHandler rbtnSEKKEI_TANTO_YOHI_YES.CheckedChanged, AddressOf RbtnSEKKEI_TANTO_YOHI_YES_CheckedChanged
                         AddHandler rbtnSEKKEI_TANTO_YOHI_NO.CheckedChanged, AddressOf RbtnSEKKEI_TANTO_YOHI_NO_CheckedChanged
 
+                        AddHandler rbtnFUTEKIGO_YOUIN_T.CheckedChanged, AddressOf RbtnFUTEKIGO_YOUIN_T_CheckedChanged
+                        AddHandler rbtnFUTEKIGO_YOUIN_F.CheckedChanged, AddressOf RbtnFUTEKIGO_YOUIN_F_CheckedChanged
+
                         Me.tabSTAGE01.Focus()
                     End Sub)
                 End Sub)
@@ -437,60 +440,60 @@ Public Class FrmG0012
         sbSQL.Append($"MERGE INTO {NameOf(MODEL.D005_CAR_J)} AS SrcT")
         sbSQL.Append(" USING (")
         sbSQL.Append(" SELECT")
-        sbSQL.Append($" '{_D005_CAR_J.HOKOKU_NO }' AS {NameOf(_D005_CAR_J.HOKOKU_NO)}")
-        sbSQL.Append($",'{_D005_CAR_J.BUMON_KB }' AS {NameOf(_D005_CAR_J.BUMON_KB)}")
-        sbSQL.Append($",'{_D005_CAR_J._CLOSE_FG }' AS {NameOf(_D005_CAR_J.CLOSE_FG)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_1 }' AS {NameOf(_D005_CAR_J.SETUMON_1)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_2 }' AS {NameOf(_D005_CAR_J.SETUMON_2)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_3 }' AS {NameOf(_D005_CAR_J.SETUMON_3)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_4 }' AS {NameOf(_D005_CAR_J.SETUMON_4)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_5 }' AS {NameOf(_D005_CAR_J.SETUMON_5)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_6 }' AS {NameOf(_D005_CAR_J.SETUMON_6)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_7 }' AS {NameOf(_D005_CAR_J.SETUMON_7)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_8 }' AS {NameOf(_D005_CAR_J.SETUMON_8)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_9 }' AS {NameOf(_D005_CAR_J.SETUMON_9)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_10 }' AS {NameOf(_D005_CAR_J.SETUMON_10)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_11 }' AS {NameOf(_D005_CAR_J.SETUMON_11)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_12 }' AS {NameOf(_D005_CAR_J.SETUMON_12)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_13 }' AS {NameOf(_D005_CAR_J.SETUMON_13)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_14 }' AS {NameOf(_D005_CAR_J.SETUMON_14)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_15 }' AS {NameOf(_D005_CAR_J.SETUMON_15)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_16 }' AS {NameOf(_D005_CAR_J.SETUMON_16)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_17 }' AS {NameOf(_D005_CAR_J.SETUMON_17)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_18 }' AS {NameOf(_D005_CAR_J.SETUMON_18)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_19 }' AS {NameOf(_D005_CAR_J.SETUMON_19)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_20 }' AS {NameOf(_D005_CAR_J.SETUMON_20)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_21 }' AS {NameOf(_D005_CAR_J.SETUMON_21)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_22 }' AS {NameOf(_D005_CAR_J.SETUMON_22)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_23 }' AS {NameOf(_D005_CAR_J.SETUMON_23)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_24 }' AS {NameOf(_D005_CAR_J.SETUMON_24)}")
-        sbSQL.Append($",'{_D005_CAR_J.SETUMON_25 }' AS {NameOf(_D005_CAR_J.SETUMON_25)}")
+        sbSQL.Append($" '{_D005_CAR_J.HOKOKU_NO}' AS {NameOf(_D005_CAR_J.HOKOKU_NO)}")
+        sbSQL.Append($",'{_D005_CAR_J.BUMON_KB}' AS {NameOf(_D005_CAR_J.BUMON_KB)}")
+        sbSQL.Append($",'{_D005_CAR_J._CLOSE_FG}' AS {NameOf(_D005_CAR_J.CLOSE_FG)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_1}' AS {NameOf(_D005_CAR_J.SETUMON_1)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_2}' AS {NameOf(_D005_CAR_J.SETUMON_2)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_3}' AS {NameOf(_D005_CAR_J.SETUMON_3)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_4}' AS {NameOf(_D005_CAR_J.SETUMON_4)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_5}' AS {NameOf(_D005_CAR_J.SETUMON_5)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_6}' AS {NameOf(_D005_CAR_J.SETUMON_6)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_7}' AS {NameOf(_D005_CAR_J.SETUMON_7)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_8}' AS {NameOf(_D005_CAR_J.SETUMON_8)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_9}' AS {NameOf(_D005_CAR_J.SETUMON_9)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_10}' AS {NameOf(_D005_CAR_J.SETUMON_10)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_11}' AS {NameOf(_D005_CAR_J.SETUMON_11)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_12}' AS {NameOf(_D005_CAR_J.SETUMON_12)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_13}' AS {NameOf(_D005_CAR_J.SETUMON_13)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_14}' AS {NameOf(_D005_CAR_J.SETUMON_14)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_15}' AS {NameOf(_D005_CAR_J.SETUMON_15)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_16}' AS {NameOf(_D005_CAR_J.SETUMON_16)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_17}' AS {NameOf(_D005_CAR_J.SETUMON_17)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_18}' AS {NameOf(_D005_CAR_J.SETUMON_18)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_19}' AS {NameOf(_D005_CAR_J.SETUMON_19)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_20}' AS {NameOf(_D005_CAR_J.SETUMON_20)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_21}' AS {NameOf(_D005_CAR_J.SETUMON_21)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_22}' AS {NameOf(_D005_CAR_J.SETUMON_22)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_23}' AS {NameOf(_D005_CAR_J.SETUMON_23)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_24}' AS {NameOf(_D005_CAR_J.SETUMON_24)}")
+        sbSQL.Append($",'{_D005_CAR_J.SETUMON_25}' AS {NameOf(_D005_CAR_J.SETUMON_25)}")
 
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_1 }' AS {NameOf(_D005_CAR_J.KAITO_1)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_2 }' AS {NameOf(_D005_CAR_J.KAITO_2)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_3 }' AS {NameOf(_D005_CAR_J.KAITO_3)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_4 }' AS {NameOf(_D005_CAR_J.KAITO_4)}")
-        sbSQL.Append($", {_D005_CAR_J.KAITO_5 } As {NameOf(_D005_CAR_J.KAITO_5)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_6 }' AS {NameOf(_D005_CAR_J.KAITO_6)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_7 }' AS {NameOf(_D005_CAR_J.KAITO_7)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_8 }' AS {NameOf(_D005_CAR_J.KAITO_8)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_9 }' AS {NameOf(_D005_CAR_J.KAITO_9)}")
-        sbSQL.Append($", {_D005_CAR_J.KAITO_10 } As {NameOf(_D005_CAR_J.KAITO_10)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_11 }' AS {NameOf(_D005_CAR_J.KAITO_11)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_12 }' AS {NameOf(_D005_CAR_J.KAITO_12)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_13 }' AS {NameOf(_D005_CAR_J.KAITO_13)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_14 }' AS {NameOf(_D005_CAR_J.KAITO_14)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_15 }' AS {NameOf(_D005_CAR_J.KAITO_15)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_16 }' AS {NameOf(_D005_CAR_J.KAITO_16)}")
-        sbSQL.Append($", {_D005_CAR_J.KAITO_17 } As {NameOf(_D005_CAR_J.KAITO_17)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_18 }' AS {NameOf(_D005_CAR_J.KAITO_18)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_19 }' AS {NameOf(_D005_CAR_J.KAITO_19)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_20 }' AS {NameOf(_D005_CAR_J.KAITO_20)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_21 }' AS {NameOf(_D005_CAR_J.KAITO_21)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_22 }' AS {NameOf(_D005_CAR_J.KAITO_22)}")
-        sbSQL.Append($",'{_D005_CAR_J._KAITO_23 }' AS {NameOf(_D005_CAR_J.KAITO_23)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_24 }' AS {NameOf(_D005_CAR_J.KAITO_24)}")
-        sbSQL.Append($",'{_D005_CAR_J.KAITO_25 }' AS {NameOf(_D005_CAR_J.KAITO_25)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_1}' AS {NameOf(_D005_CAR_J.KAITO_1)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_2}' AS {NameOf(_D005_CAR_J.KAITO_2)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_3}' AS {NameOf(_D005_CAR_J.KAITO_3)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_4}' AS {NameOf(_D005_CAR_J.KAITO_4)}")
+        sbSQL.Append($", {_D005_CAR_J.KAITO_5} As {NameOf(_D005_CAR_J.KAITO_5)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_6}' AS {NameOf(_D005_CAR_J.KAITO_6)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_7}' AS {NameOf(_D005_CAR_J.KAITO_7)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_8}' AS {NameOf(_D005_CAR_J.KAITO_8)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_9}' AS {NameOf(_D005_CAR_J.KAITO_9)}")
+        sbSQL.Append($", {_D005_CAR_J.KAITO_10} As {NameOf(_D005_CAR_J.KAITO_10)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_11}' AS {NameOf(_D005_CAR_J.KAITO_11)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_12}' AS {NameOf(_D005_CAR_J.KAITO_12)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_13}' AS {NameOf(_D005_CAR_J.KAITO_13)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_14}' AS {NameOf(_D005_CAR_J.KAITO_14)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_15}' AS {NameOf(_D005_CAR_J.KAITO_15)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_16}' AS {NameOf(_D005_CAR_J.KAITO_16)}")
+        sbSQL.Append($", {_D005_CAR_J.KAITO_17} As {NameOf(_D005_CAR_J.KAITO_17)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_18}' AS {NameOf(_D005_CAR_J.KAITO_18)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_19}' AS {NameOf(_D005_CAR_J.KAITO_19)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_20}' AS {NameOf(_D005_CAR_J.KAITO_20)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_21}' AS {NameOf(_D005_CAR_J.KAITO_21)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_22}' AS {NameOf(_D005_CAR_J.KAITO_22)}")
+        sbSQL.Append($",'{_D005_CAR_J._KAITO_23}' AS {NameOf(_D005_CAR_J.KAITO_23)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_24}' AS {NameOf(_D005_CAR_J.KAITO_24)}")
+        sbSQL.Append($",'{_D005_CAR_J.KAITO_25}' AS {NameOf(_D005_CAR_J.KAITO_25)}")
 
         sbSQL.Append($",'{_D005_CAR_J.KONPON_YOIN_KB1}' AS {NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}")
         sbSQL.Append($",'{_D005_CAR_J.KONPON_YOIN_KB2}' AS {NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}")
@@ -529,15 +532,15 @@ Public Class FrmG0012
 
         Select Case PrCurrentStage
             Case ENM_CAR_STAGE._10_起草入力 To ENM_CAR_STAGE._70_起草確認_品証課長
-                sbSQL.Append($"  SrcT.{NameOf(_D005_CAR_J.SETUMON_1)} = WK.{NameOf(_D005_CAR_J.SETUMON_1)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_2)} = WK.{NameOf(_D005_CAR_J.SETUMON_2)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_3)} = WK.{NameOf(_D005_CAR_J.SETUMON_3)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_4)} = WK.{NameOf(_D005_CAR_J.SETUMON_4)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_5)} = WK.{NameOf(_D005_CAR_J.SETUMON_5)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_6)} = WK.{NameOf(_D005_CAR_J.SETUMON_6)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_7)} = WK.{NameOf(_D005_CAR_J.SETUMON_7)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_8)} = WK.{NameOf(_D005_CAR_J.SETUMON_8)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_9)} = WK.{NameOf(_D005_CAR_J.SETUMON_9)}")
+                sbSQL.Append($"  SrcT.{NameOf(_D005_CAR_J.SETUMON_1)}  = WK.{NameOf(_D005_CAR_J.SETUMON_1)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_2)}  = WK.{NameOf(_D005_CAR_J.SETUMON_2)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_3)}  = WK.{NameOf(_D005_CAR_J.SETUMON_3)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_4)}  = WK.{NameOf(_D005_CAR_J.SETUMON_4)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_5)}  = WK.{NameOf(_D005_CAR_J.SETUMON_5)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_6)}  = WK.{NameOf(_D005_CAR_J.SETUMON_6)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_7)}  = WK.{NameOf(_D005_CAR_J.SETUMON_7)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_8)}  = WK.{NameOf(_D005_CAR_J.SETUMON_8)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_9)}  = WK.{NameOf(_D005_CAR_J.SETUMON_9)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_10)} = WK.{NameOf(_D005_CAR_J.SETUMON_10)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_11)} = WK.{NameOf(_D005_CAR_J.SETUMON_11)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_12)} = WK.{NameOf(_D005_CAR_J.SETUMON_12)}")
@@ -553,15 +556,15 @@ Public Class FrmG0012
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_22)} = WK.{NameOf(_D005_CAR_J.SETUMON_22)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_23)} = WK.{NameOf(_D005_CAR_J.SETUMON_23)}")
 
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_1)} = WK.{NameOf(_D005_CAR_J.KAITO_1)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_2)} = WK.{NameOf(_D005_CAR_J.KAITO_2)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_3)} = WK.{NameOf(_D005_CAR_J.KAITO_3)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_4)} = WK.{NameOf(_D005_CAR_J.KAITO_4)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_5)} = WK.{NameOf(_D005_CAR_J.KAITO_5)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_6)} = WK.{NameOf(_D005_CAR_J.KAITO_6)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_7)} = WK.{NameOf(_D005_CAR_J.KAITO_7)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_8)} = WK.{NameOf(_D005_CAR_J.KAITO_8)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_9)} = WK.{NameOf(_D005_CAR_J.KAITO_9)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_1)}  = WK.{NameOf(_D005_CAR_J.KAITO_1)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_2)}  = WK.{NameOf(_D005_CAR_J.KAITO_2)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_3)}  = WK.{NameOf(_D005_CAR_J.KAITO_3)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_4)}  = WK.{NameOf(_D005_CAR_J.KAITO_4)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_5)}  = WK.{NameOf(_D005_CAR_J.KAITO_5)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_6)}  = WK.{NameOf(_D005_CAR_J.KAITO_6)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_7)}  = WK.{NameOf(_D005_CAR_J.KAITO_7)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_8)}  = WK.{NameOf(_D005_CAR_J.KAITO_8)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_9)}  = WK.{NameOf(_D005_CAR_J.KAITO_9)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_10)} = WK.{NameOf(_D005_CAR_J.KAITO_10)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_11)} = WK.{NameOf(_D005_CAR_J.KAITO_11)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_12)} = WK.{NameOf(_D005_CAR_J.KAITO_12)}")
@@ -576,52 +579,50 @@ Public Class FrmG0012
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_21)} = WK.{NameOf(_D005_CAR_J.KAITO_21)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_22)} = WK.{NameOf(_D005_CAR_J.KAITO_22)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_23)} = WK.{NameOf(_D005_CAR_J.KAITO_23)}")
-
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)} = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)} = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}      = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}      = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_SYAIN_ID)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KISEKI_KOTEI_KB)} = WK.{NameOf(_D005_CAR_J.KISEKI_KOTEI_KB)}")
-
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD)} = WK.{NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.ADD_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.ADD_SYAIN_ID)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.ADD_YMDHNS)} = WK.{NameOf(_D005_CAR_J.ADD_YMDHNS)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KISEKI_KOTEI_KB)}      = WK.{NameOf(_D005_CAR_J.KISEKI_KOTEI_KB)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD)}  = WK.{NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.ADD_SYAIN_ID)}         = WK.{NameOf(_D005_CAR_J.ADD_SYAIN_ID)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.ADD_YMDHNS)}           = WK.{NameOf(_D005_CAR_J.ADD_YMDHNS)}")
 
             Case ENM_CAR_STAGE._80_処置実施記録入力 To ENM_CAR_STAGE._90_処置実施確認
-                sbSQL.Append($" SrcT.{NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_A_YMDHNS)} = WK.{NameOf(_D005_CAR_J.SYOCHI_A_YMDHNS)}")
+                sbSQL.Append($" SrcT.{NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID)}  = WK.{NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_A_YMDHNS)}   = WK.{NameOf(_D005_CAR_J.SYOCHI_A_YMDHNS)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_B_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.SYOCHI_B_SYAIN_ID)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_B_YMDHNS)} = WK.{NameOf(_D005_CAR_J.SYOCHI_B_YMDHNS)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_B_YMDHNS)}   = WK.{NameOf(_D005_CAR_J.SYOCHI_B_YMDHNS)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_C_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.SYOCHI_C_SYAIN_ID)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_C_YMDHNS)} = WK.{NameOf(_D005_CAR_J.SYOCHI_C_YMDHNS)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KYOIKU_FILE_PATH)} = WK.{NameOf(_D005_CAR_J.KYOIKU_FILE_PATH)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)} = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)} = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_C_YMDHNS)}   = WK.{NameOf(_D005_CAR_J.SYOCHI_C_YMDHNS)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KYOIKU_FILE_PATH)}  = WK.{NameOf(_D005_CAR_J.KYOIKU_FILE_PATH)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}   = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}   = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}")
 
             Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
 
                 sbSQL.Append($" SrcT.{NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU)} = WK.{NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOSAI_FILE_PATH)} = WK.{NameOf(_D005_CAR_J.SYOSAI_FILE_PATH)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)} = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)} = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.GOKI)} = WK.{NameOf(_D005_CAR_J.GOKI)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.LOT)} = WK.{NameOf(_D005_CAR_J.LOT)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KENSA_TANTO_ID)} = WK.{NameOf(_D005_CAR_J.KENSA_TANTO_ID)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KENSA_TOROKU_YMDHNS)} = WK.{NameOf(_D005_CAR_J.KENSA_TOROKU_YMDHNS)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KENSA_GL_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.KENSA_GL_SYAIN_ID)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KENSA_GL_YMDHNS)} = WK.{NameOf(_D005_CAR_J.KENSA_GL_YMDHNS)}")
-
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOSAI_FILE_PATH)}     = WK.{NameOf(_D005_CAR_J.SYOSAI_FILE_PATH)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}      = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}      = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.GOKI)}                 = WK.{NameOf(_D005_CAR_J.GOKI)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.LOT)}                  = WK.{NameOf(_D005_CAR_J.LOT)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KENSA_TANTO_ID)}       = WK.{NameOf(_D005_CAR_J.KENSA_TANTO_ID)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KENSA_TOROKU_YMDHNS)}  = WK.{NameOf(_D005_CAR_J.KENSA_TOROKU_YMDHNS)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KENSA_GL_SYAIN_ID)}    = WK.{NameOf(_D005_CAR_J.KENSA_GL_SYAIN_ID)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KENSA_GL_YMDHNS)}      = WK.{NameOf(_D005_CAR_J.KENSA_GL_YMDHNS)}")
             Case Else
                 'Err
                 Return False
         End Select
 
-        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_24)} = WK.{NameOf(_D005_CAR_J.KAITO_24)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_24)}         = WK.{NameOf(_D005_CAR_J.KAITO_24)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_25)}         = WK.{NameOf(_D005_CAR_J.KAITO_25)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_YOTEI_YMD)} = WK.{NameOf(_D005_CAR_J.SYOCHI_YOTEI_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.FILE_PATH1)} = WK.{NameOf(_D005_CAR_J.FILE_PATH1)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.FILE_PATH2)} = WK.{NameOf(_D005_CAR_J.FILE_PATH2)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.UPD_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.UPD_SYAIN_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.UPD_YMDHNS)} = WK.{NameOf(_D005_CAR_J.UPD_YMDHNS)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.CLOSE_FG)} = WK.{NameOf(_D005_CAR_J.CLOSE_FG)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.FILE_PATH1)}       = WK.{NameOf(_D005_CAR_J.FILE_PATH1)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.FILE_PATH2)}       = WK.{NameOf(_D005_CAR_J.FILE_PATH2)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.UPD_SYAIN_ID)}     = WK.{NameOf(_D005_CAR_J.UPD_SYAIN_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.UPD_YMDHNS)}       = WK.{NameOf(_D005_CAR_J.UPD_YMDHNS)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.CLOSE_FG)}         = WK.{NameOf(_D005_CAR_J.CLOSE_FG)}")
 
         'INSERT
         sbSQL.Append($" WHEN NOT MATCHED THEN ")
@@ -1563,6 +1564,8 @@ Public Class FrmG0012
                 dlgRET = frmDLG.ShowDialog(Me)
             End Using
 
+            Me.Refresh()
+
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
             Else
@@ -2047,18 +2050,19 @@ Public Class FrmG0012
         sender.Focus
     End Sub
 
-    Private Sub RbtnSEKKEI_TANTO_YOHI_YES_CheckedChanged(sender As Object, e As EventArgs) 'Handles rbtnSEKKEI_TANTO_YOHI_YES.CheckedChanged
+    Private Sub RbtnSEKKEI_TANTO_YOHI_YES_CheckedChanged(sender As Object, e As EventArgs)
         _D005_CAR_J._KAITO_23 = 1
-        'mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
-        'Dim dt As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
-        'cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
     End Sub
 
-    Private Sub RbtnSEKKEI_TANTO_YOHI_NO_CheckedChanged(sender As Object, e As EventArgs) 'Handles rbtnSEKKEI_TANTO_YOHI_NO.CheckedChanged
+    Private Sub RbtnSEKKEI_TANTO_YOHI_NO_CheckedChanged(sender As Object, e As EventArgs)
         _D005_CAR_J._KAITO_23 = 0
-        'mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
-        'Dim dt As DataTable = FunGetSYONIN_SYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, FunGetNextSYONIN_JUN(PrCurrentStage))
-        'cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+    End Sub
+
+    Private Sub RbtnFUTEKIGO_YOUIN_T_CheckedChanged(sender As Object, e As EventArgs)
+        _D005_CAR_J.KAITO_25 = 1
+    End Sub
+    Private Sub RbtnFUTEKIGO_YOUIN_F_CheckedChanged(sender As Object, e As EventArgs)
+        _D005_CAR_J.KAITO_25 = 0
     End Sub
 
     Private Sub ChkSEKKEI_TANTO_YOHI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkSEKKEI_TANTO_YOHI_KB.CheckedChanged
@@ -2992,8 +2996,10 @@ Public Class FrmG0012
 
             If _V005_CAR_J.SYONIN_YMD10 >= "20200213" Then
                 _D005_CAR_J.SETUMON_2 = "不適合要因(関係する要因(4Mなど)の調査) 人的要因 無・有(有の場合は以下に内容を記入)"
+                pnl_FUTEKIGO_YOUIN.Visible = True
             Else
                 _D005_CAR_J.SETUMON_2 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 2).First.Item("DISP")
+                pnl_FUTEKIGO_YOUIN.Visible = False
             End If
             _D005_CAR_J.SETUMON_3 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 3).First.Item("DISP")
             _D005_CAR_J.SETUMON_4 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 4).First.Item("DISP")
@@ -3109,7 +3115,7 @@ Public Class FrmG0012
             _D005_CAR_J.KAITO_13 = _V005_CAR_J.KAITO_13
             _D005_CAR_J.SETUMON_14 = _V005_CAR_J.SETUMON_14
             _D005_CAR_J.KAITO_14 = _V005_CAR_J.KAITO_14
-            chkKAITO_14.Checked = IIf(_V005_CAR_J.KAITO_14 = "1", True, False)
+            chkKAITO_14.Checked = (_V005_CAR_J.KAITO_14 = "1")
 
             _D005_CAR_J.SETUMON_15 = _V005_CAR_J.SETUMON_15
             _D005_CAR_J.KAITO_15 = _V005_CAR_J.KAITO_15
@@ -3128,14 +3134,16 @@ Public Class FrmG0012
             _D005_CAR_J.SETUMON_22 = _V005_CAR_J.SETUMON_22
             _D005_CAR_J.KAITO_22 = _V005_CAR_J.KAITO_22
             _D005_CAR_J.SETUMON_23 = _V005_CAR_J.SETUMON_23
-            _D005_CAR_J.KAITO_23 = IIf(_V005_CAR_J.KAITO_23 = "1", True, False)
-            rbtnSEKKEI_TANTO_YOHI_YES.Checked = IIf(_V005_CAR_J.KAITO_23 = "1", True, False)
-            rbtnSEKKEI_TANTO_YOHI_NO.Checked = IIf(_V005_CAR_J.KAITO_23 = "0", True, False)
+            _D005_CAR_J.KAITO_23 = (_V005_CAR_J.KAITO_23 = "1")
+            rbtnSEKKEI_TANTO_YOHI_YES.Checked = (_V005_CAR_J.KAITO_23 = "1")
+            rbtnSEKKEI_TANTO_YOHI_NO.Checked = (_V005_CAR_J.KAITO_23 = "0")
 
             _D005_CAR_J.SETUMON_24 = _V005_CAR_J.SETUMON_24
             _D005_CAR_J.KAITO_24 = _V005_CAR_J.KAITO_24
             _D005_CAR_J.SETUMON_25 = _V005_CAR_J.SETUMON_25
             _D005_CAR_J.KAITO_25 = _V005_CAR_J.KAITO_25
+            rbtnFUTEKIGO_YOUIN_T.Checked = (_V005_CAR_J.KAITO_25 = "1")
+            rbtnFUTEKIGO_YOUIN_F.Checked = (_V005_CAR_J.KAITO_25 = "0")
 
             _D005_CAR_J.KONPON_YOIN_KB1 = _V005_CAR_J.KONPON_YOIN_KB1
             If Not _V005_CAR_J.KONPON_YOIN_KB1.IsNulOrWS Then

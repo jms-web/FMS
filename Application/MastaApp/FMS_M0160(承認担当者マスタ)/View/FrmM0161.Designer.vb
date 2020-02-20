@@ -32,6 +32,7 @@ Partial Class FrmM0161
         Me.CmbSYONIN_JUN = New JMS_COMMON.ComboboxEx()
         Me.CmbSYAIN_ID = New JMS_COMMON.ComboboxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
@@ -132,10 +133,6 @@ Partial Class FrmM0161
         'ToolTip
         '
         Me.ToolTip.InitialDelay = 700
-        '
-        'ErrorProvider
-        '
-        Me.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         '
         'GroupBox1
         '
@@ -271,11 +268,11 @@ Partial Class FrmM0161
         Me.CmbSYONIN_HOKOKUSYO_ID.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CmbSYONIN_HOKOKUSYO_ID.FormattingEnabled = True
         Me.CmbSYONIN_HOKOKUSYO_ID.GotFocusedColor = System.Drawing.Color.Empty
+        Me.CmbSYONIN_HOKOKUSYO_ID.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.CmbSYONIN_HOKOKUSYO_ID.IsSelected = False
         Me.CmbSYONIN_HOKOKUSYO_ID.Location = New System.Drawing.Point(103, 3)
         Me.CmbSYONIN_HOKOKUSYO_ID.Name = "CmbSYONIN_HOKOKUSYO_ID"
         Me.CmbSYONIN_HOKOKUSYO_ID.NullValue = " "
-        Me.CmbSYONIN_HOKOKUSYO_ID.ReadOnly = False
-        Me.CmbSYONIN_HOKOKUSYO_ID.IsSelected = False
         Me.CmbSYONIN_HOKOKUSYO_ID.Size = New System.Drawing.Size(211, 23)
         Me.CmbSYONIN_HOKOKUSYO_ID.TabIndex = 39
         Me.CmbSYONIN_HOKOKUSYO_ID.ValueMember = "VALUE"
@@ -288,28 +285,31 @@ Partial Class FrmM0161
         Me.CmbSYONIN_JUN.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CmbSYONIN_JUN.FormattingEnabled = True
         Me.CmbSYONIN_JUN.GotFocusedColor = System.Drawing.Color.Empty
+        Me.CmbSYONIN_JUN.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.CmbSYONIN_JUN.IsSelected = False
         Me.CmbSYONIN_JUN.Location = New System.Drawing.Point(103, 33)
         Me.CmbSYONIN_JUN.Name = "CmbSYONIN_JUN"
         Me.CmbSYONIN_JUN.NullValue = " "
-        Me.CmbSYONIN_JUN.ReadOnly = False
-        Me.CmbSYONIN_JUN.IsSelected = False
         Me.CmbSYONIN_JUN.Size = New System.Drawing.Size(211, 23)
         Me.CmbSYONIN_JUN.TabIndex = 40
         Me.CmbSYONIN_JUN.ValueMember = "VALUE"
         '
         'CmbSYAIN_ID
         '
+        Me.CmbSYAIN_ID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.CmbSYAIN_ID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.CmbSYAIN_ID.BackColor = System.Drawing.SystemColors.Window
         Me.CmbSYAIN_ID.Cursor = System.Windows.Forms.Cursors.Default
         Me.CmbSYAIN_ID.DisplayMember = "DISP"
         Me.CmbSYAIN_ID.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CmbSYAIN_ID.FormattingEnabled = True
         Me.CmbSYAIN_ID.GotFocusedColor = System.Drawing.Color.Empty
+        Me.CmbSYAIN_ID.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.CmbSYAIN_ID.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.CmbSYAIN_ID.IsSelected = False
         Me.CmbSYAIN_ID.Location = New System.Drawing.Point(103, 63)
         Me.CmbSYAIN_ID.Name = "CmbSYAIN_ID"
         Me.CmbSYAIN_ID.NullValue = " "
-        Me.CmbSYAIN_ID.ReadOnly = False
-        Me.CmbSYAIN_ID.IsSelected = False
         Me.CmbSYAIN_ID.Size = New System.Drawing.Size(211, 23)
         Me.CmbSYAIN_ID.TabIndex = 41
         Me.CmbSYAIN_ID.ValueMember = "VALUE"
@@ -340,6 +340,7 @@ Partial Class FrmM0161
         Me.Controls.SetChildIndex(Me.cmdFunc1, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)

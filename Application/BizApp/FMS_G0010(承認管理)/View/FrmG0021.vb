@@ -1029,10 +1029,13 @@ Public Class FrmG0021
                 Case "UPDATE"
 
                 Case Else
-                    '-----エラーログ出力
-                    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                    WL.WriteLogDat(strErrMsg)
-                    Return False
+
+                    If sqlEx.Source IsNot Nothing Then
+                        '-----エラーログ出力
+                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                        WL.WriteLogDat(strErrMsg)
+                        Return False
+                    End If
             End Select
         Next
 
@@ -1074,6 +1077,8 @@ Public Class FrmG0021
 
                 dlgRET = frmDLG.ShowDialog(Me)
             End Using
+
+            Me.Refresh()
 
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False

@@ -1618,6 +1618,8 @@ Public Class FrmG0010
                     sbSQL.Append($"UPDATE {NameOf(MODEL.D003_NCR_J)} SET")
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
                     sbSQL.Append($"UPDATE {NameOf(MODEL.D005_CAR_J)} SET")
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
+                    sbSQL.Append($"UPDATE {NameOf(MODEL.D007_FCR_J)} SET")
             End Select
             sbSQL.Append($" {NameOf(MODEL.D003_NCR_J.DEL_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
             sbSQL.Append($" ,{NameOf(MODEL.D003_NCR_J.DEL_YMDHNS)}=dbo.GetSysDateString()")

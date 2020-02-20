@@ -396,7 +396,7 @@ Module mdlG0010
                     Call FunGetCodeDataTable(DB, "è≥îFîªíËãÊï™", tblSYONIN_HANTEI_KB)
                     Call FunGetCodeDataTable(DB, "îpãpï˚ñ@ãÊï™", tblHAIKYAKU_KB)
 
-                    Call FunGetCodeDataTable(DB, "FCR", tblCTS)
+                    Call FunGetCodeDataTable(DB, "CTS", tblCTS)
                     Call FunGetCodeDataTable(DB, "ïsìKçáïïÇ∂çûÇﬂîÒÇÃóùóR", tblKOKYAKU_EIKYO_COMMENT)
                 End Using
 
@@ -1566,6 +1566,9 @@ Module mdlG0010
             Dim shapeLINE_SYOCHI_C4 As SpreadsheetGear.Shapes.IShape = Nothing
             Dim shapeLINE_SYOCHI_C5 As SpreadsheetGear.Shapes.IShape = Nothing
             Dim shapeLINE_SEKKEI_TANTO As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeLINE_KOUKA_KAKUNIN As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeSCR_FUTEKIGO_YOUIN_T As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shapeSCR_FUTEKIGO_YOUIN_F As SpreadsheetGear.Shapes.IShape = Nothing
 
             ssgShapes = spSheet1.Shapes
             For Each shape As SpreadsheetGear.Shapes.IShape In ssgShapes
@@ -1594,6 +1597,12 @@ Module mdlG0010
                         shapeLINE_SYOCHI_C5 = shape
                     Case "LINE_SEKKEI_TANTO"
                         shapeLINE_SEKKEI_TANTO = shape
+                    Case "LINE_KOUKA_KAKUNIN"
+                        shapeLINE_KOUKA_KAKUNIN = shape
+                    Case "SCR_FUTEKIGO_YOUIN_T"
+                        shapeSCR_FUTEKIGO_YOUIN_T = shape
+                    Case "SCR_FUTEKIGO_YOUIN_F"
+                        shapeSCR_FUTEKIGO_YOUIN_F = shape
                 End Select
             Next shape
             '---
@@ -1760,6 +1769,18 @@ Module mdlG0010
                     spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME70)).Value = _V005_CAR_J.SYONIN_NAME70
                 End If
 
+                '#248
+                If Not _V005_CAR_J.SYONIN_YMD100.IsNulOrWS Then
+                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD130)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD100.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME130)).Value = _V005_CAR_J.SYONIN_NAME100
+                End If
+                If Not _V005_CAR_J.SYONIN_YMD130.IsNulOrWS Then
+                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD120)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD130.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME120)).Value = _V005_CAR_J.SYONIN_NAME130
+                End If
+                shapeSCR_FUTEKIGO_YOUIN_T.Visible = (_V005_CAR_J.KAITO_25 = "1")
+                shapeSCR_FUTEKIGO_YOUIN_F.Visible = (_V005_CAR_J.KAITO_25 = "0")
+
                 Dim border_SYOCHI_KIROKU As SpreadsheetGear.IBorder = spSheet1.Range("A56:Q56").Borders(SpreadsheetGear.BordersIndex.EdgeBottom)
                 border_SYOCHI_KIROKU.LineStyle = SpreadsheetGear.LineStyle.Continuous
                 border_SYOCHI_KIROKU.Weight = SpreadsheetGear.BorderWeight.Thin
@@ -1773,8 +1794,7 @@ Module mdlG0010
                 spSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiPÅjÅ@ï éÜÅ|ÇT"
                 spSheet1.Range("P53").Value = "íSìñâ€í∑"
                 spSheet1.Range("P57").Value = "íSìñâ€í∑"
-                spSheet1.Range("P61").Value = "ïièÿTL"
-
+                spSheet1.Range("P61").Value = "ïièÿâ€í∑"
             Else
                 spSheet1.Range("FUTEKIGO_YOIN_CAP").Value = "ïsìKçáóvàˆÅiä÷åWÇ∑ÇÈóvàˆÅiêlÅAê›îıÅEé°çHãÔÅAçﬁóøÅAï˚ñ@ÅAÇ»Ç«ÅjÇÃí≤ç∏Åj"
                 spSheet1.Range("ST7_FLAME").Clear()
@@ -1783,12 +1803,16 @@ Module mdlG0010
                 borderRePaint.Weight = SpreadsheetGear.BorderWeight.Thin
                 borderRePaint.Color = SpreadsheetGear.Colors.Black
 
+                shapeLINE_KOUKA_KAKUNIN.Visible = False
+                shapeSCR_FUTEKIGO_YOUIN_T.Visible = False
+                shapeSCR_FUTEKIGO_YOUIN_F.Visible = False
 
                 spSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiOÅjÅ@ï éÜÅ|ÇT"
                 spSheet1.Range("P53").Value = "íSìñâ€í∑ìô"
                 spSheet1.Range("P53").Value = "íSìñâ€í∑ìô"
                 spSheet1.Range("P57").Value = "íSìñâ€í∑ìô"
-                spSheet1.Range("P61").Value = "ïièÿâ€í∑"
+                spSheet1.Range("P61").Value = "ïièÿTL"
+
             End If
             Dim rev_str = spSheet1.Range("A1").GetCharacters(9, 3)
             rev_str.Font.Color = SpreadsheetGear.Colors.Red
@@ -1955,12 +1979,12 @@ Module mdlG0010
             spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO4)).Value = _V11.BUHIN_INFO4
             spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO5)).Value = _V11.BUHIN_INFO5
             spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO6)).Value = _V11.BUHIN_INFO6
-            spSheet1.Range(NameOf(V011_FCR_J.SURYO1)).Value = _V11.SURYO1
-            spSheet1.Range(NameOf(V011_FCR_J.SURYO2)).Value = _V11.SURYO2
-            spSheet1.Range(NameOf(V011_FCR_J.SURYO3)).Value = _V11.SURYO3
-            spSheet1.Range(NameOf(V011_FCR_J.SURYO4)).Value = _V11.SURYO4
-            spSheet1.Range(NameOf(V011_FCR_J.SURYO5)).Value = _V11.SURYO5
-            spSheet1.Range(NameOf(V011_FCR_J.SURYO6)).Value = _V11.SURYO6
+            spSheet1.Range(NameOf(V011_FCR_J.SURYO1)).Value = If(_V11.KISYU1_NAME.IsNulOrWS, "", _V11.SURYO1)
+            spSheet1.Range(NameOf(V011_FCR_J.SURYO2)).Value = If(_V11.KISYU2_NAME.IsNulOrWS, "", _V11.SURYO2)
+            spSheet1.Range(NameOf(V011_FCR_J.SURYO3)).Value = If(_V11.KISYU3_NAME.IsNulOrWS, "", _V11.SURYO3)
+            spSheet1.Range(NameOf(V011_FCR_J.SURYO4)).Value = If(_V11.KISYU4_NAME.IsNulOrWS, "", _V11.SURYO4)
+            spSheet1.Range(NameOf(V011_FCR_J.SURYO5)).Value = If(_V11.KISYU5_NAME.IsNulOrWS, "", _V11.SURYO5)
+            spSheet1.Range(NameOf(V011_FCR_J.SURYO6)).Value = If(_V11.KISYU6_NAME.IsNulOrWS, "", _V11.SURYO6)
             spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM1)).Value = _V11.RANGE_FROM1
             spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM2)).Value = _V11.RANGE_FROM2
             spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM3)).Value = _V11.RANGE_FROM3

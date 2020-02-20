@@ -331,6 +331,9 @@ Public Class FrmM0161
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
                     Call FunGetCodeDataTable(DB, "CAR", tblCAR)
                     CmbSYONIN_JUN.SetDataSource(tblCAR, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
+                    Call FunGetCodeDataTable(DB, "CTS", tblCTS)
+                    CmbSYONIN_JUN.SetDataSource(tblCTS, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                 Case Else
                     CmbSYONIN_JUN.DataSource = Nothing
             End Select

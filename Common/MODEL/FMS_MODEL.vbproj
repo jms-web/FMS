@@ -341,6 +341,7 @@
     <Content Include="DDL\View\V011_FCR_J.sql" />
     <Content Include="DDL\View\V010_SYAIN_SYOZOKU_BUSYO.sql" />
     <Content Include="DDL\View\V009_CAR_R.sql" />
+    <Content Include="DDL\View\V012_FCR_R.sql" />
     <Content Include="DDL\View\VWM004_SYAIN.sql" />
     <Content Include="DDL\View\VWM011_SYAIN_GYOMU_ICHIRAN.sql" />
     <Content Include="DDL\View\VWM011_SYAIN_GYOMU.sql" />

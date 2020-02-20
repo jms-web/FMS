@@ -647,26 +647,26 @@ Public Class FrmG0016
         sbSQL.Append($" ,{NameOf(_R005.OTHER_PROCESS_YMD)}")
         sbSQL.Append(" ) VALUES(")
         sbSQL.Append($" '{strYMDHNS}'")
-        sbSQL.Append($" ,{_D007.HOKOKU_NO}")
-        sbSQL.Append($" ,{_D007._CLOSE_FG}")
-        sbSQL.Append($" ,{_D007._KOKYAKU_EIKYO_HANTEI_KB}")
-        sbSQL.Append($" ,{_D007.TAISYOU_KOKYAKU}")
-        sbSQL.Append($" ,{_D007.KOKYAKU_EIKYO_HANTEI_COMMENT}")
-        sbSQL.Append($" ,{_D007.KOKYAKU_EIKYO_NAIYO}")
-        sbSQL.Append($" ,{_D007.KAKUNIN_SYUDAN}")
-        sbSQL.Append($" ,{_D007._KOKYAKU_EIKYO_TUCHI_HANTEI_KB}")
-        sbSQL.Append($" ,{_D007.TUCHI_YMD}")
-        sbSQL.Append($" ,{_D007.TUCHI_SYUDAN}")
-        sbSQL.Append($" ,{_D007.HITUYO_TETUDUKI_ZIKO}")
-        sbSQL.Append($" ,{_D007.KOKYAKU_EIKYO_ETC_COMMENT}")
-        sbSQL.Append($" ,{_D007._OTHER_PROCESS_INFLUENCE_KB}")
-        sbSQL.Append($" ,{_D007._FOLLOW_PROCESS_OUTFLOW_KB}")
-        sbSQL.Append($" ,{_D007.KOKYAKU_NOUNYU_NAIYOU}")
-        sbSQL.Append($" ,{_D007.KOKYAKU_NOUNYU_YMD}")
-        sbSQL.Append($" ,{_D007.ZAIKO_SIKAKE_NAIYOU}")
-        sbSQL.Append($" ,{_D007.ZAIKO_SIKAKE_YMD}")
-        sbSQL.Append($" ,{_D007.OTHER_PROCESS_NAIYOU}")
-        sbSQL.Append($" ,{_D007.OTHER_PROCESS_YMD}")
+        sbSQL.Append($" ,'{_D007.HOKOKU_NO}'")
+        sbSQL.Append($" ,'{_D007._CLOSE_FG}'")
+        sbSQL.Append($" ,'{_D007._KOKYAKU_EIKYO_HANTEI_KB}'")
+        sbSQL.Append($" ,'{_D007.TAISYOU_KOKYAKU}'")
+        sbSQL.Append($" ,'{_D007.KOKYAKU_EIKYO_HANTEI_COMMENT}'")
+        sbSQL.Append($" ,'{_D007.KOKYAKU_EIKYO_NAIYO}'")
+        sbSQL.Append($" ,'{_D007.KAKUNIN_SYUDAN}'")
+        sbSQL.Append($" ,'{_D007._KOKYAKU_EIKYO_TUCHI_HANTEI_KB}'")
+        sbSQL.Append($" ,'{_D007.TUCHI_YMD}'")
+        sbSQL.Append($" ,'{_D007.TUCHI_SYUDAN}'")
+        sbSQL.Append($" ,'{_D007.HITUYO_TETUDUKI_ZIKO}'")
+        sbSQL.Append($" ,'{_D007.KOKYAKU_EIKYO_ETC_COMMENT}'")
+        sbSQL.Append($" ,'{_D007._OTHER_PROCESS_INFLUENCE_KB}'")
+        sbSQL.Append($" ,'{_D007._FOLLOW_PROCESS_OUTFLOW_KB}'")
+        sbSQL.Append($" ,'{_D007.KOKYAKU_NOUNYU_NAIYOU}'")
+        sbSQL.Append($" ,'{_D007.KOKYAKU_NOUNYU_YMD}'")
+        sbSQL.Append($" ,'{_D007.ZAIKO_SIKAKE_NAIYOU}'")
+        sbSQL.Append($" ,'{_D007.ZAIKO_SIKAKE_YMD}'")
+        sbSQL.Append($" ,'{_D007.OTHER_PROCESS_NAIYOU}'")
+        sbSQL.Append($" ,'{_D007.OTHER_PROCESS_YMD}'")
         sbSQL.Append(" );")
         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
         If intRET <> 1 Then
@@ -684,34 +684,45 @@ Public Class FrmG0016
         Dim intRET As Integer
         Dim sqlEx As New Exception
 
-        For Each entity In _D008_List
-            sbSQL.Append($" INSERT INTO {NameOf(R006_FCR_J_SUB_SASIMODOSI)}(")
-            sbSQL.Append($"  {NameOf(R006_FCR_J_SUB_SASIMODOSI.SASIMODOSI_YMDHNS)}")
-            sbSQL.Append($" ,{NameOf(R006_FCR_J_SUB_SASIMODOSI.HOKOKU_NO)}")
-            sbSQL.Append($" ,{NameOf(R006_FCR_J_SUB_SASIMODOSI.ROW_NO)}")
-            sbSQL.Append($" ,{NameOf(R006_FCR_J_SUB_SASIMODOSI.KISYU_ID)}")
-            sbSQL.Append($" ,{NameOf(R006_FCR_J_SUB_SASIMODOSI.BUHIN_INFO)}")
-            sbSQL.Append($" ,{NameOf(R006_FCR_J_SUB_SASIMODOSI.SURYO)}")
-            sbSQL.Append($" ,{NameOf(R006_FCR_J_SUB_SASIMODOSI.RANGE_FROM)}")
-            sbSQL.Append($" ,{NameOf(R006_FCR_J_SUB_SASIMODOSI.RANGE_TO)}")
-            sbSQL.Append(" ) VALUES(")
-            sbSQL.Append($" '{strYMDHNS}'")
-            sbSQL.Append($" ,{entity.HOKOKU_NO}")
-            sbSQL.Append($" ,{entity.ROW_NO}")
-            sbSQL.Append($" ,{entity.KISYU_ID}")
-            sbSQL.Append($" ,{entity.BUHIN_INFO}")
-            sbSQL.Append($" ,{entity.SURYO}")
-            sbSQL.Append($" ,{entity.RANGE_FROM}")
-            sbSQL.Append($" ,{entity.RANGE_TO}")
-            sbSQL.Append(" );")
-            intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-            If intRET <> 1 Then
-                '-----エラーログ出力
-                Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                WL.WriteLogDat(strErrMsg)
-                Return False
-            End If
-        Next
+        Try
+            _V011_FCR_J.Clear()
+            _V011_FCR_J = FunGetV011Model(PrHOKOKU_NO)
+
+            For i As Integer = 1 To 6
+                sbSQL.Clear()
+                sbSQL.Append($" INSERT INTO {NameOf(R006_FCR_J_SUB_SASIMODOSI)}(")
+                sbSQL.Append($"  {NameOf(R006_FCR_J_SUB_SASIMODOSI.SASIMODOSI_YMDHNS)}")
+                sbSQL.Append($" ,{NameOf(R006_FCR_J_SUB_SASIMODOSI.HOKOKU_NO)}")
+                sbSQL.Append($" ,{NameOf(R006_FCR_J_SUB_SASIMODOSI.ROW_NO)}")
+                sbSQL.Append($" ,{NameOf(R006_FCR_J_SUB_SASIMODOSI.KISYU_ID)}")
+                sbSQL.Append($" ,{NameOf(R006_FCR_J_SUB_SASIMODOSI.BUHIN_INFO)}")
+                sbSQL.Append($" ,{NameOf(R006_FCR_J_SUB_SASIMODOSI.SURYO)}")
+                sbSQL.Append($" ,{NameOf(R006_FCR_J_SUB_SASIMODOSI.RANGE_FROM)}")
+                sbSQL.Append($" ,{NameOf(R006_FCR_J_SUB_SASIMODOSI.RANGE_TO)}")
+                sbSQL.Append(" ) VALUES(")
+                sbSQL.Append($" '{strYMDHNS}'")
+                sbSQL.Append($" ,'{PrHOKOKU_NO}'")
+                sbSQL.Append($" , {i}")
+                sbSQL.Append($" , {_V011_FCR_J.Item("KISYU_ID" & i)}")
+                sbSQL.Append($" ,'{_V011_FCR_J.Item("BUHIN_INFO" & i)}'")
+                sbSQL.Append($" , {_V011_FCR_J.Item("SURYO" & i)}")
+                sbSQL.Append($" ,'{_V011_FCR_J.Item("RANGE_FROM" & i)}'")
+                sbSQL.Append($" ,'{_V011_FCR_J.Item("RANGE_TO" & i)}'")
+                sbSQL.Append(" );")
+                intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+                If intRET <> 1 Then
+                    '-----エラーログ出力
+                    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                    WL.WriteLogDat(strErrMsg)
+                    Return False
+                End If
+            Next
+
+            Return True
+
+        Catch ex As Exception
+            Throw
+        End Try
     End Function
 
 #End Region

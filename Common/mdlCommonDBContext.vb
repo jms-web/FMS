@@ -522,12 +522,12 @@ Public Module mdlDBContext
                     End With
 #End Region
 
-#Region "               FCR"
-                Case "FCR"
+#Region "               CTS"
+                Case "CTS"
                     dt = New DataTableEx("System.Int32")
 
-                    sbSQL.Append("SELECT * FROM " & NameOf(VWM014_SYONIN_ROUT) & " ")
-                    sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=3")
+                    sbSQL.Append($"SELECT * FROM {NameOf(VWM014_SYONIN_ROUT)}")
+                    sbSQL.Append($" WHERE SYONIN_HOKOKUSYO_ID=3")
                     If strWhere.IsNulOrWS = False Then
                         sbSQL.Append(" AND " & strWhere & "")
                     End If

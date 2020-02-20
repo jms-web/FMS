@@ -37,6 +37,7 @@ Partial Class FrmM0160
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.VWM016SYONINTANTOBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
         Me.tlpFilter.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -64,7 +65,6 @@ Partial Class FrmM0160
         Me.cmdFunc3.Image = Global.FMS.My.Resources.Resources._imgApplication_form_add32x32
         Me.cmdFunc3.Location = New System.Drawing.Point(427, 596)
         Me.cmdFunc3.Text = "—ÞŽ—’Ç‰Á(F3)"
-        Me.cmdFunc3.Visible = False
         '
         'cmdFunc4
         '
@@ -199,11 +199,11 @@ Partial Class FrmM0160
         Me.CmbSYONIN_JUN.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CmbSYONIN_JUN.FormattingEnabled = True
         Me.CmbSYONIN_JUN.GotFocusedColor = System.Drawing.Color.Empty
+        Me.CmbSYONIN_JUN.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.CmbSYONIN_JUN.IsSelected = False
         Me.CmbSYONIN_JUN.Location = New System.Drawing.Point(572, 3)
         Me.CmbSYONIN_JUN.Name = "CmbSYONIN_JUN"
         Me.CmbSYONIN_JUN.NullValue = " "
-        Me.CmbSYONIN_JUN.ReadOnly = False
         Me.CmbSYONIN_JUN.Size = New System.Drawing.Size(243, 25)
         Me.CmbSYONIN_JUN.TabIndex = 57
         Me.CmbSYONIN_JUN.ValueMember = "VALUE"
@@ -217,12 +217,11 @@ Partial Class FrmM0160
         Me.CmbSYONIN_HOKOKUSYO_ID.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.CmbSYONIN_HOKOKUSYO_ID.ForeColor = System.Drawing.SystemColors.ControlText
         Me.CmbSYONIN_HOKOKUSYO_ID.FormattingEnabled = True
-        Me.CmbSYONIN_HOKOKUSYO_ID.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.CmbSYONIN_HOKOKUSYO_ID.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.CmbSYONIN_HOKOKUSYO_ID.IsSelected = False
         Me.CmbSYONIN_HOKOKUSYO_ID.Location = New System.Drawing.Point(308, 3)
         Me.CmbSYONIN_HOKOKUSYO_ID.Name = "CmbSYONIN_HOKOKUSYO_ID"
         Me.CmbSYONIN_HOKOKUSYO_ID.NullValue = " "
-        Me.CmbSYONIN_HOKOKUSYO_ID.ReadOnly = False
         Me.CmbSYONIN_HOKOKUSYO_ID.Size = New System.Drawing.Size(183, 25)
         Me.CmbSYONIN_HOKOKUSYO_ID.TabIndex = 56
         Me.CmbSYONIN_HOKOKUSYO_ID.ValueMember = "VALUE"
@@ -255,13 +254,12 @@ Partial Class FrmM0160
         Me.cmbBUMON_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbBUMON_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUMON_KB.FormattingEnabled = True
-        Me.cmbBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbBUMON_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Location = New System.Drawing.Point(83, 3)
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
-        Me.cmbBUMON_KB.ReadOnly = False
         Me.cmbBUMON_KB.Size = New System.Drawing.Size(116, 25)
         Me.cmbBUMON_KB.TabIndex = 61
         Me.cmbBUMON_KB.ValueMember = "VALUE"
@@ -279,12 +277,12 @@ Partial Class FrmM0160
         '
         Me.mtxSIMEI.BackColor = System.Drawing.SystemColors.Window
         Me.mtxSIMEI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxSIMEI.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxSIMEI.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxSIMEI.InputRequired = False
         Me.mtxSIMEI.Location = New System.Drawing.Point(900, 3)
         Me.mtxSIMEI.MaxByteLength = 100
         Me.mtxSIMEI.Name = "mtxSIMEI"
+        Me.mtxSIMEI.SelectAllText = False
         Me.mtxSIMEI.Size = New System.Drawing.Size(127, 24)
         Me.mtxSIMEI.TabIndex = 63
         Me.mtxSIMEI.WatermarkColor = System.Drawing.Color.Empty
@@ -335,6 +333,7 @@ Partial Class FrmM0160
         Me.Controls.SetChildIndex(Me.gbxFilter, 0)
         Me.Controls.SetChildIndex(Me.flxDATA, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()

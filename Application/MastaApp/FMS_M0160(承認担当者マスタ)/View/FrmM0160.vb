@@ -624,7 +624,7 @@ Public Class FrmM0160
                     CmbSYONIN_JUN.SetDataSource(tblCAR, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     CmbSYONIN_JUN.ReadOnly = False
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
-                    Call FunGetCodeDataTable(DB, "FCR", tblCTS)
+                    Call FunGetCodeDataTable(DB, "CTS", tblCTS)
                     CmbSYONIN_JUN.SetDataSource(tblCTS, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     CmbSYONIN_JUN.ReadOnly = False
                 Case Else
