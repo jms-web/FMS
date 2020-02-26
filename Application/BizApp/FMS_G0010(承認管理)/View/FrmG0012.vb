@@ -2078,6 +2078,33 @@ Public Class FrmG0012
 
 #Region "   1.CAR"
 
+
+    Private Sub DtKAITO_LimitDate_Validated(sender As Object, e As EventArgs) Handles dtKAITO_4.Validated, dtKAITO_9.Validated
+        Try
+
+            Dim dt = DirectCast(sender, DateTextBoxEx).ValueDate
+            If dt < Today Then
+                Exit Sub
+            End If
+
+            If dtSYOCHI_YOTEI_YMD.ValueNonFormat.IsNulOrWS Then
+                _D005_CAR_J.SYOCHI_YOTEI_YMD = dt.ToString("yyyyMMdd")
+            Else
+                If dtSYOCHI_YOTEI_YMD.ValueDate > dtKAITO_4.ValueDate Then
+                    'txtKAITO_21.Text.IsNulOrWS And
+                    _D005_CAR_J.SYOCHI_YOTEI_YMD = dtKAITO_4.ValueDate.ToString("yyyyMMdd")
+                End If
+
+                If dtSYOCHI_YOTEI_YMD.ValueDate > dtKAITO_9.ValueDate Then
+                    'txtKAITO_22.Text.IsNulOrWS And
+                    _D005_CAR_J.SYOCHI_YOTEI_YMD = dtKAITO_9.ValueDate.ToString("yyyyMMdd")
+                End If
+            End If
+        Catch ex As Exception
+            Throw
+        End Try
+    End Sub
+
     Private Sub RbtnKAITO_14_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnKAITO_14_T.CheckedChanged, rbtnKAITO_14_F.CheckedChanged
 
         Dim result As Boolean = rbtnKAITO_14_F.Checked
@@ -2995,7 +3022,7 @@ Public Class FrmG0012
 
 
             If _V005_CAR_J.SYONIN_YMD10 >= "20200213" Then
-                _D005_CAR_J.SETUMON_2 = "不適合要因(関係する要因(4Mなど)の調査) 人的要因 無・有(有の場合は以下に内容を記入)"
+                _D005_CAR_J.SETUMON_2 = "不適合要因(関係する要因(4Mなど)の調査) 人的要因　　　　　　　　　　　　(有の場合は以下に内容を記入)"
                 pnl_FUTEKIGO_YOUIN.Visible = True
             Else
                 _D005_CAR_J.SETUMON_2 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 2).First.Item("DISP")
@@ -3333,14 +3360,14 @@ Public Class FrmG0012
         End Try
     End Function
 
-    Private Sub TxtKAITO_21_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtKAITO_21.Validating
+    Private Sub TxtKAITO_21_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles txtKAITO_21.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
         IsValidated *= ErrorProvider.UpdateErrorInfo(txt, txt.ReadOnly OrElse Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:内容"))
 
     End Sub
 
-    Private Sub TxtKAITO_22_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtKAITO_22.Validating
+    Private Sub TxtKAITO_22_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles txtKAITO_22.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
 
         IsValidated *= ErrorProvider.UpdateErrorInfo(txt, txt.ReadOnly OrElse Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:内容"))
@@ -3531,6 +3558,8 @@ Public Class FrmG0012
             Return intRET > 0
         End If
     End Function
+
+
 
 #End Region
 

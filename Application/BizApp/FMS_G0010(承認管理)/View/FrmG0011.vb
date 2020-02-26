@@ -460,11 +460,21 @@ Public Class FrmG0011
                     End If
                     If FunSAVE_R001(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
 
-                    If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 AndAlso PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso Val(_D003_NCR_J.KENSA_KEKKA_KB) = ENM_KENSA_KEKKA_KB._1_不合格 Then
+                    If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 AndAlso
+                        PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso
+                        Val(_D003_NCR_J.KENSA_KEKKA_KB) = ENM_KENSA_KEKKA_KB._1_不合格 Then
+
                         _D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
                         If FunSAVE_D003_SAI_FUTEKIGO(DB) = False Then
                             blnErr = True
                             MessageBox.Show("再不適合処置データの作成に失敗しました", "再不適合処置確認", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            Return False
+                        End If
+                    Else
+
+                        If DeleteSAI_FUTEKIGO(DB) = False Then
+                            blnErr = True
+                            MessageBox.Show("不要になった再不適合処置データの削除に失敗しました", "再不適合処置確認", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             Return False
                         End If
                     End If
@@ -2757,6 +2767,95 @@ Public Class FrmG0011
         End Try
     End Function
 
+
+    ''' <summary>
+    ''' 差し戻し等により不要になった再不適合処置の報告書データを削除
+    ''' </summary>
+    ''' <param name="DB"></param>
+    ''' <returns></returns>
+    Private Function DeleteSAI_FUTEKIGO(ByRef DB As ClsDbUtility) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim intRET As Integer
+        Dim sqlEx As New Exception
+        Try
+
+            sbSQL.Clear()
+            sbSQL.Append($"DELETE {NameOf(D003_NCR_J)}")
+            sbSQL.Append($" WHERE {NameOf(D003_NCR_J.HOKOKU_NO)}='{Val(_D003_NCR_J.HOKOKU_NO) + 1}'")
+            intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+            Select Case intRET
+                Case 0
+                    If sqlEx.Source IsNot Nothing Then
+                        '-----エラーログ出力
+                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                        WL.WriteLogDat(strErrMsg)
+                        Return False
+                    Else
+                    End If
+            End Select
+
+            '----D004
+            '-----データモデル更新
+            _D004_SYONIN_J_KANRI.clear()
+            _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value
+            _D004_SYONIN_J_KANRI.HOKOKU_NO = Val(_D003_NCR_J.HOKOKU_NO) + 1
+            _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_CAR_STAGE._10_起草入力
+            _D004_SYONIN_J_KANRI.SYAIN_ID = _D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID
+            _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
+            _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
+            _D004_SYONIN_J_KANRI.SASIMODOSI_FG = False
+            _D004_SYONIN_J_KANRI.RIYU = ""
+            _D004_SYONIN_J_KANRI.COMMENT = ""
+            _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
+            _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = _D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID
+
+            intRET = ""
+            '-----D004
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append($"MERGE INTO {NameOf(D004_SYONIN_J_KANRI)} AS SrcT")
+            sbSQL.Append($" USING (")
+            sbSQL.Append($" SELECT")
+            sbSQL.Append($" {_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID} AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.HOKOKU_NO}' AS {NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
+            sbSQL.Append($" ,{_D004_SYONIN_J_KANRI.SYONIN_JUN} AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYAIN_ID}' AS {NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYONIN_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB}' AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI._SASIMODOSI_FG}' AS {NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.RIYU}' AS {NameOf(_D004_SYONIN_J_KANRI.RIYU)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.COMMENT}' AS {NameOf(_D004_SYONIN_J_KANRI.COMMENT)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI._MAIL_SEND_FG}' AS {NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)}")
+            sbSQL.Append($" ,{_D004_SYONIN_J_KANRI.ADD_SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}")
+            sbSQL.Append($" ,dbo.GetSysDateString() AS {NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS)}")
+            sbSQL.Append($" ,{pub_SYAIN_INFO.SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.UPD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}")
+            sbSQL.Append($" ) AS WK")
+            sbSQL.Append($" ON (SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
+            sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)} = WK.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
+            sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)})")
+            sbSQL.Append(" WHEN MATCHED THEN DELETE")
+            sbSQL.Append("OUTPUT $action AS RESULT;")
+            intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+
+            Select Case intRET
+                Case "DELETE"
+                Case Else
+                    If sqlEx.Source IsNot Nothing Then
+                        '-----エラーログ出力
+                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                        WL.WriteLogDat(strErrMsg)
+                        Return False
+                    Else
+                    End If
+            End Select
+
+            Return True
+        Catch ex As Exception
+            Throw
+            Return False
+        End Try
+    End Function
+
 #End Region
 
 #End Region
@@ -4779,6 +4878,15 @@ Public Class FrmG0011
                             cmbHINMEI.ReadOnly = True
                             Me.ActiveControl = cmbKISYU
                             dtBUFF = FunGetSYOZOKU_SYAIN(cmbBUMON.SelectedValue)
+                    End Select
+
+
+                    '#250
+                    Select Case cmb.SelectedValue?.ToString.Trim
+                        Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
+                            lblST1_CAPTION.Visible = True
+                        Case Else
+                            lblST1_CAPTION.Visible = False
                     End Select
 
                     Dim intBUFF As Integer

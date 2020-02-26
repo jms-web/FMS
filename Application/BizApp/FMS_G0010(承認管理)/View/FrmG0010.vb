@@ -2345,15 +2345,15 @@ Public Class FrmG0010
                                      flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V007_NCR_CAR.HOKOKU_NO))) Then
 
                         If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.CLOSE_FG)) = 1 Then
-                            '削除済み
-                            'cmdFunc4.Enabled = False
-                            'MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "取消済みデータです")
+                            cmdFunc5.Enabled = False
+                            MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "Close済のデータです")
+                            cmdFunc6.Enabled = True
+                        ElseIf flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).ToString.Trim <> "" Then
                             cmdFunc5.Enabled = False
                             MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "取消済みデータです")
-                            'flxDATA.Rows(flxDATA.RowSel).Item("SELECTED").ReadOnly = True
                             cmdFunc6.Enabled = True
-                        Else cmdFunc5.Enabled = True
-
+                        Else
+                            cmdFunc5.Enabled = True
                         End If
                     Else
 
@@ -3717,13 +3717,29 @@ Public Class FrmG0010
 
         Try
             'システムユーザーか
-            If IsSysAdminUser(SYAIN_ID) Then Return True
+            If IsSysAdminUser(SYAIN_ID) Then
+                Return True
+            End If
 
             '指定の業務グループか
-            If HasGYOMUGroupAuth(SYAIN_ID, {ENM_GYOMU_GROUP_ID._3_検査, ENM_GYOMU_GROUP_ID._4_品証}) Then Return True
+            If HasGYOMUGroupAuth(SYAIN_ID, {ENM_GYOMU_GROUP_ID._3_検査, ENM_GYOMU_GROUP_ID._4_品証}) Then
+                Return True
+            End If
+
+            '#250 再不適合の報告書は起草者、未起草でも取消不可とする
+            If HOKOKU_NO.Substring(HOKOKU_NO.Length - 1, 1).ToVal > 0 Then
+                Return False
+            End If
 
             '起草者
-            If IsIssuedUser(SYAIN_ID, HOKOKUSYO_ID, HOKOKU_NO) Then Return True
+            If IsIssuedUser(SYAIN_ID, HOKOKUSYO_ID, HOKOKU_NO) Then
+                Return True
+            End If
+
+            '直接新規作成出来ないNCR以外の起草取り消しは無効
+            If HOKOKUSYO_ID <> Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR Then
+                Return False
+            End If
 
             '未起草(ST1 一時保存か転送)は誰でも許可
             Dim sbSQL As New System.Text.StringBuilder
@@ -3733,10 +3749,13 @@ Public Class FrmG0010
             sbSQL.Append($" WHERE {NameOf(D004_SYONIN_J_KANRI.HOKOKU_NO)}='{HOKOKU_NO}'")
             sbSQL.Append($" AND {NameOf(D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={HOKOKUSYO_ID}")
             sbSQL.Append($" AND {NameOf(D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}='{ENM_SYONIN_HANTEI_KB._0_未承認.Value}'")
+
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
-            If dsList.Tables(0).Rows(0).Item(0) = ENM_CAR_STAGE._10_起草入力.Value Then Return True
+            If dsList.Tables(0).Rows(0).Item(0) = ENM_CAR_STAGE._10_起草入力.Value Then
+                Return True
+            End If
 
             Return False
         Catch ex As Exception
