@@ -1412,9 +1412,18 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.YOKYU_NAIYO)).Value = _V002_NCR_J.YOKYU_NAIYO.Replace(Environment.NewLine, "")
             ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = $"(ê}ñ /ãKäiÅF {If(_V002_NCR_J.ZUMEN_KIKAKU.IsNulOrWS, Space(38), _V002_NCR_J.ZUMEN_KIKAKU.Trim)} )"
 
+
             Dim kiso_tanto As String = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).FirstOrDefault?.UPD_SYAIN_NAME
             If kiso_tanto.IsNulOrWS Then kiso_tanto = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).FirstOrDefault?.ADD_SYAIN_NAME
             ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._10_ãNëêì¸óÕ).Value = kiso_tanto
+
+
+            If _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).Select(Function(r) r.ADD_YMDHNS).First < "202002140000" Then
+                ssgSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiOÅjÅ@ï éÜÅ|ÇR"
+            Else
+                ssgSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiPÅjÅ@ï éÜÅ|ÇR"
+            End If
+
 
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNulOrWS Then
@@ -1463,6 +1472,8 @@ Module mdlG0010
             If intCurrentStage > ENM_NCR_STAGE._120_abcdeèàíuämîF Then
                 ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._120_abcdeèàíuämîF).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._120_abcdeèàíuämîF).FirstOrDefault?.UPD_SYAIN_NAME
             End If
+
+
 
             Dim strRootDir As String
             Using DB As ClsDbUtility = DBOpen()
@@ -2003,6 +2014,14 @@ Module mdlG0010
             spSheet1.Range(NameOf(V011_FCR_J.ZAIKO_SIKAKE_YMD)).Value = _V11.ZAIKO_SIKAKE_YMD
             spSheet1.Range(NameOf(V011_FCR_J.OTHER_PROCESS_NAIYOU)).Value = _V11.OTHER_PROCESS_NAIYOU
             spSheet1.Range(NameOf(V011_FCR_J.OTHER_PROCESS_YMD)).Value = _V11.OTHER_PROCESS_YMD
+
+
+            If _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).Select(Function(r) r.ADD_YMDHNS).First < "202002140000" Then
+                spSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiOÅjÅ@ï éÜÅ|8"
+            Else
+                spSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiPÅjÅ@ï éÜÅ|8"
+            End If
+
 
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._10_ãNëêì¸óÕ And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNulOrWS Then
