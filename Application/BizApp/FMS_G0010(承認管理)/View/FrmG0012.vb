@@ -107,12 +107,15 @@ Public Class FrmG0012
     Private Async Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
-            Me.Visible = False
+
             PrRIYU = ""
             Await Task.Run(
                 Sub()
                     Me.Invoke(
                     Sub()
+                        Me.Visible = False
+                        Me.SuspendLayout()
+
                         '-----フォーム初期設定(親フォームから呼び出し)
                         Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
                         Using DB As ClsDbUtility = DBOpen()
@@ -139,6 +142,7 @@ Public Class FrmG0012
                         AddHandler rbtnFUTEKIGO_YOUIN_F.CheckedChanged, AddressOf RbtnFUTEKIGO_YOUIN_F_CheckedChanged
 
                         Me.tabSTAGE01.Focus()
+                        Me.ResumeLayout()
                     End Sub)
                 End Sub)
         Finally
@@ -2060,9 +2064,13 @@ Public Class FrmG0012
 
     Private Sub RbtnFUTEKIGO_YOUIN_T_CheckedChanged(sender As Object, e As EventArgs)
         _D005_CAR_J.KAITO_25 = 1
+        Call ErrorProvider.ClearError(pnl_FUTEKIGO_YOUIN)
+        pnl_FUTEKIGO_YOUIN.BackColor = Color.Transparent
     End Sub
     Private Sub RbtnFUTEKIGO_YOUIN_F_CheckedChanged(sender As Object, e As EventArgs)
         _D005_CAR_J.KAITO_25 = 0
+        Call ErrorProvider.ClearError(pnl_FUTEKIGO_YOUIN)
+        pnl_FUTEKIGO_YOUIN.BackColor = Color.Transparent
     End Sub
 
     Private Sub ChkSEKKEI_TANTO_YOHI_KB_CheckedChanged(sender As Object, e As EventArgs) Handles chkSEKKEI_TANTO_YOHI_KB.CheckedChanged
@@ -3022,11 +3030,11 @@ Public Class FrmG0012
 
 
             If _V005_CAR_J.SYONIN_YMD10 >= "20200213" Then
-                _D005_CAR_J.SETUMON_2 = "不適合要因(関係する要因(4Mなど)の調査) 人的要因　　　　　　　　　　　　(有の場合は以下に内容を記入)"
+                _D005_CAR_J.SETUMON_2 = $"不適合要因(関係する要因(4Mなど)の調査) 人的要因{Space(30)}(有の場合は以下に内容を記入)"
                 pnl_FUTEKIGO_YOUIN.Visible = True
             Else
                 _D005_CAR_J.SETUMON_2 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 2).First.Item("DISP")
-                pnl_FUTEKIGO_YOUIN.Visible = False
+            pnl_FUTEKIGO_YOUIN.Visible = False
             End If
             _D005_CAR_J.SETUMON_3 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 3).First.Item("DISP")
             _D005_CAR_J.SETUMON_4 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 4).First.Item("DISP")
@@ -3332,6 +3340,8 @@ Public Class FrmG0012
                         Call dtKAITO_16_Validating(dtKAITO_16, Nothing)
                         Call cmbKAITO_17_Validating(cmbKAITO_17, Nothing)
                         Call KAITO_181920_Validating(mtxKAITO_18, Nothing)
+
+                        IsValidated *= ErrorProvider.UpdateErrorInfo(pnl_FUTEKIGO_YOUIN, Not _D005_CAR_J.KAITO_25.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "人的要因判定"))
 
                         'UNDONE: 一旦保留
                         'If PrCurrentStage = ENM_CAR_STAGE._70_起草確認_品証課長 Then

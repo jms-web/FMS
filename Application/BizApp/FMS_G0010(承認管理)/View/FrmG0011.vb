@@ -172,13 +172,14 @@ Public Class FrmG0011
     Private Async Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
-            Me.Visible = False
             PrRIYU = ""
 
             Await Task.Run(
                 Sub()
                     Me.Invoke(
                     Sub()
+                        Me.Visible = False
+                        Me.SuspendLayout()
                         '-----フォーム初期設定(親フォームから呼び出し)
                         Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
                         Using DB As ClsDbUtility = DBOpen()
@@ -250,6 +251,7 @@ Public Class FrmG0011
                             Case Else
                                 Me.ActiveControl = cmbBUMON
                         End Select
+                        Me.ResumeLayout()
                     End Sub)
                 End Sub)
         Finally
@@ -2809,7 +2811,8 @@ Public Class FrmG0011
             _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
             _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = _D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID
 
-            intRET = ""
+
+            Dim strRET As String
             '-----D004
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append($"MERGE INTO {NameOf(D004_SYONIN_J_KANRI)} AS SrcT")
@@ -2834,10 +2837,10 @@ Public Class FrmG0011
             sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)} = WK.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
             sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)})")
             sbSQL.Append(" WHEN MATCHED THEN DELETE")
-            sbSQL.Append("OUTPUT $action AS RESULT;")
-            intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+            sbSQL.Append(" OUTPUT $action AS RESULT;")
+            strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
 
-            Select Case intRET
+            Select Case strRET
                 Case "DELETE"
                 Case Else
                     If sqlEx.Source IsNot Nothing Then

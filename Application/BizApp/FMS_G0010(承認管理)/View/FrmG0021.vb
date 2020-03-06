@@ -92,12 +92,14 @@ Public Class FrmG0021
     Private Async Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
-            Me.Visible = False
+
             PrRIYU = ""
             Await Task.Run(
                 Sub()
                     Me.Invoke(
                     Sub()
+                        Me.Visible = False
+                        Me.SuspendLayout()
                         '-----フォーム初期設定(親フォームから呼び出し)
                         Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
                         Using DB As ClsDbUtility = DBOpen()
@@ -124,6 +126,7 @@ Public Class FrmG0021
                         AddHandler rbtnKOKYAKU_EIKYO_HANTEI_KB_F.CheckedChanged, AddressOf RbtnKOKYAKU_EIKYO_HANTEI_KB_CheckedChanged
 
                         Me.tabSTAGE01.Focus()
+                        Me.ResumeLayout()
                     End Sub)
                 End Sub)
         Finally

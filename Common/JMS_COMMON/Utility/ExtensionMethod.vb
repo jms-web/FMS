@@ -442,7 +442,7 @@ Public Module ExtensionMethod
                 Case GetType(ComboboxEx)
                     control.BackColor = clrControlErrorBackColor
                     Dim cmb As ComboboxEx = DirectCast(control, ComboboxEx)
-                    Dim _defaultStyle = cmb.DropDownStyle
+                    Dim _defaultStyle As ComboBoxStyle = cmb.DropDownStyle
                     Application.DoEvents()
                     cmb.DropDownStyle = ComboBoxStyle.DropDown
                     cmb.FlatStyle = FlatStyle.Flat

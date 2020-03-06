@@ -1530,7 +1530,8 @@ Module mdlG0010
             '''PDF表示
             'System.Diagnostics.Process.Start(pdfFilePath)
 
-            Call FunOpenWorkbook(strFilePath)
+            'Call FunOpenWorkbook(strFilePath)
+            Call OpenExcelPrintPreview(strFilePath)
 
             'Excel作業ファイルを削除
             Try
@@ -1841,7 +1842,8 @@ Module mdlG0010
             ''PDF表示
             'System.Diagnostics.Process.Start(pdfFilePath)
 
-            Call FunOpenWorkbook(strFilePath)
+            'Call FunOpenWorkbook(strFilePath)
+            Call OpenExcelPrintPreview(strFilePath)
 
             'Excel作業ファイルを削除
             Try
@@ -2072,7 +2074,8 @@ Module mdlG0010
             '''PDF表示
             'System.Diagnostics.Process.Start(pdfFilePath)
 
-            Call FunOpenWorkbook(strFilePath)
+            'Call FunOpenWorkbook(strFilePath)
+            Call OpenExcelPrintPreview(strFilePath)
 
             'Excel作業ファイルを削除
             Try
