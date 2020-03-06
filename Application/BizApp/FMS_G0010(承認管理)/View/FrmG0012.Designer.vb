@@ -833,7 +833,7 @@ Partial Class FrmG0012
         Me.pnlAnalysis.Controls.Add(Me.Label51)
         Me.pnlAnalysis.Location = New System.Drawing.Point(658, 658)
         Me.pnlAnalysis.Name = "pnlAnalysis"
-        Me.pnlAnalysis.Size = New System.Drawing.Size(317, 295)
+        Me.pnlAnalysis.Size = New System.Drawing.Size(300, 295)
         Me.pnlAnalysis.TabIndex = 322
         Me.pnlAnalysis.Visible = False
         '
@@ -841,7 +841,7 @@ Partial Class FrmG0012
         '
         Me.Label25.BackColor = System.Drawing.Color.Black
         Me.Label25.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Label25.Location = New System.Drawing.Point(302, 0)
+        Me.Label25.Location = New System.Drawing.Point(285, 0)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(13, 293)
         Me.Label25.TabIndex = 324
@@ -2848,7 +2848,7 @@ Partial Class FrmG0012
         '
         Me.Label75.AutoSize = True
         Me.Label75.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label75.Location = New System.Drawing.Point(400, 38)
+        Me.Label75.Location = New System.Drawing.Point(398, 36)
         Me.Label75.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label75.Name = "Label75"
         Me.Label75.Size = New System.Drawing.Size(114, 15)
@@ -3222,7 +3222,7 @@ Partial Class FrmG0012
         '
         Me.Label50.AutoSize = True
         Me.Label50.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label50.Location = New System.Drawing.Point(5, 49)
+        Me.Label50.Location = New System.Drawing.Point(3, 45)
         Me.Label50.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label50.Name = "Label50"
         Me.Label50.Size = New System.Drawing.Size(87, 15)

@@ -358,6 +358,74 @@ Partial Public Class V011_FCR_J
     <Column(TypeName:="char")>
     Public Property OTHER_PROCESS_YMD As String
 
+    '#252 追加項目
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    <StringLength(100)>
+    <Column(TypeName:="nvarchar")>
+    Public Property KOKYAKU_EIKYO_HANTEI_FILEPATH As String
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    <StringLength(100)>
+    <Column(TypeName:="nvarchar")>
+    Public Property FUTEKIGO_SEIHIN_MEMO As String
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    <StringLength(100)>
+    <Column(TypeName:="nvarchar")>
+    Public Property KOKYAKU_EIKYO_MEMO As String
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    <StringLength(100)>
+    <Column(TypeName:="nvarchar")>
+    Public Property OTHER_PROCESS_INFLUENCE_MEMO As String
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    <StringLength(100)>
+    <Column(TypeName:="nvarchar")>
+    Public Property OTHER_PROCESS_INFLUENCE_FILEPATH As String
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    <StringLength(100)>
+    <Column(TypeName:="nvarchar")>
+    Public Property FOLLOW_PROCESS_OUTFLOW_MEMO As String
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    <StringLength(100)>
+    <Column(TypeName:="nvarchar")>
+    Public Property FOLLOW_PROCESS_OUTFLOW_FILEPATH As String
+
+
+
+
     ''共通項目------------------------------------
     <Required>
     <StringLength(14)>

@@ -3706,7 +3706,7 @@ Public Class FrmG0011
 
                 '#243
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_起草確認製造GL))
-                cmbST03_TANTO_FCR.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                cmbST03_TANTO_FCR.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
                 _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).
@@ -5429,8 +5429,12 @@ Public Class FrmG0011
 #Region "   STAGE3"
 
     '#243
-    Private Sub btnST03_FCR_KISO_Click(sender As Object, e As EventArgs) Handles btnST03_FCR_KISO.Click
+    Private Sub BtnST03_FCR_KISO_Click(sender As Object, e As EventArgs) Handles btnST03_FCR_KISO.Click
         Try
+            IsValidated = True
+            Call cmbST03_TANTO_FCR_Validating(cmbST03_TANTO_FCR, Nothing)
+            If Not IsValidated Then Exit Sub
+
             If funSAVE_FCR_KISO() Then
                 btnST03_FCR_KISO.Enabled = False
                 btnST03_FCR_KISO.Text = "起草済"
@@ -6680,20 +6684,22 @@ Public Class FrmG0011
                     Case ENM_NCR_STAGE._30_起草確認検査
                         Call CmbDestTANTO_Validating(cmbST03_DestTANTO, Nothing)
                         Call dtUPD_YMD_Validating(dtST03_UPD_YMD, Nothing)
-                        Call cmbST03_TANTO_FCR_Validating(cmbST03_TANTO_FCR, Nothing)
 
-                        If IsValidated Then
-                            If btnST03_FCR_KISO.Text = "起草" Then
-                                Dim msg As String = $"不適合封じ込め調査書が起草されていません{vbCrLf}今すぐ起草しますか？"
-                                If MessageBox.Show(msg, "起草確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) <> DialogResult.OK Then
-                                    IsValidated = False
-                                End If
-                                If funSAVE_FCR_KISO() Then
-                                    btnST03_FCR_KISO.Enabled = False
-                                    btnST03_FCR_KISO.Text = "起草済"
-                                End If
-                            End If
-                        End If
+
+                        '#252 Delete CTSは必須ではなく任意起草とする
+                        'Call cmbST03_TANTO_FCR_Validating(cmbST03_TANTO_FCR, Nothing)
+                        'If IsValidated Then
+                        '    If btnST03_FCR_KISO.Text = "起草" Then
+                        '        Dim msg As String = $"不適合封じ込め調査書が起草されていません{vbCrLf}今すぐ起草しますか？"
+                        '        If MessageBox.Show(msg, "起草確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) <> DialogResult.OK Then
+                        '            IsValidated = False
+                        '        End If
+                        '        If funSAVE_FCR_KISO() Then
+                        '            btnST03_FCR_KISO.Enabled = False
+                        '            btnST03_FCR_KISO.Text = "起草済"
+                        '        End If
+                        '    End If
+                        'End If
 
                     Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
                         Call CmbST04_JIZENSINSA_HANTEI_Validating(cmbST04_JIZENSINSA_HANTEI, Nothing)
@@ -7167,6 +7173,8 @@ Public Class FrmG0011
                     DB.Commit(Not blnErr)
                 End Try
             End Using
+
+            MessageBox.Show("不適合封じ込め調査書起草申請を発行しました", "起草申請", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             Return True
 

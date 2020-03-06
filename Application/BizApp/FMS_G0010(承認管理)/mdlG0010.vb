@@ -1959,7 +1959,8 @@ Module mdlG0010
             spSheet1.Range(NameOf(V011_FCR_J.TUCHI_SYUDAN)).Value = _V11.TUCHI_SYUDAN
             spSheet1.Range(NameOf(V011_FCR_J.HITUYO_TETUDUKI_ZIKO)).Value = _V11.HITUYO_TETUDUKI_ZIKO
 
-            Dim blnHANTEI As Boolean = (_V11.KOKYAKU_EIKYO_HANTEI_KB = "1")
+            Dim blnHANTEI As Boolean
+            blnHANTEI = (_V11.KOKYAKU_EIKYO_HANTEI_KB = "1")
             shSCR_KOKYAKU_EIKYO_HANTEI_KB_T.Visible = blnHANTEI
             shSCR_KOKYAKU_EIKYO_HANTEI_KB_F.Visible = Not blnHANTEI
             shLINE_KOKYAKU_EIKYO_NAIYO.Visible = Not blnHANTEI
@@ -1972,13 +1973,24 @@ Module mdlG0010
             shLINE_RANGE2.Visible = Not blnHANTEI
             shLINE_NAIYO.Visible = Not blnHANTEI
             shLINE_YMD.Visible = Not blnHANTEI
-            shSCR_KOKYAKU_EIKYO_TUCHI_HANTEI_KB_T.Visible = (_V11.KOKYAKU_EIKYO_TUCHI_HANTEI_KB = "1")
-            shSCR_KOKYAKU_EIKYO_TUCHI_HANTEI_KB_F.Visible = Not (_V11.KOKYAKU_EIKYO_TUCHI_HANTEI_KB = "1")
 
-            shSCR_OTHER_PROCESS_INFLUENCE_KB_T.Visible = (_V11.OTHER_PROCESS_INFLUENCE_KB = "1")
-            shSCR_OTHER_PROCESS_INFLUENCE_KB_F.Visible = Not (_V11.OTHER_PROCESS_INFLUENCE_KB = "1")
-            shSCR_FOLLOW_PROCESS_OUTFLOW_KB_T.Visible = (_V11.FOLLOW_PROCESS_OUTFLOW_KB = "1")
-            shSCR_FOLLOW_PROCESS_OUTFLOW_KB_F.Visible = Not (_V11.FOLLOW_PROCESS_OUTFLOW_KB = "1")
+            blnHANTEI = (_V11.KOKYAKU_EIKYO_TUCHI_HANTEI_KB = "1")
+            shSCR_KOKYAKU_EIKYO_TUCHI_HANTEI_KB_T.Visible = blnHANTEI
+            shSCR_KOKYAKU_EIKYO_TUCHI_HANTEI_KB_F.Visible = Not blnHANTEI
+
+            blnHANTEI = (_V11.OTHER_PROCESS_INFLUENCE_KB = "1")
+            shSCR_OTHER_PROCESS_INFLUENCE_KB_T.Visible = blnHANTEI
+            shSCR_OTHER_PROCESS_INFLUENCE_KB_F.Visible = Not blnHANTEI
+            If blnHANTEI Then
+                spSheet1.Range(NameOf(V011_FCR_J.OTHER_PROCESS_INFLUENCE_MEMO)).Value = _V11.OTHER_PROCESS_INFLUENCE_MEMO
+            End If
+
+            blnHANTEI = (_V11.FOLLOW_PROCESS_OUTFLOW_KB = "1")
+            shSCR_FOLLOW_PROCESS_OUTFLOW_KB_T.Visible = blnHANTEI
+            shSCR_FOLLOW_PROCESS_OUTFLOW_KB_F.Visible = Not blnHANTEI
+            If blnHANTEI Then
+                spSheet1.Range(NameOf(V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_MEMO)).Value = _V11.FOLLOW_PROCESS_OUTFLOW_MEMO
+            End If
 
             spSheet1.Range(NameOf(V011_FCR_J.KISYU1_NAME)).Value = _V11.KISYU1_NAME
             spSheet1.Range(NameOf(V011_FCR_J.KISYU2_NAME)).Value = _V11.KISYU2_NAME
@@ -2016,6 +2028,9 @@ Module mdlG0010
             spSheet1.Range(NameOf(V011_FCR_J.ZAIKO_SIKAKE_YMD)).Value = _V11.ZAIKO_SIKAKE_YMD
             spSheet1.Range(NameOf(V011_FCR_J.OTHER_PROCESS_NAIYOU)).Value = _V11.OTHER_PROCESS_NAIYOU
             spSheet1.Range(NameOf(V011_FCR_J.OTHER_PROCESS_YMD)).Value = _V11.OTHER_PROCESS_YMD
+
+            spSheet1.Range(NameOf(V011_FCR_J.FUTEKIGO_SEIHIN_MEMO)).Value = _V11.FUTEKIGO_SEIHIN_MEMO
+            spSheet1.Range(NameOf(V011_FCR_J.KOKYAKU_EIKYO_MEMO)).Value = _V11.KOKYAKU_EIKYO_MEMO
 
 
             If _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).Select(Function(r) r.ADD_YMDHNS).First < "202002140000" Then
