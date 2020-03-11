@@ -199,15 +199,15 @@ Public Class FrmG0021
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._2_承認申請) Then
                         Dim strMsg As String
-                        If PrCurrentStage = ENM_CTS_STAGE._60_品証課長 Then
+                        If PrCurrentStage = ENM_CTS_STAGE._90_部門長 Then
                             strMsg = "承認しますか？"
                         Else
                             strMsg = "申請しますか？"
                         End If
 
-                        If MessageBox.Show("申請しますか？", "承認・申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                        If MessageBox.Show(strMsg, "承認・申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                             If FunSAVE(ENM_SAVE_MODE._2_承認申請) Then
-                                If PrCurrentStage = ENM_CTS_STAGE._60_品証課長 Then
+                                If PrCurrentStage = ENM_CTS_STAGE._90_部門長 Then
                                     strMsg = "承認しました"
                                 Else
                                     strMsg = "承認・申請しました"
@@ -411,7 +411,7 @@ Public Class FrmG0021
 
         _D007.Clear()
         _D007.HOKOKU_NO = PrHOKOKU_NO
-        If PrCurrentStage = ENM_CTS_STAGE._60_品証課長 And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
+        If PrCurrentStage = ENM_CTS_STAGE._90_部門長 And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
             _D007._CLOSE_FG = 1
         End If
         If rbtnKOKYAKU_EIKYO_HANTEI_KB_T.Checked Then
@@ -770,7 +770,7 @@ Public Class FrmG0021
 
         '-----モデル更新
         Select Case PrCurrentStage
-            Case ENM_CTS_STAGE._60_品証課長
+            Case ENM_CTS_STAGE._90_部門長
                 _D004_SYONIN_J_KANRI.SYONIN_JUN = 999 'Close
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
                 _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
@@ -847,7 +847,7 @@ Public Class FrmG0021
         strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
         Select Case strRET
             Case "INSERT"
-                If PrCurrentStage < ENM_CTS_STAGE._60_品証課長 AndAlso _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False Then
+                If PrCurrentStage < ENM_CTS_STAGE._90_部門長 AndAlso _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False Then
                     '承認依頼メール送信
                     If FunSendRequestMail() Then
                         WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_V011_FCR_J.HOKOKU_NO}、Send Request Mail")
@@ -1469,7 +1469,7 @@ Public Class FrmG0021
             End If
 
             Select Case PrCurrentStage
-                Case ENM_CTS_STAGE._60_品証課長
+                Case ENM_CTS_STAGE._90_部門長
                     cmdFunc2.Text = "承認(F2)"
                 Case ENM_CTS_STAGE._999_Closed
 
@@ -1522,44 +1522,47 @@ Public Class FrmG0021
                                                                         rsbtnST03.CheckedChanged,
                                                                         rsbtnST04.CheckedChanged,
                                                                         rsbtnST05.CheckedChanged,
-                                                                        rsbtnST06.CheckedChanged
+                                                                        rsbtnST06.CheckedChanged,
+                                                                        rsbtnST07.CheckedChanged,
+                                                                        rsbtnST08.CheckedChanged,
+                                                                        rsbtnST09.CheckedChanged
 
         Dim btn As RibbonShapeRadioButton = DirectCast(sender, RibbonShapeRadioButton)
         Dim intStageID As Integer = Val(btn.Name.Substring(7))
         tabSTAGE01.AutoScrollControlIntoView = True
-        Select Case intStageID
-            Case ENM_CAR_STAGE2._1_起草入力 To ENM_CAR_STAGE2._7_起草確認_品証課長
-                tabSTAGE01.ScrollControlIntoView(lblSETUMON_1)
+        'Select Case intStageID
+        '    Case ENM_CAR_STAGE2._1_起草入力 To ENM_CAR_STAGE2._7_起草確認_品証課長
+        '        tabSTAGE01.ScrollControlIntoView(lblSETUMON_1)
 
-                pnlFCR.BorderStyle = BorderStyle.FixedSingle
-                pnlSYOCHI_KIROKU.BorderStyle = BorderStyle.None
-                pnlZESEI_SYOCHI.BorderStyle = BorderStyle.None
-                pnlSYOCHI_JISSI.BorderStyle = BorderStyle.None
+        '        pnlFCR.BorderStyle = BorderStyle.FixedSingle
+        '        pnlSYOCHI_KIROKU.BorderStyle = BorderStyle.None
+        '        pnlZESEI_SYOCHI.BorderStyle = BorderStyle.None
+        '        pnlSYOCHI_JISSI.BorderStyle = BorderStyle.None
 
-            Case ENM_CAR_STAGE2._8_処置実施記録入力, ENM_CAR_STAGE2._9_処置実施確認
-                tabSTAGE01.ScrollControlIntoView(lblSYOCHI_KIROKUFlame)
+        '    Case ENM_CAR_STAGE2._8_処置実施記録入力, ENM_CAR_STAGE2._9_処置実施確認
+        '        tabSTAGE01.ScrollControlIntoView(lblSYOCHI_KIROKUFlame)
 
-                pnlFCR.BorderStyle = BorderStyle.None
-                pnlSYOCHI_KIROKU.BorderStyle = BorderStyle.FixedSingle
-                pnlZESEI_SYOCHI.BorderStyle = BorderStyle.None
-                pnlSYOCHI_JISSI.BorderStyle = BorderStyle.None
+        '        pnlFCR.BorderStyle = BorderStyle.None
+        '        pnlSYOCHI_KIROKU.BorderStyle = BorderStyle.FixedSingle
+        '        pnlZESEI_SYOCHI.BorderStyle = BorderStyle.None
+        '        pnlSYOCHI_JISSI.BorderStyle = BorderStyle.None
 
-            Case ENM_CAR_STAGE2._10_是正有効性記入 To ENM_CAR_STAGE2._12_是正有効性確認_品証TL
-                tabSTAGE01.ScrollControlIntoView(lblZESEI_SYOCHIFlame)
+        '    Case ENM_CAR_STAGE2._10_是正有効性記入 To ENM_CAR_STAGE2._12_是正有効性確認_品証TL
+        '        tabSTAGE01.ScrollControlIntoView(lblZESEI_SYOCHIFlame)
 
-                pnlFCR.BorderStyle = BorderStyle.None
-                pnlSYOCHI_KIROKU.BorderStyle = BorderStyle.None
-                pnlZESEI_SYOCHI.BorderStyle = BorderStyle.FixedSingle
-                pnlSYOCHI_JISSI.BorderStyle = BorderStyle.None
+        '        pnlFCR.BorderStyle = BorderStyle.None
+        '        pnlSYOCHI_KIROKU.BorderStyle = BorderStyle.None
+        '        pnlZESEI_SYOCHI.BorderStyle = BorderStyle.FixedSingle
+        '        pnlSYOCHI_JISSI.BorderStyle = BorderStyle.None
 
-            Case ENM_CAR_STAGE2._13_是正有効性確認_品証担当課長
-                tabSTAGE01.ScrollControlIntoView(lblSTAGEFlame13)
-                pnlFCR.BorderStyle = BorderStyle.None
-                pnlSYOCHI_KIROKU.BorderStyle = BorderStyle.None
-                pnlZESEI_SYOCHI.BorderStyle = BorderStyle.None
-                pnlSYOCHI_JISSI.BorderStyle = BorderStyle.FixedSingle
+        '    Case ENM_CAR_STAGE2._13_是正有効性確認_品証担当課長
+        '        tabSTAGE01.ScrollControlIntoView(lblSTAGEFlame13)
+        '        pnlFCR.BorderStyle = BorderStyle.None
+        '        pnlSYOCHI_KIROKU.BorderStyle = BorderStyle.None
+        '        pnlZESEI_SYOCHI.BorderStyle = BorderStyle.None
+        '        pnlSYOCHI_JISSI.BorderStyle = BorderStyle.FixedSingle
 
-        End Select
+        'End Select
         tabSTAGE01.AutoScrollControlIntoView = False
 
     End Sub
@@ -2264,7 +2267,7 @@ Public Class FrmG0021
             End If
 
             '最終ステージの場合、申請先担当者欄は非表示
-            If PrCurrentStage >= ENM_CTS_STAGE._60_品証課長 Then
+            If PrCurrentStage >= ENM_CTS_STAGE._90_部門長 Then
                 lblDestTANTO.Visible = False
                 cmbDestTANTO.Visible = False
             End If
@@ -2364,7 +2367,7 @@ Public Class FrmG0021
             'フラグリセット
             IsValidated = True
             '-----共通
-            If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And PrCurrentStage < ENM_CTS_STAGE._60_品証課長 Then
+            If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And PrCurrentStage < ENM_CTS_STAGE._90_部門長 Then
                 Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
             End If
 
@@ -2426,7 +2429,7 @@ Public Class FrmG0021
             '    Return intCurrentStageID + (stageLength * 2)
             'Else
             Select Case intCurrentStageID
-                Case ENM_CTS_STAGE._60_品証課長, ENM_CTS_STAGE._999_Closed
+                Case ENM_CTS_STAGE._90_部門長, ENM_CTS_STAGE._999_Closed
                     Return ENM_CTS_STAGE._999_Closed
                 Case Else
                     Return intCurrentStageID + stageLength

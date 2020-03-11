@@ -462,22 +462,25 @@ Public Class FrmG0011
                     End If
                     If FunSAVE_R001(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
 
-                    If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 AndAlso
+                    If enmSAVE_MODE = ENM_SAVE_MODE._1_保存 Then
+                    Else
+                        If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 AndAlso
                         PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso
                         Val(_D003_NCR_J.KENSA_KEKKA_KB) = ENM_KENSA_KEKKA_KB._1_不合格 Then
 
-                        _D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
-                        If FunSAVE_D003_SAI_FUTEKIGO(DB) = False Then
-                            blnErr = True
-                            MessageBox.Show("再不適合処置データの作成に失敗しました", "再不適合処置確認", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                            Return False
-                        End If
-                    Else
+                            _D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
+                            If FunSAVE_D003_SAI_FUTEKIGO(DB) = False Then
+                                blnErr = True
+                                MessageBox.Show("再不適合処置データの作成に失敗しました", "再不適合処置確認", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                Return False
+                            End If
+                        Else
 
-                        If DeleteSAI_FUTEKIGO(DB) = False Then
-                            blnErr = True
-                            MessageBox.Show("不要になった再不適合処置データの削除に失敗しました", "再不適合処置確認", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                            Return False
+                            If DeleteSAI_FUTEKIGO(DB) = False Then
+                                blnErr = True
+                                MessageBox.Show("不要になった再不適合処置データの削除に失敗しました", "再不適合処置確認", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                Return False
+                            End If
                         End If
                     End If
                 Finally
@@ -2362,7 +2365,10 @@ Public Class FrmG0011
         End Select
 
         'サブテーブル保存
-        FunSAVE_D008(DB, _D007.ADD_YMDHNS)
+        If FunSAVE_D008(DB, _D007.ADD_YMDHNS) = False Then
+            MessageBox.Show("CTSサブテーブルの保存に失敗しました", "不適合封じ込め調査書保存", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End If
 
         '----D004
         '-----データモデル更新
@@ -2511,6 +2517,8 @@ Public Class FrmG0011
                     Return False
             End Select
         Next
+
+        Return True
     End Function
 
 #End Region
@@ -3716,8 +3724,8 @@ Public Class FrmG0011
                 '#243
                 Dim sbSQL As New System.Text.StringBuilder
                 Dim intRET As Integer
-                sbSQL.Append($"SELECT COUNT({NameOf(V011_FCR_J.HOKOKU_NO)}) FROM {NameOf(V011_FCR_J)} ")
-                sbSQL.Append($" WHERE {NameOf(V011_FCR_J.HOKOKU_NO)}='{_D003_NCR_J.HOKOKU_NO}'")
+                sbSQL.Append($"SELECT COUNT({NameOf(D007_FCR_J.HOKOKU_NO)}) FROM {NameOf(D007_FCR_J)} ")
+                sbSQL.Append($" WHERE {NameOf(D007_FCR_J.HOKOKU_NO)}='{_D003_NCR_J.HOKOKU_NO}'")
                 Using DB = DBOpen()
                     intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg)
                 End Using
@@ -4076,7 +4084,8 @@ Public Class FrmG0011
                     dt = FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
                     InList.Clear()
                     InList.AddRange({ENM_GYOMU_GROUP_ID._3_検査.Value, ENM_GYOMU_GROUP_ID._4_品証.Value})
-                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
+                                          GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
                     If drs.Count > 0 Then cmbST07_SAISIN_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     cmbST07_KOKYAKU_HANTEI_SIJI.SetDataSource(tblKOKYAKU_HANTEI_SIJI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -4176,7 +4185,8 @@ Public Class FrmG0011
 
                     '再加工/生技担当
                     InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_技術.Value, ENM_GYOMU_GROUP_ID._4_品証.Value})
-                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
+                                          GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
                     If drs.Count > 0 Then cmbST08_2_TANTO_SEIGI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
                     '再加工/製造担当
@@ -4186,12 +4196,14 @@ Public Class FrmG0011
 
                     '再加工/検査担当
                     InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._3_検査.Value})
-                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
+                                          GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
                     If drs.Count > 0 Then cmbST08_2_TANTO_KENSA.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
                     '再加工/返却実施者
                     InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_技術.Value, ENM_GYOMU_GROUP_ID._2_製造.Value, ENM_GYOMU_GROUP_ID._3_検査.Value, ENM_GYOMU_GROUP_ID._4_品証.Value})
-                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+                    drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
+                                          GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
                     If drs.Count > 0 Then cmbST08_3_HENKYAKU_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                     drs = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = _D003_NCR_J.BUMON_KB).ToList
@@ -6328,6 +6340,8 @@ Public Class FrmG0011
 
         dtST08_3_HENKYAKU_YMD.DataBindings.Add(New Binding(NameOf(dtST08_3_HENKYAKU_YMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.HENKYAKU_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         mtxST08_3_HENKYAKU_SAKI.DataBindings.Add(New Binding(NameOf(mtxST08_3_HENKYAKU_SAKI.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HENKYAKU_SAKI), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbST08_3_HENKYAKU_TANTO.DataBindings.Add(New Binding(NameOf(cmbST08_3_HENKYAKU_TANTO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.HENKYAKU_TANTO_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+
         txtST08_3_BIKO.DataBindings.Add(New Binding(NameOf(txtST08_3_BIKO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HENKYAKU_BIKO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
         cmbST08_4_KISYU.DataBindings.Add(New Binding(NameOf(cmbST08_4_KISYU.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.TENYO_KISYU_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
@@ -7134,7 +7148,7 @@ Public Class FrmG0011
     Private Function funSAVE_FCR_KISO() As Boolean
         Try
             Dim sbSQL As New System.Text.StringBuilder
-            Dim intRET As Integer
+            'Dim intRET As Integer
 
             '#73
             'sbSQL.Append($"SELECT COUNT({NameOf(V011_FCR_J.HOKOKU_NO)}) FROM {NameOf(V011_FCR_J)} ")

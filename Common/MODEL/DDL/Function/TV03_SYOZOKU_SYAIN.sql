@@ -1,6 +1,6 @@
 USE [FMS]
 GO
-/****** Object:  UserDefinedFunction [dbo].[TV03_SYOZOKU_SYAIN]    Script Date: 2019/09/11 12:35:41 ******/
+/****** Object:  UserDefinedFunction [dbo].[TV03_SYOZOKU_SYAIN]    Script Date: 2020/03/11 15:37:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -44,7 +44,7 @@ BEGIN
 	DECLARE @W_GYOMU_GROUP_NAME		nvarchar(30);
 	DECLARE @W_SYOZOKUCYO_ID			int;
 	DECLARE @W_IS_LEADER			int;
-
+	DECLARE @W_TAISYA_YMD char(8);
 	
 	IF @BUMON_KB = 1 OR @BUMON_KB = 2
 		--航空機部門
@@ -108,7 +108,8 @@ BEGIN
 			  , @W_SIMEI = M004.SIMEI
 			  , @W_SIMEI_KANA = M004.SIMEI_KANA
 			  , @W_GYOMU_GROUP_ID = ISNULL(M011.GYOMU_GROUP_ID, 0)
-			  , @W_GYOMU_GROUP_NAME = ISNULL((SELECT GYOMU_GROUP_NAME FROM M003_GYOMU_GROUP M003 WHERE M003.GYOMU_GROUP_ID = M011.GYOMU_GROUP_ID) , '') 
+			  , @W_GYOMU_GROUP_NAME = ISNULL((SELECT GYOMU_GROUP_NAME FROM M003_GYOMU_GROUP M003 WHERE M003.GYOMU_GROUP_ID = M011.GYOMU_GROUP_ID) , '')
+			  , @W_TAISYA_YMD = M004.TAISYA_YMD
 			  --, @W_GYOMU_GROUP_ID = ISNULL(IIF(@W_BUSYO_ID=10,2, M011.GYOMU_GROUP_ID), 0)
 			  --, @W_GYOMU_GROUP_NAME = ISNULL((SELECT GYOMU_GROUP_NAME FROM M003_GYOMU_GROUP M003 WHERE M003.GYOMU_GROUP_ID = IIF(@W_BUSYO_ID=10,2,M011.GYOMU_GROUP_ID)) , '') 
 			FROM
@@ -116,39 +117,44 @@ BEGIN
 			  LEFT JOIN M004_SYAIN M004 
 				ON M005.SYAIN_ID = M004.SYAIN_ID
 			  LEFT JOIN M011_SYAIN_GYOMU M011 
-				ON M011.SYAIN_ID = M004.SYAIN_ID			   
+				ON M011.SYAIN_ID = M004.SYAIN_ID
 			WHERE
-			  M004.SYAIN_ID = @W_SYAIN_ID AND M005.BUSYO_ID = @W_BUSYO_ID; 
+			  M004.SYAIN_ID = @W_SYAIN_ID AND M005.BUSYO_ID = @W_BUSYO_ID
+			  --退職者は除外
+			  AND M004.TAISYA_YMD > FORMAT(GETDATE(), 'yyyyMMdd')
 
 			
 			SET @W_IS_LEADER = IIF(@W_SYAIN_ID = @W_SYOZOKUCYO_ID,1,0)
 			
-			INSERT INTO @retTBL 
-				(
-				 SYAIN_ID				--社員ID
-				,SYAIN_NO				--社員No
-				,SIMEI					--社員名
-				,SIMEI_KANA				--社員名カナ
-				,BUMON_KB
-				,BUSYO_ID				--部署ID
-				,BUSYO_NAME				--部署名
-				,GYOMU_GROUP_ID
-				,GYOMU_GROUP_NAME
-				,IS_LEADER
-				) VALUES (
-				 @W_SYAIN_ID			--社員ID
-				,@W_SYAIN_NO			--社員No
-				,@W_SIMEI				--社員名
-				,@W_SIMEI_KANA			--社員名カナ
-				,@W_BUMON_KB
-				,@W_BUSYO_ID			--部署ID
-				,@W_BUSYO_NAME			--部署名
-				,@W_GYOMU_GROUP_ID
-				,@W_GYOMU_GROUP_NAME
-				,@W_IS_LEADER
-				);
+			IF @W_TAISYA_YMD > FORMAT(GETDATE(), 'yyyyMMdd') 
+				BEGIN
+					INSERT INTO @retTBL 
+						(
+						 SYAIN_ID				--社員ID
+						,SYAIN_NO				--社員No
+						,SIMEI					--社員名
+						,SIMEI_KANA				--社員名カナ
+						,BUMON_KB
+						,BUSYO_ID				--部署ID
+						,BUSYO_NAME				--部署名
+						,GYOMU_GROUP_ID
+						,GYOMU_GROUP_NAME
+						,IS_LEADER
+						) VALUES (
+						 @W_SYAIN_ID			--社員ID
+						,@W_SYAIN_NO			--社員No
+						,@W_SIMEI				--社員名
+						,@W_SIMEI_KANA			--社員名カナ
+						,@W_BUMON_KB
+						,@W_BUSYO_ID			--部署ID
+						,@W_BUSYO_NAME			--部署名
+						,@W_GYOMU_GROUP_ID
+						,@W_GYOMU_GROUP_NAME
+						,@W_IS_LEADER
+						);
+				END
 
-			IF @W_BUSYO_ID=10
+			IF @W_BUSYO_ID=10 AND @W_TAISYA_YMD > FORMAT(GETDATE(), 'yyyyMMdd') 
 				BEGIN
 					
 					SET @W_GYOMU_GROUP_ID = 2;

@@ -215,6 +215,9 @@ Partial Class FrmG0021
         Me.rsbtnST04 = New JMS_COMMON.RibbonShapeRadioButton()
         Me.rsbtnST05 = New JMS_COMMON.RibbonShapeRadioButton()
         Me.rsbtnST06 = New JMS_COMMON.RibbonShapeRadioButton()
+        Me.rsbtnST07 = New JMS_COMMON.RibbonShapeRadioButton()
+        Me.rsbtnST08 = New JMS_COMMON.RibbonShapeRadioButton()
+        Me.rsbtnST09 = New JMS_COMMON.RibbonShapeRadioButton()
         Me.rsbtnST99 = New JMS_COMMON.RibbonShapeRadioButton()
         Me.dtUPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label33 = New System.Windows.Forms.Label()
@@ -3179,6 +3182,9 @@ Partial Class FrmG0021
         Me.flpnlStageIndex.Controls.Add(Me.rsbtnST04)
         Me.flpnlStageIndex.Controls.Add(Me.rsbtnST05)
         Me.flpnlStageIndex.Controls.Add(Me.rsbtnST06)
+        Me.flpnlStageIndex.Controls.Add(Me.rsbtnST07)
+        Me.flpnlStageIndex.Controls.Add(Me.rsbtnST08)
+        Me.flpnlStageIndex.Controls.Add(Me.rsbtnST09)
         Me.flpnlStageIndex.Controls.Add(Me.rsbtnST99)
         Me.flpnlStageIndex.Location = New System.Drawing.Point(12, 63)
         Me.flpnlStageIndex.Name = "flpnlStageIndex"
@@ -3269,16 +3275,58 @@ Partial Class FrmG0021
         Me.rsbtnST06.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rsbtnST06.UseVisualStyleBackColor = True
         '
+        'rsbtnST07
+        '
+        Me.rsbtnST07.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rsbtnST07.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST07.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST07.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST07.Location = New System.Drawing.Point(531, 3)
+        Me.rsbtnST07.Name = "rsbtnST07"
+        Me.rsbtnST07.Size = New System.Drawing.Size(82, 26)
+        Me.rsbtnST07.TabIndex = 6
+        Me.rsbtnST07.Text = "ST7"
+        Me.rsbtnST07.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rsbtnST07.UseVisualStyleBackColor = True
+        '
+        'rsbtnST08
+        '
+        Me.rsbtnST08.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rsbtnST08.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST08.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST08.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST08.Location = New System.Drawing.Point(619, 3)
+        Me.rsbtnST08.Name = "rsbtnST08"
+        Me.rsbtnST08.Size = New System.Drawing.Size(82, 26)
+        Me.rsbtnST08.TabIndex = 7
+        Me.rsbtnST08.Text = "ST8"
+        Me.rsbtnST08.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rsbtnST08.UseVisualStyleBackColor = True
+        '
+        'rsbtnST09
+        '
+        Me.rsbtnST09.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rsbtnST09.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.rsbtnST09.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.rsbtnST09.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.rsbtnST09.Location = New System.Drawing.Point(707, 3)
+        Me.rsbtnST09.Name = "rsbtnST09"
+        Me.rsbtnST09.Size = New System.Drawing.Size(82, 26)
+        Me.rsbtnST09.TabIndex = 8
+        Me.rsbtnST09.Text = "ST9"
+        Me.rsbtnST09.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rsbtnST09.UseVisualStyleBackColor = True
+        '
         'rsbtnST99
         '
         Me.rsbtnST99.Appearance = System.Windows.Forms.Appearance.Button
         Me.rsbtnST99.Cursor = System.Windows.Forms.Cursors.Hand
         Me.rsbtnST99.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.rsbtnST99.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.rsbtnST99.Location = New System.Drawing.Point(531, 3)
+        Me.rsbtnST99.Location = New System.Drawing.Point(795, 3)
         Me.rsbtnST99.Name = "rsbtnST99"
         Me.rsbtnST99.Size = New System.Drawing.Size(82, 26)
-        Me.rsbtnST99.TabIndex = 13
+        Me.rsbtnST99.TabIndex = 9
         Me.rsbtnST99.Text = "Closed"
         Me.rsbtnST99.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rsbtnST99.UseVisualStyleBackColor = True
@@ -3652,4 +3700,7 @@ Partial Class FrmG0021
     Friend WithEvents LinkLabel8 As LinkLabel
     Friend WithEvents LinkLabel29 As LinkLabel
     Friend WithEvents LinkLabel30 As LinkLabel
+    Friend WithEvents rsbtnST07 As RibbonShapeRadioButton
+    Friend WithEvents rsbtnST08 As RibbonShapeRadioButton
+    Friend WithEvents rsbtnST09 As RibbonShapeRadioButton
 End Class

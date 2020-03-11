@@ -131,11 +131,14 @@ Module mdlG0010
     ''' </summary>
     Public Enum ENM_CTS_STAGE
         _10_ãNëêì¸óÕ = 10
-        _20_ïièÿ_åüç∏ = 20
-        _30_ä«óùTL = 30
-        _40_ê∂ãZTL = 40
-        _50_âcã∆TL = 50
-        _60_ïièÿâ€í∑ = 60
+        _20_ãNëêå≥GL = 20
+        _30_ïièÿ_åüç∏GL = 30
+        _40_ä«óùTL = 40
+        _50_ê∂ãZTL = 50
+        _60_âcã∆TL = 60
+        _70_ïièÿâ€í∑ = 70
+        _80_êªë¢â€í∑ = 80
+        _90_ïîñÂí∑ = 90
         _999_Closed = 999
     End Enum
 
@@ -144,11 +147,14 @@ Module mdlG0010
     ''' </summary>
     Public Enum ENM_CTS_STAGE2
         _1_ãNëêì¸óÕ = 1
-        _2_ïièÿ_åüç∏ = 2
-        _3_ä«óùTL = 3
-        _4_ê∂ãZTL = 4
-        _5_âcã∆TL = 5
-        _6_ïièÿâ€í∑ = 6
+        _2_ãNëêå≥GL = 2
+        _3_ïièÿ_åüç∏GL = 3
+        _4_ä«óùTL = 4
+        _5_ê∂ãZTL = 5
+        _6_âcã∆TL = 6
+        _7_ïièÿâ€í∑ = 7
+        _8_êªë¢â€í∑ = 8
+        _9_ïîñÂí∑ = 9
         _99_Closed = 99
     End Enum
 
@@ -481,6 +487,36 @@ Module mdlG0010
             Return _model
         End If
     End Function
+
+
+    Public Function IsMatchRevision(strRevisionName As String, intSYONIN_HOKOKUSYO_ID As Integer, strHOKOKU_NO As String) As Boolean
+        Try
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim intRET As Integer
+
+            sbSQL.Append($"SELECT")
+            sbSQL.Append($" COUNT(HOKOKU_NO)")
+            sbSQL.Append($" FROM {NameOf(V003_SYONIN_J_KANRI)}")
+            sbSQL.Append($" WHERE SYONIN_HOKOKUSYO_ID ={intSYONIN_HOKOKUSYO_ID}")
+            sbSQL.Append($" AND HOKOKU_NO='{strHOKOKU_NO}'")
+            Select Case strRevisionName
+                Case "P"
+                    sbSQL.Append($" AND SYONIN_JUN={ENM_NCR_STAGE._10_ãNëêì¸óÕ.Value}")
+                    sbSQL.Append($" AND ADD_YMDHNS>='202002130000'")
+                Case Else
+
+            End Select
+            Using DB = DBOpen()
+                intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg).ToVal
+            End Using
+
+            Return intRET > 0
+
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
 
     Public Function FunGetV003Model(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String) As List(Of V003_SYONIN_J_KANRI)
 
@@ -1233,7 +1269,6 @@ Module mdlG0010
                         shapeLINE_HASSEI_KOTEI_GL = shape
                 End Select
             Next shape
-            '---
 
             Select Case _V002_NCR_J.JIZEN_SINSA_HANTEI_KB
                 Case ENM_JIZEN_SINSA_HANTEI_KB._2_çƒêRàœàıâÔëóÇË
@@ -1353,8 +1388,7 @@ Module mdlG0010
                 ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SAISIN_KAKUNIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
 
-            shapeLINE_SYOCHI_D.Visible = (_V002_NCR_J.SYOCHI_D_UMU_KB = "0")
-            shapeLINE_SYOCHI_E.Visible = (_V002_NCR_J.SYOCHI_E_UMU_KB = "0")
+
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_BANGO)).Value = _V002_NCR_J.BUHIN_BANGO
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_NAME)).Value = _V002_NCR_J.BUHIN_NAME
@@ -1384,21 +1418,7 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.SAIHATU)).Value = _V002_NCR_J.SAIHATU
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.SURYO)).Value = _V002_NCR_J.SURYO
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU
 
-            Dim intCurrentStage As Integer = FunGetCurrentSYONIN_JUN(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _V002_NCR_J.HOKOKU_NO)
-            If intCurrentStage >= ENM_NCR_STAGE._110_abcdeèàíuíSìñ Then
-                ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_UMU_NAME)).Value = _V002_NCR_J.SYOCHI_D_UMU_NAME
-                If _V002_NCR_J.SYOCHI_D_UMU_KB = "1" Then
-                    ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_D_YOHI_NAME
-                End If
-                ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_UMU_NAME)).Value = _V002_NCR_J.SYOCHI_E_UMU_NAME
-                If _V002_NCR_J.SYOCHI_E_UMU_KB = "1" Then
-                    ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_E_YOHI_NAME
-                End If
-            End If
-
-            ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_A_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_A_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_B_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_B_NAME
 
@@ -1412,18 +1432,31 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.YOKYU_NAIYO)).Value = _V002_NCR_J.YOKYU_NAIYO.Replace(Environment.NewLine, "")
             ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = $"(ê}ñ /ãKäiÅF {If(_V002_NCR_J.ZUMEN_KIKAKU.IsNulOrWS, Space(38), _V002_NCR_J.ZUMEN_KIKAKU.Trim)} )"
 
-
             Dim kiso_tanto As String = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).FirstOrDefault?.UPD_SYAIN_NAME
             If kiso_tanto.IsNulOrWS Then kiso_tanto = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).FirstOrDefault?.ADD_SYAIN_NAME
             ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._10_ãNëêì¸óÕ).Value = kiso_tanto
 
+            Dim intCurrentStage As Integer = FunGetCurrentSYONIN_JUN(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _V002_NCR_J.HOKOKU_NO)
 
             If _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).Select(Function(r) r.ADD_YMDHNS).First < "202002140000" Then
                 ssgSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiOÅjÅ@ï éÜÅ|ÇR"
+                ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU
+                ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU
+                If intCurrentStage >= ENM_NCR_STAGE._110_abcdeèàíuíSìñ Then
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_UMU_NAME)).Value = _V002_NCR_J.SYOCHI_D_UMU_NAME
+                    If _V002_NCR_J.SYOCHI_D_UMU_KB = "1" Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_D_YOHI_NAME
+                    End If
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_UMU_NAME)).Value = _V002_NCR_J.SYOCHI_E_UMU_NAME
+                    If _V002_NCR_J.SYOCHI_E_UMU_KB = "1" Then
+                        ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_YOHI_NAME)).Value = _V002_NCR_J.SYOCHI_E_YOHI_NAME
+                    End If
+                End If
+                shapeLINE_SYOCHI_D.Visible = (_V002_NCR_J.SYOCHI_D_UMU_KB = "0")
+                shapeLINE_SYOCHI_E.Visible = (_V002_NCR_J.SYOCHI_E_UMU_KB = "0")
             Else
                 ssgSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiPÅjÅ@ï éÜÅ|ÇR"
             End If
-
 
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNulOrWS Then
@@ -1472,8 +1505,6 @@ Module mdlG0010
             If intCurrentStage > ENM_NCR_STAGE._120_abcdeèàíuämîF Then
                 ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._120_abcdeèàíuämîF).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._120_abcdeèàíuämîF).FirstOrDefault?.UPD_SYAIN_NAME
             End If
-
-
 
             Dim strRootDir As String
             Using DB As ClsDbUtility = DBOpen()
@@ -1694,10 +1725,6 @@ Module mdlG0010
 
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_21)).Value = _V005_CAR_J.KAITO_21.Replace(Environment.NewLine, "")
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_22)).Value = _V005_CAR_J.KAITO_22.Replace(Environment.NewLine, "")
-
-            'åªèÛñ¢égópÇÃÉtÉBÅ[ÉãÉh
-            'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_24)).Value = _V005_CAR_J.KAITO_24
-            'spSheet1.Range(NameOf(_V005_CAR_J.KAITO_25)).Value = _V005_CAR_J.KAITO_25
 
             spSheet1.Range(NameOf(_V005_CAR_J.KENSA_GL_SYAIN_NAME)).Value = _V005_CAR_J.KENSA_GL_SYAIN_NAME
             If Not _V005_CAR_J.KENSA_GL_YMDHNS.IsNulOrWS Then
@@ -1954,7 +1981,6 @@ Module mdlG0010
             spSheet1.Range(NameOf(V011_FCR_J.KAKUNIN_SYUDAN)).Value = _V11.KAKUNIN_SYUDAN
             spSheet1.Range(NameOf(V011_FCR_J.KOKYAKU_EIKYO_ETC_COMMENT)).Value = _V11.KOKYAKU_EIKYO_ETC_COMMENT
 
-
             spSheet1.Range(NameOf(V011_FCR_J.TUCHI_YMD)).Value = _V11.TUCHI_YMD
             spSheet1.Range(NameOf(V011_FCR_J.TUCHI_SYUDAN)).Value = _V11.TUCHI_SYUDAN
             spSheet1.Range(NameOf(V011_FCR_J.HITUYO_TETUDUKI_ZIKO)).Value = _V11.HITUYO_TETUDUKI_ZIKO
@@ -2032,49 +2058,21 @@ Module mdlG0010
             spSheet1.Range(NameOf(V011_FCR_J.FUTEKIGO_SEIHIN_MEMO)).Value = _V11.FUTEKIGO_SEIHIN_MEMO
             spSheet1.Range(NameOf(V011_FCR_J.KOKYAKU_EIKYO_MEMO)).Value = _V11.KOKYAKU_EIKYO_MEMO
 
-
             If _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).Select(Function(r) r.ADD_YMDHNS).First < "202002140000" Then
                 spSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiOÅjÅ@ï éÜÅ|8"
             Else
                 spSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiPÅjÅ@ï éÜÅ|8"
             End If
 
-
-            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._10_ãNëêì¸óÕ And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF).FirstOrDefault?.SYONIN_YMDHNS
-            If Not strYMDHNS.IsNulOrWS Then
-                spSheet1.Range("SYONIN_YMD" & ENM_CTS_STAGE._10_ãNëêì¸óÕ).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                spSheet1.Range("SYONIN_NAME" & ENM_CTS_STAGE._10_ãNëêì¸óÕ).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._10_ãNëêì¸óÕ).FirstOrDefault?.UPD_SYAIN_NAME
-            End If
-
-            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._20_ïièÿ_åüç∏ And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF).FirstOrDefault?.SYONIN_YMDHNS
-            If Not strYMDHNS.IsNulOrWS Then
-                spSheet1.Range("SYONIN_YMD" & ENM_CTS_STAGE._20_ïièÿ_åüç∏).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                spSheet1.Range("SYONIN_NAME" & ENM_CTS_STAGE._20_ïièÿ_åüç∏).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._20_ïièÿ_åüç∏).FirstOrDefault?.UPD_SYAIN_NAME
-            End If
-
-            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._30_ä«óùTL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF).FirstOrDefault?.SYONIN_YMDHNS
-            If Not strYMDHNS.IsNulOrWS Then
-                spSheet1.Range("SYONIN_YMD" & ENM_CTS_STAGE._30_ä«óùTL).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                spSheet1.Range("SYONIN_NAME" & ENM_CTS_STAGE._30_ä«óùTL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._30_ä«óùTL).FirstOrDefault?.UPD_SYAIN_NAME
-            End If
-
-            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._40_ê∂ãZTL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF).FirstOrDefault?.SYONIN_YMDHNS
-            If Not strYMDHNS.IsNulOrWS Then
-                spSheet1.Range("SYONIN_YMD" & ENM_CTS_STAGE._40_ê∂ãZTL).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                spSheet1.Range("SYONIN_NAME" & ENM_CTS_STAGE._40_ê∂ãZTL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._40_ê∂ãZTL).FirstOrDefault?.UPD_SYAIN_NAME
-            End If
-
-            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._50_âcã∆TL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF).FirstOrDefault?.SYONIN_YMDHNS
-            If Not strYMDHNS.IsNulOrWS Then
-                spSheet1.Range("SYONIN_YMD" & ENM_CTS_STAGE._50_âcã∆TL).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                spSheet1.Range("SYONIN_NAME" & ENM_CTS_STAGE._50_âcã∆TL).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._50_âcã∆TL).FirstOrDefault?.UPD_SYAIN_NAME
-            End If
-
-            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._60_ïièÿâ€í∑ And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF).FirstOrDefault?.SYONIN_YMDHNS
-            If Not strYMDHNS.IsNulOrWS Then
-                spSheet1.Range("SYONIN_YMD" & ENM_CTS_STAGE._60_ïièÿâ€í∑).Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                spSheet1.Range("SYONIN_NAME" & ENM_CTS_STAGE._60_ïièÿâ€í∑).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_CTS_STAGE._60_ïièÿâ€í∑).FirstOrDefault?.UPD_SYAIN_NAME
-            End If
+            For Each stage As ENM_CTS_STAGE In [Enum].GetValues(GetType(ENM_CTS_STAGE))
+                If stage < ENM_CTS_STAGE._999_Closed Then
+                    strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = stage And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF).FirstOrDefault?.SYONIN_YMDHNS
+                    If Not strYMDHNS.IsNulOrWS Then
+                        spSheet1.Range($"SYONIN_YMD{stage.Value}").Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                        spSheet1.Range($"SYONIN_NAME{stage.Value}").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = stage).FirstOrDefault?.UPD_SYAIN_NAME
+                    End If
+                End If
+            Next
 
             '-----ÉtÉ@ÉCÉãï€ë∂
             spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.Excel8)

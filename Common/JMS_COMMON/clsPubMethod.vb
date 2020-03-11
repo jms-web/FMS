@@ -1114,7 +1114,10 @@ Public NotInheritable Class ClsPubMethod
 
         Try
             xla = New Microsoft.Office.Interop.Excel.Application
+            xla.WindowState = Microsoft.Office.Interop.Excel.XlWindowState.xlMinimized
+            xla.WindowState = Microsoft.Office.Interop.Excel.XlWindowState.xlMaximized
             book = xla.Workbooks.Open(filePath, [ReadOnly]:=True)
+
             sheet = book.ActiveSheet
             xla.Visible = True
             sheet.PrintPreview()

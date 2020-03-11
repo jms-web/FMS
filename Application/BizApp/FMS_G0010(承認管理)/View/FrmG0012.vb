@@ -20,6 +20,7 @@ Public Class FrmG0012
     Private _tabPageManager As TabPageManager
 
     Private IsEditingClosed As Boolean
+
 #End Region
 
 #Region "プロパティ"
@@ -215,10 +216,14 @@ Public Class FrmG0012
 
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._2_承認申請) Then
-                        If MessageBox.Show("申請しますか？", "承認・申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                        Dim strMsg As String
+                        If PrCurrentStage = ENM_CTS_STAGE._90_部門長 Then
+                            strMsg = "承認しますか？"
+                        Else
+                            strMsg = "申請しますか？"
+                        End If
+                        If MessageBox.Show(strMsg, "承認・申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                             If FunSAVE(ENM_SAVE_MODE._2_承認申請) Then
-
-                                Dim strMsg As String
                                 If PrCurrentStage = ENM_NCR_STAGE._120_abcde処置確認 Then
                                     strMsg = "承認しました"
                                 Else
@@ -849,6 +854,8 @@ Public Class FrmG0012
         End If
 
         '#80 承認申請日は画面で入力
+        _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = dtUPD_YMD.ValueNonFormat & "000000"
+
         If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNulOrWS Then
             _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
         ElseIf _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.Trim.Length = 8 Then
@@ -1072,7 +1079,6 @@ Public Class FrmG0012
         End Select
 
         WL.WriteLogDat($"[DEBUG]CAR 報告書NO:{_D005_CAR_J.HOKOKU_NO}、MERGE D004")
-
 
         Return True
     End Function
@@ -1353,8 +1359,6 @@ Public Class FrmG0012
         Else
             Return False
         End If
-
-
 
         Return True
     End Function
@@ -1895,6 +1899,7 @@ Public Class FrmG0012
             End If
         End Try
     End Function
+
 #End Region
 
 #Region "FuncButton有効無効切替"
@@ -2067,6 +2072,7 @@ Public Class FrmG0012
         Call ErrorProvider.ClearError(pnl_FUTEKIGO_YOUIN)
         pnl_FUTEKIGO_YOUIN.BackColor = Color.Transparent
     End Sub
+
     Private Sub RbtnFUTEKIGO_YOUIN_F_CheckedChanged(sender As Object, e As EventArgs)
         _D005_CAR_J.KAITO_25 = 0
         Call ErrorProvider.ClearError(pnl_FUTEKIGO_YOUIN)
@@ -2085,7 +2091,6 @@ Public Class FrmG0012
 #End Region
 
 #Region "   1.CAR"
-
 
     Private Sub DtKAITO_LimitDate_Validated(sender As Object, e As EventArgs) Handles dtKAITO_4.Validated, dtKAITO_9.Validated
         Try
@@ -2825,8 +2830,8 @@ Public Class FrmG0012
             'lbltmpFile1.DataBindings.Add(New Binding(NameOf(lbltmpFile1.Tag), _D005_CAR_J, NameOf(_D005_CAR_J.FILE_PATH1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             'lbltmpFile2.DataBindings.Add(New Binding(NameOf(lbltmpFile2.Tag), _D005_CAR_J, NameOf(_D005_CAR_J.FILE_PATH2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
-            dtUPD_YMD.DataBindings.Add(New Binding(NameOf(dtUPD_YMD.ValueNonFormat), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            dtST13_KAKUNIN.DataBindings.Add(New Binding(NameOf(dtST13_KAKUNIN.ValueNonFormat), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            'dtUPD_YMD.DataBindings.Add(New Binding(NameOf(dtUPD_YMD.ValueNonFormat), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            'dtST13_KAKUNIN.DataBindings.Add(New Binding(NameOf(dtST13_KAKUNIN.ValueNonFormat), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
             Return True
         Catch ex As Exception
@@ -3028,13 +3033,12 @@ Public Class FrmG0012
 
             _D005_CAR_J.SETUMON_1 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 1).First.Item("DISP")
 
-
             If _V005_CAR_J.SYONIN_YMD10 >= "20200213" Then
                 _D005_CAR_J.SETUMON_2 = $"不適合要因(関係する要因(4Mなど)の調査) 人的要因{Space(30)}(有の場合は以下に内容を記入)"
                 pnl_FUTEKIGO_YOUIN.Visible = True
             Else
                 _D005_CAR_J.SETUMON_2 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 2).First.Item("DISP")
-            pnl_FUTEKIGO_YOUIN.Visible = False
+                pnl_FUTEKIGO_YOUIN.Visible = False
             End If
             _D005_CAR_J.SETUMON_3 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 3).First.Item("DISP")
             _D005_CAR_J.SETUMON_4 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 4).First.Item("DISP")
@@ -3085,24 +3089,23 @@ Public Class FrmG0012
             cmbKONPON_YOIN_TANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
             InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_技術.Value, ENM_GYOMU_GROUP_ID._2_製造.Value, ENM_GYOMU_GROUP_ID._3_検査.Value, ENM_GYOMU_GROUP_ID._4_品証.Value})
-            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
+                                  GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
             If drs.Count > 0 Then cmbKAITO_5.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_技術.Value, ENM_GYOMU_GROUP_ID._2_製造.Value, ENM_GYOMU_GROUP_ID._3_検査.Value, ENM_GYOMU_GROUP_ID._4_品証.Value})
-            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
+                                  GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
             If drs.Count > 0 Then cmbKAITO_10.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_技術.Value, ENM_GYOMU_GROUP_ID._2_製造.Value, ENM_GYOMU_GROUP_ID._3_検査.Value, ENM_GYOMU_GROUP_ID._4_品証.Value})
-            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
+                                  GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
             If drs.Count > 0 Then cmbKAITO_17.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Boolean)("IS_LEADER") = True)
             If drs.Count > 0 Then cmbSYOCHI_A_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-
-            drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Boolean)("IS_LEADER") = True)
             If drs.Count > 0 Then cmbSYOCHI_B_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-
-            drs = dt.AsEnumerable.Where(Function(r) r.Field(Of Boolean)("IS_LEADER") = True)
             If drs.Count > 0 Then cmbSYOCHI_C_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
             InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._3_検査.Value})
@@ -3341,7 +3344,9 @@ Public Class FrmG0012
                         Call cmbKAITO_17_Validating(cmbKAITO_17, Nothing)
                         Call KAITO_181920_Validating(mtxKAITO_18, Nothing)
 
-                        IsValidated *= ErrorProvider.UpdateErrorInfo(pnl_FUTEKIGO_YOUIN, Not _D005_CAR_J.KAITO_25.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "人的要因判定"))
+                        If _V005_CAR_J.SYONIN_YMD10 >= "20200213" Then
+                            IsValidated *= ErrorProvider.UpdateErrorInfo(pnl_FUTEKIGO_YOUIN, Not _D005_CAR_J.KAITO_25.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "人的要因判定"))
+                        End If
 
                         'UNDONE: 一旦保留
                         'If PrCurrentStage = ENM_CAR_STAGE._70_起草確認_品証課長 Then
@@ -3486,6 +3491,9 @@ Public Class FrmG0012
     Private Sub ＤtST13_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtST13_KAKUNIN.Validating
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
 
+        If Not dtx.ValueNonFormat.IsNulOrWS Then
+            dtUPD_YMD.ValueNonFormat = dtx.ValueNonFormat
+        End If
         IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正有効性確認:確認日"))
 
     End Sub
@@ -3568,8 +3576,6 @@ Public Class FrmG0012
             Return intRET > 0
         End If
     End Function
-
-
 
 #End Region
 
