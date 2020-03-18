@@ -81,6 +81,21 @@ Public Class FrmG0021
         cmbKISYU4.NullValue = 0
         cmbKISYU5.NullValue = 0
         cmbKISYU6.NullValue = 0
+
+        'txtFROM1.ShowRemainingChars = False
+        'txtFROM2.ShowRemainingChars = False
+        'txtFROM3.ShowRemainingChars = False
+        'txtFROM4.ShowRemainingChars = False
+        'txtFROM5.ShowRemainingChars = False
+        'txtFROM6.ShowRemainingChars = False
+        'txtTO1.ShowRemainingChars = False
+        'txtTO2.ShowRemainingChars = False
+        'txtTO3.ShowRemainingChars = False
+        'txtTO4.ShowRemainingChars = False
+        'txtTO5.ShowRemainingChars = False
+        'txtTO6.ShowRemainingChars = False
+
+
     End Sub
 
 #End Region
@@ -557,18 +572,16 @@ Public Class FrmG0021
 
 #Region "   ƒ‚ƒfƒ‹XV"
 
-            If _V011_FCR_J.Item("KISYU_ID" & i) > 0 Then
-                _D008.Clear()
-                _D008.HOKOKU_NO = _V011_FCR_J.HOKOKU_NO
-                _D008.ROW_NO = i
-                _D008.KISYU_ID = _V011_FCR_J.Item("KISYU_ID" & i)
-                _D008.BUHIN_INFO = _V011_FCR_J.Item("BUHIN_INFO" & i)
-                _D008.SURYO = _V011_FCR_J.Item("SURYO" & i)
-                _D008.RANGE_FROM = _V011_FCR_J.Item("RANGE_FROM" & i)
-                _D008.RANGE_TO = _V011_FCR_J.Item("RANGE_TO" & i)
-                _D008.ADD_YMDHNS = strSysDate
-                _D008.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-            End If
+            _D008.Clear()
+            _D008.HOKOKU_NO = _V011_FCR_J.HOKOKU_NO
+            _D008.ROW_NO = i
+            _D008.KISYU_ID = _V011_FCR_J.Item("KISYU_ID" & i)
+            _D008.BUHIN_INFO = _V011_FCR_J.Item("BUHIN_INFO" & i)
+            _D008.SURYO = _V011_FCR_J.Item("SURYO" & i)
+            _D008.RANGE_FROM = _V011_FCR_J.Item("RANGE_FROM" & i)
+            _D008.RANGE_TO = _V011_FCR_J.Item("RANGE_TO" & i)
+            _D008.ADD_YMDHNS = strSysDate
+            _D008.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
 
 #End Region
 

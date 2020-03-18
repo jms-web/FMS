@@ -779,6 +779,7 @@ Public Class FrmG0011
 
         sbSQL.Append($" ,'{_D003_NCR_J.HASSEI_YMD}' AS {NameOf(_D003_NCR_J.HASSEI_YMD)}")
         sbSQL.Append($" , {_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID} AS {NameOf(_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID)}")
+        sbSQL.Append($" , {_D003_NCR_J.FCR_KISO_TANTO_ID} AS {NameOf(_D003_NCR_J.FCR_KISO_TANTO_ID)}")
 
         sbSQL.Append($" ,'{_D003_NCR_J.FILE_PATH.ConvertSqlEscape}' AS {NameOf(_D003_NCR_J.FILE_PATH)}")
         sbSQL.Append($" ,'{_D003_NCR_J.G_FILE_PATH1.ConvertSqlEscape}' AS {NameOf(_D003_NCR_J.G_FILE_PATH1)}")
@@ -868,6 +869,7 @@ Public Class FrmG0011
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU)}     = WK.{NameOf(_D003_NCR_J.SYOCHI_E_SYOCHI_KIROKU)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HASSEI_YMD)}                 = WK.{NameOf(_D003_NCR_J.HASSEI_YMD)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID)} = WK.{NameOf(_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.FCR_KISO_TANTO_ID)}          = WK.{NameOf(_D003_NCR_J.FCR_KISO_TANTO_ID)}")
 
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.FILE_PATH)}    = WK.{NameOf(_D003_NCR_J.FILE_PATH)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.G_FILE_PATH1)} = WK.{NameOf(_D003_NCR_J.G_FILE_PATH1)}")
@@ -3720,17 +3722,7 @@ Public Class FrmG0011
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).
                                 FirstOrDefault
 
-
-                '#243
-                Dim sbSQL As New System.Text.StringBuilder
-                Dim intRET As Integer
-                sbSQL.Append($"SELECT COUNT({NameOf(D007_FCR_J.HOKOKU_NO)}) FROM {NameOf(D007_FCR_J)} ")
-                sbSQL.Append($" WHERE {NameOf(D007_FCR_J.HOKOKU_NO)}='{_D003_NCR_J.HOKOKU_NO}'")
-                Using DB = DBOpen()
-                    intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg)
-                End Using
-                If intRET > 0 Then
-                    'btnST03_FCR_KISO.Enabled = False
+                If _V002_NCR_J.FCR_KISO_TANTO_ID > 0 Then
                     btnST03_FCR_KISO.Text = "起草済"
                 End If
 
@@ -5448,7 +5440,7 @@ Public Class FrmG0011
             If Not IsValidated Then Exit Sub
 
             If funSAVE_FCR_KISO() Then
-                btnST03_FCR_KISO.Enabled = False
+                'btnST03_FCR_KISO.Enabled = False
                 btnST03_FCR_KISO.Text = "起草済"
             End If
         Catch ex As Exception
@@ -7163,6 +7155,15 @@ Public Class FrmG0011
                     If PrCurrentStage = ENM_NCR_STAGE._30_起草確認検査 Then
 
                         Dim msg As String
+
+
+                        If cmbST03_TANTO_FCR.IsSelected = False Then
+                            msg = $"起草担当者は必須です"
+                            If MessageBox.Show(msg, "不適合封じ込め調査書起草申請", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) Then
+                                cmbST03_TANTO_FCR.Select()
+                                Return False
+                            End If
+                        End If
 
                         If btnST03_FCR_KISO.Text = "起草済" Then
                             msg = $"既に起草済みです{vbCrLf}既存の登録をリセットして、選択した担当者宛に再度起草申請を発行しますか？"

@@ -20,6 +20,9 @@ Public Class FrmG0010
     Private ParamModel As New ST02_ParamModel
     Private IsValidated As Boolean = True
 
+    Private blnStageAll_NCR As Boolean = True
+    Private blnStageAll_CAR As Boolean = True
+    Private blnStageAll_CTS As Boolean = True
 #End Region
 
 #Region "プロパティ"
@@ -184,16 +187,19 @@ Public Class FrmG0010
                         ParamModel.BUMON_KB = pub_SYAIN_INFO.BUMON_KB
                         dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
                     Case Else
-
+                        '#255 風防,LP,複合材以外の部門所属者は全部門閲覧のみ
+                        dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
                 End Select
 
                 cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-                If Not IsOPAdminUser(pub_SYAIN_INFO.SYAIN_ID) Then
+                If Not IsOPAdminUser(pub_SYAIN_INFO.SYAIN_ID) And pub_SYAIN_INFO.BUMON_KB <= Context.ENM_BUMON_KB._3_複合材 Then
                     cmbGEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
                 End If
 
-                If cmbGEN_TANTO.SelectedValue IsNot Nothing AndAlso cmbGEN_TANTO.SelectedValue <> 0 Then ParamModel.SYOCHI_TANTO = pub_SYAIN_INFO.SYAIN_ID
+                If cmbGEN_TANTO.SelectedValue IsNot Nothing AndAlso cmbGEN_TANTO.SelectedValue <> 0 Then
+                    ParamModel.SYOCHI_TANTO = pub_SYAIN_INFO.SYAIN_ID
+                End If
             End If
 
             ''-----イベントハンドラ設定
@@ -940,6 +946,17 @@ Public Class FrmG0010
         If dgv.Columns(e.ColumnIndex).Name = "SELECTED" Then
             Dim cell As _DataGridViewCustomCheckBoxHeaderCell = DirectCast(dgv.Columns(e.ColumnIndex).HeaderCell, _DataGridViewCustomCheckBoxHeaderCell)
 
+            Select Case sender.Name
+                Case "dgvNCR"
+                    blnStageAll_NCR = cell.Checked
+                Case "dgvCAR"
+                    blnStageAll_CAR = cell.Checked
+                Case "dgvCTS"
+                    blnStageAll_CTS = cell.Checked
+                Case Else
+                    Exit Sub
+            End Select
+
             For Each dRow As DataGridViewRow In dgv.Rows
                 dRow.Cells("SELECTED").Value = cell.Checked
             Next dRow
@@ -1419,6 +1436,7 @@ Public Class FrmG0010
             panelMan.SelectedPanel = panelMan.ManagedPanels(NameOf(mpnlDataGrid))
             lblRecordCount.Visible = True
             'btnSummaryPage.Visible = True
+            panelMan.Select()
 
             Return True
         Catch ex As Exception
@@ -1432,7 +1450,7 @@ Public Class FrmG0010
         End Try
     End Function
 
-    Private Function FunSetStageList(dgv As DataGridView, SYONIN_HOKOKUSYO_ID As Context.ENM_SYONIN_HOKOKUSYO_ID) As Boolean
+    Private Function FunSetStageList(dgv As DataGridView, SYONIN_HOKOKUSYO_ID As Context.ENM_SYONIN_HOKOKUSYO_ID, AllChecked As Boolean) As Boolean
         Try
 
             Dim dtWK As DataTable
@@ -1478,7 +1496,7 @@ Public Class FrmG0010
             For Each g In JISSEKI_LIST
                 Dim dr As DataRow = retTable.NewRow
 
-                dr("SELECTED") = True
+                dr("SELECTED") = AllChecked
                 dr("SYONIN_JUN") = g.Key.Item2
                 dr("SYONIN_NAIYO") = g.Key.Item3
                 dr("COUNT") = g.Count
@@ -1488,7 +1506,7 @@ Public Class FrmG0010
             For Each s As DataRow In stageLlist.Rows
                 If retTable.Rows.Contains(s.Item("VALUE")) = False Then
                     Dim dr As DataRow = retTable.NewRow
-                    dr("SELECTED") = True
+                    dr("SELECTED") = AllChecked
                     dr("SYONIN_JUN") = s.Item("VALUE")
                     dr("SYONIN_NAIYO") = s.Item("DISP")
                     dr("COUNT") = 0
@@ -2186,7 +2204,7 @@ Public Class FrmG0010
                 cmdFunc2.Enabled = True
 
                 If flxDATA.RowSel > 0 And panelMan.SelectedIndex = 1 Then
-                    cmdFunc1.Enabled = False
+                    cmdFunc1.Enabled = True
                     cmdFunc3.Enabled = True
                     cmdFunc4.Enabled = True
                     cmdFunc5.Enabled = True
@@ -3581,9 +3599,9 @@ Public Class FrmG0010
         lblRecordCount.Visible = False
 
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then
-            Call FunSetStageList(dgvNCR, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR)
-            Call FunSetStageList(dgvCAR, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR)
-            Call FunSetStageList(dgvCTS, Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS)
+            Call FunSetStageList(dgvNCR, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, blnStageAll_NCR)
+            Call FunSetStageList(dgvCAR, Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, blnStageAll_CAR)
+            Call FunSetStageList(dgvCTS, Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, blnStageAll_CTS)
             ParamModel.SYONIN_HOKOKUSYO_ID = 0
         End If
 

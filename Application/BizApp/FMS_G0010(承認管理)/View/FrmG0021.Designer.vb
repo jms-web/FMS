@@ -790,7 +790,7 @@ Partial Class FrmG0021
         Me.pnlFOLLOW_PROCESS_OUTFLOW_FILEPATH.Controls.Add(Me.btnOpenFOLLOW_PROCESS_OUTFLOW_FILEPATH)
         Me.pnlFOLLOW_PROCESS_OUTFLOW_FILEPATH.Controls.Add(Me.fpnlFOLLOW_PROCESS_OUTFLOW_FILEPATH)
         Me.pnlFOLLOW_PROCESS_OUTFLOW_FILEPATH.HitEnabled = False
-        Me.pnlFOLLOW_PROCESS_OUTFLOW_FILEPATH.Location = New System.Drawing.Point(643, 114)
+        Me.pnlFOLLOW_PROCESS_OUTFLOW_FILEPATH.Location = New System.Drawing.Point(582, 114)
         Me.pnlFOLLOW_PROCESS_OUTFLOW_FILEPATH.Name = "pnlFOLLOW_PROCESS_OUTFLOW_FILEPATH"
         Me.pnlFOLLOW_PROCESS_OUTFLOW_FILEPATH.Padding = New System.Windows.Forms.Padding(1)
         Me.pnlFOLLOW_PROCESS_OUTFLOW_FILEPATH.Size = New System.Drawing.Size(487, 35)
@@ -1208,7 +1208,7 @@ Partial Class FrmG0021
         Me.txtFOLLOW_PROCESS_OUTFLOW_MEMO.BackColor = System.Drawing.SystemColors.Window
         Me.txtFOLLOW_PROCESS_OUTFLOW_MEMO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtFOLLOW_PROCESS_OUTFLOW_MEMO.InputRequired = False
-        Me.txtFOLLOW_PROCESS_OUTFLOW_MEMO.Location = New System.Drawing.Point(643, 64)
+        Me.txtFOLLOW_PROCESS_OUTFLOW_MEMO.Location = New System.Drawing.Point(582, 64)
         Me.txtFOLLOW_PROCESS_OUTFLOW_MEMO.MaxByteLength = 200
         Me.txtFOLLOW_PROCESS_OUTFLOW_MEMO.MaxLength = 100
         Me.txtFOLLOW_PROCESS_OUTFLOW_MEMO.Multiline = True
@@ -1244,7 +1244,7 @@ Partial Class FrmG0021
         Me.PanelEx5.Controls.Add(Me.rbtnFOLLOW_PROCESS_OUTFLOW_KB_F)
         Me.PanelEx5.Controls.Add(Me.rbtnFOLLOW_PROCESS_OUTFLOW_KB_T)
         Me.PanelEx5.HitEnabled = False
-        Me.PanelEx5.Location = New System.Drawing.Point(1033, 31)
+        Me.PanelEx5.Location = New System.Drawing.Point(972, 31)
         Me.PanelEx5.Name = "PanelEx5"
         Me.PanelEx5.Size = New System.Drawing.Size(97, 27)
         Me.PanelEx5.TabIndex = 1
@@ -1278,7 +1278,7 @@ Partial Class FrmG0021
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label12.ForeColor = System.Drawing.Color.Black
-        Me.Label12.Location = New System.Drawing.Point(620, 36)
+        Me.Label12.Location = New System.Drawing.Point(559, 36)
         Me.Label12.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(367, 17)
@@ -1326,7 +1326,7 @@ Partial Class FrmG0021
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label11.ForeColor = System.Drawing.Color.Black
-        Me.Label11.Location = New System.Drawing.Point(20, 36)
+        Me.Label11.Location = New System.Drawing.Point(15, 36)
         Me.Label11.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(402, 17)
@@ -1385,7 +1385,7 @@ Partial Class FrmG0021
         '
         Me.Label42.AutoSize = True
         Me.Label42.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label42.Location = New System.Drawing.Point(609, 34)
+        Me.Label42.Location = New System.Drawing.Point(582, 39)
         Me.Label42.Name = "Label42"
         Me.Label42.Size = New System.Drawing.Size(43, 15)
         Me.Label42.TabIndex = 346
@@ -1396,7 +1396,7 @@ Partial Class FrmG0021
         '
         Me.Label41.AutoSize = True
         Me.Label41.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label41.Location = New System.Drawing.Point(149, 34)
+        Me.Label41.Location = New System.Drawing.Point(143, 38)
         Me.Label41.Name = "Label41"
         Me.Label41.Size = New System.Drawing.Size(55, 15)
         Me.Label41.TabIndex = 346
@@ -1408,7 +1408,7 @@ Partial Class FrmG0021
         Me.Label40.AutoSize = True
         Me.Label40.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label40.ForeColor = System.Drawing.Color.Black
-        Me.Label40.Location = New System.Drawing.Point(24, 113)
+        Me.Label40.Location = New System.Drawing.Point(15, 118)
         Me.Label40.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label40.Name = "Label40"
         Me.Label40.Size = New System.Drawing.Size(100, 17)
@@ -1421,14 +1421,14 @@ Partial Class FrmG0021
         Me.txtOTHER_PROCESS_NAIYOU.BackColor = System.Drawing.SystemColors.Window
         Me.txtOTHER_PROCESS_NAIYOU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtOTHER_PROCESS_NAIYOU.InputRequired = False
-        Me.txtOTHER_PROCESS_NAIYOU.Location = New System.Drawing.Point(152, 110)
-        Me.txtOTHER_PROCESS_NAIYOU.MaxByteLength = 200
-        Me.txtOTHER_PROCESS_NAIYOU.MaxLength = 100
+        Me.txtOTHER_PROCESS_NAIYOU.Location = New System.Drawing.Point(143, 115)
+        Me.txtOTHER_PROCESS_NAIYOU.MaxByteLength = 100
+        Me.txtOTHER_PROCESS_NAIYOU.MaxLength = 50
         Me.txtOTHER_PROCESS_NAIYOU.Multiline = True
         Me.txtOTHER_PROCESS_NAIYOU.Name = "txtOTHER_PROCESS_NAIYOU"
         Me.txtOTHER_PROCESS_NAIYOU.SelectAllText = False
         Me.txtOTHER_PROCESS_NAIYOU.ShowRemainingChars = True
-        Me.txtOTHER_PROCESS_NAIYOU.Size = New System.Drawing.Size(457, 23)
+        Me.txtOTHER_PROCESS_NAIYOU.Size = New System.Drawing.Size(432, 23)
         Me.txtOTHER_PROCESS_NAIYOU.TabIndex = 4
         Me.txtOTHER_PROCESS_NAIYOU.WatermarkColor = System.Drawing.Color.Empty
         Me.txtOTHER_PROCESS_NAIYOU.WatermarkText = Nothing
@@ -1437,7 +1437,7 @@ Partial Class FrmG0021
         '
         Me.dtOTHER_PROCESS_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.dtOTHER_PROCESS_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtOTHER_PROCESS_YMD.Location = New System.Drawing.Point(615, 109)
+        Me.dtOTHER_PROCESS_YMD.Location = New System.Drawing.Point(582, 115)
         Me.dtOTHER_PROCESS_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtOTHER_PROCESS_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtOTHER_PROCESS_YMD.MinimumSize = New System.Drawing.Size(98, 24)
@@ -1453,7 +1453,7 @@ Partial Class FrmG0021
         Me.Label39.AutoSize = True
         Me.Label39.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label39.ForeColor = System.Drawing.Color.Black
-        Me.Label39.Location = New System.Drawing.Point(24, 84)
+        Me.Label39.Location = New System.Drawing.Point(15, 89)
         Me.Label39.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(118, 17)
@@ -1466,14 +1466,14 @@ Partial Class FrmG0021
         Me.txtZAIKO_SIKAKE_NAIYOU.BackColor = System.Drawing.SystemColors.Window
         Me.txtZAIKO_SIKAKE_NAIYOU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtZAIKO_SIKAKE_NAIYOU.InputRequired = False
-        Me.txtZAIKO_SIKAKE_NAIYOU.Location = New System.Drawing.Point(152, 81)
-        Me.txtZAIKO_SIKAKE_NAIYOU.MaxByteLength = 200
-        Me.txtZAIKO_SIKAKE_NAIYOU.MaxLength = 100
+        Me.txtZAIKO_SIKAKE_NAIYOU.Location = New System.Drawing.Point(143, 86)
+        Me.txtZAIKO_SIKAKE_NAIYOU.MaxByteLength = 100
+        Me.txtZAIKO_SIKAKE_NAIYOU.MaxLength = 50
         Me.txtZAIKO_SIKAKE_NAIYOU.Multiline = True
         Me.txtZAIKO_SIKAKE_NAIYOU.Name = "txtZAIKO_SIKAKE_NAIYOU"
         Me.txtZAIKO_SIKAKE_NAIYOU.SelectAllText = False
         Me.txtZAIKO_SIKAKE_NAIYOU.ShowRemainingChars = True
-        Me.txtZAIKO_SIKAKE_NAIYOU.Size = New System.Drawing.Size(457, 23)
+        Me.txtZAIKO_SIKAKE_NAIYOU.Size = New System.Drawing.Size(432, 23)
         Me.txtZAIKO_SIKAKE_NAIYOU.TabIndex = 2
         Me.txtZAIKO_SIKAKE_NAIYOU.WatermarkColor = System.Drawing.Color.Empty
         Me.txtZAIKO_SIKAKE_NAIYOU.WatermarkText = Nothing
@@ -1482,7 +1482,7 @@ Partial Class FrmG0021
         '
         Me.dtZAIKO_SIKAKE_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.dtZAIKO_SIKAKE_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtZAIKO_SIKAKE_YMD.Location = New System.Drawing.Point(615, 80)
+        Me.dtZAIKO_SIKAKE_YMD.Location = New System.Drawing.Point(582, 86)
         Me.dtZAIKO_SIKAKE_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtZAIKO_SIKAKE_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtZAIKO_SIKAKE_YMD.MinimumSize = New System.Drawing.Size(98, 24)
@@ -1498,7 +1498,7 @@ Partial Class FrmG0021
         Me.Label38.AutoSize = True
         Me.Label38.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label38.ForeColor = System.Drawing.Color.Black
-        Me.Label38.Location = New System.Drawing.Point(24, 55)
+        Me.Label38.Location = New System.Drawing.Point(15, 60)
         Me.Label38.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label38.Name = "Label38"
         Me.Label38.Size = New System.Drawing.Size(122, 17)
@@ -1511,14 +1511,14 @@ Partial Class FrmG0021
         Me.txtKOKYAKU_NOUNYU_NAIYOU.BackColor = System.Drawing.SystemColors.Window
         Me.txtKOKYAKU_NOUNYU_NAIYOU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtKOKYAKU_NOUNYU_NAIYOU.InputRequired = False
-        Me.txtKOKYAKU_NOUNYU_NAIYOU.Location = New System.Drawing.Point(152, 52)
-        Me.txtKOKYAKU_NOUNYU_NAIYOU.MaxByteLength = 200
-        Me.txtKOKYAKU_NOUNYU_NAIYOU.MaxLength = 100
+        Me.txtKOKYAKU_NOUNYU_NAIYOU.Location = New System.Drawing.Point(143, 57)
+        Me.txtKOKYAKU_NOUNYU_NAIYOU.MaxByteLength = 100
+        Me.txtKOKYAKU_NOUNYU_NAIYOU.MaxLength = 50
         Me.txtKOKYAKU_NOUNYU_NAIYOU.Multiline = True
         Me.txtKOKYAKU_NOUNYU_NAIYOU.Name = "txtKOKYAKU_NOUNYU_NAIYOU"
         Me.txtKOKYAKU_NOUNYU_NAIYOU.SelectAllText = False
         Me.txtKOKYAKU_NOUNYU_NAIYOU.ShowRemainingChars = True
-        Me.txtKOKYAKU_NOUNYU_NAIYOU.Size = New System.Drawing.Size(457, 23)
+        Me.txtKOKYAKU_NOUNYU_NAIYOU.Size = New System.Drawing.Size(432, 23)
         Me.txtKOKYAKU_NOUNYU_NAIYOU.TabIndex = 0
         Me.txtKOKYAKU_NOUNYU_NAIYOU.WatermarkColor = System.Drawing.Color.Empty
         Me.txtKOKYAKU_NOUNYU_NAIYOU.WatermarkText = Nothing
@@ -1527,7 +1527,7 @@ Partial Class FrmG0021
         '
         Me.dtKOKYAKU_NOUNYU_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.dtKOKYAKU_NOUNYU_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtKOKYAKU_NOUNYU_YMD.Location = New System.Drawing.Point(615, 51)
+        Me.dtKOKYAKU_NOUNYU_YMD.Location = New System.Drawing.Point(582, 57)
         Me.dtKOKYAKU_NOUNYU_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtKOKYAKU_NOUNYU_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtKOKYAKU_NOUNYU_YMD.MinimumSize = New System.Drawing.Size(98, 24)
@@ -1807,7 +1807,7 @@ Partial Class FrmG0021
         '
         Me.Label43.AutoSize = True
         Me.Label43.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label43.Location = New System.Drawing.Point(22, 72)
+        Me.Label43.Location = New System.Drawing.Point(69, 71)
         Me.Label43.Name = "Label43"
         Me.Label43.Size = New System.Drawing.Size(60, 15)
         Me.Label43.TabIndex = 332
@@ -1819,14 +1819,13 @@ Partial Class FrmG0021
         Me.txtTAISYO_KOKYAKU.BackColor = System.Drawing.SystemColors.Window
         Me.txtTAISYO_KOKYAKU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtTAISYO_KOKYAKU.InputRequired = False
-        Me.txtTAISYO_KOKYAKU.Location = New System.Drawing.Point(82, 67)
+        Me.txtTAISYO_KOKYAKU.Location = New System.Drawing.Point(135, 66)
         Me.txtTAISYO_KOKYAKU.MaxByteLength = 100
         Me.txtTAISYO_KOKYAKU.MaxLength = 50
         Me.txtTAISYO_KOKYAKU.Multiline = True
         Me.txtTAISYO_KOKYAKU.Name = "txtTAISYO_KOKYAKU"
         Me.txtTAISYO_KOKYAKU.SelectAllText = False
-        Me.txtTAISYO_KOKYAKU.ShowRemainingChars = True
-        Me.txtTAISYO_KOKYAKU.Size = New System.Drawing.Size(304, 23)
+        Me.txtTAISYO_KOKYAKU.Size = New System.Drawing.Size(441, 23)
         Me.txtTAISYO_KOKYAKU.TabIndex = 2
         Me.txtTAISYO_KOKYAKU.WatermarkColor = System.Drawing.Color.Empty
         Me.txtTAISYO_KOKYAKU.WatermarkText = Nothing
@@ -1942,6 +1941,7 @@ Partial Class FrmG0021
         Me.cmbKOKYAKU_EIKYO_HANTEI_COMMENT.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbKOKYAKU_EIKYO_HANTEI_COMMENT.IsSelected = False
         Me.cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Location = New System.Drawing.Point(685, 36)
+        Me.cmbKOKYAKU_EIKYO_HANTEI_COMMENT.MaxLength = 50
         Me.cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Name = "cmbKOKYAKU_EIKYO_HANTEI_COMMENT"
         Me.cmbKOKYAKU_EIKYO_HANTEI_COMMENT.NullValue = " "
         Me.cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Size = New System.Drawing.Size(508, 25)
@@ -1955,7 +1955,7 @@ Partial Class FrmG0021
         Me.PanelEx1.Controls.Add(Me.rbtnKOKYAKU_EIKYO_HANTEI_KB_F)
         Me.PanelEx1.Controls.Add(Me.rbtnKOKYAKU_EIKYO_HANTEI_KB_T)
         Me.PanelEx1.HitEnabled = False
-        Me.PanelEx1.Location = New System.Drawing.Point(497, 34)
+        Me.PanelEx1.Location = New System.Drawing.Point(479, 34)
         Me.PanelEx1.Name = "PanelEx1"
         Me.PanelEx1.Size = New System.Drawing.Size(97, 27)
         Me.PanelEx1.TabIndex = 0
@@ -2010,7 +2010,7 @@ Partial Class FrmG0021
         Me.txtKOKYAKU_EIKYO_NAIYO.Name = "txtKOKYAKU_EIKYO_NAIYO"
         Me.txtKOKYAKU_EIKYO_NAIYO.SelectAllText = False
         Me.txtKOKYAKU_EIKYO_NAIYO.ShowRemainingChars = True
-        Me.txtKOKYAKU_EIKYO_NAIYO.Size = New System.Drawing.Size(570, 60)
+        Me.txtKOKYAKU_EIKYO_NAIYO.Size = New System.Drawing.Size(549, 60)
         Me.txtKOKYAKU_EIKYO_NAIYO.TabIndex = 3
         Me.txtKOKYAKU_EIKYO_NAIYO.WatermarkColor = System.Drawing.Color.Empty
         Me.txtKOKYAKU_EIKYO_NAIYO.WatermarkText = Nothing
@@ -2113,8 +2113,7 @@ Partial Class FrmG0021
         Me.txtHITUYO_TETUDUKI_ZIKO.Multiline = True
         Me.txtHITUYO_TETUDUKI_ZIKO.Name = "txtHITUYO_TETUDUKI_ZIKO"
         Me.txtHITUYO_TETUDUKI_ZIKO.SelectAllText = False
-        Me.txtHITUYO_TETUDUKI_ZIKO.ShowRemainingChars = True
-        Me.txtHITUYO_TETUDUKI_ZIKO.Size = New System.Drawing.Size(470, 23)
+        Me.txtHITUYO_TETUDUKI_ZIKO.Size = New System.Drawing.Size(441, 23)
         Me.txtHITUYO_TETUDUKI_ZIKO.TabIndex = 8
         Me.txtHITUYO_TETUDUKI_ZIKO.WatermarkColor = System.Drawing.Color.Empty
         Me.txtHITUYO_TETUDUKI_ZIKO.WatermarkText = Nothing
@@ -2130,8 +2129,7 @@ Partial Class FrmG0021
         Me.txtTUCHI_SYUDAN.Multiline = True
         Me.txtTUCHI_SYUDAN.Name = "txtTUCHI_SYUDAN"
         Me.txtTUCHI_SYUDAN.SelectAllText = False
-        Me.txtTUCHI_SYUDAN.ShowRemainingChars = True
-        Me.txtTUCHI_SYUDAN.Size = New System.Drawing.Size(470, 23)
+        Me.txtTUCHI_SYUDAN.Size = New System.Drawing.Size(441, 23)
         Me.txtTUCHI_SYUDAN.TabIndex = 7
         Me.txtTUCHI_SYUDAN.WatermarkColor = System.Drawing.Color.Empty
         Me.txtTUCHI_SYUDAN.WatermarkText = Nothing
@@ -2196,8 +2194,7 @@ Partial Class FrmG0021
         Me.txtKOKYAKU_EIKYO_MEMO.Multiline = True
         Me.txtKOKYAKU_EIKYO_MEMO.Name = "txtKOKYAKU_EIKYO_MEMO"
         Me.txtKOKYAKU_EIKYO_MEMO.SelectAllText = False
-        Me.txtKOKYAKU_EIKYO_MEMO.ShowRemainingChars = True
-        Me.txtKOKYAKU_EIKYO_MEMO.Size = New System.Drawing.Size(694, 23)
+        Me.txtKOKYAKU_EIKYO_MEMO.Size = New System.Drawing.Size(432, 23)
         Me.txtKOKYAKU_EIKYO_MEMO.TabIndex = 351
         Me.txtKOKYAKU_EIKYO_MEMO.WatermarkColor = System.Drawing.Color.Empty
         Me.txtKOKYAKU_EIKYO_MEMO.WatermarkText = Nothing
@@ -2211,9 +2208,9 @@ Partial Class FrmG0021
         Me.pnlInfo6.Controls.Add(Me.txtBUHIN_INFO6)
         Me.pnlInfo6.Controls.Add(Me.nupSURYO6)
         Me.pnlInfo6.Enabled = False
-        Me.pnlInfo6.Location = New System.Drawing.Point(23, 130)
+        Me.pnlInfo6.Location = New System.Drawing.Point(19, 130)
         Me.pnlInfo6.Name = "pnlInfo6"
-        Me.pnlInfo6.Size = New System.Drawing.Size(928, 29)
+        Me.pnlInfo6.Size = New System.Drawing.Size(1050, 29)
         Me.pnlInfo6.TabIndex = 348
         '
         'txtFROM6
@@ -2221,13 +2218,12 @@ Partial Class FrmG0021
         Me.txtFROM6.BackColor = System.Drawing.SystemColors.Window
         Me.txtFROM6.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtFROM6.InputRequired = False
-        Me.txtFROM6.Location = New System.Drawing.Point(462, 3)
+        Me.txtFROM6.Location = New System.Drawing.Point(563, 3)
         Me.txtFROM6.MaxByteLength = 100
         Me.txtFROM6.MaxLength = 50
         Me.txtFROM6.Multiline = True
         Me.txtFROM6.Name = "txtFROM6"
         Me.txtFROM6.SelectAllText = False
-        Me.txtFROM6.ShowRemainingChars = True
         Me.txtFROM6.Size = New System.Drawing.Size(213, 23)
         Me.txtFROM6.TabIndex = 318
         Me.txtFROM6.WatermarkColor = System.Drawing.Color.Empty
@@ -2238,13 +2234,12 @@ Partial Class FrmG0021
         Me.txtTO6.BackColor = System.Drawing.SystemColors.Window
         Me.txtTO6.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtTO6.InputRequired = False
-        Me.txtTO6.Location = New System.Drawing.Point(704, 3)
+        Me.txtTO6.Location = New System.Drawing.Point(805, 3)
         Me.txtTO6.MaxByteLength = 100
         Me.txtTO6.MaxLength = 50
         Me.txtTO6.Multiline = True
         Me.txtTO6.Name = "txtTO6"
         Me.txtTO6.SelectAllText = False
-        Me.txtTO6.ShowRemainingChars = True
         Me.txtTO6.Size = New System.Drawing.Size(213, 23)
         Me.txtTO6.TabIndex = 319
         Me.txtTO6.WatermarkColor = System.Drawing.Color.Empty
@@ -2254,7 +2249,7 @@ Partial Class FrmG0021
         '
         Me.Label29.AutoSize = True
         Me.Label29.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label29.Location = New System.Drawing.Point(681, 7)
+        Me.Label29.Location = New System.Drawing.Point(782, 7)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(17, 15)
         Me.Label29.TabIndex = 320
@@ -2293,8 +2288,7 @@ Partial Class FrmG0021
         Me.txtBUHIN_INFO6.Multiline = True
         Me.txtBUHIN_INFO6.Name = "txtBUHIN_INFO6"
         Me.txtBUHIN_INFO6.SelectAllText = False
-        Me.txtBUHIN_INFO6.ShowRemainingChars = True
-        Me.txtBUHIN_INFO6.Size = New System.Drawing.Size(214, 23)
+        Me.txtBUHIN_INFO6.Size = New System.Drawing.Size(307, 23)
         Me.txtBUHIN_INFO6.TabIndex = 1
         Me.txtBUHIN_INFO6.WatermarkColor = System.Drawing.Color.Empty
         Me.txtBUHIN_INFO6.WatermarkText = Nothing
@@ -2302,7 +2296,7 @@ Partial Class FrmG0021
         'nupSURYO6
         '
         Me.nupSURYO6.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.nupSURYO6.Location = New System.Drawing.Point(362, 3)
+        Me.nupSURYO6.Location = New System.Drawing.Point(455, 3)
         Me.nupSURYO6.Maximum = New Decimal(New Integer() {999, 0, 0, 0})
         Me.nupSURYO6.Name = "nupSURYO6"
         Me.nupSURYO6.Size = New System.Drawing.Size(54, 24)
@@ -2318,9 +2312,9 @@ Partial Class FrmG0021
         Me.pnlInfo5.Controls.Add(Me.txtBUHIN_INFO5)
         Me.pnlInfo5.Controls.Add(Me.nupSURYO5)
         Me.pnlInfo5.Enabled = False
-        Me.pnlInfo5.Location = New System.Drawing.Point(23, 95)
+        Me.pnlInfo5.Location = New System.Drawing.Point(19, 95)
         Me.pnlInfo5.Name = "pnlInfo5"
-        Me.pnlInfo5.Size = New System.Drawing.Size(928, 29)
+        Me.pnlInfo5.Size = New System.Drawing.Size(1050, 29)
         Me.pnlInfo5.TabIndex = 349
         '
         'txtFROM5
@@ -2328,13 +2322,12 @@ Partial Class FrmG0021
         Me.txtFROM5.BackColor = System.Drawing.SystemColors.Window
         Me.txtFROM5.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtFROM5.InputRequired = False
-        Me.txtFROM5.Location = New System.Drawing.Point(462, 3)
+        Me.txtFROM5.Location = New System.Drawing.Point(563, 3)
         Me.txtFROM5.MaxByteLength = 100
         Me.txtFROM5.MaxLength = 50
         Me.txtFROM5.Multiline = True
         Me.txtFROM5.Name = "txtFROM5"
         Me.txtFROM5.SelectAllText = False
-        Me.txtFROM5.ShowRemainingChars = True
         Me.txtFROM5.Size = New System.Drawing.Size(213, 23)
         Me.txtFROM5.TabIndex = 3
         Me.txtFROM5.WatermarkColor = System.Drawing.Color.Empty
@@ -2345,13 +2338,12 @@ Partial Class FrmG0021
         Me.txtTO5.BackColor = System.Drawing.SystemColors.Window
         Me.txtTO5.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtTO5.InputRequired = False
-        Me.txtTO5.Location = New System.Drawing.Point(704, 3)
+        Me.txtTO5.Location = New System.Drawing.Point(805, 3)
         Me.txtTO5.MaxByteLength = 100
         Me.txtTO5.MaxLength = 50
         Me.txtTO5.Multiline = True
         Me.txtTO5.Name = "txtTO5"
         Me.txtTO5.SelectAllText = False
-        Me.txtTO5.ShowRemainingChars = True
         Me.txtTO5.Size = New System.Drawing.Size(213, 23)
         Me.txtTO5.TabIndex = 4
         Me.txtTO5.WatermarkColor = System.Drawing.Color.Empty
@@ -2361,7 +2353,7 @@ Partial Class FrmG0021
         '
         Me.Label28.AutoSize = True
         Me.Label28.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label28.Location = New System.Drawing.Point(681, 7)
+        Me.Label28.Location = New System.Drawing.Point(782, 7)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(17, 15)
         Me.Label28.TabIndex = 320
@@ -2400,8 +2392,7 @@ Partial Class FrmG0021
         Me.txtBUHIN_INFO5.Multiline = True
         Me.txtBUHIN_INFO5.Name = "txtBUHIN_INFO5"
         Me.txtBUHIN_INFO5.SelectAllText = False
-        Me.txtBUHIN_INFO5.ShowRemainingChars = True
-        Me.txtBUHIN_INFO5.Size = New System.Drawing.Size(214, 23)
+        Me.txtBUHIN_INFO5.Size = New System.Drawing.Size(307, 23)
         Me.txtBUHIN_INFO5.TabIndex = 1
         Me.txtBUHIN_INFO5.WatermarkColor = System.Drawing.Color.Empty
         Me.txtBUHIN_INFO5.WatermarkText = Nothing
@@ -2409,7 +2400,7 @@ Partial Class FrmG0021
         'nupSURYO5
         '
         Me.nupSURYO5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.nupSURYO5.Location = New System.Drawing.Point(362, 3)
+        Me.nupSURYO5.Location = New System.Drawing.Point(455, 3)
         Me.nupSURYO5.Maximum = New Decimal(New Integer() {999, 0, 0, 0})
         Me.nupSURYO5.Name = "nupSURYO5"
         Me.nupSURYO5.Size = New System.Drawing.Size(54, 24)
@@ -2424,9 +2415,9 @@ Partial Class FrmG0021
         Me.pnlInfo4.Controls.Add(Me.cmbKISYU4)
         Me.pnlInfo4.Controls.Add(Me.txtBUHIN_INFO4)
         Me.pnlInfo4.Controls.Add(Me.nupSURYO4)
-        Me.pnlInfo4.Location = New System.Drawing.Point(23, 60)
+        Me.pnlInfo4.Location = New System.Drawing.Point(19, 60)
         Me.pnlInfo4.Name = "pnlInfo4"
-        Me.pnlInfo4.Size = New System.Drawing.Size(928, 29)
+        Me.pnlInfo4.Size = New System.Drawing.Size(1050, 29)
         Me.pnlInfo4.TabIndex = 350
         '
         'txtFROM4
@@ -2434,13 +2425,12 @@ Partial Class FrmG0021
         Me.txtFROM4.BackColor = System.Drawing.SystemColors.Window
         Me.txtFROM4.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtFROM4.InputRequired = False
-        Me.txtFROM4.Location = New System.Drawing.Point(462, 3)
+        Me.txtFROM4.Location = New System.Drawing.Point(563, 3)
         Me.txtFROM4.MaxByteLength = 100
         Me.txtFROM4.MaxLength = 50
         Me.txtFROM4.Multiline = True
         Me.txtFROM4.Name = "txtFROM4"
         Me.txtFROM4.SelectAllText = False
-        Me.txtFROM4.ShowRemainingChars = True
         Me.txtFROM4.Size = New System.Drawing.Size(213, 23)
         Me.txtFROM4.TabIndex = 3
         Me.txtFROM4.WatermarkColor = System.Drawing.Color.Empty
@@ -2451,13 +2441,12 @@ Partial Class FrmG0021
         Me.txtTO4.BackColor = System.Drawing.SystemColors.Window
         Me.txtTO4.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtTO4.InputRequired = False
-        Me.txtTO4.Location = New System.Drawing.Point(704, 3)
+        Me.txtTO4.Location = New System.Drawing.Point(805, 3)
         Me.txtTO4.MaxByteLength = 100
         Me.txtTO4.MaxLength = 50
         Me.txtTO4.Multiline = True
         Me.txtTO4.Name = "txtTO4"
         Me.txtTO4.SelectAllText = False
-        Me.txtTO4.ShowRemainingChars = True
         Me.txtTO4.Size = New System.Drawing.Size(213, 23)
         Me.txtTO4.TabIndex = 4
         Me.txtTO4.WatermarkColor = System.Drawing.Color.Empty
@@ -2467,7 +2456,7 @@ Partial Class FrmG0021
         '
         Me.Label27.AutoSize = True
         Me.Label27.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label27.Location = New System.Drawing.Point(681, 7)
+        Me.Label27.Location = New System.Drawing.Point(782, 7)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(17, 15)
         Me.Label27.TabIndex = 320
@@ -2506,8 +2495,7 @@ Partial Class FrmG0021
         Me.txtBUHIN_INFO4.Multiline = True
         Me.txtBUHIN_INFO4.Name = "txtBUHIN_INFO4"
         Me.txtBUHIN_INFO4.SelectAllText = False
-        Me.txtBUHIN_INFO4.ShowRemainingChars = True
-        Me.txtBUHIN_INFO4.Size = New System.Drawing.Size(214, 23)
+        Me.txtBUHIN_INFO4.Size = New System.Drawing.Size(307, 23)
         Me.txtBUHIN_INFO4.TabIndex = 1
         Me.txtBUHIN_INFO4.WatermarkColor = System.Drawing.Color.Empty
         Me.txtBUHIN_INFO4.WatermarkText = Nothing
@@ -2515,7 +2503,7 @@ Partial Class FrmG0021
         'nupSURYO4
         '
         Me.nupSURYO4.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.nupSURYO4.Location = New System.Drawing.Point(362, 3)
+        Me.nupSURYO4.Location = New System.Drawing.Point(455, 3)
         Me.nupSURYO4.Maximum = New Decimal(New Integer() {999, 0, 0, 0})
         Me.nupSURYO4.Name = "nupSURYO4"
         Me.nupSURYO4.Size = New System.Drawing.Size(54, 24)
@@ -2526,7 +2514,7 @@ Partial Class FrmG0021
         '
         Me.Label31.AutoSize = True
         Me.Label31.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label31.Location = New System.Drawing.Point(482, 41)
+        Me.Label31.Location = New System.Drawing.Point(582, 41)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(225, 15)
         Me.Label31.TabIndex = 317
@@ -2537,7 +2525,7 @@ Partial Class FrmG0021
         '
         Me.Label32.AutoSize = True
         Me.Label32.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label32.Location = New System.Drawing.Point(382, 42)
+        Me.Label32.Location = New System.Drawing.Point(477, 42)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(31, 15)
         Me.Label32.TabIndex = 346
@@ -2548,7 +2536,7 @@ Partial Class FrmG0021
         '
         Me.Label34.AutoSize = True
         Me.Label34.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label34.Location = New System.Drawing.Point(161, 41)
+        Me.Label34.Location = New System.Drawing.Point(157, 41)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(55, 15)
         Me.Label34.TabIndex = 345
@@ -2559,7 +2547,7 @@ Partial Class FrmG0021
         '
         Me.Label35.AutoSize = True
         Me.Label35.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label35.Location = New System.Drawing.Point(21, 41)
+        Me.Label35.Location = New System.Drawing.Point(17, 41)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(31, 15)
         Me.Label35.TabIndex = 344
@@ -2624,8 +2612,7 @@ Partial Class FrmG0021
         Me.txtFUTEKIGO_SEIHIN_MEMO.Multiline = True
         Me.txtFUTEKIGO_SEIHIN_MEMO.Name = "txtFUTEKIGO_SEIHIN_MEMO"
         Me.txtFUTEKIGO_SEIHIN_MEMO.SelectAllText = False
-        Me.txtFUTEKIGO_SEIHIN_MEMO.ShowRemainingChars = True
-        Me.txtFUTEKIGO_SEIHIN_MEMO.Size = New System.Drawing.Size(694, 23)
+        Me.txtFUTEKIGO_SEIHIN_MEMO.Size = New System.Drawing.Size(432, 23)
         Me.txtFUTEKIGO_SEIHIN_MEMO.TabIndex = 318
         Me.txtFUTEKIGO_SEIHIN_MEMO.WatermarkColor = System.Drawing.Color.Empty
         Me.txtFUTEKIGO_SEIHIN_MEMO.WatermarkText = Nothing
@@ -2639,9 +2626,9 @@ Partial Class FrmG0021
         Me.pnlInfo3.Controls.Add(Me.txtBUHIN_INFO3)
         Me.pnlInfo3.Controls.Add(Me.nupSURYO3)
         Me.pnlInfo3.Enabled = False
-        Me.pnlInfo3.Location = New System.Drawing.Point(23, 130)
+        Me.pnlInfo3.Location = New System.Drawing.Point(19, 130)
         Me.pnlInfo3.Name = "pnlInfo3"
-        Me.pnlInfo3.Size = New System.Drawing.Size(928, 29)
+        Me.pnlInfo3.Size = New System.Drawing.Size(1050, 29)
         Me.pnlInfo3.TabIndex = 2
         '
         'txtFROM3
@@ -2649,7 +2636,7 @@ Partial Class FrmG0021
         Me.txtFROM3.BackColor = System.Drawing.SystemColors.Window
         Me.txtFROM3.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtFROM3.InputRequired = False
-        Me.txtFROM3.Location = New System.Drawing.Point(462, 2)
+        Me.txtFROM3.Location = New System.Drawing.Point(563, 2)
         Me.txtFROM3.MaxByteLength = 100
         Me.txtFROM3.MaxLength = 50
         Me.txtFROM3.Multiline = True
@@ -2666,7 +2653,7 @@ Partial Class FrmG0021
         Me.txtTO3.BackColor = System.Drawing.SystemColors.Window
         Me.txtTO3.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtTO3.InputRequired = False
-        Me.txtTO3.Location = New System.Drawing.Point(704, 2)
+        Me.txtTO3.Location = New System.Drawing.Point(805, 2)
         Me.txtTO3.MaxByteLength = 100
         Me.txtTO3.MaxLength = 50
         Me.txtTO3.Multiline = True
@@ -2682,7 +2669,7 @@ Partial Class FrmG0021
         '
         Me.Label25.AutoSize = True
         Me.Label25.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label25.Location = New System.Drawing.Point(681, 6)
+        Me.Label25.Location = New System.Drawing.Point(782, 6)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(17, 15)
         Me.Label25.TabIndex = 320
@@ -2722,7 +2709,7 @@ Partial Class FrmG0021
         Me.txtBUHIN_INFO3.Name = "txtBUHIN_INFO3"
         Me.txtBUHIN_INFO3.SelectAllText = False
         Me.txtBUHIN_INFO3.ShowRemainingChars = True
-        Me.txtBUHIN_INFO3.Size = New System.Drawing.Size(214, 23)
+        Me.txtBUHIN_INFO3.Size = New System.Drawing.Size(307, 23)
         Me.txtBUHIN_INFO3.TabIndex = 1
         Me.txtBUHIN_INFO3.WatermarkColor = System.Drawing.Color.Empty
         Me.txtBUHIN_INFO3.WatermarkText = Nothing
@@ -2730,7 +2717,7 @@ Partial Class FrmG0021
         'nupSURYO3
         '
         Me.nupSURYO3.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.nupSURYO3.Location = New System.Drawing.Point(362, 3)
+        Me.nupSURYO3.Location = New System.Drawing.Point(455, 3)
         Me.nupSURYO3.Maximum = New Decimal(New Integer() {999, 0, 0, 0})
         Me.nupSURYO3.Name = "nupSURYO3"
         Me.nupSURYO3.Size = New System.Drawing.Size(54, 24)
@@ -2746,9 +2733,9 @@ Partial Class FrmG0021
         Me.pnlInfo2.Controls.Add(Me.txtBUHIN_INFO2)
         Me.pnlInfo2.Controls.Add(Me.nupSURYO2)
         Me.pnlInfo2.Enabled = False
-        Me.pnlInfo2.Location = New System.Drawing.Point(23, 95)
+        Me.pnlInfo2.Location = New System.Drawing.Point(19, 95)
         Me.pnlInfo2.Name = "pnlInfo2"
-        Me.pnlInfo2.Size = New System.Drawing.Size(928, 29)
+        Me.pnlInfo2.Size = New System.Drawing.Size(1050, 29)
         Me.pnlInfo2.TabIndex = 1
         '
         'txtFROM2
@@ -2756,7 +2743,7 @@ Partial Class FrmG0021
         Me.txtFROM2.BackColor = System.Drawing.SystemColors.Window
         Me.txtFROM2.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtFROM2.InputRequired = False
-        Me.txtFROM2.Location = New System.Drawing.Point(462, 3)
+        Me.txtFROM2.Location = New System.Drawing.Point(563, 3)
         Me.txtFROM2.MaxByteLength = 100
         Me.txtFROM2.MaxLength = 50
         Me.txtFROM2.Multiline = True
@@ -2773,7 +2760,7 @@ Partial Class FrmG0021
         Me.txtTO2.BackColor = System.Drawing.SystemColors.Window
         Me.txtTO2.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtTO2.InputRequired = False
-        Me.txtTO2.Location = New System.Drawing.Point(704, 3)
+        Me.txtTO2.Location = New System.Drawing.Point(805, 3)
         Me.txtTO2.MaxByteLength = 100
         Me.txtTO2.MaxLength = 50
         Me.txtTO2.Multiline = True
@@ -2789,7 +2776,7 @@ Partial Class FrmG0021
         '
         Me.Label22.AutoSize = True
         Me.Label22.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label22.Location = New System.Drawing.Point(681, 7)
+        Me.Label22.Location = New System.Drawing.Point(782, 7)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(17, 15)
         Me.Label22.TabIndex = 320
@@ -2829,7 +2816,7 @@ Partial Class FrmG0021
         Me.txtBUHIN_INFO2.Name = "txtBUHIN_INFO2"
         Me.txtBUHIN_INFO2.SelectAllText = False
         Me.txtBUHIN_INFO2.ShowRemainingChars = True
-        Me.txtBUHIN_INFO2.Size = New System.Drawing.Size(214, 23)
+        Me.txtBUHIN_INFO2.Size = New System.Drawing.Size(307, 23)
         Me.txtBUHIN_INFO2.TabIndex = 1
         Me.txtBUHIN_INFO2.WatermarkColor = System.Drawing.Color.Empty
         Me.txtBUHIN_INFO2.WatermarkText = Nothing
@@ -2837,7 +2824,7 @@ Partial Class FrmG0021
         'nupSURYO2
         '
         Me.nupSURYO2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.nupSURYO2.Location = New System.Drawing.Point(362, 3)
+        Me.nupSURYO2.Location = New System.Drawing.Point(455, 3)
         Me.nupSURYO2.Maximum = New Decimal(New Integer() {999, 0, 0, 0})
         Me.nupSURYO2.Name = "nupSURYO2"
         Me.nupSURYO2.Size = New System.Drawing.Size(54, 24)
@@ -2852,9 +2839,9 @@ Partial Class FrmG0021
         Me.pnlInfo1.Controls.Add(Me.txtBUHIN_INFO1)
         Me.pnlInfo1.Controls.Add(Me.Label47)
         Me.pnlInfo1.Controls.Add(Me.nupSURYO1)
-        Me.pnlInfo1.Location = New System.Drawing.Point(23, 60)
+        Me.pnlInfo1.Location = New System.Drawing.Point(19, 60)
         Me.pnlInfo1.Name = "pnlInfo1"
-        Me.pnlInfo1.Size = New System.Drawing.Size(928, 29)
+        Me.pnlInfo1.Size = New System.Drawing.Size(1050, 29)
         Me.pnlInfo1.TabIndex = 0
         '
         'cmbKISYU1
@@ -2883,7 +2870,7 @@ Partial Class FrmG0021
         Me.txtFROM1.BackColor = System.Drawing.SystemColors.Window
         Me.txtFROM1.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtFROM1.InputRequired = False
-        Me.txtFROM1.Location = New System.Drawing.Point(462, 3)
+        Me.txtFROM1.Location = New System.Drawing.Point(563, 3)
         Me.txtFROM1.MaxByteLength = 100
         Me.txtFROM1.MaxLength = 50
         Me.txtFROM1.Multiline = True
@@ -2900,7 +2887,7 @@ Partial Class FrmG0021
         Me.txtTO1.BackColor = System.Drawing.SystemColors.Window
         Me.txtTO1.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtTO1.InputRequired = False
-        Me.txtTO1.Location = New System.Drawing.Point(704, 3)
+        Me.txtTO1.Location = New System.Drawing.Point(805, 3)
         Me.txtTO1.MaxByteLength = 100
         Me.txtTO1.MaxLength = 50
         Me.txtTO1.Multiline = True
@@ -2924,7 +2911,7 @@ Partial Class FrmG0021
         Me.txtBUHIN_INFO1.Name = "txtBUHIN_INFO1"
         Me.txtBUHIN_INFO1.SelectAllText = False
         Me.txtBUHIN_INFO1.ShowRemainingChars = True
-        Me.txtBUHIN_INFO1.Size = New System.Drawing.Size(214, 23)
+        Me.txtBUHIN_INFO1.Size = New System.Drawing.Size(307, 23)
         Me.txtBUHIN_INFO1.TabIndex = 1
         Me.txtBUHIN_INFO1.WatermarkColor = System.Drawing.Color.Empty
         Me.txtBUHIN_INFO1.WatermarkText = Nothing
@@ -2933,7 +2920,7 @@ Partial Class FrmG0021
         '
         Me.Label47.AutoSize = True
         Me.Label47.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label47.Location = New System.Drawing.Point(681, 7)
+        Me.Label47.Location = New System.Drawing.Point(782, 7)
         Me.Label47.Name = "Label47"
         Me.Label47.Size = New System.Drawing.Size(17, 15)
         Me.Label47.TabIndex = 317
@@ -2943,7 +2930,7 @@ Partial Class FrmG0021
         'nupSURYO1
         '
         Me.nupSURYO1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.nupSURYO1.Location = New System.Drawing.Point(362, 3)
+        Me.nupSURYO1.Location = New System.Drawing.Point(455, 3)
         Me.nupSURYO1.Maximum = New Decimal(New Integer() {999, 0, 0, 0})
         Me.nupSURYO1.Name = "nupSURYO1"
         Me.nupSURYO1.Size = New System.Drawing.Size(54, 24)
@@ -2954,7 +2941,7 @@ Partial Class FrmG0021
         '
         Me.Label21.AutoSize = True
         Me.Label21.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label21.Location = New System.Drawing.Point(484, 41)
+        Me.Label21.Location = New System.Drawing.Point(584, 41)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(225, 15)
         Me.Label21.TabIndex = 317
@@ -2965,7 +2952,7 @@ Partial Class FrmG0021
         '
         Me.Label24.AutoSize = True
         Me.Label24.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label24.Location = New System.Drawing.Point(382, 42)
+        Me.Label24.Location = New System.Drawing.Point(477, 42)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(31, 15)
         Me.Label24.TabIndex = 317
@@ -2976,7 +2963,7 @@ Partial Class FrmG0021
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label20.Location = New System.Drawing.Point(161, 41)
+        Me.Label20.Location = New System.Drawing.Point(157, 41)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(55, 15)
         Me.Label20.TabIndex = 317
@@ -2987,7 +2974,7 @@ Partial Class FrmG0021
         '
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label19.Location = New System.Drawing.Point(21, 41)
+        Me.Label19.Location = New System.Drawing.Point(17, 41)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(31, 15)
         Me.Label19.TabIndex = 317
@@ -3031,7 +3018,7 @@ Partial Class FrmG0021
         Me.cmbST01_DestTANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST01_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST01_DestTANTO.IsSelected = False
-        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 32767)
+        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 32770)
         Me.cmbST01_DestTANTO.Name = "cmbST01_DestTANTO"
         Me.cmbST01_DestTANTO.NullValue = " "
         Me.cmbST01_DestTANTO.Size = New System.Drawing.Size(154, 25)
@@ -3045,7 +3032,7 @@ Partial Class FrmG0021
         Me.mtxST01_NextStageName.BackColor = System.Drawing.SystemColors.Window
         Me.mtxST01_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_NextStageName.InputRequired = False
-        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 32767)
+        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 32770)
         Me.mtxST01_NextStageName.MaxByteLength = 0
         Me.mtxST01_NextStageName.Name = "mtxST01_NextStageName"
         Me.mtxST01_NextStageName.SelectAllText = False
@@ -3059,7 +3046,7 @@ Partial Class FrmG0021
         Me.Label123.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label123.AutoSize = True
         Me.Label123.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label123.Location = New System.Drawing.Point(255, 32767)
+        Me.Label123.Location = New System.Drawing.Point(255, 32770)
         Me.Label123.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label123.Name = "Label123"
         Me.Label123.Size = New System.Drawing.Size(98, 15)
@@ -3072,7 +3059,7 @@ Partial Class FrmG0021
         Me.Label124.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label124.AutoSize = True
         Me.Label124.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label124.Location = New System.Drawing.Point(661, 32767)
+        Me.Label124.Location = New System.Drawing.Point(661, 32770)
         Me.Label124.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label124.Name = "Label124"
         Me.Label124.Size = New System.Drawing.Size(72, 15)
@@ -3085,7 +3072,7 @@ Partial Class FrmG0021
         Me.Label139.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label139.AutoSize = True
         Me.Label139.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label139.Location = New System.Drawing.Point(10, 32767)
+        Me.Label139.Location = New System.Drawing.Point(10, 32770)
         Me.Label139.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(102, 15)
@@ -3099,7 +3086,7 @@ Partial Class FrmG0021
         Me.mtxST01_UPD_YMD.BackColor = System.Drawing.Color.White
         Me.mtxST01_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_UPD_YMD.InputRequired = False
-        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 32767)
+        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 32770)
         Me.mtxST01_UPD_YMD.MaxByteLength = 0
         Me.mtxST01_UPD_YMD.Name = "mtxST01_UPD_YMD"
         Me.mtxST01_UPD_YMD.SelectAllText = False

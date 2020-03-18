@@ -34,7 +34,7 @@ Public Class TextBoxEx
 
         ImeMode = Windows.Forms.ImeMode.On
         EnterBehavior = 0
-        ShowRemainingChars = True
+        'ShowRemainingChars = True
 
     End Sub
 
