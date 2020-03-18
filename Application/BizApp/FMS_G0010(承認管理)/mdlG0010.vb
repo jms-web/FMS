@@ -2018,8 +2018,24 @@ Module mdlG0010
             shLINE_KISYU2.Visible = Not blnHANTEI
             shLINE_RANGE1.Visible = Not blnHANTEI
             shLINE_RANGE2.Visible = Not blnHANTEI
-            shLINE_NAIYO.Visible = Not blnHANTEI
-            shLINE_YMD.Visible = Not blnHANTEI
+
+            If blnHANTEI Then
+                If (_V11.OTHER_PROCESS_INFLUENCE_KB = "0") And (_V11.FOLLOW_PROCESS_OUTFLOW_KB = "0") Then
+                    '5-3Ç…éŒê¸
+                    shLINE_NAIYO.Visible = True
+                    shLINE_YMD.Visible = True
+                    Dim dbl As Double = shLINE_NAIYO.Top
+                    Dim dbl2 As Double = shLINE_NAIYO.Left
+                Else
+                    shLINE_NAIYO.Visible = Not blnHANTEI
+                    shLINE_YMD.Visible = Not blnHANTEI
+                End If
+            Else
+                '5-1,5-2Ç…éŒê¸
+                shLINE_NAIYO.Visible = True
+                shLINE_YMD.Visible = True
+            End If
+
             If blnHANTEI Then
                 spSheet1.Range(NameOf(V011_FCR_J.KISYU1_NAME)).Value = _V11.KISYU1_NAME
                 spSheet1.Range(NameOf(V011_FCR_J.KISYU2_NAME)).Value = _V11.KISYU2_NAME
@@ -2060,24 +2076,23 @@ Module mdlG0010
 
                 spSheet1.Range(NameOf(V011_FCR_J.FUTEKIGO_SEIHIN_MEMO)).Value = _V11.FUTEKIGO_SEIHIN_MEMO
                 spSheet1.Range(NameOf(V011_FCR_J.KOKYAKU_EIKYO_MEMO)).Value = _V11.KOKYAKU_EIKYO_MEMO
-
-                If _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).Select(Function(r) r.ADD_YMDHNS).First < "202002140000" Then
-                    spSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiOÅjÅ@ï éÜÅ|8"
-                Else
-                    spSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiPÅjÅ@ï éÜÅ|8"
-                End If
-
-                For Each stage As ENM_CTS_STAGE In [Enum].GetValues(GetType(ENM_CTS_STAGE))
-                    If stage < ENM_CTS_STAGE._999_Closed Then
-                        strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = stage And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF).FirstOrDefault?.SYONIN_YMDHNS
-                        If Not strYMDHNS.IsNulOrWS Then
-                            spSheet1.Range($"SYONIN_YMD{stage.Value}").Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                            spSheet1.Range($"SYONIN_NAME{stage.Value}").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = stage).FirstOrDefault?.UPD_SYAIN_NAME
-                        End If
-                    End If
-                Next
+                spSheet1.Range(NameOf(V011_FCR_J.SYOCHI_MEMO)).Value = _V11.SYOCHI_MEMO
             End If
 
+            If _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).Select(Function(r) r.ADD_YMDHNS).First < "202002140000" Then
+                spSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiOÅjÅ@ï éÜÅ|8"
+            Else
+                spSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiPÅjÅ@ï éÜÅ|8"
+            End If
+            For Each stage As ENM_CTS_STAGE In [Enum].GetValues(GetType(ENM_CTS_STAGE))
+                If stage < ENM_CTS_STAGE._999_Closed Then
+                    strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = stage And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF).FirstOrDefault?.SYONIN_YMDHNS
+                    If Not strYMDHNS.IsNulOrWS Then
+                        spSheet1.Range($"SYONIN_YMD{stage.Value}").Value = DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                        spSheet1.Range($"SYONIN_NAME{stage.Value}").Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = stage).FirstOrDefault?.UPD_SYAIN_NAME
+                    End If
+                End If
+            Next
             '-----ÉtÉ@ÉCÉãï€ë∂
             spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.Excel8)
             spWorkbook.WorkbookSet.ReleaseLock()

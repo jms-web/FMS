@@ -425,6 +425,45 @@ Partial Public Class V011_FCR_J
 
 
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    <StringLength(100)>
+    <Column(TypeName:="nvarchar")>
+    Public Property FUTEKIGO_SEIHIN_FILEPATH As String
+
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    <StringLength(100)>
+    <Column(TypeName:="nvarchar")>
+    Public Property KOKYAKU_EIKYO_FILEPATH As String
+
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    <StringLength(100)>
+    <Column(TypeName:="nvarchar")>
+    Public Property SYOCHI_MEMO As String
+
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    <StringLength(100)>
+    <Column(TypeName:="nvarchar")>
+    Public Property SYOCHI_FILEPATH As String
+
 
     ''共通項目------------------------------------
     <Required>

@@ -435,6 +435,21 @@ Public NotInheritable Class ClsPubMethod
         '                                                                     System.Reflection.BindingFlags.NonPublic)
     End Sub
 
+    Public Shared Function GetControlByName(ParentCtrl As Control, NameToSearch As String) As Control
+
+        If ParentCtrl.Name = NameToSearch Then
+            Return ParentCtrl
+        Else
+            For Each ChildCtrl As Control In ParentCtrl.Controls
+                Dim ResultCtrl As Control = GetControlByName(ChildCtrl, NameToSearch)
+                If ResultCtrl IsNot Nothing Then
+                    Return ChildCtrl
+                End If
+            Next
+        End If
+
+        Return Nothing
+    End Function
 #End Region
 
 #Region "データソース関連"

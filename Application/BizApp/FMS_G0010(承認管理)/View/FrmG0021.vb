@@ -95,7 +95,6 @@ Public Class FrmG0021
         'txtTO5.ShowRemainingChars = False
         'txtTO6.ShowRemainingChars = False
 
-
     End Sub
 
 #End Region
@@ -260,6 +259,9 @@ Public Class FrmG0021
                 Case 5  '差し戻し
                     Call OpenFormSASIMODOSI()
 
+                Case 9  'CAR
+                    Call OpenFormCAR()
+
                 Case 10  '印刷
 
                     Call FunOpenReportFCR()
@@ -369,7 +371,7 @@ Public Class FrmG0021
                         If System.IO.File.Exists(lblKOKYAKU_EIKYO_HANTEI_FILEPATH.Links.Item(0).LinkData) Then
                             System.IO.File.Copy(lblKOKYAKU_EIKYO_HANTEI_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.KOKYAKU_EIKYO_HANTEI_FILEPATH}", True)
                         Else
-                            Throw New IO.FileNotFoundException($"顧客への影響 資料:{lblKOKYAKU_EIKYO_HANTEI_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                            Throw New IO.FileNotFoundException($"1.顧客への影響 資料:{lblKOKYAKU_EIKYO_HANTEI_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
                     If Not _V011_FCR_J.OTHER_PROCESS_INFLUENCE_FILEPATH.IsNulOrWS AndAlso
@@ -378,7 +380,7 @@ Public Class FrmG0021
                         If System.IO.File.Exists(lblOTHER_PROCESS_INFLUENCE_FILEPATH.Links.Item(0).LinkData) Then
                             System.IO.File.Copy(lblOTHER_PROCESS_INFLUENCE_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.OTHER_PROCESS_INFLUENCE_FILEPATH}", True)
                         Else
-                            Throw New IO.FileNotFoundException($"他のプロセスへの影響 資料:{lblOTHER_PROCESS_INFLUENCE_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                            Throw New IO.FileNotFoundException($"4.他のプロセスへの影響 資料:{lblOTHER_PROCESS_INFLUENCE_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
                     If Not _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH.IsNulOrWS AndAlso
@@ -387,7 +389,34 @@ Public Class FrmG0021
                         If System.IO.File.Exists(lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Links.Item(0).LinkData) Then
                             System.IO.File.Copy(lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH}", True)
                         Else
-                            Throw New IO.FileNotFoundException($"後続プロセスへの流出 資料:{lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                            Throw New IO.FileNotFoundException($"4.後続プロセスへの流出 資料:{lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                        End If
+                    End If
+                    If Not _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH.IsNulOrWS AndAlso
+                        Not System.IO.File.Exists($"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH}") Then
+
+                        If System.IO.File.Exists(lblFUTEKIGO_SEIHIN_FILEPATH.Links.Item(0).LinkData) Then
+                            System.IO.File.Copy(lblFUTEKIGO_SEIHIN_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH}", True)
+                        Else
+                            Throw New IO.FileNotFoundException($"2.不適合製品 資料:{lblFUTEKIGO_SEIHIN_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                        End If
+                    End If
+                    If Not _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH.IsNulOrWS AndAlso
+                        Not System.IO.File.Exists($"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.KOKYAKU_EIKYO_FILEPATH}") Then
+
+                        If System.IO.File.Exists(lblKOKYAKU_EIKYO_FILEPATH.Links.Item(0).LinkData) Then
+                            System.IO.File.Copy(lblKOKYAKU_EIKYO_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.KOKYAKU_EIKYO_FILEPATH}", True)
+                        Else
+                            Throw New IO.FileNotFoundException($"3.顧客影響範囲 資料:{lblKOKYAKU_EIKYO_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                        End If
+                    End If
+                    If Not _V011_FCR_J.SYOCHI_FILEPATH.IsNulOrWS AndAlso
+                        Not System.IO.File.Exists($"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.SYOCHI_FILEPATH}") Then
+
+                        If System.IO.File.Exists(lblSYOCHI_FILEPATH.Links.Item(0).LinkData) Then
+                            System.IO.File.Copy(lblSYOCHI_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.SYOCHI_FILEPATH}", True)
+                        Else
+                            Throw New IO.FileNotFoundException($"5,処置実施 資料:{lblSYOCHI_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
 
@@ -442,6 +471,10 @@ Public Class FrmG0021
             _D007.KOKYAKU_EIKYO_HANTEI_FILEPATH = _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_FILEPATH
             _D007.FUTEKIGO_SEIHIN_MEMO = txtFUTEKIGO_SEIHIN_MEMO.Text
             _D007.KOKYAKU_EIKYO_MEMO = txtKOKYAKU_EIKYO_MEMO.Text
+
+            _D007.KOKYAKU_EIKYO_FILEPATH = _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH
+            _D007.SYOCHI_MEMO = txtSYOCHI_MEMO.Text
+            _D007.SYOCHI_FILEPATH = _V011_FCR_J.SYOCHI_FILEPATH
         Else
             _D007._KOKYAKU_EIKYO_HANTEI_KB = "0"
             _D007.KOKYAKU_EIKYO_HANTEI_COMMENT = cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Text
@@ -452,8 +485,6 @@ Public Class FrmG0021
             _D007.TUCHI_SYUDAN = ""
             _D007.HITUYO_TETUDUKI_ZIKO = ""
             _D007.KOKYAKU_EIKYO_ETC_COMMENT = ""
-            _D007._OTHER_PROCESS_INFLUENCE_KB = "0"
-            _D007._FOLLOW_PROCESS_OUTFLOW_KB = "0"
             _D007.KOKYAKU_NOUNYU_NAIYOU = ""
             _D007.KOKYAKU_NOUNYU_YMD = ""
             _D007.ZAIKO_SIKAKE_NAIYOU = ""
@@ -463,10 +494,25 @@ Public Class FrmG0021
             _D007.KOKYAKU_EIKYO_HANTEI_FILEPATH = ""
             _D007.FUTEKIGO_SEIHIN_MEMO = ""
             _D007.KOKYAKU_EIKYO_MEMO = ""
+            _D007.FUTEKIGO_SEIHIN_FILEPATH = ""
+            _D007.KOKYAKU_EIKYO_FILEPATH = ""
+            _D007.SYOCHI_MEMO = ""
+            _D007.SYOCHI_FILEPATH = ""
         End If
 
         _D007.TAISYOU_KOKYAKU = txtTAISYO_KOKYAKU.Text
-        '---
+
+        If _D007.FUTEKIGO_SEIHIN_MEMO.IsNulOrWS Then
+            _D007.FUTEKIGO_SEIHIN_FILEPATH = ""
+        Else
+            _D007.FUTEKIGO_SEIHIN_FILEPATH = _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH
+        End If
+
+        If _D007.KOKYAKU_EIKYO_MEMO.IsNulOrWS Then
+            _D007.KOKYAKU_EIKYO_FILEPATH = ""
+        Else
+            _D007.KOKYAKU_EIKYO_FILEPATH = _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH
+        End If
 
         _D007._OTHER_PROCESS_INFLUENCE_KB = If(rbtnOTHER_PROCESS_INFLUENCE_KB_T.Checked, "1", "0")
         If rbtnOTHER_PROCESS_INFLUENCE_KB_T.Checked Then
@@ -479,12 +525,18 @@ Public Class FrmG0021
             _D007.FOLLOW_PROCESS_OUTFLOW_FILEPATH = _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH
             _D007.FOLLOW_PROCESS_OUTFLOW_MEMO = txtFOLLOW_PROCESS_OUTFLOW_MEMO.Text
         End If
+
+        If _D007._OTHER_PROCESS_INFLUENCE_KB = "0" And _D007._FOLLOW_PROCESS_OUTFLOW_KB = "0" Then
+            _D007.OTHER_PROCESS_NAIYOU = ""
+            _D007.OTHER_PROCESS_YMD = ""
+        Else
+            _D007.OTHER_PROCESS_NAIYOU = txtOTHER_PROCESS_NAIYOU.Text
+            _D007.OTHER_PROCESS_YMD = dtOTHER_PROCESS_YMD.ValueNonFormat
+        End If
         _D007.KOKYAKU_NOUNYU_NAIYOU = txtKOKYAKU_NOUNYU_NAIYOU.Text
         _D007.KOKYAKU_NOUNYU_YMD = dtKOKYAKU_NOUNYU_YMD.ValueNonFormat
         _D007.ZAIKO_SIKAKE_NAIYOU = txtZAIKO_SIKAKE_NAIYOU.Text
         _D007.ZAIKO_SIKAKE_YMD = dtZAIKO_SIKAKE_YMD.ValueNonFormat
-        _D007.OTHER_PROCESS_NAIYOU = txtOTHER_PROCESS_NAIYOU.Text
-        _D007.OTHER_PROCESS_YMD = dtOTHER_PROCESS_YMD.ValueNonFormat
         _D007.ADD_YMDHNS = strSysDate
         _D007.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
 
@@ -526,6 +578,10 @@ Public Class FrmG0021
         sbSQL.Append($" ,SrcT.{NameOf(_D007.OTHER_PROCESS_INFLUENCE_FILEPATH)} = WK.{NameOf(_D007.OTHER_PROCESS_INFLUENCE_FILEPATH)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D007.FOLLOW_PROCESS_OUTFLOW_MEMO)}      = WK.{NameOf(_D007.FOLLOW_PROCESS_OUTFLOW_MEMO)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D007.FOLLOW_PROCESS_OUTFLOW_FILEPATH)}  = WK.{NameOf(_D007.FOLLOW_PROCESS_OUTFLOW_FILEPATH)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.FUTEKIGO_SEIHIN_FILEPATH)}         = WK.{NameOf(_D007.FUTEKIGO_SEIHIN_FILEPATH)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_EIKYO_FILEPATH)}           = WK.{NameOf(_D007.KOKYAKU_EIKYO_FILEPATH)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.SYOCHI_MEMO)}                      = WK.{NameOf(_D007.SYOCHI_MEMO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D007.SYOCHI_FILEPATH)}                  = WK.{NameOf(_D007.SYOCHI_FILEPATH)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D007.UPD_SYAIN_ID)}                     = WK.{NameOf(_D007.UPD_SYAIN_ID)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D007.UPD_YMDHNS)}                       = WK.{NameOf(_D007.UPD_YMDHNS)}")
         'INSERT
@@ -575,13 +631,17 @@ Public Class FrmG0021
             _D008.Clear()
             _D008.HOKOKU_NO = _V011_FCR_J.HOKOKU_NO
             _D008.ROW_NO = i
-            _D008.KISYU_ID = _V011_FCR_J.Item("KISYU_ID" & i)
-            _D008.BUHIN_INFO = _V011_FCR_J.Item("BUHIN_INFO" & i)
-            _D008.SURYO = _V011_FCR_J.Item("SURYO" & i)
-            _D008.RANGE_FROM = _V011_FCR_J.Item("RANGE_FROM" & i)
-            _D008.RANGE_TO = _V011_FCR_J.Item("RANGE_TO" & i)
             _D008.ADD_YMDHNS = strSysDate
             _D008.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+
+            Dim pnlCtrl = GetControlByName(Me, $"pnlInfo{i}")
+            If pnlCtrl IsNot Nothing AndAlso pnlCtrl.Enabled Then
+                _D008.KISYU_ID = _V011_FCR_J.Item("KISYU_ID" & i)
+                _D008.BUHIN_INFO = _V011_FCR_J.Item("BUHIN_INFO" & i)
+                _D008.SURYO = _V011_FCR_J.Item("SURYO" & i)
+                _D008.RANGE_FROM = _V011_FCR_J.Item("RANGE_FROM" & i)
+                _D008.RANGE_TO = _V011_FCR_J.Item("RANGE_TO" & i)
+            End If
 
 #End Region
 
@@ -647,238 +707,249 @@ Public Class FrmG0021
         Dim strRET As String
         Dim sqlEx As New Exception
         Dim strSysDate As String = DB.GetSysDateString
-        '-----データモデル更新
-        _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
-        _D004_SYONIN_J_KANRI.HOKOKU_NO = _V011_FCR_J.HOKOKU_NO
-        _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
-        _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-        _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
 
-        If PrCurrentStage = ENM_CTS_STAGE._10_起草入力 Then
-            _D004_SYONIN_J_KANRI.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-        End If
+        Try
 
-        '#80 承認申請日は画面で入力
-        If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNulOrWS Then
-            _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
-        ElseIf _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.Trim.Length = 8 Then
-            'datetextboxにバインド時は時刻情報を結合
-            _D004_SYONIN_J_KANRI.SYONIN_YMDHNS &= "000000"
-        End If
-        Select Case enmSAVE_MODE
-            Case ENM_SAVE_MODE._1_保存
-                _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
-                _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
-                _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+#Region "   CurrentStage"
 
-            Case ENM_SAVE_MODE._2_承認申請
-                _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
-                _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
-            Case Else
-                'Err
-                Return False
-        End Select
+            '-----データモデル更新
+            _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
+            _D004_SYONIN_J_KANRI.HOKOKU_NO = _V011_FCR_J.HOKOKU_NO
+            _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
+            _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+            _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
 
-        _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
+            If PrCurrentStage = ENM_CTS_STAGE._10_起草入力 Then
+                _D004_SYONIN_J_KANRI.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+            End If
 
-        '-----MERGE
-        sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append($"MERGE INTO {NameOf(D004_SYONIN_J_KANRI)} AS SrcT")
-        sbSQL.Append($" USING (")
-        sbSQL.Append($" SELECT")
-        sbSQL.Append($"   {_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID} AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.HOKOKU_NO}' AS {NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
-        sbSQL.Append($" , {_D004_SYONIN_J_KANRI.SYONIN_JUN} AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYAIN_ID}' AS {NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYONIN_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB}' AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI._SASIMODOSI_FG}' AS {NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.RIYU}' AS {NameOf(_D004_SYONIN_J_KANRI.RIYU)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.COMMENT}' AS {NameOf(_D004_SYONIN_J_KANRI.COMMENT)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI._MAIL_SEND_FG}' AS {NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)}")
-        sbSQL.Append($" , {_D004_SYONIN_J_KANRI.ADD_SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.ADD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS)}")
-        sbSQL.Append($" , {_D004_SYONIN_J_KANRI.UPD_SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.UPD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}")
-        sbSQL.Append($" ) AS WK")
-        sbSQL.Append($" ON (SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
-        sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)} = WK.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
-        sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)})")
-        'UPDATE
-        sbSQL.Append($" WHEN MATCHED THEN")
-        sbSQL.Append($" UPDATE SET")
-        sbSQL.Append($"  SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)} = WK.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)} = WK.{NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.RIYU)} = WK.{NameOf(_D004_SYONIN_J_KANRI.RIYU)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)} = {pub_SYAIN_INFO.SYAIN_ID}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)} = '{strSysDate}'")
-        'INSERT
-        sbSQL.Append(" WHEN NOT MATCHED THEN ")
-        sbSQL.Append(" INSERT(")
-        sbSQL.Append("  " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.RIYU))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
-        sbSQL.Append(" ) VALUES(")
-        sbSQL.Append("  WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.RIYU))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
-        sbSQL.Append($" ,'{strSysDate}'")
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
-        sbSQL.Append($" ,'{strSysDate}'")
-        sbSQL.Append(" )")
-        sbSQL.Append("OUTPUT $action AS RESULT") 'INSERT OR UPDATE をncarchar(10)で取得する場合
-        sbSQL.Append(";")
-        strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
-        Select Case strRET
-            Case "INSERT"
+            '#80 承認申請日は画面で入力
+            If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNulOrWS Then
+                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
+            ElseIf _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.Trim.Length = 8 Then
+                'datetextboxにバインド時は時刻情報を結合
+                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS &= "000000"
+            End If
+            Select Case enmSAVE_MODE
+                Case ENM_SAVE_MODE._1_保存
+                    _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
+                    _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
+                    _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
 
-            Case "UPDATE"
+                Case ENM_SAVE_MODE._2_承認申請
+                    _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
+                    _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
+                Case Else
+                    'Err
+                    Return False
+            End Select
 
-            Case Else
-                '-----エラーログ出力
-                Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                WL.WriteLogDat(strErrMsg)
-                Return False
-        End Select
+            _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
 
-        '-----承認申請
-        Select Case enmSAVE_MODE
-            Case ENM_SAVE_MODE._1_保存
-                '保存実績のみ
-                Return True
-            Case ENM_SAVE_MODE._2_承認申請
-                _D004_SYONIN_J_KANRI.SYONIN_JUN = FunGetNextSYONIN_JUN(PrCurrentStage)
-                _D004_SYONIN_J_KANRI.SYAIN_ID = cmbDestTANTO.SelectedValue
-                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
-                _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False
-                _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
+            '-----MERGE
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append($"MERGE INTO {NameOf(D004_SYONIN_J_KANRI)} AS SrcT")
+            sbSQL.Append($" USING (")
+            sbSQL.Append($" SELECT")
+            sbSQL.Append($"   {_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID} AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.HOKOKU_NO}' AS {NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
+            sbSQL.Append($" , {_D004_SYONIN_J_KANRI.SYONIN_JUN} AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYAIN_ID}' AS {NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYONIN_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB}' AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI._SASIMODOSI_FG}' AS {NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.RIYU}' AS {NameOf(_D004_SYONIN_J_KANRI.RIYU)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.COMMENT}' AS {NameOf(_D004_SYONIN_J_KANRI.COMMENT)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI._MAIL_SEND_FG}' AS {NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)}")
+            sbSQL.Append($" , {_D004_SYONIN_J_KANRI.ADD_SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.ADD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS)}")
+            sbSQL.Append($" , {_D004_SYONIN_J_KANRI.UPD_SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.UPD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}")
+            sbSQL.Append($" ) AS WK")
+            sbSQL.Append($" ON (SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
+            sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)} = WK.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
+            sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)})")
+            'UPDATE
+            sbSQL.Append($" WHEN MATCHED THEN")
+            sbSQL.Append($" UPDATE SET")
+            sbSQL.Append($"  SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)} = WK.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)} = WK.{NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.RIYU)} = WK.{NameOf(_D004_SYONIN_J_KANRI.RIYU)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)} = {pub_SYAIN_INFO.SYAIN_ID}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)} = '{strSysDate}'")
+            'INSERT
+            sbSQL.Append(" WHEN NOT MATCHED THEN ")
+            sbSQL.Append(" INSERT(")
+            sbSQL.Append("  " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.RIYU))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
+            sbSQL.Append(" ) VALUES(")
+            sbSQL.Append("  WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.RIYU))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
+            sbSQL.Append($" ,'{strSysDate}'")
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
+            sbSQL.Append($" ,'{strSysDate}'")
+            sbSQL.Append(" )")
+            sbSQL.Append("OUTPUT $action AS RESULT") 'INSERT OR UPDATE をncarchar(10)で取得する場合
+            sbSQL.Append(";")
+            strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+            Select Case strRET
+                Case "INSERT"
 
-            Case Else
-                'Err
-                Return False
-        End Select
+                Case "UPDATE"
 
-        '-----モデル更新
-        Select Case PrCurrentStage
-            Case ENM_CTS_STAGE._90_部門長
-                _D004_SYONIN_J_KANRI.SYONIN_JUN = 999 'Close
+                Case Else
+                    '-----エラーログ出力
+                    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                    WL.WriteLogDat(strErrMsg)
+                    Return False
+            End Select
+
+#End Region
+
+#Region "   NextStage"
+
+            '-----承認申請
+            Select Case enmSAVE_MODE
+                Case ENM_SAVE_MODE._1_保存
+                    '保存実績のみ
+                    Return True
+                Case ENM_SAVE_MODE._2_承認申請
+                    _D004_SYONIN_J_KANRI.SYONIN_JUN = FunGetNextSYONIN_JUN(PrCurrentStage, _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB)
+                    _D004_SYONIN_J_KANRI.SYAIN_ID = cmbDestTANTO.SelectedValue
+                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = ""
+                    _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False
+                    _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
+                    _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
+                Case Else
+                    'Err
+                    Return False
+            End Select
+
+            '-----Close処理
+            If _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_CAR_STAGE._999_Closed Then
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
                 _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
-        End Select
-        _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
+            End If
 
-        '-----MERGE
-        sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append($"MERGE INTO {NameOf(D004_SYONIN_J_KANRI)} AS SrcT")
-        sbSQL.Append($" USING (")
-        sbSQL.Append($" SELECT")
-        sbSQL.Append($" {_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID} AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.HOKOKU_NO}' AS {NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
-        sbSQL.Append($" ,{_D004_SYONIN_J_KANRI.SYONIN_JUN} AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYAIN_ID}' AS {NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYONIN_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB}' AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI._SASIMODOSI_FG}' AS {NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.RIYU}' AS {NameOf(_D004_SYONIN_J_KANRI.RIYU)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.COMMENT}' AS {NameOf(_D004_SYONIN_J_KANRI.COMMENT)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI._MAIL_SEND_FG}' AS {NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)}")
-        sbSQL.Append($" ,{_D004_SYONIN_J_KANRI.ADD_SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.ADD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS)}")
-        sbSQL.Append($" ,{pub_SYAIN_INFO.SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}")
-        sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.UPD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}")
-        sbSQL.Append($" ) AS WK")
-        sbSQL.Append($" ON (SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
-        sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)} = WK.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
-        sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)})")
-        'UPDATE
-        sbSQL.Append($" WHEN MATCHED THEN")
-        sbSQL.Append($" UPDATE SET")
-        sbSQL.Append($"  SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)} = WK.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)} = {pub_SYAIN_INFO.SYAIN_ID}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)} = '{strSysDate}'")
-        'INSERT
-        sbSQL.Append(" WHEN NOT MATCHED THEN ")
-        sbSQL.Append(" INSERT(")
-        sbSQL.Append("  " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.RIYU))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
-        sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
-        sbSQL.Append(" ) VALUES(")
-        sbSQL.Append("  WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.RIYU))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
-        sbSQL.Append($" ,'{strSysDate}'")
-        sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
-        sbSQL.Append($" ,'{strSysDate}'")
-        sbSQL.Append(" )")
-        sbSQL.Append("OUTPUT $action AS RESULT") 'INSERT OR UPDATE をncarchar(10)で取得する場合
-        sbSQL.Append(";")
+            '-----MERGE
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append($"MERGE INTO {NameOf(D004_SYONIN_J_KANRI)} AS SrcT")
+            sbSQL.Append($" USING (")
+            sbSQL.Append($" SELECT")
+            sbSQL.Append($" {_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID} AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.HOKOKU_NO}' AS {NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
+            sbSQL.Append($" ,{_D004_SYONIN_J_KANRI.SYONIN_JUN} AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYAIN_ID}' AS {NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYONIN_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB}' AS {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI._SASIMODOSI_FG}' AS {NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.RIYU}' AS {NameOf(_D004_SYONIN_J_KANRI.RIYU)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.COMMENT}' AS {NameOf(_D004_SYONIN_J_KANRI.COMMENT)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI._MAIL_SEND_FG}' AS {NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG)}")
+            sbSQL.Append($" ,{_D004_SYONIN_J_KANRI.ADD_SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.ADD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS)}")
+            sbSQL.Append($" ,{pub_SYAIN_INFO.SYAIN_ID} AS {NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}")
+            sbSQL.Append($" ,'{_D004_SYONIN_J_KANRI.UPD_YMDHNS}' AS {NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}")
+            sbSQL.Append($" ) AS WK")
+            sbSQL.Append($" ON (SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}")
+            sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)} = WK.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
+            sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)})")
+            'UPDATE
+            sbSQL.Append($" WHEN MATCHED THEN")
+            sbSQL.Append($" UPDATE SET")
+            sbSQL.Append($"  SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)} = WK.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)} = {pub_SYAIN_INFO.SYAIN_ID}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)} = '{strSysDate}'")
+            'INSERT
+            sbSQL.Append(" WHEN NOT MATCHED THEN ")
+            sbSQL.Append(" INSERT(")
+            sbSQL.Append("  " & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.RIYU))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.ADD_YMDHNS))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
+            sbSQL.Append(" ," & NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS))
+            sbSQL.Append(" ) VALUES(")
+            sbSQL.Append("  WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.RIYU))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.COMMENT))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.MAIL_SEND_FG))
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID))
+            sbSQL.Append($" ,'{strSysDate}'")
+            sbSQL.Append(" ,WK." & NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID))
+            sbSQL.Append($" ,'{strSysDate}'")
+            sbSQL.Append(" )")
+            sbSQL.Append("OUTPUT $action AS RESULT") 'INSERT OR UPDATE をncarchar(10)で取得する場合
+            sbSQL.Append(";")
 
-        ''-----MERGE実行&実行結果取得
-        strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
-        Select Case strRET
-            Case "INSERT"
-                If PrCurrentStage < ENM_CTS_STAGE._90_部門長 AndAlso _D004_SYONIN_J_KANRI.MAIL_SEND_FG = False Then
-                    '承認依頼メール送信
-                    If FunSendRequestMail() Then
-                        WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_V011_FCR_J.HOKOKU_NO}、Send Request Mail")
+            ''-----MERGE実行&実行結果取得
+            strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+            Select Case strRET
+                Case "INSERT"
+                    If _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認 Then
+                        '承認依頼メール送信
+                        If FunSendRequestMail() Then
+                            WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_V011_FCR_J.HOKOKU_NO}、Send Request Mail")
+                        End If
                     End If
-                End If
 
-            Case "UPDATE"
+                Case "UPDATE"
 
-            Case Else
-                '-----エラーログ出力
-                Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                WL.WriteLogDat(strErrMsg)
-                Return False
-        End Select
+                Case Else
+                    '-----エラーログ出力
+                    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                    WL.WriteLogDat(strErrMsg)
+                    Return False
+            End Select
 
-        WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_V011_FCR_J.HOKOKU_NO}、MERGE D004")
+            WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_V011_FCR_J.HOKOKU_NO}、MERGE D004")
 
-        Return True
+#End Region
+
+            Return True
+        Catch ex As Exception
+            Throw
+        End Try
     End Function
 
 #End Region
@@ -1072,6 +1143,10 @@ Public Class FrmG0021
         sbSQL.Append($",{NameOf(_R005.OTHER_PROCESS_INFLUENCE_FILEPATH)}")
         sbSQL.Append($",{NameOf(_R005.FOLLOW_PROCESS_OUTFLOW_MEMO)}")
         sbSQL.Append($",{NameOf(_R005.FOLLOW_PROCESS_OUTFLOW_FILEPATH)}")
+        sbSQL.Append($",{NameOf(_R005.FUTEKIGO_SEIHIN_FILEPATH)}")
+        sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_FILEPATH)}")
+        sbSQL.Append($",{NameOf(_R005.SYOCHI_MEMO)}")
+        sbSQL.Append($",{NameOf(_R005.SYOCHI_FILEPATH)}")
 
         sbSQL.Append($" ) VALUES(")
         sbSQL.Append($" '{strYMDHNS}'")
@@ -1103,6 +1178,10 @@ Public Class FrmG0021
         sbSQL.Append($",'{_D007.OTHER_PROCESS_INFLUENCE_FILEPATH.ConvertSqlEscape}'")
         sbSQL.Append($",'{_D007.FOLLOW_PROCESS_OUTFLOW_MEMO.ConvertSqlEscape}'")
         sbSQL.Append($",'{_D007.FOLLOW_PROCESS_OUTFLOW_FILEPATH.ConvertSqlEscape}'")
+        sbSQL.Append($",'{_D007.FUTEKIGO_SEIHIN_FILEPATH.ConvertSqlEscape}'")
+        sbSQL.Append($",'{_D007.KOKYAKU_EIKYO_FILEPATH.ConvertSqlEscape}'")
+        sbSQL.Append($",'{_D007.SYOCHI_MEMO.ConvertSqlEscape}'")
+        sbSQL.Append($",'{_D007.SYOCHI_FILEPATH.ConvertSqlEscape}'")
 
         sbSQL.Append(" );")
         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
@@ -1226,6 +1305,57 @@ Public Class FrmG0021
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
             Else
+            End If
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+
+        End Try
+    End Function
+
+#End Region
+
+#Region "CAR"
+
+    Private Function OpenFormCAR() As Boolean
+
+        Dim dlgRET As DialogResult
+
+        Try
+
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim intRET As Integer
+
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append($"SELECT")
+            sbSQL.Append($" COUNT({NameOf(V007_NCR_CAR.HOKOKU_NO)})")
+            sbSQL.Append($" FROM {NameOf(V007_NCR_CAR)}")
+            sbSQL.Append($" WHERE {NameOf(V007_NCR_CAR.SYONIN_HOKOKUSYO_ID)}={Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR.Value}")
+            sbSQL.Append($" AND {NameOf(V007_NCR_CAR.HOKOKU_NO)}='{_V011_FCR_J.HOKOKU_NO}'")
+            sbSQL.Append($" AND {NameOf(V007_NCR_CAR.CLOSE_FG)}='{0}'")
+            Using DB As ClsDbUtility = DBOpen()
+                intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            If intRET = 0 Then
+                MessageBox.Show("CARは起草されていません", "CAR表示", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return False
+            End If
+
+            Using frmDLG As New FrmG0012
+                frmDLG.PrDialog = True
+                frmDLG.PrHOKOKU_NO = _V011_FCR_J.HOKOKU_NO
+                frmDLG.PrCurrentStage = ENM_CAR_STAGE._10_起草入力
+                dlgRET = frmDLG.ShowDialog(Me)
+            End Using
+
+            If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                Return False
+            Else
+                '追加選択行選択
             End If
 
             Return True
@@ -1476,9 +1606,13 @@ Public Class FrmG0021
             If Not PrDialog Then
                 cmdFunc3.Enabled = True
                 MyBase.ToolTip.SetToolTip(Me.cmdFunc3, My.Resources.infoToolTipMsgNotFoundData)
+                cmdFunc9.Enabled = True
+                MyBase.ToolTip.SetToolTip(Me.cmdFunc9, My.Resources.infoToolTipMsgNotFoundData)
             Else
                 cmdFunc3.Enabled = False
                 MyBase.ToolTip.SetToolTip(Me.cmdFunc3, "既にNCR画面から呼び出されているため使用出来ません")
+                cmdFunc9.Enabled = False
+                MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "既にCAR画面から呼び出されているため使用出来ません")
             End If
 
             Select Case PrCurrentStage
@@ -1604,6 +1738,8 @@ Public Class FrmG0021
             txtFUTEKIGO_SEIHIN_MEMO.Text = ""
             txtKOKYAKU_EIKYO_MEMO.Text = ""
 
+
+#Region "サブテーブル"
             cmbKISYU1.SelectedIndex = 0
             cmbKISYU2.SelectedIndex = 0
             cmbKISYU3.SelectedIndex = 0
@@ -1637,10 +1773,18 @@ Public Class FrmG0021
             txtTO5.Text = ""
             txtTO6.Text = ""
 
+#End Region
+
             rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked = True
             rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked = True
             Call rbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(rbtnOTHER_PROCESS_INFLUENCE_KB_F, Nothing)
             Call rbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(rbtnFOLLOW_PROCESS_OUTFLOW_KB_F, Nothing)
+
+
+            _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH = ""
+            _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH = ""
+            _V011_FCR_J.SYOCHI_FILEPATH = ""
+
 
             txtKOKYAKU_NOUNYU_NAIYOU.Text = ""
             txtZAIKO_SIKAKE_NAIYOU.Text = ""
@@ -1648,13 +1792,16 @@ Public Class FrmG0021
             dtKOKYAKU_NOUNYU_YMD.Value = ""
             dtZAIKO_SIKAKE_YMD.Value = ""
             dtOTHER_PROCESS_YMD.Value = ""
+
+            pnlSYOCHI_FILEPATH.DisableContaints(False, PanelEx.ENM_PROPERTY._1_Enabled)
         End If
 
         pnlrbtnTUCHI.DisableContaints(blnChecked, PanelEx.ENM_PROPERTY._1_Enabled)
         pnlSYOCHI_KIROKU.DisableContaints(blnChecked, PanelEx.ENM_PROPERTY._1_Enabled)
         pnlZESEI_SYOCHI.DisableContaints(blnChecked, PanelEx.ENM_PROPERTY._1_Enabled)
-        PnlPROCESS.DisableContaints(blnChecked, PanelEx.ENM_PROPERTY._1_Enabled)
         pnlSYOCHI_JISSI.DisableContaints(blnChecked, PanelEx.ENM_PROPERTY._1_Enabled)
+        txtOTHER_PROCESS_NAIYOU.Enabled = True
+        dtOTHER_PROCESS_YMD.Enabled = True
         lblKOKYAKU_EIKYO_HANTEI_COMMENT.Visible = Not blnChecked
         cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Visible = Not blnChecked
         txtKOKYAKU_EIKYO_NAIYO.Enabled = blnChecked
@@ -1812,28 +1959,58 @@ Public Class FrmG0021
 
 #End Region
 
-    Private Sub rbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnOTHER_PROCESS_INFLUENCE_KB_T.CheckedChanged, rbtnOTHER_PROCESS_INFLUENCE_KB_F.CheckedChanged
+    Private Sub RbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnOTHER_PROCESS_INFLUENCE_KB_T.CheckedChanged, rbtnOTHER_PROCESS_INFLUENCE_KB_F.CheckedChanged
         Dim blnChecked As Boolean = rbtnOTHER_PROCESS_INFLUENCE_KB_T.Checked
 
-        If blnChecked Then
-            txtOTHER_PROCESS_INFLUENCE_MEMO.Enabled = True
-            pnlOTHER_PROCESS_INFLUENCE_FILEPATH.Enabled = True
-        Else
-            txtOTHER_PROCESS_INFLUENCE_MEMO.Enabled = False
-            pnlOTHER_PROCESS_INFLUENCE_FILEPATH.Enabled = False
-        End If
+        txtOTHER_PROCESS_INFLUENCE_MEMO.Enabled = blnChecked
+        pnlOTHER_PROCESS_INFLUENCE_FILEPATH.Enabled = blnChecked
+
+        '#256
+        txtOTHER_PROCESS_NAIYOU.Enabled = Not (rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked And rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked)
+        dtOTHER_PROCESS_YMD.Enabled = Not (rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked And rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked)
     End Sub
 
-    Private Sub rbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnFOLLOW_PROCESS_OUTFLOW_KB_T.CheckedChanged, rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.CheckedChanged
+    Private Sub RbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnFOLLOW_PROCESS_OUTFLOW_KB_T.CheckedChanged, rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.CheckedChanged
         Dim blnChecked As Boolean = rbtnFOLLOW_PROCESS_OUTFLOW_KB_T.Checked
 
-        If blnChecked Then
-            txtFOLLOW_PROCESS_OUTFLOW_MEMO.Enabled = True
-            pnlFOLLOW_PROCESS_OUTFLOW_FILEPATH.Enabled = True
-        Else
-            txtFOLLOW_PROCESS_OUTFLOW_MEMO.Enabled = False
-            pnlFOLLOW_PROCESS_OUTFLOW_FILEPATH.Enabled = False
-        End If
+        txtFOLLOW_PROCESS_OUTFLOW_MEMO.Enabled = blnChecked
+        pnlFOLLOW_PROCESS_OUTFLOW_FILEPATH.Enabled = blnChecked
+
+        '#256
+        txtOTHER_PROCESS_NAIYOU.Enabled = Not (rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked And rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked)
+        dtOTHER_PROCESS_YMD.Enabled = Not (rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked And rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked)
+
+    End Sub
+
+    ''' <summary>
+    ''' 2.不適合製品範囲 コメント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub TxtFUTEKIGO_SEIHIN_MEMO_Validated(sender As Object, e As EventArgs) Handles txtFUTEKIGO_SEIHIN_MEMO.Validated
+        Dim txt = DirectCast(sender, TextBoxEx)
+        Dim blnEnabled As Boolean = (txt.Text.Length = 0)
+
+        pnlFUTEKIGO_SEIHIN_FILEPATH.Enabled = blnEnabled
+        pnlInfo1.Enabled = blnEnabled
+        pnlInfo2.Enabled = blnEnabled
+        pnlInfo3.Enabled = blnEnabled
+
+    End Sub
+
+    ''' <summary>
+    ''' 3.顧客影響範囲 コメント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub TxtKOKYAKU_EIKYO_MEMO_Validated(sender As Object, e As EventArgs) Handles txtKOKYAKU_EIKYO_MEMO.Validated
+        Dim txt = DirectCast(sender, TextBoxEx)
+        Dim blnEnabled As Boolean = (txt.Text.Length = 0)
+
+        pnlKOKYAKU_EIKYO_FILEPATH.Enabled = blnEnabled
+        pnlInfo4.Enabled = blnEnabled
+        pnlInfo5.Enabled = blnEnabled
+        pnlInfo6.Enabled = blnEnabled
     End Sub
 
 #Region "添付ファイル"
@@ -2080,67 +2257,270 @@ Public Class FrmG0021
 
 #End Region
 
+#Region "不適合製品_詳細資料"
+
+    'ファイル選択
+    Private Sub BtnOpenFUTEKIGO_SEIHIN_FILEPATH_Click(sender As Object, e As EventArgs) Handles btnOpenFUTEKIGO_SEIHIN_FILEPATH.Click
+        Dim ofd As New OpenFileDialog With {
+            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|PDF(*.pdf)|*.pdf|すべてのファイル(*.*)|*.*",
+            .FilterIndex = 1,
+            .Title = "添付するファイルを選択してください",
+            .RestoreDirectory = True
+        }
+        If lblFUTEKIGO_SEIHIN_FILEPATH.Links.Count = 0 Then
+        Else
+            ofd.InitialDirectory = IO.Path.GetDirectoryName(lblFUTEKIGO_SEIHIN_FILEPATH.Links(0).ToString)
+        End If
+        If ofd.ShowDialog() = DialogResult.OK Then
+            lblFUTEKIGO_SEIHIN_FILEPATH.Text = CompactString(IO.Path.GetFileName(ofd.FileName), lblFUTEKIGO_SEIHIN_FILEPATH, EllipsisFormat._4_Path)
+            lblFUTEKIGO_SEIHIN_FILEPATH.Links.Clear()
+            lblFUTEKIGO_SEIHIN_FILEPATH.Links.Add(0, lblFUTEKIGO_SEIHIN_FILEPATH.Text.Length, ofd.FileName)
+
+            _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH = IO.Path.GetFileName(ofd.FileName)
+            lblFUTEKIGO_SEIHIN_FILEPATH.Visible = True
+            lblFUTEKIGO_SEIHIN_FILEPATH_Clear.Visible = True
+        End If
+    End Sub
+
+    'リンククリック
+    Private Sub LblFUTEKIGO_SEIHIN_FILEPATH_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblFUTEKIGO_SEIHIN_FILEPATH.LinkClicked
+        Dim hProcess As New System.Diagnostics.Process
+        Dim strEXE As String
+        'Dim strARG As String
+        Try
+
+            strEXE = lblFUTEKIGO_SEIHIN_FILEPATH.Links(0).LinkData
+            If strEXE.IsNulOrWS Then
+            Else
+                If System.IO.File.Exists(strEXE) = True Then
+                    hProcess.StartInfo.FileName = strEXE
+                    'hProcess.StartInfo.Arguments = strARG
+                    hProcess.SynchronizingObject = Me
+                    'AddHandler hProcess.Exited, AddressOf ProcessExited
+                    hProcess.EnableRaisingEvents = True
+                    hProcess.Start()
+
+                    '最前面
+                    Call SetForegroundWindow(hProcess.Handle)
+
+                    'Call SetTaskbarInfo(ENM_TASKBAR_STATE._2_Normal, 100)
+                    'Call SetTaskbarOverlayIcon(System.Drawing.SystemIcons.Application)
+                Else
+                    Dim strMsg As String
+                    strMsg = "ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
+                                vbCrLf & vbCrLf & strEXE
+                    MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+        Catch exInvalid As InvalidOperationException
+            'EM.ErrorSyori(exInvalid, False, conblnNonMsg)
+        Finally
+            'プロセス終了を待機しない------------------------------------
+            ''-----自分表示
+            'Me.Show()
+            'Me.lstGYOMU.Focus()
+            'Me.Activate()
+            'Me.BringToFront()
+            '------------------------------------------------------------
+
+            '-----開放
+            If hProcess IsNot Nothing Then
+                hProcess.Close()
+            End If
+        End Try
+    End Sub
+
+    'リンククリア
+    Private Sub LblFUTEKIGO_SEIHIN_FILEPATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblFUTEKIGO_SEIHIN_FILEPATH_Clear.LinkClicked
+        lblFUTEKIGO_SEIHIN_FILEPATH.Text = ""
+        lblFUTEKIGO_SEIHIN_FILEPATH.Links.Clear()
+        lblFUTEKIGO_SEIHIN_FILEPATH.Visible = False
+        lblFUTEKIGO_SEIHIN_FILEPATH_Clear.Visible = False
+        _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH = ""
+    End Sub
+
+#End Region
+
+#Region "顧客影響_詳細資料"
+
+    'ファイル選択
+    Private Sub BtnOpenKOKYAKU_EIKYO_FILEPATH_Click(sender As Object, e As EventArgs) Handles btnOpenKOKYAKU_EIKYO_FILEPATH.Click
+        Dim ofd As New OpenFileDialog With {
+            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|PDF(*.pdf)|*.pdf|すべてのファイル(*.*)|*.*",
+            .FilterIndex = 1,
+            .Title = "添付するファイルを選択してください",
+            .RestoreDirectory = True
+        }
+        If lblKOKYAKU_EIKYO_FILEPATH.Links.Count = 0 Then
+        Else
+            ofd.InitialDirectory = IO.Path.GetDirectoryName(lblKOKYAKU_EIKYO_FILEPATH.Links(0).ToString)
+        End If
+        If ofd.ShowDialog() = DialogResult.OK Then
+            lblKOKYAKU_EIKYO_FILEPATH.Text = CompactString(IO.Path.GetFileName(ofd.FileName), lblKOKYAKU_EIKYO_FILEPATH, EllipsisFormat._4_Path)
+            lblKOKYAKU_EIKYO_FILEPATH.Links.Clear()
+            lblKOKYAKU_EIKYO_FILEPATH.Links.Add(0, lblKOKYAKU_EIKYO_FILEPATH.Text.Length, ofd.FileName)
+
+            _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH = IO.Path.GetFileName(ofd.FileName)
+            lblKOKYAKU_EIKYO_FILEPATH.Visible = True
+            lblKOKYAKU_EIKYO_FILEPATH_Clear.Visible = True
+        End If
+    End Sub
+
+    'リンククリック
+    Private Sub LblKOKYAKU_EIKYO_FILEPATH_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblKOKYAKU_EIKYO_FILEPATH.LinkClicked
+        Dim hProcess As New System.Diagnostics.Process
+        Dim strEXE As String
+        'Dim strARG As String
+        Try
+
+            strEXE = lblKOKYAKU_EIKYO_FILEPATH.Links(0).LinkData
+            If strEXE.IsNulOrWS Then
+            Else
+                If System.IO.File.Exists(strEXE) = True Then
+                    hProcess.StartInfo.FileName = strEXE
+                    'hProcess.StartInfo.Arguments = strARG
+                    hProcess.SynchronizingObject = Me
+                    'AddHandler hProcess.Exited, AddressOf ProcessExited
+                    hProcess.EnableRaisingEvents = True
+                    hProcess.Start()
+
+                    '最前面
+                    Call SetForegroundWindow(hProcess.Handle)
+
+                    'Call SetTaskbarInfo(ENM_TASKBAR_STATE._2_Normal, 100)
+                    'Call SetTaskbarOverlayIcon(System.Drawing.SystemIcons.Application)
+                Else
+                    Dim strMsg As String
+                    strMsg = "ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
+                                vbCrLf & vbCrLf & strEXE
+                    MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+        Catch exInvalid As InvalidOperationException
+            'EM.ErrorSyori(exInvalid, False, conblnNonMsg)
+        Finally
+            'プロセス終了を待機しない------------------------------------
+            ''-----自分表示
+            'Me.Show()
+            'Me.lstGYOMU.Focus()
+            'Me.Activate()
+            'Me.BringToFront()
+            '------------------------------------------------------------
+
+            '-----開放
+            If hProcess IsNot Nothing Then
+                hProcess.Close()
+            End If
+        End Try
+    End Sub
+
+    'リンククリア
+    Private Sub LblKOKYAKU_EIKYO_FILEPATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblKOKYAKU_EIKYO_FILEPATH_Clear.LinkClicked
+        lblKOKYAKU_EIKYO_FILEPATH.Text = ""
+        lblKOKYAKU_EIKYO_FILEPATH.Links.Clear()
+        lblKOKYAKU_EIKYO_FILEPATH.Visible = False
+        lblKOKYAKU_EIKYO_FILEPATH_Clear.Visible = False
+        _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH = ""
+    End Sub
+
+#End Region
+
+#Region "処置の実施_詳細資料"
+
+    'ファイル選択
+    Private Sub BtnOpenSYOCHI_FILEPATH_Click(sender As Object, e As EventArgs) Handles btnOpenSYOCHI_FILEPATH.Click
+        Dim ofd As New OpenFileDialog With {
+            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|PDF(*.pdf)|*.pdf|すべてのファイル(*.*)|*.*",
+            .FilterIndex = 1,
+            .Title = "添付するファイルを選択してください",
+            .RestoreDirectory = True
+        }
+        If lblSYOCHI_FILEPATH.Links.Count = 0 Then
+        Else
+            ofd.InitialDirectory = IO.Path.GetDirectoryName(lblSYOCHI_FILEPATH.Links(0).ToString)
+        End If
+        If ofd.ShowDialog() = DialogResult.OK Then
+            lblSYOCHI_FILEPATH.Text = CompactString(IO.Path.GetFileName(ofd.FileName), lblSYOCHI_FILEPATH, EllipsisFormat._4_Path)
+            lblSYOCHI_FILEPATH.Links.Clear()
+            lblSYOCHI_FILEPATH.Links.Add(0, lblSYOCHI_FILEPATH.Text.Length, ofd.FileName)
+
+            _V011_FCR_J.SYOCHI_FILEPATH = IO.Path.GetFileName(ofd.FileName)
+            lblSYOCHI_FILEPATH.Visible = True
+            lblSYOCHI_FILEPATH_Clear.Visible = True
+        End If
+    End Sub
+
+    'リンククリック
+    Private Sub LblSYOCHI_FILEPATH_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblSYOCHI_FILEPATH.LinkClicked
+        Dim hProcess As New System.Diagnostics.Process
+        Dim strEXE As String
+        'Dim strARG As String
+        Try
+
+            strEXE = lblSYOCHI_FILEPATH.Links(0).LinkData
+            If strEXE.IsNulOrWS Then
+            Else
+                If System.IO.File.Exists(strEXE) = True Then
+                    hProcess.StartInfo.FileName = strEXE
+                    'hProcess.StartInfo.Arguments = strARG
+                    hProcess.SynchronizingObject = Me
+                    'AddHandler hProcess.Exited, AddressOf ProcessExited
+                    hProcess.EnableRaisingEvents = True
+                    hProcess.Start()
+
+                    '最前面
+                    Call SetForegroundWindow(hProcess.Handle)
+
+                    'Call SetTaskbarInfo(ENM_TASKBAR_STATE._2_Normal, 100)
+                    'Call SetTaskbarOverlayIcon(System.Drawing.SystemIcons.Application)
+                Else
+                    Dim strMsg As String
+                    strMsg = "ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
+                                vbCrLf & vbCrLf & strEXE
+                    MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+        Catch exInvalid As InvalidOperationException
+            'EM.ErrorSyori(exInvalid, False, conblnNonMsg)
+        Finally
+            'プロセス終了を待機しない------------------------------------
+            ''-----自分表示
+            'Me.Show()
+            'Me.lstGYOMU.Focus()
+            'Me.Activate()
+            'Me.BringToFront()
+            '------------------------------------------------------------
+
+            '-----開放
+            If hProcess IsNot Nothing Then
+                hProcess.Close()
+            End If
+        End Try
+    End Sub
+
+    'リンククリア
+    Private Sub LblSYOCHI_FILEPATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblSYOCHI_FILEPATH_Clear.LinkClicked
+        lblSYOCHI_FILEPATH.Text = ""
+        lblSYOCHI_FILEPATH.Links.Clear()
+        lblSYOCHI_FILEPATH.Visible = False
+        lblSYOCHI_FILEPATH_Clear.Visible = False
+        _V011_FCR_J.SYOCHI_FILEPATH = ""
+    End Sub
+
+#End Region
+
 #End Region
 
 #End Region
 
 #Region "ローカル関数"
 
-#Region "バインディング"
-
-    Private Function FunSetBinding() As Boolean
-
-        Try
-            'cmbKISYU1.DataBindings.Add(New Binding(NameOf(cmbKISYU1.SelectedValue), _V011_FCR_J, NameOf(_V011_FCR_J.KISYU_ID1), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            'cmbKISYU2.DataBindings.Add(New Binding(NameOf(cmbKISYU2.SelectedValue), _V011_FCR_J, NameOf(_V011_FCR_J.KISYU_ID2), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            'cmbKISYU3.DataBindings.Add(New Binding(NameOf(cmbKISYU3.SelectedValue), _V011_FCR_J, NameOf(_V011_FCR_J.KISYU_ID3), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            'cmbKISYU4.DataBindings.Add(New Binding(NameOf(cmbKISYU4.SelectedValue), _V011_FCR_J, NameOf(_V011_FCR_J.KISYU_ID4), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            'cmbKISYU5.DataBindings.Add(New Binding(NameOf(cmbKISYU5.SelectedValue), _V011_FCR_J, NameOf(_V011_FCR_J.KISYU_ID5), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            'cmbKISYU6.DataBindings.Add(New Binding(NameOf(cmbKISYU6.SelectedValue), _V011_FCR_J, NameOf(_V011_FCR_J.KISYU_ID6), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-
-            'nupSURYO1.DataBindings.Add(New Binding(NameOf(nupSURYO1.Value), _V011_FCR_J, NameOf(_V011_FCR_J.SURYO1), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            'nupSURYO2.DataBindings.Add(New Binding(NameOf(nupSURYO2.Value), _V011_FCR_J, NameOf(_V011_FCR_J.SURYO2), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            'nupSURYO3.DataBindings.Add(New Binding(NameOf(nupSURYO3.Value), _V011_FCR_J, NameOf(_V011_FCR_J.SURYO3), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            'nupSURYO4.DataBindings.Add(New Binding(NameOf(nupSURYO4.Value), _V011_FCR_J, NameOf(_V011_FCR_J.SURYO4), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            'nupSURYO5.DataBindings.Add(New Binding(NameOf(nupSURYO5.Value), _V011_FCR_J, NameOf(_V011_FCR_J.SURYO5), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-            'nupSURYO6.DataBindings.Add(New Binding(NameOf(nupSURYO6.Value), _V011_FCR_J, NameOf(_V011_FCR_J.SURYO6), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-
-            'txtBUHIN_INFO1.DataBindings.Add(New Binding(NameOf(txtBUHIN_INFO1.Text), _V011_FCR_J, NameOf(_V011_FCR_J.BUHIN_INFO1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            'txtBUHIN_INFO2.DataBindings.Add(New Binding(NameOf(txtBUHIN_INFO2.Text), _V011_FCR_J, NameOf(_V011_FCR_J.BUHIN_INFO2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            'txtBUHIN_INFO3.DataBindings.Add(New Binding(NameOf(txtBUHIN_INFO3.Text), _V011_FCR_J, NameOf(_V011_FCR_J.BUHIN_INFO3), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            'txtBUHIN_INFO4.DataBindings.Add(New Binding(NameOf(txtBUHIN_INFO4.Text), _V011_FCR_J, NameOf(_V011_FCR_J.BUHIN_INFO4), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            'txtBUHIN_INFO5.DataBindings.Add(New Binding(NameOf(txtBUHIN_INFO5.Text), _V011_FCR_J, NameOf(_V011_FCR_J.BUHIN_INFO5), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            'txtBUHIN_INFO6.DataBindings.Add(New Binding(NameOf(txtBUHIN_INFO6.Text), _V011_FCR_J, NameOf(_V011_FCR_J.BUHIN_INFO6), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-
-            'txtFROM1.DataBindings.Add(New Binding(NameOf(txtFROM1.Text), _V011_FCR_J, NameOf(_V011_FCR_J.RANGE_FROM1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            'txtFROM2.DataBindings.Add(New Binding(NameOf(txtFROM2.Text), _V011_FCR_J, NameOf(_V011_FCR_J.RANGE_FROM2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            'txtFROM3.DataBindings.Add(New Binding(NameOf(txtFROM3.Text), _V011_FCR_J, NameOf(_V011_FCR_J.RANGE_FROM3), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            'txtFROM4.DataBindings.Add(New Binding(NameOf(txtFROM4.Text), _V011_FCR_J, NameOf(_V011_FCR_J.RANGE_FROM4), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            'txtFROM5.DataBindings.Add(New Binding(NameOf(txtFROM5.Text), _V011_FCR_J, NameOf(_V011_FCR_J.RANGE_FROM5), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            'txtFROM6.DataBindings.Add(New Binding(NameOf(txtFROM6.Text), _V011_FCR_J, NameOf(_V011_FCR_J.RANGE_FROM6), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-
-            'txtTO1.DataBindings.Add(New Binding(NameOf(txtTO1.Text), _V011_FCR_J, NameOf(_V011_FCR_J.RANGE_TO1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            'txtTO2.DataBindings.Add(New Binding(NameOf(txtTO2.Text), _V011_FCR_J, NameOf(_V011_FCR_J.RANGE_TO2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            'txtTO3.DataBindings.Add(New Binding(NameOf(txtTO3.Text), _V011_FCR_J, NameOf(_V011_FCR_J.RANGE_TO3), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            'txtTO4.DataBindings.Add(New Binding(NameOf(txtTO4.Text), _V011_FCR_J, NameOf(_V011_FCR_J.RANGE_TO4), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            'txtTO5.DataBindings.Add(New Binding(NameOf(txtTO5.Text), _V011_FCR_J, NameOf(_V011_FCR_J.RANGE_TO5), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            'txtTO6.DataBindings.Add(New Binding(NameOf(txtTO6.Text), _V011_FCR_J, NameOf(_V011_FCR_J.RANGE_TO6), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-
-            Return True
-        Catch ex As Exception
-            Throw
-            Return False
-        End Try
-    End Function
-
-#End Region
-
 #Region "処理モード別画面初期化"
 
     Private Function FunInitializeControls() As Boolean
 
         Try
-            If Not FunSetBinding() Then Return False
+
             If Not FunSetModel() Then Return False
 
             'ナビゲートリンク選択
@@ -2151,6 +2531,8 @@ Public Class FrmG0021
                 rbtn.Checked = True
             End If
 
+
+#Region "   ヘッダ"
             mtxHOKUKO_NO.Text = _V011_FCR_J.HOKOKU_NO
             mtxBUMON_KB.Text = _V011_FCR_J.BUMON_NAME
             mtxKISYU.Text = _V011_FCR_J.KISYU_NAME
@@ -2159,6 +2541,9 @@ Public Class FrmG0021
             mtxADD_SYAIN_NAME_NCR.Text = _V011_FCR_J.ADD_SYAIN_NAME_NCR
             mtxADD_SYAIN_NAME.Text = _V011_FCR_J.ADD_SYAIN_NAME
             dtFUTEKIGO_HASSEI_YMD.Value = _V011_FCR_J.HASSEI_YMD
+
+#End Region
+
 
             txtTAISYO_KOKYAKU.Text = _V011_FCR_J.TAISYOU_KOKYAKU
             txtKOKYAKU_EIKYO_NAIYO.Text = _V011_FCR_J.KOKYAKU_EIKYO_NAIYO
@@ -2174,35 +2559,42 @@ Public Class FrmG0021
             txtOTHER_PROCESS_INFLUENCE_MEMO.Text = _V011_FCR_J.OTHER_PROCESS_INFLUENCE_MEMO
             txtFOLLOW_PROCESS_OUTFLOW_MEMO.Text = _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_MEMO
             cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Text = _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_COMMENT
+            txtSYOCHI_MEMO.Text = _V011_FCR_J.SYOCHI_MEMO
 
+
+            Dim targetCtrl As Control
             If (_V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB = "1") Then
-                rbtnKOKYAKU_EIKYO_HANTEI_KB_T.Checked = True
-                Call RbtnKOKYAKU_EIKYO_HANTEI_KB_CheckedChanged(rbtnKOKYAKU_EIKYO_HANTEI_KB_T, Nothing)
+                targetCtrl = rbtnKOKYAKU_EIKYO_HANTEI_KB_T
             Else
-                rbtnKOKYAKU_EIKYO_HANTEI_KB_F.Checked = True
-                Call RbtnKOKYAKU_EIKYO_HANTEI_KB_CheckedChanged(rbtnKOKYAKU_EIKYO_HANTEI_KB_F, Nothing)
+                targetCtrl = rbtnKOKYAKU_EIKYO_HANTEI_KB_F
             End If
+            DirectCast(targetCtrl, RadioButton).Checked = True
+            Call RbtnKOKYAKU_EIKYO_HANTEI_KB_CheckedChanged(targetCtrl, Nothing)
 
             If (_V011_FCR_J.KOKYAKU_EIKYO_TUCHI_HANTEI_KB = "1") Then
                 rbtnKOKYAKU_EIKYO_TUCHI_HANTEI_KB_T.Checked = True
             Else
                 rbtnKOKYAKU_EIKYO_TUCHI_HANTEI_KB_F.Checked = True
             End If
-            If _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_KB = "1" Then
-                rbtnFOLLOW_PROCESS_OUTFLOW_KB_T.Checked = True
-                Call rbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(rbtnFOLLOW_PROCESS_OUTFLOW_KB_T, Nothing)
+
+
+            If (_V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_KB = "1") Then
+                targetCtrl = rbtnFOLLOW_PROCESS_OUTFLOW_KB_T
             Else
-                rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked = True
-                Call rbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(rbtnFOLLOW_PROCESS_OUTFLOW_KB_F, Nothing)
+                targetCtrl = rbtnFOLLOW_PROCESS_OUTFLOW_KB_F
             End If
+            DirectCast(targetCtrl, RadioButton).Checked = True
+            Call RbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(targetCtrl, Nothing)
+
 
             If (_V011_FCR_J.OTHER_PROCESS_INFLUENCE_KB = "1") Then
-                rbtnOTHER_PROCESS_INFLUENCE_KB_T.Checked = True
-                Call rbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(rbtnOTHER_PROCESS_INFLUENCE_KB_T, Nothing)
+                targetCtrl = rbtnOTHER_PROCESS_INFLUENCE_KB_T
+
             Else
-                rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked = True
-                Call rbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(rbtnOTHER_PROCESS_INFLUENCE_KB_F, Nothing)
+                targetCtrl = rbtnOTHER_PROCESS_INFLUENCE_KB_F
             End If
+            DirectCast(targetCtrl, RadioButton).Checked = True
+            Call RbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(targetCtrl, Nothing)
 
             txtKOKYAKU_NOUNYU_NAIYOU.Text = _V011_FCR_J.KOKYAKU_NOUNYU_NAIYOU
             txtZAIKO_SIKAKE_NAIYOU.Text = _V011_FCR_J.ZAIKO_SIKAKE_NAIYOU
@@ -2249,7 +2641,7 @@ Public Class FrmG0021
             txtTO6.Text = _V011_FCR_J.RANGE_TO6
 
             mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, _V011_FCR_J.HOKOKU_NO)
-            mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, FunGetNextSYONIN_JUN(PrCurrentStage))
+            mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, FunGetNextSYONIN_JUN(PrCurrentStage, _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB))
             Dim blnOwn As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, _V011_FCR_J.HOKOKU_NO, PrCurrentStage)
 
             _tabPageManager = New TabPageManager(TabSTAGE)
@@ -2308,7 +2700,8 @@ Public Class FrmG0021
                 End If
             End If
 
-            '添付ファイル
+#Region "   添付ファイル"
+
             Dim strRootDir As String
             Using DB = DBOpen()
                 strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
@@ -2335,6 +2728,30 @@ Public Class FrmG0021
                 lblFOLLOW_PROCESS_OUTFLOW_FILEPATH_Clear.Visible = True
             End If
 
+            If Not _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH.IsNulOrWS Then
+                lblFUTEKIGO_SEIHIN_FILEPATH.Text = CompactString(_V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH, lblFUTEKIGO_SEIHIN_FILEPATH, EllipsisFormat._4_Path)
+                lblFUTEKIGO_SEIHIN_FILEPATH.Links.Clear()
+                lblFUTEKIGO_SEIHIN_FILEPATH.Links.Add(0, lblFUTEKIGO_SEIHIN_FILEPATH.Text.Length, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH}")
+                lblFUTEKIGO_SEIHIN_FILEPATH.Visible = True
+                lblFUTEKIGO_SEIHIN_FILEPATH_Clear.Visible = True
+            End If
+            If Not _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH.IsNulOrWS Then
+                lblKOKYAKU_EIKYO_FILEPATH.Text = CompactString(_V011_FCR_J.KOKYAKU_EIKYO_FILEPATH, lblKOKYAKU_EIKYO_FILEPATH, EllipsisFormat._4_Path)
+                lblKOKYAKU_EIKYO_FILEPATH.Links.Clear()
+                lblKOKYAKU_EIKYO_FILEPATH.Links.Add(0, lblKOKYAKU_EIKYO_FILEPATH.Text.Length, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.KOKYAKU_EIKYO_FILEPATH}")
+                lblKOKYAKU_EIKYO_FILEPATH.Visible = True
+                lblKOKYAKU_EIKYO_FILEPATH_Clear.Visible = True
+            End If
+            If Not _V011_FCR_J.SYOCHI_FILEPATH.IsNulOrWS Then
+                lblSYOCHI_FILEPATH.Text = CompactString(_V011_FCR_J.SYOCHI_FILEPATH, lblSYOCHI_FILEPATH, EllipsisFormat._4_Path)
+                lblSYOCHI_FILEPATH.Links.Clear()
+                lblSYOCHI_FILEPATH.Links.Add(0, lblSYOCHI_FILEPATH.Text.Length, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.SYOCHI_FILEPATH}")
+                lblSYOCHI_FILEPATH.Visible = True
+                lblSYOCHI_FILEPATH_Clear.Visible = True
+            End If
+
+#End Region
+
             ErrorProvider.ClearError(cmbDestTANTO)
 
             Return True
@@ -2356,7 +2773,7 @@ Public Class FrmG0021
             'データソース設定
             Dim dt As DataTable = FunGetSYOZOKU_SYAIN(_V011_FCR_J.BUMON_KB)
 
-            dt = FunGetSYONIN_SYOZOKU_SYAIN(_V011_FCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, FunGetNextSYONIN_JUN(PrCurrentStage))
+            dt = FunGetSYONIN_SYOZOKU_SYAIN(_V011_FCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, FunGetNextSYONIN_JUN(PrCurrentStage, _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB))
             cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             '#128
@@ -2431,24 +2848,27 @@ Public Class FrmG0021
     ''' <summary>
     ''' 次ステージの承認順Noを取得
     ''' </summary>
-    ''' <param name="intCurrentStageID">現ステージID</param>
+    ''' <param name="CurrentStageID">現ステージID</param>
     ''' <returns></returns>
-    Private Function FunGetNextSYONIN_JUN(ByVal intCurrentStageID As Integer) As Integer
+    Private Function FunGetNextSYONIN_JUN(CurrentStageID As Integer, KOKYAKU_HANTEI_KB As String) As Integer
         Try
             Const stageLength As Integer = 10
 
-            'If PrCurrentStage = ENM_CAR_STAGE._40_起草確認_生産技術 And _D005_CAR_J.KAITO_23 = False Then
-            '    'ステージ50スキップ
-            '    Return intCurrentStageID + (stageLength * 2)
-            'Else
-            Select Case intCurrentStageID
-                Case ENM_CTS_STAGE._90_部門長, ENM_CTS_STAGE._999_Closed
+            If KOKYAKU_HANTEI_KB = "1" Then
+                Select Case CurrentStageID
+                    Case ENM_CTS_STAGE._90_部門長, ENM_CTS_STAGE._999_Closed
+                        Return ENM_CTS_STAGE._999_Closed
+                    Case Else
+                        Return CurrentStageID + stageLength
+                End Select
+            Else
+                'なし時 #256
+                If CurrentStageID >= ENM_CTS_STAGE._80_製造課長 Then
                     Return ENM_CTS_STAGE._999_Closed
-                Case Else
-                    Return intCurrentStageID + stageLength
-            End Select
-
-            'End If
+                Else
+                    Return CurrentStageID + stageLength
+                End If
+            End If
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return 0

@@ -86,6 +86,21 @@ Partial Class FrmG0021
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.pnlSYOCHI_JISSI = New JMS_COMMON.PanelEx()
+        Me.pnlSYOCHI_FILEPATH = New JMS_COMMON.PanelEx()
+        Me.Label44 = New System.Windows.Forms.Label()
+        Me.btnOpenSYOCHI_FILEPATH = New System.Windows.Forms.Button()
+        Me.fpnlSYOCHI_FILEPATH = New System.Windows.Forms.FlowLayoutPanel()
+        Me.lblSYOCHI_FILEPATH = New System.Windows.Forms.LinkLabel()
+        Me.lblSYOCHI_FILEPATH_Clear = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel21 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel22 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel23 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel24 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel25 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel26 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel27 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel28 = New System.Windows.Forms.LinkLabel()
+        Me.txtSYOCHI_MEMO = New JMS_COMMON.TextBoxEx()
         Me.Label42 = New System.Windows.Forms.Label()
         Me.Label41 = New System.Windows.Forms.Label()
         Me.Label40 = New System.Windows.Forms.Label()
@@ -141,6 +156,20 @@ Partial Class FrmG0021
         Me.dtTUCHI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblCARFlame = New System.Windows.Forms.Label()
         Me.pnlZESEI_SYOCHI = New JMS_COMMON.PanelEx()
+        Me.pnlKOKYAKU_EIKYO_FILEPATH = New JMS_COMMON.PanelEx()
+        Me.Label45 = New System.Windows.Forms.Label()
+        Me.btnOpenKOKYAKU_EIKYO_FILEPATH = New System.Windows.Forms.Button()
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH = New System.Windows.Forms.FlowLayoutPanel()
+        Me.lblKOKYAKU_EIKYO_FILEPATH = New System.Windows.Forms.LinkLabel()
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel37 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel38 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel39 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel40 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel41 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel42 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel43 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel44 = New System.Windows.Forms.LinkLabel()
         Me.txtKOKYAKU_EIKYO_MEMO = New JMS_COMMON.TextBoxEx()
         Me.pnlInfo6 = New System.Windows.Forms.Panel()
         Me.txtFROM6 = New JMS_COMMON.TextBoxEx()
@@ -170,6 +199,20 @@ Partial Class FrmG0021
         Me.lblZESEI_SYOCHIFlame = New System.Windows.Forms.Label()
         Me.lblSTAGE10 = New System.Windows.Forms.Label()
         Me.pnlSYOCHI_KIROKU = New JMS_COMMON.PanelEx()
+        Me.pnlFUTEKIGO_SEIHIN_FILEPATH = New JMS_COMMON.PanelEx()
+        Me.Label46 = New System.Windows.Forms.Label()
+        Me.btnOpenFUTEKIGO_SEIHIN_FILEPATH = New System.Windows.Forms.Button()
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH = New System.Windows.Forms.FlowLayoutPanel()
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH = New System.Windows.Forms.LinkLabel()
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel47 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel48 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel49 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel50 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel51 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel52 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel53 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel54 = New System.Windows.Forms.LinkLabel()
         Me.txtFUTEKIGO_SEIHIN_MEMO = New JMS_COMMON.TextBoxEx()
         Me.pnlInfo3 = New System.Windows.Forms.Panel()
         Me.txtFROM3 = New JMS_COMMON.TextBoxEx()
@@ -238,12 +281,16 @@ Partial Class FrmG0021
         Me.PanelEx5.SuspendLayout()
         Me.PanelEx4.SuspendLayout()
         Me.pnlSYOCHI_JISSI.SuspendLayout()
+        Me.pnlSYOCHI_FILEPATH.SuspendLayout()
+        Me.fpnlSYOCHI_FILEPATH.SuspendLayout()
         Me.pnlFCR.SuspendLayout()
         Me.pnlKOKYAKU_EIKYO_HANTEI_FILEPATH.SuspendLayout()
         Me.fpnlKOKYAKU_EIKYO_HANTEI_FILEPATH.SuspendLayout()
         Me.pnlrbtnTUCHI.SuspendLayout()
         Me.PanelEx1.SuspendLayout()
         Me.pnlZESEI_SYOCHI.SuspendLayout()
+        Me.pnlKOKYAKU_EIKYO_FILEPATH.SuspendLayout()
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.SuspendLayout()
         Me.pnlInfo6.SuspendLayout()
         CType(Me.nupSURYO6, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlInfo5.SuspendLayout()
@@ -251,6 +298,8 @@ Partial Class FrmG0021
         Me.pnlInfo4.SuspendLayout()
         CType(Me.nupSURYO4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlSYOCHI_KIROKU.SuspendLayout()
+        Me.pnlFUTEKIGO_SEIHIN_FILEPATH.SuspendLayout()
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.SuspendLayout()
         Me.pnlInfo3.SuspendLayout()
         CType(Me.nupSURYO3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlInfo2.SuspendLayout()
@@ -325,7 +374,9 @@ Partial Class FrmG0021
         '
         'cmdFunc9
         '
+        Me.cmdFunc9.Image = Global.FMS.My.Resources.Resources._imgApplication_form32x32
         Me.cmdFunc9.Location = New System.Drawing.Point(423, 806)
+        Me.cmdFunc9.Text = "CARï\é¶(F9)"
         '
         'cmdFunc8
         '
@@ -777,11 +828,11 @@ Partial Class FrmG0021
         Me.PnlPROCESS.Controls.Add(Me.Label13)
         Me.PnlPROCESS.Controls.Add(Me.Label15)
         Me.PnlPROCESS.HitEnabled = False
-        Me.PnlPROCESS.Location = New System.Drawing.Point(3, 681)
+        Me.PnlPROCESS.Location = New System.Drawing.Point(3, 702)
         Me.PnlPROCESS.Margin = New System.Windows.Forms.Padding(2)
         Me.PnlPROCESS.MinimumSize = New System.Drawing.Size(1212, 0)
         Me.PnlPROCESS.Name = "PnlPROCESS"
-        Me.PnlPROCESS.Size = New System.Drawing.Size(1212, 152)
+        Me.PnlPROCESS.Size = New System.Drawing.Size(1212, 154)
         Me.PnlPROCESS.TabIndex = 4
         '
         'pnlFOLLOW_PROCESS_OUTFLOW_FILEPATH
@@ -1353,13 +1404,15 @@ Partial Class FrmG0021
         Me.Label15.Dock = System.Windows.Forms.DockStyle.Right
         Me.Label15.Location = New System.Drawing.Point(1199, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(13, 152)
+        Me.Label15.Size = New System.Drawing.Size(13, 154)
         Me.Label15.TabIndex = 243
         Me.Label15.Visible = False
         '
         'pnlSYOCHI_JISSI
         '
         Me.pnlSYOCHI_JISSI.BackColor = System.Drawing.SystemColors.Control
+        Me.pnlSYOCHI_JISSI.Controls.Add(Me.pnlSYOCHI_FILEPATH)
+        Me.pnlSYOCHI_JISSI.Controls.Add(Me.txtSYOCHI_MEMO)
         Me.pnlSYOCHI_JISSI.Controls.Add(Me.Label42)
         Me.pnlSYOCHI_JISSI.Controls.Add(Me.Label41)
         Me.pnlSYOCHI_JISSI.Controls.Add(Me.Label40)
@@ -1374,12 +1427,237 @@ Partial Class FrmG0021
         Me.pnlSYOCHI_JISSI.Controls.Add(Me.lblSTAGE16)
         Me.pnlSYOCHI_JISSI.Controls.Add(Me.lblSTAGEFlame13)
         Me.pnlSYOCHI_JISSI.HitEnabled = False
-        Me.pnlSYOCHI_JISSI.Location = New System.Drawing.Point(3, 837)
+        Me.pnlSYOCHI_JISSI.Location = New System.Drawing.Point(3, 860)
         Me.pnlSYOCHI_JISSI.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlSYOCHI_JISSI.MinimumSize = New System.Drawing.Size(1212, 0)
         Me.pnlSYOCHI_JISSI.Name = "pnlSYOCHI_JISSI"
         Me.pnlSYOCHI_JISSI.Size = New System.Drawing.Size(1212, 145)
         Me.pnlSYOCHI_JISSI.TabIndex = 5
+        '
+        'pnlSYOCHI_FILEPATH
+        '
+        Me.pnlSYOCHI_FILEPATH.Controls.Add(Me.Label44)
+        Me.pnlSYOCHI_FILEPATH.Controls.Add(Me.btnOpenSYOCHI_FILEPATH)
+        Me.pnlSYOCHI_FILEPATH.Controls.Add(Me.fpnlSYOCHI_FILEPATH)
+        Me.pnlSYOCHI_FILEPATH.HitEnabled = False
+        Me.pnlSYOCHI_FILEPATH.Location = New System.Drawing.Point(703, 84)
+        Me.pnlSYOCHI_FILEPATH.Name = "pnlSYOCHI_FILEPATH"
+        Me.pnlSYOCHI_FILEPATH.Padding = New System.Windows.Forms.Padding(1)
+        Me.pnlSYOCHI_FILEPATH.Size = New System.Drawing.Size(486, 30)
+        Me.pnlSYOCHI_FILEPATH.TabIndex = 353
+        '
+        'Label44
+        '
+        Me.Label44.AutoSize = True
+        Me.Label44.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label44.Location = New System.Drawing.Point(2, 10)
+        Me.Label44.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label44.Name = "Label44"
+        Me.Label44.Size = New System.Drawing.Size(60, 15)
+        Me.Label44.TabIndex = 335
+        Me.Label44.Text = "è⁄ç◊éëóø:"
+        Me.Label44.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'btnOpenSYOCHI_FILEPATH
+        '
+        Me.btnOpenSYOCHI_FILEPATH.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnOpenSYOCHI_FILEPATH.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
+        Me.btnOpenSYOCHI_FILEPATH.Location = New System.Drawing.Point(431, 3)
+        Me.btnOpenSYOCHI_FILEPATH.Name = "btnOpenSYOCHI_FILEPATH"
+        Me.btnOpenSYOCHI_FILEPATH.Size = New System.Drawing.Size(54, 24)
+        Me.btnOpenSYOCHI_FILEPATH.TabIndex = 333
+        Me.btnOpenSYOCHI_FILEPATH.UseVisualStyleBackColor = True
+        '
+        'fpnlSYOCHI_FILEPATH
+        '
+        Me.fpnlSYOCHI_FILEPATH.BackColor = System.Drawing.SystemColors.Window
+        Me.fpnlSYOCHI_FILEPATH.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.fpnlSYOCHI_FILEPATH.Controls.Add(Me.lblSYOCHI_FILEPATH)
+        Me.fpnlSYOCHI_FILEPATH.Controls.Add(Me.lblSYOCHI_FILEPATH_Clear)
+        Me.fpnlSYOCHI_FILEPATH.Controls.Add(Me.LinkLabel21)
+        Me.fpnlSYOCHI_FILEPATH.Controls.Add(Me.LinkLabel22)
+        Me.fpnlSYOCHI_FILEPATH.Controls.Add(Me.LinkLabel23)
+        Me.fpnlSYOCHI_FILEPATH.Controls.Add(Me.LinkLabel24)
+        Me.fpnlSYOCHI_FILEPATH.Controls.Add(Me.LinkLabel25)
+        Me.fpnlSYOCHI_FILEPATH.Controls.Add(Me.LinkLabel26)
+        Me.fpnlSYOCHI_FILEPATH.Controls.Add(Me.LinkLabel27)
+        Me.fpnlSYOCHI_FILEPATH.Controls.Add(Me.LinkLabel28)
+        Me.fpnlSYOCHI_FILEPATH.Location = New System.Drawing.Point(63, 5)
+        Me.fpnlSYOCHI_FILEPATH.Name = "fpnlSYOCHI_FILEPATH"
+        Me.fpnlSYOCHI_FILEPATH.Size = New System.Drawing.Size(364, 22)
+        Me.fpnlSYOCHI_FILEPATH.TabIndex = 334
+        '
+        'lblSYOCHI_FILEPATH
+        '
+        Me.lblSYOCHI_FILEPATH.AutoSize = True
+        Me.lblSYOCHI_FILEPATH.Location = New System.Drawing.Point(0, 0)
+        Me.lblSYOCHI_FILEPATH.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblSYOCHI_FILEPATH.Name = "lblSYOCHI_FILEPATH"
+        Me.lblSYOCHI_FILEPATH.Size = New System.Drawing.Size(37, 17)
+        Me.lblSYOCHI_FILEPATH.TabIndex = 126
+        Me.lblSYOCHI_FILEPATH.TabStop = True
+        Me.lblSYOCHI_FILEPATH.Text = "link1"
+        Me.lblSYOCHI_FILEPATH.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblSYOCHI_FILEPATH.Visible = False
+        '
+        'lblSYOCHI_FILEPATH_Clear
+        '
+        Me.lblSYOCHI_FILEPATH_Clear.AutoSize = True
+        Me.lblSYOCHI_FILEPATH_Clear.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.lblSYOCHI_FILEPATH_Clear.Dock = System.Windows.Forms.DockStyle.Right
+        Me.fpnlSYOCHI_FILEPATH.SetFlowBreak(Me.lblSYOCHI_FILEPATH_Clear, True)
+        Me.lblSYOCHI_FILEPATH_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_FILEPATH_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.lblSYOCHI_FILEPATH_Clear.LinkColor = System.Drawing.Color.Red
+        Me.lblSYOCHI_FILEPATH_Clear.Location = New System.Drawing.Point(37, 0)
+        Me.lblSYOCHI_FILEPATH_Clear.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblSYOCHI_FILEPATH_Clear.Name = "lblSYOCHI_FILEPATH_Clear"
+        Me.lblSYOCHI_FILEPATH_Clear.Size = New System.Drawing.Size(19, 17)
+        Me.lblSYOCHI_FILEPATH_Clear.TabIndex = 128
+        Me.lblSYOCHI_FILEPATH_Clear.TabStop = True
+        Me.lblSYOCHI_FILEPATH_Clear.Text = "Å~"
+        Me.lblSYOCHI_FILEPATH_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblSYOCHI_FILEPATH_Clear.Visible = False
+        '
+        'LinkLabel21
+        '
+        Me.LinkLabel21.AutoSize = True
+        Me.LinkLabel21.Location = New System.Drawing.Point(0, 17)
+        Me.LinkLabel21.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel21.Name = "LinkLabel21"
+        Me.LinkLabel21.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel21.TabIndex = 129
+        Me.LinkLabel21.TabStop = True
+        Me.LinkLabel21.Text = "link2"
+        Me.LinkLabel21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel21.Visible = False
+        '
+        'LinkLabel22
+        '
+        Me.LinkLabel22.AutoSize = True
+        Me.LinkLabel22.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlSYOCHI_FILEPATH.SetFlowBreak(Me.LinkLabel22, True)
+        Me.LinkLabel22.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel22.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel22.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel22.Location = New System.Drawing.Point(37, 17)
+        Me.LinkLabel22.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel22.Name = "LinkLabel22"
+        Me.LinkLabel22.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel22.TabIndex = 130
+        Me.LinkLabel22.TabStop = True
+        Me.LinkLabel22.Text = "Å~"
+        Me.LinkLabel22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel22.Visible = False
+        '
+        'LinkLabel23
+        '
+        Me.LinkLabel23.AutoSize = True
+        Me.LinkLabel23.Location = New System.Drawing.Point(0, 34)
+        Me.LinkLabel23.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel23.Name = "LinkLabel23"
+        Me.LinkLabel23.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel23.TabIndex = 129
+        Me.LinkLabel23.TabStop = True
+        Me.LinkLabel23.Text = "link3"
+        Me.LinkLabel23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel23.Visible = False
+        '
+        'LinkLabel24
+        '
+        Me.LinkLabel24.AutoSize = True
+        Me.LinkLabel24.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlSYOCHI_FILEPATH.SetFlowBreak(Me.LinkLabel24, True)
+        Me.LinkLabel24.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel24.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel24.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel24.Location = New System.Drawing.Point(37, 34)
+        Me.LinkLabel24.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel24.Name = "LinkLabel24"
+        Me.LinkLabel24.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel24.TabIndex = 130
+        Me.LinkLabel24.TabStop = True
+        Me.LinkLabel24.Text = "Å~"
+        Me.LinkLabel24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel24.Visible = False
+        '
+        'LinkLabel25
+        '
+        Me.LinkLabel25.AutoSize = True
+        Me.LinkLabel25.Location = New System.Drawing.Point(0, 51)
+        Me.LinkLabel25.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel25.Name = "LinkLabel25"
+        Me.LinkLabel25.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel25.TabIndex = 129
+        Me.LinkLabel25.TabStop = True
+        Me.LinkLabel25.Text = "link4"
+        Me.LinkLabel25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel25.Visible = False
+        '
+        'LinkLabel26
+        '
+        Me.LinkLabel26.AutoSize = True
+        Me.LinkLabel26.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlSYOCHI_FILEPATH.SetFlowBreak(Me.LinkLabel26, True)
+        Me.LinkLabel26.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel26.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel26.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel26.Location = New System.Drawing.Point(37, 51)
+        Me.LinkLabel26.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel26.Name = "LinkLabel26"
+        Me.LinkLabel26.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel26.TabIndex = 130
+        Me.LinkLabel26.TabStop = True
+        Me.LinkLabel26.Text = "Å~"
+        Me.LinkLabel26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel26.Visible = False
+        '
+        'LinkLabel27
+        '
+        Me.LinkLabel27.AutoSize = True
+        Me.LinkLabel27.Location = New System.Drawing.Point(0, 68)
+        Me.LinkLabel27.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel27.Name = "LinkLabel27"
+        Me.LinkLabel27.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel27.TabIndex = 129
+        Me.LinkLabel27.TabStop = True
+        Me.LinkLabel27.Text = "link5"
+        Me.LinkLabel27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel27.Visible = False
+        '
+        'LinkLabel28
+        '
+        Me.LinkLabel28.AutoSize = True
+        Me.LinkLabel28.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlSYOCHI_FILEPATH.SetFlowBreak(Me.LinkLabel28, True)
+        Me.LinkLabel28.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel28.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel28.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel28.Location = New System.Drawing.Point(37, 68)
+        Me.LinkLabel28.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel28.Name = "LinkLabel28"
+        Me.LinkLabel28.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel28.TabIndex = 130
+        Me.LinkLabel28.TabStop = True
+        Me.LinkLabel28.Text = "Å~"
+        Me.LinkLabel28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel28.Visible = False
+        '
+        'txtSYOCHI_MEMO
+        '
+        Me.txtSYOCHI_MEMO.BackColor = System.Drawing.SystemColors.Window
+        Me.txtSYOCHI_MEMO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtSYOCHI_MEMO.InputRequired = False
+        Me.txtSYOCHI_MEMO.Location = New System.Drawing.Point(246, 4)
+        Me.txtSYOCHI_MEMO.MaxByteLength = 100
+        Me.txtSYOCHI_MEMO.MaxLength = 50
+        Me.txtSYOCHI_MEMO.Multiline = True
+        Me.txtSYOCHI_MEMO.Name = "txtSYOCHI_MEMO"
+        Me.txtSYOCHI_MEMO.SelectAllText = False
+        Me.txtSYOCHI_MEMO.Size = New System.Drawing.Size(432, 23)
+        Me.txtSYOCHI_MEMO.TabIndex = 352
+        Me.txtSYOCHI_MEMO.WatermarkColor = System.Drawing.Color.Empty
+        Me.txtSYOCHI_MEMO.WatermarkText = Nothing
         '
         'Label42
         '
@@ -1603,14 +1881,14 @@ Partial Class FrmG0021
         Me.pnlKOKYAKU_EIKYO_HANTEI_FILEPATH.Location = New System.Drawing.Point(623, 292)
         Me.pnlKOKYAKU_EIKYO_HANTEI_FILEPATH.Name = "pnlKOKYAKU_EIKYO_HANTEI_FILEPATH"
         Me.pnlKOKYAKU_EIKYO_HANTEI_FILEPATH.Padding = New System.Windows.Forms.Padding(1)
-        Me.pnlKOKYAKU_EIKYO_HANTEI_FILEPATH.Size = New System.Drawing.Size(570, 35)
+        Me.pnlKOKYAKU_EIKYO_HANTEI_FILEPATH.Size = New System.Drawing.Size(570, 30)
         Me.pnlKOKYAKU_EIKYO_HANTEI_FILEPATH.TabIndex = 344
         '
         'Label37
         '
         Me.Label37.AutoSize = True
         Me.Label37.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label37.Location = New System.Drawing.Point(2, 14)
+        Me.Label37.Location = New System.Drawing.Point(2, 9)
         Me.Label37.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(60, 15)
@@ -1622,7 +1900,7 @@ Partial Class FrmG0021
         '
         Me.btnOpenKOKYAKU_EIKYO_HANTEI_FILEPATH.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnOpenKOKYAKU_EIKYO_HANTEI_FILEPATH.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.btnOpenKOKYAKU_EIKYO_HANTEI_FILEPATH.Location = New System.Drawing.Point(512, 8)
+        Me.btnOpenKOKYAKU_EIKYO_HANTEI_FILEPATH.Location = New System.Drawing.Point(512, 3)
         Me.btnOpenKOKYAKU_EIKYO_HANTEI_FILEPATH.Name = "btnOpenKOKYAKU_EIKYO_HANTEI_FILEPATH"
         Me.btnOpenKOKYAKU_EIKYO_HANTEI_FILEPATH.Size = New System.Drawing.Size(54, 24)
         Me.btnOpenKOKYAKU_EIKYO_HANTEI_FILEPATH.TabIndex = 333
@@ -1642,7 +1920,7 @@ Partial Class FrmG0021
         Me.fpnlKOKYAKU_EIKYO_HANTEI_FILEPATH.Controls.Add(Me.LinkLabel8)
         Me.fpnlKOKYAKU_EIKYO_HANTEI_FILEPATH.Controls.Add(Me.LinkLabel29)
         Me.fpnlKOKYAKU_EIKYO_HANTEI_FILEPATH.Controls.Add(Me.LinkLabel30)
-        Me.fpnlKOKYAKU_EIKYO_HANTEI_FILEPATH.Location = New System.Drawing.Point(63, 9)
+        Me.fpnlKOKYAKU_EIKYO_HANTEI_FILEPATH.Location = New System.Drawing.Point(63, 4)
         Me.fpnlKOKYAKU_EIKYO_HANTEI_FILEPATH.Name = "fpnlKOKYAKU_EIKYO_HANTEI_FILEPATH"
         Me.fpnlKOKYAKU_EIKYO_HANTEI_FILEPATH.Size = New System.Drawing.Size(444, 22)
         Me.fpnlKOKYAKU_EIKYO_HANTEI_FILEPATH.TabIndex = 334
@@ -1938,7 +2216,7 @@ Partial Class FrmG0021
         Me.cmbKOKYAKU_EIKYO_HANTEI_COMMENT.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKOKYAKU_EIKYO_HANTEI_COMMENT.FormattingEnabled = True
         Me.cmbKOKYAKU_EIKYO_HANTEI_COMMENT.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbKOKYAKU_EIKYO_HANTEI_COMMENT.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbKOKYAKU_EIKYO_HANTEI_COMMENT.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKOKYAKU_EIKYO_HANTEI_COMMENT.IsSelected = False
         Me.cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Location = New System.Drawing.Point(685, 36)
         Me.cmbKOKYAKU_EIKYO_HANTEI_COMMENT.MaxLength = 50
@@ -2164,6 +2442,7 @@ Partial Class FrmG0021
         Me.pnlZESEI_SYOCHI.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlZESEI_SYOCHI.BackColor = System.Drawing.Color.Transparent
+        Me.pnlZESEI_SYOCHI.Controls.Add(Me.pnlKOKYAKU_EIKYO_FILEPATH)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.txtKOKYAKU_EIKYO_MEMO)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.pnlInfo6)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.pnlInfo5)
@@ -2175,13 +2454,222 @@ Partial Class FrmG0021
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.lblZESEI_SYOCHIFlame)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.lblSTAGE10)
         Me.pnlZESEI_SYOCHI.HitEnabled = False
-        Me.pnlZESEI_SYOCHI.Location = New System.Drawing.Point(3, 509)
+        Me.pnlZESEI_SYOCHI.Location = New System.Drawing.Point(3, 520)
         Me.pnlZESEI_SYOCHI.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlZESEI_SYOCHI.MinimumSize = New System.Drawing.Size(1212, 0)
         Me.pnlZESEI_SYOCHI.Name = "pnlZESEI_SYOCHI"
         Me.pnlZESEI_SYOCHI.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlZESEI_SYOCHI.Size = New System.Drawing.Size(1212, 168)
+        Me.pnlZESEI_SYOCHI.Size = New System.Drawing.Size(1212, 178)
         Me.pnlZESEI_SYOCHI.TabIndex = 3
+        '
+        'pnlKOKYAKU_EIKYO_FILEPATH
+        '
+        Me.pnlKOKYAKU_EIKYO_FILEPATH.Controls.Add(Me.Label45)
+        Me.pnlKOKYAKU_EIKYO_FILEPATH.Controls.Add(Me.btnOpenKOKYAKU_EIKYO_FILEPATH)
+        Me.pnlKOKYAKU_EIKYO_FILEPATH.Controls.Add(Me.fpnlKOKYAKU_EIKYO_FILEPATH)
+        Me.pnlKOKYAKU_EIKYO_FILEPATH.HitEnabled = False
+        Me.pnlKOKYAKU_EIKYO_FILEPATH.Location = New System.Drawing.Point(696, 1)
+        Me.pnlKOKYAKU_EIKYO_FILEPATH.Name = "pnlKOKYAKU_EIKYO_FILEPATH"
+        Me.pnlKOKYAKU_EIKYO_FILEPATH.Padding = New System.Windows.Forms.Padding(1)
+        Me.pnlKOKYAKU_EIKYO_FILEPATH.Size = New System.Drawing.Size(487, 30)
+        Me.pnlKOKYAKU_EIKYO_FILEPATH.TabIndex = 352
+        '
+        'Label45
+        '
+        Me.Label45.AutoSize = True
+        Me.Label45.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label45.Location = New System.Drawing.Point(2, 10)
+        Me.Label45.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label45.Name = "Label45"
+        Me.Label45.Size = New System.Drawing.Size(60, 15)
+        Me.Label45.TabIndex = 335
+        Me.Label45.Text = "è⁄ç◊éëóø:"
+        Me.Label45.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'btnOpenKOKYAKU_EIKYO_FILEPATH
+        '
+        Me.btnOpenKOKYAKU_EIKYO_FILEPATH.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnOpenKOKYAKU_EIKYO_FILEPATH.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
+        Me.btnOpenKOKYAKU_EIKYO_FILEPATH.Location = New System.Drawing.Point(433, 3)
+        Me.btnOpenKOKYAKU_EIKYO_FILEPATH.Name = "btnOpenKOKYAKU_EIKYO_FILEPATH"
+        Me.btnOpenKOKYAKU_EIKYO_FILEPATH.Size = New System.Drawing.Size(54, 24)
+        Me.btnOpenKOKYAKU_EIKYO_FILEPATH.TabIndex = 333
+        Me.btnOpenKOKYAKU_EIKYO_FILEPATH.UseVisualStyleBackColor = True
+        '
+        'fpnlKOKYAKU_EIKYO_FILEPATH
+        '
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.BackColor = System.Drawing.SystemColors.Window
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.Controls.Add(Me.lblKOKYAKU_EIKYO_FILEPATH)
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.Controls.Add(Me.lblKOKYAKU_EIKYO_FILEPATH_Clear)
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.Controls.Add(Me.LinkLabel37)
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.Controls.Add(Me.LinkLabel38)
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.Controls.Add(Me.LinkLabel39)
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.Controls.Add(Me.LinkLabel40)
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.Controls.Add(Me.LinkLabel41)
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.Controls.Add(Me.LinkLabel42)
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.Controls.Add(Me.LinkLabel43)
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.Controls.Add(Me.LinkLabel44)
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.Location = New System.Drawing.Point(63, 5)
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.Name = "fpnlKOKYAKU_EIKYO_FILEPATH"
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.Size = New System.Drawing.Size(364, 22)
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.TabIndex = 334
+        '
+        'lblKOKYAKU_EIKYO_FILEPATH
+        '
+        Me.lblKOKYAKU_EIKYO_FILEPATH.AutoSize = True
+        Me.lblKOKYAKU_EIKYO_FILEPATH.Location = New System.Drawing.Point(0, 0)
+        Me.lblKOKYAKU_EIKYO_FILEPATH.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblKOKYAKU_EIKYO_FILEPATH.Name = "lblKOKYAKU_EIKYO_FILEPATH"
+        Me.lblKOKYAKU_EIKYO_FILEPATH.Size = New System.Drawing.Size(37, 17)
+        Me.lblKOKYAKU_EIKYO_FILEPATH.TabIndex = 126
+        Me.lblKOKYAKU_EIKYO_FILEPATH.TabStop = True
+        Me.lblKOKYAKU_EIKYO_FILEPATH.Text = "link1"
+        Me.lblKOKYAKU_EIKYO_FILEPATH.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblKOKYAKU_EIKYO_FILEPATH.Visible = False
+        '
+        'lblKOKYAKU_EIKYO_FILEPATH_Clear
+        '
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear.AutoSize = True
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear.Dock = System.Windows.Forms.DockStyle.Right
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.SetFlowBreak(Me.lblKOKYAKU_EIKYO_FILEPATH_Clear, True)
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear.LinkColor = System.Drawing.Color.Red
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear.Location = New System.Drawing.Point(37, 0)
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear.Name = "lblKOKYAKU_EIKYO_FILEPATH_Clear"
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear.Size = New System.Drawing.Size(19, 17)
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear.TabIndex = 128
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear.TabStop = True
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear.Text = "Å~"
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblKOKYAKU_EIKYO_FILEPATH_Clear.Visible = False
+        '
+        'LinkLabel37
+        '
+        Me.LinkLabel37.AutoSize = True
+        Me.LinkLabel37.Location = New System.Drawing.Point(0, 17)
+        Me.LinkLabel37.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel37.Name = "LinkLabel37"
+        Me.LinkLabel37.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel37.TabIndex = 129
+        Me.LinkLabel37.TabStop = True
+        Me.LinkLabel37.Text = "link2"
+        Me.LinkLabel37.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel37.Visible = False
+        '
+        'LinkLabel38
+        '
+        Me.LinkLabel38.AutoSize = True
+        Me.LinkLabel38.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.SetFlowBreak(Me.LinkLabel38, True)
+        Me.LinkLabel38.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel38.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel38.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel38.Location = New System.Drawing.Point(37, 17)
+        Me.LinkLabel38.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel38.Name = "LinkLabel38"
+        Me.LinkLabel38.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel38.TabIndex = 130
+        Me.LinkLabel38.TabStop = True
+        Me.LinkLabel38.Text = "Å~"
+        Me.LinkLabel38.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel38.Visible = False
+        '
+        'LinkLabel39
+        '
+        Me.LinkLabel39.AutoSize = True
+        Me.LinkLabel39.Location = New System.Drawing.Point(0, 34)
+        Me.LinkLabel39.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel39.Name = "LinkLabel39"
+        Me.LinkLabel39.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel39.TabIndex = 129
+        Me.LinkLabel39.TabStop = True
+        Me.LinkLabel39.Text = "link3"
+        Me.LinkLabel39.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel39.Visible = False
+        '
+        'LinkLabel40
+        '
+        Me.LinkLabel40.AutoSize = True
+        Me.LinkLabel40.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.SetFlowBreak(Me.LinkLabel40, True)
+        Me.LinkLabel40.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel40.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel40.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel40.Location = New System.Drawing.Point(37, 34)
+        Me.LinkLabel40.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel40.Name = "LinkLabel40"
+        Me.LinkLabel40.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel40.TabIndex = 130
+        Me.LinkLabel40.TabStop = True
+        Me.LinkLabel40.Text = "Å~"
+        Me.LinkLabel40.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel40.Visible = False
+        '
+        'LinkLabel41
+        '
+        Me.LinkLabel41.AutoSize = True
+        Me.LinkLabel41.Location = New System.Drawing.Point(0, 51)
+        Me.LinkLabel41.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel41.Name = "LinkLabel41"
+        Me.LinkLabel41.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel41.TabIndex = 129
+        Me.LinkLabel41.TabStop = True
+        Me.LinkLabel41.Text = "link4"
+        Me.LinkLabel41.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel41.Visible = False
+        '
+        'LinkLabel42
+        '
+        Me.LinkLabel42.AutoSize = True
+        Me.LinkLabel42.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.SetFlowBreak(Me.LinkLabel42, True)
+        Me.LinkLabel42.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel42.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel42.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel42.Location = New System.Drawing.Point(37, 51)
+        Me.LinkLabel42.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel42.Name = "LinkLabel42"
+        Me.LinkLabel42.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel42.TabIndex = 130
+        Me.LinkLabel42.TabStop = True
+        Me.LinkLabel42.Text = "Å~"
+        Me.LinkLabel42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel42.Visible = False
+        '
+        'LinkLabel43
+        '
+        Me.LinkLabel43.AutoSize = True
+        Me.LinkLabel43.Location = New System.Drawing.Point(0, 68)
+        Me.LinkLabel43.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel43.Name = "LinkLabel43"
+        Me.LinkLabel43.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel43.TabIndex = 129
+        Me.LinkLabel43.TabStop = True
+        Me.LinkLabel43.Text = "link5"
+        Me.LinkLabel43.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel43.Visible = False
+        '
+        'LinkLabel44
+        '
+        Me.LinkLabel44.AutoSize = True
+        Me.LinkLabel44.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.SetFlowBreak(Me.LinkLabel44, True)
+        Me.LinkLabel44.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel44.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel44.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel44.Location = New System.Drawing.Point(37, 68)
+        Me.LinkLabel44.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel44.Name = "LinkLabel44"
+        Me.LinkLabel44.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel44.TabIndex = 130
+        Me.LinkLabel44.TabStop = True
+        Me.LinkLabel44.Text = "Å~"
+        Me.LinkLabel44.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel44.Visible = False
         '
         'txtKOKYAKU_EIKYO_MEMO
         '
@@ -2208,7 +2696,7 @@ Partial Class FrmG0021
         Me.pnlInfo6.Controls.Add(Me.txtBUHIN_INFO6)
         Me.pnlInfo6.Controls.Add(Me.nupSURYO6)
         Me.pnlInfo6.Enabled = False
-        Me.pnlInfo6.Location = New System.Drawing.Point(19, 130)
+        Me.pnlInfo6.Location = New System.Drawing.Point(19, 138)
         Me.pnlInfo6.Name = "pnlInfo6"
         Me.pnlInfo6.Size = New System.Drawing.Size(1050, 29)
         Me.pnlInfo6.TabIndex = 348
@@ -2312,7 +2800,7 @@ Partial Class FrmG0021
         Me.pnlInfo5.Controls.Add(Me.txtBUHIN_INFO5)
         Me.pnlInfo5.Controls.Add(Me.nupSURYO5)
         Me.pnlInfo5.Enabled = False
-        Me.pnlInfo5.Location = New System.Drawing.Point(19, 95)
+        Me.pnlInfo5.Location = New System.Drawing.Point(19, 103)
         Me.pnlInfo5.Name = "pnlInfo5"
         Me.pnlInfo5.Size = New System.Drawing.Size(1050, 29)
         Me.pnlInfo5.TabIndex = 349
@@ -2415,7 +2903,7 @@ Partial Class FrmG0021
         Me.pnlInfo4.Controls.Add(Me.cmbKISYU4)
         Me.pnlInfo4.Controls.Add(Me.txtBUHIN_INFO4)
         Me.pnlInfo4.Controls.Add(Me.nupSURYO4)
-        Me.pnlInfo4.Location = New System.Drawing.Point(19, 60)
+        Me.pnlInfo4.Location = New System.Drawing.Point(19, 68)
         Me.pnlInfo4.Name = "pnlInfo4"
         Me.pnlInfo4.Size = New System.Drawing.Size(1050, 29)
         Me.pnlInfo4.TabIndex = 350
@@ -2514,7 +3002,7 @@ Partial Class FrmG0021
         '
         Me.Label31.AutoSize = True
         Me.Label31.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label31.Location = New System.Drawing.Point(582, 41)
+        Me.Label31.Location = New System.Drawing.Point(582, 49)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(225, 15)
         Me.Label31.TabIndex = 317
@@ -2525,7 +3013,7 @@ Partial Class FrmG0021
         '
         Me.Label32.AutoSize = True
         Me.Label32.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label32.Location = New System.Drawing.Point(477, 42)
+        Me.Label32.Location = New System.Drawing.Point(477, 50)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(31, 15)
         Me.Label32.TabIndex = 346
@@ -2536,7 +3024,7 @@ Partial Class FrmG0021
         '
         Me.Label34.AutoSize = True
         Me.Label34.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label34.Location = New System.Drawing.Point(157, 41)
+        Me.Label34.Location = New System.Drawing.Point(157, 49)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(55, 15)
         Me.Label34.TabIndex = 345
@@ -2547,7 +3035,7 @@ Partial Class FrmG0021
         '
         Me.Label35.AutoSize = True
         Me.Label35.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label35.Location = New System.Drawing.Point(17, 41)
+        Me.Label35.Location = New System.Drawing.Point(17, 49)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(31, 15)
         Me.Label35.TabIndex = 344
@@ -2560,7 +3048,7 @@ Partial Class FrmG0021
         Me.lblZESEI_SYOCHIFlame.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblZESEI_SYOCHIFlame.Location = New System.Drawing.Point(1197, 2)
         Me.lblZESEI_SYOCHIFlame.Name = "lblZESEI_SYOCHIFlame"
-        Me.lblZESEI_SYOCHIFlame.Size = New System.Drawing.Size(13, 164)
+        Me.lblZESEI_SYOCHIFlame.Size = New System.Drawing.Size(13, 174)
         Me.lblZESEI_SYOCHIFlame.TabIndex = 315
         Me.lblZESEI_SYOCHIFlame.Visible = False
         '
@@ -2582,6 +3070,7 @@ Partial Class FrmG0021
         Me.pnlSYOCHI_KIROKU.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlSYOCHI_KIROKU.BackColor = System.Drawing.Color.Transparent
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.pnlFUTEKIGO_SEIHIN_FILEPATH)
         Me.pnlSYOCHI_KIROKU.Controls.Add(Me.txtFUTEKIGO_SEIHIN_MEMO)
         Me.pnlSYOCHI_KIROKU.Controls.Add(Me.pnlInfo3)
         Me.pnlSYOCHI_KIROKU.Controls.Add(Me.pnlInfo2)
@@ -2598,8 +3087,217 @@ Partial Class FrmG0021
         Me.pnlSYOCHI_KIROKU.MinimumSize = New System.Drawing.Size(1212, 0)
         Me.pnlSYOCHI_KIROKU.Name = "pnlSYOCHI_KIROKU"
         Me.pnlSYOCHI_KIROKU.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlSYOCHI_KIROKU.Size = New System.Drawing.Size(1212, 167)
+        Me.pnlSYOCHI_KIROKU.Size = New System.Drawing.Size(1212, 178)
         Me.pnlSYOCHI_KIROKU.TabIndex = 2
+        '
+        'pnlFUTEKIGO_SEIHIN_FILEPATH
+        '
+        Me.pnlFUTEKIGO_SEIHIN_FILEPATH.Controls.Add(Me.Label46)
+        Me.pnlFUTEKIGO_SEIHIN_FILEPATH.Controls.Add(Me.btnOpenFUTEKIGO_SEIHIN_FILEPATH)
+        Me.pnlFUTEKIGO_SEIHIN_FILEPATH.Controls.Add(Me.fpnlFUTEKIGO_SEIHIN_FILEPATH)
+        Me.pnlFUTEKIGO_SEIHIN_FILEPATH.HitEnabled = False
+        Me.pnlFUTEKIGO_SEIHIN_FILEPATH.Location = New System.Drawing.Point(696, 1)
+        Me.pnlFUTEKIGO_SEIHIN_FILEPATH.Name = "pnlFUTEKIGO_SEIHIN_FILEPATH"
+        Me.pnlFUTEKIGO_SEIHIN_FILEPATH.Padding = New System.Windows.Forms.Padding(1)
+        Me.pnlFUTEKIGO_SEIHIN_FILEPATH.Size = New System.Drawing.Size(487, 31)
+        Me.pnlFUTEKIGO_SEIHIN_FILEPATH.TabIndex = 353
+        '
+        'Label46
+        '
+        Me.Label46.AutoSize = True
+        Me.Label46.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label46.Location = New System.Drawing.Point(2, 10)
+        Me.Label46.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label46.Name = "Label46"
+        Me.Label46.Size = New System.Drawing.Size(60, 15)
+        Me.Label46.TabIndex = 335
+        Me.Label46.Text = "è⁄ç◊éëóø:"
+        Me.Label46.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'btnOpenFUTEKIGO_SEIHIN_FILEPATH
+        '
+        Me.btnOpenFUTEKIGO_SEIHIN_FILEPATH.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnOpenFUTEKIGO_SEIHIN_FILEPATH.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
+        Me.btnOpenFUTEKIGO_SEIHIN_FILEPATH.Location = New System.Drawing.Point(433, 3)
+        Me.btnOpenFUTEKIGO_SEIHIN_FILEPATH.Name = "btnOpenFUTEKIGO_SEIHIN_FILEPATH"
+        Me.btnOpenFUTEKIGO_SEIHIN_FILEPATH.Size = New System.Drawing.Size(54, 24)
+        Me.btnOpenFUTEKIGO_SEIHIN_FILEPATH.TabIndex = 333
+        Me.btnOpenFUTEKIGO_SEIHIN_FILEPATH.UseVisualStyleBackColor = True
+        '
+        'fpnlFUTEKIGO_SEIHIN_FILEPATH
+        '
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.BackColor = System.Drawing.SystemColors.Window
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.Controls.Add(Me.lblFUTEKIGO_SEIHIN_FILEPATH)
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.Controls.Add(Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear)
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.Controls.Add(Me.LinkLabel47)
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.Controls.Add(Me.LinkLabel48)
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.Controls.Add(Me.LinkLabel49)
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.Controls.Add(Me.LinkLabel50)
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.Controls.Add(Me.LinkLabel51)
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.Controls.Add(Me.LinkLabel52)
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.Controls.Add(Me.LinkLabel53)
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.Controls.Add(Me.LinkLabel54)
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.Location = New System.Drawing.Point(63, 5)
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.Name = "fpnlFUTEKIGO_SEIHIN_FILEPATH"
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.Size = New System.Drawing.Size(364, 22)
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.TabIndex = 334
+        '
+        'lblFUTEKIGO_SEIHIN_FILEPATH
+        '
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH.AutoSize = True
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH.Location = New System.Drawing.Point(0, 0)
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH.Name = "lblFUTEKIGO_SEIHIN_FILEPATH"
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH.Size = New System.Drawing.Size(37, 17)
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH.TabIndex = 126
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH.TabStop = True
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH.Text = "link1"
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH.Visible = False
+        '
+        'lblFUTEKIGO_SEIHIN_FILEPATH_Clear
+        '
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear.AutoSize = True
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear.Dock = System.Windows.Forms.DockStyle.Right
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.SetFlowBreak(Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear, True)
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear.LinkColor = System.Drawing.Color.Red
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear.Location = New System.Drawing.Point(37, 0)
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear.Name = "lblFUTEKIGO_SEIHIN_FILEPATH_Clear"
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear.Size = New System.Drawing.Size(19, 17)
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear.TabIndex = 128
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear.TabStop = True
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear.Text = "Å~"
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblFUTEKIGO_SEIHIN_FILEPATH_Clear.Visible = False
+        '
+        'LinkLabel47
+        '
+        Me.LinkLabel47.AutoSize = True
+        Me.LinkLabel47.Location = New System.Drawing.Point(0, 17)
+        Me.LinkLabel47.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel47.Name = "LinkLabel47"
+        Me.LinkLabel47.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel47.TabIndex = 129
+        Me.LinkLabel47.TabStop = True
+        Me.LinkLabel47.Text = "link2"
+        Me.LinkLabel47.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel47.Visible = False
+        '
+        'LinkLabel48
+        '
+        Me.LinkLabel48.AutoSize = True
+        Me.LinkLabel48.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.SetFlowBreak(Me.LinkLabel48, True)
+        Me.LinkLabel48.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel48.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel48.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel48.Location = New System.Drawing.Point(37, 17)
+        Me.LinkLabel48.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel48.Name = "LinkLabel48"
+        Me.LinkLabel48.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel48.TabIndex = 130
+        Me.LinkLabel48.TabStop = True
+        Me.LinkLabel48.Text = "Å~"
+        Me.LinkLabel48.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel48.Visible = False
+        '
+        'LinkLabel49
+        '
+        Me.LinkLabel49.AutoSize = True
+        Me.LinkLabel49.Location = New System.Drawing.Point(0, 34)
+        Me.LinkLabel49.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel49.Name = "LinkLabel49"
+        Me.LinkLabel49.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel49.TabIndex = 129
+        Me.LinkLabel49.TabStop = True
+        Me.LinkLabel49.Text = "link3"
+        Me.LinkLabel49.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel49.Visible = False
+        '
+        'LinkLabel50
+        '
+        Me.LinkLabel50.AutoSize = True
+        Me.LinkLabel50.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.SetFlowBreak(Me.LinkLabel50, True)
+        Me.LinkLabel50.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel50.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel50.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel50.Location = New System.Drawing.Point(37, 34)
+        Me.LinkLabel50.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel50.Name = "LinkLabel50"
+        Me.LinkLabel50.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel50.TabIndex = 130
+        Me.LinkLabel50.TabStop = True
+        Me.LinkLabel50.Text = "Å~"
+        Me.LinkLabel50.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel50.Visible = False
+        '
+        'LinkLabel51
+        '
+        Me.LinkLabel51.AutoSize = True
+        Me.LinkLabel51.Location = New System.Drawing.Point(0, 51)
+        Me.LinkLabel51.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel51.Name = "LinkLabel51"
+        Me.LinkLabel51.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel51.TabIndex = 129
+        Me.LinkLabel51.TabStop = True
+        Me.LinkLabel51.Text = "link4"
+        Me.LinkLabel51.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel51.Visible = False
+        '
+        'LinkLabel52
+        '
+        Me.LinkLabel52.AutoSize = True
+        Me.LinkLabel52.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.SetFlowBreak(Me.LinkLabel52, True)
+        Me.LinkLabel52.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel52.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel52.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel52.Location = New System.Drawing.Point(37, 51)
+        Me.LinkLabel52.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel52.Name = "LinkLabel52"
+        Me.LinkLabel52.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel52.TabIndex = 130
+        Me.LinkLabel52.TabStop = True
+        Me.LinkLabel52.Text = "Å~"
+        Me.LinkLabel52.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel52.Visible = False
+        '
+        'LinkLabel53
+        '
+        Me.LinkLabel53.AutoSize = True
+        Me.LinkLabel53.Location = New System.Drawing.Point(0, 68)
+        Me.LinkLabel53.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel53.Name = "LinkLabel53"
+        Me.LinkLabel53.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel53.TabIndex = 129
+        Me.LinkLabel53.TabStop = True
+        Me.LinkLabel53.Text = "link5"
+        Me.LinkLabel53.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel53.Visible = False
+        '
+        'LinkLabel54
+        '
+        Me.LinkLabel54.AutoSize = True
+        Me.LinkLabel54.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.SetFlowBreak(Me.LinkLabel54, True)
+        Me.LinkLabel54.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel54.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel54.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel54.Location = New System.Drawing.Point(37, 68)
+        Me.LinkLabel54.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel54.Name = "LinkLabel54"
+        Me.LinkLabel54.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel54.TabIndex = 130
+        Me.LinkLabel54.TabStop = True
+        Me.LinkLabel54.Text = "Å~"
+        Me.LinkLabel54.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel54.Visible = False
         '
         'txtFUTEKIGO_SEIHIN_MEMO
         '
@@ -2626,7 +3324,7 @@ Partial Class FrmG0021
         Me.pnlInfo3.Controls.Add(Me.txtBUHIN_INFO3)
         Me.pnlInfo3.Controls.Add(Me.nupSURYO3)
         Me.pnlInfo3.Enabled = False
-        Me.pnlInfo3.Location = New System.Drawing.Point(19, 130)
+        Me.pnlInfo3.Location = New System.Drawing.Point(19, 138)
         Me.pnlInfo3.Name = "pnlInfo3"
         Me.pnlInfo3.Size = New System.Drawing.Size(1050, 29)
         Me.pnlInfo3.TabIndex = 2
@@ -2733,7 +3431,7 @@ Partial Class FrmG0021
         Me.pnlInfo2.Controls.Add(Me.txtBUHIN_INFO2)
         Me.pnlInfo2.Controls.Add(Me.nupSURYO2)
         Me.pnlInfo2.Enabled = False
-        Me.pnlInfo2.Location = New System.Drawing.Point(19, 95)
+        Me.pnlInfo2.Location = New System.Drawing.Point(19, 103)
         Me.pnlInfo2.Name = "pnlInfo2"
         Me.pnlInfo2.Size = New System.Drawing.Size(1050, 29)
         Me.pnlInfo2.TabIndex = 1
@@ -2839,7 +3537,7 @@ Partial Class FrmG0021
         Me.pnlInfo1.Controls.Add(Me.txtBUHIN_INFO1)
         Me.pnlInfo1.Controls.Add(Me.Label47)
         Me.pnlInfo1.Controls.Add(Me.nupSURYO1)
-        Me.pnlInfo1.Location = New System.Drawing.Point(19, 60)
+        Me.pnlInfo1.Location = New System.Drawing.Point(19, 68)
         Me.pnlInfo1.Name = "pnlInfo1"
         Me.pnlInfo1.Size = New System.Drawing.Size(1050, 29)
         Me.pnlInfo1.TabIndex = 0
@@ -2941,7 +3639,7 @@ Partial Class FrmG0021
         '
         Me.Label21.AutoSize = True
         Me.Label21.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label21.Location = New System.Drawing.Point(584, 41)
+        Me.Label21.Location = New System.Drawing.Point(584, 49)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(225, 15)
         Me.Label21.TabIndex = 317
@@ -2952,7 +3650,7 @@ Partial Class FrmG0021
         '
         Me.Label24.AutoSize = True
         Me.Label24.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label24.Location = New System.Drawing.Point(477, 42)
+        Me.Label24.Location = New System.Drawing.Point(477, 50)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(31, 15)
         Me.Label24.TabIndex = 317
@@ -2963,7 +3661,7 @@ Partial Class FrmG0021
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label20.Location = New System.Drawing.Point(157, 41)
+        Me.Label20.Location = New System.Drawing.Point(157, 49)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(55, 15)
         Me.Label20.TabIndex = 317
@@ -2974,7 +3672,7 @@ Partial Class FrmG0021
         '
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label19.Location = New System.Drawing.Point(17, 41)
+        Me.Label19.Location = New System.Drawing.Point(17, 49)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(31, 15)
         Me.Label19.TabIndex = 317
@@ -2987,7 +3685,7 @@ Partial Class FrmG0021
         Me.lblSYOCHI_KIROKUFlame.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblSYOCHI_KIROKUFlame.Location = New System.Drawing.Point(1197, 2)
         Me.lblSYOCHI_KIROKUFlame.Name = "lblSYOCHI_KIROKUFlame"
-        Me.lblSYOCHI_KIROKUFlame.Size = New System.Drawing.Size(13, 163)
+        Me.lblSYOCHI_KIROKUFlame.Size = New System.Drawing.Size(13, 174)
         Me.lblSYOCHI_KIROKUFlame.TabIndex = 314
         Me.lblSYOCHI_KIROKUFlame.Visible = False
         '
@@ -3018,7 +3716,7 @@ Partial Class FrmG0021
         Me.cmbST01_DestTANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST01_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST01_DestTANTO.IsSelected = False
-        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 32770)
+        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 32767)
         Me.cmbST01_DestTANTO.Name = "cmbST01_DestTANTO"
         Me.cmbST01_DestTANTO.NullValue = " "
         Me.cmbST01_DestTANTO.Size = New System.Drawing.Size(154, 25)
@@ -3032,7 +3730,7 @@ Partial Class FrmG0021
         Me.mtxST01_NextStageName.BackColor = System.Drawing.SystemColors.Window
         Me.mtxST01_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_NextStageName.InputRequired = False
-        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 32770)
+        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 32767)
         Me.mtxST01_NextStageName.MaxByteLength = 0
         Me.mtxST01_NextStageName.Name = "mtxST01_NextStageName"
         Me.mtxST01_NextStageName.SelectAllText = False
@@ -3046,7 +3744,7 @@ Partial Class FrmG0021
         Me.Label123.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label123.AutoSize = True
         Me.Label123.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label123.Location = New System.Drawing.Point(255, 32770)
+        Me.Label123.Location = New System.Drawing.Point(255, 32767)
         Me.Label123.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label123.Name = "Label123"
         Me.Label123.Size = New System.Drawing.Size(98, 15)
@@ -3059,7 +3757,7 @@ Partial Class FrmG0021
         Me.Label124.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label124.AutoSize = True
         Me.Label124.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label124.Location = New System.Drawing.Point(661, 32770)
+        Me.Label124.Location = New System.Drawing.Point(661, 32767)
         Me.Label124.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label124.Name = "Label124"
         Me.Label124.Size = New System.Drawing.Size(72, 15)
@@ -3072,7 +3770,7 @@ Partial Class FrmG0021
         Me.Label139.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label139.AutoSize = True
         Me.Label139.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label139.Location = New System.Drawing.Point(10, 32770)
+        Me.Label139.Location = New System.Drawing.Point(10, 32767)
         Me.Label139.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(102, 15)
@@ -3086,7 +3784,7 @@ Partial Class FrmG0021
         Me.mtxST01_UPD_YMD.BackColor = System.Drawing.Color.White
         Me.mtxST01_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_UPD_YMD.InputRequired = False
-        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 32770)
+        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 32767)
         Me.mtxST01_UPD_YMD.MaxByteLength = 0
         Me.mtxST01_UPD_YMD.Name = "mtxST01_UPD_YMD"
         Me.mtxST01_UPD_YMD.SelectAllText = False
@@ -3450,6 +4148,10 @@ Partial Class FrmG0021
         Me.PanelEx4.PerformLayout()
         Me.pnlSYOCHI_JISSI.ResumeLayout(False)
         Me.pnlSYOCHI_JISSI.PerformLayout()
+        Me.pnlSYOCHI_FILEPATH.ResumeLayout(False)
+        Me.pnlSYOCHI_FILEPATH.PerformLayout()
+        Me.fpnlSYOCHI_FILEPATH.ResumeLayout(False)
+        Me.fpnlSYOCHI_FILEPATH.PerformLayout()
         Me.pnlFCR.ResumeLayout(False)
         Me.pnlFCR.PerformLayout()
         Me.pnlKOKYAKU_EIKYO_HANTEI_FILEPATH.ResumeLayout(False)
@@ -3462,6 +4164,10 @@ Partial Class FrmG0021
         Me.PanelEx1.PerformLayout()
         Me.pnlZESEI_SYOCHI.ResumeLayout(False)
         Me.pnlZESEI_SYOCHI.PerformLayout()
+        Me.pnlKOKYAKU_EIKYO_FILEPATH.ResumeLayout(False)
+        Me.pnlKOKYAKU_EIKYO_FILEPATH.PerformLayout()
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.ResumeLayout(False)
+        Me.fpnlKOKYAKU_EIKYO_FILEPATH.PerformLayout()
         Me.pnlInfo6.ResumeLayout(False)
         Me.pnlInfo6.PerformLayout()
         CType(Me.nupSURYO6, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3473,6 +4179,10 @@ Partial Class FrmG0021
         CType(Me.nupSURYO4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlSYOCHI_KIROKU.ResumeLayout(False)
         Me.pnlSYOCHI_KIROKU.PerformLayout()
+        Me.pnlFUTEKIGO_SEIHIN_FILEPATH.ResumeLayout(False)
+        Me.pnlFUTEKIGO_SEIHIN_FILEPATH.PerformLayout()
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.ResumeLayout(False)
+        Me.fpnlFUTEKIGO_SEIHIN_FILEPATH.PerformLayout()
         Me.pnlInfo3.ResumeLayout(False)
         Me.pnlInfo3.PerformLayout()
         CType(Me.nupSURYO3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3690,4 +4400,47 @@ Partial Class FrmG0021
     Friend WithEvents rsbtnST07 As RibbonShapeRadioButton
     Friend WithEvents rsbtnST08 As RibbonShapeRadioButton
     Friend WithEvents rsbtnST09 As RibbonShapeRadioButton
+    Friend WithEvents txtSYOCHI_MEMO As TextBoxEx
+    Friend WithEvents pnlSYOCHI_FILEPATH As PanelEx
+    Friend WithEvents Label44 As Label
+    Friend WithEvents btnOpenSYOCHI_FILEPATH As Button
+    Friend WithEvents fpnlSYOCHI_FILEPATH As FlowLayoutPanel
+    Friend WithEvents lblSYOCHI_FILEPATH As LinkLabel
+    Friend WithEvents lblSYOCHI_FILEPATH_Clear As LinkLabel
+    Friend WithEvents LinkLabel21 As LinkLabel
+    Friend WithEvents LinkLabel22 As LinkLabel
+    Friend WithEvents LinkLabel23 As LinkLabel
+    Friend WithEvents LinkLabel24 As LinkLabel
+    Friend WithEvents LinkLabel25 As LinkLabel
+    Friend WithEvents LinkLabel26 As LinkLabel
+    Friend WithEvents LinkLabel27 As LinkLabel
+    Friend WithEvents LinkLabel28 As LinkLabel
+    Friend WithEvents pnlKOKYAKU_EIKYO_FILEPATH As PanelEx
+    Friend WithEvents Label45 As Label
+    Friend WithEvents btnOpenKOKYAKU_EIKYO_FILEPATH As Button
+    Friend WithEvents fpnlKOKYAKU_EIKYO_FILEPATH As FlowLayoutPanel
+    Friend WithEvents lblKOKYAKU_EIKYO_FILEPATH As LinkLabel
+    Friend WithEvents lblKOKYAKU_EIKYO_FILEPATH_Clear As LinkLabel
+    Friend WithEvents LinkLabel37 As LinkLabel
+    Friend WithEvents LinkLabel38 As LinkLabel
+    Friend WithEvents LinkLabel39 As LinkLabel
+    Friend WithEvents LinkLabel40 As LinkLabel
+    Friend WithEvents LinkLabel41 As LinkLabel
+    Friend WithEvents LinkLabel42 As LinkLabel
+    Friend WithEvents LinkLabel43 As LinkLabel
+    Friend WithEvents LinkLabel44 As LinkLabel
+    Friend WithEvents pnlFUTEKIGO_SEIHIN_FILEPATH As PanelEx
+    Friend WithEvents Label46 As Label
+    Friend WithEvents btnOpenFUTEKIGO_SEIHIN_FILEPATH As Button
+    Friend WithEvents fpnlFUTEKIGO_SEIHIN_FILEPATH As FlowLayoutPanel
+    Friend WithEvents lblFUTEKIGO_SEIHIN_FILEPATH As LinkLabel
+    Friend WithEvents lblFUTEKIGO_SEIHIN_FILEPATH_Clear As LinkLabel
+    Friend WithEvents LinkLabel47 As LinkLabel
+    Friend WithEvents LinkLabel48 As LinkLabel
+    Friend WithEvents LinkLabel49 As LinkLabel
+    Friend WithEvents LinkLabel50 As LinkLabel
+    Friend WithEvents LinkLabel51 As LinkLabel
+    Friend WithEvents LinkLabel52 As LinkLabel
+    Friend WithEvents LinkLabel53 As LinkLabel
+    Friend WithEvents LinkLabel54 As LinkLabel
 End Class
