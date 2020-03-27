@@ -213,10 +213,10 @@ Public Class FrmG0021
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._2_承認申請) Then
                         Dim strMsg As String
-                        If PrCurrentStage = ENM_CTS_STAGE._90_部門長 Then
+                        If FunGetNextSYONIN_JUN(PrCurrentStage, _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB) = ENM_CTS_STAGE._999_Closed Then
                             strMsg = "承認しますか？"
                         Else
-                            strMsg = "申請しますか？"
+                            strMsg = "承認・申請しますか？"
                         End If
 
                         If MessageBox.Show(strMsg, "承認・申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
@@ -455,7 +455,8 @@ Public Class FrmG0021
 
         _D007.Clear()
         _D007.HOKOKU_NO = PrHOKOKU_NO
-        If PrCurrentStage = ENM_CTS_STAGE._90_部門長 And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
+
+        If (FunGetNextSYONIN_JUN(PrCurrentStage, _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB) = ENM_CTS_STAGE._999_Closed) And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
             _D007._CLOSE_FG = 1
         End If
         If rbtnKOKYAKU_EIKYO_HANTEI_KB_T.Checked Then
@@ -1738,8 +1739,8 @@ Public Class FrmG0021
             txtFUTEKIGO_SEIHIN_MEMO.Text = ""
             txtKOKYAKU_EIKYO_MEMO.Text = ""
 
-
 #Region "サブテーブル"
+
             cmbKISYU1.SelectedIndex = 0
             cmbKISYU2.SelectedIndex = 0
             cmbKISYU3.SelectedIndex = 0
@@ -1777,14 +1778,12 @@ Public Class FrmG0021
 
             rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked = True
             rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked = True
-            Call rbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(rbtnOTHER_PROCESS_INFLUENCE_KB_F, Nothing)
-            Call rbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(rbtnFOLLOW_PROCESS_OUTFLOW_KB_F, Nothing)
-
+            Call RbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(rbtnOTHER_PROCESS_INFLUENCE_KB_F, Nothing)
+            Call RbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(rbtnFOLLOW_PROCESS_OUTFLOW_KB_F, Nothing)
 
             _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH = ""
             _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH = ""
             _V011_FCR_J.SYOCHI_FILEPATH = ""
-
 
             txtKOKYAKU_NOUNYU_NAIYOU.Text = ""
             txtZAIKO_SIKAKE_NAIYOU.Text = ""
@@ -1804,6 +1803,17 @@ Public Class FrmG0021
         dtOTHER_PROCESS_YMD.Enabled = True
         lblKOKYAKU_EIKYO_HANTEI_COMMENT.Visible = Not blnChecked
         cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Visible = Not blnChecked
+
+        lblTAISYO_KOKYAKU.Enabled = blnChecked
+        lblKOKYAKU_EIKYO_NAIYO.Enabled = blnChecked
+        lblKAKUNIN_SYUDAN.Enabled = blnChecked
+        lblKOKYAKU_EIKYO_ETC_COMMENT.Enabled = blnChecked
+        lblKOKYAKU_EIKYO_TUCHI_HANTEI_KB.Enabled = blnChecked
+        lblTUCHI_YMD.Enabled = blnChecked
+        lblTUCHI_SYUDAN.Enabled = blnChecked
+        lblHITUYO_TETUDUKI_ZIKO.Enabled = blnChecked
+
+        txtTAISYO_KOKYAKU.Enabled = blnChecked
         txtKOKYAKU_EIKYO_NAIYO.Enabled = blnChecked
         txtKAKUNIN_SYUDAN.Enabled = blnChecked
         txtKOKYAKU_EIKYO_ETC_COMMENT.Enabled = blnChecked
@@ -2531,8 +2541,8 @@ Public Class FrmG0021
                 rbtn.Checked = True
             End If
 
-
 #Region "   ヘッダ"
+
             mtxHOKUKO_NO.Text = _V011_FCR_J.HOKOKU_NO
             mtxBUMON_KB.Text = _V011_FCR_J.BUMON_NAME
             mtxKISYU.Text = _V011_FCR_J.KISYU_NAME
@@ -2544,7 +2554,6 @@ Public Class FrmG0021
 
 #End Region
 
-
             txtTAISYO_KOKYAKU.Text = _V011_FCR_J.TAISYOU_KOKYAKU
             txtKOKYAKU_EIKYO_NAIYO.Text = _V011_FCR_J.KOKYAKU_EIKYO_NAIYO
             txtKAKUNIN_SYUDAN.Text = _V011_FCR_J.KAKUNIN_SYUDAN
@@ -2554,13 +2563,9 @@ Public Class FrmG0021
             txtKAKUNIN_SYUDAN.Text = _V011_FCR_J.KAKUNIN_SYUDAN
             txtKOKYAKU_EIKYO_ETC_COMMENT.Text = _V011_FCR_J.KOKYAKU_EIKYO_ETC_COMMENT
 
-            txtFUTEKIGO_SEIHIN_MEMO.Text = _V011_FCR_J.FUTEKIGO_SEIHIN_MEMO
-            txtKOKYAKU_EIKYO_MEMO.Text = _V011_FCR_J.KOKYAKU_EIKYO_MEMO
             txtOTHER_PROCESS_INFLUENCE_MEMO.Text = _V011_FCR_J.OTHER_PROCESS_INFLUENCE_MEMO
             txtFOLLOW_PROCESS_OUTFLOW_MEMO.Text = _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_MEMO
-            cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Text = _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_COMMENT
             txtSYOCHI_MEMO.Text = _V011_FCR_J.SYOCHI_MEMO
-
 
             Dim targetCtrl As Control
             If (_V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB = "1") Then
@@ -2571,12 +2576,13 @@ Public Class FrmG0021
             DirectCast(targetCtrl, RadioButton).Checked = True
             Call RbtnKOKYAKU_EIKYO_HANTEI_KB_CheckedChanged(targetCtrl, Nothing)
 
+            cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Text = _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_COMMENT
+
             If (_V011_FCR_J.KOKYAKU_EIKYO_TUCHI_HANTEI_KB = "1") Then
                 rbtnKOKYAKU_EIKYO_TUCHI_HANTEI_KB_T.Checked = True
             Else
                 rbtnKOKYAKU_EIKYO_TUCHI_HANTEI_KB_F.Checked = True
             End If
-
 
             If (_V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_KB = "1") Then
                 targetCtrl = rbtnFOLLOW_PROCESS_OUTFLOW_KB_T
@@ -2586,10 +2592,8 @@ Public Class FrmG0021
             DirectCast(targetCtrl, RadioButton).Checked = True
             Call RbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(targetCtrl, Nothing)
 
-
             If (_V011_FCR_J.OTHER_PROCESS_INFLUENCE_KB = "1") Then
                 targetCtrl = rbtnOTHER_PROCESS_INFLUENCE_KB_T
-
             Else
                 targetCtrl = rbtnOTHER_PROCESS_INFLUENCE_KB_F
             End If
@@ -2639,6 +2643,12 @@ Public Class FrmG0021
             txtTO4.Text = _V011_FCR_J.RANGE_TO4
             txtTO5.Text = _V011_FCR_J.RANGE_TO5
             txtTO6.Text = _V011_FCR_J.RANGE_TO6
+
+            txtFUTEKIGO_SEIHIN_MEMO.Text = _V011_FCR_J.FUTEKIGO_SEIHIN_MEMO
+            Call TxtFUTEKIGO_SEIHIN_MEMO_Validated(txtFUTEKIGO_SEIHIN_MEMO, Nothing)
+            txtKOKYAKU_EIKYO_MEMO.Text = _V011_FCR_J.KOKYAKU_EIKYO_MEMO
+            Call TxtKOKYAKU_EIKYO_MEMO_Validated(txtKOKYAKU_EIKYO_MEMO, Nothing)
+            Call RbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(rbtnOTHER_PROCESS_INFLUENCE_KB_F, Nothing)
 
             mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, _V011_FCR_J.HOKOKU_NO)
             mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, FunGetNextSYONIN_JUN(PrCurrentStage, _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB))
@@ -2752,6 +2762,12 @@ Public Class FrmG0021
 
 #End Region
 
+            If FunGetNextSYONIN_JUN(PrCurrentStage, _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB) = ENM_CTS_STAGE._999_Closed Then
+                cmdFunc2.Text = "承認(F2)"
+            Else
+                cmdFunc2.Text = "承認・申請(F2)"
+            End If
+
             ErrorProvider.ClearError(cmbDestTANTO)
 
             Return True
@@ -2850,24 +2866,24 @@ Public Class FrmG0021
     ''' </summary>
     ''' <param name="CurrentStageID">現ステージID</param>
     ''' <returns></returns>
-    Private Function FunGetNextSYONIN_JUN(CurrentStageID As Integer, KOKYAKU_HANTEI_KB As String) As Integer
+    Private Function FunGetNextSYONIN_JUN(CurrentStageID As Integer, KOKYAKU_HANTEI_KB As Boolean) As Integer
         Try
             Const stageLength As Integer = 10
 
-            If KOKYAKU_HANTEI_KB = "1" Then
+            If KOKYAKU_HANTEI_KB = False Then
+                'なし時 #256
+                If CurrentStageID >= ENM_CTS_STAGE._70_品証課長 Then
+                    Return ENM_CTS_STAGE._999_Closed
+                Else
+                    Return CurrentStageID + stageLength
+                End If
+            Else
                 Select Case CurrentStageID
                     Case ENM_CTS_STAGE._90_部門長, ENM_CTS_STAGE._999_Closed
                         Return ENM_CTS_STAGE._999_Closed
                     Case Else
                         Return CurrentStageID + stageLength
                 End Select
-            Else
-                'なし時 #256
-                If CurrentStageID >= ENM_CTS_STAGE._80_製造課長 Then
-                    Return ENM_CTS_STAGE._999_Closed
-                Else
-                    Return CurrentStageID + stageLength
-                End If
             End If
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)

@@ -488,7 +488,6 @@ Module mdlG0010
         End If
     End Function
 
-
     Public Function IsMatchRevision(strRevisionName As String, intSYONIN_HOKOKUSYO_ID As Integer, strHOKOKU_NO As String) As Boolean
         Try
             Dim sbSQL As New System.Text.StringBuilder
@@ -511,12 +510,10 @@ Module mdlG0010
             End Using
 
             Return intRET > 0
-
         Catch ex As Exception
             Throw
         End Try
     End Function
-
 
     Public Function FunGetV003Model(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String) As List(Of V003_SYONIN_J_KANRI)
 
@@ -1388,8 +1385,6 @@ Module mdlG0010
                 ssgSheet1.Range(NameOf(_V002_NCR_J.SAISIN_KAKUNIN_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.SAISIN_KAKUNIN_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
 
-
-
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_BANGO)).Value = _V002_NCR_J.BUHIN_BANGO
             ssgSheet1.Range(NameOf(_V002_NCR_J.BUHIN_NAME)).Value = _V002_NCR_J.BUHIN_NAME
             If Not _V002_NCR_J.FUTEKIGO_JYOTAI_KB.IsNulOrWS Then
@@ -1917,6 +1912,7 @@ Module mdlG0010
             Dim shLINE_RANGE2 As SpreadsheetGear.Shapes.IShape = Nothing
             Dim shLINE_NAIYO As SpreadsheetGear.Shapes.IShape = Nothing
             Dim shLINE_YMD As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim shLINE_SYONIN_SECTION As SpreadsheetGear.Shapes.IShape = Nothing
             Dim shSCR_KOKYAKU_EIKYO_HANTEI_KB_T As SpreadsheetGear.Shapes.IShape = Nothing
             Dim shSCR_KOKYAKU_EIKYO_HANTEI_KB_F As SpreadsheetGear.Shapes.IShape = Nothing
             Dim shSCR_KOKYAKU_EIKYO_TUCHI_HANTEI_KB_T As SpreadsheetGear.Shapes.IShape = Nothing
@@ -1950,6 +1946,8 @@ Module mdlG0010
                         shLINE_NAIYO = shape
                     Case "LINE_YMD"
                         shLINE_YMD = shape
+                    Case "LINE_SYONIN_SECTION"
+                        shLINE_SYONIN_SECTION = shape
                     Case "SCR_KOKYAKU_EIKYO_HANTEI_KB_T"
                         shSCR_KOKYAKU_EIKYO_HANTEI_KB_T = shape
                     Case "SCR_KOKYAKU_EIKYO_HANTEI_KB_F"
@@ -1987,27 +1985,25 @@ Module mdlG0010
 
             Dim blnHANTEI As Boolean
 
-
-            blnHANTEI = (_V11.KOKYAKU_EIKYO_TUCHI_HANTEI_KB = "1")
+            blnHANTEI = _V11.KOKYAKU_EIKYO_TUCHI_HANTEI_KB
             shSCR_KOKYAKU_EIKYO_TUCHI_HANTEI_KB_T.Visible = blnHANTEI
             shSCR_KOKYAKU_EIKYO_TUCHI_HANTEI_KB_F.Visible = Not blnHANTEI
 
-            blnHANTEI = (_V11.OTHER_PROCESS_INFLUENCE_KB = "1")
+            blnHANTEI = _V11.OTHER_PROCESS_INFLUENCE_KB
             shSCR_OTHER_PROCESS_INFLUENCE_KB_T.Visible = blnHANTEI
             shSCR_OTHER_PROCESS_INFLUENCE_KB_F.Visible = Not blnHANTEI
             If blnHANTEI Then
                 spSheet1.Range(NameOf(V011_FCR_J.OTHER_PROCESS_INFLUENCE_MEMO)).Value = _V11.OTHER_PROCESS_INFLUENCE_MEMO
             End If
 
-            blnHANTEI = (_V11.FOLLOW_PROCESS_OUTFLOW_KB = "1")
+            blnHANTEI = _V11.FOLLOW_PROCESS_OUTFLOW_KB
             shSCR_FOLLOW_PROCESS_OUTFLOW_KB_T.Visible = blnHANTEI
             shSCR_FOLLOW_PROCESS_OUTFLOW_KB_F.Visible = Not blnHANTEI
             If blnHANTEI Then
                 spSheet1.Range(NameOf(V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_MEMO)).Value = _V11.FOLLOW_PROCESS_OUTFLOW_MEMO
             End If
 
-
-            blnHANTEI = (_V11.KOKYAKU_EIKYO_HANTEI_KB = "1")
+            blnHANTEI = _V11.KOKYAKU_EIKYO_HANTEI_KB
             shSCR_KOKYAKU_EIKYO_HANTEI_KB_T.Visible = blnHANTEI
             shSCR_KOKYAKU_EIKYO_HANTEI_KB_F.Visible = Not blnHANTEI
             shLINE_KOKYAKU_EIKYO_NAIYO.Visible = Not blnHANTEI
@@ -2018,22 +2014,30 @@ Module mdlG0010
             shLINE_KISYU2.Visible = Not blnHANTEI
             shLINE_RANGE1.Visible = Not blnHANTEI
             shLINE_RANGE2.Visible = Not blnHANTEI
+            shLINE_SYONIN_SECTION.Visible = Not blnHANTEI
+            shLINE_NAIYO.Visible = Not blnHANTEI
+            shLINE_YMD.Visible = Not blnHANTEI
 
             If blnHANTEI Then
-                If (_V11.OTHER_PROCESS_INFLUENCE_KB = "0") And (_V11.FOLLOW_PROCESS_OUTFLOW_KB = "0") Then
-                    '5-3Ç…éŒê¸
+                '
+                If (_V11.OTHER_PROCESS_INFLUENCE_KB = False) And (_V11.FOLLOW_PROCESS_OUTFLOW_KB = False) Then
                     shLINE_NAIYO.Visible = True
                     shLINE_YMD.Visible = True
-                    Dim dbl As Double = shLINE_NAIYO.Top
-                    Dim dbl2 As Double = shLINE_NAIYO.Left
-                Else
-                    shLINE_NAIYO.Visible = Not blnHANTEI
-                    shLINE_YMD.Visible = Not blnHANTEI
+                    '5-3Ç…éŒê¸
+                    shLINE_NAIYO.Top = 804
+                    shLINE_YMD.Top = 804
+                    shLINE_NAIYO.Height = 15
+                    shLINE_YMD.Height = 15
                 End If
             Else
-                '5-1,5-2Ç…éŒê¸
-                shLINE_NAIYO.Visible = True
-                shLINE_YMD.Visible = True
+                'å⁄ãqÇ÷ÇÃâeãøÇ»Çµ
+                If (_V11.OTHER_PROCESS_INFLUENCE_KB = False) And (_V11.FOLLOW_PROCESS_OUTFLOW_KB = False) Then
+                    'ëSÇƒÇ…éŒê¸
+                Else
+                    '5-1,5-2Ç…éŒê¸
+                    shLINE_NAIYO.Height = 29
+                    shLINE_YMD.Height = 29
+                End If
             End If
 
             If blnHANTEI Then

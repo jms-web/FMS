@@ -327,7 +327,7 @@ Public Class FrmG0011
                 Case 2  '承認申請
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._2_承認申請) Then
-                        If MessageBox.Show("申請しますか？", "承認・申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
+                        If MessageBox.Show("承認・申請しますか？", "承認・申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                             If FunSAVE(ENM_SAVE_MODE._2_承認申請) Then
 
                                 Dim strMsg As String

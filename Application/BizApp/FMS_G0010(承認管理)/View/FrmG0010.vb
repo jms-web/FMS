@@ -1244,37 +1244,39 @@ Public Class FrmG0010
                     Dim drs As List(Of DataRow) = dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of String)("DEL_YMDHNS").IsNulOrWS).ToList
                     If drs.Count > 0 Then
                         dtBUFF = drs.CopyToDataTable
+
+                        'ステージ検索条件
+                        Dim dtWK = dtBUFF.AsEnumerable.Take(0)
+                        Dim NCR_Filter = DirectCast(Me.dgvNCR.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Boolean)("SELECTED") = True).ToList
+                        For Each row In NCR_Filter
+                            dtWK = dtWK.AsEnumerable.
+                                    Union(dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR And
+                                                                                r.Field(Of Integer)("SYONIN_JUN") = row.Item("SYONIN_JUN")))
+                        Next row
+                        Dim CAR_Filter = DirectCast(Me.dgvCAR.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Boolean)("SELECTED") = True).ToList
+                        For Each row In CAR_Filter
+                            dtWK = dtWK.AsEnumerable.
+                             Union(dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR And
+                                                                         r.Field(Of Integer)("SYONIN_JUN") = row.Item("SYONIN_JUN")))
+                        Next row
+
+                        Dim CTS_Filter = DirectCast(Me.dgvCTS.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Boolean)("SELECTED") = True).ToList
+                        For Each row In CTS_Filter
+                            dtWK = dtWK.AsEnumerable.
+                             Union(dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS And
+                                                                         r.Field(Of Integer)("SYONIN_JUN") = row.Item("SYONIN_JUN")))
+                        Next row
+
+                        If dtWK.Count > 0 Then dtBUFF = dtWK.CopyToDataTable
                     Else
-                        Return Nothing
+                        dtBUFF = New DataTable
                     End If
                 End If
-
-                'ステージ検索条件
-                Dim dtWK = dtBUFF.AsEnumerable.Take(0)
-                Dim NCR_Filter = DirectCast(Me.dgvNCR.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Boolean)("SELECTED") = True).ToList
-                For Each row In NCR_Filter
-                    dtWK = dtWK.AsEnumerable.
-                            Union(dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR And
-                                                                        r.Field(Of Integer)("SYONIN_JUN") = row.Item("SYONIN_JUN")))
-                Next row
-                Dim CAR_Filter = DirectCast(Me.dgvCAR.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Boolean)("SELECTED") = True).ToList
-                For Each row In CAR_Filter
-                    dtWK = dtWK.AsEnumerable.
-                     Union(dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR And
-                                                                 r.Field(Of Integer)("SYONIN_JUN") = row.Item("SYONIN_JUN")))
-                Next row
-
-                Dim CTS_Filter = DirectCast(Me.dgvCTS.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of Boolean)("SELECTED") = True).ToList
-                For Each row In CTS_Filter
-                    dtWK = dtWK.AsEnumerable.
-                     Union(dtBUFF.AsEnumerable.Where(Function(r) r.Field(Of Integer)("SYONIN_HOKOKUSYO_ID") = Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS And
-                                                                 r.Field(Of Integer)("SYONIN_JUN") = row.Item("SYONIN_JUN")))
-                Next row
-
-                If dtWK.Count > 0 Then dtBUFF = dtWK.CopyToDataTable
             End If
 
             Dim tplDataModel = FunGetTableFromModel(t)
+
+            If dtBUFF.Rows.Count = 0 Then Return tplDataModel.dt
 
             With dtBUFF
                 For Each row As DataRow In .Rows
@@ -1415,7 +1417,8 @@ Public Class FrmG0010
             If dt IsNot Nothing Then
 
                 flx.DataSource = dt
-
+            Else
+                flx.DataSource = Nothing
             End If
 
             flx.ClearFilter()
@@ -1538,14 +1541,14 @@ Public Class FrmG0010
         Dim frmCAR As New FrmG0012
         Dim frmFCR As New FrmG0021
         Dim dlgRET As DialogResult
+        Dim hokokusyo_id As Integer
 
         Try
 
-            Dim hokokusyo_id As Integer
-            If flxDATA.Rows.Count > 1 Then
-                hokokusyo_id = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST02.SYONIN_HOKOKUSYO_ID))
-            Else
+            If intMODE = ENM_DATA_OPERATION_MODE._1_ADD Or flxDATA.Rows.Count = 1 Then
                 hokokusyo_id = 1
+            Else
+                hokokusyo_id = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST02.SYONIN_HOKOKUSYO_ID))
             End If
             Select Case hokokusyo_id
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value

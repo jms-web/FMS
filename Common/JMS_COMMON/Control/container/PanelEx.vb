@@ -99,6 +99,8 @@ Public Class PanelEx
             Case 1 'Enabled
                 For Each ctl As Control In Me.Controls
                     Select Case ctl.GetType
+                        Case GetType(Label)
+                            DirectCast(ctl, Label).Enabled = enabled
                         Case GetType(TextBox)
                             DirectCast(ctl, TextBox).Enabled = enabled
                         Case GetType(TextBoxEx)
@@ -107,6 +109,8 @@ Public Class PanelEx
                             DirectCast(ctl, MaskedTextBox).Enabled = enabled
                         Case GetType(MaskedTextBoxEx)
                             DirectCast(ctl, MaskedTextBoxEx).Enabled = enabled
+                        Case GetType(ComboBox)
+                            DirectCast(ctl, ComboBox).Enabled = enabled
                         Case GetType(ComboboxEx)
                             DirectCast(ctl, ComboboxEx).Enabled = enabled
                         Case GetType(CheckBox)
@@ -119,7 +123,7 @@ Public Class PanelEx
                             DirectCast(ctl, NumericUpDown).Enabled = enabled
                         Case GetType(RadioButton)
                             DirectCast(ctl, RadioButton).Enabled = enabled
-                        Case GetType(TableLayoutPanel), GetType(Panel), GetType(PanelEx)
+                        Case GetType(TableLayoutPanel), GetType(Panel), GetType(PanelEx), GetType(FlowLayoutPanel)
 
                             DisableContaints(ctl, enabled, intProperty)
                         Case Else
@@ -129,6 +133,8 @@ Public Class PanelEx
             Case 2 'ReadOnly
                 For Each ctl As Control In Me.Controls
                     Select Case ctl.GetType
+                        Case GetType(Label)
+                            DirectCast(ctl, Label).Enabled = enabled
                         Case GetType(TextBox)
                             DirectCast(ctl, TextBox).ReadOnly = Not enabled
                         Case GetType(TextBoxEx)
@@ -137,6 +143,8 @@ Public Class PanelEx
                             DirectCast(ctl, MaskedTextBox).ReadOnly = Not enabled
                         Case GetType(MaskedTextBoxEx)
                             DirectCast(ctl, MaskedTextBoxEx).ReadOnly = Not enabled
+                        Case GetType(ComboBox)
+                            DirectCast(ctl, ComboBox).Enabled = enabled
                         Case GetType(ComboboxEx)
                             DirectCast(ctl, ComboboxEx).ReadOnly = Not enabled
                         Case GetType(CheckBox)
@@ -165,6 +173,8 @@ Public Class PanelEx
             Case 1 'Enabled
                 For Each ctl As Control In ctrl.Controls
                     Select Case ctl.GetType
+                        Case GetType(Label)
+                            DirectCast(ctl, Label).Enabled = enabled
                         Case GetType(TextBox)
                             DirectCast(ctl, TextBox).Enabled = enabled
                         Case GetType(TextBoxEx)
@@ -173,6 +183,8 @@ Public Class PanelEx
                             DirectCast(ctl, MaskedTextBox).Enabled = enabled
                         Case GetType(MaskedTextBoxEx)
                             DirectCast(ctl, MaskedTextBoxEx).Enabled = enabled
+                        Case GetType(ComboBox)
+                            DirectCast(ctl, ComboBox).Enabled = enabled
                         Case GetType(ComboboxEx)
                             DirectCast(ctl, ComboboxEx).Enabled = enabled
                         Case GetType(CheckBox)
@@ -185,6 +197,8 @@ Public Class PanelEx
                             DirectCast(ctl, DateTextBoxEx).Enabled = enabled
                         Case GetType(RadioButton)
                             DirectCast(ctl, RadioButton).Enabled = enabled
+                        Case GetType(FlowLayoutPanel)
+                            DirectCast(ctl, FlowLayoutPanel).Enabled = enabled
                         Case GetType(TableLayoutPanel)
                             '再帰的に見たい
                             'EnableDisablePages(enabled, intProperty)
@@ -196,6 +210,8 @@ Public Class PanelEx
             Case 2 'ReadOnly
                 For Each ctl As Control In ctrl.Controls
                     Select Case ctl.GetType
+                        Case GetType(Label)
+                            DirectCast(ctl, Label).Enabled = enabled
                         Case GetType(TextBox)
                             DirectCast(ctl, TextBox).ReadOnly = Not enabled
                         Case GetType(TextBoxEx)
@@ -204,6 +220,8 @@ Public Class PanelEx
                             DirectCast(ctl, MaskedTextBox).ReadOnly = Not enabled
                         Case GetType(MaskedTextBoxEx)
                             DirectCast(ctl, MaskedTextBoxEx).ReadOnly = Not enabled
+                        Case GetType(ComboBox)
+                            DirectCast(ctl, ComboBox).Enabled = enabled
                         Case GetType(ComboboxEx)
                             DirectCast(ctl, ComboboxEx).ReadOnly = Not enabled
                         Case GetType(CheckBox)
@@ -216,6 +234,9 @@ Public Class PanelEx
                             DirectCast(ctl, NumericUpDown).Enabled = enabled
                         Case GetType(RadioButton)
                             DirectCast(ctl, RadioButton).Enabled = enabled
+                        Case GetType(FlowLayoutPanel)
+                            DirectCast(ctl, FlowLayoutPanel).Enabled = enabled
+
                         Case GetType(TableLayoutPanel)
                             '再帰的に見たい
                             'DisableContains(enabled, intProperty)
