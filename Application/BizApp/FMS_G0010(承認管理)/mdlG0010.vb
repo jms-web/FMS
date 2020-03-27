@@ -2010,10 +2010,7 @@ Module mdlG0010
             shLINE_KAKUNIN_SYUDAN.Visible = Not blnHANTEI
             shLINE_TUCHI.Visible = Not blnHANTEI
             shLINE_KOKYAKU_EIKYO_ETC_COMMENT.Visible = Not blnHANTEI
-            shLINE_KISYU1.Visible = Not blnHANTEI
-            shLINE_KISYU2.Visible = Not blnHANTEI
-            shLINE_RANGE1.Visible = Not blnHANTEI
-            shLINE_RANGE2.Visible = Not blnHANTEI
+
             shLINE_SYONIN_SECTION.Visible = Not blnHANTEI
             shLINE_NAIYO.Visible = Not blnHANTEI
             shLINE_YMD.Visible = Not blnHANTEI
@@ -2040,37 +2037,49 @@ Module mdlG0010
                 End If
             End If
 
+            shLINE_KISYU1.Visible = (Not blnHANTEI) Or (Not _V11.FUTEKIGO_SEIHIN_MEMO.IsNulOrWS)
+            shLINE_RANGE1.Visible = (Not blnHANTEI) Or (Not _V11.FUTEKIGO_SEIHIN_MEMO.IsNulOrWS)
+            shLINE_KISYU2.Visible = (Not blnHANTEI) Or (Not _V11.KOKYAKU_EIKYO_MEMO.IsNulOrWS)
+            shLINE_RANGE2.Visible = (Not blnHANTEI) Or (Not _V11.KOKYAKU_EIKYO_MEMO.IsNulOrWS)
+
             If blnHANTEI Then
-                spSheet1.Range(NameOf(V011_FCR_J.KISYU1_NAME)).Value = _V11.KISYU1_NAME
-                spSheet1.Range(NameOf(V011_FCR_J.KISYU2_NAME)).Value = _V11.KISYU2_NAME
-                spSheet1.Range(NameOf(V011_FCR_J.KISYU3_NAME)).Value = _V11.KISYU3_NAME
-                spSheet1.Range(NameOf(V011_FCR_J.KISYU4_NAME)).Value = _V11.KISYU4_NAME
-                spSheet1.Range(NameOf(V011_FCR_J.KISYU5_NAME)).Value = _V11.KISYU5_NAME
-                spSheet1.Range(NameOf(V011_FCR_J.KISYU6_NAME)).Value = _V11.KISYU6_NAME
-                spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO1)).Value = _V11.BUHIN_INFO1
-                spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO2)).Value = _V11.BUHIN_INFO2
-                spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO3)).Value = _V11.BUHIN_INFO3
-                spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO4)).Value = _V11.BUHIN_INFO4
-                spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO5)).Value = _V11.BUHIN_INFO5
-                spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO6)).Value = _V11.BUHIN_INFO6
-                spSheet1.Range(NameOf(V011_FCR_J.SURYO1)).Value = If(_V11.KISYU1_NAME.IsNulOrWS, "", _V11.SURYO1)
-                spSheet1.Range(NameOf(V011_FCR_J.SURYO2)).Value = If(_V11.KISYU2_NAME.IsNulOrWS, "", _V11.SURYO2)
-                spSheet1.Range(NameOf(V011_FCR_J.SURYO3)).Value = If(_V11.KISYU3_NAME.IsNulOrWS, "", _V11.SURYO3)
-                spSheet1.Range(NameOf(V011_FCR_J.SURYO4)).Value = If(_V11.KISYU4_NAME.IsNulOrWS, "", _V11.SURYO4)
-                spSheet1.Range(NameOf(V011_FCR_J.SURYO5)).Value = If(_V11.KISYU5_NAME.IsNulOrWS, "", _V11.SURYO5)
-                spSheet1.Range(NameOf(V011_FCR_J.SURYO6)).Value = If(_V11.KISYU6_NAME.IsNulOrWS, "", _V11.SURYO6)
-                spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM1)).Value = _V11.RANGE_FROM1
-                spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM2)).Value = _V11.RANGE_FROM2
-                spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM3)).Value = _V11.RANGE_FROM3
-                spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM4)).Value = _V11.RANGE_FROM4
-                spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM5)).Value = _V11.RANGE_FROM5
-                spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM6)).Value = _V11.RANGE_FROM6
-                spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO1)).Value = _V11.RANGE_TO1
-                spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO2)).Value = _V11.RANGE_TO2
-                spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO3)).Value = _V11.RANGE_TO3
-                spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO4)).Value = _V11.RANGE_TO4
-                spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO5)).Value = _V11.RANGE_TO5
-                spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO6)).Value = _V11.RANGE_TO6
+
+                If (_V11.FUTEKIGO_SEIHIN_MEMO.IsNulOrWS) Then
+                    spSheet1.Range(NameOf(V011_FCR_J.KISYU1_NAME)).Value = _V11.KISYU1_NAME
+                    spSheet1.Range(NameOf(V011_FCR_J.KISYU2_NAME)).Value = _V11.KISYU2_NAME
+                    spSheet1.Range(NameOf(V011_FCR_J.KISYU3_NAME)).Value = _V11.KISYU3_NAME
+                    spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO1)).Value = _V11.BUHIN_INFO1
+                    spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO2)).Value = _V11.BUHIN_INFO2
+                    spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO3)).Value = _V11.BUHIN_INFO3
+                    spSheet1.Range(NameOf(V011_FCR_J.SURYO1)).Value = If(_V11.KISYU1_NAME.IsNulOrWS, "", _V11.SURYO1)
+                    spSheet1.Range(NameOf(V011_FCR_J.SURYO2)).Value = If(_V11.KISYU2_NAME.IsNulOrWS, "", _V11.SURYO2)
+                    spSheet1.Range(NameOf(V011_FCR_J.SURYO3)).Value = If(_V11.KISYU3_NAME.IsNulOrWS, "", _V11.SURYO3)
+                    spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM1)).Value = _V11.RANGE_FROM1
+                    spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM2)).Value = _V11.RANGE_FROM2
+                    spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM3)).Value = _V11.RANGE_FROM3
+                    spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO1)).Value = _V11.RANGE_TO1
+                    spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO2)).Value = _V11.RANGE_TO2
+                    spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO3)).Value = _V11.RANGE_TO3
+                End If
+
+                If (_V11.KOKYAKU_EIKYO_MEMO.IsNulOrWS) Then
+                    spSheet1.Range(NameOf(V011_FCR_J.KISYU4_NAME)).Value = _V11.KISYU4_NAME
+                    spSheet1.Range(NameOf(V011_FCR_J.KISYU5_NAME)).Value = _V11.KISYU5_NAME
+                    spSheet1.Range(NameOf(V011_FCR_J.KISYU6_NAME)).Value = _V11.KISYU6_NAME
+                    spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO4)).Value = _V11.BUHIN_INFO4
+                    spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO5)).Value = _V11.BUHIN_INFO5
+                    spSheet1.Range(NameOf(V011_FCR_J.BUHIN_INFO6)).Value = _V11.BUHIN_INFO6
+                    spSheet1.Range(NameOf(V011_FCR_J.SURYO4)).Value = If(_V11.KISYU4_NAME.IsNulOrWS, "", _V11.SURYO4)
+                    spSheet1.Range(NameOf(V011_FCR_J.SURYO5)).Value = If(_V11.KISYU5_NAME.IsNulOrWS, "", _V11.SURYO5)
+                    spSheet1.Range(NameOf(V011_FCR_J.SURYO6)).Value = If(_V11.KISYU6_NAME.IsNulOrWS, "", _V11.SURYO6)
+                    spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM4)).Value = _V11.RANGE_FROM4
+                    spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM5)).Value = _V11.RANGE_FROM5
+                    spSheet1.Range(NameOf(V011_FCR_J.RANGE_FROM6)).Value = _V11.RANGE_FROM6
+                    spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO4)).Value = _V11.RANGE_TO4
+                    spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO5)).Value = _V11.RANGE_TO5
+                    spSheet1.Range(NameOf(V011_FCR_J.RANGE_TO6)).Value = _V11.RANGE_TO6
+                End If
+
                 spSheet1.Range(NameOf(V011_FCR_J.KOKYAKU_NOUNYU_NAIYOU)).Value = _V11.KOKYAKU_NOUNYU_NAIYOU
                 spSheet1.Range(NameOf(V011_FCR_J.KOKYAKU_NOUNYU_YMD)).Value = _V11.KOKYAKU_NOUNYU_YMD
                 spSheet1.Range(NameOf(V011_FCR_J.ZAIKO_SIKAKE_NAIYOU)).Value = _V11.ZAIKO_SIKAKE_NAIYOU

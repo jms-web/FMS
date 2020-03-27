@@ -82,18 +82,24 @@ Public Class FrmG0021
         cmbKISYU5.NullValue = 0
         cmbKISYU6.NullValue = 0
 
-        'txtFROM1.ShowRemainingChars = False
-        'txtFROM2.ShowRemainingChars = False
-        'txtFROM3.ShowRemainingChars = False
-        'txtFROM4.ShowRemainingChars = False
-        'txtFROM5.ShowRemainingChars = False
-        'txtFROM6.ShowRemainingChars = False
-        'txtTO1.ShowRemainingChars = False
-        'txtTO2.ShowRemainingChars = False
-        'txtTO3.ShowRemainingChars = False
-        'txtTO4.ShowRemainingChars = False
-        'txtTO5.ShowRemainingChars = False
-        'txtTO6.ShowRemainingChars = False
+        txtBUHIN_INFO1.ShowRemainingChars = False
+        txtBUHIN_INFO2.ShowRemainingChars = False
+        txtBUHIN_INFO3.ShowRemainingChars = False
+        txtBUHIN_INFO4.ShowRemainingChars = False
+        txtBUHIN_INFO5.ShowRemainingChars = False
+        txtBUHIN_INFO6.ShowRemainingChars = False
+        txtFROM1.ShowRemainingChars = False
+        txtFROM2.ShowRemainingChars = False
+        txtFROM3.ShowRemainingChars = False
+        txtFROM4.ShowRemainingChars = False
+        txtFROM5.ShowRemainingChars = False
+        txtFROM6.ShowRemainingChars = False
+        txtTO1.ShowRemainingChars = False
+        txtTO2.ShowRemainingChars = False
+        txtTO3.ShowRemainingChars = False
+        txtTO4.ShowRemainingChars = False
+        txtTO5.ShowRemainingChars = False
+        txtTO6.ShowRemainingChars = False
 
     End Sub
 
@@ -1728,7 +1734,7 @@ Public Class FrmG0021
         If blnChecked Then
             cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Text = ""
         Else
-
+            txtTAISYO_KOKYAKU.Text = ""
             rbtnKOKYAKU_EIKYO_TUCHI_HANTEI_KB_F.Checked = True
             Call RbtnKOKYAKU_EIKYO_TUCHI_HANTEI_KB_CheckedChanged(rbtnKOKYAKU_EIKYO_TUCHI_HANTEI_KB_F, Nothing)
             txtKOKYAKU_EIKYO_NAIYO.Text = ""
@@ -1775,6 +1781,13 @@ Public Class FrmG0021
             txtTO6.Text = ""
 
 #End Region
+            txtOTHER_PROCESS_INFLUENCE_MEMO.Text = ""
+            txtFOLLOW_PROCESS_OUTFLOW_MEMO.Text = ""
+
+            txtFUTEKIGO_SEIHIN_MEMO.Text = ""
+            txtKOKYAKU_EIKYO_MEMO.Text = ""
+            Call TxtFUTEKIGO_SEIHIN_MEMO_Validated(txtFUTEKIGO_SEIHIN_MEMO, Nothing)
+            Call TxtKOKYAKU_EIKYO_MEMO_Validated(txtKOKYAKU_EIKYO_MEMO, Nothing)
 
             rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked = True
             rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked = True
@@ -1785,12 +1798,13 @@ Public Class FrmG0021
             _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH = ""
             _V011_FCR_J.SYOCHI_FILEPATH = ""
 
+
             txtKOKYAKU_NOUNYU_NAIYOU.Text = ""
             txtZAIKO_SIKAKE_NAIYOU.Text = ""
             txtOTHER_PROCESS_NAIYOU.Text = ""
-            dtKOKYAKU_NOUNYU_YMD.Value = ""
-            dtZAIKO_SIKAKE_YMD.Value = ""
-            dtOTHER_PROCESS_YMD.Value = ""
+            dtKOKYAKU_NOUNYU_YMD.Text = ""
+            dtZAIKO_SIKAKE_YMD.Text = ""
+            dtOTHER_PROCESS_YMD.Text = ""
 
             pnlSYOCHI_FILEPATH.DisableContaints(False, PanelEx.ENM_PROPERTY._1_Enabled)
         End If
@@ -1803,6 +1817,11 @@ Public Class FrmG0021
         dtOTHER_PROCESS_YMD.Enabled = True
         lblKOKYAKU_EIKYO_HANTEI_COMMENT.Visible = Not blnChecked
         cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Visible = Not blnChecked
+
+        Call RbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(Nothing, Nothing)
+        Call RbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(Nothing, Nothing)
+
+
 
         lblTAISYO_KOKYAKU.Enabled = blnChecked
         lblKOKYAKU_EIKYO_NAIYO.Enabled = blnChecked
@@ -1841,7 +1860,7 @@ Public Class FrmG0021
 
     Private Sub CmbKISYU1_Validated(sender As Object, e As EventArgs) Handles cmbKISYU1.Validated
         Dim cmb = DirectCast(sender, ComboboxEx)
-        If Not cmb.Text.IsNulOrWS Then
+        If cmb.SelectedValue <> 0 Then
             pnlInfo2.Enabled = True
         Else
             pnlInfo2.Enabled = False
@@ -1856,7 +1875,7 @@ Public Class FrmG0021
 
     Private Sub CmbKISYU2_Validated(sender As Object, e As EventArgs) Handles cmbKISYU2.Validated
         Dim cmb = DirectCast(sender, ComboboxEx)
-        If Not cmb.Text.IsNulOrWS Then
+        If cmb.SelectedValue <> 0 Then
             pnlInfo3.Enabled = True
         Else
             pnlInfo3.Enabled = False
@@ -1870,7 +1889,7 @@ Public Class FrmG0021
 
     Private Sub CmbKISYU4_Validated(sender As Object, e As EventArgs) Handles cmbKISYU4.Validated
         Dim cmb = DirectCast(sender, ComboboxEx)
-        If Not cmb.Text.IsNulOrWS Then
+        If cmb.SelectedValue <> 0 Then
             pnlInfo5.Enabled = True
         Else
             pnlInfo5.Enabled = False
@@ -2003,7 +2022,9 @@ Public Class FrmG0021
 
         pnlFUTEKIGO_SEIHIN_FILEPATH.Enabled = blnEnabled
         pnlInfo1.Enabled = blnEnabled
+        Call CmbKISYU1_Validated(cmbKISYU1, Nothing)
         pnlInfo2.Enabled = blnEnabled
+        Call CmbKISYU2_Validated(cmbKISYU2, Nothing)
         pnlInfo3.Enabled = blnEnabled
 
     End Sub
@@ -2019,7 +2040,9 @@ Public Class FrmG0021
 
         pnlKOKYAKU_EIKYO_FILEPATH.Enabled = blnEnabled
         pnlInfo4.Enabled = blnEnabled
+        Call CmbKISYU4_Validated(cmbKISYU4, Nothing)
         pnlInfo5.Enabled = blnEnabled
+        Call CmbKISYU5_Validated(cmbKISYU5, Nothing)
         pnlInfo6.Enabled = blnEnabled
     End Sub
 

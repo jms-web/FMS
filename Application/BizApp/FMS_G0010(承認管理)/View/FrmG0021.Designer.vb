@@ -3608,7 +3608,6 @@ Partial Class FrmG0021
         Me.txtBUHIN_INFO1.Multiline = True
         Me.txtBUHIN_INFO1.Name = "txtBUHIN_INFO1"
         Me.txtBUHIN_INFO1.SelectAllText = False
-        Me.txtBUHIN_INFO1.ShowRemainingChars = True
         Me.txtBUHIN_INFO1.Size = New System.Drawing.Size(307, 23)
         Me.txtBUHIN_INFO1.TabIndex = 1
         Me.txtBUHIN_INFO1.WatermarkColor = System.Drawing.Color.Empty

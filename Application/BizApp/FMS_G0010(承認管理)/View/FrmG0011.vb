@@ -2300,8 +2300,24 @@ Public Class FrmG0011
         Dim sbSQL As New System.Text.StringBuilder
         Dim strRET As String
         Dim sqlEx As New Exception
+        Dim intRET As Integer
 
         '-----データモデル更新
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append($"DELETE FROM {NameOf(D007_FCR_J)}")
+        sbSQL.Append($" WHERE {NameOf(D007_FCR_J.HOKOKU_NO)}='{_D003_NCR_J.HOKOKU_NO}'")
+        intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+        Select Case intRET
+            Case 0
+                If sqlEx.Source IsNot Nothing Then
+                    '-----エラーログ出力
+                    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                    WL.WriteLogDat(strErrMsg)
+                    Return False
+                Else
+                End If
+        End Select
+
         Dim _D007 As New D007_FCR_J
         _D007.Clear()
         _D007.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
@@ -2373,6 +2389,24 @@ Public Class FrmG0011
         End If
 
         '----D004
+
+        '差し戻し再起草時 Delete
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append($"DELETE FROM {NameOf(D004_SYONIN_J_KANRI)}")
+        sbSQL.Append($" WHERE {NameOf(D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS.Value}")
+        sbSQL.Append($" AND {NameOf(D004_SYONIN_J_KANRI.HOKOKU_NO)}='{_D003_NCR_J.HOKOKU_NO}'")
+        intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
+        Select Case intRET
+            Case 0
+                If sqlEx.Source IsNot Nothing Then
+                    '-----エラーログ出力
+                    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                    WL.WriteLogDat(strErrMsg)
+                    Return False
+                Else
+                End If
+        End Select
+
         '-----データモデル更新
         _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS.Value
         _D004_SYONIN_J_KANRI.HOKOKU_NO = _D003_NCR_J.HOKOKU_NO
@@ -3717,6 +3751,10 @@ Public Class FrmG0011
                 '#243
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._20_起草確認製造GL))
                 cmbST03_TANTO_FCR.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                Dim KISO_USER_ID As Integer = GetCTS_Author(_D003_NCR_J.HOKOKU_NO)
+                If KISO_USER_ID > 0 Then
+                    cmbST03_TANTO_FCR.SelectedValue = KISO_USER_ID
+                End If
 
                 _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
                                 Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._30_起草確認検査).
@@ -4749,6 +4787,8 @@ Public Class FrmG0011
 
         End Try
     End Function
+
+
 
     ''' <summary>
     ''' ステージ80内タブの判定
@@ -6927,6 +6967,34 @@ Public Class FrmG0011
             Throw
         End Try
     End Function
+
+    Private Function GetCTS_Author(HOKOKU_NO As String) As Integer
+
+        Try
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim intRET As Integer
+
+            If HOKOKU_NO.IsNulOrWS Then
+                Return 0
+            Else
+                sbSQL.Append($"SELECT")
+                sbSQL.Append($" {NameOf(V003_SYONIN_J_KANRI.SYAIN_ID)}")
+                sbSQL.Append($" FROM {NameOf(V003_SYONIN_J_KANRI)} ")
+                sbSQL.Append($" WHERE {NameOf(V003_SYONIN_J_KANRI.HOKOKU_NO)}        ='{HOKOKU_NO}'")
+                sbSQL.Append($" AND {NameOf(V003_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS.Value}")
+                sbSQL.Append($" AND {NameOf(V003_SYONIN_J_KANRI.SYONIN_JUN)}         ={ENM_CAR_STAGE._10_起草入力.Value}")
+                Using DB As ClsDbUtility = DBOpen()
+                    intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg)
+                End Using
+
+                Return intRET
+            End If
+
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
 
     ''' <summary>
     ''' 承認順Noから該当するタブNoを取得
