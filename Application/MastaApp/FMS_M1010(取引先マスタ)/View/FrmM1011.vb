@@ -3,10 +3,9 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class FrmM1011
 
 #Region "変数・定数"
-    '入力必須コントロール検証判定
-    Private IsValidated As Boolean
 
     Private _M101 As New MODEL.M101_TORIHIKI
+
 #End Region
 
 #Region "プロパティ"
@@ -14,7 +13,6 @@ Public Class FrmM1011
     ''' <summary>
     ''' 新規追加レコードのキー
     ''' </summary>
-
 
     ''' <summary>
     ''' 一覧選択レコード
@@ -31,10 +29,10 @@ Public Class FrmM1011
 
     Public Property PrDataRow As C1.Win.C1FlexGrid.Row
 
-
 #End Region
 
 #Region "FORMイベント"
+
     Private Sub Frm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
@@ -48,7 +46,6 @@ Public Class FrmM1011
 
             '-----各コントロールのデータソースを設定
             Me.cmbTORI_KB.SetDataSource(tblTORI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
 
             Dim intTORI_SYU As Integer
             For Each item As Integer In [Enum].GetValues(GetType(Context.ENM_TORI_SYU))
@@ -64,7 +61,6 @@ Public Class FrmM1011
             '-----ダイアログウィンドウ設定
             Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
             Me.ControlBox = False
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
@@ -75,6 +71,7 @@ Public Class FrmM1011
 #Region "FUNCTIONボタン関連"
 
 #Region "ボタンクリックイベント"
+
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc1.Click, cmdFunc2.Click, cmdFunc3.Click, cmdFunc4.Click, cmdFunc5.Click, cmdFunc6.Click, cmdFunc7.Click, cmdFunc8.Click, cmdFunc9.Click, cmdFunc10.Click, cmdFunc11.Click, cmdFunc12.Click
         Dim intFUNC As Integer
         Dim intCNT As Integer
@@ -101,10 +98,8 @@ Public Class FrmM1011
                     Me.DialogResult = Windows.Forms.DialogResult.Cancel
                     Me.Close()
             End Select
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
-
         Finally
             'ボタン可
             System.Windows.Forms.Application.DoEvents()
@@ -141,7 +136,6 @@ Public Class FrmM1011
                     _M101.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
 
                     _M101.UPD_YMDHNS = _M101.UPD_YMDHNS.Replace("/", "").Replace(":", "").Replace(" ", "")
-
 
                     _M101.POST = _M101.POST.ToString.Replace("〒", "")
 
@@ -211,7 +205,6 @@ Public Class FrmM1011
 
                         Case "UPDATE"
 
-
                         Case Else
                             If sqlEx.Source IsNot Nothing Then
                                 '-----エラーログ出力
@@ -240,6 +233,7 @@ Public Class FrmM1011
 #End Region
 
 #Region "コントロールイベント"
+
     Private Sub MtxPOST_Validated(sender As Object, e As EventArgs) Handles mtxPOST.Validated
         Call BtnSrchYubin_Click(Nothing, Nothing)
     End Sub
@@ -283,7 +277,6 @@ Public Class FrmM1011
                     End If
                 End With
             End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -294,13 +287,31 @@ Public Class FrmM1011
         End Try
     End Sub
 
+    '取引区分
+    Private Sub CmbTORI_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbTORI_KB.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "取引区分"))
+        End If
+    End Sub
+
+    '取引先名
+    Private Sub MtxTORI_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxTORI_NAME.Validating
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "取引先名"))
+        End If
+    End Sub
+
 #End Region
 
 #Region "入力チェック"
+
     Public Function FunCheckInput() As Boolean
 
         Try
             IsValidated = True
+            IsCheckRequired = True
 
             '取引区分
             Call CmbTORI_KB_Validating(cmbTORI_KB, Nothing)
@@ -308,11 +319,11 @@ Public Class FrmM1011
             '取引先名
             Call MtxTORI_NAME_Validating(mtxTORI_NAME, Nothing)
 
-
             Return IsValidated
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
+            Throw
+        Finally
+            IsCheckRequired = False
 
         End Try
     End Function
@@ -379,6 +390,7 @@ Public Class FrmM1011
 #End Region
 
 #Region "処理モード別画面初期化"
+
     ''' <summary>
     ''' 処理モード別画面初期化
     ''' </summary>
@@ -407,7 +419,6 @@ Public Class FrmM1011
                     Me.lblEDIT_YMDHNS.Visible = False
                     Me.lblEDIT_YMDHNS.Visible = False
 
-
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
 
                     Call FunSetEntityValues(PrDataRow)
@@ -428,7 +439,6 @@ Public Class FrmM1011
             End Select
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -478,8 +488,6 @@ Public Class FrmM1011
                     Me.lblEDIT_YMDHNS.Text = dt.ToString("yyyy/MM/dd HH:mm:ss")
                 End If
 
-
-
                 '更新担当者コード
                 Me.lblEDIT_SYAIN_ID.Text = .Item("UPD_SYAIN_ID").ToString.Trim & " " & Fun_GetUSER_NAME(.Item("UPD_SYAIN_ID").ToString.Trim)
 
@@ -493,28 +501,6 @@ Public Class FrmM1011
     End Function
 
 #End Region
-
-#End Region
-
-#Region "テキストボックスが空欄の場合、0を入力する"
-
-    '取引区分
-    Private Sub CmbTORI_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbTORI_KB.Validating
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "取引区分"))
-
-    End Sub
-
-    '取引先名
-    Private Sub MtxTORI_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxTORI_NAME.Validating
-        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "取引先名"))
-
-    End Sub
-
-    Private Sub TableLayoutPanel2_Paint(sender As Object, e As PaintEventArgs) Handles TableLayoutPanel2.Paint
-
-    End Sub
 
 #End Region
 

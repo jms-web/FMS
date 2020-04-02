@@ -6,12 +6,14 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class FrmM1061
 
 #Region "変数・定数"
-    Private IsValidated As Boolean
+
     Private _M106 As New MODEL.M106_BUHIN
     Private _VWM106 As New MODEL.VWM106_BUHIN
+
 #End Region
 
 #Region "プロパティ"
+
     ''' <summary>
     ''' 処理モード
     ''' </summary>
@@ -56,6 +58,7 @@ Public Class FrmM1061
 #End Region
 
 #Region "FORMイベント"
+
     Private Sub Frm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
@@ -78,7 +81,6 @@ Public Class FrmM1061
 
             '-----処理モード別画面初期化
             Call FunInitializeControls()
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -91,6 +93,7 @@ Public Class FrmM1061
 #Region "FUNCTIONボタンCLICK"
 
 #Region "ボタンクリックイベント"
+
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc1.Click, cmdFunc2.Click, cmdFunc3.Click, cmdFunc4.Click, cmdFunc5.Click, cmdFunc6.Click, cmdFunc7.Click, cmdFunc8.Click, cmdFunc9.Click, cmdFunc10.Click, cmdFunc11.Click, cmdFunc12.Click
         Dim intFUNC As Integer
         Dim intCNT As Integer
@@ -117,7 +120,6 @@ Public Class FrmM1061
                     Me.DialogResult = Windows.Forms.DialogResult.Cancel
                     Me.Close()
             End Select
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
         Finally
@@ -162,7 +164,6 @@ Public Class FrmM1061
         ' 不要になった時点で破棄する (正しくは オブジェクトの破棄を保証する を参照)
         ColorDialog1.Dispose()
     End Sub
-
 
 #End Region
 
@@ -305,6 +306,7 @@ Public Class FrmM1061
 #End Region
 
 #Region "FuncButton有効無効切替"
+
     ''' <summary>
     ''' 使用しないボタンのキャプションをなくす、かつ非活性にする。
     ''' ファンクションキーを示す(F**)以外の文字がない場合は、未使用とみなす
@@ -330,17 +332,15 @@ Public Class FrmM1061
             Return False
         End Try
     End Function
-#End Region
 
 #End Region
-
-#Region "コントロールイベント"
 
 #End Region
 
 #Region "ローカル関数"
 
 #Region "バインディング"
+
     Private Function FunSetBinding() As Boolean
         cmbBUMON_KB.DataBindings.Add(New Binding(NameOf(cmbBUMON_KB.SelectedValue), _M106, NameOf(_M106.BUMON_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbTOKUI_ID.DataBindings.Add(New Binding(NameOf(cmbTOKUI_ID.SelectedValue), _M106, NameOf(_M106.TOKUI_ID), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -356,12 +356,12 @@ Public Class FrmM1061
         mtxHINSYU_BANGO.DataBindings.Add(New Binding(NameOf(mtxHINSYU_BANGO.Text), _M106, NameOf(_M106.HINSYU_BANGO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         chkTachiai.DataBindings.Add(New Binding(NameOf(chkTachiai.Checked), _M106, NameOf(_M106.TACHIAI_FLG), False, DataSourceUpdateMode.OnPropertyChanged, False))
 
-
     End Function
 
 #End Region
 
 #Region "処理モード別画面初期化"
+
     Private Function FunInitializeControls() As Boolean
         Dim _Model = New MODEL.ModelInfo(Of MODEL.VWM106_BUHIN)(_OnlyAutoGenerateField:=True)
         Dim C_R As Integer
@@ -411,8 +411,6 @@ Public Class FrmM1061
                     lblTytle.Text &= "（変更）"
                     Me.cmdFunc1.Text = "変更(F1)"
 
-
-
                     Using DB As ClsDbUtility = DBOpen()
 
                         cmbKEIYAKU_KB.DataBindings.Clear()
@@ -451,7 +449,6 @@ Public Class FrmM1061
 
                     cmbBUMON_KB.Enabled = False
 
-
                     If _M106.COLOR_CD.Trim <> "" Then
                         C_R = CInt("&h" & _M106.COLOR_CD.Substring(1, 2))
                         C_G = CInt("&h" & _M106.COLOR_CD.Substring(3, 2))
@@ -481,7 +478,6 @@ Public Class FrmM1061
                             lblEDIT_SYAIN_ID.Text = ""
                         End If
 
-
                     End If
 
                 Case Else
@@ -489,7 +485,6 @@ Public Class FrmM1061
             End Select
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -499,11 +494,13 @@ Public Class FrmM1061
 #End Region
 
 #Region "入力チェック"
+
     '入力チェック　メイン
     Public Function FunCheckInput() As Boolean
 
         Try
             IsValidated = True
+            IsCheckRequired = True
 
             Call CmbBUMON_KB_Validating(cmbBUMON_KB, Nothing)
             Call CmbTOKUI_ID_Validating(cmbTOKUI_ID, Nothing)
@@ -511,8 +508,9 @@ Public Class FrmM1061
 
             Return IsValidated
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
+            Throw
+        Finally
+            IsCheckRequired = False
         End Try
     End Function
 
@@ -522,7 +520,7 @@ Public Class FrmM1061
 
         If cmb.IsSelected Then
             '部門区分の選択時の処理
-            Using DB As ClsDbUtility = DBOpen()
+            Using DB = DBOpen()
 
                 cmbKEIYAKU_KB.DataBindings.Clear()
 
@@ -533,8 +531,6 @@ Public Class FrmM1061
                         Call FunGetCodeDataTable(DB, "風防契約区分", tblKK_KEIYAKU_KB)
                         cmbKEIYAKU_KB.SetDataSource(tblKK_KEIYAKU_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                         cmbKEIYAKU_KB.Enabled = True
-                        '_M106.ZUBAN_C = ""
-                        'mtxZUBAN_C.Enabled = False
 
                     Case ENM_BUMON_KB._2_LP
                         mtxBUHIN_NAME.Enabled = True
@@ -545,12 +541,9 @@ Public Class FrmM1061
 
                     Case ENM_BUMON_KB._3_複合材
                         mtxBUHIN_NAME.Enabled = True
-                        '_M106.BUHIN_NAME = ""
+
                         Call FunGetCodeDataTable(DB, "複合材契約区分", tblFK_KEIYAKU_KB)
                         cmbKEIYAKU_KB.SetDataSource(tblFK_KEIYAKU_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-
-                        '_M106.ZUBAN_C = ""
-                        'mtxZUBAN_C.Enabled = False
 
                     Case Else
 
@@ -559,45 +552,42 @@ Public Class FrmM1061
                 cmbKEIYAKU_KB.DataBindings.Add(New Binding(NameOf(cmbKEIYAKU_KB.SelectedValue), _M106, NameOf(_M106.KEIYAKU_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
                 cmbKEIYAKU_KB.SelectedValue = _M106.KEIYAKU_KB
-                'If PrDATA_OP_MODE = ENM_DATA_OPERATION_MODE._2_ADDREF Or PrDATA_OP_MODE = ENM_DATA_OPERATION_MODE._3_UPDATE Then
-                '    cmbBUMON_KB.Enabled = False
-                'End If
 
             End Using
-
         Else
 
         End If
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"))
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"))
+        End If
     End Sub
+
     '得意先　入力チェック
     Private Sub CmbTOKUI_ID_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbTOKUI_ID.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "得意先"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "得意先"))
+        End If
     End Sub
+
     '部品番号　入力チェック
     Private Sub MtxBUHIN_BANGO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxBUHIN_BANGO.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品番号"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品番号"))
+        End If
     End Sub
 
     '部品番号　入力チェック
     Private Sub MtxTANKA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxTANKA.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "単価"))
-
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "単価"))
+        End If
     End Sub
 
-
-
 #End Region
 
 #End Region
-
-
 
 End Class

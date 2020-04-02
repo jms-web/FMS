@@ -1,6 +1,5 @@
 Imports JMS_COMMON.ClsPubMethod
 
-
 ''' <summary>
 ''' 差し戻し前後での変更項目の比較
 ''' </summary>
@@ -43,7 +42,6 @@ Public Class FrmG0019
             Call FunInitFuncButtonEnabled()
 
             Call FunOpenWorkbook(PrFilePath)
-
         Finally
 
         End Try
@@ -96,7 +94,6 @@ Public Class FrmG0019
 
 #Region "FuncButton有効無効切替"
 
-
     Private Function FunInitFuncButtonEnabled() As Boolean
         Try
 
@@ -120,10 +117,6 @@ Public Class FrmG0019
 
 #End Region
 
-#Region "コントロールイベント"
-
-#End Region
-
     Private Function FunOpenWorkbook(filePath As String) As Boolean
         Try
             WorkbookView.GetLock()
@@ -142,7 +135,6 @@ Public Class FrmG0019
             WorkbookView.ActiveWorkbook = workbook
             WorkbookView.PrintPreview()
             Return True
-
         Catch ex As Exception
             Throw
             Return False

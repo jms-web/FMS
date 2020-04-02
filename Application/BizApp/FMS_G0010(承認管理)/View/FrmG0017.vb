@@ -6,10 +6,9 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class FrmG0017
 
 #Region "定数・変数"
-    '入力必須コントロール検証判定
-    Private pri_blnValidated As Boolean
 
     Private _V002_NCR_J As New MODEL.V002_NCR_J
+
 #End Region
 
 #Region "プロパティ"
@@ -19,6 +18,7 @@ Public Class FrmG0017
     Public Property PrHOKOKU_NO As String
 
     Public Property PrCurrentStage As Integer
+
 #End Region
 
 #Region "コンストラクタ"
@@ -51,7 +51,6 @@ Public Class FrmG0017
             End Using
             Me.WindowState = Me.Owner.WindowState
 
-
             '-----グリッド初期設定(親フォームから呼び出し)
             Call FunInitializeDataGridView(Me.dgvDATA)
 
@@ -66,9 +65,11 @@ Public Class FrmG0017
             Call FunInitFuncButtonEnabled()
         End Try
     End Sub
+
     Private Sub Frm_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         Me.Owner.Visible = False
     End Sub
+
 #End Region
 
 #Region "DataGridView関連"
@@ -320,8 +321,6 @@ Public Class FrmG0017
                 lblRecordCount.Text = My.Resources.infoSearchResultNotFound
             End If
 
-
-
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -428,6 +427,7 @@ Public Class FrmG0017
 #End Region
 
 #Region "ローカル関数"
+
     Private Function FunSetModel() As Boolean
 
         _V002_NCR_J = FunGetV002Model(PrHOKOKU_NO)
@@ -468,8 +468,6 @@ Public Class FrmG0017
         chkSAIHATU.Checked = _V002_NCR_J.SAIHATU
         Return True
     End Function
-
-
 
 #End Region
 

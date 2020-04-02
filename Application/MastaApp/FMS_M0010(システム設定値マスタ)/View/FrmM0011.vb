@@ -6,11 +6,13 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class FrmM0011
 
 #Region "変数・定数"
-    Private IsValidated As Boolean
+
     Private _M001 As New MODEL.M001_SETTING
+
 #End Region
 
 #Region "プロパティ"
+
     ''' <summary>
     ''' 処理モード
     ''' </summary>
@@ -49,6 +51,7 @@ Public Class FrmM0011
 #End Region
 
 #Region "FORMイベント"
+
     Private Sub Frm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
@@ -69,7 +72,6 @@ Public Class FrmM0011
 
             '-----処理モード別画面初期化
             Call FunInitializeControls()
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -291,7 +293,6 @@ Public Class FrmM0011
 
 #Region "コントロールイベント"
 
-
     Private Sub CmbKOMO_NM_Validated(sender As Object, e As EventArgs) Handles cmbKOMO_NM.Validated
         Dim dsList As New DataSet
         Dim sbSQL As New System.Text.StringBuilder
@@ -341,7 +342,6 @@ Public Class FrmM0011
                         Throw New ArgumentException(My.Resources.ErrMsgException, PrDATA_OP_MODE.ToString)
                 End Select
             End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -369,6 +369,7 @@ Public Class FrmM0011
 #End Region
 
 #Region "処理モード別画面初期化"
+
     Private Function FunInitializeControls() As Boolean
         Try
             Select Case PrDATA_OP_MODE
@@ -428,7 +429,6 @@ Public Class FrmM0011
             End Select
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -443,32 +443,37 @@ Public Class FrmM0011
         Try
             'フラグ初期化
             IsValidated = True
+            IsCheckRequired = True
 
             Call CmbKOMO_NM_Validating(cmbKOMO_NM, Nothing)
             Call MtxVALUE_Validating(mtxVALUE, Nothing)
 
             Return IsValidated
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
+            Throw
+        Finally
+            IsCheckRequired = False
         End Try
     End Function
 
     Private Sub CmbKOMO_NM_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKOMO_NM.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目名"))
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目名"))
+        End If
     End Sub
 
     Private Sub MtxVALUE_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxVALUE.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目値"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目値"))
+        End If
     End Sub
 
 #End Region
 
 #Region "表示順更新"
+
     Private Function FunUpdateDispOrder(ByRef DB As ClsDbUtility, ByVal intBeforeValue As Integer, ByVal intAfterValue As Integer) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
         Dim sqlEx As New Exception
@@ -527,10 +532,8 @@ Public Class FrmM0011
         End Try
     End Function
 
-
 #End Region
 
 #End Region
-
 
 End Class

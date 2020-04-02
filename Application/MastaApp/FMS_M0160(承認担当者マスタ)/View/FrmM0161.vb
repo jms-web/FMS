@@ -1,14 +1,13 @@
 Imports JMS_COMMON.ClsPubMethod
 
 Public Class FrmM0161
-    Private IsValidated As Boolean
+
     Private _M016 As New MODEL.M016_SYONIN_TANTO
 
-#Region "変数・定数"
 
-#End Region
 
 #Region "プロパティ"
+
     ''' <summary>
     ''' 処理モード
     ''' <summary>
@@ -26,6 +25,7 @@ Public Class FrmM0161
 #End Region
 
 #Region "コンストラクタ"
+
     ''' <summary>
     ''' コンストラクタ
     ''' </summary>
@@ -39,9 +39,11 @@ Public Class FrmM0161
         CmbSYONIN_HOKOKUSYO_ID.NullValue = 0
         CmbSYONIN_JUN.NullValue = 0
     End Sub
+
 #End Region
 
 #Region "FORMイベント"
+
     Private Sub Frm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
@@ -61,14 +63,13 @@ Public Class FrmM0161
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
 
             '-----コントロールデータソース設定
-            CmbSYONIN_HOKOKUSYO_ID.SetDataSource(tblSYONIN_HOKOKUSYO_ID, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            CmbSYONIN_HOKOKUSYO_ID.SetDataSource(tblSYONIN_HOKOKUSYO_ID.LazyLoad("承認報告書ID"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             CmbSYAIN_ID.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             Call FunSetBinding()
 
             '-----処理モード別画面初期化
             Call FunInitializeControls(PrMODE)
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
 
@@ -78,6 +79,7 @@ Public Class FrmM0161
 #End Region
 
 #Region "処理モード別画面初期化"
+
     Private Function FunInitializeControls(ByVal intMODE As Integer) As Boolean
         Try
 
@@ -124,12 +126,12 @@ Public Class FrmM0161
             End Select
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         End Try
     End Function
+
     Private Function FunSetEntityValues(row As C1.Win.C1FlexGrid.Row) As Boolean
         Dim _model As New MODEL.M016_SYONIN_TANTO
         Try
@@ -146,7 +148,6 @@ Public Class FrmM0161
                 '親部署区分
                 Me.CmbSYAIN_ID.SelectedValue = .Item(NameOf(_model.SYAIN_ID))
 
-
             End With
 
             Return True
@@ -155,11 +156,13 @@ Public Class FrmM0161
             Return False
         End Try
     End Function
+
 #End Region
 
 #Region "FUNCTIONボタンCLICK"
 
 #Region "ボタンクリックイベント"
+
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc1.Click, cmdFunc2.Click, cmdFunc3.Click, cmdFunc4.Click, cmdFunc5.Click, cmdFunc6.Click, cmdFunc7.Click, cmdFunc8.Click, cmdFunc9.Click, cmdFunc10.Click, cmdFunc11.Click, cmdFunc12.Click
 
         Dim intFUNC As Integer
@@ -187,7 +190,6 @@ Public Class FrmM0161
                     Me.DialogResult = Windows.Forms.DialogResult.Cancel
                     Me.Close()
             End Select
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
         Finally
@@ -287,6 +289,7 @@ Public Class FrmM0161
 #End Region
 
 #Region "FuncButton有効無効切替"
+
     ''' <summary>
     ''' 使用しないボタンのキャプションをなくす、かつ非活性にする。
     ''' ファンクションキーを示す(F**)以外の文字がない場合は、未使用とみなす
@@ -306,18 +309,19 @@ Public Class FrmM0161
                 End With
             Next intFunc
 
-
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         End Try
     End Function
+
 #End Region
 
 #End Region
 
 #Region "コントロールイベント"
+
     Private Sub CmbSYONIN_HOKOKUSYO_ID_SelectedValueChanged(sender As Object, e As EventArgs) Handles CmbSYONIN_HOKOKUSYO_ID.SelectedValueChanged
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
@@ -340,38 +344,50 @@ Public Class FrmM0161
         End Using
         CmbSYONIN_JUN.DataBindings.Add(New Binding(NameOf(CmbSYONIN_JUN.SelectedValue), _M016, NameOf(_M016.SYONIN_JUN), False, DataSourceUpdateMode.OnPropertyChanged, 0))
     End Sub
+
 #End Region
 
 #Region "入力チェック"
+
     Public Function FunCheckInput() As Boolean
-        IsValidated = True
+        Try
+            IsValidated = True
+            IsCheckRequired = True
 
-        Call CmbSYONIN_HOKOKUSYO_ID_Validating(CmbSYONIN_HOKOKUSYO_ID, Nothing)
-        Call CmbSYONIN_JUN_Validating(CmbSYONIN_JUN, Nothing)
-        Call CmbSYAIN_ID_Validating(CmbSYAIN_ID, Nothing)
+            Call CmbSYONIN_HOKOKUSYO_ID_Validating(CmbSYONIN_HOKOKUSYO_ID, Nothing)
+            Call CmbSYONIN_JUN_Validating(CmbSYONIN_JUN, Nothing)
+            Call CmbSYAIN_ID_Validating(CmbSYAIN_ID, Nothing)
 
-        Return IsValidated
+            Return IsValidated
+        Catch ex As Exception
+            Throw
+        Finally
+            IsCheckRequired = False
+        End Try
     End Function
-
-
 
     Private Sub CmbSYONIN_HOKOKUSYO_ID_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles CmbSYONIN_HOKOKUSYO_ID.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認報告書"))
 
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認報告書"))
+        End If
     End Sub
 
     Private Sub CmbSYONIN_JUN_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles CmbSYONIN_JUN.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認順"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "承認順"))
+        End If
     End Sub
 
     Private Sub CmbSYAIN_ID_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles CmbSYAIN_ID.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "社員"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "社員"))
+        End If
     End Sub
+
 #End Region
 
 #Region "ローカル関数"
@@ -384,7 +400,6 @@ Public Class FrmM0161
     End Function
 
 #End Region
-
 
 #End Region
 

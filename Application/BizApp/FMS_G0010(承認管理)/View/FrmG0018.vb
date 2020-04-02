@@ -1,12 +1,12 @@
 Imports JMS_COMMON.ClsPubMethod
 
-
 ''' <summary>
 ''' 差し戻し前後での変更項目の比較
 ''' </summary>
 Public Class FrmG0018
 
 #Region "プロパティ"
+
     ''' <summary>
     ''' 一覧の選択行データ
     ''' </summary>
@@ -50,7 +50,6 @@ Public Class FrmG0018
             Call FunSetDgvCulumns(Me.dgvDATA)
 
             Call FunInitFuncButtonEnabled()
-
 
             'ヘッダ項目セット
             mtxCurrentStageName.Text = PrDataRow.Item("SYONIN_NAIYO")
@@ -220,7 +219,6 @@ Public Class FrmG0018
             '主キー設定
             dt.PrimaryKey = {dt.Columns("KOMOKU_NAME")}
 
-
             For Each row In dsList.Tables(0).Rows
                 If dt.Rows.Contains(row.Item("KOMOKU_NAME")) = False Then
                     Dim Trow As DataRow = dt.NewRow()
@@ -309,7 +307,6 @@ Public Class FrmG0018
 
 #Region "FuncButton有効無効切替"
 
-
     Private Function FunInitFuncButtonEnabled() As Boolean
         Try
 
@@ -332,11 +329,5 @@ Public Class FrmG0018
 #End Region
 
 #End Region
-
-#Region "コントロールイベント"
-
-#End Region
-
-
 
 End Class

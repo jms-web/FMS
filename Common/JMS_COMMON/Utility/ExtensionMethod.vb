@@ -1,6 +1,6 @@
-﻿Imports System.Runtime.CompilerServices
-Imports System.Collections.Generic
+﻿Imports System.Collections.Generic
 Imports System.Linq
+Imports System.Runtime.CompilerServices
 
 ''' <summary>
 ''' 拡張メソッドの定義
@@ -103,8 +103,6 @@ Public Module ExtensionMethod
                                                                      b.BindingMemberInfo.BindingField = PropertyName))
     End Function
 
-
-
 #End Region
 
 #Region "DataGridView"
@@ -130,24 +128,43 @@ Public Module ExtensionMethod
 #End Region
 
 #Region "Datarow"
+
     ''' <summary>
     ''' DataRowをModelEntityクラスにマッピング
     ''' </summary>
     ''' <returns></returns>
     <Extension()>
     Public Function ToEntity(Of T As {New, MODEL.IDataModel})(dr As DataRow) As T
-        Dim resultData = New T
+        Dim resultData As New T
         resultData.Properties.ForEach(Sub(p) resultData(p.Name) = dr(p.Name))
         Return resultData
     End Function
+
 #End Region
 
 #Region "DataTable"
 
+    ''' <summary>
+    ''' 未ロード時の場合、データをロード
+    ''' </summary>
+    ''' <param name="dt">格納するテーブルオブジェクト</param>
+    ''' <param name="itemName">項目名</param>
+    ''' <returns></returns>
+    <Extension()>
+    Public Function LazyLoad(ByRef dt As DataTable, ByVal itemName As String) As DataTable
+        If dt Is Nothing Then
+            Using DB As ClsDbUtility = DBOpen()
+                Call FunGetCodeDataTable(DB, itemName, dt)
+            End Using
+        End If
+
+        Return dt
+    End Function
+
     <Extension()>
     Public Function ExcludeDeleted(ByVal dt As DataTable) As DataTable
         If dt.Rows.Count > 0 Then
-            Dim filteredTable As DataTable = dt.AsEnumerable().Where(Function(r) r.Field(Of String)("DEL_FLG") = "0").CopyToDataTable
+            Dim filteredTable As DataTable = dt.AsEnumerable().Where(Function(r) r.Item("DEL_FLG") = "0").CopyToDataTable
             If filteredTable IsNot Nothing Then
                 Return filteredTable
             Else
@@ -157,7 +174,6 @@ Public Module ExtensionMethod
             Return dt
         End If
     End Function
-
 
     ''' <summary>
     ''' ブランク行追加
@@ -206,6 +222,7 @@ Public Module ExtensionMethod
             Yield r.ToEntity(Of T)
         Next r
     End Function
+
 #End Region
 
 #Region "Date"
@@ -346,6 +363,7 @@ Public Module ExtensionMethod
 #End Region
 
 #Region "Enum"
+
     <Extension>
     Public Function [Value](Of T As {IComparable, IConvertible, IFormattable})(enm As T) As Integer
         If enm.GetType.IsEnum Then
@@ -358,7 +376,6 @@ Public Module ExtensionMethod
         End If
     End Function
 
-
 #End Region
 
 #Region "ErrorProvider"
@@ -368,45 +385,91 @@ Public Module ExtensionMethod
     ''' </summary>
     ''' <param name="provider">ErrorProvider</param>
     ''' <param name="control">エラーを通知するコントロール</param>
-    ''' <param name="ExpressionResult">評価結果 入力Errorかどうかの判定</param>
-    ''' <param name="message">ExpressionResult=false時にアイコンに表示するメッセージ</param>
+    ''' <param name="ExpressionResult">評価結果</param>
+    ''' <param name="caption">コントロール名</param>
     ''' <param name="IconAlignment">(オプション) アイコン表示位置</param>
     ''' <param name="IconPadding">(オプション)アイコン、コントロール間の余白</param>
     ''' <param name="ErrorIcon">(オプション)表示するアイコン ※アイコンは16x16に対応したものにすること </param>
-    ''' <returns>エラーチェック評価結果=ExpressionResult 入力チェックのフラグ更新等に利用できます</returns>
+    ''' <returns>エラーチェック評価結果=ExpressionResult</returns>
     <Extension>
     Public Function UpdateErrorInfo(provider As ErrorProvider,
                               control As Control,
                               ExpressionResult As Boolean,
-                              message As String,
+                              caption As String,
                               Optional IconAlignment As ErrorIconAlignment = ErrorIconAlignment.MiddleLeft,
                               Optional IconPadding As Integer = 2,
-                              Optional ErrorIcon As Icon = Nothing) As Boolean
+                              Optional ErrorIcon As Icon = Nothing,
+                              Optional ErrorMessage As String = "") As Boolean
+
+        Dim message As String
+
+        'TODO: 共有リソース　My.Resources.~は名前空間の関係で直接参照するとエラーになる
+        Dim strResInput As String = "{0}を入力して下さい"
+        Dim strResSelect As String = "{0}を選択して下さい"
+        Dim strResSelectOrInput As String = "{0}を選択又は入力して下さい"
 
         If ExpressionResult Then
             'Clear Error
             Call provider.ClearError(control)
         Else
             'Set Error
-            If provider.GetError(control).Trim <> message Then
+            If provider.GetError(control).Trim <> caption Then
 
                 provider.BlinkStyle = ErrorBlinkStyle.NeverBlink
                 If ErrorIcon IsNot Nothing Then provider.Icon = ErrorIcon
                 provider.SetIconAlignment(control, IconAlignment)
                 provider.SetIconPadding(control, IconPadding)
+
+                If ErrorMessage.IsNulOrWS Then
+                    Select Case control.GetType
+                        Case GetType(TextBox), GetType(TextBoxEx), GetType(MaskedTextBox), GetType(MaskedTextBoxEx)
+                            '入力のみ
+                            message = String.Format(strResInput, caption)
+
+                        Case GetType(ComboBox)
+
+                            If DirectCast(control, ComboBox).DropDownStyle = ComboBoxStyle.DropDown Then
+                                '選択又は入力
+                                message = String.Format(strResSelectOrInput, caption)
+                            Else
+                                '選択のみ
+                                message = String.Format(strResSelect, caption)
+                            End If
+
+                        Case GetType(ComboboxEx)
+
+                            If DirectCast(control, ComboboxEx).DropDownStyle = ComboBoxStyle.DropDown Then
+                                '選択又は入力
+                                message = String.Format(strResSelectOrInput, caption)
+                            Else
+                                '選択のみ
+                                message = String.Format(strResSelect, caption)
+                            End If
+
+                        Case GetType(NumericUpDown), GetType(DateTextBox), GetType(DateTextBoxEx)
+                            '選択又は入力
+                            message = String.Format(strResSelectOrInput, caption)
+
+                        Case Else
+                            message = String.Format(strResSelectOrInput, caption)
+                    End Select
+                Else
+                    message = ErrorMessage
+                End If
+
                 provider.SetError(control, message)
 
-                If message.IsNulOrWS Then
-                    control.BackColor = clrControlDefaultBackColor
+                If caption.IsNulOrWS Then
+                    control.BackColor = clrControlErrorBackColor
                 Else
                     Select Case control.GetType
-                        Case GetType(TextBoxEx), GetType(MaskedTextBoxEx), GetType(DateTextBoxEx), GetType(NumericUpDown)
+                        Case GetType(TextBox), GetType(TextBoxEx), GetType(MaskedTextBox), GetType(MaskedTextBoxEx), GetType(DateTextBox), GetType(DateTextBoxEx), GetType(NumericUpDown)
                             control.BackColor = clrControlErrorBackColor
                         Case GetType(ComboboxEx)
                             control.BackColor = clrControlErrorBackColor
                             Dim cmb As ComboboxEx = DirectCast(control, ComboboxEx)
                             Dim _defaultStyle = cmb.DropDownStyle
-                            Application.DoEvents()
+                            System.Windows.Forms.Application.DoEvents()
                             cmb.DropDownStyle = ComboBoxStyle.DropDown
                             cmb.FlatStyle = FlatStyle.Flat
                             cmb.BorderStyle = ButtonBorderStyle.Solid
@@ -416,12 +479,12 @@ Public Module ExtensionMethod
                 End If
             Else
                 '既に同一コメントが設定されている場合は何もしない(ちらつきの原因になる)
+                control.BackColor = clrControlErrorBackColor
             End If
         End If
 
         Return ExpressionResult
     End Function
-
 
     <Obsolete("拡張メソッド.UpdateErrorInfoを使用して下さい 例)ErrorProvider.UpdateErrorInfo(Combobox1,Combobox1.IsSelected,'選択されていません')")>
     <Extension>
@@ -522,7 +585,6 @@ Public Module ExtensionMethod
         Next
     End Sub
 
-
     '<Extension>
     'Public Function [Using](Of T, Tresult)(source As T, process As Func(Of T, Tresult)) As Tresult
     '    If source Is Nothing Then
@@ -537,7 +599,6 @@ Public Module ExtensionMethod
     '    End Using
 
     'End Function
-
 
     <Extension>
     Public Sub [Using](Of T As IDisposable)(source As T, process As Action(Of T))
@@ -555,6 +616,7 @@ Public Module ExtensionMethod
 #End Region
 
 #Region "List"
+
     <Extension>
     Public Sub ReplaceItem(Of T)(list As Generic.List(Of T), oldItemSelector As Predicate(Of T), newItem As T)
         Dim oldItemIndex As Integer = list.FindIndex(oldItemSelector)
@@ -619,7 +681,6 @@ Public Module ExtensionMethod
         Return intRET
     End Function
 
-
     ''' <summary>
     ''' 文字列を日付型に変換
     ''' </summary>
@@ -635,7 +696,5 @@ Public Module ExtensionMethod
     End Function
 
 #End Region
-
-
 
 End Module

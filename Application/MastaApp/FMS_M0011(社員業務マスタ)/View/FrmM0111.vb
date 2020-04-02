@@ -457,10 +457,6 @@ Public Class FrmM0111
         Me.cmdFunc1.PerformClick()
     End Sub
 
-    Private Sub chkTaisyokuRowVisibled_CheckedChanged(sender As Object, e As EventArgs) Handles chkTaisyokuRowVisibled.CheckedChanged
-
-    End Sub
-
 #End Region
 
 End Class

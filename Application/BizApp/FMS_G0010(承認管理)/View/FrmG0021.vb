@@ -19,6 +19,8 @@ Public Class FrmG0021
 
     Private IsEditingClosed As Boolean
 
+
+    Private IsInitializing As Boolean
 #End Region
 
 #Region "プロパティ"
@@ -119,6 +121,7 @@ Public Class FrmG0021
                     Sub()
                         Me.Visible = False
                         Me.SuspendLayout()
+
                         '-----フォーム初期設定(親フォームから呼び出し)
                         Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
                         Using DB As ClsDbUtility = DBOpen()
@@ -129,8 +132,8 @@ Public Class FrmG0021
                         _D004_SYONIN_J_KANRI.clear()
 
                         '-----コントロールデータソース設定
-                        cmbKOKYAKU_EIKYO_HANTEI_COMMENT.SetDataSource(tblKOKYAKU_EIKYO_COMMENT, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                        Dim dt = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = PrDataRow.Item("BUMON_KB")).CopyToDataTable
+                        cmbKOKYAKU_EIKYO_HANTEI_COMMENT.SetDataSource(tblKOKYAKU_EIKYO_COMMENT.LazyLoad("不適合封じ込め非の理由"), ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                        Dim dt = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = PrDataRow.Item("BUMON_KB")).CopyToDataTable
                         cmbKISYU1.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
                         cmbKISYU2.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
                         cmbKISYU3.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
@@ -509,17 +512,8 @@ Public Class FrmG0021
 
         _D007.TAISYOU_KOKYAKU = txtTAISYO_KOKYAKU.Text
 
-        If _D007.FUTEKIGO_SEIHIN_MEMO.IsNulOrWS Then
-            _D007.FUTEKIGO_SEIHIN_FILEPATH = ""
-        Else
-            _D007.FUTEKIGO_SEIHIN_FILEPATH = _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH
-        End If
-
-        If _D007.KOKYAKU_EIKYO_MEMO.IsNulOrWS Then
-            _D007.KOKYAKU_EIKYO_FILEPATH = ""
-        Else
-            _D007.KOKYAKU_EIKYO_FILEPATH = _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH
-        End If
+        _D007.FUTEKIGO_SEIHIN_FILEPATH = _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH
+        _D007.KOKYAKU_EIKYO_FILEPATH = _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH
 
         _D007._OTHER_PROCESS_INFLUENCE_KB = If(rbtnOTHER_PROCESS_INFLUENCE_KB_T.Checked, "1", "0")
         If rbtnOTHER_PROCESS_INFLUENCE_KB_T.Checked Then
@@ -969,7 +963,7 @@ Public Class FrmG0021
     ''' <returns></returns>
     Private Function FunSendRequestMail()
         Dim KISYU_NAME As String = _V011_FCR_J.KISYU_NAME
-        Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
+        Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.LazyLoad("承認判定区分").AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
         Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
         Dim strSubject As String = $"【不適合品処置依頼】[CTS] {KISYU_NAME}"
         Dim strBody As String = <sql><![CDATA[
@@ -1388,7 +1382,7 @@ Public Class FrmG0021
             frmDLG.PrBUMON_KB = _V002_NCR_J.BUMON_KB
             frmDLG.PrBUHIN_BANGO = _V002_NCR_J.BUHIN_BANGO
             frmDLG.PrKISO_YMD = DateTime.ParseExact(_V002_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            frmDLG.PrKISYU_NAME = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _V002_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
+            frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _V002_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
 
@@ -1423,7 +1417,7 @@ Public Class FrmG0021
             frmDLG.PrHOKOKU_NO = PrHOKOKU_NO
             frmDLG.PrBUHIN_BANGO = _V002_NCR_J.BUHIN_BANGO
             frmDLG.PrKISO_YMD = DateTime.ParseExact(_V002_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            frmDLG.PrKISYU_NAME = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _V002_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
+            frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _V002_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
@@ -1531,7 +1525,7 @@ Public Class FrmG0021
             frmDLG.PrBUMON_KB = _D003_NCR_J.BUMON_KB
             frmDLG.PrBUHIN_BANGO = _D003_NCR_J.BUHIN_BANGO
             frmDLG.PrKISO_YMD = DateTime.ParseExact(_D003_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            frmDLG.PrKISYU_NAME = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
+            frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
             frmDLG.PrCurrentStage = Me.PrCurrentStage
 
             dlgRET = frmDLG.ShowDialog(Me)
@@ -1740,8 +1734,9 @@ Public Class FrmG0021
             txtKOKYAKU_EIKYO_NAIYO.Text = ""
             txtKAKUNIN_SYUDAN.Text = ""
             txtKOKYAKU_EIKYO_ETC_COMMENT.Text = ""
-            lblKOKYAKU_EIKYO_HANTEI_FILEPATH.Text = ""
             _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_FILEPATH = ""
+            lblKOKYAKU_EIKYO_HANTEI_FILEPATH.Visible = False
+            lblKOKYAKU_EIKYO_HANTEI_FILEPATH_Clear.Visible = False
             txtFUTEKIGO_SEIHIN_MEMO.Text = ""
             txtKOKYAKU_EIKYO_MEMO.Text = ""
 
@@ -1781,8 +1776,6 @@ Public Class FrmG0021
             txtTO6.Text = ""
 
 #End Region
-            txtOTHER_PROCESS_INFLUENCE_MEMO.Text = ""
-            txtFOLLOW_PROCESS_OUTFLOW_MEMO.Text = ""
 
             txtFUTEKIGO_SEIHIN_MEMO.Text = ""
             txtKOKYAKU_EIKYO_MEMO.Text = ""
@@ -1791,13 +1784,18 @@ Public Class FrmG0021
 
             rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked = True
             rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked = True
-            Call RbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(rbtnOTHER_PROCESS_INFLUENCE_KB_F, Nothing)
-            Call RbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(rbtnFOLLOW_PROCESS_OUTFLOW_KB_F, Nothing)
+            Call RbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(Nothing, Nothing)
+            Call RbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(Nothing, Nothing)
 
             _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH = ""
+            lblFUTEKIGO_SEIHIN_FILEPATH.Visible = False
+            lblFUTEKIGO_SEIHIN_FILEPATH_Clear.Visible = False
             _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH = ""
+            lblKOKYAKU_EIKYO_FILEPATH.Visible = False
+            lblKOKYAKU_EIKYO_FILEPATH_Clear.Visible = False
             _V011_FCR_J.SYOCHI_FILEPATH = ""
-
+            lblSYOCHI_FILEPATH.Visible = False
+            lblSYOCHI_FILEPATH_Clear.Visible = False
 
             txtKOKYAKU_NOUNYU_NAIYOU.Text = ""
             txtZAIKO_SIKAKE_NAIYOU.Text = ""
@@ -1813,6 +1811,7 @@ Public Class FrmG0021
         pnlSYOCHI_KIROKU.DisableContaints(blnChecked, PanelEx.ENM_PROPERTY._1_Enabled)
         pnlZESEI_SYOCHI.DisableContaints(blnChecked, PanelEx.ENM_PROPERTY._1_Enabled)
         pnlSYOCHI_JISSI.DisableContaints(blnChecked, PanelEx.ENM_PROPERTY._1_Enabled)
+        lblOTHER_PROCESS_NAIYOU.Enabled = True
         txtOTHER_PROCESS_NAIYOU.Enabled = True
         dtOTHER_PROCESS_YMD.Enabled = True
         lblKOKYAKU_EIKYO_HANTEI_COMMENT.Visible = Not blnChecked
@@ -1994,9 +1993,22 @@ Public Class FrmG0021
         txtOTHER_PROCESS_INFLUENCE_MEMO.Enabled = blnChecked
         pnlOTHER_PROCESS_INFLUENCE_FILEPATH.Enabled = blnChecked
 
+
+        If Not blnChecked And Not IsInitializing Then
+            txtOTHER_PROCESS_INFLUENCE_MEMO.Text = ""
+            _V011_FCR_J.OTHER_PROCESS_INFLUENCE_FILEPATH = ""
+            lblOTHER_PROCESS_INFLUENCE_FILEPATH.Visible = False
+            lblOTHER_PROCESS_INFLUENCE_FILEPATH_Clear.Visible = False
+        End If
+
         '#256
+        lblOTHER_PROCESS_NAIYOU.Enabled = Not (rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked And rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked)
         txtOTHER_PROCESS_NAIYOU.Enabled = Not (rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked And rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked)
         dtOTHER_PROCESS_YMD.Enabled = Not (rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked And rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked)
+        If (rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked And rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked) Then
+            txtOTHER_PROCESS_NAIYOU.Text = ""
+            dtOTHER_PROCESS_YMD.Text = ""
+        End If
     End Sub
 
     Private Sub RbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnFOLLOW_PROCESS_OUTFLOW_KB_T.CheckedChanged, rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.CheckedChanged
@@ -2005,10 +2017,21 @@ Public Class FrmG0021
         txtFOLLOW_PROCESS_OUTFLOW_MEMO.Enabled = blnChecked
         pnlFOLLOW_PROCESS_OUTFLOW_FILEPATH.Enabled = blnChecked
 
+        If Not blnChecked And Not IsInitializing Then
+            txtFOLLOW_PROCESS_OUTFLOW_MEMO.Text = ""
+            _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH = ""
+            lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Visible = False
+            lblFOLLOW_PROCESS_OUTFLOW_FILEPATH_Clear.Visible = False
+        End If
+
         '#256
+        lblOTHER_PROCESS_NAIYOU.Enabled = Not (rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked And rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked)
         txtOTHER_PROCESS_NAIYOU.Enabled = Not (rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked And rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked)
         dtOTHER_PROCESS_YMD.Enabled = Not (rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked And rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked)
-
+        If (rbtnFOLLOW_PROCESS_OUTFLOW_KB_F.Checked And rbtnOTHER_PROCESS_INFLUENCE_KB_F.Checked) Then
+            txtOTHER_PROCESS_NAIYOU.Text = ""
+            dtOTHER_PROCESS_YMD.Text = ""
+        End If
     End Sub
 
     ''' <summary>
@@ -2020,7 +2043,7 @@ Public Class FrmG0021
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim blnEnabled As Boolean = (txt.Text.Length = 0)
 
-        pnlFUTEKIGO_SEIHIN_FILEPATH.Enabled = blnEnabled
+        'pnlFUTEKIGO_SEIHIN_FILEPATH.Enabled = blnEnabled
         pnlInfo1.Enabled = blnEnabled
         Call CmbKISYU1_Validated(cmbKISYU1, Nothing)
         pnlInfo2.Enabled = blnEnabled
@@ -2038,7 +2061,7 @@ Public Class FrmG0021
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim blnEnabled As Boolean = (txt.Text.Length = 0)
 
-        pnlKOKYAKU_EIKYO_FILEPATH.Enabled = blnEnabled
+        'pnlKOKYAKU_EIKYO_FILEPATH.Enabled = blnEnabled
         pnlInfo4.Enabled = blnEnabled
         Call CmbKISYU4_Validated(cmbKISYU4, Nothing)
         pnlInfo5.Enabled = blnEnabled
@@ -2053,7 +2076,7 @@ Public Class FrmG0021
     Private Sub BtnOpenKOKYAKU_EIKYO_HANTEI_FILEPATH_Click(sender As Object, e As EventArgs) Handles btnOpenKOKYAKU_EIKYO_HANTEI_FILEPATH.Click
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|PDF(*.pdf)|*.pdf|すべてのファイル(*.*)|*.*",
-            .FilterIndex = 1,
+            .FilterIndex = 4,
             .Title = "添付するファイルを選択してください",
             .RestoreDirectory = True
         }
@@ -2132,7 +2155,7 @@ Public Class FrmG0021
     Private Sub BtnOpenFOLLOW_PROCESS_OUTFLOW_FILEPATH_Click(sender As Object, e As EventArgs) Handles btnOpenFOLLOW_PROCESS_OUTFLOW_FILEPATH.Click
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|PDF(*.pdf)|*.pdf|すべてのファイル(*.*)|*.*",
-            .FilterIndex = 1,
+            .FilterIndex = 4,
             .Title = "添付するファイルを選択してください",
             .RestoreDirectory = True
         }
@@ -2212,7 +2235,7 @@ Public Class FrmG0021
     Private Sub BtnOpenOTHER_PROCESS_INFLUENCE_FILEPATH_Click(sender As Object, e As EventArgs) Handles btnOpenOTHER_PROCESS_INFLUENCE_FILEPATH.Click
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|PDF(*.pdf)|*.pdf|すべてのファイル(*.*)|*.*",
-            .FilterIndex = 1,
+            .FilterIndex = 4,
             .Title = "添付するファイルを選択してください",
             .RestoreDirectory = True
         }
@@ -2296,7 +2319,7 @@ Public Class FrmG0021
     Private Sub BtnOpenFUTEKIGO_SEIHIN_FILEPATH_Click(sender As Object, e As EventArgs) Handles btnOpenFUTEKIGO_SEIHIN_FILEPATH.Click
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|PDF(*.pdf)|*.pdf|すべてのファイル(*.*)|*.*",
-            .FilterIndex = 1,
+            .FilterIndex = 4,
             .Title = "添付するファイルを選択してください",
             .RestoreDirectory = True
         }
@@ -2380,7 +2403,7 @@ Public Class FrmG0021
     Private Sub BtnOpenKOKYAKU_EIKYO_FILEPATH_Click(sender As Object, e As EventArgs) Handles btnOpenKOKYAKU_EIKYO_FILEPATH.Click
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|PDF(*.pdf)|*.pdf|すべてのファイル(*.*)|*.*",
-            .FilterIndex = 1,
+            .FilterIndex = 4,
             .Title = "添付するファイルを選択してください",
             .RestoreDirectory = True
         }
@@ -2464,7 +2487,7 @@ Public Class FrmG0021
     Private Sub BtnOpenSYOCHI_FILEPATH_Click(sender As Object, e As EventArgs) Handles btnOpenSYOCHI_FILEPATH.Click
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|PDF(*.pdf)|*.pdf|すべてのファイル(*.*)|*.*",
-            .FilterIndex = 1,
+            .FilterIndex = 4,
             .Title = "添付するファイルを選択してください",
             .RestoreDirectory = True
         }
@@ -2553,7 +2576,7 @@ Public Class FrmG0021
     Private Function FunInitializeControls() As Boolean
 
         Try
-
+            IsInitializing = True
             If Not FunSetModel() Then Return False
 
             'ナビゲートリンク選択
@@ -2586,12 +2609,11 @@ Public Class FrmG0021
             txtKAKUNIN_SYUDAN.Text = _V011_FCR_J.KAKUNIN_SYUDAN
             txtKOKYAKU_EIKYO_ETC_COMMENT.Text = _V011_FCR_J.KOKYAKU_EIKYO_ETC_COMMENT
 
-            txtOTHER_PROCESS_INFLUENCE_MEMO.Text = _V011_FCR_J.OTHER_PROCESS_INFLUENCE_MEMO
-            txtFOLLOW_PROCESS_OUTFLOW_MEMO.Text = _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_MEMO
+
             txtSYOCHI_MEMO.Text = _V011_FCR_J.SYOCHI_MEMO
 
             Dim targetCtrl As Control
-            If (_V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB = "1") Then
+            If _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB Then
                 targetCtrl = rbtnKOKYAKU_EIKYO_HANTEI_KB_T
             Else
                 targetCtrl = rbtnKOKYAKU_EIKYO_HANTEI_KB_F
@@ -2601,34 +2623,19 @@ Public Class FrmG0021
 
             cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Text = _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_COMMENT
 
-            If (_V011_FCR_J.KOKYAKU_EIKYO_TUCHI_HANTEI_KB = "1") Then
+            If _V011_FCR_J.KOKYAKU_EIKYO_TUCHI_HANTEI_KB Then
                 rbtnKOKYAKU_EIKYO_TUCHI_HANTEI_KB_T.Checked = True
             Else
                 rbtnKOKYAKU_EIKYO_TUCHI_HANTEI_KB_F.Checked = True
             End If
 
-            If (_V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_KB = "1") Then
-                targetCtrl = rbtnFOLLOW_PROCESS_OUTFLOW_KB_T
-            Else
-                targetCtrl = rbtnFOLLOW_PROCESS_OUTFLOW_KB_F
-            End If
-            DirectCast(targetCtrl, RadioButton).Checked = True
-            Call RbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(targetCtrl, Nothing)
 
-            If (_V011_FCR_J.OTHER_PROCESS_INFLUENCE_KB = "1") Then
-                targetCtrl = rbtnOTHER_PROCESS_INFLUENCE_KB_T
-            Else
-                targetCtrl = rbtnOTHER_PROCESS_INFLUENCE_KB_F
-            End If
-            DirectCast(targetCtrl, RadioButton).Checked = True
-            Call RbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(targetCtrl, Nothing)
 
             txtKOKYAKU_NOUNYU_NAIYOU.Text = _V011_FCR_J.KOKYAKU_NOUNYU_NAIYOU
             txtZAIKO_SIKAKE_NAIYOU.Text = _V011_FCR_J.ZAIKO_SIKAKE_NAIYOU
-            txtOTHER_PROCESS_NAIYOU.Text = _V011_FCR_J.OTHER_PROCESS_NAIYOU
+
             dtKOKYAKU_NOUNYU_YMD.Value = _V011_FCR_J.KOKYAKU_NOUNYU_YMD
             dtZAIKO_SIKAKE_YMD.Value = _V011_FCR_J.ZAIKO_SIKAKE_YMD
-            dtOTHER_PROCESS_YMD.Value = _V011_FCR_J.OTHER_PROCESS_YMD
 
             cmbKISYU1.SelectedValue = _V011_FCR_J.KISYU_ID1
             Call CmbKISYU1_Validated(cmbKISYU1, Nothing)
@@ -2671,7 +2678,28 @@ Public Class FrmG0021
             Call TxtFUTEKIGO_SEIHIN_MEMO_Validated(txtFUTEKIGO_SEIHIN_MEMO, Nothing)
             txtKOKYAKU_EIKYO_MEMO.Text = _V011_FCR_J.KOKYAKU_EIKYO_MEMO
             Call TxtKOKYAKU_EIKYO_MEMO_Validated(txtKOKYAKU_EIKYO_MEMO, Nothing)
-            Call RbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(rbtnOTHER_PROCESS_INFLUENCE_KB_F, Nothing)
+
+
+            If _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_KB Then
+                targetCtrl = rbtnFOLLOW_PROCESS_OUTFLOW_KB_T
+            Else
+                targetCtrl = rbtnFOLLOW_PROCESS_OUTFLOW_KB_F
+            End If
+            DirectCast(targetCtrl, RadioButton).Checked = True
+            Call RbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(targetCtrl, Nothing)
+
+            If _V011_FCR_J.OTHER_PROCESS_INFLUENCE_KB Then
+                targetCtrl = rbtnOTHER_PROCESS_INFLUENCE_KB_T
+            Else
+                targetCtrl = rbtnOTHER_PROCESS_INFLUENCE_KB_F
+            End If
+            DirectCast(targetCtrl, RadioButton).Checked = True
+            Call RbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(targetCtrl, Nothing)
+            txtOTHER_PROCESS_INFLUENCE_MEMO.Text = _V011_FCR_J.OTHER_PROCESS_INFLUENCE_MEMO
+            txtFOLLOW_PROCESS_OUTFLOW_MEMO.Text = _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_MEMO
+
+            txtOTHER_PROCESS_NAIYOU.Text = _V011_FCR_J.OTHER_PROCESS_NAIYOU
+            dtOTHER_PROCESS_YMD.Value = _V011_FCR_J.OTHER_PROCESS_YMD
 
             mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, _V011_FCR_J.HOKOKU_NO)
             mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, FunGetNextSYONIN_JUN(PrCurrentStage, _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB))
@@ -2704,11 +2732,7 @@ Public Class FrmG0021
                 flpnlStageIndex.Controls("rsbtnST99").BackColor = Color.Silver
             End If
 
-            '最終ステージの場合、申請先担当者欄は非表示
-            If PrCurrentStage >= ENM_CTS_STAGE._90_部門長 Then
-                lblDestTANTO.Visible = False
-                cmbDestTANTO.Visible = False
-            End If
+
 
             Dim _V003 As New V003_SYONIN_J_KANRI
             _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -2786,6 +2810,10 @@ Public Class FrmG0021
 #End Region
 
             If FunGetNextSYONIN_JUN(PrCurrentStage, _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB) = ENM_CTS_STAGE._999_Closed Then
+                '最終ステージの場合、申請先担当者欄は非表示
+
+                lblDestTANTO.Visible = False
+                cmbDestTANTO.Visible = False
                 cmdFunc2.Text = "承認(F2)"
             Else
                 cmdFunc2.Text = "承認・申請(F2)"
@@ -2797,6 +2825,8 @@ Public Class FrmG0021
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
+        Finally
+            IsInitializing = False
         End Try
     End Function
 
@@ -2836,7 +2866,7 @@ Public Class FrmG0021
             'フラグリセット
             IsValidated = True
             '-----共通
-            If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And PrCurrentStage < ENM_CTS_STAGE._90_部門長 Then
+            If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And FunGetNextSYONIN_JUN(PrCurrentStage, _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB) < ENM_CTS_STAGE._999_Closed Then
                 Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
             End If
 

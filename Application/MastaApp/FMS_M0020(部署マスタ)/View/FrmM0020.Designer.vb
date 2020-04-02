@@ -307,7 +307,6 @@ Partial Class FrmM0020
         'txtBUSYO_NAME
         '
         Me.txtBUSYO_NAME.BackColor = System.Drawing.SystemColors.Window
-        Me.txtBUSYO_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtBUSYO_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtBUSYO_NAME.InputRequired = False
         Me.txtBUSYO_NAME.Location = New System.Drawing.Point(394, 34)
@@ -322,7 +321,6 @@ Partial Class FrmM0020
         'txtOYA_BUSYO_NAME
         '
         Me.txtOYA_BUSYO_NAME.BackColor = System.Drawing.SystemColors.Window
-        Me.txtOYA_BUSYO_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.txtOYA_BUSYO_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtOYA_BUSYO_NAME.InputRequired = False
         Me.txtOYA_BUSYO_NAME.Location = New System.Drawing.Point(83, 34)

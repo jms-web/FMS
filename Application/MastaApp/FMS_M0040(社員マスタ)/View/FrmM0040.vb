@@ -278,7 +278,7 @@ Public Class FrmM0040
 
             '---社員区分
             If Me.cmbSYAIN_KB.SelectedIndex <> 0 Then
-                sbSQLWHERE.Append(" AND SYAIN_KB LIKE '%" & Me.cmbSYAIN_KB.SelectedValue & "%'")
+                sbSQLWHERE.Append(" AND SYAIN_KB = '" & Me.cmbSYAIN_KB.SelectedValue & "'")
             End If
 
             '---入社年月日（カラ）

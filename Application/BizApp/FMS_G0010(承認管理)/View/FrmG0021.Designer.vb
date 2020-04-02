@@ -103,7 +103,7 @@ Partial Class FrmG0021
         Me.txtSYOCHI_MEMO = New JMS_COMMON.TextBoxEx()
         Me.Label42 = New System.Windows.Forms.Label()
         Me.Label41 = New System.Windows.Forms.Label()
-        Me.Label40 = New System.Windows.Forms.Label()
+        Me.lblOTHER_PROCESS_NAIYOU = New System.Windows.Forms.Label()
         Me.txtOTHER_PROCESS_NAIYOU = New JMS_COMMON.TextBoxEx()
         Me.dtOTHER_PROCESS_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label39 = New System.Windows.Forms.Label()
@@ -1415,7 +1415,7 @@ Partial Class FrmG0021
         Me.pnlSYOCHI_JISSI.Controls.Add(Me.txtSYOCHI_MEMO)
         Me.pnlSYOCHI_JISSI.Controls.Add(Me.Label42)
         Me.pnlSYOCHI_JISSI.Controls.Add(Me.Label41)
-        Me.pnlSYOCHI_JISSI.Controls.Add(Me.Label40)
+        Me.pnlSYOCHI_JISSI.Controls.Add(Me.lblOTHER_PROCESS_NAIYOU)
         Me.pnlSYOCHI_JISSI.Controls.Add(Me.txtOTHER_PROCESS_NAIYOU)
         Me.pnlSYOCHI_JISSI.Controls.Add(Me.dtOTHER_PROCESS_YMD)
         Me.pnlSYOCHI_JISSI.Controls.Add(Me.Label39)
@@ -1681,18 +1681,18 @@ Partial Class FrmG0021
         Me.Label41.Text = "実施内容"
         Me.Label41.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label40
+        'lblOTHER_PROCESS_NAIYOU
         '
-        Me.Label40.AutoSize = True
-        Me.Label40.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label40.ForeColor = System.Drawing.Color.Black
-        Me.Label40.Location = New System.Drawing.Point(15, 118)
-        Me.Label40.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(100, 17)
-        Me.Label40.TabIndex = 339
-        Me.Label40.Text = "(3) 他のプロセス"
-        Me.Label40.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblOTHER_PROCESS_NAIYOU.AutoSize = True
+        Me.lblOTHER_PROCESS_NAIYOU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblOTHER_PROCESS_NAIYOU.ForeColor = System.Drawing.Color.Black
+        Me.lblOTHER_PROCESS_NAIYOU.Location = New System.Drawing.Point(15, 118)
+        Me.lblOTHER_PROCESS_NAIYOU.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblOTHER_PROCESS_NAIYOU.Name = "lblOTHER_PROCESS_NAIYOU"
+        Me.lblOTHER_PROCESS_NAIYOU.Size = New System.Drawing.Size(100, 17)
+        Me.lblOTHER_PROCESS_NAIYOU.TabIndex = 339
+        Me.lblOTHER_PROCESS_NAIYOU.Text = "(3) 他のプロセス"
+        Me.lblOTHER_PROCESS_NAIYOU.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'txtOTHER_PROCESS_NAIYOU
         '
@@ -4303,7 +4303,7 @@ Partial Class FrmG0021
     Friend WithEvents dtKOKYAKU_NOUNYU_YMD As DateTextBoxEx
     Friend WithEvents Label42 As Label
     Friend WithEvents Label41 As Label
-    Friend WithEvents Label40 As Label
+    Friend WithEvents lblOTHER_PROCESS_NAIYOU As Label
     Friend WithEvents txtOTHER_PROCESS_NAIYOU As TextBoxEx
     Friend WithEvents dtOTHER_PROCESS_YMD As DateTextBoxEx
     Friend WithEvents Label39 As Label

@@ -679,12 +679,22 @@ Module mdlINTSYR
 
 #Region "DBëÄçÏä÷òA"
     Public Function DBOpen() As ClsDbUtility
-        If pub_SYSTEM_INFO.DbProviderFactories.IsNulOrWS And pub_SYSTEM_INFO.CONNECTIONSTRING.IsNulOrWS Then
-            Return Nothing
-        Else
+
+        Try
+            If pub_SYSTEM_INFO.DbProviderFactories.IsNulOrWS And pub_SYSTEM_INFO.CONNECTIONSTRING.IsNulOrWS Then
+                Using iniIF As New IniFile($"{FunGetRootPath()}\INI\{CON_SYSTEM_INI}")
+                    'DBê⁄ë±ê›íË
+                    pub_SYSTEM_INFO.CONNECTIONSTRING = iniIF.GetIniString("DB", "CONNECTIONSTRING")
+                    pub_SYSTEM_INFO.DbProviderFactories = iniIF.GetIniString("DB", "DbProviderFactories")
+                End Using
+            End If
+
             Dim DB As New ClsDbUtility(pub_SYSTEM_INFO.DbProviderFactories, pub_SYSTEM_INFO.CONNECTIONSTRING)
             Return DB
-        End If
+
+        Catch ex As Exception
+            Throw
+        End Try
     End Function
 
 #End Region

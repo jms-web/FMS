@@ -41,7 +41,6 @@ Public Class FrmG0014
     ''' <returns></returns>
     Public Property PrSelectedList As List(Of (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String))
 
-
     ''' <summary>
     ''' 動作モード 0:検索、1:登録
     ''' </summary>
@@ -199,6 +198,7 @@ Public Class FrmG0014
             End If
         End If
     End Sub
+
 #End Region
 
 #Region "FunctionButton関連"
@@ -267,7 +267,6 @@ Public Class FrmG0014
                     Return Nothing
                     'Err
             End Select
-
 
             Dim sbSQL As New System.Text.StringBuilder
             Dim dsList As New DataSet

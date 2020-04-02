@@ -3,12 +3,13 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class FrmM0031
 
 #Region "変数・定数"
-    Private IsValidated As Boolean
 
     Private _M003 As MODEL.M003_GYOMU_GROUP
+
 #End Region
 
 #Region "プロパティ"
+
     ''' <summary>
     ''' 処理モード
     ''' </summary>
@@ -25,16 +26,18 @@ Public Class FrmM0031
 #End Region
 
 #Region "コンストラクタ"
+
     Public Sub New()
 
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
 
-
     End Sub
+
 #End Region
 
 #Region "FORMイベント"
+
     Private Sub Frm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
@@ -46,7 +49,6 @@ Public Class FrmM0031
             Me.MinimumSize = New Size(1280, 250)
             Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) - 30 ' / 2
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
-
 
             '-----各コントロールのデータソースを設定
             'Me.cmbBUSYO_KB.SetDataSource(tblBUSYO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -64,7 +66,6 @@ Public Class FrmM0031
             '-----ダイアログウィンドウ設定
             Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
             Me.ControlBox = False
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -136,6 +137,7 @@ Public Class FrmM0031
 #End Region
 
 #Region "追加"
+
     Private Function FunINS() As Boolean
 
         Dim dsList As New System.Data.DataSet
@@ -206,9 +208,11 @@ Public Class FrmM0031
             dsList.Dispose()
         End Try
     End Function
+
 #End Region
 
 #Region "更新"
+
     Private Function FunUPD() As Boolean
 
         Dim sbSQL As New System.Text.StringBuilder
@@ -254,7 +258,6 @@ Public Class FrmM0031
                         blnErr = True
                         Return False
                     End If
-
                 Finally
                     'トランザクション
                     DB.Commit(Not blnErr)
@@ -269,7 +272,9 @@ Public Class FrmM0031
             dsList.Dispose()
         End Try
     End Function
+
 #End Region
+
     '#Region "更新"
 
     '    Private Function FunSAVE() As Boolean
@@ -288,8 +293,6 @@ Public Class FrmM0031
     '                    DB.BeginTransaction()
 
     '                    strSysDate = DB.GetSysDateString()
-
-
 
     '                    '-----MERGE
     '                    sbSQL.Remove(0, sbSQL.Length)
@@ -320,7 +323,6 @@ Public Class FrmM0031
     '                    sbSQL.Append($" TARGET.{NameOf(_M003.GYOMU_GROUP_NAME)} = WK.{NameOf(_M003.GYOMU_GROUP_NAME)}")
     '                    sbSQL.Append($",TARGET.{NameOf(_M003.UPD_YMDHNS)} = '{strSysDate}'")
     '                    sbSQL.Append($",TARGET.{NameOf(_M003.UPD_SYAIN_ID)} = WK.{NameOf(_M003.UPD_SYAIN_ID)}")
-
 
     '                    '---INSERT
     '                    sbSQL.Append($" WHEN NOT MATCHED THEN ")
@@ -401,7 +403,6 @@ Public Class FrmM0031
                 End With
             Next intFunc
 
-
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -412,52 +413,58 @@ Public Class FrmM0031
 #End Region
 
 
-#Region "コントロールイベント"
-
-
-#End Region
 
 #Region "入力チェック"
+
     Public Function FunCheckInput() As Boolean
         Try
             IsValidated = True
+            IsCheckRequired = True
 
-            Call mtxBUSYO_NAME_Validating(mtxBUSYO_NAME, Nothing)
+            Call MtxBUSYO_NAME_Validating(mtxBUSYO_NAME, Nothing)
 
             Return IsValidated
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
+            Throw
+        Finally
+            IsCheckRequired = False
         End Try
-
     End Function
 
-    Private Sub cmbBUMON_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
+    Private Sub CmbBUMON_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"))
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"))
+        End If
     End Sub
 
-    Private Sub cmbBUSYO_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
+    Private Sub CmbBUSYO_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部署区分"))
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部署区分"))
+        End If
     End Sub
 
-    Private Sub datYUKO_YMD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
+    Private Sub DatYUKO_YMD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "有効期限"))
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "有効期限"))
+        End If
     End Sub
 
-    Private Sub mtxBUSYO_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxBUSYO_NAME.Validating
+    Private Sub MtxBUSYO_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxBUSYO_NAME.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部署名"))
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部署名"))
+        End If
     End Sub
-
 
 #End Region
 
 #Region "ローカル関数"
 
 #Region "処理モード別画面初期化"
+
     Private Function FunInitializeControls(ByVal intMODE As Integer) As Boolean
         Try
 
@@ -491,8 +498,6 @@ Public Class FrmM0031
                     Me.lblTytle.Text = Me.Text
                     Me.cmdFunc1.Text = "変更(F1)"
 
-
-
                     Me.lbllblEDIT_YMDHNS.Visible = True
                     Me.lblEDIT_YMDHNS.Visible = True
                     Me.lbllblEDIT_SYAIN_ID.Visible = True
@@ -503,7 +508,6 @@ Public Class FrmM0031
             End Select
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -546,10 +550,6 @@ Public Class FrmM0031
 
 #End Region
 
-
-
 #End Region
-
-
 
 End Class

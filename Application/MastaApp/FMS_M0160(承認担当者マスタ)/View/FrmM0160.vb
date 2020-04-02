@@ -42,7 +42,7 @@ Public Class FrmM0160
             Call FunInitializeFlexGrid(flxDATA)
 
             '-----コントロールデータソース設定
-            CmbSYONIN_HOKOKUSYO_ID.SetDataSource(tblSYONIN_HOKOKUSYO_ID, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            CmbSYONIN_HOKOKUSYO_ID.SetDataSource(tblSYONIN_HOKOKUSYO_ID.LazyLoad("承認報告書ID"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             '-----イベントハンドラ設定
@@ -624,8 +624,7 @@ Public Class FrmM0160
                     CmbSYONIN_JUN.SetDataSource(tblCAR, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     CmbSYONIN_JUN.ReadOnly = False
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
-                    Call FunGetCodeDataTable(DB, "CTS", tblCTS)
-                    CmbSYONIN_JUN.SetDataSource(tblCTS, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                    CmbSYONIN_JUN.SetDataSource(tblCTS.LazyLoad("CTS"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     CmbSYONIN_JUN.ReadOnly = False
                 Case Else
                     CmbSYONIN_JUN.DataSource = Nothing

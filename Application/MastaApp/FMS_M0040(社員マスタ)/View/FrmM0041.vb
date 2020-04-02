@@ -2,11 +2,10 @@ Imports JMS_COMMON.ClsPubMethod
 
 Public Class FrmM0041
 
-#Region "変数・定数"
-    Private IsValidated As Boolean
-#End Region
+
 
 #Region "プロパティ"
+
     ''' <summary>
     ''' 処理モード
     ''' </summary>
@@ -22,6 +21,7 @@ Public Class FrmM0041
 #End Region
 
 #Region "FORMイベント"
+
     Private Sub Frm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
@@ -55,8 +55,6 @@ Public Class FrmM0041
             Dim blnSysAdmin As Boolean = IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID)
             chkADMIN_SYS.Enabled = blnSysAdmin
             chkADMIN_OP.Enabled = blnSysAdmin
-
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
 
@@ -64,7 +62,9 @@ Public Class FrmM0041
     End Sub
 
 #End Region
+
 #Region "処理モード別画面初期化"
+
     Private Function FunInitializeControls(ByVal intMODE As Integer) As Boolean
 
         Try
@@ -108,7 +108,6 @@ Public Class FrmM0041
             End Select
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -167,7 +166,6 @@ Public Class FrmM0041
                     Me.lblEDIT_YMDHNS.Text = dt.ToString("yyyy/MM/dd HH:mm:ss")
                 End If
 
-
                 '更新担当
                 Me.lblEDIT_SYAIN_ID.Text = .Item(NameOf(_model.UPD_SYAIN_NAME)).ToString
 
@@ -184,6 +182,7 @@ Public Class FrmM0041
 #Region "FUNCTIONボタンCLICK"
 
 #Region "ボタンクリックイベント"
+
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc1.Click, cmdFunc2.Click, cmdFunc3.Click, cmdFunc4.Click, cmdFunc5.Click, cmdFunc6.Click, cmdFunc7.Click, cmdFunc8.Click, cmdFunc9.Click, cmdFunc10.Click, cmdFunc11.Click, cmdFunc12.Click
 
         Dim intFUNC As Integer
@@ -219,7 +218,6 @@ Public Class FrmM0041
                     Me.DialogResult = Windows.Forms.DialogResult.Cancel
                     Me.Close()
             End Select
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
         Finally
@@ -234,6 +232,7 @@ Public Class FrmM0041
 #End Region
 
 #Region "追加"
+
     Private Function FunINS() As Boolean
 
         Dim dsList As New System.Data.DataSet
@@ -358,9 +357,11 @@ Public Class FrmM0041
             dsList.Dispose()
         End Try
     End Function
+
 #End Region
 
 #Region "更新"
+
     Private Function FunUPD() As Boolean
 
         Dim sbSQL As New System.Text.StringBuilder
@@ -374,7 +375,7 @@ Public Class FrmM0041
                 Return False
             End If
 
-            Using DB As ClsDbUtility = DBOpen()
+            Using DB = DBOpen()
                 Try
                     'トランザクション
                     DB.BeginTransaction()
@@ -418,7 +419,6 @@ Public Class FrmM0041
                         blnErr = True
                         Return False
                     End If
-
                 Finally
                     'トランザクション
                     DB.Commit(Not blnErr)
@@ -433,9 +433,11 @@ Public Class FrmM0041
             dsList.Dispose()
         End Try
     End Function
+
 #End Region
 
 #Region "FuncButton有効無効切替"
+
     ''' <summary>
     ''' 使用しないボタンのキャプションをなくす、かつ非活性にする。
     ''' ファンクションキーを示す(F**)以外の文字がない場合は、未使用とみなす
@@ -457,86 +459,88 @@ Public Class FrmM0041
                 End With
             Next intFunc
 
-
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         End Try
     End Function
-#End Region
 
 #End Region
 
-#Region "コントロールイベント"
-
 #End Region
+
+
 
 #Region "入力チェック"
+
     Public Function FunCheckInput() As Boolean
 
         Try
             IsValidated = True
+            IsCheckRequired = True
 
             '職番
-            Call mtxSYAIN_NO_Validating(mtxSYAIN_NO, Nothing)
+            Call MtxSYAIN_NO_Validating(mtxSYAIN_NO, Nothing)
 
             '社員区分
-            Call cmbSYAIN_KB_Validating(cmbSYAIN_KB, Nothing)
+            Call CmbSYAIN_KB_Validating(cmbSYAIN_KB, Nothing)
 
             '担当者名
-            Call mtxSIMEI_Validating(mtxSIMEI, Nothing)
+            Call MtxSIMEI_Validating(mtxSIMEI, Nothing)
 
             '担当者名カナ
-            Call mtxSIMEI_KANA_Validating(mtxSIMEI_KANA, Nothing)
+            Call MtxSIMEI_KANA_Validating(mtxSIMEI_KANA, Nothing)
 
             'パスワード
-            Call mtxPASS_Validating(mtxPASS, Nothing)
-
+            Call MtxPASS_Validating(mtxPASS, Nothing)
 
             Return IsValidated
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
+            Throw
+        Finally
+            IsCheckRequired = False
         End Try
     End Function
 
-    Private Sub mtxSYAIN_NO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxSYAIN_NO.Validating
+    Private Sub MtxSYAIN_NO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxSYAIN_NO.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "職番"))
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "職番"))
+        End If
     End Sub
 
-    Private Sub cmbSYAIN_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbSYAIN_KB.Validating
+    Private Sub CmbSYAIN_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbSYAIN_KB.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "社員区分"))
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "社員区分"))
+        End If
     End Sub
 
-    Private Sub mtxSIMEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxSIMEI.Validating
+    Private Sub MtxSIMEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxSIMEI.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "氏名"))
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "氏名"))
+        End If
     End Sub
 
-    Private Sub mtxSIMEI_KANA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxSIMEI_KANA.Validating
+    Private Sub MtxSIMEI_KANA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxSIMEI_KANA.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "氏名カナ"))
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "氏名カナ"))
+        End If
     End Sub
 
-    Private Sub mtxPASS_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxPASS.Validating
+    Private Sub MtxPASS_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxPASS.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "パスワード"))
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "パスワード"))
+        End If
     End Sub
 
-    Private Sub chkADMIN_SYS_CheckedChanged(sender As Object, e As EventArgs) Handles chkADMIN_SYS.CheckedChanged
+    Private Sub ChkADMIN_SYS_CheckedChanged(sender As Object, e As EventArgs) Handles chkADMIN_SYS.CheckedChanged
         If chkADMIN_SYS.Checked Then chkADMIN_OP.Checked = True
-
     End Sub
-
-#Region "ローカル関数"
-
-
-
-
-#End Region
 
 #End Region
 

@@ -5,13 +5,6 @@ Imports JMS_COMMON.ClsPubMethod
 ''' </summary>
 Public Class FrmG0020
 
-#Region "変数・定数"
-
-    '入力必須コントロール検証判定
-    Private IsValidated As Boolean
-
-#End Region
-
 #Region "プロパティ"
 
     Public Property PrSYONIN_HOKOKUSYO_ID As Integer
@@ -271,16 +264,16 @@ Public Class FrmG0020
 
     Private Sub CmbMODOSI_SAKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbTENSO_SAKI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送先"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送先"))
+        End If
     End Sub
 
     Private Sub MtxMODOSI_RIYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxRIYU.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送理由"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送理由"))
+        End If
     End Sub
 
 #End Region
@@ -290,13 +283,16 @@ Public Class FrmG0020
     Public Function FunCheckInput() As Boolean
         Try
             IsValidated = True
+            IsCheckRequired = True
+
             'Call CmbMODOSI_SAKI_Validating(cmbTENSO_SAKI, Nothing)
             Call MtxMODOSI_RIYU_Validating(mtxRIYU, Nothing)
 
             Return IsValidated
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
+            Throw
+        Finally
+            IsCheckRequired = False
         End Try
     End Function
 
@@ -308,7 +304,6 @@ Public Class FrmG0020
         'cmbTENSO_SAKI.DataBindings.Add(New Binding(NameOf(cmbTENSO_SAKI.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
         mtxRIYU.DataBindings.Add(New Binding(NameOf(mtxRIYU.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.RIYU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
     End Function
-
 
 #End Region
 

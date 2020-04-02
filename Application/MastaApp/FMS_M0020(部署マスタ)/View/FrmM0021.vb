@@ -3,11 +3,10 @@ Imports MODEL
 
 Public Class FrmM0021
 
-#Region "変数・定数"
-    Private IsValidated As Boolean
-#End Region
+
 
 #Region "プロパティ"
+
     ''' <summary>
     ''' 処理モード
     ''' </summary>
@@ -24,16 +23,18 @@ Public Class FrmM0021
 #End Region
 
 #Region "コンストラクタ"
+
     Public Sub New()
 
         ' この呼び出しはデザイナーで必要です。
         InitializeComponent()
 
-
     End Sub
+
 #End Region
 
 #Region "FORMイベント"
+
     Private Sub Frm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
@@ -45,7 +46,6 @@ Public Class FrmM0021
             Me.MinimumSize = New Size(1280, 360)
             Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) - 30 ' / 2
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
-
 
             '-----各コントロールのデータソースを設定
             Me.cmbBUSYO_KB.SetDataSource(tblBUSYO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -63,7 +63,6 @@ Public Class FrmM0021
             '-----ダイアログウィンドウ設定
             Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
             Me.ControlBox = False
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -76,6 +75,7 @@ Public Class FrmM0021
 #Region "FUNCTIONボタン関連"
 
 #Region "FUNCTIONボタンCLICKイベント"
+
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc9.Click, cmdFunc8.Click, cmdFunc7.Click, cmdFunc6.Click, cmdFunc5.Click, cmdFunc4.Click, cmdFunc3.Click, cmdFunc2.Click, cmdFunc12.Click, cmdFunc11.Click, cmdFunc10.Click, cmdFunc1.Click
         Dim intFUNC As Integer
         Dim intCNT As Integer
@@ -114,10 +114,8 @@ Public Class FrmM0021
                     Me.DialogResult = Windows.Forms.DialogResult.Cancel
                     Me.Close()
             End Select
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
-
         Finally
             'ボタン可
             System.Windows.Forms.Application.DoEvents()
@@ -130,10 +128,10 @@ Public Class FrmM0021
 #End Region
 
 #Region "追加"
+
     Private Function FunINS() As Boolean
         Dim dsList As New DataSet
         Dim sbSQL As New System.Text.StringBuilder
-
 
         Try
             '-----入力チェック
@@ -234,9 +232,11 @@ Public Class FrmM0021
             dsList.Dispose()
         End Try
     End Function
+
 #End Region
 
 #Region "更新"
+
     Private Function FunUPD() As Boolean
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New System.Data.DataSet
@@ -287,7 +287,6 @@ Public Class FrmM0021
                         sbSQL.Append(",OYA_BUSYO_ID = " & Me.cmbOYA_BUSYO.SelectedValue & " ")
                     End If
 
-
                     sbSQL.Append(",SYOZOKUCYO_ID = " & Me.cmbSYOZOKUCYO.SelectedValue & " ")
                     sbSQL.Append(",TEL ='" & Me.mtxTEL.Text & "' ")
                     sbSQL.Append(",UPD_YMDHNS = dbo.GetSysDateString() ")
@@ -302,7 +301,6 @@ Public Class FrmM0021
                         blnErr = True
                         Return False
                     End If
-
                 Finally
                     'トランザクション
                     DB.Commit(Not blnErr)
@@ -317,6 +315,7 @@ Public Class FrmM0021
             dsList.Dispose()
         End Try
     End Function
+
 #End Region
 
 #Region "FuncButton有効無効切替"
@@ -341,7 +340,6 @@ Public Class FrmM0021
                     End If
                 End With
             Next intFunc
-
 
             Return True
         Catch ex As Exception
@@ -375,7 +373,6 @@ Public Class FrmM0021
                 Me.cmbOYA_BUSYO.SetDataSource(tblBUSYO, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
             End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -383,57 +380,66 @@ Public Class FrmM0021
         End Try
     End Sub
 
-
 #End Region
 
 #Region "入力チェック"
+
     Public Function FunCheckInput() As Boolean
         Try
             IsValidated = True
+            IsCheckRequired = True
 
-            Call cmbBUMON_KB_Validating(cmbBUMON_KB, Nothing)
-            Call cmbBUSYO_KB_Validating(cmbBUSYO_KB, Nothing)
+            Call CmbBUMON_KB_Validating(cmbBUMON_KB, Nothing)
+            Call CmbBUSYO_KB_Validating(cmbBUSYO_KB, Nothing)
 
-            If chkYUKO_YMD.Checked = False Then
-                Call datYUKO_YMD_Validating(datYUKO_YMD, Nothing)
+            If Not chkYUKO_YMD.Checked Then
+                Call DatYUKO_YMD_Validating(datYUKO_YMD, Nothing)
             End If
 
-            Call mtxBUSYO_NAME_Validating(mtxBUSYO_NAME, Nothing)
+            Call MtxBUSYO_NAME_Validating(mtxBUSYO_NAME, Nothing)
 
             Return IsValidated
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
+            Throw
+        Finally
+            IsCheckRequired = False
         End Try
-
     End Function
 
-    Private Sub cmbBUMON_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbBUMON_KB.Validating
+    Private Sub CmbBUMON_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbBUMON_KB.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"))
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"))
+        End If
     End Sub
 
-    Private Sub cmbBUSYO_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbBUSYO_KB.Validating
+    Private Sub CmbBUSYO_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbBUSYO_KB.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部署区分"))
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部署区分"))
+        End If
     End Sub
 
-    Private Sub datYUKO_YMD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles datYUKO_YMD.Validating
+    Private Sub DatYUKO_YMD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles datYUKO_YMD.Validating
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "有効期限"))
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "有効期限"))
+        End If
     End Sub
 
-    Private Sub mtxBUSYO_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxBUSYO_NAME.Validating
+    Private Sub MtxBUSYO_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxBUSYO_NAME.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部署名"))
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部署名"))
+        End If
     End Sub
-
 
 #End Region
 
 #Region "ローカル関数"
 
 #Region "処理モード別画面初期化"
+
     Private Function FunInitializeControls(ByVal intMODE As Integer) As Boolean
         Try
 
@@ -488,7 +494,6 @@ Public Class FrmM0021
             End Select
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -570,11 +575,8 @@ Public Class FrmM0021
 
     End Sub
 
-
 #End Region
 
 #End Region
-
-
 
 End Class

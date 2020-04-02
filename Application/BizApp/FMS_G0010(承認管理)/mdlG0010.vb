@@ -308,7 +308,7 @@ Module mdlG0010
         _2_製造 = 2
         _3_検査 = 3
         _4_品証 = 4
-        _5_その他_仮 = 5
+        _99_その他_仮 = 99
     End Enum
 
 #End Region
@@ -372,38 +372,16 @@ Module mdlG0010
                 Using DB As ClsDbUtility = DBOpen()
                     Call FunGetCodeDataTable(DB, "NCR", tblNCR)
                     Call FunGetCodeDataTable(DB, "CAR", tblCAR)
+
+
                     Call FunGetCodeDataTable(DB, "担当", tblTANTO)
                     Call FunGetCodeDataTable(DB, "部門区分", tblBUMON, "DISP_ORDER < 10") '10以降は不適合SYSでは不要
-                    Call FunGetCodeDataTable(DB, "機種", tblKISYU)
-                    Call FunGetCodeDataTable(DB, "機種実績", tblKISYU_J)
-                    Call FunGetCodeDataTable(DB, "承認報告書ID", tblSYONIN_HOKOKUSYO_ID)
 
                     'Call FunGetCodeDataTable(DB, "不適合区分", tblFUTEKIGO_KB)
-                    Call FunGetCodeDataTable(DB, "不適合状態区分", tblFUTEKIGO_STATUS_KB)
-                    Call FunGetCodeDataTable(DB, "事前審査判定区分", tblJIZEN_SINSA_HANTEI_KB)
-                    Call FunGetCodeDataTable(DB, "再審委員会判定区分", tblSAISIN_IINKAI_HANTEI_KB)
-                    Call FunGetCodeDataTable(DB, "部品番号", tblBUHIN)
-                    Call FunGetCodeDataTable(DB, "部品番号実績", tblBUHIN_J)
-                    Call FunGetCodeDataTable(DB, "社内CD", tblSYANAI_CD)
-                    Call FunGetCodeDataTable(DB, "社内CD実績", tblSYANAI_CD_J)
-
-                    Call FunGetCodeDataTable(DB, "承認担当", tblTANTO_SYONIN)
+                    'Call FunGetCodeDataTable(DB, "承認担当", tblTANTO_SYONIN)
                     'Call FunGetCodeDataTable(DB, "承認担当一覧", tblTANTO_SYONINList)
-                    Call FunGetCodeDataTable(DB, "顧客判定指示区分", tblKOKYAKU_HANTEI_SIJI_KB)
-                    Call FunGetCodeDataTable(DB, "顧客最終判定区分", tblKOKYAKU_SAISYU_HANTEI_KB)
-                    Call FunGetCodeDataTable(DB, "要否区分", tblYOHI_KB)
-                    Call FunGetCodeDataTable(DB, "検査結果区分", tblKENSA_KEKKA_KB)
-                    Call FunGetCodeDataTable(DB, "根本要因区分", tblKONPON_YOIN_KB)
-                    Call FunGetCodeDataTable(DB, "帰責工程区分", tblKISEKI_KOUTEI_KB)
+                    'Call FunGetCodeDataTable(DB, "原因分析区分", tblGENIN_BUNSEKI_KB)
 
-                    Call FunGetCodeDataTable(DB, "原因分析区分", tblGENIN_BUNSEKI_KB)
-
-                    Call FunGetCodeDataTable(DB, "設問内容", tblSETUMON_NAIYO)
-                    Call FunGetCodeDataTable(DB, "承認判定区分", tblSYONIN_HANTEI_KB)
-                    Call FunGetCodeDataTable(DB, "廃却方法区分", tblHAIKYAKU_KB)
-
-                    Call FunGetCodeDataTable(DB, "CTS", tblCTS)
-                    Call FunGetCodeDataTable(DB, "不適合封じ込め非の理由", tblKOKYAKU_EIKYO_COMMENT)
                 End Using
 
                 '起動時パラメータを取得
@@ -802,7 +780,7 @@ Module mdlG0010
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
                     drList = tblCAR.AsEnumerable().Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
-                    drList = tblCTS.AsEnumerable().Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
+                    drList = tblCTS.LazyLoad("CTS").AsEnumerable().Where(Function(r) Val(r.Field(Of Integer)("VALUE")) = intCurrentStageID).ToList
                 Case Else
                     Return vbEmpty
             End Select
@@ -2084,12 +2062,15 @@ Module mdlG0010
                 spSheet1.Range(NameOf(V011_FCR_J.KOKYAKU_NOUNYU_YMD)).Value = _V11.KOKYAKU_NOUNYU_YMD
                 spSheet1.Range(NameOf(V011_FCR_J.ZAIKO_SIKAKE_NAIYOU)).Value = _V11.ZAIKO_SIKAKE_NAIYOU
                 spSheet1.Range(NameOf(V011_FCR_J.ZAIKO_SIKAKE_YMD)).Value = _V11.ZAIKO_SIKAKE_YMD
-                spSheet1.Range(NameOf(V011_FCR_J.OTHER_PROCESS_NAIYOU)).Value = _V11.OTHER_PROCESS_NAIYOU
-                spSheet1.Range(NameOf(V011_FCR_J.OTHER_PROCESS_YMD)).Value = _V11.OTHER_PROCESS_YMD
 
                 spSheet1.Range(NameOf(V011_FCR_J.FUTEKIGO_SEIHIN_MEMO)).Value = _V11.FUTEKIGO_SEIHIN_MEMO
                 spSheet1.Range(NameOf(V011_FCR_J.KOKYAKU_EIKYO_MEMO)).Value = _V11.KOKYAKU_EIKYO_MEMO
                 spSheet1.Range(NameOf(V011_FCR_J.SYOCHI_MEMO)).Value = _V11.SYOCHI_MEMO
+            End If
+
+            If _V11.OTHER_PROCESS_INFLUENCE_KB Or _V11.FOLLOW_PROCESS_OUTFLOW_KB Then
+                spSheet1.Range(NameOf(V011_FCR_J.OTHER_PROCESS_NAIYOU)).Value = _V11.OTHER_PROCESS_NAIYOU
+                spSheet1.Range(NameOf(V011_FCR_J.OTHER_PROCESS_YMD)).Value = _V11.OTHER_PROCESS_YMD
             End If
 
             If _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_起草入力).Select(Function(r) r.ADD_YMDHNS).First < "202002140000" Then

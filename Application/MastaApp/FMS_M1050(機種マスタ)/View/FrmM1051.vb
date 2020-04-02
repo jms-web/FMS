@@ -6,11 +6,13 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class FrmM1051
 
 #Region "変数・定数"
-    Private IsValidated As Boolean
+
     Private _M105 As New MODEL.M105_KISYU
+
 #End Region
 
 #Region "プロパティ"
+
     ''' <summary>
     ''' 処理モード
     ''' </summary>
@@ -49,6 +51,7 @@ Public Class FrmM1051
 #End Region
 
 #Region "FORMイベント"
+
     Private Sub Frm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
@@ -69,7 +72,6 @@ Public Class FrmM1051
 
             '-----処理モード別画面初期化
             Call FunInitializeControls()
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -82,6 +84,7 @@ Public Class FrmM1051
 #Region "FUNCTIONボタンCLICK"
 
 #Region "ボタンクリックイベント"
+
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc1.Click, cmdFunc2.Click, cmdFunc3.Click, cmdFunc4.Click, cmdFunc5.Click, cmdFunc6.Click, cmdFunc7.Click, cmdFunc8.Click, cmdFunc9.Click, cmdFunc10.Click, cmdFunc11.Click, cmdFunc12.Click
         Dim intFUNC As Integer
         Dim intCNT As Integer
@@ -108,7 +111,6 @@ Public Class FrmM1051
                     Me.DialogResult = Windows.Forms.DialogResult.Cancel
                     Me.Close()
             End Select
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
         Finally
@@ -222,6 +224,7 @@ Public Class FrmM1051
 #End Region
 
 #Region "FuncButton有効無効切替"
+
     ''' <summary>
     ''' 使用しないボタンのキャプションをなくす、かつ非活性にする。
     ''' ファンクションキーを示す(F**)以外の文字がない場合は、未使用とみなす
@@ -247,17 +250,15 @@ Public Class FrmM1051
             Return False
         End Try
     End Function
-#End Region
 
 #End Region
-
-#Region "コントロールイベント"
 
 #End Region
 
 #Region "ローカル関数"
 
 #Region "バインディング"
+
     Private Function FunSetBinding() As Boolean
         CmbBUMON_KB.DataBindings.Add(New Binding(NameOf(CmbBUMON_KB.SelectedValue), _M105, NameOf(_M105.BUMON_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         mtxKISYU_NAME.DataBindings.Add(New Binding(NameOf(mtxKISYU_NAME.Text), _M105, NameOf(_M105.KISYU_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -267,6 +268,7 @@ Public Class FrmM1051
 #End Region
 
 #Region "処理モード別画面初期化"
+
     Private Function FunInitializeControls() As Boolean
         Dim _Model = New MODEL.ModelInfo(Of MODEL.M105_KISYU)(_OnlyAutoGenerateField:=True)
 
@@ -337,7 +339,6 @@ Public Class FrmM1051
             End Select
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -347,33 +348,37 @@ Public Class FrmM1051
 #End Region
 
 #Region "入力チェック"
+
     Public Function FunCheckInput() As Boolean
 
         Try
             IsValidated = True
+            IsCheckRequired = True
 
             Call CmbBUMON_KB_Validating(CmbBUMON_KB, Nothing)
-            Call mtxKISYU_NAME_Validating(mtxKISYU_NAME, Nothing)
+            Call MtxKISYU_NAME_Validating(mtxKISYU_NAME, Nothing)
 
             Return IsValidated
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
+            Throw
+        Finally
+            IsCheckRequired = False
         End Try
     End Function
 
     Private Sub CmbBUMON_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles CmbBUMON_KB.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部門区分"))
+        End If
     End Sub
 
     Private Sub MtxKISYU_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxKISYU_NAME.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "機種名"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "機種名"))
+        End If
     End Sub
-
 
 #End Region
 
@@ -402,7 +407,5 @@ Public Class FrmM1051
     End Function
 
 #End Region
-
-
 
 End Class

@@ -4,6 +4,10 @@ Imports Microsoft.WindowsAPICodePack.Taskbar
 Public Class FrmBase
 
 #Region "’è”E•Ï”"
+    Public IsValidated As Boolean
+    Public IsCheckRequired As Boolean
+
+
     Public _currentToolTipControl As Control = Nothing
 
     Public Enum ENM_TASKBAR_STATE

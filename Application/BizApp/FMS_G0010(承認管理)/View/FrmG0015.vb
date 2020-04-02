@@ -6,8 +6,7 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class FrmG0015
 
 #Region "変数・定数"
-    '入力必須コントロール検証判定
-    Private IsValidated As Boolean
+
 #End Region
 
 #Region "プロパティ"
@@ -25,6 +24,7 @@ Public Class FrmG0015
     Public Property PrKISYU_NAME As String
 
     Public Property PrKISO_YMD As String
+
 #End Region
 
 #Region "コンストラクタ"
@@ -45,6 +45,7 @@ Public Class FrmG0015
 #End Region
 
 #Region "FORMイベント"
+
     Private Sub Frm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
@@ -92,7 +93,6 @@ Public Class FrmG0015
             'バインディング
             Call FunSetBinding()
             _D004_SYONIN_J_KANRI.RIYU = ""
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -105,6 +105,7 @@ Public Class FrmG0015
 #Region "FUNCTIONボタン関連"
 
 #Region "FUNCTIONボタンCLICKイベント"
+
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc9.Click, cmdFunc8.Click, cmdFunc7.Click, cmdFunc6.Click, cmdFunc5.Click, cmdFunc4.Click, cmdFunc3.Click, cmdFunc2.Click, cmdFunc12.Click, cmdFunc11.Click, cmdFunc10.Click, cmdFunc1.Click
         Dim intFUNC As Integer
         Dim intCNT As Integer
@@ -132,10 +133,8 @@ Public Class FrmG0015
                     Me.DialogResult = Windows.Forms.DialogResult.Cancel
                     Me.Close()
             End Select
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
-
         Finally
             'ボタン可
             System.Windows.Forms.Application.DoEvents()
@@ -148,6 +147,7 @@ Public Class FrmG0015
 #End Region
 
 #Region "更新"
+
     Private Function FunSAVE() As Boolean
         Dim dsList As New DataSet
         Dim sbSQL As New System.Text.StringBuilder
@@ -294,6 +294,7 @@ Public Class FrmG0015
 
         End Try
     End Function
+
 #End Region
 
 #Region "FuncButton有効無効切替"
@@ -319,7 +320,6 @@ Public Class FrmG0015
                 End With
             Next intFunc
 
-
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -335,39 +335,44 @@ Public Class FrmG0015
 
     Private Sub CmbMODOSI_SAKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbTENSO_SAKI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送先"))
-
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送先"))
+        End If
     End Sub
 
     Private Sub MtxMODOSI_RIYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxTENSO_RIYU.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送理由"))
-
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送理由"))
+        End If
     End Sub
+
 #End Region
 
 #Region "入力チェック"
+
     Public Function FunCheckInput() As Boolean
         Try
             IsValidated = True
+            IsCheckRequired = True
+
             Call CmbMODOSI_SAKI_Validating(cmbTENSO_SAKI, Nothing)
             Call MtxMODOSI_RIYU_Validating(mtxTENSO_RIYU, Nothing)
 
             Return IsValidated
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
+            Throw
+        Finally
+            IsCheckRequired = False
         End Try
     End Function
+
 #End Region
 
 #Region "ローカル関数"
+
     Private Function FunSetBinding() As Boolean
-        'cmbTENSO_SAKI.DataBindings.Add(New Binding(NameOf(cmbTENSO_SAKI.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+
         mtxTENSO_RIYU.DataBindings.Add(New Binding(NameOf(mtxTENSO_RIYU.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.RIYU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
     End Function
 
@@ -377,7 +382,7 @@ Public Class FrmG0015
     ''' <returns></returns>
     Private Function FunSendRequestMail()
         Dim KISYU_NAME As String = PrKISYU_NAME 'tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
-        Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
+        Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.LazyLoad("承認判定区分").AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
         Dim strEXEParam As String = $"{_D004_SYONIN_J_KANRI.SYAIN_ID},{Val(ENM_OPEN_MODE._2_処置画面起動)},{PrSYONIN_HOKOKUSYO_ID},{PrHOKOKU_NO}"
         Dim SYONIN_HOKOKUSYO_NAME As String = If(PrSYONIN_HOKOKUSYO_ID = 1, "NCR", "CAR")
         Dim strSubject As String = $"【不適合品処置依頼】[{SYONIN_HOKOKUSYO_NAME}] {KISYU_NAME}・{PrBUHIN_BANGO}"
@@ -432,51 +437,6 @@ Public Class FrmG0015
         End If
     End Function
 
-    Private Function FunGetKISYU_NAME() As String
-        'Dim dsList As New DataSet
-        'Dim sbSQL As New System.Text.StringBuilder
-        'Dim sbParam As New System.Text.StringBuilder
-
-        ''共通
-        'sbParam.Append($" '{PrBUMON_KB}'")
-        'sbParam.Append($",{PrSYONIN_HOKOKUSYO_ID}")
-        'sbParam.Append(",0")
-        'sbParam.Append(",''")
-        'sbParam.Append(",''")
-        'sbParam.Append(",''")
-        'sbParam.Append(",''")
-        'sbParam.Append(",0")
-        'sbParam.Append(",''")
-        'sbParam.Append(",''")
-        'sbParam.Append($",'{PrHOKOKU_NO}'")
-        'sbParam.Append(",0")
-        'sbParam.Append(",'0'")
-        'sbParam.Append(",''")
-        'sbParam.Append(",''")
-        'sbParam.Append(",''")
-        'sbParam.Append(",''")
-        ''NCR
-        'sbParam.Append(",''")
-        'sbParam.Append(",''")
-        'sbParam.Append(",''")
-        'sbParam.Append(",''")
-        ''CAR
-        'sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB1 & "'")
-        'sbParam.Append(",'" & ParamModel.KONPON_YOIN_KB2 & "'")
-        'sbParam.Append(",'" & ParamModel.KISEKI_KOTEI_KB & "'")
-        'sbParam.Append(",'" & ParamModel.KOKYAKU_HANTEI_SIJI_KB & "'")
-        'sbParam.Append(",'" & ParamModel.KOKYAKU_SAISYU_HANTEI_KB & "'")
-        'sbParam.Append(",'" & ParamModel.GENIN1 & "'")
-        'sbParam.Append(",'" & ParamModel.GENIN2 & "'")
-
-        'sbSQL.Append("EXEC dbo." & NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN) & " " & sbParam.ToString & "")
-        'Using DB As ClsDbUtility = DBOpen()
-        '    dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-        'End Using
-
-        'Return dsList?.Tables(0)
-    End Function
 #End Region
-
 
 End Class

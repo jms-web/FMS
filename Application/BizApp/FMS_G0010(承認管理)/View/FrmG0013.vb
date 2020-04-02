@@ -42,12 +42,10 @@ Public Class FrmG0013
     ''' <returns></returns>
     Public Property PrSelectedList As New List(Of (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String))
 
-
     ''' <summary>
     ''' 代表
     ''' </summary>
     Public Property PrDAIHYO As (ITEM_NAME As String, ITEM_VALUE As String, ITEM_DISP As String)
-
 
     ''' <summary>
     ''' 動作モード 0:検索、1:登録
@@ -250,6 +248,7 @@ Public Class FrmG0013
             End If
         End If
     End Sub
+
 #End Region
 
 #Region "FunctionButton関連"
@@ -523,8 +522,6 @@ Public Class FrmG0013
         End Try
     End Function
 
-
-
 #End Region
 
 #End Region
@@ -532,7 +529,5 @@ Public Class FrmG0013
 #Region "コントロールイベント"
 
 #End Region
-
-
 
 End Class

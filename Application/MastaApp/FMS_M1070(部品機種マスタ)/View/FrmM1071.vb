@@ -6,11 +6,13 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class FrmM1071
 
 #Region "変数・定数"
-    Private IsValidated As Boolean
+
     Private _VWM107 As New MODEL.VWM107_BUHIN_KISYU
+
 #End Region
 
 #Region "プロパティ"
+
     ''' <summary>
     ''' 処理モード
     ''' </summary>
@@ -49,6 +51,7 @@ Public Class FrmM1071
 #End Region
 
 #Region "FORMイベント"
+
     Private Sub Frm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
@@ -72,7 +75,6 @@ Public Class FrmM1071
 
             '-----処理モード別画面初期化
             Call FunInitializeControls()
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -85,6 +87,7 @@ Public Class FrmM1071
 #Region "FUNCTIONボタンCLICK"
 
 #Region "ボタンクリックイベント"
+
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc1.Click, cmdFunc2.Click, cmdFunc3.Click, cmdFunc4.Click, cmdFunc5.Click, cmdFunc6.Click, cmdFunc7.Click, cmdFunc8.Click, cmdFunc9.Click, cmdFunc10.Click, cmdFunc11.Click, cmdFunc12.Click
         Dim intFUNC As Integer
         Dim intCNT As Integer
@@ -111,7 +114,6 @@ Public Class FrmM1071
                     Me.DialogResult = Windows.Forms.DialogResult.Cancel
                     Me.Close()
             End Select
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
         Finally
@@ -199,7 +201,6 @@ Public Class FrmM1071
                     blnErr = False
 
                     Return True
-
                 Finally
                     DB.Commit(Not blnErr)
                 End Try
@@ -217,6 +218,7 @@ Public Class FrmM1071
 #End Region
 
 #Region "FuncButton有効無効切替"
+
     ''' <summary>
     ''' 使用しないボタンのキャプションをなくす、かつ非活性にする。
     ''' ファンクションキーを示す(F**)以外の文字がない場合は、未使用とみなす
@@ -242,17 +244,17 @@ Public Class FrmM1071
             Return False
         End Try
     End Function
-#End Region
 
 #End Region
 
-#Region "コントロールイベント"
-
 #End Region
+
+
 
 #Region "ローカル関数"
 
 #Region "バインディング"
+
     Private Function FunSetBinding() As Boolean
         mtxBumon_KB.DataBindings.Add(New Binding(NameOf(mtxBumon_KB.Text), _VWM107, NameOf(_VWM107.BUMON_KB_DISP), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         mtxTORI_NAME.DataBindings.Add(New Binding(NameOf(mtxTORI_NAME.Text), _VWM107, NameOf(_VWM107.TORI_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -264,6 +266,7 @@ Public Class FrmM1071
 #End Region
 
 #Region "処理モード別画面初期化"
+
     Private Function FunInitializeControls() As Boolean
         Dim _Model = New MODEL.ModelInfo(Of MODEL.VWM107_BUHIN_KISYU)(_OnlyAutoGenerateField:=True)
 
@@ -288,7 +291,6 @@ Public Class FrmM1071
                     lblEDIT_SYAIN_ID.Visible = False
 
                 Case ENM_DATA_OPERATION_MODE._2_ADDREF
-
 
                     'lblTytle.Text &= "（類似追加）"
                     'cmdFunc1.Text = "追加(F1)"
@@ -331,7 +333,6 @@ Public Class FrmM1071
             End Select
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -341,15 +342,17 @@ Public Class FrmM1071
 #End Region
 
 #Region "入力チェック"
+
     Public Function FunCheckInput() As Boolean
 
         Try
             IsValidated = True
-
+            IsCheckRequired = True
             Return IsValidated
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
+            Throw
+        Finally
+            IsCheckRequired = False
         End Try
     End Function
 
@@ -387,7 +390,6 @@ Public Class FrmM1071
         End With
     End Function
 
-
 #End Region
 
     Private Function FunGetNextIdentity() As Integer
@@ -414,11 +416,9 @@ Public Class FrmM1071
         End Try
     End Function
 
-
     Private Sub btnSRCH_Click(sender As Object, e As EventArgs) Handles btnSRCH.Click
         Call FunSRCH(Me.flxDATA, FunGetListData())
     End Sub
-
 
     Private Function FunSRCH(flx As C1.Win.C1FlexGrid.C1FlexGrid, dt As DataTable) As Boolean
         Dim intCURROW As Integer
@@ -446,7 +446,6 @@ Public Class FrmM1071
             End If
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -482,18 +481,12 @@ Public Class FrmM1071
 
             Dim _Model As New MODEL.ModelInfo(Of MODEL.VWM105_KISYU)(srcDATA:=dsList.Tables(0))
             Return _Model.Data
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return Nothing
         End Try
     End Function
 
-
-
-
 #End Region
-
-
 
 End Class

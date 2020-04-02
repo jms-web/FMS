@@ -6,12 +6,14 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class FrmM00102
 
 #Region "変数・定数"
-    Private IsValidated As Boolean
+
     Private _TV05 As New MODEL.TV05_FUTEKIGO_CODE
     Private _M001 As New MODEL.M001_SETTING
+
 #End Region
 
 #Region "プロパティ"
+
     ''' <summary>
     ''' 処理モード
     ''' </summary>
@@ -50,6 +52,7 @@ Public Class FrmM00102
 #End Region
 
 #Region "FORMイベント"
+
     Private Sub Frm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
@@ -91,7 +94,6 @@ Public Class FrmM00102
 
             '-----処理モード別画面初期化
             Call FunInitializeControls()
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -160,7 +162,7 @@ Public Class FrmM00102
             '入力チェック
             If FunCheckInput() = False Then Return False
 
-            Using DB As ClsDbUtility = DBOpen()
+            Using DB = DBOpen()
                 Dim blnErr As Boolean
                 Try
                     DB.BeginTransaction()
@@ -252,7 +254,6 @@ Public Class FrmM00102
                     Select Case strRET
                         Case "INSERT"
 
-
                         Case "UPDATE"
                             If PrDATA_OP_MODE = ENM_DATA_OPERATION_MODE._1_ADD Then
                                 Dim strMsg As String = $"既に登録済の不適合詳細区分値を使用しています{vbCrLf}変更して登録して下さい。"
@@ -288,8 +289,6 @@ Public Class FrmM00102
 
 #End Region
 
-
-
 #Region "FuncButton有効無効切替"
 
     ''' <summary>
@@ -320,7 +319,6 @@ Public Class FrmM00102
 #End Region
 
 #Region "コントロールイベント"
-
 
     Private Sub CmbFUTEKIGO_KB_Validated(sender As Object, e As EventArgs) Handles cmbFUTEKIGO_KB.Validated
         Dim dsList As New DataSet
@@ -372,7 +370,6 @@ Public Class FrmM00102
                     Throw New ArgumentException(My.Resources.ErrMsgException, PrDATA_OP_MODE.ToString)
             End Select
             'End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -405,6 +402,7 @@ Public Class FrmM00102
 #End Region
 
 #Region "処理モード別画面初期化"
+
     Private Function FunInitializeControls() As Boolean
         Try
             Select Case PrDATA_OP_MODE
@@ -457,7 +455,6 @@ Public Class FrmM00102
                     'Call CmbKOMO_NM_Validated(cmbKOMO_NM, Nothing)
                     Me.cmbFUTEKIGO_KB.Enabled = False
 
-
                     lbllblEDIT_YMDHNS.Visible = True
                     lblEDIT_YMDHNS.Visible = True
                     lbllblEDIT_SYAIN_ID.Visible = True
@@ -472,14 +469,12 @@ Public Class FrmM00102
 
                     Call CmbFUTEKIGO_KB_Validated(Me.cmbFUTEKIGO_KB, Nothing)
 
-
                 Case Else
                     Throw New ArgumentException(My.Resources.ErrMsgException, PrDATA_OP_MODE.ToString)
             End Select
             _TV05.FUTEKIGO_S_KB_NAME = _TV05.FUTEKIGO_S_KB_NAME.Trim
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -494,25 +489,29 @@ Public Class FrmM00102
         Try
             'フラグ初期化
             IsValidated = True
+            IsCheckRequired = True
 
             Call MtxVALUE_Validating(mtxDISP, Nothing)
 
             Return IsValidated
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
+            Throw
+        Finally
+            IsCheckRequired = False
         End Try
     End Function
 
     Private Sub MtxVALUE_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxVALUE.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目値"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "項目値"))
+        End If
     End Sub
+
 #End Region
 
 #Region "表示順更新"
+
     Private Function FunUpdateDispOrder(ByRef DB As ClsDbUtility, ByVal intBeforeValue As Integer, ByVal intAfterValue As Integer) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
         Dim sqlEx As New Exception
@@ -569,10 +568,8 @@ Public Class FrmM00102
         End Try
     End Function
 
-
 #End Region
 
 #End Region
-
 
 End Class

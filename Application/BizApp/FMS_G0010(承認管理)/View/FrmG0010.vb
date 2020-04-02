@@ -18,11 +18,11 @@ Public Class FrmG0010
 #Region "定数・変数"
 
     Private ParamModel As New ST02_ParamModel
-    Private IsValidated As Boolean = True
 
     Private blnStageAll_NCR As Boolean = True
     Private blnStageAll_CAR As Boolean = True
     Private blnStageAll_CTS As Boolean = True
+
 #End Region
 
 #Region "プロパティ"
@@ -100,6 +100,7 @@ Public Class FrmG0010
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
 
+
             'Call EnableDoubleBuffering(dgvDATA)
             Call EnableDoubleBuffering(dgvNCR)
             Call EnableDoubleBuffering(dgvCAR)
@@ -128,27 +129,27 @@ Public Class FrmG0010
             '共通
             cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbADD_TANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbKISYU.SetDataSource(tblKISYU_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbKISYU.SetDataSource(tblKISYU_J.LazyLoad("機種実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbHOKOKUSYO_ID.NullValue = 0
-            cmbHOKOKUSYO_ID.SetDataSource(tblSYONIN_HOKOKUSYO_ID, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbHOKOKUSYO_ID.SetDataSource(tblSYONIN_HOKOKUSYO_ID.LazyLoad("承認報告書ID"), ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-            cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J.LazyLoad("部品番号実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             'cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbFUTEKIGO_JYOTAI_KB.SetDataSource(tblFUTEKIGO_STATUS_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbFUTEKIGO_JYOTAI_KB.SetDataSource(tblFUTEKIGO_STATUS_KB.LazyLoad("不適合状態区分").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.LazyLoad("社内CD").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             'NCR
-            cmbJIZEN_SINSA_HANTEI_KB.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbSAISIN_IINKAI_HANTEI_KB.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbZESEI_SYOCHI_YOHI_KB.SetDataSource(tblYOHI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbKOKYAKU_HANTEI_SIJI_KB.SetDataSource(tblKOKYAKU_HANTEI_SIJI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbKOKYAKU_SAISYU_HANTEI_KB.SetDataSource(tblKOKYAKU_SAISYU_HANTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbKENSA_KEKKA_KB.SetDataSource(tblKENSA_KEKKA_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbJIZEN_SINSA_HANTEI_KB.SetDataSource(tblJIZEN_SINSA_HANTEI_KB.LazyLoad("事前審査判定区分").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbSAISIN_IINKAI_HANTEI_KB.SetDataSource(tblSAISIN_IINKAI_HANTEI_KB.LazyLoad("再審委員会判定区分").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbZESEI_SYOCHI_YOHI_KB.SetDataSource(tblYOHI_KB.LazyLoad("要否区分").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbKOKYAKU_HANTEI_SIJI_KB.SetDataSource(tblKOKYAKU_HANTEI_SIJI_KB.LazyLoad("顧客判定指示区分").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbKOKYAKU_SAISYU_HANTEI_KB.SetDataSource(tblKOKYAKU_SAISYU_HANTEI_KB.LazyLoad("顧客最終判定区分").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbKENSA_KEKKA_KB.SetDataSource(tblKENSA_KEKKA_KB.LazyLoad("検査結果区分").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             'CAR
-            cmbYOIN1.SetDataSource(tblKONPON_YOIN_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbYOIN2.SetDataSource(tblKONPON_YOIN_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbKISEKI_KOTEI_KB.SetDataSource(tblKISEKI_KOUTEI_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbYOIN1.SetDataSource(tblKONPON_YOIN_KB.LazyLoad("根本要因区分").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbYOIN2.SetDataSource(tblKONPON_YOIN_KB.LazyLoad("根本要因区分").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbKISEKI_KOTEI_KB.SetDataSource(tblKISEKI_KOUTEI_KB.LazyLoad("帰責工程区分").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             '-----バインディング
             Call FunSetBinding()
@@ -1468,7 +1469,7 @@ Public Class FrmG0010
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
                     stageLlist = tblCAR
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
-                    stageLlist = tblCTS
+                    stageLlist = tblCTS.LazyLoad("CTS")
                 Case Else
                     Return False
             End Select
@@ -1740,7 +1741,7 @@ Public Class FrmG0010
                 frmDLG.PrBUMON_KB = .Item(NameOf(V007_NCR_CAR.BUMON_KB))
                 frmDLG.PrBUHIN_BANGO = .Item(NameOf(V007_NCR_CAR.BUHIN_BANGO))
                 'frmDLG.PrKISO_YMD = .Item(NameOf(V007_NCR_CAR.KISO_YMD)) 'DateTime.ParseExact(.Item(NameOf(V007_NCR_CAR.KISO_YMD)), "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-                frmDLG.PrKISYU_NAME = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = .Item(NameOf(V007_NCR_CAR.KISYU_ID))).FirstOrDefault?.Item("DISP")
+                frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = .Item(NameOf(V007_NCR_CAR.KISYU_ID))).FirstOrDefault?.Item("DISP")
                 frmDLG.PrCurrentStage = .Item(NameOf(V007_NCR_CAR.SYONIN_JUN))
             End With
 
@@ -2321,7 +2322,7 @@ Public Class FrmG0010
     End Sub
 
     'Close済み
-    Private Sub chkClosedRowVisibled_Click(sender As Object, e As EventArgs) Handles chkClosedRowVisibled.Click
+    Private Sub ChkClosedRowVisibled_Click(sender As Object, e As EventArgs) Handles chkClosedRowVisibled.Click
         If chkClosedRowVisibled.Checked Then
             RemoveHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
             cmbGEN_TANTO.SelectedValue = 0
@@ -2329,7 +2330,7 @@ Public Class FrmG0010
         End If
     End Sub
 
-    Private Async Sub chkTairyu_CheckedChanged(sender As Object, e As EventArgs) Handles chkTairyu.CheckedChanged
+    Private Async Sub ChkTairyu_CheckedChanged(sender As Object, e As EventArgs) Handles chkTairyu.CheckedChanged
 
         If chkTairyu.Checked Then
             'RemoveHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
@@ -2451,28 +2452,28 @@ Public Class FrmG0010
                     '機種
                     RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
                     If blnSelected Then
-                        Dim drs = tblKISYU_J.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUMON_KB)) = cmb.SelectedValue)
+                        Dim drs = tblKISYU_J.LazyLoad("機種実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUMON_KB)) = cmb.SelectedValue)
                         If drs.Count > 0 Then
                             Dim dt As DataTable = drs.CopyToDataTable
                             cmbKISYU.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                             ParamModel.KISYU_ID = 0
                         End If
                     Else
-                        cmbKISYU.SetDataSource(tblKISYU_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                        cmbKISYU.SetDataSource(tblKISYU_J.LazyLoad("機種実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     End If
                     AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
 
                     '部品番号
                     RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
                     If blnSelected Then
-                        Dim drs = tblBUHIN_J.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUMON_KB)) = cmb.SelectedValue)
+                        Dim drs = tblBUHIN_J.LazyLoad("部品番号実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUMON_KB)) = cmb.SelectedValue)
                         If drs.Count > 0 Then
                             Dim dt As DataTable = drs.CopyToDataTable
                             cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                             ParamModel.BUHIN_BANGO = ""
                         End If
                     Else
-                        cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                        cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J.LazyLoad("部品番号実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     End If
                     AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
 
@@ -2481,7 +2482,7 @@ Public Class FrmG0010
                     cmbSYANAI_CD.DataBindings.Clear()
                     If blnSelected Then
                         If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                            Dim drs = tblSYANAI_CD_J.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUMON_KB)) = cmb.SelectedValue)
+                            Dim drs = tblSYANAI_CD_J.LazyLoad("社内CD実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUMON_KB)) = cmb.SelectedValue)
                             If drs.Count > 0 Then
                                 Dim dt As DataTable = drs.CopyToDataTable
                                 cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -2493,7 +2494,7 @@ Public Class FrmG0010
                         End If
                         ParamModel.SYANAI_CD = ""
                     Else
-                        cmbSYANAI_CD.SetDataSource(tblSYANAI_CD_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                        cmbSYANAI_CD.SetDataSource(tblSYANAI_CD_J.LazyLoad("社内CD実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     End If
                     AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
                     cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -2524,7 +2525,7 @@ Public Class FrmG0010
                     RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
                     cmbBUHIN_BANGO.DataBindings.Clear()
                     If cmb.IsSelected Then
-                        Dim drs = tblBUHIN_J.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue)
+                        Dim drs = tblBUHIN_J.LazyLoad("部品番号実績").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue)
                         If drs.Count > 0 Then
                             Dim dt As DataTable = drs.CopyToDataTable
                             Dim _selectedValue As String = cmbBUHIN_BANGO.SelectedValue
@@ -2535,7 +2536,7 @@ Public Class FrmG0010
                             End If
                         End If
                     Else
-                        cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                        cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J.LazyLoad("部品番号実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     End If
                     AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
                     cmbBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbBUHIN_BANGO.SelectedValue), ParamModel, NameOf(ParamModel.BUHIN_BANGO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -2547,7 +2548,7 @@ Public Class FrmG0010
 
                         If cmb.IsSelected Then
                             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                                Dim drs = tblSYANAI_CD_J.AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue)
+                                Dim drs = tblSYANAI_CD_J.LazyLoad("社内CD実績").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue)
                                 If drs.Count > 0 Then
                                     Dim dt As DataTable = drs.CopyToDataTable
                                     Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue
@@ -2562,7 +2563,7 @@ Public Class FrmG0010
                             End If
                             ParamModel.SYANAI_CD = ""
                         Else
-                            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD_J.LazyLoad("社内CD実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                         End If
                         AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
                         cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -2590,10 +2591,10 @@ Public Class FrmG0010
                         '部品番号
                         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
                         If cmb.IsSelected Then
-                            Dim drs = tblBUHIN_J.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.SYANAI_CD)) = cmb.SelectedValue).ToList
+                            Dim drs = tblBUHIN_J.LazyLoad("部品番号実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.SYANAI_CD)) = cmb.SelectedValue).ToList
                             If drs.Count > 0 Then cmbBUHIN_BANGO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                         Else
-                            cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                            cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J.LazyLoad("部品番号実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                         End If
                         AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
 
@@ -2645,7 +2646,7 @@ Public Class FrmG0010
                                          If cmb.IsSelected Then
                                              cmbSYANAI_CD.DataBindings.Clear()
                                              If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                                                 Dim drs = tblSYANAI_CD.AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUHIN_BANGO)) = cmb.SelectedValue).ToList
+                                                 Dim drs = tblSYANAI_CD.LazyLoad("社内CD").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUHIN_BANGO)) = cmb.SelectedValue).ToList
                                                  If drs.Count > 0 Then
                                                      Dim dt As DataTable = drs.CopyToDataTable
                                                      Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue
@@ -2660,7 +2661,7 @@ Public Class FrmG0010
                                              End If
                                              'cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
                                          Else
-                                             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                                             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.LazyLoad("社内CD").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                                          End If
                                          'AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
 
@@ -2887,8 +2888,9 @@ Public Class FrmG0010
         If pub_intOPEN_MODE <> ENM_OPEN_MODE._3_分析集計 Then Return
 
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "報告書名"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "報告書名"))
+        End If
     End Sub
 
     Private Sub CmbBUMON_Validating(sender As Object, e As CancelEventArgs) 'Handles cmbBUMON.Validating
@@ -3039,42 +3041,50 @@ Public Class FrmG0010
     End Sub
 
     Private Function IsValidatedSearchFilter() As Boolean
-        IsValidated = True
-        Call CmbHOKOKUSYO_ID_Validating(cmbHOKOKUSYO_ID, Nothing)
+        Try
 
-        'If chkDispBUMON.Checked Then Call CmbBUMON_Validating(cmbBUMON, Nothing)
-        'If chkDispADD_TANTO.Checked Then Call CmbADD_TANTO_Validating(cmbADD_TANTO, Nothing)
-        'If chkDispKISYU.Checked Then Call CmbKISYU_Validating(cmbKISYU, Nothing)
-        'If chkDispBUHIN_BANGO.Checked Then Call CmbBUHIN_BANGO_Validating(cmbBUHIN_BANGO, Nothing)
+            IsValidated = True
+            IsCheckRequired = True
 
-        'If chkDispHINMEI.Checked Then Call MtxHINMEI_Validating(mtxHINMEI, Nothing)
-        'If chkDispGOKI.Checked Then Call MtxGOKI_Validating(mtxGOKI, Nothing)
-        'If chkDispSYANAI_CD.Checked Then Call CmbSYANAI_CD_Validating(cmbSYANAI_CD, Nothing)
-        'If chkDispHASSEI_YMD.Checked Then
+            Call CmbHOKOKUSYO_ID_Validating(cmbHOKOKUSYO_ID, Nothing)
 
-        'End If
-        'If chkDispFUTEKIGO_JYOTAI_KB.Checked Then Call CmbFUTEKIGO_JYOTAI_KB_Validating(cmbFUTEKIGO_JYOTAI_KB, Nothing)
-        'If chkDispFUTEKIGO_KB.Checked Then Call CmbFUTEKIGO_KB_Validating(cmbFUTEKIGO_KB, Nothing)
-        'If chkDispFUTEKIGO_S_KB.Checked Then Call CmbFUTEKIGO_S_KB_Validating(cmbFUTEKIGO_S_KB, Nothing)
+            'If chkDispBUMON.Checked Then Call CmbBUMON_Validating(cmbBUMON, Nothing)
+            'If chkDispADD_TANTO.Checked Then Call CmbADD_TANTO_Validating(cmbADD_TANTO, Nothing)
+            'If chkDispKISYU.Checked Then Call CmbKISYU_Validating(cmbKISYU, Nothing)
+            'If chkDispBUHIN_BANGO.Checked Then Call CmbBUHIN_BANGO_Validating(cmbBUHIN_BANGO, Nothing)
 
-        'If chkDispJIZEN_SINSA_HANTEI_KB.Checked Then Call CmbJIZEN_SINSA_HANTEI_KB_Validating(cmbJIZEN_SINSA_HANTEI_KB, Nothing)
-        'If chkDispZESEI_SYOCHI_YOHI_KB.Checked Then Call CmbZESEI_SYOCHI_YOHI_KB_Validating(cmbZESEI_SYOCHI_YOHI_KB, Nothing)
-        'If chkDispSAISIN_IINKAI_HANTEI_KB.Checked Then Call CmbSAISIN_IINKAI_HANTEI_KB_Validating(cmbSAISIN_IINKAI_HANTEI_KB, Nothing)
-        'If chkDispKOKYAKU_HANTEI_SIJI_KB.Checked Then Call CmbKOKYAKU_HANTEI_SIJI_KB_Validating(cmbKOKYAKU_HANTEI_SIJI_KB, Nothing)
-        'If chkDispKOKYAKU_SAISYU_HANTEI_KB.Checked Then Call CmbKOKYAKU_SAISYU_HANTEI_KB_Validating(cmbKOKYAKU_SAISYU_HANTEI_KB, Nothing)
-        'If chkDispKENSA_KEKKA_KB.Checked Then Call CmbKENSA_KEKKA_KB_Validating(cmbKENSA_KEKKA_KB, Nothing)
-        'If chkDispYOIN1.Checked Then Call CmbYOIN1_Validating(cmbYOIN1, Nothing)
-        'If chkDispYOIN2.Checked Then Call CmbYOIN2_Validating(cmbYOIN2, Nothing)
-        'If chkDispKISEKI_KOTEI_KB.Checked Then Call CmbKISEKI_KOTEI_KB_Validating(cmbKISEKI_KOTEI_KB, Nothing)
-        'If chkDispGENIN1.Checked Then Call MtxGENIN1_Validating(mtxGENIN1, Nothing)
-        'If chkDispGENIN2.Checked Then Call MtxGENIN2_Validating(mtxGENIN2, Nothing)
+            'If chkDispHINMEI.Checked Then Call MtxHINMEI_Validating(mtxHINMEI, Nothing)
+            'If chkDispGOKI.Checked Then Call MtxGOKI_Validating(mtxGOKI, Nothing)
+            'If chkDispSYANAI_CD.Checked Then Call CmbSYANAI_CD_Validating(cmbSYANAI_CD, Nothing)
+            'If chkDispHASSEI_YMD.Checked Then
 
-        If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 AndAlso IsValidated = False Then
-            Return False
-        End If
+            'End If
+            'If chkDispFUTEKIGO_JYOTAI_KB.Checked Then Call CmbFUTEKIGO_JYOTAI_KB_Validating(cmbFUTEKIGO_JYOTAI_KB, Nothing)
+            'If chkDispFUTEKIGO_KB.Checked Then Call CmbFUTEKIGO_KB_Validating(cmbFUTEKIGO_KB, Nothing)
+            'If chkDispFUTEKIGO_S_KB.Checked Then Call CmbFUTEKIGO_S_KB_Validating(cmbFUTEKIGO_S_KB, Nothing)
 
-        Return True
+            'If chkDispJIZEN_SINSA_HANTEI_KB.Checked Then Call CmbJIZEN_SINSA_HANTEI_KB_Validating(cmbJIZEN_SINSA_HANTEI_KB, Nothing)
+            'If chkDispZESEI_SYOCHI_YOHI_KB.Checked Then Call CmbZESEI_SYOCHI_YOHI_KB_Validating(cmbZESEI_SYOCHI_YOHI_KB, Nothing)
+            'If chkDispSAISIN_IINKAI_HANTEI_KB.Checked Then Call CmbSAISIN_IINKAI_HANTEI_KB_Validating(cmbSAISIN_IINKAI_HANTEI_KB, Nothing)
+            'If chkDispKOKYAKU_HANTEI_SIJI_KB.Checked Then Call CmbKOKYAKU_HANTEI_SIJI_KB_Validating(cmbKOKYAKU_HANTEI_SIJI_KB, Nothing)
+            'If chkDispKOKYAKU_SAISYU_HANTEI_KB.Checked Then Call CmbKOKYAKU_SAISYU_HANTEI_KB_Validating(cmbKOKYAKU_SAISYU_HANTEI_KB, Nothing)
+            'If chkDispKENSA_KEKKA_KB.Checked Then Call CmbKENSA_KEKKA_KB_Validating(cmbKENSA_KEKKA_KB, Nothing)
+            'If chkDispYOIN1.Checked Then Call CmbYOIN1_Validating(cmbYOIN1, Nothing)
+            'If chkDispYOIN2.Checked Then Call CmbYOIN2_Validating(cmbYOIN2, Nothing)
+            'If chkDispKISEKI_KOTEI_KB.Checked Then Call CmbKISEKI_KOTEI_KB_Validating(cmbKISEKI_KOTEI_KB, Nothing)
+            'If chkDispGENIN1.Checked Then Call MtxGENIN1_Validating(mtxGENIN1, Nothing)
+            'If chkDispGENIN2.Checked Then Call MtxGENIN2_Validating(mtxGENIN2, Nothing)
 
+            If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 AndAlso IsValidated = False Then
+                Return False
+            End If
+
+            Return True
+        Catch ex As Exception
+            Throw
+        Finally
+            IsCheckRequired = False
+        End Try
     End Function
 
 #End Region

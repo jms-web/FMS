@@ -7,11 +7,11 @@ Imports MODEL
 Public Class FrmG0016
 
 #Region "変数・定数"
-    '入力必須コントロール検証判定
-    Private IsValidated As Boolean
+
 #End Region
 
 #Region "プロパティ"
+
     Public Property PrSYONIN_HOKOKUSYO_ID As Integer
 
     Public Property PrCurrentStage As Integer
@@ -45,6 +45,7 @@ Public Class FrmG0016
 #End Region
 
 #Region "FORMイベント"
+
     Private Sub Frm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
@@ -71,8 +72,6 @@ Public Class FrmG0016
             'バインディング
             Call FunSetBinding()
             _D004_SYONIN_J_KANRI.RIYU = ""
-
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -85,6 +84,7 @@ Public Class FrmG0016
 #Region "FUNCTIONボタン関連"
 
 #Region "FUNCTIONボタンCLICKイベント"
+
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc9.Click, cmdFunc8.Click, cmdFunc7.Click, cmdFunc6.Click, cmdFunc5.Click, cmdFunc4.Click, cmdFunc3.Click, cmdFunc2.Click, cmdFunc12.Click, cmdFunc11.Click, cmdFunc10.Click, cmdFunc1.Click
         Dim intFUNC As Integer
         Dim intCNT As Integer
@@ -109,10 +109,8 @@ Public Class FrmG0016
                     Me.DialogResult = Windows.Forms.DialogResult.Cancel
                     Me.Close()
             End Select
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
-
         Finally
             'ボタン可
             System.Windows.Forms.Application.DoEvents()
@@ -125,6 +123,7 @@ Public Class FrmG0016
 #End Region
 
 #Region "更新"
+
     Private Function FunSAVE() As Boolean
         Dim dsList As New DataSet
         Dim sbSQL As New System.Text.StringBuilder
@@ -183,7 +182,6 @@ Public Class FrmG0016
                         blnErr = True
                         Return False
                     End If
-
 
                     '-----データモデル更新
                     _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = PrSYONIN_HOKOKUSYO_ID
@@ -743,7 +741,6 @@ Public Class FrmG0016
             Next
 
             Return True
-
         Catch ex As Exception
             Throw
         End Try
@@ -773,7 +770,6 @@ Public Class FrmG0016
                     End If
                 End With
             Next intFunc
-
 
             Return True
         Catch ex As Exception
@@ -805,41 +801,43 @@ Public Class FrmG0016
 
     Private Sub CmbMODOSI_SAKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbMODOSI_SAKI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "差戻し先"))
-
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "差戻し先"))
+        End If
     End Sub
 
     Private Sub MtxMODOSI_RIYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxMODOSI_RIYU.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "差戻し理由"))
-
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "差戻し理由"))
+        End If
     End Sub
 
 #End Region
 
 #Region "入力チェック"
+
     Public Function FunCheckInput() As Boolean
         Try
             IsValidated = True
+            IsCheckRequired = True
             Call CmbMODOSI_SAKI_Validating(cmbMODOSI_SAKI, Nothing)
             Call MtxMODOSI_RIYU_Validating(mtxMODOSI_RIYU, Nothing)
 
             Return IsValidated
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
+            Throw
+        Finally
+            IsCheckRequired = False
         End Try
     End Function
 
 #End Region
 
 #Region "ローカル関数"
+
     Private Function FunSetBinding() As Boolean
-        'cmbMODOSI_SAKI.DataBindings.Add(New Binding(NameOf(cmbMODOSI_SAKI.SelectedValue), _D003_NCR_J, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)))
+
         mtxMODOSI_RIYU.DataBindings.Add(New Binding(NameOf(mtxMODOSI_RIYU.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.RIYU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
     End Function
 
@@ -878,7 +876,6 @@ Public Class FrmG0016
         '主キー設定
         dt.PrimaryKey = {dt.Columns("SYONIN_JUN"), dt.Columns("HOKOKU_NO")}
 
-
         With dsList.Tables(0)
             For intCNT = 0 To .Rows.Count - 1
                 Dim Trow As DataRow = dt.NewRow()
@@ -910,7 +907,7 @@ Public Class FrmG0016
     ''' <returns></returns>
     Private Function FunSendRequestMail()
         Dim KISYU_NAME As String = PrKISYU_NAME 'tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
-        Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
+        Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.LazyLoad("承認判定区分").AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
         Dim SYONIN_HOKOKUSYO_NAME As String = If(PrSYONIN_HOKOKUSYO_ID = 1, "NCR", "CAR")
         Dim strEXEParam As String = $"{_D004_SYONIN_J_KANRI.SYAIN_ID},{Val(ENM_OPEN_MODE._2_処置画面起動)},{PrSYONIN_HOKOKUSYO_ID},{PrHOKOKU_NO}"
         Dim strSubject As String = $"【不適合品処置依頼】[{SYONIN_HOKOKUSYO_NAME}] {KISYU_NAME}・{PrBUHIN_BANGO}"
@@ -964,7 +961,7 @@ Public Class FrmG0016
             Return False
         End If
     End Function
-#End Region
 
+#End Region
 
 End Class

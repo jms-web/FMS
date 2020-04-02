@@ -14,9 +14,6 @@ Public Class FrmG0012
     Private _V005_CAR_J As New MODEL.V005_CAR_J
     Private _D006_CAR_GENIN As New MODEL.D006_CAR_GENIN
 
-    '入力必須コントロール検証判定
-    Private IsValidated As Boolean
-
     Private _tabPageManager As TabPageManager
 
     Private IsEditingClosed As Boolean
@@ -127,11 +124,11 @@ Public Class FrmG0012
                         _D004_SYONIN_J_KANRI.clear()
 
                         '-----コントロールデータソース設定
-                        cmbKONPON_YOIN_KB1.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                        cmbKONPON_YOIN_KB2.SetDataSource(tblKONPON_YOIN_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                        cmbKONPON_YOIN_KB1.SetDataSource(tblKONPON_YOIN_KB.LazyLoad("根本要因区分"), ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                        cmbKONPON_YOIN_KB2.SetDataSource(tblKONPON_YOIN_KB.LazyLoad("根本要因区分"), ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
-                        cmbKISEKI_KOTEI.SetDataSource(tblKISEKI_KOUTEI_KB, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                        cmbKAITO_14.SetDataSource(tblYOHI_KB, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                        cmbKISEKI_KOTEI.SetDataSource(tblKISEKI_KOUTEI_KB.LazyLoad("帰責工程区分"), ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                        cmbKAITO_14.SetDataSource(tblYOHI_KB.LazyLoad("要否区分"), ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                         '-----画面初期化
                         Call FunInitializeControls()
@@ -1227,7 +1224,7 @@ Public Class FrmG0012
     ''' <returns></returns>
     Private Function FunSendRequestMail()
         Dim KISYU_NAME As String = _V002_NCR_J.KISYU_NAME
-        Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
+        Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.LazyLoad("承認判定区分").AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
         Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
         Dim strSubject As String = $"【不適合品処置依頼】[CAR] {KISYU_NAME}・{_V002_NCR_J.BUHIN_BANGO}"
         Dim strBody As String = <sql><![CDATA[
@@ -1602,7 +1599,7 @@ Public Class FrmG0012
             frmDLG.PrBUMON_KB = _V002_NCR_J.BUMON_KB
             frmDLG.PrBUHIN_BANGO = _V002_NCR_J.BUHIN_BANGO
             frmDLG.PrKISO_YMD = DateTime.ParseExact(_V002_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            frmDLG.PrKISYU_NAME = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _V002_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
+            frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _V002_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
 
@@ -1637,7 +1634,7 @@ Public Class FrmG0012
             frmDLG.PrHOKOKU_NO = _D005_CAR_J.HOKOKU_NO
             frmDLG.PrBUHIN_BANGO = _V002_NCR_J.BUHIN_BANGO
             frmDLG.PrKISO_YMD = DateTime.ParseExact(_V002_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            frmDLG.PrKISYU_NAME = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _V002_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
+            frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _V002_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
@@ -1877,7 +1874,7 @@ Public Class FrmG0012
             frmDLG.PrBUMON_KB = _D003_NCR_J.BUMON_KB
             frmDLG.PrBUHIN_BANGO = _D003_NCR_J.BUHIN_BANGO
             frmDLG.PrKISO_YMD = DateTime.ParseExact(_D003_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            frmDLG.PrKISYU_NAME = tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
+            frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
             frmDLG.PrCurrentStage = Me.PrCurrentStage
 
             dlgRET = frmDLG.ShowDialog(Me)
@@ -2161,8 +2158,8 @@ Public Class FrmG0012
         cmbSYOCHI_C_TANTO.ReadOnly = result
         dtSYOCHI_C_YMD.ReadOnly = result
 
-        Call dtKAITO_16_Validating(dtKAITO_16, Nothing)
-        Call cmbKAITO_17_Validating(cmbKAITO_17, Nothing)
+        Call DtKAITO_16_Validating(dtKAITO_16, Nothing)
+        Call CmbKAITO_17_Validating(cmbKAITO_17, Nothing)
         Call KAITO_181920_Validating(mtxKAITO_18, Nothing)
 
     End Sub
@@ -3031,7 +3028,7 @@ Public Class FrmG0012
     Private Function FunSetSETUMON_NAIYO() As Boolean
         Try
 
-            _D005_CAR_J.SETUMON_1 = tblSETUMON_NAIYO.AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 1).First.Item("DISP")
+            _D005_CAR_J.SETUMON_1 = tblSETUMON_NAIYO.LazyLoad("設問内容").AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 1).First.Item("DISP")
 
             If _V005_CAR_J.SYONIN_YMD10 >= "20200213" Then
                 _D005_CAR_J.SETUMON_2 = $"不適合要因(関係する要因(4Mなど)の調査) 人的要因{Space(30)}(有の場合は以下に内容を記入)"
@@ -3328,6 +3325,8 @@ Public Class FrmG0012
         Try
             'フラグリセット
             IsValidated = True
+            IsCheckRequired = True
+
             '-----共通
             If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
                 '-----ステージ別
@@ -3338,10 +3337,10 @@ Public Class FrmG0012
                         Call CmbKAITO_5_Validating(cmbKAITO_5, Nothing)
                         Call KAITO_678_Validating(mtxKAITO_6, Nothing)
                         Call DtKAITO_9_Validating(dtKAITO_9, Nothing)
-                        Call cmbKAITO_10_Validating(cmbKAITO_10, Nothing)
+                        Call CmbKAITO_10_Validating(cmbKAITO_10, Nothing)
                         Call KAITO_111213_Validating(mtxKAITO_11, Nothing)
-                        Call dtKAITO_16_Validating(dtKAITO_16, Nothing)
-                        Call cmbKAITO_17_Validating(cmbKAITO_17, Nothing)
+                        Call DtKAITO_16_Validating(dtKAITO_16, Nothing)
+                        Call CmbKAITO_17_Validating(cmbKAITO_17, Nothing)
                         Call KAITO_181920_Validating(mtxKAITO_18, Nothing)
 
                         If _V005_CAR_J.SYONIN_YMD10 >= "20200213" Then
@@ -3358,7 +3357,7 @@ Public Class FrmG0012
                         Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
                     Case ENM_CAR_STAGE._110_是正有効性確認_検査GL To ENM_CAR_STAGE._120_是正有効性確認_品証TL
                         Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
-                        Call mtxGOKI_Validating(mtxGOKI, Nothing)
+                        Call MtxGOKI_Validating(mtxGOKI, Nothing)
 
                     Case ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
                         Call ＤtST13_Validating(dtST13_KAKUNIN, Nothing)
@@ -3370,37 +3369,38 @@ Public Class FrmG0012
             '上記各種Validatingイベントでフラグを更新し、全てOKの場合はTrue
             Return IsValidated
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
+            Throw
+        Finally
+            IsCheckRequired = False
         End Try
     End Function
 
     Private Sub TxtKAITO_21_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles txtKAITO_21.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, txt.ReadOnly OrElse Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:内容"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(txt, txt.ReadOnly OrElse Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:内容"))
+        End If
     End Sub
 
     Private Sub TxtKAITO_22_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles txtKAITO_22.Validating
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(txt, txt.ReadOnly OrElse Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:内容"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(txt, txt.ReadOnly OrElse Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:内容"))
+        End If
     End Sub
 
     Private Sub ＤtKAITO_4_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtKAITO_4.Validating
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:いつまで"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:いつまで"))
+        End If
     End Sub
 
     Private Sub CmbKAITO_5_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKAITO_5.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:誰が"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:誰が"))
+        End If
     End Sub
 
     Private Sub KAITO_678_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxKAITO_6.Validating, mtxKAITO_7.Validating, dtKAITO_8.Validating
@@ -3409,24 +3409,25 @@ Public Class FrmG0012
         Dim dtYMD As DateTextBoxEx = dtKAITO_8
 
         Dim result As Boolean = Not (mtxGOKI.Text.IsNulOrWS AndAlso mtxLOT.Text.IsNulOrWS AndAlso dtYMD.ValueNonFormat.IsNulOrWS)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtxGOKI, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:有効号機・LOT・日付のいづれかの入力が必要です"))
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtxLOT, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:有効号機・LOT・日付のいづれかの入力が必要です"))
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtYMD, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:有効号機・LOT・日付のいづれかの入力が必要です"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtxGOKI, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:有効号機・LOT・日付のいづれかの入力が必要です"))
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtxLOT, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:有効号機・LOT・日付のいづれかの入力が必要です"))
+            IsValidated *= ErrorProvider.UpdateErrorInfo(dtYMD, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:有効号機・LOT・日付のいづれかの入力が必要です"))
+        End If
     End Sub
 
     Private Sub DtKAITO_9_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtKAITO_9.Validating
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:いつまで"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:いつまで"))
+        End If
     End Sub
 
-    Private Sub cmbKAITO_10_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKAITO_10.Validating
+    Private Sub CmbKAITO_10_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKAITO_10.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:誰が"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:誰が"))
+        End If
     End Sub
 
     Private Sub KAITO_111213_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxKAITO_11.Validating, mtxKAITO_12.Validating, dtKAITO_13.Validating
@@ -3435,24 +3436,25 @@ Public Class FrmG0012
         Dim dtYMD As DateTextBoxEx = dtKAITO_13
 
         Dim result As Boolean = Not (mtxGOKI.Text.IsNulOrWS AndAlso mtxLOT.Text.IsNulOrWS AndAlso dtYMD.ValueNonFormat.IsNulOrWS)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtxGOKI, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:有効号機・LOT・日付のいづれかの入力が必要です"))
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtxLOT, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:有効号機・LOT・日付のいづれかの入力が必要です"))
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtYMD, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:有効号機・LOT・日付のいづれかの入力が必要です"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtxGOKI, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:有効号機・LOT・日付のいづれかの入力が必要です"))
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtxLOT, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:有効号機・LOT・日付のいづれかの入力が必要です"))
+            IsValidated *= ErrorProvider.UpdateErrorInfo(dtYMD, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:有効号機・LOT・日付のいづれかの入力が必要です"))
+        End If
     End Sub
 
-    Private Sub dtKAITO_16_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtKAITO_16.Validating
+    Private Sub DtKAITO_16_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtKAITO_16.Validating
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, dtx.ReadOnly OrElse Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:いつまで"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, dtx.ReadOnly OrElse Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:いつまで"))
+        End If
     End Sub
 
-    Private Sub cmbKAITO_17_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKAITO_17.Validating
+    Private Sub CmbKAITO_17_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKAITO_17.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:誰が"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:誰が"))
+        End If
     End Sub
 
     Private Sub KAITO_181920_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxKAITO_18.Validating
@@ -3461,31 +3463,32 @@ Public Class FrmG0012
         Dim dtYMD As DateTextBoxEx = dtKAITO_20
 
         Dim result As Boolean = (mtxGOKI.ReadOnly OrElse Not (mtxGOKI.Text.IsNulOrWS AndAlso mtxLOT.Text.IsNulOrWS AndAlso dtYMD.ValueNonFormat.IsNulOrWS))
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtxGOKI, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtxLOT, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtYMD, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtxGOKI, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtxLOT, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
+            IsValidated *= ErrorProvider.UpdateErrorInfo(dtYMD, result, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:有効号機・LOT・日付のいづれかの入力が必要です"))
+        End If
     End Sub
 
-    Private Sub mtxGOKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxGOKI.Validating
+    Private Sub MtxGOKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxGOKI.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, mtx.ReadOnly OrElse Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置有効性レビュー：号機・LOT"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, mtx.ReadOnly OrElse Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置有効性レビュー：号機・LOT"))
+        End If
     End Sub
 
-    Private Sub cmbKONPON_YOIN_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKONPON_YOIN_TANTO.Validating
+    Private Sub CmbKONPON_YOIN_TANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKONPON_YOIN_TANTO.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "分析：作業担当"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "分析：作業担当"))
+        End If
     End Sub
 
-    Private Sub cmbKISEKI_KOTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKISEKI_KOTEI.Validating
+    Private Sub CmbKISEKI_KOTEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKISEKI_KOTEI.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "分析：帰責工程"))
-
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "分析：帰責工程"))
+        End If
     End Sub
 
     Private Sub ＤtST13_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtST13_KAKUNIN.Validating
@@ -3494,8 +3497,10 @@ Public Class FrmG0012
         If Not dtx.ValueNonFormat.IsNulOrWS Then
             dtUPD_YMD.ValueNonFormat = dtx.ValueNonFormat
         End If
-        IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正有効性確認:確認日"))
 
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正有効性確認:確認日"))
+        End If
     End Sub
 
 #End Region
