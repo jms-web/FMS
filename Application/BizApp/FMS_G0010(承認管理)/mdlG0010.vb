@@ -308,6 +308,11 @@ Module mdlG0010
         _2_製造 = 2
         _3_検査 = 3
         _4_品証 = 4
+        _5_設計 = 5
+        _6_生技 = 6
+        _7_管理 = 7
+        _8_営業 = 8
+        _9_購買 = 9
         _99_その他_仮 = 99
     End Enum
 
@@ -1098,24 +1103,53 @@ Module mdlG0010
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
         Try
-            sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append($"SELECT DISTINCT FUTEKIGO_KB,FUTEKIGO_KB_NAME")
-            sbSQL.Append($" FROM TV05_FUTEKIGO_CODE('{BUMON_KB}') ")
-            sbSQL.Append($" ORDER BY FUTEKIGO_KB")
-            Using DB As ClsDbUtility = DBOpen()
-                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-            End Using
 
-            '主キー設定
-            dt.PrimaryKey = {dt.Columns("VALUE")}
+            If Not BUMON_KB.IsNulOrWS Then
+                '通常
+                sbSQL.Remove(0, sbSQL.Length)
+                sbSQL.Append($"SELECT DISTINCT FUTEKIGO_KB,FUTEKIGO_KB_NAME")
+                sbSQL.Append($" FROM TV05_FUTEKIGO_CODE('{BUMON_KB}') ")
+                sbSQL.Append($" ORDER BY FUTEKIGO_KB")
+                Using DB As ClsDbUtility = DBOpen()
+                    dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                End Using
 
-            For Each row In dsList.Tables(0).Rows
-                Dim Trow As DataRow = dt.NewRow()
-                Trow("DISP") = row.Item("FUTEKIGO_KB_NAME").ToString.Trim
-                Trow("VALUE") = row.Item("FUTEKIGO_KB").ToString.Trim
-                Trow("DEL_FLG") = False
-                dt.Rows.Add(Trow)
-            Next
+                '主キー設定
+                dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                For Each row In dsList.Tables(0).Rows
+                    Dim Trow As DataRow = dt.NewRow()
+                    Trow("DISP") = row.Item("FUTEKIGO_KB_NAME").ToString.Trim
+                    Trow("VALUE") = row.Item("FUTEKIGO_KB").ToString.Trim
+                    Trow("DEL_FLG") = False
+                    dt.Rows.Add(Trow)
+                Next
+            Else
+                '集計分析時、区分名で統合
+
+                '主キー設定
+                dt.PrimaryKey = {dt.Columns("DISP")}
+
+                For iBUMON_KB As Integer = 1 To 3
+                    sbSQL.Clear()
+                    sbSQL.Append($"SELECT DISTINCT FUTEKIGO_KB,FUTEKIGO_KB_NAME")
+                    sbSQL.Append($" FROM TV05_FUTEKIGO_CODE('{iBUMON_KB}') ")
+                    sbSQL.Append($" ORDER BY FUTEKIGO_KB")
+                    Using DB As ClsDbUtility = DBOpen()
+                        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                    End Using
+
+                    For Each row In dsList.Tables(0).Rows
+                        Dim Trow As DataRow = dt.NewRow()
+                        Trow("DISP") = row.Item("FUTEKIGO_KB_NAME").ToString.Trim
+                        Trow("VALUE") = row.Item("FUTEKIGO_KB").ToString.Trim
+                        Trow("DEL_FLG") = False
+                        If Not dt.Rows.Contains(Trow("DISP")) Then
+                            dt.Rows.Add(Trow)
+                        End If
+                    Next
+                Next
+            End If
 
             Return dt
         Catch ex As Exception
@@ -1133,25 +1167,61 @@ Module mdlG0010
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
         Try
-            sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append($"SELECT DISTINCT FUTEKIGO_KB,FUTEKIGO_KB_NAME,FUTEKIGO_S_KB,FUTEKIGO_S_KB_NAME")
-            sbSQL.Append($" FROM TV05_FUTEKIGO_CODE('{BUMON_KB}') ")
-            sbSQL.Append($" WHERE FUTEKIGO_KB='{FUTEKIGO_KB}'")
-            sbSQL.Append($" ORDER BY FUTEKIGO_S_KB")
-            Using DB As ClsDbUtility = DBOpen()
-                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-            End Using
 
-            '主キー設定
-            dt.PrimaryKey = {dt.Columns("VALUE")}
 
-            For Each row In dsList.Tables(0).Rows
-                Dim Trow As DataRow = dt.NewRow()
-                Trow("DISP") = row.Item("FUTEKIGO_S_KB_NAME").ToString.Trim
-                Trow("VALUE") = row.Item("FUTEKIGO_S_KB").ToString.Trim
-                Trow("DEL_FLG") = False
-                dt.Rows.Add(Trow)
-            Next
+
+            If Not BUMON_KB.IsNulOrWS Then
+                '通常
+                sbSQL.Remove(0, sbSQL.Length)
+                sbSQL.Append($"SELECT DISTINCT FUTEKIGO_KB,FUTEKIGO_KB_NAME,FUTEKIGO_S_KB,FUTEKIGO_S_KB_NAME")
+                sbSQL.Append($" FROM TV05_FUTEKIGO_CODE('{BUMON_KB}') ")
+                sbSQL.Append($" WHERE FUTEKIGO_KB='{FUTEKIGO_KB}'")
+                sbSQL.Append($" ORDER BY FUTEKIGO_S_KB")
+                Using DB As ClsDbUtility = DBOpen()
+                    dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                End Using
+
+                '主キー設定
+                dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                For Each row In dsList.Tables(0).Rows
+                    Dim Trow As DataRow = dt.NewRow()
+                    Trow("DISP") = row.Item("FUTEKIGO_S_KB_NAME").ToString.Trim
+                    Trow("VALUE") = row.Item("FUTEKIGO_S_KB").ToString.Trim
+                    Trow("DEL_FLG") = False
+                    dt.Rows.Add(Trow)
+                Next
+
+            Else
+                '集計分析時、区分名で統合
+                '主キー設定
+                dt.PrimaryKey = {dt.Columns("DISP")}
+
+                For iBUMON_KB As Integer = 1 To 3
+                    sbSQL.Remove(0, sbSQL.Length)
+                    sbSQL.Append($"SELECT DISTINCT FUTEKIGO_KB,FUTEKIGO_KB_NAME,FUTEKIGO_S_KB,FUTEKIGO_S_KB_NAME")
+                    sbSQL.Append($" FROM TV05_FUTEKIGO_CODE('{iBUMON_KB}') ")
+                    sbSQL.Append($" WHERE FUTEKIGO_KB_NAME='{FUTEKIGO_KB}'")
+                    sbSQL.Append($" ORDER BY FUTEKIGO_S_KB")
+                    Using DB As ClsDbUtility = DBOpen()
+                        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                    End Using
+
+                    For Each row In dsList.Tables(0).Rows
+                        Dim Trow As DataRow = dt.NewRow()
+                        Trow("DISP") = row.Item("FUTEKIGO_S_KB_NAME").ToString.Trim
+                        Trow("VALUE") = row.Item("FUTEKIGO_S_KB").ToString.Trim
+                        Trow("DEL_FLG") = False
+                        If Not dt.Rows.Contains(Trow("DISP")) Then
+                            dt.Rows.Add(Trow)
+                        End If
+                    Next
+                Next
+            End If
+
+
+
+
 
             Return dt
         Catch ex As Exception

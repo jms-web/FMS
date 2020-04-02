@@ -27,8 +27,8 @@ ALTER PROCEDURE [dbo].[ST03_FUTEKIGO_ICHIRAN_SUMMARY] @BUMON_KB VARCHAR(2)=NULL 
 	,@KISO_TANTO_ID INT = NULL --起草担当者ID
 	,@CLOSE_FG CHAR(1) = NULL --クローズフラグ
 	,@TAIRYU_FG CHAR(1) = NULL --滞留フラグ
-	,@FUTEKIGO_KB CHAR(2) = NULL --不適合区分
-	,@FUTEKIGO_S_KB CHAR(2) = NULL --不適合詳細区分
+	,@FUTEKIGO_KB VARCHAR(50) = NULL --不適合区分
+	,@FUTEKIGO_S_KB VARCHAR(50) = NULL --不適合詳細区分
 	,@FUTEKIGO_JYOTAI_KB CHAR(2) = NULL --不適合状態区分
 	,@JIZEN_SINSA_HANTEI_KB CHAR(2) = NULL --事前審査判定区分
 	,@ZESEI_SYOCHI_YOHI_KB CHAR(2) = NULL --是正処置要否区分
@@ -97,19 +97,21 @@ BEGIN TRY
 		
 	IF @FUTEKIGO_KB IS NOT NULL --RTRIM(LTRIM(@FUTEKIGO_KB)) <> ''
 	BEGIN
-		SET @S_SQL += N',FUTEKIGO_KB';--19.不適合区分
+
+		--部門未選択で区分集計するため名称項目で集計
+		--SET @S_SQL += N',FUTEKIGO_KB';--19.不適合区分
 		SET @S_SQL += N',FUTEKIGO_NAME';--20.不適合区分名
 
-		SET @G_SQL += N',FUTEKIGO_KB';--19.不適合区分
+		--SET @G_SQL += N',FUTEKIGO_KB';--19.不適合区分
 		SET @G_SQL += N',FUTEKIGO_NAME';--20.不適合区分名
 	END
 
 	IF @FUTEKIGO_S_KB IS NOT NULL --RTRIM(LTRIM(@FUTEKIGO_S_KB)) <> ''
 	BEGIN
-		SET @S_SQL += N',FUTEKIGO_S_KB';--21.不適合詳細区分
+		--SET @S_SQL += N',FUTEKIGO_S_KB';--21.不適合詳細区分
 		SET @S_SQL += N',FUTEKIGO_S_NAME';--22.不適合詳細区分名
 
-		SET @G_SQL += N',FUTEKIGO_S_KB';--21.不適合詳細区分
+		--SET @G_SQL += N',FUTEKIGO_S_KB';--21.不適合詳細区分
 		SET @G_SQL += N',FUTEKIGO_S_NAME';--22.不適合詳細区分名
 	END
 
@@ -340,13 +342,13 @@ BEGIN TRY
 	--不適合区分
 	IF RTRIM(LTRIM(ISNULL(@FUTEKIGO_KB,''))) <> ''
 	BEGIN
-		SET @SQL += N' AND FUTEKIGO_KB = ''' + RTRIM(LTRIM(@FUTEKIGO_KB)) + ''' ';
+		SET @SQL += N' AND FUTEKIGO_NAME = ''' + RTRIM(LTRIM(@FUTEKIGO_KB)) + ''' ';
 	END
 
 	--不適合詳細区分
 	IF RTRIM(LTRIM(ISNULL(@FUTEKIGO_S_KB,''))) <> ''
 	BEGIN
-		SET @SQL += N' AND FUTEKIGO_S_KB = ''' + RTRIM(LTRIM(@FUTEKIGO_S_KB)) + ''' ';
+		SET @SQL += N' AND FUTEKIGO_S_NAME = ''' + RTRIM(LTRIM(@FUTEKIGO_S_KB)) + ''' ';
 	END
 
 	--不適合状態区分

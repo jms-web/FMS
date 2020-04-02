@@ -121,6 +121,8 @@
     </Compile>
     <Compile Include="Migrations\201804050655482_Init31.vb" />
     <Compile Include="Migrations\Configuration.vb" />
+    <Compile Include="Models\Data\R007_FCCB_SASIMODOSI.vb" />
+    <Compile Include="Models\Data\D009_FCCB_J.vb" />
     <Compile Include="Models\Data\D008_FCR_J_SUB.vb" />
     <Compile Include="Models\Data\D007_FCR_J.vb" />
     <Compile Include="Models\Data\R004_CAR_SASIMODOSI.vb" />

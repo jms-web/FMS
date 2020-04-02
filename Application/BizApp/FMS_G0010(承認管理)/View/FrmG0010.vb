@@ -134,7 +134,13 @@ Public Class FrmG0010
             cmbHOKOKUSYO_ID.SetDataSource(tblSYONIN_HOKOKUSYO_ID.LazyLoad("承認報告書ID"), ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J.LazyLoad("部品番号実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            'cmbFUTEKIGO_KB.SetDataSource(tblFUTEKIGO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+
+            If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
+                Dim dt = FunGetFUTEKIGO_KB("")
+                cmbFUTEKIGO_KB.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            End If
+
+
             cmbFUTEKIGO_JYOTAI_KB.SetDataSource(tblFUTEKIGO_STATUS_KB.LazyLoad("不適合状態区分").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.LazyLoad("社内CD").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
@@ -2700,10 +2706,13 @@ Public Class FrmG0010
     Private Sub CmbFUTEKIGO_KB_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbFUTEKIGO_KB.SelectedValueChanged
 
         If cmbFUTEKIGO_KB.IsSelected Then
-            Dim dt As DataTableEx = FunGetFUTEKIGO_S_KB(cmbBUMON.SelectedValue, cmbFUTEKIGO_KB.SelectedValue)
-            'Using DB As ClsDbUtility = DBOpen()
-            '    FunGetCodeDataTable(DB, $"不適合{cmbFUTEKIGO_KB.Text.Replace("・", "")}区分", dt)
-            'End Using
+            Dim dt As DataTableEx
+
+            If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計.Value Then
+                dt = FunGetFUTEKIGO_S_KB("", cmbFUTEKIGO_KB.Text)
+            Else
+                dt = FunGetFUTEKIGO_S_KB(cmbBUMON.SelectedValue, cmbFUTEKIGO_KB.SelectedValue)
+            End If
             cmbFUTEKIGO_S_KB.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
         Else
             cmbFUTEKIGO_S_KB.DataSource = Nothing
@@ -3395,13 +3404,20 @@ Public Class FrmG0010
                 sbParam.Append($",'{IIf(ParamModel._VISIBLE_TAIRYU = 1, ParamModel._VISIBLE_TAIRYU, "")}'")
 
                 If chkDispFUTEKIGO_KB.Checked Then
-                    sbParam.Append($",'{ParamModel.FUTEKIGO_KB}'")
+                    If cmbFUTEKIGO_KB.IsSelected Then
+                        sbParam.Append($",'{cmbFUTEKIGO_KB.Text}'")
+                    Else
+                        sbParam.Append($",'{ParamModel.FUTEKIGO_KB}'")
+                    End If
                 Else
                     sbParam.Append($",DEFAULT")
                 End If
                 If chkDispFUTEKIGO_S_KB.Checked Then
-
-                    sbParam.Append($",'{ParamModel.FUTEKIGO_S_KB}'")
+                    If cmbFUTEKIGO_S_KB.IsSelected Then
+                        sbParam.Append($",'{cmbFUTEKIGO_S_KB.Text}'")
+                    Else
+                        sbParam.Append($",'{ParamModel.FUTEKIGO_S_KB}'")
+                    End If
                 Else
                     sbParam.Append($",DEFAULT")
                 End If
