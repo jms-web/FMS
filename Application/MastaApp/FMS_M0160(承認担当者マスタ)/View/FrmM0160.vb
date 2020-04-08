@@ -627,7 +627,7 @@ Public Class FrmM0160
                     CmbSYONIN_JUN.SetDataSource(tblCTS.LazyLoad("CTS"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     CmbSYONIN_JUN.ReadOnly = False
                 Case Else
-                    CmbSYONIN_JUN.DataSource = Nothing
+                    'CmbSYONIN_JUN.DataSource = Nothing
                     CmbSYONIN_JUN.ReadOnly = True
             End Select
         End Using

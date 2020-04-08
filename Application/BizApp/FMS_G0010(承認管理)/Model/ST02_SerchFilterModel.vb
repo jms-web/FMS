@@ -138,4 +138,7 @@ Public Class ST02_ParamModel
     Public Property GENIN2 As String
     Public Property KISEKI_KOTEI_KB As String
 
+    Public Property SURYO As String
+
+
 End Class

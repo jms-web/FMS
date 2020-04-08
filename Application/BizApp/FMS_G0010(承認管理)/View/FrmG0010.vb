@@ -22,7 +22,7 @@ Public Class FrmG0010
     Private blnStageAll_NCR As Boolean = True
     Private blnStageAll_CAR As Boolean = True
     Private blnStageAll_CTS As Boolean = True
-
+    Private mDataView As DataView
 #End Region
 
 #Region "プロパティ"
@@ -158,7 +158,7 @@ Public Class FrmG0010
             cmbKISEKI_KOTEI_KB.SetDataSource(tblKISEKI_KOUTEI_KB.LazyLoad("帰責工程区分").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             '-----バインディング
-            Call FunSetBinding()
+            Call FunSetBinding(ParamModel)
 
             '----コントロールイベントハンドラ
             AddHandler cmbBUMON.SelectedValueChanged, AddressOf CmbBUMON_SelectedValueChanged
@@ -323,6 +323,8 @@ Public Class FrmG0010
 
                     lblHOKOKUSYO_ID.Visible = True
                     cmbHOKOKUSYO_ID.Visible = True
+                    lblSURYO.Visible = True
+                    chkDispSURYO.Visible = True
 
                     chkDispHOKOKUSYO_ID.Visible = True
                     chkDispHOKOKUSYO_ID.Checked = True
@@ -444,8 +446,8 @@ Public Class FrmG0010
             .Styles.Add("delStyle")
             .Styles("delStyle").ForeColor = Color.Red
 
-            .Cols("HASSEI_YMD").Filter = New DateFilter
-            .Cols("SYOCHI_YOTEI_YMD").Filter = New DateFilter
+            '.Cols("HASSEI_YMD").Filter = New DateFilter
+            '.Cols("SYOCHI_YOTEI_YMD").Filter = New DateFilter
             .VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver 'Custom
 
             '以下を適用するにはVisualStyleをCustomにする
@@ -472,6 +474,7 @@ Public Class FrmG0010
 
         If intCNT > 0 Then
             Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, intCNT)
+            Call SetSummaryRow(flx)
         Else
             Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
         End If
@@ -522,15 +525,23 @@ Public Class FrmG0010
                 flxDATA.Cols(NameOf(ST03.BUMON_NAME)).Visible = chkDispBUMON.Checked
                 flxDATA.Cols(NameOf(ST03.BUHIN_NAME)).Visible = chkDispHINMEI.Checked
                 flxDATA.Cols(NameOf(ST03.HASSEI_YMD)).Visible = chkDispHASSEI_YMD.Checked
-                flxDATA.Cols(NameOf(ST03.HASSEI_YMD)).DataType = GetType(Date)
-                flxDATA.Cols(NameOf(ST03.HASSEI_YMD)).Format = "yyyy/MM"
+                'flxDATA.Cols(NameOf(ST03._HASSEI_YMD)).Format = "yyyy/MM"
 
-                flxDATA.Cols(NameOf(ST03.SURYO)).Visible = True
+                flxDATA.Cols(NameOf(ST03.SURYO)).Visible = chkDispSURYO.Checked
                 flxDATA.Cols(NameOf(ST03.SURYO)).Style.BackColor = Color.LightSkyBlue
 
                 flxDATA.Cols(NameOf(ST03.KISO_KENSU)).Visible = True
                 flxDATA.Cols(NameOf(ST03.SYOCHI_KENSU)).Visible = True
                 flxDATA.Cols(NameOf(ST03.SYOCHI_ZANSU)).Visible = True
+                flxDATA.Cols(NameOf(ST03.SYOCHI_ZANSU)).Style.ForeColor = Color.Black
+
+                'flxDATA.Tree.Column = 0
+                'flxDATA.Tree.Style = TreeStyleFlags.Complete
+                'flxDATA.Subtotal(AggregateEnum.Clear)
+                'flxDATA.Subtotal(AggregateEnum.Sum, -1, -1, 4, "GrandTotal")
+                'flxDATA.Styles("GrandTotal").BackColor = clrDeletedRowBackColor
+                'flxDATA.SubtotalPosition = SubtotalPositionEnum.BelowData
+                'flxDATA.AutoSizeCols()
             Else
 
                 Dim delStyle As C1.Win.C1FlexGrid.CellStyle = flx.Styles("delStyle")
@@ -1312,7 +1323,7 @@ Public Class FrmG0010
                                     If row.Item(p.Name).ToString.IsNulOrWS = False Then
                                         Select Case row.Item(p.Name).ToString.Length
                                             Case 6 'yyyyMM
-                                                Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMM", Nothing)
+                                                Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMM", Nothing).ToString("yyyy/MM")
                                             Case 8 'yyyyMMdd
                                                 Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMdd", Nothing)
                                             Case 14 'yyyyMMddHHmmss
@@ -1333,6 +1344,9 @@ Public Class FrmG0010
                                             Else
                                                 Trow(p.Name) = row.Item("SASIMOTO_SYONIN_JUN") & "." & row.Item(p.Name).ToString.Trim
                                             End If
+
+                                        Case "HASSEI_YMD"
+                                            Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMM", Nothing).ToString("yyyy/MM")
                                         Case Else
                                             Trow(p.Name) = row.Item(p.Name).ToString.Trim
                                     End Select
@@ -1423,13 +1437,25 @@ Public Class FrmG0010
 
             If dt IsNot Nothing Then
 
-                flx.DataSource = dt
+                mDataView = dt.DefaultView
+                flx.DataSource = mDataView
+
+                'flx.DataSource = dt
             Else
+                mDataView = Nothing
                 flx.DataSource = Nothing
             End If
 
-            flx.ClearFilter()
+            'flx.ClearFilter()
+
+            Select Case pub_intOPEN_MODE
+                Case ENM_OPEN_MODE._3_分析集計
+                    DirectCast(flx.DataSource, DataView).Sort = $"{NameOf(ST03.SUMMARY_ROW_FLG)} ASC"
+                    Call SetSummaryRow(flx)
+            End Select
             Call FunSetGridCellFormat(flx)
+
+            'mDataView.RowFilter = $"{NameOf(ST03.SUMMARY_ROW_FLG)}=1"
 
             If flx.Rows.Count > 1 Then
                 '-----選択行設定
@@ -2385,6 +2411,8 @@ Public Class FrmG0010
         chkDispFUTEKIGO_KB.Checked = False
         chkDispFUTEKIGO_S_KB.Checked = False
 
+        chkDispSURYO.Checked = False
+
         btnSummaryPage.Visible = False
         Call SetStageList()
     End Sub
@@ -3298,41 +3326,42 @@ Public Class FrmG0010
 
 #Region "バインディング"
 
-    Private Function FunSetBinding() As Boolean
+    Private Function FunSetBinding(paramModel As ST02_ParamModel) As Boolean
 
         '共通
-        cmbBUMON.DataBindings.Add(New Binding(NameOf(cmbBUMON.SelectedValue), ParamModel, NameOf(ParamModel.BUMON_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), ParamModel, NameOf(ParamModel.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbADD_TANTO.DataBindings.Add(New Binding(NameOf(cmbADD_TANTO.SelectedValue), ParamModel, NameOf(ParamModel.ADD_TANTO), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-        cmbKISYU.DataBindings.Add(New Binding(NameOf(cmbKISYU.SelectedValue), ParamModel, NameOf(ParamModel.KISYU_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-        mtxGOKI.DataBindings.Add(New Binding(NameOf(mtxGOKI.Text), ParamModel, NameOf(ParamModel.GOUKI), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbBUHIN_BANGO.SelectedValue), ParamModel, NameOf(ParamModel.BUHIN_BANGO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        mtxHINMEI.DataBindings.Add(New Binding(NameOf(mtxHINMEI.Text), ParamModel, NameOf(ParamModel.BUHIN_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbBUMON.DataBindings.Add(New Binding(NameOf(cmbBUMON.SelectedValue), paramModel, NameOf(paramModel.BUMON_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), paramModel, NameOf(paramModel.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbADD_TANTO.DataBindings.Add(New Binding(NameOf(cmbADD_TANTO.SelectedValue), paramModel, NameOf(paramModel.ADD_TANTO), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+        cmbKISYU.DataBindings.Add(New Binding(NameOf(cmbKISYU.SelectedValue), paramModel, NameOf(paramModel.KISYU_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+        mtxGOKI.DataBindings.Add(New Binding(NameOf(mtxGOKI.Text), paramModel, NameOf(paramModel.GOUKI), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), paramModel, NameOf(paramModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbBUHIN_BANGO.SelectedValue), paramModel, NameOf(paramModel.BUHIN_BANGO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        mtxHINMEI.DataBindings.Add(New Binding(NameOf(mtxHINMEI.Text), paramModel, NameOf(paramModel.BUHIN_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
-        cmbGEN_TANTO.DataBindings.Add(New Binding(NameOf(cmbGEN_TANTO.SelectedValue), ParamModel, NameOf(ParamModel.SYOCHI_TANTO), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-        dtJisiFrom.DataBindings.Add(New Binding(NameOf(dtJisiFrom.ValueNonFormat), ParamModel, NameOf(ParamModel.JISI_YMD_FROM), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        dtJisiTo.DataBindings.Add(New Binding(NameOf(dtJisiTo.ValueNonFormat), ParamModel, NameOf(ParamModel.JISI_YMD_TO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbFUTEKIGO_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbFUTEKIGO_S_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_S_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_S_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbFUTEKIGO_JYOTAI_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_JYOTAI_KB.SelectedValue), ParamModel, NameOf(ParamModel.FUTEKIGO_JYOTAI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        chkClosedRowVisibled.DataBindings.Add(New Binding(NameOf(chkClosedRowVisibled.Checked), ParamModel, NameOf(ParamModel.VISIBLE_CLOSE), False, DataSourceUpdateMode.OnPropertyChanged, False))
-        chkTairyu.DataBindings.Add(New Binding(NameOf(chkTairyu.Checked), ParamModel, NameOf(ParamModel.VISIBLE_TAIRYU), False, DataSourceUpdateMode.OnPropertyChanged, False))
+        cmbGEN_TANTO.DataBindings.Add(New Binding(NameOf(cmbGEN_TANTO.SelectedValue), paramModel, NameOf(paramModel.SYOCHI_TANTO), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+        dtJisiFrom.DataBindings.Add(New Binding(NameOf(dtJisiFrom.ValueNonFormat), paramModel, NameOf(paramModel.JISI_YMD_FROM), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        dtJisiTo.DataBindings.Add(New Binding(NameOf(dtJisiTo.ValueNonFormat), paramModel, NameOf(paramModel.JISI_YMD_TO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbFUTEKIGO_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_KB.SelectedValue), paramModel, NameOf(paramModel.FUTEKIGO_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbFUTEKIGO_S_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_S_KB.SelectedValue), paramModel, NameOf(paramModel.FUTEKIGO_S_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbFUTEKIGO_JYOTAI_KB.DataBindings.Add(New Binding(NameOf(cmbFUTEKIGO_JYOTAI_KB.SelectedValue), paramModel, NameOf(paramModel.FUTEKIGO_JYOTAI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        chkClosedRowVisibled.DataBindings.Add(New Binding(NameOf(chkClosedRowVisibled.Checked), paramModel, NameOf(paramModel.VISIBLE_CLOSE), False, DataSourceUpdateMode.OnPropertyChanged, False))
+        chkTairyu.DataBindings.Add(New Binding(NameOf(chkTairyu.Checked), paramModel, NameOf(paramModel.VISIBLE_TAIRYU), False, DataSourceUpdateMode.OnPropertyChanged, False))
 
-        dtHASSEI_YMD_FROM.DataBindings.Add(New Binding(NameOf(dtHASSEI_YMD_FROM.ValueNonFormat), ParamModel, NameOf(ParamModel.HASSEI_FROM), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        dtHASSEI_YMD_TO.DataBindings.Add(New Binding(NameOf(dtHASSEI_YMD_TO.ValueNonFormat), ParamModel, NameOf(ParamModel.HASSEI_TO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        dtHASSEI_YMD_FROM.DataBindings.Add(New Binding(NameOf(dtHASSEI_YMD_FROM.ValueNonFormat), paramModel, NameOf(paramModel.HASSEI_FROM), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        dtHASSEI_YMD_TO.DataBindings.Add(New Binding(NameOf(dtHASSEI_YMD_TO.ValueNonFormat), paramModel, NameOf(paramModel.HASSEI_TO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
         'NCR
-        cmbJIZEN_SINSA_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbJIZEN_SINSA_HANTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.JIZEN_SINSA_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbZESEI_SYOCHI_YOHI_KB.DataBindings.Add(New Binding(NameOf(cmbZESEI_SYOCHI_YOHI_KB.SelectedValue), ParamModel, NameOf(ParamModel.ZESEI_SYOCHI_YOHI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbSAISIN_IINKAI_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbSAISIN_IINKAI_HANTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.SAISIN_IINKAI_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbKOKYAKU_HANTEI_SIJI_KB.DataBindings.Add(New Binding(NameOf(cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValue), ParamModel, NameOf(ParamModel.KOKYAKU_HANTEI_SIJI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbKOKYAKU_SAISYU_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.KOKYAKU_SAISYU_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbKENSA_KEKKA_KB.DataBindings.Add(New Binding(NameOf(cmbKENSA_KEKKA_KB.SelectedValue), ParamModel, NameOf(ParamModel.KENSA_KEKKA_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbJIZEN_SINSA_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbJIZEN_SINSA_HANTEI_KB.SelectedValue), paramModel, NameOf(paramModel.JIZEN_SINSA_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbZESEI_SYOCHI_YOHI_KB.DataBindings.Add(New Binding(NameOf(cmbZESEI_SYOCHI_YOHI_KB.SelectedValue), paramModel, NameOf(paramModel.ZESEI_SYOCHI_YOHI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbSAISIN_IINKAI_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbSAISIN_IINKAI_HANTEI_KB.SelectedValue), paramModel, NameOf(paramModel.SAISIN_IINKAI_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbKOKYAKU_HANTEI_SIJI_KB.DataBindings.Add(New Binding(NameOf(cmbKOKYAKU_HANTEI_SIJI_KB.SelectedValue), paramModel, NameOf(paramModel.KOKYAKU_HANTEI_SIJI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbKOKYAKU_SAISYU_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValue), paramModel, NameOf(paramModel.KOKYAKU_SAISYU_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbKENSA_KEKKA_KB.DataBindings.Add(New Binding(NameOf(cmbKENSA_KEKKA_KB.SelectedValue), paramModel, NameOf(paramModel.KENSA_KEKKA_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         'CAR
-        mtxGENIN1.DataBindings.Add(New Binding(NameOf(mtxGENIN1.Text), ParamModel, NameOf(ParamModel.GENIN1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        mtxGENIN2.DataBindings.Add(New Binding(NameOf(mtxGENIN2.Text), ParamModel, NameOf(ParamModel.GENIN2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbKISEKI_KOTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKISEKI_KOTEI_KB.SelectedValue), ParamModel, NameOf(ParamModel.KISEKI_KOTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        mtxGENIN1.DataBindings.Add(New Binding(NameOf(mtxGENIN1.Text), paramModel, NameOf(paramModel.GENIN1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        mtxGENIN2.DataBindings.Add(New Binding(NameOf(mtxGENIN2.Text), paramModel, NameOf(paramModel.GENIN2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbKISEKI_KOTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKISEKI_KOTEI_KB.SelectedValue), paramModel, NameOf(paramModel.KISEKI_KOTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
 
     End Function
 
@@ -3493,6 +3522,12 @@ Public Class FrmG0010
                 Else
                     sbParam.Append($",DEFAULT")
                     sbParam.Append($",DEFAULT")
+                End If
+
+                If chkDispSURYO.Checked Then
+                    sbParam.Append($",'1'")
+                Else
+                    sbParam.Append($",'0'")
                 End If
 
                 sbSQL.Append($"EXEC dbo.{NameOf(MODEL.ST03_FUTEKIGO_ICHIRAN_SUMMARY)} {sbParam.ToString}")
@@ -3688,6 +3723,33 @@ Public Class FrmG0010
             Throw
             Return False
         End Try
+    End Function
+
+    Private Function SetSummaryRow(flx As C1FlexGrid) As Boolean
+        If DirectCast(flx.DataSource, DataView).Table Is Nothing Then Return True
+
+
+        Dim targetColumns = {NameOf(ST03.SURYO), NameOf(ST03.KISO_KENSU), NameOf(ST03.SYOCHI_KENSU), NameOf(ST03.SYOCHI_ZANSU)}
+        Dim dv = DirectCast(flx.DataSource, DataView)
+        Dim dt = dv.Table
+        Dim totalRow As DataRow
+
+        totalRow = dt.Rows.OfType(Of DataRow).Where(Function(r) r.Item(NameOf(ST03.SUMMARY_ROW_FLG)) = 1).FirstOrDefault
+        If totalRow IsNot Nothing Then totalRow.Delete()
+
+        totalRow = dt.NewRow
+        With totalRow
+            .Item(NameOf(ST03.SUMMARY_ROW_FLG)) = 1
+            .Item(NameOf(ST03.SYONIN_HOKOKUSYO_R_NAME)) = "合計:"
+            For Each column In targetColumns
+                .Item(column) = dv.OfType(Of DataRowView).
+                                        Where(Function(r) r.Item(NameOf(ST03.SUMMARY_ROW_FLG)) = 0).
+                                        Sum(Function(r) r.Item(column).ToString.ToVal)
+            Next
+        End With
+        dt.Rows.InsertAt(totalRow, 0)
+
+        Return True
     End Function
 
 #End Region

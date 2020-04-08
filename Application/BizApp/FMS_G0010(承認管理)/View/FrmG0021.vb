@@ -11,10 +11,6 @@ Public Class FrmG0021
 
     Private _V002_NCR_J As New V002_NCR_J
     Private _V003_SYONIN_J_KANRI_List As New List(Of V003_SYONIN_J_KANRI)
-
-    '入力必須コントロール検証判定
-    Private IsValidated As Boolean
-
     Private _tabPageManager As TabPageManager
 
     Private IsEditingClosed As Boolean
@@ -111,16 +107,16 @@ Public Class FrmG0021
 
     'Loadイベント
     Private Async Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
+        'Dim imgDlg As New ImageDialog
         Try
+            'imgDlg.Show("\\sv04\FMS\RESOURCE\loading.gif", 0)
 
             PrRIYU = ""
             Await Task.Run(
                 Sub()
                     Me.Invoke(
                     Sub()
-                        Me.Visible = False
-                        Me.SuspendLayout()
+                        Me.Cursor = Cursors.WaitCursor
 
                         '-----フォーム初期設定(親フォームから呼び出し)
                         Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
@@ -133,13 +129,7 @@ Public Class FrmG0021
 
                         '-----コントロールデータソース設定
                         cmbKOKYAKU_EIKYO_HANTEI_COMMENT.SetDataSource(tblKOKYAKU_EIKYO_COMMENT.LazyLoad("不適合封じ込め非の理由"), ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                        Dim dt = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = PrDataRow.Item("BUMON_KB")).CopyToDataTable
-                        cmbKISYU1.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                        cmbKISYU2.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                        cmbKISYU3.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                        cmbKISYU4.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                        cmbKISYU5.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                        cmbKISYU6.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
 
                         '-----画面初期化
                         Call FunInitializeControls()
@@ -148,13 +138,15 @@ Public Class FrmG0021
                         AddHandler rbtnKOKYAKU_EIKYO_HANTEI_KB_F.CheckedChanged, AddressOf RbtnKOKYAKU_EIKYO_HANTEI_KB_CheckedChanged
 
                         Me.tabSTAGE01.Focus()
-                        Me.ResumeLayout()
+                        'Me.ResumeLayout()
                     End Sub)
                 End Sub)
         Finally
             FunInitFuncButtonEnabled()
-            Me.Visible = True
-            Me.WindowState = Me.Owner.WindowState
+            Me.Cursor = Cursors.Default
+            'imgDlg.Close()
+            'Me.Visible = True
+            Me.WindowState = FormWindowState.Maximized 'Me.Owner.WindowState
         End Try
     End Sub
 
@@ -1748,6 +1740,12 @@ Public Class FrmG0021
             cmbKISYU4.SelectedIndex = 0
             cmbKISYU5.SelectedIndex = 0
             cmbKISYU6.SelectedIndex = 0
+            Call CmbKISYU_SelectedValueChanged(cmbKISYU1, Nothing)
+            Call CmbKISYU_SelectedValueChanged(cmbKISYU2, Nothing)
+            Call CmbKISYU_SelectedValueChanged(cmbKISYU3, Nothing)
+            Call CmbKISYU_SelectedValueChanged(cmbKISYU4, Nothing)
+            Call CmbKISYU_SelectedValueChanged(cmbKISYU5, Nothing)
+            Call CmbKISYU_SelectedValueChanged(cmbKISYU6, Nothing)
 
             txtBUHIN_INFO1.Text = ""
             txtBUHIN_INFO2.Text = ""
@@ -1755,18 +1753,39 @@ Public Class FrmG0021
             txtBUHIN_INFO4.Text = ""
             txtBUHIN_INFO5.Text = ""
             txtBUHIN_INFO6.Text = ""
+            Call TxtBUHIN_INFO_Validated(txtBUHIN_INFO1, Nothing)
+            Call TxtBUHIN_INFO_Validated(txtBUHIN_INFO2, Nothing)
+            Call TxtBUHIN_INFO_Validated(txtBUHIN_INFO3, Nothing)
+            Call TxtBUHIN_INFO_Validated(txtBUHIN_INFO4, Nothing)
+            Call TxtBUHIN_INFO_Validated(txtBUHIN_INFO5, Nothing)
+            Call TxtBUHIN_INFO_Validated(txtBUHIN_INFO6, Nothing)
+
             nupSURYO1.Value = 0
             nupSURYO2.Value = 0
             nupSURYO3.Value = 0
             nupSURYO4.Value = 0
             nupSURYO5.Value = 0
             nupSURYO6.Value = 0
+            Call NupSURYO_ValueChanged(nupSURYO1, Nothing)
+            Call NupSURYO_ValueChanged(nupSURYO2, Nothing)
+            Call NupSURYO_ValueChanged(nupSURYO3, Nothing)
+            Call NupSURYO_ValueChanged(nupSURYO4, Nothing)
+            Call NupSURYO_ValueChanged(nupSURYO5, Nothing)
+            Call NupSURYO_ValueChanged(nupSURYO6, Nothing)
+
+
             txtFROM1.Text = ""
             txtFROM2.Text = ""
             txtFROM3.Text = ""
             txtFROM4.Text = ""
             txtFROM5.Text = ""
             txtFROM6.Text = ""
+            Call TxtFROM_Validated(txtFROM1, Nothing)
+            Call TxtFROM_Validated(txtFROM2, Nothing)
+            Call TxtFROM_Validated(txtFROM3, Nothing)
+            Call TxtFROM_Validated(txtFROM4, Nothing)
+            Call TxtFROM_Validated(txtFROM5, Nothing)
+            Call TxtFROM_Validated(txtFROM6, Nothing)
 
             txtTO1.Text = ""
             txtTO2.Text = ""
@@ -1774,7 +1793,12 @@ Public Class FrmG0021
             txtTO4.Text = ""
             txtTO5.Text = ""
             txtTO6.Text = ""
-
+            Call TxtTO_Validated(txtTO1, Nothing)
+            Call TxtTO_Validated(txtTO2, Nothing)
+            Call TxtTO_Validated(txtTO3, Nothing)
+            Call TxtTO_Validated(txtTO4, Nothing)
+            Call TxtTO_Validated(txtTO5, Nothing)
+            Call TxtTO_Validated(txtTO6, Nothing)
 #End Region
 
             txtFUTEKIGO_SEIHIN_MEMO.Text = ""
@@ -1869,7 +1893,6 @@ Public Class FrmG0021
             txtFROM2.Text = ""
             txtTO2.Text = ""
         End If
-
     End Sub
 
     Private Sub CmbKISYU2_Validated(sender As Object, e As EventArgs) Handles cmbKISYU2.Validated
@@ -2600,6 +2623,22 @@ Public Class FrmG0021
 
 #End Region
 
+            Call SetTANTO_TooltipInfo()
+
+            Dim dt = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D003_NCR_J.BUMON_KB)) = PrDataRow.Item("BUMON_KB")).CopyToDataTable
+            If _V011_FCR_J.BUMON_NAME = "LP" Then
+                dt = dt.AsEnumerable.Where(Function(r) r.Item("DISP") = "LP").CopyToDataTable
+            End If
+
+            cmbKISYU1.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            cmbKISYU2.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            cmbKISYU3.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            cmbKISYU4.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            cmbKISYU5.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            cmbKISYU6.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
+
+
             txtTAISYO_KOKYAKU.Text = _V011_FCR_J.TAISYOU_KOKYAKU
             txtKOKYAKU_EIKYO_NAIYO.Text = _V011_FCR_J.KOKYAKU_EIKYO_NAIYO
             txtKAKUNIN_SYUDAN.Text = _V011_FCR_J.KAKUNIN_SYUDAN
@@ -2857,6 +2896,21 @@ Public Class FrmG0021
         End Try
     End Function
 
+
+    Private Function SetTANTO_TooltipInfo() As Boolean
+
+        Call SetInfoLabelFormat(lblDestTANTO, $"承認担当者マスタ{vbCr}所属部門の当該ステージに登録された担当者")
+
+    End Function
+
+
+    Private Function SetInfoLabelFormat(lbl As Label, caption As String) As Boolean
+        lbl.ForeColor = Color.Blue
+        'lbl.Cursor = Cursors.Hand
+        lbl.Font = New Font("Meiryo UI", 9, FontStyle.Bold + FontStyle.Underline, lbl.Font.Unit, CType(128, Byte))
+        InfoToolTip.SetToolTip(lbl, caption)
+    End Function
+
 #End Region
 
 #Region "入力チェック"
@@ -2871,7 +2925,8 @@ Public Class FrmG0021
             End If
 
             If cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Visible Then
-                IsValidated *= ErrorProvider.UpdateErrorInfo(cmbKOKYAKU_EIKYO_HANTEI_COMMENT, Not cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "否の理由"))
+                Dim IsEntered As Boolean = (Not cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Text.IsNulOrWS) Or cmbKOKYAKU_EIKYO_HANTEI_COMMENT.SelectedIndex > 0
+                IsValidated *= ErrorProvider.UpdateErrorInfo(cmbKOKYAKU_EIKYO_HANTEI_COMMENT, IsEntered, String.Format(My.Resources.infoMsgRequireSelectOrInput, "否の理由"))
             End If
 
             '上記各種Validatingイベントでフラグを更新し、全てOKの場合はTrue

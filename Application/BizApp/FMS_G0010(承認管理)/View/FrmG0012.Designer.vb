@@ -53,7 +53,7 @@ Partial Class FrmG0012
         Me.mtxGENIN2 = New JMS_COMMON.MaskedTextBoxEx()
         Me.cmbKONPON_YOIN_TANTO = New JMS_COMMON.ComboboxEx()
         Me.mtxGENIN1 = New JMS_COMMON.MaskedTextBoxEx()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblKONPON_YOIN_TANTO = New System.Windows.Forms.Label()
         Me.mtxGENIN2_DISP = New JMS_COMMON.MaskedTextBoxEx()
         Me.cmbKONPON_YOIN_KB1 = New JMS_COMMON.ComboboxEx()
         Me.mtxGENIN1_DISP = New JMS_COMMON.MaskedTextBoxEx()
@@ -191,10 +191,10 @@ Partial Class FrmG0012
         Me.Label75 = New System.Windows.Forms.Label()
         Me.cmbKENSA_GL_TANTO = New JMS_COMMON.ComboboxEx()
         Me.dtKENSA_TOROKU = New JMS_COMMON.DateTextBoxEx()
-        Me.Label47 = New System.Windows.Forms.Label()
+        Me.lblKENSA_GL_TANTO = New System.Windows.Forms.Label()
         Me.Label44 = New System.Windows.Forms.Label()
         Me.dtKENSA_GL_TOROKU = New JMS_COMMON.DateTextBoxEx()
-        Me.Label46 = New System.Windows.Forms.Label()
+        Me.lblKENSA_TANTO = New System.Windows.Forms.Label()
         Me.Label52 = New System.Windows.Forms.Label()
         Me.Label45 = New System.Windows.Forms.Label()
         Me.mtxLOT = New JMS_COMMON.MaskedTextBoxEx()
@@ -216,9 +216,9 @@ Partial Class FrmG0012
         Me.Label50 = New System.Windows.Forms.Label()
         Me.cmbSYOCHI_B_TANTO = New JMS_COMMON.ComboboxEx()
         Me.Label74 = New System.Windows.Forms.Label()
-        Me.Label73 = New System.Windows.Forms.Label()
+        Me.lblSYOCHI_A_TANTO = New System.Windows.Forms.Label()
         Me.btnOpenKYOIKU_FILE_PATH = New System.Windows.Forms.Button()
-        Me.Label38 = New System.Windows.Forms.Label()
+        Me.lblSYOCHI_B_TANTO = New System.Windows.Forms.Label()
         Me.lblSYOCHI_C_TANTO = New System.Windows.Forms.Label()
         Me.fpnlKYOIKU_FILE_PATH = New System.Windows.Forms.FlowLayoutPanel()
         Me.lblKYOIKU_FILE_PATH = New System.Windows.Forms.LinkLabel()
@@ -260,6 +260,8 @@ Partial Class FrmG0012
         Me.Label33 = New System.Windows.Forms.Label()
         Me.dtSYOCHI_YOTEI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label23 = New System.Windows.Forms.Label()
+        Me.InfoToolTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.PicBox = New System.Windows.Forms.PictureBox()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
@@ -283,6 +285,7 @@ Partial Class FrmG0012
         Me.pnlSYOCHI_KIROKU.SuspendLayout()
         Me.fpnlKYOIKU_FILE_PATH.SuspendLayout()
         Me.flpnlStageIndex.SuspendLayout()
+        CType(Me.PicBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -818,7 +821,7 @@ Partial Class FrmG0012
         Me.pnlAnalysis.Controls.Add(Me.mtxGENIN2)
         Me.pnlAnalysis.Controls.Add(Me.cmbKONPON_YOIN_TANTO)
         Me.pnlAnalysis.Controls.Add(Me.mtxGENIN1)
-        Me.pnlAnalysis.Controls.Add(Me.Label2)
+        Me.pnlAnalysis.Controls.Add(Me.lblKONPON_YOIN_TANTO)
         Me.pnlAnalysis.Controls.Add(Me.mtxGENIN2_DISP)
         Me.pnlAnalysis.Controls.Add(Me.cmbKONPON_YOIN_KB1)
         Me.pnlAnalysis.Controls.Add(Me.mtxGENIN1_DISP)
@@ -833,7 +836,7 @@ Partial Class FrmG0012
         Me.pnlAnalysis.Controls.Add(Me.Label51)
         Me.pnlAnalysis.Location = New System.Drawing.Point(658, 658)
         Me.pnlAnalysis.Name = "pnlAnalysis"
-        Me.pnlAnalysis.Size = New System.Drawing.Size(266, 295)
+        Me.pnlAnalysis.Size = New System.Drawing.Size(538, 295)
         Me.pnlAnalysis.TabIndex = 322
         Me.pnlAnalysis.Visible = False
         '
@@ -841,7 +844,7 @@ Partial Class FrmG0012
         '
         Me.Label25.BackColor = System.Drawing.Color.Black
         Me.Label25.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Label25.Location = New System.Drawing.Point(251, 0)
+        Me.Label25.Location = New System.Drawing.Point(523, 0)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(13, 293)
         Me.Label25.TabIndex = 324
@@ -940,15 +943,15 @@ Partial Class FrmG0012
         Me.mtxGENIN1.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxGENIN1.WatermarkText = Nothing
         '
-        'Label2
+        'lblKONPON_YOIN_TANTO
         '
-        Me.Label2.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label2.Location = New System.Drawing.Point(18, 227)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(73, 30)
-        Me.Label2.TabIndex = 220
-        Me.Label2.Text = "çÏã∆é“ñº:"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblKONPON_YOIN_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblKONPON_YOIN_TANTO.Location = New System.Drawing.Point(18, 227)
+        Me.lblKONPON_YOIN_TANTO.Name = "lblKONPON_YOIN_TANTO"
+        Me.lblKONPON_YOIN_TANTO.Size = New System.Drawing.Size(73, 30)
+        Me.lblKONPON_YOIN_TANTO.TabIndex = 220
+        Me.lblKONPON_YOIN_TANTO.Text = "çÏã∆é“ñº:"
+        Me.lblKONPON_YOIN_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'mtxGENIN2_DISP
         '
@@ -2554,10 +2557,10 @@ Partial Class FrmG0012
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.Label75)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.cmbKENSA_GL_TANTO)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.dtKENSA_TOROKU)
-        Me.pnlZESEI_SYOCHI.Controls.Add(Me.Label47)
+        Me.pnlZESEI_SYOCHI.Controls.Add(Me.lblKENSA_GL_TANTO)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.Label44)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.dtKENSA_GL_TOROKU)
-        Me.pnlZESEI_SYOCHI.Controls.Add(Me.Label46)
+        Me.pnlZESEI_SYOCHI.Controls.Add(Me.lblKENSA_TANTO)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.Label52)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.Label45)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.mtxLOT)
@@ -2892,16 +2895,16 @@ Partial Class FrmG0012
         Me.dtKENSA_TOROKU.Value = ""
         Me.dtKENSA_TOROKU.ValueNonFormat = ""
         '
-        'Label47
+        'lblKENSA_GL_TANTO
         '
-        Me.Label47.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label47.Location = New System.Drawing.Point(378, 97)
-        Me.Label47.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label47.Name = "Label47"
-        Me.Label47.Size = New System.Drawing.Size(134, 15)
-        Me.Label47.TabIndex = 286
-        Me.Label47.Text = "åüç∏GL:"
-        Me.Label47.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblKENSA_GL_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblKENSA_GL_TANTO.Location = New System.Drawing.Point(378, 97)
+        Me.lblKENSA_GL_TANTO.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblKENSA_GL_TANTO.Name = "lblKENSA_GL_TANTO"
+        Me.lblKENSA_GL_TANTO.Size = New System.Drawing.Size(134, 15)
+        Me.lblKENSA_GL_TANTO.TabIndex = 286
+        Me.lblKENSA_GL_TANTO.Text = "åüç∏GL:"
+        Me.lblKENSA_GL_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label44
         '
@@ -2929,16 +2932,16 @@ Partial Class FrmG0012
         Me.dtKENSA_GL_TOROKU.Value = ""
         Me.dtKENSA_GL_TOROKU.ValueNonFormat = ""
         '
-        'Label46
+        'lblKENSA_TANTO
         '
-        Me.Label46.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label46.Location = New System.Drawing.Point(378, 66)
-        Me.Label46.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(134, 15)
-        Me.Label46.TabIndex = 283
-        Me.Label46.Text = "åüç∏àı:"
-        Me.Label46.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblKENSA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblKENSA_TANTO.Location = New System.Drawing.Point(378, 66)
+        Me.lblKENSA_TANTO.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblKENSA_TANTO.Name = "lblKENSA_TANTO"
+        Me.lblKENSA_TANTO.Size = New System.Drawing.Size(134, 15)
+        Me.lblKENSA_TANTO.TabIndex = 283
+        Me.lblKENSA_TANTO.Text = "åüç∏àı:"
+        Me.lblKENSA_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label52
         '
@@ -3033,9 +3036,9 @@ Partial Class FrmG0012
         Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label50)
         Me.pnlSYOCHI_KIROKU.Controls.Add(Me.cmbSYOCHI_B_TANTO)
         Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label74)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label73)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.lblSYOCHI_A_TANTO)
         Me.pnlSYOCHI_KIROKU.Controls.Add(Me.btnOpenKYOIKU_FILE_PATH)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label38)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.lblSYOCHI_B_TANTO)
         Me.pnlSYOCHI_KIROKU.Controls.Add(Me.lblSYOCHI_C_TANTO)
         Me.pnlSYOCHI_KIROKU.Controls.Add(Me.fpnlKYOIKU_FILE_PATH)
         Me.pnlSYOCHI_KIROKU.HitEnabled = False
@@ -3262,16 +3265,16 @@ Partial Class FrmG0012
         Me.Label74.Text = "é¿é{ì˙:"
         Me.Label74.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Label73
+        'lblSYOCHI_A_TANTO
         '
-        Me.Label73.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label73.Location = New System.Drawing.Point(11, 110)
-        Me.Label73.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label73.Name = "Label73"
-        Me.Label73.Size = New System.Drawing.Size(79, 15)
-        Me.Label73.TabIndex = 228
-        Me.Label73.Text = "íSìñGL:"
-        Me.Label73.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblSYOCHI_A_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_A_TANTO.Location = New System.Drawing.Point(11, 110)
+        Me.lblSYOCHI_A_TANTO.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblSYOCHI_A_TANTO.Name = "lblSYOCHI_A_TANTO"
+        Me.lblSYOCHI_A_TANTO.Size = New System.Drawing.Size(79, 15)
+        Me.lblSYOCHI_A_TANTO.TabIndex = 228
+        Me.lblSYOCHI_A_TANTO.Text = "íSìñGL:"
+        Me.lblSYOCHI_A_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'btnOpenKYOIKU_FILE_PATH
         '
@@ -3283,16 +3286,16 @@ Partial Class FrmG0012
         Me.btnOpenKYOIKU_FILE_PATH.TabIndex = 1
         Me.btnOpenKYOIKU_FILE_PATH.UseVisualStyleBackColor = True
         '
-        'Label38
+        'lblSYOCHI_B_TANTO
         '
-        Me.Label38.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label38.Location = New System.Drawing.Point(403, 110)
-        Me.Label38.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(79, 15)
-        Me.Label38.TabIndex = 228
-        Me.Label38.Text = "íSìñGL:"
-        Me.Label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblSYOCHI_B_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_B_TANTO.Location = New System.Drawing.Point(403, 110)
+        Me.lblSYOCHI_B_TANTO.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblSYOCHI_B_TANTO.Name = "lblSYOCHI_B_TANTO"
+        Me.lblSYOCHI_B_TANTO.Size = New System.Drawing.Size(79, 15)
+        Me.lblSYOCHI_B_TANTO.TabIndex = 228
+        Me.lblSYOCHI_B_TANTO.Text = "íSìñGL:"
+        Me.lblSYOCHI_B_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblSYOCHI_C_TANTO
         '
@@ -3913,10 +3916,28 @@ Partial Class FrmG0012
         Me.Label23.Text = "éüâÒêªçÏó\íËì˙:"
         Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'InfoToolTip
+        '
+        Me.InfoToolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
+        Me.InfoToolTip.ToolTipTitle = "éQè∆å≥"
+        '
+        'PicBox
+        '
+        Me.PicBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PicBox.ImageLocation = ""
+        Me.PicBox.InitialImage = Nothing
+        Me.PicBox.Location = New System.Drawing.Point(1044, 3)
+        Me.PicBox.Name = "PicBox"
+        Me.PicBox.Size = New System.Drawing.Size(82, 54)
+        Me.PicBox.TabIndex = 259
+        Me.PicBox.TabStop = False
+        Me.PicBox.Visible = False
+        '
         'FrmG0012
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1264, 875)
+        Me.Controls.Add(Me.PicBox)
         Me.Controls.Add(Me.dtSYOCHI_YOTEI_YMD)
         Me.Controls.Add(Me.Label23)
         Me.Controls.Add(Me.dtUPD_YMD)
@@ -3960,6 +3981,7 @@ Partial Class FrmG0012
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
+        Me.Controls.SetChildIndex(Me.PicBox, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
@@ -4000,6 +4022,7 @@ Partial Class FrmG0012
         Me.fpnlKYOIKU_FILE_PATH.ResumeLayout(False)
         Me.fpnlKYOIKU_FILE_PATH.PerformLayout()
         Me.flpnlStageIndex.ResumeLayout(False)
+        CType(Me.PicBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -4108,9 +4131,9 @@ Partial Class FrmG0012
     Friend WithEvents Label50 As Label
     Friend WithEvents cmbSYOCHI_B_TANTO As ComboboxEx
     Friend WithEvents Label74 As Label
-    Friend WithEvents Label73 As Label
+    Friend WithEvents lblSYOCHI_A_TANTO As Label
     Friend WithEvents btnOpenKYOIKU_FILE_PATH As Button
-    Friend WithEvents Label38 As Label
+    Friend WithEvents lblSYOCHI_B_TANTO As Label
     Friend WithEvents lblSYOCHI_C_TANTO As Label
     Friend WithEvents fpnlKYOIKU_FILE_PATH As FlowLayoutPanel
     Friend WithEvents lblKYOIKU_FILE_PATH As LinkLabel
@@ -4146,10 +4169,10 @@ Partial Class FrmG0012
     Friend WithEvents Label75 As Label
     Friend WithEvents cmbKENSA_GL_TANTO As ComboboxEx
     Friend WithEvents dtKENSA_TOROKU As DateTextBoxEx
-    Friend WithEvents Label47 As Label
+    Friend WithEvents lblKENSA_GL_TANTO As Label
     Friend WithEvents Label44 As Label
     Friend WithEvents dtKENSA_GL_TOROKU As DateTextBoxEx
-    Friend WithEvents Label46 As Label
+    Friend WithEvents lblKENSA_TANTO As Label
     Friend WithEvents Label52 As Label
     Friend WithEvents Label45 As Label
     Friend WithEvents mtxLOT As MaskedTextBoxEx
@@ -4221,7 +4244,7 @@ Partial Class FrmG0012
     Friend WithEvents mtxGENIN2 As MaskedTextBoxEx
     Friend WithEvents cmbKONPON_YOIN_TANTO As ComboboxEx
     Friend WithEvents mtxGENIN1 As MaskedTextBoxEx
-    Friend WithEvents Label2 As Label
+    Friend WithEvents lblKONPON_YOIN_TANTO As Label
     Friend WithEvents mtxGENIN2_DISP As MaskedTextBoxEx
     Friend WithEvents cmbKONPON_YOIN_KB1 As ComboboxEx
     Friend WithEvents mtxGENIN1_DISP As MaskedTextBoxEx
@@ -4244,4 +4267,6 @@ Partial Class FrmG0012
     Friend WithEvents pnl_FUTEKIGO_YOUIN As PanelEx
     Friend WithEvents rbtnFUTEKIGO_YOUIN_T As RadioButton
     Friend WithEvents rbtnFUTEKIGO_YOUIN_F As RadioButton
+    Friend WithEvents InfoToolTip As ToolTip
+    Friend WithEvents PicBox As PictureBox
 End Class

@@ -266,6 +266,8 @@ Partial Class FrmG0021
         Me.Label33 = New System.Windows.Forms.Label()
         Me.dtSYOCHI_YOTEI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label23 = New System.Windows.Forms.Label()
+        Me.InfoToolTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.PicBox = New System.Windows.Forms.PictureBox()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxFilter.SuspendLayout()
@@ -307,6 +309,7 @@ Partial Class FrmG0021
         Me.pnlInfo1.SuspendLayout()
         CType(Me.nupSURYO1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.flpnlStageIndex.SuspendLayout()
+        CType(Me.PicBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -4075,10 +4078,28 @@ Partial Class FrmG0021
         Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label23.Visible = False
         '
+        'InfoToolTip
+        '
+        Me.InfoToolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
+        Me.InfoToolTip.ToolTipTitle = "éQè∆å≥"
+        '
+        'PicBox
+        '
+        Me.PicBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PicBox.ImageLocation = ""
+        Me.PicBox.InitialImage = Nothing
+        Me.PicBox.Location = New System.Drawing.Point(1057, 3)
+        Me.PicBox.Name = "PicBox"
+        Me.PicBox.Size = New System.Drawing.Size(82, 54)
+        Me.PicBox.TabIndex = 261
+        Me.PicBox.TabStop = False
+        Me.PicBox.Visible = False
+        '
         'FrmG0021
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1264, 875)
+        Me.Controls.Add(Me.PicBox)
         Me.Controls.Add(Me.dtSYOCHI_YOTEI_YMD)
         Me.Controls.Add(Me.Label23)
         Me.Controls.Add(Me.dtUPD_YMD)
@@ -4122,6 +4143,7 @@ Partial Class FrmG0021
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
+        Me.Controls.SetChildIndex(Me.PicBox, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbxFilter.ResumeLayout(False)
@@ -4192,6 +4214,7 @@ Partial Class FrmG0021
         Me.pnlInfo1.PerformLayout()
         CType(Me.nupSURYO1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.flpnlStageIndex.ResumeLayout(False)
+        CType(Me.PicBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -4442,4 +4465,6 @@ Partial Class FrmG0021
     Friend WithEvents LinkLabel52 As LinkLabel
     Friend WithEvents LinkLabel53 As LinkLabel
     Friend WithEvents LinkLabel54 As LinkLabel
+    Friend WithEvents InfoToolTip As ToolTip
+    Friend WithEvents PicBox As PictureBox
 End Class

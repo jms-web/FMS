@@ -167,16 +167,24 @@ Public Class FrmG0011
 #Region "LOAD"
 
     Private Async Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
+        'Dim imgDlg As New ImageDialog
         Try
             PrRIYU = ""
+
 
             Await Task.Run(
                 Sub()
                     Me.Invoke(
                     Sub()
-                        Me.Visible = False
-                        Me.SuspendLayout()
+                        'imgDlg.Show("\\sv04\FMS\RESOURCE\loading.gif", 4200)
+                        Me.Cursor = Cursors.WaitCursor
+                        'PicBox.Visible = True
+                        'PicBox.ImageLocation = "\\sv04\FMS\RESOURCE\loading.gif"
+                        'PicBox.Dock = DockStyle.Fill
+
+
+                        'Me.Visible = False
+                        'Me.SuspendLayout()
                         '-----フォーム初期設定(親フォームから呼び出し)
                         Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
                         Using DB As ClsDbUtility = DBOpen()
@@ -230,7 +238,7 @@ Public Class FrmG0011
                         'バインディングセット
                         Call FunSetBindingD003()
 
-                        Me.Cursor = Cursors.WaitCursor
+
 
                         IsEditingClosed = HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
 
@@ -248,13 +256,16 @@ Public Class FrmG0011
                             Case Else
                                 Me.ActiveControl = cmbBUMON
                         End Select
-                        Me.ResumeLayout()
+                        'Me.ResumeLayout()
                     End Sub)
                 End Sub)
         Finally
             Call FunInitFuncButtonEnabled()
             Me.Cursor = Cursors.Default
-            Me.Visible = True
+            'PicBox.Visible = False
+            'PicBox.Dock = DockStyle.None
+            'imgDlg.Close()
+            'Me.Visible = True
             Me.WindowState = FormWindowState.Maximized 'Me.Owner.WindowState
         End Try
     End Sub
@@ -6399,6 +6410,8 @@ Public Class FrmG0011
                     If rbtn IsNot Nothing Then rbtn.Checked = True
             End Select
 
+            Call SetTANTO_TooltipInfo()
+
             Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
 
@@ -6588,6 +6601,32 @@ Public Class FrmG0011
         End Try
     End Function
 
+    Private Function SetTANTO_TooltipInfo() As Boolean
+
+        Call SetInfoLabelFormat(lblcmbST03_TANTO_FCR, $"承認担当者マスタ{vbCr}NCRステージ:{NameOf(ENM_NCR_STAGE._20_起草確認製造GL)}に登録された担当者")
+        Call SetInfoLabelFormat(lblCAR_TANTO, $"承認担当者マスタ{vbCr}CARステージ:{NameOf(ENM_CAR_STAGE._10_起草入力)}に登録された担当者")
+        Call SetInfoLabelFormat(lblST04_HASSEI_KOTEI_GL_TANTO, $"承認担当者マスタ{vbCr}NCRステージ:{NameOf(ENM_NCR_STAGE._20_起草確認製造GL)}に登録された担当者")
+        Call SetInfoLabelFormat(lblST07_SAISIN_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}検査・品証")
+
+
+        Call SetInfoLabelFormat(lblST08_1_HAIKYAKU_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}製造")
+
+        Call SetInfoLabelFormat(lblST08_2_TANTO_SEIGI, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}技術・品証")
+        Call SetInfoLabelFormat(lblST08_2_TANTO_SEIZO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}製造")
+        Call SetInfoLabelFormat(lblST08_2_TANTO_KENSA, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}検査")
+        Call SetInfoLabelFormat(lblSAI_FUTEKIGO_KISO_TANTO, $"承認担当者マスタ{vbCr}NCRステージ:{NameOf(ENM_NCR_STAGE._10_起草入力)}に登録された担当者")
+
+        Call SetInfoLabelFormat(lblST08_3_HENKYAKU_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}技術・製造・検査・品証")
+
+    End Function
+
+    Private Function SetInfoLabelFormat(lbl As Label, caption As String) As Boolean
+        lbl.ForeColor = Color.Blue
+        'lbl.Cursor = Cursors.Hand
+        lbl.Font = New Font("Meiryo UI", 9, FontStyle.Bold + FontStyle.Underline, lbl.Font.Unit, CType(128, Byte))
+        InfoToolTip.SetToolTip(lbl, caption)
+    End Function
+
 #End Region
 
 #Region "入力チェック"
@@ -6632,19 +6671,19 @@ Public Class FrmG0011
                         Call dtUPD_YMD_Validating(dtST03_UPD_YMD, Nothing)
 
                         '#252 Delete CTSは必須ではなく任意起草とする
-                        'Call cmbST03_TANTO_FCR_Validating(cmbST03_TANTO_FCR, Nothing)
-                        'If IsValidated Then
-                        '    If btnST03_FCR_KISO.Text = "起草" Then
-                        '        Dim msg As String = $"不適合封じ込め調査書が起草されていません{vbCrLf}今すぐ起草しますか？"
-                        '        If MessageBox.Show(msg, "起草確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) <> DialogResult.OK Then
-                        '            IsValidated = False
-                        '        End If
-                        '        If funSAVE_FCR_KISO() Then
-                        '            btnST03_FCR_KISO.Enabled = False
-                        '            btnST03_FCR_KISO.Text = "起草済"
-                        '        End If
-                        '    End If
-                        'End If
+                        Call CmbST03_TANTO_FCR_Validating(cmbST03_TANTO_FCR, Nothing)
+                        If IsValidated Then
+                            If btnST03_FCR_KISO.Text = "起草" Then
+                                Dim msg As String = $"不適合封じ込め調査書が起草されていません{vbCrLf}今すぐ起草しますか？"
+                                If MessageBox.Show(msg, "起草確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) <> DialogResult.OK Then
+                                    IsValidated = False
+                                End If
+                                If funSAVE_FCR_KISO() Then
+                                    btnST03_FCR_KISO.Enabled = False
+                                    btnST03_FCR_KISO.Text = "起草済"
+                                End If
+                            End If
+                        End If
 
                     Case ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定
                         Call CmbST04_JIZENSINSA_HANTEI_Validating(cmbST04_JIZENSINSA_HANTEI, Nothing)

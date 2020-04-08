@@ -76,7 +76,11 @@ Public Class ImageDialog
         Return DialogResult.Abort
     End Function
 
-    ' Showメソッドのシャドウ
+    ''' <summary>
+    ''' picturebox dialogを表示
+    ''' </summary>
+    ''' <param name="filepath">表示するイメージファイルパス</param>
+    ''' <param name="interval">表示時間(ﾐﾘ秒) 0の場合無期限表示のためCloseメソッドで任意のタイミングで閉じる必要あり</param>
     Public Shadows Sub Show(filepath As String, Optional interval As Integer = 2500)
         Try
 
@@ -86,11 +90,13 @@ Public Class ImageDialog
             'picBox.WaitOnLoad = False
             picBox.Image = img
 
-
-            Timer.Interval = interval
+            If interval > 0 Then
+                Timer.Interval = interval
+                Timer.Start()
+            Else
+            End If
 
             MyBase.Show()
-            Timer.Start()
         Catch ex As Exception
             Throw
         End Try

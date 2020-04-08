@@ -21,9 +21,9 @@ Partial Class FrmG0010
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmG0010))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
         Me.cmbGEN_TANTO = New JMS_COMMON.ComboboxEx()
         Me.cmbKISYU = New JMS_COMMON.ComboboxEx()
@@ -60,10 +60,6 @@ Partial Class FrmG0010
         Me.lblJisi = New System.Windows.Forms.Label()
         Me.dtHASSEI_YMD_TO = New JMS_COMMON.DateTextBoxEx()
         Me.dtJisiTo = New JMS_COMMON.DateTextBoxEx()
-        Me.chkDeleteRowVisibled = New System.Windows.Forms.CheckBox()
-        Me.chkClosedRowVisibled = New System.Windows.Forms.CheckBox()
-        Me.chkTairyu = New System.Windows.Forms.CheckBox()
-        Me.btnClearSrchFilter = New System.Windows.Forms.Button()
         Me.lblHOKOKUSYO_ID = New System.Windows.Forms.Label()
         Me.chkDispHOKOKUSYO_ID = New System.Windows.Forms.CheckBox()
         Me.cmbHOKOKUSYO_ID = New JMS_COMMON.ComboboxEx()
@@ -76,6 +72,12 @@ Partial Class FrmG0010
         Me.chkDispBUMON = New System.Windows.Forms.CheckBox()
         Me.cmbBUMON = New JMS_COMMON.ComboboxEx()
         Me.Label14 = New System.Windows.Forms.Label()
+        Me.lblSURYO = New System.Windows.Forms.Label()
+        Me.chkDispSURYO = New System.Windows.Forms.CheckBox()
+        Me.chkDeleteRowVisibled = New System.Windows.Forms.CheckBox()
+        Me.chkClosedRowVisibled = New System.Windows.Forms.CheckBox()
+        Me.chkTairyu = New System.Windows.Forms.CheckBox()
+        Me.btnClearSrchFilter = New System.Windows.Forms.Button()
         Me.cmbJIZEN_SINSA_HANTEI_KB = New JMS_COMMON.ComboboxEx()
         Me.cmbSAISIN_IINKAI_HANTEI_KB = New JMS_COMMON.ComboboxEx()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
@@ -293,7 +295,16 @@ Partial Class FrmG0010
         '
         'tlpFilter
         '
-        Me.tlpFilter.ColumnCount = 62
+        Me.tlpFilter.ColumnCount = 71
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
@@ -391,10 +402,6 @@ Partial Class FrmG0010
         Me.tlpFilter.Controls.Add(Me.lblJisi, 45, 3)
         Me.tlpFilter.Controls.Add(Me.dtHASSEI_YMD_TO, 46, 2)
         Me.tlpFilter.Controls.Add(Me.dtJisiTo, 46, 3)
-        Me.tlpFilter.Controls.Add(Me.chkDeleteRowVisibled, 33, 4)
-        Me.tlpFilter.Controls.Add(Me.chkClosedRowVisibled, 40, 4)
-        Me.tlpFilter.Controls.Add(Me.chkTairyu, 47, 4)
-        Me.tlpFilter.Controls.Add(Me.btnClearSrchFilter, 54, 3)
         Me.tlpFilter.Controls.Add(Me.lblHOKOKUSYO_ID, 0, 0)
         Me.tlpFilter.Controls.Add(Me.chkDispHOKOKUSYO_ID, 7, 0)
         Me.tlpFilter.Controls.Add(Me.cmbHOKOKUSYO_ID, 8, 0)
@@ -407,6 +414,12 @@ Partial Class FrmG0010
         Me.tlpFilter.Controls.Add(Me.chkDispBUMON, 39, 0)
         Me.tlpFilter.Controls.Add(Me.cmbBUMON, 40, 0)
         Me.tlpFilter.Controls.Add(Me.Label14, 47, 0)
+        Me.tlpFilter.Controls.Add(Me.lblSURYO, 32, 4)
+        Me.tlpFilter.Controls.Add(Me.chkDispSURYO, 39, 4)
+        Me.tlpFilter.Controls.Add(Me.chkDeleteRowVisibled, 60, 0)
+        Me.tlpFilter.Controls.Add(Me.chkClosedRowVisibled, 60, 1)
+        Me.tlpFilter.Controls.Add(Me.chkTairyu, 60, 2)
+        Me.tlpFilter.Controls.Add(Me.btnClearSrchFilter, 60, 3)
         Me.tlpFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpFilter.Location = New System.Drawing.Point(3, 19)
         Me.tlpFilter.Name = "tlpFilter"
@@ -417,7 +430,6 @@ Partial Class FrmG0010
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpFilter.Size = New System.Drawing.Size(1541, 155)
         Me.tlpFilter.TabIndex = 56
         '
@@ -927,57 +939,6 @@ Partial Class FrmG0010
         Me.dtJisiTo.Value = ""
         Me.dtJisiTo.ValueNonFormat = ""
         '
-        'chkDeleteRowVisibled
-        '
-        Me.chkDeleteRowVisibled.AutoSize = True
-        Me.tlpFilter.SetColumnSpan(Me.chkDeleteRowVisibled, 6)
-        Me.chkDeleteRowVisibled.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkDeleteRowVisibled.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.chkDeleteRowVisibled.Location = New System.Drawing.Point(663, 123)
-        Me.chkDeleteRowVisibled.Name = "chkDeleteRowVisibled"
-        Me.chkDeleteRowVisibled.Size = New System.Drawing.Size(103, 21)
-        Me.chkDeleteRowVisibled.TabIndex = 17
-        Me.chkDeleteRowVisibled.Text = "削除済も表示"
-        Me.chkDeleteRowVisibled.UseVisualStyleBackColor = True
-        '
-        'chkClosedRowVisibled
-        '
-        Me.chkClosedRowVisibled.AutoSize = True
-        Me.tlpFilter.SetColumnSpan(Me.chkClosedRowVisibled, 7)
-        Me.chkClosedRowVisibled.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkClosedRowVisibled.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.chkClosedRowVisibled.Location = New System.Drawing.Point(803, 123)
-        Me.chkClosedRowVisibled.Name = "chkClosedRowVisibled"
-        Me.chkClosedRowVisibled.Size = New System.Drawing.Size(113, 21)
-        Me.chkClosedRowVisibled.TabIndex = 18
-        Me.chkClosedRowVisibled.Text = "Close済も表示"
-        Me.chkClosedRowVisibled.UseVisualStyleBackColor = True
-        '
-        'chkTairyu
-        '
-        Me.chkTairyu.AutoSize = True
-        Me.tlpFilter.SetColumnSpan(Me.chkTairyu, 7)
-        Me.chkTairyu.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkTairyu.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.chkTairyu.Location = New System.Drawing.Point(943, 123)
-        Me.chkTairyu.Name = "chkTairyu"
-        Me.chkTairyu.Size = New System.Drawing.Size(102, 21)
-        Me.chkTairyu.TabIndex = 19
-        Me.chkTairyu.Text = "滞留のみ表示"
-        Me.chkTairyu.UseVisualStyleBackColor = True
-        '
-        'btnClearSrchFilter
-        '
-        Me.tlpFilter.SetColumnSpan(Me.btnClearSrchFilter, 5)
-        Me.btnClearSrchFilter.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnClearSrchFilter.Location = New System.Drawing.Point(1083, 93)
-        Me.btnClearSrchFilter.Name = "btnClearSrchFilter"
-        Me.tlpFilter.SetRowSpan(Me.btnClearSrchFilter, 2)
-        Me.btnClearSrchFilter.Size = New System.Drawing.Size(94, 54)
-        Me.btnClearSrchFilter.TabIndex = 20
-        Me.btnClearSrchFilter.Text = "条件クリア"
-        Me.btnClearSrchFilter.UseVisualStyleBackColor = True
-        '
         'lblHOKOKUSYO_ID
         '
         Me.tlpFilter.SetColumnSpan(Me.lblHOKOKUSYO_ID, 7)
@@ -1145,13 +1106,92 @@ Partial Class FrmG0010
         'Label14
         '
         Me.tlpFilter.SetColumnSpan(Me.Label14, 4)
-        Me.Label14.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label14.Font = New System.Drawing.Font("Meiryo UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Label14.Location = New System.Drawing.Point(943, 0)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(74, 30)
         Me.Label14.TabIndex = 108
         Me.Label14.Text = "起草者:"
         Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.ToolTip.SetToolTip(Me.Label14, "対象者:所属部門の担当者全て")
+        '
+        'lblSURYO
+        '
+        Me.tlpFilter.SetColumnSpan(Me.lblSURYO, 7)
+        Me.lblSURYO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSURYO.Location = New System.Drawing.Point(643, 120)
+        Me.lblSURYO.Name = "lblSURYO"
+        Me.lblSURYO.Size = New System.Drawing.Size(134, 30)
+        Me.lblSURYO.TabIndex = 117
+        Me.lblSURYO.Text = "個数:"
+        Me.lblSURYO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblSURYO.Visible = False
+        '
+        'chkDispSURYO
+        '
+        Me.chkDispSURYO.AutoSize = True
+        Me.chkDispSURYO.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkDispSURYO.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkDispSURYO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.chkDispSURYO.Location = New System.Drawing.Point(783, 123)
+        Me.chkDispSURYO.Name = "chkDispSURYO"
+        Me.chkDispSURYO.Size = New System.Drawing.Size(14, 24)
+        Me.chkDispSURYO.TabIndex = 118
+        Me.chkDispSURYO.Text = "削除済も表示"
+        Me.chkDispSURYO.UseVisualStyleBackColor = True
+        Me.chkDispSURYO.Visible = False
+        '
+        'chkDeleteRowVisibled
+        '
+        Me.chkDeleteRowVisibled.AutoSize = True
+        Me.tlpFilter.SetColumnSpan(Me.chkDeleteRowVisibled, 6)
+        Me.chkDeleteRowVisibled.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkDeleteRowVisibled.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.chkDeleteRowVisibled.Location = New System.Drawing.Point(1203, 3)
+        Me.chkDeleteRowVisibled.Name = "chkDeleteRowVisibled"
+        Me.chkDeleteRowVisibled.Size = New System.Drawing.Size(103, 21)
+        Me.chkDeleteRowVisibled.TabIndex = 17
+        Me.chkDeleteRowVisibled.Text = "削除済も表示"
+        Me.chkDeleteRowVisibled.UseVisualStyleBackColor = True
+        '
+        'chkClosedRowVisibled
+        '
+        Me.chkClosedRowVisibled.AutoSize = True
+        Me.tlpFilter.SetColumnSpan(Me.chkClosedRowVisibled, 7)
+        Me.chkClosedRowVisibled.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkClosedRowVisibled.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.chkClosedRowVisibled.Location = New System.Drawing.Point(1203, 33)
+        Me.chkClosedRowVisibled.Name = "chkClosedRowVisibled"
+        Me.chkClosedRowVisibled.Size = New System.Drawing.Size(113, 21)
+        Me.chkClosedRowVisibled.TabIndex = 18
+        Me.chkClosedRowVisibled.Text = "Close済も表示"
+        Me.chkClosedRowVisibled.UseVisualStyleBackColor = True
+        '
+        'chkTairyu
+        '
+        Me.chkTairyu.AutoSize = True
+        Me.tlpFilter.SetColumnSpan(Me.chkTairyu, 7)
+        Me.chkTairyu.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkTairyu.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.chkTairyu.Location = New System.Drawing.Point(1203, 63)
+        Me.chkTairyu.Name = "chkTairyu"
+        Me.chkTairyu.Size = New System.Drawing.Size(102, 21)
+        Me.chkTairyu.TabIndex = 19
+        Me.chkTairyu.Text = "滞留のみ表示"
+        Me.chkTairyu.UseVisualStyleBackColor = True
+        '
+        'btnClearSrchFilter
+        '
+        Me.tlpFilter.SetColumnSpan(Me.btnClearSrchFilter, 5)
+        Me.btnClearSrchFilter.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnClearSrchFilter.Location = New System.Drawing.Point(1203, 93)
+        Me.btnClearSrchFilter.Name = "btnClearSrchFilter"
+        Me.tlpFilter.SetRowSpan(Me.btnClearSrchFilter, 2)
+        Me.btnClearSrchFilter.Size = New System.Drawing.Size(94, 54)
+        Me.btnClearSrchFilter.TabIndex = 20
+        Me.btnClearSrchFilter.Text = "条件クリア"
+        Me.btnClearSrchFilter.UseVisualStyleBackColor = True
         '
         'cmbJIZEN_SINSA_HANTEI_KB
         '
@@ -2093,7 +2133,7 @@ Partial Class FrmG0010
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(537, 1)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(1, 1)
         Me.TableLayoutPanel4.TabIndex = 67
         '
         'Label5
@@ -2597,33 +2637,33 @@ Partial Class FrmG0010
         '
         'dgvDATA
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvDATA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvDATA.Location = New System.Drawing.Point(84, 12)
         Me.dgvDATA.Name = "dgvDATA"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvDATA.RowTemplate.Height = 21
         Me.dgvDATA.Size = New System.Drawing.Size(75, 26)
         Me.dgvDATA.TabIndex = 63
@@ -2874,4 +2914,6 @@ Partial Class FrmG0010
     Friend WithEvents GroupBoxEx1 As GroupBoxEx
     Friend WithEvents dgvCTS As DataGridView
     Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
+    Friend WithEvents lblSURYO As Label
+    Friend WithEvents chkDispSURYO As CheckBox
 End Class

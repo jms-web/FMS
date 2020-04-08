@@ -111,8 +111,13 @@ Public Class FrmG0012
                 Sub()
                     Me.Invoke(
                     Sub()
-                        Me.Visible = False
-                        Me.SuspendLayout()
+                        Me.Cursor = Cursors.WaitCursor
+                        'PicBox.Visible = True
+                        'PicBox.ImageLocation = "\\sv04\FMS\RESOURCE\loading.gif"
+                        'PicBox.Dock = DockStyle.Fill
+
+                        'Me.Visible = False
+                        'Me.SuspendLayout()
 
                         '-----フォーム初期設定(親フォームから呼び出し)
                         Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
@@ -140,13 +145,16 @@ Public Class FrmG0012
                         AddHandler rbtnFUTEKIGO_YOUIN_F.CheckedChanged, AddressOf RbtnFUTEKIGO_YOUIN_F_CheckedChanged
 
                         Me.tabSTAGE01.Focus()
-                        Me.ResumeLayout()
+                        'Me.ResumeLayout()
                     End Sub)
                 End Sub)
         Finally
             FunInitFuncButtonEnabled()
-            Me.Visible = True
-            Me.WindowState = Me.Owner.WindowState
+            Me.Cursor = Cursors.Default
+            'PicBox.Visible = False
+            'PicBox.Dock = DockStyle.None
+            'Me.Visible = True
+            Me.WindowState = FormWindowState.Maximized 'Me.Owner.WindowState
         End Try
     End Sub
 
@@ -2859,6 +2867,9 @@ Public Class FrmG0012
                 Return False
             End If
 
+            Call SetTANTO_TooltipInfo()
+
+
             'ナビゲートリンク選択
             If PrCurrentStage = ENM_CAR_STAGE._999_Closed Then
                 rsbtnST99.Checked = True
@@ -3023,6 +3034,31 @@ Public Class FrmG0012
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         End Try
+    End Function
+
+    Private Function SetTANTO_TooltipInfo() As Boolean
+
+        Call SetInfoLabelFormat(lblKONPON_YOIN_TANTO, $"所属部門の全担当者")
+
+        Call SetInfoLabelFormat(lblDestTANTO, $"承認担当者マスタ{vbCr}承認先ステージに登録された担当者")
+        Call SetInfoLabelFormat(lblSETUMON_5, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}技術・製造・検査・品証")
+        Call SetInfoLabelFormat(lblSETUMON_10, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}技術・製造・検査・品証")
+        Call SetInfoLabelFormat(lblSETUMON_17, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}技術・製造・検査・品証")
+
+        Call SetInfoLabelFormat(lblSYOCHI_A_TANTO, $"部署マスタ{vbCr}所属長として登録された担当者")
+        Call SetInfoLabelFormat(lblSYOCHI_B_TANTO, $"部署マスタ{vbCr}所属長として登録された担当者")
+        Call SetInfoLabelFormat(lblSYOCHI_C_TANTO, $"部署マスタ{vbCr}所属長として登録された担当者")
+
+        Call SetInfoLabelFormat(lblKENSA_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}検査")
+        Call SetInfoLabelFormat(lblKENSA_GL_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}検査")
+
+    End Function
+
+    Private Function SetInfoLabelFormat(lbl As Label, caption As String) As Boolean
+        lbl.ForeColor = Color.Blue
+        'lbl.Cursor = Cursors.Hand
+        lbl.Font = New Font("Meiryo UI", 9, FontStyle.Bold + FontStyle.Underline, lbl.Font.Unit, CType(128, Byte))
+        InfoToolTip.SetToolTip(lbl, caption)
     End Function
 
     Private Function FunSetSETUMON_NAIYO() As Boolean

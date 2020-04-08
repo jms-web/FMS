@@ -11,6 +11,9 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
     Inherits MODEL.ModelBase
     Implements IDisposable
 
+
+    Public Property SUMMARY_ROW_FLG As Integer
+
     <NotMapped>
     <ComponentModel.DisplayName("‘I‘ð")>
     Public Property SELECTED As Boolean
@@ -286,13 +289,13 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
 
     <NotMapped>
     <ComponentModel.DisplayName("”­¶“ú")>
-    Public Property HASSEI_YMD As DateTime
+    Public Property HASSEI_YMD As String
         Get
-            Return DateTime.ParseExact(_HASSEI_YMD, "yyyyMMdd", Nothing)
+            Return DateTime.ParseExact(_HASSEI_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
         End Get
-        Set(value As Date)
+        Set(value As String)
 
-            _HASSEI_YMD = value.ToString("yyyyMMdd")
+            _HASSEI_YMD = value '.ToString("yyyyMMdd")
         End Set
     End Property
 
