@@ -3,7 +3,7 @@ Imports System.ComponentModel.DataAnnotations.Schema
 Imports PropertyChanged
 
 ''' <summary>
-''' D007_不適合封じ込め調査書情報
+''' FCCBメインテーブル
 ''' </summary>
 <Table(NameOf(D009_FCCB_J), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
@@ -31,6 +31,12 @@ Partial Public Class D009_FCCB_J
     <StringLength(10)>
     Public Property HOKOKU_NO As String
 
+    <Required>
+    <Column(TypeName:="char")>
+    <StringLength(1)>
+    <ComponentModel.DisplayName("部門区分")>
+    Public Property BUMON_KB As String
+
     ''' <summary>
     ''' クローズフラグ
     ''' </summary>
@@ -57,316 +63,65 @@ Partial Public Class D009_FCCB_J
         End Set
     End Property
 
+    ''' <summary>
+    ''' 議長
+    ''' </summary>
+    ''' <returns></returns>
     <Required>
-    <Column(NameOf(KOKYAKU_EIKYO_HANTEI_KB), TypeName:="char")>
+    Public Property CHAIR_TANTO As Integer
+
+    <Required>
+    <ComponentModel.DisplayName("機種ID")>
+    Public Property KISYU_ID As Integer
+
+    <Required>
+    <Column(TypeName:="varchar")>
+    <StringLength(10)>
+    <ComponentModel.DisplayName("社内コード")>
+    Public Property SYANAI_CD As String
+
+    <Required>
+    <Column(TypeName:="varchar")>
+    <StringLength(60)>
+    <ComponentModel.DisplayName("部品番号")>
+    Public Property BUHIN_BANGO As String
+
+
+    <Required>
+    <Column(TypeName:="nvarchar")>
     <StringLength(1)>
-    <Display(AutoGenerateField:=False)>
-    Public Property _KOKYAKU_EIKYO_HANTEI_KB As String
+    <ComponentModel.DisplayName("部品名称")>
+    Public Property BUHIN_NAME As String
 
-    ''' <summary>
-    ''' 顧客影響判定
-    ''' </summary>
-    ''' <returns></returns>
-    <NotMapped>
-    Public Property KOKYAKU_EIKYO_HANTEI_KB As Boolean
-        Get
-            Return (_KOKYAKU_EIKYO_HANTEI_KB = "1")
-        End Get
-        Set(value As Boolean)
-            _KOKYAKU_EIKYO_HANTEI_KB = If(value, "1", "0")
-            'OnPropertyChanged(NameOf(CLOSE_FG))
-        End Set
-    End Property
 
-    ''' <summary>
-    ''' 対象顧客
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <Column(TypeName:="nvarchar")>
-    <StringLength(50)>
-    Public Property TAISYOU_KOKYAKU As String
-
-    ''' <summary>
-    ''' 顧客影響判定コメント
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <Column(TypeName:="nvarchar")>
-    <StringLength(200)>
-    Public Property KOKYAKU_EIKYO_HANTEI_COMMENT As String
-
-    ''' <summary>
-    ''' 1-2-a 不適合確認手段
-    ''' </summary>
-    ''' <returns></returns>
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(100)>
-    Public Property KOKYAKU_EIKYO_NAIYO As String
+    <ComponentModel.DisplayName("インプット文書など")>
+    Public Property INPUT_DOC_NO As String
 
-    ''' <summary>
-    ''' 1-2-b 顧客に与える影響
-    ''' </summary>
-    ''' <returns></returns>
+
+    <Required>
+    <Column(TypeName:="nvarchar")>
+    <StringLength(500)>
+    <ComponentModel.DisplayName("要求内容")>
+    Public Property INPUT_NAIYO As String
+
+
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(100)>
-    Public Property KAKUNIN_SYUDAN As String
+    <ComponentModel.DisplayName("適用SNO_時期")>
+    Public Property SNO_APPLY_PERIOD_KISO As String
 
     <Required>
-    <Column(NameOf(KOKYAKU_EIKYO_TUCHI_HANTEI_KB), TypeName:="char")>
-    <StringLength(1)>
-    <Display(AutoGenerateField:=False)>
-    Public Property _KOKYAKU_EIKYO_TUCHI_HANTEI_KB As String
-
-    ''' <summary>
-    ''' 1-2-b 顧客影響通知判定
-    ''' </summary>
-    ''' <returns></returns>
-    <NotMapped>
-    Public Property KOKYAKU_EIKYO_TUCHI_HANTEI_KB As Boolean
-        Get
-            Return (_KOKYAKU_EIKYO_TUCHI_HANTEI_KB = "1")
-        End Get
-        Set(value As Boolean)
-            _KOKYAKU_EIKYO_TUCHI_HANTEI_KB = If(value, "1", "0")
-        End Set
-    End Property
-
-    ''' <summary>
-    ''' 1-2-c 通知時期
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(8)>
-    <Column(TypeName:="char")>
-    Public Property TUCHI_YMD As String
-
-    ''' <summary>
-    ''' 1-2-c 通知手段
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
+    <Column(TypeName:="nvarchar")>
     <StringLength(100)>
-    <Column(TypeName:="nvarchar")>
-    Public Property TUCHI_SYUDAN As String
-
-    ''' <summary>
-    ''' 1-2-c 必要手続き事項
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(200)>
-    <Column(TypeName:="nvarchar")>
-    Public Property HITUYO_TETUDUKI_ZIKO As String
-
-    ''' <summary>
-    ''' 1-2-d 引取・修理・代品納入の要否
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(200)>
-    <Column(TypeName:="nvarchar")>
-    Public Property KOKYAKU_EIKYO_ETC_COMMENT As String
-
-    <Required>
-    <Column(NameOf(OTHER_PROCESS_INFLUENCE_KB), TypeName:="char")>
-    <StringLength(1)>
-    <Display(AutoGenerateField:=False)>
-    Public Property _OTHER_PROCESS_INFLUENCE_KB As String
-
-    ''' <summary>
-    ''' 4-1 他のプロセスへの影響
-    ''' </summary>
-    ''' <returns></returns>
-    <NotMapped>
-    Public Property OTHER_PROCESS_INFLUENCE_KB As Boolean
-        Get
-            Return (_OTHER_PROCESS_INFLUENCE_KB = "1")
-        End Get
-        Set(value As Boolean)
-            _OTHER_PROCESS_INFLUENCE_KB = If(value, "1", "0")
-        End Set
-    End Property
-
-    <Required>
-    <Column(NameOf(FOLLOW_PROCESS_OUTFLOW_KB), TypeName:="char")>
-    <StringLength(1)>
-    <Display(AutoGenerateField:=False)>
-    Public Property _FOLLOW_PROCESS_OUTFLOW_KB As String
-
-    ''' <summary>
-    ''' 4-2 後続プロセスへの流出
-    ''' </summary>
-    ''' <returns></returns>
-    <NotMapped>
-    Public Property FOLLOW_PROCESS_OUTFLOW_KB As Boolean
-        Get
-            Return (_FOLLOW_PROCESS_OUTFLOW_KB = "1")
-        End Get
-        Set(value As Boolean)
-            _FOLLOW_PROCESS_OUTFLOW_KB = If(value, "1", "0")
-        End Set
-    End Property
-
-    ''' <summary>
-    ''' 5-1 顧客納入済品 実施内容
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(50)>
-    <Column(TypeName:="nvarchar")>
-    Public Property KOKYAKU_NOUNYU_NAIYOU As String
-
-    ''' 5-1 顧客納入済品 日付
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(8)>
-    <Column(TypeName:="char")>
-    Public Property KOKYAKU_NOUNYU_YMD As String
-
-    ''' <summary>
-    ''' 5-2 在庫品・仕掛品 内容
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(50)>
-    <Column(TypeName:="nvarchar")>
-    Public Property ZAIKO_SIKAKE_NAIYOU As String
-
-    ''' 5-2 在庫品・仕掛品 日付
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(8)>
-    <Column(TypeName:="char")>
-    Public Property ZAIKO_SIKAKE_YMD As String
-
-    ''' <summary>
-    ''' 5-3 他のプロセス 内容
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(50)>
-    <Column(TypeName:="nvarchar")>
-    Public Property OTHER_PROCESS_NAIYOU As String
-
-    ''' 5-2 他のプロセス 日付
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(8)>
-    <Column(TypeName:="char")>
-    Public Property OTHER_PROCESS_YMD As String
-
-
-    '#252 追加項目
-
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(100)>
-    <Column(TypeName:="nvarchar")>
-    Public Property KOKYAKU_EIKYO_HANTEI_FILEPATH As String
-
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(100)>
-    <Column(TypeName:="nvarchar")>
-    Public Property FUTEKIGO_SEIHIN_MEMO As String
-
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(100)>
-    <Column(TypeName:="nvarchar")>
-    Public Property KOKYAKU_EIKYO_MEMO As String
-
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(100)>
-    <Column(TypeName:="nvarchar")>
-    Public Property OTHER_PROCESS_INFLUENCE_MEMO As String
-
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(100)>
-    <Column(TypeName:="nvarchar")>
-    Public Property OTHER_PROCESS_INFLUENCE_FILEPATH As String
-
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(100)>
-    <Column(TypeName:="nvarchar")>
-    Public Property FOLLOW_PROCESS_OUTFLOW_MEMO As String
-
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(100)>
-    <Column(TypeName:="nvarchar")>
-    Public Property FOLLOW_PROCESS_OUTFLOW_FILEPATH As String
+    <ComponentModel.DisplayName("適用SNO_時期")>
+    Public Property SNO_APPLY_PERIOD_SINGI As String
 
 
 
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(100)>
-    <Column(TypeName:="nvarchar")>
-    Public Property FUTEKIGO_SEIHIN_FILEPATH As String
-
-
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(100)>
-    <Column(TypeName:="nvarchar")>
-    Public Property KOKYAKU_EIKYO_FILEPATH As String
-
-
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(100)>
-    <Column(TypeName:="nvarchar")>
-    Public Property SYOCHI_MEMO As String
-
-
-    ''' <summary>
-    ''' 
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    <StringLength(100)>
-    <Column(TypeName:="nvarchar")>
-    Public Property SYOCHI_FILEPATH As String
 
     ''共通項目------------------------------------
     <Required>

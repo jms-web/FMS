@@ -105,9 +105,9 @@ Public Class FrmM0000
             '‹Æ–±•ª—ÞƒZƒbƒg
             Dim imgList As New ImageList
             'imgList.Images.Add(My.Resources._imgBilling1) 'MenuSection1
-            'imgList.Images.Add(My.Resources._imgBox) 'MenuSection2
             'imgList.Images.Add(My.Resources._imgShelf) 'MenuSection3
             imgList.Images.Add(My.Resources._imgStatusAnnotations_Warning32x32) 'MenuSection4
+            imgList.Images.Add(My.Resources._imgBox) 'MenuSection2
             imgList.Images.Add(My.Resources._imgBase_cog32x32) 'MenuSection5
             imgList.ImageSize = New Size(32, 32)
             imgList.ColorDepth = ColorDepth.Depth32Bit

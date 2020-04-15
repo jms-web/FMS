@@ -1387,6 +1387,101 @@ Public NotInheritable Class ClsPubMethod
     End Function
 
 
+    Public Shared Function FunCSV_OUTviaFlexGrid(flx As C1.Win.C1FlexGrid.C1FlexGrid, ByVal strFileName As String, ByVal strOutPath As String, Optional ByVal blnWriteHeader As Boolean = True) As Boolean
+
+        Dim strARY() As String
+
+        Dim intROW As Integer
+        'Dim intCOL As Integer
+        Dim strOUT_PATH As String
+        Dim dlgRET As DialogResult
+        Dim sb As New System.Text.StringBuilder
+        Try
+
+            '出力データチェック
+            If flx.Rows.Count <= 1 Then
+                MessageBox.Show("出力データがありません", "CSV出力", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return False
+            End If
+
+            '出力先フォルダ作成(+相対パス→絶対パス変換)
+            If FunCreateDirectory(strOutPath) = False Then
+                '出力先フォルダ作成失敗
+            End If
+
+            Using sfd As New SaveFileDialog
+                With sfd
+                    .Title = "出力先を選択して下さい"
+                    .Filter = "CSVファイル(*.CSV)|*.CSV"
+                    .FileName = strFileName
+                    .InitialDirectory = strOutPath
+                    .CheckPathExists = True
+
+                    'ダイアログ表示
+                    dlgRET = sfd.ShowDialog
+                End With
+
+                Application.DoEvents()
+
+                If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                    Return False
+                Else
+                    '出力先
+                    strOUT_PATH = FunConvPathString(System.IO.Path.GetDirectoryName(sfd.FileName))
+                End If
+                'ファイル名
+                strFileName = System.IO.Path.GetFileName(sfd.FileName)
+
+
+
+                '-----配列用意
+                ReDim strARY(0 To flx.Rows.Count - 1)
+
+                'If blnWriteHeader = True Then
+                '    sb.Remove(0, sb.Length)
+                '    For Each dc As C1.Win.C1FlexGrid.Column In flx.Cols
+                '        If sb.Length > 0 Then
+                '            sb.Append(","c)
+                '        End If
+                '        sb.Append(EncloseDoubleQuotesIfNeed(dc.Name.ToString.Replace(vbCrLf, "")))
+                '    Next dc
+                '    strARY(intROW) = sb.ToString
+                '    intROW += 1
+                'End If
+
+                '-----データ書込
+                For rowIndex As Integer = 0 To flx.Rows.Count - 1
+                    If flx.Rows(rowIndex).Visible Then
+                        sb.Remove(0, sb.Length)
+                        For colIndex As Integer = 1 To flx.Cols.Count - 1
+                            If flx.Cols(colIndex).Visible Then
+                                If sb.Length > 0 Then
+                                    sb.Append(","c)
+                                End If
+                                sb.Append(EncloseDoubleQuotesIfNeed(flx.Item(rowIndex, colIndex).ToString.Replace(vbCrLf, "")))
+                            End If
+                        Next
+                        strARY(intROW) = sb.ToString
+                        intROW += 1
+                    End If
+                Next
+
+            End Using
+
+            '-----CSV出力
+            Call WRITE_CSV_FILE(strOUT_PATH, strFileName, strARY)
+
+            MessageBox.Show("｢" & strOUT_PATH & strFileName & "｣に出力しました。", "CSV出力", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            Return True
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        End Try
+    End Function
+
+
     Public Shared Function FunCSV_OUT(Of T As IDataModel)(ByVal entities As List(Of T), ByVal strFileName As String, ByVal strOutPath As String, Optional ByVal blnWriteHeader As Boolean = True) As Boolean
 
         Dim strARY() As String

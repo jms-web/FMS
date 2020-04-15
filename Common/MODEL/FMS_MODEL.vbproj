@@ -121,6 +121,8 @@
     </Compile>
     <Compile Include="Migrations\201804050655482_Init31.vb" />
     <Compile Include="Migrations\Configuration.vb" />
+    <Compile Include="Models\Data\D011_FCCB_SUB_SIKAKE_BUHIN.vb" />
+    <Compile Include="Models\Data\D010_FCCB_SUB_SYOCHI_KOMOKU.vb" />
     <Compile Include="Models\Data\R007_FCCB_SASIMODOSI.vb" />
     <Compile Include="Models\Data\D009_FCCB_J.vb" />
     <Compile Include="Models\Data\D008_FCR_J_SUB.vb" />

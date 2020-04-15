@@ -474,7 +474,11 @@ Public Class FrmG0010
 
         If intCNT > 0 Then
             Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, intCNT)
-            Call SetSummaryRow(flx)
+
+            Select Case pub_intOPEN_MODE
+                Case ENM_OPEN_MODE._3_分析集計
+                    Call SetSummaryRow(flx)
+            End Select
         Else
             Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
         End If
@@ -1187,14 +1191,15 @@ Public Class FrmG0010
 
                 Case 8 'CSV出力
                     Dim strFileName As String
-
+                    'Dim dt As DataTable
                     If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
                         strFileName = $"不適合集計_{DateTime.Now:yyyyMMddHHmmss}.CSV"
                     Else
                         strFileName = $"{pub_APP_INFO.strTitle}_{DateTime.Now:yyyyMMddHHmmss}.CSV"
                     End If
 
-                    Call FunCSV_OUT(flxDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
+                    Call FunCSV_OUTviaFlexGrid(flxDATA, strFileName, pub_APP_INFO.strOUTPUT_PATH)
+                    'Call FunCSV_OUT(DirectCast(flxDATA.DataSource, DataView).Table, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
                 Case 9 'メール送信
 
