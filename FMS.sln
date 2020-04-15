@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aplication", "Aplication", "{B8176DF2-81BB-4A06-809D-839EC9CA0181}"
 EndProject
@@ -119,6 +119,8 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FMS_M0030(業務グループマスタ)", "Application\MastaApp\FMS_M0030(業務グループマスタ)\FMS_M0030(業務グループマスタ).vbproj", "{502544AF-A86F-4479-914B-72A56E970AD6}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FMS_M0110(社員業務グループマスタ)", "Application\MastaApp\FMS_M0011(社員業務マスタ)\FMS_M0110(社員業務グループマスタ).vbproj", "{0CE89B95-6EDC-4346-90DB-654504CD1957}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FMS_G0020(FCCB管理)", "Application\BizApp\FMS_G0020(FCCB管理)\FMS_G0020(FCCB管理).vbproj", "{3A800848-DB01-472D-8605-2BBE67EB638C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -358,6 +360,18 @@ Global
 		{0CE89B95-6EDC-4346-90DB-654504CD1957}.Release|x64.Build.0 = Release|Any CPU
 		{0CE89B95-6EDC-4346-90DB-654504CD1957}.Release|x86.ActiveCfg = Release|x86
 		{0CE89B95-6EDC-4346-90DB-654504CD1957}.Release|x86.Build.0 = Release|x86
+		{3A800848-DB01-472D-8605-2BBE67EB638C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A800848-DB01-472D-8605-2BBE67EB638C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A800848-DB01-472D-8605-2BBE67EB638C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3A800848-DB01-472D-8605-2BBE67EB638C}.Debug|x64.Build.0 = Debug|Any CPU
+		{3A800848-DB01-472D-8605-2BBE67EB638C}.Debug|x86.ActiveCfg = Debug|x86
+		{3A800848-DB01-472D-8605-2BBE67EB638C}.Debug|x86.Build.0 = Debug|x86
+		{3A800848-DB01-472D-8605-2BBE67EB638C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A800848-DB01-472D-8605-2BBE67EB638C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A800848-DB01-472D-8605-2BBE67EB638C}.Release|x64.ActiveCfg = Release|Any CPU
+		{3A800848-DB01-472D-8605-2BBE67EB638C}.Release|x64.Build.0 = Release|Any CPU
+		{3A800848-DB01-472D-8605-2BBE67EB638C}.Release|x86.ActiveCfg = Release|x86
+		{3A800848-DB01-472D-8605-2BBE67EB638C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -385,10 +399,11 @@ Global
 		{0F15C87A-C571-45FC-AC69-4E3CB0D0ABAB} = {1034D131-E395-4208-B99E-F5BDA56C56F9}
 		{502544AF-A86F-4479-914B-72A56E970AD6} = {1034D131-E395-4208-B99E-F5BDA56C56F9}
 		{0CE89B95-6EDC-4346-90DB-654504CD1957} = {1034D131-E395-4208-B99E-F5BDA56C56F9}
+		{3A800848-DB01-472D-8605-2BBE67EB638C} = {D70FCEFD-9C30-47F2-8477-4DBA645BB752}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		BuildVersion_UseGlobalSettings = True
-		BuildVersion_StartDate = 2000/1/1
 		SolutionGuid = {7654D903-2DF2-4216-B2D3-7A7E3E63F7E7}
+		BuildVersion_StartDate = 2000/1/1
+		BuildVersion_UseGlobalSettings = True
 	EndGlobalSection
 EndGlobal
