@@ -865,7 +865,15 @@ Module mdlG0010
         Dim strMsg As String
         Try
 
+
+
             Using DB As ClsDbUtility = DBOpen()
+
+                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                    MessageBox.Show("メール送信が無効に設定されているため、依頼メールは送信されませんでした。", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return True
+                End If
+
                 strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
                 intSmtpPort = Val(FunGetCodeMastaValue(DB, "メール設定", "SMTP_PORT"))
                 strUserID = FunGetCodeMastaValue(DB, "メール設定", "SMTP_USER")
@@ -928,10 +936,7 @@ Module mdlG0010
                     Return False
                 End If
 
-                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
-                    MessageBox.Show("メール送信が無効に設定されているため、依頼メールは送信されませんでした。", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Return True
-                End If
+
 
                 strMsg = $"【メール送信成功】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}"
                 WL.WriteLogDat(strMsg)

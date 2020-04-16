@@ -6671,16 +6671,19 @@ Public Class FrmG0011
                         Call dtUPD_YMD_Validating(dtST03_UPD_YMD, Nothing)
 
                         '#252 Delete CTSは必須ではなく任意起草とする
-                        Call CmbST03_TANTO_FCR_Validating(cmbST03_TANTO_FCR, Nothing)
-                        If IsValidated Then
-                            If btnST03_FCR_KISO.Text = "起草" Then
-                                Dim msg As String = $"不適合封じ込め調査書が起草されていません{vbCrLf}今すぐ起草しますか？"
-                                If MessageBox.Show(msg, "起草確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) <> DialogResult.OK Then
-                                    IsValidated = False
-                                End If
-                                If funSAVE_FCR_KISO() Then
-                                    btnST03_FCR_KISO.Enabled = False
-                                    btnST03_FCR_KISO.Text = "起草済"
+                        '#264
+                        If _D003_NCR_J.ADD_YMDHNS.Substring(0, 8) >= "20200406" Then
+                            Call CmbST03_TANTO_FCR_Validating(cmbST03_TANTO_FCR, Nothing)
+                            If IsValidated Then
+                                If btnST03_FCR_KISO.Text = "起草" Then
+                                    Dim msg As String = $"不適合封じ込め調査書が起草されていません{vbCrLf}今すぐ起草しますか？"
+                                    If MessageBox.Show(msg, "起草確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) <> DialogResult.OK Then
+                                        IsValidated = False
+                                    End If
+                                    If funSAVE_FCR_KISO() Then
+                                        btnST03_FCR_KISO.Enabled = False
+                                        btnST03_FCR_KISO.Text = "起草済"
+                                    End If
                                 End If
                             End If
                         End If

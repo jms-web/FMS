@@ -58,20 +58,20 @@ Public Class FrmG0021_Detail
         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
 
-        cmbDestTANTO.NullValue = 0
-        cmbKOKYAKU_EIKYO_HANTEI_COMMENT.NullValue = ""
-        dtTUCHI_YMD.Nullable = True
-        dtKOKYAKU_NOUNYU_YMD.Nullable = True
-        dtZAIKO_SIKAKE_YMD.Nullable = True
-        dtOTHER_PROCESS_YMD.Nullable = True
-        Me.Height = 750
+        'cmbDestTANTO.NullValue = 0
+        'cmbKOKYAKU_EIKYO_HANTEI_COMMENT.NullValue = ""
+        'dtTUCHI_YMD.Nullable = True
+        'dtKOKYAKU_NOUNYU_YMD.Nullable = True
+        'dtZAIKO_SIKAKE_YMD.Nullable = True
+        'dtOTHER_PROCESS_YMD.Nullable = True
+        'Me.Height = 750
 
-        rsbtnST99.Enabled = False
-        dtFUTEKIGO_HASSEI_YMD.ReadOnly = True
+        'rsbtnST99.Enabled = False
+        'dtFUTEKIGO_HASSEI_YMD.ReadOnly = True
 
-        dtSYOCHI_YOTEI_YMD.MinDate = Date.Today
+        'dtSYOCHI_YOTEI_YMD.MinDate = Date.Today
 
-        dtFUTEKIGO_HASSEI_YMD.ReadOnly = True
+        'dtFUTEKIGO_HASSEI_YMD.ReadOnly = True
 
         cmbKISYU1.NullValue = 0
         cmbKISYU2.NullValue = 0
