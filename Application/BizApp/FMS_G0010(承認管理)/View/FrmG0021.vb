@@ -131,6 +131,8 @@ Public Class FrmG0021
                         cmbKOKYAKU_EIKYO_HANTEI_COMMENT.SetDataSource(tblKOKYAKU_EIKYO_COMMENT.LazyLoad("不適合封じ込め非の理由"), ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
 
+                        IsEditingClosed = HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
+
                         '-----画面初期化
                         Call FunInitializeControls()
 
@@ -715,6 +717,9 @@ Public Class FrmG0021
             If PrCurrentStage = ENM_CTS_STAGE._10_起草入力 Then
                 _D004_SYONIN_J_KANRI.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             End If
+
+            _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = dtUPD_YMD.ValueNonFormat & "000000"
+
 
             '#80 承認申請日は画面で入力
             If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNulOrWS Then

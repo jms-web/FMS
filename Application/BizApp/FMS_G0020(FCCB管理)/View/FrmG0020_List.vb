@@ -1672,81 +1672,28 @@ Public Class FrmG0020_List
         Try
             Dim strHOKOKU_NO As String = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST02.HOKOKU_NO))
             Me.Cursor = Cursors.WaitCursor
-            Select Case flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST02.SYONIN_HOKOKUSYO_ID))
-                Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-                    'ファイル名
-                    strOutputFileName = $"NCR_{strHOKOKU_NO}_Work.xls"
 
-                    '既存ファイル削除
-                    If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
+            'ファイル名
+            strOutputFileName = "FCCB_" & strHOKOKU_NO & "_Work.xls"
+
+            '既存ファイル削除
+            If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
                         Return False
                     End If
 
                     Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
-
-                        If IsMatchRevision("P", Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, strHOKOKU_NO) Then
-                            strTEMPFILE = FunConvRootPath(iniIF.GetIniString("NCR", "FILEPATH2"))
-                        Else
-                            strTEMPFILE = FunConvRootPath(iniIF.GetIniString("NCR", "FILEPATH"))
-                        End If
-                    End Using
+                strTEMPFILE = FunConvRootPath(iniIF.GetIniString("FCCB", "FILEPATH"))
+            End Using
 
                     'エクセル出力ファイル用意
                     If OUT_EXCEL_READY(strTEMPFILE, pub_APP_INFO.strOUTPUT_PATH, strOutputFileName) = False Then
                         Return False
                     End If
-                    '-----書込処理
-                    If FunMakeReportNCR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
-                        Return False
-                    End If
+            '-----書込処理
+            'If FunMakeReportFCCB(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
+            '    Return False
+            'End If
 
-                Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
-                    'ファイル名
-                    strOutputFileName = "CAR_" & strHOKOKU_NO & "_Work.xls"
-
-                    '既存ファイル削除
-                    If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
-                        Return False
-                    End If
-
-                    Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
-                        strTEMPFILE = FunConvRootPath(iniIF.GetIniString("CAR", "FILEPATH"))
-                    End Using
-
-                    'エクセル出力ファイル用意
-                    If OUT_EXCEL_READY(strTEMPFILE, pub_APP_INFO.strOUTPUT_PATH, strOutputFileName) = False Then
-                        Return False
-                    End If
-                    '-----書込処理
-                    If FunMakeReportCAR(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
-                        Return False
-                    End If
-
-                Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
-                    'ファイル名
-                    strOutputFileName = "CTS_" & strHOKOKU_NO & "_Work.xls"
-
-                    '既存ファイル削除
-                    If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
-                        Return False
-                    End If
-
-                    Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
-                        strTEMPFILE = FunConvRootPath(iniIF.GetIniString("CTS", "FILEPATH"))
-                    End Using
-
-                    'エクセル出力ファイル用意
-                    If OUT_EXCEL_READY(strTEMPFILE, pub_APP_INFO.strOUTPUT_PATH, strOutputFileName) = False Then
-                        Return False
-                    End If
-                    '-----書込処理
-                    If FunMakeReportCTS(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
-                        Return False
-                    End If
-                Case Else
-                    'err
-                    Return False
-            End Select
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -1842,12 +1789,7 @@ Public Class FrmG0020_List
                     cmdFunc4.Text = "変更・承認(F4)"
                     'MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
                 End If
-                'If FunblnAllowSyonin() Then
-                '    cmdFunc4.Enabled = True
-                'Else
-                '    cmdFunc4.Enabled = False
-                '    MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "変更承認権限がありません")
-                'End If
+
 
                 '削除ボタン
                 If HasDeleteAuth(pub_SYAIN_INFO.SYAIN_ID,
@@ -2488,7 +2430,7 @@ Public Class FrmG0020_List
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
-            If dsList.Tables(0).Rows(0).Item(0) = ENM_CAR_STAGE._10_起草入力.Value Then
+            If dsList.Tables(0).Rows(0).Item(0) = ENM_FCCB_STAGE._10_起草.Value Then
                 Return True
             End If
 

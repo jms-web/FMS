@@ -23,7 +23,7 @@ Partial Public Class D010_FCCB_SUB_SYOCHI_KOMOKU
     <Key>
     <Column(Order:=0, TypeName:="char")>
     <StringLength(10)>
-    Public Property HOKOKU_NO As String
+    Public Property FCCB_NO As String
 
     <Required>
     <StringLength(2)>

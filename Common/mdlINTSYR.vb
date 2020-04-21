@@ -176,6 +176,22 @@ Module mdlINTSYR
         _9_経営部 = 9
     End Enum
 
+    ''' <summary>
+    ''' 業務グループ
+    ''' </summary>
+    Public Enum ENM_GYOMU_GROUP_ID
+        _1_技術 = 1
+        _2_製造 = 2
+        _3_検査 = 3
+        _4_品証 = 4
+        _5_設計 = 5
+        _6_生技 = 6
+        _7_管理 = 7
+        _8_営業 = 8
+        _9_購買 = 9
+        _20_QMS管理責任者 = 20
+        _99_その他_仮 = 99
+    End Enum
 
     ''' <summary>
     ''' データ処理モード
@@ -698,5 +714,28 @@ Module mdlINTSYR
     End Function
 
 #End Region
+
+#Region "Close済み編集権限確認"
+
+    Public Function HasEditingRight(SYAIN_ID As Integer) As Boolean
+        Dim dsList As New DataSet
+        Dim sbSQL As New System.Text.StringBuilder
+        Try
+
+            sbSQL.Append($"SELECT {NameOf(MODEL.M011_SYAIN_GYOMU.SYAIN_ID)} FROM {NameOf(MODEL.M011_SYAIN_GYOMU)}")
+            sbSQL.Append($" WHERE {NameOf(MODEL.M011_SYAIN_GYOMU.SYAIN_ID)}={SYAIN_ID}")
+            sbSQL.Append($" AND {NameOf(MODEL.M011_SYAIN_GYOMU.GYOMU_GROUP_ID)}={ENM_GYOMU_GROUP_ID._4_品証.Value}")
+            Using DB As ClsDbUtility = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            Return dsList.Tables(0).Rows.Count > 0
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
+#End Region
+
 
 End Module

@@ -21,7 +21,7 @@ Partial Public Class D011_FCCB_SUB_SIKAKE_BUHIN
     <Key>
     <Column(Order:=0, TypeName:="char")>
     <StringLength(10)>
-    Public Property HOKOKU_NO As String
+    Public Property FCCB_NO As String
 
 
     <Key>

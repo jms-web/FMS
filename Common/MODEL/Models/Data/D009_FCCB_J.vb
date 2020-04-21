@@ -29,7 +29,7 @@ Partial Public Class D009_FCCB_J
     <Key>
     <Column(Order:=0, TypeName:="char")>
     <StringLength(10)>
-    Public Property HOKOKU_NO As String
+    Public Property FCCB_NO As String
 
     <Required>
     <Column(TypeName:="char")>

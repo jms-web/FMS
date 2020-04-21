@@ -3,7 +3,7 @@ Imports JMS_COMMON.ClsPubMethod
 Imports MODEL
 
 ''' <summary>
-''' CTS登録画面
+''' FCCB登録画面
 ''' </summary>
 Public Class FrmG0021_Detail
 
@@ -11,11 +11,7 @@ Public Class FrmG0021_Detail
 
     Private _V002_NCR_J As New V002_NCR_J
     Private _V003_SYONIN_J_KANRI_List As New List(Of V003_SYONIN_J_KANRI)
-    Private _tabPageManager As TabPageManager
-
     Private IsEditingClosed As Boolean
-
-
     Private IsInitializing As Boolean
 #End Region
 
@@ -73,31 +69,6 @@ Public Class FrmG0021_Detail
 
         'dtFUTEKIGO_HASSEI_YMD.ReadOnly = True
 
-        cmbKISYU1.NullValue = 0
-        cmbKISYU2.NullValue = 0
-        cmbKISYU3.NullValue = 0
-        cmbKISYU4.NullValue = 0
-        cmbKISYU5.NullValue = 0
-        cmbKISYU6.NullValue = 0
-
-        txtBUHIN_INFO1.ShowRemainingChars = False
-        txtBUHIN_INFO2.ShowRemainingChars = False
-        txtBUHIN_INFO3.ShowRemainingChars = False
-        txtBUHIN_INFO4.ShowRemainingChars = False
-        txtBUHIN_INFO5.ShowRemainingChars = False
-        txtBUHIN_INFO6.ShowRemainingChars = False
-        txtFROM1.ShowRemainingChars = False
-        txtFROM2.ShowRemainingChars = False
-        txtFROM3.ShowRemainingChars = False
-        txtFROM4.ShowRemainingChars = False
-        txtFROM5.ShowRemainingChars = False
-        txtFROM6.ShowRemainingChars = False
-        txtTO1.ShowRemainingChars = False
-        txtTO2.ShowRemainingChars = False
-        txtTO3.ShowRemainingChars = False
-        txtTO4.ShowRemainingChars = False
-        txtTO5.ShowRemainingChars = False
-        txtTO6.ShowRemainingChars = False
 
     End Sub
 
@@ -107,10 +78,8 @@ Public Class FrmG0021_Detail
 
     'Loadイベント
     Private Async Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        'Dim imgDlg As New ImageDialog
-        Try
-            'imgDlg.Show("\\sv04\FMS\RESOURCE\loading.gif", 0)
 
+        Try
             PrRIYU = ""
             Await Task.Run(
                 Sub()
@@ -128,25 +97,50 @@ Public Class FrmG0021_Detail
                         _D004_SYONIN_J_KANRI.clear()
 
                         '-----コントロールデータソース設定
-                        cmbKOKYAKU_EIKYO_HANTEI_COMMENT.SetDataSource(tblKOKYAKU_EIKYO_COMMENT.LazyLoad("不適合封じ込め非の理由"), ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                        cmbKISO_TANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                        cmbKISYU.SetDataSource(tblKISYU.LazyLoad("機種").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                        cmbBUHIN_BANGO.SetDataSource(tblBUHIN.LazyLoad("部品番号").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                        cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                        Dim blnIsAdmin As Boolean = IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID)
+                        If blnIsAdmin Then
+                            'システム管理者のみ制限解除
+                        Else
+                            Select Case pub_SYAIN_INFO.BUMON_KB
+                                Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
+                                    Dim dt As DataTable = DirectCast(cmbBUMON.DataSource, DataTable).
+                                                                AsEnumerable.
+                                                                Where(Function(r) r.Field(Of String)("VALUE") = "1" Or r.Field(Of String)("VALUE") = "2").
+                                                                CopyToDataTable
+                                    cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
+                                    cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+
+                                Case Context.ENM_BUMON_KB._3_複合材
+                                    Dim dt As DataTable = DirectCast(cmbBUMON.DataSource, DataTable).
+                                                                AsEnumerable.
+                                                                Where(Function(r) r.Field(Of String)("VALUE") = pub_SYAIN_INFO.BUMON_KB).
+                                                                CopyToDataTable
+                                    cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+
+                                    cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+
+                                Case Else
+                                    'Err
+                            End Select
+                        End If
+
+                        IsEditingClosed = HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
 
                         '-----画面初期化
                         Call FunInitializeControls()
 
-                        AddHandler rbtnKOKYAKU_EIKYO_HANTEI_KB_T.CheckedChanged, AddressOf RbtnKOKYAKU_EIKYO_HANTEI_KB_CheckedChanged
-                        AddHandler rbtnKOKYAKU_EIKYO_HANTEI_KB_F.CheckedChanged, AddressOf RbtnKOKYAKU_EIKYO_HANTEI_KB_CheckedChanged
 
-                        Me.tabSTAGE01.Focus()
-                        'Me.ResumeLayout()
                     End Sub)
                 End Sub)
         Finally
             FunInitFuncButtonEnabled()
             Me.Cursor = Cursors.Default
-            'imgDlg.Close()
-            'Me.Visible = True
-            Me.WindowState = FormWindowState.Maximized 'Me.Owner.WindowState
+            Me.WindowState = FormWindowState.Maximized
         End Try
     End Sub
 
@@ -159,7 +153,7 @@ Public Class FrmG0021_Detail
         Me.Owner.Visible = False
     End Sub
 
-    Private Sub Frm_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+    Private Sub Frm_Closed(sender As Object, e As EventArgs) Handles MyBase.Closed
         Me.Owner.Visible = True
     End Sub
 
@@ -189,7 +183,7 @@ Public Class FrmG0021_Detail
 
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
-                        If IsEditingClosed And PrCurrentStage = ENM_CTS_STAGE._999_Closed Then
+                        If IsEditingClosed And PrCurrentStage = ENM_FCCB_STAGE._999_Closed Then
 
                             OpenFormEdit()
                             If PrRIYU.IsNulOrWS Then
@@ -208,13 +202,11 @@ Public Class FrmG0021_Detail
                     End If
 
                 Case 2  '承認申請
-                    '申請先タブに切り替え
-                    'TabSTAGE.SelectedIndex = 6
 
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._2_承認申請) Then
                         Dim strMsg As String
-                        If FunGetNextSYONIN_JUN(PrCurrentStage, _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB) = ENM_CTS_STAGE._999_Closed Then
+                        If FunGetNextSYONIN_JUN(PrCurrentStage, _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB) = ENM_FCCB_STAGE._999_Closed Then
                             strMsg = "承認しますか？"
                         Else
                             strMsg = "承認・申請しますか？"
@@ -222,7 +214,7 @@ Public Class FrmG0021_Detail
 
                         If MessageBox.Show(strMsg, "承認・申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                             If FunSAVE(ENM_SAVE_MODE._2_承認申請) Then
-                                If PrCurrentStage = ENM_CTS_STAGE._90_部門長 Then
+                                If PrCurrentStage = ENM_FCCB_STAGE._61_処置事項完了確認_統括 Then
                                     strMsg = "承認しました"
                                 Else
                                     strMsg = "承認・申請しました"
@@ -313,7 +305,7 @@ Public Class FrmG0021_Detail
                     If FunSAVE_D008(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                     If FunSAVE_FILE(DB) = False Then blnErr = True : Return False
 
-                    If Not blnTENSO And PrCurrentStage < ENM_CTS_STAGE._999_Closed Then
+                    If Not blnTENSO And PrCurrentStage < ENM_FCCB_STAGE._999_Closed Then
                         If FunSAVE_D004(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                     End If
                     If FunSAVE_R001(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
@@ -454,7 +446,7 @@ Public Class FrmG0021_Detail
         _D007.Clear()
         _D007.HOKOKU_NO = PrHOKOKU_NO
 
-        If (FunGetNextSYONIN_JUN(PrCurrentStage, _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB) = ENM_CTS_STAGE._999_Closed) And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
+        If (FunGetNextSYONIN_JUN(PrCurrentStage, _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB) = ENM_FCCB_STAGE._999_Closed) And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
             _D007._CLOSE_FG = 1
         End If
         If rbtnKOKYAKU_EIKYO_HANTEI_KB_T.Checked Then
@@ -709,7 +701,7 @@ Public Class FrmG0021_Detail
             _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
 
-            If PrCurrentStage = ENM_CTS_STAGE._10_起草入力 Then
+            If PrCurrentStage = ENM_FCCB_STAGE._10_起草 Then
                 _D004_SYONIN_J_KANRI.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             End If
 
@@ -841,7 +833,7 @@ Public Class FrmG0021_Detail
             End Select
 
             '-----Close処理
-            If _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_CAR_STAGE._999_Closed Then
+            If _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_FCCB_STAGE._999_Closed Then
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
                 _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
             End If
@@ -1463,12 +1455,11 @@ Public Class FrmG0021_Detail
 
             If FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, PrHOKOKU_NO, PrCurrentStage) Then '
                 cmdFunc1.Enabled = True
-                cmdFunc2.Enabled = True
                 cmdFunc4.Enabled = True
                 cmdFunc5.Enabled = True
 
                 'SPEC: C10-3
-                If PrCurrentStage = ENM_CAR_STAGE._10_起草入力 Then
+                If PrCurrentStage = ENM_FCCB_STAGE._10_起草 Then
                     cmdFunc5.Enabled = False
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "起草入力で差戻登録は使用出来ません")
                 Else
@@ -1478,7 +1469,6 @@ Public Class FrmG0021_Detail
             Else
                 'カレントステージが自身の担当でない場合は無効
                 cmdFunc1.Enabled = False
-                cmdFunc2.Enabled = False
                 cmdFunc4.Enabled = False
                 cmdFunc5.Enabled = False
 
@@ -1547,23 +1537,13 @@ Public Class FrmG0021_Detail
 
     Private Sub CmbDestTANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
 
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "申請先社員"))
     End Sub
 
 #End Region
 
 #Region "ヘッダ"
 
-    Private Sub RsbtnST_CheckedChanged(sender As Object, e As EventArgs) Handles rsbtnST01.CheckedChanged,
-                                                                        rsbtnST02.CheckedChanged,
-                                                                        rsbtnST03.CheckedChanged,
-                                                                        rsbtnST04.CheckedChanged,
-                                                                        rsbtnST05.CheckedChanged,
-                                                                        rsbtnST06.CheckedChanged,
-                                                                        rsbtnST07.CheckedChanged,
-                                                                        rsbtnST08.CheckedChanged,
-                                                                        rsbtnST09.CheckedChanged
+    Private Sub RsbtnST_CheckedChanged(sender As Object, e As EventArgs) Handles rsbtnST06.CheckedChanged, rsbtnST05.CheckedChanged, rsbtnST04.CheckedChanged, rsbtnST03.CheckedChanged, rsbtnST02.CheckedChanged, rsbtnST01.CheckedChanged
 
         Dim btn As RibbonShapeRadioButton = DirectCast(sender, RibbonShapeRadioButton)
         Dim intStageID As Integer = Val(btn.Name.Substring(7))
@@ -1835,12 +1815,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub CmbKISYU_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKISYU1.SelectedValueChanged,
-                                                                                        cmbKISYU2.SelectedValueChanged,
-                                                                                        cmbKISYU3.SelectedValueChanged,
-                                                                                        cmbKISYU4.SelectedValueChanged,
-                                                                                        cmbKISYU5.SelectedValueChanged,
-                                                                                        cmbKISYU6.SelectedValueChanged
+    Private Sub CmbKISYU_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKISYU6.SelectedValueChanged, cmbKISYU5.SelectedValueChanged, cmbKISYU4.SelectedValueChanged, cmbKISYU3.SelectedValueChanged, cmbKISYU2.SelectedValueChanged, cmbKISYU1.SelectedValueChanged
         Dim cmb = DirectCast(sender, ComboboxEx)
         Dim idx As Integer = cmb.Name.Substring(cmb.Name.Length - 1).ToVal
         If cmb.IsSelected Then
@@ -1850,12 +1825,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub TxtBUHIN_INFO_Validated(sender As Object, e As EventArgs) Handles txtBUHIN_INFO1.Validated,
-                                                                                  txtBUHIN_INFO2.Validated,
-                                                                                  txtBUHIN_INFO3.Validated,
-                                                                                  txtBUHIN_INFO4.Validated,
-                                                                                  txtBUHIN_INFO5.Validated,
-                                                                                  txtBUHIN_INFO6.Validated
+    Private Sub TxtBUHIN_INFO_Validated(sender As Object, e As EventArgs) Handles txtBUHIN_INFO6.Validated, txtBUHIN_INFO5.Validated, txtBUHIN_INFO4.Validated, txtBUHIN_INFO3.Validated, txtBUHIN_INFO2.Validated, txtBUHIN_INFO1.Validated
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim idx As Integer = txt.Name.Substring(txt.Name.Length - 1).ToVal
         If Not txt.Text.IsNulOrWS Then
@@ -1865,12 +1835,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub TxtFROM_Validated(sender As Object, e As EventArgs) Handles txtFROM1.Validated,
-                                                                              txtFROM2.Validated,
-                                                                              txtFROM3.Validated,
-                                                                              txtFROM4.Validated,
-                                                                              txtFROM5.Validated,
-                                                                              txtFROM6.Validated
+    Private Sub TxtFROM_Validated(sender As Object, e As EventArgs) Handles txtFROM6.Validated, txtFROM5.Validated, txtFROM4.Validated, txtFROM3.Validated, txtFROM2.Validated, txtFROM1.Validated
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim idx As Integer = txt.Name.Substring(txt.Name.Length - 1).ToVal
         If Not txt.Text.IsNulOrWS Then
@@ -1880,12 +1845,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub TxtTO_Validated(sender As Object, e As EventArgs) Handles txtTO1.Validated,
-                                                                              txtTO2.Validated,
-                                                                              txtTO3.Validated,
-                                                                              txtTO4.Validated,
-                                                                              txtTO5.Validated,
-                                                                              txtTO6.Validated
+    Private Sub TxtTO_Validated(sender As Object, e As EventArgs) Handles txtTO6.Validated, txtTO5.Validated, txtTO4.Validated, txtTO3.Validated, txtTO2.Validated, txtTO1.Validated
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim idx As Integer = txt.Name.Substring(txt.Name.Length - 1).ToVal
         If Not txt.Text.IsNulOrWS Then
@@ -1895,12 +1855,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub NupSURYO_ValueChanged(sender As Object, e As EventArgs) Handles nupSURYO1.ValueChanged,
-                                                                                nupSURYO2.ValueChanged,
-                                                                                nupSURYO3.ValueChanged,
-                                                                                nupSURYO4.ValueChanged,
-                                                                                nupSURYO5.ValueChanged,
-                                                                                nupSURYO6.ValueChanged
+    Private Sub NupSURYO_ValueChanged(sender As Object, e As EventArgs) Handles nupSURYO6.ValueChanged, nupSURYO5.ValueChanged, nupSURYO4.ValueChanged, nupSURYO3.ValueChanged, nupSURYO2.ValueChanged, nupSURYO1.ValueChanged
         Dim nup = DirectCast(sender, NumericUpDown)
         Dim idx As Integer = nup.Name.Substring(nup.Name.Length - 1).ToVal
         _V011_FCR_J.Item($"SURYO{idx}") = CInt(nup.Value)

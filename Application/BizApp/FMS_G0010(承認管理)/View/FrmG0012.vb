@@ -135,6 +135,9 @@ Public Class FrmG0012
                         cmbKISEKI_KOTEI.SetDataSource(tblKISEKI_KOUTEI_KB.LazyLoad("‹AÓH’ö‹æ•ª"), ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
                         cmbKAITO_14.SetDataSource(tblYOHI_KB.LazyLoad("—v”Û‹æ•ª"), ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
+
+                        IsEditingClosed = HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
+
                         '-----‰æ–Ê‰Šú‰»
                         Call FunInitializeControls()
 

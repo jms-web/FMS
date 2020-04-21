@@ -319,7 +319,7 @@ Partial Class FrmG0020_List
         Me.lblHOKUKO_NO.Name = "lblHOKUKO_NO"
         Me.lblHOKUKO_NO.Size = New System.Drawing.Size(134, 30)
         Me.lblHOKUKO_NO.TabIndex = 69
-        Me.lblHOKUKO_NO.Text = "ïÒçêèëNo:"
+        Me.lblHOKUKO_NO.Text = "FCCB No:"
         Me.lblHOKUKO_NO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'mtxHOKUKO_NO
