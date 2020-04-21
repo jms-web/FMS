@@ -183,7 +183,7 @@ Partial Class FrmG0021_Detail
         Me.MaskedTextBoxEx2 = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.dtST05_UPD_YMD = New JMS_COMMON.DateTextBoxEx()
-        Me.cmbST05_DestTANTO = New JMS_COMMON.ComboboxEx()
+        Me.cmbDestTANTO = New JMS_COMMON.ComboboxEx()
         Me.Label48 = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
@@ -2766,26 +2766,26 @@ Partial Class FrmG0021_Detail
         Me.dtST05_UPD_YMD.Value = ""
         Me.dtST05_UPD_YMD.ValueNonFormat = ""
         '
-        'cmbST05_DestTANTO
+        'cmbDestTANTO
         '
-        Me.cmbST05_DestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbST05_DestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST05_DestTANTO.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbST05_DestTANTO.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbST05_DestTANTO.DisplayMember = "DISP"
-        Me.cmbST05_DestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbST05_DestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbST05_DestTANTO.FormattingEnabled = True
-        Me.cmbST05_DestTANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbST05_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.cmbST05_DestTANTO.IsSelected = False
-        Me.cmbST05_DestTANTO.Location = New System.Drawing.Point(467, 65)
-        Me.cmbST05_DestTANTO.Name = "cmbST05_DestTANTO"
-        Me.cmbST05_DestTANTO.NullValue = " "
-        Me.cmbST05_DestTANTO.Size = New System.Drawing.Size(154, 25)
-        Me.cmbST05_DestTANTO.TabIndex = 257
-        Me.cmbST05_DestTANTO.Text = "(‘I‘ð)"
-        Me.cmbST05_DestTANTO.ValueMember = "VALUE"
+        Me.cmbDestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbDestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbDestTANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbDestTANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbDestTANTO.DisplayMember = "DISP"
+        Me.cmbDestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbDestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbDestTANTO.FormattingEnabled = True
+        Me.cmbDestTANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbDestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbDestTANTO.IsSelected = False
+        Me.cmbDestTANTO.Location = New System.Drawing.Point(467, 65)
+        Me.cmbDestTANTO.Name = "cmbDestTANTO"
+        Me.cmbDestTANTO.NullValue = " "
+        Me.cmbDestTANTO.Size = New System.Drawing.Size(154, 25)
+        Me.cmbDestTANTO.TabIndex = 257
+        Me.cmbDestTANTO.Text = "(‘I‘ð)"
+        Me.cmbDestTANTO.ValueMember = "VALUE"
         '
         'Label48
         '
@@ -2864,7 +2864,7 @@ Partial Class FrmG0021_Detail
         Me.Controls.Add(Me.Label20)
         Me.Controls.Add(Me.Label19)
         Me.Controls.Add(Me.dtST05_UPD_YMD)
-        Me.Controls.Add(Me.cmbST05_DestTANTO)
+        Me.Controls.Add(Me.cmbDestTANTO)
         Me.Controls.Add(Me.Label48)
         Me.Controls.Add(Me.Label23)
         Me.Controls.Add(Me.PanelEx2)
@@ -2894,7 +2894,7 @@ Partial Class FrmG0021_Detail
         Me.Controls.SetChildIndex(Me.lblRecordCount, 0)
         Me.Controls.SetChildIndex(Me.Label23, 0)
         Me.Controls.SetChildIndex(Me.Label48, 0)
-        Me.Controls.SetChildIndex(Me.cmbST05_DestTANTO, 0)
+        Me.Controls.SetChildIndex(Me.cmbDestTANTO, 0)
         Me.Controls.SetChildIndex(Me.dtST05_UPD_YMD, 0)
         Me.Controls.SetChildIndex(Me.Label19, 0)
         Me.Controls.SetChildIndex(Me.Label20, 0)
@@ -3114,7 +3114,7 @@ Partial Class FrmG0021_Detail
     Friend WithEvents MaskedTextBoxEx1 As MaskedTextBoxEx
     Friend WithEvents Label18 As Label
     Friend WithEvents dtST05_UPD_YMD As DateTextBoxEx
-    Friend WithEvents cmbST05_DestTANTO As ComboboxEx
+    Friend WithEvents cmbDestTANTO As ComboboxEx
     Friend WithEvents Label48 As Label
     Friend WithEvents Label23 As Label
     Friend WithEvents Label21 As Label

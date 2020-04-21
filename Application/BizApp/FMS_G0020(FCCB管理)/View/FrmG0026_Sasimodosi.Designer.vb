@@ -1,6 +1,6 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FrmG0015
-    Inherits JMS_COMMON.frmBaseBtn
+Partial Class FrmG0026_Sasimodosi
+    Inherits JMS_COMMON.FrmBaseBtn
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -20,10 +20,13 @@ Partial Class FrmG0015
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.mtxTANTO_ID = New JMS_COMMON.MaskedTextBoxEx()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.cmbTENSO_SAKI = New JMS_COMMON.ComboboxEx()
+        Me.cmbMODOSI_SAKI = New JMS_COMMON.ComboboxEx()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.mtxTENSO_RIYU = New JMS_COMMON.MaskedTextBoxEx()
+        Me.mtxTANTO_NAME = New JMS_COMMON.MaskedTextBoxEx()
+        Me.mtxMODOSI_RIYU = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label11 = New System.Windows.Forms.Label()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -34,7 +37,7 @@ Partial Class FrmG0015
         '
         Me.cmdFunc1.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgBase_floppydisk32x32
-        Me.cmdFunc1.Location = New System.Drawing.Point(125, 207)
+        Me.cmdFunc1.Location = New System.Drawing.Point(125, 208)
         Me.cmdFunc1.TabIndex = 0
         Me.cmdFunc1.Text = "ìoò^(F1)"
         '
@@ -78,7 +81,7 @@ Partial Class FrmG0015
         '
         Me.cmdFunc12.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.cmdFunc12.Image = Global.FMS.My.Resources.Resources._imgLog_Out32x32
-        Me.cmdFunc12.Location = New System.Drawing.Point(723, 207)
+        Me.cmdFunc12.Location = New System.Drawing.Point(724, 207)
         Me.cmdFunc12.Text = "ÉLÉÉÉìÉZÉã(F12)"
         '
         'cmdFunc11
@@ -120,16 +123,23 @@ Partial Class FrmG0015
         '
         Me.lblTytle.Location = New System.Drawing.Point(13, 12)
         Me.lblTytle.Size = New System.Drawing.Size(982, 45)
-        Me.lblTytle.Text = "ì]ëóìoò^"
+        Me.lblTytle.Text = "ç∑ñﬂÇµìoò^"
+        '
+        'ToolTip
+        '
+        Me.ToolTip.InitialDelay = 700
         '
         'GroupBox1
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.mtxTANTO_ID)
+        Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.Label5)
-        Me.GroupBox1.Controls.Add(Me.cmbTENSO_SAKI)
+        Me.GroupBox1.Controls.Add(Me.cmbMODOSI_SAKI)
         Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.mtxTENSO_RIYU)
+        Me.GroupBox1.Controls.Add(Me.mtxTANTO_NAME)
+        Me.GroupBox1.Controls.Add(Me.mtxMODOSI_RIYU)
         Me.GroupBox1.Controls.Add(Me.Label11)
         Me.GroupBox1.Font = New System.Drawing.Font("ÇlÇr ÉSÉVÉbÉN", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(13, 60)
@@ -138,76 +148,122 @@ Partial Class FrmG0015
         Me.GroupBox1.TabIndex = 31
         Me.GroupBox1.TabStop = False
         '
+        'mtxTANTO_ID
+        '
+        Me.mtxTANTO_ID.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxTANTO_ID.Enabled = False
+        Me.mtxTANTO_ID.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxTANTO_ID.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxTANTO_ID.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxTANTO_ID.InputRequired = False
+        Me.mtxTANTO_ID.Location = New System.Drawing.Point(253, 52)
+        Me.mtxTANTO_ID.MaxByteLength = 200
+        Me.mtxTANTO_ID.Name = "mtxTANTO_ID"
+        Me.mtxTANTO_ID.SelectAllText = False
+        Me.mtxTANTO_ID.Size = New System.Drawing.Size(52, 24)
+        Me.mtxTANTO_ID.TabIndex = 69
+        Me.mtxTANTO_ID.Visible = False
+        Me.mtxTANTO_ID.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxTANTO_ID.WatermarkText = Nothing
+        '
+        'Label1
+        '
+        Me.Label1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label1.Location = New System.Drawing.Point(6, 51)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(67, 25)
+        Me.Label1.TabIndex = 68
+        Me.Label1.Text = "íSìñé“ñº:"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'Label5
         '
         Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label5.Location = New System.Drawing.Point(26, 21)
+        Me.Label5.Location = New System.Drawing.Point(6, 21)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(67, 25)
+        Me.Label5.Size = New System.Drawing.Size(87, 25)
         Me.Label5.TabIndex = 67
-        Me.Label5.Text = "ì]ëóêÊ:"
+        Me.Label5.Text = "ç∑ñﬂÇµêÊ:"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'cmbTENSO_SAKI
+        'cmbMODOSI_SAKI
         '
-        Me.cmbTENSO_SAKI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbTENSO_SAKI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbTENSO_SAKI.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbTENSO_SAKI.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.cmbTENSO_SAKI.DisplayMember = "DISP"
-        Me.cmbTENSO_SAKI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbTENSO_SAKI.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbTENSO_SAKI.FormattingEnabled = True
-        Me.cmbTENSO_SAKI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbTENSO_SAKI.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbTENSO_SAKI.IsSelected = False
-        Me.cmbTENSO_SAKI.Location = New System.Drawing.Point(99, 21)
-        Me.cmbTENSO_SAKI.MaxLength = 30
-        Me.cmbTENSO_SAKI.Name = "cmbTENSO_SAKI"
-        Me.cmbTENSO_SAKI.NullValue = " "
-        Me.cmbTENSO_SAKI.Size = New System.Drawing.Size(239, 25)
-        Me.cmbTENSO_SAKI.TabIndex = 1
-        Me.cmbTENSO_SAKI.Text = "(ëIë)"
-        Me.cmbTENSO_SAKI.ValueMember = "VALUE"
+        Me.cmbMODOSI_SAKI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbMODOSI_SAKI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbMODOSI_SAKI.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbMODOSI_SAKI.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbMODOSI_SAKI.DisplayMember = "DISP"
+        Me.cmbMODOSI_SAKI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbMODOSI_SAKI.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbMODOSI_SAKI.FormattingEnabled = True
+        Me.cmbMODOSI_SAKI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbMODOSI_SAKI.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbMODOSI_SAKI.IsSelected = False
+        Me.cmbMODOSI_SAKI.Location = New System.Drawing.Point(99, 21)
+        Me.cmbMODOSI_SAKI.MaxLength = 30
+        Me.cmbMODOSI_SAKI.Name = "cmbMODOSI_SAKI"
+        Me.cmbMODOSI_SAKI.NullValue = " "
+        Me.cmbMODOSI_SAKI.Size = New System.Drawing.Size(409, 25)
+        Me.cmbMODOSI_SAKI.TabIndex = 1
+        Me.cmbMODOSI_SAKI.Text = "(ëIë)"
+        Me.cmbMODOSI_SAKI.ValueMember = "VALUE"
         '
         'Label2
         '
         Me.Label2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label2.Location = New System.Drawing.Point(26, 52)
+        Me.Label2.Location = New System.Drawing.Point(6, 81)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(67, 24)
+        Me.Label2.Size = New System.Drawing.Size(87, 24)
         Me.Label2.TabIndex = 37
-        Me.Label2.Text = "ì]ëóóùóR:"
+        Me.Label2.Text = "ç∑ñﬂÇµóùóR:"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'mtxTENSO_RIYU
+        'mtxTANTO_NAME
         '
-        Me.mtxTENSO_RIYU.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxTENSO_RIYU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxTENSO_RIYU.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.mtxTENSO_RIYU.InputRequired = False
-        Me.mtxTENSO_RIYU.Location = New System.Drawing.Point(99, 52)
-        Me.mtxTENSO_RIYU.MaxByteLength = 200
-        Me.mtxTENSO_RIYU.Name = "mtxTENSO_RIYU"
-        Me.mtxTENSO_RIYU.SelectAllText = False
-        Me.mtxTENSO_RIYU.Size = New System.Drawing.Size(653, 24)
-        Me.mtxTENSO_RIYU.TabIndex = 3
-        Me.mtxTENSO_RIYU.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxTENSO_RIYU.WatermarkText = Nothing
+        Me.mtxTANTO_NAME.BackColor = System.Drawing.SystemColors.Control
+        Me.mtxTANTO_NAME.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxTANTO_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxTANTO_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxTANTO_NAME.InputRequired = False
+        Me.mtxTANTO_NAME.Location = New System.Drawing.Point(99, 52)
+        Me.mtxTANTO_NAME.MaxByteLength = 200
+        Me.mtxTANTO_NAME.Name = "mtxTANTO_NAME"
+        Me.mtxTANTO_NAME.ReadOnly = True
+        Me.mtxTANTO_NAME.SelectAllText = False
+        Me.mtxTANTO_NAME.Size = New System.Drawing.Size(148, 24)
+        Me.mtxTANTO_NAME.TabIndex = 3
+        Me.mtxTANTO_NAME.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxTANTO_NAME.WatermarkText = Nothing
+        '
+        'mtxMODOSI_RIYU
+        '
+        Me.mtxMODOSI_RIYU.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxMODOSI_RIYU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxMODOSI_RIYU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.mtxMODOSI_RIYU.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxMODOSI_RIYU.InputRequired = False
+        Me.mtxMODOSI_RIYU.Location = New System.Drawing.Point(99, 82)
+        Me.mtxMODOSI_RIYU.MaxByteLength = 200
+        Me.mtxMODOSI_RIYU.Name = "mtxMODOSI_RIYU"
+        Me.mtxMODOSI_RIYU.SelectAllText = False
+        Me.mtxMODOSI_RIYU.Size = New System.Drawing.Size(612, 24)
+        Me.mtxMODOSI_RIYU.TabIndex = 3
+        Me.mtxMODOSI_RIYU.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxMODOSI_RIYU.WatermarkText = Nothing
         '
         'Label11
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label11.ForeColor = System.Drawing.Color.Red
-        Me.Label11.Location = New System.Drawing.Point(96, 90)
+        Me.Label11.Location = New System.Drawing.Point(96, 114)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(256, 17)
+        Me.Label11.Size = New System.Drawing.Size(266, 17)
         Me.Label11.TabIndex = 38
-        Me.Label11.Text = "Å¶ì]ëóìoò^Ç≥ÇÍÇÈÇ∆ïÒçêèëâÊñ Ç™ï¬Ç∂ÇÁÇÍÇ‹Ç∑"
+        Me.Label11.Text = "Å¶ç∑ñﬂÇµìoò^Ç≥ÇÍÇÈÇ∆ïÒçêèëâÊñ Ç™ï¬Ç∂ÇÁÇÍÇ‹Ç∑"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'FrmG0015
+        'FrmG0016
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.BackColor = System.Drawing.SystemColors.Control
@@ -216,7 +272,7 @@ Partial Class FrmG0015
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True
         Me.MinimumSize = New System.Drawing.Size(800, 300)
-        Me.Name = "FrmG0015"
+        Me.Name = "FrmG0016"
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.Controls.SetChildIndex(Me.lblTytle, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc8, 0)
@@ -241,7 +297,10 @@ Partial Class FrmG0015
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label11 As Label
-    Friend WithEvents mtxTENSO_RIYU As MaskedTextBoxEx
-    Public WithEvents cmbTENSO_SAKI As ComboboxEx
+    Friend WithEvents mtxMODOSI_RIYU As MaskedTextBoxEx
+    Public WithEvents cmbMODOSI_SAKI As ComboboxEx
     Friend WithEvents Label5 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents mtxTANTO_NAME As MaskedTextBoxEx
+    Friend WithEvents mtxTANTO_ID As MaskedTextBoxEx
 End Class

@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FrmG0015
+Partial Class FrmG0025_Tenso
     Inherits JMS_COMMON.frmBaseBtn
 
     'Form overrides dispose to clean up the component list.

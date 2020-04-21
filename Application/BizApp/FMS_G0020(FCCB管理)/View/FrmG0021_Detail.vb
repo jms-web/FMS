@@ -382,24 +382,7 @@ Public Class FrmG0021_Detail
                             Throw New IO.FileNotFoundException($"4.後続プロセスへの流出 資料:{lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
-                    If Not _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists($"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH}") Then
 
-                        If System.IO.File.Exists(lblFUTEKIGO_SEIHIN_FILEPATH.Links.Item(0).LinkData) Then
-                            System.IO.File.Copy(lblFUTEKIGO_SEIHIN_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH}", True)
-                        Else
-                            Throw New IO.FileNotFoundException($"2.不適合製品 資料:{lblFUTEKIGO_SEIHIN_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
-                        End If
-                    End If
-                    If Not _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists($"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.KOKYAKU_EIKYO_FILEPATH}") Then
-
-                        If System.IO.File.Exists(lblKOKYAKU_EIKYO_FILEPATH.Links.Item(0).LinkData) Then
-                            System.IO.File.Copy(lblKOKYAKU_EIKYO_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.KOKYAKU_EIKYO_FILEPATH}", True)
-                        Else
-                            Throw New IO.FileNotFoundException($"3.顧客影響範囲 資料:{lblKOKYAKU_EIKYO_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
-                        End If
-                    End If
                     If Not _V011_FCR_J.SYOCHI_FILEPATH.IsNulOrWS AndAlso
                         Not System.IO.File.Exists($"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.SYOCHI_FILEPATH}") Then
 
@@ -460,8 +443,7 @@ Public Class FrmG0021_Detail
             _D007.HITUYO_TETUDUKI_ZIKO = txtHITUYO_TETUDUKI_ZIKO.Text
             _D007.KOKYAKU_EIKYO_ETC_COMMENT = txtKOKYAKU_EIKYO_ETC_COMMENT.Text
             _D007.KOKYAKU_EIKYO_HANTEI_FILEPATH = _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_FILEPATH
-            _D007.FUTEKIGO_SEIHIN_MEMO = txtFUTEKIGO_SEIHIN_MEMO.Text
-            _D007.KOKYAKU_EIKYO_MEMO = txtKOKYAKU_EIKYO_MEMO.Text
+
 
             _D007.KOKYAKU_EIKYO_FILEPATH = _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH
             _D007.SYOCHI_MEMO = txtSYOCHI_MEMO.Text
@@ -1026,7 +1008,7 @@ Public Class FrmG0021_Detail
         Select Case enmSAVE_MODE
             Case ENM_SAVE_MODE._1_保存
 
-                If PrCurrentStage = ENM_CTS_STAGE._999_Closed Then
+                If PrCurrentStage = ENM_FCCB_STAGE._999_Closed Then
                     _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
                     _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._2_更新保存
                 Else
@@ -1255,7 +1237,7 @@ Public Class FrmG0021_Detail
 #Region "転送"
 
     Private Function OpenFormTENSO() As Boolean
-        Dim frmDLG As New FrmG0022_Tenso
+        Dim frmDLG As New FrmG0025_Tenso
         Dim dlgRET As DialogResult
 
         Try
@@ -1291,7 +1273,7 @@ Public Class FrmG0021_Detail
 #Region "差戻し"
 
     Private Function OpenFormSASIMODOSI() As Boolean
-        Dim frmDLG As New FrmG0023_Sasimodosi
+        Dim frmDLG As New FrmG0026_Sasimodosi
         Dim dlgRET As DialogResult
 
         Try
@@ -1759,7 +1741,7 @@ Public Class FrmG0021_Detail
 
 #Region "SUB_DATA"
 
-    Private Sub CmbKISYU1_Validated(sender As Object, e As EventArgs) 
+    Private Sub CmbKISYU1_Validated(sender As Object, e As EventArgs)
         Dim cmb = DirectCast(sender, ComboboxEx)
         If cmb.SelectedValue <> 0 Then
             pnlInfo2.Enabled = True
@@ -1815,7 +1797,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub CmbKISYU_SelectedValueChanged(sender As Object, e As EventArgs) 
+    Private Sub CmbKISYU_SelectedValueChanged(sender As Object, e As EventArgs)
         Dim cmb = DirectCast(sender, ComboboxEx)
         Dim idx As Integer = cmb.Name.Substring(cmb.Name.Length - 1).ToVal
         If cmb.IsSelected Then
@@ -1825,7 +1807,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub TxtBUHIN_INFO_Validated(sender As Object, e As EventArgs) 
+    Private Sub TxtBUHIN_INFO_Validated(sender As Object, e As EventArgs)
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim idx As Integer = txt.Name.Substring(txt.Name.Length - 1).ToVal
         If Not txt.Text.IsNulOrWS Then
@@ -1835,7 +1817,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub TxtFROM_Validated(sender As Object, e As EventArgs) 
+    Private Sub TxtFROM_Validated(sender As Object, e As EventArgs)
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim idx As Integer = txt.Name.Substring(txt.Name.Length - 1).ToVal
         If Not txt.Text.IsNulOrWS Then
@@ -1845,7 +1827,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub TxtTO_Validated(sender As Object, e As EventArgs) 
+    Private Sub TxtTO_Validated(sender As Object, e As EventArgs)
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim idx As Integer = txt.Name.Substring(txt.Name.Length - 1).ToVal
         If Not txt.Text.IsNulOrWS Then
@@ -1855,7 +1837,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub NupSURYO_ValueChanged(sender As Object, e As EventArgs) 
+    Private Sub NupSURYO_ValueChanged(sender As Object, e As EventArgs)
         Dim nup = DirectCast(sender, NumericUpDown)
         Dim idx As Integer = nup.Name.Substring(nup.Name.Length - 1).ToVal
         _V011_FCR_J.Item($"SURYO{idx}") = CInt(nup.Value)
