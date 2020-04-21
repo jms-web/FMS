@@ -96,19 +96,19 @@ Public NotInheritable Class ClsPubMethod
     Public Enum EllipsisFormat
         ' Text Is Not modified.
         _0_None = 0
-        ' Text Is trimmed at the end of the string. An ellipsis (...) 
+        ' Text Is trimmed at the end of the string. An ellipsis (...)
         ' Is drawn in place of remaining text.
         _1_End = 1
-        ' Text Is trimmed at the beginning of the string. 
-        ' An ellipsis (...) Is drawn in place of remaining text. 
+        ' Text Is trimmed at the beginning of the string.
+        ' An ellipsis (...) Is drawn in place of remaining text.
         _2_Start = 2
-        ' Text Is trimmed in the middle of the string. 
+        ' Text Is trimmed in the middle of the string.
         ' An ellipsis (...) Is drawn in place of remaining text.
         _3_Middle = 3
-        ' Preserve as much as possible of the drive And filename information. 
+        ' Preserve as much as possible of the drive And filename information.
         ' Must be combined with alignment information.
         _4_Path = 4
-        ' Text Is trimmed at a word boundary. 
+        ' Text Is trimmed at a word boundary.
         ' Must be combined with alignment information.
         _8_Word = 8
     End Enum
@@ -251,7 +251,7 @@ Public NotInheritable Class ClsPubMethod
         Using dc As Graphics = ctrl.CreateGraphics()
             Dim s As Size = TextRenderer.MeasureText(dc, text, ctrl.Font)
 
-            ' control Is large enough to display the whole text 
+            ' control Is large enough to display the whole text
             If (s.Width <= ctrl.Width) Then
                 Return text
             End If
@@ -262,7 +262,7 @@ Public NotInheritable Class ClsPubMethod
 
             Dim isPath As Boolean = (EllipsisFormat._4_Path & options) <> 0
 
-            ' split path string into <drive><directory><filename> 
+            ' split path string into <drive><directory><filename>
             If (isPath) Then
                 pre = IO.Path.GetPathRoot(text)
                 Mid = IO.Path.GetDirectoryName(text).Substring(pre.Length)
@@ -303,9 +303,9 @@ Public NotInheritable Class ClsPubMethod
                 End If
                 s = TextRenderer.MeasureText(dc, tst, ctrl.Font)
 
-                ' candidate string fits into control boundaries, 
-                ' try a longer string 
-                ' stop when seg <= 1 
+                ' candidate string fits into control boundaries,
+                ' try a longer string
+                ' stop when seg <= 1
                 If (s.Width <= ctrl.Width) Then
                     Len += seg
                     fit = tst

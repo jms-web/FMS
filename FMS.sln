@@ -20,6 +20,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LOG", "LOG", "{67150766-877
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{37524F46-8F14-457C-ADA8-3FD0FD95AFA4}"
 	ProjectSection(SolutionItems) = preProject
+		Libs\C1.Win.C1FlexGrid.4.dll = Libs\C1.Win.C1FlexGrid.4.dll
+		Libs\C1.Win.C1Input.4.dll = Libs\C1.Win.C1Input.4.dll
+		Libs\C1.Win.C1TrueDBGrid.4.dll = Libs\C1.Win.C1TrueDBGrid.4.dll
 		Libs\PanelManager.dll = Libs\PanelManager.dll
 		Libs\SpreadsheetGear2012.Core.dll = Libs\SpreadsheetGear2012.Core.dll
 		Libs\SpreadsheetGear2012.Drawing.dll = Libs\SpreadsheetGear2012.Drawing.dll
@@ -402,8 +405,8 @@ Global
 		{3A800848-DB01-472D-8605-2BBE67EB638C} = {D70FCEFD-9C30-47F2-8477-4DBA645BB752}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7654D903-2DF2-4216-B2D3-7A7E3E63F7E7}
-		BuildVersion_StartDate = 2000/1/1
 		BuildVersion_UseGlobalSettings = True
+		BuildVersion_StartDate = 2000/1/1
+		SolutionGuid = {7654D903-2DF2-4216-B2D3-7A7E3E63F7E7}
 	EndGlobalSection
 EndGlobal
