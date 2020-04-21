@@ -1759,7 +1759,7 @@ Public Class FrmG0021_Detail
 
 #Region "SUB_DATA"
 
-    Private Sub CmbKISYU1_Validated(sender As Object, e As EventArgs) Handles cmbKISYU1.Validated
+    Private Sub CmbKISYU1_Validated(sender As Object, e As EventArgs) 
         Dim cmb = DirectCast(sender, ComboboxEx)
         If cmb.SelectedValue <> 0 Then
             pnlInfo2.Enabled = True
@@ -1773,7 +1773,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub CmbKISYU2_Validated(sender As Object, e As EventArgs) Handles cmbKISYU2.Validated
+    Private Sub CmbKISYU2_Validated(sender As Object, e As EventArgs)
         Dim cmb = DirectCast(sender, ComboboxEx)
         If cmb.SelectedValue <> 0 Then
             pnlInfo3.Enabled = True
@@ -1787,7 +1787,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub CmbKISYU4_Validated(sender As Object, e As EventArgs) Handles cmbKISYU4.Validated
+    Private Sub CmbKISYU4_Validated(sender As Object, e As EventArgs)
         Dim cmb = DirectCast(sender, ComboboxEx)
         If cmb.SelectedValue <> 0 Then
             pnlInfo5.Enabled = True
@@ -1801,7 +1801,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub CmbKISYU5_Validated(sender As Object, e As EventArgs) Handles cmbKISYU5.Validated
+    Private Sub CmbKISYU5_Validated(sender As Object, e As EventArgs)
         Dim cmb = DirectCast(sender, ComboboxEx)
         If Not cmb.Text.IsNulOrWS Then
             pnlInfo6.Enabled = True
@@ -1815,7 +1815,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub CmbKISYU_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKISYU6.SelectedValueChanged, cmbKISYU5.SelectedValueChanged, cmbKISYU4.SelectedValueChanged, cmbKISYU3.SelectedValueChanged, cmbKISYU2.SelectedValueChanged, cmbKISYU1.SelectedValueChanged
+    Private Sub CmbKISYU_SelectedValueChanged(sender As Object, e As EventArgs) 
         Dim cmb = DirectCast(sender, ComboboxEx)
         Dim idx As Integer = cmb.Name.Substring(cmb.Name.Length - 1).ToVal
         If cmb.IsSelected Then
@@ -1825,7 +1825,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub TxtBUHIN_INFO_Validated(sender As Object, e As EventArgs) Handles txtBUHIN_INFO6.Validated, txtBUHIN_INFO5.Validated, txtBUHIN_INFO4.Validated, txtBUHIN_INFO3.Validated, txtBUHIN_INFO2.Validated, txtBUHIN_INFO1.Validated
+    Private Sub TxtBUHIN_INFO_Validated(sender As Object, e As EventArgs) 
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim idx As Integer = txt.Name.Substring(txt.Name.Length - 1).ToVal
         If Not txt.Text.IsNulOrWS Then
@@ -1835,7 +1835,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub TxtFROM_Validated(sender As Object, e As EventArgs) Handles txtFROM6.Validated, txtFROM5.Validated, txtFROM4.Validated, txtFROM3.Validated, txtFROM2.Validated, txtFROM1.Validated
+    Private Sub TxtFROM_Validated(sender As Object, e As EventArgs) 
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim idx As Integer = txt.Name.Substring(txt.Name.Length - 1).ToVal
         If Not txt.Text.IsNulOrWS Then
@@ -1845,7 +1845,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub TxtTO_Validated(sender As Object, e As EventArgs) Handles txtTO6.Validated, txtTO5.Validated, txtTO4.Validated, txtTO3.Validated, txtTO2.Validated, txtTO1.Validated
+    Private Sub TxtTO_Validated(sender As Object, e As EventArgs) 
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim idx As Integer = txt.Name.Substring(txt.Name.Length - 1).ToVal
         If Not txt.Text.IsNulOrWS Then
@@ -1855,7 +1855,7 @@ Public Class FrmG0021_Detail
         End If
     End Sub
 
-    Private Sub NupSURYO_ValueChanged(sender As Object, e As EventArgs) Handles nupSURYO6.ValueChanged, nupSURYO5.ValueChanged, nupSURYO4.ValueChanged, nupSURYO3.ValueChanged, nupSURYO2.ValueChanged, nupSURYO1.ValueChanged
+    Private Sub NupSURYO_ValueChanged(sender As Object, e As EventArgs) 
         Dim nup = DirectCast(sender, NumericUpDown)
         Dim idx As Integer = nup.Name.Substring(nup.Name.Length - 1).ToVal
         _V011_FCR_J.Item($"SURYO{idx}") = CInt(nup.Value)
@@ -1915,7 +1915,7 @@ Public Class FrmG0021_Detail
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
-    Private Sub TxtFUTEKIGO_SEIHIN_MEMO_Validated(sender As Object, e As EventArgs) Handles txtFUTEKIGO_SEIHIN_MEMO.Validated
+    Private Sub TxtFUTEKIGO_SEIHIN_MEMO_Validated(sender As Object, e As EventArgs)
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim blnEnabled As Boolean = (txt.Text.Length = 0)
 
@@ -1933,7 +1933,7 @@ Public Class FrmG0021_Detail
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
-    Private Sub TxtKOKYAKU_EIKYO_MEMO_Validated(sender As Object, e As EventArgs) Handles txtKOKYAKU_EIKYO_MEMO.Validated
+    Private Sub TxtKOKYAKU_EIKYO_MEMO_Validated(sender As Object, e As EventArgs)
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim blnEnabled As Boolean = (txt.Text.Length = 0)
 
@@ -2192,7 +2192,7 @@ Public Class FrmG0021_Detail
 #Region "不適合製品_詳細資料"
 
     'ファイル選択
-    Private Sub BtnOpenFUTEKIGO_SEIHIN_FILEPATH_Click(sender As Object, e As EventArgs) Handles btnOpenFUTEKIGO_SEIHIN_FILEPATH.Click
+    Private Sub BtnOpenFUTEKIGO_SEIHIN_FILEPATH_Click(sender As Object, e As EventArgs)
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|PDF(*.pdf)|*.pdf|すべてのファイル(*.*)|*.*",
             .FilterIndex = 4,
@@ -2215,7 +2215,7 @@ Public Class FrmG0021_Detail
     End Sub
 
     'リンククリック
-    Private Sub LblFUTEKIGO_SEIHIN_FILEPATH_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblFUTEKIGO_SEIHIN_FILEPATH.LinkClicked
+    Private Sub LblFUTEKIGO_SEIHIN_FILEPATH_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         Dim hProcess As New System.Diagnostics.Process
         Dim strEXE As String
         'Dim strARG As String
@@ -2263,7 +2263,7 @@ Public Class FrmG0021_Detail
     End Sub
 
     'リンククリア
-    Private Sub LblFUTEKIGO_SEIHIN_FILEPATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblFUTEKIGO_SEIHIN_FILEPATH_Clear.LinkClicked
+    Private Sub LblFUTEKIGO_SEIHIN_FILEPATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         lblFUTEKIGO_SEIHIN_FILEPATH.Text = ""
         lblFUTEKIGO_SEIHIN_FILEPATH.Links.Clear()
         lblFUTEKIGO_SEIHIN_FILEPATH.Visible = False
@@ -2276,7 +2276,7 @@ Public Class FrmG0021_Detail
 #Region "顧客影響_詳細資料"
 
     'ファイル選択
-    Private Sub BtnOpenKOKYAKU_EIKYO_FILEPATH_Click(sender As Object, e As EventArgs) Handles btnOpenKOKYAKU_EIKYO_FILEPATH.Click
+    Private Sub BtnOpenKOKYAKU_EIKYO_FILEPATH_Click(sender As Object, e As EventArgs)
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|PDF(*.pdf)|*.pdf|すべてのファイル(*.*)|*.*",
             .FilterIndex = 4,
@@ -2299,7 +2299,7 @@ Public Class FrmG0021_Detail
     End Sub
 
     'リンククリック
-    Private Sub LblKOKYAKU_EIKYO_FILEPATH_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblKOKYAKU_EIKYO_FILEPATH.LinkClicked
+    Private Sub LblKOKYAKU_EIKYO_FILEPATH_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         Dim hProcess As New System.Diagnostics.Process
         Dim strEXE As String
         'Dim strARG As String
@@ -2347,7 +2347,7 @@ Public Class FrmG0021_Detail
     End Sub
 
     'リンククリア
-    Private Sub LblKOKYAKU_EIKYO_FILEPATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblKOKYAKU_EIKYO_FILEPATH_Clear.LinkClicked
+    Private Sub LblKOKYAKU_EIKYO_FILEPATH_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         lblKOKYAKU_EIKYO_FILEPATH.Text = ""
         lblKOKYAKU_EIKYO_FILEPATH.Links.Clear()
         lblKOKYAKU_EIKYO_FILEPATH.Visible = False
