@@ -19,6 +19,7 @@ Partial Class FrmG0020_List
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmG0020_List))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -47,9 +48,9 @@ Partial Class FrmG0020_List
         Me.btnClearSrchFilter = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.ST03FUTEKIGOICHIRANBindingSource = New System.Windows.Forms.BindingSource()
+        Me.ST03FUTEKIGOICHIRANBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
-        Me.FlexContextMenu = New System.Windows.Forms.ContextMenuStrip()
+        Me.FlexContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.EqualFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotEqualFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.IncludeFilter = New System.Windows.Forms.ToolStripMenuItem()

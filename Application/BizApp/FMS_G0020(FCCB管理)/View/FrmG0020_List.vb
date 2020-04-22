@@ -2430,7 +2430,7 @@ Public Class FrmG0020_List
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
-            If dsList.Tables(0).Rows(0).Item(0) = ENM_FCCB_STAGE._10_ãNëê.Value Then
+            If dsList.Tables(0).Rows(0).Item(0) = ENM_FCCB_STAGE._10_ãNëêì¸óÕ.Value Then
                 Return True
             End If
 
