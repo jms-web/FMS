@@ -140,6 +140,7 @@
     <Compile Include="Models\Function\ST01_GET_HOKOKU_NO.vb" />
     <Compile Include="Models\Function\ST03_FUTEKIGO_ICHIRAN_SUMMARY.vb" />
     <Compile Include="Models\Function\ST02_FUTEKIGO_ICHIRAN.vb" />
+    <Compile Include="Models\Masta\Biz\M017_FCCB_SYOCHI.vb" />
     <Compile Include="Models\Masta\Biz\M108_KOTEI_SYUKEI.vb" />
     <Compile Include="Models\Masta\Biz\M107_BUHIN_KISYU.vb" />
     <Compile Include="Models\Masta\Common\M001_SETTING.vb" />

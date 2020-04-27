@@ -118,6 +118,8 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="C1.Win.4, Version=4.0.20173.286, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04" />
+    <Reference Include="C1.Win.C1Command.4, Version=4.0.20173.286, Culture=neutral, PublicKeyToken=e808566f358766d8, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1FlexGrid.4, Version=4.0.20183.338, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Libs\C1.Win.C1FlexGrid.4.dll</HintPath>
@@ -126,6 +128,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Libs\C1.Win.C1Input.4.dll</HintPath>
     </Reference>
+    <Reference Include="C1.Win.C1SplitContainer.4, Version=4.0.20173.286, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="mscorlib" />
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PanelManager">
@@ -145,6 +148,7 @@
       <HintPath>..\..\..\Libs\SpreadsheetGear2012.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Deployment" />
@@ -198,6 +202,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="mdlG0020.vb" />
+    <Compile Include="Model\G0021_VM.vb" />
     <Compile Include="Model\ST02_SerchFilterModel.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -312,6 +317,7 @@
     <None Include="My Project\DataSources\MODEL.D004_SYONIN_J_KANRI.datasource" />
     <None Include="My Project\DataSources\MODEL.D005_CAR_J.datasource" />
     <None Include="My Project\DataSources\MODEL.D006_CAR_GENIN.datasource" />
+    <None Include="My Project\DataSources\MODEL.D010_FCCB_SUB_SYOCHI_KOMOKU.datasource" />
     <None Include="My Project\DataSources\MODEL.ST02_FUTEKIGO_ICHIRAN.datasource" />
     <None Include="My Project\DataSources\MODEL.ST03_FUTEKIGO_ICHIRAN_SUMMARY.datasource" />
     <None Include="My Project\Settings.settings">

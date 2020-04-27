@@ -180,6 +180,9 @@ Public Class FrmG0020_List
             'ファンクションボタンステータス更新
             Call FunInitFuncButtonEnabled()
             Me.WindowState = FormWindowState.Maximized
+
+        Catch ex As Exception
+            Throw
         Finally
             Me.Visible = True
         End Try
@@ -1223,9 +1226,15 @@ Public Class FrmG0020_List
         Try
 
             Using frmFCCB As New FrmG0021_Detail
-                frmFCCB.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
-                frmFCCB.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item("HOKOKU_NO")
-                frmFCCB.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
+                frmFCCB.PrMODE = intMODE
+                Select Case intMODE
+                    Case ENM_DATA_OPERATION_MODE._1_ADD
+                        frmFCCB.PrCurrentStage = ENM_FCCB_STAGE._10_起草入力
+                    Case ENM_DATA_OPERATION_MODE._2_ADDREF, ENM_DATA_OPERATION_MODE._3_UPDATE
+                        frmFCCB.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
+                        frmFCCB.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item("HOKOKU_NO")
+                        frmFCCB.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
+                End Select
                 dlgRET = frmFCCB.ShowDialog(Me)
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
                     Return False

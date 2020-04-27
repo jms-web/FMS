@@ -21,14 +21,12 @@ Partial Public Class D010_FCCB_SUB_SYOCHI_KOMOKU
     ''' </summary>
     ''' <returns></returns>
     <Key>
-    <Column(Order:=0, TypeName:="char")>
+    <Column(Order:=0, TypeName:="varchar")>
     <StringLength(10)>
     Public Property FCCB_NO As String
 
     <Required>
-    <StringLength(2)>
-    <Column(TypeName:="varchar")>
-    Public Property ITEM_NO As String
+    Public Property ITEM_NO As Integer
 
     <Required>
     <StringLength(20)>

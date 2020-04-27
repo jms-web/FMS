@@ -26,7 +26,7 @@ Partial Public Class D011_FCCB_SUB_SIKAKE_BUHIN
 
     <Key>
     <Column(Order:=1)>
-    Public Property ROW_NO As Integer
+    Public Property ITEM_NO As Integer
 
 
 #Region "仕掛品状況"
