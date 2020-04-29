@@ -77,11 +77,11 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel3 = New C1.Win.C1SplitContainer.C1SplitterPanel()
         Me.flexDATA_4 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.C1SplitterPanel4 = New C1.Win.C1SplitContainer.C1SplitterPanel()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI = New JMS_COMMON.MaskedTextBoxEx()
-        Me.flexDATA_5 = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.PanelEx1 = New JMS_COMMON.PanelEx()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.PanelEx1 = New JMS_COMMON.PanelEx()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.flexDATA_5 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI = New JMS_COMMON.MaskedTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEx2.SuspendLayout()
@@ -98,8 +98,8 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel3.SuspendLayout()
         CType(Me.flexDATA_4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.C1SplitterPanel4.SuspendLayout()
-        CType(Me.flexDATA_5, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEx1.SuspendLayout()
+        CType(Me.flexDATA_5, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -541,6 +541,8 @@ Partial Class FrmG0021_Detail
         '
         'PanelEx2
         '
+        Me.PanelEx2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PanelEx2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.PanelEx2.Controls.Add(Me.tlpFilter)
         Me.PanelEx2.HitEnabled = False
@@ -919,7 +921,7 @@ Partial Class FrmG0021_Detail
         Me.ComboboxEx2.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.ComboboxEx2.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.ComboboxEx2.IsSelected = False
-        Me.ComboboxEx2.Location = New System.Drawing.Point(739, 6013)
+        Me.ComboboxEx2.Location = New System.Drawing.Point(739, 6598)
         Me.ComboboxEx2.Name = "ComboboxEx2"
         Me.ComboboxEx2.NullValue = " "
         Me.ComboboxEx2.Size = New System.Drawing.Size(154, 25)
@@ -933,7 +935,7 @@ Partial Class FrmG0021_Detail
         Me.MaskedTextBoxEx1.BackColor = System.Drawing.SystemColors.Window
         Me.MaskedTextBoxEx1.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.MaskedTextBoxEx1.InputRequired = False
-        Me.MaskedTextBoxEx1.Location = New System.Drawing.Point(359, 32885)
+        Me.MaskedTextBoxEx1.Location = New System.Drawing.Point(359, 32767)
         Me.MaskedTextBoxEx1.MaxByteLength = 0
         Me.MaskedTextBoxEx1.Name = "MaskedTextBoxEx1"
         Me.MaskedTextBoxEx1.SelectAllText = False
@@ -947,7 +949,7 @@ Partial Class FrmG0021_Detail
         Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label11.Location = New System.Drawing.Point(255, 32885)
+        Me.Label11.Location = New System.Drawing.Point(255, 32767)
         Me.Label11.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(98, 15)
@@ -960,7 +962,7 @@ Partial Class FrmG0021_Detail
         Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label12.Location = New System.Drawing.Point(661, 32885)
+        Me.Label12.Location = New System.Drawing.Point(661, 32767)
         Me.Label12.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(72, 15)
@@ -973,7 +975,7 @@ Partial Class FrmG0021_Detail
         Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label13.Location = New System.Drawing.Point(10, 32885)
+        Me.Label13.Location = New System.Drawing.Point(10, 32767)
         Me.Label13.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(102, 15)
@@ -987,7 +989,7 @@ Partial Class FrmG0021_Detail
         Me.MaskedTextBoxEx3.BackColor = System.Drawing.Color.White
         Me.MaskedTextBoxEx3.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.MaskedTextBoxEx3.InputRequired = False
-        Me.MaskedTextBoxEx3.Location = New System.Drawing.Point(118, 32885)
+        Me.MaskedTextBoxEx3.Location = New System.Drawing.Point(118, 32767)
         Me.MaskedTextBoxEx3.MaxByteLength = 0
         Me.MaskedTextBoxEx3.Name = "MaskedTextBoxEx3"
         Me.MaskedTextBoxEx3.SelectAllText = False
@@ -1129,6 +1131,32 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel4.TabIndex = 3
         Me.C1SplitterPanel4.Text = "áDïœçXêRãc"
         '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 2
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 144)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 2
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1190, 100)
+        Me.TableLayoutPanel1.TabIndex = 270
+        '
+        'PanelEx1
+        '
+        Me.PanelEx1.Controls.Add(Me.Label15)
+        Me.PanelEx1.Controls.Add(Me.flexDATA_5)
+        Me.PanelEx1.Controls.Add(Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI)
+        Me.PanelEx1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelEx1.HitEnabled = False
+        Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
+        Me.PanelEx1.Name = "PanelEx1"
+        Me.PanelEx1.Size = New System.Drawing.Size(1190, 144)
+        Me.PanelEx1.TabIndex = 269
+        '
         'Label15
         '
         Me.Label15.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -1138,22 +1166,6 @@ Partial Class FrmG0021_Detail
         Me.Label15.TabIndex = 0
         Me.Label15.Text = "SNo./çÜã@ éûä˙ìô:"
         Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'mtxSNO_APPLY_PERIOD_HENKO_SINGI
-        '
-        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.InputRequired = False
-        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.Location = New System.Drawing.Point(130, 10)
-        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.MaxByteLength = 0
-        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.Name = "mtxSNO_APPLY_PERIOD_HENKO_SINGI"
-        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.ReadOnly = True
-        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.SelectAllText = False
-        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.Size = New System.Drawing.Size(214, 24)
-        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.TabIndex = 1
-        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.WatermarkText = Nothing
         '
         'flexDATA_5
         '
@@ -1174,31 +1186,21 @@ Partial Class FrmG0021_Detail
         Me.flexDATA_5.TabIndex = 2
         Me.flexDATA_5.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
         '
-        'PanelEx1
+        'mtxSNO_APPLY_PERIOD_HENKO_SINGI
         '
-        Me.PanelEx1.Controls.Add(Me.Label15)
-        Me.PanelEx1.Controls.Add(Me.flexDATA_5)
-        Me.PanelEx1.Controls.Add(Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI)
-        Me.PanelEx1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelEx1.HitEnabled = False
-        Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
-        Me.PanelEx1.Name = "PanelEx1"
-        Me.PanelEx1.Size = New System.Drawing.Size(1190, 144)
-        Me.PanelEx1.TabIndex = 269
-        '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.ColumnCount = 2
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 144)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1190, 100)
-        Me.TableLayoutPanel1.TabIndex = 270
+        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.BackColor = System.Drawing.SystemColors.Control
+        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.InputRequired = False
+        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.Location = New System.Drawing.Point(130, 10)
+        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.MaxByteLength = 0
+        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.Name = "mtxSNO_APPLY_PERIOD_HENKO_SINGI"
+        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.ReadOnly = True
+        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.SelectAllText = False
+        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.Size = New System.Drawing.Size(214, 24)
+        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.TabIndex = 1
+        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.WatermarkText = Nothing
         '
         'FrmG0021_Detail
         '
@@ -1257,9 +1259,9 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel3.ResumeLayout(False)
         CType(Me.flexDATA_4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.C1SplitterPanel4.ResumeLayout(False)
-        CType(Me.flexDATA_5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelEx1.ResumeLayout(False)
         Me.PanelEx1.PerformLayout()
+        CType(Me.flexDATA_5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
