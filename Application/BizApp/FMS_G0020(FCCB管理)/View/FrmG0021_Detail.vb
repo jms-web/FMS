@@ -147,7 +147,7 @@ Public Class FrmG0021_Detail
     End Sub
 
     Private Sub TabPageMouseWheel(sender As Object, e As MouseEventArgs)
-        tabSTAGE01.Focus()
+        'tabSTAGE01.Focus()
     End Sub
 
     'Shown
@@ -1479,11 +1479,11 @@ Public Class FrmG0021_Detail
 
 #Region "ヘッダ"
 
-    Private Sub RsbtnST_CheckedChanged(sender As Object, e As EventArgs) Handles rsbtnST06.CheckedChanged, rsbtnST05.CheckedChanged, rsbtnST04.CheckedChanged, rsbtnST03.CheckedChanged, rsbtnST02.CheckedChanged, rsbtnST01.CheckedChanged
+    Private Sub RsbtnST_CheckedChanged(sender As Object, e As EventArgs) 
 
         Dim btn As RibbonShapeRadioButton = DirectCast(sender, RibbonShapeRadioButton)
         Dim intStageID As Integer = Val(btn.Name.Substring(7))
-        tabSTAGE01.AutoScrollControlIntoView = True
+        'tabSTAGE01.AutoScrollControlIntoView = True
         'Select Case intStageID
         '    Case ENM_CAR_STAGE2._1_起草入力 To ENM_CAR_STAGE2._7_起草確認_品証課長
         '        tabSTAGE01.ScrollControlIntoView(lblSETUMON_1)
@@ -1517,11 +1517,11 @@ Public Class FrmG0021_Detail
         '        pnlSYOCHI_JISSI.BorderStyle = BorderStyle.FixedSingle
 
         'End Select
-        tabSTAGE01.AutoScrollControlIntoView = False
+        'tabSTAGE01.AutoScrollControlIntoView = False
 
     End Sub
 
-    Private Sub tabSTAGE01_Click(sender As Object, e As EventArgs) Handles tabSTAGE01.Click
+    Private Sub tabSTAGE01_Click(sender As Object, e As EventArgs) Handles TabPageEx1.Click
         sender.Focus
     End Sub
 
