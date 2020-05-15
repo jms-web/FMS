@@ -316,8 +316,11 @@
     <None Include="My Project\DataSources\MODEL.D005_CAR_J.datasource" />
     <None Include="My Project\DataSources\MODEL.D006_CAR_GENIN.datasource" />
     <None Include="My Project\DataSources\MODEL.D010_FCCB_SUB_SYOCHI_KOMOKU.datasource" />
+    <None Include="My Project\DataSources\MODEL.D011_FCCB_SUB_SIKAKE_BUHIN.datasource" />
     <None Include="My Project\DataSources\MODEL.ST02_FUTEKIGO_ICHIRAN.datasource" />
     <None Include="My Project\DataSources\MODEL.ST03_FUTEKIGO_ICHIRAN_SUMMARY.datasource" />
+    <None Include="My Project\DataSources\MODEL.ST04_FCCB_ICHIRAN.datasource" />
+    <None Include="My Project\DataSources\MODEL.V012_FCCB_SUB_SYOCHI_KOMOKU.datasource" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>

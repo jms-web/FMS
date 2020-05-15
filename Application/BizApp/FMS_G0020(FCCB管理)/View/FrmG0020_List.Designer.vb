@@ -48,21 +48,21 @@ Partial Class FrmG0020_List
         Me.btnClearSrchFilter = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.ST03FUTEKIGOICHIRANBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
         Me.FlexContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.EqualFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotEqualFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.IncludeFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotIncludeFilter = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ST04_FCCB_ICHIRAN_BindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpFilter.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ST03FUTEKIGOICHIRANBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FlexContextMenu.SuspendLayout()
+        CType(Me.ST04_FCCB_ICHIRAN_BindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -595,7 +595,7 @@ Partial Class FrmG0020_List
         Me.flxDATA.AutoResize = True
         Me.flxDATA.ClipboardCopyMode = C1.Win.C1FlexGrid.ClipboardCopyModeEnum.DataAndColumnHeaders
         Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
-        Me.flxDATA.DataSource = Me.ST03FUTEKIGOICHIRANBindingSource
+        Me.flxDATA.DataSource = Me.ST04_FCCB_ICHIRAN_BindingSource
         Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.flxDATA.Location = New System.Drawing.Point(15, 185)
         Me.flxDATA.Name = "flxDATA"
@@ -604,10 +604,6 @@ Partial Class FrmG0020_List
         Me.flxDATA.Size = New System.Drawing.Size(1548, 526)
         Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
         Me.flxDATA.TabIndex = 64
-        '
-        'ST03FUTEKIGOICHIRANBindingSource
-        '
-        Me.ST03FUTEKIGOICHIRANBindingSource.DataSource = GetType(MODEL.ST02_FUTEKIGO_ICHIRAN)
         '
         'dgvDATA
         '
@@ -673,6 +669,10 @@ Partial Class FrmG0020_List
         Me.NotIncludeFilter.Size = New System.Drawing.Size(157, 22)
         Me.NotIncludeFilter.Text = """{0}"" ‚ðŠÜ‚Ü‚È‚¢"
         '
+        'ST04_FCCB_ICHIRAN_BindingSource
+        '
+        Me.ST04_FCCB_ICHIRAN_BindingSource.DataSource = GetType(MODEL.ST04_FCCB_ICHIRAN)
+        '
         'FrmG0020_List
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -707,9 +707,9 @@ Partial Class FrmG0020_List
         Me.tlpFilter.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ST03FUTEKIGOICHIRANBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FlexContextMenu.ResumeLayout(False)
+        CType(Me.ST04_FCCB_ICHIRAN_BindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -737,7 +737,7 @@ Partial Class FrmG0020_List
     Friend WithEvents dgvDATA As DataGridView
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents ST03FUTEKIGOICHIRANBindingSource As BindingSource
+    Friend WithEvents ST04_FCCB_ICHIRAN_BindingSource As BindingSource
     Friend WithEvents FlexContextMenu As ContextMenuStrip
     Friend WithEvents EqualFilter As ToolStripMenuItem
     Friend WithEvents NotEqualFilter As ToolStripMenuItem
