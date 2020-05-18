@@ -1495,6 +1495,9 @@ Module mdlG0010
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_‹N‘“ü—Í And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_³”F).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNulOrWS Then
                 ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._10_‹N‘“ü—Í).Value = "'" & DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                If strYMDHNS.Substring(0, 8) >= "20200512" Then
+                    ssgSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiRj@ •Ê†|‚R"
+                End If
             End If
 
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_‹N‘Šm”F»‘¢GL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_³”F).FirstOrDefault?.SYONIN_YMDHNS
@@ -1539,6 +1542,7 @@ Module mdlG0010
             If intCurrentStage > ENM_NCR_STAGE._120_abcdeˆ’uŠm”F Then
                 ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._120_abcdeˆ’uŠm”F).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._120_abcdeˆ’uŠm”F).FirstOrDefault?.UPD_SYAIN_NAME
             End If
+
 
             Dim strRootDir As String
             Using DB As ClsDbUtility = DBOpen()
@@ -1887,6 +1891,10 @@ Module mdlG0010
                 spSheet1.Range("P61").Value = "•iØTL"
 
             End If
+            If _V005_CAR_J.SYONIN_YMD10 >= "20200512" Then
+                spSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiRj@•Ê†|‚T"
+            End If
+
             Dim rev_str = spSheet1.Range("A1").GetCharacters(9, 3)
             rev_str.Font.Color = SpreadsheetGear.Colors.Red
 
@@ -2139,6 +2147,10 @@ Module mdlG0010
             Else
                 spSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiPj@•Ê†|8"
             End If
+            If _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_‹N‘“ü—Í).Select(Function(r) r.ADD_YMDHNS).First > "202005120000" Then
+                spSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiRj@•Ê†|8"
+            End If
+
             For Each stage As ENM_CTS_STAGE In [Enum].GetValues(GetType(ENM_CTS_STAGE))
                 If stage < ENM_CTS_STAGE._999_Closed Then
                     strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = stage And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_³”F).FirstOrDefault?.SYONIN_YMDHNS
