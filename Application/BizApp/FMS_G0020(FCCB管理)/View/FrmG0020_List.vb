@@ -16,8 +16,6 @@ Public Class FrmG0020_List
 
 #Region "定数・変数"
 
-    Private ParamModel As New ST02_ParamModel
-
     Private blnStageAll_NCR As Boolean = True
     Private blnStageAll_CAR As Boolean = True
     Private blnStageAll_CTS As Boolean = True
@@ -93,8 +91,6 @@ Public Class FrmG0020_List
             cmbKISYU.SetDataSource(tblKISYU_J.LazyLoad("機種実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J.LazyLoad("部品番号実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.LazyLoad("社内CD").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            '-----バインディング
-            Call FunSetBinding(ParamModel)
 
             '----コントロールイベントハンドラ
             AddHandler cmbBUMON.SelectedValueChanged, AddressOf CmbBUMON_SelectedValueChanged
@@ -117,7 +113,7 @@ Public Class FrmG0020_List
                                                     CopyToDataTable
                         cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                         cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
-                        ParamModel.BUMON_KB = pub_SYAIN_INFO.BUMON_KB
+
                         dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(pub_SYAIN_INFO.BUMON_KB)
 
                     Case Context.ENM_BUMON_KB._3_複合材
@@ -127,7 +123,7 @@ Public Class FrmG0020_List
                                                     CopyToDataTable
                         cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                         cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
-                        ParamModel.BUMON_KB = pub_SYAIN_INFO.BUMON_KB
+
                         dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
                     Case Else
                         '#255 風防,LP,複合材以外の部門所属者は全部門閲覧のみ
@@ -138,10 +134,6 @@ Public Class FrmG0020_List
 
                 If Not IsOPAdminUser(pub_SYAIN_INFO.SYAIN_ID) And pub_SYAIN_INFO.BUMON_KB <= Context.ENM_BUMON_KB._3_複合材 Then
                     cmbGEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
-                End If
-
-                If cmbGEN_TANTO.SelectedValue IsNot Nothing AndAlso cmbGEN_TANTO.SelectedValue <> 0 Then
-                    ParamModel.SYOCHI_TANTO = pub_SYAIN_INFO.SYAIN_ID
                 End If
             End If
 
@@ -168,8 +160,7 @@ Public Class FrmG0020_List
                         Call FunSRCH(flxDATA, FunGetListData())
                     End If
                 Case ENM_OPEN_MODE._2_処置画面起動
-                    ParamModel.HOKOKU_NO = pub_PrHOKOKU_NO
-                    ParamModel.SYONIN_HOKOKUSYO_ID = pub_PrSYONIN_HOKOKUSYO_ID
+
                     Me.cmdFunc1.PerformClick()
                     Me.cmdFunc4.PerformClick()
 
@@ -235,31 +226,12 @@ Public Class FrmG0020_List
         End With
     End Function
 
-    Private Sub FlxDATA_RowColChange(sender As Object, e As EventArgs) Handles flxDATA.RowColChange
+    Private Sub FlxDATA_RowColChange(sender As Object, e As EventArgs)
         Call FunInitFuncButtonEnabled()
     End Sub
 
-    Private Sub FlxDATA_AfterFilter(sender As Object, e As EventArgs) Handles flxDATA.AfterFilter
-        Dim flx As C1.Win.C1FlexGrid.C1FlexGrid = DirectCast(sender, C1.Win.C1FlexGrid.C1FlexGrid)
-        Dim intCNT As Integer
+    Private Sub FlxDATA_AfterFilter(sender As Object, e As EventArgs)
 
-        For Each r As C1.Win.C1FlexGrid.Row In flx.Rows
-            If r.Visible = True Then
-                intCNT += 1
-            End If
-        Next
-        intCNT -= flx.Rows.Fixed
-
-        If intCNT > 0 Then
-            Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, intCNT)
-
-            Select Case pub_intOPEN_MODE
-                Case ENM_OPEN_MODE._3_分析集計
-                    Call SetSummaryRow(flx)
-            End Select
-        Else
-            Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
-        End If
     End Sub
 
     'Private Sub flxDATA_Click(sender As Object, e As EventArgs) Handles flxDATA.Click
@@ -270,14 +242,12 @@ Public Class FrmG0020_List
     'End Sub
 
     'グリッドセル(行)ダブルクリック時イベント
-    Private Sub FlxDATA_DoubleClick(sender As Object, e As EventArgs) Handles flxDATA.DoubleClick
-        If flxDATA.RowSel > 0 Then
-            Me.cmdFunc4.PerformClick()
-        End If
+    Private Sub FlxDATA_DoubleClick(sender As Object, e As EventArgs)
+
     End Sub
 
-    Private Sub flxDATA_AfterSort(sender As Object, e As C1.Win.C1FlexGrid.SortColEventArgs) Handles flxDATA.AfterSort
-        Call FunSetGridCellFormat(flxDATA)
+    Private Sub flxDATA_AfterSort(sender As Object, e As C1.Win.C1FlexGrid.SortColEventArgs)
+
     End Sub
 
     Private Function FunSetGridCellFormat(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
@@ -354,25 +324,8 @@ Public Class FrmG0020_List
         flxDATA.ApplyFilters()
     End Sub
 
-    Private Sub flex_BeforeMouseDown(ByVal sender As Object, ByVal e As C1.Win.C1FlexGrid.BeforeMouseDownEventArgs) Handles flxDATA.BeforeMouseDown
-        ' 右クリック時
-        If e.Button = Windows.Forms.MouseButtons.Right Then
-            ' クリックされた位置を取得
-            Dim h As C1.Win.C1FlexGrid.HitTestInfo
-            h = flxDATA.HitTest(e.X, e.Y)
-            ' カレントセルを移動
-            flxDATA.Select(h.Row, h.Column)
+    Private Sub flex_BeforeMouseDown(ByVal sender As Object, ByVal e As C1.Win.C1FlexGrid.BeforeMouseDownEventArgs)
 
-            Dim selctValue As Object = flxDATA.Rows(flxDATA.RowSel).Item(flxDATA.ColSel)
-
-            EqualFilter.Text = $"""{selctValue}"" に等しい"
-            NotEqualFilter.Text = $"""{selctValue}"" に等しくない"
-            IncludeFilter.Text = $"""{selctValue}"" を含む"
-            NotIncludeFilter.Text = $"""{selctValue}"" を含まない"
-            Dim tpl = (flxDATA.ColSel, selctValue)
-            FlexContextMenu.Tag = tpl
-            flxDATA.ContextMenuStrip = FlexContextMenu
-        End If
     End Sub
 
 #End Region
@@ -936,7 +889,7 @@ Public Class FrmG0020_List
 
             'SPEC: PF01.2-(1) A 検索条件
 
-            Dim dtBUFF As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(ParamModel, pub_intOPEN_MODE)
+            Dim dtBUFF As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(pub_intOPEN_MODE)
             If dtBUFF Is Nothing Then Return Nothing
             If dtBUFF.Rows.Count > pub_APP_INFO.intSEARCHMAX Then
                 If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
@@ -1016,8 +969,8 @@ Public Class FrmG0020_List
             If blnIsAdmin Then
                 'システム管理者のみ制限解除
             Else
-                If pub_SYAIN_INFO.BUMON_KB <> ParamModel.BUMON_KB Then
-                    Select Case pub_SYAIN_INFO.BUMON_KB
+                'If pub_SYAIN_INFO.BUMON_KB <> ParamModel.BUMON_KB Then
+                Select Case pub_SYAIN_INFO.BUMON_KB
                         Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
                             Dim qdt = tplDataModel.dt.AsEnumerable.Where(Function(r) r.Field(Of String)("BUMON_KB") = 1 Or r.Field(Of String)("BUMON_KB") = 2).ToList
                             If qdt.Count > 0 Then
@@ -1030,7 +983,7 @@ Public Class FrmG0020_List
                                 tplDataModel.dt = qdt.CopyToDataTable
                             End If
                     End Select
-                End If
+                'End If
             End If
 
             Return tplDataModel.dt
@@ -1136,80 +1089,6 @@ Public Class FrmG0020_List
         End Try
     End Function
 
-    Private Function FunSetStageList(dgv As DataGridView, SYONIN_HOKOKUSYO_ID As Context.ENM_SYONIN_HOKOKUSYO_ID, AllChecked As Boolean) As Boolean
-        Try
-
-            Dim dtWK As DataTable
-            If dgv.DataSource IsNot Nothing Then dtWK = dgv.DataSource
-            ParamModel.SYONIN_HOKOKUSYO_ID = SYONIN_HOKOKUSYO_ID
-            Dim dtBUFF As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(ParamModel)
-
-            Dim stageLlist As DataTable
-            Select Case SYONIN_HOKOKUSYO_ID
-                Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-                    stageLlist = tblNCR
-                Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
-                    stageLlist = tblCAR
-                Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
-                    stageLlist = tblCTS.LazyLoad("CTS")
-                Case Else
-                    Return False
-            End Select
-
-            Dim JISSEKI_LIST As IEnumerable(Of IGrouping(Of Tuple(Of Integer, Integer, String), DataRow))
-
-            If chkDeleteRowVisibled.Checked Then
-                JISSEKI_LIST = dtBUFF.AsEnumerable.
-                                    GroupBy(Function(g) Tuple.Create(g.Field(Of Integer)(NameOf(ParamModel.SYONIN_HOKOKUSYO_ID)),
-                                                                     g.Field(Of Integer)("SYONIN_JUN"),
-                                                                     g.Field(Of String)("SYONIN_NAIYO")))
-            Else
-                JISSEKI_LIST = dtBUFF.AsEnumerable.
-                                    Where(Function(r) r.Field(Of String)("DEL_YMDHNS").IsNulOrWS = Not chkDeleteRowVisibled.Checked).
-                                    GroupBy(Function(g) Tuple.Create(g.Field(Of Integer)(NameOf(ParamModel.SYONIN_HOKOKUSYO_ID)),
-                                                                     g.Field(Of Integer)("SYONIN_JUN"),
-                                                                     g.Field(Of String)("SYONIN_NAIYO")))
-            End If
-
-            Dim retTable As New DataTable
-            retTable.Columns.Add("SELECTED", GetType(Boolean))
-            retTable.Columns.Add("SYONIN_JUN", GetType(Integer))
-            retTable.Columns.Add("SYONIN_NAIYO", GetType(String))
-            retTable.Columns.Add("COUNT", GetType(Integer))
-
-            retTable.PrimaryKey = {retTable.Columns("SYONIN_JUN")}
-
-            For Each g In JISSEKI_LIST
-                Dim dr As DataRow = retTable.NewRow
-
-                dr("SELECTED") = AllChecked
-                dr("SYONIN_JUN") = g.Key.Item2
-                dr("SYONIN_NAIYO") = g.Key.Item3
-                dr("COUNT") = g.Count
-                retTable.Rows.Add(dr)
-            Next g
-            retTable.AcceptChanges()
-            For Each s As DataRow In stageLlist.Rows
-                If retTable.Rows.Contains(s.Item("VALUE")) = False Then
-                    Dim dr As DataRow = retTable.NewRow
-                    dr("SELECTED") = AllChecked
-                    dr("SYONIN_JUN") = s.Item("VALUE")
-                    dr("SYONIN_NAIYO") = s.Item("DISP")
-                    dr("COUNT") = 0
-                    retTable.Rows.Add(dr)
-                End If
-            Next s
-            retTable.AcceptChanges()
-
-            dgv.DataSource = retTable.AsEnumerable.OrderBy(Function(r) r.Field(Of Integer)("SYONIN_JUN")).CopyToDataTable
-
-            Return True
-        Catch ex As Exception
-            Throw
-            Return False
-        End Try
-    End Function
-
 #End Region
 
 #Region "追加・変更"
@@ -1232,7 +1111,7 @@ Public Class FrmG0020_List
                         frmFCCB.PrCurrentStage = ENM_FCCB_STAGE._10_起草入力
                     Case ENM_DATA_OPERATION_MODE._2_ADDREF, ENM_DATA_OPERATION_MODE._3_UPDATE
                         frmFCCB.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
-                        frmFCCB.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item("HOKOKU_NO")
+                        frmFCCB.PrFCCB_NO = flxDATA.Rows(flxDATA.Row).Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))
                         frmFCCB.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
                 End Select
                 dlgRET = frmFCCB.ShowDialog(Me)
@@ -1613,7 +1492,7 @@ Public Class FrmG0020_List
         Dim intRET As Integer
         Dim sqlEx As New Exception
         Dim strSysDate As String = DB.GetSysDateString
-        'UNDONE: MERGE INTO に変更
+        'MERGE INTO に変更
 
         '---存在確認
         'Dim dsList As New DataSet
@@ -1900,12 +1779,11 @@ Public Class FrmG0020_List
 #Region "検索条件クリア"
 
     Private Sub btnClearSrchFilter_Click(sender As Object, e As EventArgs) Handles btnClearSrchFilter.Click
-        ParamModel.Clear()
+
         RemoveHandler chkDeleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
         chkDeleteRowVisibled.Checked = False
         AddHandler chkDeleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
-        Call SetStageList()
     End Sub
 
 #End Region
@@ -1924,8 +1802,9 @@ Public Class FrmG0020_List
 
                     Select Case cmb.SelectedValue?.ToString.Trim
                         Case ""
-                            ParamModel.SYOCHI_TANTO = 0
-                            ParamModel.BUMON_KB = ""
+
+                            cmbGEN_TANTO.SelectedValue = 0
+                            cmbBUMON.SelectedValue = ""
                         Case Context.ENM_BUMON_KB._2_LP
                             lblSyanaiCD.Visible = True
                             cmbSYANAI_CD.Visible = True
@@ -1957,7 +1836,7 @@ Public Class FrmG0020_List
                         End If
                     Next row
 
-                    'UNDONE:
+
 
                     cmbADD_TANTO.SetDataSource(dtADD_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     cmbADD_TANTO.SelectedValue = intBUFF
@@ -1970,18 +1849,17 @@ Public Class FrmG0020_List
                     cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     cmbGEN_TANTO.SelectedValue = intBUFF
                     AddHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
-                    cmbGEN_TANTO.DataBindings.Add(New Binding(NameOf(cmbGEN_TANTO.SelectedValue), ParamModel, NameOf(ParamModel.SYOCHI_TANTO), False, DataSourceUpdateMode.OnPropertyChanged, 0))
 
                     Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNulOrWS)
 
                     '機種
                     RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
                     If blnSelected Then
-                        Dim drs = tblKISYU_J.LazyLoad("機種実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUMON_KB)) = cmb.SelectedValue)
+                        Dim drs = tblKISYU_J.LazyLoad("機種実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ST04_FCCB_ICHIRAN.BUMON_KB)) = cmb.SelectedValue)
                         If drs.Count > 0 Then
                             Dim dt As DataTable = drs.CopyToDataTable
                             cmbKISYU.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                            ParamModel.KISYU_ID = 0
+                            cmbKISYU.SelectedValue = 0
                         End If
                     Else
                         cmbKISYU.SetDataSource(tblKISYU_J.LazyLoad("機種実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -1991,11 +1869,11 @@ Public Class FrmG0020_List
                     '部品番号
                     RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
                     If blnSelected Then
-                        Dim drs = tblBUHIN_J.LazyLoad("部品番号実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUMON_KB)) = cmb.SelectedValue)
+                        Dim drs = tblBUHIN_J.LazyLoad("部品番号実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ST04_FCCB_ICHIRAN.BUMON_KB)) = cmb.SelectedValue)
                         If drs.Count > 0 Then
                             Dim dt As DataTable = drs.CopyToDataTable
                             cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                            ParamModel.BUHIN_BANGO = ""
+                            cmbBUHIN_BANGO.SelectedValue = ""
                         End If
                     Else
                         cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J.LazyLoad("部品番号実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -2007,7 +1885,7 @@ Public Class FrmG0020_List
                     cmbSYANAI_CD.DataBindings.Clear()
                     If blnSelected Then
                         If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                            Dim drs = tblSYANAI_CD_J.LazyLoad("社内CD実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUMON_KB)) = cmb.SelectedValue)
+                            Dim drs = tblSYANAI_CD_J.LazyLoad("社内CD実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ST04_FCCB_ICHIRAN.BUMON_KB)) = cmb.SelectedValue)
                             If drs.Count > 0 Then
                                 Dim dt As DataTable = drs.CopyToDataTable
                                 cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -2017,12 +1895,12 @@ Public Class FrmG0020_List
                         Else
                             'cmbSYANAI_CD.DataSource = Nothing
                         End If
-                        ParamModel.SYANAI_CD = ""
+                        cmbSYANAI_CD.SelectedValue = ""
                     Else
                         cmbSYANAI_CD.SetDataSource(tblSYANAI_CD_J.LazyLoad("社内CD実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     End If
                     AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-                    cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
 
                 End Sub)
             End Sub)
@@ -2052,14 +1930,13 @@ Public Class FrmG0020_List
 
                             cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                             If Not cmbBUHIN_BANGO.NullValue = cmbBUHIN_BANGO.SelectedValue Then
-                                ParamModel.BUHIN_BANGO = _selectedValue
+                                'ParamModel.BUHIN_BANGO = _selectedValue
                             End If
                         End If
                     Else
                         cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J.LazyLoad("部品番号実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     End If
                     AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
-                    cmbBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbBUHIN_BANGO.SelectedValue), ParamModel, NameOf(ParamModel.BUHIN_BANGO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
                     If Val(cmbBUMON.SelectedValue) = ENM_BUMON_KB._2_LP Then
                         '社内コード
@@ -2068,25 +1945,25 @@ Public Class FrmG0020_List
 
                         If cmb.IsSelected Then
                             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                                Dim drs = tblSYANAI_CD_J.LazyLoad("社内CD実績").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D009_FCCB_J.KISYU_ID)) = cmb.SelectedValue)
+                                Dim drs = tblSYANAI_CD_J.LazyLoad("社内CD実績").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(ST04_FCCB_ICHIRAN.KISYU_ID)) = cmb.SelectedValue)
                                 If drs.Count > 0 Then
                                     Dim dt As DataTable = drs.CopyToDataTable
                                     Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue
 
                                     cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                                     If Not cmbSYANAI_CD.NullValue = _selectedValue Then
-                                        ParamModel.SYANAI_CD = _selectedValue
+                                        'ParamModel.SYANAI_CD = _selectedValue
                                     End If
                                 End If
                             Else
                                 'cmbSYANAI_CD.DataSource = Nothing
                             End If
-                            ParamModel.SYANAI_CD = ""
+                            'ParamModel.SYANAI_CD = ""
                         Else
                             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD_J.LazyLoad("社内CD実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                         End If
                         AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-                        cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
                     End If
 
                 End Sub)
@@ -2111,7 +1988,7 @@ Public Class FrmG0020_List
                         '部品番号
                         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
                         If cmb.IsSelected Then
-                            Dim drs = tblBUHIN_J.LazyLoad("部品番号実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.SYANAI_CD)) = cmb.SelectedValue).ToList
+                            Dim drs = tblBUHIN_J.LazyLoad("部品番号実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ST04_FCCB_ICHIRAN.SYANAI_CD)) = cmb.SelectedValue).ToList
                             If drs.Count > 0 Then cmbBUHIN_BANGO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                         Else
                             cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J.LazyLoad("部品番号実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -2121,27 +1998,27 @@ Public Class FrmG0020_List
                         '抽出
                         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
                         RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-                        cmbSYANAI_CD.DataBindings.Clear()
+
                         If cmb.IsSelected Then
                             Dim dr = DirectCast(cmbSYANAI_CD.DataSource, DataTable).AsEnumerable.
                                                                 Where(Function(r) r.Field(Of String)("VALUE") = cmb.SelectedValue).
                                                                 FirstOrDefault
                             If dr IsNot Nothing Then
 
-                                ParamModel.BUHIN_BANGO = dr.Item("BUHIN_BANGO")
-                                ParamModel.BUHIN_NAME = dr.Item("BUHIN_NAME")
-                                ParamModel.KISYU_ID = dr.Item("KISYU_ID")
+                                cmbBUHIN_BANGO.SelectedValue = dr.Item("BUHIN_BANGO")
+                                mtxHINMEI.Text = dr.Item("BUHIN_NAME")
+                                cmbKISYU.SelectedValue = dr.Item("KISYU_ID")
                             End If
                         Else
-                            ParamModel.BUHIN_BANGO = ""
-                            ParamModel.BUHIN_NAME = ""
-                            ParamModel.KISYU_ID = 0
+                            cmbBUHIN_BANGO.SelectedValue = ""
+                            mtxHINMEI.Text = ""
+                            cmbKISYU.SelectedValue = 0
                         End If
                         AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
                         AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
 
                         AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-                        cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
                     End Sub)
                 End Sub)
         Catch ex As Exception
@@ -2166,17 +2043,17 @@ Public Class FrmG0020_List
                                          If cmb.IsSelected Then
                                              cmbSYANAI_CD.DataBindings.Clear()
                                              If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                                                 Dim drs = tblSYANAI_CD.LazyLoad("社内CD").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ParamModel.BUHIN_BANGO)) = cmb.SelectedValue).ToList
+                                                 Dim drs = tblSYANAI_CD.LazyLoad("社内CD").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ST04_FCCB_ICHIRAN.BUHIN_BANGO)) = cmb.SelectedValue).ToList
                                                  If drs.Count > 0 Then
                                                      Dim dt As DataTable = drs.CopyToDataTable
                                                      Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue
                                                      cmbSYANAI_CD.DisplayMember = "DISP"
                                                      cmbSYANAI_CD.ValueMember = "VALUE"
                                                      cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                                                     ParamModel.SYANAI_CD = _selectedValue
+                                                     cmbSYANAI_CD.SelectedValue = _selectedValue
                                                  End If
                                              Else
-                                                 ParamModel.SYANAI_CD = ""
+                                                 cmbSYANAI_CD.SelectedValue = ""
                                                  'cmbSYANAI_CD.DataSource = Nothing
                                              End If
                                              'cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -2193,20 +2070,20 @@ Public Class FrmG0020_List
 
                                              If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
                                                  'RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-                                                 ParamModel.SYANAI_CD = dr.Item("SYANAI_CD")
+                                                 cmbSYANAI_CD.SelectedValue = dr.Item("SYANAI_CD")
                                                  'AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
                                              End If
-                                             ParamModel.BUHIN_NAME = dr.Item("BUHIN_NAME")
+                                             mtxHINMEI.Text = dr.Item("BUHIN_NAME")
 
                                              'RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
                                              If dr.Item("KISYU_ID") <> 0 Then
-                                                 ParamModel.KISYU_ID = dr.Item("KISYU_ID")
+                                                 cmbKISYU.SelectedValue = dr.Item("KISYU_ID")
                                              End If
                                              'AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
                                          Else
-                                             ParamModel.SYANAI_CD = ""
-                                             ParamModel.BUHIN_NAME = ""
-                                             ParamModel.KISYU_ID = 0
+                                             cmbSYANAI_CD.SelectedValue = ""
+                                             mtxHINMEI.Text = ""
+                                             cmbKISYU.SelectedValue = 0
                                          End If
                                          'AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
                                      End Sub)
@@ -2248,75 +2125,32 @@ Public Class FrmG0020_List
 
 #Region "ローカル関数"
 
-#Region "バインディング"
 
-    Private Function FunSetBinding(paramModel As ST02_ParamModel) As Boolean
-
-        cmbBUMON.DataBindings.Add(New Binding(NameOf(cmbBUMON.SelectedValue), paramModel, NameOf(paramModel.BUMON_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        mtxHOKUKO_NO.DataBindings.Add(New Binding(NameOf(mtxHOKUKO_NO.Text), paramModel, NameOf(paramModel.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbADD_TANTO.DataBindings.Add(New Binding(NameOf(cmbADD_TANTO.SelectedValue), paramModel, NameOf(paramModel.ADD_TANTO), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-        cmbKISYU.DataBindings.Add(New Binding(NameOf(cmbKISYU.SelectedValue), paramModel, NameOf(paramModel.KISYU_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-        cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), paramModel, NameOf(paramModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbBUHIN_BANGO.DataBindings.Add(New Binding(NameOf(cmbBUHIN_BANGO.SelectedValue), paramModel, NameOf(paramModel.BUHIN_BANGO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        mtxHINMEI.DataBindings.Add(New Binding(NameOf(mtxHINMEI.Text), paramModel, NameOf(paramModel.BUHIN_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-        cmbGEN_TANTO.DataBindings.Add(New Binding(NameOf(cmbGEN_TANTO.SelectedValue), paramModel, NameOf(paramModel.SYOCHI_TANTO), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-        chkClosedRowVisibled.DataBindings.Add(New Binding(NameOf(chkClosedRowVisibled.Checked), paramModel, NameOf(paramModel.VISIBLE_CLOSE), False, DataSourceUpdateMode.OnPropertyChanged, False))
-        chkTairyu.DataBindings.Add(New Binding(NameOf(chkTairyu.Checked), paramModel, NameOf(paramModel.VISIBLE_TAIRYU), False, DataSourceUpdateMode.OnPropertyChanged, False))
-
-    End Function
-
-#End Region
-
-    Public Function FunGetDtST02_FUTEKIGO_ICHIRAN(ParamModel As ST02_ParamModel, Optional mode As Integer = ENM_OPEN_MODE._0_通常) As DataTable
+    Public Function FunGetDtST02_FUTEKIGO_ICHIRAN(Optional mode As Integer = ENM_OPEN_MODE._0_通常) As DataTable
 
         Dim sbSQL As New System.Text.StringBuilder
         Dim sbParam As New System.Text.StringBuilder
         Dim dsList As New DataSet
 
 
-        sbParam.Append($" '{ParamModel.BUMON_KB}'")
+        'sbParam.Append($" '{ParamModel.BUMON_KB}'")
+        'sbParam.Append($",{ParamModel.SYONIN_HOKOKUSYO_ID}")
+        'sbParam.Append($",{Nz(cmbKISYU.SelectedValue, 0)}")
+        'If Not cmbBUHIN_BANGO.Text.IsNulOrWS And cmbBUHIN_BANGO.SelectedValue <> cmbBUHIN_BANGO.NullValue Then
+        '    sbParam.Append($",'{cmbBUHIN_BANGO.Text.Trim}'")
+        'Else
+        '    sbParam.Append($",'{ParamModel.BUHIN_BANGO}'")
+        'End If
 
-        sbParam.Append($",{ParamModel.SYONIN_HOKOKUSYO_ID}")
-        sbParam.Append($",{Nz(cmbKISYU.SelectedValue, 0)}")
+        'sbParam.Append($",'{ParamModel.SYANAI_CD}'")
+        'sbParam.Append($",'{ParamModel.BUHIN_NAME}'")
+        'sbParam.Append($",{Nz(cmbGEN_TANTO.SelectedValue, 0)}")
+        'sbParam.Append($",'{ParamModel.HOKOKU_NO}'")
+        'sbParam.Append($",{ParamModel.ADD_TANTO}")
+        'sbParam.Append($",'{IIf(chkClosedRowVisibled.Checked, "", 0)}'")
+        'sbParam.Append($",'{IIf(ParamModel._VISIBLE_TAIRYU = 1, ParamModel._VISIBLE_TAIRYU, "")}'")
 
-        If Not cmbBUHIN_BANGO.Text.IsNulOrWS And cmbBUHIN_BANGO.SelectedValue <> cmbBUHIN_BANGO.NullValue Then
-            sbParam.Append($",'{cmbBUHIN_BANGO.Text.Trim}'")
-        Else
-            sbParam.Append($",'{ParamModel.BUHIN_BANGO}'")
-        End If
-
-        sbParam.Append($",'{ParamModel.SYANAI_CD}'")
-        sbParam.Append($",'{ParamModel.BUHIN_NAME}'")
-        sbParam.Append($",'{ParamModel.GOUKI}'")
-        sbParam.Append($",{Nz(cmbGEN_TANTO.SelectedValue, 0)}")
-        sbParam.Append($",'{ParamModel.JISI_YMD_FROM}'")
-        sbParam.Append($",'{ParamModel.JISI_YMD_TO}'")
-        sbParam.Append($",'{ParamModel.HOKOKU_NO}'")
-        sbParam.Append($",{ParamModel.ADD_TANTO}")
-        sbParam.Append($",'{IIf(chkClosedRowVisibled.Checked, "", 0)}'")
-        sbParam.Append($",'{IIf(ParamModel._VISIBLE_TAIRYU = 1, ParamModel._VISIBLE_TAIRYU, "")}'")
-        sbParam.Append($",'{ParamModel.FUTEKIGO_KB}'")
-        sbParam.Append($",'{ParamModel.FUTEKIGO_S_KB}'")
-        sbParam.Append($",'{ParamModel.FUTEKIGO_JYOTAI_KB}'")
-
-        'NCR
-        sbParam.Append($",'{ParamModel.JIZEN_SINSA_HANTEI_KB}'")
-        sbParam.Append($",'{ParamModel.ZESEI_SYOCHI_YOHI_KB}'")
-        sbParam.Append($",'{ParamModel.SAISIN_IINKAI_HANTEI_KB}'")
-        sbParam.Append($",'{ParamModel.KENSA_KEKKA_KB}'")
-
-        'CAR
-        sbParam.Append($",'{ParamModel.KONPON_YOIN_KB1}'")
-        sbParam.Append($",'{ParamModel.KONPON_YOIN_KB2}'")
-        sbParam.Append($",'{ParamModel.KISEKI_KOTEI_KB}'")
-        sbParam.Append($",'{ParamModel.KOKYAKU_HANTEI_SIJI_KB}'")
-        sbParam.Append($",'{ParamModel.KOKYAKU_SAISYU_HANTEI_KB}'")
-        sbParam.Append($",'{ParamModel.GENIN1}'")
-        sbParam.Append($",'{ParamModel.GENIN2}'")
-        sbParam.Append($",'{ParamModel.HASSEI_FROM}'")
-        sbParam.Append($",'{ParamModel.HASSEI_TO}'")
-
-        sbSQL.Append($"EXEC dbo.{NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN)} {sbParam.ToString}")
+        sbSQL.Append($"EXEC dbo.{NameOf(ST04_FCCB_ICHIRAN)} {sbParam.ToString}")
 
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
@@ -2475,6 +2309,7 @@ Public Class FrmG0020_List
 
         Return True
     End Function
+
 
 #End Region
 

@@ -117,6 +117,7 @@ Namespace Context
             _1_NCR = 1
             _2_CAR = 2
             _3_CTS = 3
+            _4_FCCB = 4
         End Enum
 #End Region
 

@@ -13,6 +13,7 @@ Public Class FrmG0021_Detail
     Private _V003_SYONIN_J_KANRI_List As New List(Of V003_SYONIN_J_KANRI)
     Private IsEditingClosed As Boolean
     Private IsInitializing As Boolean
+
 #End Region
 
 #Region "プロパティ"
@@ -28,7 +29,7 @@ Public Class FrmG0021_Detail
     Public Property PrCurrentStage As Integer
 
     '報告書No
-    Public Property PrHOKOKU_NO As String
+    Public Property PrFCCB_NO As String
 
     'NCR編集画面から開かれているか
     Public Property PrDialog As Boolean
@@ -71,7 +72,6 @@ Public Class FrmG0021_Detail
 
         'dtFUTEKIGO_HASSEI_YMD.ReadOnly = True
 
-
     End Sub
 
 #End Region
@@ -98,11 +98,6 @@ Public Class FrmG0021_Detail
                         '--- モデルクリア
                         _D004_SYONIN_J_KANRI.clear()
 
-                        '-----コントロールデータソース設定
-                        cmbKISO_TANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                        cmbKISYU.SetDataSource(tblKISYU.LazyLoad("機種").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                        cmbBUHIN_BANGO.SetDataSource(tblBUHIN.LazyLoad("部品番号").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                        cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                         Dim blnIsAdmin As Boolean = IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID)
                         If blnIsAdmin Then
                             'システム管理者のみ制限解除
@@ -134,8 +129,7 @@ Public Class FrmG0021_Detail
                         IsEditingClosed = HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
 
                         '-----画面初期化
-                        Call FunInitializeControls(prMODE)
-
+                        Call FunInitializeControls(PrMODE)
 
                     End Sub)
                 End Sub)
@@ -233,7 +227,6 @@ Public Class FrmG0021_Detail
                         End If
                     End If
 
-
                 Case 4  '転送
 
                     'If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
@@ -253,15 +246,13 @@ Public Class FrmG0021_Detail
                 Case 5  '差し戻し
                     'Call OpenFormSASIMODOSI()
 
-
-
                 Case 10  '印刷
 
                     'Call FunOpenReportFCCB()
 
                 Case 11 '履歴
 
-                    'Call OpenFormHistory(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, _D009_FCB_J.HOKOKU_NO)
+                    'Call OpenFormHistory(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, _D009_FCCB_J.HOKOKU_NO)
 
                 Case 12 '閉じる
                     Me.Close()
@@ -304,10 +295,9 @@ Public Class FrmG0021_Detail
                 Try
                     DB.BeginTransaction()
 
-                    'SPEC: 2.(3).D.①.レコード更新
-                    If FunSAVE_D007(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
-                    If FunSAVE_D008(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
-                    If FunSAVE_FILE(DB) = False Then blnErr = True : Return False
+                    If FunSAVE_D009(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
+                    If FunSAVE_D010(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
+                    'If FunSAVE_FILE(DB) = False Then blnErr = True : Return False
 
                     If Not blnTENSO And PrCurrentStage < ENM_FCCB_STAGE._999_Closed Then
                         If FunSAVE_D004(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
@@ -328,7 +318,7 @@ Public Class FrmG0021_Detail
 
 #End Region
 
-#Region "   CTS添付ファイル保存"
+#Region "   添付ファイル保存"
 
     ''' <summary>
     ''' CTS添付ファイル保存
@@ -337,9 +327,9 @@ Public Class FrmG0021_Detail
     ''' <returns></returns>
     Private Function FunSAVE_FILE(ByRef DB As ClsDbUtility) As Boolean
 
-        If _D009_FCB_J.KOKYAKU_EIKYO_HANTEI_FILEPATH.IsNulOrWS And
-            _D009_FCB_J.OTHER_PROCESS_INFLUENCE_FILEPATH.IsNulOrWS And
-            _D009_FCB_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH.IsNulOrWS Then
+        If _D009_FCCB_J.FCCB_NO.IsNulOrWS And
+            _D009_FCCB_J.FCCB_NO.IsNulOrWS And
+            _D009_FCCB_J.FCCB_NO.IsNulOrWS Then
             Return True
         Else
 
@@ -358,15 +348,13 @@ Public Class FrmG0021_Detail
                 End If
             Else
                 Try
-                    System.IO.Directory.CreateDirectory($"{strRootDir}{_D009_FCB_J.HOKOKU_NO.Trim}\CTS")
+                    System.IO.Directory.CreateDirectory($"{strRootDir}{_D009_FCCB_J.FCCB_NO.Trim}\FCCB")
 
-
-
-                    'If Not _D009_FCB_J.SYOCHI_FILEPATH.IsNulOrWS AndAlso
-                    '    Not System.IO.File.Exists($"{strRootDir}{_D009_FCB_J.HOKOKU_NO.Trim}\CTS\{__D009_FCB_J.SYOCHI_FILEPATH}") Then
+                    'If Not _D009_FCCB_J.SYOCHI_FILEPATH.IsNulOrWS AndAlso
+                    '    Not System.IO.File.Exists($"{strRootDir}{_D009_FCCB_J.HOKOKU_NO.Trim}\CTS\{__D009_FCCB_J.SYOCHI_FILEPATH}") Then
 
                     '    If System.IO.File.Exists(lblSYOCHI_FILEPATH.Links.Item(0).LinkData) Then
-                    '        System.IO.File.Copy(lblSYOCHI_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_D009_FCB_J.HOKOKU_NO.Trim}\CTS\{_D009_FCB_J.SYOCHI_FILEPATH}", True)
+                    '        System.IO.File.Copy(lblSYOCHI_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_D009_FCCB_J.HOKOKU_NO.Trim}\CTS\{_D009_FCCB_J.SYOCHI_FILEPATH}", True)
                     '    Else
                     '        Throw New IO.FileNotFoundException($"5,処置実施 資料:{lblSYOCHI_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                     '    End If
@@ -390,14 +378,14 @@ Public Class FrmG0021_Detail
 
 #End Region
 
-#Region "   D007"
+#Region "   D009"
 
     ''' <summary>
-    ''' CAR実績更新
+    ''' FCCB更新
     ''' </summary>
     ''' <param name="DB"></param>
     ''' <returns></returns>
-    Private Function FunSAVE_D007(ByRef DB As ClsDbUtility, ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
+    Private Function FunSAVE_D009(ByRef DB As ClsDbUtility, ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
         Dim strRET As String
         Dim sqlEx As New Exception
@@ -405,96 +393,49 @@ Public Class FrmG0021_Detail
 
 #Region "モデル更新"
 
-        _D007.Clear()
-        _D007.HOKOKU_NO = PrHOKOKU_NO
+        _D009_FCCB_J.Clear()
+        _D009_FCCB_J.FCCB_NO = PrFCCB_NO
 
         If (FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_FCCB_STAGE._999_Closed) And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
-            _D007._CLOSE_FG = 1
+            _D009_FCCB_J._CLOSE_FG = 1
         End If
 
 
-
-        _D007.FUTEKIGO_SEIHIN_FILEPATH = _D009_FCB_J.FUTEKIGO_SEIHIN_FILEPATH
-        _D007.KOKYAKU_EIKYO_FILEPATH = _D009_FCB_J.KOKYAKU_EIKYO_FILEPATH
-
-        '_D007._OTHER_PROCESS_INFLUENCE_KB = If(rbtnOTHER_PROCESS_INFLUENCE_KB_T.Checked, "1", "0")
-        'If rbtnOTHER_PROCESS_INFLUENCE_KB_T.Checked Then
-        '    _D007.OTHER_PROCESS_INFLUENCE_MEMO = txtOTHER_PROCESS_INFLUENCE_MEMO.Text
-        '    _D007.OTHER_PROCESS_INFLUENCE_FILEPATH = _D009_FCB_J.OTHER_PROCESS_INFLUENCE_FILEPATH
-        'End If
-
-        '_D007._FOLLOW_PROCESS_OUTFLOW_KB = If(rbtnFOLLOW_PROCESS_OUTFLOW_KB_T.Checked, "1", "0")
-        'If rbtnFOLLOW_PROCESS_OUTFLOW_KB_T.Checked Then
-        '    _D007.FOLLOW_PROCESS_OUTFLOW_FILEPATH = _D009_FCB_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH
-        '    _D007.FOLLOW_PROCESS_OUTFLOW_MEMO = txtFOLLOW_PROCESS_OUTFLOW_MEMO.Text
-        'End If
-
-        'If _D007._OTHER_PROCESS_INFLUENCE_KB = "0" And _D007._FOLLOW_PROCESS_OUTFLOW_KB = "0" Then
-        '    _D007.OTHER_PROCESS_NAIYOU = ""
-        '    _D007.OTHER_PROCESS_YMD = ""
-        'Else
-        '    _D007.OTHER_PROCESS_NAIYOU = txtOTHER_PROCESS_NAIYOU.Text
-        '    _D007.OTHER_PROCESS_YMD = dtOTHER_PROCESS_YMD.ValueNonFormat
-        'End If
-        '_D007.KOKYAKU_NOUNYU_NAIYOU = txtKOKYAKU_NOUNYU_NAIYOU.Text
-        '_D007.KOKYAKU_NOUNYU_YMD = dtKOKYAKU_NOUNYU_YMD.ValueNonFormat
-        '_D007.ZAIKO_SIKAKE_NAIYOU = txtZAIKO_SIKAKE_NAIYOU.Text
-        '_D007.ZAIKO_SIKAKE_YMD = dtZAIKO_SIKAKE_YMD.ValueNonFormat
-        _D007.ADD_YMDHNS = strSysDate
-        _D007.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+        _D009_FCCB_J.ADD_YMDHNS = strSysDate
+        _D009_FCCB_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
 
 #End Region
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append($"MERGE INTO {NameOf(D007_FCR_J)} AS SrcT")
+        sbSQL.Append($"MERGE INTO {NameOf(D009_FCCB_J)} AS SrcT")
         sbSQL.Append($" USING (")
-        sbSQL.Append($"{_D007.ToSelectSqlString}")
+        sbSQL.Append($"{_D009_FCCB_J.ToSelectSqlString}")
         sbSQL.Append($" ) AS WK")
-        sbSQL.Append($" ON (SrcT.{NameOf(_D007.HOKOKU_NO)} = WK.{NameOf(_D007.HOKOKU_NO)})")
+        sbSQL.Append($" ON (SrcT.{NameOf(_D009_FCCB_J.FCCB_NO)} = WK.{NameOf(_D009_FCCB_J.FCCB_NO)})")
         'UPDATE
         sbSQL.Append($" WHEN MATCHED THEN")
         sbSQL.Append($" UPDATE SET")
-        sbSQL.Append($"  SrcT.{NameOf(_D007.CLOSE_FG)}                         = WK.{NameOf(_D007.CLOSE_FG)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_EIKYO_HANTEI_KB)}          = WK.{NameOf(_D007.KOKYAKU_EIKYO_HANTEI_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.TAISYOU_KOKYAKU)}                  = WK.{NameOf(_D007.TAISYOU_KOKYAKU)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_EIKYO_HANTEI_COMMENT)}     = WK.{NameOf(_D007.KOKYAKU_EIKYO_HANTEI_COMMENT)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_EIKYO_NAIYO)}              = WK.{NameOf(_D007.KOKYAKU_EIKYO_NAIYO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.KAKUNIN_SYUDAN)}                   = WK.{NameOf(_D007.KAKUNIN_SYUDAN)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_EIKYO_TUCHI_HANTEI_KB)}    = WK.{NameOf(_D007.KOKYAKU_EIKYO_TUCHI_HANTEI_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.TUCHI_YMD)}                        = WK.{NameOf(_D007.TUCHI_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.TUCHI_SYUDAN)}                     = WK.{NameOf(_D007.TUCHI_SYUDAN)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.HITUYO_TETUDUKI_ZIKO)}             = WK.{NameOf(_D007.HITUYO_TETUDUKI_ZIKO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_EIKYO_ETC_COMMENT)}        = WK.{NameOf(_D007.KOKYAKU_EIKYO_ETC_COMMENT)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.OTHER_PROCESS_INFLUENCE_KB)}       = WK.{NameOf(_D007.OTHER_PROCESS_INFLUENCE_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.FOLLOW_PROCESS_OUTFLOW_KB)}        = WK.{NameOf(_D007.FOLLOW_PROCESS_OUTFLOW_KB)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_NOUNYU_NAIYOU)}            = WK.{NameOf(_D007.KOKYAKU_NOUNYU_NAIYOU)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_NOUNYU_YMD)}               = WK.{NameOf(_D007.KOKYAKU_NOUNYU_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.ZAIKO_SIKAKE_NAIYOU)}              = WK.{NameOf(_D007.ZAIKO_SIKAKE_NAIYOU)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.ZAIKO_SIKAKE_YMD)}                 = WK.{NameOf(_D007.ZAIKO_SIKAKE_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.OTHER_PROCESS_NAIYOU)}             = WK.{NameOf(_D007.OTHER_PROCESS_NAIYOU)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.OTHER_PROCESS_YMD)}                = WK.{NameOf(_D007.OTHER_PROCESS_YMD)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_EIKYO_HANTEI_FILEPATH)}    = WK.{NameOf(_D007.KOKYAKU_EIKYO_HANTEI_FILEPATH)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.FUTEKIGO_SEIHIN_MEMO)}             = WK.{NameOf(_D007.FUTEKIGO_SEIHIN_MEMO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_EIKYO_MEMO)}               = WK.{NameOf(_D007.KOKYAKU_EIKYO_MEMO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.OTHER_PROCESS_INFLUENCE_MEMO)}     = WK.{NameOf(_D007.OTHER_PROCESS_INFLUENCE_MEMO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.OTHER_PROCESS_INFLUENCE_FILEPATH)} = WK.{NameOf(_D007.OTHER_PROCESS_INFLUENCE_FILEPATH)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.FOLLOW_PROCESS_OUTFLOW_MEMO)}      = WK.{NameOf(_D007.FOLLOW_PROCESS_OUTFLOW_MEMO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.FOLLOW_PROCESS_OUTFLOW_FILEPATH)}  = WK.{NameOf(_D007.FOLLOW_PROCESS_OUTFLOW_FILEPATH)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.FUTEKIGO_SEIHIN_FILEPATH)}         = WK.{NameOf(_D007.FUTEKIGO_SEIHIN_FILEPATH)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.KOKYAKU_EIKYO_FILEPATH)}           = WK.{NameOf(_D007.KOKYAKU_EIKYO_FILEPATH)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.SYOCHI_MEMO)}                      = WK.{NameOf(_D007.SYOCHI_MEMO)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.SYOCHI_FILEPATH)}                  = WK.{NameOf(_D007.SYOCHI_FILEPATH)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.UPD_SYAIN_ID)}                     = WK.{NameOf(_D007.UPD_SYAIN_ID)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D007.UPD_YMDHNS)}                       = WK.{NameOf(_D007.UPD_YMDHNS)}")
+        sbSQL.Append($"  SrcT.{NameOf(_D009_FCCB_J.BUMON_KB)}               = WK.{NameOf(_D009_FCCB_J.BUMON_KB)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D009_FCCB_J.CLOSE_FG)}               = WK.{NameOf(_D009_FCCB_J.CLOSE_FG)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D009_FCCB_J.CM_TANTO)}               = WK.{NameOf(_D009_FCCB_J.CM_TANTO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D009_FCCB_J.KISYU_ID)}               = WK.{NameOf(_D009_FCCB_J.KISYU_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D009_FCCB_J.SYANAI_CD)}              = WK.{NameOf(_D009_FCCB_J.SYANAI_CD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D009_FCCB_J.BUHIN_BANGO)}            = WK.{NameOf(_D009_FCCB_J.BUHIN_BANGO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D009_FCCB_J.BUHIN_NAME)}             = WK.{NameOf(_D009_FCCB_J.BUHIN_NAME)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D009_FCCB_J.INPUT_DOC_NO)}           = WK.{NameOf(_D009_FCCB_J.INPUT_DOC_NO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D009_FCCB_J.SNO_APPLY_PERIOD_KISO)}  = WK.{NameOf(_D009_FCCB_J.SNO_APPLY_PERIOD_KISO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D009_FCCB_J.SNO_APPLY_PERIOD_SINGI)} = WK.{NameOf(_D009_FCCB_J.SNO_APPLY_PERIOD_SINGI)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D009_FCCB_J.UPD_SYAIN_ID)}           = WK.{NameOf(_D009_FCCB_J.UPD_SYAIN_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D009_FCCB_J.UPD_YMDHNS)}             = WK.{NameOf(_D009_FCCB_J.UPD_YMDHNS)}")
         'INSERT
         sbSQL.Append($" WHEN NOT MATCHED THEN ")
         sbSQL.Append($"INSERT(")
-        _D007.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {p.Name}"))
-        _D007.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{p.Name}"))
+        _D009_FCCB_J.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {p.Name}"))
+        _D009_FCCB_J.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{p.Name}"))
         sbSQL.Append($" ) VALUES(")
-        _D007.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" WK.{p.Name}"))
-        _D007.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",WK.{p.Name}"))
+        _D009_FCCB_J.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" WK.{p.Name}"))
+        _D009_FCCB_J.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",WK.{p.Name}"))
         sbSQL.Append($" ) ")
         sbSQL.Append($"OUTPUT $action AS RESULT;")
         strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
@@ -510,70 +451,66 @@ Public Class FrmG0021_Detail
                 WL.WriteLogDat(strErrMsg)
                 Return False
         End Select
-        WL.WriteLogDat($"[DEBUG]CAR 報告書NO:{_D007.HOKOKU_NO}、MERGE D007")
+        WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009_FCCB_J.FCCB_NO}、MERGE D009_FCCB_J")
 
         Return True
     End Function
 
 #End Region
 
-#Region "   D008"
+#Region "   D010"
 
-    Private Function FunSAVE_D008(ByRef DB As ClsDbUtility, ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
+    Private Function FunSAVE_D010(ByRef DB As ClsDbUtility, ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
         Dim strRET As String
         Dim sqlEx As New Exception
         Dim strSysDate As String = DB.GetSysDateString
 
-        Dim _D008 As New D008_FCR_J_SUB
+        Dim _D010 As New D010_FCCB_SUB_SYOCHI_KOMOKU
 
-        For i As Integer = 1 To 6
+        For Each dr As DataRow In DirectCast(Flx2_DS.DataSource, DataTable).Rows
 
 #Region "   モデル更新"
 
-            _D008.Clear()
-            _D008.HOKOKU_NO = _D009_FCB_J.HOKOKU_NO
-            _D008.ROW_NO = i
-            _D008.ADD_YMDHNS = strSysDate
-            _D008.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-
-            Dim pnlCtrl = GetControlByName(Me, $"pnlInfo{i}")
-            If pnlCtrl IsNot Nothing AndAlso pnlCtrl.Enabled Then
-                _D008.KISYU_ID = _D009_FCB_J.Item("KISYU_ID" & i)
-                _D008.BUHIN_INFO = _D009_FCB_J.Item("BUHIN_INFO" & i)
-                _D008.SURYO = _D009_FCB_J.Item("SURYO" & i)
-                _D008.RANGE_FROM = _D009_FCB_J.Item("RANGE_FROM" & i)
-                _D008.RANGE_TO = _D009_FCB_J.Item("RANGE_TO" & i)
-            End If
+            _D010.Clear()
+            _D010.FCCB_NO = dr.Item(NameOf(_D010.FCCB_NO))
+            _D010.ITEM_NO = dr.Item(NameOf(_D010.ITEM_NO))
+            _D010.ITEM_GROUP_NAME = dr.Item(NameOf(_D010.ITEM_GROUP_NAME))
+            _D010.ITEM_NAME = dr.Item(NameOf(_D010.ITEM_NAME))
+            _D010.TANTO_GYOMU_GROUP_ID = dr.Item(NameOf(_D010.TANTO_GYOMU_GROUP_ID))
+            _D010.NAIYO = dr.Item(NameOf(_D010.NAIYO))
+            _D010.YOTEI_YMD = dr.Item(NameOf(_D010.YOTEI_YMD))
+            _D010.CLOSE_YMD = dr.Item(NameOf(_D010.CLOSE_YMD))
 
 #End Region
 
-            '-----MERGE
-            sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append($"MERGE INTO {NameOf(D008_FCR_J_SUB)} AS SrcT")
+            sbSQL.Clear()
+            sbSQL.Append($"MERGE INTO {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU)} AS SrcT")
             sbSQL.Append($" USING (")
-            sbSQL.Append($"{_D008.ToSelectSqlString}")
+            sbSQL.Append($"{_D010.ToSelectSqlString}")
             sbSQL.Append($" ) AS WK")
-            sbSQL.Append($" ON (SrcT.{NameOf(_D008.HOKOKU_NO)} = WK.{NameOf(_D008.HOKOKU_NO)}")
-            sbSQL.Append($" AND SrcT.{NameOf(_D008.ROW_NO)} = WK.{NameOf(_D008.ROW_NO)})")
+            sbSQL.Append($" ON (SrcT.{NameOf(_D010.FCCB_NO)} = WK.{NameOf(_D010.FCCB_NO)}")
+            sbSQL.Append($" AND SrcT.{NameOf(_D010.ITEM_NO)} = WK.{NameOf(_D010.ITEM_NO)})")
             'UPDATE
             sbSQL.Append($" WHEN MATCHED THEN")
             sbSQL.Append($" UPDATE SET")
-            sbSQL.Append($"  SrcT.{NameOf(_D008.KISYU_ID)} = WK.{NameOf(_D008.KISYU_ID)}")
-            sbSQL.Append($" ,SrcT.{NameOf(_D008.BUHIN_INFO)} = WK.{NameOf(_D008.BUHIN_INFO)}")
-            sbSQL.Append($" ,SrcT.{NameOf(_D008.SURYO)} = WK.{NameOf(_D008.SURYO)}")
-            sbSQL.Append($" ,SrcT.{NameOf(_D008.RANGE_FROM)} = WK.{NameOf(_D008.RANGE_FROM)}")
-            sbSQL.Append($" ,SrcT.{NameOf(_D008.RANGE_TO)} = WK.{NameOf(_D008.RANGE_TO)}")
-            sbSQL.Append($" ,SrcT.{NameOf(_D008.UPD_SYAIN_ID)} = WK.{NameOf(_D008.UPD_SYAIN_ID)}")
-            sbSQL.Append($" ,SrcT.{NameOf(_D008.UPD_YMDHNS)} = WK.{NameOf(_D008.UPD_YMDHNS)}")
+            sbSQL.Append($"  SrcT.{NameOf(_D010.ITEM_GROUP_NAME)} = WK.{NameOf(_D010.ITEM_GROUP_NAME)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D010.ITEM_NAME)} = WK.{NameOf(_D010.ITEM_NAME)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D010.TANTO_GYOMU_GROUP_ID)} = WK.{NameOf(_D010.TANTO_GYOMU_GROUP_ID)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D010._YOHI_KB)} = WK.{NameOf(_D010.YOHI_KB)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D010.TANTO_ID)} = WK.{NameOf(_D010.TANTO_ID)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D010.NAIYO)} = WK.{NameOf(_D010.NAIYO)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D010.GOKI)} = WK.{NameOf(_D010.GOKI)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D010.YOTEI_YMD)} = WK.{NameOf(_D010.YOTEI_YMD)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D010.CLOSE_YMD)} = WK.{NameOf(_D010.CLOSE_YMD)}")
             'INSERT
             sbSQL.Append($" WHEN NOT MATCHED THEN ")
             sbSQL.Append($"INSERT(")
-            _D008.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {p.Name}"))
-            _D008.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{p.Name}"))
+            _D010.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {p.Name}"))
+            _D010.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{p.Name}"))
             sbSQL.Append($" ) VALUES(")
-            _D008.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" WK.{p.Name}"))
-            _D008.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",WK.{p.Name}"))
+            _D010.Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" WK.{p.Name}"))
+            _D010.Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",WK.{p.Name}"))
             sbSQL.Append($" ) ")
             sbSQL.Append($"OUTPUT $action AS RESULT;")
             strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
@@ -590,7 +527,7 @@ Public Class FrmG0021_Detail
             End Select
         Next
 
-        WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_D008.HOKOKU_NO}、MERGE D008")
+        WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D010.FCCB_NO}、MERGE D010")
 
         Return True
     End Function
@@ -616,8 +553,8 @@ Public Class FrmG0021_Detail
 #Region "   CurrentStage"
 
             '-----データモデル更新
-            _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
-            _D004_SYONIN_J_KANRI.HOKOKU_NO = _D009_FCB_J.HOKOKU_NO
+            _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB
+            _D004_SYONIN_J_KANRI.HOKOKU_NO = _D009_FCCB_J.FCCB_NO
             _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
             _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
@@ -832,7 +769,7 @@ Public Class FrmG0021_Detail
                     If _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認 Then
                         '承認依頼メール送信
                         If FunSendRequestMail() Then
-                            WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_D009_FCB_J.HOKOKU_NO}、Send Request Mail")
+                            WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009_FCCB_J.FCCB_NO}、Send Request Mail")
                         End If
                     End If
 
@@ -845,7 +782,7 @@ Public Class FrmG0021_Detail
                     Return False
             End Select
 
-            WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_D009_FCB_J.HOKOKU_NO}、MERGE D004")
+            WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009_FCCB_J.FCCB_NO}、MERGE D004")
 
 #End Region
 
@@ -864,16 +801,16 @@ Public Class FrmG0021_Detail
     ''' </summary>
     ''' <returns></returns>
     Private Function FunSendRequestMail()
-        Dim KISYU_NAME As String = _D009_FCB_J.KISYU_NAME
+        Dim KISYU_NAME As String = _D009_FCCB_J.KISYU_ID
         Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.LazyLoad("承認判定区分").AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
         Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
         Dim strSubject As String = $"【不適合品処置依頼】[CTS] {KISYU_NAME}"
         Dim strBody As String = <sql><![CDATA[
         {0} 殿<br />
         <br />
-        　不適合封じ込め調査書の処置依頼が来ましたので対応をお願いします。<br />
+        　FCCB調査書の処置依頼が来ましたので対応をお願いします。<br />
         <br />
-        　　【報 告 書】CTS<br />
+        　　【報 告 書】FCCB<br />
         　　【報告書No】{1}<br />
         　　【起 草 日】{2}<br />
         　　【機　  種】{3}<br />
@@ -892,7 +829,7 @@ Public Class FrmG0021_Detail
         strBody = String.Format(strBody,
                                 Fun_GetUSER_NAME(_D004_SYONIN_J_KANRI.SYAIN_ID),
                                 _D004_SYONIN_J_KANRI.HOKOKU_NO,
-                                CDate(_D009_FCB_J.ADD_YMDHNS).ToString("yyyy/MM/dd"),
+                                CDate(_D009_FCCB_J.ADD_YMDHNS).ToString("yyyy/MM/dd"),
                                 KISYU_NAME,
                                 "",
                                 Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
@@ -936,12 +873,11 @@ Public Class FrmG0021_Detail
         End If
 
         '-----データモデル更新
-        _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
-        _R001_HOKOKU_SOUSA.HOKOKU_NO = _D009_FCB_J.HOKOKU_NO
+        _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB
+        _R001_HOKOKU_SOUSA.HOKOKU_NO = _D009_FCCB_J.FCCB_NO
         _R001_HOKOKU_SOUSA.SYONIN_JUN = PrCurrentStage
         _R001_HOKOKU_SOUSA.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
         _R001_HOKOKU_SOUSA.RIYU = PrRIYU
-        'UNDONE: getsysdatetime
         _R001_HOKOKU_SOUSA.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
 
         Select Case enmSAVE_MODE
@@ -992,17 +928,17 @@ Public Class FrmG0021_Detail
             Return False
         End If
 
-        WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_D009_FCB_J.HOKOKU_NO}、INSERT R001")
+        WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_D009_FCCB_J.FCCB_NO}、INSERT R001")
 
-        If FunSAVE_R005(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
-        Else
-            Return False
-        End If
+        'If FunSAVE_R005(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
+        'Else
+        '    Return False
+        'End If
 
-        If FunSAVE_R006(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
-        Else
-            Return False
-        End If
+        'If FunSAVE_R006(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
+        'Else
+        '    Return False
+        'End If
 
         Return True
     End Function
@@ -1017,74 +953,74 @@ Public Class FrmG0021_Detail
         Dim sqlEx As New Exception
 
         sbSQL.Append($"INSERT INTO {NameOf(R005_FCR_SASIMODOSI)}(")
-        sbSQL.Append($" {NameOf(_R005.SASIMODOSI_YMDHNS)}")
-        sbSQL.Append($",{NameOf(_R005.HOKOKU_NO)}")
-        sbSQL.Append($",{NameOf(_R005.CLOSE_FG)}")
-        sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_HANTEI_KB)}")
-        sbSQL.Append($",{NameOf(_R005.TAISYOU_KOKYAKU)}")
-        sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_HANTEI_COMMENT)}")
-        sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_NAIYO)}")
-        sbSQL.Append($",{NameOf(_R005.KAKUNIN_SYUDAN)}")
-        sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_TUCHI_HANTEI_KB)}")
-        sbSQL.Append($",{NameOf(_R005.TUCHI_YMD)}")
-        sbSQL.Append($",{NameOf(_R005.TUCHI_SYUDAN)}")
-        sbSQL.Append($",{NameOf(_R005.HITUYO_TETUDUKI_ZIKO)}")
-        sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_ETC_COMMENT)}")
-        sbSQL.Append($",{NameOf(_R005.OTHER_PROCESS_INFLUENCE_KB)}")
-        sbSQL.Append($",{NameOf(_R005.FOLLOW_PROCESS_OUTFLOW_KB)}")
-        sbSQL.Append($",{NameOf(_R005.KOKYAKU_NOUNYU_NAIYOU)}")
-        sbSQL.Append($",{NameOf(_R005.KOKYAKU_NOUNYU_YMD)}")
-        sbSQL.Append($",{NameOf(_R005.ZAIKO_SIKAKE_NAIYOU)}")
-        sbSQL.Append($",{NameOf(_R005.ZAIKO_SIKAKE_YMD)}")
-        sbSQL.Append($",{NameOf(_R005.OTHER_PROCESS_NAIYOU)}")
-        sbSQL.Append($",{NameOf(_R005.OTHER_PROCESS_YMD)}")
+        'sbSQL.Append($" {NameOf(_R005.SASIMODOSI_YMDHNS)}")
+        'sbSQL.Append($",{NameOf(_R005.HOKOKU_NO)}")
+        'sbSQL.Append($",{NameOf(_R005.CLOSE_FG)}")
+        'sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_HANTEI_KB)}")
+        'sbSQL.Append($",{NameOf(_R005.TAISYOU_KOKYAKU)}")
+        'sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_HANTEI_COMMENT)}")
+        'sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_NAIYO)}")
+        'sbSQL.Append($",{NameOf(_R005.KAKUNIN_SYUDAN)}")
+        'sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_TUCHI_HANTEI_KB)}")
+        'sbSQL.Append($",{NameOf(_R005.TUCHI_YMD)}")
+        'sbSQL.Append($",{NameOf(_R005.TUCHI_SYUDAN)}")
+        'sbSQL.Append($",{NameOf(_R005.HITUYO_TETUDUKI_ZIKO)}")
+        'sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_ETC_COMMENT)}")
+        'sbSQL.Append($",{NameOf(_R005.OTHER_PROCESS_INFLUENCE_KB)}")
+        'sbSQL.Append($",{NameOf(_R005.FOLLOW_PROCESS_OUTFLOW_KB)}")
+        'sbSQL.Append($",{NameOf(_R005.KOKYAKU_NOUNYU_NAIYOU)}")
+        'sbSQL.Append($",{NameOf(_R005.KOKYAKU_NOUNYU_YMD)}")
+        'sbSQL.Append($",{NameOf(_R005.ZAIKO_SIKAKE_NAIYOU)}")
+        'sbSQL.Append($",{NameOf(_R005.ZAIKO_SIKAKE_YMD)}")
+        'sbSQL.Append($",{NameOf(_R005.OTHER_PROCESS_NAIYOU)}")
+        'sbSQL.Append($",{NameOf(_R005.OTHER_PROCESS_YMD)}")
 
-        sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_HANTEI_FILEPATH)}")
-        sbSQL.Append($",{NameOf(_R005.FUTEKIGO_SEIHIN_MEMO)}")
-        sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_MEMO)}")
-        sbSQL.Append($",{NameOf(_R005.OTHER_PROCESS_INFLUENCE_MEMO)}")
-        sbSQL.Append($",{NameOf(_R005.OTHER_PROCESS_INFLUENCE_FILEPATH)}")
-        sbSQL.Append($",{NameOf(_R005.FOLLOW_PROCESS_OUTFLOW_MEMO)}")
-        sbSQL.Append($",{NameOf(_R005.FOLLOW_PROCESS_OUTFLOW_FILEPATH)}")
-        sbSQL.Append($",{NameOf(_R005.FUTEKIGO_SEIHIN_FILEPATH)}")
-        sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_FILEPATH)}")
-        sbSQL.Append($",{NameOf(_R005.SYOCHI_MEMO)}")
-        sbSQL.Append($",{NameOf(_R005.SYOCHI_FILEPATH)}")
+        'sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_HANTEI_FILEPATH)}")
+        'sbSQL.Append($",{NameOf(_R005.FUTEKIGO_SEIHIN_MEMO)}")
+        'sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_MEMO)}")
+        'sbSQL.Append($",{NameOf(_R005.OTHER_PROCESS_INFLUENCE_MEMO)}")
+        'sbSQL.Append($",{NameOf(_R005.OTHER_PROCESS_INFLUENCE_FILEPATH)}")
+        'sbSQL.Append($",{NameOf(_R005.FOLLOW_PROCESS_OUTFLOW_MEMO)}")
+        'sbSQL.Append($",{NameOf(_R005.FOLLOW_PROCESS_OUTFLOW_FILEPATH)}")
+        'sbSQL.Append($",{NameOf(_R005.FUTEKIGO_SEIHIN_FILEPATH)}")
+        'sbSQL.Append($",{NameOf(_R005.KOKYAKU_EIKYO_FILEPATH)}")
+        'sbSQL.Append($",{NameOf(_R005.SYOCHI_MEMO)}")
+        'sbSQL.Append($",{NameOf(_R005.SYOCHI_FILEPATH)}")
 
-        sbSQL.Append($" ) VALUES(")
-        sbSQL.Append($" '{strYMDHNS}'")
-        sbSQL.Append($",'{_D007.HOKOKU_NO}'")
-        sbSQL.Append($",'{If(_D007.CLOSE_FG, "1", "0")}'")
-        sbSQL.Append($",'{If(_D007.KOKYAKU_EIKYO_HANTEI_KB, "1", "0")}'")
-        sbSQL.Append($",'{_D007.TAISYOU_KOKYAKU.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.KOKYAKU_EIKYO_HANTEI_COMMENT.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.KOKYAKU_EIKYO_NAIYO.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.KAKUNIN_SYUDAN}'")
-        sbSQL.Append($",'{If(_D007.KOKYAKU_EIKYO_TUCHI_HANTEI_KB, "1", "0")}'")
-        sbSQL.Append($",'{_D007.TUCHI_YMD}'")
-        sbSQL.Append($",'{_D007.TUCHI_SYUDAN.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.HITUYO_TETUDUKI_ZIKO.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.KOKYAKU_EIKYO_ETC_COMMENT.ConvertSqlEscape}'")
-        sbSQL.Append($",'{If(_D007.OTHER_PROCESS_INFLUENCE_KB, "1", "0")}'")
-        sbSQL.Append($",'{If(_D007.FOLLOW_PROCESS_OUTFLOW_KB, "1", "0")}'")
-        sbSQL.Append($",'{_D007.KOKYAKU_NOUNYU_NAIYOU.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.KOKYAKU_NOUNYU_YMD}'")
-        sbSQL.Append($",'{_D007.ZAIKO_SIKAKE_NAIYOU.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.ZAIKO_SIKAKE_YMD}'")
-        sbSQL.Append($",'{_D007.OTHER_PROCESS_NAIYOU.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.OTHER_PROCESS_YMD}'")
+        'sbSQL.Append($" ) VALUES(")
+        'sbSQL.Append($" '{strYMDHNS}'")
+        'sbSQL.Append($",'{_D007.HOKOKU_NO}'")
+        'sbSQL.Append($",'{If(_D007.CLOSE_FG, "1", "0")}'")
+        'sbSQL.Append($",'{If(_D007.KOKYAKU_EIKYO_HANTEI_KB, "1", "0")}'")
+        'sbSQL.Append($",'{_D007.TAISYOU_KOKYAKU.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.KOKYAKU_EIKYO_HANTEI_COMMENT.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.KOKYAKU_EIKYO_NAIYO.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.KAKUNIN_SYUDAN}'")
+        'sbSQL.Append($",'{If(_D007.KOKYAKU_EIKYO_TUCHI_HANTEI_KB, "1", "0")}'")
+        'sbSQL.Append($",'{_D007.TUCHI_YMD}'")
+        'sbSQL.Append($",'{_D007.TUCHI_SYUDAN.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.HITUYO_TETUDUKI_ZIKO.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.KOKYAKU_EIKYO_ETC_COMMENT.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{If(_D007.OTHER_PROCESS_INFLUENCE_KB, "1", "0")}'")
+        'sbSQL.Append($",'{If(_D007.FOLLOW_PROCESS_OUTFLOW_KB, "1", "0")}'")
+        'sbSQL.Append($",'{_D007.KOKYAKU_NOUNYU_NAIYOU.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.KOKYAKU_NOUNYU_YMD}'")
+        'sbSQL.Append($",'{_D007.ZAIKO_SIKAKE_NAIYOU.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.ZAIKO_SIKAKE_YMD}'")
+        'sbSQL.Append($",'{_D007.OTHER_PROCESS_NAIYOU.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.OTHER_PROCESS_YMD}'")
 
-        sbSQL.Append($",'{_D007.KOKYAKU_EIKYO_HANTEI_FILEPATH.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.FUTEKIGO_SEIHIN_MEMO.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.KOKYAKU_EIKYO_MEMO.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.OTHER_PROCESS_INFLUENCE_MEMO.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.OTHER_PROCESS_INFLUENCE_FILEPATH.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.FOLLOW_PROCESS_OUTFLOW_MEMO.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.FOLLOW_PROCESS_OUTFLOW_FILEPATH.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.FUTEKIGO_SEIHIN_FILEPATH.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.KOKYAKU_EIKYO_FILEPATH.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.SYOCHI_MEMO.ConvertSqlEscape}'")
-        sbSQL.Append($",'{_D007.SYOCHI_FILEPATH.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.KOKYAKU_EIKYO_HANTEI_FILEPATH.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.FUTEKIGO_SEIHIN_MEMO.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.KOKYAKU_EIKYO_MEMO.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.OTHER_PROCESS_INFLUENCE_MEMO.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.OTHER_PROCESS_INFLUENCE_FILEPATH.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.FOLLOW_PROCESS_OUTFLOW_MEMO.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.FOLLOW_PROCESS_OUTFLOW_FILEPATH.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.FUTEKIGO_SEIHIN_FILEPATH.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.KOKYAKU_EIKYO_FILEPATH.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.SYOCHI_MEMO.ConvertSqlEscape}'")
+        'sbSQL.Append($",'{_D007.SYOCHI_FILEPATH.ConvertSqlEscape}'")
 
         sbSQL.Append(" );")
         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
@@ -1094,7 +1030,7 @@ Public Class FrmG0021_Detail
             WL.WriteLogDat(strErrMsg)
             Return False
         Else
-            WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_D009_FCB_J.HOKOKU_NO}、INSERT R005")
+            WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_D009_FCCB_J.FCCB_NO}、INSERT R005")
             Return True
         End If
     End Function
@@ -1114,16 +1050,16 @@ Public Class FrmG0021_Detail
 
 #Region "   モデル更新"
 
-            If _D009_FCB_J.Item("KISYU_ID" & i) > 0 Then
+            If _D009_FCCB_J.Item("KISYU_ID" & i) > 0 Then
                 _R006.Clear()
                 _R006.SASIMODOSI_YMDHNS = strYMDHNS
-                _R006.HOKOKU_NO = _D009_FCB_J.HOKOKU_NO
+                _R006.HOKOKU_NO = _D009_FCCB_J.FCCB_NO
                 _R006.ROW_NO = i
-                _R006.KISYU_ID = _D009_FCB_J.Item("KISYU_ID" & i)
-                _R006.BUHIN_INFO = _D009_FCB_J.Item("BUHIN_INFO" & i)
-                _R006.SURYO = _D009_FCB_J.Item("SURYO" & i)
-                _R006.RANGE_FROM = _D009_FCB_J.Item("RANGE_FROM" & i)
-                _R006.RANGE_TO = _D009_FCB_J.Item("RANGE_TO" & i)
+                _R006.KISYU_ID = _D009_FCCB_J.Item("KISYU_ID" & i)
+                _R006.BUHIN_INFO = _D009_FCCB_J.Item("BUHIN_INFO" & i)
+                _R006.SURYO = _D009_FCCB_J.Item("SURYO" & i)
+                _R006.RANGE_FROM = _D009_FCCB_J.Item("RANGE_FROM" & i)
+                _R006.RANGE_TO = _D009_FCCB_J.Item("RANGE_TO" & i)
             End If
 
 #End Region
@@ -1180,8 +1116,8 @@ Public Class FrmG0021_Detail
         Dim dlgRET As DialogResult
 
         Try
-            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
-            frmDLG.PrHOKOKU_NO = PrHOKOKU_NO
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB
+            frmDLG.PrHOKOKU_NO = PrFCCB_NO
             frmDLG.PrBUMON_KB = _V002_NCR_J.BUMON_KB
             frmDLG.PrBUHIN_BANGO = _V002_NCR_J.BUHIN_BANGO
             frmDLG.PrKISO_YMD = DateTime.ParseExact(_V002_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
@@ -1216,8 +1152,8 @@ Public Class FrmG0021_Detail
         Dim dlgRET As DialogResult
 
         Try
-            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
-            frmDLG.PrHOKOKU_NO = PrHOKOKU_NO
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB
+            frmDLG.PrHOKOKU_NO = PrFCCB_NO
             frmDLG.PrBUHIN_BANGO = _V002_NCR_J.BUHIN_BANGO
             frmDLG.PrKISO_YMD = DateTime.ParseExact(_V002_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _V002_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
@@ -1254,7 +1190,7 @@ Public Class FrmG0021_Detail
             Me.Cursor = Cursors.WaitCursor
 
             'ファイル名
-            strOutputFileName = "CTS_" & _D009_FCB_J.HOKOKU_NO & "_Work.xls"
+            strOutputFileName = "CTS_" & _D009_FCCB_J.FCCB_NO & "_Work.xls"
 
             '既存ファイル削除
             If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
@@ -1262,7 +1198,7 @@ Public Class FrmG0021_Detail
             End If
 
             Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
-                strTEMPFILE = FunConvRootPath(iniIF.GetIniString("CTS", "FILEPATH"))
+                strTEMPFILE = FunConvRootPath(iniIF.GetIniString("FCCB", "FILEPATH"))
             End Using
 
             'エクセル出力ファイル用意
@@ -1270,7 +1206,7 @@ Public Class FrmG0021_Detail
                 Return False
             End If
             '-----書込処理
-            'If FunMakeReportFCCB(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, _D009_FCB_J.HOKOKU_NO) = False Then
+            'If FunMakeReportFCCB(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, _D009_FCCB_J.HOKOKU_NO) = False Then
             '    Return False
             'End If
 
@@ -1324,7 +1260,7 @@ Public Class FrmG0021_Detail
 
         Try
             frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-            frmDLG.PrHOKOKU_NO = _D009_FCCB_J.HOKOKU_NO
+            frmDLG.PrHOKOKU_NO = _D009_FCCB_J.FCCB_NO
             frmDLG.PrBUMON_KB = _D009_FCCB_J.BUMON_KB
             frmDLG.PrBUHIN_BANGO = _D009_FCCB_J.BUHIN_BANGO
             frmDLG.PrKISO_YMD = DateTime.ParseExact(_D009_FCCB_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
@@ -1374,7 +1310,7 @@ Public Class FrmG0021_Detail
                 End With
             Next intFunc
 
-            If FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, PrHOKOKU_NO, PrCurrentStage) Then '
+            If FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, PrFCCB_NO, PrCurrentStage) Then '
                 cmdFunc1.Enabled = True
                 cmdFunc4.Enabled = True
                 cmdFunc5.Enabled = True
@@ -1392,8 +1328,6 @@ Public Class FrmG0021_Detail
                 cmdFunc1.Enabled = False
                 cmdFunc4.Enabled = False
                 cmdFunc5.Enabled = False
-
-
 
                 MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "登録権限がありません")
 
@@ -1512,8 +1446,6 @@ Public Class FrmG0021_Detail
 
 #End Region
 
-
-
 #Region "SUB_DATA"
 
     Private Sub CmbKISYU1_Validated(sender As Object, e As EventArgs)
@@ -1530,15 +1462,13 @@ Public Class FrmG0021_Detail
         'End If
     End Sub
 
-
-
     Private Sub CmbKISYU_SelectedValueChanged(sender As Object, e As EventArgs)
         Dim cmb = DirectCast(sender, ComboboxEx)
         Dim idx As Integer = cmb.Name.Substring(cmb.Name.Length - 1).ToVal
         If cmb.IsSelected Then
-            _D009_FCB_J.Item($"KISYU_ID{idx}") = cmb.SelectedValue.ToString.ToVal
+            _D009_FCCB_J.Item($"KISYU_ID{idx}") = cmb.SelectedValue.ToString.ToVal
         Else
-            _D009_FCB_J.Item($"KISYU_ID{idx}") = 0
+            _D009_FCCB_J.Item($"KISYU_ID{idx}") = 0
         End If
     End Sub
 
@@ -1546,9 +1476,9 @@ Public Class FrmG0021_Detail
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim idx As Integer = txt.Name.Substring(txt.Name.Length - 1).ToVal
         If Not txt.Text.IsNulOrWS Then
-            _D009_FCB_J.Item($"BUHIN_INFO{idx}") = txt.Text
+            _D009_FCCB_J.Item($"BUHIN_INFO{idx}") = txt.Text
         Else
-            _D009_FCB_J.Item($"BUHIN_INFO{idx}") = ""
+            _D009_FCCB_J.Item($"BUHIN_INFO{idx}") = ""
         End If
     End Sub
 
@@ -1556,9 +1486,9 @@ Public Class FrmG0021_Detail
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim idx As Integer = txt.Name.Substring(txt.Name.Length - 1).ToVal
         If Not txt.Text.IsNulOrWS Then
-            _D009_FCB_J.Item($"RANGE_FROM{idx}") = txt.Text
+            _D009_FCCB_J.Item($"RANGE_FROM{idx}") = txt.Text
         Else
-            _D009_FCB_J.Item($"RANGE_FROM{idx}") = ""
+            _D009_FCCB_J.Item($"RANGE_FROM{idx}") = ""
         End If
     End Sub
 
@@ -1566,16 +1496,16 @@ Public Class FrmG0021_Detail
         Dim txt = DirectCast(sender, TextBoxEx)
         Dim idx As Integer = txt.Name.Substring(txt.Name.Length - 1).ToVal
         If Not txt.Text.IsNulOrWS Then
-            _D009_FCB_J.Item($"RANGE_TO{idx}") = txt.Text
+            _D009_FCCB_J.Item($"RANGE_TO{idx}") = txt.Text
         Else
-            _D009_FCB_J.Item($"RANGE_TO{idx}") = ""
+            _D009_FCCB_J.Item($"RANGE_TO{idx}") = ""
         End If
     End Sub
 
     Private Sub NupSURYO_ValueChanged(sender As Object, e As EventArgs)
         Dim nup = DirectCast(sender, NumericUpDown)
         Dim idx As Integer = nup.Name.Substring(nup.Name.Length - 1).ToVal
-        _D009_FCB_J.Item($"SURYO{idx}") = CInt(nup.Value)
+        _D009_FCCB_J.Item($"SURYO{idx}") = CInt(nup.Value)
     End Sub
 
 #End Region
@@ -1586,10 +1516,9 @@ Public Class FrmG0021_Detail
         'txtOTHER_PROCESS_INFLUENCE_MEMO.Enabled = blnChecked
         'pnlOTHER_PROCESS_INFLUENCE_FILEPATH.Enabled = blnChecked
 
-
         'If Not blnChecked And Not IsInitializing Then
         '    txtOTHER_PROCESS_INFLUENCE_MEMO.Text = ""
-        '    _D009_FCB_J.OTHER_PROCESS_INFLUENCE_FILEPATH = ""
+        '    _D009_FCCB_J.OTHER_PROCESS_INFLUENCE_FILEPATH = ""
         '    lblOTHER_PROCESS_INFLUENCE_FILEPATH.Visible = False
         '    lblOTHER_PROCESS_INFLUENCE_FILEPATH_Clear.Visible = False
         'End If
@@ -1612,7 +1541,7 @@ Public Class FrmG0021_Detail
 
         'If Not blnChecked And Not IsInitializing Then
         '    txtFOLLOW_PROCESS_OUTFLOW_MEMO.Text = ""
-        '    _D009_FCB_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH = ""
+        '    _D009_FCCB_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH = ""
         '    lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Visible = False
         '    lblFOLLOW_PROCESS_OUTFLOW_FILEPATH_Clear.Visible = False
         'End If
@@ -1662,7 +1591,6 @@ Public Class FrmG0021_Detail
         'pnlInfo6.Enabled = blnEnabled
     End Sub
 
-
 #End Region
 
 #Region "ローカル関数"
@@ -1672,11 +1600,67 @@ Public Class FrmG0021_Detail
     Private Function FunInitializeControls(intMODE As ENM_DATA_OPERATION_MODE) As Boolean
 
         Try
+            Dim dt As DataTable
+
             IsInitializing = True
+            'ナビゲートリンク選択
+            If PrCurrentStage = ENM_FCCB_STAGE._999_Closed Then
+                rsbtnST99.Checked = True
+            Else
+                Dim rbtn As RibbonShapeRadioButton = DirectCast(flpnlStageIndex.Controls("rsbtnST" & (PrCurrentStage / 10).ToString("00")), RibbonShapeRadioButton)
+                rbtn.Checked = True
+            End If
+
+            Call SetTANTO_TooltipInfo()
+
+            '-----コントロールデータソース設定
+            'Dim dt As DataTable
+            'dt = FunGetSYONIN_SYOZOKU_SYAIN(_D009_FCCB_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, FunGetNextSYONIN_JUN(ENM_FCCB_STAGE._10_起草入力))
+            'cmbKISO_TANTO.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            'dt = GetCM_TANTO(cmbBUMON.SelectedValue)
+            'cmbCM_TANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+            'UNDONE: 業務グループリストソース取得関数化
+            Dim dtMap As New Hashtable
+            dtMap.Add(ENM_GYOMU_GROUP_ID._1_技術.Value, "技術")
+            dtMap.Add(ENM_GYOMU_GROUP_ID._2_製造.Value, "製造")
+            dtMap.Add(ENM_GYOMU_GROUP_ID._3_検査.Value, "検査")
+            dtMap.Add(ENM_GYOMU_GROUP_ID._4_品証.Value, "品証")
+            dtMap.Add(ENM_GYOMU_GROUP_ID._5_設計.Value, "設計")
+            dtMap.Add(ENM_GYOMU_GROUP_ID._6_生技.Value, "生技")
+            dtMap.Add(ENM_GYOMU_GROUP_ID._7_管理.Value, "管理")
+            dtMap.Add(ENM_GYOMU_GROUP_ID._8_営業.Value, "営業")
+            dtMap.Add(ENM_GYOMU_GROUP_ID._9_購買.Value, "購買")
+            dtMap.Add(ENM_GYOMU_GROUP_ID._46_品検.Value, "品/検")
+            flxDATA_2.Cols(5).DataMap = dtMap
+
+
+            Dim dtMapTANTO As New Hashtable
+            dtMapTANTO.Add(0, "")
+            dtMapTANTO.Add(999999, "SYSTEM_USER")
+            flxDATA_2.Cols(7).DataMap = dtMapTANTO
+
+#Region "flexStyle"
+            flxDATA_2.Styles.Normal.Border.Style = C1.Win.C1FlexGrid.BorderStyleEnum.Flat
+            flxDATA_2.Styles.Normal.Border.Color = Color.Black
+
+            flxDATA_3.Styles.Normal.Border.Style = C1.Win.C1FlexGrid.BorderStyleEnum.Flat
+            flxDATA_3.Styles.Normal.Border.Color = Color.Black
+
+            flxDATA_4.Styles.Normal.Border.Style = C1.Win.C1FlexGrid.BorderStyleEnum.Flat
+            flxDATA_4.Styles.Normal.Border.Color = Color.Black
+
+            flxDATA_5.Styles.Normal.Border.Style = C1.Win.C1FlexGrid.BorderStyleEnum.Flat
+            flxDATA_5.Styles.Normal.Border.Color = Color.Black
+
+#End Region
+
+
+
 
             Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
-                    mtxHOKUKO_NO.Text = "<新規>"
+                    mtxFCCB_NO.Text = "<新規>"
                     _D009_FCCB_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
                     _D009_FCCB_J.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
 
@@ -1685,139 +1669,117 @@ Public Class FrmG0021_Detail
                         _D009_FCCB_J.BUMON_KB = pub_SYAIN_INFO.BUMON_KB
                     End If
 
-                    Dim sbSQL As New System.Text.StringBuilder
-                    Dim dsList As New DataSet
 
+#Region "InitDS"
+                    Dim sbSQL As New System.Text.StringBuilder
+                    Dim dsList As DataSet
+
+                    sbSQL.Clear()
                     sbSQL.Append($"SELECT")
                     sbSQL.Append($" *")
+                    sbSQL.Append($" ,'' AS {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.FCCB_NO)}")
+                    sbSQL.Append($" ,'0' AS {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.YOHI_KB)}")
+                    sbSQL.Append($" , 0 AS {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.TANTO_ID)}")
+                    sbSQL.Append($" ,'' AS {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.NAIYO)}")
+                    sbSQL.Append($" ,'' AS {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.GOKI)}")
+                    sbSQL.Append($" ,'' AS {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.YOTEI_YMD)}")
+                    sbSQL.Append($" ,'' AS {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.CLOSE_YMD)}")
                     sbSQL.Append($" FROM {NameOf(M017_FCCB_SUB_SYOCHI_KOMOKU)} ")
+                    sbSQL.Append($" WHERE {NameOf(M017_FCCB_SUB_SYOCHI_KOMOKU.ITEM_NO)}<100 ")
 
                     Using DB As ClsDbUtility = DBOpen()
                         dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
                     End Using
 
-                    Dim _Model As New MODEL.ModelInfo(Of M017_FCCB_SUB_SYOCHI_KOMOKU)(srcDATA:=dsList.Tables(0))
-                    Flx2_DS.DataSource = _Model.Data
+                    Dim Sec2 As New ModelInfo(Of D010_FCCB_SUB_SYOCHI_KOMOKU)(srcDATA:=dsList.Tables(0))
+                    Flx2_DS.DataSource = Sec2.Data
 
-                Case ENM_DATA_OPERATION_MODE._3_UPDATE
-                    If Not FunSetModel() Then Return False
+                    sbSQL.Clear()
+                    sbSQL.Append($"SELECT")
+                    sbSQL.Append($" *")
+                    sbSQL.Append($" ,'' AS {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.FCCB_NO)}")
+                    sbSQL.Append($" ,'0' AS {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.YOHI_KB)}")
+                    sbSQL.Append($" , 0 AS {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.TANTO_ID)}")
+                    sbSQL.Append($" ,'' AS {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.NAIYO)}")
+                    sbSQL.Append($" ,'' AS {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.GOKI)}")
+                    sbSQL.Append($" ,'' AS {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.YOTEI_YMD)}")
+                    sbSQL.Append($" ,'' AS {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.CLOSE_YMD)}")
+                    sbSQL.Append($" FROM {NameOf(M017_FCCB_SUB_SYOCHI_KOMOKU)} ")
+                    sbSQL.Append($" WHERE {NameOf(M017_FCCB_SUB_SYOCHI_KOMOKU.ITEM_NO)}>100 ")
 
+                    Using DB As ClsDbUtility = DBOpen()
+                        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                    End Using
 
+                    Dim Sec3 As New ModelInfo(Of D010_FCCB_SUB_SYOCHI_KOMOKU)(srcDATA:=dsList.Tables(0))
+                    Flx3_DS.DataSource = Sec3.Data
 
-#Region "   ヘッダ"
+                    sbSQL.Clear()
+                    sbSQL.Append($"SELECT")
+                    sbSQL.Append($"  '' AS {NameOf(D011_FCCB_SUB_SIKAKE_BUHIN.FCCB_NO)}")
+                    sbSQL.Append($" , 0 AS {NameOf(D011_FCCB_SUB_SIKAKE_BUHIN.ITEM_NO)}")
+                    sbSQL.Append($" ,'' AS {NameOf(D011_FCCB_SUB_SIKAKE_BUHIN.BUHIN_HINBAN)}")
+                    sbSQL.Append($" ,'' AS {NameOf(D011_FCCB_SUB_SIKAKE_BUHIN.MEMO1)}")
+                    sbSQL.Append($" ,'' AS {NameOf(D011_FCCB_SUB_SIKAKE_BUHIN.MEMO2)}")
+                    sbSQL.Append($" , 0 AS {NameOf(D011_FCCB_SUB_SIKAKE_BUHIN.SURYO)}")
+                    sbSQL.Append($" ,'' AS {NameOf(D011_FCCB_SUB_SIKAKE_BUHIN.SYOCHI_NAIYO)}")
+                    sbSQL.Append($" , 0 AS {NameOf(D011_FCCB_SUB_SIKAKE_BUHIN.TANTO_GYOMU_GROUP_ID)}")
+                    sbSQL.Append($" , 0 AS {NameOf(D011_FCCB_SUB_SIKAKE_BUHIN.TANTO_ID)}")
+                    sbSQL.Append($" ,'' AS {NameOf(D011_FCCB_SUB_SIKAKE_BUHIN.YOTEI_YMD)}")
+                    sbSQL.Append($" ,'' AS {NameOf(D011_FCCB_SUB_SIKAKE_BUHIN.CLOSE_YMD)}")
+                    Using DB As ClsDbUtility = DBOpen()
+                        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                    End Using
+                    Dim Sec4 As New ModelInfo(Of D011_FCCB_SUB_SIKAKE_BUHIN)(srcDATA:=dsList.Tables(0))
 
-                    'mtxHOKUKO_NO.Text = _D009_FCB_J.HOKOKU_NO
-                    'mtxBUMON_KB.Text = _D009_FCB_J.BUMON_NAME
-                    'mtxKISYU.Text = _D009_FCB_J.KISYU_NAME
-                    'mtxFUTEKIGO_KB.Text = _D009_FCB_J.FUTEKIGO_NAME
-                    'mtxFUTEKIGO_S_KB.Text = _D009_FCB_J.FUTEKIGO_S_NAME
-                    'mtxADD_SYAIN_NAME_NCR.Text = _D009_FCB_J.ADD_SYAIN_NAME_NCR
-                    'mtxADD_SYAIN_NAME.Text = _D009_FCB_J.ADD_SYAIN_NAME
-                    'dtFUTEKIGO_HASSEI_YMD.Value = _D009_FCB_J.HASSEI_YMD
+                    For i As Integer = 1 To 4
+                        Dim dr As DataRow = Sec4.Data.NewRow
+                        dr.ItemArray = Sec4.Data.Rows(0).ItemArray
+                        dr.Item(NameOf(D011_FCCB_SUB_SIKAKE_BUHIN.ITEM_NO)) = i
+                        Sec4.Data.Rows.Add(dr)
+                    Next
+                    Sec4.Data.Rows(0).Delete()
+                    Sec4.Data.AcceptChanges()
+                    Flx4_DS.DataSource = Sec4.Data
 
 #End Region
 
 
+                Case ENM_DATA_OPERATION_MODE._3_UPDATE
+
+                    _V003_SYONIN_J_KANRI_List = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, PrFCCB_NO)
+                    _D009_FCCB_J = FunGetD009Model(PrFCCB_NO)
+
+                    'データソース設定
+                    dt = FunGetSYONIN_SYOZOKU_SYAIN(_D009_FCCB_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, FunGetNextSYONIN_JUN(PrCurrentStage))
+                    cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+#Region "   ヘッダ"
+
+                    'mtxHOKUKO_NO.Text = _D009_FCCB_J.HOKOKU_NO
+                    'mtxBUMON_KB.Text = _D009_FCCB_J.BUMON_NAME
+                    'mtxKISYU.Text = _D009_FCCB_J.KISYU_NAME
+                    'mtxFUTEKIGO_KB.Text = _D009_FCCB_J.FUTEKIGO_NAME
+                    'mtxFUTEKIGO_S_KB.Text = _D009_FCCB_J.FUTEKIGO_S_NAME
+                    'mtxADD_SYAIN_NAME_NCR.Text = _D009_FCCB_J.ADD_SYAIN_NAME_NCR
+                    'mtxADD_SYAIN_NAME.Text = _D009_FCCB_J.ADD_SYAIN_NAME
+                    'dtFUTEKIGO_HASSEI_YMD.Value = _D009_FCCB_J.HASSEI_YMD
+
+#End Region
 
 
-
-                    Call SetTANTO_TooltipInfo()
-
-                    Dim dt = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D009_FCCB_J.BUMON_KB)) = PrDataRow.Item("BUMON_KB")).CopyToDataTable
-                    If _D009_FCB_J.BUMON_NAME = "LP" Then
+                    dt = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D009_FCCB_J.BUMON_KB)) = PrDataRow.Item("BUMON_KB")).CopyToDataTable
+                    If _D009_FCCB_J.BUMON_KB = "2" Then 'LP
                         dt = dt.AsEnumerable.Where(Function(r) r.Item("DISP") = "LP").CopyToDataTable
                     End If
 
-                    'cmbKISYU1.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    'cmbKISYU2.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    'cmbKISYU3.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    'cmbKISYU4.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    'cmbKISYU5.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                    'cmbKISYU6.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
-
-
-                    'txtTAISYO_KOKYAKU.Text = _D009_FCB_J.TAISYOU_KOKYAKU
-                    'txtKOKYAKU_EIKYO_NAIYO.Text = _D009_FCB_J.KOKYAKU_EIKYO_NAIYO
-                    'txtKAKUNIN_SYUDAN.Text = _D009_FCB_J.KAKUNIN_SYUDAN
-                    'dtTUCHI_YMD.Value = _D009_FCB_J.TUCHI_YMD
-                    'txtTUCHI_SYUDAN.Text = _D009_FCB_J.TUCHI_SYUDAN
-                    'txtHITUYO_TETUDUKI_ZIKO.Text = _D009_FCB_J.HITUYO_TETUDUKI_ZIKO
-                    'txtKAKUNIN_SYUDAN.Text = _D009_FCB_J.KAKUNIN_SYUDAN
-                    'txtKOKYAKU_EIKYO_ETC_COMMENT.Text = _D009_FCB_J.KOKYAKU_EIKYO_ETC_COMMENT
-
-
-                    'txtSYOCHI_MEMO.Text = _D009_FCB_J.SYOCHI_MEMO
-
-                    'Dim targetCtrl As Control
-                    'If _D009_FCB_J.KOKYAKU_EIKYO_HANTEI_KB Then
-                    '    targetCtrl = rbtnKOKYAKU_EIKYO_HANTEI_KB_T
-                    'Else
-                    '    targetCtrl = rbtnKOKYAKU_EIKYO_HANTEI_KB_F
-                    'End If
-                    'DirectCast(targetCtrl, RadioButton).Checked = True
-                    'Call RbtnKOKYAKU_EIKYO_HANTEI_KB_CheckedChanged(targetCtrl, Nothing)
-
-                    'cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Text = _D009_FCB_J.KOKYAKU_EIKYO_HANTEI_COMMENT
-
-                    'If _D009_FCB_J.KOKYAKU_EIKYO_TUCHI_HANTEI_KB Then
-                    '    rbtnKOKYAKU_EIKYO_TUCHI_HANTEI_KB_T.Checked = True
-                    'Else
-                    '    rbtnKOKYAKU_EIKYO_TUCHI_HANTEI_KB_F.Checked = True
-                    'End If
-
-
-
-                    'txtKOKYAKU_NOUNYU_NAIYOU.Text = _D009_FCB_J.KOKYAKU_NOUNYU_NAIYOU
-                    'txtZAIKO_SIKAKE_NAIYOU.Text = _D009_FCB_J.ZAIKO_SIKAKE_NAIYOU
-
-                    'dtKOKYAKU_NOUNYU_YMD.Value = _D009_FCB_J.KOKYAKU_NOUNYU_YMD
-                    'dtZAIKO_SIKAKE_YMD.Value = _D009_FCB_J.ZAIKO_SIKAKE_YMD
-
-                    'cmbKISYU1.SelectedValue = _D009_FCB_J.KISYU_ID1
-                    'Call CmbKISYU1_Validated(cmbKISYU1, Nothing)
-                    'cmbKISYU2.SelectedValue = _D009_FCB_J.KISYU_ID2
-                    'Call CmbKISYU2_Validated(cmbKISYU2, Nothing)
-                    'cmbKISYU3.SelectedValue = _D009_FCB_J.KISYU_ID3
-
-                    'cmbKISYU4.SelectedValue = _D009_FCB_J.KISYU_ID4
-                    'Call CmbKISYU4_Validated(cmbKISYU4, Nothing)
-                    'cmbKISYU5.SelectedValue = _D009_FCB_J.KISYU_ID5
-                    'Call CmbKISYU5_Validated(cmbKISYU5, Nothing)
-                    'cmbKISYU6.SelectedValue = _D009_FCB_J.KISYU_ID6
-
-                    'txtBUHIN_INFO1.Text = _D009_FCB_J.BUHIN_INFO1
-                    'txtBUHIN_INFO2.Text = _D009_FCB_J.BUHIN_INFO2
-                    'txtBUHIN_INFO3.Text = _D009_FCB_J.BUHIN_INFO3
-                    'txtBUHIN_INFO4.Text = _D009_FCB_J.BUHIN_INFO4
-                    'txtBUHIN_INFO5.Text = _D009_FCB_J.BUHIN_INFO5
-                    'txtBUHIN_INFO6.Text = _D009_FCB_J.BUHIN_INFO6
-                    'nupSURYO1.Value = _D009_FCB_J.SURYO1
-                    'nupSURYO2.Value = _D009_FCB_J.SURYO2
-                    'nupSURYO3.Value = _D009_FCB_J.SURYO3
-                    'nupSURYO4.Value = _D009_FCB_J.SURYO4
-                    'nupSURYO5.Value = _D009_FCB_J.SURYO5
-                    'nupSURYO6.Value = _D009_FCB_J.SURYO6
-                    'txtFROM1.Text = _D009_FCB_J.RANGE_FROM1
-                    'txtFROM2.Text = _D009_FCB_J.RANGE_FROM2
-                    'txtFROM3.Text = _D009_FCB_J.RANGE_FROM3
-                    'txtFROM4.Text = _D009_FCB_J.RANGE_FROM4
-                    'txtFROM5.Text = _D009_FCB_J.RANGE_FROM5
-                    'txtFROM6.Text = _D009_FCB_J.RANGE_FROM6
-                    'txtTO1.Text = _D009_FCB_J.RANGE_TO1
-                    'txtTO2.Text = _D009_FCB_J.RANGE_TO2
-                    'txtTO3.Text = _D009_FCB_J.RANGE_TO3
-                    'txtTO4.Text = _D009_FCB_J.RANGE_TO4
-                    'txtTO5.Text = _D009_FCB_J.RANGE_TO5
-                    'txtTO6.Text = _D009_FCB_J.RANGE_TO6
-
-                    'txtFUTEKIGO_SEIHIN_MEMO.Text = _D009_FCB_J.FUTEKIGO_SEIHIN_MEMO
+                    'txtFUTEKIGO_SEIHIN_MEMO.Text = _D009_FCCB_J.FUTEKIGO_SEIHIN_MEMO
                     'Call TxtFUTEKIGO_SEIHIN_MEMO_Validated(txtFUTEKIGO_SEIHIN_MEMO, Nothing)
-                    'txtKOKYAKU_EIKYO_MEMO.Text = _D009_FCB_J.KOKYAKU_EIKYO_MEMO
+                    'txtKOKYAKU_EIKYO_MEMO.Text = _D009_FCCB_J.KOKYAKU_EIKYO_MEMO
                     'Call TxtKOKYAKU_EIKYO_MEMO_Validated(txtKOKYAKU_EIKYO_MEMO, Nothing)
 
-
-                    'If _D009_FCB_J.FOLLOW_PROCESS_OUTFLOW_KB Then
+                    'If _D009_FCCB_J.FOLLOW_PROCESS_OUTFLOW_KB Then
                     '    targetCtrl = rbtnFOLLOW_PROCESS_OUTFLOW_KB_T
                     'Else
                     '    targetCtrl = rbtnFOLLOW_PROCESS_OUTFLOW_KB_F
@@ -1825,22 +1787,22 @@ Public Class FrmG0021_Detail
                     'DirectCast(targetCtrl, RadioButton).Checked = True
                     'Call RbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(targetCtrl, Nothing)
 
-                    'If _D009_FCB_J.OTHER_PROCESS_INFLUENCE_KB Then
+                    'If _D009_FCCB_J.OTHER_PROCESS_INFLUENCE_KB Then
                     '    targetCtrl = rbtnOTHER_PROCESS_INFLUENCE_KB_T
                     'Else
                     '    targetCtrl = rbtnOTHER_PROCESS_INFLUENCE_KB_F
                     'End If
                     'DirectCast(targetCtrl, RadioButton).Checked = True
                     'Call RbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(targetCtrl, Nothing)
-                    'txtOTHER_PROCESS_INFLUENCE_MEMO.Text = _D009_FCB_J.OTHER_PROCESS_INFLUENCE_MEMO
-                    'txtFOLLOW_PROCESS_OUTFLOW_MEMO.Text = _D009_FCB_J.FOLLOW_PROCESS_OUTFLOW_MEMO
+                    'txtOTHER_PROCESS_INFLUENCE_MEMO.Text = _D009_FCCB_J.OTHER_PROCESS_INFLUENCE_MEMO
+                    'txtFOLLOW_PROCESS_OUTFLOW_MEMO.Text = _D009_FCCB_J.FOLLOW_PROCESS_OUTFLOW_MEMO
 
-                    'txtOTHER_PROCESS_NAIYOU.Text = _D009_FCB_J.OTHER_PROCESS_NAIYOU
-                    'dtOTHER_PROCESS_YMD.Value = _D009_FCB_J.OTHER_PROCESS_YMD
+                    'txtOTHER_PROCESS_NAIYOU.Text = _D009_FCCB_J.OTHER_PROCESS_NAIYOU
+                    'dtOTHER_PROCESS_YMD.Value = _D009_FCCB_J.OTHER_PROCESS_YMD
 
-                    'mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, _D009_FCB_J.HOKOKU_NO)
-                    'mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, FunGetNextSYONIN_JUN(PrCurrentStage, _D009_FCB_J.KOKYAKU_EIKYO_HANTEI_KB))
-                    'Dim blnOwn As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, _D009_FCB_J.HOKOKU_NO, PrCurrentStage)
+                    'mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, _D009_FCCB_J.HOKOKU_NO)
+                    'mtxNextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, FunGetNextSYONIN_JUN(PrCurrentStage, _D009_FCCB_J.KOKYAKU_EIKYO_HANTEI_KB))
+                    'Dim blnOwn As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, _D009_FCCB_J.HOKOKU_NO, PrCurrentStage)
 
                     '_tabPageManager = New TabPageManager(TabSTAGE)
 
@@ -1864,12 +1826,10 @@ Public Class FrmG0021_Detail
                     '    End If
                     'Next val
                     ''rsbtnST05.Enabled = CBool(_V005_CAR_J.KAITO_23)
-                    'If _D009_FCB_J.CLOSE_FG = False Then
+                    'If _D009_FCCB_J.CLOSE_FG = False Then
                     '    flpnlStageIndex.Controls("rsbtnST99").Enabled = False
                     '    flpnlStageIndex.Controls("rsbtnST99").BackColor = Color.Silver
                     'End If
-
-
 
                     'Dim _V003 As New V003_SYONIN_J_KANRI
                     '_V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -1896,30 +1856,23 @@ Public Class FrmG0021_Detail
 
 #Region "   添付ファイル"
 
-                    Dim strRootDir As String
-                    Using DB = DBOpen()
-                        strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
-                    End Using
+                    'Dim strRootDir As String
+                    'Using DB = DBOpen()
+                    '    strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
+                    'End Using
 
-                    If Not _D009_FCB_J.SYOCHI_FILEPATH.IsNulOrWS Then
-                        'lblSYOCHI_FILEPATH.Text = CompactString(_V011_FCR_J.SYOCHI_FILEPATH, lblSYOCHI_FILEPATH, EllipsisFormat._4_Path)
-                        'lblSYOCHI_FILEPATH.Links.Clear()
-                        'lblSYOCHI_FILEPATH.Links.Add(0, lblSYOCHI_FILEPATH.Text.Length, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.SYOCHI_FILEPATH}")
-                        'lblSYOCHI_FILEPATH.Visible = True
-                        'lblSYOCHI_FILEPATH_Clear.Visible = True
-                    End If
+                    'If Not _D009_FCCB_J.SYOCHI_FILEPATH.IsNulOrWS Then
+                    '    'lblSYOCHI_FILEPATH.Text = CompactString(_V011_FCR_J.SYOCHI_FILEPATH, lblSYOCHI_FILEPATH, EllipsisFormat._4_Path)
+                    '    'lblSYOCHI_FILEPATH.Links.Clear()
+                    '    'lblSYOCHI_FILEPATH.Links.Add(0, lblSYOCHI_FILEPATH.Text.Length, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.SYOCHI_FILEPATH}")
+                    '    'lblSYOCHI_FILEPATH.Visible = True
+                    '    'lblSYOCHI_FILEPATH_Clear.Visible = True
+                    'End If
 
 #End Region
+
             End Select
 
-
-            'ナビゲートリンク選択
-            If PrCurrentStage = ENM_FCCB_STAGE._999_Closed Then
-                rsbtnST99.Checked = True
-            Else
-                Dim rbtn As RibbonShapeRadioButton = DirectCast(flpnlStageIndex.Controls("rsbtnST" & (PrCurrentStage / 10).ToString("00")), RibbonShapeRadioButton)
-                rbtn.Checked = True
-            End If
 
 
             If FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_FCCB_STAGE._999_Closed Then
@@ -1943,40 +1896,29 @@ Public Class FrmG0021_Detail
         End Try
     End Function
 
-    Private Function FunSetModel() As Boolean
+    Private Function GetCM_TANTO(BUMON_KB As String) As DataTable
+
         Try
-            _V002_NCR_J.Clear()
-            _V002_NCR_J = FunGetV002Model(PrHOKOKU_NO)
-            _V003_SYONIN_J_KANRI_List = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, PrHOKOKU_NO)
+            Dim dt As DataTable = FunGetSYOZOKU_SYAIN(BUMON_KB)
+            Dim drs As IEnumerable(Of DataRow)
+            Dim InList As New List(Of Integer)
 
-            _V011_FCR_J.Clear()
-            _V011_FCR_J = FunGetV011Model(PrHOKOKU_NO)
+            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._4_品証.Value, ENM_GYOMU_GROUP_ID._5_設計.Value, ENM_GYOMU_GROUP_ID._6_生技.Value, ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value})
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
+                                  GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
 
-            'データソース設定
-            Dim dt As DataTable = FunGetSYOZOKU_SYAIN(_V011_FCR_J.BUMON_KB)
-
-            dt = FunGetSYONIN_SYOZOKU_SYAIN(_V011_FCR_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS, FunGetNextSYONIN_JUN(PrCurrentStage))
-            cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-            '#128
-            If PrCurrentStage = ENM_FCCB_STAGE._10_起草入力 AndAlso Not IsRemanded(_V011_FCR_J.HOKOKU_NO) Then
-                _V011_FCR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-            End If
-
-            Return True
+            Return dt
         Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
+            Throw
         End Try
     End Function
 
-
     Private Function SetTANTO_TooltipInfo() As Boolean
 
+        Call SetInfoLabelFormat(lblKISO_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}QMS管理責任者・設計・品証・生技")
         Call SetInfoLabelFormat(lblDestTanto, $"承認担当者マスタ{vbCr}所属部門の当該ステージに登録された担当者")
 
     End Function
-
 
     Private Function SetInfoLabelFormat(lbl As Label, caption As String) As Boolean
         lbl.ForeColor = Color.Blue

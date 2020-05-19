@@ -122,10 +122,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Libs\C1.Win.4.dll</HintPath>
     </Reference>
-    <Reference Include="C1.Win.C1FlexGrid.4, Version=4.0.20183.338, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL">
+    <Reference Include="C1.Win.C1FlexGrid.4, Version=4.0.20173.286, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Libs\C1.Win.C1FlexGrid.4.dll</HintPath>
     </Reference>
+    <Reference Include="C1.Win.C1FlexGrid.4.Design, Version=4.0.20173.286, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1SplitContainer.4, Version=4.0.20173.286, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="mscorlib" />
     <Reference Include="Microsoft.VisualBasic" />
@@ -201,7 +202,6 @@
     </Compile>
     <Compile Include="mdlG0020.vb" />
     <Compile Include="Model\G0021_VM.vb" />
-    <Compile Include="Model\ST02_SerchFilterModel.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

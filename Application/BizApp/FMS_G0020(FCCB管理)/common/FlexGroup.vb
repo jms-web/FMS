@@ -480,7 +480,7 @@ Public Class FlexGroupControl
             If (col.Visible) OrElse (Not _groups(i).Equals(col)) Then Return True
         Next
 
-        'TODO: 常に非表示にしたい列を設定する
+        ' 常に非表示にしたい列を設定する
         ' 残りの列を表示します。
         For i = iFixed + _groups.Count To cols.Count - 1
             If Not cols(i).Visible Then Return True
@@ -518,7 +518,7 @@ Public Class FlexGroupControl
             End If
         Next
 
-        'TODO: 常に非表示にしたい列をあらかじめ指定する
+        '常に非表示にしたい列をあらかじめ指定する
 
         'グループ列以外全て表示
         For index = index To cols.Count - 1

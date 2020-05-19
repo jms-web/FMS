@@ -47,6 +47,17 @@ Partial Public Class ST04_FCCB_ICHIRAN
     <ComponentModel.DisplayName("処置担当者名")>
     Public Property GEN_TANTO_NAME As String
 
+    <ComponentModel.DisplayName("承認日時")>
+    Public Property SYONIN_YMDHNS As String
+
+
+    <ComponentModel.DisplayName("滞留日数")>
+    Public Property TAIRYU_NISSU As Integer
+
+    <StringLength(1)>
+    <ComponentModel.DisplayName("滞留フラグ")>
+    Public Property TAIRYU_FG As String
+
     <ComponentModel.DisplayName("機種ID")>
     <Display(AutoGenerateField:=False)>
     Public Property KISYU_ID As Integer

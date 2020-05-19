@@ -5,9 +5,9 @@ Imports PropertyChanged
 ''' <summary>
 ''' D007_不適合封じ込め調査書情報
 ''' </summary>
-<Table(NameOf(V012_FCCB_SUB_SYOCHI_KOMOKU), Schema:="dbo")>
+<Table(NameOf(V013_FCCB_SUB_SYOCHI_KOMOKU), Schema:="dbo")>
 <AddINotifyPropertyChangedInterface>
-Partial Public Class V012_FCCB_SUB_SYOCHI_KOMOKU
+Partial Public Class V013_FCCB_SUB_SYOCHI_KOMOKU
     Inherits ModelBase
 
     Public Shadows Sub Clear()

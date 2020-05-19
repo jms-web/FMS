@@ -189,7 +189,8 @@ Module mdlINTSYR
         _7_ŠÇ— = 7
         _8_‰c‹Æ = 8
         _9_w”ƒ = 9
-        _20_QMSŠÇ—Ó”CŽÒ = 20
+        _46_•iŒŸ = 46
+        _91_QMSŠÇ—Ó”CŽÒ = 91
         _99_‚»‚Ì‘¼_‰¼ = 99
     End Enum
 

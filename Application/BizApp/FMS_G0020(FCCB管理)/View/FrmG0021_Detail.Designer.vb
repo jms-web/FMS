@@ -24,14 +24,14 @@ Partial Class FrmG0021_Detail
         Me.cmbBUHIN_BANGO = New JMS_COMMON.ComboboxEx()
         Me.cmbKISYU = New JMS_COMMON.ComboboxEx()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.mtxHOKUKO_NO = New JMS_COMMON.MaskedTextBoxEx()
+        Me.mtxFCCB_NO = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.cmbBUMON = New JMS_COMMON.ComboboxEx()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.cmbHINMEI = New JMS_COMMON.ComboboxEx()
-        Me.Label6 = New System.Windows.Forms.Label()
+        Me.lblKISO_TANTO = New System.Windows.Forms.Label()
         Me.cmbKISO_TANTO = New JMS_COMMON.ComboboxEx()
         Me.Label26 = New System.Windows.Forms.Label()
         Me.cmbCM_TANTO = New JMS_COMMON.ComboboxEx()
@@ -71,13 +71,13 @@ Partial Class FrmG0021_Detail
         Me.MaskedTextBoxEx3 = New JMS_COMMON.MaskedTextBoxEx()
         Me.C1SplitContainer = New C1.Win.C1SplitContainer.C1SplitContainer()
         Me.C1SplitterPanel1 = New C1.Win.C1SplitContainer.C1SplitterPanel()
-        Me.flexDATA_2 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.flxDATA_2 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Flx2_DS = New System.Windows.Forms.BindingSource(Me.components)
         Me.C1SplitterPanel2 = New C1.Win.C1SplitContainer.C1SplitterPanel()
-        Me.flexDATA_3 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.flxDATA_3 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Flx3_DS = New System.Windows.Forms.BindingSource(Me.components)
         Me.C1SplitterPanel3 = New C1.Win.C1SplitContainer.C1SplitterPanel()
-        Me.flexDATA_4 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.flxDATA_4 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Flx4_DS = New System.Windows.Forms.BindingSource(Me.components)
         Me.C1SplitterPanel4 = New C1.Win.C1SplitContainer.C1SplitterPanel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
@@ -119,7 +119,7 @@ Partial Class FrmG0021_Detail
         Me.dtKAKUNIN_CM_TANTO = New JMS_COMMON.DateTextBoxEx()
         Me.PanelEx1 = New JMS_COMMON.PanelEx()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.flexDATA_5 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.flxDATA_5 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI = New JMS_COMMON.MaskedTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -131,18 +131,18 @@ Partial Class FrmG0021_Detail
         CType(Me.C1SplitContainer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.C1SplitContainer.SuspendLayout()
         Me.C1SplitterPanel1.SuspendLayout()
-        CType(Me.flexDATA_2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.flxDATA_2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Flx2_DS, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.C1SplitterPanel2.SuspendLayout()
-        CType(Me.flexDATA_3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.flxDATA_3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Flx3_DS, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.C1SplitterPanel3.SuspendLayout()
-        CType(Me.flexDATA_4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.flxDATA_4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Flx4_DS, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.C1SplitterPanel4.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.PanelEx1.SuspendLayout()
-        CType(Me.flexDATA_5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.flxDATA_5, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -178,6 +178,7 @@ Partial Class FrmG0021_Detail
         Me.cmdFunc4.Location = New System.Drawing.Point(373, 641)
         Me.cmdFunc4.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc4.Text = "転送(F4)"
+        Me.cmdFunc4.Visible = False
         '
         'cmdFunc5
         '
@@ -185,6 +186,7 @@ Partial Class FrmG0021_Detail
         Me.cmdFunc5.Location = New System.Drawing.Point(555, 641)
         Me.cmdFunc5.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc5.Text = "差戻し(F5)"
+        Me.cmdFunc5.Visible = False
         '
         'cmdFunc6
         '
@@ -204,6 +206,7 @@ Partial Class FrmG0021_Detail
         Me.cmdFunc11.Location = New System.Drawing.Point(919, 641)
         Me.cmdFunc11.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc11.Text = "履歴表示(F11)"
+        Me.cmdFunc11.Visible = False
         '
         'cmdFunc10
         '
@@ -211,6 +214,7 @@ Partial Class FrmG0021_Detail
         Me.cmdFunc10.Location = New System.Drawing.Point(737, 641)
         Me.cmdFunc10.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc10.Text = "印刷プレビュー(F10)"
+        Me.cmdFunc10.Visible = False
         '
         'cmdFunc7
         '
@@ -290,24 +294,24 @@ Partial Class FrmG0021_Detail
         Me.Label8.Text = "FCCB No:"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'mtxHOKUKO_NO
+        'mtxFCCB_NO
         '
-        Me.mtxHOKUKO_NO.BackColor = System.Drawing.SystemColors.Control
-        Me.tlpFilter.SetColumnSpan(Me.mtxHOKUKO_NO, 5)
-        Me.mtxHOKUKO_NO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxHOKUKO_NO.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxHOKUKO_NO.InputRequired = False
-        Me.mtxHOKUKO_NO.Location = New System.Drawing.Point(103, 3)
-        Me.mtxHOKUKO_NO.MaxByteLength = 0
-        Me.mtxHOKUKO_NO.Name = "mtxHOKUKO_NO"
-        Me.mtxHOKUKO_NO.ReadOnly = True
-        Me.mtxHOKUKO_NO.SelectAllText = False
-        Me.mtxHOKUKO_NO.Size = New System.Drawing.Size(94, 24)
-        Me.mtxHOKUKO_NO.TabIndex = 266
-        Me.mtxHOKUKO_NO.TabStop = False
-        Me.mtxHOKUKO_NO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.mtxHOKUKO_NO.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxHOKUKO_NO.WatermarkText = Nothing
+        Me.mtxFCCB_NO.BackColor = System.Drawing.SystemColors.Control
+        Me.tlpFilter.SetColumnSpan(Me.mtxFCCB_NO, 5)
+        Me.mtxFCCB_NO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxFCCB_NO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxFCCB_NO.InputRequired = False
+        Me.mtxFCCB_NO.Location = New System.Drawing.Point(103, 3)
+        Me.mtxFCCB_NO.MaxByteLength = 0
+        Me.mtxFCCB_NO.Name = "mtxFCCB_NO"
+        Me.mtxFCCB_NO.ReadOnly = True
+        Me.mtxFCCB_NO.SelectAllText = False
+        Me.mtxFCCB_NO.Size = New System.Drawing.Size(94, 24)
+        Me.mtxFCCB_NO.TabIndex = 266
+        Me.mtxFCCB_NO.TabStop = False
+        Me.mtxFCCB_NO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.mtxFCCB_NO.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxFCCB_NO.WatermarkText = Nothing
         '
         'Label14
         '
@@ -397,16 +401,16 @@ Partial Class FrmG0021_Detail
         Me.cmbHINMEI.Text = "(選択)"
         Me.cmbHINMEI.ValueMember = "VALUE"
         '
-        'Label6
+        'lblKISO_TANTO
         '
-        Me.tlpFilter.SetColumnSpan(Me.Label6, 5)
-        Me.Label6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label6.Location = New System.Drawing.Point(443, 0)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(94, 30)
-        Me.Label6.TabIndex = 270
-        Me.Label6.Text = "起草者:"
-        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.tlpFilter.SetColumnSpan(Me.lblKISO_TANTO, 5)
+        Me.lblKISO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblKISO_TANTO.Location = New System.Drawing.Point(443, 0)
+        Me.lblKISO_TANTO.Name = "lblKISO_TANTO"
+        Me.lblKISO_TANTO.Size = New System.Drawing.Size(94, 30)
+        Me.lblKISO_TANTO.TabIndex = 270
+        Me.lblKISO_TANTO.Text = "起草者:"
+        Me.lblKISO_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'cmbKISO_TANTO
         '
@@ -661,9 +665,9 @@ Partial Class FrmG0021_Detail
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.tlpFilter.Controls.Add(Me.Label8, 0, 0)
-        Me.tlpFilter.Controls.Add(Me.mtxHOKUKO_NO, 1, 0)
+        Me.tlpFilter.Controls.Add(Me.mtxFCCB_NO, 1, 0)
         Me.tlpFilter.Controls.Add(Me.cmbBUMON, 15, 0)
-        Me.tlpFilter.Controls.Add(Me.Label6, 20, 0)
+        Me.tlpFilter.Controls.Add(Me.lblKISO_TANTO, 20, 0)
         Me.tlpFilter.Controls.Add(Me.cmbKISO_TANTO, 25, 0)
         Me.tlpFilter.Controls.Add(Me.Label14, 0, 1)
         Me.tlpFilter.Controls.Add(Me.Label3, 0, 4)
@@ -711,7 +715,7 @@ Partial Class FrmG0021_Detail
         '
         'MaskedTextBoxEx2
         '
-        Me.MaskedTextBoxEx2.BackColor = System.Drawing.SystemColors.Control
+        Me.MaskedTextBoxEx2.BackColor = System.Drawing.Color.White
         Me.tlpFilter.SetColumnSpan(Me.MaskedTextBoxEx2, 11)
         Me.MaskedTextBoxEx2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.MaskedTextBoxEx2.ImeMode = System.Windows.Forms.ImeMode.[On]
@@ -719,7 +723,6 @@ Partial Class FrmG0021_Detail
         Me.MaskedTextBoxEx2.Location = New System.Drawing.Point(103, 123)
         Me.MaskedTextBoxEx2.MaxByteLength = 0
         Me.MaskedTextBoxEx2.Name = "MaskedTextBoxEx2"
-        Me.MaskedTextBoxEx2.ReadOnly = True
         Me.MaskedTextBoxEx2.SelectAllText = False
         Me.MaskedTextBoxEx2.Size = New System.Drawing.Size(214, 24)
         Me.MaskedTextBoxEx2.TabIndex = 266
@@ -728,7 +731,7 @@ Partial Class FrmG0021_Detail
         '
         'mtxSNO_APPLY_PERIOD_KISO
         '
-        Me.mtxSNO_APPLY_PERIOD_KISO.BackColor = System.Drawing.SystemColors.Control
+        Me.mtxSNO_APPLY_PERIOD_KISO.BackColor = System.Drawing.Color.White
         Me.tlpFilter.SetColumnSpan(Me.mtxSNO_APPLY_PERIOD_KISO, 11)
         Me.mtxSNO_APPLY_PERIOD_KISO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxSNO_APPLY_PERIOD_KISO.ImeMode = System.Windows.Forms.ImeMode.[On]
@@ -736,7 +739,6 @@ Partial Class FrmG0021_Detail
         Me.mtxSNO_APPLY_PERIOD_KISO.Location = New System.Drawing.Point(483, 123)
         Me.mtxSNO_APPLY_PERIOD_KISO.MaxByteLength = 0
         Me.mtxSNO_APPLY_PERIOD_KISO.Name = "mtxSNO_APPLY_PERIOD_KISO"
-        Me.mtxSNO_APPLY_PERIOD_KISO.ReadOnly = True
         Me.mtxSNO_APPLY_PERIOD_KISO.SelectAllText = False
         Me.mtxSNO_APPLY_PERIOD_KISO.Size = New System.Drawing.Size(214, 24)
         Me.mtxSNO_APPLY_PERIOD_KISO.TabIndex = 266
@@ -753,6 +755,7 @@ Partial Class FrmG0021_Detail
         Me.flpnlStageIndex.Controls.Add(Me.rsbtnST05)
         Me.flpnlStageIndex.Controls.Add(Me.rsbtnST06)
         Me.flpnlStageIndex.Controls.Add(Me.rsbtnST99)
+        Me.flpnlStageIndex.Enabled = False
         Me.flpnlStageIndex.Location = New System.Drawing.Point(626, 61)
         Me.flpnlStageIndex.Name = "flpnlStageIndex"
         Me.flpnlStageIndex.Size = New System.Drawing.Size(622, 31)
@@ -963,7 +966,7 @@ Partial Class FrmG0021_Detail
         Me.ComboboxEx2.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.ComboboxEx2.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.ComboboxEx2.IsSelected = False
-        Me.ComboboxEx2.Location = New System.Drawing.Point(739, 12019)
+        Me.ComboboxEx2.Location = New System.Drawing.Point(739, 16835)
         Me.ComboboxEx2.Name = "ComboboxEx2"
         Me.ComboboxEx2.NullValue = " "
         Me.ComboboxEx2.Size = New System.Drawing.Size(154, 25)
@@ -1063,7 +1066,7 @@ Partial Class FrmG0021_Detail
         'C1SplitterPanel1
         '
         Me.C1SplitterPanel1.AutoScroll = True
-        Me.C1SplitterPanel1.Controls.Add(Me.flexDATA_2)
+        Me.C1SplitterPanel1.Controls.Add(Me.flxDATA_2)
         Me.C1SplitterPanel1.Height = 414
         Me.C1SplitterPanel1.KeepRelativeSize = False
         Me.C1SplitterPanel1.Location = New System.Drawing.Point(1, 22)
@@ -1074,34 +1077,35 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel1.TabIndex = 0
         Me.C1SplitterPanel1.Text = "②要処置事項調査"
         '
-        'flexDATA_2
+        'flxDATA_2
         '
-        Me.flexDATA_2.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
-        Me.flexDATA_2.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
-        Me.flexDATA_2.AutoClipboard = True
-        Me.flexDATA_2.AutoGenerateColumns = False
-        Me.flexDATA_2.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
-        Me.flexDATA_2.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.Light3D
-        Me.flexDATA_2.ColumnInfo = resources.GetString("flexDATA_2.ColumnInfo")
-        Me.flexDATA_2.DataSource = Me.Flx2_DS
-        Me.flexDATA_2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.flexDATA_2.Location = New System.Drawing.Point(0, 0)
-        Me.flexDATA_2.Name = "flexDATA_2"
-        Me.flexDATA_2.Rows.Count = 1
-        Me.flexDATA_2.Rows.DefaultSize = 18
-        Me.flexDATA_2.Size = New System.Drawing.Size(1207, 393)
-        Me.flexDATA_2.StyleInfo = resources.GetString("flexDATA_2.StyleInfo")
-        Me.flexDATA_2.TabIndex = 329
-        Me.flexDATA_2.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
+        Me.flxDATA_2.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
+        Me.flxDATA_2.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
+        Me.flxDATA_2.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
+        Me.flxDATA_2.AutoClipboard = True
+        Me.flxDATA_2.AutoGenerateColumns = False
+        Me.flxDATA_2.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
+        Me.flxDATA_2.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.Light3D
+        Me.flxDATA_2.ColumnInfo = resources.GetString("flxDATA_2.ColumnInfo")
+        Me.flxDATA_2.DataSource = Me.Flx2_DS
+        Me.flxDATA_2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flxDATA_2.Location = New System.Drawing.Point(0, 0)
+        Me.flxDATA_2.Name = "flxDATA_2"
+        Me.flxDATA_2.Rows.Count = 1
+        Me.flxDATA_2.Rows.DefaultSize = 18
+        Me.flxDATA_2.Size = New System.Drawing.Size(1207, 393)
+        Me.flxDATA_2.StyleInfo = resources.GetString("flxDATA_2.StyleInfo")
+        Me.flxDATA_2.TabIndex = 329
+        Me.flxDATA_2.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
         '
         'Flx2_DS
         '
-        Me.Flx2_DS.DataSource = GetType(MODEL.V012_FCCB_SUB_SYOCHI_KOMOKU)
+        Me.Flx2_DS.DataSource = GetType(MODEL.V013_FCCB_SUB_SYOCHI_KOMOKU)
         '
         'C1SplitterPanel2
         '
         Me.C1SplitterPanel2.AutoScroll = True
-        Me.C1SplitterPanel2.Controls.Add(Me.flexDATA_3)
+        Me.C1SplitterPanel2.Controls.Add(Me.flxDATA_3)
         Me.C1SplitterPanel2.Height = 93
         Me.C1SplitterPanel2.KeepRelativeSize = False
         Me.C1SplitterPanel2.Location = New System.Drawing.Point(1, 440)
@@ -1112,34 +1116,35 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel2.TabIndex = 1
         Me.C1SplitterPanel2.Text = "③検証"
         '
-        'flexDATA_3
+        'flxDATA_3
         '
-        Me.flexDATA_3.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
-        Me.flexDATA_3.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
-        Me.flexDATA_3.AutoClipboard = True
-        Me.flexDATA_3.AutoGenerateColumns = False
-        Me.flexDATA_3.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
-        Me.flexDATA_3.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.Light3D
-        Me.flexDATA_3.ColumnInfo = "10,1,0,0,0,90,Columns:"
-        Me.flexDATA_3.DataSource = Me.Flx3_DS
-        Me.flexDATA_3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.flexDATA_3.Location = New System.Drawing.Point(0, 0)
-        Me.flexDATA_3.Name = "flexDATA_3"
-        Me.flexDATA_3.Rows.Count = 1
-        Me.flexDATA_3.Rows.DefaultSize = 18
-        Me.flexDATA_3.Size = New System.Drawing.Size(1207, 72)
-        Me.flexDATA_3.StyleInfo = resources.GetString("flexDATA_3.StyleInfo")
-        Me.flexDATA_3.TabIndex = 1
-        Me.flexDATA_3.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
+        Me.flxDATA_3.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
+        Me.flxDATA_3.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
+        Me.flxDATA_3.AutoClipboard = True
+        Me.flxDATA_3.AutoGenerateColumns = False
+        Me.flxDATA_3.AutoResize = True
+        Me.flxDATA_3.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
+        Me.flxDATA_3.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.Light3D
+        Me.flxDATA_3.ColumnInfo = "10,1,0,0,0,90,Columns:"
+        Me.flxDATA_3.DataSource = Me.Flx3_DS
+        Me.flxDATA_3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flxDATA_3.Location = New System.Drawing.Point(0, 0)
+        Me.flxDATA_3.Name = "flxDATA_3"
+        Me.flxDATA_3.Rows.Count = 1
+        Me.flxDATA_3.Rows.DefaultSize = 18
+        Me.flxDATA_3.Size = New System.Drawing.Size(1207, 72)
+        Me.flxDATA_3.StyleInfo = resources.GetString("flxDATA_3.StyleInfo")
+        Me.flxDATA_3.TabIndex = 1
+        Me.flxDATA_3.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
         '
         'Flx3_DS
         '
-        Me.Flx3_DS.DataSource = GetType(MODEL.V012_FCCB_SUB_SYOCHI_KOMOKU)
+        Me.Flx3_DS.DataSource = GetType(MODEL.V013_FCCB_SUB_SYOCHI_KOMOKU)
         '
         'C1SplitterPanel3
         '
         Me.C1SplitterPanel3.AutoScroll = True
-        Me.C1SplitterPanel3.Controls.Add(Me.flexDATA_4)
+        Me.C1SplitterPanel3.Controls.Add(Me.flxDATA_4)
         Me.C1SplitterPanel3.Height = 157
         Me.C1SplitterPanel3.KeepRelativeSize = False
         Me.C1SplitterPanel3.Location = New System.Drawing.Point(1, 537)
@@ -1150,25 +1155,26 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel3.TabIndex = 2
         Me.C1SplitterPanel3.Text = "④仕掛品状況"
         '
-        'flexDATA_4
+        'flxDATA_4
         '
-        Me.flexDATA_4.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
-        Me.flexDATA_4.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
-        Me.flexDATA_4.AutoClipboard = True
-        Me.flexDATA_4.AutoGenerateColumns = False
-        Me.flexDATA_4.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
-        Me.flexDATA_4.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.Light3D
-        Me.flexDATA_4.ColumnInfo = "10,1,0,0,0,90,Columns:"
-        Me.flexDATA_4.DataSource = Me.Flx4_DS
-        Me.flexDATA_4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.flexDATA_4.Location = New System.Drawing.Point(0, 0)
-        Me.flexDATA_4.Name = "flexDATA_4"
-        Me.flexDATA_4.Rows.Count = 1
-        Me.flexDATA_4.Rows.DefaultSize = 18
-        Me.flexDATA_4.Size = New System.Drawing.Size(1207, 136)
-        Me.flexDATA_4.StyleInfo = resources.GetString("flexDATA_4.StyleInfo")
-        Me.flexDATA_4.TabIndex = 1
-        Me.flexDATA_4.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
+        Me.flxDATA_4.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
+        Me.flxDATA_4.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
+        Me.flxDATA_4.AutoClipboard = True
+        Me.flxDATA_4.AutoGenerateColumns = False
+        Me.flxDATA_4.AutoResize = True
+        Me.flxDATA_4.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
+        Me.flxDATA_4.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.Light3D
+        Me.flxDATA_4.ColumnInfo = "10,1,0,0,0,90,Columns:"
+        Me.flxDATA_4.DataSource = Me.Flx4_DS
+        Me.flxDATA_4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flxDATA_4.Location = New System.Drawing.Point(0, 0)
+        Me.flxDATA_4.Name = "flxDATA_4"
+        Me.flxDATA_4.Rows.Count = 1
+        Me.flxDATA_4.Rows.DefaultSize = 18
+        Me.flxDATA_4.Size = New System.Drawing.Size(1207, 136)
+        Me.flxDATA_4.StyleInfo = resources.GetString("flxDATA_4.StyleInfo")
+        Me.flxDATA_4.TabIndex = 1
+        Me.flxDATA_4.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
         '
         'Flx4_DS
         '
@@ -1834,7 +1840,7 @@ Partial Class FrmG0021_Detail
         'PanelEx1
         '
         Me.PanelEx1.Controls.Add(Me.Label15)
-        Me.PanelEx1.Controls.Add(Me.flexDATA_5)
+        Me.PanelEx1.Controls.Add(Me.flxDATA_5)
         Me.PanelEx1.Controls.Add(Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI)
         Me.PanelEx1.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelEx1.HitEnabled = False
@@ -1853,24 +1859,25 @@ Partial Class FrmG0021_Detail
         Me.Label15.Text = "SNo./号機 時期等:"
         Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'flexDATA_5
+        'flxDATA_5
         '
-        Me.flexDATA_5.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
-        Me.flexDATA_5.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
-        Me.flexDATA_5.AutoClipboard = True
-        Me.flexDATA_5.AutoGenerateColumns = False
-        Me.flexDATA_5.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
-        Me.flexDATA_5.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.Light3D
-        Me.flexDATA_5.ColumnInfo = "10,1,0,0,0,90,Columns:"
-        Me.flexDATA_5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.flexDATA_5.Location = New System.Drawing.Point(0, 40)
-        Me.flexDATA_5.Name = "flexDATA_5"
-        Me.flexDATA_5.Rows.Count = 1
-        Me.flexDATA_5.Rows.DefaultSize = 18
-        Me.flexDATA_5.Size = New System.Drawing.Size(1207, 104)
-        Me.flexDATA_5.StyleInfo = resources.GetString("flexDATA_5.StyleInfo")
-        Me.flexDATA_5.TabIndex = 2
-        Me.flexDATA_5.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
+        Me.flxDATA_5.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
+        Me.flxDATA_5.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
+        Me.flxDATA_5.AutoClipboard = True
+        Me.flxDATA_5.AutoGenerateColumns = False
+        Me.flxDATA_5.AutoResize = True
+        Me.flxDATA_5.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
+        Me.flxDATA_5.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.Light3D
+        Me.flxDATA_5.ColumnInfo = "10,1,0,0,0,90,Columns:"
+        Me.flxDATA_5.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.flxDATA_5.Location = New System.Drawing.Point(0, 40)
+        Me.flxDATA_5.Name = "flxDATA_5"
+        Me.flxDATA_5.Rows.Count = 1
+        Me.flxDATA_5.Rows.DefaultSize = 18
+        Me.flxDATA_5.Size = New System.Drawing.Size(1207, 104)
+        Me.flxDATA_5.StyleInfo = resources.GetString("flxDATA_5.StyleInfo")
+        Me.flxDATA_5.TabIndex = 2
+        Me.flxDATA_5.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
         '
         'mtxSNO_APPLY_PERIOD_HENKO_SINGI
         '
@@ -1939,19 +1946,19 @@ Partial Class FrmG0021_Detail
         CType(Me.C1SplitContainer, System.ComponentModel.ISupportInitialize).EndInit()
         Me.C1SplitContainer.ResumeLayout(False)
         Me.C1SplitterPanel1.ResumeLayout(False)
-        CType(Me.flexDATA_2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.flxDATA_2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Flx2_DS, System.ComponentModel.ISupportInitialize).EndInit()
         Me.C1SplitterPanel2.ResumeLayout(False)
-        CType(Me.flexDATA_3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.flxDATA_3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Flx3_DS, System.ComponentModel.ISupportInitialize).EndInit()
         Me.C1SplitterPanel3.ResumeLayout(False)
-        CType(Me.flexDATA_4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.flxDATA_4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Flx4_DS, System.ComponentModel.ISupportInitialize).EndInit()
         Me.C1SplitterPanel4.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.PanelEx1.ResumeLayout(False)
         Me.PanelEx1.PerformLayout()
-        CType(Me.flexDATA_5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.flxDATA_5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1967,14 +1974,14 @@ Partial Class FrmG0021_Detail
     Friend WithEvents cmbBUHIN_BANGO As ComboboxEx
     Friend WithEvents cmbKISYU As ComboboxEx
     Friend WithEvents Label8 As Label
-    Friend WithEvents mtxHOKUKO_NO As MaskedTextBoxEx
+    Friend WithEvents mtxFCCB_NO As MaskedTextBoxEx
     Friend WithEvents Label14 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents cmbBUMON As ComboboxEx
     Friend WithEvents Label5 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents cmbHINMEI As ComboboxEx
-    Friend WithEvents Label6 As Label
+    Friend WithEvents lblKISO_TANTO As Label
     Friend WithEvents cmbKISO_TANTO As ComboboxEx
     Friend WithEvents Label26 As Label
     Friend WithEvents cmbCM_TANTO As ComboboxEx
@@ -2010,15 +2017,15 @@ Partial Class FrmG0021_Detail
     Friend WithEvents MaskedTextBoxEx3 As MaskedTextBoxEx
     Friend WithEvents C1SplitContainer As C1.Win.C1SplitContainer.C1SplitContainer
     Friend WithEvents C1SplitterPanel1 As C1.Win.C1SplitContainer.C1SplitterPanel
-    Friend WithEvents flexDATA_2 As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents flxDATA_2 As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents C1SplitterPanel2 As C1.Win.C1SplitContainer.C1SplitterPanel
-    Friend WithEvents flexDATA_3 As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents flxDATA_3 As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents C1SplitterPanel3 As C1.Win.C1SplitContainer.C1SplitterPanel
-    Friend WithEvents flexDATA_4 As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents flxDATA_4 As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents C1SplitterPanel4 As C1.Win.C1SplitContainer.C1SplitterPanel
     Friend WithEvents Label15 As Label
     Friend WithEvents mtxSNO_APPLY_PERIOD_HENKO_SINGI As MaskedTextBoxEx
-    Friend WithEvents flexDATA_5 As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents flxDATA_5 As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents PanelEx1 As PanelEx
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents Flx2_DS As BindingSource

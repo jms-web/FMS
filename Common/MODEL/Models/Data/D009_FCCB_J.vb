@@ -68,7 +68,7 @@ Partial Public Class D009_FCCB_J
     ''' </summary>
     ''' <returns></returns>
     <Required>
-    Public Property CHAIR_TANTO As Integer
+    Public Property CM_TANTO As Integer
 
     <Required>
     <ComponentModel.DisplayName("機種ID")>

@@ -20,10 +20,10 @@ Partial Class FrmG0020_List
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmG0020_List))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmG0020_List))
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
         Me.cmbGEN_TANTO = New JMS_COMMON.ComboboxEx()
         Me.lblGEN_TANTO = New System.Windows.Forms.Label()
@@ -47,7 +47,6 @@ Partial Class FrmG0020_List
         Me.chkDeleteRowVisibled = New System.Windows.Forms.CheckBox()
         Me.btnClearSrchFilter = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ST04_FCCB_ICHIRAN_BindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
         Me.FlexContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -55,14 +54,15 @@ Partial Class FrmG0020_List
         Me.NotEqualFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.IncludeFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotIncludeFilter = New System.Windows.Forms.ToolStripMenuItem()
+        Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpFilter.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ST04_FCCB_ICHIRAN_BindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FlexContextMenu.SuspendLayout()
+        CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -590,21 +590,6 @@ Partial Class FrmG0020_List
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "ã§í åüçıèåè"
         '
-        'flxDATA
-        '
-        Me.flxDATA.AutoResize = True
-        Me.flxDATA.ClipboardCopyMode = C1.Win.C1FlexGrid.ClipboardCopyModeEnum.DataAndColumnHeaders
-        Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
-        Me.flxDATA.DataSource = Me.ST04_FCCB_ICHIRAN_BindingSource
-        Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.flxDATA.Location = New System.Drawing.Point(15, 185)
-        Me.flxDATA.Name = "flxDATA"
-        Me.flxDATA.Rows.Count = 1
-        Me.flxDATA.Rows.DefaultSize = 23
-        Me.flxDATA.Size = New System.Drawing.Size(1548, 526)
-        Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
-        Me.flxDATA.TabIndex = 64
-        '
         'ST04_FCCB_ICHIRAN_BindingSource
         '
         Me.ST04_FCCB_ICHIRAN_BindingSource.DataSource = GetType(MODEL.ST04_FCCB_ICHIRAN)
@@ -673,6 +658,21 @@ Partial Class FrmG0020_List
         Me.NotIncludeFilter.Size = New System.Drawing.Size(157, 22)
         Me.NotIncludeFilter.Text = """{0}"" Çä‹Ç‹Ç»Ç¢"
         '
+        'flxDATA
+        '
+        Me.flxDATA.AutoResize = True
+        Me.flxDATA.ClipboardCopyMode = C1.Win.C1FlexGrid.ClipboardCopyModeEnum.DataAndColumnHeaders
+        Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
+        Me.flxDATA.DataSource = Me.ST04_FCCB_ICHIRAN_BindingSource
+        Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.flxDATA.Location = New System.Drawing.Point(12, 185)
+        Me.flxDATA.Name = "flxDATA"
+        Me.flxDATA.Rows.Count = 1
+        Me.flxDATA.Rows.DefaultSize = 23
+        Me.flxDATA.Size = New System.Drawing.Size(1553, 526)
+        Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
+        Me.flxDATA.TabIndex = 65
+        '
         'FrmG0020_List
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -706,10 +706,10 @@ Partial Class FrmG0020_List
         Me.tlpFilter.ResumeLayout(False)
         Me.tlpFilter.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
-        CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ST04_FCCB_ICHIRAN_BindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FlexContextMenu.ResumeLayout(False)
+        CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -736,7 +736,6 @@ Partial Class FrmG0020_List
     Friend WithEvents chkDeleteRowVisibled As CheckBox
     Friend WithEvents dgvDATA As DataGridView
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents ST04_FCCB_ICHIRAN_BindingSource As BindingSource
     Friend WithEvents FlexContextMenu As ContextMenuStrip
     Friend WithEvents EqualFilter As ToolStripMenuItem
@@ -745,4 +744,5 @@ Partial Class FrmG0020_List
     Friend WithEvents NotIncludeFilter As ToolStripMenuItem
     Friend WithEvents lblGEN_TANTO As Label
     Friend WithEvents cmbGEN_TANTO As ComboboxEx
+    Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
 End Class

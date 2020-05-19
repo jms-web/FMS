@@ -528,15 +528,15 @@ Module mdlG0020
         End If
     End Function
 
-    Public Function FunGetV011Model(ByVal strHOKOKU_NO As String) As V011_FCR_J
+    Public Function FunGetD009Model(ByVal FCCB_NO As String) As D009_FCCB_J
 
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
 
         sbSQL.Append($"SELECT")
         sbSQL.Append($" *")
-        sbSQL.Append($" FROM {NameOf(V011_FCR_J)}")
-        sbSQL.Append($" WHERE HOKOKU_NO='{strHOKOKU_NO}'")
+        sbSQL.Append($" FROM {NameOf(D009_FCCB_J)}")
+        sbSQL.Append($" WHERE {NameOf(D009_FCCB_J.FCCB_NO)}='{FCCB_NO}'")
         Using DB = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
         End Using
@@ -544,7 +544,7 @@ Module mdlG0020
         If dsList IsNot Nothing AndAlso dsList.Tables(0).Rows.Count = 0 Then
             Return Nothing
         Else
-            Dim _Model As New ModelInfo(Of V011_FCR_J)(srcDATA:=dsList.Tables(0))
+            Dim _Model As New ModelInfo(Of D009_FCCB_J)(srcDATA:=dsList.Tables(0))
             Return _Model.Entity
         End If
     End Function

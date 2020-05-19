@@ -171,7 +171,8 @@
     <Compile Include="Common\ModelBase.vb" />
     <Compile Include="Common\ModelInfo.vb" />
     <Compile Include="Common\NotifyChangedBase.vb" />
-    <Compile Include="Models\View\V012_FCCB_SUB_SYOCHI_KOMOKU.vb" />
+    <Compile Include="Models\View\V013_FCCB_ICHIRAN.vb" />
+    <Compile Include="Models\View\V013_FCCB_SUB_SYOCHI_KOMOKU.vb" />
     <Compile Include="Models\View\V011_FCR_J.vb" />
     <Compile Include="Models\View\VWM011_SYAIN_GYOMU_ICHIRAN.vb" />
     <Compile Include="Models\View\VWM011_SYAIN_GYOMU.vb" />
