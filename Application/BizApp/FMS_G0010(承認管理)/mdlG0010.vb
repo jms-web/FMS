@@ -1496,7 +1496,7 @@ Module mdlG0010
             If Not strYMDHNS.IsNulOrWS Then
                 ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._10_‹N‘“ü—Í).Value = "'" & DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
                 If strYMDHNS.Substring(0, 8) >= "20200512" Then
-                    ssgSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiRj@ •Ê†|‚R"
+                    ssgSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiQj@ •Ê†|‚R"
                 End If
             End If
 
@@ -1892,7 +1892,7 @@ Module mdlG0010
 
             End If
             If _V005_CAR_J.SYONIN_YMD10 >= "20200512" Then
-                spSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiRj@•Ê†|‚T"
+                spSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiQj@•Ê†|‚T"
             End If
 
             Dim rev_str = spSheet1.Range("A1").GetCharacters(9, 3)
@@ -2148,7 +2148,7 @@ Module mdlG0010
                 spSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiPj@•Ê†|8"
             End If
             If _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_‹N‘“ü—Í).Select(Function(r) r.ADD_YMDHNS).First > "202005120000" Then
-                spSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiRj@•Ê†|8"
+                spSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiQj@•Ê†|8"
             End If
 
             For Each stage As ENM_CTS_STAGE In [Enum].GetValues(GetType(ENM_CTS_STAGE))
