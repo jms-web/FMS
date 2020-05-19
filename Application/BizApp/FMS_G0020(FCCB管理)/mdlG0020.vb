@@ -108,19 +108,10 @@ Module mdlG0020
 
 #Region "Model"
 
-    Public _D003_NCR_J As New D003_NCR_J
+    Public _D009_FCCB_J As New D009_FCCB_J
     Public _D004_SYONIN_J_KANRI As New D004_SYONIN_J_KANRI
-    Public _D005_CAR_J As New D005_CAR_J
-    Public _D006_CAR_GENIN_List As New List(Of D006_CAR_GENIN)
-    Public _D007 As New D007_FCR_J
-    Public _D008_List As New List(Of D008_FCR_J_SUB)
     Public _R001_HOKOKU_SOUSA As New R001_HOKOKU_SOUSA
     Public _R002_HOKOKU_TENSO As New R002_HOKOKU_TENSO
-    Public _R003_NCR_SASIMODOSI As New R003_NCR_SASIMODOSI
-    Public _R004 As New R004_CAR_SASIMODOSI
-    Public _R005 As New R005_FCR_SASIMODOSI
-    Public _R006_List As New List(Of R006_FCR_J_SUB_SASIMODOSI)
-    Public _V011_FCR_J As New V011_FCR_J
 
 #End Region
 

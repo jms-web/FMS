@@ -48,21 +48,21 @@ Partial Class FrmG0020_List
         Me.btnClearSrchFilter = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.ST04_FCCB_ICHIRAN_BindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
         Me.FlexContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.EqualFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotEqualFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.IncludeFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotIncludeFilter = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ST04_FCCB_ICHIRAN_BindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpFilter.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ST04_FCCB_ICHIRAN_BindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FlexContextMenu.SuspendLayout()
-        CType(Me.ST04_FCCB_ICHIRAN_BindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -605,6 +605,10 @@ Partial Class FrmG0020_List
         Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
         Me.flxDATA.TabIndex = 64
         '
+        'ST04_FCCB_ICHIRAN_BindingSource
+        '
+        Me.ST04_FCCB_ICHIRAN_BindingSource.DataSource = GetType(MODEL.ST04_FCCB_ICHIRAN)
+        '
         'dgvDATA
         '
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -669,10 +673,6 @@ Partial Class FrmG0020_List
         Me.NotIncludeFilter.Size = New System.Drawing.Size(157, 22)
         Me.NotIncludeFilter.Text = """{0}"" ‚ðŠÜ‚Ü‚È‚¢"
         '
-        'ST04_FCCB_ICHIRAN_BindingSource
-        '
-        Me.ST04_FCCB_ICHIRAN_BindingSource.DataSource = GetType(MODEL.ST04_FCCB_ICHIRAN)
-        '
         'FrmG0020_List
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -707,9 +707,9 @@ Partial Class FrmG0020_List
         Me.tlpFilter.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ST04_FCCB_ICHIRAN_BindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FlexContextMenu.ResumeLayout(False)
-        CType(Me.ST04_FCCB_ICHIRAN_BindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

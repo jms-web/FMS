@@ -1784,7 +1784,7 @@ Public Class FrmG0020_List
                 cmdFunc11.Enabled = True
 
                 '選択行がClosedの場合
-                If Val(flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.CLOSE_FG))) = 1 Then
+                If Val(flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D009_FCCB_J.CLOSE_FG))) = 1 Then
 
                     If HasEditingRight(pub_SYAIN_INFO.SYAIN_ID) Then
                         cmdFunc4.Text = "修正(F4)"
@@ -1805,11 +1805,11 @@ Public Class FrmG0020_List
                                      flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V007_NCR_CAR.SYONIN_HOKOKUSYO_ID)),
                                      flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V007_NCR_CAR.HOKOKU_NO))) Then
 
-                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.CLOSE_FG)) = 1 Then
+                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D009_FCCB_J.CLOSE_FG)) = 1 Then
                         cmdFunc5.Enabled = False
                         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "Close済のデータです")
                         cmdFunc6.Enabled = True
-                    ElseIf flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).ToString.Trim <> "" Then
+                    ElseIf flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D009_FCCB_J.DEL_YMDHNS)).ToString.Trim <> "" Then
                         cmdFunc5.Enabled = False
                         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "取消済みデータです")
                         cmdFunc6.Enabled = True
@@ -1818,7 +1818,7 @@ Public Class FrmG0020_List
                     End If
                 Else
 
-                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D003_NCR_J.DEL_YMDHNS)).ToString.Trim <> "" Then
+                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D009_FCCB_J.DEL_YMDHNS)).ToString.Trim <> "" Then
                         '削除済み
                         'cmdFunc4.Enabled = False
                         'MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "取消済みデータです")
@@ -2045,7 +2045,7 @@ Public Class FrmG0020_List
                     RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
                     cmbBUHIN_BANGO.DataBindings.Clear()
                     If cmb.IsSelected Then
-                        Dim drs = tblBUHIN_J.LazyLoad("部品番号実績").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue)
+                        Dim drs = tblBUHIN_J.LazyLoad("部品番号実績").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D009_FCCB_J.KISYU_ID)) = cmb.SelectedValue)
                         If drs.Count > 0 Then
                             Dim dt As DataTable = drs.CopyToDataTable
                             Dim _selectedValue As String = cmbBUHIN_BANGO.SelectedValue
@@ -2068,7 +2068,7 @@ Public Class FrmG0020_List
 
                         If cmb.IsSelected Then
                             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                                Dim drs = tblSYANAI_CD_J.LazyLoad("社内CD実績").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D003_NCR_J.KISYU_ID)) = cmb.SelectedValue)
+                                Dim drs = tblSYANAI_CD_J.LazyLoad("社内CD実績").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D009_FCCB_J.KISYU_ID)) = cmb.SelectedValue)
                                 If drs.Count > 0 Then
                                     Dim dt As DataTable = drs.CopyToDataTable
                                     Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue

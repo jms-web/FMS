@@ -81,7 +81,7 @@ Partial Class FrmG0021_Detail
         Me.Flx4_DS = New System.Windows.Forms.BindingSource(Me.components)
         Me.C1SplitterPanel4 = New C1.Win.C1SplitContainer.C1SplitterPanel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.ComboboxEx1 = New JMS_COMMON.ComboboxEx()
+        Me.cmbSYOCHI_GM_TANTO = New JMS_COMMON.ComboboxEx()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -96,27 +96,27 @@ Partial Class FrmG0021_Detail
         Me.Label32 = New System.Windows.Forms.Label()
         Me.Label31 = New System.Windows.Forms.Label()
         Me.Label30 = New System.Windows.Forms.Label()
-        Me.ComboboxEx3 = New JMS_COMMON.ComboboxEx()
-        Me.ComboboxEx5 = New JMS_COMMON.ComboboxEx()
-        Me.ComboboxEx4 = New JMS_COMMON.ComboboxEx()
-        Me.ComboboxEx6 = New JMS_COMMON.ComboboxEx()
-        Me.DateTextBoxEx1 = New JMS_COMMON.DateTextBoxEx()
-        Me.ComboboxEx7 = New JMS_COMMON.ComboboxEx()
-        Me.ComboboxEx8 = New JMS_COMMON.ComboboxEx()
-        Me.ComboboxEx9 = New JMS_COMMON.ComboboxEx()
-        Me.ComboboxEx10 = New JMS_COMMON.ComboboxEx()
-        Me.ComboboxEx11 = New JMS_COMMON.ComboboxEx()
-        Me.ComboboxEx12 = New JMS_COMMON.ComboboxEx()
-        Me.DateTextBoxEx2 = New JMS_COMMON.DateTextBoxEx()
-        Me.DateTextBoxEx3 = New JMS_COMMON.DateTextBoxEx()
-        Me.DateTextBoxEx4 = New JMS_COMMON.DateTextBoxEx()
-        Me.DateTextBoxEx5 = New JMS_COMMON.DateTextBoxEx()
-        Me.DateTextBoxEx6 = New JMS_COMMON.DateTextBoxEx()
-        Me.DateTextBoxEx7 = New JMS_COMMON.DateTextBoxEx()
-        Me.DateTextBoxEx8 = New JMS_COMMON.DateTextBoxEx()
-        Me.DateTextBoxEx9 = New JMS_COMMON.DateTextBoxEx()
-        Me.DateTextBoxEx10 = New JMS_COMMON.DateTextBoxEx()
-        Me.DateTextBoxEx11 = New JMS_COMMON.DateTextBoxEx()
+        Me.cmbSYOCHI_SEKKEI_TANTO = New JMS_COMMON.ComboboxEx()
+        Me.cmbSYOCHI_SEIGI_TANTO = New JMS_COMMON.ComboboxEx()
+        Me.cmbSYOCHI_EIGYO_TANTO = New JMS_COMMON.ComboboxEx()
+        Me.cmbSYOCHI_KANRI_TANTO = New JMS_COMMON.ComboboxEx()
+        Me.dtSYOCHI_GM_TANTO = New JMS_COMMON.DateTextBoxEx()
+        Me.cmbSYOCHI_SEIZO_TANTO = New JMS_COMMON.ComboboxEx()
+        Me.cmbSYOCHI_HINSYO_TANTO = New JMS_COMMON.ComboboxEx()
+        Me.cmbSYOCHI_KENSA_TANTO = New JMS_COMMON.ComboboxEx()
+        Me.cmbSYOCHI_KOBAI_TANTO = New JMS_COMMON.ComboboxEx()
+        Me.cmbKAKUNIN_GM_TANTO = New JMS_COMMON.ComboboxEx()
+        Me.cmbKAKUNIN_CM_TANTO = New JMS_COMMON.ComboboxEx()
+        Me.dtSYOCHI_SEKKEI_TANTO = New JMS_COMMON.DateTextBoxEx()
+        Me.dtSYOCHI_SEIGI_TANTO = New JMS_COMMON.DateTextBoxEx()
+        Me.dtSYOCHI_EIGYO_TANTO = New JMS_COMMON.DateTextBoxEx()
+        Me.dtSYOCHI_KANRI_TANTO = New JMS_COMMON.DateTextBoxEx()
+        Me.dtSYOCHI_SEIZO_TANTO = New JMS_COMMON.DateTextBoxEx()
+        Me.dtSYOCHI_HINSYO_TANTO = New JMS_COMMON.DateTextBoxEx()
+        Me.dtSYOCHI_KENSA_TANTO = New JMS_COMMON.DateTextBoxEx()
+        Me.dtSYOCHI_KOBAI_TANTO = New JMS_COMMON.DateTextBoxEx()
+        Me.dtKAKUNIN_GM_TANTO = New JMS_COMMON.DateTextBoxEx()
+        Me.dtKAKUNIN_CM_TANTO = New JMS_COMMON.DateTextBoxEx()
         Me.PanelEx1 = New JMS_COMMON.PanelEx()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.flexDATA_5 = New C1.Win.C1FlexGrid.C1FlexGrid()
@@ -963,7 +963,7 @@ Partial Class FrmG0021_Detail
         Me.ComboboxEx2.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.ComboboxEx2.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.ComboboxEx2.IsSelected = False
-        Me.ComboboxEx2.Location = New System.Drawing.Point(739, 7805)
+        Me.ComboboxEx2.Location = New System.Drawing.Point(739, 12019)
         Me.ComboboxEx2.Name = "ComboboxEx2"
         Me.ComboboxEx2.NullValue = " "
         Me.ComboboxEx2.Size = New System.Drawing.Size(154, 25)
@@ -1207,7 +1207,7 @@ Partial Class FrmG0021_Detail
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.Controls.Add(Me.ComboboxEx1, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_GM_TANTO, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.Label29, 11, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Label28, 10, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Label2, 0, 0)
@@ -1222,27 +1222,27 @@ Partial Class FrmG0021_Detail
         Me.TableLayoutPanel1.Controls.Add(Me.Label32, 11, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Label31, 12, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Label30, 8, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.ComboboxEx3, 1, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.ComboboxEx5, 2, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.ComboboxEx4, 3, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.ComboboxEx6, 4, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.DateTextBoxEx1, 0, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.ComboboxEx7, 5, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.ComboboxEx8, 6, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.ComboboxEx9, 7, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.ComboboxEx10, 8, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.ComboboxEx11, 11, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.ComboboxEx12, 12, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.DateTextBoxEx2, 1, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.DateTextBoxEx3, 2, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.DateTextBoxEx4, 3, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.DateTextBoxEx5, 4, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.DateTextBoxEx6, 5, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.DateTextBoxEx7, 6, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.DateTextBoxEx8, 7, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.DateTextBoxEx9, 8, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.DateTextBoxEx10, 11, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.DateTextBoxEx11, 12, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_SEKKEI_TANTO, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_SEIGI_TANTO, 2, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_EIGYO_TANTO, 3, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_KANRI_TANTO, 4, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_GM_TANTO, 0, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_SEIZO_TANTO, 5, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_HINSYO_TANTO, 6, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_KENSA_TANTO, 7, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_KOBAI_TANTO, 8, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmbKAKUNIN_GM_TANTO, 11, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmbKAKUNIN_CM_TANTO, 12, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_SEKKEI_TANTO, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_SEIGI_TANTO, 2, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_EIGYO_TANTO, 3, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_KANRI_TANTO, 4, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_SEIZO_TANTO, 5, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_HINSYO_TANTO, 6, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_KENSA_TANTO, 7, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_KOBAI_TANTO, 8, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.dtKAKUNIN_GM_TANTO, 11, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.dtKAKUNIN_CM_TANTO, 12, 3)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 168)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
@@ -1254,27 +1254,27 @@ Partial Class FrmG0021_Detail
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1207, 101)
         Me.TableLayoutPanel1.TabIndex = 270
         '
-        'ComboboxEx1
+        'cmbSYOCHI_GM_TANTO
         '
-        Me.ComboboxEx1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.ComboboxEx1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx1.BackColor = System.Drawing.SystemColors.Window
-        Me.ComboboxEx1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ComboboxEx1.DisplayMember = "DISP"
-        Me.ComboboxEx1.DropDownWidth = 230
-        Me.ComboboxEx1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.ComboboxEx1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.ComboboxEx1.FormattingEnabled = True
-        Me.ComboboxEx1.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.ComboboxEx1.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.ComboboxEx1.IsSelected = False
-        Me.ComboboxEx1.Location = New System.Drawing.Point(3, 43)
-        Me.ComboboxEx1.Name = "ComboboxEx1"
-        Me.ComboboxEx1.NullValue = " "
-        Me.ComboboxEx1.Size = New System.Drawing.Size(100, 25)
-        Me.ComboboxEx1.TabIndex = 296
-        Me.ComboboxEx1.Text = "(選択)"
-        Me.ComboboxEx1.ValueMember = "VALUE"
+        Me.cmbSYOCHI_GM_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYOCHI_GM_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSYOCHI_GM_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSYOCHI_GM_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSYOCHI_GM_TANTO.DisplayMember = "DISP"
+        Me.cmbSYOCHI_GM_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_GM_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSYOCHI_GM_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSYOCHI_GM_TANTO.FormattingEnabled = True
+        Me.cmbSYOCHI_GM_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbSYOCHI_GM_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_GM_TANTO.IsSelected = False
+        Me.cmbSYOCHI_GM_TANTO.Location = New System.Drawing.Point(3, 43)
+        Me.cmbSYOCHI_GM_TANTO.Name = "cmbSYOCHI_GM_TANTO"
+        Me.cmbSYOCHI_GM_TANTO.NullValue = " "
+        Me.cmbSYOCHI_GM_TANTO.Size = New System.Drawing.Size(100, 25)
+        Me.cmbSYOCHI_GM_TANTO.TabIndex = 296
+        Me.cmbSYOCHI_GM_TANTO.Text = "(選択)"
+        Me.cmbSYOCHI_GM_TANTO.ValueMember = "VALUE"
         '
         'Label29
         '
@@ -1446,390 +1446,390 @@ Partial Class FrmG0021_Detail
         Me.Label30.Text = "購買"
         Me.Label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'ComboboxEx3
+        'cmbSYOCHI_SEKKEI_TANTO
         '
-        Me.ComboboxEx3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.ComboboxEx3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx3.BackColor = System.Drawing.SystemColors.Window
-        Me.ComboboxEx3.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ComboboxEx3.DisplayMember = "DISP"
-        Me.ComboboxEx3.DropDownWidth = 230
-        Me.ComboboxEx3.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.ComboboxEx3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.ComboboxEx3.FormattingEnabled = True
-        Me.ComboboxEx3.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.ComboboxEx3.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.ComboboxEx3.IsSelected = False
-        Me.ComboboxEx3.Location = New System.Drawing.Point(109, 43)
-        Me.ComboboxEx3.Name = "ComboboxEx3"
-        Me.ComboboxEx3.NullValue = " "
-        Me.ComboboxEx3.Size = New System.Drawing.Size(100, 25)
-        Me.ComboboxEx3.TabIndex = 297
-        Me.ComboboxEx3.Text = "(選択)"
-        Me.ComboboxEx3.ValueMember = "VALUE"
+        Me.cmbSYOCHI_SEKKEI_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYOCHI_SEKKEI_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSYOCHI_SEKKEI_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSYOCHI_SEKKEI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSYOCHI_SEKKEI_TANTO.DisplayMember = "DISP"
+        Me.cmbSYOCHI_SEKKEI_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_SEKKEI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSYOCHI_SEKKEI_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSYOCHI_SEKKEI_TANTO.FormattingEnabled = True
+        Me.cmbSYOCHI_SEKKEI_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbSYOCHI_SEKKEI_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_SEKKEI_TANTO.IsSelected = False
+        Me.cmbSYOCHI_SEKKEI_TANTO.Location = New System.Drawing.Point(109, 43)
+        Me.cmbSYOCHI_SEKKEI_TANTO.Name = "cmbSYOCHI_SEKKEI_TANTO"
+        Me.cmbSYOCHI_SEKKEI_TANTO.NullValue = " "
+        Me.cmbSYOCHI_SEKKEI_TANTO.Size = New System.Drawing.Size(100, 25)
+        Me.cmbSYOCHI_SEKKEI_TANTO.TabIndex = 297
+        Me.cmbSYOCHI_SEKKEI_TANTO.Text = "(選択)"
+        Me.cmbSYOCHI_SEKKEI_TANTO.ValueMember = "VALUE"
         '
-        'ComboboxEx5
+        'cmbSYOCHI_SEIGI_TANTO
         '
-        Me.ComboboxEx5.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.ComboboxEx5.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx5.BackColor = System.Drawing.SystemColors.Window
-        Me.ComboboxEx5.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ComboboxEx5.DisplayMember = "DISP"
-        Me.ComboboxEx5.DropDownWidth = 230
-        Me.ComboboxEx5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.ComboboxEx5.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.ComboboxEx5.FormattingEnabled = True
-        Me.ComboboxEx5.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.ComboboxEx5.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.ComboboxEx5.IsSelected = False
-        Me.ComboboxEx5.Location = New System.Drawing.Point(215, 43)
-        Me.ComboboxEx5.Name = "ComboboxEx5"
-        Me.ComboboxEx5.NullValue = " "
-        Me.ComboboxEx5.Size = New System.Drawing.Size(100, 25)
-        Me.ComboboxEx5.TabIndex = 299
-        Me.ComboboxEx5.Text = "(選択)"
-        Me.ComboboxEx5.ValueMember = "VALUE"
+        Me.cmbSYOCHI_SEIGI_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYOCHI_SEIGI_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSYOCHI_SEIGI_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSYOCHI_SEIGI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSYOCHI_SEIGI_TANTO.DisplayMember = "DISP"
+        Me.cmbSYOCHI_SEIGI_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_SEIGI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSYOCHI_SEIGI_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSYOCHI_SEIGI_TANTO.FormattingEnabled = True
+        Me.cmbSYOCHI_SEIGI_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbSYOCHI_SEIGI_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_SEIGI_TANTO.IsSelected = False
+        Me.cmbSYOCHI_SEIGI_TANTO.Location = New System.Drawing.Point(215, 43)
+        Me.cmbSYOCHI_SEIGI_TANTO.Name = "cmbSYOCHI_SEIGI_TANTO"
+        Me.cmbSYOCHI_SEIGI_TANTO.NullValue = " "
+        Me.cmbSYOCHI_SEIGI_TANTO.Size = New System.Drawing.Size(100, 25)
+        Me.cmbSYOCHI_SEIGI_TANTO.TabIndex = 299
+        Me.cmbSYOCHI_SEIGI_TANTO.Text = "(選択)"
+        Me.cmbSYOCHI_SEIGI_TANTO.ValueMember = "VALUE"
         '
-        'ComboboxEx4
+        'cmbSYOCHI_EIGYO_TANTO
         '
-        Me.ComboboxEx4.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.ComboboxEx4.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx4.BackColor = System.Drawing.SystemColors.Window
-        Me.ComboboxEx4.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ComboboxEx4.DisplayMember = "DISP"
-        Me.ComboboxEx4.DropDownWidth = 230
-        Me.ComboboxEx4.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.ComboboxEx4.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.ComboboxEx4.FormattingEnabled = True
-        Me.ComboboxEx4.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.ComboboxEx4.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.ComboboxEx4.IsSelected = False
-        Me.ComboboxEx4.Location = New System.Drawing.Point(321, 43)
-        Me.ComboboxEx4.Name = "ComboboxEx4"
-        Me.ComboboxEx4.NullValue = " "
-        Me.ComboboxEx4.Size = New System.Drawing.Size(100, 25)
-        Me.ComboboxEx4.TabIndex = 298
-        Me.ComboboxEx4.Text = "(選択)"
-        Me.ComboboxEx4.ValueMember = "VALUE"
+        Me.cmbSYOCHI_EIGYO_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYOCHI_EIGYO_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSYOCHI_EIGYO_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSYOCHI_EIGYO_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSYOCHI_EIGYO_TANTO.DisplayMember = "DISP"
+        Me.cmbSYOCHI_EIGYO_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_EIGYO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSYOCHI_EIGYO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSYOCHI_EIGYO_TANTO.FormattingEnabled = True
+        Me.cmbSYOCHI_EIGYO_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbSYOCHI_EIGYO_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_EIGYO_TANTO.IsSelected = False
+        Me.cmbSYOCHI_EIGYO_TANTO.Location = New System.Drawing.Point(321, 43)
+        Me.cmbSYOCHI_EIGYO_TANTO.Name = "cmbSYOCHI_EIGYO_TANTO"
+        Me.cmbSYOCHI_EIGYO_TANTO.NullValue = " "
+        Me.cmbSYOCHI_EIGYO_TANTO.Size = New System.Drawing.Size(100, 25)
+        Me.cmbSYOCHI_EIGYO_TANTO.TabIndex = 298
+        Me.cmbSYOCHI_EIGYO_TANTO.Text = "(選択)"
+        Me.cmbSYOCHI_EIGYO_TANTO.ValueMember = "VALUE"
         '
-        'ComboboxEx6
+        'cmbSYOCHI_KANRI_TANTO
         '
-        Me.ComboboxEx6.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.ComboboxEx6.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx6.BackColor = System.Drawing.SystemColors.Window
-        Me.ComboboxEx6.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ComboboxEx6.DisplayMember = "DISP"
-        Me.ComboboxEx6.DropDownWidth = 230
-        Me.ComboboxEx6.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.ComboboxEx6.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.ComboboxEx6.FormattingEnabled = True
-        Me.ComboboxEx6.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.ComboboxEx6.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.ComboboxEx6.IsSelected = False
-        Me.ComboboxEx6.Location = New System.Drawing.Point(427, 43)
-        Me.ComboboxEx6.Name = "ComboboxEx6"
-        Me.ComboboxEx6.NullValue = " "
-        Me.ComboboxEx6.Size = New System.Drawing.Size(100, 25)
-        Me.ComboboxEx6.TabIndex = 300
-        Me.ComboboxEx6.Text = "(選択)"
-        Me.ComboboxEx6.ValueMember = "VALUE"
+        Me.cmbSYOCHI_KANRI_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYOCHI_KANRI_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSYOCHI_KANRI_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSYOCHI_KANRI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSYOCHI_KANRI_TANTO.DisplayMember = "DISP"
+        Me.cmbSYOCHI_KANRI_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_KANRI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSYOCHI_KANRI_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSYOCHI_KANRI_TANTO.FormattingEnabled = True
+        Me.cmbSYOCHI_KANRI_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbSYOCHI_KANRI_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_KANRI_TANTO.IsSelected = False
+        Me.cmbSYOCHI_KANRI_TANTO.Location = New System.Drawing.Point(427, 43)
+        Me.cmbSYOCHI_KANRI_TANTO.Name = "cmbSYOCHI_KANRI_TANTO"
+        Me.cmbSYOCHI_KANRI_TANTO.NullValue = " "
+        Me.cmbSYOCHI_KANRI_TANTO.Size = New System.Drawing.Size(100, 25)
+        Me.cmbSYOCHI_KANRI_TANTO.TabIndex = 300
+        Me.cmbSYOCHI_KANRI_TANTO.Text = "(選択)"
+        Me.cmbSYOCHI_KANRI_TANTO.ValueMember = "VALUE"
         '
-        'DateTextBoxEx1
+        'dtSYOCHI_GM_TANTO
         '
-        Me.DateTextBoxEx1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.DateTextBoxEx1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DateTextBoxEx1.Location = New System.Drawing.Point(3, 73)
-        Me.DateTextBoxEx1.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.DateTextBoxEx1.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.DateTextBoxEx1.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.DateTextBoxEx1.Name = "DateTextBoxEx1"
-        Me.DateTextBoxEx1.ReadOnly = False
-        Me.DateTextBoxEx1.Size = New System.Drawing.Size(100, 24)
-        Me.DateTextBoxEx1.TabIndex = 274
-        Me.DateTextBoxEx1.Value = ""
-        Me.DateTextBoxEx1.ValueNonFormat = ""
+        Me.dtSYOCHI_GM_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtSYOCHI_GM_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtSYOCHI_GM_TANTO.Location = New System.Drawing.Point(3, 73)
+        Me.dtSYOCHI_GM_TANTO.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtSYOCHI_GM_TANTO.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtSYOCHI_GM_TANTO.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtSYOCHI_GM_TANTO.Name = "dtSYOCHI_GM_TANTO"
+        Me.dtSYOCHI_GM_TANTO.ReadOnly = False
+        Me.dtSYOCHI_GM_TANTO.Size = New System.Drawing.Size(100, 24)
+        Me.dtSYOCHI_GM_TANTO.TabIndex = 274
+        Me.dtSYOCHI_GM_TANTO.Value = ""
+        Me.dtSYOCHI_GM_TANTO.ValueNonFormat = ""
         '
-        'ComboboxEx7
+        'cmbSYOCHI_SEIZO_TANTO
         '
-        Me.ComboboxEx7.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.ComboboxEx7.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx7.BackColor = System.Drawing.SystemColors.Window
-        Me.ComboboxEx7.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ComboboxEx7.DisplayMember = "DISP"
-        Me.ComboboxEx7.DropDownWidth = 230
-        Me.ComboboxEx7.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.ComboboxEx7.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.ComboboxEx7.FormattingEnabled = True
-        Me.ComboboxEx7.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.ComboboxEx7.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.ComboboxEx7.IsSelected = False
-        Me.ComboboxEx7.Location = New System.Drawing.Point(533, 43)
-        Me.ComboboxEx7.Name = "ComboboxEx7"
-        Me.ComboboxEx7.NullValue = " "
-        Me.ComboboxEx7.Size = New System.Drawing.Size(100, 25)
-        Me.ComboboxEx7.TabIndex = 301
-        Me.ComboboxEx7.Text = "(選択)"
-        Me.ComboboxEx7.ValueMember = "VALUE"
+        Me.cmbSYOCHI_SEIZO_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYOCHI_SEIZO_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSYOCHI_SEIZO_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSYOCHI_SEIZO_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSYOCHI_SEIZO_TANTO.DisplayMember = "DISP"
+        Me.cmbSYOCHI_SEIZO_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_SEIZO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSYOCHI_SEIZO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSYOCHI_SEIZO_TANTO.FormattingEnabled = True
+        Me.cmbSYOCHI_SEIZO_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbSYOCHI_SEIZO_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_SEIZO_TANTO.IsSelected = False
+        Me.cmbSYOCHI_SEIZO_TANTO.Location = New System.Drawing.Point(533, 43)
+        Me.cmbSYOCHI_SEIZO_TANTO.Name = "cmbSYOCHI_SEIZO_TANTO"
+        Me.cmbSYOCHI_SEIZO_TANTO.NullValue = " "
+        Me.cmbSYOCHI_SEIZO_TANTO.Size = New System.Drawing.Size(100, 25)
+        Me.cmbSYOCHI_SEIZO_TANTO.TabIndex = 301
+        Me.cmbSYOCHI_SEIZO_TANTO.Text = "(選択)"
+        Me.cmbSYOCHI_SEIZO_TANTO.ValueMember = "VALUE"
         '
-        'ComboboxEx8
+        'cmbSYOCHI_HINSYO_TANTO
         '
-        Me.ComboboxEx8.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.ComboboxEx8.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx8.BackColor = System.Drawing.SystemColors.Window
-        Me.ComboboxEx8.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ComboboxEx8.DisplayMember = "DISP"
-        Me.ComboboxEx8.DropDownWidth = 230
-        Me.ComboboxEx8.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.ComboboxEx8.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.ComboboxEx8.FormattingEnabled = True
-        Me.ComboboxEx8.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.ComboboxEx8.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.ComboboxEx8.IsSelected = False
-        Me.ComboboxEx8.Location = New System.Drawing.Point(639, 43)
-        Me.ComboboxEx8.Name = "ComboboxEx8"
-        Me.ComboboxEx8.NullValue = " "
-        Me.ComboboxEx8.Size = New System.Drawing.Size(100, 25)
-        Me.ComboboxEx8.TabIndex = 301
-        Me.ComboboxEx8.Text = "(選択)"
-        Me.ComboboxEx8.ValueMember = "VALUE"
+        Me.cmbSYOCHI_HINSYO_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYOCHI_HINSYO_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSYOCHI_HINSYO_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSYOCHI_HINSYO_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSYOCHI_HINSYO_TANTO.DisplayMember = "DISP"
+        Me.cmbSYOCHI_HINSYO_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_HINSYO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSYOCHI_HINSYO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSYOCHI_HINSYO_TANTO.FormattingEnabled = True
+        Me.cmbSYOCHI_HINSYO_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbSYOCHI_HINSYO_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_HINSYO_TANTO.IsSelected = False
+        Me.cmbSYOCHI_HINSYO_TANTO.Location = New System.Drawing.Point(639, 43)
+        Me.cmbSYOCHI_HINSYO_TANTO.Name = "cmbSYOCHI_HINSYO_TANTO"
+        Me.cmbSYOCHI_HINSYO_TANTO.NullValue = " "
+        Me.cmbSYOCHI_HINSYO_TANTO.Size = New System.Drawing.Size(100, 25)
+        Me.cmbSYOCHI_HINSYO_TANTO.TabIndex = 301
+        Me.cmbSYOCHI_HINSYO_TANTO.Text = "(選択)"
+        Me.cmbSYOCHI_HINSYO_TANTO.ValueMember = "VALUE"
         '
-        'ComboboxEx9
+        'cmbSYOCHI_KENSA_TANTO
         '
-        Me.ComboboxEx9.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.ComboboxEx9.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx9.BackColor = System.Drawing.SystemColors.Window
-        Me.ComboboxEx9.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ComboboxEx9.DisplayMember = "DISP"
-        Me.ComboboxEx9.DropDownWidth = 230
-        Me.ComboboxEx9.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.ComboboxEx9.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.ComboboxEx9.FormattingEnabled = True
-        Me.ComboboxEx9.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.ComboboxEx9.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.ComboboxEx9.IsSelected = False
-        Me.ComboboxEx9.Location = New System.Drawing.Point(745, 43)
-        Me.ComboboxEx9.Name = "ComboboxEx9"
-        Me.ComboboxEx9.NullValue = " "
-        Me.ComboboxEx9.Size = New System.Drawing.Size(100, 25)
-        Me.ComboboxEx9.TabIndex = 301
-        Me.ComboboxEx9.Text = "(選択)"
-        Me.ComboboxEx9.ValueMember = "VALUE"
+        Me.cmbSYOCHI_KENSA_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYOCHI_KENSA_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSYOCHI_KENSA_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSYOCHI_KENSA_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSYOCHI_KENSA_TANTO.DisplayMember = "DISP"
+        Me.cmbSYOCHI_KENSA_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_KENSA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSYOCHI_KENSA_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSYOCHI_KENSA_TANTO.FormattingEnabled = True
+        Me.cmbSYOCHI_KENSA_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbSYOCHI_KENSA_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_KENSA_TANTO.IsSelected = False
+        Me.cmbSYOCHI_KENSA_TANTO.Location = New System.Drawing.Point(745, 43)
+        Me.cmbSYOCHI_KENSA_TANTO.Name = "cmbSYOCHI_KENSA_TANTO"
+        Me.cmbSYOCHI_KENSA_TANTO.NullValue = " "
+        Me.cmbSYOCHI_KENSA_TANTO.Size = New System.Drawing.Size(100, 25)
+        Me.cmbSYOCHI_KENSA_TANTO.TabIndex = 301
+        Me.cmbSYOCHI_KENSA_TANTO.Text = "(選択)"
+        Me.cmbSYOCHI_KENSA_TANTO.ValueMember = "VALUE"
         '
-        'ComboboxEx10
+        'cmbSYOCHI_KOBAI_TANTO
         '
-        Me.ComboboxEx10.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.ComboboxEx10.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx10.BackColor = System.Drawing.SystemColors.Window
-        Me.ComboboxEx10.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ComboboxEx10.DisplayMember = "DISP"
-        Me.ComboboxEx10.DropDownWidth = 230
-        Me.ComboboxEx10.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.ComboboxEx10.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.ComboboxEx10.FormattingEnabled = True
-        Me.ComboboxEx10.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.ComboboxEx10.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.ComboboxEx10.IsSelected = False
-        Me.ComboboxEx10.Location = New System.Drawing.Point(851, 43)
-        Me.ComboboxEx10.Name = "ComboboxEx10"
-        Me.ComboboxEx10.NullValue = " "
-        Me.ComboboxEx10.Size = New System.Drawing.Size(100, 25)
-        Me.ComboboxEx10.TabIndex = 301
-        Me.ComboboxEx10.Text = "(選択)"
-        Me.ComboboxEx10.ValueMember = "VALUE"
+        Me.cmbSYOCHI_KOBAI_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYOCHI_KOBAI_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSYOCHI_KOBAI_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSYOCHI_KOBAI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSYOCHI_KOBAI_TANTO.DisplayMember = "DISP"
+        Me.cmbSYOCHI_KOBAI_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_KOBAI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSYOCHI_KOBAI_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSYOCHI_KOBAI_TANTO.FormattingEnabled = True
+        Me.cmbSYOCHI_KOBAI_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbSYOCHI_KOBAI_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_KOBAI_TANTO.IsSelected = False
+        Me.cmbSYOCHI_KOBAI_TANTO.Location = New System.Drawing.Point(851, 43)
+        Me.cmbSYOCHI_KOBAI_TANTO.Name = "cmbSYOCHI_KOBAI_TANTO"
+        Me.cmbSYOCHI_KOBAI_TANTO.NullValue = " "
+        Me.cmbSYOCHI_KOBAI_TANTO.Size = New System.Drawing.Size(100, 25)
+        Me.cmbSYOCHI_KOBAI_TANTO.TabIndex = 301
+        Me.cmbSYOCHI_KOBAI_TANTO.Text = "(選択)"
+        Me.cmbSYOCHI_KOBAI_TANTO.ValueMember = "VALUE"
         '
-        'ComboboxEx11
+        'cmbKAKUNIN_GM_TANTO
         '
-        Me.ComboboxEx11.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.ComboboxEx11.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx11.BackColor = System.Drawing.SystemColors.Window
-        Me.ComboboxEx11.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ComboboxEx11.DisplayMember = "DISP"
-        Me.ComboboxEx11.DropDownWidth = 230
-        Me.ComboboxEx11.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.ComboboxEx11.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.ComboboxEx11.FormattingEnabled = True
-        Me.ComboboxEx11.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.ComboboxEx11.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.ComboboxEx11.IsSelected = False
-        Me.ComboboxEx11.Location = New System.Drawing.Point(993, 43)
-        Me.ComboboxEx11.Name = "ComboboxEx11"
-        Me.ComboboxEx11.NullValue = " "
-        Me.ComboboxEx11.Size = New System.Drawing.Size(100, 25)
-        Me.ComboboxEx11.TabIndex = 301
-        Me.ComboboxEx11.Text = "(選択)"
-        Me.ComboboxEx11.ValueMember = "VALUE"
+        Me.cmbKAKUNIN_GM_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbKAKUNIN_GM_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbKAKUNIN_GM_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKAKUNIN_GM_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbKAKUNIN_GM_TANTO.DisplayMember = "DISP"
+        Me.cmbKAKUNIN_GM_TANTO.DropDownWidth = 230
+        Me.cmbKAKUNIN_GM_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbKAKUNIN_GM_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbKAKUNIN_GM_TANTO.FormattingEnabled = True
+        Me.cmbKAKUNIN_GM_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbKAKUNIN_GM_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbKAKUNIN_GM_TANTO.IsSelected = False
+        Me.cmbKAKUNIN_GM_TANTO.Location = New System.Drawing.Point(993, 43)
+        Me.cmbKAKUNIN_GM_TANTO.Name = "cmbKAKUNIN_GM_TANTO"
+        Me.cmbKAKUNIN_GM_TANTO.NullValue = " "
+        Me.cmbKAKUNIN_GM_TANTO.Size = New System.Drawing.Size(100, 25)
+        Me.cmbKAKUNIN_GM_TANTO.TabIndex = 301
+        Me.cmbKAKUNIN_GM_TANTO.Text = "(選択)"
+        Me.cmbKAKUNIN_GM_TANTO.ValueMember = "VALUE"
         '
-        'ComboboxEx12
+        'cmbKAKUNIN_CM_TANTO
         '
-        Me.ComboboxEx12.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.ComboboxEx12.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx12.BackColor = System.Drawing.SystemColors.Window
-        Me.ComboboxEx12.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ComboboxEx12.DisplayMember = "DISP"
-        Me.ComboboxEx12.DropDownWidth = 230
-        Me.ComboboxEx12.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.ComboboxEx12.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.ComboboxEx12.FormattingEnabled = True
-        Me.ComboboxEx12.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.ComboboxEx12.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.ComboboxEx12.IsSelected = False
-        Me.ComboboxEx12.Location = New System.Drawing.Point(1099, 43)
-        Me.ComboboxEx12.Name = "ComboboxEx12"
-        Me.ComboboxEx12.NullValue = " "
-        Me.ComboboxEx12.Size = New System.Drawing.Size(100, 25)
-        Me.ComboboxEx12.TabIndex = 301
-        Me.ComboboxEx12.Text = "(選択)"
-        Me.ComboboxEx12.ValueMember = "VALUE"
+        Me.cmbKAKUNIN_CM_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbKAKUNIN_CM_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbKAKUNIN_CM_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbKAKUNIN_CM_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbKAKUNIN_CM_TANTO.DisplayMember = "DISP"
+        Me.cmbKAKUNIN_CM_TANTO.DropDownWidth = 230
+        Me.cmbKAKUNIN_CM_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbKAKUNIN_CM_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbKAKUNIN_CM_TANTO.FormattingEnabled = True
+        Me.cmbKAKUNIN_CM_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbKAKUNIN_CM_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbKAKUNIN_CM_TANTO.IsSelected = False
+        Me.cmbKAKUNIN_CM_TANTO.Location = New System.Drawing.Point(1099, 43)
+        Me.cmbKAKUNIN_CM_TANTO.Name = "cmbKAKUNIN_CM_TANTO"
+        Me.cmbKAKUNIN_CM_TANTO.NullValue = " "
+        Me.cmbKAKUNIN_CM_TANTO.Size = New System.Drawing.Size(100, 25)
+        Me.cmbKAKUNIN_CM_TANTO.TabIndex = 301
+        Me.cmbKAKUNIN_CM_TANTO.Text = "(選択)"
+        Me.cmbKAKUNIN_CM_TANTO.ValueMember = "VALUE"
         '
-        'DateTextBoxEx2
+        'dtSYOCHI_SEKKEI_TANTO
         '
-        Me.DateTextBoxEx2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.DateTextBoxEx2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DateTextBoxEx2.Location = New System.Drawing.Point(109, 73)
-        Me.DateTextBoxEx2.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.DateTextBoxEx2.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.DateTextBoxEx2.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.DateTextBoxEx2.Name = "DateTextBoxEx2"
-        Me.DateTextBoxEx2.ReadOnly = False
-        Me.DateTextBoxEx2.Size = New System.Drawing.Size(100, 24)
-        Me.DateTextBoxEx2.TabIndex = 274
-        Me.DateTextBoxEx2.Value = ""
-        Me.DateTextBoxEx2.ValueNonFormat = ""
+        Me.dtSYOCHI_SEKKEI_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtSYOCHI_SEKKEI_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtSYOCHI_SEKKEI_TANTO.Location = New System.Drawing.Point(109, 73)
+        Me.dtSYOCHI_SEKKEI_TANTO.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtSYOCHI_SEKKEI_TANTO.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtSYOCHI_SEKKEI_TANTO.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtSYOCHI_SEKKEI_TANTO.Name = "dtSYOCHI_SEKKEI_TANTO"
+        Me.dtSYOCHI_SEKKEI_TANTO.ReadOnly = False
+        Me.dtSYOCHI_SEKKEI_TANTO.Size = New System.Drawing.Size(100, 24)
+        Me.dtSYOCHI_SEKKEI_TANTO.TabIndex = 274
+        Me.dtSYOCHI_SEKKEI_TANTO.Value = ""
+        Me.dtSYOCHI_SEKKEI_TANTO.ValueNonFormat = ""
         '
-        'DateTextBoxEx3
+        'dtSYOCHI_SEIGI_TANTO
         '
-        Me.DateTextBoxEx3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.DateTextBoxEx3.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DateTextBoxEx3.Location = New System.Drawing.Point(215, 73)
-        Me.DateTextBoxEx3.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.DateTextBoxEx3.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.DateTextBoxEx3.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.DateTextBoxEx3.Name = "DateTextBoxEx3"
-        Me.DateTextBoxEx3.ReadOnly = False
-        Me.DateTextBoxEx3.Size = New System.Drawing.Size(100, 24)
-        Me.DateTextBoxEx3.TabIndex = 274
-        Me.DateTextBoxEx3.Value = ""
-        Me.DateTextBoxEx3.ValueNonFormat = ""
+        Me.dtSYOCHI_SEIGI_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtSYOCHI_SEIGI_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtSYOCHI_SEIGI_TANTO.Location = New System.Drawing.Point(215, 73)
+        Me.dtSYOCHI_SEIGI_TANTO.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtSYOCHI_SEIGI_TANTO.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtSYOCHI_SEIGI_TANTO.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtSYOCHI_SEIGI_TANTO.Name = "dtSYOCHI_SEIGI_TANTO"
+        Me.dtSYOCHI_SEIGI_TANTO.ReadOnly = False
+        Me.dtSYOCHI_SEIGI_TANTO.Size = New System.Drawing.Size(100, 24)
+        Me.dtSYOCHI_SEIGI_TANTO.TabIndex = 274
+        Me.dtSYOCHI_SEIGI_TANTO.Value = ""
+        Me.dtSYOCHI_SEIGI_TANTO.ValueNonFormat = ""
         '
-        'DateTextBoxEx4
+        'dtSYOCHI_EIGYO_TANTO
         '
-        Me.DateTextBoxEx4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.DateTextBoxEx4.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DateTextBoxEx4.Location = New System.Drawing.Point(321, 73)
-        Me.DateTextBoxEx4.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.DateTextBoxEx4.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.DateTextBoxEx4.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.DateTextBoxEx4.Name = "DateTextBoxEx4"
-        Me.DateTextBoxEx4.ReadOnly = False
-        Me.DateTextBoxEx4.Size = New System.Drawing.Size(100, 24)
-        Me.DateTextBoxEx4.TabIndex = 274
-        Me.DateTextBoxEx4.Value = ""
-        Me.DateTextBoxEx4.ValueNonFormat = ""
+        Me.dtSYOCHI_EIGYO_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtSYOCHI_EIGYO_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtSYOCHI_EIGYO_TANTO.Location = New System.Drawing.Point(321, 73)
+        Me.dtSYOCHI_EIGYO_TANTO.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtSYOCHI_EIGYO_TANTO.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtSYOCHI_EIGYO_TANTO.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtSYOCHI_EIGYO_TANTO.Name = "dtSYOCHI_EIGYO_TANTO"
+        Me.dtSYOCHI_EIGYO_TANTO.ReadOnly = False
+        Me.dtSYOCHI_EIGYO_TANTO.Size = New System.Drawing.Size(100, 24)
+        Me.dtSYOCHI_EIGYO_TANTO.TabIndex = 274
+        Me.dtSYOCHI_EIGYO_TANTO.Value = ""
+        Me.dtSYOCHI_EIGYO_TANTO.ValueNonFormat = ""
         '
-        'DateTextBoxEx5
+        'dtSYOCHI_KANRI_TANTO
         '
-        Me.DateTextBoxEx5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.DateTextBoxEx5.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DateTextBoxEx5.Location = New System.Drawing.Point(427, 73)
-        Me.DateTextBoxEx5.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.DateTextBoxEx5.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.DateTextBoxEx5.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.DateTextBoxEx5.Name = "DateTextBoxEx5"
-        Me.DateTextBoxEx5.ReadOnly = False
-        Me.DateTextBoxEx5.Size = New System.Drawing.Size(100, 24)
-        Me.DateTextBoxEx5.TabIndex = 274
-        Me.DateTextBoxEx5.Value = ""
-        Me.DateTextBoxEx5.ValueNonFormat = ""
+        Me.dtSYOCHI_KANRI_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtSYOCHI_KANRI_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtSYOCHI_KANRI_TANTO.Location = New System.Drawing.Point(427, 73)
+        Me.dtSYOCHI_KANRI_TANTO.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtSYOCHI_KANRI_TANTO.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtSYOCHI_KANRI_TANTO.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtSYOCHI_KANRI_TANTO.Name = "dtSYOCHI_KANRI_TANTO"
+        Me.dtSYOCHI_KANRI_TANTO.ReadOnly = False
+        Me.dtSYOCHI_KANRI_TANTO.Size = New System.Drawing.Size(100, 24)
+        Me.dtSYOCHI_KANRI_TANTO.TabIndex = 274
+        Me.dtSYOCHI_KANRI_TANTO.Value = ""
+        Me.dtSYOCHI_KANRI_TANTO.ValueNonFormat = ""
         '
-        'DateTextBoxEx6
+        'dtSYOCHI_SEIZO_TANTO
         '
-        Me.DateTextBoxEx6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.DateTextBoxEx6.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DateTextBoxEx6.Location = New System.Drawing.Point(533, 73)
-        Me.DateTextBoxEx6.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.DateTextBoxEx6.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.DateTextBoxEx6.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.DateTextBoxEx6.Name = "DateTextBoxEx6"
-        Me.DateTextBoxEx6.ReadOnly = False
-        Me.DateTextBoxEx6.Size = New System.Drawing.Size(100, 24)
-        Me.DateTextBoxEx6.TabIndex = 274
-        Me.DateTextBoxEx6.Value = ""
-        Me.DateTextBoxEx6.ValueNonFormat = ""
+        Me.dtSYOCHI_SEIZO_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtSYOCHI_SEIZO_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtSYOCHI_SEIZO_TANTO.Location = New System.Drawing.Point(533, 73)
+        Me.dtSYOCHI_SEIZO_TANTO.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtSYOCHI_SEIZO_TANTO.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtSYOCHI_SEIZO_TANTO.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtSYOCHI_SEIZO_TANTO.Name = "dtSYOCHI_SEIZO_TANTO"
+        Me.dtSYOCHI_SEIZO_TANTO.ReadOnly = False
+        Me.dtSYOCHI_SEIZO_TANTO.Size = New System.Drawing.Size(100, 24)
+        Me.dtSYOCHI_SEIZO_TANTO.TabIndex = 274
+        Me.dtSYOCHI_SEIZO_TANTO.Value = ""
+        Me.dtSYOCHI_SEIZO_TANTO.ValueNonFormat = ""
         '
-        'DateTextBoxEx7
+        'dtSYOCHI_HINSYO_TANTO
         '
-        Me.DateTextBoxEx7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.DateTextBoxEx7.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DateTextBoxEx7.Location = New System.Drawing.Point(639, 73)
-        Me.DateTextBoxEx7.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.DateTextBoxEx7.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.DateTextBoxEx7.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.DateTextBoxEx7.Name = "DateTextBoxEx7"
-        Me.DateTextBoxEx7.ReadOnly = False
-        Me.DateTextBoxEx7.Size = New System.Drawing.Size(100, 24)
-        Me.DateTextBoxEx7.TabIndex = 274
-        Me.DateTextBoxEx7.Value = ""
-        Me.DateTextBoxEx7.ValueNonFormat = ""
+        Me.dtSYOCHI_HINSYO_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtSYOCHI_HINSYO_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtSYOCHI_HINSYO_TANTO.Location = New System.Drawing.Point(639, 73)
+        Me.dtSYOCHI_HINSYO_TANTO.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtSYOCHI_HINSYO_TANTO.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtSYOCHI_HINSYO_TANTO.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtSYOCHI_HINSYO_TANTO.Name = "dtSYOCHI_HINSYO_TANTO"
+        Me.dtSYOCHI_HINSYO_TANTO.ReadOnly = False
+        Me.dtSYOCHI_HINSYO_TANTO.Size = New System.Drawing.Size(100, 24)
+        Me.dtSYOCHI_HINSYO_TANTO.TabIndex = 274
+        Me.dtSYOCHI_HINSYO_TANTO.Value = ""
+        Me.dtSYOCHI_HINSYO_TANTO.ValueNonFormat = ""
         '
-        'DateTextBoxEx8
+        'dtSYOCHI_KENSA_TANTO
         '
-        Me.DateTextBoxEx8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.DateTextBoxEx8.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DateTextBoxEx8.Location = New System.Drawing.Point(745, 73)
-        Me.DateTextBoxEx8.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.DateTextBoxEx8.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.DateTextBoxEx8.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.DateTextBoxEx8.Name = "DateTextBoxEx8"
-        Me.DateTextBoxEx8.ReadOnly = False
-        Me.DateTextBoxEx8.Size = New System.Drawing.Size(100, 24)
-        Me.DateTextBoxEx8.TabIndex = 274
-        Me.DateTextBoxEx8.Value = ""
-        Me.DateTextBoxEx8.ValueNonFormat = ""
+        Me.dtSYOCHI_KENSA_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtSYOCHI_KENSA_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtSYOCHI_KENSA_TANTO.Location = New System.Drawing.Point(745, 73)
+        Me.dtSYOCHI_KENSA_TANTO.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtSYOCHI_KENSA_TANTO.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtSYOCHI_KENSA_TANTO.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtSYOCHI_KENSA_TANTO.Name = "dtSYOCHI_KENSA_TANTO"
+        Me.dtSYOCHI_KENSA_TANTO.ReadOnly = False
+        Me.dtSYOCHI_KENSA_TANTO.Size = New System.Drawing.Size(100, 24)
+        Me.dtSYOCHI_KENSA_TANTO.TabIndex = 274
+        Me.dtSYOCHI_KENSA_TANTO.Value = ""
+        Me.dtSYOCHI_KENSA_TANTO.ValueNonFormat = ""
         '
-        'DateTextBoxEx9
+        'dtSYOCHI_KOBAI_TANTO
         '
-        Me.DateTextBoxEx9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.DateTextBoxEx9.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DateTextBoxEx9.Location = New System.Drawing.Point(851, 73)
-        Me.DateTextBoxEx9.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.DateTextBoxEx9.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.DateTextBoxEx9.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.DateTextBoxEx9.Name = "DateTextBoxEx9"
-        Me.DateTextBoxEx9.ReadOnly = False
-        Me.DateTextBoxEx9.Size = New System.Drawing.Size(100, 24)
-        Me.DateTextBoxEx9.TabIndex = 274
-        Me.DateTextBoxEx9.Value = ""
-        Me.DateTextBoxEx9.ValueNonFormat = ""
+        Me.dtSYOCHI_KOBAI_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtSYOCHI_KOBAI_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtSYOCHI_KOBAI_TANTO.Location = New System.Drawing.Point(851, 73)
+        Me.dtSYOCHI_KOBAI_TANTO.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtSYOCHI_KOBAI_TANTO.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtSYOCHI_KOBAI_TANTO.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtSYOCHI_KOBAI_TANTO.Name = "dtSYOCHI_KOBAI_TANTO"
+        Me.dtSYOCHI_KOBAI_TANTO.ReadOnly = False
+        Me.dtSYOCHI_KOBAI_TANTO.Size = New System.Drawing.Size(100, 24)
+        Me.dtSYOCHI_KOBAI_TANTO.TabIndex = 274
+        Me.dtSYOCHI_KOBAI_TANTO.Value = ""
+        Me.dtSYOCHI_KOBAI_TANTO.ValueNonFormat = ""
         '
-        'DateTextBoxEx10
+        'dtKAKUNIN_GM_TANTO
         '
-        Me.DateTextBoxEx10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.DateTextBoxEx10.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DateTextBoxEx10.Location = New System.Drawing.Point(993, 73)
-        Me.DateTextBoxEx10.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.DateTextBoxEx10.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.DateTextBoxEx10.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.DateTextBoxEx10.Name = "DateTextBoxEx10"
-        Me.DateTextBoxEx10.ReadOnly = False
-        Me.DateTextBoxEx10.Size = New System.Drawing.Size(100, 24)
-        Me.DateTextBoxEx10.TabIndex = 274
-        Me.DateTextBoxEx10.Value = ""
-        Me.DateTextBoxEx10.ValueNonFormat = ""
+        Me.dtKAKUNIN_GM_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtKAKUNIN_GM_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtKAKUNIN_GM_TANTO.Location = New System.Drawing.Point(993, 73)
+        Me.dtKAKUNIN_GM_TANTO.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtKAKUNIN_GM_TANTO.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtKAKUNIN_GM_TANTO.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtKAKUNIN_GM_TANTO.Name = "dtKAKUNIN_GM_TANTO"
+        Me.dtKAKUNIN_GM_TANTO.ReadOnly = False
+        Me.dtKAKUNIN_GM_TANTO.Size = New System.Drawing.Size(100, 24)
+        Me.dtKAKUNIN_GM_TANTO.TabIndex = 274
+        Me.dtKAKUNIN_GM_TANTO.Value = ""
+        Me.dtKAKUNIN_GM_TANTO.ValueNonFormat = ""
         '
-        'DateTextBoxEx11
+        'dtKAKUNIN_CM_TANTO
         '
-        Me.DateTextBoxEx11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.DateTextBoxEx11.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DateTextBoxEx11.Location = New System.Drawing.Point(1099, 73)
-        Me.DateTextBoxEx11.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.DateTextBoxEx11.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.DateTextBoxEx11.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.DateTextBoxEx11.Name = "DateTextBoxEx11"
-        Me.DateTextBoxEx11.ReadOnly = False
-        Me.DateTextBoxEx11.Size = New System.Drawing.Size(100, 24)
-        Me.DateTextBoxEx11.TabIndex = 274
-        Me.DateTextBoxEx11.Value = ""
-        Me.DateTextBoxEx11.ValueNonFormat = ""
+        Me.dtKAKUNIN_CM_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtKAKUNIN_CM_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtKAKUNIN_CM_TANTO.Location = New System.Drawing.Point(1099, 73)
+        Me.dtKAKUNIN_CM_TANTO.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtKAKUNIN_CM_TANTO.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtKAKUNIN_CM_TANTO.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtKAKUNIN_CM_TANTO.Name = "dtKAKUNIN_CM_TANTO"
+        Me.dtKAKUNIN_CM_TANTO.ReadOnly = False
+        Me.dtKAKUNIN_CM_TANTO.Size = New System.Drawing.Size(100, 24)
+        Me.dtKAKUNIN_CM_TANTO.TabIndex = 274
+        Me.dtKAKUNIN_CM_TANTO.Value = ""
+        Me.dtKAKUNIN_CM_TANTO.ValueNonFormat = ""
         '
         'PanelEx1
         '
@@ -2038,26 +2038,26 @@ Partial Class FrmG0021_Detail
     Friend WithEvents Label32 As Label
     Friend WithEvents Label31 As Label
     Friend WithEvents Label30 As Label
-    Friend WithEvents ComboboxEx1 As ComboboxEx
-    Friend WithEvents ComboboxEx3 As ComboboxEx
-    Friend WithEvents ComboboxEx5 As ComboboxEx
-    Friend WithEvents ComboboxEx4 As ComboboxEx
-    Friend WithEvents ComboboxEx6 As ComboboxEx
-    Friend WithEvents DateTextBoxEx1 As DateTextBoxEx
-    Friend WithEvents ComboboxEx7 As ComboboxEx
-    Friend WithEvents ComboboxEx8 As ComboboxEx
-    Friend WithEvents ComboboxEx9 As ComboboxEx
-    Friend WithEvents ComboboxEx10 As ComboboxEx
-    Friend WithEvents ComboboxEx11 As ComboboxEx
-    Friend WithEvents ComboboxEx12 As ComboboxEx
-    Friend WithEvents DateTextBoxEx2 As DateTextBoxEx
-    Friend WithEvents DateTextBoxEx3 As DateTextBoxEx
-    Friend WithEvents DateTextBoxEx4 As DateTextBoxEx
-    Friend WithEvents DateTextBoxEx5 As DateTextBoxEx
-    Friend WithEvents DateTextBoxEx6 As DateTextBoxEx
-    Friend WithEvents DateTextBoxEx7 As DateTextBoxEx
-    Friend WithEvents DateTextBoxEx8 As DateTextBoxEx
-    Friend WithEvents DateTextBoxEx9 As DateTextBoxEx
-    Friend WithEvents DateTextBoxEx10 As DateTextBoxEx
-    Friend WithEvents DateTextBoxEx11 As DateTextBoxEx
+    Friend WithEvents cmbSYOCHI_GM_TANTO As ComboboxEx
+    Friend WithEvents cmbSYOCHI_SEKKEI_TANTO As ComboboxEx
+    Friend WithEvents cmbSYOCHI_SEIGI_TANTO As ComboboxEx
+    Friend WithEvents cmbSYOCHI_EIGYO_TANTO As ComboboxEx
+    Friend WithEvents cmbSYOCHI_KANRI_TANTO As ComboboxEx
+    Friend WithEvents dtSYOCHI_GM_TANTO As DateTextBoxEx
+    Friend WithEvents cmbSYOCHI_SEIZO_TANTO As ComboboxEx
+    Friend WithEvents cmbSYOCHI_HINSYO_TANTO As ComboboxEx
+    Friend WithEvents cmbSYOCHI_KENSA_TANTO As ComboboxEx
+    Friend WithEvents cmbSYOCHI_KOBAI_TANTO As ComboboxEx
+    Friend WithEvents cmbKAKUNIN_GM_TANTO As ComboboxEx
+    Friend WithEvents cmbKAKUNIN_CM_TANTO As ComboboxEx
+    Friend WithEvents dtSYOCHI_SEKKEI_TANTO As DateTextBoxEx
+    Friend WithEvents dtSYOCHI_SEIGI_TANTO As DateTextBoxEx
+    Friend WithEvents dtSYOCHI_EIGYO_TANTO As DateTextBoxEx
+    Friend WithEvents dtSYOCHI_KANRI_TANTO As DateTextBoxEx
+    Friend WithEvents dtSYOCHI_SEIZO_TANTO As DateTextBoxEx
+    Friend WithEvents dtSYOCHI_HINSYO_TANTO As DateTextBoxEx
+    Friend WithEvents dtSYOCHI_KENSA_TANTO As DateTextBoxEx
+    Friend WithEvents dtSYOCHI_KOBAI_TANTO As DateTextBoxEx
+    Friend WithEvents dtKAKUNIN_GM_TANTO As DateTextBoxEx
+    Friend WithEvents dtKAKUNIN_CM_TANTO As DateTextBoxEx
 End Class
