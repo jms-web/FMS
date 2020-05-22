@@ -101,4 +101,40 @@ Public Class ModelBase
 
         Return sbSQL.ToString
     End Function
+
+    ''' <summary>
+    ''' ModelインスタンスからMerge文などで使用できるUPDATE SQL文字列を生成
+    ''' </summary>
+    ''' <param name="targetSchema">更新元のスキーマ名(DB側)</param>
+    ''' <param name="sourceSchema">更新対象のスキーマ名(Entity側)</param>
+    ''' <returns></returns>
+    Public Function ToUpdateSqlString(targetSchema As String, sourceSchema As String) As String
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim props = Properties.Where(Function(p) Attribute.IsDefined(Me.GetType.GetProperty(p.Name), GetType(KeyAttribute)) = False)
+
+        sbSQL.Append($"UPDATE SET")
+        props.Take(1).ForEach(Sub(p) sbSQL.Append($"  {targetSchema}.{p.Name} = {sourceSchema}.{p.Name}"))
+        props.Skip(1).ForEach(Sub(p) sbSQL.Append($" ,{targetSchema}.{p.Name} = {sourceSchema}.{p.Name}"))
+
+        Return sbSQL.ToString
+    End Function
+
+    ''' <summary>
+    ''' ModelインスタンスからMerge文などで使用できるINSERT SQL文字列を生成
+    ''' </summary>
+    ''' <param name="sourceSchema">更新対象のスキーマ名(Entity側)</param>
+    ''' <returns></returns>
+    Public Function ToInsertSqlString(sourceSchema As String) As String
+        Dim sbSQL As New System.Text.StringBuilder
+
+        sbSQL.Append($"INSERT(")
+        Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {p.Name}"))
+        Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{p.Name}"))
+        sbSQL.Append($" ) VALUES(")
+        Properties.Take(1).ForEach(Sub(p) sbSQL.Append($" {sourceSchema}.{p.Name}"))
+        Properties.Skip(1).ForEach(Sub(p) sbSQL.Append($",{sourceSchema}.{p.Name}"))
+        sbSQL.Append(" )")
+
+        Return sbSQL.ToString
+    End Function
 End Class

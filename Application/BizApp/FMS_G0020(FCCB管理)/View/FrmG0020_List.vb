@@ -2,34 +2,15 @@ Imports System.Threading.Tasks
 Imports C1.Win.C1FlexGrid
 Imports JMS_COMMON.ClsPubMethod
 Imports MODEL
-Imports ST02 = MODEL.ST02_FUTEKIGO_ICHIRAN
-Imports ST03 = MODEL.ST03_FUTEKIGO_ICHIRAN_SUMMARY
-
-'Imports Spire.Xls
-'Imports Spire.Pdf
-'Imports Spire.Xls.Converter
 
 ''' <summary>
-''' 不適合検索画面
+''' FCCB検索
 ''' </summary>
 Public Class FrmG0020_List
 
 #Region "定数・変数"
 
-    Private blnStageAll_NCR As Boolean = True
-    Private blnStageAll_CAR As Boolean = True
-    Private blnStageAll_CTS As Boolean = True
     Private mDataView As DataView
-
-#End Region
-
-#Region "プロパティ"
-
-    ''' <summary>
-    '''
-    ''' </summary>
-    ''' <returns></returns>
-    Public Property PrDt As DataTable
 
 #End Region
 
@@ -57,7 +38,6 @@ Public Class FrmG0020_List
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc11, My.Resources.infoToolTipMsgNotFoundData)
 
-        '先頭ウォーターマーク+バインドが必要なコンボボックスのための設定
         cmbADD_TANTO.NullValue = 0
         cmbKISYU.NullValue = 0
 
@@ -72,7 +52,6 @@ Public Class FrmG0020_List
 
 #Region "Form関連"
 
-    'Loadイベント
     Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
@@ -85,11 +64,10 @@ Public Class FrmG0020_List
             Call FunInitializeFlexGrid(flxDATA)
 
             '-----コントロールソース設定
-            '共通
             cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbADD_TANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbKISYU.SetDataSource(tblKISYU_J.LazyLoad("機種実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J.LazyLoad("部品番号実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbKISYU.SetDataSource(tblKISYU.LazyLoad("機種"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbBUHIN_BANGO.SetDataSource(tblBUHIN.LazyLoad("部品番号"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.LazyLoad("社内CD").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             '----コントロールイベントハンドラ
@@ -147,7 +125,6 @@ Public Class FrmG0020_List
             AddHandler mtxHINMEI.Validated, AddressOf SearchFilterValueChanged
             AddHandler chkDeleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
             AddHandler chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
-            Call SetStageList()
 
             '起動モード別処理
             Using DB = DBOpen()
@@ -171,7 +148,6 @@ Public Class FrmG0020_List
             'ファンクションボタンステータス更新
             Call FunInitFuncButtonEnabled()
             Me.WindowState = FormWindowState.Maximized
-
         Catch ex As Exception
             Throw
         Finally
@@ -180,10 +156,21 @@ Public Class FrmG0020_List
     End Sub
 
     Private Sub FrmG0010_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
-        Refresh()
-
+        Call FunInitFuncButtonEnabled()
     End Sub
 
+
+    Overrides Sub FrmBaseStsBtn_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Resize
+        If Me.Visible = False Then Exit Sub
+
+        If Me.DesignMode = True Then Exit Sub
+
+        ''===================================
+        ''   ボタン位置、サイズ設定
+        ''===================================
+        'Call SetButtonSize(Me.Width, cmdFunc)
+        'MyBase.FrmBaseStsBtn_Resize(Me, e)
+    End Sub
 #End Region
 
 #Region "FlexGrid関連"
@@ -215,39 +202,15 @@ Public Class FrmG0020_List
             .Styles.Add("delStyle")
             .Styles("delStyle").ForeColor = Color.Red
 
-            '.Cols("HASSEI_YMD").Filter = New DateFilter
-            '.Cols("SYOCHI_YOTEI_YMD").Filter = New DateFilter
-            .VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver 'Custom
+            .VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
 
             '以下を適用するにはVisualStyleをCustomにする
-            '.Styles.Alternate.BackColor = clrRowEvenColor
-            '.Styles.Normal.BackColor = clrRowOddColor
             .Styles.Focus.BackColor = clrRowEnterColor
         End With
     End Function
 
     Private Sub FlxDATA_RowColChange(sender As Object, e As EventArgs)
         Call FunInitFuncButtonEnabled()
-    End Sub
-
-    Private Sub FlxDATA_AfterFilter(sender As Object, e As EventArgs)
-
-    End Sub
-
-    'Private Sub flxDATA_Click(sender As Object, e As EventArgs) Handles flxDATA.Click
-    '    If flxDATA.ColSel = 1 Then
-    '        Dim dr As DataRow = DirectCast(bindsrc.Current, DataRowView).Row
-    '        dr.Item(0) = Not CBool(dr.Item(0))
-    '    End If
-    'End Sub
-
-    'グリッドセル(行)ダブルクリック時イベント
-    Private Sub FlxDATA_DoubleClick(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub flxDATA_AfterSort(sender As Object, e As C1.Win.C1FlexGrid.SortColEventArgs)
-
     End Sub
 
     Private Function FunSetGridCellFormat(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
@@ -259,7 +222,7 @@ Public Class FrmG0020_List
                 If r.Index > 0 Then
 
                     'Closed
-                    If Val(r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.CLOSE_FG))) > 0 Or r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)) <> "" Then
+                    If Val(r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.CLOSE_FG))) > 0 Or r.Item(NameOf(ST02_FUTEKIGO_ICHIRAN.DEL_YMDHNS)) <> "" Then
                         r.Style = flx.Styles("DeletedRow")
                     Else
                         r.Style = Nothing
@@ -274,32 +237,12 @@ Public Class FrmG0020_List
 
                     ''滞留
                     If r.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.TAIRYU_FG)) = 1 Then
-                        flx.SetCellStyle(r.Index, NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.TAIRYU_NISSU), delStyle)
+                        flx.SetCellStyle(r.Index, NameOf(ST02_FUTEKIGO_ICHIRAN.TAIRYU_NISSU), delStyle)
                     Else
-                        flx.SetCellStyle(r.Index, NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.TAIRYU_NISSU), Nothing)
+                        flx.SetCellStyle(r.Index, NameOf(ST02_FUTEKIGO_ICHIRAN.TAIRYU_NISSU), Nothing)
                     End If
                 End If
             Next
-
-            flxDATA.Cols(NameOf(ST03.SELECTED)).Visible = True
-            flxDATA.Cols(NameOf(ST03.HOKOKU_NO)).Visible = True
-            flxDATA.Cols(NameOf(ST03.SYONIN_HOKOKUSYO_R_NAME)).Visible = True
-            flxDATA.Cols(NameOf(ST03.BUMON_NAME)).Visible = True
-            flxDATA.Cols(NameOf(ST03.SYONIN_NAIYO)).Visible = True
-            flxDATA.Cols(NameOf(ST03.GEN_TANTO_NAME)).Visible = True
-            flxDATA.Cols(NameOf(ST03.TAIRYU_NISSU)).Visible = True
-            flxDATA.Cols(NameOf(ST03.JIZEN_SINSA_HANTEI_NAME)).Visible = True
-            flxDATA.Cols(NameOf(ST03.SAISIN_IINKAI_HANTEI_NAME)).Visible = True
-            flxDATA.Cols(NameOf(ST03.SYOCHI_YOTEI_YMD)).Visible = True
-            flxDATA.Cols(NameOf(ST03.SASIMOTO_SYONIN_NAIYO)).Visible = True
-            flxDATA.Cols(NameOf(ST03.RIYU)).Visible = True
-
-            flxDATA.Cols(NameOf(ST03.SURYO)).Visible = True
-            flxDATA.Cols(NameOf(ST03.SURYO)).Style.BackColor = Color.White
-
-            flxDATA.Cols(NameOf(ST03.KISO_KENSU)).Visible = False
-            flxDATA.Cols(NameOf(ST03.SYOCHI_KENSU)).Visible = False
-            flxDATA.Cols(NameOf(ST03.SYOCHI_ZANSU)).Visible = False
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
@@ -322,10 +265,6 @@ Public Class FrmG0020_List
         filter.Condition1.Parameter = tpl.selctValue
         flxDATA.Cols(tpl.ColSel).Filter = filter
         flxDATA.ApplyFilters()
-    End Sub
-
-    Private Sub flex_BeforeMouseDown(ByVal sender As Object, ByVal e As C1.Win.C1FlexGrid.BeforeMouseDownEventArgs)
-
     End Sub
 
 #End Region
@@ -834,19 +773,10 @@ Public Class FrmG0020_List
 
                 Case 8 'CSV出力
                     Dim strFileName As String
-                    'Dim dt As DataTable
-                    If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
-                        strFileName = $"不適合集計_{DateTime.Now:yyyyMMddHHmmss}.CSV"
-                    Else
-                        strFileName = $"{pub_APP_INFO.strTitle}_{DateTime.Now:yyyyMMddHHmmss}.CSV"
-                    End If
+                    strFileName = $"{pub_APP_INFO.strTitle}_{DateTime.Now:yyyyMMddHHmmss}.CSV"
 
                     Call FunCSV_OUTviaFlexGrid(flxDATA, strFileName, pub_APP_INFO.strOUTPUT_PATH)
                     'Call FunCSV_OUT(DirectCast(flxDATA.DataSource, DataView).Table, strFileName, pub_APP_INFO.strOUTPUT_PATH)
-
-                Case 9 'メール送信
-
-                    Call FunMailSending()
 
                 Case 10  '印刷
                     Call FunOpenReport()
@@ -971,18 +901,18 @@ Public Class FrmG0020_List
             Else
                 'If pub_SYAIN_INFO.BUMON_KB <> ParamModel.BUMON_KB Then
                 Select Case pub_SYAIN_INFO.BUMON_KB
-                        Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
-                            Dim qdt = tplDataModel.dt.AsEnumerable.Where(Function(r) r.Field(Of String)("BUMON_KB") = 1 Or r.Field(Of String)("BUMON_KB") = 2).ToList
-                            If qdt.Count > 0 Then
-                                tplDataModel.dt = qdt.CopyToDataTable
-                            End If
+                    Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
+                        Dim qdt = tplDataModel.dt.AsEnumerable.Where(Function(r) r.Field(Of String)("BUMON_KB") = 1 Or r.Field(Of String)("BUMON_KB") = 2).ToList
+                        If qdt.Count > 0 Then
+                            tplDataModel.dt = qdt.CopyToDataTable
+                        End If
 
-                        Case Context.ENM_BUMON_KB._3_複合材
-                            Dim qdt = tplDataModel.dt.AsEnumerable.Where(Function(r) r.Field(Of String)("BUMON_KB") = 3).ToList
-                            If qdt.Count > 0 Then
-                                tplDataModel.dt = qdt.CopyToDataTable
-                            End If
-                    End Select
+                    Case Context.ENM_BUMON_KB._3_複合材
+                        Dim qdt = tplDataModel.dt.AsEnumerable.Where(Function(r) r.Field(Of String)("BUMON_KB") = 3).ToList
+                        If qdt.Count > 0 Then
+                            tplDataModel.dt = qdt.CopyToDataTable
+                        End If
+                End Select
                 'End If
             End If
 
@@ -996,47 +926,8 @@ Public Class FrmG0020_List
         End Try
     End Function
 
-    Private Function FunSRCH(ByVal dgv As DataGridView, ByVal dt As DataTable) As Boolean
-        Dim intCURROW As Integer
-        Try
-
-            '-----選択行記憶
-            If dgv.RowCount > 0 Then
-                intCURROW = dgv.CurrentRow.Index
-            End If
-            PrDt = dt
-            dgv.DataSource = dt
-
-            If dgv.RowCount > 0 Then
-                '-----選択行設定
-                Try
-                    dgv.CurrentCell = dgv.Rows(intCURROW).Cells(0)
-                Catch dgvEx As Exception
-                End Try
-                Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, dgv.Rows.Count)
-            Else
-                Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
-            End If
-
-            lblRecordCount.Visible = True
-            'Call FunSetDgvCellFormat(dgv)
-
-            Return True
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        Finally
-        End Try
-    End Function
-
     Private Function FunSRCH(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid, ByVal dt As DataTable) As Boolean
-        'Dim intCURROW As Integer
         Try
-
-            '-----選択行記憶
-            'If flx.Rows.Count > 1 Then
-            '    intCURROW = flx.RowSel
-            'End If
 
             flx.BeginUpdate()
 
@@ -1051,16 +942,7 @@ Public Class FrmG0020_List
                 flx.DataSource = Nothing
             End If
 
-            'flx.ClearFilter()
-
-            Select Case pub_intOPEN_MODE
-                Case ENM_OPEN_MODE._3_分析集計
-                    DirectCast(flx.DataSource, DataView).Sort = $"{NameOf(ST03.SUMMARY_ROW_FLG)} ASC"
-                    Call SetSummaryRow(flx)
-            End Select
             Call FunSetGridCellFormat(flx)
-
-            'mDataView.RowFilter = $"{NameOf(ST03.SUMMARY_ROW_FLG)}=1"
 
             If flx.Rows.Count > 1 Then
                 '-----選択行設定
@@ -1075,7 +957,6 @@ Public Class FrmG0020_List
             End If
 
             lblRecordCount.Visible = True
-            'btnSummaryPage.Visible = True
 
             Return True
         Catch ex As Exception
@@ -1083,8 +964,6 @@ Public Class FrmG0020_List
             Return False
         Finally
 
-            '-----一覧可視
-            'dgv.Visible = True
             flx.EndUpdate()
         End Try
     End Function
@@ -1344,8 +1223,8 @@ Public Class FrmG0020_List
                                                    strTantoNameList
                         If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
                             For Each dr As DataRow In dt.CopyToDataTable.Rows
-                                Dim strEXEParam As String = $"{dr.Item(NameOf(ST02.GEN_TANTO_ID))},{ENM_OPEN_MODE._2_処置画面起動},{dr.Item(NameOf(ST02.SYONIN_HOKOKUSYO_ID))},{dr.Item(NameOf(ST02.HOKOKU_NO))}"
-                                Dim strSubject As String = $"【不適合品処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME")}] {dr.Item(NameOf(ST02.KISYU_NAME))}・{dr.Item(NameOf(ST02.BUHIN_BANGO))}"
+                                Dim strEXEParam As String = $"{dr.Item(NameOf(ST04_FCCB_ICHIRAN.GEN_TANTO_ID))},{ENM_OPEN_MODE._2_処置画面起動},{dr.Item(NameOf(ST04_FCCB_ICHIRAN.SYONIN_HOKOKUSYO_ID))},{dr.Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))}"
+                                Dim strSubject As String = $"【不適合品処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME")}] {dr.Item(NameOf(ST04_FCCB_ICHIRAN.KISYU_NAME))}・{dr.Item(NameOf(ST04_FCCB_ICHIRAN.BUHIN_BANGO))}"
                                 Dim strBody As String = <body><![CDATA[
                                 {0} 殿<br />
                                 <br />
@@ -1368,7 +1247,7 @@ Public Class FrmG0020_List
                                 'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
 
                                 strBody = String.Format(strBody,
-                                dr.Item(NameOf(ST02.GEN_TANTO_NAME)),
+                                dr.Item(NameOf(ST04_FCCB_ICHIRAN.GEN_TANTO_NAME)),
                                 dr.Item("TAIRYU_NISSU"),
                                 dr.Item("SYONIN_HOKOKUSYO_R_NAME"),
                                 dr.Item("HOKOKU_NO"),
@@ -1411,16 +1290,16 @@ Public Class FrmG0020_List
                 Dim strMsg As String = "以下の担当者に処置滞留通知メールを送信します。" & vbCrLf &
                                     "よろしいですか？" & vbCrLf &
                                     vbCrLf &
-                                    dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_NAME))
+                                    dr.Item(NameOf(ST04_FCCB_ICHIRAN.GEN_TANTO_NAME))
 
                 If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
 
-                    Dim strEXEParam As String = dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_ID)) & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)) & "," & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
-                    Dim strSubject As String = $"【不適合品処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME")}] {dr.Item(NameOf(ST02.KISYU_NAME))}・{dr.Item(NameOf(ST02.BUHIN_BANGO))}"
+                    Dim strEXEParam As String = dr.Item(NameOf(ST04_FCCB_ICHIRAN.GEN_TANTO_ID)) & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & dr.Item(NameOf(ST04_FCCB_ICHIRAN.SYONIN_HOKOKUSYO_ID)) & "," & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
+                    Dim strSubject As String = $"【不適合品処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME")}] {dr.Item(NameOf(ST04_FCCB_ICHIRAN.KISYU_NAME))}・{dr.Item(NameOf(ST04_FCCB_ICHIRAN.BUHIN_BANGO))}"
                     Dim strBody As String = <body><![CDATA[
                     {0} 殿<br />
                     <br />
-                    　不適合製品の処置依頼から【滞留日数】{1}日が経過しています。<br />
+                    　FCCB調査書の処置依頼から【滞留日数】{1}日が経過しています。<br />
                     　早急に対応をお願いします。<br />
                     <br />
                     【報 告 書】{2}<br />
@@ -1494,21 +1373,11 @@ Public Class FrmG0020_List
         Dim strSysDate As String = DB.GetSysDateString
         'MERGE INTO に変更
 
-        '---存在確認
-        'Dim dsList As New DataSet
-        'Dim blnExist As Boolean
-        'sbSQL.Append("SELECT HOKOKU_NO FROM " & NameOf(MODEL.R001_HOKOKU_SOUSA) & "")
-        'sbSQL.Append(" WHERE HOKOKU_NO ='" & dr.Item("HOKOKU_NO") & "'")
-        'dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-        'If dsList.Tables(0).Rows.Count > 0 Then
-        '    blnExist = True
-        'End If
-
         '-----データモデル更新
         _R001_HOKOKU_SOUSA.Clear()
-        _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID))
-        _R001_HOKOKU_SOUSA.HOKOKU_NO = dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
-        _R001_HOKOKU_SOUSA.SYONIN_JUN = dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_JUN))
+        _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = dr.Item(NameOf(ST04_FCCB_ICHIRAN.SYONIN_HOKOKUSYO_ID))
+        _R001_HOKOKU_SOUSA.HOKOKU_NO = dr.Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))
+        _R001_HOKOKU_SOUSA.SYONIN_JUN = dr.Item(NameOf(ST04_FCCB_ICHIRAN.SYONIN_JUN))
         _R001_HOKOKU_SOUSA.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
         _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_SOUSA_KB._4_メール送信
         _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._0_未承認
@@ -1558,7 +1427,7 @@ Public Class FrmG0020_List
         Dim strTEMPFILE As String
         'Dim intRET As Integer
         Try
-            Dim strHOKOKU_NO As String = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST02.HOKOKU_NO))
+            Dim strHOKOKU_NO As String = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))
             Me.Cursor = Cursors.WaitCursor
 
             'ファイル名
@@ -1566,22 +1435,21 @@ Public Class FrmG0020_List
 
             '既存ファイル削除
             If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
-                        Return False
-                    End If
+                Return False
+            End If
 
-                    Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
+            Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
                 strTEMPFILE = FunConvRootPath(iniIF.GetIniString("FCCB", "FILEPATH"))
             End Using
 
-                    'エクセル出力ファイル用意
-                    If OUT_EXCEL_READY(strTEMPFILE, pub_APP_INFO.strOUTPUT_PATH, strOutputFileName) = False Then
-                        Return False
-                    End If
+            'エクセル出力ファイル用意
+            If OUT_EXCEL_READY(strTEMPFILE, pub_APP_INFO.strOUTPUT_PATH, strOutputFileName) = False Then
+                Return False
+            End If
             '-----書込処理
             'If FunMakeReportFCCB(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
             '    Return False
             'End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -1649,16 +1517,17 @@ Public Class FrmG0020_List
                 End With
             Next intFunc
 
+            cmdFunc1.Enabled = True
             cmdFunc2.Enabled = True
+            cmdFunc12.Enabled = True
 
             If flxDATA.RowSel > 0 Then
-                cmdFunc1.Enabled = True
                 cmdFunc3.Enabled = True
                 cmdFunc4.Enabled = True
                 cmdFunc5.Enabled = True
                 cmdFunc7.Enabled = True
                 cmdFunc8.Enabled = True
-                cmdFunc9.Enabled = True
+                'cmdFunc9.Enabled = True
                 cmdFunc10.Enabled = True
                 cmdFunc11.Enabled = True
 
@@ -1677,7 +1546,6 @@ Public Class FrmG0020_List
                     cmdFunc4.Text = "変更・承認(F4)"
                     'MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
                 End If
-
 
                 '削除ボタン
                 If HasDeleteAuth(pub_SYAIN_INFO.SYAIN_ID,
@@ -1710,13 +1578,13 @@ Public Class FrmG0020_List
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "取消機能の使用権限がありません")
                 End If
 
-                If FunblnAllowTairyuMailSend() Then
-                    cmdFunc9.Enabled = True
-                    MyBase.ToolTip.SetToolTip(Me.cmdFunc9, My.Resources.infoToolTipMsgNotFoundData)
-                Else
-                    cmdFunc9.Enabled = False
-                    MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "滞留通知メール送信権限がありません")
-                End If
+                'If FunblnAllowTairyuMailSend() Then
+                '    cmdFunc9.Enabled = True
+                '    MyBase.ToolTip.SetToolTip(Me.cmdFunc9, My.Resources.infoToolTipMsgNotFoundData)
+                'Else
+                '    cmdFunc9.Enabled = False
+                '    MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "滞留通知メール送信権限がありません")
+                'End If
             Else
                 cmdFunc3.Enabled = False
                 cmdFunc4.Enabled = False
@@ -1724,7 +1592,7 @@ Public Class FrmG0020_List
 
                 cmdFunc6.Enabled = False
                 cmdFunc8.Enabled = False
-                cmdFunc9.Enabled = False
+                'cmdFunc9.Enabled = False
                 cmdFunc10.Enabled = False
                 cmdFunc11.Enabled = False
             End If
@@ -1836,8 +1704,6 @@ Public Class FrmG0020_List
                         End If
                     Next row
 
-
-
                     cmbADD_TANTO.SetDataSource(dtADD_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     cmbADD_TANTO.SelectedValue = intBUFF
                     AddHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
@@ -1900,7 +1766,6 @@ Public Class FrmG0020_List
                         cmbSYANAI_CD.SetDataSource(tblSYANAI_CD_J.LazyLoad("社内CD実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     End If
                     AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-
 
                 End Sub)
             End Sub)
@@ -2125,13 +1990,11 @@ Public Class FrmG0020_List
 
 #Region "ローカル関数"
 
-
     Public Function FunGetDtST02_FUTEKIGO_ICHIRAN(Optional mode As Integer = ENM_OPEN_MODE._0_通常) As DataTable
 
         Dim sbSQL As New System.Text.StringBuilder
         Dim sbParam As New System.Text.StringBuilder
         Dim dsList As New DataSet
-
 
         'sbParam.Append($" '{ParamModel.BUMON_KB}'")
         'sbParam.Append($",{ParamModel.SYONIN_HOKOKUSYO_ID}")
@@ -2228,7 +2091,7 @@ Public Class FrmG0020_List
     End Function
 
     Private Sub SetStageList()
-        lblRecordCount.Visible = False
+
     End Sub
 
 #Region "削除ボタン使用権限判定"
@@ -2283,33 +2146,6 @@ Public Class FrmG0020_List
             Return False
         End Try
     End Function
-
-    Private Function SetSummaryRow(flx As C1FlexGrid) As Boolean
-        If DirectCast(flx.DataSource, DataView).Table Is Nothing Then Return True
-
-        Dim targetColumns = {NameOf(ST03.SURYO), NameOf(ST03.KISO_KENSU), NameOf(ST03.SYOCHI_KENSU), NameOf(ST03.SYOCHI_ZANSU)}
-        Dim dv = DirectCast(flx.DataSource, DataView)
-        Dim dt = dv.Table
-        Dim totalRow As DataRow
-
-        totalRow = dt.Rows.OfType(Of DataRow).Where(Function(r) r.Item(NameOf(ST03.SUMMARY_ROW_FLG)) = 1).FirstOrDefault
-        If totalRow IsNot Nothing Then totalRow.Delete()
-
-        totalRow = dt.NewRow
-        With totalRow
-            .Item(NameOf(ST03.SUMMARY_ROW_FLG)) = 1
-            .Item(NameOf(ST03.SYONIN_HOKOKUSYO_R_NAME)) = "合計:"
-            For Each column In targetColumns
-                .Item(column) = dv.OfType(Of DataRowView).
-                                        Where(Function(r) r.Item(NameOf(ST03.SUMMARY_ROW_FLG)) = 0).
-                                        Sum(Function(r) r.Item(column).ToString.ToVal)
-            Next
-        End With
-        dt.Rows.InsertAt(totalRow, 0)
-
-        Return True
-    End Function
-
 
 #End Region
 

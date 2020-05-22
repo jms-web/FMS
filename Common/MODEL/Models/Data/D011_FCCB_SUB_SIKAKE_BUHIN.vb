@@ -39,6 +39,11 @@ Partial Public Class D011_FCCB_SUB_SIKAKE_BUHIN
     <Required>
     <StringLength(100)>
     <Column(TypeName:="nvarchar")>
+    Public Property BUHIN_NAME As String
+
+    <Required>
+    <StringLength(100)>
+    <Column(TypeName:="nvarchar")>
     Public Property MEMO1 As String
 
     <Required>
