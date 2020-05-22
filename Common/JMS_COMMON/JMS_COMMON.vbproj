@@ -683,12 +683,6 @@
     <None Include="Resources\_icoSearch32x32.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MODEL\FMS_MODEL.vbproj">
-      <Project>{8923a885-8857-49fa-be22-9b9cbf6d19c2}</Project>
-      <Name>FMS_MODEL</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\img_Sendmail.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -753,6 +747,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\SortUp.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MODEL\FMS_MODEL.vbproj">
+      <Project>{8923a885-8857-49fa-be22-9b9cbf6d19c2}</Project>
+      <Name>FMS_MODEL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

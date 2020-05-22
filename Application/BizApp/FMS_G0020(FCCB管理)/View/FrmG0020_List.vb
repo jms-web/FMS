@@ -180,7 +180,7 @@ Public Class FrmG0020_List
         With flxgrd
             .Rows(0).Height = 30
             .AutoGenerateColumns = False
-            .AutoResize = True
+            .AutoResize = False
             .AllowEditing = True
             .AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
             .AllowDelete = False
@@ -206,6 +206,13 @@ Public Class FrmG0020_List
 
             'ˆÈ‰º‚ð“K—p‚·‚é‚É‚ÍVisualStyle‚ðCustom‚É‚·‚é
             .Styles.Focus.BackColor = clrRowEnterColor
+
+            For i As Integer = 1 To .Cols.Count - 1
+                If .Cols(i).Name.Contains("YMD") Then
+                    .Cols(i).Format = "yyyy/MM/dd"
+                End If
+            Next
+
         End With
     End Function
 

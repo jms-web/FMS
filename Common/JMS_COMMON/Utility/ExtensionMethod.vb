@@ -1,6 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.Linq
 Imports System.Runtime.CompilerServices
+Imports MODEL
 
 ''' <summary>
 ''' 拡張メソッドの定義

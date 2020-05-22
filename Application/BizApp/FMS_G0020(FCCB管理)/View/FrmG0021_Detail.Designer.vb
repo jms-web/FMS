@@ -201,6 +201,7 @@ Partial Class FrmG0021_Detail
         Me.cmdFunc11.Location = New System.Drawing.Point(919, 641)
         Me.cmdFunc11.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc11.Text = "履歴表示(F11)"
+        Me.cmdFunc11.Visible = False
         '
         'cmdFunc10
         '
@@ -208,6 +209,7 @@ Partial Class FrmG0021_Detail
         Me.cmdFunc10.Location = New System.Drawing.Point(737, 641)
         Me.cmdFunc10.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc10.Text = "印刷プレビュー(F10)"
+        Me.cmdFunc10.Visible = False
         '
         'cmdFunc7
         '
@@ -279,7 +281,8 @@ Partial Class FrmG0021_Detail
         'Label8
         '
         Me.tlpFilter.SetColumnSpan(Me.Label8, 5)
-        Me.Label8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label8.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label8.Location = New System.Drawing.Point(3, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(94, 30)
@@ -353,7 +356,8 @@ Partial Class FrmG0021_Detail
         'Label5
         '
         Me.tlpFilter.SetColumnSpan(Me.Label5, 5)
-        Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label5.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label5.Location = New System.Drawing.Point(243, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(94, 30)
@@ -397,7 +401,8 @@ Partial Class FrmG0021_Detail
         'lblKISO_TANTO
         '
         Me.tlpFilter.SetColumnSpan(Me.lblKISO_TANTO, 5)
-        Me.lblKISO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblKISO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblKISO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblKISO_TANTO.Location = New System.Drawing.Point(443, 0)
         Me.lblKISO_TANTO.Name = "lblKISO_TANTO"
         Me.lblKISO_TANTO.Size = New System.Drawing.Size(94, 30)
@@ -430,7 +435,8 @@ Partial Class FrmG0021_Detail
         'lblCM_TANTO
         '
         Me.tlpFilter.SetColumnSpan(Me.lblCM_TANTO, 5)
-        Me.lblCM_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblCM_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblCM_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblCM_TANTO.Location = New System.Drawing.Point(443, 30)
         Me.lblCM_TANTO.Name = "lblCM_TANTO"
         Me.lblCM_TANTO.Size = New System.Drawing.Size(94, 30)
@@ -556,10 +562,12 @@ Partial Class FrmG0021_Detail
         Me.txtINPUT_NAIYO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtINPUT_NAIYO.InputRequired = False
         Me.txtINPUT_NAIYO.Location = New System.Drawing.Point(783, 3)
-        Me.txtINPUT_NAIYO.MaxByteLength = 0
+        Me.txtINPUT_NAIYO.MaxByteLength = 600
+        Me.txtINPUT_NAIYO.MaxLength = 300
         Me.txtINPUT_NAIYO.Multiline = True
         Me.txtINPUT_NAIYO.Name = "txtINPUT_NAIYO"
         Me.tlpFilter.SetRowSpan(Me.txtINPUT_NAIYO, 5)
+        Me.txtINPUT_NAIYO.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtINPUT_NAIYO.SelectAllText = False
         Me.txtINPUT_NAIYO.ShowRemainingChars = True
         Me.txtINPUT_NAIYO.Size = New System.Drawing.Size(434, 144)
@@ -1042,7 +1050,7 @@ Partial Class FrmG0021_Detail
         '
         'Flx2_DS
         '
-        Me.Flx2_DS.DataSource = GetType(MODEL.V013_FCCB_SUB_SYOCHI_KOMOKU)
+        Me.Flx2_DS.DataSource = GetType(MODEL.D010_FCCB_SUB_SYOCHI_KOMOKU)
         '
         'C1SplitterPanel2
         '
