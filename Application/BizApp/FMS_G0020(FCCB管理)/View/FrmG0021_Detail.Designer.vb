@@ -118,6 +118,7 @@ Partial Class FrmG0021_Detail
         Me.Label15 = New System.Windows.Forms.Label()
         Me.flxDATA_5 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI = New JMS_COMMON.MaskedTextBoxEx()
+        Me.C1SplitterPanel5 = New C1.Win.C1SplitContainer.C1SplitterPanel()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEx2.SuspendLayout()
@@ -175,6 +176,7 @@ Partial Class FrmG0021_Detail
         Me.cmdFunc4.Location = New System.Drawing.Point(373, 641)
         Me.cmdFunc4.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc4.Text = "ì]ëó(F4)"
+        Me.cmdFunc4.Visible = False
         '
         'cmdFunc5
         '
@@ -182,6 +184,7 @@ Partial Class FrmG0021_Detail
         Me.cmdFunc5.Location = New System.Drawing.Point(555, 641)
         Me.cmdFunc5.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc5.Text = "ç∑ñﬂÇµ(F5)"
+        Me.cmdFunc5.Visible = False
         '
         'cmdFunc6
         '
@@ -1001,6 +1004,7 @@ Partial Class FrmG0021_Detail
         Me.C1SplitContainer.BorderWidth = 1
         Me.C1SplitContainer.CollapsingCueColor = System.Drawing.Color.FromArgb(CType(CType(133, Byte), Integer), CType(CType(133, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.C1SplitContainer.Dock = System.Windows.Forms.DockStyle.Top
+        Me.C1SplitContainer.EnlargeCollapsingHandle = True
         Me.C1SplitContainer.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.C1SplitContainer.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.WarningErrorProvider.SetIconAlignment(Me.C1SplitContainer, System.Windows.Forms.ErrorIconAlignment.MiddleLeft)
@@ -1010,20 +1014,22 @@ Partial Class FrmG0021_Detail
         Me.C1SplitContainer.Panels.Add(Me.C1SplitterPanel2)
         Me.C1SplitContainer.Panels.Add(Me.C1SplitterPanel3)
         Me.C1SplitContainer.Panels.Add(Me.C1SplitterPanel4)
-        Me.C1SplitContainer.Size = New System.Drawing.Size(1209, 968)
+        Me.C1SplitContainer.Panels.Add(Me.C1SplitterPanel5)
+        Me.C1SplitContainer.Size = New System.Drawing.Size(1209, 1100)
         Me.C1SplitContainer.TabIndex = 327
         '
         'C1SplitterPanel1
         '
         Me.C1SplitterPanel1.AutoScroll = True
+        Me.C1SplitterPanel1.Collapsible = True
         Me.C1SplitterPanel1.Controls.Add(Me.flxDATA_2)
-        Me.C1SplitterPanel1.Height = 397
+        Me.C1SplitterPanel1.Height = 520
         Me.C1SplitterPanel1.KeepRelativeSize = False
         Me.C1SplitterPanel1.Location = New System.Drawing.Point(1, 22)
         Me.C1SplitterPanel1.Name = "C1SplitterPanel1"
         Me.C1SplitterPanel1.ResizeWhileDragging = True
-        Me.C1SplitterPanel1.Size = New System.Drawing.Size(1207, 376)
-        Me.C1SplitterPanel1.SizeRatio = 41.268R
+        Me.C1SplitterPanel1.Size = New System.Drawing.Size(1207, 488)
+        Me.C1SplitterPanel1.SizeRatio = 48.0R
         Me.C1SplitterPanel1.TabIndex = 0
         Me.C1SplitterPanel1.Text = "áAóvèàíuéñçÄí≤ç∏"
         '
@@ -1043,7 +1049,7 @@ Partial Class FrmG0021_Detail
         Me.flxDATA_2.Name = "flxDATA_2"
         Me.flxDATA_2.Rows.Count = 1
         Me.flxDATA_2.Rows.DefaultSize = 18
-        Me.flxDATA_2.Size = New System.Drawing.Size(1207, 376)
+        Me.flxDATA_2.Size = New System.Drawing.Size(1207, 488)
         Me.flxDATA_2.StyleInfo = resources.GetString("flxDATA_2.StyleInfo")
         Me.flxDATA_2.TabIndex = 329
         Me.flxDATA_2.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
@@ -1055,14 +1061,15 @@ Partial Class FrmG0021_Detail
         'C1SplitterPanel2
         '
         Me.C1SplitterPanel2.AutoScroll = True
+        Me.C1SplitterPanel2.Collapsible = True
         Me.C1SplitterPanel2.Controls.Add(Me.flxDATA_3)
-        Me.C1SplitterPanel2.Height = 124
+        Me.C1SplitterPanel2.Height = 123
         Me.C1SplitterPanel2.KeepRelativeSize = False
-        Me.C1SplitterPanel2.Location = New System.Drawing.Point(1, 423)
+        Me.C1SplitterPanel2.Location = New System.Drawing.Point(1, 546)
         Me.C1SplitterPanel2.Name = "C1SplitterPanel2"
         Me.C1SplitterPanel2.ResizeWhileDragging = True
-        Me.C1SplitterPanel2.Size = New System.Drawing.Size(1207, 103)
-        Me.C1SplitterPanel2.SizeRatio = 22.103R
+        Me.C1SplitterPanel2.Size = New System.Drawing.Size(1207, 91)
+        Me.C1SplitterPanel2.SizeRatio = 20.0R
         Me.C1SplitterPanel2.TabIndex = 1
         Me.C1SplitterPanel2.Text = "áBåüèÿ"
         '
@@ -1081,7 +1088,7 @@ Partial Class FrmG0021_Detail
         Me.flxDATA_3.Name = "flxDATA_3"
         Me.flxDATA_3.Rows.Count = 1
         Me.flxDATA_3.Rows.DefaultSize = 18
-        Me.flxDATA_3.Size = New System.Drawing.Size(1207, 103)
+        Me.flxDATA_3.Size = New System.Drawing.Size(1207, 91)
         Me.flxDATA_3.StyleInfo = resources.GetString("flxDATA_3.StyleInfo")
         Me.flxDATA_3.TabIndex = 1
         Me.flxDATA_3.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
@@ -1093,13 +1100,14 @@ Partial Class FrmG0021_Detail
         'C1SplitterPanel3
         '
         Me.C1SplitterPanel3.AutoScroll = True
+        Me.C1SplitterPanel3.Collapsible = True
         Me.C1SplitterPanel3.Controls.Add(Me.flxDATA_4)
-        Me.C1SplitterPanel3.Height = 143
+        Me.C1SplitterPanel3.Height = 137
         Me.C1SplitterPanel3.KeepRelativeSize = False
-        Me.C1SplitterPanel3.Location = New System.Drawing.Point(1, 551)
+        Me.C1SplitterPanel3.Location = New System.Drawing.Point(1, 673)
         Me.C1SplitterPanel3.Name = "C1SplitterPanel3"
         Me.C1SplitterPanel3.ResizeWhileDragging = True
-        Me.C1SplitterPanel3.Size = New System.Drawing.Size(1207, 122)
+        Me.C1SplitterPanel3.Size = New System.Drawing.Size(1207, 105)
         Me.C1SplitterPanel3.SizeRatio = 33.025R
         Me.C1SplitterPanel3.TabIndex = 2
         Me.C1SplitterPanel3.Text = "áCédä|ïièÛãµ"
@@ -1119,7 +1127,7 @@ Partial Class FrmG0021_Detail
         Me.flxDATA_4.Name = "flxDATA_4"
         Me.flxDATA_4.Rows.Count = 1
         Me.flxDATA_4.Rows.DefaultSize = 18
-        Me.flxDATA_4.Size = New System.Drawing.Size(1207, 122)
+        Me.flxDATA_4.Size = New System.Drawing.Size(1207, 105)
         Me.flxDATA_4.StyleInfo = resources.GetString("flxDATA_4.StyleInfo")
         Me.flxDATA_4.TabIndex = 1
         Me.flxDATA_4.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
@@ -1131,15 +1139,16 @@ Partial Class FrmG0021_Detail
         'C1SplitterPanel4
         '
         Me.C1SplitterPanel4.AutoScroll = True
+        Me.C1SplitterPanel4.Collapsible = True
         Me.C1SplitterPanel4.Controls.Add(Me.TableLayoutPanel1)
         Me.C1SplitterPanel4.Controls.Add(Me.PanelEx1)
-        Me.C1SplitterPanel4.Height = 290
+        Me.C1SplitterPanel4.Height = 282
         Me.C1SplitterPanel4.KeepRelativeSize = False
-        Me.C1SplitterPanel4.Location = New System.Drawing.Point(1, 698)
+        Me.C1SplitterPanel4.Location = New System.Drawing.Point(1, 814)
         Me.C1SplitterPanel4.MinWidth = 100
         Me.C1SplitterPanel4.Name = "C1SplitterPanel4"
         Me.C1SplitterPanel4.ResizeWhileDragging = True
-        Me.C1SplitterPanel4.Size = New System.Drawing.Size(1207, 269)
+        Me.C1SplitterPanel4.Size = New System.Drawing.Size(1207, 250)
         Me.C1SplitterPanel4.SizeRatio = 68.217R
         Me.C1SplitterPanel4.TabIndex = 3
         Me.C1SplitterPanel4.Text = "áDïœçXêRãc"
@@ -1198,7 +1207,7 @@ Partial Class FrmG0021_Detail
         Me.TableLayoutPanel1.Controls.Add(Me.dtKAKUNIN_GM_TANTO, 11, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.dtKAKUNIN_CM_TANTO, 12, 3)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 168)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 149)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 4
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
@@ -1843,6 +1852,16 @@ Partial Class FrmG0021_Detail
         Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.WatermarkText = Nothing
         '
+        'C1SplitterPanel5
+        '
+        Me.C1SplitterPanel5.Height = 20
+        Me.C1SplitterPanel5.Location = New System.Drawing.Point(1, 1079)
+        Me.C1SplitterPanel5.MinHeight = 20
+        Me.C1SplitterPanel5.Name = "C1SplitterPanel5"
+        Me.C1SplitterPanel5.Size = New System.Drawing.Size(1207, 20)
+        Me.C1SplitterPanel5.SizeRatio = 5.0R
+        Me.C1SplitterPanel5.TabIndex = 4
+        '
         'FrmG0021_Detail
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -2012,4 +2031,5 @@ Partial Class FrmG0021_Detail
     Friend WithEvents dtSYOCHI_KOBAI_TANTO As DateTextBoxEx
     Friend WithEvents dtKAKUNIN_GM_TANTO As DateTextBoxEx
     Friend WithEvents dtKAKUNIN_CM_TANTO As DateTextBoxEx
+    Friend WithEvents C1SplitterPanel5 As C1.Win.C1SplitContainer.C1SplitterPanel
 End Class

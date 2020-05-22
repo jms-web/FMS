@@ -63,8 +63,22 @@ Public Class FrmG0021_Detail
         MyBase.ToolTip.SetToolTip(Me.cmdFunc11, My.Resources.infoToolTipMsgNotFoundData)
 
         cmbKISYU.NullValue = 0
-        dtKISO.Nullable = True
+        cmbKISO_TANTO.NullValue = 0
+        cmbCM_TANTO.NullValue = 0
 
+        dtKISO.Nullable = True
+        cmbSYOCHI_GM_TANTO.NullValue = 0
+        cmbSYOCHI_SEKKEI_TANTO.NullValue = 0
+        cmbSYOCHI_SEIGI_TANTO.NullValue = 0
+        cmbSYOCHI_SEIGI_TANTO.NullValue = 0
+        cmbSYOCHI_EIGYO_TANTO.NullValue = 0
+        cmbSYOCHI_KANRI_TANTO.NullValue = 0
+        cmbSYOCHI_HINSYO_TANTO.NullValue = 0
+        cmbSYOCHI_KENSA_TANTO.NullValue = 0
+        cmbSYOCHI_KOBAI_TANTO.NullValue = 0
+
+        cmbKAKUNIN_CM_TANTO.NullValue = 0
+        cmbKAKUNIN_GM_TANTO.NullValue = 0
 
     End Sub
 
@@ -214,8 +228,8 @@ Public Class FrmG0021_Detail
                         GYOMU_GROUP_ID = flx(e.Row, 4).ToString.ToVal
                         TANTO_COL_INDEX = 6
                     Case NameOf(flxDATA_3)
-                        GYOMU_GROUP_ID = flx(e.Row, 2).ToString.ToVal
-                        TANTO_COL_INDEX = 4
+                        GYOMU_GROUP_ID = flx(e.Row, 3).ToString.ToVal
+                        TANTO_COL_INDEX = 6
                     Case NameOf(flxDATA_5)
                         GYOMU_GROUP_ID = flx(e.Row, 2).ToString.ToVal
                         TANTO_COL_INDEX = 3
@@ -415,14 +429,14 @@ Public Class FrmG0021_Detail
             Dim objParam As System.Data.Common.DbParameter = DB.DbCommand.CreateParameter
             Dim lstParam As New List(Of System.Data.Common.DbParameter)
             With objParam
-                .ParameterName = NameOf(_D009_FCCB_J.FCCB_NO)
+                .ParameterName = "HOKOKU_NO"
                 .DbType = DbType.String
                 .Direction = ParameterDirection.Output
                 .Size = 8
             End With
             lstParam.Add(objParam)
             If DB.Fun_blnExecStored("dbo.ST05_GET_FCCB_NO", lstParam) = True Then
-                _D009_FCCB_J.FCCB_NO = DB.DbCommand.Parameters(NameOf(_D009_FCCB_J.FCCB_NO)).Value
+                _D009_FCCB_J.FCCB_NO = DB.DbCommand.Parameters("HOKOKU_NO").Value
             Else
                 Return False
             End If
@@ -442,10 +456,10 @@ Public Class FrmG0021_Detail
         _D009_FCCB_J.CM_TANTO = cmbCM_TANTO.SelectedValue
         _D009_FCCB_J.BUHIN_BANGO = cmbBUHIN_BANGO.SelectedValue
         _D009_FCCB_J.SYANAI_CD = cmbSYANAI_CD.SelectedValue
-        _D009_FCCB_J.BUHIN_NAME = cmbHINMEI.SelectedValue
+        _D009_FCCB_J.BUHIN_NAME = cmbHINMEI.Text
         _D009_FCCB_J.INPUT_DOC_NO = mtxINPUT_DOC_NO.Text
         _D009_FCCB_J.SNO_APPLY_PERIOD_KISO = mtxSNO_APPLY_PERIOD_KISO.Text
-        _D009_FCCB_J.SNO_APPLY_PERIOD_SINGI = mtxSNO_APPLY_PERIOD_HENKO_SINGI.Text
+        _D009_FCCB_J.SNO_APPLY_PERIOD_HENKO_SINGI = mtxSNO_APPLY_PERIOD_HENKO_SINGI.Text
         _D009_FCCB_J.INPUT_NAIYO = txtINPUT_NAIYO.Text
 
 
@@ -510,7 +524,7 @@ Public Class FrmG0021_Detail
 #Region "   モデル更新"
 
             _D010.Clear()
-            _D010.FCCB_NO = dr.Item(NameOf(_D010.FCCB_NO))
+            _D010.FCCB_NO = _D009.FCCB_NO
             _D010.ITEM_NO = dr.Item(NameOf(_D010.ITEM_NO))
             _D010.ITEM_GROUP_NAME = dr.Item(NameOf(_D010.ITEM_GROUP_NAME))
             _D010.ITEM_NAME = dr.Item(NameOf(_D010.ITEM_NAME))
@@ -518,8 +532,12 @@ Public Class FrmG0021_Detail
             _D010.YOHI_KB = dr.Item(NameOf(_D010.YOHI_KB))
             _D010.TANTO_ID = dr.Item(NameOf(_D010.TANTO_ID))
             _D010.NAIYO = dr.Item(NameOf(_D010.NAIYO))
-            _D010.YOTEI_YMD = dr.Item(NameOf(_D010.YOTEI_YMD))
-            _D010.CLOSE_YMD = dr.Item(NameOf(_D010.CLOSE_YMD))
+            If Not dr.Item(NameOf(_D010.YOTEI_YMD)).ToString.IsNulOrWS Then
+                _D010.YOTEI_YMD = CDate(dr.Item(NameOf(_D010.YOTEI_YMD))).ToString("yyyyMMdd")
+            End If
+            If Not dr.Item(NameOf(_D010.CLOSE_YMD)).ToString.IsNulOrWS Then
+                _D010.CLOSE_YMD = CDate(dr.Item(NameOf(_D010.CLOSE_YMD))).ToString("yyyyMMdd")
+            End If
 
 #End Region
 
@@ -569,12 +587,12 @@ Public Class FrmG0021_Detail
 
         Try
 
-            For Each dr As DataRow In DirectCast(Flx2_DS.DataSource, DataTable).Rows
+            For Each dr As DataRow In DirectCast(Flx4_DS.DataSource, DataTable).Rows
 
 #Region "   モデル更新"
 
                 _D011.Clear()
-                _D011.FCCB_NO = dr.Item(NameOf(_D011.FCCB_NO))
+                _D011.FCCB_NO = _D009.FCCB_NO
                 _D011.ITEM_NO = dr.Item(NameOf(_D011.ITEM_NO))
                 _D011.BUHIN_HINBAN = dr.Item(NameOf(_D011.BUHIN_HINBAN))
                 _D011.MEMO1 = dr.Item(NameOf(_D011.MEMO1))
@@ -583,8 +601,12 @@ Public Class FrmG0021_Detail
                 _D011.SYOCHI_NAIYO = dr.Item(NameOf(_D011.SYOCHI_NAIYO))
                 _D011.TANTO_GYOMU_GROUP_ID = dr.Item(NameOf(_D011.TANTO_GYOMU_GROUP_ID))
                 _D011.TANTO_ID = dr.Item(NameOf(_D011.TANTO_ID))
-                _D011.YOTEI_YMD = dr.Item(NameOf(_D011.YOTEI_YMD))
-                _D011.CLOSE_YMD = dr.Item(NameOf(_D011.CLOSE_YMD))
+                If Not dr.Item(NameOf(_D011.YOTEI_YMD)).ToString.IsNulOrWS Then
+                    _D011.YOTEI_YMD = CDate(dr.Item(NameOf(_D011.YOTEI_YMD))).ToString("yyyyMMdd")
+                End If
+                If Not dr.Item(NameOf(_D011.CLOSE_YMD)).ToString.IsNulOrWS Then
+                    _D011.CLOSE_YMD = CDate(dr.Item(NameOf(_D011.CLOSE_YMD))).ToString("yyyyMMdd")
+                End If
 
 #End Region
 
@@ -1712,6 +1734,9 @@ Public Class FrmG0021_Detail
                         Flx4_DS.DataSource = Sec4.Data
                     End Using
 
+                    C1SplitterPanel4.Visible = False
+                    C1SplitterPanel4.Collapsible = False
+                    C1SplitterPanel4.Enabled = False
 #End Region
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
@@ -1732,6 +1757,14 @@ Public Class FrmG0021_Detail
 
 
             End Select
+
+            '完了日表示
+            Dim blnCloseColumnVisibled = (PrCurrentStage >= ENM_FCCB_STAGE._40_処置確認.Value)
+
+
+            flxDATA_2.Cols(9).AllowEditing = blnCloseColumnVisibled
+            flxDATA_3.Cols(8).AllowEditing = blnCloseColumnVisibled
+            flxDATA_5.Cols(5).AllowEditing = blnCloseColumnVisibled
 
             If FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_FCCB_STAGE._999_Closed Then
                 '最終ステージの場合、申請先担当者欄は非表示
@@ -1786,6 +1819,7 @@ Public Class FrmG0021_Detail
                          Select(Function(g) g.FirstOrDefault)
 
                 dtTANTO = New SortedList
+                dtTANTO.Add(0, "未選択")
                 For Each dr In drs
                     If Not dtTANTO.Contains(dr.Item("VALUE").ToString.ToVal) Then
                         dtTANTO.Add(dr.Item("VALUE").ToString.ToVal, dr.Item("DISP"))
@@ -1800,12 +1834,12 @@ Public Class FrmG0021_Detail
                 If Not flxDATA_3.Styles.Contains($"dtTANTO_{GROUP_ID.Value}") Then
                     flxDATA_3.Styles.Add($"dtTANTO_{GROUP_ID.Value}")
                 End If
-                flxDATA_2.Styles($"dtTANTO_{GROUP_ID.Value}").DataMap = dtTANTO
+                flxDATA_3.Styles($"dtTANTO_{GROUP_ID.Value}").DataMap = dtTANTO
 
-                If Not flxDATA_2.Styles.Contains($"dtTANTO_{GROUP_ID.Value}") Then
-                    flxDATA_2.Styles.Add($"dtTANTO_{GROUP_ID.Value}")
+                If Not flxDATA_5.Styles.Contains($"dtTANTO_{GROUP_ID.Value}") Then
+                    flxDATA_5.Styles.Add($"dtTANTO_{GROUP_ID.Value}")
                 End If
-                flxDATA_2.Styles($"dtTANTO_{GROUP_ID.Value}").DataMap = dtTANTO
+                flxDATA_5.Styles($"dtTANTO_{GROUP_ID.Value}").DataMap = dtTANTO
 
             Next
         Catch ex As Exception
@@ -1862,6 +1896,10 @@ Public Class FrmG0021_Detail
             IsValidated *= ErrorProvider.UpdateErrorInfo(cmbKISO_TANTO, cmbKISO_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
             IsValidated *= ErrorProvider.UpdateErrorInfo(cmbCM_TANTO, cmbCM_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
 
+
+            If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And PrCurrentStage = ENM_FCCB_STAGE._30_変更審議.Value Then
+                'UNDONE: ST2で選択された部署コンボのみ必須
+            End If
 
             '上記各種Validatingイベントでフラグを更新し、全てOKの場合はTrue
             Return IsValidated
@@ -1955,6 +1993,7 @@ Public Class FrmG0021_Detail
     Private Sub ShowUnimplemented()
         MessageBox.Show("未実装", "未実装", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
+
 
 #End Region
 

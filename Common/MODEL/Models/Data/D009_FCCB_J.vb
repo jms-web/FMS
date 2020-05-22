@@ -118,7 +118,7 @@ Partial Public Class D009_FCCB_J
     <Column(TypeName:="nvarchar")>
     <StringLength(100)>
     <ComponentModel.DisplayName("適用SNO_時期")>
-    Public Property SNO_APPLY_PERIOD_SINGI As String
+    Public Property SNO_APPLY_PERIOD_HENKO_SINGI As String
 
 
 
