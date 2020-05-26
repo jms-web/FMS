@@ -60,6 +60,8 @@ Partial Public Class V013_FCCB_ICHIRAN
     <Required>
     Public Property SYANAI_CD As String
     <Required>
+    Public Property KISO_YMD As String
+    <Required>
     Public Property KISO_TANTO_ID As Integer
     <Required>
     Public Property KISO_TANTO_NAME As String

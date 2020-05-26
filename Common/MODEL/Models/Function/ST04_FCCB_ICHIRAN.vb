@@ -84,18 +84,18 @@ Partial Public Class ST04_FCCB_ICHIRAN
 
     <ComponentModel.DisplayName("‹N‘“ú")>
     <Display(AutoGenerateField:=False)>
-    <Column(NameOf(ADD_YMDHNS), TypeName:="String")>
-    Public Property _ADD_YMDHNS As String
+    <Column(NameOf(KISO_YMD), TypeName:="String")>
+    Public Property _KISO_YMD As String
 
     <NotMapped>
     <ComponentModel.DisplayName("‹N‘“ú")>
-    Public Property ADD_YMDHNS As Date
+    Public Property KISO_YMD As Date
         Get
-            Return DateTime.ParseExact(_ADD_YMDHNS, "yyyyMMddHHmmss", Nothing)
+            Return DateTime.ParseExact(_KISO_YMD, "yyyyMMdd", Nothing)
         End Get
         Set(value As Date)
 
-            _ADD_YMDHNS = value.ToString("yyyyMMdd")
+            _KISO_YMD = value.ToString("yyyyMMdd")
         End Set
     End Property
 

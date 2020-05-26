@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="Migrations\201804050655482_Init31.vb" />
     <Compile Include="Migrations\Configuration.vb" />
+    <Compile Include="Models\Data\D012_FCCB_SUB_SYOCHI_KAKUNIN.vb" />
     <Compile Include="Models\Data\D011_FCCB_SUB_SIKAKE_BUHIN.vb" />
     <Compile Include="Models\Data\D010_FCCB_SUB_SYOCHI_KOMOKU.vb" />
     <Compile Include="Models\Data\R007_FCCB_SASIMODOSI.vb" />
@@ -360,6 +361,7 @@
     <Content Include="DDL\View\V011_FCR_J.sql" />
     <Content Include="DDL\View\V010_SYAIN_SYOZOKU_BUSYO.sql" />
     <Content Include="DDL\View\V009_CAR_R.sql" />
+    <Content Include="DDL\View\V013_FCCB_ICHIRAN.sql" />
     <Content Include="DDL\View\V012_FCR_R.sql" />
     <Content Include="DDL\View\VWM004_SYAIN.sql" />
     <Content Include="DDL\View\VWM011_SYAIN_GYOMU_ICHIRAN.sql" />

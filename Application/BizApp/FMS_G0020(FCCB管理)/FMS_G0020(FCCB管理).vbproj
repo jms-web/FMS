@@ -321,6 +321,7 @@
     <None Include="My Project\DataSources\MODEL.ST03_FUTEKIGO_ICHIRAN_SUMMARY.datasource" />
     <None Include="My Project\DataSources\MODEL.ST04_FCCB_ICHIRAN.datasource" />
     <None Include="My Project\DataSources\MODEL.V012_FCCB_SUB_SYOCHI_KOMOKU.datasource" />
+    <None Include="My Project\DataSources\MODEL.V013_FCCB_ICHIRAN.datasource" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>

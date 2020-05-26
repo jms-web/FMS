@@ -1,11 +1,10 @@
-Imports System.Reflection.Emit
-Imports System.Security.Policy
 Imports System.Threading.Tasks
 Imports C1.Win.C1FlexGrid
 Imports JMS_COMMON.ClsPubMethod
 Imports MODEL
 Imports D010 = MODEL.D010_FCCB_SUB_SYOCHI_KOMOKU
 Imports D011 = MODEL.D011_FCCB_SUB_SIKAKE_BUHIN
+Imports D012 = MODEL.D012_FCCB_SUB_SYOCHI_KAKUNIN
 
 ''' <summary>
 ''' FCCB登録画面
@@ -14,7 +13,7 @@ Public Class FrmG0021_Detail
 
 #Region "定数・変数"
 
-    Private _D009 As New D009_FCCB_J
+    'Private _D009 As New D009_FCCB_J
     Private _V003_SYONIN_J_KANRI_List As New List(Of V003_SYONIN_J_KANRI)
     Private IsEditingClosed As Boolean
     Private IsInitializing As Boolean
@@ -69,7 +68,7 @@ Public Class FrmG0021_Detail
         dtKISO.Nullable = True
         cmbSYOCHI_GM_TANTO.NullValue = 0
         cmbSYOCHI_SEKKEI_TANTO.NullValue = 0
-        cmbSYOCHI_SEIGI_TANTO.NullValue = 0
+        cmbSYOCHI_SEIZO_TANTO.NullValue = 0
         cmbSYOCHI_SEIGI_TANTO.NullValue = 0
         cmbSYOCHI_EIGYO_TANTO.NullValue = 0
         cmbSYOCHI_KANRI_TANTO.NullValue = 0
@@ -197,6 +196,8 @@ Public Class FrmG0021_Detail
             .Styles.Normal.Border.Style = C1.Win.C1FlexGrid.BorderStyleEnum.Flat
             .Styles.Normal.Border.Color = Color.Black
 
+            .Rows.DefaultSize = 24
+
             '以下を適用するにはVisualStyleをCustomにする
             .Styles.Focus.BackColor = clrRowEnterColor
 
@@ -209,6 +210,8 @@ Public Class FrmG0021_Detail
         End With
     End Function
 
+
+
     Private Sub Flex_StartEdit(ByVal sender As Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles flxDATA_2.StartEdit,
                                                                                                              flxDATA_3.StartEdit,
                                                                                                              flxDATA_5.StartEdit
@@ -218,26 +221,32 @@ Public Class FrmG0021_Detail
             Dim flx = DirectCast(sender, C1FlexGrid)
 
             '担当部署→担当者リスト取得
-            If flx.Cols(e.Col).Name = NameOf(D010.TANTO_GYOMU_GROUP_ID) Then
+            Select Case flx.Cols(e.Col).Name
+                Case NameOf(D010.TANTO_GYOMU_GROUP_ID), NameOf(D010.TANTO_ID)
+                    Dim GYOMU_GROUP_ID As ENM_GYOMU_GROUP_ID
+                    Dim TANTO_COL_INDEX As Integer
 
-                Dim GYOMU_GROUP_ID As ENM_GYOMU_GROUP_ID
-                Dim TANTO_COL_INDEX As Integer
+                    Select Case flx.Name
+                        Case NameOf(flxDATA_2)
+                            GYOMU_GROUP_ID = flx(e.Row, 4).ToString.ToVal
+                            TANTO_COL_INDEX = 6
+                        Case NameOf(flxDATA_3)
+                            GYOMU_GROUP_ID = flx(e.Row, 3).ToString.ToVal
+                            TANTO_COL_INDEX = 5
+                        Case NameOf(flxDATA_5)
+                            GYOMU_GROUP_ID = flx(e.Row, 2).ToString.ToVal
+                            TANTO_COL_INDEX = 3
+                        Case Else
+                    End Select
 
-                Select Case flx.Name
-                    Case NameOf(flxDATA_2)
-                        GYOMU_GROUP_ID = flx(e.Row, 4).ToString.ToVal
-                        TANTO_COL_INDEX = 6
-                    Case NameOf(flxDATA_3)
-                        GYOMU_GROUP_ID = flx(e.Row, 3).ToString.ToVal
-                        TANTO_COL_INDEX = 6
-                    Case NameOf(flxDATA_5)
-                        GYOMU_GROUP_ID = flx(e.Row, 2).ToString.ToVal
-                        TANTO_COL_INDEX = 3
-                    Case Else
-                End Select
+                    If GYOMU_GROUP_ID <> 0 Then
+                        flx.SetCellStyle(e.Row, TANTO_COL_INDEX, flx.Styles($"dtTANTO_{GYOMU_GROUP_ID.Value}"))
+                    End If
 
-                flx.SetCellStyle(e.Row, TANTO_COL_INDEX, flx.Styles($"dtTANTO_{GYOMU_GROUP_ID.Value}"))
-            End If
+                Case Else
+
+            End Select
+
         Catch ex As Exception
             Throw
         End Try
@@ -389,6 +398,7 @@ Public Class FrmG0021_Detail
                     If FunSAVE_D009(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                     If FunSAVE_D010(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                     If FunSAVE_D011(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
+                    If FunSAVE_D012(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
 
                     If Not blnTENSO And PrCurrentStage < ENM_FCCB_STAGE._999_Closed Then
                         If FunSAVE_D004(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
@@ -423,7 +433,6 @@ Public Class FrmG0021_Detail
         Dim strSysDate As String = DB.GetSysDateString
 
 #Region "モデル更新"
-
 
         If _D009_FCCB_J.FCCB_NO.IsNulOrWS Or _D009_FCCB_J.FCCB_NO = "<新規>" Then
             Dim objParam As System.Data.Common.DbParameter = DB.DbCommand.CreateParameter
@@ -461,7 +470,6 @@ Public Class FrmG0021_Detail
         _D009_FCCB_J.SNO_APPLY_PERIOD_KISO = mtxSNO_APPLY_PERIOD_KISO.Text
         _D009_FCCB_J.SNO_APPLY_PERIOD_HENKO_SINGI = mtxSNO_APPLY_PERIOD_HENKO_SINGI.Text
         _D009_FCCB_J.INPUT_NAIYO = txtINPUT_NAIYO.Text
-
 
         If cmbKISO_TANTO.IsSelected Then
             _D009_FCCB_J.ADD_SYAIN_ID = cmbKISO_TANTO.SelectedValue
@@ -524,7 +532,7 @@ Public Class FrmG0021_Detail
 #Region "   モデル更新"
 
             _D010.Clear()
-            _D010.FCCB_NO = _D009.FCCB_NO
+            _D010.FCCB_NO = _D009_FCCB_J.FCCB_NO
             _D010.ITEM_NO = dr.Item(NameOf(_D010.ITEM_NO))
             _D010.ITEM_GROUP_NAME = dr.Item(NameOf(_D010.ITEM_GROUP_NAME))
             _D010.ITEM_NAME = dr.Item(NameOf(_D010.ITEM_NAME))
@@ -569,6 +577,58 @@ Public Class FrmG0021_Detail
             End Select
         Next
 
+        For Each dr As DataRow In DirectCast(Flx3_DS.DataSource, DataTable).Rows
+
+#Region "   モデル更新"
+
+            _D010.Clear()
+            _D010.FCCB_NO = _D009_FCCB_J.FCCB_NO
+            _D010.ITEM_NO = dr.Item(NameOf(_D010.ITEM_NO))
+            _D010.ITEM_GROUP_NAME = dr.Item(NameOf(_D010.ITEM_GROUP_NAME))
+            _D010.ITEM_NAME = dr.Item(NameOf(_D010.ITEM_NAME))
+            _D010.TANTO_GYOMU_GROUP_ID = dr.Item(NameOf(_D010.TANTO_GYOMU_GROUP_ID))
+            _D010.YOHI_KB = dr.Item(NameOf(_D010.YOHI_KB))
+            _D010.TANTO_ID = dr.Item(NameOf(_D010.TANTO_ID))
+            _D010.NAIYO = dr.Item(NameOf(_D010.NAIYO))
+            If Not dr.Item(NameOf(_D010.YOTEI_YMD)).ToString.IsNulOrWS Then
+                _D010.YOTEI_YMD = CDate(dr.Item(NameOf(_D010.YOTEI_YMD))).ToString("yyyyMMdd")
+            End If
+            If Not dr.Item(NameOf(_D010.CLOSE_YMD)).ToString.IsNulOrWS Then
+                _D010.CLOSE_YMD = CDate(dr.Item(NameOf(_D010.CLOSE_YMD))).ToString("yyyyMMdd")
+            End If
+
+#End Region
+
+            sbSQL.Clear()
+            sbSQL.Append($"MERGE INTO {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU)} AS TARGET")
+            sbSQL.Append($" USING (")
+            sbSQL.Append($"{_D010.ToSelectSqlString}")
+            sbSQL.Append($" ) AS WK")
+            sbSQL.Append($" ON (TARGET.{NameOf(_D010.FCCB_NO)} = WK.{NameOf(_D010.FCCB_NO)}")
+            sbSQL.Append($" AND TARGET.{NameOf(_D010.ITEM_NO)} = WK.{NameOf(_D010.ITEM_NO)})")
+            '---UPDATE
+            sbSQL.Append($" WHEN MATCHED THEN")
+            sbSQL.Append($" {_D010.ToUpdateSqlString("TARGET", "WK")}")
+            '---INSERT
+            sbSQL.Append($" WHEN NOT MATCHED THEN")
+            sbSQL.Append($" {_D010.ToInsertSqlString("WK")}")
+            sbSQL.Append(" OUTPUT $action As RESULT;")
+            strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+            Select Case strRET
+                Case "INSERT"
+
+                Case "UPDATE"
+
+                Case Else
+                    '-----エラーログ出力
+                    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                    WL.WriteLogDat(strErrMsg)
+                    Return False
+            End Select
+        Next
+
+
+
         WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D010.FCCB_NO}、MERGE D010")
 
         Return True
@@ -592,7 +652,7 @@ Public Class FrmG0021_Detail
 #Region "   モデル更新"
 
                 _D011.Clear()
-                _D011.FCCB_NO = _D009.FCCB_NO
+                _D011.FCCB_NO = _D009_FCCB_J.FCCB_NO
                 _D011.ITEM_NO = dr.Item(NameOf(_D011.ITEM_NO))
                 _D011.BUHIN_HINBAN = dr.Item(NameOf(_D011.BUHIN_HINBAN))
                 _D011.MEMO1 = dr.Item(NameOf(_D011.MEMO1))
@@ -646,6 +706,122 @@ Public Class FrmG0021_Detail
         End Try
 
     End Function
+
+#End Region
+
+#Region "   D012"
+
+    Private Function FunSAVE_D012(ByRef DB As ClsDbUtility, ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
+
+        Dim strSysDate As String = DB.GetSysDateString
+
+        Try
+
+
+            If cmbSYOCHI_SEIZO_TANTO.IsSelected Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._2_製造, cmbSYOCHI_SEIZO_TANTO.SelectedValue, dtSYOCHI_SEIZO_TANTO.ValueDate) = False Then
+                    Return False
+                End If
+            End If
+            If cmbSYOCHI_KENSA_TANTO.IsSelected Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._3_検査, cmbSYOCHI_KENSA_TANTO.SelectedValue, dtSYOCHI_KENSA_TANTO.ValueDate) = False Then
+                    Return False
+                End If
+            End If
+            If cmbSYOCHI_HINSYO_TANTO.IsSelected Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._4_品証, cmbSYOCHI_HINSYO_TANTO.SelectedValue, dtSYOCHI_HINSYO_TANTO.ValueDate) = False Then
+                    Return False
+                End If
+            End If
+            If cmbSYOCHI_SEKKEI_TANTO.IsSelected Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._5_設計, cmbSYOCHI_SEKKEI_TANTO.SelectedValue, dtSYOCHI_SEKKEI_TANTO.ValueDate) = False Then
+                    Return False
+                End If
+            End If
+            If cmbSYOCHI_SEIGI_TANTO.IsSelected Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._6_生技, cmbSYOCHI_SEIGI_TANTO.SelectedValue, dtSYOCHI_SEIGI_TANTO.ValueDate) = False Then
+                    Return False
+                End If
+            End If
+            If cmbSYOCHI_KANRI_TANTO.IsSelected Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._7_管理, cmbSYOCHI_KANRI_TANTO.SelectedValue, dtSYOCHI_KANRI_TANTO.ValueDate) = False Then
+                    Return False
+                End If
+            End If
+            If cmbSYOCHI_EIGYO_TANTO.IsSelected Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._8_営業, cmbSYOCHI_EIGYO_TANTO.SelectedValue, dtSYOCHI_EIGYO_TANTO.ValueDate) = False Then
+                    Return False
+                End If
+            End If
+            If cmbSYOCHI_GM_TANTO.IsSelected Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._91_QMS管理責任者, cmbSYOCHI_GM_TANTO.SelectedValue, dtSYOCHI_GM_TANTO.ValueDate) = False Then
+                    Return False
+                End If
+            End If
+
+            WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009_FCCB_J.FCCB_NO}、MERGE D012")
+
+            Return True
+        Catch ex As Exception
+            Throw
+        End Try
+
+    End Function
+
+
+    Private Function FunSAVE_D012_SUB(ByRef DB As ClsDbUtility, GYOMU_GROUP_ID As Integer, TANTO_ID As Integer, AddDate As Date) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim strRET As String
+        Dim sqlEx As New Exception
+        Dim _D012 As New D012
+
+        Try
+
+#Region "   モデル更新"
+
+            _D012.Clear()
+            _D012.FCCB_NO = _D009_FCCB_J.FCCB_NO
+            _D012.GYOMU_GROUP_ID = GYOMU_GROUP_ID
+            _D012.TANTO_ID = TANTO_ID
+            _D012.ADD_YMDHNS = AddDate.ToString("yyyyMMddHHmmss")
+            _D012.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+
+#End Region
+
+            sbSQL.Clear()
+            sbSQL.Append($"MERGE INTO {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} AS TARGET")
+            sbSQL.Append($" USING (")
+            sbSQL.Append($"{_D012.ToSelectSqlString}")
+            sbSQL.Append($" ) AS WK")
+            sbSQL.Append($" ON (TARGET.{NameOf(_D012.FCCB_NO)} = WK.{NameOf(_D012.FCCB_NO)}")
+            sbSQL.Append($" AND TARGET.{NameOf(_D012.GYOMU_GROUP_ID)} = WK.{NameOf(_D012.GYOMU_GROUP_ID)})")
+            '---UPDATE
+            sbSQL.Append($" WHEN MATCHED THEN")
+            sbSQL.Append($" {_D012.ToUpdateSqlString("TARGET", "WK")}")
+            '---INSERT
+            sbSQL.Append($" WHEN NOT MATCHED THEN")
+            sbSQL.Append($" {_D012.ToInsertSqlString("WK")}")
+            sbSQL.Append(" OUTPUT $action As RESULT;")
+            strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+            Select Case strRET
+                Case "INSERT"
+
+                Case "UPDATE"
+
+                Case Else
+                    '-----エラーログ出力
+                    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                    WL.WriteLogDat(strErrMsg)
+                    Return False
+            End Select
+
+            Return True
+        Catch ex As Exception
+            Throw
+        End Try
+
+    End Function
+
 
 #End Region
 
@@ -1045,8 +1221,6 @@ Public Class FrmG0021_Detail
 
         WL.WriteLogDat($"[DEBUG]CTS 報告書NO:{_D009_FCCB_J.FCCB_NO}、INSERT R001")
 
-
-
         Return True
     End Function
 
@@ -1063,10 +1237,10 @@ Public Class FrmG0021_Detail
         Try
             frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB
             frmDLG.PrHOKOKU_NO = PrFCCB_NO
-            frmDLG.PrBUMON_KB = _D009.BUMON_KB
-            frmDLG.PrBUHIN_BANGO = _D009.BUHIN_BANGO
-            frmDLG.PrKISO_YMD = DateTime.ParseExact(_D009.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D009.KISYU_ID).FirstOrDefault?.Item("DISP")
+            frmDLG.PrBUMON_KB = _D009_FCCB_J.BUMON_KB
+            frmDLG.PrBUHIN_BANGO = _D009_FCCB_J.BUHIN_BANGO
+            frmDLG.PrKISO_YMD = DateTime.ParseExact(_D009_FCCB_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+            frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D009_FCCB_J.KISYU_ID).FirstOrDefault?.Item("DISP")
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
 
@@ -1099,9 +1273,9 @@ Public Class FrmG0021_Detail
         Try
             frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB
             frmDLG.PrHOKOKU_NO = PrFCCB_NO
-            frmDLG.PrBUHIN_BANGO = _D009.BUHIN_BANGO
-            frmDLG.PrKISO_YMD = DateTime.ParseExact(_D009.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D009.KISYU_ID).FirstOrDefault?.Item("DISP")
+            frmDLG.PrBUHIN_BANGO = _D009_FCCB_J.BUHIN_BANGO
+            frmDLG.PrKISO_YMD = DateTime.ParseExact(_D009_FCCB_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+            frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D009_FCCB_J.KISYU_ID).FirstOrDefault?.Item("DISP")
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
@@ -1267,9 +1441,8 @@ Public Class FrmG0021_Detail
                 cmdFunc10.Enabled = True
                 cmdFunc11.Enabled = True
 
-
                 'カレントステージが自身の担当でない場合は無効
-                Dim IsOwnCreated As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value, _D009.FCCB_NO, PrCurrentStage)
+                Dim IsOwnCreated As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, _D009_FCCB_J.FCCB_NO, PrCurrentStage)
                 If IsOwnCreated Then
                     cmdFunc1.Enabled = True
                     cmdFunc2.Enabled = True
@@ -1377,18 +1550,54 @@ Public Class FrmG0021_Detail
         'tabSTAGE01.AutoScrollControlIntoView = False
 
     End Sub
-    Private Sub CmbBUMON_Validated(sender As Object, e As EventArgs) Handles cmbBUMON.Validated
+
+#Region "部門"
+    Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
 
         If cmbBUMON.IsSelected Then
             Call SetTantoColumnDataList(cmbBUMON.SelectedValue)
 
-            Dim dt As DataTable
-            dt = GetKISO_TANTO(cmbBUMON.SelectedValue)
-            cmbKISO_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+            Dim dt As DataTable = FunGetSYOZOKU_SYAIN(cmbBUMON.SelectedValue)
+            Dim drs As IEnumerable(Of DataRow)
+            Dim InList As New List(Of Integer)
+
+            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._4_品証.Value, ENM_GYOMU_GROUP_ID._5_設計.Value, ENM_GYOMU_GROUP_ID._6_生技.Value, ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value})
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
+                                  GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
+
+            cmbKISO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+            drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._2_製造.Value)
+            If drs.Count > 0 Then cmbSYOCHI_SEIZO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
+            drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._3_検査.Value)
+            If drs.Count > 0 Then cmbSYOCHI_KENSA_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
+            drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._4_品証.Value)
+            If drs.Count > 0 Then cmbSYOCHI_HINSYO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
+            drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._5_設計.Value)
+            If drs.Count > 0 Then cmbSYOCHI_SEKKEI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
+            drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._6_生技.Value)
+            If drs.Count > 0 Then cmbSYOCHI_SEIGI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
+            drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._7_管理.Value)
+            If drs.Count > 0 Then cmbSYOCHI_KANRI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
+            drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._8_営業.Value)
+            If drs.Count > 0 Then cmbSYOCHI_EIGYO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
+            drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value)
+            If drs.Count > 0 Then cmbSYOCHI_GM_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
+
             dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, FunGetNextSYONIN_JUN(ENM_FCCB_STAGE._10_起草入力))
             cmbCM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
         End If
     End Sub
+#End Region
 
 #Region "機種"
 
@@ -1405,20 +1614,20 @@ Public Class FrmG0021_Detail
                     '部品番号
                     RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
                     If cmb.IsSelected Then
-                        Dim drs = tblBUHIN.LazyLoad("部品番号").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D009.KISYU_ID)) = cmb.SelectedValue).ToList
+                        Dim drs = tblBUHIN.LazyLoad("部品番号").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D009_FCCB_J.KISYU_ID)) = cmb.SelectedValue).ToList
                         If drs.Count > 0 Then
                             Dim _selectedValue As String = cmbBUHIN_BANGO.SelectedValue
 
                             cmbBUHIN_BANGO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                            If Not cmbBUHIN_BANGO.NullValue = _selectedValue Then _D009.BUHIN_BANGO = _selectedValue
+                            If Not cmbBUHIN_BANGO.NullValue = _selectedValue Then _D009_FCCB_J.BUHIN_BANGO = _selectedValue
                         Else
-                            drs = tblBUHIN.LazyLoad("部品番号").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D009.BUMON_KB)) = cmbBUMON.SelectedValue).ToList
+                            drs = tblBUHIN.LazyLoad("部品番号").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D009_FCCB_J.BUMON_KB)) = cmbBUMON.SelectedValue).ToList
                             If drs.Count > 0 Then
                                 cmbBUHIN_BANGO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                             End If
                         End If
                     Else
-                        Dim drs = tblBUHIN.LazyLoad("部品番号").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D009.BUMON_KB)) = cmbBUMON.SelectedValue).ToList
+                        Dim drs = tblBUHIN.LazyLoad("部品番号").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D009_FCCB_J.BUMON_KB)) = cmbBUMON.SelectedValue).ToList
                         If drs.Count > 0 Then
                             cmbBUHIN_BANGO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                         End If
@@ -1429,18 +1638,18 @@ Public Class FrmG0021_Detail
                     RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
                     If cmb.IsSelected Then
                         If Val(cmbBUMON.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                            Dim drs = tblSYANAI_CD.LazyLoad("社内CD").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D009.KISYU_ID)) = cmb.SelectedValue).ToList
+                            Dim drs = tblSYANAI_CD.LazyLoad("社内CD").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D009_FCCB_J.KISYU_ID)) = cmb.SelectedValue).ToList
                             If drs.Count > 0 Then
                                 Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue
                                 cmbSYANAI_CD.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                                If Val(_selectedValue) > 0 Then _D009.SYANAI_CD = _selectedValue
+                                If Val(_selectedValue) > 0 Then _D009_FCCB_J.SYANAI_CD = _selectedValue
                             End If
                         Else
                             'cmbSYANAI_CD.DataSource = Nothing
                         End If
                         '_D003_NCR_J.SYANAI_CD = ""
                     Else
-                        Dim drs = tblSYANAI_CD.LazyLoad("社内CD").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D009.BUMON_KB)) = cmbBUMON.SelectedValue).ToList
+                        Dim drs = tblSYANAI_CD.LazyLoad("社内CD").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D009_FCCB_J.BUMON_KB)) = cmbBUMON.SelectedValue).ToList
                         If drs.Count > 0 Then
                             cmbSYANAI_CD.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                         End If
@@ -1476,7 +1685,7 @@ Public Class FrmG0021_Detail
                         RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
 
                         If cmb.IsSelected Then
-                            Dim drs = tblBUHIN.LazyLoad("部品番号").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D009.SYANAI_CD)) = cmb.SelectedValue).ToList
+                            Dim drs = tblBUHIN.LazyLoad("部品番号").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D009_FCCB_J.SYANAI_CD)) = cmb.SelectedValue).ToList
                             If drs.Count > 0 Then
                                 cmbBUHIN_BANGO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                                 'If drs.Count = 1 Then
@@ -1499,22 +1708,21 @@ Public Class FrmG0021_Detail
                         If cmb.IsSelected Then
                             Dim dr = DirectCast(cmbSYANAI_CD.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmb.SelectedValue).FirstOrDefault
                             If dr IsNot Nothing Then
-                                _D009.BUHIN_BANGO = dr.Item(NameOf(D003_NCR_J.BUHIN_BANGO))
-                                If _D009.BUHIN_NAME.IsNulOrWS Then _D009.BUHIN_NAME = dr.Item(NameOf(D003_NCR_J.BUHIN_NAME))
-                                If dr.Item(NameOf(D003_NCR_J.KISYU_ID)) <> 0 Then _D009.KISYU_ID = dr.Item(NameOf(D003_NCR_J.KISYU_ID))
+                                _D009_FCCB_J.BUHIN_BANGO = dr.Item(NameOf(D003_NCR_J.BUHIN_BANGO))
+                                If _D009_FCCB_J.BUHIN_NAME.IsNulOrWS Then _D009_FCCB_J.BUHIN_NAME = dr.Item(NameOf(D003_NCR_J.BUHIN_NAME))
+                                If dr.Item(NameOf(D003_NCR_J.KISYU_ID)) <> 0 Then _D009_FCCB_J.KISYU_ID = dr.Item(NameOf(D003_NCR_J.KISYU_ID))
                             Else
-                                _D009.BUHIN_BANGO = " "
-                                _D009.BUHIN_NAME = " "
-                                _D009.KISYU_ID = 0
+                                _D009_FCCB_J.BUHIN_BANGO = " "
+                                _D009_FCCB_J.BUHIN_NAME = " "
+                                _D009_FCCB_J.KISYU_ID = 0
                             End If
                         Else
-                            _D009.BUHIN_BANGO = " "
-                            _D009.BUHIN_NAME = " "
-                            _D009.KISYU_ID = 0
+                            _D009_FCCB_J.BUHIN_BANGO = " "
+                            _D009_FCCB_J.BUHIN_NAME = " "
+                            _D009_FCCB_J.KISYU_ID = 0
                         End If
                         AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
                         AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-
 
                     End Sub)
                 End Sub)
@@ -1525,7 +1733,7 @@ Public Class FrmG0021_Detail
 
     Private Sub CmbSYANAI_CD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbSYANAI_CD.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        If _D009.BUMON_KB.ToVal = Context.ENM_BUMON_KB._2_LP Then
+        If _D009_FCCB_J.BUMON_KB.ToVal = Context.ENM_BUMON_KB._2_LP Then
             If IsCheckRequired Then
                 IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "社内コード"))
             End If
@@ -1551,7 +1759,7 @@ Public Class FrmG0021_Detail
                     If cmb.IsSelected Then
 
                         If Val(cmbBUMON.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                            Dim drs = tblSYANAI_CD.LazyLoad("社内CD").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D009.BUHIN_BANGO)) = cmb.SelectedValue).ToList
+                            Dim drs = tblSYANAI_CD.LazyLoad("社内CD").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D009_FCCB_J.BUHIN_BANGO)) = cmb.SelectedValue).ToList
                             If drs.Count > 0 Then
                                 Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue
                                 cmbSYANAI_CD.DisplayMember = "DISP"
@@ -1563,7 +1771,6 @@ Public Class FrmG0021_Detail
                             cmbSYANAI_CD.SelectedValue = ""
                             'cmbSYANAI_CD.DataSource = Nothing
                         End If
-
                     Else
                         cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.LazyLoad("社内CD").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                     End If
@@ -1573,17 +1780,15 @@ Public Class FrmG0021_Detail
                     If cmb.IsSelected Then
                         Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmb.SelectedValue).FirstOrDefault
                         If Val(cmbBUMON.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                            _D009.SYANAI_CD = dr.Item("SYANAI_CD")
+                            _D009_FCCB_J.SYANAI_CD = dr.Item("SYANAI_CD")
                             If dr.Item("BUHIN_NAME").ToString.IsNulOrWS = False Then cmbHINMEI.Text = dr.Item("BUHIN_NAME")
                         Else
                             cmbHINMEI.Text = dr?.Item("BUHIN_NAME")
                         End If
 
                         RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-                        If dr?.Item("KISYU_ID") <> 0 Then _D009.KISYU_ID = dr?.Item("KISYU_ID")
+                        If dr?.Item("KISYU_ID") <> 0 Then _D009_FCCB_J.KISYU_ID = dr?.Item("KISYU_ID")
                         AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-
-
                     Else
                         cmbSYANAI_CD.SelectedValue = ""
                         cmbHINMEI.Text = ""
@@ -1606,7 +1811,6 @@ Public Class FrmG0021_Detail
 #End Region
 
 #End Region
-
 
 #End Region
 
@@ -1651,7 +1855,6 @@ Public Class FrmG0021_Detail
             flxDATA_3.Cols(3).DataMap = BUSYOList
             flxDATA_5.Cols(2).DataMap = BUSYOList
 
-
             Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
                     mtxFCCB_NO.Text = "<新規>"
@@ -1664,6 +1867,7 @@ Public Class FrmG0021_Detail
                     End If
 
 #Region "InitDS"
+
                     Using DB As ClsDbUtility = DBOpen()
                         Dim sbSQL As New System.Text.StringBuilder
                         Dim dsList As DataSet
@@ -1680,7 +1884,6 @@ Public Class FrmG0021_Detail
                         sbSQL.Append($" ,'' AS {NameOf(D010.CLOSE_YMD)}")
                         sbSQL.Append($" FROM {NameOf(M017_FCCB_SUB_SYOCHI_KOMOKU)} ")
                         sbSQL.Append($" WHERE {NameOf(M017_FCCB_SUB_SYOCHI_KOMOKU.ITEM_NO)}<100 ")
-
 
                         dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
                         Dim Sec2 As New ModelInfo(Of D010)(srcDATA:=dsList.Tables(0))
@@ -1700,7 +1903,6 @@ Public Class FrmG0021_Detail
                         sbSQL.Append($" WHERE {NameOf(M017_FCCB_SUB_SYOCHI_KOMOKU.ITEM_NO)}>100 ")
 
                         dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-
 
                         Dim Sec3 As New ModelInfo(Of D010)(srcDATA:=dsList.Tables(0))
                         Flx3_DS.DataSource = Sec3.Data
@@ -1734,9 +1936,7 @@ Public Class FrmG0021_Detail
                         Flx4_DS.DataSource = Sec4.Data
                     End Using
 
-                    C1SplitterPanel4.Visible = False
-                    C1SplitterPanel4.Collapsible = False
-                    C1SplitterPanel4.Enabled = False
+
 #End Region
 
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
@@ -1744,16 +1944,134 @@ Public Class FrmG0021_Detail
                     _V003_SYONIN_J_KANRI_List = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, PrFCCB_NO)
                     _D009_FCCB_J = FunGetD009Model(PrFCCB_NO)
 
+                    mtxFCCB_NO.Text = PrFCCB_NO
+                    cmbBUMON.SelectedValue = _D009_FCCB_J.BUMON_KB
+                    Call CmbBUMON_SelectedValueChanged(cmbBUMON, Nothing)
+                    cmbKISYU.SelectedValue = _D009_FCCB_J.KISYU_ID
+                    Call CmbKISYU_SelectedValueChanged(cmbKISYU, Nothing)
+                    dtKISO.Value = DateTime.Parse(_D009_FCCB_J.ADD_YMDHNS).ToString("yyyy/MM/dd")
+                    cmbCM_TANTO.SelectedValue = _D009_FCCB_J.CM_TANTO
+                    cmbKISO_TANTO.SelectedValue = _D009_FCCB_J.ADD_SYAIN_ID
+                    cmbBUHIN_BANGO.SelectedValue = _D009_FCCB_J.BUHIN_BANGO
+                    Call CmbBUHIN_BANGO_SelectedValueChanged(cmbBUHIN_BANGO, Nothing)
+
+                    If _D009_FCCB_J.BUMON_KB = ENM_BUMON_KB._2_LP.Value Then
+                        cmbSYANAI_CD.SelectedValue = _D009_FCCB_J.SYANAI_CD
+                    End If
+
+                    cmbHINMEI.Text = _D009_FCCB_J.BUHIN_NAME
+                    mtxINPUT_DOC_NO.Text = _D009_FCCB_J.INPUT_DOC_NO
+                    mtxSNO_APPLY_PERIOD_KISO.Text = _D009_FCCB_J.SNO_APPLY_PERIOD_KISO
+                    mtxSNO_APPLY_PERIOD_HENKO_SINGI.Text = _D009_FCCB_J.SNO_APPLY_PERIOD_HENKO_SINGI
+                    txtINPUT_NAIYO.Text = _D009_FCCB_J.INPUT_NAIYO
+
                     Call SetTantoColumnDataList(_D009_FCCB_J.BUMON_KB)
 
-                    'データソース設定
                     Dim dt = FunGetSYONIN_SYOZOKU_SYAIN(_D009_FCCB_J.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, FunGetNextSYONIN_JUN(PrCurrentStage))
                     cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                    dt = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(_D009_FCCB_J.BUMON_KB)) = PrDataRow.Item("BUMON_KB")).CopyToDataTable
-                    If _D009_FCCB_J.BUMON_KB = "2" Then 'LP
-                        dt = dt.AsEnumerable.Where(Function(r) r.Item("DISP") = "LP").CopyToDataTable
-                    End If
+#Region "InitDS"
+
+                    Using DB As ClsDbUtility = DBOpen()
+                        Dim sbSQL As New System.Text.StringBuilder
+                        Dim dsList As DataSet
+
+                        sbSQL.Clear()
+                        sbSQL.Append($"SELECT")
+                        sbSQL.Append($" *")
+                        sbSQL.Append($" FROM {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU)} ")
+                        sbSQL.Append($" WHERE {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.ITEM_NO)}<100 ")
+                        sbSQL.Append($" AND {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.FCCB_NO)}='{_D009_FCCB_J.FCCB_NO}' ")
+                        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                        Dim Sec2 As New ModelInfo(Of D010)(srcDATA:=dsList.Tables(0))
+                        Flx2_DS.DataSource = Sec2.Data
+
+                        sbSQL.Clear()
+                        sbSQL.Append($"SELECT")
+                        sbSQL.Append($" *")
+                        sbSQL.Append($" FROM {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU)} ")
+                        sbSQL.Append($" WHERE {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.ITEM_NO)}>100 ")
+                        sbSQL.Append($" AND {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU.FCCB_NO)}='{_D009_FCCB_J.FCCB_NO}' ")
+                        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+
+                        Dim Sec3 As New ModelInfo(Of D010)(srcDATA:=dsList.Tables(0))
+                        Flx3_DS.DataSource = Sec3.Data
+
+                        sbSQL.Clear()
+                        sbSQL.Append($"SELECT")
+                        sbSQL.Append($" *")
+                        sbSQL.Append($" FROM {NameOf(D011_FCCB_SUB_SIKAKE_BUHIN)} ")
+                        sbSQL.Append($" WHERE {NameOf(D011_FCCB_SUB_SIKAKE_BUHIN.FCCB_NO)}='{_D009_FCCB_J.FCCB_NO}' ")
+                        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+
+                        Dim Sec4 As New ModelInfo(Of D011)(srcDATA:=dsList.Tables(0))
+                        Flx4_DS.DataSource = Sec4.Data
+
+#Region "処置確認担当者"
+                        sbSQL.Clear()
+                        sbSQL.Append($"SELECT")
+                        sbSQL.Append($" *")
+                        sbSQL.Append($" FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} ")
+                        sbSQL.Append($" WHERE {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN.FCCB_NO)}='{_D009_FCCB_J.FCCB_NO}' ")
+                        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+
+                        Dim Sec5 As New ModelInfo(Of D012)(srcDATA:=dsList.Tables(0))
+
+                        For Each dr As DataRow In Sec5.Data.Rows
+                            Dim cmb As New ComboboxEx
+                            Dim dte As New DateTextBoxEx
+
+                            Select Case dr.Item(NameOf(D012.GYOMU_GROUP_ID))
+                                Case ENM_GYOMU_GROUP_ID._2_製造.Value
+                                    cmb = cmbSYOCHI_SEIZO_TANTO
+                                    dte = dtSYOCHI_SEIZO_TANTO
+
+                                Case ENM_GYOMU_GROUP_ID._3_検査.Value
+                                    cmb = cmbSYOCHI_KENSA_TANTO
+                                    dte = dtSYOCHI_KENSA_TANTO
+
+                                Case ENM_GYOMU_GROUP_ID._4_品証.Value
+                                    cmb = cmbSYOCHI_HINSYO_TANTO
+                                    dte = dtSYOCHI_HINSYO_TANTO
+
+                                Case ENM_GYOMU_GROUP_ID._5_設計.Value
+                                    cmb = cmbSYOCHI_SEKKEI_TANTO
+                                    dte = dtSYOCHI_SEKKEI_TANTO
+
+                                Case ENM_GYOMU_GROUP_ID._6_生技.Value
+                                    cmb = cmbSYOCHI_SEIGI_TANTO
+                                    dte = dtSYOCHI_SEIGI_TANTO
+
+                                Case ENM_GYOMU_GROUP_ID._7_管理.Value
+                                    cmb = cmbSYOCHI_KANRI_TANTO
+                                    dte = dtSYOCHI_KANRI_TANTO
+
+                                Case ENM_GYOMU_GROUP_ID._8_営業.Value
+                                    cmb = cmbSYOCHI_EIGYO_TANTO
+                                    dte = dtSYOCHI_EIGYO_TANTO
+
+                                Case ENM_GYOMU_GROUP_ID._9_購買.Value
+                                    cmb = cmbSYOCHI_KOBAI_TANTO
+                                    dte = dtSYOCHI_KOBAI_TANTO
+
+                                Case ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value '統括責任者
+                                    cmb = cmbSYOCHI_GM_TANTO
+                                    dte = dtSYOCHI_GM_TANTO
+
+                            End Select
+
+                            cmb.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
+                            dte.Value = DateTime.Parse(dr.Item(NameOf(D012.ADD_YMDHNS))).ToString("yyyy/MM/dd")
+
+                        Next
+
+#End Region
+
+                    End Using
+
+
+#End Region
+
 
 
             End Select
@@ -1761,10 +2079,9 @@ Public Class FrmG0021_Detail
             '完了日表示
             Dim blnCloseColumnVisibled = (PrCurrentStage >= ENM_FCCB_STAGE._40_処置確認.Value)
 
-
             flxDATA_2.Cols(9).AllowEditing = blnCloseColumnVisibled
-            flxDATA_3.Cols(8).AllowEditing = blnCloseColumnVisibled
-            flxDATA_5.Cols(5).AllowEditing = blnCloseColumnVisibled
+            flxDATA_3.Cols(7).AllowEditing = blnCloseColumnVisibled
+            flxDATA_5.Cols(4).AllowEditing = blnCloseColumnVisibled
 
             If FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_FCCB_STAGE._999_Closed Then
                 '最終ステージの場合、申請先担当者欄は非表示
@@ -1774,6 +2091,11 @@ Public Class FrmG0021_Detail
                 cmdFunc2.Text = "承認(F2)"
             Else
                 cmdFunc2.Text = "承認・申請(F2)"
+
+
+                'C1SplitterPanel4.Collapsed = False
+                'C1SplitterPanel4.Collapsible = True
+                'C1SplitterPanel4.Enabled = False
             End If
 
             ErrorProvider.ClearError(cmbDestTANTO)
@@ -1804,8 +2126,8 @@ Public Class FrmG0021_Detail
                 End If
             Next
             flxDATA_2.Cols(6).DataMap = dtTANTO
-            flxDATA_3.Cols(4).DataMap = dtTANTO
-            flxDATA_5.Cols(3).DataMap = dtTANTO
+            flxDATA_3.Cols(5).DataMap = dtTANTO
+            flxDATA_5.Cols(4).DataMap = dtTANTO
 
             For Each GROUP_ID In grp
 
@@ -1847,23 +2169,12 @@ Public Class FrmG0021_Detail
         End Try
     End Sub
 
-    Private Function GetKISO_TANTO(BUMON_KB As String) As DataTable
 
-        Try
-            Dim dt As DataTable = FunGetSYOZOKU_SYAIN(BUMON_KB)
-            Dim drs As IEnumerable(Of DataRow)
-            Dim InList As New List(Of Integer)
 
-            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._4_品証.Value, ENM_GYOMU_GROUP_ID._5_設計.Value, ENM_GYOMU_GROUP_ID._6_生技.Value, ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value})
-            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
-                                  GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
-
-            Return dt
-        Catch ex As Exception
-            Throw
-        End Try
-    End Function
-
+    ''' <summary>
+    ''' 担当者のデータソース情報をラベルに表示
+    ''' </summary>
+    ''' <returns></returns>
     Private Function SetTANTO_TooltipInfo() As Boolean
 
         Call SetInfoLabelFormat(lblKISO_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}QMS管理責任者・設計・品証・生技")
@@ -1895,7 +2206,6 @@ Public Class FrmG0021_Detail
             IsValidated *= ErrorProvider.UpdateErrorInfo(cmbBUMON, cmbBUMON.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
             IsValidated *= ErrorProvider.UpdateErrorInfo(cmbKISO_TANTO, cmbKISO_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
             IsValidated *= ErrorProvider.UpdateErrorInfo(cmbCM_TANTO, cmbCM_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
-
 
             If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And PrCurrentStage = ENM_FCCB_STAGE._30_変更審議.Value Then
                 'UNDONE: ST2で選択された部署コンボのみ必須
@@ -1990,15 +2300,15 @@ Public Class FrmG0021_Detail
             Return intRET > 0
         End If
     End Function
+
     Private Sub ShowUnimplemented()
         MessageBox.Show("未実装", "未実装", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
 
+
+
+
 #End Region
-
-
-
-
 
 End Class

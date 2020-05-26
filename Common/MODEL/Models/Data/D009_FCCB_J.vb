@@ -173,4 +173,5 @@ Partial Public Class D009_FCCB_J
     <Required>
     Public Property DEL_SYAIN_ID As Integer
 
+
 End Class

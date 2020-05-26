@@ -757,7 +757,7 @@ Public Class FrmG0020_List
                     'If MessageBox.Show("選択されたデータを削除しますか?", "削除確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
                     If OpenFormEdit() Then
                         Dim dr As DataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
-                        If FunDEL(dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)), dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))) = True Then
+                        If FunDEL(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, dr.Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))) Then
                             Call FunSRCH(flxDATA, FunGetListData())
                         End If
                     End If
@@ -766,7 +766,7 @@ Public Class FrmG0020_List
                     If flxDATA.Rows(flxDATA.RowSel) IsNot Nothing Then
                         If MessageBox.Show("選択されたデータを復元しますか?", "復元確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
                             Dim dr As DataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
-                            If FunRESTORE(dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID)), dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))) = True Then
+                            If FunRESTORE(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, dr.Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))) Then
                                 Call FunSRCH(flxDATA, FunGetListData())
                             End If
                         End If
@@ -826,7 +826,7 @@ Public Class FrmG0020_List
 
             'SPEC: PF01.2-(1) A 検索条件
 
-            Dim dtBUFF As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(pub_intOPEN_MODE)
+            Dim dtBUFF = GetST04_FCCB_ICHIRAN()
             If dtBUFF Is Nothing Then Return Nothing
             If dtBUFF.Rows.Count > pub_APP_INFO.intSEARCHMAX Then
                 If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
@@ -834,7 +834,7 @@ Public Class FrmG0020_List
                 End If
             End If
 
-            Dim t = GetType(ST02_FUTEKIGO_ICHIRAN)
+            Dim t = GetType(ST04_FCCB_ICHIRAN)
             Dim tplDataModel = FunGetTableFromModel(t)
 
             If dtBUFF.Rows.Count = 0 Then Return tplDataModel.dt
@@ -844,11 +844,6 @@ Public Class FrmG0020_List
                     Dim Trow As DataRow = tplDataModel.dt.NewRow()
                     For Each p As Reflection.PropertyInfo In tplDataModel.properties
                         If IsAutoGenerateField(t, p.Name) = True Then
-
-                            If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 And row.Table.Columns.Contains(p.Name) = False Then
-                                '非表示列スキップ
-                                Continue For
-                            End If
 
                             Select Case p.PropertyType
                                 Case GetType(Integer)
@@ -1556,10 +1551,10 @@ Public Class FrmG0020_List
 
                 '削除ボタン
                 If HasDeleteAuth(pub_SYAIN_INFO.SYAIN_ID,
-                                     flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V007_NCR_CAR.SYONIN_HOKOKUSYO_ID)),
-                                     flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V007_NCR_CAR.HOKOKU_NO))) Then
+                                     flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.SYONIN_HOKOKUSYO_ID)),
+                                     flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))) Then
 
-                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D009_FCCB_J.CLOSE_FG)) = 1 Then
+                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.CLOSE_FG)) = 1 Then
                         cmdFunc5.Enabled = False
                         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "Close済のデータです")
                         cmdFunc6.Enabled = True
@@ -1572,7 +1567,7 @@ Public Class FrmG0020_List
                     End If
                 Else
 
-                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D009_FCCB_J.DEL_YMDHNS)).ToString.Trim <> "" Then
+                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.DEL_YMDHNS)).ToString.Trim <> "" Then
                         '削除済み
                         'cmdFunc4.Enabled = False
                         'MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "取消済みデータです")
@@ -1997,30 +1992,46 @@ Public Class FrmG0020_List
 
 #Region "ローカル関数"
 
-    Public Function FunGetDtST02_FUTEKIGO_ICHIRAN(Optional mode As Integer = ENM_OPEN_MODE._0_通常) As DataTable
+    Public Function GetST04_FCCB_ICHIRAN() As DataTable
 
         Dim sbSQL As New System.Text.StringBuilder
-        Dim sbParam As New System.Text.StringBuilder
         Dim dsList As New DataSet
 
-        'sbParam.Append($" '{ParamModel.BUMON_KB}'")
-        'sbParam.Append($",{ParamModel.SYONIN_HOKOKUSYO_ID}")
-        'sbParam.Append($",{Nz(cmbKISYU.SelectedValue, 0)}")
-        'If Not cmbBUHIN_BANGO.Text.IsNulOrWS And cmbBUHIN_BANGO.SelectedValue <> cmbBUHIN_BANGO.NullValue Then
-        '    sbParam.Append($",'{cmbBUHIN_BANGO.Text.Trim}'")
-        'Else
-        '    sbParam.Append($",'{ParamModel.BUHIN_BANGO}'")
-        'End If
-
-        'sbParam.Append($",'{ParamModel.SYANAI_CD}'")
-        'sbParam.Append($",'{ParamModel.BUHIN_NAME}'")
-        'sbParam.Append($",{Nz(cmbGEN_TANTO.SelectedValue, 0)}")
-        'sbParam.Append($",'{ParamModel.HOKOKU_NO}'")
-        'sbParam.Append($",{ParamModel.ADD_TANTO}")
-        'sbParam.Append($",'{IIf(chkClosedRowVisibled.Checked, "", 0)}'")
-        'sbParam.Append($",'{IIf(ParamModel._VISIBLE_TAIRYU = 1, ParamModel._VISIBLE_TAIRYU, "")}'")
-
-        sbSQL.Append($"EXEC dbo.{NameOf(ST04_FCCB_ICHIRAN)} {sbParam.ToString}")
+        sbSQL.Append($"SELECT * FROM {NameOf(V013_FCCB_ICHIRAN)}")
+        sbSQL.Append($" WHERE 1=1")
+        If Not mtxHOKUKO_NO.Text.IsNulOrWS Then
+            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.FCCB_NO)} LIKE '%{mtxHOKUKO_NO.Text.Trim}%'")
+        End If
+        If cmbBUMON.IsSelected Then
+            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.BUMON_KB)} ='{cmbBUMON.SelectedValue}'")
+        End If
+        If cmbADD_TANTO.IsSelected Then
+            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.KISO_TANTO_ID)} = {cmbADD_TANTO.SelectedValue}")
+        End If
+        If cmbKISYU.IsSelected Then
+            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.KISYU_ID)} = {cmbKISYU.SelectedValue}")
+        End If
+        If cmbBUHIN_BANGO.IsSelected Then
+            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.BUHIN_BANGO)} LIKE '%{cmbBUHIN_BANGO.SelectedValue}%'")
+        End If
+        If cmbGEN_TANTO.IsSelected Then
+            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.GEN_TANTO_ID)} = {cmbGEN_TANTO.SelectedValue}")
+        End If
+        If cmbSYANAI_CD.IsSelected Then
+            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.SYANAI_CD)} LIKE '%{cmbSYANAI_CD.SelectedValue}%'")
+        End If
+        If Not mtxHINMEI.Text.IsNulOrWS Then
+            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.BUHIN_NAME)} LIKE '%{mtxHINMEI.Text.Trim}%'")
+        End If
+        If Not chkTairyu.Checked Then
+            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.TAIRYU_FG)} = '0'")
+        End If
+        If Not chkClosedRowVisibled.Checked Then
+            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.CLOSE_FG)} = '0'")
+        End If
+        If Not chkDeleteRowVisibled.Checked Then
+            sbSQL.Append($" AND RTRIM({NameOf(V013_FCCB_ICHIRAN.DEL_YMDHNS)}) = ''")
+        End If
 
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)

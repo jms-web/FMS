@@ -176,7 +176,6 @@ Partial Class FrmG0021_Detail
         Me.cmdFunc4.Location = New System.Drawing.Point(373, 641)
         Me.cmdFunc4.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc4.Text = "転送(F4)"
-        Me.cmdFunc4.Visible = False
         '
         'cmdFunc5
         '
@@ -184,7 +183,6 @@ Partial Class FrmG0021_Detail
         Me.cmdFunc5.Location = New System.Drawing.Point(555, 641)
         Me.cmdFunc5.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc5.Text = "差戻し(F5)"
-        Me.cmdFunc5.Visible = False
         '
         'cmdFunc6
         '
@@ -255,7 +253,7 @@ Partial Class FrmG0021_Detail
         Me.cmbBUHIN_BANGO.Name = "cmbBUHIN_BANGO"
         Me.cmbBUHIN_BANGO.NullValue = " "
         Me.cmbBUHIN_BANGO.Size = New System.Drawing.Size(134, 25)
-        Me.cmbBUHIN_BANGO.TabIndex = 277
+        Me.cmbBUHIN_BANGO.TabIndex = 6
         Me.cmbBUHIN_BANGO.Text = "(選択)"
         Me.cmbBUHIN_BANGO.ValueMember = "VALUE"
         '
@@ -277,7 +275,7 @@ Partial Class FrmG0021_Detail
         Me.cmbKISYU.Name = "cmbKISYU"
         Me.cmbKISYU.NullValue = " "
         Me.cmbKISYU.Size = New System.Drawing.Size(134, 25)
-        Me.cmbKISYU.TabIndex = 276
+        Me.cmbKISYU.TabIndex = 3
         Me.cmbKISYU.Text = "(選択)"
         Me.cmbKISYU.ValueMember = "VALUE"
         '
@@ -306,7 +304,7 @@ Partial Class FrmG0021_Detail
         Me.mtxFCCB_NO.ReadOnly = True
         Me.mtxFCCB_NO.SelectAllText = False
         Me.mtxFCCB_NO.Size = New System.Drawing.Size(94, 24)
-        Me.mtxFCCB_NO.TabIndex = 266
+        Me.mtxFCCB_NO.TabIndex = 0
         Me.mtxFCCB_NO.TabStop = False
         Me.mtxFCCB_NO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.mtxFCCB_NO.WatermarkColor = System.Drawing.Color.Empty
@@ -352,7 +350,7 @@ Partial Class FrmG0021_Detail
         Me.cmbBUMON.Name = "cmbBUMON"
         Me.cmbBUMON.NullValue = " "
         Me.cmbBUMON.Size = New System.Drawing.Size(94, 25)
-        Me.cmbBUMON.TabIndex = 275
+        Me.cmbBUMON.TabIndex = 1
         Me.cmbBUMON.Text = "(選択)"
         Me.cmbBUMON.ValueMember = "VALUE"
         '
@@ -397,7 +395,7 @@ Partial Class FrmG0021_Detail
         Me.cmbHINMEI.Name = "cmbHINMEI"
         Me.cmbHINMEI.NullValue = " "
         Me.cmbHINMEI.Size = New System.Drawing.Size(374, 25)
-        Me.cmbHINMEI.TabIndex = 279
+        Me.cmbHINMEI.TabIndex = 8
         Me.cmbHINMEI.Text = "(選択)"
         Me.cmbHINMEI.ValueMember = "VALUE"
         '
@@ -425,13 +423,13 @@ Partial Class FrmG0021_Detail
         Me.cmbKISO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKISO_TANTO.FormattingEnabled = True
         Me.cmbKISO_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbKISO_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbKISO_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKISO_TANTO.IsSelected = False
         Me.cmbKISO_TANTO.Location = New System.Drawing.Point(543, 3)
         Me.cmbKISO_TANTO.Name = "cmbKISO_TANTO"
         Me.cmbKISO_TANTO.NullValue = " "
         Me.cmbKISO_TANTO.Size = New System.Drawing.Size(134, 25)
-        Me.cmbKISO_TANTO.TabIndex = 273
+        Me.cmbKISO_TANTO.TabIndex = 2
         Me.cmbKISO_TANTO.Text = "(選択)"
         Me.cmbKISO_TANTO.ValueMember = "VALUE"
         '
@@ -459,13 +457,13 @@ Partial Class FrmG0021_Detail
         Me.cmbCM_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbCM_TANTO.FormattingEnabled = True
         Me.cmbCM_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbCM_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbCM_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbCM_TANTO.IsSelected = False
         Me.cmbCM_TANTO.Location = New System.Drawing.Point(543, 33)
         Me.cmbCM_TANTO.Name = "cmbCM_TANTO"
         Me.cmbCM_TANTO.NullValue = " "
         Me.cmbCM_TANTO.Size = New System.Drawing.Size(134, 25)
-        Me.cmbCM_TANTO.TabIndex = 272
+        Me.cmbCM_TANTO.TabIndex = 5
         Me.cmbCM_TANTO.Text = "(選択)"
         Me.cmbCM_TANTO.ValueMember = "VALUE"
         '
@@ -499,7 +497,7 @@ Partial Class FrmG0021_Detail
         Me.cmbSYANAI_CD.Name = "cmbSYANAI_CD"
         Me.cmbSYANAI_CD.NullValue = " "
         Me.cmbSYANAI_CD.Size = New System.Drawing.Size(134, 25)
-        Me.cmbSYANAI_CD.TabIndex = 278
+        Me.cmbSYANAI_CD.TabIndex = 7
         Me.cmbSYANAI_CD.Text = "(選択)"
         Me.cmbSYANAI_CD.ValueMember = "VALUE"
         Me.cmbSYANAI_CD.Visible = False
@@ -526,7 +524,7 @@ Partial Class FrmG0021_Detail
         Me.dtKISO.Name = "dtKISO"
         Me.dtKISO.ReadOnly = False
         Me.dtKISO.Size = New System.Drawing.Size(98, 24)
-        Me.dtKISO.TabIndex = 274
+        Me.dtKISO.TabIndex = 4
         Me.dtKISO.Value = ""
         Me.dtKISO.ValueNonFormat = ""
         '
@@ -561,7 +559,9 @@ Partial Class FrmG0021_Detail
         '
         'txtINPUT_NAIYO
         '
+        Me.txtINPUT_NAIYO.AcceptsReturn = True
         Me.tlpFilter.SetColumnSpan(Me.txtINPUT_NAIYO, 22)
+        Me.txtINPUT_NAIYO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.txtINPUT_NAIYO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtINPUT_NAIYO.InputRequired = False
         Me.txtINPUT_NAIYO.Location = New System.Drawing.Point(783, 3)
@@ -574,7 +574,7 @@ Partial Class FrmG0021_Detail
         Me.txtINPUT_NAIYO.SelectAllText = False
         Me.txtINPUT_NAIYO.ShowRemainingChars = True
         Me.txtINPUT_NAIYO.Size = New System.Drawing.Size(434, 144)
-        Me.txtINPUT_NAIYO.TabIndex = 216
+        Me.txtINPUT_NAIYO.TabIndex = 11
         Me.txtINPUT_NAIYO.WatermarkColor = System.Drawing.Color.Empty
         Me.txtINPUT_NAIYO.WatermarkText = Nothing
         '
@@ -599,7 +599,7 @@ Partial Class FrmG0021_Detail
         Me.PanelEx2.Location = New System.Drawing.Point(12, 96)
         Me.PanelEx2.Name = "PanelEx2"
         Me.PanelEx2.Size = New System.Drawing.Size(1240, 161)
-        Me.PanelEx2.TabIndex = 256
+        Me.PanelEx2.TabIndex = 0
         '
         'tlpFilter
         '
@@ -719,7 +719,6 @@ Partial Class FrmG0021_Detail
         '
         'mtxINPUT_DOC_NO
         '
-        Me.mtxINPUT_DOC_NO.BackColor = System.Drawing.Color.White
         Me.tlpFilter.SetColumnSpan(Me.mtxINPUT_DOC_NO, 11)
         Me.mtxINPUT_DOC_NO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxINPUT_DOC_NO.ImeMode = System.Windows.Forms.ImeMode.[On]
@@ -729,13 +728,12 @@ Partial Class FrmG0021_Detail
         Me.mtxINPUT_DOC_NO.Name = "mtxINPUT_DOC_NO"
         Me.mtxINPUT_DOC_NO.SelectAllText = False
         Me.mtxINPUT_DOC_NO.Size = New System.Drawing.Size(214, 24)
-        Me.mtxINPUT_DOC_NO.TabIndex = 266
+        Me.mtxINPUT_DOC_NO.TabIndex = 9
         Me.mtxINPUT_DOC_NO.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxINPUT_DOC_NO.WatermarkText = Nothing
         '
         'mtxSNO_APPLY_PERIOD_KISO
         '
-        Me.mtxSNO_APPLY_PERIOD_KISO.BackColor = System.Drawing.Color.White
         Me.tlpFilter.SetColumnSpan(Me.mtxSNO_APPLY_PERIOD_KISO, 11)
         Me.mtxSNO_APPLY_PERIOD_KISO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxSNO_APPLY_PERIOD_KISO.ImeMode = System.Windows.Forms.ImeMode.[On]
@@ -745,7 +743,7 @@ Partial Class FrmG0021_Detail
         Me.mtxSNO_APPLY_PERIOD_KISO.Name = "mtxSNO_APPLY_PERIOD_KISO"
         Me.mtxSNO_APPLY_PERIOD_KISO.SelectAllText = False
         Me.mtxSNO_APPLY_PERIOD_KISO.Size = New System.Drawing.Size(214, 24)
-        Me.mtxSNO_APPLY_PERIOD_KISO.TabIndex = 266
+        Me.mtxSNO_APPLY_PERIOD_KISO.TabIndex = 10
         Me.mtxSNO_APPLY_PERIOD_KISO.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxSNO_APPLY_PERIOD_KISO.WatermarkText = Nothing
         '
@@ -1015,7 +1013,7 @@ Partial Class FrmG0021_Detail
         Me.C1SplitContainer.Panels.Add(Me.C1SplitterPanel3)
         Me.C1SplitContainer.Panels.Add(Me.C1SplitterPanel4)
         Me.C1SplitContainer.Panels.Add(Me.C1SplitterPanel5)
-        Me.C1SplitContainer.Size = New System.Drawing.Size(1209, 1100)
+        Me.C1SplitContainer.Size = New System.Drawing.Size(1209, 1300)
         Me.C1SplitContainer.TabIndex = 327
         '
         'C1SplitterPanel1
@@ -1023,13 +1021,12 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel1.AutoScroll = True
         Me.C1SplitterPanel1.Collapsible = True
         Me.C1SplitterPanel1.Controls.Add(Me.flxDATA_2)
-        Me.C1SplitterPanel1.Height = 520
-        Me.C1SplitterPanel1.KeepRelativeSize = False
+        Me.C1SplitterPanel1.Height = 647
         Me.C1SplitterPanel1.Location = New System.Drawing.Point(1, 22)
+        Me.C1SplitterPanel1.MinHeight = 650
         Me.C1SplitterPanel1.Name = "C1SplitterPanel1"
         Me.C1SplitterPanel1.ResizeWhileDragging = True
-        Me.C1SplitterPanel1.Size = New System.Drawing.Size(1207, 488)
-        Me.C1SplitterPanel1.SizeRatio = 48.0R
+        Me.C1SplitterPanel1.Size = New System.Drawing.Size(1207, 615)
         Me.C1SplitterPanel1.TabIndex = 0
         Me.C1SplitterPanel1.Text = "②要処置事項調査"
         '
@@ -1049,7 +1046,8 @@ Partial Class FrmG0021_Detail
         Me.flxDATA_2.Name = "flxDATA_2"
         Me.flxDATA_2.Rows.Count = 1
         Me.flxDATA_2.Rows.DefaultSize = 18
-        Me.flxDATA_2.Size = New System.Drawing.Size(1207, 488)
+        Me.flxDATA_2.ShowCursor = True
+        Me.flxDATA_2.Size = New System.Drawing.Size(1207, 615)
         Me.flxDATA_2.StyleInfo = resources.GetString("flxDATA_2.StyleInfo")
         Me.flxDATA_2.TabIndex = 329
         Me.flxDATA_2.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
@@ -1063,13 +1061,14 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel2.AutoScroll = True
         Me.C1SplitterPanel2.Collapsible = True
         Me.C1SplitterPanel2.Controls.Add(Me.flxDATA_3)
-        Me.C1SplitterPanel2.Height = 123
+        Me.C1SplitterPanel2.Height = 120
         Me.C1SplitterPanel2.KeepRelativeSize = False
-        Me.C1SplitterPanel2.Location = New System.Drawing.Point(1, 546)
+        Me.C1SplitterPanel2.Location = New System.Drawing.Point(1, 673)
+        Me.C1SplitterPanel2.MinHeight = 120
         Me.C1SplitterPanel2.Name = "C1SplitterPanel2"
         Me.C1SplitterPanel2.ResizeWhileDragging = True
-        Me.C1SplitterPanel2.Size = New System.Drawing.Size(1207, 91)
-        Me.C1SplitterPanel2.SizeRatio = 20.0R
+        Me.C1SplitterPanel2.Size = New System.Drawing.Size(1207, 88)
+        Me.C1SplitterPanel2.SizeRatio = 19.672R
         Me.C1SplitterPanel2.TabIndex = 1
         Me.C1SplitterPanel2.Text = "③検証"
         '
@@ -1088,7 +1087,7 @@ Partial Class FrmG0021_Detail
         Me.flxDATA_3.Name = "flxDATA_3"
         Me.flxDATA_3.Rows.Count = 1
         Me.flxDATA_3.Rows.DefaultSize = 18
-        Me.flxDATA_3.Size = New System.Drawing.Size(1207, 91)
+        Me.flxDATA_3.Size = New System.Drawing.Size(1207, 88)
         Me.flxDATA_3.StyleInfo = resources.GetString("flxDATA_3.StyleInfo")
         Me.flxDATA_3.TabIndex = 1
         Me.flxDATA_3.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
@@ -1102,13 +1101,13 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel3.AutoScroll = True
         Me.C1SplitterPanel3.Collapsible = True
         Me.C1SplitterPanel3.Controls.Add(Me.flxDATA_4)
-        Me.C1SplitterPanel3.Height = 137
-        Me.C1SplitterPanel3.KeepRelativeSize = False
-        Me.C1SplitterPanel3.Location = New System.Drawing.Point(1, 673)
+        Me.C1SplitterPanel3.Height = 164
+        Me.C1SplitterPanel3.Location = New System.Drawing.Point(1, 797)
+        Me.C1SplitterPanel3.MinHeight = 170
         Me.C1SplitterPanel3.Name = "C1SplitterPanel3"
         Me.C1SplitterPanel3.ResizeWhileDragging = True
-        Me.C1SplitterPanel3.Size = New System.Drawing.Size(1207, 105)
-        Me.C1SplitterPanel3.SizeRatio = 33.025R
+        Me.C1SplitterPanel3.Size = New System.Drawing.Size(1207, 132)
+        Me.C1SplitterPanel3.SizeRatio = 31.634R
         Me.C1SplitterPanel3.TabIndex = 2
         Me.C1SplitterPanel3.Text = "④仕掛品状況"
         '
@@ -1127,7 +1126,7 @@ Partial Class FrmG0021_Detail
         Me.flxDATA_4.Name = "flxDATA_4"
         Me.flxDATA_4.Rows.Count = 1
         Me.flxDATA_4.Rows.DefaultSize = 18
-        Me.flxDATA_4.Size = New System.Drawing.Size(1207, 105)
+        Me.flxDATA_4.Size = New System.Drawing.Size(1207, 132)
         Me.flxDATA_4.StyleInfo = resources.GetString("flxDATA_4.StyleInfo")
         Me.flxDATA_4.TabIndex = 1
         Me.flxDATA_4.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
@@ -1142,14 +1141,14 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel4.Collapsible = True
         Me.C1SplitterPanel4.Controls.Add(Me.TableLayoutPanel1)
         Me.C1SplitterPanel4.Controls.Add(Me.PanelEx1)
-        Me.C1SplitterPanel4.Height = 282
-        Me.C1SplitterPanel4.KeepRelativeSize = False
-        Me.C1SplitterPanel4.Location = New System.Drawing.Point(1, 814)
+        Me.C1SplitterPanel4.Height = 341
+        Me.C1SplitterPanel4.Location = New System.Drawing.Point(1, 965)
+        Me.C1SplitterPanel4.MinHeight = 340
         Me.C1SplitterPanel4.MinWidth = 100
         Me.C1SplitterPanel4.Name = "C1SplitterPanel4"
         Me.C1SplitterPanel4.ResizeWhileDragging = True
-        Me.C1SplitterPanel4.Size = New System.Drawing.Size(1207, 250)
-        Me.C1SplitterPanel4.SizeRatio = 68.217R
+        Me.C1SplitterPanel4.Size = New System.Drawing.Size(1207, 309)
+        Me.C1SplitterPanel4.SizeRatio = 98.701R
         Me.C1SplitterPanel4.TabIndex = 3
         Me.C1SplitterPanel4.Text = "⑤変更審議"
         '
@@ -1207,7 +1206,7 @@ Partial Class FrmG0021_Detail
         Me.TableLayoutPanel1.Controls.Add(Me.dtKAKUNIN_GM_TANTO, 11, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.dtKAKUNIN_CM_TANTO, 12, 3)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 149)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 208)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 4
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
@@ -1229,13 +1228,13 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_GM_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_GM_TANTO.FormattingEnabled = True
         Me.cmbSYOCHI_GM_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbSYOCHI_GM_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_GM_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbSYOCHI_GM_TANTO.IsSelected = False
         Me.cmbSYOCHI_GM_TANTO.Location = New System.Drawing.Point(3, 43)
         Me.cmbSYOCHI_GM_TANTO.Name = "cmbSYOCHI_GM_TANTO"
         Me.cmbSYOCHI_GM_TANTO.NullValue = " "
         Me.cmbSYOCHI_GM_TANTO.Size = New System.Drawing.Size(100, 25)
-        Me.cmbSYOCHI_GM_TANTO.TabIndex = 296
+        Me.cmbSYOCHI_GM_TANTO.TabIndex = 1
         Me.cmbSYOCHI_GM_TANTO.Text = "(選択)"
         Me.cmbSYOCHI_GM_TANTO.ValueMember = "VALUE"
         '
@@ -1273,7 +1272,7 @@ Partial Class FrmG0021_Detail
         Me.Label2.Location = New System.Drawing.Point(3, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(948, 20)
-        Me.Label2.TabIndex = 281
+        Me.Label2.TabIndex = 0
         Me.Label2.Text = "処置内容の確認、変更の適用時期等の確認、仕掛品等の処置確認"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -1421,13 +1420,13 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_SEKKEI_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_SEKKEI_TANTO.FormattingEnabled = True
         Me.cmbSYOCHI_SEKKEI_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbSYOCHI_SEKKEI_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_SEKKEI_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbSYOCHI_SEKKEI_TANTO.IsSelected = False
         Me.cmbSYOCHI_SEKKEI_TANTO.Location = New System.Drawing.Point(109, 43)
         Me.cmbSYOCHI_SEKKEI_TANTO.Name = "cmbSYOCHI_SEKKEI_TANTO"
         Me.cmbSYOCHI_SEKKEI_TANTO.NullValue = " "
         Me.cmbSYOCHI_SEKKEI_TANTO.Size = New System.Drawing.Size(100, 25)
-        Me.cmbSYOCHI_SEKKEI_TANTO.TabIndex = 297
+        Me.cmbSYOCHI_SEKKEI_TANTO.TabIndex = 3
         Me.cmbSYOCHI_SEKKEI_TANTO.Text = "(選択)"
         Me.cmbSYOCHI_SEKKEI_TANTO.ValueMember = "VALUE"
         '
@@ -1443,13 +1442,13 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_SEIGI_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_SEIGI_TANTO.FormattingEnabled = True
         Me.cmbSYOCHI_SEIGI_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbSYOCHI_SEIGI_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_SEIGI_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbSYOCHI_SEIGI_TANTO.IsSelected = False
         Me.cmbSYOCHI_SEIGI_TANTO.Location = New System.Drawing.Point(215, 43)
         Me.cmbSYOCHI_SEIGI_TANTO.Name = "cmbSYOCHI_SEIGI_TANTO"
         Me.cmbSYOCHI_SEIGI_TANTO.NullValue = " "
         Me.cmbSYOCHI_SEIGI_TANTO.Size = New System.Drawing.Size(100, 25)
-        Me.cmbSYOCHI_SEIGI_TANTO.TabIndex = 299
+        Me.cmbSYOCHI_SEIGI_TANTO.TabIndex = 5
         Me.cmbSYOCHI_SEIGI_TANTO.Text = "(選択)"
         Me.cmbSYOCHI_SEIGI_TANTO.ValueMember = "VALUE"
         '
@@ -1465,13 +1464,13 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_EIGYO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_EIGYO_TANTO.FormattingEnabled = True
         Me.cmbSYOCHI_EIGYO_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbSYOCHI_EIGYO_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_EIGYO_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbSYOCHI_EIGYO_TANTO.IsSelected = False
         Me.cmbSYOCHI_EIGYO_TANTO.Location = New System.Drawing.Point(321, 43)
         Me.cmbSYOCHI_EIGYO_TANTO.Name = "cmbSYOCHI_EIGYO_TANTO"
         Me.cmbSYOCHI_EIGYO_TANTO.NullValue = " "
         Me.cmbSYOCHI_EIGYO_TANTO.Size = New System.Drawing.Size(100, 25)
-        Me.cmbSYOCHI_EIGYO_TANTO.TabIndex = 298
+        Me.cmbSYOCHI_EIGYO_TANTO.TabIndex = 7
         Me.cmbSYOCHI_EIGYO_TANTO.Text = "(選択)"
         Me.cmbSYOCHI_EIGYO_TANTO.ValueMember = "VALUE"
         '
@@ -1487,13 +1486,13 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_KANRI_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_KANRI_TANTO.FormattingEnabled = True
         Me.cmbSYOCHI_KANRI_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbSYOCHI_KANRI_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_KANRI_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbSYOCHI_KANRI_TANTO.IsSelected = False
         Me.cmbSYOCHI_KANRI_TANTO.Location = New System.Drawing.Point(427, 43)
         Me.cmbSYOCHI_KANRI_TANTO.Name = "cmbSYOCHI_KANRI_TANTO"
         Me.cmbSYOCHI_KANRI_TANTO.NullValue = " "
         Me.cmbSYOCHI_KANRI_TANTO.Size = New System.Drawing.Size(100, 25)
-        Me.cmbSYOCHI_KANRI_TANTO.TabIndex = 300
+        Me.cmbSYOCHI_KANRI_TANTO.TabIndex = 9
         Me.cmbSYOCHI_KANRI_TANTO.Text = "(選択)"
         Me.cmbSYOCHI_KANRI_TANTO.ValueMember = "VALUE"
         '
@@ -1508,7 +1507,7 @@ Partial Class FrmG0021_Detail
         Me.dtSYOCHI_GM_TANTO.Name = "dtSYOCHI_GM_TANTO"
         Me.dtSYOCHI_GM_TANTO.ReadOnly = False
         Me.dtSYOCHI_GM_TANTO.Size = New System.Drawing.Size(100, 24)
-        Me.dtSYOCHI_GM_TANTO.TabIndex = 274
+        Me.dtSYOCHI_GM_TANTO.TabIndex = 2
         Me.dtSYOCHI_GM_TANTO.Value = ""
         Me.dtSYOCHI_GM_TANTO.ValueNonFormat = ""
         '
@@ -1524,13 +1523,13 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_SEIZO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_SEIZO_TANTO.FormattingEnabled = True
         Me.cmbSYOCHI_SEIZO_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbSYOCHI_SEIZO_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_SEIZO_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbSYOCHI_SEIZO_TANTO.IsSelected = False
         Me.cmbSYOCHI_SEIZO_TANTO.Location = New System.Drawing.Point(533, 43)
         Me.cmbSYOCHI_SEIZO_TANTO.Name = "cmbSYOCHI_SEIZO_TANTO"
         Me.cmbSYOCHI_SEIZO_TANTO.NullValue = " "
         Me.cmbSYOCHI_SEIZO_TANTO.Size = New System.Drawing.Size(100, 25)
-        Me.cmbSYOCHI_SEIZO_TANTO.TabIndex = 301
+        Me.cmbSYOCHI_SEIZO_TANTO.TabIndex = 11
         Me.cmbSYOCHI_SEIZO_TANTO.Text = "(選択)"
         Me.cmbSYOCHI_SEIZO_TANTO.ValueMember = "VALUE"
         '
@@ -1546,13 +1545,13 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_HINSYO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_HINSYO_TANTO.FormattingEnabled = True
         Me.cmbSYOCHI_HINSYO_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbSYOCHI_HINSYO_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_HINSYO_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbSYOCHI_HINSYO_TANTO.IsSelected = False
         Me.cmbSYOCHI_HINSYO_TANTO.Location = New System.Drawing.Point(639, 43)
         Me.cmbSYOCHI_HINSYO_TANTO.Name = "cmbSYOCHI_HINSYO_TANTO"
         Me.cmbSYOCHI_HINSYO_TANTO.NullValue = " "
         Me.cmbSYOCHI_HINSYO_TANTO.Size = New System.Drawing.Size(100, 25)
-        Me.cmbSYOCHI_HINSYO_TANTO.TabIndex = 301
+        Me.cmbSYOCHI_HINSYO_TANTO.TabIndex = 13
         Me.cmbSYOCHI_HINSYO_TANTO.Text = "(選択)"
         Me.cmbSYOCHI_HINSYO_TANTO.ValueMember = "VALUE"
         '
@@ -1568,13 +1567,13 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_KENSA_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_KENSA_TANTO.FormattingEnabled = True
         Me.cmbSYOCHI_KENSA_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbSYOCHI_KENSA_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_KENSA_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbSYOCHI_KENSA_TANTO.IsSelected = False
         Me.cmbSYOCHI_KENSA_TANTO.Location = New System.Drawing.Point(745, 43)
         Me.cmbSYOCHI_KENSA_TANTO.Name = "cmbSYOCHI_KENSA_TANTO"
         Me.cmbSYOCHI_KENSA_TANTO.NullValue = " "
         Me.cmbSYOCHI_KENSA_TANTO.Size = New System.Drawing.Size(100, 25)
-        Me.cmbSYOCHI_KENSA_TANTO.TabIndex = 301
+        Me.cmbSYOCHI_KENSA_TANTO.TabIndex = 15
         Me.cmbSYOCHI_KENSA_TANTO.Text = "(選択)"
         Me.cmbSYOCHI_KENSA_TANTO.ValueMember = "VALUE"
         '
@@ -1590,13 +1589,13 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_KOBAI_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_KOBAI_TANTO.FormattingEnabled = True
         Me.cmbSYOCHI_KOBAI_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbSYOCHI_KOBAI_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYOCHI_KOBAI_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbSYOCHI_KOBAI_TANTO.IsSelected = False
         Me.cmbSYOCHI_KOBAI_TANTO.Location = New System.Drawing.Point(851, 43)
         Me.cmbSYOCHI_KOBAI_TANTO.Name = "cmbSYOCHI_KOBAI_TANTO"
         Me.cmbSYOCHI_KOBAI_TANTO.NullValue = " "
         Me.cmbSYOCHI_KOBAI_TANTO.Size = New System.Drawing.Size(100, 25)
-        Me.cmbSYOCHI_KOBAI_TANTO.TabIndex = 301
+        Me.cmbSYOCHI_KOBAI_TANTO.TabIndex = 17
         Me.cmbSYOCHI_KOBAI_TANTO.Text = "(選択)"
         Me.cmbSYOCHI_KOBAI_TANTO.ValueMember = "VALUE"
         '
@@ -1612,13 +1611,13 @@ Partial Class FrmG0021_Detail
         Me.cmbKAKUNIN_GM_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKAKUNIN_GM_TANTO.FormattingEnabled = True
         Me.cmbKAKUNIN_GM_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbKAKUNIN_GM_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbKAKUNIN_GM_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKAKUNIN_GM_TANTO.IsSelected = False
         Me.cmbKAKUNIN_GM_TANTO.Location = New System.Drawing.Point(993, 43)
         Me.cmbKAKUNIN_GM_TANTO.Name = "cmbKAKUNIN_GM_TANTO"
         Me.cmbKAKUNIN_GM_TANTO.NullValue = " "
         Me.cmbKAKUNIN_GM_TANTO.Size = New System.Drawing.Size(100, 25)
-        Me.cmbKAKUNIN_GM_TANTO.TabIndex = 301
+        Me.cmbKAKUNIN_GM_TANTO.TabIndex = 19
         Me.cmbKAKUNIN_GM_TANTO.Text = "(選択)"
         Me.cmbKAKUNIN_GM_TANTO.ValueMember = "VALUE"
         '
@@ -1634,13 +1633,13 @@ Partial Class FrmG0021_Detail
         Me.cmbKAKUNIN_CM_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKAKUNIN_CM_TANTO.FormattingEnabled = True
         Me.cmbKAKUNIN_CM_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbKAKUNIN_CM_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbKAKUNIN_CM_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKAKUNIN_CM_TANTO.IsSelected = False
         Me.cmbKAKUNIN_CM_TANTO.Location = New System.Drawing.Point(1099, 43)
         Me.cmbKAKUNIN_CM_TANTO.Name = "cmbKAKUNIN_CM_TANTO"
         Me.cmbKAKUNIN_CM_TANTO.NullValue = " "
         Me.cmbKAKUNIN_CM_TANTO.Size = New System.Drawing.Size(100, 25)
-        Me.cmbKAKUNIN_CM_TANTO.TabIndex = 301
+        Me.cmbKAKUNIN_CM_TANTO.TabIndex = 21
         Me.cmbKAKUNIN_CM_TANTO.Text = "(選択)"
         Me.cmbKAKUNIN_CM_TANTO.ValueMember = "VALUE"
         '
@@ -1655,7 +1654,7 @@ Partial Class FrmG0021_Detail
         Me.dtSYOCHI_SEKKEI_TANTO.Name = "dtSYOCHI_SEKKEI_TANTO"
         Me.dtSYOCHI_SEKKEI_TANTO.ReadOnly = False
         Me.dtSYOCHI_SEKKEI_TANTO.Size = New System.Drawing.Size(100, 24)
-        Me.dtSYOCHI_SEKKEI_TANTO.TabIndex = 274
+        Me.dtSYOCHI_SEKKEI_TANTO.TabIndex = 4
         Me.dtSYOCHI_SEKKEI_TANTO.Value = ""
         Me.dtSYOCHI_SEKKEI_TANTO.ValueNonFormat = ""
         '
@@ -1670,7 +1669,7 @@ Partial Class FrmG0021_Detail
         Me.dtSYOCHI_SEIGI_TANTO.Name = "dtSYOCHI_SEIGI_TANTO"
         Me.dtSYOCHI_SEIGI_TANTO.ReadOnly = False
         Me.dtSYOCHI_SEIGI_TANTO.Size = New System.Drawing.Size(100, 24)
-        Me.dtSYOCHI_SEIGI_TANTO.TabIndex = 274
+        Me.dtSYOCHI_SEIGI_TANTO.TabIndex = 6
         Me.dtSYOCHI_SEIGI_TANTO.Value = ""
         Me.dtSYOCHI_SEIGI_TANTO.ValueNonFormat = ""
         '
@@ -1685,7 +1684,7 @@ Partial Class FrmG0021_Detail
         Me.dtSYOCHI_EIGYO_TANTO.Name = "dtSYOCHI_EIGYO_TANTO"
         Me.dtSYOCHI_EIGYO_TANTO.ReadOnly = False
         Me.dtSYOCHI_EIGYO_TANTO.Size = New System.Drawing.Size(100, 24)
-        Me.dtSYOCHI_EIGYO_TANTO.TabIndex = 274
+        Me.dtSYOCHI_EIGYO_TANTO.TabIndex = 8
         Me.dtSYOCHI_EIGYO_TANTO.Value = ""
         Me.dtSYOCHI_EIGYO_TANTO.ValueNonFormat = ""
         '
@@ -1700,7 +1699,7 @@ Partial Class FrmG0021_Detail
         Me.dtSYOCHI_KANRI_TANTO.Name = "dtSYOCHI_KANRI_TANTO"
         Me.dtSYOCHI_KANRI_TANTO.ReadOnly = False
         Me.dtSYOCHI_KANRI_TANTO.Size = New System.Drawing.Size(100, 24)
-        Me.dtSYOCHI_KANRI_TANTO.TabIndex = 274
+        Me.dtSYOCHI_KANRI_TANTO.TabIndex = 10
         Me.dtSYOCHI_KANRI_TANTO.Value = ""
         Me.dtSYOCHI_KANRI_TANTO.ValueNonFormat = ""
         '
@@ -1715,7 +1714,7 @@ Partial Class FrmG0021_Detail
         Me.dtSYOCHI_SEIZO_TANTO.Name = "dtSYOCHI_SEIZO_TANTO"
         Me.dtSYOCHI_SEIZO_TANTO.ReadOnly = False
         Me.dtSYOCHI_SEIZO_TANTO.Size = New System.Drawing.Size(100, 24)
-        Me.dtSYOCHI_SEIZO_TANTO.TabIndex = 274
+        Me.dtSYOCHI_SEIZO_TANTO.TabIndex = 12
         Me.dtSYOCHI_SEIZO_TANTO.Value = ""
         Me.dtSYOCHI_SEIZO_TANTO.ValueNonFormat = ""
         '
@@ -1730,7 +1729,7 @@ Partial Class FrmG0021_Detail
         Me.dtSYOCHI_HINSYO_TANTO.Name = "dtSYOCHI_HINSYO_TANTO"
         Me.dtSYOCHI_HINSYO_TANTO.ReadOnly = False
         Me.dtSYOCHI_HINSYO_TANTO.Size = New System.Drawing.Size(100, 24)
-        Me.dtSYOCHI_HINSYO_TANTO.TabIndex = 274
+        Me.dtSYOCHI_HINSYO_TANTO.TabIndex = 14
         Me.dtSYOCHI_HINSYO_TANTO.Value = ""
         Me.dtSYOCHI_HINSYO_TANTO.ValueNonFormat = ""
         '
@@ -1745,7 +1744,7 @@ Partial Class FrmG0021_Detail
         Me.dtSYOCHI_KENSA_TANTO.Name = "dtSYOCHI_KENSA_TANTO"
         Me.dtSYOCHI_KENSA_TANTO.ReadOnly = False
         Me.dtSYOCHI_KENSA_TANTO.Size = New System.Drawing.Size(100, 24)
-        Me.dtSYOCHI_KENSA_TANTO.TabIndex = 274
+        Me.dtSYOCHI_KENSA_TANTO.TabIndex = 16
         Me.dtSYOCHI_KENSA_TANTO.Value = ""
         Me.dtSYOCHI_KENSA_TANTO.ValueNonFormat = ""
         '
@@ -1760,7 +1759,7 @@ Partial Class FrmG0021_Detail
         Me.dtSYOCHI_KOBAI_TANTO.Name = "dtSYOCHI_KOBAI_TANTO"
         Me.dtSYOCHI_KOBAI_TANTO.ReadOnly = False
         Me.dtSYOCHI_KOBAI_TANTO.Size = New System.Drawing.Size(100, 24)
-        Me.dtSYOCHI_KOBAI_TANTO.TabIndex = 274
+        Me.dtSYOCHI_KOBAI_TANTO.TabIndex = 18
         Me.dtSYOCHI_KOBAI_TANTO.Value = ""
         Me.dtSYOCHI_KOBAI_TANTO.ValueNonFormat = ""
         '
@@ -1775,7 +1774,7 @@ Partial Class FrmG0021_Detail
         Me.dtKAKUNIN_GM_TANTO.Name = "dtKAKUNIN_GM_TANTO"
         Me.dtKAKUNIN_GM_TANTO.ReadOnly = False
         Me.dtKAKUNIN_GM_TANTO.Size = New System.Drawing.Size(100, 24)
-        Me.dtKAKUNIN_GM_TANTO.TabIndex = 274
+        Me.dtKAKUNIN_GM_TANTO.TabIndex = 20
         Me.dtKAKUNIN_GM_TANTO.Value = ""
         Me.dtKAKUNIN_GM_TANTO.ValueNonFormat = ""
         '
@@ -1790,7 +1789,7 @@ Partial Class FrmG0021_Detail
         Me.dtKAKUNIN_CM_TANTO.Name = "dtKAKUNIN_CM_TANTO"
         Me.dtKAKUNIN_CM_TANTO.ReadOnly = False
         Me.dtKAKUNIN_CM_TANTO.Size = New System.Drawing.Size(100, 24)
-        Me.dtKAKUNIN_CM_TANTO.TabIndex = 274
+        Me.dtKAKUNIN_CM_TANTO.TabIndex = 22
         Me.dtKAKUNIN_CM_TANTO.Value = ""
         Me.dtKAKUNIN_CM_TANTO.ValueNonFormat = ""
         '
@@ -1803,7 +1802,7 @@ Partial Class FrmG0021_Detail
         Me.PanelEx1.HitEnabled = False
         Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
         Me.PanelEx1.Name = "PanelEx1"
-        Me.PanelEx1.Size = New System.Drawing.Size(1207, 144)
+        Me.PanelEx1.Size = New System.Drawing.Size(1207, 176)
         Me.PanelEx1.TabIndex = 269
         '
         'Label15
@@ -1831,7 +1830,7 @@ Partial Class FrmG0021_Detail
         Me.flxDATA_5.Name = "flxDATA_5"
         Me.flxDATA_5.Rows.Count = 1
         Me.flxDATA_5.Rows.DefaultSize = 18
-        Me.flxDATA_5.Size = New System.Drawing.Size(1207, 104)
+        Me.flxDATA_5.Size = New System.Drawing.Size(1207, 136)
         Me.flxDATA_5.StyleInfo = resources.GetString("flxDATA_5.StyleInfo")
         Me.flxDATA_5.TabIndex = 2
         Me.flxDATA_5.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
@@ -1854,12 +1853,12 @@ Partial Class FrmG0021_Detail
         '
         'C1SplitterPanel5
         '
-        Me.C1SplitterPanel5.Height = 20
-        Me.C1SplitterPanel5.Location = New System.Drawing.Point(1, 1079)
-        Me.C1SplitterPanel5.MinHeight = 20
+        Me.C1SplitterPanel5.Height = 10
+        Me.C1SplitterPanel5.Location = New System.Drawing.Point(1, 1289)
+        Me.C1SplitterPanel5.MinHeight = 10
         Me.C1SplitterPanel5.Name = "C1SplitterPanel5"
-        Me.C1SplitterPanel5.Size = New System.Drawing.Size(1207, 20)
-        Me.C1SplitterPanel5.SizeRatio = 5.0R
+        Me.C1SplitterPanel5.Size = New System.Drawing.Size(1207, 10)
+        Me.C1SplitterPanel5.SizeRatio = 10.0R
         Me.C1SplitterPanel5.TabIndex = 4
         '
         'FrmG0021_Detail
