@@ -774,10 +774,6 @@ Public Class FrmG0020_List
                         MessageBox.Show("該当データが選択されていません。", "", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     End If
 
-                Case 7 '検索条件変更
-
-                    Call SetStageList()
-
                 Case 8 'CSV出力
                     Dim strFileName As String
                     strFileName = $"{pub_APP_INFO.strTitle}_{DateTime.Now:yyyyMMddHHmmss}.CSV"
@@ -786,13 +782,16 @@ Public Class FrmG0020_List
                     'Call FunCSV_OUT(DirectCast(flxDATA.DataSource, DataView).Table, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
                 Case 10  '印刷
-                    Call FunOpenReport()
+                    Call ShowUnimplemented()'Call FunOpenReport()
 
                     'Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
                     'Call FunCSV_OUT(Me.dgvDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
                 Case 11 '履歴表示
-                    Call OpenFormRIREKI()
+
+                    Call ShowUnimplemented()'Call OpenFormRIREKI()
+
+
 
                 Case 12 '閉じる
                     Me.Close()

@@ -1833,11 +1833,11 @@ Public Class FrmG0021_Detail
             Call SetTANTO_TooltipInfo()
 
             '-----コントロールデータソース設定
-            cmbBUMON.SetDataSource(tblBUMON, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbKISO_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbKISYU.SetDataSource(tblKISYU.LazyLoad("機種"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbBUHIN_BANGO.SetDataSource(tblBUHIN.LazyLoad("部品番号"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.LazyLoad("社内CD").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+            cmbBUMON.SetDataSource(tblBUMON, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKISO_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKISYU.SetDataSource(tblKISYU.LazyLoad("機種"), ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            cmbBUHIN_BANGO.SetDataSource(tblBUHIN.LazyLoad("部品番号"), ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.LazyLoad("社内CD").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
             'UNDONE: 業務グループリストソース取得関数化
             Dim BUSYOList As New SortedList(Of Integer, String)
@@ -2015,55 +2015,59 @@ Public Class FrmG0021_Detail
                         sbSQL.Append($" WHERE {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN.FCCB_NO)}='{_D009_FCCB_J.FCCB_NO}' ")
                         dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
-                        Dim Sec5 As New ModelInfo(Of D012)(srcDATA:=dsList.Tables(0))
+                        If dsList.Tables(0).Rows.Count > 0 Then
 
-                        For Each dr As DataRow In Sec5.Data.Rows
-                            Dim cmb As New ComboboxEx
-                            Dim dte As New DateTextBoxEx
+                            Dim Sec5 As New ModelInfo(Of D012)(srcDATA:=dsList.Tables(0))
 
-                            Select Case dr.Item(NameOf(D012.GYOMU_GROUP_ID))
-                                Case ENM_GYOMU_GROUP_ID._2_製造.Value
-                                    cmb = cmbSYOCHI_SEIZO_TANTO
-                                    dte = dtSYOCHI_SEIZO_TANTO
+                            For Each dr As DataRow In Sec5.Data.Rows
+                                Dim cmb As New ComboboxEx
+                                Dim dte As New DateTextBoxEx
 
-                                Case ENM_GYOMU_GROUP_ID._3_検査.Value
-                                    cmb = cmbSYOCHI_KENSA_TANTO
-                                    dte = dtSYOCHI_KENSA_TANTO
+                                Select Case dr.Item(NameOf(D012.GYOMU_GROUP_ID))
+                                    Case ENM_GYOMU_GROUP_ID._2_製造.Value
+                                        cmb = cmbSYOCHI_SEIZO_TANTO
+                                        dte = dtSYOCHI_SEIZO_TANTO
 
-                                Case ENM_GYOMU_GROUP_ID._4_品証.Value
-                                    cmb = cmbSYOCHI_HINSYO_TANTO
-                                    dte = dtSYOCHI_HINSYO_TANTO
+                                    Case ENM_GYOMU_GROUP_ID._3_検査.Value
+                                        cmb = cmbSYOCHI_KENSA_TANTO
+                                        dte = dtSYOCHI_KENSA_TANTO
 
-                                Case ENM_GYOMU_GROUP_ID._5_設計.Value
-                                    cmb = cmbSYOCHI_SEKKEI_TANTO
-                                    dte = dtSYOCHI_SEKKEI_TANTO
+                                    Case ENM_GYOMU_GROUP_ID._4_品証.Value
+                                        cmb = cmbSYOCHI_HINSYO_TANTO
+                                        dte = dtSYOCHI_HINSYO_TANTO
 
-                                Case ENM_GYOMU_GROUP_ID._6_生技.Value
-                                    cmb = cmbSYOCHI_SEIGI_TANTO
-                                    dte = dtSYOCHI_SEIGI_TANTO
+                                    Case ENM_GYOMU_GROUP_ID._5_設計.Value
+                                        cmb = cmbSYOCHI_SEKKEI_TANTO
+                                        dte = dtSYOCHI_SEKKEI_TANTO
 
-                                Case ENM_GYOMU_GROUP_ID._7_管理.Value
-                                    cmb = cmbSYOCHI_KANRI_TANTO
-                                    dte = dtSYOCHI_KANRI_TANTO
+                                    Case ENM_GYOMU_GROUP_ID._6_生技.Value
+                                        cmb = cmbSYOCHI_SEIGI_TANTO
+                                        dte = dtSYOCHI_SEIGI_TANTO
 
-                                Case ENM_GYOMU_GROUP_ID._8_営業.Value
-                                    cmb = cmbSYOCHI_EIGYO_TANTO
-                                    dte = dtSYOCHI_EIGYO_TANTO
+                                    Case ENM_GYOMU_GROUP_ID._7_管理.Value
+                                        cmb = cmbSYOCHI_KANRI_TANTO
+                                        dte = dtSYOCHI_KANRI_TANTO
 
-                                Case ENM_GYOMU_GROUP_ID._9_購買.Value
-                                    cmb = cmbSYOCHI_KOBAI_TANTO
-                                    dte = dtSYOCHI_KOBAI_TANTO
+                                    Case ENM_GYOMU_GROUP_ID._8_営業.Value
+                                        cmb = cmbSYOCHI_EIGYO_TANTO
+                                        dte = dtSYOCHI_EIGYO_TANTO
 
-                                Case ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value '統括責任者
-                                    cmb = cmbSYOCHI_GM_TANTO
-                                    dte = dtSYOCHI_GM_TANTO
+                                    Case ENM_GYOMU_GROUP_ID._9_購買.Value
+                                        cmb = cmbSYOCHI_KOBAI_TANTO
+                                        dte = dtSYOCHI_KOBAI_TANTO
 
-                            End Select
+                                    Case ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value '統括責任者
+                                        cmb = cmbSYOCHI_GM_TANTO
+                                        dte = dtSYOCHI_GM_TANTO
 
-                            cmb.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
-                            dte.Value = DateTime.Parse(dr.Item(NameOf(D012.ADD_YMDHNS))).ToString("yyyy/MM/dd")
+                                End Select
 
-                        Next
+                                cmb.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
+                                dte.Value = DateTime.Parse(dr.Item(NameOf(D012.ADD_YMDHNS))).ToString("yyyy/MM/dd")
+
+                            Next
+                        End If
+
 
 #End Region
 
@@ -2301,9 +2305,6 @@ Public Class FrmG0021_Detail
         End If
     End Function
 
-    Private Sub ShowUnimplemented()
-        MessageBox.Show("未実装", "未実装", MessageBoxButtons.OK, MessageBoxIcon.Information)
-    End Sub
 
 
 

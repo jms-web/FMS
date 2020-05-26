@@ -1124,6 +1124,9 @@ Module mdlG0020
 
 #End Region
 
+    Public Sub ShowUnimplemented()
+        MessageBox.Show("–¢ŽÀ‘•", "–¢ŽÀ‘•", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    End Sub
 
 #End Region
 
