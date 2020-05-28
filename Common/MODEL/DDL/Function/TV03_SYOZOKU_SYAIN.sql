@@ -1,10 +1,17 @@
 USE [FMS]
 GO
-/****** Object:  UserDefinedFunction [dbo].[TV03_SYOZOKU_SYAIN]    Script Date: 2020/05/26 9:28:34 ******/
+
+/****** Object:  UserDefinedFunction [dbo].[TV03_SYOZOKU_SYAIN]    Script Date: 2020/05/28 11:06:45 ******/
+DROP FUNCTION [dbo].[TV03_SYOZOKU_SYAIN]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[TV03_SYOZOKU_SYAIN]    Script Date: 2020/05/28 11:06:45 ******/
 SET ANSI_NULLS ON
 GO
+
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 
 
@@ -15,7 +22,7 @@ GO
 -- Create date: 2018.
 -- Description:	所属社員情報取得
 -- =============================================
-ALTER  FUNCTION [dbo].[TV03_SYOZOKU_SYAIN] 
+CREATE  FUNCTION [dbo].[TV03_SYOZOKU_SYAIN] 
 (
 	 @BUMON_KB				char(1)	--部門区分	 
 ) RETURNS
@@ -61,7 +68,6 @@ BEGIN
 		FROM M002_BUSYO
 		WHERE BUMON_KB = @BUMON_KB
 		AND YUKO_YMD >= (SELECT MIN(YUKO_YMD) FROM M002_BUSYO WHERE BUMON_KB = @BUMON_KB AND YUKO_YMD >= FORMAT(GETDATE(), 'yyyyMMdd'))
-		--AND (BUSYO_ID = 25 OR BUSYO_ID=27)
 		ORDER BY BUSYO_ID;
 	
 	OPEN curTB;
@@ -94,13 +100,7 @@ BEGIN
 		BEGIN
 			
 			SET @W_SYAIN_ID = null;
-			SET @W_SYAIN_NO = '';
-			SET @W_SIMEI = '';
-			SET @W_SIMEI_KANA = '';
-			SET @W_GYOMU_GROUP_ID = 0;
-			SET @W_GYOMU_GROUP_NAME = '';
-			SET @W_TAISYA_YMD = '';
-
+			
 			FETCH NEXT FROM curTB2 INTO 
 			 @W_SYAIN_ID,@W_SYOZOKUCYO_ID
 
@@ -109,15 +109,15 @@ BEGIN
 				BREAK;
 			END
 
+
+			DECLARE curTB3 CURSOR FOR
 			SELECT
-				@W_SYAIN_NO = M004.SYAIN_NO
-			  , @W_SIMEI = M004.SIMEI
-			  , @W_SIMEI_KANA = M004.SIMEI_KANA
-			  , @W_GYOMU_GROUP_ID = ISNULL(M011.GYOMU_GROUP_ID, 0)
-			  , @W_GYOMU_GROUP_NAME = ISNULL((SELECT GYOMU_GROUP_NAME FROM M003_GYOMU_GROUP M003 WHERE M003.GYOMU_GROUP_ID = M011.GYOMU_GROUP_ID) , '')
-			  , @W_TAISYA_YMD = RTRIM(M004.TAISYA_YMD)
-			  --, @W_GYOMU_GROUP_ID = ISNULL(IIF(@W_BUSYO_ID=10,2, M011.GYOMU_GROUP_ID), 0)
-			  --, @W_GYOMU_GROUP_NAME = ISNULL((SELECT GYOMU_GROUP_NAME FROM M003_GYOMU_GROUP M003 WHERE M003.GYOMU_GROUP_ID = IIF(@W_BUSYO_ID=10,2,M011.GYOMU_GROUP_ID)) , '') 
+				M004.SYAIN_NO
+			  , M004.SIMEI
+			  , M004.SIMEI_KANA
+			  , ISNULL(M011.GYOMU_GROUP_ID, 0)
+			  , ISNULL((SELECT GYOMU_GROUP_NAME FROM M003_GYOMU_GROUP M003 WHERE M003.GYOMU_GROUP_ID = M011.GYOMU_GROUP_ID) , '')
+			  , RTRIM(M004.TAISYA_YMD)			  
 			FROM
 			  M005_SYOZOKU_BUSYO M005   
 			  LEFT JOIN M004_SYAIN M004 
@@ -129,73 +129,89 @@ BEGIN
 			  --退職者は除外
 			 AND (RTRIM(M004.TAISYA_YMD)='' OR M004.TAISYA_YMD > FORMAT(GETDATE(), 'yyyyMMdd'))
 
-			
-			SET @W_IS_LEADER = IIF(@W_SYAIN_ID = @W_SYOZOKUCYO_ID,1,0)
-			
-			IF (@W_TAISYA_YMD='' OR @W_TAISYA_YMD > FORMAT(GETDATE(), 'yyyyMMdd'))
+
+			OPEN curTB3;
+
+			WHILE 1 = 1
 				BEGIN
-					INSERT INTO @retTBL 
-						(
-						 SYAIN_ID				--社員ID
-						,SYAIN_NO				--社員No
-						,SIMEI					--社員名
-						,SIMEI_KANA				--社員名カナ
-						,BUMON_KB
-						,BUSYO_ID				--部署ID
-						,BUSYO_NAME				--部署名
-						,GYOMU_GROUP_ID
-						,GYOMU_GROUP_NAME
-						,IS_LEADER
-						) VALUES (
-						 @W_SYAIN_ID			--社員ID
-						,@W_SYAIN_NO			--社員No
-						,@W_SIMEI				--社員名
-						,@W_SIMEI_KANA			--社員名カナ
-						,@W_BUMON_KB
-						,@W_BUSYO_ID			--部署ID
-						,@W_BUSYO_NAME			--部署名
-						,@W_GYOMU_GROUP_ID
-						,@W_GYOMU_GROUP_NAME
-						,@W_IS_LEADER
-						);
+					FETCH NEXT FROM curTB3 INTO 
+					@W_SYAIN_NO,@W_SIMEI,@W_SIMEI_KANA,@W_GYOMU_GROUP_ID,@W_GYOMU_GROUP_NAME,@W_TAISYA_YMD
+
+					IF @@FETCH_STATUS <> 0
+					BEGIN
+						BREAK;
+					END
+
+
+					SET @W_IS_LEADER = IIF(@W_SYAIN_ID = @W_SYOZOKUCYO_ID,1,0)
+			
+					IF (@W_TAISYA_YMD='' OR @W_TAISYA_YMD > FORMAT(GETDATE(), 'yyyyMMdd'))
+						BEGIN
+							INSERT INTO @retTBL 
+								(
+								 SYAIN_ID				--社員ID
+								,SYAIN_NO				--社員No
+								,SIMEI					--社員名
+								,SIMEI_KANA				--社員名カナ
+								,BUMON_KB
+								,BUSYO_ID				--部署ID
+								,BUSYO_NAME				--部署名
+								,GYOMU_GROUP_ID
+								,GYOMU_GROUP_NAME
+								,IS_LEADER
+								) VALUES (
+								 @W_SYAIN_ID			--社員ID
+								,@W_SYAIN_NO			--社員No
+								,@W_SIMEI				--社員名
+								,@W_SIMEI_KANA			--社員名カナ
+								,@W_BUMON_KB
+								,@W_BUSYO_ID			--部署ID
+								,@W_BUSYO_NAME			--部署名
+								,@W_GYOMU_GROUP_ID
+								,@W_GYOMU_GROUP_NAME
+								,@W_IS_LEADER
+								);
+						END
+
+					--IF @W_BUSYO_ID=10 AND (@W_TAISYA_YMD='' OR @W_TAISYA_YMD > FORMAT(GETDATE(), 'yyyyMMdd'))
+					--	BEGIN
+					
+					--		--SET @W_GYOMU_GROUP_ID = 2;
+					
+					--		--SELECT @W_GYOMU_GROUP_NAME = isnull(GYOMU_GROUP_NAME,'') 
+					--		--FROM M003_GYOMU_GROUP M003 
+					--		--WHERE M003.GYOMU_GROUP_ID = 2; 
+
+					--		INSERT INTO @retTBL 
+					--		(
+					--		 SYAIN_ID				--社員ID
+					--		,SYAIN_NO				--社員No
+					--		,SIMEI					--社員名
+					--		,SIMEI_KANA				--社員名カナ
+					--		,BUMON_KB
+					--		,BUSYO_ID				--部署ID
+					--		,BUSYO_NAME				--部署名
+					--		,GYOMU_GROUP_ID
+					--		,GYOMU_GROUP_NAME
+					--		,IS_LEADER
+					--		) VALUES (
+					--		 @W_SYAIN_ID			--社員ID
+					--		,@W_SYAIN_NO			--社員No
+					--		,@W_SIMEI				--社員名
+					--		,@W_SIMEI_KANA			--社員名カナ
+					--		,@W_BUMON_KB
+					--		,@W_BUSYO_ID			--部署ID
+					--		,@W_BUSYO_NAME			--部署名
+					--		,@W_GYOMU_GROUP_ID
+					--		,@W_GYOMU_GROUP_NAME
+					--		,@W_IS_LEADER
+					--		);
+
+
+					--	END;
 				END
-
-			IF @W_BUSYO_ID=10 AND (@W_TAISYA_YMD='' OR @W_TAISYA_YMD > FORMAT(GETDATE(), 'yyyyMMdd'))
-				BEGIN
-					
-					SET @W_GYOMU_GROUP_ID = 2;
-					
-					SELECT @W_GYOMU_GROUP_NAME = isnull(GYOMU_GROUP_NAME,'') 
-					FROM M003_GYOMU_GROUP M003 
-					WHERE M003.GYOMU_GROUP_ID = 2; 
-
-					INSERT INTO @retTBL 
-					(
-					 SYAIN_ID				--社員ID
-					,SYAIN_NO				--社員No
-					,SIMEI					--社員名
-					,SIMEI_KANA				--社員名カナ
-					,BUMON_KB
-					,BUSYO_ID				--部署ID
-					,BUSYO_NAME				--部署名
-					,GYOMU_GROUP_ID
-					,GYOMU_GROUP_NAME
-					,IS_LEADER
-					) VALUES (
-					 @W_SYAIN_ID			--社員ID
-					,@W_SYAIN_NO			--社員No
-					,@W_SIMEI				--社員名
-					,@W_SIMEI_KANA			--社員名カナ
-					,@W_BUMON_KB
-					,@W_BUSYO_ID			--部署ID
-					,@W_BUSYO_NAME			--部署名
-					,@W_GYOMU_GROUP_ID
-					,@W_GYOMU_GROUP_NAME
-					,@W_IS_LEADER
-					);
-
-
-				END;
+				CLOSE curTB3;
+				DEALLOCATE curTB3;
 			
 		END
 
@@ -206,7 +222,7 @@ BEGIN
 	CLOSE curTB;
 	DEALLOCATE curTB;
 
-	DELETE @retTBL WHERE SYAIN_NO = '0'
+	--DELETE @retTBL WHERE SYAIN_NO = '0'
 
 	RETURN;
 	
@@ -216,5 +232,8 @@ END
 
 
 
+
+
+GO
 
 
