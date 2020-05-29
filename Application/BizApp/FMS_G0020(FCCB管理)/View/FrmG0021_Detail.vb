@@ -258,7 +258,6 @@ Public Class FrmG0021_Detail
 
             Dim flx = DirectCast(sender, C1FlexGrid)
 
-
             Select Case True
                 Case flx.Cols(e.Col).Name.Contains("YMD")
                     Dim value As String = Nz(flx(e.Row, e.Col), "")
@@ -551,7 +550,6 @@ Public Class FrmG0021_Detail
             Dim _D010 As New D010
             Dim groups = GetSYAIN_GYOMUGroups(pub_SYAIN_INFO.SYAIN_ID)
 
-
             For Each dr As DataRow In DirectCast(Flx2_DS.DataSource, DataTable).Rows
 
                 If _D009_FCCB_J.CM_TANTO = pub_SYAIN_INFO.SYAIN_ID Then
@@ -564,6 +562,7 @@ Public Class FrmG0021_Detail
                 End If
 
 #Region "   モデル更新"
+
                 _D010.Clear()
                 _D010.FCCB_NO = _D009_FCCB_J.FCCB_NO
                 _D010.ITEM_NO = dr.Item(NameOf(_D010.ITEM_NO))
@@ -1589,7 +1588,6 @@ Public Class FrmG0021_Detail
 
     End Sub
 
-
 #Region "部門"
 
     Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
@@ -1722,8 +1720,6 @@ Public Class FrmG0021_Detail
             '        Me.Invoke(
             '        Sub()
 
-
-
             '        End Sub)
             '    End Sub)
 
@@ -1796,7 +1792,6 @@ Public Class FrmG0021_Detail
         '    Sub()
         '        Me.Invoke(
         '        Sub()
-
 
         '        End Sub)
         '    End Sub)
@@ -1896,14 +1891,16 @@ Public Class FrmG0021_Detail
             BUSYOList.Add(ENM_GYOMU_GROUP_ID._7_管理.Value, "管理")
             BUSYOList.Add(ENM_GYOMU_GROUP_ID._8_営業.Value, "営業")
             BUSYOList.Add(ENM_GYOMU_GROUP_ID._9_購買.Value, "購買")
-            BUSYOList.Add(ENM_GYOMU_GROUP_ID._46_品検.Value, "品/検")
+            BUSYOList.Add(ENM_GYOMU_GROUP_ID._43_品検.Value, "品/検")
             flxDATA_2.Cols(4).DataMap = BUSYOList
             flxDATA_3.Cols(3).DataMap = BUSYOList
             flxDATA_5.Cols(3).DataMap = BUSYOList
 
             Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
+
 #Region "                  ADD"
+
                     mtxFCCB_NO.Text = "<新規>"
                     _D009_FCCB_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
                     _D009_FCCB_J.ADD_YMDHNS = Now.ToString("yyyyMMddHHmmss")
@@ -1985,9 +1982,10 @@ Public Class FrmG0021_Detail
 
 #End Region
 
-
 #End Region
+
                 Case ENM_DATA_OPERATION_MODE._3_UPDATE
+
 #Region "                   UPDATE"
 
                     _V003_SYONIN_J_KANRI_List = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, PrFCCB_NO)
@@ -2156,6 +2154,7 @@ Public Class FrmG0021_Detail
 #End Region
 
 #End Region
+
                 Case Else
                     Throw New ArgumentException("想定外の起動モードです")
             End Select
@@ -2163,15 +2162,37 @@ Public Class FrmG0021_Detail
             mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, _D009_FCCB_J.FCCB_NO)
 
 
-            'ヘッダ項目はFCCB議長のみ編集可能
-            tlpHeader.Enabled = (_D009_FCCB_J.CM_TANTO = pub_SYAIN_INFO.SYAIN_ID)
-
             '完了日表示
             Dim blnCloseColumnVisibled = (PrCurrentStage >= ENM_FCCB_STAGE._40_処置確認.Value)
-            flxDATA_2.Cols(9).AllowEditing = blnCloseColumnVisibled
-            flxDATA_3.Cols(7).AllowEditing = blnCloseColumnVisibled
-            flxDATA_5.Cols(6).AllowEditing = blnCloseColumnVisibled
+            flxDATA_2.Cols(9).Visible = blnCloseColumnVisibled
+            flxDATA_3.Cols(7).Visible = blnCloseColumnVisibled
+            flxDATA_5.Cols(6).Visible = blnCloseColumnVisibled
 
+            '編集権限
+            Select Case PrCurrentStage
+                Case ENM_FCCB_STAGE._10_起草入力
+                    tlpHeader.Enabled = (_D009_FCCB_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
+
+                Case ENM_FCCB_STAGE._20_処置事項調査等
+                    tlpHeader.Enabled = (_D009_FCCB_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
+
+                Case ENM_FCCB_STAGE._30_変更審議
+                    tlpHeader.Enabled = (_D009_FCCB_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
+
+                Case ENM_FCCB_STAGE._40_処置確認, ENM_FCCB_STAGE._41_処置確認_統括
+                    tlpHeader.Enabled = False
+                    C1SplitterPanel1.Enabled = False
+                    C1SplitterPanel2.Enabled = False
+
+                Case ENM_FCCB_STAGE._50_処置事項完了
+                    tlpHeader.Enabled = False
+
+                Case ENM_FCCB_STAGE._60_処置事項完了確認, ENM_FCCB_STAGE._61_処置事項完了確認_統括
+                    tlpHeader.Enabled = False
+
+                Case ENM_FCCB_STAGE._999_Closed
+                    tlpHeader.Enabled = False
+            End Select
 
             If FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_FCCB_STAGE._999_Closed Then
                 '最終ステージの場合、申請先担当者欄は非表示
@@ -2286,31 +2307,63 @@ Public Class FrmG0021_Detail
             'フラグリセット
             IsValidated = True
 
-
             IsValidated *= ErrorProvider.UpdateErrorInfo(cmbBUMON, cmbBUMON.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
             IsValidated *= ErrorProvider.UpdateErrorInfo(cmbKISO_TANTO, cmbKISO_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
             IsValidated *= ErrorProvider.UpdateErrorInfo(cmbCM_TANTO, cmbCM_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
 
-
-
             If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
 
-                If FunGetNextSYONIN_JUN(PrCurrentStage) < ENM_FCCB_STAGE._999_Closed Then
-                    Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
-                End If
+                'If FunGetNextSYONIN_JUN(PrCurrentStage) < ENM_FCCB_STAGE._999_Closed Then
+                '    Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
+                'End If
 
 
-                Dim groups = DirectCast(flxDATA_2.DataSource, DataTable).
-                                                AsEnumerable.
-                                                Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB))).
-                                                Select(Function(r) r.Item(NameOf(D010.TANTO_GYOMU_GROUP_ID))).
-                                                Distinct
+
+
+
+                Dim groupList = GetRequiredGyomuGroups()
 
                 Select Case PrCurrentStage
                     Case ENM_FCCB_STAGE._10_起草入力.Value
                     Case ENM_FCCB_STAGE._20_処置事項調査等.Value
                     Case ENM_FCCB_STAGE._30_変更審議.Value
-                        'UNDONE: ST2で選択された部署コンボのみ必須
+                        'ST2で選択された部署コンボのみ必須
+
+                        For Each gg As ENM_GYOMU_GROUP_ID In groupList
+
+                            Select Case gg
+                                Case ENM_GYOMU_GROUP_ID._1_技術
+
+                                Case ENM_GYOMU_GROUP_ID._2_製造
+                                    IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_SEIZO_TANTO, cmbSYOCHI_SEIZO_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製造G確認担当者"))
+
+                                Case ENM_GYOMU_GROUP_ID._3_検査
+                                    IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_KENSA_TANTO, cmbSYOCHI_KENSA_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "検査G確認担当者"))
+
+                                Case ENM_GYOMU_GROUP_ID._4_品証
+                                    IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_HINSYO_TANTO, cmbSYOCHI_HINSYO_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "品証G確認担当者"))
+
+                                Case ENM_GYOMU_GROUP_ID._5_設計
+                                    IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_SEKKEI_TANTO, cmbSYOCHI_SEKKEI_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "設計G確認担当者"))
+
+                                Case ENM_GYOMU_GROUP_ID._6_生技
+                                    IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_SEIGI_TANTO, cmbSYOCHI_SEIGI_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "生技G確認担当者"))
+
+                                Case ENM_GYOMU_GROUP_ID._7_管理
+                                    IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_KANRI_TANTO, cmbSYOCHI_KANRI_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "管理G確認担当者"))
+
+                                Case ENM_GYOMU_GROUP_ID._8_営業
+                                    IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_EIGYO_TANTO, cmbSYOCHI_EIGYO_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "営業G確認担当者"))
+
+                                Case ENM_GYOMU_GROUP_ID._9_購買
+                                    IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_KOBAI_TANTO, cmbSYOCHI_KOBAI_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "購買G確認担当者"))
+
+                                Case Else
+                            End Select
+                        Next
+
+                        '統括責任者は常に必須
+                        IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_GM_TANTO, cmbSYOCHI_GM_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "統括責任者"))
                 End Select
             End If
 
@@ -2361,26 +2414,28 @@ Public Class FrmG0021_Detail
     ''' <returns></returns>
     Private Function FunGetNextSYONIN_JUN(CurrentStageID As Integer) As Integer
         Try
-            Const stageLength As Integer = 10
 
-            'If KOKYAKU_HANTEI_KB = False Then
-            '    'なし時 #256
-            '    If CurrentStageID >= ENM_FCCB_STAGE._70_品証課 Then
-            '        Return ENM_FCCB_STAGE._999_Closed
-            '    Else
-            '        Return CurrentStageID + stageLength
-            '    End If
-            'Else
-            '    Select Case CurrentStageID
-            '        Case ENM_CTS_STAGE._90_部門長, ENM_CTS_STAGE._999_Closed
-            '            Return ENM_CTS_STAGE._999_Closed
-            '        Case Else
-            Return CurrentStageID + stageLength
-            '    End Select
-            'End If
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Select Case CurrentStageID
+                Case ENM_FCCB_STAGE._10_起草入力
+                    Return ENM_FCCB_STAGE._20_処置事項調査等
+                Case ENM_FCCB_STAGE._20_処置事項調査等
+                    Return ENM_FCCB_STAGE._30_変更審議
+                Case ENM_FCCB_STAGE._30_変更審議
+                    Return ENM_FCCB_STAGE._40_処置確認
+                Case ENM_FCCB_STAGE._40_処置確認, ENM_FCCB_STAGE._41_処置確認_統括
+                    Return ENM_FCCB_STAGE._50_処置事項完了
+                Case ENM_FCCB_STAGE._50_処置事項完了
+                    Return ENM_FCCB_STAGE._60_処置事項完了確認
+                Case ENM_FCCB_STAGE._60_処置事項完了確認, ENM_FCCB_STAGE._61_処置事項完了確認_統括
+                    Return ENM_FCCB_STAGE._999_Closed
+                Case ENM_FCCB_STAGE._999_Closed
+                    Return ENM_FCCB_STAGE._999_Closed
+
+            End Select
+
             Return 0
+        Catch ex As Exception
+            Throw
         End Try
     End Function
 
@@ -2404,7 +2459,37 @@ Public Class FrmG0021_Detail
         End If
     End Function
 
+    Private Function GetRequiredGyomuGroups() As List(Of ENM_GYOMU_GROUP_ID)
 
+        Try
+            Dim groups = DirectCast(flxDATA_2.DataSource, DataTable).
+                                      AsEnumerable.
+                                      Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB))).
+                                      Select(Function(r) r.Field(Of ENM_GYOMU_GROUP_ID)(NameOf(D010.TANTO_GYOMU_GROUP_ID))).
+                                      Distinct
+
+            Dim groups2 = DirectCast(flxDATA_3.DataSource, DataTable).
+                                            AsEnumerable.
+                                            Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB))).
+                                            Select(Function(r) r.Field(Of ENM_GYOMU_GROUP_ID)(NameOf(D010.TANTO_GYOMU_GROUP_ID))).
+                                            Distinct
+
+            Dim groupList = groups.Union(groups2).ToList
+            If groupList.Contains(ENM_GYOMU_GROUP_ID._43_品検) Then
+                '業務グループを展開
+                If Not groupList.Contains(ENM_GYOMU_GROUP_ID._4_品証) Then
+                    groupList.Add(ENM_GYOMU_GROUP_ID._4_品証)
+                End If
+                If Not groupList.Contains(ENM_GYOMU_GROUP_ID._3_検査) Then
+                    groupList.Add(ENM_GYOMU_GROUP_ID._3_検査)
+                End If
+            End If
+
+            Return groupList
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
 
 #End Region
 

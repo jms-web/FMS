@@ -177,6 +177,7 @@ Partial Class FrmG0021_Detail
         Me.cmdFunc4.Location = New System.Drawing.Point(373, 641)
         Me.cmdFunc4.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc4.Text = "“]‘—(F4)"
+        Me.cmdFunc4.Visible = False
         '
         'cmdFunc5
         '
