@@ -882,8 +882,8 @@ Public Class FrmG0020_List
                                                 Trow(p.Name) = row.Item("SASIMOTO_SYONIN_JUN") & "." & row.Item(p.Name).ToString.Trim
                                             End If
 
-                                        Case "HASSEI_YMD"
-                                            Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMM", Nothing).ToString("yyyy/MM")
+                                        Case "KISO_YMD"
+                                            Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
                                         Case Else
                                             Trow(p.Name) = row.Item(p.Name).ToString.Trim
                                     End Select
@@ -1260,7 +1260,7 @@ Public Class FrmG0020_List
                                 "FMS_G0010.exe",
                                 strEXEParam)
 
-                                If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=dr.Item("GEN_TANTO_ID")) Then
+                                If FunSendMailFCCB(strSubject, strBody, ToSYAIN_ID:=dr.Item("GEN_TANTO_ID")) Then
                                     If FunSAVE_R001(DB, dr) Then
                                     Else
                                         blnErr = True
@@ -1331,7 +1331,7 @@ Public Class FrmG0020_List
                                 "FMS_G0010.exe",
                                 strEXEParam)
 
-                    If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_ID))) Then
+                    If FunSendMailFCCB(strSubject, strBody, ToSYAIN_ID:=dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_ID))) Then
 
                         Using DB As ClsDbUtility = DBOpen()
                             Dim blnErr As Boolean
@@ -2134,11 +2134,6 @@ Public Class FrmG0020_List
             '起草者
             If IsIssuedUser(SYAIN_ID, HOKOKUSYO_ID, HOKOKU_NO) Then
                 Return True
-            End If
-
-            '直接新規作成出来ないNCR以外の起草取り消しは無効
-            If HOKOKUSYO_ID <> Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR Then
-                Return False
             End If
 
             '未起草(ST1 一時保存か転送)は誰でも許可

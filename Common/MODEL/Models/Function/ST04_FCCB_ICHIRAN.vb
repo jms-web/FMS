@@ -83,21 +83,19 @@ Partial Public Class ST04_FCCB_ICHIRAN
     Public Property INPUT_DOC_NO As String '部品名
 
     <ComponentModel.DisplayName("起草日")>
-    <Display(AutoGenerateField:=False)>
-    <Column(NameOf(KISO_YMD), TypeName:="String")>
-    Public Property _KISO_YMD As String
+    Public Property KISO_YMD As String
 
-    <NotMapped>
-    <ComponentModel.DisplayName("起草日")>
-    Public Property KISO_YMD As Date
-        Get
-            Return DateTime.ParseExact(_KISO_YMD, "yyyyMMdd", Nothing)
-        End Get
-        Set(value As Date)
+    '<NotMapped>
+    '<ComponentModel.DisplayName("起草日")>
+    'Public Property KISO_YMD As Date
+    '    Get
+    '        Return DateTime.ParseExact(_KISO_YMD, "yyyyMMdd", Nothing)
+    '    End Get
+    '    Set(value As Date)
 
-            _KISO_YMD = value.ToString("yyyyMMdd")
-        End Set
-    End Property
+    '        _KISO_YMD = value.ToString("yyyyMMdd")
+    '    End Set
+    'End Property
 
     <ComponentModel.DisplayName("起草担当者ID")>
     Public Property KISO_TANTO_ID As Integer

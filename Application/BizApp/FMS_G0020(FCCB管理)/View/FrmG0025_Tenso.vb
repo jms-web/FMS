@@ -418,7 +418,7 @@ Public Class FrmG0025_Tenso
                                 "FMS_G0010.exe",
                                 strEXEParam)
 
-        If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=cmbTENSO_SAKI.SelectedValue) Then
+        If FunSendMailFCCB(strSubject, strBody, ToSYAIN_ID:=cmbTENSO_SAKI.SelectedValue) Then
             Using DB As ClsDbUtility = DBOpen()
                 If FunGetCodeMastaValue(DB, "ÉÅÅ[Éãê›íË", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                 Else

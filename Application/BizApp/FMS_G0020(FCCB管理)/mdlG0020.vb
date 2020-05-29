@@ -628,7 +628,7 @@ Module mdlG0020
 
 #Region "メール送信"
 
-    Public Function FunSendMailFutekigo(ByVal strSubject As String, ByVal strBody As String, ByVal ToSYAIN_ID As Integer) As Boolean
+    Public Function FunSendMailFCCB(ByVal strSubject As String, ByVal strBody As String, ByVal ToSYAIN_ID As Integer) As Boolean
         Dim strSmtpServer As String
         Dim intSmtpPort As Integer
         Dim strFromAddress As String
@@ -731,7 +731,7 @@ Module mdlG0020
                            strSubject:=strSubject,
                            strBody:=strBody,
                            AttachmentList:=New List(Of String),
-                           strFromName:="不適合管理システム",
+                           strFromName:="FCCB管理",
                            isHTML:=True)
 
             '認証あり JMS
@@ -1067,7 +1067,7 @@ Module mdlG0020
 
 #Region "業務グループ権限確認"
 
-    Public Function HasGYOMUGroupAuth(SYAIN_ID As Integer, GROUP_IDs As ENM_GYOMU_GROUP_ID())
+    Public Function HasGYOMUGroupAuth(SYAIN_ID As Integer, GROUP_IDs As ENM_GYOMU_GROUP_ID()) As Boolean
         Dim dsList As New DataSet
         Dim sbSQL As New System.Text.StringBuilder
         Try
@@ -1087,6 +1087,28 @@ Module mdlG0020
         Catch ex As Exception
             Throw
             Return False
+        End Try
+    End Function
+
+    Public Function GetSYAIN_GYOMUGroups(SYAIN_ID As Integer) As List(Of ENM_GYOMU_GROUP_ID)
+        Dim dsList As New DataSet
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim retlist As New List(Of ENM_GYOMU_GROUP_ID)
+        Try
+            sbSQL.Append($"SELECT {NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)} FROM {NameOf(M011_SYAIN_GYOMU)}")
+            sbSQL.Append($" WHERE {NameOf(M011_SYAIN_GYOMU.SYAIN_ID)}={SYAIN_ID}")
+
+            Using DB As ClsDbUtility = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            For Each row As DataRow In dsList.Tables(0).Rows
+                retlist.Add(row.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))
+            Next
+
+            Return retlist
+        Catch ex As Exception
+            Throw
         End Try
     End Function
 

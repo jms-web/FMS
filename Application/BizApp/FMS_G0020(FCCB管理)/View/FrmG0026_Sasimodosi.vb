@@ -473,7 +473,7 @@ Public Class FrmG0026_Sasimodosi
                                 "FMS_G0010.exe",
                                 strEXEParam)
 
-        If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=mtxTANTO_ID.Text) Then
+        If FunSendMailFCCB(strSubject, strBody, ToSYAIN_ID:=mtxTANTO_ID.Text) Then
             Using DB As ClsDbUtility = DBOpen()
                 If FunGetCodeMastaValue(DB, "ÉÅÅ[Éãê›íË", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                 Else

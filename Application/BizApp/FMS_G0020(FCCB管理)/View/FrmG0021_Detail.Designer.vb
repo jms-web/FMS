@@ -39,13 +39,12 @@ Partial Class FrmG0021_Detail
         Me.cmbSYANAI_CD = New JMS_COMMON.ComboboxEx()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.dtKISO = New JMS_COMMON.DateTextBoxEx()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.InfoToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtINPUT_NAIYO = New JMS_COMMON.TextBoxEx()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.PanelEx2 = New JMS_COMMON.PanelEx()
-        Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
+        Me.tlpHeader = New System.Windows.Forms.TableLayoutPanel()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.mtxINPUT_DOC_NO = New JMS_COMMON.MaskedTextBoxEx()
         Me.mtxSNO_APPLY_PERIOD_KISO = New JMS_COMMON.MaskedTextBoxEx()
@@ -82,17 +81,17 @@ Partial Class FrmG0021_Detail
         Me.Label29 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label19 = New System.Windows.Forms.Label()
-        Me.Label20 = New System.Windows.Forms.Label()
-        Me.Label21 = New System.Windows.Forms.Label()
-        Me.Label22 = New System.Windows.Forms.Label()
-        Me.Label23 = New System.Windows.Forms.Label()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.Label27 = New System.Windows.Forms.Label()
+        Me.lblSYOCHI_GM_TANTO = New System.Windows.Forms.Label()
+        Me.lblSYOCHI_SEKKEI_TANTO = New System.Windows.Forms.Label()
+        Me.lblSYOCHI_SEIGI_TANTO = New System.Windows.Forms.Label()
+        Me.lblSYOCHI_EIGYO_TANTO = New System.Windows.Forms.Label()
+        Me.lblSYOCHI_KANRI_TANTO = New System.Windows.Forms.Label()
+        Me.lblSYOCHI_SEIZO_TANTO = New System.Windows.Forms.Label()
+        Me.lblSYOCHI_HINSYO_TANTO = New System.Windows.Forms.Label()
+        Me.lblSYOCHI_KENSA_TANTO = New System.Windows.Forms.Label()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.Label31 = New System.Windows.Forms.Label()
-        Me.Label30 = New System.Windows.Forms.Label()
+        Me.lblSYOCHI_KOBAI_TANTO = New System.Windows.Forms.Label()
         Me.cmbSYOCHI_SEKKEI_TANTO = New JMS_COMMON.ComboboxEx()
         Me.cmbSYOCHI_SEIGI_TANTO = New JMS_COMMON.ComboboxEx()
         Me.cmbSYOCHI_EIGYO_TANTO = New JMS_COMMON.ComboboxEx()
@@ -119,10 +118,12 @@ Partial Class FrmG0021_Detail
         Me.flxDATA_5 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI = New JMS_COMMON.MaskedTextBoxEx()
         Me.C1SplitterPanel5 = New C1.Win.C1SplitContainer.C1SplitterPanel()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.mtxCurrentStageName = New JMS_COMMON.MaskedTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEx2.SuspendLayout()
-        Me.tlpFilter.SuspendLayout()
+        Me.tlpHeader.SuspendLayout()
         Me.flpnlStageIndex.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPageEx1.SuspendLayout()
@@ -231,7 +232,8 @@ Partial Class FrmG0021_Detail
         '
         Me.lblTytle.Font = New System.Drawing.Font("Meiryo UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblTytle.Size = New System.Drawing.Size(1238, 43)
+        Me.lblTytle.Location = New System.Drawing.Point(12, 14)
+        Me.lblTytle.Size = New System.Drawing.Size(1240, 43)
         Me.lblTytle.Text = "FCCB記録書"
         '
         'cmbBUHIN_BANGO
@@ -239,7 +241,7 @@ Partial Class FrmG0021_Detail
         Me.cmbBUHIN_BANGO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbBUHIN_BANGO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbBUHIN_BANGO.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbBUHIN_BANGO, 7)
+        Me.tlpHeader.SetColumnSpan(Me.cmbBUHIN_BANGO, 7)
         Me.cmbBUHIN_BANGO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbBUHIN_BANGO.DisplayMember = "DISP"
         Me.cmbBUHIN_BANGO.DropDownWidth = 230
@@ -262,7 +264,7 @@ Partial Class FrmG0021_Detail
         Me.cmbKISYU.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbKISYU.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbKISYU.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbKISYU, 7)
+        Me.tlpHeader.SetColumnSpan(Me.cmbKISYU, 7)
         Me.cmbKISYU.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbKISYU.DisplayMember = "DISP"
         Me.cmbKISYU.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -281,7 +283,7 @@ Partial Class FrmG0021_Detail
         '
         'Label8
         '
-        Me.tlpFilter.SetColumnSpan(Me.Label8, 5)
+        Me.tlpHeader.SetColumnSpan(Me.Label8, 5)
         Me.Label8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label8.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label8.Location = New System.Drawing.Point(3, 0)
@@ -294,7 +296,7 @@ Partial Class FrmG0021_Detail
         'mtxFCCB_NO
         '
         Me.mtxFCCB_NO.BackColor = System.Drawing.SystemColors.Control
-        Me.tlpFilter.SetColumnSpan(Me.mtxFCCB_NO, 5)
+        Me.tlpHeader.SetColumnSpan(Me.mtxFCCB_NO, 5)
         Me.mtxFCCB_NO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxFCCB_NO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxFCCB_NO.InputRequired = False
@@ -312,7 +314,7 @@ Partial Class FrmG0021_Detail
         '
         'Label14
         '
-        Me.tlpFilter.SetColumnSpan(Me.Label14, 5)
+        Me.tlpHeader.SetColumnSpan(Me.Label14, 5)
         Me.Label14.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label14.Location = New System.Drawing.Point(3, 30)
         Me.Label14.Name = "Label14"
@@ -323,7 +325,7 @@ Partial Class FrmG0021_Detail
         '
         'Label4
         '
-        Me.tlpFilter.SetColumnSpan(Me.Label4, 5)
+        Me.tlpHeader.SetColumnSpan(Me.Label4, 5)
         Me.Label4.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label4.Location = New System.Drawing.Point(3, 60)
         Me.Label4.Name = "Label4"
@@ -337,7 +339,7 @@ Partial Class FrmG0021_Detail
         Me.cmbBUMON.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbBUMON.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbBUMON.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbBUMON, 5)
+        Me.tlpHeader.SetColumnSpan(Me.cmbBUMON, 5)
         Me.cmbBUMON.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbBUMON.DisplayMember = "DISP"
         Me.cmbBUMON.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -356,7 +358,7 @@ Partial Class FrmG0021_Detail
         '
         'Label5
         '
-        Me.tlpFilter.SetColumnSpan(Me.Label5, 5)
+        Me.tlpHeader.SetColumnSpan(Me.Label5, 5)
         Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label5.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label5.Location = New System.Drawing.Point(243, 0)
@@ -368,7 +370,7 @@ Partial Class FrmG0021_Detail
         '
         'Label7
         '
-        Me.tlpFilter.SetColumnSpan(Me.Label7, 5)
+        Me.tlpHeader.SetColumnSpan(Me.Label7, 5)
         Me.Label7.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label7.Location = New System.Drawing.Point(3, 90)
         Me.Label7.Name = "Label7"
@@ -382,7 +384,7 @@ Partial Class FrmG0021_Detail
         Me.cmbHINMEI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbHINMEI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbHINMEI.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbHINMEI, 19)
+        Me.tlpHeader.SetColumnSpan(Me.cmbHINMEI, 19)
         Me.cmbHINMEI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbHINMEI.DisplayMember = "DISP"
         Me.cmbHINMEI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -401,7 +403,7 @@ Partial Class FrmG0021_Detail
         '
         'lblKISO_TANTO
         '
-        Me.tlpFilter.SetColumnSpan(Me.lblKISO_TANTO, 5)
+        Me.tlpHeader.SetColumnSpan(Me.lblKISO_TANTO, 5)
         Me.lblKISO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lblKISO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblKISO_TANTO.Location = New System.Drawing.Point(443, 0)
@@ -416,7 +418,7 @@ Partial Class FrmG0021_Detail
         Me.cmbKISO_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbKISO_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbKISO_TANTO.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbKISO_TANTO, 7)
+        Me.tlpHeader.SetColumnSpan(Me.cmbKISO_TANTO, 7)
         Me.cmbKISO_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbKISO_TANTO.DisplayMember = "DISP"
         Me.cmbKISO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -435,7 +437,7 @@ Partial Class FrmG0021_Detail
         '
         'lblCM_TANTO
         '
-        Me.tlpFilter.SetColumnSpan(Me.lblCM_TANTO, 5)
+        Me.tlpHeader.SetColumnSpan(Me.lblCM_TANTO, 5)
         Me.lblCM_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lblCM_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblCM_TANTO.Location = New System.Drawing.Point(443, 30)
@@ -450,7 +452,7 @@ Partial Class FrmG0021_Detail
         Me.cmbCM_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbCM_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbCM_TANTO.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbCM_TANTO, 7)
+        Me.tlpHeader.SetColumnSpan(Me.cmbCM_TANTO, 7)
         Me.cmbCM_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbCM_TANTO.DisplayMember = "DISP"
         Me.cmbCM_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -469,7 +471,7 @@ Partial Class FrmG0021_Detail
         '
         'lblSYANAI_CD
         '
-        Me.tlpFilter.SetColumnSpan(Me.lblSYANAI_CD, 5)
+        Me.tlpHeader.SetColumnSpan(Me.lblSYANAI_CD, 5)
         Me.lblSYANAI_CD.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lblSYANAI_CD.Location = New System.Drawing.Point(243, 60)
         Me.lblSYANAI_CD.Name = "lblSYANAI_CD"
@@ -484,7 +486,7 @@ Partial Class FrmG0021_Detail
         Me.cmbSYANAI_CD.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbSYANAI_CD.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbSYANAI_CD.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbSYANAI_CD, 7)
+        Me.tlpHeader.SetColumnSpan(Me.cmbSYANAI_CD, 7)
         Me.cmbSYANAI_CD.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYANAI_CD.DisplayMember = "DISP"
         Me.cmbSYANAI_CD.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -504,7 +506,7 @@ Partial Class FrmG0021_Detail
         '
         'Label16
         '
-        Me.tlpFilter.SetColumnSpan(Me.Label16, 5)
+        Me.tlpHeader.SetColumnSpan(Me.Label16, 5)
         Me.Label16.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label16.Location = New System.Drawing.Point(243, 30)
         Me.Label16.Name = "Label16"
@@ -528,19 +530,6 @@ Partial Class FrmG0021_Detail
         Me.dtKISO.Value = ""
         Me.dtKISO.ValueNonFormat = ""
         '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.Wheat
-        Me.Label1.Font = New System.Drawing.Font("Meiryo UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label1.Location = New System.Drawing.Point(12, 64)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(3)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(86, 24)
-        Me.Label1.TabIndex = 326
-        Me.Label1.Text = "基本情報"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'InfoToolTip
         '
         Me.InfoToolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
@@ -548,7 +537,7 @@ Partial Class FrmG0021_Detail
         '
         'Label3
         '
-        Me.tlpFilter.SetColumnSpan(Me.Label3, 5)
+        Me.tlpHeader.SetColumnSpan(Me.Label3, 5)
         Me.Label3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label3.Location = New System.Drawing.Point(3, 120)
         Me.Label3.Name = "Label3"
@@ -560,7 +549,7 @@ Partial Class FrmG0021_Detail
         'txtINPUT_NAIYO
         '
         Me.txtINPUT_NAIYO.AcceptsReturn = True
-        Me.tlpFilter.SetColumnSpan(Me.txtINPUT_NAIYO, 22)
+        Me.tlpHeader.SetColumnSpan(Me.txtINPUT_NAIYO, 22)
         Me.txtINPUT_NAIYO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.txtINPUT_NAIYO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtINPUT_NAIYO.InputRequired = False
@@ -569,7 +558,7 @@ Partial Class FrmG0021_Detail
         Me.txtINPUT_NAIYO.MaxLength = 300
         Me.txtINPUT_NAIYO.Multiline = True
         Me.txtINPUT_NAIYO.Name = "txtINPUT_NAIYO"
-        Me.tlpFilter.SetRowSpan(Me.txtINPUT_NAIYO, 5)
+        Me.tlpHeader.SetRowSpan(Me.txtINPUT_NAIYO, 5)
         Me.txtINPUT_NAIYO.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtINPUT_NAIYO.SelectAllText = False
         Me.txtINPUT_NAIYO.ShowRemainingChars = True
@@ -580,7 +569,7 @@ Partial Class FrmG0021_Detail
         '
         'Label17
         '
-        Me.tlpFilter.SetColumnSpan(Me.Label17, 6)
+        Me.tlpHeader.SetColumnSpan(Me.Label17, 6)
         Me.Label17.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label17.Location = New System.Drawing.Point(363, 120)
         Me.Label17.Name = "Label17"
@@ -594,121 +583,121 @@ Partial Class FrmG0021_Detail
         Me.PanelEx2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PanelEx2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PanelEx2.Controls.Add(Me.tlpFilter)
+        Me.PanelEx2.Controls.Add(Me.tlpHeader)
         Me.PanelEx2.HitEnabled = False
         Me.PanelEx2.Location = New System.Drawing.Point(12, 96)
         Me.PanelEx2.Name = "PanelEx2"
         Me.PanelEx2.Size = New System.Drawing.Size(1240, 161)
         Me.PanelEx2.TabIndex = 0
         '
-        'tlpFilter
+        'tlpHeader
         '
-        Me.tlpFilter.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.tlpHeader.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tlpFilter.ColumnCount = 62
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpFilter.Controls.Add(Me.Label8, 0, 0)
-        Me.tlpFilter.Controls.Add(Me.mtxFCCB_NO, 1, 0)
-        Me.tlpFilter.Controls.Add(Me.cmbBUMON, 15, 0)
-        Me.tlpFilter.Controls.Add(Me.lblKISO_TANTO, 20, 0)
-        Me.tlpFilter.Controls.Add(Me.cmbKISO_TANTO, 25, 0)
-        Me.tlpFilter.Controls.Add(Me.Label14, 0, 1)
-        Me.tlpFilter.Controls.Add(Me.Label3, 0, 4)
-        Me.tlpFilter.Controls.Add(Me.Label7, 0, 3)
-        Me.tlpFilter.Controls.Add(Me.cmbHINMEI, 5, 3)
-        Me.tlpFilter.Controls.Add(Me.Label4, 0, 2)
-        Me.tlpFilter.Controls.Add(Me.cmbBUHIN_BANGO, 5, 2)
-        Me.tlpFilter.Controls.Add(Me.lblSYANAI_CD, 12, 2)
-        Me.tlpFilter.Controls.Add(Me.cmbSYANAI_CD, 17, 2)
-        Me.tlpFilter.Controls.Add(Me.lblCM_TANTO, 22, 1)
-        Me.tlpFilter.Controls.Add(Me.cmbCM_TANTO, 27, 1)
-        Me.tlpFilter.Controls.Add(Me.cmbKISYU, 5, 1)
-        Me.tlpFilter.Controls.Add(Me.Label18, 34, 0)
-        Me.tlpFilter.Controls.Add(Me.txtINPUT_NAIYO, 39, 0)
-        Me.tlpFilter.Controls.Add(Me.Label16, 12, 1)
-        Me.tlpFilter.Controls.Add(Me.dtKISO, 17, 1)
-        Me.tlpFilter.Controls.Add(Me.Label5, 12, 0)
-        Me.tlpFilter.Controls.Add(Me.mtxINPUT_DOC_NO, 5, 4)
-        Me.tlpFilter.Controls.Add(Me.mtxSNO_APPLY_PERIOD_KISO, 24, 4)
-        Me.tlpFilter.Controls.Add(Me.Label17, 18, 4)
-        Me.tlpFilter.Location = New System.Drawing.Point(0, 0)
-        Me.tlpFilter.Name = "tlpFilter"
-        Me.tlpFilter.RowCount = 7
-        Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.Size = New System.Drawing.Size(1236, 157)
-        Me.tlpFilter.TabIndex = 327
+        Me.tlpHeader.ColumnCount = 62
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpHeader.Controls.Add(Me.Label8, 0, 0)
+        Me.tlpHeader.Controls.Add(Me.mtxFCCB_NO, 1, 0)
+        Me.tlpHeader.Controls.Add(Me.cmbBUMON, 15, 0)
+        Me.tlpHeader.Controls.Add(Me.lblKISO_TANTO, 20, 0)
+        Me.tlpHeader.Controls.Add(Me.cmbKISO_TANTO, 25, 0)
+        Me.tlpHeader.Controls.Add(Me.Label14, 0, 1)
+        Me.tlpHeader.Controls.Add(Me.Label3, 0, 4)
+        Me.tlpHeader.Controls.Add(Me.Label7, 0, 3)
+        Me.tlpHeader.Controls.Add(Me.cmbHINMEI, 5, 3)
+        Me.tlpHeader.Controls.Add(Me.Label4, 0, 2)
+        Me.tlpHeader.Controls.Add(Me.cmbBUHIN_BANGO, 5, 2)
+        Me.tlpHeader.Controls.Add(Me.lblSYANAI_CD, 12, 2)
+        Me.tlpHeader.Controls.Add(Me.cmbSYANAI_CD, 17, 2)
+        Me.tlpHeader.Controls.Add(Me.lblCM_TANTO, 22, 1)
+        Me.tlpHeader.Controls.Add(Me.cmbCM_TANTO, 27, 1)
+        Me.tlpHeader.Controls.Add(Me.cmbKISYU, 5, 1)
+        Me.tlpHeader.Controls.Add(Me.Label18, 34, 0)
+        Me.tlpHeader.Controls.Add(Me.txtINPUT_NAIYO, 39, 0)
+        Me.tlpHeader.Controls.Add(Me.Label16, 12, 1)
+        Me.tlpHeader.Controls.Add(Me.dtKISO, 17, 1)
+        Me.tlpHeader.Controls.Add(Me.Label5, 12, 0)
+        Me.tlpHeader.Controls.Add(Me.mtxINPUT_DOC_NO, 5, 4)
+        Me.tlpHeader.Controls.Add(Me.mtxSNO_APPLY_PERIOD_KISO, 24, 4)
+        Me.tlpHeader.Controls.Add(Me.Label17, 18, 4)
+        Me.tlpHeader.Location = New System.Drawing.Point(0, 0)
+        Me.tlpHeader.Name = "tlpHeader"
+        Me.tlpHeader.RowCount = 7
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.Size = New System.Drawing.Size(1236, 157)
+        Me.tlpHeader.TabIndex = 327
         '
         'Label18
         '
-        Me.tlpFilter.SetColumnSpan(Me.Label18, 5)
+        Me.tlpHeader.SetColumnSpan(Me.Label18, 5)
         Me.Label18.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label18.Location = New System.Drawing.Point(683, 0)
         Me.Label18.Name = "Label18"
@@ -719,7 +708,7 @@ Partial Class FrmG0021_Detail
         '
         'mtxINPUT_DOC_NO
         '
-        Me.tlpFilter.SetColumnSpan(Me.mtxINPUT_DOC_NO, 11)
+        Me.tlpHeader.SetColumnSpan(Me.mtxINPUT_DOC_NO, 11)
         Me.mtxINPUT_DOC_NO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxINPUT_DOC_NO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxINPUT_DOC_NO.InputRequired = False
@@ -734,7 +723,7 @@ Partial Class FrmG0021_Detail
         '
         'mtxSNO_APPLY_PERIOD_KISO
         '
-        Me.tlpFilter.SetColumnSpan(Me.mtxSNO_APPLY_PERIOD_KISO, 11)
+        Me.tlpHeader.SetColumnSpan(Me.mtxSNO_APPLY_PERIOD_KISO, 11)
         Me.mtxSNO_APPLY_PERIOD_KISO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxSNO_APPLY_PERIOD_KISO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxSNO_APPLY_PERIOD_KISO.InputRequired = False
@@ -749,7 +738,6 @@ Partial Class FrmG0021_Detail
         '
         'flpnlStageIndex
         '
-        Me.flpnlStageIndex.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.flpnlStageIndex.Controls.Add(Me.rsbtnST01)
         Me.flpnlStageIndex.Controls.Add(Me.rsbtnST02)
         Me.flpnlStageIndex.Controls.Add(Me.rsbtnST03)
@@ -758,7 +746,7 @@ Partial Class FrmG0021_Detail
         Me.flpnlStageIndex.Controls.Add(Me.rsbtnST06)
         Me.flpnlStageIndex.Controls.Add(Me.rsbtnST99)
         Me.flpnlStageIndex.Enabled = False
-        Me.flpnlStageIndex.Location = New System.Drawing.Point(626, 61)
+        Me.flpnlStageIndex.Location = New System.Drawing.Point(360, 61)
         Me.flpnlStageIndex.Name = "flpnlStageIndex"
         Me.flpnlStageIndex.Size = New System.Drawing.Size(622, 31)
         Me.flpnlStageIndex.TabIndex = 329
@@ -865,7 +853,7 @@ Partial Class FrmG0021_Detail
         '
         Me.lblDestTanto.AutoSize = True
         Me.lblDestTanto.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblDestTanto.Location = New System.Drawing.Point(340, 70)
+        Me.lblDestTanto.Location = New System.Drawing.Point(334, -4)
         Me.lblDestTanto.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.lblDestTanto.Name = "lblDestTanto"
         Me.lblDestTanto.Size = New System.Drawing.Size(72, 15)
@@ -878,7 +866,7 @@ Partial Class FrmG0021_Detail
         '
         Me.Label48.AutoSize = True
         Me.Label48.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label48.Location = New System.Drawing.Point(120, 70)
+        Me.Label48.Location = New System.Drawing.Point(996, 69)
         Me.Label48.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label48.Name = "Label48"
         Me.Label48.Size = New System.Drawing.Size(102, 15)
@@ -900,7 +888,7 @@ Partial Class FrmG0021_Detail
         Me.cmbDestTANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbDestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbDestTANTO.IsSelected = False
-        Me.cmbDestTANTO.Location = New System.Drawing.Point(421, 65)
+        Me.cmbDestTANTO.Location = New System.Drawing.Point(415, -9)
         Me.cmbDestTANTO.Name = "cmbDestTANTO"
         Me.cmbDestTANTO.NullValue = " "
         Me.cmbDestTANTO.Size = New System.Drawing.Size(154, 25)
@@ -913,7 +901,7 @@ Partial Class FrmG0021_Detail
         '
         Me.dtUPD_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.dtUPD_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtUPD_YMD.Location = New System.Drawing.Point(228, 65)
+        Me.dtUPD_YMD.Location = New System.Drawing.Point(1104, 64)
         Me.dtUPD_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtUPD_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtUPD_YMD.MinimumSize = New System.Drawing.Size(98, 24)
@@ -1173,17 +1161,17 @@ Partial Class FrmG0021_Detail
         Me.TableLayoutPanel1.Controls.Add(Me.Label29, 11, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Label28, 10, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Label2, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label19, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label20, 1, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label21, 2, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label22, 3, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label23, 4, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label24, 5, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label25, 6, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label27, 7, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_GM_TANTO, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_SEKKEI_TANTO, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_SEIGI_TANTO, 2, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_EIGYO_TANTO, 3, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_KANRI_TANTO, 4, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_SEIZO_TANTO, 5, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_HINSYO_TANTO, 6, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_KENSA_TANTO, 7, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Label32, 11, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Label31, 12, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label30, 8, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_KOBAI_TANTO, 8, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_SEKKEI_TANTO, 1, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_SEIGI_TANTO, 2, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_EIGYO_TANTO, 3, 2)
@@ -1276,101 +1264,101 @@ Partial Class FrmG0021_Detail
         Me.Label2.Text = "処置内容の確認、変更の適用時期等の確認、仕掛品等の処置確認"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label19
+        'lblSYOCHI_GM_TANTO
         '
-        Me.Label19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label19.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label19.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label19.Location = New System.Drawing.Point(3, 20)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(100, 20)
-        Me.Label19.TabIndex = 282
-        Me.Label19.Text = "統括責任者"
-        Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblSYOCHI_GM_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblSYOCHI_GM_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSYOCHI_GM_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_GM_TANTO.Location = New System.Drawing.Point(3, 20)
+        Me.lblSYOCHI_GM_TANTO.Name = "lblSYOCHI_GM_TANTO"
+        Me.lblSYOCHI_GM_TANTO.Size = New System.Drawing.Size(100, 20)
+        Me.lblSYOCHI_GM_TANTO.TabIndex = 282
+        Me.lblSYOCHI_GM_TANTO.Text = "統括責任者"
+        Me.lblSYOCHI_GM_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label20
+        'lblSYOCHI_SEKKEI_TANTO
         '
-        Me.Label20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label20.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label20.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label20.Location = New System.Drawing.Point(109, 20)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(100, 20)
-        Me.Label20.TabIndex = 283
-        Me.Label20.Text = "設計"
-        Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblSYOCHI_SEKKEI_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblSYOCHI_SEKKEI_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSYOCHI_SEKKEI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_SEKKEI_TANTO.Location = New System.Drawing.Point(109, 20)
+        Me.lblSYOCHI_SEKKEI_TANTO.Name = "lblSYOCHI_SEKKEI_TANTO"
+        Me.lblSYOCHI_SEKKEI_TANTO.Size = New System.Drawing.Size(100, 20)
+        Me.lblSYOCHI_SEKKEI_TANTO.TabIndex = 283
+        Me.lblSYOCHI_SEKKEI_TANTO.Text = "設計"
+        Me.lblSYOCHI_SEKKEI_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label21
+        'lblSYOCHI_SEIGI_TANTO
         '
-        Me.Label21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label21.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label21.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label21.Location = New System.Drawing.Point(215, 20)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(100, 20)
-        Me.Label21.TabIndex = 284
-        Me.Label21.Text = "生技"
-        Me.Label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblSYOCHI_SEIGI_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblSYOCHI_SEIGI_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSYOCHI_SEIGI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_SEIGI_TANTO.Location = New System.Drawing.Point(215, 20)
+        Me.lblSYOCHI_SEIGI_TANTO.Name = "lblSYOCHI_SEIGI_TANTO"
+        Me.lblSYOCHI_SEIGI_TANTO.Size = New System.Drawing.Size(100, 20)
+        Me.lblSYOCHI_SEIGI_TANTO.TabIndex = 284
+        Me.lblSYOCHI_SEIGI_TANTO.Text = "生技"
+        Me.lblSYOCHI_SEIGI_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label22
+        'lblSYOCHI_EIGYO_TANTO
         '
-        Me.Label22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label22.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label22.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label22.Location = New System.Drawing.Point(321, 20)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(100, 20)
-        Me.Label22.TabIndex = 285
-        Me.Label22.Text = "営業"
-        Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblSYOCHI_EIGYO_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblSYOCHI_EIGYO_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSYOCHI_EIGYO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_EIGYO_TANTO.Location = New System.Drawing.Point(321, 20)
+        Me.lblSYOCHI_EIGYO_TANTO.Name = "lblSYOCHI_EIGYO_TANTO"
+        Me.lblSYOCHI_EIGYO_TANTO.Size = New System.Drawing.Size(100, 20)
+        Me.lblSYOCHI_EIGYO_TANTO.TabIndex = 285
+        Me.lblSYOCHI_EIGYO_TANTO.Text = "営業"
+        Me.lblSYOCHI_EIGYO_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label23
+        'lblSYOCHI_KANRI_TANTO
         '
-        Me.Label23.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label23.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label23.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label23.Location = New System.Drawing.Point(427, 20)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(100, 20)
-        Me.Label23.TabIndex = 286
-        Me.Label23.Text = "管理"
-        Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblSYOCHI_KANRI_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblSYOCHI_KANRI_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSYOCHI_KANRI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_KANRI_TANTO.Location = New System.Drawing.Point(427, 20)
+        Me.lblSYOCHI_KANRI_TANTO.Name = "lblSYOCHI_KANRI_TANTO"
+        Me.lblSYOCHI_KANRI_TANTO.Size = New System.Drawing.Size(100, 20)
+        Me.lblSYOCHI_KANRI_TANTO.TabIndex = 286
+        Me.lblSYOCHI_KANRI_TANTO.Text = "管理"
+        Me.lblSYOCHI_KANRI_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label24
+        'lblSYOCHI_SEIZO_TANTO
         '
-        Me.Label24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label24.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label24.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label24.Location = New System.Drawing.Point(533, 20)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(100, 20)
-        Me.Label24.TabIndex = 287
-        Me.Label24.Text = "製造"
-        Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblSYOCHI_SEIZO_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblSYOCHI_SEIZO_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSYOCHI_SEIZO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_SEIZO_TANTO.Location = New System.Drawing.Point(533, 20)
+        Me.lblSYOCHI_SEIZO_TANTO.Name = "lblSYOCHI_SEIZO_TANTO"
+        Me.lblSYOCHI_SEIZO_TANTO.Size = New System.Drawing.Size(100, 20)
+        Me.lblSYOCHI_SEIZO_TANTO.TabIndex = 287
+        Me.lblSYOCHI_SEIZO_TANTO.Text = "製造"
+        Me.lblSYOCHI_SEIZO_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label25
+        'lblSYOCHI_HINSYO_TANTO
         '
-        Me.Label25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label25.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label25.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label25.Location = New System.Drawing.Point(639, 20)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(100, 20)
-        Me.Label25.TabIndex = 288
-        Me.Label25.Text = "品証"
-        Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblSYOCHI_HINSYO_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblSYOCHI_HINSYO_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSYOCHI_HINSYO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_HINSYO_TANTO.Location = New System.Drawing.Point(639, 20)
+        Me.lblSYOCHI_HINSYO_TANTO.Name = "lblSYOCHI_HINSYO_TANTO"
+        Me.lblSYOCHI_HINSYO_TANTO.Size = New System.Drawing.Size(100, 20)
+        Me.lblSYOCHI_HINSYO_TANTO.TabIndex = 288
+        Me.lblSYOCHI_HINSYO_TANTO.Text = "品証"
+        Me.lblSYOCHI_HINSYO_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label27
+        'lblSYOCHI_KENSA_TANTO
         '
-        Me.Label27.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label27.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label27.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label27.Location = New System.Drawing.Point(745, 20)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(100, 20)
-        Me.Label27.TabIndex = 289
-        Me.Label27.Text = "検査"
-        Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblSYOCHI_KENSA_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblSYOCHI_KENSA_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSYOCHI_KENSA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_KENSA_TANTO.Location = New System.Drawing.Point(745, 20)
+        Me.lblSYOCHI_KENSA_TANTO.Name = "lblSYOCHI_KENSA_TANTO"
+        Me.lblSYOCHI_KENSA_TANTO.Size = New System.Drawing.Size(100, 20)
+        Me.lblSYOCHI_KENSA_TANTO.TabIndex = 289
+        Me.lblSYOCHI_KENSA_TANTO.Text = "検査"
+        Me.lblSYOCHI_KENSA_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label32
         '
@@ -1396,17 +1384,17 @@ Partial Class FrmG0021_Detail
         Me.Label31.Text = "FCCB議長"
         Me.Label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label30
+        'lblSYOCHI_KOBAI_TANTO
         '
-        Me.Label30.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label30.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label30.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label30.Location = New System.Drawing.Point(851, 20)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(100, 20)
-        Me.Label30.TabIndex = 295
-        Me.Label30.Text = "購買"
-        Me.Label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblSYOCHI_KOBAI_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblSYOCHI_KOBAI_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSYOCHI_KOBAI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_KOBAI_TANTO.Location = New System.Drawing.Point(851, 20)
+        Me.lblSYOCHI_KOBAI_TANTO.Name = "lblSYOCHI_KOBAI_TANTO"
+        Me.lblSYOCHI_KOBAI_TANTO.Size = New System.Drawing.Size(100, 20)
+        Me.lblSYOCHI_KOBAI_TANTO.TabIndex = 295
+        Me.lblSYOCHI_KOBAI_TANTO.Text = "購買"
+        Me.lblSYOCHI_KOBAI_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'cmbSYOCHI_SEKKEI_TANTO
         '
@@ -1861,16 +1849,44 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel5.SizeRatio = 10.0R
         Me.C1SplitterPanel5.TabIndex = 4
         '
+        'Label6
+        '
+        Me.Label6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label6.Location = New System.Drawing.Point(32, 61)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(79, 30)
+        Me.Label6.TabIndex = 335
+        Me.Label6.Text = "現行ステージ:"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'mtxCurrentStageName
+        '
+        Me.mtxCurrentStageName.BackColor = System.Drawing.SystemColors.Control
+        Me.mtxCurrentStageName.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxCurrentStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxCurrentStageName.InputRequired = False
+        Me.mtxCurrentStageName.Location = New System.Drawing.Point(117, 64)
+        Me.mtxCurrentStageName.MaxByteLength = 0
+        Me.mtxCurrentStageName.Name = "mtxCurrentStageName"
+        Me.mtxCurrentStageName.ReadOnly = True
+        Me.mtxCurrentStageName.SelectAllText = False
+        Me.mtxCurrentStageName.Size = New System.Drawing.Size(237, 24)
+        Me.mtxCurrentStageName.TabIndex = 334
+        Me.mtxCurrentStageName.TabStop = False
+        Me.mtxCurrentStageName.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxCurrentStageName.WatermarkText = Nothing
+        '
         'FrmG0021_Detail
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1264, 711)
+        Me.Controls.Add(Me.mtxCurrentStageName)
+        Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.cmbDestTANTO)
         Me.Controls.Add(Me.dtUPD_YMD)
         Me.Controls.Add(Me.flpnlStageIndex)
         Me.Controls.Add(Me.lblDestTanto)
         Me.Controls.Add(Me.Label48)
-        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.PanelEx2)
         Me.Controls.Add(Me.TabControl1)
         Me.HelpButton = True
@@ -1880,7 +1896,11 @@ Partial Class FrmG0021_Detail
         Me.Text = ""
         Me.Controls.SetChildIndex(Me.TabControl1, 0)
         Me.Controls.SetChildIndex(Me.PanelEx2, 0)
-        Me.Controls.SetChildIndex(Me.Label1, 0)
+        Me.Controls.SetChildIndex(Me.Label48, 0)
+        Me.Controls.SetChildIndex(Me.lblDestTanto, 0)
+        Me.Controls.SetChildIndex(Me.flpnlStageIndex, 0)
+        Me.Controls.SetChildIndex(Me.dtUPD_YMD, 0)
+        Me.Controls.SetChildIndex(Me.cmbDestTANTO, 0)
         Me.Controls.SetChildIndex(Me.lblTytle, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc3, 0)
@@ -1894,17 +1914,14 @@ Partial Class FrmG0021_Detail
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
+        Me.Controls.SetChildIndex(Me.Label6, 0)
         Me.Controls.SetChildIndex(Me.lblRecordCount, 0)
-        Me.Controls.SetChildIndex(Me.Label48, 0)
-        Me.Controls.SetChildIndex(Me.lblDestTanto, 0)
-        Me.Controls.SetChildIndex(Me.flpnlStageIndex, 0)
-        Me.Controls.SetChildIndex(Me.dtUPD_YMD, 0)
-        Me.Controls.SetChildIndex(Me.cmbDestTANTO, 0)
+        Me.Controls.SetChildIndex(Me.mtxCurrentStageName, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelEx2.ResumeLayout(False)
-        Me.tlpFilter.ResumeLayout(False)
-        Me.tlpFilter.PerformLayout()
+        Me.tlpHeader.ResumeLayout(False)
+        Me.tlpHeader.PerformLayout()
         Me.flpnlStageIndex.ResumeLayout(False)
         Me.TabControl1.ResumeLayout(False)
         Me.TabPageEx1.ResumeLayout(False)
@@ -1956,8 +1973,7 @@ Partial Class FrmG0021_Detail
     Friend WithEvents Label16 As Label
     Friend WithEvents dtKISO As DateTextBoxEx
     Friend WithEvents PanelEx2 As PanelEx
-    Friend WithEvents Label1 As Label
-    Friend WithEvents tlpFilter As TableLayoutPanel
+    Friend WithEvents tlpHeader As TableLayoutPanel
     Friend WithEvents mtxINPUT_DOC_NO As MaskedTextBoxEx
     Friend WithEvents mtxSNO_APPLY_PERIOD_KISO As MaskedTextBoxEx
     Friend WithEvents Label18 As Label
@@ -1997,17 +2013,17 @@ Partial Class FrmG0021_Detail
     Friend WithEvents Label2 As Label
     Friend WithEvents Label29 As Label
     Friend WithEvents Label28 As Label
-    Friend WithEvents Label19 As Label
-    Friend WithEvents Label20 As Label
-    Friend WithEvents Label21 As Label
-    Friend WithEvents Label22 As Label
-    Friend WithEvents Label23 As Label
-    Friend WithEvents Label24 As Label
-    Friend WithEvents Label25 As Label
-    Friend WithEvents Label27 As Label
+    Friend WithEvents lblSYOCHI_GM_TANTO As Label
+    Friend WithEvents lblSYOCHI_SEKKEI_TANTO As Label
+    Friend WithEvents lblSYOCHI_SEIGI_TANTO As Label
+    Friend WithEvents lblSYOCHI_EIGYO_TANTO As Label
+    Friend WithEvents lblSYOCHI_KANRI_TANTO As Label
+    Friend WithEvents lblSYOCHI_SEIZO_TANTO As Label
+    Friend WithEvents lblSYOCHI_HINSYO_TANTO As Label
+    Friend WithEvents lblSYOCHI_KENSA_TANTO As Label
     Friend WithEvents Label32 As Label
     Friend WithEvents Label31 As Label
-    Friend WithEvents Label30 As Label
+    Friend WithEvents lblSYOCHI_KOBAI_TANTO As Label
     Friend WithEvents cmbSYOCHI_GM_TANTO As ComboboxEx
     Friend WithEvents cmbSYOCHI_SEKKEI_TANTO As ComboboxEx
     Friend WithEvents cmbSYOCHI_SEIGI_TANTO As ComboboxEx
@@ -2031,4 +2047,6 @@ Partial Class FrmG0021_Detail
     Friend WithEvents dtKAKUNIN_GM_TANTO As DateTextBoxEx
     Friend WithEvents dtKAKUNIN_CM_TANTO As DateTextBoxEx
     Friend WithEvents C1SplitterPanel5 As C1.Win.C1SplitContainer.C1SplitterPanel
+    Friend WithEvents Label6 As Label
+    Friend WithEvents mtxCurrentStageName As MaskedTextBoxEx
 End Class
