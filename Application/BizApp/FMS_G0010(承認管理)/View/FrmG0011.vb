@@ -171,7 +171,6 @@ Public Class FrmG0011
         Try
             PrRIYU = ""
 
-
             Await Task.Run(
                 Sub()
                     Me.Invoke(
@@ -181,7 +180,6 @@ Public Class FrmG0011
                         'PicBox.Visible = True
                         'PicBox.ImageLocation = "\\sv04\FMS\RESOURCE\loading.gif"
                         'PicBox.Dock = DockStyle.Fill
-
 
                         'Me.Visible = False
                         'Me.SuspendLayout()
@@ -237,8 +235,6 @@ Public Class FrmG0011
 
                         'バインディングセット
                         Call FunSetBindingD003()
-
-
 
                         IsEditingClosed = HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
 
@@ -1518,10 +1514,9 @@ Public Class FrmG0011
     ''' <returns></returns>
     Private Function FunSAVE_R001(ByRef DB As ClsDbUtility, ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
-        Dim intRET As Integer
+        Dim strRET As String
         Dim sqlEx As New Exception
         Dim strSysDate As String = DB.GetSysDateString
-        'UNDONE: MERGE INTO に変更
 
         '---存在確認
         Dim dsList As New DataSet
@@ -1558,40 +1553,41 @@ Public Class FrmG0011
         End Select
         '-----
 
-        '-----INSERT
         sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append("INSERT INTO " & NameOf(R001_HOKOKU_SOUSA) & "(")
-        sbSQL.Append("  " & NameOf(_R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID))
-        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.HOKOKU_NO))
-        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.ADD_YMDHNS))
-        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SYONIN_JUN))
-        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SOUSA_KB))
-        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SYAIN_ID))
-        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB))
-        sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.RIYU))
-        sbSQL.Append(" ) VALUES(")
-        sbSQL.Append("  " & _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID)
-        sbSQL.Append(" ,'" & _R001_HOKOKU_SOUSA.HOKOKU_NO & "'")
-        sbSQL.Append(" ,'" & _R001_HOKOKU_SOUSA.ADD_YMDHNS & "'")
-        sbSQL.Append(" ," & _R001_HOKOKU_SOUSA.SYONIN_JUN)
-        sbSQL.Append(" ,'" & _R001_HOKOKU_SOUSA.SOUSA_KB & "'")
-        sbSQL.Append(" ," & _R001_HOKOKU_SOUSA.SYAIN_ID)
-        sbSQL.Append(" ,'" & _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB & "'")
-        sbSQL.Append(" ,'" & _R001_HOKOKU_SOUSA.RIYU & "'")
-        sbSQL.Append(")")
+        sbSQL.Append($"MERGE INTO {NameOf(R001_HOKOKU_SOUSA)} AS SrcT")
+        sbSQL.Append($" USING (")
+        sbSQL.Append($" {_R001_HOKOKU_SOUSA.ToSelectSqlString}")
+        sbSQL.Append($" ) AS WK")
+        sbSQL.Append($" ON (SrcT.{NameOf(_R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID)} = WK.{NameOf(_R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID)}")
+        sbSQL.Append($" AND SrcT.{NameOf(_R001_HOKOKU_SOUSA.HOKOKU_NO)}           = WK.{NameOf(_R001_HOKOKU_SOUSA.HOKOKU_NO)}")
+        sbSQL.Append($" AND SrcT.{NameOf(_R001_HOKOKU_SOUSA.ADD_YMDHNS)}          = WK.{NameOf(_R001_HOKOKU_SOUSA.ADD_YMDHNS)})")
 
-        '-----SQL実行
-        intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-        If intRET <> 1 Then
-            '-----エラーログ出力
-            Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-            WL.WriteLogDat(strErrMsg)
-            Return False
-        End If
+        sbSQL.Append($" WHEN MATCHED THEN ")
+        sbSQL.Append($" {_R001_HOKOKU_SOUSA.ToUpdateSqlString("SrcT", "WK")}")
+        sbSQL.Append(" WHEN NOT MATCHED THEN ")
+        sbSQL.Append($" {_R001_HOKOKU_SOUSA.ToInsertSqlString("WK")}")
+        sbSQL.Append("OUTPUT $action AS RESULT")
+        sbSQL.Append(";")
 
+        strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+        Select Case strRET
+            Case "INSERT"
+
+            Case "UPDATE"
+
+            Case Else
+                If sqlEx.Source IsNot Nothing Then
+                    '-----エラーログ出力
+                    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                    WL.WriteLogDat(strErrMsg)
+
+                    Return False
+                End If
+
+        End Select
         WL.WriteLogDat($"[DEBUG]NCR 報告書NO:{_D003_NCR_J.HOKOKU_NO}、MERGE R001")
 
-        If FunSAVE_R003(DB, _R001_HOKOKU_SOUSA.ADD_YMDHNS) Then
+        If FunSAVE_R003(DB, strSysDate) Then
         Else
             Return False
         End If
@@ -6607,7 +6603,6 @@ Public Class FrmG0011
         Call SetInfoLabelFormat(lblCAR_TANTO, $"承認担当者マスタ{vbCr}CARステージ:{NameOf(ENM_CAR_STAGE._10_起草入力)}に登録された担当者")
         Call SetInfoLabelFormat(lblST04_HASSEI_KOTEI_GL_TANTO, $"承認担当者マスタ{vbCr}NCRステージ:{NameOf(ENM_NCR_STAGE._20_起草確認製造GL)}に登録された担当者")
         Call SetInfoLabelFormat(lblST07_SAISIN_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}検査・品証")
-
 
         Call SetInfoLabelFormat(lblST08_1_HAIKYAKU_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}製造")
 
