@@ -19,6 +19,7 @@ Public Class FrmG0021_Detail
     Private IsEditingClosed As Boolean
     Private IsInitializing As Boolean
 
+    Private USER_GYOMU_KENGEN_LIST As New List(Of ENM_GYOMU_GROUP_ID)
 #End Region
 
 #Region "プロパティ"
@@ -141,6 +142,7 @@ Public Class FrmG0021_Detail
 
                         IsEditingClosed = HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
 
+
                         '-----画面初期化
                         Call FunInitializeControls(PrMODE)
 
@@ -181,9 +183,12 @@ Public Class FrmG0021_Detail
             .ShowCellLabels = True
             .SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Cell
 
+            .EditOptions = EditFlags.UseNumericEditor
+
             .FocusRect = C1.Win.C1FlexGrid.FocusRectEnum.None
 
             .Font = New Font("Meiryo UI", 9, FontStyle.Regular, GraphicsUnit.Point, CType(128, Byte))
+
 
             .Styles.Add("DeletedRow")
             .Styles("DeletedRow").BackColor = clrDeletedRowBackColor
@@ -218,33 +223,32 @@ Public Class FrmG0021_Detail
         Try
 
             Dim flx = DirectCast(sender, C1FlexGrid)
+            Dim GYOMU_GROUP_ID As ENM_GYOMU_GROUP_ID
+            Dim TANTO_COL_INDEX As Integer
+
+            Select Case flx.Name
+                Case NameOf(flxDATA_2)
+                    GYOMU_GROUP_ID = flx(e.Row, 4).ToString.ToVal
+                    TANTO_COL_INDEX = 6
+                Case NameOf(flxDATA_3)
+                    GYOMU_GROUP_ID = flx(e.Row, 3).ToString.ToVal
+                    TANTO_COL_INDEX = 5
+                Case NameOf(flxDATA_5)
+                    GYOMU_GROUP_ID = flx(e.Row, 3).ToString.ToVal
+                    TANTO_COL_INDEX = 4
+                Case Else
+            End Select
 
             '担当部署→担当者リスト取得
             Select Case flx.Cols(e.Col).Name
                 Case NameOf(D010.TANTO_GYOMU_GROUP_ID), NameOf(D010.TANTO_ID)
-                    Dim GYOMU_GROUP_ID As ENM_GYOMU_GROUP_ID
-                    Dim TANTO_COL_INDEX As Integer
-
-                    Select Case flx.Name
-                        Case NameOf(flxDATA_2)
-                            GYOMU_GROUP_ID = flx(e.Row, 4).ToString.ToVal
-                            TANTO_COL_INDEX = 6
-                        Case NameOf(flxDATA_3)
-                            GYOMU_GROUP_ID = flx(e.Row, 3).ToString.ToVal
-                            TANTO_COL_INDEX = 5
-                        Case NameOf(flxDATA_5)
-                            GYOMU_GROUP_ID = flx(e.Row, 3).ToString.ToVal
-                            TANTO_COL_INDEX = 4
-                        Case Else
-                    End Select
-
                     If GYOMU_GROUP_ID <> 0 Then
                         flx.SetCellStyle(e.Row, TANTO_COL_INDEX, flx.Styles($"dtTANTO_{GYOMU_GROUP_ID.Value}"))
                     End If
-
                 Case Else
 
             End Select
+
         Catch ex As Exception
             Throw
         End Try
@@ -270,6 +274,27 @@ Public Class FrmG0021_Detail
         Catch ex As Exception
             Throw
         End Try
+    End Sub
+
+    Private Sub FlxDATA_AfterSort(sender As Object, e As SortColEventArgs) Handles flxDATA_2.AfterSort, flxDATA_3.AfterSort, flxDATA_5.AfterSort
+
+        Dim flx = DirectCast(sender, C1FlexGrid)
+
+        '編集権限設定
+        If _D009_FCCB_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID Then
+            '起草者は全編集権限あり
+        Else
+            '担当業務以外は編集不可
+            For i As Integer = 1 To flx.Rows.Count - 1
+                If USER_GYOMU_KENGEN_LIST.Contains(flx.Rows(i).Item(NameOf(D010.TANTO_GYOMU_GROUP_ID))) Then
+                    flx.Rows(i).Style = Nothing
+                    flx.Rows(i).AllowEditing = True
+                Else
+                    flx.Rows(i).Style = flx.Styles("DeletedRow")
+                    flx.Rows(i).AllowEditing = False
+                End If
+            Next
+        End If
     End Sub
 
 #End Region
@@ -1504,6 +1529,7 @@ Public Class FrmG0021_Detail
                     cmdFunc5.Enabled = True
                 End If
 
+
                 If PrCurrentStage = ENM_FCCB_STAGE._999_Closed Then
                     If IsEditingClosed Then
                         cmdFunc1.Enabled = True
@@ -2006,6 +2032,8 @@ Public Class FrmG0021_Detail
                         cmbSYANAI_CD.SelectedValue = _D009_FCCB_J.SYANAI_CD
                     End If
 
+
+
                     cmbHINMEI.Text = _D009_FCCB_J.BUHIN_NAME
                     mtxINPUT_DOC_NO.Text = _D009_FCCB_J.INPUT_DOC_NO
                     mtxSNO_APPLY_PERIOD_KISO.Text = _D009_FCCB_J.SNO_APPLY_PERIOD_KISO
@@ -2085,6 +2113,12 @@ Public Class FrmG0021_Detail
                         Dim Sec4 As New ModelInfo(Of D011)(srcDATA:=dsList.Tables(0))
                         Flx4_DS.DataSource = Sec4.Data
 
+                        Dim dtTANTO As New SortedList
+                        dtTANTO.Add(0, "未選択")
+                        flxDATA_2.Cols(NameOf(D010.TANTO_ID)).DataMap = dtTANTO
+                        flxDATA_3.Cols(NameOf(D010.TANTO_ID)).DataMap = dtTANTO
+                        flxDATA_5.Cols(NameOf(D010.TANTO_ID)).DataMap = dtTANTO
+
 #Region "処置確認担当者"
 
                         sbSQL.Clear()
@@ -2162,11 +2196,47 @@ Public Class FrmG0021_Detail
             mtxCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, _D009_FCCB_J.FCCB_NO)
 
 
+            '編集権限設定
+            If _D009_FCCB_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID Then
+                '起草者は全編集権限あり
+            Else
+                USER_GYOMU_KENGEN_LIST = GetSYAIN_GYOMUGroups(pub_SYAIN_INFO.SYAIN_ID)
+
+                '担当業務以外は編集不可
+                For i As Integer = 1 To flxDATA_2.Rows.Count - 1
+                    If USER_GYOMU_KENGEN_LIST.Contains(flxDATA_2.Rows(i).Item(NameOf(D010.TANTO_GYOMU_GROUP_ID))) Then
+                        flxDATA_2.Rows(i).Style = Nothing
+                        flxDATA_2.Rows(i).AllowEditing = True
+                    Else
+                        flxDATA_2.Rows(i).Style = flxDATA_2.Styles("DeletedRow")
+                        flxDATA_2.Rows(i).AllowEditing = False
+                    End If
+                Next
+                For i As Integer = 1 To flxDATA_3.Rows.Count - 1
+                    If USER_GYOMU_KENGEN_LIST.Contains(flxDATA_3.Rows(i).Item(NameOf(D010.TANTO_GYOMU_GROUP_ID))) Then
+                        flxDATA_3.Rows(i).Style = Nothing
+                        flxDATA_3.Rows(i).AllowEditing = True
+                    Else
+                        flxDATA_3.Rows(i).Style = flxDATA_3.Styles("DeletedRow")
+                        flxDATA_3.Rows(i).AllowEditing = False
+                    End If
+                Next
+                For i As Integer = 1 To flxDATA_5.Rows.Count - 1
+                    If USER_GYOMU_KENGEN_LIST.Contains(flxDATA_5.Rows(i).Item(NameOf(D011.TANTO_GYOMU_GROUP_ID))) Then
+                        flxDATA_5.Rows(i).Style = Nothing
+                        flxDATA_5.Rows(i).AllowEditing = True
+                    Else
+                        flxDATA_5.Rows(i).Style = flxDATA_5.Styles("DeletedRow")
+                        flxDATA_5.Rows(i).AllowEditing = False
+                    End If
+                Next
+            End If
+
             '完了日表示
             Dim blnCloseColumnVisibled = (PrCurrentStage >= ENM_FCCB_STAGE._40_処置確認.Value)
-            flxDATA_2.Cols(9).Visible = blnCloseColumnVisibled
-            flxDATA_3.Cols(7).Visible = blnCloseColumnVisibled
-            flxDATA_5.Cols(6).Visible = blnCloseColumnVisibled
+            flxDATA_2.Cols(NameOf(D010.CLOSE_YMD)).Visible = blnCloseColumnVisibled
+            flxDATA_3.Cols(NameOf(D010.CLOSE_YMD)).Visible = blnCloseColumnVisibled
+            flxDATA_5.Cols(NameOf(D010.CLOSE_YMD)).Visible = blnCloseColumnVisibled
 
             '編集権限
             Select Case PrCurrentStage
@@ -2235,9 +2305,9 @@ Public Class FrmG0021_Detail
                     dtTANTO.Add(dr.Item("VALUE").ToString.ToVal, dr.Item("DISP"))
                 End If
             Next
-            flxDATA_2.Cols(6).DataMap = dtTANTO
-            flxDATA_3.Cols(5).DataMap = dtTANTO
-            flxDATA_5.Cols(4).DataMap = dtTANTO
+            flxDATA_2.Cols(NameOf(D010.TANTO_ID)).DataMap = dtTANTO
+            flxDATA_3.Cols(NameOf(D010.TANTO_ID)).DataMap = dtTANTO
+            flxDATA_5.Cols(NameOf(D010.TANTO_ID)).DataMap = dtTANTO
 
             For Each GROUP_ID In grp
 
@@ -2257,7 +2327,6 @@ Public Class FrmG0021_Detail
                         dtTANTO.Add(dr.Item("VALUE").ToString.ToVal, dr.Item("DISP"))
                     End If
                 Next
-
                 If Not flxDATA_2.Styles.Contains($"dtTANTO_{GROUP_ID.Value}") Then
                     flxDATA_2.Styles.Add($"dtTANTO_{GROUP_ID.Value}")
                 End If
@@ -2490,6 +2559,8 @@ Public Class FrmG0021_Detail
             Throw
         End Try
     End Function
+
+
 
 #End Region
 

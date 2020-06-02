@@ -1031,6 +1031,11 @@ Partial Class FrmG0021_Detail
         Me.flxDATA_2.ColumnInfo = resources.GetString("flxDATA_2.ColumnInfo")
         Me.flxDATA_2.DataSource = Me.Flx2_DS
         Me.flxDATA_2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flxDATA_2.EditOptions = CType((((((C1.Win.C1FlexGrid.EditFlags.AutoSearch Or C1.Win.C1FlexGrid.EditFlags.CycleOnDoubleClick) _
+            Or C1.Win.C1FlexGrid.EditFlags.MultiCheck) _
+            Or C1.Win.C1FlexGrid.EditFlags.UseNumericEditor) _
+            Or C1.Win.C1FlexGrid.EditFlags.DelayedCommit) _
+            Or C1.Win.C1FlexGrid.EditFlags.ExitOnLeftRightKeys), C1.Win.C1FlexGrid.EditFlags)
         Me.flxDATA_2.Location = New System.Drawing.Point(0, 0)
         Me.flxDATA_2.Name = "flxDATA_2"
         Me.flxDATA_2.Rows.Count = 1
@@ -1072,6 +1077,7 @@ Partial Class FrmG0021_Detail
         Me.flxDATA_3.ColumnInfo = resources.GetString("flxDATA_3.ColumnInfo")
         Me.flxDATA_3.DataSource = Me.Flx3_DS
         Me.flxDATA_3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flxDATA_3.EditOptions = C1.Win.C1FlexGrid.EditFlags.UseNumericEditor
         Me.flxDATA_3.Location = New System.Drawing.Point(0, 0)
         Me.flxDATA_3.Name = "flxDATA_3"
         Me.flxDATA_3.Rows.Count = 1
