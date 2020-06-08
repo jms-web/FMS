@@ -1,4 +1,6 @@
+Imports System.Configuration
 Imports JMS_COMMON.ClsPubMethod
+Imports Microsoft.VisualBasic.ApplicationServices
 
 ''' <summary>
 ''' ì]ëóâÊñ 
@@ -418,7 +420,10 @@ Public Class FrmG0025_Tenso
                                 "FMS_G0010.exe",
                                 strEXEParam)
 
-        If FunSendMailFCCB(strSubject, strBody, ToSYAIN_ID:=cmbTENSO_SAKI.SelectedValue) Then
+
+        Dim users As New List(Of Integer)
+        users.Add(cmbTENSO_SAKI.SelectedValue)
+        If FunSendMailFCCB(strSubject, strBody, users) Then
             Using DB As ClsDbUtility = DBOpen()
                 If FunGetCodeMastaValue(DB, "ÉÅÅ[Éãê›íË", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                 Else

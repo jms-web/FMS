@@ -628,7 +628,7 @@ Module mdlG0020
 
 #Region "メール送信"
 
-    Public Function FunSendMailFCCB(ByVal strSubject As String, ByVal strBody As String, ByVal ToSYAIN_ID As Integer) As Boolean
+    Public Function FunSendMailFCCB(strSubject As String, strBody As String, users As List(Of Integer)) As Boolean
         Dim strSmtpServer As String
         Dim intSmtpPort As Integer
         Dim strFromAddress As String
@@ -640,6 +640,8 @@ Module mdlG0020
         Dim blnSend As Boolean
         Dim strToSyainName As String
         'Dim strFromSyainName As String
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
 
         Dim strMsg As String
         Try
@@ -650,10 +652,7 @@ Module mdlG0020
                 strUserID = FunGetCodeMastaValue(DB, "メール設定", "SMTP_USER")
                 strPassword = FunGetCodeMastaValue(DB, "メール設定", "SMTP_PASS")
 
-                '---申請先担当者のメールアドレスなど取得
-                Dim sbSQL As New System.Text.StringBuilder
-                Dim dsList As New DataSet
-                sbSQL.Remove(0, sbSQL.Length)
+                sbSQL.Clear()
                 sbSQL.Append($"SELECT")
                 sbSQL.Append($" M4.SIMEI")
                 sbSQL.Append($",M4.MAIL_ADDRESS")
@@ -665,7 +664,7 @@ Module mdlG0020
                 sbSQL.Append($" LEFT JOIN dbo.M005_SYOZOKU_BUSYO AS M5 ON (M4.SYAIN_ID = M5.SYAIN_ID)")
                 sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS M2 ON (M2.BUSYO_ID = M5.BUSYO_ID)")
                 sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS GL ON (GL.SYAIN_ID = M2.SYOZOKUCYO_ID)")
-                sbSQL.Append($" WHERE M4.SYAIN_ID={ToSYAIN_ID}")
+                sbSQL.Append($" WHERE M4.SYAIN_ID IN ({users.Aggregate(Function(u1, u2) u1 & "," & u2)})")
                 sbSQL.Append($" AND M5.KENMU_FLG='0'")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 

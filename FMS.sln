@@ -405,8 +405,19 @@ Global
 		{3A800848-DB01-472D-8605-2BBE67EB638C} = {D70FCEFD-9C30-47F2-8477-4DBA645BB752}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		BuildVersion_UseGlobalSettings = True
-		BuildVersion_StartDate = 2000/1/1
 		SolutionGuid = {7654D903-2DF2-4216-B2D3-7A7E3E63F7E7}
+		BuildVersion_StartDate = 2000/1/1
+		BuildVersion_UseGlobalSettings = True
+	EndGlobalSection
+	GlobalSection(AutomaticVersions) = postSolution
+		UpdateAssemblyVersion = True
+		UpdateAssemblyFileVersion = True
+		UpdateAssemblyInfoVersion = True
+		AssemblyVersionSettings = None.None.DateStamp.TimeStamp
+		AssemblyFileVersionSettings = None.None.DateStamp.TimeStamp
+		AssemblyInfoVersionSettings = None.None.DateStamp.TimeStamp
+		UpdatePackageVersion = False
+		AssemblyInfoVersionType = SettingsVersion
+		InheritWinAppVersionFrom = None
 	EndGlobalSection
 EndGlobal

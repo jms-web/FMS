@@ -1,4 +1,5 @@
 Imports JMS_COMMON.ClsPubMethod
+Imports Microsoft.VisualBasic.ApplicationServices
 Imports MODEL
 
 ''' <summary>
@@ -436,18 +437,17 @@ Public Class FrmG0026_Sasimodosi
         Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.LazyLoad("承認判定区分").AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
         Dim SYONIN_HOKOKUSYO_NAME As String = If(PrSYONIN_HOKOKUSYO_ID = 1, "NCR", "CAR")
         Dim strEXEParam As String = $"{_D004_SYONIN_J_KANRI.SYAIN_ID},{Val(ENM_OPEN_MODE._2_処置画面起動)},{PrSYONIN_HOKOKUSYO_ID},{PrHOKOKU_NO}"
-        Dim strSubject As String = $"【不適合品処置依頼】[{SYONIN_HOKOKUSYO_NAME}] {KISYU_NAME}・{PrBUHIN_BANGO}"
+        Dim strSubject As String = $"【FCCB処置依頼】{KISYU_NAME}・{PrBUHIN_BANGO}"
         Dim strBody As String = <html><![CDATA[
         {0} 殿<br />
         <br />
-        　不適合製品の差戻依頼が来ましたので対応をお願いします。<br />
-        <br />
-        　　【報 告 書】{1}<br />
-        　　【報告書No】{2}<br />
-        　　【起草日　】{3}<br />
-        　　【機種　　】{4}<br />
+        　FCCB記録書の差戻依頼が来ましたので対応をお願いします。<br />
+        <br />        　　
+        　　【FCCB-No】{2}<br />
+        　　【起 草 日】{3}<br />
+        　　【機   種】{4}<br />
         　　【部品番号】{5}<br />
-        　　【依頼者　】{6}<br />
+        　　【依 頼 者】{6}<br />
         　　【依頼者処置内容】{7}<br />
         　　【コメント】{8}<br />
         <br />
@@ -470,10 +470,13 @@ Public Class FrmG0026_Sasimodosi
                                 SYONIN_HANTEI_NAME,
                                 _D004_SYONIN_J_KANRI.RIYU,
                                 mtxTANTO_ID.Text,
-                                "FMS_G0010.exe",
+                                "FMS_G0020.exe",
                                 strEXEParam)
 
-        If FunSendMailFCCB(strSubject, strBody, ToSYAIN_ID:=mtxTANTO_ID.Text) Then
+        Dim users As New List(Of Integer)
+        users.Add(mtxTANTO_ID.Text)
+
+        If FunSendMailFCCB(strSubject, strBody, users) Then
             Using DB As ClsDbUtility = DBOpen()
                 If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                 Else

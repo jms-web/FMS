@@ -60,7 +60,7 @@ Partial Class FrmG0021_Detail
         Me.Label48 = New System.Windows.Forms.Label()
         Me.cmbDestTANTO = New JMS_COMMON.ComboboxEx()
         Me.dtUPD_YMD = New JMS_COMMON.DateTextBoxEx()
-        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.tabMain = New System.Windows.Forms.TabControl()
         Me.TabPageEx1 = New JMS_COMMON.TabPageEx()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -119,13 +119,13 @@ Partial Class FrmG0021_Detail
         Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI = New JMS_COMMON.MaskedTextBoxEx()
         Me.C1SplitterPanel5 = New C1.Win.C1SplitContainer.C1SplitterPanel()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.mtxCurrentStageName = New JMS_COMMON.MaskedTextBoxEx()
+        Me.lblCurrentStageName = New System.Windows.Forms.Label()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEx2.SuspendLayout()
         Me.tlpHeader.SuspendLayout()
         Me.flpnlStageIndex.SuspendLayout()
-        Me.TabControl1.SuspendLayout()
+        Me.tabMain.SuspendLayout()
         Me.TabPageEx1.SuspendLayout()
         CType(Me.C1SplitContainer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.C1SplitContainer.SuspendLayout()
@@ -588,7 +588,7 @@ Partial Class FrmG0021_Detail
         Me.PanelEx2.HitEnabled = False
         Me.PanelEx2.Location = New System.Drawing.Point(12, 96)
         Me.PanelEx2.Name = "PanelEx2"
-        Me.PanelEx2.Size = New System.Drawing.Size(1240, 161)
+        Me.PanelEx2.Size = New System.Drawing.Size(1240, 164)
         Me.PanelEx2.TabIndex = 0
         '
         'tlpHeader
@@ -914,20 +914,21 @@ Partial Class FrmG0021_Detail
         Me.dtUPD_YMD.ValueNonFormat = ""
         Me.dtUPD_YMD.Visible = False
         '
-        'TabControl1
+        'tabMain
         '
-        Me.TabControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.tabMain.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TabControl1.Controls.Add(Me.TabPageEx1)
-        Me.TabControl1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.TabControl1.HotTrack = True
-        Me.TabControl1.Location = New System.Drawing.Point(10, 236)
-        Me.TabControl1.Multiline = True
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1240, 399)
-        Me.TabControl1.TabIndex = 218
+        Me.tabMain.Controls.Add(Me.TabPageEx1)
+        Me.tabMain.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.tabMain.HotTrack = True
+        Me.tabMain.Location = New System.Drawing.Point(12, 236)
+        Me.tabMain.Multiline = True
+        Me.tabMain.Name = "tabMain"
+        Me.tabMain.SelectedIndex = 0
+        Me.tabMain.Size = New System.Drawing.Size(1240, 399)
+        Me.tabMain.TabIndex = 218
+        Me.tabMain.Visible = False
         '
         'TabPageEx1
         '
@@ -1866,28 +1867,21 @@ Partial Class FrmG0021_Detail
         Me.Label6.Text = "現行ステージ:"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'mtxCurrentStageName
+        'lblCurrentStageName
         '
-        Me.mtxCurrentStageName.BackColor = System.Drawing.SystemColors.Control
-        Me.mtxCurrentStageName.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxCurrentStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.mtxCurrentStageName.InputRequired = False
-        Me.mtxCurrentStageName.Location = New System.Drawing.Point(117, 64)
-        Me.mtxCurrentStageName.MaxByteLength = 0
-        Me.mtxCurrentStageName.Name = "mtxCurrentStageName"
-        Me.mtxCurrentStageName.ReadOnly = True
-        Me.mtxCurrentStageName.SelectAllText = False
-        Me.mtxCurrentStageName.Size = New System.Drawing.Size(237, 24)
-        Me.mtxCurrentStageName.TabIndex = 334
-        Me.mtxCurrentStageName.TabStop = False
-        Me.mtxCurrentStageName.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxCurrentStageName.WatermarkText = Nothing
+        Me.lblCurrentStageName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblCurrentStageName.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblCurrentStageName.Location = New System.Drawing.Point(117, 62)
+        Me.lblCurrentStageName.Name = "lblCurrentStageName"
+        Me.lblCurrentStageName.Size = New System.Drawing.Size(237, 30)
+        Me.lblCurrentStageName.TabIndex = 335
+        Me.lblCurrentStageName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'FrmG0021_Detail
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1264, 711)
-        Me.Controls.Add(Me.mtxCurrentStageName)
+        Me.Controls.Add(Me.lblCurrentStageName)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.cmbDestTANTO)
         Me.Controls.Add(Me.dtUPD_YMD)
@@ -1895,13 +1889,13 @@ Partial Class FrmG0021_Detail
         Me.Controls.Add(Me.lblDestTanto)
         Me.Controls.Add(Me.Label48)
         Me.Controls.Add(Me.PanelEx2)
-        Me.Controls.Add(Me.TabControl1)
+        Me.Controls.Add(Me.tabMain)
         Me.HelpButton = True
         Me.MinimumSize = New System.Drawing.Size(1280, 750)
         Me.Name = "FrmG0021_Detail"
         Me.ShowStatusBar = True
         Me.Text = ""
-        Me.Controls.SetChildIndex(Me.TabControl1, 0)
+        Me.Controls.SetChildIndex(Me.tabMain, 0)
         Me.Controls.SetChildIndex(Me.PanelEx2, 0)
         Me.Controls.SetChildIndex(Me.Label48, 0)
         Me.Controls.SetChildIndex(Me.lblDestTanto, 0)
@@ -1922,15 +1916,15 @@ Partial Class FrmG0021_Detail
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
         Me.Controls.SetChildIndex(Me.Label6, 0)
+        Me.Controls.SetChildIndex(Me.lblCurrentStageName, 0)
         Me.Controls.SetChildIndex(Me.lblRecordCount, 0)
-        Me.Controls.SetChildIndex(Me.mtxCurrentStageName, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelEx2.ResumeLayout(False)
         Me.tlpHeader.ResumeLayout(False)
         Me.tlpHeader.PerformLayout()
         Me.flpnlStageIndex.ResumeLayout(False)
-        Me.TabControl1.ResumeLayout(False)
+        Me.tabMain.ResumeLayout(False)
         Me.TabPageEx1.ResumeLayout(False)
         Me.TabPageEx1.PerformLayout()
         CType(Me.C1SplitContainer, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1996,7 +1990,7 @@ Partial Class FrmG0021_Detail
     Friend WithEvents Label48 As Label
     Friend WithEvents cmbDestTANTO As ComboboxEx
     Friend WithEvents dtUPD_YMD As DateTextBoxEx
-    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents tabMain As TabControl
     Friend WithEvents TabPageEx1 As TabPageEx
     Friend WithEvents Label11 As Label
     Friend WithEvents Label12 As Label
@@ -2055,5 +2049,5 @@ Partial Class FrmG0021_Detail
     Friend WithEvents dtKAKUNIN_CM_TANTO As DateTextBoxEx
     Friend WithEvents C1SplitterPanel5 As C1.Win.C1SplitContainer.C1SplitterPanel
     Friend WithEvents Label6 As Label
-    Friend WithEvents mtxCurrentStageName As MaskedTextBoxEx
+    Friend WithEvents lblCurrentStageName As Label
 End Class

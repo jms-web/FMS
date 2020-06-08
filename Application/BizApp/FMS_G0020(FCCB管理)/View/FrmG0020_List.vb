@@ -995,6 +995,8 @@ Public Class FrmG0020_List
                         frmFCCB.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
                 End Select
                 dlgRET = frmFCCB.ShowDialog(Me)
+                Me.Refresh()
+
                 If dlgRET = Windows.Forms.DialogResult.Cancel Then
                     Return False
                 Else
@@ -1120,13 +1122,12 @@ Public Class FrmG0020_List
 
             With flxDATA.Rows(flxDATA.RowSel)
                 frmDLG.PrSYORI_NAME = "取消登録"
-                frmDLG.PrSYONIN_HOKOKUSYO_ID = .Item(NameOf(V007_NCR_CAR.SYONIN_HOKOKUSYO_ID))
-                frmDLG.PrHOKOKU_NO = .Item(NameOf(V007_NCR_CAR.HOKOKU_NO))
-                frmDLG.PrBUMON_KB = .Item(NameOf(V007_NCR_CAR.BUMON_KB))
-                frmDLG.PrBUHIN_BANGO = .Item(NameOf(V007_NCR_CAR.BUHIN_BANGO))
-                'frmDLG.PrKISO_YMD = .Item(NameOf(V007_NCR_CAR.KISO_YMD)) 'DateTime.ParseExact(.Item(NameOf(V007_NCR_CAR.KISO_YMD)), "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-                frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = .Item(NameOf(V007_NCR_CAR.KISYU_ID))).FirstOrDefault?.Item("DISP")
-                frmDLG.PrCurrentStage = .Item(NameOf(V007_NCR_CAR.SYONIN_JUN))
+                frmDLG.PrSYONIN_HOKOKUSYO_ID = .Item(NameOf(V013_FCCB_ICHIRAN.SYONIN_HOKOKUSYO_ID))
+                frmDLG.PrHOKOKU_NO = .Item(NameOf(V013_FCCB_ICHIRAN.FCCB_NO))
+                frmDLG.PrBUMON_KB = .Item(NameOf(V013_FCCB_ICHIRAN.BUMON_KB))
+                frmDLG.PrBUHIN_BANGO = .Item(NameOf(V013_FCCB_ICHIRAN.BUHIN_BANGO))
+                frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = .Item(NameOf(V013_FCCB_ICHIRAN.KISYU_ID))).FirstOrDefault?.Item("DISP")
+                frmDLG.PrCurrentStage = .Item(NameOf(V013_FCCB_ICHIRAN.SYONIN_JUN))
             End With
 
             dlgRET = frmDLG.ShowDialog(Me)
@@ -1144,50 +1145,6 @@ Public Class FrmG0020_List
             If frmDLG IsNot Nothing Then
                 frmDLG.Dispose()
             End If
-        End Try
-    End Function
-
-#End Region
-
-#Region "全選択"
-
-    Private Function FunSelectAll() As Boolean
-
-        Try
-            Dim rows = DirectCast(Me.flxDATA.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("CLOSE_FG") = "0" And r.Field(Of String)("DEL_YMDHNS").IsNulOrWS).ToList
-            If rows.Count > 0 Then
-                For Each row As DataRow In rows
-                    row.Item("SELECTED") = True '"●"
-                Next row
-
-                '表示更新
-                FunSetDgvCellFormat(Me.dgvDATA)
-            Else
-            End If
-
-            Return True
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        End Try
-    End Function
-
-#End Region
-
-#Region "全選択解除"
-
-    Private Function FunUnSelectAll() As Boolean
-
-        Try
-
-            'Dim dt As DataTable = DirectCast(Me.dgvDATA.DataSource, DataTable)
-            Dim dt As DataTable = DirectCast(Me.flxDATA.DataSource, DataTable)
-            dt.AsEnumerable.Where(Function(r) r.Field(Of Boolean)("SELECTED") = True).ForEach(Sub(r) r.Item("SELECTED") = False)
-            flxDATA.Update()
-            Return True
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
         End Try
     End Function
 
@@ -1260,7 +1217,10 @@ Public Class FrmG0020_List
                                 "FMS_G0010.exe",
                                 strEXEParam)
 
-                                If FunSendMailFCCB(strSubject, strBody, ToSYAIN_ID:=dr.Item("GEN_TANTO_ID")) Then
+                                Dim users As New List(Of Integer)
+                                users.Add(dr.Item("GEN_TANTO_ID"))
+
+                                If FunSendMailFCCB(strSubject, strBody, users) Then
                                     If FunSAVE_R001(DB, dr) Then
                                     Else
                                         blnErr = True
@@ -1275,8 +1235,8 @@ Public Class FrmG0020_List
 
                             MessageBox.Show("処置依頼メールを送信しました。", "メール送信完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                            '全選択解除
-                            Call FunUnSelectAll()
+                            ''全選択解除
+                            'Call FunUnSelectAll()
 
                             Return True
                         End If
@@ -1296,14 +1256,13 @@ Public Class FrmG0020_List
                 If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
 
                     Dim strEXEParam As String = dr.Item(NameOf(ST04_FCCB_ICHIRAN.GEN_TANTO_ID)) & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & dr.Item(NameOf(ST04_FCCB_ICHIRAN.SYONIN_HOKOKUSYO_ID)) & "," & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
-                    Dim strSubject As String = $"【不適合品処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME")}] {dr.Item(NameOf(ST04_FCCB_ICHIRAN.KISYU_NAME))}・{dr.Item(NameOf(ST04_FCCB_ICHIRAN.BUHIN_BANGO))}"
+                    Dim strSubject As String = $"【FCCB処置依頼】{dr.Item(NameOf(ST04_FCCB_ICHIRAN.KISYU_NAME))}・{dr.Item(NameOf(ST04_FCCB_ICHIRAN.BUHIN_BANGO))}"
                     Dim strBody As String = <body><![CDATA[
                     {0} 殿<br />
                     <br />
                     　FCCB調査書の処置依頼から【滞留日数】{1}日が経過しています。<br />
                     　早急に対応をお願いします。<br />
                     <br />
-                    【報 告 書】{2}<br />
                     【報告書No】{3}<br />
                     【起 草 日】{4}<br />
                     【機　  種】{5}<br />
@@ -1328,10 +1287,13 @@ Public Class FrmG0020_List
                                 dr.Item("BUHIN_BANGO"),
                                 Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
                                 dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_ID)),
-                                "FMS_G0010.exe",
+                                "FMS_G0020.exe",
                                 strEXEParam)
 
-                    If FunSendMailFCCB(strSubject, strBody, ToSYAIN_ID:=dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_ID))) Then
+                    Dim users As New List(Of Integer)
+                    users.Add(dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_ID)))
+
+                    If FunSendMailFCCB(strSubject, strBody, users) Then
 
                         Using DB As ClsDbUtility = DBOpen()
                             Dim blnErr As Boolean
@@ -2022,8 +1984,8 @@ Public Class FrmG0020_List
         If Not mtxHINMEI.Text.IsNulOrWS Then
             sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.BUHIN_NAME)} LIKE '%{mtxHINMEI.Text.Trim}%'")
         End If
-        If Not chkTairyu.Checked Then
-            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.TAIRYU_FG)} = '0'")
+        If chkTairyu.Checked Then
+            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.TAIRYU_FG)} > '0'")
         End If
         If Not chkClosedRowVisibled.Checked Then
             sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.CLOSE_FG)} = '0'")
