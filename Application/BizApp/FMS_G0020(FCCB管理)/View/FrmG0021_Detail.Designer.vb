@@ -422,6 +422,7 @@ Partial Class FrmG0021_Detail
         Me.tlpHeader.SetColumnSpan(Me.cmbKISO_TANTO, 7)
         Me.cmbKISO_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbKISO_TANTO.DisplayMember = "DISP"
+        Me.cmbKISO_TANTO.DropDownWidth = 140
         Me.cmbKISO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKISO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKISO_TANTO.FormattingEnabled = True
@@ -456,6 +457,7 @@ Partial Class FrmG0021_Detail
         Me.tlpHeader.SetColumnSpan(Me.cmbCM_TANTO, 7)
         Me.cmbCM_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbCM_TANTO.DisplayMember = "DISP"
+        Me.cmbCM_TANTO.DropDownWidth = 140
         Me.cmbCM_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbCM_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbCM_TANTO.FormattingEnabled = True
@@ -1219,7 +1221,7 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_GM_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbSYOCHI_GM_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_GM_TANTO.DisplayMember = "DISP"
-        Me.cmbSYOCHI_GM_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_GM_TANTO.DropDownWidth = 140
         Me.cmbSYOCHI_GM_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYOCHI_GM_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_GM_TANTO.FormattingEnabled = True
@@ -1411,7 +1413,7 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_SEKKEI_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbSYOCHI_SEKKEI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_SEKKEI_TANTO.DisplayMember = "DISP"
-        Me.cmbSYOCHI_SEKKEI_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_SEKKEI_TANTO.DropDownWidth = 140
         Me.cmbSYOCHI_SEKKEI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYOCHI_SEKKEI_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_SEKKEI_TANTO.FormattingEnabled = True
@@ -1433,7 +1435,7 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_SEIGI_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbSYOCHI_SEIGI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_SEIGI_TANTO.DisplayMember = "DISP"
-        Me.cmbSYOCHI_SEIGI_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_SEIGI_TANTO.DropDownWidth = 140
         Me.cmbSYOCHI_SEIGI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYOCHI_SEIGI_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_SEIGI_TANTO.FormattingEnabled = True
@@ -1455,7 +1457,7 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_EIGYO_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbSYOCHI_EIGYO_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_EIGYO_TANTO.DisplayMember = "DISP"
-        Me.cmbSYOCHI_EIGYO_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_EIGYO_TANTO.DropDownWidth = 140
         Me.cmbSYOCHI_EIGYO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYOCHI_EIGYO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_EIGYO_TANTO.FormattingEnabled = True
@@ -1477,7 +1479,7 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_KANRI_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbSYOCHI_KANRI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_KANRI_TANTO.DisplayMember = "DISP"
-        Me.cmbSYOCHI_KANRI_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_KANRI_TANTO.DropDownWidth = 140
         Me.cmbSYOCHI_KANRI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYOCHI_KANRI_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_KANRI_TANTO.FormattingEnabled = True
@@ -1514,7 +1516,7 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_SEIZO_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbSYOCHI_SEIZO_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_SEIZO_TANTO.DisplayMember = "DISP"
-        Me.cmbSYOCHI_SEIZO_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_SEIZO_TANTO.DropDownWidth = 140
         Me.cmbSYOCHI_SEIZO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYOCHI_SEIZO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_SEIZO_TANTO.FormattingEnabled = True
@@ -1536,7 +1538,7 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_HINSYO_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbSYOCHI_HINSYO_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_HINSYO_TANTO.DisplayMember = "DISP"
-        Me.cmbSYOCHI_HINSYO_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_HINSYO_TANTO.DropDownWidth = 140
         Me.cmbSYOCHI_HINSYO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYOCHI_HINSYO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_HINSYO_TANTO.FormattingEnabled = True
@@ -1558,7 +1560,7 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_KENSA_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbSYOCHI_KENSA_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_KENSA_TANTO.DisplayMember = "DISP"
-        Me.cmbSYOCHI_KENSA_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_KENSA_TANTO.DropDownWidth = 140
         Me.cmbSYOCHI_KENSA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYOCHI_KENSA_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_KENSA_TANTO.FormattingEnabled = True
@@ -1580,7 +1582,7 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_KOBAI_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbSYOCHI_KOBAI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_KOBAI_TANTO.DisplayMember = "DISP"
-        Me.cmbSYOCHI_KOBAI_TANTO.DropDownWidth = 230
+        Me.cmbSYOCHI_KOBAI_TANTO.DropDownWidth = 140
         Me.cmbSYOCHI_KOBAI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYOCHI_KOBAI_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOCHI_KOBAI_TANTO.FormattingEnabled = True
@@ -1602,7 +1604,7 @@ Partial Class FrmG0021_Detail
         Me.cmbKAKUNIN_GM_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbKAKUNIN_GM_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbKAKUNIN_GM_TANTO.DisplayMember = "DISP"
-        Me.cmbKAKUNIN_GM_TANTO.DropDownWidth = 230
+        Me.cmbKAKUNIN_GM_TANTO.DropDownWidth = 140
         Me.cmbKAKUNIN_GM_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKAKUNIN_GM_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKAKUNIN_GM_TANTO.FormattingEnabled = True
@@ -1624,7 +1626,7 @@ Partial Class FrmG0021_Detail
         Me.cmbKAKUNIN_CM_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbKAKUNIN_CM_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbKAKUNIN_CM_TANTO.DisplayMember = "DISP"
-        Me.cmbKAKUNIN_CM_TANTO.DropDownWidth = 230
+        Me.cmbKAKUNIN_CM_TANTO.DropDownWidth = 140
         Me.cmbKAKUNIN_CM_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbKAKUNIN_CM_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKAKUNIN_CM_TANTO.FormattingEnabled = True

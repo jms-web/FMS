@@ -130,13 +130,13 @@
     <value>512, 17</value>
   </metadata>
   <metadata name="OpenFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>643, 17</value>
+    <value>17, 56</value>
   </metadata>
   <data name="flxDATA.ColumnInfo" xml:space="preserve">
     <value>12,1,0,0,0,90,Columns:1{Name:"SYONIN_HOKOKUSYO_ID";Caption:"承認報告書ID";Visible:False;Style:"DataType:System.Int32;TextAlign:GeneralCenter;";}	2{Name:"SYONIN_HOKOKUSYO_R_NAME";Caption:"報告書略名";Style:"DataType:System.String;TextAlign:LeftCenter;";}	3{Name:"SYONIN_JUN";Caption:"承認順";Style:"DataType:System.Int32;TextAlign:GeneralCenter;";}	4{Name:"SYONIN_NAIYO";Caption:"承認内容名";Style:"DataType:System.String;TextAlign:LeftCenter;";}	5{Name:"SYAIN_ID";Caption:"社員ID";Visible:False;Style:"DataType:System.Int32;TextAlign:GeneralCenter;";}	6{Name:"SYAIN_NAME";Caption:"社員名";Style:"DataType:System.String;TextAlign:LeftCenter;";}	7{Name:"BUMON_KB";Caption:"部門区分";Visible:False;Style:"DataType:System.String;TextAlign:LeftCenter;";}	8{Name:"BUMON_KB_DISP";Caption:"部門区分";Style:"DataType:System.String;Font:MS UI Gothic, 9pt;Margins:1, 0, 0, 0;TextAlign:CenterCenter;TextEffect:Flat;TextDirection:Normal;Trimming:None;";}	9{Name:"ADD_YMDHNS";Caption:"追加日時";Visible:False;Style:"DataType:System.String;TextAlign:LeftCenter;";}	10{Name:"ADD_SYAIN_ID";Caption:"追加担当ID";Visible:False;Style:"DataType:System.Int32;TextAlign:GeneralCenter;";}	11{Name:"ADD_SYAIN_NAME";Caption:"追加担当者";Visible:False;Style:"DataType:System.String;TextAlign:LeftCenter;";}	</value>
   </data>
   <metadata name="VWM016SYONINTANTOBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>778, 17</value>
+    <value>152, 56</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>60</value>

@@ -108,7 +108,7 @@ Module mdlG0020
 
 #Region "Model"
 
-    Public _D009_FCCB_J As New D009_FCCB_J
+    Public _D009 As New D009_FCCB_J
     Public _D004_SYONIN_J_KANRI As New D004_SYONIN_J_KANRI
     Public _R001_HOKOKU_SOUSA As New R001_HOKOKU_SOUSA
     Public _R002_HOKOKU_TENSO As New R002_HOKOKU_TENSO
@@ -576,31 +576,6 @@ Module mdlG0020
         End Try
     End Function
 
-    ''' <summary>
-    ''' ログインユーザーが承認or申請したステージか判定
-    ''' </summary>
-    ''' <param name="intSYONIN_HOKOKUSYO_ID">承認報告書ID</param>
-    ''' <param name="strHOKOKU_NO">報告書No</param>
-    ''' <param name="intSYONIN_JUN">承認順No</param>
-    ''' <returns></returns>
-    Public Function FunblnOwnCreated(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String, ByVal intSYONIN_JUN As Integer) As Boolean
-        Dim sbSQL As New System.Text.StringBuilder
-        Dim dsList As New DataSet
-        sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append("SELECT")
-        sbSQL.Append(" *")
-        sbSQL.Append(" FROM " & NameOf(D004_SYONIN_J_KANRI) & " ")
-        sbSQL.Append(" WHERE SYONIN_HOKOKUSYO_ID=" & intSYONIN_HOKOKUSYO_ID & "")
-        sbSQL.Append(" AND HOKOKU_NO='" & strHOKOKU_NO & "'")
-        sbSQL.Append(" AND SYONIN_JUN=" & intSYONIN_JUN & "")
-        sbSQL.Append(" AND SYAIN_ID=" & pub_SYAIN_INFO.SYAIN_ID & "")
-        Using DBa As ClsDbUtility = DBOpen()
-            dsList = DBa.GetDataSet(sbSQL.ToString, conblnNonMsg)
-        End Using
-
-        Return dsList.Tables(0).Rows.Count > 0
-
-    End Function
 
     Private Function FunGetCurrentSYONIN_JUN(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal HOKOKU_NO As String) As Integer
         Dim sbSQL As New System.Text.StringBuilder
@@ -1061,6 +1036,334 @@ Module mdlG0020
         End Try
     End Function
 
+    Public Function FunMakeReportFCCB(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean
+
+        Dim spWorkbook As SpreadsheetGear.IWorkbook
+        Dim spWorksheets As SpreadsheetGear.IWorksheets
+        Dim spSheet1 As SpreadsheetGear.IWorksheet
+
+        Try
+            spWorkbook = SpreadsheetGear.Factory.GetWorkbook(strFilePath, System.Globalization.CultureInfo.CurrentCulture)
+
+            spWorkbook.WorkbookSet.GetLock()
+            spWorksheets = spWorkbook.Worksheets
+            spSheet1 = spWorksheets.Item(0) 'sheet1
+
+            ''---図形取得
+            'Dim ssgShapes As SpreadsheetGear.Shapes.IShapes
+            'Dim shapeLINE_SYOCHI_A1 As SpreadsheetGear.Shapes.IShape = Nothing
+            'Dim shapeLINE_SYOCHI_A2 As SpreadsheetGear.Shapes.IShape = Nothing
+            'Dim shapeLINE_SYOCHI_A3 As SpreadsheetGear.Shapes.IShape = Nothing
+            'Dim shapeLINE_SYOCHI_B1 As SpreadsheetGear.Shapes.IShape = Nothing
+            'Dim shapeLINE_SYOCHI_B2 As SpreadsheetGear.Shapes.IShape = Nothing
+            'Dim shapeLINE_SYOCHI_B3 As SpreadsheetGear.Shapes.IShape = Nothing
+            'Dim shapeLINE_SYOCHI_C1 As SpreadsheetGear.Shapes.IShape = Nothing
+            'Dim shapeLINE_SYOCHI_C2 As SpreadsheetGear.Shapes.IShape = Nothing
+            'Dim shapeLINE_SYOCHI_C3 As SpreadsheetGear.Shapes.IShape = Nothing
+            'Dim shapeLINE_SYOCHI_C4 As SpreadsheetGear.Shapes.IShape = Nothing
+            'Dim shapeLINE_SYOCHI_C5 As SpreadsheetGear.Shapes.IShape = Nothing
+            'Dim shapeLINE_SEKKEI_TANTO As SpreadsheetGear.Shapes.IShape = Nothing
+            'Dim shapeLINE_KOUKA_KAKUNIN As SpreadsheetGear.Shapes.IShape = Nothing
+            'Dim shapeSCR_FUTEKIGO_YOUIN_T As SpreadsheetGear.Shapes.IShape = Nothing
+            'Dim shapeSCR_FUTEKIGO_YOUIN_F As SpreadsheetGear.Shapes.IShape = Nothing
+
+            'ssgShapes = spSheet1.Shapes
+            'For Each shape As SpreadsheetGear.Shapes.IShape In ssgShapes
+            '    Select Case shape.Name
+            '        Case "LINE_SYOCHI_A1"
+            '            shapeLINE_SYOCHI_A1 = shape
+            '        Case "LINE_SYOCHI_A2"
+            '            shapeLINE_SYOCHI_A2 = shape
+            '        Case "LINE_SYOCHI_A3"
+            '            shapeLINE_SYOCHI_A3 = shape
+            '        Case "LINE_SYOCHI_B1"
+            '            shapeLINE_SYOCHI_B1 = shape
+            '        Case "LINE_SYOCHI_B2"
+            '            shapeLINE_SYOCHI_B2 = shape
+            '        Case "LINE_SYOCHI_B3"
+            '            shapeLINE_SYOCHI_B3 = shape
+            '        Case "LINE_SYOCHI_C1"
+            '            shapeLINE_SYOCHI_C1 = shape
+            '        Case "LINE_SYOCHI_C2"
+            '            shapeLINE_SYOCHI_C2 = shape
+            '        Case "LINE_SYOCHI_C3"
+            '            shapeLINE_SYOCHI_C3 = shape
+            '        Case "LINE_SYOCHI_C4"
+            '            shapeLINE_SYOCHI_C4 = shape
+            '        Case "LINE_SYOCHI_C5"
+            '            shapeLINE_SYOCHI_C5 = shape
+            '        Case "LINE_SEKKEI_TANTO"
+            '            shapeLINE_SEKKEI_TANTO = shape
+            '        Case "LINE_KOUKA_KAKUNIN"
+            '            shapeLINE_KOUKA_KAKUNIN = shape
+            '        Case "SCR_FUTEKIGO_YOUIN_T"
+            '            shapeSCR_FUTEKIGO_YOUIN_T = shape
+            '        Case "SCR_FUTEKIGO_YOUIN_F"
+            '            shapeSCR_FUTEKIGO_YOUIN_F = shape
+            '    End Select
+            'Next shape
+            ''---
+
+
+            _D009 = FunGetD009Model(strHOKOKU_NO)
+
+#Region "SEC1"
+
+            spSheet1.Range(NameOf(_D009.FCCB_NO)).Value = _D009.FCCB_NO
+            If Not _D009.ADD_YMDHNS.IsNulOrWS Then
+                spSheet1.Range(NameOf(_D009.ADD_YMDHNS)).Value = DateTime.ParseExact(_D009.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+            End If
+
+            spSheet1.Range("ADD_SYAIN_NAME").Value = Fun_GetUSER_NAME(_D009.ADD_SYAIN_ID)
+            spSheet1.Range(NameOf(_D009.CM_TANTO)).Value = Fun_GetUSER_NAME(_D009.CM_TANTO)
+            spSheet1.Range("KISYU_NAME").Value = tblKISYU.LazyLoad("機種").
+                                                AsEnumerable.
+                                                Where(Function(r) r.Field(Of Integer)("VALUE") = _D009.KISYU_ID).
+                                                FirstOrDefault?.Item("DISP")
+
+            spSheet1.Range(NameOf(_D009.BUHIN_BANGO)).Value = _D009.BUHIN_BANGO
+            spSheet1.Range(NameOf(_D009.BUHIN_NAME)).Value = _D009.BUHIN_NAME
+            spSheet1.Range(NameOf(_D009.INPUT_DOC_NO)).Value = _D009.INPUT_DOC_NO
+            spSheet1.Range(NameOf(_D009.INPUT_NAIYO)).Value = _D009.INPUT_NAIYO
+            spSheet1.Range(NameOf(_D009.SNO_APPLY_PERIOD_KISO)).Value = _D009.SNO_APPLY_PERIOD_KISO
+#End Region
+
+            Using DB As ClsDbUtility = DBOpen()
+                Dim sbSQL As New System.Text.StringBuilder
+                Dim dsList As DataSet
+                Dim D010 As D010_FCCB_SUB_SYOCHI_KOMOKU
+                Dim D011 As D011_FCCB_SUB_SIKAKE_BUHIN
+                Dim D012 As D012_FCCB_SUB_SYOCHI_KAKUNIN
+
+                sbSQL.Clear()
+                sbSQL.Append($"SELECT")
+                sbSQL.Append($"  {NameOf(D010.FCCB_NO)}")
+                sbSQL.Append($" ,{NameOf(D010.ITEM_NO)}")
+                sbSQL.Append($" ,{NameOf(D010.ITEM_GROUP_NAME)}")
+                sbSQL.Append($" ,{NameOf(D010.ITEM_NAME)}")
+                sbSQL.Append($" ,{NameOf(D010.TANTO_GYOMU_GROUP_ID)}")
+                sbSQL.Append($" ,ISNULL((SELECT GYOMU_GROUP_NAME FROM {NameOf(M003_GYOMU_GROUP)} AS M WHERE(D010_FCCB_SUB_SYOCHI_KOMOKU.TANTO_GYOMU_GROUP_ID = M.GYOMU_GROUP_ID)),'') AS GYOMU_GROUP_NAME")
+                sbSQL.Append($" ,{NameOf(D010.YOHI_KB)}")
+                sbSQL.Append($" ,{NameOf(D010.TANTO_ID)}")
+                sbSQL.Append($" ,ISNULL((SELECT SIMEI FROM M004_SYAIN AS M WHERE(D010_FCCB_SUB_SYOCHI_KOMOKU.TANTO_ID = M.SYAIN_ID)),'') AS TANTO_SYAIN_NAME")
+                sbSQL.Append($" ,{NameOf(D010.NAIYO)}")
+                sbSQL.Append($" ,{NameOf(D010.GOKI)}")
+                sbSQL.Append($" ,IIF({NameOf(D010.YOTEI_YMD)}='','',FORMAT(CONVERT(DATETIME, {NameOf(D010.YOTEI_YMD)}),'yyyy/MM/dd')) AS {NameOf(D010.YOTEI_YMD)}")
+                sbSQL.Append($" ,IIF({NameOf(D010.CLOSE_YMD)}='','',FORMAT(CONVERT(DATETIME, {NameOf(D010.CLOSE_YMD)}),'yyyy/MM/dd')) AS {NameOf(D010.CLOSE_YMD)}")
+                sbSQL.Append($" FROM {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU)} ")
+                sbSQL.Append($" WHERE {NameOf(D010.ITEM_NO)}<100 ")
+                sbSQL.Append($" AND {NameOf(D010.FCCB_NO)}='{_D009.FCCB_NO}' ")
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                Dim Sec2 As New ModelInfo(Of D010_FCCB_SUB_SYOCHI_KOMOKU)(srcDATA:=dsList.Tables(0))
+#Region "SEC2"
+                Dim intRowIndex As Integer = 15
+                For Each r As DataRow In Sec2.Data.Rows
+                    spSheet1.Range($"I{intRowIndex + 1}").Value = r.Item("GYOMU_GROUP_NAME")
+                    If spSheet1.Range($"I{intRowIndex + 1}").Value.ToString.IsNulOrWS Then
+                        'ブランク行はスキップ
+                        Continue For
+                    End If
+                    spSheet1.Range($"AE{intRowIndex + 1}").Value = r.Item(NameOf(D010.YOHI_KB))
+                    spSheet1.Range($"L{intRowIndex + 1}").Value = r.Item("TANTO_SYAIN_NAME")
+                    spSheet1.Range($"O{intRowIndex + 1}").Value = r.Item(NameOf(D010.NAIYO))
+                    spSheet1.Range($"Y{intRowIndex + 1}").Value = If(r.Item(NameOf(D010.YOTEI_YMD)).ToString.IsNulOrWS, "", r.Item(NameOf(D010.YOTEI_YMD)))
+                    spSheet1.Range($"AB{intRowIndex + 1}").Value = If(r.Item(NameOf(D010.CLOSE_YMD)).ToString.IsNulOrWS, "", r.Item(NameOf(D010.CLOSE_YMD)))
+
+                    intRowIndex += 1
+                Next
+#End Region
+
+
+                sbSQL.Clear()
+                sbSQL.Append($"SELECT")
+                sbSQL.Append($"  {NameOf(D010.FCCB_NO)}")
+                sbSQL.Append($" ,{NameOf(D010.ITEM_NO)}")
+                sbSQL.Append($" ,{NameOf(D010.ITEM_GROUP_NAME)}")
+                sbSQL.Append($" ,{NameOf(D010.ITEM_NAME)}")
+                sbSQL.Append($" ,{NameOf(D010.TANTO_GYOMU_GROUP_ID)}")
+                sbSQL.Append($" ,ISNULL((SELECT GYOMU_GROUP_NAME FROM {NameOf(M003_GYOMU_GROUP)} AS M WHERE(D010_FCCB_SUB_SYOCHI_KOMOKU.TANTO_GYOMU_GROUP_ID = M.GYOMU_GROUP_ID)),'') AS GYOMU_GROUP_NAME")
+                sbSQL.Append($" ,{NameOf(D010.YOHI_KB)}")
+                sbSQL.Append($" ,{NameOf(D010.TANTO_ID)}")
+                sbSQL.Append($" ,ISNULL((SELECT SIMEI FROM M004_SYAIN AS M WHERE(D010_FCCB_SUB_SYOCHI_KOMOKU.TANTO_ID = M.SYAIN_ID)),'') AS TANTO_SYAIN_NAME")
+                sbSQL.Append($" ,{NameOf(D010.NAIYO)}")
+                sbSQL.Append($" ,{NameOf(D010.GOKI)}")
+                sbSQL.Append($" ,IIF({NameOf(D010.YOTEI_YMD)}='','',FORMAT(CONVERT(DATETIME, {NameOf(D010.YOTEI_YMD)}),'yyyy/MM/dd')) AS {NameOf(D010.YOTEI_YMD)}")
+                sbSQL.Append($" ,IIF({NameOf(D010.CLOSE_YMD)}='','',FORMAT(CONVERT(DATETIME, {NameOf(D010.CLOSE_YMD)}),'yyyy/MM/dd')) AS {NameOf(D010.CLOSE_YMD)}")
+                sbSQL.Append($" FROM {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU)} ")
+                sbSQL.Append($" WHERE {NameOf(D010.ITEM_NO)}>100 ")
+                sbSQL.Append($" AND {NameOf(D010.FCCB_NO)}='{_D009.FCCB_NO}' ")
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                Dim Sec3 As New ModelInfo(Of D010_FCCB_SUB_SYOCHI_KOMOKU)(srcDATA:=dsList.Tables(0))
+
+#Region "SEC3"
+
+
+
+                intRowIndex = 45
+                For Each r As DataRow In Sec3.Data.Rows
+                    If spSheet1.Range($"B{intRowIndex + 1}").Value.ToString.IsNulOrWS Then
+                        'ブランク行はスキップ
+                        Continue For
+                    End If
+                    spSheet1.Range($"AE{intRowIndex + 1}").Value = r.Item(NameOf(D010.YOHI_KB))
+                    spSheet1.Range($"I{intRowIndex + 1}").Value = r.Item("TANTO_SYAIN_NAME")
+                    spSheet1.Range($"L{intRowIndex + 1}").Value = r.Item(NameOf(D010.NAIYO))
+                    spSheet1.Range($"U{intRowIndex + 1}").Value = r.Item(NameOf(D010.GOKI))
+                    spSheet1.Range($"Y{intRowIndex + 1}").Value = r.Item(NameOf(D010.YOTEI_YMD))
+                    spSheet1.Range($"AB{intRowIndex + 1}").Value = r.Item(NameOf(D010.CLOSE_YMD))
+
+                    intRowIndex += 1
+                Next
+#End Region
+
+                sbSQL.Clear()
+                sbSQL.Append($"SELECT")
+                sbSQL.Append($"  {NameOf(D011.FCCB_NO)}")
+                sbSQL.Append($" ,{NameOf(D011.ITEM_NO)}")
+                sbSQL.Append($" ,{NameOf(D011.BUHIN_HINBAN)}")
+                sbSQL.Append($" ,{NameOf(D011.BUHIN_NAME)}")
+                sbSQL.Append($" ,{NameOf(D011.MEMO1)}")
+                sbSQL.Append($" ,{NameOf(D011.MEMO2)}")
+                sbSQL.Append($" ,{NameOf(D011.SURYO)}")
+                sbSQL.Append($" ,{NameOf(D011.SYOCHI_NAIYO)}")
+                sbSQL.Append($" ,{NameOf(D011.TANTO_GYOMU_GROUP_ID)}")
+                sbSQL.Append($" ,ISNULL((SELECT GYOMU_GROUP_NAME FROM {NameOf(M003_GYOMU_GROUP)} AS M WHERE(D011_FCCB_SUB_SIKAKE_BUHIN.TANTO_GYOMU_GROUP_ID = M.GYOMU_GROUP_ID)),'') AS GYOMU_GROUP_NAME")
+                sbSQL.Append($" ,{NameOf(D011.TANTO_ID)}")
+                sbSQL.Append($" ,ISNULL((SELECT SIMEI FROM M004_SYAIN AS M WHERE(D011_FCCB_SUB_SIKAKE_BUHIN.TANTO_ID = M.SYAIN_ID)),'') AS TANTO_SYAIN_NAME")
+                sbSQL.Append($" ,IIF({NameOf(D011.YOTEI_YMD)}='','',FORMAT(CONVERT(DATETIME, {NameOf(D011.YOTEI_YMD)}),'yyyy/MM/dd')) AS {NameOf(D011.YOTEI_YMD)}")
+                sbSQL.Append($" ,IIF({NameOf(D011.CLOSE_YMD)}='','',FORMAT(CONVERT(DATETIME, {NameOf(D011.CLOSE_YMD)}),'yyyy/MM/dd')) AS {NameOf(D011.CLOSE_YMD)}")
+                sbSQL.Append($" FROM {NameOf(D011_FCCB_SUB_SIKAKE_BUHIN)} ")
+                sbSQL.Append($" WHERE {NameOf(D011.FCCB_NO)}='{_D009.FCCB_NO}' ")
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                Dim Sec4 As New ModelInfo(Of D011_FCCB_SUB_SIKAKE_BUHIN)(srcDATA:=dsList.Tables(0))
+#Region "SEC4"
+                intRowIndex = 51
+                Const SIKAKARIHIN_COUNT As Integer = 7
+                Const SECTION_GAPS As Integer = 5
+                For Each r As DataRow In Sec4.Data.Rows
+                    spSheet1.Range($"C{intRowIndex + 1}").Value = r.Item(NameOf(D011.BUHIN_HINBAN))
+                    spSheet1.Range($"K{intRowIndex + 1}").Value = r.Item(NameOf(D011.BUHIN_NAME))
+                    spSheet1.Range($"R{intRowIndex + 1}").Value = r.Item(NameOf(D011.MEMO1))
+                    spSheet1.Range($"X{intRowIndex + 1}").Value = r.Item(NameOf(D011.MEMO2))
+                    spSheet1.Range($"X{intRowIndex + 1}").Value = If(r.Item(NameOf(D011.SURYO)) = 0, "", r.Item(NameOf(D011.SURYO)))
+
+                    'Sec5パート
+                    spSheet1.Range($"C{intRowIndex + 1 + SIKAKARIHIN_COUNT + SECTION_GAPS}").Value = r.Item(NameOf(D011.SYOCHI_NAIYO))
+                    spSheet1.Range($"T{intRowIndex + 1 + SIKAKARIHIN_COUNT + SECTION_GAPS}").Value = r.Item("GYOMU_GROUP_NAME")
+                    spSheet1.Range($"V{intRowIndex + 1 + SIKAKARIHIN_COUNT + SECTION_GAPS}").Value = r.Item("TANTO_SYAIN_NAME")
+                    spSheet1.Range($"Y{intRowIndex + 1 + SIKAKARIHIN_COUNT + SECTION_GAPS}").Value = r.Item(NameOf(D011.YOTEI_YMD))
+                    spSheet1.Range($"AB{intRowIndex + 1 + SIKAKARIHIN_COUNT + SECTION_GAPS}").Value = r.Item(NameOf(D011.CLOSE_YMD))
+
+                    intRowIndex += 1
+                Next
+#End Region
+
+                sbSQL.Clear()
+                sbSQL.Append($"SELECT")
+                sbSQL.Append($" {NameOf(D012.FCCB_NO)}")
+                sbSQL.Append($" ,{NameOf(D012.GYOMU_GROUP_ID)}")
+                sbSQL.Append($" ,{NameOf(D012.TANTO_ID)}")
+                sbSQL.Append($" ,ISNULL((SELECT SIMEI FROM M004_SYAIN AS M WHERE(D010.TANTO_ID = M.SYAIN_ID)),'') AS TANTO_SYAIN_NAME")
+                sbSQL.Append($" ,IIF({NameOf(D012.ADD_YMDHNS)}='','',FORMAT(CONVERT(DATETIME, SUBSTRING({NameOf(D012.ADD_YMDHNS)},1,8)),'yyyy/MM/dd')) AS {NameOf(D012.ADD_YMDHNS)}")
+                sbSQL.Append($" FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} ")
+                sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}='{_D009.FCCB_NO}' ")
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                If dsList.Tables(0).Rows.Count > 0 Then
+
+                End If
+                Dim Sec5 As New ModelInfo(Of D012_FCCB_SUB_SYOCHI_KAKUNIN)(srcDATA:=dsList.Tables(0))
+
+#Region "SEC5"
+
+                spSheet1.Range(NameOf(_D009.SNO_APPLY_PERIOD_HENKO_SINGI)).Value = _D009.SNO_APPLY_PERIOD_HENKO_SINGI
+
+
+                For Each r As DataRow In Sec5.Data.Rows
+                    Dim NAMERange As String = ""
+
+                    Select Case r.Item(NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN.GYOMU_GROUP_ID))
+                        Case ENM_GYOMU_GROUP_ID._2_製造.Value
+                            NAMERange = "SYOCHI_SEIZO_TANTO"
+
+                        Case ENM_GYOMU_GROUP_ID._3_検査.Value
+                            NAMERange = "SYOCHI_KENSA_TANTO"
+
+                        Case ENM_GYOMU_GROUP_ID._4_品証.Value
+                            NAMERange = "SYOCHI_HINSYO_TANTO"
+
+                        Case ENM_GYOMU_GROUP_ID._5_設計.Value
+                            NAMERange = "SYOCHI_SEKKEI_TANTO"
+
+                        Case ENM_GYOMU_GROUP_ID._6_生技.Value
+                            NAMERange = "SYOCHI_SEIGI_TANTO"
+
+                        Case ENM_GYOMU_GROUP_ID._7_管理.Value
+                            NAMERange = "SYOCHI_KANRI_TANTO"
+
+                        Case ENM_GYOMU_GROUP_ID._8_営業.Value
+                            NAMERange = "SYOCHI_EIGYO_TANTO"
+
+                        Case ENM_GYOMU_GROUP_ID._9_購買.Value
+                            NAMERange = "SYOCHI_KOBAI_TANTO"
+
+                        Case ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value '統括責任者
+                            NAMERange = "SYOCHI_GM_TANTO"
+
+                        Case "92" 'FCCB完了確認 FCCB議長
+
+                        Case "93" 'FCCB完了確認 統括責任者
+
+                        Case Else
+                            Throw New ArgumentException("想定外の業務グループIDです", r.Item(NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN.GYOMU_GROUP_ID)).ToString)
+                    End Select
+
+                    spSheet1.Range(NAMERange).Value = r.Item("TANTO_SYAIN_NAME")
+                    spSheet1.Range(NAMERange & "_YMD").Value = r.Item("ADD_YMDHNS")
+
+                Next
+#End Region
+            End Using
+
+
+
+
+
+
+
+
+            '-----ファイル保存
+            spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.Excel8)
+            spWorkbook.WorkbookSet.ReleaseLock()
+
+            ''-----Spire版 直接PDF発行するならこっち
+            'Dim workbook As New Spire.Xls.Workbook
+            'workbook.LoadFromFile(strFilePath)
+            'Dim pdfFilePath As String
+            'pdfFilePath = System.IO.Path.GetDirectoryName(strFilePath) & "\" & System.IO.Path.GetFileNameWithoutExtension(strFilePath) & ".pdf"
+            'workbook.SaveToFile(pdfFilePath, Spire.Xls.FileFormat.PDF)
+            ''PDF表示
+            'System.Diagnostics.Process.Start(pdfFilePath)
+
+            'Call FunOpenWorkbook(strFilePath)
+            Call OpenExcelPrintPreview(strFilePath)
+
+            'Excel作業ファイルを削除
+            Try
+                System.IO.File.Delete(strFilePath)
+            Catch ex As UnauthorizedAccessException
+            End Try
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            spSheet1 = Nothing
+            spWorksheets = Nothing
+            spWorkbook = Nothing
+
+        End Try
+    End Function
 
 #End Region
 

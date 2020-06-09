@@ -776,13 +776,13 @@ Public Class FrmG0020_List
 
                 Case 8 'CSV出力
                     Dim strFileName As String
-                    strFileName = $"{pub_APP_INFO.strTitle}_{DateTime.Now:yyyyMMddHHmmss}.CSV"
+                    strFileName = $"{"FCCB"}_{DateTime.Now:yyyyMMddHHmmss}.CSV"
 
                     Call FunCSV_OUTviaFlexGrid(flxDATA, strFileName, pub_APP_INFO.strOUTPUT_PATH)
                     'Call FunCSV_OUT(DirectCast(flxDATA.DataSource, DataView).Table, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
                 Case 10  '印刷
-                    Call ShowUnimplemented()'Call FunOpenReport()
+                    Call FunOpenReport()
 
                     'Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
                     'Call FunCSV_OUT(Me.dgvDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
@@ -1020,18 +1020,10 @@ Public Class FrmG0020_List
         Try
 
             '-----UPDATE
-            sbSQL.Remove(0, sbSQL.Length)
-            Select Case intSYONIN_HOKOKUSYO_ID
-                Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-                    sbSQL.Append($"UPDATE {NameOf(MODEL.D003_NCR_J)} SET")
-                Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
-                    sbSQL.Append($"UPDATE {NameOf(MODEL.D005_CAR_J)} SET")
-                Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
-                    sbSQL.Append($"UPDATE {NameOf(MODEL.D007_FCR_J)} SET")
-            End Select
-            sbSQL.Append($" {NameOf(MODEL.D003_NCR_J.DEL_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
-            sbSQL.Append($" ,{NameOf(MODEL.D003_NCR_J.DEL_YMDHNS)}=dbo.GetSysDateString()")
-            sbSQL.Append($" WHERE {NameOf(MODEL.D003_NCR_J.HOKOKU_NO)}='{strHOKOKU_NO.ConvertSqlEscape}'")
+            sbSQL.Append($"UPDATE {NameOf(D009_FCCB_J)} SET")
+            sbSQL.Append($" {NameOf(D009_FCCB_J.DEL_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
+            sbSQL.Append($" ,{NameOf(D009_FCCB_J.DEL_YMDHNS)}=dbo.GetSysDateString()")
+            sbSQL.Append($" WHERE {NameOf(D009_FCCB_J.FCCB_NO)}='{strHOKOKU_NO.ConvertSqlEscape}'")
 
             'CHECK: 一覧削除ボタン D004やR001等の編集履歴はどうするか
 
@@ -1070,15 +1062,10 @@ Public Class FrmG0020_List
 
             '-----UPDATE
             sbSQL.Remove(0, sbSQL.Length)
-            Select Case intSYONIN_HOKOKUSYO_ID
-                Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-                    sbSQL.Append($"UPDATE {NameOf(MODEL.D003_NCR_J)} SET")
-                Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
-                    sbSQL.Append($"UPDATE {NameOf(MODEL.D005_CAR_J)} SET")
-            End Select
-            sbSQL.Append($" {NameOf(MODEL.D003_NCR_J.DEL_SYAIN_ID)}={0}")
-            sbSQL.Append($" ,{NameOf(MODEL.D003_NCR_J.DEL_YMDHNS)}=''")
-            sbSQL.Append($" WHERE {NameOf(MODEL.D003_NCR_J.HOKOKU_NO)}='{strHOKOKU_NO.ConvertSqlEscape}'")
+            sbSQL.Append($"UPDATE {NameOf(D009_FCCB_J)} SET")
+            sbSQL.Append($" {NameOf(D009_FCCB_J.DEL_SYAIN_ID)}={0}")
+            sbSQL.Append($" ,{NameOf(D009_FCCB_J.DEL_YMDHNS)}=''")
+            sbSQL.Append($" WHERE {NameOf(D009_FCCB_J.FCCB_NO)}='{strHOKOKU_NO.ConvertSqlEscape}'")
 
             'CHECK: 一覧削除ボタン D004やR001等の編集履歴はどうするか
 
@@ -1394,7 +1381,7 @@ Public Class FrmG0020_List
             Me.Cursor = Cursors.WaitCursor
 
             'ファイル名
-            strOutputFileName = "FCCB_" & strHOKOKU_NO & "_Work.xls"
+            strOutputFileName = "FCCB_" & strHOKOKU_NO & "_Work.xlsx"
 
             '既存ファイル削除
             If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
@@ -1410,9 +1397,9 @@ Public Class FrmG0020_List
                 Return False
             End If
             '-----書込処理
-            'If FunMakeReportFCCB(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
-            '    Return False
-            'End If
+            If FunMakeReportFCCB(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
+                Return False
+            End If
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -1495,7 +1482,7 @@ Public Class FrmG0020_List
                 cmdFunc11.Enabled = True
 
                 '選択行がClosedの場合
-                If Val(flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D009_FCCB_J.CLOSE_FG))) = 1 Then
+                If Val(flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D009.CLOSE_FG))) = 1 Then
 
                     If HasEditingRight(pub_SYAIN_INFO.SYAIN_ID) Then
                         cmdFunc4.Text = "修正(F4)"
@@ -1519,7 +1506,7 @@ Public Class FrmG0020_List
                         cmdFunc5.Enabled = False
                         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "Close済のデータです")
                         cmdFunc6.Enabled = True
-                    ElseIf flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D009_FCCB_J.DEL_YMDHNS)).ToString.Trim <> "" Then
+                    ElseIf flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D009.DEL_YMDHNS)).ToString.Trim <> "" Then
                         cmdFunc5.Enabled = False
                         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "取消済みデータです")
                         cmdFunc6.Enabled = True
@@ -1751,7 +1738,7 @@ Public Class FrmG0020_List
                     RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
                     cmbBUHIN_BANGO.DataBindings.Clear()
                     If cmb.IsSelected Then
-                        Dim drs = tblBUHIN_J.LazyLoad("部品番号実績").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D009_FCCB_J.KISYU_ID)) = cmb.SelectedValue)
+                        Dim drs = tblBUHIN_J.LazyLoad("部品番号実績").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D009.KISYU_ID)) = cmb.SelectedValue)
                         If drs.Count > 0 Then
                             Dim dt As DataTable = drs.CopyToDataTable
                             Dim _selectedValue As String = cmbBUHIN_BANGO.SelectedValue

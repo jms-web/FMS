@@ -133,6 +133,7 @@ Partial Class FrmG0020_List
         Me.cmdFunc11.Location = New System.Drawing.Point(978, 640)
         Me.cmdFunc11.Size = New System.Drawing.Size(132, 42)
         Me.cmdFunc11.Text = "—š—ð(F11)"
+        Me.cmdFunc11.Visible = False
         '
         'cmdFunc10
         '
