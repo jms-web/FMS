@@ -1111,7 +1111,7 @@ Module mdlG0020
 
             spSheet1.Range(NameOf(_D009.FCCB_NO)).Value = _D009.FCCB_NO
             If Not _D009.ADD_YMDHNS.IsNulOrWS Then
-                spSheet1.Range(NameOf(_D009.ADD_YMDHNS)).Value = DateTime.ParseExact(_D009.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                spSheet1.Range(NameOf(_D009.ADD_YMDHNS)).Value = CDate(_D009.ADD_YMDHNS).ToString("yyyy/MM/dd")
             End If
 
             spSheet1.Range("ADD_SYAIN_NAME").Value = Fun_GetUSER_NAME(_D009.ADD_SYAIN_ID)
@@ -1154,12 +1154,11 @@ Module mdlG0020
                 sbSQL.Append($" WHERE {NameOf(D010.ITEM_NO)}<100 ")
                 sbSQL.Append($" AND {NameOf(D010.FCCB_NO)}='{_D009.FCCB_NO}' ")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-                Dim Sec2 As New ModelInfo(Of D010_FCCB_SUB_SYOCHI_KOMOKU)(srcDATA:=dsList.Tables(0))
 #Region "SEC2"
                 Dim intRowIndex As Integer = 15
-                For Each r As DataRow In Sec2.Data.Rows
+                For Each r As DataRow In dsList.Tables(0).Rows
                     spSheet1.Range($"I{intRowIndex + 1}").Value = r.Item("GYOMU_GROUP_NAME")
-                    If spSheet1.Range($"I{intRowIndex + 1}").Value.ToString.IsNulOrWS Then
+                    If spSheet1.Range($"I{intRowIndex + 1}").Value?.ToString.IsNulOrWS Then
                         'ブランク行はスキップ
                         Continue For
                     End If
@@ -1193,15 +1192,14 @@ Module mdlG0020
                 sbSQL.Append($" WHERE {NameOf(D010.ITEM_NO)}>100 ")
                 sbSQL.Append($" AND {NameOf(D010.FCCB_NO)}='{_D009.FCCB_NO}' ")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-                Dim Sec3 As New ModelInfo(Of D010_FCCB_SUB_SYOCHI_KOMOKU)(srcDATA:=dsList.Tables(0))
 
 #Region "SEC3"
 
 
 
                 intRowIndex = 45
-                For Each r As DataRow In Sec3.Data.Rows
-                    If spSheet1.Range($"B{intRowIndex + 1}").Value.ToString.IsNulOrWS Then
+                For Each r As DataRow In dsList.Tables(0).Rows
+                    If spSheet1.Range($"B{intRowIndex + 1}").Value?.ToString.IsNulOrWS Then
                         'ブランク行はスキップ
                         Continue For
                     End If
@@ -1235,12 +1233,12 @@ Module mdlG0020
                 sbSQL.Append($" FROM {NameOf(D011_FCCB_SUB_SIKAKE_BUHIN)} ")
                 sbSQL.Append($" WHERE {NameOf(D011.FCCB_NO)}='{_D009.FCCB_NO}' ")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-                Dim Sec4 As New ModelInfo(Of D011_FCCB_SUB_SIKAKE_BUHIN)(srcDATA:=dsList.Tables(0))
+
 #Region "SEC4"
                 intRowIndex = 51
                 Const SIKAKARIHIN_COUNT As Integer = 7
                 Const SECTION_GAPS As Integer = 5
-                For Each r As DataRow In Sec4.Data.Rows
+                For Each r As DataRow In dsList.Tables(0).Rows
                     spSheet1.Range($"C{intRowIndex + 1}").Value = r.Item(NameOf(D011.BUHIN_HINBAN))
                     spSheet1.Range($"K{intRowIndex + 1}").Value = r.Item(NameOf(D011.BUHIN_NAME))
                     spSheet1.Range($"R{intRowIndex + 1}").Value = r.Item(NameOf(D011.MEMO1))
@@ -1263,22 +1261,16 @@ Module mdlG0020
                 sbSQL.Append($" {NameOf(D012.FCCB_NO)}")
                 sbSQL.Append($" ,{NameOf(D012.GYOMU_GROUP_ID)}")
                 sbSQL.Append($" ,{NameOf(D012.TANTO_ID)}")
-                sbSQL.Append($" ,ISNULL((SELECT SIMEI FROM M004_SYAIN AS M WHERE(D010.TANTO_ID = M.SYAIN_ID)),'') AS TANTO_SYAIN_NAME")
+                sbSQL.Append($" ,ISNULL((SELECT SIMEI FROM M004_SYAIN AS M WHERE(TANTO_ID = M.SYAIN_ID)),'') AS TANTO_SYAIN_NAME")
                 sbSQL.Append($" ,IIF({NameOf(D012.ADD_YMDHNS)}='','',FORMAT(CONVERT(DATETIME, SUBSTRING({NameOf(D012.ADD_YMDHNS)},1,8)),'yyyy/MM/dd')) AS {NameOf(D012.ADD_YMDHNS)}")
                 sbSQL.Append($" FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} ")
                 sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}='{_D009.FCCB_NO}' ")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-                If dsList.Tables(0).Rows.Count > 0 Then
 
-                End If
-                Dim Sec5 As New ModelInfo(Of D012_FCCB_SUB_SYOCHI_KAKUNIN)(srcDATA:=dsList.Tables(0))
 
 #Region "SEC5"
-
                 spSheet1.Range(NameOf(_D009.SNO_APPLY_PERIOD_HENKO_SINGI)).Value = _D009.SNO_APPLY_PERIOD_HENKO_SINGI
-
-
-                For Each r As DataRow In Sec5.Data.Rows
+                For Each r As DataRow In dsList.Tables(0).Rows
                     Dim NAMERange As String = ""
 
                     Select Case r.Item(NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN.GYOMU_GROUP_ID))
@@ -1332,7 +1324,7 @@ Module mdlG0020
 
 
             '-----ファイル保存
-            spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.Excel8)
+            spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.OpenXMLWorkbook)
             spWorkbook.WorkbookSet.ReleaseLock()
 
             ''-----Spire版 直接PDF発行するならこっち
