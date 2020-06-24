@@ -219,6 +219,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="_icoBase_cog32x32.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Common\JMS_COMMON\JMS_COMMON.vbproj">
       <Project>{872e4129-f788-40a1-91b0-c41f0aee504e}</Project>
       <Name>JMS_COMMON</Name>
@@ -227,9 +230,6 @@
       <Project>{8923a885-8857-49fa-be22-9b9cbf6d19c2}</Project>
       <Name>FMS_MODEL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="_icoBase_cog32x32.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

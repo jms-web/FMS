@@ -1,4 +1,5 @@
 Imports System.Collections.Generic
+Imports JMS_COMMON
 Imports JMS_COMMON.ClsPubMethod
 
 Module mdlINTSYR

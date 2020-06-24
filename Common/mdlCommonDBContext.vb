@@ -1,3 +1,4 @@
+Imports JMS_COMMON
 Imports JMS_COMMON.ClsPubMethod
 Imports MODEL
 
