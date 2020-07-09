@@ -883,7 +883,7 @@ Public Class FrmG0020_List
                                             End If
 
                                         Case "KISO_YMD"
-                                            Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                                            Trow(p.Name) = If(row.Item(p.Name).ToString.IsNulOrWS, "", DateTime.ParseExact(row.Item(p.Name), "yyyyMMdd", Nothing).ToString("yyyy/MM/dd"))
                                         Case Else
                                             Trow(p.Name) = row.Item(p.Name).ToString.Trim
                                     End Select
