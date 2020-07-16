@@ -528,52 +528,84 @@ Public Class FrmM0060
                 dteBUFF = dteBUFF.AddDays(-1)
                 intLASTDAY = dteBUFF.Day
 
+
+                '“o˜^Ï‚ÌŒŽ‚ª‚Ç‚¤‚©Šm”F
+                sbSQL.Append($"SELECT COUNT(*) FROM {NameOf(MODEL.M006_CALENDAR)}")
+                sbSQL.Append($" WHERE {NameOf(MODEL.M006_CALENDAR.YMD)} LIKE  '{dtYM.ValueNonFormat}__'")
+                Dim RcCount As Integer = DB.ExecuteScalar(sbSQL.ToString, False)
+                Dim IsSaved As Boolean = (RcCount > 0)
+
                 ''-----“ú•t•\Ž¦
                 For intCNT = 1 To lblDAY.Length - 1
 
-                    '“ú•t•\Ž¦
-                    '“ú—j“ú‚ð”ñ‰Ò“­“ú‚ÉÝ’è
-                    If intCNT >= intSTARTWEEKDAY And intCNT <= intLASTDAY + intSTARTWEEKDAY - 1 Then
-                        '----•¶Žš—ñ‚ð“ú•tŒ^‚É•ÏŠ·‚·‚é
-                        Dim str As String = dtYM.ValueNonFormat & (intCNT - intSTARTWEEKDAY + 1).ToString("00")
-                        Dim dt As DateTime = DateTime.ParseExact(str, "yyyyMMdd", Nothing)
+                    ''“ú•t•\Ž¦
+                    ''“ú—j“ú‚ð”ñ‰Ò“­“ú‚ÉÝ’è
+                    'If intCNT >= intSTARTWEEKDAY And intCNT <= intLASTDAY + intSTARTWEEKDAY - 1 Then
+                    '    '----•¶Žš—ñ‚ð“ú•tŒ^‚É•ÏŠ·‚·‚é
+                    '    Dim str As String = dtYM.ValueNonFormat & (intCNT - intSTARTWEEKDAY + 1).ToString("00")
+                    '    Dim dt As DateTime = DateTime.ParseExact(str, "yyyyMMdd", Nothing)
 
-                        '----—j“ú‚ðŽæ“¾‚·‚é
-                        Dim weekNumber As Integer = CInt(dt.DayOfWeek)
-                        Dim strWeek1 As String = dt.ToString("ddd")
+                    '    '----—j“ú‚ðŽæ“¾‚·‚é
+                    '    Dim weekNumber As Integer = CInt(dt.DayOfWeek)
+                    '    Dim strWeek1 As String = dt.ToString("ddd")
 
-                        If strWeek1 = "“ú" Then
+                    '    If strWeek1 = "“ú" Then
+                    '        lblDAY(intCNT).ForeColor = Color.Red
+                    '    Else
+                    '    End If
+
+                    '    lblDAY(intCNT).Text = intCNT - intSTARTWEEKDAY + 1
+                    '    lblDAY(intCNT).Tag = "1"
+                    '    lblDAY(intCNT).Visible = True
+
+                    'End If
+
+                    ''“ú•t•\Ž¦
+                    ''“y—j“ú‚ð”ñ‰Ò“­“ú‚ÉÝ’è
+                    'If intCNT >= intSTARTWEEKDAY And intCNT <= intLASTDAY + intSTARTWEEKDAY - 1 Then
+                    '    '----•¶Žš—ñ‚ð“ú•tŒ^‚É•ÏŠ·‚·‚é
+                    '    Dim str2 As String = dtYM.ValueNonFormat & (intCNT - intSTARTWEEKDAY + 1).ToString("00")
+                    '    Dim dt2 As DateTime = DateTime.ParseExact(str2, "yyyyMMdd", Nothing)
+
+                    '    '----—j“ú‚ðŽæ“¾‚·‚é
+                    '    Dim weekNumber2 As Integer = CInt(dt2.DayOfWeek)
+                    '    Dim strWeek2 As String = dt2.ToString("ddd")
+
+                    '    If strWeek2 = "“y" Then
+                    '        lblDAY(intCNT).ForeColor = Color.Red
+                    '    Else
+                    '    End If
+
+                    '    lblDAY(intCNT).Text = intCNT - intSTARTWEEKDAY + 1
+                    '    lblDAY(intCNT).Tag = "1"
+                    '    lblDAY(intCNT).Visible = True
+
+                    'End If
+
+                    '1“ú‚Ì•\Ž¦ˆÊ’u(—j“úˆË‘¶)‚É‚È‚é‚Ü‚Åˆ—‚µ‚È‚¢
+                    If intCNT < intSTARTWEEKDAY Then Continue For
+                    'ŒŽ––‚Ì“ú•tˆÈ~‚Íˆ—‚ð”²‚¯‚é
+                    If intCNT > intLASTDAY + intSTARTWEEKDAY - 1 Then Exit For
+
+                    '---ƒ‰ƒxƒ‹‚É“ú•t‚ð•\Ž¦‚·‚é
+                    lblDAY(intCNT).Text = intCNT - intSTARTWEEKDAY + 1
+                    lblDAY(intCNT).Tag = "1"
+                    lblDAY(intCNT).Visible = True
+
+                    '---•¶Žš—ñ‚ð“ú•tŒ^‚É•ÏŠ·‚·‚é
+                    Dim str As String = dtYM.ValueNonFormat & (intCNT - intSTARTWEEKDAY + 1).ToString("00")
+                    Dim dt As Date = DateTime.ParseExact(str, "yyyyMMdd", Nothing)
+                    '---—j“ú‚ðŽæ“¾‚·‚é
+                    Dim weekNumber As Integer = CInt(dt.DayOfWeek)
+                    Dim strDayOfWeek As String = dt.ToString("ddd")
+
+                    If IsSaved = False Then
+                        '“ú—j“ú‚ð”ñ‰Ò“­“ú‚ÉÝ’è'“y—j“ú‚ð”ñ‰Ò“­“ú‚ÉÝ’è
+                        If strDayOfWeek = "“ú" Or strDayOfWeek = "“y" Then
                             lblDAY(intCNT).ForeColor = Color.Red
-                        Else
                         End If
-
-                        lblDAY(intCNT).Text = intCNT - intSTARTWEEKDAY + 1
-                        lblDAY(intCNT).Tag = "1"
-                        lblDAY(intCNT).Visible = True
-
                     End If
 
-                    '“ú•t•\Ž¦
-                    '“y—j“ú‚ð”ñ‰Ò“­“ú‚ÉÝ’è
-                    If intCNT >= intSTARTWEEKDAY And intCNT <= intLASTDAY + intSTARTWEEKDAY - 1 Then
-                        '----•¶Žš—ñ‚ð“ú•tŒ^‚É•ÏŠ·‚·‚é
-                        Dim str2 As String = dtYM.ValueNonFormat & (intCNT - intSTARTWEEKDAY + 1).ToString("00")
-                        Dim dt2 As DateTime = DateTime.ParseExact(str2, "yyyyMMdd", Nothing)
-
-                        '----—j“ú‚ðŽæ“¾‚·‚é
-                        Dim weekNumber2 As Integer = CInt(dt2.DayOfWeek)
-                        Dim strWeek2 As String = dt2.ToString("ddd")
-
-                        If strWeek2 = "“y" Then
-                            lblDAY(intCNT).ForeColor = Color.Red
-                        Else
-                        End If
-
-                        lblDAY(intCNT).Text = intCNT - intSTARTWEEKDAY + 1
-                        lblDAY(intCNT).Tag = "1"
-                        lblDAY(intCNT).Visible = True
-
-                    End If
 
                 Next
 
