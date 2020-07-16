@@ -56,6 +56,7 @@ Module mdlU0010
                 Dim TAIRYU_COUNT As Integer
                 TAIRYU_COUNT += SendFUTEKIGOMail()
                 TAIRYU_COUNT += SendFCCB_TAIRYU_Mail()
+                TAIRYU_COUNT += SendFCCB_KANRYO_Mail()
 
                 If TAIRYU_COUNT > 0 Then
                     WL.WriteLogDat($"{TAIRYU_COUNT:00}件の滞留通知メールを送信しました。")
@@ -73,6 +74,8 @@ Module mdlU0010
 #End Region
 
 #Region "ローカル関数"
+
+#Region "   不適合滞留通知"
 
     Private Function FunGetDtST02_FUTEKIGO_ICHIRAN(ByVal ParamModel As ST02_ParamModel) As DataTable
 
@@ -259,8 +262,10 @@ Module mdlU0010
             Return intSendCount
         End Using
     End Function
+#End Region
 
 
+#Region "FCCB滞留通知"
 
     Public Function GetST04_FCCB_ICHIRAN() As DataTable
 
@@ -275,7 +280,6 @@ Module mdlU0010
 
         Return dsList?.Tables(0)
     End Function
-
 
     Private Function SendFCCB_TAIRYU_Mail() As Integer
         Dim strMsg As String
@@ -412,8 +416,29 @@ Module mdlU0010
             Return intSendCount
         End Using
     End Function
+#End Region
 
 
+#Region "FCCB処置完了通知"
+
+    Private Function GetFCCB_SYOCHI_KANRYO() As DataTable
+
+        Try
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
+
+            sbSQL.Append($"SELECT * FROM {NameOf(MODEL.V014_FCCB_SYOCHI_YOTEI_ICHIRAN)}")
+
+            Using DB As ClsDbUtility = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            Return dsList?.Tables(0)
+
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
 
     Private Function SendFCCB_KANRYO_Mail() As Integer
 
@@ -431,7 +456,7 @@ Module mdlU0010
             Dim strSubject As String
             Dim intSendCount As Integer
 
-            Dim dt As DataTable = GetST04_FCCB_ICHIRAN()
+            Dim dt As DataTable = GetFCCB_SYOCHI_KANRYO()
 
             Using DB As ClsDbUtility = DBOpen()
                 If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
@@ -484,20 +509,18 @@ Module mdlU0010
                             Continue For
                         End If
 
-                        Dim strEXEParam As String = $"{dr.Item("GEN_TANTO_ID")},{2},{dr.Item("SYONIN_HOKOKUSYO_ID")},{dr.Item("HOKOKU_NO").ToString.Trim}"
+                        Dim strEXEParam As String = $"{dr.Item("TANTO_ID")},{2},{dr.Item("SYONIN_HOKOKUSYO_ID")},{dr.Item("HOKOKU_NO").ToString.Trim}"
                         strSubject = $"【不適合品処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME").ToString.Trim}] {dr.Item("KISYU_NAME").ToString.Trim}・{dr.Item("BUHIN_BANGO").ToString.Trim}"
                         Dim strBody As String = <body><![CDATA[
                             {0} 殿<br />
                             <br />
-                                　FCCB調査書の処置完了予定日：{8}まであと {1}日です。<br />
+                                　FCCB調査書の処置完了予定日：{1}まであと {2}日です。<br />
                                 　処置完了日の入力をお願いします。<br />
-                            <br />
-                                　　【報 告 書】{2}<br />
+                            <br />                                　　
                                 　　【報告書No】{3}<br />
                                 　　【起 草 日】{4}<br />
                                 　　【機　  種】{5}<br />
                                 　　【部品番号】{6}<br />
-                                　　【依 頼 者】{7}<br />
                             <br />
                             <a href = "http://sv04:8000/CLICKONCE_FMS.application" > システム起動</a><br />
                             <br />
@@ -508,16 +531,23 @@ Module mdlU0010
                         'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
 
 
+                        Dim dtYOTEI As Date = DateTime.ParseExact(dr.Item("YOTEI_YMD").ToString, "yyyyMMdd", Nothing)
+                        Dim remainDays = (Today - DateTime.ParseExact(dr.Item("YOTEI_YMD").ToString, "yyyyMMdd", Nothing)).Days
+
+                        If remainDays > 7 Then
+                            '1週間以上先は通知スキップ
+                            Continue For
+                        End If
+
                         strBody = String.Format(strBody,
-                            dr.Item("GEN_TANTO_NAME").ToString.Trim,
-                            dr.Item("TAIRYU_NISSU").ToString.Trim,
-                            dr.Item("SYONIN_HOKOKUSYO_R_NAME").ToString.Trim,
+                            dr.Item("TANTO_NAME").ToString.Trim,
+                            dtYOTEI.ToString("yyyy/MM/dd"),
+                            remainDays,
                             dr.Item("FCCB_NO").ToString.Trim,
                             dr.Item("KISO_YMD").ToString,
                             dr.Item("KISYU_NAME").ToString.Trim,
                             dr.Item("BUHIN_BANGO").ToString.Trim,
                             "FCCB記録書管理システム",
-                            dr.Item("GEN_TANTO_ID"),
                             "FMS_G0020.exe",
                             strEXEParam)
 
@@ -556,6 +586,9 @@ Module mdlU0010
             Throw ex
         End Try
     End Function
+#End Region
+
+
 #End Region
 
 End Module

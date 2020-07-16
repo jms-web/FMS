@@ -21,7 +21,6 @@ Public Class FrmG0021_Detail
 
     Private USER_GYOMU_KENGEN_LIST As New List(Of ENM_GYOMU_GROUP_ID)
 
-
     Private Flx2_DS_DB As DataTable
     Private Flx3_DS_DB As DataTable
     Private Flx4_DS_DB As DataTable
@@ -121,6 +120,7 @@ Public Class FrmG0021_Detail
                         _D009.Clear()
                         _D004_SYONIN_J_KANRI.clear()
 
+                        cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                         Dim blnIsAdmin As Boolean = IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID)
                         If blnIsAdmin Then
                             'システム管理者のみ制限解除
@@ -229,20 +229,16 @@ Public Class FrmG0021_Detail
         End With
     End Function
 
-
     Private Sub FlxDATA_AfterAddRow(sender As Object, e As RowColEventArgs) Handles flxDATA_4.AfterAddRow
         Try
             Dim flx = DirectCast(sender, C1FlexGrid)
 
             flx(e.Row, NameOf(D011.ITEM_NO)) = flx.Rows.Count - 2
             flx(e.Row, NameOf(D011.SURYO)) = 0
-
         Catch ex As Exception
             Throw
         End Try
     End Sub
-
-
 
     Private Sub Flex_StartEdit(ByVal sender As Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles flxDATA_2.StartEdit,
                                                                                                              flxDATA_3.StartEdit,
@@ -307,8 +303,6 @@ Public Class FrmG0021_Detail
 
         Dim flx = DirectCast(sender, C1FlexGrid)
 
-
-
         If flx.Cols(e.Col).Name.Contains("YMD") Then
             Dim d As Date
             If Not Date.TryParse(flx.Editor.Text, d) Then
@@ -347,14 +341,30 @@ Public Class FrmG0021_Detail
             End Select
         Catch ex As Exception
             Throw
+        Finally
+            Call FunInitFuncButtonEnabled()
         End Try
     End Sub
 
     Private Sub FlxDATA_AfterSort(sender As Object, e As SortColEventArgs) Handles flxDATA_2.AfterSort, flxDATA_3.AfterSort, flxDATA_5.AfterSort
-        Call SetFlxDATA_EeditStatus(sender)
+        Call SetFlxDATA_EditStatus(sender)
     End Sub
 
-    Private Sub SetFlxDATA_EeditStatus(flx As C1FlexGrid)
+    Private Sub SetFlxDATA_EditStatus(flx As C1FlexGrid)
+
+
+        Dim HasSIKAKARI_KENGEN As Boolean
+        If flx.Name = NameOf(flxDATA_4) Then
+            Dim dt As DataTable = FunGetSYOZOKU_SYAIN(cmbBUMON.SelectedValue)
+            Dim InList As New List(Of Integer)
+
+            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._7_管理.Value, ENM_GYOMU_GROUP_ID._8_営業.Value})
+            Dim drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
+                                      GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
+
+            HasSIKAKARI_KENGEN = drs.Where(Function(r) r.Item("VALUE") = pub_SYAIN_INFO.SYAIN_ID.ToString).Count > 0
+        End If
+
 
         '編集権限設定
         For i As Integer = 1 To flx.Rows.Count - 1
@@ -378,10 +388,10 @@ Public Class FrmG0021_Detail
 
                 Case Else
                     flx.Rows(i).Style = flx.Styles("TANTO_GROUP")
-                    flx.Rows(i).AllowEditing = (_D009.CM_TANTO = pub_SYAIN_INFO.SYAIN_ID Or _D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
+
+                    '管理・営業 + 議長・起草者
+                    flx.Rows(i).AllowEditing = (_D009.CM_TANTO = pub_SYAIN_INFO.SYAIN_ID Or _D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID) Or HasSIKAKARI_KENGEN
             End Select
-
-
 
         Next
     End Sub
@@ -687,7 +697,7 @@ Public Class FrmG0021_Detail
                     End If
                 End If
 
-                Dim drOrg As DataRow = Flx2_DS_DB.AsEnumerable.Where(Function(r) r.Item(NameOf(D010.ITEM_NO)) = dr.Item(NameOf(D010.ITEM_NO))).FirstOrDefault
+                Dim drOrg As DataRow = Flx2_DS_DB?.AsEnumerable.Where(Function(r) r.Item(NameOf(D010.ITEM_NO)) = dr.Item(NameOf(D010.ITEM_NO))).FirstOrDefault
                 If drOrg IsNot Nothing AndAlso drOrg.Equals(dr) Then
                     'ロード時以降変更された場合のみ更新
                     Continue For
@@ -795,7 +805,7 @@ Public Class FrmG0021_Detail
 
             Return True
         Catch ex As Exception
-            Throw
+            Throw ex
         End Try
     End Function
 
@@ -1921,7 +1931,7 @@ Public Class FrmG0021_Detail
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value)
             If drs.Count > 0 Then cmbSYOCHI_GM_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
-            dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, FunGetNextSYONIN_JUN(ENM_FCCB_STAGE._10_起草入力))
+            dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, ENM_FCCB_STAGE._10_起草入力)
             cmbCM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             tabMain.Visible = True
@@ -2244,6 +2254,7 @@ Public Class FrmG0021_Detail
                         dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
                         Dim Sec2 As New ModelInfo(Of D010)(srcDATA:=dsList.Tables(0))
                         Flx2_DS.DataSource = Sec2.Data
+                        Flx2_DS_DB = Sec2.Data.Copy
 
                         sbSQL.Clear()
                         sbSQL.Append($"SELECT")
@@ -2262,6 +2273,7 @@ Public Class FrmG0021_Detail
 
                         Dim Sec3 As New ModelInfo(Of D010)(srcDATA:=dsList.Tables(0))
                         Flx3_DS.DataSource = Sec3.Data
+                        Flx3_DS_DB = Sec3.Data.Copy
 
                         sbSQL.Clear()
                         sbSQL.Append($"SELECT")
@@ -2485,15 +2497,13 @@ Public Class FrmG0021_Detail
             End Select
 
             '編集権限
-            Call SetFlxDATA_EeditStatus(flxDATA_2)
-            Call SetFlxDATA_EeditStatus(flxDATA_3)
-            Call SetFlxDATA_EeditStatus(flxDATA_4)
-            Call SetFlxDATA_EeditStatus(flxDATA_5)
-
+            Call SetFlxDATA_EditStatus(flxDATA_2)
+            Call SetFlxDATA_EditStatus(flxDATA_3)
+            Call SetFlxDATA_EditStatus(flxDATA_4)
+            Call SetFlxDATA_EditStatus(flxDATA_5)
 
             '現行ステージ名
             lblCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, _D009.FCCB_NO)
-
 
             '処置確認担当者
 
@@ -2622,7 +2632,6 @@ Public Class FrmG0021_Detail
                 'C1SplitterPanel4.Collapsible = True
                 'C1SplitterPanel4.Enabled = False
             End If
-
 
             Return True
         Catch ex As Exception
@@ -2967,7 +2976,6 @@ Public Class FrmG0021_Detail
     ''' <returns></returns>
     Public Function FunblnOwnCreated(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String, ByVal intSYONIN_JUN As Integer) As Boolean
 
-
         Try
             Dim ToUsers As New List(Of Integer)
 
@@ -2977,8 +2985,11 @@ Public Class FrmG0021_Detail
                     ToUsers = dt.AsEnumerable.Select(Function(r) r.Field(Of Integer)("VALUE")).ToList
 
                 Case ENM_FCCB_STAGE._20_処置事項調査等
-                    'FCCB議長のみ
+                    'FCCB議長 起草者
                     ToUsers.Add(_D009.CM_TANTO)
+                    ToUsers.Add(_D009.ADD_SYAIN_ID)
+                    '操作可能
+                    ToUsers.Add(pub_SYAIN_INFO.SYAIN_ID)
 
                 Case ENM_FCCB_STAGE._30_変更審議
                     If cmbSYOCHI_SEKKEI_TANTO.IsSelected Then
@@ -3096,8 +3107,6 @@ Public Class FrmG0021_Detail
         End Try
 
     End Function
-
-
 
 #End Region
 

@@ -40,6 +40,7 @@ Public Class FrmG0020_List
 
         cmbADD_TANTO.NullValue = 0
         cmbKISYU.NullValue = 0
+        cmbGEN_TANTO.NullValue = 0
 
         Select Case pub_intOPEN_MODE
             Case ENM_OPEN_MODE._1_V‹Kì¬, ENM_OPEN_MODE._2_ˆ’u‰æ–Ê‹N“®
