@@ -352,11 +352,11 @@ Public Class FrmG0021_Detail
 
     Private Sub SetFlxDATA_EditStatus(flx As C1FlexGrid)
 
-
+        Dim InList As New List(Of Integer)
         Dim HasSIKAKARI_KENGEN As Boolean
         If flx.Name = NameOf(flxDATA_4) Then
             Dim dt As DataTable = FunGetSYOZOKU_SYAIN(cmbBUMON.SelectedValue)
-            Dim InList As New List(Of Integer)
+
 
             InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._7_管理.Value, ENM_GYOMU_GROUP_ID._8_営業.Value})
             Dim drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
@@ -365,11 +365,12 @@ Public Class FrmG0021_Detail
             HasSIKAKARI_KENGEN = drs.Where(Function(r) r.Item("VALUE") = pub_SYAIN_INFO.SYAIN_ID.ToString).Count > 0
         End If
 
-
         '編集権限設定
         For i As Integer = 1 To flx.Rows.Count - 1
+
             Select Case flx.Name
                 Case NameOf(flxDATA_2), NameOf(flxDATA_3)
+
                     If _D009.CM_TANTO = pub_SYAIN_INFO.SYAIN_ID Or
                         _D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID Or
                         USER_GYOMU_KENGEN_LIST.Contains(flx.Rows(i).Item(NameOf(D010.TANTO_GYOMU_GROUP_ID))) Then
@@ -378,9 +379,10 @@ Public Class FrmG0021_Detail
                         If flx.Rows(i).Item("YOHI_KB") Then
                             flx.Rows(i).Style = flx.Styles("TANTO_GROUP")
                         Else
-                            flx.Rows(i).Style = flx.Styles("DeletedRow")
+                            flx.Rows(i).Style = Nothing
                         End If
                     Else
+
                         '担当業務以外は編集不可
                         flx.Rows(i).Style = flx.Styles("DeletedRow")
                         flx.Rows(i).AllowEditing = False
@@ -692,6 +694,7 @@ Public Class FrmG0021_Detail
                     '起草者 or FCCB議長は全部更新可能
                 Else
                     If Not groups.Contains(dr.Item(NameOf(D010.TANTO_GYOMU_GROUP_ID))) Then
+
                         '自身の業務グループ項目以外は更新しない
                         Continue For
                     End If
@@ -982,13 +985,17 @@ Public Class FrmG0021_Detail
             sbSQL.Append($" ) AS WK")
             sbSQL.Append($" ON (TARGET.{NameOf(_D012.FCCB_NO)} = WK.{NameOf(_D012.FCCB_NO)}")
             sbSQL.Append($" AND TARGET.{NameOf(_D012.GYOMU_GROUP_ID)} = WK.{NameOf(_D012.GYOMU_GROUP_ID)})")
+            '---UPDATE
+            sbSQL.Append($" WHEN MATCHED THEN")
+            sbSQL.Append($" {_D012.ToUpdateSqlString("TARGET", "WK")}")
             '---INSERT
             sbSQL.Append($" WHEN NOT MATCHED THEN")
             sbSQL.Append($" {_D012.ToInsertSqlString("WK")}")
+
             sbSQL.Append(" OUTPUT $action As RESULT;")
             strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
             Select Case strRET
-                Case "INSERT"
+                Case "INSERT", "UPDATE"
 
                 Case Else
                     If sqlEx IsNot Nothing Then
@@ -1928,6 +1935,9 @@ Public Class FrmG0021_Detail
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._8_営業.Value)
             If drs.Count > 0 Then cmbSYOCHI_EIGYO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
+            drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._9_購買.Value)
+            If drs.Count > 0 Then cmbSYOCHI_KOBAI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value)
             If drs.Count > 0 Then cmbSYOCHI_GM_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
@@ -2477,8 +2487,9 @@ Public Class FrmG0021_Detail
                                 End Select
 
                                 cmb.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
-                                dte.Value = DateTime.Parse(dr.Item(NameOf(D012.ADD_YMDHNS))).ToString("yyyy/MM/dd")
-
+                                If Not dr.Item(NameOf(D012.ADD_YMDHNS)).ToString.IsNulOrWS Then
+                                    dte.Value = DateTime.ParseExact(dr.Item(NameOf(D012.ADD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                                End If
                             Next
                         End If
 
@@ -2496,11 +2507,7 @@ Public Class FrmG0021_Detail
                     Throw New ArgumentException("想定外の起動モードです")
             End Select
 
-            '編集権限
-            Call SetFlxDATA_EditStatus(flxDATA_2)
-            Call SetFlxDATA_EditStatus(flxDATA_3)
-            Call SetFlxDATA_EditStatus(flxDATA_4)
-            Call SetFlxDATA_EditStatus(flxDATA_5)
+
 
             '現行ステージ名
             lblCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, _D009.FCCB_NO)
@@ -2575,6 +2582,12 @@ Public Class FrmG0021_Detail
                     End If
                 Next
             End If
+
+            '編集権限
+            Call SetFlxDATA_EditStatus(flxDATA_2)
+            Call SetFlxDATA_EditStatus(flxDATA_3)
+            Call SetFlxDATA_EditStatus(flxDATA_4)
+            Call SetFlxDATA_EditStatus(flxDATA_5)
 
             '完了日表示
             Dim blnCloseColumnVisibled = (PrCurrentStage >= ENM_FCCB_STAGE._40_処置確認.Value)
@@ -2812,7 +2825,7 @@ Public Class FrmG0021_Detail
 
                 End If
 
-                If r.Item(NameOf(D010.YOTEI_YMD)) = 0 Then
+                If r.Item(NameOf(D010.YOTEI_YMD)) = "" Then
                     If DisplayAlart Then MessageBox.Show("要項目で完了予定日未入力の項目があります。", "入力チェック", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     Return False
                 End If

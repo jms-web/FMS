@@ -1400,6 +1400,14 @@ Module mdlG0020
                 retlist.Add(row.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))
             Next
 
+            If retlist.Contains(ENM_GYOMU_GROUP_ID._43_品検) Then
+                If Not retlist.Contains(ENM_GYOMU_GROUP_ID._3_検査) Then retlist.Add(ENM_GYOMU_GROUP_ID._3_検査)
+                If Not retlist.Contains(ENM_GYOMU_GROUP_ID._4_品証) Then retlist.Add(ENM_GYOMU_GROUP_ID._4_品証)
+            End If
+            If retlist.Contains(ENM_GYOMU_GROUP_ID._3_検査) Or retlist.Contains(ENM_GYOMU_GROUP_ID._4_品証) Then
+                If Not retlist.Contains(ENM_GYOMU_GROUP_ID._43_品検) Then retlist.Add(ENM_GYOMU_GROUP_ID._43_品検)
+            End If
+
             Return retlist
         Catch ex As Exception
             Throw
