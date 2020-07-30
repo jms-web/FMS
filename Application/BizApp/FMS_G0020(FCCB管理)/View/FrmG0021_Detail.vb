@@ -1695,6 +1695,7 @@ Public Class FrmG0021_Detail
         Try
             frmDLG.PrSYONIN_HOKOKUSYO_ID = SYONIN_HOKOKU_ID
             frmDLG.PrHOKOKU_NO = HOKOKU_NO
+            frmDLG.PrDatarow = PrDataRow
             dlgRET = frmDLG.ShowDialog(Me)
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
                 Return False
