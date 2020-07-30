@@ -267,6 +267,12 @@ Public Class FrmG0021_Detail
                     Throw New ArgumentException("想定外のデータソースです", flx.Name)
             End Select
 
+
+
+            If PrCurrentStage >= ENM_FCCB_STAGE._50_処置事項完了 AndAlso flx.Cols(e.Col).Name <> NameOf(D010.CLOSE_YMD) Then
+                e.Cancel = True
+            End If
+
             '担当部署→担当者リスト取得
             Select Case flx.Cols(e.Col).Name
                 Case NameOf(D010.TANTO_GYOMU_GROUP_ID)
@@ -1811,6 +1817,55 @@ Public Class FrmG0021_Detail
                     Case ENM_FCCB_STAGE._10_起草入力
                         cmdFunc5.Enabled = False
 
+                    Case ENM_FCCB_STAGE._50_処置事項完了
+
+                        '保存条件のチェック
+                        Dim ToUsers As New List(Of Integer)
+
+                        DirectCast(Flx2_DS.DataSource, DataTable).
+                            AsEnumerable.
+                            Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB))).
+                            Select(Function(r) r.Field(Of Integer)(NameOf(D010.TANTO_ID))).
+                            ToList.
+                            ForEach(Sub(user)
+                                        If Not ToUsers.Contains(user) Then
+                                            ToUsers.Add(user)
+                                        End If
+                                    End Sub)
+
+
+                        DirectCast(Flx3_DS.DataSource, DataTable).
+                            AsEnumerable.
+                            Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB))).
+                            Select(Function(r) r.Field(Of Integer)(NameOf(D010.TANTO_ID))).
+                            ToList.
+                            ForEach(Sub(user)
+                                        If Not ToUsers.Contains(user) Then
+                                            ToUsers.Add(user)
+                                        End If
+                                    End Sub)
+
+                        DirectCast(Flx4_DS.DataSource, DataTable).
+                            AsEnumerable.
+                            Where(Function(r) Not (NameOf(D010.YOTEI_YMD)).ToString.IsNulOrWS).
+                            Select(Function(r) r.Field(Of Integer)(NameOf(D010.TANTO_ID))).
+                            ToList.
+                            ForEach(Sub(user)
+                                        If Not ToUsers.Contains(user) Then
+                                            ToUsers.Add(user)
+                                        End If
+                                    End Sub)
+
+                        ToUsers.Add(_D009.CM_TANTO)
+                        If dtKAKUNIN_CM_TANTO.Text.IsNulOrWS Then
+                            ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
+                        End If
+
+
+                        cmdFunc1.Enabled = ToUsers.Contains(pub_SYAIN_INFO.SYAIN_ID)
+
+
+
                     Case ENM_FCCB_STAGE._999_Closed
                         If IsEditingClosed Then
                             cmdFunc1.Enabled = True
@@ -1940,10 +1995,14 @@ Public Class FrmG0021_Detail
             If drs.Count > 0 Then cmbSYOCHI_KOBAI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value)
-            If drs.Count > 0 Then cmbSYOCHI_GM_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            If drs.Count > 0 Then
+                cmbSYOCHI_GM_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                cmbKAKUNIN_GM_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            End If
 
             dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, ENM_FCCB_STAGE._10_起草入力)
             cmbCM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKAKUNIN_CM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             tabMain.Visible = True
         Else
@@ -2591,10 +2650,11 @@ Public Class FrmG0021_Detail
             Call SetFlxDATA_EditStatus(flxDATA_5)
 
             '完了日表示
-            Dim blnCloseColumnVisibled = (PrCurrentStage >= ENM_FCCB_STAGE._40_処置確認.Value)
+            Dim blnCloseColumnVisibled = (PrCurrentStage >= ENM_FCCB_STAGE._50_処置事項完了.Value)
             flxDATA_2.Cols(NameOf(D010.CLOSE_YMD)).Visible = blnCloseColumnVisibled
             flxDATA_3.Cols(NameOf(D010.CLOSE_YMD)).Visible = blnCloseColumnVisibled
             flxDATA_5.Cols(NameOf(D010.CLOSE_YMD)).Visible = blnCloseColumnVisibled
+
 
             '編集権限
             Select Case PrCurrentStage
@@ -2618,14 +2678,14 @@ Public Class FrmG0021_Detail
                     C1SplitterPanel5.Enabled = True
 
                 Case ENM_FCCB_STAGE._50_処置事項完了
-                    C1SplitterPanel1.Enabled = False
-                    C1SplitterPanel2.Enabled = False
+                    'C1SplitterPanel1.Enabled = False
+                    'C1SplitterPanel2.Enabled = False
                     C1SplitterPanel5.Enabled = True
                     tlpHeader.Enabled = False
 
                 Case ENM_FCCB_STAGE._60_処置事項完了確認, ENM_FCCB_STAGE._61_処置事項完了確認_統括
-                    C1SplitterPanel1.Enabled = False
-                    C1SplitterPanel2.Enabled = False
+                    'C1SplitterPanel1.Enabled = False
+                    'C1SplitterPanel2.Enabled = False
                     C1SplitterPanel5.Enabled = True
                     tlpHeader.Enabled = False
 
@@ -3093,6 +3153,7 @@ Public Class FrmG0021_Detail
                 Case ENM_FCCB_STAGE._50_処置事項完了
                     '裏処理にて各要処置事項の完了日の1週間前になっても未処置の場合、処置担当者に滞留通知
 
+                    '申請条件のチェック
                     Dim IsClosed As Boolean = True
                     IsClosed *= DirectCast(Flx2_DS.DataSource, DataTable).
                                                AsEnumerable.
@@ -3104,7 +3165,7 @@ Public Class FrmG0021_Detail
 
                     IsClosed *= DirectCast(Flx4_DS.DataSource, DataTable).
                                             AsEnumerable.
-                                            Where(Function(r) r.Item(NameOf(D011.CLOSE_YMD)).ToString.IsNulOrWS).Count = 0
+                                            Where(Function(r) Not r.Item(NameOf(D011.YOTEI_YMD)).ToString.IsNulOrWS And r.Item(NameOf(D011.CLOSE_YMD)).ToString.IsNulOrWS).Count = 0
 
                     '全要処置事項の処置完了
                     If IsClosed Then
@@ -3115,6 +3176,9 @@ Public Class FrmG0021_Detail
                             ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
                         End If
                     End If
+                Case ENM_FCCB_STAGE._60_処置事項完了確認
+                    ToUsers.Add(_D009.CM_TANTO)
+                    ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
 
                 Case Else
                     Throw New ArgumentException("想定外の承認ルートです", PrCurrentStage)

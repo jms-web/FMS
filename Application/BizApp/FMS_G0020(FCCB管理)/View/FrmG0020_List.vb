@@ -111,9 +111,9 @@ Public Class FrmG0020_List
 
                 cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-                If Not IsOPAdminUser(pub_SYAIN_INFO.SYAIN_ID) And pub_SYAIN_INFO.BUMON_KB <= Context.ENM_BUMON_KB._3_複合材 Then
-                    cmbGEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
-                End If
+                'If Not IsOPAdminUser(pub_SYAIN_INFO.SYAIN_ID) And pub_SYAIN_INFO.BUMON_KB <= Context.ENM_BUMON_KB._3_複合材 Then
+                '    cmbGEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                'End If
             End If
 
             ''-----イベントハンドラ設定
@@ -149,6 +149,9 @@ Public Class FrmG0020_List
             'ファンクションボタンステータス更新
             Call FunInitFuncButtonEnabled()
             Me.WindowState = FormWindowState.Maximized
+
+            cmdFunc1.PerformClick()
+
         Catch ex As Exception
             Throw
         Finally
