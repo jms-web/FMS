@@ -760,17 +760,17 @@ Module mdlG0020
 
         dt.PrimaryKey = {dt.Columns("VALUE")} ', dt.Columns("SYONIN_JUN"), dt.Columns("SYONIN_HOKOKUSYO_ID")
 
-        '承認順未指定=報告書ID未指定 or 承認順=ST1 起草登録時はログインユーザーを追加
-        Select Case SYONIN_JUN
-            Case 0, 10
-                '#109 ログインユーザーを処置担当リストに追加
-                Dim Trow2 As DataRow = dt.NewRow()
-                If Not dt.Rows.Contains(pub_SYAIN_INFO.SYAIN_ID) Then
-                    Trow2("VALUE") = pub_SYAIN_INFO.SYAIN_ID
-                    Trow2("DISP") = pub_SYAIN_INFO.SYAIN_NAME
-                    dt.Rows.Add(Trow2)
-                End If
-        End Select
+        ''承認順未指定=報告書ID未指定 or 承認順=ST1 起草登録時はログインユーザーを追加
+        'Select Case SYONIN_JUN
+        '    Case 0, 10
+        '        '#109 ログインユーザーを処置担当リストに追加
+        '        Dim Trow2 As DataRow = dt.NewRow()
+        '        If Not dt.Rows.Contains(pub_SYAIN_INFO.SYAIN_ID) Then
+        '            Trow2("VALUE") = pub_SYAIN_INFO.SYAIN_ID
+        '            Trow2("DISP") = pub_SYAIN_INFO.SYAIN_NAME
+        '            dt.Rows.Add(Trow2)
+        '        End If
+        'End Select
 
         'システムユーザーログイン時はシステムユーザーを追加
         If pub_SYAIN_INFO.SYAIN_ID = 999999 Then

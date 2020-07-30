@@ -790,7 +790,7 @@ Public Class FrmG0020_List
 
                 Case 11 '—š—ð•\Ž¦
 
-                    Call ShowUnimplemented()'Call OpenFormRIREKI()
+                    Call OpenFormRIREKI()
 
 
 
@@ -1420,8 +1420,9 @@ Public Class FrmG0020_List
         Try
 
             If flxDATA.Rows(flxDATA.RowSel) IsNot Nothing Then
-                frmDLG.PrSYONIN_HOKOKUSYO_ID = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.SYONIN_HOKOKUSYO_ID))
-                frmDLG.PrHOKOKU_NO = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
+                frmDLG.PrSYONIN_HOKOKUSYO_ID = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.SYONIN_HOKOKUSYO_ID))
+                'frmDLG.PrHOKOKU_NO = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))
+                frmDLG.PrDatarow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
             Else
                 'parameter error
                 Return False

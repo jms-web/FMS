@@ -509,8 +509,8 @@ Public Class FrmG0021_Detail
                     Call FunOpenReportFCCB()
 
                 Case 11 '履歴
-                    Call ShowUnimplemented()
-                    'Call OpenFormHistory(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, _D009_FCCB_J.HOKOKU_NO)
+                    'Call ShowUnimplemented()
+                    Call OpenFormHistory(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, PrFCCB_NO)
 
                 Case 12 '閉じる
                     Me.Close()
@@ -3005,6 +3005,9 @@ Public Class FrmG0021_Detail
                     ToUsers.Add(pub_SYAIN_INFO.SYAIN_ID)
 
                 Case ENM_FCCB_STAGE._30_変更審議
+
+                    ToUsers.Add(cmbCM_TANTO.SelectedValue)
+
                     If cmbSYOCHI_SEKKEI_TANTO.IsSelected Then
                         ToUsers.Add(cmbSYOCHI_SEKKEI_TANTO.SelectedValue)
                     End If
@@ -3025,6 +3028,8 @@ Public Class FrmG0021_Detail
                     End If
 
                 Case ENM_FCCB_STAGE._40_処置確認
+
+                    ToUsers.Add(cmbCM_TANTO.SelectedValue)
 
                     Dim IsAllChecked As Boolean = True
                     If cmbSYOCHI_SEKKEI_TANTO.IsSelected AndAlso dtSYOCHI_SEKKEI_TANTO.Text.IsNulOrWS Then

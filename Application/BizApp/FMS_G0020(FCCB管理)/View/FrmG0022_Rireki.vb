@@ -7,8 +7,6 @@ Public Class FrmG0022_Rireki
 
 #Region "定数・変数"
 
-    Private _V002_NCR_J As New MODEL.V002_NCR_J
-
 #End Region
 
 #Region "プロパティ"
@@ -16,6 +14,8 @@ Public Class FrmG0022_Rireki
     Public Property PrSYONIN_HOKOKUSYO_ID As Integer
 
     Public Property PrHOKOKU_NO As String
+
+    Public Property PrDatarow As DataRow
 
     Public Property PrCurrentStage As Integer
 
@@ -430,34 +430,26 @@ Public Class FrmG0022_Rireki
 
     Private Function FunSetModel() As Boolean
 
-        _V002_NCR_J = FunGetV002Model(PrHOKOKU_NO)
-        Select Case PrSYONIN_HOKOKUSYO_ID
-            Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-                mtxSYONIN_HOKOKUSYO_NAME.Text = "不適合製品処置報告書(Non-Conformance Report)"
-            Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
-                mtxSYONIN_HOKOKUSYO_NAME.Text = "不適合是正処置報告書(Corrective Action Report)"
-        End Select
+        mtxHOKUKO_NO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.FCCB_NO))
+        mtxBUMON_KB.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.BUMON_NAME))
+        mtxKISOU_TANTO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.KISO_TANTO_NAME))
+        dtDraft.ValueNonFormat = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.KISO_YMD))
+        mtxKISYU.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.KISYU_NAME))
+        mtxBUHIN_BANGO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.BUHIN_BANGO))
+        mtxHINMEI.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.BUHIN_NAME))
 
-        mtxHOKUKO_NO.Text = _V002_NCR_J.HOKOKU_NO
-        mtxBUMON_KB.Text = _V002_NCR_J.BUMON_NAME
-        mtxKISOU_TANTO.Text = _V002_NCR_J.ADD_SYAIN_NAME
-        dtDraft.ValueNonFormat = _V002_NCR_J.ADD_YMD
-        mtxKISYU.Text = _V002_NCR_J.KISYU_NAME
-        mtxBUHIN_BANGO.Text = _V002_NCR_J.BUHIN_BANGO
-        mtxHINMEI.Text = _V002_NCR_J.BUHIN_NAME
-
-        If _V002_NCR_J.BUMON_KB = Context.ENM_BUMON_KB._2_LP Then
+        If PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.BUMON_KB)) = Context.ENM_BUMON_KB._2_LP.Value.ToString Then
             lblSYANAI_CD.Visible = True
             mtxSYANAI_CD.Visible = True
-            mtxSYANAI_CD.Text = _V002_NCR_J.SYANAI_CD
+            mtxSYANAI_CD.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.SYANAI_CD))
         Else
             lblSYANAI_CD.Visible = False
             mtxSYANAI_CD.Visible = False
         End If
-        numSU.Value = _V002_NCR_J.SURYO
 
 
-        chkSAIHATU.Checked = _V002_NCR_J.SAIHATU
+
+
         Return True
     End Function
 
