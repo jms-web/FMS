@@ -55,8 +55,8 @@ Module mdlU0010
 
                 Dim TAIRYU_COUNT As Integer
                 TAIRYU_COUNT += SendFUTEKIGOMail()
-                TAIRYU_COUNT += SendFCCB_TAIRYU_Mail()
-                TAIRYU_COUNT += SendFCCB_KANRYO_Mail()
+                'TAIRYU_COUNT += SendFCCB_TAIRYU_Mail()
+                'TAIRYU_COUNT += SendFCCB_KANRYO_Mail()
 
                 If TAIRYU_COUNT > 0 Then
                     WL.WriteLogDat($"{TAIRYU_COUNT:00}件の滞留通知メールを送信しました。")
@@ -141,62 +141,66 @@ Module mdlU0010
         Dim strSubject As String
         Dim intSendCount As Integer
 
-        Dim dt As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(New ST02_ParamModel)
+        Try
 
-        Using DB As ClsDbUtility = DBOpen()
-            If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
-                WL.WriteLogDat($"メール送信設定が無効(FALSE)に設定されています")
-                Return 0
-            End If
 
-            strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
-            intSmtpPort = Val(FunGetCodeMastaValue(DB, "メール設定", "SMTP_PORT"))
-            strUserID = FunGetCodeMastaValue(DB, "メール設定", "SMTP_USER")
-            strPassword = FunGetCodeMastaValue(DB, "メール設定", "SMTP_PASS")
-            strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
+            Dim dt As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(New ST02_ParamModel)
 
-            For Each dr As DataRow In dt.Rows
-                Dim ToAddressList As New List(Of String)
-                Try
+            Using DB As ClsDbUtility = DBOpen()
+                'If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                '    WL.WriteLogDat($"メール送信設定が無効(FALSE)に設定されています")
+                '    Return 0
+                'End If
 
-                    If dr.Item("DEL_YMDHNS").ToString.Trim <> "" Then
-                        '削除済みは除外
-                        Continue For
-                    End If
+                strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
+                intSmtpPort = Val(FunGetCodeMastaValue(DB, "メール設定", "SMTP_PORT"))
+                strUserID = FunGetCodeMastaValue(DB, "メール設定", "SMTP_USER")
+                strPassword = FunGetCodeMastaValue(DB, "メール設定", "SMTP_PASS")
+                strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
 
-                    '---申請先担当者のメールアドレス取得
-                    Dim sbSQL As New System.Text.StringBuilder
-                    Dim dsList As New DataSet
-                    sbSQL.Append($"SELECT")
-                    sbSQL.Append($" M4.SIMEI")
-                    sbSQL.Append($",M4.MAIL_ADDRESS")
-                    sbSQL.Append($",M5.BUSYO_ID")
-                    sbSQL.Append($",M2.BUSYO_NAME")
-                    sbSQL.Append($",GL.SIMEI AS GL_SIMEI")
-                    sbSQL.Append($",GL.MAIL_ADDRESS AS GL_ADDRESS")
-                    sbSQL.Append($" FROM M004_SYAIN AS M4")
-                    sbSQL.Append($" LEFT JOIN dbo.M005_SYOZOKU_BUSYO AS M5 ON (M4.SYAIN_ID = M5.SYAIN_ID)")
-                    sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS M2 ON (M2.BUSYO_ID = M5.BUSYO_ID)")
-                    sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS GL ON (GL.SYAIN_ID = M2.SYOZOKUCYO_ID)")
-                    sbSQL.Append($" WHERE M4.SYAIN_ID={dr.Item("GEN_TANTO_ID")}")
-                    sbSQL.Append($" AND M5.KENMU_FLG='0'")
-                    dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-                    If dsList.Tables(0).Rows.Count > 0 Then
-                        ToAddressList.Add(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS"))
+                For Each dr As DataRow In dt.Rows
+                    Dim ToAddressList As New List(Of String)
+                    Try
 
-                        If dsList.Tables(0).Rows.Count > 0 AndAlso Not ToAddressList.Contains(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")) Then
-                            ToAddressList.Add(dsList.Tables(0).Rows(0).Item("GL_ADDRESS"))
+                        If dr.Item("DEL_YMDHNS").ToString.Trim <> "" Then
+                            '削除済みは除外
+                            Continue For
                         End If
 
-                        strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI").ToString.Trim
-                    Else
-                        WL.WriteLogDat($"【メール送信失敗】担当者ID:{dr.Item("GEN_TANTO_ID")}のメールアドレスが取得できませんでした")
-                        Continue For
-                    End If
+                        '---申請先担当者のメールアドレス取得
+                        Dim sbSQL As New System.Text.StringBuilder
+                        Dim dsList As New DataSet
+                        sbSQL.Clear()
+                        sbSQL.Append($"SELECT")
+                        sbSQL.Append($" M4.SIMEI")
+                        sbSQL.Append($",M4.MAIL_ADDRESS")
+                        sbSQL.Append($",M5.BUSYO_ID")
+                        sbSQL.Append($",M2.BUSYO_NAME")
+                        sbSQL.Append($",GL.SIMEI AS GL_SIMEI")
+                        sbSQL.Append($",GL.MAIL_ADDRESS AS GL_ADDRESS")
+                        sbSQL.Append($" FROM M004_SYAIN AS M4")
+                        sbSQL.Append($" LEFT JOIN dbo.M005_SYOZOKU_BUSYO AS M5 ON (M4.SYAIN_ID = M5.SYAIN_ID)")
+                        sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS M2 ON (M2.BUSYO_ID = M5.BUSYO_ID)")
+                        sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS GL ON (GL.SYAIN_ID = M2.SYOZOKUCYO_ID)")
+                        sbSQL.Append($" WHERE M4.SYAIN_ID={dr.Item("GEN_TANTO_ID")}")
+                        sbSQL.Append($" AND M5.KENMU_FLG='0'")
+                        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                        If dsList.Tables(0).Rows.Count > 0 Then
+                            ToAddressList.Add(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS"))
 
-                    Dim strEXEParam As String = $"{dr.Item("GEN_TANTO_ID")},{2},{dr.Item("SYONIN_HOKOKUSYO_ID")},{dr.Item("HOKOKU_NO").ToString.Trim}"
-                    strSubject = $"【不適合品処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME").ToString.Trim}] {dr.Item("KISYU_NAME").ToString.Trim}・{dr.Item("BUHIN_BANGO").ToString.Trim}"
-                    Dim strBody As String = <body><![CDATA[
+                            If dsList.Tables(0).Rows.Count > 0 AndAlso Not ToAddressList.Contains(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")) Then
+                                ToAddressList.Add(dsList.Tables(0).Rows(0).Item("GL_ADDRESS"))
+                            End If
+
+                            strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI").ToString.Trim
+                        Else
+                            WL.WriteLogDat($"【メール送信失敗】担当者ID:{dr.Item("GEN_TANTO_ID")}のメールアドレスが取得できませんでした")
+                            Continue For
+                        End If
+
+                        Dim strEXEParam As String = $"{dr.Item("GEN_TANTO_ID")},{2},{dr.Item("SYONIN_HOKOKUSYO_ID")},{dr.Item("HOKOKU_NO").ToString.Trim}"
+                        strSubject = $"【不適合品処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME").ToString.Trim}] {dr.Item("KISYU_NAME").ToString.Trim}・{dr.Item("BUHIN_BANGO").ToString.Trim}"
+                        Dim strBody As String = <body><![CDATA[
                             {0} 殿<br />
                             <br />
                                 　不適合製品の処置依頼から【滞留日数】{1}日が経過しています。<br />
@@ -215,10 +219,10 @@ Module mdlU0010
                             返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
                             ]]></body>.Value.Trim
 
-                    'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
+                        'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
 
 
-                    strBody = String.Format(strBody,
+                        strBody = String.Format(strBody,
                         dr.Item("GEN_TANTO_NAME").ToString.Trim,
                         dr.Item("TAIRYU_NISSU").ToString.Trim,
                         dr.Item("SYONIN_HOKOKUSYO_R_NAME").ToString.Trim,
@@ -231,7 +235,7 @@ Module mdlU0010
                         "FMS_G0010.exe",
                         strEXEParam)
 
-                    blnSend = ClsMailSend.FunSendMail(strSmtpServer,
+                        blnSend = ClsMailSend.FunSendMail(strSmtpServer,
                            intSmtpPort,
                            strFromAddress,
                            ToAddressList,
@@ -243,24 +247,29 @@ Module mdlU0010
                            strFromName:="不適合管理システム",
                            isHTML:=True)
 
-                    If blnSend Then
-                        WL.WriteLogDat($"【メール送信成功】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}")
-                        intSendCount += 1
-                    Else
-                        'MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        WL.WriteLogDat($"【メール送信失敗】送信処理失敗 Subject:{strSubject} To:{ToAddressList(0)}")
+                        If blnSend Then
+                            WL.WriteLogDat($"【メール送信成功】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}")
+                            intSendCount += 1
+                        Else
+                            'MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            WL.WriteLogDat($"【メール送信失敗】送信処理失敗 Subject:{strSubject} To:{ToAddressList(0)}")
+                            Continue For
+                        End If
+                        System.Threading.Thread.Sleep(1000)
+                    Catch ex As Exception
+                        strMsg = $"【メール送信失敗】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}{vbCrLf}{Err.Description}"
+                        WL.WriteLogDat(strMsg)
                         Continue For
-                    End If
-                    System.Threading.Thread.Sleep(1000)
-                Catch ex As Exception
-                    strMsg = $"【メール送信失敗】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}{vbCrLf}{Err.Description}"
-                    WL.WriteLogDat(strMsg)
-                    Continue For
-                End Try
-            Next dr
+                    End Try
+                Next dr
+            End Using
 
             Return intSendCount
-        End Using
+
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+        End Try
+
     End Function
 #End Region
 
