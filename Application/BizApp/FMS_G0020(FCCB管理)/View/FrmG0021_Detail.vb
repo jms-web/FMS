@@ -394,6 +394,20 @@ Public Class FrmG0021_Detail
                         flx.Rows(i).AllowEditing = False
                     End If
 
+                Case NameOf(flxDATA_5)
+                    If _D009.CM_TANTO = pub_SYAIN_INFO.SYAIN_ID Or
+                        _D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID Or
+                        USER_GYOMU_KENGEN_LIST.Contains(flx.Rows(i).Item(NameOf(D010.TANTO_GYOMU_GROUP_ID))) Then
+
+                        flx.Rows(i).AllowEditing = True
+                        flx.Rows(i).Style = flx.Styles("TANTO_GROUP")
+                    Else
+
+                        'íSìñã∆ñ±à»äOÇÕï“èWïsâ¬
+                        flx.Rows(i).Style = flx.Styles("DeletedRow")
+                        flx.Rows(i).AllowEditing = False
+                    End If
+
                 Case Else
                     flx.Rows(i).Style = flx.Styles("TANTO_GROUP")
 
@@ -773,6 +787,7 @@ Public Class FrmG0021_Detail
                 _D010.YOHI_KB = dr.Item(NameOf(_D010.YOHI_KB))
                 _D010.TANTO_ID = dr.Item(NameOf(_D010.TANTO_ID))
                 _D010.NAIYO = dr.Item(NameOf(_D010.NAIYO))
+                _D010.GOKI = dr.Item(NameOf(_D010.GOKI))
                 If Not dr.Item(NameOf(_D010.YOTEI_YMD)).ToString.IsNulOrWS Then
                     _D010.YOTEI_YMD = CDate(dr.Item(NameOf(_D010.YOTEI_YMD))).ToString("yyyyMMdd")
                 End If

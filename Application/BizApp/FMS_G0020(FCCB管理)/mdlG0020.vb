@@ -1157,11 +1157,12 @@ Module mdlG0020
 #Region "SEC2"
                 Dim intRowIndex As Integer = 15
                 For Each r As DataRow In dsList.Tables(0).Rows
-                    spSheet1.Range($"I{intRowIndex + 1}").Value = r.Item("GYOMU_GROUP_NAME")
-                    If spSheet1.Range($"I{intRowIndex + 1}").Value?.ToString.IsNulOrWS Then
+
+                    If spSheet1.Range($"AE{intRowIndex + 1}").Value?.ToString = "na" Then
                         'ブランク行はスキップ
-                        Continue For
+                        intRowIndex += 1
                     End If
+                    spSheet1.Range($"I{intRowIndex + 1}").Value = r.Item("GYOMU_GROUP_NAME")
                     spSheet1.Range($"AE{intRowIndex + 1}").Value = r.Item(NameOf(D010.YOHI_KB))
                     spSheet1.Range($"L{intRowIndex + 1}").Value = r.Item("TANTO_SYAIN_NAME")
                     spSheet1.Range($"O{intRowIndex + 1}").Value = r.Item(NameOf(D010.NAIYO))
@@ -1201,7 +1202,7 @@ Module mdlG0020
                 For Each r As DataRow In dsList.Tables(0).Rows
                     If spSheet1.Range($"B{intRowIndex + 1}").Value?.ToString.IsNulOrWS Then
                         'ブランク行はスキップ
-                        Continue For
+                        intRowIndex += 1
                     End If
                     spSheet1.Range($"AE{intRowIndex + 1}").Value = r.Item(NameOf(D010.YOHI_KB))
                     spSheet1.Range($"I{intRowIndex + 1}").Value = r.Item("TANTO_SYAIN_NAME")
