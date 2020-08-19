@@ -55,8 +55,8 @@ Module mdlU0010
 
                 Dim TAIRYU_COUNT As Integer
                 TAIRYU_COUNT += SendFUTEKIGOMail()
-                'TAIRYU_COUNT += SendFCCB_TAIRYU_Mail()
-                'TAIRYU_COUNT += SendFCCB_KANRYO_Mail()
+                TAIRYU_COUNT += SendFCCB_TAIRYU_Mail()
+                TAIRYU_COUNT += SendFCCB_KANRYO_Mail()
 
                 If TAIRYU_COUNT > 0 Then
                     WL.WriteLogDat($"{TAIRYU_COUNT:00}件の滞留通知メールを送信しました。")
@@ -143,7 +143,6 @@ Module mdlU0010
 
         Try
 
-
             Dim dt As DataTable = FunGetDtST02_FUTEKIGO_ICHIRAN(New ST02_ParamModel)
 
             Using DB As ClsDbUtility = DBOpen()
@@ -221,7 +220,6 @@ Module mdlU0010
 
                         'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
 
-
                         strBody = String.Format(strBody,
                         dr.Item("GEN_TANTO_NAME").ToString.Trim,
                         dr.Item("TAIRYU_NISSU").ToString.Trim,
@@ -265,30 +263,15 @@ Module mdlU0010
             End Using
 
             Return intSendCount
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
 
     End Function
+
 #End Region
 
-
 #Region "FCCB滞留通知"
-
-    Public Function GetST04_FCCB_ICHIRAN() As DataTable
-
-        Dim sbSQL As New System.Text.StringBuilder
-        Dim dsList As New DataSet
-
-        sbSQL.Append($"SELECT * FROM {NameOf(MODEL.V013_FCCB_ICHIRAN)}")
-
-        Using DB As ClsDbUtility = DBOpen()
-            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-        End Using
-
-        Return dsList?.Tables(0)
-    End Function
 
     Private Function SendFCCB_TAIRYU_Mail() As Integer
         Dim strMsg As String
@@ -304,13 +287,20 @@ Module mdlU0010
         Dim strSubject As String
         Dim intSendCount As Integer
 
-        Dim dt As DataTable = GetST04_FCCB_ICHIRAN()
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+        Dim dt As DataTable
 
         Using DB As ClsDbUtility = DBOpen()
             If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                 WL.WriteLogDat($"メール送信設定が無効(FALSE)に設定されています")
                 Return 0
             End If
+
+            sbSQL.Append($"SELECT * FROM {NameOf(MODEL.V013_FCCB_ICHIRAN)}")
+            sbSQL.Append($"　WHERE {NameOf(MODEL.V013_FCCB_ICHIRAN.GEN_TANTO_ID)} > 0")
+            sbSQL.Append($"　AND RTRIM({NameOf(MODEL.V013_FCCB_ICHIRAN.DEL_YMDHNS)})=''")
+            dt = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)?.Tables(0)
 
             strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
             intSmtpPort = Val(FunGetCodeMastaValue(DB, "メール設定", "SMTP_PORT"))
@@ -322,14 +312,8 @@ Module mdlU0010
                 Dim ToAddressList As New List(Of String)
                 Try
 
-                    If dr.Item("DEL_YMDHNS").ToString.Trim <> "" Then
-                        '削除済みは除外
-                        Continue For
-                    End If
-
                     '---申請先担当者のメールアドレス取得
-                    Dim sbSQL As New System.Text.StringBuilder
-                    Dim dsList As New DataSet
+                    sbSQL.Clear()
                     sbSQL.Append($"SELECT")
                     sbSQL.Append($" M4.SIMEI")
                     sbSQL.Append($",M4.MAIL_ADDRESS")
@@ -357,12 +341,12 @@ Module mdlU0010
                         Continue For
                     End If
 
-                    Dim strEXEParam As String = $"{dr.Item("GEN_TANTO_ID")},{2},{dr.Item("SYONIN_HOKOKUSYO_ID")},{dr.Item("HOKOKU_NO").ToString.Trim}"
-                    strSubject = $"【不適合品処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME").ToString.Trim}] {dr.Item("KISYU_NAME").ToString.Trim}・{dr.Item("BUHIN_BANGO").ToString.Trim}"
+                    Dim strEXEParam As String = $"{dr.Item("GEN_TANTO_ID")},{2},{dr.Item("SYONIN_HOKOKUSYO_ID")},{dr.Item("FCCB_NO").ToString.Trim}"
+                    strSubject = $"【FCCB処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME").ToString.Trim}] {dr.Item("KISYU_NAME").ToString.Trim}・{dr.Item("BUHIN_BANGO").ToString.Trim}"
                     Dim strBody As String = <body><![CDATA[
                             {0} 殿<br />
                             <br />
-                                　FCCB調査書の処置依頼から【滞留日数】{1}日が経過しています。<br />
+                                　FCCB記録書の処置依頼から【滞留日数】{1}日が経過しています。<br />
                                 　早急に対応をお願いします。<br />
                             <br />
                                 　　【報 告 書】{2}<br />
@@ -379,7 +363,6 @@ Module mdlU0010
                             ]]></body>.Value.Trim
 
                     'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
-
 
                     strBody = String.Format(strBody,
                         dr.Item("GEN_TANTO_NAME").ToString.Trim,
@@ -425,29 +408,10 @@ Module mdlU0010
             Return intSendCount
         End Using
     End Function
+
 #End Region
 
-
 #Region "FCCB処置完了通知"
-
-    Private Function GetFCCB_SYOCHI_KANRYO() As DataTable
-
-        Try
-            Dim sbSQL As New System.Text.StringBuilder
-            Dim dsList As New DataSet
-
-            sbSQL.Append($"SELECT * FROM {NameOf(MODEL.V014_FCCB_SYOCHI_YOTEI_ICHIRAN)}")
-
-            Using DB As ClsDbUtility = DBOpen()
-                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-            End Using
-
-            Return dsList?.Tables(0)
-
-        Catch ex As Exception
-            Throw
-        End Try
-    End Function
 
     Private Function SendFCCB_KANRYO_Mail() As Integer
 
@@ -464,14 +428,19 @@ Module mdlU0010
             Dim strToSyainName As String
             Dim strSubject As String
             Dim intSendCount As Integer
-
-            Dim dt As DataTable = GetFCCB_SYOCHI_KANRYO()
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
+            Dim dt As DataTable
 
             Using DB As ClsDbUtility = DBOpen()
                 If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                     WL.WriteLogDat($"メール送信設定が無効(FALSE)に設定されています")
                     Return 0
                 End If
+
+                sbSQL.Append($"SELECT * FROM {NameOf(MODEL.V014_FCCB_SYOCHI_YOTEI_ICHIRAN)}")
+                sbSQL.Append($"　AND RTRIM({NameOf(MODEL.V013_FCCB_ICHIRAN.DEL_YMDHNS)})=''")
+                dt = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)?.Tables(0)
 
                 strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
                 intSmtpPort = Val(FunGetCodeMastaValue(DB, "メール設定", "SMTP_PORT"))
@@ -483,14 +452,8 @@ Module mdlU0010
                     Dim ToAddressList As New List(Of String)
                     Try
 
-                        If dr.Item("DEL_YMDHNS").ToString.Trim <> "" Then
-                            '削除済みは除外
-                            Continue For
-                        End If
-
                         '---申請先担当者のメールアドレス取得
-                        Dim sbSQL As New System.Text.StringBuilder
-                        Dim dsList As New DataSet
+                        sbSQL.Clear()
                         sbSQL.Append($"SELECT")
                         sbSQL.Append($" M4.SIMEI")
                         sbSQL.Append($",M4.MAIL_ADDRESS")
@@ -518,12 +481,12 @@ Module mdlU0010
                             Continue For
                         End If
 
-                        Dim strEXEParam As String = $"{dr.Item("TANTO_ID")},{2},{dr.Item("SYONIN_HOKOKUSYO_ID")},{dr.Item("HOKOKU_NO").ToString.Trim}"
-                        strSubject = $"【不適合品処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME").ToString.Trim}] {dr.Item("KISYU_NAME").ToString.Trim}・{dr.Item("BUHIN_BANGO").ToString.Trim}"
+                        Dim strEXEParam As String = $"{dr.Item("TANTO_ID")},{2},{dr.Item("SYONIN_HOKOKUSYO_ID")},{dr.Item("FCCB_NO").ToString.Trim}"
+                        strSubject = $"【FCCB処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME").ToString.Trim}] {dr.Item("KISYU_NAME").ToString.Trim}・{dr.Item("BUHIN_BANGO").ToString.Trim}"
                         Dim strBody As String = <body><![CDATA[
                             {0} 殿<br />
                             <br />
-                                　FCCB調査書の処置完了予定日：{1}まであと {2}日です。<br />
+                                　FCCB記録書の処置完了予定日：{1}まであと {2}日です。<br />
                                 　処置完了日の入力をお願いします。<br />
                             <br />                                　　
                                 　　【報告書No】{3}<br />
@@ -538,7 +501,6 @@ Module mdlU0010
                             ]]></body>.Value.Trim
 
                         'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
-
 
                         Dim dtYOTEI As Date = DateTime.ParseExact(dr.Item("YOTEI_YMD").ToString, "yyyyMMdd", Nothing)
                         Dim remainDays = (Today - DateTime.ParseExact(dr.Item("YOTEI_YMD").ToString, "yyyyMMdd", Nothing)).Days
@@ -590,13 +552,12 @@ Module mdlU0010
 
                 Return intSendCount
             End Using
-
         Catch ex As Exception
             Throw ex
         End Try
     End Function
-#End Region
 
+#End Region
 
 #End Region
 

@@ -1337,7 +1337,7 @@ Public Class FrmG0021_Detail
             Dim strBody As String = <sql><![CDATA[
                 {0} 殿<br />
                 <br />
-        　        FCCB調査書の処置依頼が来ましたので対応をお願いします。<br />
+        　        FCCB記録書の処置依頼が来ましたので対応をお願いします。<br />
                 <br />
         　　        【報 告 書】FCCB<br />
         　　        【FCCB-No】{1}<br />

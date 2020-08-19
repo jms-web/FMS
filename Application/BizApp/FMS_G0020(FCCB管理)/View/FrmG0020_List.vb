@@ -1177,7 +1177,7 @@ Public Class FrmG0020_List
                                 Dim strBody As String = <body><![CDATA[
                                 {0} 殿<br />
                                 <br />
-                                　FCCB調査書の処置依頼から【滞留日数】{1}日が経過しています。<br />
+                                　FCCB記録書の処置依頼から【滞留日数】{1}日が経過しています。<br />
                                 　早急に対応をお願いします。<br />
                                 <br />
                                 　　【報 告 書】{2}<br />
@@ -1251,7 +1251,7 @@ Public Class FrmG0020_List
                     Dim strBody As String = <body><![CDATA[
                     {0} 殿<br />
                     <br />
-                    　FCCB調査書の処置依頼から【滞留日数】{1}日が経過しています。<br />
+                    　FCCB記録書の処置依頼から【滞留日数】{1}日が経過しています。<br />
                     　早急に対応をお願いします。<br />
                     <br />
                     【報告書No】{3}<br />
