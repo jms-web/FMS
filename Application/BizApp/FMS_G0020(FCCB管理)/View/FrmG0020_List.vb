@@ -1145,9 +1145,9 @@ Public Class FrmG0020_List
     Private Function FunMailSending() As Boolean
         Try
             Me.Cursor = Cursors.WaitCursor
-            Dim dt = DirectCast(flxDATA.DataSource, DataTable).AsEnumerable.
+            Dim dt = DirectCast(flxDATA.DataSource, DataView).Table.AsEnumerable.
                                     Where(Function(r) r.Field(Of Integer)(NameOf(ST04_FCCB_ICHIRAN.TAIRYU_NISSU)) >= 6 And
-                                                      r.Field(Of Integer)(NameOf(ST04_FCCB_ICHIRAN.GEN_TANTO_NAME)).ToString.IsNulOrWS = False)
+                                                      r.Field(Of String)(NameOf(ST04_FCCB_ICHIRAN.GEN_TANTO_NAME)).ToString.IsNulOrWS = False)
             Dim strTantoNameList As String = ""
 
             If dt.Count > 0 Then
@@ -1482,7 +1482,6 @@ Public Class FrmG0020_List
                 cmdFunc5.Enabled = True
                 cmdFunc7.Enabled = True
                 cmdFunc8.Enabled = True
-                'cmdFunc9.Enabled = True
                 cmdFunc10.Enabled = True
                 cmdFunc11.Enabled = True
 
@@ -1533,21 +1532,21 @@ Public Class FrmG0020_List
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "取消機能の使用権限がありません")
                 End If
 
-                'If FunblnAllowTairyuMailSend() Then
-                '    cmdFunc9.Enabled = True
-                '    MyBase.ToolTip.SetToolTip(Me.cmdFunc9, My.Resources.infoToolTipMsgNotFoundData)
-                'Else
-                '    cmdFunc9.Enabled = False
-                '    MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "滞留通知メール送信権限がありません")
-                'End If
+                If FunblnAllowTairyuMailSend() Then
+                    cmdFunc9.Enabled = True
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc9, My.Resources.infoToolTipMsgNotFoundData)
+                Else
+                    cmdFunc9.Enabled = False
+                    MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "滞留通知メール送信権限がありません")
+                End If
             Else
-                cmdFunc3.Enabled = False
+                    cmdFunc3.Enabled = False
                 cmdFunc4.Enabled = False
                 cmdFunc5.Enabled = False
 
                 cmdFunc6.Enabled = False
                 cmdFunc8.Enabled = False
-                'cmdFunc9.Enabled = False
+                cmdFunc9.Enabled = False
                 cmdFunc10.Enabled = False
                 cmdFunc11.Enabled = False
             End If

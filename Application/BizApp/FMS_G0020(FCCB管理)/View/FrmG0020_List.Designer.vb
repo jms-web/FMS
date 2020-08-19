@@ -20,9 +20,9 @@ Partial Class FrmG0020_List
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmG0020_List))
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
         Me.cmbGEN_TANTO = New JMS_COMMON.ComboboxEx()
@@ -122,7 +122,7 @@ Partial Class FrmG0020_List
         '
         Me.cmdFunc12.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc12.Image = Global.FMS.My.Resources.Resources._imgLog_Out32x32
-        Me.cmdFunc12.Location = New System.Drawing.Point(1116, 640)
+        Me.cmdFunc12.Location = New System.Drawing.Point(1254, 640)
         Me.cmdFunc12.Size = New System.Drawing.Size(132, 42)
         Me.cmdFunc12.Text = "閉じる(F12)"
         '
@@ -130,7 +130,7 @@ Partial Class FrmG0020_List
         '
         Me.cmdFunc11.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc11.Image = Global.FMS.My.Resources.Resources.履歴
-        Me.cmdFunc11.Location = New System.Drawing.Point(978, 640)
+        Me.cmdFunc11.Location = New System.Drawing.Point(1116, 640)
         Me.cmdFunc11.Size = New System.Drawing.Size(132, 42)
         Me.cmdFunc11.Text = "履歴(F11)"
         '
@@ -138,7 +138,7 @@ Partial Class FrmG0020_List
         '
         Me.cmdFunc10.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc10.Image = Global.FMS.My.Resources.Resources._imgPrint32x32
-        Me.cmdFunc10.Location = New System.Drawing.Point(840, 640)
+        Me.cmdFunc10.Location = New System.Drawing.Point(978, 640)
         Me.cmdFunc10.Size = New System.Drawing.Size(132, 42)
         Me.cmdFunc10.Text = "印刷プレビュー(F10)"
         '
@@ -152,8 +152,10 @@ Partial Class FrmG0020_List
         'cmdFunc9
         '
         Me.cmdFunc9.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmdFunc9.Location = New System.Drawing.Point(1549, -135)
-        Me.cmdFunc9.Size = New System.Drawing.Size(10, 42)
+        Me.cmdFunc9.Image = Global.FMS.My.Resources.Resources._imgSendMail2
+        Me.cmdFunc9.Location = New System.Drawing.Point(840, 640)
+        Me.cmdFunc9.Size = New System.Drawing.Size(132, 42)
+        Me.cmdFunc9.Text = "滞留通知メール送信(F9)"
         '
         'cmdFunc8
         '
@@ -167,7 +169,7 @@ Partial Class FrmG0020_List
         '
         Me.lblTytle.Font = New System.Drawing.Font("Meiryo UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblTytle.Size = New System.Drawing.Size(1233, 45)
+        Me.lblTytle.Size = New System.Drawing.Size(1373, 45)
         Me.lblTytle.Text = "FCCB記録書 検索画面"
         '
         'tlpFilter
@@ -275,7 +277,7 @@ Partial Class FrmG0020_List
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpFilter.Size = New System.Drawing.Size(1227, 97)
+        Me.tlpFilter.Size = New System.Drawing.Size(1367, 97)
         Me.tlpFilter.TabIndex = 56
         '
         'cmbGEN_TANTO
@@ -597,7 +599,7 @@ Partial Class FrmG0020_List
         Me.GroupBox1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(12, 60)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1233, 119)
+        Me.GroupBox1.Size = New System.Drawing.Size(1373, 119)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "共通検索条件"
@@ -608,33 +610,33 @@ Partial Class FrmG0020_List
         '
         'dgvDATA
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvDATA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDATA.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvDATA.Location = New System.Drawing.Point(84, 12)
         Me.dgvDATA.Name = "dgvDATA"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvDATA.RowTemplate.Height = 21
         Me.dgvDATA.Size = New System.Drawing.Size(75, 26)
         Me.dgvDATA.TabIndex = 63
@@ -686,14 +688,14 @@ Partial Class FrmG0020_List
         Me.flxDATA.Name = "flxDATA"
         Me.flxDATA.Rows.Count = 1
         Me.flxDATA.Rows.DefaultSize = 23
-        Me.flxDATA.Size = New System.Drawing.Size(1233, 425)
+        Me.flxDATA.Size = New System.Drawing.Size(1373, 425)
         Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
         Me.flxDATA.TabIndex = 65
         '
         'FrmG0020_List
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.ClientSize = New System.Drawing.Size(1264, 711)
+        Me.ClientSize = New System.Drawing.Size(1404, 711)
         Me.Controls.Add(Me.flxDATA)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.dgvDATA)

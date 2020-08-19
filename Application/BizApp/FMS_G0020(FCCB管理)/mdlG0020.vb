@@ -627,6 +627,11 @@ Module mdlG0020
                 strUserID = FunGetCodeMastaValue(DB, "メール設定", "SMTP_USER")
                 strPassword = FunGetCodeMastaValue(DB, "メール設定", "SMTP_PASS")
 
+                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                    MessageBox.Show("メール送信が無効に設定されているため、依頼メールは送信されませんでした。", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return True
+                End If
+
                 sbSQL.Clear()
                 sbSQL.Append($"SELECT")
                 sbSQL.Append($" M4.SIMEI")
@@ -681,10 +686,7 @@ Module mdlG0020
                     Return False
                 End If
 
-                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
-                    MessageBox.Show("メール送信が無効に設定されているため、依頼メールは送信されませんでした。", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Return True
-                End If
+
 
                 strMsg = $"【メール送信成功】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}"
                 WL.WriteLogDat(strMsg)
@@ -1303,9 +1305,9 @@ Module mdlG0020
                             NAMERange = "SYOCHI_GM_TANTO"
 
                         Case "92" 'FCCB完了確認 FCCB議長
-
+                            NAMERange = "KAKUNIN_CM_TANTO"
                         Case "93" 'FCCB完了確認 統括責任者
-
+                            NAMERange = "KAKUNIN_GM_TANTO"
                         Case Else
                             Throw New ArgumentException("想定外の業務グループIDです", r.Item(NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN.GYOMU_GROUP_ID)).ToString)
                     End Select

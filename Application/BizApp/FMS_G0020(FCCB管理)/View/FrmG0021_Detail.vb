@@ -85,7 +85,8 @@ Public Class FrmG0021_Detail
 
         cmbKAKUNIN_CM_TANTO.NullValue = 0
         cmbKAKUNIN_GM_TANTO.NullValue = 0
-
+        cmbKAKUNIN_CM_TANTO.ReadOnly = True
+        cmbKAKUNIN_GM_TANTO.ReadOnly = True
     End Sub
 
 #End Region
@@ -480,15 +481,15 @@ Public Class FrmG0021_Detail
                     If FunCheckInput(ENM_SAVE_MODE._2_承認申請) Then
                         Dim strMsg As String
                         If FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_FCCB_STAGE._999_Closed Then
-                            strMsg = "承認しますか？"
+                            strMsg = "承認・CLOSEしますか？"
                         Else
                             strMsg = "承認・申請しますか？"
                         End If
 
                         If MessageBox.Show(strMsg, "承認・申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                             If FunSAVE(ENM_SAVE_MODE._2_承認申請) Then
-                                If PrCurrentStage = ENM_FCCB_STAGE._61_処置事項完了確認_統括 Then
-                                    strMsg = "承認しました"
+                                If PrCurrentStage = ENM_FCCB_STAGE._60_処置事項完了確認 Then
+                                    strMsg = "承認・CLOSEしました"
                                 Else
                                     strMsg = "承認・申請しました"
                                 End If
@@ -957,13 +958,13 @@ Public Class FrmG0021_Detail
                 End If
             End If
 
-            '
-            If PrCurrentStage = ENM_FCCB_STAGE._60_処置事項完了確認 Then
-                If cmbKAKUNIN_CM_TANTO.IsSelected Then
-                    If FunSAVE_D012_SUB(DB, "92", cmbKAKUNIN_CM_TANTO.SelectedValue, dtKAKUNIN_CM_TANTO.ValueDate) = False Then
-                        Return False
-                    End If
+            If cmbKAKUNIN_CM_TANTO.IsSelected Then
+                If FunSAVE_D012_SUB(DB, "92", cmbKAKUNIN_CM_TANTO.SelectedValue, dtKAKUNIN_CM_TANTO.ValueDate) = False Then
+                    Return False
                 End If
+            End If
+
+            If PrCurrentStage = ENM_FCCB_STAGE._60_処置事項完了確認 Then
                 If cmbKAKUNIN_GM_TANTO.IsSelected Then
                     If FunSAVE_D012_SUB(DB, "93", cmbKAKUNIN_GM_TANTO.SelectedValue, dtKAKUNIN_GM_TANTO.ValueDate) = False Then
                         Return False
@@ -1198,7 +1199,7 @@ Public Class FrmG0021_Detail
                         Case ENM_FCCB_STAGE._40_処置確認
 
                         Case ENM_FCCB_STAGE._50_処置事項完了
-
+                            _D004_SYONIN_J_KANRI.SYAIN_ID = cmbSYOCHI_GM_TANTO.SelectedValue
                         Case ENM_FCCB_STAGE._60_処置事項完了確認
 
                         Case Else
@@ -1286,7 +1287,7 @@ Public Class FrmG0021_Detail
             strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
             Select Case strRET
                 Case "INSERT"
-                    If FunSendRequestMail() Then
+                    If PrCurrentStage < ENM_FCCB_STAGE._60_処置事項完了確認 AndAlso FunSendRequestMail() Then
                         WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009.FCCB_NO}、Send Request Mail")
                     End If
 
@@ -1461,6 +1462,7 @@ Public Class FrmG0021_Detail
                 Case ENM_FCCB_STAGE._50_処置事項完了
                     '裏処理にて各要処置事項の完了日の1週間前になっても未処置の場合、処置担当者に滞留通知
 
+                    '申請条件のチェック
                     Dim IsClosed As Boolean = True
                     IsClosed *= DirectCast(Flx2_DS.DataSource, DataTable).
                                                AsEnumerable.
@@ -1472,7 +1474,7 @@ Public Class FrmG0021_Detail
 
                     IsClosed *= DirectCast(Flx4_DS.DataSource, DataTable).
                                             AsEnumerable.
-                                            Where(Function(r) r.Item(NameOf(D011.CLOSE_YMD)).ToString.IsNulOrWS).Count = 0
+                                            Where(Function(r) Not r.Item(NameOf(D011.YOTEI_YMD)).ToString.IsNulOrWS And r.Item(NameOf(D011.CLOSE_YMD)).ToString.IsNulOrWS).Count = 0
 
                     '全要処置事項の処置完了
                     If IsClosed Then
@@ -1484,7 +1486,7 @@ Public Class FrmG0021_Detail
                         End If
                     End If
 
-                Case Else
+                        Case Else
                     Throw New ArgumentException("想定外の承認ルートです", PrCurrentStage)
             End Select
 
@@ -2551,11 +2553,11 @@ Public Class FrmG0021_Detail
                                         cmb = cmbSYOCHI_GM_TANTO
                                         dte = dtSYOCHI_GM_TANTO
 
-                                    Case 92
+                                    Case 92 '最終確認：議長
                                         cmb = cmbKAKUNIN_CM_TANTO
                                         dte = dtKAKUNIN_CM_TANTO
 
-                                    Case 93
+                                    Case 93 '採取確認：統括責任者
                                         cmb = cmbKAKUNIN_GM_TANTO
                                         dte = dtKAKUNIN_GM_TANTO
 
@@ -2567,7 +2569,6 @@ Public Class FrmG0021_Detail
                                 End If
                             Next
                         End If
-
 #End Region
 
                     End Using
@@ -2698,11 +2699,44 @@ Public Class FrmG0021_Detail
                     C1SplitterPanel5.Enabled = True
                     tlpHeader.Enabled = False
 
+                    If FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, _D009.FCCB_NO, PrCurrentStage) Then
+                        cmbKAKUNIN_CM_TANTO.SelectedValue = _D009.CM_TANTO
+                        dtKAKUNIN_CM_TANTO.ValueNonFormat = Today.ToString("yyyyMMdd")
+                    End If
+
                 Case ENM_FCCB_STAGE._60_処置事項完了確認, ENM_FCCB_STAGE._61_処置事項完了確認_統括
                     'C1SplitterPanel1.Enabled = False
                     'C1SplitterPanel2.Enabled = False
                     C1SplitterPanel5.Enabled = True
+                    cmbSYOCHI_GM_TANTO.ReadOnly = True
+                    cmbSYOCHI_EIGYO_TANTO.ReadOnly = True
+                    cmbSYOCHI_HINSYO_TANTO.ReadOnly = True
+                    cmbSYOCHI_KANRI_TANTO.ReadOnly = True
+                    cmbSYOCHI_KENSA_TANTO.ReadOnly = True
+                    cmbSYOCHI_KOBAI_TANTO.ReadOnly = True
+                    cmbSYOCHI_SEIGI_TANTO.ReadOnly = True
+                    cmbSYOCHI_SEIZO_TANTO.ReadOnly = True
+                    cmbSYOCHI_SEKKEI_TANTO.ReadOnly = True
+
+                    dtSYOCHI_GM_TANTO.ReadOnly = True
+                    dtSYOCHI_EIGYO_TANTO.ReadOnly = True
+                    dtSYOCHI_HINSYO_TANTO.ReadOnly = True
+                    dtSYOCHI_KANRI_TANTO.ReadOnly = True
+                    dtSYOCHI_KENSA_TANTO.ReadOnly = True
+                    dtSYOCHI_KOBAI_TANTO.ReadOnly = True
+                    dtSYOCHI_SEIGI_TANTO.ReadOnly = True
+                    dtSYOCHI_SEIZO_TANTO.ReadOnly = True
+                    dtSYOCHI_SEKKEI_TANTO.ReadOnly = True
+
+                    cmbKAKUNIN_CM_TANTO.ReadOnly = True
+                    dtKAKUNIN_CM_TANTO.ReadOnly = True
+
                     tlpHeader.Enabled = False
+
+                    If FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, _D009.FCCB_NO, PrCurrentStage) Then
+                        cmbKAKUNIN_GM_TANTO.SelectedValue = cmbSYOCHI_GM_TANTO.SelectedValue
+                        dtKAKUNIN_GM_TANTO.ValueNonFormat = Today.ToString("yyyyMMdd")
+                    End If
 
                 Case ENM_FCCB_STAGE._999_Closed
                     tlpHeader.Enabled = False
@@ -3192,7 +3226,7 @@ Public Class FrmG0021_Detail
                         'End If
                     End If
                 Case ENM_FCCB_STAGE._60_処置事項完了確認
-                    ToUsers.Add(_D009.CM_TANTO)
+                    'ToUsers.Add(_D009.CM_TANTO)
                     ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
 
                 Case Else
