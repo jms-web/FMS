@@ -151,7 +151,6 @@ Public Class FrmG0020_List
             Me.WindowState = FormWindowState.Maximized
 
             cmdFunc1.PerformClick()
-
         Catch ex As Exception
             Throw
         Finally
@@ -162,7 +161,6 @@ Public Class FrmG0020_List
     Private Sub FrmG0010_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
         Call FunInitFuncButtonEnabled()
     End Sub
-
 
     Overrides Sub FrmBaseStsBtn_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Resize
         If Me.Visible = False Then Exit Sub
@@ -175,6 +173,7 @@ Public Class FrmG0020_List
         'Call SetButtonSize(Me.Width, cmdFunc)
         'MyBase.FrmBaseStsBtn_Resize(Me, e)
     End Sub
+
 #End Region
 
 #Region "FlexGrid関連"
@@ -784,7 +783,9 @@ Public Class FrmG0020_List
 
                     Call FunCSV_OUTviaFlexGrid(flxDATA, strFileName, pub_APP_INFO.strOUTPUT_PATH)
                     'Call FunCSV_OUT(DirectCast(flxDATA.DataSource, DataView).Table, strFileName, pub_APP_INFO.strOUTPUT_PATH)
+                Case 9 'メール送信
 
+                    Call FunMailSending()
                 Case 10  '印刷
                     Call FunOpenReport()
 
@@ -794,8 +795,6 @@ Public Class FrmG0020_List
                 Case 11 '履歴表示
 
                     Call OpenFormRIREKI()
-
-
 
                 Case 12 '閉じる
                     Me.Close()
@@ -1147,7 +1146,8 @@ Public Class FrmG0020_List
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim dt = DirectCast(flxDATA.DataSource, DataTable).AsEnumerable.
-                                    Where(Function(r) r.Field(Of Boolean)("SELECTED") = True)
+                                    Where(Function(r) r.Field(Of Integer)(NameOf(ST04_FCCB_ICHIRAN.TAIRYU_NISSU)) >= 6 And
+                                                      r.Field(Of Integer)(NameOf(ST04_FCCB_ICHIRAN.GEN_TANTO_NAME)).ToString.IsNulOrWS = False)
             Dim strTantoNameList As String = ""
 
             If dt.Count > 0 Then
@@ -1177,7 +1177,7 @@ Public Class FrmG0020_List
                                 Dim strBody As String = <body><![CDATA[
                                 {0} 殿<br />
                                 <br />
-                                　不適合製品の処置依頼から【滞留日数】{1}日が経過しています。<br />
+                                　FCCB調査書の処置依頼から【滞留日数】{1}日が経過しています。<br />
                                 　早急に対応をお願いします。<br />
                                 <br />
                                 　　【報 告 書】{2}<br />
@@ -1196,17 +1196,17 @@ Public Class FrmG0020_List
                                 'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={7}&EXEPATH={8}&PARAMS={9}
 
                                 strBody = String.Format(strBody,
-                                dr.Item(NameOf(ST04_FCCB_ICHIRAN.GEN_TANTO_NAME)),
-                                dr.Item("TAIRYU_NISSU"),
-                                dr.Item("SYONIN_HOKOKUSYO_R_NAME"),
-                                dr.Item("HOKOKU_NO"),
-                                dr.Item("KISO_YMD").ToString,
-                                dr.Item("KISYU_NAME"),
-                                dr.Item("BUHIN_BANGO"),
-                                Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID),
-                                dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_ID)),
-                                "FMS_G0010.exe",
-                                strEXEParam)
+                                    dr.Item("GEN_TANTO_NAME").ToString.Trim,
+                                    dr.Item("TAIRYU_NISSU").ToString.Trim,
+                                    dr.Item("SYONIN_HOKOKUSYO_R_NAME").ToString.Trim,
+                                    dr.Item("FCCB_NO").ToString.Trim,
+                                    dr.Item("KISO_YMD").ToString,
+                                    dr.Item("KISYU_NAME").ToString.Trim,
+                                    dr.Item("BUHIN_BANGO").ToString.Trim,
+                                    "FCCB記録書管理システム",
+                                    dr.Item("GEN_TANTO_ID"),
+                                    "FMS_G0020.exe",
+                                    strEXEParam)
 
                                 Dim users As New List(Of Integer)
                                 users.Add(dr.Item("GEN_TANTO_ID"))

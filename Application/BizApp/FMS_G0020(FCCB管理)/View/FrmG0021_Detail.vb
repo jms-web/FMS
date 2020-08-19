@@ -3185,11 +3185,11 @@ Public Class FrmG0021_Detail
                     '全要処置事項の処置完了
                     If IsClosed Then
                         'FCCB議長に依頼通知
-                        If dtKAKUNIN_CM_TANTO.Text.IsNulOrWS Then
-                            ToUsers.Add(_D009.CM_TANTO)
-                        Else
-                            ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
-                        End If
+                        'If dtKAKUNIN_CM_TANTO.Text.IsNulOrWS Then
+                        ToUsers.Add(_D009.CM_TANTO)
+                        'Else
+                        '    ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
+                        'End If
                     End If
                 Case ENM_FCCB_STAGE._60_処置事項完了確認
                     ToUsers.Add(_D009.CM_TANTO)
