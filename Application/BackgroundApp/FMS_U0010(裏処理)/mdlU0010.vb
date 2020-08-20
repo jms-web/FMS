@@ -175,27 +175,43 @@ Module mdlU0010
                         sbSQL.Append($",M4.MAIL_ADDRESS")
                         sbSQL.Append($",M5.BUSYO_ID")
                         sbSQL.Append($",M2.BUSYO_NAME")
-                        sbSQL.Append($",GL.SIMEI AS GL_SIMEI")
-                        sbSQL.Append($",GL.MAIL_ADDRESS AS GL_ADDRESS")
+                        sbSQL.Append($",ISNULL(OYA_M2.BUSYO_NAME,'') AS OYA_BUYSYO_NAME")
+                        sbSQL.Append($",ISNULL(GL.SIMEI,'') AS GL_SIMEI")
+                        sbSQL.Append($",ISNULL(GL.MAIL_ADDRESS,'') AS GL_ADDRESS")
+                        sbSQL.Append($",ISNULL(OYA_GL.SIMEI,'') AS OYA_GL_SIMEI")
+                        sbSQL.Append($",ISNULL(OYA_GL.MAIL_ADDRESS,'') AS OYA_GL_ADDRESS")
                         sbSQL.Append($" FROM M004_SYAIN AS M4")
                         sbSQL.Append($" LEFT JOIN dbo.M005_SYOZOKU_BUSYO AS M5 ON (M4.SYAIN_ID = M5.SYAIN_ID)")
                         sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS M2 ON (M2.BUSYO_ID = M5.BUSYO_ID)")
                         sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS GL ON (GL.SYAIN_ID = M2.SYOZOKUCYO_ID)")
+                        sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS OYA_M2 ON (OYA_M2.BUSYO_ID = M2.OYA_BUSYO_ID)")
+                        sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS OYA_GL ON (OYA_GL.SYAIN_ID = OYA_M2.SYOZOKUCYO_ID)")
                         sbSQL.Append($" WHERE M4.SYAIN_ID={dr.Item("GEN_TANTO_ID")}")
                         sbSQL.Append($" AND M5.KENMU_FLG='0'")
                         dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-                        If dsList.Tables(0).Rows.Count > 0 Then
-                            ToAddressList.Add(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS"))
 
-                            If dsList.Tables(0).Rows.Count > 0 AndAlso Not ToAddressList.Contains(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")) Then
-                                ToAddressList.Add(dsList.Tables(0).Rows(0).Item("GL_ADDRESS"))
+                        With dsList.Tables(0)
+                            If .Rows.Count > 0 Then
+                                ToAddressList.Add(.Rows(0).Item("MAIL_ADDRESS"))
+
+                                '所属長にも送信
+                                If .Rows(0).Item("GL_ADDRESS").ToString.IsNulOrWS = False AndAlso .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("GL_ADDRESS").ToString Then
+                                    ToAddressList.Add(.Rows(0).Item("GL_ADDRESS"))
+                                End If
+
+                                '送信先が所属長宛てだった場合、所属長の上位の部署の所属長にも送信
+                                If dsList.Tables(0).Rows(0).Item("OYA_GL_ADDRESS").ToString.IsNulOrWS = False AndAlso
+                                    .Rows(0).Item("MAIL_ADDRESS").ToString = .Rows(0).Item("GL_ADDRESS").ToString AndAlso
+                                    .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("OYA_GL_ADDRESS").ToString Then
+                                    ToAddressList.Add(.Rows(0).Item("OYA_GL_ADDRESS"))
+                                End If
+
+                                strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI").ToString.Trim
+                            Else
+                                WL.WriteLogDat($"【メール送信失敗】担当者ID:{dr.Item("GEN_TANTO_ID")}のメールアドレスが取得できませんでした")
+                                Continue For
                             End If
-
-                            strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI").ToString.Trim
-                        Else
-                            WL.WriteLogDat($"【メール送信失敗】担当者ID:{dr.Item("GEN_TANTO_ID")}のメールアドレスが取得できませんでした")
-                            Continue For
-                        End If
+                        End With
 
                         Dim strEXEParam As String = $"{dr.Item("GEN_TANTO_ID")},{2},{dr.Item("SYONIN_HOKOKUSYO_ID")},{dr.Item("HOKOKU_NO").ToString.Trim}"
                         strSubject = $"【不適合品処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME").ToString.Trim}] {dr.Item("KISYU_NAME").ToString.Trim}・{dr.Item("BUHIN_BANGO").ToString.Trim}"
@@ -319,28 +335,44 @@ Module mdlU0010
                     sbSQL.Append($",M4.MAIL_ADDRESS")
                     sbSQL.Append($",M5.BUSYO_ID")
                     sbSQL.Append($",M2.BUSYO_NAME")
-                    sbSQL.Append($",GL.SIMEI AS GL_SIMEI")
-                    sbSQL.Append($",GL.MAIL_ADDRESS AS GL_ADDRESS")
+                    sbSQL.Append($",ISNULL(OYA_M2.BUSYO_NAME,'') AS OYA_BUYSYO_NAME")
+                    sbSQL.Append($",ISNULL(GL.SIMEI,'') AS GL_SIMEI")
+                    sbSQL.Append($",ISNULL(GL.MAIL_ADDRESS,'') AS GL_ADDRESS")
+                    sbSQL.Append($",ISNULL(OYA_GL.SIMEI,'') AS OYA_GL_SIMEI")
+                    sbSQL.Append($",ISNULL(OYA_GL.MAIL_ADDRESS,'') AS OYA_GL_ADDRESS")
                     sbSQL.Append($" FROM M004_SYAIN AS M4")
                     sbSQL.Append($" LEFT JOIN dbo.M005_SYOZOKU_BUSYO AS M5 ON (M4.SYAIN_ID = M5.SYAIN_ID)")
                     sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS M2 ON (M2.BUSYO_ID = M5.BUSYO_ID)")
                     sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS GL ON (GL.SYAIN_ID = M2.SYOZOKUCYO_ID)")
+                    sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS OYA_M2 ON (OYA_M2.BUSYO_ID = M2.OYA_BUSYO_ID)")
+                    sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS OYA_GL ON (OYA_GL.SYAIN_ID = OYA_M2.SYOZOKUCYO_ID)")
                     sbSQL.Append($" WHERE M4.SYAIN_ID={dr.Item("GEN_TANTO_ID")}")
                     sbSQL.Append($" AND M5.KENMU_FLG='0'")
                     dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-                    If dsList.Tables(0).Rows.Count > 0 Then
-                        ToAddressList.Add(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS"))
 
-                        If dsList.Tables(0).Rows.Count > 0 AndAlso Not ToAddressList.Contains(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")) Then
-                            ToAddressList.Add(dsList.Tables(0).Rows(0).Item("GL_ADDRESS"))
+                    With dsList.Tables(0)
+                        If .Rows.Count > 0 Then
+                            ToAddressList.Add(.Rows(0).Item("MAIL_ADDRESS"))
+
+                            '所属長にも送信
+                            If .Rows(0).Item("GL_ADDRESS").ToString.IsNulOrWS = False AndAlso .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("GL_ADDRESS").ToString Then
+                                ToAddressList.Add(.Rows(0).Item("GL_ADDRESS"))
+                            End If
+
+                            '送信先が所属長宛てだった場合、所属長の上位の部署の所属長にも送信
+                            If dsList.Tables(0).Rows(0).Item("OYA_GL_ADDRESS").ToString.IsNulOrWS = False AndAlso
+                                    .Rows(0).Item("MAIL_ADDRESS").ToString = .Rows(0).Item("GL_ADDRESS").ToString AndAlso
+                                    .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("OYA_GL_ADDRESS").ToString Then
+                                ToAddressList.Add(.Rows(0).Item("OYA_GL_ADDRESS"))
+                            End If
+
+                            strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI").ToString.Trim
+                        Else
+                            WL.WriteLogDat($"【メール送信失敗】担当者ID:{dr.Item("GEN_TANTO_ID")}のメールアドレスが取得できませんでした")
+                            Continue For
                         End If
 
-                        strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI").ToString.Trim
-                    Else
-                        WL.WriteLogDat($"【メール送信失敗】担当者ID:{dr.Item("GEN_TANTO_ID")}のメールアドレスが取得できませんでした")
-                        Continue For
-                    End If
-
+                    End With
                     Dim strEXEParam As String = $"{dr.Item("GEN_TANTO_ID")},{2},{dr.Item("SYONIN_HOKOKUSYO_ID")},{dr.Item("FCCB_NO").ToString.Trim}"
                     strSubject = $"【FCCB処置依頼】FCCB-NO:{dr.Item("FCCB_NO").ToString.Trim} {dr.Item("KISYU_NAME").ToString.Trim}・{dr.Item("BUHIN_BANGO").ToString.Trim}"
                     Dim strBody As String = <body><![CDATA[
@@ -459,27 +491,42 @@ Module mdlU0010
                         sbSQL.Append($",M4.MAIL_ADDRESS")
                         sbSQL.Append($",M5.BUSYO_ID")
                         sbSQL.Append($",M2.BUSYO_NAME")
-                        sbSQL.Append($",GL.SIMEI AS GL_SIMEI")
-                        sbSQL.Append($",GL.MAIL_ADDRESS AS GL_ADDRESS")
+                        sbSQL.Append($",ISNULL(OYA_M2.BUSYO_NAME,'') AS OYA_BUYSYO_NAME")
+                        sbSQL.Append($",ISNULL(GL.SIMEI,'') AS GL_SIMEI")
+                        sbSQL.Append($",ISNULL(GL.MAIL_ADDRESS,'') AS GL_ADDRESS")
+                        sbSQL.Append($",ISNULL(OYA_GL.SIMEI,'') AS OYA_GL_SIMEI")
+                        sbSQL.Append($",ISNULL(OYA_GL.MAIL_ADDRESS,'') AS OYA_GL_ADDRESS")
                         sbSQL.Append($" FROM M004_SYAIN AS M4")
                         sbSQL.Append($" LEFT JOIN dbo.M005_SYOZOKU_BUSYO AS M5 ON (M4.SYAIN_ID = M5.SYAIN_ID)")
                         sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS M2 ON (M2.BUSYO_ID = M5.BUSYO_ID)")
                         sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS GL ON (GL.SYAIN_ID = M2.SYOZOKUCYO_ID)")
+                        sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS OYA_M2 ON (OYA_M2.BUSYO_ID = M2.OYA_BUSYO_ID)")
+                        sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS OYA_GL ON (OYA_GL.SYAIN_ID = OYA_M2.SYOZOKUCYO_ID)")
                         sbSQL.Append($" WHERE M4.SYAIN_ID={dr.Item("TANTO_ID")}")
                         sbSQL.Append($" AND M5.KENMU_FLG='0'")
                         dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-                        If dsList.Tables(0).Rows.Count > 0 Then
-                            ToAddressList.Add(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS"))
+                        With dsList.Tables(0)
+                            If .Rows.Count > 0 Then
+                                ToAddressList.Add(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS"))
 
-                            If dsList.Tables(0).Rows.Count > 0 AndAlso Not ToAddressList.Contains(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS")) Then
-                                ToAddressList.Add(dsList.Tables(0).Rows(0).Item("GL_ADDRESS"))
+                                '所属長にも送信
+                                If .Rows(0).Item("GL_ADDRESS").ToString.IsNulOrWS = False AndAlso .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("GL_ADDRESS").ToString Then
+                                    ToAddressList.Add(.Rows(0).Item("GL_ADDRESS"))
+                                End If
+
+                                '送信先が所属長宛てだった場合、所属長の上位の部署の所属長にも送信
+                                If .Rows(0).Item("OYA_GL_ADDRESS").ToString.IsNulOrWS = False AndAlso
+                                    .Rows(0).Item("MAIL_ADDRESS").ToString = .Rows(0).Item("GL_ADDRESS").ToString AndAlso
+                                    .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("OYA_GL_ADDRESS").ToString Then
+                                    ToAddressList.Add(.Rows(0).Item("OYA_GL_ADDRESS"))
+                                End If
+
+                                strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI").ToString.Trim
+                            Else
+                                WL.WriteLogDat($"【メール送信失敗】担当者ID:{dr.Item("GEN_TANTO_ID")}のメールアドレスが取得できませんでした")
+                                Continue For
                             End If
-
-                            strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI").ToString.Trim
-                        Else
-                            WL.WriteLogDat($"【メール送信失敗】担当者ID:{dr.Item("GEN_TANTO_ID")}のメールアドレスが取得できませんでした")
-                            Continue For
-                        End If
+                        End With
 
                         Dim strEXEParam As String = $"{dr.Item("TANTO_ID")},{2},{4},{dr.Item("FCCB_NO").ToString.Trim}"
                         strSubject = $"【FCCB処置依頼】FCCB_NO:{dr.Item("FCCB_NO").ToString.Trim} {dr.Item("KISYU_NAME").ToString.Trim}・{dr.Item("BUHIN_BANGO").ToString.Trim}"

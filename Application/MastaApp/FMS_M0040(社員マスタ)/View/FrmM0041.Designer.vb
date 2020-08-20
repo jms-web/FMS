@@ -56,6 +56,10 @@ Partial Class FrmM0041
         Me.mtxPASS = New JMS_COMMON.MaskedTextBoxEx()
         Me.chkADMIN_OP = New System.Windows.Forms.CheckBox()
         Me.chkADMIN_SYS = New System.Windows.Forms.CheckBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.chkADMIN_AUTH = New System.Windows.Forms.CheckBox()
+        Me.chkMAILSEND_AUTH = New System.Windows.Forms.CheckBox()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -67,7 +71,7 @@ Partial Class FrmM0041
         '
         Me.cmdFunc1.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgBase_floppydisk32x32
-        Me.cmdFunc1.Location = New System.Drawing.Point(12, 332)
+        Me.cmdFunc1.Location = New System.Drawing.Point(12, 360)
         Me.cmdFunc1.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc1.TabIndex = 0
         Me.cmdFunc1.Text = "追加(F1)"
@@ -75,35 +79,35 @@ Partial Class FrmM0041
         'cmdFunc2
         '
         Me.cmdFunc2.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc2.Location = New System.Drawing.Point(181, 344)
+        Me.cmdFunc2.Location = New System.Drawing.Point(181, 372)
         Me.cmdFunc2.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc2.Visible = False
         '
         'cmdFunc3
         '
         Me.cmdFunc3.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc3.Location = New System.Drawing.Point(342, 344)
+        Me.cmdFunc3.Location = New System.Drawing.Point(342, 372)
         Me.cmdFunc3.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc3.Visible = False
         '
         'cmdFunc4
         '
         Me.cmdFunc4.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc4.Location = New System.Drawing.Point(503, 344)
+        Me.cmdFunc4.Location = New System.Drawing.Point(503, 372)
         Me.cmdFunc4.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc4.Visible = False
         '
         'cmdFunc5
         '
         Me.cmdFunc5.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc5.Location = New System.Drawing.Point(664, 344)
+        Me.cmdFunc5.Location = New System.Drawing.Point(664, 372)
         Me.cmdFunc5.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc5.Visible = False
         '
         'cmdFunc6
         '
         Me.cmdFunc6.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc6.Location = New System.Drawing.Point(825, 344)
+        Me.cmdFunc6.Location = New System.Drawing.Point(825, 372)
         Me.cmdFunc6.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc6.Visible = False
         '
@@ -111,7 +115,7 @@ Partial Class FrmM0041
         '
         Me.cmdFunc12.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.cmdFunc12.Image = Global.FMS.My.Resources.Resources._imgLog_Out32x32
-        Me.cmdFunc12.Location = New System.Drawing.Point(839, 335)
+        Me.cmdFunc12.Location = New System.Drawing.Point(839, 363)
         Me.cmdFunc12.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc12.TabIndex = 1
         Me.cmdFunc12.Text = "キャンセル(F12)"
@@ -119,35 +123,35 @@ Partial Class FrmM0041
         'cmdFunc11
         '
         Me.cmdFunc11.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc11.Location = New System.Drawing.Point(664, 344)
+        Me.cmdFunc11.Location = New System.Drawing.Point(664, 372)
         Me.cmdFunc11.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc11.Visible = False
         '
         'cmdFunc10
         '
         Me.cmdFunc10.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc10.Location = New System.Drawing.Point(503, 344)
+        Me.cmdFunc10.Location = New System.Drawing.Point(503, 372)
         Me.cmdFunc10.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc10.Visible = False
         '
         'cmdFunc7
         '
         Me.cmdFunc7.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc7.Location = New System.Drawing.Point(20, 344)
+        Me.cmdFunc7.Location = New System.Drawing.Point(20, 372)
         Me.cmdFunc7.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc7.Visible = False
         '
         'cmdFunc9
         '
         Me.cmdFunc9.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc9.Location = New System.Drawing.Point(342, 344)
+        Me.cmdFunc9.Location = New System.Drawing.Point(342, 372)
         Me.cmdFunc9.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc9.Visible = False
         '
         'cmdFunc8
         '
         Me.cmdFunc8.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc8.Location = New System.Drawing.Point(181, 344)
+        Me.cmdFunc8.Location = New System.Drawing.Point(181, 372)
         Me.cmdFunc8.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc8.Visible = False
         '
@@ -169,7 +173,7 @@ Partial Class FrmM0041
         Me.GroupBox1.Font = New System.Drawing.Font("ＭＳ ゴシック", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(12, 60)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(983, 269)
+        Me.GroupBox1.Size = New System.Drawing.Size(983, 297)
         Me.GroupBox1.TabIndex = 31
         Me.GroupBox1.TabStop = False
         '
@@ -280,13 +284,17 @@ Partial Class FrmM0041
         Me.TableLayoutPanel1.Controls.Add(Me.dtbBIRTHDAY, 5, 4)
         Me.TableLayoutPanel1.Controls.Add(Me.Label13, 0, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.mtxPASS, 1, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_OP, 1, 7)
-        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_SYS, 3, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label16, 0, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_OP, 1, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label17, 2, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_SYS, 3, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_AUTH, 1, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.chkMAILSEND_AUTH, 3, 7)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 18)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 9
+        Me.TableLayoutPanel1.RowCount = 10
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
@@ -296,7 +304,9 @@ Partial Class FrmM0041
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(977, 248)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(977, 276)
         Me.TableLayoutPanel1.TabIndex = 47
         '
         'Label5
@@ -497,7 +507,7 @@ Partial Class FrmM0041
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(100, 26)
         Me.Label14.TabIndex = 68
-        Me.Label14.Text = "運用管理者権限"
+        Me.Label14.Text = "管理者権限"
         Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label15
@@ -508,7 +518,7 @@ Partial Class FrmM0041
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(122, 26)
         Me.Label15.TabIndex = 69
-        Me.Label15.Text = "システム管理者権限"
+        Me.Label15.Text = "メール再送信権限"
         Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label11
@@ -676,23 +686,71 @@ Partial Class FrmM0041
         Me.chkADMIN_OP.AutoSize = True
         Me.chkADMIN_OP.Cursor = System.Windows.Forms.Cursors.Hand
         Me.chkADMIN_OP.Dock = System.Windows.Forms.DockStyle.Left
-        Me.chkADMIN_OP.Location = New System.Drawing.Point(109, 213)
+        Me.chkADMIN_OP.Location = New System.Drawing.Point(109, 243)
         Me.chkADMIN_OP.Name = "chkADMIN_OP"
         Me.chkADMIN_OP.Size = New System.Drawing.Size(15, 24)
         Me.chkADMIN_OP.TabIndex = 70
         Me.chkADMIN_OP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.chkADMIN_OP.UseVisualStyleBackColor = True
+        Me.chkADMIN_OP.Visible = False
         '
         'chkADMIN_SYS
         '
         Me.chkADMIN_SYS.AutoSize = True
         Me.chkADMIN_SYS.Cursor = System.Windows.Forms.Cursors.Hand
         Me.chkADMIN_SYS.Dock = System.Windows.Forms.DockStyle.Left
-        Me.chkADMIN_SYS.Location = New System.Drawing.Point(416, 213)
+        Me.chkADMIN_SYS.Location = New System.Drawing.Point(416, 243)
         Me.chkADMIN_SYS.Name = "chkADMIN_SYS"
         Me.chkADMIN_SYS.Size = New System.Drawing.Size(15, 24)
         Me.chkADMIN_SYS.TabIndex = 70
         Me.chkADMIN_SYS.UseVisualStyleBackColor = True
+        Me.chkADMIN_SYS.Visible = False
+        '
+        'Label16
+        '
+        Me.Label16.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label16.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label16.Location = New System.Drawing.Point(3, 240)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(100, 30)
+        Me.Label16.TabIndex = 71
+        Me.Label16.Text = "運用管理者権限"
+        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label16.Visible = False
+        '
+        'Label17
+        '
+        Me.Label17.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label17.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label17.Location = New System.Drawing.Point(288, 240)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(122, 26)
+        Me.Label17.TabIndex = 72
+        Me.Label17.Text = "システム管理者権限"
+        Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label17.Visible = False
+        '
+        'chkADMIN_AUTH
+        '
+        Me.chkADMIN_AUTH.AutoSize = True
+        Me.chkADMIN_AUTH.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkADMIN_AUTH.Dock = System.Windows.Forms.DockStyle.Left
+        Me.chkADMIN_AUTH.Location = New System.Drawing.Point(109, 213)
+        Me.chkADMIN_AUTH.Name = "chkADMIN_AUTH"
+        Me.chkADMIN_AUTH.Size = New System.Drawing.Size(15, 24)
+        Me.chkADMIN_AUTH.TabIndex = 73
+        Me.chkADMIN_AUTH.UseVisualStyleBackColor = True
+        '
+        'chkMAILSEND_AUTH
+        '
+        Me.chkMAILSEND_AUTH.AutoSize = True
+        Me.chkMAILSEND_AUTH.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkMAILSEND_AUTH.Dock = System.Windows.Forms.DockStyle.Left
+        Me.chkMAILSEND_AUTH.Location = New System.Drawing.Point(416, 213)
+        Me.chkMAILSEND_AUTH.Name = "chkMAILSEND_AUTH"
+        Me.chkMAILSEND_AUTH.Size = New System.Drawing.Size(15, 24)
+        Me.chkMAILSEND_AUTH.TabIndex = 74
+        Me.chkMAILSEND_AUTH.UseVisualStyleBackColor = True
         '
         'FrmM0041
         '
@@ -765,4 +823,8 @@ Partial Class FrmM0041
     Friend WithEvents Label15 As Label
     Friend WithEvents chkADMIN_OP As CheckBox
     Friend WithEvents chkADMIN_SYS As CheckBox
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label17 As Label
+    Friend WithEvents chkADMIN_AUTH As CheckBox
+    Friend WithEvents chkMAILSEND_AUTH As CheckBox
 End Class

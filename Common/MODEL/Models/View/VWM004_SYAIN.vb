@@ -128,6 +128,14 @@ Partial Public Class VWM004_SYAIN
     '    End Set
     'End Property
 
+    <StringLength(1)>
+    <ComponentModel.DisplayName("システム管理者")>
+    Public Property ADMIN_AUTH As String
+
+    <StringLength(1)>
+    <ComponentModel.DisplayName("システム管理者")>
+    Public Property MAILSEND_AUTH As String
+
     <ComponentModel.DisplayName("追加日時")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property ADD_YMDHNS As String

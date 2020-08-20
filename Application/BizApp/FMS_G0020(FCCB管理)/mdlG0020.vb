@@ -632,18 +632,23 @@ Module mdlG0020
                     Return True
                 End If
 
-                sbSQL.Clear()
+                sbSQL.Remove(0, sbSQL.Length)
                 sbSQL.Append($"SELECT")
                 sbSQL.Append($" M4.SIMEI")
                 sbSQL.Append($",M4.MAIL_ADDRESS")
                 sbSQL.Append($",M5.BUSYO_ID")
                 sbSQL.Append($",M2.BUSYO_NAME")
-                sbSQL.Append($",GL.SIMEI AS GL_SIMEI")
-                sbSQL.Append($",GL.MAIL_ADDRESS AS GL_ADDRESS")
+                sbSQL.Append($",ISNULL(OYA_M2.BUSYO_NAME,'') AS OYA_BUYSYO_NAME")
+                sbSQL.Append($",ISNULL(GL.SIMEI,'') AS GL_SIMEI")
+                sbSQL.Append($",ISNULL(GL.MAIL_ADDRESS,'') AS GL_ADDRESS")
+                sbSQL.Append($",ISNULL(OYA_GL.SIMEI,'') AS OYA_GL_SIMEI")
+                sbSQL.Append($",ISNULL(OYA_GL.MAIL_ADDRESS,'') AS OYA_GL_ADDRESS")
                 sbSQL.Append($" FROM M004_SYAIN AS M4")
                 sbSQL.Append($" LEFT JOIN dbo.M005_SYOZOKU_BUSYO AS M5 ON (M4.SYAIN_ID = M5.SYAIN_ID)")
                 sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS M2 ON (M2.BUSYO_ID = M5.BUSYO_ID)")
                 sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS GL ON (GL.SYAIN_ID = M2.SYOZOKUCYO_ID)")
+                sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS OYA_M2 ON (OYA_M2.BUSYO_ID = M2.OYA_BUSYO_ID)")
+                sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS OYA_GL ON (OYA_GL.SYAIN_ID = OYA_M2.SYOZOKUCYO_ID)")
                 sbSQL.Append($" WHERE M4.SYAIN_ID IN ({users.Aggregate(Function(u1, u2) u1 & "," & u2)})")
                 sbSQL.Append($" AND M5.KENMU_FLG='0'")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
@@ -654,8 +659,16 @@ Module mdlG0020
                             ToAddressList.Add(.Rows(0).Item("MAIL_ADDRESS"))
                         End If
 
+                        '所属長にも送信
                         If .Rows(0).Item("GL_ADDRESS").ToString.IsNulOrWS = False AndAlso .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("GL_ADDRESS").ToString Then
                             ToAddressList.Add(.Rows(0).Item("GL_ADDRESS"))
+                        End If
+
+                        '送信先が所属長宛てだった場合、所属長の上位の部署の所属長にも送信
+                        If .Rows(0).Item("OYA_GL_ADDRESS").ToString.IsNulOrWS = False AndAlso
+                            .Rows(0).Item("MAIL_ADDRESS").ToString = .Rows(0).Item("GL_ADDRESS").ToString AndAlso
+                            .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("OYA_GL_ADDRESS").ToString Then
+                            ToAddressList.Add(.Rows(0).Item("OYA_GL_ADDRESS"))
                         End If
 
                         strToSyainName = .Rows(0).Item("SIMEI")
