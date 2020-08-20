@@ -342,7 +342,7 @@ Module mdlU0010
                     End If
 
                     Dim strEXEParam As String = $"{dr.Item("GEN_TANTO_ID")},{2},{dr.Item("SYONIN_HOKOKUSYO_ID")},{dr.Item("FCCB_NO").ToString.Trim}"
-                    strSubject = $"ÅyFCCBèàíuàÀóäÅz[{dr.Item("SYONIN_HOKOKUSYO_R_NAME").ToString.Trim}] {dr.Item("KISYU_NAME").ToString.Trim}ÅE{dr.Item("BUHIN_BANGO").ToString.Trim}"
+                    strSubject = $"ÅyFCCBèàíuàÀóäÅzFCCB-NO:{dr.Item("FCCB_NO").ToString.Trim} {dr.Item("KISYU_NAME").ToString.Trim}ÅE{dr.Item("BUHIN_BANGO").ToString.Trim}"
                     Dim strBody As String = <body><![CDATA[
                             {0} ìa<br />
                             <br />
@@ -439,7 +439,7 @@ Module mdlU0010
                 End If
 
                 sbSQL.Append($"SELECT * FROM {NameOf(MODEL.V014_FCCB_SYOCHI_YOTEI_ICHIRAN)}")
-                sbSQL.Append($"Å@AND RTRIM({NameOf(MODEL.V013_FCCB_ICHIRAN.DEL_YMDHNS)})=''")
+                sbSQL.Append($" WHERE {NameOf(MODEL.V014_FCCB_SYOCHI_YOTEI_ICHIRAN.TANTO_ID)} <>0")
                 dt = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)?.Tables(0)
 
                 strSmtpServer = FunGetCodeMastaValue(DB, "ÉÅÅ[Éãê›íË", "SMTP_SERVER")
@@ -465,7 +465,7 @@ Module mdlU0010
                         sbSQL.Append($" LEFT JOIN dbo.M005_SYOZOKU_BUSYO AS M5 ON (M4.SYAIN_ID = M5.SYAIN_ID)")
                         sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS M2 ON (M2.BUSYO_ID = M5.BUSYO_ID)")
                         sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS GL ON (GL.SYAIN_ID = M2.SYOZOKUCYO_ID)")
-                        sbSQL.Append($" WHERE M4.SYAIN_ID={dr.Item("GEN_TANTO_ID")}")
+                        sbSQL.Append($" WHERE M4.SYAIN_ID={dr.Item("TANTO_ID")}")
                         sbSQL.Append($" AND M5.KENMU_FLG='0'")
                         dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
                         If dsList.Tables(0).Rows.Count > 0 Then
@@ -481,8 +481,8 @@ Module mdlU0010
                             Continue For
                         End If
 
-                        Dim strEXEParam As String = $"{dr.Item("TANTO_ID")},{2},{dr.Item("SYONIN_HOKOKUSYO_ID")},{dr.Item("FCCB_NO").ToString.Trim}"
-                        strSubject = $"ÅyFCCBèàíuàÀóäÅz[{dr.Item("SYONIN_HOKOKUSYO_R_NAME").ToString.Trim}] {dr.Item("KISYU_NAME").ToString.Trim}ÅE{dr.Item("BUHIN_BANGO").ToString.Trim}"
+                        Dim strEXEParam As String = $"{dr.Item("TANTO_ID")},{2},{4},{dr.Item("FCCB_NO").ToString.Trim}"
+                        strSubject = $"ÅyFCCBèàíuàÀóäÅzFCCB_NO:{dr.Item("FCCB_NO").ToString.Trim} {dr.Item("KISYU_NAME").ToString.Trim}ÅE{dr.Item("BUHIN_BANGO").ToString.Trim}"
                         Dim strBody As String = <body><![CDATA[
                             {0} ìa<br />
                             <br />

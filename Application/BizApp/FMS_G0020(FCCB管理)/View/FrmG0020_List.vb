@@ -1173,7 +1173,7 @@ Public Class FrmG0020_List
                         If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
                             For Each dr As DataRow In dt.CopyToDataTable.Rows
                                 Dim strEXEParam As String = $"{dr.Item(NameOf(ST04_FCCB_ICHIRAN.GEN_TANTO_ID))},{ENM_OPEN_MODE._2_処置画面起動},{dr.Item(NameOf(ST04_FCCB_ICHIRAN.SYONIN_HOKOKUSYO_ID))},{dr.Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))}"
-                                Dim strSubject As String = $"【不適合品処置依頼】[{dr.Item("SYONIN_HOKOKUSYO_R_NAME")}] {dr.Item(NameOf(ST04_FCCB_ICHIRAN.KISYU_NAME))}・{dr.Item(NameOf(ST04_FCCB_ICHIRAN.BUHIN_BANGO))}"
+                                Dim strSubject As String = $"【FCCB処置依頼】FCCB-NO:{dr.Item("FCCB_NO")} {dr.Item(NameOf(ST04_FCCB_ICHIRAN.KISYU_NAME))}・{dr.Item(NameOf(ST04_FCCB_ICHIRAN.BUHIN_BANGO))}"
                                 Dim strBody As String = <body><![CDATA[
                                 {0} 殿<br />
                                 <br />
@@ -1247,7 +1247,7 @@ Public Class FrmG0020_List
                 If MessageBox.Show(strMsg, "処置滞留通知メール送信", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
 
                     Dim strEXEParam As String = dr.Item(NameOf(ST04_FCCB_ICHIRAN.GEN_TANTO_ID)) & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & dr.Item(NameOf(ST04_FCCB_ICHIRAN.SYONIN_HOKOKUSYO_ID)) & "," & dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.HOKOKU_NO))
-                    Dim strSubject As String = $"【FCCB処置依頼】{dr.Item(NameOf(ST04_FCCB_ICHIRAN.KISYU_NAME))}・{dr.Item(NameOf(ST04_FCCB_ICHIRAN.BUHIN_BANGO))}"
+                    Dim strSubject As String = $"【FCCB処置依頼】FCCB-NO:{dr.Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))} {dr.Item(NameOf(ST04_FCCB_ICHIRAN.KISYU_NAME))}・{dr.Item(NameOf(ST04_FCCB_ICHIRAN.BUHIN_BANGO))}"
                     Dim strBody As String = <body><![CDATA[
                     {0} 殿<br />
                     <br />

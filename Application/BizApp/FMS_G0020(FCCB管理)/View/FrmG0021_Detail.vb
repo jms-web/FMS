@@ -1333,7 +1333,7 @@ Public Class FrmG0021_Detail
                                                                    FirstOrDefault?.Item("DISP")
 
             Dim strEXEParam As String = $"{_D004_SYONIN_J_KANRI.SYAIN_ID},{ENM_OPEN_MODE._2_処置画面起動.Value},{Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value},{_D004_SYONIN_J_KANRI.HOKOKU_NO}"
-            Dim strSubject As String = $"【FCCB要処置事項依頼】{KISYU_NAME}"
+            Dim strSubject As String = $"【FCCB処置依頼】FCCB-NO:{_D004_SYONIN_J_KANRI.HOKOKU_NO}"
             Dim strBody As String = <sql><![CDATA[
                 {0} 殿<br />
                 <br />
