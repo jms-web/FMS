@@ -2111,12 +2111,13 @@ Public Class FrmG0012
             If dtSYOCHI_YOTEI_YMD.ValueNonFormat.IsNulOrWS Then
                 _D005_CAR_J.SYOCHI_YOTEI_YMD = dt.ToString("yyyyMMdd")
             Else
-                If dtSYOCHI_YOTEI_YMD.ValueDate > dtKAITO_4.ValueDate Then
+
+                If DirectCast(sender, DateTextBoxEx).Name = NameOf(dtKAITO_4) AndAlso dtSYOCHI_YOTEI_YMD.ValueDate > dtKAITO_4.ValueDate Then
                     'txtKAITO_21.Text.IsNulOrWS And
                     _D005_CAR_J.SYOCHI_YOTEI_YMD = dtKAITO_4.ValueDate.ToString("yyyyMMdd")
                 End If
 
-                If dtSYOCHI_YOTEI_YMD.ValueDate > dtKAITO_9.ValueDate Then
+                If DirectCast(sender, DateTextBoxEx).Name = NameOf(dtKAITO_9) AndAlso dtSYOCHI_YOTEI_YMD.ValueDate > dtKAITO_9.ValueDate Then
                     'txtKAITO_22.Text.IsNulOrWS And
                     _D005_CAR_J.SYOCHI_YOTEI_YMD = dtKAITO_9.ValueDate.ToString("yyyyMMdd")
                 End If
