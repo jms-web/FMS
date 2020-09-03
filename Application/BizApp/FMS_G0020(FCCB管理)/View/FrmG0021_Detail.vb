@@ -25,6 +25,7 @@ Public Class FrmG0021_Detail
     Private Flx3_DS_DB As DataTable
     Private Flx4_DS_DB As DataTable
 
+    Private dtBUFF As DateTime
 #End Region
 
 #Region "プロパティ"
@@ -313,15 +314,28 @@ Public Class FrmG0021_Detail
         If flx.Cols(e.Col).Name.Contains("YMD") Then
             Dim d As Date
             If Not Date.TryParse(flx.Editor.Text, d) Then
-                e.Cancel = True
+                'e.Cancel = True
                 MessageBox.Show("無効な日付です")
+            Else
+                dtBUFF = d
             End If
+        End If
+    End Sub
+
+    Private Sub C1FlexGrid_SetupEditor(sender As Object, e As C1.Win.C1FlexGrid.RowColEventArgs) Handles flxDATA_2.LeaveEdit,
+                                                                                                          flxDATA_3.LeaveEdit,
+                                                                                                          flxDATA_5.LeaveEdit
+        Dim flx = DirectCast(sender, C1FlexGrid)
+        If flx.Cols(e.Col).Name.Contains("YMD") Then
+            Dim dtp As DateTimePicker = CType(flx.Editor, DateTimePicker)
+            dtBUFF = dtp.Value
         End If
     End Sub
 
     Private Sub Flx_AfterEdit(ByVal sender As Object, ByVal e As C1.Win.C1FlexGrid.RowColEventArgs) Handles flxDATA_2.AfterEdit,
                                                                                                              flxDATA_3.AfterEdit,
                                                                                                              flxDATA_5.AfterEdit
+
 
         Try
 
@@ -332,9 +346,12 @@ Public Class FrmG0021_Detail
 
                     'flexgrid 2019J以前の不具合対応(令和日付で.formatが無視される)
                     Dim value As String = Nz(flx(e.Row, e.Col), "")
+
                     If Not value.IsNulOrWS Then
-                        flx(e.Row, e.Col) = CDate(value).ToString("yyyy/MM/dd")
+                        flx(e.Row, e.Col) = dtBUFF.ToString("yyyy/MM/dd") 'CDate(value).ToString("yyyy/MM/dd")
                     End If
+
+
                 Case flx.Cols(e.Col).Name = "YOHI_KB"
 
                     If flx(e.Row, e.Col) Then
@@ -855,6 +872,7 @@ Public Class FrmG0021_Detail
                 _D011.FCCB_NO = _D009.FCCB_NO
                 _D011.ITEM_NO = dr.Item(NameOf(_D011.ITEM_NO))
                 _D011.BUHIN_HINBAN = dr.Item(NameOf(_D011.BUHIN_HINBAN))
+                _D011.BUHIN_NAME = dr.Item(NameOf(_D011.BUHIN_NAME))
                 _D011.MEMO1 = dr.Item(NameOf(_D011.MEMO1))
                 _D011.MEMO2 = dr.Item(NameOf(_D011.MEMO2))
                 _D011.SURYO = dr.Item(NameOf(_D011.SURYO))

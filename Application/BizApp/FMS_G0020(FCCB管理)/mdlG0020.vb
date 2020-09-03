@@ -1177,7 +1177,9 @@ Module mdlG0020
                         'ブランク行はスキップ
                         intRowIndex += 1
                     End If
-                    spSheet1.Range($"I{intRowIndex + 1}").Value = r.Item("GYOMU_GROUP_NAME")
+                    If Not r.Item("GYOMU_GROUP_NAME").ToString.IsNulOrWS Then
+                        spSheet1.Range($"I{intRowIndex + 1}").Value = r.Item("GYOMU_GROUP_NAME")
+                    End If
                     spSheet1.Range($"AE{intRowIndex + 1}").Value = r.Item(NameOf(D010.YOHI_KB))
                     spSheet1.Range($"L{intRowIndex + 1}").Value = r.Item("TANTO_SYAIN_NAME")
                     spSheet1.Range($"O{intRowIndex + 1}").Value = r.Item(NameOf(D010.NAIYO))
