@@ -36,7 +36,7 @@ Public Class FrmM0041
             Me.ControlBox = False
 
             '-----位置・サイズ
-            Me.Height = 430
+            Me.Height = 450
             Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) - 26 ' / 2
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
 

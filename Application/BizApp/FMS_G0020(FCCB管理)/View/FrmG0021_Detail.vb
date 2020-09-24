@@ -2046,13 +2046,17 @@ Public Class FrmG0021_Detail
         Else
             tabMain.Visible = False
         End If
+
+        lblSYANAI_CD.Visible = (cmbBUMON.SelectedValue = ENM_BUMON_KB._2_LP.Value)
+        cmbSYANAI_CD.Visible = (cmbBUMON.SelectedValue = ENM_BUMON_KB._2_LP.Value)
+
     End Sub
 
 #End Region
 
 #Region "機種"
 
-    Private Sub CmbKISYU_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKISYU.SelectedValueChanged
+    Private Sub CmbKISYU_SelectedValueChanged(sender As Object, e As EventArgs) 'Handles cmbKISYU.SelectedValueChanged
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
         If IsInitializing Then Exit Sub
@@ -2128,7 +2132,7 @@ Public Class FrmG0021_Detail
 
 #Region "社内コード"
 
-    Private Sub CmbSYANAI_CD_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbSYANAI_CD.SelectedValueChanged
+    Private Sub CmbSYANAI_CD_SelectedValueChanged(sender As Object, e As EventArgs) 'Handles cmbSYANAI_CD.SelectedValueChanged
         Try
 
             If IsInitializing Then Exit Sub

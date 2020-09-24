@@ -54,10 +54,10 @@ Partial Class FrmM0041
         Me.dtbBIRTHDAY = New JMS_COMMON.DateTextBoxEx()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.mtxPASS = New JMS_COMMON.MaskedTextBoxEx()
-        Me.chkADMIN_OP = New System.Windows.Forms.CheckBox()
-        Me.chkADMIN_SYS = New System.Windows.Forms.CheckBox()
         Me.Label16 = New System.Windows.Forms.Label()
+        Me.chkADMIN_OP = New System.Windows.Forms.CheckBox()
         Me.Label17 = New System.Windows.Forms.Label()
+        Me.chkADMIN_SYS = New System.Windows.Forms.CheckBox()
         Me.chkADMIN_AUTH = New System.Windows.Forms.CheckBox()
         Me.chkMAILSEND_AUTH = New System.Windows.Forms.CheckBox()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -681,6 +681,18 @@ Partial Class FrmM0041
         Me.mtxPASS.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxPASS.WatermarkText = Nothing
         '
+        'Label16
+        '
+        Me.Label16.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label16.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label16.Location = New System.Drawing.Point(3, 240)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(100, 30)
+        Me.Label16.TabIndex = 71
+        Me.Label16.Text = "運用管理者権限"
+        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label16.Visible = False
+        '
         'chkADMIN_OP
         '
         Me.chkADMIN_OP.AutoSize = True
@@ -694,30 +706,6 @@ Partial Class FrmM0041
         Me.chkADMIN_OP.UseVisualStyleBackColor = True
         Me.chkADMIN_OP.Visible = False
         '
-        'chkADMIN_SYS
-        '
-        Me.chkADMIN_SYS.AutoSize = True
-        Me.chkADMIN_SYS.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkADMIN_SYS.Dock = System.Windows.Forms.DockStyle.Left
-        Me.chkADMIN_SYS.Location = New System.Drawing.Point(416, 243)
-        Me.chkADMIN_SYS.Name = "chkADMIN_SYS"
-        Me.chkADMIN_SYS.Size = New System.Drawing.Size(15, 24)
-        Me.chkADMIN_SYS.TabIndex = 70
-        Me.chkADMIN_SYS.UseVisualStyleBackColor = True
-        Me.chkADMIN_SYS.Visible = False
-        '
-        'Label16
-        '
-        Me.Label16.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label16.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label16.Location = New System.Drawing.Point(3, 240)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(100, 30)
-        Me.Label16.TabIndex = 71
-        Me.Label16.Text = "運用管理者権限"
-        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label16.Visible = False
-        '
         'Label17
         '
         Me.Label17.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -729,6 +717,18 @@ Partial Class FrmM0041
         Me.Label17.Text = "システム管理者権限"
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Label17.Visible = False
+        '
+        'chkADMIN_SYS
+        '
+        Me.chkADMIN_SYS.AutoSize = True
+        Me.chkADMIN_SYS.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkADMIN_SYS.Dock = System.Windows.Forms.DockStyle.Left
+        Me.chkADMIN_SYS.Location = New System.Drawing.Point(416, 243)
+        Me.chkADMIN_SYS.Name = "chkADMIN_SYS"
+        Me.chkADMIN_SYS.Size = New System.Drawing.Size(15, 24)
+        Me.chkADMIN_SYS.TabIndex = 70
+        Me.chkADMIN_SYS.UseVisualStyleBackColor = True
+        Me.chkADMIN_SYS.Visible = False
         '
         'chkADMIN_AUTH
         '
@@ -756,7 +756,7 @@ Partial Class FrmM0041
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(1008, 712)
+        Me.ClientSize = New System.Drawing.Size(1008, 416)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True
