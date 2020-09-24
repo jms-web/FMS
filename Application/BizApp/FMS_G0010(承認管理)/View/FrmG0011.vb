@@ -6672,7 +6672,7 @@ Public Class FrmG0011
                             If IsValidated Then
                                 If btnST03_FCR_KISO.Text = "起草" Then
                                     Dim msg As String = $"不適合封じ込め調査書が起草されていません{vbCrLf}今すぐ起草しますか？"
-                                    If MessageBox.Show(msg, "起草確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) <> DialogResult.OK Then
+                                    If MessageBox.Show(msg, "起草確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) <> DialogResult.Yes Then
                                         IsValidated = False
                                     End If
                                     If funSAVE_FCR_KISO() Then
@@ -7173,7 +7173,7 @@ Public Class FrmG0011
                             msg = $"不適合封じ込め調査書の起草申請を発行しますか？"
                         End If
 
-                        If MessageBox.Show(msg, "不適合封じ込め調査書起草申請", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) <> DialogResult.OK Then
+                        If MessageBox.Show(msg, "不適合封じ込め調査書起草申請", MessageBoxButtons.YesNo, MessageBoxIcon.Information) <> DialogResult.Yes Then
                             Return True
                         End If
 

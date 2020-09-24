@@ -1150,6 +1150,8 @@ Module mdlG0020
                 Dim D011 As D011_FCCB_SUB_SIKAKE_BUHIN
                 Dim D012 As D012_FCCB_SUB_SYOCHI_KAKUNIN
 
+#Region "SEC2"
+                Dim intRowIndex As Integer = 15
                 sbSQL.Clear()
                 sbSQL.Append($"SELECT")
                 sbSQL.Append($"  {NameOf(D010.FCCB_NO)}")
@@ -1169,14 +1171,14 @@ Module mdlG0020
                 sbSQL.Append($" WHERE {NameOf(D010.ITEM_NO)}<100 ")
                 sbSQL.Append($" AND {NameOf(D010.FCCB_NO)}='{_D009.FCCB_NO}' ")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-#Region "SEC2"
-                Dim intRowIndex As Integer = 15
+
                 For Each r As DataRow In dsList.Tables(0).Rows
 
                     If spSheet1.Range($"AE{intRowIndex + 1}").Value?.ToString = "na" Then
                         'ブランク行はスキップ
                         intRowIndex += 1
                     End If
+                    spSheet1.Range($"C{intRowIndex + 1}").Value = r.Item(NameOf(D010.ITEM_GROUP_NAME))
                     If Not r.Item("GYOMU_GROUP_NAME").ToString.IsNulOrWS Then
                         spSheet1.Range($"I{intRowIndex + 1}").Value = r.Item("GYOMU_GROUP_NAME")
                     End If
@@ -1186,11 +1188,14 @@ Module mdlG0020
                     spSheet1.Range($"Y{intRowIndex + 1}").Value = If(r.Item(NameOf(D010.YOTEI_YMD)).ToString.IsNulOrWS, "", r.Item(NameOf(D010.YOTEI_YMD)))
                     spSheet1.Range($"AB{intRowIndex + 1}").Value = If(r.Item(NameOf(D010.CLOSE_YMD)).ToString.IsNulOrWS, "", r.Item(NameOf(D010.CLOSE_YMD)))
 
+
                     intRowIndex += 1
                 Next
 #End Region
 
 
+
+#Region "SEC3"
                 sbSQL.Clear()
                 sbSQL.Append($"SELECT")
                 sbSQL.Append($"  {NameOf(D010.FCCB_NO)}")
@@ -1211,8 +1216,6 @@ Module mdlG0020
                 sbSQL.Append($" AND {NameOf(D010.FCCB_NO)}='{_D009.FCCB_NO}' ")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
-#Region "SEC3"
-
 
 
                 intRowIndex = 45
@@ -1232,6 +1235,7 @@ Module mdlG0020
                 Next
 #End Region
 
+#Region "SEC4"
                 sbSQL.Clear()
                 sbSQL.Append($"SELECT")
                 sbSQL.Append($"  {NameOf(D011.FCCB_NO)}")
@@ -1252,7 +1256,6 @@ Module mdlG0020
                 sbSQL.Append($" WHERE {NameOf(D011.FCCB_NO)}='{_D009.FCCB_NO}' ")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
-#Region "SEC4"
                 intRowIndex = 51
                 Const SIKAKARIHIN_COUNT As Integer = 7
                 Const SECTION_GAPS As Integer = 5
@@ -1274,6 +1277,9 @@ Module mdlG0020
                 Next
 #End Region
 
+
+
+#Region "SEC5"
                 sbSQL.Clear()
                 sbSQL.Append($"SELECT")
                 sbSQL.Append($" {NameOf(D012.FCCB_NO)}")
@@ -1285,8 +1291,6 @@ Module mdlG0020
                 sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}='{_D009.FCCB_NO}' ")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
-
-#Region "SEC5"
                 spSheet1.Range(NameOf(_D009.SNO_APPLY_PERIOD_HENKO_SINGI)).Value = _D009.SNO_APPLY_PERIOD_HENKO_SINGI
                 For Each r As DataRow In dsList.Tables(0).Rows
                     Dim NAMERange As String = ""

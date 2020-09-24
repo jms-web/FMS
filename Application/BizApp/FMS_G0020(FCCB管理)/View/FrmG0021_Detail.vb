@@ -1999,11 +1999,7 @@ Public Class FrmG0021_Detail
             Dim drs As IEnumerable(Of DataRow)
             Dim InList As New List(Of Integer)
 
-            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._4_ïièÿ.Value, ENM_GYOMU_GROUP_ID._5_ê›åv.Value, ENM_GYOMU_GROUP_ID._6_ê∂ãZ.Value, ENM_GYOMU_GROUP_ID._91_QMSä«óùê”îCé“.Value})
-            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
-                                  GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
 
-            cmbKISO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._2_êªë¢.Value)
             If drs.Count > 0 Then cmbSYOCHI_SEIZO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
@@ -2034,6 +2030,13 @@ Public Class FrmG0021_Detail
                 cmbSYOCHI_GM_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
                 cmbKAKUNIN_GM_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
             End If
+
+            InList.AddRange({ENM_GYOMU_GROUP_ID._4_ïièÿ.Value, ENM_GYOMU_GROUP_ID._5_ê›åv.Value, ENM_GYOMU_GROUP_ID._6_ê∂ãZ.Value, ENM_GYOMU_GROUP_ID._91_QMSä«óùê”îCé“.Value})
+            drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
+                                  GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
+
+            'cmbKISO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKISO_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, ENM_FCCB_STAGE._10_ãNëêì¸óÕ)
             cmbCM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
