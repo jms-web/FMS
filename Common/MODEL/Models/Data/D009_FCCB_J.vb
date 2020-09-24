@@ -75,6 +75,10 @@ Partial Public Class D009_FCCB_J
     Public Property KISYU_ID As Integer
 
     <Required>
+    <ComponentModel.DisplayName("機種")>
+    Public Property KISYU_NAME As String
+
+    <Required>
     <Column(TypeName:="varchar")>
     <StringLength(10)>
     <ComponentModel.DisplayName("社内コード")>

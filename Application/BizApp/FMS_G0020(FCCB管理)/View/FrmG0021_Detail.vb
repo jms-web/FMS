@@ -151,6 +151,8 @@ Public Class FrmG0021_Detail
                             End Select
                         End If
 
+
+
                         IsEditingClosed = HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
 
                         '-----画面初期化
@@ -652,15 +654,32 @@ Public Class FrmG0021_Detail
         End If
 
         _D009.BUMON_KB = cmbBUMON.SelectedValue
-        _D009.KISYU_ID = cmbKISYU.SelectedValue
+
+        If cmbKISYU.IsSelected Then
+            _D009.KISYU_ID = cmbKISYU.SelectedValue
+        Else
+            _D009.KISYU_ID = 0
+        End If
+        _D009.KISYU_NAME = cmbKISYU.Text
+
         If dtKISO.Text.IsNulOrWS Then
             _D009.ADD_YMDHNS = strSysDate
         Else
             _D009.ADD_YMDHNS = dtKISO.ValueDate.ToString("yyyyMMdd") & "000000"
         End If
         _D009.CM_TANTO = cmbCM_TANTO.SelectedValue
-        _D009.BUHIN_BANGO = cmbBUHIN_BANGO.SelectedValue
-        _D009.SYANAI_CD = cmbSYANAI_CD.SelectedValue
+
+        If cmbBUHIN_BANGO.IsSelected Then
+            _D009.BUHIN_BANGO = cmbBUHIN_BANGO.SelectedValue
+        Else
+            _D009.BUHIN_BANGO = cmbBUHIN_BANGO.Text
+        End If
+
+        If cmbSYANAI_CD.IsSelected Then
+            _D009.SYANAI_CD = cmbSYANAI_CD.SelectedValue
+        Else
+            _D009.SYANAI_CD = cmbSYANAI_CD.Text
+        End If
         _D009.BUHIN_NAME = If(cmbHINMEI.Text <> "(選択)", cmbHINMEI.Text, "")
         _D009.INPUT_DOC_NO = mtxINPUT_DOC_NO.Text
         _D009.SNO_APPLY_PERIOD_KISO = mtxSNO_APPLY_PERIOD_KISO.Text
@@ -753,6 +772,7 @@ Public Class FrmG0021_Detail
                 _D010.ITEM_NAME = dr.Item(NameOf(_D010.ITEM_NAME))
                 _D010.TANTO_GYOMU_GROUP_ID = dr.Item(NameOf(_D010.TANTO_GYOMU_GROUP_ID))
                 _D010.YOHI_KB = dr.Item(NameOf(_D010.YOHI_KB))
+                _D010.YOHI_KB_F = dr.Item(NameOf(_D010.YOHI_KB_F))
                 _D010.TANTO_ID = dr.Item(NameOf(_D010.TANTO_ID))
                 _D010.NAIYO = dr.Item(NameOf(_D010.NAIYO))
                 If Not dr.Item(NameOf(_D010.YOTEI_YMD)).ToString.IsNulOrWS Then
@@ -803,6 +823,7 @@ Public Class FrmG0021_Detail
                 _D010.ITEM_NAME = dr.Item(NameOf(_D010.ITEM_NAME))
                 _D010.TANTO_GYOMU_GROUP_ID = dr.Item(NameOf(_D010.TANTO_GYOMU_GROUP_ID))
                 _D010.YOHI_KB = dr.Item(NameOf(_D010.YOHI_KB))
+                _D010.YOHI_KB_F = dr.Item(NameOf(_D010.YOHI_KB_F))
                 _D010.TANTO_ID = dr.Item(NameOf(_D010.TANTO_ID))
                 _D010.NAIYO = dr.Item(NameOf(_D010.NAIYO))
                 _D010.GOKI = dr.Item(NameOf(_D010.GOKI))
@@ -1394,8 +1415,9 @@ Public Class FrmG0021_Detail
                     ToUsers = dt.AsEnumerable.Select(Function(r) r.Field(Of Integer)("VALUE")).ToList
 
                 Case ENM_FCCB_STAGE._20_処置事項調査等
-                    'FCCB議長のみ
-                    ToUsers.Add(_D009.CM_TANTO)
+                    'FCCB議長のみ→部門の役職区分GL、TL全員へ
+                    'ToUsers.Add(_D009.CM_TANTO)
+                    ToUsers.AddRange(GetTLGLUsers(_D009.BUMON_KB))
 
                 Case ENM_FCCB_STAGE._30_変更審議
                     If cmbSYOCHI_SEKKEI_TANTO.IsSelected Then
@@ -1519,6 +1541,28 @@ Public Class FrmG0021_Detail
                     Return False
                 End If
             End If
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
+    Private Function GetTLGLUsers(BUMON_KB As String) As IEnumerable(Of Integer)
+        Dim retList As New List(Of Integer)
+        Try
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
+            sbSQL.Append($"SELECT SYAIN_ID FROM TV04_BUSYO_SYOZOKU_SYAIN('{BUMON_KB}')")
+            sbSQL.Append($" WHERE YAKUSYOKU_KB IN ('{ENM_YAKUSYOKU_KB._2_GL.Value}','{ENM_YAKUSYOKU_KB._5_TL.Value}')")
+            sbSQL.Append($" ORDER BY SYAIN_ID")
+
+            Using DB = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+            For Each r As DataRow In dsList.Tables(0).Rows
+                retList.Add(r.Item(0).ToString.ToVal)
+            Next
+
+            Return retList
         Catch ex As Exception
             Throw
         End Try
@@ -2047,8 +2091,8 @@ Public Class FrmG0021_Detail
             tabMain.Visible = False
         End If
 
-        lblSYANAI_CD.Visible = (cmbBUMON.SelectedValue = ENM_BUMON_KB._2_LP.Value)
-        cmbSYANAI_CD.Visible = (cmbBUMON.SelectedValue = ENM_BUMON_KB._2_LP.Value)
+        lblSYANAI_CD.Visible = (cmbBUMON.SelectedValue = ENM_BUMON_KB._2_LP.Value.ToString)
+        cmbSYANAI_CD.Visible = (cmbBUMON.SelectedValue = ENM_BUMON_KB._2_LP.Value.ToString)
 
     End Sub
 
@@ -2205,7 +2249,7 @@ Public Class FrmG0021_Detail
 
 #Region "部品番号"
 
-    Private Sub CmbBUHIN_BANGO_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUHIN_BANGO.SelectedValueChanged
+    Private Sub CmbBUHIN_BANGO_SelectedValueChanged(sender As Object, e As EventArgs) 'Handles cmbBUHIN_BANGO.SelectedValueChanged
         If IsInitializing Then Exit Sub
 
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
@@ -2355,6 +2399,7 @@ Public Class FrmG0021_Detail
                         sbSQL.Append($" *")
                         sbSQL.Append($" ,'' AS {NameOf(D010.FCCB_NO)}")
                         sbSQL.Append($" ,'0' AS {NameOf(D010.YOHI_KB)}")
+                        sbSQL.Append($" ,'0' AS {NameOf(D010.YOHI_KB_F)}")
                         sbSQL.Append($" , 0 AS {NameOf(D010.TANTO_ID)}")
                         sbSQL.Append($" ,'' AS {NameOf(D010.NAIYO)}")
                         sbSQL.Append($" ,'' AS {NameOf(D010.GOKI)}")
@@ -2373,6 +2418,7 @@ Public Class FrmG0021_Detail
                         sbSQL.Append($" *")
                         sbSQL.Append($" ,'' AS {NameOf(D010.FCCB_NO)}")
                         sbSQL.Append($" ,'0' AS {NameOf(D010.YOHI_KB)}")
+                        sbSQL.Append($" ,'0' AS {NameOf(D010.YOHI_KB_F)}")
                         sbSQL.Append($" , 0 AS {NameOf(D010.TANTO_ID)}")
                         sbSQL.Append($" ,'' AS {NameOf(D010.NAIYO)}")
                         sbSQL.Append($" ,'' AS {NameOf(D010.GOKI)}")
@@ -2430,16 +2476,24 @@ Public Class FrmG0021_Detail
                     mtxFCCB_NO.Text = PrFCCB_NO
                     cmbBUMON.SelectedValue = _D009.BUMON_KB
                     Call CmbBUMON_SelectedValueChanged(cmbBUMON, Nothing)
-                    cmbKISYU.SelectedValue = _D009.KISYU_ID
-                    Call CmbKISYU_SelectedValueChanged(cmbKISYU, Nothing)
+                    If _D009.KISYU_ID <> 0 Then
+                        cmbKISYU.SelectedValue = _D009.KISYU_ID
+                        'Call CmbKISYU_SelectedValueChanged(cmbKISYU, Nothing)
+                    Else
+                        cmbKISYU.Text = _D009.KISYU_NAME
+                    End If
+
                     dtKISO.Value = DateTime.Parse(_D009.ADD_YMDHNS).ToString("yyyy/MM/dd")
                     cmbCM_TANTO.SelectedValue = _D009.CM_TANTO
                     cmbKISO_TANTO.SelectedValue = _D009.ADD_SYAIN_ID
-                    cmbBUHIN_BANGO.SelectedValue = _D009.BUHIN_BANGO
-                    Call CmbBUHIN_BANGO_SelectedValueChanged(cmbBUHIN_BANGO, Nothing)
+
+                    cmbBUHIN_BANGO.Text = _D009.BUHIN_BANGO
+                    'cmbBUHIN_BANGO.SelectedValue = _D009.BUHIN_BANGO
+                    'Call CmbBUHIN_BANGO_SelectedValueChanged(cmbBUHIN_BANGO, Nothing)
 
                     If _D009.BUMON_KB = ENM_BUMON_KB._2_LP.Value Then
-                        cmbSYANAI_CD.SelectedValue = _D009.SYANAI_CD
+                        cmbSYANAI_CD.Text = _D009.SYANAI_CD
+                        'cmbSYANAI_CD.SelectedValue = _D009.SYANAI_CD
                     End If
 
                     cmbHINMEI.Text = _D009.BUHIN_NAME
@@ -2467,6 +2521,7 @@ Public Class FrmG0021_Detail
                         sbSQL.Append($" ,{NameOf(D010.ITEM_NAME)}")
                         sbSQL.Append($" ,{NameOf(D010.TANTO_GYOMU_GROUP_ID)}")
                         sbSQL.Append($" ,{NameOf(D010.YOHI_KB)}")
+                        sbSQL.Append($" ,{NameOf(D010.YOHI_KB_F)}")
                         sbSQL.Append($" ,{NameOf(D010.TANTO_ID)}")
                         sbSQL.Append($" ,{NameOf(D010.NAIYO)}")
                         sbSQL.Append($" ,{NameOf(D010.GOKI)}")
@@ -2488,6 +2543,7 @@ Public Class FrmG0021_Detail
                         sbSQL.Append($" ,{NameOf(D010.ITEM_NAME)}")
                         sbSQL.Append($" ,{NameOf(D010.TANTO_GYOMU_GROUP_ID)}")
                         sbSQL.Append($" ,{NameOf(D010.YOHI_KB)}")
+                        sbSQL.Append($" ,{NameOf(D010.YOHI_KB_F)}")
                         sbSQL.Append($" ,{NameOf(D010.TANTO_ID)}")
                         sbSQL.Append($" ,{NameOf(D010.NAIYO)}")
                         sbSQL.Append($" ,{NameOf(D010.GOKI)}")
@@ -2702,14 +2758,16 @@ Public Class FrmG0021_Detail
                 Case ENM_FCCB_STAGE._10_起草入力
                     tlpHeader.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
                     C1SplitterPanel5.Enabled = False
-
+                    C1SplitterPanel_YOHI.Visible = False
                 Case ENM_FCCB_STAGE._20_処置事項調査等
                     tlpHeader.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
                     C1SplitterPanel5.Enabled = False
+                    C1SplitterPanel_YOHI.Visible = False
                     cmdFunc2.Enabled = False
 
                 Case ENM_FCCB_STAGE._30_変更審議
                     tlpHeader.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
+                    C1SplitterPanel_YOHI.Visible = True
                     C1SplitterPanel5.Enabled = False
 
                 Case ENM_FCCB_STAGE._40_処置確認, ENM_FCCB_STAGE._41_処置確認_統括
@@ -2717,12 +2775,13 @@ Public Class FrmG0021_Detail
                     C1SplitterPanel1.Enabled = False
                     C1SplitterPanel2.Enabled = False
                     C1SplitterPanel5.Enabled = True
-
+                    C1SplitterPanel_YOHI.Visible = False
                 Case ENM_FCCB_STAGE._50_処置事項完了
                     'C1SplitterPanel1.Enabled = False
                     'C1SplitterPanel2.Enabled = False
                     C1SplitterPanel5.Enabled = True
                     tlpHeader.Enabled = False
+                    C1SplitterPanel_YOHI.Visible = False
 
                     If FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, _D009.FCCB_NO, PrCurrentStage) Then
                         cmbKAKUNIN_CM_TANTO.SelectedValue = _D009.CM_TANTO
@@ -2733,6 +2792,8 @@ Public Class FrmG0021_Detail
                     'C1SplitterPanel1.Enabled = False
                     'C1SplitterPanel2.Enabled = False
                     C1SplitterPanel5.Enabled = True
+                    C1SplitterPanel_YOHI.Visible = False
+
                     cmbSYOCHI_GM_TANTO.ReadOnly = True
                     cmbSYOCHI_EIGYO_TANTO.ReadOnly = True
                     cmbSYOCHI_HINSYO_TANTO.ReadOnly = True
@@ -2949,26 +3010,65 @@ Public Class FrmG0021_Detail
     Private Function IsInputRequired(Optional DisplayAlart As Boolean = False) As Boolean
         Try
 
+
+#Region "②要処置事項"
+
+            Dim nojudgItems = DirectCast(Flx2_DS.DataSource, DataTable).
+                                          AsEnumerable.
+                                          Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) = False And r.Field(Of Boolean)(NameOf(D010.YOHI_KB_F)) = False).Count
+
+            If nojudgItems > 0 Then
+                MessageBox.Show("②要処置事項に要否未判定の項目があります。", "入力チェック", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return False
+            End If
+
             Dim requiredItems = DirectCast(Flx2_DS.DataSource, DataTable).
                                           AsEnumerable.
                                           Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)))
 
             For Each r As DataRow In requiredItems
                 If r.Item(NameOf(D010.TANTO_ID)) = 0 Then
-                    If DisplayAlart Then MessageBox.Show("要項目で担当者未選択の項目があります。", "入力チェック", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    If DisplayAlart Then MessageBox.Show("②要処置事項に要項目で担当者未選択の項目があります。", "入力チェック", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     Return False
 
                 End If
 
                 If r.Item(NameOf(D010.YOTEI_YMD)) = "" Then
-                    If DisplayAlart Then MessageBox.Show("要項目で完了予定日未入力の項目があります。", "入力チェック", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    If DisplayAlart Then MessageBox.Show("②要処置事項に要項目で完了予定日未入力の項目があります。", "入力チェック", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     Return False
                 End If
             Next
 
+#End Region
+
+#Region "③検証"
+
+            Dim nojudgItems2 = DirectCast(Flx3_DS.DataSource, DataTable).
+                                          AsEnumerable.
+                                          Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) = False And r.Field(Of Boolean)(NameOf(D010.YOHI_KB_F)) = False).Count
+
+            If nojudgItems2 > 0 Then
+                MessageBox.Show("②要処置事項に要否未判定の項目があります。", "入力チェック", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return False
+            End If
+
             Dim requiredItems2 = DirectCast(Flx3_DS.DataSource, DataTable).
                                                                 AsEnumerable.
                                                                 Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)))
+
+            For Each r As DataRow In requiredItems2
+                If r.Item(NameOf(D010.TANTO_ID)) = 0 Then
+                    If DisplayAlart Then MessageBox.Show("③検証に要項目で担当者未選択の項目があります。", "入力チェック", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    Return False
+
+                End If
+
+                If r.Item(NameOf(D010.YOTEI_YMD)) = "" Then
+                    If DisplayAlart Then MessageBox.Show("③検証に要項目で完了予定日未入力の項目があります。", "入力チェック", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    Return False
+                End If
+            Next
+#End Region
 
             Return True
         Catch ex As Exception

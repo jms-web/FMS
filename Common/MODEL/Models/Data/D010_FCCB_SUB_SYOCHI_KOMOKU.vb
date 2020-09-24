@@ -58,6 +58,22 @@ Partial Public Class D010_FCCB_SUB_SYOCHI_KOMOKU
     End Property
 
     <Required>
+    <Column(NameOf(YOHI_KB_F), TypeName:="char")>
+    <StringLength(1)>
+    <Display(AutoGenerateField:=False)>
+    Public Property _YOHI_KB_F As String
+
+    <NotMapped>
+    Public Property YOHI_KB_F As Boolean
+        Get
+            Return (_YOHI_KB_F = "1")
+        End Get
+        Set(value As Boolean)
+            _YOHI_KB_F = If(value, "1", "0")
+        End Set
+    End Property
+
+    <Required>
     Public Property TANTO_ID As Integer
 
     <Required>

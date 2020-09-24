@@ -120,6 +120,10 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel5 = New C1.Win.C1SplitContainer.C1SplitterPanel()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.lblCurrentStageName = New System.Windows.Forms.Label()
+        Me.C1SplitterPanel_YOHI = New C1.Win.C1SplitContainer.C1SplitterPanel()
+        Me.btnRequired = New System.Windows.Forms.Button()
+        Me.btnUnnecessary = New System.Windows.Forms.Button()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEx2.SuspendLayout()
@@ -142,6 +146,7 @@ Partial Class FrmG0021_Detail
         Me.TableLayoutPanel1.SuspendLayout()
         Me.PanelEx1.SuspendLayout()
         CType(Me.flxDATA_5, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.C1SplitterPanel_YOHI.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -953,7 +958,7 @@ Partial Class FrmG0021_Detail
         Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label11.Location = New System.Drawing.Point(255, 32767)
+        Me.Label11.Location = New System.Drawing.Point(255, 32917)
         Me.Label11.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(98, 15)
@@ -966,7 +971,7 @@ Partial Class FrmG0021_Detail
         Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label12.Location = New System.Drawing.Point(661, 32767)
+        Me.Label12.Location = New System.Drawing.Point(661, 32917)
         Me.Label12.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(72, 15)
@@ -979,7 +984,7 @@ Partial Class FrmG0021_Detail
         Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label13.Location = New System.Drawing.Point(10, 32767)
+        Me.Label13.Location = New System.Drawing.Point(10, 32917)
         Me.Label13.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(102, 15)
@@ -1004,9 +1009,10 @@ Partial Class FrmG0021_Detail
         Me.C1SplitContainer.Panels.Add(Me.C1SplitterPanel1)
         Me.C1SplitContainer.Panels.Add(Me.C1SplitterPanel2)
         Me.C1SplitContainer.Panels.Add(Me.C1SplitterPanel3)
+        Me.C1SplitContainer.Panels.Add(Me.C1SplitterPanel_YOHI)
         Me.C1SplitContainer.Panels.Add(Me.C1SplitterPanel4)
         Me.C1SplitContainer.Panels.Add(Me.C1SplitterPanel5)
-        Me.C1SplitContainer.Size = New System.Drawing.Size(1209, 1400)
+        Me.C1SplitContainer.Size = New System.Drawing.Size(1209, 1550)
         Me.C1SplitContainer.TabIndex = 327
         '
         'C1SplitterPanel1
@@ -1014,12 +1020,12 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel1.AutoScroll = True
         Me.C1SplitterPanel1.Collapsible = True
         Me.C1SplitterPanel1.Controls.Add(Me.flxDATA_2)
-        Me.C1SplitterPanel1.Height = 670
+        Me.C1SplitterPanel1.Height = 680
         Me.C1SplitterPanel1.Location = New System.Drawing.Point(1, 22)
         Me.C1SplitterPanel1.MinHeight = 670
         Me.C1SplitterPanel1.Name = "C1SplitterPanel1"
         Me.C1SplitterPanel1.ResizeWhileDragging = True
-        Me.C1SplitterPanel1.Size = New System.Drawing.Size(1207, 638)
+        Me.C1SplitterPanel1.Size = New System.Drawing.Size(1207, 648)
         Me.C1SplitterPanel1.TabIndex = 0
         Me.C1SplitterPanel1.Text = "áAóvèàíuéñçÄí≤ç∏"
         '
@@ -1045,7 +1051,7 @@ Partial Class FrmG0021_Detail
         Me.flxDATA_2.Rows.Count = 1
         Me.flxDATA_2.Rows.DefaultSize = 18
         Me.flxDATA_2.ShowCursor = True
-        Me.flxDATA_2.Size = New System.Drawing.Size(1207, 638)
+        Me.flxDATA_2.Size = New System.Drawing.Size(1207, 648)
         Me.flxDATA_2.StyleInfo = resources.GetString("flxDATA_2.StyleInfo")
         Me.flxDATA_2.TabIndex = 329
         Me.flxDATA_2.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
@@ -1061,7 +1067,7 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel2.Controls.Add(Me.flxDATA_3)
         Me.C1SplitterPanel2.Height = 140
         Me.C1SplitterPanel2.KeepRelativeSize = False
-        Me.C1SplitterPanel2.Location = New System.Drawing.Point(1, 696)
+        Me.C1SplitterPanel2.Location = New System.Drawing.Point(1, 706)
         Me.C1SplitterPanel2.MinHeight = 140
         Me.C1SplitterPanel2.Name = "C1SplitterPanel2"
         Me.C1SplitterPanel2.ResizeWhileDragging = True
@@ -1101,7 +1107,7 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel3.Collapsible = True
         Me.C1SplitterPanel3.Controls.Add(Me.flxDATA_4)
         Me.C1SplitterPanel3.Height = 198
-        Me.C1SplitterPanel3.Location = New System.Drawing.Point(1, 840)
+        Me.C1SplitterPanel3.Location = New System.Drawing.Point(1, 850)
         Me.C1SplitterPanel3.MinHeight = 198
         Me.C1SplitterPanel3.Name = "C1SplitterPanel3"
         Me.C1SplitterPanel3.ResizeWhileDragging = True
@@ -1141,13 +1147,13 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel4.Collapsible = True
         Me.C1SplitterPanel4.Controls.Add(Me.TableLayoutPanel1)
         Me.C1SplitterPanel4.Controls.Add(Me.PanelEx1)
-        Me.C1SplitterPanel4.Height = 364
-        Me.C1SplitterPanel4.Location = New System.Drawing.Point(1, 1042)
+        Me.C1SplitterPanel4.Height = 350
+        Me.C1SplitterPanel4.Location = New System.Drawing.Point(1, 1206)
         Me.C1SplitterPanel4.MinHeight = 350
         Me.C1SplitterPanel4.MinWidth = 100
         Me.C1SplitterPanel4.Name = "C1SplitterPanel4"
         Me.C1SplitterPanel4.ResizeWhileDragging = True
-        Me.C1SplitterPanel4.Size = New System.Drawing.Size(1207, 332)
+        Me.C1SplitterPanel4.Size = New System.Drawing.Size(1207, 318)
         Me.C1SplitterPanel4.SizeRatio = 100.0R
         Me.C1SplitterPanel4.TabIndex = 3
         Me.C1SplitterPanel4.Text = "áDïœçXêRãc"
@@ -1206,7 +1212,7 @@ Partial Class FrmG0021_Detail
         Me.TableLayoutPanel1.Controls.Add(Me.dtKAKUNIN_GM_TANTO, 11, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.dtKAKUNIN_CM_TANTO, 12, 3)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 231)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 217)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 4
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
@@ -1857,7 +1863,7 @@ Partial Class FrmG0021_Detail
         'C1SplitterPanel5
         '
         Me.C1SplitterPanel5.Height = 10
-        Me.C1SplitterPanel5.Location = New System.Drawing.Point(1, 1389)
+        Me.C1SplitterPanel5.Location = New System.Drawing.Point(1, 1539)
         Me.C1SplitterPanel5.MinHeight = 10
         Me.C1SplitterPanel5.Name = "C1SplitterPanel5"
         Me.C1SplitterPanel5.Size = New System.Drawing.Size(1207, 10)
@@ -1883,6 +1889,52 @@ Partial Class FrmG0021_Detail
         Me.lblCurrentStageName.Size = New System.Drawing.Size(214, 30)
         Me.lblCurrentStageName.TabIndex = 335
         Me.lblCurrentStageName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'C1SplitterPanel_YOHI
+        '
+        Me.C1SplitterPanel_YOHI.Controls.Add(Me.RadioButton1)
+        Me.C1SplitterPanel_YOHI.Controls.Add(Me.btnUnnecessary)
+        Me.C1SplitterPanel_YOHI.Controls.Add(Me.btnRequired)
+        Me.C1SplitterPanel_YOHI.Height = 150
+        Me.C1SplitterPanel_YOHI.Location = New System.Drawing.Point(1, 1052)
+        Me.C1SplitterPanel_YOHI.MinHeight = 150
+        Me.C1SplitterPanel_YOHI.Name = "C1SplitterPanel_YOHI"
+        Me.C1SplitterPanel_YOHI.Size = New System.Drawing.Size(1207, 129)
+        Me.C1SplitterPanel_YOHI.SizeRatio = 26.596R
+        Me.C1SplitterPanel_YOHI.TabIndex = 5
+        Me.C1SplitterPanel_YOHI.Text = "ã¶ãcóvî€îªíË"
+        '
+        'btnRequired
+        '
+        Me.btnRequired.Font = New System.Drawing.Font("Meiryo UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnRequired.Location = New System.Drawing.Point(15, 16)
+        Me.btnRequired.Name = "btnRequired"
+        Me.btnRequired.Size = New System.Drawing.Size(137, 64)
+        Me.btnRequired.TabIndex = 0
+        Me.btnRequired.Text = "ïKóv"
+        Me.btnRequired.UseVisualStyleBackColor = True
+        '
+        'btnUnnecessary
+        '
+        Me.btnUnnecessary.Font = New System.Drawing.Font("Meiryo UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnUnnecessary.Location = New System.Drawing.Point(158, 16)
+        Me.btnUnnecessary.Name = "btnUnnecessary"
+        Me.btnUnnecessary.Size = New System.Drawing.Size(137, 64)
+        Me.btnUnnecessary.TabIndex = 1
+        Me.btnUnnecessary.Text = "ïsóv"
+        Me.btnUnnecessary.UseVisualStyleBackColor = True
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.Appearance = System.Windows.Forms.Appearance.Button
+        Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Location = New System.Drawing.Point(370, 63)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(95, 25)
+        Me.RadioButton1.TabIndex = 2
+        Me.RadioButton1.TabStop = True
+        Me.RadioButton1.Text = "RadioButton1"
+        Me.RadioButton1.UseVisualStyleBackColor = True
         '
         'FrmG0021_Detail
         '
@@ -1946,6 +1998,8 @@ Partial Class FrmG0021_Detail
         Me.PanelEx1.ResumeLayout(False)
         Me.PanelEx1.PerformLayout()
         CType(Me.flxDATA_5, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.C1SplitterPanel_YOHI.ResumeLayout(False)
+        Me.C1SplitterPanel_YOHI.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2053,4 +2107,8 @@ Partial Class FrmG0021_Detail
     Friend WithEvents C1SplitterPanel5 As C1.Win.C1SplitContainer.C1SplitterPanel
     Friend WithEvents Label6 As Label
     Friend WithEvents lblCurrentStageName As Label
+    Friend WithEvents C1SplitterPanel_YOHI As C1.Win.C1SplitContainer.C1SplitterPanel
+    Friend WithEvents btnUnnecessary As Button
+    Friend WithEvents btnRequired As Button
+    Friend WithEvents RadioButton1 As RadioButton
 End Class
