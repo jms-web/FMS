@@ -168,6 +168,8 @@ Partial Class FrmG0012
         Me.btnOpentmpFile1 = New System.Windows.Forms.Button()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.pnlZESEI_SYOCHI = New JMS_COMMON.PanelEx()
+        Me.mtxGOKI = New JMS_COMMON.TextBoxEx()
+        Me.mtxLOT = New JMS_COMMON.TextBoxEx()
         Me.lblZESEI_SYOCHIFlame = New System.Windows.Forms.Label()
         Me.lblSTAGE10 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -197,9 +199,7 @@ Partial Class FrmG0012
         Me.lblKENSA_TANTO = New System.Windows.Forms.Label()
         Me.Label52 = New System.Windows.Forms.Label()
         Me.Label45 = New System.Windows.Forms.Label()
-        Me.mtxLOT = New JMS_COMMON.MaskedTextBoxEx()
         Me.cmbKENSA_TANTO = New JMS_COMMON.ComboboxEx()
-        Me.mtxGOKI = New JMS_COMMON.MaskedTextBoxEx()
         Me.pnlSYOCHI_KIROKU = New JMS_COMMON.PanelEx()
         Me.lblSYOCHI_KIROKUFlame = New System.Windows.Forms.Label()
         Me.dtSYOCHI_A_YMD = New JMS_COMMON.DateTextBoxEx()
@@ -836,7 +836,7 @@ Partial Class FrmG0012
         Me.pnlAnalysis.Controls.Add(Me.Label51)
         Me.pnlAnalysis.Location = New System.Drawing.Point(658, 658)
         Me.pnlAnalysis.Name = "pnlAnalysis"
-        Me.pnlAnalysis.Size = New System.Drawing.Size(487, 295)
+        Me.pnlAnalysis.Size = New System.Drawing.Size(453, 295)
         Me.pnlAnalysis.TabIndex = 322
         Me.pnlAnalysis.Visible = False
         '
@@ -844,7 +844,7 @@ Partial Class FrmG0012
         '
         Me.Label25.BackColor = System.Drawing.Color.Black
         Me.Label25.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Label25.Location = New System.Drawing.Point(472, 0)
+        Me.Label25.Location = New System.Drawing.Point(438, 0)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(13, 293)
         Me.Label25.TabIndex = 324
@@ -1160,7 +1160,7 @@ Partial Class FrmG0012
         Me.pnlST13.Controls.Add(Me.btnST13_SYONIN)
         Me.pnlST13.Controls.Add(Me.lblSTAGEFlame13)
         Me.pnlST13.HitEnabled = False
-        Me.pnlST13.Location = New System.Drawing.Point(4, 1260)
+        Me.pnlST13.Location = New System.Drawing.Point(4, 1262)
         Me.pnlST13.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST13.MinimumSize = New System.Drawing.Size(1209, 90)
         Me.pnlST13.Name = "pnlST13"
@@ -2546,6 +2546,8 @@ Partial Class FrmG0012
         Me.pnlZESEI_SYOCHI.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlZESEI_SYOCHI.BackColor = System.Drawing.Color.Transparent
+        Me.pnlZESEI_SYOCHI.Controls.Add(Me.mtxGOKI)
+        Me.pnlZESEI_SYOCHI.Controls.Add(Me.mtxLOT)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.lblZESEI_SYOCHIFlame)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.lblSTAGE10)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.Label15)
@@ -2563,9 +2565,7 @@ Partial Class FrmG0012
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.lblKENSA_TANTO)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.Label52)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.Label45)
-        Me.pnlZESEI_SYOCHI.Controls.Add(Me.mtxLOT)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.cmbKENSA_TANTO)
-        Me.pnlZESEI_SYOCHI.Controls.Add(Me.mtxGOKI)
         Me.pnlZESEI_SYOCHI.HitEnabled = False
         Me.pnlZESEI_SYOCHI.Location = New System.Drawing.Point(4, 1130)
         Me.pnlZESEI_SYOCHI.Margin = New System.Windows.Forms.Padding(2)
@@ -2574,6 +2574,42 @@ Partial Class FrmG0012
         Me.pnlZESEI_SYOCHI.Padding = New System.Windows.Forms.Padding(2)
         Me.pnlZESEI_SYOCHI.Size = New System.Drawing.Size(1209, 126)
         Me.pnlZESEI_SYOCHI.TabIndex = 313
+        '
+        'mtxGOKI
+        '
+        Me.mtxGOKI.AcceptsReturn = True
+        Me.mtxGOKI.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxGOKI.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxGOKI.InputRequired = False
+        Me.mtxGOKI.Location = New System.Drawing.Point(189, 69)
+        Me.mtxGOKI.MaxByteLength = 80
+        Me.mtxGOKI.MaxLength = 40
+        Me.mtxGOKI.Multiline = True
+        Me.mtxGOKI.Name = "mtxGOKI"
+        Me.mtxGOKI.SelectAllText = False
+        Me.mtxGOKI.ShowRemainingChars = True
+        Me.mtxGOKI.Size = New System.Drawing.Size(286, 48)
+        Me.mtxGOKI.TabIndex = 317
+        Me.mtxGOKI.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxGOKI.WatermarkText = Nothing
+        '
+        'mtxLOT
+        '
+        Me.mtxLOT.BackColor = System.Drawing.SystemColors.Window
+        Me.mtxLOT.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxLOT.InputRequired = False
+        Me.mtxLOT.Location = New System.Drawing.Point(624, 7)
+        Me.mtxLOT.MaxByteLength = 400
+        Me.mtxLOT.MaxLength = 200
+        Me.mtxLOT.Multiline = True
+        Me.mtxLOT.Name = "mtxLOT"
+        Me.mtxLOT.SelectAllText = False
+        Me.mtxLOT.ShowRemainingChars = True
+        Me.mtxLOT.Size = New System.Drawing.Size(286, 24)
+        Me.mtxLOT.TabIndex = 316
+        Me.mtxLOT.Visible = False
+        Me.mtxLOT.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxLOT.WatermarkText = Nothing
         '
         'lblZESEI_SYOCHIFlame
         '
@@ -2665,7 +2701,7 @@ Partial Class FrmG0012
         Me.fpnlSYOSAI_FILE_PATH.Controls.Add(Me.LinkLabel6)
         Me.fpnlSYOSAI_FILE_PATH.Controls.Add(Me.LinkLabel7)
         Me.fpnlSYOSAI_FILE_PATH.Controls.Add(Me.LinkLabel8)
-        Me.fpnlSYOSAI_FILE_PATH.Location = New System.Drawing.Point(518, 33)
+        Me.fpnlSYOSAI_FILE_PATH.Location = New System.Drawing.Point(624, 33)
         Me.fpnlSYOSAI_FILE_PATH.Name = "fpnlSYOSAI_FILE_PATH"
         Me.fpnlSYOSAI_FILE_PATH.Size = New System.Drawing.Size(391, 22)
         Me.fpnlSYOSAI_FILE_PATH.TabIndex = 274
@@ -2830,7 +2866,7 @@ Partial Class FrmG0012
         '
         Me.btnOpenSYOSAI_FILE_PATH.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnOpenSYOSAI_FILE_PATH.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.btnOpenSYOSAI_FILE_PATH.Location = New System.Drawing.Point(915, 32)
+        Me.btnOpenSYOSAI_FILE_PATH.Location = New System.Drawing.Point(1021, 32)
         Me.btnOpenSYOSAI_FILE_PATH.Name = "btnOpenSYOSAI_FILE_PATH"
         Me.btnOpenSYOSAI_FILE_PATH.Size = New System.Drawing.Size(54, 24)
         Me.btnOpenSYOSAI_FILE_PATH.TabIndex = 273
@@ -2839,7 +2875,7 @@ Partial Class FrmG0012
         'Label42
         '
         Me.Label42.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label42.Location = New System.Drawing.Point(678, 97)
+        Me.Label42.Location = New System.Drawing.Point(784, 97)
         Me.Label42.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label42.Name = "Label42"
         Me.Label42.Size = New System.Drawing.Size(127, 15)
@@ -2851,7 +2887,7 @@ Partial Class FrmG0012
         '
         Me.Label75.AutoSize = True
         Me.Label75.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label75.Location = New System.Drawing.Point(398, 36)
+        Me.Label75.Location = New System.Drawing.Point(504, 36)
         Me.Label75.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label75.Name = "Label75"
         Me.Label75.Size = New System.Drawing.Size(114, 15)
@@ -2872,7 +2908,7 @@ Partial Class FrmG0012
         Me.cmbKENSA_GL_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbKENSA_GL_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKENSA_GL_TANTO.IsSelected = False
-        Me.cmbKENSA_GL_TANTO.Location = New System.Drawing.Point(518, 92)
+        Me.cmbKENSA_GL_TANTO.Location = New System.Drawing.Point(624, 92)
         Me.cmbKENSA_GL_TANTO.Name = "cmbKENSA_GL_TANTO"
         Me.cmbKENSA_GL_TANTO.NullValue = " "
         Me.cmbKENSA_GL_TANTO.Size = New System.Drawing.Size(154, 25)
@@ -2884,7 +2920,7 @@ Partial Class FrmG0012
         '
         Me.dtKENSA_TOROKU.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.dtKENSA_TOROKU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtKENSA_TOROKU.Location = New System.Drawing.Point(811, 62)
+        Me.dtKENSA_TOROKU.Location = New System.Drawing.Point(917, 62)
         Me.dtKENSA_TOROKU.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtKENSA_TOROKU.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtKENSA_TOROKU.MinimumSize = New System.Drawing.Size(98, 24)
@@ -2898,10 +2934,10 @@ Partial Class FrmG0012
         'lblKENSA_GL_TANTO
         '
         Me.lblKENSA_GL_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblKENSA_GL_TANTO.Location = New System.Drawing.Point(378, 97)
+        Me.lblKENSA_GL_TANTO.Location = New System.Drawing.Point(507, 97)
         Me.lblKENSA_GL_TANTO.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.lblKENSA_GL_TANTO.Name = "lblKENSA_GL_TANTO"
-        Me.lblKENSA_GL_TANTO.Size = New System.Drawing.Size(134, 15)
+        Me.lblKENSA_GL_TANTO.Size = New System.Drawing.Size(111, 16)
         Me.lblKENSA_GL_TANTO.TabIndex = 286
         Me.lblKENSA_GL_TANTO.Text = "åüç∏GL:"
         Me.lblKENSA_GL_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2921,7 +2957,7 @@ Partial Class FrmG0012
         '
         Me.dtKENSA_GL_TOROKU.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.dtKENSA_GL_TOROKU.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtKENSA_GL_TOROKU.Location = New System.Drawing.Point(811, 93)
+        Me.dtKENSA_GL_TOROKU.Location = New System.Drawing.Point(917, 93)
         Me.dtKENSA_GL_TOROKU.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtKENSA_GL_TOROKU.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtKENSA_GL_TOROKU.MinimumSize = New System.Drawing.Size(98, 24)
@@ -2935,10 +2971,10 @@ Partial Class FrmG0012
         'lblKENSA_TANTO
         '
         Me.lblKENSA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblKENSA_TANTO.Location = New System.Drawing.Point(378, 66)
+        Me.lblKENSA_TANTO.Location = New System.Drawing.Point(507, 66)
         Me.lblKENSA_TANTO.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.lblKENSA_TANTO.Name = "lblKENSA_TANTO"
-        Me.lblKENSA_TANTO.Size = New System.Drawing.Size(134, 15)
+        Me.lblKENSA_TANTO.Size = New System.Drawing.Size(111, 19)
         Me.lblKENSA_TANTO.TabIndex = 283
         Me.lblKENSA_TANTO.Text = "åüç∏àı:"
         Me.lblKENSA_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2946,7 +2982,7 @@ Partial Class FrmG0012
         'Label52
         '
         Me.Label52.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label52.Location = New System.Drawing.Point(678, 69)
+        Me.Label52.Location = New System.Drawing.Point(784, 69)
         Me.Label52.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label52.Name = "Label52"
         Me.Label52.Size = New System.Drawing.Size(127, 15)
@@ -2957,7 +2993,7 @@ Partial Class FrmG0012
         'Label45
         '
         Me.Label45.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label45.Location = New System.Drawing.Point(6, 98)
+        Me.Label45.Location = New System.Drawing.Point(441, 10)
         Me.Label45.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label45.Name = "Label45"
         Me.Label45.Size = New System.Drawing.Size(175, 15)
@@ -2965,21 +3001,6 @@ Partial Class FrmG0012
         Me.Label45.Text = "å¯â ämîFëŒè€LOT:"
         Me.Label45.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label45.Visible = False
-        '
-        'mtxLOT
-        '
-        Me.mtxLOT.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxLOT.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.mtxLOT.InputRequired = False
-        Me.mtxLOT.Location = New System.Drawing.Point(189, 93)
-        Me.mtxLOT.MaxByteLength = 300
-        Me.mtxLOT.Name = "mtxLOT"
-        Me.mtxLOT.SelectAllText = False
-        Me.mtxLOT.Size = New System.Drawing.Size(156, 24)
-        Me.mtxLOT.TabIndex = 278
-        Me.mtxLOT.Visible = False
-        Me.mtxLOT.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxLOT.WatermarkText = Nothing
         '
         'cmbKENSA_TANTO
         '
@@ -2994,27 +3015,13 @@ Partial Class FrmG0012
         Me.cmbKENSA_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbKENSA_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKENSA_TANTO.IsSelected = False
-        Me.cmbKENSA_TANTO.Location = New System.Drawing.Point(518, 61)
+        Me.cmbKENSA_TANTO.Location = New System.Drawing.Point(624, 61)
         Me.cmbKENSA_TANTO.Name = "cmbKENSA_TANTO"
         Me.cmbKENSA_TANTO.NullValue = " "
         Me.cmbKENSA_TANTO.Size = New System.Drawing.Size(154, 25)
         Me.cmbKENSA_TANTO.TabIndex = 276
         Me.cmbKENSA_TANTO.Text = "(ëIë)"
         Me.cmbKENSA_TANTO.ValueMember = "VALUE"
-        '
-        'mtxGOKI
-        '
-        Me.mtxGOKI.BackColor = System.Drawing.SystemColors.Window
-        Me.mtxGOKI.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.mtxGOKI.InputRequired = False
-        Me.mtxGOKI.Location = New System.Drawing.Point(189, 65)
-        Me.mtxGOKI.MaxByteLength = 300
-        Me.mtxGOKI.Name = "mtxGOKI"
-        Me.mtxGOKI.SelectAllText = False
-        Me.mtxGOKI.Size = New System.Drawing.Size(156, 24)
-        Me.mtxGOKI.TabIndex = 275
-        Me.mtxGOKI.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxGOKI.WatermarkText = Nothing
         '
         'pnlSYOCHI_KIROKU
         '
@@ -3498,7 +3505,7 @@ Partial Class FrmG0012
         Me.cmbST01_DestTANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST01_DestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST01_DestTANTO.IsSelected = False
-        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 32767)
+        Me.cmbST01_DestTANTO.Location = New System.Drawing.Point(739, 32745)
         Me.cmbST01_DestTANTO.Name = "cmbST01_DestTANTO"
         Me.cmbST01_DestTANTO.NullValue = " "
         Me.cmbST01_DestTANTO.Size = New System.Drawing.Size(154, 25)
@@ -3512,7 +3519,7 @@ Partial Class FrmG0012
         Me.mtxST01_NextStageName.BackColor = System.Drawing.SystemColors.Window
         Me.mtxST01_NextStageName.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_NextStageName.InputRequired = False
-        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 32767)
+        Me.mtxST01_NextStageName.Location = New System.Drawing.Point(359, 32745)
         Me.mtxST01_NextStageName.MaxByteLength = 0
         Me.mtxST01_NextStageName.Name = "mtxST01_NextStageName"
         Me.mtxST01_NextStageName.SelectAllText = False
@@ -3526,7 +3533,7 @@ Partial Class FrmG0012
         Me.Label123.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label123.AutoSize = True
         Me.Label123.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label123.Location = New System.Drawing.Point(255, 32767)
+        Me.Label123.Location = New System.Drawing.Point(255, 32745)
         Me.Label123.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label123.Name = "Label123"
         Me.Label123.Size = New System.Drawing.Size(98, 15)
@@ -3539,7 +3546,7 @@ Partial Class FrmG0012
         Me.Label124.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label124.AutoSize = True
         Me.Label124.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label124.Location = New System.Drawing.Point(661, 32767)
+        Me.Label124.Location = New System.Drawing.Point(661, 32745)
         Me.Label124.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label124.Name = "Label124"
         Me.Label124.Size = New System.Drawing.Size(72, 15)
@@ -3552,7 +3559,7 @@ Partial Class FrmG0012
         Me.Label139.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label139.AutoSize = True
         Me.Label139.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label139.Location = New System.Drawing.Point(10, 32767)
+        Me.Label139.Location = New System.Drawing.Point(10, 32745)
         Me.Label139.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(102, 15)
@@ -3566,7 +3573,7 @@ Partial Class FrmG0012
         Me.mtxST01_UPD_YMD.BackColor = System.Drawing.Color.White
         Me.mtxST01_UPD_YMD.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxST01_UPD_YMD.InputRequired = False
-        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 32767)
+        Me.mtxST01_UPD_YMD.Location = New System.Drawing.Point(118, 32745)
         Me.mtxST01_UPD_YMD.MaxByteLength = 0
         Me.mtxST01_UPD_YMD.Name = "mtxST01_UPD_YMD"
         Me.mtxST01_UPD_YMD.SelectAllText = False
@@ -4175,9 +4182,7 @@ Partial Class FrmG0012
     Friend WithEvents lblKENSA_TANTO As Label
     Friend WithEvents Label52 As Label
     Friend WithEvents Label45 As Label
-    Friend WithEvents mtxLOT As MaskedTextBoxEx
     Friend WithEvents cmbKENSA_TANTO As ComboboxEx
-    Friend WithEvents mtxGOKI As MaskedTextBoxEx
     Friend WithEvents lblSTAGE08 As Label
     Friend WithEvents pnlTEMP_SIRYO As PanelEx
     Friend WithEvents fpnltmpFile2 As FlowLayoutPanel
@@ -4269,4 +4274,6 @@ Partial Class FrmG0012
     Friend WithEvents rbtnFUTEKIGO_YOUIN_F As RadioButton
     Friend WithEvents InfoToolTip As ToolTip
     Friend WithEvents PicBox As PictureBox
+    Friend WithEvents mtxLOT As TextBoxEx
+    Friend WithEvents mtxGOKI As TextBoxEx
 End Class

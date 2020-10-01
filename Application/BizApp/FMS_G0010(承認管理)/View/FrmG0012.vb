@@ -3511,7 +3511,7 @@ Public Class FrmG0012
     End Sub
 
     Private Sub MtxGOKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxGOKI.Validating
-        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        Dim mtx As TextBoxEx = DirectCast(sender, TextBoxEx)
         If IsCheckRequired Then
             IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, mtx.ReadOnly OrElse Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置有効性レビュー：号機・LOT"))
         End If
