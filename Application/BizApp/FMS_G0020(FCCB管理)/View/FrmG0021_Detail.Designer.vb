@@ -75,6 +75,46 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel3 = New C1.Win.C1SplitContainer.C1SplitterPanel()
         Me.flxDATA_4 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Flx4_DS = New System.Windows.Forms.BindingSource(Me.components)
+        Me.C1SplitterPanel_YOHI = New C1.Win.C1SplitContainer.C1SplitterPanel()
+        Me.pnlTANTO_YOHI = New System.Windows.Forms.TableLayoutPanel()
+        Me.CheckBox19 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox18 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox17 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox16 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox15 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox14 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox13 = New System.Windows.Forms.CheckBox()
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F = New System.Windows.Forms.CheckBox()
+        Me.CheckBox11 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox10 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox9 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox8 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox7 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox6 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_T = New System.Windows.Forms.CheckBox()
+        Me.chkSYOCHI_GM_TANTO_F = New System.Windows.Forms.CheckBox()
+        Me.chkSYOCHI_GM_TANTO_T = New System.Windows.Forms.CheckBox()
+        Me.cmbSYOCHI_GM_TANTO_YOHI = New JMS_COMMON.ComboboxEx()
+        Me.lblSYOCHI_GM_TANTO_YOHI = New System.Windows.Forms.Label()
+        Me.lblSYOCHI_SEKKEI_TANTO_YOHI = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI = New JMS_COMMON.ComboboxEx()
+        Me.ComboboxEx3 = New JMS_COMMON.ComboboxEx()
+        Me.ComboboxEx4 = New JMS_COMMON.ComboboxEx()
+        Me.ComboboxEx5 = New JMS_COMMON.ComboboxEx()
+        Me.ComboboxEx6 = New JMS_COMMON.ComboboxEx()
+        Me.ComboboxEx7 = New JMS_COMMON.ComboboxEx()
+        Me.ComboboxEx8 = New JMS_COMMON.ComboboxEx()
+        Me.ComboboxEx9 = New JMS_COMMON.ComboboxEx()
+        Me.btnUnnecessary = New System.Windows.Forms.Button()
+        Me.btnRequired = New System.Windows.Forms.Button()
         Me.C1SplitterPanel4 = New C1.Win.C1SplitContainer.C1SplitterPanel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.cmbSYOCHI_GM_TANTO = New JMS_COMMON.ComboboxEx()
@@ -120,10 +160,6 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel5 = New C1.Win.C1SplitContainer.C1SplitterPanel()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.lblCurrentStageName = New System.Windows.Forms.Label()
-        Me.C1SplitterPanel_YOHI = New C1.Win.C1SplitContainer.C1SplitterPanel()
-        Me.btnRequired = New System.Windows.Forms.Button()
-        Me.btnUnnecessary = New System.Windows.Forms.Button()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEx2.SuspendLayout()
@@ -142,11 +178,12 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel3.SuspendLayout()
         CType(Me.flxDATA_4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Flx4_DS, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.C1SplitterPanel_YOHI.SuspendLayout()
+        Me.pnlTANTO_YOHI.SuspendLayout()
         Me.C1SplitterPanel4.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.PanelEx1.SuspendLayout()
         CType(Me.flxDATA_5, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.C1SplitterPanel_YOHI.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -254,7 +291,7 @@ Partial Class FrmG0021_Detail
         Me.cmbBUHIN_BANGO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUHIN_BANGO.FormattingEnabled = True
         Me.cmbBUHIN_BANGO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbBUHIN_BANGO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbBUHIN_BANGO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbBUHIN_BANGO.IsSelected = False
         Me.cmbBUHIN_BANGO.Location = New System.Drawing.Point(103, 63)
         Me.cmbBUHIN_BANGO.Name = "cmbBUHIN_BANGO"
@@ -276,7 +313,7 @@ Partial Class FrmG0021_Detail
         Me.cmbKISYU.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbKISYU.FormattingEnabled = True
         Me.cmbKISYU.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbKISYU.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbKISYU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbKISYU.IsSelected = False
         Me.cmbKISYU.Location = New System.Drawing.Point(103, 33)
         Me.cmbKISYU.Name = "cmbKISYU"
@@ -396,7 +433,7 @@ Partial Class FrmG0021_Detail
         Me.cmbHINMEI.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbHINMEI.FormattingEnabled = True
         Me.cmbHINMEI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbHINMEI.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbHINMEI.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbHINMEI.IsSelected = False
         Me.cmbHINMEI.Location = New System.Drawing.Point(103, 93)
         Me.cmbHINMEI.Name = "cmbHINMEI"
@@ -500,7 +537,7 @@ Partial Class FrmG0021_Detail
         Me.cmbSYANAI_CD.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYANAI_CD.FormattingEnabled = True
         Me.cmbSYANAI_CD.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbSYANAI_CD.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSYANAI_CD.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbSYANAI_CD.IsSelected = False
         Me.cmbSYANAI_CD.Location = New System.Drawing.Point(523, 63)
         Me.cmbSYANAI_CD.Name = "cmbSYANAI_CD"
@@ -958,7 +995,7 @@ Partial Class FrmG0021_Detail
         Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label11.Location = New System.Drawing.Point(255, 32917)
+        Me.Label11.Location = New System.Drawing.Point(255, 32767)
         Me.Label11.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(98, 15)
@@ -971,7 +1008,7 @@ Partial Class FrmG0021_Detail
         Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label12.Location = New System.Drawing.Point(661, 32917)
+        Me.Label12.Location = New System.Drawing.Point(661, 32767)
         Me.Label12.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(72, 15)
@@ -984,7 +1021,7 @@ Partial Class FrmG0021_Detail
         Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label13.Location = New System.Drawing.Point(10, 32917)
+        Me.Label13.Location = New System.Drawing.Point(10, 32767)
         Me.Label13.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(102, 15)
@@ -1020,17 +1057,18 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel1.AutoScroll = True
         Me.C1SplitterPanel1.Collapsible = True
         Me.C1SplitterPanel1.Controls.Add(Me.flxDATA_2)
-        Me.C1SplitterPanel1.Height = 680
+        Me.C1SplitterPanel1.Height = 710
         Me.C1SplitterPanel1.Location = New System.Drawing.Point(1, 22)
         Me.C1SplitterPanel1.MinHeight = 670
         Me.C1SplitterPanel1.Name = "C1SplitterPanel1"
         Me.C1SplitterPanel1.ResizeWhileDragging = True
-        Me.C1SplitterPanel1.Size = New System.Drawing.Size(1207, 648)
+        Me.C1SplitterPanel1.Size = New System.Drawing.Size(1207, 678)
         Me.C1SplitterPanel1.TabIndex = 0
         Me.C1SplitterPanel1.Text = "②要処置事項調査"
         '
         'flxDATA_2
         '
+        Me.flxDATA_2.AllowAddNew = True
         Me.flxDATA_2.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
         Me.flxDATA_2.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
         Me.flxDATA_2.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
@@ -1051,7 +1089,7 @@ Partial Class FrmG0021_Detail
         Me.flxDATA_2.Rows.Count = 1
         Me.flxDATA_2.Rows.DefaultSize = 18
         Me.flxDATA_2.ShowCursor = True
-        Me.flxDATA_2.Size = New System.Drawing.Size(1207, 648)
+        Me.flxDATA_2.Size = New System.Drawing.Size(1207, 678)
         Me.flxDATA_2.StyleInfo = resources.GetString("flxDATA_2.StyleInfo")
         Me.flxDATA_2.TabIndex = 329
         Me.flxDATA_2.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
@@ -1067,7 +1105,7 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel2.Controls.Add(Me.flxDATA_3)
         Me.C1SplitterPanel2.Height = 140
         Me.C1SplitterPanel2.KeepRelativeSize = False
-        Me.C1SplitterPanel2.Location = New System.Drawing.Point(1, 706)
+        Me.C1SplitterPanel2.Location = New System.Drawing.Point(1, 736)
         Me.C1SplitterPanel2.MinHeight = 140
         Me.C1SplitterPanel2.Name = "C1SplitterPanel2"
         Me.C1SplitterPanel2.ResizeWhileDragging = True
@@ -1107,7 +1145,7 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel3.Collapsible = True
         Me.C1SplitterPanel3.Controls.Add(Me.flxDATA_4)
         Me.C1SplitterPanel3.Height = 198
-        Me.C1SplitterPanel3.Location = New System.Drawing.Point(1, 850)
+        Me.C1SplitterPanel3.Location = New System.Drawing.Point(1, 880)
         Me.C1SplitterPanel3.MinHeight = 198
         Me.C1SplitterPanel3.Name = "C1SplitterPanel3"
         Me.C1SplitterPanel3.ResizeWhileDragging = True
@@ -1140,6 +1178,666 @@ Partial Class FrmG0021_Detail
         'Flx4_DS
         '
         Me.Flx4_DS.DataSource = GetType(MODEL.D011_FCCB_SUB_SIKAKE_BUHIN)
+        '
+        'C1SplitterPanel_YOHI
+        '
+        Me.C1SplitterPanel_YOHI.Controls.Add(Me.pnlTANTO_YOHI)
+        Me.C1SplitterPanel_YOHI.Controls.Add(Me.btnUnnecessary)
+        Me.C1SplitterPanel_YOHI.Controls.Add(Me.btnRequired)
+        Me.C1SplitterPanel_YOHI.Height = 120
+        Me.C1SplitterPanel_YOHI.Location = New System.Drawing.Point(1, 1082)
+        Me.C1SplitterPanel_YOHI.MinHeight = 120
+        Me.C1SplitterPanel_YOHI.Name = "C1SplitterPanel_YOHI"
+        Me.C1SplitterPanel_YOHI.Size = New System.Drawing.Size(1207, 99)
+        Me.C1SplitterPanel_YOHI.SizeRatio = 23.346R
+        Me.C1SplitterPanel_YOHI.TabIndex = 5
+        Me.C1SplitterPanel_YOHI.Text = "協議要否判定"
+        '
+        'pnlTANTO_YOHI
+        '
+        Me.pnlTANTO_YOHI.ColumnCount = 19
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
+        Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.pnlTANTO_YOHI.Controls.Add(Me.CheckBox19, 17, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.CheckBox18, 15, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.CheckBox17, 13, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.CheckBox16, 11, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.CheckBox15, 9, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.CheckBox14, 7, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.CheckBox13, 5, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F, 3, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.CheckBox11, 16, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.CheckBox10, 14, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.CheckBox9, 12, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.CheckBox8, 10, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.CheckBox7, 8, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.CheckBox6, 6, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.CheckBox5, 4, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.chkSYOCHI_SEKKEI_TANTO_YOHI_T, 2, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.chkSYOCHI_GM_TANTO_F, 1, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.chkSYOCHI_GM_TANTO_T, 0, 2)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.cmbSYOCHI_GM_TANTO_YOHI, 0, 1)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.lblSYOCHI_GM_TANTO_YOHI, 0, 0)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.lblSYOCHI_SEKKEI_TANTO_YOHI, 2, 0)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.Label23, 4, 0)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.Label24, 6, 0)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.Label25, 8, 0)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.Label26, 10, 0)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.Label27, 12, 0)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.Label30, 14, 0)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.Label35, 16, 0)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.cmbSYOCHI_SEKKEI_TANTO_YOHI, 2, 1)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.ComboboxEx3, 4, 1)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.ComboboxEx4, 6, 1)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.ComboboxEx5, 8, 1)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.ComboboxEx6, 10, 1)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.ComboboxEx7, 12, 1)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.ComboboxEx8, 14, 1)
+        Me.pnlTANTO_YOHI.Controls.Add(Me.ComboboxEx9, 16, 1)
+        Me.pnlTANTO_YOHI.Location = New System.Drawing.Point(246, 6)
+        Me.pnlTANTO_YOHI.Name = "pnlTANTO_YOHI"
+        Me.pnlTANTO_YOHI.RowCount = 3
+        Me.pnlTANTO_YOHI.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.pnlTANTO_YOHI.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.pnlTANTO_YOHI.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.pnlTANTO_YOHI.Size = New System.Drawing.Size(962, 83)
+        Me.pnlTANTO_YOHI.TabIndex = 271
+        '
+        'CheckBox19
+        '
+        Me.CheckBox19.Appearance = System.Windows.Forms.Appearance.Button
+        Me.CheckBox19.AutoSize = True
+        Me.CheckBox19.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CheckBox19.Location = New System.Drawing.Point(904, 53)
+        Me.CheckBox19.Name = "CheckBox19"
+        Me.CheckBox19.Size = New System.Drawing.Size(47, 27)
+        Me.CheckBox19.TabIndex = 274
+        Me.CheckBox19.Text = "否"
+        Me.CheckBox19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.CheckBox19.UseVisualStyleBackColor = True
+        '
+        'CheckBox18
+        '
+        Me.CheckBox18.Appearance = System.Windows.Forms.Appearance.Button
+        Me.CheckBox18.AutoSize = True
+        Me.CheckBox18.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CheckBox18.Location = New System.Drawing.Point(798, 53)
+        Me.CheckBox18.Name = "CheckBox18"
+        Me.CheckBox18.Size = New System.Drawing.Size(47, 27)
+        Me.CheckBox18.TabIndex = 274
+        Me.CheckBox18.Text = "否"
+        Me.CheckBox18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.CheckBox18.UseVisualStyleBackColor = True
+        '
+        'CheckBox17
+        '
+        Me.CheckBox17.Appearance = System.Windows.Forms.Appearance.Button
+        Me.CheckBox17.AutoSize = True
+        Me.CheckBox17.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CheckBox17.Location = New System.Drawing.Point(692, 53)
+        Me.CheckBox17.Name = "CheckBox17"
+        Me.CheckBox17.Size = New System.Drawing.Size(47, 27)
+        Me.CheckBox17.TabIndex = 274
+        Me.CheckBox17.Text = "否"
+        Me.CheckBox17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.CheckBox17.UseVisualStyleBackColor = True
+        '
+        'CheckBox16
+        '
+        Me.CheckBox16.Appearance = System.Windows.Forms.Appearance.Button
+        Me.CheckBox16.AutoSize = True
+        Me.CheckBox16.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CheckBox16.Location = New System.Drawing.Point(586, 53)
+        Me.CheckBox16.Name = "CheckBox16"
+        Me.CheckBox16.Size = New System.Drawing.Size(47, 27)
+        Me.CheckBox16.TabIndex = 274
+        Me.CheckBox16.Text = "否"
+        Me.CheckBox16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.CheckBox16.UseVisualStyleBackColor = True
+        '
+        'CheckBox15
+        '
+        Me.CheckBox15.Appearance = System.Windows.Forms.Appearance.Button
+        Me.CheckBox15.AutoSize = True
+        Me.CheckBox15.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CheckBox15.Location = New System.Drawing.Point(480, 53)
+        Me.CheckBox15.Name = "CheckBox15"
+        Me.CheckBox15.Size = New System.Drawing.Size(47, 27)
+        Me.CheckBox15.TabIndex = 274
+        Me.CheckBox15.Text = "否"
+        Me.CheckBox15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.CheckBox15.UseVisualStyleBackColor = True
+        '
+        'CheckBox14
+        '
+        Me.CheckBox14.Appearance = System.Windows.Forms.Appearance.Button
+        Me.CheckBox14.AutoSize = True
+        Me.CheckBox14.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CheckBox14.Location = New System.Drawing.Point(374, 53)
+        Me.CheckBox14.Name = "CheckBox14"
+        Me.CheckBox14.Size = New System.Drawing.Size(47, 27)
+        Me.CheckBox14.TabIndex = 274
+        Me.CheckBox14.Text = "否"
+        Me.CheckBox14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.CheckBox14.UseVisualStyleBackColor = True
+        '
+        'CheckBox13
+        '
+        Me.CheckBox13.Appearance = System.Windows.Forms.Appearance.Button
+        Me.CheckBox13.AutoSize = True
+        Me.CheckBox13.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CheckBox13.Location = New System.Drawing.Point(268, 53)
+        Me.CheckBox13.Name = "CheckBox13"
+        Me.CheckBox13.Size = New System.Drawing.Size(47, 27)
+        Me.CheckBox13.TabIndex = 274
+        Me.CheckBox13.Text = "否"
+        Me.CheckBox13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.CheckBox13.UseVisualStyleBackColor = True
+        '
+        'chkSYOCHI_SEKKEI_TANTO_YOHI_F
+        '
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F.AutoSize = True
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F.Location = New System.Drawing.Point(162, 53)
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F.Name = "chkSYOCHI_SEKKEI_TANTO_YOHI_F"
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F.Size = New System.Drawing.Size(47, 27)
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F.TabIndex = 274
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F.Text = "否"
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F.UseVisualStyleBackColor = True
+        '
+        'CheckBox11
+        '
+        Me.CheckBox11.Appearance = System.Windows.Forms.Appearance.Button
+        Me.CheckBox11.AutoSize = True
+        Me.CheckBox11.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CheckBox11.Location = New System.Drawing.Point(851, 53)
+        Me.CheckBox11.Name = "CheckBox11"
+        Me.CheckBox11.Size = New System.Drawing.Size(47, 27)
+        Me.CheckBox11.TabIndex = 273
+        Me.CheckBox11.Text = "要"
+        Me.CheckBox11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.CheckBox11.UseVisualStyleBackColor = True
+        '
+        'CheckBox10
+        '
+        Me.CheckBox10.Appearance = System.Windows.Forms.Appearance.Button
+        Me.CheckBox10.AutoSize = True
+        Me.CheckBox10.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CheckBox10.Location = New System.Drawing.Point(745, 53)
+        Me.CheckBox10.Name = "CheckBox10"
+        Me.CheckBox10.Size = New System.Drawing.Size(47, 27)
+        Me.CheckBox10.TabIndex = 273
+        Me.CheckBox10.Text = "要"
+        Me.CheckBox10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.CheckBox10.UseVisualStyleBackColor = True
+        '
+        'CheckBox9
+        '
+        Me.CheckBox9.Appearance = System.Windows.Forms.Appearance.Button
+        Me.CheckBox9.AutoSize = True
+        Me.CheckBox9.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CheckBox9.Location = New System.Drawing.Point(639, 53)
+        Me.CheckBox9.Name = "CheckBox9"
+        Me.CheckBox9.Size = New System.Drawing.Size(47, 27)
+        Me.CheckBox9.TabIndex = 273
+        Me.CheckBox9.Text = "要"
+        Me.CheckBox9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.CheckBox9.UseVisualStyleBackColor = True
+        '
+        'CheckBox8
+        '
+        Me.CheckBox8.Appearance = System.Windows.Forms.Appearance.Button
+        Me.CheckBox8.AutoSize = True
+        Me.CheckBox8.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CheckBox8.Location = New System.Drawing.Point(533, 53)
+        Me.CheckBox8.Name = "CheckBox8"
+        Me.CheckBox8.Size = New System.Drawing.Size(47, 27)
+        Me.CheckBox8.TabIndex = 273
+        Me.CheckBox8.Text = "要"
+        Me.CheckBox8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.CheckBox8.UseVisualStyleBackColor = True
+        '
+        'CheckBox7
+        '
+        Me.CheckBox7.Appearance = System.Windows.Forms.Appearance.Button
+        Me.CheckBox7.AutoSize = True
+        Me.CheckBox7.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CheckBox7.Location = New System.Drawing.Point(427, 53)
+        Me.CheckBox7.Name = "CheckBox7"
+        Me.CheckBox7.Size = New System.Drawing.Size(47, 27)
+        Me.CheckBox7.TabIndex = 273
+        Me.CheckBox7.Text = "要"
+        Me.CheckBox7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.CheckBox7.UseVisualStyleBackColor = True
+        '
+        'CheckBox6
+        '
+        Me.CheckBox6.Appearance = System.Windows.Forms.Appearance.Button
+        Me.CheckBox6.AutoSize = True
+        Me.CheckBox6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CheckBox6.Location = New System.Drawing.Point(321, 53)
+        Me.CheckBox6.Name = "CheckBox6"
+        Me.CheckBox6.Size = New System.Drawing.Size(47, 27)
+        Me.CheckBox6.TabIndex = 273
+        Me.CheckBox6.Text = "要"
+        Me.CheckBox6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.CheckBox6.UseVisualStyleBackColor = True
+        '
+        'CheckBox5
+        '
+        Me.CheckBox5.Appearance = System.Windows.Forms.Appearance.Button
+        Me.CheckBox5.AutoSize = True
+        Me.CheckBox5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CheckBox5.Location = New System.Drawing.Point(215, 53)
+        Me.CheckBox5.Name = "CheckBox5"
+        Me.CheckBox5.Size = New System.Drawing.Size(47, 27)
+        Me.CheckBox5.TabIndex = 273
+        Me.CheckBox5.Text = "要"
+        Me.CheckBox5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.CheckBox5.UseVisualStyleBackColor = True
+        '
+        'chkSYOCHI_SEKKEI_TANTO_YOHI_T
+        '
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_T.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_T.AutoSize = True
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_T.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_T.Location = New System.Drawing.Point(109, 53)
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_T.Name = "chkSYOCHI_SEKKEI_TANTO_YOHI_T"
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_T.Size = New System.Drawing.Size(47, 27)
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_T.TabIndex = 273
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_T.Text = "要"
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_T.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkSYOCHI_SEKKEI_TANTO_YOHI_T.UseVisualStyleBackColor = True
+        '
+        'chkSYOCHI_GM_TANTO_F
+        '
+        Me.chkSYOCHI_GM_TANTO_F.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkSYOCHI_GM_TANTO_F.AutoSize = True
+        Me.chkSYOCHI_GM_TANTO_F.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkSYOCHI_GM_TANTO_F.Location = New System.Drawing.Point(56, 53)
+        Me.chkSYOCHI_GM_TANTO_F.Name = "chkSYOCHI_GM_TANTO_F"
+        Me.chkSYOCHI_GM_TANTO_F.Size = New System.Drawing.Size(47, 27)
+        Me.chkSYOCHI_GM_TANTO_F.TabIndex = 273
+        Me.chkSYOCHI_GM_TANTO_F.Text = "否"
+        Me.chkSYOCHI_GM_TANTO_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkSYOCHI_GM_TANTO_F.UseVisualStyleBackColor = True
+        '
+        'chkSYOCHI_GM_TANTO_T
+        '
+        Me.chkSYOCHI_GM_TANTO_T.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkSYOCHI_GM_TANTO_T.AutoSize = True
+        Me.chkSYOCHI_GM_TANTO_T.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkSYOCHI_GM_TANTO_T.Location = New System.Drawing.Point(3, 53)
+        Me.chkSYOCHI_GM_TANTO_T.Name = "chkSYOCHI_GM_TANTO_T"
+        Me.chkSYOCHI_GM_TANTO_T.Size = New System.Drawing.Size(47, 27)
+        Me.chkSYOCHI_GM_TANTO_T.TabIndex = 272
+        Me.chkSYOCHI_GM_TANTO_T.Text = "要"
+        Me.chkSYOCHI_GM_TANTO_T.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkSYOCHI_GM_TANTO_T.UseVisualStyleBackColor = True
+        '
+        'cmbSYOCHI_GM_TANTO_YOHI
+        '
+        Me.cmbSYOCHI_GM_TANTO_YOHI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYOCHI_GM_TANTO_YOHI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSYOCHI_GM_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Window
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.cmbSYOCHI_GM_TANTO_YOHI, 2)
+        Me.cmbSYOCHI_GM_TANTO_YOHI.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSYOCHI_GM_TANTO_YOHI.DisplayMember = "DISP"
+        Me.cmbSYOCHI_GM_TANTO_YOHI.DropDownWidth = 140
+        Me.cmbSYOCHI_GM_TANTO_YOHI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSYOCHI_GM_TANTO_YOHI.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSYOCHI_GM_TANTO_YOHI.FormattingEnabled = True
+        Me.cmbSYOCHI_GM_TANTO_YOHI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbSYOCHI_GM_TANTO_YOHI.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbSYOCHI_GM_TANTO_YOHI.IsSelected = False
+        Me.cmbSYOCHI_GM_TANTO_YOHI.Location = New System.Drawing.Point(3, 23)
+        Me.cmbSYOCHI_GM_TANTO_YOHI.Name = "cmbSYOCHI_GM_TANTO_YOHI"
+        Me.cmbSYOCHI_GM_TANTO_YOHI.NullValue = " "
+        Me.cmbSYOCHI_GM_TANTO_YOHI.Size = New System.Drawing.Size(100, 25)
+        Me.cmbSYOCHI_GM_TANTO_YOHI.TabIndex = 1
+        Me.cmbSYOCHI_GM_TANTO_YOHI.Text = "(選択)"
+        Me.cmbSYOCHI_GM_TANTO_YOHI.ValueMember = "VALUE"
+        '
+        'lblSYOCHI_GM_TANTO_YOHI
+        '
+        Me.lblSYOCHI_GM_TANTO_YOHI.BackColor = System.Drawing.Color.LemonChiffon
+        Me.lblSYOCHI_GM_TANTO_YOHI.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.lblSYOCHI_GM_TANTO_YOHI, 2)
+        Me.lblSYOCHI_GM_TANTO_YOHI.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSYOCHI_GM_TANTO_YOHI.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_GM_TANTO_YOHI.Location = New System.Drawing.Point(3, 0)
+        Me.lblSYOCHI_GM_TANTO_YOHI.Name = "lblSYOCHI_GM_TANTO_YOHI"
+        Me.lblSYOCHI_GM_TANTO_YOHI.Size = New System.Drawing.Size(100, 20)
+        Me.lblSYOCHI_GM_TANTO_YOHI.TabIndex = 282
+        Me.lblSYOCHI_GM_TANTO_YOHI.Text = "統括責任者"
+        Me.lblSYOCHI_GM_TANTO_YOHI.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblSYOCHI_SEKKEI_TANTO_YOHI
+        '
+        Me.lblSYOCHI_SEKKEI_TANTO_YOHI.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.lblSYOCHI_SEKKEI_TANTO_YOHI, 2)
+        Me.lblSYOCHI_SEKKEI_TANTO_YOHI.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSYOCHI_SEKKEI_TANTO_YOHI.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblSYOCHI_SEKKEI_TANTO_YOHI.Location = New System.Drawing.Point(109, 0)
+        Me.lblSYOCHI_SEKKEI_TANTO_YOHI.Name = "lblSYOCHI_SEKKEI_TANTO_YOHI"
+        Me.lblSYOCHI_SEKKEI_TANTO_YOHI.Size = New System.Drawing.Size(100, 20)
+        Me.lblSYOCHI_SEKKEI_TANTO_YOHI.TabIndex = 283
+        Me.lblSYOCHI_SEKKEI_TANTO_YOHI.Text = "設計"
+        Me.lblSYOCHI_SEKKEI_TANTO_YOHI.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label23
+        '
+        Me.Label23.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.Label23, 2)
+        Me.Label23.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label23.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label23.Location = New System.Drawing.Point(215, 0)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(100, 20)
+        Me.Label23.TabIndex = 284
+        Me.Label23.Text = "生技"
+        Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label24
+        '
+        Me.Label24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.Label24, 2)
+        Me.Label24.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label24.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label24.Location = New System.Drawing.Point(321, 0)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(100, 20)
+        Me.Label24.TabIndex = 285
+        Me.Label24.Text = "営業"
+        Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label25
+        '
+        Me.Label25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.Label25, 2)
+        Me.Label25.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label25.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label25.Location = New System.Drawing.Point(427, 0)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(100, 20)
+        Me.Label25.TabIndex = 286
+        Me.Label25.Text = "管理"
+        Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label26
+        '
+        Me.Label26.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.Label26, 2)
+        Me.Label26.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label26.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label26.Location = New System.Drawing.Point(533, 0)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(100, 20)
+        Me.Label26.TabIndex = 287
+        Me.Label26.Text = "製造"
+        Me.Label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label27
+        '
+        Me.Label27.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.Label27, 2)
+        Me.Label27.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label27.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label27.Location = New System.Drawing.Point(639, 0)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(100, 20)
+        Me.Label27.TabIndex = 288
+        Me.Label27.Text = "品証"
+        Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label30
+        '
+        Me.Label30.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.Label30, 2)
+        Me.Label30.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label30.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label30.Location = New System.Drawing.Point(745, 0)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(100, 20)
+        Me.Label30.TabIndex = 289
+        Me.Label30.Text = "検査"
+        Me.Label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label35
+        '
+        Me.Label35.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.Label35, 2)
+        Me.Label35.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label35.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label35.Location = New System.Drawing.Point(851, 0)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(100, 20)
+        Me.Label35.TabIndex = 295
+        Me.Label35.Text = "購買"
+        Me.Label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'cmbSYOCHI_SEKKEI_TANTO_YOHI
+        '
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Window
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.cmbSYOCHI_SEKKEI_TANTO_YOHI, 2)
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.DisplayMember = "DISP"
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.DropDownWidth = 140
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.FormattingEnabled = True
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.IsSelected = False
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.Location = New System.Drawing.Point(109, 23)
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.Name = "cmbSYOCHI_SEKKEI_TANTO_YOHI"
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.NullValue = " "
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.Size = New System.Drawing.Size(100, 25)
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.TabIndex = 3
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.Text = "(選択)"
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.ValueMember = "VALUE"
+        '
+        'ComboboxEx3
+        '
+        Me.ComboboxEx3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboboxEx3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboboxEx3.BackColor = System.Drawing.SystemColors.Window
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.ComboboxEx3, 2)
+        Me.ComboboxEx3.Cursor = System.Windows.Forms.Cursors.Default
+        Me.ComboboxEx3.DisplayMember = "DISP"
+        Me.ComboboxEx3.DropDownWidth = 140
+        Me.ComboboxEx3.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.ComboboxEx3.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ComboboxEx3.FormattingEnabled = True
+        Me.ComboboxEx3.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.ComboboxEx3.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx3.IsSelected = False
+        Me.ComboboxEx3.Location = New System.Drawing.Point(215, 23)
+        Me.ComboboxEx3.Name = "ComboboxEx3"
+        Me.ComboboxEx3.NullValue = " "
+        Me.ComboboxEx3.Size = New System.Drawing.Size(100, 25)
+        Me.ComboboxEx3.TabIndex = 5
+        Me.ComboboxEx3.Text = "(選択)"
+        Me.ComboboxEx3.ValueMember = "VALUE"
+        '
+        'ComboboxEx4
+        '
+        Me.ComboboxEx4.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboboxEx4.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboboxEx4.BackColor = System.Drawing.SystemColors.Window
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.ComboboxEx4, 2)
+        Me.ComboboxEx4.Cursor = System.Windows.Forms.Cursors.Default
+        Me.ComboboxEx4.DisplayMember = "DISP"
+        Me.ComboboxEx4.DropDownWidth = 140
+        Me.ComboboxEx4.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.ComboboxEx4.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ComboboxEx4.FormattingEnabled = True
+        Me.ComboboxEx4.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.ComboboxEx4.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx4.IsSelected = False
+        Me.ComboboxEx4.Location = New System.Drawing.Point(321, 23)
+        Me.ComboboxEx4.Name = "ComboboxEx4"
+        Me.ComboboxEx4.NullValue = " "
+        Me.ComboboxEx4.Size = New System.Drawing.Size(100, 25)
+        Me.ComboboxEx4.TabIndex = 7
+        Me.ComboboxEx4.Text = "(選択)"
+        Me.ComboboxEx4.ValueMember = "VALUE"
+        '
+        'ComboboxEx5
+        '
+        Me.ComboboxEx5.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboboxEx5.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboboxEx5.BackColor = System.Drawing.SystemColors.Window
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.ComboboxEx5, 2)
+        Me.ComboboxEx5.Cursor = System.Windows.Forms.Cursors.Default
+        Me.ComboboxEx5.DisplayMember = "DISP"
+        Me.ComboboxEx5.DropDownWidth = 140
+        Me.ComboboxEx5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.ComboboxEx5.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ComboboxEx5.FormattingEnabled = True
+        Me.ComboboxEx5.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.ComboboxEx5.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx5.IsSelected = False
+        Me.ComboboxEx5.Location = New System.Drawing.Point(427, 23)
+        Me.ComboboxEx5.Name = "ComboboxEx5"
+        Me.ComboboxEx5.NullValue = " "
+        Me.ComboboxEx5.Size = New System.Drawing.Size(100, 25)
+        Me.ComboboxEx5.TabIndex = 9
+        Me.ComboboxEx5.Text = "(選択)"
+        Me.ComboboxEx5.ValueMember = "VALUE"
+        '
+        'ComboboxEx6
+        '
+        Me.ComboboxEx6.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboboxEx6.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboboxEx6.BackColor = System.Drawing.SystemColors.Window
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.ComboboxEx6, 2)
+        Me.ComboboxEx6.Cursor = System.Windows.Forms.Cursors.Default
+        Me.ComboboxEx6.DisplayMember = "DISP"
+        Me.ComboboxEx6.DropDownWidth = 140
+        Me.ComboboxEx6.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.ComboboxEx6.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ComboboxEx6.FormattingEnabled = True
+        Me.ComboboxEx6.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.ComboboxEx6.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx6.IsSelected = False
+        Me.ComboboxEx6.Location = New System.Drawing.Point(533, 23)
+        Me.ComboboxEx6.Name = "ComboboxEx6"
+        Me.ComboboxEx6.NullValue = " "
+        Me.ComboboxEx6.Size = New System.Drawing.Size(100, 25)
+        Me.ComboboxEx6.TabIndex = 11
+        Me.ComboboxEx6.Text = "(選択)"
+        Me.ComboboxEx6.ValueMember = "VALUE"
+        '
+        'ComboboxEx7
+        '
+        Me.ComboboxEx7.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboboxEx7.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboboxEx7.BackColor = System.Drawing.SystemColors.Window
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.ComboboxEx7, 2)
+        Me.ComboboxEx7.Cursor = System.Windows.Forms.Cursors.Default
+        Me.ComboboxEx7.DisplayMember = "DISP"
+        Me.ComboboxEx7.DropDownWidth = 140
+        Me.ComboboxEx7.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.ComboboxEx7.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ComboboxEx7.FormattingEnabled = True
+        Me.ComboboxEx7.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.ComboboxEx7.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx7.IsSelected = False
+        Me.ComboboxEx7.Location = New System.Drawing.Point(639, 23)
+        Me.ComboboxEx7.Name = "ComboboxEx7"
+        Me.ComboboxEx7.NullValue = " "
+        Me.ComboboxEx7.Size = New System.Drawing.Size(100, 25)
+        Me.ComboboxEx7.TabIndex = 13
+        Me.ComboboxEx7.Text = "(選択)"
+        Me.ComboboxEx7.ValueMember = "VALUE"
+        '
+        'ComboboxEx8
+        '
+        Me.ComboboxEx8.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboboxEx8.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboboxEx8.BackColor = System.Drawing.SystemColors.Window
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.ComboboxEx8, 2)
+        Me.ComboboxEx8.Cursor = System.Windows.Forms.Cursors.Default
+        Me.ComboboxEx8.DisplayMember = "DISP"
+        Me.ComboboxEx8.DropDownWidth = 140
+        Me.ComboboxEx8.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.ComboboxEx8.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ComboboxEx8.FormattingEnabled = True
+        Me.ComboboxEx8.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.ComboboxEx8.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx8.IsSelected = False
+        Me.ComboboxEx8.Location = New System.Drawing.Point(745, 23)
+        Me.ComboboxEx8.Name = "ComboboxEx8"
+        Me.ComboboxEx8.NullValue = " "
+        Me.ComboboxEx8.Size = New System.Drawing.Size(100, 25)
+        Me.ComboboxEx8.TabIndex = 15
+        Me.ComboboxEx8.Text = "(選択)"
+        Me.ComboboxEx8.ValueMember = "VALUE"
+        '
+        'ComboboxEx9
+        '
+        Me.ComboboxEx9.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboboxEx9.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboboxEx9.BackColor = System.Drawing.SystemColors.Window
+        Me.pnlTANTO_YOHI.SetColumnSpan(Me.ComboboxEx9, 2)
+        Me.ComboboxEx9.Cursor = System.Windows.Forms.Cursors.Default
+        Me.ComboboxEx9.DisplayMember = "DISP"
+        Me.ComboboxEx9.DropDownWidth = 140
+        Me.ComboboxEx9.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.ComboboxEx9.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ComboboxEx9.FormattingEnabled = True
+        Me.ComboboxEx9.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.ComboboxEx9.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx9.IsSelected = False
+        Me.ComboboxEx9.Location = New System.Drawing.Point(851, 23)
+        Me.ComboboxEx9.Name = "ComboboxEx9"
+        Me.ComboboxEx9.NullValue = " "
+        Me.ComboboxEx9.Size = New System.Drawing.Size(100, 25)
+        Me.ComboboxEx9.TabIndex = 17
+        Me.ComboboxEx9.Text = "(選択)"
+        Me.ComboboxEx9.ValueMember = "VALUE"
+        '
+        'btnUnnecessary
+        '
+        Me.btnUnnecessary.Font = New System.Drawing.Font("Meiryo UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnUnnecessary.Location = New System.Drawing.Point(124, 6)
+        Me.btnUnnecessary.Name = "btnUnnecessary"
+        Me.btnUnnecessary.Size = New System.Drawing.Size(110, 83)
+        Me.btnUnnecessary.TabIndex = 1
+        Me.btnUnnecessary.Text = "不要"
+        Me.btnUnnecessary.UseVisualStyleBackColor = True
+        '
+        'btnRequired
+        '
+        Me.btnRequired.Font = New System.Drawing.Font("Meiryo UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnRequired.Location = New System.Drawing.Point(8, 6)
+        Me.btnRequired.Name = "btnRequired"
+        Me.btnRequired.Size = New System.Drawing.Size(110, 83)
+        Me.btnRequired.TabIndex = 0
+        Me.btnRequired.Text = "必要"
+        Me.btnRequired.UseVisualStyleBackColor = True
         '
         'C1SplitterPanel4
         '
@@ -1890,52 +2588,6 @@ Partial Class FrmG0021_Detail
         Me.lblCurrentStageName.TabIndex = 335
         Me.lblCurrentStageName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'C1SplitterPanel_YOHI
-        '
-        Me.C1SplitterPanel_YOHI.Controls.Add(Me.RadioButton1)
-        Me.C1SplitterPanel_YOHI.Controls.Add(Me.btnUnnecessary)
-        Me.C1SplitterPanel_YOHI.Controls.Add(Me.btnRequired)
-        Me.C1SplitterPanel_YOHI.Height = 150
-        Me.C1SplitterPanel_YOHI.Location = New System.Drawing.Point(1, 1052)
-        Me.C1SplitterPanel_YOHI.MinHeight = 150
-        Me.C1SplitterPanel_YOHI.Name = "C1SplitterPanel_YOHI"
-        Me.C1SplitterPanel_YOHI.Size = New System.Drawing.Size(1207, 129)
-        Me.C1SplitterPanel_YOHI.SizeRatio = 26.596R
-        Me.C1SplitterPanel_YOHI.TabIndex = 5
-        Me.C1SplitterPanel_YOHI.Text = "協議要否判定"
-        '
-        'btnRequired
-        '
-        Me.btnRequired.Font = New System.Drawing.Font("Meiryo UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.btnRequired.Location = New System.Drawing.Point(15, 16)
-        Me.btnRequired.Name = "btnRequired"
-        Me.btnRequired.Size = New System.Drawing.Size(137, 64)
-        Me.btnRequired.TabIndex = 0
-        Me.btnRequired.Text = "必要"
-        Me.btnRequired.UseVisualStyleBackColor = True
-        '
-        'btnUnnecessary
-        '
-        Me.btnUnnecessary.Font = New System.Drawing.Font("Meiryo UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.btnUnnecessary.Location = New System.Drawing.Point(158, 16)
-        Me.btnUnnecessary.Name = "btnUnnecessary"
-        Me.btnUnnecessary.Size = New System.Drawing.Size(137, 64)
-        Me.btnUnnecessary.TabIndex = 1
-        Me.btnUnnecessary.Text = "不要"
-        Me.btnUnnecessary.UseVisualStyleBackColor = True
-        '
-        'RadioButton1
-        '
-        Me.RadioButton1.Appearance = System.Windows.Forms.Appearance.Button
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(370, 63)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(95, 25)
-        Me.RadioButton1.TabIndex = 2
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "RadioButton1"
-        Me.RadioButton1.UseVisualStyleBackColor = True
-        '
         'FrmG0021_Detail
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1957,6 +2609,8 @@ Partial Class FrmG0021_Detail
         Me.Controls.SetChildIndex(Me.Label48, 0)
         Me.Controls.SetChildIndex(Me.flpnlStageIndex, 0)
         Me.Controls.SetChildIndex(Me.dtUPD_YMD, 0)
+        Me.Controls.SetChildIndex(Me.Label6, 0)
+        Me.Controls.SetChildIndex(Me.lblCurrentStageName, 0)
         Me.Controls.SetChildIndex(Me.lblTytle, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc3, 0)
@@ -1970,8 +2624,6 @@ Partial Class FrmG0021_Detail
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
-        Me.Controls.SetChildIndex(Me.Label6, 0)
-        Me.Controls.SetChildIndex(Me.lblCurrentStageName, 0)
         Me.Controls.SetChildIndex(Me.lblRecordCount, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1993,13 +2645,14 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel3.ResumeLayout(False)
         CType(Me.flxDATA_4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Flx4_DS, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.C1SplitterPanel_YOHI.ResumeLayout(False)
+        Me.pnlTANTO_YOHI.ResumeLayout(False)
+        Me.pnlTANTO_YOHI.PerformLayout()
         Me.C1SplitterPanel4.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.PanelEx1.ResumeLayout(False)
         Me.PanelEx1.PerformLayout()
         CType(Me.flxDATA_5, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.C1SplitterPanel_YOHI.ResumeLayout(False)
-        Me.C1SplitterPanel_YOHI.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2110,5 +2763,41 @@ Partial Class FrmG0021_Detail
     Friend WithEvents C1SplitterPanel_YOHI As C1.Win.C1SplitContainer.C1SplitterPanel
     Friend WithEvents btnUnnecessary As Button
     Friend WithEvents btnRequired As Button
-    Friend WithEvents RadioButton1 As RadioButton
+    Friend WithEvents chkSYOCHI_GM_TANTO_F As CheckBox
+    Friend WithEvents pnlTANTO_YOHI As TableLayoutPanel
+    Friend WithEvents chkSYOCHI_GM_TANTO_T As CheckBox
+    Friend WithEvents cmbSYOCHI_GM_TANTO_YOHI As ComboboxEx
+    Friend WithEvents lblSYOCHI_GM_TANTO_YOHI As Label
+    Friend WithEvents lblSYOCHI_SEKKEI_TANTO_YOHI As Label
+    Friend WithEvents Label23 As Label
+    Friend WithEvents Label24 As Label
+    Friend WithEvents Label25 As Label
+    Friend WithEvents Label26 As Label
+    Friend WithEvents Label27 As Label
+    Friend WithEvents Label30 As Label
+    Friend WithEvents Label35 As Label
+    Friend WithEvents cmbSYOCHI_SEKKEI_TANTO_YOHI As ComboboxEx
+    Friend WithEvents ComboboxEx3 As ComboboxEx
+    Friend WithEvents ComboboxEx4 As ComboboxEx
+    Friend WithEvents ComboboxEx5 As ComboboxEx
+    Friend WithEvents ComboboxEx6 As ComboboxEx
+    Friend WithEvents ComboboxEx7 As ComboboxEx
+    Friend WithEvents ComboboxEx8 As ComboboxEx
+    Friend WithEvents ComboboxEx9 As ComboboxEx
+    Friend WithEvents CheckBox19 As CheckBox
+    Friend WithEvents CheckBox18 As CheckBox
+    Friend WithEvents CheckBox17 As CheckBox
+    Friend WithEvents CheckBox16 As CheckBox
+    Friend WithEvents CheckBox15 As CheckBox
+    Friend WithEvents CheckBox14 As CheckBox
+    Friend WithEvents CheckBox13 As CheckBox
+    Friend WithEvents chkSYOCHI_SEKKEI_TANTO_YOHI_F As CheckBox
+    Friend WithEvents CheckBox11 As CheckBox
+    Friend WithEvents CheckBox10 As CheckBox
+    Friend WithEvents CheckBox9 As CheckBox
+    Friend WithEvents CheckBox8 As CheckBox
+    Friend WithEvents CheckBox7 As CheckBox
+    Friend WithEvents CheckBox6 As CheckBox
+    Friend WithEvents CheckBox5 As CheckBox
+    Friend WithEvents chkSYOCHI_SEKKEI_TANTO_YOHI_T As CheckBox
 End Class

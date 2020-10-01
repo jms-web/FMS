@@ -26,6 +26,7 @@ Public Class FrmG0021_Detail
     Private Flx4_DS_DB As DataTable
 
     Private dtBUFF As DateTime
+
 #End Region
 
 #Region "プロパティ"
@@ -64,6 +65,8 @@ Public Class FrmG0021_Detail
         Me.ShowIcon = True
 
         'ツールチップメッセージ
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc1, "操作権限がありません")
+        MyBase.ToolTip.SetToolTip(Me.cmdFunc2, "操作権限がありません")
         MyBase.ToolTip.SetToolTip(Me.cmdFunc4, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc5, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
@@ -151,8 +154,6 @@ Public Class FrmG0021_Detail
                             End Select
                         End If
 
-
-
                         IsEditingClosed = HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
 
                         '-----画面初期化
@@ -233,12 +234,32 @@ Public Class FrmG0021_Detail
         End With
     End Function
 
-    Private Sub FlxDATA_AfterAddRow(sender As Object, e As RowColEventArgs) Handles flxDATA_4.AfterAddRow
+    Private Sub FlxDATA_AfterAddRow(sender As Object, e As RowColEventArgs) Handles flxDATA_2.AfterAddRow, flxDATA_4.AfterAddRow
         Try
             Dim flx = DirectCast(sender, C1FlexGrid)
 
-            flx(e.Row, NameOf(D011.ITEM_NO)) = flx.Rows.Count - 2
-            flx(e.Row, NameOf(D011.SURYO)) = 0
+            Select Case flx.Name
+                Case NameOf(flxDATA_2)
+                    'flx(e.Row, NameOf(D010.FCCB_NO)) = _D009.FCCB_NO
+                    flx(e.Row, NameOf(D010.ITEM_NO)) = flx.Rows.Count - 2
+                    flx(e.Row, NameOf(D010.ITEM_GROUP_NAME)) = ""
+                    flx(e.Row, NameOf(D010.ITEM_NAME)) = "その他"
+                    flx(e.Row, NameOf(D010.YOHI_KB)) = "1"
+                    flx(e.Row, NameOf(D010.YOHI_KB_F)) = "0"
+                    flx(e.Row, NameOf(D010.TANTO_GYOMU_GROUP_ID)) = 0
+                    flx(e.Row, NameOf(D010.TANTO_ID)) = 0
+                    flx(e.Row, NameOf(D010.NAIYO)) = ""
+                    'flx(e.Row, NameOf(D010.GOKI)) = ""
+                    flx(e.Row, NameOf(D010.YOTEI_YMD)) = ""
+                    flx(e.Row, NameOf(D010.CLOSE_YMD)) = ""
+
+                Case NameOf(flxDATA_4)
+                    flx(e.Row, NameOf(D011.ITEM_NO)) = flx.Rows.Count - 2
+                    flx(e.Row, NameOf(D011.SURYO)) = 0
+                    flx(e.Row, NameOf(D011.TANTO_GYOMU_GROUP_ID)) = 0
+                    flx(e.Row, NameOf(D011.TANTO_ID)) = 0
+                Case Else
+            End Select
         Catch ex As Exception
             Throw
         End Try
@@ -257,11 +278,11 @@ Public Class FrmG0021_Detail
             Select Case flx.Name
                 Case NameOf(flxDATA_2)
                     GYOMU_GROUP_ID = flx(e.Row, 4).ToString.ToVal
-                    TANTO_COL_INDEX = 6
+                    TANTO_COL_INDEX = 7
                     ds = Flx2_DS.DataSource
                 Case NameOf(flxDATA_3)
                     GYOMU_GROUP_ID = flx(e.Row, 3).ToString.ToVal
-                    TANTO_COL_INDEX = 5
+                    TANTO_COL_INDEX = 6
                     ds = Flx3_DS.DataSource
                 Case NameOf(flxDATA_5)
                     GYOMU_GROUP_ID = flx(e.Row, 3).ToString.ToVal
@@ -271,14 +292,15 @@ Public Class FrmG0021_Detail
                     Throw New ArgumentException("想定外のデータソースです", flx.Name)
             End Select
 
-
-
             If PrCurrentStage >= ENM_FCCB_STAGE._50_処置事項完了 AndAlso flx.Cols(e.Col).Name <> NameOf(D010.CLOSE_YMD) Then
                 e.Cancel = True
             End If
 
-            '担当部署→担当者リスト取得
             Select Case flx.Cols(e.Col).Name
+                Case NameOf(D010.ITEM_GROUP_NAME), NameOf(D010.ITEM_NAME)
+                    If flx(e.Row, 1).ToString.ToVal < 25 Then
+                        e.Cancel = True
+                    End If
                 Case NameOf(D010.TANTO_GYOMU_GROUP_ID)
                     If GYOMU_GROUP_ID <> 0 Then
                         flx.SetCellStyle(e.Row, TANTO_COL_INDEX, flx.Styles($"dtTANTO_{GYOMU_GROUP_ID.Value}"))
@@ -292,6 +314,12 @@ Public Class FrmG0021_Detail
                     End If
                 Case NameOf(D010.YOHI_KB)
                     If flx(e.Row, NameOf(D010.YOHI_KB)) Then
+                        flx(e.Row, NameOf(D010.TANTO_ID)) = 0
+                        flx(e.Row, NameOf(D010.NAIYO)) = ""
+                        flx(e.Row, NameOf(D010.YOTEI_YMD)) = ""
+                    End If
+                Case NameOf(D010.YOHI_KB_F)
+                    If flx(e.Row, NameOf(D010.YOHI_KB_F)) Then
                         flx(e.Row, NameOf(D010.TANTO_ID)) = 0
                         flx(e.Row, NameOf(D010.NAIYO)) = ""
                         flx(e.Row, NameOf(D010.YOTEI_YMD)) = ""
@@ -338,7 +366,6 @@ Public Class FrmG0021_Detail
                                                                                                              flxDATA_3.AfterEdit,
                                                                                                              flxDATA_5.AfterEdit
 
-
         Try
 
             Dim flx = DirectCast(sender, C1FlexGrid)
@@ -353,14 +380,31 @@ Public Class FrmG0021_Detail
                         flx(e.Row, e.Col) = dtBUFF.ToString("yyyy/MM/dd") 'CDate(value).ToString("yyyy/MM/dd")
                     End If
 
-
-                Case flx.Cols(e.Col).Name = "YOHI_KB"
+                Case flx.Cols(e.Col).Name = NameOf(D010.YOHI_KB)
 
                     If flx(e.Row, e.Col) Then
                         flx.Rows(e.Row).Style = flx.Styles("TANTO_GROUP")
+                        If flx(e.Row, e.Col + 1) Then
+                            flx(e.Row, e.Col + 1) = False
+                        End If
                     Else
-                        flx.Rows(e.Row).Style = flx.Styles("DeletedRow")
+                        flx.Rows(e.Row).Style = Nothing
                     End If
+
+
+                Case flx.Cols(e.Col).Name = NameOf(D010.YOHI_KB_F)
+
+                    If flx(e.Row, e.Col) Then
+                        flx.Rows(e.Row).Style = flx.Styles("DeletedRow")
+                        If flx(e.Row, e.Col - 1) Then
+                            flx(e.Row, e.Col - 1) = False
+                        End If
+                    Else
+                        flx.Rows(e.Row).Style = Nothing
+
+                    End If
+
+                    'flx(e.Row, e.Col - 1) = Not flx(e.Row, e.Col)
 
                 Case Else
 
@@ -382,7 +426,6 @@ Public Class FrmG0021_Detail
         Dim HasSIKAKARI_KENGEN As Boolean
         If flx.Name = NameOf(flxDATA_4) Then
             Dim dt As DataTable = FunGetSYOZOKU_SYAIN(cmbBUMON.SelectedValue)
-
 
             InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._7_管理.Value, ENM_GYOMU_GROUP_ID._8_営業.Value})
             Dim drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
@@ -406,6 +449,10 @@ Public Class FrmG0021_Detail
                             flx.Rows(i).Style = flx.Styles("TANTO_GROUP")
                         Else
                             flx.Rows(i).Style = Nothing
+                        End If
+
+                        If flx.Rows(i).Item("YOHI_KB_F") Then
+                            flx.Rows(i).Style = flx.Styles("DeletedRow")
                         End If
                     Else
 
@@ -660,7 +707,11 @@ Public Class FrmG0021_Detail
         Else
             _D009.KISYU_ID = 0
         End If
-        _D009.KISYU_NAME = cmbKISYU.Text
+        If cmbKISYU.Text.Trim <> "(選択)" Then
+            _D009.KISYU_NAME = cmbKISYU.Text
+        Else
+            _D009.KISYU_NAME = ""
+        End If
 
         If dtKISO.Text.IsNulOrWS Then
             _D009.ADD_YMDHNS = strSysDate
@@ -672,15 +723,30 @@ Public Class FrmG0021_Detail
         If cmbBUHIN_BANGO.IsSelected Then
             _D009.BUHIN_BANGO = cmbBUHIN_BANGO.SelectedValue
         Else
-            _D009.BUHIN_BANGO = cmbBUHIN_BANGO.Text
+            If cmbBUHIN_BANGO.Text.Trim <> "(選択)" Then
+
+                _D009.BUHIN_BANGO = cmbBUHIN_BANGO.Text
+            Else
+                _D009.BUHIN_BANGO = ""
+            End If
         End If
 
         If cmbSYANAI_CD.IsSelected Then
             _D009.SYANAI_CD = cmbSYANAI_CD.SelectedValue
         Else
-            _D009.SYANAI_CD = cmbSYANAI_CD.Text
+            If cmbSYANAI_CD.Text.Trim <> "(選択)" Then
+
+                _D009.SYANAI_CD = cmbSYANAI_CD.Text
+            Else
+                _D009.SYANAI_CD = ""
+            End If
         End If
-        _D009.BUHIN_NAME = If(cmbHINMEI.Text <> "(選択)", cmbHINMEI.Text, "")
+        If cmbHINMEI.Text.Trim <> "(選択)" Then
+
+            _D009.BUHIN_NAME = cmbHINMEI.Text
+        Else
+            _D009.BUHIN_NAME = ""
+        End If
         _D009.INPUT_DOC_NO = mtxINPUT_DOC_NO.Text
         _D009.SNO_APPLY_PERIOD_KISO = mtxSNO_APPLY_PERIOD_KISO.Text
         _D009.SNO_APPLY_PERIOD_HENKO_SINGI = mtxSNO_APPLY_PERIOD_HENKO_SINGI.Text
@@ -1411,13 +1477,14 @@ Public Class FrmG0021_Detail
 
             Select Case PrCurrentStage
                 Case ENM_FCCB_STAGE._10_起草入力
-                    Dim dt = FunGetSYONIN_SYOZOKU_SYAIN(_D009.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, ENM_FCCB_STAGE._20_処置事項調査等)
-                    ToUsers = dt.AsEnumerable.Select(Function(r) r.Field(Of Integer)("VALUE")).ToList
+                    'Dim dt = FunGetSYONIN_SYOZOKU_SYAIN(_D009.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, ENM_FCCB_STAGE._20_処置事項調査等)
+                    'ToUsers = dt.AsEnumerable.Select(Function(r) r.Field(Of Integer)("VALUE")).ToList
 
-                Case ENM_FCCB_STAGE._20_処置事項調査等
-                    'FCCB議長のみ→部門の役職区分GL、TL全員へ
-                    'ToUsers.Add(_D009.CM_TANTO)
+                    '部門の役職区分GL、TL全員へ
                     ToUsers.AddRange(GetTLGLUsers(_D009.BUMON_KB))
+                Case ENM_FCCB_STAGE._20_処置事項調査等
+
+                    ToUsers.Add(_D009.CM_TANTO)
 
                 Case ENM_FCCB_STAGE._30_変更審議
                     If cmbSYOCHI_SEKKEI_TANTO.IsSelected Then
@@ -1526,7 +1593,7 @@ Public Class FrmG0021_Detail
                         End If
                     End If
 
-                        Case Else
+                Case Else
                     Throw New ArgumentException("想定外の承認ルートです", PrCurrentStage)
             End Select
 
@@ -1860,37 +1927,32 @@ Public Class FrmG0021_Detail
                 End With
             Next intFunc
 
+            'カレントステージが自身の担当でない場合は無効
+            Dim IsOwnCreated As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, _D009.FCCB_NO, PrCurrentStage)
+
             If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
+
+                cmdFunc1.Enabled = IsOwnCreated
+                cmdFunc2.Enabled = IsOwnCreated
+
                 cmdFunc4.Enabled = False
                 cmdFunc5.Enabled = False
                 cmdFunc10.Enabled = False
                 cmdFunc11.Enabled = False
             Else
 
-                cmdFunc4.Enabled = True
-                cmdFunc5.Enabled = True
+                cmdFunc1.Enabled = IsOwnCreated
+                cmdFunc2.Enabled = IsOwnCreated
+                cmdFunc4.Enabled = IsOwnCreated
+                cmdFunc5.Enabled = IsOwnCreated
+
                 cmdFunc10.Enabled = True
                 cmdFunc11.Enabled = True
 
-                'カレントステージが自身の担当でない場合は無効
-                Dim IsOwnCreated As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, _D009.FCCB_NO, PrCurrentStage)
-                If IsOwnCreated Then
-                    cmdFunc1.Enabled = True
-                    cmdFunc2.Enabled = True
-                    cmdFunc4.Enabled = True
-                    cmdFunc5.Enabled = True
-                Else
-                    cmdFunc1.Enabled = False
-                    cmdFunc2.Enabled = False
-                    cmdFunc4.Enabled = False
-                    cmdFunc5.Enabled = False
-                End If
-
                 Dim blnIsAdmin As Boolean = IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID)
-                If blnIsAdmin Then
-                    cmdFunc4.Enabled = True
-                    cmdFunc5.Enabled = True
-                End If
+
+                cmdFunc4.Enabled = blnIsAdmin
+                cmdFunc5.Enabled = blnIsAdmin
 
                 Select Case PrCurrentStage
                     Case ENM_FCCB_STAGE._10_起草入力
@@ -1911,7 +1973,6 @@ Public Class FrmG0021_Detail
                                             ToUsers.Add(user)
                                         End If
                                     End Sub)
-
 
                         DirectCast(Flx3_DS.DataSource, DataTable).
                             AsEnumerable.
@@ -1940,10 +2001,7 @@ Public Class FrmG0021_Detail
                             ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
                         End If
 
-
                         cmdFunc1.Enabled = ToUsers.Contains(pub_SYAIN_INFO.SYAIN_ID)
-
-
 
                     Case ENM_FCCB_STAGE._999_Closed
                         If IsEditingClosed Then
@@ -2030,6 +2088,12 @@ Public Class FrmG0021_Detail
 
     End Sub
 
+    Private Sub cmbKISO_TANTO_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKISO_TANTO.SelectedValueChanged
+        If cmbKISO_TANTO.IsSelected Then
+            cmbCM_TANTO.SelectedValue = cmbKISO_TANTO.SelectedValue
+        End If
+    End Sub
+
 #Region "部門"
 
     Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
@@ -2042,8 +2106,6 @@ Public Class FrmG0021_Detail
             Dim dt As DataTable = FunGetSYOZOKU_SYAIN(cmbBUMON.SelectedValue)
             Dim drs As IEnumerable(Of DataRow)
             Dim InList As New List(Of Integer)
-
-
 
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._2_製造.Value)
             If drs.Count > 0 Then cmbSYOCHI_SEIZO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
@@ -2079,12 +2141,13 @@ Public Class FrmG0021_Detail
             drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
                                   GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
 
-            'cmbKISO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKISO_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
             dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, ENM_FCCB_STAGE._10_起草入力)
             cmbCM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbKAKUNIN_CM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+            'cmbKISO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKISO_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbCM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             tabMain.Visible = True
         Else
@@ -2352,7 +2415,7 @@ Public Class FrmG0021_Detail
 
             '-----コントロールデータソース設定
             cmbBUMON.SetDataSource(tblBUMON, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKISO_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            'cmbKISO_TANTO.SetDataSource(tblTANTO, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbKISYU.SetDataSource(tblKISYU.LazyLoad("機種"), ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
             cmbBUHIN_BANGO.SetDataSource(tblBUHIN.LazyLoad("部品番号"), ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.LazyLoad("社内CD").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
@@ -2650,6 +2713,7 @@ Public Class FrmG0021_Detail
                                 End If
                             Next
                         End If
+
 #End Region
 
                     End Using
@@ -2663,8 +2727,6 @@ Public Class FrmG0021_Detail
                 Case Else
                     Throw New ArgumentException("想定外の起動モードです")
             End Select
-
-
 
             '現行ステージ名
             lblCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, _D009.FCCB_NO)
@@ -2751,7 +2813,6 @@ Public Class FrmG0021_Detail
             flxDATA_2.Cols(NameOf(D010.CLOSE_YMD)).Visible = blnCloseColumnVisibled
             flxDATA_3.Cols(NameOf(D010.CLOSE_YMD)).Visible = blnCloseColumnVisibled
             flxDATA_5.Cols(NameOf(D010.CLOSE_YMD)).Visible = blnCloseColumnVisibled
-
 
             '編集権限
             Select Case PrCurrentStage
@@ -2948,7 +3009,9 @@ Public Class FrmG0021_Detail
 
                 Select Case PrCurrentStage
                     Case ENM_FCCB_STAGE._10_起草入力.Value
+
                     Case ENM_FCCB_STAGE._20_処置事項調査等.Value
+
                         IsValidated = IsInputRequired(DisplayAlart:=True)
 
                     Case ENM_FCCB_STAGE._30_変更審議.Value
@@ -3010,7 +3073,6 @@ Public Class FrmG0021_Detail
     Private Function IsInputRequired(Optional DisplayAlart As Boolean = False) As Boolean
         Try
 
-
 #Region "②要処置事項"
 
             Dim nojudgItems = DirectCast(Flx2_DS.DataSource, DataTable).
@@ -3068,6 +3130,7 @@ Public Class FrmG0021_Detail
                     Return False
                 End If
             Next
+
 #End Region
 
             Return True
@@ -3085,12 +3148,15 @@ Public Class FrmG0021_Detail
             Dim sbSQL As New System.Text.StringBuilder
             Dim intRET As Integer
 
+            '入力要件を満たさない件数
             sbSQL.Append($"SELECT")
             sbSQL.Append($" COUNT(FCCB_NO)")
             sbSQL.Append($" FROM {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU)} ")
             sbSQL.Append($" WHERE {NameOf(D010.FCCB_NO)}={_D009.FCCB_NO}")
-            sbSQL.Append($" AND {NameOf(D010.YOHI_KB)}='1'")
-            sbSQL.Append($" AND ({NameOf(D010.TANTO_ID)}=0 OR TRIM({NameOf(D010.YOTEI_YMD)})='')")
+            '要なのに担当者や予定日が未入力
+            sbSQL.Append($" AND ({NameOf(D010.YOHI_KB)}='1' AND ({NameOf(D010.TANTO_ID)}=0 OR TRIM({NameOf(D010.YOTEI_YMD)})=''))")
+            '要否未選択
+            sbSQL.Append($" OR  ({NameOf(D010.YOHI_KB)}='0' AND {NameOf(D010.YOHI_KB_F)}='0')")
 
             Using DB As ClsDbUtility = DBOpen()
                 intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg).ToVal
@@ -3229,7 +3295,7 @@ Public Class FrmG0021_Detail
 
             Select Case intSYONIN_JUN
                 Case ENM_FCCB_STAGE._10_起草入力
-                    Dim dt = FunGetSYONIN_SYOZOKU_SYAIN(_D009.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, ENM_FCCB_STAGE._20_処置事項調査等)
+                    Dim dt = FunGetSYONIN_SYOZOKU_SYAIN(_D009.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, ENM_FCCB_STAGE._10_起草入力)
                     ToUsers = dt.AsEnumerable.Select(Function(r) r.Field(Of Integer)("VALUE")).ToList
 
                 Case ENM_FCCB_STAGE._20_処置事項調査等

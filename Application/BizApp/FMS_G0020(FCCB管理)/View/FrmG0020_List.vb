@@ -277,6 +277,11 @@ Public Class FrmG0020_List
         flxDATA.ApplyFilters()
     End Sub
 
+    Private Sub FlxDATA_DoubleClick(sender As Object, e As EventArgs) Handles flxDATA.DoubleClick
+        If flxDATA.RowSel > 0 Then
+            Me.cmdFunc4.PerformClick()
+        End If
+    End Sub
 #End Region
 
 #Region "DataGridViewŠÖ˜A"
