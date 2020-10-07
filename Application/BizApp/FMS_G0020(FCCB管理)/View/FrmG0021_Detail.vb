@@ -574,7 +574,7 @@ Public Class FrmG0021_Detail
                 Case 4  '転送
 
                     If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
-                        If OpenFormTENSO() Then
+                        If OpenFormSendMail() Then
                             If IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID) Then
                                 Me.DialogResult = DialogResult.OK
                             Else
@@ -1635,6 +1635,8 @@ Public Class FrmG0021_Detail
         End Try
     End Function
 
+
+
 #End Region
 
 #Region "SAVE R001"
@@ -1906,6 +1908,53 @@ Public Class FrmG0021_Detail
 
 #End Region
 
+#Region "メール送信"
+
+    Private Function OpenFormSendMail() As Boolean
+        Dim frmDLG As New FrmG0027_MailForm
+        Dim dlgRET As DialogResult
+
+        Try
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB
+            frmDLG.PrHOKOKU_NO = PrFCCB_NO
+            frmDLG.PrSYORI_NAME = "協議確認依頼メール送信"
+
+            Dim userlist As New List(Of Integer)
+
+            userlist.Add(cmbCM_TANTO.SelectedValue)
+            If cmbSYOCHI_GM_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
+            If cmbSYOCHI_SEIZO_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_SEIZO_TANTO.SelectedValue)
+            If cmbSYOCHI_KENSA_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_KENSA_TANTO.SelectedValue)
+            If cmbSYOCHI_HINSYO_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_HINSYO_TANTO.SelectedValue)
+            If cmbSYOCHI_SEKKEI_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_SEKKEI_TANTO.SelectedValue)
+            If cmbSYOCHI_SEIGI_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_SEIGI_TANTO.SelectedValue)
+            If cmbSYOCHI_KANRI_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_KANRI_TANTO.SelectedValue)
+            If cmbSYOCHI_EIGYO_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_EIGYO_TANTO.SelectedValue)
+            If cmbSYOCHI_KOBAI_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_KOBAI_TANTO.SelectedValue)
+
+            frmDLG.PrToUsers = userlist
+            dlgRET = frmDLG.ShowDialog(Me)
+
+            If dlgRET = Windows.Forms.DialogResult.OK Then
+                Me.DialogResult = DialogResult.OK
+                Me.Close()
+            Else
+                Return False
+            End If
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            If frmDLG IsNot Nothing Then
+                frmDLG.Dispose()
+            End If
+        End Try
+    End Function
+
+#End Region
+
 #Region "FuncButton有効無効切替"
 
     ''' <summary>
@@ -2108,32 +2157,57 @@ Public Class FrmG0021_Detail
             Dim InList As New List(Of Integer)
 
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._2_製造.Value)
-            If drs.Count > 0 Then cmbSYOCHI_SEIZO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            If drs.Count > 0 Then
+                cmbSYOCHI_SEIZO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                cmbSYOCHI_SEIZO_TANTO_YOHI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            End If
 
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._3_検査.Value)
-            If drs.Count > 0 Then cmbSYOCHI_KENSA_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            If drs.Count > 0 Then
+                cmbSYOCHI_KENSA_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                cmbSYOCHI_KENSA_TANTO_YOHI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            End If
 
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._4_品証.Value)
-            If drs.Count > 0 Then cmbSYOCHI_HINSYO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            If drs.Count > 0 Then
+                cmbSYOCHI_HINSYO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                cmbSYOCHI_HINSYO_TANTO_YOHI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            End If
 
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._5_設計.Value)
-            If drs.Count > 0 Then cmbSYOCHI_SEKKEI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            If drs.Count > 0 Then
+                cmbSYOCHI_SEKKEI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                cmbSYOCHI_SEKKEI_TANTO_YOHI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            End If
 
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._6_生技.Value)
-            If drs.Count > 0 Then cmbSYOCHI_SEIGI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            If drs.Count > 0 Then
+                cmbSYOCHI_SEIGI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                cmbSYOCHI_SEIGI_TANTO_YOHI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            End If
 
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._7_管理.Value)
-            If drs.Count > 0 Then cmbSYOCHI_KANRI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            If drs.Count > 0 Then
+                cmbSYOCHI_KANRI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                cmbSYOCHI_KANRI_TANTO_YOHI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            End If
 
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._8_営業.Value)
-            If drs.Count > 0 Then cmbSYOCHI_EIGYO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            If drs.Count > 0 Then
+                cmbSYOCHI_EIGYO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                cmbSYOCHI_EIGYO_TANTO_YOHI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            End If
 
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._9_購買.Value)
-            If drs.Count > 0 Then cmbSYOCHI_KOBAI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            If drs.Count > 0 Then
+                cmbSYOCHI_KOBAI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                cmbSYOCHI_KOBAI_TANTO_YOHI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+            End If
 
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value)
             If drs.Count > 0 Then
                 cmbSYOCHI_GM_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+                cmbSYOCHI_GM_TANTO_YOHI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
                 cmbKAKUNIN_GM_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
             End If
 
@@ -2143,7 +2217,7 @@ Public Class FrmG0021_Detail
 
             dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, ENM_FCCB_STAGE._10_起草入力)
             cmbCM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKAKUNIN_CM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKAKUNIN_CM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
             'cmbKISO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbKISO_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -2388,6 +2462,24 @@ Public Class FrmG0021_Detail
 
 #End Region
 
+
+#Region "要否回答"
+    Private Sub btnRequired_Click(sender As Object, e As EventArgs) Handles btnRequired.Click, btnUnnecessary.Click
+        Dim btn = DirectCast(sender, Button)
+
+        Select Case btn.Name
+            Case NameOf(btnRequired)
+
+            Case NameOf(btnUnnecessary)
+
+            Case Else
+        End Select
+
+    End Sub
+
+
+#End Region
+
 #End Region
 
 #Region "ローカル関数"
@@ -2401,6 +2493,8 @@ Public Class FrmG0021_Detail
     ''' <returns></returns>
     Private Function FunInitializeControls(intMODE As ENM_DATA_OPERATION_MODE) As Boolean
 
+
+        Dim SYOCHI_KAKUNIN_Users As New List(Of (userId As Integer, YOHI_KAITO As String))
         Try
 
             'ナビゲートリンク選択
@@ -2645,6 +2739,8 @@ Public Class FrmG0021_Detail
 
 #Region "処置確認担当者"
 
+
+
                         sbSQL.Clear()
                         sbSQL.Append($"SELECT")
                         sbSQL.Append($" *")
@@ -2659,43 +2755,73 @@ Public Class FrmG0021_Detail
                             For Each dr As DataRow In Sec5.Data.Rows
                                 Dim cmb As New ComboboxEx
                                 Dim dte As New DateTextBoxEx
+                                Dim cmb_YOHI As New ComboboxEx
+                                Dim chkYOHI_T As New CheckBox
+                                Dim chkYOHI_F As New CheckBox
 
                                 Select Case dr.Item(NameOf(D012.GYOMU_GROUP_ID))
                                     Case ENM_GYOMU_GROUP_ID._2_製造.Value
                                         cmb = cmbSYOCHI_SEIZO_TANTO
                                         dte = dtSYOCHI_SEIZO_TANTO
+                                        cmb_YOHI = cmbSYOCHI_SEIZO_TANTO_YOHI
+                                        chkYOHI_T = chkSYOCHI_SEIZO_TANTO_YOHI_T
+                                        chkYOHI_F = chkSYOCHI_SEIZO_TANTO_YOHI_F
 
                                     Case ENM_GYOMU_GROUP_ID._3_検査.Value
                                         cmb = cmbSYOCHI_KENSA_TANTO
                                         dte = dtSYOCHI_KENSA_TANTO
+                                        cmb_YOHI = cmbSYOCHI_KENSA_TANTO_YOHI
+                                        chkYOHI_T = chkSYOCHI_KENSA_TANTO_YOHI_T
+                                        chkYOHI_F = chkSYOCHI_KENSA_TANTO_YOHI_F
 
                                     Case ENM_GYOMU_GROUP_ID._4_品証.Value
                                         cmb = cmbSYOCHI_HINSYO_TANTO
                                         dte = dtSYOCHI_HINSYO_TANTO
+                                        cmb_YOHI = cmbSYOCHI_HINSYO_TANTO_YOHI
+                                        chkYOHI_T = chkSYOCHI_HINSYO_TANTO_YOHI_T
+                                        chkYOHI_F = chkSYOCHI_HINSYO_TANTO_YOHI_F
 
                                     Case ENM_GYOMU_GROUP_ID._5_設計.Value
                                         cmb = cmbSYOCHI_SEKKEI_TANTO
                                         dte = dtSYOCHI_SEKKEI_TANTO
+                                        cmb_YOHI = cmbSYOCHI_SEKKEI_TANTO_YOHI
+                                        chkYOHI_T = chkSYOCHI_SEKKEI_TANTO_YOHI_T
+                                        chkYOHI_F = chkSYOCHI_SEKKEI_TANTO_YOHI_F
 
                                     Case ENM_GYOMU_GROUP_ID._6_生技.Value
                                         cmb = cmbSYOCHI_SEIGI_TANTO
                                         dte = dtSYOCHI_SEIGI_TANTO
+                                        cmb_YOHI = cmbSYOCHI_SEIGI_TANTO_YOHI
+                                        chkYOHI_T = chkSYOCHI_SEIGI_TANTO_YOHI_T
+                                        chkYOHI_F = chkSYOCHI_SEIGI_TANTO_YOHI_F
 
                                     Case ENM_GYOMU_GROUP_ID._7_管理.Value
                                         cmb = cmbSYOCHI_KANRI_TANTO
                                         dte = dtSYOCHI_KANRI_TANTO
+                                        cmb_YOHI = cmbSYOCHI_KANRI_TANTO_YOHI
+                                        chkYOHI_T = chkSYOCHI_KANRI_TANTO_YOHI_T
+                                        chkYOHI_F = chkSYOCHI_KANRI_TANTO_YOHI_F
 
                                     Case ENM_GYOMU_GROUP_ID._8_営業.Value
                                         cmb = cmbSYOCHI_EIGYO_TANTO
                                         dte = dtSYOCHI_EIGYO_TANTO
+                                        cmb_YOHI = cmbSYOCHI_EIGYO_TANTO_YOHI
+                                        chkYOHI_T = chkSYOCHI_EIGYO_TANTO_YOHI_T
+                                        chkYOHI_F = chkSYOCHI_EIGYO_TANTO_YOHI_F
 
                                     Case ENM_GYOMU_GROUP_ID._9_購買.Value
                                         cmb = cmbSYOCHI_KOBAI_TANTO
                                         dte = dtSYOCHI_KOBAI_TANTO
+                                        cmb_YOHI = cmbSYOCHI_KOBAI_TANTO_YOHI
+                                        chkYOHI_T = chkSYOCHI_KOBAI_TANTO_YOHI_T
+                                        chkYOHI_F = chkSYOCHI_KOBAI_TANTO_YOHI_F
 
                                     Case ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value '統括責任者
                                         cmb = cmbSYOCHI_GM_TANTO
                                         dte = dtSYOCHI_GM_TANTO
+                                        cmb_YOHI = cmbSYOCHI_GM_TANTO_YOHI
+                                        chkYOHI_T = chkSYOCHI_GM_TANTO_YOHI_T
+                                        chkYOHI_F = chkSYOCHI_GM_TANTO_YOHI_F
 
                                     Case 92 '最終確認：議長
                                         cmb = cmbKAKUNIN_CM_TANTO
@@ -2707,7 +2833,15 @@ Public Class FrmG0021_Detail
 
                                 End Select
 
+                                SYOCHI_KAKUNIN_Users.Add((dr.Item(NameOf(D012.TANTO_ID)), dr.Item(NameOf(D012.KYOGI_YOHI_KAITO))))
+                                If dr.Item(NameOf(D012.KYOGI_YOHI_KAITO)) = "1" Then
+                                    chkYOHI_T.Checked = True
+                                Else
+                                    chkYOHI_F.Checked = True
+                                End If
+
                                 cmb.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
+                                cmb_YOHI.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
                                 If Not dr.Item(NameOf(D012.ADD_YMDHNS)).ToString.IsNulOrWS Then
                                     dte.Value = DateTime.ParseExact(dr.Item(NameOf(D012.ADD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
                                 End If
@@ -2740,27 +2874,35 @@ Public Class FrmG0021_Detail
 
                     Case ENM_GYOMU_GROUP_ID._2_製造
                         lblSYOCHI_SEIZO_TANTO.BackColor = Color.LemonChiffon
+                        lblSYOCHI_SEIZO_TANTO_YOHI.BackColor = Color.LemonChiffon
 
                     Case ENM_GYOMU_GROUP_ID._3_検査
                         lblSYOCHI_KENSA_TANTO.BackColor = Color.LemonChiffon
+                        lblSYOCHI_KENSA_TANTO_YOHI.BackColor = Color.LemonChiffon
 
                     Case ENM_GYOMU_GROUP_ID._4_品証
                         lblSYOCHI_HINSYO_TANTO.BackColor = Color.LemonChiffon
+                        lblSYOCHI_HINSYO_TANTO_YOHI.BackColor = Color.LemonChiffon
 
                     Case ENM_GYOMU_GROUP_ID._5_設計
                         lblSYOCHI_SEKKEI_TANTO.BackColor = Color.LemonChiffon
+                        lblSYOCHI_SEKKEI_TANTO_YOHI.BackColor = Color.LemonChiffon
 
                     Case ENM_GYOMU_GROUP_ID._6_生技
                         lblSYOCHI_SEIGI_TANTO.BackColor = Color.LemonChiffon
+                        lblSYOCHI_SEIGI_TANTO_YOHI.BackColor = Color.LemonChiffon
 
                     Case ENM_GYOMU_GROUP_ID._7_管理
                         lblSYOCHI_KANRI_TANTO.BackColor = Color.LemonChiffon
+                        lblSYOCHI_KANRI_TANTO_YOHI.BackColor = Color.LemonChiffon
 
                     Case ENM_GYOMU_GROUP_ID._8_営業
                         lblSYOCHI_EIGYO_TANTO.BackColor = Color.LemonChiffon
+                        lblSYOCHI_EIGYO_TANTO_YOHI.BackColor = Color.LemonChiffon
 
                     Case ENM_GYOMU_GROUP_ID._9_購買
                         lblSYOCHI_KOBAI_TANTO.BackColor = Color.LemonChiffon
+                        lblSYOCHI_KOBAI_TANTO_YOHI.BackColor = Color.LemonChiffon
 
                     Case Else
                 End Select
@@ -2830,6 +2972,22 @@ Public Class FrmG0021_Detail
                     tlpHeader.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
                     C1SplitterPanel_YOHI.Visible = True
                     C1SplitterPanel5.Enabled = False
+
+                    pnlTANTO_YOHI.Visible = (pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO)
+                    btnRequired.Enabled = Not (pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO)
+                    btnUnnecessary.Enabled = Not (pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO)
+                    cmdFunc4.Visible = (pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO)
+                    cmdFunc4.Enabled = True 'TODO: =対象者全員が回答回答済み
+
+                    '自身が協議判定担当者で未回答だった場合、審議回答欄を表示
+                    If SYOCHI_KAKUNIN_Users.Select(Function(r) r.userId).ToList.Contains(pub_SYAIN_INFO.SYAIN_ID) Then
+                        Me.ScrollControlIntoView(C1SplitterPanel_YOHI)
+                        Dim strKAITO As String = SYOCHI_KAKUNIN_Users.Where(Function(r) r.userId = pub_SYAIN_INFO.SYAIN_ID).Select(Function(r) r.YOHI_KAITO).FirstOrDefault
+                        If strKAITO = "0" Or strKAITO = "1" Then
+                        Else
+                            MessageBox.Show("本FCCB記録書の協議の要否を回答してください", "FCCB協議要否回答")
+                        End If
+                    End If
 
                 Case ENM_FCCB_STAGE._40_処置確認, ENM_FCCB_STAGE._41_処置確認_統括
                     tlpHeader.Enabled = False
@@ -3080,7 +3238,7 @@ Public Class FrmG0021_Detail
                                           Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) = False And r.Field(Of Boolean)(NameOf(D010.YOHI_KB_F)) = False).Count
 
             If nojudgItems > 0 Then
-                MessageBox.Show("②要処置事項に要否未判定の項目があります。", "入力チェック", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show($"②要処置事項に要否未判定の項目があります。{vbCrLf}背景白色行", "入力チェック", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Return False
             End If
 
@@ -3153,10 +3311,12 @@ Public Class FrmG0021_Detail
             sbSQL.Append($" COUNT(FCCB_NO)")
             sbSQL.Append($" FROM {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU)} ")
             sbSQL.Append($" WHERE {NameOf(D010.FCCB_NO)}={_D009.FCCB_NO}")
+            sbSQL.Append($" AND (")
             '要なのに担当者や予定日が未入力
-            sbSQL.Append($" AND ({NameOf(D010.YOHI_KB)}='1' AND ({NameOf(D010.TANTO_ID)}=0 OR TRIM({NameOf(D010.YOTEI_YMD)})=''))")
+            sbSQL.Append($" ({NameOf(D010.YOHI_KB)}='1' AND ({NameOf(D010.TANTO_ID)}=0 OR RTRIM({NameOf(D010.YOTEI_YMD)})=''))")
             '要否未選択
             sbSQL.Append($" OR  ({NameOf(D010.YOHI_KB)}='0' AND {NameOf(D010.YOHI_KB_F)}='0')")
+            sbSQL.Append($"     )")
 
             Using DB As ClsDbUtility = DBOpen()
                 intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg).ToVal
@@ -3430,6 +3590,8 @@ Public Class FrmG0021_Detail
         End Try
 
     End Function
+
+
 
 #End Region
 

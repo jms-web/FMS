@@ -11,19 +11,19 @@ Public Class FrmG0027_MailForm
 
     Public Property PrHOKOKU_NO As String
 
-    Public Property PrCurrentStage As Integer
+    'Public Property PrCurrentStage As Integer
 
-    Public Property PrBUMON_KB As String
+    'Public Property PrBUMON_KB As String
 
-    Public Property PrBUHIN_BANGO As String
+    'Public Property PrBUHIN_BANGO As String
 
-    Public Property PrKISYU_NAME As String
+    'Public Property PrKISYU_NAME As String
 
-    Public Property PrKISO_YMD As String
-
-    Public Property PrRIYU As String
+    'Public Property PrKISO_YMD As String
 
     Public Property PrSYORI_NAME As String
+
+    Public Property PrToUsers As List(Of Integer)
 
 #End Region
 
@@ -59,9 +59,9 @@ Public Class FrmG0027_MailForm
             lbl.Text = PrSYORI_NAME.Substring(0, 4)
 
             '-----位置・サイズ
-            Me.Height = 250
-            Me.Width = 800
-            Me.MinimumSize = New Size(800, 250)
+            Me.Height = 600
+            Me.Width = 1000
+            Me.MinimumSize = New Size(1000, 600)
             Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) / 2
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
 
@@ -69,15 +69,58 @@ Public Class FrmG0027_MailForm
             Me.FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
             Me.ControlBox = False
 
-            'バインディング
-            Call FunSetBinding()
-            _D004_SYONIN_J_KANRI.RIYU = ""
+            Dim strBody As String = ""
+            Dim strSubject As String = ""
+            Select Case PrSYORI_NAME
+                Case "協議確認依頼メール送信"
+                    strSubject = $"FCCB会議招集の件 FCCB-NO:{PrHOKOKU_NO}"
+                    strBody = <sql><![CDATA[
+                                各位
+
+        　                        FCCB記録書に記載された内容を確認すると、協議が必要と
+                　                判断しますので、下記日程で、FCCB会議を実施しますので
+                　                ご参集をお願い致します。
+
+                                日時：　　　年　　月　　日　　　：　　～　　：
+                                場所：第　　会議室
+
+                                FCCB　議長
+                                ]]></sql>.Value.Trim
+            End Select
+
+            mtxTo.Text = GetUserNames(PrToUsers).Aggregate(Function(a, b) a & ", " & b)
+            mtxTitle.Text = strSubject
+            mtxBody.Text = strBody
+
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
             Call FunInitFuncButtonEnabled()
         End Try
     End Sub
+
+    ''' <summary>
+    ''' ユーザーIDリストから名前リストを取得
+    ''' </summary>
+    ''' <param name="prToUsers"></param>
+    ''' <returns></returns>
+    Private Function GetUserNames(prToUsers As List(Of Integer)) As List(Of String)
+        Dim strList As New List(Of String)
+        Try
+            If prToUsers IsNot Nothing AndAlso prToUsers.Count > 0 Then
+                For Each userID As Integer In prToUsers
+                    strList.Add(tblTANTO.AsEnumerable.
+                                         Where(Function(r) r.Item("VALUE") = userID.ToString).
+                                         Select(Function(r) r.Item("DISP")).
+                                         FirstOrDefault)
+                Next
+            End If
+
+            Return strList
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
 
 #End Region
 
@@ -101,9 +144,9 @@ Public Class FrmG0027_MailForm
             Select Case intFUNC
                 Case 1  '追加
                     If FunCheckInput() Then
-                        PrRIYU = mtxRIYU.Text
-                        If FunSAVE() Then
-                            'MessageBox.Show("修正しました", "不適合管理-修正", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        If FunSendJudgeRequestMail() Then
+                            Dim imgDlg As New ImageDialog
+                            imgDlg.Show("\\sv04\FMS\RESOURCE\sendmail_256.gif", 4200)
                             Me.DialogResult = Windows.Forms.DialogResult.OK
                         End If
                     End If
@@ -122,107 +165,6 @@ Public Class FrmG0027_MailForm
             Next
         End Try
     End Sub
-
-#End Region
-
-#Region "更新"
-
-    Private Function FunSAVE() As Boolean
-        Dim dsList As New DataSet
-        Dim sbSQL As New System.Text.StringBuilder
-
-        Try
-
-            'SPEC: 2.(3).D.①.レコード更新
-            Using DB As ClsDbUtility = DBOpen()
-                Dim intRET As Integer
-                Dim sqlEx As New Exception
-                Dim blnErr As Boolean
-
-                Try
-                    Dim strSysDate As String = DB.GetSysDateString
-
-                    '-----トランザクション
-                    DB.BeginTransaction()
-
-                    '-----UPDATE D004
-                    sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append($"UPDATE {NameOf(MODEL.D004_SYONIN_J_KANRI)} SET")
-                    'sbSQL.Append($" {NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}={cmbTENSO_SAKI.SelectedValue}")
-                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.RIYU)}='{_D004_SYONIN_J_KANRI.RIYU}'")
-                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
-                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}='{ENM_SYONIN_HANTEI_KB._0_未承認.Value}'")
-                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}='0'")
-                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}='{strSysDate}'")
-                    If PrCurrentStage = ENM_FCCB_STAGE._10_起草入力 Then
-                        sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
-                    End If
-                    sbSQL.Append($" WHERE {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={PrSYONIN_HOKOKUSYO_ID}")
-                    sbSQL.Append($" AND {NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}='{PrHOKOKU_NO}'")
-                    sbSQL.Append($" AND {NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)}={PrCurrentStage}")
-
-                    '-----SQL実行
-                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    If intRET <> 1 Then
-                        '-----エラーログ出力
-                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                        WL.WriteLogDat(strErrMsg)
-                        blnErr = True
-                        Return False
-                    End If
-
-                    '-----データモデル更新
-                    _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = PrSYONIN_HOKOKUSYO_ID
-                    _R001_HOKOKU_SOUSA.HOKOKU_NO = PrHOKOKU_NO
-                    _R001_HOKOKU_SOUSA.SYONIN_JUN = PrCurrentStage
-                    _R001_HOKOKU_SOUSA.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-                    _R001_HOKOKU_SOUSA.SOUSA_KB = If(PrSYORI_NAME = "取消登録", ENM_SOUSA_KB._9_取消.Value, ENM_SOUSA_KB._2_更新保存.Value)
-                    _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
-                    _R001_HOKOKU_SOUSA.RIYU = _D004_SYONIN_J_KANRI.RIYU
-                    '-----INSERT R001
-                    sbSQL.Remove(0, sbSQL.Length)
-                    sbSQL.Append("INSERT INTO " & NameOf(MODEL.R001_HOKOKU_SOUSA) & "(")
-                    sbSQL.Append("  " & NameOf(_R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID))
-                    sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.HOKOKU_NO))
-                    sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.ADD_YMDHNS))
-                    sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SYONIN_JUN))
-                    sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SOUSA_KB))
-                    sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SYAIN_ID))
-                    sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB))
-                    sbSQL.Append(" ," & NameOf(_R001_HOKOKU_SOUSA.RIYU))
-                    sbSQL.Append(" ) VALUES(")
-                    sbSQL.Append("  " & (_R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID))
-                    sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.HOKOKU_NO) & "'")
-                    sbSQL.Append($" ,'{strSysDate}'") 'ADD_YMDHNS
-                    sbSQL.Append(" ," & (_R001_HOKOKU_SOUSA.SYONIN_JUN))
-                    sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.SOUSA_KB) & "'")
-                    sbSQL.Append(" ," & (_R001_HOKOKU_SOUSA.SYAIN_ID))
-                    sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB) & "'")
-                    sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.RIYU) & "'")
-                    sbSQL.Append(")")
-
-                    '-----SQL実行
-                    intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
-                    If intRET <> 1 Then
-                        '-----エラーログ出力
-                        Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                        WL.WriteLogDat(strErrMsg)
-                        Return False
-                    End If
-                Finally
-                    '-----トランザクション
-                    DB.Commit(Not blnErr)
-                End Try
-            End Using
-
-            Return True
-        Catch ex As Exception
-            Throw
-            Return False
-        Finally
-
-        End Try
-    End Function
 
 #End Region
 
@@ -262,18 +204,12 @@ Public Class FrmG0027_MailForm
 
 #Region "コントロールイベント"
 
-    Private Sub CmbMODOSI_SAKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        If IsCheckRequired Then
-            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送先"))
-        End If
+    Private Sub mtxBody_Validating(sender As Object, e As EventArgs) Handles mtxBody.Validating
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtxBody, Not mtxBody.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "本文"))
     End Sub
 
-    Private Sub MtxMODOSI_RIYU_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxRIYU.Validating
-        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
-        If IsCheckRequired Then
-            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "転送理由"))
-        End If
+    Private Sub mtxTitle_Validating(sender As Object, e As EventArgs) Handles mtxTitle.Validating
+        IsValidated *= ErrorProvider.UpdateErrorInfo(mtxTitle, Not mtxTitle.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "件名"))
     End Sub
 
 #End Region
@@ -285,8 +221,8 @@ Public Class FrmG0027_MailForm
             IsValidated = True
             IsCheckRequired = True
 
-            'Call CmbMODOSI_SAKI_Validating(cmbTENSO_SAKI, Nothing)
-            Call MtxMODOSI_RIYU_Validating(mtxRIYU, Nothing)
+            Call mtxBody_Validating(mtxBody, Nothing)
+            Call mtxTitle_Validating(mtxTitle, Nothing)
 
             Return IsValidated
         Catch ex As Exception
@@ -300,9 +236,36 @@ Public Class FrmG0027_MailForm
 
 #Region "ローカル関数"
 
-    Private Function FunSetBinding() As Boolean
-        'cmbTENSO_SAKI.DataBindings.Add(New Binding(NameOf(cmbTENSO_SAKI.SelectedValue), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
-        mtxRIYU.DataBindings.Add(New Binding(NameOf(mtxRIYU.Text), _D004_SYONIN_J_KANRI, NameOf(_D004_SYONIN_J_KANRI.RIYU), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+    ''' <summary>
+    ''' 協議確認依頼メール送信
+    ''' </summary>
+    ''' <returns></returns>
+    Private Function FunSendJudgeRequestMail(Optional toUserNAME As String = "", Optional fromUserNAME As String = "") As Boolean
+
+        Try
+
+            Dim strBody As String = mtxBody.Text.Replace(Environment.NewLine, "<br />") & <sql><![CDATA[
+                <br />
+                <a href = "http://sv04:8000/CLICKONCE_FMS.application" > システム起動</a><br />
+                <br />
+                ※このメールは配信専用です。(返信できません)<br />
+                返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
+                ]]></sql>.Value.Trim
+
+            If PrToUsers.Count = 0 Then
+                MessageBox.Show("送信者が見つからないため、依頼メールを送信できません", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return False
+            Else
+                If FunSendMailFCCB(mtxTitle.Text, strBody, PrToUsers) Then
+                    Return True
+                Else
+                    MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return False
+                End If
+            End If
+        Catch ex As Exception
+            Throw
+        End Try
     End Function
 
 #End Region

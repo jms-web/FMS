@@ -30,6 +30,12 @@ Partial Public Class D012_FCCB_SUB_SYOCHI_KAKUNIN
 
     <Required>
     Public Property TANTO_ID As Integer
+
+
+    <Required>
+    Public Property KYOGI_YOHI_KAITO As String
+
+
     <Required>
     <Column(TypeName:="char")>
     <StringLength(14)>

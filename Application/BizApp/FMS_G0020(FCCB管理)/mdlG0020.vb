@@ -603,7 +603,7 @@ Module mdlG0020
 
 #Region "メール送信"
 
-    Public Function FunSendMailFCCB(strSubject As String, strBody As String, users As List(Of Integer)) As Boolean
+    Public Function FunSendMailFCCB(strSubject As String, strBody As String, users As List(Of Integer), Optional blnSendSenior As Boolean = True) As Boolean
         Dim strSmtpServer As String
         Dim intSmtpPort As Integer
         Dim strFromAddress As String
@@ -664,11 +664,13 @@ Module mdlG0020
                             ToAddressList.Add(.Rows(0).Item("GL_ADDRESS"))
                         End If
 
-                        '送信先が所属長宛てだった場合、所属長の上位の部署の所属長にも送信
-                        If .Rows(0).Item("OYA_GL_ADDRESS").ToString.IsNulOrWS = False AndAlso
+                        If blnSendSenior Then
+                            '送信先が所属長宛てだった場合、所属長の上位の部署の所属長にも送信
+                            If .Rows(0).Item("OYA_GL_ADDRESS").ToString.IsNulOrWS = False AndAlso
                             .Rows(0).Item("MAIL_ADDRESS").ToString = .Rows(0).Item("GL_ADDRESS").ToString AndAlso
                             .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("OYA_GL_ADDRESS").ToString Then
-                            ToAddressList.Add(.Rows(0).Item("OYA_GL_ADDRESS"))
+                                ToAddressList.Add(.Rows(0).Item("OYA_GL_ADDRESS"))
+                            End If
                         End If
 
                         strToSyainName = .Rows(0).Item("SIMEI")
@@ -1178,7 +1180,7 @@ Module mdlG0020
                         'ブランク行はスキップ
                         intRowIndex += 1
                     End If
-                    spSheet1.Range($"C{intRowIndex + 1}").Value = r.Item(NameOf(D010.ITEM_GROUP_NAME))
+                    spSheet1.Range($"C{intRowIndex + 1}").Value = r.Item(NameOf(D010.ITEM_NAME))
                     If Not r.Item("GYOMU_GROUP_NAME").ToString.IsNulOrWS Then
                         spSheet1.Range($"I{intRowIndex + 1}").Value = r.Item("GYOMU_GROUP_NAME")
                     End If
@@ -1218,7 +1220,7 @@ Module mdlG0020
 
 
 
-                intRowIndex = 45
+                intRowIndex = 54
                 For Each r As DataRow In dsList.Tables(0).Rows
                     If spSheet1.Range($"B{intRowIndex + 1}").Value?.ToString.IsNulOrWS Then
                         'ブランク行はスキップ
@@ -1256,7 +1258,7 @@ Module mdlG0020
                 sbSQL.Append($" WHERE {NameOf(D011.FCCB_NO)}='{_D009.FCCB_NO}' ")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
-                intRowIndex = 51
+                intRowIndex = 60
                 Const SIKAKARIHIN_COUNT As Integer = 7
                 Const SECTION_GAPS As Integer = 5
                 For Each r As DataRow In dsList.Tables(0).Rows
