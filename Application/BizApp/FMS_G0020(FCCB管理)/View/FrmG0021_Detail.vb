@@ -27,6 +27,7 @@ Public Class FrmG0021_Detail
 
     Private dtBUFF As DateTime
 
+    Private SYOCHI_KAKUNIN_Users As New List(Of (userId As Integer, YOHI_KAITO As String))
 #End Region
 
 #Region "プロパティ"
@@ -390,7 +391,6 @@ Public Class FrmG0021_Detail
                     Else
                         flx.Rows(e.Row).Style = Nothing
                     End If
-
 
                 Case flx.Cols(e.Col).Name = NameOf(D010.YOHI_KB_F)
 
@@ -1635,11 +1635,9 @@ Public Class FrmG0021_Detail
         End Try
     End Function
 
-
-
 #End Region
 
-#Region "SAVE R001"
+#Region "R001"
 
     ''' <summary>
     ''' 報告書操作履歴更新
@@ -2462,21 +2460,80 @@ Public Class FrmG0021_Detail
 
 #End Region
 
-
 #Region "要否回答"
+
     Private Sub btnRequired_Click(sender As Object, e As EventArgs) Handles btnRequired.Click, btnUnnecessary.Click
         Dim btn = DirectCast(sender, Button)
-
+        Dim strKAITO As String
         Select Case btn.Name
             Case NameOf(btnRequired)
-
+                strKAITO = "1"
             Case NameOf(btnUnnecessary)
-
+                strKAITO = "0"
             Case Else
+                strKAITO = ""
         End Select
 
-    End Sub
+        Dim _D012 As New D012
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim strRET As String
+        Dim sqlEx As New Exception
+        Dim strSysDate As String
+        Dim GYOMU_GROUP_ID As Integer
 
+        sbSQL.Append($"SELECT TOP 1 ISNULL({NameOf(D012.GYOMU_GROUP_ID)},0) FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)}")
+        sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}  ='{_D009.FCCB_NO}'")
+        sbSQL.Append($" AND   {NameOf(D012.TANTO_ID)} = {pub_SYAIN_INFO.SYAIN_ID}")
+        Using DB = DBOpen()
+            strSysDate = DB.GetSysDateString
+            GYOMU_GROUP_ID = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg).ToVal
+
+#Region "   モデル更新"
+
+            _D012.Clear()
+            _D012.FCCB_NO = _D009.FCCB_NO
+            _D012.GYOMU_GROUP_ID = GYOMU_GROUP_ID
+            _D012.TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
+            _D012.KYOGI_YOHI_KAITO = strKAITO
+            _D012.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+
+#End Region
+
+            '-----MERGE
+            sbSQL.Remove(0, sbSQL.Length)
+            sbSQL.Append($"MERGE INTO {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} AS TARGET")
+            sbSQL.Append($" USING (")
+            sbSQL.Append($"{_D012.ToSelectSqlString}")
+            sbSQL.Append($" ) AS WK")
+            sbSQL.Append($" ON (TARGET.{NameOf(_D012.FCCB_NO)}        = WK.{NameOf(_D012.FCCB_NO)}")
+            sbSQL.Append($" AND TARGET.{NameOf(_D012.GYOMU_GROUP_ID)} = WK.{NameOf(_D012.GYOMU_GROUP_ID)})")
+            '---UPDATE
+            sbSQL.Append($" WHEN MATCHED THEN")
+            sbSQL.Append($" {_D012.ToUpdateSqlString("TARGET", "WK")}")
+            '---INSERT
+            sbSQL.Append($" WHEN NOT MATCHED THEN")
+            sbSQL.Append($" {_D012.ToInsertSqlString("WK")}")
+            sbSQL.Append(" OUTPUT $action As RESULT;")
+
+            strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+
+            Select Case strRET
+                Case "INSERT"
+
+                Case "UPDATE"
+
+                Case Else
+                    '-----エラーログ出力
+                    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                    WL.WriteLogDat(strErrMsg)
+            End Select
+
+            WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009.FCCB_NO}、協議要否回答")
+            Call SetSYOCHI_TANTO_Info(DB)
+        End Using
+        MessageBox.Show("要否回答登録完了", "FCCB協議要否回答", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+    End Sub
 
 #End Region
 
@@ -2494,7 +2551,6 @@ Public Class FrmG0021_Detail
     Private Function FunInitializeControls(intMODE As ENM_DATA_OPERATION_MODE) As Boolean
 
 
-        Dim SYOCHI_KAKUNIN_Users As New List(Of (userId As Integer, YOHI_KAITO As String))
         Try
 
             'ナビゲートリンク選択
@@ -2739,114 +2795,7 @@ Public Class FrmG0021_Detail
 
 #Region "処置確認担当者"
 
-
-
-                        sbSQL.Clear()
-                        sbSQL.Append($"SELECT")
-                        sbSQL.Append($" *")
-                        sbSQL.Append($" FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} ")
-                        sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}='{_D009.FCCB_NO}' ")
-                        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-
-                        If dsList.Tables(0).Rows.Count > 0 Then
-
-                            Dim Sec5 As New ModelInfo(Of D012)(srcDATA:=dsList.Tables(0))
-
-                            For Each dr As DataRow In Sec5.Data.Rows
-                                Dim cmb As New ComboboxEx
-                                Dim dte As New DateTextBoxEx
-                                Dim cmb_YOHI As New ComboboxEx
-                                Dim chkYOHI_T As New CheckBox
-                                Dim chkYOHI_F As New CheckBox
-
-                                Select Case dr.Item(NameOf(D012.GYOMU_GROUP_ID))
-                                    Case ENM_GYOMU_GROUP_ID._2_製造.Value
-                                        cmb = cmbSYOCHI_SEIZO_TANTO
-                                        dte = dtSYOCHI_SEIZO_TANTO
-                                        cmb_YOHI = cmbSYOCHI_SEIZO_TANTO_YOHI
-                                        chkYOHI_T = chkSYOCHI_SEIZO_TANTO_YOHI_T
-                                        chkYOHI_F = chkSYOCHI_SEIZO_TANTO_YOHI_F
-
-                                    Case ENM_GYOMU_GROUP_ID._3_検査.Value
-                                        cmb = cmbSYOCHI_KENSA_TANTO
-                                        dte = dtSYOCHI_KENSA_TANTO
-                                        cmb_YOHI = cmbSYOCHI_KENSA_TANTO_YOHI
-                                        chkYOHI_T = chkSYOCHI_KENSA_TANTO_YOHI_T
-                                        chkYOHI_F = chkSYOCHI_KENSA_TANTO_YOHI_F
-
-                                    Case ENM_GYOMU_GROUP_ID._4_品証.Value
-                                        cmb = cmbSYOCHI_HINSYO_TANTO
-                                        dte = dtSYOCHI_HINSYO_TANTO
-                                        cmb_YOHI = cmbSYOCHI_HINSYO_TANTO_YOHI
-                                        chkYOHI_T = chkSYOCHI_HINSYO_TANTO_YOHI_T
-                                        chkYOHI_F = chkSYOCHI_HINSYO_TANTO_YOHI_F
-
-                                    Case ENM_GYOMU_GROUP_ID._5_設計.Value
-                                        cmb = cmbSYOCHI_SEKKEI_TANTO
-                                        dte = dtSYOCHI_SEKKEI_TANTO
-                                        cmb_YOHI = cmbSYOCHI_SEKKEI_TANTO_YOHI
-                                        chkYOHI_T = chkSYOCHI_SEKKEI_TANTO_YOHI_T
-                                        chkYOHI_F = chkSYOCHI_SEKKEI_TANTO_YOHI_F
-
-                                    Case ENM_GYOMU_GROUP_ID._6_生技.Value
-                                        cmb = cmbSYOCHI_SEIGI_TANTO
-                                        dte = dtSYOCHI_SEIGI_TANTO
-                                        cmb_YOHI = cmbSYOCHI_SEIGI_TANTO_YOHI
-                                        chkYOHI_T = chkSYOCHI_SEIGI_TANTO_YOHI_T
-                                        chkYOHI_F = chkSYOCHI_SEIGI_TANTO_YOHI_F
-
-                                    Case ENM_GYOMU_GROUP_ID._7_管理.Value
-                                        cmb = cmbSYOCHI_KANRI_TANTO
-                                        dte = dtSYOCHI_KANRI_TANTO
-                                        cmb_YOHI = cmbSYOCHI_KANRI_TANTO_YOHI
-                                        chkYOHI_T = chkSYOCHI_KANRI_TANTO_YOHI_T
-                                        chkYOHI_F = chkSYOCHI_KANRI_TANTO_YOHI_F
-
-                                    Case ENM_GYOMU_GROUP_ID._8_営業.Value
-                                        cmb = cmbSYOCHI_EIGYO_TANTO
-                                        dte = dtSYOCHI_EIGYO_TANTO
-                                        cmb_YOHI = cmbSYOCHI_EIGYO_TANTO_YOHI
-                                        chkYOHI_T = chkSYOCHI_EIGYO_TANTO_YOHI_T
-                                        chkYOHI_F = chkSYOCHI_EIGYO_TANTO_YOHI_F
-
-                                    Case ENM_GYOMU_GROUP_ID._9_購買.Value
-                                        cmb = cmbSYOCHI_KOBAI_TANTO
-                                        dte = dtSYOCHI_KOBAI_TANTO
-                                        cmb_YOHI = cmbSYOCHI_KOBAI_TANTO_YOHI
-                                        chkYOHI_T = chkSYOCHI_KOBAI_TANTO_YOHI_T
-                                        chkYOHI_F = chkSYOCHI_KOBAI_TANTO_YOHI_F
-
-                                    Case ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value '統括責任者
-                                        cmb = cmbSYOCHI_GM_TANTO
-                                        dte = dtSYOCHI_GM_TANTO
-                                        cmb_YOHI = cmbSYOCHI_GM_TANTO_YOHI
-                                        chkYOHI_T = chkSYOCHI_GM_TANTO_YOHI_T
-                                        chkYOHI_F = chkSYOCHI_GM_TANTO_YOHI_F
-
-                                    Case 92 '最終確認：議長
-                                        cmb = cmbKAKUNIN_CM_TANTO
-                                        dte = dtKAKUNIN_CM_TANTO
-
-                                    Case 93 '採取確認：統括責任者
-                                        cmb = cmbKAKUNIN_GM_TANTO
-                                        dte = dtKAKUNIN_GM_TANTO
-
-                                End Select
-
-                                SYOCHI_KAKUNIN_Users.Add((dr.Item(NameOf(D012.TANTO_ID)), dr.Item(NameOf(D012.KYOGI_YOHI_KAITO))))
-                                If dr.Item(NameOf(D012.KYOGI_YOHI_KAITO)) = "1" Then
-                                    chkYOHI_T.Checked = True
-                                Else
-                                    chkYOHI_F.Checked = True
-                                End If
-
-                                cmb.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
-                                cmb_YOHI.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
-                                If Not dr.Item(NameOf(D012.ADD_YMDHNS)).ToString.IsNulOrWS Then
-                                    dte.Value = DateTime.ParseExact(dr.Item(NameOf(D012.ADD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                                End If
-                            Next
-                        End If
+                        Call SetSYOCHI_TANTO_Info(DB)
 
 #End Region
 
@@ -3066,6 +3015,125 @@ Public Class FrmG0021_Detail
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
     End Function
+
+    Private Sub SetSYOCHI_TANTO_Info(ByRef DB As ClsDbUtility)
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As DataSet
+
+        Try
+
+            sbSQL.Clear()
+            sbSQL.Append($"SELECT")
+            sbSQL.Append($" *")
+            sbSQL.Append($" FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} ")
+            sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}='{_D009.FCCB_NO}' ")
+            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+
+            If dsList.Tables(0).Rows.Count > 0 Then
+
+                Dim Sec5 As New ModelInfo(Of D012)(srcDATA:=dsList.Tables(0))
+
+                For Each dr As DataRow In Sec5.Data.Rows
+                    Dim cmb As New ComboboxEx
+                    Dim dte As New DateTextBoxEx
+                    Dim cmb_YOHI As New ComboboxEx
+                    Dim chkYOHI_T As New CheckBox
+                    Dim chkYOHI_F As New CheckBox
+
+                    Select Case dr.Item(NameOf(D012.GYOMU_GROUP_ID))
+                        Case ENM_GYOMU_GROUP_ID._2_製造.Value
+                            cmb = cmbSYOCHI_SEIZO_TANTO
+                            dte = dtSYOCHI_SEIZO_TANTO
+                            cmb_YOHI = cmbSYOCHI_SEIZO_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_SEIZO_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_SEIZO_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._3_検査.Value
+                            cmb = cmbSYOCHI_KENSA_TANTO
+                            dte = dtSYOCHI_KENSA_TANTO
+                            cmb_YOHI = cmbSYOCHI_KENSA_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_KENSA_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_KENSA_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._4_品証.Value
+                            cmb = cmbSYOCHI_HINSYO_TANTO
+                            dte = dtSYOCHI_HINSYO_TANTO
+                            cmb_YOHI = cmbSYOCHI_HINSYO_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_HINSYO_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_HINSYO_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._5_設計.Value
+                            cmb = cmbSYOCHI_SEKKEI_TANTO
+                            dte = dtSYOCHI_SEKKEI_TANTO
+                            cmb_YOHI = cmbSYOCHI_SEKKEI_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_SEKKEI_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_SEKKEI_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._6_生技.Value
+                            cmb = cmbSYOCHI_SEIGI_TANTO
+                            dte = dtSYOCHI_SEIGI_TANTO
+                            cmb_YOHI = cmbSYOCHI_SEIGI_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_SEIGI_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_SEIGI_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._7_管理.Value
+                            cmb = cmbSYOCHI_KANRI_TANTO
+                            dte = dtSYOCHI_KANRI_TANTO
+                            cmb_YOHI = cmbSYOCHI_KANRI_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_KANRI_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_KANRI_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._8_営業.Value
+                            cmb = cmbSYOCHI_EIGYO_TANTO
+                            dte = dtSYOCHI_EIGYO_TANTO
+                            cmb_YOHI = cmbSYOCHI_EIGYO_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_EIGYO_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_EIGYO_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._9_購買.Value
+                            cmb = cmbSYOCHI_KOBAI_TANTO
+                            dte = dtSYOCHI_KOBAI_TANTO
+                            cmb_YOHI = cmbSYOCHI_KOBAI_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_KOBAI_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_KOBAI_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value '統括責任者
+                            cmb = cmbSYOCHI_GM_TANTO
+                            dte = dtSYOCHI_GM_TANTO
+                            cmb_YOHI = cmbSYOCHI_GM_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_GM_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_GM_TANTO_YOHI_F
+
+                        Case 92 '最終確認：議長
+                            cmb = cmbKAKUNIN_CM_TANTO
+                            dte = dtKAKUNIN_CM_TANTO
+
+                        Case 93 '採取確認：統括責任者
+                            cmb = cmbKAKUNIN_GM_TANTO
+                            dte = dtKAKUNIN_GM_TANTO
+
+                    End Select
+                    SYOCHI_KAKUNIN_Users.Clear()
+                    SYOCHI_KAKUNIN_Users.Add((dr.Item(NameOf(D012.TANTO_ID)), dr.Item(NameOf(D012.KYOGI_YOHI_KAITO))))
+                    If dr.Item(NameOf(D012.KYOGI_YOHI_KAITO)) = "1" Then
+                        chkYOHI_T.Checked = True
+                        chkYOHI_T.BackColor = Color.SkyBlue
+                    Else
+                        chkYOHI_F.Checked = True
+                        chkYOHI_F.BackColor = Color.SkyBlue
+                    End If
+
+                    cmb.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
+                    cmb_YOHI.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
+                    If Not dr.Item(NameOf(D012.ADD_YMDHNS)).ToString.IsNulOrWS Then
+                        dte.Value = DateTime.ParseExact(dr.Item(NameOf(D012.ADD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                    End If
+                Next
+            End If
+        Catch ex As Exception
+            Throw
+        End Try
+    End Sub
 
     '処置一覧 業務グループ別担当者リストの設定
     Private Sub SetTantoColumnDataList(selectedValue As String)
@@ -3590,8 +3658,6 @@ Public Class FrmG0021_Detail
         End Try
 
     End Function
-
-
 
 #End Region
 
