@@ -1703,7 +1703,11 @@ Module mdlG0010
 
             Dim _V005_CAR_J As V005_CAR_J = FunGetV005Model(strHOKOKU_NO)
 
-            spSheet1.Range(NameOf(_V005_CAR_J.GOKI)).Value = _V005_CAR_J.GOKI
+            If Not _V005_CAR_J.GOKI.IsNulOrWS Then
+                spSheet1.Range(NameOf(_V005_CAR_J.GOKI)).Value = _V005_CAR_J.GOKI
+                shapeLINE_KOUKA_KAKUNIN.Visible = False
+            End If
+
             spSheet1.Range(NameOf(_V005_CAR_J.HOKOKU_NO)).Value = _V005_CAR_J.HOKOKU_NO
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_1)).Value = _V005_CAR_J.KAITO_1.Replace(Environment.NewLine, "")
             spSheet1.Range(NameOf(_V005_CAR_J.KAITO_2)).Value = _V005_CAR_J.KAITO_2.Replace(Environment.NewLine, "")
@@ -1859,15 +1863,15 @@ Module mdlG0010
                     spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME70)).Value = _V005_CAR_J.SYONIN_NAME70
                 End If
 
-                '#248
-                If Not _V005_CAR_J.SYONIN_YMD100.IsNulOrWS Then
-                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD130)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD100.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME130)).Value = _V005_CAR_J.SYONIN_NAME100
-                End If
-                If Not _V005_CAR_J.SYONIN_YMD130.IsNulOrWS Then
-                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD120)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD130.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME120)).Value = _V005_CAR_J.SYONIN_NAME130
-                End If
+                '#248 -> レポート修正時にフィールド名調整
+                'If Not _V005_CAR_J.SYONIN_YMD100.IsNulOrWS Then
+                '    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD130)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD100.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                '    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME130)).Value = _V005_CAR_J.SYONIN_NAME100
+                'End If
+                'If Not _V005_CAR_J.SYONIN_YMD130.IsNulOrWS Then
+                '    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD120)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD130.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                '    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME120)).Value = _V005_CAR_J.SYONIN_NAME130
+                'End If
                 shapeSCR_FUTEKIGO_YOUIN_T.Visible = (_V005_CAR_J.KAITO_25 = "1")
                 shapeSCR_FUTEKIGO_YOUIN_F.Visible = (_V005_CAR_J.KAITO_25 = "0")
 
@@ -1893,7 +1897,7 @@ Module mdlG0010
                 borderRePaint.Weight = SpreadsheetGear.BorderWeight.Thin
                 borderRePaint.Color = SpreadsheetGear.Colors.Black
 
-                shapeLINE_KOUKA_KAKUNIN.Visible = False
+
                 shapeSCR_FUTEKIGO_YOUIN_T.Visible = False
                 shapeSCR_FUTEKIGO_YOUIN_F.Visible = False
 
