@@ -28,6 +28,8 @@ Public Class FrmG0011
 
     Private IsEditingClosed As Boolean
 
+
+    Private CTS_TANTO_BUFF As Integer
 #End Region
 
 #Region "プロパティ"
@@ -6675,10 +6677,12 @@ Public Class FrmG0011
                                     If MessageBox.Show(msg, "起草確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) <> DialogResult.Yes Then
                                         IsValidated = False
                                     End If
+                                    CTS_TANTO_BUFF = _D004_SYONIN_J_KANRI.SYAIN_ID
                                     If funSAVE_FCR_KISO() Then
                                         btnST03_FCR_KISO.Enabled = False
                                         btnST03_FCR_KISO.Text = "起草済"
                                     End If
+                                    _D004_SYONIN_J_KANRI.SYAIN_ID = CTS_TANTO_BUFF
                                 End If
                             End If
                         End If
