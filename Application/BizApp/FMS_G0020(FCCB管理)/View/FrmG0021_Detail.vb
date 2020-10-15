@@ -2926,7 +2926,7 @@ Public Class FrmG0021_Detail
                     btnRequired.Enabled = Not (pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO)
                     btnUnnecessary.Enabled = Not (pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO)
                     cmdFunc4.Visible = (pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO)
-                    cmdFunc4.Enabled = True 'TODO: =ëŒè€é“ëSàıÇ™âÒìöâÒìöçœÇ›
+                    cmdFunc4.Enabled = IsAllCheckedKAITO()
 
                     'é©êgÇ™ã¶ãcîªíËíSìñé“Ç≈ñ¢âÒìöÇæÇ¡ÇΩèÍçáÅAêRãcâÒìöóìÇï\é¶
                     If SYOCHI_KAKUNIN_Users.Select(Function(r) r.userId).ToList.Contains(pub_SYAIN_INFO.SYAIN_ID) Then
@@ -3013,6 +3013,131 @@ Public Class FrmG0021_Detail
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
+        End Try
+    End Function
+
+    Private Function IsAllCheckedKAITO() As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As DataSet
+
+        Try
+
+            sbSQL.Clear()
+            sbSQL.Append($"SELECT")
+            sbSQL.Append($" *")
+            sbSQL.Append($" FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} ")
+            sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}='{_D009.FCCB_NO}' ")
+            Using DB = DBOpen()
+
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+
+            If dsList.Tables(0).Rows.Count > 0 Then
+
+                Dim Sec5 As New ModelInfo(Of D012)(srcDATA:=dsList.Tables(0))
+
+                For Each dr As DataRow In Sec5.Data.Rows
+                    Dim cmb As New ComboboxEx
+                    Dim dte As New DateTextBoxEx
+                    Dim cmb_YOHI As New ComboboxEx
+                    Dim chkYOHI_T As New CheckBox
+                    Dim chkYOHI_F As New CheckBox
+
+                    Select Case dr.Item(NameOf(D012.GYOMU_GROUP_ID))
+                        Case ENM_GYOMU_GROUP_ID._2_êªë¢.Value
+                            cmb = cmbSYOCHI_SEIZO_TANTO
+                            dte = dtSYOCHI_SEIZO_TANTO
+                            cmb_YOHI = cmbSYOCHI_SEIZO_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_SEIZO_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_SEIZO_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._3_åüç∏.Value
+                            cmb = cmbSYOCHI_KENSA_TANTO
+                            dte = dtSYOCHI_KENSA_TANTO
+                            cmb_YOHI = cmbSYOCHI_KENSA_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_KENSA_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_KENSA_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._4_ïièÿ.Value
+                            cmb = cmbSYOCHI_HINSYO_TANTO
+                            dte = dtSYOCHI_HINSYO_TANTO
+                            cmb_YOHI = cmbSYOCHI_HINSYO_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_HINSYO_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_HINSYO_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._5_ê›åv.Value
+                            cmb = cmbSYOCHI_SEKKEI_TANTO
+                            dte = dtSYOCHI_SEKKEI_TANTO
+                            cmb_YOHI = cmbSYOCHI_SEKKEI_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_SEKKEI_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_SEKKEI_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._6_ê∂ãZ.Value
+                            cmb = cmbSYOCHI_SEIGI_TANTO
+                            dte = dtSYOCHI_SEIGI_TANTO
+                            cmb_YOHI = cmbSYOCHI_SEIGI_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_SEIGI_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_SEIGI_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._7_ä«óù.Value
+                            cmb = cmbSYOCHI_KANRI_TANTO
+                            dte = dtSYOCHI_KANRI_TANTO
+                            cmb_YOHI = cmbSYOCHI_KANRI_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_KANRI_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_KANRI_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._8_âcã∆.Value
+                            cmb = cmbSYOCHI_EIGYO_TANTO
+                            dte = dtSYOCHI_EIGYO_TANTO
+                            cmb_YOHI = cmbSYOCHI_EIGYO_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_EIGYO_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_EIGYO_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._9_çwîÉ.Value
+                            cmb = cmbSYOCHI_KOBAI_TANTO
+                            dte = dtSYOCHI_KOBAI_TANTO
+                            cmb_YOHI = cmbSYOCHI_KOBAI_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_KOBAI_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_KOBAI_TANTO_YOHI_F
+
+                        Case ENM_GYOMU_GROUP_ID._91_QMSä«óùê”îCé“.Value 'ìùäáê”îCé“
+                            cmb = cmbSYOCHI_GM_TANTO
+                            dte = dtSYOCHI_GM_TANTO
+                            cmb_YOHI = cmbSYOCHI_GM_TANTO_YOHI
+                            chkYOHI_T = chkSYOCHI_GM_TANTO_YOHI_T
+                            chkYOHI_F = chkSYOCHI_GM_TANTO_YOHI_F
+
+                        Case 92 'ç≈èIämîFÅFãcí∑
+                            cmb = cmbKAKUNIN_CM_TANTO
+                            dte = dtKAKUNIN_CM_TANTO
+
+                        Case 93 'çÃéÊämîFÅFìùäáê”îCé“
+                            cmb = cmbKAKUNIN_GM_TANTO
+                            dte = dtKAKUNIN_GM_TANTO
+
+                    End Select
+                    SYOCHI_KAKUNIN_Users.Clear()
+                    SYOCHI_KAKUNIN_Users.Add((dr.Item(NameOf(D012.TANTO_ID)), dr.Item(NameOf(D012.KYOGI_YOHI_KAITO))))
+                    If dr.Item(NameOf(D012.KYOGI_YOHI_KAITO)) = "1" Then
+                        chkYOHI_T.Checked = True
+                        chkYOHI_T.BackColor = Color.SkyBlue
+                    Else
+                        chkYOHI_F.Checked = True
+                        chkYOHI_F.BackColor = Color.SkyBlue
+                    End If
+
+                    cmb.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
+                    cmb_YOHI.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
+                    If Not dr.Item(NameOf(D012.ADD_YMDHNS)).ToString.IsNulOrWS Then
+                        dte.Value = DateTime.ParseExact(dr.Item(NameOf(D012.ADD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+                    End If
+                Next
+            End If
+
+            Return True
+        Catch ex As Exception
+            Throw
         End Try
     End Function
 
