@@ -56,7 +56,6 @@ Public Class FrmG0027_MailForm
             End Using
             lblTytle.Text = PrSYORI_NAME
             Me.Text = lblTytle.Text
-            lbl.Text = PrSYORI_NAME.Substring(0, 4)
 
             '-----位置・サイズ
             Me.Height = 600
@@ -74,24 +73,21 @@ Public Class FrmG0027_MailForm
             Select Case PrSYORI_NAME
                 Case "協議確認依頼メール送信"
                     strSubject = $"FCCB会議招集の件 FCCB-NO:{PrHOKOKU_NO}"
-                    strBody = <sql><![CDATA[
-                                各位
+                    strBody = "各位
+FCCB記録書に記載された内容を確認すると、協議が必要と
+判断しますので、下記日程で、FCCB会議を実施しますので
+ご参集をお願い致します。
 
-        　                        FCCB記録書に記載された内容を確認すると、協議が必要と
-                　                判断しますので、下記日程で、FCCB会議を実施しますので
-                　                ご参集をお願い致します。
+日時：　　　年　　月　　日　　　：　　～　　：
+場所：第　　会議室
 
-                                日時：　　　年　　月　　日　　　：　　～　　：
-                                場所：第　　会議室
+FCCB　議長"
 
-                                FCCB　議長
-                                ]]></sql>.Value.Trim
             End Select
 
             mtxTo.Text = GetUserNames(PrToUsers).Aggregate(Function(a, b) a & ", " & b)
             mtxTitle.Text = strSubject
             mtxBody.Text = strBody
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -256,7 +252,7 @@ Public Class FrmG0027_MailForm
                 MessageBox.Show("送信者が見つからないため、依頼メールを送信できません", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return False
             Else
-                If FunSendMailFCCB(mtxTitle.Text, strBody, PrToUsers) Then
+                If FunSendMailFCCB(mtxTitle.Text, strBody, PrToUsers, False) Then
                     Return True
                 Else
                     MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)

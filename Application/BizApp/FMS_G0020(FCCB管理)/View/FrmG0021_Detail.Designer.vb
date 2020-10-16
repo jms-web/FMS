@@ -1866,6 +1866,7 @@ Partial Class FrmG0021_Detail
         '
         'btnUnnecessary
         '
+        Me.btnUnnecessary.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnUnnecessary.Font = New System.Drawing.Font("Meiryo UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.btnUnnecessary.Location = New System.Drawing.Point(114, 6)
         Me.btnUnnecessary.Name = "btnUnnecessary"
@@ -1876,6 +1877,7 @@ Partial Class FrmG0021_Detail
         '
         'btnRequired
         '
+        Me.btnRequired.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnRequired.Font = New System.Drawing.Font("Meiryo UI", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.btnRequired.Location = New System.Drawing.Point(8, 6)
         Me.btnRequired.Name = "btnRequired"

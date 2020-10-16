@@ -28,6 +28,7 @@ Public Class FrmG0021_Detail
     Private dtBUFF As DateTime
 
     Private SYOCHI_KAKUNIN_Users As New List(Of (userId As Integer, YOHI_KAITO As String))
+
 #End Region
 
 #Region "プロパティ"
@@ -571,7 +572,7 @@ Public Class FrmG0021_Detail
                         End If
                     End If
 
-                Case 4  '転送
+                Case 4  '協議要否確認メール送信
 
                     If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
                         If OpenFormSendMail() Then
@@ -1279,6 +1280,11 @@ Public Class FrmG0021_Detail
 
 #End Region
 
+            '協議要否依頼メール
+            If PrCurrentStage = ENM_FCCB_STAGE._30_変更審議 And pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO Then
+                Call FunSendJudgeReplyMail(blnNonMessage:=True)
+            End If
+
 #Region "   NextStage"
 
             '-----承認申請
@@ -1410,6 +1416,80 @@ Public Class FrmG0021_Detail
 #End Region
 
             Return True
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
+#End Region
+
+#Region "承認依頼メール送信"
+
+    ''' <summary>
+    ''' 承認依頼メール送信
+    ''' </summary>
+    ''' <returns></returns>
+    Private Function FunSendJudgeReplyMail(Optional toUserNAME As String = "", Optional fromUserNAME As String = "", Optional blnNonMessage As Boolean = False) As Boolean
+
+        Try
+
+            Dim strSubject As String = $"【FCCB記録書-協議要否確認】FCCB-NO:{_D004_SYONIN_J_KANRI.HOKOKU_NO}"
+            Dim strBody As String = <sql><![CDATA[
+                各位<br />
+                <br />
+        　      FCCB記録書の処置依頼が来ましたので対応をお願いします。<br />
+                <br />
+        　　        【報 告 書】FCCB<br />
+        　　        【FCCB-No】{0}<br />
+        　　        【起 草 日】{1}<br />
+                <br />        　　
+                FCCB議長
+                <br />
+                <a href = "http://sv04:8000/CLICKONCE_FMS.application" > システム起動</a><br />
+                <br />
+                ※このメールは配信専用です。(返信できません)<br />
+                返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
+                ]]></sql>.Value.Trim
+
+            'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}
+
+            strBody = String.Format(strBody,
+                                _D004_SYONIN_J_KANRI.HOKOKU_NO,
+                                DateTime.ParseExact(_D009.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd"))
+
+            Dim ToUsers As New List(Of Integer)
+
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
+
+            sbSQL.Clear()
+            sbSQL.Append($"SELECT")
+            sbSQL.Append($" {NameOf(D012.TANTO_ID)}")
+            sbSQL.Append($" FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} ")
+            sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}='{_D009.FCCB_NO}' ")
+            sbSQL.Append($" AND {NameOf(D012.TANTO_ID)}<>0 ")
+            sbSQL.Append($" AND RTRIM({NameOf(D012.KYOGI_YOHI_KAITO)})='' ")
+            Using DB = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            For Each row As DataRow In dsList.Tables(0).Rows
+                If Not ToUsers.Contains(row.Item(0).ToString.ToVal) Then
+                    ToUsers.Add(row.Item(0).ToString.ToVal)
+                End If
+            Next
+
+            If ToUsers.Count = 0 Then
+                If Not blnNonMessage Then MessageBox.Show("送信者が見つからないため、依頼メールを送信できません", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return False
+            Else
+                If FunSendMailFCCB(strSubject, strBody, ToUsers) Then
+                    Return True
+                Else
+                    MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return False
+                End If
+            End If
         Catch ex As Exception
             Throw
         End Try
@@ -1920,27 +2000,49 @@ Public Class FrmG0021_Detail
             Dim userlist As New List(Of Integer)
 
             userlist.Add(cmbCM_TANTO.SelectedValue)
-            If cmbSYOCHI_GM_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
-            If cmbSYOCHI_SEIZO_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_SEIZO_TANTO.SelectedValue)
-            If cmbSYOCHI_KENSA_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_KENSA_TANTO.SelectedValue)
-            If cmbSYOCHI_HINSYO_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_HINSYO_TANTO.SelectedValue)
-            If cmbSYOCHI_SEKKEI_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_SEKKEI_TANTO.SelectedValue)
-            If cmbSYOCHI_SEIGI_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_SEIGI_TANTO.SelectedValue)
-            If cmbSYOCHI_KANRI_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_KANRI_TANTO.SelectedValue)
-            If cmbSYOCHI_EIGYO_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_EIGYO_TANTO.SelectedValue)
-            If cmbSYOCHI_KOBAI_TANTO.IsSelected Then userlist.Add(cmbSYOCHI_KOBAI_TANTO.SelectedValue)
-
-            frmDLG.PrToUsers = userlist
-            dlgRET = frmDLG.ShowDialog(Me)
-
-            If dlgRET = Windows.Forms.DialogResult.OK Then
-                Me.DialogResult = DialogResult.OK
-                Me.Close()
-            Else
-                Return False
+            If cmbSYOCHI_GM_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_GM_TANTO.SelectedValue) Then
+                userlist.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
+            End If
+            If cmbSYOCHI_SEIZO_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_SEIZO_TANTO.SelectedValue) Then
+                userlist.Add(cmbSYOCHI_SEIZO_TANTO.SelectedValue)
+            End If
+            If cmbSYOCHI_KENSA_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_KENSA_TANTO.SelectedValue) Then
+                userlist.Add(cmbSYOCHI_KENSA_TANTO.SelectedValue)
+            End If
+            If cmbSYOCHI_HINSYO_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_HINSYO_TANTO.SelectedValue) Then
+                userlist.Add(cmbSYOCHI_HINSYO_TANTO.SelectedValue)
+            End If
+            If cmbSYOCHI_SEKKEI_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_SEKKEI_TANTO.SelectedValue) Then
+                userlist.Add(cmbSYOCHI_SEKKEI_TANTO.SelectedValue)
+            End If
+            If cmbSYOCHI_SEIGI_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_SEIGI_TANTO.SelectedValue) Then
+                userlist.Add(cmbSYOCHI_SEIGI_TANTO.SelectedValue)
+            End If
+            If cmbSYOCHI_KANRI_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_KANRI_TANTO.SelectedValue) Then
+                userlist.Add(cmbSYOCHI_KANRI_TANTO.SelectedValue)
+            End If
+            If cmbSYOCHI_EIGYO_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_EIGYO_TANTO.SelectedValue) Then
+                userlist.Add(cmbSYOCHI_EIGYO_TANTO.SelectedValue)
+            End If
+            If cmbSYOCHI_KOBAI_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_KOBAI_TANTO.SelectedValue) Then
+                userlist.Add(cmbSYOCHI_KOBAI_TANTO.SelectedValue)
             End If
 
-            Return True
+            If userlist.Count > 1 Then
+                frmDLG.PrToUsers = userlist
+                dlgRET = frmDLG.ShowDialog(Me)
+
+                If dlgRET = Windows.Forms.DialogResult.OK Then
+                    Me.DialogResult = DialogResult.OK
+                    Me.Close()
+                    Return True
+                Else
+                    Return False
+                End If
+            Else
+                MessageBox.Show($"確認依頼担当者が選択されていません{vbCrLf}先に、⑤変更審議 各部門の担当者を選択して下さい", "協議確認依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return False
+            End If
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -2531,7 +2633,7 @@ Public Class FrmG0021_Detail
             WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009.FCCB_NO}、協議要否回答")
             Call SetSYOCHI_TANTO_Info(DB)
         End Using
-        MessageBox.Show("要否回答登録完了", "FCCB協議要否回答", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show("要否回答を完了しました", "FCCB協議要否回答", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub
 
@@ -2549,7 +2651,6 @@ Public Class FrmG0021_Detail
     ''' <param name="intMODE"></param>
     ''' <returns></returns>
     Private Function FunInitializeControls(intMODE As ENM_DATA_OPERATION_MODE) As Boolean
-
 
         Try
 
@@ -2922,9 +3023,11 @@ Public Class FrmG0021_Detail
                     C1SplitterPanel_YOHI.Visible = True
                     C1SplitterPanel5.Enabled = False
 
+                    Dim blnTANTO As Boolean = IsYOHI_KAITO_TANTO(pub_SYAIN_INFO.SYAIN_ID)
                     pnlTANTO_YOHI.Visible = (pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO)
-                    btnRequired.Enabled = Not (pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO)
-                    btnUnnecessary.Enabled = Not (pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO)
+                    btnRequired.Enabled = blnTANTO
+                    btnUnnecessary.Enabled = blnTANTO
+
                     cmdFunc4.Visible = (pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO)
                     cmdFunc4.Enabled = IsAllCheckedKAITO()
 
@@ -3016,126 +3119,46 @@ Public Class FrmG0021_Detail
         End Try
     End Function
 
-    Private Function IsAllCheckedKAITO() As Boolean
+    Private Function IsYOHI_KAITO_TANTO(sYAIN_ID As Integer) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
-        Dim dsList As DataSet
+        Dim result As Boolean
 
         Try
 
             sbSQL.Clear()
             sbSQL.Append($"SELECT")
-            sbSQL.Append($" *")
+            sbSQL.Append($" COUNT({NameOf(D012.TANTO_ID)})")
             sbSQL.Append($" FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} ")
             sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}='{_D009.FCCB_NO}' ")
+            sbSQL.Append($" AND {NameOf(D012.TANTO_ID)}={sYAIN_ID} ")
             Using DB = DBOpen()
-
-                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                result = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg).ToString.ToVal > 0
             End Using
 
+            Return result
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
 
-            If dsList.Tables(0).Rows.Count > 0 Then
+    Private Function IsAllCheckedKAITO() As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim result As Boolean
 
-                Dim Sec5 As New ModelInfo(Of D012)(srcDATA:=dsList.Tables(0))
+        Try
 
-                For Each dr As DataRow In Sec5.Data.Rows
-                    Dim cmb As New ComboboxEx
-                    Dim dte As New DateTextBoxEx
-                    Dim cmb_YOHI As New ComboboxEx
-                    Dim chkYOHI_T As New CheckBox
-                    Dim chkYOHI_F As New CheckBox
+            sbSQL.Clear()
+            sbSQL.Append($"SELECT")
+            sbSQL.Append($" COUNT({NameOf(D012.TANTO_ID)})")
+            sbSQL.Append($" FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} ")
+            sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}='{_D009.FCCB_NO}' ")
+            sbSQL.Append($" AND {NameOf(D012.TANTO_ID)}<>0 ")
+            sbSQL.Append($" AND RTRIM({NameOf(D012.KYOGI_YOHI_KAITO)})='' ")
+            Using DB = DBOpen()
+                result = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg).ToString.ToVal = 0
+            End Using
 
-                    Select Case dr.Item(NameOf(D012.GYOMU_GROUP_ID))
-                        Case ENM_GYOMU_GROUP_ID._2_製造.Value
-                            cmb = cmbSYOCHI_SEIZO_TANTO
-                            dte = dtSYOCHI_SEIZO_TANTO
-                            cmb_YOHI = cmbSYOCHI_SEIZO_TANTO_YOHI
-                            chkYOHI_T = chkSYOCHI_SEIZO_TANTO_YOHI_T
-                            chkYOHI_F = chkSYOCHI_SEIZO_TANTO_YOHI_F
-
-                        Case ENM_GYOMU_GROUP_ID._3_検査.Value
-                            cmb = cmbSYOCHI_KENSA_TANTO
-                            dte = dtSYOCHI_KENSA_TANTO
-                            cmb_YOHI = cmbSYOCHI_KENSA_TANTO_YOHI
-                            chkYOHI_T = chkSYOCHI_KENSA_TANTO_YOHI_T
-                            chkYOHI_F = chkSYOCHI_KENSA_TANTO_YOHI_F
-
-                        Case ENM_GYOMU_GROUP_ID._4_品証.Value
-                            cmb = cmbSYOCHI_HINSYO_TANTO
-                            dte = dtSYOCHI_HINSYO_TANTO
-                            cmb_YOHI = cmbSYOCHI_HINSYO_TANTO_YOHI
-                            chkYOHI_T = chkSYOCHI_HINSYO_TANTO_YOHI_T
-                            chkYOHI_F = chkSYOCHI_HINSYO_TANTO_YOHI_F
-
-                        Case ENM_GYOMU_GROUP_ID._5_設計.Value
-                            cmb = cmbSYOCHI_SEKKEI_TANTO
-                            dte = dtSYOCHI_SEKKEI_TANTO
-                            cmb_YOHI = cmbSYOCHI_SEKKEI_TANTO_YOHI
-                            chkYOHI_T = chkSYOCHI_SEKKEI_TANTO_YOHI_T
-                            chkYOHI_F = chkSYOCHI_SEKKEI_TANTO_YOHI_F
-
-                        Case ENM_GYOMU_GROUP_ID._6_生技.Value
-                            cmb = cmbSYOCHI_SEIGI_TANTO
-                            dte = dtSYOCHI_SEIGI_TANTO
-                            cmb_YOHI = cmbSYOCHI_SEIGI_TANTO_YOHI
-                            chkYOHI_T = chkSYOCHI_SEIGI_TANTO_YOHI_T
-                            chkYOHI_F = chkSYOCHI_SEIGI_TANTO_YOHI_F
-
-                        Case ENM_GYOMU_GROUP_ID._7_管理.Value
-                            cmb = cmbSYOCHI_KANRI_TANTO
-                            dte = dtSYOCHI_KANRI_TANTO
-                            cmb_YOHI = cmbSYOCHI_KANRI_TANTO_YOHI
-                            chkYOHI_T = chkSYOCHI_KANRI_TANTO_YOHI_T
-                            chkYOHI_F = chkSYOCHI_KANRI_TANTO_YOHI_F
-
-                        Case ENM_GYOMU_GROUP_ID._8_営業.Value
-                            cmb = cmbSYOCHI_EIGYO_TANTO
-                            dte = dtSYOCHI_EIGYO_TANTO
-                            cmb_YOHI = cmbSYOCHI_EIGYO_TANTO_YOHI
-                            chkYOHI_T = chkSYOCHI_EIGYO_TANTO_YOHI_T
-                            chkYOHI_F = chkSYOCHI_EIGYO_TANTO_YOHI_F
-
-                        Case ENM_GYOMU_GROUP_ID._9_購買.Value
-                            cmb = cmbSYOCHI_KOBAI_TANTO
-                            dte = dtSYOCHI_KOBAI_TANTO
-                            cmb_YOHI = cmbSYOCHI_KOBAI_TANTO_YOHI
-                            chkYOHI_T = chkSYOCHI_KOBAI_TANTO_YOHI_T
-                            chkYOHI_F = chkSYOCHI_KOBAI_TANTO_YOHI_F
-
-                        Case ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value '統括責任者
-                            cmb = cmbSYOCHI_GM_TANTO
-                            dte = dtSYOCHI_GM_TANTO
-                            cmb_YOHI = cmbSYOCHI_GM_TANTO_YOHI
-                            chkYOHI_T = chkSYOCHI_GM_TANTO_YOHI_T
-                            chkYOHI_F = chkSYOCHI_GM_TANTO_YOHI_F
-
-                        Case 92 '最終確認：議長
-                            cmb = cmbKAKUNIN_CM_TANTO
-                            dte = dtKAKUNIN_CM_TANTO
-
-                        Case 93 '採取確認：統括責任者
-                            cmb = cmbKAKUNIN_GM_TANTO
-                            dte = dtKAKUNIN_GM_TANTO
-
-                    End Select
-                    SYOCHI_KAKUNIN_Users.Clear()
-                    SYOCHI_KAKUNIN_Users.Add((dr.Item(NameOf(D012.TANTO_ID)), dr.Item(NameOf(D012.KYOGI_YOHI_KAITO))))
-                    If dr.Item(NameOf(D012.KYOGI_YOHI_KAITO)) = "1" Then
-                        chkYOHI_T.Checked = True
-                        chkYOHI_T.BackColor = Color.SkyBlue
-                    Else
-                        chkYOHI_F.Checked = True
-                        chkYOHI_F.BackColor = Color.SkyBlue
-                    End If
-
-                    cmb.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
-                    cmb_YOHI.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
-                    If Not dr.Item(NameOf(D012.ADD_YMDHNS)).ToString.IsNulOrWS Then
-                        dte.Value = DateTime.ParseExact(dr.Item(NameOf(D012.ADD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                    End If
-                Next
-            End If
-
-            Return True
+            Return result
         Catch ex As Exception
             Throw
         End Try
@@ -3146,7 +3169,7 @@ Public Class FrmG0021_Detail
         Dim dsList As DataSet
 
         Try
-
+            SYOCHI_KAKUNIN_Users.Clear()
             sbSQL.Clear()
             sbSQL.Append($"SELECT")
             sbSQL.Append($" *")
@@ -3238,12 +3261,12 @@ Public Class FrmG0021_Detail
                             dte = dtKAKUNIN_GM_TANTO
 
                     End Select
-                    SYOCHI_KAKUNIN_Users.Clear()
+
                     SYOCHI_KAKUNIN_Users.Add((dr.Item(NameOf(D012.TANTO_ID)), dr.Item(NameOf(D012.KYOGI_YOHI_KAITO))))
                     If dr.Item(NameOf(D012.KYOGI_YOHI_KAITO)) = "1" Then
                         chkYOHI_T.Checked = True
                         chkYOHI_T.BackColor = Color.SkyBlue
-                    Else
+                    ElseIf dr.Item(NameOf(D012.KYOGI_YOHI_KAITO)) = "0" Then
                         chkYOHI_F.Checked = True
                         chkYOHI_F.BackColor = Color.SkyBlue
                     End If
