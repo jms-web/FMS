@@ -2562,6 +2562,8 @@ Public Class FrmG0021_Detail
 
 #End Region
 
+
+
 #Region "—v”Û‰ñ“š"
 
     Private Sub btnRequired_Click(sender As Object, e As EventArgs) Handles btnRequired.Click, btnUnnecessary.Click
@@ -3273,7 +3275,7 @@ Public Class FrmG0021_Detail
 
                     cmb.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
                     cmb_YOHI.SelectedValue = dr.Item(NameOf(D012.TANTO_ID))
-                    If Not dr.Item(NameOf(D012.ADD_YMDHNS)).ToString.IsNulOrWS Then
+                    If cmb.IsSelected AndAlso Not dr.Item(NameOf(D012.ADD_YMDHNS)).ToString.IsNulOrWS Then
                         dte.Value = DateTime.ParseExact(dr.Item(NameOf(D012.ADD_YMDHNS)), "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
                     End If
                 Next
