@@ -346,12 +346,21 @@ Public Class FrmG0021_Detail
         If flx.Cols(e.Col).Name.Contains("YMD") Then
             Dim d As Date
             If Not Date.TryParse(flx.Editor.Text, d) Then
-                'e.Cancel = True
-                MessageBox.Show("無効な日付です")
+
+                If Not flx.Editor.Text.Replace("/", "").Replace("_", "").IsNulOrWS Then
+                    MessageBox.Show("無効な日付です")
+                    e.Cancel = True
+                End If
             Else
                 dtBUFF = d
             End If
         End If
+
+        Debug.WriteLine("Flx_ValidateEdit:" & dtBUFF)
+    End Sub
+
+    Private Sub flxDATA_2_Validated(sender As Object, e As EventArgs) Handles flxDATA_2.Validated
+        Debug.WriteLine("flxDATA_2_Validated:" & dtBUFF)
     End Sub
 
     Private Sub C1FlexGrid_SetupEditor(sender As Object, e As C1.Win.C1FlexGrid.RowColEventArgs) Handles flxDATA_2.LeaveEdit,
@@ -361,6 +370,7 @@ Public Class FrmG0021_Detail
         If flx.Cols(e.Col).Name.Contains("YMD") Then
             Dim dtp As DateTimePicker = CType(flx.Editor, DateTimePicker)
             dtBUFF = dtp.Value
+            Debug.WriteLine("setupEditor:" & dtBUFF)
         End If
     End Sub
 
@@ -381,6 +391,9 @@ Public Class FrmG0021_Detail
                     If Not value.IsNulOrWS Then
                         flx(e.Row, e.Col) = dtBUFF.ToString("yyyy/MM/dd") 'CDate(value).ToString("yyyy/MM/dd")
                     End If
+
+                    Debug.WriteLine("Flx_AfterEdit:" & dtBUFF)
+                    DirectCast(DirectCast(flx.DataSource, BindingSource).DataSource, DataTable).AcceptChanges()
 
                 Case flx.Cols(e.Col).Name = NameOf(D010.YOHI_KB)
 
@@ -484,6 +497,8 @@ Public Class FrmG0021_Detail
             End Select
 
         Next
+
+        Debug.WriteLine("SetFlxDATA_EditStatus:" & dtBUFF)
     End Sub
 
 #End Region
@@ -2238,7 +2253,7 @@ Public Class FrmG0021_Detail
     End Sub
 
     Private Sub cmbKISO_TANTO_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKISO_TANTO.SelectedValueChanged
-        If cmbKISO_TANTO.IsSelected Then
+        If cmbKISO_TANTO.IsSelected And _D009.CM_TANTO = 0 Then
             cmbCM_TANTO.SelectedValue = cmbKISO_TANTO.SelectedValue
         End If
     End Sub
@@ -2486,7 +2501,7 @@ Public Class FrmG0021_Detail
 
 #Region "部品番号"
 
-    Private Sub CmbBUHIN_BANGO_SelectedValueChanged(sender As Object, e As EventArgs) 'Handles cmbBUHIN_BANGO.SelectedValueChanged
+    Private Sub CmbBUHIN_BANGO_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUHIN_BANGO.SelectedValueChanged
         If IsInitializing Then Exit Sub
 
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
@@ -2513,7 +2528,7 @@ Public Class FrmG0021_Detail
         Else
             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.LazyLoad("社内CD").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
         End If
-        AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
+        'AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
 
         '抽出 判定
         If cmb.IsSelected Then
@@ -2525,9 +2540,9 @@ Public Class FrmG0021_Detail
                 cmbHINMEI.Text = dr?.Item("BUHIN_NAME")
             End If
 
-            RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-            If dr?.Item("KISYU_ID") <> 0 Then cmbKISYU.SelectedValue = dr?.Item("KISYU_ID")
-            AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+            'RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+            'If dr?.Item("KISYU_ID") <> 0 Then cmbKISYU.SelectedValue = dr?.Item("KISYU_ID")
+            'AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
         Else
             cmbSYANAI_CD.SelectedValue = ""
             cmbHINMEI.Text = ""
@@ -3808,6 +3823,8 @@ Public Class FrmG0021_Detail
         End Try
 
     End Function
+
+
 
 #End Region
 
