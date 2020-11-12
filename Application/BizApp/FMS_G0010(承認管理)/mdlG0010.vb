@@ -1907,6 +1907,15 @@ Module mdlG0010
                 spSheet1.Range("P57").Value = "’S“–‰Û’·“™"
                 spSheet1.Range("P61").Value = "•iØTL"
 
+
+                If Not _V005_CAR_J.SYONIN_YMD120.IsNulOrWS Then
+                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD130)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD120.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME130)).Value = _V005_CAR_J.SYONIN_NAME120
+                End If
+                If Not _V005_CAR_J.SYONIN_YMD130.IsNulOrWS Then
+                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD100)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD130.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                    spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME100)).Value = _V005_CAR_J.SYONIN_NAME130
+                End If
             End If
             If _V005_CAR_J.SYONIN_YMD10 >= "20200512" Then
                 spSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiQj@•Ê†|‚T"
