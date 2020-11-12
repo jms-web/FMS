@@ -587,18 +587,28 @@ Public Class FrmG0021_Detail
                         End If
                     End If
 
-                Case 4  '協議要否確認メール送信
+                Case 4  '協議要否確認　協議開催通知メール送信
 
-                    If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
-                        If OpenFormSendMail() Then
-                            If IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID) Then
-                                Me.DialogResult = DialogResult.OK
-                            Else
-                                If FunSAVE(ENM_SAVE_MODE._1_保存, True) Then
+                    If IsNeedMeeting() Then
+                        If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
+                            If OpenFormSendMail() Then
+                                If IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID) Then
                                     Me.DialogResult = DialogResult.OK
                                 Else
-                                    MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                    If FunSAVE(ENM_SAVE_MODE._1_保存, True) Then
+                                        Me.DialogResult = DialogResult.OK
+                                    Else
+                                        MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                    End If
                                 End If
+                            End If
+                        End If
+                    Else
+                        '協議要否依頼メール
+                        If MessageBox.Show("協議要否依頼メールを送信しますか？", "メール送信確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                            If FunSendJudgeReplyMail(blnNonMessage:=True) Then
+                                Dim imgDlg As New ImageDialog
+                                imgDlg.Show("\\sv04\FMS\RESOURCE\sendmail_256.gif", 4000)
                             End If
                         End If
                     End If
@@ -1295,11 +1305,6 @@ Public Class FrmG0021_Detail
 
 #End Region
 
-            '協議要否依頼メール
-            If PrCurrentStage = ENM_FCCB_STAGE._30_変更審議 And pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO Then
-                Call FunSendJudgeReplyMail(blnNonMessage:=True)
-            End If
-
 #Region "   NextStage"
 
             '-----承認申請
@@ -1452,7 +1457,7 @@ Public Class FrmG0021_Detail
             Dim strBody As String = <sql><![CDATA[
                 各位<br />
                 <br />
-        　      FCCB記録書の処置依頼が来ましたので対応をお願いします。<br />
+        　      FCCB記録書の協議要否依頼が来ましたので対応をお願いします。<br />
                 <br />
         　　        【報 告 書】FCCB<br />
         　　        【FCCB-No】{0}<br />
@@ -1468,9 +1473,15 @@ Public Class FrmG0021_Detail
 
             'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}
 
+            Dim dt As DateTime
+            If DateTime.TryParse(_D009.ADD_YMDHNS, dt) Then
+            Else
+                dt = DateTime.ParseExact(_D009.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing)
+            End If
+
             strBody = String.Format(strBody,
                                 _D004_SYONIN_J_KANRI.HOKOKU_NO,
-                                DateTime.ParseExact(_D009.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd"))
+                                dt.ToString("yyyy/MM/dd"))
 
             Dim ToUsers As New List(Of Integer)
 
@@ -2100,6 +2111,7 @@ Public Class FrmG0021_Detail
                 cmdFunc2.Enabled = IsOwnCreated
 
                 cmdFunc4.Enabled = False
+                cmdFunc4.Visible = False
                 cmdFunc5.Enabled = False
                 cmdFunc10.Enabled = False
                 cmdFunc11.Enabled = False
@@ -2107,20 +2119,31 @@ Public Class FrmG0021_Detail
 
                 cmdFunc1.Enabled = IsOwnCreated
                 cmdFunc2.Enabled = IsOwnCreated
-                cmdFunc4.Enabled = IsOwnCreated
+
                 cmdFunc5.Enabled = IsOwnCreated
 
                 cmdFunc10.Enabled = True
                 cmdFunc11.Enabled = True
 
                 Dim blnIsAdmin As Boolean = IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID)
-
-                cmdFunc4.Enabled = blnIsAdmin
                 cmdFunc5.Enabled = blnIsAdmin
+
+                cmdFunc4.Visible = False
 
                 Select Case PrCurrentStage
                     Case ENM_FCCB_STAGE._10_起草入力
                         cmdFunc5.Enabled = False
+                    Case ENM_FCCB_STAGE._30_変更審議
+
+                        cmdFunc4.Visible = True
+
+                        cmdFunc4.Enabled = pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO
+
+                        If IsNeedMeeting() Then
+                            cmdFunc4.Text = $"協議開催{vbCrLf}メール送信(F4)"
+                        Else
+                            cmdFunc4.Text = $"協議要否確認{vbCrLf}メール送信(F4)"
+                        End If
 
                     Case ENM_FCCB_STAGE._50_処置事項完了
 
@@ -2577,8 +2600,6 @@ Public Class FrmG0021_Detail
 
 #End Region
 
-
-
 #Region "要否回答"
 
     Private Sub btnRequired_Click(sender As Object, e As EventArgs) Handles btnRequired.Click, btnUnnecessary.Click
@@ -2593,59 +2614,16 @@ Public Class FrmG0021_Detail
                 strKAITO = ""
         End Select
 
-        Dim _D012 As New D012
-        Dim sbSQL As New System.Text.StringBuilder
-        Dim strRET As String
-        Dim sqlEx As New Exception
-        Dim strSysDate As String
-        Dim GYOMU_GROUP_ID As Integer
 
-        sbSQL.Append($"SELECT TOP 1 ISNULL({NameOf(D012.GYOMU_GROUP_ID)},0) FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)}")
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim intRET As Integer
+
+        sbSQL.Append($"UPDATE {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)}")
+        sbSQL.Append($" SET {NameOf(D012.KYOGI_YOHI_KAITO)} = '{strKAITO}'")
         sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}  ='{_D009.FCCB_NO}'")
         sbSQL.Append($" AND   {NameOf(D012.TANTO_ID)} = {pub_SYAIN_INFO.SYAIN_ID}")
         Using DB = DBOpen()
-            strSysDate = DB.GetSysDateString
-            GYOMU_GROUP_ID = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg).ToVal
-
-#Region "   モデル更新"
-
-            _D012.Clear()
-            _D012.FCCB_NO = _D009.FCCB_NO
-            _D012.GYOMU_GROUP_ID = GYOMU_GROUP_ID
-            _D012.TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
-            _D012.KYOGI_YOHI_KAITO = strKAITO
-            _D012.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-
-#End Region
-
-            '-----MERGE
-            sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append($"MERGE INTO {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} AS TARGET")
-            sbSQL.Append($" USING (")
-            sbSQL.Append($"{_D012.ToSelectSqlString}")
-            sbSQL.Append($" ) AS WK")
-            sbSQL.Append($" ON (TARGET.{NameOf(_D012.FCCB_NO)}        = WK.{NameOf(_D012.FCCB_NO)}")
-            sbSQL.Append($" AND TARGET.{NameOf(_D012.GYOMU_GROUP_ID)} = WK.{NameOf(_D012.GYOMU_GROUP_ID)})")
-            '---UPDATE
-            sbSQL.Append($" WHEN MATCHED THEN")
-            sbSQL.Append($" {_D012.ToUpdateSqlString("TARGET", "WK")}")
-            '---INSERT
-            sbSQL.Append($" WHEN NOT MATCHED THEN")
-            sbSQL.Append($" {_D012.ToInsertSqlString("WK")}")
-            sbSQL.Append(" OUTPUT $action As RESULT;")
-
-            strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
-
-            Select Case strRET
-                Case "INSERT"
-
-                Case "UPDATE"
-
-                Case Else
-                    '-----エラーログ出力
-                    Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
-                    WL.WriteLogDat(strErrMsg)
-            End Select
+            intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg)
 
             WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009.FCCB_NO}、協議要否回答")
             Call SetSYOCHI_TANTO_Info(DB)
@@ -3824,7 +3802,24 @@ Public Class FrmG0021_Detail
 
     End Function
 
+    Private Function IsNeedMeeting() As Boolean
 
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim sqlEx As New Exception
+        Dim intRET As Integer
+
+        sbSQL.Append($"SELECT")
+        sbSQL.Append($" COUNT({NameOf(D012.TANTO_ID)})")
+        sbSQL.Append($" FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} ")
+        sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}='{_D009.FCCB_NO}' ")
+        sbSQL.Append($" AND {NameOf(D012.TANTO_ID)}<>0 ")
+        sbSQL.Append($" AND RTRIM({NameOf(D012.KYOGI_YOHI_KAITO)})='1' ")
+        Using DB = DBOpen()
+            intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx).ToVal()
+        End Using
+
+        Return intRET > 0
+    End Function
 
 #End Region
 

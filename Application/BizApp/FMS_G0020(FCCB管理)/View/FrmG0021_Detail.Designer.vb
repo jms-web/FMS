@@ -67,6 +67,7 @@ Partial Class FrmG0021_Detail
         Me.Label13 = New System.Windows.Forms.Label()
         Me.C1SplitContainer = New C1.Win.C1SplitContainer.C1SplitContainer()
         Me.C1SplitterPanel1 = New C1.Win.C1SplitContainer.C1SplitterPanel()
+        Me.flxDATA_2 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Flx2_DS = New System.Windows.Forms.BindingSource(Me.components)
         Me.C1SplitterPanel2 = New C1.Win.C1SplitContainer.C1SplitterPanel()
         Me.flxDATA_3 = New C1.Win.C1FlexGrid.C1FlexGrid()
@@ -160,7 +161,6 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel5 = New C1.Win.C1SplitContainer.C1SplitterPanel()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.lblCurrentStageName = New System.Windows.Forms.Label()
-        Me.flxDATA_2 = New C1.Win.C1FlexGrid.C1FlexGrid()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEx2.SuspendLayout()
@@ -171,6 +171,7 @@ Partial Class FrmG0021_Detail
         CType(Me.C1SplitContainer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.C1SplitContainer.SuspendLayout()
         Me.C1SplitterPanel1.SuspendLayout()
+        CType(Me.flxDATA_2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Flx2_DS, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.C1SplitterPanel2.SuspendLayout()
         CType(Me.flxDATA_3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -184,7 +185,6 @@ Partial Class FrmG0021_Detail
         Me.TableLayoutPanel1.SuspendLayout()
         Me.PanelEx1.SuspendLayout()
         CType(Me.flxDATA_5, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.flxDATA_2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -1066,6 +1066,34 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel1.Size = New System.Drawing.Size(1207, 678)
         Me.C1SplitterPanel1.TabIndex = 0
         Me.C1SplitterPanel1.Text = "áAóvèàíuéñçÄí≤ç∏"
+        '
+        'flxDATA_2
+        '
+        Me.flxDATA_2.AllowAddNew = True
+        Me.flxDATA_2.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
+        Me.flxDATA_2.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
+        Me.flxDATA_2.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
+        Me.flxDATA_2.AutoClipboard = True
+        Me.flxDATA_2.AutoGenerateColumns = False
+        Me.flxDATA_2.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
+        Me.flxDATA_2.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.Light3D
+        Me.flxDATA_2.ColumnInfo = resources.GetString("flxDATA_2.ColumnInfo")
+        Me.flxDATA_2.DataSource = Me.Flx2_DS
+        Me.flxDATA_2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flxDATA_2.EditOptions = CType((((((C1.Win.C1FlexGrid.EditFlags.AutoSearch Or C1.Win.C1FlexGrid.EditFlags.CycleOnDoubleClick) _
+            Or C1.Win.C1FlexGrid.EditFlags.MultiCheck) _
+            Or C1.Win.C1FlexGrid.EditFlags.UseNumericEditor) _
+            Or C1.Win.C1FlexGrid.EditFlags.DelayedCommit) _
+            Or C1.Win.C1FlexGrid.EditFlags.ExitOnLeftRightKeys), C1.Win.C1FlexGrid.EditFlags)
+        Me.flxDATA_2.Location = New System.Drawing.Point(0, 0)
+        Me.flxDATA_2.Name = "flxDATA_2"
+        Me.flxDATA_2.Rows.Count = 1
+        Me.flxDATA_2.Rows.DefaultSize = 18
+        Me.flxDATA_2.ShowCursor = True
+        Me.flxDATA_2.Size = New System.Drawing.Size(1207, 678)
+        Me.flxDATA_2.StyleInfo = resources.GetString("flxDATA_2.StyleInfo")
+        Me.flxDATA_2.TabIndex = 329
+        Me.flxDATA_2.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
         '
         'Flx2_DS
         '
@@ -2607,34 +2635,6 @@ Partial Class FrmG0021_Detail
         Me.lblCurrentStageName.TabIndex = 335
         Me.lblCurrentStageName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'flxDATA_2
-        '
-        Me.flxDATA_2.AllowAddNew = True
-        Me.flxDATA_2.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
-        Me.flxDATA_2.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
-        Me.flxDATA_2.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
-        Me.flxDATA_2.AutoClipboard = True
-        Me.flxDATA_2.AutoGenerateColumns = False
-        Me.flxDATA_2.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
-        Me.flxDATA_2.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.Light3D
-        Me.flxDATA_2.ColumnInfo = resources.GetString("flxDATA_2.ColumnInfo")
-        Me.flxDATA_2.DataSource = Me.Flx2_DS
-        Me.flxDATA_2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.flxDATA_2.EditOptions = CType((((((C1.Win.C1FlexGrid.EditFlags.AutoSearch Or C1.Win.C1FlexGrid.EditFlags.CycleOnDoubleClick) _
-            Or C1.Win.C1FlexGrid.EditFlags.MultiCheck) _
-            Or C1.Win.C1FlexGrid.EditFlags.UseNumericEditor) _
-            Or C1.Win.C1FlexGrid.EditFlags.DelayedCommit) _
-            Or C1.Win.C1FlexGrid.EditFlags.ExitOnLeftRightKeys), C1.Win.C1FlexGrid.EditFlags)
-        Me.flxDATA_2.Location = New System.Drawing.Point(0, 0)
-        Me.flxDATA_2.Name = "flxDATA_2"
-        Me.flxDATA_2.Rows.Count = 1
-        Me.flxDATA_2.Rows.DefaultSize = 18
-        Me.flxDATA_2.ShowCursor = True
-        Me.flxDATA_2.Size = New System.Drawing.Size(1207, 678)
-        Me.flxDATA_2.StyleInfo = resources.GetString("flxDATA_2.StyleInfo")
-        Me.flxDATA_2.TabIndex = 329
-        Me.flxDATA_2.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
-        '
         'FrmG0021_Detail
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -2684,6 +2684,7 @@ Partial Class FrmG0021_Detail
         CType(Me.C1SplitContainer, System.ComponentModel.ISupportInitialize).EndInit()
         Me.C1SplitContainer.ResumeLayout(False)
         Me.C1SplitterPanel1.ResumeLayout(False)
+        CType(Me.flxDATA_2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Flx2_DS, System.ComponentModel.ISupportInitialize).EndInit()
         Me.C1SplitterPanel2.ResumeLayout(False)
         CType(Me.flxDATA_3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2699,7 +2700,6 @@ Partial Class FrmG0021_Detail
         Me.PanelEx1.ResumeLayout(False)
         Me.PanelEx1.PerformLayout()
         CType(Me.flxDATA_5, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.flxDATA_2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
