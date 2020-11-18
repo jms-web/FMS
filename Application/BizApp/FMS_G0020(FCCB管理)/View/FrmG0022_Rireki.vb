@@ -433,10 +433,13 @@ Public Class FrmG0022_Rireki
         mtxHOKUKO_NO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.FCCB_NO))
         mtxBUMON_KB.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.BUMON_NAME))
         mtxKISOU_TANTO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.KISO_TANTO_NAME))
-        dtDraft.ValueNonFormat = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.KISO_YMD))
+        mtxCM_TANTO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.CM_TANTO_NAME))
+        dtDraft.Value = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.KISO_YMD))
         mtxKISYU.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.KISYU_NAME))
         mtxBUHIN_BANGO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.BUHIN_BANGO))
         mtxHINMEI.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.BUHIN_NAME))
+        mtxSNO_APPLY_PERIOD_KISO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.SNO_APPLY_PERIOD_KISO))
+        mtxINPUT_DOC_NO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.INPUT_DOC_NO))
 
         If PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.BUMON_KB)) = Context.ENM_BUMON_KB._2_LP.Value.ToString Then
             lblSYANAI_CD.Visible = True

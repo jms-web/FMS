@@ -80,7 +80,15 @@ Partial Public Class ST04_FCCB_ICHIRAN
 
     <StringLength(100)>
     <ComponentModel.DisplayName("文書番号")>
+    Public Property SNO_APPLY_PERIOD_KISO As String '部品名
+
+    <StringLength(100)>
+    <ComponentModel.DisplayName("文書番号")>
     Public Property INPUT_DOC_NO As String '部品名
+
+    <StringLength(100)>
+    <ComponentModel.DisplayName("FCCB議長")>
+    Public Property CM_TANTO_NAME As String '部品名
 
     <ComponentModel.DisplayName("起草日")>
     Public Property KISO_YMD As String

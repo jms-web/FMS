@@ -36,7 +36,7 @@ Partial Class FrmG0022_Rireki
         Me.Label6 = New System.Windows.Forms.Label()
         Me.dtDraft = New JMS_COMMON.DateTextBoxEx()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.MaskedTextBoxEx1 = New JMS_COMMON.MaskedTextBoxEx()
+        Me.mtxCM_TANTO = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.mtxBUHIN_BANGO = New JMS_COMMON.MaskedTextBoxEx()
         Me.lblSYANAI_CD = New System.Windows.Forms.Label()
@@ -242,7 +242,7 @@ Partial Class FrmG0022_Rireki
         Me.tlpFilter.Controls.Add(Me.Label6, 13, 1)
         Me.tlpFilter.Controls.Add(Me.dtDraft, 17, 1)
         Me.tlpFilter.Controls.Add(Me.Label1, 22, 1)
-        Me.tlpFilter.Controls.Add(Me.MaskedTextBoxEx1, 27, 1)
+        Me.tlpFilter.Controls.Add(Me.mtxCM_TANTO, 27, 1)
         Me.tlpFilter.Controls.Add(Me.Label11, 0, 2)
         Me.tlpFilter.Controls.Add(Me.mtxBUHIN_BANGO, 5, 2)
         Me.tlpFilter.Controls.Add(Me.lblSYANAI_CD, 22, 2)
@@ -424,22 +424,22 @@ Partial Class FrmG0022_Rireki
         Me.Label1.Text = "FCCB‹c’·:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'MaskedTextBoxEx1
+        'mtxCM_TANTO
         '
-        Me.MaskedTextBoxEx1.BackColor = System.Drawing.SystemColors.Control
-        Me.tlpFilter.SetColumnSpan(Me.MaskedTextBoxEx1, 7)
-        Me.MaskedTextBoxEx1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.MaskedTextBoxEx1.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.MaskedTextBoxEx1.InputRequired = False
-        Me.MaskedTextBoxEx1.Location = New System.Drawing.Point(543, 33)
-        Me.MaskedTextBoxEx1.MaxByteLength = 0
-        Me.MaskedTextBoxEx1.Name = "MaskedTextBoxEx1"
-        Me.MaskedTextBoxEx1.ReadOnly = True
-        Me.MaskedTextBoxEx1.SelectAllText = False
-        Me.MaskedTextBoxEx1.Size = New System.Drawing.Size(134, 24)
-        Me.MaskedTextBoxEx1.TabIndex = 131
-        Me.MaskedTextBoxEx1.WatermarkColor = System.Drawing.Color.Empty
-        Me.MaskedTextBoxEx1.WatermarkText = Nothing
+        Me.mtxCM_TANTO.BackColor = System.Drawing.SystemColors.Control
+        Me.tlpFilter.SetColumnSpan(Me.mtxCM_TANTO, 7)
+        Me.mtxCM_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxCM_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.mtxCM_TANTO.InputRequired = False
+        Me.mtxCM_TANTO.Location = New System.Drawing.Point(543, 33)
+        Me.mtxCM_TANTO.MaxByteLength = 0
+        Me.mtxCM_TANTO.Name = "mtxCM_TANTO"
+        Me.mtxCM_TANTO.ReadOnly = True
+        Me.mtxCM_TANTO.SelectAllText = False
+        Me.mtxCM_TANTO.Size = New System.Drawing.Size(134, 24)
+        Me.mtxCM_TANTO.TabIndex = 131
+        Me.mtxCM_TANTO.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxCM_TANTO.WatermarkText = Nothing
         '
         'Label11
         '
@@ -540,14 +540,17 @@ Partial Class FrmG0022_Rireki
         '
         'mtxINPUT_DOC_NO
         '
+        Me.mtxINPUT_DOC_NO.BackColor = System.Drawing.SystemColors.Control
+        Me.tlpFilter.SetColumnSpan(Me.mtxINPUT_DOC_NO, 17)
         Me.mtxINPUT_DOC_NO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxINPUT_DOC_NO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxINPUT_DOC_NO.InputRequired = False
         Me.mtxINPUT_DOC_NO.Location = New System.Drawing.Point(103, 123)
         Me.mtxINPUT_DOC_NO.MaxByteLength = 0
         Me.mtxINPUT_DOC_NO.Name = "mtxINPUT_DOC_NO"
+        Me.mtxINPUT_DOC_NO.ReadOnly = True
         Me.mtxINPUT_DOC_NO.SelectAllText = False
-        Me.mtxINPUT_DOC_NO.Size = New System.Drawing.Size(14, 24)
+        Me.mtxINPUT_DOC_NO.Size = New System.Drawing.Size(334, 24)
         Me.mtxINPUT_DOC_NO.TabIndex = 133
         Me.mtxINPUT_DOC_NO.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxINPUT_DOC_NO.WatermarkText = Nothing
@@ -556,7 +559,7 @@ Partial Class FrmG0022_Rireki
         '
         Me.tlpFilter.SetColumnSpan(Me.Label17, 6)
         Me.Label17.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label17.Location = New System.Drawing.Point(423, 120)
+        Me.Label17.Location = New System.Drawing.Point(443, 120)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(114, 30)
         Me.Label17.TabIndex = 134
@@ -565,13 +568,15 @@ Partial Class FrmG0022_Rireki
         '
         'mtxSNO_APPLY_PERIOD_KISO
         '
+        Me.mtxSNO_APPLY_PERIOD_KISO.BackColor = System.Drawing.SystemColors.Control
         Me.tlpFilter.SetColumnSpan(Me.mtxSNO_APPLY_PERIOD_KISO, 7)
         Me.mtxSNO_APPLY_PERIOD_KISO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.mtxSNO_APPLY_PERIOD_KISO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxSNO_APPLY_PERIOD_KISO.InputRequired = False
-        Me.mtxSNO_APPLY_PERIOD_KISO.Location = New System.Drawing.Point(543, 123)
+        Me.mtxSNO_APPLY_PERIOD_KISO.Location = New System.Drawing.Point(563, 123)
         Me.mtxSNO_APPLY_PERIOD_KISO.MaxByteLength = 0
         Me.mtxSNO_APPLY_PERIOD_KISO.Name = "mtxSNO_APPLY_PERIOD_KISO"
+        Me.mtxSNO_APPLY_PERIOD_KISO.ReadOnly = True
         Me.mtxSNO_APPLY_PERIOD_KISO.SelectAllText = False
         Me.mtxSNO_APPLY_PERIOD_KISO.Size = New System.Drawing.Size(134, 24)
         Me.mtxSNO_APPLY_PERIOD_KISO.TabIndex = 135
@@ -667,7 +672,7 @@ Partial Class FrmG0022_Rireki
     Friend WithEvents mtxBUMON_KB As MaskedTextBoxEx
     Friend WithEvents mtxKISOU_TANTO As MaskedTextBoxEx
     Friend WithEvents Label1 As Label
-    Friend WithEvents MaskedTextBoxEx1 As MaskedTextBoxEx
+    Friend WithEvents mtxCM_TANTO As MaskedTextBoxEx
     Friend WithEvents Label3 As Label
     Friend WithEvents mtxINPUT_DOC_NO As MaskedTextBoxEx
     Friend WithEvents Label17 As Label

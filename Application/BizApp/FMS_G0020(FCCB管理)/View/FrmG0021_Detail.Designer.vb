@@ -117,7 +117,7 @@ Partial Class FrmG0021_Detail
         Me.btnUnnecessary = New System.Windows.Forms.Button()
         Me.btnRequired = New System.Windows.Forms.Button()
         Me.C1SplitterPanel4 = New C1.Win.C1SplitContainer.C1SplitterPanel()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.pnlSYOCHI_KAKUNIN = New System.Windows.Forms.TableLayoutPanel()
         Me.cmbSYOCHI_GM_TANTO = New JMS_COMMON.ComboboxEx()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
@@ -182,7 +182,7 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel_YOHI.SuspendLayout()
         Me.pnlTANTO_YOHI.SuspendLayout()
         Me.C1SplitterPanel4.SuspendLayout()
-        Me.TableLayoutPanel1.SuspendLayout()
+        Me.pnlSYOCHI_KAKUNIN.SuspendLayout()
         Me.PanelEx1.SuspendLayout()
         CType(Me.flxDATA_5, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -1534,7 +1534,7 @@ Partial Class FrmG0021_Detail
         '
         Me.cmbSYOCHI_GM_TANTO_YOHI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbSYOCHI_GM_TANTO_YOHI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYOCHI_GM_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbSYOCHI_GM_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Window
         Me.pnlTANTO_YOHI.SetColumnSpan(Me.cmbSYOCHI_GM_TANTO_YOHI, 2)
         Me.cmbSYOCHI_GM_TANTO_YOHI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_GM_TANTO_YOHI.DisplayMember = "DISP"
@@ -1544,11 +1544,10 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_GM_TANTO_YOHI.FormattingEnabled = True
         Me.cmbSYOCHI_GM_TANTO_YOHI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbSYOCHI_GM_TANTO_YOHI.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSYOCHI_GM_TANTO_YOHI.IsSelected = True
+        Me.cmbSYOCHI_GM_TANTO_YOHI.IsSelected = False
         Me.cmbSYOCHI_GM_TANTO_YOHI.Location = New System.Drawing.Point(28, 23)
         Me.cmbSYOCHI_GM_TANTO_YOHI.Name = "cmbSYOCHI_GM_TANTO_YOHI"
         Me.cmbSYOCHI_GM_TANTO_YOHI.NullValue = " "
-        Me.cmbSYOCHI_GM_TANTO_YOHI.ReadOnly = True
         Me.cmbSYOCHI_GM_TANTO_YOHI.Size = New System.Drawing.Size(100, 25)
         Me.cmbSYOCHI_GM_TANTO_YOHI.TabIndex = 1
         Me.cmbSYOCHI_GM_TANTO_YOHI.Text = "(選択)"
@@ -1676,7 +1675,7 @@ Partial Class FrmG0021_Detail
         '
         Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Window
         Me.pnlTANTO_YOHI.SetColumnSpan(Me.cmbSYOCHI_SEKKEI_TANTO_YOHI, 2)
         Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.DisplayMember = "DISP"
@@ -1686,11 +1685,10 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.FormattingEnabled = True
         Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.IsSelected = True
+        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.IsSelected = False
         Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.Location = New System.Drawing.Point(134, 23)
         Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.Name = "cmbSYOCHI_SEKKEI_TANTO_YOHI"
         Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.NullValue = " "
-        Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.ReadOnly = True
         Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.Size = New System.Drawing.Size(100, 25)
         Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.TabIndex = 3
         Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.Text = "(選択)"
@@ -1700,7 +1698,7 @@ Partial Class FrmG0021_Detail
         '
         Me.cmbSYOCHI_SEIGI_TANTO_YOHI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbSYOCHI_SEIGI_TANTO_YOHI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYOCHI_SEIGI_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbSYOCHI_SEIGI_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Window
         Me.pnlTANTO_YOHI.SetColumnSpan(Me.cmbSYOCHI_SEIGI_TANTO_YOHI, 2)
         Me.cmbSYOCHI_SEIGI_TANTO_YOHI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_SEIGI_TANTO_YOHI.DisplayMember = "DISP"
@@ -1710,11 +1708,10 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_SEIGI_TANTO_YOHI.FormattingEnabled = True
         Me.cmbSYOCHI_SEIGI_TANTO_YOHI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbSYOCHI_SEIGI_TANTO_YOHI.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSYOCHI_SEIGI_TANTO_YOHI.IsSelected = True
+        Me.cmbSYOCHI_SEIGI_TANTO_YOHI.IsSelected = False
         Me.cmbSYOCHI_SEIGI_TANTO_YOHI.Location = New System.Drawing.Point(240, 23)
         Me.cmbSYOCHI_SEIGI_TANTO_YOHI.Name = "cmbSYOCHI_SEIGI_TANTO_YOHI"
         Me.cmbSYOCHI_SEIGI_TANTO_YOHI.NullValue = " "
-        Me.cmbSYOCHI_SEIGI_TANTO_YOHI.ReadOnly = True
         Me.cmbSYOCHI_SEIGI_TANTO_YOHI.Size = New System.Drawing.Size(100, 25)
         Me.cmbSYOCHI_SEIGI_TANTO_YOHI.TabIndex = 5
         Me.cmbSYOCHI_SEIGI_TANTO_YOHI.Text = "(選択)"
@@ -1724,7 +1721,7 @@ Partial Class FrmG0021_Detail
         '
         Me.cmbSYOCHI_EIGYO_TANTO_YOHI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbSYOCHI_EIGYO_TANTO_YOHI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYOCHI_EIGYO_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbSYOCHI_EIGYO_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Window
         Me.pnlTANTO_YOHI.SetColumnSpan(Me.cmbSYOCHI_EIGYO_TANTO_YOHI, 2)
         Me.cmbSYOCHI_EIGYO_TANTO_YOHI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_EIGYO_TANTO_YOHI.DisplayMember = "DISP"
@@ -1734,11 +1731,10 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_EIGYO_TANTO_YOHI.FormattingEnabled = True
         Me.cmbSYOCHI_EIGYO_TANTO_YOHI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbSYOCHI_EIGYO_TANTO_YOHI.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSYOCHI_EIGYO_TANTO_YOHI.IsSelected = True
+        Me.cmbSYOCHI_EIGYO_TANTO_YOHI.IsSelected = False
         Me.cmbSYOCHI_EIGYO_TANTO_YOHI.Location = New System.Drawing.Point(346, 23)
         Me.cmbSYOCHI_EIGYO_TANTO_YOHI.Name = "cmbSYOCHI_EIGYO_TANTO_YOHI"
         Me.cmbSYOCHI_EIGYO_TANTO_YOHI.NullValue = " "
-        Me.cmbSYOCHI_EIGYO_TANTO_YOHI.ReadOnly = True
         Me.cmbSYOCHI_EIGYO_TANTO_YOHI.Size = New System.Drawing.Size(100, 25)
         Me.cmbSYOCHI_EIGYO_TANTO_YOHI.TabIndex = 7
         Me.cmbSYOCHI_EIGYO_TANTO_YOHI.Text = "(選択)"
@@ -1748,7 +1744,7 @@ Partial Class FrmG0021_Detail
         '
         Me.cmbSYOCHI_KANRI_TANTO_YOHI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbSYOCHI_KANRI_TANTO_YOHI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYOCHI_KANRI_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbSYOCHI_KANRI_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Window
         Me.pnlTANTO_YOHI.SetColumnSpan(Me.cmbSYOCHI_KANRI_TANTO_YOHI, 2)
         Me.cmbSYOCHI_KANRI_TANTO_YOHI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_KANRI_TANTO_YOHI.DisplayMember = "DISP"
@@ -1758,11 +1754,10 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_KANRI_TANTO_YOHI.FormattingEnabled = True
         Me.cmbSYOCHI_KANRI_TANTO_YOHI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbSYOCHI_KANRI_TANTO_YOHI.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSYOCHI_KANRI_TANTO_YOHI.IsSelected = True
+        Me.cmbSYOCHI_KANRI_TANTO_YOHI.IsSelected = False
         Me.cmbSYOCHI_KANRI_TANTO_YOHI.Location = New System.Drawing.Point(452, 23)
         Me.cmbSYOCHI_KANRI_TANTO_YOHI.Name = "cmbSYOCHI_KANRI_TANTO_YOHI"
         Me.cmbSYOCHI_KANRI_TANTO_YOHI.NullValue = " "
-        Me.cmbSYOCHI_KANRI_TANTO_YOHI.ReadOnly = True
         Me.cmbSYOCHI_KANRI_TANTO_YOHI.Size = New System.Drawing.Size(100, 25)
         Me.cmbSYOCHI_KANRI_TANTO_YOHI.TabIndex = 9
         Me.cmbSYOCHI_KANRI_TANTO_YOHI.Text = "(選択)"
@@ -1772,7 +1767,7 @@ Partial Class FrmG0021_Detail
         '
         Me.cmbSYOCHI_SEIZO_TANTO_YOHI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbSYOCHI_SEIZO_TANTO_YOHI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYOCHI_SEIZO_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbSYOCHI_SEIZO_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Window
         Me.pnlTANTO_YOHI.SetColumnSpan(Me.cmbSYOCHI_SEIZO_TANTO_YOHI, 2)
         Me.cmbSYOCHI_SEIZO_TANTO_YOHI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_SEIZO_TANTO_YOHI.DisplayMember = "DISP"
@@ -1782,11 +1777,10 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_SEIZO_TANTO_YOHI.FormattingEnabled = True
         Me.cmbSYOCHI_SEIZO_TANTO_YOHI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbSYOCHI_SEIZO_TANTO_YOHI.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSYOCHI_SEIZO_TANTO_YOHI.IsSelected = True
+        Me.cmbSYOCHI_SEIZO_TANTO_YOHI.IsSelected = False
         Me.cmbSYOCHI_SEIZO_TANTO_YOHI.Location = New System.Drawing.Point(558, 23)
         Me.cmbSYOCHI_SEIZO_TANTO_YOHI.Name = "cmbSYOCHI_SEIZO_TANTO_YOHI"
         Me.cmbSYOCHI_SEIZO_TANTO_YOHI.NullValue = " "
-        Me.cmbSYOCHI_SEIZO_TANTO_YOHI.ReadOnly = True
         Me.cmbSYOCHI_SEIZO_TANTO_YOHI.Size = New System.Drawing.Size(100, 25)
         Me.cmbSYOCHI_SEIZO_TANTO_YOHI.TabIndex = 11
         Me.cmbSYOCHI_SEIZO_TANTO_YOHI.Text = "(選択)"
@@ -1796,7 +1790,7 @@ Partial Class FrmG0021_Detail
         '
         Me.cmbSYOCHI_HINSYO_TANTO_YOHI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbSYOCHI_HINSYO_TANTO_YOHI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYOCHI_HINSYO_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbSYOCHI_HINSYO_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Window
         Me.pnlTANTO_YOHI.SetColumnSpan(Me.cmbSYOCHI_HINSYO_TANTO_YOHI, 2)
         Me.cmbSYOCHI_HINSYO_TANTO_YOHI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_HINSYO_TANTO_YOHI.DisplayMember = "DISP"
@@ -1806,11 +1800,10 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_HINSYO_TANTO_YOHI.FormattingEnabled = True
         Me.cmbSYOCHI_HINSYO_TANTO_YOHI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbSYOCHI_HINSYO_TANTO_YOHI.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSYOCHI_HINSYO_TANTO_YOHI.IsSelected = True
+        Me.cmbSYOCHI_HINSYO_TANTO_YOHI.IsSelected = False
         Me.cmbSYOCHI_HINSYO_TANTO_YOHI.Location = New System.Drawing.Point(664, 23)
         Me.cmbSYOCHI_HINSYO_TANTO_YOHI.Name = "cmbSYOCHI_HINSYO_TANTO_YOHI"
         Me.cmbSYOCHI_HINSYO_TANTO_YOHI.NullValue = " "
-        Me.cmbSYOCHI_HINSYO_TANTO_YOHI.ReadOnly = True
         Me.cmbSYOCHI_HINSYO_TANTO_YOHI.Size = New System.Drawing.Size(100, 25)
         Me.cmbSYOCHI_HINSYO_TANTO_YOHI.TabIndex = 13
         Me.cmbSYOCHI_HINSYO_TANTO_YOHI.Text = "(選択)"
@@ -1820,7 +1813,7 @@ Partial Class FrmG0021_Detail
         '
         Me.cmbSYOCHI_KENSA_TANTO_YOHI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbSYOCHI_KENSA_TANTO_YOHI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYOCHI_KENSA_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbSYOCHI_KENSA_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Window
         Me.pnlTANTO_YOHI.SetColumnSpan(Me.cmbSYOCHI_KENSA_TANTO_YOHI, 2)
         Me.cmbSYOCHI_KENSA_TANTO_YOHI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_KENSA_TANTO_YOHI.DisplayMember = "DISP"
@@ -1830,11 +1823,10 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_KENSA_TANTO_YOHI.FormattingEnabled = True
         Me.cmbSYOCHI_KENSA_TANTO_YOHI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbSYOCHI_KENSA_TANTO_YOHI.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSYOCHI_KENSA_TANTO_YOHI.IsSelected = True
+        Me.cmbSYOCHI_KENSA_TANTO_YOHI.IsSelected = False
         Me.cmbSYOCHI_KENSA_TANTO_YOHI.Location = New System.Drawing.Point(770, 23)
         Me.cmbSYOCHI_KENSA_TANTO_YOHI.Name = "cmbSYOCHI_KENSA_TANTO_YOHI"
         Me.cmbSYOCHI_KENSA_TANTO_YOHI.NullValue = " "
-        Me.cmbSYOCHI_KENSA_TANTO_YOHI.ReadOnly = True
         Me.cmbSYOCHI_KENSA_TANTO_YOHI.Size = New System.Drawing.Size(100, 25)
         Me.cmbSYOCHI_KENSA_TANTO_YOHI.TabIndex = 15
         Me.cmbSYOCHI_KENSA_TANTO_YOHI.Text = "(選択)"
@@ -1844,7 +1836,7 @@ Partial Class FrmG0021_Detail
         '
         Me.cmbSYOCHI_KOBAI_TANTO_YOHI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbSYOCHI_KOBAI_TANTO_YOHI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Window
         Me.pnlTANTO_YOHI.SetColumnSpan(Me.cmbSYOCHI_KOBAI_TANTO_YOHI, 2)
         Me.cmbSYOCHI_KOBAI_TANTO_YOHI.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOCHI_KOBAI_TANTO_YOHI.DisplayMember = "DISP"
@@ -1854,11 +1846,10 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_KOBAI_TANTO_YOHI.FormattingEnabled = True
         Me.cmbSYOCHI_KOBAI_TANTO_YOHI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbSYOCHI_KOBAI_TANTO_YOHI.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.IsSelected = True
+        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.IsSelected = False
         Me.cmbSYOCHI_KOBAI_TANTO_YOHI.Location = New System.Drawing.Point(876, 23)
         Me.cmbSYOCHI_KOBAI_TANTO_YOHI.Name = "cmbSYOCHI_KOBAI_TANTO_YOHI"
         Me.cmbSYOCHI_KOBAI_TANTO_YOHI.NullValue = " "
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.ReadOnly = True
         Me.cmbSYOCHI_KOBAI_TANTO_YOHI.Size = New System.Drawing.Size(100, 25)
         Me.cmbSYOCHI_KOBAI_TANTO_YOHI.TabIndex = 17
         Me.cmbSYOCHI_KOBAI_TANTO_YOHI.Text = "(選択)"
@@ -1890,7 +1881,7 @@ Partial Class FrmG0021_Detail
         '
         Me.C1SplitterPanel4.AutoScroll = True
         Me.C1SplitterPanel4.Collapsible = True
-        Me.C1SplitterPanel4.Controls.Add(Me.TableLayoutPanel1)
+        Me.C1SplitterPanel4.Controls.Add(Me.pnlSYOCHI_KAKUNIN)
         Me.C1SplitterPanel4.Controls.Add(Me.PanelEx1)
         Me.C1SplitterPanel4.Height = 350
         Me.C1SplitterPanel4.Location = New System.Drawing.Point(1, 1206)
@@ -1903,69 +1894,69 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel4.TabIndex = 3
         Me.C1SplitterPanel4.Text = "⑤変更審議"
         '
-        'TableLayoutPanel1
+        'pnlSYOCHI_KAKUNIN
         '
-        Me.TableLayoutPanel1.ColumnCount = 14
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_GM_TANTO, 0, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label29, 11, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label28, 10, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label2, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_GM_TANTO, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_SEKKEI_TANTO, 1, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_SEIGI_TANTO, 2, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_EIGYO_TANTO, 3, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_KANRI_TANTO, 4, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_SEIZO_TANTO, 5, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_HINSYO_TANTO, 6, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_KENSA_TANTO, 7, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label32, 11, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label31, 12, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblSYOCHI_KOBAI_TANTO, 8, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_SEKKEI_TANTO, 1, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_SEIGI_TANTO, 2, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_EIGYO_TANTO, 3, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_KANRI_TANTO, 4, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_GM_TANTO, 0, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_SEIZO_TANTO, 5, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_HINSYO_TANTO, 6, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_KENSA_TANTO, 7, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.cmbSYOCHI_KOBAI_TANTO, 8, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.cmbKAKUNIN_GM_TANTO, 11, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.cmbKAKUNIN_CM_TANTO, 12, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_SEKKEI_TANTO, 1, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_SEIGI_TANTO, 2, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_EIGYO_TANTO, 3, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_KANRI_TANTO, 4, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_SEIZO_TANTO, 5, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_HINSYO_TANTO, 6, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_KENSA_TANTO, 7, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.dtSYOCHI_KOBAI_TANTO, 8, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.dtKAKUNIN_GM_TANTO, 11, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.dtKAKUNIN_CM_TANTO, 12, 3)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 217)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 4
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1207, 101)
-        Me.TableLayoutPanel1.TabIndex = 270
+        Me.pnlSYOCHI_KAKUNIN.ColumnCount = 14
+        Me.pnlSYOCHI_KAKUNIN.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
+        Me.pnlSYOCHI_KAKUNIN.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
+        Me.pnlSYOCHI_KAKUNIN.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
+        Me.pnlSYOCHI_KAKUNIN.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
+        Me.pnlSYOCHI_KAKUNIN.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
+        Me.pnlSYOCHI_KAKUNIN.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
+        Me.pnlSYOCHI_KAKUNIN.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
+        Me.pnlSYOCHI_KAKUNIN.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
+        Me.pnlSYOCHI_KAKUNIN.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
+        Me.pnlSYOCHI_KAKUNIN.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
+        Me.pnlSYOCHI_KAKUNIN.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
+        Me.pnlSYOCHI_KAKUNIN.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
+        Me.pnlSYOCHI_KAKUNIN.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106.0!))
+        Me.pnlSYOCHI_KAKUNIN.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_GM_TANTO, 0, 2)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.Label29, 11, 0)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.Label28, 10, 0)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.Label2, 0, 0)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.lblSYOCHI_GM_TANTO, 0, 1)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.lblSYOCHI_SEKKEI_TANTO, 1, 1)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.lblSYOCHI_SEIGI_TANTO, 2, 1)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.lblSYOCHI_EIGYO_TANTO, 3, 1)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.lblSYOCHI_KANRI_TANTO, 4, 1)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.lblSYOCHI_SEIZO_TANTO, 5, 1)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.lblSYOCHI_HINSYO_TANTO, 6, 1)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.lblSYOCHI_KENSA_TANTO, 7, 1)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.Label32, 11, 1)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.Label31, 12, 1)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.lblSYOCHI_KOBAI_TANTO, 8, 1)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_SEKKEI_TANTO, 1, 2)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_SEIGI_TANTO, 2, 2)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_EIGYO_TANTO, 3, 2)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_KANRI_TANTO, 4, 2)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtSYOCHI_GM_TANTO, 0, 3)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_SEIZO_TANTO, 5, 2)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_HINSYO_TANTO, 6, 2)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_KENSA_TANTO, 7, 2)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_KOBAI_TANTO, 8, 2)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbKAKUNIN_GM_TANTO, 11, 2)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbKAKUNIN_CM_TANTO, 12, 2)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtSYOCHI_SEKKEI_TANTO, 1, 3)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtSYOCHI_SEIGI_TANTO, 2, 3)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtSYOCHI_EIGYO_TANTO, 3, 3)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtSYOCHI_KANRI_TANTO, 4, 3)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtSYOCHI_SEIZO_TANTO, 5, 3)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtSYOCHI_HINSYO_TANTO, 6, 3)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtSYOCHI_KENSA_TANTO, 7, 3)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtSYOCHI_KOBAI_TANTO, 8, 3)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtKAKUNIN_GM_TANTO, 11, 3)
+        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtKAKUNIN_CM_TANTO, 12, 3)
+        Me.pnlSYOCHI_KAKUNIN.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pnlSYOCHI_KAKUNIN.Location = New System.Drawing.Point(0, 217)
+        Me.pnlSYOCHI_KAKUNIN.Name = "pnlSYOCHI_KAKUNIN"
+        Me.pnlSYOCHI_KAKUNIN.RowCount = 4
+        Me.pnlSYOCHI_KAKUNIN.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.pnlSYOCHI_KAKUNIN.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.pnlSYOCHI_KAKUNIN.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.pnlSYOCHI_KAKUNIN.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.pnlSYOCHI_KAKUNIN.Size = New System.Drawing.Size(1207, 101)
+        Me.pnlSYOCHI_KAKUNIN.TabIndex = 270
         '
         'cmbSYOCHI_GM_TANTO
         '
@@ -1992,7 +1983,7 @@ Partial Class FrmG0021_Detail
         'Label29
         '
         Me.Label29.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TableLayoutPanel1.SetColumnSpan(Me.Label29, 2)
+        Me.pnlSYOCHI_KAKUNIN.SetColumnSpan(Me.Label29, 2)
         Me.Label29.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label29.Location = New System.Drawing.Point(993, 0)
         Me.Label29.Name = "Label29"
@@ -2008,7 +1999,7 @@ Partial Class FrmG0021_Detail
         Me.Label28.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label28.Location = New System.Drawing.Point(967, 0)
         Me.Label28.Name = "Label28"
-        Me.TableLayoutPanel1.SetRowSpan(Me.Label28, 4)
+        Me.pnlSYOCHI_KAKUNIN.SetRowSpan(Me.Label28, 4)
         Me.Label28.Size = New System.Drawing.Size(20, 101)
         Me.Label28.TabIndex = 290
         Me.Label28.Text = "⑥完了確認"
@@ -2017,7 +2008,7 @@ Partial Class FrmG0021_Detail
         'Label2
         '
         Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TableLayoutPanel1.SetColumnSpan(Me.Label2, 9)
+        Me.pnlSYOCHI_KAKUNIN.SetColumnSpan(Me.Label2, 9)
         Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label2.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label2.Location = New System.Drawing.Point(3, 0)
@@ -2696,7 +2687,7 @@ Partial Class FrmG0021_Detail
         Me.pnlTANTO_YOHI.ResumeLayout(False)
         Me.pnlTANTO_YOHI.PerformLayout()
         Me.C1SplitterPanel4.ResumeLayout(False)
-        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.pnlSYOCHI_KAKUNIN.ResumeLayout(False)
         Me.PanelEx1.ResumeLayout(False)
         Me.PanelEx1.PerformLayout()
         CType(Me.flxDATA_5, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2763,7 +2754,7 @@ Partial Class FrmG0021_Detail
     Friend WithEvents mtxSNO_APPLY_PERIOD_HENKO_SINGI As MaskedTextBoxEx
     Friend WithEvents flxDATA_5 As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents PanelEx1 As PanelEx
-    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents pnlSYOCHI_KAKUNIN As TableLayoutPanel
     Friend WithEvents Flx2_DS As BindingSource
     Friend WithEvents Flx3_DS As BindingSource
     Friend WithEvents Flx4_DS As BindingSource

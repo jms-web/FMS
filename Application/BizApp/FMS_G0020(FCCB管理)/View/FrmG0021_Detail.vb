@@ -1049,55 +1049,55 @@ Public Class FrmG0021_Detail
         Try
 
             If cmbSYOCHI_SEIZO_TANTO.IsSelected Then
-                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._2_»‘¢, cmbSYOCHI_SEIZO_TANTO.SelectedValue, dtSYOCHI_SEIZO_TANTO.ValueDate) = False Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._2_»‘¢, cmbSYOCHI_SEIZO_TANTO.SelectedValue, dtSYOCHI_SEIZO_TANTO.ValueNonFormat) = False Then
                     Return False
                 End If
             End If
             If cmbSYOCHI_KENSA_TANTO.IsSelected Then
-                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._3_ŒŸ¸, cmbSYOCHI_KENSA_TANTO.SelectedValue, dtSYOCHI_KENSA_TANTO.ValueDate) = False Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._3_ŒŸ¸, cmbSYOCHI_KENSA_TANTO.SelectedValue, dtSYOCHI_KENSA_TANTO.ValueNonFormat) = False Then
                     Return False
                 End If
             End If
             If cmbSYOCHI_HINSYO_TANTO.IsSelected Then
-                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._4_•iØ, cmbSYOCHI_HINSYO_TANTO.SelectedValue, dtSYOCHI_HINSYO_TANTO.ValueDate) = False Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._4_•iØ, cmbSYOCHI_HINSYO_TANTO.SelectedValue, dtSYOCHI_HINSYO_TANTO.ValueNonFormat) = False Then
                     Return False
                 End If
             End If
             If cmbSYOCHI_SEKKEI_TANTO.IsSelected Then
-                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._5_ÝŒv, cmbSYOCHI_SEKKEI_TANTO.SelectedValue, dtSYOCHI_SEKKEI_TANTO.ValueDate) = False Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._5_ÝŒv, cmbSYOCHI_SEKKEI_TANTO.SelectedValue, dtSYOCHI_SEKKEI_TANTO.ValueNonFormat) = False Then
                     Return False
                 End If
             End If
             If cmbSYOCHI_SEIGI_TANTO.IsSelected Then
-                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._6_¶‹Z, cmbSYOCHI_SEIGI_TANTO.SelectedValue, dtSYOCHI_SEIGI_TANTO.ValueDate) = False Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._6_¶‹Z, cmbSYOCHI_SEIGI_TANTO.SelectedValue, dtSYOCHI_SEIGI_TANTO.ValueNonFormat) = False Then
                     Return False
                 End If
             End If
             If cmbSYOCHI_KANRI_TANTO.IsSelected Then
-                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._7_ŠÇ—, cmbSYOCHI_KANRI_TANTO.SelectedValue, dtSYOCHI_KANRI_TANTO.ValueDate) = False Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._7_ŠÇ—, cmbSYOCHI_KANRI_TANTO.SelectedValue, dtSYOCHI_KANRI_TANTO.ValueNonFormat) = False Then
                     Return False
                 End If
             End If
             If cmbSYOCHI_EIGYO_TANTO.IsSelected Then
-                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._8_‰c‹Æ, cmbSYOCHI_EIGYO_TANTO.SelectedValue, dtSYOCHI_EIGYO_TANTO.ValueDate) = False Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._8_‰c‹Æ, cmbSYOCHI_EIGYO_TANTO.SelectedValue, dtSYOCHI_EIGYO_TANTO.ValueNonFormat) = False Then
                     Return False
                 End If
             End If
             If cmbSYOCHI_GM_TANTO.IsSelected Then
-                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._91_QMSŠÇ—Ó”CŽÒ, cmbSYOCHI_GM_TANTO.SelectedValue, dtSYOCHI_GM_TANTO.ValueDate) = False Then
+                If FunSAVE_D012_SUB(DB, ENM_GYOMU_GROUP_ID._91_QMSŠÇ—Ó”CŽÒ, cmbSYOCHI_GM_TANTO.SelectedValue, dtSYOCHI_GM_TANTO.ValueNonFormat) = False Then
                     Return False
                 End If
             End If
 
             If cmbKAKUNIN_CM_TANTO.IsSelected Then
-                If FunSAVE_D012_SUB(DB, "92", cmbKAKUNIN_CM_TANTO.SelectedValue, dtKAKUNIN_CM_TANTO.ValueDate) = False Then
+                If FunSAVE_D012_SUB(DB, "92", cmbKAKUNIN_CM_TANTO.SelectedValue, dtKAKUNIN_CM_TANTO.ValueNonFormat) = False Then
                     Return False
                 End If
             End If
 
             If PrCurrentStage = ENM_FCCB_STAGE._60_ˆ’uŽ–€Š®—¹Šm”F Then
                 If cmbKAKUNIN_GM_TANTO.IsSelected Then
-                    If FunSAVE_D012_SUB(DB, "93", cmbKAKUNIN_GM_TANTO.SelectedValue, dtKAKUNIN_GM_TANTO.ValueDate) = False Then
+                    If FunSAVE_D012_SUB(DB, "93", cmbKAKUNIN_GM_TANTO.SelectedValue, dtKAKUNIN_GM_TANTO.ValueNonFormat) = False Then
                         Return False
                     End If
                 End If
@@ -1112,7 +1112,7 @@ Public Class FrmG0021_Detail
 
     End Function
 
-    Private Function FunSAVE_D012_SUB(ByRef DB As ClsDbUtility, GYOMU_GROUP_ID As Integer, TANTO_ID As Integer, AddDate As Date) As Boolean
+    Private Function FunSAVE_D012_SUB(ByRef DB As ClsDbUtility, GYOMU_GROUP_ID As Integer, TANTO_ID As Integer, AddDate As String) As Boolean
         Dim sbSQL As New System.Text.StringBuilder
         Dim strRET As String
         Dim sqlEx As New Exception
@@ -1126,7 +1126,9 @@ Public Class FrmG0021_Detail
             _D012.FCCB_NO = _D009.FCCB_NO
             _D012.GYOMU_GROUP_ID = GYOMU_GROUP_ID
             _D012.TANTO_ID = TANTO_ID
-            _D012.ADD_YMDHNS = AddDate.ToString("yyyyMMddHHmmss")
+            If Not AddDate.IsNulOrWS Then
+                _D012.ADD_YMDHNS = DateTime.ParseExact(AddDate, "yyyyMMdd", Nothing).ToString("yyyyMMddHHmmss")
+            End If
             _D012.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
 
 #End Region
@@ -3032,7 +3034,7 @@ Public Class FrmG0021_Detail
                         Dim strKAITO As String = SYOCHI_KAKUNIN_Users.Where(Function(r) r.userId = pub_SYAIN_INFO.SYAIN_ID).Select(Function(r) r.YOHI_KAITO).FirstOrDefault
                         If strKAITO = "0" Or strKAITO = "1" Then
                         Else
-                            MessageBox.Show("–{FCCB‹L˜^‘‚Ì‹¦‹c‚Ì—v”Û‚ð‰ñ“š‚µ‚Ä‚­‚¾‚³‚¢", "FCCB‹¦‹c—v”Û‰ñ“š")
+                            MessageBox.Show("–{FCCB‹L˜^‘‚Ì‹¦‹c‚Ì—v”Û‚ð‰ñ“š‚µ‚Ä‚­‚¾‚³‚¢", "FCCB‹¦‹c—v”Û‰ñ“š", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         End If
                     End If
 
@@ -3820,6 +3822,29 @@ Public Class FrmG0021_Detail
 
         Return intRET > 0
     End Function
+
+    Private Sub CmbYOHI_KAITO_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbSYOCHI_GM_TANTO_YOHI.SelectedValueChanged,
+                                                                                             cmbSYOCHI_HINSYO_TANTO_YOHI.SelectedValueChanged,
+                                                                                             cmbSYOCHI_KANRI_TANTO_YOHI.SelectedIndexChanged,
+                                                                                             cmbSYOCHI_KENSA_TANTO_YOHI.SelectedValueChanged,
+                                                                                             cmbSYOCHI_KOBAI_TANTO_YOHI.SelectedValueChanged,
+                                                                                             cmbSYOCHI_SEIGI_TANTO_YOHI.SelectedValueChanged,
+                                                                                             cmbSYOCHI_SEIZO_TANTO_YOHI.SelectedValueChanged,
+                                                                                             cmbSYOCHI_SEKKEI_TANTO_YOHI.SelectedValueChanged
+
+        Dim cmb = DirectCast(sender, ComboboxEx)
+        Dim cmbSYOCHI_KAKUNIN As ComboboxEx
+        Dim test As String = cmb.Name.Substring(10, cmb.Name.Length - 15)
+        cmbSYOCHI_KAKUNIN = pnlSYOCHI_KAKUNIN.GetAllControls.
+                                                Where(Function(ctrl) ctrl.GetType = GetType(ComboboxEx)).
+                                                Where(Function(ctrl) ctrl.Name.Substring(10) = cmb.Name.Substring(10, cmb.Name.Length - 15)).
+                                                FirstOrDefault
+
+
+        cmbSYOCHI_KAKUNIN.SelectedValue = cmb.SelectedValue
+
+    End Sub
+
 
 #End Region
 

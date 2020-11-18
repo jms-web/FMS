@@ -1429,7 +1429,7 @@ Public Class FrmG0020_List
 
             If flxDATA.Rows(flxDATA.RowSel) IsNot Nothing Then
                 frmDLG.PrSYONIN_HOKOKUSYO_ID = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.SYONIN_HOKOKUSYO_ID))
-                'frmDLG.PrHOKOKU_NO = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))
+                frmDLG.PrHOKOKU_NO = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))
                 frmDLG.PrDatarow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
             Else
                 'parameter error
@@ -2116,6 +2116,8 @@ Public Class FrmG0020_List
             Return False
         End Try
     End Function
+
+
 
 #End Region
 
