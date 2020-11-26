@@ -2616,7 +2616,6 @@ Public Class FrmG0021_Detail
                 strKAITO = ""
         End Select
 
-
         Dim sbSQL As New System.Text.StringBuilder
         Dim intRET As Integer
 
@@ -3830,7 +3829,8 @@ Public Class FrmG0021_Detail
                                                                                              cmbSYOCHI_KOBAI_TANTO_YOHI.SelectedValueChanged,
                                                                                              cmbSYOCHI_SEIGI_TANTO_YOHI.SelectedValueChanged,
                                                                                              cmbSYOCHI_SEIZO_TANTO_YOHI.SelectedValueChanged,
-                                                                                             cmbSYOCHI_SEKKEI_TANTO_YOHI.SelectedValueChanged
+                                                                                             cmbSYOCHI_SEKKEI_TANTO_YOHI.SelectedValueChanged,
+                                                                                             cmbSYOCHI_EIGYO_TANTO_YOHI.SelectedValueChanged
 
         Dim cmb = DirectCast(sender, ComboboxEx)
         Dim cmbSYOCHI_KAKUNIN As ComboboxEx
@@ -3840,11 +3840,9 @@ Public Class FrmG0021_Detail
                                                 Where(Function(ctrl) ctrl.Name.Substring(10) = cmb.Name.Substring(10, cmb.Name.Length - 15)).
                                                 FirstOrDefault
 
-
         cmbSYOCHI_KAKUNIN.SelectedValue = cmb.SelectedValue
 
     End Sub
-
 
 #End Region
 

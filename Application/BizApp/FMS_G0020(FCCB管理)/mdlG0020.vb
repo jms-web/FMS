@@ -91,7 +91,6 @@ Module mdlG0020
         _9_取消 = 9
     End Enum
 
-
     Public Enum ENM_FCCB_STAGE
         _10_起草入力 = 10
         _20_処置事項調査等 = 20
@@ -104,6 +103,7 @@ Module mdlG0020
         _999_Closed = 999
 
     End Enum
+
 #End Region
 
 #Region "Model"
@@ -156,7 +156,6 @@ Module mdlG0020
                 Using DB As ClsDbUtility = DBOpen()
                     Call FunGetCodeDataTable(DB, "NCR", tblNCR)
                     Call FunGetCodeDataTable(DB, "CAR", tblCAR)
-
 
                     Call FunGetCodeDataTable(DB, "担当", tblTANTO)
                     Call FunGetCodeDataTable(DB, "部門区分", tblBUMON, "DISP_ORDER < 10") '10以降は不適合SYSでは不要
@@ -576,7 +575,6 @@ Module mdlG0020
         End Try
     End Function
 
-
     Private Function FunGetCurrentSYONIN_JUN(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal HOKOKU_NO As String) As Integer
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
@@ -700,8 +698,6 @@ Module mdlG0020
                     MessageBox.Show("依頼先担当者のメールアドレスが設定されていないため、依頼メールを送信できません", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Return False
                 End If
-
-
 
                 strMsg = $"【メール送信成功】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}"
                 WL.WriteLogDat(strMsg)
@@ -938,8 +934,6 @@ Module mdlG0020
         Dim dsList As New DataSet
         Try
 
-
-
             If Not BUMON_KB.IsNulOrWS Then
                 '通常
                 sbSQL.Remove(0, sbSQL.Length)
@@ -961,7 +955,6 @@ Module mdlG0020
                     Trow("DEL_FLG") = False
                     dt.Rows.Add(Trow)
                 Next
-
             Else
                 '集計分析時、区分名で統合
                 '主キー設定
@@ -988,10 +981,6 @@ Module mdlG0020
                     Next
                 Next
             End If
-
-
-
-
 
             Return dt
         Catch ex As Exception
@@ -1025,7 +1014,6 @@ Module mdlG0020
 #End Region
 
 #Region "レポート出力"
-
 
     Public Function FunOpenWorkbook(filePath As String) As Boolean
         Dim workbookView As New SpreadsheetGear.Windows.Forms.WorkbookView
@@ -1121,7 +1109,6 @@ Module mdlG0020
             'Next shape
             ''---
 
-
             _D009 = FunGetD009Model(strHOKOKU_NO)
 
 #Region "SEC1"
@@ -1143,6 +1130,7 @@ Module mdlG0020
             spSheet1.Range(NameOf(_D009.INPUT_DOC_NO)).Value = _D009.INPUT_DOC_NO
             spSheet1.Range(NameOf(_D009.INPUT_NAIYO)).Value = _D009.INPUT_NAIYO
             spSheet1.Range(NameOf(_D009.SNO_APPLY_PERIOD_KISO)).Value = _D009.SNO_APPLY_PERIOD_KISO
+
 #End Region
 
             Using DB As ClsDbUtility = DBOpen()
@@ -1153,6 +1141,7 @@ Module mdlG0020
                 Dim D012 As D012_FCCB_SUB_SYOCHI_KAKUNIN
 
 #Region "SEC2"
+
                 Dim intRowIndex As Integer = 15
                 sbSQL.Clear()
                 sbSQL.Append($"SELECT")
@@ -1190,14 +1179,13 @@ Module mdlG0020
                     spSheet1.Range($"Y{intRowIndex + 1}").Value = If(r.Item(NameOf(D010.YOTEI_YMD)).ToString.IsNulOrWS, "", r.Item(NameOf(D010.YOTEI_YMD)))
                     spSheet1.Range($"AB{intRowIndex + 1}").Value = If(r.Item(NameOf(D010.CLOSE_YMD)).ToString.IsNulOrWS, "", r.Item(NameOf(D010.CLOSE_YMD)))
 
-
                     intRowIndex += 1
                 Next
+
 #End Region
 
-
-
 #Region "SEC3"
+
                 sbSQL.Clear()
                 sbSQL.Append($"SELECT")
                 sbSQL.Append($"  {NameOf(D010.FCCB_NO)}")
@@ -1218,9 +1206,7 @@ Module mdlG0020
                 sbSQL.Append($" AND {NameOf(D010.FCCB_NO)}='{_D009.FCCB_NO}' ")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
-
-
-                intRowIndex = 54
+                intRowIndex = 53
                 For Each r As DataRow In dsList.Tables(0).Rows
                     If spSheet1.Range($"B{intRowIndex + 1}").Value?.ToString.IsNulOrWS Then
                         'ブランク行はスキップ
@@ -1235,9 +1221,11 @@ Module mdlG0020
 
                     intRowIndex += 1
                 Next
+
 #End Region
 
 #Region "SEC4"
+
                 sbSQL.Clear()
                 sbSQL.Append($"SELECT")
                 sbSQL.Append($"  {NameOf(D011.FCCB_NO)}")
@@ -1258,7 +1246,7 @@ Module mdlG0020
                 sbSQL.Append($" WHERE {NameOf(D011.FCCB_NO)}='{_D009.FCCB_NO}' ")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
-                intRowIndex = 60
+                intRowIndex = 59
                 Const SIKAKARIHIN_COUNT As Integer = 7
                 Const SECTION_GAPS As Integer = 5
                 For Each r As DataRow In dsList.Tables(0).Rows
@@ -1277,11 +1265,11 @@ Module mdlG0020
 
                     intRowIndex += 1
                 Next
+
 #End Region
 
-
-
 #Region "SEC5"
+
                 sbSQL.Clear()
                 sbSQL.Append($"SELECT")
                 sbSQL.Append($" {NameOf(D012.FCCB_NO)}")
@@ -1337,15 +1325,10 @@ Module mdlG0020
                     spSheet1.Range(NAMERange & "_YMD").Value = r.Item("ADD_YMDHNS")
 
                 Next
+
 #End Region
+
             End Using
-
-
-
-
-
-
-
 
             '-----ファイル保存
             spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.OpenXMLWorkbook)
