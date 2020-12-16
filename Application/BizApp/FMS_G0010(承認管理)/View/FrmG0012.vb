@@ -135,7 +135,6 @@ Public Class FrmG0012
                         cmbKISEKI_KOTEI.SetDataSource(tblKISEKI_KOUTEI_KB.LazyLoad("帰責工程区分"), ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
                         cmbKAITO_14.SetDataSource(tblYOHI_KB.LazyLoad("要否区分"), ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-
                         IsEditingClosed = HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
 
                         '-----画面初期化
@@ -281,6 +280,8 @@ Public Class FrmG0012
                     Me.Close()
                 Case Else
             End Select
+        Catch exDispose As ObjectDisposedException
+            System.Console.WriteLine(exDispose.Message)
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -2872,7 +2873,6 @@ Public Class FrmG0012
             End If
 
             Call SetTANTO_TooltipInfo()
-
 
             'ナビゲートリンク選択
             If PrCurrentStage = ENM_CAR_STAGE._999_Closed Then

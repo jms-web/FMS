@@ -15,8 +15,8 @@ Public Class FrmG0021
 
     Private IsEditingClosed As Boolean
 
-
     Private IsInitializing As Boolean
+
 #End Region
 
 #Region "プロパティ"
@@ -129,7 +129,6 @@ Public Class FrmG0021
 
                         '-----コントロールデータソース設定
                         cmbKOKYAKU_EIKYO_HANTEI_COMMENT.SetDataSource(tblKOKYAKU_EIKYO_COMMENT.LazyLoad("不適合封じ込め非の理由"), ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-
 
                         IsEditingClosed = HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
 
@@ -276,6 +275,8 @@ Public Class FrmG0021
                     Me.Close()
                 Case Else
             End Select
+        Catch exDispose As ObjectDisposedException
+            System.Console.WriteLine(exDispose.Message)
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -719,7 +720,6 @@ Public Class FrmG0021
             End If
 
             _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = dtUPD_YMD.ValueNonFormat & "000000"
-
 
             '#80 承認申請日は画面で入力
             If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNulOrWS Then
@@ -1778,7 +1778,6 @@ Public Class FrmG0021
             Call NupSURYO_ValueChanged(nupSURYO5, Nothing)
             Call NupSURYO_ValueChanged(nupSURYO6, Nothing)
 
-
             txtFROM1.Text = ""
             txtFROM2.Text = ""
             txtFROM3.Text = ""
@@ -1804,6 +1803,7 @@ Public Class FrmG0021
             Call TxtTO_Validated(txtTO4, Nothing)
             Call TxtTO_Validated(txtTO5, Nothing)
             Call TxtTO_Validated(txtTO6, Nothing)
+
 #End Region
 
             txtFUTEKIGO_SEIHIN_MEMO.Text = ""
@@ -1848,8 +1848,6 @@ Public Class FrmG0021
 
         Call RbtnOTHER_PROCESS_INFLUENCE_KB_CheckedChanged(Nothing, Nothing)
         Call RbtnFOLLOW_PROCESS_OUTFLOW_KB_CheckedChanged(Nothing, Nothing)
-
-
 
         lblTAISYO_KOKYAKU.Enabled = blnChecked
         lblKOKYAKU_EIKYO_NAIYO.Enabled = blnChecked
@@ -2020,7 +2018,6 @@ Public Class FrmG0021
 
         txtOTHER_PROCESS_INFLUENCE_MEMO.Enabled = blnChecked
         pnlOTHER_PROCESS_INFLUENCE_FILEPATH.Enabled = blnChecked
-
 
         If Not blnChecked And Not IsInitializing Then
             txtOTHER_PROCESS_INFLUENCE_MEMO.Text = ""
@@ -2642,8 +2639,6 @@ Public Class FrmG0021
             cmbKISYU5.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
             cmbKISYU6.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
-
-
             txtTAISYO_KOKYAKU.Text = _V011_FCR_J.TAISYOU_KOKYAKU
             txtKOKYAKU_EIKYO_NAIYO.Text = _V011_FCR_J.KOKYAKU_EIKYO_NAIYO
             txtKAKUNIN_SYUDAN.Text = _V011_FCR_J.KAKUNIN_SYUDAN
@@ -2652,7 +2647,6 @@ Public Class FrmG0021
             txtHITUYO_TETUDUKI_ZIKO.Text = _V011_FCR_J.HITUYO_TETUDUKI_ZIKO
             txtKAKUNIN_SYUDAN.Text = _V011_FCR_J.KAKUNIN_SYUDAN
             txtKOKYAKU_EIKYO_ETC_COMMENT.Text = _V011_FCR_J.KOKYAKU_EIKYO_ETC_COMMENT
-
 
             txtSYOCHI_MEMO.Text = _V011_FCR_J.SYOCHI_MEMO
 
@@ -2672,8 +2666,6 @@ Public Class FrmG0021
             Else
                 rbtnKOKYAKU_EIKYO_TUCHI_HANTEI_KB_F.Checked = True
             End If
-
-
 
             txtKOKYAKU_NOUNYU_NAIYOU.Text = _V011_FCR_J.KOKYAKU_NOUNYU_NAIYOU
             txtZAIKO_SIKAKE_NAIYOU.Text = _V011_FCR_J.ZAIKO_SIKAKE_NAIYOU
@@ -2722,7 +2714,6 @@ Public Class FrmG0021
             Call TxtFUTEKIGO_SEIHIN_MEMO_Validated(txtFUTEKIGO_SEIHIN_MEMO, Nothing)
             txtKOKYAKU_EIKYO_MEMO.Text = _V011_FCR_J.KOKYAKU_EIKYO_MEMO
             Call TxtKOKYAKU_EIKYO_MEMO_Validated(txtKOKYAKU_EIKYO_MEMO, Nothing)
-
 
             If _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_KB Then
                 targetCtrl = rbtnFOLLOW_PROCESS_OUTFLOW_KB_T
@@ -2775,8 +2766,6 @@ Public Class FrmG0021
                 flpnlStageIndex.Controls("rsbtnST99").Enabled = False
                 flpnlStageIndex.Controls("rsbtnST99").BackColor = Color.Silver
             End If
-
-
 
             Dim _V003 As New V003_SYONIN_J_KANRI
             _V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
@@ -2901,13 +2890,11 @@ Public Class FrmG0021
         End Try
     End Function
 
-
     Private Function SetTANTO_TooltipInfo() As Boolean
 
         Call SetInfoLabelFormat(lblDestTANTO, $"承認担当者マスタ{vbCr}所属部門の当該ステージに登録された担当者")
 
     End Function
-
 
     Private Function SetInfoLabelFormat(lbl As Label, caption As String) As Boolean
         lbl.ForeColor = Color.Blue

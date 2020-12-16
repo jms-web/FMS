@@ -23,6 +23,7 @@ Public Class FrmG0010
     Private blnStageAll_CAR As Boolean = True
     Private blnStageAll_CTS As Boolean = True
     Private mDataView As DataView
+
 #End Region
 
 #Region "プロパティ"
@@ -100,7 +101,6 @@ Public Class FrmG0010
             '-----フォーム初期設定(親フォームから呼び出し)
             Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO, My.Application.Info.Version.ToString)
 
-
             'Call EnableDoubleBuffering(dgvDATA)
             Call EnableDoubleBuffering(dgvNCR)
             Call EnableDoubleBuffering(dgvCAR)
@@ -139,7 +139,6 @@ Public Class FrmG0010
                 Dim dt = FunGetFUTEKIGO_KB("")
                 cmbFUTEKIGO_KB.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             End If
-
 
             cmbFUTEKIGO_JYOTAI_KB.SetDataSource(tblFUTEKIGO_STATUS_KB.LazyLoad("不適合状態区分").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.LazyLoad("社内CD").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
@@ -1217,6 +1216,8 @@ Public Class FrmG0010
                 Case 12 '閉じる
                     Me.Close()
             End Select
+        Catch exDispose As ObjectDisposedException
+            System.Console.WriteLine(exDispose.Message)
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -3367,7 +3368,6 @@ Public Class FrmG0010
         mtxGENIN2.DataBindings.Add(New Binding(NameOf(mtxGENIN2.Text), paramModel, NameOf(paramModel.GENIN2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbKISEKI_KOTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKISEKI_KOTEI_KB.SelectedValue), paramModel, NameOf(paramModel.KISEKI_KOTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
-
     End Function
 
 #End Region
@@ -3732,7 +3732,6 @@ Public Class FrmG0010
 
     Private Function SetSummaryRow(flx As C1FlexGrid) As Boolean
         If DirectCast(flx.DataSource, DataView).Table Is Nothing Then Return True
-
 
         Dim targetColumns = {NameOf(ST03.SURYO), NameOf(ST03.KISO_KENSU), NameOf(ST03.SYOCHI_KENSU), NameOf(ST03.SYOCHI_ZANSU)}
         Dim dv = DirectCast(flx.DataSource, DataView)

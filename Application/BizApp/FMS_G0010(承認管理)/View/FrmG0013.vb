@@ -277,6 +277,8 @@ Public Class FrmG0013
                     Me.DialogResult = DialogResult.Cancel
                     Me.Close()
             End Select
+        Catch exDispose As ObjectDisposedException
+            System.Console.WriteLine(exDispose.Message)
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally

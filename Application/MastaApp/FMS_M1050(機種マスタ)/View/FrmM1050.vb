@@ -6,6 +6,7 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class FrmM1050
 
 #Region "コンストラクタ"
+
     ''' <summary>
     ''' コンストラクタ
     ''' </summary>
@@ -22,6 +23,7 @@ Public Class FrmM1050
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
 
     End Sub
+
 #End Region
 
 #Region "Form関連"
@@ -44,7 +46,6 @@ Public Class FrmM1050
             AddHandler cmbBUMON_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler mtxKISYU_NAME.Leave, AddressOf SearchFilterValueChanged
             AddHandler chkDeletedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
-
         Finally
             Call SubInitFuncButtonEnabled()
 
@@ -95,6 +96,7 @@ Public Class FrmM1050
     Private Sub FlxDATA_RowColChange(sender As Object, e As EventArgs) Handles flxDATA.RowColChange
         Call SubInitFuncButtonEnabled()
     End Sub
+
     '列フィルタ適用
     Private Sub FlxDATA_AfterFilter(sender As Object, e As EventArgs) Handles flxDATA.AfterFilter
         Dim flx As C1.Win.C1FlexGrid.C1FlexGrid = DirectCast(sender, C1.Win.C1FlexGrid.C1FlexGrid)
@@ -126,6 +128,7 @@ Public Class FrmM1050
 #Region "FunctionButton関連"
 
 #Region "ボタンクリックイベント"
+
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc1.Click, cmdFunc2.Click, cmdFunc3.Click, cmdFunc4.Click, cmdFunc5.Click, cmdFunc6.Click, cmdFunc7.Click, cmdFunc8.Click, cmdFunc9.Click, cmdFunc10.Click, cmdFunc11.Click, cmdFunc12.Click
         Dim intFUNC As Integer
         Dim intCNT As Integer
@@ -165,7 +168,8 @@ Public Class FrmM1050
                 Case 12 '閉じる
                     Me.Close()
             End Select
-
+        Catch exDispose As ObjectDisposedException
+            System.Console.WriteLine(exDispose.Message)
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -182,6 +186,7 @@ Public Class FrmM1050
             Me.Cursor = Cursors.Default
         End Try
     End Sub
+
 #End Region
 
 #Region "検索"
@@ -192,7 +197,7 @@ Public Class FrmM1050
             Dim dsList As New DataSet
             Dim sbSQLWHERE As New System.Text.StringBuilder
 
-            If CmbBUMON_KB.IsSelected Then sbSQLWHERE.Append($" WHERE BUMON_KB ='{CmbBUMON_KB.SelectedValue}' ")
+            If cmbBUMON_KB.IsSelected Then sbSQLWHERE.Append($" WHERE BUMON_KB ='{cmbBUMON_KB.SelectedValue}' ")
 
             If Not mtxKISYU_NAME.Text.IsNulOrWS Then sbSQLWHERE.Append(IIf(sbSQLWHERE.Length = 0, " WHERE ", " AND ") & $"KISYU_NAME LIKE '%{mtxKISYU_NAME.Text.Trim}%'")
 
@@ -268,7 +273,6 @@ Public Class FrmM1050
             Return dt
             'Dim _Model As New MODEL.ModelInfo(Of MODEL.VWM105_KISYU)(srcDATA:=dsList.Tables(0))
             'Return _Model.Data
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return Nothing
@@ -304,7 +308,6 @@ Public Class FrmM1050
             End If
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -328,8 +331,6 @@ Public Class FrmM1050
             '        r.Style = flx.Styles("DeletedRow")
             '    End If
             'Next
-
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
@@ -338,6 +339,7 @@ Public Class FrmM1050
 #End Region
 
 #Region "追加・変更"
+
     ''' <summary>
     ''' レコード追加変更処理
     ''' </summary>
@@ -383,6 +385,7 @@ Public Class FrmM1050
 #End Region
 
 #Region "削除"
+
     Private Function FunDEL(ByVal DATA_OP_MODE As ENM_DATA_OPERATION_MODE) As Boolean
 
         Dim sbSQL As New System.Text.StringBuilder
@@ -536,7 +539,6 @@ Public Class FrmM1050
         Else
             cmdFunc6.Visible = False
         End If
-
 
         If Not HasAdminAuth(pub_SYAIN_INFO.SYAIN_ID) Then
             cmdFunc2.Enabled = False

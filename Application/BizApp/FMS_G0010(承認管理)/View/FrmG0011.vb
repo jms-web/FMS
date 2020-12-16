@@ -28,8 +28,8 @@ Public Class FrmG0011
 
     Private IsEditingClosed As Boolean
 
-
     Private CTS_TANTO_BUFF As Integer
+
 #End Region
 
 #Region "プロパティ"
@@ -413,6 +413,8 @@ Public Class FrmG0011
                         Me.Close()
                     End If
             End Select
+        Catch exDispose As ObjectDisposedException
+            System.Console.WriteLine(exDispose.Message)
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally

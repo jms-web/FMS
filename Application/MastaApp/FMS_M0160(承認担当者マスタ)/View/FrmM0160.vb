@@ -220,6 +220,8 @@ Public Class FrmM0160
                 Case 12 'ï¬Ç∂ÇÈ
                     Me.Close()
             End Select
+        Catch exDispose As ObjectDisposedException
+            System.Console.WriteLine(exDispose.Message)
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -249,7 +251,6 @@ Public Class FrmM0160
         Dim dt As New DataTable
 
         Try
-
 
             '----WHEREãÂçÏê¨
             sbSQLWHERE.Append($" WHERE 1 = 1")
@@ -304,7 +305,6 @@ Public Class FrmM0160
                 'End If
             Next p
 
-
             With dsList.Tables(0)
                 For Each row As DataRow In .Rows
                     Dim Trow As DataRow = dt.NewRow()
@@ -344,7 +344,7 @@ Public Class FrmM0160
             Return dt
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
-        Return Nothing
+            Return Nothing
         End Try
     End Function
 
@@ -577,8 +577,8 @@ Public Class FrmM0160
                 cmdFunc5.Tag = ENM_DATA_OPERATION_MODE._6_DELETE
 
                 cmdFunc6.Text = ""
-                    cmdFunc6.Visible = False
-                    cmdFunc6.Tag = ""
+                cmdFunc6.Visible = False
+                cmdFunc6.Tag = ""
                 'End If
             Else
                 cmdFunc6.Visible = False
@@ -635,10 +635,6 @@ Public Class FrmM0160
             End Select
         End Using
     End Sub
-
-
-
-
 
 #End Region
 

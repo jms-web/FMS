@@ -282,6 +282,7 @@ Public Class FrmG0020_List
             Me.cmdFunc4.PerformClick()
         End If
     End Sub
+
 #End Region
 
 #Region "DataGridView関連"
@@ -804,6 +805,8 @@ Public Class FrmG0020_List
                 Case 12 '閉じる
                     Me.Close()
             End Select
+        Catch exDispose As ObjectDisposedException
+            System.Console.WriteLine(exDispose.Message)
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -1545,7 +1548,7 @@ Public Class FrmG0020_List
                     MyBase.ToolTip.SetToolTip(Me.cmdFunc9, "滞留通知メール送信権限がありません")
                 End If
             Else
-                    cmdFunc3.Enabled = False
+                cmdFunc3.Enabled = False
                 cmdFunc4.Enabled = False
                 cmdFunc5.Enabled = False
 
@@ -2116,8 +2119,6 @@ Public Class FrmG0020_List
             Return False
         End Try
     End Function
-
-
 
 #End Region
 

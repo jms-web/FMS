@@ -131,6 +131,8 @@ Public Class FrmG0025_Tenso
                     Me.DialogResult = Windows.Forms.DialogResult.Cancel
                     Me.Close()
             End Select
+        Catch exDispose As ObjectDisposedException
+            System.Console.WriteLine(exDispose.Message)
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
@@ -419,7 +421,6 @@ Public Class FrmG0025_Tenso
                                 cmbTENSO_SAKI.SelectedValue,
                                 "FMS_G0010.exe",
                                 strEXEParam)
-
 
         Dim users As New List(Of Integer)
         users.Add(cmbTENSO_SAKI.SelectedValue)

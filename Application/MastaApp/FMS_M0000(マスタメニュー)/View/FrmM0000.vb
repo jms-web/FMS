@@ -1,9 +1,9 @@
 Imports JMS_COMMON.ClsPubMethod
 
-
 Public Class FrmM0000
 
 #Region "定数・変数"
+
     Private cmdFunc() As Button 'ボタン配列
     Private pnlFunc() As Panel  'ボタンパネル配列
 
@@ -18,6 +18,7 @@ Public Class FrmM0000
 #End Region
 
 #Region "コンストラクタ"
+
     ''' <summary>
     ''' コンストラクタ
     ''' </summary>
@@ -29,11 +30,13 @@ Public Class FrmM0000
 
         Me.Icon = My.Resources._icoMENU128x128
     End Sub
+
 #End Region
 
 #Region "Formイベント"
 
 #Region "ROAD"
+
     Private Sub FrmLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Dim strBUFF As String
         Dim intL As Integer
@@ -45,8 +48,6 @@ Public Class FrmM0000
                 lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
                 lblDEV_FLG.Visible = FunGetCodeMastaValue(DB, "SYSTEM_SETTING", "開発版") = "TRUE"
             End Using
-
-
 
             '-----ログイン表示
             Me.grbLOGOUT.Visible = False
@@ -94,7 +95,6 @@ Public Class FrmM0000
                 arrNOW_CMDS(intL) = arrCMDS_FUNC(intL)
             Next intL
             Call Sub_MenuSet()
-
 
             'imgList.Images.Add(My.Resources._imgBasket)
             'imgList.Images.Add(My.Resources._imgBarcode_reader)
@@ -144,15 +144,15 @@ Public Class FrmM0000
                     Me.txtPASSWORD.Focus()
                 End If
             End Using
-
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
     End Sub
+
 #End Region
 
 #Region "KEYDOWN"
+
     'KEYDOWN
     Private Sub FrmMBCA000MENU_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
         Dim KeyCode As Short = e.KeyCode
@@ -177,13 +177,11 @@ Public Class FrmM0000
                     ToolStripStatusLabelMASSAGE.Text = "テストモード"
                     MessageBox.Show("テストモードに切り替えました。" & "ログイン時パスワードが不要になります。", "テストモード", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Me.PrPG_STATUS = ENM_PG_STATUS._4_ALTMODE
-
                 Else
                     Me.PrPG_STATUS = ENM_PG_STATUS._2_ACTIVE
                     ToolStripStatusLabelMASSAGE.Text = ""
                 End If
             End If
-
 
             'ESC
             If KeyCode = Windows.Forms.Keys.Escape Then
@@ -195,12 +193,12 @@ Public Class FrmM0000
             If KeyCode = Windows.Forms.Keys.Return Then
                 System.Windows.Forms.SendKeys.Send("{TAB}")
             End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
         End Try
 
     End Sub
+
 #End Region
 
 #Region "ACTIVATED"
@@ -216,6 +214,7 @@ Public Class FrmM0000
             End Using
         End If
     End Sub
+
 #End Region
 
 #End Region
@@ -223,6 +222,7 @@ Public Class FrmM0000
 #Region "FUNCTIONボタン関連"
 
 #Region "ボタンクリックイベント"
+
     Private Sub CmdFunc_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFunc9.Click, cmdFunc8.Click, cmdFunc7.Click, cmdFunc6.Click, cmdFunc5.Click, cmdFunc4.Click, cmdFunc3.Click, cmdFunc2.Click, cmdFunc12.Click, cmdFunc11.Click, cmdFunc10.Click, cmdFunc1.Click
         Dim intFUNC As Integer
         Dim intCNT As Integer
@@ -255,7 +255,6 @@ Public Class FrmM0000
 
                     'メニュー設定
                     Call Sub_MenuSet()
-
                 Else 'サブメニュー
                     '"[]" 抜き
                     strWKCATEGORY = strFUNC.Substring(1, strFUNC.Length - 2)
@@ -285,10 +284,10 @@ Public Class FrmM0000
                 'それぞれの実行ファイルを起動する
                 Sub_FuncExec(intFUNC - 1)
             End If
-
+        Catch exDispose As ObjectDisposedException
+            System.Console.WriteLine(exDispose.Message)
         Catch ex As Exception
             EM.ErrorSyori(ex)
-
         Finally
             'ボタン可
             System.Windows.Forms.Application.DoEvents()
@@ -298,6 +297,7 @@ Public Class FrmM0000
         End Try
 
     End Sub
+
 #End Region
 
 #End Region
@@ -305,6 +305,7 @@ Public Class FrmM0000
 #Region "コントロールイベント"
 
 #Region "ログインボタンクリック時"
+
     'ログインボタン
     Private Sub CmdLOGIN_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdLOGIN.Click
         Dim sbSQL As New System.Text.StringBuilder
@@ -327,7 +328,6 @@ Public Class FrmM0000
                         Exit Sub
                     End If
 
-
                     '-----PASSWORDチェック
                     With DS.Tables(0).Rows(0)
                         'DEBUG: パスワード認証回避
@@ -346,7 +346,6 @@ Public Class FrmM0000
                             Using iniIF As New IniFile(pub_SYSTEM_INI_FILE)
                                 iniIF.SetIniString("SYSTEM", "USERID", pub_SYAIN_INFO.SYAIN_CD.Trim)
                             End Using
-
                         Else '入力PASSWORD不一致時
                             MessageBox.Show("ログインできません。社員IDとパスワードを確認して、もう一度入力して下さい。", "ログイン失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             Me.txtPASSWORD.Text = ""
@@ -359,7 +358,6 @@ Public Class FrmM0000
                             Exit Sub
                         End If
                     End With
-
 
                 End Using
 
@@ -384,14 +382,15 @@ Public Class FrmM0000
             End If
 
             blnLogin = True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
     End Sub
+
 #End Region
 
 #Region "ログインボタンGOTFOCUS"
+
     'ログインボタンGOTFOCUS
     Private Sub CmdLOGIN_Enter(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdLOGIN.Enter
         Try
@@ -400,9 +399,11 @@ Public Class FrmM0000
             EM.ErrorSyori(ex)
         End Try
     End Sub
+
 #End Region
 
 #Region "ログアウトボタンクリック時"
+
     'ログアウトボタン
     Private Sub CmdLOGOUT_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdLOGOUT.Click
         Dim strBUFF As String
@@ -452,14 +453,15 @@ Public Class FrmM0000
             Next
 
             blnLogin = False
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
     End Sub
+
 #End Region
 
 #Region "変更履歴ボタンクリック時"
+
     '変更履歴ボタン
     Private Sub BtnRIREKI_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRIREKI.Click
 
@@ -469,15 +471,16 @@ Public Class FrmM0000
             Using frmDLG = New FrmM0001
                 dlgRET = frmDLG.ShowDialog(Me)
             End Using
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
         Finally
         End Try
     End Sub
+
 #End Region
 
 #Region "業務選択リスト選択時"
+
     '業務選択リスト
     Private Sub LstGYOMU_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lstGYOMU.SelectedIndexChanged
         Dim intL As Integer
@@ -507,14 +510,15 @@ Public Class FrmM0000
                     pnlFunc(intL).BackColor = Me.BackColor
                 Next
             End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
     End Sub
+
 #End Region
 
 #Region "業務リストMouseMoveイベント"
+
     '業務リストMouseMoveイベント
     Private Sub LstGYOMU_MouseMove(sender As Object, e As MouseEventArgs)
         Try
@@ -527,14 +531,15 @@ Public Class FrmM0000
             '    End If
             'Next
             'lstGYOMU.Cursor = Cursors.Default
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
     End Sub
+
 #End Region
 
 #Region "業務リスト 描画"
+
     Private Sub ListBox_DrawItem(ByVal sender As Object, ByVal e As System.Windows.Forms.DrawItemEventArgs) ' Handles lstGYOMU.DrawItem
 
         ''▼項目がない場合は何もしない
@@ -568,9 +573,11 @@ Public Class FrmM0000
         'e.DrawFocusRectangle()
 
     End Sub
+
 #End Region
 
 #Region "ボタンFOCUS色設定"
+
     'FUNCTIONボタン
     Private Sub CmdFunc_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles cmdFunc9.MouseMove, cmdFunc8.MouseMove, cmdFunc7.MouseMove, cmdFunc6.MouseMove, cmdFunc5.MouseMove, cmdFunc4.MouseMove, cmdFunc3.MouseMove, cmdFunc2.MouseMove, cmdFunc12.MouseMove, cmdFunc11.MouseMove, cmdFunc10.MouseMove, cmdFunc1.MouseMove
         Dim intCNT As Integer
@@ -606,6 +613,7 @@ Public Class FrmM0000
 #End Region
 
 #Region "通知リンクラベルクリックイベント"
+
     '材料在庫ラベル
     Private Sub LblZAIRYO_ZAIKO_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         'Dim tplResult As (targetDate As Date?, intSIIRE_CD As Integer) = FunExistZairyoMinusYosokuZaiko()
@@ -635,6 +643,7 @@ Public Class FrmM0000
     Private Sub LblCALENDER_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblCALENDER.LinkClicked
         Call FunOpenAppKADOMasta()
     End Sub
+
 #End Region
 
 #End Region
@@ -642,6 +651,7 @@ Public Class FrmM0000
 #Region "ローカル関数"
 
 #Region "ログインパネル表示"
+
     'ログインパネル表示
     Private Function FunLOGIN(ByVal blnLOGIN As Boolean) As Boolean
         Try
@@ -658,7 +668,6 @@ Public Class FrmM0000
 
                 'ログイン社員情報クリア
                 pub_SYAIN_INFO = New SYAIN_INFO
-
             Else
                 'ログイン
                 Me.grbLOGOUT.BringToFront()
@@ -673,15 +682,16 @@ Public Class FrmM0000
             End If
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         End Try
     End Function
+
 #End Region
 
 #Region "メニュー設定"
+
     'メニュー設定
     Private Sub Sub_MenuSet()
         Dim lngL As Long
@@ -710,14 +720,15 @@ Public Class FrmM0000
                     Me.pnlFunc(lngL).Enabled = True
                 End If
             Next lngL
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
     End Sub
+
 #End Region
 
 #Region "メールリンク起動"
+
     Private Sub FuncExecOverMailLink()
         Dim hProcess As New System.Diagnostics.Process
 
@@ -726,6 +737,7 @@ Public Class FrmM0000
 #End Region
 
 #Region "ファンクションに割り当てられた実行ファイルを起動する"
+
     'ファンクションに割り当てられた実行ファイルを起動する
     Private Sub Sub_FuncExec(ByVal intIndex As Integer)
         Dim hProcess As New System.Diagnostics.Process
@@ -737,7 +749,6 @@ Public Class FrmM0000
         Try
             '-----EXE名にブランク位置取得
             intBUFF = arrNOW_CMDS(intIndex).Path.IndexOf(" ")
-
 
             'EXE名にブランク無し時
             If intBUFF = -1 Then
@@ -752,13 +763,11 @@ Public Class FrmM0000
                 ''権限(0:権限無し,1:参照権限,2:更新権限)
                 'strARG = strARG & pub_USER_INFO.KENGEN_KB
                 ''strARG = strARG & hsAUTHORITY(Me.lstGYOMU.SelectedItem.ToString.Trim)
-
             Else 'EXE名にブランク有時
                 strBUFF = arrNOW_CMDS(intIndex).Path.Substring(0, intBUFF)
 
                 '-----実行ファイルパス取得
                 strEXE = FunGetRootPath() & FunGetEXEPath() & arrNOW_CMDS(intIndex).Path.Substring(0, intBUFF)
-
 
                 strARG = pub_SYAIN_INFO.SYAIN_ID & Space(1)
 
@@ -796,10 +805,8 @@ Public Class FrmM0000
             ''-----子が終了するまで待機
             'hProcess.WaitForExit()
             '------------------------------------------------------------
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
-
         Finally
             'プロセス終了を待機しない------------------------------------
             ''-----自分表示
@@ -825,6 +832,7 @@ Public Class FrmM0000
 #End Region
 
 #Region "割り当てられた特殊処理を行う"
+
     '割り当てられた特殊処理を行う
     Private Sub Sub_SFunc(ByVal intIndex As Integer)
         Dim strFUNC As String
@@ -848,20 +856,19 @@ Public Class FrmM0000
                     'End If
                 End If
 
-
                 '-----終了
                 Me.Close()
 
             End If
-
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
         End Try
     End Sub
+
 #End Region
 
 #Region "他のアプリ起動中チェック"
+
     '他のアプリ起動中チェック
     Private Function Fun_ProcessCheck() As String
         Dim strBUFF As String
@@ -889,7 +896,6 @@ Public Class FrmM0000
             End Using
 
             Return 0
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return -1
@@ -909,7 +915,6 @@ Public Class FrmM0000
             strBUFF = FunGetRootPath() & "\EXE\"
 #End If
 
-
             'ローカルコンピュータ上で実行されているすべてのプロセスを取得
             ps = System.Diagnostics.Process.GetProcesses
 
@@ -921,7 +926,6 @@ Public Class FrmM0000
 
             Dim p As System.Diagnostics.Process
             For Each p In ps.AsQueryable().Where(Function(process) process.MainModule.FileName.Contains(strBUFF))
-
 
                 'メインモジュールが、自アプリ時
                 If p.ProcessName.Contains(My.Application.Info.AssemblyName) = True Then
@@ -947,9 +951,11 @@ Public Class FrmM0000
             Return -1
         End Try
     End Function
+
 #End Region
 
 #Region "締め処理チェック"
+
     Private Sub SubCheckSime(ByVal DB As ClsDbUtility)
         'Dim strYM As String
         Try
@@ -964,7 +970,6 @@ Public Class FrmM0000
             Me.lblSIME.Text = ""
             Me.lblSIME.Cursor = Cursors.Default
             'End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
@@ -988,9 +993,11 @@ Public Class FrmM0000
     End Function
 
 #End Region
+
 #End Region
 
 #Region "稼働日マスタチェック"
+
     Private Sub SubCheckKADOMasta(ByVal DB As ClsDbUtility)
         Dim sbSQL As New System.Text.StringBuilder
 
@@ -1018,8 +1025,6 @@ Public Class FrmM0000
                     End If
                 End With
             End Using
-
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
@@ -1034,7 +1039,6 @@ Public Class FrmM0000
             Dim strParam As String = pub_SYAIN_INFO.SYAIN_ID & Space(1)
 
             Return FunCallEXE(strEXE, strParam, 1)
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -1045,8 +1049,6 @@ Public Class FrmM0000
 
 #End Region
 
-
 #End Region
-
 
 End Class

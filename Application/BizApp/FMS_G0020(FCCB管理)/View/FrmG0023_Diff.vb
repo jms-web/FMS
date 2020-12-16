@@ -159,6 +159,8 @@ Public Class FrmG0023_Diff
                 Case 12 '•Â‚¶‚é
                     Me.Close()
             End Select
+        Catch exDispose As ObjectDisposedException
+            System.Console.WriteLine(exDispose.Message)
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally

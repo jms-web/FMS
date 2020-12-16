@@ -629,6 +629,8 @@ Public Class FrmG0021_Detail
                     Me.Close()
                 Case Else
             End Select
+        Catch exDispose As ObjectDisposedException
+            System.Console.WriteLine(exDispose.Message)
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         Finally
