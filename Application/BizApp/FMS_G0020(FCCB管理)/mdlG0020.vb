@@ -647,7 +647,14 @@ Module mdlG0020
                 sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS GL ON (GL.SYAIN_ID = M2.SYOZOKUCYO_ID)")
                 sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS OYA_M2 ON (OYA_M2.BUSYO_ID = M2.OYA_BUSYO_ID)")
                 sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS OYA_GL ON (OYA_GL.SYAIN_ID = OYA_M2.SYOZOKUCYO_ID)")
-                sbSQL.Append($" WHERE M4.SYAIN_ID IN ({users.Aggregate(Function(u1, u2) u1 & "," & u2)})")
+                sbSQL.Append($" WHERE M4.SYAIN_ID IN (")
+                sbSQL.Append($" {users.First()}")
+                If users.Count > 1 Then
+                    For Each user In users.Skip(1)
+                        sbSQL.Append($",{user}")
+                    Next
+                End If
+                sbSQL.Append($" )")
                 sbSQL.Append($" AND M5.KENMU_FLG='0'")
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
 
