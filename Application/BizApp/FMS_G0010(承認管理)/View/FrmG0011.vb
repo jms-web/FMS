@@ -6675,10 +6675,11 @@ Public Class FrmG0011
                             Call CmbST03_TANTO_FCR_Validating(cmbST03_TANTO_FCR, Nothing)
                             If IsValidated Then
                                 If btnST03_FCR_KISO.Text = "起草" Then
-                                    Dim msg As String = $"不適合封じ込め調査書が起草されていません{vbCrLf}今すぐ起草しますか？"
-                                    If MessageBox.Show(msg, "起草確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) <> DialogResult.Yes Then
-                                        IsValidated = False
-                                    End If
+                                    '現状 CTSは必須となるため、確認せず起草登録を行う
+                                    'Dim msg As String = $"不適合封じ込め調査書が起草されていません{vbCrLf}今すぐ起草しますか？"
+                                    'If MessageBox.Show(msg, "起草確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) <> DialogResult.Yes Then
+                                    '    IsValidated = False
+                                    'End If
                                     CTS_TANTO_BUFF = _D004_SYONIN_J_KANRI.SYAIN_ID
                                     If funSAVE_FCR_KISO() Then
                                         btnST03_FCR_KISO.Enabled = False
