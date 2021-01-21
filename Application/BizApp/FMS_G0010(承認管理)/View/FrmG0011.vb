@@ -7174,15 +7174,15 @@ Public Class FrmG0011
                             End If
                         End If
 
-                        If btnST03_FCR_KISO.Text = "起草済" Then
-                            msg = $"既に起草済みです{vbCrLf}既存の登録をリセットして、選択した担当者宛に再度起草申請を発行しますか？"
-                        Else
-                            msg = $"不適合封じ込め調査書の起草申請を発行しますか？"
-                        End If
+                        'If btnST03_FCR_KISO.Text = "起草済" Then
+                        '    msg = $"既に起草済みです{vbCrLf}既存の登録をリセットして、選択した担当者宛に再度起草申請を発行しますか？"
+                        'Else
+                        '    msg = $"不適合封じ込め調査書の起草申請を発行しますか？"
+                        'End If
 
-                        If MessageBox.Show(msg, "不適合封じ込め調査書起草申請", MessageBoxButtons.YesNo, MessageBoxIcon.Information) <> DialogResult.Yes Then
-                            Return True
-                        End If
+                        'If MessageBox.Show(msg, "不適合封じ込め調査書起草申請", MessageBoxButtons.YesNo, MessageBoxIcon.Information) <> DialogResult.Yes Then
+                        '    Return True
+                        'End If
 
                         If FunSAVE_D007(DB) Then
                             '承認依頼メール送信
