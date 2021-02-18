@@ -52,7 +52,6 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     <ComponentModel.DisplayName("処置担当者名")>
     Public Property GEN_TANTO_NAME As String
 
-
     <ComponentModel.DisplayName("承認日時")>
     <Display(AutoGenerateField:=False)>
     <Column(NameOf(SYONIN_YMDHNS), TypeName:="String")>
@@ -202,7 +201,6 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
         End Set
     End Property
 
-
     <ComponentModel.DisplayName("起草担当者ID")>
     Public Property KISO_TANTO_ID As Integer
 
@@ -229,7 +227,9 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     <ComponentModel.DisplayName("要求内容")>
     Public Property YOKYU_NAIYO As String
 
-
+    <StringLength(500)>
+    <ComponentModel.DisplayName("観察結果")>
+    Public Property KANSATU_KEKKA As String
 
     <StringLength(2)>
     <ComponentModel.DisplayName("顧客判定指示区分")>
@@ -268,7 +268,6 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
         End Set
     End Property
 
-
     <Display(AutoGenerateField:=False)>
     <StringLength(8)>
     <Column(NameOf(HASSEI_YMD), TypeName:="String")>
@@ -290,8 +289,8 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     <ComponentModel.DisplayName("個数")>
     Public Property SURYO As Integer
 
-
 #Region "IDisposable Support"
+
     Private disposedValue As Boolean ' 重複する呼び出しを検出するには
 
     ' IDisposable
@@ -321,5 +320,7 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
         ' TODO: 上の Finalize() がオーバーライドされている場合は、次の行のコメントを解除してください。
         ' GC.SuppressFinalize(Me)
     End Sub
+
 #End Region
+
 End Class

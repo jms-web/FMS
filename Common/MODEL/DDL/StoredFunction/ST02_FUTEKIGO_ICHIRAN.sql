@@ -92,6 +92,7 @@ BEGIN TRY
 	DECLARE @W_SASIMOTO_SYONIN_NAIYO		nvarchar(50);	--44.差戻元承認内容（差戻し元ステージ）
 	DECLARE @W_RIYU							nvarchar(100);	--45.差戻理由
 	DECLARE @W_YOKYU_NAIYO					nvarchar(500);	--46.要求内容
+	DECLARE @W_KANSATU_KEKKA				nvarchar(500);	--観察結果
 	DECLARE @W_BUMON_KB						char(1);		--47.部門区分
 	DECLARE @W_BUMON_NAME					char(50);		--48.部門区分
 	DECLARE @W_KOKYAKU_HANTEI_SIJI_KB		char(2);		--49.顧客判定指示区分
@@ -151,6 +152,7 @@ BEGIN TRY
 	,SASIMOTO_SYONIN_NAIYO		nvarchar(50)	--44.差戻元承認内容（差戻し元ステージ）
 	,RIYU						nvarchar(100)	--45.差戻理由
 	,YOKYU_NAIYO				nvarchar(500)	--46.要求内容
+	,KANSATU_KEKKA				nvarchar(500)	--観察結果
 	,BUMON_KB					char(1)			--47.部門区分
 	,BUMON_NAME					char(50)		--48.部門区分名
 	,KOKYAKU_HANTEI_SIJI_KB		char(2)			--49.顧客判定指示区分
@@ -216,6 +218,7 @@ BEGIN TRY
 	SET @SQL = @SQL + N',SASIMOTO_SYONIN_NAIYO';		--44.差戻元承認内容（差戻し元ステージ）
 	SET @SQL = @SQL + N',RIYU';							--45.差戻理由
 	SET @SQL = @SQL + N',YOKYU_NAIYO';					--46.要求内容
+	SET @SQL = @SQL + N',KANSATU_KEKKA';					--観察結果
 	SET @SQL = @SQL + N',BUMON_KB';						--47.部門区分
 	SET @SQL = @SQL + N',BUMON_NAME';					--48.部門区分
 	SET @SQL = @SQL + N',KOKYAKU_HANTEI_SIJI_KB';		--49.顧客判定指示区分
@@ -468,6 +471,7 @@ BEGIN TRY
 		,@W_SASIMOTO_SYONIN_NAIYO		--44.差戻元承認内容（差戻し元ステージ）
 		,@W_RIYU						--45.差戻理由
 		,@W_YOKYU_NAIYO					--46.要求内容
+		,@W_KANSATU_KEKKA
 		,@W_BUMON_KB					--47.部門区分
 		,@W_BUMON_NAME					--48.部門区分名
 		,@W_KOKYAKU_HANTEI_SIJI_KB		--49.顧客判定指示区分
@@ -531,6 +535,7 @@ BEGIN TRY
 		,SASIMOTO_SYONIN_NAIYO		--44.差戻元承認内容（差戻し元ステージ）
 		,RIYU						--45.差戻理由
 		,YOKYU_NAIYO				--46.要求内容
+		,KANSATU_KEKKA
 		,BUMON_KB					--47.部門区分
 		,BUMON_NAME					--48.部門区分
 		,KOKYAKU_HANTEI_SIJI_KB		--49.顧客判定指示区分
@@ -588,6 +593,7 @@ BEGIN TRY
 		,@W_SASIMOTO_SYONIN_NAIYO		--44.差戻元承認内容（差戻し元ステージ）
 		,@W_RIYU						--45.差戻理由
 		,@W_YOKYU_NAIYO					--46.要求内容
+		,@W_KANSATU_KEKKA
 		,@W_BUMON_KB					--47.部門区分
 		,@W_BUMON_NAME					--48.部門区分
 		,@W_KOKYAKU_HANTEI_SIJI_KB		--49.顧客判定指示区分

@@ -19,7 +19,6 @@ Partial Class FrmG0020_List
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -47,9 +46,9 @@ Partial Class FrmG0020_List
         Me.chkDeleteRowVisibled = New System.Windows.Forms.CheckBox()
         Me.btnClearSrchFilter = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.ST04_FCCB_ICHIRAN_BindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.ST04_FCCB_ICHIRAN_BindingSource = New System.Windows.Forms.BindingSource()
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
-        Me.FlexContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.FlexContextMenu = New System.Windows.Forms.ContextMenuStrip()
         Me.EqualFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotEqualFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.IncludeFilter = New System.Windows.Forms.ToolStripMenuItem()

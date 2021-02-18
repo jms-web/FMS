@@ -2366,6 +2366,13 @@ Public Class FrmG0021_Detail
             cmbCM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             tabMain.Visible = True
+
+            Dim tblLP_HINMEI As New DataTableEx
+            Using DB As ClsDbUtility = DBOpen()
+                Call FunGetCodeDataTable(DB, "LP部品名称", tblLP_HINMEI)
+            End Using
+
+            cmbHINMEI.SetDataSource(tblLP_HINMEI, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
         Else
             tabMain.Visible = False
         End If
@@ -2455,7 +2462,7 @@ Public Class FrmG0021_Detail
 
 #Region "社内コード"
 
-    Private Sub CmbSYANAI_CD_SelectedValueChanged(sender As Object, e As EventArgs) 'Handles cmbSYANAI_CD.SelectedValueChanged
+    Private Sub CmbSYANAI_CD_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbSYANAI_CD.SelectedValueChanged
         Try
 
             If IsInitializing Then Exit Sub
