@@ -660,25 +660,33 @@ Module mdlG0020
 
                 With dsList.Tables(0)
                     If .Rows.Count > 0 Then
-                        If Not .Rows(0).Item("MAIL_ADDRESS").ToString.IsNulOrWS Then
-                            ToAddressList.Add(.Rows(0).Item("MAIL_ADDRESS"))
-                        End If
+                        For Each row In .Rows
 
-                        '所属長にも送信
-                        If .Rows(0).Item("GL_ADDRESS").ToString.IsNulOrWS = False AndAlso .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("GL_ADDRESS").ToString Then
-                            ToAddressList.Add(.Rows(0).Item("GL_ADDRESS"))
-                        End If
-
-                        If blnSendSenior Then
-                            '送信先が所属長宛てだった場合、所属長の上位の部署の所属長にも送信
-                            If .Rows(0).Item("OYA_GL_ADDRESS").ToString.IsNulOrWS = False AndAlso
-                            .Rows(0).Item("MAIL_ADDRESS").ToString = .Rows(0).Item("GL_ADDRESS").ToString AndAlso
-                            .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("OYA_GL_ADDRESS").ToString Then
-                                ToAddressList.Add(.Rows(0).Item("OYA_GL_ADDRESS"))
+                            If Not .Rows(0).Item("MAIL_ADDRESS").ToString.IsNulOrWS AndAlso Not ToAddressList.Contains(.Rows(0).Item("MAIL_ADDRESS")) Then
+                                ToAddressList.Add(.Rows(0).Item("MAIL_ADDRESS"))
                             End If
-                        End If
 
-                        strToSyainName = .Rows(0).Item("SIMEI")
+                            '所属長にも送信
+                            If .Rows(0).Item("GL_ADDRESS").ToString.IsNulOrWS = False AndAlso .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("GL_ADDRESS").ToString _
+                                AndAlso Not ToAddressList.Contains(.Rows(0).Item("GL_ADDRESS")) Then
+                                ToAddressList.Add(.Rows(0).Item("GL_ADDRESS"))
+                            End If
+
+                            If blnSendSenior Then
+                                '送信先が所属長宛てだった場合、所属長の上位の部署の所属長にも送信
+                                If .Rows(0).Item("OYA_GL_ADDRESS").ToString.IsNulOrWS = False AndAlso
+                                .Rows(0).Item("MAIL_ADDRESS").ToString = .Rows(0).Item("GL_ADDRESS").ToString AndAlso
+                                .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("OYA_GL_ADDRESS").ToString _
+                                AndAlso Not ToAddressList.Contains(.Rows(0).Item("OYA_GL_ADDRESS")) Then
+                                    ToAddressList.Add(.Rows(0).Item("OYA_GL_ADDRESS"))
+                                End If
+                            End If
+                        Next
+                        If (.Rows.Count > 1) Then
+                            strToSyainName = $"{ .Rows(0).Item("SIMEI")}  他 { .Rows.Count}名"
+                        Else
+                            strToSyainName = .Rows(0).Item("SIMEI")
+                        End If
                     Else
                         Return False
                     End If
@@ -1146,6 +1154,12 @@ Module mdlG0020
                 Dim D010 As D010_FCCB_SUB_SYOCHI_KOMOKU
                 Dim D011 As D011_FCCB_SUB_SIKAKE_BUHIN
                 Dim D012 As D012_FCCB_SUB_SYOCHI_KAKUNIN
+
+                If Not _D009.FILE_PATH.IsNulOrWS Then
+                    Dim rootdir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
+                    Dim path As String = rootdir & _D009.FILE_PATH
+                    spSheet1.Hyperlinks.Add(spSheet1.Range(NameOf(_D009.FILE_PATH)), path, Nothing, path, "添付資料")
+                End If
 
 #Region "SEC2"
 
