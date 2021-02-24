@@ -669,6 +669,7 @@ Public Class FrmG0021_Detail
                     DB.BeginTransaction()
 
                     If FunSAVE_D009(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
+                    If FunSAVE_FILE(DB) = False Then blnErr = True : Return False
                     If FunSAVE_D010(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                     If FunSAVE_D011(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                     If FunSAVE_D012(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
@@ -688,6 +689,69 @@ Public Class FrmG0021_Detail
             Return False
         Finally
         End Try
+    End Function
+
+#End Region
+
+#Region "   ファイル保存"
+
+    ''' <summary>
+    ''' NCR添付ファイル保存
+    ''' </summary>
+    ''' <param name="DB"></param>
+    ''' <returns></returns>
+    Private Function FunSAVE_FILE(ByRef DB As ClsDbUtility) As Boolean
+
+        If _D009.FILE_PATH.IsNulOrWS Then
+            Return True
+        Else
+            'SPEC: 2.(3).D.②.添付ファイル保存
+            Dim strRootDir As String
+            Dim strMsg As String
+            strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
+            If strRootDir.IsNulOrWS OrElse Not System.IO.Directory.Exists(strRootDir) Then
+
+                strMsg = "添付ファイル保存先が設定されていないか、アクセス出来ません。" & vbCrLf &
+                         "添付ファイルはシステムに保存されませんが、" & vbCrLf &
+                         "登録処理を続行しますか？"
+
+                If MessageBox.Show(strMsg, "ファイル保存先アクセス不可", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) <> vbOK Then
+                    Me.DialogResult = DialogResult.Abort
+                    _D009.FILE_PATH = ""
+                    Return True
+                Else
+                    Me.DialogResult = DialogResult.Abort
+                    Return True
+                End If
+            Else
+                Try
+                    System.IO.Directory.CreateDirectory(strRootDir & _D009.FCCB_NO)
+
+                    If Not _D009.FILE_PATH.IsNulOrWS AndAlso
+                        Not System.IO.File.Exists(strRootDir & _D009.FCCB_NO.Trim & "\" & _D009.FILE_PATH) Then
+
+                        If System.IO.File.Exists(lbltmpFile1.Links.Item(0).LinkData) Then
+                            System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData, strRootDir & _D009.FCCB_NO.Trim & "\" & _D009.FILE_PATH, True)
+                        Else
+                            Throw New IO.FileNotFoundException($"添付ファイル:{lbltmpFile1.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                        End If
+                    End If
+
+                    Return True
+                Catch exNF As IO.FileNotFoundException
+                    MessageBox.Show(exNF.Message, "ファイル存在チェック", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return False
+                Catch exIO As UnauthorizedAccessException
+                    strMsg = "添付ファイル保存先のアクセス権限がありません。" & vbCrLf &
+                             "添付ファイル保存先:" & strRootDir
+                    MessageBox.Show(strMsg, "ファイル保存先アクセス不可", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return False
+                Catch ex As Exception
+                    Throw
+                    Return False
+                End Try
+            End If
+        End If
     End Function
 
 #End Region
@@ -1549,40 +1613,6 @@ Public Class FrmG0021_Detail
 
             Dim strEXEParam As String = $"{_D004_SYONIN_J_KANRI.SYAIN_ID},{ENM_OPEN_MODE._2_処置画面起動.Value},{Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value},{_D004_SYONIN_J_KANRI.HOKOKU_NO}"
             Dim strSubject As String = $"【FCCB処置依頼】FCCB-NO:{_D004_SYONIN_J_KANRI.HOKOKU_NO}"
-            Dim strBody As String = <sql><![CDATA[
-                {0} 殿<br />
-                <br />
-        　        FCCB記録書の処置依頼が来ましたので対応をお願いします。<br />
-                <br />
-        　　        【報 告 書】FCCB<br />
-        　　        【FCCB-No】{1}<br />
-        　　        【起 草 日】{2}<br />
-        　　        【機　  種】{3}<br />
-        　　        【依 頼 者】{5}<br />
-        　　        【依頼者処置内容】{6}<br />
-        　　        【コメント】{7}<br />
-                <br />
-                <a href = "http://sv04:8000/CLICKONCE_FMS.application" > システム起動</a><br />
-                <br />
-                ※このメールは配信専用です。(返信できません)<br />
-                返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
-                ]]></sql>.Value.Trim
-
-            'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}
-
-            strBody = String.Format(strBody,
-                                If(toUserNAME = "", Fun_GetUSER_NAME(_D004_SYONIN_J_KANRI.SYAIN_ID), toUserNAME),
-                                _D004_SYONIN_J_KANRI.HOKOKU_NO,
-                                DateTime.ParseExact(_D009.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd"),
-                                KISYU_NAME,
-                                "",
-                                If(fromUserNAME = "", Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID), fromUserNAME),
-                                SYONIN_HANTEI_NAME,
-                                _D004_SYONIN_J_KANRI.COMMENT,
-                                _D004_SYONIN_J_KANRI.SYAIN_ID,
-                                "FMS_G0020.exe",
-                                strEXEParam)
-
             Dim ToUsers As New List(Of Integer)
 
             Select Case PrCurrentStage
@@ -1707,11 +1737,53 @@ Public Class FrmG0021_Detail
                     Throw New ArgumentException("想定外の承認ルートです", PrCurrentStage)
             End Select
 
+            Dim strBody As String = <sql><![CDATA[
+                {0}<br />
+                <br />
+        　        FCCB記録書の処置依頼が来ましたので対応をお願いします。<br />
+                <br />
+        　　        【報 告 書】FCCB<br />
+        　　        【FCCB-No】{1}<br />
+        　　        【起 草 日】{2}<br />
+        　　        【機　  種】{3}<br />
+        　　        【依 頼 者】{5}<br />
+        　　        【依頼者処置内容】{6}<br />
+        　　        【コメント】{7}<br />
+                <br />
+                <a href = "http://sv04:8000/CLICKONCE_FMS.application" > システム起動</a><br />
+                <br />
+                ※このメールは配信専用です。(返信できません)<br />
+                返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
+                ]]></sql>.Value.Trim
+
+            'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}
+
+            Dim username As String
+
+            If (ToUsers.Count > 1) Then
+                username = "各位"
+            Else
+                username = If(toUserNAME.IsNulOrWS, $"{Fun_GetUSER_NAME(_D004_SYONIN_J_KANRI.SYAIN_ID)} 殿", toUserNAME)
+            End If
+
+            strBody = String.Format(strBody,
+                                username,
+                                _D004_SYONIN_J_KANRI.HOKOKU_NO,
+                                DateTime.ParseExact(_D009.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd"),
+                                KISYU_NAME,
+                                "",
+                                If(fromUserNAME = "", Fun_GetUSER_NAME(pub_SYAIN_INFO.SYAIN_ID), fromUserNAME),
+                                SYONIN_HANTEI_NAME,
+                                _D004_SYONIN_J_KANRI.COMMENT,
+                                _D004_SYONIN_J_KANRI.SYAIN_ID,
+                                "FMS_G0020.exe",
+                                strEXEParam)
+
             If ToUsers.Count = 0 Then
                 MessageBox.Show("送信者が見つからないため、依頼メールを送信できません", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return False
             Else
-                If FunSendMailFCCB(strSubject, strBody, ToUsers) Then
+                If FunSendMailFCCB(strSubject, strBody, ToUsers, blnSendSenior:=False) Then
                     Return True
                 Else
                     MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -1728,8 +1800,9 @@ Public Class FrmG0021_Detail
         Try
             Dim sbSQL As New System.Text.StringBuilder
             Dim dsList As New DataSet
-            sbSQL.Append($"SELECT SYAIN_ID FROM TV04_BUSYO_SYOZOKU_SYAIN('{BUMON_KB}')")
-            sbSQL.Append($" WHERE YAKUSYOKU_KB IN ('{ENM_YAKUSYOKU_KB._2_GL.Value}','{ENM_YAKUSYOKU_KB._5_TL.Value}')")
+            sbSQL.Append($"SELECT SYAIN_ID,SIMEI FROM M004_SYAIN")
+            sbSQL.Append($" WHERE SYAIN_ID IN ((SELECT SYOZOKUCYO_ID FROM M002_BUSYO WHERE BUMON_KB='{BUMON_KB}') )")
+            sbSQL.Append($" AND YAKUSYOKU_KB IN ('{ENM_YAKUSYOKU_KB._2_GL.Value}','{ENM_YAKUSYOKU_KB._5_TL.Value}')")
             sbSQL.Append($" ORDER BY SYAIN_ID")
 
             Using DB = DBOpen()
@@ -2826,6 +2899,18 @@ Public Class FrmG0021_Detail
                     Dim dt = FunGetSYONIN_SYOZOKU_SYAIN(_D009.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, FunGetNextSYONIN_JUN(PrCurrentStage))
                     cmbDestTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
+                    Dim strRootDir As String
+                    Using DB As ClsDbUtility = DBOpen()
+                        strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
+                    End Using
+                    If Not _D009.FILE_PATH.IsNulOrWS Then
+                        lbltmpFile1.Text = CompactString(_D009.FILE_PATH, lbltmpFile1, EllipsisFormat._4_Path)
+                        lbltmpFile1.Links.Clear()
+                        lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, strRootDir & _D009.FCCB_NO.Trim & "\" & _D009.FILE_PATH)
+                        lbltmpFile1.Visible = True
+                        lbltmpFile1_Clear.Visible = True
+                    End If
+
 #Region "InitDS"
 
                     Using DB As ClsDbUtility = DBOpen()
@@ -3851,6 +3936,95 @@ Public Class FrmG0021_Detail
 
         cmbSYOCHI_KAKUNIN.SelectedValue = cmb.SelectedValue
 
+    End Sub
+
+#End Region
+
+#Region "添付ファイル"
+
+    '添付ファイル選択
+    Private Sub BtnOpenTempFileDialog_Click(sender As Object, e As EventArgs) Handles btnOpenTempFileDialog.Click
+        Dim ofd As New OpenFileDialog With {
+            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
+            .FilterIndex = 1,
+            .Title = "添付するファイルを選択してください",
+            .RestoreDirectory = True
+        }
+        If lbltmpFile1.Links.Count = 0 Then
+        Else
+            ofd.InitialDirectory = IO.Path.GetDirectoryName(lbltmpFile1.Links(0).ToString)
+        End If
+        If ofd.ShowDialog() = DialogResult.OK Then
+            lbltmpFile1.Text = IO.Path.GetFileName(ofd.FileName)
+            lbltmpFile1.Links.Clear()
+            lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, ofd.FileName)
+
+            _D009.FILE_PATH = IO.Path.GetFileName(ofd.FileName)
+            lbltmpFile1.Visible = True
+            lbltmpFile1_Clear.Visible = True
+        End If
+    End Sub
+
+    'リンククリック
+    Private Sub LbltmpFile1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1.LinkClicked
+        Dim hProcess As New System.Diagnostics.Process
+        Dim strEXE As String
+        'Dim strARG As String
+        Try
+
+            strEXE = lbltmpFile1.Links(0).LinkData
+            If strEXE.IsNulOrWS Then
+            Else
+                If System.IO.File.Exists(strEXE) = True Then
+                    hProcess.StartInfo.FileName = strEXE
+                    'hProcess.StartInfo.Arguments = strARG
+                    hProcess.SynchronizingObject = Me
+                    'AddHandler hProcess.Exited, AddressOf ProcessExited
+                    hProcess.EnableRaisingEvents = True
+                    hProcess.Start()
+
+                    '最前面
+                    Call SetForegroundWindow(hProcess.Handle)
+
+                    'Call SetTaskbarInfo(ENM_TASKBAR_STATE._2_Normal, 100)
+                    'Call SetTaskbarOverlayIcon(System.Drawing.SystemIcons.Application)
+
+                    'Private Sub ProcessExited(ByVal sender As Object, ByVal e As EventArgs)
+                    '    Call SetTaskbarOverlayIcon(Nothing)
+                    '    Call SetTaskbarInfo(ENM_TASKBAR_STATE._0_NoProgress)
+                    'End Sub
+                Else
+                    Dim strMsg As String
+                    strMsg = "ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
+                                vbCrLf & vbCrLf & strEXE
+                    MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+        Catch exInvalid As InvalidOperationException
+            'EM.ErrorSyori(exInvalid, False, conblnNonMsg)
+        Finally
+            'プロセス終了を待機しない------------------------------------
+            ''-----自分表示
+            'Me.Show()
+            'Me.lstGYOMU.Focus()
+            'Me.Activate()
+            'Me.BringToFront()
+            '------------------------------------------------------------
+
+            '-----開放
+            If hProcess IsNot Nothing Then
+                hProcess.Close()
+            End If
+        End Try
+    End Sub
+
+    'リンククリア
+    Private Sub LbltmpFile1_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1_Clear.LinkClicked
+        lbltmpFile1.Text = ""
+        _D009.FILE_PATH = ""
+        lbltmpFile1.Links.Clear()
+        lbltmpFile1.Visible = False
+        lbltmpFile1_Clear.Visible = False
     End Sub
 
 #End Region

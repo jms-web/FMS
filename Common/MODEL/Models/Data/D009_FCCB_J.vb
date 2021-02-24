@@ -12,7 +12,6 @@ Partial Public Class D009_FCCB_J
 
     Public Shadows Sub Clear()
 
-
         ADD_SYAIN_ID = 0
         ADD_YMDHNS = ""
         UPD_SYAIN_ID = 0
@@ -90,13 +89,11 @@ Partial Public Class D009_FCCB_J
     <ComponentModel.DisplayName("部品番号")>
     Public Property BUHIN_BANGO As String
 
-
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(1)>
     <ComponentModel.DisplayName("部品名称")>
     Public Property BUHIN_NAME As String
-
 
     <Required>
     <Column(TypeName:="nvarchar")>
@@ -104,13 +101,11 @@ Partial Public Class D009_FCCB_J
     <ComponentModel.DisplayName("インプット文書など")>
     Public Property INPUT_DOC_NO As String
 
-
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(500)>
     <ComponentModel.DisplayName("要求内容")>
     Public Property INPUT_NAIYO As String
-
 
     <Required>
     <Column(TypeName:="nvarchar")>
@@ -123,9 +118,6 @@ Partial Public Class D009_FCCB_J
     <StringLength(100)>
     <ComponentModel.DisplayName("適用SNO_時期")>
     Public Property SNO_APPLY_PERIOD_HENKO_SINGI As String
-
-
-
 
     ''共通項目------------------------------------
     <Required>
@@ -177,5 +169,10 @@ Partial Public Class D009_FCCB_J
     <Required>
     Public Property DEL_SYAIN_ID As Integer
 
+    <Required>
+    <Column(TypeName:="nvarchar")>
+    <StringLength(200)>
+    <ComponentModel.DisplayName("ファイルパス")>
+    Public Property FILE_PATH As String
 
 End Class
