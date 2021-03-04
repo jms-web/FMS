@@ -1173,6 +1173,7 @@ Module mdlG0020
                 sbSQL.Append($" ,{NameOf(D010.TANTO_GYOMU_GROUP_ID)}")
                 sbSQL.Append($" ,ISNULL((SELECT GYOMU_GROUP_NAME FROM {NameOf(M003_GYOMU_GROUP)} AS M WHERE(D010_FCCB_SUB_SYOCHI_KOMOKU.TANTO_GYOMU_GROUP_ID = M.GYOMU_GROUP_ID)),'') AS GYOMU_GROUP_NAME")
                 sbSQL.Append($" ,{NameOf(D010.YOHI_KB)}")
+                sbSQL.Append($" ,{NameOf(D010.YOHI_KB_F)}")
                 sbSQL.Append($" ,{NameOf(D010.TANTO_ID)}")
                 sbSQL.Append($" ,ISNULL((SELECT SIMEI FROM M004_SYAIN AS M WHERE(D010_FCCB_SUB_SYOCHI_KOMOKU.TANTO_ID = M.SYAIN_ID)),'') AS TANTO_SYAIN_NAME")
                 sbSQL.Append($" ,{NameOf(D010.NAIYO)}")
@@ -1194,7 +1195,14 @@ Module mdlG0020
                     If Not r.Item("GYOMU_GROUP_NAME").ToString.IsNulOrWS Then
                         spSheet1.Range($"I{intRowIndex + 1}").Value = r.Item("GYOMU_GROUP_NAME")
                     End If
-                    spSheet1.Range($"AE{intRowIndex + 1}").Value = r.Item(NameOf(D010.YOHI_KB))
+                    If (r.Item(NameOf(D010.YOHI_KB)).ToString = "1") Then
+                        spSheet1.Range($"AE{intRowIndex + 1}").Value = "1"
+                    ElseIf (r.Item(NameOf(D010.YOHI_KB_F)).ToString = "1") Then
+                        spSheet1.Range($"AE{intRowIndex + 1}").Value = "0"
+                    Else
+                        spSheet1.Range($"AE{intRowIndex + 1}").Value = ""
+                    End If
+
                     spSheet1.Range($"L{intRowIndex + 1}").Value = r.Item("TANTO_SYAIN_NAME")
                     spSheet1.Range($"O{intRowIndex + 1}").Value = r.Item(NameOf(D010.NAIYO))
                     spSheet1.Range($"Y{intRowIndex + 1}").Value = If(r.Item(NameOf(D010.YOTEI_YMD)).ToString.IsNulOrWS, "", r.Item(NameOf(D010.YOTEI_YMD)))
@@ -1216,6 +1224,7 @@ Module mdlG0020
                 sbSQL.Append($" ,{NameOf(D010.TANTO_GYOMU_GROUP_ID)}")
                 sbSQL.Append($" ,ISNULL((SELECT GYOMU_GROUP_NAME FROM {NameOf(M003_GYOMU_GROUP)} AS M WHERE(D010_FCCB_SUB_SYOCHI_KOMOKU.TANTO_GYOMU_GROUP_ID = M.GYOMU_GROUP_ID)),'') AS GYOMU_GROUP_NAME")
                 sbSQL.Append($" ,{NameOf(D010.YOHI_KB)}")
+                sbSQL.Append($" ,{NameOf(D010.YOHI_KB_F)}")
                 sbSQL.Append($" ,{NameOf(D010.TANTO_ID)}")
                 sbSQL.Append($" ,ISNULL((SELECT SIMEI FROM M004_SYAIN AS M WHERE(D010_FCCB_SUB_SYOCHI_KOMOKU.TANTO_ID = M.SYAIN_ID)),'') AS TANTO_SYAIN_NAME")
                 sbSQL.Append($" ,{NameOf(D010.NAIYO)}")
@@ -1233,7 +1242,13 @@ Module mdlG0020
                         'ブランク行はスキップ
                         intRowIndex += 1
                     End If
-                    spSheet1.Range($"AE{intRowIndex + 1}").Value = r.Item(NameOf(D010.YOHI_KB))
+                    If (r.Item(NameOf(D010.YOHI_KB)).ToString = "1") Then
+                        spSheet1.Range($"AE{intRowIndex + 1}").Value = "1"
+                    ElseIf (r.Item(NameOf(D010.YOHI_KB_F)).ToString = "1") Then
+                        spSheet1.Range($"AE{intRowIndex + 1}").Value = "0"
+                    Else
+                        spSheet1.Range($"AE{intRowIndex + 1}").Value = ""
+                    End If
                     spSheet1.Range($"I{intRowIndex + 1}").Value = r.Item("TANTO_SYAIN_NAME")
                     spSheet1.Range($"L{intRowIndex + 1}").Value = r.Item(NameOf(D010.NAIYO))
                     spSheet1.Range($"U{intRowIndex + 1}").Value = r.Item(NameOf(D010.GOKI))
