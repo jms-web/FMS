@@ -662,23 +662,23 @@ Module mdlG0020
                     If .Rows.Count > 0 Then
                         For Each row In .Rows
 
-                            If Not .Rows(0).Item("MAIL_ADDRESS").ToString.IsNulOrWS AndAlso Not ToAddressList.Contains(.Rows(0).Item("MAIL_ADDRESS")) Then
-                                ToAddressList.Add(.Rows(0).Item("MAIL_ADDRESS"))
+                            If Not row.Item("MAIL_ADDRESS").ToString.IsNulOrWS AndAlso Not ToAddressList.Contains(row.Item("MAIL_ADDRESS")) Then
+                                ToAddressList.Add(row.Item("MAIL_ADDRESS"))
                             End If
 
                             '所属長にも送信
-                            If .Rows(0).Item("GL_ADDRESS").ToString.IsNulOrWS = False AndAlso .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("GL_ADDRESS").ToString _
-                                AndAlso Not ToAddressList.Contains(.Rows(0).Item("GL_ADDRESS")) Then
-                                ToAddressList.Add(.Rows(0).Item("GL_ADDRESS"))
+                            If row.Item("GL_ADDRESS").ToString.IsNulOrWS = False AndAlso row.Item("MAIL_ADDRESS").ToString <> row.Item("GL_ADDRESS").ToString _
+                                AndAlso Not ToAddressList.Contains(row.Item("GL_ADDRESS")) Then
+                                ToAddressList.Add(row.Item("GL_ADDRESS"))
                             End If
 
                             If blnSendSenior Then
                                 '送信先が所属長宛てだった場合、所属長の上位の部署の所属長にも送信
-                                If .Rows(0).Item("OYA_GL_ADDRESS").ToString.IsNulOrWS = False AndAlso
-                                .Rows(0).Item("MAIL_ADDRESS").ToString = .Rows(0).Item("GL_ADDRESS").ToString AndAlso
-                                .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("OYA_GL_ADDRESS").ToString _
-                                AndAlso Not ToAddressList.Contains(.Rows(0).Item("OYA_GL_ADDRESS")) Then
-                                    ToAddressList.Add(.Rows(0).Item("OYA_GL_ADDRESS"))
+                                If row.Item("OYA_GL_ADDRESS").ToString.IsNulOrWS = False AndAlso
+                                row.Item("MAIL_ADDRESS").ToString = row.Item("GL_ADDRESS").ToString AndAlso
+                                row.Item("MAIL_ADDRESS").ToString <> row.Item("OYA_GL_ADDRESS").ToString _
+                                AndAlso Not ToAddressList.Contains(row.Item("OYA_GL_ADDRESS")) Then
+                                    ToAddressList.Add(row.Item("OYA_GL_ADDRESS"))
                                 End If
                             End If
                         Next
@@ -719,9 +719,9 @@ Module mdlG0020
 
             End Using
 
-#If DEBUG Then
-            Return True
-#End If
+            '#If DEBUG Then
+            '            Return True
+            '#End If
 
             ''認証なし フジワラ
             blnSend = ClsMailSend.FunSendMail(strSmtpServer:=strSmtpServer,

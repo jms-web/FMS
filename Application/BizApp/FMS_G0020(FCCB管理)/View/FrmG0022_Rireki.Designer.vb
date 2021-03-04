@@ -598,6 +598,7 @@ Partial Class FrmG0022_Rireki
         '
         Me.txtINPUT_NAIYO.AcceptsReturn = True
         Me.tlpFilter.SetColumnSpan(Me.txtINPUT_NAIYO, 23)
+        Me.txtINPUT_NAIYO.Enabled = False
         Me.txtINPUT_NAIYO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.txtINPUT_NAIYO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtINPUT_NAIYO.InputRequired = False

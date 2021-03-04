@@ -441,6 +441,7 @@ Public Class FrmG0022_Rireki
         mtxBUHIN_BANGO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.BUHIN_BANGO))
         mtxHINMEI.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.BUHIN_NAME))
         mtxSNO_APPLY_PERIOD_KISO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.SNO_APPLY_PERIOD_KISO))
+        txtINPUT_NAIYO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.INPUT_NAIYO))
         mtxINPUT_DOC_NO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.INPUT_DOC_NO))
 
         If PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.BUMON_KB)) = Context.ENM_BUMON_KB._2_LP.Value.ToString Then

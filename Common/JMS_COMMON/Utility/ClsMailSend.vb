@@ -1,6 +1,8 @@
 ﻿Imports System.Collections.Generic
+Imports System.Linq
 
 Public Class ClsMailSend
+
     Public Shared Function FunSendMail(ByVal strSmtpServer As String,
                                 ByVal intSmtpPort As Integer,
                                 ByVal FromAddress As String,
@@ -31,14 +33,14 @@ Public Class ClsMailSend
             'メールの実際の宛先,メールヘッダの宛先情報
             For Each strAddress In ToAddress
                 writer.ToAddressList.Add(strAddress)
-                writer.Headers.Add("To", "<" & strAddress & ">")
             Next
+            writer.Headers.Add("To", $"<{ToAddress.Aggregate(Function(a, b) a & "," & b)}>")
 
             'CC
             For Each strAddress In CCAddress
                 writer.ToAddressList.Add(strAddress)
-                writer.Headers.Add("Cc", "<" & strAddress & ">")
             Next
+            writer.Headers.Add("Cc", $"<{CCAddress.Aggregate(Function(a, b) a & "," & b)}>")
 
             'BCC
             For Each strAddress In BCCAddress
@@ -53,7 +55,6 @@ Public Class ClsMailSend
             headerPart.Headers.Add("Content-Type", headerPart.Headers("Content-Type").Replace("plain", "html"))
 
             'Content-Type: Text/ plain; charset=UTF-8
-
 
             Dim multiPart As New TKMP.Writer.MultiPart
             multiPart.AddPart(headerPart)
@@ -138,7 +139,6 @@ Public Class ClsMailSend
             'ログオン処理は行ないません
             'logon = Nothing
 
-
             'メールの実際の差出人
             writer.FromAddress = "funato@jms-web.co.jp" 'FromAddress
             'メールヘッダの差出人情報
@@ -149,7 +149,7 @@ Public Class ClsMailSend
 
             'メールの実際の宛先
             writer.ToAddressList.Add(ToAddress)
-            'メールヘッダの宛先情報       
+            'メールヘッダの宛先情報
             writer.Headers.Add("To", "<" & ToAddress & ">")
 
             '件名
@@ -205,4 +205,5 @@ Public Class ClsMailSend
         '全ての証明書を信用します
         e.Cancel = False
     End Sub
+
 End Class

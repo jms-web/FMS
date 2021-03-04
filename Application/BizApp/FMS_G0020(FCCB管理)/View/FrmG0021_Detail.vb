@@ -1803,7 +1803,12 @@ Public Class FrmG0021_Detail
             sbSQL.Append($"SELECT SYAIN_ID,SIMEI FROM M004_SYAIN")
             sbSQL.Append($" WHERE SYAIN_ID IN ((SELECT SYOZOKUCYO_ID FROM M002_BUSYO WHERE BUMON_KB='{BUMON_KB}') )")
             sbSQL.Append($" AND YAKUSYOKU_KB IN ('{ENM_YAKUSYOKU_KB._2_GL.Value}','{ENM_YAKUSYOKU_KB._5_TL.Value}')")
-            sbSQL.Append($" ORDER BY SYAIN_ID")
+            sbSQL.Append($" Except")
+            sbSQL.Append($" SELECT M04.SYAIN_ID,M04.SIMEI FROM M004_SYAIN M04")
+            sbSQL.Append($" LEFT JOIN M011_SYAIN_GYOMU M11")
+            sbSQL.Append($" ON M04.SYAIN_ID = M11.SYAIN_ID AND M11.GYOMU_GROUP_ID = '2'")
+            sbSQL.Append($" WHERE M04.SYAIN_ID IN (SELECT SYOZOKUCYO_ID FROM M002_BUSYO WHERE BUMON_KB='{BUMON_KB}')")
+            sbSQL.Append($" AND YAKUSYOKU_KB ='{ENM_YAKUSYOKU_KB._2_GL.Value}'")
 
             Using DB = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)

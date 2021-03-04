@@ -52,8 +52,8 @@ Partial Class FrmG0021_Detail
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.fpnlTempFile = New System.Windows.Forms.FlowLayoutPanel()
-        Me.lbltmpFile1_Clear = New System.Windows.Forms.LinkLabel()
         Me.lbltmpFile1 = New System.Windows.Forms.LinkLabel()
+        Me.lbltmpFile1_Clear = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel4 = New System.Windows.Forms.LinkLabel()
@@ -859,6 +859,22 @@ Partial Class FrmG0021_Detail
         Me.fpnlTempFile.Size = New System.Drawing.Size(351, 22)
         Me.fpnlTempFile.TabIndex = 220
         '
+        'lbltmpFile1
+        '
+        Me.lbltmpFile1.AllowDrop = True
+        Me.lbltmpFile1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbltmpFile1.AutoSize = True
+        Me.lbltmpFile1.Location = New System.Drawing.Point(4, 4)
+        Me.lbltmpFile1.Margin = New System.Windows.Forms.Padding(4)
+        Me.lbltmpFile1.Name = "lbltmpFile1"
+        Me.lbltmpFile1.Size = New System.Drawing.Size(29, 12)
+        Me.lbltmpFile1.TabIndex = 126
+        Me.lbltmpFile1.TabStop = True
+        Me.lbltmpFile1.Text = "link1"
+        Me.lbltmpFile1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbltmpFile1.Visible = False
+        '
         'lbltmpFile1_Clear
         '
         Me.lbltmpFile1_Clear.AutoSize = True
@@ -876,22 +892,6 @@ Partial Class FrmG0021_Detail
         Me.lbltmpFile1_Clear.Text = "Å~"
         Me.lbltmpFile1_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lbltmpFile1_Clear.Visible = False
-        '
-        'lbltmpFile1
-        '
-        Me.lbltmpFile1.AllowDrop = True
-        Me.lbltmpFile1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lbltmpFile1.AutoSize = True
-        Me.lbltmpFile1.Location = New System.Drawing.Point(4, 4)
-        Me.lbltmpFile1.Margin = New System.Windows.Forms.Padding(4)
-        Me.lbltmpFile1.Name = "lbltmpFile1"
-        Me.lbltmpFile1.Size = New System.Drawing.Size(29, 12)
-        Me.lbltmpFile1.TabIndex = 126
-        Me.lbltmpFile1.TabStop = True
-        Me.lbltmpFile1.Text = "link1"
-        Me.lbltmpFile1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lbltmpFile1.Visible = False
         '
         'LinkLabel2
         '
