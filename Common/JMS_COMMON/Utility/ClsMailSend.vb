@@ -34,13 +34,22 @@ Public Class ClsMailSend
             For Each strAddress In ToAddress
                 writer.ToAddressList.Add(strAddress)
             Next
-            writer.Headers.Add("To", $"<{ToAddress.Aggregate(Function(a, b) a & "," & b)}>")
+            If (ToAddress.Count = 1) Then
+                writer.Headers.Add("To", " <" & ToAddress.First & ">")
+            ElseIf (ToAddress.Count > 1) Then
+                writer.Headers.Add("To", $"<{ToAddress.Aggregate(Function(a, b) a & "," & b)}>")
+            End If
 
             'CC
             For Each strAddress In CCAddress
                 writer.ToAddressList.Add(strAddress)
             Next
-            writer.Headers.Add("Cc", $"<{CCAddress.Aggregate(Function(a, b) a & "," & b)}>")
+            If CCAddress.Count = 1 Then
+                writer.Headers.Add("Cc", " <" & CCAddress.First & ">")
+            ElseIf CCAddress.Count > 1 Then
+                writer.Headers.Add("Cc", $"<{CCAddress.Aggregate(Function(a, b) a & "," & b)}>")
+            Else
+            End If
 
             'BCC
             For Each strAddress In BCCAddress

@@ -300,8 +300,6 @@ Module mdlG0010
         _9_取消 = 9
     End Enum
 
-
-
 #End Region
 
 #Region "Model"
@@ -363,7 +361,6 @@ Module mdlG0010
                 Using DB As ClsDbUtility = DBOpen()
                     Call FunGetCodeDataTable(DB, "NCR", tblNCR)
                     Call FunGetCodeDataTable(DB, "CAR", tblCAR)
-
 
                     Call FunGetCodeDataTable(DB, "担当", tblTANTO)
                     Call FunGetCodeDataTable(DB, "部門区分", tblBUMON, "DISP_ORDER < 10") '10以降は不適合SYSでは不要
@@ -851,8 +848,6 @@ Module mdlG0010
         Dim strMsg As String
         Try
 
-
-
             Using DB As ClsDbUtility = DBOpen()
 
                 If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
@@ -935,16 +930,14 @@ Module mdlG0010
                     Return False
                 End If
 
-
-
                 strMsg = $"【メール送信成功】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}"
                 WL.WriteLogDat(strMsg)
 
             End Using
 
-#If DEBUG Then
-            Return True
-#End If
+            '#If DEBUG Then
+            '            Return True
+            '#End If
 
             ''認証なし フジワラ
             blnSend = ClsMailSend.FunSendMail(strSmtpServer:=strSmtpServer,
@@ -1172,8 +1165,6 @@ Module mdlG0010
         Dim dsList As New DataSet
         Try
 
-
-
             If Not BUMON_KB.IsNulOrWS Then
                 '通常
                 sbSQL.Remove(0, sbSQL.Length)
@@ -1195,7 +1186,6 @@ Module mdlG0010
                     Trow("DEL_FLG") = False
                     dt.Rows.Add(Trow)
                 Next
-
             Else
                 '集計分析時、区分名で統合
                 '主キー設定
@@ -1222,10 +1212,6 @@ Module mdlG0010
                     Next
                 Next
             End If
-
-
-
-
 
             Return dt
         Catch ex As Exception
@@ -1555,7 +1541,6 @@ Module mdlG0010
             If intCurrentStage > ENM_NCR_STAGE._120_abcde処置確認 Then
                 ssgSheet1.Range("SYONIN_NAME" & ENM_NCR_STAGE._120_abcde処置確認).Value = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._120_abcde処置確認).FirstOrDefault?.UPD_SYAIN_NAME
             End If
-
 
             Dim strRootDir As String
             Using DB As ClsDbUtility = DBOpen()
@@ -1897,7 +1882,6 @@ Module mdlG0010
                 borderRePaint.Weight = SpreadsheetGear.BorderWeight.Thin
                 borderRePaint.Color = SpreadsheetGear.Colors.Black
 
-
                 shapeSCR_FUTEKIGO_YOUIN_T.Visible = False
                 shapeSCR_FUTEKIGO_YOUIN_F.Visible = False
 
@@ -1906,7 +1890,6 @@ Module mdlG0010
                 spSheet1.Range("P53").Value = "担当課長等"
                 spSheet1.Range("P57").Value = "担当課長等"
                 spSheet1.Range("P61").Value = "品証TL"
-
 
                 If Not _V005_CAR_J.SYONIN_YMD120.IsNulOrWS Then
                     spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD130)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD120.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
