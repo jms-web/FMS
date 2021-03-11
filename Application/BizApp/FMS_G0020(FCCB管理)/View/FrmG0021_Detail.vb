@@ -326,10 +326,12 @@ Public Class FrmG0021_Detail
                         flx(e.Row, NameOf(D010.NAIYO)) = ""
                         flx(e.Row, NameOf(D010.YOTEI_YMD)) = ""
                     End If
+
                 Case Else
                     If flx.Name <> NameOf(flxDATA_5) AndAlso Not flx(e.Row, NameOf(D010.YOHI_KB)) Then
                         e.Cancel = True
                     End If
+
             End Select
         Catch ex As Exception
             Throw
@@ -356,11 +358,6 @@ Public Class FrmG0021_Detail
             End If
         End If
 
-        Debug.WriteLine("Flx_ValidateEdit:" & dtBUFF)
-    End Sub
-
-    Private Sub flxDATA_2_Validated(sender As Object, e As EventArgs) Handles flxDATA_2.Validated
-        Debug.WriteLine("flxDATA_2_Validated:" & dtBUFF)
     End Sub
 
     Private Sub C1FlexGrid_SetupEditor(sender As Object, e As C1.Win.C1FlexGrid.RowColEventArgs) Handles flxDATA_2.LeaveEdit,
@@ -369,8 +366,9 @@ Public Class FrmG0021_Detail
         Dim flx = DirectCast(sender, C1FlexGrid)
         If flx.Cols(e.Col).Name.Contains("YMD") Then
             Dim dtp As DateTimePicker = CType(flx.Editor, DateTimePicker)
-            dtBUFF = dtp.Value
-            Debug.WriteLine("setupEditor:" & dtBUFF)
+
+            dtBUFF = dtp?.Value
+
         End If
     End Sub
 
@@ -392,8 +390,7 @@ Public Class FrmG0021_Detail
                         flx(e.Row, e.Col) = dtBUFF.ToString("yyyy/MM/dd") 'CDate(value).ToString("yyyy/MM/dd")
                     End If
 
-                    Debug.WriteLine("Flx_AfterEdit:" & dtBUFF)
-                    DirectCast(DirectCast(flx.DataSource, BindingSource).DataSource, DataTable).AcceptChanges()
+                    'DirectCast(DirectCast(flx.DataSource, BindingSource).DataSource, DataTable).AcceptChanges()
 
                 Case flx.Cols(e.Col).Name = NameOf(D010.YOHI_KB)
 
@@ -418,11 +415,16 @@ Public Class FrmG0021_Detail
 
                     End If
 
-                    'flx(e.Row, e.Col - 1) = Not flx(e.Row, e.Col)
-
                 Case Else
 
             End Select
+
+            If flx.Name = NameOf(flxDATA_2) _
+          AndAlso flx.Cols(e.Col).Name = NameOf(D010.CLOSE_YMD) _
+          AndAlso flx(e.Row, NameOf(D010.YOTEI_YMD)).ToString.IsNulOrWS _
+          AndAlso Not flx(e.Row, NameOf(D010.CLOSE_YMD)).ToString.IsNulOrWS Then
+                flx(e.Row, NameOf(D010.YOTEI_YMD)) = flx(e.Row, NameOf(D010.CLOSE_YMD))
+            End If
         Catch ex As Exception
             Throw
         Finally
@@ -498,7 +500,6 @@ Public Class FrmG0021_Detail
 
         Next
 
-        Debug.WriteLine("SetFlxDATA_EditStatus:" & dtBUFF)
     End Sub
 
 #End Region
@@ -1800,15 +1801,29 @@ Public Class FrmG0021_Detail
         Try
             Dim sbSQL As New System.Text.StringBuilder
             Dim dsList As New DataSet
-            sbSQL.Append($"SELECT SYAIN_ID,SIMEI FROM M004_SYAIN")
-            sbSQL.Append($" WHERE SYAIN_ID IN ((SELECT SYOZOKUCYO_ID FROM M002_BUSYO WHERE BUMON_KB='{BUMON_KB}') )")
-            sbSQL.Append($" AND YAKUSYOKU_KB IN ('{ENM_YAKUSYOKU_KB._2_GL.Value}','{ENM_YAKUSYOKU_KB._5_TL.Value}')")
-            sbSQL.Append($" Except")
-            sbSQL.Append($" SELECT M04.SYAIN_ID,M04.SIMEI FROM M004_SYAIN M04")
-            sbSQL.Append($" LEFT JOIN M011_SYAIN_GYOMU M11")
-            sbSQL.Append($" ON M04.SYAIN_ID = M11.SYAIN_ID AND M11.GYOMU_GROUP_ID = '2'")
-            sbSQL.Append($" WHERE M04.SYAIN_ID IN (SELECT SYOZOKUCYO_ID FROM M002_BUSYO WHERE BUMON_KB='{BUMON_KB}')")
-            sbSQL.Append($" AND YAKUSYOKU_KB ='{ENM_YAKUSYOKU_KB._2_GL.Value}'")
+            If (BUMON_KB = ENM_BUMON_KB._1_風防.Value) Then
+                sbSQL.Append($"SELECT M04.SYAIN_ID,M04.SIMEI FROM M004_SYAIN M04")
+                sbSQL.Append($" INNER JOIN M011_SYAIN_GYOMU M11")
+                sbSQL.Append($" ON M04.SYAIN_ID = M11.SYAIN_ID And M11.GYOMU_GROUP_ID <> '{ENM_GYOMU_GROUP_ID._2_製造.Value}'")
+                sbSQL.Append($" WHERE M04.SYAIN_ID IN ((SELECT SYOZOKUCYO_ID FROM M002_BUSYO WHERE BUMON_KB='{ENM_BUMON_KB._1_風防.Value}') )")
+                sbSQL.Append($" AND M04.YAKUSYOKU_KB IN ('{ENM_YAKUSYOKU_KB._2_GL.Value}','{ENM_YAKUSYOKU_KB._5_TL.Value}')")
+                sbSQL.Append($" UNION")
+                sbSQL.Append($" SELECT M04.SYAIN_ID,M04.SIMEI FROM M004_SYAIN M04")
+                sbSQL.Append($" INNER JOIN M011_SYAIN_GYOMU M11")
+                sbSQL.Append($" ON M04.SYAIN_ID = M11.SYAIN_ID AND M11.GYOMU_GROUP_ID = '{ENM_GYOMU_GROUP_ID._2_製造.Value}'")
+                sbSQL.Append($" WHERE M04.SYAIN_ID IN (SELECT SYOZOKUCYO_ID FROM M002_BUSYO WHERE BUMON_KB='{ENM_BUMON_KB._1_風防.Value}')")
+                sbSQL.Append($" AND YAKUSYOKU_KB ='{ENM_YAKUSYOKU_KB._1_課長.Value}'")
+            Else
+                sbSQL.Append($"SELECT SYAIN_ID,SIMEI FROM M004_SYAIN")
+                sbSQL.Append($" WHERE SYAIN_ID IN ((SELECT SYOZOKUCYO_ID FROM M002_BUSYO WHERE BUMON_KB='{BUMON_KB}') )")
+                sbSQL.Append($" AND YAKUSYOKU_KB IN ('{ENM_YAKUSYOKU_KB._2_GL.Value}','{ENM_YAKUSYOKU_KB._5_TL.Value}')")
+                sbSQL.Append($" Except")
+                sbSQL.Append($" SELECT M04.SYAIN_ID,M04.SIMEI FROM M004_SYAIN M04")
+                sbSQL.Append($" LEFT JOIN M011_SYAIN_GYOMU M11")
+                sbSQL.Append($" ON M04.SYAIN_ID = M11.SYAIN_ID AND M11.GYOMU_GROUP_ID = '{ENM_GYOMU_GROUP_ID._2_製造.Value}'")
+                sbSQL.Append($" WHERE M04.SYAIN_ID IN (SELECT SYOZOKUCYO_ID FROM M002_BUSYO WHERE BUMON_KB='{BUMON_KB}')")
+                sbSQL.Append($" AND YAKUSYOKU_KB ='{ENM_YAKUSYOKU_KB._2_GL.Value}'")
+            End If
 
             Using DB = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
@@ -3096,25 +3111,33 @@ Public Class FrmG0021_Detail
             Call SetFlxDATA_EditStatus(flxDATA_5)
 
             '完了日表示
-            Dim blnCloseColumnVisibled = (PrCurrentStage >= ENM_FCCB_STAGE._50_処置事項完了.Value)
-            flxDATA_2.Cols(NameOf(D010.CLOSE_YMD)).Visible = blnCloseColumnVisibled
-            flxDATA_3.Cols(NameOf(D010.CLOSE_YMD)).Visible = blnCloseColumnVisibled
-            flxDATA_5.Cols(NameOf(D010.CLOSE_YMD)).Visible = blnCloseColumnVisibled
+            flxDATA_2.Cols(NameOf(D010.CLOSE_YMD)).Visible = (PrCurrentStage >= ENM_FCCB_STAGE._20_処置事項調査等.Value)
+            flxDATA_3.Cols(NameOf(D010.CLOSE_YMD)).Visible = (PrCurrentStage >= ENM_FCCB_STAGE._20_処置事項調査等.Value)
+            flxDATA_5.Cols(NameOf(D010.CLOSE_YMD)).Visible = (PrCurrentStage >= ENM_FCCB_STAGE._50_処置事項完了.Value)
 
             '編集権限
             Select Case PrCurrentStage
                 Case ENM_FCCB_STAGE._10_起草入力
                     tlpHeader.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
+                    btnOpenTempFileDialog.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
+                    lbltmpFile1_Clear.Visible = Not _D009.FILE_PATH.IsNulOrWS() AndAlso (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
                     C1SplitterPanel5.Enabled = False
                     C1SplitterPanel_YOHI.Visible = False
+                    pnlSYOCHI_KAKUNIN.Enabled = False
+
                 Case ENM_FCCB_STAGE._20_処置事項調査等
                     tlpHeader.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
+                    btnOpenTempFileDialog.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
+                    lbltmpFile1_Clear.Visible = Not _D009.FILE_PATH.IsNulOrWS() AndAlso (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
                     C1SplitterPanel5.Enabled = False
                     C1SplitterPanel_YOHI.Visible = False
                     cmdFunc2.Enabled = False
+                    pnlSYOCHI_KAKUNIN.Enabled = False
 
                 Case ENM_FCCB_STAGE._30_変更審議
                     tlpHeader.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
+                    btnOpenTempFileDialog.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
+                    lbltmpFile1_Clear.Visible = Not _D009.FILE_PATH.IsNulOrWS() AndAlso (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
                     C1SplitterPanel_YOHI.Visible = True
                     C1SplitterPanel5.Enabled = False
 
@@ -3135,19 +3158,27 @@ Public Class FrmG0021_Detail
                             MessageBox.Show("本FCCB記録書の協議の要否を回答してください", "FCCB協議要否回答", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         End If
                     End If
+                    pnlSYOCHI_KAKUNIN.Enabled = False
 
                 Case ENM_FCCB_STAGE._40_処置確認, ENM_FCCB_STAGE._41_処置確認_統括
                     tlpHeader.Enabled = False
+                    btnOpenTempFileDialog.Enabled = False
+                    lbltmpFile1_Clear.Visible = False
                     C1SplitterPanel1.Enabled = False
                     C1SplitterPanel2.Enabled = False
                     C1SplitterPanel5.Enabled = True
                     C1SplitterPanel_YOHI.Visible = False
+                    pnlSYOCHI_KAKUNIN.Enabled = True
+
                 Case ENM_FCCB_STAGE._50_処置事項完了
                     'C1SplitterPanel1.Enabled = False
                     'C1SplitterPanel2.Enabled = False
                     C1SplitterPanel5.Enabled = True
                     tlpHeader.Enabled = False
+                    btnOpenTempFileDialog.Enabled = False
+                    lbltmpFile1_Clear.Visible = False
                     C1SplitterPanel_YOHI.Visible = False
+                    pnlSYOCHI_KAKUNIN.Enabled = True
 
                     If FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, _D009.FCCB_NO, PrCurrentStage) Then
                         cmbKAKUNIN_CM_TANTO.SelectedValue = _D009.CM_TANTO
@@ -3184,7 +3215,9 @@ Public Class FrmG0021_Detail
                     dtKAKUNIN_CM_TANTO.ReadOnly = True
 
                     tlpHeader.Enabled = False
-
+                    btnOpenTempFileDialog.Enabled = False
+                    lbltmpFile1_Clear.Visible = False
+                    pnlSYOCHI_KAKUNIN.Enabled = True
                     If FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, _D009.FCCB_NO, PrCurrentStage) Then
                         cmbKAKUNIN_GM_TANTO.SelectedValue = cmbSYOCHI_GM_TANTO.SelectedValue
                         dtKAKUNIN_GM_TANTO.ValueNonFormat = Today.ToString("yyyyMMdd")
@@ -3192,6 +3225,9 @@ Public Class FrmG0021_Detail
 
                 Case ENM_FCCB_STAGE._999_Closed
                     tlpHeader.Enabled = False
+                    btnOpenTempFileDialog.Enabled = False
+                    lbltmpFile1_Clear.Visible = False
+                    pnlSYOCHI_KAKUNIN.Enabled = True
             End Select
 
             If FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_FCCB_STAGE._999_Closed Then

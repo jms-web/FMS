@@ -44,13 +44,6 @@ Partial Class FrmG0021_Detail
         Me.txtINPUT_NAIYO = New JMS_COMMON.TextBoxEx()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.PanelEx2 = New JMS_COMMON.PanelEx()
-        Me.tlpHeader = New System.Windows.Forms.TableLayoutPanel()
-        Me.mtxSNO_APPLY_PERIOD_KISO = New JMS_COMMON.MaskedTextBoxEx()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.cmbDestTANTO = New JMS_COMMON.ComboboxEx()
-        Me.lblDestTanto = New System.Windows.Forms.Label()
-        Me.Label19 = New System.Windows.Forms.Label()
-        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.fpnlTempFile = New System.Windows.Forms.FlowLayoutPanel()
         Me.lbltmpFile1 = New System.Windows.Forms.LinkLabel()
         Me.lbltmpFile1_Clear = New System.Windows.Forms.LinkLabel()
@@ -61,8 +54,14 @@ Partial Class FrmG0021_Detail
         Me.LinkLabel6 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel7 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel8 = New System.Windows.Forms.LinkLabel()
-        Me.mtxINPUT_DOC_NO = New JMS_COMMON.MaskedTextBoxEx()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.btnOpenTempFileDialog = New System.Windows.Forms.Button()
+        Me.tlpHeader = New System.Windows.Forms.TableLayoutPanel()
+        Me.mtxSNO_APPLY_PERIOD_KISO = New JMS_COMMON.MaskedTextBoxEx()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.cmbDestTANTO = New JMS_COMMON.ComboboxEx()
+        Me.lblDestTanto = New System.Windows.Forms.Label()
+        Me.mtxINPUT_DOC_NO = New JMS_COMMON.MaskedTextBoxEx()
         Me.flpnlStageIndex = New System.Windows.Forms.FlowLayoutPanel()
         Me.rsbtnST01 = New JMS_COMMON.RibbonShapeRadioButton()
         Me.rsbtnST02 = New JMS_COMMON.RibbonShapeRadioButton()
@@ -177,9 +176,8 @@ Partial Class FrmG0021_Detail
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEx2.SuspendLayout()
-        Me.tlpHeader.SuspendLayout()
-        Me.Panel1.SuspendLayout()
         Me.fpnlTempFile.SuspendLayout()
+        Me.tlpHeader.SuspendLayout()
         Me.flpnlStageIndex.SuspendLayout()
         Me.tabMain.SuspendLayout()
         Me.TabPageEx1.SuspendLayout()
@@ -643,203 +641,15 @@ Partial Class FrmG0021_Detail
         Me.PanelEx2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PanelEx2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PanelEx2.Controls.Add(Me.fpnlTempFile)
+        Me.PanelEx2.Controls.Add(Me.Label19)
+        Me.PanelEx2.Controls.Add(Me.btnOpenTempFileDialog)
         Me.PanelEx2.Controls.Add(Me.tlpHeader)
         Me.PanelEx2.HitEnabled = False
         Me.PanelEx2.Location = New System.Drawing.Point(12, 96)
         Me.PanelEx2.Name = "PanelEx2"
-        Me.PanelEx2.Size = New System.Drawing.Size(1240, 187)
+        Me.PanelEx2.Size = New System.Drawing.Size(1240, 186)
         Me.PanelEx2.TabIndex = 0
-        '
-        'tlpHeader
-        '
-        Me.tlpHeader.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.tlpHeader.ColumnCount = 62
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpHeader.Controls.Add(Me.Label8, 0, 0)
-        Me.tlpHeader.Controls.Add(Me.mtxFCCB_NO, 1, 0)
-        Me.tlpHeader.Controls.Add(Me.cmbBUMON, 15, 0)
-        Me.tlpHeader.Controls.Add(Me.lblKISO_TANTO, 20, 0)
-        Me.tlpHeader.Controls.Add(Me.cmbKISO_TANTO, 25, 0)
-        Me.tlpHeader.Controls.Add(Me.Label14, 0, 1)
-        Me.tlpHeader.Controls.Add(Me.Label7, 0, 3)
-        Me.tlpHeader.Controls.Add(Me.cmbHINMEI, 5, 3)
-        Me.tlpHeader.Controls.Add(Me.Label4, 0, 2)
-        Me.tlpHeader.Controls.Add(Me.cmbBUHIN_BANGO, 5, 2)
-        Me.tlpHeader.Controls.Add(Me.cmbKISYU, 5, 1)
-        Me.tlpHeader.Controls.Add(Me.Label16, 12, 1)
-        Me.tlpHeader.Controls.Add(Me.Label5, 12, 0)
-        Me.tlpHeader.Controls.Add(Me.dtKISO, 16, 1)
-        Me.tlpHeader.Controls.Add(Me.lblCM_TANTO, 21, 1)
-        Me.tlpHeader.Controls.Add(Me.cmbCM_TANTO, 26, 1)
-        Me.tlpHeader.Controls.Add(Me.lblSYANAI_CD, 21, 2)
-        Me.tlpHeader.Controls.Add(Me.cmbSYANAI_CD, 26, 2)
-        Me.tlpHeader.Controls.Add(Me.mtxSNO_APPLY_PERIOD_KISO, 26, 4)
-        Me.tlpHeader.Controls.Add(Me.Label17, 20, 4)
-        Me.tlpHeader.Controls.Add(Me.Label18, 33, 0)
-        Me.tlpHeader.Controls.Add(Me.txtINPUT_NAIYO, 38, 0)
-        Me.tlpHeader.Controls.Add(Me.cmbDestTANTO, 36, 2)
-        Me.tlpHeader.Controls.Add(Me.lblDestTanto, 35, 2)
-        Me.tlpHeader.Controls.Add(Me.Label19, 0, 5)
-        Me.tlpHeader.Controls.Add(Me.Panel1, 5, 5)
-        Me.tlpHeader.Controls.Add(Me.Label3, 0, 4)
-        Me.tlpHeader.Controls.Add(Me.mtxINPUT_DOC_NO, 5, 4)
-        Me.tlpHeader.Controls.Add(Me.btnOpenTempFileDialog, 23, 5)
-        Me.tlpHeader.Location = New System.Drawing.Point(0, 0)
-        Me.tlpHeader.Name = "tlpHeader"
-        Me.tlpHeader.RowCount = 7
-        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHeader.Size = New System.Drawing.Size(1236, 185)
-        Me.tlpHeader.TabIndex = 327
-        '
-        'mtxSNO_APPLY_PERIOD_KISO
-        '
-        Me.tlpHeader.SetColumnSpan(Me.mtxSNO_APPLY_PERIOD_KISO, 11)
-        Me.mtxSNO_APPLY_PERIOD_KISO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxSNO_APPLY_PERIOD_KISO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.mtxSNO_APPLY_PERIOD_KISO.InputRequired = False
-        Me.mtxSNO_APPLY_PERIOD_KISO.Location = New System.Drawing.Point(523, 123)
-        Me.mtxSNO_APPLY_PERIOD_KISO.MaxByteLength = 0
-        Me.mtxSNO_APPLY_PERIOD_KISO.Name = "mtxSNO_APPLY_PERIOD_KISO"
-        Me.mtxSNO_APPLY_PERIOD_KISO.SelectAllText = False
-        Me.mtxSNO_APPLY_PERIOD_KISO.Size = New System.Drawing.Size(214, 24)
-        Me.mtxSNO_APPLY_PERIOD_KISO.TabIndex = 10
-        Me.mtxSNO_APPLY_PERIOD_KISO.WatermarkColor = System.Drawing.Color.Empty
-        Me.mtxSNO_APPLY_PERIOD_KISO.WatermarkText = Nothing
-        '
-        'Label18
-        '
-        Me.tlpHeader.SetColumnSpan(Me.Label18, 5)
-        Me.Label18.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label18.Location = New System.Drawing.Point(663, 0)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(94, 30)
-        Me.Label18.TabIndex = 281
-        Me.Label18.Text = "変更内容:"
-        Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbDestTANTO
-        '
-        Me.cmbDestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbDestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbDestTANTO.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbDestTANTO.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbDestTANTO.DisplayMember = "DISP"
-        Me.cmbDestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbDestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbDestTANTO.FormattingEnabled = True
-        Me.cmbDestTANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbDestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.cmbDestTANTO.IsSelected = False
-        Me.cmbDestTANTO.Location = New System.Drawing.Point(723, 63)
-        Me.cmbDestTANTO.Name = "cmbDestTANTO"
-        Me.cmbDestTANTO.NullValue = " "
-        Me.cmbDestTANTO.Size = New System.Drawing.Size(14, 25)
-        Me.cmbDestTANTO.TabIndex = 332
-        Me.cmbDestTANTO.Text = "(選択)"
-        Me.cmbDestTANTO.ValueMember = "VALUE"
-        Me.cmbDestTANTO.Visible = False
-        '
-        'lblDestTanto
-        '
-        Me.lblDestTanto.AutoSize = True
-        Me.lblDestTanto.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblDestTanto.Location = New System.Drawing.Point(703, 63)
-        Me.lblDestTanto.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.lblDestTanto.Name = "lblDestTanto"
-        Me.lblDestTanto.Size = New System.Drawing.Size(14, 27)
-        Me.lblDestTanto.TabIndex = 331
-        Me.lblDestTanto.Text = "申請先社員:"
-        Me.lblDestTanto.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.lblDestTanto.Visible = False
-        '
-        'Label19
-        '
-        Me.tlpHeader.SetColumnSpan(Me.Label19, 5)
-        Me.Label19.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label19.Location = New System.Drawing.Point(3, 150)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(94, 30)
-        Me.Label19.TabIndex = 334
-        Me.Label19.Text = "添付資料:"
-        Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Panel1
-        '
-        Me.tlpHeader.SetColumnSpan(Me.Panel1, 18)
-        Me.Panel1.Controls.Add(Me.fpnlTempFile)
-        Me.Panel1.Location = New System.Drawing.Point(103, 153)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(354, 24)
-        Me.Panel1.TabIndex = 335
         '
         'fpnlTempFile
         '
@@ -854,7 +664,7 @@ Partial Class FrmG0021_Detail
         Me.fpnlTempFile.Controls.Add(Me.LinkLabel6)
         Me.fpnlTempFile.Controls.Add(Me.LinkLabel7)
         Me.fpnlTempFile.Controls.Add(Me.LinkLabel8)
-        Me.fpnlTempFile.Location = New System.Drawing.Point(0, 1)
+        Me.fpnlTempFile.Location = New System.Drawing.Point(102, 156)
         Me.fpnlTempFile.Name = "fpnlTempFile"
         Me.fpnlTempFile.Size = New System.Drawing.Size(351, 22)
         Me.fpnlTempFile.TabIndex = 220
@@ -1000,6 +810,195 @@ Partial Class FrmG0021_Detail
         Me.LinkLabel8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.LinkLabel8.Visible = False
         '
+        'Label19
+        '
+        Me.Label19.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label19.Location = New System.Drawing.Point(3, 150)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(94, 30)
+        Me.Label19.TabIndex = 334
+        Me.Label19.Text = "添付資料:"
+        Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'btnOpenTempFileDialog
+        '
+        Me.btnOpenTempFileDialog.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnOpenTempFileDialog.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
+        Me.btnOpenTempFileDialog.Location = New System.Drawing.Point(457, 155)
+        Me.btnOpenTempFileDialog.Name = "btnOpenTempFileDialog"
+        Me.btnOpenTempFileDialog.Size = New System.Drawing.Size(54, 24)
+        Me.btnOpenTempFileDialog.TabIndex = 336
+        Me.btnOpenTempFileDialog.TabStop = False
+        Me.btnOpenTempFileDialog.UseVisualStyleBackColor = True
+        '
+        'tlpHeader
+        '
+        Me.tlpHeader.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tlpHeader.ColumnCount = 62
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpHeader.Controls.Add(Me.Label8, 0, 0)
+        Me.tlpHeader.Controls.Add(Me.mtxFCCB_NO, 1, 0)
+        Me.tlpHeader.Controls.Add(Me.cmbBUMON, 15, 0)
+        Me.tlpHeader.Controls.Add(Me.lblKISO_TANTO, 20, 0)
+        Me.tlpHeader.Controls.Add(Me.cmbKISO_TANTO, 25, 0)
+        Me.tlpHeader.Controls.Add(Me.Label14, 0, 1)
+        Me.tlpHeader.Controls.Add(Me.Label7, 0, 3)
+        Me.tlpHeader.Controls.Add(Me.cmbHINMEI, 5, 3)
+        Me.tlpHeader.Controls.Add(Me.Label4, 0, 2)
+        Me.tlpHeader.Controls.Add(Me.cmbBUHIN_BANGO, 5, 2)
+        Me.tlpHeader.Controls.Add(Me.cmbKISYU, 5, 1)
+        Me.tlpHeader.Controls.Add(Me.Label16, 12, 1)
+        Me.tlpHeader.Controls.Add(Me.Label5, 12, 0)
+        Me.tlpHeader.Controls.Add(Me.dtKISO, 16, 1)
+        Me.tlpHeader.Controls.Add(Me.lblCM_TANTO, 21, 1)
+        Me.tlpHeader.Controls.Add(Me.cmbCM_TANTO, 26, 1)
+        Me.tlpHeader.Controls.Add(Me.lblSYANAI_CD, 21, 2)
+        Me.tlpHeader.Controls.Add(Me.cmbSYANAI_CD, 26, 2)
+        Me.tlpHeader.Controls.Add(Me.mtxSNO_APPLY_PERIOD_KISO, 26, 4)
+        Me.tlpHeader.Controls.Add(Me.Label17, 20, 4)
+        Me.tlpHeader.Controls.Add(Me.Label18, 33, 0)
+        Me.tlpHeader.Controls.Add(Me.txtINPUT_NAIYO, 38, 0)
+        Me.tlpHeader.Controls.Add(Me.cmbDestTANTO, 36, 2)
+        Me.tlpHeader.Controls.Add(Me.lblDestTanto, 35, 2)
+        Me.tlpHeader.Controls.Add(Me.Label3, 0, 4)
+        Me.tlpHeader.Controls.Add(Me.mtxINPUT_DOC_NO, 5, 4)
+        Me.tlpHeader.Location = New System.Drawing.Point(0, 0)
+        Me.tlpHeader.Name = "tlpHeader"
+        Me.tlpHeader.RowCount = 7
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHeader.Size = New System.Drawing.Size(1236, 184)
+        Me.tlpHeader.TabIndex = 327
+        '
+        'mtxSNO_APPLY_PERIOD_KISO
+        '
+        Me.tlpHeader.SetColumnSpan(Me.mtxSNO_APPLY_PERIOD_KISO, 11)
+        Me.mtxSNO_APPLY_PERIOD_KISO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxSNO_APPLY_PERIOD_KISO.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.mtxSNO_APPLY_PERIOD_KISO.InputRequired = False
+        Me.mtxSNO_APPLY_PERIOD_KISO.Location = New System.Drawing.Point(523, 123)
+        Me.mtxSNO_APPLY_PERIOD_KISO.MaxByteLength = 0
+        Me.mtxSNO_APPLY_PERIOD_KISO.Name = "mtxSNO_APPLY_PERIOD_KISO"
+        Me.mtxSNO_APPLY_PERIOD_KISO.SelectAllText = False
+        Me.mtxSNO_APPLY_PERIOD_KISO.Size = New System.Drawing.Size(214, 24)
+        Me.mtxSNO_APPLY_PERIOD_KISO.TabIndex = 10
+        Me.mtxSNO_APPLY_PERIOD_KISO.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxSNO_APPLY_PERIOD_KISO.WatermarkText = Nothing
+        '
+        'Label18
+        '
+        Me.tlpHeader.SetColumnSpan(Me.Label18, 5)
+        Me.Label18.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label18.Location = New System.Drawing.Point(663, 0)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(94, 30)
+        Me.Label18.TabIndex = 281
+        Me.Label18.Text = "変更内容:"
+        Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbDestTANTO
+        '
+        Me.cmbDestTANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbDestTANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbDestTANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbDestTANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbDestTANTO.DisplayMember = "DISP"
+        Me.cmbDestTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbDestTANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbDestTANTO.FormattingEnabled = True
+        Me.cmbDestTANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbDestTANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbDestTANTO.IsSelected = False
+        Me.cmbDestTANTO.Location = New System.Drawing.Point(723, 63)
+        Me.cmbDestTANTO.Name = "cmbDestTANTO"
+        Me.cmbDestTANTO.NullValue = " "
+        Me.cmbDestTANTO.Size = New System.Drawing.Size(14, 25)
+        Me.cmbDestTANTO.TabIndex = 332
+        Me.cmbDestTANTO.Text = "(選択)"
+        Me.cmbDestTANTO.ValueMember = "VALUE"
+        Me.cmbDestTANTO.Visible = False
+        '
+        'lblDestTanto
+        '
+        Me.lblDestTanto.AutoSize = True
+        Me.lblDestTanto.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblDestTanto.Location = New System.Drawing.Point(703, 63)
+        Me.lblDestTanto.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblDestTanto.Name = "lblDestTanto"
+        Me.lblDestTanto.Size = New System.Drawing.Size(14, 27)
+        Me.lblDestTanto.TabIndex = 331
+        Me.lblDestTanto.Text = "申請先社員:"
+        Me.lblDestTanto.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblDestTanto.Visible = False
+        '
         'mtxINPUT_DOC_NO
         '
         Me.tlpHeader.SetColumnSpan(Me.mtxINPUT_DOC_NO, 11)
@@ -1014,18 +1013,6 @@ Partial Class FrmG0021_Detail
         Me.mtxINPUT_DOC_NO.TabIndex = 9
         Me.mtxINPUT_DOC_NO.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxINPUT_DOC_NO.WatermarkText = Nothing
-        '
-        'btnOpenTempFileDialog
-        '
-        Me.tlpHeader.SetColumnSpan(Me.btnOpenTempFileDialog, 3)
-        Me.btnOpenTempFileDialog.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnOpenTempFileDialog.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.btnOpenTempFileDialog.Location = New System.Drawing.Point(463, 153)
-        Me.btnOpenTempFileDialog.Name = "btnOpenTempFileDialog"
-        Me.btnOpenTempFileDialog.Size = New System.Drawing.Size(54, 24)
-        Me.btnOpenTempFileDialog.TabIndex = 336
-        Me.btnOpenTempFileDialog.TabStop = False
-        Me.btnOpenTempFileDialog.UseVisualStyleBackColor = True
         '
         'flpnlStageIndex
         '
@@ -1177,11 +1164,11 @@ Partial Class FrmG0021_Detail
         Me.tabMain.Controls.Add(Me.TabPageEx1)
         Me.tabMain.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.tabMain.HotTrack = True
-        Me.tabMain.Location = New System.Drawing.Point(12, 260)
+        Me.tabMain.Location = New System.Drawing.Point(12, 259)
         Me.tabMain.Multiline = True
         Me.tabMain.Name = "tabMain"
         Me.tabMain.SelectedIndex = 0
-        Me.tabMain.Size = New System.Drawing.Size(1240, 375)
+        Me.tabMain.Size = New System.Drawing.Size(1240, 376)
         Me.tabMain.TabIndex = 218
         Me.tabMain.Visible = False
         '
@@ -1197,7 +1184,7 @@ Partial Class FrmG0021_Detail
         Me.TabPageEx1.Location = New System.Drawing.Point(4, 26)
         Me.TabPageEx1.Name = "TabPageEx1"
         Me.TabPageEx1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPageEx1.Size = New System.Drawing.Size(1232, 345)
+        Me.TabPageEx1.Size = New System.Drawing.Size(1232, 346)
         Me.TabPageEx1.TabIndex = 0
         '
         'Label11
@@ -2875,11 +2862,10 @@ Partial Class FrmG0021_Detail
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelEx2.ResumeLayout(False)
-        Me.tlpHeader.ResumeLayout(False)
-        Me.tlpHeader.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
         Me.fpnlTempFile.ResumeLayout(False)
         Me.fpnlTempFile.PerformLayout()
+        Me.tlpHeader.ResumeLayout(False)
+        Me.tlpHeader.PerformLayout()
         Me.flpnlStageIndex.ResumeLayout(False)
         Me.tabMain.ResumeLayout(False)
         Me.TabPageEx1.ResumeLayout(False)
@@ -3052,7 +3038,6 @@ Partial Class FrmG0021_Detail
     Friend WithEvents Label1 As Label
     Friend WithEvents flxDATA_2 As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Label19 As Label
-    Friend WithEvents Panel1 As Panel
     Friend WithEvents btnOpenTempFileDialog As Button
     Friend WithEvents fpnlTempFile As FlowLayoutPanel
     Friend WithEvents lbltmpFile1 As LinkLabel
