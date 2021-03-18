@@ -1290,7 +1290,7 @@ Module mdlG0020
                     spSheet1.Range($"K{intRowIndex + 1}").Value = r.Item(NameOf(D011.BUHIN_NAME))
                     spSheet1.Range($"R{intRowIndex + 1}").Value = r.Item(NameOf(D011.MEMO1))
                     spSheet1.Range($"X{intRowIndex + 1}").Value = r.Item(NameOf(D011.MEMO2))
-                    spSheet1.Range($"X{intRowIndex + 1}").Value = If(r.Item(NameOf(D011.SURYO)) = 0, "", r.Item(NameOf(D011.SURYO)))
+                    spSheet1.Range($"AC{intRowIndex + 1}").Value = If(r.Item(NameOf(D011.SURYO)) = 0, "", r.Item(NameOf(D011.SURYO)))
 
                     'Sec5ÉpÅ[Ég
                     spSheet1.Range($"C{intRowIndex + 1 + SIKAKARIHIN_COUNT + SECTION_GAPS}").Value = r.Item(NameOf(D011.SYOCHI_NAIYO))
