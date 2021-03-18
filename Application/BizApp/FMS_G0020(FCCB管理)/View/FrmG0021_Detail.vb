@@ -3470,7 +3470,11 @@ Public Class FrmG0021_Detail
                     If dr.Item(NameOf(D012.KYOGI_YOHI_KAITO)) = "1" Then
                         chkYOHI_T.Checked = True
                         chkYOHI_T.BackColor = Color.SkyBlue
+                        chkYOHI_F.Checked = False
+                        chkYOHI_F.BackColor = SystemColors.Control
                     ElseIf dr.Item(NameOf(D012.KYOGI_YOHI_KAITO)) = "0" Then
+                        chkYOHI_T.Checked = False
+                        chkYOHI_T.BackColor = SystemColors.Control
                         chkYOHI_F.Checked = True
                         chkYOHI_F.BackColor = Color.SkyBlue
                     End If
