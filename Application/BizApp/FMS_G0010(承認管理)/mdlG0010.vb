@@ -1404,6 +1404,7 @@ Module mdlG0010
                 Case ENM_NCR_STAGE80_TABPAGES._4_ì]ópêÊãLò^
                     ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_BUHIN_BANGO)).Value = _V002_NCR_J.TENYO_BUHIN_BANGO
                     ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_GOKI)).Value = _V002_NCR_J.TENYO_GOKI
+                    ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_LOT)).Value = _V002_NCR_J.TENYO_LOT
                     ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_KISYU_NAME)).Value = _V002_NCR_J.TENYO_KISYU_NAME
                     If Not _V002_NCR_J.TENYO_YMD.IsNulOrWS Then
                         ssgSheet1.Range(NameOf(_V002_NCR_J.TENYO_YMD)).Value = DateTime.ParseExact(_V002_NCR_J.TENYO_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")

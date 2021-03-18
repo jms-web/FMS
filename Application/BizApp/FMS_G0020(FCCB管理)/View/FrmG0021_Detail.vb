@@ -3142,7 +3142,12 @@ Public Class FrmG0021_Detail
                     C1SplitterPanel5.Enabled = False
 
                     Dim blnTANTO As Boolean = IsYOHI_KAITO_TANTO(pub_SYAIN_INFO.SYAIN_ID)
-                    pnlTANTO_YOHI.Visible = (pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO)
+
+                    'pnlTANTO_YOHI.Visible = (pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO)
+                    If (pub_SYAIN_INFO.SYAIN_ID <> _D009.CM_TANTO) Then
+                        Call SetVisibleKyogiYOHI()
+                    End If
+
                     btnRequired.Enabled = blnTANTO
                     btnUnnecessary.Enabled = blnTANTO
 
@@ -3249,6 +3254,74 @@ Public Class FrmG0021_Detail
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
     End Function
+
+    Private Sub SetVisibleKyogiYOHI()
+        Dim IsMatch As Boolean
+
+        'ìùäáê”îCé“
+        IsMatch = cmbSYOCHI_GM_TANTO_YOHI.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+        lblSYOCHI_GM_TANTO_YOHI.Visible = IsMatch
+        cmbSYOCHI_GM_TANTO_YOHI.Visible = IsMatch
+        chkSYOCHI_GM_TANTO_YOHI_T.Visible = IsMatch
+        chkSYOCHI_GM_TANTO_YOHI_F.Visible = IsMatch
+
+        'ê›åv
+        IsMatch = cmbSYOCHI_SEKKEI_TANTO_YOHI.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+        lblSYOCHI_SEKKEI_TANTO_YOHI.Visible = IsMatch
+        cmbSYOCHI_SEKKEI_TANTO_YOHI.Visible = IsMatch
+        chkSYOCHI_SEKKEI_TANTO_YOHI_T.Visible = IsMatch
+        chkSYOCHI_SEKKEI_TANTO_YOHI_F.Visible = IsMatch
+
+        'ê∂ãZ
+        IsMatch = cmbSYOCHI_SEIGI_TANTO_YOHI.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+        lblSYOCHI_SEIGI_TANTO_YOHI.Visible = IsMatch
+        cmbSYOCHI_SEIGI_TANTO_YOHI.Visible = IsMatch
+        chkSYOCHI_SEIGI_TANTO_YOHI_T.Visible = IsMatch
+        chkSYOCHI_SEIGI_TANTO_YOHI_F.Visible = IsMatch
+
+        'âcã∆
+        IsMatch = cmbSYOCHI_EIGYO_TANTO_YOHI.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+        lblSYOCHI_EIGYO_TANTO_YOHI.Visible = IsMatch
+        cmbSYOCHI_EIGYO_TANTO_YOHI.Visible = IsMatch
+        chkSYOCHI_EIGYO_TANTO_YOHI_T.Visible = IsMatch
+        chkSYOCHI_EIGYO_TANTO_YOHI_F.Visible = IsMatch
+
+        'ä«óù
+        IsMatch = cmbSYOCHI_KANRI_TANTO_YOHI.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+        lblSYOCHI_KANRI_TANTO_YOHI.Visible = IsMatch
+        cmbSYOCHI_KANRI_TANTO_YOHI.Visible = IsMatch
+        chkSYOCHI_KANRI_TANTO_YOHI_T.Visible = IsMatch
+        chkSYOCHI_KANRI_TANTO_YOHI_F.Visible = IsMatch
+
+        'êªë¢
+        IsMatch = cmbSYOCHI_SEIZO_TANTO_YOHI.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+        lblSYOCHI_SEIZO_TANTO_YOHI.Visible = IsMatch
+        cmbSYOCHI_SEIZO_TANTO_YOHI.Visible = IsMatch
+        chkSYOCHI_SEIZO_TANTO_YOHI_T.Visible = IsMatch
+        chkSYOCHI_SEIZO_TANTO_YOHI_F.Visible = IsMatch
+
+        'ïièÿ
+        IsMatch = cmbSYOCHI_HINSYO_TANTO_YOHI.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+        lblSYOCHI_HINSYO_TANTO_YOHI.Visible = IsMatch
+        cmbSYOCHI_HINSYO_TANTO_YOHI.Visible = IsMatch
+        chkSYOCHI_HINSYO_TANTO_YOHI_T.Visible = IsMatch
+        chkSYOCHI_HINSYO_TANTO_YOHI_F.Visible = IsMatch
+
+        'åüç∏
+        IsMatch = cmbSYOCHI_KENSA_TANTO_YOHI.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+        lblSYOCHI_KENSA_TANTO_YOHI.Visible = IsMatch
+        cmbSYOCHI_KENSA_TANTO_YOHI.Visible = IsMatch
+        chkSYOCHI_KENSA_TANTO_YOHI_T.Visible = IsMatch
+        chkSYOCHI_KENSA_TANTO_YOHI_F.Visible = IsMatch
+
+        'çwîÉ
+        IsMatch = cmbSYOCHI_KOBAI_TANTO_YOHI.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+        lblSYOCHI_KOBAI_TANTO_YOHI.Visible = IsMatch
+        cmbSYOCHI_KOBAI_TANTO_YOHI.Visible = IsMatch
+        chkSYOCHI_KOBAI_TANTO_YOHI_T.Visible = IsMatch
+        chkSYOCHI_KOBAI_TANTO_YOHI_F.Visible = IsMatch
+
+    End Sub
 
     Private Function IsYOHI_KAITO_TANTO(sYAIN_ID As Integer) As Boolean
         Dim sbSQL As New System.Text.StringBuilder

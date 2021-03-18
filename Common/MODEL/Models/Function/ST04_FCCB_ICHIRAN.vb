@@ -44,7 +44,7 @@ Partial Public Class ST04_FCCB_ICHIRAN
     Public Property GEN_TANTO_ID As Integer
 
     <StringLength(30)>
-    <ComponentModel.DisplayName("処置担当者名")>
+    <ComponentModel.DisplayName("最終更新者")>
     Public Property GEN_TANTO_NAME As String
 
     <ComponentModel.DisplayName("承認日時")>
