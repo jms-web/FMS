@@ -2709,14 +2709,21 @@ Public Class FrmG0021_Detail
     Private Sub btnRequired_Click(sender As Object, e As EventArgs) Handles btnRequired.Click, btnUnnecessary.Click
         Dim btn = DirectCast(sender, Button)
         Dim strKAITO As String
+        Dim strKAITODisp As String
         Select Case btn.Name
             Case NameOf(btnRequired)
                 strKAITO = "1"
+                strKAITODisp = "要"
             Case NameOf(btnUnnecessary)
                 strKAITO = "0"
+                strKAITODisp = "否"
             Case Else
                 strKAITO = ""
         End Select
+
+        If (MessageBox.Show($"協議要否：[{strKAITODisp}]として回答しますか？", "協議要否回答", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)) <> DialogResult.OK Then
+            Exit Sub
+        End If
 
         Dim sbSQL As New System.Text.StringBuilder
         Dim intRET As Integer
@@ -2731,7 +2738,7 @@ Public Class FrmG0021_Detail
             WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009.FCCB_NO}、協議要否回答")
             Call SetSYOCHI_TANTO_Info(DB)
         End Using
-        MessageBox.Show("要否回答を完了しました", "FCCB協議要否回答", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show("要否回答を送信しました", "FCCB協議要否回答", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub
 
@@ -3848,7 +3855,16 @@ Public Class FrmG0021_Detail
                                             Select(Function(r) r.Field(Of ENM_GYOMU_GROUP_ID)(NameOf(D010.TANTO_GYOMU_GROUP_ID))).
                                             Distinct
 
+            Dim groups3 = DirectCast(Flx2_DS.DataSource, DataTable).
+                                            AsEnumerable.
+                                            Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) _
+                                            And (r.Item(NameOf(D010.ITEM_NO)) = 10 Or r.Item(NameOf(D010.ITEM_NO)) = 12)).
+                                            Distinct
+
             Dim groupList = groups.Union(groups2).ToList
+            If (groups3.Count > 0) Then
+                groupList.Add(ENM_GYOMU_GROUP_ID._9_購買)
+            End If
             If groupList.Contains(ENM_GYOMU_GROUP_ID._43_品検) Then
                 '業務グループを展開
                 If Not groupList.Contains(ENM_GYOMU_GROUP_ID._4_品証) Then
