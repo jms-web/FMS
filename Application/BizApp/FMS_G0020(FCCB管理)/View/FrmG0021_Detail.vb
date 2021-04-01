@@ -87,7 +87,6 @@ Public Class FrmG0021_Detail
         cmbSYOCHI_KANRI_TANTO.NullValue = 0
         cmbSYOCHI_HINSYO_TANTO.NullValue = 0
         cmbSYOCHI_KENSA_TANTO.NullValue = 0
-        cmbSYOCHI_KOBAI_TANTO.NullValue = 0
 
         cmbKAKUNIN_CM_TANTO.NullValue = 0
         cmbKAKUNIN_GM_TANTO.NullValue = 0
@@ -2147,9 +2146,6 @@ Public Class FrmG0021_Detail
             If cmbSYOCHI_EIGYO_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_EIGYO_TANTO.SelectedValue) Then
                 userlist.Add(cmbSYOCHI_EIGYO_TANTO.SelectedValue)
             End If
-            If cmbSYOCHI_KOBAI_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_KOBAI_TANTO.SelectedValue) Then
-                userlist.Add(cmbSYOCHI_KOBAI_TANTO.SelectedValue)
-            End If
 
             If userlist.Count > 1 Then
                 frmDLG.PrToUsers = userlist
@@ -2431,12 +2427,6 @@ Public Class FrmG0021_Detail
             If drs.Count > 0 Then
                 cmbSYOCHI_EIGYO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
                 cmbSYOCHI_EIGYO_TANTO_YOHI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-            End If
-
-            drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._9_çwîÉ.Value)
-            If drs.Count > 0 Then
-                cmbSYOCHI_KOBAI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
-                cmbSYOCHI_KOBAI_TANTO_YOHI.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
             End If
 
             drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._91_QMSä«óùê”îCé“.Value)
@@ -2787,7 +2777,7 @@ Public Class FrmG0021_Detail
             BUSYOList.Add(ENM_GYOMU_GROUP_ID._6_ê∂ãZ.Value, "ê∂ãZ")
             BUSYOList.Add(ENM_GYOMU_GROUP_ID._7_ä«óù.Value, "ä«óù")
             BUSYOList.Add(ENM_GYOMU_GROUP_ID._8_âcã∆.Value, "âcã∆")
-            BUSYOList.Add(ENM_GYOMU_GROUP_ID._9_çwîÉ.Value, "çwîÉ")
+            'BUSYOList.Add(ENM_GYOMU_GROUP_ID._9_çwîÉ.Value, "çwîÉ")
             BUSYOList.Add(ENM_GYOMU_GROUP_ID._43_ïiåü.Value, "ïi/åü")
             flxDATA_2.Cols(4).DataMap = BUSYOList
             flxDATA_3.Cols(3).DataMap = BUSYOList
@@ -3067,10 +3057,6 @@ Public Class FrmG0021_Detail
                         lblSYOCHI_EIGYO_TANTO.BackColor = Color.LemonChiffon
                         lblSYOCHI_EIGYO_TANTO_YOHI.BackColor = Color.LemonChiffon
 
-                    Case ENM_GYOMU_GROUP_ID._9_çwîÉ
-                        lblSYOCHI_KOBAI_TANTO.BackColor = Color.LemonChiffon
-                        lblSYOCHI_KOBAI_TANTO_YOHI.BackColor = Color.LemonChiffon
-
                     Case Else
                 End Select
             Next
@@ -3208,7 +3194,7 @@ Public Class FrmG0021_Detail
                     cmbSYOCHI_HINSYO_TANTO.ReadOnly = True
                     cmbSYOCHI_KANRI_TANTO.ReadOnly = True
                     cmbSYOCHI_KENSA_TANTO.ReadOnly = True
-                    cmbSYOCHI_KOBAI_TANTO.ReadOnly = True
+
                     cmbSYOCHI_SEIGI_TANTO.ReadOnly = True
                     cmbSYOCHI_SEIZO_TANTO.ReadOnly = True
                     cmbSYOCHI_SEKKEI_TANTO.ReadOnly = True
@@ -3218,7 +3204,7 @@ Public Class FrmG0021_Detail
                     dtSYOCHI_HINSYO_TANTO.ReadOnly = True
                     dtSYOCHI_KANRI_TANTO.ReadOnly = True
                     dtSYOCHI_KENSA_TANTO.ReadOnly = True
-                    dtSYOCHI_KOBAI_TANTO.ReadOnly = True
+
                     dtSYOCHI_SEIGI_TANTO.ReadOnly = True
                     dtSYOCHI_SEIZO_TANTO.ReadOnly = True
                     dtSYOCHI_SEKKEI_TANTO.ReadOnly = True
@@ -3320,13 +3306,6 @@ Public Class FrmG0021_Detail
         cmbSYOCHI_KENSA_TANTO_YOHI.Visible = IsMatch
         chkSYOCHI_KENSA_TANTO_YOHI_T.Visible = IsMatch
         chkSYOCHI_KENSA_TANTO_YOHI_F.Visible = IsMatch
-
-        'çwîÉ
-        IsMatch = cmbSYOCHI_KOBAI_TANTO_YOHI.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
-        lblSYOCHI_KOBAI_TANTO_YOHI.Visible = IsMatch
-        cmbSYOCHI_KOBAI_TANTO_YOHI.Visible = IsMatch
-        chkSYOCHI_KOBAI_TANTO_YOHI_T.Visible = IsMatch
-        chkSYOCHI_KOBAI_TANTO_YOHI_F.Visible = IsMatch
 
     End Sub
 
@@ -3448,13 +3427,6 @@ Public Class FrmG0021_Detail
                             cmb_YOHI = cmbSYOCHI_EIGYO_TANTO_YOHI
                             chkYOHI_T = chkSYOCHI_EIGYO_TANTO_YOHI_T
                             chkYOHI_F = chkSYOCHI_EIGYO_TANTO_YOHI_F
-
-                        Case ENM_GYOMU_GROUP_ID._9_çwîÉ.Value
-                            cmb = cmbSYOCHI_KOBAI_TANTO
-                            dte = dtSYOCHI_KOBAI_TANTO
-                            cmb_YOHI = cmbSYOCHI_KOBAI_TANTO_YOHI
-                            chkYOHI_T = chkSYOCHI_KOBAI_TANTO_YOHI_T
-                            chkYOHI_F = chkSYOCHI_KOBAI_TANTO_YOHI_F
 
                         Case ENM_GYOMU_GROUP_ID._91_QMSä«óùê”îCé“.Value 'ìùäáê”îCé“
                             cmb = cmbSYOCHI_GM_TANTO
@@ -3631,9 +3603,6 @@ Public Class FrmG0021_Detail
 
                                 Case ENM_GYOMU_GROUP_ID._8_âcã∆
                                     IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_EIGYO_TANTO, cmbSYOCHI_EIGYO_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "âcã∆GämîFíSìñé“"))
-
-                                Case ENM_GYOMU_GROUP_ID._9_çwîÉ
-                                    IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_KOBAI_TANTO, cmbSYOCHI_KOBAI_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "çwîÉGämîFíSìñé“"))
 
                                 Case Else
                             End Select
@@ -3855,16 +3824,8 @@ Public Class FrmG0021_Detail
                                             Select(Function(r) r.Field(Of ENM_GYOMU_GROUP_ID)(NameOf(D010.TANTO_GYOMU_GROUP_ID))).
                                             Distinct
 
-            Dim groups3 = DirectCast(Flx2_DS.DataSource, DataTable).
-                                            AsEnumerable.
-                                            Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) _
-                                            And (r.Item(NameOf(D010.ITEM_NO)) = 10 Or r.Item(NameOf(D010.ITEM_NO)) = 12)).
-                                            Distinct
-
             Dim groupList = groups.Union(groups2).ToList
-            If (groups3.Count > 0) Then
-                groupList.Add(ENM_GYOMU_GROUP_ID._9_çwîÉ)
-            End If
+
             If groupList.Contains(ENM_GYOMU_GROUP_ID._43_ïiåü) Then
                 'ã∆ñ±ÉOÉãÅ[ÉvÇìWäJ
                 If Not groupList.Contains(ENM_GYOMU_GROUP_ID._4_ïièÿ) Then
@@ -4054,7 +4015,6 @@ Public Class FrmG0021_Detail
                                                                                              cmbSYOCHI_HINSYO_TANTO_YOHI.SelectedValueChanged,
                                                                                              cmbSYOCHI_KANRI_TANTO_YOHI.SelectedIndexChanged,
                                                                                              cmbSYOCHI_KENSA_TANTO_YOHI.SelectedValueChanged,
-                                                                                             cmbSYOCHI_KOBAI_TANTO_YOHI.SelectedValueChanged,
                                                                                              cmbSYOCHI_SEIGI_TANTO_YOHI.SelectedValueChanged,
                                                                                              cmbSYOCHI_SEIZO_TANTO_YOHI.SelectedValueChanged,
                                                                                              cmbSYOCHI_SEKKEI_TANTO_YOHI.SelectedValueChanged,

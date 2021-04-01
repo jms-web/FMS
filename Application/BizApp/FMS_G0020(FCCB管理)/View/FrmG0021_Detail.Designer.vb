@@ -90,7 +90,6 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel_YOHI = New C1.Win.C1SplitContainer.C1SplitterPanel()
         Me.pnlTANTO_YOHI = New System.Windows.Forms.TableLayoutPanel()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_F = New System.Windows.Forms.CheckBox()
         Me.chkSYOCHI_KENSA_TANTO_YOHI_F = New System.Windows.Forms.CheckBox()
         Me.chkSYOCHI_HINSYO_TANTO_YOHI_F = New System.Windows.Forms.CheckBox()
         Me.chkSYOCHI_SEIZO_TANTO_YOHI_F = New System.Windows.Forms.CheckBox()
@@ -98,7 +97,6 @@ Partial Class FrmG0021_Detail
         Me.chkSYOCHI_EIGYO_TANTO_YOHI_F = New System.Windows.Forms.CheckBox()
         Me.chkSYOCHI_SEIGI_TANTO_YOHI_F = New System.Windows.Forms.CheckBox()
         Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F = New System.Windows.Forms.CheckBox()
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_T = New System.Windows.Forms.CheckBox()
         Me.chkSYOCHI_KENSA_TANTO_YOHI_T = New System.Windows.Forms.CheckBox()
         Me.chkSYOCHI_HINSYO_TANTO_YOHI_T = New System.Windows.Forms.CheckBox()
         Me.chkSYOCHI_SEIZO_TANTO_YOHI_T = New System.Windows.Forms.CheckBox()
@@ -117,7 +115,6 @@ Partial Class FrmG0021_Detail
         Me.lblSYOCHI_SEIZO_TANTO_YOHI = New System.Windows.Forms.Label()
         Me.lblSYOCHI_HINSYO_TANTO_YOHI = New System.Windows.Forms.Label()
         Me.lblSYOCHI_KENSA_TANTO_YOHI = New System.Windows.Forms.Label()
-        Me.lblSYOCHI_KOBAI_TANTO_YOHI = New System.Windows.Forms.Label()
         Me.cmbSYOCHI_SEKKEI_TANTO_YOHI = New JMS_COMMON.ComboboxEx()
         Me.cmbSYOCHI_SEIGI_TANTO_YOHI = New JMS_COMMON.ComboboxEx()
         Me.cmbSYOCHI_EIGYO_TANTO_YOHI = New JMS_COMMON.ComboboxEx()
@@ -125,7 +122,6 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_SEIZO_TANTO_YOHI = New JMS_COMMON.ComboboxEx()
         Me.cmbSYOCHI_HINSYO_TANTO_YOHI = New JMS_COMMON.ComboboxEx()
         Me.cmbSYOCHI_KENSA_TANTO_YOHI = New JMS_COMMON.ComboboxEx()
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI = New JMS_COMMON.ComboboxEx()
         Me.btnUnnecessary = New System.Windows.Forms.Button()
         Me.btnRequired = New System.Windows.Forms.Button()
         Me.C1SplitterPanel4 = New C1.Win.C1SplitContainer.C1SplitterPanel()
@@ -144,7 +140,6 @@ Partial Class FrmG0021_Detail
         Me.lblSYOCHI_KENSA_TANTO = New System.Windows.Forms.Label()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.Label31 = New System.Windows.Forms.Label()
-        Me.lblSYOCHI_KOBAI_TANTO = New System.Windows.Forms.Label()
         Me.cmbSYOCHI_SEKKEI_TANTO = New JMS_COMMON.ComboboxEx()
         Me.cmbSYOCHI_SEIGI_TANTO = New JMS_COMMON.ComboboxEx()
         Me.cmbSYOCHI_EIGYO_TANTO = New JMS_COMMON.ComboboxEx()
@@ -153,7 +148,6 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_SEIZO_TANTO = New JMS_COMMON.ComboboxEx()
         Me.cmbSYOCHI_HINSYO_TANTO = New JMS_COMMON.ComboboxEx()
         Me.cmbSYOCHI_KENSA_TANTO = New JMS_COMMON.ComboboxEx()
-        Me.cmbSYOCHI_KOBAI_TANTO = New JMS_COMMON.ComboboxEx()
         Me.cmbKAKUNIN_GM_TANTO = New JMS_COMMON.ComboboxEx()
         Me.cmbKAKUNIN_CM_TANTO = New JMS_COMMON.ComboboxEx()
         Me.dtSYOCHI_SEKKEI_TANTO = New JMS_COMMON.DateTextBoxEx()
@@ -163,7 +157,6 @@ Partial Class FrmG0021_Detail
         Me.dtSYOCHI_SEIZO_TANTO = New JMS_COMMON.DateTextBoxEx()
         Me.dtSYOCHI_HINSYO_TANTO = New JMS_COMMON.DateTextBoxEx()
         Me.dtSYOCHI_KENSA_TANTO = New JMS_COMMON.DateTextBoxEx()
-        Me.dtSYOCHI_KOBAI_TANTO = New JMS_COMMON.DateTextBoxEx()
         Me.dtKAKUNIN_GM_TANTO = New JMS_COMMON.DateTextBoxEx()
         Me.dtKAKUNIN_CM_TANTO = New JMS_COMMON.DateTextBoxEx()
         Me.PanelEx1 = New JMS_COMMON.PanelEx()
@@ -1414,7 +1407,6 @@ Partial Class FrmG0021_Detail
         Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53.0!))
         Me.pnlTANTO_YOHI.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.pnlTANTO_YOHI.Controls.Add(Me.Label1, 0, 0)
-        Me.pnlTANTO_YOHI.Controls.Add(Me.chkSYOCHI_KOBAI_TANTO_YOHI_F, 18, 2)
         Me.pnlTANTO_YOHI.Controls.Add(Me.chkSYOCHI_KENSA_TANTO_YOHI_F, 16, 2)
         Me.pnlTANTO_YOHI.Controls.Add(Me.chkSYOCHI_HINSYO_TANTO_YOHI_F, 14, 2)
         Me.pnlTANTO_YOHI.Controls.Add(Me.chkSYOCHI_SEIZO_TANTO_YOHI_F, 12, 2)
@@ -1422,7 +1414,6 @@ Partial Class FrmG0021_Detail
         Me.pnlTANTO_YOHI.Controls.Add(Me.chkSYOCHI_EIGYO_TANTO_YOHI_F, 8, 2)
         Me.pnlTANTO_YOHI.Controls.Add(Me.chkSYOCHI_SEIGI_TANTO_YOHI_F, 6, 2)
         Me.pnlTANTO_YOHI.Controls.Add(Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F, 4, 2)
-        Me.pnlTANTO_YOHI.Controls.Add(Me.chkSYOCHI_KOBAI_TANTO_YOHI_T, 17, 2)
         Me.pnlTANTO_YOHI.Controls.Add(Me.chkSYOCHI_KENSA_TANTO_YOHI_T, 15, 2)
         Me.pnlTANTO_YOHI.Controls.Add(Me.chkSYOCHI_HINSYO_TANTO_YOHI_T, 13, 2)
         Me.pnlTANTO_YOHI.Controls.Add(Me.chkSYOCHI_SEIZO_TANTO_YOHI_T, 11, 2)
@@ -1441,7 +1432,6 @@ Partial Class FrmG0021_Detail
         Me.pnlTANTO_YOHI.Controls.Add(Me.lblSYOCHI_SEIZO_TANTO_YOHI, 11, 0)
         Me.pnlTANTO_YOHI.Controls.Add(Me.lblSYOCHI_HINSYO_TANTO_YOHI, 13, 0)
         Me.pnlTANTO_YOHI.Controls.Add(Me.lblSYOCHI_KENSA_TANTO_YOHI, 15, 0)
-        Me.pnlTANTO_YOHI.Controls.Add(Me.lblSYOCHI_KOBAI_TANTO_YOHI, 17, 0)
         Me.pnlTANTO_YOHI.Controls.Add(Me.cmbSYOCHI_SEKKEI_TANTO_YOHI, 3, 1)
         Me.pnlTANTO_YOHI.Controls.Add(Me.cmbSYOCHI_SEIGI_TANTO_YOHI, 5, 1)
         Me.pnlTANTO_YOHI.Controls.Add(Me.cmbSYOCHI_EIGYO_TANTO_YOHI, 7, 1)
@@ -1449,7 +1439,6 @@ Partial Class FrmG0021_Detail
         Me.pnlTANTO_YOHI.Controls.Add(Me.cmbSYOCHI_SEIZO_TANTO_YOHI, 11, 1)
         Me.pnlTANTO_YOHI.Controls.Add(Me.cmbSYOCHI_HINSYO_TANTO_YOHI, 13, 1)
         Me.pnlTANTO_YOHI.Controls.Add(Me.cmbSYOCHI_KENSA_TANTO_YOHI, 15, 1)
-        Me.pnlTANTO_YOHI.Controls.Add(Me.cmbSYOCHI_KOBAI_TANTO_YOHI, 17, 1)
         Me.pnlTANTO_YOHI.Location = New System.Drawing.Point(218, 6)
         Me.pnlTANTO_YOHI.Name = "pnlTANTO_YOHI"
         Me.pnlTANTO_YOHI.RowCount = 4
@@ -1473,20 +1462,6 @@ Partial Class FrmG0021_Detail
         Me.Label1.TabIndex = 296
         Me.Label1.Text = "âÒìöèÛãµ"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'chkSYOCHI_KOBAI_TANTO_YOHI_F
-        '
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_F.Appearance = System.Windows.Forms.Appearance.Button
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_F.AutoSize = True
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_F.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_F.Enabled = False
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_F.Location = New System.Drawing.Point(929, 53)
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_F.Name = "chkSYOCHI_KOBAI_TANTO_YOHI_F"
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_F.Size = New System.Drawing.Size(47, 24)
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_F.TabIndex = 274
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_F.Text = "î€"
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_F.UseVisualStyleBackColor = True
         '
         'chkSYOCHI_KENSA_TANTO_YOHI_F
         '
@@ -1585,20 +1560,6 @@ Partial Class FrmG0021_Detail
         Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F.Text = "î€"
         Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.chkSYOCHI_SEKKEI_TANTO_YOHI_F.UseVisualStyleBackColor = True
-        '
-        'chkSYOCHI_KOBAI_TANTO_YOHI_T
-        '
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_T.Appearance = System.Windows.Forms.Appearance.Button
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_T.AutoSize = True
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_T.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_T.Enabled = False
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_T.Location = New System.Drawing.Point(876, 53)
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_T.Name = "chkSYOCHI_KOBAI_TANTO_YOHI_T"
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_T.Size = New System.Drawing.Size(47, 24)
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_T.TabIndex = 273
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_T.Text = "óv"
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_T.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.chkSYOCHI_KOBAI_TANTO_YOHI_T.UseVisualStyleBackColor = True
         '
         'chkSYOCHI_KENSA_TANTO_YOHI_T
         '
@@ -1854,19 +1815,6 @@ Partial Class FrmG0021_Detail
         Me.lblSYOCHI_KENSA_TANTO_YOHI.Text = "åüç∏"
         Me.lblSYOCHI_KENSA_TANTO_YOHI.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'lblSYOCHI_KOBAI_TANTO_YOHI
-        '
-        Me.lblSYOCHI_KOBAI_TANTO_YOHI.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlTANTO_YOHI.SetColumnSpan(Me.lblSYOCHI_KOBAI_TANTO_YOHI, 2)
-        Me.lblSYOCHI_KOBAI_TANTO_YOHI.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSYOCHI_KOBAI_TANTO_YOHI.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSYOCHI_KOBAI_TANTO_YOHI.Location = New System.Drawing.Point(876, 0)
-        Me.lblSYOCHI_KOBAI_TANTO_YOHI.Name = "lblSYOCHI_KOBAI_TANTO_YOHI"
-        Me.lblSYOCHI_KOBAI_TANTO_YOHI.Size = New System.Drawing.Size(100, 20)
-        Me.lblSYOCHI_KOBAI_TANTO_YOHI.TabIndex = 295
-        Me.lblSYOCHI_KOBAI_TANTO_YOHI.Text = "çwîÉ"
-        Me.lblSYOCHI_KOBAI_TANTO_YOHI.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'cmbSYOCHI_SEKKEI_TANTO_YOHI
         '
         Me.cmbSYOCHI_SEKKEI_TANTO_YOHI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
@@ -2028,29 +1976,6 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_KENSA_TANTO_YOHI.Text = "(ëIë)"
         Me.cmbSYOCHI_KENSA_TANTO_YOHI.ValueMember = "VALUE"
         '
-        'cmbSYOCHI_KOBAI_TANTO_YOHI
-        '
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.BackColor = System.Drawing.SystemColors.Window
-        Me.pnlTANTO_YOHI.SetColumnSpan(Me.cmbSYOCHI_KOBAI_TANTO_YOHI, 2)
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.DisplayMember = "DISP"
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.DropDownWidth = 140
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.FormattingEnabled = True
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.IsSelected = False
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.Location = New System.Drawing.Point(876, 23)
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.Name = "cmbSYOCHI_KOBAI_TANTO_YOHI"
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.NullValue = " "
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.Size = New System.Drawing.Size(100, 25)
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.TabIndex = 17
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.Text = "(ëIë)"
-        Me.cmbSYOCHI_KOBAI_TANTO_YOHI.ValueMember = "VALUE"
-        '
         'btnUnnecessary
         '
         Me.btnUnnecessary.Cursor = System.Windows.Forms.Cursors.Hand
@@ -2121,7 +2046,6 @@ Partial Class FrmG0021_Detail
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.lblSYOCHI_KENSA_TANTO, 7, 1)
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.Label32, 11, 1)
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.Label31, 12, 1)
-        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.lblSYOCHI_KOBAI_TANTO, 8, 1)
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_SEKKEI_TANTO, 1, 2)
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_SEIGI_TANTO, 2, 2)
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_EIGYO_TANTO, 3, 2)
@@ -2130,7 +2054,6 @@ Partial Class FrmG0021_Detail
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_SEIZO_TANTO, 5, 2)
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_HINSYO_TANTO, 6, 2)
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_KENSA_TANTO, 7, 2)
-        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbSYOCHI_KOBAI_TANTO, 8, 2)
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbKAKUNIN_GM_TANTO, 11, 2)
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.cmbKAKUNIN_CM_TANTO, 12, 2)
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtSYOCHI_SEKKEI_TANTO, 1, 3)
@@ -2140,7 +2063,6 @@ Partial Class FrmG0021_Detail
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtSYOCHI_SEIZO_TANTO, 5, 3)
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtSYOCHI_HINSYO_TANTO, 6, 3)
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtSYOCHI_KENSA_TANTO, 7, 3)
-        Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtSYOCHI_KOBAI_TANTO, 8, 3)
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtKAKUNIN_GM_TANTO, 11, 3)
         Me.pnlSYOCHI_KAKUNIN.Controls.Add(Me.dtKAKUNIN_CM_TANTO, 12, 3)
         Me.pnlSYOCHI_KAKUNIN.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -2337,18 +2259,6 @@ Partial Class FrmG0021_Detail
         Me.Label31.Text = "FCCBãcí∑"
         Me.Label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'lblSYOCHI_KOBAI_TANTO
-        '
-        Me.lblSYOCHI_KOBAI_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lblSYOCHI_KOBAI_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSYOCHI_KOBAI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSYOCHI_KOBAI_TANTO.Location = New System.Drawing.Point(851, 20)
-        Me.lblSYOCHI_KOBAI_TANTO.Name = "lblSYOCHI_KOBAI_TANTO"
-        Me.lblSYOCHI_KOBAI_TANTO.Size = New System.Drawing.Size(100, 20)
-        Me.lblSYOCHI_KOBAI_TANTO.TabIndex = 295
-        Me.lblSYOCHI_KOBAI_TANTO.Text = "çwîÉ"
-        Me.lblSYOCHI_KOBAI_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'cmbSYOCHI_SEKKEI_TANTO
         '
         Me.cmbSYOCHI_SEKKEI_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
@@ -2518,28 +2428,6 @@ Partial Class FrmG0021_Detail
         Me.cmbSYOCHI_KENSA_TANTO.Text = "(ëIë)"
         Me.cmbSYOCHI_KENSA_TANTO.ValueMember = "VALUE"
         '
-        'cmbSYOCHI_KOBAI_TANTO
-        '
-        Me.cmbSYOCHI_KOBAI_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbSYOCHI_KOBAI_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSYOCHI_KOBAI_TANTO.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbSYOCHI_KOBAI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbSYOCHI_KOBAI_TANTO.DisplayMember = "DISP"
-        Me.cmbSYOCHI_KOBAI_TANTO.DropDownWidth = 140
-        Me.cmbSYOCHI_KOBAI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbSYOCHI_KOBAI_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbSYOCHI_KOBAI_TANTO.FormattingEnabled = True
-        Me.cmbSYOCHI_KOBAI_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbSYOCHI_KOBAI_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbSYOCHI_KOBAI_TANTO.IsSelected = False
-        Me.cmbSYOCHI_KOBAI_TANTO.Location = New System.Drawing.Point(851, 43)
-        Me.cmbSYOCHI_KOBAI_TANTO.Name = "cmbSYOCHI_KOBAI_TANTO"
-        Me.cmbSYOCHI_KOBAI_TANTO.NullValue = " "
-        Me.cmbSYOCHI_KOBAI_TANTO.Size = New System.Drawing.Size(100, 25)
-        Me.cmbSYOCHI_KOBAI_TANTO.TabIndex = 17
-        Me.cmbSYOCHI_KOBAI_TANTO.Text = "(ëIë)"
-        Me.cmbSYOCHI_KOBAI_TANTO.ValueMember = "VALUE"
-        '
         'cmbKAKUNIN_GM_TANTO
         '
         Me.cmbKAKUNIN_GM_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
@@ -2688,21 +2576,6 @@ Partial Class FrmG0021_Detail
         Me.dtSYOCHI_KENSA_TANTO.TabIndex = 16
         Me.dtSYOCHI_KENSA_TANTO.Value = ""
         Me.dtSYOCHI_KENSA_TANTO.ValueNonFormat = ""
-        '
-        'dtSYOCHI_KOBAI_TANTO
-        '
-        Me.dtSYOCHI_KOBAI_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtSYOCHI_KOBAI_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtSYOCHI_KOBAI_TANTO.Location = New System.Drawing.Point(851, 73)
-        Me.dtSYOCHI_KOBAI_TANTO.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtSYOCHI_KOBAI_TANTO.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtSYOCHI_KOBAI_TANTO.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtSYOCHI_KOBAI_TANTO.Name = "dtSYOCHI_KOBAI_TANTO"
-        Me.dtSYOCHI_KOBAI_TANTO.ReadOnly = False
-        Me.dtSYOCHI_KOBAI_TANTO.Size = New System.Drawing.Size(100, 24)
-        Me.dtSYOCHI_KOBAI_TANTO.TabIndex = 18
-        Me.dtSYOCHI_KOBAI_TANTO.Value = ""
-        Me.dtSYOCHI_KOBAI_TANTO.ValueNonFormat = ""
         '
         'dtKAKUNIN_GM_TANTO
         '
@@ -2969,7 +2842,6 @@ Partial Class FrmG0021_Detail
     Friend WithEvents lblSYOCHI_KENSA_TANTO As Label
     Friend WithEvents Label32 As Label
     Friend WithEvents Label31 As Label
-    Friend WithEvents lblSYOCHI_KOBAI_TANTO As Label
     Friend WithEvents cmbSYOCHI_GM_TANTO As ComboboxEx
     Friend WithEvents cmbSYOCHI_SEKKEI_TANTO As ComboboxEx
     Friend WithEvents cmbSYOCHI_SEIGI_TANTO As ComboboxEx
@@ -2979,7 +2851,6 @@ Partial Class FrmG0021_Detail
     Friend WithEvents cmbSYOCHI_SEIZO_TANTO As ComboboxEx
     Friend WithEvents cmbSYOCHI_HINSYO_TANTO As ComboboxEx
     Friend WithEvents cmbSYOCHI_KENSA_TANTO As ComboboxEx
-    Friend WithEvents cmbSYOCHI_KOBAI_TANTO As ComboboxEx
     Friend WithEvents cmbKAKUNIN_GM_TANTO As ComboboxEx
     Friend WithEvents cmbKAKUNIN_CM_TANTO As ComboboxEx
     Friend WithEvents dtSYOCHI_SEKKEI_TANTO As DateTextBoxEx
@@ -2989,7 +2860,6 @@ Partial Class FrmG0021_Detail
     Friend WithEvents dtSYOCHI_SEIZO_TANTO As DateTextBoxEx
     Friend WithEvents dtSYOCHI_HINSYO_TANTO As DateTextBoxEx
     Friend WithEvents dtSYOCHI_KENSA_TANTO As DateTextBoxEx
-    Friend WithEvents dtSYOCHI_KOBAI_TANTO As DateTextBoxEx
     Friend WithEvents dtKAKUNIN_GM_TANTO As DateTextBoxEx
     Friend WithEvents dtKAKUNIN_CM_TANTO As DateTextBoxEx
     Friend WithEvents C1SplitterPanel5 As C1.Win.C1SplitContainer.C1SplitterPanel
@@ -3010,7 +2880,6 @@ Partial Class FrmG0021_Detail
     Friend WithEvents lblSYOCHI_SEIZO_TANTO_YOHI As Label
     Friend WithEvents lblSYOCHI_HINSYO_TANTO_YOHI As Label
     Friend WithEvents lblSYOCHI_KENSA_TANTO_YOHI As Label
-    Friend WithEvents lblSYOCHI_KOBAI_TANTO_YOHI As Label
     Friend WithEvents cmbSYOCHI_SEKKEI_TANTO_YOHI As ComboboxEx
     Friend WithEvents cmbSYOCHI_SEIGI_TANTO_YOHI As ComboboxEx
     Friend WithEvents cmbSYOCHI_EIGYO_TANTO_YOHI As ComboboxEx
@@ -3018,8 +2887,6 @@ Partial Class FrmG0021_Detail
     Friend WithEvents cmbSYOCHI_SEIZO_TANTO_YOHI As ComboboxEx
     Friend WithEvents cmbSYOCHI_HINSYO_TANTO_YOHI As ComboboxEx
     Friend WithEvents cmbSYOCHI_KENSA_TANTO_YOHI As ComboboxEx
-    Friend WithEvents cmbSYOCHI_KOBAI_TANTO_YOHI As ComboboxEx
-    Friend WithEvents chkSYOCHI_KOBAI_TANTO_YOHI_F As CheckBox
     Friend WithEvents chkSYOCHI_KENSA_TANTO_YOHI_F As CheckBox
     Friend WithEvents chkSYOCHI_HINSYO_TANTO_YOHI_F As CheckBox
     Friend WithEvents chkSYOCHI_SEIZO_TANTO_YOHI_F As CheckBox
@@ -3027,7 +2894,6 @@ Partial Class FrmG0021_Detail
     Friend WithEvents chkSYOCHI_EIGYO_TANTO_YOHI_F As CheckBox
     Friend WithEvents chkSYOCHI_SEIGI_TANTO_YOHI_F As CheckBox
     Friend WithEvents chkSYOCHI_SEKKEI_TANTO_YOHI_F As CheckBox
-    Friend WithEvents chkSYOCHI_KOBAI_TANTO_YOHI_T As CheckBox
     Friend WithEvents chkSYOCHI_KENSA_TANTO_YOHI_T As CheckBox
     Friend WithEvents chkSYOCHI_HINSYO_TANTO_YOHI_T As CheckBox
     Friend WithEvents chkSYOCHI_SEIZO_TANTO_YOHI_T As CheckBox
