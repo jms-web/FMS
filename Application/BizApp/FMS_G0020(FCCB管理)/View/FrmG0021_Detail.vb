@@ -1740,7 +1740,7 @@ Public Class FrmG0021_Detail
             Dim strBody As String = <sql><![CDATA[
                 {0}<br />
                 <br />
-        　        FCCB記録書の処置依頼が来ましたので対応をお願いします。<br />
+        　        FCCB記録書の処置内容の確認と承認をお願いします。<br />
                 <br />
         　　        【報 告 書】FCCB<br />
         　　        【FCCB-No】{1}<br />
@@ -2226,6 +2226,8 @@ Public Class FrmG0021_Detail
                 Select Case PrCurrentStage
                     Case ENM_FCCB_STAGE._10_起草入力
                         cmdFunc5.Enabled = False
+                    Case ENM_FCCB_STAGE._20_処置事項調査等
+                        cmdFunc2.Enabled = pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO
                     Case ENM_FCCB_STAGE._30_変更審議
 
                         cmdFunc4.Visible = True
