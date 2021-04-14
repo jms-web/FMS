@@ -544,9 +544,15 @@ Public Class FrmG0021_Detail
                             '他の担当者も含めて必須項目入力済みの場合、FCCB議長への申請処理へ移行
                             Select Case PrCurrentStage
                                 Case ENM_FCCB_STAGE._20_処置事項調査等.Value
-                                    If IsInputRequired_DB() Then
+                                    If IsInputRequired_DB(ENM_FCCB_STAGE._20_処置事項調査等.Value) Then
                                         If FunSendRequestMail(fromUserNAME:="FCCB管理システム", toUserNAME:=cmbCM_TANTO.Text) Then
                                             strMsg &= $"{vbCrLf}また、全ての要入力項目が完了したため、FCCB議長に処置申請を送信しました。"
+                                        End If
+                                    End If
+                                Case ENM_FCCB_STAGE._50_処置事項完了.Value
+                                    If IsInputRequired_DB(ENM_FCCB_STAGE._50_処置事項完了.Value) Then
+                                        If FunSendRequestMail(fromUserNAME:="FCCB管理システム", toUserNAME:=cmbCM_TANTO.Text) Then
+                                            strMsg &= $"{vbCrLf}また、全ての完了日が入力されたため、FCCB議長に処置申請を送信しました。"
                                         End If
                                     End If
                             End Select
@@ -3709,22 +3715,36 @@ Public Class FrmG0021_Detail
     ''' 要の全項目に担当者、予定日が入力されているかチェック
     ''' </summary>
     ''' <returns></returns>
-    Private Function IsInputRequired_DB() As Boolean
+    Private Function IsInputRequired_DB(stage As Integer) As Boolean
         Try
             Dim sbSQL As New System.Text.StringBuilder
             Dim intRET As Integer
 
-            '入力要件を満たさない件数
-            sbSQL.Append($"SELECT")
-            sbSQL.Append($" COUNT(FCCB_NO)")
-            sbSQL.Append($" FROM {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU)} ")
-            sbSQL.Append($" WHERE {NameOf(D010.FCCB_NO)}={_D009.FCCB_NO}")
-            sbSQL.Append($" AND (")
-            '要なのに担当者や予定日が未入力
-            sbSQL.Append($" ({NameOf(D010.YOHI_KB)}='1' AND ({NameOf(D010.TANTO_ID)}=0 OR RTRIM({NameOf(D010.YOTEI_YMD)})=''))")
-            '要否未選択
-            sbSQL.Append($" OR  ({NameOf(D010.YOHI_KB)}='0' AND {NameOf(D010.YOHI_KB_F)}='0')")
-            sbSQL.Append($"     )")
+            Select Case stage
+                Case ENM_FCCB_STAGE._20_処置事項調査等.Value
+                    '入力要件を満たさない件数
+                    sbSQL.Append($"SELECT")
+                    sbSQL.Append($" COUNT(FCCB_NO)")
+                    sbSQL.Append($" FROM {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU)} ")
+                    sbSQL.Append($" WHERE {NameOf(D010.FCCB_NO)}={_D009.FCCB_NO}")
+                    sbSQL.Append($" AND (")
+                    '要なのに担当者や予定日が未入力
+                    sbSQL.Append($" ({NameOf(D010.YOHI_KB)}='1' AND ({NameOf(D010.TANTO_ID)}=0 OR RTRIM({NameOf(D010.YOTEI_YMD)})=''))")
+                    '要否未選択
+                    sbSQL.Append($" OR  ({NameOf(D010.YOHI_KB)}='0' AND {NameOf(D010.YOHI_KB_F)}='0')")
+                    sbSQL.Append($"     )")
+                Case ENM_FCCB_STAGE._50_処置事項完了.Value
+                    '入力要件を満たさない件数
+                    sbSQL.Append($"SELECT")
+                    sbSQL.Append($" COUNT(FCCB_NO)")
+                    sbSQL.Append($" FROM {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU)} ")
+                    sbSQL.Append($" WHERE {NameOf(D010.FCCB_NO)}={_D009.FCCB_NO}")
+                    sbSQL.Append($" AND ")
+                    '要なのに完了日が未入力
+                    sbSQL.Append($" ({NameOf(D010.YOHI_KB)}='1' AND RTRIM({NameOf(D010.CLOSE_YMD)})=''))")
+                Case Else
+                    intRET = 0
+            End Select
 
             Using DB As ClsDbUtility = DBOpen()
                 intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg).ToVal

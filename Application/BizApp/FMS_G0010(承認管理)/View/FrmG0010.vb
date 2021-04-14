@@ -241,6 +241,7 @@ Public Class FrmG0010
 
             Using DB As ClsDbUtility = DBOpen()
                 lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+                lblDEV_FLG.Visible = FunGetCodeMastaValue(DB, "SYSTEM_SETTING", "äJî≠î≈") = "TRUE"
             End Using
             Select Case pub_intOPEN_MODE
                 Case ENM_OPEN_MODE._0_í èÌ

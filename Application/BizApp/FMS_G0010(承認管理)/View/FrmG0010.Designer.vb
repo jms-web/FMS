@@ -169,6 +169,7 @@ Partial Class FrmG0010
         Me.NotEqualFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.IncludeFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotIncludeFilter = New System.Windows.Forms.ToolStripMenuItem()
+        Me.lblDEV_FLG = New System.Windows.Forms.Label()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpFilter.SuspendLayout()
@@ -2710,10 +2711,24 @@ Partial Class FrmG0010
         Me.NotIncludeFilter.Size = New System.Drawing.Size(157, 22)
         Me.NotIncludeFilter.Text = """{0}"" Çä‹Ç‹Ç»Ç¢"
         '
+        'lblDEV_FLG
+        '
+        Me.lblDEV_FLG.BackColor = System.Drawing.Color.White
+        Me.lblDEV_FLG.Font = New System.Drawing.Font("Meiryo UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblDEV_FLG.ForeColor = System.Drawing.Color.Red
+        Me.lblDEV_FLG.Location = New System.Drawing.Point(16, 17)
+        Me.lblDEV_FLG.Name = "lblDEV_FLG"
+        Me.lblDEV_FLG.Size = New System.Drawing.Size(183, 35)
+        Me.lblDEV_FLG.TabIndex = 67
+        Me.lblDEV_FLG.Text = "TESTÉTÅ[Éoî≈"
+        Me.lblDEV_FLG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblDEV_FLG.Visible = False
+        '
         'FrmG0010
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.ClientSize = New System.Drawing.Size(1584, 712)
+        Me.Controls.Add(Me.lblDEV_FLG)
         Me.Controls.Add(Me.btnSummaryPage)
         Me.Controls.Add(Me.panelMan)
         Me.Controls.Add(Me.dgvDATA)
@@ -2738,6 +2753,7 @@ Partial Class FrmG0010
         Me.Controls.SetChildIndex(Me.cmdFunc7, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc11, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc12, 0)
+        Me.Controls.SetChildIndex(Me.lblDEV_FLG, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tlpFilter.ResumeLayout(False)
@@ -2916,4 +2932,5 @@ Partial Class FrmG0010
     Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
     Friend WithEvents lblSURYO As Label
     Friend WithEvents chkDispSURYO As CheckBox
+    Friend WithEvents lblDEV_FLG As Label
 End Class
