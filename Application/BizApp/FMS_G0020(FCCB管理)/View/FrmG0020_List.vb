@@ -130,6 +130,7 @@ Public Class FrmG0020_List
             '起動モード別処理
             Using DB = DBOpen()
                 lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
+                lblDEV_FLG.Visible = FunGetCodeMastaValue(DB, "SYSTEM_SETTING", "開発版") = "TRUE"
             End Using
             Select Case pub_intOPEN_MODE
                 Case ENM_OPEN_MODE._0_通常

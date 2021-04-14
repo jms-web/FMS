@@ -905,13 +905,15 @@ Public Class FrmG0021_Detail
 
             For Each dr As DataRow In DirectCast(Flx2_DS.DataSource, DataTable).Rows
 
-                If _D009.CM_TANTO = pub_SYAIN_INFO.SYAIN_ID Or _D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID Then
-                    '起草者 or FCCB議長は全部更新可能
-                Else
-                    If Not groups.Contains(dr.Item(NameOf(D010.TANTO_GYOMU_GROUP_ID))) Then
+                If PrCurrentStage > ENM_FCCB_STAGE._10_起草入力 Then
+                    If _D009.CM_TANTO = pub_SYAIN_INFO.SYAIN_ID Or _D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID Then
+                        '起草者 or FCCB議長は全部更新可能
+                    Else
+                        If Not groups.Contains(dr.Item(NameOf(D010.TANTO_GYOMU_GROUP_ID))) Then
 
-                        '自身の業務グループ項目以外は更新しない
-                        Continue For
+                            '自身の業務グループ項目以外は更新しない
+                            Continue For
+                        End If
                     End If
                 End If
 
@@ -2465,6 +2467,8 @@ Public Class FrmG0021_Detail
         lblSYANAI_CD.Visible = (cmbBUMON.SelectedValue = ENM_BUMON_KB._2_LP.Value.ToString)
         cmbSYANAI_CD.Visible = (cmbBUMON.SelectedValue = ENM_BUMON_KB._2_LP.Value.ToString)
 
+        cmbKISO_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+        cmbCM_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
     End Sub
 
 #End Region
@@ -2798,6 +2802,8 @@ Public Class FrmG0021_Detail
                     Else
                         _D009.BUMON_KB = pub_SYAIN_INFO.BUMON_KB
                     End If
+
+                    cmbKISO_TANTO.ReadOnly = True
 
 #Region "InitDS"
 
