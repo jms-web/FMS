@@ -1,5 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FrmG0021_Detail
+Partial Class FrmG0031_EditOutflow
     Inherits JMS_COMMON.FrmBaseStsBtnDgv
 
     'Form overrides dispose to clean up the component list.
@@ -20,7 +20,7 @@ Partial Class FrmG0021_Detail
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmG0021_Detail))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmG0031_EditOutflow))
         Me.cmbBUHIN_BANGO = New JMS_COMMON.ComboboxEx()
         Me.cmbKISYU = New JMS_COMMON.ComboboxEx()
         Me.Label8 = New System.Windows.Forms.Label()

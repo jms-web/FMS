@@ -39,7 +39,6 @@ Public Class FrmG0030_List
         MyBase.ToolTip.SetToolTip(Me.cmdFunc11, My.Resources.infoToolTipMsgNotFoundData)
 
         cmbADD_TANTO.NullValue = 0
-        cmbKISYU.NullValue = 0
         cmbGEN_TANTO.NullValue = 0
 
         Select Case pub_intOPEN_MODE
@@ -67,15 +66,9 @@ Public Class FrmG0030_List
             '-----コントロールソース設定
             cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
             cmbADD_TANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbKISYU.SetDataSource(tblKISYU.LazyLoad("機種"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbBUHIN_BANGO.SetDataSource(tblBUHIN.LazyLoad("部品番号"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.LazyLoad("社内CD").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             '----コントロールイベントハンドラ
             AddHandler cmbBUMON.SelectedValueChanged, AddressOf CmbBUMON_SelectedValueChanged
-            AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-            AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-            AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
 
             '-----既定値設定
             Dim dtGEN_TANTO As DataTable = Nothing
@@ -117,13 +110,9 @@ Public Class FrmG0030_List
             End If
 
             ''-----イベントハンドラ設定
-            AddHandler cmbKISYU.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler mtxHOKUKO_NO.Validated, AddressOf SearchFilterValueChanged
-            AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            AddHandler mtxHINMEI.Validated, AddressOf SearchFilterValueChanged
             AddHandler chkDeleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
             AddHandler chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
@@ -996,7 +985,7 @@ Public Class FrmG0030_List
 
         Try
 
-            Using frmFCCB As New FrmG0021_Detail
+            Using frmFCCB As New FrmG0031_EditOccurred
                 frmFCCB.PrMODE = intMODE
                 Select Case intMODE
                     Case ENM_DATA_OPERATION_MODE._1_ADD
@@ -1637,12 +1626,8 @@ Public Class FrmG0030_List
                             cmbGEN_TANTO.SelectedValue = 0
                             cmbBUMON.SelectedValue = ""
                         Case Context.ENM_BUMON_KB._2_LP
-                            lblSyanaiCD.Visible = True
-                            cmbSYANAI_CD.Visible = True
 
                         Case Else
-                            lblSyanaiCD.Visible = False
-                            cmbSYANAI_CD.Visible = False
 
                     End Select
 
@@ -1679,243 +1664,9 @@ Public Class FrmG0030_List
                     cmbGEN_TANTO.SelectedValue = intBUFF
                     AddHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
 
-                    Dim blnSelected As Boolean = (cmb.SelectedValue IsNot Nothing AndAlso Not cmb.SelectedValue.ToString.IsNulOrWS)
-
-                    '機種
-                    RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-                    If blnSelected Then
-                        Dim drs = tblKISYU_J.LazyLoad("機種実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ST04_FCCB_ICHIRAN.BUMON_KB)) = cmb.SelectedValue)
-                        If drs.Count > 0 Then
-                            Dim dt As DataTable = drs.CopyToDataTable
-                            cmbKISYU.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                            cmbKISYU.SelectedValue = 0
-                        End If
-                    Else
-                        cmbKISYU.SetDataSource(tblKISYU_J.LazyLoad("機種実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                    End If
-                    AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-
-                    '部品番号
-                    RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
-                    If blnSelected Then
-                        Dim drs = tblBUHIN_J.LazyLoad("部品番号実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ST04_FCCB_ICHIRAN.BUMON_KB)) = cmb.SelectedValue)
-                        If drs.Count > 0 Then
-                            Dim dt As DataTable = drs.CopyToDataTable
-                            cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                            cmbBUHIN_BANGO.SelectedValue = ""
-                        End If
-                    Else
-                        cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J.LazyLoad("部品番号実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                    End If
-                    AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
-
-                    '社内コード
-                    RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-                    cmbSYANAI_CD.DataBindings.Clear()
-                    If blnSelected Then
-                        If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                            Dim drs = tblSYANAI_CD_J.LazyLoad("社内CD実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ST04_FCCB_ICHIRAN.BUMON_KB)) = cmb.SelectedValue)
-                            If drs.Count > 0 Then
-                                Dim dt As DataTable = drs.CopyToDataTable
-                                cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                            Else
-                                cmbSYANAI_CD.DataSource = Nothing
-                            End If
-                        Else
-                            'cmbSYANAI_CD.DataSource = Nothing
-                        End If
-                        cmbSYANAI_CD.SelectedValue = ""
-                    Else
-                        cmbSYANAI_CD.SetDataSource(tblSYANAI_CD_J.LazyLoad("社内CD実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                    End If
-                    AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-
                 End Sub)
             End Sub)
 
-    End Sub
-
-#End Region
-
-#Region "機種"
-
-    Private Async Sub CmbKISYU_SelectedValueChanged(sender As Object, e As EventArgs)
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
-        Await Task.Run(
-            Sub()
-                Me.Invoke(
-                Sub()
-                    '部品番号
-
-                    RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
-                    cmbBUHIN_BANGO.DataBindings.Clear()
-                    If cmb.IsSelected Then
-                        Dim drs = tblBUHIN_J.LazyLoad("部品番号実績").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(_D009.KISYU_ID)) = cmb.SelectedValue)
-                        If drs.Count > 0 Then
-                            Dim dt As DataTable = drs.CopyToDataTable
-                            Dim _selectedValue As String = cmbBUHIN_BANGO.SelectedValue
-
-                            cmbBUHIN_BANGO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                            If Not cmbBUHIN_BANGO.NullValue = cmbBUHIN_BANGO.SelectedValue Then
-                                'ParamModel.BUHIN_BANGO = _selectedValue
-                            End If
-                        End If
-                    Else
-                        cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J.LazyLoad("部品番号実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                    End If
-                    AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
-
-                    If Val(cmbBUMON.SelectedValue) = ENM_BUMON_KB._2_LP Then
-                        '社内コード
-                        RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-                        cmbSYANAI_CD.DataBindings.Clear()
-
-                        If cmb.IsSelected Then
-                            If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                                Dim drs = tblSYANAI_CD_J.LazyLoad("社内CD実績").AsEnumerable.Where(Function(r) r.Field(Of Integer)(NameOf(ST04_FCCB_ICHIRAN.KISYU_ID)) = cmb.SelectedValue)
-                                If drs.Count > 0 Then
-                                    Dim dt As DataTable = drs.CopyToDataTable
-                                    Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue
-
-                                    cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                                    If Not cmbSYANAI_CD.NullValue = _selectedValue Then
-                                        'ParamModel.SYANAI_CD = _selectedValue
-                                    End If
-                                End If
-                            Else
-                                'cmbSYANAI_CD.DataSource = Nothing
-                            End If
-                            'ParamModel.SYANAI_CD = ""
-                        Else
-                            cmbSYANAI_CD.SetDataSource(tblSYANAI_CD_J.LazyLoad("社内CD実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                        End If
-                        AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-
-                    End If
-
-                End Sub)
-            End Sub)
-
-    End Sub
-
-#End Region
-
-#Region "社内コード"
-
-    Private Async Sub CmbSYANAI_CD_SelectedValueChanged(sender As Object, e As EventArgs)
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        Try
-
-            RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-
-            Await Task.Run(
-                Sub()
-                    Me.Invoke(
-                    Sub()
-                        '部品番号
-                        RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
-                        If cmb.IsSelected Then
-                            Dim drs = tblBUHIN_J.LazyLoad("部品番号実績").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ST04_FCCB_ICHIRAN.SYANAI_CD)) = cmb.SelectedValue).ToList
-                            If drs.Count > 0 Then cmbBUHIN_BANGO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                        Else
-                            cmbBUHIN_BANGO.SetDataSource(tblBUHIN_J.LazyLoad("部品番号実績"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                        End If
-                        AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
-
-                        '抽出
-                        RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
-                        RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-
-                        If cmb.IsSelected Then
-                            Dim dr = DirectCast(cmbSYANAI_CD.DataSource, DataTable).AsEnumerable.
-                                                                Where(Function(r) r.Field(Of String)("VALUE") = cmb.SelectedValue).
-                                                                FirstOrDefault
-                            If dr IsNot Nothing Then
-
-                                cmbBUHIN_BANGO.SelectedValue = dr.Item("BUHIN_BANGO")
-                                mtxHINMEI.Text = dr.Item("BUHIN_NAME")
-                                cmbKISYU.SelectedValue = dr.Item("KISYU_ID")
-                            End If
-                        Else
-                            cmbBUHIN_BANGO.SelectedValue = ""
-                            mtxHINMEI.Text = ""
-                            cmbKISYU.SelectedValue = 0
-                        End If
-                        AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
-                        AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-
-                        AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-
-                    End Sub)
-                End Sub)
-        Catch ex As Exception
-            Stop
-        End Try
-    End Sub
-
-#End Region
-
-#Region "部品番号"
-
-    Private Async Sub CmbBUHIN_BANGO_SelectedValueChanged(sender As Object, e As EventArgs)
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-
-        'RemoveHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
-        'RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-
-        Await Task.Run(Sub()
-                           Me.Invoke(Sub()
-
-                                         '社内コード
-                                         If cmb.IsSelected Then
-                                             cmbSYANAI_CD.DataBindings.Clear()
-                                             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                                                 Dim drs = tblSYANAI_CD.LazyLoad("社内CD").AsEnumerable.Where(Function(r) r.Field(Of String)(NameOf(ST04_FCCB_ICHIRAN.BUHIN_BANGO)) = cmb.SelectedValue).ToList
-                                                 If drs.Count > 0 Then
-                                                     Dim dt As DataTable = drs.CopyToDataTable
-                                                     Dim _selectedValue As String = cmbSYANAI_CD.SelectedValue
-                                                     cmbSYANAI_CD.DisplayMember = "DISP"
-                                                     cmbSYANAI_CD.ValueMember = "VALUE"
-                                                     cmbSYANAI_CD.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                                                     cmbSYANAI_CD.SelectedValue = _selectedValue
-                                                 End If
-                                             Else
-                                                 cmbSYANAI_CD.SelectedValue = ""
-                                                 'cmbSYANAI_CD.DataSource = Nothing
-                                             End If
-                                             'cmbSYANAI_CD.DataBindings.Add(New Binding(NameOf(cmbSYANAI_CD.SelectedValue), ParamModel, NameOf(ParamModel.SYANAI_CD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-                                         Else
-                                             cmbSYANAI_CD.SetDataSource(tblSYANAI_CD.LazyLoad("社内CD").ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                                         End If
-                                         'AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-
-                                         '抽出
-                                         If cmb.IsSelected Then
-                                             Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).
-                                                                    AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmbBUHIN_BANGO.SelectedValue).
-                                                                    FirstOrDefault
-
-                                             If Val(cmb.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                                                 'RemoveHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-                                                 cmbSYANAI_CD.SelectedValue = dr.Item("SYANAI_CD")
-                                                 'AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
-                                             End If
-                                             mtxHINMEI.Text = dr.Item("BUHIN_NAME")
-
-                                             'RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-                                             If dr.Item("KISYU_ID") <> 0 Then
-                                                 cmbKISYU.SelectedValue = dr.Item("KISYU_ID")
-                                             End If
-                                             'AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-                                         Else
-                                             cmbSYANAI_CD.SelectedValue = ""
-                                             mtxHINMEI.Text = ""
-                                             cmbKISYU.SelectedValue = 0
-                                         End If
-                                         'AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
-                                     End Sub)
-                       End Sub)
     End Sub
 
 #End Region
@@ -1968,21 +1719,6 @@ Public Class FrmG0030_List
         End If
         If cmbADD_TANTO.IsSelected Then
             sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.KISO_TANTO_ID)} = {cmbADD_TANTO.SelectedValue}")
-        End If
-        If cmbKISYU.IsSelected Then
-            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.KISYU_ID)} = {cmbKISYU.SelectedValue}")
-        End If
-        If cmbBUHIN_BANGO.IsSelected Then
-            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.BUHIN_BANGO)} LIKE '%{cmbBUHIN_BANGO.SelectedValue}%'")
-        End If
-        If cmbGEN_TANTO.IsSelected Then
-            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.GEN_TANTO_ID)} = {cmbGEN_TANTO.SelectedValue}")
-        End If
-        If cmbSYANAI_CD.IsSelected Then
-            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.SYANAI_CD)} LIKE '%{cmbSYANAI_CD.SelectedValue}%'")
-        End If
-        If Not mtxHINMEI.Text.IsNulOrWS Then
-            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.BUHIN_NAME)} LIKE '%{mtxHINMEI.Text.Trim}%'")
         End If
         If chkTairyu.Checked Then
             sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.TAIRYU_FG)} > '0'")

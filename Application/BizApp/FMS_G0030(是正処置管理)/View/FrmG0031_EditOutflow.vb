@@ -9,7 +9,7 @@ Imports D012 = MODEL.D012_FCCB_SUB_SYOCHI_KAKUNIN
 ''' <summary>
 ''' FCCB“o˜^‰æ–Ê
 ''' </summary>
-Public Class FrmG0021_Detail
+Public Class FrmG0031_EditOutflow
 
 #Region "’è”E•Ï”"
 
