@@ -886,19 +886,23 @@ Module mdlG0010
 
                 With dsList.Tables(0)
                     If .Rows.Count > 0 Then
-                        If Not .Rows(0).Item("MAIL_ADDRESS").ToString.IsNulOrWS Then
+                        If Not .Rows(0).Item("MAIL_ADDRESS").ToString.IsNulOrWS AndAlso
+                            Not ToAddressList.Contains(.Rows(0).Item("MAIL_ADDRESS")) Then
                             ToAddressList.Add(.Rows(0).Item("MAIL_ADDRESS"))
                         End If
 
                         '所属長にも送信
-                        If .Rows(0).Item("GL_ADDRESS").ToString.IsNulOrWS = False AndAlso .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("GL_ADDRESS").ToString Then
+                        If Not .Rows(0).Item("GL_ADDRESS").ToString.IsNulOrWS AndAlso
+                            .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("GL_ADDRESS").ToString AndAlso
+                            Not ToAddressList.Contains(.Rows(0).Item("GL_ADDRESS")) Then
                             ToAddressList.Add(.Rows(0).Item("GL_ADDRESS"))
                         End If
 
                         '送信先が所属長宛てだった場合、所属長の上位の部署の所属長にも送信
                         If .Rows(0).Item("OYA_GL_ADDRESS").ToString.IsNulOrWS = False AndAlso
                             .Rows(0).Item("MAIL_ADDRESS").ToString = .Rows(0).Item("GL_ADDRESS").ToString AndAlso
-                            .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("OYA_GL_ADDRESS").ToString Then
+                            .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("OYA_GL_ADDRESS").ToString AndAlso
+                            Not ToAddressList.Contains(.Rows(0).Item("OYA_GL_ADDRESS")) Then
                             ToAddressList.Add(.Rows(0).Item("OYA_GL_ADDRESS"))
                         End If
 

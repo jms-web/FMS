@@ -551,8 +551,19 @@ Public Class FrmG0021_Detail
                                     End If
                                 Case ENM_FCCB_STAGE._50_処置事項完了.Value
                                     If IsInputRequired_DB(ENM_FCCB_STAGE._50_処置事項完了.Value) Then
-                                        If FunSendRequestMail(fromUserNAME:="FCCB管理システム", toUserNAME:=cmbCM_TANTO.Text) Then
-                                            strMsg &= $"{vbCrLf}また、全ての完了日が入力されたため、FCCB議長に処置申請を送信しました。"
+
+                                        Dim username As String
+                                        Dim partKB As String
+                                        If dtKAKUNIN_CM_TANTO.Text.IsNulOrWS Then
+                                            username = cmbCM_TANTO.Text
+                                            partKB = "FCCB議長"
+                                        Else
+                                            username = cmbKAKUNIN_GM_TANTO.Text
+                                            partKB = "統合責任者"
+                                        End If
+
+                                        If FunSendRequestMail(fromUserNAME:="FCCB管理システム", toUserNAME:=username) Then
+                                            strMsg &= $"{vbCrLf}また、全ての完了日が入力されたため、{partKB}に処置申請を送信しました。"
                                         End If
                                     End If
                             End Select
@@ -2454,8 +2465,8 @@ Public Class FrmG0021_Detail
             cmbCM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbKAKUNIN_CM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
-            'cmbKISO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            cmbKISO_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            cmbKISO_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            'cmbKISO_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbCM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             tabMain.Visible = True
