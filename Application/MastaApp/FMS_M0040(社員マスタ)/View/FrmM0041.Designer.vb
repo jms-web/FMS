@@ -54,11 +54,9 @@ Partial Class FrmM0041
         Me.dtbBIRTHDAY = New JMS_COMMON.DateTextBoxEx()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.mtxPASS = New JMS_COMMON.MaskedTextBoxEx()
-        Me.Label16 = New System.Windows.Forms.Label()
         Me.chkADMIN_OP = New System.Windows.Forms.CheckBox()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.chkADMIN_SYS = New System.Windows.Forms.CheckBox()
         Me.chkADMIN_AUTH = New System.Windows.Forms.CheckBox()
+        Me.chkADMIN_SYS = New System.Windows.Forms.CheckBox()
         Me.chkMAILSEND_AUTH = New System.Windows.Forms.CheckBox()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -284,12 +282,10 @@ Partial Class FrmM0041
         Me.TableLayoutPanel1.Controls.Add(Me.dtbBIRTHDAY, 5, 4)
         Me.TableLayoutPanel1.Controls.Add(Me.Label13, 0, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.mtxPASS, 1, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label16, 0, 8)
-        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_OP, 1, 8)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label17, 2, 8)
-        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_SYS, 3, 8)
-        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_AUTH, 1, 7)
-        Me.TableLayoutPanel1.Controls.Add(Me.chkMAILSEND_AUTH, 3, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_OP, 3, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_AUTH, 1, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_SYS, 1, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.chkMAILSEND_AUTH, 3, 8)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 18)
@@ -681,82 +677,54 @@ Partial Class FrmM0041
         Me.mtxPASS.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxPASS.WatermarkText = Nothing
         '
-        'Label16
-        '
-        Me.Label16.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label16.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label16.Location = New System.Drawing.Point(3, 240)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(100, 30)
-        Me.Label16.TabIndex = 71
-        Me.Label16.Text = "運用管理者権限"
-        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label16.Visible = False
-        '
         'chkADMIN_OP
         '
         Me.chkADMIN_OP.AutoSize = True
         Me.chkADMIN_OP.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkADMIN_OP.Dock = System.Windows.Forms.DockStyle.Left
-        Me.chkADMIN_OP.Location = New System.Drawing.Point(109, 243)
+        Me.chkADMIN_OP.Location = New System.Drawing.Point(416, 213)
         Me.chkADMIN_OP.Name = "chkADMIN_OP"
-        Me.chkADMIN_OP.Size = New System.Drawing.Size(15, 24)
+        Me.chkADMIN_OP.Size = New System.Drawing.Size(15, 14)
         Me.chkADMIN_OP.TabIndex = 70
         Me.chkADMIN_OP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.chkADMIN_OP.UseVisualStyleBackColor = True
-        Me.chkADMIN_OP.Visible = False
-        '
-        'Label17
-        '
-        Me.Label17.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label17.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label17.Location = New System.Drawing.Point(288, 240)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(122, 26)
-        Me.Label17.TabIndex = 72
-        Me.Label17.Text = "システム管理者権限"
-        Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label17.Visible = False
-        '
-        'chkADMIN_SYS
-        '
-        Me.chkADMIN_SYS.AutoSize = True
-        Me.chkADMIN_SYS.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkADMIN_SYS.Dock = System.Windows.Forms.DockStyle.Left
-        Me.chkADMIN_SYS.Location = New System.Drawing.Point(416, 243)
-        Me.chkADMIN_SYS.Name = "chkADMIN_SYS"
-        Me.chkADMIN_SYS.Size = New System.Drawing.Size(15, 24)
-        Me.chkADMIN_SYS.TabIndex = 70
-        Me.chkADMIN_SYS.UseVisualStyleBackColor = True
-        Me.chkADMIN_SYS.Visible = False
         '
         'chkADMIN_AUTH
         '
         Me.chkADMIN_AUTH.AutoSize = True
         Me.chkADMIN_AUTH.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkADMIN_AUTH.Dock = System.Windows.Forms.DockStyle.Left
-        Me.chkADMIN_AUTH.Location = New System.Drawing.Point(109, 213)
+        Me.chkADMIN_AUTH.Location = New System.Drawing.Point(109, 243)
         Me.chkADMIN_AUTH.Name = "chkADMIN_AUTH"
-        Me.chkADMIN_AUTH.Size = New System.Drawing.Size(15, 24)
+        Me.chkADMIN_AUTH.Size = New System.Drawing.Size(15, 14)
         Me.chkADMIN_AUTH.TabIndex = 73
         Me.chkADMIN_AUTH.UseVisualStyleBackColor = True
+        Me.chkADMIN_AUTH.Visible = False
+        '
+        'chkADMIN_SYS
+        '
+        Me.chkADMIN_SYS.AutoSize = True
+        Me.chkADMIN_SYS.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkADMIN_SYS.Location = New System.Drawing.Point(109, 213)
+        Me.chkADMIN_SYS.Name = "chkADMIN_SYS"
+        Me.chkADMIN_SYS.Size = New System.Drawing.Size(15, 14)
+        Me.chkADMIN_SYS.TabIndex = 70
+        Me.chkADMIN_SYS.UseVisualStyleBackColor = True
         '
         'chkMAILSEND_AUTH
         '
         Me.chkMAILSEND_AUTH.AutoSize = True
         Me.chkMAILSEND_AUTH.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkMAILSEND_AUTH.Dock = System.Windows.Forms.DockStyle.Left
-        Me.chkMAILSEND_AUTH.Location = New System.Drawing.Point(416, 213)
+        Me.chkMAILSEND_AUTH.Location = New System.Drawing.Point(416, 243)
         Me.chkMAILSEND_AUTH.Name = "chkMAILSEND_AUTH"
-        Me.chkMAILSEND_AUTH.Size = New System.Drawing.Size(15, 24)
+        Me.chkMAILSEND_AUTH.Size = New System.Drawing.Size(15, 14)
         Me.chkMAILSEND_AUTH.TabIndex = 74
         Me.chkMAILSEND_AUTH.UseVisualStyleBackColor = True
+        Me.chkMAILSEND_AUTH.Visible = False
         '
         'FrmM0041
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(1008, 416)
+        Me.ClientSize = New System.Drawing.Size(1008, 711)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True
@@ -823,8 +791,6 @@ Partial Class FrmM0041
     Friend WithEvents Label15 As Label
     Friend WithEvents chkADMIN_OP As CheckBox
     Friend WithEvents chkADMIN_SYS As CheckBox
-    Friend WithEvents Label16 As Label
-    Friend WithEvents Label17 As Label
     Friend WithEvents chkADMIN_AUTH As CheckBox
     Friend WithEvents chkMAILSEND_AUTH As CheckBox
 End Class

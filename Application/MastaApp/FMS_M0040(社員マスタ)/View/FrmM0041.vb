@@ -2,8 +2,6 @@ Imports JMS_COMMON.ClsPubMethod
 
 Public Class FrmM0041
 
-
-
 #Region "プロパティ"
 
     ''' <summary>
@@ -160,9 +158,9 @@ Public Class FrmM0041
                 chkADMIN_SYS.Checked = .Item(NameOf(_model.ADMIN_SYS)) = "1"
 
                 '
-                chkADMIN_AUTH.Checked = .Item(NameOf(_model.ADMIN_AUTH)) = "1"
-                '
-                chkMAILSEND_AUTH.Checked = .Item(NameOf(_model.MAILSEND_AUTH)) = "1"
+                'chkADMIN_AUTH.Checked = .Item(NameOf(_model.ADMIN_AUTH)) = "1"
+                ''
+                'chkMAILSEND_AUTH.Checked = .Item(NameOf(_model.MAILSEND_AUTH)) = "1"
 
                 '更新日時
                 If Not row.Item(NameOf(_model.UPD_YMDHNS)).ToString.IsNulOrWS Then
@@ -411,8 +409,7 @@ Public Class FrmM0041
                     sbSQL.Append(" ,PASS         ='" & Me.mtxPASS.Text.Trim & "'")
                     sbSQL.Append(" ,ADMIN_OP     ='" & If(chkADMIN_OP.Checked, "1", "0") & "'")
                     sbSQL.Append(" ,ADMIN_SYS    ='" & If(chkADMIN_SYS.Checked, "1", "0") & "'")
-                    'sbSQL.Append(" ,ADMIN_AUTH   ='" & If(chkADMIN_AUTH.Checked, "1", "0") & "'")
-                    'sbSQL.Append(" ,MAILSEND_AUTH='" & If(chkMAILSEND_AUTH.Checked, "1", "0") & "'")
+
                     sbSQL.Append(" ,UPD_YMDHNS   = dbo.GetSysDateString() ")
                     sbSQL.Append(" ,UPD_SYAIN_ID = " & pub_SYAIN_INFO.SYAIN_ID & " ")
                     sbSQL.Append(" WHERE")
@@ -434,7 +431,6 @@ Public Class FrmM0041
                     'メール再送信権限 登録最大値取得
 
                     'メール再送信権限 登録
-
                 Finally
                     'トランザクション
                     DB.Commit(Not blnErr)
@@ -485,8 +481,6 @@ Public Class FrmM0041
 #End Region
 
 #End Region
-
-
 
 #Region "入力チェック"
 
