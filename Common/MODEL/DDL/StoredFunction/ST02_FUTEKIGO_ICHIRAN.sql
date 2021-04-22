@@ -56,6 +56,7 @@ BEGIN TRY
 	DECLARE @W_GEN_TANTO_NAME				char(30);		-- 8.承認担当者名
 	DECLARE @W_SYONIN_YMDHNS				char(8);		-- 9.承認日時（処置実施日）
 	DECLARE @W_TAIRYU_NISSU					int;			--10.滞留日数
+	DECLARE @W_TOTAL_TAIRYU_NISSU			int;			--10.累計滞留日数
 	DECLARE @W_TAIRYU_FG					char(1);		--11.滞留フラグ
 	DECLARE @W_KISYU_ID						int;			--12.機種ID
 	--DECLARE @W_KISYU						char(100);		--13.機種
@@ -115,6 +116,7 @@ BEGIN TRY
 	,GEN_TANTO_NAME				char(30)		-- 8.承認担当者名
 	,SYONIN_YMDHNS				char(8)			-- 9.承認日時（処置実施日）
 	,TAIRYU_NISSU				int				--10.滞留日数
+	,TOTAL_TAIRYU_NISSU			int				--10.滞留日数
 	,TAIRYU_FG					char(1)			--11.滞留フラグ
 	,KISYU_ID					int				--12.機種ID
 	--,KISYU						char(100)		--13.機種
@@ -182,6 +184,7 @@ BEGIN TRY
 	SET @SQL = @SQL + N',GEN_TANTO_NAME';				-- 8.承認担当者名
 	SET @SQL = @SQL + N',SYONIN_YMDHNS';				-- 9.承認日時（処置実施日）
 	SET @SQL = @SQL + N',TAIRYU_NISSU';					--10.滞留日数
+	SET @SQL = @SQL + N',TOTAL_TAIRYU_NISSU';			--10.累計滞留日数
 	SET @SQL = @SQL + N',TAIRYU_FG';					--11.滞留フラグ
 	SET @SQL = @SQL + N',KISYU_ID';						--12.機種ID
 	--SET @SQL = @SQL + N',KISYU';						--13.機種
@@ -435,6 +438,7 @@ BEGIN TRY
 		,@W_GEN_TANTO_NAME				-- 8.承認担当者名
 		,@W_SYONIN_YMDHNS				-- 9.承認日時（処置実施日）
 		,@W_TAIRYU_NISSU				--10.滞留日数
+		,@W_TOTAL_TAIRYU_NISSU
 		,@W_TAIRYU_FG					--11.滞留フラグ
 		,@W_KISYU_ID					--12.機種ID
 		--,@W_KISYU						--13.機種
@@ -499,6 +503,7 @@ BEGIN TRY
 		,GEN_TANTO_NAME				-- 8.承認担当者名
 		,SYONIN_YMDHNS				-- 9.承認日時（処置実施日）
 		,TAIRYU_NISSU				--10.滞留日数
+		,TOTAL_TAIRYU_NISSU
 		,TAIRYU_FG					--11.滞留フラグ
 		,KISYU_ID					--12.機種ID
 		--,KISYU						--13.機種
@@ -557,6 +562,7 @@ BEGIN TRY
 		,@W_GEN_TANTO_NAME				-- 8.承認担当者名
 		,@W_SYONIN_YMDHNS				-- 9.承認日時（処置実施日）
 		,@W_TAIRYU_NISSU				--10.滞留日数
+		,@W_TOTAL_TAIRYU_NISSU
 		,@W_TAIRYU_FG					--11.滞留フラグ
 		,@W_KISYU_ID					--12.機種ID
 		--,@W_KISYU						--13.機種

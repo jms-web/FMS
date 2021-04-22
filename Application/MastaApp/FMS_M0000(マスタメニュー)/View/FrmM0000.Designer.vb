@@ -509,7 +509,7 @@ Partial Class FrmM0000
         Me.grbLOGIN.Controls.Add(Me.txtUSER)
         Me.grbLOGIN.Location = New System.Drawing.Point(12, 60)
         Me.grbLOGIN.Name = "grbLOGIN"
-        Me.grbLOGIN.Size = New System.Drawing.Size(222, 623)
+        Me.grbLOGIN.Size = New System.Drawing.Size(222, 620)
         Me.grbLOGIN.TabIndex = 71
         Me.grbLOGIN.TabStop = False
         '

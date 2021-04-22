@@ -1831,6 +1831,33 @@ Public Class FrmG0021_Detail
                 sbSQL.Append($" ON M04.SYAIN_ID = M11.SYAIN_ID AND M11.GYOMU_GROUP_ID = '{ENM_GYOMU_GROUP_ID._2_êªë¢.Value}'")
                 sbSQL.Append($" WHERE M04.SYAIN_ID IN (SELECT SYOZOKUCYO_ID FROM M002_BUSYO WHERE BUMON_KB='{ENM_BUMON_KB._1_ïóñh.Value}')")
                 sbSQL.Append($" AND YAKUSYOKU_KB ='{ENM_YAKUSYOKU_KB._1_â€í∑.Value}'")
+            ElseIf (BUMON_KB = ENM_BUMON_KB._2_LP.Value) Then
+                sbSQL.Append($"SELECT M004_SYAIN.SYAIN_ID, M004_SYAIN.SIMEI")
+                sbSQL.Append($" FROM M004_SYAIN")
+                sbSQL.Append($" WHERE M004_SYAIN.SYAIN_ID IN ((")
+                sbSQL.Append($" SELECT M4.SYAIN_ID")
+                sbSQL.Append($" FROM M005_SYOZOKU_BUSYO M5")
+                sbSQL.Append($" LEFT JOIN M002_BUSYO M2 ON M5.BUSYO_ID = M2.BUSYO_ID")
+                sbSQL.Append($" LEFT JOIN M004_SYAIN M4 ON M5.SYAIN_ID = M4.SYAIN_ID")
+                sbSQL.Append($" LEFT JOIN M011_SYAIN_GYOMU M11 ON M11.SYAIN_ID = M4.SYAIN_ID")
+                sbSQL.Append($" WHERE M2.BUMON_KB = '{BUMON_KB}'")
+                sbSQL.Append($" AND M4.YAKUSYOKU_KB = '{ENM_YAKUSYOKU_KB._2_GL.Value}'")
+                sbSQL.Append($" AND M11.GYOMU_GROUP_ID = '{ENM_GYOMU_GROUP_ID._3_åüç∏.Value}'")
+                sbSQL.Append($" UNION")
+                sbSQL.Append($" SELECT M4.SYAIN_ID")
+                sbSQL.Append($" FROM M005_SYOZOKU_BUSYO M5")
+                sbSQL.Append($" LEFT JOIN M002_BUSYO M2 ON M5.BUSYO_ID = M2.BUSYO_ID")
+                sbSQL.Append($" LEFT JOIN M004_SYAIN M4 ON M5.SYAIN_ID = M4.SYAIN_ID")
+                sbSQL.Append($" WHERE M2.BUMON_KB = '{BUMON_KB}'")
+                sbSQL.Append($" AND M4.YAKUSYOKU_KB = '{ENM_YAKUSYOKU_KB._5_TL.Value}'")
+                sbSQL.Append($" ))")
+                'LPÇÃêªë¢â€í∑ÇÕÇ¢Ç»Ç¢ÇΩÇﬂÅAïóñh(çqãÛã@)ÇÃêªë¢â€í∑ÇëŒè€Ç∆Ç∑ÇÈ
+                sbSQL.Append($" UNION")
+                sbSQL.Append($" SELECT M04.SYAIN_ID,M04.SIMEI FROM M004_SYAIN M04")
+                sbSQL.Append($" INNER JOIN M011_SYAIN_GYOMU M11")
+                sbSQL.Append($" ON M04.SYAIN_ID = M11.SYAIN_ID AND M11.GYOMU_GROUP_ID = '{ENM_GYOMU_GROUP_ID._2_êªë¢.Value}'")
+                sbSQL.Append($" WHERE M04.SYAIN_ID IN (SELECT SYOZOKUCYO_ID FROM M002_BUSYO WHERE BUMON_KB='{ENM_BUMON_KB._1_ïóñh.Value}')")
+                sbSQL.Append($" AND YAKUSYOKU_KB ='{ENM_YAKUSYOKU_KB._1_â€í∑.Value}'")
             Else
                 sbSQL.Append($"SELECT SYAIN_ID,SIMEI FROM M004_SYAIN")
                 sbSQL.Append($" WHERE SYAIN_ID IN ((SELECT SYOZOKUCYO_ID FROM M002_BUSYO WHERE BUMON_KB='{BUMON_KB}') )")
@@ -2486,6 +2513,8 @@ Public Class FrmG0021_Detail
 
         cmbKISO_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
         cmbCM_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+
+        FunInitFuncButtonEnabled()
     End Sub
 
 #End Region
@@ -3149,7 +3178,7 @@ Public Class FrmG0021_Detail
                     lbltmpFile1_Clear.Visible = Not _D009.FILE_PATH.IsNulOrWS() AndAlso (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
                     C1SplitterPanel5.Enabled = False
                     C1SplitterPanel_YOHI.Visible = False
-                    cmdFunc2.Enabled = False
+                    'cmdFunc2.Enabled = False
                     pnlSYOCHI_KAKUNIN.Enabled = False
 
                 Case ENM_FCCB_STAGE._30_ïœçXêRãc
@@ -3895,8 +3924,15 @@ Public Class FrmG0021_Detail
 
             Select Case intSYONIN_JUN
                 Case ENM_FCCB_STAGE._10_ãNëêì¸óÕ
-                    Dim dt = FunGetSYONIN_SYOZOKU_SYAIN(_D009.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, ENM_FCCB_STAGE._10_ãNëêì¸óÕ)
-                    ToUsers = dt.AsEnumerable.Select(Function(r) r.Field(Of Integer)("VALUE")).ToList
+                    If (Not cmbBUMON.SelectedValue.ToString.IsNulOrWS) Then
+                        Dim dt As DataTable = FunGetSYOZOKU_SYAIN(cmbBUMON.SelectedValue)
+                        Dim drs As IEnumerable(Of DataRow)
+                        Dim InList As New List(Of Integer)
+                        InList.AddRange({ENM_GYOMU_GROUP_ID._4_ïièÿ.Value, ENM_GYOMU_GROUP_ID._5_ê›åv.Value, ENM_GYOMU_GROUP_ID._6_ê∂ãZ.Value, ENM_GYOMU_GROUP_ID._91_QMSä«óùê”îCé“.Value})
+                        drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
+                                  GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
+                        ToUsers = drs.CopyToDataTable.AsEnumerable.Select(Function(r) r.Field(Of Integer)("VALUE")).ToList
+                    End If
 
                 Case ENM_FCCB_STAGE._20_èàíuéñçÄí≤ç∏ìô
                     'FCCBãcí∑ ãNëêé“

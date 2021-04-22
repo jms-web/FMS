@@ -30,6 +30,8 @@ Partial Public Class V007_NCR_CAR
 
     Public Property TAIRYU_NISSU As Integer
 
+    Public Property TOTAL_TAIRYU_NISSU As Integer
+
     Public Property TAIRYU_FG As Integer
 
     Public Property KISYU_ID As Integer

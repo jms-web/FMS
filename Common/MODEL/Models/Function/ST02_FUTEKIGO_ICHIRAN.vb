@@ -72,6 +72,9 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     <ComponentModel.DisplayName("‘Ø—¯“ú”")>
     Public Property TAIRYU_NISSU As Integer
 
+    <ComponentModel.DisplayName("—ÝŒv‘Ø—¯“ú”")>
+    Public Property TOTAL_TAIRYU_NISSU As Integer
+
     <StringLength(1)>
     <ComponentModel.DisplayName("‘Ø—¯ƒtƒ‰ƒO")>
     Public Property TAIRYU_FG As String
