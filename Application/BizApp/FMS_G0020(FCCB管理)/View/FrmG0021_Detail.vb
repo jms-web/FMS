@@ -359,9 +359,7 @@ Public Class FrmG0021_Detail
 
     End Sub
 
-    Private Sub C1FlexGrid_SetupEditor(sender As Object, e As C1.Win.C1FlexGrid.RowColEventArgs) Handles flxDATA_2.LeaveEdit,
-                                                                                                          flxDATA_3.LeaveEdit,
-                                                                                                          flxDATA_5.LeaveEdit
+    Private Sub C1FlexGrid_SetupEditor(sender As Object, e As C1.Win.C1FlexGrid.RowColEventArgs) 'Handles flxDATA_2.LeaveEdit, flxDATA_3.LeaveEdit, flxDATA_5.LeaveEdit
         Dim flx = DirectCast(sender, C1FlexGrid)
         If flx.Cols(e.Col).Name.Contains("YMD") Then
             Dim dtp As DateTimePicker = CType(flx.Editor, DateTimePicker)

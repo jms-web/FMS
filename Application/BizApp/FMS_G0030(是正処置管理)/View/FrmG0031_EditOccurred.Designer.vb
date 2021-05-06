@@ -1978,7 +1978,7 @@ Partial Class FrmG0031_EditOccurred
         Me.lblST01_Modoshi_Riyu.ForeColor = System.Drawing.Color.Red
         Me.lblST01_Modoshi_Riyu.Location = New System.Drawing.Point(879, 53)
         Me.lblST01_Modoshi_Riyu.Name = "lblST01_Modoshi_Riyu"
-        Me.lblST01_Modoshi_Riyu.Size = New System.Drawing.Size(98, 24)
+        Me.lblST01_Modoshi_Riyu.Size = New System.Drawing.Size(64, 24)
         Me.lblST01_Modoshi_Riyu.TabIndex = 216
         Me.lblST01_Modoshi_Riyu.Text = "ç∑ñﬂóùóRÅF__________________________________________________________"
         Me.lblST01_Modoshi_Riyu.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
