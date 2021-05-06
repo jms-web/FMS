@@ -623,9 +623,11 @@ Public Class FrmG0021_Detail
                     Else
                         '協議要否依頼メール
                         If MessageBox.Show("協議要否依頼メールを送信しますか？", "メール送信確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                            If FunSendJudgeReplyMail(blnNonMessage:=True) Then
-                                Dim imgDlg As New ImageDialog
-                                imgDlg.Show("\\sv04\FMS\RESOURCE\sendmail_256.gif", 4000)
+                            If FunSAVE(ENM_SAVE_MODE._1_保存, True) Then
+                                If FunSendJudgeReplyMail(blnNonMessage:=False) Then
+                                    Dim imgDlg As New ImageDialog
+                                    imgDlg.Show("\\sv04\FMS\RESOURCE\sendmail_256.gif", 4000)
+                                End If
                             End If
                         End If
                     End If
@@ -1593,7 +1595,10 @@ Public Class FrmG0021_Detail
             Next
 
             If ToUsers.Count = 0 Then
-                If Not blnNonMessage Then MessageBox.Show("送信者が見つからないため、依頼メールを送信できません", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                If Not blnNonMessage Then
+                    'MessageBox.Show("送信者が見つからないため、依頼メールを送信できません", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    MessageBox.Show($"確認依頼担当者が選択されていません{vbCrLf}先に、協議要否判定 各部署の担当者を選択して下さい", "協議確認依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
                 Return False
             Else
                 If FunSendMailFCCB(strSubject, strBody, ToUsers) Then
