@@ -79,7 +79,6 @@ Partial Class FrmG0021_Detail
         Me.Label13 = New System.Windows.Forms.Label()
         Me.C1SplitContainer = New C1.Win.C1SplitContainer.C1SplitContainer()
         Me.C1SplitterPanel1 = New C1.Win.C1SplitContainer.C1SplitterPanel()
-        Me.flxDATA_2 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Flx2_DS = New System.Windows.Forms.BindingSource(Me.components)
         Me.C1SplitterPanel2 = New C1.Win.C1SplitContainer.C1SplitterPanel()
         Me.flxDATA_3 = New C1.Win.C1FlexGrid.C1FlexGrid()
@@ -161,11 +160,12 @@ Partial Class FrmG0021_Detail
         Me.dtKAKUNIN_CM_TANTO = New JMS_COMMON.DateTextBoxEx()
         Me.PanelEx1 = New JMS_COMMON.PanelEx()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.flxDATA_5 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI = New JMS_COMMON.MaskedTextBoxEx()
         Me.C1SplitterPanel5 = New C1.Win.C1SplitContainer.C1SplitterPanel()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.lblCurrentStageName = New System.Windows.Forms.Label()
+        Me.flxDATA_2 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.flxDATA_5 = New C1.Win.C1FlexGrid.C1FlexGrid()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEx2.SuspendLayout()
@@ -177,7 +177,6 @@ Partial Class FrmG0021_Detail
         CType(Me.C1SplitContainer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.C1SplitContainer.SuspendLayout()
         Me.C1SplitterPanel1.SuspendLayout()
-        CType(Me.flxDATA_2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Flx2_DS, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.C1SplitterPanel2.SuspendLayout()
         CType(Me.flxDATA_3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -190,6 +189,7 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel4.SuspendLayout()
         Me.pnlSYOCHI_KAKUNIN.SuspendLayout()
         Me.PanelEx1.SuspendLayout()
+        CType(Me.flxDATA_2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.flxDATA_5, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -1239,34 +1239,6 @@ Partial Class FrmG0021_Detail
         Me.C1SplitterPanel1.Size = New System.Drawing.Size(1207, 678)
         Me.C1SplitterPanel1.TabIndex = 0
         Me.C1SplitterPanel1.Text = "áAóvèàíuéñçÄí≤ç∏"
-        '
-        'flxDATA_2
-        '
-        Me.flxDATA_2.AllowAddNew = True
-        Me.flxDATA_2.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
-        Me.flxDATA_2.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
-        Me.flxDATA_2.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
-        Me.flxDATA_2.AutoClipboard = True
-        Me.flxDATA_2.AutoGenerateColumns = False
-        Me.flxDATA_2.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
-        Me.flxDATA_2.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.Light3D
-        Me.flxDATA_2.ColumnInfo = resources.GetString("flxDATA_2.ColumnInfo")
-        Me.flxDATA_2.DataSource = Me.Flx2_DS
-        Me.flxDATA_2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.flxDATA_2.EditOptions = CType((((((C1.Win.C1FlexGrid.EditFlags.AutoSearch Or C1.Win.C1FlexGrid.EditFlags.CycleOnDoubleClick) _
-            Or C1.Win.C1FlexGrid.EditFlags.MultiCheck) _
-            Or C1.Win.C1FlexGrid.EditFlags.UseNumericEditor) _
-            Or C1.Win.C1FlexGrid.EditFlags.DelayedCommit) _
-            Or C1.Win.C1FlexGrid.EditFlags.ExitOnLeftRightKeys), C1.Win.C1FlexGrid.EditFlags)
-        Me.flxDATA_2.Location = New System.Drawing.Point(0, 0)
-        Me.flxDATA_2.Name = "flxDATA_2"
-        Me.flxDATA_2.Rows.Count = 1
-        Me.flxDATA_2.Rows.DefaultSize = 18
-        Me.flxDATA_2.ShowCursor = True
-        Me.flxDATA_2.Size = New System.Drawing.Size(1207, 678)
-        Me.flxDATA_2.StyleInfo = resources.GetString("flxDATA_2.StyleInfo")
-        Me.flxDATA_2.TabIndex = 329
-        Me.flxDATA_2.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
         '
         'Flx2_DS
         '
@@ -2592,26 +2564,6 @@ Partial Class FrmG0021_Detail
         Me.Label15.Text = "SNo./çÜã@ éûä˙ìô:"
         Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'flxDATA_5
-        '
-        Me.flxDATA_5.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
-        Me.flxDATA_5.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
-        Me.flxDATA_5.AutoClipboard = True
-        Me.flxDATA_5.AutoGenerateColumns = False
-        Me.flxDATA_5.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
-        Me.flxDATA_5.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.Light3D
-        Me.flxDATA_5.ColumnInfo = resources.GetString("flxDATA_5.ColumnInfo")
-        Me.flxDATA_5.DataSource = Me.Flx4_DS
-        Me.flxDATA_5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.flxDATA_5.Location = New System.Drawing.Point(0, 40)
-        Me.flxDATA_5.Name = "flxDATA_5"
-        Me.flxDATA_5.Rows.Count = 1
-        Me.flxDATA_5.Rows.DefaultSize = 18
-        Me.flxDATA_5.Size = New System.Drawing.Size(1207, 172)
-        Me.flxDATA_5.StyleInfo = resources.GetString("flxDATA_5.StyleInfo")
-        Me.flxDATA_5.TabIndex = 2
-        Me.flxDATA_5.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
-        '
         'mtxSNO_APPLY_PERIOD_HENKO_SINGI
         '
         Me.mtxSNO_APPLY_PERIOD_HENKO_SINGI.BackColor = System.Drawing.SystemColors.Control
@@ -2657,6 +2609,54 @@ Partial Class FrmG0021_Detail
         Me.lblCurrentStageName.Size = New System.Drawing.Size(214, 30)
         Me.lblCurrentStageName.TabIndex = 335
         Me.lblCurrentStageName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'flxDATA_2
+        '
+        Me.flxDATA_2.AllowAddNew = True
+        Me.flxDATA_2.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
+        Me.flxDATA_2.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows
+        Me.flxDATA_2.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
+        Me.flxDATA_2.AutoClipboard = True
+        Me.flxDATA_2.AutoGenerateColumns = False
+        Me.flxDATA_2.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
+        Me.flxDATA_2.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.Light3D
+        Me.flxDATA_2.ColumnInfo = resources.GetString("flxDATA_2.ColumnInfo")
+        Me.flxDATA_2.DataSource = Me.Flx2_DS
+        Me.flxDATA_2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flxDATA_2.EditOptions = CType((((((C1.Win.C1FlexGrid.EditFlags.AutoSearch Or C1.Win.C1FlexGrid.EditFlags.CycleOnDoubleClick) _
+            Or C1.Win.C1FlexGrid.EditFlags.MultiCheck) _
+            Or C1.Win.C1FlexGrid.EditFlags.UseNumericEditor) _
+            Or C1.Win.C1FlexGrid.EditFlags.DelayedCommit) _
+            Or C1.Win.C1FlexGrid.EditFlags.ExitOnLeftRightKeys), C1.Win.C1FlexGrid.EditFlags)
+        Me.flxDATA_2.Location = New System.Drawing.Point(0, 0)
+        Me.flxDATA_2.Name = "flxDATA_2"
+        Me.flxDATA_2.Rows.Count = 1
+        Me.flxDATA_2.Rows.DefaultSize = 18
+        Me.flxDATA_2.ShowCursor = True
+        Me.flxDATA_2.Size = New System.Drawing.Size(1207, 678)
+        Me.flxDATA_2.StyleInfo = resources.GetString("flxDATA_2.StyleInfo")
+        Me.flxDATA_2.TabIndex = 329
+        Me.flxDATA_2.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
+        '
+        'flxDATA_5
+        '
+        Me.flxDATA_5.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
+        Me.flxDATA_5.AllowSorting = C1.Win.C1FlexGrid.AllowSortingEnum.None
+        Me.flxDATA_5.AutoClipboard = True
+        Me.flxDATA_5.AutoGenerateColumns = False
+        Me.flxDATA_5.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop
+        Me.flxDATA_5.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.Light3D
+        Me.flxDATA_5.ColumnInfo = resources.GetString("flxDATA_5.ColumnInfo")
+        Me.flxDATA_5.DataSource = Me.Flx4_DS
+        Me.flxDATA_5.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.flxDATA_5.Location = New System.Drawing.Point(0, 40)
+        Me.flxDATA_5.Name = "flxDATA_5"
+        Me.flxDATA_5.Rows.Count = 1
+        Me.flxDATA_5.Rows.DefaultSize = 18
+        Me.flxDATA_5.Size = New System.Drawing.Size(1207, 172)
+        Me.flxDATA_5.StyleInfo = resources.GetString("flxDATA_5.StyleInfo")
+        Me.flxDATA_5.TabIndex = 2
+        Me.flxDATA_5.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
         '
         'FrmG0021_Detail
         '
@@ -2709,7 +2709,6 @@ Partial Class FrmG0021_Detail
         CType(Me.C1SplitContainer, System.ComponentModel.ISupportInitialize).EndInit()
         Me.C1SplitContainer.ResumeLayout(False)
         Me.C1SplitterPanel1.ResumeLayout(False)
-        CType(Me.flxDATA_2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Flx2_DS, System.ComponentModel.ISupportInitialize).EndInit()
         Me.C1SplitterPanel2.ResumeLayout(False)
         CType(Me.flxDATA_3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2724,6 +2723,7 @@ Partial Class FrmG0021_Detail
         Me.pnlSYOCHI_KAKUNIN.ResumeLayout(False)
         Me.PanelEx1.ResumeLayout(False)
         Me.PanelEx1.PerformLayout()
+        CType(Me.flxDATA_2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.flxDATA_5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -2786,7 +2786,6 @@ Partial Class FrmG0021_Detail
     Friend WithEvents C1SplitterPanel4 As C1.Win.C1SplitContainer.C1SplitterPanel
     Friend WithEvents Label15 As Label
     Friend WithEvents mtxSNO_APPLY_PERIOD_HENKO_SINGI As MaskedTextBoxEx
-    Friend WithEvents flxDATA_5 As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents PanelEx1 As PanelEx
     Friend WithEvents pnlSYOCHI_KAKUNIN As TableLayoutPanel
     Friend WithEvents Flx2_DS As BindingSource
@@ -2865,7 +2864,6 @@ Partial Class FrmG0021_Detail
     Friend WithEvents chkSYOCHI_SEIGI_TANTO_YOHI_T As CheckBox
     Friend WithEvents chkSYOCHI_SEKKEI_TANTO_YOHI_T As CheckBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents flxDATA_2 As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Label19 As Label
     Friend WithEvents btnOpenTempFileDialog As Button
     Friend WithEvents fpnlTempFile As FlowLayoutPanel
@@ -2878,4 +2876,6 @@ Partial Class FrmG0021_Detail
     Friend WithEvents LinkLabel6 As LinkLabel
     Friend WithEvents LinkLabel7 As LinkLabel
     Friend WithEvents LinkLabel8 As LinkLabel
+    Friend WithEvents flxDATA_2 As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents flxDATA_5 As C1.Win.C1FlexGrid.C1FlexGrid
 End Class

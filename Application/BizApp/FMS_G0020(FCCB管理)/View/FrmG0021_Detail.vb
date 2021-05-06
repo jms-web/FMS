@@ -225,13 +225,13 @@ Public Class FrmG0021_Detail
             '以下を適用するにはVisualStyleをCustomにする
             .Styles.Focus.BackColor = clrRowEnterColor
 
-            For i As Integer = 1 To .Cols.Count - 1
-                If .Cols(i).Name.Contains("YMD") Then
-                    .Cols(i).DataType = GetType(Date)
-                    '.Cols(i).Format = "yyyy/MM/dd"
-                    '.Cols(i).EditMask = "0000/00/00"
-                End If
-            Next
+            'For i As Integer = 1 To .Cols.Count - 1
+            '    If .Cols(i).Name.Contains("YMD") Then
+            '        .Cols(i).DataType = GetType(Date)
+            '        '.Cols(i).Format = "yyyy/MM/dd"
+            '        '.Cols(i).EditMask = "0000/00/00"
+            '    End If
+            'Next
         End With
     End Function
 
@@ -351,6 +351,8 @@ Public Class FrmG0021_Detail
                 If Not flx.Editor.Text.Replace("/", "").Replace("_", "").IsNulOrWS Then
                     MessageBox.Show("無効な日付です")
                     e.Cancel = True
+                Else
+                    dtBUFF = Nothing
                 End If
             Else
                 dtBUFF = d
@@ -381,11 +383,11 @@ Public Class FrmG0021_Detail
                 Case flx.Cols(e.Col).Name.Contains("YMD")
 
                     'flexgrid 2019J以前の不具合対応(令和日付で.formatが無視される)
-                    Dim value As String = Nz(flx(e.Row, e.Col), "")
+                    'Dim value As String = Nz(flx(e.Row, e.Col), "")
 
-                    If Not value.IsNulOrWS Then
-                        flx(e.Row, e.Col) = dtBUFF.ToString("yyyy/MM/dd") 'CDate(value).ToString("yyyy/MM/dd")
-                    End If
+                    'If Not value.IsNulOrWS Then
+                    '    flx(e.Row, e.Col) = dtBUFF.ToString("yyyy/MM/dd") 'CDate(value).ToString("yyyy/MM/dd")
+                    'End If
 
                     'DirectCast(DirectCast(flx.DataSource, BindingSource).DataSource, DataTable).AcceptChanges()
 
