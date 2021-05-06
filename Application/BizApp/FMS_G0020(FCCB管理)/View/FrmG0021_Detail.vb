@@ -1204,7 +1204,7 @@ Public Class FrmG0021_Detail
         Dim strRET As String
         Dim sqlEx As New Exception
         Dim _D012 As New D012
-
+        Dim strSysDate = DB.GetSysDateString
         Try
 
 #Region "   ÉÇÉfÉãçXêV"
@@ -1229,7 +1229,11 @@ Public Class FrmG0021_Detail
             sbSQL.Append($" AND TARGET.{NameOf(_D012.GYOMU_GROUP_ID)} = WK.{NameOf(_D012.GYOMU_GROUP_ID)})")
             '---UPDATE
             sbSQL.Append($" WHEN MATCHED THEN")
-            sbSQL.Append($" {_D012.ToUpdateSqlString("TARGET", "WK")}")
+            'sbSQL.Append($" {_D012.ToUpdateSqlString("TARGET", "WK")}")
+            sbSQL.Append($" UPDATE SET")
+            sbSQL.Append($"  TARGET.{NameOf(_D012.TANTO_ID)} = WK.{NameOf(_D012.TANTO_ID)}")
+            sbSQL.Append($" ,TARGET.{NameOf(_D012.ADD_YMDHNS)} = WK.{NameOf(_D012.ADD_YMDHNS)}")
+            sbSQL.Append($" ,TARGET.{NameOf(_D012.ADD_SYAIN_ID)} = {pub_SYAIN_INFO.SYAIN_ID}")
             '---INSERT
             sbSQL.Append($" WHEN NOT MATCHED THEN")
             sbSQL.Append($" {_D012.ToInsertSqlString("WK")}")
