@@ -1846,7 +1846,10 @@ Module mdlG0010
             spSheet1.Range(NameOf(_V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU_NAME)).Value = _V005_CAR_J.ZESEI_SYOCHI_YUKO_UMU_NAME
 
             '#244
-            If _V005_CAR_J.SYONIN_YMD10 >= "20200213" Then
+            Dim targetYMD = _V005_CAR_J.SYONIN_YMD10
+            If targetYMD.IsNulOrWS Then targetYMD = _V005_CAR_J.UPD_YMDHNS.Substring(0, 8)
+
+            If targetYMD >= "20200213" Then
                 spSheet1.Range("FUTEKIGO_YOIN_CAP").Value = "不適合要因(関係する要因(4Mなど)の調査) 人的要因 無・有(有の場合は以下に内容を記入)"
                 If Not _V005_CAR_J.SYONIN_YMD70.IsNulOrWS Then
                     spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_YMD70)).Value = DateTime.ParseExact(_V005_CAR_J.SYONIN_YMD70.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
