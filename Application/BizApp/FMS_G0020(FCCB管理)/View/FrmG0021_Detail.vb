@@ -2341,11 +2341,32 @@ Public Class FrmG0021_Detail
                         End If
 
                         ToUsers.Add(_D009.CM_TANTO)
+                        If cmbSYOCHI_SEKKEI_TANTO.IsSelected Then
+                            ToUsers.Add(cmbSYOCHI_SEKKEI_TANTO.SelectedValue)
+                        End If
+                        If cmbSYOCHI_SEIGI_TANTO.IsSelected Then
+                            ToUsers.Add(cmbSYOCHI_SEIGI_TANTO.SelectedValue)
+                        End If
+                        If cmbSYOCHI_EIGYO_TANTO.IsSelected Then
+                            ToUsers.Add(cmbSYOCHI_EIGYO_TANTO.SelectedValue)
+                        End If
+                        If cmbSYOCHI_KANRI_TANTO.IsSelected Then
+                            ToUsers.Add(cmbSYOCHI_KANRI_TANTO.SelectedValue)
+                        End If
+                        If cmbSYOCHI_SEIZO_TANTO.IsSelected Then
+                            ToUsers.Add(cmbSYOCHI_SEIZO_TANTO.SelectedValue)
+                        End If
+                        If cmbSYOCHI_HINSYO_TANTO.IsSelected Then
+                            ToUsers.Add(cmbSYOCHI_HINSYO_TANTO.SelectedValue)
+                        End If
+
                         If dtKAKUNIN_CM_TANTO.Text.IsNulOrWS Then
                             ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
                         End If
 
                         cmdFunc1.Enabled = ToUsers.Contains(pub_SYAIN_INFO.SYAIN_ID)
+
+                        cmdFunc2.Enabled = pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO
 
                     Case ENM_FCCB_STAGE._999_Closed
                         If IsEditingClosed Then
@@ -3680,6 +3701,15 @@ Public Class FrmG0021_Detail
 
                         '統括責任者は常に必須
                         IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_GM_TANTO, cmbSYOCHI_GM_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "統括責任者"))
+                    Case ENM_FCCB_STAGE._50_処置事項完了.Value
+                        IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_GM_TANTO, cmbSYOCHI_GM_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "統括責任者"))
+                        IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_SEIZO_TANTO, cmbSYOCHI_SEIZO_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製造G確認担当者"))
+                        IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_KENSA_TANTO, cmbSYOCHI_KENSA_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "検査G確認担当者"))
+                        IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_HINSYO_TANTO, cmbSYOCHI_HINSYO_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "品証G確認担当者"))
+                        IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_SEKKEI_TANTO, cmbSYOCHI_SEKKEI_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "設計G確認担当者"))
+                        IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_SEIGI_TANTO, cmbSYOCHI_SEIGI_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "生技G確認担当者"))
+                        IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_KANRI_TANTO, cmbSYOCHI_KANRI_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "管理G確認担当者"))
+                        IsValidated *= ErrorProvider.UpdateErrorInfo(cmbSYOCHI_EIGYO_TANTO, cmbSYOCHI_EIGYO_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "営業G確認担当者"))
                 End Select
             End If
 
@@ -3792,12 +3822,13 @@ Public Class FrmG0021_Detail
                 Case ENM_FCCB_STAGE._50_処置事項完了.Value
                     '入力要件を満たさない件数
                     sbSQL.Append($"SELECT")
-                    sbSQL.Append($" COUNT(FCCB_NO)")
-                    sbSQL.Append($" FROM {NameOf(D010_FCCB_SUB_SYOCHI_KOMOKU)} ")
-                    sbSQL.Append($" WHERE {NameOf(D010.FCCB_NO)}={_D009.FCCB_NO}")
-                    sbSQL.Append($" AND ")
-                    '要なのに完了日が未入力
-                    sbSQL.Append($" ({NameOf(D010.YOHI_KB)}='1' AND RTRIM({NameOf(D010.CLOSE_YMD)})=''))")
+                    sbSQL.Append($" (SELECT COUNT(FCCB_NO) FROM D010_FCCB_SUB_SYOCHI_KOMOKU D010")
+                    sbSQL.Append($" WHERE D009.FCCB_NO = D010.FCCB_NO AND D010.YOHI_KB = '1' AND RTRIM(D010.CLOSE_YMD) = '')")
+                    sbSQL.Append($" + (SELECT COUNT(FCCB_NO) FROM D012_FCCB_SUB_SYOCHI_KAKUNIN D012")
+                    sbSQL.Append($" WHERE D009.FCCB_NO = D012.FCCB_NO AND RTRIM(D012.ADD_YMDHNS) = '') ERRCOUNT")
+                    sbSQL.Append($" FROM D009_FCCB_J D009")
+                    sbSQL.Append($" WHERE D009.FCCB_NO='{_D009.FCCB_NO}'")
+
                 Case Else
                     intRET = 0
             End Select
@@ -4088,6 +4119,29 @@ Public Class FrmG0021_Detail
                         'Else
                         '    ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
                         'End If
+                    Else
+                        '各部署の担当者
+                        ToUsers.Add(cmbCM_TANTO.SelectedValue)
+                        ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
+
+                        If cmbSYOCHI_SEKKEI_TANTO.IsSelected Then
+                            ToUsers.Add(cmbSYOCHI_SEKKEI_TANTO.SelectedValue)
+                        End If
+                        If cmbSYOCHI_SEIGI_TANTO.IsSelected Then
+                            ToUsers.Add(cmbSYOCHI_SEIGI_TANTO.SelectedValue)
+                        End If
+                        If cmbSYOCHI_EIGYO_TANTO.IsSelected Then
+                            ToUsers.Add(cmbSYOCHI_EIGYO_TANTO.SelectedValue)
+                        End If
+                        If cmbSYOCHI_KANRI_TANTO.IsSelected Then
+                            ToUsers.Add(cmbSYOCHI_KANRI_TANTO.SelectedValue)
+                        End If
+                        If cmbSYOCHI_SEIZO_TANTO.IsSelected Then
+                            ToUsers.Add(cmbSYOCHI_SEIZO_TANTO.SelectedValue)
+                        End If
+                        If cmbSYOCHI_HINSYO_TANTO.IsSelected Then
+                            ToUsers.Add(cmbSYOCHI_HINSYO_TANTO.SelectedValue)
+                        End If
                     End If
                 Case ENM_FCCB_STAGE._60_処置事項完了確認
                     ToUsers.Add(_D009.CM_TANTO)
