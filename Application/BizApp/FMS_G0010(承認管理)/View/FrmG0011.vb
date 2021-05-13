@@ -472,22 +472,20 @@ Public Class FrmG0011
 
                     If enmSAVE_MODE = ENM_SAVE_MODE._1_保存 Then
                     Else
-                        If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 AndAlso
-                        PrCurrentStage = ENM_NCR_STAGE._80_処置実施 AndAlso
-                        Val(_D003_NCR_J.KENSA_KEKKA_KB) = ENM_KENSA_KEKKA_KB._1_不合格 Then
-
-                            _D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
-                            If FunSAVE_D003_SAI_FUTEKIGO(DB) = False Then
-                                blnErr = True
-                                MessageBox.Show("再不適合処置データの作成に失敗しました", "再不適合処置確認", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                                Return False
-                            End If
-                        Else
-
-                            If DeleteSAI_FUTEKIGO(DB) = False Then
-                                blnErr = True
-                                MessageBox.Show("不要になった再不適合処置データの削除に失敗しました", "再不適合処置確認", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                                Return False
+                        If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 AndAlso PrCurrentStage = ENM_NCR_STAGE._80_処置実施 Then
+                            If Val(_D003_NCR_J.KENSA_KEKKA_KB) = ENM_KENSA_KEKKA_KB._1_不合格 Then
+                                _D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID = pub_SYAIN_INFO.SYAIN_ID
+                                If FunSAVE_D003_SAI_FUTEKIGO(DB) = False Then
+                                    blnErr = True
+                                    MessageBox.Show("再不適合処置データの作成に失敗しました", "再不適合処置確認", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                    Return False
+                                End If
+                            Else
+                                If DeleteSAI_FUTEKIGO(DB) = False Then
+                                    blnErr = True
+                                    MessageBox.Show("不要になった再不適合処置データの削除に失敗しました", "再不適合処置確認", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                    Return False
+                                End If
                             End If
                         End If
                     End If
@@ -2701,12 +2699,12 @@ Public Class FrmG0011
                 Case "INSERT"
 
                 Case "UPDATE"
-                    '既に存在する場合もエラー
-                    Dim strMsg As String
-                    strMsg = "既に他の担当者によって再不適合登録されています。"
+                    ''既に存在する場合もエラー
+                    'Dim strMsg As String
+                    'strMsg = "既に他の担当者によって再不適合登録されています。"
 
-                    MessageBox.Show(strMsg, "データ重複登録", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Return False
+                    'MessageBox.Show(strMsg, "データ重複登録", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    'Return False
                 Case Else
                     If sqlEx.Source IsNot Nothing Then
                         '-----エラーログ出力
