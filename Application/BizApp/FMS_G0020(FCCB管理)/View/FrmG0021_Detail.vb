@@ -2300,7 +2300,8 @@ Public Class FrmG0021_Detail
                         '保存条件のチェック
                         Dim ToUsers As New List(Of Integer)
 
-                        DirectCast(Flx2_DS.DataSource, DataTable).
+                        If TypeOf Flx2_DS.DataSource Is DataTable Then
+                            DirectCast(Flx2_DS.DataSource, DataTable).
                             AsEnumerable.
                             Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB))).
                             Select(Function(r) r.Field(Of Integer)(NameOf(D010.TANTO_ID))).
@@ -2310,8 +2311,11 @@ Public Class FrmG0021_Detail
                                             ToUsers.Add(user)
                                         End If
                                     End Sub)
+                        End If
 
-                        DirectCast(Flx3_DS.DataSource, DataTable).
+                        If TypeOf Flx3_DS.DataSource Is DataTable Then
+
+                            DirectCast(Flx3_DS.DataSource, DataTable).
                             AsEnumerable.
                             Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB))).
                             Select(Function(r) r.Field(Of Integer)(NameOf(D010.TANTO_ID))).
@@ -2321,8 +2325,10 @@ Public Class FrmG0021_Detail
                                             ToUsers.Add(user)
                                         End If
                                     End Sub)
+                        End If
 
-                        DirectCast(Flx4_DS.DataSource, DataTable).
+                        If TypeOf Flx4_DS.DataSource Is DataTable Then
+                            DirectCast(Flx4_DS.DataSource, DataTable).
                             AsEnumerable.
                             Where(Function(r) Not (NameOf(D010.YOTEI_YMD)).ToString.IsNulOrWS).
                             Select(Function(r) r.Field(Of Integer)(NameOf(D010.TANTO_ID))).
@@ -2332,6 +2338,7 @@ Public Class FrmG0021_Detail
                                             ToUsers.Add(user)
                                         End If
                                     End Sub)
+                        End If
 
                         ToUsers.Add(_D009.CM_TANTO)
                         If dtKAKUNIN_CM_TANTO.Text.IsNulOrWS Then
@@ -4001,38 +4008,49 @@ Public Class FrmG0021_Detail
                         ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
                     Else
                         '統括責任者のチェックも完了したら、各要処置事項の担当者に依頼送信
-                        Dim targetUsers = DirectCast(Flx2_DS.DataSource, DataTable).
+
+                        Dim targetUsers As List(Of Integer)
+                        If TypeOf Flx2_DS.DataSource Is DataTable Then
+
+                            targetUsers = DirectCast(Flx2_DS.DataSource, DataTable).
                                                 AsEnumerable.
                                                 Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) And Not r.Item(NameOf(D010.YOTEI_YMD)).ToString.IsNulOrWS).
-                                                Select(Function(r) r.Field(Of Integer)(NameOf(D010.TANTO_ID)))
+                                                Select(Function(r) r.Field(Of Integer)(NameOf(D010.TANTO_ID))).ToList
 
-                        For Each usr In targetUsers
-                            If Not ToUsers.Contains(usr) Then
-                                ToUsers.Add(usr)
-                            End If
-                        Next
+                            For Each usr In targetUsers
+                                If Not ToUsers.Contains(usr) Then
+                                    ToUsers.Add(usr)
+                                End If
+                            Next
+                        End If
 
-                        targetUsers = DirectCast(Flx3_DS.DataSource, DataTable).
+                        If TypeOf Flx3_DS.DataSource Is DataTable Then
+
+                            targetUsers = DirectCast(Flx3_DS.DataSource, DataTable).
                                                 AsEnumerable.
                                                 Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) And Not r.Item(NameOf(D010.YOTEI_YMD)).ToString.IsNulOrWS).
-                                                Select(Function(r) r.Field(Of Integer)(NameOf(D010.TANTO_ID)))
+                                                Select(Function(r) r.Field(Of Integer)(NameOf(D010.TANTO_ID))).ToList
 
-                        For Each usr In targetUsers
-                            If Not ToUsers.Contains(usr) Then
-                                ToUsers.Add(usr)
-                            End If
-                        Next
+                            For Each usr In targetUsers
+                                If Not ToUsers.Contains(usr) Then
+                                    ToUsers.Add(usr)
+                                End If
+                            Next
+                        End If
 
-                        targetUsers = DirectCast(Flx4_DS.DataSource, DataTable).
+                        If TypeOf Flx4_DS.DataSource Is DataTable Then
+
+                            targetUsers = DirectCast(Flx4_DS.DataSource, DataTable).
                                                 AsEnumerable.
                                                 Where(Function(r) Not r.Item(NameOf(D011.YOTEI_YMD)).ToString.IsNulOrWS).
-                                                Select(Function(r) r.Field(Of Integer)(NameOf(D011.TANTO_ID)))
+                                                Select(Function(r) r.Field(Of Integer)(NameOf(D011.TANTO_ID))).ToList
 
-                        For Each usr In targetUsers
-                            If Not ToUsers.Contains(usr) Then
-                                ToUsers.Add(usr)
-                            End If
-                        Next
+                            For Each usr In targetUsers
+                                If Not ToUsers.Contains(usr) Then
+                                    ToUsers.Add(usr)
+                                End If
+                            Next
+                        End If
                     End If
 
                 Case ENM_FCCB_STAGE._50_処置事項完了
@@ -4040,17 +4058,27 @@ Public Class FrmG0021_Detail
 
                     '申請条件のチェック
                     Dim IsClosed As Boolean = True
-                    IsClosed *= DirectCast(Flx2_DS.DataSource, DataTable).
+                    If TypeOf Flx2_DS.DataSource Is DataTable Then
+
+                        IsClosed *= DirectCast(Flx2_DS.DataSource, DataTable).
                                                AsEnumerable.
-                                               Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) And r.Item(NameOf(D010.CLOSE_YMD)).ToString.IsNulOrWS).Count = 0
+                                               Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) And r.Item(NameOf(D010.CLOSE_YMD)).ToString.IsNulOrWS).
+                                               Count = 0
+                    End If
+                    If TypeOf Flx3_DS.DataSource Is DataTable Then
 
-                    IsClosed *= DirectCast(Flx3_DS.DataSource, DataTable).
+                        IsClosed *= DirectCast(Flx3_DS.DataSource, DataTable).
                                             AsEnumerable.
-                                            Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) And r.Item(NameOf(D010.CLOSE_YMD)).ToString.IsNulOrWS).Count = 0
+                                            Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) And r.Item(NameOf(D010.CLOSE_YMD)).ToString.IsNulOrWS).
+                                            Count = 0
+                    End If
+                    If TypeOf Flx4_DS.DataSource Is DataTable Then
 
-                    IsClosed *= DirectCast(Flx4_DS.DataSource, DataTable).
+                        IsClosed *= DirectCast(Flx4_DS.DataSource, DataTable).
                                             AsEnumerable.
-                                            Where(Function(r) Not r.Item(NameOf(D011.YOTEI_YMD)).ToString.IsNulOrWS And r.Item(NameOf(D011.CLOSE_YMD)).ToString.IsNulOrWS).Count = 0
+                                            Where(Function(r) Not r.Item(NameOf(D011.YOTEI_YMD)).ToString.IsNulOrWS And r.Item(NameOf(D011.CLOSE_YMD)).ToString.IsNulOrWS).
+                                            Count = 0
+                    End If
 
                     '全要処置事項の処置完了
                     If IsClosed Then
@@ -4062,7 +4090,9 @@ Public Class FrmG0021_Detail
                         'End If
                     End If
                 Case ENM_FCCB_STAGE._60_処置事項完了確認
-                    'ToUsers.Add(_D009.CM_TANTO)
+                    ToUsers.Add(_D009.CM_TANTO)
+
+                Case ENM_FCCB_STAGE._61_処置事項完了確認_統括
                     ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
 
                 Case Else
