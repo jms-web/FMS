@@ -1,7 +1,6 @@
 ﻿Imports System.ComponentModel.DataAnnotations
 Imports System.Reflection
 
-
 Public Class ModelBase
     Implements IDataModel
 
@@ -39,7 +38,6 @@ Public Class ModelBase
             End Select
         Next
     End Sub
-
 
     Public Function Properties() As Generic.List(Of PropertyInfo) Implements IDataModel.Properties
         Dim _properties = New Generic.List(Of Reflection.PropertyInfo)
@@ -80,7 +78,7 @@ Public Class ModelBase
                   Sub(p)
                       Select Case True
                           Case p.PropertyType Is GetType(String)
-                              sbSQL.Append($" '{Me.Item(p.Name).ToString.EscapeLiteral}' AS {p.Name}")
+                              sbSQL.Append($" N'{Me.Item(p.Name).ToString.EscapeLiteral}' AS {p.Name}")
                           Case p.PropertyType Is GetType(Boolean)
                               sbSQL.Append($" '{If(Me.Item(p.Name), 1, 0)}' AS {p.Name}")
                           Case Else
@@ -91,7 +89,7 @@ Public Class ModelBase
                     Sub(p)
                         Select Case True
                             Case p.PropertyType Is GetType(String)
-                                sbSQL.Append($" ,'{Me.Item(p.Name).ToString.EscapeLiteral}' AS {p.Name}")
+                                sbSQL.Append($" ,N'{Me.Item(p.Name).ToString.EscapeLiteral}' AS {p.Name}")
                             Case p.PropertyType Is GetType(Boolean)
                                 sbSQL.Append($" ,'{If(Me.Item(p.Name), 1, 0)}' AS {p.Name}")
                             Case Else
@@ -137,4 +135,5 @@ Public Class ModelBase
 
         Return sbSQL.ToString
     End Function
+
 End Class

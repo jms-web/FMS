@@ -172,7 +172,7 @@ Public Class FrmG0015
                     sbSQL.Remove(0, sbSQL.Length)
                     sbSQL.Append($"UPDATE {NameOf(MODEL.D004_SYONIN_J_KANRI)} SET")
                     sbSQL.Append($" {NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}={cmbTENSO_SAKI.SelectedValue}")
-                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.RIYU)}='{_D004_SYONIN_J_KANRI.RIYU}'")
+                    sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.RIYU)}=N'{_D004_SYONIN_J_KANRI.RIYU}'")
                     sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
                     sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}='{ENM_SYONIN_HANTEI_KB._0_ñ¢è≥îF.Value}'")
                     sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}='0'")
@@ -221,7 +221,7 @@ Public Class FrmG0015
                     sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.SOUSA_KB) & "'")
                     sbSQL.Append(" ," & (_R001_HOKOKU_SOUSA.SYAIN_ID))
                     sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB) & "'")
-                    sbSQL.Append(" ,'" & (_R001_HOKOKU_SOUSA.RIYU) & "'")
+                    sbSQL.Append(" ,N'" & (_R001_HOKOKU_SOUSA.RIYU) & "'")
                     sbSQL.Append(")")
 
                     '-----SQLé¿çs
