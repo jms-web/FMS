@@ -77,10 +77,6 @@ Public Class FrmG0031_EditOccurred
         cmbKISO_TANTO.NullValue = 0
 
         dtKISO.Nullable = True
-        cmbSYOCHI_GM_TANTO.NullValue = 0
-        cmbSYOCHI_SEKKEI_TANTO.NullValue = 0
-
-        cmbSYOCHI_SEIGI_TANTO.NullValue = 0
 
     End Sub
 
@@ -578,7 +574,7 @@ Public Class FrmG0031_EditOccurred
                         Case ENM_FCCB_STAGE._40_処置確認
 
                         Case ENM_FCCB_STAGE._50_処置事項完了
-                            _D004_SYONIN_J_KANRI.SYAIN_ID = cmbSYOCHI_GM_TANTO.SelectedValue
+
                         Case ENM_FCCB_STAGE._60_処置事項完了確認
 
                         Case Else
