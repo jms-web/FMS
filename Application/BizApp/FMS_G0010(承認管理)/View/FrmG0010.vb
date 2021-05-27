@@ -513,8 +513,9 @@ Public Class FrmG0010
                 flxDATA.Cols(NameOf(ST03.SYONIN_NAIYO)).Visible = False
                 flxDATA.Cols(NameOf(ST03.GEN_TANTO_NAME)).Visible = False
                 flxDATA.Cols(NameOf(ST03.TAIRYU_NISSU)).Visible = False
-                flxDATA.Cols(NameOf(ST03.JIZEN_SINSA_HANTEI_NAME)).Visible = False
-                flxDATA.Cols(NameOf(ST03.SAISIN_IINKAI_HANTEI_NAME)).Visible = False
+                flxDATA.Cols("TOTAL_TAIRYU_NISSU").Visible = False
+                flxDATA.Cols("KANSATU_KEKKA").Visible = False
+
                 flxDATA.Cols(NameOf(ST03.SYOCHI_YOTEI_YMD)).Visible = False
                 flxDATA.Cols(NameOf(ST03.SASIMOTO_SYONIN_NAIYO)).Visible = False
                 flxDATA.Cols(NameOf(ST03.RIYU)).Visible = False
@@ -529,6 +530,21 @@ Public Class FrmG0010
                 flxDATA.Cols(NameOf(ST03.BUMON_NAME)).Visible = chkDispBUMON.Checked
                 flxDATA.Cols(NameOf(ST03.BUHIN_NAME)).Visible = chkDispHINMEI.Checked
                 flxDATA.Cols(NameOf(ST03.HASSEI_YMD)).Visible = chkDispHASSEI_YMD.Checked
+
+                flxDATA.Cols(NameOf(ST03.JIZEN_SINSA_HANTEI_NAME)).Visible = chkDispJIZEN_SINSA_HANTEI_KB.Checked
+                flxDATA.Cols(NameOf(ST03.SAISIN_IINKAI_HANTEI_NAME)).Visible = chkDispSAISIN_IINKAI_HANTEI_KB.Checked
+                flxDATA.Cols(NameOf(ST03.KENSA_KEKKA_NAME)).Visible = chkDispKENSA_KEKKA_KB.Checked
+
+                'flxDATA.Cols(NameOf(ST03.SAISIN_IINKAI_HANTEI_NAME)).Visible = chkDispKOKYAKU_SAISYU_HANTEI_KB.Checked
+                'flxDATA.Cols(NameOf(ST03.ZESEI_SYOCHI_YOHI_NAME)).Visible = chkDispZESEI_SYOCHI_YOHI_KB.Checked
+                'flxDATA.Cols(NameOf(ST03.HASSEI_YMD)).Visible = chkDispKOKYAKU_HANTEI_SIJI_KB.Checked
+
+                flxDATA.Cols(NameOf(ST03.KONPON_YOIN_NAME1)).Visible = chkDispYOIN1.Checked
+                flxDATA.Cols(NameOf(ST03.KONPON_YOIN_NAME2)).Visible = chkDispYOIN2.Checked
+                flxDATA.Cols(NameOf(ST03.KISEKI_KOTEI_NAME)).Visible = chkDispKISEKI_KOTEI_KB.Checked
+                'flxDATA.Cols(NameOf(ST03.KONPON_YOIN_NAME1)).Visible = chkDispGENIN1.Checked
+                'flxDATA.Cols(NameOf(ST03.KONPON_YOIN_NAME2)).Visible = chkDispGENIN2.Checked
+
                 'flxDATA.Cols(NameOf(ST03._HASSEI_YMD)).Format = "yyyy/MM"
 
                 flxDATA.Cols(NameOf(ST03.SURYO)).Visible = chkDispSURYO.Checked
@@ -1308,7 +1324,6 @@ Public Class FrmG0010
                     Dim Trow As DataRow = tplDataModel.dt.NewRow()
                     For Each p As Reflection.PropertyInfo In tplDataModel.properties
                         If IsAutoGenerateField(t, p.Name) = True Then
-
                             If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 And row.Table.Columns.Contains(p.Name) = False Then
                                 '非表示列スキップ
                                 Continue For

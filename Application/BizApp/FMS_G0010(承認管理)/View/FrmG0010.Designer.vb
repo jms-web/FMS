@@ -24,6 +24,35 @@ Partial Class FrmG0010
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.panelMan = New PanelManager.Controls.PanelManager()
+        Me.mpnlCondition = New PanelManager.Controls.ManagedPanel()
+        Me.PanelEx1 = New JMS_COMMON.PanelEx()
+        Me.pnl_ovalflame = New System.Windows.Forms.TableLayoutPanel()
+        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
+        Me.ComboboxEx1 = New JMS_COMMON.ComboboxEx()
+        Me.ComboboxEx2 = New JMS_COMMON.ComboboxEx()
+        Me.ComboboxEx3 = New JMS_COMMON.ComboboxEx()
+        Me.MaskedTextBoxEx1 = New JMS_COMMON.MaskedTextBoxEx()
+        Me.MaskedTextBoxEx2 = New JMS_COMMON.MaskedTextBoxEx()
+        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.MaskedTextBoxEx3 = New JMS_COMMON.MaskedTextBoxEx()
+        Me.MaskedTextBoxEx4 = New JMS_COMMON.MaskedTextBoxEx()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
         Me.cmbGEN_TANTO = New JMS_COMMON.ComboboxEx()
         Me.cmbKISYU = New JMS_COMMON.ComboboxEx()
@@ -78,11 +107,13 @@ Partial Class FrmG0010
         Me.chkClosedRowVisibled = New System.Windows.Forms.CheckBox()
         Me.chkTairyu = New System.Windows.Forms.CheckBox()
         Me.btnClearSrchFilter = New System.Windows.Forms.Button()
-        Me.cmbJIZEN_SINSA_HANTEI_KB = New JMS_COMMON.ComboboxEx()
-        Me.cmbSAISIN_IINKAI_HANTEI_KB = New JMS_COMMON.ComboboxEx()
+        Me.pnlNCRFilter = New System.Windows.Forms.GroupBox()
+        Me.dgvNCR = New System.Windows.Forms.DataGridView()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label13 = New System.Windows.Forms.Label()
+        Me.cmbJIZEN_SINSA_HANTEI_KB = New JMS_COMMON.ComboboxEx()
         Me.Label19 = New System.Windows.Forms.Label()
+        Me.cmbSAISIN_IINKAI_HANTEI_KB = New JMS_COMMON.ComboboxEx()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.cmbKOKYAKU_SAISYU_HANTEI_KB = New JMS_COMMON.ComboboxEx()
         Me.chkDispJIZEN_SINSA_HANTEI_KB = New System.Windows.Forms.CheckBox()
@@ -97,6 +128,10 @@ Partial Class FrmG0010
         Me.Label17 = New System.Windows.Forms.Label()
         Me.chkDispKENSA_KEKKA_KB = New System.Windows.Forms.CheckBox()
         Me.cmbKENSA_KEKKA_KB = New JMS_COMMON.ComboboxEx()
+        Me.GroupBoxEx1 = New JMS_COMMON.GroupBoxEx()
+        Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.dgvCTS = New System.Windows.Forms.DataGridView()
+        Me.pnlCARFilter = New System.Windows.Forms.GroupBox()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
@@ -121,41 +156,6 @@ Partial Class FrmG0010
         Me.btnSelectGenin2 = New System.Windows.Forms.Button()
         Me.btnClearGenin1 = New System.Windows.Forms.Button()
         Me.btnClearGenin2 = New System.Windows.Forms.Button()
-        Me.panelMan = New PanelManager.Controls.PanelManager()
-        Me.mpnlCondition = New PanelManager.Controls.ManagedPanel()
-        Me.PanelEx1 = New JMS_COMMON.PanelEx()
-        Me.pnl_ovalflame = New System.Windows.Forms.TableLayoutPanel()
-        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
-        Me.ComboboxEx1 = New JMS_COMMON.ComboboxEx()
-        Me.ComboboxEx2 = New JMS_COMMON.ComboboxEx()
-        Me.ComboboxEx3 = New JMS_COMMON.ComboboxEx()
-        Me.MaskedTextBoxEx1 = New JMS_COMMON.MaskedTextBoxEx()
-        Me.MaskedTextBoxEx2 = New JMS_COMMON.MaskedTextBoxEx()
-        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.MaskedTextBoxEx3 = New JMS_COMMON.MaskedTextBoxEx()
-        Me.MaskedTextBoxEx4 = New JMS_COMMON.MaskedTextBoxEx()
-        Me.Label26 = New System.Windows.Forms.Label()
-        Me.Label28 = New System.Windows.Forms.Label()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.pnlNCRFilter = New System.Windows.Forms.GroupBox()
-        Me.dgvNCR = New System.Windows.Forms.DataGridView()
-        Me.GroupBoxEx1 = New JMS_COMMON.GroupBoxEx()
-        Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
-        Me.dgvCTS = New System.Windows.Forms.DataGridView()
-        Me.pnlCARFilter = New System.Windows.Forms.GroupBox()
         Me.dgvCAR = New System.Windows.Forms.DataGridView()
         Me.mpnlDataGrid = New PanelManager.Controls.ManagedPanel()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
@@ -172,20 +172,20 @@ Partial Class FrmG0010
         Me.lblDEV_FLG = New System.Windows.Forms.Label()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tlpFilter.SuspendLayout()
-        Me.TableLayoutPanel1.SuspendLayout()
-        Me.TableLayoutPanel2.SuspendLayout()
         Me.panelMan.SuspendLayout()
         Me.mpnlCondition.SuspendLayout()
         Me.PanelEx1.SuspendLayout()
         Me.pnl_ovalflame.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.tlpFilter.SuspendLayout()
         Me.pnlNCRFilter.SuspendLayout()
         CType(Me.dgvNCR, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupBoxEx1.SuspendLayout()
         CType(Me.dgvCTS, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlCARFilter.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.dgvCAR, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mpnlDataGrid.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -293,6 +293,493 @@ Partial Class FrmG0010
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblTytle.Size = New System.Drawing.Size(1553, 45)
         Me.lblTytle.Text = "不適合検索画面"
+        '
+        'panelMan
+        '
+        Me.panelMan.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panelMan.Controls.Add(Me.mpnlCondition)
+        Me.panelMan.Controls.Add(Me.mpnlDataGrid)
+        Me.panelMan.Controls.Add(Me.mpSummaryGrid)
+        Me.panelMan.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.panelMan.Location = New System.Drawing.Point(12, 60)
+        Me.panelMan.Name = "panelMan"
+        Me.panelMan.SelectedIndex = 1
+        Me.panelMan.SelectedPanel = Me.mpnlDataGrid
+        Me.panelMan.Size = New System.Drawing.Size(1553, 502)
+        Me.panelMan.TabIndex = 64
+        '
+        'mpnlCondition
+        '
+        Me.mpnlCondition.AutoScroll = True
+        Me.mpnlCondition.Controls.Add(Me.PanelEx1)
+        Me.mpnlCondition.Location = New System.Drawing.Point(0, 0)
+        Me.mpnlCondition.Name = "mpnlCondition"
+        Me.mpnlCondition.Size = New System.Drawing.Size(0, 0)
+        '
+        'PanelEx1
+        '
+        Me.PanelEx1.AutoScroll = True
+        Me.PanelEx1.Controls.Add(Me.pnl_ovalflame)
+        Me.PanelEx1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PanelEx1.HitEnabled = False
+        Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
+        Me.PanelEx1.Name = "PanelEx1"
+        Me.PanelEx1.Size = New System.Drawing.Size(0, 0)
+        Me.PanelEx1.TabIndex = 0
+        '
+        'pnl_ovalflame
+        '
+        Me.pnl_ovalflame.ColumnCount = 3
+        Me.pnl_ovalflame.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.0!))
+        Me.pnl_ovalflame.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.0!))
+        Me.pnl_ovalflame.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
+        Me.pnl_ovalflame.Controls.Add(Me.TableLayoutPanel4, 0, 1)
+        Me.pnl_ovalflame.Controls.Add(Me.GroupBox1, 0, 0)
+        Me.pnl_ovalflame.Controls.Add(Me.pnlNCRFilter, 0, 2)
+        Me.pnl_ovalflame.Controls.Add(Me.GroupBoxEx1, 2, 2)
+        Me.pnl_ovalflame.Controls.Add(Me.pnlCARFilter, 1, 2)
+        Me.pnl_ovalflame.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnl_ovalflame.Location = New System.Drawing.Point(0, 0)
+        Me.pnl_ovalflame.Name = "pnl_ovalflame"
+        Me.pnl_ovalflame.RowCount = 3
+        Me.pnl_ovalflame.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.pnl_ovalflame.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 4.0!))
+        Me.pnl_ovalflame.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.pnl_ovalflame.Size = New System.Drawing.Size(0, 0)
+        Me.pnl_ovalflame.TabIndex = 67
+        '
+        'TableLayoutPanel4
+        '
+        Me.TableLayoutPanel4.ColumnCount = 60
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.Controls.Add(Me.Label5, 0, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.Label6, 0, 1)
+        Me.TableLayoutPanel4.Controls.Add(Me.Label8, 0, 2)
+        Me.TableLayoutPanel4.Controls.Add(Me.Label24, 0, 3)
+        Me.TableLayoutPanel4.Controls.Add(Me.Label25, 0, 4)
+        Me.TableLayoutPanel4.Controls.Add(Me.CheckBox1, 4, 2)
+        Me.TableLayoutPanel4.Controls.Add(Me.CheckBox2, 4, 1)
+        Me.TableLayoutPanel4.Controls.Add(Me.CheckBox3, 4, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.ComboboxEx1, 5, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.ComboboxEx2, 5, 1)
+        Me.TableLayoutPanel4.Controls.Add(Me.ComboboxEx3, 5, 2)
+        Me.TableLayoutPanel4.Controls.Add(Me.MaskedTextBoxEx1, 5, 3)
+        Me.TableLayoutPanel4.Controls.Add(Me.MaskedTextBoxEx2, 5, 4)
+        Me.TableLayoutPanel4.Controls.Add(Me.CheckBox4, 4, 3)
+        Me.TableLayoutPanel4.Controls.Add(Me.CheckBox5, 4, 4)
+        Me.TableLayoutPanel4.Controls.Add(Me.Button1, 21, 3)
+        Me.TableLayoutPanel4.Controls.Add(Me.Button2, 21, 4)
+        Me.TableLayoutPanel4.Controls.Add(Me.MaskedTextBoxEx3, 26, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.MaskedTextBoxEx4, 26, 1)
+        Me.TableLayoutPanel4.Controls.Add(Me.Label26, 20, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.Label28, 20, 1)
+        Me.TableLayoutPanel4.Controls.Add(Me.Button3, 24, 3)
+        Me.TableLayoutPanel4.Controls.Add(Me.Button4, 24, 4)
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 186)
+        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
+        Me.TableLayoutPanel4.RowCount = 7
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(1, 1)
+        Me.TableLayoutPanel4.TabIndex = 67
+        '
+        'Label5
+        '
+        Me.TableLayoutPanel4.SetColumnSpan(Me.Label5, 4)
+        Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label5.Location = New System.Drawing.Point(3, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(74, 30)
+        Me.Label5.TabIndex = 54
+        Me.Label5.Text = "要因1:"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label6
+        '
+        Me.TableLayoutPanel4.SetColumnSpan(Me.Label6, 4)
+        Me.Label6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label6.Location = New System.Drawing.Point(3, 30)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(74, 30)
+        Me.Label6.TabIndex = 101
+        Me.Label6.Text = "要因2:"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label8
+        '
+        Me.TableLayoutPanel4.SetColumnSpan(Me.Label8, 4)
+        Me.Label8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label8.Location = New System.Drawing.Point(3, 60)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(74, 30)
+        Me.Label8.TabIndex = 69
+        Me.Label8.Text = "帰責工程:"
+        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label24
+        '
+        Me.TableLayoutPanel4.SetColumnSpan(Me.Label24, 4)
+        Me.Label24.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label24.Location = New System.Drawing.Point(3, 90)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(74, 30)
+        Me.Label24.TabIndex = 63
+        Me.Label24.Text = "原因1:"
+        Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label25
+        '
+        Me.TableLayoutPanel4.SetColumnSpan(Me.Label25, 4)
+        Me.Label25.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label25.Location = New System.Drawing.Point(3, 120)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(74, 30)
+        Me.Label25.TabIndex = 102
+        Me.Label25.Text = "原因2:"
+        Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.CheckBox1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.CheckBox1.Location = New System.Drawing.Point(83, 63)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(14, 21)
+        Me.CheckBox1.TabIndex = 113
+        Me.CheckBox1.Text = "削除済も表示"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.CheckBox1.Visible = False
+        '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.CheckBox2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.CheckBox2.Location = New System.Drawing.Point(83, 33)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(14, 21)
+        Me.CheckBox2.TabIndex = 113
+        Me.CheckBox2.Text = "削除済も表示"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        Me.CheckBox2.Visible = False
+        '
+        'CheckBox3
+        '
+        Me.CheckBox3.AutoSize = True
+        Me.CheckBox3.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.CheckBox3.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.CheckBox3.Location = New System.Drawing.Point(83, 3)
+        Me.CheckBox3.Name = "CheckBox3"
+        Me.CheckBox3.Size = New System.Drawing.Size(14, 21)
+        Me.CheckBox3.TabIndex = 113
+        Me.CheckBox3.Text = "削除済も表示"
+        Me.CheckBox3.UseVisualStyleBackColor = True
+        Me.CheckBox3.Visible = False
+        '
+        'ComboboxEx1
+        '
+        Me.ComboboxEx1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboboxEx1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboboxEx1.BackColor = System.Drawing.SystemColors.Window
+        Me.TableLayoutPanel4.SetColumnSpan(Me.ComboboxEx1, 10)
+        Me.ComboboxEx1.Cursor = System.Windows.Forms.Cursors.Default
+        Me.ComboboxEx1.DisplayMember = "DISP"
+        Me.ComboboxEx1.DropDownWidth = 220
+        Me.ComboboxEx1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.ComboboxEx1.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ComboboxEx1.FormattingEnabled = True
+        Me.ComboboxEx1.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.ComboboxEx1.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.ComboboxEx1.IsSelected = False
+        Me.ComboboxEx1.Location = New System.Drawing.Point(103, 3)
+        Me.ComboboxEx1.Name = "ComboboxEx1"
+        Me.ComboboxEx1.NullValue = " "
+        Me.ComboboxEx1.Size = New System.Drawing.Size(194, 25)
+        Me.ComboboxEx1.TabIndex = 28
+        Me.ComboboxEx1.ValueMember = "VALUE"
+        '
+        'ComboboxEx2
+        '
+        Me.ComboboxEx2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboboxEx2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboboxEx2.BackColor = System.Drawing.SystemColors.Window
+        Me.TableLayoutPanel4.SetColumnSpan(Me.ComboboxEx2, 10)
+        Me.ComboboxEx2.Cursor = System.Windows.Forms.Cursors.Default
+        Me.ComboboxEx2.DisplayMember = "DISP"
+        Me.ComboboxEx2.DropDownWidth = 220
+        Me.ComboboxEx2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.ComboboxEx2.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ComboboxEx2.FormattingEnabled = True
+        Me.ComboboxEx2.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.ComboboxEx2.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.ComboboxEx2.IsSelected = False
+        Me.ComboboxEx2.Location = New System.Drawing.Point(103, 33)
+        Me.ComboboxEx2.Name = "ComboboxEx2"
+        Me.ComboboxEx2.NullValue = " "
+        Me.ComboboxEx2.Size = New System.Drawing.Size(194, 25)
+        Me.ComboboxEx2.TabIndex = 29
+        Me.ComboboxEx2.ValueMember = "VALUE"
+        '
+        'ComboboxEx3
+        '
+        Me.ComboboxEx3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboboxEx3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboboxEx3.BackColor = System.Drawing.SystemColors.Window
+        Me.TableLayoutPanel4.SetColumnSpan(Me.ComboboxEx3, 10)
+        Me.ComboboxEx3.Cursor = System.Windows.Forms.Cursors.Default
+        Me.ComboboxEx3.DisplayMember = "DISP"
+        Me.ComboboxEx3.DropDownWidth = 220
+        Me.ComboboxEx3.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.ComboboxEx3.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ComboboxEx3.FormattingEnabled = True
+        Me.ComboboxEx3.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.ComboboxEx3.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.ComboboxEx3.IsSelected = False
+        Me.ComboboxEx3.Location = New System.Drawing.Point(103, 63)
+        Me.ComboboxEx3.Name = "ComboboxEx3"
+        Me.ComboboxEx3.NullValue = " "
+        Me.ComboboxEx3.Size = New System.Drawing.Size(194, 25)
+        Me.ComboboxEx3.TabIndex = 30
+        Me.ComboboxEx3.ValueMember = "VALUE"
+        '
+        'MaskedTextBoxEx1
+        '
+        Me.MaskedTextBoxEx1.BackColor = System.Drawing.SystemColors.Control
+        Me.TableLayoutPanel4.SetColumnSpan(Me.MaskedTextBoxEx1, 16)
+        Me.MaskedTextBoxEx1.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.MaskedTextBoxEx1.InputRequired = False
+        Me.MaskedTextBoxEx1.Location = New System.Drawing.Point(103, 93)
+        Me.MaskedTextBoxEx1.MaxByteLength = 0
+        Me.MaskedTextBoxEx1.Name = "MaskedTextBoxEx1"
+        Me.MaskedTextBoxEx1.ReadOnly = True
+        Me.MaskedTextBoxEx1.SelectAllText = False
+        Me.MaskedTextBoxEx1.Size = New System.Drawing.Size(314, 23)
+        Me.MaskedTextBoxEx1.TabIndex = 82
+        Me.MaskedTextBoxEx1.WatermarkColor = System.Drawing.Color.Empty
+        Me.MaskedTextBoxEx1.WatermarkText = Nothing
+        '
+        'MaskedTextBoxEx2
+        '
+        Me.MaskedTextBoxEx2.BackColor = System.Drawing.SystemColors.Control
+        Me.TableLayoutPanel4.SetColumnSpan(Me.MaskedTextBoxEx2, 16)
+        Me.MaskedTextBoxEx2.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.MaskedTextBoxEx2.InputRequired = False
+        Me.MaskedTextBoxEx2.Location = New System.Drawing.Point(103, 123)
+        Me.MaskedTextBoxEx2.MaxByteLength = 0
+        Me.MaskedTextBoxEx2.Name = "MaskedTextBoxEx2"
+        Me.MaskedTextBoxEx2.ReadOnly = True
+        Me.MaskedTextBoxEx2.SelectAllText = False
+        Me.MaskedTextBoxEx2.Size = New System.Drawing.Size(314, 23)
+        Me.MaskedTextBoxEx2.TabIndex = 104
+        Me.MaskedTextBoxEx2.WatermarkColor = System.Drawing.Color.Empty
+        Me.MaskedTextBoxEx2.WatermarkText = Nothing
+        '
+        'CheckBox4
+        '
+        Me.CheckBox4.AutoSize = True
+        Me.CheckBox4.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.CheckBox4.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.CheckBox4.Location = New System.Drawing.Point(83, 93)
+        Me.CheckBox4.Name = "CheckBox4"
+        Me.CheckBox4.Size = New System.Drawing.Size(14, 21)
+        Me.CheckBox4.TabIndex = 113
+        Me.CheckBox4.Text = "削除済も表示"
+        Me.CheckBox4.UseVisualStyleBackColor = True
+        Me.CheckBox4.Visible = False
+        '
+        'CheckBox5
+        '
+        Me.CheckBox5.AutoSize = True
+        Me.CheckBox5.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.CheckBox5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.CheckBox5.Location = New System.Drawing.Point(83, 123)
+        Me.CheckBox5.Name = "CheckBox5"
+        Me.CheckBox5.Size = New System.Drawing.Size(14, 21)
+        Me.CheckBox5.TabIndex = 113
+        Me.CheckBox5.Text = "削除済も表示"
+        Me.CheckBox5.UseVisualStyleBackColor = True
+        Me.CheckBox5.Visible = False
+        '
+        'Button1
+        '
+        Me.TableLayoutPanel4.SetColumnSpan(Me.Button1, 3)
+        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button1.Location = New System.Drawing.Point(423, 93)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(54, 24)
+        Me.Button1.TabIndex = 105
+        Me.Button1.Text = "検索"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.TableLayoutPanel4.SetColumnSpan(Me.Button2, 3)
+        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button2.Location = New System.Drawing.Point(423, 123)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(54, 24)
+        Me.Button2.TabIndex = 99
+        Me.Button2.Text = "検索"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'MaskedTextBoxEx3
+        '
+        Me.MaskedTextBoxEx3.BackColor = System.Drawing.SystemColors.Window
+        Me.TableLayoutPanel4.SetColumnSpan(Me.MaskedTextBoxEx3, 3)
+        Me.MaskedTextBoxEx3.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.MaskedTextBoxEx3.InputRequired = False
+        Me.MaskedTextBoxEx3.Location = New System.Drawing.Point(523, 3)
+        Me.MaskedTextBoxEx3.MaxByteLength = 0
+        Me.MaskedTextBoxEx3.Name = "MaskedTextBoxEx3"
+        Me.MaskedTextBoxEx3.SelectAllText = False
+        Me.MaskedTextBoxEx3.Size = New System.Drawing.Size(54, 23)
+        Me.MaskedTextBoxEx3.TabIndex = 109
+        Me.MaskedTextBoxEx3.Visible = False
+        Me.MaskedTextBoxEx3.WatermarkColor = System.Drawing.Color.Empty
+        Me.MaskedTextBoxEx3.WatermarkText = Nothing
+        '
+        'MaskedTextBoxEx4
+        '
+        Me.MaskedTextBoxEx4.BackColor = System.Drawing.SystemColors.Window
+        Me.TableLayoutPanel4.SetColumnSpan(Me.MaskedTextBoxEx4, 3)
+        Me.MaskedTextBoxEx4.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.MaskedTextBoxEx4.InputRequired = False
+        Me.MaskedTextBoxEx4.Location = New System.Drawing.Point(523, 33)
+        Me.MaskedTextBoxEx4.MaxByteLength = 0
+        Me.MaskedTextBoxEx4.Name = "MaskedTextBoxEx4"
+        Me.MaskedTextBoxEx4.SelectAllText = False
+        Me.MaskedTextBoxEx4.Size = New System.Drawing.Size(54, 23)
+        Me.MaskedTextBoxEx4.TabIndex = 110
+        Me.MaskedTextBoxEx4.Visible = False
+        Me.MaskedTextBoxEx4.WatermarkColor = System.Drawing.Color.Empty
+        Me.MaskedTextBoxEx4.WatermarkText = Nothing
+        '
+        'Label26
+        '
+        Me.TableLayoutPanel4.SetColumnSpan(Me.Label26, 6)
+        Me.Label26.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label26.Location = New System.Drawing.Point(403, 0)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(114, 30)
+        Me.Label26.TabIndex = 111
+        Me.Label26.Text = "原因1(検索値):"
+        Me.Label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label26.Visible = False
+        '
+        'Label28
+        '
+        Me.TableLayoutPanel4.SetColumnSpan(Me.Label28, 6)
+        Me.Label28.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label28.Location = New System.Drawing.Point(403, 30)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(114, 30)
+        Me.Label28.TabIndex = 112
+        Me.Label28.Text = "原因2(検索値):"
+        Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label28.Visible = False
+        '
+        'Button3
+        '
+        Me.TableLayoutPanel4.SetColumnSpan(Me.Button3, 3)
+        Me.Button3.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button3.Location = New System.Drawing.Point(483, 93)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(54, 24)
+        Me.Button3.TabIndex = 108
+        Me.Button3.Text = "クリア"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button4
+        '
+        Me.TableLayoutPanel4.SetColumnSpan(Me.Button4, 3)
+        Me.Button4.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button4.Location = New System.Drawing.Point(483, 123)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(54, 24)
+        Me.Button4.TabIndex = 107
+        Me.Button4.Text = "クリア"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.pnl_ovalflame.SetColumnSpan(Me.GroupBox1, 3)
+        Me.GroupBox1.Controls.Add(Me.tlpFilter)
+        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(1, 177)
+        Me.GroupBox1.TabIndex = 1
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "共通検索条件"
         '
         'tlpFilter
         '
@@ -431,7 +918,7 @@ Partial Class FrmG0010
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFilter.Size = New System.Drawing.Size(1541, 155)
+        Me.tlpFilter.Size = New System.Drawing.Size(0, 155)
         Me.tlpFilter.TabIndex = 56
         '
         'cmbGEN_TANTO
@@ -1194,47 +1681,27 @@ Partial Class FrmG0010
         Me.btnClearSrchFilter.Text = "条件クリア"
         Me.btnClearSrchFilter.UseVisualStyleBackColor = True
         '
-        'cmbJIZEN_SINSA_HANTEI_KB
+        'pnlNCRFilter
         '
-        Me.cmbJIZEN_SINSA_HANTEI_KB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbJIZEN_SINSA_HANTEI_KB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbJIZEN_SINSA_HANTEI_KB.BackColor = System.Drawing.SystemColors.Window
-        Me.TableLayoutPanel1.SetColumnSpan(Me.cmbJIZEN_SINSA_HANTEI_KB, 7)
-        Me.cmbJIZEN_SINSA_HANTEI_KB.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbJIZEN_SINSA_HANTEI_KB.DisplayMember = "DISP"
-        Me.cmbJIZEN_SINSA_HANTEI_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbJIZEN_SINSA_HANTEI_KB.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbJIZEN_SINSA_HANTEI_KB.FormattingEnabled = True
-        Me.cmbJIZEN_SINSA_HANTEI_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbJIZEN_SINSA_HANTEI_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.cmbJIZEN_SINSA_HANTEI_KB.IsSelected = False
-        Me.cmbJIZEN_SINSA_HANTEI_KB.Location = New System.Drawing.Point(163, 3)
-        Me.cmbJIZEN_SINSA_HANTEI_KB.Name = "cmbJIZEN_SINSA_HANTEI_KB"
-        Me.cmbJIZEN_SINSA_HANTEI_KB.NullValue = " "
-        Me.cmbJIZEN_SINSA_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
-        Me.cmbJIZEN_SINSA_HANTEI_KB.TabIndex = 21
-        Me.cmbJIZEN_SINSA_HANTEI_KB.ValueMember = "VALUE"
+        Me.pnlNCRFilter.Controls.Add(Me.dgvNCR)
+        Me.pnlNCRFilter.Controls.Add(Me.TableLayoutPanel1)
+        Me.pnlNCRFilter.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlNCRFilter.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.pnlNCRFilter.Location = New System.Drawing.Point(3, 190)
+        Me.pnlNCRFilter.Name = "pnlNCRFilter"
+        Me.pnlNCRFilter.Size = New System.Drawing.Size(1, 603)
+        Me.pnlNCRFilter.TabIndex = 65
+        Me.pnlNCRFilter.TabStop = False
+        Me.pnlNCRFilter.Text = "NCR検索条件"
         '
-        'cmbSAISIN_IINKAI_HANTEI_KB
+        'dgvNCR
         '
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.BackColor = System.Drawing.SystemColors.Window
-        Me.TableLayoutPanel1.SetColumnSpan(Me.cmbSAISIN_IINKAI_HANTEI_KB, 7)
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.DisplayMember = "DISP"
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.FormattingEnabled = True
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.IsSelected = False
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.Location = New System.Drawing.Point(163, 33)
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.Name = "cmbSAISIN_IINKAI_HANTEI_KB"
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.NullValue = " "
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.TabIndex = 23
-        Me.cmbSAISIN_IINKAI_HANTEI_KB.ValueMember = "VALUE"
+        Me.dgvNCR.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvNCR.Location = New System.Drawing.Point(3, 183)
+        Me.dgvNCR.Name = "dgvNCR"
+        Me.dgvNCR.RowTemplate.Height = 21
+        Me.dgvNCR.Size = New System.Drawing.Size(500, 414)
+        Me.dgvNCR.TabIndex = 27
         '
         'TableLayoutPanel1
         '
@@ -1331,7 +1798,7 @@ Partial Class FrmG0010
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(531, 158)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(0, 158)
         Me.TableLayoutPanel1.TabIndex = 64
         '
         'Label13
@@ -1345,6 +1812,27 @@ Partial Class FrmG0010
         Me.Label13.Text = "事前審査判定区分:"
         Me.Label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'cmbJIZEN_SINSA_HANTEI_KB
+        '
+        Me.cmbJIZEN_SINSA_HANTEI_KB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbJIZEN_SINSA_HANTEI_KB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbJIZEN_SINSA_HANTEI_KB.BackColor = System.Drawing.SystemColors.Window
+        Me.TableLayoutPanel1.SetColumnSpan(Me.cmbJIZEN_SINSA_HANTEI_KB, 7)
+        Me.cmbJIZEN_SINSA_HANTEI_KB.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbJIZEN_SINSA_HANTEI_KB.DisplayMember = "DISP"
+        Me.cmbJIZEN_SINSA_HANTEI_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbJIZEN_SINSA_HANTEI_KB.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbJIZEN_SINSA_HANTEI_KB.FormattingEnabled = True
+        Me.cmbJIZEN_SINSA_HANTEI_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbJIZEN_SINSA_HANTEI_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbJIZEN_SINSA_HANTEI_KB.IsSelected = False
+        Me.cmbJIZEN_SINSA_HANTEI_KB.Location = New System.Drawing.Point(163, 3)
+        Me.cmbJIZEN_SINSA_HANTEI_KB.Name = "cmbJIZEN_SINSA_HANTEI_KB"
+        Me.cmbJIZEN_SINSA_HANTEI_KB.NullValue = " "
+        Me.cmbJIZEN_SINSA_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
+        Me.cmbJIZEN_SINSA_HANTEI_KB.TabIndex = 21
+        Me.cmbJIZEN_SINSA_HANTEI_KB.ValueMember = "VALUE"
+        '
         'Label19
         '
         Me.TableLayoutPanel1.SetColumnSpan(Me.Label19, 7)
@@ -1355,6 +1843,27 @@ Partial Class FrmG0010
         Me.Label19.TabIndex = 102
         Me.Label19.Text = "再審委員会判定区分:"
         Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbSAISIN_IINKAI_HANTEI_KB
+        '
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.BackColor = System.Drawing.SystemColors.Window
+        Me.TableLayoutPanel1.SetColumnSpan(Me.cmbSAISIN_IINKAI_HANTEI_KB, 7)
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.DisplayMember = "DISP"
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.FormattingEnabled = True
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.IsSelected = False
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.Location = New System.Drawing.Point(163, 33)
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.Name = "cmbSAISIN_IINKAI_HANTEI_KB"
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.NullValue = " "
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.Size = New System.Drawing.Size(134, 25)
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.TabIndex = 23
+        Me.cmbSAISIN_IINKAI_HANTEI_KB.ValueMember = "VALUE"
         '
         'Label12
         '
@@ -1562,6 +2071,75 @@ Partial Class FrmG0010
         Me.cmbKENSA_KEKKA_KB.TabIndex = 26
         Me.cmbKENSA_KEKKA_KB.ValueMember = "VALUE"
         '
+        'GroupBoxEx1
+        '
+        Me.GroupBoxEx1.BackColor = System.Drawing.SystemColors.Control
+        Me.GroupBoxEx1.Controls.Add(Me.TableLayoutPanel5)
+        Me.GroupBoxEx1.Controls.Add(Me.dgvCTS)
+        Me.GroupBoxEx1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBoxEx1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.GroupBoxEx1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.GroupBoxEx1.Location = New System.Drawing.Point(3, 190)
+        Me.GroupBoxEx1.Name = "GroupBoxEx1"
+        Me.GroupBoxEx1.Size = New System.Drawing.Size(1, 603)
+        Me.GroupBoxEx1.TabIndex = 68
+        Me.GroupBoxEx1.TabStop = False
+        Me.GroupBoxEx1.Text = "CTS検索条件"
+        '
+        'TableLayoutPanel5
+        '
+        Me.TableLayoutPanel5.ColumnCount = 15
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 19)
+        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
+        Me.TableLayoutPanel5.RowCount = 7
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(0, 158)
+        Me.TableLayoutPanel5.TabIndex = 64
+        '
+        'dgvCTS
+        '
+        Me.dgvCTS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvCTS.Location = New System.Drawing.Point(3, 183)
+        Me.dgvCTS.Name = "dgvCTS"
+        Me.dgvCTS.RowTemplate.Height = 21
+        Me.dgvCTS.Size = New System.Drawing.Size(400, 414)
+        Me.dgvCTS.TabIndex = 31
+        '
+        'pnlCARFilter
+        '
+        Me.pnlCARFilter.Controls.Add(Me.TableLayoutPanel2)
+        Me.pnlCARFilter.Controls.Add(Me.dgvCAR)
+        Me.pnlCARFilter.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlCARFilter.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.pnlCARFilter.Location = New System.Drawing.Point(3, 190)
+        Me.pnlCARFilter.Name = "pnlCARFilter"
+        Me.pnlCARFilter.Size = New System.Drawing.Size(1, 603)
+        Me.pnlCARFilter.TabIndex = 66
+        Me.pnlCARFilter.TabStop = False
+        Me.pnlCARFilter.Text = "CAR検索条件"
+        '
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.ColumnCount = 60
@@ -1660,7 +2238,7 @@ Partial Class FrmG0010
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(531, 158)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(0, 158)
         Me.TableLayoutPanel2.TabIndex = 64
         '
         'Label27
@@ -1981,584 +2559,6 @@ Partial Class FrmG0010
         Me.btnClearGenin2.Text = "クリア"
         Me.btnClearGenin2.UseVisualStyleBackColor = True
         '
-        'panelMan
-        '
-        Me.panelMan.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.panelMan.Controls.Add(Me.mpnlCondition)
-        Me.panelMan.Controls.Add(Me.mpnlDataGrid)
-        Me.panelMan.Controls.Add(Me.mpSummaryGrid)
-        Me.panelMan.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.panelMan.Location = New System.Drawing.Point(12, 60)
-        Me.panelMan.Name = "panelMan"
-        Me.panelMan.SelectedIndex = 1
-        Me.panelMan.SelectedPanel = Me.mpnlDataGrid
-        Me.panelMan.Size = New System.Drawing.Size(1553, 502)
-        Me.panelMan.TabIndex = 64
-        '
-        'mpnlCondition
-        '
-        Me.mpnlCondition.AutoScroll = True
-        Me.mpnlCondition.Controls.Add(Me.PanelEx1)
-        Me.mpnlCondition.Location = New System.Drawing.Point(0, 0)
-        Me.mpnlCondition.Name = "mpnlCondition"
-        Me.mpnlCondition.Size = New System.Drawing.Size(1553, 502)
-        '
-        'PanelEx1
-        '
-        Me.PanelEx1.AutoScroll = True
-        Me.PanelEx1.Controls.Add(Me.pnl_ovalflame)
-        Me.PanelEx1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelEx1.HitEnabled = False
-        Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
-        Me.PanelEx1.Name = "PanelEx1"
-        Me.PanelEx1.Size = New System.Drawing.Size(1553, 502)
-        Me.PanelEx1.TabIndex = 0
-        '
-        'pnl_ovalflame
-        '
-        Me.pnl_ovalflame.ColumnCount = 3
-        Me.pnl_ovalflame.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.0!))
-        Me.pnl_ovalflame.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.0!))
-        Me.pnl_ovalflame.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
-        Me.pnl_ovalflame.Controls.Add(Me.TableLayoutPanel4, 0, 1)
-        Me.pnl_ovalflame.Controls.Add(Me.GroupBox1, 0, 0)
-        Me.pnl_ovalflame.Controls.Add(Me.pnlNCRFilter, 0, 2)
-        Me.pnl_ovalflame.Controls.Add(Me.GroupBoxEx1, 2, 2)
-        Me.pnl_ovalflame.Controls.Add(Me.pnlCARFilter, 1, 2)
-        Me.pnl_ovalflame.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnl_ovalflame.Location = New System.Drawing.Point(0, 0)
-        Me.pnl_ovalflame.Name = "pnl_ovalflame"
-        Me.pnl_ovalflame.RowCount = 3
-        Me.pnl_ovalflame.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pnl_ovalflame.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 4.0!))
-        Me.pnl_ovalflame.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pnl_ovalflame.Size = New System.Drawing.Size(1553, 502)
-        Me.pnl_ovalflame.TabIndex = 67
-        '
-        'TableLayoutPanel4
-        '
-        Me.TableLayoutPanel4.ColumnCount = 60
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.Controls.Add(Me.Label5, 0, 0)
-        Me.TableLayoutPanel4.Controls.Add(Me.Label6, 0, 1)
-        Me.TableLayoutPanel4.Controls.Add(Me.Label8, 0, 2)
-        Me.TableLayoutPanel4.Controls.Add(Me.Label24, 0, 3)
-        Me.TableLayoutPanel4.Controls.Add(Me.Label25, 0, 4)
-        Me.TableLayoutPanel4.Controls.Add(Me.CheckBox1, 4, 2)
-        Me.TableLayoutPanel4.Controls.Add(Me.CheckBox2, 4, 1)
-        Me.TableLayoutPanel4.Controls.Add(Me.CheckBox3, 4, 0)
-        Me.TableLayoutPanel4.Controls.Add(Me.ComboboxEx1, 5, 0)
-        Me.TableLayoutPanel4.Controls.Add(Me.ComboboxEx2, 5, 1)
-        Me.TableLayoutPanel4.Controls.Add(Me.ComboboxEx3, 5, 2)
-        Me.TableLayoutPanel4.Controls.Add(Me.MaskedTextBoxEx1, 5, 3)
-        Me.TableLayoutPanel4.Controls.Add(Me.MaskedTextBoxEx2, 5, 4)
-        Me.TableLayoutPanel4.Controls.Add(Me.CheckBox4, 4, 3)
-        Me.TableLayoutPanel4.Controls.Add(Me.CheckBox5, 4, 4)
-        Me.TableLayoutPanel4.Controls.Add(Me.Button1, 21, 3)
-        Me.TableLayoutPanel4.Controls.Add(Me.Button2, 21, 4)
-        Me.TableLayoutPanel4.Controls.Add(Me.MaskedTextBoxEx3, 26, 0)
-        Me.TableLayoutPanel4.Controls.Add(Me.MaskedTextBoxEx4, 26, 1)
-        Me.TableLayoutPanel4.Controls.Add(Me.Label26, 20, 0)
-        Me.TableLayoutPanel4.Controls.Add(Me.Label28, 20, 1)
-        Me.TableLayoutPanel4.Controls.Add(Me.Button3, 24, 3)
-        Me.TableLayoutPanel4.Controls.Add(Me.Button4, 24, 4)
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 186)
-        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
-        Me.TableLayoutPanel4.RowCount = 7
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(1, 1)
-        Me.TableLayoutPanel4.TabIndex = 67
-        '
-        'Label5
-        '
-        Me.TableLayoutPanel4.SetColumnSpan(Me.Label5, 4)
-        Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label5.Location = New System.Drawing.Point(3, 0)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(74, 30)
-        Me.Label5.TabIndex = 54
-        Me.Label5.Text = "要因1:"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label6
-        '
-        Me.TableLayoutPanel4.SetColumnSpan(Me.Label6, 4)
-        Me.Label6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label6.Location = New System.Drawing.Point(3, 30)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(74, 30)
-        Me.Label6.TabIndex = 101
-        Me.Label6.Text = "要因2:"
-        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label8
-        '
-        Me.TableLayoutPanel4.SetColumnSpan(Me.Label8, 4)
-        Me.Label8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label8.Location = New System.Drawing.Point(3, 60)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(74, 30)
-        Me.Label8.TabIndex = 69
-        Me.Label8.Text = "帰責工程:"
-        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label24
-        '
-        Me.TableLayoutPanel4.SetColumnSpan(Me.Label24, 4)
-        Me.Label24.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label24.Location = New System.Drawing.Point(3, 90)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(74, 30)
-        Me.Label24.TabIndex = 63
-        Me.Label24.Text = "原因1:"
-        Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label25
-        '
-        Me.TableLayoutPanel4.SetColumnSpan(Me.Label25, 4)
-        Me.Label25.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label25.Location = New System.Drawing.Point(3, 120)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(74, 30)
-        Me.Label25.TabIndex = 102
-        Me.Label25.Text = "原因2:"
-        Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.CheckBox1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.CheckBox1.Location = New System.Drawing.Point(83, 63)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(14, 21)
-        Me.CheckBox1.TabIndex = 113
-        Me.CheckBox1.Text = "削除済も表示"
-        Me.CheckBox1.UseVisualStyleBackColor = True
-        Me.CheckBox1.Visible = False
-        '
-        'CheckBox2
-        '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.CheckBox2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.CheckBox2.Location = New System.Drawing.Point(83, 33)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(14, 21)
-        Me.CheckBox2.TabIndex = 113
-        Me.CheckBox2.Text = "削除済も表示"
-        Me.CheckBox2.UseVisualStyleBackColor = True
-        Me.CheckBox2.Visible = False
-        '
-        'CheckBox3
-        '
-        Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.CheckBox3.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.CheckBox3.Location = New System.Drawing.Point(83, 3)
-        Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(14, 21)
-        Me.CheckBox3.TabIndex = 113
-        Me.CheckBox3.Text = "削除済も表示"
-        Me.CheckBox3.UseVisualStyleBackColor = True
-        Me.CheckBox3.Visible = False
-        '
-        'ComboboxEx1
-        '
-        Me.ComboboxEx1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.ComboboxEx1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx1.BackColor = System.Drawing.SystemColors.Window
-        Me.TableLayoutPanel4.SetColumnSpan(Me.ComboboxEx1, 10)
-        Me.ComboboxEx1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ComboboxEx1.DisplayMember = "DISP"
-        Me.ComboboxEx1.DropDownWidth = 220
-        Me.ComboboxEx1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.ComboboxEx1.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.ComboboxEx1.FormattingEnabled = True
-        Me.ComboboxEx1.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.ComboboxEx1.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.ComboboxEx1.IsSelected = False
-        Me.ComboboxEx1.Location = New System.Drawing.Point(103, 3)
-        Me.ComboboxEx1.Name = "ComboboxEx1"
-        Me.ComboboxEx1.NullValue = " "
-        Me.ComboboxEx1.Size = New System.Drawing.Size(194, 25)
-        Me.ComboboxEx1.TabIndex = 28
-        Me.ComboboxEx1.ValueMember = "VALUE"
-        '
-        'ComboboxEx2
-        '
-        Me.ComboboxEx2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.ComboboxEx2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx2.BackColor = System.Drawing.SystemColors.Window
-        Me.TableLayoutPanel4.SetColumnSpan(Me.ComboboxEx2, 10)
-        Me.ComboboxEx2.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ComboboxEx2.DisplayMember = "DISP"
-        Me.ComboboxEx2.DropDownWidth = 220
-        Me.ComboboxEx2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.ComboboxEx2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.ComboboxEx2.FormattingEnabled = True
-        Me.ComboboxEx2.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.ComboboxEx2.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.ComboboxEx2.IsSelected = False
-        Me.ComboboxEx2.Location = New System.Drawing.Point(103, 33)
-        Me.ComboboxEx2.Name = "ComboboxEx2"
-        Me.ComboboxEx2.NullValue = " "
-        Me.ComboboxEx2.Size = New System.Drawing.Size(194, 25)
-        Me.ComboboxEx2.TabIndex = 29
-        Me.ComboboxEx2.ValueMember = "VALUE"
-        '
-        'ComboboxEx3
-        '
-        Me.ComboboxEx3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.ComboboxEx3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.ComboboxEx3.BackColor = System.Drawing.SystemColors.Window
-        Me.TableLayoutPanel4.SetColumnSpan(Me.ComboboxEx3, 10)
-        Me.ComboboxEx3.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ComboboxEx3.DisplayMember = "DISP"
-        Me.ComboboxEx3.DropDownWidth = 220
-        Me.ComboboxEx3.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.ComboboxEx3.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.ComboboxEx3.FormattingEnabled = True
-        Me.ComboboxEx3.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.ComboboxEx3.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.ComboboxEx3.IsSelected = False
-        Me.ComboboxEx3.Location = New System.Drawing.Point(103, 63)
-        Me.ComboboxEx3.Name = "ComboboxEx3"
-        Me.ComboboxEx3.NullValue = " "
-        Me.ComboboxEx3.Size = New System.Drawing.Size(194, 25)
-        Me.ComboboxEx3.TabIndex = 30
-        Me.ComboboxEx3.ValueMember = "VALUE"
-        '
-        'MaskedTextBoxEx1
-        '
-        Me.MaskedTextBoxEx1.BackColor = System.Drawing.SystemColors.Control
-        Me.TableLayoutPanel4.SetColumnSpan(Me.MaskedTextBoxEx1, 16)
-        Me.MaskedTextBoxEx1.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.MaskedTextBoxEx1.InputRequired = False
-        Me.MaskedTextBoxEx1.Location = New System.Drawing.Point(103, 93)
-        Me.MaskedTextBoxEx1.MaxByteLength = 0
-        Me.MaskedTextBoxEx1.Name = "MaskedTextBoxEx1"
-        Me.MaskedTextBoxEx1.ReadOnly = True
-        Me.MaskedTextBoxEx1.SelectAllText = False
-        Me.MaskedTextBoxEx1.Size = New System.Drawing.Size(314, 23)
-        Me.MaskedTextBoxEx1.TabIndex = 82
-        Me.MaskedTextBoxEx1.WatermarkColor = System.Drawing.Color.Empty
-        Me.MaskedTextBoxEx1.WatermarkText = Nothing
-        '
-        'MaskedTextBoxEx2
-        '
-        Me.MaskedTextBoxEx2.BackColor = System.Drawing.SystemColors.Control
-        Me.TableLayoutPanel4.SetColumnSpan(Me.MaskedTextBoxEx2, 16)
-        Me.MaskedTextBoxEx2.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.MaskedTextBoxEx2.InputRequired = False
-        Me.MaskedTextBoxEx2.Location = New System.Drawing.Point(103, 123)
-        Me.MaskedTextBoxEx2.MaxByteLength = 0
-        Me.MaskedTextBoxEx2.Name = "MaskedTextBoxEx2"
-        Me.MaskedTextBoxEx2.ReadOnly = True
-        Me.MaskedTextBoxEx2.SelectAllText = False
-        Me.MaskedTextBoxEx2.Size = New System.Drawing.Size(314, 23)
-        Me.MaskedTextBoxEx2.TabIndex = 104
-        Me.MaskedTextBoxEx2.WatermarkColor = System.Drawing.Color.Empty
-        Me.MaskedTextBoxEx2.WatermarkText = Nothing
-        '
-        'CheckBox4
-        '
-        Me.CheckBox4.AutoSize = True
-        Me.CheckBox4.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.CheckBox4.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.CheckBox4.Location = New System.Drawing.Point(83, 93)
-        Me.CheckBox4.Name = "CheckBox4"
-        Me.CheckBox4.Size = New System.Drawing.Size(14, 21)
-        Me.CheckBox4.TabIndex = 113
-        Me.CheckBox4.Text = "削除済も表示"
-        Me.CheckBox4.UseVisualStyleBackColor = True
-        Me.CheckBox4.Visible = False
-        '
-        'CheckBox5
-        '
-        Me.CheckBox5.AutoSize = True
-        Me.CheckBox5.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.CheckBox5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.CheckBox5.Location = New System.Drawing.Point(83, 123)
-        Me.CheckBox5.Name = "CheckBox5"
-        Me.CheckBox5.Size = New System.Drawing.Size(14, 21)
-        Me.CheckBox5.TabIndex = 113
-        Me.CheckBox5.Text = "削除済も表示"
-        Me.CheckBox5.UseVisualStyleBackColor = True
-        Me.CheckBox5.Visible = False
-        '
-        'Button1
-        '
-        Me.TableLayoutPanel4.SetColumnSpan(Me.Button1, 3)
-        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button1.Location = New System.Drawing.Point(423, 93)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(54, 24)
-        Me.Button1.TabIndex = 105
-        Me.Button1.Text = "検索"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.TableLayoutPanel4.SetColumnSpan(Me.Button2, 3)
-        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button2.Location = New System.Drawing.Point(423, 123)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(54, 24)
-        Me.Button2.TabIndex = 99
-        Me.Button2.Text = "検索"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'MaskedTextBoxEx3
-        '
-        Me.MaskedTextBoxEx3.BackColor = System.Drawing.SystemColors.Window
-        Me.TableLayoutPanel4.SetColumnSpan(Me.MaskedTextBoxEx3, 3)
-        Me.MaskedTextBoxEx3.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.MaskedTextBoxEx3.InputRequired = False
-        Me.MaskedTextBoxEx3.Location = New System.Drawing.Point(523, 3)
-        Me.MaskedTextBoxEx3.MaxByteLength = 0
-        Me.MaskedTextBoxEx3.Name = "MaskedTextBoxEx3"
-        Me.MaskedTextBoxEx3.SelectAllText = False
-        Me.MaskedTextBoxEx3.Size = New System.Drawing.Size(54, 23)
-        Me.MaskedTextBoxEx3.TabIndex = 109
-        Me.MaskedTextBoxEx3.Visible = False
-        Me.MaskedTextBoxEx3.WatermarkColor = System.Drawing.Color.Empty
-        Me.MaskedTextBoxEx3.WatermarkText = Nothing
-        '
-        'MaskedTextBoxEx4
-        '
-        Me.MaskedTextBoxEx4.BackColor = System.Drawing.SystemColors.Window
-        Me.TableLayoutPanel4.SetColumnSpan(Me.MaskedTextBoxEx4, 3)
-        Me.MaskedTextBoxEx4.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.MaskedTextBoxEx4.InputRequired = False
-        Me.MaskedTextBoxEx4.Location = New System.Drawing.Point(523, 33)
-        Me.MaskedTextBoxEx4.MaxByteLength = 0
-        Me.MaskedTextBoxEx4.Name = "MaskedTextBoxEx4"
-        Me.MaskedTextBoxEx4.SelectAllText = False
-        Me.MaskedTextBoxEx4.Size = New System.Drawing.Size(54, 23)
-        Me.MaskedTextBoxEx4.TabIndex = 110
-        Me.MaskedTextBoxEx4.Visible = False
-        Me.MaskedTextBoxEx4.WatermarkColor = System.Drawing.Color.Empty
-        Me.MaskedTextBoxEx4.WatermarkText = Nothing
-        '
-        'Label26
-        '
-        Me.TableLayoutPanel4.SetColumnSpan(Me.Label26, 6)
-        Me.Label26.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label26.Location = New System.Drawing.Point(403, 0)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(114, 30)
-        Me.Label26.TabIndex = 111
-        Me.Label26.Text = "原因1(検索値):"
-        Me.Label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label26.Visible = False
-        '
-        'Label28
-        '
-        Me.TableLayoutPanel4.SetColumnSpan(Me.Label28, 6)
-        Me.Label28.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label28.Location = New System.Drawing.Point(403, 30)
-        Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(114, 30)
-        Me.Label28.TabIndex = 112
-        Me.Label28.Text = "原因2(検索値):"
-        Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label28.Visible = False
-        '
-        'Button3
-        '
-        Me.TableLayoutPanel4.SetColumnSpan(Me.Button3, 3)
-        Me.Button3.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button3.Location = New System.Drawing.Point(483, 93)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(54, 24)
-        Me.Button3.TabIndex = 108
-        Me.Button3.Text = "クリア"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Button4
-        '
-        Me.TableLayoutPanel4.SetColumnSpan(Me.Button4, 3)
-        Me.Button4.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button4.Location = New System.Drawing.Point(483, 123)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(54, 24)
-        Me.Button4.TabIndex = 107
-        Me.Button4.Text = "クリア"
-        Me.Button4.UseVisualStyleBackColor = True
-        '
-        'GroupBox1
-        '
-        Me.pnl_ovalflame.SetColumnSpan(Me.GroupBox1, 3)
-        Me.GroupBox1.Controls.Add(Me.tlpFilter)
-        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1547, 177)
-        Me.GroupBox1.TabIndex = 1
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "共通検索条件"
-        '
-        'pnlNCRFilter
-        '
-        Me.pnlNCRFilter.Controls.Add(Me.dgvNCR)
-        Me.pnlNCRFilter.Controls.Add(Me.TableLayoutPanel1)
-        Me.pnlNCRFilter.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlNCRFilter.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.pnlNCRFilter.Location = New System.Drawing.Point(3, 190)
-        Me.pnlNCRFilter.Name = "pnlNCRFilter"
-        Me.pnlNCRFilter.Size = New System.Drawing.Size(537, 603)
-        Me.pnlNCRFilter.TabIndex = 65
-        Me.pnlNCRFilter.TabStop = False
-        Me.pnlNCRFilter.Text = "NCR検索条件"
-        '
-        'dgvNCR
-        '
-        Me.dgvNCR.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvNCR.Location = New System.Drawing.Point(3, 183)
-        Me.dgvNCR.Name = "dgvNCR"
-        Me.dgvNCR.RowTemplate.Height = 21
-        Me.dgvNCR.Size = New System.Drawing.Size(500, 414)
-        Me.dgvNCR.TabIndex = 27
-        '
-        'GroupBoxEx1
-        '
-        Me.GroupBoxEx1.BackColor = System.Drawing.SystemColors.Control
-        Me.GroupBoxEx1.Controls.Add(Me.TableLayoutPanel5)
-        Me.GroupBoxEx1.Controls.Add(Me.dgvCTS)
-        Me.GroupBoxEx1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBoxEx1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.GroupBoxEx1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GroupBoxEx1.Location = New System.Drawing.Point(1089, 190)
-        Me.GroupBoxEx1.Name = "GroupBoxEx1"
-        Me.GroupBoxEx1.Size = New System.Drawing.Size(461, 603)
-        Me.GroupBoxEx1.TabIndex = 68
-        Me.GroupBoxEx1.TabStop = False
-        Me.GroupBoxEx1.Text = "CTS検索条件"
-        '
-        'TableLayoutPanel5
-        '
-        Me.TableLayoutPanel5.ColumnCount = 15
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 19)
-        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
-        Me.TableLayoutPanel5.RowCount = 7
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(455, 158)
-        Me.TableLayoutPanel5.TabIndex = 64
-        '
-        'dgvCTS
-        '
-        Me.dgvCTS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvCTS.Location = New System.Drawing.Point(3, 183)
-        Me.dgvCTS.Name = "dgvCTS"
-        Me.dgvCTS.RowTemplate.Height = 21
-        Me.dgvCTS.Size = New System.Drawing.Size(400, 414)
-        Me.dgvCTS.TabIndex = 31
-        '
-        'pnlCARFilter
-        '
-        Me.pnlCARFilter.Controls.Add(Me.TableLayoutPanel2)
-        Me.pnlCARFilter.Controls.Add(Me.dgvCAR)
-        Me.pnlCARFilter.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlCARFilter.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.pnlCARFilter.Location = New System.Drawing.Point(546, 190)
-        Me.pnlCARFilter.Name = "pnlCARFilter"
-        Me.pnlCARFilter.Size = New System.Drawing.Size(537, 603)
-        Me.pnlCARFilter.TabIndex = 66
-        Me.pnlCARFilter.TabStop = False
-        Me.pnlCARFilter.Text = "CAR検索条件"
-        '
         'dgvCAR
         '
         Me.dgvCAR.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -2601,7 +2601,7 @@ Partial Class FrmG0010
         Me.mpSummaryGrid.Controls.Add(Me._flexGroup)
         Me.mpSummaryGrid.Location = New System.Drawing.Point(0, 0)
         Me.mpSummaryGrid.Name = "mpSummaryGrid"
-        Me.mpSummaryGrid.Size = New System.Drawing.Size(1553, 502)
+        Me.mpSummaryGrid.Size = New System.Drawing.Size(0, 0)
         Me.mpSummaryGrid.Text = "ManagedPanel1"
         '
         '_flexGroup
@@ -2619,12 +2619,12 @@ Partial Class FrmG0010
         Me._flexGroup.Grid.ColumnInfo = resources.GetString("_flexGroup.Grid.ColumnInfo")
         Me._flexGroup.Grid.Dock = System.Windows.Forms.DockStyle.Bottom
         Me._flexGroup.Grid.DrawMode = C1.Win.C1FlexGrid.DrawModeEnum.OwnerDraw
-        Me._flexGroup.Grid.Location = New System.Drawing.Point(0, 36)
+        Me._flexGroup.Grid.Location = New System.Drawing.Point(0, 0)
         Me._flexGroup.Grid.Name = ""
         Me._flexGroup.Grid.Rows.DefaultSize = 18
         Me._flexGroup.Grid.Rows.Fixed = 2
         Me._flexGroup.Grid.ShowCursor = True
-        Me._flexGroup.Grid.Size = New System.Drawing.Size(1549, 462)
+        Me._flexGroup.Grid.Size = New System.Drawing.Size(0, 0)
         Me._flexGroup.Grid.StyleInfo = resources.GetString("_flexGroup.Grid.StyleInfo")
         Me._flexGroup.Grid.TabIndex = 1
         Me._flexGroup.Grid.Tree.Style = C1.Win.C1FlexGrid.TreeStyleFlags.Symbols
@@ -2632,7 +2632,7 @@ Partial Class FrmG0010
         Me._flexGroup.Location = New System.Drawing.Point(0, 0)
         Me._flexGroup.Name = "_flexGroup"
         Me._flexGroup.ShowGroups = True
-        Me._flexGroup.Size = New System.Drawing.Size(1553, 502)
+        Me._flexGroup.Size = New System.Drawing.Size(0, 0)
         Me._flexGroup.TabIndex = 66
         Me._flexGroup.TabStop = False
         '
@@ -2756,12 +2756,6 @@ Partial Class FrmG0010
         Me.Controls.SetChildIndex(Me.lblDEV_FLG, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tlpFilter.ResumeLayout(False)
-        Me.tlpFilter.PerformLayout()
-        Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel1.PerformLayout()
-        Me.TableLayoutPanel2.ResumeLayout(False)
-        Me.TableLayoutPanel2.PerformLayout()
         Me.panelMan.ResumeLayout(False)
         Me.mpnlCondition.ResumeLayout(False)
         Me.PanelEx1.ResumeLayout(False)
@@ -2769,11 +2763,17 @@ Partial Class FrmG0010
         Me.TableLayoutPanel4.ResumeLayout(False)
         Me.TableLayoutPanel4.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
+        Me.tlpFilter.ResumeLayout(False)
+        Me.tlpFilter.PerformLayout()
         Me.pnlNCRFilter.ResumeLayout(False)
         CType(Me.dgvNCR, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
         Me.GroupBoxEx1.ResumeLayout(False)
         CType(Me.dgvCTS, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlCARFilter.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
         CType(Me.dgvCAR, System.ComponentModel.ISupportInitialize).EndInit()
         Me.mpnlDataGrid.ResumeLayout(False)
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2787,87 +2787,8 @@ Partial Class FrmG0010
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents chkClosedRowVisibled As CheckBox
-    Friend WithEvents tlpFilter As TableLayoutPanel
-    Friend WithEvents lblJisiYMD As Label
-    Friend WithEvents dtJisiFrom As DateTextBoxEx
-    Friend WithEvents dtJisiTo As DateTextBoxEx
-    Friend WithEvents Label7 As Label
-    Friend WithEvents lblGEN_TANTO As Label
-    Friend WithEvents cmbJIZEN_SINSA_HANTEI_KB As ComboboxEx
-    Friend WithEvents lblHOKUKO_NO As Label
-    Friend WithEvents cmbGEN_TANTO As ComboboxEx
-    Friend WithEvents cmbBUHIN_BANGO As ComboboxEx
-    Friend WithEvents Label11 As Label
-    Friend WithEvents cmbSAISIN_IINKAI_HANTEI_KB As ComboboxEx
-    Friend WithEvents cmbKISYU As ComboboxEx
-    Friend WithEvents Label9 As Label
-    Friend WithEvents Label15 As Label
-    Friend WithEvents Label16 As Label
-    Friend WithEvents mtxHINMEI As MaskedTextBoxEx
-    Friend WithEvents mtxHOKUKO_NO As MaskedTextBoxEx
-    Friend WithEvents btnSECH_BUHIN As Button
-    Friend WithEvents btnClearSrchFilter As Button
-    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents Label12 As Label
-    Friend WithEvents Label13 As Label
-    Friend WithEvents Label17 As Label
-    Friend WithEvents cmbKOKYAKU_SAISYU_HANTEI_KB As ComboboxEx
-    Friend WithEvents cmbKENSA_KEKKA_KB As ComboboxEx
-    Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
-    Friend WithEvents Label27 As Label
-    Friend WithEvents Label30 As Label
-    Friend WithEvents cmbYOIN1 As ComboboxEx
-    Friend WithEvents Label35 As Label
-    Friend WithEvents mtxGENIN1_DISP As MaskedTextBoxEx
-    Friend WithEvents btnSelectGenin2 As Button
-    Friend WithEvents Label1 As Label
-    Friend WithEvents cmbBUMON As ComboboxEx
-    Friend WithEvents Label2 As Label
-    Friend WithEvents lblSyanaiCD As Label
-    Friend WithEvents mtxGOKI As MaskedTextBoxEx
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label14 As Label
-    Friend WithEvents cmbADD_TANTO As ComboboxEx
-    Friend WithEvents chkTairyu As CheckBox
-    Friend WithEvents cmbFUTEKIGO_KB As ComboboxEx
-    Friend WithEvents cmbFUTEKIGO_S_KB As ComboboxEx
-    Friend WithEvents Label40 As Label
-    Friend WithEvents cmbFUTEKIGO_JYOTAI_KB As ComboboxEx
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Label19 As Label
-    Friend WithEvents Label20 As Label
-    Friend WithEvents cmbKOKYAKU_HANTEI_SIJI_KB As ComboboxEx
-    Friend WithEvents cmbZESEI_SYOCHI_YOHI_KB As ComboboxEx
-    Friend WithEvents Label18 As Label
-    Friend WithEvents Label21 As Label
-    Friend WithEvents cmbYOIN2 As ComboboxEx
-    Friend WithEvents mtxGENIN2_DISP As MaskedTextBoxEx
-    Friend WithEvents btnSelectGenin1 As Button
-    Friend WithEvents cmbKISEKI_KOTEI_KB As ComboboxEx
-    Friend WithEvents btnClearGenin1 As Button
-    Friend WithEvents btnClearGenin2 As Button
-    Friend WithEvents mtxGENIN1 As MaskedTextBoxEx
-    Friend WithEvents mtxGENIN2 As MaskedTextBoxEx
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label22 As Label
-    Friend WithEvents cmbSYANAI_CD As ComboboxEx
-    Friend WithEvents chkDeleteRowVisibled As CheckBox
     Friend WithEvents panelMan As PanelManager.Controls.PanelManager
-    Friend WithEvents mpnlCondition As PanelManager.Controls.ManagedPanel
-    Friend WithEvents mpnlDataGrid As PanelManager.Controls.ManagedPanel
     Friend WithEvents dgvDATA As DataGridView
-    Friend WithEvents pnlCARFilter As GroupBox
-    Friend WithEvents pnlNCRFilter As GroupBox
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents dgvCAR As DataGridView
-    Friend WithEvents dgvNCR As DataGridView
-    Friend WithEvents PanelEx1 As PanelEx
-    Friend WithEvents lblJisi As Label
-    Friend WithEvents Label23 As Label
-    Friend WithEvents dtHASSEI_YMD_FROM As DateTextBoxEx
-    Friend WithEvents dtHASSEI_YMD_TO As DateTextBoxEx
-    Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents mpSummaryGrid As PanelManager.Controls.ManagedPanel
     Friend WithEvents btnSummaryPage As Button
     Friend WithEvents FlexContextMenu As ContextMenuStrip
@@ -2876,32 +2797,11 @@ Partial Class FrmG0010
     Friend WithEvents IncludeFilter As ToolStripMenuItem
     Friend WithEvents NotIncludeFilter As ToolStripMenuItem
     Friend WithEvents _flexGroup As FlexGroupControl
-    Friend WithEvents chkDispBUMON As CheckBox
-    Friend WithEvents chkDispBUHIN_BANGO As CheckBox
-    Friend WithEvents chkDispSYANAI_CD As CheckBox
-    Friend WithEvents chkDispFUTEKIGO_JYOTAI_KB As CheckBox
-    Friend WithEvents chkDispFUTEKIGO_S_KB As CheckBox
-    Friend WithEvents chkDispADD_TANTO As CheckBox
-    Friend WithEvents chkDispHINMEI As CheckBox
-    Friend WithEvents chkDispHASSEI_YMD As CheckBox
-    Friend WithEvents chkDispKISYU As CheckBox
-    Friend WithEvents chkDispGOKI As CheckBox
-    Friend WithEvents chkDispFUTEKIGO_KB As CheckBox
-    Friend WithEvents chkDispJIZEN_SINSA_HANTEI_KB As CheckBox
-    Friend WithEvents chkDispSAISIN_IINKAI_HANTEI_KB As CheckBox
-    Friend WithEvents chkDispKOKYAKU_SAISYU_HANTEI_KB As CheckBox
-    Friend WithEvents chkDispZESEI_SYOCHI_YOHI_KB As CheckBox
-    Friend WithEvents chkDispKOKYAKU_HANTEI_SIJI_KB As CheckBox
-    Friend WithEvents chkDispKENSA_KEKKA_KB As CheckBox
-    Friend WithEvents chkDispKISEKI_KOTEI_KB As CheckBox
-    Friend WithEvents chkDispYOIN1 As CheckBox
-    Friend WithEvents chkDispYOIN2 As CheckBox
+    Friend WithEvents lblDEV_FLG As Label
+    Friend WithEvents ST03FUTEKIGOICHIRANBindingSource As BindingSource
+    Friend WithEvents mpnlCondition As PanelManager.Controls.ManagedPanel
+    Friend WithEvents PanelEx1 As PanelEx
     Friend WithEvents pnl_ovalflame As TableLayoutPanel
-    Friend WithEvents lblHOKOKUSYO_ID As Label
-    Friend WithEvents chkDispHOKOKUSYO_ID As CheckBox
-    Friend WithEvents cmbHOKOKUSYO_ID As ComboboxEx
-    Friend WithEvents chkDispGENIN1 As CheckBox
-    Friend WithEvents chkDispGENIN2 As CheckBox
     Friend WithEvents TableLayoutPanel4 As TableLayoutPanel
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
@@ -2926,11 +2826,111 @@ Partial Class FrmG0010
     Friend WithEvents Label28 As Label
     Friend WithEvents Button3 As Button
     Friend WithEvents Button4 As Button
-    Friend WithEvents GroupBoxEx1 As GroupBoxEx
-    Friend WithEvents dgvCTS As DataGridView
-    Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents tlpFilter As TableLayoutPanel
+    Friend WithEvents cmbGEN_TANTO As ComboboxEx
+    Friend WithEvents cmbKISYU As ComboboxEx
+    Friend WithEvents cmbFUTEKIGO_KB As ComboboxEx
+    Friend WithEvents mtxGOKI As MaskedTextBoxEx
+    Friend WithEvents Label11 As Label
+    Friend WithEvents lblSyanaiCD As Label
+    Friend WithEvents Label40 As Label
+    Friend WithEvents Label16 As Label
+    Friend WithEvents cmbFUTEKIGO_S_KB As ComboboxEx
+    Friend WithEvents cmbFUTEKIGO_JYOTAI_KB As ComboboxEx
+    Friend WithEvents cmbSYANAI_CD As ComboboxEx
+    Friend WithEvents cmbBUHIN_BANGO As ComboboxEx
+    Friend WithEvents chkDispBUHIN_BANGO As CheckBox
+    Friend WithEvents chkDispSYANAI_CD As CheckBox
+    Friend WithEvents chkDispFUTEKIGO_JYOTAI_KB As CheckBox
+    Friend WithEvents chkDispFUTEKIGO_S_KB As CheckBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents lblGEN_TANTO As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents chkDispFUTEKIGO_KB As CheckBox
+    Friend WithEvents chkDispGOKI As CheckBox
+    Friend WithEvents chkDispKISYU As CheckBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label23 As Label
+    Friend WithEvents lblJisiYMD As Label
+    Friend WithEvents chkDispHINMEI As CheckBox
+    Friend WithEvents chkDispHASSEI_YMD As CheckBox
+    Friend WithEvents dtJisiFrom As DateTextBoxEx
+    Friend WithEvents dtHASSEI_YMD_FROM As DateTextBoxEx
+    Friend WithEvents mtxHINMEI As MaskedTextBoxEx
+    Friend WithEvents Label7 As Label
+    Friend WithEvents lblJisi As Label
+    Friend WithEvents dtHASSEI_YMD_TO As DateTextBoxEx
+    Friend WithEvents dtJisiTo As DateTextBoxEx
+    Friend WithEvents lblHOKOKUSYO_ID As Label
+    Friend WithEvents chkDispHOKOKUSYO_ID As CheckBox
+    Friend WithEvents cmbHOKOKUSYO_ID As ComboboxEx
+    Friend WithEvents lblHOKUKO_NO As Label
+    Friend WithEvents mtxHOKUKO_NO As MaskedTextBoxEx
+    Friend WithEvents btnSECH_BUHIN As Button
+    Friend WithEvents cmbADD_TANTO As ComboboxEx
+    Friend WithEvents chkDispADD_TANTO As CheckBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents chkDispBUMON As CheckBox
+    Friend WithEvents cmbBUMON As ComboboxEx
+    Friend WithEvents Label14 As Label
     Friend WithEvents lblSURYO As Label
     Friend WithEvents chkDispSURYO As CheckBox
-    Friend WithEvents lblDEV_FLG As Label
-    Friend WithEvents ST03FUTEKIGOICHIRANBindingSource As BindingSource
+    Friend WithEvents chkDeleteRowVisibled As CheckBox
+    Friend WithEvents chkClosedRowVisibled As CheckBox
+    Friend WithEvents chkTairyu As CheckBox
+    Friend WithEvents btnClearSrchFilter As Button
+    Friend WithEvents pnlNCRFilter As GroupBox
+    Friend WithEvents dgvNCR As DataGridView
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents Label13 As Label
+    Friend WithEvents cmbJIZEN_SINSA_HANTEI_KB As ComboboxEx
+    Friend WithEvents Label19 As Label
+    Friend WithEvents cmbSAISIN_IINKAI_HANTEI_KB As ComboboxEx
+    Friend WithEvents Label12 As Label
+    Friend WithEvents cmbKOKYAKU_SAISYU_HANTEI_KB As ComboboxEx
+    Friend WithEvents chkDispJIZEN_SINSA_HANTEI_KB As CheckBox
+    Friend WithEvents chkDispSAISIN_IINKAI_HANTEI_KB As CheckBox
+    Friend WithEvents chkDispKOKYAKU_SAISYU_HANTEI_KB As CheckBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents chkDispZESEI_SYOCHI_YOHI_KB As CheckBox
+    Friend WithEvents cmbZESEI_SYOCHI_YOHI_KB As ComboboxEx
+    Friend WithEvents Label20 As Label
+    Friend WithEvents chkDispKOKYAKU_HANTEI_SIJI_KB As CheckBox
+    Friend WithEvents cmbKOKYAKU_HANTEI_SIJI_KB As ComboboxEx
+    Friend WithEvents Label17 As Label
+    Friend WithEvents chkDispKENSA_KEKKA_KB As CheckBox
+    Friend WithEvents cmbKENSA_KEKKA_KB As ComboboxEx
+    Friend WithEvents GroupBoxEx1 As GroupBoxEx
+    Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
+    Friend WithEvents dgvCTS As DataGridView
+    Friend WithEvents pnlCARFilter As GroupBox
+    Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
+    Friend WithEvents Label27 As Label
+    Friend WithEvents Label18 As Label
+    Friend WithEvents Label30 As Label
+    Friend WithEvents Label35 As Label
+    Friend WithEvents Label21 As Label
+    Friend WithEvents chkDispKISEKI_KOTEI_KB As CheckBox
+    Friend WithEvents chkDispYOIN2 As CheckBox
+    Friend WithEvents chkDispYOIN1 As CheckBox
+    Friend WithEvents cmbYOIN1 As ComboboxEx
+    Friend WithEvents cmbYOIN2 As ComboboxEx
+    Friend WithEvents cmbKISEKI_KOTEI_KB As ComboboxEx
+    Friend WithEvents mtxGENIN1_DISP As MaskedTextBoxEx
+    Friend WithEvents mtxGENIN2_DISP As MaskedTextBoxEx
+    Friend WithEvents chkDispGENIN1 As CheckBox
+    Friend WithEvents chkDispGENIN2 As CheckBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label22 As Label
+    Friend WithEvents mtxGENIN1 As MaskedTextBoxEx
+    Friend WithEvents mtxGENIN2 As MaskedTextBoxEx
+    Friend WithEvents btnSelectGenin1 As Button
+    Friend WithEvents btnSelectGenin2 As Button
+    Friend WithEvents btnClearGenin1 As Button
+    Friend WithEvents btnClearGenin2 As Button
+    Friend WithEvents dgvCAR As DataGridView
+    Friend WithEvents mpnlDataGrid As PanelManager.Controls.ManagedPanel
+    Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
 End Class

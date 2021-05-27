@@ -19,6 +19,7 @@ Partial Class FrmG0012
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.gbxFilter = New System.Windows.Forms.GroupBox()
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
         Me.Label14 = New System.Windows.Forms.Label()
@@ -40,7 +41,7 @@ Partial Class FrmG0012
         Me.mtxADD_SYAIN_NAME = New JMS_COMMON.MaskedTextBoxEx()
         Me.mtxADD_SYAIN_NAME_NCR = New JMS_COMMON.MaskedTextBoxEx()
         Me.lbl_Modoshi_Riyu = New System.Windows.Forms.Label()
-        Me.D005CARJBindingSource = New System.Windows.Forms.BindingSource()
+        Me.D005CARJBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.TabSTAGE = New System.Windows.Forms.TabControl()
         Me.tabSTAGE01 = New JMS_COMMON.TabPageEx()
         Me.lblMessage = New System.Windows.Forms.Label()
@@ -259,7 +260,7 @@ Partial Class FrmG0012
         Me.Label33 = New System.Windows.Forms.Label()
         Me.dtSYOCHI_YOTEI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.InfoToolTip = New System.Windows.Forms.ToolTip()
+        Me.InfoToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.PicBox = New System.Windows.Forms.PictureBox()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -835,7 +836,7 @@ Partial Class FrmG0012
         Me.pnlAnalysis.Controls.Add(Me.Label51)
         Me.pnlAnalysis.Location = New System.Drawing.Point(658, 658)
         Me.pnlAnalysis.Name = "pnlAnalysis"
-        Me.pnlAnalysis.Size = New System.Drawing.Size(385, 295)
+        Me.pnlAnalysis.Size = New System.Drawing.Size(351, 295)
         Me.pnlAnalysis.TabIndex = 322
         Me.pnlAnalysis.Visible = False
         '
@@ -843,7 +844,7 @@ Partial Class FrmG0012
         '
         Me.Label25.BackColor = System.Drawing.Color.Black
         Me.Label25.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Label25.Location = New System.Drawing.Point(370, 0)
+        Me.Label25.Location = New System.Drawing.Point(336, 0)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(13, 293)
         Me.Label25.TabIndex = 324

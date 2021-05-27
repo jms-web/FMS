@@ -547,10 +547,10 @@ Public Class FrmG0012
         'UPDATE
         sbSQL.Append($" WHEN MATCHED THEN")
         sbSQL.Append($" UPDATE SET")
-
+        sbSQL.Append($" SrcT.{NameOf(_D005_CAR_J.CLOSE_FG)}         = WK.{NameOf(_D005_CAR_J.CLOSE_FG)}")
         Select Case PrCurrentStage
             Case ENM_CAR_STAGE._10_起草入力 To ENM_CAR_STAGE._70_起草確認_品証課長
-                sbSQL.Append($"  SrcT.{NameOf(_D005_CAR_J.SETUMON_1)}  = WK.{NameOf(_D005_CAR_J.SETUMON_1)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_1)}  = WK.{NameOf(_D005_CAR_J.SETUMON_1)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_2)}  = WK.{NameOf(_D005_CAR_J.SETUMON_2)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_3)}  = WK.{NameOf(_D005_CAR_J.SETUMON_3)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_4)}  = WK.{NameOf(_D005_CAR_J.SETUMON_4)}")
@@ -597,31 +597,23 @@ Public Class FrmG0012
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_21)} = WK.{NameOf(_D005_CAR_J.KAITO_21)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_22)} = WK.{NameOf(_D005_CAR_J.KAITO_22)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_23)} = WK.{NameOf(_D005_CAR_J.KAITO_23)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}      = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}      = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_SYAIN_ID)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KISEKI_KOTEI_KB)}      = WK.{NameOf(_D005_CAR_J.KISEKI_KOTEI_KB)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD)}  = WK.{NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.ADD_SYAIN_ID)}         = WK.{NameOf(_D005_CAR_J.ADD_SYAIN_ID)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.ADD_YMDHNS)}           = WK.{NameOf(_D005_CAR_J.ADD_YMDHNS)}")
 
-            Case ENM_CAR_STAGE._80_処置実施記録入力 To ENM_CAR_STAGE._90_処置実施確認
-                sbSQL.Append($" SrcT.{NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID)}  = WK.{NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID)}")
+            Case ENM_CAR_STAGE._80_処置実施記録入力 To ENM_CAR_STAGE._90_処置実施確認, ENM_CAR_STAGE._999_Closed
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID)}  = WK.{NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_A_YMDHNS)}   = WK.{NameOf(_D005_CAR_J.SYOCHI_A_YMDHNS)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_B_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.SYOCHI_B_SYAIN_ID)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_B_YMDHNS)}   = WK.{NameOf(_D005_CAR_J.SYOCHI_B_YMDHNS)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_C_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.SYOCHI_C_SYAIN_ID)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_C_YMDHNS)}   = WK.{NameOf(_D005_CAR_J.SYOCHI_C_YMDHNS)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KYOIKU_FILE_PATH)}  = WK.{NameOf(_D005_CAR_J.KYOIKU_FILE_PATH)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}   = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}   = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}")
 
-            Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
+            Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長, ENM_CAR_STAGE._999_Closed
 
-                sbSQL.Append($" SrcT.{NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU)} = WK.{NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU)}")
+                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU)} = WK.{NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOSAI_FILE_PATH)}     = WK.{NameOf(_D005_CAR_J.SYOSAI_FILE_PATH)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}      = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}")
-                sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}      = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.GOKI)}                 = WK.{NameOf(_D005_CAR_J.GOKI)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.LOT)}                  = WK.{NameOf(_D005_CAR_J.LOT)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KENSA_TANTO_ID)}       = WK.{NameOf(_D005_CAR_J.KENSA_TANTO_ID)}")
@@ -633,6 +625,10 @@ Public Class FrmG0012
                 Return False
         End Select
 
+        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}      = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}      = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_SYAIN_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KISEKI_KOTEI_KB)}      = WK.{NameOf(_D005_CAR_J.KISEKI_KOTEI_KB)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_24)}         = WK.{NameOf(_D005_CAR_J.KAITO_24)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KAITO_25)}         = WK.{NameOf(_D005_CAR_J.KAITO_25)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_YOTEI_YMD)} = WK.{NameOf(_D005_CAR_J.SYOCHI_YOTEI_YMD)}")
@@ -640,7 +636,6 @@ Public Class FrmG0012
         sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.FILE_PATH2)}       = WK.{NameOf(_D005_CAR_J.FILE_PATH2)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.UPD_SYAIN_ID)}     = WK.{NameOf(_D005_CAR_J.UPD_SYAIN_ID)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.UPD_YMDHNS)}       = WK.{NameOf(_D005_CAR_J.UPD_YMDHNS)}")
-        sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.CLOSE_FG)}         = WK.{NameOf(_D005_CAR_J.CLOSE_FG)}")
 
         'INSERT
         sbSQL.Append($" WHEN NOT MATCHED THEN ")
@@ -1300,9 +1295,12 @@ Public Class FrmG0012
         Dim blnExist As Boolean
         sbSQL.Append($"SELECT {NameOf(MODEL.R001_HOKOKU_SOUSA.HOKOKU_NO)} FROM {NameOf(MODEL.R001_HOKOKU_SOUSA)}")
         sbSQL.Append($" WHERE {NameOf(MODEL.R001_HOKOKU_SOUSA.HOKOKU_NO)} ='{_R001_HOKOKU_SOUSA.HOKOKU_NO}'")
+        sbSQL.Append($" AND {NameOf(MODEL.R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID)} ={Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR.Value}")
+        sbSQL.Append($" AND {NameOf(MODEL.R001_HOKOKU_SOUSA.SYONIN_JUN)} ='{PrCurrentStage}'")
         dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
         If dsList.Tables(0).Rows.Count > 0 Then
             blnExist = True
+            strSysDate = DB.GetSysDateString.ToString.ToDateTime("yyyyMMddHHmmss").AddMilliseconds(1000).ToString("yyyyMMddHHmmss")
         End If
 
         '-----データモデル更新
@@ -1881,12 +1879,13 @@ Public Class FrmG0012
         Dim dlgRET As DialogResult
 
         Try
-            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-            frmDLG.PrHOKOKU_NO = _D003_NCR_J.HOKOKU_NO
-            frmDLG.PrBUMON_KB = _D003_NCR_J.BUMON_KB
-            frmDLG.PrBUHIN_BANGO = _D003_NCR_J.BUHIN_BANGO
-            frmDLG.PrKISO_YMD = DateTime.ParseExact(_D003_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
-            frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
+            frmDLG.PrSYORI_NAME = "修正理由登録"
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
+            frmDLG.PrHOKOKU_NO = _V002_NCR_J.HOKOKU_NO
+            frmDLG.PrBUMON_KB = _V002_NCR_J.BUMON_KB
+            frmDLG.PrBUHIN_BANGO = _V002_NCR_J.BUHIN_BANGO
+            frmDLG.PrKISO_YMD = DateTime.ParseExact(_V002_NCR_J.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+            frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _V002_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
             frmDLG.PrCurrentStage = Me.PrCurrentStage
 
             dlgRET = frmDLG.ShowDialog(Me)
