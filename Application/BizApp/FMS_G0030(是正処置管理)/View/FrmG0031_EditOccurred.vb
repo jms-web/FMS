@@ -2,9 +2,7 @@ Imports System.Threading.Tasks
 Imports C1.Win.C1FlexGrid
 Imports JMS_COMMON.ClsPubMethod
 Imports MODEL
-Imports D010 = MODEL.D010_FCCB_SUB_SYOCHI_KOMOKU
-Imports D011 = MODEL.D011_FCCB_SUB_SIKAKE_BUHIN
-Imports D012 = MODEL.D012_FCCB_SUB_SYOCHI_KAKUNIN
+Imports D013 = MODEL.D013_ZESEI_HASSEI_J
 
 ''' <summary>
 ''' FCCB登録画面
@@ -13,7 +11,7 @@ Public Class FrmG0031_EditOccurred
 
 #Region "定数・変数"
 
-    'Private _D009 As New D009_FCCB_J
+    Private _D013 As New D013
     Private _V003_SYONIN_J_KANRI_List As New List(Of V003_SYONIN_J_KANRI)
 
     Private IsEditingClosed As Boolean
@@ -186,7 +184,7 @@ Public Class FrmG0031_EditOccurred
 
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
-                        If IsEditingClosed And PrCurrentStage = ENM_FCCB_STAGE._999_Closed Then
+                        If IsEditingClosed And PrCurrentStage = ENM_ZESEI_STAGE._999_Closed Then
 
                             Call OpenFormEdit()
                             If PrRIYU.IsNulOrWS Then
@@ -221,7 +219,7 @@ Public Class FrmG0031_EditOccurred
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._2_承認申請) Then
                         Dim strMsg As String
-                        If FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_FCCB_STAGE._999_Closed Then
+                        If FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_ZESEI_STAGE._999_Closed Then
                             strMsg = "承認・CLOSEしますか？"
                         Else
                             strMsg = "承認・申請しますか？"
@@ -229,7 +227,7 @@ Public Class FrmG0031_EditOccurred
 
                         If MessageBox.Show(strMsg, "承認・申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                             If FunSAVE(ENM_SAVE_MODE._2_承認申請) Then
-                                If PrCurrentStage = ENM_FCCB_STAGE._60_処置事項完了確認 Then
+                                If PrCurrentStage = ENM_ZESEI_STAGE._60_処置事項完了確認 Then
                                     strMsg = "承認・CLOSEしました"
                                 Else
                                     strMsg = "承認・申請しました"
@@ -327,10 +325,10 @@ Public Class FrmG0031_EditOccurred
                 Try
                     DB.BeginTransaction()
 
-                    'If FunSAVE_D009(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
+                    If FunSAVE_D013(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                     If FunSAVE_FILE(DB) = False Then blnErr = True : Return False
 
-                    If Not blnTENSO And PrCurrentStage < ENM_FCCB_STAGE._999_Closed Then
+                    If Not blnTENSO And PrCurrentStage < ENM_ZESEI_STAGE._999_Closed Then
                         If FunSAVE_D004(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                     End If
                     If FunSAVE_R001(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
@@ -412,6 +410,101 @@ Public Class FrmG0031_EditOccurred
 
 #End Region
 
+#Region "   D013"
+
+    ''' <summary>
+    ''' FCCB更新
+    ''' </summary>
+    ''' <param name="DB"></param>
+    ''' <returns></returns>
+    Private Function FunSAVE_D013(ByRef DB As ClsDbUtility, ByVal enmSAVE_MODE As ENM_SAVE_MODE) As Boolean
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim strRET As String
+        Dim sqlEx As New Exception
+        Dim strSysDate As String = DB.GetSysDateString
+
+#Region "モデル更新"
+
+        If _D013.HOKOKU_NO.IsNulOrWS Or _D013.HOKOKU_NO = "<新規>" Then
+            Dim objParam As System.Data.Common.DbParameter = DB.DbCommand.CreateParameter
+            Dim lstParam As New List(Of System.Data.Common.DbParameter)
+            With objParam
+                .ParameterName = "HOKOKU_NO"
+                .DbType = DbType.String
+                .Direction = ParameterDirection.Output
+                .Size = 8
+            End With
+            lstParam.Add(objParam)
+            If DB.Fun_blnExecStored("dbo.ST06_GET_ZESEI_NO", lstParam) = True Then
+                _D013.HOKOKU_NO = DB.DbCommand.Parameters("HOKOKU_NO").Value
+            Else
+                Return False
+            End If
+        End If
+
+        If (FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_ZESEI_STAGE._999_Closed) And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
+            _D013._CLOSE_FG = 1
+        End If
+
+        _D013.BUMON_KB = cmbBUMON.SelectedValue
+
+        If dtKISO.Text.IsNulOrWS Then
+            _D013.ADD_YMDHNS = strSysDate
+        Else
+            _D013.ADD_YMDHNS = dtKISO.ValueDate.ToString("yyyyMMdd") & "000000"
+        End If
+
+        _D009.INPUT_DOC_NO = mtxINPUT_DOC_NO.Text
+        _D009.SNO_APPLY_PERIOD_KISO = mtxSNO_APPLY_PERIOD_KISO.Text
+        _D009.SNO_APPLY_PERIOD_HENKO_SINGI = mtxSNO_APPLY_PERIOD_HENKO_SINGI.Text
+        _D009.INPUT_NAIYO = txtINPUT_NAIYO.Text
+
+        If cmbKISO_TANTO.IsSelected Then
+            _D009.ADD_SYAIN_ID = cmbKISO_TANTO.SelectedValue
+        Else
+            _D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+        End If
+
+        _D009.UPD_YMDHNS = strSysDate
+        _D009.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+        _D009.DEL_YMDHNS = ""
+        _D009.DEL_SYAIN_ID = 0
+
+#End Region
+
+        '-----MERGE
+        sbSQL.Remove(0, sbSQL.Length)
+        sbSQL.Append($"MERGE INTO {NameOf(D009_FCCB_J)} AS TARGET")
+        sbSQL.Append($" USING (")
+        sbSQL.Append($"{_D009.ToSelectSqlString}")
+        sbSQL.Append($" ) AS WK")
+        sbSQL.Append($" ON (TARGET.{NameOf(_D009.FCCB_NO)} = WK.{NameOf(_D009.FCCB_NO)})")
+        '---UPDATE
+        sbSQL.Append($" WHEN MATCHED THEN")
+        sbSQL.Append($" {_D009.ToUpdateSqlString("TARGET", "WK")}")
+        '---INSERT
+        sbSQL.Append($" WHEN NOT MATCHED THEN")
+        sbSQL.Append($" {_D009.ToInsertSqlString("WK")}")
+        sbSQL.Append(" OUTPUT $action As RESULT;")
+        strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
+        Select Case strRET
+            Case "INSERT"
+
+            Case "UPDATE"
+
+            Case Else
+                '-----エラーログ出力
+                Dim strErrMsg As String = My.Resources.ErrLogSqlExecutionFailure & sbSQL.ToString & "|" & sqlEx.Message
+                WL.WriteLogDat(strErrMsg)
+                Return False
+        End Select
+        WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009.FCCB_NO}、MERGE D009_FCCB_J")
+
+        Return True
+    End Function
+
+#End Region
+
 #Region "   D004 承認実績管理更新"
 
     ''' <summary>
@@ -437,7 +530,7 @@ Public Class FrmG0031_EditOccurred
             _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
 
-            If PrCurrentStage = ENM_FCCB_STAGE._10_起草入力 Then
+            If PrCurrentStage = ENM_ZESEI_STAGE._10_起草入力 Then
                 _D004_SYONIN_J_KANRI.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             End If
 
@@ -565,17 +658,17 @@ Public Class FrmG0031_EditOccurred
 
                     'ステージ別承認判定
                     Select Case PrCurrentStage
-                        Case ENM_FCCB_STAGE._10_起草入力
+                        Case ENM_ZESEI_STAGE._10_起草入力
 
-                        Case ENM_FCCB_STAGE._20_処置事項調査等
+                        Case ENM_ZESEI_STAGE._20_処置事項調査等
 
-                        Case ENM_FCCB_STAGE._30_変更審議
+                        Case ENM_ZESEI_STAGE._30_変更審議
 
-                        Case ENM_FCCB_STAGE._40_処置確認
+                        Case ENM_ZESEI_STAGE._40_処置確認
 
-                        Case ENM_FCCB_STAGE._50_処置事項完了
+                        Case ENM_ZESEI_STAGE._50_処置事項完了
 
-                        Case ENM_FCCB_STAGE._60_処置事項完了確認
+                        Case ENM_ZESEI_STAGE._60_処置事項完了確認
 
                         Case Else
                             Throw New ArgumentException("想定外の承認ステージです", PrCurrentStage)
@@ -587,7 +680,7 @@ Public Class FrmG0031_EditOccurred
             End Select
 
             '-----Close処理
-            If _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_FCCB_STAGE._999_Closed Then
+            If _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_ZESEI_STAGE._999_Closed Then
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
                 _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
             End If
@@ -662,7 +755,7 @@ Public Class FrmG0031_EditOccurred
             strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
             Select Case strRET
                 Case "INSERT"
-                    If PrCurrentStage < ENM_FCCB_STAGE._60_処置事項完了確認 AndAlso FunSendRequestMail() Then
+                    If PrCurrentStage < ENM_ZESEI_STAGE._60_処置事項完了確認 AndAlso FunSendRequestMail() Then
                         WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009.FCCB_NO}、Send Request Mail")
                     End If
 
@@ -732,13 +825,13 @@ Public Class FrmG0031_EditOccurred
             Dim sbSQL As New System.Text.StringBuilder
             Dim dsList As New DataSet
 
-            sbSQL.Clear()
-            sbSQL.Append($"SELECT")
-            sbSQL.Append($" {NameOf(D012.TANTO_ID)}")
-            sbSQL.Append($" FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} ")
-            sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}='{_D009.FCCB_NO}' ")
-            sbSQL.Append($" AND {NameOf(D012.TANTO_ID)}<>0 ")
-            sbSQL.Append($" AND RTRIM({NameOf(D012.KYOGI_YOHI_KAITO)})='' ")
+            'sbSQL.Clear()
+            'sbSQL.Append($"SELECT")
+            'sbSQL.Append($" {NameOf(D013.TANTO_ID)}")
+            'sbSQL.Append($" FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} ")
+            'sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}='{_D009.FCCB_NO}' ")
+            'sbSQL.Append($" AND {NameOf(D012.TANTO_ID)}<>0 ")
+            'sbSQL.Append($" AND RTRIM({NameOf(D012.KYOGI_YOHI_KAITO)})='' ")
             Using DB = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
@@ -1049,7 +1142,7 @@ Public Class FrmG0031_EditOccurred
         Select Case enmSAVE_MODE
             Case ENM_SAVE_MODE._1_保存
 
-                If PrCurrentStage = ENM_FCCB_STAGE._999_Closed Then
+                If PrCurrentStage = ENM_ZESEI_STAGE._999_Closed Then
                     _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
                     _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._2_更新保存
                 Else
@@ -1400,11 +1493,11 @@ Public Class FrmG0031_EditOccurred
                 cmdFunc4.Visible = False
 
                 Select Case PrCurrentStage
-                    Case ENM_FCCB_STAGE._10_起草入力
+                    Case ENM_ZESEI_STAGE._10_起草入力
                         cmdFunc5.Enabled = False
-                    Case ENM_FCCB_STAGE._20_処置事項調査等
+                    Case ENM_ZESEI_STAGE._20_処置事項調査等
                         cmdFunc2.Enabled = pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO
-                    Case ENM_FCCB_STAGE._30_変更審議
+                    Case ENM_ZESEI_STAGE._30_変更審議
 
                         cmdFunc4.Visible = True
 
@@ -1416,9 +1509,9 @@ Public Class FrmG0031_EditOccurred
                             cmdFunc4.Text = $"協議要否確認{vbCrLf}メール送信(F4)"
                         End If
 
-                    Case ENM_FCCB_STAGE._50_処置事項完了
+                    Case ENM_ZESEI_STAGE._50_処置事項完了
 
-                    Case ENM_FCCB_STAGE._999_Closed
+                    Case ENM_ZESEI_STAGE._999_Closed
                         If IsEditingClosed Then
                             cmdFunc1.Enabled = True
                             cmdFunc1.Text = "保存(F1)"
@@ -1502,7 +1595,7 @@ Public Class FrmG0031_EditOccurred
         Try
 
             'ナビゲートリンク選択
-            If PrCurrentStage = ENM_FCCB_STAGE._999_Closed Then
+            If PrCurrentStage = ENM_ZESEI_STAGE._999_Closed Then
                 rsbtnST99.Checked = True
             Else
                 Dim rbtn As RibbonShapeRadioButton = DirectCast(flpnlStageIndex.Controls("rsbtnST" & (PrCurrentStage / 10).ToString("00")), RibbonShapeRadioButton)
@@ -1610,18 +1703,18 @@ Public Class FrmG0031_EditOccurred
         Try
 
             Select Case CurrentStageID
-                Case ENM_FCCB_STAGE._10_起草入力
-                    Return ENM_FCCB_STAGE._20_処置事項調査等
-                Case ENM_FCCB_STAGE._20_処置事項調査等
-                    Return ENM_FCCB_STAGE._30_変更審議
-                Case ENM_FCCB_STAGE._30_変更審議
-                    Return ENM_FCCB_STAGE._40_処置確認
-                Case ENM_FCCB_STAGE._40_処置確認, ENM_FCCB_STAGE._41_処置確認_統括
-                    Return ENM_FCCB_STAGE._50_処置事項完了
-                Case ENM_FCCB_STAGE._50_処置事項完了
-                    Return ENM_FCCB_STAGE._60_処置事項完了確認
-                Case ENM_FCCB_STAGE._60_処置事項完了確認, ENM_FCCB_STAGE._61_処置事項完了確認_統括
-                    Return ENM_FCCB_STAGE._999_Closed
+                Case ENM_ZESEI_STAGE._10_起草入力
+                    Return ENM_ZESEI_STAGE._20_処置事項調査等
+                Case ENM_ZESEI_STAGE._20_処置事項調査等
+                    Return ENM_ZESEI_STAGE._30_変更審議
+                Case ENM_ZESEI_STAGE._30_変更審議
+                    Return ENM_ZESEI_STAGE._40_処置確認
+                Case ENM_ZESEI_STAGE._40_処置確認, ENM_ZESEI_STAGE._41_処置確認_統括
+                    Return ENM_ZESEI_STAGE._50_処置事項完了
+                Case ENM_ZESEI_STAGE._50_処置事項完了
+                    Return ENM_ZESEI_STAGE._60_処置事項完了確認
+                Case ENM_ZESEI_STAGE._60_処置事項完了確認, ENM_ZESEI_STAGE._61_処置事項完了確認_統括
+                    Return ENM_ZESEI_STAGE._999_Closed
                 Case Else
                     Return 0
             End Select
@@ -1806,12 +1899,12 @@ Public Class FrmG0031_EditOccurred
         Dim sqlEx As New Exception
         Dim intRET As Integer
 
-        sbSQL.Append($"SELECT")
-        sbSQL.Append($" COUNT({NameOf(D012.TANTO_ID)})")
-        sbSQL.Append($" FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} ")
-        sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}='{_D009.FCCB_NO}' ")
-        sbSQL.Append($" AND {NameOf(D012.TANTO_ID)}<>0 ")
-        sbSQL.Append($" AND RTRIM({NameOf(D012.KYOGI_YOHI_KAITO)})='1' ")
+        'sbSQL.Append($"SELECT")
+        'sbSQL.Append($" COUNT({NameOf(D012.TANTO_ID)})")
+        'sbSQL.Append($" FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} ")
+        'sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}='{_D009.FCCB_NO}' ")
+        'sbSQL.Append($" AND {NameOf(D012.TANTO_ID)}<>0 ")
+        'sbSQL.Append($" AND RTRIM({NameOf(D012.KYOGI_YOHI_KAITO)})='1' ")
         Using DB = DBOpen()
             intRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx).ToVal()
         End Using

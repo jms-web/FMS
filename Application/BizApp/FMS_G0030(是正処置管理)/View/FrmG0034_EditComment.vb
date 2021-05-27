@@ -156,7 +156,7 @@ Public Class FrmG0034_EditComment
                     sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}='{ENM_SYONIN_HANTEI_KB._0_ñ¢è≥îF.Value}'")
                     sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}='0'")
                     sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}='{strSysDate}'")
-                    If PrCurrentStage = ENM_FCCB_STAGE._10_ãNëêì¸óÕ Then
+                    If PrCurrentStage = ENM_ZESEI_STAGE._10_ãNëêì¸óÕ Then
                         sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
                     End If
                     sbSQL.Append($" WHERE {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={PrSYONIN_HOKOKUSYO_ID}")

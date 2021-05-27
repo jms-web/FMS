@@ -142,6 +142,8 @@
     </Compile>
     <Compile Include="Migrations\201804050655482_Init31.vb" />
     <Compile Include="Migrations\Configuration.vb" />
+    <Compile Include="Models\Data\D014_ZESEI_RYUSYUTU_J.vb" />
+    <Compile Include="Models\Data\D013_ZESEI_HASSEI_J.vb" />
     <Compile Include="Models\Data\D012_FCCB_SUB_SYOCHI_KAKUNIN.vb" />
     <Compile Include="Models\Data\D011_FCCB_SUB_SIKAKE_BUHIN.vb" />
     <Compile Include="Models\Data\D010_FCCB_SUB_SYOCHI_KOMOKU.vb" />

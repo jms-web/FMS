@@ -29,7 +29,7 @@
     <AssemblyVersionSettings>None.None.DateStamp.TimeStamp</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>None.None.DateStamp.TimeStamp</AssemblyFileVersionSettings>
     <AssemblyInfoVersionSettings>None.None.DateStamp.TimeStamp</AssemblyInfoVersionSettings>
-    <AssemblyVersion>0.9.21126.0923</AssemblyVersion>
+    <AssemblyVersion>0.9.21147.0837</AssemblyVersion>
     <PublishUrl>\\Sv04\fms\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -43,13 +43,13 @@
     <InstallUrl>http://172.16.11.7:8000/</InstallUrl>
     <ProductName>フジワラシステム</ProductName>
     <PublisherName>JMS</PublisherName>
-    <MinimumRequiredVersion>0.9.21126.0923</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.9.21147.0837</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>923</ApplicationRevision>
-    <ApplicationVersion>0.9.21126.0923</ApplicationVersion>
+    <ApplicationRevision>837</ApplicationRevision>
+    <ApplicationVersion>0.9.21147.0837</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -190,6 +190,7 @@
     <Content Include="EXE\C1.Win.C1TrueDBGrid.4.dll" />
     <Content Include="EXE\FMS_G0010.exe" />
     <Content Include="EXE\FMS_G0020.exe" />
+    <Content Include="EXE\FMS_G0030.exe" />
     <Content Include="EXE\FMS_M0000.exe" />
     <Content Include="EXE\FMS_M0010.exe" />
     <Content Include="EXE\FMS_M00101.exe" />

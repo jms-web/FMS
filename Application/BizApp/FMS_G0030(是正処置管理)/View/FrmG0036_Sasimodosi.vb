@@ -409,7 +409,7 @@ Public Class FrmG0036_Sasimodosi
             For intCNT = 0 To .Rows.Count - 1
                 Dim Trow As DataRow = dt.NewRow()
 
-                If .Rows(intCNT).Item("SYONIN_JUN") = ENM_FCCB_STAGE._10_ãNëêì¸óÕ Then
+                If .Rows(intCNT).Item("SYONIN_JUN") = ENM_ZESEI_STAGE._10_ãNëêì¸óÕ Then
                     Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO") & " " & .Rows(intCNT).Item("UPD_SYAIN_NAME")
                     Trow("SYAIN_ID") = .Rows(intCNT).Item("UPD_SYAIN_ID")
                     Trow("SYAIN_NAME") = .Rows(intCNT).Item("UPD_SYAIN_NAME")

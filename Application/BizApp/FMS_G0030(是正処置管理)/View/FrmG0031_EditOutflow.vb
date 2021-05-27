@@ -293,7 +293,7 @@ Public Class FrmG0031_EditOutflow
                     Throw New ArgumentException("想定外のデータソースです", flx.Name)
             End Select
 
-            If PrCurrentStage >= ENM_FCCB_STAGE._50_処置事項完了 AndAlso flx.Cols(e.Col).Name <> NameOf(D010.CLOSE_YMD) Then
+            If PrCurrentStage >= ENM_ZESEI_STAGE._50_処置事項完了 AndAlso flx.Cols(e.Col).Name <> NameOf(D010.CLOSE_YMD) Then
                 e.Cancel = True
             End If
 
@@ -527,7 +527,7 @@ Public Class FrmG0031_EditOutflow
 
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
-                        If IsEditingClosed And PrCurrentStage = ENM_FCCB_STAGE._999_Closed Then
+                        If IsEditingClosed And PrCurrentStage = ENM_ZESEI_STAGE._999_Closed Then
 
                             Call OpenFormEdit()
                             If PrRIYU.IsNulOrWS Then
@@ -543,7 +543,7 @@ Public Class FrmG0031_EditOutflow
 
                             '他の担当者も含めて必須項目入力済みの場合、FCCB議長への申請処理へ移行
                             Select Case PrCurrentStage
-                                Case ENM_FCCB_STAGE._20_処置事項調査等.Value
+                                Case ENM_ZESEI_STAGE._20_処置事項調査等.Value
                                     If IsInputRequired_DB() Then
                                         If FunSendRequestMail(fromUserNAME:="FCCB管理システム", toUserNAME:=cmbCM_TANTO.Text) Then
                                             strMsg &= $"{vbCrLf}また、全ての要入力項目が完了したため、FCCB議長に処置申請を送信しました。"
@@ -562,7 +562,7 @@ Public Class FrmG0031_EditOutflow
                     '入力チェック
                     If FunCheckInput(ENM_SAVE_MODE._2_承認申請) Then
                         Dim strMsg As String
-                        If FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_FCCB_STAGE._999_Closed Then
+                        If FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_ZESEI_STAGE._999_Closed Then
                             strMsg = "承認・CLOSEしますか？"
                         Else
                             strMsg = "承認・申請しますか？"
@@ -570,7 +570,7 @@ Public Class FrmG0031_EditOutflow
 
                         If MessageBox.Show(strMsg, "承認・申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                             If FunSAVE(ENM_SAVE_MODE._2_承認申請) Then
-                                If PrCurrentStage = ENM_FCCB_STAGE._60_処置事項完了確認 Then
+                                If PrCurrentStage = ENM_ZESEI_STAGE._60_処置事項完了確認 Then
                                     strMsg = "承認・CLOSEしました"
                                 Else
                                     strMsg = "承認・申請しました"
@@ -674,7 +674,7 @@ Public Class FrmG0031_EditOutflow
                     If FunSAVE_D011(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                     If FunSAVE_D012(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
 
-                    If Not blnTENSO And PrCurrentStage < ENM_FCCB_STAGE._999_Closed Then
+                    If Not blnTENSO And PrCurrentStage < ENM_ZESEI_STAGE._999_Closed Then
                         If FunSAVE_D004(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
                     End If
                     If FunSAVE_R001(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
@@ -788,7 +788,7 @@ Public Class FrmG0031_EditOutflow
             End If
         End If
 
-        If (FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_FCCB_STAGE._999_Closed) And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
+        If (FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_ZESEI_STAGE._999_Closed) And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
             _D009._CLOSE_FG = 1
         End If
 
@@ -905,7 +905,7 @@ Public Class FrmG0031_EditOutflow
 
             For Each dr As DataRow In DirectCast(Flx2_DS.DataSource, DataTable).Rows
 
-                If PrCurrentStage > ENM_FCCB_STAGE._10_起草入力 Then
+                If PrCurrentStage > ENM_ZESEI_STAGE._10_起草入力 Then
                     If _D009.CM_TANTO = pub_SYAIN_INFO.SYAIN_ID Or _D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID Then
                         '起草者 or FCCB議長は全部更新可能
                     Else
@@ -1163,7 +1163,7 @@ Public Class FrmG0031_EditOutflow
                 End If
             End If
 
-            If PrCurrentStage = ENM_FCCB_STAGE._60_処置事項完了確認 Then
+            If PrCurrentStage = ENM_ZESEI_STAGE._60_処置事項完了確認 Then
                 If cmbKAKUNIN_GM_TANTO.IsSelected Then
                     If FunSAVE_D012_SUB(DB, "93", cmbKAKUNIN_GM_TANTO.SelectedValue, dtKAKUNIN_GM_TANTO.ValueNonFormat) = False Then
                         Return False
@@ -1263,7 +1263,7 @@ Public Class FrmG0031_EditOutflow
             _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate
 
-            If PrCurrentStage = ENM_FCCB_STAGE._10_起草入力 Then
+            If PrCurrentStage = ENM_ZESEI_STAGE._10_起草入力 Then
                 _D004_SYONIN_J_KANRI.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             End If
 
@@ -1391,17 +1391,17 @@ Public Class FrmG0031_EditOutflow
 
                     'ステージ別承認判定
                     Select Case PrCurrentStage
-                        Case ENM_FCCB_STAGE._10_起草入力
+                        Case ENM_ZESEI_STAGE._10_起草入力
 
-                        Case ENM_FCCB_STAGE._20_処置事項調査等
+                        Case ENM_ZESEI_STAGE._20_処置事項調査等
 
-                        Case ENM_FCCB_STAGE._30_変更審議
+                        Case ENM_ZESEI_STAGE._30_変更審議
 
-                        Case ENM_FCCB_STAGE._40_処置確認
+                        Case ENM_ZESEI_STAGE._40_処置確認
 
-                        Case ENM_FCCB_STAGE._50_処置事項完了
+                        Case ENM_ZESEI_STAGE._50_処置事項完了
                             _D004_SYONIN_J_KANRI.SYAIN_ID = cmbSYOCHI_GM_TANTO.SelectedValue
-                        Case ENM_FCCB_STAGE._60_処置事項完了確認
+                        Case ENM_ZESEI_STAGE._60_処置事項完了確認
 
                         Case Else
                             Throw New ArgumentException("想定外の承認ステージです", PrCurrentStage)
@@ -1413,7 +1413,7 @@ Public Class FrmG0031_EditOutflow
             End Select
 
             '-----Close処理
-            If _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_FCCB_STAGE._999_Closed Then
+            If _D004_SYONIN_J_KANRI.SYONIN_JUN = ENM_ZESEI_STAGE._999_Closed Then
                 _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
                 _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
             End If
@@ -1488,7 +1488,7 @@ Public Class FrmG0031_EditOutflow
             strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
             Select Case strRET
                 Case "INSERT"
-                    If PrCurrentStage < ENM_FCCB_STAGE._60_処置事項完了確認 AndAlso FunSendRequestMail() Then
+                    If PrCurrentStage < ENM_ZESEI_STAGE._60_処置事項完了確認 AndAlso FunSendRequestMail() Then
                         WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009.FCCB_NO}、Send Request Mail")
                     End If
 
@@ -1618,17 +1618,17 @@ Public Class FrmG0031_EditOutflow
             Dim ToUsers As New List(Of Integer)
 
             Select Case PrCurrentStage
-                Case ENM_FCCB_STAGE._10_起草入力
+                Case ENM_ZESEI_STAGE._10_起草入力
                     'Dim dt = FunGetSYONIN_SYOZOKU_SYAIN(_D009.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, ENM_FCCB_STAGE._20_処置事項調査等)
                     'ToUsers = dt.AsEnumerable.Select(Function(r) r.Field(Of Integer)("VALUE")).ToList
 
                     '部門の役職区分GL、TL全員へ
                     ToUsers.AddRange(GetTLGLUsers(_D009.BUMON_KB))
-                Case ENM_FCCB_STAGE._20_処置事項調査等
+                Case ENM_ZESEI_STAGE._20_処置事項調査等
 
                     ToUsers.Add(_D009.CM_TANTO)
 
-                Case ENM_FCCB_STAGE._30_変更審議
+                Case ENM_ZESEI_STAGE._30_変更審議
                     If cmbSYOCHI_SEKKEI_TANTO.IsSelected Then
                         ToUsers.Add(cmbSYOCHI_SEKKEI_TANTO.SelectedValue)
                     End If
@@ -1648,7 +1648,7 @@ Public Class FrmG0031_EditOutflow
                         ToUsers.Add(cmbSYOCHI_HINSYO_TANTO.SelectedValue)
                     End If
 
-                Case ENM_FCCB_STAGE._40_処置確認
+                Case ENM_ZESEI_STAGE._40_処置確認
 
                     Dim IsAllChecked As Boolean = True
                     If cmbSYOCHI_SEKKEI_TANTO.IsSelected AndAlso dtSYOCHI_SEKKEI_TANTO.Text.IsNulOrWS Then
@@ -1708,7 +1708,7 @@ Public Class FrmG0031_EditOutflow
                         Next
                     End If
 
-                Case ENM_FCCB_STAGE._50_処置事項完了
+                Case ENM_ZESEI_STAGE._50_処置事項完了
                     '裏処理にて各要処置事項の完了日の1週間前になっても未処置の場合、処置担当者に滞留通知
 
                     '申請条件のチェック
@@ -1875,7 +1875,7 @@ Public Class FrmG0031_EditOutflow
         Select Case enmSAVE_MODE
             Case ENM_SAVE_MODE._1_保存
 
-                If PrCurrentStage = ENM_FCCB_STAGE._999_Closed Then
+                If PrCurrentStage = ENM_ZESEI_STAGE._999_Closed Then
                     _R001_HOKOKU_SOUSA.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認
                     _R001_HOKOKU_SOUSA.SOUSA_KB = ENM_HOKOKUSYO_SOUSA_KB._2_更新保存
                 Else
@@ -2226,11 +2226,11 @@ Public Class FrmG0031_EditOutflow
                 cmdFunc4.Visible = False
 
                 Select Case PrCurrentStage
-                    Case ENM_FCCB_STAGE._10_起草入力
+                    Case ENM_ZESEI_STAGE._10_起草入力
                         cmdFunc5.Enabled = False
-                    Case ENM_FCCB_STAGE._20_処置事項調査等
+                    Case ENM_ZESEI_STAGE._20_処置事項調査等
                         cmdFunc2.Enabled = pub_SYAIN_INFO.SYAIN_ID = _D009.CM_TANTO
-                    Case ENM_FCCB_STAGE._30_変更審議
+                    Case ENM_ZESEI_STAGE._30_変更審議
 
                         cmdFunc4.Visible = True
 
@@ -2242,7 +2242,7 @@ Public Class FrmG0031_EditOutflow
                             cmdFunc4.Text = $"協議要否確認{vbCrLf}メール送信(F4)"
                         End If
 
-                    Case ENM_FCCB_STAGE._50_処置事項完了
+                    Case ENM_ZESEI_STAGE._50_処置事項完了
 
                         '保存条件のチェック
                         Dim ToUsers As New List(Of Integer)
@@ -2287,7 +2287,7 @@ Public Class FrmG0031_EditOutflow
 
                         cmdFunc1.Enabled = ToUsers.Contains(pub_SYAIN_INFO.SYAIN_ID)
 
-                    Case ENM_FCCB_STAGE._999_Closed
+                    Case ENM_ZESEI_STAGE._999_Closed
                         If IsEditingClosed Then
                             cmdFunc1.Enabled = True
                             cmdFunc1.Text = "保存(F1)"
@@ -2444,7 +2444,7 @@ Public Class FrmG0031_EditOutflow
             drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
                                   GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
 
-            dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, ENM_FCCB_STAGE._10_起草入力)
+            dt = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, ENM_ZESEI_STAGE._10_起草入力)
             cmbCM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             cmbKAKUNIN_CM_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
@@ -2756,7 +2756,7 @@ Public Class FrmG0031_EditOutflow
         Try
 
             'ナビゲートリンク選択
-            If PrCurrentStage = ENM_FCCB_STAGE._999_Closed Then
+            If PrCurrentStage = ENM_ZESEI_STAGE._999_Closed Then
                 rsbtnST99.Checked = True
             Else
                 Dim rbtn As RibbonShapeRadioButton = DirectCast(flpnlStageIndex.Controls("rsbtnST" & (PrCurrentStage / 10).ToString("00")), RibbonShapeRadioButton)
@@ -3112,13 +3112,13 @@ Public Class FrmG0031_EditOutflow
             Call SetFlxDATA_EditStatus(flxDATA_5)
 
             '完了日表示
-            flxDATA_2.Cols(NameOf(D010.CLOSE_YMD)).Visible = (PrCurrentStage >= ENM_FCCB_STAGE._20_処置事項調査等.Value)
-            flxDATA_3.Cols(NameOf(D010.CLOSE_YMD)).Visible = (PrCurrentStage >= ENM_FCCB_STAGE._20_処置事項調査等.Value)
-            flxDATA_5.Cols(NameOf(D010.CLOSE_YMD)).Visible = (PrCurrentStage >= ENM_FCCB_STAGE._50_処置事項完了.Value)
+            flxDATA_2.Cols(NameOf(D010.CLOSE_YMD)).Visible = (PrCurrentStage >= ENM_ZESEI_STAGE._20_処置事項調査等.Value)
+            flxDATA_3.Cols(NameOf(D010.CLOSE_YMD)).Visible = (PrCurrentStage >= ENM_ZESEI_STAGE._20_処置事項調査等.Value)
+            flxDATA_5.Cols(NameOf(D010.CLOSE_YMD)).Visible = (PrCurrentStage >= ENM_ZESEI_STAGE._50_処置事項完了.Value)
 
             '編集権限
             Select Case PrCurrentStage
-                Case ENM_FCCB_STAGE._10_起草入力
+                Case ENM_ZESEI_STAGE._10_起草入力
                     tlpHeader.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
                     btnOpenTempFileDialog.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
                     lbltmpFile1_Clear.Visible = Not _D009.FILE_PATH.IsNulOrWS() AndAlso (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
@@ -3126,7 +3126,7 @@ Public Class FrmG0031_EditOutflow
                     C1SplitterPanel_YOHI.Visible = False
                     pnlSYOCHI_KAKUNIN.Enabled = False
 
-                Case ENM_FCCB_STAGE._20_処置事項調査等
+                Case ENM_ZESEI_STAGE._20_処置事項調査等
                     tlpHeader.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
                     btnOpenTempFileDialog.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
                     lbltmpFile1_Clear.Visible = Not _D009.FILE_PATH.IsNulOrWS() AndAlso (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
@@ -3135,7 +3135,7 @@ Public Class FrmG0031_EditOutflow
                     cmdFunc2.Enabled = False
                     pnlSYOCHI_KAKUNIN.Enabled = False
 
-                Case ENM_FCCB_STAGE._30_変更審議
+                Case ENM_ZESEI_STAGE._30_変更審議
                     tlpHeader.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
                     btnOpenTempFileDialog.Enabled = (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
                     lbltmpFile1_Clear.Visible = Not _D009.FILE_PATH.IsNulOrWS() AndAlso (_D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID)
@@ -3166,7 +3166,7 @@ Public Class FrmG0031_EditOutflow
                     End If
                     pnlSYOCHI_KAKUNIN.Enabled = False
 
-                Case ENM_FCCB_STAGE._40_処置確認, ENM_FCCB_STAGE._41_処置確認_統括
+                Case ENM_ZESEI_STAGE._40_処置確認, ENM_ZESEI_STAGE._41_処置確認_統括
                     tlpHeader.Enabled = False
                     btnOpenTempFileDialog.Enabled = False
                     lbltmpFile1_Clear.Visible = False
@@ -3176,7 +3176,7 @@ Public Class FrmG0031_EditOutflow
                     C1SplitterPanel_YOHI.Visible = False
                     pnlSYOCHI_KAKUNIN.Enabled = True
 
-                Case ENM_FCCB_STAGE._50_処置事項完了
+                Case ENM_ZESEI_STAGE._50_処置事項完了
                     'C1SplitterPanel1.Enabled = False
                     'C1SplitterPanel2.Enabled = False
                     C1SplitterPanel5.Enabled = True
@@ -3191,7 +3191,7 @@ Public Class FrmG0031_EditOutflow
                         dtKAKUNIN_CM_TANTO.ValueNonFormat = Today.ToString("yyyyMMdd")
                     End If
 
-                Case ENM_FCCB_STAGE._60_処置事項完了確認, ENM_FCCB_STAGE._61_処置事項完了確認_統括
+                Case ENM_ZESEI_STAGE._60_処置事項完了確認, ENM_ZESEI_STAGE._61_処置事項完了確認_統括
                     'C1SplitterPanel1.Enabled = False
                     'C1SplitterPanel2.Enabled = False
                     C1SplitterPanel5.Enabled = True
@@ -3229,14 +3229,14 @@ Public Class FrmG0031_EditOutflow
                         dtKAKUNIN_GM_TANTO.ValueNonFormat = Today.ToString("yyyyMMdd")
                     End If
 
-                Case ENM_FCCB_STAGE._999_Closed
+                Case ENM_ZESEI_STAGE._999_Closed
                     tlpHeader.Enabled = False
                     btnOpenTempFileDialog.Enabled = False
                     lbltmpFile1_Clear.Visible = False
                     pnlSYOCHI_KAKUNIN.Enabled = True
             End Select
 
-            If FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_FCCB_STAGE._999_Closed Then
+            If FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_ZESEI_STAGE._999_Closed Then
                 '最終ステージの場合、申請先担当者欄は非表示
 
                 lblDestTanto.Visible = False
@@ -3577,13 +3577,13 @@ Public Class FrmG0031_EditOutflow
                 Dim groupList = GetRequiredGyomuGroups()
 
                 Select Case PrCurrentStage
-                    Case ENM_FCCB_STAGE._10_起草入力.Value
+                    Case ENM_ZESEI_STAGE._10_起草入力.Value
 
-                    Case ENM_FCCB_STAGE._20_処置事項調査等.Value
+                    Case ENM_ZESEI_STAGE._20_処置事項調査等.Value
 
                         IsValidated = IsInputRequired(DisplayAlart:=True)
 
-                    Case ENM_FCCB_STAGE._30_変更審議.Value
+                    Case ENM_ZESEI_STAGE._30_変更審議.Value
                         'ST2で選択された部署コンボのみ必須
 
                         For Each gg As ENM_GYOMU_GROUP_ID In groupList
@@ -3777,18 +3777,18 @@ Public Class FrmG0031_EditOutflow
         Try
 
             Select Case CurrentStageID
-                Case ENM_FCCB_STAGE._10_起草入力
-                    Return ENM_FCCB_STAGE._20_処置事項調査等
-                Case ENM_FCCB_STAGE._20_処置事項調査等
-                    Return ENM_FCCB_STAGE._30_変更審議
-                Case ENM_FCCB_STAGE._30_変更審議
-                    Return ENM_FCCB_STAGE._40_処置確認
-                Case ENM_FCCB_STAGE._40_処置確認, ENM_FCCB_STAGE._41_処置確認_統括
-                    Return ENM_FCCB_STAGE._50_処置事項完了
-                Case ENM_FCCB_STAGE._50_処置事項完了
-                    Return ENM_FCCB_STAGE._60_処置事項完了確認
-                Case ENM_FCCB_STAGE._60_処置事項完了確認, ENM_FCCB_STAGE._61_処置事項完了確認_統括
-                    Return ENM_FCCB_STAGE._999_Closed
+                Case ENM_ZESEI_STAGE._10_起草入力
+                    Return ENM_ZESEI_STAGE._20_処置事項調査等
+                Case ENM_ZESEI_STAGE._20_処置事項調査等
+                    Return ENM_ZESEI_STAGE._30_変更審議
+                Case ENM_ZESEI_STAGE._30_変更審議
+                    Return ENM_ZESEI_STAGE._40_処置確認
+                Case ENM_ZESEI_STAGE._40_処置確認, ENM_ZESEI_STAGE._41_処置確認_統括
+                    Return ENM_ZESEI_STAGE._50_処置事項完了
+                Case ENM_ZESEI_STAGE._50_処置事項完了
+                    Return ENM_ZESEI_STAGE._60_処置事項完了確認
+                Case ENM_ZESEI_STAGE._60_処置事項完了確認, ENM_ZESEI_STAGE._61_処置事項完了確認_統括
+                    Return ENM_ZESEI_STAGE._999_Closed
                 Case Else
                     Return 0
             End Select
@@ -3863,18 +3863,18 @@ Public Class FrmG0031_EditOutflow
             Dim ToUsers As New List(Of Integer)
 
             Select Case intSYONIN_JUN
-                Case ENM_FCCB_STAGE._10_起草入力
-                    Dim dt = FunGetSYONIN_SYOZOKU_SYAIN(_D009.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, ENM_FCCB_STAGE._10_起草入力)
+                Case ENM_ZESEI_STAGE._10_起草入力
+                    Dim dt = FunGetSYONIN_SYOZOKU_SYAIN(_D009.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, ENM_ZESEI_STAGE._10_起草入力)
                     ToUsers = dt.AsEnumerable.Select(Function(r) r.Field(Of Integer)("VALUE")).ToList
 
-                Case ENM_FCCB_STAGE._20_処置事項調査等
+                Case ENM_ZESEI_STAGE._20_処置事項調査等
                     'FCCB議長 起草者
                     ToUsers.Add(_D009.CM_TANTO)
                     ToUsers.Add(_D009.ADD_SYAIN_ID)
                     '操作可能
                     ToUsers.Add(pub_SYAIN_INFO.SYAIN_ID)
 
-                Case ENM_FCCB_STAGE._30_変更審議
+                Case ENM_ZESEI_STAGE._30_変更審議
 
                     ToUsers.Add(cmbCM_TANTO.SelectedValue)
 
@@ -3897,7 +3897,7 @@ Public Class FrmG0031_EditOutflow
                         ToUsers.Add(cmbSYOCHI_HINSYO_TANTO.SelectedValue)
                     End If
 
-                Case ENM_FCCB_STAGE._40_処置確認
+                Case ENM_ZESEI_STAGE._40_処置確認
 
                     ToUsers.Add(cmbCM_TANTO.SelectedValue)
 
@@ -3959,7 +3959,7 @@ Public Class FrmG0031_EditOutflow
                         Next
                     End If
 
-                Case ENM_FCCB_STAGE._50_処置事項完了
+                Case ENM_ZESEI_STAGE._50_処置事項完了
                     '裏処理にて各要処置事項の完了日の1週間前になっても未処置の場合、処置担当者に滞留通知
 
                     '申請条件のチェック
@@ -3985,7 +3985,7 @@ Public Class FrmG0031_EditOutflow
                         '    ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
                         'End If
                     End If
-                Case ENM_FCCB_STAGE._60_処置事項完了確認
+                Case ENM_ZESEI_STAGE._60_処置事項完了確認
                     'ToUsers.Add(_D009.CM_TANTO)
                     ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
 

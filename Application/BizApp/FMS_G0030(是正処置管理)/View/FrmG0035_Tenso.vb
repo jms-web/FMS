@@ -70,7 +70,7 @@ Public Class FrmG0035_Tenso
 
             '-----各コントロールのデータソースを設定
             Dim drs As List(Of DataRow)
-            If PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR And PrCurrentStage = ENM_FCCB_STAGE._10_起草入力 Then
+            If PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR And PrCurrentStage = ENM_ZESEI_STAGE._10_起草入力 Then
 
                 drs = FunGetSYOZOKU_SYAIN(PrBUMON_KB).AsEnumerable.
                         Where(Function(r) r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).
@@ -175,7 +175,7 @@ Public Class FrmG0035_Tenso
                     sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}='{ENM_SYONIN_HANTEI_KB._0_未承認.Value}'")
                     sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.SASIMODOSI_FG)}='0'")
                     sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)}='{strSysDate}'")
-                    If PrCurrentStage = ENM_FCCB_STAGE._10_起草入力 Then
+                    If PrCurrentStage = ENM_ZESEI_STAGE._10_起草入力 Then
                         sbSQL.Append($" ,{NameOf(_D004_SYONIN_J_KANRI.ADD_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
                     End If
                     sbSQL.Append($" WHERE {NameOf(_D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={PrSYONIN_HOKOKUSYO_ID}")

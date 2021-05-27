@@ -91,7 +91,7 @@ Module mdlG0030
         _9_æÁ = 9
     End Enum
 
-    Public Enum ENM_FCCB_STAGE
+    Public Enum ENM_ZESEI_STAGE
         _10_‹N‘“ü—Í = 10
         _20_ˆ’u–€’²¸“™ = 20
         _30_•ÏXR‹c = 30

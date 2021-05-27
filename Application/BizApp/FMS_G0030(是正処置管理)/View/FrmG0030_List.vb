@@ -989,7 +989,7 @@ Public Class FrmG0030_List
                 frmFCCB.PrMODE = intMODE
                 Select Case intMODE
                     Case ENM_DATA_OPERATION_MODE._1_ADD
-                        frmFCCB.PrCurrentStage = ENM_FCCB_STAGE._10_起草入力
+                        frmFCCB.PrCurrentStage = ENM_ZESEI_STAGE._10_起草入力
                     Case ENM_DATA_OPERATION_MODE._2_ADDREF, ENM_DATA_OPERATION_MODE._3_UPDATE
                         frmFCCB.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
                         frmFCCB.PrFCCB_NO = flxDATA.Rows(flxDATA.Row).Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))
@@ -1846,7 +1846,7 @@ Public Class FrmG0030_List
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
             End Using
-            If dsList.Tables(0).Rows(0).Item(0) = ENM_FCCB_STAGE._10_起草入力.Value Then
+            If dsList.Tables(0).Rows(0).Item(0) = ENM_ZESEI_STAGE._10_起草入力.Value Then
                 Return True
             End If
 
