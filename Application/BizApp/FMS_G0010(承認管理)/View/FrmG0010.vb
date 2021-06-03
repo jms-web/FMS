@@ -398,6 +398,8 @@ Public Class FrmG0010
                     chkDispGENIN2.Checked = False
                     cmbADD_TANTO.Enabled = False
 
+                    'cmbHOKOKUSYO_ID.SelectedValue = 2 'CAR
+
                 Case Else
                     Me.cmdFunc1.PerformClick()
             End Select
@@ -539,10 +541,9 @@ Public Class FrmG0010
                 'flxDATA.Cols(NameOf(ST03.ZESEI_SYOCHI_YOHI_NAME)).Visible = chkDispZESEI_SYOCHI_YOHI_KB.Checked
                 'flxDATA.Cols(NameOf(ST03.HASSEI_YMD)).Visible = chkDispKOKYAKU_HANTEI_SIJI_KB.Checked
 
-                flxDATA.Cols(NameOf(ST03.KONPON_YOIN_NAME1)).Visible = chkDispYOIN1.Checked
-                flxDATA.Cols(NameOf(ST03.KONPON_YOIN_NAME2)).Visible = chkDispYOIN2.Checked
+                flxDATA.Cols(NameOf(ST03.KONPON_YOIN_NAME)).Visible = chkDispYOIN1.Checked Or chkDispYOIN2.Checked
                 flxDATA.Cols(NameOf(ST03.KISEKI_KOTEI_NAME)).Visible = chkDispKISEKI_KOTEI_KB.Checked
-                'flxDATA.Cols(NameOf(ST03.KONPON_YOIN_NAME1)).Visible = chkDispGENIN1.Checked
+                flxDATA.Cols(NameOf(ST03.GENIN_BUNSEKI_NAME)).Visible = chkDispGENIN1.Checked Or chkDispGENIN2.Checked
                 'flxDATA.Cols(NameOf(ST03.KONPON_YOIN_NAME2)).Visible = chkDispGENIN2.Checked
 
                 'flxDATA.Cols(NameOf(ST03._HASSEI_YMD)).Format = "yyyy/MM"
@@ -2849,10 +2850,11 @@ Public Class FrmG0010
                 'åüçıèåèï∂éöóÒçÏê¨
                 Dim sbWhere As New System.Text.StringBuilder
                 Dim strWhereBase As String = <sql><![CDATA[
-                        EXISTS
+                        AND RIGHT(''00'' + RTRIM(V06.GENIN_BUNSEKI_KB),2) + RIGHT(''00'' + RTRIM(V06.GENIN_BUNSEKI_S_KB),2) IN
                         (
-                        SELECT HOKOKU_NO FROM D006_CAR_GENIN WHERE
-                        V007_NCR_CAR.HOKOKU_NO = D006_CAR_GENIN.HOKOKU_NO
+                        SELECT RIGHT(''00'' + RTRIM(GENIN_BUNSEKI_KB),2) + RIGHT(''00'' + RTRIM(GENIN_BUNSEKI_S_KB),2)
+                        FROM D006_CAR_GENIN WHERE
+                        V07.HOKOKU_NO = D006_CAR_GENIN.HOKOKU_NO
                         {0}
                         )
                         ]]></sql>.Value.Trim
@@ -2865,10 +2867,15 @@ Public Class FrmG0010
                         Else
                             mtxGENIN1_DISP.Text &= ", " & item.ITEM_DISP
                         End If
-
-                        sbWhere.Append($" AND (GENIN_BUNSEKI_KB='{item.ITEM_NAME}' AND GENIN_BUNSEKI_S_KB='{item.ITEM_VALUE}')")
-
+                        If sbWhere.Length = 0 Then
+                            sbWhere.Append($" AND (")
+                        Else
+                            sbWhere.Append($" OR ")
+                        End If
+                        sbWhere.Append($"(GENIN_BUNSEKI_KB=''{item.ITEM_NAME}'' AND GENIN_BUNSEKI_S_KB=''{item.ITEM_VALUE}'')")
                     Next item
+                    sbWhere.Append($")")
+
                     ParamModel.GENIN1 = String.Format(strWhereBase, sbWhere.ToString)
                 Else
                     ParamModel.GENIN1 = ""
@@ -2906,10 +2913,11 @@ Public Class FrmG0010
                 'åüçıèåèï∂éöóÒçÏê¨
                 Dim sbWhere As New System.Text.StringBuilder
                 Dim strWhereBase As String = <sql><![CDATA[
-                    EXISTS
+                    AND RIGHT(''00'' + RTRIM(V06.GENIN_BUNSEKI_KB),2) + RIGHT(''00'' + RTRIM(V06.GENIN_BUNSEKI_S_KB),2) IN
                     (
-                    SELECT HOKOKU_NO FROM D006_CAR_GENIN WHERE
-                    V007_NCR_CAR.HOKOKU_NO = D006_CAR_GENIN.HOKOKU_NO
+                    SELECT RIGHT(''00'' + RTRIM(GENIN_BUNSEKI_KB),2) + RIGHT(''00'' + RTRIM(GENIN_BUNSEKI_S_KB),2)
+                    FROM D006_CAR_GENIN WHERE
+                    V07.HOKOKU_NO = D006_CAR_GENIN.HOKOKU_NO
                     {0}
                     )
                     ]]></sql>.Value.Trim
@@ -2922,9 +2930,14 @@ Public Class FrmG0010
                         Else
                             mtxGENIN2_DISP.Text &= ", " & item.ITEM_DISP
                         End If
-
-                        sbWhere.Append($" AND (GENIN_BUNSEKI_KB='{item.ITEM_NAME}' AND GENIN_BUNSEKI_S_KB='{item.ITEM_VALUE}')")
+                        If sbWhere.Length = 0 Then
+                            sbWhere.Append($" AND (")
+                        Else
+                            sbWhere.Append($" OR ")
+                        End If
+                        sbWhere.Append($"(GENIN_BUNSEKI_KB=''{item.ITEM_NAME}'' AND GENIN_BUNSEKI_S_KB=''{item.ITEM_VALUE}'')")
                     Next item
+                    sbWhere.Append($")")
                     ParamModel.GENIN2 = String.Format(strWhereBase, sbWhere.ToString)
                 Else
                     ParamModel.GENIN2 = ""
@@ -3326,14 +3339,6 @@ Public Class FrmG0010
         If Not chk.Checked Then cmb.SelectedValue = ""
     End Sub
 
-    Private Sub ChkDispGENIN1_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispGENIN1.CheckedChanged
-
-    End Sub
-
-    Private Sub ChkDispGENIN2_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispGENIN2.CheckedChanged
-
-    End Sub
-
     Private Sub ChkDispHASSEI_YMD_CheckedChanged(sender As Object, e As EventArgs) Handles chkDispHASSEI_YMD.CheckedChanged
 
         dtHASSEI_YMD_FROM.Enabled = chkDispHASSEI_YMD.Checked
@@ -3380,6 +3385,8 @@ Public Class FrmG0010
         cmbKOKYAKU_SAISYU_HANTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKOKYAKU_SAISYU_HANTEI_KB.SelectedValue), paramModel, NameOf(paramModel.KOKYAKU_SAISYU_HANTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbKENSA_KEKKA_KB.DataBindings.Add(New Binding(NameOf(cmbKENSA_KEKKA_KB.SelectedValue), paramModel, NameOf(paramModel.KENSA_KEKKA_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         'CAR
+        cmbYOIN1.DataBindings.Add(New Binding(NameOf(cmbYOIN1.SelectedValue), paramModel, NameOf(paramModel.KONPON_YOIN_KB1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        cmbYOIN2.DataBindings.Add(New Binding(NameOf(cmbYOIN2.SelectedValue), paramModel, NameOf(paramModel.KONPON_YOIN_KB2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         mtxGENIN1.DataBindings.Add(New Binding(NameOf(mtxGENIN1.Text), paramModel, NameOf(paramModel.GENIN1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         mtxGENIN2.DataBindings.Add(New Binding(NameOf(mtxGENIN2.Text), paramModel, NameOf(paramModel.GENIN2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbKISEKI_KOTEI_KB.DataBindings.Add(New Binding(NameOf(cmbKISEKI_KOTEI_KB.SelectedValue), paramModel, NameOf(paramModel.KISEKI_KOTEI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -3450,7 +3457,7 @@ Public Class FrmG0010
                     sbParam.Append($",DEFAULT")
                 End If
 
-                sbParam.Append($",'{IIf(chkClosedRowVisibled.Checked, "", 0)}'")
+                sbParam.Append($",''") 'sbParam.Append($",'{IIf(chkClosedRowVisibled.Checked, "", 0)}'")
                 sbParam.Append($",'{IIf(ParamModel._VISIBLE_TAIRYU = 1, ParamModel._VISIBLE_TAIRYU, "")}'")
 
                 If chkDispFUTEKIGO_KB.Checked Then

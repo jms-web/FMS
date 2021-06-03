@@ -11,7 +11,6 @@ Module mdlClickOnce
     Private Const EXE_PATH As String = "EXE"
 #End If
 
-
     Public Sub MAIN()
         Dim intCNT As Integer
         Dim strBUFF As String = String.Empty
@@ -25,7 +24,6 @@ Module mdlClickOnce
         'Dim hVerInfo As System.Diagnostics.FileVersionInfo
         'Dim strFILEVersionORG As String
         'Dim strFILEVersionNEW As String
-
 
         Try
             Dim strParams As String = GetUriParameters()
@@ -52,7 +50,6 @@ Module mdlClickOnce
             '    System.IO.File.Copy(strSTARTMENU_FILE, strDESKTOP_FOLDER & "\生産管理システム.appref-ms")
             'End If
 
-
             ''-----VBSをスタートアップに登録(Appliation Refarenceをデスクトップにコピー)
             ''スタートアップフォルダ取得
             'strSTARTUP_FOLDER = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Startup)
@@ -61,7 +58,6 @@ Module mdlClickOnce
             '    'VBSをスタートアップへコピー
             '    System.IO.File.Copy(".\EXE\STARTUP.VBS", strSTARTUP_FOLDER & "\STARTUP.VBS")
             'End If
-
 
             '-----EXE
             'フォルダ作成
@@ -77,7 +73,6 @@ Module mdlClickOnce
 
                 'ファイル名(フルパス)取得
                 strFILEPATHNEW = System.IO.Path.GetFullPath(files(intCNT))
-
 
                 '同名ファイル無し時
                 If System.IO.File.Exists(CON_ROOTDIR & "\" & EXE_PATH & "\" & strBUFF) = False Then
@@ -101,7 +96,6 @@ Module mdlClickOnce
                         '                    hVerInfo.FileMinorPart & "." & _
                         '                    hVerInfo.FileBuildPart & "." & _
                         '                    hVerInfo.FilePrivatePart
-
 
                         ''新旧ファイルでVERSION違い時
                         'If strFILEVersionNEW <> strFILEVersionORG Then
@@ -146,14 +140,13 @@ Module mdlClickOnce
                     'ElseIf strBUFF.ToUpper = "HANYO.INI" Then
 
                     '日時が古すぎ時
-                ElseIf System.IO.File.GetLastWriteTime(CON_ROOTDIR & "\INI\" & strBUFF) < System.IO.File.GetLastWriteTime(".\INI\" & strBUFF) Then
-                    '旧ファイル削除
-                    System.IO.File.Delete(CON_ROOTDIR & "\INI\" & strBUFF)
-                    'コピー
-                    System.IO.File.Copy(".\INI\" & strBUFF, CON_ROOTDIR & "\INI\" & strBUFF)
+                    'ElseIf System.IO.File.GetLastWriteTime(CON_ROOTDIR & "\INI\" & strBUFF) < System.IO.File.GetLastWriteTime(".\INI\" & strBUFF) Then
+                    '    '旧ファイル削除
+                    '    System.IO.File.Delete(CON_ROOTDIR & "\INI\" & strBUFF)
+                    '    'コピー
+                    '    System.IO.File.Copy(".\INI\" & strBUFF, CON_ROOTDIR & "\INI\" & strBUFF)
                 End If
             Next
-
 
             '-----TEMPLATE
             'フォルダ作成
@@ -197,8 +190,6 @@ Module mdlClickOnce
             'MessageBox.Show(strMsg, "システム更新のお願い")
             ''---
 
-
-
 #End If
 
             '-----メニュー起動
@@ -207,13 +198,11 @@ Module mdlClickOnce
             Else
                 Shell(CON_ROOTDIR & "\" & EXE_PATH & "\" & CON_STARTUP_EXE, AppWinStyle.NormalFocus)
             End If
-
         Catch ex As Exception
             'コピー失敗時
             MsgBox("起動中のシステムを全て終了後、再度システムを開始して下さい。(" & strBUFF & ")" & vbCrLf & ex.Message, MsgBoxStyle.Information)
         End Try
     End Sub
-
 
     Public Function GetUriParameters() As String
         Try
@@ -222,7 +211,7 @@ Module mdlClickOnce
 #If DEBUG Then
             url = "http://sv91:8000/CLICKONCE_FMS.application?SYAIN_ID=999999&EXEPATH=FMS_G0010.exe&PARAMS=999999,2,1,20181180"
 #Else
-                   ' ClickOnceアプリの場合のときのみ以下のコードを実行
+            ' ClickOnceアプリの場合のときのみ以下のコードを実行
             If Deployment.Application.ApplicationDeployment.IsNetworkDeployed = False Then
                 Return ""
             End If

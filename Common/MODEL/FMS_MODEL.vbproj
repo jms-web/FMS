@@ -370,6 +370,7 @@
     <Content Include="DDL\View\V004_HOKOKU_SOUSA.sql" />
     <Content Include="DDL\View\V005_CAR_J.sql" />
     <Content Include="DDL\View\V006_CAR_GENIN.sql" />
+    <Content Include="DDL\View\V007_NCR_CAR_BUNSEKI.sql" />
     <Content Include="DDL\View\V007_NCR_CAR.sql" />
     <Content Include="DDL\View\V008_NCR_R.sql" />
     <Content Include="DDL\View\V011_FCR_J.sql" />

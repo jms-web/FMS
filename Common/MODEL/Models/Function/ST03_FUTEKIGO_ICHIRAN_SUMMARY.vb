@@ -11,7 +11,6 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
     Inherits MODEL.ModelBase
     Implements IDisposable
 
-
     Public Property SUMMARY_ROW_FLG As Integer
 
     <NotMapped>
@@ -96,7 +95,6 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
     '<ComponentModel.DisplayName("機種")>
     'Public Property KISYU As String
 
-
     <StringLength(100)>
     <ComponentModel.DisplayName("機種")>
     Public Property KISYU_NAME As String '機種名
@@ -179,15 +177,15 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
 
     <StringLength(50)>
     <ComponentModel.DisplayName("根本要因区分1")>
-    Public Property KONPON_YOIN_NAME1 As String
-
-    <StringLength(1)>
-    <ComponentModel.DisplayName("根本要因区分2")>
-    Public Property KONPON_YOIN_KB2 As String
+    Public Property KONPON_YOIN_NAME As String
 
     <StringLength(50)>
     <ComponentModel.DisplayName("根本要因区分2")>
     Public Property KONPON_YOIN_NAME2 As String
+
+    <StringLength(50)>
+    <ComponentModel.DisplayName("原因")>
+    Public Property GENIN_BUNSEKI_NAME As String
 
     <StringLength(1)>
     <ComponentModel.DisplayName("帰責工程区分")>
@@ -214,7 +212,6 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
         End Set
     End Property
 
-
     <ComponentModel.DisplayName("起草担当者ID")>
     Public Property KISO_TANTO_ID As Integer
 
@@ -240,8 +237,6 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
     <StringLength(500)>
     <ComponentModel.DisplayName("要求内容")>
     Public Property YOKYU_NAIYO As String
-
-
 
     <StringLength(2)>
     <ComponentModel.DisplayName("顧客判定指示区分")>
@@ -280,7 +275,6 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
         End Set
     End Property
 
-
     <Display(AutoGenerateField:=False)>
     <StringLength(8)>
     <Column(NameOf(HASSEI_YMD), TypeName:="String")>
@@ -299,8 +293,6 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
         End Set
     End Property
 
-
-
     '集計項目------------------------------------------------
     <ComponentModel.DisplayName("個数")>
     Public Property SURYO As Integer
@@ -314,8 +306,8 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
     <ComponentModel.DisplayName("処置残")>
     Public Property SYOCHI_ZANSU As Integer
 
-
 #Region "IDisposable Support"
+
     Private disposedValue As Boolean ' 重複する呼び出しを検出するには
 
     ' IDisposable
@@ -345,5 +337,7 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
         ' TODO: 上の Finalize() がオーバーライドされている場合は、次の行のコメントを解除してください。
         ' GC.SuppressFinalize(Me)
     End Sub
+
 #End Region
+
 End Class

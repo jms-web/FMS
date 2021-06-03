@@ -316,7 +316,7 @@ Partial Class FrmG0010
         Me.mpnlCondition.Controls.Add(Me.PanelEx1)
         Me.mpnlCondition.Location = New System.Drawing.Point(0, 0)
         Me.mpnlCondition.Name = "mpnlCondition"
-        Me.mpnlCondition.Size = New System.Drawing.Size(0, 0)
+        Me.mpnlCondition.Size = New System.Drawing.Size(1553, 502)
         '
         'PanelEx1
         '
@@ -326,7 +326,7 @@ Partial Class FrmG0010
         Me.PanelEx1.HitEnabled = False
         Me.PanelEx1.Location = New System.Drawing.Point(0, 0)
         Me.PanelEx1.Name = "PanelEx1"
-        Me.PanelEx1.Size = New System.Drawing.Size(0, 0)
+        Me.PanelEx1.Size = New System.Drawing.Size(1553, 502)
         Me.PanelEx1.TabIndex = 0
         '
         'pnl_ovalflame
@@ -347,7 +347,7 @@ Partial Class FrmG0010
         Me.pnl_ovalflame.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.pnl_ovalflame.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 4.0!))
         Me.pnl_ovalflame.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pnl_ovalflame.Size = New System.Drawing.Size(0, 0)
+        Me.pnl_ovalflame.Size = New System.Drawing.Size(1553, 502)
         Me.pnl_ovalflame.TabIndex = 67
         '
         'TableLayoutPanel4
@@ -776,7 +776,7 @@ Partial Class FrmG0010
         Me.GroupBox1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(3, 3)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1, 177)
+        Me.GroupBox1.Size = New System.Drawing.Size(1547, 177)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "ã§í åüçıèåè"
@@ -918,7 +918,7 @@ Partial Class FrmG0010
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpFilter.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFilter.Size = New System.Drawing.Size(0, 155)
+        Me.tlpFilter.Size = New System.Drawing.Size(1541, 155)
         Me.tlpFilter.TabIndex = 56
         '
         'cmbGEN_TANTO
@@ -1689,7 +1689,7 @@ Partial Class FrmG0010
         Me.pnlNCRFilter.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.pnlNCRFilter.Location = New System.Drawing.Point(3, 190)
         Me.pnlNCRFilter.Name = "pnlNCRFilter"
-        Me.pnlNCRFilter.Size = New System.Drawing.Size(1, 603)
+        Me.pnlNCRFilter.Size = New System.Drawing.Size(537, 603)
         Me.pnlNCRFilter.TabIndex = 65
         Me.pnlNCRFilter.TabStop = False
         Me.pnlNCRFilter.Text = "NCRåüçıèåè"
@@ -1798,7 +1798,7 @@ Partial Class FrmG0010
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(0, 158)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(531, 158)
         Me.TableLayoutPanel1.TabIndex = 64
         '
         'Label13
@@ -2079,9 +2079,9 @@ Partial Class FrmG0010
         Me.GroupBoxEx1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBoxEx1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.GroupBoxEx1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.GroupBoxEx1.Location = New System.Drawing.Point(3, 190)
+        Me.GroupBoxEx1.Location = New System.Drawing.Point(1089, 190)
         Me.GroupBoxEx1.Name = "GroupBoxEx1"
-        Me.GroupBoxEx1.Size = New System.Drawing.Size(1, 603)
+        Me.GroupBoxEx1.Size = New System.Drawing.Size(461, 603)
         Me.GroupBoxEx1.TabIndex = 68
         Me.GroupBoxEx1.TabStop = False
         Me.GroupBoxEx1.Text = "CTSåüçıèåè"
@@ -2115,7 +2115,7 @@ Partial Class FrmG0010
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(0, 158)
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(455, 158)
         Me.TableLayoutPanel5.TabIndex = 64
         '
         'dgvCTS
@@ -2133,9 +2133,9 @@ Partial Class FrmG0010
         Me.pnlCARFilter.Controls.Add(Me.dgvCAR)
         Me.pnlCARFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlCARFilter.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.pnlCARFilter.Location = New System.Drawing.Point(3, 190)
+        Me.pnlCARFilter.Location = New System.Drawing.Point(546, 190)
         Me.pnlCARFilter.Name = "pnlCARFilter"
-        Me.pnlCARFilter.Size = New System.Drawing.Size(1, 603)
+        Me.pnlCARFilter.Size = New System.Drawing.Size(537, 603)
         Me.pnlCARFilter.TabIndex = 66
         Me.pnlCARFilter.TabStop = False
         Me.pnlCARFilter.Text = "CARåüçıèåè"
@@ -2238,7 +2238,7 @@ Partial Class FrmG0010
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(0, 158)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(531, 158)
         Me.TableLayoutPanel2.TabIndex = 64
         '
         'Label27
@@ -2601,7 +2601,7 @@ Partial Class FrmG0010
         Me.mpSummaryGrid.Controls.Add(Me._flexGroup)
         Me.mpSummaryGrid.Location = New System.Drawing.Point(0, 0)
         Me.mpSummaryGrid.Name = "mpSummaryGrid"
-        Me.mpSummaryGrid.Size = New System.Drawing.Size(0, 0)
+        Me.mpSummaryGrid.Size = New System.Drawing.Size(1553, 502)
         Me.mpSummaryGrid.Text = "ManagedPanel1"
         '
         '_flexGroup
@@ -2619,12 +2619,12 @@ Partial Class FrmG0010
         Me._flexGroup.Grid.ColumnInfo = resources.GetString("_flexGroup.Grid.ColumnInfo")
         Me._flexGroup.Grid.Dock = System.Windows.Forms.DockStyle.Bottom
         Me._flexGroup.Grid.DrawMode = C1.Win.C1FlexGrid.DrawModeEnum.OwnerDraw
-        Me._flexGroup.Grid.Location = New System.Drawing.Point(0, 0)
+        Me._flexGroup.Grid.Location = New System.Drawing.Point(0, 36)
         Me._flexGroup.Grid.Name = ""
         Me._flexGroup.Grid.Rows.DefaultSize = 18
         Me._flexGroup.Grid.Rows.Fixed = 2
         Me._flexGroup.Grid.ShowCursor = True
-        Me._flexGroup.Grid.Size = New System.Drawing.Size(0, 0)
+        Me._flexGroup.Grid.Size = New System.Drawing.Size(1549, 462)
         Me._flexGroup.Grid.StyleInfo = resources.GetString("_flexGroup.Grid.StyleInfo")
         Me._flexGroup.Grid.TabIndex = 1
         Me._flexGroup.Grid.Tree.Style = C1.Win.C1FlexGrid.TreeStyleFlags.Symbols
@@ -2632,7 +2632,7 @@ Partial Class FrmG0010
         Me._flexGroup.Location = New System.Drawing.Point(0, 0)
         Me._flexGroup.Name = "_flexGroup"
         Me._flexGroup.ShowGroups = True
-        Me._flexGroup.Size = New System.Drawing.Size(0, 0)
+        Me._flexGroup.Size = New System.Drawing.Size(1553, 502)
         Me._flexGroup.TabIndex = 66
         Me._flexGroup.TabStop = False
         '
