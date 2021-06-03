@@ -25,16 +25,16 @@ Partial Class FrmG0030_List
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmG0030_List))
         Me.tlpFilter = New System.Windows.Forms.TableLayoutPanel()
-        Me.cmbGEN_TANTO = New JMS_COMMON.ComboboxEx()
-        Me.lblGEN_TANTO = New System.Windows.Forms.Label()
         Me.lblHOKUKO_NO = New System.Windows.Forms.Label()
         Me.mtxHOKUKO_NO = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cmbBUMON = New JMS_COMMON.ComboboxEx()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.cmbADD_TANTO = New JMS_COMMON.ComboboxEx()
-        Me.chkTairyu = New System.Windows.Forms.CheckBox()
+        Me.lblGEN_TANTO = New System.Windows.Forms.Label()
+        Me.cmbGEN_TANTO = New JMS_COMMON.ComboboxEx()
         Me.chkClosedRowVisibled = New System.Windows.Forms.CheckBox()
+        Me.chkTairyu = New System.Windows.Forms.CheckBox()
         Me.chkDeleteRowVisibled = New System.Windows.Forms.CheckBox()
         Me.btnClearSrchFilter = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -263,38 +263,6 @@ Partial Class FrmG0030_List
         Me.tlpFilter.Size = New System.Drawing.Size(1367, 66)
         Me.tlpFilter.TabIndex = 56
         '
-        'cmbGEN_TANTO
-        '
-        Me.cmbGEN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbGEN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbGEN_TANTO.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpFilter.SetColumnSpan(Me.cmbGEN_TANTO, 7)
-        Me.cmbGEN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbGEN_TANTO.DisplayMember = "DISP"
-        Me.cmbGEN_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbGEN_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbGEN_TANTO.FormattingEnabled = True
-        Me.cmbGEN_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbGEN_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.cmbGEN_TANTO.IsSelected = False
-        Me.cmbGEN_TANTO.Location = New System.Drawing.Point(343, 33)
-        Me.cmbGEN_TANTO.Name = "cmbGEN_TANTO"
-        Me.cmbGEN_TANTO.NullValue = " "
-        Me.cmbGEN_TANTO.Size = New System.Drawing.Size(134, 25)
-        Me.cmbGEN_TANTO.TabIndex = 65
-        Me.cmbGEN_TANTO.ValueMember = "VALUE"
-        '
-        'lblGEN_TANTO
-        '
-        Me.tlpFilter.SetColumnSpan(Me.lblGEN_TANTO, 5)
-        Me.lblGEN_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblGEN_TANTO.Location = New System.Drawing.Point(243, 30)
-        Me.lblGEN_TANTO.Name = "lblGEN_TANTO"
-        Me.lblGEN_TANTO.Size = New System.Drawing.Size(94, 30)
-        Me.lblGEN_TANTO.TabIndex = 68
-        Me.lblGEN_TANTO.Text = "現処置担当者:"
-        Me.lblGEN_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'lblHOKUKO_NO
         '
         Me.tlpFilter.SetColumnSpan(Me.lblHOKUKO_NO, 5)
@@ -387,18 +355,37 @@ Partial Class FrmG0030_List
         Me.cmbADD_TANTO.TabIndex = 3
         Me.cmbADD_TANTO.ValueMember = "VALUE"
         '
-        'chkTairyu
+        'lblGEN_TANTO
         '
-        Me.chkTairyu.AutoSize = True
-        Me.tlpFilter.SetColumnSpan(Me.chkTairyu, 7)
-        Me.chkTairyu.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkTairyu.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.chkTairyu.Location = New System.Drawing.Point(503, 3)
-        Me.chkTairyu.Name = "chkTairyu"
-        Me.chkTairyu.Size = New System.Drawing.Size(102, 21)
-        Me.chkTairyu.TabIndex = 19
-        Me.chkTairyu.Text = "滞留のみ表示"
-        Me.chkTairyu.UseVisualStyleBackColor = True
+        Me.tlpFilter.SetColumnSpan(Me.lblGEN_TANTO, 5)
+        Me.lblGEN_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblGEN_TANTO.Location = New System.Drawing.Point(243, 30)
+        Me.lblGEN_TANTO.Name = "lblGEN_TANTO"
+        Me.lblGEN_TANTO.Size = New System.Drawing.Size(94, 30)
+        Me.lblGEN_TANTO.TabIndex = 68
+        Me.lblGEN_TANTO.Text = "現処置担当者:"
+        Me.lblGEN_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbGEN_TANTO
+        '
+        Me.cmbGEN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbGEN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cmbGEN_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.tlpFilter.SetColumnSpan(Me.cmbGEN_TANTO, 7)
+        Me.cmbGEN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
+        Me.cmbGEN_TANTO.DisplayMember = "DISP"
+        Me.cmbGEN_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.cmbGEN_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.cmbGEN_TANTO.FormattingEnabled = True
+        Me.cmbGEN_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.cmbGEN_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.cmbGEN_TANTO.IsSelected = False
+        Me.cmbGEN_TANTO.Location = New System.Drawing.Point(343, 33)
+        Me.cmbGEN_TANTO.Name = "cmbGEN_TANTO"
+        Me.cmbGEN_TANTO.NullValue = " "
+        Me.cmbGEN_TANTO.Size = New System.Drawing.Size(134, 25)
+        Me.cmbGEN_TANTO.TabIndex = 65
+        Me.cmbGEN_TANTO.ValueMember = "VALUE"
         '
         'chkClosedRowVisibled
         '
@@ -412,6 +399,19 @@ Partial Class FrmG0030_List
         Me.chkClosedRowVisibled.TabIndex = 18
         Me.chkClosedRowVisibled.Text = "Close済も表示"
         Me.chkClosedRowVisibled.UseVisualStyleBackColor = True
+        '
+        'chkTairyu
+        '
+        Me.chkTairyu.AutoSize = True
+        Me.tlpFilter.SetColumnSpan(Me.chkTairyu, 7)
+        Me.chkTairyu.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkTairyu.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.chkTairyu.Location = New System.Drawing.Point(503, 3)
+        Me.chkTairyu.Name = "chkTairyu"
+        Me.chkTairyu.Size = New System.Drawing.Size(102, 21)
+        Me.chkTairyu.TabIndex = 19
+        Me.chkTairyu.Text = "滞留のみ表示"
+        Me.chkTairyu.UseVisualStyleBackColor = True
         '
         'chkDeleteRowVisibled
         '

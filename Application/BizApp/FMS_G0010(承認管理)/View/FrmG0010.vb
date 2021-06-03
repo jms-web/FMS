@@ -327,8 +327,33 @@ Public Class FrmG0010
                     chkDispSURYO.Visible = True
 
                     chkDispHOKOKUSYO_ID.Visible = True
-                    chkDispHOKOKUSYO_ID.Checked = True
                     chkDispHOKOKUSYO_ID.Enabled = False
+                    chkDispHOKOKUSYO_ID.Checked = True
+
+                    chkDispKISYU.Checked = True
+                    ChkDispKISYU_CheckedChanged(chkDispKISYU, Nothing)
+                    chkDispGOKI.Checked = True
+                    ChkDispGOKI_CheckedChanged(chkDispGOKI, Nothing)
+                    chkDispFUTEKIGO_KB.Checked = True
+                    ChkDispFUTEKIGO_KB_CheckedChanged(chkDispFUTEKIGO_KB, Nothing)
+                    chkDispBUHIN_BANGO.Checked = True
+                    ChkDispBUHIN_BANGO_CheckedChanged(chkDispBUHIN_BANGO, Nothing)
+                    chkDispSYANAI_CD.Checked = True
+                    ChkDispSYANAI_CD_CheckedChanged(chkDispSYANAI_CD, Nothing)
+                    chkDispFUTEKIGO_JYOTAI_KB.Checked = True
+                    ChkDispFUTEKIGO_JYOTAI_KB_CheckedChanged(chkDispFUTEKIGO_JYOTAI_KB, Nothing)
+                    chkDispFUTEKIGO_S_KB.Checked = True
+                    ChkDispFUTEKIGO_S_KB_CheckedChanged(chkDispFUTEKIGO_S_KB, Nothing)
+                    chkDispBUMON.Checked = True
+                    ChkDispBUMON_CheckedChanged(chkDispBUMON, Nothing)
+                    chkDispHINMEI.Checked = True
+                    ChkDispHINMEI_CheckedChanged(chkDispHINMEI, Nothing)
+                    chkDispHASSEI_YMD.Checked = True
+                    ChkDispHASSEI_YMD_CheckedChanged(chkDispHASSEI_YMD, Nothing)
+                    chkDispSURYO.Checked = True
+                    chkDispADD_TANTO.Checked = True
+                    ChkDispADD_TANTO_CheckedChanged(chkDispADD_TANTO, Nothing)
+
                     chkDispKISYU.Visible = True
                     chkDispGOKI.Visible = True
                     lblGEN_TANTO.Visible = False
@@ -371,19 +396,20 @@ Public Class FrmG0010
                     dgvNCR.Visible = False
                     dgvCTS.Visible = False
 
-                    cmbKISYU.Enabled = False
-                    mtxGOKI.Enabled = False
-                    cmbFUTEKIGO_KB.Enabled = False
-                    cmbBUHIN_BANGO.Enabled = False
-                    cmbSYANAI_CD.Enabled = False
-                    cmbFUTEKIGO_JYOTAI_KB.Enabled = False
-                    cmbFUTEKIGO_S_KB.Enabled = False
-                    cmbBUMON.Enabled = False
-                    mtxHINMEI.Enabled = False
-                    dtHASSEI_YMD_FROM.Enabled = False
-                    dtHASSEI_YMD_TO.Enabled = False
-                    dtHASSEI_YMD_FROM.DisplayFormat = DateTextBoxEx.EnumType.yyyyMM
-                    dtHASSEI_YMD_TO.DisplayFormat = DateTextBoxEx.EnumType.yyyyMM
+                    'cmbKISYU.Enabled = False
+                    'mtxGOKI.Enabled = False
+                    'cmbFUTEKIGO_KB.Enabled = False
+                    'cmbBUHIN_BANGO.Enabled = False
+                    'cmbSYANAI_CD.Enabled = False
+                    'cmbFUTEKIGO_JYOTAI_KB.Enabled = False
+                    'cmbFUTEKIGO_S_KB.Enabled = False
+                    'cmbBUMON.Enabled = False
+                    'mtxHINMEI.Enabled = False
+                    'dtHASSEI_YMD_FROM.Enabled = False
+                    'dtHASSEI_YMD_TO.Enabled = False
+
+                    'dtHASSEI_YMD_FROM.DisplayFormat = DateTextBoxEx.EnumType.yyyyMMdd
+                    'dtHASSEI_YMD_TO.DisplayFormat = DateTextBoxEx.EnumType.yyyyMMdd
 
                     cmbJIZEN_SINSA_HANTEI_KB.Enabled = False
                     cmbSAISIN_IINKAI_HANTEI_KB.Enabled = False
@@ -396,7 +422,7 @@ Public Class FrmG0010
                     cmbKISEKI_KOTEI_KB.Enabled = False
                     chkDispGENIN1.Checked = False
                     chkDispGENIN2.Checked = False
-                    cmbADD_TANTO.Enabled = False
+                    'cmbADD_TANTO.Enabled = False
 
                     'cmbHOKOKUSYO_ID.SelectedValue = 2 'CAR
 
@@ -1369,7 +1395,18 @@ Public Class FrmG0010
                                             End If
 
                                         Case "HASSEI_YMD"
-                                            Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMM", Nothing).ToString("yyyy/MM")
+
+                                            Select Case row.Item(p.Name).ToString.Length
+                                                Case 6 'yyyyMM
+                                                    Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMM", Nothing).ToString("yyyy/MM")
+                                                Case 8 'yyyyMMdd
+                                                    Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
+                                                Case 14 'yyyyMMddHHmmss
+                                                    Trow(p.Name) = DateTime.ParseExact(row.Item(p.Name), "yyyyMMddHHmmss", Nothing)
+                                                Case Else
+                                                    'Err
+                                                    Trow(p.Name) = Nothing
+                                            End Select
                                         Case Else
                                             Trow(p.Name) = row.Item(p.Name).ToString.Trim
                                     End Select

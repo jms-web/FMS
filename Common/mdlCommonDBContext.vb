@@ -6,11 +6,11 @@ Namespace Context
     Public Module mdlConst
 
 #Region "PGアセンブリコード"
+
         ''' <summary>
         ''' コードマスタ
         ''' </summary>
         Public Const CON_PG_M010 As String = "FMS_M010.exe"
-
 
 #End Region
 
@@ -105,6 +105,7 @@ Namespace Context
 #End Region
 
 #Region "共通"
+
         Public Enum ENM_BUMON_KB
             _1_風防 = 1
             _2_LP = 2
@@ -119,18 +120,20 @@ Namespace Context
             _2_CAR = 2
             _3_CTS = 3
             _4_FCCB = 4
+            _5_ZESEI = 5
         End Enum
+
 #End Region
 
     End Module
 End Namespace
-
 
 Public Module mdlDBContext
 
 #Region "データテーブル変数"
 
 #Region "システム"
+
     ''' <summary>
     ''' メニューセクション
     ''' </summary>
@@ -237,10 +240,9 @@ Public Module mdlDBContext
 #Region "不適合関連"
 
     ''' <summary>
-    ''' 
+    '''
     ''' </summary>
     Public tblSYONIN_HOKOKUSYO_ID As DataTableEx
-
 
     ''' <summary>
     ''' 製品処置(NCR ステージ
@@ -326,6 +328,7 @@ Public Module mdlDBContext
     ''' 承認担当
     ''' </summary>
     Public tblTANTO_SYONIN As DataTableEx
+
     ''' <summary>
     ''' 承認担当一覧
     ''' </summary>
@@ -366,8 +369,6 @@ Public Module mdlDBContext
     ''' </summary>
     Public tblSYAIN As DataTableEx
 
-
-
 #End Region
 
 #End Region
@@ -375,6 +376,7 @@ Public Module mdlDBContext
 #Region "データ取得関数"
 
 #Region "部門情報"
+
     Public Function FunGetBUMON_INFO(ByVal intSyainID As Integer) As (BUMON_KB As String, BUMON_NAME As String)
         Dim dsList As New System.Data.DataSet
 
@@ -388,9 +390,9 @@ Public Module mdlDBContext
             FROM
                 M004_SYAIN AS M004
                 LEFT JOIN M005_SYOZOKU_BUSYO AS M005
-                    ON M004.SYAIN_ID = M005.SYAIN_ID 
+                    ON M004.SYAIN_ID = M005.SYAIN_ID
                 LEFT JOIN M002_BUSYO AS M002
-                    ON M005.BUSYO_ID = M002.BUSYO_ID 
+                    ON M005.BUSYO_ID = M002.BUSYO_ID
             WHERE M005.KENMU_FLG = '0' AND M004.SYAIN_ID = {0}
             ]]></sql>.Value.Trim
 
@@ -406,10 +408,7 @@ Public Module mdlDBContext
         End With
     End Function
 
-
 #End Region
-
-
 
 #End Region
 
@@ -435,6 +434,7 @@ Public Module mdlDBContext
             Select Case strKOMOKU
 
 #Region "               承認報告書ID"
+
                 Case "承認報告書ID"
 
                     dt = New DataTableEx("System.Int32")
@@ -447,7 +447,6 @@ Public Module mdlDBContext
                         'sbSQL.Append(" AND DEL_FLG='0'")
                     End If
                     sbSQL.Append(" ORDER BY SYONIN_HOKOKUSYO_ID")
-
 
                     '主キー設定
                     dt.PrimaryKey = {dt.Columns("VALUE")}
@@ -464,9 +463,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               NCR"
+
                 Case "NCR"
 
                     dt = New DataTableEx("System.Int32")
@@ -496,9 +497,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               CAR"
+
                 Case "CAR"
                     dt = New DataTableEx("System.Int32")
 
@@ -527,9 +530,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               CTS"
+
                 Case "CTS"
                     dt = New DataTableEx("System.Int32")
 
@@ -558,9 +563,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               FCCB"
+
                 Case "FCCB"
                     dt = New DataTableEx("System.Int32")
 
@@ -589,9 +596,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               担当"
+
                 Case "担当"
 
                     dt = New DataTableEx("System.Int32")
@@ -630,9 +639,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               承認担当"
+
                 Case "承認担当"
 
                     dt = New DataTableEx("System.Int32")
@@ -667,9 +678,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               承認担当一覧"
+
                 Case "承認担当一覧"
 
                     dt = New DataTableEx("System.Int32")
@@ -698,9 +711,11 @@ Public Module mdlDBContext
                             End If
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               差戻し先"
+
                 Case "差戻し先"
                     dt = New DataTableEx("System.Int32")
 
@@ -736,9 +751,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               機種"
+
                 Case "機種"
 
                     dt = New DataTableEx("System.Int32")
@@ -771,9 +788,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               部署"
+
                 Case "部署"
 
                     dt = New DataTableEx("System.Int32")
@@ -803,9 +822,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               業務グループ"
+
                 Case "業務グループ"
 
                     dt = New DataTableEx("System.Int32")
@@ -836,9 +857,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               社内CD"
+
                 Case "社内CD"
                     '検索
                     sbSQL.Append("SELECT DISTINCT BUMON_KB,SYANAI_CD,BUHIN_BANGO,BUHIN_NAME,KISYU_ID,TOKUI_ID,DEL_FLG FROM " & "VWM107_BUHIN_KISYU" & " ")
@@ -877,9 +900,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               社内CD実績"
+
                 Case "社内CD実績"
                     '検索
                     sbSQL.Append("SELECT DISTINCT")
@@ -928,9 +953,11 @@ Public Module mdlDBContext
                             End If
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               部品番号"
+
                 Case "部品番号"
                     '検索
                     sbSQL.Append("SELECT DISTINCT BUMON_KB,BUHIN_BANGO,BUHIN_NAME,SYANAI_CD,KISYU_ID,TOKUI_ID,DEL_FLG FROM " & "VWM107_BUHIN_KISYU" & " ")
@@ -968,9 +995,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               部品番号実績"
+
                 Case "部品番号実績"
                     '検索
                     sbSQL.Append("SELECT DISTINCT")
@@ -1019,9 +1048,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               機種実績"
+
                 Case "機種実績"
 
                     dt = New DataTableEx("System.Int32")
@@ -1061,9 +1092,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               取引先"
+
                 Case "取引先"
                     '検索
                     sbSQL.Append("SELECT ")
@@ -1124,9 +1157,11 @@ Public Module mdlDBContext
                             dt.Rows.Add(Trow)
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               temp"
+
                     'Case "カレンダー"
 
                     '    '検索
@@ -1155,9 +1190,6 @@ Public Module mdlDBContext
                     '        Next intCNT
                     '    End With
 
-
-
-
                     'Case "NullTable"
 
                     '    '空のコードテーブルを作成し、後から項目を追加する際に使用する
@@ -1181,6 +1213,7 @@ Public Module mdlDBContext
 #End Region
 
 #Region "               項目名"
+
                 Case "項目名"
                     '検索
                     sbSQL.Append("SELECT DISTINCT ITEM_NAME,DEL_YMDHNS FROM " & NameOf(M001_SETTING) & " ")
@@ -1211,9 +1244,11 @@ Public Module mdlDBContext
                             End If
                         Next intCNT
                     End With
+
 #End Region
 
 #Region "               Else"
+
                 Case Else
 
                     '検索
@@ -1251,6 +1286,7 @@ Public Module mdlDBContext
                         ' data null exception
                         'Throw New ArgumentNullException("", "")
                     End If
+
 #End Region
 
             End Select
@@ -1259,22 +1295,14 @@ Public Module mdlDBContext
             dt.AcceptChanges()
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
-
         Finally
             dsList.Dispose()
         End Try
     End Function
+
 #End Region
 
 End Module
-
-
-
-
-
-
-

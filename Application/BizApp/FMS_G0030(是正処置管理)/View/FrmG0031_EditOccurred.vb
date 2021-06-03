@@ -102,7 +102,7 @@ Public Class FrmG0031_EditOccurred
                         End Using
 
                         '--- モデルクリア
-                        _D009.Clear()
+                        _D013.Clear()
                         _D004_SYONIN_J_KANRI.clear()
 
                         cmbBUMON.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
@@ -244,32 +244,6 @@ Public Class FrmG0031_EditOccurred
                         End If
                     End If
 
-                Case 4  '協議要否確認　協議開催通知メール送信
-
-                    If IsNeedMeeting() Then
-                        If FunCheckInput(ENM_SAVE_MODE._1_保存) Then
-                            If OpenFormSendMail() Then
-                                If IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID) Then
-                                    Me.DialogResult = DialogResult.OK
-                                Else
-                                    If FunSAVE(ENM_SAVE_MODE._1_保存, True) Then
-                                        Me.DialogResult = DialogResult.OK
-                                    Else
-                                        MessageBox.Show("保存処理に失敗しました。", "保存失敗", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                                    End If
-                                End If
-                            End If
-                        End If
-                    Else
-                        '協議要否依頼メール
-                        If MessageBox.Show("協議要否依頼メールを送信しますか？", "メール送信確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                            If FunSendJudgeReplyMail(blnNonMessage:=True) Then
-                                Dim imgDlg As New ImageDialog
-                                imgDlg.Show("\\sv04\FMS\RESOURCE\sendmail_256.gif", 4000)
-                            End If
-                        End If
-                    End If
-
                 Case 5  '差し戻し
 
                     Call OpenFormSASIMODOSI()
@@ -279,7 +253,6 @@ Public Class FrmG0031_EditOccurred
                     Call FunOpenReportFCCB()
 
                 Case 11 '履歴
-                    'Call ShowUnimplemented()
                     Call OpenFormHistory(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, PrFCCB_NO)
 
                 Case 12 '閉じる
@@ -356,7 +329,11 @@ Public Class FrmG0031_EditOccurred
     ''' <returns></returns>
     Private Function FunSAVE_FILE(ByRef DB As ClsDbUtility) As Boolean
 
-        If _D009.FILE_PATH.IsNulOrWS Then
+        If _D013.FILE_PATH1.IsNulOrWS And
+            _D013.FILE_PATH2.IsNulOrWS And
+            _D013.FILE_PATH3.IsNulOrWS And
+            _D013.FILE_PATH4.IsNulOrWS And
+            _D013.FILE_PATH5.IsNulOrWS Then
             Return True
         Else
             'SPEC: 2.(3).D.②.添付ファイル保存
@@ -371,33 +348,88 @@ Public Class FrmG0031_EditOccurred
 
                 If MessageBox.Show(strMsg, "ファイル保存先アクセス不可", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) <> vbOK Then
                     Me.DialogResult = DialogResult.Abort
-                    _D009.FILE_PATH = ""
-                    Return True
-                Else
-                    Me.DialogResult = DialogResult.Abort
                     Return True
                 End If
             Else
                 Try
-                    System.IO.Directory.CreateDirectory(strRootDir & _D009.FCCB_NO)
+                    System.IO.Directory.CreateDirectory(strRootDir & _D013.HOKOKU_NO)
 
-                    If Not _D009.FILE_PATH.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D009.FCCB_NO.Trim & "\" & _D009.FILE_PATH) Then
+#Region "1"
+
+                    If Not _D013.FILE_PATH1.IsNulOrWS AndAlso
+                        Not System.IO.File.Exists(strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH1) Then
 
                         If System.IO.File.Exists(lbltmpFile1.Links.Item(0).LinkData) Then
-                            System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData, strRootDir & _D009.FCCB_NO.Trim & "\" & _D009.FILE_PATH, True)
+                            System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData, strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH1, True)
                         Else
-                            Throw New IO.FileNotFoundException($"添付ファイル:{lbltmpFile1.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                            Throw New IO.FileNotFoundException($"添付資料1:{lbltmpFile1.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
+
+#End Region
+
+#Region "2"
+
+                    If Not _D013.FILE_PATH2.IsNulOrWS AndAlso
+                        Not System.IO.File.Exists(strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH2) Then
+
+                        If System.IO.File.Exists(lbltmpFile2.Links.Item(0).LinkData) Then
+                            System.IO.File.Copy(lbltmpFile2.Links.Item(0).LinkData, strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH2, True)
+                        Else
+                            Throw New IO.FileNotFoundException($"添付資料2:{lbltmpFile2.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                        End If
+                    End If
+
+#End Region
+
+#Region "3"
+
+                    If Not _D013.FILE_PATH3.IsNulOrWS AndAlso
+                        Not System.IO.File.Exists(strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH3) Then
+
+                        If System.IO.File.Exists(lbltmpFile3.Links.Item(0).LinkData) Then
+                            System.IO.File.Copy(lbltmpFile3.Links.Item(0).LinkData, strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH3, True)
+                        Else
+                            Throw New IO.FileNotFoundException($"添付資料3:{lbltmpFile3.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                        End If
+                    End If
+
+#End Region
+
+#Region "4"
+
+                    If Not _D013.FILE_PATH4.IsNulOrWS AndAlso
+                        Not System.IO.File.Exists(strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH4) Then
+
+                        If System.IO.File.Exists(lbltmpFile4.Links.Item(0).LinkData) Then
+                            System.IO.File.Copy(lbltmpFile4.Links.Item(0).LinkData, strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH4, True)
+                        Else
+                            Throw New IO.FileNotFoundException($"添付資料4:{lbltmpFile4.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                        End If
+                    End If
+
+#End Region
+
+#Region "5"
+
+                    If Not _D013.FILE_PATH5.IsNulOrWS AndAlso
+                        Not System.IO.File.Exists(strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH5) Then
+
+                        If System.IO.File.Exists(lbltmpFile5.Links.Item(0).LinkData) Then
+                            System.IO.File.Copy(lbltmpFile5.Links.Item(0).LinkData, strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH5, True)
+                        Else
+                            Throw New IO.FileNotFoundException($"添付資料5:{lbltmpFile5.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
+                        End If
+                    End If
+
+#End Region
 
                     Return True
                 Catch exNF As IO.FileNotFoundException
                     MessageBox.Show(exNF.Message, "ファイル存在チェック", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Return False
                 Catch exIO As UnauthorizedAccessException
-                    strMsg = "添付ファイル保存先のアクセス権限がありません。" & vbCrLf &
-                             "添付ファイル保存先:" & strRootDir
+                    strMsg = $"添付ファイル保存先のアクセス権限がありません。{vbCrLf}添付ファイル保存先:{strRootDir}"
                     MessageBox.Show(strMsg, "ファイル保存先アクセス不可", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Return False
                 Catch ex As Exception
@@ -446,45 +478,41 @@ Public Class FrmG0031_EditOccurred
             _D013._CLOSE_FG = 1
         End If
 
-        _D013.BUMON_KB = cmbBUMON.SelectedValue
-
         If dtKISO.Text.IsNulOrWS Then
             _D013.ADD_YMDHNS = strSysDate
         Else
             _D013.ADD_YMDHNS = dtKISO.ValueDate.ToString("yyyyMMdd") & "000000"
         End If
 
-        _D009.INPUT_DOC_NO = mtxINPUT_DOC_NO.Text
-        _D009.SNO_APPLY_PERIOD_KISO = mtxSNO_APPLY_PERIOD_KISO.Text
-        _D009.SNO_APPLY_PERIOD_HENKO_SINGI = mtxSNO_APPLY_PERIOD_HENKO_SINGI.Text
-        _D009.INPUT_NAIYO = txtINPUT_NAIYO.Text
+        'TODO: SET Model info
+        _D013.BUMON_KB = cmbBUMON.SelectedValue
 
         If cmbKISO_TANTO.IsSelected Then
-            _D009.ADD_SYAIN_ID = cmbKISO_TANTO.SelectedValue
+            _D013.ADD_SYAIN_ID = cmbKISO_TANTO.SelectedValue
         Else
-            _D009.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+            _D013.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
         End If
 
-        _D009.UPD_YMDHNS = strSysDate
-        _D009.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
-        _D009.DEL_YMDHNS = ""
-        _D009.DEL_SYAIN_ID = 0
+        _D013.UPD_YMDHNS = strSysDate
+        _D013.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+        _D013.DEL_YMDHNS = ""
+        _D013.DEL_SYAIN_ID = 0
 
 #End Region
 
         '-----MERGE
         sbSQL.Remove(0, sbSQL.Length)
-        sbSQL.Append($"MERGE INTO {NameOf(D009_FCCB_J)} AS TARGET")
+        sbSQL.Append($"MERGE INTO {NameOf(D013_ZESEI_HASSEI_J)} AS TARGET")
         sbSQL.Append($" USING (")
-        sbSQL.Append($"{_D009.ToSelectSqlString}")
+        sbSQL.Append($"{_D013.ToSelectSqlString}")
         sbSQL.Append($" ) AS WK")
-        sbSQL.Append($" ON (TARGET.{NameOf(_D009.FCCB_NO)} = WK.{NameOf(_D009.FCCB_NO)})")
+        sbSQL.Append($" ON (TARGET.{NameOf(_D013.HOKOKU_NO)} = WK.{NameOf(_D013.HOKOKU_NO)})")
         '---UPDATE
         sbSQL.Append($" WHEN MATCHED THEN")
-        sbSQL.Append($" {_D009.ToUpdateSqlString("TARGET", "WK")}")
+        sbSQL.Append($" {_D013.ToUpdateSqlString("TARGET", "WK")}")
         '---INSERT
         sbSQL.Append($" WHEN NOT MATCHED THEN")
-        sbSQL.Append($" {_D009.ToInsertSqlString("WK")}")
+        sbSQL.Append($" {_D013.ToInsertSqlString("WK")}")
         sbSQL.Append(" OUTPUT $action As RESULT;")
         strRET = DB.ExecuteScalar(sbSQL.ToString, conblnNonMsg, sqlEx)
         Select Case strRET
@@ -498,7 +526,7 @@ Public Class FrmG0031_EditOccurred
                 WL.WriteLogDat(strErrMsg)
                 Return False
         End Select
-        WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009.FCCB_NO}、MERGE D009_FCCB_J")
+        WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009.FCCB_NO}、MERGE D013_ZESEI_HASSEI_J")
 
         Return True
     End Function
@@ -524,7 +552,7 @@ Public Class FrmG0031_EditOccurred
 #Region "   CurrentStage"
 
             '-----データモデル更新
-            _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB
+            _D004_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI
             _D004_SYONIN_J_KANRI.HOKOKU_NO = _D009.FCCB_NO
             _D004_SYONIN_J_KANRI.MAIL_SEND_FG = True
             _D004_SYONIN_J_KANRI.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
@@ -756,7 +784,7 @@ Public Class FrmG0031_EditOccurred
             Select Case strRET
                 Case "INSERT"
                     If PrCurrentStage < ENM_ZESEI_STAGE._60_処置事項完了確認 AndAlso FunSendRequestMail() Then
-                        WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009.FCCB_NO}、Send Request Mail")
+                        WL.WriteLogDat($"[DEBUG]是正処置 報告書NO:{_D013.HOKOKU_NO}、Send Request Mail")
                     End If
 
                 Case "UPDATE"
@@ -768,7 +796,7 @@ Public Class FrmG0031_EditOccurred
                     Return False
             End Select
 
-            WL.WriteLogDat($"[DEBUG]FCCB 報告書NO:{_D009.FCCB_NO}、MERGE D004")
+            WL.WriteLogDat($"[DEBUG]是正処置 報告書NO:{_D013.HOKOKU_NO}、MERGE D004")
 
 #End Region
 
@@ -1132,8 +1160,8 @@ Public Class FrmG0031_EditOccurred
         End If
 
         '-----データモデル更新
-        _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB
-        _R001_HOKOKU_SOUSA.HOKOKU_NO = _D009.FCCB_NO
+        _R001_HOKOKU_SOUSA.SYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI
+        _R001_HOKOKU_SOUSA.HOKOKU_NO = _D013.HOKOKU_NO
         _R001_HOKOKU_SOUSA.SYONIN_JUN = PrCurrentStage
         _R001_HOKOKU_SOUSA.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
         _R001_HOKOKU_SOUSA.RIYU = PrRIYU
@@ -1241,9 +1269,9 @@ Public Class FrmG0031_EditOccurred
         Try
             frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB
             frmDLG.PrHOKOKU_NO = PrFCCB_NO
-            frmDLG.PrBUHIN_BANGO = _D009.BUHIN_BANGO
-            frmDLG.PrKISO_YMD = CDate(_D009.ADD_YMDHNS).ToString("yyyy/MM/dd")
-            frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D009.KISYU_ID).FirstOrDefault?.Item("DISP")
+            frmDLG.PrBUHIN_BANGO = ""
+            frmDLG.PrKISO_YMD = CDate(_D013.ADD_YMDHNS).ToString("yyyy/MM/dd")
+            frmDLG.PrKISYU_NAME = "" 'tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D009.KISYU_ID).FirstOrDefault?.Item("DISP")
             frmDLG.PrCurrentStage = Me.PrCurrentStage
             dlgRET = frmDLG.ShowDialog(Me)
             If dlgRET = Windows.Forms.DialogResult.Cancel Then
@@ -1563,10 +1591,6 @@ Public Class FrmG0031_EditOccurred
 
 #Region "部門"
 
-    Private Sub CmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
-
-    End Sub
-
 #End Region
 
     Private Sub cmbBUMON_Validated(sender As Object, e As EventArgs) Handles cmbBUMON.Validated
@@ -1593,6 +1617,12 @@ Public Class FrmG0031_EditOccurred
     Private Function FunInitializeControls(intMODE As ENM_DATA_OPERATION_MODE) As Boolean
 
         Try
+
+            pnlST01.BackColor = Color.Transparent
+            pnlGENIN_SYOCHI.BackColor = Color.Transparent
+            pnlSYOCHI_KIROKU.BackColor = Color.Transparent
+            pnlZESEI_KAKUNIN.BackColor = Color.Transparent
+            pnlZESEI_SYOCHI.BackColor = Color.Transparent
 
             'ナビゲートリンク選択
             If PrCurrentStage = ENM_ZESEI_STAGE._999_Closed Then
@@ -1916,8 +1946,10 @@ Public Class FrmG0031_EditOccurred
 
 #Region "添付ファイル"
 
+#Region "1"
+
     '添付ファイル選択
-    Private Sub BtnOpenTempFileDialog_Click(sender As Object, e As EventArgs)
+    Private Sub BtnOpenTempFileDialog_Click(sender As Object, e As EventArgs) Handles btnOpenTempFileDialog.Click
         Dim ofd As New OpenFileDialog With {
             .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
             .FilterIndex = 1,
@@ -1933,14 +1965,14 @@ Public Class FrmG0031_EditOccurred
             lbltmpFile1.Links.Clear()
             lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, ofd.FileName)
 
-            _D009.FILE_PATH = IO.Path.GetFileName(ofd.FileName)
+            _D013.FILE_PATH1 = IO.Path.GetFileName(ofd.FileName)
             lbltmpFile1.Visible = True
             lbltmpFile1_Clear.Visible = True
         End If
     End Sub
 
     'リンククリック
-    Private Sub LbltmpFile1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
+    Private Sub LbltmpFile1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1.LinkClicked
         Dim hProcess As New System.Diagnostics.Process
         Dim strEXE As String
         'Dim strARG As String
@@ -1951,22 +1983,12 @@ Public Class FrmG0031_EditOccurred
             Else
                 If System.IO.File.Exists(strEXE) = True Then
                     hProcess.StartInfo.FileName = strEXE
-                    'hProcess.StartInfo.Arguments = strARG
                     hProcess.SynchronizingObject = Me
-                    'AddHandler hProcess.Exited, AddressOf ProcessExited
                     hProcess.EnableRaisingEvents = True
                     hProcess.Start()
 
                     '最前面
                     Call SetForegroundWindow(hProcess.Handle)
-
-                    'Call SetTaskbarInfo(ENM_TASKBAR_STATE._2_Normal, 100)
-                    'Call SetTaskbarOverlayIcon(System.Drawing.SystemIcons.Application)
-
-                    'Private Sub ProcessExited(ByVal sender As Object, ByVal e As EventArgs)
-                    '    Call SetTaskbarOverlayIcon(Nothing)
-                    '    Call SetTaskbarInfo(ENM_TASKBAR_STATE._0_NoProgress)
-                    'End Sub
                 Else
                     Dim strMsg As String
                     strMsg = "ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
@@ -1993,13 +2015,307 @@ Public Class FrmG0031_EditOccurred
     End Sub
 
     'リンククリア
-    Private Sub LbltmpFile1_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
+    Private Sub LbltmpFile1_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile1_Clear.LinkClicked
         lbltmpFile1.Text = ""
-        _D009.FILE_PATH = ""
+        _D013.FILE_PATH1 = ""
         lbltmpFile1.Links.Clear()
         lbltmpFile1.Visible = False
         lbltmpFile1_Clear.Visible = False
     End Sub
+
+#End Region
+
+#Region "2"
+
+    '添付ファイル選択
+    Private Sub BtnOpenTempFileDialog2_Click(sender As Object, e As EventArgs) Handles btnOpenTempFileDialog2.Click
+        Dim ofd As New OpenFileDialog With {
+            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
+            .FilterIndex = 1,
+            .Title = "添付するファイルを選択してください",
+            .RestoreDirectory = True
+        }
+        If lbltmpFile2.Links.Count = 0 Then
+        Else
+            ofd.InitialDirectory = IO.Path.GetDirectoryName(lbltmpFile2.Links(0).ToString)
+        End If
+        If ofd.ShowDialog() = DialogResult.OK Then
+            lbltmpFile2.Text = IO.Path.GetFileName(ofd.FileName)
+            lbltmpFile2.Links.Clear()
+            lbltmpFile2.Links.Add(0, lbltmpFile2.Text.Length, ofd.FileName)
+
+            _D013.FILE_PATH2 = IO.Path.GetFileName(ofd.FileName)
+            lbltmpFile2.Visible = True
+            lbltmpFile2_Clear.Visible = True
+        End If
+    End Sub
+
+    'リンククリック
+    Private Sub LbltmpFile2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile2.LinkClicked
+        Dim hProcess As New System.Diagnostics.Process
+        Dim strEXE As String
+
+        Try
+
+            strEXE = lbltmpFile2.Links(0).LinkData
+            If strEXE.IsNulOrWS Then
+            Else
+                If System.IO.File.Exists(strEXE) = True Then
+                    hProcess.StartInfo.FileName = strEXE
+                    hProcess.SynchronizingObject = Me
+                    hProcess.EnableRaisingEvents = True
+                    hProcess.Start()
+
+                    '最前面
+                    Call SetForegroundWindow(hProcess.Handle)
+                Else
+                    Dim strMsg As String
+                    strMsg = "ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
+                                vbCrLf & vbCrLf & strEXE
+                    MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+        Catch exInvalid As InvalidOperationException
+            'EM.ErrorSyori(exInvalid, False, conblnNonMsg)
+        Finally
+            '-----開放
+            If hProcess IsNot Nothing Then
+                hProcess.Close()
+            End If
+        End Try
+    End Sub
+
+    'リンククリア
+    Private Sub LbltmpFile2_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile2_Clear.LinkClicked
+        lbltmpFile2.Text = ""
+        _D013.FILE_PATH2 = ""
+        lbltmpFile2.Links.Clear()
+        lbltmpFile2.Visible = False
+        lbltmpFile2_Clear.Visible = False
+    End Sub
+
+#End Region
+
+#Region "3"
+
+    '添付ファイル選択
+    Private Sub BtnOpenTempFileDialog3_Click(sender As Object, e As EventArgs) Handles btnOpenTempFileDialog3.Click
+        Dim ofd As New OpenFileDialog With {
+            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
+            .FilterIndex = 1,
+            .Title = "添付するファイルを選択してください",
+            .RestoreDirectory = True
+        }
+        If lbltmpFile3.Links.Count = 0 Then
+        Else
+            ofd.InitialDirectory = IO.Path.GetDirectoryName(lbltmpFile3.Links(0).ToString)
+        End If
+        If ofd.ShowDialog() = DialogResult.OK Then
+            lbltmpFile3.Text = IO.Path.GetFileName(ofd.FileName)
+            lbltmpFile3.Links.Clear()
+            lbltmpFile3.Links.Add(0, lbltmpFile3.Text.Length, ofd.FileName)
+
+            _D013.FILE_PATH3 = IO.Path.GetFileName(ofd.FileName)
+            lbltmpFile3.Visible = True
+            lbltmpFile3_Clear.Visible = True
+        End If
+    End Sub
+
+    'リンククリック
+    Private Sub LbltmpFile3_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile3.LinkClicked
+        Dim hProcess As New System.Diagnostics.Process
+        Dim strEXE As String
+        Try
+
+            strEXE = lbltmpFile3.Links(0).LinkData
+            If strEXE.IsNulOrWS Then
+            Else
+                If System.IO.File.Exists(strEXE) = True Then
+                    hProcess.StartInfo.FileName = strEXE
+                    hProcess.SynchronizingObject = Me
+                    hProcess.EnableRaisingEvents = True
+                    hProcess.Start()
+
+                    '最前面
+                    Call SetForegroundWindow(hProcess.Handle)
+                Else
+                    Dim strMsg As String
+                    strMsg = "ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
+                                vbCrLf & vbCrLf & strEXE
+                    MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+        Catch exInvalid As InvalidOperationException
+            'EM.ErrorSyori(exInvalid, False, conblnNonMsg)
+        Finally
+
+            '-----開放
+            If hProcess IsNot Nothing Then
+                hProcess.Close()
+            End If
+        End Try
+    End Sub
+
+    'リンククリア
+    Private Sub LbltmpFile3_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile3_Clear.LinkClicked
+        lbltmpFile3.Text = ""
+        _D013.FILE_PATH3 = ""
+        lbltmpFile3.Links.Clear()
+        lbltmpFile3.Visible = False
+        lbltmpFile3_Clear.Visible = False
+    End Sub
+
+#End Region
+
+#Region "4"
+
+    '添付ファイル選択
+    Private Sub BtnOpenTempFileDialog4_Click(sender As Object, e As EventArgs) Handles btnOpenTempFileDialog4.Click
+        Dim ofd As New OpenFileDialog With {
+            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
+            .FilterIndex = 1,
+            .Title = "添付するファイルを選択してください",
+            .RestoreDirectory = True
+        }
+        If lbltmpFile4.Links.Count = 0 Then
+        Else
+            ofd.InitialDirectory = IO.Path.GetDirectoryName(lbltmpFile4.Links(0).ToString)
+        End If
+        If ofd.ShowDialog() = DialogResult.OK Then
+            lbltmpFile4.Text = IO.Path.GetFileName(ofd.FileName)
+            lbltmpFile4.Links.Clear()
+            lbltmpFile4.Links.Add(0, lbltmpFile4.Text.Length, ofd.FileName)
+
+            _D013.FILE_PATH4 = IO.Path.GetFileName(ofd.FileName)
+            lbltmpFile4.Visible = True
+            lbltmpFile4_Clear.Visible = True
+        End If
+    End Sub
+
+    'リンククリック
+    Private Sub LbltmpFile4_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile4.LinkClicked
+        Dim hProcess As New System.Diagnostics.Process
+        Dim strEXE As String
+        Try
+
+            strEXE = lbltmpFile4.Links(0).LinkData
+            If strEXE.IsNulOrWS Then
+            Else
+                If System.IO.File.Exists(strEXE) = True Then
+                    hProcess.StartInfo.FileName = strEXE
+                    hProcess.SynchronizingObject = Me
+                    hProcess.EnableRaisingEvents = True
+                    hProcess.Start()
+
+                    '最前面
+                    Call SetForegroundWindow(hProcess.Handle)
+                Else
+                    Dim strMsg As String
+                    strMsg = "ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
+                                vbCrLf & vbCrLf & strEXE
+                    MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+        Catch exInvalid As InvalidOperationException
+            'EM.ErrorSyori(exInvalid, False, conblnNonMsg)
+        Finally
+
+            '-----開放
+            If hProcess IsNot Nothing Then
+                hProcess.Close()
+            End If
+        End Try
+    End Sub
+
+    'リンククリア
+    Private Sub LbltmpFile4_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile4_Clear.LinkClicked
+        lbltmpFile4.Text = ""
+        _D013.FILE_PATH4 = ""
+        lbltmpFile4.Links.Clear()
+        lbltmpFile4.Visible = False
+        lbltmpFile4_Clear.Visible = False
+    End Sub
+
+#End Region
+
+#Region "5"
+
+    '添付ファイル選択
+    Private Sub BtnOpenTempFileDialog5_Click(sender As Object, e As EventArgs) Handles btnOpenTempFileDialog5.Click
+        Dim ofd As New OpenFileDialog With {
+            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
+            .FilterIndex = 1,
+            .Title = "添付するファイルを選択してください",
+            .RestoreDirectory = True
+        }
+        If lbltmpFile5.Links.Count = 0 Then
+        Else
+            ofd.InitialDirectory = IO.Path.GetDirectoryName(lbltmpFile5.Links(0).ToString)
+        End If
+        If ofd.ShowDialog() = DialogResult.OK Then
+            lbltmpFile5.Text = IO.Path.GetFileName(ofd.FileName)
+            lbltmpFile5.Links.Clear()
+            lbltmpFile5.Links.Add(0, lbltmpFile5.Text.Length, ofd.FileName)
+
+            _D013.FILE_PATH5 = IO.Path.GetFileName(ofd.FileName)
+            lbltmpFile5.Visible = True
+            lbltmpFile5_Clear.Visible = True
+        End If
+    End Sub
+
+    'リンククリック
+    Private Sub LbltmpFile5_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile5.LinkClicked
+        Dim hProcess As New System.Diagnostics.Process
+        Dim strEXE As String
+        'Dim strARG As String
+        Try
+
+            strEXE = lbltmpFile5.Links(0).LinkData
+            If strEXE.IsNulOrWS Then
+            Else
+                If System.IO.File.Exists(strEXE) = True Then
+                    hProcess.StartInfo.FileName = strEXE
+                    hProcess.SynchronizingObject = Me
+                    hProcess.EnableRaisingEvents = True
+                    hProcess.Start()
+
+                    '最前面
+                    Call SetForegroundWindow(hProcess.Handle)
+                Else
+                    Dim strMsg As String
+                    strMsg = "ファイルが見つかりません。" & vbCrLf & "システム管理者にご連絡下さい。" &
+                                vbCrLf & vbCrLf & strEXE
+                    MessageBox.Show(strMsg, My.Application.Info.AssemblyName, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+            End If
+        Catch exInvalid As InvalidOperationException
+            'EM.ErrorSyori(exInvalid, False, conblnNonMsg)
+        Finally
+            'プロセス終了を待機しない------------------------------------
+            ''-----自分表示
+            'Me.Show()
+            'Me.lstGYOMU.Focus()
+            'Me.Activate()
+            'Me.BringToFront()
+            '------------------------------------------------------------
+
+            '-----開放
+            If hProcess IsNot Nothing Then
+                hProcess.Close()
+            End If
+        End Try
+    End Sub
+
+    'リンククリア
+    Private Sub LbltmpFile5_Clear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbltmpFile5_Clear.LinkClicked
+        lbltmpFile5.Text = ""
+        _D013.FILE_PATH5 = ""
+        lbltmpFile5.Links.Clear()
+        lbltmpFile5.Visible = False
+        lbltmpFile5_Clear.Visible = False
+    End Sub
+
+#End Region
 
 #End Region
 

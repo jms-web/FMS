@@ -47,7 +47,24 @@ Partial Class FrmG0031_EditOccurred
         Me.dtUPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.TabPageEx1 = New JMS_COMMON.TabPageEx()
-        Me.PanelEx1 = New JMS_COMMON.PanelEx()
+        Me.pnlGENIN_SYOCHI = New JMS_COMMON.PanelEx()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.btnOpenTempFileDialog3 = New System.Windows.Forms.Button()
+        Me.Label53 = New System.Windows.Forms.Label()
+        Me.fpnlTempFile3 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.lbltmpFile3 = New System.Windows.Forms.LinkLabel()
+        Me.lbltmpFile3_Clear = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel39 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel40 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel41 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel42 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel43 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel44 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel45 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel46 = New System.Windows.Forms.LinkLabel()
+        Me.pnl_FUTEKIGO_YOUIN = New JMS_COMMON.PanelEx()
+        Me.rbtnFUTEKIGO_YOUIN_F = New System.Windows.Forms.RadioButton()
+        Me.rbtnFUTEKIGO_YOUIN_T = New System.Windows.Forms.RadioButton()
         Me.DateTextBoxEx18 = New JMS_COMMON.DateTextBoxEx()
         Me.Label52 = New System.Windows.Forms.Label()
         Me.TextBoxEx13 = New JMS_COMMON.TextBoxEx()
@@ -69,11 +86,11 @@ Partial Class FrmG0031_EditOccurred
         Me.Label35 = New System.Windows.Forms.Label()
         Me.Label34 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnOpenTempFileDialog2 = New System.Windows.Forms.Button()
         Me.Label26 = New System.Windows.Forms.Label()
-        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.LinkLabel25 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel26 = New System.Windows.Forms.LinkLabel()
+        Me.fpnlTempFile2 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.lbltmpFile2 = New System.Windows.Forms.LinkLabel()
+        Me.lbltmpFile2_Clear = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel27 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel28 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel29 = New System.Windows.Forms.LinkLabel()
@@ -118,7 +135,7 @@ Partial Class FrmG0031_EditOccurred
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.btnOpenTempFileDialog = New System.Windows.Forms.Button()
         Me.Label19 = New System.Windows.Forms.Label()
-        Me.fpnlTempFile = New System.Windows.Forms.FlowLayoutPanel()
+        Me.fpnlTempFile1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.lbltmpFile1 = New System.Windows.Forms.LinkLabel()
         Me.lbltmpFile1_Clear = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
@@ -146,7 +163,7 @@ Partial Class FrmG0031_EditOccurred
         Me.DateTextBoxEx16 = New JMS_COMMON.DateTextBoxEx()
         Me.DateTextBoxEx17 = New JMS_COMMON.DateTextBoxEx()
         Me.TextBoxEx10 = New JMS_COMMON.TextBoxEx()
-        Me.pnlST13 = New JMS_COMMON.PanelEx()
+        Me.pnlZESEI_KAKUNIN = New JMS_COMMON.PanelEx()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.ComboboxEx9 = New JMS_COMMON.ComboboxEx()
         Me.Label40 = New System.Windows.Forms.Label()
@@ -159,7 +176,21 @@ Partial Class FrmG0031_EditOccurred
         Me.DateTextBoxEx11 = New JMS_COMMON.DateTextBoxEx()
         Me.lblSTAGE16 = New System.Windows.Forms.Label()
         Me.btnST13_SYONIN = New System.Windows.Forms.Button()
+        Me.TextBoxEx1 = New JMS_COMMON.TextBoxEx()
         Me.pnlZESEI_SYOCHI = New JMS_COMMON.PanelEx()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.btnOpenTempFileDialog5 = New System.Windows.Forms.Button()
+        Me.fpnlTempFile5 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.lbltmpFile5 = New System.Windows.Forms.LinkLabel()
+        Me.lbltmpFile5_Clear = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel10 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel11 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel12 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel13 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel14 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel15 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel47 = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel48 = New System.Windows.Forms.LinkLabel()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.ComboboxEx6 = New JMS_COMMON.ComboboxEx()
         Me.Label37 = New System.Windows.Forms.Label()
@@ -176,27 +207,20 @@ Partial Class FrmG0031_EditOccurred
         Me.rbtnZESEI_SYOCHI_YES = New System.Windows.Forms.RadioButton()
         Me.rbtnZESEI_SYOCHI_NO = New System.Windows.Forms.RadioButton()
         Me.chkZESEI_SYOCHI_YUKO_UMU = New System.Windows.Forms.CheckBox()
-        Me.fpnlSYOSAI_FILE_PATH = New System.Windows.Forms.FlowLayoutPanel()
-        Me.lblSYOSAI_FILE_PATH = New System.Windows.Forms.LinkLabel()
-        Me.lblSYOSAI_FILE_PATH_Clear = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel9 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel10 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel11 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel12 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel13 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel14 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel15 = New System.Windows.Forms.LinkLabel()
-        Me.btnOpenSYOSAI_FILE_PATH = New System.Windows.Forms.Button()
         Me.Label75 = New System.Windows.Forms.Label()
         Me.TextBoxEx9 = New JMS_COMMON.TextBoxEx()
         Me.pnlSYOCHI_KIROKU = New JMS_COMMON.PanelEx()
+        Me.TextBoxEx2 = New JMS_COMMON.TextBoxEx()
+        Me.DateTextBoxEx19 = New JMS_COMMON.DateTextBoxEx()
+        Me.Label57 = New System.Windows.Forms.Label()
+        Me.DateTextBoxEx1 = New JMS_COMMON.DateTextBoxEx()
+        Me.Label54 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.btnOpenTempFileDialog4 = New System.Windows.Forms.Button()
         Me.Label30 = New System.Windows.Forms.Label()
-        Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.LinkLabel16 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel17 = New System.Windows.Forms.LinkLabel()
+        Me.fpnlTempFile4 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.lbltmpFile4 = New System.Windows.Forms.LinkLabel()
+        Me.lbltmpFile4_Clear = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel18 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel19 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel20 = New System.Windows.Forms.LinkLabel()
@@ -217,14 +241,23 @@ Partial Class FrmG0031_EditOccurred
         Me.DateTextBoxEx5 = New JMS_COMMON.DateTextBoxEx()
         Me.TextBoxEx12 = New JMS_COMMON.TextBoxEx()
         Me.TextBoxEx8 = New JMS_COMMON.TextBoxEx()
-        Me.Label36 = New System.Windows.Forms.Label()
         Me.lblSTAGE08 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.lblCurrentStageName = New System.Windows.Forms.Label()
-        Me.TextBoxEx1 = New JMS_COMMON.TextBoxEx()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
+        Me.ComboboxEx1 = New JMS_COMMON.ComboboxEx()
+        Me.Label59 = New System.Windows.Forms.Label()
+        Me.Label60 = New System.Windows.Forms.Label()
+        Me.Label61 = New System.Windows.Forms.Label()
+        Me.ComboboxEx2 = New JMS_COMMON.ComboboxEx()
+        Me.ComboboxEx18 = New JMS_COMMON.ComboboxEx()
+        Me.DateTextBoxEx20 = New JMS_COMMON.DateTextBoxEx()
+        Me.DateTextBoxEx21 = New JMS_COMMON.DateTextBoxEx()
+        Me.DateTextBoxEx22 = New JMS_COMMON.DateTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEx2.SuspendLayout()
@@ -232,27 +265,32 @@ Partial Class FrmG0031_EditOccurred
         Me.flpnlStageIndex.SuspendLayout()
         Me.tabMain.SuspendLayout()
         Me.TabPageEx1.SuspendLayout()
-        Me.PanelEx1.SuspendLayout()
+        Me.pnlGENIN_SYOCHI.SuspendLayout()
+        Me.Panel6.SuspendLayout()
+        Me.fpnlTempFile3.SuspendLayout()
+        Me.pnl_FUTEKIGO_YOUIN.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.Panel3.SuspendLayout()
-        Me.FlowLayoutPanel1.SuspendLayout()
+        Me.fpnlTempFile2.SuspendLayout()
         Me.pnlST04_ZESEI.SuspendLayout()
         Me.pnlST01.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
-        Me.fpnlTempFile.SuspendLayout()
+        Me.fpnlTempFile1.SuspendLayout()
         Me.TableLayoutPanel5.SuspendLayout()
-        Me.pnlST13.SuspendLayout()
+        Me.pnlZESEI_KAKUNIN.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.pnlZESEI_SYOCHI.SuspendLayout()
+        Me.Panel7.SuspendLayout()
+        Me.fpnlTempFile5.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.FlowLayoutPanel3.SuspendLayout()
-        Me.fpnlSYOSAI_FILE_PATH.SuspendLayout()
         Me.pnlSYOCHI_KIROKU.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        Me.FlowLayoutPanel2.SuspendLayout()
+        Me.fpnlTempFile4.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
+        Me.TableLayoutPanel6.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -804,15 +842,14 @@ Partial Class FrmG0031_EditOccurred
         Me.tabMain.SelectedIndex = 0
         Me.tabMain.Size = New System.Drawing.Size(1240, 521)
         Me.tabMain.TabIndex = 218
-        Me.tabMain.Visible = False
         '
         'TabPageEx1
         '
         Me.TabPageEx1.AutoScroll = True
         Me.TabPageEx1.BackColor = System.Drawing.SystemColors.Control
-        Me.TabPageEx1.Controls.Add(Me.PanelEx1)
+        Me.TabPageEx1.Controls.Add(Me.pnlGENIN_SYOCHI)
         Me.TabPageEx1.Controls.Add(Me.pnlST01)
-        Me.TabPageEx1.Controls.Add(Me.pnlST13)
+        Me.TabPageEx1.Controls.Add(Me.pnlZESEI_KAKUNIN)
         Me.TabPageEx1.Controls.Add(Me.pnlZESEI_SYOCHI)
         Me.TabPageEx1.Controls.Add(Me.pnlSYOCHI_KIROKU)
         Me.TabPageEx1.Controls.Add(Me.Label11)
@@ -825,45 +862,296 @@ Partial Class FrmG0031_EditOccurred
         Me.TabPageEx1.Size = New System.Drawing.Size(1232, 491)
         Me.TabPageEx1.TabIndex = 0
         '
-        'PanelEx1
+        'pnlGENIN_SYOCHI
         '
-        Me.PanelEx1.BackColor = System.Drawing.Color.White
-        Me.PanelEx1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PanelEx1.Controls.Add(Me.DateTextBoxEx18)
-        Me.PanelEx1.Controls.Add(Me.Label52)
-        Me.PanelEx1.Controls.Add(Me.TextBoxEx13)
-        Me.PanelEx1.Controls.Add(Me.Label50)
-        Me.PanelEx1.Controls.Add(Me.TextBoxEx3)
-        Me.PanelEx1.Controls.Add(Me.TextBoxEx6)
-        Me.PanelEx1.Controls.Add(Me.TableLayoutPanel4)
-        Me.PanelEx1.Controls.Add(Me.Label35)
-        Me.PanelEx1.Controls.Add(Me.Label34)
-        Me.PanelEx1.Controls.Add(Me.Panel3)
-        Me.PanelEx1.Controls.Add(Me.Label33)
-        Me.PanelEx1.Controls.Add(Me.Label25)
-        Me.PanelEx1.Controls.Add(Me.chkST04_ZESEI_SYOCHI_YOHI_KB)
-        Me.PanelEx1.Controls.Add(Me.pnlST04_ZESEI)
-        Me.PanelEx1.Controls.Add(Me.Label32)
-        Me.PanelEx1.Controls.Add(Me.Label31)
-        Me.PanelEx1.Controls.Add(Me.DateTextBoxEx2)
-        Me.PanelEx1.Controls.Add(Me.Label24)
-        Me.PanelEx1.Controls.Add(Me.TextBoxEx4)
-        Me.PanelEx1.Controls.Add(Me.TextBoxEx7)
-        Me.PanelEx1.Controls.Add(Me.TextBoxEx5)
-        Me.PanelEx1.Controls.Add(Me.Label27)
-        Me.PanelEx1.Controls.Add(Me.Label28)
-        Me.PanelEx1.HitEnabled = False
-        Me.PanelEx1.Location = New System.Drawing.Point(2, 537)
-        Me.PanelEx1.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelEx1.Name = "PanelEx1"
-        Me.PanelEx1.Size = New System.Drawing.Size(1209, 856)
-        Me.PanelEx1.TabIndex = 329
+        Me.pnlGENIN_SYOCHI.BackColor = System.Drawing.Color.White
+        Me.pnlGENIN_SYOCHI.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.TableLayoutPanel6)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Panel6)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.pnl_FUTEKIGO_YOUIN)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.DateTextBoxEx18)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label52)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.TextBoxEx13)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label50)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.TextBoxEx3)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.TextBoxEx6)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.TableLayoutPanel4)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label35)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label34)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Panel3)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label33)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label25)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.chkST04_ZESEI_SYOCHI_YOHI_KB)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.pnlST04_ZESEI)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label32)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label31)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.DateTextBoxEx2)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label24)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.TextBoxEx4)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.TextBoxEx7)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.TextBoxEx5)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label27)
+        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label28)
+        Me.pnlGENIN_SYOCHI.HitEnabled = False
+        Me.pnlGENIN_SYOCHI.Location = New System.Drawing.Point(2, 508)
+        Me.pnlGENIN_SYOCHI.Margin = New System.Windows.Forms.Padding(2)
+        Me.pnlGENIN_SYOCHI.Name = "pnlGENIN_SYOCHI"
+        Me.pnlGENIN_SYOCHI.Size = New System.Drawing.Size(1209, 789)
+        Me.pnlGENIN_SYOCHI.TabIndex = 329
+        '
+        'Panel6
+        '
+        Me.Panel6.Controls.Add(Me.btnOpenTempFileDialog3)
+        Me.Panel6.Controls.Add(Me.Label53)
+        Me.Panel6.Controls.Add(Me.fpnlTempFile3)
+        Me.Panel6.Location = New System.Drawing.Point(23, 749)
+        Me.Panel6.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(690, 29)
+        Me.Panel6.TabIndex = 351
+        '
+        'btnOpenTempFileDialog3
+        '
+        Me.btnOpenTempFileDialog3.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnOpenTempFileDialog3.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnOpenTempFileDialog3.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
+        Me.btnOpenTempFileDialog3.Location = New System.Drawing.Point(636, 0)
+        Me.btnOpenTempFileDialog3.Name = "btnOpenTempFileDialog3"
+        Me.btnOpenTempFileDialog3.Size = New System.Drawing.Size(54, 29)
+        Me.btnOpenTempFileDialog3.TabIndex = 324
+        Me.btnOpenTempFileDialog3.TabStop = False
+        Me.btnOpenTempFileDialog3.UseVisualStyleBackColor = True
+        '
+        'Label53
+        '
+        Me.Label53.BackColor = System.Drawing.Color.Transparent
+        Me.Label53.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Label53.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label53.Location = New System.Drawing.Point(0, 0)
+        Me.Label53.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label53.Name = "Label53"
+        Me.Label53.Size = New System.Drawing.Size(63, 29)
+        Me.Label53.TabIndex = 325
+        Me.Label53.Text = "関連資料:"
+        Me.Label53.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'fpnlTempFile3
+        '
+        Me.fpnlTempFile3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.fpnlTempFile3.BackColor = System.Drawing.SystemColors.Window
+        Me.fpnlTempFile3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.fpnlTempFile3.Controls.Add(Me.lbltmpFile3)
+        Me.fpnlTempFile3.Controls.Add(Me.lbltmpFile3_Clear)
+        Me.fpnlTempFile3.Controls.Add(Me.LinkLabel39)
+        Me.fpnlTempFile3.Controls.Add(Me.LinkLabel40)
+        Me.fpnlTempFile3.Controls.Add(Me.LinkLabel41)
+        Me.fpnlTempFile3.Controls.Add(Me.LinkLabel42)
+        Me.fpnlTempFile3.Controls.Add(Me.LinkLabel43)
+        Me.fpnlTempFile3.Controls.Add(Me.LinkLabel44)
+        Me.fpnlTempFile3.Controls.Add(Me.LinkLabel45)
+        Me.fpnlTempFile3.Controls.Add(Me.LinkLabel46)
+        Me.fpnlTempFile3.Location = New System.Drawing.Point(69, 3)
+        Me.fpnlTempFile3.Name = "fpnlTempFile3"
+        Me.fpnlTempFile3.Size = New System.Drawing.Size(561, 22)
+        Me.fpnlTempFile3.TabIndex = 323
+        '
+        'lbltmpFile3
+        '
+        Me.lbltmpFile3.AllowDrop = True
+        Me.lbltmpFile3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbltmpFile3.AutoSize = True
+        Me.lbltmpFile3.Location = New System.Drawing.Point(0, 0)
+        Me.lbltmpFile3.Margin = New System.Windows.Forms.Padding(0)
+        Me.lbltmpFile3.Name = "lbltmpFile3"
+        Me.lbltmpFile3.Size = New System.Drawing.Size(37, 17)
+        Me.lbltmpFile3.TabIndex = 126
+        Me.lbltmpFile3.TabStop = True
+        Me.lbltmpFile3.Text = "link1"
+        Me.lbltmpFile3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbltmpFile3.Visible = False
+        '
+        'lbltmpFile3_Clear
+        '
+        Me.lbltmpFile3_Clear.AutoSize = True
+        Me.lbltmpFile3_Clear.Dock = System.Windows.Forms.DockStyle.Right
+        Me.fpnlTempFile3.SetFlowBreak(Me.lbltmpFile3_Clear, True)
+        Me.lbltmpFile3_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lbltmpFile3_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.lbltmpFile3_Clear.LinkColor = System.Drawing.Color.Red
+        Me.lbltmpFile3_Clear.Location = New System.Drawing.Point(37, 0)
+        Me.lbltmpFile3_Clear.Margin = New System.Windows.Forms.Padding(0)
+        Me.lbltmpFile3_Clear.Name = "lbltmpFile3_Clear"
+        Me.lbltmpFile3_Clear.Size = New System.Drawing.Size(19, 17)
+        Me.lbltmpFile3_Clear.TabIndex = 128
+        Me.lbltmpFile3_Clear.TabStop = True
+        Me.lbltmpFile3_Clear.Text = "×"
+        Me.lbltmpFile3_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbltmpFile3_Clear.Visible = False
+        '
+        'LinkLabel39
+        '
+        Me.LinkLabel39.AutoSize = True
+        Me.LinkLabel39.Location = New System.Drawing.Point(0, 17)
+        Me.LinkLabel39.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel39.Name = "LinkLabel39"
+        Me.LinkLabel39.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel39.TabIndex = 129
+        Me.LinkLabel39.TabStop = True
+        Me.LinkLabel39.Text = "link2"
+        Me.LinkLabel39.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel39.Visible = False
+        '
+        'LinkLabel40
+        '
+        Me.LinkLabel40.AutoSize = True
+        Me.fpnlTempFile3.SetFlowBreak(Me.LinkLabel40, True)
+        Me.LinkLabel40.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel40.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel40.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel40.Location = New System.Drawing.Point(37, 17)
+        Me.LinkLabel40.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel40.Name = "LinkLabel40"
+        Me.LinkLabel40.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel40.TabIndex = 130
+        Me.LinkLabel40.TabStop = True
+        Me.LinkLabel40.Text = "×"
+        Me.LinkLabel40.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel40.Visible = False
+        '
+        'LinkLabel41
+        '
+        Me.LinkLabel41.AutoSize = True
+        Me.LinkLabel41.Location = New System.Drawing.Point(0, 34)
+        Me.LinkLabel41.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel41.Name = "LinkLabel41"
+        Me.LinkLabel41.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel41.TabIndex = 129
+        Me.LinkLabel41.TabStop = True
+        Me.LinkLabel41.Text = "link3"
+        Me.LinkLabel41.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel41.Visible = False
+        '
+        'LinkLabel42
+        '
+        Me.LinkLabel42.AutoSize = True
+        Me.fpnlTempFile3.SetFlowBreak(Me.LinkLabel42, True)
+        Me.LinkLabel42.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel42.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel42.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel42.Location = New System.Drawing.Point(37, 34)
+        Me.LinkLabel42.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel42.Name = "LinkLabel42"
+        Me.LinkLabel42.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel42.TabIndex = 130
+        Me.LinkLabel42.TabStop = True
+        Me.LinkLabel42.Text = "×"
+        Me.LinkLabel42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel42.Visible = False
+        '
+        'LinkLabel43
+        '
+        Me.LinkLabel43.AutoSize = True
+        Me.LinkLabel43.Location = New System.Drawing.Point(0, 51)
+        Me.LinkLabel43.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel43.Name = "LinkLabel43"
+        Me.LinkLabel43.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel43.TabIndex = 129
+        Me.LinkLabel43.TabStop = True
+        Me.LinkLabel43.Text = "link4"
+        Me.LinkLabel43.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel43.Visible = False
+        '
+        'LinkLabel44
+        '
+        Me.LinkLabel44.AutoSize = True
+        Me.fpnlTempFile3.SetFlowBreak(Me.LinkLabel44, True)
+        Me.LinkLabel44.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel44.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel44.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel44.Location = New System.Drawing.Point(37, 51)
+        Me.LinkLabel44.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel44.Name = "LinkLabel44"
+        Me.LinkLabel44.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel44.TabIndex = 130
+        Me.LinkLabel44.TabStop = True
+        Me.LinkLabel44.Text = "×"
+        Me.LinkLabel44.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel44.Visible = False
+        '
+        'LinkLabel45
+        '
+        Me.LinkLabel45.AutoSize = True
+        Me.LinkLabel45.Location = New System.Drawing.Point(0, 68)
+        Me.LinkLabel45.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel45.Name = "LinkLabel45"
+        Me.LinkLabel45.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel45.TabIndex = 129
+        Me.LinkLabel45.TabStop = True
+        Me.LinkLabel45.Text = "link5"
+        Me.LinkLabel45.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel45.Visible = False
+        '
+        'LinkLabel46
+        '
+        Me.LinkLabel46.AutoSize = True
+        Me.fpnlTempFile3.SetFlowBreak(Me.LinkLabel46, True)
+        Me.LinkLabel46.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel46.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel46.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel46.Location = New System.Drawing.Point(37, 68)
+        Me.LinkLabel46.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel46.Name = "LinkLabel46"
+        Me.LinkLabel46.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel46.TabIndex = 130
+        Me.LinkLabel46.TabStop = True
+        Me.LinkLabel46.Text = "×"
+        Me.LinkLabel46.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel46.Visible = False
+        '
+        'pnl_FUTEKIGO_YOUIN
+        '
+        Me.pnl_FUTEKIGO_YOUIN.Controls.Add(Me.rbtnFUTEKIGO_YOUIN_F)
+        Me.pnl_FUTEKIGO_YOUIN.Controls.Add(Me.rbtnFUTEKIGO_YOUIN_T)
+        Me.pnl_FUTEKIGO_YOUIN.HitEnabled = False
+        Me.pnl_FUTEKIGO_YOUIN.Location = New System.Drawing.Point(281, 467)
+        Me.pnl_FUTEKIGO_YOUIN.Name = "pnl_FUTEKIGO_YOUIN"
+        Me.pnl_FUTEKIGO_YOUIN.Size = New System.Drawing.Size(86, 29)
+        Me.pnl_FUTEKIGO_YOUIN.TabIndex = 350
+        Me.pnl_FUTEKIGO_YOUIN.Visible = False
+        '
+        'rbtnFUTEKIGO_YOUIN_F
+        '
+        Me.rbtnFUTEKIGO_YOUIN_F.AutoSize = True
+        Me.rbtnFUTEKIGO_YOUIN_F.Dock = System.Windows.Forms.DockStyle.Right
+        Me.rbtnFUTEKIGO_YOUIN_F.Location = New System.Drawing.Point(47, 0)
+        Me.rbtnFUTEKIGO_YOUIN_F.Margin = New System.Windows.Forms.Padding(0)
+        Me.rbtnFUTEKIGO_YOUIN_F.Name = "rbtnFUTEKIGO_YOUIN_F"
+        Me.rbtnFUTEKIGO_YOUIN_F.Size = New System.Drawing.Size(39, 29)
+        Me.rbtnFUTEKIGO_YOUIN_F.TabIndex = 1
+        Me.rbtnFUTEKIGO_YOUIN_F.Text = "無"
+        Me.rbtnFUTEKIGO_YOUIN_F.UseVisualStyleBackColor = True
+        '
+        'rbtnFUTEKIGO_YOUIN_T
+        '
+        Me.rbtnFUTEKIGO_YOUIN_T.AutoSize = True
+        Me.rbtnFUTEKIGO_YOUIN_T.Checked = True
+        Me.rbtnFUTEKIGO_YOUIN_T.Dock = System.Windows.Forms.DockStyle.Left
+        Me.rbtnFUTEKIGO_YOUIN_T.Location = New System.Drawing.Point(0, 0)
+        Me.rbtnFUTEKIGO_YOUIN_T.Margin = New System.Windows.Forms.Padding(0)
+        Me.rbtnFUTEKIGO_YOUIN_T.Name = "rbtnFUTEKIGO_YOUIN_T"
+        Me.rbtnFUTEKIGO_YOUIN_T.Size = New System.Drawing.Size(39, 29)
+        Me.rbtnFUTEKIGO_YOUIN_T.TabIndex = 0
+        Me.rbtnFUTEKIGO_YOUIN_T.TabStop = True
+        Me.rbtnFUTEKIGO_YOUIN_T.Text = "有"
+        Me.rbtnFUTEKIGO_YOUIN_T.UseVisualStyleBackColor = True
         '
         'DateTextBoxEx18
         '
         Me.DateTextBoxEx18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.DateTextBoxEx18.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.DateTextBoxEx18.Location = New System.Drawing.Point(131, 751)
+        Me.DateTextBoxEx18.Location = New System.Drawing.Point(131, 722)
         Me.DateTextBoxEx18.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.DateTextBoxEx18.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.DateTextBoxEx18.MinimumSize = New System.Drawing.Size(98, 24)
@@ -877,7 +1165,7 @@ Partial Class FrmG0031_EditOccurred
         'Label52
         '
         Me.Label52.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label52.Location = New System.Drawing.Point(25, 748)
+        Me.Label52.Location = New System.Drawing.Point(23, 719)
         Me.Label52.Name = "Label52"
         Me.Label52.Size = New System.Drawing.Size(100, 30)
         Me.Label52.TabIndex = 349
@@ -892,7 +1180,7 @@ Partial Class FrmG0031_EditOccurred
         Me.TextBoxEx13.BackColor = System.Drawing.SystemColors.Window
         Me.TextBoxEx13.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.TextBoxEx13.InputRequired = False
-        Me.TextBoxEx13.Location = New System.Drawing.Point(23, 649)
+        Me.TextBoxEx13.Location = New System.Drawing.Point(28, 620)
         Me.TextBoxEx13.MaxByteLength = 500
         Me.TextBoxEx13.MaxLength = 250
         Me.TextBoxEx13.Multiline = True
@@ -900,7 +1188,7 @@ Partial Class FrmG0031_EditOccurred
         Me.TextBoxEx13.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.TextBoxEx13.SelectAllText = False
         Me.TextBoxEx13.ShowRemainingChars = True
-        Me.TextBoxEx13.Size = New System.Drawing.Size(684, 92)
+        Me.TextBoxEx13.Size = New System.Drawing.Size(685, 92)
         Me.TextBoxEx13.TabIndex = 346
         Me.TextBoxEx13.WatermarkColor = System.Drawing.Color.Empty
         Me.TextBoxEx13.WatermarkText = Nothing
@@ -909,7 +1197,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.Label50.AutoSize = True
         Me.Label50.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label50.Location = New System.Drawing.Point(0, 629)
+        Me.Label50.Location = New System.Drawing.Point(5, 600)
         Me.Label50.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label50.Name = "Label50"
         Me.Label50.Size = New System.Drawing.Size(206, 15)
@@ -971,8 +1259,7 @@ Partial Class FrmG0031_EditOccurred
         Me.TableLayoutPanel4.Controls.Add(Me.DateTextBoxEx13, 1, 2)
         Me.TableLayoutPanel4.Controls.Add(Me.DateTextBoxEx14, 2, 2)
         Me.TableLayoutPanel4.Controls.Add(Me.TextBoxEx11, 0, 5)
-        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Right
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(850, 0)
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(849, 4)
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 7
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
@@ -982,22 +1269,21 @@ Partial Class FrmG0031_EditOccurred
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(357, 854)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(357, 223)
         Me.TableLayoutPanel4.TabIndex = 343
         '
         'Label29
         '
         Me.Label29.AutoSize = True
         Me.Label29.BackColor = System.Drawing.Color.Transparent
-        Me.Label29.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label29.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label29.Location = New System.Drawing.Point(3, 103)
         Me.Label29.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(81, 15)
+        Me.Label29.Size = New System.Drawing.Size(75, 15)
         Me.Label29.TabIndex = 335
         Me.Label29.Text = "フリースペース:"
         Me.Label29.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label29.Visible = False
         '
         'ComboboxEx12
         '
@@ -1177,36 +1463,37 @@ Partial Class FrmG0031_EditOccurred
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label34.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label34.Location = New System.Drawing.Point(41, 280)
         Me.Label34.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(124, 15)
+        Me.Label34.Size = New System.Drawing.Size(122, 15)
         Me.Label34.TabIndex = 341
         Me.Label34.Text = "影響が特定された範囲:"
         Me.Label34.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Panel3
         '
-        Me.Panel3.Controls.Add(Me.Button1)
+        Me.Panel3.Controls.Add(Me.btnOpenTempFileDialog2)
         Me.Panel3.Controls.Add(Me.Label26)
-        Me.Panel3.Controls.Add(Me.FlowLayoutPanel1)
-        Me.Panel3.Location = New System.Drawing.Point(409, 47)
+        Me.Panel3.Controls.Add(Me.fpnlTempFile2)
+        Me.Panel3.Location = New System.Drawing.Point(28, 431)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(447, 29)
+        Me.Panel3.Size = New System.Drawing.Size(684, 29)
         Me.Panel3.TabIndex = 329
         '
-        'Button1
+        'btnOpenTempFileDialog2
         '
-        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button1.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.Button1.Location = New System.Drawing.Point(385, 2)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(54, 24)
-        Me.Button1.TabIndex = 324
-        Me.Button1.TabStop = False
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnOpenTempFileDialog2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnOpenTempFileDialog2.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnOpenTempFileDialog2.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
+        Me.btnOpenTempFileDialog2.Location = New System.Drawing.Point(630, 0)
+        Me.btnOpenTempFileDialog2.Name = "btnOpenTempFileDialog2"
+        Me.btnOpenTempFileDialog2.Size = New System.Drawing.Size(54, 29)
+        Me.btnOpenTempFileDialog2.TabIndex = 324
+        Me.btnOpenTempFileDialog2.TabStop = False
+        Me.btnOpenTempFileDialog2.UseVisualStyleBackColor = True
         '
         'Label26
         '
@@ -1215,63 +1502,63 @@ Partial Class FrmG0031_EditOccurred
         Me.Label26.Location = New System.Drawing.Point(3, 6)
         Me.Label26.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(70, 15)
+        Me.Label26.Size = New System.Drawing.Size(60, 15)
         Me.Label26.TabIndex = 325
-        Me.Label26.Text = "添付ファイル:"
+        Me.Label26.Text = "関連資料:"
         Me.Label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'FlowLayoutPanel1
+        'fpnlTempFile2
         '
-        Me.FlowLayoutPanel1.BackColor = System.Drawing.SystemColors.Window
-        Me.FlowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.FlowLayoutPanel1.Controls.Add(Me.LinkLabel25)
-        Me.FlowLayoutPanel1.Controls.Add(Me.LinkLabel26)
-        Me.FlowLayoutPanel1.Controls.Add(Me.LinkLabel27)
-        Me.FlowLayoutPanel1.Controls.Add(Me.LinkLabel28)
-        Me.FlowLayoutPanel1.Controls.Add(Me.LinkLabel29)
-        Me.FlowLayoutPanel1.Controls.Add(Me.LinkLabel30)
-        Me.FlowLayoutPanel1.Controls.Add(Me.LinkLabel31)
-        Me.FlowLayoutPanel1.Controls.Add(Me.LinkLabel32)
-        Me.FlowLayoutPanel1.Controls.Add(Me.LinkLabel33)
-        Me.FlowLayoutPanel1.Controls.Add(Me.LinkLabel34)
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(75, 3)
-        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(305, 22)
-        Me.FlowLayoutPanel1.TabIndex = 323
+        Me.fpnlTempFile2.BackColor = System.Drawing.SystemColors.Window
+        Me.fpnlTempFile2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.fpnlTempFile2.Controls.Add(Me.lbltmpFile2)
+        Me.fpnlTempFile2.Controls.Add(Me.lbltmpFile2_Clear)
+        Me.fpnlTempFile2.Controls.Add(Me.LinkLabel27)
+        Me.fpnlTempFile2.Controls.Add(Me.LinkLabel28)
+        Me.fpnlTempFile2.Controls.Add(Me.LinkLabel29)
+        Me.fpnlTempFile2.Controls.Add(Me.LinkLabel30)
+        Me.fpnlTempFile2.Controls.Add(Me.LinkLabel31)
+        Me.fpnlTempFile2.Controls.Add(Me.LinkLabel32)
+        Me.fpnlTempFile2.Controls.Add(Me.LinkLabel33)
+        Me.fpnlTempFile2.Controls.Add(Me.LinkLabel34)
+        Me.fpnlTempFile2.Location = New System.Drawing.Point(64, 3)
+        Me.fpnlTempFile2.Name = "fpnlTempFile2"
+        Me.fpnlTempFile2.Size = New System.Drawing.Size(561, 22)
+        Me.fpnlTempFile2.TabIndex = 323
         '
-        'LinkLabel25
+        'lbltmpFile2
         '
-        Me.LinkLabel25.AllowDrop = True
-        Me.LinkLabel25.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.lbltmpFile2.AllowDrop = True
+        Me.lbltmpFile2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LinkLabel25.AutoSize = True
-        Me.LinkLabel25.Location = New System.Drawing.Point(0, 0)
-        Me.LinkLabel25.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel25.Name = "LinkLabel25"
-        Me.LinkLabel25.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel25.TabIndex = 126
-        Me.LinkLabel25.TabStop = True
-        Me.LinkLabel25.Text = "link1"
-        Me.LinkLabel25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel25.Visible = False
+        Me.lbltmpFile2.AutoSize = True
+        Me.lbltmpFile2.Location = New System.Drawing.Point(0, 0)
+        Me.lbltmpFile2.Margin = New System.Windows.Forms.Padding(0)
+        Me.lbltmpFile2.Name = "lbltmpFile2"
+        Me.lbltmpFile2.Size = New System.Drawing.Size(37, 17)
+        Me.lbltmpFile2.TabIndex = 126
+        Me.lbltmpFile2.TabStop = True
+        Me.lbltmpFile2.Text = "link1"
+        Me.lbltmpFile2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbltmpFile2.Visible = False
         '
-        'LinkLabel26
+        'lbltmpFile2_Clear
         '
-        Me.LinkLabel26.AutoSize = True
-        Me.LinkLabel26.Dock = System.Windows.Forms.DockStyle.Right
-        Me.FlowLayoutPanel1.SetFlowBreak(Me.LinkLabel26, True)
-        Me.LinkLabel26.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel26.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel26.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel26.Location = New System.Drawing.Point(37, 0)
-        Me.LinkLabel26.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel26.Name = "LinkLabel26"
-        Me.LinkLabel26.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel26.TabIndex = 128
-        Me.LinkLabel26.TabStop = True
-        Me.LinkLabel26.Text = "×"
-        Me.LinkLabel26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel26.Visible = False
+        Me.lbltmpFile2_Clear.AutoSize = True
+        Me.lbltmpFile2_Clear.Dock = System.Windows.Forms.DockStyle.Right
+        Me.fpnlTempFile2.SetFlowBreak(Me.lbltmpFile2_Clear, True)
+        Me.lbltmpFile2_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lbltmpFile2_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.lbltmpFile2_Clear.LinkColor = System.Drawing.Color.Red
+        Me.lbltmpFile2_Clear.Location = New System.Drawing.Point(37, 0)
+        Me.lbltmpFile2_Clear.Margin = New System.Windows.Forms.Padding(0)
+        Me.lbltmpFile2_Clear.Name = "lbltmpFile2_Clear"
+        Me.lbltmpFile2_Clear.Size = New System.Drawing.Size(19, 17)
+        Me.lbltmpFile2_Clear.TabIndex = 128
+        Me.lbltmpFile2_Clear.TabStop = True
+        Me.lbltmpFile2_Clear.Text = "×"
+        Me.lbltmpFile2_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbltmpFile2_Clear.Visible = False
         '
         'LinkLabel27
         '
@@ -1289,7 +1576,7 @@ Partial Class FrmG0031_EditOccurred
         'LinkLabel28
         '
         Me.LinkLabel28.AutoSize = True
-        Me.FlowLayoutPanel1.SetFlowBreak(Me.LinkLabel28, True)
+        Me.fpnlTempFile2.SetFlowBreak(Me.LinkLabel28, True)
         Me.LinkLabel28.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.LinkLabel28.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.LinkLabel28.LinkColor = System.Drawing.Color.Red
@@ -1319,7 +1606,7 @@ Partial Class FrmG0031_EditOccurred
         'LinkLabel30
         '
         Me.LinkLabel30.AutoSize = True
-        Me.FlowLayoutPanel1.SetFlowBreak(Me.LinkLabel30, True)
+        Me.fpnlTempFile2.SetFlowBreak(Me.LinkLabel30, True)
         Me.LinkLabel30.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.LinkLabel30.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.LinkLabel30.LinkColor = System.Drawing.Color.Red
@@ -1349,7 +1636,7 @@ Partial Class FrmG0031_EditOccurred
         'LinkLabel32
         '
         Me.LinkLabel32.AutoSize = True
-        Me.FlowLayoutPanel1.SetFlowBreak(Me.LinkLabel32, True)
+        Me.fpnlTempFile2.SetFlowBreak(Me.LinkLabel32, True)
         Me.LinkLabel32.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.LinkLabel32.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.LinkLabel32.LinkColor = System.Drawing.Color.Red
@@ -1379,7 +1666,7 @@ Partial Class FrmG0031_EditOccurred
         'LinkLabel34
         '
         Me.LinkLabel34.AutoSize = True
-        Me.FlowLayoutPanel1.SetFlowBreak(Me.LinkLabel34, True)
+        Me.fpnlTempFile2.SetFlowBreak(Me.LinkLabel34, True)
         Me.LinkLabel34.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.LinkLabel34.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.LinkLabel34.LinkColor = System.Drawing.Color.Red
@@ -1396,7 +1683,7 @@ Partial Class FrmG0031_EditOccurred
         'Label33
         '
         Me.Label33.AutoSize = True
-        Me.Label33.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label33.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label33.Location = New System.Drawing.Point(38, 208)
         Me.Label33.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label33.Name = "Label33"
@@ -1408,7 +1695,7 @@ Partial Class FrmG0031_EditOccurred
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label25.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label25.Location = New System.Drawing.Point(38, 245)
         Me.Label25.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label25.Name = "Label25"
@@ -1464,11 +1751,11 @@ Partial Class FrmG0031_EditOccurred
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label32.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label32.Location = New System.Drawing.Point(26, 66)
         Me.Label32.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(150, 15)
+        Me.Label32.Size = New System.Drawing.Size(147, 15)
         Me.Label32.TabIndex = 335
         Me.Label32.Text = "①不適合対象(直接の対象)"
         Me.Label32.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1521,7 +1808,7 @@ Partial Class FrmG0031_EditOccurred
         Me.TextBoxEx4.BackColor = System.Drawing.SystemColors.Window
         Me.TextBoxEx4.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.TextBoxEx4.InputRequired = False
-        Me.TextBoxEx4.Location = New System.Drawing.Point(28, 460)
+        Me.TextBoxEx4.Location = New System.Drawing.Point(28, 496)
         Me.TextBoxEx4.MaxByteLength = 500
         Me.TextBoxEx4.MaxLength = 250
         Me.TextBoxEx4.Multiline = True
@@ -1592,12 +1879,12 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.Label28.AutoSize = True
         Me.Label28.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label28.Location = New System.Drawing.Point(5, 440)
+        Me.Label28.Location = New System.Drawing.Point(5, 476)
         Me.Label28.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(490, 15)
+        Me.Label28.Size = New System.Drawing.Size(530, 15)
         Me.Label28.TabIndex = 125
-        Me.Label28.Text = "(2)発生原因(要因分析と根本原因究明)　人的要因　　　　　　　(有の場合は以下に内容を記入)"
+        Me.Label28.Text = "(2)発生原因(要因分析と根本原因究明)　人的要因　　　　　　　　　　　　(有の場合は以下に内容を記入)"
         Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'pnlST01
@@ -1626,7 +1913,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST01.Location = New System.Drawing.Point(2, 5)
         Me.pnlST01.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST01.Name = "pnlST01"
-        Me.pnlST01.Size = New System.Drawing.Size(1209, 528)
+        Me.pnlST01.Size = New System.Drawing.Size(1209, 497)
         Me.pnlST01.TabIndex = 322
         '
         'dtKAITOU_KIBOU_YMD
@@ -1709,7 +1996,7 @@ Partial Class FrmG0031_EditOccurred
         Me.txtZESEI_COMMENT.BackColor = System.Drawing.SystemColors.Window
         Me.txtZESEI_COMMENT.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtZESEI_COMMENT.InputRequired = False
-        Me.txtZESEI_COMMENT.Location = New System.Drawing.Point(29, 428)
+        Me.txtZESEI_COMMENT.Location = New System.Drawing.Point(29, 395)
         Me.txtZESEI_COMMENT.MaxByteLength = 500
         Me.txtZESEI_COMMENT.MaxLength = 250
         Me.txtZESEI_COMMENT.Multiline = True
@@ -1854,7 +2141,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label17.Location = New System.Drawing.Point(6, 410)
+        Me.Label17.Location = New System.Drawing.Point(6, 377)
         Me.Label17.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(277, 15)
@@ -1866,8 +2153,8 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.Panel2.Controls.Add(Me.btnOpenTempFileDialog)
         Me.Panel2.Controls.Add(Me.Label19)
-        Me.Panel2.Controls.Add(Me.fpnlTempFile)
-        Me.Panel2.Location = New System.Drawing.Point(28, 257)
+        Me.Panel2.Controls.Add(Me.fpnlTempFile1)
+        Me.Panel2.Location = New System.Drawing.Point(28, 224)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(685, 29)
@@ -1898,26 +2185,26 @@ Partial Class FrmG0031_EditOccurred
         Me.Label19.Text = "添付ファイル:"
         Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'fpnlTempFile
+        'fpnlTempFile1
         '
-        Me.fpnlTempFile.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.fpnlTempFile1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.fpnlTempFile.BackColor = System.Drawing.SystemColors.Window
-        Me.fpnlTempFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.fpnlTempFile.Controls.Add(Me.lbltmpFile1)
-        Me.fpnlTempFile.Controls.Add(Me.lbltmpFile1_Clear)
-        Me.fpnlTempFile.Controls.Add(Me.LinkLabel2)
-        Me.fpnlTempFile.Controls.Add(Me.LinkLabel3)
-        Me.fpnlTempFile.Controls.Add(Me.LinkLabel4)
-        Me.fpnlTempFile.Controls.Add(Me.LinkLabel5)
-        Me.fpnlTempFile.Controls.Add(Me.LinkLabel6)
-        Me.fpnlTempFile.Controls.Add(Me.LinkLabel7)
-        Me.fpnlTempFile.Controls.Add(Me.LinkLabel8)
-        Me.fpnlTempFile.Controls.Add(Me.LinkLabel24)
-        Me.fpnlTempFile.Location = New System.Drawing.Point(75, 3)
-        Me.fpnlTempFile.Name = "fpnlTempFile"
-        Me.fpnlTempFile.Size = New System.Drawing.Size(550, 22)
-        Me.fpnlTempFile.TabIndex = 323
+        Me.fpnlTempFile1.BackColor = System.Drawing.SystemColors.Window
+        Me.fpnlTempFile1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.fpnlTempFile1.Controls.Add(Me.lbltmpFile1)
+        Me.fpnlTempFile1.Controls.Add(Me.lbltmpFile1_Clear)
+        Me.fpnlTempFile1.Controls.Add(Me.LinkLabel2)
+        Me.fpnlTempFile1.Controls.Add(Me.LinkLabel3)
+        Me.fpnlTempFile1.Controls.Add(Me.LinkLabel4)
+        Me.fpnlTempFile1.Controls.Add(Me.LinkLabel5)
+        Me.fpnlTempFile1.Controls.Add(Me.LinkLabel6)
+        Me.fpnlTempFile1.Controls.Add(Me.LinkLabel7)
+        Me.fpnlTempFile1.Controls.Add(Me.LinkLabel8)
+        Me.fpnlTempFile1.Controls.Add(Me.LinkLabel24)
+        Me.fpnlTempFile1.Location = New System.Drawing.Point(75, 3)
+        Me.fpnlTempFile1.Name = "fpnlTempFile1"
+        Me.fpnlTempFile1.Size = New System.Drawing.Size(550, 22)
+        Me.fpnlTempFile1.TabIndex = 323
         '
         'lbltmpFile1
         '
@@ -1939,7 +2226,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lbltmpFile1_Clear.AutoSize = True
         Me.lbltmpFile1_Clear.Dock = System.Windows.Forms.DockStyle.Right
-        Me.fpnlTempFile.SetFlowBreak(Me.lbltmpFile1_Clear, True)
+        Me.fpnlTempFile1.SetFlowBreak(Me.lbltmpFile1_Clear, True)
         Me.lbltmpFile1_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lbltmpFile1_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.lbltmpFile1_Clear.LinkColor = System.Drawing.Color.Red
@@ -1969,7 +2256,7 @@ Partial Class FrmG0031_EditOccurred
         'LinkLabel3
         '
         Me.LinkLabel3.AutoSize = True
-        Me.fpnlTempFile.SetFlowBreak(Me.LinkLabel3, True)
+        Me.fpnlTempFile1.SetFlowBreak(Me.LinkLabel3, True)
         Me.LinkLabel3.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.LinkLabel3.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.LinkLabel3.LinkColor = System.Drawing.Color.Red
@@ -1999,7 +2286,7 @@ Partial Class FrmG0031_EditOccurred
         'LinkLabel5
         '
         Me.LinkLabel5.AutoSize = True
-        Me.fpnlTempFile.SetFlowBreak(Me.LinkLabel5, True)
+        Me.fpnlTempFile1.SetFlowBreak(Me.LinkLabel5, True)
         Me.LinkLabel5.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.LinkLabel5.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.LinkLabel5.LinkColor = System.Drawing.Color.Red
@@ -2029,7 +2316,7 @@ Partial Class FrmG0031_EditOccurred
         'LinkLabel7
         '
         Me.LinkLabel7.AutoSize = True
-        Me.fpnlTempFile.SetFlowBreak(Me.LinkLabel7, True)
+        Me.fpnlTempFile1.SetFlowBreak(Me.LinkLabel7, True)
         Me.LinkLabel7.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.LinkLabel7.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.LinkLabel7.LinkColor = System.Drawing.Color.Red
@@ -2059,7 +2346,7 @@ Partial Class FrmG0031_EditOccurred
         'LinkLabel24
         '
         Me.LinkLabel24.AutoSize = True
-        Me.fpnlTempFile.SetFlowBreak(Me.LinkLabel24, True)
+        Me.fpnlTempFile1.SetFlowBreak(Me.LinkLabel24, True)
         Me.LinkLabel24.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.LinkLabel24.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.LinkLabel24.LinkColor = System.Drawing.Color.Red
@@ -2081,7 +2368,7 @@ Partial Class FrmG0031_EditOccurred
         Me.txtZESEI_RIYU.BackColor = System.Drawing.SystemColors.Window
         Me.txtZESEI_RIYU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtZESEI_RIYU.InputRequired = False
-        Me.txtZESEI_RIYU.Location = New System.Drawing.Point(29, 312)
+        Me.txtZESEI_RIYU.Location = New System.Drawing.Point(29, 279)
         Me.txtZESEI_RIYU.MaxByteLength = 500
         Me.txtZESEI_RIYU.MaxLength = 250
         Me.txtZESEI_RIYU.Multiline = True
@@ -2102,7 +2389,7 @@ Partial Class FrmG0031_EditOccurred
         Me.txtKANSATU_HOUKOKU.BackColor = System.Drawing.SystemColors.Window
         Me.txtKANSATU_HOUKOKU.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtKANSATU_HOUKOKU.InputRequired = False
-        Me.txtKANSATU_HOUKOKU.Location = New System.Drawing.Point(29, 162)
+        Me.txtKANSATU_HOUKOKU.Location = New System.Drawing.Point(29, 129)
         Me.txtKANSATU_HOUKOKU.MaxByteLength = 500
         Me.txtKANSATU_HOUKOKU.MaxLength = 250
         Me.txtKANSATU_HOUKOKU.Multiline = True
@@ -2119,7 +2406,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.Label21.AutoSize = True
         Me.Label21.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label21.Location = New System.Drawing.Point(5, 139)
+        Me.Label21.Location = New System.Drawing.Point(5, 106)
         Me.Label21.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(120, 15)
@@ -2131,7 +2418,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.Label22.AutoSize = True
         Me.Label22.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label22.Location = New System.Drawing.Point(6, 294)
+        Me.Label22.Location = New System.Drawing.Point(6, 261)
         Me.Label22.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(171, 15)
@@ -2181,22 +2468,21 @@ Partial Class FrmG0031_EditOccurred
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(357, 526)
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(357, 495)
         Me.TableLayoutPanel5.TabIndex = 334
         '
         'Label45
         '
         Me.Label45.AutoSize = True
         Me.Label45.BackColor = System.Drawing.Color.Transparent
-        Me.Label45.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label45.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label45.Location = New System.Drawing.Point(3, 103)
         Me.Label45.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label45.Name = "Label45"
-        Me.Label45.Size = New System.Drawing.Size(81, 15)
+        Me.Label45.Size = New System.Drawing.Size(75, 15)
         Me.Label45.TabIndex = 335
         Me.Label45.Text = "フリースペース:"
         Me.Label45.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label45.Visible = False
         '
         'ComboboxEx15
         '
@@ -2361,20 +2647,20 @@ Partial Class FrmG0031_EditOccurred
         Me.TextBoxEx10.WatermarkColor = System.Drawing.Color.Empty
         Me.TextBoxEx10.WatermarkText = Nothing
         '
-        'pnlST13
+        'pnlZESEI_KAKUNIN
         '
-        Me.pnlST13.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.pnlST13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlST13.Controls.Add(Me.TableLayoutPanel3)
-        Me.pnlST13.Controls.Add(Me.lblSTAGE16)
-        Me.pnlST13.Controls.Add(Me.btnST13_SYONIN)
-        Me.pnlST13.Controls.Add(Me.TextBoxEx1)
-        Me.pnlST13.HitEnabled = False
-        Me.pnlST13.Location = New System.Drawing.Point(2, 1664)
-        Me.pnlST13.Margin = New System.Windows.Forms.Padding(2)
-        Me.pnlST13.Name = "pnlST13"
-        Me.pnlST13.Size = New System.Drawing.Size(1210, 90)
-        Me.pnlST13.TabIndex = 321
+        Me.pnlZESEI_KAKUNIN.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.pnlZESEI_KAKUNIN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlZESEI_KAKUNIN.Controls.Add(Me.TableLayoutPanel3)
+        Me.pnlZESEI_KAKUNIN.Controls.Add(Me.lblSTAGE16)
+        Me.pnlZESEI_KAKUNIN.Controls.Add(Me.btnST13_SYONIN)
+        Me.pnlZESEI_KAKUNIN.Controls.Add(Me.TextBoxEx1)
+        Me.pnlZESEI_KAKUNIN.HitEnabled = False
+        Me.pnlZESEI_KAKUNIN.Location = New System.Drawing.Point(2, 1637)
+        Me.pnlZESEI_KAKUNIN.Margin = New System.Windows.Forms.Padding(2)
+        Me.pnlZESEI_KAKUNIN.Name = "pnlZESEI_KAKUNIN"
+        Me.pnlZESEI_KAKUNIN.Size = New System.Drawing.Size(1210, 90)
+        Me.pnlZESEI_KAKUNIN.TabIndex = 321
         '
         'TableLayoutPanel3
         '
@@ -2573,28 +2859,240 @@ Partial Class FrmG0031_EditOccurred
         Me.btnST13_SYONIN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnST13_SYONIN.UseVisualStyleBackColor = True
         '
+        'TextBoxEx1
+        '
+        Me.TextBoxEx1.BackColor = System.Drawing.SystemColors.Window
+        Me.TextBoxEx1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.TextBoxEx1.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.TextBoxEx1.InputRequired = False
+        Me.TextBoxEx1.Location = New System.Drawing.Point(895, 0)
+        Me.TextBoxEx1.MaxByteLength = 400
+        Me.TextBoxEx1.MaxLength = 200
+        Me.TextBoxEx1.Multiline = True
+        Me.TextBoxEx1.Name = "TextBoxEx1"
+        Me.TextBoxEx1.SelectAllText = False
+        Me.TextBoxEx1.ShowRemainingChars = True
+        Me.TextBoxEx1.Size = New System.Drawing.Size(313, 88)
+        Me.TextBoxEx1.TabIndex = 333
+        Me.TextBoxEx1.WatermarkColor = System.Drawing.Color.Empty
+        Me.TextBoxEx1.WatermarkText = Nothing
+        '
         'pnlZESEI_SYOCHI
         '
-        Me.pnlZESEI_SYOCHI.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlZESEI_SYOCHI.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.pnlZESEI_SYOCHI.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlZESEI_SYOCHI.Controls.Add(Me.Panel7)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.TableLayoutPanel2)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.lblSTAGE10)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.Label15)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.FlowLayoutPanel3)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.chkZESEI_SYOCHI_YUKO_UMU)
-        Me.pnlZESEI_SYOCHI.Controls.Add(Me.fpnlSYOSAI_FILE_PATH)
-        Me.pnlZESEI_SYOCHI.Controls.Add(Me.btnOpenSYOSAI_FILE_PATH)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.Label75)
         Me.pnlZESEI_SYOCHI.Controls.Add(Me.TextBoxEx9)
         Me.pnlZESEI_SYOCHI.HitEnabled = False
-        Me.pnlZESEI_SYOCHI.Location = New System.Drawing.Point(2, 1544)
+        Me.pnlZESEI_SYOCHI.Location = New System.Drawing.Point(2, 1534)
         Me.pnlZESEI_SYOCHI.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlZESEI_SYOCHI.Name = "pnlZESEI_SYOCHI"
         Me.pnlZESEI_SYOCHI.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlZESEI_SYOCHI.Size = New System.Drawing.Size(1210, 115)
+        Me.pnlZESEI_SYOCHI.Size = New System.Drawing.Size(1210, 98)
         Me.pnlZESEI_SYOCHI.TabIndex = 320
+        '
+        'Panel7
+        '
+        Me.Panel7.Controls.Add(Me.btnOpenTempFileDialog5)
+        Me.Panel7.Controls.Add(Me.fpnlTempFile5)
+        Me.Panel7.Location = New System.Drawing.Point(118, 62)
+        Me.Panel7.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel7.Name = "Panel7"
+        Me.Panel7.Size = New System.Drawing.Size(413, 29)
+        Me.Panel7.TabIndex = 336
+        '
+        'btnOpenTempFileDialog5
+        '
+        Me.btnOpenTempFileDialog5.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnOpenTempFileDialog5.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnOpenTempFileDialog5.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
+        Me.btnOpenTempFileDialog5.Location = New System.Drawing.Point(359, 0)
+        Me.btnOpenTempFileDialog5.Name = "btnOpenTempFileDialog5"
+        Me.btnOpenTempFileDialog5.Size = New System.Drawing.Size(54, 29)
+        Me.btnOpenTempFileDialog5.TabIndex = 324
+        Me.btnOpenTempFileDialog5.TabStop = False
+        Me.btnOpenTempFileDialog5.UseVisualStyleBackColor = True
+        '
+        'fpnlTempFile5
+        '
+        Me.fpnlTempFile5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.fpnlTempFile5.BackColor = System.Drawing.SystemColors.Window
+        Me.fpnlTempFile5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.fpnlTempFile5.Controls.Add(Me.lbltmpFile5)
+        Me.fpnlTempFile5.Controls.Add(Me.lbltmpFile5_Clear)
+        Me.fpnlTempFile5.Controls.Add(Me.LinkLabel10)
+        Me.fpnlTempFile5.Controls.Add(Me.LinkLabel11)
+        Me.fpnlTempFile5.Controls.Add(Me.LinkLabel12)
+        Me.fpnlTempFile5.Controls.Add(Me.LinkLabel13)
+        Me.fpnlTempFile5.Controls.Add(Me.LinkLabel14)
+        Me.fpnlTempFile5.Controls.Add(Me.LinkLabel15)
+        Me.fpnlTempFile5.Controls.Add(Me.LinkLabel47)
+        Me.fpnlTempFile5.Controls.Add(Me.LinkLabel48)
+        Me.fpnlTempFile5.Location = New System.Drawing.Point(3, 3)
+        Me.fpnlTempFile5.Name = "fpnlTempFile5"
+        Me.fpnlTempFile5.Size = New System.Drawing.Size(350, 22)
+        Me.fpnlTempFile5.TabIndex = 323
+        '
+        'lbltmpFile5
+        '
+        Me.lbltmpFile5.AllowDrop = True
+        Me.lbltmpFile5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lbltmpFile5.AutoSize = True
+        Me.lbltmpFile5.Location = New System.Drawing.Point(0, 0)
+        Me.lbltmpFile5.Margin = New System.Windows.Forms.Padding(0)
+        Me.lbltmpFile5.Name = "lbltmpFile5"
+        Me.lbltmpFile5.Size = New System.Drawing.Size(37, 17)
+        Me.lbltmpFile5.TabIndex = 126
+        Me.lbltmpFile5.TabStop = True
+        Me.lbltmpFile5.Text = "link1"
+        Me.lbltmpFile5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbltmpFile5.Visible = False
+        '
+        'lbltmpFile5_Clear
+        '
+        Me.lbltmpFile5_Clear.AutoSize = True
+        Me.lbltmpFile5_Clear.Dock = System.Windows.Forms.DockStyle.Right
+        Me.fpnlTempFile5.SetFlowBreak(Me.lbltmpFile5_Clear, True)
+        Me.lbltmpFile5_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lbltmpFile5_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.lbltmpFile5_Clear.LinkColor = System.Drawing.Color.Red
+        Me.lbltmpFile5_Clear.Location = New System.Drawing.Point(37, 0)
+        Me.lbltmpFile5_Clear.Margin = New System.Windows.Forms.Padding(0)
+        Me.lbltmpFile5_Clear.Name = "lbltmpFile5_Clear"
+        Me.lbltmpFile5_Clear.Size = New System.Drawing.Size(19, 17)
+        Me.lbltmpFile5_Clear.TabIndex = 128
+        Me.lbltmpFile5_Clear.TabStop = True
+        Me.lbltmpFile5_Clear.Text = "×"
+        Me.lbltmpFile5_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbltmpFile5_Clear.Visible = False
+        '
+        'LinkLabel10
+        '
+        Me.LinkLabel10.AutoSize = True
+        Me.LinkLabel10.Location = New System.Drawing.Point(0, 17)
+        Me.LinkLabel10.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel10.Name = "LinkLabel10"
+        Me.LinkLabel10.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel10.TabIndex = 129
+        Me.LinkLabel10.TabStop = True
+        Me.LinkLabel10.Text = "link2"
+        Me.LinkLabel10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel10.Visible = False
+        '
+        'LinkLabel11
+        '
+        Me.LinkLabel11.AutoSize = True
+        Me.fpnlTempFile5.SetFlowBreak(Me.LinkLabel11, True)
+        Me.LinkLabel11.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel11.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel11.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel11.Location = New System.Drawing.Point(37, 17)
+        Me.LinkLabel11.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel11.Name = "LinkLabel11"
+        Me.LinkLabel11.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel11.TabIndex = 130
+        Me.LinkLabel11.TabStop = True
+        Me.LinkLabel11.Text = "×"
+        Me.LinkLabel11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel11.Visible = False
+        '
+        'LinkLabel12
+        '
+        Me.LinkLabel12.AutoSize = True
+        Me.LinkLabel12.Location = New System.Drawing.Point(0, 34)
+        Me.LinkLabel12.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel12.Name = "LinkLabel12"
+        Me.LinkLabel12.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel12.TabIndex = 129
+        Me.LinkLabel12.TabStop = True
+        Me.LinkLabel12.Text = "link3"
+        Me.LinkLabel12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel12.Visible = False
+        '
+        'LinkLabel13
+        '
+        Me.LinkLabel13.AutoSize = True
+        Me.fpnlTempFile5.SetFlowBreak(Me.LinkLabel13, True)
+        Me.LinkLabel13.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel13.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel13.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel13.Location = New System.Drawing.Point(37, 34)
+        Me.LinkLabel13.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel13.Name = "LinkLabel13"
+        Me.LinkLabel13.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel13.TabIndex = 130
+        Me.LinkLabel13.TabStop = True
+        Me.LinkLabel13.Text = "×"
+        Me.LinkLabel13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel13.Visible = False
+        '
+        'LinkLabel14
+        '
+        Me.LinkLabel14.AutoSize = True
+        Me.LinkLabel14.Location = New System.Drawing.Point(0, 51)
+        Me.LinkLabel14.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel14.Name = "LinkLabel14"
+        Me.LinkLabel14.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel14.TabIndex = 129
+        Me.LinkLabel14.TabStop = True
+        Me.LinkLabel14.Text = "link4"
+        Me.LinkLabel14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel14.Visible = False
+        '
+        'LinkLabel15
+        '
+        Me.LinkLabel15.AutoSize = True
+        Me.fpnlTempFile5.SetFlowBreak(Me.LinkLabel15, True)
+        Me.LinkLabel15.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel15.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel15.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel15.Location = New System.Drawing.Point(37, 51)
+        Me.LinkLabel15.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel15.Name = "LinkLabel15"
+        Me.LinkLabel15.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel15.TabIndex = 130
+        Me.LinkLabel15.TabStop = True
+        Me.LinkLabel15.Text = "×"
+        Me.LinkLabel15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel15.Visible = False
+        '
+        'LinkLabel47
+        '
+        Me.LinkLabel47.AutoSize = True
+        Me.LinkLabel47.Location = New System.Drawing.Point(0, 68)
+        Me.LinkLabel47.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel47.Name = "LinkLabel47"
+        Me.LinkLabel47.Size = New System.Drawing.Size(37, 17)
+        Me.LinkLabel47.TabIndex = 129
+        Me.LinkLabel47.TabStop = True
+        Me.LinkLabel47.Text = "link5"
+        Me.LinkLabel47.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel47.Visible = False
+        '
+        'LinkLabel48
+        '
+        Me.LinkLabel48.AutoSize = True
+        Me.fpnlTempFile5.SetFlowBreak(Me.LinkLabel48, True)
+        Me.LinkLabel48.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.LinkLabel48.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel48.LinkColor = System.Drawing.Color.Red
+        Me.LinkLabel48.Location = New System.Drawing.Point(37, 68)
+        Me.LinkLabel48.Margin = New System.Windows.Forms.Padding(0)
+        Me.LinkLabel48.Name = "LinkLabel48"
+        Me.LinkLabel48.Size = New System.Drawing.Size(19, 17)
+        Me.LinkLabel48.TabIndex = 130
+        Me.LinkLabel48.TabStop = True
+        Me.LinkLabel48.Text = "×"
+        Me.LinkLabel48.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LinkLabel48.Visible = False
         '
         'TableLayoutPanel2
         '
@@ -2620,7 +3118,7 @@ Partial Class FrmG0031_EditOccurred
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(359, 109)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(359, 92)
         Me.TableLayoutPanel2.TabIndex = 332
         '
         'ComboboxEx6
@@ -2784,11 +3282,11 @@ Partial Class FrmG0031_EditOccurred
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label15.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label15.Location = New System.Drawing.Point(7, 40)
         Me.Label15.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(166, 15)
+        Me.Label15.Size = New System.Drawing.Size(164, 15)
         Me.Label15.TabIndex = 290
         Me.Label15.Text = "是正処置有効性の問題の有無:"
         Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2835,199 +3333,14 @@ Partial Class FrmG0031_EditOccurred
         Me.chkZESEI_SYOCHI_YUKO_UMU.Text = "chkZESEI"
         Me.chkZESEI_SYOCHI_YUKO_UMU.UseVisualStyleBackColor = True
         '
-        'fpnlSYOSAI_FILE_PATH
-        '
-        Me.fpnlSYOSAI_FILE_PATH.BackColor = System.Drawing.SystemColors.Window
-        Me.fpnlSYOSAI_FILE_PATH.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.fpnlSYOSAI_FILE_PATH.Controls.Add(Me.lblSYOSAI_FILE_PATH)
-        Me.fpnlSYOSAI_FILE_PATH.Controls.Add(Me.lblSYOSAI_FILE_PATH_Clear)
-        Me.fpnlSYOSAI_FILE_PATH.Controls.Add(Me.LinkLabel1)
-        Me.fpnlSYOSAI_FILE_PATH.Controls.Add(Me.LinkLabel9)
-        Me.fpnlSYOSAI_FILE_PATH.Controls.Add(Me.LinkLabel10)
-        Me.fpnlSYOSAI_FILE_PATH.Controls.Add(Me.LinkLabel11)
-        Me.fpnlSYOSAI_FILE_PATH.Controls.Add(Me.LinkLabel12)
-        Me.fpnlSYOSAI_FILE_PATH.Controls.Add(Me.LinkLabel13)
-        Me.fpnlSYOSAI_FILE_PATH.Controls.Add(Me.LinkLabel14)
-        Me.fpnlSYOSAI_FILE_PATH.Controls.Add(Me.LinkLabel15)
-        Me.fpnlSYOSAI_FILE_PATH.Location = New System.Drawing.Point(9, 85)
-        Me.fpnlSYOSAI_FILE_PATH.Name = "fpnlSYOSAI_FILE_PATH"
-        Me.fpnlSYOSAI_FILE_PATH.Size = New System.Drawing.Size(391, 22)
-        Me.fpnlSYOSAI_FILE_PATH.TabIndex = 274
-        '
-        'lblSYOSAI_FILE_PATH
-        '
-        Me.lblSYOSAI_FILE_PATH.AutoSize = True
-        Me.lblSYOSAI_FILE_PATH.Location = New System.Drawing.Point(0, 0)
-        Me.lblSYOSAI_FILE_PATH.Margin = New System.Windows.Forms.Padding(0)
-        Me.lblSYOSAI_FILE_PATH.Name = "lblSYOSAI_FILE_PATH"
-        Me.lblSYOSAI_FILE_PATH.Size = New System.Drawing.Size(37, 17)
-        Me.lblSYOSAI_FILE_PATH.TabIndex = 126
-        Me.lblSYOSAI_FILE_PATH.TabStop = True
-        Me.lblSYOSAI_FILE_PATH.Text = "link1"
-        Me.lblSYOSAI_FILE_PATH.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblSYOSAI_FILE_PATH.Visible = False
-        '
-        'lblSYOSAI_FILE_PATH_Clear
-        '
-        Me.lblSYOSAI_FILE_PATH_Clear.AutoSize = True
-        Me.lblSYOSAI_FILE_PATH_Clear.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lblSYOSAI_FILE_PATH_Clear.Dock = System.Windows.Forms.DockStyle.Right
-        Me.fpnlSYOSAI_FILE_PATH.SetFlowBreak(Me.lblSYOSAI_FILE_PATH_Clear, True)
-        Me.lblSYOSAI_FILE_PATH_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSYOSAI_FILE_PATH_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.lblSYOSAI_FILE_PATH_Clear.LinkColor = System.Drawing.Color.Red
-        Me.lblSYOSAI_FILE_PATH_Clear.Location = New System.Drawing.Point(37, 0)
-        Me.lblSYOSAI_FILE_PATH_Clear.Margin = New System.Windows.Forms.Padding(0)
-        Me.lblSYOSAI_FILE_PATH_Clear.Name = "lblSYOSAI_FILE_PATH_Clear"
-        Me.lblSYOSAI_FILE_PATH_Clear.Size = New System.Drawing.Size(19, 17)
-        Me.lblSYOSAI_FILE_PATH_Clear.TabIndex = 128
-        Me.lblSYOSAI_FILE_PATH_Clear.TabStop = True
-        Me.lblSYOSAI_FILE_PATH_Clear.Text = "×"
-        Me.lblSYOSAI_FILE_PATH_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblSYOSAI_FILE_PATH_Clear.Visible = False
-        '
-        'LinkLabel1
-        '
-        Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Location = New System.Drawing.Point(0, 17)
-        Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel1.TabIndex = 129
-        Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "link2"
-        Me.LinkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel1.Visible = False
-        '
-        'LinkLabel9
-        '
-        Me.LinkLabel9.AutoSize = True
-        Me.LinkLabel9.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnlSYOSAI_FILE_PATH.SetFlowBreak(Me.LinkLabel9, True)
-        Me.LinkLabel9.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel9.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel9.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel9.Location = New System.Drawing.Point(37, 17)
-        Me.LinkLabel9.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel9.Name = "LinkLabel9"
-        Me.LinkLabel9.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel9.TabIndex = 130
-        Me.LinkLabel9.TabStop = True
-        Me.LinkLabel9.Text = "×"
-        Me.LinkLabel9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel9.Visible = False
-        '
-        'LinkLabel10
-        '
-        Me.LinkLabel10.AutoSize = True
-        Me.LinkLabel10.Location = New System.Drawing.Point(0, 34)
-        Me.LinkLabel10.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel10.Name = "LinkLabel10"
-        Me.LinkLabel10.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel10.TabIndex = 129
-        Me.LinkLabel10.TabStop = True
-        Me.LinkLabel10.Text = "link3"
-        Me.LinkLabel10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel10.Visible = False
-        '
-        'LinkLabel11
-        '
-        Me.LinkLabel11.AutoSize = True
-        Me.LinkLabel11.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnlSYOSAI_FILE_PATH.SetFlowBreak(Me.LinkLabel11, True)
-        Me.LinkLabel11.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel11.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel11.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel11.Location = New System.Drawing.Point(37, 34)
-        Me.LinkLabel11.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel11.Name = "LinkLabel11"
-        Me.LinkLabel11.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel11.TabIndex = 130
-        Me.LinkLabel11.TabStop = True
-        Me.LinkLabel11.Text = "×"
-        Me.LinkLabel11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel11.Visible = False
-        '
-        'LinkLabel12
-        '
-        Me.LinkLabel12.AutoSize = True
-        Me.LinkLabel12.Location = New System.Drawing.Point(0, 51)
-        Me.LinkLabel12.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel12.Name = "LinkLabel12"
-        Me.LinkLabel12.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel12.TabIndex = 129
-        Me.LinkLabel12.TabStop = True
-        Me.LinkLabel12.Text = "link4"
-        Me.LinkLabel12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel12.Visible = False
-        '
-        'LinkLabel13
-        '
-        Me.LinkLabel13.AutoSize = True
-        Me.LinkLabel13.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnlSYOSAI_FILE_PATH.SetFlowBreak(Me.LinkLabel13, True)
-        Me.LinkLabel13.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel13.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel13.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel13.Location = New System.Drawing.Point(37, 51)
-        Me.LinkLabel13.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel13.Name = "LinkLabel13"
-        Me.LinkLabel13.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel13.TabIndex = 130
-        Me.LinkLabel13.TabStop = True
-        Me.LinkLabel13.Text = "×"
-        Me.LinkLabel13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel13.Visible = False
-        '
-        'LinkLabel14
-        '
-        Me.LinkLabel14.AutoSize = True
-        Me.LinkLabel14.Location = New System.Drawing.Point(0, 68)
-        Me.LinkLabel14.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel14.Name = "LinkLabel14"
-        Me.LinkLabel14.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel14.TabIndex = 129
-        Me.LinkLabel14.TabStop = True
-        Me.LinkLabel14.Text = "link5"
-        Me.LinkLabel14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel14.Visible = False
-        '
-        'LinkLabel15
-        '
-        Me.LinkLabel15.AutoSize = True
-        Me.LinkLabel15.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.fpnlSYOSAI_FILE_PATH.SetFlowBreak(Me.LinkLabel15, True)
-        Me.LinkLabel15.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel15.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel15.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel15.Location = New System.Drawing.Point(37, 68)
-        Me.LinkLabel15.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel15.Name = "LinkLabel15"
-        Me.LinkLabel15.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel15.TabIndex = 130
-        Me.LinkLabel15.TabStop = True
-        Me.LinkLabel15.Text = "×"
-        Me.LinkLabel15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel15.Visible = False
-        '
-        'btnOpenSYOSAI_FILE_PATH
-        '
-        Me.btnOpenSYOSAI_FILE_PATH.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnOpenSYOSAI_FILE_PATH.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.btnOpenSYOSAI_FILE_PATH.Location = New System.Drawing.Point(406, 84)
-        Me.btnOpenSYOSAI_FILE_PATH.Name = "btnOpenSYOSAI_FILE_PATH"
-        Me.btnOpenSYOSAI_FILE_PATH.Size = New System.Drawing.Size(54, 24)
-        Me.btnOpenSYOSAI_FILE_PATH.TabIndex = 273
-        Me.btnOpenSYOSAI_FILE_PATH.UseVisualStyleBackColor = True
-        '
         'Label75
         '
         Me.Label75.AutoSize = True
-        Me.Label75.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label75.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label75.Location = New System.Drawing.Point(7, 67)
         Me.Label75.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label75.Name = "Label75"
-        Me.Label75.Size = New System.Drawing.Size(114, 15)
+        Me.Label75.Size = New System.Drawing.Size(110, 15)
         Me.Label75.TabIndex = 281
         Me.Label75.Text = "詳細資料No(有時):"
         Me.Label75.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -3045,7 +3358,7 @@ Partial Class FrmG0031_EditOccurred
         Me.TextBoxEx9.Name = "TextBoxEx9"
         Me.TextBoxEx9.SelectAllText = False
         Me.TextBoxEx9.ShowRemainingChars = True
-        Me.TextBoxEx9.Size = New System.Drawing.Size(311, 109)
+        Me.TextBoxEx9.Size = New System.Drawing.Size(311, 92)
         Me.TextBoxEx9.TabIndex = 332
         Me.TextBoxEx9.WatermarkColor = System.Drawing.Color.Empty
         Me.TextBoxEx9.WatermarkText = Nothing
@@ -3054,42 +3367,115 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.pnlSYOCHI_KIROKU.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.pnlSYOCHI_KIROKU.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.TextBoxEx2)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.DateTextBoxEx19)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label57)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.DateTextBoxEx1)
+        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label54)
         Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Panel5)
         Me.pnlSYOCHI_KIROKU.Controls.Add(Me.TableLayoutPanel1)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.TextBoxEx12)
         Me.pnlSYOCHI_KIROKU.Controls.Add(Me.TextBoxEx8)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label36)
         Me.pnlSYOCHI_KIROKU.Controls.Add(Me.lblSTAGE08)
         Me.pnlSYOCHI_KIROKU.HitEnabled = False
-        Me.pnlSYOCHI_KIROKU.Location = New System.Drawing.Point(2, 1397)
+        Me.pnlSYOCHI_KIROKU.Location = New System.Drawing.Point(2, 1302)
         Me.pnlSYOCHI_KIROKU.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlSYOCHI_KIROKU.Name = "pnlSYOCHI_KIROKU"
         Me.pnlSYOCHI_KIROKU.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlSYOCHI_KIROKU.Size = New System.Drawing.Size(1210, 142)
+        Me.pnlSYOCHI_KIROKU.Size = New System.Drawing.Size(1210, 228)
         Me.pnlSYOCHI_KIROKU.TabIndex = 319
+        '
+        'TextBoxEx2
+        '
+        Me.TextBoxEx2.AcceptsReturn = True
+        Me.TextBoxEx2.BackColor = System.Drawing.SystemColors.Window
+        Me.TextBoxEx2.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.TextBoxEx2.InputRequired = False
+        Me.TextBoxEx2.Location = New System.Drawing.Point(121, 36)
+        Me.TextBoxEx2.MaxByteLength = 80
+        Me.TextBoxEx2.MaxLength = 40
+        Me.TextBoxEx2.Multiline = True
+        Me.TextBoxEx2.Name = "TextBoxEx2"
+        Me.TextBoxEx2.SelectAllText = False
+        Me.TextBoxEx2.ShowRemainingChars = True
+        Me.TextBoxEx2.Size = New System.Drawing.Size(410, 60)
+        Me.TextBoxEx2.TabIndex = 355
+        Me.TextBoxEx2.WatermarkColor = System.Drawing.Color.Empty
+        Me.TextBoxEx2.WatermarkText = Nothing
+        '
+        'DateTextBoxEx19
+        '
+        Me.DateTextBoxEx19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.DateTextBoxEx19.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.DateTextBoxEx19.Location = New System.Drawing.Point(8, 54)
+        Me.DateTextBoxEx19.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.DateTextBoxEx19.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.DateTextBoxEx19.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.DateTextBoxEx19.Name = "DateTextBoxEx19"
+        Me.DateTextBoxEx19.ReadOnly = False
+        Me.DateTextBoxEx19.Size = New System.Drawing.Size(98, 24)
+        Me.DateTextBoxEx19.TabIndex = 352
+        Me.DateTextBoxEx19.Value = ""
+        Me.DateTextBoxEx19.ValueNonFormat = ""
+        '
+        'Label57
+        '
+        Me.Label57.AutoSize = True
+        Me.Label57.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label57.Location = New System.Drawing.Point(7, 36)
+        Me.Label57.Name = "Label57"
+        Me.Label57.Size = New System.Drawing.Size(108, 15)
+        Me.Label57.TabIndex = 353
+        Me.Label57.Text = "応急処置実施結果:"
+        Me.Label57.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'DateTextBoxEx1
+        '
+        Me.DateTextBoxEx1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.DateTextBoxEx1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.DateTextBoxEx1.Location = New System.Drawing.Point(8, 133)
+        Me.DateTextBoxEx1.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.DateTextBoxEx1.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.DateTextBoxEx1.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.DateTextBoxEx1.Name = "DateTextBoxEx1"
+        Me.DateTextBoxEx1.ReadOnly = False
+        Me.DateTextBoxEx1.Size = New System.Drawing.Size(98, 24)
+        Me.DateTextBoxEx1.TabIndex = 350
+        Me.DateTextBoxEx1.Value = ""
+        Me.DateTextBoxEx1.ValueNonFormat = ""
+        '
+        'Label54
+        '
+        Me.Label54.AutoSize = True
+        Me.Label54.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label54.Location = New System.Drawing.Point(7, 115)
+        Me.Label54.Name = "Label54"
+        Me.Label54.Size = New System.Drawing.Size(84, 15)
+        Me.Label54.TabIndex = 351
+        Me.Label54.Text = "是正処置結果:"
+        Me.Label54.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel5
         '
-        Me.Panel5.Controls.Add(Me.Button2)
+        Me.Panel5.Controls.Add(Me.btnOpenTempFileDialog4)
         Me.Panel5.Controls.Add(Me.Label30)
-        Me.Panel5.Controls.Add(Me.FlowLayoutPanel2)
-        Me.Panel5.Location = New System.Drawing.Point(9, 105)
+        Me.Panel5.Controls.Add(Me.fpnlTempFile4)
+        Me.Panel5.Location = New System.Drawing.Point(9, 191)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(522, 29)
         Me.Panel5.TabIndex = 335
         '
-        'Button2
+        'btnOpenTempFileDialog4
         '
-        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button2.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Button2.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
-        Me.Button2.Location = New System.Drawing.Point(468, 0)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(54, 29)
-        Me.Button2.TabIndex = 324
-        Me.Button2.TabStop = False
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btnOpenTempFileDialog4.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnOpenTempFileDialog4.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnOpenTempFileDialog4.Image = Global.FMS.My.Resources.Resources._imgFolder_Open_16x16
+        Me.btnOpenTempFileDialog4.Location = New System.Drawing.Point(468, 0)
+        Me.btnOpenTempFileDialog4.Name = "btnOpenTempFileDialog4"
+        Me.btnOpenTempFileDialog4.Size = New System.Drawing.Size(54, 29)
+        Me.btnOpenTempFileDialog4.TabIndex = 324
+        Me.btnOpenTempFileDialog4.TabStop = False
+        Me.btnOpenTempFileDialog4.UseVisualStyleBackColor = True
         '
         'Label30
         '
@@ -3104,60 +3490,60 @@ Partial Class FrmG0031_EditOccurred
         Me.Label30.Text = "関連資料:"
         Me.Label30.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'FlowLayoutPanel2
+        'fpnlTempFile4
         '
-        Me.FlowLayoutPanel2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.fpnlTempFile4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.FlowLayoutPanel2.BackColor = System.Drawing.SystemColors.Window
-        Me.FlowLayoutPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.FlowLayoutPanel2.Controls.Add(Me.LinkLabel16)
-        Me.FlowLayoutPanel2.Controls.Add(Me.LinkLabel17)
-        Me.FlowLayoutPanel2.Controls.Add(Me.LinkLabel18)
-        Me.FlowLayoutPanel2.Controls.Add(Me.LinkLabel19)
-        Me.FlowLayoutPanel2.Controls.Add(Me.LinkLabel20)
-        Me.FlowLayoutPanel2.Controls.Add(Me.LinkLabel21)
-        Me.FlowLayoutPanel2.Controls.Add(Me.LinkLabel22)
-        Me.FlowLayoutPanel2.Controls.Add(Me.LinkLabel23)
-        Me.FlowLayoutPanel2.Controls.Add(Me.LinkLabel35)
-        Me.FlowLayoutPanel2.Controls.Add(Me.LinkLabel36)
-        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(69, 3)
-        Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
-        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(393, 22)
-        Me.FlowLayoutPanel2.TabIndex = 323
+        Me.fpnlTempFile4.BackColor = System.Drawing.SystemColors.Window
+        Me.fpnlTempFile4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.fpnlTempFile4.Controls.Add(Me.lbltmpFile4)
+        Me.fpnlTempFile4.Controls.Add(Me.lbltmpFile4_Clear)
+        Me.fpnlTempFile4.Controls.Add(Me.LinkLabel18)
+        Me.fpnlTempFile4.Controls.Add(Me.LinkLabel19)
+        Me.fpnlTempFile4.Controls.Add(Me.LinkLabel20)
+        Me.fpnlTempFile4.Controls.Add(Me.LinkLabel21)
+        Me.fpnlTempFile4.Controls.Add(Me.LinkLabel22)
+        Me.fpnlTempFile4.Controls.Add(Me.LinkLabel23)
+        Me.fpnlTempFile4.Controls.Add(Me.LinkLabel35)
+        Me.fpnlTempFile4.Controls.Add(Me.LinkLabel36)
+        Me.fpnlTempFile4.Location = New System.Drawing.Point(69, 3)
+        Me.fpnlTempFile4.Name = "fpnlTempFile4"
+        Me.fpnlTempFile4.Size = New System.Drawing.Size(393, 22)
+        Me.fpnlTempFile4.TabIndex = 323
         '
-        'LinkLabel16
+        'lbltmpFile4
         '
-        Me.LinkLabel16.AllowDrop = True
-        Me.LinkLabel16.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.lbltmpFile4.AllowDrop = True
+        Me.lbltmpFile4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LinkLabel16.AutoSize = True
-        Me.LinkLabel16.Location = New System.Drawing.Point(0, 0)
-        Me.LinkLabel16.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel16.Name = "LinkLabel16"
-        Me.LinkLabel16.Size = New System.Drawing.Size(37, 17)
-        Me.LinkLabel16.TabIndex = 126
-        Me.LinkLabel16.TabStop = True
-        Me.LinkLabel16.Text = "link1"
-        Me.LinkLabel16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel16.Visible = False
+        Me.lbltmpFile4.AutoSize = True
+        Me.lbltmpFile4.Location = New System.Drawing.Point(0, 0)
+        Me.lbltmpFile4.Margin = New System.Windows.Forms.Padding(0)
+        Me.lbltmpFile4.Name = "lbltmpFile4"
+        Me.lbltmpFile4.Size = New System.Drawing.Size(37, 17)
+        Me.lbltmpFile4.TabIndex = 126
+        Me.lbltmpFile4.TabStop = True
+        Me.lbltmpFile4.Text = "link1"
+        Me.lbltmpFile4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbltmpFile4.Visible = False
         '
-        'LinkLabel17
+        'lbltmpFile4_Clear
         '
-        Me.LinkLabel17.AutoSize = True
-        Me.LinkLabel17.Dock = System.Windows.Forms.DockStyle.Right
-        Me.FlowLayoutPanel2.SetFlowBreak(Me.LinkLabel17, True)
-        Me.LinkLabel17.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.LinkLabel17.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
-        Me.LinkLabel17.LinkColor = System.Drawing.Color.Red
-        Me.LinkLabel17.Location = New System.Drawing.Point(37, 0)
-        Me.LinkLabel17.Margin = New System.Windows.Forms.Padding(0)
-        Me.LinkLabel17.Name = "LinkLabel17"
-        Me.LinkLabel17.Size = New System.Drawing.Size(19, 17)
-        Me.LinkLabel17.TabIndex = 128
-        Me.LinkLabel17.TabStop = True
-        Me.LinkLabel17.Text = "×"
-        Me.LinkLabel17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LinkLabel17.Visible = False
+        Me.lbltmpFile4_Clear.AutoSize = True
+        Me.lbltmpFile4_Clear.Dock = System.Windows.Forms.DockStyle.Right
+        Me.fpnlTempFile4.SetFlowBreak(Me.lbltmpFile4_Clear, True)
+        Me.lbltmpFile4_Clear.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lbltmpFile4_Clear.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.lbltmpFile4_Clear.LinkColor = System.Drawing.Color.Red
+        Me.lbltmpFile4_Clear.Location = New System.Drawing.Point(37, 0)
+        Me.lbltmpFile4_Clear.Margin = New System.Windows.Forms.Padding(0)
+        Me.lbltmpFile4_Clear.Name = "lbltmpFile4_Clear"
+        Me.lbltmpFile4_Clear.Size = New System.Drawing.Size(19, 17)
+        Me.lbltmpFile4_Clear.TabIndex = 128
+        Me.lbltmpFile4_Clear.TabStop = True
+        Me.lbltmpFile4_Clear.Text = "×"
+        Me.lbltmpFile4_Clear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbltmpFile4_Clear.Visible = False
         '
         'LinkLabel18
         '
@@ -3175,7 +3561,7 @@ Partial Class FrmG0031_EditOccurred
         'LinkLabel19
         '
         Me.LinkLabel19.AutoSize = True
-        Me.FlowLayoutPanel2.SetFlowBreak(Me.LinkLabel19, True)
+        Me.fpnlTempFile4.SetFlowBreak(Me.LinkLabel19, True)
         Me.LinkLabel19.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.LinkLabel19.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.LinkLabel19.LinkColor = System.Drawing.Color.Red
@@ -3205,7 +3591,7 @@ Partial Class FrmG0031_EditOccurred
         'LinkLabel21
         '
         Me.LinkLabel21.AutoSize = True
-        Me.FlowLayoutPanel2.SetFlowBreak(Me.LinkLabel21, True)
+        Me.fpnlTempFile4.SetFlowBreak(Me.LinkLabel21, True)
         Me.LinkLabel21.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.LinkLabel21.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.LinkLabel21.LinkColor = System.Drawing.Color.Red
@@ -3235,7 +3621,7 @@ Partial Class FrmG0031_EditOccurred
         'LinkLabel23
         '
         Me.LinkLabel23.AutoSize = True
-        Me.FlowLayoutPanel2.SetFlowBreak(Me.LinkLabel23, True)
+        Me.fpnlTempFile4.SetFlowBreak(Me.LinkLabel23, True)
         Me.LinkLabel23.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.LinkLabel23.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.LinkLabel23.LinkColor = System.Drawing.Color.Red
@@ -3265,7 +3651,7 @@ Partial Class FrmG0031_EditOccurred
         'LinkLabel36
         '
         Me.LinkLabel36.AutoSize = True
-        Me.FlowLayoutPanel2.SetFlowBreak(Me.LinkLabel36, True)
+        Me.fpnlTempFile4.SetFlowBreak(Me.LinkLabel36, True)
         Me.LinkLabel36.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.LinkLabel36.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
         Me.LinkLabel36.LinkColor = System.Drawing.Color.Red
@@ -3286,6 +3672,7 @@ Partial Class FrmG0031_EditOccurred
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.Controls.Add(Me.Label36, 0, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.ComboboxEx3, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Label1, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Label2, 1, 0)
@@ -3295,15 +3682,18 @@ Partial Class FrmG0031_EditOccurred
         Me.TableLayoutPanel1.Controls.Add(Me.DateTextBoxEx3, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.DateTextBoxEx4, 1, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.DateTextBoxEx5, 2, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.TextBoxEx12, 0, 4)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(537, 2)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(848, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 4
+        Me.TableLayoutPanel1.RowCount = 5
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(358, 136)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(358, 222)
         Me.TableLayoutPanel1.TabIndex = 334
         '
         'ComboboxEx3
@@ -3454,17 +3844,18 @@ Partial Class FrmG0031_EditOccurred
         'TextBoxEx12
         '
         Me.TextBoxEx12.BackColor = System.Drawing.SystemColors.Window
-        Me.TextBoxEx12.Dock = System.Windows.Forms.DockStyle.Right
+        Me.TableLayoutPanel1.SetColumnSpan(Me.TextBoxEx12, 3)
+        Me.TextBoxEx12.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TextBoxEx12.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.TextBoxEx12.InputRequired = False
-        Me.TextBoxEx12.Location = New System.Drawing.Point(895, 2)
+        Me.TextBoxEx12.Location = New System.Drawing.Point(3, 103)
         Me.TextBoxEx12.MaxByteLength = 400
         Me.TextBoxEx12.MaxLength = 200
         Me.TextBoxEx12.Multiline = True
         Me.TextBoxEx12.Name = "TextBoxEx12"
         Me.TextBoxEx12.SelectAllText = False
         Me.TextBoxEx12.ShowRemainingChars = True
-        Me.TextBoxEx12.Size = New System.Drawing.Size(311, 136)
+        Me.TextBoxEx12.Size = New System.Drawing.Size(348, 116)
         Me.TextBoxEx12.TabIndex = 333
         Me.TextBoxEx12.WatermarkColor = System.Drawing.Color.Empty
         Me.TextBoxEx12.WatermarkText = Nothing
@@ -3475,29 +3866,17 @@ Partial Class FrmG0031_EditOccurred
         Me.TextBoxEx8.BackColor = System.Drawing.SystemColors.Window
         Me.TextBoxEx8.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.TextBoxEx8.InputRequired = False
-        Me.TextBoxEx8.Location = New System.Drawing.Point(78, 34)
+        Me.TextBoxEx8.Location = New System.Drawing.Point(121, 115)
         Me.TextBoxEx8.MaxByteLength = 80
         Me.TextBoxEx8.MaxLength = 40
         Me.TextBoxEx8.Multiline = True
         Me.TextBoxEx8.Name = "TextBoxEx8"
         Me.TextBoxEx8.SelectAllText = False
         Me.TextBoxEx8.ShowRemainingChars = True
-        Me.TextBoxEx8.Size = New System.Drawing.Size(453, 64)
+        Me.TextBoxEx8.Size = New System.Drawing.Size(410, 60)
         Me.TextBoxEx8.TabIndex = 331
         Me.TextBoxEx8.WatermarkColor = System.Drawing.Color.Empty
         Me.TextBoxEx8.WatermarkText = Nothing
-        '
-        'Label36
-        '
-        Me.Label36.AutoSize = True
-        Me.Label36.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label36.Location = New System.Drawing.Point(36, 39)
-        Me.Label36.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(36, 15)
-        Me.Label36.TabIndex = 330
-        Me.Label36.Text = "結果:"
-        Me.Label36.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblSTAGE08
         '
@@ -3517,7 +3896,7 @@ Partial Class FrmG0031_EditOccurred
         Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label11.Location = New System.Drawing.Point(255, 32767)
+        Me.Label11.Location = New System.Drawing.Point(255, 32738)
         Me.Label11.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(98, 15)
@@ -3530,7 +3909,7 @@ Partial Class FrmG0031_EditOccurred
         Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label12.Location = New System.Drawing.Point(661, 32767)
+        Me.Label12.Location = New System.Drawing.Point(661, 32738)
         Me.Label12.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(72, 15)
@@ -3543,7 +3922,7 @@ Partial Class FrmG0031_EditOccurred
         Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label13.Location = New System.Drawing.Point(10, 32767)
+        Me.Label13.Location = New System.Drawing.Point(10, 32738)
         Me.Label13.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(102, 15)
@@ -3571,23 +3950,192 @@ Partial Class FrmG0031_EditOccurred
         Me.lblCurrentStageName.TabIndex = 335
         Me.lblCurrentStageName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'TextBoxEx1
+        'Label36
         '
-        Me.TextBoxEx1.BackColor = System.Drawing.SystemColors.Window
-        Me.TextBoxEx1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.TextBoxEx1.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.TextBoxEx1.InputRequired = False
-        Me.TextBoxEx1.Location = New System.Drawing.Point(895, 0)
-        Me.TextBoxEx1.MaxByteLength = 400
-        Me.TextBoxEx1.MaxLength = 200
-        Me.TextBoxEx1.Multiline = True
-        Me.TextBoxEx1.Name = "TextBoxEx1"
-        Me.TextBoxEx1.SelectAllText = False
-        Me.TextBoxEx1.ShowRemainingChars = True
-        Me.TextBoxEx1.Size = New System.Drawing.Size(313, 88)
-        Me.TextBoxEx1.TabIndex = 333
-        Me.TextBoxEx1.WatermarkColor = System.Drawing.Color.Empty
-        Me.TextBoxEx1.WatermarkText = Nothing
+        Me.Label36.AutoSize = True
+        Me.Label36.BackColor = System.Drawing.Color.Transparent
+        Me.Label36.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label36.Location = New System.Drawing.Point(3, 83)
+        Me.Label36.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(75, 15)
+        Me.Label36.TabIndex = 356
+        Me.Label36.Text = "フリースペース:"
+        Me.Label36.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'TableLayoutPanel6
+        '
+        Me.TableLayoutPanel6.ColumnCount = 4
+        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118.0!))
+        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118.0!))
+        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118.0!))
+        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel6.Controls.Add(Me.ComboboxEx1, 0, 1)
+        Me.TableLayoutPanel6.Controls.Add(Me.Label59, 0, 0)
+        Me.TableLayoutPanel6.Controls.Add(Me.Label60, 1, 0)
+        Me.TableLayoutPanel6.Controls.Add(Me.Label61, 2, 0)
+        Me.TableLayoutPanel6.Controls.Add(Me.ComboboxEx2, 1, 1)
+        Me.TableLayoutPanel6.Controls.Add(Me.ComboboxEx18, 2, 1)
+        Me.TableLayoutPanel6.Controls.Add(Me.DateTextBoxEx20, 0, 2)
+        Me.TableLayoutPanel6.Controls.Add(Me.DateTextBoxEx21, 1, 2)
+        Me.TableLayoutPanel6.Controls.Add(Me.DateTextBoxEx22, 2, 2)
+        Me.TableLayoutPanel6.Location = New System.Drawing.Point(848, 697)
+        Me.TableLayoutPanel6.Name = "TableLayoutPanel6"
+        Me.TableLayoutPanel6.RowCount = 7
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel6.Size = New System.Drawing.Size(357, 87)
+        Me.TableLayoutPanel6.TabIndex = 352
+        '
+        'ComboboxEx1
+        '
+        Me.ComboboxEx1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboboxEx1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboboxEx1.BackColor = System.Drawing.SystemColors.Window
+        Me.ComboboxEx1.DisplayMember = "DISP"
+        Me.ComboboxEx1.DropDownWidth = 140
+        Me.ComboboxEx1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.ComboboxEx1.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ComboboxEx1.FormattingEnabled = True
+        Me.ComboboxEx1.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.ComboboxEx1.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx1.IsSelected = False
+        Me.ComboboxEx1.Location = New System.Drawing.Point(3, 23)
+        Me.ComboboxEx1.Name = "ComboboxEx1"
+        Me.ComboboxEx1.NullValue = " "
+        Me.ComboboxEx1.Size = New System.Drawing.Size(112, 25)
+        Me.ComboboxEx1.TabIndex = 1
+        Me.ComboboxEx1.Text = "(選択)"
+        Me.ComboboxEx1.ValueMember = "VALUE"
+        '
+        'Label59
+        '
+        Me.Label59.BackColor = System.Drawing.Color.LemonChiffon
+        Me.Label59.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label59.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label59.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label59.Location = New System.Drawing.Point(3, 0)
+        Me.Label59.Name = "Label59"
+        Me.Label59.Size = New System.Drawing.Size(112, 20)
+        Me.Label59.TabIndex = 282
+        Me.Label59.Text = "認可"
+        Me.Label59.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label60
+        '
+        Me.Label60.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label60.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label60.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label60.Location = New System.Drawing.Point(121, 0)
+        Me.Label60.Name = "Label60"
+        Me.Label60.Size = New System.Drawing.Size(112, 20)
+        Me.Label60.TabIndex = 283
+        Me.Label60.Text = "点検"
+        Me.Label60.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label61
+        '
+        Me.Label61.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label61.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label61.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label61.Location = New System.Drawing.Point(239, 0)
+        Me.Label61.Name = "Label61"
+        Me.Label61.Size = New System.Drawing.Size(112, 20)
+        Me.Label61.TabIndex = 284
+        Me.Label61.Text = "作成"
+        Me.Label61.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'ComboboxEx2
+        '
+        Me.ComboboxEx2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboboxEx2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboboxEx2.BackColor = System.Drawing.SystemColors.Window
+        Me.ComboboxEx2.DisplayMember = "DISP"
+        Me.ComboboxEx2.DropDownWidth = 140
+        Me.ComboboxEx2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.ComboboxEx2.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ComboboxEx2.FormattingEnabled = True
+        Me.ComboboxEx2.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.ComboboxEx2.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx2.IsSelected = False
+        Me.ComboboxEx2.Location = New System.Drawing.Point(121, 23)
+        Me.ComboboxEx2.Name = "ComboboxEx2"
+        Me.ComboboxEx2.NullValue = " "
+        Me.ComboboxEx2.Size = New System.Drawing.Size(112, 25)
+        Me.ComboboxEx2.TabIndex = 3
+        Me.ComboboxEx2.Text = "(選択)"
+        Me.ComboboxEx2.ValueMember = "VALUE"
+        '
+        'ComboboxEx18
+        '
+        Me.ComboboxEx18.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.ComboboxEx18.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.ComboboxEx18.BackColor = System.Drawing.SystemColors.Window
+        Me.ComboboxEx18.DisplayMember = "DISP"
+        Me.ComboboxEx18.DropDownWidth = 140
+        Me.ComboboxEx18.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.ComboboxEx18.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ComboboxEx18.FormattingEnabled = True
+        Me.ComboboxEx18.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
+        Me.ComboboxEx18.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.ComboboxEx18.IsSelected = False
+        Me.ComboboxEx18.Location = New System.Drawing.Point(239, 23)
+        Me.ComboboxEx18.Name = "ComboboxEx18"
+        Me.ComboboxEx18.NullValue = " "
+        Me.ComboboxEx18.Size = New System.Drawing.Size(112, 25)
+        Me.ComboboxEx18.TabIndex = 5
+        Me.ComboboxEx18.Text = "(選択)"
+        Me.ComboboxEx18.ValueMember = "VALUE"
+        '
+        'DateTextBoxEx20
+        '
+        Me.DateTextBoxEx20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.DateTextBoxEx20.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.DateTextBoxEx20.Location = New System.Drawing.Point(3, 53)
+        Me.DateTextBoxEx20.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.DateTextBoxEx20.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.DateTextBoxEx20.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.DateTextBoxEx20.Name = "DateTextBoxEx20"
+        Me.DateTextBoxEx20.ReadOnly = False
+        Me.DateTextBoxEx20.Size = New System.Drawing.Size(112, 24)
+        Me.DateTextBoxEx20.TabIndex = 2
+        Me.DateTextBoxEx20.Value = ""
+        Me.DateTextBoxEx20.ValueNonFormat = ""
+        '
+        'DateTextBoxEx21
+        '
+        Me.DateTextBoxEx21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.DateTextBoxEx21.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.DateTextBoxEx21.Location = New System.Drawing.Point(121, 53)
+        Me.DateTextBoxEx21.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.DateTextBoxEx21.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.DateTextBoxEx21.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.DateTextBoxEx21.Name = "DateTextBoxEx21"
+        Me.DateTextBoxEx21.ReadOnly = False
+        Me.DateTextBoxEx21.Size = New System.Drawing.Size(112, 24)
+        Me.DateTextBoxEx21.TabIndex = 4
+        Me.DateTextBoxEx21.Value = ""
+        Me.DateTextBoxEx21.ValueNonFormat = ""
+        '
+        'DateTextBoxEx22
+        '
+        Me.DateTextBoxEx22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.DateTextBoxEx22.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.DateTextBoxEx22.Location = New System.Drawing.Point(239, 53)
+        Me.DateTextBoxEx22.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.DateTextBoxEx22.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.DateTextBoxEx22.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.DateTextBoxEx22.Name = "DateTextBoxEx22"
+        Me.DateTextBoxEx22.ReadOnly = False
+        Me.DateTextBoxEx22.Size = New System.Drawing.Size(112, 24)
+        Me.DateTextBoxEx22.TabIndex = 6
+        Me.DateTextBoxEx22.Value = ""
+        Me.DateTextBoxEx22.ValueNonFormat = ""
         '
         'FrmG0031_EditOccurred
         '
@@ -3635,14 +4183,19 @@ Partial Class FrmG0031_EditOccurred
         Me.tabMain.ResumeLayout(False)
         Me.TabPageEx1.ResumeLayout(False)
         Me.TabPageEx1.PerformLayout()
-        Me.PanelEx1.ResumeLayout(False)
-        Me.PanelEx1.PerformLayout()
+        Me.pnlGENIN_SYOCHI.ResumeLayout(False)
+        Me.pnlGENIN_SYOCHI.PerformLayout()
+        Me.Panel6.ResumeLayout(False)
+        Me.fpnlTempFile3.ResumeLayout(False)
+        Me.fpnlTempFile3.PerformLayout()
+        Me.pnl_FUTEKIGO_YOUIN.ResumeLayout(False)
+        Me.pnl_FUTEKIGO_YOUIN.PerformLayout()
         Me.TableLayoutPanel4.ResumeLayout(False)
         Me.TableLayoutPanel4.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
-        Me.FlowLayoutPanel1.ResumeLayout(False)
-        Me.FlowLayoutPanel1.PerformLayout()
+        Me.fpnlTempFile2.ResumeLayout(False)
+        Me.fpnlTempFile2.PerformLayout()
         Me.pnlST04_ZESEI.ResumeLayout(False)
         Me.pnlST04_ZESEI.PerformLayout()
         Me.pnlST01.ResumeLayout(False)
@@ -3650,26 +4203,29 @@ Partial Class FrmG0031_EditOccurred
         Me.Panel4.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
-        Me.fpnlTempFile.ResumeLayout(False)
-        Me.fpnlTempFile.PerformLayout()
+        Me.fpnlTempFile1.ResumeLayout(False)
+        Me.fpnlTempFile1.PerformLayout()
         Me.TableLayoutPanel5.ResumeLayout(False)
         Me.TableLayoutPanel5.PerformLayout()
-        Me.pnlST13.ResumeLayout(False)
-        Me.pnlST13.PerformLayout()
+        Me.pnlZESEI_KAKUNIN.ResumeLayout(False)
+        Me.pnlZESEI_KAKUNIN.PerformLayout()
         Me.TableLayoutPanel3.ResumeLayout(False)
         Me.pnlZESEI_SYOCHI.ResumeLayout(False)
         Me.pnlZESEI_SYOCHI.PerformLayout()
+        Me.Panel7.ResumeLayout(False)
+        Me.fpnlTempFile5.ResumeLayout(False)
+        Me.fpnlTempFile5.PerformLayout()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.FlowLayoutPanel3.ResumeLayout(False)
         Me.FlowLayoutPanel3.PerformLayout()
-        Me.fpnlSYOSAI_FILE_PATH.ResumeLayout(False)
-        Me.fpnlSYOSAI_FILE_PATH.PerformLayout()
         Me.pnlSYOCHI_KIROKU.ResumeLayout(False)
         Me.pnlSYOCHI_KIROKU.PerformLayout()
         Me.Panel5.ResumeLayout(False)
-        Me.FlowLayoutPanel2.ResumeLayout(False)
-        Me.FlowLayoutPanel2.PerformLayout()
+        Me.fpnlTempFile4.ResumeLayout(False)
+        Me.fpnlTempFile4.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
+        Me.TableLayoutPanel6.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3706,7 +4262,7 @@ Partial Class FrmG0031_EditOccurred
     Friend WithEvents Label13 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents lblCurrentStageName As Label
-    Friend WithEvents pnlST13 As PanelEx
+    Friend WithEvents pnlZESEI_KAKUNIN As PanelEx
     Friend WithEvents lblSTAGE16 As Label
     Friend WithEvents btnST13_SYONIN As Button
     Friend WithEvents pnlZESEI_SYOCHI As PanelEx
@@ -3716,18 +4272,6 @@ Partial Class FrmG0031_EditOccurred
     Friend WithEvents rbtnZESEI_SYOCHI_YES As RadioButton
     Friend WithEvents rbtnZESEI_SYOCHI_NO As RadioButton
     Friend WithEvents chkZESEI_SYOCHI_YUKO_UMU As CheckBox
-    Friend WithEvents fpnlSYOSAI_FILE_PATH As FlowLayoutPanel
-    Friend WithEvents lblSYOSAI_FILE_PATH As LinkLabel
-    Friend WithEvents lblSYOSAI_FILE_PATH_Clear As LinkLabel
-    Friend WithEvents LinkLabel1 As LinkLabel
-    Friend WithEvents LinkLabel9 As LinkLabel
-    Friend WithEvents LinkLabel10 As LinkLabel
-    Friend WithEvents LinkLabel11 As LinkLabel
-    Friend WithEvents LinkLabel12 As LinkLabel
-    Friend WithEvents LinkLabel13 As LinkLabel
-    Friend WithEvents LinkLabel14 As LinkLabel
-    Friend WithEvents LinkLabel15 As LinkLabel
-    Friend WithEvents btnOpenSYOSAI_FILE_PATH As Button
     Friend WithEvents Label75 As Label
     Friend WithEvents pnlSYOCHI_KIROKU As PanelEx
     Friend WithEvents lblSTAGE08 As Label
@@ -3741,7 +4285,7 @@ Partial Class FrmG0031_EditOccurred
     Friend WithEvents cmbKA As ComboboxEx
     Friend WithEvents Label3 As Label
     Friend WithEvents btnOpenTempFileDialog As Button
-    Friend WithEvents fpnlTempFile As FlowLayoutPanel
+    Friend WithEvents fpnlTempFile1 As FlowLayoutPanel
     Friend WithEvents lbltmpFile1 As LinkLabel
     Friend WithEvents lbltmpFile1_Clear As LinkLabel
     Friend WithEvents LinkLabel2 As LinkLabel
@@ -3766,7 +4310,7 @@ Partial Class FrmG0031_EditOccurred
     Friend WithEvents txtZESEI_COMMENT As TextBoxEx
     Friend WithEvents Label17 As Label
     Friend WithEvents Label23 As Label
-    Friend WithEvents PanelEx1 As PanelEx
+    Friend WithEvents pnlGENIN_SYOCHI As PanelEx
     Friend WithEvents Label32 As Label
     Friend WithEvents Label31 As Label
     Friend WithEvents DateTextBoxEx2 As DateTextBoxEx
@@ -3776,11 +4320,11 @@ Partial Class FrmG0031_EditOccurred
     Friend WithEvents Label27 As Label
     Friend WithEvents Label28 As Label
     Friend WithEvents Panel3 As Panel
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnOpenTempFileDialog2 As Button
     Friend WithEvents Label26 As Label
-    Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
-    Friend WithEvents LinkLabel25 As LinkLabel
-    Friend WithEvents LinkLabel26 As LinkLabel
+    Friend WithEvents fpnlTempFile2 As FlowLayoutPanel
+    Friend WithEvents lbltmpFile2 As LinkLabel
+    Friend WithEvents lbltmpFile2_Clear As LinkLabel
     Friend WithEvents LinkLabel27 As LinkLabel
     Friend WithEvents LinkLabel28 As LinkLabel
     Friend WithEvents LinkLabel29 As LinkLabel
@@ -3799,7 +4343,6 @@ Partial Class FrmG0031_EditOccurred
     Friend WithEvents Label35 As Label
     Friend WithEvents TextBoxEx7 As TextBoxEx
     Friend WithEvents TextBoxEx8 As TextBoxEx
-    Friend WithEvents Label36 As Label
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
     Friend WithEvents ComboboxEx9 As ComboboxEx
     Friend WithEvents Label40 As Label
@@ -3854,11 +4397,11 @@ Partial Class FrmG0031_EditOccurred
     Friend WithEvents DateTextBoxEx8 As DateTextBoxEx
     Friend WithEvents TextBoxEx9 As TextBoxEx
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents Button2 As Button
+    Friend WithEvents btnOpenTempFileDialog4 As Button
     Friend WithEvents Label30 As Label
-    Friend WithEvents FlowLayoutPanel2 As FlowLayoutPanel
-    Friend WithEvents LinkLabel16 As LinkLabel
-    Friend WithEvents LinkLabel17 As LinkLabel
+    Friend WithEvents fpnlTempFile4 As FlowLayoutPanel
+    Friend WithEvents lbltmpFile4 As LinkLabel
+    Friend WithEvents lbltmpFile4_Clear As LinkLabel
     Friend WithEvents LinkLabel18 As LinkLabel
     Friend WithEvents LinkLabel19 As LinkLabel
     Friend WithEvents LinkLabel20 As LinkLabel
@@ -3883,4 +4426,50 @@ Partial Class FrmG0031_EditOccurred
     Friend WithEvents TextBoxEx13 As TextBoxEx
     Friend WithEvents Label50 As Label
     Friend WithEvents TextBoxEx1 As TextBoxEx
+    Friend WithEvents pnl_FUTEKIGO_YOUIN As PanelEx
+    Friend WithEvents rbtnFUTEKIGO_YOUIN_T As RadioButton
+    Friend WithEvents rbtnFUTEKIGO_YOUIN_F As RadioButton
+    Friend WithEvents Panel6 As Panel
+    Friend WithEvents btnOpenTempFileDialog3 As Button
+    Friend WithEvents Label53 As Label
+    Friend WithEvents fpnlTempFile3 As FlowLayoutPanel
+    Friend WithEvents lbltmpFile3 As LinkLabel
+    Friend WithEvents lbltmpFile3_Clear As LinkLabel
+    Friend WithEvents LinkLabel39 As LinkLabel
+    Friend WithEvents LinkLabel40 As LinkLabel
+    Friend WithEvents LinkLabel41 As LinkLabel
+    Friend WithEvents LinkLabel42 As LinkLabel
+    Friend WithEvents LinkLabel43 As LinkLabel
+    Friend WithEvents LinkLabel44 As LinkLabel
+    Friend WithEvents LinkLabel45 As LinkLabel
+    Friend WithEvents LinkLabel46 As LinkLabel
+    Friend WithEvents TextBoxEx2 As TextBoxEx
+    Friend WithEvents DateTextBoxEx19 As DateTextBoxEx
+    Friend WithEvents Label57 As Label
+    Friend WithEvents DateTextBoxEx1 As DateTextBoxEx
+    Friend WithEvents Label54 As Label
+    Friend WithEvents Panel7 As Panel
+    Friend WithEvents btnOpenTempFileDialog5 As Button
+    Friend WithEvents fpnlTempFile5 As FlowLayoutPanel
+    Friend WithEvents lbltmpFile5 As LinkLabel
+    Friend WithEvents lbltmpFile5_Clear As LinkLabel
+    Friend WithEvents LinkLabel10 As LinkLabel
+    Friend WithEvents LinkLabel11 As LinkLabel
+    Friend WithEvents LinkLabel12 As LinkLabel
+    Friend WithEvents LinkLabel13 As LinkLabel
+    Friend WithEvents LinkLabel14 As LinkLabel
+    Friend WithEvents LinkLabel15 As LinkLabel
+    Friend WithEvents LinkLabel47 As LinkLabel
+    Friend WithEvents LinkLabel48 As LinkLabel
+    Friend WithEvents TableLayoutPanel6 As TableLayoutPanel
+    Friend WithEvents ComboboxEx1 As ComboboxEx
+    Friend WithEvents Label59 As Label
+    Friend WithEvents Label60 As Label
+    Friend WithEvents Label61 As Label
+    Friend WithEvents ComboboxEx2 As ComboboxEx
+    Friend WithEvents ComboboxEx18 As ComboboxEx
+    Friend WithEvents DateTextBoxEx20 As DateTextBoxEx
+    Friend WithEvents DateTextBoxEx21 As DateTextBoxEx
+    Friend WithEvents DateTextBoxEx22 As DateTextBoxEx
+    Friend WithEvents Label36 As Label
 End Class

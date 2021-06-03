@@ -3419,7 +3419,7 @@ Public Class FrmG0012
 
                 If PrCurrentStage >= ENM_CAR_STAGE._70_起草確認_品証課長.Value Then
                     Call CmbKONPON_YOIN_KB1_Validating(cmbKONPON_YOIN_KB1, Nothing)
-                    Call CmbKONPON_YOIN_TANTO_Validating(cmbKONPON_YOIN_TANTO, Nothing)
+                    'Call CmbKONPON_YOIN_TANTO_Validating(cmbKONPON_YOIN_TANTO, Nothing)
                     Call CmbKISEKI_KOTEI_Validating(cmbKISEKI_KOTEI, Nothing)
                 End If
             End If
