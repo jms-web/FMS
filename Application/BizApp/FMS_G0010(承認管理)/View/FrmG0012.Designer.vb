@@ -836,7 +836,7 @@ Partial Class FrmG0012
         Me.pnlAnalysis.Controls.Add(Me.Label51)
         Me.pnlAnalysis.Location = New System.Drawing.Point(658, 658)
         Me.pnlAnalysis.Name = "pnlAnalysis"
-        Me.pnlAnalysis.Size = New System.Drawing.Size(351, 295)
+        Me.pnlAnalysis.Size = New System.Drawing.Size(283, 295)
         Me.pnlAnalysis.TabIndex = 322
         Me.pnlAnalysis.Visible = False
         '
@@ -844,7 +844,7 @@ Partial Class FrmG0012
         '
         Me.Label25.BackColor = System.Drawing.Color.Black
         Me.Label25.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Label25.Location = New System.Drawing.Point(336, 0)
+        Me.Label25.Location = New System.Drawing.Point(268, 0)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(13, 293)
         Me.Label25.TabIndex = 324
@@ -2680,6 +2680,8 @@ Partial Class FrmG0012
         'chkZESEI_SYOCHI_YUKO_UMU
         '
         Me.chkZESEI_SYOCHI_YUKO_UMU.AutoSize = True
+        Me.chkZESEI_SYOCHI_YUKO_UMU.Checked = True
+        Me.chkZESEI_SYOCHI_YUKO_UMU.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkZESEI_SYOCHI_YUKO_UMU.Location = New System.Drawing.Point(203, 34)
         Me.chkZESEI_SYOCHI_YUKO_UMU.Name = "chkZESEI_SYOCHI_YUKO_UMU"
         Me.chkZESEI_SYOCHI_YUKO_UMU.Size = New System.Drawing.Size(86, 21)

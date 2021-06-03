@@ -2203,11 +2203,23 @@ Public Class FrmG0012
     End Sub
 
     'SPEC: 10-1
-    Private Sub CmbKONPON_YOIN_KB1_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
+    Private Sub CmbKONPON_YOIN_KB1_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKONPON_YOIN_KB1.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "根本要因1"))
+        Else
+            ErrorProvider.ClearError(cmb)
+        End If
 
     End Sub
 
-    Private Sub CmbKONPON_YOIN_KB2_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
+    Private Sub CmbKONPON_YOIN_KB2_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbKONPON_YOIN_KB2.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "根本要因2"))
+        Else
+            ErrorProvider.ClearError(cmb)
+        End If
 
     End Sub
 
@@ -2542,12 +2554,8 @@ Public Class FrmG0012
 
 #Region "是正処置有効性の問題の有無"
 
-    Private Sub ChkZESEI_SYOCHI_YUKO_UMU_CheckedChanged(sender As Object, e As EventArgs) Handles chkZESEI_SYOCHI_YUKO_UMU.CheckedChanged
-        If chkZESEI_SYOCHI_YUKO_UMU.Checked Then
-            rbtnZESEI_SYOCHI_YES.Checked = True
-        Else
-            rbtnZESEI_SYOCHI_NO.Checked = True
-        End If
+    Private Sub rbtnZESEI_SYOCHI_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnZESEI_SYOCHI_YES.CheckedChanged, rbtnZESEI_SYOCHI_NO.CheckedChanged
+        chkZESEI_SYOCHI_YUKO_UMU.Checked = rbtnZESEI_SYOCHI_YES.Checked
     End Sub
 
 #End Region
@@ -3262,6 +3270,11 @@ Public Class FrmG0012
             Else
                 _D005_CAR_J.SYOCHI_YOTEI_YMD = ""
             End If
+            If _D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU Then
+                rbtnZESEI_SYOCHI_YES.Checked = True
+            Else
+                rbtnZESEI_SYOCHI_NO.Checked = True
+            End If
 
             '添付ファイル
             Dim strRootDir As String
@@ -3403,6 +3416,12 @@ Public Class FrmG0012
                     Case Else
                         'Err
                 End Select
+
+                If PrCurrentStage >= ENM_CAR_STAGE._70_起草確認_品証課長.Value Then
+                    Call CmbKONPON_YOIN_KB1_Validating(cmbKONPON_YOIN_KB1, Nothing)
+                    Call CmbKONPON_YOIN_TANTO_Validating(cmbKONPON_YOIN_TANTO, Nothing)
+                    Call CmbKISEKI_KOTEI_Validating(cmbKISEKI_KOTEI, Nothing)
+                End If
             End If
 
             '上記各種Validatingイベントでフラグを更新し、全てOKの場合はTrue
@@ -3418,6 +3437,8 @@ Public Class FrmG0012
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
         If IsCheckRequired Then
             IsValidated *= ErrorProvider.UpdateErrorInfo(txt, txt.ReadOnly OrElse Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:内容"))
+        Else
+            ErrorProvider.ClearError(txt)
         End If
     End Sub
 
@@ -3425,6 +3446,8 @@ Public Class FrmG0012
         Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
         If IsCheckRequired Then
             IsValidated *= ErrorProvider.UpdateErrorInfo(txt, txt.ReadOnly OrElse Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:内容"))
+        Else
+            ErrorProvider.ClearError(txt)
         End If
     End Sub
 
@@ -3432,6 +3455,8 @@ Public Class FrmG0012
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
         If IsCheckRequired Then
             IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:いつまで"))
+        Else
+            ErrorProvider.ClearError(dtx)
         End If
     End Sub
 
@@ -3439,6 +3464,8 @@ Public Class FrmG0012
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
         If IsCheckRequired Then
             IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "修正応急処置:誰が"))
+        Else
+            ErrorProvider.ClearError(cmb)
         End If
     End Sub
 
@@ -3459,6 +3486,8 @@ Public Class FrmG0012
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
         If IsCheckRequired Then
             IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:いつまで"))
+        Else
+            ErrorProvider.ClearError(dtx)
         End If
     End Sub
 
@@ -3466,6 +3495,8 @@ Public Class FrmG0012
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
         If IsCheckRequired Then
             IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置:誰が"))
+        Else
+            ErrorProvider.ClearError(cmb)
         End If
     End Sub
 
@@ -3486,6 +3517,8 @@ Public Class FrmG0012
         Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
         If IsCheckRequired Then
             IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, dtx.ReadOnly OrElse Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:いつまで"))
+        Else
+            ErrorProvider.ClearError(dtx)
         End If
     End Sub
 
@@ -3493,6 +3526,8 @@ Public Class FrmG0012
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
         If IsCheckRequired Then
             IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "水平展開:誰が"))
+        Else
+            ErrorProvider.ClearError(cmb)
         End If
     End Sub
 
@@ -3513,6 +3548,8 @@ Public Class FrmG0012
         Dim mtx As TextBoxEx = DirectCast(sender, TextBoxEx)
         If IsCheckRequired Then
             IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, mtx.ReadOnly OrElse Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置有効性レビュー：号機・LOT"))
+        Else
+            ErrorProvider.ClearError(mtx)
         End If
     End Sub
 
@@ -3520,6 +3557,8 @@ Public Class FrmG0012
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
         If IsCheckRequired Then
             IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "分析：作業担当"))
+        Else
+            ErrorProvider.ClearError(cmb)
         End If
     End Sub
 
@@ -3527,6 +3566,8 @@ Public Class FrmG0012
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
         If IsCheckRequired Then
             IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.ReadOnly OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "分析：帰責工程"))
+        Else
+            ErrorProvider.ClearError(cmb)
         End If
     End Sub
 
@@ -3539,7 +3580,10 @@ Public Class FrmG0012
 
         If IsCheckRequired Then
             IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正有効性確認:確認日"))
+        Else
+            ErrorProvider.ClearError(dtx)
         End If
+
     End Sub
 
 #End Region
