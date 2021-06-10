@@ -121,8 +121,21 @@ Partial Public Class D013_ZESEI_HASSEI_J
 
     <Required>
     <StringLength(1)>
+    <Column(NameOf(FUTEKIGO_UMU), TypeName:="char")>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("不適合有無")>
-    Public Property FUTEKIGO_UMU As String
+    Public Property _FUTEKIGO_UMU As String
+
+    <ComponentModel.DisplayName("不適合有無")>
+    <NotMapped>
+    Public Property FUTEKIGO_UMU As Boolean
+        Get
+            Return (_FUTEKIGO_UMU = "1")
+        End Get
+        Set(value As Boolean)
+            _FUTEKIGO_UMU = IIf(value, "1", "0")
+        End Set
+    End Property
 
     <Required>
     <StringLength(200)>
@@ -141,8 +154,21 @@ Partial Public Class D013_ZESEI_HASSEI_J
 
     <Required>
     <StringLength(1)>
+    <Column(NameOf(JINTEKI_YOUIN_UMU), TypeName:="char")>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("人的要因有無")>
-    Public Property JINTEKI_YOUIN_UMU As String
+    Public Property _JINTEKI_YOUIN_UMU As String
+
+    <ComponentModel.DisplayName("人的要因有無")>
+    <NotMapped>
+    Public Property JINTEKI_YOUIN_UMU As Boolean
+        Get
+            Return (_JINTEKI_YOUIN_UMU = "1")
+        End Get
+        Set(value As Boolean)
+            _JINTEKI_YOUIN_UMU = IIf(value, "1", "0")
+        End Set
+    End Property
 
     <Required>
     <StringLength(200)>
@@ -181,8 +207,21 @@ Partial Public Class D013_ZESEI_HASSEI_J
 
     <Required>
     <StringLength(1)>
+    <Column(NameOf(ZESEI_SYOCHI_HANTEI), TypeName:="char")>
+    <Display(AutoGenerateField:=False)>
     <ComponentModel.DisplayName("是正処置有効性判定")>
-    Public Property ZESEI_SYOCHI_HANTEI As String
+    Public Property _ZESEI_SYOCHI_HANTEI As String
+
+    <ComponentModel.DisplayName("是正処置有効性判定")>
+    <NotMapped>
+    Public Property ZESEI_SYOCHI_HANTEI As Boolean
+        Get
+            Return (_ZESEI_SYOCHI_HANTEI = "1")
+        End Get
+        Set(value As Boolean)
+            _ZESEI_SYOCHI_HANTEI = IIf(value, "1", "0")
+        End Set
+    End Property
 
     <Required>
     <StringLength(200)>

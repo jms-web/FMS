@@ -992,7 +992,7 @@ Public Class FrmG0030_List
                         frmFCCB.PrCurrentStage = ENM_ZESEI_STAGE._10_ãNëêì¸óÕ
                     Case ENM_DATA_OPERATION_MODE._2_ADDREF, ENM_DATA_OPERATION_MODE._3_UPDATE
                         frmFCCB.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
-                        frmFCCB.PrFCCB_NO = flxDATA.Rows(flxDATA.Row).Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))
+                        frmFCCB.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))
                         frmFCCB.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
                 End Select
                 dlgRET = frmFCCB.ShowDialog(Me)

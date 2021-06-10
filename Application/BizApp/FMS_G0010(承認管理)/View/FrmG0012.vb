@@ -209,7 +209,18 @@ Public Class FrmG0012
                             If MessageBox.Show("入力内容を保存しますか？", "登録確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) <> DialogResult.Yes Then Exit Sub
                         End If
 
-                        If FunSAVE(ENM_SAVE_MODE._1_保存) Then
+                        '品証 分析項目更新対応
+                        Dim blnTenso As Boolean
+                        If Not FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR, PrHOKOKU_NO, PrCurrentStage) Then
+                            Dim dt As DataTable = FunGetSYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB)
+                            Dim drs As IEnumerable(Of DataRow)
+                            drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._4_品証.Value)
+                            If drs.Any(Function(r) r.Item("VALUE") = pub_SYAIN_INFO.SYAIN_ID) Then
+                                blnTenso = True
+                            End If
+                        End If
+
+                        If FunSAVE(ENM_SAVE_MODE._1_保存, blnTenso) Then
                             Me.DialogResult = DialogResult.OK
                             MessageBox.Show("入力内容を保存しました", "保存完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         Else
@@ -1971,9 +1982,9 @@ Public Class FrmG0012
                 drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._4_品証.Value).ToList
                 If drs.Any(Function(r) r.Item("VALUE") = pub_SYAIN_INFO.SYAIN_ID) Then
                     cmdFunc1.Enabled = True
-                    pnlAnalysis.Visible = True
+                    pnlAnalysis.Enabled = True
                 Else
-                    pnlAnalysis.Visible = False
+                    pnlAnalysis.Enabled = False
                 End If
             End If
 

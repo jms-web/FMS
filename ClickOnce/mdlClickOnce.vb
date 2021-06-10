@@ -140,11 +140,12 @@ Module mdlClickOnce
                     'ElseIf strBUFF.ToUpper = "HANYO.INI" Then
 
                     '日時が古すぎ時
-                    'ElseIf System.IO.File.GetLastWriteTime(CON_ROOTDIR & "\INI\" & strBUFF) < System.IO.File.GetLastWriteTime(".\INI\" & strBUFF) Then
+                ElseIf System.IO.File.GetLastWriteTime(CON_ROOTDIR & "\INI\" & strBUFF) < System.IO.File.GetLastWriteTime(".\INI\" & strBUFF) _
+                    And Not strBUFF.Contains("SYSTEM.INI") Then
                     '    '旧ファイル削除
-                    '    System.IO.File.Delete(CON_ROOTDIR & "\INI\" & strBUFF)
+                    System.IO.File.Delete(CON_ROOTDIR & "\INI\" & strBUFF)
                     '    'コピー
-                    '    System.IO.File.Copy(".\INI\" & strBUFF, CON_ROOTDIR & "\INI\" & strBUFF)
+                    System.IO.File.Copy(".\INI\" & strBUFF, CON_ROOTDIR & "\INI\" & strBUFF)
                 End If
             Next
 

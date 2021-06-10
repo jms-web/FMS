@@ -93,13 +93,22 @@ Module mdlG0030
 
     Public Enum ENM_ZESEI_STAGE
         _10_起草入力 = 10
-        _20_処置事項調査等 = 20
-        _30_変更審議 = 30
-        _40_処置確認 = 40
-        _41_処置確認_統括 = 41
-        _50_処置事項完了 = 50
-        _60_処置事項完了確認 = 60
-        _61_処置事項完了確認_統括 = 61
+        _11_起草入力_点検 = 11
+        _12_起草入力_認可 = 12
+        _20_是正処置入力 = 20
+        _21_是正処置入力_点検 = 21
+        _22_是正処置入力_認可 = 22
+        _23_是正処置入力_品証_点検 = 23
+        _24_是正処置入力_品証_認可 = 24
+        _30_処置結果入力 = 30
+        _31_処置結果入力_点検 = 31
+        _32_処置結果入力_認可 = 32
+        _40_処置結果レビュー = 40
+        _41_処置結果レビュー_点検 = 41
+        _42_処置結果レビュー_認可 = 42
+        _50_要求元完了確認 = 50
+        _51_要求元完了確認_点検 = 51
+        _52_要求元完了確認_認可 = 52
         _999_Closed = 999
 
     End Enum
@@ -544,6 +553,27 @@ Module mdlG0030
             Return Nothing
         Else
             Dim _Model As New ModelInfo(Of D009_FCCB_J)(srcDATA:=dsList.Tables(0))
+            Return _Model.Entity
+        End If
+    End Function
+
+    Public Function FunGetD013Model(ByVal HOKOKU_NO As String) As D013_ZESEI_HASSEI_J
+
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        sbSQL.Append($"SELECT")
+        sbSQL.Append($" *")
+        sbSQL.Append($" FROM {NameOf(D013_ZESEI_HASSEI_J)}")
+        sbSQL.Append($" WHERE {NameOf(D013_ZESEI_HASSEI_J.HOKOKU_NO)}='{HOKOKU_NO}'")
+        Using DB = DBOpen()
+            dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+        End Using
+
+        If dsList IsNot Nothing AndAlso dsList.Tables(0).Rows.Count = 0 Then
+            Return Nothing
+        Else
+            Dim _Model As New ModelInfo(Of D013_ZESEI_HASSEI_J)(srcDATA:=dsList.Tables(0))
             Return _Model.Entity
         End If
     End Function
