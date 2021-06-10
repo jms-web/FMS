@@ -3530,6 +3530,7 @@ Public Class FrmG0011
         Dim drs As IEnumerable(Of DataRow)
         Dim _V003 As New V003_SYONIN_J_KANRI
         Dim InList As New List(Of Integer)
+
         Try
 
 #Region "               10"

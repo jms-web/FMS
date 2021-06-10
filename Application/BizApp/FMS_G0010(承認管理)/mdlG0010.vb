@@ -1695,6 +1695,10 @@ Module mdlG0010
 
             If Not _V005_CAR_J.GOKI.IsNulOrWS Then
                 spSheet1.Range(NameOf(_V005_CAR_J.GOKI)).Value = _V005_CAR_J.GOKI
+                If _V005_CAR_J.GOKI.GetByteLength >= 54 Then
+                    'フォントサイズ調整
+                    spSheet1.Range(NameOf(_V005_CAR_J.GOKI)).Font.Size = 7
+                End If
                 shapeLINE_KOUKA_KAKUNIN.Visible = False
             End If
 

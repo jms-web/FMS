@@ -1962,6 +1962,19 @@ Public Class FrmG0012
                     cmdFunc4.Enabled = True
                     cmdFunc5.Enabled = True
                 End If
+
+                '業務グループ：品証であれば分析項目のみ登録可能とする
+                Dim dt As DataTable = FunGetSYOZOKU_SYAIN(_V002_NCR_J.BUMON_KB)
+                Dim drs As IEnumerable(Of DataRow)
+                Dim InList As New List(Of Integer)
+
+                drs = dt.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._4_品証.Value).ToList
+                If drs.Any(Function(r) r.Item("VALUE") = pub_SYAIN_INFO.SYAIN_ID) Then
+                    cmdFunc1.Enabled = True
+                    pnlAnalysis.Visible = True
+                Else
+                    pnlAnalysis.Visible = False
+                End If
             End If
 
             If Not PrDialog Then
