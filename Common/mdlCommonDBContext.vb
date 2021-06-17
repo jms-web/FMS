@@ -265,6 +265,16 @@ Public Module mdlDBContext
     Public tblFCCB As DataTableEx
 
     ''' <summary>
+    ''' ê•ê≥èàíu
+    ''' </summary>
+    Public tblZESEI As DataTableEx
+
+    ''' <summary>
+    ''' â€
+    ''' </summary>
+    Public tblKA As DataTableEx
+
+    ''' <summary>
     ''' ïïÇ∂çûÇﬂí≤ç∏èëÅ@î€ÇÃóùóR
     ''' </summary>
     Public tblKOKYAKU_EIKYO_COMMENT As DataTableEx
@@ -599,6 +609,114 @@ Public Module mdlDBContext
 
 #End Region
 
+#Region "               ê•ê≥èàíu"
+
+                Case "ê•ê≥èàíu"
+                    dt = New DataTableEx("System.Int32")
+
+                    sbSQL.Append($"SELECT * FROM {NameOf(D013_ZESEI_HASSEI_J)}")
+                    sbSQL.Append($" WHERE SYONIN_HOKOKUSYO_ID=4")
+                    If strWhere.IsNulOrWS = False Then
+                        sbSQL.Append(" AND " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+                    sbSQL.Append(" ORDER BY SYONIN_HOKOKUSYO_ID, SYONIN_JUN")
+
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    dt.Columns.Add("SYONIN_HOKOKUSYO_ID", GetType(Integer))
+
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            Trow("VALUE") = .Rows(intCNT).Item("SYONIN_JUN")
+                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO") '.Rows(intCNT).Item("SYONIN_JUN") & " " & .Rows(intCNT).Item("SYONIN_NAIYO")
+                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
+                            If Not dt.Rows.Contains(Trow("VALUE")) Then
+                                dt.Rows.Add(Trow)
+                            End If
+                        Next intCNT
+                    End With
+
+#End Region
+
+#Region "               â€"
+
+                Case "â€"
+                    dt = New DataTableEx("System.Int32")
+
+                    sbSQL.Append($"SELECT * FROM {NameOf(VWM002_BUSYO)}")
+                    sbSQL.Append($" WHERE BUSYO_KB=2")
+                    If strWhere.IsNulOrWS = False Then
+                        sbSQL.Append(" AND " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+                    sbSQL.Append(" ORDER BY BUSYO_ID")
+
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    dt.Columns.Add("BUMON_KB", GetType(Integer))
+
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            Trow("VALUE") = .Rows(intCNT).Item("BUSYO_ID")
+                            Trow("DISP") = .Rows(intCNT).Item("BUSYO_NAME")
+                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            Trow("BUMON_KB") = .Rows(intCNT).Item("BUMON_KB")
+                            dt.Rows.Add(Trow)
+                        Next intCNT
+                    End With
+
+#End Region
+
+#Region "               èäëÆíSìñ"
+
+                Case "èäëÆíSìñ"
+
+                    dt = New DataTableEx("System.Int32")
+
+                    sbSQL.Append("SELECT * FROM " & NameOf(VWM005_SYOZOKU_BUSYO) & " ")
+                    If strWhere.IsNulOrWS = False Then
+                        sbSQL.Append("WHERE " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+                    sbSQL.Append(" ORDER BY SYAIN_ID")
+
+                    'éÂÉLÅ[ê›íË
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    dt.Columns.Add("BUSYO_ID", GetType(Integer))
+                    dt.Columns.Add("BUSYO_KB", GetType(String))
+
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+
+                            Dim Trow As DataRow = dt.NewRow()
+                            Trow("DISP") = .Rows(intCNT).Item("SIMEI")
+                            Trow("VALUE") = .Rows(intCNT).Item("SYAIN_ID")
+                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            Trow("BUSYO_ID") = .Rows(intCNT).Item("BUSYO_ID")
+                            Trow("BUSYO_KB") = .Rows(intCNT).Item("BUSYO_KB")
+                            If Not dt.Rows.Contains(Trow("VALUE")) Then
+                                dt.Rows.Add(Trow)
+                            End If
+                        Next intCNT
+                    End With
+
+#End Region
+
 #Region "               íSìñ"
 
                 Case "íSìñ"
@@ -629,7 +747,7 @@ Public Module mdlDBContext
                         For intCNT = 0 To .Rows.Count - 1
                             Dim Trow As DataRow = dt.NewRow()
                             '
-                            Trow("DISP") = .Rows(intCNT).Item("SIMEI") '& " " & .Rows(intCNT).Item("SIMEI_KANA")
+                            Trow("DISP") = .Rows(intCNT).Item("SIMEI")
                             Trow("VALUE") = .Rows(intCNT).Item("SYAIN_ID")
                             Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                             Trow("SYAIN_NO") = .Rows(intCNT).Item("SYAIN_NO")

@@ -200,10 +200,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="View\FrmG0031_EditOutflow.Designer.vb">
-      <DependentUpon>FrmG0031_EditOutflow.vb</DependentUpon>
+    <Compile Include="View\FrmG0031_EditOverflow.Designer.vb">
+      <DependentUpon>FrmG0031_EditOverflow.vb</DependentUpon>
     </Compile>
-    <Compile Include="View\FrmG0031_EditOutflow.vb">
+    <Compile Include="View\FrmG0031_EditOverflow.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\FrmG0037_MailForm.Designer.vb">
@@ -270,8 +270,8 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\licenses.licx" />
-    <EmbeddedResource Include="View\FrmG0031_EditOutflow.resx">
-      <DependentUpon>FrmG0031_EditOutflow.vb</DependentUpon>
+    <EmbeddedResource Include="View\FrmG0031_EditOverflow.resx">
+      <DependentUpon>FrmG0031_EditOverflow.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="View\FrmG0037_MailForm.resx">

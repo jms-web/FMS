@@ -36,6 +36,14 @@ Partial Public Class D014_ZESEI_RYUSYUTU_J
     <ComponentModel.DisplayName("部門区分")>
     Public Property BUMON_KB As String
 
+    <Required>
+    <ComponentModel.DisplayName("所属部署")>
+    Public Property BUSYO_ID As Integer
+
+    <Required>
+    <ComponentModel.DisplayName("責任者")>
+    Public Property TANTO_ID As Integer
+
     ''' <summary>
     ''' クローズフラグ
     ''' </summary>

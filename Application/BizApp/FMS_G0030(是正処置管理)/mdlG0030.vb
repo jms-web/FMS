@@ -163,16 +163,11 @@ Module mdlG0030
 
                 '-----共通データ取得
                 Using DB As ClsDbUtility = DBOpen()
-                    Call FunGetCodeDataTable(DB, "NCR", tblNCR)
-                    Call FunGetCodeDataTable(DB, "CAR", tblCAR)
+                    'Call FunGetCodeDataTable(DB, "是正処置", tblZESEI)
+                    Call FunGetCodeDataTable(DB, "課", tblKA)
 
-                    Call FunGetCodeDataTable(DB, "担当", tblTANTO)
+                    Call FunGetCodeDataTable(DB, "所属担当", tblTANTO)
                     Call FunGetCodeDataTable(DB, "部門区分", tblBUMON, "DISP_ORDER < 10") '10以降は不適合SYSでは不要
-
-                    'Call FunGetCodeDataTable(DB, "不適合区分", tblFUTEKIGO_KB)
-                    'Call FunGetCodeDataTable(DB, "承認担当", tblTANTO_SYONIN)
-                    'Call FunGetCodeDataTable(DB, "承認担当一覧", tblTANTO_SYONINList)
-                    'Call FunGetCodeDataTable(DB, "原因分析区分", tblGENIN_BUNSEKI_KB)
 
                 End Using
 
@@ -797,6 +792,8 @@ Module mdlG0030
     Public Function FunGetSYONIN_SYOZOKU_SYAIN(ByVal Optional BUMON_KB As String = "", ByVal Optional SYONIN_HOUKOKUSYO_ID As Integer = 0, ByVal Optional SYONIN_JUN As Integer = 0) As DataTable
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
+
+        'TODO: 是正処置も承認ルートマスタをメインに使用する場合は、TV02内を流用し、それ以外はこの関数内でステージ別に取得する
 
         Dim dt As DataTableEx
 

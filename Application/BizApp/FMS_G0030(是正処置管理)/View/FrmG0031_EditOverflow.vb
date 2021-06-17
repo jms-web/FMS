@@ -6,7 +6,7 @@ Imports D013 = MODEL.D013_ZESEI_HASSEI_J
 ''' <summary>
 ''' 是正処置画面
 ''' </summary>
-Public Class FrmG0031_EditOccurred
+Public Class FrmG0031_EditOverflow
 
 #Region "定数・変数"
 
@@ -132,7 +132,6 @@ Public Class FrmG0031_EditOccurred
                                     'Err
                             End Select
                         End If
-                        cmbKA.SetDataSource(tblKA.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                         IsEditingClosed = HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
 
@@ -801,6 +800,86 @@ Public Class FrmG0031_EditOccurred
     ''' 承認依頼メール送信
     ''' </summary>
     ''' <returns></returns>
+    Private Function FunSendJudgeReplyMail(Optional toUserNAME As String = "", Optional fromUserNAME As String = "", Optional blnNonMessage As Boolean = False) As Boolean
+
+        Try
+
+            Dim strSubject As String = $"【FCCB記録書-協議要否確認】FCCB-NO:{_D004_SYONIN_J_KANRI.HOKOKU_NO}"
+            Dim strBody As String = <sql><![CDATA[
+                各位<br />
+                <br />
+        　      FCCB記録書の協議要否依頼が来ましたので対応をお願いします。<br />
+                <br />
+        　　        【報 告 書】FCCB<br />
+        　　        【FCCB-No】{0}<br />
+        　　        【起 草 日】{1}<br />
+                <br />        　　
+                FCCB議長
+                <br />
+                <a href = "http://sv04:8000/CLICKONCE_FMS.application" > システム起動</a><br />
+                <br />
+                ※このメールは配信専用です。(返信できません)<br />
+                返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
+                ]]></sql>.Value.Trim
+
+            'http://sv116:8000/CLICKONCE_FMS.application?SYAIN_ID={8}&EXEPATH={9}&PARAMS={10}
+
+            Dim dt As DateTime
+            If DateTime.TryParse(_D013.ADD_YMDHNS, dt) Then
+            Else
+                dt = DateTime.ParseExact(_D013.ADD_YMDHNS, "yyyyMMddHHmmss", Nothing)
+            End If
+
+            strBody = String.Format(strBody,
+                                _D004_SYONIN_J_KANRI.HOKOKU_NO,
+                                dt.ToString("yyyy/MM/dd"))
+
+            Dim ToUsers As New List(Of Integer)
+
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
+
+            'sbSQL.Clear()
+            'sbSQL.Append($"SELECT")
+            'sbSQL.Append($" {NameOf(D013.TANTO_ID)}")
+            'sbSQL.Append($" FROM {NameOf(D012_FCCB_SUB_SYOCHI_KAKUNIN)} ")
+            'sbSQL.Append($" WHERE {NameOf(D012.FCCB_NO)}='{_D013.FCCB_NO}' ")
+            'sbSQL.Append($" AND {NameOf(D012.TANTO_ID)}<>0 ")
+            'sbSQL.Append($" AND RTRIM({NameOf(D012.KYOGI_YOHI_KAITO)})='' ")
+            Using DB = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            For Each row As DataRow In dsList.Tables(0).Rows
+                If Not ToUsers.Contains(row.Item(0).ToString.ToVal) Then
+                    ToUsers.Add(row.Item(0).ToString.ToVal)
+                End If
+            Next
+
+            If ToUsers.Count = 0 Then
+                If Not blnNonMessage Then MessageBox.Show("送信者が見つからないため、依頼メールを送信できません", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return False
+            Else
+                If FunSendMailFCCB(strSubject, strBody, ToUsers) Then
+                    Return True
+                Else
+                    MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Return False
+                End If
+            End If
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
+#End Region
+
+#Region "承認依頼メール送信"
+
+    ''' <summary>
+    ''' 承認依頼メール送信
+    ''' </summary>
+    ''' <returns></returns>
     Private Function FunSendRequestMail(Optional toUserNAME As String = "", Optional fromUserNAME As String = "") As Boolean
 
         Try
@@ -975,7 +1054,7 @@ Public Class FrmG0031_EditOccurred
                                 SYONIN_HANTEI_NAME,
                                 _D004_SYONIN_J_KANRI.COMMENT,
                                 _D004_SYONIN_J_KANRI.SYAIN_ID,
-                                "FMS_G0030.exe",
+                                "FMS_G0020.exe",
                                 strEXEParam)
 
             If ToUsers.Count = 0 Then
@@ -1463,71 +1542,24 @@ Public Class FrmG0031_EditOccurred
 
 #Region "申請先社員"
 
-    Private Sub CmbDestTANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs, caption As String)
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, caption))
+    Private Sub CmbDestTANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
+
     End Sub
 
 #End Region
 
 #Region "ヘッダ"
 
-    Private Sub cmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
-        Dim dt As DataTable
-        If cmbBUMON.SelectedValue.ToString.IsNulOrWS Then
-            dt = tblKA
-        Else
-            dt = tblKA.AsEnumerable.Where(Function(r) r.Item("BUMON_KB") = cmbBUMON.SelectedValue).ToList.CopyToDataTable
-        End If
-        cmbKA.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-    End Sub
-
-    Private Sub cmbKA_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKA.SelectedValueChanged
-        Dim dt As DataTable
-        If cmbKA.SelectedValue.ToString.IsNulOrWS Then
-            dt = tblTANTO
-        Else
-            Dim drs = tblTANTO.AsEnumerable.Where(Function(r) r.Item("BUSYO_ID") = cmbKA.SelectedValue).ToList
-            If drs.Count > 0 Then
-                dt = drs.CopyToDataTable
-            End If
-            If dt IsNot Nothing Then
-                cmbTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            Else
-                cmbTANTO.DataSource = Nothing
-            End If
-        End If
-    End Sub
-
-    Private Sub cmbBUMON_Validated(sender As Object, e As EventArgs) Handles cmbBUMON.Validated
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
-    End Sub
-
-    Private Sub cmbKA_Validated(sender As Object, e As EventArgs) Handles cmbKA.Validated
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "課"))
-    End Sub
-
-    Private Sub cmbTANTO_Validated(sender As Object, e As EventArgs) Handles cmbTANTO.Validated
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "責任者"))
-    End Sub
-
-    Private Sub cmbKISO_TANTO_Validated(sender As Object, e As EventArgs) Handles cmbKISO_TANTO.Validated
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "起草者"))
-    End Sub
+#Region "部門"
 
 #End Region
 
-#Region "ST1"
+    Private Sub cmbBUMON_Validated(sender As Object, e As EventArgs) Handles cmbBUMON.Validated
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmbBUMON, cmbBUMON.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
+    End Sub
 
-    Private Sub dtKAITOU_KIBOU_YMD_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dtKAITOU_KIBOU_YMD.Validating
-        Dim dtx As DateTextBoxEx = DirectCast(sender, DateTextBoxEx)
-        If IsCheckRequired Then
-            IsValidated *= ErrorProvider.UpdateErrorInfo(dtx, Not dtx.ValueNonFormat.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "発生日"))
-        End If
+    Private Sub cmbKISO_TANTO_Validated(sender As Object, e As EventArgs) Handles cmbKISO_TANTO.Validated
+        IsValidated *= ErrorProvider.UpdateErrorInfo(cmbKISO_TANTO, cmbKISO_TANTO.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "起草者"))
     End Sub
 
 #End Region
@@ -1655,10 +1687,10 @@ Public Class FrmG0031_EditOccurred
         Try
 
             pnlST01.BackColor = Color.Transparent
-            pnlST02.BackColor = Color.Transparent
-            pnlST03.BackColor = Color.Transparent
-            pnlST05.BackColor = Color.Transparent
-            pnlST04.BackColor = Color.Transparent
+            pnlGENIN_SYOCHI.BackColor = Color.Transparent
+            pnlSYOCHI_KIROKU.BackColor = Color.Transparent
+            pnlZESEI_KAKUNIN.BackColor = Color.Transparent
+            pnlZESEI_SYOCHI.BackColor = Color.Transparent
 
             'ナビゲートリンク選択
             If PrCurrentStage = ENM_ZESEI_STAGE._999_Closed Then
@@ -1817,208 +1849,58 @@ Public Class FrmG0031_EditOccurred
     End Function
 
     Private Function FunInitializeSTAGE(ByVal intStageID As Integer) As Boolean
-        Dim dt As DataTable
-        Dim _V003List As List(Of V003_SYONIN_J_KANRI)
-        Dim V003 As V003_SYONIN_J_KANRI
+        Dim dt As New DataTable
+        Dim drs As IEnumerable(Of DataRow)
+        Dim _V003 As New V003_SYONIN_J_KANRI
+        Dim InList As New List(Of Integer)
 
-        Try
+        If intStageID >= ENM_ZESEI_STAGE._10_起草入力 Then
+            dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, FunGetNextSYONIN_JUN(ENM_ZESEI_STAGE._10_起草入力))
+            'cmbST01_.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+            '_V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.
+            '                    Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._10_起草入力).
+            '                    FirstOrDefault
+            'If _V003 IsNot Nothing Then
+            '    If Not _V003.RIYU.IsNulOrWS And intStageID = ENM_ZESEI_STAGE._10_起草入力 Then lblST01_Modoshi_Riyu.Visible = True
+            '    If _V003.SASIMODOSI_FG Then
+            '        lblST01_Modoshi_Riyu.Text = "差戻理由：" & _V003.RIYU
+            '    Else
+            '        '転送時
+            '        lblST01_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
+            '    End If
+            '    If _V003.SYONIN_YMDHNS.IsNulOrWS Then
+            '        cmbST01_DestTANTO.SelectedValue = 0
+            '    Else
+            '        cmbST01_DestTANTO.SelectedValue = _V003.SYAIN_ID
+            '    End If
+            '    If intStageID >= ENM_NCR_STAGE._20_起草確認製造GL Then
+            '        cmbST01_DestTANTO.ReadOnly = True
 
-            If intStageID >= ENM_ZESEI_STAGE._10_起草入力 Then
+            '        If IsEditingClosed Then
+            '            txtST01_KEKKA.ReadOnly = False
+            '            txtST01_YOKYU_NAIYO.ReadOnly = False
+            '        Else
+            '            txtST01_KEKKA.ReadOnly = True
+            '            txtST01_YOKYU_NAIYO.ReadOnly = True
+            '        End If
+            '    End If
+            '    Dim dtSYONIN_YMD As Date
+            '    If DateTime.TryParseExact(_V003.SYONIN_YMDHNS, "yyyyMMddHHmmss", Nothing, Nothing, dtSYONIN_YMD) Then
+            '        If _V003.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_承認 Then
+            '            dtST01_UPD_YMD.ValueNonFormat = dtSYONIN_YMD.ToString("yyyyMMdd")
+            '            dtST01_UPD_YMD.ReadOnly = True
+            '        Else
+            '            '一時保存時の日付を読み込み 変更可能
+            '            _D004_SYONIN_J_KANRI.SYONIN_YMD = dtSYONIN_YMD.ToString("yyyyMMdd")
+            '        End If
+            '    Else
+            '        _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
+            '    End If
+            'Else
+            '    _D004_SYONIN_J_KANRI.SYONIN_YMD = Now.ToString("yyyyMMdd")
+            'End If
+        End If
 
-#Region "           承認担当者"
-
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._10_起草入力)
-                cmbST01_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._11_起草入力_点検)
-                cmbST01_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._12_起草入力_認可)
-                cmbST01_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-#End Region
-
-#Region "           差し戻し理由"
-
-                _V003List = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                        Where(Function(r) r.SYONIN_JUN >= ENM_ZESEI_STAGE._10_起草入力 And r.SYONIN_JUN < ENM_ZESEI_STAGE._20_是正処置入力).ToList
-
-                If _V003List.Count > 0 Then
-                    V003 = _V003List.Where(Function(r) r.SASIMODOSI_FG And r.RIYU.ToString.Trim.IsNulOrWS).
-                                                        OrderBy(Function(r) r.SYONIN_JUN).
-                                                        FirstOrDefault
-
-                    If V003 IsNot Nothing Then
-                        lblST01_Modoshi_Riyu.Text = $"差戻理由：{V003.RIYU}"
-                    Else
-                        lblST01_Modoshi_Riyu.Text = ""
-                    End If
-                End If
-
-#End Region
-
-            End If
-
-            If intStageID >= ENM_ZESEI_STAGE._20_是正処置入力 Then
-                pnlST02.Visible = True
-
-#Region "           承認担当者"
-
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._20_是正処置入力)
-                cmbST02_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._21_是正処置入力_点検)
-                cmbST02_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                Dim IsHinsyo = FunGetSYOZOKU_SYAIN(cmbBUMON.SelectedValue).
-                                    AsEnumerable.
-                                    Any(Function(r) r.Item("GYOMU_GROUP_ID") = ENM_GYOMU_GROUP_ID._4_品証 And r.Item("VALUE") = cmbST02_SAKUSEI_TANTO.SelectedValue)
-
-                'Dim nextstage As Integer
-                If IsHinsyo Then
-                    'nextstage = ENM_ZESEI_STAGE._30_処置結果入力
-                Else
-                    'nextstage = ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
-
-                    dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._23_是正処置入力_品証_点検)
-                    cmbST02_HINSYO_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                    dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._24_是正処置入力_品証_認可)
-                    cmbST02_HINSYO_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                End If
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._23_是正処置入力_品証_点検)
-                cmbST02_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-#End Region
-
-#Region "           差し戻し理由"
-
-                _V003List = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                        Where(Function(r) r.SYONIN_JUN >= ENM_ZESEI_STAGE._20_是正処置入力 And r.SYONIN_JUN < ENM_ZESEI_STAGE._30_処置結果入力).ToList
-
-                If _V003List.Count > 0 Then
-                    V003 = _V003List.Where(Function(r) r.SASIMODOSI_FG And r.RIYU.ToString.Trim.IsNulOrWS).
-                                                        OrderBy(Function(r) r.SYONIN_JUN).
-                                                        FirstOrDefault
-
-                    If V003 IsNot Nothing Then
-                        lblST02_Modoshi_Riyu.Text = $"差戻理由：{V003.RIYU}"
-                    Else
-                        lblST02_Modoshi_Riyu.Text = ""
-                    End If
-                End If
-
-#End Region
-
-            End If
-
-            If intStageID >= ENM_ZESEI_STAGE._30_処置結果入力 Then
-                pnlST03.Visible = True
-
-#Region "           承認担当者"
-
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._30_処置結果入力)
-                cmbST03_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._31_処置結果入力_点検)
-                cmbST03_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._32_処置結果入力_認可)
-                cmbST03_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-#End Region
-
-#Region "           差し戻し理由"
-
-                _V003List = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                        Where(Function(r) r.SYONIN_JUN >= ENM_ZESEI_STAGE._30_処置結果入力 And r.SYONIN_JUN < ENM_ZESEI_STAGE._40_処置結果レビュー).ToList
-
-                If _V003List.Count > 0 Then
-                    V003 = _V003List.Where(Function(r) r.SASIMODOSI_FG And r.RIYU.ToString.Trim.IsNulOrWS).
-                                                        OrderBy(Function(r) r.SYONIN_JUN).
-                                                        FirstOrDefault
-
-                    If V003 IsNot Nothing Then
-                        lblST03_Modoshi_Riyu.Text = $"差戻理由：{V003.RIYU}"
-                    Else
-                        lblST03_Modoshi_Riyu.Text = ""
-                    End If
-                End If
-
-#End Region
-
-            End If
-
-            If intStageID >= ENM_ZESEI_STAGE._40_処置結果レビュー Then
-                pnlST04.Visible = True
-
-#Region "           承認担当者"
-
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._40_処置結果レビュー)
-                cmbST04_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._41_処置結果レビュー_点検)
-                cmbST04_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._42_処置結果レビュー_認可)
-                cmbST04_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-#End Region
-
-#Region "           差し戻し理由"
-
-                _V003List = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                        Where(Function(r) r.SYONIN_JUN >= ENM_ZESEI_STAGE._40_処置結果レビュー And r.SYONIN_JUN < ENM_ZESEI_STAGE._50_要求元完了確認).ToList
-
-                If _V003List.Count > 0 Then
-                    V003 = _V003List.Where(Function(r) r.SASIMODOSI_FG And r.RIYU.ToString.Trim.IsNulOrWS).
-                                                        OrderBy(Function(r) r.SYONIN_JUN).
-                                                        FirstOrDefault
-
-                    If V003 IsNot Nothing Then
-                        lblST04_Modoshi_Riyu.Text = $"差戻理由：{V003.RIYU}"
-                    Else
-                        lblST04_Modoshi_Riyu.Text = ""
-                    End If
-                End If
-
-#End Region
-
-            End If
-
-            If intStageID >= ENM_ZESEI_STAGE._50_要求元完了確認 Then
-                pnlST05.Visible = True
-
-#Region "           承認担当者"
-
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._50_要求元完了確認)
-                cmbST05_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._51_要求元完了確認_点検)
-                cmbST05_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._52_要求元完了確認_認可)
-                cmbST05_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-#End Region
-
-#Region "           差し戻し理由"
-
-                _V003List = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                        Where(Function(r) r.SYONIN_JUN >= ENM_ZESEI_STAGE._50_要求元完了確認 And r.SYONIN_JUN <= ENM_ZESEI_STAGE._52_要求元完了確認_認可).ToList
-
-                If _V003List.Count > 0 Then
-                    V003 = _V003List.Where(Function(r) r.SASIMODOSI_FG And r.RIYU.ToString.Trim.IsNulOrWS).
-                                                        OrderBy(Function(r) r.SYONIN_JUN).
-                                                        FirstOrDefault
-
-                    If V003 IsNot Nothing Then
-                        lblST05_Modoshi_Riyu.Text = $"差戻理由：{V003.RIYU}"
-                    Else
-                        lblST05_Modoshi_Riyu.Text = ""
-                    End If
-                End If
-
-#End Region
-
-            End If
-
-            Return True
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        End Try
     End Function
 
     ''' <summary>
@@ -2027,28 +1909,9 @@ Public Class FrmG0031_EditOccurred
     ''' <returns></returns>
     Private Function SetTANTO_TooltipInfo() As Boolean
 
-        Call SetInfoLabelFormat(lblTANTO, $"選択した部門・課の所属する担当者")
-
-        Call SetInfoLabelFormat(lblST01_SAKUSEI_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}QMS管理責任者・品証")
-        Call SetInfoLabelFormat(lblST01_TENKEN_TANTO, $"承認担当者マスタ{vbCr}所属部門のST11.に登録された担当者")
-        Call SetInfoLabelFormat(lblST01_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST12.に登録された担当者")
-
-        '是正処置(流出)では製造がない
-        Call SetInfoLabelFormat(lblST02_SAKUSEI_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録されたTL・GL{vbCrLf}{vbCrLf}技術・製造・管理・営業{vbCrLf}{vbCrLf}または承認担当者マスタのST20.に登録された担当者")
-        Call SetInfoLabelFormat(lblST02_TENKEN_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録されたTL・GL{vbCrLf}{vbCrLf}技術・製造・管理・営業{vbCrLf}{vbCrLf}または承認担当者マスタのST21.に登録された担当者")
-        Call SetInfoLabelFormat(lblST02_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST22.に登録された担当者")
-
-        Call SetInfoLabelFormat(lblST03_SAKUSEI_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}QMS管理責任者・品証")
-        Call SetInfoLabelFormat(lblST03_TENKEN_TANTO, $"承認担当者マスタ{vbCr}所属部門のST31.に登録された担当者")
-        Call SetInfoLabelFormat(lblST03_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST32.に登録された担当者")
-
-        Call SetInfoLabelFormat(lblST04_SAKUSEI_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}QMS管理責任者・品証")
-        Call SetInfoLabelFormat(lblST04_TENKEN_TANTO, $"承認担当者マスタ{vbCr}所属部門のST41.に登録された担当者")
-        Call SetInfoLabelFormat(lblST04_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST42.に登録された担当者")
-
-        Call SetInfoLabelFormat(lblST05_SAKUSEI_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}QMS管理責任者・品証")
-        Call SetInfoLabelFormat(lblST05_TENKEN_TANTO, $"承認担当者マスタ{vbCr}所属部門のST51.に登録された担当者")
-        Call SetInfoLabelFormat(lblST05_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST52.に登録された担当者")
+        Call SetInfoLabelFormat(lblKISO_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}QMS管理責任者・設計・品証・生技")
+        'Call SetInfoLabelFormat(lblCM_TANTO, $"承認担当者マスタ{vbCr}所属部門のST1.に登録された担当者")
+        'Call SetInfoLabelFormat(lblDestTanto, $"承認担当者マスタ{vbCr}所属部門の当該ステージに登録された担当者")
 
     End Function
 
@@ -2068,56 +1931,12 @@ Public Class FrmG0031_EditOccurred
             'フラグリセット
             IsValidated = True
 
-#Region "ヘッダ"
-
             Call cmbBUMON_Validated(cmbBUMON, Nothing)
-            Call cmbKA_Validated(cmbKA, Nothing)
-            Call cmbTANTO_Validated(cmbTANTO, Nothing)
             Call cmbKISO_TANTO_Validated(cmbKISO_TANTO, Nothing)
-
-#End Region
 
             If Not IsValidated Then Return False
 
             If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
-                Select Case PrCurrentStage
-                    Case ENM_ZESEI_STAGE._10_起草入力
-                        Call dtKAITOU_KIBOU_YMD_Validating(dtKAITOU_KIBOU_YMD, Nothing)
-
-                        Call CmbDestTANTO_Validating(cmbST01_SAKUSEI_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._11_起草入力_点検
-                        Call CmbDestTANTO_Validating(cmbST01_TENKEN_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._12_起草入力_認可
-                        Call CmbDestTANTO_Validating(cmbST01_NINKA_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._20_是正処置入力
-                        Call CmbDestTANTO_Validating(cmbST02_SAKUSEI_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._21_是正処置入力_点検
-                        Call CmbDestTANTO_Validating(cmbST02_TENKEN_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._22_是正処置入力_認可
-                        Call CmbDestTANTO_Validating(cmbST02_NINKA_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
-                        Call CmbDestTANTO_Validating(cmbST02_HINSYO_TENKEN_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
-                        Call CmbDestTANTO_Validating(cmbST02_HINSYO_NINKA_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._30_処置結果入力
-                        Call CmbDestTANTO_Validating(cmbST03_SAKUSEI_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._31_処置結果入力_点検
-                        Call CmbDestTANTO_Validating(cmbST03_TENKEN_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._32_処置結果入力_認可
-                        Call CmbDestTANTO_Validating(cmbST03_NINKA_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._40_処置結果レビュー
-                        Call CmbDestTANTO_Validating(cmbST04_SAKUSEI_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._41_処置結果レビュー_点検
-                        Call CmbDestTANTO_Validating(cmbST04_TENKEN_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._42_処置結果レビュー_認可
-                        Call CmbDestTANTO_Validating(cmbST04_NINKA_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._50_要求元完了確認
-                        Call CmbDestTANTO_Validating(cmbST05_SAKUSEI_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._51_要求元完了確認_点検
-                        Call CmbDestTANTO_Validating(cmbST05_TENKEN_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                    Case ENM_ZESEI_STAGE._52_要求元完了確認_認可
-                        Call CmbDestTANTO_Validating(cmbST05_NINKA_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
-                End Select
 
             End If
 
@@ -2170,49 +1989,14 @@ Public Class FrmG0031_EditOccurred
 
             Select Case CurrentStageID
                 Case ENM_ZESEI_STAGE._10_起草入力
-                    Return ENM_ZESEI_STAGE._11_起草入力_点検
-                Case ENM_ZESEI_STAGE._11_起草入力_点検
-                    Return ENM_ZESEI_STAGE._12_起草入力_認可
-                Case ENM_ZESEI_STAGE._12_起草入力_認可
                     Return ENM_ZESEI_STAGE._20_是正処置入力
                 Case ENM_ZESEI_STAGE._20_是正処置入力
-                    Return ENM_ZESEI_STAGE._21_是正処置入力_点検
-                Case ENM_ZESEI_STAGE._21_是正処置入力_点検
-                    Return ENM_ZESEI_STAGE._22_是正処置入力_認可
-                Case ENM_ZESEI_STAGE._22_是正処置入力_認可
-                    Dim stage As Integer
-                    Dim IsHinsyo = FunGetSYOZOKU_SYAIN(cmbBUMON.SelectedValue).
-                                    AsEnumerable.
-                                    Any(Function(r) r.Item("GYOMU_GROUP_ID") = ENM_GYOMU_GROUP_ID._4_品証 And r.Item("VALUE") = cmbST02_SAKUSEI_TANTO.SelectedValue)
-
-                    If IsHinsyo Then
-                        stage = ENM_ZESEI_STAGE._30_処置結果入力
-                    Else
-                        stage = ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
-                    End If
-
-                    Return stage
-                Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
-                    Return ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
-                Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
                     Return ENM_ZESEI_STAGE._30_処置結果入力
                 Case ENM_ZESEI_STAGE._30_処置結果入力
-                    Return ENM_ZESEI_STAGE._31_処置結果入力_点検
-                Case ENM_ZESEI_STAGE._31_処置結果入力_点検
-                    Return ENM_ZESEI_STAGE._32_処置結果入力_認可
-                Case ENM_ZESEI_STAGE._32_処置結果入力_認可
                     Return ENM_ZESEI_STAGE._40_処置結果レビュー
                 Case ENM_ZESEI_STAGE._40_処置結果レビュー
-                    Return ENM_ZESEI_STAGE._41_処置結果レビュー_点検
-                Case ENM_ZESEI_STAGE._41_処置結果レビュー_点検
-                    Return ENM_ZESEI_STAGE._42_処置結果レビュー_認可
-                Case ENM_ZESEI_STAGE._42_処置結果レビュー_認可
                     Return ENM_ZESEI_STAGE._50_要求元完了確認
                 Case ENM_ZESEI_STAGE._50_要求元完了確認
-                    Return ENM_ZESEI_STAGE._51_要求元完了確認_点検
-                Case ENM_ZESEI_STAGE._51_要求元完了確認_点検
-                    Return ENM_ZESEI_STAGE._52_要求元完了確認_認可
-                Case ENM_ZESEI_STAGE._52_要求元完了確認_認可
                     Return ENM_ZESEI_STAGE._999_Closed
                 Case Else
                     Return 0
@@ -2252,54 +2036,140 @@ Public Class FrmG0031_EditOccurred
     Public Function FunblnOwnCreated(ByVal intSYONIN_HOKOKUSYO_ID As Integer, ByVal strHOKOKU_NO As String, ByVal intSYONIN_JUN As Integer) As Boolean
 
         Try
-            Dim cmb As ComboboxEx
+            Dim ToUsers As New List(Of Integer)
 
-            Select Case intSYONIN_JUN
-                Case ENM_ZESEI_STAGE._10_起草入力
-                    cmb = cmbST01_SAKUSEI_TANTO
-                Case ENM_ZESEI_STAGE._11_起草入力_点検
-                    cmb = cmbST01_TENKEN_TANTO
-                Case ENM_ZESEI_STAGE._12_起草入力_認可
-                    cmb = cmbST01_NINKA_TANTO
-                Case ENM_ZESEI_STAGE._20_是正処置入力
-                    cmb = cmbST02_SAKUSEI_TANTO
-                Case ENM_ZESEI_STAGE._21_是正処置入力_点検
-                    cmb = cmbST02_TENKEN_TANTO
-                Case ENM_ZESEI_STAGE._22_是正処置入力_認可
-                    cmb = cmbST02_NINKA_TANTO
-                Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
-                    cmb = cmbST02_HINSYO_TENKEN_TANTO
-                Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
-                    cmb = cmbST02_HINSYO_NINKA_TANTO
-                Case ENM_ZESEI_STAGE._30_処置結果入力
-                    cmb = cmbST03_SAKUSEI_TANTO
-                Case ENM_ZESEI_STAGE._31_処置結果入力_点検
-                    cmb = cmbST03_TENKEN_TANTO
-                Case ENM_ZESEI_STAGE._32_処置結果入力_認可
-                    cmb = cmbST03_NINKA_TANTO
-                Case ENM_ZESEI_STAGE._40_処置結果レビュー
-                    cmb = cmbST04_SAKUSEI_TANTO
-                Case ENM_ZESEI_STAGE._41_処置結果レビュー_点検
-                    cmb = cmbST04_TENKEN_TANTO
-                Case ENM_ZESEI_STAGE._42_処置結果レビュー_認可
-                    cmb = cmbST04_NINKA_TANTO
-                Case ENM_ZESEI_STAGE._50_要求元完了確認
-                    cmb = cmbST05_SAKUSEI_TANTO
-                Case ENM_ZESEI_STAGE._51_要求元完了確認_点検
-                    cmb = cmbST05_TENKEN_TANTO
-                Case ENM_ZESEI_STAGE._52_要求元完了確認_認可
-                    cmb = cmbST05_NINKA_TANTO
-                Case Else
+            'Select Case intSYONIN_JUN
+            '    Case ENM_FCCB_STAGE._10_起草入力
+            '        Dim dt = FunGetSYONIN_SYOZOKU_SYAIN(_D009.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, ENM_FCCB_STAGE._10_起草入力)
+            '        ToUsers = dt.AsEnumerable.Select(Function(r) r.Field(Of Integer)("VALUE")).ToList
 
-                    'close 済み　システム担当者のみ編集許可
-                    Return False
-            End Select
-            Dim users = DirectCast(cmb.DataSource, DataTable)
-            If users.Rows.Count > 0 Then
-                Return users.AsEnumerable.Any(Function(r) r.Item("VALUE") = pub_SYAIN_INFO.SYAIN_ID)
-            Else
-                Return False
-            End If
+            '    Case ENM_FCCB_STAGE._20_処置事項調査等
+            '        'FCCB議長 起草者
+            '        ToUsers.Add(_D009.CM_TANTO)
+            '        ToUsers.Add(_D009.ADD_SYAIN_ID)
+            '        '操作可能
+            '        ToUsers.Add(pub_SYAIN_INFO.SYAIN_ID)
+
+            '    Case ENM_FCCB_STAGE._30_変更審議
+
+            '        ToUsers.Add(cmbCM_TANTO.SelectedValue)
+
+            '        If cmbSYOCHI_SEKKEI_TANTO.IsSelected Then
+            '            ToUsers.Add(cmbSYOCHI_SEKKEI_TANTO.SelectedValue)
+            '        End If
+            '        If cmbSYOCHI_SEIGI_TANTO.IsSelected Then
+            '            ToUsers.Add(cmbSYOCHI_SEIGI_TANTO.SelectedValue)
+            '        End If
+            '        If cmbSYOCHI_EIGYO_TANTO.IsSelected Then
+            '            ToUsers.Add(cmbSYOCHI_EIGYO_TANTO.SelectedValue)
+            '        End If
+            '        If cmbSYOCHI_KANRI_TANTO.IsSelected Then
+            '            ToUsers.Add(cmbSYOCHI_KANRI_TANTO.SelectedValue)
+            '        End If
+            '        If cmbSYOCHI_SEIZO_TANTO.IsSelected Then
+            '            ToUsers.Add(cmbSYOCHI_SEIZO_TANTO.SelectedValue)
+            '        End If
+            '        If cmbSYOCHI_HINSYO_TANTO.IsSelected Then
+            '            ToUsers.Add(cmbSYOCHI_HINSYO_TANTO.SelectedValue)
+            '        End If
+
+            '    Case ENM_FCCB_STAGE._40_処置確認
+
+            '        ToUsers.Add(cmbCM_TANTO.SelectedValue)
+
+            '        Dim IsAllChecked As Boolean = True
+            '        If cmbSYOCHI_SEKKEI_TANTO.IsSelected AndAlso dtSYOCHI_SEKKEI_TANTO.Text.IsNulOrWS Then
+            '            IsAllChecked *= False
+            '        End If
+            '        If cmbSYOCHI_SEIGI_TANTO.IsSelected AndAlso dtSYOCHI_SEIGI_TANTO.Text.IsNulOrWS Then
+            '            IsAllChecked *= False
+            '        End If
+            '        If cmbSYOCHI_EIGYO_TANTO.IsSelected AndAlso dtSYOCHI_EIGYO_TANTO.Text.IsNulOrWS Then
+            '            IsAllChecked *= False
+            '        End If
+            '        If cmbSYOCHI_KANRI_TANTO.IsSelected AndAlso dtSYOCHI_KANRI_TANTO.Text.IsNulOrWS Then
+            '            IsAllChecked *= False
+            '        End If
+            '        If cmbSYOCHI_SEIZO_TANTO.IsSelected AndAlso dtSYOCHI_SEIZO_TANTO.Text.IsNulOrWS Then
+            '            IsAllChecked *= False
+            '        End If
+            '        If cmbSYOCHI_HINSYO_TANTO.IsSelected AndAlso dtSYOCHI_HINSYO_TANTO.Text.IsNulOrWS Then
+            '            IsAllChecked *= False
+            '        End If
+            '        If IsAllChecked AndAlso dtSYOCHI_GM_TANTO.Text.IsNulOrWS Then
+            '            '全ての担当者のチェックが完了したら統括責任者に依頼送信
+            '            ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
+            '        Else
+            '            '統括責任者のチェックも完了したら、各要処置事項の担当者に依頼送信
+            '            Dim targetUsers = DirectCast(Flx2_DS.DataSource, DataTable).
+            '                                    AsEnumerable.
+            '                                    Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) And Not r.Item(NameOf(D010.YOTEI_YMD)).ToString.IsNulOrWS).
+            '                                    Select(Function(r) r.Field(Of Integer)(NameOf(D010.TANTO_ID)))
+
+            '            For Each usr In targetUsers
+            '                If Not ToUsers.Contains(usr) Then
+            '                    ToUsers.Add(usr)
+            '                End If
+            '            Next
+
+            '            targetUsers = DirectCast(Flx3_DS.DataSource, DataTable).
+            '                                    AsEnumerable.
+            '                                    Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) And Not r.Item(NameOf(D010.YOTEI_YMD)).ToString.IsNulOrWS).
+            '                                    Select(Function(r) r.Field(Of Integer)(NameOf(D010.TANTO_ID)))
+
+            '            For Each usr In targetUsers
+            '                If Not ToUsers.Contains(usr) Then
+            '                    ToUsers.Add(usr)
+            '                End If
+            '            Next
+
+            '            targetUsers = DirectCast(Flx4_DS.DataSource, DataTable).
+            '                                    AsEnumerable.
+            '                                    Where(Function(r) Not r.Item(NameOf(D011.YOTEI_YMD)).ToString.IsNulOrWS).
+            '                                    Select(Function(r) r.Field(Of Integer)(NameOf(D011.TANTO_ID)))
+
+            '            For Each usr In targetUsers
+            '                If Not ToUsers.Contains(usr) Then
+            '                    ToUsers.Add(usr)
+            '                End If
+            '            Next
+            '        End If
+
+            '    Case ENM_FCCB_STAGE._50_処置事項完了
+            '        '裏処理にて各要処置事項の完了日の1週間前になっても未処置の場合、処置担当者に滞留通知
+
+            '        '申請条件のチェック
+            '        Dim IsClosed As Boolean = True
+            '        IsClosed *= DirectCast(Flx2_DS.DataSource, DataTable).
+            '                                   AsEnumerable.
+            '                                   Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) And r.Item(NameOf(D010.CLOSE_YMD)).ToString.IsNulOrWS).Count = 0
+
+            '        IsClosed *= DirectCast(Flx3_DS.DataSource, DataTable).
+            '                                AsEnumerable.
+            '                                Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) And r.Item(NameOf(D010.CLOSE_YMD)).ToString.IsNulOrWS).Count = 0
+
+            '        IsClosed *= DirectCast(Flx4_DS.DataSource, DataTable).
+            '                                AsEnumerable.
+            '                                Where(Function(r) Not r.Item(NameOf(D011.YOTEI_YMD)).ToString.IsNulOrWS And r.Item(NameOf(D011.CLOSE_YMD)).ToString.IsNulOrWS).Count = 0
+
+            '        '全要処置事項の処置完了
+            '        If IsClosed Then
+            '            'FCCB議長に依頼通知
+            '            'If dtKAKUNIN_CM_TANTO.Text.IsNulOrWS Then
+            '            ToUsers.Add(_D009.CM_TANTO)
+            '            'Else
+            '            '    ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
+            '            'End If
+            '        End If
+            '    Case ENM_FCCB_STAGE._60_処置事項完了確認
+            '        'ToUsers.Add(_D009.CM_TANTO)
+            '        ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
+
+            '    Case Else
+            '        Throw New ArgumentException("想定外の承認ルートです", PrCurrentStage)
+            'End Select
+
+            Return ToUsers.Contains(pub_SYAIN_INFO.SYAIN_ID)
         Catch ex As Exception
             Throw
         End Try
