@@ -1524,7 +1524,13 @@ Public Class FrmG0010
                     'flx.RowSel = intCURROW
                 Catch dgvEx As Exception
                 End Try
-                Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, flx.Rows.Count - flx.Rows.Fixed.ToString)
+
+                If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
+                    '合計行分マイナス
+                    Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, flx.Rows.Count - 1 - flx.Rows.Fixed.ToString)
+                Else
+                    Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, flx.Rows.Count - flx.Rows.Fixed.ToString)
+                End If
             Else
                 Me.lblRecordCount.Text = My.Resources.infoSearchResultNotFound
             End If
@@ -3795,19 +3801,21 @@ Public Class FrmG0010
 
         Dim targetColumns = {NameOf(ST03.SURYO), NameOf(ST03.KISO_KENSU), NameOf(ST03.SYOCHI_KENSU), NameOf(ST03.SYOCHI_ZANSU)}
         Dim dv = DirectCast(flx.DataSource, DataView)
+
+        Dim cols = dv.Table.Columns.OfType(Of DataColumn).Select(Function(r) r.ColumnName).ToList
         Dim dt = dv.Table
         Dim totalRow As DataRow
 
         totalRow = dt.Rows.OfType(Of DataRow).Where(Function(r) r.Item(NameOf(ST03.SUMMARY_ROW_FLG)) = 1).FirstOrDefault
         If totalRow IsNot Nothing Then totalRow.Delete()
+        '
 
         totalRow = dt.NewRow
         With totalRow
             .Item(NameOf(ST03.SUMMARY_ROW_FLG)) = 1
             .Item(NameOf(ST03.SYONIN_HOKOKUSYO_R_NAME)) = "合計:"
             For Each column In targetColumns
-                .Item(column) = dv.OfType(Of DataRowView).
-                                        Where(Function(r) r.Item(NameOf(ST03.SUMMARY_ROW_FLG)) = 0).
+                .Item(column) = dv.OfType(Of DataRowView).Where(Function(r) r.Item(NameOf(ST03.SUMMARY_ROW_FLG)) = 0).
                                         Sum(Function(r) r.Item(column).ToString.ToVal)
             Next
         End With
