@@ -824,9 +824,7 @@ Public Class FrmG0030_List
     Private Function FunGetListData() As DataTable
         Try
 
-            'SPEC: PF01.2-(1) A ŒŸõðŒ
-
-            Dim dtBUFF = GetST04_FCCB_ICHIRAN()
+            Dim dtBUFF = GetZESEI_ICHIRAN()
             If dtBUFF Is Nothing Then Return Nothing
             If dtBUFF.Rows.Count > pub_APP_INFO.intSEARCHMAX Then
                 If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
@@ -919,9 +917,6 @@ Public Class FrmG0030_List
             End If
 
             Return tplDataModel.dt
-
-            'Dim _Model As New MODEL.ModelInfo(Of MODEL.ST02_FUTEKIGO_ICHIRAN)(srcDATA:=tplDataModel.dt)
-            'Return _Model.Entities
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return Nothing
@@ -1704,31 +1699,34 @@ Public Class FrmG0030_List
 
 #Region "ƒ[ƒJƒ‹ŠÖ”"
 
-    Public Function GetST04_FCCB_ICHIRAN() As DataTable
+    Public Function GetZESEI_ICHIRAN() As DataTable
 
         Dim sbSQL As New System.Text.StringBuilder
         Dim dsList As New DataSet
 
-        sbSQL.Append($"SELECT * FROM {NameOf(V013_FCCB_ICHIRAN)}")
+        sbSQL.Append($"SELECT * FROM {NameOf(V015_ZESEI_ICHIRAN)}")
         sbSQL.Append($" WHERE 1=1")
         If Not mtxHOKUKO_NO.Text.IsNulOrWS Then
-            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.FCCB_NO)} LIKE '%{mtxHOKUKO_NO.Text.Trim}%'")
+            sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.HOKOKU_NO)} LIKE '%{mtxHOKUKO_NO.Text.Trim}%'")
         End If
         If cmbBUMON.IsSelected Then
-            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.BUMON_KB)} ='{cmbBUMON.SelectedValue}'")
+            sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.BUMON_KB)} ='{cmbBUMON.SelectedValue}'")
         End If
         If cmbADD_TANTO.IsSelected Then
-            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.KISO_TANTO_ID)} = {cmbADD_TANTO.SelectedValue}")
+            sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.ADD_TANTO_ID)} = {cmbADD_TANTO.SelectedValue}")
         End If
-        If chkTairyu.Checked Then
-            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.TAIRYU_FG)} > '0'")
+        If cmbGEN_TANTO.IsSelected Then
+            sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.TANTO_ID)} = {cmbADD_TANTO.SelectedValue}")
         End If
-        If Not chkClosedRowVisibled.Checked Then
-            sbSQL.Append($" AND {NameOf(V013_FCCB_ICHIRAN.CLOSE_FG)} = '0'")
-        End If
-        If Not chkDeleteRowVisibled.Checked Then
-            sbSQL.Append($" AND RTRIM({NameOf(V013_FCCB_ICHIRAN.DEL_YMDHNS)}) = ''")
-        End If
+        'If chkTairyu.Checked Then
+        '    sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.TAIRYU_FG)} > '0'")
+        'End If
+        'If Not chkClosedRowVisibled.Checked Then
+        '    sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.CLOSE_FG)} = '0'")
+        'End If
+        'If Not chkDeleteRowVisibled.Checked Then
+        '    sbSQL.Append($" AND RTRIM({NameOf(V013_FCCB_ICHIRAN.DEL_YMDHNS)}) = ''")
+        'End If
 
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)

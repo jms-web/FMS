@@ -121,6 +121,7 @@ Namespace Context
             _3_CTS = 3
             _4_FCCB = 4
             _5_ZESEI = 5
+            _6_ZESEI_R = 6
         End Enum
 
 #End Region
@@ -268,6 +269,8 @@ Public Module mdlDBContext
     ''' 是正処置
     ''' </summary>
     Public tblZESEI As DataTableEx
+
+    Public tblZESEI_R As DataTableEx
 
     ''' <summary>
     ''' 課
@@ -609,6 +612,104 @@ Public Module mdlDBContext
 
 #End Region
 
+#Region "               ZESEI"
+
+                Case "ZESEI"
+                    dt = New DataTableEx("System.Int32")
+
+                    sbSQL.Append($"SELECT * FROM {NameOf(VWM014_SYONIN_ROUT)}")
+                    sbSQL.Append($" WHERE SYONIN_HOKOKUSYO_ID=5")
+                    If strWhere.IsNulOrWS = False Then
+                        sbSQL.Append(" AND " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+                    sbSQL.Append(" ORDER BY SYONIN_HOKOKUSYO_ID, SYONIN_JUN")
+
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    dt.Columns.Add("SYONIN_HOKOKUSYO_ID", GetType(Integer))
+
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            Trow("VALUE") = .Rows(intCNT).Item("SYONIN_JUN")
+                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO") '.Rows(intCNT).Item("SYONIN_JUN") & " " & .Rows(intCNT).Item("SYONIN_NAIYO")
+                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
+                            dt.Rows.Add(Trow)
+                        Next intCNT
+                    End With
+
+#End Region
+
+#Region "               ZESEI_R"
+
+                Case "ZESEI_R"
+                    dt = New DataTableEx("System.Int32")
+
+                    sbSQL.Append($"SELECT * FROM {NameOf(VWM014_SYONIN_ROUT)}")
+                    sbSQL.Append($" WHERE SYONIN_HOKOKUSYO_ID=6")
+                    If strWhere.IsNulOrWS = False Then
+                        sbSQL.Append(" AND " & strWhere & "")
+                    End If
+                    If blnIncludeDeleted = False Then
+                        sbSQL.Append(" AND DEL_FLG='0'")
+                    End If
+                    sbSQL.Append(" ORDER BY SYONIN_HOKOKUSYO_ID, SYONIN_JUN")
+
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    dt.Columns.Add("SYONIN_HOKOKUSYO_ID", GetType(Integer))
+
+                    dsList = DB.GetDataSet(sbSQL.ToString, False)
+                    With dsList.Tables(0)
+                        For intCNT = 0 To .Rows.Count - 1
+                            Dim Trow As DataRow = dt.NewRow()
+                            Trow("VALUE") = .Rows(intCNT).Item("SYONIN_JUN")
+                            Trow("DISP") = .Rows(intCNT).Item("SYONIN_NAIYO") '.Rows(intCNT).Item("SYONIN_JUN") & " " & .Rows(intCNT).Item("SYONIN_NAIYO")
+                            Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
+                            Trow("SYONIN_HOKOKUSYO_ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
+                            dt.Rows.Add(Trow)
+                        Next intCNT
+                    End With
+
+#End Region
+
+#Region "               是正処置部門区分"
+
+                Case "是正処置部門区分"
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
+                    dt.Columns.Add("DISP_ORDER", GetType(Integer))
+                    Dim Trow As DataRow
+                    Trow = dt.NewRow()
+                    Trow("DISP") = "航空機"
+                    Trow("VALUE") = "1"
+                    Trow("DEL_FLG") = False
+                    Trow("DISP_ORDER") = 1
+                    Trow("DEF_FLG") = False
+                    dt.Rows.Add(Trow)
+
+                    Trow = dt.NewRow()
+                    Trow("DISP") = "複合材"
+                    Trow("VALUE") = "3"
+                    Trow("DEL_FLG") = False
+                    Trow("DISP_ORDER") = 3
+                    Trow("DEF_FLG") = False
+                    dt.Rows.Add(Trow)
+
+                    Trow = tblBUMON.NewRow()
+                    Trow("DISP") = "業務管理"
+                    Trow("VALUE") = "8"
+                    Trow("DEL_FLG") = False
+                    Trow("DISP_ORDER") = 91
+                    Trow("DEF_FLG") = False
+                    dt.Rows.Add(Trow)
+
+#End Region
+
 #Region "               是正処置"
 
                 Case "是正処置"
@@ -696,7 +797,11 @@ Public Module mdlDBContext
                     dt.PrimaryKey = {dt.Columns("VALUE")}
 
                     dt.Columns.Add("BUSYO_ID", GetType(Integer))
+                    dt.Columns.Add("BUSYO_NAME", GetType(String))
+                    dt.Columns.Add("OYA_BUSYO_ID", GetType(Integer))
+                    dt.Columns.Add("OYA_BUSYO_NAME", GetType(String))
                     dt.Columns.Add("BUSYO_KB", GetType(String))
+                    dt.Columns.Add("BUMON_KB", GetType(String))
 
                     dsList = DB.GetDataSet(sbSQL.ToString, False)
 
@@ -708,7 +813,11 @@ Public Module mdlDBContext
                             Trow("VALUE") = .Rows(intCNT).Item("SYAIN_ID")
                             Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                             Trow("BUSYO_ID") = .Rows(intCNT).Item("BUSYO_ID")
+                            Trow("BUSYO_NAME") = .Rows(intCNT).Item("BUSYO_NAME")
+                            Trow("OYA_BUSYO_ID") = .Rows(intCNT).Item("OYA_BUSYO_ID")
+                            Trow("OYA_BUSYO_NAME") = .Rows(intCNT).Item("OYA_BUSYO_NAME")
                             Trow("BUSYO_KB") = .Rows(intCNT).Item("BUSYO_KB")
+                            Trow("BUMON_KB") = .Rows(intCNT).Item("BUMON_KB")
                             If Not dt.Rows.Contains(Trow("VALUE")) Then
                                 dt.Rows.Add(Trow)
                             End If

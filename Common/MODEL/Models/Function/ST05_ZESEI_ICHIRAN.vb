@@ -7,7 +7,7 @@ Imports System.Data.Entity.Spatial
 ''' <summary>
 '''
 ''' </summary>
-Partial Public Class ST05_ZESEI_ICHIRAN
+Partial Public Class ST04_FCCB_ICHIRAN
     Inherits MODEL.ModelBase
 
     <StringLength(1)>

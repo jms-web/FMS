@@ -63,6 +63,7 @@ Partial Class FrmG0030_List
         '
         'cmdFunc1
         '
+        Me.cmdFunc1.Enabled = False
         Me.cmdFunc1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgSearch32x32
         Me.cmdFunc1.Location = New System.Drawing.Point(12, 640)
@@ -297,7 +298,7 @@ Partial Class FrmG0030_List
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(94, 30)
         Me.Label1.TabIndex = 101
-        Me.Label1.Text = "êªïiãÊï™:"
+        Me.Label1.Text = "ïîñÂ:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'cmbBUMON

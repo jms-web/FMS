@@ -167,8 +167,8 @@ Module mdlG0030
                     Call FunGetCodeDataTable(DB, "課", tblKA)
 
                     Call FunGetCodeDataTable(DB, "所属担当", tblTANTO)
-                    Call FunGetCodeDataTable(DB, "部門区分", tblBUMON, "DISP_ORDER < 10") '10以降は不適合SYSでは不要
 
+                    Call FunGetCodeDataTable(DB, "是正処置部門区分", tblBUMON)
                 End Using
 
                 '起動時パラメータを取得

@@ -71,9 +71,30 @@ Public Class FrmG0031_EditOccurred
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
         MyBase.ToolTip.SetToolTip(Me.cmdFunc11, My.Resources.infoToolTipMsgNotFoundData)
 
-        cmbKISO_TANTO.NullValue = 0
+        cmbKA.NullValue = 0
+        cmbTANTO.NullValue = 0
 
-        dtKISO.Nullable = True
+        cmbST01_SAKUSEI_TANTO.NullValue = 0
+        cmbST01_TENKEN_TANTO.NullValue = 0
+        cmbST01_NINKA_TANTO.NullValue = 0
+
+        cmbST02_SAKUSEI_TANTO.NullValue = 0
+        cmbST02_TENKEN_TANTO.NullValue = 0
+        cmbST02_NINKA_TANTO.NullValue = 0
+        cmbST02_HINSYO_TENKEN_TANTO.NullValue = 0
+        cmbST02_HINSYO_NINKA_TANTO.NullValue = 0
+
+        cmbST03_SAKUSEI_TANTO.NullValue = 0
+        cmbST03_TENKEN_TANTO.NullValue = 0
+        cmbST03_NINKA_TANTO.NullValue = 0
+
+        cmbST04_SAKUSEI_TANTO.NullValue = 0
+        cmbST04_TENKEN_TANTO.NullValue = 0
+        cmbST04_NINKA_TANTO.NullValue = 0
+
+        cmbST05_SAKUSEI_TANTO.NullValue = 0
+        cmbST05_TENKEN_TANTO.NullValue = 0
+        cmbST05_NINKA_TANTO.NullValue = 0
 
     End Sub
 
@@ -100,6 +121,7 @@ Public Class FrmG0031_EditOccurred
                             lblTytle.Text = FunGetCodeMastaValue(DB, "PG_TITLE", Me.GetType.ToString)
                         End Using
 
+                        FunSetBinding()
                         '--- モデルクリア
                         _D013.Clear()
                         _D004_SYONIN_J_KANRI.clear()
@@ -132,7 +154,7 @@ Public Class FrmG0031_EditOccurred
                                     'Err
                             End Select
                         End If
-                        cmbKA.SetDataSource(tblKA.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                        cmbKA.SetDataSource(tblKA.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
                         IsEditingClosed = HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
 
@@ -466,20 +488,6 @@ Public Class FrmG0031_EditOccurred
 
         If (FunGetNextSYONIN_JUN(PrCurrentStage) = ENM_ZESEI_STAGE._999_Closed) And enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 Then
             _D013._CLOSE_FG = 1
-        End If
-
-        If dtKISO.Text.IsNulOrWS Then
-            _D013.ADD_YMDHNS = strSysDate
-        Else
-            _D013.ADD_YMDHNS = dtKISO.ValueDate.ToString("yyyyMMdd") & "000000"
-        End If
-
-        'TODO: SET Model info
-
-        If cmbKISO_TANTO.IsSelected Then
-            _D013.ADD_SYAIN_ID = cmbKISO_TANTO.SelectedValue
-        Else
-            _D013.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
         End If
 
         _D013.UPD_YMDHNS = strSysDate
@@ -1463,9 +1471,11 @@ Public Class FrmG0031_EditOccurred
 
 #Region "申請先社員"
 
-    Private Sub CmbDestTANTO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs, caption As String)
+    Private Sub CmbDestTANTO_SelectedvalueChanged(sender As Object, e As EventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        Dim caption As String = [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage)
         IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, caption))
+        Call FunInitFuncButtonEnabled()
     End Sub
 
 #End Region
@@ -1473,28 +1483,68 @@ Public Class FrmG0031_EditOccurred
 #Region "ヘッダ"
 
     Private Sub cmbBUMON_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUMON.SelectedValueChanged
-        Dim dt As DataTable
+        Dim dtKA As DataTable
+        Dim dtTANTO As DataTable
         If cmbBUMON.SelectedValue.ToString.IsNulOrWS Then
-            dt = tblKA
+            dtKA = tblKA
+            dtTANTO = tblTANTO
         Else
-            dt = tblKA.AsEnumerable.Where(Function(r) r.Item("BUMON_KB") = cmbBUMON.SelectedValue).ToList.CopyToDataTable
+            Dim dr As List(Of DataRow)
+            dr = tblKA.AsEnumerable.Where(Function(r) r.Item("BUMON_KB") = cmbBUMON.SelectedValue).ToList
+            If dr.Count > 0 Then
+                dtKA = dr.CopyToDataTable
+            Else
+                dtKA = Nothing
+            End If
+
+            dr = tblTANTO.AsEnumerable.Where(Function(r) r.Item("BUMON_KB") = cmbBUMON.SelectedValue).ToList
+            If dr.Count > 0 Then
+                dtTANTO = dr.CopyToDataTable
+            Else
+                dtTANTO = tblTANTO
+            End If
         End If
-        cmbKA.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+        If dtKA IsNot Nothing Then
+            cmbKA.SetDataSource(dtKA.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
+        Else
+            cmbKA.DataSource = Nothing
+            cmbKA.DisplayMember = "DISP"
+            cmbKA.ValueMember = "VALUE"
+        End If
+        If dtTANTO IsNot Nothing Then
+            cmbTANTO.SetDataSource(dtTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+        Else
+            cmbTANTO.DataSource = Nothing
+            cmbTANTO.DisplayMember = "DISP"
+            cmbTANTO.ValueMember = "VALUE"
+        End If
+
+        _D013.BUMON_KB = cmbBUMON.SelectedValue
+        Call FunInitializeSTAGE(PrCurrentStage)
+
     End Sub
 
     Private Sub cmbKA_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKA.SelectedValueChanged
         Dim dt As DataTable
         If cmbKA.SelectedValue.ToString.IsNulOrWS Then
-            dt = tblTANTO
+            Dim dr As List(Of DataRow)
+            dr = tblTANTO.AsEnumerable.Where(Function(r) r.Item("BUMON_KB") = cmbBUMON.SelectedValue).ToList
+            If dr.Count > 0 Then
+                dt = dr.CopyToDataTable
+            Else
+                dt = tblTANTO
+            End If
         Else
-            Dim drs = tblTANTO.AsEnumerable.Where(Function(r) r.Item("BUSYO_ID") = cmbKA.SelectedValue).ToList
+            Dim drs = tblTANTO.AsEnumerable.Where(Function(r) r.Item("BUSYO_ID") = cmbKA.SelectedValue Or r.Item("OYA_BUSYO_ID") = cmbKA.SelectedValue).ToList
             If drs.Count > 0 Then
                 dt = drs.CopyToDataTable
             End If
             If dt IsNot Nothing Then
-                cmbTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                cmbTANTO.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             Else
                 cmbTANTO.DataSource = Nothing
+                cmbTANTO.DisplayMember = "DISP"
+                cmbTANTO.ValueMember = "VALUE"
             End If
         End If
     End Sub
@@ -1504,17 +1554,17 @@ Public Class FrmG0031_EditOccurred
         IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
     End Sub
 
-    Private Sub cmbKA_Validated(sender As Object, e As EventArgs) Handles cmbKA.Validated
-        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-        IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "課"))
-    End Sub
+    'Private Sub cmbKA_Validated(sender As Object, e As EventArgs) Handles cmbKA.Validated
+    '    Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+    '    IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "課"))
+    'End Sub
 
     Private Sub cmbTANTO_Validated(sender As Object, e As EventArgs) Handles cmbTANTO.Validated
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
         IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "責任者"))
     End Sub
 
-    Private Sub cmbKISO_TANTO_Validated(sender As Object, e As EventArgs) Handles cmbKISO_TANTO.Validated
+    Private Sub cmbKISO_TANTO_Validated(sender As Object, e As EventArgs)
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
         IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "起草者"))
     End Sub
@@ -1597,7 +1647,7 @@ Public Class FrmG0031_EditOccurred
         Try
 
             mtxHOKOKU_NO.DataBindings.Add(New Binding(NameOf(mtxHOKOKU_NO.Text), _D013, NameOf(_D013.HOKOKU_NO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
-            cmbBUMON.DataBindings.Add(New Binding(NameOf(cmbBUMON.SelectedValue), _D013, NameOf(_D013.BUMON_KB), False, DataSourceUpdateMode.OnPropertyChanged, 0))
+            cmbBUMON.DataBindings.Add(New Binding(NameOf(cmbBUMON.SelectedValue), _D013, NameOf(_D013.BUMON_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             txtINPUT_TYPE.DataBindings.Add(New Binding(NameOf(txtINPUT_TYPE.Text), _D013, NameOf(_D013.INPUT_TYPE), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             txtDOC_NO.DataBindings.Add(New Binding(NameOf(txtDOC_NO.Text), _D013, NameOf(_D013.DOC_NO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             dtKAITOU_KIBOU_YMD.DataBindings.Add(New Binding(NameOf(dtKAITOU_KIBOU_YMD.ValueNonFormat), _D013, NameOf(_D013.KAITOU_KIBOU_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -1726,8 +1776,7 @@ Public Class FrmG0031_EditOccurred
                     cmbBUMON.ReadOnly = HeaderItemReadOnly
                     cmbTANTO.ReadOnly = HeaderItemReadOnly
                     cmbKA.ReadOnly = HeaderItemReadOnly
-                    cmbKISO_TANTO.ReadOnly = HeaderItemReadOnly
-                    dtKISO.ReadOnly = HeaderItemReadOnly
+
             End Select
 
             Return True
@@ -1821,14 +1870,65 @@ Public Class FrmG0031_EditOccurred
         Dim _V003List As List(Of V003_SYONIN_J_KANRI)
         Dim V003 As V003_SYONIN_J_KANRI
 
+        Dim dtUser As DataTable
+        Dim drs As IEnumerable(Of DataRow)
+        Dim InList As New List(Of Integer)
+
         Try
 
-            If intStageID >= ENM_ZESEI_STAGE._10_起草入力 Then
+#Region "Set EventHandler"
+
+            Select Case DirectCast(intStageID, ENM_ZESEI_STAGE)
+                Case ENM_ZESEI_STAGE._10_起草入力
+                    AddHandler cmbST01_SAKUSEI_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._11_起草入力_点検
+                    AddHandler cmbST01_TENKEN_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._12_起草入力_認可
+                    AddHandler cmbST01_NINKA_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._20_是正処置入力
+                    AddHandler cmbST02_SAKUSEI_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._21_是正処置入力_点検
+                    AddHandler cmbST02_TENKEN_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._22_是正処置入力_認可
+                    AddHandler cmbST02_NINKA_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
+                    AddHandler cmbST02_HINSYO_TENKEN_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
+                    AddHandler cmbST02_HINSYO_NINKA_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._30_処置結果入力
+                    AddHandler cmbST03_SAKUSEI_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._31_処置結果入力_点検
+                    AddHandler cmbST03_TENKEN_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._32_処置結果入力_認可
+                    AddHandler cmbST03_NINKA_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._40_処置結果レビュー
+                    AddHandler cmbST04_SAKUSEI_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._41_処置結果レビュー_点検
+                    AddHandler cmbST04_TENKEN_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._42_処置結果レビュー_認可
+                    AddHandler cmbST04_NINKA_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._50_要求元完了確認
+                    AddHandler cmbST05_SAKUSEI_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._51_要求元完了確認_点検
+                    AddHandler cmbST05_TENKEN_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._52_要求元完了確認_認可
+                    AddHandler cmbST05_NINKA_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                Case ENM_ZESEI_STAGE._999_Closed
+            End Select
+
+#End Region
+
+            If intStageID >= ENM_ZESEI_STAGE._10_起草入力 And Not _D013.BUMON_KB.IsNulOrWS Then
+
+                dtUser = FunGetSYOZOKU_SYAIN(_D013.BUMON_KB)
+                pnlST01.Visible = True
 
 #Region "           承認担当者"
 
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._10_起草入力)
-                cmbST01_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                'dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._10_起草入力)
+                drs = dtUser.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._4_品証.Value)
+                If drs.Count > 0 Then cmbST01_SAKUSEI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._11_起草入力_点検)
                 cmbST01_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._12_起草入力_認可)
@@ -2071,9 +2171,8 @@ Public Class FrmG0031_EditOccurred
 #Region "ヘッダ"
 
             Call cmbBUMON_Validated(cmbBUMON, Nothing)
-            Call cmbKA_Validated(cmbKA, Nothing)
+            'all cmbKA_Validated(cmbKA, Nothing)
             Call cmbTANTO_Validated(cmbTANTO, Nothing)
-            Call cmbKISO_TANTO_Validated(cmbKISO_TANTO, Nothing)
 
 #End Region
 
@@ -2083,40 +2182,39 @@ Public Class FrmG0031_EditOccurred
                 Select Case PrCurrentStage
                     Case ENM_ZESEI_STAGE._10_起草入力
                         Call dtKAITOU_KIBOU_YMD_Validating(dtKAITOU_KIBOU_YMD, Nothing)
-
-                        Call CmbDestTANTO_Validating(cmbST01_SAKUSEI_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST01_SAKUSEI_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._11_起草入力_点検
-                        Call CmbDestTANTO_Validating(cmbST01_TENKEN_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST01_TENKEN_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._12_起草入力_認可
-                        Call CmbDestTANTO_Validating(cmbST01_NINKA_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST01_NINKA_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._20_是正処置入力
-                        Call CmbDestTANTO_Validating(cmbST02_SAKUSEI_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST02_SAKUSEI_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._21_是正処置入力_点検
-                        Call CmbDestTANTO_Validating(cmbST02_TENKEN_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST02_TENKEN_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._22_是正処置入力_認可
-                        Call CmbDestTANTO_Validating(cmbST02_NINKA_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST02_NINKA_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
-                        Call CmbDestTANTO_Validating(cmbST02_HINSYO_TENKEN_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST02_HINSYO_TENKEN_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
-                        Call CmbDestTANTO_Validating(cmbST02_HINSYO_NINKA_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST02_HINSYO_NINKA_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._30_処置結果入力
-                        Call CmbDestTANTO_Validating(cmbST03_SAKUSEI_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST03_SAKUSEI_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._31_処置結果入力_点検
-                        Call CmbDestTANTO_Validating(cmbST03_TENKEN_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST03_TENKEN_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._32_処置結果入力_認可
-                        Call CmbDestTANTO_Validating(cmbST03_NINKA_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST03_NINKA_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._40_処置結果レビュー
-                        Call CmbDestTANTO_Validating(cmbST04_SAKUSEI_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST04_SAKUSEI_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._41_処置結果レビュー_点検
-                        Call CmbDestTANTO_Validating(cmbST04_TENKEN_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST04_TENKEN_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._42_処置結果レビュー_認可
-                        Call CmbDestTANTO_Validating(cmbST04_NINKA_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST04_NINKA_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._50_要求元完了確認
-                        Call CmbDestTANTO_Validating(cmbST05_SAKUSEI_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST05_SAKUSEI_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._51_要求元完了確認_点検
-                        Call CmbDestTANTO_Validating(cmbST05_TENKEN_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST05_TENKEN_TANTO, Nothing)
                     Case ENM_ZESEI_STAGE._52_要求元完了確認_認可
-                        Call CmbDestTANTO_Validating(cmbST05_NINKA_TANTO, Nothing, [Enum].GetName(GetType(ENM_SAVE_MODE), PrCurrentStage))
+                        Call CmbDestTANTO_SelectedvalueChanged(cmbST05_NINKA_TANTO, Nothing)
                 End Select
 
             End If
@@ -2295,7 +2393,7 @@ Public Class FrmG0031_EditOccurred
                     Return False
             End Select
             Dim users = DirectCast(cmb.DataSource, DataTable)
-            If users.Rows.Count > 0 Then
+            If users IsNot Nothing AndAlso users.Rows.Count > 0 Then
                 Return users.AsEnumerable.Any(Function(r) r.Item("VALUE") = pub_SYAIN_INFO.SYAIN_ID)
             Else
                 Return False

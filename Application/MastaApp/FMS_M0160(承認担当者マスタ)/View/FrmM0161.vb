@@ -4,8 +4,6 @@ Public Class FrmM0161
 
     Private _M016 As New MODEL.M016_SYONIN_TANTO
 
-
-
 #Region "プロパティ"
 
     ''' <summary>
@@ -330,17 +328,17 @@ Public Class FrmM0161
         Using DB As ClsDbUtility = DBOpen()
             Select Case cmb.SelectedValue
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR
-                    Call FunGetCodeDataTable(DB, "NCR", tblNCR)
-                    CmbSYONIN_JUN.SetDataSource(tblNCR, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                    CmbSYONIN_JUN.SetDataSource(tblNCR.LazyLoad("NCR"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR
-                    Call FunGetCodeDataTable(DB, "CAR", tblCAR)
-                    CmbSYONIN_JUN.SetDataSource(tblCAR, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                    CmbSYONIN_JUN.SetDataSource(tblCAR.LazyLoad("CAR"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS
-                    Call FunGetCodeDataTable(DB, "CTS", tblCTS)
-                    CmbSYONIN_JUN.SetDataSource(tblCTS, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                    CmbSYONIN_JUN.SetDataSource(tblCTS.LazyLoad("CTS"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB
-                    Call FunGetCodeDataTable(DB, "FCCB", tblFCCB)
-                    CmbSYONIN_JUN.SetDataSource(tblFCCB, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                    CmbSYONIN_JUN.SetDataSource(tblFCCB.LazyLoad("FCCB"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI
+                    CmbSYONIN_JUN.SetDataSource(tblZESEI.LazyLoad("ZESEI"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R
+                    CmbSYONIN_JUN.SetDataSource(tblZESEI_R.LazyLoad("ZESEI_R"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                 Case Else
                     CmbSYONIN_JUN.DataSource = Nothing
             End Select
