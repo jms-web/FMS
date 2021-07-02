@@ -832,7 +832,7 @@ Public Class FrmG0030_List
                 End If
             End If
 
-            Dim t = GetType(ST04_FCCB_ICHIRAN)
+            Dim t = GetType(V015_ZESEI_ICHIRAN)
             Dim tplDataModel = FunGetTableFromModel(t)
 
             If dtBUFF.Rows.Count = 0 Then Return tplDataModel.dt
@@ -871,17 +871,8 @@ Public Class FrmG0030_List
                                     End If
                                 Case Else
                                     '特定列のみ加工
-                                    Select Case p.Name
-                                        'Case "SYONIN_NAIYO"
-                                        '    Trow(p.Name) = row.Item("SYONIN_JUN") & "." & row.Item(p.Name).ToString.Trim
-                                        Case "SASIMOTO_SYONIN_NAIYO"
-                                            If row.Item("SASIMOTO_SYONIN_JUN") = "0" Then
-                                                Trow(p.Name) = ""
-                                            Else
-                                                Trow(p.Name) = row.Item("SASIMOTO_SYONIN_JUN") & "." & row.Item(p.Name).ToString.Trim
-                                            End If
-
-                                        Case "KISO_YMD"
+                                    Select Case True
+                                        Case p.Name.Contains("YMD") And Not p.Name.Contains("YMDHNS") And Not row.Item(p.Name).ToString.IsNulOrWS
                                             Trow(p.Name) = If(row.Item(p.Name).ToString.IsNulOrWS, "", DateTime.ParseExact(row.Item(p.Name), "yyyyMMdd", Nothing).ToString("yyyy/MM/dd"))
                                         Case Else
                                             Trow(p.Name) = row.Item(p.Name).ToString.Trim
@@ -939,7 +930,7 @@ Public Class FrmG0030_List
                 flx.DataSource = Nothing
             End If
 
-            Call FunSetGridCellFormat(flx)
+            'Call FunSetGridCellFormat(flx)
 
             If flx.Rows.Count > 1 Then
                 '-----選択行設定
@@ -987,7 +978,7 @@ Public Class FrmG0030_List
                         frmFCCB.PrCurrentStage = ENM_ZESEI_STAGE._10_起草入力
                     Case ENM_DATA_OPERATION_MODE._2_ADDREF, ENM_DATA_OPERATION_MODE._3_UPDATE
                         frmFCCB.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
-                        frmFCCB.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))
+                        frmFCCB.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item(NameOf(V015_ZESEI_ICHIRAN.HOKOKU_NO))
                         frmFCCB.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
                 End Select
                 dlgRET = frmFCCB.ShowDialog(Me)
@@ -1495,35 +1486,35 @@ Public Class FrmG0030_List
                 End If
 
                 '削除ボタン
-                If HasDeleteAuth(pub_SYAIN_INFO.SYAIN_ID,
-                                     flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.SYONIN_HOKOKUSYO_ID)),
-                                     flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))) Then
+                'If HasDeleteAuth(pub_SYAIN_INFO.SYAIN_ID,
+                '                     flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V015_ZESEI_ICHIRAN.SYONIN_HOKOKUSYO_ID)),
+                '                     flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V015_ZESEI_ICHIRAN.FCCB_NO))) Then
 
-                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.CLOSE_FG)) = 1 Then
-                        cmdFunc5.Enabled = False
-                        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "Close済のデータです")
-                        cmdFunc6.Enabled = True
-                    ElseIf flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D009.DEL_YMDHNS)).ToString.Trim <> "" Then
-                        cmdFunc5.Enabled = False
-                        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "取消済みデータです")
-                        cmdFunc6.Enabled = True
-                    Else
-                        cmdFunc5.Enabled = True
-                    End If
-                Else
+                '    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.CLOSE_FG)) = 1 Then
+                '        cmdFunc5.Enabled = False
+                '        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "Close済のデータです")
+                '        cmdFunc6.Enabled = True
+                '    ElseIf flxDATA.Rows(flxDATA.RowSel).Item(NameOf(_D009.DEL_YMDHNS)).ToString.Trim <> "" Then
+                '        cmdFunc5.Enabled = False
+                '        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "取消済みデータです")
+                '        cmdFunc6.Enabled = True
+                '    Else
+                '        cmdFunc5.Enabled = True
+                '    End If
+                'Else
 
-                    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.DEL_YMDHNS)).ToString.Trim <> "" Then
-                        '削除済み
-                        'cmdFunc4.Enabled = False
-                        'MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "取消済みデータです")
-                        cmdFunc5.Enabled = False
-                        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "取消済みデータです")
-                        'flxDATA.Rows(flxDATA.RowSel).Item("SELECTED").ReadOnly = True
-                    End If
-                    'cmdFunc6.Visible = False
-                    cmdFunc5.Enabled = False
-                    MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "取消機能の使用権限がありません")
-                End If
+                '    If flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.DEL_YMDHNS)).ToString.Trim <> "" Then
+                '        '削除済み
+                '        'cmdFunc4.Enabled = False
+                '        'MyBase.ToolTip.SetToolTip(Me.cmdFunc4, "取消済みデータです")
+                '        cmdFunc5.Enabled = False
+                '        MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "取消済みデータです")
+                '        'flxDATA.Rows(flxDATA.RowSel).Item("SELECTED").ReadOnly = True
+                '    End If
+                '    'cmdFunc6.Visible = False
+                '    cmdFunc5.Enabled = False
+                '    MyBase.ToolTip.SetToolTip(Me.cmdFunc5, "取消機能の使用権限がありません")
+                'End If
 
                 If FunblnAllowTairyuMailSend() Then
                     cmdFunc9.Enabled = True
@@ -1713,7 +1704,7 @@ Public Class FrmG0030_List
             sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.BUMON_KB)} ='{cmbBUMON.SelectedValue}'")
         End If
         If cmbADD_TANTO.IsSelected Then
-            sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.ADD_TANTO_ID)} = {cmbADD_TANTO.SelectedValue}")
+            sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.ADD_SYAIN_ID)} = {cmbADD_TANTO.SelectedValue}")
         End If
         If cmbGEN_TANTO.IsSelected Then
             sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.TANTO_ID)} = {cmbADD_TANTO.SelectedValue}")
@@ -1721,12 +1712,12 @@ Public Class FrmG0030_List
         'If chkTairyu.Checked Then
         '    sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.TAIRYU_FG)} > '0'")
         'End If
-        'If Not chkClosedRowVisibled.Checked Then
-        '    sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.CLOSE_FG)} = '0'")
-        'End If
-        'If Not chkDeleteRowVisibled.Checked Then
-        '    sbSQL.Append($" AND RTRIM({NameOf(V013_FCCB_ICHIRAN.DEL_YMDHNS)}) = ''")
-        'End If
+        If Not chkClosedRowVisibled.Checked Then
+            sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.CLOSE_FG)} = '0'")
+        End If
+        If Not chkDeleteRowVisibled.Checked Then
+            sbSQL.Append($" AND RTRIM({NameOf(V015_ZESEI_ICHIRAN.DEL_YMDHNS)}) = ''")
+        End If
 
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)

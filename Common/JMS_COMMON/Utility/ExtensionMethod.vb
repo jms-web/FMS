@@ -696,6 +696,24 @@ Public Module ExtensionMethod
         End If
     End Function
 
+    <Extension()>
+    Public Function ToDateTimeWithFormat(this As String, FromFormat As String, Toformat As String) As String
+
+        Dim retValue As String
+        If this.IsNulOrWS Then
+            retValue = ""
+        Else
+            Dim dt As DateTime
+            If DateTime.TryParseExact(this, FromFormat, Nothing, Nothing, dt) Then
+                retValue = dt.ToString(Toformat)
+            Else
+                retValue = ""
+            End If
+        End If
+
+        Return retValue
+    End Function
+
 #End Region
 
 End Module

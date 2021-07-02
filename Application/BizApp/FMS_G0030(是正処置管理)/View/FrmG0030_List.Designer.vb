@@ -45,6 +45,7 @@ Partial Class FrmG0030_List
         Me.IncludeFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotIncludeFilter = New System.Windows.Forms.ToolStripMenuItem()
         Me.flxDATA = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.V015ZESEIICHIRANBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.lblDEV_FLG = New System.Windows.Forms.Label()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -53,6 +54,7 @@ Partial Class FrmG0030_List
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FlexContextMenu.SuspendLayout()
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.V015ZESEIICHIRANBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblRecordCount
@@ -385,7 +387,7 @@ Partial Class FrmG0030_List
         Me.cmbGEN_TANTO.Name = "cmbGEN_TANTO"
         Me.cmbGEN_TANTO.NullValue = " "
         Me.cmbGEN_TANTO.Size = New System.Drawing.Size(134, 25)
-        Me.cmbGEN_TANTO.TabIndex = 65
+        Me.cmbGEN_TANTO.TabIndex = 4
         Me.cmbGEN_TANTO.ValueMember = "VALUE"
         '
         'chkClosedRowVisibled
@@ -397,7 +399,7 @@ Partial Class FrmG0030_List
         Me.chkClosedRowVisibled.Location = New System.Drawing.Point(643, 3)
         Me.chkClosedRowVisibled.Name = "chkClosedRowVisibled"
         Me.chkClosedRowVisibled.Size = New System.Drawing.Size(113, 21)
-        Me.chkClosedRowVisibled.TabIndex = 18
+        Me.chkClosedRowVisibled.TabIndex = 6
         Me.chkClosedRowVisibled.Text = "Close済も表示"
         Me.chkClosedRowVisibled.UseVisualStyleBackColor = True
         '
@@ -410,9 +412,10 @@ Partial Class FrmG0030_List
         Me.chkTairyu.Location = New System.Drawing.Point(503, 3)
         Me.chkTairyu.Name = "chkTairyu"
         Me.chkTairyu.Size = New System.Drawing.Size(102, 21)
-        Me.chkTairyu.TabIndex = 19
+        Me.chkTairyu.TabIndex = 5
         Me.chkTairyu.Text = "滞留のみ表示"
         Me.chkTairyu.UseVisualStyleBackColor = True
+        Me.chkTairyu.Visible = False
         '
         'chkDeleteRowVisibled
         '
@@ -423,7 +426,7 @@ Partial Class FrmG0030_List
         Me.chkDeleteRowVisibled.Location = New System.Drawing.Point(643, 33)
         Me.chkDeleteRowVisibled.Name = "chkDeleteRowVisibled"
         Me.chkDeleteRowVisibled.Size = New System.Drawing.Size(103, 21)
-        Me.chkDeleteRowVisibled.TabIndex = 17
+        Me.chkDeleteRowVisibled.TabIndex = 7
         Me.chkDeleteRowVisibled.Text = "削除済も表示"
         Me.chkDeleteRowVisibled.UseVisualStyleBackColor = True
         '
@@ -435,7 +438,7 @@ Partial Class FrmG0030_List
         Me.btnClearSrchFilter.Name = "btnClearSrchFilter"
         Me.tlpFilter.SetRowSpan(Me.btnClearSrchFilter, 2)
         Me.btnClearSrchFilter.Size = New System.Drawing.Size(94, 54)
-        Me.btnClearSrchFilter.TabIndex = 20
+        Me.btnClearSrchFilter.TabIndex = 8
         Me.btnClearSrchFilter.Text = "条件クリア"
         Me.btnClearSrchFilter.UseVisualStyleBackColor = True
         '
@@ -526,6 +529,7 @@ Partial Class FrmG0030_List
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.flxDATA.ClipboardCopyMode = C1.Win.C1FlexGrid.ClipboardCopyModeEnum.DataAndColumnHeaders
         Me.flxDATA.ColumnInfo = resources.GetString("flxDATA.ColumnInfo")
+        Me.flxDATA.DataSource = Me.V015ZESEIICHIRANBindingSource
         Me.flxDATA.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.flxDATA.Location = New System.Drawing.Point(12, 154)
         Me.flxDATA.Name = "flxDATA"
@@ -534,6 +538,10 @@ Partial Class FrmG0030_List
         Me.flxDATA.Size = New System.Drawing.Size(1373, 456)
         Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
         Me.flxDATA.TabIndex = 65
+        '
+        'V015ZESEIICHIRANBindingSource
+        '
+        Me.V015ZESEIICHIRANBindingSource.DataSource = GetType(MODEL.V015_ZESEI_ICHIRAN)
         '
         'lblDEV_FLG
         '
@@ -587,6 +595,7 @@ Partial Class FrmG0030_List
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FlexContextMenu.ResumeLayout(False)
         CType(Me.flxDATA, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.V015ZESEIICHIRANBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -613,4 +622,5 @@ Partial Class FrmG0030_List
     Friend WithEvents cmbGEN_TANTO As ComboboxEx
     Friend WithEvents flxDATA As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents lblDEV_FLG As Label
+    Friend WithEvents V015ZESEIICHIRANBindingSource As BindingSource
 End Class
