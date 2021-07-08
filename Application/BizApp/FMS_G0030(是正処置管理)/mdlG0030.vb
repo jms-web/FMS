@@ -1083,7 +1083,7 @@ Module mdlG0030
         End Try
     End Function
 
-    Public Function FunMakeReportFCCB(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean
+    Public Function FunMakeReportZESEI_HASSEI(ByVal strFilePath As String, ByVal strHOKOKU_NO As String) As Boolean
 
         Dim spWorkbook As SpreadsheetGear.IWorkbook
         Dim spWorksheets As SpreadsheetGear.IWorksheets

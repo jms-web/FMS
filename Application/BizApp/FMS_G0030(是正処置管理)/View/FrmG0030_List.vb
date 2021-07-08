@@ -1365,11 +1365,11 @@ Public Class FrmG0030_List
         Dim strTEMPFILE As String
         'Dim intRET As Integer
         Try
-            Dim strHOKOKU_NO As String = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))
+            Dim strHOKOKU_NO As String = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V015_ZESEI_ICHIRAN.HOKOKU_NO))
             Me.Cursor = Cursors.WaitCursor
 
             'ファイル名
-            strOutputFileName = "FCCB_" & strHOKOKU_NO & "_Work.xlsx"
+            strOutputFileName = "ZESEI_" & strHOKOKU_NO & "_Work.xlsx"
 
             '既存ファイル削除
             If FunDELETE_FILE(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName) = False Then
@@ -1377,7 +1377,7 @@ Public Class FrmG0030_List
             End If
 
             Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
-                strTEMPFILE = FunConvRootPath(iniIF.GetIniString("FCCB", "FILEPATH"))
+                strTEMPFILE = FunConvRootPath(iniIF.GetIniString("ZESEI_HASSEI", "FILEPATH"))
             End Using
 
             'エクセル出力ファイル用意
@@ -1385,7 +1385,7 @@ Public Class FrmG0030_List
                 Return False
             End If
             '-----書込処理
-            If FunMakeReportFCCB(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
+            If FunMakeReportZESEI_HASSEI(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
                 Return False
             End If
         Catch ex As Exception

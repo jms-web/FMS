@@ -1300,7 +1300,7 @@ Public Class FrmG0031_EditOverflow
                 Return False
             End If
             '-----èëçûèàóù
-            If FunMakeReportFCCB(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, _D013.HOKOKU_NO) = False Then
+            If FunMakeReportZESEI_HASSEI(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, _D013.HOKOKU_NO) = False Then
                 Return False
             End If
 

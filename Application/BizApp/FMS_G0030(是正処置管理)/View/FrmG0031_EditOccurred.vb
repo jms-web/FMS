@@ -238,7 +238,7 @@ Public Class FrmG0031_EditOccurred
 
                         If MessageBox.Show(strMsg, "承認・申請処理確認", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = DialogResult.Yes Then
                             If FunSAVE(ENM_SAVE_MODE._2_承認申請) Then
-                                If PrCurrentStage = ENM_ZESEI_STAGE._50_要求元完了確認 Then
+                                If PrCurrentStage = ENM_ZESEI_STAGE._52_要求元完了確認_認可 Then
                                     strMsg = "承認・CLOSEしました"
                                 Else
                                     strMsg = "承認・申請しました"
@@ -501,6 +501,22 @@ Public Class FrmG0031_EditOccurred
         Dim dt As DateTime
         If DateTime.TryParse(_D013.KAITOU_KIBOU_YMD, dt) Then
             _D013.KAITOU_KIBOU_YMD = CDate(_D013.KAITOU_KIBOU_YMD).ToString("yyyyMMdd")
+        End If
+        If DateTime.TryParse(_D013.KAITOU_YMD, dt) Then
+            _D013.KAITOU_YMD = CDate(_D013.KAITOU_YMD).ToString("yyyyMMdd")
+        End If
+
+        If DateTime.TryParse(_D013.OUKYU_SYOCHI_YMD, dt) Then
+            _D013.OUKYU_SYOCHI_YMD = CDate(_D013.OUKYU_SYOCHI_YMD).ToString("yyyyMMdd")
+        End If
+        If DateTime.TryParse(_D013.OUKYU_SYOCHI_YOTEI_YMD, dt) Then
+            _D013.OUKYU_SYOCHI_YOTEI_YMD = CDate(_D013.OUKYU_SYOCHI_YOTEI_YMD).ToString("yyyyMMdd")
+        End If
+        If DateTime.TryParse(_D013.ZESEI_SYOCHI_YMD, dt) Then
+            _D013.ZESEI_SYOCHI_YMD = CDate(_D013.ZESEI_SYOCHI_YMD).ToString("yyyyMMdd")
+        End If
+        If DateTime.TryParse(_D013.ZESEI_SYOCHI_YOTEI_YMD, dt) Then
+            _D013.ZESEI_SYOCHI_YOTEI_YMD = CDate(_D013.ZESEI_SYOCHI_YOTEI_YMD).ToString("yyyyMMdd")
         End If
 
 #End Region
@@ -829,144 +845,20 @@ Public Class FrmG0031_EditOccurred
                                                                    Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).
                                                                    FirstOrDefault?.Item("DISP")
 
-            Dim strEXEParam As String = $"{_D004_SYONIN_J_KANRI.SYAIN_ID},{ENM_OPEN_MODE._2_処置画面起動.Value},{Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value},{_D004_SYONIN_J_KANRI.HOKOKU_NO}"
+            Dim strEXEParam As String = $"{_D004_SYONIN_J_KANRI.SYAIN_ID},{ENM_OPEN_MODE._2_処置画面起動.Value},{Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value},{_D004_SYONIN_J_KANRI.HOKOKU_NO}"
             Dim strSubject As String = $"【是正処置依頼】:{_D004_SYONIN_J_KANRI.HOKOKU_NO}"
             Dim ToUsers As New List(Of Integer)
 
-            'Select Case PrCurrentStage
-            '    Case ENM_FCCB_STAGE._10_起草入力
-            '        'Dim dt = FunGetSYONIN_SYOZOKU_SYAIN(_D009.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB, ENM_FCCB_STAGE._20_処置事項調査等)
-            '        'ToUsers = dt.AsEnumerable.Select(Function(r) r.Field(Of Integer)("VALUE")).ToList
-
-            '        '部門の役職区分GL、TL全員へ
-            '        ToUsers.AddRange(GetTLGLUsers(_D009.BUMON_KB))
-            '    Case ENM_FCCB_STAGE._20_処置事項調査等
-
-            '        ToUsers.Add(_D009.CM_TANTO)
-
-            '    Case ENM_FCCB_STAGE._30_変更審議
-            '        If cmbSYOCHI_SEKKEI_TANTO.IsSelected Then
-            '            ToUsers.Add(cmbSYOCHI_SEKKEI_TANTO.SelectedValue)
-            '        End If
-            '        If cmbSYOCHI_SEIGI_TANTO.IsSelected Then
-            '            ToUsers.Add(cmbSYOCHI_SEIGI_TANTO.SelectedValue)
-            '        End If
-            '        If cmbSYOCHI_EIGYO_TANTO.IsSelected Then
-            '            ToUsers.Add(cmbSYOCHI_EIGYO_TANTO.SelectedValue)
-            '        End If
-            '        If cmbSYOCHI_KANRI_TANTO.IsSelected Then
-            '            ToUsers.Add(cmbSYOCHI_KANRI_TANTO.SelectedValue)
-            '        End If
-            '        If cmbSYOCHI_SEIZO_TANTO.IsSelected Then
-            '            ToUsers.Add(cmbSYOCHI_SEIZO_TANTO.SelectedValue)
-            '        End If
-            '        If cmbSYOCHI_HINSYO_TANTO.IsSelected Then
-            '            ToUsers.Add(cmbSYOCHI_HINSYO_TANTO.SelectedValue)
-            '        End If
-
-            '    Case ENM_FCCB_STAGE._40_処置確認
-
-            '        Dim IsAllChecked As Boolean = True
-            '        If cmbSYOCHI_SEKKEI_TANTO.IsSelected AndAlso dtSYOCHI_SEKKEI_TANTO.Text.IsNulOrWS Then
-            '            IsAllChecked *= False
-            '        End If
-            '        If cmbSYOCHI_SEIGI_TANTO.IsSelected AndAlso dtSYOCHI_SEIGI_TANTO.Text.IsNulOrWS Then
-            '            IsAllChecked *= False
-            '        End If
-            '        If cmbSYOCHI_EIGYO_TANTO.IsSelected AndAlso dtSYOCHI_EIGYO_TANTO.Text.IsNulOrWS Then
-            '            IsAllChecked *= False
-            '        End If
-            '        If cmbSYOCHI_KANRI_TANTO.IsSelected AndAlso dtSYOCHI_KANRI_TANTO.Text.IsNulOrWS Then
-            '            IsAllChecked *= False
-            '        End If
-            '        If cmbSYOCHI_SEIZO_TANTO.IsSelected AndAlso dtSYOCHI_SEIZO_TANTO.Text.IsNulOrWS Then
-            '            IsAllChecked *= False
-            '        End If
-            '        If cmbSYOCHI_HINSYO_TANTO.IsSelected AndAlso dtSYOCHI_HINSYO_TANTO.Text.IsNulOrWS Then
-            '            IsAllChecked *= False
-            '        End If
-            '        If IsAllChecked AndAlso dtSYOCHI_GM_TANTO.Text.IsNulOrWS Then
-            '            '全ての担当者のチェックが完了したら統括責任者に依頼送信
-            '            ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
-            '        Else
-            '            '統括責任者のチェックも完了したら、各要処置事項の担当者に依頼送信
-            '            Dim targetUsers = DirectCast(Flx2_DS.DataSource, DataTable).
-            '                                    AsEnumerable.
-            '                                    Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) And Not r.Item(NameOf(D010.YOTEI_YMD)).ToString.IsNulOrWS).
-            '                                    Select(Function(r) r.Field(Of Integer)(NameOf(D010.TANTO_ID)))
-
-            '            For Each usr In targetUsers
-            '                If Not ToUsers.Contains(usr) Then
-            '                    ToUsers.Add(usr)
-            '                End If
-            '            Next
-
-            '            targetUsers = DirectCast(Flx3_DS.DataSource, DataTable).
-            '                                    AsEnumerable.
-            '                                    Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) And Not r.Item(NameOf(D010.YOTEI_YMD)).ToString.IsNulOrWS).
-            '                                    Select(Function(r) r.Field(Of Integer)(NameOf(D010.TANTO_ID)))
-
-            '            For Each usr In targetUsers
-            '                If Not ToUsers.Contains(usr) Then
-            '                    ToUsers.Add(usr)
-            '                End If
-            '            Next
-
-            '            targetUsers = DirectCast(Flx4_DS.DataSource, DataTable).
-            '                                    AsEnumerable.
-            '                                    Where(Function(r) Not r.Item(NameOf(D011.YOTEI_YMD)).ToString.IsNulOrWS).
-            '                                    Select(Function(r) r.Field(Of Integer)(NameOf(D011.TANTO_ID)))
-
-            '            For Each usr In targetUsers
-            '                If Not ToUsers.Contains(usr) Then
-            '                    ToUsers.Add(usr)
-            '                End If
-            '            Next
-            '        End If
-
-            '    Case ENM_FCCB_STAGE._50_処置事項完了
-            '        '裏処理にて各要処置事項の完了日の1週間前になっても未処置の場合、処置担当者に滞留通知
-
-            '        '申請条件のチェック
-            '        Dim IsClosed As Boolean = True
-            '        IsClosed *= DirectCast(Flx2_DS.DataSource, DataTable).
-            '                                   AsEnumerable.
-            '                                   Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) And r.Item(NameOf(D010.CLOSE_YMD)).ToString.IsNulOrWS).Count = 0
-
-            '        IsClosed *= DirectCast(Flx3_DS.DataSource, DataTable).
-            '                                AsEnumerable.
-            '                                Where(Function(r) r.Field(Of Boolean)(NameOf(D010.YOHI_KB)) And r.Item(NameOf(D010.CLOSE_YMD)).ToString.IsNulOrWS).Count = 0
-
-            '        IsClosed *= DirectCast(Flx4_DS.DataSource, DataTable).
-            '                                AsEnumerable.
-            '                                Where(Function(r) Not r.Item(NameOf(D011.YOTEI_YMD)).ToString.IsNulOrWS And r.Item(NameOf(D011.CLOSE_YMD)).ToString.IsNulOrWS).Count = 0
-
-            '        '全要処置事項の処置完了
-            '        If IsClosed Then
-            '            'FCCB議長に依頼通知
-            '            If dtKAKUNIN_CM_TANTO.Text.IsNulOrWS Then
-            '                ToUsers.Add(_D009.CM_TANTO)
-            '            Else
-            '                ToUsers.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
-            '            End If
-            '        End If
-
-            '    Case Else
-            '        Throw New ArgumentException("想定外の承認ルートです", PrCurrentStage)
-            'End Select
+            ToUsers.Add(_D004_SYONIN_J_KANRI.SYAIN_ID)
 
             Dim strBody As String = <sql><![CDATA[
                 {0}<br />
                 <br />
-        　        FCCB記録書の処置内容の確認と承認をお願いします。<br />
-                <br />
-        　　        【報 告 書】FCCB<br />
-        　　        【FCCB-No】{1}<br />
-        　　        【起 草 日】{2}<br />
-        　　        【機　  種】{3}<br />
-        　　        【依 頼 者】{5}<br />
-        　　        【依頼者処置内容】{6}<br />
-        　　        【コメント】{7}<br />
+        　        是正処置要求書の処置内容の確認と承認をお願いします。<br />
+                <br />        　　
+        　　        【報告書No】{1}<br />
+        　　        【起 草 日】{2}<br />        　　
+        　　        【依 頼 者】{5}<br />        　　
                 <br />
                 <a href = "http://sv04:8000/CLICKONCE_FMS.application" > システム起動</a><br />
                 <br />
@@ -1240,7 +1132,7 @@ Public Class FrmG0031_EditOccurred
                 Return False
             End If
             '-----書込処理
-            If FunMakeReportFCCB(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, _D013.HOKOKU_NO) = False Then
+            If FunMakeReportZESEI_HASSEI(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, _D013.HOKOKU_NO) = False Then
                 Return False
             End If
 
@@ -1779,7 +1671,7 @@ Public Class FrmG0031_EditOccurred
             cmbBUMON.SetDataSource(tblBUMON, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
             '現行ステージ名
-            lblCurrentStageName.Text = FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI, _D013.HOKOKU_NO)
+            lblCurrentStageName.Text = If(PrHOKOKU_NO.IsNulOrWS, "ST01.起草", FunGetLastStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI, PrHOKOKU_NO))
 
             Select Case intMODE
                 Case ENM_DATA_OPERATION_MODE._1_ADD
@@ -1914,6 +1806,51 @@ Public Class FrmG0031_EditOccurred
                     End Select
                 End If
             Next p
+
+#End Region
+
+#Region "添付資料"
+
+            Dim strRootDir As String
+            Using DB As ClsDbUtility = DBOpen()
+                strRootDir = FunConvPathString(FunGetCodeMastaValue(DB, "添付ファイル保存先", My.Application.Info.AssemblyName))
+            End Using
+
+            If Not _D013.FILE_PATH1.IsNulOrWS Then
+                lbltmpFile1.Text = CompactString(_D013.FILE_PATH1, lbltmpFile1, EllipsisFormat._4_Path)
+                lbltmpFile1.Links.Clear()
+                lbltmpFile1.Links.Add(0, lbltmpFile1.Text.Length, strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH1)
+                lbltmpFile1.Visible = True
+                lbltmpFile1_Clear.Visible = True
+            End If
+            If Not _D013.FILE_PATH2.IsNulOrWS Then
+                lbltmpFile2.Text = CompactString(_D013.FILE_PATH2, lbltmpFile2, EllipsisFormat._4_Path)
+                lbltmpFile2.Links.Clear()
+                lbltmpFile2.Links.Add(0, lbltmpFile2.Text.Length, strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH2)
+                lbltmpFile2.Visible = True
+                lbltmpFile2_Clear.Visible = True
+            End If
+            If Not _D013.FILE_PATH3.IsNulOrWS Then
+                lbltmpFile3.Text = CompactString(_D013.FILE_PATH3, lbltmpFile3, EllipsisFormat._4_Path)
+                lbltmpFile3.Links.Clear()
+                lbltmpFile3.Links.Add(0, lbltmpFile3.Text.Length, strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH3)
+                lbltmpFile3.Visible = True
+                lbltmpFile3_Clear.Visible = True
+            End If
+            If Not _D013.FILE_PATH4.IsNulOrWS Then
+                lbltmpFile4.Text = CompactString(_D013.FILE_PATH4, lbltmpFile4, EllipsisFormat._4_Path)
+                lbltmpFile4.Links.Clear()
+                lbltmpFile4.Links.Add(0, lbltmpFile4.Text.Length, strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH4)
+                lbltmpFile4.Visible = True
+                lbltmpFile4_Clear.Visible = True
+            End If
+            If Not _D013.FILE_PATH5.IsNulOrWS Then
+                lbltmpFile5.Text = CompactString(_D013.FILE_PATH5, lbltmpFile5, EllipsisFormat._4_Path)
+                lbltmpFile5.Links.Clear()
+                lbltmpFile5.Links.Add(0, lbltmpFile5.Text.Length, strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH5)
+                lbltmpFile5.Visible = True
+                lbltmpFile5_Clear.Visible = True
+            End If
 
 #End Region
 
@@ -2060,16 +1997,36 @@ Public Class FrmG0031_EditOccurred
             If intStageID >= ENM_ZESEI_STAGE._20_是正処置入力 Then
                 pnlST02.Visible = True
 
+                If _D013.FUTEKIGO_UMU Then
+                    rbtnST02_FUTEKIGO_YES.Checked = True
+                Else
+                    rbtnST02_FUTEKIGO_NO.Checked = True
+                End If
+
+                If _D013.JINTEKI_YOUIN_UMU Then
+                    rbtnFUTEKIGO_YOUIN_T.Checked = True
+                Else
+                    rbtnFUTEKIGO_YOUIN_F.Checked = True
+                End If
+
 #Region "           承認担当者"
 
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._20_是正処置入力)
+                If dtUser IsNot Nothing Then
+                    InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_技術.Value, ENM_GYOMU_GROUP_ID._2_製造.Value, ENM_GYOMU_GROUP_ID._7_管理.Value, ENM_GYOMU_GROUP_ID._8_営業.Value})
+                    drs = dtUser.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
+                End If
+                If drs IsNot Nothing Then dt.Merge(drs.CopyToDataTable)
                 cmbST02_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._21_是正処置入力_点検)
+                If drs IsNot Nothing Then dt.Merge(drs.CopyToDataTable)
                 cmbST02_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._22_是正処置入力_認可)
+                cmbST02_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 Dim IsHinsyo = FunGetSYOZOKU_SYAIN(cmbBUMON.SelectedValue).
-                                    AsEnumerable.
-                                    Any(Function(r) r.Item("GYOMU_GROUP_ID") = ENM_GYOMU_GROUP_ID._4_品証 And r.Item("VALUE") = cmbST02_SAKUSEI_TANTO.SelectedValue)
+                                AsEnumerable.
+                                Any(Function(r) r.Item("GYOMU_GROUP_ID") = ENM_GYOMU_GROUP_ID._4_品証 And r.Item("VALUE") = cmbST02_SAKUSEI_TANTO.SelectedValue)
 
                 V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._20_是正処置入力).FirstOrDefault
                 If V003 IsNot Nothing Then
@@ -2119,12 +2076,12 @@ Public Class FrmG0031_EditOccurred
 #Region "           差し戻し理由"
 
                 _V003List = _V003_SYONIN_J_KANRI_List.AsEnumerable.
-                        Where(Function(r) r.SYONIN_JUN >= ENM_ZESEI_STAGE._20_是正処置入力 And r.SYONIN_JUN < ENM_ZESEI_STAGE._30_処置結果入力).ToList
+                    Where(Function(r) r.SYONIN_JUN >= ENM_ZESEI_STAGE._20_是正処置入力 And r.SYONIN_JUN < ENM_ZESEI_STAGE._30_処置結果入力).ToList
 
                 If _V003List.Count > 0 Then
                     V003 = _V003List.Where(Function(r) r.SASIMODOSI_FG And r.RIYU.ToString.Trim.IsNulOrWS).
-                                                        OrderBy(Function(r) r.SYONIN_JUN).
-                                                        FirstOrDefault
+                                                    OrderBy(Function(r) r.SYONIN_JUN).
+                                                    FirstOrDefault
 
                     If V003 IsNot Nothing Then
                         lblST02_Modoshi_Riyu.Text = $"差戻理由：{V003.RIYU}"
@@ -2192,6 +2149,12 @@ Public Class FrmG0031_EditOccurred
 
             If intStageID >= ENM_ZESEI_STAGE._40_処置結果レビュー Then
                 pnlST04.Visible = True
+
+                If _D013.ZESEI_SYOCHI_HANTEI Then
+                    rbtnZESEI_SYOCHI_YES.Checked = True
+                Else
+                    rbtnZESEI_SYOCHI_NO.Checked = True
+                End If
 
 #Region "           承認担当者"
 
@@ -2622,7 +2585,7 @@ Public Class FrmG0031_EditOccurred
     '添付ファイル選択
     Private Sub BtnOpenTempFileDialog_Click(sender As Object, e As EventArgs) Handles btnOpenTempFileDialog.Click
         Dim ofd As New OpenFileDialog With {
-            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
+            .Filter = "すべてのファイル(*.*)|*.*|Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx",
             .FilterIndex = 1,
             .Title = "添付するファイルを選択してください",
             .RestoreDirectory = True
@@ -2701,7 +2664,7 @@ Public Class FrmG0031_EditOccurred
     '添付ファイル選択
     Private Sub BtnOpenTempFileDialog2_Click(sender As Object, e As EventArgs) Handles btnOpenTempFileDialog2.Click
         Dim ofd As New OpenFileDialog With {
-            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
+            .Filter = "すべてのファイル(*.*)|*.*|Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx",
             .FilterIndex = 1,
             .Title = "添付するファイルを選択してください",
             .RestoreDirectory = True
@@ -2772,7 +2735,7 @@ Public Class FrmG0031_EditOccurred
     '添付ファイル選択
     Private Sub BtnOpenTempFileDialog3_Click(sender As Object, e As EventArgs) Handles btnOpenTempFileDialog3.Click
         Dim ofd As New OpenFileDialog With {
-            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
+            .Filter = "すべてのファイル(*.*)|*.*|Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx",
             .FilterIndex = 1,
             .Title = "添付するファイルを選択してください",
             .RestoreDirectory = True
@@ -2843,7 +2806,7 @@ Public Class FrmG0031_EditOccurred
     '添付ファイル選択
     Private Sub BtnOpenTempFileDialog4_Click(sender As Object, e As EventArgs) Handles btnOpenTempFileDialog4.Click
         Dim ofd As New OpenFileDialog With {
-            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
+            .Filter = "すべてのファイル(*.*)|*.*|Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx",
             .FilterIndex = 1,
             .Title = "添付するファイルを選択してください",
             .RestoreDirectory = True
@@ -2914,7 +2877,7 @@ Public Class FrmG0031_EditOccurred
     '添付ファイル選択
     Private Sub BtnOpenTempFileDialog5_Click(sender As Object, e As EventArgs) Handles btnOpenTempFileDialog5.Click
         Dim ofd As New OpenFileDialog With {
-            .Filter = "Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx|すべてのファイル(*.*)|*.*",
+            .Filter = "すべてのファイル(*.*)|*.*|Excel(*.xls;*.xlsx)|*.xls;*.xlsx|Word(*.doc;*.docx)|*.doc;*.docx",
             .FilterIndex = 1,
             .Title = "添付するファイルを選択してください",
             .RestoreDirectory = True
@@ -2984,6 +2947,10 @@ Public Class FrmG0031_EditOccurred
         lbltmpFile5.Links.Clear()
         lbltmpFile5.Visible = False
         lbltmpFile5_Clear.Visible = False
+    End Sub
+
+    Private Sub chkST02_FUTEKIGO_UMU_CheckedChanged_1(sender As Object, e As EventArgs) Handles chkST02_FUTEKIGO_UMU.CheckedChanged
+
     End Sub
 
 #End Region

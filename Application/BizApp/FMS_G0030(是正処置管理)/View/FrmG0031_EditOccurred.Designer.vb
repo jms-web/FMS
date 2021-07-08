@@ -44,7 +44,6 @@ Partial Class FrmG0031_EditOccurred
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.TabPageEx1 = New JMS_COMMON.TabPageEx()
         Me.pnlST02 = New JMS_COMMON.PanelEx()
-        Me.chkJINTEKI_YOUIN_UMU = New System.Windows.Forms.CheckBox()
         Me.dtOUKYU_SYOCHI_YOTEI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label58 = New System.Windows.Forms.Label()
         Me.pnlST02_HINSYO = New System.Windows.Forms.TableLayoutPanel()
@@ -121,6 +120,7 @@ Partial Class FrmG0031_EditOccurred
         Me.txtFUTEKIGO_TAISYOU = New JMS_COMMON.TextBoxEx()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
+        Me.chkJINTEKI_YOUIN_UMU = New System.Windows.Forms.CheckBox()
         Me.pnlST01 = New JMS_COMMON.PanelEx()
         Me.dtKAITOU_KIBOU_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label56 = New System.Windows.Forms.Label()
@@ -334,7 +334,7 @@ Partial Class FrmG0031_EditOccurred
         'cmdFunc5
         '
         Me.cmdFunc5.Image = Global.FMS.My.Resources.Resources._imgUndo32x32
-        Me.cmdFunc5.Location = New System.Drawing.Point(555, 641)
+        Me.cmdFunc5.Location = New System.Drawing.Point(556, 641)
         Me.cmdFunc5.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc5.Text = "差戻し(F5)"
         '
@@ -345,6 +345,7 @@ Partial Class FrmG0031_EditOccurred
         '
         'cmdFunc12
         '
+        Me.cmdFunc12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdFunc12.Image = Global.FMS.My.Resources.Resources._imgLog_Out32x32
         Me.cmdFunc12.Location = New System.Drawing.Point(1101, 641)
         Me.cmdFunc12.Size = New System.Drawing.Size(156, 42)
@@ -352,6 +353,7 @@ Partial Class FrmG0031_EditOccurred
         '
         'cmdFunc11
         '
+        Me.cmdFunc11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdFunc11.Image = Global.FMS.My.Resources.Resources.履歴
         Me.cmdFunc11.Location = New System.Drawing.Point(919, 641)
         Me.cmdFunc11.Size = New System.Drawing.Size(156, 42)
@@ -805,7 +807,6 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.pnlST02.BackColor = System.Drawing.Color.White
         Me.pnlST02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlST02.Controls.Add(Me.chkJINTEKI_YOUIN_UMU)
         Me.pnlST02.Controls.Add(Me.dtOUKYU_SYOCHI_YOTEI_YMD)
         Me.pnlST02.Controls.Add(Me.Label58)
         Me.pnlST02.Controls.Add(Me.pnlST02_HINSYO)
@@ -834,6 +835,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST02.Controls.Add(Me.txtFUTEKIGO_TAISYOU)
         Me.pnlST02.Controls.Add(Me.Label27)
         Me.pnlST02.Controls.Add(Me.Label28)
+        Me.pnlST02.Controls.Add(Me.chkJINTEKI_YOUIN_UMU)
         Me.pnlST02.HitEnabled = False
         Me.pnlST02.Location = New System.Drawing.Point(2, 508)
         Me.pnlST02.Margin = New System.Windows.Forms.Padding(2)
@@ -841,17 +843,6 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST02.Size = New System.Drawing.Size(1209, 816)
         Me.pnlST02.TabIndex = 329
         Me.pnlST02.Visible = False
-        '
-        'chkJINTEKI_YOUIN_UMU
-        '
-        Me.chkJINTEKI_YOUIN_UMU.AutoSize = True
-        Me.chkJINTEKI_YOUIN_UMU.Location = New System.Drawing.Point(541, 501)
-        Me.chkJINTEKI_YOUIN_UMU.Name = "chkJINTEKI_YOUIN_UMU"
-        Me.chkJINTEKI_YOUIN_UMU.Size = New System.Drawing.Size(165, 21)
-        Me.chkJINTEKI_YOUIN_UMU.TabIndex = 355
-        Me.chkJINTEKI_YOUIN_UMU.Text = "JINTEKI_YOUIN_UMU"
-        Me.chkJINTEKI_YOUIN_UMU.UseVisualStyleBackColor = True
-        Me.chkJINTEKI_YOUIN_UMU.Visible = False
         '
         'dtOUKYU_SYOCHI_YOTEI_YMD
         '
@@ -909,7 +900,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.cmbST02_HINSYO_NINKA_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST02_HINSYO_NINKA_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST02_HINSYO_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbST02_HINSYO_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST02_HINSYO_NINKA_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST02_HINSYO_NINKA_TANTO.DisplayMember = "DISP"
         Me.cmbST02_HINSYO_NINKA_TANTO.DropDownWidth = 140
@@ -918,11 +909,10 @@ Partial Class FrmG0031_EditOccurred
         Me.cmbST02_HINSYO_NINKA_TANTO.FormattingEnabled = True
         Me.cmbST02_HINSYO_NINKA_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST02_HINSYO_NINKA_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST02_HINSYO_NINKA_TANTO.IsSelected = True
+        Me.cmbST02_HINSYO_NINKA_TANTO.IsSelected = False
         Me.cmbST02_HINSYO_NINKA_TANTO.Location = New System.Drawing.Point(3, 23)
         Me.cmbST02_HINSYO_NINKA_TANTO.Name = "cmbST02_HINSYO_NINKA_TANTO"
         Me.cmbST02_HINSYO_NINKA_TANTO.NullValue = " "
-        Me.cmbST02_HINSYO_NINKA_TANTO.ReadOnly = True
         Me.cmbST02_HINSYO_NINKA_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST02_HINSYO_NINKA_TANTO.TabIndex = 1
         Me.cmbST02_HINSYO_NINKA_TANTO.Text = "(選択)"
@@ -957,7 +947,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.cmbST02_HINSYO_TENKEN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST02_HINSYO_TENKEN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST02_HINSYO_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbST02_HINSYO_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST02_HINSYO_TENKEN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST02_HINSYO_TENKEN_TANTO.DisplayMember = "DISP"
         Me.cmbST02_HINSYO_TENKEN_TANTO.DropDownWidth = 140
@@ -966,11 +956,10 @@ Partial Class FrmG0031_EditOccurred
         Me.cmbST02_HINSYO_TENKEN_TANTO.FormattingEnabled = True
         Me.cmbST02_HINSYO_TENKEN_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST02_HINSYO_TENKEN_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST02_HINSYO_TENKEN_TANTO.IsSelected = True
+        Me.cmbST02_HINSYO_TENKEN_TANTO.IsSelected = False
         Me.cmbST02_HINSYO_TENKEN_TANTO.Location = New System.Drawing.Point(121, 23)
         Me.cmbST02_HINSYO_TENKEN_TANTO.Name = "cmbST02_HINSYO_TENKEN_TANTO"
         Me.cmbST02_HINSYO_TENKEN_TANTO.NullValue = " "
-        Me.cmbST02_HINSYO_TENKEN_TANTO.ReadOnly = True
         Me.cmbST02_HINSYO_TENKEN_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST02_HINSYO_TENKEN_TANTO.TabIndex = 3
         Me.cmbST02_HINSYO_TENKEN_TANTO.Text = "(選択)"
@@ -1230,7 +1219,6 @@ Partial Class FrmG0031_EditOccurred
         Me.pnl_FUTEKIGO_YOUIN.Name = "pnl_FUTEKIGO_YOUIN"
         Me.pnl_FUTEKIGO_YOUIN.Size = New System.Drawing.Size(86, 29)
         Me.pnl_FUTEKIGO_YOUIN.TabIndex = 8
-        Me.pnl_FUTEKIGO_YOUIN.Visible = False
         '
         'rbtnFUTEKIGO_YOUIN_F
         '
@@ -1330,7 +1318,6 @@ Partial Class FrmG0031_EditOccurred
         Me.txtEIKYOU_HANI.ShowRemainingChars = True
         Me.txtEIKYOU_HANI.Size = New System.Drawing.Size(185, 24)
         Me.txtEIKYOU_HANI.TabIndex = 5
-        Me.txtEIKYOU_HANI.Visible = False
         Me.txtEIKYOU_HANI.WatermarkColor = System.Drawing.Color.Empty
         Me.txtEIKYOU_HANI.WatermarkText = Nothing
         '
@@ -1389,7 +1376,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.cmbST02_NINKA_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST02_NINKA_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST02_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbST02_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST02_NINKA_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST02_NINKA_TANTO.DisplayMember = "DISP"
         Me.cmbST02_NINKA_TANTO.DropDownWidth = 140
@@ -1398,11 +1385,10 @@ Partial Class FrmG0031_EditOccurred
         Me.cmbST02_NINKA_TANTO.FormattingEnabled = True
         Me.cmbST02_NINKA_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST02_NINKA_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST02_NINKA_TANTO.IsSelected = True
+        Me.cmbST02_NINKA_TANTO.IsSelected = False
         Me.cmbST02_NINKA_TANTO.Location = New System.Drawing.Point(3, 23)
         Me.cmbST02_NINKA_TANTO.Name = "cmbST02_NINKA_TANTO"
         Me.cmbST02_NINKA_TANTO.NullValue = " "
-        Me.cmbST02_NINKA_TANTO.ReadOnly = True
         Me.cmbST02_NINKA_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST02_NINKA_TANTO.TabIndex = 1
         Me.cmbST02_NINKA_TANTO.Text = "(選択)"
@@ -1449,7 +1435,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.cmbST02_TENKEN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST02_TENKEN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST02_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbST02_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST02_TENKEN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST02_TENKEN_TANTO.DisplayMember = "DISP"
         Me.cmbST02_TENKEN_TANTO.DropDownWidth = 140
@@ -1458,11 +1444,10 @@ Partial Class FrmG0031_EditOccurred
         Me.cmbST02_TENKEN_TANTO.FormattingEnabled = True
         Me.cmbST02_TENKEN_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST02_TENKEN_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST02_TENKEN_TANTO.IsSelected = True
+        Me.cmbST02_TENKEN_TANTO.IsSelected = False
         Me.cmbST02_TENKEN_TANTO.Location = New System.Drawing.Point(121, 23)
         Me.cmbST02_TENKEN_TANTO.Name = "cmbST02_TENKEN_TANTO"
         Me.cmbST02_TENKEN_TANTO.NullValue = " "
-        Me.cmbST02_TENKEN_TANTO.ReadOnly = True
         Me.cmbST02_TENKEN_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST02_TENKEN_TANTO.TabIndex = 3
         Me.cmbST02_TENKEN_TANTO.Text = "(選択)"
@@ -1472,7 +1457,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.cmbST02_SAKUSEI_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST02_SAKUSEI_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST02_SAKUSEI_TANTO.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbST02_SAKUSEI_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST02_SAKUSEI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST02_SAKUSEI_TANTO.DisplayMember = "DISP"
         Me.cmbST02_SAKUSEI_TANTO.DropDownWidth = 140
@@ -1481,11 +1466,10 @@ Partial Class FrmG0031_EditOccurred
         Me.cmbST02_SAKUSEI_TANTO.FormattingEnabled = True
         Me.cmbST02_SAKUSEI_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST02_SAKUSEI_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST02_SAKUSEI_TANTO.IsSelected = True
+        Me.cmbST02_SAKUSEI_TANTO.IsSelected = False
         Me.cmbST02_SAKUSEI_TANTO.Location = New System.Drawing.Point(239, 23)
         Me.cmbST02_SAKUSEI_TANTO.Name = "cmbST02_SAKUSEI_TANTO"
         Me.cmbST02_SAKUSEI_TANTO.NullValue = " "
-        Me.cmbST02_SAKUSEI_TANTO.ReadOnly = True
         Me.cmbST02_SAKUSEI_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST02_SAKUSEI_TANTO.TabIndex = 5
         Me.cmbST02_SAKUSEI_TANTO.Text = "(選択)"
@@ -1847,13 +1831,12 @@ Partial Class FrmG0031_EditOccurred
         'chkST02_FUTEKIGO_UMU
         '
         Me.chkST02_FUTEKIGO_UMU.AutoSize = True
-        Me.chkST02_FUTEKIGO_UMU.Location = New System.Drawing.Point(227, 242)
+        Me.chkST02_FUTEKIGO_UMU.Location = New System.Drawing.Point(152, 204)
         Me.chkST02_FUTEKIGO_UMU.Name = "chkST02_FUTEKIGO_UMU"
         Me.chkST02_FUTEKIGO_UMU.Size = New System.Drawing.Size(189, 21)
         Me.chkST02_FUTEKIGO_UMU.TabIndex = 339
         Me.chkST02_FUTEKIGO_UMU.Text = "ZESEI_SYOCHI_YOHI_KB"
         Me.chkST02_FUTEKIGO_UMU.UseVisualStyleBackColor = True
-        Me.chkST02_FUTEKIGO_UMU.Visible = False
         '
         'pnlST04_ZESEI
         '
@@ -2026,6 +2009,16 @@ Partial Class FrmG0031_EditOccurred
         Me.Label28.TabIndex = 125
         Me.Label28.Text = "(2)発生原因(要因分析と根本原因究明)　人的要因　　　　　　　　　　　　(有の場合は以下に内容を記入)"
         Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'chkJINTEKI_YOUIN_UMU
+        '
+        Me.chkJINTEKI_YOUIN_UMU.AutoSize = True
+        Me.chkJINTEKI_YOUIN_UMU.Location = New System.Drawing.Point(357, 502)
+        Me.chkJINTEKI_YOUIN_UMU.Name = "chkJINTEKI_YOUIN_UMU"
+        Me.chkJINTEKI_YOUIN_UMU.Size = New System.Drawing.Size(165, 21)
+        Me.chkJINTEKI_YOUIN_UMU.TabIndex = 355
+        Me.chkJINTEKI_YOUIN_UMU.Text = "JINTEKI_YOUIN_UMU"
+        Me.chkJINTEKI_YOUIN_UMU.UseVisualStyleBackColor = True
         '
         'pnlST01
         '
@@ -2913,7 +2906,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.cmbST05_NINKA_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST05_NINKA_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST05_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbST05_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST05_NINKA_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST05_NINKA_TANTO.DisplayMember = "DISP"
         Me.cmbST05_NINKA_TANTO.DropDownWidth = 140
@@ -2922,11 +2915,10 @@ Partial Class FrmG0031_EditOccurred
         Me.cmbST05_NINKA_TANTO.FormattingEnabled = True
         Me.cmbST05_NINKA_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST05_NINKA_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST05_NINKA_TANTO.IsSelected = True
+        Me.cmbST05_NINKA_TANTO.IsSelected = False
         Me.cmbST05_NINKA_TANTO.Location = New System.Drawing.Point(3, 23)
         Me.cmbST05_NINKA_TANTO.Name = "cmbST05_NINKA_TANTO"
         Me.cmbST05_NINKA_TANTO.NullValue = " "
-        Me.cmbST05_NINKA_TANTO.ReadOnly = True
         Me.cmbST05_NINKA_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST05_NINKA_TANTO.TabIndex = 1
         Me.cmbST05_NINKA_TANTO.Text = "(選択)"
@@ -2973,7 +2965,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.cmbST05_TENKEN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST05_TENKEN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST05_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbST05_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST05_TENKEN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST05_TENKEN_TANTO.DisplayMember = "DISP"
         Me.cmbST05_TENKEN_TANTO.DropDownWidth = 140
@@ -2982,11 +2974,10 @@ Partial Class FrmG0031_EditOccurred
         Me.cmbST05_TENKEN_TANTO.FormattingEnabled = True
         Me.cmbST05_TENKEN_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST05_TENKEN_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST05_TENKEN_TANTO.IsSelected = True
+        Me.cmbST05_TENKEN_TANTO.IsSelected = False
         Me.cmbST05_TENKEN_TANTO.Location = New System.Drawing.Point(121, 23)
         Me.cmbST05_TENKEN_TANTO.Name = "cmbST05_TENKEN_TANTO"
         Me.cmbST05_TENKEN_TANTO.NullValue = " "
-        Me.cmbST05_TENKEN_TANTO.ReadOnly = True
         Me.cmbST05_TENKEN_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST05_TENKEN_TANTO.TabIndex = 3
         Me.cmbST05_TENKEN_TANTO.Text = "(選択)"
@@ -2996,7 +2987,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.cmbST05_SAKUSEI_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST05_SAKUSEI_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST05_SAKUSEI_TANTO.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbST05_SAKUSEI_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST05_SAKUSEI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST05_SAKUSEI_TANTO.DisplayMember = "DISP"
         Me.cmbST05_SAKUSEI_TANTO.DropDownWidth = 140
@@ -3005,11 +2996,10 @@ Partial Class FrmG0031_EditOccurred
         Me.cmbST05_SAKUSEI_TANTO.FormattingEnabled = True
         Me.cmbST05_SAKUSEI_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST05_SAKUSEI_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST05_SAKUSEI_TANTO.IsSelected = True
+        Me.cmbST05_SAKUSEI_TANTO.IsSelected = False
         Me.cmbST05_SAKUSEI_TANTO.Location = New System.Drawing.Point(239, 23)
         Me.cmbST05_SAKUSEI_TANTO.Name = "cmbST05_SAKUSEI_TANTO"
         Me.cmbST05_SAKUSEI_TANTO.NullValue = " "
-        Me.cmbST05_SAKUSEI_TANTO.ReadOnly = True
         Me.cmbST05_SAKUSEI_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST05_SAKUSEI_TANTO.TabIndex = 5
         Me.cmbST05_SAKUSEI_TANTO.Text = "(選択)"
@@ -3162,7 +3152,7 @@ Partial Class FrmG0031_EditOccurred
         'chkZESEI_SYOCHI_HANTEI
         '
         Me.chkZESEI_SYOCHI_HANTEI.AutoSize = True
-        Me.chkZESEI_SYOCHI_HANTEI.Location = New System.Drawing.Point(296, 43)
+        Me.chkZESEI_SYOCHI_HANTEI.Location = New System.Drawing.Point(561, 29)
         Me.chkZESEI_SYOCHI_HANTEI.Name = "chkZESEI_SYOCHI_HANTEI"
         Me.chkZESEI_SYOCHI_HANTEI.Size = New System.Drawing.Size(180, 21)
         Me.chkZESEI_SYOCHI_HANTEI.TabIndex = 340
@@ -3428,7 +3418,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.cmbST04_NINKA_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST04_NINKA_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST04_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbST04_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST04_NINKA_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST04_NINKA_TANTO.DisplayMember = "DISP"
         Me.cmbST04_NINKA_TANTO.DropDownWidth = 140
@@ -3437,11 +3427,10 @@ Partial Class FrmG0031_EditOccurred
         Me.cmbST04_NINKA_TANTO.FormattingEnabled = True
         Me.cmbST04_NINKA_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST04_NINKA_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST04_NINKA_TANTO.IsSelected = True
+        Me.cmbST04_NINKA_TANTO.IsSelected = False
         Me.cmbST04_NINKA_TANTO.Location = New System.Drawing.Point(3, 23)
         Me.cmbST04_NINKA_TANTO.Name = "cmbST04_NINKA_TANTO"
         Me.cmbST04_NINKA_TANTO.NullValue = " "
-        Me.cmbST04_NINKA_TANTO.ReadOnly = True
         Me.cmbST04_NINKA_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST04_NINKA_TANTO.TabIndex = 1
         Me.cmbST04_NINKA_TANTO.Text = "(選択)"
@@ -3488,7 +3477,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.cmbST04_TENKEN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST04_TENKEN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST04_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbST04_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST04_TENKEN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST04_TENKEN_TANTO.DisplayMember = "DISP"
         Me.cmbST04_TENKEN_TANTO.DropDownWidth = 140
@@ -3497,11 +3486,10 @@ Partial Class FrmG0031_EditOccurred
         Me.cmbST04_TENKEN_TANTO.FormattingEnabled = True
         Me.cmbST04_TENKEN_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST04_TENKEN_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST04_TENKEN_TANTO.IsSelected = True
+        Me.cmbST04_TENKEN_TANTO.IsSelected = False
         Me.cmbST04_TENKEN_TANTO.Location = New System.Drawing.Point(121, 23)
         Me.cmbST04_TENKEN_TANTO.Name = "cmbST04_TENKEN_TANTO"
         Me.cmbST04_TENKEN_TANTO.NullValue = " "
-        Me.cmbST04_TENKEN_TANTO.ReadOnly = True
         Me.cmbST04_TENKEN_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST04_TENKEN_TANTO.TabIndex = 3
         Me.cmbST04_TENKEN_TANTO.Text = "(選択)"
@@ -3511,7 +3499,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.cmbST04_SAKUSEI_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST04_SAKUSEI_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST04_SAKUSEI_TANTO.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbST04_SAKUSEI_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST04_SAKUSEI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST04_SAKUSEI_TANTO.DisplayMember = "DISP"
         Me.cmbST04_SAKUSEI_TANTO.DropDownWidth = 140
@@ -3520,11 +3508,10 @@ Partial Class FrmG0031_EditOccurred
         Me.cmbST04_SAKUSEI_TANTO.FormattingEnabled = True
         Me.cmbST04_SAKUSEI_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST04_SAKUSEI_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST04_SAKUSEI_TANTO.IsSelected = True
+        Me.cmbST04_SAKUSEI_TANTO.IsSelected = False
         Me.cmbST04_SAKUSEI_TANTO.Location = New System.Drawing.Point(239, 23)
         Me.cmbST04_SAKUSEI_TANTO.Name = "cmbST04_SAKUSEI_TANTO"
         Me.cmbST04_SAKUSEI_TANTO.NullValue = " "
-        Me.cmbST04_SAKUSEI_TANTO.ReadOnly = True
         Me.cmbST04_SAKUSEI_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST04_SAKUSEI_TANTO.TabIndex = 5
         Me.cmbST04_SAKUSEI_TANTO.Text = "(選択)"
@@ -4036,7 +4023,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.cmbST03_NINKA_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST03_NINKA_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST03_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbST03_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST03_NINKA_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST03_NINKA_TANTO.DisplayMember = "DISP"
         Me.cmbST03_NINKA_TANTO.DropDownWidth = 140
@@ -4045,11 +4032,10 @@ Partial Class FrmG0031_EditOccurred
         Me.cmbST03_NINKA_TANTO.FormattingEnabled = True
         Me.cmbST03_NINKA_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST03_NINKA_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST03_NINKA_TANTO.IsSelected = True
+        Me.cmbST03_NINKA_TANTO.IsSelected = False
         Me.cmbST03_NINKA_TANTO.Location = New System.Drawing.Point(3, 23)
         Me.cmbST03_NINKA_TANTO.Name = "cmbST03_NINKA_TANTO"
         Me.cmbST03_NINKA_TANTO.NullValue = " "
-        Me.cmbST03_NINKA_TANTO.ReadOnly = True
         Me.cmbST03_NINKA_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST03_NINKA_TANTO.TabIndex = 1
         Me.cmbST03_NINKA_TANTO.Text = "(選択)"
@@ -4096,7 +4082,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.cmbST03_TENKEN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST03_TENKEN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST03_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbST03_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST03_TENKEN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST03_TENKEN_TANTO.DisplayMember = "DISP"
         Me.cmbST03_TENKEN_TANTO.DropDownWidth = 140
@@ -4105,11 +4091,10 @@ Partial Class FrmG0031_EditOccurred
         Me.cmbST03_TENKEN_TANTO.FormattingEnabled = True
         Me.cmbST03_TENKEN_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST03_TENKEN_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST03_TENKEN_TANTO.IsSelected = True
+        Me.cmbST03_TENKEN_TANTO.IsSelected = False
         Me.cmbST03_TENKEN_TANTO.Location = New System.Drawing.Point(121, 23)
         Me.cmbST03_TENKEN_TANTO.Name = "cmbST03_TENKEN_TANTO"
         Me.cmbST03_TENKEN_TANTO.NullValue = " "
-        Me.cmbST03_TENKEN_TANTO.ReadOnly = True
         Me.cmbST03_TENKEN_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST03_TENKEN_TANTO.TabIndex = 3
         Me.cmbST03_TENKEN_TANTO.Text = "(選択)"
@@ -4119,7 +4104,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.cmbST03_SAKUSEI_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST03_SAKUSEI_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbST03_SAKUSEI_TANTO.BackColor = System.Drawing.SystemColors.Control
+        Me.cmbST03_SAKUSEI_TANTO.BackColor = System.Drawing.SystemColors.Window
         Me.cmbST03_SAKUSEI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST03_SAKUSEI_TANTO.DisplayMember = "DISP"
         Me.cmbST03_SAKUSEI_TANTO.DropDownWidth = 140
@@ -4128,11 +4113,10 @@ Partial Class FrmG0031_EditOccurred
         Me.cmbST03_SAKUSEI_TANTO.FormattingEnabled = True
         Me.cmbST03_SAKUSEI_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST03_SAKUSEI_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbST03_SAKUSEI_TANTO.IsSelected = True
+        Me.cmbST03_SAKUSEI_TANTO.IsSelected = False
         Me.cmbST03_SAKUSEI_TANTO.Location = New System.Drawing.Point(239, 23)
         Me.cmbST03_SAKUSEI_TANTO.Name = "cmbST03_SAKUSEI_TANTO"
         Me.cmbST03_SAKUSEI_TANTO.NullValue = " "
-        Me.cmbST03_SAKUSEI_TANTO.ReadOnly = True
         Me.cmbST03_SAKUSEI_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST03_SAKUSEI_TANTO.TabIndex = 5
         Me.cmbST03_SAKUSEI_TANTO.Text = "(選択)"
