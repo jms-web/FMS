@@ -151,6 +151,7 @@ Partial Class FrmG0030_List
         Me.cmdFunc9.Location = New System.Drawing.Point(840, 640)
         Me.cmdFunc9.Size = New System.Drawing.Size(132, 42)
         Me.cmdFunc9.Text = "滞留通知メール送信(F9)"
+        Me.cmdFunc9.Visible = False
         '
         'cmdFunc8
         '
@@ -159,6 +160,7 @@ Partial Class FrmG0030_List
         Me.cmdFunc8.Location = New System.Drawing.Point(702, 640)
         Me.cmdFunc8.Size = New System.Drawing.Size(132, 42)
         Me.cmdFunc8.Text = "CSV出力(F8)"
+        Me.cmdFunc8.Visible = False
         '
         'lblTytle
         '

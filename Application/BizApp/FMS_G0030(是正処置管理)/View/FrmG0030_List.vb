@@ -744,7 +744,11 @@ Public Class FrmG0030_List
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._1_ADD) = True Then
                         Call FunSRCH(flxDATA, FunGetListData())
                     End If
+                Case 3  '流出追加
 
+                    If FunAddRyusyutu() Then
+                        Call FunSRCH(flxDATA, FunGetListData())
+                    End If
                 Case 4  '変更
 
                     If FunUpdateEntity(ENM_DATA_OPERATION_MODE._3_UPDATE) = True Then
@@ -968,19 +972,78 @@ Public Class FrmG0030_List
     Private Function FunUpdateEntity(ByVal intMODE As ENM_DATA_OPERATION_MODE) As Boolean
 
         Dim dlgRET As DialogResult
+        Dim hokokusyo_id As Integer
+        Try
+            If intMODE = ENM_DATA_OPERATION_MODE._1_ADD Or flxDATA.Rows.Count = 1 Then
+                hokokusyo_id = 1
+            Else
+                hokokusyo_id = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V015_ZESEI_ICHIRAN.SYONIN_HOKOKUSYO_ID))
+            End If
+
+            Select Case hokokusyo_id
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value
+                    Using frmFCCB As New FrmG0031_EditOccurred
+                        frmFCCB.PrMODE = intMODE
+                        Select Case intMODE
+                            Case ENM_DATA_OPERATION_MODE._1_ADD
+                                frmFCCB.PrCurrentStage = ENM_ZESEI_STAGE._10_起草入力
+                            Case ENM_DATA_OPERATION_MODE._2_ADDREF, ENM_DATA_OPERATION_MODE._3_UPDATE
+                                frmFCCB.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
+                                frmFCCB.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item(NameOf(V015_ZESEI_ICHIRAN.HOKOKU_NO))
+                                frmFCCB.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
+                        End Select
+                        dlgRET = frmFCCB.ShowDialog(Me)
+                        Me.Refresh()
+
+                        If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                            Return False
+                        Else
+                            Return True
+                        End If
+                    End Using
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R.Value
+                    Using frmFCCB As New FrmG0031_EditOverflow
+                        frmFCCB.PrMODE = intMODE
+                        Select Case intMODE
+                            Case ENM_DATA_OPERATION_MODE._1_ADD
+                                frmFCCB.PrCurrentStage = ENM_ZESEI_STAGE._10_起草入力
+                            Case ENM_DATA_OPERATION_MODE._2_ADDREF, ENM_DATA_OPERATION_MODE._3_UPDATE
+                                frmFCCB.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
+                                frmFCCB.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item(NameOf(V015_ZESEI_ICHIRAN.HOKOKU_NO))
+                                frmFCCB.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
+                        End Select
+                        dlgRET = frmFCCB.ShowDialog(Me)
+                        Me.Refresh()
+
+                        If dlgRET = Windows.Forms.DialogResult.Cancel Then
+                            Return False
+                        Else
+                            Return True
+                        End If
+                    End Using
+            End Select
+        Catch ex As Exception
+            Throw
+        Finally
+            Me.Visible = True
+        End Try
+    End Function
+
+#End Region
+
+#Region "流出追加"
+
+    Private Function FunAddRyusyutu() As Boolean
+
+        Dim dlgRET As DialogResult
 
         Try
 
-            Using frmFCCB As New FrmG0031_EditOccurred
-                frmFCCB.PrMODE = intMODE
-                Select Case intMODE
-                    Case ENM_DATA_OPERATION_MODE._1_ADD
-                        frmFCCB.PrCurrentStage = ENM_ZESEI_STAGE._10_起草入力
-                    Case ENM_DATA_OPERATION_MODE._2_ADDREF, ENM_DATA_OPERATION_MODE._3_UPDATE
-                        frmFCCB.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
-                        frmFCCB.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item(NameOf(V015_ZESEI_ICHIRAN.HOKOKU_NO))
-                        frmFCCB.PrCurrentStage = IIf(flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN") = 0, 999, flxDATA.Rows(flxDATA.Row).Item("SYONIN_JUN"))
-                End Select
+            Using frmFCCB As New FrmG0031_EditOverflow
+                frmFCCB.PrMODE = ENM_DATA_OPERATION_MODE._1_ADD
+                frmFCCB.PrCurrentStage = ENM_ZESEI_STAGE._10_起草入力
+                frmFCCB.PrDataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
+                frmFCCB.PrHOKOKU_NO = flxDATA.Rows(flxDATA.Row).Item(NameOf(V015_ZESEI_ICHIRAN.HOKOKU_NO))
                 dlgRET = frmFCCB.ShowDialog(Me)
                 Me.Refresh()
 
@@ -1096,12 +1159,10 @@ Public Class FrmG0030_List
 
             With flxDATA.Rows(flxDATA.RowSel)
                 frmDLG.PrSYORI_NAME = "取消登録"
-                frmDLG.PrSYONIN_HOKOKUSYO_ID = .Item(NameOf(V013_FCCB_ICHIRAN.SYONIN_HOKOKUSYO_ID))
-                frmDLG.PrHOKOKU_NO = .Item(NameOf(V013_FCCB_ICHIRAN.FCCB_NO))
-                frmDLG.PrBUMON_KB = .Item(NameOf(V013_FCCB_ICHIRAN.BUMON_KB))
-                frmDLG.PrBUHIN_BANGO = .Item(NameOf(V013_FCCB_ICHIRAN.BUHIN_BANGO))
-                frmDLG.PrKISYU_NAME = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = .Item(NameOf(V013_FCCB_ICHIRAN.KISYU_ID))).FirstOrDefault?.Item("DISP")
-                frmDLG.PrCurrentStage = .Item(NameOf(V013_FCCB_ICHIRAN.SYONIN_JUN))
+                frmDLG.PrSYONIN_HOKOKUSYO_ID = .Item(NameOf(V015_ZESEI_ICHIRAN.SYONIN_HOKOKUSYO_ID))
+                frmDLG.PrHOKOKU_NO = .Item(NameOf(V015_ZESEI_ICHIRAN.HOKOKU_NO))
+                frmDLG.PrBUMON_KB = .Item(NameOf(V015_ZESEI_ICHIRAN.BUMON_KB))
+                frmDLG.PrCurrentStage = .Item(NameOf(V015_ZESEI_ICHIRAN.SYONIN_JUN))
             End With
 
             dlgRET = frmDLG.ShowDialog(Me)
@@ -1407,8 +1468,8 @@ Public Class FrmG0030_List
         Try
 
             If flxDATA.Rows(flxDATA.RowSel) IsNot Nothing Then
-                frmDLG.PrSYONIN_HOKOKUSYO_ID = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.SYONIN_HOKOKUSYO_ID))
-                frmDLG.PrHOKOKU_NO = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))
+                frmDLG.PrSYONIN_HOKOKUSYO_ID = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V015_ZESEI_ICHIRAN.SYONIN_HOKOKUSYO_ID))
+                frmDLG.PrHOKOKU_NO = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V015_ZESEI_ICHIRAN.HOKOKU_NO))
                 frmDLG.PrDatarow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
             Else
                 'parameter error

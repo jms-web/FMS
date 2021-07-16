@@ -24,17 +24,13 @@ Partial Class FrmG0031_EditOverflow
         Me.mtxHOKOKU_NO = New JMS_COMMON.MaskedTextBoxEx()
         Me.cmbBUMON = New JMS_COMMON.ComboboxEx()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.lblKISO_TANTO = New System.Windows.Forms.Label()
-        Me.cmbKISO_TANTO = New JMS_COMMON.ComboboxEx()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.dtKISO = New JMS_COMMON.DateTextBoxEx()
         Me.InfoToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.PanelEx2 = New JMS_COMMON.PanelEx()
         Me.tlpHeader = New System.Windows.Forms.TableLayoutPanel()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.cmbKA = New JMS_COMMON.ComboboxEx()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.cmbTANTO = New JMS_COMMON.ComboboxEx()
+        Me.lblTANTO = New System.Windows.Forms.Label()
         Me.flpnlStageIndex = New System.Windows.Forms.FlowLayoutPanel()
         Me.rsbtnST01 = New JMS_COMMON.RibbonShapeRadioButton()
         Me.rsbtnST02 = New JMS_COMMON.RibbonShapeRadioButton()
@@ -47,8 +43,7 @@ Partial Class FrmG0031_EditOverflow
         Me.dtUPD_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.TabPageEx1 = New JMS_COMMON.TabPageEx()
-        Me.pnlGENIN_SYOCHI = New JMS_COMMON.PanelEx()
-        Me.chkJINTEKI_YOUIN_UMU = New System.Windows.Forms.CheckBox()
+        Me.pnlST02 = New JMS_COMMON.PanelEx()
         Me.dtOUKYU_SYOCHI_YOTEI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label58 = New System.Windows.Forms.Label()
         Me.pnlST02_HINSYO = New System.Windows.Forms.TableLayoutPanel()
@@ -92,7 +87,6 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST02_TENKEN_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.dtST02_SAKUSEI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblST02_Modoshi_Riyu = New System.Windows.Forms.Label()
-        Me.lblST02_SASIMODOSHI = New System.Windows.Forms.Label()
         Me.txtCOMMENT2 = New JMS_COMMON.TextBoxEx()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.Label35 = New System.Windows.Forms.Label()
@@ -126,8 +120,8 @@ Partial Class FrmG0031_EditOverflow
         Me.txtFUTEKIGO_TAISYOU = New JMS_COMMON.TextBoxEx()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
+        Me.chkJINTEKI_YOUIN_UMU = New System.Windows.Forms.CheckBox()
         Me.pnlST01 = New JMS_COMMON.PanelEx()
-        Me.txtINPUT_TYPE = New JMS_COMMON.TextBoxEx()
         Me.dtKAITOU_KIBOU_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label56 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
@@ -140,6 +134,7 @@ Partial Class FrmG0031_EditOverflow
         Me.rbtnINPUT_TYPE3 = New System.Windows.Forms.RadioButton()
         Me.rbtnINPUT_TYPE2 = New System.Windows.Forms.RadioButton()
         Me.rbtnINPUT_TYPE1 = New System.Windows.Forms.RadioButton()
+        Me.txtINPUT_TYPE = New JMS_COMMON.TextBoxEx()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
@@ -173,12 +168,11 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST01_SAKUSEI_TANTO = New JMS_COMMON.ComboboxEx()
         Me.dtST01_NINKA_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.dtST01_TENKEN_YMD = New JMS_COMMON.DateTextBoxEx()
-        Me.dt_ST01_SAKUSEI_TANTO = New JMS_COMMON.DateTextBoxEx()
-        Me.lblST01_SASIMODOSHI = New System.Windows.Forms.Label()
+        Me.dtST01_SAKUSEI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.lblST01_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.txtCOMMENT1 = New JMS_COMMON.TextBoxEx()
         Me.Label45 = New System.Windows.Forms.Label()
-        Me.pnlZESEI_KAKUNIN = New JMS_COMMON.PanelEx()
+        Me.pnlST05 = New JMS_COMMON.PanelEx()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.txtCOMMENT5 = New JMS_COMMON.TextBoxEx()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
@@ -191,9 +185,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST05_NINKA_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.dtST05_TENKEN_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.dtST05_SAKUSEI_YMD = New JMS_COMMON.DateTextBoxEx()
+        Me.lblST05_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.lblSTAGE16 = New System.Windows.Forms.Label()
         Me.btnST13_SYONIN = New System.Windows.Forms.Button()
-        Me.pnlZESEI_SYOCHI = New JMS_COMMON.PanelEx()
+        Me.pnlST04 = New JMS_COMMON.PanelEx()
         Me.Label37 = New System.Windows.Forms.Label()
         Me.txtCOMMENT4 = New JMS_COMMON.TextBoxEx()
         Me.chkZESEI_SYOCHI_HANTEI = New System.Windows.Forms.CheckBox()
@@ -214,7 +209,6 @@ Partial Class FrmG0031_EditOverflow
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblST04_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.cmbST04_NINKA_TANTO = New JMS_COMMON.ComboboxEx()
-        Me.lblST04_SASIMODOSHI = New System.Windows.Forms.Label()
         Me.lblST04_NINKA_TANTO = New System.Windows.Forms.Label()
         Me.lblST04_TENKEN_TANTO = New System.Windows.Forms.Label()
         Me.lblST04_SAKUSEI_TANTO = New System.Windows.Forms.Label()
@@ -229,7 +223,7 @@ Partial Class FrmG0031_EditOverflow
         Me.rbtnZESEI_SYOCHI_YES = New System.Windows.Forms.RadioButton()
         Me.rbtnZESEI_SYOCHI_NO = New System.Windows.Forms.RadioButton()
         Me.chkZESEI_SYOCHI_YUKO_UMU = New System.Windows.Forms.CheckBox()
-        Me.pnlSYOCHI_KIROKU = New JMS_COMMON.PanelEx()
+        Me.pnlST03 = New JMS_COMMON.PanelEx()
         Me.txtOUKYU_SYOCHI_KEKKA = New JMS_COMMON.TextBoxEx()
         Me.dtOUKYU_SYOCHI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label57 = New System.Windows.Forms.Label()
@@ -254,7 +248,6 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST03_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.Label39 = New System.Windows.Forms.Label()
         Me.cmbST03_NINKA_TANTO = New JMS_COMMON.ComboboxEx()
-        Me.lblST03_SASIMODOSHI = New System.Windows.Forms.Label()
         Me.lblST03_NINKA_TANTO = New System.Windows.Forms.Label()
         Me.lblST03_TENKEN_TANTO = New System.Windows.Forms.Label()
         Me.lblST03_SAKUSEI_TANTO = New System.Windows.Forms.Label()
@@ -277,7 +270,7 @@ Partial Class FrmG0031_EditOverflow
         Me.flpnlStageIndex.SuspendLayout()
         Me.tabMain.SuspendLayout()
         Me.TabPageEx1.SuspendLayout()
-        Me.pnlGENIN_SYOCHI.SuspendLayout()
+        Me.pnlST02.SuspendLayout()
         Me.pnlST02_HINSYO.SuspendLayout()
         Me.Panel6.SuspendLayout()
         Me.fpnlTempFile3.SuspendLayout()
@@ -292,14 +285,14 @@ Partial Class FrmG0031_EditOverflow
         Me.Panel2.SuspendLayout()
         Me.fpnlTempFile1.SuspendLayout()
         Me.TableLayoutPanel5.SuspendLayout()
-        Me.pnlZESEI_KAKUNIN.SuspendLayout()
+        Me.pnlST05.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
-        Me.pnlZESEI_SYOCHI.SuspendLayout()
+        Me.pnlST04.SuspendLayout()
         Me.Panel7.SuspendLayout()
         Me.fpnlTempFile5.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.FlowLayoutPanel3.SuspendLayout()
-        Me.pnlSYOCHI_KIROKU.SuspendLayout()
+        Me.pnlST03.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.fpnlTempFile4.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -341,7 +334,7 @@ Partial Class FrmG0031_EditOverflow
         'cmdFunc5
         '
         Me.cmdFunc5.Image = Global.FMS.My.Resources.Resources._imgUndo32x32
-        Me.cmdFunc5.Location = New System.Drawing.Point(555, 641)
+        Me.cmdFunc5.Location = New System.Drawing.Point(556, 641)
         Me.cmdFunc5.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc5.Text = "差戻し(F5)"
         '
@@ -352,6 +345,7 @@ Partial Class FrmG0031_EditOverflow
         '
         'cmdFunc12
         '
+        Me.cmdFunc12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdFunc12.Image = Global.FMS.My.Resources.Resources._imgLog_Out32x32
         Me.cmdFunc12.Location = New System.Drawing.Point(1101, 641)
         Me.cmdFunc12.Size = New System.Drawing.Size(156, 42)
@@ -359,6 +353,7 @@ Partial Class FrmG0031_EditOverflow
         '
         'cmdFunc11
         '
+        Me.cmdFunc11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdFunc11.Image = Global.FMS.My.Resources.Resources.履歴
         Me.cmdFunc11.Location = New System.Drawing.Point(919, 641)
         Me.cmdFunc11.Size = New System.Drawing.Size(156, 42)
@@ -393,7 +388,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblTytle.Location = New System.Drawing.Point(12, 14)
         Me.lblTytle.Size = New System.Drawing.Size(1240, 43)
-        Me.lblTytle.Text = "是正処置要求書(発生)"
+        Me.lblTytle.Text = "是正処置要求書(流出)"
         '
         'Label8
         '
@@ -458,67 +453,6 @@ Partial Class FrmG0031_EditOverflow
         Me.Label5.TabIndex = 271
         Me.Label5.Text = "部門:"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblKISO_TANTO
-        '
-        Me.tlpHeader.SetColumnSpan(Me.lblKISO_TANTO, 3)
-        Me.lblKISO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblKISO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblKISO_TANTO.Location = New System.Drawing.Point(1023, 0)
-        Me.lblKISO_TANTO.Name = "lblKISO_TANTO"
-        Me.lblKISO_TANTO.Size = New System.Drawing.Size(54, 30)
-        Me.lblKISO_TANTO.TabIndex = 270
-        Me.lblKISO_TANTO.Text = "起草者:"
-        Me.lblKISO_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbKISO_TANTO
-        '
-        Me.cmbKISO_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cmbKISO_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cmbKISO_TANTO.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpHeader.SetColumnSpan(Me.cmbKISO_TANTO, 7)
-        Me.cmbKISO_TANTO.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmbKISO_TANTO.DisplayMember = "DISP"
-        Me.cmbKISO_TANTO.DropDownWidth = 140
-        Me.cmbKISO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.cmbKISO_TANTO.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.cmbKISO_TANTO.FormattingEnabled = True
-        Me.cmbKISO_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
-        Me.cmbKISO_TANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.cmbKISO_TANTO.IsSelected = False
-        Me.cmbKISO_TANTO.Location = New System.Drawing.Point(1083, 3)
-        Me.cmbKISO_TANTO.Name = "cmbKISO_TANTO"
-        Me.cmbKISO_TANTO.NullValue = " "
-        Me.cmbKISO_TANTO.Size = New System.Drawing.Size(134, 25)
-        Me.cmbKISO_TANTO.TabIndex = 2
-        Me.cmbKISO_TANTO.Text = "(選択)"
-        Me.cmbKISO_TANTO.ValueMember = "VALUE"
-        '
-        'Label16
-        '
-        Me.tlpHeader.SetColumnSpan(Me.Label16, 3)
-        Me.Label16.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label16.Location = New System.Drawing.Point(863, 0)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(54, 30)
-        Me.Label16.TabIndex = 283
-        Me.Label16.Text = "起草日:"
-        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'dtKISO
-        '
-        Me.dtKISO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtKISO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtKISO.Location = New System.Drawing.Point(923, 3)
-        Me.dtKISO.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtKISO.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtKISO.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtKISO.Name = "dtKISO"
-        Me.dtKISO.ReadOnly = False
-        Me.dtKISO.Size = New System.Drawing.Size(98, 24)
-        Me.dtKISO.TabIndex = 4
-        Me.dtKISO.Value = ""
-        Me.dtKISO.ValueNonFormat = ""
         '
         'InfoToolTip
         '
@@ -608,14 +542,9 @@ Partial Class FrmG0031_EditOverflow
         Me.tlpHeader.Controls.Add(Me.cmbBUMON, 12, 0)
         Me.tlpHeader.Controls.Add(Me.Label3, 17, 0)
         Me.tlpHeader.Controls.Add(Me.cmbKA, 19, 0)
-        Me.tlpHeader.Controls.Add(Me.Label4, 26, 0)
-        Me.tlpHeader.Controls.Add(Me.cmbTANTO, 29, 0)
-        Me.tlpHeader.Controls.Add(Me.cmbKISO_TANTO, 54, 0)
-        Me.tlpHeader.Controls.Add(Me.lblKISO_TANTO, 51, 0)
-        Me.tlpHeader.Controls.Add(Me.dtKISO, 46, 0)
-        Me.tlpHeader.Controls.Add(Me.Label16, 43, 0)
-        Me.tlpHeader.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpHeader.Location = New System.Drawing.Point(0, 0)
+        Me.tlpHeader.Controls.Add(Me.cmbTANTO, 31, 0)
+        Me.tlpHeader.Controls.Add(Me.lblTANTO, 28, 0)
+        Me.tlpHeader.Location = New System.Drawing.Point(0, 5)
         Me.tlpHeader.Name = "tlpHeader"
         Me.tlpHeader.RowCount = 3
         Me.tlpHeader.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
@@ -645,7 +574,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbKA.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbKA.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbKA.BackColor = System.Drawing.SystemColors.Window
-        Me.tlpHeader.SetColumnSpan(Me.cmbKA, 7)
+        Me.tlpHeader.SetColumnSpan(Me.cmbKA, 9)
         Me.cmbKA.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbKA.DisplayMember = "DISP"
         Me.cmbKA.DropDownWidth = 140
@@ -658,22 +587,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbKA.Location = New System.Drawing.Point(383, 3)
         Me.cmbKA.Name = "cmbKA"
         Me.cmbKA.NullValue = " "
-        Me.cmbKA.Size = New System.Drawing.Size(134, 25)
-        Me.cmbKA.TabIndex = 285
+        Me.cmbKA.Size = New System.Drawing.Size(174, 25)
+        Me.cmbKA.TabIndex = 2
         Me.cmbKA.Text = "(選択)"
         Me.cmbKA.ValueMember = "VALUE"
-        '
-        'Label4
-        '
-        Me.tlpHeader.SetColumnSpan(Me.Label4, 3)
-        Me.Label4.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label4.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Label4.Location = New System.Drawing.Point(523, 0)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(54, 30)
-        Me.Label4.TabIndex = 286
-        Me.Label4.Text = "責任者:"
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'cmbTANTO
         '
@@ -690,13 +607,25 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbTANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbTANTO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.cmbTANTO.IsSelected = False
-        Me.cmbTANTO.Location = New System.Drawing.Point(583, 3)
+        Me.cmbTANTO.Location = New System.Drawing.Point(623, 3)
         Me.cmbTANTO.Name = "cmbTANTO"
         Me.cmbTANTO.NullValue = " "
         Me.cmbTANTO.Size = New System.Drawing.Size(134, 25)
-        Me.cmbTANTO.TabIndex = 287
+        Me.cmbTANTO.TabIndex = 3
         Me.cmbTANTO.Text = "(選択)"
         Me.cmbTANTO.ValueMember = "VALUE"
+        '
+        'lblTANTO
+        '
+        Me.tlpHeader.SetColumnSpan(Me.lblTANTO, 3)
+        Me.lblTANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblTANTO.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.lblTANTO.Location = New System.Drawing.Point(563, 0)
+        Me.lblTANTO.Name = "lblTANTO"
+        Me.lblTANTO.Size = New System.Drawing.Size(54, 30)
+        Me.lblTANTO.TabIndex = 286
+        Me.lblTANTO.Text = "責任者:"
+        Me.lblTANTO.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'flpnlStageIndex
         '
@@ -848,7 +777,7 @@ Partial Class FrmG0031_EditOverflow
         Me.tabMain.Controls.Add(Me.TabPageEx1)
         Me.tabMain.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.tabMain.HotTrack = True
-        Me.tabMain.Location = New System.Drawing.Point(12, 114)
+        Me.tabMain.Location = New System.Drawing.Point(12, 112)
         Me.tabMain.Multiline = True
         Me.tabMain.Name = "tabMain"
         Me.tabMain.SelectedIndex = 0
@@ -859,11 +788,11 @@ Partial Class FrmG0031_EditOverflow
         '
         Me.TabPageEx1.AutoScroll = True
         Me.TabPageEx1.BackColor = System.Drawing.SystemColors.Control
-        Me.TabPageEx1.Controls.Add(Me.pnlGENIN_SYOCHI)
+        Me.TabPageEx1.Controls.Add(Me.pnlST02)
         Me.TabPageEx1.Controls.Add(Me.pnlST01)
-        Me.TabPageEx1.Controls.Add(Me.pnlZESEI_KAKUNIN)
-        Me.TabPageEx1.Controls.Add(Me.pnlZESEI_SYOCHI)
-        Me.TabPageEx1.Controls.Add(Me.pnlSYOCHI_KIROKU)
+        Me.TabPageEx1.Controls.Add(Me.pnlST05)
+        Me.TabPageEx1.Controls.Add(Me.pnlST04)
+        Me.TabPageEx1.Controls.Add(Me.pnlST03)
         Me.TabPageEx1.Controls.Add(Me.Label11)
         Me.TabPageEx1.Controls.Add(Me.Label12)
         Me.TabPageEx1.Controls.Add(Me.Label13)
@@ -874,56 +803,46 @@ Partial Class FrmG0031_EditOverflow
         Me.TabPageEx1.Size = New System.Drawing.Size(1232, 491)
         Me.TabPageEx1.TabIndex = 0
         '
-        'pnlGENIN_SYOCHI
+        'pnlST02
         '
-        Me.pnlGENIN_SYOCHI.BackColor = System.Drawing.Color.White
-        Me.pnlGENIN_SYOCHI.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.chkJINTEKI_YOUIN_UMU)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.dtOUKYU_SYOCHI_YOTEI_YMD)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label58)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.pnlST02_HINSYO)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Panel6)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.pnl_FUTEKIGO_YOUIN)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.dtZESEI_SYOCHI_YOTEI_YMD)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label52)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.txtZESEI_SYOCHI)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label50)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.txtEIKYOU_HANI)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.txtCHOUSA_HANI)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.TableLayoutPanel4)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label35)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label34)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Panel3)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label33)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label25)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.chkST02_FUTEKIGO_UMU)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.pnlST04_ZESEI)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label32)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label31)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.dtKAITOU_YMD)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label24)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.txtHASSEI_GENIN)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.txtOUKYU_SYOCHI)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.txtFUTEKIGO_TAISYOU)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label27)
-        Me.pnlGENIN_SYOCHI.Controls.Add(Me.Label28)
-        Me.pnlGENIN_SYOCHI.HitEnabled = False
-        Me.pnlGENIN_SYOCHI.Location = New System.Drawing.Point(2, 508)
-        Me.pnlGENIN_SYOCHI.Margin = New System.Windows.Forms.Padding(2)
-        Me.pnlGENIN_SYOCHI.Name = "pnlGENIN_SYOCHI"
-        Me.pnlGENIN_SYOCHI.Size = New System.Drawing.Size(1209, 816)
-        Me.pnlGENIN_SYOCHI.TabIndex = 329
-        '
-        'chkJINTEKI_YOUIN_UMU
-        '
-        Me.chkJINTEKI_YOUIN_UMU.AutoSize = True
-        Me.chkJINTEKI_YOUIN_UMU.Location = New System.Drawing.Point(541, 501)
-        Me.chkJINTEKI_YOUIN_UMU.Name = "chkJINTEKI_YOUIN_UMU"
-        Me.chkJINTEKI_YOUIN_UMU.Size = New System.Drawing.Size(165, 21)
-        Me.chkJINTEKI_YOUIN_UMU.TabIndex = 355
-        Me.chkJINTEKI_YOUIN_UMU.Text = "JINTEKI_YOUIN_UMU"
-        Me.chkJINTEKI_YOUIN_UMU.UseVisualStyleBackColor = True
-        Me.chkJINTEKI_YOUIN_UMU.Visible = False
+        Me.pnlST02.BackColor = System.Drawing.Color.White
+        Me.pnlST02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST02.Controls.Add(Me.dtOUKYU_SYOCHI_YOTEI_YMD)
+        Me.pnlST02.Controls.Add(Me.Label58)
+        Me.pnlST02.Controls.Add(Me.pnlST02_HINSYO)
+        Me.pnlST02.Controls.Add(Me.Panel6)
+        Me.pnlST02.Controls.Add(Me.pnl_FUTEKIGO_YOUIN)
+        Me.pnlST02.Controls.Add(Me.dtZESEI_SYOCHI_YOTEI_YMD)
+        Me.pnlST02.Controls.Add(Me.Label52)
+        Me.pnlST02.Controls.Add(Me.txtZESEI_SYOCHI)
+        Me.pnlST02.Controls.Add(Me.Label50)
+        Me.pnlST02.Controls.Add(Me.txtEIKYOU_HANI)
+        Me.pnlST02.Controls.Add(Me.txtCHOUSA_HANI)
+        Me.pnlST02.Controls.Add(Me.TableLayoutPanel4)
+        Me.pnlST02.Controls.Add(Me.Label35)
+        Me.pnlST02.Controls.Add(Me.Label34)
+        Me.pnlST02.Controls.Add(Me.Panel3)
+        Me.pnlST02.Controls.Add(Me.Label33)
+        Me.pnlST02.Controls.Add(Me.Label25)
+        Me.pnlST02.Controls.Add(Me.chkST02_FUTEKIGO_UMU)
+        Me.pnlST02.Controls.Add(Me.pnlST04_ZESEI)
+        Me.pnlST02.Controls.Add(Me.Label32)
+        Me.pnlST02.Controls.Add(Me.Label31)
+        Me.pnlST02.Controls.Add(Me.dtKAITOU_YMD)
+        Me.pnlST02.Controls.Add(Me.Label24)
+        Me.pnlST02.Controls.Add(Me.txtHASSEI_GENIN)
+        Me.pnlST02.Controls.Add(Me.txtOUKYU_SYOCHI)
+        Me.pnlST02.Controls.Add(Me.txtFUTEKIGO_TAISYOU)
+        Me.pnlST02.Controls.Add(Me.Label27)
+        Me.pnlST02.Controls.Add(Me.Label28)
+        Me.pnlST02.Controls.Add(Me.chkJINTEKI_YOUIN_UMU)
+        Me.pnlST02.HitEnabled = False
+        Me.pnlST02.Location = New System.Drawing.Point(2, 508)
+        Me.pnlST02.Margin = New System.Windows.Forms.Padding(2)
+        Me.pnlST02.Name = "pnlST02"
+        Me.pnlST02.Size = New System.Drawing.Size(1209, 816)
+        Me.pnlST02.TabIndex = 329
+        Me.pnlST02.Visible = False
         '
         'dtOUKYU_SYOCHI_YOTEI_YMD
         '
@@ -936,7 +855,7 @@ Partial Class FrmG0031_EditOverflow
         Me.dtOUKYU_SYOCHI_YOTEI_YMD.Name = "dtOUKYU_SYOCHI_YOTEI_YMD"
         Me.dtOUKYU_SYOCHI_YOTEI_YMD.ReadOnly = False
         Me.dtOUKYU_SYOCHI_YOTEI_YMD.Size = New System.Drawing.Size(98, 24)
-        Me.dtOUKYU_SYOCHI_YOTEI_YMD.TabIndex = 353
+        Me.dtOUKYU_SYOCHI_YOTEI_YMD.TabIndex = 7
         Me.dtOUKYU_SYOCHI_YOTEI_YMD.Value = ""
         Me.dtOUKYU_SYOCHI_YOTEI_YMD.ValueNonFormat = ""
         '
@@ -963,7 +882,7 @@ Partial Class FrmG0031_EditOverflow
         Me.pnlST02_HINSYO.Controls.Add(Me.cmbST02_HINSYO_TENKEN_TANTO, 1, 1)
         Me.pnlST02_HINSYO.Controls.Add(Me.dtST02_HINSYO_NINKA_YMD, 0, 2)
         Me.pnlST02_HINSYO.Controls.Add(Me.dtST02_HINSYO_TENKEN_YMD, 1, 2)
-        Me.pnlST02_HINSYO.Location = New System.Drawing.Point(969, 726)
+        Me.pnlST02_HINSYO.Location = New System.Drawing.Point(848, 726)
         Me.pnlST02_HINSYO.Name = "pnlST02_HINSYO"
         Me.pnlST02_HINSYO.RowCount = 7
         Me.pnlST02_HINSYO.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
@@ -982,6 +901,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST02_HINSYO_NINKA_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST02_HINSYO_NINKA_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST02_HINSYO_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST02_HINSYO_NINKA_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST02_HINSYO_NINKA_TANTO.DisplayMember = "DISP"
         Me.cmbST02_HINSYO_NINKA_TANTO.DropDownWidth = 140
         Me.cmbST02_HINSYO_NINKA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -1000,7 +920,7 @@ Partial Class FrmG0031_EditOverflow
         '
         'lblST02_HINSYO_NINKA_TANTO
         '
-        Me.lblST02_HINSYO_NINKA_TANTO.BackColor = System.Drawing.Color.LemonChiffon
+        Me.lblST02_HINSYO_NINKA_TANTO.BackColor = System.Drawing.Color.Transparent
         Me.lblST02_HINSYO_NINKA_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblST02_HINSYO_NINKA_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblST02_HINSYO_NINKA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -1028,6 +948,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST02_HINSYO_TENKEN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST02_HINSYO_TENKEN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST02_HINSYO_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST02_HINSYO_TENKEN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST02_HINSYO_TENKEN_TANTO.DisplayMember = "DISP"
         Me.cmbST02_HINSYO_TENKEN_TANTO.DropDownWidth = 140
         Me.cmbST02_HINSYO_TENKEN_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -1046,14 +967,16 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST02_HINSYO_NINKA_YMD
         '
+        Me.dtST02_HINSYO_NINKA_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST02_HINSYO_NINKA_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST02_HINSYO_NINKA_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST02_HINSYO_NINKA_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST02_HINSYO_NINKA_YMD.Location = New System.Drawing.Point(3, 53)
         Me.dtST02_HINSYO_NINKA_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST02_HINSYO_NINKA_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST02_HINSYO_NINKA_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST02_HINSYO_NINKA_YMD.Name = "dtST02_HINSYO_NINKA_YMD"
-        Me.dtST02_HINSYO_NINKA_YMD.ReadOnly = False
+        Me.dtST02_HINSYO_NINKA_YMD.ReadOnly = True
         Me.dtST02_HINSYO_NINKA_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST02_HINSYO_NINKA_YMD.TabIndex = 2
         Me.dtST02_HINSYO_NINKA_YMD.Value = ""
@@ -1061,14 +984,16 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST02_HINSYO_TENKEN_YMD
         '
+        Me.dtST02_HINSYO_TENKEN_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST02_HINSYO_TENKEN_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST02_HINSYO_TENKEN_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST02_HINSYO_TENKEN_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST02_HINSYO_TENKEN_YMD.Location = New System.Drawing.Point(121, 53)
         Me.dtST02_HINSYO_TENKEN_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST02_HINSYO_TENKEN_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST02_HINSYO_TENKEN_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST02_HINSYO_TENKEN_YMD.Name = "dtST02_HINSYO_TENKEN_YMD"
-        Me.dtST02_HINSYO_TENKEN_YMD.ReadOnly = False
+        Me.dtST02_HINSYO_TENKEN_YMD.ReadOnly = True
         Me.dtST02_HINSYO_TENKEN_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST02_HINSYO_TENKEN_YMD.TabIndex = 4
         Me.dtST02_HINSYO_TENKEN_YMD.Value = ""
@@ -1293,8 +1218,7 @@ Partial Class FrmG0031_EditOverflow
         Me.pnl_FUTEKIGO_YOUIN.Location = New System.Drawing.Point(281, 496)
         Me.pnl_FUTEKIGO_YOUIN.Name = "pnl_FUTEKIGO_YOUIN"
         Me.pnl_FUTEKIGO_YOUIN.Size = New System.Drawing.Size(86, 29)
-        Me.pnl_FUTEKIGO_YOUIN.TabIndex = 350
-        Me.pnl_FUTEKIGO_YOUIN.Visible = False
+        Me.pnl_FUTEKIGO_YOUIN.TabIndex = 8
         '
         'rbtnFUTEKIGO_YOUIN_F
         '
@@ -1333,7 +1257,7 @@ Partial Class FrmG0031_EditOverflow
         Me.dtZESEI_SYOCHI_YOTEI_YMD.Name = "dtZESEI_SYOCHI_YOTEI_YMD"
         Me.dtZESEI_SYOCHI_YOTEI_YMD.ReadOnly = False
         Me.dtZESEI_SYOCHI_YOTEI_YMD.Size = New System.Drawing.Size(98, 24)
-        Me.dtZESEI_SYOCHI_YOTEI_YMD.TabIndex = 348
+        Me.dtZESEI_SYOCHI_YOTEI_YMD.TabIndex = 11
         Me.dtZESEI_SYOCHI_YOTEI_YMD.Value = ""
         Me.dtZESEI_SYOCHI_YOTEI_YMD.ValueNonFormat = ""
         '
@@ -1364,7 +1288,7 @@ Partial Class FrmG0031_EditOverflow
         Me.txtZESEI_SYOCHI.SelectAllText = False
         Me.txtZESEI_SYOCHI.ShowRemainingChars = True
         Me.txtZESEI_SYOCHI.Size = New System.Drawing.Size(685, 92)
-        Me.txtZESEI_SYOCHI.TabIndex = 346
+        Me.txtZESEI_SYOCHI.TabIndex = 10
         Me.txtZESEI_SYOCHI.WatermarkColor = System.Drawing.Color.Empty
         Me.txtZESEI_SYOCHI.WatermarkText = Nothing
         '
@@ -1393,8 +1317,7 @@ Partial Class FrmG0031_EditOverflow
         Me.txtEIKYOU_HANI.SelectAllText = False
         Me.txtEIKYOU_HANI.ShowRemainingChars = True
         Me.txtEIKYOU_HANI.Size = New System.Drawing.Size(185, 24)
-        Me.txtEIKYOU_HANI.TabIndex = 345
-        Me.txtEIKYOU_HANI.Visible = False
+        Me.txtEIKYOU_HANI.TabIndex = 5
         Me.txtEIKYOU_HANI.WatermarkColor = System.Drawing.Color.Empty
         Me.txtEIKYOU_HANI.WatermarkText = Nothing
         '
@@ -1411,8 +1334,7 @@ Partial Class FrmG0031_EditOverflow
         Me.txtCHOUSA_HANI.SelectAllText = False
         Me.txtCHOUSA_HANI.ShowRemainingChars = True
         Me.txtCHOUSA_HANI.Size = New System.Drawing.Size(252, 24)
-        Me.txtCHOUSA_HANI.TabIndex = 344
-        Me.txtCHOUSA_HANI.Visible = False
+        Me.txtCHOUSA_HANI.TabIndex = 3
         Me.txtCHOUSA_HANI.WatermarkColor = System.Drawing.Color.Empty
         Me.txtCHOUSA_HANI.WatermarkText = Nothing
         '
@@ -1432,31 +1354,30 @@ Partial Class FrmG0031_EditOverflow
         Me.TableLayoutPanel4.Controls.Add(Me.dtST02_NINKA_YMD, 0, 2)
         Me.TableLayoutPanel4.Controls.Add(Me.dtST02_TENKEN_YMD, 1, 2)
         Me.TableLayoutPanel4.Controls.Add(Me.dtST02_SAKUSEI_YMD, 2, 2)
-        Me.TableLayoutPanel4.Controls.Add(Me.lblST02_Modoshi_Riyu, 0, 5)
-        Me.TableLayoutPanel4.Controls.Add(Me.lblST02_SASIMODOSHI, 0, 4)
-        Me.TableLayoutPanel4.Controls.Add(Me.txtCOMMENT2, 0, 7)
-        Me.TableLayoutPanel4.Controls.Add(Me.Label29, 0, 6)
+        Me.TableLayoutPanel4.Controls.Add(Me.lblST02_Modoshi_Riyu, 0, 4)
+        Me.TableLayoutPanel4.Controls.Add(Me.txtCOMMENT2, 0, 6)
+        Me.TableLayoutPanel4.Controls.Add(Me.Label29, 0, 5)
         Me.TableLayoutPanel4.Location = New System.Drawing.Point(849, 4)
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
-        Me.TableLayoutPanel4.RowCount = 9
+        Me.TableLayoutPanel4.RowCount = 8
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(357, 291)
-        Me.TableLayoutPanel4.TabIndex = 343
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(357, 261)
+        Me.TableLayoutPanel4.TabIndex = 12
         '
         'cmbST02_NINKA_TANTO
         '
         Me.cmbST02_NINKA_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST02_NINKA_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST02_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST02_NINKA_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST02_NINKA_TANTO.DisplayMember = "DISP"
         Me.cmbST02_NINKA_TANTO.DropDownWidth = 140
         Me.cmbST02_NINKA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -1475,7 +1396,7 @@ Partial Class FrmG0031_EditOverflow
         '
         'lblST02_NINKA_TANTO
         '
-        Me.lblST02_NINKA_TANTO.BackColor = System.Drawing.Color.LemonChiffon
+        Me.lblST02_NINKA_TANTO.BackColor = System.Drawing.Color.Transparent
         Me.lblST02_NINKA_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblST02_NINKA_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblST02_NINKA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -1515,6 +1436,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST02_TENKEN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST02_TENKEN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST02_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST02_TENKEN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST02_TENKEN_TANTO.DisplayMember = "DISP"
         Me.cmbST02_TENKEN_TANTO.DropDownWidth = 140
         Me.cmbST02_TENKEN_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -1536,6 +1458,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST02_SAKUSEI_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST02_SAKUSEI_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST02_SAKUSEI_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST02_SAKUSEI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST02_SAKUSEI_TANTO.DisplayMember = "DISP"
         Me.cmbST02_SAKUSEI_TANTO.DropDownWidth = 140
         Me.cmbST02_SAKUSEI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -1554,14 +1477,16 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST02_NINKA_YMD
         '
+        Me.dtST02_NINKA_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST02_NINKA_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST02_NINKA_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST02_NINKA_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST02_NINKA_YMD.Location = New System.Drawing.Point(3, 53)
         Me.dtST02_NINKA_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST02_NINKA_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST02_NINKA_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST02_NINKA_YMD.Name = "dtST02_NINKA_YMD"
-        Me.dtST02_NINKA_YMD.ReadOnly = False
+        Me.dtST02_NINKA_YMD.ReadOnly = True
         Me.dtST02_NINKA_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST02_NINKA_YMD.TabIndex = 2
         Me.dtST02_NINKA_YMD.Value = ""
@@ -1569,14 +1494,16 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST02_TENKEN_YMD
         '
+        Me.dtST02_TENKEN_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST02_TENKEN_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST02_TENKEN_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST02_TENKEN_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST02_TENKEN_YMD.Location = New System.Drawing.Point(121, 53)
         Me.dtST02_TENKEN_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST02_TENKEN_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST02_TENKEN_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST02_TENKEN_YMD.Name = "dtST02_TENKEN_YMD"
-        Me.dtST02_TENKEN_YMD.ReadOnly = False
+        Me.dtST02_TENKEN_YMD.ReadOnly = True
         Me.dtST02_TENKEN_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST02_TENKEN_YMD.TabIndex = 4
         Me.dtST02_TENKEN_YMD.Value = ""
@@ -1584,14 +1511,16 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST02_SAKUSEI_YMD
         '
+        Me.dtST02_SAKUSEI_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST02_SAKUSEI_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST02_SAKUSEI_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST02_SAKUSEI_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST02_SAKUSEI_YMD.Location = New System.Drawing.Point(239, 53)
         Me.dtST02_SAKUSEI_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST02_SAKUSEI_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST02_SAKUSEI_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST02_SAKUSEI_YMD.Name = "dtST02_SAKUSEI_YMD"
-        Me.dtST02_SAKUSEI_YMD.ReadOnly = False
+        Me.dtST02_SAKUSEI_YMD.ReadOnly = True
         Me.dtST02_SAKUSEI_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST02_SAKUSEI_YMD.TabIndex = 6
         Me.dtST02_SAKUSEI_YMD.Value = ""
@@ -1601,41 +1530,28 @@ Partial Class FrmG0031_EditOverflow
         '
         Me.lblST02_Modoshi_Riyu.BackColor = System.Drawing.Color.Transparent
         Me.TableLayoutPanel4.SetColumnSpan(Me.lblST02_Modoshi_Riyu, 3)
-        Me.lblST02_Modoshi_Riyu.Font = New System.Drawing.Font("Meiryo UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblST02_Modoshi_Riyu.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lblST02_Modoshi_Riyu.ForeColor = System.Drawing.Color.Red
-        Me.lblST02_Modoshi_Riyu.Location = New System.Drawing.Point(3, 120)
+        Me.lblST02_Modoshi_Riyu.Location = New System.Drawing.Point(3, 100)
         Me.lblST02_Modoshi_Riyu.Name = "lblST02_Modoshi_Riyu"
         Me.lblST02_Modoshi_Riyu.Size = New System.Drawing.Size(348, 40)
         Me.lblST02_Modoshi_Riyu.TabIndex = 338
-        Me.lblST02_Modoshi_Riyu.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblST02_Modoshi_Riyu.Text = "差し戻し理由:"
         Me.lblST02_Modoshi_Riyu.Visible = False
-        '
-        'lblST02_SASIMODOSHI
-        '
-        Me.lblST02_SASIMODOSHI.AutoSize = True
-        Me.lblST02_SASIMODOSHI.BackColor = System.Drawing.Color.Transparent
-        Me.lblST02_SASIMODOSHI.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblST02_SASIMODOSHI.ForeColor = System.Drawing.Color.Red
-        Me.lblST02_SASIMODOSHI.Location = New System.Drawing.Point(3, 103)
-        Me.lblST02_SASIMODOSHI.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.lblST02_SASIMODOSHI.Name = "lblST02_SASIMODOSHI"
-        Me.lblST02_SASIMODOSHI.Size = New System.Drawing.Size(78, 15)
-        Me.lblST02_SASIMODOSHI.TabIndex = 339
-        Me.lblST02_SASIMODOSHI.Text = "差し戻し理由:"
-        Me.lblST02_SASIMODOSHI.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.lblST02_SASIMODOSHI.Visible = False
         '
         'txtCOMMENT2
         '
+        Me.txtCOMMENT2.AcceptsReturn = True
         Me.txtCOMMENT2.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel4.SetColumnSpan(Me.txtCOMMENT2, 3)
         Me.txtCOMMENT2.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtCOMMENT2.InputRequired = False
-        Me.txtCOMMENT2.Location = New System.Drawing.Point(3, 183)
+        Me.txtCOMMENT2.Location = New System.Drawing.Point(3, 163)
         Me.txtCOMMENT2.MaxByteLength = 400
         Me.txtCOMMENT2.MaxLength = 200
         Me.txtCOMMENT2.Multiline = True
         Me.txtCOMMENT2.Name = "txtCOMMENT2"
+        Me.txtCOMMENT2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtCOMMENT2.SelectAllText = False
         Me.txtCOMMENT2.ShowRemainingChars = True
         Me.txtCOMMENT2.Size = New System.Drawing.Size(348, 94)
@@ -1648,7 +1564,7 @@ Partial Class FrmG0031_EditOverflow
         Me.Label29.AutoSize = True
         Me.Label29.BackColor = System.Drawing.Color.Transparent
         Me.Label29.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label29.Location = New System.Drawing.Point(3, 163)
+        Me.Label29.Location = New System.Drawing.Point(3, 143)
         Me.Label29.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(75, 15)
@@ -1915,13 +1831,12 @@ Partial Class FrmG0031_EditOverflow
         'chkST02_FUTEKIGO_UMU
         '
         Me.chkST02_FUTEKIGO_UMU.AutoSize = True
-        Me.chkST02_FUTEKIGO_UMU.Location = New System.Drawing.Point(227, 242)
+        Me.chkST02_FUTEKIGO_UMU.Location = New System.Drawing.Point(152, 204)
         Me.chkST02_FUTEKIGO_UMU.Name = "chkST02_FUTEKIGO_UMU"
         Me.chkST02_FUTEKIGO_UMU.Size = New System.Drawing.Size(189, 21)
         Me.chkST02_FUTEKIGO_UMU.TabIndex = 339
         Me.chkST02_FUTEKIGO_UMU.Text = "ZESEI_SYOCHI_YOHI_KB"
         Me.chkST02_FUTEKIGO_UMU.UseVisualStyleBackColor = True
-        Me.chkST02_FUTEKIGO_UMU.Visible = False
         '
         'pnlST04_ZESEI
         '
@@ -1933,7 +1848,7 @@ Partial Class FrmG0031_EditOverflow
         Me.pnlST04_ZESEI.Name = "pnlST04_ZESEI"
         Me.pnlST04_ZESEI.Padding = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.pnlST04_ZESEI.Size = New System.Drawing.Size(118, 28)
-        Me.pnlST04_ZESEI.TabIndex = 338
+        Me.pnlST04_ZESEI.TabIndex = 4
         '
         'rbtnST02_FUTEKIGO_YES
         '
@@ -1991,7 +1906,7 @@ Partial Class FrmG0031_EditOverflow
         Me.dtKAITOU_YMD.Name = "dtKAITOU_YMD"
         Me.dtKAITOU_YMD.ReadOnly = False
         Me.dtKAITOU_YMD.Size = New System.Drawing.Size(112, 24)
-        Me.dtKAITOU_YMD.TabIndex = 329
+        Me.dtKAITOU_YMD.TabIndex = 1
         Me.dtKAITOU_YMD.Value = ""
         Me.dtKAITOU_YMD.ValueNonFormat = ""
         '
@@ -2025,7 +1940,7 @@ Partial Class FrmG0031_EditOverflow
         Me.txtHASSEI_GENIN.SelectAllText = False
         Me.txtHASSEI_GENIN.ShowRemainingChars = True
         Me.txtHASSEI_GENIN.Size = New System.Drawing.Size(684, 92)
-        Me.txtHASSEI_GENIN.TabIndex = 1
+        Me.txtHASSEI_GENIN.TabIndex = 9
         Me.txtHASSEI_GENIN.WatermarkColor = System.Drawing.Color.Empty
         Me.txtHASSEI_GENIN.WatermarkText = Nothing
         '
@@ -2046,7 +1961,7 @@ Partial Class FrmG0031_EditOverflow
         Me.txtOUKYU_SYOCHI.SelectAllText = False
         Me.txtOUKYU_SYOCHI.ShowRemainingChars = True
         Me.txtOUKYU_SYOCHI.Size = New System.Drawing.Size(684, 92)
-        Me.txtOUKYU_SYOCHI.TabIndex = 0
+        Me.txtOUKYU_SYOCHI.TabIndex = 6
         Me.txtOUKYU_SYOCHI.WatermarkColor = System.Drawing.Color.Empty
         Me.txtOUKYU_SYOCHI.WatermarkText = Nothing
         '
@@ -2067,7 +1982,7 @@ Partial Class FrmG0031_EditOverflow
         Me.txtFUTEKIGO_TAISYOU.SelectAllText = False
         Me.txtFUTEKIGO_TAISYOU.ShowRemainingChars = True
         Me.txtFUTEKIGO_TAISYOU.Size = New System.Drawing.Size(684, 92)
-        Me.txtFUTEKIGO_TAISYOU.TabIndex = 0
+        Me.txtFUTEKIGO_TAISYOU.TabIndex = 2
         Me.txtFUTEKIGO_TAISYOU.WatermarkColor = System.Drawing.Color.Empty
         Me.txtFUTEKIGO_TAISYOU.WatermarkText = Nothing
         '
@@ -2095,11 +2010,20 @@ Partial Class FrmG0031_EditOverflow
         Me.Label28.Text = "(2)発生原因(要因分析と根本原因究明)　人的要因　　　　　　　　　　　　(有の場合は以下に内容を記入)"
         Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'chkJINTEKI_YOUIN_UMU
+        '
+        Me.chkJINTEKI_YOUIN_UMU.AutoSize = True
+        Me.chkJINTEKI_YOUIN_UMU.Location = New System.Drawing.Point(357, 502)
+        Me.chkJINTEKI_YOUIN_UMU.Name = "chkJINTEKI_YOUIN_UMU"
+        Me.chkJINTEKI_YOUIN_UMU.Size = New System.Drawing.Size(165, 21)
+        Me.chkJINTEKI_YOUIN_UMU.TabIndex = 355
+        Me.chkJINTEKI_YOUIN_UMU.Text = "JINTEKI_YOUIN_UMU"
+        Me.chkJINTEKI_YOUIN_UMU.UseVisualStyleBackColor = True
+        '
         'pnlST01
         '
         Me.pnlST01.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.pnlST01.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlST01.Controls.Add(Me.txtINPUT_TYPE)
         Me.pnlST01.Controls.Add(Me.dtKAITOU_KIBOU_YMD)
         Me.pnlST01.Controls.Add(Me.Label56)
         Me.pnlST01.Controls.Add(Me.Label14)
@@ -2123,25 +2047,8 @@ Partial Class FrmG0031_EditOverflow
         Me.pnlST01.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST01.Name = "pnlST01"
         Me.pnlST01.Size = New System.Drawing.Size(1209, 497)
-        Me.pnlST01.TabIndex = 322
-        '
-        'txtINPUT_TYPE
-        '
-        Me.txtINPUT_TYPE.BackColor = System.Drawing.SystemColors.Window
-        Me.txtINPUT_TYPE.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.txtINPUT_TYPE.InputRequired = False
-        Me.txtINPUT_TYPE.Location = New System.Drawing.Point(361, 42)
-        Me.txtINPUT_TYPE.MaxByteLength = 400
-        Me.txtINPUT_TYPE.MaxLength = 200
-        Me.txtINPUT_TYPE.Multiline = True
-        Me.txtINPUT_TYPE.Name = "txtINPUT_TYPE"
-        Me.txtINPUT_TYPE.SelectAllText = False
-        Me.txtINPUT_TYPE.ShowRemainingChars = True
-        Me.txtINPUT_TYPE.Size = New System.Drawing.Size(83, 24)
-        Me.txtINPUT_TYPE.TabIndex = 335
-        Me.txtINPUT_TYPE.Visible = False
-        Me.txtINPUT_TYPE.WatermarkColor = System.Drawing.Color.Empty
-        Me.txtINPUT_TYPE.WatermarkText = Nothing
+        Me.pnlST01.TabIndex = 4
+        Me.pnlST01.Visible = False
         '
         'dtKAITOU_KIBOU_YMD
         '
@@ -2154,7 +2061,7 @@ Partial Class FrmG0031_EditOverflow
         Me.dtKAITOU_KIBOU_YMD.Name = "dtKAITOU_KIBOU_YMD"
         Me.dtKAITOU_KIBOU_YMD.ReadOnly = False
         Me.dtKAITOU_KIBOU_YMD.Size = New System.Drawing.Size(112, 24)
-        Me.dtKAITOU_KIBOU_YMD.TabIndex = 329
+        Me.dtKAITOU_KIBOU_YMD.TabIndex = 1
         Me.dtKAITOU_KIBOU_YMD.Value = ""
         Me.dtKAITOU_KIBOU_YMD.ValueNonFormat = ""
         '
@@ -2169,7 +2076,6 @@ Partial Class FrmG0031_EditOverflow
         Me.Label56.TabIndex = 326
         Me.Label56.Text = "文書番号:"
         Me.Label56.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label56.Visible = False
         '
         'Label14
         '
@@ -2190,14 +2096,14 @@ Partial Class FrmG0031_EditOverflow
         Me.txtDOC_NO.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtDOC_NO.InputRequired = False
         Me.txtDOC_NO.Location = New System.Drawing.Point(528, 70)
-        Me.txtDOC_NO.MaxByteLength = 400
-        Me.txtDOC_NO.MaxLength = 200
+        Me.txtDOC_NO.MaxByteLength = 40
+        Me.txtDOC_NO.MaxLength = 20
         Me.txtDOC_NO.Multiline = True
         Me.txtDOC_NO.Name = "txtDOC_NO"
         Me.txtDOC_NO.SelectAllText = False
         Me.txtDOC_NO.ShowRemainingChars = True
         Me.txtDOC_NO.Size = New System.Drawing.Size(185, 24)
-        Me.txtDOC_NO.TabIndex = 327
+        Me.txtDOC_NO.TabIndex = 3
         Me.txtDOC_NO.WatermarkColor = System.Drawing.Color.Empty
         Me.txtDOC_NO.WatermarkText = Nothing
         '
@@ -2231,7 +2137,7 @@ Partial Class FrmG0031_EditOverflow
         Me.txtZESEI_COMMENT.SelectAllText = False
         Me.txtZESEI_COMMENT.ShowRemainingChars = True
         Me.txtZESEI_COMMENT.Size = New System.Drawing.Size(684, 92)
-        Me.txtZESEI_COMMENT.TabIndex = 330
+        Me.txtZESEI_COMMENT.TabIndex = 6
         Me.txtZESEI_COMMENT.WatermarkColor = System.Drawing.Color.Empty
         Me.txtZESEI_COMMENT.WatermarkText = Nothing
         '
@@ -2265,7 +2171,8 @@ Partial Class FrmG0031_EditOverflow
         Me.Panel4.Controls.Add(Me.rbtnINPUT_TYPE3)
         Me.Panel4.Controls.Add(Me.rbtnINPUT_TYPE2)
         Me.Panel4.Controls.Add(Me.rbtnINPUT_TYPE1)
-        Me.Panel4.Location = New System.Drawing.Point(131, 69)
+        Me.Panel4.Controls.Add(Me.txtINPUT_TYPE)
+        Me.Panel4.Location = New System.Drawing.Point(131, 70)
         Me.Panel4.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(313, 27)
@@ -2278,7 +2185,7 @@ Partial Class FrmG0031_EditOverflow
         Me.rbtnINPUT_TYPE3.Location = New System.Drawing.Point(210, 0)
         Me.rbtnINPUT_TYPE3.Name = "rbtnINPUT_TYPE3"
         Me.rbtnINPUT_TYPE3.Size = New System.Drawing.Size(105, 27)
-        Me.rbtnINPUT_TYPE3.TabIndex = 2
+        Me.rbtnINPUT_TYPE3.TabIndex = 3
         Me.rbtnINPUT_TYPE3.TabStop = True
         Me.rbtnINPUT_TYPE3.Text = "QMS不適合"
         Me.rbtnINPUT_TYPE3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -2292,7 +2199,7 @@ Partial Class FrmG0031_EditOverflow
         Me.rbtnINPUT_TYPE2.Name = "rbtnINPUT_TYPE2"
         Me.rbtnINPUT_TYPE2.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
         Me.rbtnINPUT_TYPE2.Size = New System.Drawing.Size(105, 27)
-        Me.rbtnINPUT_TYPE2.TabIndex = 0
+        Me.rbtnINPUT_TYPE2.TabIndex = 2
         Me.rbtnINPUT_TYPE2.TabStop = True
         Me.rbtnINPUT_TYPE2.Text = "顧客苦情"
         Me.rbtnINPUT_TYPE2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -2311,13 +2218,30 @@ Partial Class FrmG0031_EditOverflow
         Me.rbtnINPUT_TYPE1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnINPUT_TYPE1.UseVisualStyleBackColor = False
         '
+        'txtINPUT_TYPE
+        '
+        Me.txtINPUT_TYPE.BackColor = System.Drawing.SystemColors.Window
+        Me.txtINPUT_TYPE.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtINPUT_TYPE.InputRequired = False
+        Me.txtINPUT_TYPE.Location = New System.Drawing.Point(158, 0)
+        Me.txtINPUT_TYPE.MaxByteLength = 400
+        Me.txtINPUT_TYPE.MaxLength = 200
+        Me.txtINPUT_TYPE.Multiline = True
+        Me.txtINPUT_TYPE.Name = "txtINPUT_TYPE"
+        Me.txtINPUT_TYPE.SelectAllText = False
+        Me.txtINPUT_TYPE.ShowRemainingChars = True
+        Me.txtINPUT_TYPE.Size = New System.Drawing.Size(83, 24)
+        Me.txtINPUT_TYPE.TabIndex = 335
+        Me.txtINPUT_TYPE.WatermarkColor = System.Drawing.Color.Empty
+        Me.txtINPUT_TYPE.WatermarkText = Nothing
+        '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.SystemColors.Window
         Me.Panel1.Controls.Add(Me.RadioButton3)
         Me.Panel1.Controls.Add(Me.RadioButton1)
         Me.Panel1.Controls.Add(Me.RadioButton2)
-        Me.Panel1.Location = New System.Drawing.Point(131, 69)
+        Me.Panel1.Location = New System.Drawing.Point(131, 70)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(313, 27)
@@ -2603,7 +2527,7 @@ Partial Class FrmG0031_EditOverflow
         Me.txtZESEI_RIYU.SelectAllText = False
         Me.txtZESEI_RIYU.ShowRemainingChars = True
         Me.txtZESEI_RIYU.Size = New System.Drawing.Size(684, 92)
-        Me.txtZESEI_RIYU.TabIndex = 1
+        Me.txtZESEI_RIYU.TabIndex = 5
         Me.txtZESEI_RIYU.WatermarkColor = System.Drawing.Color.Empty
         Me.txtZESEI_RIYU.WatermarkText = Nothing
         '
@@ -2624,7 +2548,7 @@ Partial Class FrmG0031_EditOverflow
         Me.txtKANSATU_HOUKOKU.SelectAllText = False
         Me.txtKANSATU_HOUKOKU.ShowRemainingChars = True
         Me.txtKANSATU_HOUKOKU.Size = New System.Drawing.Size(684, 92)
-        Me.txtKANSATU_HOUKOKU.TabIndex = 0
+        Me.txtKANSATU_HOUKOKU.TabIndex = 4
         Me.txtKANSATU_HOUKOKU.WatermarkColor = System.Drawing.Color.Empty
         Me.txtKANSATU_HOUKOKU.WatermarkText = Nothing
         '
@@ -2680,32 +2604,31 @@ Partial Class FrmG0031_EditOverflow
         Me.TableLayoutPanel5.Controls.Add(Me.cmbST01_SAKUSEI_TANTO, 2, 1)
         Me.TableLayoutPanel5.Controls.Add(Me.dtST01_NINKA_YMD, 0, 2)
         Me.TableLayoutPanel5.Controls.Add(Me.dtST01_TENKEN_YMD, 1, 2)
-        Me.TableLayoutPanel5.Controls.Add(Me.dt_ST01_SAKUSEI_TANTO, 2, 2)
-        Me.TableLayoutPanel5.Controls.Add(Me.lblST01_SASIMODOSHI, 0, 4)
-        Me.TableLayoutPanel5.Controls.Add(Me.lblST01_Modoshi_Riyu, 0, 5)
-        Me.TableLayoutPanel5.Controls.Add(Me.txtCOMMENT1, 0, 7)
-        Me.TableLayoutPanel5.Controls.Add(Me.Label45, 0, 6)
+        Me.TableLayoutPanel5.Controls.Add(Me.dtST01_SAKUSEI_YMD, 2, 2)
+        Me.TableLayoutPanel5.Controls.Add(Me.lblST01_Modoshi_Riyu, 0, 4)
+        Me.TableLayoutPanel5.Controls.Add(Me.txtCOMMENT1, 0, 6)
+        Me.TableLayoutPanel5.Controls.Add(Me.Label45, 0, 5)
         Me.TableLayoutPanel5.Location = New System.Drawing.Point(847, 3)
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
-        Me.TableLayoutPanel5.RowCount = 9
+        Me.TableLayoutPanel5.RowCount = 8
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(357, 296)
-        Me.TableLayoutPanel5.TabIndex = 334
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(357, 259)
+        Me.TableLayoutPanel5.TabIndex = 7
         '
         'cmbST01_NINKA_TANTO
         '
         Me.cmbST01_NINKA_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST01_NINKA_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST01_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST01_NINKA_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST01_NINKA_TANTO.DisplayMember = "DISP"
         Me.cmbST01_NINKA_TANTO.DropDownWidth = 140
         Me.cmbST01_NINKA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -2724,7 +2647,7 @@ Partial Class FrmG0031_EditOverflow
         '
         'lblST01_NINKA_TANTO
         '
-        Me.lblST01_NINKA_TANTO.BackColor = System.Drawing.Color.LemonChiffon
+        Me.lblST01_NINKA_TANTO.BackColor = System.Drawing.Color.Transparent
         Me.lblST01_NINKA_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblST01_NINKA_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblST01_NINKA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -2764,6 +2687,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST01_TENKEN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST01_TENKEN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST01_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST01_TENKEN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST01_TENKEN_TANTO.DisplayMember = "DISP"
         Me.cmbST01_TENKEN_TANTO.DropDownWidth = 140
         Me.cmbST01_TENKEN_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -2785,6 +2709,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST01_SAKUSEI_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST01_SAKUSEI_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST01_SAKUSEI_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST01_SAKUSEI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST01_SAKUSEI_TANTO.DisplayMember = "DISP"
         Me.cmbST01_SAKUSEI_TANTO.DropDownWidth = 140
         Me.cmbST01_SAKUSEI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -2803,14 +2728,16 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST01_NINKA_YMD
         '
+        Me.dtST01_NINKA_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST01_NINKA_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST01_NINKA_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST01_NINKA_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST01_NINKA_YMD.Location = New System.Drawing.Point(3, 53)
         Me.dtST01_NINKA_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST01_NINKA_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST01_NINKA_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST01_NINKA_YMD.Name = "dtST01_NINKA_YMD"
-        Me.dtST01_NINKA_YMD.ReadOnly = False
+        Me.dtST01_NINKA_YMD.ReadOnly = True
         Me.dtST01_NINKA_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST01_NINKA_YMD.TabIndex = 2
         Me.dtST01_NINKA_YMD.Value = ""
@@ -2818,77 +2745,68 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST01_TENKEN_YMD
         '
+        Me.dtST01_TENKEN_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST01_TENKEN_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST01_TENKEN_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST01_TENKEN_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST01_TENKEN_YMD.Location = New System.Drawing.Point(121, 53)
         Me.dtST01_TENKEN_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST01_TENKEN_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST01_TENKEN_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST01_TENKEN_YMD.Name = "dtST01_TENKEN_YMD"
-        Me.dtST01_TENKEN_YMD.ReadOnly = False
+        Me.dtST01_TENKEN_YMD.ReadOnly = True
         Me.dtST01_TENKEN_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST01_TENKEN_YMD.TabIndex = 4
         Me.dtST01_TENKEN_YMD.Value = ""
         Me.dtST01_TENKEN_YMD.ValueNonFormat = ""
         '
-        'dt_ST01_SAKUSEI_TANTO
+        'dtST01_SAKUSEI_YMD
         '
-        Me.dt_ST01_SAKUSEI_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dt_ST01_SAKUSEI_TANTO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dt_ST01_SAKUSEI_TANTO.Location = New System.Drawing.Point(239, 53)
-        Me.dt_ST01_SAKUSEI_TANTO.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dt_ST01_SAKUSEI_TANTO.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dt_ST01_SAKUSEI_TANTO.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dt_ST01_SAKUSEI_TANTO.Name = "dt_ST01_SAKUSEI_TANTO"
-        Me.dt_ST01_SAKUSEI_TANTO.ReadOnly = False
-        Me.dt_ST01_SAKUSEI_TANTO.Size = New System.Drawing.Size(112, 24)
-        Me.dt_ST01_SAKUSEI_TANTO.TabIndex = 6
-        Me.dt_ST01_SAKUSEI_TANTO.Value = ""
-        Me.dt_ST01_SAKUSEI_TANTO.ValueNonFormat = ""
-        '
-        'lblST01_SASIMODOSHI
-        '
-        Me.lblST01_SASIMODOSHI.AutoSize = True
-        Me.lblST01_SASIMODOSHI.BackColor = System.Drawing.Color.Transparent
-        Me.lblST01_SASIMODOSHI.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblST01_SASIMODOSHI.ForeColor = System.Drawing.Color.Red
-        Me.lblST01_SASIMODOSHI.Location = New System.Drawing.Point(3, 103)
-        Me.lblST01_SASIMODOSHI.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.lblST01_SASIMODOSHI.Name = "lblST01_SASIMODOSHI"
-        Me.lblST01_SASIMODOSHI.Size = New System.Drawing.Size(78, 15)
-        Me.lblST01_SASIMODOSHI.TabIndex = 337
-        Me.lblST01_SASIMODOSHI.Text = "差し戻し理由:"
-        Me.lblST01_SASIMODOSHI.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.lblST01_SASIMODOSHI.Visible = False
+        Me.dtST01_SAKUSEI_YMD.BackColor = System.Drawing.SystemColors.Control
+        Me.dtST01_SAKUSEI_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST01_SAKUSEI_YMD.Cursor = System.Windows.Forms.Cursors.Default
+        Me.dtST01_SAKUSEI_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST01_SAKUSEI_YMD.Location = New System.Drawing.Point(239, 53)
+        Me.dtST01_SAKUSEI_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST01_SAKUSEI_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST01_SAKUSEI_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST01_SAKUSEI_YMD.Name = "dtST01_SAKUSEI_YMD"
+        Me.dtST01_SAKUSEI_YMD.ReadOnly = True
+        Me.dtST01_SAKUSEI_YMD.Size = New System.Drawing.Size(112, 24)
+        Me.dtST01_SAKUSEI_YMD.TabIndex = 6
+        Me.dtST01_SAKUSEI_YMD.Value = ""
+        Me.dtST01_SAKUSEI_YMD.ValueNonFormat = ""
         '
         'lblST01_Modoshi_Riyu
         '
         Me.lblST01_Modoshi_Riyu.BackColor = System.Drawing.Color.Transparent
         Me.TableLayoutPanel5.SetColumnSpan(Me.lblST01_Modoshi_Riyu, 3)
-        Me.lblST01_Modoshi_Riyu.Font = New System.Drawing.Font("Meiryo UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblST01_Modoshi_Riyu.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lblST01_Modoshi_Riyu.ForeColor = System.Drawing.Color.Red
-        Me.lblST01_Modoshi_Riyu.Location = New System.Drawing.Point(3, 120)
+        Me.lblST01_Modoshi_Riyu.Location = New System.Drawing.Point(3, 100)
         Me.lblST01_Modoshi_Riyu.Name = "lblST01_Modoshi_Riyu"
         Me.lblST01_Modoshi_Riyu.Size = New System.Drawing.Size(348, 40)
         Me.lblST01_Modoshi_Riyu.TabIndex = 336
-        Me.lblST01_Modoshi_Riyu.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblST01_Modoshi_Riyu.Text = "差し戻し理由:"
         Me.lblST01_Modoshi_Riyu.Visible = False
         '
         'txtCOMMENT1
         '
+        Me.txtCOMMENT1.AcceptsReturn = True
         Me.txtCOMMENT1.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel5.SetColumnSpan(Me.txtCOMMENT1, 3)
         Me.txtCOMMENT1.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtCOMMENT1.InputRequired = False
-        Me.txtCOMMENT1.Location = New System.Drawing.Point(3, 183)
+        Me.txtCOMMENT1.Location = New System.Drawing.Point(3, 163)
         Me.txtCOMMENT1.MaxByteLength = 400
         Me.txtCOMMENT1.MaxLength = 200
         Me.txtCOMMENT1.Multiline = True
         Me.txtCOMMENT1.Name = "txtCOMMENT1"
+        Me.txtCOMMENT1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtCOMMENT1.SelectAllText = False
         Me.txtCOMMENT1.ShowRemainingChars = True
         Me.txtCOMMENT1.Size = New System.Drawing.Size(348, 94)
-        Me.txtCOMMENT1.TabIndex = 330
+        Me.txtCOMMENT1.TabIndex = 7
         Me.txtCOMMENT1.WatermarkColor = System.Drawing.Color.Empty
         Me.txtCOMMENT1.WatermarkText = Nothing
         '
@@ -2897,7 +2815,7 @@ Partial Class FrmG0031_EditOverflow
         Me.Label45.AutoSize = True
         Me.Label45.BackColor = System.Drawing.Color.Transparent
         Me.Label45.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label45.Location = New System.Drawing.Point(3, 163)
+        Me.Label45.Location = New System.Drawing.Point(3, 143)
         Me.Label45.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label45.Name = "Label45"
         Me.Label45.Size = New System.Drawing.Size(75, 15)
@@ -2905,21 +2823,22 @@ Partial Class FrmG0031_EditOverflow
         Me.Label45.Text = "フリースペース:"
         Me.Label45.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'pnlZESEI_KAKUNIN
+        'pnlST05
         '
-        Me.pnlZESEI_KAKUNIN.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.pnlZESEI_KAKUNIN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlZESEI_KAKUNIN.Controls.Add(Me.Label20)
-        Me.pnlZESEI_KAKUNIN.Controls.Add(Me.txtCOMMENT5)
-        Me.pnlZESEI_KAKUNIN.Controls.Add(Me.TableLayoutPanel3)
-        Me.pnlZESEI_KAKUNIN.Controls.Add(Me.lblSTAGE16)
-        Me.pnlZESEI_KAKUNIN.Controls.Add(Me.btnST13_SYONIN)
-        Me.pnlZESEI_KAKUNIN.HitEnabled = False
-        Me.pnlZESEI_KAKUNIN.Location = New System.Drawing.Point(2, 1804)
-        Me.pnlZESEI_KAKUNIN.Margin = New System.Windows.Forms.Padding(2)
-        Me.pnlZESEI_KAKUNIN.Name = "pnlZESEI_KAKUNIN"
-        Me.pnlZESEI_KAKUNIN.Size = New System.Drawing.Size(1210, 119)
-        Me.pnlZESEI_KAKUNIN.TabIndex = 321
+        Me.pnlST05.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.pnlST05.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST05.Controls.Add(Me.Label20)
+        Me.pnlST05.Controls.Add(Me.txtCOMMENT5)
+        Me.pnlST05.Controls.Add(Me.TableLayoutPanel3)
+        Me.pnlST05.Controls.Add(Me.lblSTAGE16)
+        Me.pnlST05.Controls.Add(Me.btnST13_SYONIN)
+        Me.pnlST05.HitEnabled = False
+        Me.pnlST05.Location = New System.Drawing.Point(2, 1754)
+        Me.pnlST05.Margin = New System.Windows.Forms.Padding(2)
+        Me.pnlST05.Name = "pnlST05"
+        Me.pnlST05.Size = New System.Drawing.Size(1210, 145)
+        Me.pnlST05.TabIndex = 321
+        Me.pnlST05.Visible = False
         '
         'Label20
         '
@@ -2936,6 +2855,7 @@ Partial Class FrmG0031_EditOverflow
         '
         'txtCOMMENT5
         '
+        Me.txtCOMMENT5.AcceptsReturn = True
         Me.txtCOMMENT5.BackColor = System.Drawing.SystemColors.Window
         Me.txtCOMMENT5.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtCOMMENT5.InputRequired = False
@@ -2944,10 +2864,11 @@ Partial Class FrmG0031_EditOverflow
         Me.txtCOMMENT5.MaxLength = 200
         Me.txtCOMMENT5.Multiline = True
         Me.txtCOMMENT5.Name = "txtCOMMENT5"
+        Me.txtCOMMENT5.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtCOMMENT5.SelectAllText = False
         Me.txtCOMMENT5.ShowRemainingChars = True
-        Me.txtCOMMENT5.Size = New System.Drawing.Size(288, 89)
-        Me.txtCOMMENT5.TabIndex = 333
+        Me.txtCOMMENT5.Size = New System.Drawing.Size(288, 117)
+        Me.txtCOMMENT5.TabIndex = 2
         Me.txtCOMMENT5.WatermarkColor = System.Drawing.Color.Empty
         Me.txtCOMMENT5.WatermarkText = Nothing
         '
@@ -2967,15 +2888,18 @@ Partial Class FrmG0031_EditOverflow
         Me.TableLayoutPanel3.Controls.Add(Me.dtST05_NINKA_YMD, 0, 2)
         Me.TableLayoutPanel3.Controls.Add(Me.dtST05_TENKEN_YMD, 1, 2)
         Me.TableLayoutPanel3.Controls.Add(Me.dtST05_SAKUSEI_YMD, 2, 2)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblST05_Modoshi_Riyu, 0, 4)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Right
         Me.TableLayoutPanel3.Location = New System.Drawing.Point(849, 0)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        Me.TableLayoutPanel3.RowCount = 4
+        Me.TableLayoutPanel3.RowCount = 6
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(359, 117)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(359, 143)
         Me.TableLayoutPanel3.TabIndex = 331
         '
         'cmbST05_NINKA_TANTO
@@ -2983,6 +2907,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST05_NINKA_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST05_NINKA_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST05_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST05_NINKA_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST05_NINKA_TANTO.DisplayMember = "DISP"
         Me.cmbST05_NINKA_TANTO.DropDownWidth = 140
         Me.cmbST05_NINKA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -3001,7 +2926,7 @@ Partial Class FrmG0031_EditOverflow
         '
         'lblST05_NINKA_TANTO
         '
-        Me.lblST05_NINKA_TANTO.BackColor = System.Drawing.Color.LemonChiffon
+        Me.lblST05_NINKA_TANTO.BackColor = System.Drawing.Color.Transparent
         Me.lblST05_NINKA_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblST05_NINKA_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblST05_NINKA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -3041,6 +2966,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST05_TENKEN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST05_TENKEN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST05_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST05_TENKEN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST05_TENKEN_TANTO.DisplayMember = "DISP"
         Me.cmbST05_TENKEN_TANTO.DropDownWidth = 140
         Me.cmbST05_TENKEN_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -3062,6 +2988,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST05_SAKUSEI_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST05_SAKUSEI_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST05_SAKUSEI_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST05_SAKUSEI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST05_SAKUSEI_TANTO.DisplayMember = "DISP"
         Me.cmbST05_SAKUSEI_TANTO.DropDownWidth = 140
         Me.cmbST05_SAKUSEI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -3080,14 +3007,16 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST05_NINKA_YMD
         '
+        Me.dtST05_NINKA_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST05_NINKA_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST05_NINKA_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST05_NINKA_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST05_NINKA_YMD.Location = New System.Drawing.Point(3, 53)
         Me.dtST05_NINKA_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST05_NINKA_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST05_NINKA_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST05_NINKA_YMD.Name = "dtST05_NINKA_YMD"
-        Me.dtST05_NINKA_YMD.ReadOnly = False
+        Me.dtST05_NINKA_YMD.ReadOnly = True
         Me.dtST05_NINKA_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST05_NINKA_YMD.TabIndex = 2
         Me.dtST05_NINKA_YMD.Value = ""
@@ -3095,14 +3024,16 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST05_TENKEN_YMD
         '
+        Me.dtST05_TENKEN_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST05_TENKEN_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST05_TENKEN_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST05_TENKEN_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST05_TENKEN_YMD.Location = New System.Drawing.Point(121, 53)
         Me.dtST05_TENKEN_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST05_TENKEN_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST05_TENKEN_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST05_TENKEN_YMD.Name = "dtST05_TENKEN_YMD"
-        Me.dtST05_TENKEN_YMD.ReadOnly = False
+        Me.dtST05_TENKEN_YMD.ReadOnly = True
         Me.dtST05_TENKEN_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST05_TENKEN_YMD.TabIndex = 4
         Me.dtST05_TENKEN_YMD.Value = ""
@@ -3110,18 +3041,33 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST05_SAKUSEI_YMD
         '
+        Me.dtST05_SAKUSEI_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST05_SAKUSEI_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST05_SAKUSEI_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST05_SAKUSEI_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST05_SAKUSEI_YMD.Location = New System.Drawing.Point(239, 53)
         Me.dtST05_SAKUSEI_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST05_SAKUSEI_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST05_SAKUSEI_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST05_SAKUSEI_YMD.Name = "dtST05_SAKUSEI_YMD"
-        Me.dtST05_SAKUSEI_YMD.ReadOnly = False
+        Me.dtST05_SAKUSEI_YMD.ReadOnly = True
         Me.dtST05_SAKUSEI_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST05_SAKUSEI_YMD.TabIndex = 6
         Me.dtST05_SAKUSEI_YMD.Value = ""
         Me.dtST05_SAKUSEI_YMD.ValueNonFormat = ""
+        '
+        'lblST05_Modoshi_Riyu
+        '
+        Me.lblST05_Modoshi_Riyu.BackColor = System.Drawing.Color.Transparent
+        Me.TableLayoutPanel3.SetColumnSpan(Me.lblST05_Modoshi_Riyu, 3)
+        Me.lblST05_Modoshi_Riyu.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblST05_Modoshi_Riyu.ForeColor = System.Drawing.Color.Red
+        Me.lblST05_Modoshi_Riyu.Location = New System.Drawing.Point(3, 100)
+        Me.lblST05_Modoshi_Riyu.Name = "lblST05_Modoshi_Riyu"
+        Me.lblST05_Modoshi_Riyu.Size = New System.Drawing.Size(348, 40)
+        Me.lblST05_Modoshi_Riyu.TabIndex = 361
+        Me.lblST05_Modoshi_Riyu.Text = "差し戻し理由:"
+        Me.lblST05_Modoshi_Riyu.Visible = False
         '
         'lblSTAGE16
         '
@@ -3143,32 +3089,33 @@ Partial Class FrmG0031_EditOverflow
         Me.btnST13_SYONIN.Location = New System.Drawing.Point(10, 53)
         Me.btnST13_SYONIN.Name = "btnST13_SYONIN"
         Me.btnST13_SYONIN.Size = New System.Drawing.Size(157, 43)
-        Me.btnST13_SYONIN.TabIndex = 242
+        Me.btnST13_SYONIN.TabIndex = 1
         Me.btnST13_SYONIN.Text = "最終承認"
         Me.btnST13_SYONIN.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnST13_SYONIN.UseVisualStyleBackColor = True
         Me.btnST13_SYONIN.Visible = False
         '
-        'pnlZESEI_SYOCHI
+        'pnlST04
         '
-        Me.pnlZESEI_SYOCHI.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.pnlZESEI_SYOCHI.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlZESEI_SYOCHI.Controls.Add(Me.Label37)
-        Me.pnlZESEI_SYOCHI.Controls.Add(Me.txtCOMMENT4)
-        Me.pnlZESEI_SYOCHI.Controls.Add(Me.chkZESEI_SYOCHI_HANTEI)
-        Me.pnlZESEI_SYOCHI.Controls.Add(Me.Panel7)
-        Me.pnlZESEI_SYOCHI.Controls.Add(Me.TableLayoutPanel2)
-        Me.pnlZESEI_SYOCHI.Controls.Add(Me.lblSTAGE10)
-        Me.pnlZESEI_SYOCHI.Controls.Add(Me.Label15)
-        Me.pnlZESEI_SYOCHI.Controls.Add(Me.FlowLayoutPanel3)
-        Me.pnlZESEI_SYOCHI.Controls.Add(Me.chkZESEI_SYOCHI_YUKO_UMU)
-        Me.pnlZESEI_SYOCHI.HitEnabled = False
-        Me.pnlZESEI_SYOCHI.Location = New System.Drawing.Point(2, 1625)
-        Me.pnlZESEI_SYOCHI.Margin = New System.Windows.Forms.Padding(2)
-        Me.pnlZESEI_SYOCHI.Name = "pnlZESEI_SYOCHI"
-        Me.pnlZESEI_SYOCHI.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlZESEI_SYOCHI.Size = New System.Drawing.Size(1210, 175)
-        Me.pnlZESEI_SYOCHI.TabIndex = 320
+        Me.pnlST04.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.pnlST04.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST04.Controls.Add(Me.Label37)
+        Me.pnlST04.Controls.Add(Me.txtCOMMENT4)
+        Me.pnlST04.Controls.Add(Me.chkZESEI_SYOCHI_HANTEI)
+        Me.pnlST04.Controls.Add(Me.Panel7)
+        Me.pnlST04.Controls.Add(Me.TableLayoutPanel2)
+        Me.pnlST04.Controls.Add(Me.lblSTAGE10)
+        Me.pnlST04.Controls.Add(Me.Label15)
+        Me.pnlST04.Controls.Add(Me.FlowLayoutPanel3)
+        Me.pnlST04.Controls.Add(Me.chkZESEI_SYOCHI_YUKO_UMU)
+        Me.pnlST04.HitEnabled = False
+        Me.pnlST04.Location = New System.Drawing.Point(2, 1600)
+        Me.pnlST04.Margin = New System.Windows.Forms.Padding(2)
+        Me.pnlST04.Name = "pnlST04"
+        Me.pnlST04.Padding = New System.Windows.Forms.Padding(2)
+        Me.pnlST04.Size = New System.Drawing.Size(1210, 150)
+        Me.pnlST04.TabIndex = 320
+        Me.pnlST04.Visible = False
         '
         'Label37
         '
@@ -3185,6 +3132,7 @@ Partial Class FrmG0031_EditOverflow
         '
         'txtCOMMENT4
         '
+        Me.txtCOMMENT4.AcceptsReturn = True
         Me.txtCOMMENT4.BackColor = System.Drawing.SystemColors.Window
         Me.txtCOMMENT4.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtCOMMENT4.InputRequired = False
@@ -3193,17 +3141,18 @@ Partial Class FrmG0031_EditOverflow
         Me.txtCOMMENT4.MaxLength = 200
         Me.txtCOMMENT4.Multiline = True
         Me.txtCOMMENT4.Name = "txtCOMMENT4"
+        Me.txtCOMMENT4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtCOMMENT4.SelectAllText = False
         Me.txtCOMMENT4.ShowRemainingChars = True
-        Me.txtCOMMENT4.Size = New System.Drawing.Size(288, 92)
-        Me.txtCOMMENT4.TabIndex = 332
+        Me.txtCOMMENT4.Size = New System.Drawing.Size(288, 119)
+        Me.txtCOMMENT4.TabIndex = 2
         Me.txtCOMMENT4.WatermarkColor = System.Drawing.Color.Empty
         Me.txtCOMMENT4.WatermarkText = Nothing
         '
         'chkZESEI_SYOCHI_HANTEI
         '
         Me.chkZESEI_SYOCHI_HANTEI.AutoSize = True
-        Me.chkZESEI_SYOCHI_HANTEI.Location = New System.Drawing.Point(296, 43)
+        Me.chkZESEI_SYOCHI_HANTEI.Location = New System.Drawing.Point(561, 29)
         Me.chkZESEI_SYOCHI_HANTEI.Name = "chkZESEI_SYOCHI_HANTEI"
         Me.chkZESEI_SYOCHI_HANTEI.Size = New System.Drawing.Size(180, 21)
         Me.chkZESEI_SYOCHI_HANTEI.TabIndex = 340
@@ -3428,9 +3377,8 @@ Partial Class FrmG0031_EditOverflow
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel2.Controls.Add(Me.lblST04_Modoshi_Riyu, 0, 5)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblST04_Modoshi_Riyu, 0, 4)
         Me.TableLayoutPanel2.Controls.Add(Me.cmbST04_NINKA_TANTO, 0, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblST04_SASIMODOSHI, 0, 4)
         Me.TableLayoutPanel2.Controls.Add(Me.lblST04_NINKA_TANTO, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblST04_TENKEN_TANTO, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblST04_SAKUSEI_TANTO, 2, 0)
@@ -3442,28 +3390,28 @@ Partial Class FrmG0031_EditOverflow
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(847, 2)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 7
+        Me.TableLayoutPanel2.RowCount = 6
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(359, 169)
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(359, 144)
         Me.TableLayoutPanel2.TabIndex = 332
         '
         'lblST04_Modoshi_Riyu
         '
         Me.lblST04_Modoshi_Riyu.BackColor = System.Drawing.Color.Transparent
         Me.TableLayoutPanel2.SetColumnSpan(Me.lblST04_Modoshi_Riyu, 3)
-        Me.lblST04_Modoshi_Riyu.Font = New System.Drawing.Font("Meiryo UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblST04_Modoshi_Riyu.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lblST04_Modoshi_Riyu.ForeColor = System.Drawing.Color.Red
-        Me.lblST04_Modoshi_Riyu.Location = New System.Drawing.Point(3, 120)
+        Me.lblST04_Modoshi_Riyu.Location = New System.Drawing.Point(3, 100)
         Me.lblST04_Modoshi_Riyu.Name = "lblST04_Modoshi_Riyu"
         Me.lblST04_Modoshi_Riyu.Size = New System.Drawing.Size(348, 40)
         Me.lblST04_Modoshi_Riyu.TabIndex = 360
-        Me.lblST04_Modoshi_Riyu.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblST04_Modoshi_Riyu.Text = "差し戻し理由:"
         Me.lblST04_Modoshi_Riyu.Visible = False
         '
         'cmbST04_NINKA_TANTO
@@ -3471,6 +3419,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST04_NINKA_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST04_NINKA_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST04_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST04_NINKA_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST04_NINKA_TANTO.DisplayMember = "DISP"
         Me.cmbST04_NINKA_TANTO.DropDownWidth = 140
         Me.cmbST04_NINKA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -3487,24 +3436,9 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST04_NINKA_TANTO.Text = "(選択)"
         Me.cmbST04_NINKA_TANTO.ValueMember = "VALUE"
         '
-        'lblST04_SASIMODOSHI
-        '
-        Me.lblST04_SASIMODOSHI.AutoSize = True
-        Me.lblST04_SASIMODOSHI.BackColor = System.Drawing.Color.Transparent
-        Me.lblST04_SASIMODOSHI.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblST04_SASIMODOSHI.ForeColor = System.Drawing.Color.Red
-        Me.lblST04_SASIMODOSHI.Location = New System.Drawing.Point(3, 103)
-        Me.lblST04_SASIMODOSHI.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.lblST04_SASIMODOSHI.Name = "lblST04_SASIMODOSHI"
-        Me.lblST04_SASIMODOSHI.Size = New System.Drawing.Size(78, 15)
-        Me.lblST04_SASIMODOSHI.TabIndex = 361
-        Me.lblST04_SASIMODOSHI.Text = "差し戻し理由:"
-        Me.lblST04_SASIMODOSHI.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.lblST04_SASIMODOSHI.Visible = False
-        '
         'lblST04_NINKA_TANTO
         '
-        Me.lblST04_NINKA_TANTO.BackColor = System.Drawing.Color.LemonChiffon
+        Me.lblST04_NINKA_TANTO.BackColor = System.Drawing.Color.Transparent
         Me.lblST04_NINKA_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblST04_NINKA_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblST04_NINKA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -3544,6 +3478,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST04_TENKEN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST04_TENKEN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST04_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST04_TENKEN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST04_TENKEN_TANTO.DisplayMember = "DISP"
         Me.cmbST04_TENKEN_TANTO.DropDownWidth = 140
         Me.cmbST04_TENKEN_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -3565,6 +3500,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST04_SAKUSEI_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST04_SAKUSEI_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST04_SAKUSEI_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST04_SAKUSEI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST04_SAKUSEI_TANTO.DisplayMember = "DISP"
         Me.cmbST04_SAKUSEI_TANTO.DropDownWidth = 140
         Me.cmbST04_SAKUSEI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -3583,14 +3519,16 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST04_NINKA_YMD
         '
+        Me.dtST04_NINKA_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST04_NINKA_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST04_NINKA_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST04_NINKA_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST04_NINKA_YMD.Location = New System.Drawing.Point(3, 53)
         Me.dtST04_NINKA_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST04_NINKA_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST04_NINKA_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST04_NINKA_YMD.Name = "dtST04_NINKA_YMD"
-        Me.dtST04_NINKA_YMD.ReadOnly = False
+        Me.dtST04_NINKA_YMD.ReadOnly = True
         Me.dtST04_NINKA_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST04_NINKA_YMD.TabIndex = 2
         Me.dtST04_NINKA_YMD.Value = ""
@@ -3598,14 +3536,16 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST04_TENKEN_YMD
         '
+        Me.dtST04_TENKEN_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST04_TENKEN_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST04_TENKEN_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST04_TENKEN_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST04_TENKEN_YMD.Location = New System.Drawing.Point(121, 53)
         Me.dtST04_TENKEN_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST04_TENKEN_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST04_TENKEN_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST04_TENKEN_YMD.Name = "dtST04_TENKEN_YMD"
-        Me.dtST04_TENKEN_YMD.ReadOnly = False
+        Me.dtST04_TENKEN_YMD.ReadOnly = True
         Me.dtST04_TENKEN_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST04_TENKEN_YMD.TabIndex = 4
         Me.dtST04_TENKEN_YMD.Value = ""
@@ -3613,14 +3553,16 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST04_SAKUSEI_YMD
         '
+        Me.dtST04_SAKUSEI_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST04_SAKUSEI_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST04_SAKUSEI_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST04_SAKUSEI_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST04_SAKUSEI_YMD.Location = New System.Drawing.Point(239, 53)
         Me.dtST04_SAKUSEI_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST04_SAKUSEI_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST04_SAKUSEI_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST04_SAKUSEI_YMD.Name = "dtST04_SAKUSEI_YMD"
-        Me.dtST04_SAKUSEI_YMD.ReadOnly = False
+        Me.dtST04_SAKUSEI_YMD.ReadOnly = True
         Me.dtST04_SAKUSEI_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST04_SAKUSEI_YMD.TabIndex = 6
         Me.dtST04_SAKUSEI_YMD.Value = ""
@@ -3659,7 +3601,7 @@ Partial Class FrmG0031_EditOverflow
         Me.FlowLayoutPanel3.Location = New System.Drawing.Point(193, 41)
         Me.FlowLayoutPanel3.Name = "FlowLayoutPanel3"
         Me.FlowLayoutPanel3.Size = New System.Drawing.Size(98, 27)
-        Me.FlowLayoutPanel3.TabIndex = 288
+        Me.FlowLayoutPanel3.TabIndex = 1
         '
         'rbtnZESEI_SYOCHI_YES
         '
@@ -3693,26 +3635,27 @@ Partial Class FrmG0031_EditOverflow
         Me.chkZESEI_SYOCHI_YUKO_UMU.Text = "chkZESEI"
         Me.chkZESEI_SYOCHI_YUKO_UMU.UseVisualStyleBackColor = True
         '
-        'pnlSYOCHI_KIROKU
+        'pnlST03
         '
-        Me.pnlSYOCHI_KIROKU.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.pnlSYOCHI_KIROKU.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.txtOUKYU_SYOCHI_KEKKA)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.dtOUKYU_SYOCHI_YMD)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label57)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.dtZESEI_SYOCHI_YMD)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Label54)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.Panel5)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.TableLayoutPanel1)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.txtZESEI_SYOCHI_KEKKA)
-        Me.pnlSYOCHI_KIROKU.Controls.Add(Me.lblSTAGE08)
-        Me.pnlSYOCHI_KIROKU.HitEnabled = False
-        Me.pnlSYOCHI_KIROKU.Location = New System.Drawing.Point(2, 1326)
-        Me.pnlSYOCHI_KIROKU.Margin = New System.Windows.Forms.Padding(2)
-        Me.pnlSYOCHI_KIROKU.Name = "pnlSYOCHI_KIROKU"
-        Me.pnlSYOCHI_KIROKU.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlSYOCHI_KIROKU.Size = New System.Drawing.Size(1210, 294)
-        Me.pnlSYOCHI_KIROKU.TabIndex = 319
+        Me.pnlST03.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.pnlST03.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST03.Controls.Add(Me.txtOUKYU_SYOCHI_KEKKA)
+        Me.pnlST03.Controls.Add(Me.dtOUKYU_SYOCHI_YMD)
+        Me.pnlST03.Controls.Add(Me.Label57)
+        Me.pnlST03.Controls.Add(Me.dtZESEI_SYOCHI_YMD)
+        Me.pnlST03.Controls.Add(Me.Label54)
+        Me.pnlST03.Controls.Add(Me.Panel5)
+        Me.pnlST03.Controls.Add(Me.TableLayoutPanel1)
+        Me.pnlST03.Controls.Add(Me.txtZESEI_SYOCHI_KEKKA)
+        Me.pnlST03.Controls.Add(Me.lblSTAGE08)
+        Me.pnlST03.HitEnabled = False
+        Me.pnlST03.Location = New System.Drawing.Point(2, 1326)
+        Me.pnlST03.Margin = New System.Windows.Forms.Padding(2)
+        Me.pnlST03.Name = "pnlST03"
+        Me.pnlST03.Padding = New System.Windows.Forms.Padding(2)
+        Me.pnlST03.Size = New System.Drawing.Size(1210, 271)
+        Me.pnlST03.TabIndex = 319
+        Me.pnlST03.Visible = False
         '
         'txtOUKYU_SYOCHI_KEKKA
         '
@@ -3725,10 +3668,11 @@ Partial Class FrmG0031_EditOverflow
         Me.txtOUKYU_SYOCHI_KEKKA.MaxLength = 40
         Me.txtOUKYU_SYOCHI_KEKKA.Multiline = True
         Me.txtOUKYU_SYOCHI_KEKKA.Name = "txtOUKYU_SYOCHI_KEKKA"
+        Me.txtOUKYU_SYOCHI_KEKKA.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtOUKYU_SYOCHI_KEKKA.SelectAllText = False
         Me.txtOUKYU_SYOCHI_KEKKA.ShowRemainingChars = True
         Me.txtOUKYU_SYOCHI_KEKKA.Size = New System.Drawing.Size(583, 60)
-        Me.txtOUKYU_SYOCHI_KEKKA.TabIndex = 355
+        Me.txtOUKYU_SYOCHI_KEKKA.TabIndex = 2
         Me.txtOUKYU_SYOCHI_KEKKA.WatermarkColor = System.Drawing.Color.Empty
         Me.txtOUKYU_SYOCHI_KEKKA.WatermarkText = Nothing
         '
@@ -3743,7 +3687,7 @@ Partial Class FrmG0031_EditOverflow
         Me.dtOUKYU_SYOCHI_YMD.Name = "dtOUKYU_SYOCHI_YMD"
         Me.dtOUKYU_SYOCHI_YMD.ReadOnly = False
         Me.dtOUKYU_SYOCHI_YMD.Size = New System.Drawing.Size(98, 24)
-        Me.dtOUKYU_SYOCHI_YMD.TabIndex = 352
+        Me.dtOUKYU_SYOCHI_YMD.TabIndex = 1
         Me.dtOUKYU_SYOCHI_YMD.Value = ""
         Me.dtOUKYU_SYOCHI_YMD.ValueNonFormat = ""
         '
@@ -3769,7 +3713,7 @@ Partial Class FrmG0031_EditOverflow
         Me.dtZESEI_SYOCHI_YMD.Name = "dtZESEI_SYOCHI_YMD"
         Me.dtZESEI_SYOCHI_YMD.ReadOnly = False
         Me.dtZESEI_SYOCHI_YMD.Size = New System.Drawing.Size(98, 24)
-        Me.dtZESEI_SYOCHI_YMD.TabIndex = 350
+        Me.dtZESEI_SYOCHI_YMD.TabIndex = 3
         Me.dtZESEI_SYOCHI_YMD.Value = ""
         Me.dtZESEI_SYOCHI_YMD.ValueNonFormat = ""
         '
@@ -4002,11 +3946,10 @@ Partial Class FrmG0031_EditOverflow
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 118.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.Controls.Add(Me.txtCOMMENT3, 0, 7)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblST03_Modoshi_Riyu, 0, 5)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label39, 0, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtCOMMENT3, 0, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblST03_Modoshi_Riyu, 0, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label39, 0, 5)
         Me.TableLayoutPanel1.Controls.Add(Me.cmbST03_NINKA_TANTO, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblST03_SASIMODOSHI, 0, 4)
         Me.TableLayoutPanel1.Controls.Add(Me.lblST03_NINKA_TANTO, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.lblST03_TENKEN_TANTO, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.lblST03_SAKUSEI_TANTO, 2, 0)
@@ -4017,31 +3960,32 @@ Partial Class FrmG0031_EditOverflow
         Me.TableLayoutPanel1.Controls.Add(Me.dtST03_SAKUSEI_YMD, 2, 2)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(848, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 9
+        Me.TableLayoutPanel1.RowCount = 8
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(358, 289)
-        Me.TableLayoutPanel1.TabIndex = 334
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(358, 265)
+        Me.TableLayoutPanel1.TabIndex = 5
         '
         'txtCOMMENT3
         '
+        Me.txtCOMMENT3.AcceptsReturn = True
         Me.txtCOMMENT3.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel1.SetColumnSpan(Me.txtCOMMENT3, 3)
         Me.txtCOMMENT3.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtCOMMENT3.InputRequired = False
-        Me.txtCOMMENT3.Location = New System.Drawing.Point(3, 183)
+        Me.txtCOMMENT3.Location = New System.Drawing.Point(3, 163)
         Me.txtCOMMENT3.MaxByteLength = 400
         Me.txtCOMMENT3.MaxLength = 200
         Me.txtCOMMENT3.Multiline = True
         Me.txtCOMMENT3.Name = "txtCOMMENT3"
+        Me.txtCOMMENT3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtCOMMENT3.SelectAllText = False
         Me.txtCOMMENT3.ShowRemainingChars = True
         Me.txtCOMMENT3.Size = New System.Drawing.Size(348, 94)
@@ -4053,13 +3997,13 @@ Partial Class FrmG0031_EditOverflow
         '
         Me.lblST03_Modoshi_Riyu.BackColor = System.Drawing.Color.Transparent
         Me.TableLayoutPanel1.SetColumnSpan(Me.lblST03_Modoshi_Riyu, 3)
-        Me.lblST03_Modoshi_Riyu.Font = New System.Drawing.Font("Meiryo UI", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.lblST03_Modoshi_Riyu.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.lblST03_Modoshi_Riyu.ForeColor = System.Drawing.Color.Red
-        Me.lblST03_Modoshi_Riyu.Location = New System.Drawing.Point(3, 120)
+        Me.lblST03_Modoshi_Riyu.Location = New System.Drawing.Point(3, 100)
         Me.lblST03_Modoshi_Riyu.Name = "lblST03_Modoshi_Riyu"
         Me.lblST03_Modoshi_Riyu.Size = New System.Drawing.Size(348, 40)
         Me.lblST03_Modoshi_Riyu.TabIndex = 358
-        Me.lblST03_Modoshi_Riyu.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblST03_Modoshi_Riyu.Text = "差し戻し理由:"
         Me.lblST03_Modoshi_Riyu.Visible = False
         '
         'Label39
@@ -4067,7 +4011,7 @@ Partial Class FrmG0031_EditOverflow
         Me.Label39.AutoSize = True
         Me.Label39.BackColor = System.Drawing.Color.Transparent
         Me.Label39.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label39.Location = New System.Drawing.Point(3, 163)
+        Me.Label39.Location = New System.Drawing.Point(3, 143)
         Me.Label39.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(75, 15)
@@ -4080,6 +4024,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST03_NINKA_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST03_NINKA_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST03_NINKA_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST03_NINKA_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST03_NINKA_TANTO.DisplayMember = "DISP"
         Me.cmbST03_NINKA_TANTO.DropDownWidth = 140
         Me.cmbST03_NINKA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -4096,24 +4041,9 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST03_NINKA_TANTO.Text = "(選択)"
         Me.cmbST03_NINKA_TANTO.ValueMember = "VALUE"
         '
-        'lblST03_SASIMODOSHI
-        '
-        Me.lblST03_SASIMODOSHI.AutoSize = True
-        Me.lblST03_SASIMODOSHI.BackColor = System.Drawing.Color.Transparent
-        Me.lblST03_SASIMODOSHI.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblST03_SASIMODOSHI.ForeColor = System.Drawing.Color.Red
-        Me.lblST03_SASIMODOSHI.Location = New System.Drawing.Point(3, 103)
-        Me.lblST03_SASIMODOSHI.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.lblST03_SASIMODOSHI.Name = "lblST03_SASIMODOSHI"
-        Me.lblST03_SASIMODOSHI.Size = New System.Drawing.Size(78, 15)
-        Me.lblST03_SASIMODOSHI.TabIndex = 359
-        Me.lblST03_SASIMODOSHI.Text = "差し戻し理由:"
-        Me.lblST03_SASIMODOSHI.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.lblST03_SASIMODOSHI.Visible = False
-        '
         'lblST03_NINKA_TANTO
         '
-        Me.lblST03_NINKA_TANTO.BackColor = System.Drawing.Color.LemonChiffon
+        Me.lblST03_NINKA_TANTO.BackColor = System.Drawing.Color.Transparent
         Me.lblST03_NINKA_TANTO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblST03_NINKA_TANTO.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblST03_NINKA_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -4153,6 +4083,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST03_TENKEN_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST03_TENKEN_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST03_TENKEN_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST03_TENKEN_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST03_TENKEN_TANTO.DisplayMember = "DISP"
         Me.cmbST03_TENKEN_TANTO.DropDownWidth = 140
         Me.cmbST03_TENKEN_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -4174,6 +4105,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST03_SAKUSEI_TANTO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cmbST03_SAKUSEI_TANTO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbST03_SAKUSEI_TANTO.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbST03_SAKUSEI_TANTO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbST03_SAKUSEI_TANTO.DisplayMember = "DISP"
         Me.cmbST03_SAKUSEI_TANTO.DropDownWidth = 140
         Me.cmbST03_SAKUSEI_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -4192,14 +4124,16 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST03_NINKA_YMD
         '
+        Me.dtST03_NINKA_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST03_NINKA_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST03_NINKA_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST03_NINKA_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST03_NINKA_YMD.Location = New System.Drawing.Point(3, 53)
         Me.dtST03_NINKA_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST03_NINKA_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST03_NINKA_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST03_NINKA_YMD.Name = "dtST03_NINKA_YMD"
-        Me.dtST03_NINKA_YMD.ReadOnly = False
+        Me.dtST03_NINKA_YMD.ReadOnly = True
         Me.dtST03_NINKA_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST03_NINKA_YMD.TabIndex = 2
         Me.dtST03_NINKA_YMD.Value = ""
@@ -4207,14 +4141,16 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST03_TENKEN_YMD
         '
+        Me.dtST03_TENKEN_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST03_TENKEN_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST03_TENKEN_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST03_TENKEN_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST03_TENKEN_YMD.Location = New System.Drawing.Point(121, 53)
         Me.dtST03_TENKEN_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST03_TENKEN_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST03_TENKEN_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST03_TENKEN_YMD.Name = "dtST03_TENKEN_YMD"
-        Me.dtST03_TENKEN_YMD.ReadOnly = False
+        Me.dtST03_TENKEN_YMD.ReadOnly = True
         Me.dtST03_TENKEN_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST03_TENKEN_YMD.TabIndex = 4
         Me.dtST03_TENKEN_YMD.Value = ""
@@ -4222,14 +4158,16 @@ Partial Class FrmG0031_EditOverflow
         '
         'dtST03_SAKUSEI_YMD
         '
+        Me.dtST03_SAKUSEI_YMD.BackColor = System.Drawing.SystemColors.Control
         Me.dtST03_SAKUSEI_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST03_SAKUSEI_YMD.Cursor = System.Windows.Forms.Cursors.Default
         Me.dtST03_SAKUSEI_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.dtST03_SAKUSEI_YMD.Location = New System.Drawing.Point(239, 53)
         Me.dtST03_SAKUSEI_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
         Me.dtST03_SAKUSEI_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
         Me.dtST03_SAKUSEI_YMD.MinimumSize = New System.Drawing.Size(98, 24)
         Me.dtST03_SAKUSEI_YMD.Name = "dtST03_SAKUSEI_YMD"
-        Me.dtST03_SAKUSEI_YMD.ReadOnly = False
+        Me.dtST03_SAKUSEI_YMD.ReadOnly = True
         Me.dtST03_SAKUSEI_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST03_SAKUSEI_YMD.TabIndex = 6
         Me.dtST03_SAKUSEI_YMD.Value = ""
@@ -4246,10 +4184,11 @@ Partial Class FrmG0031_EditOverflow
         Me.txtZESEI_SYOCHI_KEKKA.MaxLength = 40
         Me.txtZESEI_SYOCHI_KEKKA.Multiline = True
         Me.txtZESEI_SYOCHI_KEKKA.Name = "txtZESEI_SYOCHI_KEKKA"
+        Me.txtZESEI_SYOCHI_KEKKA.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtZESEI_SYOCHI_KEKKA.SelectAllText = False
         Me.txtZESEI_SYOCHI_KEKKA.ShowRemainingChars = True
         Me.txtZESEI_SYOCHI_KEKKA.Size = New System.Drawing.Size(582, 60)
-        Me.txtZESEI_SYOCHI_KEKKA.TabIndex = 331
+        Me.txtZESEI_SYOCHI_KEKKA.TabIndex = 4
         Me.txtZESEI_SYOCHI_KEKKA.WatermarkColor = System.Drawing.Color.Empty
         Me.txtZESEI_SYOCHI_KEKKA.WatermarkText = Nothing
         '
@@ -4371,8 +4310,8 @@ Partial Class FrmG0031_EditOverflow
         Me.tabMain.ResumeLayout(False)
         Me.TabPageEx1.ResumeLayout(False)
         Me.TabPageEx1.PerformLayout()
-        Me.pnlGENIN_SYOCHI.ResumeLayout(False)
-        Me.pnlGENIN_SYOCHI.PerformLayout()
+        Me.pnlST02.ResumeLayout(False)
+        Me.pnlST02.PerformLayout()
         Me.pnlST02_HINSYO.ResumeLayout(False)
         Me.Panel6.ResumeLayout(False)
         Me.fpnlTempFile3.ResumeLayout(False)
@@ -4390,26 +4329,26 @@ Partial Class FrmG0031_EditOverflow
         Me.pnlST01.ResumeLayout(False)
         Me.pnlST01.PerformLayout()
         Me.Panel4.ResumeLayout(False)
+        Me.Panel4.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.fpnlTempFile1.ResumeLayout(False)
         Me.fpnlTempFile1.PerformLayout()
         Me.TableLayoutPanel5.ResumeLayout(False)
         Me.TableLayoutPanel5.PerformLayout()
-        Me.pnlZESEI_KAKUNIN.ResumeLayout(False)
-        Me.pnlZESEI_KAKUNIN.PerformLayout()
+        Me.pnlST05.ResumeLayout(False)
+        Me.pnlST05.PerformLayout()
         Me.TableLayoutPanel3.ResumeLayout(False)
-        Me.pnlZESEI_SYOCHI.ResumeLayout(False)
-        Me.pnlZESEI_SYOCHI.PerformLayout()
+        Me.pnlST04.ResumeLayout(False)
+        Me.pnlST04.PerformLayout()
         Me.Panel7.ResumeLayout(False)
         Me.fpnlTempFile5.ResumeLayout(False)
         Me.fpnlTempFile5.PerformLayout()
         Me.TableLayoutPanel2.ResumeLayout(False)
-        Me.TableLayoutPanel2.PerformLayout()
         Me.FlowLayoutPanel3.ResumeLayout(False)
         Me.FlowLayoutPanel3.PerformLayout()
-        Me.pnlSYOCHI_KIROKU.ResumeLayout(False)
-        Me.pnlSYOCHI_KIROKU.PerformLayout()
+        Me.pnlST03.ResumeLayout(False)
+        Me.pnlST03.PerformLayout()
         Me.Panel5.ResumeLayout(False)
         Me.fpnlTempFile4.ResumeLayout(False)
         Me.fpnlTempFile4.PerformLayout()
@@ -4428,10 +4367,6 @@ Partial Class FrmG0031_EditOverflow
     Friend WithEvents mtxHOKOKU_NO As MaskedTextBoxEx
     Friend WithEvents cmbBUMON As ComboboxEx
     Friend WithEvents Label5 As Label
-    Friend WithEvents lblKISO_TANTO As Label
-    Friend WithEvents cmbKISO_TANTO As ComboboxEx
-    Friend WithEvents Label16 As Label
-    Friend WithEvents dtKISO As DateTextBoxEx
     Friend WithEvents PanelEx2 As PanelEx
     Friend WithEvents tlpHeader As TableLayoutPanel
     Friend WithEvents flpnlStageIndex As FlowLayoutPanel
@@ -4451,10 +4386,10 @@ Partial Class FrmG0031_EditOverflow
     Friend WithEvents Label13 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents lblCurrentStageName As Label
-    Friend WithEvents pnlZESEI_KAKUNIN As PanelEx
+    Friend WithEvents pnlST05 As PanelEx
     Friend WithEvents lblSTAGE16 As Label
     Friend WithEvents btnST13_SYONIN As Button
-    Friend WithEvents pnlZESEI_SYOCHI As PanelEx
+    Friend WithEvents pnlST04 As PanelEx
     Friend WithEvents lblSTAGE10 As Label
     Friend WithEvents Label15 As Label
     Friend WithEvents FlowLayoutPanel3 As FlowLayoutPanel
@@ -4462,7 +4397,7 @@ Partial Class FrmG0031_EditOverflow
     Friend WithEvents rbtnZESEI_SYOCHI_NO As RadioButton
     Friend WithEvents chkZESEI_SYOCHI_YUKO_UMU As CheckBox
     Friend WithEvents Label75 As Label
-    Friend WithEvents pnlSYOCHI_KIROKU As PanelEx
+    Friend WithEvents pnlST03 As PanelEx
     Friend WithEvents lblSTAGE08 As Label
     Friend WithEvents pnlST01 As PanelEx
     Friend WithEvents txtZESEI_RIYU As TextBoxEx
@@ -4470,7 +4405,7 @@ Partial Class FrmG0031_EditOverflow
     Friend WithEvents Label21 As Label
     Friend WithEvents Label22 As Label
     Friend WithEvents cmbTANTO As ComboboxEx
-    Friend WithEvents Label4 As Label
+    Friend WithEvents lblTANTO As Label
     Friend WithEvents cmbKA As ComboboxEx
     Friend WithEvents Label3 As Label
     Friend WithEvents btnOpenTempFileDialog As Button
@@ -4499,7 +4434,7 @@ Partial Class FrmG0031_EditOverflow
     Friend WithEvents txtZESEI_COMMENT As TextBoxEx
     Friend WithEvents Label17 As Label
     Friend WithEvents Label23 As Label
-    Friend WithEvents pnlGENIN_SYOCHI As PanelEx
+    Friend WithEvents pnlST02 As PanelEx
     Friend WithEvents Label32 As Label
     Friend WithEvents Label31 As Label
     Friend WithEvents dtKAITOU_YMD As DateTextBoxEx
@@ -4557,7 +4492,7 @@ Partial Class FrmG0031_EditOverflow
     Friend WithEvents cmbST01_SAKUSEI_TANTO As ComboboxEx
     Friend WithEvents dtST01_NINKA_YMD As DateTextBoxEx
     Friend WithEvents dtST01_TENKEN_YMD As DateTextBoxEx
-    Friend WithEvents dt_ST01_SAKUSEI_TANTO As DateTextBoxEx
+    Friend WithEvents dtST01_SAKUSEI_YMD As DateTextBoxEx
     Friend WithEvents txtCOMMENT1 As TextBoxEx
     Friend WithEvents txtEIKYOU_HANI As TextBoxEx
     Friend WithEvents txtCHOUSA_HANI As TextBoxEx
@@ -4661,16 +4596,13 @@ Partial Class FrmG0031_EditOverflow
     Friend WithEvents chkZESEI_SYOCHI_HANTEI As CheckBox
     Friend WithEvents chkJINTEKI_YOUIN_UMU As CheckBox
     Friend WithEvents lblST01_Modoshi_Riyu As Label
-    Friend WithEvents lblST01_SASIMODOSHI As Label
     Friend WithEvents Label45 As Label
     Friend WithEvents lblST02_Modoshi_Riyu As Label
-    Friend WithEvents lblST02_SASIMODOSHI As Label
     Friend WithEvents Label20 As Label
     Friend WithEvents Label37 As Label
     Friend WithEvents txtCOMMENT3 As TextBoxEx
     Friend WithEvents lblST03_Modoshi_Riyu As Label
     Friend WithEvents Label39 As Label
-    Friend WithEvents lblST03_SASIMODOSHI As Label
     Friend WithEvents lblST04_Modoshi_Riyu As Label
-    Friend WithEvents lblST04_SASIMODOSHI As Label
+    Friend WithEvents lblST05_Modoshi_Riyu As Label
 End Class
