@@ -358,14 +358,15 @@ Partial Class FrmG0031_EditOverflow
         Me.cmdFunc11.Location = New System.Drawing.Point(919, 641)
         Me.cmdFunc11.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc11.Text = "履歴表示(F11)"
+        Me.cmdFunc11.Visible = False
         '
         'cmdFunc10
         '
+        Me.cmdFunc10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdFunc10.Image = Global.FMS.My.Resources.Resources._imgPrint32x32
         Me.cmdFunc10.Location = New System.Drawing.Point(737, 641)
         Me.cmdFunc10.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc10.Text = "印刷プレビュー(F10)"
-        Me.cmdFunc10.Visible = False
         '
         'cmdFunc7
         '
@@ -1840,7 +1841,6 @@ Partial Class FrmG0031_EditOverflow
         '
         'pnlST04_ZESEI
         '
-        Me.pnlST04_ZESEI.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pnlST04_ZESEI.Controls.Add(Me.rbtnST02_FUTEKIGO_YES)
         Me.pnlST04_ZESEI.Controls.Add(Me.rbtnST02_FUTEKIGO_NO)
         Me.pnlST04_ZESEI.Location = New System.Drawing.Point(104, 237)
@@ -3595,7 +3595,6 @@ Partial Class FrmG0031_EditOverflow
         '
         'FlowLayoutPanel3
         '
-        Me.FlowLayoutPanel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.FlowLayoutPanel3.Controls.Add(Me.rbtnZESEI_SYOCHI_YES)
         Me.FlowLayoutPanel3.Controls.Add(Me.rbtnZESEI_SYOCHI_NO)
         Me.FlowLayoutPanel3.Location = New System.Drawing.Point(193, 41)

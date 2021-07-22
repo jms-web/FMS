@@ -197,6 +197,7 @@
     <Compile Include="Common\ModelInfo.vb" />
     <Compile Include="Common\NotifyChangedBase.vb" />
     <Compile Include="Models\View\V013_FCCB_ICHIRAN.vb" />
+    <Compile Include="Models\View\V017_ZESEI_RYUSYUTU.vb" />
     <Compile Include="Models\View\V016_ZESEI_HASSEI.vb" />
     <Compile Include="Models\View\V015_ZESEI_ICHIRAN.vb" />
     <Compile Include="Models\View\V014_FCCB_SYOCHI_YOTEI_ICHIRAN.vb" />

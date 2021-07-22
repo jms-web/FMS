@@ -1427,6 +1427,7 @@ Public Class FrmG0030_List
         'Dim intRET As Integer
         Try
             Dim strHOKOKU_NO As String = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V015_ZESEI_ICHIRAN.HOKOKU_NO))
+            Dim HOKOKUSYO_ID As Integer = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V015_ZESEI_ICHIRAN.SYONIN_HOKOKUSYO_ID))
             Me.Cursor = Cursors.WaitCursor
 
             'ファイル名
@@ -1438,7 +1439,7 @@ Public Class FrmG0030_List
             End If
 
             Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
-                strTEMPFILE = FunConvRootPath(iniIF.GetIniString("ZESEI_HASSEI", "FILEPATH"))
+                strTEMPFILE = FunConvRootPath(iniIF.GetIniString(If(HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, "ZESEI_HASSEI", "ZESEI_RYUSYUTU"), "FILEPATH"))
             End Using
 
             'エクセル出力ファイル用意
@@ -1446,8 +1447,10 @@ Public Class FrmG0030_List
                 Return False
             End If
             '-----書込処理
-            If FunMakeReportZESEI_HASSEI(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO) = False Then
-                Return False
+            If HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value Then
+                Return FunMakeReportZESEI_HASSEI(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO)
+            Else
+                Return FunMakeReportZESEI_RYUSYUTU(pub_APP_INFO.strOUTPUT_PATH & strOutputFileName, strHOKOKU_NO)
             End If
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)

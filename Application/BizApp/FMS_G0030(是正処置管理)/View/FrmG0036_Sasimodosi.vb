@@ -378,20 +378,20 @@ Public Class FrmG0036_Sasimodosi
         sbSQL.Append($"SELECT * FROM {NameOf(MODEL.V003_SYONIN_J_KANRI)} MAIN")
         sbSQL.Append($" WHERE {NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={intSYONIN_HOKOKU_ID}")
         sbSQL.Append($" AND {NameOf(MODEL.V003_SYONIN_J_KANRI.HOKOKU_NO)}='{strHOKOKU_NO}'")
+        sbSQL.Append($" AND ({NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}=(SELECT MAX({NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}) FROM {NameOf(MODEL.V003_SYONIN_J_KANRI)} AS SUB WHERE SUB.{NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}<{intCurrentStage}))")
 
-        Select Case intCurrentStage
-            Case 20
-                sbSQL.Append($" AND ({NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}=(SELECT MAX({NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}) FROM {NameOf(MODEL.V003_SYONIN_J_KANRI)} AS SUB WHERE SUB.{NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}<{intCurrentStage}))")
+        'Select Case intCurrentStage
+        '    Case 20
 
-            Case Else
-                'カレントステージが20以外の場合は差し戻し先として20も追加
-                sbSQL.Append($" AND ({NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}=20")
-                sbSQL.Append($" OR {NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}=(SELECT MAX({NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)})")
-                sbSQL.Append($" FROM {NameOf(MODEL.V003_SYONIN_J_KANRI)} AS SUB")
-                sbSQL.Append($" WHERE SUB.{NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}<{intCurrentStage}")
-                sbSQL.Append($" AND SUB.{NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={intSYONIN_HOKOKU_ID}")
-                sbSQL.Append($" AND SUB.{NameOf(MODEL.V003_SYONIN_J_KANRI.HOKOKU_NO)}='{strHOKOKU_NO}'))")
-        End Select
+        '    Case Else
+        '        'カレントステージが20以外の場合は差し戻し先として20も追加
+        '        sbSQL.Append($" AND ({NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}=20")
+        '        sbSQL.Append($" OR {NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}=(SELECT MAX({NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)})")
+        '        sbSQL.Append($" FROM {NameOf(MODEL.V003_SYONIN_J_KANRI)} AS SUB")
+        '        sbSQL.Append($" WHERE SUB.{NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}<{intCurrentStage}")
+        '        sbSQL.Append($" AND SUB.{NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={intSYONIN_HOKOKU_ID}")
+        '        sbSQL.Append($" AND SUB.{NameOf(MODEL.V003_SYONIN_J_KANRI.HOKOKU_NO)}='{strHOKOKU_NO}'))")
+        'End Select
 
         Using DB As ClsDbUtility = DBOpen()
             dsList = DB.GetDataSet(sbSQL.ToString, False)
@@ -437,18 +437,32 @@ Public Class FrmG0036_Sasimodosi
     Private Function FunSendRequestMail()
         Dim KISYU_NAME As String = PrKISYU_NAME 'tblKISYU.AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
         Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.LazyLoad("承認判定区分").AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
-        Dim SYONIN_HOKOKUSYO_NAME As String = If(PrSYONIN_HOKOKUSYO_ID = 1, "NCR", "CAR")
+        Dim SYONIN_HOKOKUSYO_NAME As String
+
+        Select Case PrSYONIN_HOKOKUSYO_ID
+            Case Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR.Value
+                SYONIN_HOKOKUSYO_NAME = "NCR"
+            Case Context.ENM_SYONIN_HOKOKUSYO_ID._2_CAR.Value
+                SYONIN_HOKOKUSYO_NAME = "CAR"
+            Case Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS.Value
+                SYONIN_HOKOKUSYO_NAME = "CTS"
+            Case Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value
+                SYONIN_HOKOKUSYO_NAME = "FCCB"
+            Case Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value
+                SYONIN_HOKOKUSYO_NAME = "ZESEI"
+            Case Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R.Value
+                SYONIN_HOKOKUSYO_NAME = "ZESEI_R"
+        End Select
+
         Dim strEXEParam As String = $"{_D004_SYONIN_J_KANRI.SYAIN_ID},{Val(ENM_OPEN_MODE._2_処置画面起動)},{PrSYONIN_HOKOKUSYO_ID},{PrHOKOKU_NO}"
-        Dim strSubject As String = $"【FCCB処置依頼】{KISYU_NAME}・{PrBUHIN_BANGO}"
+        Dim strSubject As String = $"【是正処置依頼】"
         Dim strBody As String = <html><![CDATA[
         {0} 殿<br />
         <br />
-        　FCCB記録書の差戻依頼が来ましたので対応をお願いします。<br />
+        　是正処置要求書の差戻依頼が来ましたので対応をお願いします。<br />
         <br />        　　
-        　　【FCCB-No】{2}<br />
-        　　【起 草 日】{3}<br />
-        　　【機   種】{4}<br />
-        　　【部品番号】{5}<br />
+        　　【報告書No】{2}<br />
+        　　【起 草 日】{3}<br />        　　
         　　【依 頼 者】{6}<br />
         　　【依頼者処置内容】{7}<br />
         　　【コメント】{8}<br />
@@ -472,7 +486,7 @@ Public Class FrmG0036_Sasimodosi
                                 SYONIN_HANTEI_NAME,
                                 _D004_SYONIN_J_KANRI.RIYU,
                                 mtxTANTO_ID.Text,
-                                "FMS_G0020.exe",
+                                "FMS_G0030.exe",
                                 strEXEParam)
 
         Dim users As New List(Of Integer)

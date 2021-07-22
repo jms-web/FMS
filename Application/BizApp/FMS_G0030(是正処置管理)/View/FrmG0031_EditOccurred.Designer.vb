@@ -333,6 +333,7 @@ Partial Class FrmG0031_EditOccurred
         '
         'cmdFunc5
         '
+        Me.cmdFunc5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdFunc5.Image = Global.FMS.My.Resources.Resources._imgUndo32x32
         Me.cmdFunc5.Location = New System.Drawing.Point(556, 641)
         Me.cmdFunc5.Size = New System.Drawing.Size(156, 42)
@@ -358,6 +359,7 @@ Partial Class FrmG0031_EditOccurred
         Me.cmdFunc11.Location = New System.Drawing.Point(919, 641)
         Me.cmdFunc11.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc11.Text = "履歴表示(F11)"
+        Me.cmdFunc11.Visible = False
         '
         'cmdFunc10
         '
@@ -365,7 +367,6 @@ Partial Class FrmG0031_EditOccurred
         Me.cmdFunc10.Location = New System.Drawing.Point(737, 641)
         Me.cmdFunc10.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc10.Text = "印刷プレビュー(F10)"
-        Me.cmdFunc10.Visible = False
         '
         'cmdFunc7
         '
