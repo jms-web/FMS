@@ -1460,7 +1460,8 @@ Module mdlG0010
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_A_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_A_NAME
             ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_B_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_B_NAME
 
-            If _V002_NCR_J.JIZEN_SINSA_HANTEI_KB.ToVal = ENM_JIZEN_SINSA_HANTEI_KB._4_”p‹p‚·‚é.Value Then
+            If _V002_NCR_J.JIZEN_SINSA_HANTEI_KB.ToVal = ENM_JIZEN_SINSA_HANTEI_KB._4_”p‹p‚·‚é.Value Or
+                _V002_NCR_J.KOKYAKU_SAISYU_HANTEI_KB = ENM_KOKYAKU_SAISYU_HANTEI_KB._3_”p‹p‚·‚é.Value Then
                 shapeLINE_SYOCHI_C.Visible = False
                 ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_KEKKA_C_NAME)).Value = _V002_NCR_J.SYOCHI_KEKKA_C_NAME
             Else

@@ -4542,7 +4542,8 @@ Public Class FrmG0011
                 mtxST15_NextStageName.Text = FunGetStageName(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, FunGetNextSYONIN_JUN(ENM_NCR_STAGE._110_abcdeèàíuíSìñ))
 
                 '#90
-                Dim blnDISP As Boolean = (_D003_NCR_J.JIZEN_SINSA_HANTEI_KB.ToVal = ENM_JIZEN_SINSA_HANTEI_KB._4_îpãpÇ∑ÇÈ)
+                Dim blnDISP As Boolean = (_D003_NCR_J.JIZEN_SINSA_HANTEI_KB.ToVal = ENM_JIZEN_SINSA_HANTEI_KB._4_îpãpÇ∑ÇÈ Or
+                    _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB = ENM_KOKYAKU_SAISYU_HANTEI_KB._3_îpãpÇ∑ÇÈ.Value)
                 lblSYOCHI_C_1.Visible = blnDISP
                 lblSYOCHI_C_2.Visible = blnDISP
                 pnlSYOCHI_C.Visible = blnDISP
