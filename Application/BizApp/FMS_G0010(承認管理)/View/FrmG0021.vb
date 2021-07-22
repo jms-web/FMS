@@ -2914,11 +2914,10 @@ Public Class FrmG0021
             '-----共通
             If enmSAVE_MODE = ENM_SAVE_MODE._2_承認申請 And FunGetNextSYONIN_JUN(PrCurrentStage, _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_KB) < ENM_CTS_STAGE._999_Closed Then
                 Call CmbDestTANTO_Validating(cmbDestTANTO, Nothing)
-            End If
-
-            If cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Visible Then
-                Dim IsEntered As Boolean = (Not cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Text.IsNulOrWS) Or cmbKOKYAKU_EIKYO_HANTEI_COMMENT.SelectedIndex > 0
-                IsValidated *= ErrorProvider.UpdateErrorInfo(cmbKOKYAKU_EIKYO_HANTEI_COMMENT, IsEntered, String.Format(My.Resources.infoMsgRequireSelectOrInput, "否の理由"))
+                If cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Visible Then
+                    Dim IsEntered As Boolean = (Not cmbKOKYAKU_EIKYO_HANTEI_COMMENT.Text.IsNulOrWS) Or cmbKOKYAKU_EIKYO_HANTEI_COMMENT.SelectedIndex > 0
+                    IsValidated *= ErrorProvider.UpdateErrorInfo(cmbKOKYAKU_EIKYO_HANTEI_COMMENT, IsEntered, String.Format(My.Resources.infoMsgRequireSelectOrInput, "否の理由"))
+                End If
             End If
 
             '上記各種Validatingイベントでフラグを更新し、全てOKの場合はTrue

@@ -4543,7 +4543,7 @@ Public Class FrmG0011
 
                 '#90
                 Dim blnDISP As Boolean = (_D003_NCR_J.JIZEN_SINSA_HANTEI_KB.ToVal = ENM_JIZEN_SINSA_HANTEI_KB._4_”p‹p‚·‚é Or
-                    _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB = ENM_KOKYAKU_SAISYU_HANTEI_KB._3_”p‹p‚·‚é.Value)
+                    _D003_NCR_J.KOKYAKU_SAISYU_HANTEI_KB.ToVal = ENM_KOKYAKU_SAISYU_HANTEI_KB._3_”p‹p‚·‚é.Value)
                 lblSYOCHI_C_1.Visible = blnDISP
                 lblSYOCHI_C_2.Visible = blnDISP
                 pnlSYOCHI_C.Visible = blnDISP
