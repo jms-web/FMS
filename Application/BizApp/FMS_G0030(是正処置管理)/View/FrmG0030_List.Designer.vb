@@ -395,12 +395,13 @@ Partial Class FrmG0030_List
         'chkClosedRowVisibled
         '
         Me.chkClosedRowVisibled.AutoSize = True
-        Me.tlpFilter.SetColumnSpan(Me.chkClosedRowVisibled, 7)
+        Me.tlpFilter.SetColumnSpan(Me.chkClosedRowVisibled, 6)
         Me.chkClosedRowVisibled.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkClosedRowVisibled.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chkClosedRowVisibled.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.chkClosedRowVisibled.Location = New System.Drawing.Point(643, 3)
         Me.chkClosedRowVisibled.Name = "chkClosedRowVisibled"
-        Me.chkClosedRowVisibled.Size = New System.Drawing.Size(113, 21)
+        Me.chkClosedRowVisibled.Size = New System.Drawing.Size(114, 24)
         Me.chkClosedRowVisibled.TabIndex = 6
         Me.chkClosedRowVisibled.Text = "CloseçœÇ‡ï\é¶"
         Me.chkClosedRowVisibled.UseVisualStyleBackColor = True
@@ -424,10 +425,11 @@ Partial Class FrmG0030_List
         Me.chkDeleteRowVisibled.AutoSize = True
         Me.tlpFilter.SetColumnSpan(Me.chkDeleteRowVisibled, 6)
         Me.chkDeleteRowVisibled.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkDeleteRowVisibled.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chkDeleteRowVisibled.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.chkDeleteRowVisibled.Location = New System.Drawing.Point(643, 33)
         Me.chkDeleteRowVisibled.Name = "chkDeleteRowVisibled"
-        Me.chkDeleteRowVisibled.Size = New System.Drawing.Size(103, 21)
+        Me.chkDeleteRowVisibled.Size = New System.Drawing.Size(114, 24)
         Me.chkDeleteRowVisibled.TabIndex = 7
         Me.chkDeleteRowVisibled.Text = "çÌèúçœÇ‡ï\é¶"
         Me.chkDeleteRowVisibled.UseVisualStyleBackColor = True

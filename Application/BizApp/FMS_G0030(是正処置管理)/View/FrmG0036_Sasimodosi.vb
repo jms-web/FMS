@@ -492,7 +492,7 @@ Public Class FrmG0036_Sasimodosi
         Dim users As New List(Of Integer)
         users.Add(mtxTANTO_ID.Text)
 
-        If FunSendMailFCCB(strSubject, strBody, users) Then
+        If FunSendMailZESEI(strSubject, strBody, users) Then
             Using DB As ClsDbUtility = DBOpen()
                 If FunGetCodeMastaValue(DB, "ÉÅÅ[Éãê›íË", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                 Else

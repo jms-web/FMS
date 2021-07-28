@@ -424,7 +424,7 @@ Public Class FrmG0035_Tenso
 
         Dim users As New List(Of Integer)
         users.Add(cmbTENSO_SAKI.SelectedValue)
-        If FunSendMailFCCB(strSubject, strBody, users) Then
+        If FunSendMailZESEI(strSubject, strBody, users) Then
             Using DB As ClsDbUtility = DBOpen()
                 If FunGetCodeMastaValue(DB, "ÉÅÅ[Éãê›íË", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
                 Else

@@ -327,9 +327,10 @@ Partial Class FrmG0031_EditOverflow
         '
         'cmdFunc4
         '
+        Me.cmdFunc4.Image = Global.FMS.My.Resources.Resources._imgRight32x32
         Me.cmdFunc4.Location = New System.Drawing.Point(373, 641)
         Me.cmdFunc4.Size = New System.Drawing.Size(156, 42)
-        Me.cmdFunc4.Visible = False
+        Me.cmdFunc4.Text = "転送(F4)"
         '
         'cmdFunc5
         '
@@ -353,7 +354,6 @@ Partial Class FrmG0031_EditOverflow
         '
         'cmdFunc11
         '
-        Me.cmdFunc11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdFunc11.Image = Global.FMS.My.Resources.Resources.履歴
         Me.cmdFunc11.Location = New System.Drawing.Point(919, 641)
         Me.cmdFunc11.Size = New System.Drawing.Size(156, 42)
@@ -362,7 +362,6 @@ Partial Class FrmG0031_EditOverflow
         '
         'cmdFunc10
         '
-        Me.cmdFunc10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdFunc10.Image = Global.FMS.My.Resources.Resources._imgPrint32x32
         Me.cmdFunc10.Location = New System.Drawing.Point(737, 641)
         Me.cmdFunc10.Size = New System.Drawing.Size(156, 42)
@@ -916,8 +915,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST02_HINSYO_NINKA_TANTO.NullValue = " "
         Me.cmbST02_HINSYO_NINKA_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST02_HINSYO_NINKA_TANTO.TabIndex = 1
+        Me.cmbST02_HINSYO_NINKA_TANTO.TabStop = False
         Me.cmbST02_HINSYO_NINKA_TANTO.Text = "(選択)"
         Me.cmbST02_HINSYO_NINKA_TANTO.ValueMember = "VALUE"
+        Me.cmbST02_HINSYO_NINKA_TANTO.Visible = False
         '
         'lblST02_HINSYO_NINKA_TANTO
         '
@@ -931,6 +932,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST02_HINSYO_NINKA_TANTO.TabIndex = 282
         Me.lblST02_HINSYO_NINKA_TANTO.Text = "品証 認可"
         Me.lblST02_HINSYO_NINKA_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST02_HINSYO_NINKA_TANTO.Visible = False
         '
         'lblST02_HINSYO_TENKEN_TANTO
         '
@@ -943,6 +945,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST02_HINSYO_TENKEN_TANTO.TabIndex = 283
         Me.lblST02_HINSYO_TENKEN_TANTO.Text = "品証 点検"
         Me.lblST02_HINSYO_TENKEN_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST02_HINSYO_TENKEN_TANTO.Visible = False
         '
         'cmbST02_HINSYO_TENKEN_TANTO
         '
@@ -963,8 +966,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST02_HINSYO_TENKEN_TANTO.NullValue = " "
         Me.cmbST02_HINSYO_TENKEN_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST02_HINSYO_TENKEN_TANTO.TabIndex = 3
+        Me.cmbST02_HINSYO_TENKEN_TANTO.TabStop = False
         Me.cmbST02_HINSYO_TENKEN_TANTO.Text = "(選択)"
         Me.cmbST02_HINSYO_TENKEN_TANTO.ValueMember = "VALUE"
+        Me.cmbST02_HINSYO_TENKEN_TANTO.Visible = False
         '
         'dtST02_HINSYO_NINKA_YMD
         '
@@ -980,8 +985,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST02_HINSYO_NINKA_YMD.ReadOnly = True
         Me.dtST02_HINSYO_NINKA_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST02_HINSYO_NINKA_YMD.TabIndex = 2
+        Me.dtST02_HINSYO_NINKA_YMD.TabStop = False
         Me.dtST02_HINSYO_NINKA_YMD.Value = ""
         Me.dtST02_HINSYO_NINKA_YMD.ValueNonFormat = ""
+        Me.dtST02_HINSYO_NINKA_YMD.Visible = False
         '
         'dtST02_HINSYO_TENKEN_YMD
         '
@@ -997,8 +1004,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST02_HINSYO_TENKEN_YMD.ReadOnly = True
         Me.dtST02_HINSYO_TENKEN_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST02_HINSYO_TENKEN_YMD.TabIndex = 4
+        Me.dtST02_HINSYO_TENKEN_YMD.TabStop = False
         Me.dtST02_HINSYO_TENKEN_YMD.Value = ""
         Me.dtST02_HINSYO_TENKEN_YMD.ValueNonFormat = ""
+        Me.dtST02_HINSYO_TENKEN_YMD.Visible = False
         '
         'Panel6
         '
@@ -1317,7 +1326,7 @@ Partial Class FrmG0031_EditOverflow
         Me.txtEIKYOU_HANI.Name = "txtEIKYOU_HANI"
         Me.txtEIKYOU_HANI.SelectAllText = False
         Me.txtEIKYOU_HANI.ShowRemainingChars = True
-        Me.txtEIKYOU_HANI.Size = New System.Drawing.Size(185, 24)
+        Me.txtEIKYOU_HANI.Size = New System.Drawing.Size(542, 24)
         Me.txtEIKYOU_HANI.TabIndex = 5
         Me.txtEIKYOU_HANI.WatermarkColor = System.Drawing.Color.Empty
         Me.txtEIKYOU_HANI.WatermarkText = Nothing
@@ -1327,14 +1336,14 @@ Partial Class FrmG0031_EditOverflow
         Me.txtCHOUSA_HANI.BackColor = System.Drawing.SystemColors.Window
         Me.txtCHOUSA_HANI.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtCHOUSA_HANI.InputRequired = False
-        Me.txtCHOUSA_HANI.Location = New System.Drawing.Point(104, 203)
+        Me.txtCHOUSA_HANI.Location = New System.Drawing.Point(171, 203)
         Me.txtCHOUSA_HANI.MaxByteLength = 400
         Me.txtCHOUSA_HANI.MaxLength = 200
         Me.txtCHOUSA_HANI.Multiline = True
         Me.txtCHOUSA_HANI.Name = "txtCHOUSA_HANI"
         Me.txtCHOUSA_HANI.SelectAllText = False
         Me.txtCHOUSA_HANI.ShowRemainingChars = True
-        Me.txtCHOUSA_HANI.Size = New System.Drawing.Size(252, 24)
+        Me.txtCHOUSA_HANI.Size = New System.Drawing.Size(542, 24)
         Me.txtCHOUSA_HANI.TabIndex = 3
         Me.txtCHOUSA_HANI.WatermarkColor = System.Drawing.Color.Empty
         Me.txtCHOUSA_HANI.WatermarkText = Nothing
@@ -1392,8 +1401,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST02_NINKA_TANTO.NullValue = " "
         Me.cmbST02_NINKA_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST02_NINKA_TANTO.TabIndex = 1
+        Me.cmbST02_NINKA_TANTO.TabStop = False
         Me.cmbST02_NINKA_TANTO.Text = "(選択)"
         Me.cmbST02_NINKA_TANTO.ValueMember = "VALUE"
+        Me.cmbST02_NINKA_TANTO.Visible = False
         '
         'lblST02_NINKA_TANTO
         '
@@ -1407,6 +1418,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST02_NINKA_TANTO.TabIndex = 282
         Me.lblST02_NINKA_TANTO.Text = "認可"
         Me.lblST02_NINKA_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST02_NINKA_TANTO.Visible = False
         '
         'lblST02_TENKEN_TANTO
         '
@@ -1419,6 +1431,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST02_TENKEN_TANTO.TabIndex = 283
         Me.lblST02_TENKEN_TANTO.Text = "点検"
         Me.lblST02_TENKEN_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST02_TENKEN_TANTO.Visible = False
         '
         'lblST02_SAKUSEI_TANTO
         '
@@ -1431,6 +1444,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST02_SAKUSEI_TANTO.TabIndex = 284
         Me.lblST02_SAKUSEI_TANTO.Text = "作成"
         Me.lblST02_SAKUSEI_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST02_SAKUSEI_TANTO.Visible = False
         '
         'cmbST02_TENKEN_TANTO
         '
@@ -1451,8 +1465,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST02_TENKEN_TANTO.NullValue = " "
         Me.cmbST02_TENKEN_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST02_TENKEN_TANTO.TabIndex = 3
+        Me.cmbST02_TENKEN_TANTO.TabStop = False
         Me.cmbST02_TENKEN_TANTO.Text = "(選択)"
         Me.cmbST02_TENKEN_TANTO.ValueMember = "VALUE"
+        Me.cmbST02_TENKEN_TANTO.Visible = False
         '
         'cmbST02_SAKUSEI_TANTO
         '
@@ -1473,8 +1489,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST02_SAKUSEI_TANTO.NullValue = " "
         Me.cmbST02_SAKUSEI_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST02_SAKUSEI_TANTO.TabIndex = 5
+        Me.cmbST02_SAKUSEI_TANTO.TabStop = False
         Me.cmbST02_SAKUSEI_TANTO.Text = "(選択)"
         Me.cmbST02_SAKUSEI_TANTO.ValueMember = "VALUE"
+        Me.cmbST02_SAKUSEI_TANTO.Visible = False
         '
         'dtST02_NINKA_YMD
         '
@@ -1490,8 +1508,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST02_NINKA_YMD.ReadOnly = True
         Me.dtST02_NINKA_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST02_NINKA_YMD.TabIndex = 2
+        Me.dtST02_NINKA_YMD.TabStop = False
         Me.dtST02_NINKA_YMD.Value = ""
         Me.dtST02_NINKA_YMD.ValueNonFormat = ""
+        Me.dtST02_NINKA_YMD.Visible = False
         '
         'dtST02_TENKEN_YMD
         '
@@ -1507,8 +1527,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST02_TENKEN_YMD.ReadOnly = True
         Me.dtST02_TENKEN_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST02_TENKEN_YMD.TabIndex = 4
+        Me.dtST02_TENKEN_YMD.TabStop = False
         Me.dtST02_TENKEN_YMD.Value = ""
         Me.dtST02_TENKEN_YMD.ValueNonFormat = ""
+        Me.dtST02_TENKEN_YMD.Visible = False
         '
         'dtST02_SAKUSEI_YMD
         '
@@ -1524,8 +1546,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST02_SAKUSEI_YMD.ReadOnly = True
         Me.dtST02_SAKUSEI_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST02_SAKUSEI_YMD.TabIndex = 6
+        Me.dtST02_SAKUSEI_YMD.TabStop = False
         Me.dtST02_SAKUSEI_YMD.Value = ""
         Me.dtST02_SAKUSEI_YMD.ValueNonFormat = ""
+        Me.dtST02_SAKUSEI_YMD.Visible = False
         '
         'lblST02_Modoshi_Riyu
         '
@@ -1832,7 +1856,7 @@ Partial Class FrmG0031_EditOverflow
         'chkST02_FUTEKIGO_UMU
         '
         Me.chkST02_FUTEKIGO_UMU.AutoSize = True
-        Me.chkST02_FUTEKIGO_UMU.Location = New System.Drawing.Point(152, 204)
+        Me.chkST02_FUTEKIGO_UMU.Location = New System.Drawing.Point(219, 204)
         Me.chkST02_FUTEKIGO_UMU.Name = "chkST02_FUTEKIGO_UMU"
         Me.chkST02_FUTEKIGO_UMU.Size = New System.Drawing.Size(189, 21)
         Me.chkST02_FUTEKIGO_UMU.TabIndex = 339
@@ -1843,7 +1867,7 @@ Partial Class FrmG0031_EditOverflow
         '
         Me.pnlST04_ZESEI.Controls.Add(Me.rbtnST02_FUTEKIGO_YES)
         Me.pnlST04_ZESEI.Controls.Add(Me.rbtnST02_FUTEKIGO_NO)
-        Me.pnlST04_ZESEI.Location = New System.Drawing.Point(104, 237)
+        Me.pnlST04_ZESEI.Location = New System.Drawing.Point(171, 237)
         Me.pnlST04_ZESEI.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlST04_ZESEI.Name = "pnlST04_ZESEI"
         Me.pnlST04_ZESEI.Padding = New System.Windows.Forms.Padding(4, 0, 4, 0)
@@ -2642,8 +2666,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST01_NINKA_TANTO.NullValue = " "
         Me.cmbST01_NINKA_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST01_NINKA_TANTO.TabIndex = 1
+        Me.cmbST01_NINKA_TANTO.TabStop = False
         Me.cmbST01_NINKA_TANTO.Text = "(選択)"
         Me.cmbST01_NINKA_TANTO.ValueMember = "VALUE"
+        Me.cmbST01_NINKA_TANTO.Visible = False
         '
         'lblST01_NINKA_TANTO
         '
@@ -2657,6 +2683,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST01_NINKA_TANTO.TabIndex = 282
         Me.lblST01_NINKA_TANTO.Text = "認可"
         Me.lblST01_NINKA_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST01_NINKA_TANTO.Visible = False
         '
         'lblST01_TENKEN_TANTO
         '
@@ -2669,6 +2696,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST01_TENKEN_TANTO.TabIndex = 283
         Me.lblST01_TENKEN_TANTO.Text = "点検"
         Me.lblST01_TENKEN_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST01_TENKEN_TANTO.Visible = False
         '
         'lblST01_SAKUSEI_TANTO
         '
@@ -2701,8 +2729,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST01_TENKEN_TANTO.NullValue = " "
         Me.cmbST01_TENKEN_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST01_TENKEN_TANTO.TabIndex = 3
+        Me.cmbST01_TENKEN_TANTO.TabStop = False
         Me.cmbST01_TENKEN_TANTO.Text = "(選択)"
         Me.cmbST01_TENKEN_TANTO.ValueMember = "VALUE"
+        Me.cmbST01_TENKEN_TANTO.Visible = False
         '
         'cmbST01_SAKUSEI_TANTO
         '
@@ -2723,6 +2753,7 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST01_SAKUSEI_TANTO.NullValue = " "
         Me.cmbST01_SAKUSEI_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST01_SAKUSEI_TANTO.TabIndex = 5
+        Me.cmbST01_SAKUSEI_TANTO.TabStop = False
         Me.cmbST01_SAKUSEI_TANTO.Text = "(選択)"
         Me.cmbST01_SAKUSEI_TANTO.ValueMember = "VALUE"
         '
@@ -2740,8 +2771,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST01_NINKA_YMD.ReadOnly = True
         Me.dtST01_NINKA_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST01_NINKA_YMD.TabIndex = 2
+        Me.dtST01_NINKA_YMD.TabStop = False
         Me.dtST01_NINKA_YMD.Value = ""
         Me.dtST01_NINKA_YMD.ValueNonFormat = ""
+        Me.dtST01_NINKA_YMD.Visible = False
         '
         'dtST01_TENKEN_YMD
         '
@@ -2757,8 +2790,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST01_TENKEN_YMD.ReadOnly = True
         Me.dtST01_TENKEN_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST01_TENKEN_YMD.TabIndex = 4
+        Me.dtST01_TENKEN_YMD.TabStop = False
         Me.dtST01_TENKEN_YMD.Value = ""
         Me.dtST01_TENKEN_YMD.ValueNonFormat = ""
+        Me.dtST01_TENKEN_YMD.Visible = False
         '
         'dtST01_SAKUSEI_YMD
         '
@@ -2774,6 +2809,7 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST01_SAKUSEI_YMD.ReadOnly = True
         Me.dtST01_SAKUSEI_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST01_SAKUSEI_YMD.TabIndex = 6
+        Me.dtST01_SAKUSEI_YMD.TabStop = False
         Me.dtST01_SAKUSEI_YMD.Value = ""
         Me.dtST01_SAKUSEI_YMD.ValueNonFormat = ""
         '
@@ -2921,8 +2957,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST05_NINKA_TANTO.NullValue = " "
         Me.cmbST05_NINKA_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST05_NINKA_TANTO.TabIndex = 1
+        Me.cmbST05_NINKA_TANTO.TabStop = False
         Me.cmbST05_NINKA_TANTO.Text = "(選択)"
         Me.cmbST05_NINKA_TANTO.ValueMember = "VALUE"
+        Me.cmbST05_NINKA_TANTO.Visible = False
         '
         'lblST05_NINKA_TANTO
         '
@@ -2936,6 +2974,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST05_NINKA_TANTO.TabIndex = 282
         Me.lblST05_NINKA_TANTO.Text = "認可"
         Me.lblST05_NINKA_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST05_NINKA_TANTO.Visible = False
         '
         'lblST05_TENKEN_TANTO
         '
@@ -2948,6 +2987,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST05_TENKEN_TANTO.TabIndex = 283
         Me.lblST05_TENKEN_TANTO.Text = "点検"
         Me.lblST05_TENKEN_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST05_TENKEN_TANTO.Visible = False
         '
         'lblST05_SAKUSEI_TANTO
         '
@@ -2960,6 +3000,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST05_SAKUSEI_TANTO.TabIndex = 284
         Me.lblST05_SAKUSEI_TANTO.Text = "作成"
         Me.lblST05_SAKUSEI_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST05_SAKUSEI_TANTO.Visible = False
         '
         'cmbST05_TENKEN_TANTO
         '
@@ -2980,8 +3021,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST05_TENKEN_TANTO.NullValue = " "
         Me.cmbST05_TENKEN_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST05_TENKEN_TANTO.TabIndex = 3
+        Me.cmbST05_TENKEN_TANTO.TabStop = False
         Me.cmbST05_TENKEN_TANTO.Text = "(選択)"
         Me.cmbST05_TENKEN_TANTO.ValueMember = "VALUE"
+        Me.cmbST05_TENKEN_TANTO.Visible = False
         '
         'cmbST05_SAKUSEI_TANTO
         '
@@ -3002,8 +3045,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST05_SAKUSEI_TANTO.NullValue = " "
         Me.cmbST05_SAKUSEI_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST05_SAKUSEI_TANTO.TabIndex = 5
+        Me.cmbST05_SAKUSEI_TANTO.TabStop = False
         Me.cmbST05_SAKUSEI_TANTO.Text = "(選択)"
         Me.cmbST05_SAKUSEI_TANTO.ValueMember = "VALUE"
+        Me.cmbST05_SAKUSEI_TANTO.Visible = False
         '
         'dtST05_NINKA_YMD
         '
@@ -3019,8 +3064,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST05_NINKA_YMD.ReadOnly = True
         Me.dtST05_NINKA_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST05_NINKA_YMD.TabIndex = 2
+        Me.dtST05_NINKA_YMD.TabStop = False
         Me.dtST05_NINKA_YMD.Value = ""
         Me.dtST05_NINKA_YMD.ValueNonFormat = ""
+        Me.dtST05_NINKA_YMD.Visible = False
         '
         'dtST05_TENKEN_YMD
         '
@@ -3036,8 +3083,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST05_TENKEN_YMD.ReadOnly = True
         Me.dtST05_TENKEN_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST05_TENKEN_YMD.TabIndex = 4
+        Me.dtST05_TENKEN_YMD.TabStop = False
         Me.dtST05_TENKEN_YMD.Value = ""
         Me.dtST05_TENKEN_YMD.ValueNonFormat = ""
+        Me.dtST05_TENKEN_YMD.Visible = False
         '
         'dtST05_SAKUSEI_YMD
         '
@@ -3053,8 +3102,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST05_SAKUSEI_YMD.ReadOnly = True
         Me.dtST05_SAKUSEI_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST05_SAKUSEI_YMD.TabIndex = 6
+        Me.dtST05_SAKUSEI_YMD.TabStop = False
         Me.dtST05_SAKUSEI_YMD.Value = ""
         Me.dtST05_SAKUSEI_YMD.ValueNonFormat = ""
+        Me.dtST05_SAKUSEI_YMD.Visible = False
         '
         'lblST05_Modoshi_Riyu
         '
@@ -3433,8 +3484,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST04_NINKA_TANTO.NullValue = " "
         Me.cmbST04_NINKA_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST04_NINKA_TANTO.TabIndex = 1
+        Me.cmbST04_NINKA_TANTO.TabStop = False
         Me.cmbST04_NINKA_TANTO.Text = "(選択)"
         Me.cmbST04_NINKA_TANTO.ValueMember = "VALUE"
+        Me.cmbST04_NINKA_TANTO.Visible = False
         '
         'lblST04_NINKA_TANTO
         '
@@ -3448,6 +3501,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST04_NINKA_TANTO.TabIndex = 282
         Me.lblST04_NINKA_TANTO.Text = "認可"
         Me.lblST04_NINKA_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST04_NINKA_TANTO.Visible = False
         '
         'lblST04_TENKEN_TANTO
         '
@@ -3460,6 +3514,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST04_TENKEN_TANTO.TabIndex = 283
         Me.lblST04_TENKEN_TANTO.Text = "点検"
         Me.lblST04_TENKEN_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST04_TENKEN_TANTO.Visible = False
         '
         'lblST04_SAKUSEI_TANTO
         '
@@ -3472,6 +3527,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST04_SAKUSEI_TANTO.TabIndex = 284
         Me.lblST04_SAKUSEI_TANTO.Text = "作成"
         Me.lblST04_SAKUSEI_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST04_SAKUSEI_TANTO.Visible = False
         '
         'cmbST04_TENKEN_TANTO
         '
@@ -3492,8 +3548,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST04_TENKEN_TANTO.NullValue = " "
         Me.cmbST04_TENKEN_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST04_TENKEN_TANTO.TabIndex = 3
+        Me.cmbST04_TENKEN_TANTO.TabStop = False
         Me.cmbST04_TENKEN_TANTO.Text = "(選択)"
         Me.cmbST04_TENKEN_TANTO.ValueMember = "VALUE"
+        Me.cmbST04_TENKEN_TANTO.Visible = False
         '
         'cmbST04_SAKUSEI_TANTO
         '
@@ -3514,8 +3572,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST04_SAKUSEI_TANTO.NullValue = " "
         Me.cmbST04_SAKUSEI_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST04_SAKUSEI_TANTO.TabIndex = 5
+        Me.cmbST04_SAKUSEI_TANTO.TabStop = False
         Me.cmbST04_SAKUSEI_TANTO.Text = "(選択)"
         Me.cmbST04_SAKUSEI_TANTO.ValueMember = "VALUE"
+        Me.cmbST04_SAKUSEI_TANTO.Visible = False
         '
         'dtST04_NINKA_YMD
         '
@@ -3531,8 +3591,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST04_NINKA_YMD.ReadOnly = True
         Me.dtST04_NINKA_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST04_NINKA_YMD.TabIndex = 2
+        Me.dtST04_NINKA_YMD.TabStop = False
         Me.dtST04_NINKA_YMD.Value = ""
         Me.dtST04_NINKA_YMD.ValueNonFormat = ""
+        Me.dtST04_NINKA_YMD.Visible = False
         '
         'dtST04_TENKEN_YMD
         '
@@ -3548,8 +3610,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST04_TENKEN_YMD.ReadOnly = True
         Me.dtST04_TENKEN_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST04_TENKEN_YMD.TabIndex = 4
+        Me.dtST04_TENKEN_YMD.TabStop = False
         Me.dtST04_TENKEN_YMD.Value = ""
         Me.dtST04_TENKEN_YMD.ValueNonFormat = ""
+        Me.dtST04_TENKEN_YMD.Visible = False
         '
         'dtST04_SAKUSEI_YMD
         '
@@ -3565,8 +3629,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST04_SAKUSEI_YMD.ReadOnly = True
         Me.dtST04_SAKUSEI_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST04_SAKUSEI_YMD.TabIndex = 6
+        Me.dtST04_SAKUSEI_YMD.TabStop = False
         Me.dtST04_SAKUSEI_YMD.Value = ""
         Me.dtST04_SAKUSEI_YMD.ValueNonFormat = ""
+        Me.dtST04_SAKUSEI_YMD.Visible = False
         '
         'lblSTAGE10
         '
@@ -3693,7 +3759,7 @@ Partial Class FrmG0031_EditOverflow
         'Label57
         '
         Me.Label57.AutoSize = True
-        Me.Label57.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label57.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label57.Location = New System.Drawing.Point(23, 49)
         Me.Label57.Name = "Label57"
         Me.Label57.Size = New System.Drawing.Size(108, 15)
@@ -3719,12 +3785,12 @@ Partial Class FrmG0031_EditOverflow
         'Label54
         '
         Me.Label54.AutoSize = True
-        Me.Label54.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label54.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label54.Location = New System.Drawing.Point(22, 135)
         Me.Label54.Name = "Label54"
-        Me.Label54.Size = New System.Drawing.Size(84, 15)
+        Me.Label54.Size = New System.Drawing.Size(108, 15)
         Me.Label54.TabIndex = 351
-        Me.Label54.Text = "是正処置結果:"
+        Me.Label54.Text = "是正処置実施結果:"
         Me.Label54.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel5
@@ -4037,8 +4103,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST03_NINKA_TANTO.NullValue = " "
         Me.cmbST03_NINKA_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST03_NINKA_TANTO.TabIndex = 1
+        Me.cmbST03_NINKA_TANTO.TabStop = False
         Me.cmbST03_NINKA_TANTO.Text = "(選択)"
         Me.cmbST03_NINKA_TANTO.ValueMember = "VALUE"
+        Me.cmbST03_NINKA_TANTO.Visible = False
         '
         'lblST03_NINKA_TANTO
         '
@@ -4052,6 +4120,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST03_NINKA_TANTO.TabIndex = 282
         Me.lblST03_NINKA_TANTO.Text = "認可"
         Me.lblST03_NINKA_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST03_NINKA_TANTO.Visible = False
         '
         'lblST03_TENKEN_TANTO
         '
@@ -4064,6 +4133,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST03_TENKEN_TANTO.TabIndex = 283
         Me.lblST03_TENKEN_TANTO.Text = "点検"
         Me.lblST03_TENKEN_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST03_TENKEN_TANTO.Visible = False
         '
         'lblST03_SAKUSEI_TANTO
         '
@@ -4076,6 +4146,7 @@ Partial Class FrmG0031_EditOverflow
         Me.lblST03_SAKUSEI_TANTO.TabIndex = 284
         Me.lblST03_SAKUSEI_TANTO.Text = "作成"
         Me.lblST03_SAKUSEI_TANTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblST03_SAKUSEI_TANTO.Visible = False
         '
         'cmbST03_TENKEN_TANTO
         '
@@ -4096,8 +4167,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST03_TENKEN_TANTO.NullValue = " "
         Me.cmbST03_TENKEN_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST03_TENKEN_TANTO.TabIndex = 3
+        Me.cmbST03_TENKEN_TANTO.TabStop = False
         Me.cmbST03_TENKEN_TANTO.Text = "(選択)"
         Me.cmbST03_TENKEN_TANTO.ValueMember = "VALUE"
+        Me.cmbST03_TENKEN_TANTO.Visible = False
         '
         'cmbST03_SAKUSEI_TANTO
         '
@@ -4118,8 +4191,10 @@ Partial Class FrmG0031_EditOverflow
         Me.cmbST03_SAKUSEI_TANTO.NullValue = " "
         Me.cmbST03_SAKUSEI_TANTO.Size = New System.Drawing.Size(112, 25)
         Me.cmbST03_SAKUSEI_TANTO.TabIndex = 5
+        Me.cmbST03_SAKUSEI_TANTO.TabStop = False
         Me.cmbST03_SAKUSEI_TANTO.Text = "(選択)"
         Me.cmbST03_SAKUSEI_TANTO.ValueMember = "VALUE"
+        Me.cmbST03_SAKUSEI_TANTO.Visible = False
         '
         'dtST03_NINKA_YMD
         '
@@ -4135,8 +4210,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST03_NINKA_YMD.ReadOnly = True
         Me.dtST03_NINKA_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST03_NINKA_YMD.TabIndex = 2
+        Me.dtST03_NINKA_YMD.TabStop = False
         Me.dtST03_NINKA_YMD.Value = ""
         Me.dtST03_NINKA_YMD.ValueNonFormat = ""
+        Me.dtST03_NINKA_YMD.Visible = False
         '
         'dtST03_TENKEN_YMD
         '
@@ -4152,8 +4229,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST03_TENKEN_YMD.ReadOnly = True
         Me.dtST03_TENKEN_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST03_TENKEN_YMD.TabIndex = 4
+        Me.dtST03_TENKEN_YMD.TabStop = False
         Me.dtST03_TENKEN_YMD.Value = ""
         Me.dtST03_TENKEN_YMD.ValueNonFormat = ""
+        Me.dtST03_TENKEN_YMD.Visible = False
         '
         'dtST03_SAKUSEI_YMD
         '
@@ -4169,8 +4248,10 @@ Partial Class FrmG0031_EditOverflow
         Me.dtST03_SAKUSEI_YMD.ReadOnly = True
         Me.dtST03_SAKUSEI_YMD.Size = New System.Drawing.Size(112, 24)
         Me.dtST03_SAKUSEI_YMD.TabIndex = 6
+        Me.dtST03_SAKUSEI_YMD.TabStop = False
         Me.dtST03_SAKUSEI_YMD.Value = ""
         Me.dtST03_SAKUSEI_YMD.ValueNonFormat = ""
+        Me.dtST03_SAKUSEI_YMD.Visible = False
         '
         'txtZESEI_SYOCHI_KEKKA
         '

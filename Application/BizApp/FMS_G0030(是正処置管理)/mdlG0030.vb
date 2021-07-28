@@ -689,7 +689,7 @@ Module mdlG0030
 
 #Region "メール送信"
 
-    Public Function FunSendMailFCCB(strSubject As String, strBody As String, users As List(Of Integer), Optional blnSendSenior As Boolean = True) As Boolean
+    Public Function FunSendMailZESEI(strSubject As String, strBody As String, users As List(Of Integer), Optional blnSendSenior As Boolean = True) As Boolean
         Dim strSmtpServer As String
         Dim intSmtpPort As Integer
         Dim strFromAddress As String
@@ -821,7 +821,7 @@ Module mdlG0030
                            strSubject:=strSubject,
                            strBody:=strBody,
                            AttachmentList:=New List(Of String),
-                           strFromName:="FCCB管理",
+                           strFromName:="フジワラシステム",
                            isHTML:=True)
 
             '認証あり JMS
@@ -1670,6 +1670,50 @@ Module mdlG0030
     Public Sub ShowUnimplemented()
         MessageBox.Show("未実装", "未実装", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
+
+    Public Function GetExcludeyakusyokuUsers(BUMON_KB As String, YAKUSYOKUs As List(Of Integer)) As DataTableEx
+        Dim retList As New List(Of Integer)
+        Try
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
+            sbSQL.Append($"SELECT SYAIN_ID,SIMEI FROM M004_SYAIN")
+            sbSQL.Append($" WHERE SYAIN_ID IN ((SELECT SYOZOKUCYO_ID FROM M002_BUSYO WHERE BUMON_KB='{BUMON_KB}') )")
+            sbSQL.Append($" AND YAKUSYOKU_KB NOT IN ('{YAKUSYOKUs.AsEnumerable.Select(Function(r) r.ToString).Aggregate(Function(x, y) x & $"','{y}")}')")
+
+            Using DB = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+            For Each r As DataRow In dsList.Tables(0).Rows
+                retList.Add(r.Item(0).ToString.ToVal)
+            Next
+
+            sbSQL.Append($"SELECT * FROM {NameOf(M004_SYAIN)}")
+            sbSQL.Append($" WHERE SYAIN_ID IN ({retList.AsEnumerable.Select(Function(r) r.ToString).Aggregate(Function(x, y) x & $",{y}")})")
+            sbSQL.Append(" ORDER BY SYAIN_ID")
+            Using DB As ClsDbUtility = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, False)
+            End Using
+
+            Dim dt As DataTableEx = New DataTableEx("System.Int32")
+            dt.Columns.Add("BUMON_KB", GetType(String))
+
+            dt.PrimaryKey = {dt.Columns("VALUE")} ', dt.Columns("SYONIN_JUN"), dt.Columns("SYONIN_HOKOKUSYO_ID")
+
+            For Each row As DataRow In dsList.Tables(0).Rows
+                Dim Trow As DataRow = dt.NewRow()
+                If Not dt.Rows.Contains(row.Item("SYAIN_ID")) Then
+                    Trow("VALUE") = row.Item("SYAIN_ID")
+                    Trow("DISP") = row.Item("SIMEI")
+                    Trow("BUMON_KB") = row.Item("BUMON_KB")
+                    dt.Rows.Add(Trow)
+                End If
+            Next row
+
+            Return dt
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
 
 #End Region
 

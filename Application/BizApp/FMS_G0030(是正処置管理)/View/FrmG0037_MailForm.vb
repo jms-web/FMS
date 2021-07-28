@@ -254,7 +254,7 @@ FCCB　議長"
                 MessageBox.Show("送信者が見つからないため、依頼メールを送信できません", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return False
             Else
-                If FunSendMailFCCB(mtxTitle.Text, strBody, PrToUsers, False) Then
+                If FunSendMailZESEI(mtxTitle.Text, strBody, PrToUsers, False) Then
                     Return True
                 Else
                     MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)

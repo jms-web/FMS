@@ -37,6 +37,9 @@ Partial Public Class V015_ZESEI_ICHIRAN
     <ComponentModel.DisplayName("滞留日数")>
     Public Property TAIRYU_NISSU As Integer
 
+    <ComponentModel.DisplayName("累計滞留日数")>
+    Public Property TOTAL_TAIRYU_NISSU As Integer
+
     <ComponentModel.DisplayName("滞留フラグ")>
     Public Property TAIRYU_FG As Integer
 

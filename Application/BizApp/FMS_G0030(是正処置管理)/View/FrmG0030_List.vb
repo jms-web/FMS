@@ -760,7 +760,7 @@ Public Class FrmG0030_List
                     'If MessageBox.Show("選択されたデータを削除しますか?", "削除確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
                     If OpenFormEdit() Then
                         Dim dr As DataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
-                        If FunDEL(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, dr.Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))) Then
+                        If FunDEL(dr.Item(NameOf(V015_ZESEI_ICHIRAN.SYONIN_HOKOKUSYO_ID)), dr.Item(NameOf(V015_ZESEI_ICHIRAN.HOKOKU_NO))) Then
                             Call FunSRCH(flxDATA, FunGetListData())
                         End If
                     End If
@@ -769,7 +769,7 @@ Public Class FrmG0030_List
                     If flxDATA.Rows(flxDATA.RowSel) IsNot Nothing Then
                         If MessageBox.Show("選択されたデータを復元しますか?", "復元確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) = DialogResult.OK Then
                             Dim dr As DataRow = DirectCast(flxDATA.Rows(flxDATA.Row).DataSource, DataRowView).Row
-                            If FunRESTORE(Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB.Value, dr.Item(NameOf(ST04_FCCB_ICHIRAN.FCCB_NO))) Then
+                            If FunRESTORE(dr.Item(NameOf(V015_ZESEI_ICHIRAN.SYONIN_HOKOKUSYO_ID)), dr.Item(NameOf(V015_ZESEI_ICHIRAN.HOKOKU_NO))) Then
                                 Call FunSRCH(flxDATA, FunGetListData())
                             End If
                         End If
@@ -975,7 +975,7 @@ Public Class FrmG0030_List
         Dim hokokusyo_id As Integer
         Try
             If intMODE = ENM_DATA_OPERATION_MODE._1_ADD Or flxDATA.Rows.Count = 1 Then
-                hokokusyo_id = 1
+                hokokusyo_id = 5
             Else
                 hokokusyo_id = flxDATA.Rows(flxDATA.RowSel).Item(NameOf(V015_ZESEI_ICHIRAN.SYONIN_HOKOKUSYO_ID))
             End If
@@ -1070,10 +1070,16 @@ Public Class FrmG0030_List
         Try
 
             '-----UPDATE
-            sbSQL.Append($"UPDATE {NameOf(D009_FCCB_J)} SET")
-            sbSQL.Append($" {NameOf(D009_FCCB_J.DEL_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
-            sbSQL.Append($" ,{NameOf(D009_FCCB_J.DEL_YMDHNS)}=dbo.GetSysDateString()")
-            sbSQL.Append($" WHERE {NameOf(D009_FCCB_J.FCCB_NO)}='{strHOKOKU_NO.ConvertSqlEscape}'")
+            Select Case intSYONIN_HOKOKUSYO_ID
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value
+                    sbSQL.Append($"UPDATE {NameOf(D013_ZESEI_HASSEI_J)} SET")
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R.Value
+                    sbSQL.Append($"UPDATE {NameOf(D014_ZESEI_RYUSYUTU_J)} SET")
+            End Select
+
+            sbSQL.Append($" {NameOf(D013_ZESEI_HASSEI_J.DEL_SYAIN_ID)}={pub_SYAIN_INFO.SYAIN_ID}")
+            sbSQL.Append($" ,{NameOf(D013_ZESEI_HASSEI_J.DEL_YMDHNS)}=dbo.GetSysDateString()")
+            sbSQL.Append($" WHERE {NameOf(D013_ZESEI_HASSEI_J.HOKOKU_NO)}='{strHOKOKU_NO.ConvertSqlEscape}'")
 
             'CHECK: 一覧削除ボタン D004やR001等の編集履歴はどうするか
 
@@ -1111,11 +1117,16 @@ Public Class FrmG0030_List
         Try
 
             '-----UPDATE
-            sbSQL.Remove(0, sbSQL.Length)
-            sbSQL.Append($"UPDATE {NameOf(D009_FCCB_J)} SET")
-            sbSQL.Append($" {NameOf(D009_FCCB_J.DEL_SYAIN_ID)}={0}")
-            sbSQL.Append($" ,{NameOf(D009_FCCB_J.DEL_YMDHNS)}=''")
-            sbSQL.Append($" WHERE {NameOf(D009_FCCB_J.FCCB_NO)}='{strHOKOKU_NO.ConvertSqlEscape}'")
+            Select Case intSYONIN_HOKOKUSYO_ID
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value
+                    sbSQL.Append($"UPDATE {NameOf(D013_ZESEI_HASSEI_J)} SET")
+                Case Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R.Value
+                    sbSQL.Append($"UPDATE {NameOf(D014_ZESEI_RYUSYUTU_J)} SET")
+            End Select
+
+            sbSQL.Append($" {NameOf(D013_ZESEI_HASSEI_J.DEL_SYAIN_ID)}={0}")
+            sbSQL.Append($" ,{NameOf(D013_ZESEI_HASSEI_J.DEL_YMDHNS)}=''")
+            sbSQL.Append($" WHERE {NameOf(D013_ZESEI_HASSEI_J.HOKOKU_NO)}='{strHOKOKU_NO.ConvertSqlEscape}'")
 
             'CHECK: 一覧削除ボタン D004やR001等の編集履歴はどうするか
 
@@ -1256,7 +1267,7 @@ Public Class FrmG0030_List
                                 Dim users As New List(Of Integer)
                                 users.Add(dr.Item("GEN_TANTO_ID"))
 
-                                If FunSendMailFCCB(strSubject, strBody, users) Then
+                                If FunSendMailZESEI(strSubject, strBody, users) Then
                                     If FunSAVE_R001(DB, dr) Then
                                     Else
                                         blnErr = True
@@ -1329,7 +1340,7 @@ Public Class FrmG0030_List
                     Dim users As New List(Of Integer)
                     users.Add(dr.Item(NameOf(MODEL.ST02_FUTEKIGO_ICHIRAN.GEN_TANTO_ID)))
 
-                    If FunSendMailFCCB(strSubject, strBody, users) Then
+                    If FunSendMailZESEI(strSubject, strBody, users) Then
 
                         Using DB As ClsDbUtility = DBOpen()
                             Dim blnErr As Boolean

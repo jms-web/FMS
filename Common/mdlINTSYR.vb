@@ -8,6 +8,7 @@ Module mdlINTSYR
 
     'ログ
     Public EM As ErrMsg
+
     Public WL As WriteLog
 
     'ソリューション識別名
@@ -15,6 +16,7 @@ Module mdlINTSYR
 
     '設定フアイル名
     Public Const CON_SYSTEM_INI As String = "SYSTEM.INI"
+
     Public Const CON_OUTPUT_INI As String = "EXCELOUT.INI"
     Public Const CON_TEMPLATE_INI As String = "EXCELTEMPLATE.INI"
     Public Const CON_ERR_LOG As String = CON_SOLUTION_NAME & "_ERROR.LOG"
@@ -31,17 +33,16 @@ Module mdlINTSYR
     Public clrControlDefaultBackColor As Color = Color.White  'フォーカス喪失時時の背景色
     Public clrControlErrorBackColor As Color = Color.FromArgb(255, 255, 128)  'エラー時の背景色
 
-
     '詳細エラーを常に表示
     Public conblnNonMsg As Boolean = False
-
-
 
     ''' <summary>
     ''' システム情報
     ''' </summary>
     Public pub_SYSTEM_INFO As SYSTEM_INFO
+
     Public Structure SYSTEM_INFO
+
         ''' <summary>
         ''' 端末名
         ''' </summary>
@@ -72,12 +73,10 @@ Module mdlINTSYR
         ''' </summary>
         Dim clrDefaultTitleBack As Color
 
-
         ''' <summary>
         ''' エラーメール送信の対象エラーレベル
         ''' </summary>
         Dim SendMailErrorLevel As Integer
-
 
     End Structure
 
@@ -85,7 +84,9 @@ Module mdlINTSYR
     ''' ユーザー情報
     ''' </summary>
     Public pub_SYAIN_INFO As SYAIN_INFO
+
     Public Structure SYAIN_INFO
+
         ''' <summary>
         ''' 社員ID(システム上のID)
         ''' </summary>
@@ -120,13 +121,16 @@ Module mdlINTSYR
         ''' 部門名
         ''' </summary>
         Dim BUMON_NAME As String
+
     End Structure
 
     ''' <summary>
     ''' プログラム情報
     ''' </summary>
     Public pub_APP_INFO As APP_INFO
+
     Public Structure APP_INFO
+
         ''' <summary>
         ''' タイトル(処理名)
         ''' </summary>
@@ -153,7 +157,6 @@ Module mdlINTSYR
         Dim strOUTPUT_PATH As String
 
     End Structure
-
 
     ''' <summary>
     ''' エラー種別
@@ -211,6 +214,7 @@ Module mdlINTSYR
         _13_xxx = 13
         _14_SL = 14
         _15_主任 = 15
+        _99_なし = 99
 
     End Enum
 
@@ -218,6 +222,7 @@ Module mdlINTSYR
     ''' データ処理モード
     ''' </summary>
     Public Enum ENM_DATA_OPERATION_MODE
+
         ''' <summary>
         ''' 追加
         ''' </summary>
@@ -247,11 +252,13 @@ Module mdlINTSYR
         ''' 削除(物理削除)
         ''' </summary>
         _6_DELETE = 6
+
     End Enum
 
 #End Region
 
 #Region "初期処理"
+
     ''' <summary>
     ''' 初期処理
     ''' </summary>
@@ -273,7 +280,6 @@ Module mdlINTSYR
 
             '-----高DPI対応
             Call SetProcessDPIAware()
-
 
             '-----端末名取得
             pub_SYSTEM_INFO.strPCNM = System.Net.Dns.GetHostName
@@ -305,7 +311,6 @@ Module mdlINTSYR
                         Return False
                 End Select
             End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -316,6 +321,7 @@ Module mdlINTSYR
 #End Region
 
 #Region "システム設定ファイル読込処理"
+
     Public Function Fun_GetSystemIniFile() As Boolean
 
         Try
@@ -335,15 +341,16 @@ Module mdlINTSYR
             End Using
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         End Try
     End Function
+
 #End Region
 
 #Region "出力先設定ファイル読込"
+
     ''' <summary>
     ''' 出力先設定ファイル読込
     ''' </summary>
@@ -362,15 +369,16 @@ Module mdlINTSYR
             End Using
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
             Return False
         End Try
     End Function
+
 #End Region
 
 #Region "PG設定ファイル読込処理"
+
     ''' <summary>
     ''' PG設定ファイル読込処理
     ''' </summary>
@@ -432,6 +440,7 @@ Module mdlINTSYR
 #End Region
 
 #Region "エラーログテーブル出力およびメール送信"
+
     Public Function FunErrorSyori(ByVal strErrKB As String, ByVal strErrLevel As String, ByVal strMSG As String, Optional ByVal strBIKO As String = "", Optional ByVal ErrLogList As List(Of String) = Nothing) As Boolean
 
         Dim sbSQL As New System.Text.StringBuilder
@@ -465,7 +474,6 @@ Module mdlINTSYR
                 'SQL実行
                 intRET = DB.ExecuteNonQuery(sbSQL.ToString, True)
 
-
                 If pub_SYSTEM_INFO.SendMailErrorLevel = 0 Then
                     '送信しない
                     blnSendFLG = False
@@ -487,7 +495,6 @@ Module mdlINTSYR
                     'エラー区分名
                     strErrKB_NM = FunGetCodeMastaValue(DB, "ERROR_KB", strErrKB)
 
-
                     If blnAttachmentFLG = True And ErrLogList IsNot Nothing Then
                         '添付ファイルリストを設定
                         sendFile = ErrLogList
@@ -495,7 +502,6 @@ Module mdlINTSYR
 
                     '件名作成
                     strSubject = "【EDI受信システムエラー発生】" & strErrKB_NM
-
 
                     If strErrKB = ENM_ERR_KB._9_その他例外エラー.ToString Then
                         If ErrLogList Is Nothing Then
@@ -533,9 +539,9 @@ Module mdlINTSYR
             Return False
         Finally
 
-
         End Try
     End Function
+
 #End Region
 
 #Region "ユーザー名取得"
@@ -545,7 +551,6 @@ Module mdlINTSYR
         Dim sbSQL As New System.Text.StringBuilder
 
         Try
-
 
             Using DB As ClsDbUtility = DBOpen()
                 sbSQL.Remove(0, sbSQL.Length)
@@ -562,7 +567,6 @@ Module mdlINTSYR
                     End If
                 End With
             End Using
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return ""
@@ -581,7 +585,6 @@ Module mdlINTSYR
 
         Try
 
-
             Using DB As ClsDbUtility = DBOpen()
                 sbSQL.Remove(0, sbSQL.Length)
                 sbSQL.Append("SELECT SYAIN_NO FROM " & "M004_SYAIN" & " ")
@@ -597,7 +600,6 @@ Module mdlINTSYR
                     End If
                 End With
             End Using
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return ""
@@ -609,6 +611,7 @@ Module mdlINTSYR
 #End Region
 
 #Region "ユーザー権限取得"
+
     Public Function Fun_GetUSER_KENGEN(ByVal SYAIN_ID As String) As String
         Dim dsList As New System.Data.DataSet
         Dim sbSQL As New System.Text.StringBuilder
@@ -625,7 +628,6 @@ Module mdlINTSYR
             With dsList.Tables(0).Rows(0)
                 Return .Item("KENGEN_KB").ToString.Trim
             End With
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
             Return ""
@@ -652,7 +654,6 @@ Module mdlINTSYR
             End Using
 
             Return (strRET = "1")
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False)
             Return False
@@ -677,7 +678,6 @@ Module mdlINTSYR
             End Using
 
             Return (strRET = "1")
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False)
             Return False
@@ -712,9 +712,11 @@ Module mdlINTSYR
         Return IsOPAdminUser(intSYAIN_ID)
 
     End Function
+
 #End Region
 
 #Region "DB操作関連"
+
     Public Function DBOpen() As ClsDbUtility
 
         Try
@@ -728,7 +730,6 @@ Module mdlINTSYR
 
             Dim DB As New ClsDbUtility(pub_SYSTEM_INFO.DbProviderFactories, pub_SYSTEM_INFO.CONNECTIONSTRING)
             Return DB
-
         Catch ex As Exception
             Throw
         End Try
@@ -757,6 +758,5 @@ Module mdlINTSYR
     End Function
 
 #End Region
-
 
 End Module

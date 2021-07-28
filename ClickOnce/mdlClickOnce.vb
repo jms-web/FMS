@@ -194,11 +194,13 @@ Module mdlClickOnce
 #End If
 
             '-----メニュー起動
-            If Not String.IsNullOrWhiteSpace(strParams) Then
-                Shell(CON_ROOTDIR & "\" & EXE_PATH & "\" & strParams, AppWinStyle.NormalFocus)
-            Else
-                Shell(CON_ROOTDIR & "\" & EXE_PATH & "\" & CON_STARTUP_EXE, AppWinStyle.NormalFocus)
-            End If
+            'If Not String.IsNullOrWhiteSpace(strParams) Then
+            '    Shell(CON_ROOTDIR & "\" & EXE_PATH & "\" & strParams, AppWinStyle.NormalFocus)
+            'Else
+            '    Shell(CON_ROOTDIR & "\" & EXE_PATH & "\" & CON_STARTUP_EXE, AppWinStyle.NormalFocus)
+            'End If
+
+            Shell(CON_ROOTDIR & "\" & EXE_PATH & "\" & CON_STARTUP_EXE, AppWinStyle.NormalFocus)
         Catch ex As Exception
             'コピー失敗時
             MsgBox("起動中のシステムを全て終了後、再度システムを開始して下さい。(" & strBUFF & ")" & vbCrLf & ex.Message, MsgBoxStyle.Information)
