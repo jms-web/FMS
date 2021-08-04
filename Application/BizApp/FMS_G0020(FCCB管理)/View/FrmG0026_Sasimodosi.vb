@@ -381,7 +381,10 @@ Public Class FrmG0026_Sasimodosi
 
         Select Case intCurrentStage
             Case 20
-                sbSQL.Append($" AND ({NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}=(SELECT MAX({NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}) FROM {NameOf(MODEL.V003_SYONIN_J_KANRI)} AS SUB WHERE SUB.{NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}<{intCurrentStage}))")
+                sbSQL.Append($" AND ({NameOf(V003_SYONIN_J_KANRI.SYONIN_JUN)}=(SELECT MAX({NameOf(MODEL.V003_SYONIN_J_KANRI.SYONIN_JUN)}) FROM {NameOf(MODEL.V003_SYONIN_J_KANRI)} AS SUB")
+                sbSQL.Append($" WHERE SUB.{NameOf(V003_SYONIN_J_KANRI.SYONIN_HOKOKUSYO_ID)}={intSYONIN_HOKOKU_ID}")
+                sbSQL.Append($" AND SUB.{NameOf(V003_SYONIN_J_KANRI.HOKOKU_NO)}='{strHOKOKU_NO}'")
+                sbSQL.Append($" AND SUB.{NameOf(V003_SYONIN_J_KANRI.SYONIN_JUN)}<{intCurrentStage}))")
 
             Case Else
                 'カレントステージが20以外の場合は差し戻し先として20も追加
