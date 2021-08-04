@@ -1676,20 +1676,10 @@ Module mdlG0030
         Try
             Dim sbSQL As New System.Text.StringBuilder
             Dim dsList As New DataSet
-            sbSQL.Append($"SELECT SYAIN_ID,SIMEI FROM M004_SYAIN")
-            sbSQL.Append($" WHERE SYAIN_ID IN ((SELECT SYOZOKUCYO_ID FROM M002_BUSYO WHERE BUMON_KB='{BUMON_KB}') )")
+            sbSQL.Append($"SELECT * FROM {NameOf(V010_SYAIN_SYOZOKU_BUSYO)}")
+            sbSQL.Append($" WHERE BUMON_KB ='{BUMON_KB}'")
             sbSQL.Append($" AND YAKUSYOKU_KB NOT IN ('{YAKUSYOKUs.AsEnumerable.Select(Function(r) r.ToString).Aggregate(Function(x, y) x & $"','{y}")}')")
 
-            Using DB = DBOpen()
-                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
-            End Using
-            For Each r As DataRow In dsList.Tables(0).Rows
-                retList.Add(r.Item(0).ToString.ToVal)
-            Next
-
-            sbSQL.Append($"SELECT * FROM {NameOf(M004_SYAIN)}")
-            sbSQL.Append($" WHERE SYAIN_ID IN ({retList.AsEnumerable.Select(Function(r) r.ToString).Aggregate(Function(x, y) x & $",{y}")})")
-            sbSQL.Append(" ORDER BY SYAIN_ID")
             Using DB As ClsDbUtility = DBOpen()
                 dsList = DB.GetDataSet(sbSQL.ToString, False)
             End Using
@@ -1705,6 +1695,7 @@ Module mdlG0030
                     Trow("VALUE") = row.Item("SYAIN_ID")
                     Trow("DISP") = row.Item("SIMEI")
                     Trow("BUMON_KB") = row.Item("BUMON_KB")
+                    Trow("DEL_FLG") = CBool(row.Item("DEL_FLG"))
                     dt.Rows.Add(Trow)
                 End If
             Next row
