@@ -890,15 +890,15 @@ Module mdlG0030
         '        End If
         'End Select
 
-        'システムユーザーログイン時はシステムユーザーを追加
-        If pub_SYAIN_INFO.SYAIN_ID = 999999 Then
-            Dim Trow3 As DataRow = dt.NewRow()
-            If Not dt.Rows.Contains(pub_SYAIN_INFO.SYAIN_ID) Then
-                Trow3("VALUE") = pub_SYAIN_INFO.SYAIN_ID
-                Trow3("DISP") = pub_SYAIN_INFO.SYAIN_NAME
-                dt.Rows.Add(Trow3)
-            End If
-        End If
+        ''システムユーザーログイン時はシステムユーザーを追加
+        'If pub_SYAIN_INFO.SYAIN_ID = 999999 Then
+        '    Dim Trow3 As DataRow = dt.NewRow()
+        '    If Not dt.Rows.Contains(pub_SYAIN_INFO.SYAIN_ID) Then
+        '        Trow3("VALUE") = pub_SYAIN_INFO.SYAIN_ID
+        '        Trow3("DISP") = pub_SYAIN_INFO.SYAIN_NAME
+        '        dt.Rows.Add(Trow3)
+        '    End If
+        'End If
 
         With dsList.Tables(0)
             For intCNT = 0 To .Rows.Count - 1

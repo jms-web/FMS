@@ -836,7 +836,7 @@ Partial Class FrmG0012
         Me.pnlAnalysis.Controls.Add(Me.Label51)
         Me.pnlAnalysis.Location = New System.Drawing.Point(658, 658)
         Me.pnlAnalysis.Name = "pnlAnalysis"
-        Me.pnlAnalysis.Size = New System.Drawing.Size(554, 295)
+        Me.pnlAnalysis.Size = New System.Drawing.Size(537, 295)
         Me.pnlAnalysis.TabIndex = 322
         Me.pnlAnalysis.Visible = False
         '
@@ -844,7 +844,7 @@ Partial Class FrmG0012
         '
         Me.Label25.BackColor = System.Drawing.Color.Black
         Me.Label25.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Label25.Location = New System.Drawing.Point(539, 0)
+        Me.Label25.Location = New System.Drawing.Point(522, 0)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(13, 293)
         Me.Label25.TabIndex = 324
@@ -3918,12 +3918,12 @@ Partial Class FrmG0012
         Me.Label23.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label23.AutoSize = True
         Me.Label23.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label23.Location = New System.Drawing.Point(1026, 196)
+        Me.Label23.Location = New System.Drawing.Point(1056, 196)
         Me.Label23.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(96, 15)
+        Me.Label23.Size = New System.Drawing.Size(72, 15)
         Me.Label23.TabIndex = 258
-        Me.Label23.Text = "éüâÒêªçÏó\íËì˙:"
+        Me.Label23.Text = "èàíuó\íËì˙:"
         Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'InfoToolTip

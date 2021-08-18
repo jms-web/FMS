@@ -4069,12 +4069,12 @@ Partial Class FrmG0021
         Me.Label23.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label23.AutoSize = True
         Me.Label23.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label23.Location = New System.Drawing.Point(1026, 196)
+        Me.Label23.Location = New System.Drawing.Point(1056, 195)
         Me.Label23.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(96, 15)
+        Me.Label23.Size = New System.Drawing.Size(72, 15)
         Me.Label23.TabIndex = 258
-        Me.Label23.Text = "éüâÒêªçÏó\íËì˙:"
+        Me.Label23.Text = "èàíuó\íËì˙:"
         Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label23.Visible = False
         '

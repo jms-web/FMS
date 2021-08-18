@@ -57,6 +57,8 @@ Module mdlU0010
                 TAIRYU_COUNT += SendFUTEKIGOMail()
                 TAIRYU_COUNT += SendFCCB_TAIRYU_Mail()
                 TAIRYU_COUNT += SendFCCB_KANRYO_Mail()
+                TAIRYU_COUNT += SendZESEI_TAIRYU_Mail()
+                TAIRYU_COUNT += SendZESEI_SYOCHI_TAIRYU_Mail()
 
                 If TAIRYU_COUNT > 0 Then
                     WL.WriteLogDat($"{TAIRYU_COUNT:00}件の滞留通知メールを送信しました。")
@@ -571,6 +573,345 @@ Module mdlU0010
                                strBody:=strBody.Trim,
                                AttachmentList:=New List(Of String),
                                strFromName:="FCCB記録書管理システム",
+                               isHTML:=True)
+
+                        If blnSend Then
+                            WL.WriteLogDat($"【メール送信成功】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}")
+                            intSendCount += 1
+                        Else
+                            'MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            WL.WriteLogDat($"【メール送信失敗】送信処理失敗 Subject:{strSubject} To:{ToAddressList(0)}")
+                            Continue For
+                        End If
+                        System.Threading.Thread.Sleep(1000)
+                    Catch ex As Exception
+                        strMsg = $"【メール送信失敗】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}{vbCrLf}{Err.Description}"
+                        WL.WriteLogDat(strMsg)
+                        Continue For
+                    End Try
+                Next dr
+
+                Return intSendCount
+            End Using
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Function
+
+#End Region
+
+#Region "是正処置滞留通知"
+
+    Private Function SendZESEI_TAIRYU_Mail() As Integer
+
+        Try
+            Dim strMsg As String
+            Dim strSmtpServer As String
+            Dim intSmtpPort As Integer
+            Dim strFromAddress As String
+            Dim CCAddressList As New List(Of String)
+            Dim BCCAddressList As New List(Of String)
+            Dim strUserID As String
+            Dim strPassword As String
+            Dim blnSend As Boolean
+            Dim strToSyainName As String
+            Dim strSubject As String
+            Dim intSendCount As Integer
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
+            Dim dt As DataTable
+
+            Using DB As ClsDbUtility = DBOpen()
+                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                    WL.WriteLogDat($"メール送信設定が無効(FALSE)に設定されています")
+                    Return 0
+                End If
+
+                '処置回答期限
+                sbSQL.Append($"SELECT Q.* FROM(")
+                sbSQL.Append($"SELECT")
+                sbSQL.Append($" HOKOKU_NO")
+                sbSQL.Append($",SYONIN_HOKOKUSYO_NAME")
+                sbSQL.Append($",GEN_TANTO_ID")
+                sbSQL.Append($",GEN_TANTO_NAME")
+                sbSQL.Append($",KAITOU_KIBOU_YMD")
+                sbSQL.Append($",KAITOU_YMD")
+                sbSQL.Append($",SUBSTRING(ADD_YMDHNS, 1, 8)　KISO_YMD")
+                sbSQL.Append($",dbo.SC02_GET_TAIRYU_NISSU('1',KAITOU_KIBOU_YMD,CONVERT(nvarchar,GETDATE(),112)) TAIRYU_NISSU")
+                sbSQL.Append($" From V015_ZESEI_ICHIRAN")
+                sbSQL.Append($" WHERE SYONIN_JUN >=20 ")
+                sbSQL.Append($" AND DEL_SYAIN_ID = 0")
+                sbSQL.Append($" and RTRIM(KAITOU_YMD)='') Q")
+                sbSQL.Append($" WHERE TAIRYU_NISSU >= 4")
+
+                dt = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)?.Tables(0)
+
+                strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
+                intSmtpPort = Val(FunGetCodeMastaValue(DB, "メール設定", "SMTP_PORT"))
+                strUserID = FunGetCodeMastaValue(DB, "メール設定", "SMTP_USER")
+                strPassword = FunGetCodeMastaValue(DB, "メール設定", "SMTP_PASS")
+                strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
+
+                For Each dr As DataRow In dt.Rows
+                    Dim ToAddressList As New List(Of String)
+                    Try
+
+                        '---申請先担当者のメールアドレス取得
+                        sbSQL.Clear()
+                        sbSQL.Append($"SELECT")
+                        sbSQL.Append($" M4.SIMEI")
+                        sbSQL.Append($",M4.MAIL_ADDRESS")
+                        sbSQL.Append($",M5.BUSYO_ID")
+                        sbSQL.Append($",M2.BUSYO_NAME")
+                        sbSQL.Append($",ISNULL(OYA_M2.BUSYO_NAME,'') AS OYA_BUYSYO_NAME")
+                        sbSQL.Append($",ISNULL(GL.SIMEI,'') AS GL_SIMEI")
+                        sbSQL.Append($",ISNULL(GL.MAIL_ADDRESS,'') AS GL_ADDRESS")
+                        sbSQL.Append($",ISNULL(OYA_GL.SIMEI,'') AS OYA_GL_SIMEI")
+                        sbSQL.Append($",ISNULL(OYA_GL.MAIL_ADDRESS,'') AS OYA_GL_ADDRESS")
+                        sbSQL.Append($" FROM M004_SYAIN AS M4")
+                        sbSQL.Append($" LEFT JOIN dbo.M005_SYOZOKU_BUSYO AS M5 ON (M4.SYAIN_ID = M5.SYAIN_ID)")
+                        sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS M2 ON (M2.BUSYO_ID = M5.BUSYO_ID)")
+                        sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS GL ON (GL.SYAIN_ID = M2.SYOZOKUCYO_ID)")
+                        sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS OYA_M2 ON (OYA_M2.BUSYO_ID = M2.OYA_BUSYO_ID)")
+                        sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS OYA_GL ON (OYA_GL.SYAIN_ID = OYA_M2.SYOZOKUCYO_ID)")
+                        sbSQL.Append($" WHERE M4.SYAIN_ID={dr.Item("GEN_TANTO_ID")}")
+                        sbSQL.Append($" AND M5.KENMU_FLG='0'")
+                        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                        With dsList.Tables(0)
+                            If .Rows.Count > 0 Then
+                                ToAddressList.Add(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS"))
+
+                                '所属長にも送信
+                                If .Rows(0).Item("GL_ADDRESS").ToString.IsNulOrWS = False AndAlso .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("GL_ADDRESS").ToString Then
+                                    ToAddressList.Add(.Rows(0).Item("GL_ADDRESS"))
+                                End If
+
+                                ''送信先が所属長宛てだった場合、所属長の上位の部署の所属長にも送信
+                                'If .Rows(0).Item("OYA_GL_ADDRESS").ToString.IsNulOrWS = False AndAlso
+                                '    .Rows(0).Item("MAIL_ADDRESS").ToString = .Rows(0).Item("GL_ADDRESS").ToString AndAlso
+                                '    .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("OYA_GL_ADDRESS").ToString Then
+                                '    ToAddressList.Add(.Rows(0).Item("OYA_GL_ADDRESS"))
+                                'End If
+
+                                strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI").ToString.Trim
+                            Else
+                                WL.WriteLogDat($"【メール送信失敗】担当者ID:{dr.Item("TANTO_ID")}のメールアドレスが取得できませんでした")
+                                Continue For
+                            End If
+                        End With
+
+                        strSubject = $"【是正処置回答依頼】NO:{dr.Item("HOKOKU_NO").ToString.Trim}"
+                        Dim appUrl As String = """http://sv04:8000/CLICKONCE_FMS.application"""
+                        Dim dtYOTEI As Date = Date.ParseExact(dr.Item("KAITOU_KIBOU_YMD"), "yyyyMMdd", Nothing)
+                        Dim strbodySub As String
+
+                        strbodySub = $"処置回答期限：{dtYOTEI:yyyy/MM/dd}から{dr.Item("TAIRYU_NISSU").ToString.ToVal}日過ぎました。"
+
+                        Dim strBody As String = $"
+                        {dr.Item("GEN_TANTO_NAME").ToString.Trim} 殿<br />
+                        <br />
+                        {strbodySub}<br />
+                        回答入力をお願いします。<br />
+                        <br />                                　　
+                        【報告書名】{dr.Item("SYONIN_HOKOKUSYO_NAME").ToString.Trim}<br />
+                        【報告書No】{dr.Item("HOKOKU_NO").ToString.Trim}<br />
+                        【起 草 日】{dr.Item("KISO_YMD").ToString.ToDateTimeWithFormat("yyyyMMdd", "yyyy/MM/dd")}<br />
+                        <br />
+                        <a href = {appUrl}>システム起動</a><br />
+                        <br />
+                        ※このメールは配信専用です。(返信できません)<br />
+                        返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
+                        "
+
+                        blnSend = ClsMailSend.FunSendMail(strSmtpServer,
+                               intSmtpPort,
+                               strFromAddress,
+                               ToAddressList,
+                               CCAddress:=CCAddressList,
+                               BCCAddress:=BCCAddressList,
+                               strSubject:=strSubject,
+                               strBody:=strBody.Trim,
+                               AttachmentList:=New List(Of String),
+                               strFromName:="フジワラシステム",
+                               isHTML:=True)
+
+                        If blnSend Then
+                            WL.WriteLogDat($"【メール送信成功】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}")
+                            intSendCount += 1
+                        Else
+                            'MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            WL.WriteLogDat($"【メール送信失敗】送信処理失敗 Subject:{strSubject} To:{ToAddressList(0)}")
+                            Continue For
+                        End If
+                        System.Threading.Thread.Sleep(1000)
+                    Catch ex As Exception
+                        strMsg = $"【メール送信失敗】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}{vbCrLf}{Err.Description}"
+                        WL.WriteLogDat(strMsg)
+                        Continue For
+                    End Try
+                Next dr
+
+                Return intSendCount
+            End Using
+        Catch ex As Exception
+            Throw ex
+        End Try
+    End Function
+
+#End Region
+
+#Region "是正処置滞留通知"
+
+    ''' <summary>
+    ''' 応急処置・是正処置期限通知
+    ''' </summary>
+    ''' <returns></returns>
+    Private Function SendZESEI_SYOCHI_TAIRYU_Mail() As Integer
+
+        Try
+            Dim strMsg As String
+            Dim strSmtpServer As String
+            Dim intSmtpPort As Integer
+            Dim strFromAddress As String
+            Dim CCAddressList As New List(Of String)
+            Dim BCCAddressList As New List(Of String)
+            Dim strUserID As String
+            Dim strPassword As String
+            Dim blnSend As Boolean
+            Dim strToSyainName As String
+            Dim strSubject As String
+            Dim intSendCount As Integer
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
+            Dim dt As DataTable
+
+            Using DB As ClsDbUtility = DBOpen()
+                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                    WL.WriteLogDat($"メール送信設定が無効(FALSE)に設定されています")
+                    Return 0
+                End If
+
+                sbSQL.Append($"SELECT Q.* FROM(")
+                sbSQL.Append($" SELECT")
+                sbSQL.Append($" HOKOKU_NO")
+                sbSQL.Append($",SYONIN_HOKOKUSYO_NAME")
+                sbSQL.Append($",GEN_TANTO_ID")
+                sbSQL.Append($",GEN_TANTO_NAME")
+                sbSQL.Append($",OUKYU_SYOCHI_YOTEI_YMD YOTEI_YMD")
+                sbSQL.Append($",SUBSTRING(ADD_YMDHNS, 1, 8)　KISO_YMD")
+                sbSQL.Append($",dbo.SC02_GET_TAIRYU_NISSU('1',OUKYU_SYOCHI_YOTEI_YMD,CONVERT(nvarchar,GETDATE(),112)) TAIRYU_NISSU")
+                sbSQL.Append($",'応急処置' SYOCHI_NAME")
+                sbSQL.Append($" From V015_ZESEI_ICHIRAN")
+                sbSQL.Append($" WHERE SYONIN_JUN >=30 ")
+                sbSQL.Append($" AND DEL_SYAIN_ID = 0")
+                sbSQL.Append($" and RTRIM(OUKYU_SYOCHI_YMD)='') Q")
+                sbSQL.Append($" WHERE TAIRYU_NISSU > 0")
+                sbSQL.Append($" UNION ALL")
+                sbSQL.Append($" SELECT Q.* FROM(")
+                sbSQL.Append($" SELECT")
+                sbSQL.Append($" HOKOKU_NO")
+                sbSQL.Append($",SYONIN_HOKOKUSYO_NAME")
+                sbSQL.Append($",GEN_TANTO_ID")
+                sbSQL.Append($",GEN_TANTO_NAME")
+                sbSQL.Append($",ZESEI_SYOCHI_YOTEI_YMD YOTEI_YMD")
+                sbSQL.Append($",SUBSTRING(ADD_YMDHNS, 1, 8)　KISO_YMD")
+                sbSQL.Append($",dbo.SC02_GET_TAIRYU_NISSU('1',ZESEI_SYOCHI_YOTEI_YMD,CONVERT(nvarchar,GETDATE(),112)) TAIRYU_NISSU")
+                sbSQL.Append($",'是正処置' SYOCHI_NAME")
+                sbSQL.Append($" From V015_ZESEI_ICHIRAN")
+                sbSQL.Append($" WHERE SYONIN_JUN >=30 ")
+                sbSQL.Append($" AND DEL_SYAIN_ID = 0")
+                sbSQL.Append($" and RTRIM(ZESEI_SYOCHI_YMD)='') Q")
+                sbSQL.Append($" WHERE TAIRYU_NISSU > 0")
+
+                dt = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)?.Tables(0)
+
+                strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
+                intSmtpPort = Val(FunGetCodeMastaValue(DB, "メール設定", "SMTP_PORT"))
+                strUserID = FunGetCodeMastaValue(DB, "メール設定", "SMTP_USER")
+                strPassword = FunGetCodeMastaValue(DB, "メール設定", "SMTP_PASS")
+                strFromAddress = FunGetCodeMastaValue(DB, "メール設定", "FROM")
+
+                For Each dr As DataRow In dt.Rows
+                    Dim ToAddressList As New List(Of String)
+                    Try
+
+                        '---申請先担当者のメールアドレス取得
+                        sbSQL.Clear()
+                        sbSQL.Append($"SELECT")
+                        sbSQL.Append($" M4.SIMEI")
+                        sbSQL.Append($",M4.MAIL_ADDRESS")
+                        sbSQL.Append($",M5.BUSYO_ID")
+                        sbSQL.Append($",M2.BUSYO_NAME")
+                        sbSQL.Append($",ISNULL(OYA_M2.BUSYO_NAME,'') AS OYA_BUYSYO_NAME")
+                        sbSQL.Append($",ISNULL(GL.SIMEI,'') AS GL_SIMEI")
+                        sbSQL.Append($",ISNULL(GL.MAIL_ADDRESS,'') AS GL_ADDRESS")
+                        sbSQL.Append($",ISNULL(OYA_GL.SIMEI,'') AS OYA_GL_SIMEI")
+                        sbSQL.Append($",ISNULL(OYA_GL.MAIL_ADDRESS,'') AS OYA_GL_ADDRESS")
+                        sbSQL.Append($" FROM M004_SYAIN AS M4")
+                        sbSQL.Append($" LEFT JOIN dbo.M005_SYOZOKU_BUSYO AS M5 ON (M4.SYAIN_ID = M5.SYAIN_ID)")
+                        sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS M2 ON (M2.BUSYO_ID = M5.BUSYO_ID)")
+                        sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS GL ON (GL.SYAIN_ID = M2.SYOZOKUCYO_ID)")
+                        sbSQL.Append($" LEFT JOIN dbo.M002_BUSYO AS OYA_M2 ON (OYA_M2.BUSYO_ID = M2.OYA_BUSYO_ID)")
+                        sbSQL.Append($" LEFT JOIN dbo.M004_SYAIN AS OYA_GL ON (OYA_GL.SYAIN_ID = OYA_M2.SYOZOKUCYO_ID)")
+                        sbSQL.Append($" WHERE M4.SYAIN_ID={dr.Item("GEN_TANTO_ID")}")
+                        sbSQL.Append($" AND M5.KENMU_FLG='0'")
+                        dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+                        With dsList.Tables(0)
+                            If .Rows.Count > 0 Then
+                                ToAddressList.Add(dsList.Tables(0).Rows(0).Item("MAIL_ADDRESS"))
+
+                                '所属長にも送信
+                                If .Rows(0).Item("GL_ADDRESS").ToString.IsNulOrWS = False AndAlso .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("GL_ADDRESS").ToString Then
+                                    ToAddressList.Add(.Rows(0).Item("GL_ADDRESS"))
+                                End If
+
+                                ''送信先が所属長宛てだった場合、所属長の上位の部署の所属長にも送信
+                                'If .Rows(0).Item("OYA_GL_ADDRESS").ToString.IsNulOrWS = False AndAlso
+                                '    .Rows(0).Item("MAIL_ADDRESS").ToString = .Rows(0).Item("GL_ADDRESS").ToString AndAlso
+                                '    .Rows(0).Item("MAIL_ADDRESS").ToString <> .Rows(0).Item("OYA_GL_ADDRESS").ToString Then
+                                '    ToAddressList.Add(.Rows(0).Item("OYA_GL_ADDRESS"))
+                                'End If
+
+                                strToSyainName = dsList.Tables(0).Rows(0).Item("SIMEI").ToString.Trim
+                            Else
+                                WL.WriteLogDat($"【メール送信失敗】担当者ID:{dr.Item("TANTO_ID")}のメールアドレスが取得できませんでした")
+                                Continue For
+                            End If
+                        End With
+
+                        strSubject = $"【是正処置結果回答依頼】NO:{dr.Item("HOKOKU_NO").ToString.Trim}"
+                        Dim appUrl As String = """http://sv04:8000/CLICKONCE_FMS.application"""
+                        Dim dtYOTEI As Date = Date.ParseExact(dr.Item("YOTEI_YMD"), "yyyyMMdd", Nothing)
+                        Dim strbodySub As String
+
+                        strbodySub = $"{dr.Item("SYOCHI_NAME")}回答期限：{dtYOTEI:yyyy/MM/dd}から{dr.Item("TAIRYU_NISSU").ToString.ToVal}日過ぎました。"
+
+                        Dim strBody As String = $"
+                        {dr.Item("GEN_TANTO_NAME").ToString.Trim} 殿<br />
+                        <br />
+                        {strbodySub}<br />
+                        回答入力をお願いします。<br />
+                        <br />                                　　
+                        【報告書名】{dr.Item("SYONIN_HOKOKUSYO_NAME").ToString.Trim}<br />
+                        【報告書No】{dr.Item("HOKOKU_NO").ToString.Trim}<br />
+                        【起 草 日】{dr.Item("KISO_YMD").ToString.ToDateTimeWithFormat("yyyyMMdd", "yyyy/MM/dd")}<br />
+                        <br />
+                        <a href = {appUrl}>システム起動</a><br />
+                        <br />
+                        ※このメールは配信専用です。(返信できません)<br />
+                        返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
+                        "
+
+                        blnSend = ClsMailSend.FunSendMail(strSmtpServer,
+                               intSmtpPort,
+                               strFromAddress,
+                               ToAddressList,
+                               CCAddress:=CCAddressList,
+                               BCCAddress:=BCCAddressList,
+                               strSubject:=strSubject,
+                               strBody:=strBody.Trim,
+                               AttachmentList:=New List(Of String),
+                               strFromName:="フジワラシステム",
                                isHTML:=True)
 
                         If blnSend Then

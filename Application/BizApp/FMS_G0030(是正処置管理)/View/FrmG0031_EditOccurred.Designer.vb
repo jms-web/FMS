@@ -173,7 +173,6 @@ Partial Class FrmG0031_EditOccurred
         Me.chkJINTEKI_YOUIN_UMU = New System.Windows.Forms.CheckBox()
         Me.lblSTAGEFlame02 = New System.Windows.Forms.Label()
         Me.pnlST05 = New JMS_COMMON.PanelEx()
-        Me.lblSTAGEFlame05 = New System.Windows.Forms.Label()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.txtCOMMENT5 = New JMS_COMMON.TextBoxEx()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
@@ -189,8 +188,8 @@ Partial Class FrmG0031_EditOccurred
         Me.lblST05_Modoshi_Riyu = New System.Windows.Forms.Label()
         Me.lblSTAGE16 = New System.Windows.Forms.Label()
         Me.btnST13_SYONIN = New System.Windows.Forms.Button()
+        Me.lblSTAGEFlame05 = New System.Windows.Forms.Label()
         Me.pnlST04 = New JMS_COMMON.PanelEx()
-        Me.lblSTAGEFlame04 = New System.Windows.Forms.Label()
         Me.Label37 = New System.Windows.Forms.Label()
         Me.txtCOMMENT4 = New JMS_COMMON.TextBoxEx()
         Me.chkZESEI_SYOCHI_HANTEI = New System.Windows.Forms.CheckBox()
@@ -225,8 +224,8 @@ Partial Class FrmG0031_EditOccurred
         Me.rbtnZESEI_SYOCHI_YES = New System.Windows.Forms.RadioButton()
         Me.rbtnZESEI_SYOCHI_NO = New System.Windows.Forms.RadioButton()
         Me.chkZESEI_SYOCHI_YUKO_UMU = New System.Windows.Forms.CheckBox()
+        Me.lblSTAGEFlame04 = New System.Windows.Forms.Label()
         Me.pnlST03 = New JMS_COMMON.PanelEx()
-        Me.lblSTAGEFlame03 = New System.Windows.Forms.Label()
         Me.txtOUKYU_SYOCHI_KEKKA = New JMS_COMMON.TextBoxEx()
         Me.dtOUKYU_SYOCHI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.Label57 = New System.Windows.Forms.Label()
@@ -261,6 +260,7 @@ Partial Class FrmG0031_EditOccurred
         Me.dtST03_SAKUSEI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.txtZESEI_SYOCHI_KEKKA = New JMS_COMMON.TextBoxEx()
         Me.lblSTAGE08 = New System.Windows.Forms.Label()
+        Me.lblSTAGEFlame03 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.lblCurrentStageName = New System.Windows.Forms.Label()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -813,7 +813,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST01.Location = New System.Drawing.Point(2, 5)
         Me.pnlST01.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST01.Name = "pnlST01"
-        Me.pnlST01.Size = New System.Drawing.Size(1209, 497)
+        Me.pnlST01.Size = New System.Drawing.Size(1208, 497)
         Me.pnlST01.TabIndex = 4
         Me.pnlST01.Visible = False
         '
@@ -843,7 +843,6 @@ Partial Class FrmG0031_EditOccurred
         Me.Label14.TabIndex = 326
         Me.Label14.Text = "ï∂èëî‘çÜ:"
         Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label14.Visible = False
         '
         'txtDOC_NO
         '
@@ -1588,7 +1587,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame01.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame01.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame01.Location = New System.Drawing.Point(1203, 0)
+        Me.lblSTAGEFlame01.Location = New System.Drawing.Point(1202, 0)
         Me.lblSTAGEFlame01.Name = "lblSTAGEFlame01"
         Me.lblSTAGEFlame01.Size = New System.Drawing.Size(4, 495)
         Me.lblSTAGEFlame01.TabIndex = 335
@@ -1634,7 +1633,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST02.Location = New System.Drawing.Point(2, 508)
         Me.pnlST02.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST02.Name = "pnlST02"
-        Me.pnlST02.Size = New System.Drawing.Size(1209, 816)
+        Me.pnlST02.Size = New System.Drawing.Size(1208, 816)
         Me.pnlST02.TabIndex = 329
         Me.pnlST02.Visible = False
         '
@@ -1688,7 +1687,6 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST02_HINSYO.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.pnlST02_HINSYO.Size = New System.Drawing.Size(236, 87)
         Me.pnlST02_HINSYO.TabIndex = 352
-        Me.pnlST02_HINSYO.Visible = False
         '
         'cmbST02_HINSYO_NINKA_TANTO
         '
@@ -2834,7 +2832,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame02.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame02.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame02.Location = New System.Drawing.Point(1203, 0)
+        Me.lblSTAGEFlame02.Location = New System.Drawing.Point(1202, 0)
         Me.lblSTAGEFlame02.Name = "lblSTAGEFlame02"
         Me.lblSTAGEFlame02.Size = New System.Drawing.Size(4, 814)
         Me.lblSTAGEFlame02.TabIndex = 356
@@ -2856,19 +2854,9 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST05.Location = New System.Drawing.Point(2, 1754)
         Me.pnlST05.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST05.Name = "pnlST05"
-        Me.pnlST05.Size = New System.Drawing.Size(1210, 145)
+        Me.pnlST05.Size = New System.Drawing.Size(1208, 145)
         Me.pnlST05.TabIndex = 321
         Me.pnlST05.Visible = False
-        '
-        'lblSTAGEFlame05
-        '
-        Me.lblSTAGEFlame05.BackColor = System.Drawing.Color.Black
-        Me.lblSTAGEFlame05.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame05.Location = New System.Drawing.Point(1204, 0)
-        Me.lblSTAGEFlame05.Name = "lblSTAGEFlame05"
-        Me.lblSTAGEFlame05.Size = New System.Drawing.Size(4, 143)
-        Me.lblSTAGEFlame05.TabIndex = 358
-        Me.lblSTAGEFlame05.Visible = False
         '
         'Label20
         '
@@ -3139,6 +3127,16 @@ Partial Class FrmG0031_EditOccurred
         Me.btnST13_SYONIN.UseVisualStyleBackColor = True
         Me.btnST13_SYONIN.Visible = False
         '
+        'lblSTAGEFlame05
+        '
+        Me.lblSTAGEFlame05.BackColor = System.Drawing.Color.Black
+        Me.lblSTAGEFlame05.Dock = System.Windows.Forms.DockStyle.Right
+        Me.lblSTAGEFlame05.Location = New System.Drawing.Point(1202, 0)
+        Me.lblSTAGEFlame05.Name = "lblSTAGEFlame05"
+        Me.lblSTAGEFlame05.Size = New System.Drawing.Size(4, 143)
+        Me.lblSTAGEFlame05.TabIndex = 358
+        Me.lblSTAGEFlame05.Visible = False
+        '
         'pnlST04
         '
         Me.pnlST04.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -3160,19 +3158,9 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST04.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST04.Name = "pnlST04"
         Me.pnlST04.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlST04.Size = New System.Drawing.Size(1210, 150)
+        Me.pnlST04.Size = New System.Drawing.Size(1208, 150)
         Me.pnlST04.TabIndex = 320
         Me.pnlST04.Visible = False
-        '
-        'lblSTAGEFlame04
-        '
-        Me.lblSTAGEFlame04.BackColor = System.Drawing.Color.Black
-        Me.lblSTAGEFlame04.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame04.Location = New System.Drawing.Point(1202, 2)
-        Me.lblSTAGEFlame04.Name = "lblSTAGEFlame04"
-        Me.lblSTAGEFlame04.Size = New System.Drawing.Size(4, 144)
-        Me.lblSTAGEFlame04.TabIndex = 359
-        Me.lblSTAGEFlame04.Visible = False
         '
         'Label37
         '
@@ -3705,6 +3693,16 @@ Partial Class FrmG0031_EditOccurred
         Me.chkZESEI_SYOCHI_YUKO_UMU.Text = "chkZESEI"
         Me.chkZESEI_SYOCHI_YUKO_UMU.UseVisualStyleBackColor = True
         '
+        'lblSTAGEFlame04
+        '
+        Me.lblSTAGEFlame04.BackColor = System.Drawing.Color.Black
+        Me.lblSTAGEFlame04.Dock = System.Windows.Forms.DockStyle.Right
+        Me.lblSTAGEFlame04.Location = New System.Drawing.Point(1200, 2)
+        Me.lblSTAGEFlame04.Name = "lblSTAGEFlame04"
+        Me.lblSTAGEFlame04.Size = New System.Drawing.Size(4, 144)
+        Me.lblSTAGEFlame04.TabIndex = 359
+        Me.lblSTAGEFlame04.Visible = False
+        '
         'pnlST03
         '
         Me.pnlST03.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -3726,19 +3724,9 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST03.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST03.Name = "pnlST03"
         Me.pnlST03.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlST03.Size = New System.Drawing.Size(1210, 271)
+        Me.pnlST03.Size = New System.Drawing.Size(1208, 271)
         Me.pnlST03.TabIndex = 319
         Me.pnlST03.Visible = False
-        '
-        'lblSTAGEFlame03
-        '
-        Me.lblSTAGEFlame03.BackColor = System.Drawing.Color.Black
-        Me.lblSTAGEFlame03.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame03.Location = New System.Drawing.Point(1202, 2)
-        Me.lblSTAGEFlame03.Name = "lblSTAGEFlame03"
-        Me.lblSTAGEFlame03.Size = New System.Drawing.Size(4, 265)
-        Me.lblSTAGEFlame03.TabIndex = 354
-        Me.lblSTAGEFlame03.Visible = False
         '
         'txtOUKYU_SYOCHI_KEKKA
         '
@@ -4302,6 +4290,16 @@ Partial Class FrmG0031_EditOccurred
         Me.lblSTAGE08.TabIndex = 313
         Me.lblSTAGE08.Text = "èàíué¿é{åãâ "
         Me.lblSTAGE08.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSTAGEFlame03
+        '
+        Me.lblSTAGEFlame03.BackColor = System.Drawing.Color.Black
+        Me.lblSTAGEFlame03.Dock = System.Windows.Forms.DockStyle.Right
+        Me.lblSTAGEFlame03.Location = New System.Drawing.Point(1200, 2)
+        Me.lblSTAGEFlame03.Name = "lblSTAGEFlame03"
+        Me.lblSTAGEFlame03.Size = New System.Drawing.Size(4, 265)
+        Me.lblSTAGEFlame03.TabIndex = 354
+        Me.lblSTAGEFlame03.Visible = False
         '
         'Label6
         '

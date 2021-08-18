@@ -856,7 +856,7 @@ Public Class FrmG0031_EditOverflow
                                                                    Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).
                                                                    FirstOrDefault?.Item("DISP")
 
-            Dim strEXEParam As String = $"{_D004_SYONIN_J_KANRI.SYAIN_ID},{ENM_OPEN_MODE._2_処置画面起動.Value},{Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value},{_D004_SYONIN_J_KANRI.HOKOKU_NO}"
+            Dim strEXEParam As String = $"{_D004_SYONIN_J_KANRI.SYAIN_ID},{ENM_OPEN_MODE._2_処置画面起動.Value},{Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R.Value},{_D004_SYONIN_J_KANRI.HOKOKU_NO}"
             Dim strSubject As String = $"【是正処置依頼】:{_D004_SYONIN_J_KANRI.HOKOKU_NO}"
             Dim ToUsers As New List(Of Integer)
 
@@ -1197,7 +1197,7 @@ Public Class FrmG0031_EditOverflow
         Dim dlgRET As DialogResult
 
         Try
-            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI
+            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R
             frmDLG.PrHOKOKU_NO = _D014.HOKOKU_NO
             frmDLG.PrBUMON_KB = _D014.BUMON_KB
             frmDLG.PrKISO_YMD = DateTime.ParseExact(_D014.ADD_YMD, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
@@ -1313,7 +1313,7 @@ Public Class FrmG0031_EditOverflow
             Next intFunc
 
             'カレントステージが自身の担当でない場合は無効
-            Dim IsOwnCreated As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, _D014.HOKOKU_NO, PrCurrentStage)
+            Dim IsOwnCreated As Boolean = FunblnOwnCreated(Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R.Value, _D014.HOKOKU_NO, PrCurrentStage)
 
             If PrMODE = ENM_DATA_OPERATION_MODE._1_ADD Then
 
@@ -1860,7 +1860,7 @@ Public Class FrmG0031_EditOverflow
                     Dim HeaderItemReadOnly As Boolean
                     If PrCurrentStage = ENM_ZESEI_STAGE._10_起草入力 Then
                         HeaderItemReadOnly = False
-                    ElseIf PrCurrentStage = ENM_ZESEI_STAGE._999_Closed And IsEditingClosed = True Then
+                    Else
                         HeaderItemReadOnly = True
                     End If
                     mtxHOKOKU_NO.ReadOnly = HeaderItemReadOnly
@@ -2007,16 +2007,17 @@ Public Class FrmG0031_EditOverflow
 
     Private Function FunInitializeSTAGE(ByVal intStageID As Integer) As Boolean
         Dim dt As DataTable
-        Dim _V003List As List(Of V003_SYONIN_J_KANRI)
+
         Dim V003 As V003_SYONIN_J_KANRI
 
         Dim dtUser As DataTable
         Dim drs As IEnumerable(Of DataRow)
-        Dim InList As New List(Of Integer)
 
         Try
-
-            If intStageID >= ENM_ZESEI_STAGE._10_起草入力 And Not _D014.BUMON_KB.IsNulOrWS Then
+            If _D014.BUMON_KB.IsNulOrWS Then
+                Return False
+            End If
+            If intStageID >= ENM_ZESEI_STAGE._10_起草入力 Then
 
                 dtUser = FunGetSYOZOKU_SYAIN(_D014.BUMON_KB)
                 pnlST01.Visible = True
@@ -2035,13 +2036,13 @@ Public Class FrmG0031_EditOverflow
                 drs = dtUser.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._4_品証.Value)
                 If drs.Count > 0 Then cmbST01_SAKUSEI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._11_起草入力_点検)
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R.Value, ENM_ZESEI_STAGE._11_起草入力_点検)
                 cmbST01_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 cmbST01_TENKEN_TANTO.Visible = True
                 lblST01_TENKEN_TANTO.Visible = True
                 dtST01_TENKEN_YMD.Visible = True
 
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._12_起草入力_認可)
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R.Value, ENM_ZESEI_STAGE._12_起草入力_認可)
                 cmbST01_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._10_起草入力).FirstOrDefault
@@ -2115,7 +2116,7 @@ Public Class FrmG0031_EditOverflow
 
                 cmbST01_NINKA_TANTO.ReadOnly = True
 
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._22_是正処置入力_認可)
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R.Value, ENM_ZESEI_STAGE._22_是正処置入力_認可)
                 cmbST02_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 Dim IsHinsyo = FunGetSYOZOKU_SYAIN(cmbBUMON.SelectedValue).
@@ -2140,31 +2141,6 @@ Public Class FrmG0031_EditOverflow
                     dtST02_NINKA_YMD.Text = V003.SYONIN_YMDHNS.ToDateTimeWithFormat("yyyyMMddHHmmss", "yyyy/MM/dd")
                 End If
 
-                'Dim nextstage As Integer
-                If IsHinsyo Then
-                    'nextstage = ENM_ZESEI_STAGE._30_処置結果入力
-                Else
-                    'nextstage = ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
-
-                    dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._23_是正処置入力_品証_点検)
-                    cmbST02_HINSYO_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                    dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._24_是正処置入力_品証_認可)
-                    cmbST02_HINSYO_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-
-                    V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._23_是正処置入力_品証_点検).FirstOrDefault
-                    If V003 IsNot Nothing Then
-                        cmbST02_HINSYO_TENKEN_TANTO.SelectedValue = V003.SYAIN_ID
-                        dtST02_HINSYO_TENKEN_YMD.Text = V003.SYONIN_YMDHNS.ToDateTimeWithFormat("yyyyMMddHHmmss", "yyyy/MM/dd")
-                    End If
-
-                    V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._24_是正処置入力_品証_認可).FirstOrDefault
-                    If V003 IsNot Nothing Then
-                        cmbST02_HINSYO_NINKA_TANTO.SelectedValue = V003.SYAIN_ID
-                        dtST02_HINSYO_NINKA_YMD.Text = V003.SYONIN_YMDHNS.ToDateTimeWithFormat("yyyyMMddHHmmss", "yyyy/MM/dd")
-                    End If
-                End If
-
 #End Region
 
             End If
@@ -2179,9 +2155,9 @@ Public Class FrmG0031_EditOverflow
 
             If intStageID >= ENM_ZESEI_STAGE._22_是正処置入力_認可 Then
 
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._30_処置結果入力)
+                dt = GetExcludeyakusyokuUsers(_D014.BUMON_KB, {ENM_YAKUSYOKU_KB._99_なし.Value}.ToList)
                 cmbST03_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                cmbST03_SAKUSEI_TANTO.SelectedValue = cmbST02_SAKUSEI_TANTO.SelectedValue
+                cmbST03_SAKUSEI_TANTO.SelectedValue = _D014.TANTO_ID
                 cmbST03_SAKUSEI_TANTO.Visible = True
                 lblST03_SAKUSEI_TANTO.Visible = True
                 dtST03_SAKUSEI_YMD.Visible = True
@@ -2196,7 +2172,7 @@ Public Class FrmG0031_EditOverflow
 
 #Region "           承認担当者"
 
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._31_処置結果入力_点検)
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R.Value, ENM_ZESEI_STAGE._21_是正処置入力_点検)
                 cmbST03_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 cmbST03_TENKEN_TANTO.Visible = True
                 lblST03_TENKEN_TANTO.Visible = True
@@ -2204,7 +2180,7 @@ Public Class FrmG0031_EditOverflow
 
                 cmbST02_NINKA_TANTO.ReadOnly = True
 
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._32_処置結果入力_認可)
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R.Value, ENM_ZESEI_STAGE._22_是正処置入力_認可)
                 cmbST03_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._30_処置結果入力).FirstOrDefault
@@ -2240,9 +2216,9 @@ Public Class FrmG0031_EditOverflow
 
             If intStageID >= ENM_ZESEI_STAGE._32_処置結果入力_認可 Then
                 pnlST04.Visible = True
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._40_処置結果レビュー)
+                dt = GetExcludeyakusyokuUsers(_D014.BUMON_KB, {ENM_YAKUSYOKU_KB._99_なし.Value}.ToList)
                 cmbST04_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                cmbST04_SAKUSEI_TANTO.SelectedValue = cmbST02_SAKUSEI_TANTO.SelectedValue
+                cmbST04_SAKUSEI_TANTO.SelectedValue = _D014.TANTO_ID
 
                 cmbST04_SAKUSEI_TANTO.Visible = True
                 lblST04_SAKUSEI_TANTO.Visible = True
@@ -2263,14 +2239,14 @@ Public Class FrmG0031_EditOverflow
 
 #Region "           承認担当者"
 
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._41_処置結果レビュー_点検)
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R.Value, ENM_ZESEI_STAGE._11_起草入力_点検)
                 cmbST04_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 cmbST04_TENKEN_TANTO.Visible = True
                 lblST04_TENKEN_TANTO.Visible = True
                 dtST04_TENKEN_YMD.Visible = True
                 cmbST03_NINKA_TANTO.ReadOnly = True
 
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._42_処置結果レビュー_認可)
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R.Value, ENM_ZESEI_STAGE._12_起草入力_認可)
                 cmbST04_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._40_処置結果レビュー).FirstOrDefault
@@ -2308,8 +2284,10 @@ Public Class FrmG0031_EditOverflow
 
             If intStageID >= ENM_ZESEI_STAGE._42_処置結果レビュー_認可 Then
                 pnlST05.Visible = True
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._50_要求元完了確認)
-                cmbST05_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
+                drs = dtUser.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._4_品証.Value)
+                If drs.Count > 0 Then cmbST05_SAKUSEI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+
                 cmbST05_SAKUSEI_TANTO.SelectedValue = cmbST01_SAKUSEI_TANTO.SelectedValue
                 cmbST05_SAKUSEI_TANTO.Visible = True
                 lblST05_SAKUSEI_TANTO.Visible = True
@@ -2323,7 +2301,7 @@ Public Class FrmG0031_EditOverflow
 
 #Region "           承認担当者"
 
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._51_要求元完了確認_点検)
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R.Value, ENM_ZESEI_STAGE._11_起草入力_点検)
                 cmbST05_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 cmbST05_TENKEN_TANTO.Visible = True
                 lblST05_TENKEN_TANTO.Visible = True
@@ -2331,7 +2309,7 @@ Public Class FrmG0031_EditOverflow
 
                 cmbST04_NINKA_TANTO.ReadOnly = True
 
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._52_要求元完了確認_認可)
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D014.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R.Value, ENM_ZESEI_STAGE._12_起草入力_認可)
                 cmbST05_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._50_要求元完了確認).FirstOrDefault
