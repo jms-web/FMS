@@ -432,26 +432,12 @@ Public Class FrmG0032_Rireki
 
     Private Function FunSetModel() As Boolean
 
-        mtxHOKUKO_NO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.FCCB_NO))
-        mtxBUMON_KB.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.BUMON_NAME))
-        mtxKISOU_TANTO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.KISO_TANTO_NAME))
-        mtxCM_TANTO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.CM_TANTO_NAME))
-        dtDraft.Value = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.KISO_YMD))
-        mtxKISYU.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.KISYU_NAME))
-        mtxBUHIN_BANGO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.BUHIN_BANGO))
-        mtxHINMEI.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.BUHIN_NAME))
-        mtxSNO_APPLY_PERIOD_KISO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.SNO_APPLY_PERIOD_KISO))
-        txtINPUT_NAIYO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.INPUT_NAIYO))
-        mtxINPUT_DOC_NO.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.INPUT_DOC_NO))
-
-        If PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.BUMON_KB)) = Context.ENM_BUMON_KB._2_LP.Value.ToString Then
-            lblSYANAI_CD.Visible = True
-            mtxSYANAI_CD.Visible = True
-            mtxSYANAI_CD.Text = PrDatarow.Item(NameOf(MODEL.V013_FCCB_ICHIRAN.SYANAI_CD))
-        Else
-            lblSYANAI_CD.Visible = False
-            mtxSYANAI_CD.Visible = False
-        End If
+        mtxHOKUKO_NAME.Text = PrDatarow.Item(NameOf(MODEL.V015_ZESEI_ICHIRAN.SYONIN_HOKOKUSYO_NAME))
+        mtxHOKUKO_NO.Text = PrDatarow.Item(NameOf(MODEL.V015_ZESEI_ICHIRAN.HOKOKU_NO))
+        mtxBUMON_KB.Text = PrDatarow.Item(NameOf(MODEL.V015_ZESEI_ICHIRAN.BUMON_NAME))
+        mtxKISOU_TANTO.Text = PrDatarow.Item(NameOf(MODEL.V015_ZESEI_ICHIRAN.ADD_TANTO_NAME))
+        mtxCM_TANTO.Text = PrDatarow.Item(NameOf(MODEL.V015_ZESEI_ICHIRAN.TANTO_NAME))
+        dtDraft.Value = PrDatarow.Item(NameOf(MODEL.V015_ZESEI_ICHIRAN.ADD_YMDHNS)).ToString.ToDateTimeWithFormat("yyyyMMddHHmmss", "yyyy/MM/dd")
 
         Return True
     End Function
