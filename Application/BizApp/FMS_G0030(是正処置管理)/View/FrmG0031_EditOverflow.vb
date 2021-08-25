@@ -2311,51 +2311,79 @@ Public Class FrmG0031_EditOverflow
                 Case ENM_ZESEI_STAGE._10_起草入力
                     AddHandler cmbST01_SAKUSEI_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
 
-                    If cmbST01_SAKUSEI_TANTO.SelectedValue Is Nothing Then cmbST01_SAKUSEI_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    If cmbST01_SAKUSEI_TANTO.SelectedValue Is Nothing OrElse cmbST01_SAKUSEI_TANTO.SelectedValue = 0 Then
+                        cmbST01_SAKUSEI_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    End If
                 Case ENM_ZESEI_STAGE._11_起草入力_点検
                     AddHandler cmbST01_TENKEN_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
-                    If cmbST01_TENKEN_TANTO.SelectedValue Is Nothing Then cmbST01_TENKEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    If cmbST01_TENKEN_TANTO.SelectedValue Is Nothing OrElse cmbST01_TENKEN_TANTO.SelectedValue = 0 Then
+                        cmbST01_TENKEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    End If
                 Case ENM_ZESEI_STAGE._12_起草入力_認可
                     AddHandler cmbST01_NINKA_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
-                    If cmbST01_NINKA_TANTO.SelectedValue Is Nothing Then cmbST01_NINKA_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    If cmbST01_NINKA_TANTO.SelectedValue Is Nothing OrElse cmbST01_NINKA_TANTO.SelectedValue = 0 Then
+                        cmbST01_NINKA_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    End If
 
                 Case ENM_ZESEI_STAGE._20_是正処置入力
                     AddHandler cmbST02_SAKUSEI_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
 
                 Case ENM_ZESEI_STAGE._21_是正処置入力_点検
                     AddHandler cmbST02_TENKEN_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
-                    If cmbST02_TENKEN_TANTO.SelectedValue Is Nothing Then cmbST02_TENKEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    If cmbST02_TENKEN_TANTO.SelectedValue Is Nothing OrElse cmbST02_TENKEN_TANTO.SelectedValue = 0 Then
+                        cmbST02_TENKEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    End If
                 Case ENM_ZESEI_STAGE._22_是正処置入力_認可
                     AddHandler cmbST02_NINKA_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
-                    If cmbST01_SAKUSEI_TANTO.SelectedValue Is Nothing Then cmbST02_NINKA_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    If cmbST01_SAKUSEI_TANTO.SelectedValue Is Nothing OrElse cmbST01_SAKUSEI_TANTO.SelectedValue = 0 Then
+                        cmbST02_NINKA_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    End If
 
                 Case ENM_ZESEI_STAGE._30_処置結果入力
                     AddHandler cmbST03_SAKUSEI_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
-                    If cmbST03_SAKUSEI_TANTO.SelectedValue Is Nothing Then cmbST03_SAKUSEI_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    If cmbST03_SAKUSEI_TANTO.SelectedValue Is Nothing OrElse cmbST03_SAKUSEI_TANTO.SelectedValue = 0 Then
+                        cmbST03_SAKUSEI_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    End If
                 Case ENM_ZESEI_STAGE._31_処置結果入力_点検
                     AddHandler cmbST03_TENKEN_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
-                    If cmbST03_TENKEN_TANTO.SelectedValue Is Nothing Then cmbST03_TENKEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    If cmbST03_TENKEN_TANTO.SelectedValue Is Nothing OrElse cmbST03_TENKEN_TANTO.SelectedValue = 0 Then
+                        cmbST03_TENKEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    End If
                 Case ENM_ZESEI_STAGE._32_処置結果入力_認可
                     AddHandler cmbST03_NINKA_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
-                    If cmbST03_NINKA_TANTO.SelectedValue Is Nothing Then cmbST03_NINKA_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    If cmbST03_NINKA_TANTO.SelectedValue Is Nothing OrElse cmbST03_NINKA_TANTO.SelectedValue = 0 Then
+                        cmbST03_NINKA_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    End If
                 Case ENM_ZESEI_STAGE._40_処置結果レビュー
                     AddHandler cmbST04_SAKUSEI_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
-                    If cmbST04_SAKUSEI_TANTO.SelectedValue Is Nothing Then cmbST04_SAKUSEI_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    If cmbST04_SAKUSEI_TANTO.SelectedValue Is Nothing OrElse cmbST04_SAKUSEI_TANTO.SelectedValue = 0 Then
+                        cmbST04_SAKUSEI_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    End If
                 Case ENM_ZESEI_STAGE._41_処置結果レビュー_点検
                     AddHandler cmbST04_TENKEN_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
-                    If cmbST04_TENKEN_TANTO.SelectedValue Is Nothing Then cmbST04_TENKEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    If cmbST04_TENKEN_TANTO.SelectedValue Is Nothing OrElse cmbST04_TENKEN_TANTO.SelectedValue = 0 Then
+                        cmbST04_TENKEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    End If
                 Case ENM_ZESEI_STAGE._42_処置結果レビュー_認可
                     AddHandler cmbST04_NINKA_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
-                    If cmbST04_NINKA_TANTO.SelectedValue Is Nothing Then cmbST04_NINKA_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    If cmbST04_NINKA_TANTO.SelectedValue Is Nothing OrElse cmbST04_NINKA_TANTO.SelectedValue = 0 Then
+                        cmbST04_NINKA_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    End If
                 Case ENM_ZESEI_STAGE._50_要求元完了確認
                     AddHandler cmbST05_SAKUSEI_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
-                    If cmbST05_SAKUSEI_TANTO.SelectedValue Is Nothing Then cmbST05_SAKUSEI_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    If cmbST05_SAKUSEI_TANTO.SelectedValue Is Nothing OrElse cmbST05_SAKUSEI_TANTO.SelectedValue = 0 Then
+                        cmbST05_SAKUSEI_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    End If
                 Case ENM_ZESEI_STAGE._51_要求元完了確認_点検
                     AddHandler cmbST05_TENKEN_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
-                    If cmbST05_TENKEN_TANTO.SelectedValue Is Nothing Then cmbST05_TENKEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    If cmbST05_TENKEN_TANTO.SelectedValue Is Nothing OrElse cmbST05_TENKEN_TANTO.SelectedValue = 0 Then
+                        cmbST05_TENKEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    End If
                 Case ENM_ZESEI_STAGE._52_要求元完了確認_認可
                     AddHandler cmbST05_NINKA_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
-                    If cmbST05_NINKA_TANTO.SelectedValue Is Nothing Then cmbST05_NINKA_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    If cmbST05_NINKA_TANTO.SelectedValue Is Nothing OrElse cmbST05_NINKA_TANTO.SelectedValue = 0 Then
+                        cmbST05_NINKA_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                    End If
                 Case ENM_ZESEI_STAGE._999_Closed
             End Select
 

@@ -40,7 +40,7 @@ Public Class FrmG0030_List
 
         cmbADD_TANTO.NullValue = 0
         cmbGEN_TANTO.NullValue = 0
-
+        cmbTANTO.NullValue = 0
         Select Case pub_intOPEN_MODE
             Case ENM_OPEN_MODE._1_新規作成, ENM_OPEN_MODE._2_処置画面起動
                 Me.WindowState = FormWindowState.Minimized
@@ -73,46 +73,46 @@ Public Class FrmG0030_List
             '-----既定値設定
             Dim dtGEN_TANTO As DataTable = Nothing
             Dim blnIsAdmin As Boolean = IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID)
+            dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
             If blnIsAdmin Then
-                'システム管理者のみ制限解除
-                dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
+                'dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
             Else
-                Select Case pub_SYAIN_INFO.BUMON_KB
-                    Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
-                        Dim dt As DataTable = DirectCast(cmbBUMON.DataSource, DataTable).
-                                                    AsEnumerable.
-                                                    Where(Function(r) r.Field(Of String)("VALUE") = "1" Or r.Field(Of String)("VALUE") = "2").
-                                                    CopyToDataTable
-                        cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                        cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
 
-                        dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(pub_SYAIN_INFO.BUMON_KB)
+                'Select Case pub_SYAIN_INFO.BUMON_KB
+                '    Case Context.ENM_BUMON_KB._1_風防, Context.ENM_BUMON_KB._2_LP
+                '        Dim dt As DataTable = DirectCast(cmbBUMON.DataSource, DataTable).
+                '                                    AsEnumerable.
+                '                                    Where(Function(r) r.Field(Of String)("VALUE") = "1" Or r.Field(Of String)("VALUE") = "2").
+                '                                    CopyToDataTable
+                '        cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                '        cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
 
-                    Case Context.ENM_BUMON_KB._3_複合材
-                        Dim dt As DataTable = DirectCast(cmbBUMON.DataSource, DataTable).
-                                                    AsEnumerable.
-                                                    Where(Function(r) r.Field(Of String)("VALUE") = pub_SYAIN_INFO.BUMON_KB).
-                                                    CopyToDataTable
-                        cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                        cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+                '        dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(pub_SYAIN_INFO.BUMON_KB)
 
-                        dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
-                    Case Else
-                        '#255 風防,LP,複合材以外の部門所属者は全部門閲覧のみ
-                        dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
-                End Select
+                '    Case Context.ENM_BUMON_KB._3_複合材
+                '        Dim dt As DataTable = DirectCast(cmbBUMON.DataSource, DataTable).
+                '                                    AsEnumerable.
+                '                                    Where(Function(r) r.Field(Of String)("VALUE") = pub_SYAIN_INFO.BUMON_KB).
+                '                                    CopyToDataTable
+                '        cmbBUMON.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                '        cmbBUMON.SelectedValue = pub_SYAIN_INFO.BUMON_KB
+
+                '        dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
+                '    Case Else
+                '        '#255 風防,LP,複合材以外の部門所属者は全部門閲覧のみ
+                '        dtGEN_TANTO = FunGetSYONIN_SYOZOKU_SYAIN(cmbBUMON.SelectedValue)
+                'End Select
 
                 cmbGEN_TANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
-                'If Not IsOPAdminUser(pub_SYAIN_INFO.SYAIN_ID) And pub_SYAIN_INFO.BUMON_KB <= Context.ENM_BUMON_KB._3_複合材 Then
-                '    cmbGEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
-                'End If
             End If
 
             ''-----イベントハンドラ設定
+            AddHandler cmbBUMON.SelectedValueChanged, AddressOf SearchFilterValueChanged
             AddHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
-            AddHandler mtxHOKUKO_NO.Validated, AddressOf SearchFilterValueChanged
             AddHandler cmbADD_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler cmbTANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
+            AddHandler mtxHOKUKO_NO.Validated, AddressOf SearchFilterValueChanged
             AddHandler chkDeleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
             AddHandler chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
 
@@ -128,7 +128,6 @@ Public Class FrmG0030_List
                         Call FunSRCH(flxDATA, FunGetListData())
                     End If
                 Case ENM_OPEN_MODE._2_処置画面起動
-
                     Me.cmdFunc1.PerformClick()
                     Me.cmdFunc4.PerformClick()
 
@@ -140,7 +139,7 @@ Public Class FrmG0030_List
             Call FunInitFuncButtonEnabled()
             Me.WindowState = FormWindowState.Maximized
 
-            cmdFunc1.PerformClick()
+            Call CmdFunc_Click(cmdFunc1, Nothing) 'cmdFunc1.PerformClick()
         Catch ex As Exception
             Throw
         Finally
@@ -1625,7 +1624,7 @@ Public Class FrmG0030_List
 
     '検索フィルタ変更時
     Private Sub SearchFilterValueChanged(sender As System.Object, e As System.EventArgs)
-        Call SetStageList()
+        cmdFunc1.PerformClick()
     End Sub
 
     'Close済み
@@ -1633,6 +1632,8 @@ Public Class FrmG0030_List
         If chkClosedRowVisibled.Checked Then
             RemoveHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
             cmbGEN_TANTO.SelectedValue = 0
+            cmbADD_TANTO.SelectedValue = 0
+            cmbTANTO.SelectedValue = 0
             AddHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
         End If
     End Sub
@@ -1652,8 +1653,6 @@ Public Class FrmG0030_List
             'AddHandler chkDleteRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
             'AddHandler chkClosedRowVisibled.CheckedChanged, AddressOf SearchFilterValueChanged
         End If
-
-        Call SetStageList()
 
     End Sub
 
@@ -1685,6 +1684,7 @@ Public Class FrmG0030_List
                         Case ""
 
                             cmbGEN_TANTO.SelectedValue = 0
+                            cmbTANTO.SelectedValue = 0
                             cmbBUMON.SelectedValue = ""
                         Case Context.ENM_BUMON_KB._2_LP
 
@@ -1725,6 +1725,19 @@ Public Class FrmG0030_List
                     cmbGEN_TANTO.SelectedValue = intBUFF
                     AddHandler cmbGEN_TANTO.SelectedValueChanged, AddressOf SearchFilterValueChanged
 
+                    If Not cmbBUMON.SelectedValue.ToString.IsNulOrWS Then
+                        Dim dtTANTO As DataTableEx
+                        dtTANTO = GetExcludeyakusyokuUsers(cmbBUMON.SelectedValue, {ENM_YAKUSYOKU_KB._14_SL.Value, ENM_YAKUSYOKU_KB._99_なし.Value}.ToList)
+                        If dtTANTO IsNot Nothing Then
+                            cmbTANTO.SetDataSource(dtTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                        Else
+                            cmbTANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                            cmbTANTO.DisplayMember = "DISP"
+                            cmbTANTO.ValueMember = "VALUE"
+                        End If
+                    Else
+                        cmbTANTO.SetDataSource(dtGEN_TANTO, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                    End If
                 End Sub)
             End Sub)
 
@@ -1782,11 +1795,14 @@ Public Class FrmG0030_List
             sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.ADD_SYAIN_ID)} = {cmbADD_TANTO.SelectedValue}")
         End If
         If cmbGEN_TANTO.IsSelected Then
-            sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.TANTO_ID)} = {cmbADD_TANTO.SelectedValue}")
+            sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.GEN_TANTO_ID)} = {cmbGEN_TANTO.SelectedValue}")
         End If
-        'If chkTairyu.Checked Then
-        '    sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.TAIRYU_FG)} > '0'")
-        'End If
+        If cmbTANTO.IsSelected Then
+            sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.TANTO_ID)} = {cmbTANTO.SelectedValue}")
+        End If
+        If chkTairyu.Checked Then
+            sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.TAIRYU_FG)} > '0'")
+        End If
         If Not chkClosedRowVisibled.Checked Then
             sbSQL.Append($" AND {NameOf(V015_ZESEI_ICHIRAN.CLOSE_FG)} = '0'")
         End If
@@ -1868,10 +1884,6 @@ Public Class FrmG0030_List
             Return False
         End If
     End Function
-
-    Private Sub SetStageList()
-
-    End Sub
 
 #Region "削除ボタン使用権限判定"
 
