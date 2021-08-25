@@ -43,12 +43,14 @@ Partial Public Class VWM002_BUSYO
     <ComponentModel.DisplayName("所属長社員ID")>
     Public Property SYOZOKUCYO_ID As Integer
 
+    <ComponentModel.DisplayName("所属長社員NO")>
+    Public Property SYOZOKUCYO_SYAIN_NO As String
+
     <ComponentModel.DisplayName("所属長社員名")>
     Public Property SYOZOKUCYO_SYAIN_NAME As String
 
     <ComponentModel.DisplayName("TEL")>
     Public Property TEL As String
-
 
     <ComponentModel.DisplayName("追加日時")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
@@ -97,6 +99,7 @@ Partial Public Class VWM002_BUSYO
     End Property
 
 #Region "IDisposable Support"
+
     Private disposedValue As Boolean ' 重複する呼び出しを検出するには
 
     ' IDisposable
@@ -126,5 +129,7 @@ Partial Public Class VWM002_BUSYO
         ' TODO: 上の Finalize() がオーバーライドされている場合は、次の行のコメントを解除してください。
         ' GC.SuppressFinalize(Me)
     End Sub
+
 #End Region
+
 End Class

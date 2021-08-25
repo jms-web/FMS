@@ -384,6 +384,8 @@
     <Content Include="DDL\View\V014_FCCB_SYOCHI_YOTEI_ICHIRAN.sql" />
     <Content Include="DDL\View\V013_FCCB_ICHIRAN.sql" />
     <Content Include="DDL\View\V012_FCR_R.sql" />
+    <Content Include="DDL\View\VWM016_SYONIN_TANTO.sql" />
+    <Content Include="DDL\View\VWM002_BUSYO.sql" />
     <Content Include="DDL\View\VWM004_SYAIN.sql" />
     <Content Include="DDL\View\VWM011_SYAIN_GYOMU_ICHIRAN.sql" />
     <Content Include="DDL\View\VWM011_SYAIN_GYOMU.sql" />

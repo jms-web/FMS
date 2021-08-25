@@ -24,6 +24,9 @@ Partial Public Class VWM016_SYONIN_TANTO
     <ComponentModel.DisplayName("ŽÐˆõID")>
     Public Property SYAIN_ID As Integer
 
+    <ComponentModel.DisplayName("ŽÐˆõNO")>
+    Public Property SYAIN_NO As String
+
     <ComponentModel.DisplayName("ŽÐˆõ–¼")>
     Public Property SYAIN_NAME As String
 
