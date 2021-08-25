@@ -1223,72 +1223,6 @@ Public Class FrmG0031_EditOccurred
 
 #End Region
 
-#Region "メール送信"
-
-    Private Function OpenFormSendMail() As Boolean
-        Dim frmDLG As New FrmG0037_MailForm
-        Dim dlgRET As DialogResult
-
-        Try
-            frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._4_FCCB
-            frmDLG.PrHOKOKU_NO = PrHOKOKU_NO
-            frmDLG.PrSYORI_NAME = "協議確認依頼メール送信"
-
-            Dim userlist As New List(Of Integer)
-
-            'userlist.Add(cmbCM_TANTO.SelectedValue)
-            'If cmbSYOCHI_GM_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_GM_TANTO.SelectedValue) Then
-            '    userlist.Add(cmbSYOCHI_GM_TANTO.SelectedValue)
-            'End If
-            'If cmbSYOCHI_SEIZO_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_SEIZO_TANTO.SelectedValue) Then
-            '    userlist.Add(cmbSYOCHI_SEIZO_TANTO.SelectedValue)
-            'End If
-            'If cmbSYOCHI_KENSA_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_KENSA_TANTO.SelectedValue) Then
-            '    userlist.Add(cmbSYOCHI_KENSA_TANTO.SelectedValue)
-            'End If
-            'If cmbSYOCHI_HINSYO_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_HINSYO_TANTO.SelectedValue) Then
-            '    userlist.Add(cmbSYOCHI_HINSYO_TANTO.SelectedValue)
-            'End If
-            'If cmbSYOCHI_SEKKEI_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_SEKKEI_TANTO.SelectedValue) Then
-            '    userlist.Add(cmbSYOCHI_SEKKEI_TANTO.SelectedValue)
-            'End If
-            'If cmbSYOCHI_SEIGI_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_SEIGI_TANTO.SelectedValue) Then
-            '    userlist.Add(cmbSYOCHI_SEIGI_TANTO.SelectedValue)
-            'End If
-            'If cmbSYOCHI_KANRI_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_KANRI_TANTO.SelectedValue) Then
-            '    userlist.Add(cmbSYOCHI_KANRI_TANTO.SelectedValue)
-            'End If
-            'If cmbSYOCHI_EIGYO_TANTO.IsSelected AndAlso Not userlist.Contains(cmbSYOCHI_EIGYO_TANTO.SelectedValue) Then
-            '    userlist.Add(cmbSYOCHI_EIGYO_TANTO.SelectedValue)
-            'End If
-
-            If userlist.Count > 1 Then
-                frmDLG.PrToUsers = userlist
-                dlgRET = frmDLG.ShowDialog(Me)
-
-                If dlgRET = Windows.Forms.DialogResult.OK Then
-                    Me.DialogResult = DialogResult.OK
-                    Me.Close()
-                    Return True
-                Else
-                    Return False
-                End If
-            Else
-                MessageBox.Show($"確認依頼担当者が選択されていません{vbCrLf}先に、⑤変更審議 各部門の担当者を選択して下さい", "協議確認依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Return False
-            End If
-        Catch ex As Exception
-            EM.ErrorSyori(ex, False, conblnNonMsg)
-            Return False
-        Finally
-            If frmDLG IsNot Nothing Then
-                frmDLG.Dispose()
-            End If
-        End Try
-    End Function
-
-#End Region
-
 #Region "FuncButton有効無効切替"
 
     ''' <summary>
@@ -1544,6 +1478,13 @@ Public Class FrmG0031_EditOccurred
         End If
     End Sub
 
+    Private Sub txtDOC_NO_Validated(sender As Object, e As EventArgs) Handles txtDOC_NO.Validated
+        Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(txt, Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "文書番号"))
+        End If
+    End Sub
+
 #End Region
 
 #Region "ST2"
@@ -1615,7 +1556,7 @@ Public Class FrmG0031_EditOccurred
     Private Sub rbtnINPUT_TYPE_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnINPUT_TYPE1.CheckedChanged,
                                                                                           rbtnINPUT_TYPE2.CheckedChanged,
                                                                                           rbtnINPUT_TYPE3.CheckedChanged
-        Dim val As Integer
+        Dim val As String
         Select Case True
             Case rbtnINPUT_TYPE1.Checked
                 val = "1"
@@ -1627,6 +1568,10 @@ Public Class FrmG0031_EditOccurred
                 val = ""
         End Select
         txtINPUT_TYPE.Text = val
+
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(pnlINPUT_TYPE, Not txtINPUT_TYPE.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "インプット情報"))
+        End If
     End Sub
 
     Private Sub chkST02_FUTEKIGO_UMU_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnST02_FUTEKIGO_YES.CheckedChanged,
@@ -2579,7 +2524,8 @@ Public Class FrmG0031_EditOccurred
                         Call CmbDestTANTO_SelectedvalueChanged(cmbTANTO, Nothing)
                         Call CmbDestTANTO_SelectedvalueChanged(cmbST01_SAKUSEI_TANTO, Nothing)
                         Call CmbDestTANTO_SelectedvalueChanged(cmbST01_TENKEN_TANTO, Nothing)
-
+                        Call rbtnINPUT_TYPE_CheckedChanged(pnlINPUT_TYPE, Nothing)
+                        Call txtDOC_NO_Validated(txtDOC_NO, Nothing)
                         Call txtKANSATU_HOUKOKU_Validated(txtKANSATU_HOUKOKU, Nothing)
                         Call txtZESEI_RIYU_Validated(txtZESEI_RIYU, Nothing)
                         Call txtZESEI_COMMENT_Validated(txtZESEI_COMMENT, Nothing)

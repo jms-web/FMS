@@ -50,7 +50,7 @@ Partial Class FrmG0031_EditOccurred
         Me.txtZESEI_COMMENT = New JMS_COMMON.TextBoxEx()
         Me.Label55 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.pnlINPUT_TYPE = New System.Windows.Forms.Panel()
         Me.rbtnINPUT_TYPE3 = New System.Windows.Forms.RadioButton()
         Me.rbtnINPUT_TYPE2 = New System.Windows.Forms.RadioButton()
         Me.rbtnINPUT_TYPE1 = New System.Windows.Forms.RadioButton()
@@ -271,7 +271,7 @@ Partial Class FrmG0031_EditOccurred
         Me.tabMain.SuspendLayout()
         Me.TabPageEx1.SuspendLayout()
         Me.pnlST01.SuspendLayout()
-        Me.Panel4.SuspendLayout()
+        Me.pnlINPUT_TYPE.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.fpnlTempFile1.SuspendLayout()
@@ -798,7 +798,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST01.Controls.Add(Me.txtZESEI_COMMENT)
         Me.pnlST01.Controls.Add(Me.Label55)
         Me.pnlST01.Controls.Add(Me.Label7)
-        Me.pnlST01.Controls.Add(Me.Panel4)
+        Me.pnlST01.Controls.Add(Me.pnlINPUT_TYPE)
         Me.pnlST01.Controls.Add(Me.Panel1)
         Me.pnlST01.Controls.Add(Me.Label17)
         Me.pnlST01.Controls.Add(Me.Panel2)
@@ -813,7 +813,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST01.Location = New System.Drawing.Point(2, 5)
         Me.pnlST01.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST01.Name = "pnlST01"
-        Me.pnlST01.Size = New System.Drawing.Size(1191, 497)
+        Me.pnlST01.Size = New System.Drawing.Size(1157, 497)
         Me.pnlST01.TabIndex = 4
         Me.pnlST01.Visible = False
         '
@@ -917,18 +917,18 @@ Partial Class FrmG0031_EditOccurred
         Me.Label7.Text = "インプット情報:"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Panel4
+        'pnlINPUT_TYPE
         '
-        Me.Panel4.BackColor = System.Drawing.SystemColors.Window
-        Me.Panel4.Controls.Add(Me.rbtnINPUT_TYPE3)
-        Me.Panel4.Controls.Add(Me.rbtnINPUT_TYPE2)
-        Me.Panel4.Controls.Add(Me.rbtnINPUT_TYPE1)
-        Me.Panel4.Controls.Add(Me.txtINPUT_TYPE)
-        Me.Panel4.Location = New System.Drawing.Point(131, 70)
-        Me.Panel4.Margin = New System.Windows.Forms.Padding(0)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(313, 27)
-        Me.Panel4.TabIndex = 324
+        Me.pnlINPUT_TYPE.BackColor = System.Drawing.SystemColors.Window
+        Me.pnlINPUT_TYPE.Controls.Add(Me.rbtnINPUT_TYPE3)
+        Me.pnlINPUT_TYPE.Controls.Add(Me.rbtnINPUT_TYPE2)
+        Me.pnlINPUT_TYPE.Controls.Add(Me.rbtnINPUT_TYPE1)
+        Me.pnlINPUT_TYPE.Controls.Add(Me.txtINPUT_TYPE)
+        Me.pnlINPUT_TYPE.Location = New System.Drawing.Point(131, 70)
+        Me.pnlINPUT_TYPE.Margin = New System.Windows.Forms.Padding(0)
+        Me.pnlINPUT_TYPE.Name = "pnlINPUT_TYPE"
+        Me.pnlINPUT_TYPE.Size = New System.Drawing.Size(313, 27)
+        Me.pnlINPUT_TYPE.TabIndex = 324
         '
         'rbtnINPUT_TYPE3
         '
@@ -1587,7 +1587,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame01.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame01.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame01.Location = New System.Drawing.Point(1185, 0)
+        Me.lblSTAGEFlame01.Location = New System.Drawing.Point(1151, 0)
         Me.lblSTAGEFlame01.Name = "lblSTAGEFlame01"
         Me.lblSTAGEFlame01.Size = New System.Drawing.Size(4, 495)
         Me.lblSTAGEFlame01.TabIndex = 335
@@ -1633,7 +1633,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST02.Location = New System.Drawing.Point(2, 508)
         Me.pnlST02.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST02.Name = "pnlST02"
-        Me.pnlST02.Size = New System.Drawing.Size(1191, 816)
+        Me.pnlST02.Size = New System.Drawing.Size(1157, 816)
         Me.pnlST02.TabIndex = 329
         Me.pnlST02.Visible = False
         '
@@ -2832,7 +2832,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame02.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame02.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame02.Location = New System.Drawing.Point(1185, 0)
+        Me.lblSTAGEFlame02.Location = New System.Drawing.Point(1151, 0)
         Me.lblSTAGEFlame02.Name = "lblSTAGEFlame02"
         Me.lblSTAGEFlame02.Size = New System.Drawing.Size(4, 814)
         Me.lblSTAGEFlame02.TabIndex = 356
@@ -2854,7 +2854,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST05.Location = New System.Drawing.Point(2, 1754)
         Me.pnlST05.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST05.Name = "pnlST05"
-        Me.pnlST05.Size = New System.Drawing.Size(1191, 145)
+        Me.pnlST05.Size = New System.Drawing.Size(1157, 145)
         Me.pnlST05.TabIndex = 321
         Me.pnlST05.Visible = False
         '
@@ -3131,7 +3131,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame05.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame05.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame05.Location = New System.Drawing.Point(1185, 0)
+        Me.lblSTAGEFlame05.Location = New System.Drawing.Point(1151, 0)
         Me.lblSTAGEFlame05.Name = "lblSTAGEFlame05"
         Me.lblSTAGEFlame05.Size = New System.Drawing.Size(4, 143)
         Me.lblSTAGEFlame05.TabIndex = 358
@@ -3158,7 +3158,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST04.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST04.Name = "pnlST04"
         Me.pnlST04.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlST04.Size = New System.Drawing.Size(1191, 150)
+        Me.pnlST04.Size = New System.Drawing.Size(1157, 150)
         Me.pnlST04.TabIndex = 320
         Me.pnlST04.Visible = False
         '
@@ -3697,7 +3697,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame04.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame04.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame04.Location = New System.Drawing.Point(1183, 2)
+        Me.lblSTAGEFlame04.Location = New System.Drawing.Point(1149, 2)
         Me.lblSTAGEFlame04.Name = "lblSTAGEFlame04"
         Me.lblSTAGEFlame04.Size = New System.Drawing.Size(4, 144)
         Me.lblSTAGEFlame04.TabIndex = 359
@@ -3724,7 +3724,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST03.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST03.Name = "pnlST03"
         Me.pnlST03.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlST03.Size = New System.Drawing.Size(1191, 271)
+        Me.pnlST03.Size = New System.Drawing.Size(1157, 271)
         Me.pnlST03.TabIndex = 319
         Me.pnlST03.Visible = False
         '
@@ -4295,7 +4295,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame03.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame03.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame03.Location = New System.Drawing.Point(1183, 2)
+        Me.lblSTAGEFlame03.Location = New System.Drawing.Point(1149, 2)
         Me.lblSTAGEFlame03.Name = "lblSTAGEFlame03"
         Me.lblSTAGEFlame03.Size = New System.Drawing.Size(4, 265)
         Me.lblSTAGEFlame03.TabIndex = 354
@@ -4368,8 +4368,8 @@ Partial Class FrmG0031_EditOccurred
         Me.TabPageEx1.ResumeLayout(False)
         Me.pnlST01.ResumeLayout(False)
         Me.pnlST01.PerformLayout()
-        Me.Panel4.ResumeLayout(False)
-        Me.Panel4.PerformLayout()
+        Me.pnlINPUT_TYPE.ResumeLayout(False)
+        Me.pnlINPUT_TYPE.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.fpnlTempFile1.ResumeLayout(False)
@@ -4530,7 +4530,7 @@ Partial Class FrmG0031_EditOccurred
     Friend WithEvents dtST05_TENKEN_YMD As DateTextBoxEx
     Friend WithEvents dtST05_SAKUSEI_YMD As DateTextBoxEx
     Friend WithEvents Label55 As Label
-    Friend WithEvents Panel4 As Panel
+    Friend WithEvents pnlINPUT_TYPE As Panel
     Friend WithEvents rbtnINPUT_TYPE3 As RadioButton
     Friend WithEvents rbtnINPUT_TYPE2 As RadioButton
     Friend WithEvents rbtnINPUT_TYPE1 As RadioButton
