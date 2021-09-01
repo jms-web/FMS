@@ -1054,6 +1054,7 @@ Public Class FrmG0031_EditOccurred
         Dim dlgRET As DialogResult
 
         Try
+            frmDLG.PrUsers = FunGetCurrentSYONIN_TANTO(PrCurrentStage)
             frmDLG.PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI
             frmDLG.PrHOKOKU_NO = PrHOKOKU_NO
             frmDLG.PrBUMON_KB = _D013.BUMON_KB
@@ -1273,6 +1274,7 @@ Public Class FrmG0031_EditOccurred
 
                 Select Case PrCurrentStage
                     Case ENM_ZESEI_STAGE._10_起草入力
+                        cmdFunc5.Enabled = False
 
                     Case ENM_ZESEI_STAGE._20_是正処置入力
 
@@ -2908,6 +2910,62 @@ Public Class FrmG0031_EditOccurred
                 Return cmb.SelectedValue
             Else
                 Return 0
+            End If
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' 申請先社員IDを取得
+    ''' </summary>
+    ''' <param name="intCurrentStageID"></param>
+    ''' <returns></returns>
+    Private Function FunGetCurrentSYONIN_TANTO(ByVal intCurrentStageID As Integer) As DataTable
+        Try
+            Dim cmb As ComboboxEx = Nothing
+
+            Select Case PrCurrentStage
+                Case ENM_ZESEI_STAGE._10_起草入力
+                    cmb = cmbST01_SAKUSEI_TANTO
+                Case ENM_ZESEI_STAGE._11_起草入力_点検
+                    cmb = cmbST01_TENKEN_TANTO
+                Case ENM_ZESEI_STAGE._12_起草入力_認可
+                    cmb = cmbST01_NINKA_TANTO
+                Case ENM_ZESEI_STAGE._20_是正処置入力
+                    cmb = cmbST02_SAKUSEI_TANTO
+                Case ENM_ZESEI_STAGE._21_是正処置入力_点検
+                    cmb = cmbST02_TENKEN_TANTO
+                Case ENM_ZESEI_STAGE._22_是正処置入力_認可
+                    cmb = cmbST02_NINKA_TANTO
+                Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
+                    cmb = cmbST02_HINSYO_TENKEN_TANTO
+                Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
+                    cmb = cmbST02_HINSYO_NINKA_TANTO
+                Case ENM_ZESEI_STAGE._30_処置結果入力
+                    cmb = cmbST03_SAKUSEI_TANTO
+                Case ENM_ZESEI_STAGE._31_処置結果入力_点検
+                    cmb = cmbST03_TENKEN_TANTO
+                Case ENM_ZESEI_STAGE._32_処置結果入力_認可
+                    cmb = cmbST03_NINKA_TANTO
+                Case ENM_ZESEI_STAGE._40_処置結果レビュー
+                    cmb = cmbST04_SAKUSEI_TANTO
+                Case ENM_ZESEI_STAGE._41_処置結果レビュー_点検
+                    cmb = cmbST04_TENKEN_TANTO
+                Case ENM_ZESEI_STAGE._42_処置結果レビュー_認可
+                    cmb = cmbST04_NINKA_TANTO
+                Case ENM_ZESEI_STAGE._50_要求元完了確認
+                    cmb = cmbST05_SAKUSEI_TANTO
+                Case ENM_ZESEI_STAGE._51_要求元完了確認_点検
+                    cmb = cmbST05_TENKEN_TANTO
+                Case ENM_ZESEI_STAGE._52_要求元完了確認_認可
+                    cmb = cmbST05_NINKA_TANTO
+            End Select
+
+            If cmb IsNot Nothing Then
+                Return cmb.DataSource
+            Else
+                Return Nothing
             End If
         Catch ex As Exception
             Throw

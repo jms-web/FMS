@@ -27,6 +27,8 @@ Public Class FrmG0035_Tenso
 
     Public Property PrKISO_YMD As String
 
+    Public Property PrUsers As DataTable
+
 #End Region
 
 #Region "コンストラクタ"
@@ -69,23 +71,10 @@ Public Class FrmG0035_Tenso
             Me.ControlBox = False
 
             '-----各コントロールのデータソースを設定
-            Dim drs As List(Of DataRow)
-            If PrSYONIN_HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR And PrCurrentStage = ENM_ZESEI_STAGE._10_起草入力 Then
-
-                drs = FunGetSYOZOKU_SYAIN(PrBUMON_KB).AsEnumerable.
-                        Where(Function(r) r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).
-                        ToList
+            If PrUsers IsNot Nothing Then
+                Me.cmbTENSO_SAKI.DataSource = PrUsers.AsEnumerable.Where(Function(r) r.Item("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).ToList.CopyToDataTable
             Else
-                drs = FunGetSYONIN_SYOZOKU_SYAIN(PrBUMON_KB, PrSYONIN_HOKOKUSYO_ID, PrCurrentStage).AsEnumerable.
-                            Where(Function(r) r.Field(Of Integer)("VALUE") <> pub_SYAIN_INFO.SYAIN_ID).
-                            ToList
-            End If
-
-            If drs.Count > 0 Then
-                Dim tbl As DataTable = drs.CopyToDataTable
-                Me.cmbTENSO_SAKI.SetDataSource(tbl, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            Else
-                MessageBox.Show("当該ステージの承認担当者がログインユーザー以外に登録されていないため、転送処理は出来ません。", "承認担当者マスタ登録不備", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("承認担当者情報を取得できません", "転送", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
             'バインディング
