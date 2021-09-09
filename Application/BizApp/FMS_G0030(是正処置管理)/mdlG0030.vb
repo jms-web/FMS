@@ -967,6 +967,41 @@ Module mdlG0030
 
 #End Region
 
+#Region "QMSèäëÆé–àıéÊìæ"
+
+    'TV04_BUSYO_SYOZOKU_SYAIN
+
+    Public Function FunGetQMSSYOZOKU_SYAIN() As DataTableEx
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As New DataSet
+
+        sbSQL.Append($"SELECT * FROM VWM005_SYOZOKU_BUSYO") '28:MSìùäáé∫
+        sbSQL.Append(" WHERE BUSYO_ID=28")
+        sbSQL.Append(" ORDER BY SYAIN_ID")
+        Using DB As ClsDbUtility = DBOpen()
+            dsList = DB.GetDataSet(sbSQL.ToString, False)
+        End Using
+
+        Dim dt As DataTableEx = New DataTableEx("System.Int32")
+        dt.Columns.Add("BUMON_KB", GetType(String))
+
+        dt.PrimaryKey = {dt.Columns("VALUE")}
+
+        For Each row As DataRow In dsList.Tables(0).Rows
+            Dim Trow As DataRow = dt.NewRow()
+            If Not dt.Rows.Contains(row.Item("SYAIN_ID")) Then
+                Trow("VALUE") = row.Item("SYAIN_ID")
+                Trow("DISP") = row.Item("SIMEI")
+                Trow("BUMON_KB") = row.Item("BUMON_KB")
+                dt.Rows.Add(Trow)
+            End If
+        Next row
+
+        Return dt
+    End Function
+
+#End Region
+
 #Region "ïîñÂï ïsìKçáãÊï™éÊìæ"
 
     Public Function FunGetFUTEKIGO_KB(BUMON_KB As String) As DataTableEx
@@ -1686,6 +1721,7 @@ Module mdlG0030
 
             Dim dt As DataTableEx = New DataTableEx("System.Int32")
             dt.Columns.Add("BUMON_KB", GetType(String))
+            dt.Columns.Add("BUSYO_ID", GetType(Integer))
 
             dt.PrimaryKey = {dt.Columns("VALUE")} ', dt.Columns("SYONIN_JUN"), dt.Columns("SYONIN_HOKOKUSYO_ID")
 
@@ -1695,6 +1731,7 @@ Module mdlG0030
                     Trow("VALUE") = row.Item("SYAIN_ID")
                     Trow("DISP") = row.Item("SIMEI")
                     Trow("BUMON_KB") = row.Item("BUMON_KB")
+                    Trow("BUSYO_ID") = row.Item("BUSYO_ID")
                     Trow("DEL_FLG") = CBool(row.Item("DEL_FLG"))
                     dt.Rows.Add(Trow)
                 End If

@@ -1263,16 +1263,16 @@ Public Class FrmG0031_EditOverflow
 
                 cmdFunc1.Enabled = True
                 cmdFunc2.Enabled = IsOwnCreated
-
+                cmdFunc4.Visible = True
                 cmdFunc5.Enabled = IsOwnCreated
 
                 cmdFunc10.Enabled = True
                 cmdFunc11.Enabled = True
 
                 Dim blnIsAdmin As Boolean = IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID)
-                cmdFunc5.Enabled = blnIsAdmin
-
-                cmdFunc4.Visible = True
+                If Not IsOwnCreated And blnIsAdmin Then
+                    cmdFunc5.Enabled = True
+                End If
 
                 Select Case PrCurrentStage
                     Case ENM_ZESEI_STAGE._10_起草入力
@@ -2404,7 +2404,7 @@ Public Class FrmG0031_EditOverflow
     Private Function SetTANTO_TooltipInfo() As Boolean
         Call SetInfoLabelFormat(lblTANTO, $"選択した部門・課の役職区分:SL、役職なし)以外の担当者")
 
-        Call SetInfoLabelFormat(lblST01_SAKUSEI_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}QMS管理責任者・品証")
+        Call SetInfoLabelFormat(lblST01_SAKUSEI_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}品証")
         Call SetInfoLabelFormat(lblST01_TENKEN_TANTO, $"承認担当者マスタ{vbCr}所属部門のST11.に登録された担当者")
         Call SetInfoLabelFormat(lblST01_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST12.に登録された担当者")
 
@@ -2420,7 +2420,7 @@ Public Class FrmG0031_EditOverflow
         Call SetInfoLabelFormat(lblST04_TENKEN_TANTO, $"選択した部門・課の役職区分:なし)以外の担当者")
         Call SetInfoLabelFormat(lblST04_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST22.に登録された担当者")
 
-        Call SetInfoLabelFormat(lblST05_SAKUSEI_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}QMS管理責任者・品証")
+        Call SetInfoLabelFormat(lblST05_SAKUSEI_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}品証")
         Call SetInfoLabelFormat(lblST05_TENKEN_TANTO, $"承認担当者マスタ{vbCr}所属部門のST11.に登録された担当者")
         Call SetInfoLabelFormat(lblST05_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST12.に登録された担当者")
     End Function

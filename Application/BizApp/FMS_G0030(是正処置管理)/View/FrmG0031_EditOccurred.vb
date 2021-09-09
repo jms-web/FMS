@@ -1261,16 +1261,16 @@ Public Class FrmG0031_EditOccurred
 
                 cmdFunc1.Enabled = True
                 cmdFunc2.Enabled = IsOwnCreated
-
+                cmdFunc4.Visible = True
                 cmdFunc5.Enabled = IsOwnCreated
 
                 cmdFunc10.Enabled = True
                 cmdFunc11.Enabled = True
 
                 Dim blnIsAdmin As Boolean = IsSysAdminUser(pub_SYAIN_INFO.SYAIN_ID)
-                cmdFunc5.Enabled = blnIsAdmin
-
-                cmdFunc4.Visible = True
+                If Not IsOwnCreated And blnIsAdmin Then
+                    cmdFunc5.Enabled = True
+                End If
 
                 Select Case PrCurrentStage
                     Case ENM_ZESEI_STAGE._10_起草入力
@@ -1405,26 +1405,19 @@ Public Class FrmG0031_EditOccurred
 
     Private Sub cmbKA_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKA.SelectedValueChanged
         Dim dt As DataTable
-        If cmbKA.SelectedValue.ToString.IsNulOrWS Then
-            Dim dr As List(Of DataRow)
-            dr = tblTANTO.AsEnumerable.Where(Function(r) r.Item("BUMON_KB") = cmbBUMON.SelectedValue).ToList
-            If dr.Count > 0 Then
-                dt = dr.CopyToDataTable
-            Else
-                dt = tblTANTO
-            End If
+
+        dt = GetExcludeyakusyokuUsers(cmbBUMON.SelectedValue, {ENM_YAKUSYOKU_KB._14_SL.Value, ENM_YAKUSYOKU_KB._99_なし.Value}.ToList)
+        If Not cmbKA.SelectedValue.ToString.IsNulOrWS Then
+            Dim drs = dt.AsEnumerable.Where(Function(r) r.Item("BUSYO_ID") = cmbKA.SelectedValue).ToList
+            If drs.Count > 0 Then dt = drs.CopyToDataTable
+        End If
+
+        If dt IsNot Nothing Then
+            cmbTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
         Else
-            Dim drs = tblTANTO.AsEnumerable.Where(Function(r) r.Item("BUSYO_ID") = cmbKA.SelectedValue Or r.Item("OYA_BUSYO_ID") = cmbKA.SelectedValue).ToList
-            If drs.Count > 0 Then
-                dt = drs.CopyToDataTable
-            End If
-            If dt IsNot Nothing Then
-                cmbTANTO.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            Else
-                cmbTANTO.DataSource = Nothing
-                cmbTANTO.DisplayMember = "DISP"
-                cmbTANTO.ValueMember = "VALUE"
-            End If
+            cmbTANTO.DataSource = Nothing
+            cmbTANTO.DisplayMember = "DISP"
+            cmbTANTO.ValueMember = "VALUE"
         End If
     End Sub
 
@@ -1432,11 +1425,6 @@ Public Class FrmG0031_EditOccurred
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
         IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "製品区分"))
     End Sub
-
-    'Private Sub cmbKA_Validated(sender As Object, e As EventArgs) Handles cmbKA.Validated
-    '    Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
-    '    IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "課"))
-    'End Sub
 
     Private Sub cmbTANTO_Validated(sender As Object, e As EventArgs) Handles cmbTANTO.Validated
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
@@ -1960,6 +1948,7 @@ Public Class FrmG0031_EditOccurred
     Private Function FunInitializeSTAGE(ByVal intStageID As Integer) As Boolean
         Dim dt As DataTable
         Dim dtUser As DataTable
+        Dim dtUserQMS As DataTable
         Dim drs As IEnumerable(Of DataRow)
         Dim V003 As V003_SYONIN_J_KANRI
         Try
@@ -1971,6 +1960,9 @@ Public Class FrmG0031_EditOccurred
             If intStageID >= ENM_ZESEI_STAGE._10_起草入力 Then
 
                 dtUser = FunGetSYOZOKU_SYAIN(_D013.BUMON_KB)
+                'QMS管理者
+                dtUserQMS = FunGetQMSSYOZOKU_SYAIN()
+
                 pnlST01.Visible = True
 
                 Select Case _D013.INPUT_TYPE
@@ -1984,16 +1976,46 @@ Public Class FrmG0031_EditOccurred
 
 #Region "           承認担当者"
 
-                drs = dtUser.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._4_品証.Value)
-                If drs.Count > 0 Then cmbST01_SAKUSEI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                drs = dtUser.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._4_品証.Value Or
+                                                    r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._91_QMS管理責任者.Value)
+
+                If drs.Count > 0 Then
+
+                    dt = New DataTableEx("System.Int32")
+                    '主キー設定
+                    dt.PrimaryKey = {dt.Columns("VALUE")}
+
+                    For Each dr As DataRow In drs
+                        If Not dt.Rows.Contains(dr("VALUE")) Then
+                            dt.ImportRow(dr)
+                        End If
+                    Next
+
+                    For Each dr As DataRow In dtUserQMS.Rows
+                        If Not dt.Rows.Contains(dr("VALUE")) Then
+                            dt.ImportRow(dr)
+                        End If
+                    Next
+                    cmbST01_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                End If
 
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._11_起草入力_点検)
+                For Each dr As DataRow In dtUserQMS.Rows
+                    If Not dt.Rows.Contains(dr("VALUE")) Then
+                        dt.ImportRow(dr)
+                    End If
+                Next
                 cmbST01_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 cmbST01_TENKEN_TANTO.Visible = True
                 lblST01_TENKEN_TANTO.Visible = True
                 dtST01_TENKEN_YMD.Visible = True
 
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._12_起草入力_認可)
+                For Each dr As DataRow In dtUserQMS.Rows
+                    If Not dt.Rows.Contains(dr("VALUE")) Then
+                        dt.ImportRow(dr)
+                    End If
+                Next
                 cmbST01_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._10_起草入力).FirstOrDefault
@@ -2122,11 +2144,11 @@ Public Class FrmG0031_EditOccurred
                         lblST02_HINSYO_NINKA_TANTO.Visible = True
                         dtST02_HINSYO_NINKA_YMD.Visible = True
 
-                        dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._11_起草入力_点検)
+                        dt = cmbST01_TENKEN_TANTO.DataSource
                         cmbST02_HINSYO_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                         cmbST02_HINSYO_TENKEN_TANTO.SelectedValue = cmbST01_TENKEN_TANTO.SelectedValue
 
-                        dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._12_起草入力_認可)
+                        dt = cmbST01_NINKA_TANTO.DataSource
                         cmbST02_HINSYO_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                         cmbST02_HINSYO_NINKA_TANTO.SelectedValue = cmbST01_NINKA_TANTO.SelectedValue
 
@@ -2280,8 +2302,7 @@ Public Class FrmG0031_EditOccurred
             If intStageID >= ENM_ZESEI_STAGE._42_処置結果レビュー_認可 Then
                 pnlST05.Visible = True
 
-                drs = dtUser.AsEnumerable.Where(Function(r) r.Item(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)) = ENM_GYOMU_GROUP_ID._4_品証.Value)
-                If drs.Count > 0 Then cmbST05_SAKUSEI_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                cmbST05_SAKUSEI_TANTO.DataSource = cmbST01_SAKUSEI_TANTO.DataSource
                 cmbST05_SAKUSEI_TANTO.SelectedValue = cmbST01_SAKUSEI_TANTO.SelectedValue
                 cmbST05_SAKUSEI_TANTO.Visible = True
                 lblST05_SAKUSEI_TANTO.Visible = True
@@ -2295,14 +2316,14 @@ Public Class FrmG0031_EditOccurred
 
 #Region "           承認担当者"
 
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._11_起草入力_点検)
+                dt = cmbST01_TENKEN_TANTO.DataSource
                 cmbST05_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 cmbST05_TENKEN_TANTO.Visible = True
                 lblST05_TENKEN_TANTO.Visible = True
                 dtST05_TENKEN_YMD.Visible = True
                 cmbST04_NINKA_TANTO.ReadOnly = True
 
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._12_起草入力_認可)
+                dt = cmbST01_NINKA_TANTO.DataSource
                 cmbST05_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
                 V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._50_要求元完了確認).FirstOrDefault
@@ -2544,7 +2565,7 @@ Public Class FrmG0031_EditOccurred
 #Region "ヘッダ"
 
             Call cmbBUMON_Validated(cmbBUMON, Nothing)
-            'all cmbKA_Validated(cmbKA, Nothing)
+
             Call cmbTANTO_Validated(cmbTANTO, Nothing)
 
 #End Region
