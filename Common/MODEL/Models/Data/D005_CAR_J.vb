@@ -14,8 +14,6 @@ Imports PropertyChanged
 Partial Public Class D005_CAR_J
     Inherits ModelBase
 
-
-
     Public Shadows Sub Clear()
         HOKOKU_NO = ""
         BUMON_KB = ""
@@ -136,7 +134,6 @@ Partial Public Class D005_CAR_J
 
         End Set
     End Property
-
 
 #Region "設問内容と回答"
 
@@ -398,6 +395,7 @@ Partial Public Class D005_CAR_J
     <StringLength(150)>
     <ComponentModel.DisplayName("設問回答21")>
     Public Property KAITO_21 As String
+
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(100)>
@@ -473,6 +471,16 @@ Partial Public Class D005_CAR_J
     Public Property KONPON_YOIN_KB2 As String
 
     <Required>
+    <Column(TypeName:="varchar")>
+    <ComponentModel.DisplayName("原因内容1")>
+    Public Property GENIN_ETC1 As String
+
+    <Required>
+    <Column(TypeName:="varchar")>
+    <ComponentModel.DisplayName("原因内容2")>
+    Public Property GENIN_ETC2 As String
+
+    <Required>
     <ComponentModel.DisplayName("根本要因社員ID")>
     Public Property KONPON_YOIN_SYAIN_ID As Integer
 
@@ -512,7 +520,6 @@ Partial Public Class D005_CAR_J
     <ComponentModel.DisplayName("処置実施C日時")>
     Public Property SYOCHI_C_YMDHNS As String
 
-
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(200)>
@@ -537,7 +544,6 @@ Partial Public Class D005_CAR_J
             'OnPropertyChanged(NameOf(CLOSE_FG))
         End Set
     End Property
-
 
     <Required>
     <Column(TypeName:="nvarchar")>
@@ -595,13 +601,11 @@ Partial Public Class D005_CAR_J
     <ComponentModel.DisplayName("不適合発生日")>
     Public Property FUTEKIGO_HASSEI_YMD As String
 
-
     <Required>
     <StringLength(8)>
     <Column(TypeName:="char")>
     <ComponentModel.DisplayName("次回製作予定日")>
     Public Property SYOCHI_YOTEI_YMD As String
-
 
     ''共通項目------------------------------------
     <Required>

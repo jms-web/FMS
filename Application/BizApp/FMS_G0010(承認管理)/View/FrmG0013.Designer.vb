@@ -28,6 +28,7 @@ Partial Class FrmG0013
         Me.dgvDATA = New System.Windows.Forms.DataGridView()
         Me.dgvDetail = New System.Windows.Forms.DataGridView()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDetail, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -35,67 +36,67 @@ Partial Class FrmG0013
         'lblRecordCount
         '
         Me.lblRecordCount.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.lblRecordCount.Location = New System.Drawing.Point(15, 383)
+        Me.lblRecordCount.Location = New System.Drawing.Point(15, 482)
         Me.lblRecordCount.Size = New System.Drawing.Size(408, 24)
         '
         'cmdFunc1
         '
         Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgApplication_form32x32
-        Me.cmdFunc1.Location = New System.Drawing.Point(12, 413)
+        Me.cmdFunc1.Location = New System.Drawing.Point(12, 512)
         Me.cmdFunc1.Text = "OK(F1)"
         '
         'cmdFunc2
         '
-        Me.cmdFunc2.Location = New System.Drawing.Point(219, 413)
+        Me.cmdFunc2.Location = New System.Drawing.Point(219, 512)
         Me.cmdFunc2.Size = New System.Drawing.Size(22, 42)
         '
         'cmdFunc3
         '
-        Me.cmdFunc3.Location = New System.Drawing.Point(247, 413)
+        Me.cmdFunc3.Location = New System.Drawing.Point(247, 512)
         Me.cmdFunc3.Size = New System.Drawing.Size(22, 42)
         '
         'cmdFunc4
         '
-        Me.cmdFunc4.Location = New System.Drawing.Point(275, 413)
+        Me.cmdFunc4.Location = New System.Drawing.Point(275, 512)
         Me.cmdFunc4.Size = New System.Drawing.Size(22, 42)
         '
         'cmdFunc5
         '
-        Me.cmdFunc5.Location = New System.Drawing.Point(303, 413)
+        Me.cmdFunc5.Location = New System.Drawing.Point(303, 512)
         Me.cmdFunc5.Size = New System.Drawing.Size(22, 42)
         '
         'cmdFunc6
         '
-        Me.cmdFunc6.Location = New System.Drawing.Point(792, 413)
+        Me.cmdFunc6.Location = New System.Drawing.Point(792, 512)
         '
         'cmdFunc12
         '
         Me.cmdFunc12.Image = Global.FMS.My.Resources.Resources._imgLog_Out32x32
-        Me.cmdFunc12.Location = New System.Drawing.Point(792, 461)
+        Me.cmdFunc12.Location = New System.Drawing.Point(792, 560)
         Me.cmdFunc12.Text = "•Â‚¶‚é(F12)"
         '
         'cmdFunc11
         '
-        Me.cmdFunc11.Location = New System.Drawing.Point(303, 461)
+        Me.cmdFunc11.Location = New System.Drawing.Point(303, 560)
         Me.cmdFunc11.Size = New System.Drawing.Size(22, 42)
         '
         'cmdFunc10
         '
-        Me.cmdFunc10.Location = New System.Drawing.Point(275, 461)
+        Me.cmdFunc10.Location = New System.Drawing.Point(275, 560)
         Me.cmdFunc10.Size = New System.Drawing.Size(22, 42)
         '
         'cmdFunc7
         '
-        Me.cmdFunc7.Location = New System.Drawing.Point(12, 461)
+        Me.cmdFunc7.Location = New System.Drawing.Point(12, 560)
         '
         'cmdFunc9
         '
-        Me.cmdFunc9.Location = New System.Drawing.Point(247, 461)
+        Me.cmdFunc9.Location = New System.Drawing.Point(247, 560)
         Me.cmdFunc9.Size = New System.Drawing.Size(22, 42)
         '
         'cmdFunc8
         '
-        Me.cmdFunc8.Location = New System.Drawing.Point(219, 461)
+        Me.cmdFunc8.Location = New System.Drawing.Point(219, 560)
         Me.cmdFunc8.Size = New System.Drawing.Size(22, 42)
         '
         'lblTytle
@@ -139,7 +140,7 @@ Partial Class FrmG0013
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvDATA.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvDATA.RowTemplate.Height = 21
-        Me.dgvDATA.Size = New System.Drawing.Size(360, 350)
+        Me.dgvDATA.Size = New System.Drawing.Size(360, 446)
         Me.dgvDATA.TabIndex = 63
         '
         'dgvDetail
@@ -172,13 +173,13 @@ Partial Class FrmG0013
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvDetail.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvDetail.RowTemplate.Height = 21
-        Me.dgvDetail.Size = New System.Drawing.Size(618, 350)
+        Me.dgvDetail.Size = New System.Drawing.Size(618, 446)
         Me.dgvDetail.TabIndex = 64
         '
         'FrmG0013
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-        Me.ClientSize = New System.Drawing.Size(1008, 532)
+        Me.ClientSize = New System.Drawing.Size(1008, 631)
         Me.Controls.Add(Me.dgvDetail)
         Me.Controls.Add(Me.dgvDATA)
         Me.HelpButton = True
@@ -203,6 +204,7 @@ Partial Class FrmG0013
         Me.Controls.SetChildIndex(Me.dgvDATA, 0)
         Me.Controls.SetChildIndex(Me.dgvDetail, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDATA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDetail, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

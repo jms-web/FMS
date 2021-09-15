@@ -69,7 +69,7 @@ Public Class FrmG0013
             End Using
 
             Me.Width = 1024
-            Me.Height = 570
+            Me.Height = 670
 
             '-----グリッド初期設定(親フォームから呼び出し)
             Call FunInitializeDataGridView(dgvDATA)

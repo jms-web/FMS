@@ -122,7 +122,6 @@ Partial Public Class V005_CAR_J
         End Set
     End Property
 
-
     <Key>
     <Column(Order:=0, TypeName:="char")>
     <StringLength(10)>
@@ -167,7 +166,6 @@ Partial Public Class V005_CAR_J
 
         End Set
     End Property
-
 
 #Region "設問内容と回答"
 
@@ -416,6 +414,7 @@ Partial Public Class V005_CAR_J
     <StringLength(150)>
     <ComponentModel.DisplayName("設問回答21")>
     Public Property KAITO_21 As String
+
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(100)>
@@ -427,6 +426,7 @@ Partial Public Class V005_CAR_J
     <StringLength(150)>
     <ComponentModel.DisplayName("設問回答22")>
     Public Property KAITO_22 As String
+
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(100)>
@@ -438,6 +438,7 @@ Partial Public Class V005_CAR_J
     <StringLength(150)>
     <ComponentModel.DisplayName("設問回答23")>
     Public Property KAITO_23 As String
+
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(100)>
@@ -481,6 +482,12 @@ Partial Public Class V005_CAR_J
 
     <ComponentModel.DisplayName("根本要因区分2名")>
     Public Property KONPON_YOIN_KB2 As String
+
+    <ComponentModel.DisplayName("原因内容1")>
+    Public Property GENIN_ETC1 As String
+
+    <ComponentModel.DisplayName("原因内容2")>
+    Public Property GENIN_ETC2 As String
 
     <Required>
     <ComponentModel.DisplayName("根本要因社員ID")>
@@ -536,7 +543,6 @@ Partial Public Class V005_CAR_J
     <Column(TypeName:="char")>
     <ComponentModel.DisplayName("処置実施C日時")>
     Public Property SYOCHI_C_YMDHNS As String
-
 
     <Required>
     <Column(TypeName:="nvarchar")>
@@ -609,7 +615,6 @@ Partial Public Class V005_CAR_J
     <ComponentModel.DisplayName("添付資料2パス")>
     Public Property FILE_PATH2 As String
 
-
     <Required>
     <StringLength(8)>
     <Column(TypeName:="char")>
@@ -644,7 +649,6 @@ Partial Public Class V005_CAR_J
             Return strRET
         End Get
     End Property
-
 
     <ComponentModel.DisplayName("追加担当ID")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
@@ -683,7 +687,6 @@ Partial Public Class V005_CAR_J
         End Get
     End Property
 
-
     <ComponentModel.DisplayName("削除担当ID")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_SYAIN_ID As Integer
@@ -692,63 +695,74 @@ Partial Public Class V005_CAR_J
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_SYAIN_NAME As String
 
-
     <ComponentModel.DisplayName("CAR起草入力(10)")>
     Public Property SYONIN_NAME10 As String
+
     <ComponentModel.DisplayName("CAR起草入力承認日(10)")>
     Public Property SYONIN_YMD10 As String
 
     <ComponentModel.DisplayName("起草元GL（20）")>
     Public Property SYONIN_NAME20 As String
+
     <ComponentModel.DisplayName("起草元GL承認日（20）")>
     Public Property SYONIN_YMD20 As String
 
     <ComponentModel.DisplayName("担当課長（30）")>
     Public Property SYONIN_NAME30 As String
+
     <ComponentModel.DisplayName("担当課長承認日（30）")>
     Public Property SYONIN_YMD30 As String
 
     <ComponentModel.DisplayName("生技（40）")>
     Public Property SYONIN_NAME40 As String
+
     <ComponentModel.DisplayName("生技承認日（40）")>
     Public Property SYONIN_YMD40 As String
 
     <ComponentModel.DisplayName("設計（50）")>
     Public Property SYONIN_NAME50 As String
+
     <ComponentModel.DisplayName("設計承認日（50）")>
     Public Property SYONIN_YMD50 As String
 
     <ComponentModel.DisplayName("検査員（60）")>
     Public Property SYONIN_NAME60 As String
+
     <ComponentModel.DisplayName("検査員承認日（60）")>
     Public Property SYONIN_YMD60 As String
 
     <ComponentModel.DisplayName("品証課長（70）")>
     Public Property SYONIN_NAME70 As String
+
     <ComponentModel.DisplayName("品証課長承認日（70）")>
     Public Property SYONIN_YMD70 As String
 
     <ComponentModel.DisplayName("担当課長（90）")>
     Public Property SYONIN_NAME90 As String
+
     <ComponentModel.DisplayName("担当課長承認日（90）")>
     Public Property SYONIN_YMD90 As String
 
     <ComponentModel.DisplayName("検査員（100）")>
     Public Property SYONIN_NAME100 As String
+
     <ComponentModel.DisplayName("検査員承認日（100）")>
     Public Property SYONIN_YMD100 As String
 
     <ComponentModel.DisplayName("品証TL確認（120）")>
     Public Property SYONIN_NAME120 As String
+
     <ComponentModel.DisplayName("品証TL確認承認日（120）")>
     Public Property SYONIN_YMD120 As String
 
-
     <ComponentModel.DisplayName("品証TL確認（130）")>
     Public Property SYONIN_NAME130 As String
+
     <ComponentModel.DisplayName("品証TL確認承認日（130）")>
     Public Property SYONIN_YMD130 As String
+
 #Region "IDisposable Support"
+
     Private disposedValue As Boolean ' 重複する呼び出しを検出するには
 
     ' IDisposable
@@ -778,7 +792,7 @@ Partial Public Class V005_CAR_J
         ' TODO: 上の Finalize() がオーバーライドされている場合は、次の行のコメントを解除してください。
         ' GC.SuppressFinalize(Me)
     End Sub
-#End Region
 
+#End Region
 
 End Class

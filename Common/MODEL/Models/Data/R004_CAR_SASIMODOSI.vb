@@ -123,7 +123,6 @@ Partial Public Class R004_CAR_SASIMODOSI
         End Set
     End Property
 
-
 #Region "設問内容と回答"
 
     <Required>
@@ -377,6 +376,7 @@ Partial Public Class R004_CAR_SASIMODOSI
     <StringLength(150)>
     <ComponentModel.DisplayName("設問回答21")>
     Public Property KAITO_21 As String
+
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(100)>
@@ -388,6 +388,7 @@ Partial Public Class R004_CAR_SASIMODOSI
     <StringLength(150)>
     <ComponentModel.DisplayName("設問回答22")>
     Public Property KAITO_22 As String
+
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(100)>
@@ -399,6 +400,7 @@ Partial Public Class R004_CAR_SASIMODOSI
     <StringLength(150)>
     <ComponentModel.DisplayName("設問回答23")>
     Public Property KAITO_23 As String
+
     <Required>
     <Column(TypeName:="nvarchar")>
     <StringLength(100)>
@@ -436,6 +438,16 @@ Partial Public Class R004_CAR_SASIMODOSI
     <StringLength(2)>
     <ComponentModel.DisplayName("根本要因区分2")>
     Public Property KONPON_YOIN_KB2 As String
+
+    <Required>
+    <Column(TypeName:="varchar")>
+    <ComponentModel.DisplayName("原因内容1")>
+    Public Property GENIN_ETC1 As String
+
+    <Required>
+    <Column(TypeName:="varchar")>
+    <ComponentModel.DisplayName("原因内容2")>
+    Public Property GENIN_ETC2 As String
 
     <Required>
     <ComponentModel.DisplayName("根本要因社員ID")>
@@ -476,7 +488,6 @@ Partial Public Class R004_CAR_SASIMODOSI
     <Column(TypeName:="char")>
     <ComponentModel.DisplayName("処置実施C日時")>
     Public Property SYOCHI_C_YMDHNS As String
-
 
     <Required>
     <Column(TypeName:="nvarchar")>
@@ -540,18 +551,16 @@ Partial Public Class R004_CAR_SASIMODOSI
     <ComponentModel.DisplayName("添付資料2パス")>
     Public Property FILE_PATH2 As String
 
-
-
     <Required>
     <StringLength(8)>
     <Column(TypeName:="char")>
     <ComponentModel.DisplayName("不適合発生日")>
     Public Property FUTEKIGO_HASSEI_YMD As String
 
-
     <Required>
     <StringLength(8)>
     <Column(TypeName:="char")>
     <ComponentModel.DisplayName("次回製作予定日")>
     Public Property SYOCHI_YOTEI_YMD As String
+
 End Class
