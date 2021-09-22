@@ -25,7 +25,7 @@ Partial Public Class ST03_FUTEKIGO_ICHIRAN_SUMMARY
     <ComponentModel.DisplayName("»•i‹æ•ª")>
     Public Property BUMON_NAME As String
 
-    <Display(AutoGenerateField:=False)>
+    '<Display(AutoGenerateField:=False)>
     <StringLength(10)>
     <ComponentModel.DisplayName("•ñ‘No")>
     Public Property HOKOKU_NO As String

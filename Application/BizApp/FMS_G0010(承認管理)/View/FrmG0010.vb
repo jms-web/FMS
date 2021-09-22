@@ -424,7 +424,7 @@ Public Class FrmG0010
                     chkDispGENIN2.Checked = False
                     'cmbADD_TANTO.Enabled = False
 
-                    'cmbHOKOKUSYO_ID.SelectedValue = 2 'CAR
+                    cmbHOKOKUSYO_ID.SelectedValue = 2 'CAR
 
                 Case Else
                     Me.cmdFunc1.PerformClick()
@@ -1351,7 +1351,7 @@ Public Class FrmG0010
                     Dim Trow As DataRow = tplDataModel.dt.NewRow()
                     For Each p As Reflection.PropertyInfo In tplDataModel.properties
                         If IsAutoGenerateField(t, p.Name) = True Then
-                            If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 And row.Table.Columns.Contains(p.Name) = False Then
+                            If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 And p.Name <> NameOf(ST03.HOKOKU_NO) And row.Table.Columns.Contains(p.Name) = False Then
                                 '非表示列スキップ
                                 Continue For
                             End If
@@ -2725,7 +2725,7 @@ Public Class FrmG0010
                     End Sub)
                 End Sub)
         Catch ex As Exception
-            Stop
+            EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
     End Sub
 
@@ -3815,8 +3815,11 @@ Public Class FrmG0010
             .Item(NameOf(ST03.SUMMARY_ROW_FLG)) = 1
             .Item(NameOf(ST03.SYONIN_HOKOKUSYO_R_NAME)) = "合計:"
             For Each column In targetColumns
-                .Item(column) = dv.OfType(Of DataRowView).Where(Function(r) r.Item(NameOf(ST03.SUMMARY_ROW_FLG)) = 0).
-                                        Sum(Function(r) r.Item(column).ToString.ToVal)
+                Dim result = dv.OfType(Of DataRowView).Where(Function(r) r.Item(NameOf(ST03.SUMMARY_ROW_FLG)) = 0).
+                                                        GroupBy(Function(r) r.Item(NameOf(ST03.HOKOKU_NO))).
+                                                        Select(Function(r) New With {r.Key, Key .val = r.Max(Function(x) x.Item(column)).ToString.ToVal}).
+                                                        Sum(Function(r) r.val)
+                .Item(column) = result
             Next
         End With
         dt.Rows.InsertAt(totalRow, 0)
