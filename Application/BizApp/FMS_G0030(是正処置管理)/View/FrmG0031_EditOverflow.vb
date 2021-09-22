@@ -1348,26 +1348,19 @@ Public Class FrmG0031_EditOverflow
 
     Private Sub cmbKA_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKA.SelectedValueChanged
         Dim dt As DataTable
-        If cmbKA.SelectedValue.ToString.IsNulOrWS Then
-            Dim dr As List(Of DataRow)
-            dr = tblTANTO.AsEnumerable.Where(Function(r) r.Item("BUMON_KB") = cmbBUMON.SelectedValue).ToList
-            If dr.Count > 0 Then
-                dt = dr.CopyToDataTable
-            Else
-                dt = tblTANTO
-            End If
+
+        dt = GetExcludeyakusyokuUsers(cmbBUMON.SelectedValue, {ENM_YAKUSYOKU_KB._14_SL.Value, ENM_YAKUSYOKU_KB._99_‚È‚µ.Value}.ToList)
+        If Not cmbKA.SelectedValue.ToString.IsNulOrWS Then
+            Dim drs = dt.AsEnumerable.Where(Function(r) r.Item("BUSYO_ID") = cmbKA.SelectedValue Or r.Item("OYA_BUSYO_ID") = cmbKA.SelectedValue).ToList
+            If drs.Count > 0 Then dt = drs.CopyToDataTable
+        End If
+
+        If dt IsNot Nothing Then
+            cmbTANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
         Else
-            Dim drs = tblTANTO.AsEnumerable.Where(Function(r) r.Item("BUSYO_ID") = cmbKA.SelectedValue Or r.Item("OYA_BUSYO_ID") = cmbKA.SelectedValue).ToList
-            If drs.Count > 0 Then
-                dt = drs.CopyToDataTable
-            End If
-            If dt IsNot Nothing Then
-                cmbTANTO.SetDataSource(dt.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-            Else
-                cmbTANTO.DataSource = Nothing
-                cmbTANTO.DisplayMember = "DISP"
-                cmbTANTO.ValueMember = "VALUE"
-            End If
+            cmbTANTO.DataSource = Nothing
+            cmbTANTO.DisplayMember = "DISP"
+            cmbTANTO.ValueMember = "VALUE"
         End If
     End Sub
 

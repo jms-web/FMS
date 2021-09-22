@@ -1711,7 +1711,7 @@ Module mdlG0030
         Try
             Dim sbSQL As New System.Text.StringBuilder
             Dim dsList As New DataSet
-            sbSQL.Append($"SELECT * FROM {NameOf(V010_SYAIN_SYOZOKU_BUSYO)}")
+            sbSQL.Append($"SELECT * FROM {NameOf(VWM005_SYOZOKU_BUSYO)}")
             sbSQL.Append($" WHERE BUMON_KB ='{BUMON_KB}'")
             sbSQL.Append($" AND YAKUSYOKU_KB NOT IN ('{YAKUSYOKUs.AsEnumerable.Select(Function(r) r.ToString).Aggregate(Function(x, y) x & $"','{y}")}')")
 
@@ -1722,6 +1722,7 @@ Module mdlG0030
             Dim dt As DataTableEx = New DataTableEx("System.Int32")
             dt.Columns.Add("BUMON_KB", GetType(String))
             dt.Columns.Add("BUSYO_ID", GetType(Integer))
+            dt.Columns.Add("OYA_BUSYO_ID", GetType(Integer))
 
             dt.PrimaryKey = {dt.Columns("VALUE")} ', dt.Columns("SYONIN_JUN"), dt.Columns("SYONIN_HOKOKUSYO_ID")
 
@@ -1732,6 +1733,7 @@ Module mdlG0030
                     Trow("DISP") = row.Item("SIMEI")
                     Trow("BUMON_KB") = row.Item("BUMON_KB")
                     Trow("BUSYO_ID") = row.Item("BUSYO_ID")
+                    Trow("OYA_BUSYO_ID") = row.Item("OYA_BUSYO_ID")
                     Trow("DEL_FLG") = CBool(row.Item("DEL_FLG"))
                     dt.Rows.Add(Trow)
                 End If

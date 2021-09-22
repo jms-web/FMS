@@ -1355,7 +1355,7 @@ Public Class FrmG0031_EditOccurred
 
         dt = GetExcludeyakusyokuUsers(cmbBUMON.SelectedValue, {ENM_YAKUSYOKU_KB._14_SL.Value, ENM_YAKUSYOKU_KB._99_‚È‚µ.Value}.ToList)
         If Not cmbKA.SelectedValue.ToString.IsNulOrWS Then
-            Dim drs = dt.AsEnumerable.Where(Function(r) r.Item("BUSYO_ID") = cmbKA.SelectedValue).ToList
+            Dim drs = dt.AsEnumerable.Where(Function(r) r.Item("BUSYO_ID") = cmbKA.SelectedValue Or r.Item("OYA_BUSYO_ID") = cmbKA.SelectedValue).ToList
             If drs.Count > 0 Then dt = drs.CopyToDataTable
         End If
 

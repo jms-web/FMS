@@ -813,7 +813,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST01.Location = New System.Drawing.Point(2, 5)
         Me.pnlST01.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST01.Name = "pnlST01"
-        Me.pnlST01.Size = New System.Drawing.Size(1211, 497)
+        Me.pnlST01.Size = New System.Drawing.Size(1194, 497)
         Me.pnlST01.TabIndex = 4
         Me.pnlST01.Visible = False
         '
@@ -1587,7 +1587,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame01.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame01.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame01.Location = New System.Drawing.Point(1205, 0)
+        Me.lblSTAGEFlame01.Location = New System.Drawing.Point(1188, 0)
         Me.lblSTAGEFlame01.Name = "lblSTAGEFlame01"
         Me.lblSTAGEFlame01.Size = New System.Drawing.Size(4, 495)
         Me.lblSTAGEFlame01.TabIndex = 335
@@ -1633,7 +1633,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST02.Location = New System.Drawing.Point(2, 508)
         Me.pnlST02.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST02.Name = "pnlST02"
-        Me.pnlST02.Size = New System.Drawing.Size(1211, 816)
+        Me.pnlST02.Size = New System.Drawing.Size(1194, 816)
         Me.pnlST02.TabIndex = 329
         Me.pnlST02.Visible = False
         '
@@ -2832,7 +2832,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame02.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame02.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame02.Location = New System.Drawing.Point(1205, 0)
+        Me.lblSTAGEFlame02.Location = New System.Drawing.Point(1188, 0)
         Me.lblSTAGEFlame02.Name = "lblSTAGEFlame02"
         Me.lblSTAGEFlame02.Size = New System.Drawing.Size(4, 814)
         Me.lblSTAGEFlame02.TabIndex = 356
@@ -2854,7 +2854,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST05.Location = New System.Drawing.Point(2, 1754)
         Me.pnlST05.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST05.Name = "pnlST05"
-        Me.pnlST05.Size = New System.Drawing.Size(1211, 145)
+        Me.pnlST05.Size = New System.Drawing.Size(1194, 145)
         Me.pnlST05.TabIndex = 321
         Me.pnlST05.Visible = False
         '
@@ -3131,7 +3131,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame05.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame05.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame05.Location = New System.Drawing.Point(1205, 0)
+        Me.lblSTAGEFlame05.Location = New System.Drawing.Point(1188, 0)
         Me.lblSTAGEFlame05.Name = "lblSTAGEFlame05"
         Me.lblSTAGEFlame05.Size = New System.Drawing.Size(4, 143)
         Me.lblSTAGEFlame05.TabIndex = 358
@@ -3158,7 +3158,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST04.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST04.Name = "pnlST04"
         Me.pnlST04.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlST04.Size = New System.Drawing.Size(1211, 150)
+        Me.pnlST04.Size = New System.Drawing.Size(1194, 150)
         Me.pnlST04.TabIndex = 320
         Me.pnlST04.Visible = False
         '
@@ -3697,7 +3697,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame04.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame04.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame04.Location = New System.Drawing.Point(1203, 2)
+        Me.lblSTAGEFlame04.Location = New System.Drawing.Point(1186, 2)
         Me.lblSTAGEFlame04.Name = "lblSTAGEFlame04"
         Me.lblSTAGEFlame04.Size = New System.Drawing.Size(4, 144)
         Me.lblSTAGEFlame04.TabIndex = 359
@@ -3724,7 +3724,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST03.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST03.Name = "pnlST03"
         Me.pnlST03.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlST03.Size = New System.Drawing.Size(1211, 271)
+        Me.pnlST03.Size = New System.Drawing.Size(1194, 271)
         Me.pnlST03.TabIndex = 319
         Me.pnlST03.Visible = False
         '
@@ -4295,7 +4295,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame03.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame03.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame03.Location = New System.Drawing.Point(1203, 2)
+        Me.lblSTAGEFlame03.Location = New System.Drawing.Point(1186, 2)
         Me.lblSTAGEFlame03.Name = "lblSTAGEFlame03"
         Me.lblSTAGEFlame03.Size = New System.Drawing.Size(4, 265)
         Me.lblSTAGEFlame03.TabIndex = 354
