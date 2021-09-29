@@ -71,6 +71,8 @@ Partial Public Class D005_CAR_J
         KAITO_25 = ""
         KONPON_YOIN_KB1 = ""
         KONPON_YOIN_KB2 = ""
+        GENIN_ETC1 = ""
+        GENIN_ETC2 = ""
         KONPON_YOIN_SYAIN_ID = 0
         KISEKI_KOTEI_KB = ""
         SYOCHI_A_SYAIN_ID = 0

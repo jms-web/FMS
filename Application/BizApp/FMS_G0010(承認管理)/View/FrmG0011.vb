@@ -1877,6 +1877,9 @@ Public Class FrmG0011
 
         sbSQL.Append($" ,'{_D005_CAR_J.KONPON_YOIN_KB1}' AS {NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}")
         sbSQL.Append($" ,'{_D005_CAR_J.KONPON_YOIN_KB2}' AS {NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}")
+        sbSQL.Append($" ,'{_D005_CAR_J.GENIN_ETC1}' AS {NameOf(_D005_CAR_J.GENIN_ETC1)}")
+        sbSQL.Append($" ,'{_D005_CAR_J.GENIN_ETC2}' AS {NameOf(_D005_CAR_J.GENIN_ETC2)}")
+
         sbSQL.Append($" ,{_D005_CAR_J.KONPON_YOIN_SYAIN_ID} AS {NameOf(_D005_CAR_J.KONPON_YOIN_SYAIN_ID)}")
         sbSQL.Append($" ,'{_D005_CAR_J.KISEKI_KOTEI_KB}' AS {NameOf(_D005_CAR_J.KISEKI_KOTEI_KB)}")
         sbSQL.Append($" ,{_D005_CAR_J.SYOCHI_A_SYAIN_ID} AS {NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID)}")
@@ -1955,6 +1958,9 @@ Public Class FrmG0011
 
         sbSQL.Append($" , SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)} = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}")
         sbSQL.Append($" , SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)} = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB2)}")
+        sbSQL.Append($" , SrcT.{NameOf(_D005_CAR_J.GENIN_ETC1)} = WK.{NameOf(_D005_CAR_J.GENIN_ETC1)}")
+        sbSQL.Append($" , SrcT.{NameOf(_D005_CAR_J.GENIN_ETC2)} = WK.{NameOf(_D005_CAR_J.GENIN_ETC2)}")
+
         sbSQL.Append($" , SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_SYAIN_ID)}")
         sbSQL.Append($" , SrcT.{NameOf(_D005_CAR_J.KISEKI_KOTEI_KB)} = WK.{NameOf(_D005_CAR_J.KISEKI_KOTEI_KB)}")
 
@@ -2045,6 +2051,9 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KAITO_25))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KONPON_YOIN_KB1))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KONPON_YOIN_KB2))
+        sbSQL.Append(" ," & NameOf(_D005_CAR_J.GENIN_ETC1))
+        sbSQL.Append(" ," & NameOf(_D005_CAR_J.GENIN_ETC2))
+
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KONPON_YOIN_SYAIN_ID))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.KISEKI_KOTEI_KB))
         sbSQL.Append(" ," & NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID))
@@ -2128,6 +2137,9 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & _D005_CAR_J.KAITO_25 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KONPON_YOIN_KB1 & "'")
         sbSQL.Append(" ,'" & _D005_CAR_J.KONPON_YOIN_KB2 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.GENIN_ETC1 & "'")
+        sbSQL.Append(" ,'" & _D005_CAR_J.GENIN_ETC2 & "'")
+
         sbSQL.Append(" ," & _D005_CAR_J.KONPON_YOIN_SYAIN_ID & "")
         sbSQL.Append(" ,'" & _D005_CAR_J.KISEKI_KOTEI_KB & "'")
         sbSQL.Append(" ," & _D005_CAR_J.SYOCHI_A_SYAIN_ID & "")
