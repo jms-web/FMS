@@ -369,56 +369,56 @@ Public Class FrmG0021
             Else
                 Try
                     System.IO.Directory.CreateDirectory($"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS")
-                    If Not _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_FILEPATH.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists($"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{ _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_FILEPATH}") Then
-
+                    If Not _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_FILEPATH.IsNulOrWS Then
                         If System.IO.File.Exists(lblKOKYAKU_EIKYO_HANTEI_FILEPATH.Links.Item(0).LinkData) Then
-                            System.IO.File.Copy(lblKOKYAKU_EIKYO_HANTEI_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.KOKYAKU_EIKYO_HANTEI_FILEPATH}", True)
+                            If lblKOKYAKU_EIKYO_HANTEI_FILEPATH.Links.Item(0).LinkData <> strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\" & _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_FILEPATH Then
+                                System.IO.File.Copy(lblKOKYAKU_EIKYO_HANTEI_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.KOKYAKU_EIKYO_HANTEI_FILEPATH}", True)
+                            End If
                         Else
                             Throw New IO.FileNotFoundException($"1.顧客への影響 資料:{lblKOKYAKU_EIKYO_HANTEI_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
-                    If Not _V011_FCR_J.OTHER_PROCESS_INFLUENCE_FILEPATH.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists($"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.OTHER_PROCESS_INFLUENCE_FILEPATH}") Then
-
+                    If Not _V011_FCR_J.OTHER_PROCESS_INFLUENCE_FILEPATH.IsNulOrWS Then
                         If System.IO.File.Exists(lblOTHER_PROCESS_INFLUENCE_FILEPATH.Links.Item(0).LinkData) Then
-                            System.IO.File.Copy(lblOTHER_PROCESS_INFLUENCE_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.OTHER_PROCESS_INFLUENCE_FILEPATH}", True)
+                            If lblOTHER_PROCESS_INFLUENCE_FILEPATH.Links.Item(0).LinkData <> strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\" & _V011_FCR_J.OTHER_PROCESS_INFLUENCE_FILEPATH Then
+                                System.IO.File.Copy(lblOTHER_PROCESS_INFLUENCE_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.OTHER_PROCESS_INFLUENCE_FILEPATH}", True)
+                            End If
                         Else
                             Throw New IO.FileNotFoundException($"4.他のプロセスへの影響 資料:{lblOTHER_PROCESS_INFLUENCE_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
-                    If Not _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists($"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH}") Then
-
+                    If Not _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH.IsNulOrWS Then
                         If System.IO.File.Exists(lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Links.Item(0).LinkData) Then
-                            System.IO.File.Copy(lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH}", True)
+                            If lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Links.Item(0).LinkData <> strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\" & _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH Then
+                                System.IO.File.Copy(lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH}", True)
+                            End If
                         Else
                             Throw New IO.FileNotFoundException($"4.後続プロセスへの流出 資料:{lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
-                    If Not _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists($"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH}") Then
-
+                    If Not _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH.IsNulOrWS Then
                         If System.IO.File.Exists(lblFUTEKIGO_SEIHIN_FILEPATH.Links.Item(0).LinkData) Then
-                            System.IO.File.Copy(lblFUTEKIGO_SEIHIN_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH}", True)
+                            If lblFUTEKIGO_SEIHIN_FILEPATH.Links.Item(0).LinkData <> strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\" & _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH Then
+                                System.IO.File.Copy(lblFUTEKIGO_SEIHIN_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH}", True)
+                            End If
                         Else
                             Throw New IO.FileNotFoundException($"2.不適合製品 資料:{lblFUTEKIGO_SEIHIN_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
-                    If Not _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists($"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.KOKYAKU_EIKYO_FILEPATH}") Then
-
+                    If Not _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH.IsNulOrWS Then
                         If System.IO.File.Exists(lblKOKYAKU_EIKYO_FILEPATH.Links.Item(0).LinkData) Then
-                            System.IO.File.Copy(lblKOKYAKU_EIKYO_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.KOKYAKU_EIKYO_FILEPATH}", True)
+                            If lblKOKYAKU_EIKYO_FILEPATH.Links.Item(0).LinkData <> strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\" & _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH Then
+                                System.IO.File.Copy(lblKOKYAKU_EIKYO_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.KOKYAKU_EIKYO_FILEPATH}", True)
+                            End If
                         Else
                             Throw New IO.FileNotFoundException($"3.顧客影響範囲 資料:{lblKOKYAKU_EIKYO_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
-                    If Not _V011_FCR_J.SYOCHI_FILEPATH.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists($"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.SYOCHI_FILEPATH}") Then
-
+                    If Not _V011_FCR_J.SYOCHI_FILEPATH.IsNulOrWS Then
                         If System.IO.File.Exists(lblSYOCHI_FILEPATH.Links.Item(0).LinkData) Then
-                            System.IO.File.Copy(lblSYOCHI_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.SYOCHI_FILEPATH}", True)
+                            If lblSYOCHI_FILEPATH.Links.Item(0).LinkData <> strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\" & _V011_FCR_J.SYOCHI_FILEPATH Then
+                                System.IO.File.Copy(lblSYOCHI_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.SYOCHI_FILEPATH}", True)
+                            End If
                         Else
                             Throw New IO.FileNotFoundException($"5,処置実施 資料:{lblSYOCHI_FILEPATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If

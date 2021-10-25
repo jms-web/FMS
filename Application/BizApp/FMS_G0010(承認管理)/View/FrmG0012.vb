@@ -388,36 +388,38 @@ Public Class FrmG0012
                     System.IO.Directory.CreateDirectory(strRootDir & _D005_CAR_J.HOKOKU_NO)
                     If Not _D005_CAR_J.KYOIKU_FILE_PATH.IsNulOrWS Then
 
-                        If System.IO.File.Exists(lblKYOIKU_FILE_PATH.Links.Item(0).LinkData) AndAlso
-                            lblKYOIKU_FILE_PATH.Links.Item(0).LinkData <> strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH Then
-                            System.IO.File.Copy(lblKYOIKU_FILE_PATH.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH, True)
+                        If System.IO.File.Exists(lblKYOIKU_FILE_PATH.Links.Item(0).LinkData) Then
+                            If lblKYOIKU_FILE_PATH.Links.Item(0).LinkData <> strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH Then
+                                System.IO.File.Copy(lblKYOIKU_FILE_PATH.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.KYOIKU_FILE_PATH, True)
+                            End If
                         Else
                             Throw New IO.FileNotFoundException($"教育記録リンク:{lblKYOIKU_FILE_PATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
                     If Not _D005_CAR_J.SYOSAI_FILE_PATH.IsNulOrWS Then
-
-                        If System.IO.File.Exists(lblSYOSAI_FILE_PATH.Links.Item(0).LinkData) AndAlso
-                            lblSYOSAI_FILE_PATH.Links.Item(0).LinkData <> strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH Then
-                            System.IO.File.Copy(lblSYOSAI_FILE_PATH.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH, True)
+                        If System.IO.File.Exists(lblSYOSAI_FILE_PATH.Links.Item(0).LinkData) Then
+                            If lblSYOSAI_FILE_PATH.Links.Item(0).LinkData <> strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH Then
+                                System.IO.File.Copy(lblSYOSAI_FILE_PATH.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.SYOSAI_FILE_PATH, True)
+                            End If
                         Else
                             Throw New IO.FileNotFoundException($"是正処置詳細資料:{lblSYOSAI_FILE_PATH.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
                     If Not _D005_CAR_J.FILE_PATH1.IsNulOrWS Then
 
-                        If System.IO.File.Exists(lbltmpFile1.Links.Item(0).LinkData) AndAlso
-                            lbltmpFile1.Links.Item(0).LinkData <> strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1 Then
-                            System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1, True)
+                        If System.IO.File.Exists(lbltmpFile1.Links.Item(0).LinkData) Then
+                            If lbltmpFile1.Links.Item(0).LinkData <> strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1 Then
+                                System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH1, True)
+                            End If
                         Else
                             Throw New IO.FileNotFoundException($"添付ファイル1:{lbltmpFile1.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
                     If Not _D005_CAR_J.FILE_PATH2.IsNulOrWS Then
-
-                        If System.IO.File.Exists(lbltmpFile2.Links.Item(0).LinkData) AndAlso
-                            lbltmpFile2.Links.Item(0).LinkData <> strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2 Then
-                            System.IO.File.Copy(lbltmpFile2.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2, True)
+                        If System.IO.File.Exists(lbltmpFile2.Links.Item(0).LinkData) Then
+                            If lbltmpFile2.Links.Item(0).LinkData <> strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2 Then
+                                System.IO.File.Copy(lbltmpFile2.Links.Item(0).LinkData, strRootDir & _D005_CAR_J.HOKOKU_NO.Trim & "\" & _D005_CAR_J.FILE_PATH2, True)
+                            End If
                         Else
                             Throw New IO.FileNotFoundException($"添付ファイル2:{lbltmpFile2.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
