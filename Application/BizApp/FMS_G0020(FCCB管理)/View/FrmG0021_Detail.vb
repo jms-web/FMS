@@ -746,10 +746,10 @@ Public Class FrmG0021_Detail
                 Try
                     System.IO.Directory.CreateDirectory(strRootDir & _D009.FCCB_NO)
 
-                    If Not _D009.FILE_PATH.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D009.FCCB_NO.Trim & "\" & _D009.FILE_PATH) Then
+                    If Not _D009.FILE_PATH.IsNulOrWS Then
 
-                        If System.IO.File.Exists(lbltmpFile1.Links.Item(0).LinkData) Then
+                        If System.IO.File.Exists(lbltmpFile1.Links.Item(0).LinkData) AndAlso
+                            lbltmpFile1.Links.Item(0).LinkData <> strRootDir & _D009.FCCB_NO.Trim & "\" & _D009.FILE_PATH Then
                             System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData, strRootDir & _D009.FCCB_NO.Trim & "\" & _D009.FILE_PATH, True)
                         Else
                             Throw New IO.FileNotFoundException($"添付ファイル:{lbltmpFile1.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")

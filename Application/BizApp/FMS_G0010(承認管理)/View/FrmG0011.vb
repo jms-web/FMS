@@ -543,46 +543,46 @@ Public Class FrmG0011
                 Try
                     System.IO.Directory.CreateDirectory(strRootDir & _D003_NCR_J.HOKOKU_NO)
 
-                    If Not _D003_NCR_J.FILE_PATH.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH) Then
+                    If Not _D003_NCR_J.FILE_PATH.IsNulOrWS Then
 
-                        If System.IO.File.Exists(lbltmpFile1.Links.Item(0).LinkData) Then
+                        If System.IO.File.Exists(lbltmpFile1.Links.Item(0).LinkData) AndAlso
+                            lbltmpFile1.Links.Item(0).LinkData <> strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH Then
                             System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.FILE_PATH, True)
                         Else
                             Throw New IO.FileNotFoundException($"添付ファイル:{lbltmpFile1.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
-                    If Not _D003_NCR_J.G_FILE_PATH1.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1) Then
+                    If Not _D003_NCR_J.G_FILE_PATH1.IsNulOrWS Then
 
-                        If System.IO.File.Exists(lblPict1Path.Links.Item(0).LinkData) Then
+                        If System.IO.File.Exists(lblPict1Path.Links.Item(0).LinkData) AndAlso
+                            lblPict1Path.Links.Item(0).LinkData <> strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1 Then
                             System.IO.File.Copy(lblPict1Path.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH1, True)
                         Else
                             Throw New IO.FileNotFoundException($"画像ファイル1:{lblPict1Path.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
-                    If Not _D003_NCR_J.G_FILE_PATH2.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2) Then
+                    If Not _D003_NCR_J.G_FILE_PATH2.IsNulOrWS Then
 
-                        If System.IO.File.Exists(lblPict2Path.Links.Item(0).LinkData) Then
+                        If System.IO.File.Exists(lblPict2Path.Links.Item(0).LinkData) AndAlso
+                            lblPict2Path.Links.Item(0).LinkData <> strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2 Then
                             System.IO.File.Copy(lblPict2Path.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.G_FILE_PATH2, True)
                         Else
                             Throw New IO.FileNotFoundException($"画像ファイル2:{lblPict2Path.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
-                    If Not _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1) Then
+                    If Not _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1.IsNulOrWS Then
 
-                        If System.IO.File.Exists(lblST08_tmpFile1.Links.Item(0).LinkData) Then
+                        If System.IO.File.Exists(lblST08_tmpFile1.Links.Item(0).LinkData) AndAlso
+                            lblST08_tmpFile1.Links.Item(0).LinkData <> strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1 Then
                             System.IO.File.Copy(lblST08_tmpFile1.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH1, True)
                         Else
                             Throw New IO.FileNotFoundException($"顧客再審資料1:{lblST08_tmpFile1.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
                         End If
                     End If
-                    If Not _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2) Then
+                    If Not _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2.IsNulOrWS Then
 
-                        If System.IO.File.Exists(lblST08_tmpFile2.Links.Item(0).LinkData) Then
+                        If System.IO.File.Exists(lblST08_tmpFile2.Links.Item(0).LinkData) AndAlso
+                            lblST08_tmpFile2.Links.Item(0).LinkData <> strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2 Then
                             System.IO.File.Copy(lblST08_tmpFile2.Links.Item(0).LinkData, strRootDir & _D003_NCR_J.HOKOKU_NO.Trim & "\" & _D003_NCR_J.KOKYAKU_SAISIN_FILEPATH2, True)
                         Else
                             Throw New IO.FileNotFoundException($"顧客再審資料2:{lblST08_tmpFile2.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")

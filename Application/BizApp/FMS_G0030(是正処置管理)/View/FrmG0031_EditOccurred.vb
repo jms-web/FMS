@@ -393,10 +393,10 @@ Public Class FrmG0031_EditOccurred
 
 #Region "1"
 
-                    If Not _D013.FILE_PATH1.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH1) Then
+                    If Not _D013.FILE_PATH1.IsNulOrWS Then
 
-                        If System.IO.File.Exists(lbltmpFile1.Links.Item(0).LinkData) Then
+                        If System.IO.File.Exists(lbltmpFile1.Links.Item(0).LinkData) AndAlso
+                            lbltmpFile1.Links.Item(0).LinkData <> strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH1 Then
                             System.IO.File.Copy(lbltmpFile1.Links.Item(0).LinkData, strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH1, True)
                         Else
                             Throw New IO.FileNotFoundException($"添付資料1:{lbltmpFile1.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
@@ -407,10 +407,10 @@ Public Class FrmG0031_EditOccurred
 
 #Region "2"
 
-                    If Not _D013.FILE_PATH2.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH2) Then
+                    If Not _D013.FILE_PATH2.IsNulOrWS Then
 
-                        If System.IO.File.Exists(lbltmpFile2.Links.Item(0).LinkData) Then
+                        If System.IO.File.Exists(lbltmpFile2.Links.Item(0).LinkData) AndAlso
+                            lbltmpFile2.Links.Item(0).LinkData <> strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH2 Then
                             System.IO.File.Copy(lbltmpFile2.Links.Item(0).LinkData, strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH2, True)
                         Else
                             Throw New IO.FileNotFoundException($"添付資料2:{lbltmpFile2.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
@@ -421,10 +421,10 @@ Public Class FrmG0031_EditOccurred
 
 #Region "3"
 
-                    If Not _D013.FILE_PATH3.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH3) Then
+                    If Not _D013.FILE_PATH3.IsNulOrWS Then
 
-                        If System.IO.File.Exists(lbltmpFile3.Links.Item(0).LinkData) Then
+                        If System.IO.File.Exists(lbltmpFile3.Links.Item(0).LinkData) AndAlso
+                            lbltmpFile3.Links.Item(0).LinkData <> strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH3 Then
                             System.IO.File.Copy(lbltmpFile3.Links.Item(0).LinkData, strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH3, True)
                         Else
                             Throw New IO.FileNotFoundException($"添付資料3:{lbltmpFile3.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
@@ -435,10 +435,10 @@ Public Class FrmG0031_EditOccurred
 
 #Region "4"
 
-                    If Not _D013.FILE_PATH4.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH4) Then
+                    If Not _D013.FILE_PATH4.IsNulOrWS Then
 
-                        If System.IO.File.Exists(lbltmpFile4.Links.Item(0).LinkData) Then
+                        If System.IO.File.Exists(lbltmpFile4.Links.Item(0).LinkData) AndAlso
+                            lbltmpFile4.Links.Item(0).LinkData <> strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH4 Then
                             System.IO.File.Copy(lbltmpFile4.Links.Item(0).LinkData, strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH4, True)
                         Else
                             Throw New IO.FileNotFoundException($"添付資料4:{lbltmpFile4.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
@@ -449,10 +449,10 @@ Public Class FrmG0031_EditOccurred
 
 #Region "5"
 
-                    If Not _D013.FILE_PATH5.IsNulOrWS AndAlso
-                        Not System.IO.File.Exists(strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH5) Then
+                    If Not _D013.FILE_PATH5.IsNulOrWS Then
 
-                        If System.IO.File.Exists(lbltmpFile5.Links.Item(0).LinkData) Then
+                        If System.IO.File.Exists(lbltmpFile5.Links.Item(0).LinkData) AndAlso
+                            lbltmpFile5.Links.Item(0).LinkData <> strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH5 Then
                             System.IO.File.Copy(lbltmpFile5.Links.Item(0).LinkData, strRootDir & _D013.HOKOKU_NO.Trim & "\" & _D013.FILE_PATH5, True)
                         Else
                             Throw New IO.FileNotFoundException($"添付資料5:{lbltmpFile5.Links.Item(0).LinkData}が見つかりません。元の場所に戻すか選択し直してください")
