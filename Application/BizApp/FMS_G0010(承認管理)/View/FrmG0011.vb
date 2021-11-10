@@ -5145,28 +5145,31 @@ Public Class FrmG0011
                     End If
                     AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
 
-                    '抽出 判定
-                    If cmb.IsSelected AndAlso Not cmb.SelectedValue.ToString.IsNulOrWS() Then
-                        Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmb.SelectedValue).FirstOrDefault
+                    If PrCurrentStage = ENM_NCR_STAGE._10_起草入力 And _D003_NCR_J.KISYU_ID = 0 Then
 
-                        If dr IsNot Nothing Then
-                            If Val(cmbBUMON.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                                _D003_NCR_J.SYANAI_CD = dr.Item("SYANAI_CD")
-                                If dr.Item("BUHIN_NAME").ToString.IsNulOrWS = False Then _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
-                            Else
-                                _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
+                        '抽出 判定
+                        If cmb.IsSelected AndAlso Not cmb.SelectedValue.ToString.IsNulOrWS() Then
+                            Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmb.SelectedValue).FirstOrDefault
+
+                            If dr IsNot Nothing Then
+                                If Val(cmbBUMON.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
+                                    _D003_NCR_J.SYANAI_CD = dr.Item("SYANAI_CD")
+                                    If dr.Item("BUHIN_NAME").ToString.IsNulOrWS = False Then _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
+                                Else
+                                    _D003_NCR_J.BUHIN_NAME = dr.Item("BUHIN_NAME")
+                                End If
+                                RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+                                If dr.Item("KISYU_ID") <> 0 Then _D003_NCR_J.KISYU_ID = dr.Item("KISYU_ID")
+                                AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
                             End If
-                            RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-                            If dr.Item("KISYU_ID") <> 0 Then _D003_NCR_J.KISYU_ID = dr.Item("KISYU_ID")
-                            AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-                        End If
 
-                        '再発チェック
-                        _D003_NCR_J.SAIHATU = FunIsReIssue(_D003_NCR_J.BUHIN_BANGO, _D003_NCR_J.FUTEKIGO_KB, _D003_NCR_J.FUTEKIGO_S_KB)
-                    Else
-                        _D003_NCR_J.SYANAI_CD = ""
-                        _D003_NCR_J.BUHIN_NAME = ""
-                        _D003_NCR_J.KISYU_ID = 0
+                            '再発チェック
+                            _D003_NCR_J.SAIHATU = FunIsReIssue(_D003_NCR_J.BUHIN_BANGO, _D003_NCR_J.FUTEKIGO_KB, _D003_NCR_J.FUTEKIGO_S_KB)
+                        Else
+                            _D003_NCR_J.SYANAI_CD = ""
+                            _D003_NCR_J.BUHIN_NAME = ""
+                            _D003_NCR_J.KISYU_ID = 0
+                        End If
                     End If
 
                     AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged

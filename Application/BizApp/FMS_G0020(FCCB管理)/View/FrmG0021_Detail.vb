@@ -2737,22 +2737,25 @@ Public Class FrmG0021_Detail
         'AddHandler cmbSYANAI_CD.SelectedValueChanged, AddressOf CmbSYANAI_CD_SelectedValueChanged
 
         'íäèo îªíË
-        If cmb.IsSelected Then
-            Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmb.SelectedValue).FirstOrDefault
-            If Val(cmbBUMON.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
-                cmbSYANAI_CD.SelectedValue = dr.Item("SYANAI_CD")
-                If dr.Item("BUHIN_NAME").ToString.IsNulOrWS = False Then cmbHINMEI.Text = dr.Item("BUHIN_NAME")
-            Else
-                cmbHINMEI.Text = dr?.Item("BUHIN_NAME")
-            End If
+        If PrCurrentStage = ENM_FCCB_STAGE._10_ãNëêì¸óÕ And _D009.KISYU_ID = 0 Then
 
-            'RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-            'If dr?.Item("KISYU_ID") <> 0 Then cmbKISYU.SelectedValue = dr?.Item("KISYU_ID")
-            'AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
-        Else
-            cmbSYANAI_CD.SelectedValue = ""
-            cmbHINMEI.Text = ""
-            cmbKISYU.SelectedValue = 0
+            If cmb.IsSelected Then
+                Dim dr As DataRow = DirectCast(cmbBUHIN_BANGO.DataSource, DataTable).AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = cmb.SelectedValue).FirstOrDefault
+                If Val(cmbBUMON.SelectedValue) = Context.ENM_BUMON_KB._2_LP Then
+                    cmbSYANAI_CD.SelectedValue = dr.Item("SYANAI_CD")
+                    If dr.Item("BUHIN_NAME").ToString.IsNulOrWS = False Then cmbHINMEI.Text = dr.Item("BUHIN_NAME")
+                Else
+                    cmbHINMEI.Text = dr?.Item("BUHIN_NAME")
+                End If
+
+                'RemoveHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+                'If dr?.Item("KISYU_ID") <> 0 Then cmbKISYU.SelectedValue = dr?.Item("KISYU_ID")
+                'AddHandler cmbKISYU.SelectedValueChanged, AddressOf CmbKISYU_SelectedValueChanged
+            Else
+                cmbSYANAI_CD.SelectedValue = ""
+                cmbHINMEI.Text = ""
+                cmbKISYU.SelectedValue = 0
+            End If
         End If
 
         AddHandler cmbBUHIN_BANGO.SelectedValueChanged, AddressOf CmbBUHIN_BANGO_SelectedValueChanged
