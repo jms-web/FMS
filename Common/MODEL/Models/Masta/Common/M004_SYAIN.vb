@@ -90,6 +90,21 @@ Partial Public Class M004_SYAIN
     <ComponentModel.DisplayName("パスワード")>
     Public Property PASS As String
 
+    <ComponentModel.DisplayName("ICカードID")>
+    Public Property IC_CARD_ID As String
+
+    <ComponentModel.DisplayName("権限1")>
+    Public Property AUTH1 As String
+
+    <ComponentModel.DisplayName("権限2")>
+    Public Property AUTH2 As String
+
+    <ComponentModel.DisplayName("権限3")>
+    Public Property AUTH3 As String
+
+    <ComponentModel.DisplayName("権限4")>
+    Public Property AUTH4 As String
+
     '共通項目------------------------------------
     <Required>
     <StringLength(14)>
@@ -132,6 +147,7 @@ Partial Public Class M004_SYAIN
     Public Property DEL_SYAIN_ID As Integer
 
 #Region "IDisposable Support"
+
     Private disposedValue As Boolean ' 重複する呼び出しを検出するには
 
     ' IDisposable
@@ -161,5 +177,7 @@ Partial Public Class M004_SYAIN
         ' TODO: 上の Finalize() がオーバーライドされている場合は、次の行のコメントを解除してください。
         ' GC.SuppressFinalize(Me)
     End Sub
+
 #End Region
+
 End Class

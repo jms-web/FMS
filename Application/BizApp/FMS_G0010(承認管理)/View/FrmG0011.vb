@@ -4968,6 +4968,10 @@ Public Class FrmG0011
     Private Async Sub CmbKISYU_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbKISYU.SelectedValueChanged
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
 
+        If PrCurrentStage <> ENM_NCR_STAGE._10_ãNëêì¸óÕ Then
+            Exit Sub
+        End If
+
         Await Task.Run(
             Sub()
                 Me.Invoke(
@@ -5037,6 +5041,10 @@ Public Class FrmG0011
     Private Async Sub CmbSYANAI_CD_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbSYANAI_CD.SelectedValueChanged
         Try
             Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+            If PrCurrentStage <> ENM_NCR_STAGE._10_ãNëêì¸óÕ Then
+                Exit Sub
+            End If
 
             Await Task.Run(
                 Sub()
@@ -5114,6 +5122,10 @@ Public Class FrmG0011
 
     Private Async Sub CmbBUHIN_BANGO_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbBUHIN_BANGO.SelectedValueChanged
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+
+        If PrCurrentStage <> ENM_NCR_STAGE._10_ãNëêì¸óÕ Then
+            Exit Sub
+        End If
 
         Await Task.Run(
             Sub()

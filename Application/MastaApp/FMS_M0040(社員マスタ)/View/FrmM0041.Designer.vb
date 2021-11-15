@@ -40,8 +40,6 @@ Partial Class FrmM0041
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.cmbDAIKO = New JMS_COMMON.ComboboxEx()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.Label15 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.mtxTEL = New JMS_COMMON.MaskedTextBoxEx()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -54,22 +52,31 @@ Partial Class FrmM0041
         Me.dtbBIRTHDAY = New JMS_COMMON.DateTextBoxEx()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.mtxPASS = New JMS_COMMON.MaskedTextBoxEx()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.mtxCARD_ID = New JMS_COMMON.MaskedTextBoxEx()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.chkADMIN_SYS = New System.Windows.Forms.CheckBox()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.chkADMIN_OP = New System.Windows.Forms.CheckBox()
         Me.chkADMIN_AUTH = New System.Windows.Forms.CheckBox()
-        Me.chkADMIN_SYS = New System.Windows.Forms.CheckBox()
         Me.chkMAILSEND_AUTH = New System.Windows.Forms.CheckBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.btnCLEAR = New System.Windows.Forms.Button()
+        Me.btnReadCard = New System.Windows.Forms.Button()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'cmdFunc1
         '
         Me.cmdFunc1.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.cmdFunc1.Image = Global.FMS.My.Resources.Resources._imgBase_floppydisk32x32
-        Me.cmdFunc1.Location = New System.Drawing.Point(12, 360)
+        Me.cmdFunc1.Location = New System.Drawing.Point(12, 361)
         Me.cmdFunc1.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc1.TabIndex = 0
         Me.cmdFunc1.Text = "追加(F1)"
@@ -77,35 +84,35 @@ Partial Class FrmM0041
         'cmdFunc2
         '
         Me.cmdFunc2.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc2.Location = New System.Drawing.Point(181, 372)
+        Me.cmdFunc2.Location = New System.Drawing.Point(181, 373)
         Me.cmdFunc2.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc2.Visible = False
         '
         'cmdFunc3
         '
         Me.cmdFunc3.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc3.Location = New System.Drawing.Point(342, 372)
+        Me.cmdFunc3.Location = New System.Drawing.Point(342, 373)
         Me.cmdFunc3.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc3.Visible = False
         '
         'cmdFunc4
         '
         Me.cmdFunc4.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc4.Location = New System.Drawing.Point(503, 372)
+        Me.cmdFunc4.Location = New System.Drawing.Point(503, 373)
         Me.cmdFunc4.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc4.Visible = False
         '
         'cmdFunc5
         '
         Me.cmdFunc5.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc5.Location = New System.Drawing.Point(664, 372)
+        Me.cmdFunc5.Location = New System.Drawing.Point(664, 373)
         Me.cmdFunc5.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc5.Visible = False
         '
         'cmdFunc6
         '
         Me.cmdFunc6.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc6.Location = New System.Drawing.Point(825, 372)
+        Me.cmdFunc6.Location = New System.Drawing.Point(825, 373)
         Me.cmdFunc6.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc6.Visible = False
         '
@@ -113,7 +120,7 @@ Partial Class FrmM0041
         '
         Me.cmdFunc12.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.cmdFunc12.Image = Global.FMS.My.Resources.Resources._imgLog_Out32x32
-        Me.cmdFunc12.Location = New System.Drawing.Point(839, 363)
+        Me.cmdFunc12.Location = New System.Drawing.Point(839, 364)
         Me.cmdFunc12.Size = New System.Drawing.Size(156, 42)
         Me.cmdFunc12.TabIndex = 1
         Me.cmdFunc12.Text = "キャンセル(F12)"
@@ -121,35 +128,35 @@ Partial Class FrmM0041
         'cmdFunc11
         '
         Me.cmdFunc11.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc11.Location = New System.Drawing.Point(664, 372)
+        Me.cmdFunc11.Location = New System.Drawing.Point(664, 373)
         Me.cmdFunc11.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc11.Visible = False
         '
         'cmdFunc10
         '
         Me.cmdFunc10.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc10.Location = New System.Drawing.Point(503, 372)
+        Me.cmdFunc10.Location = New System.Drawing.Point(503, 373)
         Me.cmdFunc10.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc10.Visible = False
         '
         'cmdFunc7
         '
         Me.cmdFunc7.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc7.Location = New System.Drawing.Point(20, 372)
+        Me.cmdFunc7.Location = New System.Drawing.Point(20, 373)
         Me.cmdFunc7.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc7.Visible = False
         '
         'cmdFunc9
         '
         Me.cmdFunc9.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc9.Location = New System.Drawing.Point(342, 372)
+        Me.cmdFunc9.Location = New System.Drawing.Point(342, 373)
         Me.cmdFunc9.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc9.Visible = False
         '
         'cmdFunc8
         '
         Me.cmdFunc8.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.cmdFunc8.Location = New System.Drawing.Point(181, 372)
+        Me.cmdFunc8.Location = New System.Drawing.Point(181, 373)
         Me.cmdFunc8.Size = New System.Drawing.Size(156, 33)
         Me.cmdFunc8.Visible = False
         '
@@ -171,7 +178,7 @@ Partial Class FrmM0041
         Me.GroupBox1.Font = New System.Drawing.Font("ＭＳ ゴシック", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(12, 60)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(983, 297)
+        Me.GroupBox1.Size = New System.Drawing.Size(983, 299)
         Me.GroupBox1.TabIndex = 31
         Me.GroupBox1.TabStop = False
         '
@@ -268,8 +275,6 @@ Partial Class FrmM0041
         Me.TableLayoutPanel1.Controls.Add(Me.Label9, 0, 5)
         Me.TableLayoutPanel1.Controls.Add(Me.Label8, 2, 5)
         Me.TableLayoutPanel1.Controls.Add(Me.cmbDAIKO, 3, 5)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label14, 0, 7)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label15, 2, 7)
         Me.TableLayoutPanel1.Controls.Add(Me.Label11, 4, 5)
         Me.TableLayoutPanel1.Controls.Add(Me.mtxTEL, 5, 5)
         Me.TableLayoutPanel1.Controls.Add(Me.Label12, 0, 6)
@@ -282,10 +287,16 @@ Partial Class FrmM0041
         Me.TableLayoutPanel1.Controls.Add(Me.dtbBIRTHDAY, 5, 4)
         Me.TableLayoutPanel1.Controls.Add(Me.Label13, 0, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.mtxPASS, 1, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_OP, 3, 7)
-        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_AUTH, 1, 8)
-        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_SYS, 1, 7)
-        Me.TableLayoutPanel1.Controls.Add(Me.chkMAILSEND_AUTH, 3, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label16, 0, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.mtxCARD_ID, 1, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label14, 0, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_SYS, 1, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label15, 2, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_OP, 3, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.chkADMIN_AUTH, 4, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.chkMAILSEND_AUTH, 5, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label17, 3, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.Panel1, 2, 7)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 18)
@@ -298,11 +309,11 @@ Partial Class FrmM0041
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(977, 276)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(977, 278)
         Me.TableLayoutPanel1.TabIndex = 47
         '
         'Label5
@@ -495,28 +506,6 @@ Partial Class FrmM0041
         Me.cmbDAIKO.TabIndex = 9
         Me.cmbDAIKO.ValueMember = "VALUE"
         '
-        'Label14
-        '
-        Me.Label14.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label14.Location = New System.Drawing.Point(3, 210)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(100, 26)
-        Me.Label14.TabIndex = 68
-        Me.Label14.Text = "管理者権限"
-        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label15
-        '
-        Me.Label15.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label15.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label15.Location = New System.Drawing.Point(288, 210)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(122, 26)
-        Me.Label15.TabIndex = 69
-        Me.Label15.Text = "メール再送信権限"
-        Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
         'Label11
         '
         Me.Label11.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -677,11 +666,71 @@ Partial Class FrmM0041
         Me.mtxPASS.WatermarkColor = System.Drawing.Color.Empty
         Me.mtxPASS.WatermarkText = Nothing
         '
+        'Label16
+        '
+        Me.Label16.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label16.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label16.Location = New System.Drawing.Point(3, 210)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(100, 38)
+        Me.Label16.TabIndex = 75
+        Me.Label16.Text = "ICカードID"
+        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'mtxCARD_ID
+        '
+        Me.mtxCARD_ID.BackColor = System.Drawing.SystemColors.Control
+        Me.mtxCARD_ID.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.mtxCARD_ID.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.mtxCARD_ID.InputRequired = False
+        Me.mtxCARD_ID.Location = New System.Drawing.Point(112, 216)
+        Me.mtxCARD_ID.Margin = New System.Windows.Forms.Padding(6)
+        Me.mtxCARD_ID.MaxByteLength = 100
+        Me.mtxCARD_ID.Name = "mtxCARD_ID"
+        Me.mtxCARD_ID.ReadOnly = True
+        Me.mtxCARD_ID.SelectAllText = False
+        Me.mtxCARD_ID.Size = New System.Drawing.Size(167, 24)
+        Me.mtxCARD_ID.TabIndex = 76
+        Me.mtxCARD_ID.WatermarkColor = System.Drawing.Color.Empty
+        Me.mtxCARD_ID.WatermarkText = Nothing
+        '
+        'Label14
+        '
+        Me.Label14.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label14.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label14.Location = New System.Drawing.Point(3, 248)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(100, 22)
+        Me.Label14.TabIndex = 68
+        Me.Label14.Text = "管理者権限"
+        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'chkADMIN_SYS
+        '
+        Me.chkADMIN_SYS.AutoSize = True
+        Me.chkADMIN_SYS.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.chkADMIN_SYS.Location = New System.Drawing.Point(109, 251)
+        Me.chkADMIN_SYS.Name = "chkADMIN_SYS"
+        Me.chkADMIN_SYS.Size = New System.Drawing.Size(15, 14)
+        Me.chkADMIN_SYS.TabIndex = 70
+        Me.chkADMIN_SYS.UseVisualStyleBackColor = True
+        '
+        'Label15
+        '
+        Me.Label15.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label15.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label15.Location = New System.Drawing.Point(288, 248)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(122, 22)
+        Me.Label15.TabIndex = 69
+        Me.Label15.Text = "メール再送信権限"
+        Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'chkADMIN_OP
         '
         Me.chkADMIN_OP.AutoSize = True
         Me.chkADMIN_OP.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkADMIN_OP.Location = New System.Drawing.Point(416, 213)
+        Me.chkADMIN_OP.Location = New System.Drawing.Point(416, 251)
         Me.chkADMIN_OP.Name = "chkADMIN_OP"
         Me.chkADMIN_OP.Size = New System.Drawing.Size(15, 14)
         Me.chkADMIN_OP.TabIndex = 70
@@ -692,43 +741,78 @@ Partial Class FrmM0041
         '
         Me.chkADMIN_AUTH.AutoSize = True
         Me.chkADMIN_AUTH.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkADMIN_AUTH.Location = New System.Drawing.Point(109, 243)
+        Me.chkADMIN_AUTH.Location = New System.Drawing.Point(638, 251)
         Me.chkADMIN_AUTH.Name = "chkADMIN_AUTH"
         Me.chkADMIN_AUTH.Size = New System.Drawing.Size(15, 14)
         Me.chkADMIN_AUTH.TabIndex = 73
         Me.chkADMIN_AUTH.UseVisualStyleBackColor = True
         Me.chkADMIN_AUTH.Visible = False
         '
-        'chkADMIN_SYS
-        '
-        Me.chkADMIN_SYS.AutoSize = True
-        Me.chkADMIN_SYS.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkADMIN_SYS.Location = New System.Drawing.Point(109, 213)
-        Me.chkADMIN_SYS.Name = "chkADMIN_SYS"
-        Me.chkADMIN_SYS.Size = New System.Drawing.Size(15, 14)
-        Me.chkADMIN_SYS.TabIndex = 70
-        Me.chkADMIN_SYS.UseVisualStyleBackColor = True
-        '
         'chkMAILSEND_AUTH
         '
         Me.chkMAILSEND_AUTH.AutoSize = True
         Me.chkMAILSEND_AUTH.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkMAILSEND_AUTH.Location = New System.Drawing.Point(416, 243)
+        Me.chkMAILSEND_AUTH.Location = New System.Drawing.Point(724, 251)
         Me.chkMAILSEND_AUTH.Name = "chkMAILSEND_AUTH"
         Me.chkMAILSEND_AUTH.Size = New System.Drawing.Size(15, 14)
         Me.chkMAILSEND_AUTH.TabIndex = 74
         Me.chkMAILSEND_AUTH.UseVisualStyleBackColor = True
         Me.chkMAILSEND_AUTH.Visible = False
         '
+        'Label17
+        '
+        Me.TableLayoutPanel1.SetColumnSpan(Me.Label17, 2)
+        Me.Label17.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label17.ForeColor = System.Drawing.Color.Blue
+        Me.Label17.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label17.Location = New System.Drawing.Point(416, 210)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(302, 38)
+        Me.Label17.TabIndex = 77
+        Me.Label17.Text = "※カードリーダーにICカードを乗せて読取ボタンを押下"
+        Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.btnCLEAR)
+        Me.Panel1.Controls.Add(Me.btnReadCard)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.Location = New System.Drawing.Point(288, 213)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(122, 32)
+        Me.Panel1.TabIndex = 78
+        '
+        'btnCLEAR
+        '
+        Me.btnCLEAR.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnCLEAR.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnCLEAR.Location = New System.Drawing.Point(77, 0)
+        Me.btnCLEAR.Name = "btnCLEAR"
+        Me.btnCLEAR.Size = New System.Drawing.Size(45, 32)
+        Me.btnCLEAR.TabIndex = 33
+        Me.btnCLEAR.Text = "クリア"
+        Me.btnCLEAR.UseVisualStyleBackColor = True
+        '
+        'btnReadCard
+        '
+        Me.btnReadCard.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnReadCard.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnReadCard.Location = New System.Drawing.Point(0, 0)
+        Me.btnReadCard.Name = "btnReadCard"
+        Me.btnReadCard.Size = New System.Drawing.Size(71, 32)
+        Me.btnReadCard.TabIndex = 32
+        Me.btnReadCard.Text = "読取"
+        Me.btnReadCard.UseVisualStyleBackColor = True
+        '
         'FrmM0041
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(1008, 711)
+        Me.ClientSize = New System.Drawing.Size(1008, 411)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.HelpButton = True
-        Me.MinimumSize = New System.Drawing.Size(1024, 430)
+        Me.MinimumSize = New System.Drawing.Size(1024, 450)
         Me.Name = "FrmM0041"
         Me.ShowInTaskbar = False
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
@@ -751,6 +835,7 @@ Partial Class FrmM0041
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -793,4 +878,10 @@ Partial Class FrmM0041
     Friend WithEvents chkADMIN_SYS As CheckBox
     Friend WithEvents chkADMIN_AUTH As CheckBox
     Friend WithEvents chkMAILSEND_AUTH As CheckBox
+    Friend WithEvents btnReadCard As Button
+    Friend WithEvents Label16 As Label
+    Friend WithEvents mtxCARD_ID As MaskedTextBoxEx
+    Friend WithEvents Label17 As Label
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents btnCLEAR As Button
 End Class

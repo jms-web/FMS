@@ -224,7 +224,7 @@ Partial Class FrmM0040
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(61, 30)
         Me.Label1.TabIndex = 55
-        Me.Label1.Text = "êEî‘"
+        Me.Label1.Text = "é–àıNO"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'mtxSYAIN_NO

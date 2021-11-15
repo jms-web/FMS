@@ -162,6 +162,8 @@ Public Class FrmM0041
                 ''
                 'chkMAILSEND_AUTH.Checked = .Item(NameOf(_model.MAILSEND_AUTH)) = "1"
 
+                Me.mtxCARD_ID.Text = .Item(NameOf(_model.IC_CARD_ID))
+
                 '更新日時
                 If Not row.Item(NameOf(_model.UPD_YMDHNS)).ToString.IsNulOrWS Then
                     Dim dt As DateTime
@@ -287,6 +289,11 @@ Public Class FrmM0041
                     sbSQL.Append(" ,PASS")
                     sbSQL.Append(" ,ADMIN_OP")
                     sbSQL.Append(" ,ADMIN_SYS")
+                    sbSQL.Append(" ,IC_CARD_ID")
+                    sbSQL.Append(" ,AUTH1")
+                    sbSQL.Append(" ,AUTH2")
+                    sbSQL.Append(" ,AUTH3")
+                    sbSQL.Append(" ,AUTH4")
                     sbSQL.Append(" ,ADD_YMDHNS")
                     sbSQL.Append(" ,ADD_SYAIN_ID")
                     sbSQL.Append(" ,UPD_YMDHNS")
@@ -324,6 +331,18 @@ Public Class FrmM0041
                     sbSQL.Append(" ,'" & If(chkADMIN_OP.Checked, "1", "0") & "'")
                     'システム権限
                     sbSQL.Append(" ,'" & If(chkADMIN_SYS.Checked, "1", "0") & "'")
+
+                    'IC_CARD_ID
+                    sbSQL.Append(" ,'" & Me.mtxCARD_ID.Text.Trim & "'")
+                    '権限1
+                    sbSQL.Append(" ," & 0 & "")
+                    '権限2
+                    sbSQL.Append(" ," & 0 & "")
+                    '権限3
+                    sbSQL.Append(" ," & 0 & "")
+                    '権限4
+                    sbSQL.Append(" ," & 0 & "")
+
                     '追加日時
                     sbSQL.Append(" ,dbo.GetSysDateString()")
                     '追加担当者
@@ -409,6 +428,8 @@ Public Class FrmM0041
                     sbSQL.Append(" ,PASS         ='" & Me.mtxPASS.Text.Trim & "'")
                     sbSQL.Append(" ,ADMIN_OP     ='" & If(chkADMIN_OP.Checked, "1", "0") & "'")
                     sbSQL.Append(" ,ADMIN_SYS    ='" & If(chkADMIN_SYS.Checked, "1", "0") & "'")
+
+                    sbSQL.Append(" ,IC_CARD_ID   ='" & Me.mtxCARD_ID.Text.Trim & "'")
 
                     sbSQL.Append(" ,UPD_YMDHNS   = dbo.GetSysDateString() ")
                     sbSQL.Append(" ,UPD_SYAIN_ID = " & pub_SYAIN_INFO.SYAIN_ID & " ")
@@ -553,5 +574,41 @@ Public Class FrmM0041
     End Sub
 
 #End Region
+
+    Private Sub btnReadCard_Click(sender As Object, e As EventArgs) Handles btnReadCard.Click
+        Dim strCARD_ID As String
+        Dim dr As DataRow
+
+        Try
+            'サウンド再生
+            'Call PlaySound(pub_buttonSound)
+
+            'カードID読取
+            strCARD_ID = FunGET_ID(blnErrDisp:=False)
+
+            If strCARD_ID = "" Then
+                MessageBox.Show("カードIDが取得できませんでした。")
+                Me.mtxCARD_ID.Text = ""
+                Exit Sub
+            End If
+
+            'カード重複チェック
+            dr = FunGetUSER(strCARD_ID)
+            If dr IsNot Nothing Then
+                '既に同じカードが登録済みの場合
+                MessageBox.Show("このカードは既に別のユーザーが使用しています。" & vbCrLf & "別のカードを使用して下さい。", "登録済みカード", MessageBoxButtons.OK)
+                Me.mtxCARD_ID.Text = ""
+            Else
+                'カードIDを記録
+                Me.mtxCARD_ID.Text = strCARD_ID
+            End If
+        Catch ex As Exception
+            EM.ErrorSyori(ex)
+        End Try
+    End Sub
+
+    Private Sub btnCLEAR_Click(sender As Object, e As EventArgs) Handles btnCLEAR.Click
+        Me.mtxCARD_ID.Text = ""
+    End Sub
 
 End Class

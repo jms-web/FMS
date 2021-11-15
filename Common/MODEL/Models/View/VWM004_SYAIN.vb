@@ -113,7 +113,6 @@ Partial Public Class VWM004_SYAIN
     '    End Set
     'End Property
 
-
     <StringLength(1)>
     <ComponentModel.DisplayName("システム管理者")>
     Public Property ADMIN_SYS As String
@@ -135,6 +134,21 @@ Partial Public Class VWM004_SYAIN
     <StringLength(1)>
     <ComponentModel.DisplayName("システム管理者")>
     Public Property MAILSEND_AUTH As String
+
+    <ComponentModel.DisplayName("ICカードID")>
+    Public Property IC_CARD_ID As String
+
+    <ComponentModel.DisplayName("権限1")>
+    Public Property AUTH1 As String
+
+    <ComponentModel.DisplayName("権限2")>
+    Public Property AUTH2 As String
+
+    <ComponentModel.DisplayName("権限3")>
+    Public Property AUTH3 As String
+
+    <ComponentModel.DisplayName("権限4")>
+    Public Property AUTH4 As String
 
     <ComponentModel.DisplayName("追加日時")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
@@ -172,7 +186,6 @@ Partial Public Class VWM004_SYAIN
     <DatabaseGenerated(DatabaseGeneratedOption.None)>
     Public Property DEL_SYAIN_NAME As String
 
-
     <DoNotNotify>
     <ComponentModel.DisplayName("削除フラグ")>
     <Display(AutoGenerateField:=False)>
@@ -184,6 +197,7 @@ Partial Public Class VWM004_SYAIN
     End Property
 
 #Region "IDisposable Support"
+
     Private disposedValue As Boolean ' 重複する呼び出しを検出するには
 
     ' IDisposable
@@ -213,5 +227,7 @@ Partial Public Class VWM004_SYAIN
         ' TODO: 上の Finalize() がオーバーライドされている場合は、次の行のコメントを解除してください。
         ' GC.SuppressFinalize(Me)
     End Sub
+
 #End Region
+
 End Class
