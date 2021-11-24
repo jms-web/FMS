@@ -210,6 +210,11 @@ Public Module mdlDBContext
     Public tblDAIKO_KB As DataTableEx
 
     ''' <summary>
+    '''Œ ŒÀ‹æ•ª
+    ''' </summary>
+    Public tblKENGEN As DataTableEx
+
+    ''' <summary>
     '''q‹ó‹@Œ_–ñ‹æ•ª
     ''' </summary>
     Public tblKK_KEIYAKU_KB As DataTableEx

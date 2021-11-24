@@ -12,6 +12,10 @@ Module mdlM0040
     Public player As System.Media.SoundPlayer = Nothing
     Public pub_buttonSound As String
 
+    Public tblKENGEN2 As DataTableEx
+    Public tblKENGEN3 As DataTableEx
+    Public tblKENGEN4 As DataTableEx
+
 #End Region
 
 #Region "MAIN"
@@ -55,6 +59,10 @@ Module mdlM0040
                     Call FunGetCodeDataTable(DB, "社員区分", tblSYAIN_KB, "ITEM_NAME = '社員区分'")
                     Call FunGetCodeDataTable(DB, "役職区分", tblYAKUSYOKU_KB)
                     Call FunGetCodeDataTable(DB, "承認代行区分", tblDAIKO_KB)
+                    Call FunGetCodeDataTable(DB, "権限区分", tblKENGEN)
+                    Call FunGetCodeDataTable(DB, "権限区分", tblKENGEN2)
+                    Call FunGetCodeDataTable(DB, "権限区分", tblKENGEN3)
+                    Call FunGetCodeDataTable(DB, "権限区分", tblKENGEN4)
                 End Using
                 pub_buttonSound = FunGetRootPath() & "\buttonSound.wav"
                 '-----一覧画面表示
@@ -102,6 +110,26 @@ Module mdlM0040
 #End Region
 
 #Region "ユーザーID検索"
+
+    Public Function GetUserNo(ByVal strCARD_ID As String) As String
+        Dim sbSQL As New System.Text.StringBuilder
+        Dim dsList As System.Data.DataSet = Nothing
+        Dim result As String = ""
+        Try
+            '検索
+            sbSQL.Append("SELECT TOP 1 SYAIN_NO")
+            sbSQL.Append(" FROM M004_SYAIN")
+            sbSQL.Append($" WHERE IC_CARD_ID = '{strCARD_ID}'")
+
+            Using DB As ClsDbUtility = DBOpen()
+                result = DB.ExecuteScalar(sbSQL.ToString)
+            End Using
+            Return result
+        Catch ex As Exception
+            EM.ErrorSyori(ex)
+            Return ""
+        End Try
+    End Function
 
     Public Function FunGetUSER(ByVal strCARD_ID As String) As DataRow
         Dim sbSQL As New System.Text.StringBuilder

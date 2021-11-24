@@ -18,6 +18,26 @@ Public Class FrmM0041
 
 #End Region
 
+#Region "コンストラクタ"
+
+    ''' <summary>
+    ''' コンストラクタ
+    ''' </summary>
+    ''' <remarks>コンストラクタ</remarks>
+    Public Sub New()
+
+        ' この呼び出しはデザイナーで必要です。
+        InitializeComponent()
+
+        CmbAuth1.NullValue = 0
+        CmbAuth2.NullValue = 0
+        CmbAuth3.NullValue = 0
+        CmbAuth4.NullValue = 0
+
+    End Sub
+
+#End Region
+
 #Region "FORMイベント"
 
     Private Sub Frm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -34,7 +54,7 @@ Public Class FrmM0041
             Me.ControlBox = False
 
             '-----位置・サイズ
-            Me.Height = 450
+            Me.Height = 530
             Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) - 26 ' / 2
             Me.Left = Me.Owner.Left + (Me.Owner.Width - Me.Width) / 2
 
@@ -42,6 +62,11 @@ Public Class FrmM0041
             Me.cmbSYAIN_KB.SetDataSource(tblSYAIN_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
             Me.cmbYAKUSYOKU_KB.SetDataSource(tblYAKUSYOKU_KB.ExcludeDeleted, True)
             Me.cmbDAIKO.SetDataSource(tblDAIKO_KB.ExcludeDeleted, True)
+
+            Me.CmbAuth1.SetDataSource(tblKENGEN, False)
+            Me.CmbAuth2.SetDataSource(tblKENGEN2, False)
+            Me.CmbAuth3.SetDataSource(tblKENGEN3, False)
+            Me.CmbAuth4.SetDataSource(tblKENGEN4, False)
 
             '-----処理モード別画面初期化
             Call FunInitializeControls(PrMODE)
@@ -163,6 +188,11 @@ Public Class FrmM0041
                 'chkMAILSEND_AUTH.Checked = .Item(NameOf(_model.MAILSEND_AUTH)) = "1"
 
                 Me.mtxCARD_ID.Text = .Item(NameOf(_model.IC_CARD_ID))
+
+                Me.CmbAuth1.SelectedValue = .Item(NameOf(_model.AUTH1)).ToString.ToVal
+                Me.CmbAuth2.SelectedValue = .Item(NameOf(_model.AUTH2)).ToString.ToVal
+                Me.CmbAuth3.SelectedValue = .Item(NameOf(_model.AUTH3)).ToString.ToVal
+                Me.CmbAuth4.SelectedValue = .Item(NameOf(_model.AUTH4)).ToString.ToVal
 
                 '更新日時
                 If Not row.Item(NameOf(_model.UPD_YMDHNS)).ToString.IsNulOrWS Then
@@ -430,6 +460,10 @@ Public Class FrmM0041
                     sbSQL.Append(" ,ADMIN_SYS    ='" & If(chkADMIN_SYS.Checked, "1", "0") & "'")
 
                     sbSQL.Append(" ,IC_CARD_ID   ='" & Me.mtxCARD_ID.Text.Trim & "'")
+                    sbSQL.Append(" ,AUTH1   =" & Me.CmbAuth1.SelectedValue & "")
+                    sbSQL.Append(" ,AUTH2   =" & Me.CmbAuth2.SelectedValue & "")
+                    sbSQL.Append(" ,AUTH3   =" & Me.CmbAuth3.SelectedValue & "")
+                    sbSQL.Append(" ,AUTH4   =" & Me.CmbAuth4.SelectedValue & "")
 
                     sbSQL.Append(" ,UPD_YMDHNS   = dbo.GetSysDateString() ")
                     sbSQL.Append(" ,UPD_SYAIN_ID = " & pub_SYAIN_INFO.SYAIN_ID & " ")
@@ -593,19 +627,40 @@ Public Class FrmM0041
             End If
 
             'カード重複チェック
-            dr = FunGetUSER(strCARD_ID)
-            If dr IsNot Nothing Then
+            Dim syainNo = GetUserNo(strCARD_ID)
+            If Not syainNo.IsNulOrWS Then
                 '既に同じカードが登録済みの場合
-                MessageBox.Show("このカードは既に別のユーザーが使用しています。" & vbCrLf & "別のカードを使用して下さい。", "登録済みカード", MessageBoxButtons.OK)
+                MessageBox.Show("このカードは既に別のユーザーが使用しています", "登録済みカード", MessageBoxButtons.OK)
                 Me.mtxCARD_ID.Text = ""
             Else
                 'カードIDを記録
                 Me.mtxCARD_ID.Text = strCARD_ID
+                'Me.mtxCARD_ID.Tag = strCARD_ID
             End If
+            'dr = FunGetUSER(strCARD_ID)
+            'If dr IsNot Nothing Then
+            '    '既に同じカードが登録済みの場合
+            '    MessageBox.Show("このカードは既に別のユーザーが使用しています。" & vbCrLf & "別のカードを使用して下さい。", "登録済みカード", MessageBoxButtons.OK)
+            '    Me.mtxCARD_ID.Text = ""
+            'Else
+            '    'カードIDを記録
+            '    Me.mtxCARD_ID.Text = strCARD_ID
+            'End If
         Catch ex As Exception
             EM.ErrorSyori(ex)
         End Try
     End Sub
+
+    Private Function MaskCardNo(CARD_ID As String) As String
+        Dim result As String
+        If CARD_ID.IsNulOrWS Then
+            Return ""
+        Else
+            result = Strings.Right(Strings.StrDup(CARD_ID.Length, "*") & Strings.Right(CARD_ID, 5), CARD_ID.Length)
+        End If
+
+        Return result
+    End Function
 
     Private Sub btnCLEAR_Click(sender As Object, e As EventArgs) Handles btnCLEAR.Click
         Me.mtxCARD_ID.Text = ""

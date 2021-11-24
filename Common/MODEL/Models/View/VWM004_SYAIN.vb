@@ -141,14 +141,26 @@ Partial Public Class VWM004_SYAIN
     <ComponentModel.DisplayName("Œ ŒÀ1")>
     Public Property AUTH1 As String
 
+    <ComponentModel.DisplayName("•¡‡ÞŒ ŒÀ")>
+    Public Property AUTH1_NAME As String
+
     <ComponentModel.DisplayName("Œ ŒÀ2")>
     Public Property AUTH2 As String
+
+    <ComponentModel.DisplayName("•—–hŒ ŒÀ")>
+    Public Property AUTH2_NAME As String
 
     <ComponentModel.DisplayName("Œ ŒÀ3")>
     Public Property AUTH3 As String
 
+    <ComponentModel.DisplayName("ÉŽqŒ ŒÀ")>
+    Public Property AUTH3_NAME As String
+
     <ComponentModel.DisplayName("Œ ŒÀ4")>
     Public Property AUTH4 As String
+
+    <ComponentModel.DisplayName("LPŒ ŒÀ")>
+    Public Property AUTH4_NAME As String
 
     <ComponentModel.DisplayName("’Ç‰Á“úŽž")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>

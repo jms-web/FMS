@@ -3,6 +3,7 @@ Imports JMS_COMMON.ClsPubMethod
 Public Class FrmM0040
 
 #Region "コンストラクタ"
+
     ''' <summary>
     ''' コンストラクタ
     ''' </summary>
@@ -19,6 +20,7 @@ Public Class FrmM0040
         MyBase.ToolTip.SetToolTip(Me.cmdFunc10, My.Resources.infoToolTipMsgNotFoundData)
 
     End Sub
+
 #End Region
 
 #Region "Form関連"
@@ -50,7 +52,6 @@ Public Class FrmM0040
 
             '検索実行
             Me.cmdFunc1.PerformClick()
-
         Finally
 
         End Try
@@ -98,6 +99,7 @@ Public Class FrmM0040
     Private Sub FlxDATA_RowColChange(sender As Object, e As EventArgs) Handles flxDATA.RowColChange
         Call SubInitFuncButtonEnabled()
     End Sub
+
     '列フィルタ適用
     Private Sub FlxDATA_AfterFilter(sender As Object, e As EventArgs)
         Dim flx As C1.Win.C1FlexGrid.C1FlexGrid = DirectCast(sender, C1.Win.C1FlexGrid.C1FlexGrid)
@@ -129,6 +131,7 @@ Public Class FrmM0040
 #Region "FunctionButton関連"
 
 #Region "FUNCTIONボタンCLICKイベント"
+
     Private Sub CmdFunc_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdFunc9.Click, cmdFunc8.Click, cmdFunc7.Click, cmdFunc6.Click, cmdFunc5.Click, cmdFunc4.Click, cmdFunc3.Click, cmdFunc2.Click, cmdFunc12.Click, cmdFunc11.Click, cmdFunc10.Click, cmdFunc1.Click
         Dim intFUNC As Integer
         Dim intCNT As Integer
@@ -176,7 +179,6 @@ Public Class FrmM0040
                     dtWork.Columns.Remove(NameOf(MODEL.M004_SYAIN.PASS))
                     Call FunCSV_OUT(dtWork, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
-
                 Case 12 '閉じる
                     Me.Close()
             End Select
@@ -201,6 +203,7 @@ Public Class FrmM0040
 #End Region
 
 #Region "検索"
+
     Private Function FunSRCH(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid, ByVal dt As DataTable) As Boolean
         Dim intCURROW As Integer
         Try
@@ -223,7 +226,6 @@ Public Class FrmM0040
                 Try
 
                     flx.RowSel = intCURROW
-
                 Catch dgvEx As Exception
                 End Try
                 Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, flx.Rows.Count - flx.Rows.Fixed.ToString)
@@ -242,7 +244,6 @@ Public Class FrmM0040
             flx.EndUpdate()
         End Try
     End Function
-
 
     Private Function FunGetListData() As DataTable
         Dim dsList As New System.Data.DataSet
@@ -382,6 +383,7 @@ Public Class FrmM0040
     End Function
 
 #End Region
+
     Private Function FunSetGridCellFormat(ByVal flx As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
 
         Try
@@ -391,13 +393,13 @@ Public Class FrmM0040
                     r.Style = flx.Styles("DeletedRow")
                 End If
             Next
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
     End Function
 
 #Region "追加・変更"
+
     ''' <summary>
     ''' レコード追加変更処理
     ''' </summary>
@@ -406,7 +408,6 @@ Public Class FrmM0040
         Dim frmDLG As New FrmM0041
         Dim dlgRET As DialogResult
         Dim PKeys As (ITEM_NAME As String, ITEM_VALUE As String)
-
 
         Try
             frmDLG.PrMODE = intMODE
@@ -436,10 +437,10 @@ Public Class FrmM0040
         End Try
     End Function
 
-
 #End Region
 
 #Region "削除"
+
     Private Function FunDEL(ByVal ENM_MODE As ENM_DATA_OPERATION_MODE) As Boolean
 
         Dim sbSQL As New System.Text.StringBuilder
@@ -607,9 +608,6 @@ Public Class FrmM0040
     Private Sub chkTaisyokuRowVisibled_CheckedChanged(sender As Object, e As EventArgs) Handles chkTaisyokuRowVisibled.CheckedChanged
 
     End Sub
-
-
-
 
 #End Region
 

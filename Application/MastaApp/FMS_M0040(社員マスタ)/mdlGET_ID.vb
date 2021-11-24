@@ -39,15 +39,23 @@
                     Return result
 
                 Case ENM_GET_ID_STATUS._1_GET_ID_FAILURE
-                    result = "1読取りに失敗しました"
+                    result = "読取りに失敗しました"
                 Case ENM_GET_ID_STATUS._2_GET_ID_SERVICE
                     result = "スマートカードサービスが起動していません"
                 Case ENM_GET_ID_STATUS._3_GET_ID_NO_READERS
                     result = "リーダーが接続されていません。接続してご利用ください。"
                 Case ENM_GET_ID_STATUS._4_GET_ID_NO_CARD
-                    result = "ICカードが接続されていません。または利用できないカードをかざしています。"
+                    result = "ICカードがかざされていません。または利用できないカードをかざしています。"
                 Case ENM_GET_ID_STATUS._5_GET_ID_REMOVE_TIMEOUT
-                    result = "同じカードが100ms以上かざされたままになっています。"
+                    'result = "同じカードが100ms以上かざされたままになっています。"
+                    'カードを置いたまま読取る運用のためエラーとしない
+                    Dim i As Integer
+                    For i = 0 To (length - 1)
+                        result += id(i).ToString("X2")
+                    Next
+
+                    pub_strCARD_ID = result
+
                     Return pub_strCARD_ID
                 Case ENM_GET_ID_STATUS._6_GET_ID_REMOVE_READERS
                     result = "リーダーの切断に失敗しました。"
@@ -64,8 +72,9 @@
                     result = "読取りに失敗しました"
             End Select
 
-            pub_strCARD_ID = ""
-            Return pub_strCARD_ID
+            MessageBox.Show(result, "ICカード読取エラー", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            Return ""
         Catch ex As Exception
             MessageBox.Show(ex.Message)
             Return ""
