@@ -2977,9 +2977,9 @@ Public Class FrmG0012
         Call SetInfoLabelFormat(lblKONPON_YOIN_TANTO, $"Š‘®•”–å‚Ì‘S’S“–ŽÒ")
 
         Call SetInfoLabelFormat(lblDestTANTO, $"³”F’S“–ŽÒƒ}ƒXƒ^{vbCr}³”FæƒXƒe[ƒW‚É“o˜^‚³‚ê‚½’S“–ŽÒ")
-        Call SetInfoLabelFormat(lblSETUMON_5, $"ŽÐˆõ‹Æ–±ƒOƒ‹[ƒvƒ}ƒXƒ^{vbCr}ˆÈ‰º‚Ì‹Æ–±ƒOƒ‹[ƒv‚É“o˜^‚³‚ê‚½’S“–ŽÒ{vbCrLf}{vbCrLf}‹ZpE»‘¢EŒŸ¸E•iØ")
-        Call SetInfoLabelFormat(lblSETUMON_10, $"ŽÐˆõ‹Æ–±ƒOƒ‹[ƒvƒ}ƒXƒ^{vbCr}ˆÈ‰º‚Ì‹Æ–±ƒOƒ‹[ƒv‚É“o˜^‚³‚ê‚½’S“–ŽÒ{vbCrLf}{vbCrLf}‹ZpE»‘¢EŒŸ¸E•iØ")
-        Call SetInfoLabelFormat(lblSETUMON_17, $"ŽÐˆõ‹Æ–±ƒOƒ‹[ƒvƒ}ƒXƒ^{vbCr}ˆÈ‰º‚Ì‹Æ–±ƒOƒ‹[ƒv‚É“o˜^‚³‚ê‚½’S“–ŽÒ{vbCrLf}{vbCrLf}‹ZpE»‘¢EŒŸ¸E•iØ")
+        Call SetInfoLabelFormat(lblSETUMON_5, $"ŽÐˆõ‹Æ–±ƒOƒ‹[ƒvƒ}ƒXƒ^{vbCr}ˆÈ‰º‚Ì‹Æ–±ƒOƒ‹[ƒv‚É“o˜^‚³‚ê‚½’S“–ŽÒ{vbCrLf}{vbCrLf}‹ZpE»‘¢EŒŸ¸E•iØEŠÇ—")
+        Call SetInfoLabelFormat(lblSETUMON_10, $"ŽÐˆõ‹Æ–±ƒOƒ‹[ƒvƒ}ƒXƒ^{vbCr}ˆÈ‰º‚Ì‹Æ–±ƒOƒ‹[ƒv‚É“o˜^‚³‚ê‚½’S“–ŽÒ{vbCrLf}{vbCrLf}‹ZpE»‘¢EŒŸ¸E•iØEŠÇ—")
+        Call SetInfoLabelFormat(lblSETUMON_17, $"ŽÐˆõ‹Æ–±ƒOƒ‹[ƒvƒ}ƒXƒ^{vbCr}ˆÈ‰º‚Ì‹Æ–±ƒOƒ‹[ƒv‚É“o˜^‚³‚ê‚½’S“–ŽÒ{vbCrLf}{vbCrLf}‹ZpE»‘¢EŒŸ¸E•iØEŠÇ—")
 
         Call SetInfoLabelFormat(lblSYOCHI_A_TANTO, $"•”ƒ}ƒXƒ^{vbCr}Š‘®’·‚Æ‚µ‚Ä“o˜^‚³‚ê‚½’S“–ŽÒ")
         Call SetInfoLabelFormat(lblSYOCHI_B_TANTO, $"•”ƒ}ƒXƒ^{vbCr}Š‘®’·‚Æ‚µ‚Ä“o˜^‚³‚ê‚½’S“–ŽÒ")
@@ -3057,17 +3057,17 @@ Public Class FrmG0012
 
             cmbKONPON_YOIN_TANTO.SetDataSource(tblTANTO.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
-            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._2_»‘¢.Value, ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
+            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._2_»‘¢.Value, ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value, ENM_GYOMU_GROUP_ID._7_ŠÇ—.Value})
             drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
                                   GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
             If drs.Count > 0 Then cmbKAITO_5.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._2_»‘¢.Value, ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
+            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._2_»‘¢.Value, ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value, ENM_GYOMU_GROUP_ID._7_ŠÇ—.Value})
             drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
                                   GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
             If drs.Count > 0 Then cmbKAITO_10.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
-            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._2_»‘¢.Value, ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value})
+            InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._1_‹Zp.Value, ENM_GYOMU_GROUP_ID._2_»‘¢.Value, ENM_GYOMU_GROUP_ID._3_ŒŸ¸.Value, ENM_GYOMU_GROUP_ID._4_•iØ.Value, ENM_GYOMU_GROUP_ID._7_ŠÇ—.Value})
             drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID)))).
                                   GroupBy(Function(r) r.Item("VALUE")).Select(Function(g) g.FirstOrDefault)
             If drs.Count > 0 Then cmbKAITO_17.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)

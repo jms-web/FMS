@@ -458,7 +458,7 @@ Public Class FrmG0011
                             'データは更新しない
                         Case Else
                             'マスタ更新
-                            If FunSAVE_M106(DB) = False Then blnErr = True : Return False
+                            'If FunSAVE_M106(DB) = False Then blnErr = True : Return False
 
                             'SPEC: 2.(3).D.①.レコード更新
                             If FunSAVE_D003(DB, enmSAVE_MODE) = False Then blnErr = True : Return False
