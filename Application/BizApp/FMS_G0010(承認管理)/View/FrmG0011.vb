@@ -4131,7 +4131,7 @@ Public Class FrmG0011
                     dt = FunGetSYOZOKU_SYAIN(_D003_NCR_J.BUMON_KB)
 
                     '廃却実施者
-                    InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._2_製造.Value, ENM_GYOMU_GROUP_ID._3_検査.Value})
+                    InList.Clear() : InList.AddRange({ENM_GYOMU_GROUP_ID._2_製造.Value, ENM_GYOMU_GROUP_ID._3_検査.Value, ENM_GYOMU_GROUP_ID._1_技術.Value})
                     drs = dt.AsEnumerable.Where(Function(r) InList.Contains(r.Field(Of Integer)(NameOf(M011_SYAIN_GYOMU.GYOMU_GROUP_ID))))
                     If drs.Count > 0 Then cmbST08_1_HAIKYAKU_TANTO.SetDataSource(drs.CopyToDataTable, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
 
@@ -6646,7 +6646,7 @@ Public Class FrmG0011
         Call SetInfoLabelFormat(lblST04_HASSEI_KOTEI_GL_TANTO, $"承認担当者マスタ{vbCr}NCRステージ:{NameOf(ENM_NCR_STAGE._20_起草確認製造GL)}に登録された担当者")
         Call SetInfoLabelFormat(lblST07_SAISIN_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}検査・品証")
 
-        Call SetInfoLabelFormat(lblST08_1_HAIKYAKU_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}製造・検査")
+        Call SetInfoLabelFormat(lblST08_1_HAIKYAKU_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}技術・製造・検査")
 
         Call SetInfoLabelFormat(lblST08_2_TANTO_SEIGI, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}技術・品証")
         Call SetInfoLabelFormat(lblST08_2_TANTO_SEIZO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}製造")
