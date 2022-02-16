@@ -1382,9 +1382,17 @@ Module mdlG0010
                     If _V002_NCR_J.KENSA_KEKKA_KB.ToVal = ENM_KENSA_KEKKA_KB._1_ïsçáäi Then
                         ssgSheet1.Range("SAI_FUTEKIGO_LABEL").Value = "çƒïsìKçáèàíu ïÒçêèëNo"
                         ssgSheet1.Range("SAI_FUTEKIGO_HOKOKU_NO").Value = _V002_NCR_J.HOKOKU_NO + 1
+
+                        If _V002_NCR_J.SURYO > 1 Then
+                            ssgSheet1.Range("SAI_KAKO_NG_SURYO").Value = _V002_NCR_J.SAI_KAKO_NG_SURYO
+                        Else
+                            ssgSheet1.Range("çƒâ¡çHåãâ êîó ").ClearContents()
+                        End If
                     Else
                         ssgSheet1.Range("SAI_FUTEKIGO_LABEL").Value = ""
                         ssgSheet1.Range("SAI_FUTEKIGO_HOKOKU_NO").Value = ""
+
+                        ssgSheet1.Range("çƒâ¡çHåãâ êîó ").ClearContents()
                     End If
                     ssgSheet1.Range(NameOf(_V002_NCR_J.SEIGI_TANTO_NAME)).Value = _V002_NCR_J.SEIGI_TANTO_NAME
                     ssgSheet1.Range(NameOf(_V002_NCR_J.SEIZO_TANTO_NAME)).Value = _V002_NCR_J.SEIZO_TANTO_NAME
@@ -1479,7 +1487,8 @@ Module mdlG0010
 
             Dim intCurrentStage As Integer = FunGetCurrentSYONIN_JUN(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _V002_NCR_J.HOKOKU_NO)
 
-            If _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).Select(Function(r) r.ADD_YMDHNS).First < "202002140000" Then
+            Dim targetDate = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).Select(Function(r) r.ADD_YMDHNS).First
+            If targetDate < "202002140000" Then
                 ssgSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiOÅjÅ@ï éÜÅ|ÇR"
                 ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_D_SYOCHI_KIROKU
                 ssgSheet1.Range(NameOf(_V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU)).Value = _V002_NCR_J.SYOCHI_E_SYOCHI_KIROKU
@@ -1495,17 +1504,24 @@ Module mdlG0010
                 End If
                 shapeLINE_SYOCHI_D.Visible = (_V002_NCR_J.SYOCHI_D_UMU_KB = "0")
                 shapeLINE_SYOCHI_E.Visible = (_V002_NCR_J.SYOCHI_E_UMU_KB = "0")
-            Else
+            ElseIf targetDate < "202005120000" Then
                 ssgSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiPÅjÅ@ï éÜÅ|ÇR"
+            ElseIf targetDate < "202202010000" Then
+                ssgSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiQÅjÅ@ ï éÜÅ|ÇR"
+            Else
+                ssgSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiRÅjÅ@ ï éÜÅ|ÇR"
             End If
 
-            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF).FirstOrDefault?.SYONIN_YMDHNS
-            If Not strYMDHNS.IsNulOrWS Then
-                ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._10_ãNëêì¸óÕ).Value = "'" & DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
-                If strYMDHNS.Substring(0, 8) >= "20200512" Then
-                    ssgSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiQÅjÅ@ ï éÜÅ|ÇR"
-                End If
-            End If
+            'strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF).FirstOrDefault?.SYONIN_YMDHNS
+            'If Not strYMDHNS.IsNulOrWS Then
+            '    strYMDHNS = _V002_NCR_J.ADD_YMDHNS
+            'End If
+            'ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._10_ãNëêì¸óÕ).Value = "'" & DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+            'If strYMDHNS.Substring(0, 8) >= "20200512" Then
+            '    ssgSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiQÅjÅ@ ï éÜÅ|ÇR"
+            'ElseIf strYMDHNS.Substring(0, 8) >= "20220201" Then
+            '    ssgSheet1.Range("A1").Value = "ÇeÇoÅ|ÇOÇXÅ|ÇPÇQÅiRÅjÅ@ ï éÜÅ|ÇR"
+            'End If
 
             strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._20_ãNëêämîFêªë¢GL And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_è≥îF).FirstOrDefault?.SYONIN_YMDHNS
             If Not strYMDHNS.IsNulOrWS Then

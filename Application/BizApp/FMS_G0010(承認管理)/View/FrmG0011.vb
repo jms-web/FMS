@@ -3057,7 +3057,12 @@ Public Class FrmG0011
             End If
 
             Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
-                strTEMPFILE = FunConvRootPath(iniIF.GetIniString("NCR", "FILEPATH"))
+
+                If IsMatchRevision("P", Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, _D003_NCR_J.HOKOKU_NO) Then
+                    strTEMPFILE = FunConvRootPath(iniIF.GetIniString("NCR", "FILEPATH2"))
+                Else
+                    strTEMPFILE = FunConvRootPath(iniIF.GetIniString("NCR", "FILEPATH"))
+                End If
             End Using
 
             'エクセル出力ファイル用意
@@ -6589,6 +6594,10 @@ Public Class FrmG0011
                         mtxZUBAN_KIKAKU.ReadOnly = False
                         numSU.Enabled = True
                         dtHASSEI_YMD.ReadOnly = False
+
+                        If cmbHINMEI.Text.IsNulOrWS And Not _V002_NCR_J.BUHIN_NAME.IsNulOrWS Then
+                            cmbHINMEI.Text = _V002_NCR_J.BUHIN_NAME
+                        End If
                     ElseIf PrCurrentStage = ENM_NCR_STAGE._999_Closed And IsEditingClosed = True Then
                         mtxGOUKI.ReadOnly = False
                         mtxZUBAN_KIKAKU.ReadOnly = False
