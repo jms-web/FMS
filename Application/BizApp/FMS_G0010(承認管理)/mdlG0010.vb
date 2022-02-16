@@ -1938,8 +1938,9 @@ Module mdlG0010
                 spSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiQj@•Ê†|‚T"
             End If
 
-            Dim rev_str = spSheet1.Range("A1").GetCharacters(9, 3)
-            rev_str.Font.Color = SpreadsheetGear.Colors.Red
+            'ƒŠƒrƒWƒ‡ƒ“F•ÏX•s—v
+            'Dim rev_str = spSheet1.Range("A1").GetCharacters(9, 3)
+            'rev_str.Font.Color = SpreadsheetGear.Colors.Red
 
             '-----ƒtƒ@ƒCƒ‹•Û‘¶
             spSheet1.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.Excel8)
