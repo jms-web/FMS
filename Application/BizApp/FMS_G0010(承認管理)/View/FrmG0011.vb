@@ -790,6 +790,8 @@ Public Class FrmG0011
         sbSQL.Append($" ,N'{_D003_NCR_J.FILE_PATH.ConvertSqlEscape}' AS {NameOf(_D003_NCR_J.FILE_PATH)}")
         sbSQL.Append($" ,N'{_D003_NCR_J.G_FILE_PATH1.ConvertSqlEscape}' AS {NameOf(_D003_NCR_J.G_FILE_PATH1)}")
         sbSQL.Append($" ,N'{_D003_NCR_J.G_FILE_PATH2.ConvertSqlEscape}' AS {NameOf(_D003_NCR_J.G_FILE_PATH2)}")
+        sbSQL.Append($" ,{numSAI_KAKO_NG_SURYO.Value} AS {NameOf(_D003_NCR_J.SAI_KAKO_NG_SURYO)}")
+        sbSQL.Append($" ,N'{_D003_NCR_J.SAI_KAKO_COMMENT.ConvertSqlEscape}' AS {NameOf(_D003_NCR_J.SAI_KAKO_COMMENT)}")
         sbSQL.Append($" ,{_D003_NCR_J.ADD_SYAIN_ID} AS {NameOf(_D003_NCR_J.ADD_SYAIN_ID)}")
         sbSQL.Append($" ,'{_D003_NCR_J.ADD_YMDHNS}' AS {NameOf(_D003_NCR_J.ADD_YMDHNS)}")
         sbSQL.Append($" ,{pub_SYAIN_INFO.SYAIN_ID} AS {NameOf(_D003_NCR_J.UPD_SYAIN_ID)}")
@@ -876,6 +878,8 @@ Public Class FrmG0011
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HASSEI_YMD)}                 = WK.{NameOf(_D003_NCR_J.HASSEI_YMD)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID)} = WK.{NameOf(_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.FCR_KISO_TANTO_ID)}          = WK.{NameOf(_D003_NCR_J.FCR_KISO_TANTO_ID)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAI_KAKO_NG_SURYO)}          = WK.{NameOf(_D003_NCR_J.SAI_KAKO_NG_SURYO)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAI_KAKO_COMMENT)}           = WK.{NameOf(_D003_NCR_J.SAI_KAKO_COMMENT)}")
 
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.FILE_PATH)}    = WK.{NameOf(_D003_NCR_J.FILE_PATH)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.G_FILE_PATH1)} = WK.{NameOf(_D003_NCR_J.G_FILE_PATH1)}")
@@ -963,6 +967,8 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.HASSEI_YMD))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.FCR_KISO_TANTO_ID))
+        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAI_KAKO_NG_SURYO))
+        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAI_KAKO_COMMENT))
         '---
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.FILE_PATH))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.G_FILE_PATH1))
@@ -1050,6 +1056,8 @@ Public Class FrmG0011
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.HASSEI_YMD))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID))
         sbSQL.Append(" ,0")
+        sbSQL.Append(" ,0")
+        sbSQL.Append(" ,''")
         '---
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.FILE_PATH))
         sbSQL.Append(" ,WK." & NameOf(_D003_NCR_J.G_FILE_PATH1))
@@ -1699,6 +1707,8 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HASSEI_YMD))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAI_FUTEKIGO_KISO_TANTO_ID))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.FCR_KISO_TANTO_ID))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAI_KAKO_NG_SURYO))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAI_KAKO_COMMENT))
         sbSQL.Append(" ) VALUES(")
         sbSQL.Append(" '" & strYMDHNS & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.HOKOKU_NO & "'")
@@ -1779,6 +1789,8 @@ Public Class FrmG0011
         sbSQL.Append(" ,'" & _D003_NCR_J.HASSEI_YMD & "'")
         sbSQL.Append(" ," & 0 & "")
         sbSQL.Append(" ," & _D003_NCR_J.FCR_KISO_TANTO_ID & "")
+        sbSQL.Append(" ," & numSAI_KAKO_NG_SURYO.Value & "")
+        sbSQL.Append(" ,N'" & _D003_NCR_J.SAI_KAKO_COMMENT.ConvertSqlEscape & "'")
         sbSQL.Append(" );")
         intRET = DB.ExecuteNonQuery(sbSQL.ToString, conblnNonMsg, sqlEx)
         If intRET <> 1 Then
@@ -2678,6 +2690,8 @@ Public Class FrmG0011
             sbSQL.Append($" ,'' AS {NameOf(_D003_NCR_J.HASSEI_YMD)}")
             sbSQL.Append($" ,0 AS {NameOf(_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID)}")
             sbSQL.Append($" ,0 AS {NameOf(_D003_NCR_J.FCR_KISO_TANTO_ID)}")
+            sbSQL.Append($" ,0 AS {NameOf(_D003_NCR_J.SAI_KAKO_NG_SURYO)}")
+            sbSQL.Append($" ,'' AS {NameOf(_D003_NCR_J.SAI_KAKO_COMMENT)}")
 
             sbSQL.Append($" ,{_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID} AS {NameOf(_D003_NCR_J.ADD_SYAIN_ID)}")
             sbSQL.Append($" ,dbo.GetSysDateString() AS {NameOf(_D003_NCR_J.ADD_YMDHNS)}")
@@ -5204,6 +5218,17 @@ Public Class FrmG0011
 
 #End Region
 
+#Region "ïîïiñºèÃ"
+
+    Private Sub CmbHINMEI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbHINMEI.Validating
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, Not cmb.Text.IsNulOrWS(), String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïîïiñºèÃ"))
+        End If
+    End Sub
+
+#End Region
+
 #Region "êªë¢î‘çÜ(çÜã@)"
 
     Private Sub MtxGOUKI_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) 'Handles mtxGOUKI.Validating ïKê{çÄñ⁄Ç≈Ç»Ç¢
@@ -5822,7 +5847,33 @@ Public Class FrmG0011
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
         If IsCheckRequired Then
             IsValidated *= ErrorProvider.UpdateErrorInfo(cmb, tabST08_SUB.SelectedIndex <> 1 OrElse cmb.IsSelected, String.Format(My.Resources.infoMsgRequireSelectOrInput, "åüç∏åãâ "))
+            If cmb.SelectedValue = 1 Then
+                IsValidated *= ErrorProvider.UpdateErrorInfo(numSAI_KAKO_NG_SURYO, numSAI_KAKO_NG_SURYO.Value > 0, String.Format(My.Resources.infoMsgRequireSelectOrInput, "ïsçáäiêî"))
+            End If
         End If
+    End Sub
+
+    Private Sub cmbST08_2_KENSA_KEKKA_SelectedValueChanged(sender As Object, e As EventArgs) Handles cmbST08_2_KENSA_KEKKA.SelectedValueChanged
+        Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
+        Dim isNG As Boolean = numSU.Value > 1 AndAlso cmb.SelectedValue = "1"
+
+        If cmb.SelectedValue = "1" Then
+            numSAI_KAKO_NG_SURYO.Value = _D003_NCR_J.SURYO
+        Else
+            numSAI_KAKO_NG_SURYO.Value = 0
+        End If
+        numSAI_KAKO_NG_SURYO.Visible = isNG
+        lblSAI_KAKO_NG_SURYO.Visible = isNG
+        numSAI_KAKO_OK_SURYO.Visible = isNG
+        lblSAI_KAKO_OK_SURYO.Visible = isNG
+        lblST09_SAI_KAKO_Comment.Visible = isNG
+        txtST09_SAI_KAKO_Comment.Visible = isNG
+
+    End Sub
+
+    Private Sub numSAI_KAKO_NG_SURYO_ValueChanged(sender As Object, e As EventArgs) Handles numSAI_KAKO_NG_SURYO.ValueChanged
+        numSAI_KAKO_OK_SURYO.Value = _D003_NCR_J.SURYO - numSAI_KAKO_NG_SURYO.Value
+
     End Sub
 
     Private Sub CmbST08_2_TANTO_SEIZO_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs)
@@ -6318,6 +6369,9 @@ Public Class FrmG0011
         cmbST08_2_TANTO_KENSA.DataBindings.Add(New Binding(NameOf(cmbST08_2_TANTO_KENSA.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KENSA_TANTO_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
         cmbSAI_FUTEKIGO_KISO_TANTO.DataBindings.Add(New Binding(NameOf(cmbSAI_FUTEKIGO_KISO_TANTO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SAI_FUTEKIGO_KISO_TANTO_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
 
+        numSAI_KAKO_NG_SURYO.DataBindings.Add(New Binding(NameOf(numSAI_KAKO_NG_SURYO.Value), _D003_NCR_J, NameOf(_D003_NCR_J.SAI_KAKO_NG_SURYO), False, DataSourceUpdateMode.OnPropertyChanged, 1))
+        txtST09_SAI_KAKO_Comment.DataBindings.Add(New Binding(NameOf(txtST09_SAI_KAKO_Comment.Text), _D003_NCR_J, NameOf(_D003_NCR_J.SAI_KAKO_COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+
         dtST08_3_HENKYAKU_YMD.DataBindings.Add(New Binding(NameOf(dtST08_3_HENKYAKU_YMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.HENKYAKU_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         mtxST08_3_HENKYAKU_SAKI.DataBindings.Add(New Binding(NameOf(mtxST08_3_HENKYAKU_SAKI.Text), _D003_NCR_J, NameOf(_D003_NCR_J.HENKYAKU_SAKI), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbST08_3_HENKYAKU_TANTO.DataBindings.Add(New Binding(NameOf(cmbST08_3_HENKYAKU_TANTO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.HENKYAKU_TANTO_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
@@ -6403,6 +6457,9 @@ Public Class FrmG0011
         dtST08_3_HENKYAKU_YMD.DataBindings.Clear()
         mtxST08_3_HENKYAKU_SAKI.DataBindings.Clear()
         txtST08_3_BIKO.DataBindings.Clear()
+
+        numSAI_KAKO_NG_SURYO.DataBindings.Clear()
+        txtST09_SAI_KAKO_Comment.DataBindings.Clear()
 
         cmbST08_4_KISYU.DataBindings.Clear()
         cmbST08_4_BUHIN_BANGO.DataBindings.Clear()
@@ -6601,6 +6658,9 @@ Public Class FrmG0011
                 _D003_NCR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             End If
 
+            '#312
+            numSAI_KAKO_NG_SURYO.Maximum = _D003_NCR_J.SURYO
+
 #End Region
 
 #Region "D004"
@@ -6684,6 +6744,7 @@ Public Class FrmG0011
             Call CmbBUMON_Validating(cmbBUMON, Nothing)
             Call CmbKISYU_Validating(cmbKISYU, Nothing)
             Call CmbBUHIN_BANGO_Validating(cmbBUHIN_BANGO, Nothing)
+            Call CmbHINMEI_Validating(cmbHINMEI, Nothing)
             Call CmbSYANAI_CD_Validating(cmbSYANAI_CD, Nothing)
             Call CmbFUTEKIGO_STATUS_Validating(cmbFUTEKIGO_STATUS, Nothing)
             Call MtxFUTEKIGO_NAIYO_Validating(mtxHENKYAKU_RIYU, Nothing)
@@ -6771,15 +6832,15 @@ Public Class FrmG0011
                                 Call CmbST08_1_HAIKYAKU_KB_Validating(cmbST08_1_HAIKYAKU_KB, Nothing)
                                 Call CmbST08_1_HAIKYAKU_TANTO_Validating(cmbST08_1_HAIKYAKU_TANTO, Nothing)
                             Case ENM_NCR_STAGE80_TABPAGES._3_ï‘ãpé¿é{ãLò^
+                                Call CmbST08_3_HENKYAKU_TANTO_Validating(cmbST08_3_HENKYAKU_TANTO, Nothing)
+                            Case ENM_NCR_STAGE80_TABPAGES._4_ì]ópêÊãLò^
+                                Call CmbST08_4_BUHIN_BANGO_Validating(cmbST08_4_BUHIN_BANGO, Nothing)
+                                Call CmbST08_4_KISYU_Validating(cmbST08_4_KISYU, Nothing)
+                            Case ENM_NCR_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
                                 Call CmbST08_2_KENSA_KEKKA_Validating(cmbST08_2_KENSA_KEKKA, Nothing)
                                 Call CmbST08_2_TANTO_KENSA_Validating(cmbST08_2_TANTO_KENSA, Nothing)
                                 Call CmbST08_2_TANTO_SEIGI_Validating(cmbST08_2_TANTO_SEIGI, Nothing)
                                 Call CmbST08_2_TANTO_SEIZO_Validating(cmbST08_2_TANTO_SEIZO, Nothing)
-                            Case ENM_NCR_STAGE80_TABPAGES._4_ì]ópêÊãLò^
-                                Call CmbST08_3_HENKYAKU_TANTO_Validating(cmbST08_3_HENKYAKU_TANTO, Nothing)
-                            Case ENM_NCR_STAGE80_TABPAGES._2_çƒâ¡çHéwé¶_ãLò^
-                                Call CmbST08_4_BUHIN_BANGO_Validating(cmbST08_4_BUHIN_BANGO, Nothing)
-                                Call CmbST08_4_KISYU_Validating(cmbST08_4_KISYU, Nothing)
                             Case Else
                                 Throw New ArgumentException("80-2.áC JIZEN_SINSA_HANTEI_KB")
                         End Select

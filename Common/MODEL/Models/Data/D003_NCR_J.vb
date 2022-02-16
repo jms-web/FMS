@@ -144,7 +144,6 @@ Partial Public Class D003_NCR_J
     <ComponentModel.DisplayName("機種ID")>
     Public Property KISYU_ID As Integer
 
-
     <Required>
     <Column(TypeName:="varchar")>
     <StringLength(60)>
@@ -669,12 +668,9 @@ Partial Public Class D003_NCR_J
     <ComponentModel.DisplayName("再不適合起草担当")>
     Public Property SAI_FUTEKIGO_KISO_TANTO_ID As Integer
 
-
     <Required>
     <ComponentModel.DisplayName("封じ込め調査書起草担当")>
     Public Property FCR_KISO_TANTO_ID As Integer
-
-
 
     ''共通項目------------------------------------
     <Required>
@@ -724,6 +720,16 @@ Partial Public Class D003_NCR_J
     <Required>
     Public Property DEL_SYAIN_ID As Integer
 
+    ''' <summary>
+    ''' 再加工 不合格数
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property SAI_KAKO_NG_SURYO As Integer
 
+    ''' <summary>
+    ''' 再加工コメント
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property SAI_KAKO_COMMENT As String
 
 End Class

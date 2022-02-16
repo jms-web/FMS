@@ -1915,7 +1915,10 @@ Module mdlG0010
                     spSheet1.Range(NameOf(_V005_CAR_J.SYONIN_NAME100)).Value = _V005_CAR_J.SYONIN_NAME130
                 End If
             End If
-            If _V005_CAR_J.SYONIN_YMD10 >= "20200512" Then
+
+            If _V005_CAR_J.SYONIN_YMD10 >= "20220201" Then
+                spSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P4iHj@•Ê†|1(a)"
+            ElseIf _V005_CAR_J.SYONIN_YMD10 >= "20200512" Then
                 spSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiQj@•Ê†|‚T"
             End If
 

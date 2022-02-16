@@ -11,8 +11,6 @@ Imports PropertyChanged
 Partial Public Class R003_NCR_SASIMODOSI
     Inherits ModelBase
 
-
-
     Public Shadows Sub Clear()
         SASIMODOSI_YMDHNS = ""
         HOKOKU_NO = ""
@@ -620,8 +618,6 @@ Partial Public Class R003_NCR_SASIMODOSI
     <ComponentModel.DisplayName("画像ファイルパス2")>
     Public Property G_FILE_PATH2 As String
 
-
-
     <Required>
     <ComponentModel.DisplayName("発生工程GL確認担当")>
     Public Property HASSEI_KOTEI_GL_SYAIN_ID As Integer
@@ -637,4 +633,17 @@ Partial Public Class R003_NCR_SASIMODOSI
     <Required>
     <ComponentModel.DisplayName("封じ込め調査書起草担当")>
     Public Property FCR_KISO_TANTO_ID As Integer
+
+    ''' <summary>
+    ''' 再加工 不合格数
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property SAI_KAKO_NG_SURYO As Integer
+
+    ''' <summary>
+    ''' 再加工コメント
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property SAI_KAKO_COMMENT As String
+
 End Class

@@ -505,7 +505,7 @@ Public Class FrmM1061
             Call CmbBUMON_KB_Validating(cmbBUMON_KB, Nothing)
             Call CmbTOKUI_ID_Validating(cmbTOKUI_ID, Nothing)
             Call MtxBUHIN_BANGO_Validating(mtxBUHIN_BANGO, Nothing)
-
+            Call MtxBUHIN_NAME_Validating(mtxBUHIN_NAME, Nothing)
             Return IsValidated
         Catch ex As Exception
             Throw
@@ -578,7 +578,15 @@ Public Class FrmM1061
         End If
     End Sub
 
-    '部品番号　入力チェック
+    '部品名称　入力チェック
+    Private Sub MtxBUHIN_NAME_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxBUHIN_NAME.Validating
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, cmbBUMON_KB.SelectedValue = ENM_BUMON_KB._2_LP OrElse Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "部品名"))
+        End If
+    End Sub
+
+    '単価　入力チェック
     Private Sub MtxTANKA_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxTANKA.Validating
         Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
         If IsCheckRequired Then

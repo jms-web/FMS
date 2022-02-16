@@ -481,7 +481,20 @@ Partial Public Class V002_NCR_J
     <ComponentModel.DisplayName("再不適合起草担当者")>
     Public Property SAI_FUTEKIGO_KISO_TANTO_ID As Integer
 
+    ''' <summary>
+    ''' 再加工 不合格数
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property SAI_KAKO_NG_SURYO As Integer
+
+    ''' <summary>
+    ''' 再加工コメント
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property SAI_KAKO_COMMENT As String
+
 #Region "IDisposable Support"
+
     Private disposedValue As Boolean ' 重複する呼び出しを検出するには
 
     ' IDisposable
@@ -511,8 +524,7 @@ Partial Public Class V002_NCR_J
         ' TODO: 上の Finalize() がオーバーライドされている場合は、次の行のコメントを解除してください。
         ' GC.SuppressFinalize(Me)
     End Sub
+
 #End Region
-
-
 
 End Class
