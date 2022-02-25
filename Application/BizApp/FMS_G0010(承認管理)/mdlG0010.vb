@@ -1512,11 +1512,11 @@ Module mdlG0010
                 ssgSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiRj@ •ÊŽ†|‚R"
             End If
 
-            'strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_‹N‘“ü—Í And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_³”F).FirstOrDefault?.SYONIN_YMDHNS
-            'If Not strYMDHNS.IsNulOrWS Then
-            '    strYMDHNS = _V002_NCR_J.ADD_YMDHNS
-            'End If
-            'ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._10_‹N‘“ü—Í).Value = "'" & DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
+            strYMDHNS = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_‹N‘“ü—Í And r.SYONIN_HANTEI_KB = ENM_SYONIN_HANTEI_KB._1_³”F).FirstOrDefault?.SYONIN_YMDHNS
+            If Not strYMDHNS.IsNulOrWS Then
+                strYMDHNS = _V002_NCR_J.ADD_YMDHNS
+            End If
+            ssgSheet1.Range("SYONIN_YMD" & ENM_NCR_STAGE._10_‹N‘“ü—Í).Value = "'" & DateTime.ParseExact(strYMDHNS, "yyyyMMddHHmmss", Nothing).ToString("yyyy/MM/dd")
             'If strYMDHNS.Substring(0, 8) >= "20200512" Then
             '    ssgSheet1.Range("A1").Value = "‚e‚o|‚O‚X|‚P‚QiQj@ •ÊŽ†|‚R"
             'ElseIf strYMDHNS.Substring(0, 8) >= "20220201" Then
