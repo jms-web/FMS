@@ -277,7 +277,7 @@ Public Class FrmM0160
 
             'SQL
             sbSQL.Append("SELECT")
-            sbSQL.Append(" *")
+            sbSQL.Append(" DISTINCT *")
             sbSQL.Append(" FROM " & NameOf(MODEL.VWM016_SYONIN_TANTO) & "")
             sbSQL.Append(sbSQLWHERE)
             sbSQL.Append(" ORDER BY SYONIN_HOKOKUSYO_ID,SYONIN_JUN,SYAIN_ID")
