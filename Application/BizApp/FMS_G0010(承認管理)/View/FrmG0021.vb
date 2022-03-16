@@ -130,8 +130,6 @@ Public Class FrmG0021
                         '-----コントロールデータソース設定
                         cmbKOKYAKU_EIKYO_HANTEI_COMMENT.SetDataSource(tblKOKYAKU_EIKYO_COMMENT.LazyLoad("不適合封じ込め非の理由"), ENM_COMBO_SELECT_VALUE_TYPE._2_Option)
 
-                        IsEditingClosed = HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
-
                         '-----画面初期化
                         Call FunInitializeControls()
 
@@ -2882,6 +2880,8 @@ Public Class FrmG0021
             If PrCurrentStage = ENM_CAR_STAGE._10_起草入力 AndAlso Not IsRemanded(_V011_FCR_J.HOKOKU_NO) Then
                 _V011_FCR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             End If
+
+            IsEditingClosed = _V011_FCR_J.CLOSE_FG = 1 AndAlso HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
 
             Return True
         Catch ex As Exception

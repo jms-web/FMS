@@ -238,8 +238,6 @@ Public Class FrmG0011
                         'バインディングセット
                         Call FunSetBindingD003()
 
-                        IsEditingClosed = HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
-
                         '-----処理モード別画面初期化
                         If FunInitializeControls(PrMODE) Then
                         Else
@@ -3826,7 +3824,7 @@ Public Class FrmG0011
                         lblST04_Modoshi_Riyu.Text = "転送理由：" & _V003.RIYU
                     End If
 
-                    If intStageID > ENM_NCR_STAGE._40_事前審査判定及びCAR要否判定 Then
+                    If intStageID >= ENM_NCR_STAGE._50_事前審査確認 Then
                         cmbST04_DestTANTO.ReadOnly = True
                         txtST04_Comment.ReadOnly = True
 
@@ -6625,6 +6623,8 @@ Public Class FrmG0011
             'ビューモデルをロード
             _V002_NCR_J = FunGetV002Model(HOKOKU_NO)
             _V003_SYONIN_J_KANRI_List = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR, HOKOKU_NO)
+
+            IsEditingClosed = _V002_NCR_J.CLOSE_FG = 1 AndAlso HasEditingRight(pub_SYAIN_INFO.SYAIN_ID)
 
 #Region "D003"
 
