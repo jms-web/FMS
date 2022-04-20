@@ -48,17 +48,11 @@ Partial Class FrmG0031_EditOccurred
         Me.txtDOC_NO = New JMS_COMMON.TextBoxEx()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.txtZESEI_COMMENT = New JMS_COMMON.TextBoxEx()
-        Me.Label55 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.pnlINPUT_TYPE = New System.Windows.Forms.Panel()
         Me.rbtnINPUT_TYPE3 = New System.Windows.Forms.RadioButton()
         Me.rbtnINPUT_TYPE2 = New System.Windows.Forms.RadioButton()
-        Me.rbtnINPUT_TYPE1 = New System.Windows.Forms.RadioButton()
         Me.txtINPUT_TYPE = New JMS_COMMON.TextBoxEx()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.btnOpenTempFileDialog = New System.Windows.Forms.Button()
@@ -228,8 +222,10 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST03 = New JMS_COMMON.PanelEx()
         Me.txtOUKYU_SYOCHI_KEKKA = New JMS_COMMON.TextBoxEx()
         Me.dtOUKYU_SYOCHI_YMD = New JMS_COMMON.DateTextBoxEx()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.Label57 = New System.Windows.Forms.Label()
         Me.dtZESEI_SYOCHI_YMD = New JMS_COMMON.DateTextBoxEx()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label54 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.btnOpenTempFileDialog4 = New System.Windows.Forms.Button()
@@ -272,7 +268,6 @@ Partial Class FrmG0031_EditOccurred
         Me.TabPageEx1.SuspendLayout()
         Me.pnlST01.SuspendLayout()
         Me.pnlINPUT_TYPE.SuspendLayout()
-        Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.fpnlTempFile1.SuspendLayout()
         Me.TableLayoutPanel5.SuspendLayout()
@@ -388,7 +383,7 @@ Partial Class FrmG0031_EditOccurred
         Me.lblTytle.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblTytle.Location = New System.Drawing.Point(12, 14)
         Me.lblTytle.Size = New System.Drawing.Size(1240, 43)
-        Me.lblTytle.Text = "是正処置要求書(発生)"
+        Me.lblTytle.Text = "是正処置要求書(流出)"
         '
         'Label8
         '
@@ -796,10 +791,8 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST01.Controls.Add(Me.txtDOC_NO)
         Me.pnlST01.Controls.Add(Me.Label18)
         Me.pnlST01.Controls.Add(Me.txtZESEI_COMMENT)
-        Me.pnlST01.Controls.Add(Me.Label55)
         Me.pnlST01.Controls.Add(Me.Label7)
         Me.pnlST01.Controls.Add(Me.pnlINPUT_TYPE)
-        Me.pnlST01.Controls.Add(Me.Panel1)
         Me.pnlST01.Controls.Add(Me.Label17)
         Me.pnlST01.Controls.Add(Me.Panel2)
         Me.pnlST01.Controls.Add(Me.txtZESEI_RIYU)
@@ -813,7 +806,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST01.Location = New System.Drawing.Point(2, 5)
         Me.pnlST01.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST01.Name = "pnlST01"
-        Me.pnlST01.Size = New System.Drawing.Size(1194, 497)
+        Me.pnlST01.Size = New System.Drawing.Size(1123, 497)
         Me.pnlST01.TabIndex = 4
         Me.pnlST01.Visible = False
         '
@@ -893,18 +886,6 @@ Partial Class FrmG0031_EditOccurred
         Me.txtZESEI_COMMENT.WatermarkColor = System.Drawing.Color.Empty
         Me.txtZESEI_COMMENT.WatermarkText = Nothing
         '
-        'Label55
-        '
-        Me.Label55.AutoSize = True
-        Me.Label55.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label55.Location = New System.Drawing.Point(46, 75)
-        Me.Label55.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label55.Name = "Label55"
-        Me.Label55.Size = New System.Drawing.Size(82, 15)
-        Me.Label55.TabIndex = 325
-        Me.Label55.Text = "インプット情報:"
-        Me.Label55.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'Label7
         '
         Me.Label7.AutoSize = True
@@ -922,19 +903,18 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlINPUT_TYPE.BackColor = System.Drawing.SystemColors.Window
         Me.pnlINPUT_TYPE.Controls.Add(Me.rbtnINPUT_TYPE3)
         Me.pnlINPUT_TYPE.Controls.Add(Me.rbtnINPUT_TYPE2)
-        Me.pnlINPUT_TYPE.Controls.Add(Me.rbtnINPUT_TYPE1)
         Me.pnlINPUT_TYPE.Controls.Add(Me.txtINPUT_TYPE)
         Me.pnlINPUT_TYPE.Location = New System.Drawing.Point(131, 70)
         Me.pnlINPUT_TYPE.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlINPUT_TYPE.Name = "pnlINPUT_TYPE"
-        Me.pnlINPUT_TYPE.Size = New System.Drawing.Size(313, 27)
+        Me.pnlINPUT_TYPE.Size = New System.Drawing.Size(210, 27)
         Me.pnlINPUT_TYPE.TabIndex = 324
         '
         'rbtnINPUT_TYPE3
         '
         Me.rbtnINPUT_TYPE3.BackColor = System.Drawing.SystemColors.Window
         Me.rbtnINPUT_TYPE3.Dock = System.Windows.Forms.DockStyle.Left
-        Me.rbtnINPUT_TYPE3.Location = New System.Drawing.Point(210, 0)
+        Me.rbtnINPUT_TYPE3.Location = New System.Drawing.Point(105, 0)
         Me.rbtnINPUT_TYPE3.Name = "rbtnINPUT_TYPE3"
         Me.rbtnINPUT_TYPE3.Size = New System.Drawing.Size(105, 27)
         Me.rbtnINPUT_TYPE3.TabIndex = 3
@@ -947,7 +927,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.rbtnINPUT_TYPE2.BackColor = System.Drawing.SystemColors.Window
         Me.rbtnINPUT_TYPE2.Dock = System.Windows.Forms.DockStyle.Left
-        Me.rbtnINPUT_TYPE2.Location = New System.Drawing.Point(105, 0)
+        Me.rbtnINPUT_TYPE2.Location = New System.Drawing.Point(0, 0)
         Me.rbtnINPUT_TYPE2.Name = "rbtnINPUT_TYPE2"
         Me.rbtnINPUT_TYPE2.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
         Me.rbtnINPUT_TYPE2.Size = New System.Drawing.Size(105, 27)
@@ -957,25 +937,12 @@ Partial Class FrmG0031_EditOccurred
         Me.rbtnINPUT_TYPE2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rbtnINPUT_TYPE2.UseVisualStyleBackColor = False
         '
-        'rbtnINPUT_TYPE1
-        '
-        Me.rbtnINPUT_TYPE1.BackColor = System.Drawing.SystemColors.Window
-        Me.rbtnINPUT_TYPE1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.rbtnINPUT_TYPE1.Location = New System.Drawing.Point(0, 0)
-        Me.rbtnINPUT_TYPE1.Name = "rbtnINPUT_TYPE1"
-        Me.rbtnINPUT_TYPE1.Size = New System.Drawing.Size(105, 27)
-        Me.rbtnINPUT_TYPE1.TabIndex = 1
-        Me.rbtnINPUT_TYPE1.TabStop = True
-        Me.rbtnINPUT_TYPE1.Text = "製品不適合"
-        Me.rbtnINPUT_TYPE1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.rbtnINPUT_TYPE1.UseVisualStyleBackColor = False
-        '
         'txtINPUT_TYPE
         '
         Me.txtINPUT_TYPE.BackColor = System.Drawing.SystemColors.Window
         Me.txtINPUT_TYPE.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtINPUT_TYPE.InputRequired = False
-        Me.txtINPUT_TYPE.Location = New System.Drawing.Point(158, 0)
+        Me.txtINPUT_TYPE.Location = New System.Drawing.Point(88, 0)
         Me.txtINPUT_TYPE.MaxByteLength = 400
         Me.txtINPUT_TYPE.MaxLength = 200
         Me.txtINPUT_TYPE.Multiline = True
@@ -986,58 +953,6 @@ Partial Class FrmG0031_EditOccurred
         Me.txtINPUT_TYPE.TabIndex = 335
         Me.txtINPUT_TYPE.WatermarkColor = System.Drawing.Color.Empty
         Me.txtINPUT_TYPE.WatermarkText = Nothing
-        '
-        'Panel1
-        '
-        Me.Panel1.BackColor = System.Drawing.SystemColors.Window
-        Me.Panel1.Controls.Add(Me.RadioButton3)
-        Me.Panel1.Controls.Add(Me.RadioButton1)
-        Me.Panel1.Controls.Add(Me.RadioButton2)
-        Me.Panel1.Location = New System.Drawing.Point(131, 70)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(313, 27)
-        Me.Panel1.TabIndex = 324
-        '
-        'RadioButton3
-        '
-        Me.RadioButton3.BackColor = System.Drawing.SystemColors.Window
-        Me.RadioButton3.Dock = System.Windows.Forms.DockStyle.Left
-        Me.RadioButton3.Location = New System.Drawing.Point(210, 0)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(105, 27)
-        Me.RadioButton3.TabIndex = 2
-        Me.RadioButton3.TabStop = True
-        Me.RadioButton3.Text = "QMS不適合"
-        Me.RadioButton3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.RadioButton3.UseVisualStyleBackColor = False
-        '
-        'RadioButton1
-        '
-        Me.RadioButton1.BackColor = System.Drawing.SystemColors.Window
-        Me.RadioButton1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.RadioButton1.Location = New System.Drawing.Point(105, 0)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
-        Me.RadioButton1.Size = New System.Drawing.Size(105, 27)
-        Me.RadioButton1.TabIndex = 0
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "顧客苦情"
-        Me.RadioButton1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.RadioButton1.UseVisualStyleBackColor = False
-        '
-        'RadioButton2
-        '
-        Me.RadioButton2.BackColor = System.Drawing.SystemColors.Window
-        Me.RadioButton2.Dock = System.Windows.Forms.DockStyle.Left
-        Me.RadioButton2.Location = New System.Drawing.Point(0, 0)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(105, 27)
-        Me.RadioButton2.TabIndex = 1
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "製品不適合"
-        Me.RadioButton2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.RadioButton2.UseVisualStyleBackColor = False
         '
         'Label17
         '
@@ -1587,7 +1502,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame01.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame01.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame01.Location = New System.Drawing.Point(1188, 0)
+        Me.lblSTAGEFlame01.Location = New System.Drawing.Point(1117, 0)
         Me.lblSTAGEFlame01.Name = "lblSTAGEFlame01"
         Me.lblSTAGEFlame01.Size = New System.Drawing.Size(4, 495)
         Me.lblSTAGEFlame01.TabIndex = 335
@@ -1633,7 +1548,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST02.Location = New System.Drawing.Point(2, 508)
         Me.pnlST02.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST02.Name = "pnlST02"
-        Me.pnlST02.Size = New System.Drawing.Size(1194, 816)
+        Me.pnlST02.Size = New System.Drawing.Size(1122, 816)
         Me.pnlST02.TabIndex = 329
         Me.pnlST02.Visible = False
         '
@@ -2832,7 +2747,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame02.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame02.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame02.Location = New System.Drawing.Point(1188, 0)
+        Me.lblSTAGEFlame02.Location = New System.Drawing.Point(1116, 0)
         Me.lblSTAGEFlame02.Name = "lblSTAGEFlame02"
         Me.lblSTAGEFlame02.Size = New System.Drawing.Size(4, 814)
         Me.lblSTAGEFlame02.TabIndex = 356
@@ -2854,7 +2769,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST05.Location = New System.Drawing.Point(2, 1754)
         Me.pnlST05.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST05.Name = "pnlST05"
-        Me.pnlST05.Size = New System.Drawing.Size(1194, 145)
+        Me.pnlST05.Size = New System.Drawing.Size(1123, 145)
         Me.pnlST05.TabIndex = 321
         Me.pnlST05.Visible = False
         '
@@ -3131,7 +3046,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame05.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame05.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame05.Location = New System.Drawing.Point(1188, 0)
+        Me.lblSTAGEFlame05.Location = New System.Drawing.Point(1117, 0)
         Me.lblSTAGEFlame05.Name = "lblSTAGEFlame05"
         Me.lblSTAGEFlame05.Size = New System.Drawing.Size(4, 143)
         Me.lblSTAGEFlame05.TabIndex = 358
@@ -3158,7 +3073,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST04.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST04.Name = "pnlST04"
         Me.pnlST04.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlST04.Size = New System.Drawing.Size(1194, 150)
+        Me.pnlST04.Size = New System.Drawing.Size(1123, 150)
         Me.pnlST04.TabIndex = 320
         Me.pnlST04.Visible = False
         '
@@ -3697,7 +3612,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame04.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame04.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame04.Location = New System.Drawing.Point(1186, 2)
+        Me.lblSTAGEFlame04.Location = New System.Drawing.Point(1115, 2)
         Me.lblSTAGEFlame04.Name = "lblSTAGEFlame04"
         Me.lblSTAGEFlame04.Size = New System.Drawing.Size(4, 144)
         Me.lblSTAGEFlame04.TabIndex = 359
@@ -3711,8 +3626,10 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST03.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pnlST03.Controls.Add(Me.txtOUKYU_SYOCHI_KEKKA)
         Me.pnlST03.Controls.Add(Me.dtOUKYU_SYOCHI_YMD)
+        Me.pnlST03.Controls.Add(Me.Label1)
         Me.pnlST03.Controls.Add(Me.Label57)
         Me.pnlST03.Controls.Add(Me.dtZESEI_SYOCHI_YMD)
+        Me.pnlST03.Controls.Add(Me.Label2)
         Me.pnlST03.Controls.Add(Me.Label54)
         Me.pnlST03.Controls.Add(Me.Panel5)
         Me.pnlST03.Controls.Add(Me.TableLayoutPanel1)
@@ -3724,7 +3641,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST03.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST03.Name = "pnlST03"
         Me.pnlST03.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlST03.Size = New System.Drawing.Size(1194, 271)
+        Me.pnlST03.Size = New System.Drawing.Size(1123, 271)
         Me.pnlST03.TabIndex = 319
         Me.pnlST03.Visible = False
         '
@@ -3734,7 +3651,7 @@ Partial Class FrmG0031_EditOccurred
         Me.txtOUKYU_SYOCHI_KEKKA.BackColor = System.Drawing.SystemColors.Window
         Me.txtOUKYU_SYOCHI_KEKKA.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtOUKYU_SYOCHI_KEKKA.InputRequired = False
-        Me.txtOUKYU_SYOCHI_KEKKA.Location = New System.Drawing.Point(130, 49)
+        Me.txtOUKYU_SYOCHI_KEKKA.Location = New System.Drawing.Point(131, 68)
         Me.txtOUKYU_SYOCHI_KEKKA.MaxByteLength = 80
         Me.txtOUKYU_SYOCHI_KEKKA.MaxLength = 40
         Me.txtOUKYU_SYOCHI_KEKKA.Multiline = True
@@ -3742,7 +3659,7 @@ Partial Class FrmG0031_EditOccurred
         Me.txtOUKYU_SYOCHI_KEKKA.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtOUKYU_SYOCHI_KEKKA.SelectAllText = False
         Me.txtOUKYU_SYOCHI_KEKKA.ShowRemainingChars = True
-        Me.txtOUKYU_SYOCHI_KEKKA.Size = New System.Drawing.Size(583, 60)
+        Me.txtOUKYU_SYOCHI_KEKKA.Size = New System.Drawing.Size(582, 60)
         Me.txtOUKYU_SYOCHI_KEKKA.TabIndex = 2
         Me.txtOUKYU_SYOCHI_KEKKA.WatermarkColor = System.Drawing.Color.Empty
         Me.txtOUKYU_SYOCHI_KEKKA.WatermarkText = Nothing
@@ -3762,15 +3679,26 @@ Partial Class FrmG0031_EditOccurred
         Me.dtOUKYU_SYOCHI_YMD.Value = ""
         Me.dtOUKYU_SYOCHI_YMD.ValueNonFormat = ""
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label1.Location = New System.Drawing.Point(132, 50)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(121, 15)
+        Me.Label1.TabIndex = 353
+        Me.Label1.Text = "応急処置結果コメント:"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'Label57
         '
         Me.Label57.AutoSize = True
         Me.Label57.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label57.Location = New System.Drawing.Point(23, 49)
+        Me.Label57.Location = New System.Drawing.Point(22, 50)
         Me.Label57.Name = "Label57"
-        Me.Label57.Size = New System.Drawing.Size(108, 15)
+        Me.Label57.Size = New System.Drawing.Size(96, 15)
         Me.Label57.TabIndex = 353
-        Me.Label57.Text = "応急処置実施結果:"
+        Me.Label57.Text = "応急処置実施日:"
         Me.Label57.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'dtZESEI_SYOCHI_YMD
@@ -3788,15 +3716,26 @@ Partial Class FrmG0031_EditOccurred
         Me.dtZESEI_SYOCHI_YMD.Value = ""
         Me.dtZESEI_SYOCHI_YMD.ValueNonFormat = ""
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label2.Location = New System.Drawing.Point(132, 135)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(121, 15)
+        Me.Label2.TabIndex = 351
+        Me.Label2.Text = "是正処置結果コメント:"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'Label54
         '
         Me.Label54.AutoSize = True
         Me.Label54.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.Label54.Location = New System.Drawing.Point(22, 135)
         Me.Label54.Name = "Label54"
-        Me.Label54.Size = New System.Drawing.Size(108, 15)
+        Me.Label54.Size = New System.Drawing.Size(96, 15)
         Me.Label54.TabIndex = 351
-        Me.Label54.Text = "是正処置実施結果:"
+        Me.Label54.Text = "是正処置実施日:"
         Me.Label54.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel5
@@ -3804,7 +3743,7 @@ Partial Class FrmG0031_EditOccurred
         Me.Panel5.Controls.Add(Me.btnOpenTempFileDialog4)
         Me.Panel5.Controls.Add(Me.Label30)
         Me.Panel5.Controls.Add(Me.fpnlTempFile4)
-        Me.Panel5.Location = New System.Drawing.Point(25, 212)
+        Me.Panel5.Location = New System.Drawing.Point(25, 224)
         Me.Panel5.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(522, 29)
@@ -4265,7 +4204,7 @@ Partial Class FrmG0031_EditOccurred
         Me.txtZESEI_SYOCHI_KEKKA.BackColor = System.Drawing.SystemColors.Window
         Me.txtZESEI_SYOCHI_KEKKA.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.txtZESEI_SYOCHI_KEKKA.InputRequired = False
-        Me.txtZESEI_SYOCHI_KEKKA.Location = New System.Drawing.Point(130, 135)
+        Me.txtZESEI_SYOCHI_KEKKA.Location = New System.Drawing.Point(131, 153)
         Me.txtZESEI_SYOCHI_KEKKA.MaxByteLength = 80
         Me.txtZESEI_SYOCHI_KEKKA.MaxLength = 40
         Me.txtZESEI_SYOCHI_KEKKA.Multiline = True
@@ -4295,7 +4234,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame03.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame03.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame03.Location = New System.Drawing.Point(1186, 2)
+        Me.lblSTAGEFlame03.Location = New System.Drawing.Point(1115, 2)
         Me.lblSTAGEFlame03.Name = "lblSTAGEFlame03"
         Me.lblSTAGEFlame03.Size = New System.Drawing.Size(4, 265)
         Me.lblSTAGEFlame03.TabIndex = 354
@@ -4370,7 +4309,6 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST01.PerformLayout()
         Me.pnlINPUT_TYPE.ResumeLayout(False)
         Me.pnlINPUT_TYPE.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.fpnlTempFile1.ResumeLayout(False)
         Me.fpnlTempFile1.PerformLayout()
@@ -4476,10 +4414,6 @@ Partial Class FrmG0031_EditOccurred
     Friend WithEvents txtDOC_NO As TextBoxEx
     Friend WithEvents Label14 As Label
     Friend WithEvents Label7 As Label
-    Friend WithEvents Panel1 As Panel
-    Friend WithEvents RadioButton3 As RadioButton
-    Friend WithEvents RadioButton1 As RadioButton
-    Friend WithEvents RadioButton2 As RadioButton
     Friend WithEvents Panel2 As Panel
     Friend WithEvents dtKAITOU_KIBOU_YMD As DateTextBoxEx
     Friend WithEvents Label18 As Label
@@ -4529,11 +4463,9 @@ Partial Class FrmG0031_EditOccurred
     Friend WithEvents dtST05_NINKA_YMD As DateTextBoxEx
     Friend WithEvents dtST05_TENKEN_YMD As DateTextBoxEx
     Friend WithEvents dtST05_SAKUSEI_YMD As DateTextBoxEx
-    Friend WithEvents Label55 As Label
     Friend WithEvents pnlINPUT_TYPE As Panel
     Friend WithEvents rbtnINPUT_TYPE3 As RadioButton
     Friend WithEvents rbtnINPUT_TYPE2 As RadioButton
-    Friend WithEvents rbtnINPUT_TYPE1 As RadioButton
     Friend WithEvents TableLayoutPanel5 As TableLayoutPanel
     Friend WithEvents cmbST01_NINKA_TANTO As ComboboxEx
     Friend WithEvents lblST01_NINKA_TANTO As Label
@@ -4661,4 +4593,6 @@ Partial Class FrmG0031_EditOccurred
     Friend WithEvents lblSTAGEFlame05 As Label
     Friend WithEvents lblSTAGEFlame04 As Label
     Friend WithEvents lblSTAGEFlame03 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
 End Class

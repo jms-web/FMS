@@ -185,7 +185,7 @@ Public Class ErrMsg
 
                 Fun_GetSystemIniFile()
                 Using DB As ClsDbUtility = DBOpen()
-                    If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                    If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper <> "TRUE" Then
                         MsgBox(sbDLGMSG.ToString, MsgBoxStyle.Critical + MsgBoxStyle.SystemModal, strDLGTYTLE)
                     Else
 #If DEBUG Then
@@ -272,7 +272,6 @@ Public Class ErrMsg
 
                 '<b>【スクリーンショット】<br />
                 ' <img src = "data:image/png;base64,{10}" /<> br />
-
 
                 'ユーザー情報取得
                 sbSQL.Clear()

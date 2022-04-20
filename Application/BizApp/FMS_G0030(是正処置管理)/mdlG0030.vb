@@ -713,7 +713,7 @@ Module mdlG0030
                 strUserID = FunGetCodeMastaValue(DB, "メール設定", "SMTP_USER")
                 strPassword = FunGetCodeMastaValue(DB, "メール設定", "SMTP_PASS")
 
-                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper <> "TRUE" Then
                     MessageBox.Show("メール送信が無効に設定されているため、依頼メールは送信されませんでした。", "依頼メール送信", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Return True
                 End If
@@ -1201,6 +1201,9 @@ Module mdlG0030
             Dim SCR_FUTEKIGO_YOUIN_F As SpreadsheetGear.Shapes.IShape = Nothing
             Dim SCR_JINTEKI_YOUIN_T As SpreadsheetGear.Shapes.IShape = Nothing
             Dim SCR_JINTEKI_YOUIN_F As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim inputType1 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim inputType2 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim inputType3 As SpreadsheetGear.Shapes.IShape = Nothing
 
             ssgShapes = spSheet1.Shapes
             For Each shape As SpreadsheetGear.Shapes.IShape In ssgShapes
@@ -1223,6 +1226,12 @@ Module mdlG0030
                     Case NameOf(SCR_JINTEKI_YOUIN_F)
                         SCR_JINTEKI_YOUIN_F = shape
                         SCR_JINTEKI_YOUIN_F.Visible = False
+                    'Case "INPUT_TYPE1"
+                    '    inputType1 = shape
+                    Case "INPUT_TYPE2"
+                        inputType2 = shape
+                    Case "INPUT_TYPE3"
+                        inputType3 = shape
                 End Select
             Next shape
 
@@ -1239,7 +1248,22 @@ Module mdlG0030
             spSheet1.Range(NameOf(_V.FUTEKIGO_TAISYOU)).Value = _V.FUTEKIGO_TAISYOU
             spSheet1.Range(NameOf(_V.KANSATU_HOUKOKU)).Value = _V.KANSATU_HOUKOKU
             spSheet1.Range(NameOf(_V.HASSEI_GENIN)).Value = _V.HASSEI_GENIN
-            spSheet1.Range(NameOf(_V.INPUT_TYPE)).Value = _V.INPUT_TYPE
+
+            Select Case _V.INPUT_TYPE
+                'Case 1
+                '    inputType1.Visible = True
+                '    inputType2.Visible = False
+                '    inputType3.Visible = False
+                Case 2
+                    'inputType1.Visible = False
+                    inputType2.Visible = True
+                    inputType3.Visible = False
+                Case 3
+                    'inputType1.Visible = False
+                    inputType2.Visible = False
+                    inputType3.Visible = True
+            End Select
+
             If Not _V.KAITOU_KIBOU_YMD.IsNulOrWS Then
                 spSheet1.Range(NameOf(_V.KAITOU_KIBOU_YMD)).Value = _V.KAITOU_KIBOU_YMD 'DateTime.ParseExact(_V.KAITOU_YMD.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
@@ -1287,9 +1311,18 @@ Module mdlG0030
                 SCR_ZESEI_YUKO_T.Visible = True
             End If
 
-            If _V.SYONIN_NAME23.IsNulOrWS Then
-                spSheet1.Range("I46:J50").Clear()
-            End If
+            'If _V.SYONIN_NAME23.IsNulOrWS Then
+            '    spSheet1.Range("I46:J50").Clear()
+            '    Dim border As SpreadsheetGear.IBorder = spSheet1.Range("I50:J50").Borders(SpreadsheetGear.BordersIndex.EdgeBottom)
+            '    border.LineStyle = SpreadsheetGear.LineStyle.Continuous
+            '    border.Weight = SpreadsheetGear.BorderWeight.Medium
+            '    border.Color = SpreadsheetGear.Colors.Black
+
+            '    Dim border2 As SpreadsheetGear.IBorder = spSheet1.Range("J46:J50").Borders(SpreadsheetGear.BordersIndex.EdgeRight)
+            '    border2.LineStyle = SpreadsheetGear.LineStyle.Continuous
+            '    border2.Weight = SpreadsheetGear.BorderWeight.Thin
+            '    border2.Color = SpreadsheetGear.Colors.Black
+            'End If
 
 #Region "承認担当者"
 
@@ -1418,6 +1451,9 @@ Module mdlG0030
             Dim SCR_FUTEKIGO_YOUIN_F As SpreadsheetGear.Shapes.IShape = Nothing
             Dim SCR_JINTEKI_YOUIN_T As SpreadsheetGear.Shapes.IShape = Nothing
             Dim SCR_JINTEKI_YOUIN_F As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim inputType1 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim inputType2 As SpreadsheetGear.Shapes.IShape = Nothing
+            Dim inputType3 As SpreadsheetGear.Shapes.IShape = Nothing
 
             ssgShapes = spSheet1.Shapes
             For Each shape As SpreadsheetGear.Shapes.IShape In ssgShapes
@@ -1440,6 +1476,12 @@ Module mdlG0030
                     Case NameOf(SCR_JINTEKI_YOUIN_F)
                         SCR_JINTEKI_YOUIN_F = shape
                         SCR_JINTEKI_YOUIN_F.Visible = False
+                    'Case "INPUT_TYPE1"
+                    '    inputType1 = shape
+                    Case "INPUT_TYPE2"
+                        inputType2 = shape
+                    Case "INPUT_TYPE3"
+                        inputType3 = shape
                 End Select
             Next shape
 
@@ -1456,7 +1498,20 @@ Module mdlG0030
             spSheet1.Range(NameOf(_V.FUTEKIGO_TAISYOU)).Value = _V.FUTEKIGO_TAISYOU
             spSheet1.Range(NameOf(_V.KANSATU_HOUKOKU)).Value = _V.KANSATU_HOUKOKU
             spSheet1.Range(NameOf(_V.HASSEI_GENIN)).Value = _V.HASSEI_GENIN
-            spSheet1.Range(NameOf(_V.INPUT_TYPE)).Value = _V.INPUT_TYPE
+            Select Case _V.INPUT_TYPE
+                Case 1
+                    inputType1.Visible = True
+                    inputType2.Visible = False
+                    inputType3.Visible = False
+                Case 2
+                    inputType1.Visible = False
+                    inputType2.Visible = True
+                    inputType3.Visible = False
+                Case 3
+                    inputType1.Visible = False
+                    inputType2.Visible = False
+                    inputType3.Visible = True
+            End Select
             If Not _V.KAITOU_KIBOU_YMD.IsNulOrWS Then
                 spSheet1.Range(NameOf(_V.KAITOU_KIBOU_YMD)).Value = _V.KAITOU_KIBOU_YMD 'DateTime.ParseExact(_V.KAITOU_YMD.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If

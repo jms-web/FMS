@@ -636,6 +636,7 @@ Public Class FrmG0031_EditOverflow
 
             _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
             _D004_SYONIN_J_KANRI.UPD_YMDHNS = strSysDate
+            _D004_SYONIN_J_KANRI.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             '-----MERGE
             sbSQL.Remove(0, sbSQL.Length)
             sbSQL.Append($"MERGE INTO {NameOf(D004_SYONIN_J_KANRI)} AS SrcT")

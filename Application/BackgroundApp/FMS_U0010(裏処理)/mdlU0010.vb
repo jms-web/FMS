@@ -310,7 +310,7 @@ Module mdlU0010
         Dim dt As DataTable
 
         Using DB As ClsDbUtility = DBOpen()
-            If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+            If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper <> "TRUE" Then
                 WL.WriteLogDat($"メール送信設定が無効(FALSE)に設定されています")
                 Return 0
             End If
@@ -455,7 +455,7 @@ Module mdlU0010
             Dim dt As DataTable
 
             Using DB As ClsDbUtility = DBOpen()
-                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper <> "TRUE" Then
                     WL.WriteLogDat($"メール送信設定が無効(FALSE)に設定されています")
                     Return 0
                 End If
@@ -622,7 +622,7 @@ Module mdlU0010
             Dim dt As DataTable
 
             Using DB As ClsDbUtility = DBOpen()
-                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper <> "TRUE" Then
                     WL.WriteLogDat($"メール送信設定が無効(FALSE)に設定されています")
                     Return 0
                 End If
@@ -786,7 +786,7 @@ Module mdlU0010
             Dim dt As DataTable
 
             Using DB As ClsDbUtility = DBOpen()
-                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper <> "TRUE" Then
                     WL.WriteLogDat($"メール送信設定が無効(FALSE)に設定されています")
                     Return 0
                 End If

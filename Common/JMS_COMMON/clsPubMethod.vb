@@ -3,7 +3,6 @@ Imports System.ComponentModel
 Imports System.ComponentModel.DataAnnotations
 Imports MODEL
 
-
 Public NotInheritable Class ClsPubMethod
 
 #Region "WinAPI"
@@ -30,6 +29,7 @@ Public NotInheritable Class ClsPubMethod
 
     'プログラムステータスバーステータス
     Public Enum ENM_PG_STATUS
+
         ''' <summary>
         ''' 非アクティブ(イベント未発生)
         ''' </summary>
@@ -54,6 +54,7 @@ Public NotInheritable Class ClsPubMethod
         ''' エラー
         ''' </summary>
         _9_ERROR = 9
+
     End Enum
 
     'ウィンドウ表示状態
@@ -66,7 +67,6 @@ Public NotInheritable Class ClsPubMethod
         _9_RESTORE = 9
     End Enum
 
-
     'トランザクション状態
     Public Enum ENM_TRANSACTION_STATUS
         _0_ROLLBACK = 0
@@ -77,43 +77,51 @@ Public NotInheritable Class ClsPubMethod
     ''' コンボボックス先頭行 選択値タイプ
     ''' </summary>
     Public Enum ENM_COMBO_SELECT_VALUE_TYPE
+
         ''' <summary>
         ''' 必須
         ''' </summary>
         _0_Required = 0
+
         ''' <summary>
         ''' すべて
         ''' </summary>
         _1_Filter = 1
+
         ''' <summary>
         ''' 未選択
         ''' </summary>
         _2_Option = 2
-    End Enum
 
+    End Enum
 
     <Flags>
     Public Enum EllipsisFormat
+
         ' Text Is Not modified.
         _0_None = 0
+
         ' Text Is trimmed at the end of the string. An ellipsis (...)
         ' Is drawn in place of remaining text.
         _1_End = 1
+
         ' Text Is trimmed at the beginning of the string.
         ' An ellipsis (...) Is drawn in place of remaining text.
         _2_Start = 2
+
         ' Text Is trimmed in the middle of the string.
         ' An ellipsis (...) Is drawn in place of remaining text.
         _3_Middle = 3
+
         ' Preserve as much as possible of the drive And filename information.
         ' Must be combined with alignment information.
         _4_Path = 4
+
         ' Text Is trimmed at a word boundary.
         ' Must be combined with alignment information.
         _8_Word = 8
+
     End Enum
-
-
 
 #End Region
 
@@ -122,6 +130,7 @@ Public NotInheritable Class ClsPubMethod
 #Region "ファイル／ディレクトリ関連"
 
 #Region "　ルートパス取得"
+
     Public Shared Function FunGetRootPath() As String
         Dim strBUFF As String
 
@@ -145,7 +154,6 @@ Public NotInheritable Class ClsPubMethod
             strBUFF = Application.StartupPath() & "\..\..\..\..\.."
         ElseIf InStr(strBUFF, "\bin\x64\Debug", CompareMethod.Text) > 0 Then
             strBUFF = Application.StartupPath() & "\..\..\..\..\.."
-
         Else
             strBUFF = Application.StartupPath() & "\.."
         End If
@@ -155,9 +163,11 @@ Public NotInheritable Class ClsPubMethod
         strBUFF = System.IO.Path.GetFullPath(strBUFF)
         Return strBUFF
     End Function
+
 #End Region
 
 #Region "パス"
+
     Public Shared Function FunGetEXEPath() As String
 #If DEBUG Then
         Dim strEXE As String = "\EXE_DEBUG\"
@@ -166,9 +176,11 @@ Public NotInheritable Class ClsPubMethod
 #End If
         Return strEXE
     End Function
+
 #End Region
 
 #Region "　ファイル削除"
+
     Public Shared Function FunDELETE_FILE(ByVal stFilePath As String) As Boolean
         Dim strPath As String
         Try
@@ -187,7 +199,6 @@ Public NotInheritable Class ClsPubMethod
             End If
 
             Return True
-
         Catch exIO As System.IO.IOException
             MessageBox.Show("ファイルが開かれているため、削除することが出来ません。" & vbCrLf & "ファイルを閉じて下さい。" & vbCrLf & "対象ファイル：" & stFilePath, "ファイル削除", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return False
@@ -196,6 +207,7 @@ Public NotInheritable Class ClsPubMethod
             Return False
         End Try
     End Function
+
 #End Region
 
 #Region "　パス文字列変換"
@@ -213,7 +225,6 @@ Public NotInheritable Class ClsPubMethod
                     strPath &= "\"
                 End If
             End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, True)
         End Try
@@ -238,7 +249,6 @@ Public NotInheritable Class ClsPubMethod
             Else
                 Return vbNullString
             End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, True)
             Return vbNullString
@@ -247,6 +257,7 @@ Public NotInheritable Class ClsPubMethod
 
     'Link https://www.codeproject.com/Articles/37503/Auto-Ellipsis
     Public Const EllipsisChars As String = "..."
+
     Public Shared Function CompactString(ByVal text As String, ByVal ctrl As Control, ByVal options As EllipsisFormat) As String
         Using dc As Graphics = ctrl.CreateGraphics()
             Dim s As Size = TextRenderer.MeasureText(dc, text, ctrl.Font)
@@ -292,7 +303,6 @@ Public NotInheritable Class ClsPubMethod
                     Right -= Left
                     Left = 0
                 End If
-
 
                 ' build And measure a candidate string with ellipsis
                 Dim tst As String = Mid.Substring(0, Left) + EllipsisChars + Mid.Substring(Right)
@@ -342,6 +352,7 @@ Public NotInheritable Class ClsPubMethod
 #End Region
 
 #Region "フォルダ存在チェック＆作成"
+
     Public Shared Function FunCreateDirectory(ByRef strPath As String) As Boolean
 
         Try
@@ -366,6 +377,7 @@ Public NotInheritable Class ClsPubMethod
 #End Region
 
 #Region "相対パス絶対パス変換"
+
     Public Shared Function FunConvRootPath(ByVal strPath As String) As String
         Try
             If System.IO.Path.IsPathRooted(strPath) = False Then
@@ -373,12 +385,12 @@ Public NotInheritable Class ClsPubMethod
             Else
                 Return strPath
             End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return vbNullString
         End Try
     End Function
+
 #End Region
 
 #End Region
@@ -406,12 +418,12 @@ Public NotInheritable Class ClsPubMethod
 
     End Sub
 
-
 #End Region
 
 #End Region
 
 #Region "コントロール関連"
+
     ''' <summary>
     ''' コントロールのDoubleBufferedプロパティをTrueにする
     ''' </summary>
@@ -423,7 +435,6 @@ Public NotInheritable Class ClsPubMethod
                                                         Nothing,
                                                         control,
                                                         New Object() {True})
-
 
         'control.SetStyle(ControlStyles.ResizeRedraw, True)
         'control.SetStyle(ControlStyles.DoubleBuffer, True)
@@ -450,11 +461,13 @@ Public NotInheritable Class ClsPubMethod
 
         Return Nothing
     End Function
+
 #End Region
 
 #Region "データソース関連"
 
 #Region "　コードマスタ設定値取得"
+
     Public Shared Function FunGetCodeMastaValue(ByVal DB As ClsDbUtility, ByVal strKOM As String, ByVal strVALUE As String) As String
         Dim strBUFF As String = ""
         Dim tbl As New DataTableEx
@@ -468,7 +481,6 @@ Public NotInheritable Class ClsPubMethod
             End If
 
             Return strBUFF
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return ""
@@ -489,7 +501,6 @@ Public NotInheritable Class ClsPubMethod
             Next
 
             Return list
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return Nothing
@@ -536,7 +547,6 @@ Public NotInheritable Class ClsPubMethod
                 '
                 Return True
             End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -546,6 +556,7 @@ Public NotInheritable Class ClsPubMethod
 #End Region
 
 #Region "　コンボボックス データソース設定"
+
     ''' <summary>
     ''' コンボボックスのデータソースを設定 DatatableEx
     ''' </summary>
@@ -604,15 +615,12 @@ Public NotInheritable Class ClsPubMethod
                 'コンボボックスのデータソースを設定
                 cmbCtrl.DataSource = dtx
                 'イベントハンドラを戻す
-
-
             Else
                 '----先頭に空白行を追加しない場合
 
                 'コンボボックスのデータソースを設定
                 cmbCtrl.DataSource = srcTable
             End If
-
 
             ''オートコンプリート設定       , Optional ByVal AutoComplete As Boolean = False
             'If AutoComplete = True Then
@@ -638,7 +646,6 @@ Public NotInheritable Class ClsPubMethod
     <Obsolete("ComboboxExのメソッド版を利用して下さい comboBox1.SetDatasource(dt as DataTableEx)")>
     Public Shared Function FunSetComboboxSrc(ByVal cmbCtrl As ComboBox, ByVal srcTable As DataTable, Optional ByVal TopRowNull As Boolean = False, Optional drowMode As DrawMode = DrawMode.OwnerDrawFixed) As Boolean
 
-
         Try
 
             '-----オーナードロー設定
@@ -654,7 +661,6 @@ Public NotInheritable Class ClsPubMethod
             '-----コンボボックス表示値と選択値の列設定
             cmbCtrl.DisplayMember = "DISP"
             cmbCtrl.ValueMember = "VALUE"
-
 
             If TopRowNull = True Then
                 Dim dt As New DataTable()
@@ -685,7 +691,6 @@ Public NotInheritable Class ClsPubMethod
                 'コンボボックスのデータソースを設定
                 cmbCtrl.DataSource = srcTable
             End If
-
 
             ''オートコンプリート設定       , Optional ByVal AutoComplete As Boolean = False
             'If AutoComplete = True Then
@@ -749,15 +754,12 @@ Public NotInheritable Class ClsPubMethod
                 'コンボボックスのデータソースを設定
                 cmbCtrl.DataSource = dtx
                 'イベントハンドラを戻す
-
-
             Else
                 '----先頭に空白行を追加しない場合
 
                 'コンボボックスのデータソースを設定
                 cmbCtrl.DataSource = srcTable
             End If
-
 
             ''オートコンプリート設定       , Optional ByVal AutoComplete As Boolean = False
             'If AutoComplete = True Then
@@ -808,18 +810,14 @@ Public NotInheritable Class ClsPubMethod
                 Using sb As New SolidBrush(Color.FromArgb(64, c.R, c.G, c.B))
                     e.Graphics.FillRectangle(sb, e.Bounds)
                 End Using
-
-
             Else
                 e.DrawBackground()
             End If
-
 
             'BindingSource項目設定
             If e.Index <> -1 Then
                 Dim item As Object = cmb.Items(e.Index)
                 Dim dispObject As Object = item
-
 
                 '項目に表示する文字列
                 If IsNothing(cmb.DataSource) = False Then
@@ -832,7 +830,6 @@ Public NotInheritable Class ClsPubMethod
                     End If
 
                 End If
-
 
                 Dim itemText As String = TypeDescriptor.GetConverter(dispObject).ConvertToString(dispObject)
 
@@ -866,8 +863,6 @@ Public NotInheritable Class ClsPubMethod
             If e.State = DrawItemState.Focus Then
                 e.DrawFocusRectangle()
             End If
-
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
         End Try
@@ -949,7 +944,6 @@ Public NotInheritable Class ClsPubMethod
         End Try
     End Function
 
-
     ''' <summary>
     ''' 選択された項目が削除済み(非表示)の場合データソースに追加
     ''' </summary>
@@ -975,7 +969,6 @@ Public NotInheritable Class ClsPubMethod
                 End If
             End If
             cmbCtrl.SelectedValue = value
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
@@ -984,6 +977,7 @@ Public NotInheritable Class ClsPubMethod
 #End Region
 
 #Region "モデルからデータテーブルを作成"
+
     ''' <summary>
     ''' モデルからデータテーブルと
     ''' </summary>
@@ -1005,6 +999,7 @@ Public NotInheritable Class ClsPubMethod
 
         Return (dt, properties)
     End Function
+
 #End Region
 
 #End Region
@@ -1012,6 +1007,7 @@ Public NotInheritable Class ClsPubMethod
 #Region "Excel関連"
 
 #Region "エクセル出力ファイル用意"
+
     'エクセル出力ファイル用意
     '　IN:テンプレートファイル名(ex.｢MBCM010CODE｣)
     '　IN:出力先フォルダ(ex.｢C:\EXCEL\｣)
@@ -1027,7 +1023,6 @@ Public NotInheritable Class ClsPubMethod
             If blnCheckExcelApp = True Then
                 '-----Excelクラス ProgID に関連付けられている型を取得
                 typClassType = Type.GetTypeFromProgID("Excel.Application")
-
 
                 '-----Excelの型がそれに関連付けられていない。(Excelが存在しない)
                 If typClassType Is Nothing Then
@@ -1062,7 +1057,6 @@ Public NotInheritable Class ClsPubMethod
                 Return False
             End If
 
-
             '-----パス無し時
             strBUFF = System.IO.Path.GetDirectoryName(strEXCEL_FILE)
             If strBUFF.IsNulOrWS Then
@@ -1070,7 +1064,6 @@ Public NotInheritable Class ClsPubMethod
                 'WL.WriteLogDat(INI_EXCELFILENAME & "にEXCEL出力先フォルダが設定されていません。")
                 Return False
             End If
-
 
             '-----出力先無し時は作成
             Try
@@ -1086,13 +1079,10 @@ Public NotInheritable Class ClsPubMethod
                 Return False
             End Try
 
-
-
             '-----テンプレートをコピーして今回表示ファイルを作成
             Try
                 'コピー
                 System.IO.File.Copy(strTEMPLATE_FILE, strEXCEL_FILE)
-
             Catch CPEx As Exception
                 If Not blnNonMsg Then
                     Call MsgBox(strTEMPLATE_FILE & "のコピーに失敗しました。", MsgBoxStyle.Exclamation)
@@ -1100,7 +1090,6 @@ Public NotInheritable Class ClsPubMethod
                 WL.WriteLogDat(strTEMPLATE_FILE & "のコピーに失敗しました。")
                 Return False
             End Try
-
 
             '-----コピーされたかもう一度確認する。
             If System.IO.File.Exists(strEXCEL_FILE) = False Then
@@ -1112,7 +1101,6 @@ Public NotInheritable Class ClsPubMethod
             End If
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, True)
             Return False
@@ -1120,7 +1108,6 @@ Public NotInheritable Class ClsPubMethod
         End Try
 
     End Function
-
 
     Public Shared Function OpenExcelPrintPreview(filePath As String) As Boolean
         Dim xla As Microsoft.Office.Interop.Excel.Application = Nothing
@@ -1135,6 +1122,7 @@ Public NotInheritable Class ClsPubMethod
 
             sheet = book.ActiveSheet
             xla.Visible = True
+            sheet.Calculate()
             sheet.PrintPreview()
 
             'ガベージ コレクト処理が若干冗長だが、これくらいやらないと作業用EXCEL.EXEが消えてくれない
@@ -1161,6 +1149,7 @@ Public NotInheritable Class ClsPubMethod
             GC.Collect()
         End Try
     End Function
+
 #End Region
 
 #Region "表示"
@@ -1174,7 +1163,6 @@ Public NotInheritable Class ClsPubMethod
             '-----Excelクラス ProgID に関連付けられている型を取得
             typClassType = Type.GetTypeFromProgID("Excel.Application")
 
-
             'EXCEL起動
             xlApp = Activator.CreateInstance(typClassType)
 
@@ -1185,7 +1173,6 @@ Public NotInheritable Class ClsPubMethod
             End If
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -1201,11 +1188,10 @@ Public NotInheritable Class ClsPubMethod
 
     End Function
 
-
-
 #End Region
 
 #Region "COMオブジェクトへの参照を解放"
+
     'COMオブジェクトへの参照を解放
     '(COM オブジェクトの使用後、明示的に COM オブジェクトへの参照を解放する)
     Public Shared Sub MRComObject(ByRef objCom As Object)
@@ -1224,9 +1210,11 @@ Public NotInheritable Class ClsPubMethod
             objCom = Nothing
         End Try
     End Sub
+
 #End Region
 
 #Region "シート名から不正文字除く"
+
     'シート名から不正文字除く
     Public Shared Function REPLACE_SHEETNAME(ByVal strNAME As String) As String
         Dim strBUFF As String
@@ -1251,15 +1239,16 @@ Public NotInheritable Class ClsPubMethod
             strBUFF = Replace(strBUFF, "］", "")
 
             Return strBUFF
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return vbNullString
         End Try
     End Function
+
 #End Region
 
 #Region "　CSV出力"
+
     Public Shared Function WRITE_CSV_FILE(ByRef strOUT_FOLDER As String, ByVal strFILE As String, ByVal strDATA() As String) As Boolean
         Dim strPATH As String
 
@@ -1285,7 +1274,6 @@ Public NotInheritable Class ClsPubMethod
                 Return True
 
             End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
@@ -1379,13 +1367,11 @@ Public NotInheritable Class ClsPubMethod
             MessageBox.Show("｢" & strOUT_PATH & strFileName & "｣に出力しました。", "CSV出力", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         End Try
     End Function
-
 
     Public Shared Function FunCSV_OUTviaFlexGrid(flx As C1.Win.C1FlexGrid.C1FlexGrid, ByVal strFileName As String, ByVal strOutPath As String, Optional ByVal blnWriteHeader As Boolean = True) As Boolean
 
@@ -1432,8 +1418,6 @@ Public NotInheritable Class ClsPubMethod
                 'ファイル名
                 strFileName = System.IO.Path.GetFileName(sfd.FileName)
 
-
-
                 '-----配列用意
                 ReDim strARY(0 To flx.Rows.Count - 1)
 
@@ -1474,13 +1458,11 @@ Public NotInheritable Class ClsPubMethod
             MessageBox.Show("｢" & strOUT_PATH & strFileName & "｣に出力しました。", "CSV出力", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         End Try
     End Function
-
 
     Public Shared Function FunCSV_OUT(Of T As IDataModel)(ByVal entities As List(Of T), ByVal strFileName As String, ByVal strOutPath As String, Optional ByVal blnWriteHeader As Boolean = True) As Boolean
 
@@ -1563,13 +1545,11 @@ Public NotInheritable Class ClsPubMethod
             MessageBox.Show("｢" & strOUT_PATH & strFileName & "｣に出力しました。", "CSV出力", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             Return True
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return False
         End Try
     End Function
-
 
     ''' <summary>
     ''' 必要ならば、文字列をダブルクォートで囲む
@@ -1605,6 +1585,7 @@ Public NotInheritable Class ClsPubMethod
         field.EndsWith(" ") OrElse
         field.EndsWith(vbTab)
     End Function
+
 #End Region
 
 #End Region
@@ -1612,6 +1593,7 @@ Public NotInheritable Class ClsPubMethod
 #Region "フォーマット関連"
 
 #Region "時刻数値の計算"
+
     ''' <summary>
     ''' 60進数の時刻を表す数値の計算
     ''' </summary>
@@ -1648,9 +1630,11 @@ Public NotInheritable Class ClsPubMethod
         strWk = Strings.Right(Format(dec, "#.#0"), 2)
         Return CDec(Int(dec) + (CDec(strWk) / 60))
     End Function
+
 #End Region
 
 #Region "　桁数チェック"
+
     '桁数チェック
     Public Shared Function FunNUMCHECK(ByVal strDATA As String, ByVal intSEISUKETA As Integer, ByVal intSYOSUKETA As Integer) As Integer
         Dim lngBUFF As Long
@@ -1671,14 +1655,12 @@ Public NotInheritable Class ClsPubMethod
                 Return 1
             End If
 
-
             '-----整数桁長取得
             If Val(strDATA) >= 0 Then '正数時
                 lngBUFF = System.Math.Truncate(Val(strDATA))
             ElseIf Val(strDATA) < 0 Then '負数時
                 lngBUFF = System.Math.Truncate(Val(strDATA) * -1)
             End If
-
 
             '-----整数桁長チェック
             If CStr(lngBUFF).Length > intSEISUKETA Then
@@ -1696,9 +1678,7 @@ Public NotInheritable Class ClsPubMethod
                 End If
             End If
 
-
             Return 0
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
             Return -1
@@ -1708,6 +1688,7 @@ Public NotInheritable Class ClsPubMethod
 #End Region
 
 #Region "　指定した精度の数値に切り捨て"
+
     ''' ------------------------------------------------------------------------
     ''' <summary>
     '''     指定した精度の数値に切り捨てします。</summary>
@@ -1731,6 +1712,7 @@ Public NotInheritable Class ClsPubMethod
 #End Region
 
 #Region "　指定した精度の数値に切り上げ"
+
     ''' ------------------------------------------------------------------------
     ''' <summary>
     '''     指定した精度の数値に切り上げします。</summary>
@@ -1754,6 +1736,7 @@ Public NotInheritable Class ClsPubMethod
 #End Region
 
 #Region "　指定した精度の数値に四捨五入 !=JIS丸め"
+
     '四捨五入
     Public Shared Function ToHalfAdjust_NOTJIS(ByVal dValue As Double, ByVal iDigits As Integer) As Double
         Dim dCoef As Double = System.Math.Pow(10, iDigits)
@@ -1764,9 +1747,11 @@ Public NotInheritable Class ClsPubMethod
             Return System.Math.Ceiling((dValue * dCoef) - 0.5) / dCoef
         End If
     End Function
+
 #End Region
 
 #Region "　ByteSubstring"
+
     Public Shared Function ByteSubstring(ByVal value As String, ByVal startindex As Integer, ByVal length As Integer) As String
 
         Dim ret As String = ""          ' 切り出した文字列
@@ -1815,6 +1800,7 @@ Public NotInheritable Class ClsPubMethod
 #End Region
 
 #Region "　MidB"
+
     '■MidB
     '''  <summary>Mid関数のバイト版。文字数と位置をバイト数で指定して文字列を切り抜く。</summary>
     '''  <param name="str">対象の文字列</param>
@@ -1824,7 +1810,6 @@ Public NotInheritable Class ClsPubMethod
     '''  <remarks>最後の１バイトが全角文字の半分になる場合、その１バイトは無視される。</remarks>
     Public Shared Function MidB(ByVal str As String, ByVal Start As Integer, Optional ByVal Length As Integer = 0) As String
         Try
-
 
             '▼空文字に対しては常に空文字を返す
 
@@ -1875,6 +1860,7 @@ Public NotInheritable Class ClsPubMethod
 #End Region
 
 #Region "　Nz関数"
+
     'CHECKED: 2015.11.03 by funato
     ''' <summary>
     ''' オブジェクトが Nothing または DBNull の場合に長さ 0 の文字列("")または指定したその他の値を返す　AccessVBAのNz関数より
@@ -1916,9 +1902,11 @@ Public NotInheritable Class ClsPubMethod
         End Try
 
     End Function
+
 #End Region
 
 #Region "　全角/半角数"
+
     '全角数/半角数/バイト数を戻す
     '   元データ
     '   Z:全角数、H:半角数、B：BYTE数
@@ -1948,16 +1936,16 @@ Public NotInheritable Class ClsPubMethod
             ElseIf strMODE = "B" Then
                 Return intZenkaku * 2 + intHankaku
             End If
-
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
         Finally
         End Try
     End Function
+
 #End Region
 
 #Region "　日付範囲チェック"
+
     Public Shared Function FunDATESPAN(ByVal strYMD As String, Optional ByVal strNAME As String = "") As Integer
 
         Try
@@ -1970,7 +1958,6 @@ Public NotInheritable Class ClsPubMethod
                 MsgBox(strNAME & "は YYYY/MM/DD 形式で入力してください", MsgBoxStyle.Information)
                 Return -1
             End If
-
 
             '過去15日以上前
             If strYMD < System.DateTime.Now.AddDays(-15).ToString("yyyy/MM/dd") Then
@@ -2000,19 +1987,18 @@ Public NotInheritable Class ClsPubMethod
                 End If
             End If
 
-
             Return 0
-
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
             Return -1
         Finally
         End Try
     End Function
+
 #End Region
 
 #Region "　数値型日付を書式付きフォーマットに変換"
+
     '数値型日付を書式付きフォーマットに変換
     Public Shared Function FunGetFormattedDateString(ByVal strNumericDate As String) As String
         Try
@@ -2021,15 +2007,16 @@ Public NotInheritable Class ClsPubMethod
             Else
                 Return strNumericDate
             End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             Return vbNullString
         End Try
     End Function
+
 #End Region
 
 #Region "　ToFToNumber"
+
     Public Shared Function FunConvToFToNumer(ByVal objArgs As Object) As Object
         Dim intRET As Integer
         Dim blnRET As Boolean
@@ -2053,7 +2040,6 @@ Public NotInheritable Class ClsPubMethod
 
                 Return blnRET
             End If
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, False)
             Return Nothing
@@ -2063,6 +2049,7 @@ Public NotInheritable Class ClsPubMethod
 #End Region
 
 #Region "Object型を文字列に変換する"
+
     ''' <summary>
     ''' Object型の値をStringに変換する処理
     ''' </summary>
@@ -2111,7 +2098,6 @@ Public NotInheritable Class ClsPubMethod
                     ' 値型以外の場合は型の名前を返す
                     Return l_oType.ToString()
             End Select
-
         Catch ex As Exception
             EM.ErrorSyori(ex)
         End Try
@@ -2120,16 +2106,17 @@ Public NotInheritable Class ClsPubMethod
 #End Region
 
 #Region "Image To Icon"
+
     Public Shared Function ConvertImageToIcon(ByVal img As Image) As Icon
         Return Icon.FromHandle(DirectCast(img, Bitmap).GetHicon())
     End Function
 
 #End Region
 
-
 #End Region
 
 #Region "　シェルコマンド実行"
+
     Public Shared Function FunExexuteShellCommand(ByVal strCommand As String) As String
         Dim p As New System.Diagnostics.Process()
 
@@ -2165,6 +2152,7 @@ Public NotInheritable Class ClsPubMethod
             Return ""
         End Try
     End Function
+
 #End Region
 
 #Region "　別プログラム実行"
@@ -2229,7 +2217,6 @@ Public NotInheritable Class ClsPubMethod
                             .StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal     '通常
                     End Select
 
-
                     blnRET = .Start()
 
                     'While .HasExited = False
@@ -2255,6 +2242,7 @@ Public NotInheritable Class ClsPubMethod
 
         End Try
     End Function
+
 #End Region
 
 #Region "　エラーログメール通知"
@@ -2274,7 +2262,6 @@ Public NotInheritable Class ClsPubMethod
     '        Dim blnRET As Boolean
 
     '        Try
-
 
     '            clsMail.GetMailSetting(DB)
 
@@ -2320,9 +2307,11 @@ Public NotInheritable Class ClsPubMethod
     '            clsMail = Nothing
     '        End Try
     '    End Function
+
 #End Region
 
 #Region "デバッグ関連"
+
     Public Shared Function FunGetBuildDatetime(ByVal Ver As Version) As DateTime
 
         Try
@@ -2340,9 +2329,11 @@ Public NotInheritable Class ClsPubMethod
             Return Nothing
         End Try
     End Function
+
 #End Region
 
 #Region "Attribute"
+
     Public Shared Function GetDisplayName(ByVal _type As Type, ByVal _property As String) As String
         Dim _attribute As System.ComponentModel.DisplayNameAttribute
         _attribute = Attribute.GetCustomAttribute(_type.GetProperty(_property),
@@ -2370,6 +2361,7 @@ Public NotInheritable Class ClsPubMethod
             Return False
         End Try
     End Function
+
 #End Region
 
 End Class

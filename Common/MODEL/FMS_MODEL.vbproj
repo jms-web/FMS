@@ -380,6 +380,7 @@
     <Content Include="DDL\View\V011_FCR_J.sql" />
     <Content Include="DDL\View\V010_SYAIN_SYOZOKU_BUSYO.sql" />
     <Content Include="DDL\View\V009_CAR_R.sql" />
+    <Content Include="DDL\View\V016_ZESEI_HASSEI.sql" />
     <Content Include="DDL\View\V015_ZESEI_ICHIRAN.sql" />
     <Content Include="DDL\View\V014_FCCB_SYOCHI_YOTEI_ICHIRAN.sql" />
     <Content Include="DDL\View\V013_FCCB_ICHIRAN.sql" />

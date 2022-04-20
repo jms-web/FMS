@@ -494,7 +494,7 @@ Public Class FrmG0036_Sasimodosi
 
         If FunSendMailZESEI(strSubject, strBody, users) Then
             Using DB As ClsDbUtility = DBOpen()
-                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper = "FALSE" Then
+                If FunGetCodeMastaValue(DB, "メール設定", "ENABLE").ToString.Trim.ToUpper <> "TRUE" Then
                 Else
                     MessageBox.Show("処置依頼メールを送信しました。", "メール送信完了", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If

@@ -632,6 +632,7 @@ Public Class FrmG0031_EditOccurred
             _D004_SYONIN_J_KANRI.SYONIN_JUN = PrCurrentStage
             _D004_SYONIN_J_KANRI.SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             _D004_SYONIN_J_KANRI.ADD_YMDHNS = strSysDate 'Now.ToString("yyyyMMddHHmmss")
+            _D004_SYONIN_J_KANRI.UPD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
             _D004_SYONIN_J_KANRI.UPD_YMDHNS = strSysDate
             '-----MERGE
             sbSQL.Remove(0, sbSQL.Length)
@@ -1473,30 +1474,28 @@ Public Class FrmG0031_EditOccurred
 #Region "ST3"
 
     Private Sub txtOUKYU_SYOCHI_KEKKA_Validated(sender As Object, e As EventArgs) Handles txtOUKYU_SYOCHI_KEKKA.Validated
-        Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
-        If IsCheckRequired Then
-            IsValidated *= ErrorProvider.UpdateErrorInfo(txt, Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "応急処置実施結果"))
-        End If
+        'Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
+        'If IsCheckRequired Then
+        '    IsValidated *= ErrorProvider.UpdateErrorInfo(txt, Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "応急処置実施結果"))
+        'End If
     End Sub
 
     Private Sub txtZESEI_SYOCHI_KEKKA_Validated(sender As Object, e As EventArgs) Handles txtZESEI_SYOCHI_KEKKA.Validated
-        Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
-        If IsCheckRequired Then
-            IsValidated *= ErrorProvider.UpdateErrorInfo(txt, Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置実施結果"))
-        End If
+        'Dim txt As TextBoxEx = DirectCast(sender, TextBoxEx)
+        'If IsCheckRequired Then
+        '    IsValidated *= ErrorProvider.UpdateErrorInfo(txt, Not txt.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "是正処置実施結果"))
+        'End If
     End Sub
 
 #End Region
 
 #Region "チェック項目"
 
-    Private Sub rbtnINPUT_TYPE_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnINPUT_TYPE1.CheckedChanged,
-                                                                                          rbtnINPUT_TYPE2.CheckedChanged,
-                                                                                          rbtnINPUT_TYPE3.CheckedChanged
+    Private Sub rbtnINPUT_TYPE_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnINPUT_TYPE2.CheckedChanged, rbtnINPUT_TYPE3.CheckedChanged
         Dim val As String
         Select Case True
-            Case rbtnINPUT_TYPE1.Checked
-                val = "1"
+            'Case rbtnINPUT_TYPE1.Checked
+            '    val = "1"
             Case rbtnINPUT_TYPE2.Checked
                 val = "2"
             Case rbtnINPUT_TYPE3.Checked
@@ -1913,8 +1912,8 @@ Public Class FrmG0031_EditOccurred
                 pnlST01.Visible = True
 
                 Select Case _D013.INPUT_TYPE
-                    Case "1"
-                        rbtnINPUT_TYPE1.Checked = True
+                    'Case "1"
+                    '    rbtnINPUT_TYPE1.Checked = True
                     Case "2"
                         rbtnINPUT_TYPE2.Checked = True
                     Case "3"
@@ -1994,7 +1993,8 @@ Public Class FrmG0031_EditOccurred
             End If
 
             If intStageID >= ENM_ZESEI_STAGE._12_起草入力_認可 Then
-                dt = GetExcludeyakusyokuUsers(_D013.BUMON_KB, {ENM_YAKUSYOKU_KB._99_なし.Value}.ToList)
+                'dt = GetExcludeyakusyokuUsers(_D013.BUMON_KB, {ENM_YAKUSYOKU_KB._99_なし.Value}.ToList)
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._20_是正処置入力)
                 cmbST02_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 cmbST02_SAKUSEI_TANTO.SelectedValue = _D013.TANTO_ID
 
@@ -2072,7 +2072,8 @@ Public Class FrmG0031_EditOccurred
             End If
 
             If intStageID >= ENM_ZESEI_STAGE._22_是正処置入力_認可 Then
-                dt = GetExcludeyakusyokuUsers(_D013.BUMON_KB, {ENM_YAKUSYOKU_KB._99_なし.Value}.ToList)
+                'dt = GetExcludeyakusyokuUsers(_D013.BUMON_KB, {ENM_YAKUSYOKU_KB._99_なし.Value}.ToList)
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._20_是正処置入力)
                 cmbST03_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 cmbST03_SAKUSEI_TANTO.SelectedValue = _D013.TANTO_ID
                 cmbST03_SAKUSEI_TANTO.Visible = True
@@ -2081,47 +2082,47 @@ Public Class FrmG0031_EditOccurred
 
                 cmbST02_TENKEN_TANTO.ReadOnly = True
 
-                Select Case _D013.INPUT_TYPE
-                    Case "1", "2"
-                        cmbST02_HINSYO_TENKEN_TANTO.Visible = True
-                        lblST02_HINSYO_TENKEN_TANTO.Visible = True
-                        dtST02_HINSYO_TENKEN_YMD.Visible = True
+                'Select Case _D013.INPUT_TYPE
+                '    Case "1", "2"
+                '        cmbST02_HINSYO_TENKEN_TANTO.Visible = True
+                '        lblST02_HINSYO_TENKEN_TANTO.Visible = True
+                '        dtST02_HINSYO_TENKEN_YMD.Visible = True
 
-                        cmbST02_HINSYO_NINKA_TANTO.Visible = True
-                        lblST02_HINSYO_NINKA_TANTO.Visible = True
-                        dtST02_HINSYO_NINKA_YMD.Visible = True
+                '        cmbST02_HINSYO_NINKA_TANTO.Visible = True
+                '        lblST02_HINSYO_NINKA_TANTO.Visible = True
+                '        dtST02_HINSYO_NINKA_YMD.Visible = True
 
-                        dt = cmbST01_TENKEN_TANTO.DataSource
-                        cmbST02_HINSYO_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                        cmbST02_HINSYO_TENKEN_TANTO.SelectedValue = cmbST01_TENKEN_TANTO.SelectedValue
+                '        dt = cmbST01_TENKEN_TANTO.DataSource
+                '        cmbST02_HINSYO_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                '        cmbST02_HINSYO_TENKEN_TANTO.SelectedValue = cmbST01_TENKEN_TANTO.SelectedValue
 
-                        dt = cmbST01_NINKA_TANTO.DataSource
-                        cmbST02_HINSYO_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                        cmbST02_HINSYO_NINKA_TANTO.SelectedValue = cmbST01_NINKA_TANTO.SelectedValue
+                '        dt = cmbST01_NINKA_TANTO.DataSource
+                '        cmbST02_HINSYO_NINKA_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
+                '        cmbST02_HINSYO_NINKA_TANTO.SelectedValue = cmbST01_NINKA_TANTO.SelectedValue
 
-                        V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._23_是正処置入力_品証_点検).FirstOrDefault
-                        If V003 IsNot Nothing Then
-                            cmbST02_HINSYO_TENKEN_TANTO.SelectedValue = V003.SYAIN_ID
-                            dtST02_HINSYO_TENKEN_YMD.Text = V003.SYONIN_YMDHNS.ToDateTimeWithFormat("yyyyMMddHHmmss", "yyyy/MM/dd")
-                        End If
+                '        V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._23_是正処置入力_品証_点検).FirstOrDefault
+                '        If V003 IsNot Nothing Then
+                '            cmbST02_HINSYO_TENKEN_TANTO.SelectedValue = V003.SYAIN_ID
+                '            dtST02_HINSYO_TENKEN_YMD.Text = V003.SYONIN_YMDHNS.ToDateTimeWithFormat("yyyyMMddHHmmss", "yyyy/MM/dd")
+                '        End If
 
-                        V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._24_是正処置入力_品証_認可).FirstOrDefault
-                        If V003 IsNot Nothing Then
-                            cmbST02_HINSYO_NINKA_TANTO.SelectedValue = V003.SYAIN_ID
-                            dtST02_HINSYO_NINKA_YMD.Text = V003.SYONIN_YMDHNS.ToDateTimeWithFormat("yyyyMMddHHmmss", "yyyy/MM/dd")
-                        End If
-                    Case Else
-                End Select
+                '        V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._24_是正処置入力_品証_認可).FirstOrDefault
+                '        If V003 IsNot Nothing Then
+                '            cmbST02_HINSYO_NINKA_TANTO.SelectedValue = V003.SYAIN_ID
+                '            dtST02_HINSYO_NINKA_YMD.Text = V003.SYONIN_YMDHNS.ToDateTimeWithFormat("yyyyMMddHHmmss", "yyyy/MM/dd")
+                '        End If
+                '    Case Else
+                'End Select
             End If
 
-            If intStageID >= ENM_ZESEI_STAGE._23_是正処置入力_品証_点検 Then
-                cmbST02_NINKA_TANTO.ReadOnly = True
-            End If
+            'If intStageID >= ENM_ZESEI_STAGE._23_是正処置入力_品証_点検 Then
+            '    cmbST02_NINKA_TANTO.ReadOnly = True
+            'End If
 
-            If intStageID >= ENM_ZESEI_STAGE._24_是正処置入力_品証_認可 Then
-                cmbST02_HINSYO_TENKEN_TANTO.ReadOnly = True
+            'If intStageID >= ENM_ZESEI_STAGE._24_是正処置入力_品証_認可 Then
+            '    cmbST02_HINSYO_TENKEN_TANTO.ReadOnly = True
 
-            End If
+            'End If
 
             If intStageID >= ENM_ZESEI_STAGE._30_処置結果入力 Then
                 pnlST03.Visible = True
@@ -2130,7 +2131,8 @@ Public Class FrmG0031_EditOccurred
 
 #Region "           承認担当者"
 
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._21_是正処置入力_点検)
+                'dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._21_是正処置入力_点検)
+                dt = GetExcludeyakusyokuUsers(_D013.BUMON_KB, {ENM_YAKUSYOKU_KB._99_なし.Value}.ToList)
                 cmbST03_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 cmbST03_TENKEN_TANTO.Visible = True
                 lblST03_TENKEN_TANTO.Visible = True
@@ -2177,7 +2179,8 @@ Public Class FrmG0031_EditOccurred
 
             If intStageID >= ENM_ZESEI_STAGE._32_処置結果入力_認可 Then
                 pnlST04.Visible = True
-                dt = GetExcludeyakusyokuUsers(_D013.BUMON_KB, {ENM_YAKUSYOKU_KB._99_なし.Value}.ToList)
+                'dt = GetExcludeyakusyokuUsers(_D013.BUMON_KB, {ENM_YAKUSYOKU_KB._99_なし.Value}.ToList)
+                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._20_是正処置入力)
                 cmbST04_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 cmbST04_SAKUSEI_TANTO.SelectedValue = _D013.TANTO_ID
 
@@ -2201,7 +2204,8 @@ Public Class FrmG0031_EditOccurred
 
 #Region "           承認担当者"
 
-                dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._21_是正処置入力_点検)
+                'dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._21_是正処置入力_点検)
+                dt = GetExcludeyakusyokuUsers(_D013.BUMON_KB, {ENM_YAKUSYOKU_KB._99_なし.Value}.ToList)
                 cmbST04_TENKEN_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 cmbST04_TENKEN_TANTO.Visible = True
                 lblST04_TENKEN_TANTO.Visible = True
@@ -2355,17 +2359,18 @@ Public Class FrmG0031_EditOccurred
                         cmbST02_NINKA_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
                     End If
 
-                Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
-                    AddHandler cmbST02_HINSYO_TENKEN_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
-                    If cmbST02_HINSYO_TENKEN_TANTO.SelectedValue Is Nothing OrElse cmbST02_HINSYO_TENKEN_TANTO.SelectedValue = 0 Then
-                        cmbST02_HINSYO_TENKEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
-                    End If
+                'Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
+                '    AddHandler cmbST02_HINSYO_TENKEN_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                '    If cmbST02_HINSYO_TENKEN_TANTO.SelectedValue Is Nothing OrElse cmbST02_HINSYO_TENKEN_TANTO.SelectedValue = 0 Then
+                '        cmbST02_HINSYO_TENKEN_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                '    End If
 
-                Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
-                    AddHandler cmbST02_HINSYO_NINKA_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
-                    If cmbST02_HINSYO_NINKA_TANTO.SelectedValue Is Nothing OrElse cmbST02_HINSYO_NINKA_TANTO.SelectedValue = 0 Then
-                        cmbST02_HINSYO_NINKA_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
-                    End If
+                'Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
+                '    AddHandler cmbST02_HINSYO_NINKA_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
+                '    If cmbST02_HINSYO_NINKA_TANTO.SelectedValue Is Nothing OrElse cmbST02_HINSYO_NINKA_TANTO.SelectedValue = 0 Then
+                '        cmbST02_HINSYO_NINKA_TANTO.SelectedValue = pub_SYAIN_INFO.SYAIN_ID
+                '    End If
+
                 Case ENM_ZESEI_STAGE._30_処置結果入力
                     AddHandler cmbST03_SAKUSEI_TANTO.SelectedValueChanged, AddressOf CmbDestTANTO_SelectedvalueChanged
                     If cmbST03_SAKUSEI_TANTO.SelectedValue Is Nothing OrElse cmbST03_SAKUSEI_TANTO.SelectedValue = 0 Then
@@ -2435,17 +2440,17 @@ Public Class FrmG0031_EditOccurred
         Call SetInfoLabelFormat(lblST01_TENKEN_TANTO, $"承認担当者マスタ{vbCr}所属部門のST11.に登録された担当者")
         Call SetInfoLabelFormat(lblST01_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST12.に登録された担当者")
 
-        Call SetInfoLabelFormat(lblST02_SAKUSEI_TANTO, $"選択した部門・課の役職区分:なし)以外の担当者")
+        Call SetInfoLabelFormat(lblST02_SAKUSEI_TANTO, $"承認担当者マスタ{vbCr}所属部門の[ST02.是正処置入力]に登録された担当者")
         Call SetInfoLabelFormat(lblST02_TENKEN_TANTO, $"選択した部門・課の役職区分:なし)以外の担当者")
         Call SetInfoLabelFormat(lblST02_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST22.に登録された担当者")
         Call SetInfoLabelFormat(lblST02_HINSYO_TENKEN_TANTO, $"承認担当者マスタ{vbCr}所属部門のST11.に登録された担当者")
         Call SetInfoLabelFormat(lblST02_HINSYO_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST12.に登録された担当者")
 
-        Call SetInfoLabelFormat(lblST03_SAKUSEI_TANTO, $"選択した部門・課の役職区分:なし)以外の担当者")
+        Call SetInfoLabelFormat(lblST03_SAKUSEI_TANTO, $"承認担当者マスタ{vbCr}所属部門の[ST02.是正処置入力]に登録された担当者")
         Call SetInfoLabelFormat(lblST03_TENKEN_TANTO, $"選択した部門・課の役職区分:なし)以外の担当者")
         Call SetInfoLabelFormat(lblST03_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST22.に登録された担当者")
 
-        Call SetInfoLabelFormat(lblST04_SAKUSEI_TANTO, $"選択した部門・課の役職区分:なし)以外の担当者")
+        Call SetInfoLabelFormat(lblST04_SAKUSEI_TANTO, $"承認担当者マスタ{vbCr}所属部門の[ST02.是正処置入力]に登録された担当者")
         Call SetInfoLabelFormat(lblST04_TENKEN_TANTO, $"選択した部門・課の役職区分:なし)以外の担当者")
         Call SetInfoLabelFormat(lblST04_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST22.に登録された担当者")
 
@@ -2577,26 +2582,26 @@ Public Class FrmG0031_EditOccurred
                         Call txtOUKYU_SYOCHI_Validated(txtOUKYU_SYOCHI, Nothing)
                         Call txtHASSEI_GENIN_Validated(txtHASSEI_GENIN, Nothing)
                         Call txtZESEI_SYOCHI_Validated(txtZESEI_SYOCHI, Nothing)
-                    Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
-                        Call CmbDestTANTO_SelectedvalueChanged(cmbST02_HINSYO_TENKEN_TANTO, Nothing)
-                        Call CmbDestTANTO_SelectedvalueChanged(cmbST02_HINSYO_NINKA_TANTO, Nothing)
+                    'Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
+                    '    Call CmbDestTANTO_SelectedvalueChanged(cmbST02_HINSYO_TENKEN_TANTO, Nothing)
+                    '    Call CmbDestTANTO_SelectedvalueChanged(cmbST02_HINSYO_NINKA_TANTO, Nothing)
 
-                        Call txtFUTEKIGO_TAISYOU_Validated(txtFUTEKIGO_TAISYOU, Nothing)
-                        Call txtCHOUSA_HANI_Validated(txtCHOUSA_HANI, Nothing)
-                        Call txtEIKYOU_HANI_Validated(txtEIKYOU_HANI, Nothing)
-                        Call txtOUKYU_SYOCHI_Validated(txtOUKYU_SYOCHI, Nothing)
-                        Call txtHASSEI_GENIN_Validated(txtHASSEI_GENIN, Nothing)
-                        Call txtZESEI_SYOCHI_Validated(txtZESEI_SYOCHI, Nothing)
-                    Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
-                        Call CmbDestTANTO_SelectedvalueChanged(cmbST02_HINSYO_NINKA_TANTO, Nothing)
-                        Call CmbDestTANTO_SelectedvalueChanged(cmbST03_SAKUSEI_TANTO, Nothing)
+                    '    Call txtFUTEKIGO_TAISYOU_Validated(txtFUTEKIGO_TAISYOU, Nothing)
+                    '    Call txtCHOUSA_HANI_Validated(txtCHOUSA_HANI, Nothing)
+                    '    Call txtEIKYOU_HANI_Validated(txtEIKYOU_HANI, Nothing)
+                    '    Call txtOUKYU_SYOCHI_Validated(txtOUKYU_SYOCHI, Nothing)
+                    '    Call txtHASSEI_GENIN_Validated(txtHASSEI_GENIN, Nothing)
+                    '    Call txtZESEI_SYOCHI_Validated(txtZESEI_SYOCHI, Nothing)
+                    'Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
+                    '    Call CmbDestTANTO_SelectedvalueChanged(cmbST02_HINSYO_NINKA_TANTO, Nothing)
+                    '    Call CmbDestTANTO_SelectedvalueChanged(cmbST03_SAKUSEI_TANTO, Nothing)
 
-                        Call txtFUTEKIGO_TAISYOU_Validated(txtFUTEKIGO_TAISYOU, Nothing)
-                        Call txtCHOUSA_HANI_Validated(txtCHOUSA_HANI, Nothing)
-                        Call txtEIKYOU_HANI_Validated(txtEIKYOU_HANI, Nothing)
-                        Call txtOUKYU_SYOCHI_Validated(txtOUKYU_SYOCHI, Nothing)
-                        Call txtHASSEI_GENIN_Validated(txtHASSEI_GENIN, Nothing)
-                        Call txtZESEI_SYOCHI_Validated(txtZESEI_SYOCHI, Nothing)
+                    '    Call txtFUTEKIGO_TAISYOU_Validated(txtFUTEKIGO_TAISYOU, Nothing)
+                    '    Call txtCHOUSA_HANI_Validated(txtCHOUSA_HANI, Nothing)
+                    '    Call txtEIKYOU_HANI_Validated(txtEIKYOU_HANI, Nothing)
+                    '    Call txtOUKYU_SYOCHI_Validated(txtOUKYU_SYOCHI, Nothing)
+                    '    Call txtHASSEI_GENIN_Validated(txtHASSEI_GENIN, Nothing)
+                    '    Call txtZESEI_SYOCHI_Validated(txtZESEI_SYOCHI, Nothing)
                     Case ENM_ZESEI_STAGE._30_処置結果入力
                         Call CmbDestTANTO_SelectedvalueChanged(cmbST03_SAKUSEI_TANTO, Nothing)
 
@@ -2765,10 +2770,10 @@ Public Class FrmG0031_EditOccurred
                     cmb = cmbST02_TENKEN_TANTO
                 Case ENM_ZESEI_STAGE._22_是正処置入力_認可
                     cmb = cmbST02_NINKA_TANTO
-                Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
-                    cmb = cmbST02_HINSYO_TENKEN_TANTO
-                Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
-                    cmb = cmbST02_HINSYO_NINKA_TANTO
+                'Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
+                '    cmb = cmbST02_HINSYO_TENKEN_TANTO
+                'Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
+                '    cmb = cmbST02_HINSYO_NINKA_TANTO
                 Case ENM_ZESEI_STAGE._30_処置結果入力
                     cmb = cmbST03_SAKUSEI_TANTO
                 Case ENM_ZESEI_STAGE._31_処置結果入力_点検
@@ -2844,16 +2849,16 @@ Public Class FrmG0031_EditOccurred
                 Case ENM_ZESEI_STAGE._21_是正処置入力_点検
                     cmb = cmbST02_NINKA_TANTO
                 Case ENM_ZESEI_STAGE._22_是正処置入力_認可
-                    Select Case _D013.INPUT_TYPE
-                        Case "1", "2"
-                            cmb = cmbST02_HINSYO_TENKEN_TANTO
-                        Case Else
-                            cmb = cmbST03_SAKUSEI_TANTO
-                    End Select
-                Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
-                    cmb = cmbST02_HINSYO_NINKA_TANTO
-                Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
+                    'Select Case _D013.INPUT_TYPE
+                    '    Case "1", "2"
+                    '        cmb = cmbST02_HINSYO_TENKEN_TANTO
+                    '    Case Else
+                    'End Select
                     cmb = cmbST03_SAKUSEI_TANTO
+                'Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
+                '    cmb = cmbST02_HINSYO_NINKA_TANTO
+                'Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
+                '    cmb = cmbST03_SAKUSEI_TANTO
                 Case ENM_ZESEI_STAGE._30_処置結果入力
                     cmb = cmbST03_TENKEN_TANTO
                 Case ENM_ZESEI_STAGE._31_処置結果入力_点検
@@ -2906,10 +2911,10 @@ Public Class FrmG0031_EditOccurred
                     cmb = cmbST02_TENKEN_TANTO
                 Case ENM_ZESEI_STAGE._22_是正処置入力_認可
                     cmb = cmbST02_NINKA_TANTO
-                Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
-                    cmb = cmbST02_HINSYO_TENKEN_TANTO
-                Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
-                    cmb = cmbST02_HINSYO_NINKA_TANTO
+                'Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
+                '    cmb = cmbST02_HINSYO_TENKEN_TANTO
+                'Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
+                '    cmb = cmbST02_HINSYO_NINKA_TANTO
                 Case ENM_ZESEI_STAGE._30_処置結果入力
                     cmb = cmbST03_SAKUSEI_TANTO
                 Case ENM_ZESEI_STAGE._31_処置結果入力_点検

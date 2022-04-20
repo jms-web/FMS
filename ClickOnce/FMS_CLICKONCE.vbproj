@@ -29,7 +29,7 @@
     <AssemblyVersionSettings>None.None.DateStamp.TimeStamp</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>None.None.DateStamp.TimeStamp</AssemblyFileVersionSettings>
     <AssemblyInfoVersionSettings>None.None.DateStamp.TimeStamp</AssemblyInfoVersionSettings>
-    <AssemblyVersion>0.9.22047.0603</AssemblyVersion>
+    <AssemblyVersion>0.9.22110.0911</AssemblyVersion>
     <PublishUrl>\\Sv04\fms\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -43,13 +43,13 @@
     <InstallUrl>http://172.16.11.7:8000/</InstallUrl>
     <ProductName>フジワラシステム</ProductName>
     <PublisherName>JMS</PublisherName>
-    <MinimumRequiredVersion>0.9.22047.0603</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.9.22110.0909</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>603</ApplicationRevision>
-    <ApplicationVersion>0.9.22047.0603</ApplicationVersion>
+    <ApplicationRevision>909</ApplicationRevision>
+    <ApplicationVersion>0.9.22110.0909</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
