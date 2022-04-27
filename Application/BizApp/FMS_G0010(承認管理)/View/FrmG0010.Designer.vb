@@ -2574,7 +2574,7 @@ Partial Class FrmG0010
         Me.mpnlDataGrid.Controls.Add(Me.flxDATA)
         Me.mpnlDataGrid.Location = New System.Drawing.Point(0, 0)
         Me.mpnlDataGrid.Name = "mpnlDataGrid"
-        Me.mpnlDataGrid.Size = New System.Drawing.Size(1553, 502)
+        Me.mpnlDataGrid.Size = New System.Drawing.Size(0, 0)
         '
         'flxDATA
         '
@@ -2588,7 +2588,7 @@ Partial Class FrmG0010
         Me.flxDATA.Name = "flxDATA"
         Me.flxDATA.Rows.Count = 1
         Me.flxDATA.Rows.DefaultSize = 23
-        Me.flxDATA.Size = New System.Drawing.Size(1553, 502)
+        Me.flxDATA.Size = New System.Drawing.Size(0, 0)
         Me.flxDATA.StyleInfo = resources.GetString("flxDATA.StyleInfo")
         Me.flxDATA.TabIndex = 64
         '
@@ -2601,7 +2601,7 @@ Partial Class FrmG0010
         Me.mpSummaryGrid.Controls.Add(Me._flexGroup)
         Me.mpSummaryGrid.Location = New System.Drawing.Point(0, 0)
         Me.mpSummaryGrid.Name = "mpSummaryGrid"
-        Me.mpSummaryGrid.Size = New System.Drawing.Size(1553, 502)
+        Me.mpSummaryGrid.Size = New System.Drawing.Size(0, 0)
         Me.mpSummaryGrid.Text = "ManagedPanel1"
         '
         '_flexGroup
@@ -2619,12 +2619,12 @@ Partial Class FrmG0010
         Me._flexGroup.Grid.ColumnInfo = resources.GetString("_flexGroup.Grid.ColumnInfo")
         Me._flexGroup.Grid.Dock = System.Windows.Forms.DockStyle.Bottom
         Me._flexGroup.Grid.DrawMode = C1.Win.C1FlexGrid.DrawModeEnum.OwnerDraw
-        Me._flexGroup.Grid.Location = New System.Drawing.Point(0, 36)
+        Me._flexGroup.Grid.Location = New System.Drawing.Point(0, 0)
         Me._flexGroup.Grid.Name = ""
         Me._flexGroup.Grid.Rows.DefaultSize = 18
         Me._flexGroup.Grid.Rows.Fixed = 2
         Me._flexGroup.Grid.ShowCursor = True
-        Me._flexGroup.Grid.Size = New System.Drawing.Size(1549, 462)
+        Me._flexGroup.Grid.Size = New System.Drawing.Size(0, 0)
         Me._flexGroup.Grid.StyleInfo = resources.GetString("_flexGroup.Grid.StyleInfo")
         Me._flexGroup.Grid.TabIndex = 1
         Me._flexGroup.Grid.Tree.Style = C1.Win.C1FlexGrid.TreeStyleFlags.Symbols
@@ -2632,7 +2632,7 @@ Partial Class FrmG0010
         Me._flexGroup.Location = New System.Drawing.Point(0, 0)
         Me._flexGroup.Name = "_flexGroup"
         Me._flexGroup.ShowGroups = True
-        Me._flexGroup.Size = New System.Drawing.Size(1553, 502)
+        Me._flexGroup.Size = New System.Drawing.Size(0, 0)
         Me._flexGroup.TabIndex = 66
         Me._flexGroup.TabStop = False
         '

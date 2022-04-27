@@ -5,6 +5,7 @@ Imports JMS_COMMON.ClsPubMethod
 Imports MODEL
 Imports ST02 = MODEL.ST02_FUTEKIGO_ICHIRAN
 Imports ST03 = MODEL.ST03_FUTEKIGO_ICHIRAN_SUMMARY
+Imports System.Linq
 
 'Imports Spire.Xls
 'Imports Spire.Pdf
@@ -1233,16 +1234,8 @@ Public Class FrmG0010
                     Call SetStageList()
 
                 Case 8 'CSV出力
-                    Dim strFileName As String
-                    'Dim dt As DataTable
-                    If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
-                        strFileName = $"不適合集計_{DateTime.Now:yyyyMMddHHmmss}.CSV"
-                    Else
-                        strFileName = $"{pub_APP_INFO.strTitle}_{DateTime.Now:yyyyMMddHHmmss}.CSV"
-                    End If
 
-                    Call FunCSV_OUTviaFlexGrid(flxDATA, strFileName, pub_APP_INFO.strOUTPUT_PATH)
-                    'Call FunCSV_OUT(DirectCast(flxDATA.DataSource, DataView).Table, strFileName, pub_APP_INFO.strOUTPUT_PATH)
+                    Call ExportCSV()
 
                 Case 9 'メール送信
 
@@ -1719,6 +1712,148 @@ Public Class FrmG0010
             If frmFCR IsNot Nothing Then frmFCR.Dispose()
 
             Me.Visible = True
+        End Try
+    End Function
+
+#End Region
+
+#Region "CSV出力"
+
+    Private Function ExportCSV() As Boolean
+
+        Dim strFileName As String
+        Dim frmDLG As New FrmExportDialog
+        Dim dlgRET As DialogResult
+
+        Try
+
+            dlgRET = frmDLG.ShowDialog(Me)
+
+            If dlgRET = DialogResult.OK Then
+
+                Select Case frmDLG.PrDataType
+                    Case "不適合データ"
+                        'Dim dt As DataTable
+                        If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
+                            strFileName = $"不適合集計_{DateTime.Now:yyyyMMddHHmmss}.CSV"
+                        Else
+                            strFileName = $"{pub_APP_INFO.strTitle}_{DateTime.Now:yyyyMMddHHmmss}.CSV"
+                        End If
+
+                        Call FunCSV_OUTviaFlexGrid(flxDATA, strFileName, pub_APP_INFO.strOUTPUT_PATH)
+
+                    Case "履歴データ"
+                        strFileName = $"不適合処置履歴_{DateTime.Now:yyyyMMddHHmmss}.CSV"
+
+                        Dim src = DirectCast(flxDATA.DataSource, DataView).Table
+                        Dim HOKOKU_NOs = src.Select.Select(Function(r) r.Item("HOKOKU_NO").ToString).ToList
+                        Dim dt = FunGetHistoryData(HOKOKU_NOs)
+                        Call FunCSV_OUT(dt, strFileName, pub_APP_INFO.strOUTPUT_PATH)
+                    Case Else
+                End Select
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return False
+        Finally
+            If frmDLG IsNot Nothing Then
+                frmDLG.Dispose()
+            End If
+            Me.Visible = True
+        End Try
+    End Function
+
+    Private Function FunGetHistoryData(HOKOKU_NOs As List(Of String)) As DataTable
+        Try
+            Dim sbSQL As New System.Text.StringBuilder
+            Dim dsList As New DataSet
+
+            'SPEC: 20-7.①
+            sbSQL.Append($"SELECT")
+            sbSQL.Append($" *")
+            sbSQL.Append($" FROM {NameOf(V004_HOKOKU_SOUSA)}")
+            sbSQL.Append($" WHERE HOKOKU_NO IN ('{HOKOKU_NOs.Aggregate(Function(x, y) $"{x}','{y}")}') ")
+            sbSQL.Append($" ORDER BY SYONIN_HOKOKUSYO_ID,HOKOKU_NO,SASIMODOSI_YMDHNS")
+            Using DB As ClsDbUtility = DBOpen()
+                dsList = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)
+            End Using
+
+            If dsList.Tables(0).Rows.Count > pub_APP_INFO.intSEARCHMAX Then
+                If MessageBox.Show(My.Resources.infoSearchCountOver, "", MessageBoxButtons.YesNo, MessageBoxIcon.Information) = Windows.Forms.DialogResult.No Then
+                    Return Nothing
+                End If
+            End If
+
+            '------DataTableに変換
+            Dim dt As New DataTable
+
+            dt.Columns.Add("報告書ID", GetType(Integer))
+            dt.Columns.Add("報告書名", GetType(String))
+            dt.Columns.Add("報告書略名", GetType(String))
+            dt.Columns.Add("処置日時", GetType(DateTime))
+            dt.Columns.Add("報告書NO", GetType(String))
+            dt.Columns.Add("承認順", GetType(Integer))
+            dt.Columns.Add("ステージ", GetType(String))
+            'dt.Columns.Add("SOUSA_KB", GetType(String))
+            dt.Columns.Add("処置区分", GetType(String))
+            dt.Columns.Add("社員番号", GetType(Integer))
+            dt.Columns.Add("担当者", GetType(String))
+            'dt.Columns.Add("SYONIN_HANTEI_KB", GetType(String))
+            'dt.Columns.Add("判定区分", GetType(String))
+            dt.Columns.Add("備考", GetType(String))
+            'dt.Columns.Add("SASIMODOSI_YMDHNS", GetType(String))
+            dt.Columns.Add("変更有無", GetType(String))
+            dt.Columns.Add("HENKOU_KENSU", GetType(Integer))
+            dt.Columns.Add("差戻し先", GetType(String))
+            '主キー設定
+            dt.PrimaryKey = {dt.Columns("報告書ID"), dt.Columns("報告書NO"), dt.Columns("処置日時")}
+
+            With dsList.Tables(0)
+                For intCNT = 0 To .Rows.Count - 1
+                    Dim Trow As DataRow = dt.NewRow()
+                    '
+                    Trow("報告書ID") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_ID")
+                    Trow("報告書名") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_NAME")
+                    Trow("報告書略名") = .Rows(intCNT).Item("SYONIN_HOKOKUSYO_R_NAME")
+                    Trow("報告書NO") = .Rows(intCNT).Item("HOKOKU_NO")
+                    Trow("処置日時") = DateTime.ParseExact(.Rows(intCNT).Item("ADD_YMDHNS"), "yyyyMMddHHmmss", Nothing)
+                    Trow("承認順") = .Rows(intCNT).Item("SYONIN_JUN")
+                    'Trow("SOUSA_KB") = .Rows(intCNT).Item("SOUSA_KB")
+                    Trow("処置区分") = .Rows(intCNT).Item("SOUSA_NAME")
+                    Trow("社員番号") = .Rows(intCNT).Item("SYAIN_NO")
+                    Trow("ステージ") = .Rows(intCNT).Item("SYONIN_NAIYO") '.Rows(intCNT).Item("SYONIN_JUN") & "." & .Rows(intCNT).Item("SYONIN_NAIYO")
+                    Trow("担当者") = .Rows(intCNT).Item("SYAIN_NAME")
+                    'Trow("SYONIN_HANTEI_KB") = .Rows(intCNT).Item("SYONIN_HANTEI_KB")
+                    'Trow("判定区分") = .Rows(intCNT).Item("SYONIN_HANTEI_NAME")
+                    Trow("備考") = .Rows(intCNT).Item("RIYU")
+                    'Trow("SASIMODOSI_YMDHNS") = .Rows(intCNT).Item("SASIMODOSI_YMDHNS")
+
+                    Select Case .Rows(intCNT).Item("SOUSA_KB")
+                        Case ENM_SOUSA_KB._3_承認差戻
+                            Trow("差戻し先") = "⇒" & .Rows(intCNT).Item("MODOSI_SAKI_SYAIN_NAME")
+                        Case ENM_SOUSA_KB._5_転送
+                            Trow("差戻し先") = "⇒" & .Rows(intCNT).Item("MODOSI_SAKI_SYAIN_NAME")
+                        Case Else
+                            'Err
+                    End Select
+
+                    If .Rows(intCNT).Item("HENKOU_KENSU") > 0 Then 'If .Rows(intCNT).Item("SOUSA_KB") = ENM_SOUSA_KB._3_承認差戻 Then
+                        Trow("変更有無") = "変更あり"
+                    Else
+                        Trow("変更有無") = ""
+                    End If
+
+                    dt.Rows.Add(Trow)
+                Next intCNT
+            End With
+
+            Return dt
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+            Return Nothing
         End Try
     End Function
 

@@ -632,9 +632,9 @@ Public Class FrmM0160
                 Case Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI
                     CmbSYONIN_JUN.SetDataSource(tblZESEI.LazyLoad("ZESEI"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
                     CmbSYONIN_JUN.ReadOnly = False
-                Case Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R
-                    CmbSYONIN_JUN.SetDataSource(tblZESEI_R.LazyLoad("ZESEI_R"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-                    CmbSYONIN_JUN.ReadOnly = False
+                    'Case Context.ENM_SYONIN_HOKOKUSYO_ID._6_ZESEI_R
+                    '    CmbSYONIN_JUN.SetDataSource(tblZESEI_R.LazyLoad("ZESEI_R"), ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
+                    '    CmbSYONIN_JUN.ReadOnly = False
                 Case Else
                     'CmbSYONIN_JUN.DataSource = Nothing
                     CmbSYONIN_JUN.ReadOnly = True
