@@ -1998,11 +1998,20 @@ Public Class FrmG0031_EditOccurred
                 cmbST02_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
                 cmbST02_SAKUSEI_TANTO.SelectedValue = _D013.TANTO_ID
 
+                pnlST02.Visible = True
+                pnlST02.DisableContaints(False)
+                cmbST02_SAKUSEI_TANTO.Visible = True
+                cmbST02_SAKUSEI_TANTO.Enabled = True
+                lblST02_SAKUSEI_TANTO.Visible = True
+                lblST02_SAKUSEI_TANTO.Enabled = True
+
                 cmbST01_TENKEN_TANTO.ReadOnly = True
+
             End If
 
             If intStageID >= ENM_ZESEI_STAGE._20_ê•ê≥èàíuì¸óÕ Then
                 pnlST02.Visible = True
+                pnlST02.DisableContaints(True)
                 cmbST02_SAKUSEI_TANTO.Visible = True
                 lblST02_SAKUSEI_TANTO.Visible = True
                 dtST02_SAKUSEI_YMD.Visible = True
