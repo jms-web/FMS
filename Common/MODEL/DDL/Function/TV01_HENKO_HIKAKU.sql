@@ -1,6 +1,6 @@
 USE [FMS]
 GO
-/****** Object:  UserDefinedFunction [dbo].[TV01_HENKO_HIKAKU]    Script Date: 2022/02/09 11:44:43 ******/
+/****** Object:  UserDefinedFunction [dbo].[TV01_HENKO_HIKAKU]    Script Date: 2022/05/11 10:52:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -112,7 +112,7 @@ BEGIN
 	DECLARE @WNJ_TENYO_KISYU_NAME			nvarchar(30);
 	DECLARE @WNJ_TENYO_BUHIN_BANGO			varchar(60);
 	DECLARE @WNJ_TENYO_GOKI					nvarchar(20);
-	DECLARE @WNJ_TENYO_LOT					int;
+	DECLARE @WNJ_TENYO_LOT					nvarchar(15);
 	DECLARE @WNJ_TENYO_YMD					char(8);
 	DECLARE @WNJ_SYOCHI_KEKKA_A				char(1);
 	DECLARE @WNJ_SYOCHI_KEKKA_A_NAME			nvarchar(150);
@@ -224,7 +224,7 @@ BEGIN
 	DECLARE @WNR_TENYO_KISYU_NAME			nvarchar(30);
 	DECLARE @WNR_TENYO_BUHIN_BANGO			varchar(60);
 	DECLARE @WNR_TENYO_GOKI					nvarchar(20);
-	DECLARE @WNR_TENYO_LOT					int;
+	DECLARE @WNR_TENYO_LOT					nvarchar(15);
 	DECLARE @WNR_TENYO_YMD					char(8);
 	DECLARE @WNR_SYOCHI_KEKKA_A				char(1);
 	DECLARE @WNR_SYOCHI_KEKKA_A_NAME			nvarchar(150);
@@ -1390,7 +1390,7 @@ BEGIN
 			,@WNJ_TENYO_GOKI
 			);
 		--転用先LOT
-		IF @WNJ_TENYO_LOT <> @WNR_TENYO_LOT AND (@WNJ_TENYO_LOT)<>0
+		IF @WNJ_TENYO_LOT <> @WNR_TENYO_LOT AND RTRIM(@WNJ_TENYO_LOT)<>''
 			INSERT INTO @retTBL (
 			 KOMOKU_NAME	--項目名
 			,MAE_NAIYO		--変更前内容
@@ -2204,7 +2204,7 @@ BEGIN
 			,@WCJ_GOKI
 			);
 		--LOT
-		IF @WCJ_LOT <>	@WCR_LOT AND (@WCJ_LOT)<>0
+		IF @WCJ_LOT <>	@WCR_LOT AND RTRIM(@WCJ_LOT)<>''
 			INSERT INTO @retTBL (
 			 KOMOKU_NAME	--項目名
 			,MAE_NAIYO		--変更前内容
