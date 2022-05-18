@@ -2859,6 +2859,8 @@ Public Class FrmG0012
                     pnlST13.Visible = False
                     lblKYOIKU_FILE_PATH_Clear.Enabled = blnOwn
                     pnlAnalysis.Visible = True
+                    txtKAITO_24.Enabled = True
+                    txtKAITO_24.ReadOnly = False
 
                 Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長
 
@@ -2880,6 +2882,8 @@ Public Class FrmG0012
                         pnlST13.Visible = False
                     End If
                     pnlAnalysis.Visible = True
+                    txtKAITO_24.Enabled = True
+                    txtKAITO_24.ReadOnly = False
 
                 Case ENM_CAR_STAGE._999_Closed
                     'tabSTAGE02.EnableDisablePages(False)
@@ -2911,6 +2915,9 @@ Public Class FrmG0012
 
                     pnlST13.Visible = False
                     pnlAnalysis.Visible = True
+
+                    txtKAITO_24.Enabled = True
+                    txtKAITO_24.ReadOnly = False
 
                 Case Else
             End Select

@@ -845,7 +845,7 @@ Partial Class FrmG0012
         Me.pnlAnalysis.Controls.Add(Me.Label51)
         Me.pnlAnalysis.Location = New System.Drawing.Point(658, 658)
         Me.pnlAnalysis.Name = "pnlAnalysis"
-        Me.pnlAnalysis.Size = New System.Drawing.Size(824, 295)
+        Me.pnlAnalysis.Size = New System.Drawing.Size(807, 295)
         Me.pnlAnalysis.TabIndex = 322
         Me.pnlAnalysis.Visible = False
         '
@@ -864,7 +864,7 @@ Partial Class FrmG0012
         Me.txtGENIN2_ETC.Name = "txtGENIN2_ETC"
         Me.txtGENIN2_ETC.SelectAllText = False
         Me.txtGENIN2_ETC.ShowRemainingChars = True
-        Me.txtGENIN2_ETC.Size = New System.Drawing.Size(252, 24)
+        Me.txtGENIN2_ETC.Size = New System.Drawing.Size(235, 24)
         Me.txtGENIN2_ETC.TabIndex = 328
         Me.txtGENIN2_ETC.WatermarkColor = System.Drawing.Color.Empty
         Me.txtGENIN2_ETC.WatermarkText = Nothing
@@ -895,7 +895,7 @@ Partial Class FrmG0012
         Me.txtGENIN1_ETC.Name = "txtGENIN1_ETC"
         Me.txtGENIN1_ETC.SelectAllText = False
         Me.txtGENIN1_ETC.ShowRemainingChars = True
-        Me.txtGENIN1_ETC.Size = New System.Drawing.Size(252, 24)
+        Me.txtGENIN1_ETC.Size = New System.Drawing.Size(235, 24)
         Me.txtGENIN1_ETC.TabIndex = 326
         Me.txtGENIN1_ETC.WatermarkColor = System.Drawing.Color.Empty
         Me.txtGENIN1_ETC.WatermarkText = Nothing
@@ -915,7 +915,7 @@ Partial Class FrmG0012
         '
         Me.Label25.BackColor = System.Drawing.Color.Black
         Me.Label25.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Label25.Location = New System.Drawing.Point(809, 0)
+        Me.Label25.Location = New System.Drawing.Point(792, 0)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(13, 293)
         Me.Label25.TabIndex = 324
@@ -2206,7 +2206,7 @@ Partial Class FrmG0012
         Me.pnlTEMP_SIRYO.MinimumSize = New System.Drawing.Size(560, 119)
         Me.pnlTEMP_SIRYO.Name = "pnlTEMP_SIRYO"
         Me.pnlTEMP_SIRYO.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlTEMP_SIRYO.Size = New System.Drawing.Size(829, 119)
+        Me.pnlTEMP_SIRYO.Size = New System.Drawing.Size(812, 119)
         Me.pnlTEMP_SIRYO.TabIndex = 315
         '
         'fpnltmpFile2
@@ -2644,7 +2644,7 @@ Partial Class FrmG0012
         Me.pnlZESEI_SYOCHI.MinimumSize = New System.Drawing.Size(1209, 126)
         Me.pnlZESEI_SYOCHI.Name = "pnlZESEI_SYOCHI"
         Me.pnlZESEI_SYOCHI.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlZESEI_SYOCHI.Size = New System.Drawing.Size(1478, 126)
+        Me.pnlZESEI_SYOCHI.Size = New System.Drawing.Size(1461, 126)
         Me.pnlZESEI_SYOCHI.TabIndex = 313
         '
         'mtxGOKI
@@ -2687,7 +2687,7 @@ Partial Class FrmG0012
         '
         Me.lblZESEI_SYOCHIFlame.BackColor = System.Drawing.Color.Black
         Me.lblZESEI_SYOCHIFlame.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblZESEI_SYOCHIFlame.Location = New System.Drawing.Point(1463, 2)
+        Me.lblZESEI_SYOCHIFlame.Location = New System.Drawing.Point(1446, 2)
         Me.lblZESEI_SYOCHIFlame.Name = "lblZESEI_SYOCHIFlame"
         Me.lblZESEI_SYOCHIFlame.Size = New System.Drawing.Size(13, 122)
         Me.lblZESEI_SYOCHIFlame.TabIndex = 315
@@ -3128,14 +3128,14 @@ Partial Class FrmG0012
         Me.pnlSYOCHI_KIROKU.MinimumSize = New System.Drawing.Size(1209, 167)
         Me.pnlSYOCHI_KIROKU.Name = "pnlSYOCHI_KIROKU"
         Me.pnlSYOCHI_KIROKU.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlSYOCHI_KIROKU.Size = New System.Drawing.Size(1478, 167)
+        Me.pnlSYOCHI_KIROKU.Size = New System.Drawing.Size(1461, 167)
         Me.pnlSYOCHI_KIROKU.TabIndex = 312
         '
         'lblSYOCHI_KIROKUFlame
         '
         Me.lblSYOCHI_KIROKUFlame.BackColor = System.Drawing.Color.Black
         Me.lblSYOCHI_KIROKUFlame.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSYOCHI_KIROKUFlame.Location = New System.Drawing.Point(1463, 2)
+        Me.lblSYOCHI_KIROKUFlame.Location = New System.Drawing.Point(1446, 2)
         Me.lblSYOCHI_KIROKUFlame.Name = "lblSYOCHI_KIROKUFlame"
         Me.lblSYOCHI_KIROKUFlame.Size = New System.Drawing.Size(13, 163)
         Me.lblSYOCHI_KIROKUFlame.TabIndex = 314
