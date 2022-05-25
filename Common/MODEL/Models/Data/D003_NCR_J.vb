@@ -672,6 +672,10 @@ Partial Public Class D003_NCR_J
     <ComponentModel.DisplayName("封じ込め調査書起草担当")>
     Public Property FCR_KISO_TANTO_ID As Integer
 
+    <Required>
+    <ComponentModel.DisplayName("処置実施予定日")>
+    Public Property SYOCHI_YOTEI_YMD As String
+
     ''共通項目------------------------------------
     <Required>
     <StringLength(14)>

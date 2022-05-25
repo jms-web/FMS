@@ -410,6 +410,10 @@ Partial Public Class V002_NCR_J
     <ComponentModel.DisplayName("••‚¶ž‚ß•ñ‘‹N‘’S“–")>
     Public Property FCR_KISO_TANTO_ID As Integer
 
+    <Required>
+    <ComponentModel.DisplayName("ˆ’uŽÀŽ{—\’è“ú")>
+    Public Property SYOCHI_YOTEI_YMD As String
+
     <StringLength(14)>
     <ComponentModel.DisplayName("’Ç‰Á“úŽž")>
     <DatabaseGenerated(DatabaseGeneratedOption.None)>

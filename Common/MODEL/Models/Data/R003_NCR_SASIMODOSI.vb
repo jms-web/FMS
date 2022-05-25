@@ -646,4 +646,10 @@ Partial Public Class R003_NCR_SASIMODOSI
     ''' <returns></returns>
     Public Property SAI_KAKO_COMMENT As String
 
+    ''' <summary>
+    ''' 処置予定日
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property SYOCHI_YOTEI_YMD As String
+
 End Class

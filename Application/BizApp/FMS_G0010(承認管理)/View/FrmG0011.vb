@@ -757,6 +757,7 @@ Public Class FrmG0011
         sbSQL.Append($" ,{_D003_NCR_J.HAIKYAKU_TANTO_ID} AS {NameOf(_D003_NCR_J.HAIKYAKU_TANTO_ID)}")
         sbSQL.Append($" ,N'{_D003_NCR_J.SAIKAKO_SIJI_NO.ConvertSqlEscape}' AS {NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO)}")
         sbSQL.Append($" ,'{_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD}' AS {NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD)}")
+        sbSQL.Append($" ,'{_D003_NCR_J.SYOCHI_YOTEI_YMD}' AS {NameOf(_D003_NCR_J.SYOCHI_YOTEI_YMD)}")
         sbSQL.Append($" ,'{_D003_NCR_J.SAIKAKO_KENSA_YMD}' AS {NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD)}")
         sbSQL.Append($" ,'{_D003_NCR_J.KENSA_KEKKA_KB}' AS {NameOf(_D003_NCR_J.KENSA_KEKKA_KB)}")
         sbSQL.Append($" ,{_D003_NCR_J.SEIGI_TANTO_ID} AS {NameOf(_D003_NCR_J.SEIGI_TANTO_ID)}")
@@ -850,6 +851,7 @@ Public Class FrmG0011
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.HAIKYAKU_TANTO_ID)}          = WK.{NameOf(_D003_NCR_J.HAIKYAKU_TANTO_ID)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO)}            = WK.{NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD)}      = WK.{NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD)}")
+        sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SYOCHI_YOTEI_YMD)}           = WK.{NameOf(_D003_NCR_J.SYOCHI_YOTEI_YMD)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD)}          = WK.{NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.KENSA_KEKKA_KB)}             = WK.{NameOf(_D003_NCR_J.KENSA_KEKKA_KB)}")
         sbSQL.Append($" ,SrcT.{NameOf(_D003_NCR_J.SEIGI_TANTO_ID)}             = WK.{NameOf(_D003_NCR_J.SEIGI_TANTO_ID)}")
@@ -939,6 +941,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.HAIKYAKU_TANTO_ID))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD))
+        sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_YOTEI_YMD))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.KENSA_KEKKA_KB))
         sbSQL.Append(" ," & NameOf(_D003_NCR_J.SEIGI_TANTO_ID))
@@ -1028,6 +1031,7 @@ Public Class FrmG0011
         sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.HAIKYAKU_TANTO_ID))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD))
+        sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SYOCHI_YOTEI_YYMD))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD))
         sbSQL.Append(" ,''") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.KENSA_KEKKA_KB))
         sbSQL.Append(" ,0") 'sbSQL.Append(" ," & NameOf(_D003_NCR_J.SEIGI_TANTO_ID))
@@ -1676,6 +1680,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.HAIKYAKU_TANTO_ID))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAIKAKO_SIJI_NO))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAIKAKO_SAGYO_KAN_YMD))
+        sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SYOCHI_YOTEI_YMD))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SAIKAKO_KENSA_YMD))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.KENSA_KEKKA_KB))
         sbSQL.Append(" ," & NameOf(_R003_NCR_SASIMODOSI.SEIGI_TANTO_ID))
@@ -1758,6 +1763,7 @@ Public Class FrmG0011
         sbSQL.Append(" ," & _D003_NCR_J.HAIKYAKU_TANTO_ID & "")
         sbSQL.Append(" ,N'" & _D003_NCR_J.SAIKAKO_SIJI_NO.ConvertSqlEscape & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD & "'")
+        sbSQL.Append(" ,'" & _D003_NCR_J.SYOCHI_YOTEI_YMD & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.SAIKAKO_KENSA_YMD & "'")
         sbSQL.Append(" ,'" & _D003_NCR_J.KENSA_KEKKA_KB & "'")
         sbSQL.Append(" ," & _D003_NCR_J.SEIGI_TANTO_ID & "")
@@ -2658,6 +2664,7 @@ Public Class FrmG0011
             sbSQL.Append($" , 0 AS {NameOf(_D003_NCR_J.HAIKYAKU_TANTO_ID)}")
             sbSQL.Append($" ,'' AS {NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO)}")
             sbSQL.Append($" ,'' AS {NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD)}")
+            sbSQL.Append($" ,'' AS {NameOf(_D003_NCR_J.SYOCHI_YOTEI_YMD)}")
             sbSQL.Append($" ,'' AS {NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD)}")
             sbSQL.Append($" ,'' AS {NameOf(_D003_NCR_J.KENSA_KEKKA_KB)}")
             sbSQL.Append($" , 0 AS {NameOf(_D003_NCR_J.SEIGI_TANTO_ID)}")
@@ -4217,6 +4224,7 @@ Public Class FrmG0011
                             _D003_NCR_J.HAIKYAKU_TANTO_ID = _V002_NCR_J.HAIKYAKU_TANTO_ID
                             _D003_NCR_J.SAIKAKO_SIJI_NO = _V002_NCR_J.SAIKAKO_SIJI_NO
                             _D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD = _V002_NCR_J.SAIKAKO_SAGYO_KAN_YMD
+                            _D003_NCR_J.SYOCHI_YOTEI_YMD = _V002_NCR_J.SYOCHI_YOTEI_YMD
                             _D003_NCR_J.SAIKAKO_KENSA_YMD = _V002_NCR_J.SAIKAKO_KENSA_YMD
 
                             _D003_NCR_J.SEIZO_TANTO_ID = _V002_NCR_J.SEIZO_TANTO_ID
@@ -6365,6 +6373,7 @@ Public Class FrmG0011
 
         mtxST08_2_DOC_NO.DataBindings.Add(New Binding(NameOf(mtxST08_2_DOC_NO.Text), _D003_NCR_J, NameOf(_D003_NCR_J.SAIKAKO_SIJI_NO), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         dtST08_2_WorkOutYMD.DataBindings.Add(New Binding(NameOf(dtST08_2_WorkOutYMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.SAIKAKO_SAGYO_KAN_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        dtST08_2_SYOCHI_YOTEI_YMD.DataBindings.Add(New Binding(NameOf(dtST08_2_SYOCHI_YOTEI_YMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.SYOCHI_YOTEI_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         dtST08_2_KENSA_YMD.DataBindings.Add(New Binding(NameOf(dtST08_2_KENSA_YMD.ValueNonFormat), _D003_NCR_J, NameOf(_D003_NCR_J.SAIKAKO_KENSA_YMD), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbST08_2_KENSA_KEKKA.DataBindings.Add(New Binding(NameOf(cmbST08_2_KENSA_KEKKA.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.KENSA_KEKKA_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         cmbST08_2_TANTO_SEIZO.DataBindings.Add(New Binding(NameOf(cmbST08_2_TANTO_SEIZO.SelectedValue), _D003_NCR_J, NameOf(_D003_NCR_J.SEIZO_TANTO_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
@@ -6456,6 +6465,7 @@ Public Class FrmG0011
         cmbST08_2_TANTO_SEIGI.DataBindings.Clear()
         cmbST08_2_TANTO_KENSA.DataBindings.Clear()
         cmbSAI_FUTEKIGO_KISO_TANTO.DataBindings.Clear()
+        dtST08_2_SYOCHI_YOTEI_YMD.DataBindings.Clear()
 
         dtST08_3_HENKYAKU_YMD.DataBindings.Clear()
         mtxST08_3_HENKYAKU_SAKI.DataBindings.Clear()
