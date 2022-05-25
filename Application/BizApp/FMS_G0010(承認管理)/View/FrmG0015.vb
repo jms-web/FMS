@@ -388,10 +388,12 @@ Public Class FrmG0015
         Dim strEXEParam As String = $"{_D004_SYONIN_J_KANRI.SYAIN_ID},{Val(ENM_OPEN_MODE._2_処置画面起動)},{PrSYONIN_HOKOKUSYO_ID},{PrHOKOKU_NO}"
         Dim SYONIN_HOKOKUSYO_NAME As String = If(PrSYONIN_HOKOKUSYO_ID = 1, "NCR", "CAR")
         Dim strSubject As String = $"【不適合品処置依頼】[{SYONIN_HOKOKUSYO_NAME}] {KISYU_NAME}・{PrBUHIN_BANGO}"
+
         Dim strBody As String = <html><![CDATA[
         {0} 殿<br />
         <br />
         　不適合製品の転送依頼が来ましたので対応をお願いします。<br />
+         {12}<br />
         <br />
         　　【報 告 書】{1}<br />
         　　【報告書No】{2}<br />
@@ -422,7 +424,8 @@ Public Class FrmG0015
                                 _D004_SYONIN_J_KANRI.RIYU,
                                 cmbTENSO_SAKI.SelectedValue,
                                 "FMS_G0010.exe",
-                                strEXEParam)
+                                strEXEParam,
+                                FunGetAdditionalMessage(PrSYONIN_HOKOKUSYO_ID, PrBUMON_KB, PrCurrentStage, cmbTENSO_SAKI.SelectedValue))
 
         If FunSendMailFutekigo(strSubject, strBody, ToSYAIN_ID:=cmbTENSO_SAKI.SelectedValue) Then
             Using DB As ClsDbUtility = DBOpen()
@@ -437,6 +440,34 @@ Public Class FrmG0015
             MessageBox.Show("メール送信に失敗しました。", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return False
         End If
+    End Function
+
+    'NCR ST9 再加工 追加メッセージ判定
+    Private Function FunGetAdditionalMessage(HOKOKUSYO_ID As Integer, BUMON_KB As String, CurrentStage As Integer, tensoSaki As Integer) As String
+        Try
+            If HOKOKUSYO_ID = Context.ENM_SYONIN_HOKOKUSYO_ID._1_NCR And
+            ({ENM_NCR_STAGE._80_処置実施, ENM_NCR_STAGE._81_処置実施_生技, ENM_NCR_STAGE._82_処置実施_製造}.Contains(CurrentStage)) Then
+                Dim sbSQL As New System.Text.StringBuilder
+                Dim count As Integer
+                sbSQL.Append($"SELECT COUNT(*) FROM TV03_SYOZOKU_SYAIN('{BUMON_KB}')")
+                sbSQL.Append($" WHERE GYOMU_GROUP_ID={ENM_GYOMU_GROUP_ID._2_製造.Value}")
+                sbSQL.Append($" AND SYAIN_ID={tensoSaki}")
+                Using DB As ClsDbUtility = DBOpen()
+                    count = DB.ExecuteScalar(sbSQL.ToString, False).ToString.ToVal
+                End Using
+
+                If count > 0 Then
+                    Return "即時作業完了予定日を入力して下さい。"
+                Else
+                    Return ""
+                End If
+            Else
+                Return ""
+            End If
+        Catch ex As Exception
+            Throw
+            Return ""
+        End Try
     End Function
 
 #End Region

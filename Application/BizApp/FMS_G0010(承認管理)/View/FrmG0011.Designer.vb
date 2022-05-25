@@ -256,6 +256,8 @@ Partial Class FrmG0011
         Me.Label71 = New System.Windows.Forms.Label()
         Me.dtST08_1_HAIKYAKU_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.tabSTAGE08_2 = New JMS_COMMON.TabPageEx()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.dtST08_2_SYOCHI_YOTEI_YMD = New JMS_COMMON.DateTextBoxEx()
         Me.txtST09_SAI_KAKO_Comment = New JMS_COMMON.TextBoxEx()
         Me.lblST09_SAI_KAKO_Comment = New System.Windows.Forms.Label()
         Me.lblSAI_KAKO_OK_SURYO = New System.Windows.Forms.Label()
@@ -541,8 +543,6 @@ Partial Class FrmG0011
         Me.rsbtnST12 = New JMS_COMMON.RibbonShapeRadioButton()
         Me.InfoToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.PicBox = New System.Windows.Forms.PictureBox()
-        Me.Label35 = New System.Windows.Forms.Label()
-        Me.dtST08_2_SYOCHI_YOTEI_YMD = New JMS_COMMON.DateTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit
         Me.gbxFilter.SuspendLayout
@@ -1535,7 +1535,7 @@ Partial Class FrmG0011
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 204.0!))
+        Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 206.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpST08.Controls.Add(Me.pnlSYOCHI_E2, 3, 7)
@@ -1582,7 +1582,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_E2.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_E2.Controls.Add(Me.rbtnST11_E2_T)
         Me.pnlSYOCHI_E2.Controls.Add(Me.rbtnST11_E2_F)
-        Me.pnlSYOCHI_E2.Location = New System.Drawing.Point(508, 200)
+        Me.pnlSYOCHI_E2.Location = New System.Drawing.Point(506, 200)
         Me.pnlSYOCHI_E2.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_E2.Name = "pnlSYOCHI_E2"
         Me.pnlSYOCHI_E2.Size = New System.Drawing.Size(151, 28)
@@ -1623,7 +1623,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_E1.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_E1.Controls.Add(Me.rbtnST11_E1_T)
         Me.pnlSYOCHI_E1.Controls.Add(Me.rbtnST11_E1_F)
-        Me.pnlSYOCHI_E1.Location = New System.Drawing.Point(508, 171)
+        Me.pnlSYOCHI_E1.Location = New System.Drawing.Point(506, 171)
         Me.pnlSYOCHI_E1.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_E1.Name = "pnlSYOCHI_E1"
         Me.pnlSYOCHI_E1.Size = New System.Drawing.Size(151, 28)
@@ -1664,7 +1664,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_D2.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_D2.Controls.Add(Me.rbtnST11_D2_T)
         Me.pnlSYOCHI_D2.Controls.Add(Me.rbtnST11_D2_F)
-        Me.pnlSYOCHI_D2.Location = New System.Drawing.Point(508, 117)
+        Me.pnlSYOCHI_D2.Location = New System.Drawing.Point(506, 117)
         Me.pnlSYOCHI_D2.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_D2.Name = "pnlSYOCHI_D2"
         Me.pnlSYOCHI_D2.Size = New System.Drawing.Size(151, 28)
@@ -1705,7 +1705,7 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_D1.BackColor = System.Drawing.SystemColors.Window
         Me.pnlSYOCHI_D1.Controls.Add(Me.rbtnST11_D1_T)
         Me.pnlSYOCHI_D1.Controls.Add(Me.rbtnST11_D1_F)
-        Me.pnlSYOCHI_D1.Location = New System.Drawing.Point(508, 88)
+        Me.pnlSYOCHI_D1.Location = New System.Drawing.Point(506, 88)
         Me.pnlSYOCHI_D1.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_D1.Name = "pnlSYOCHI_D1"
         Me.pnlSYOCHI_D1.Size = New System.Drawing.Size(151, 28)
@@ -1747,10 +1747,10 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_C.Controls.Add(Me.rbtnST11_C1_T)
         Me.pnlSYOCHI_C.Controls.Add(Me.rbtnST11_C1_F)
         Me.pnlSYOCHI_C.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlSYOCHI_C.Location = New System.Drawing.Point(508, 59)
+        Me.pnlSYOCHI_C.Location = New System.Drawing.Point(506, 59)
         Me.pnlSYOCHI_C.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_C.Name = "pnlSYOCHI_C"
-        Me.pnlSYOCHI_C.Size = New System.Drawing.Size(204, 28)
+        Me.pnlSYOCHI_C.Size = New System.Drawing.Size(206, 28)
         Me.pnlSYOCHI_C.TabIndex = 245
         '
         'rbtnST11_C1_T
@@ -1771,7 +1771,7 @@ Partial Class FrmG0011
         '
         Me.rbtnST11_C1_F.BackColor = System.Drawing.SystemColors.Window
         Me.rbtnST11_C1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_C1_F.Location = New System.Drawing.Point(129, 0)
+        Me.rbtnST11_C1_F.Location = New System.Drawing.Point(131, 0)
         Me.rbtnST11_C1_F.Name = "rbtnST11_C1_F"
         Me.rbtnST11_C1_F.Size = New System.Drawing.Size(75, 28)
         Me.rbtnST11_C1_F.TabIndex = 1
@@ -1786,10 +1786,10 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_B.Controls.Add(Me.rbtnST11_B1_T)
         Me.pnlSYOCHI_B.Controls.Add(Me.rbtnST11_B1_F)
         Me.pnlSYOCHI_B.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlSYOCHI_B.Location = New System.Drawing.Point(508, 30)
+        Me.pnlSYOCHI_B.Location = New System.Drawing.Point(506, 30)
         Me.pnlSYOCHI_B.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_B.Name = "pnlSYOCHI_B"
-        Me.pnlSYOCHI_B.Size = New System.Drawing.Size(204, 28)
+        Me.pnlSYOCHI_B.Size = New System.Drawing.Size(206, 28)
         Me.pnlSYOCHI_B.TabIndex = 245
         '
         'rbtnST11_B1_T
@@ -1810,7 +1810,7 @@ Partial Class FrmG0011
         '
         Me.rbtnST11_B1_F.BackColor = System.Drawing.SystemColors.Window
         Me.rbtnST11_B1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_B1_F.Location = New System.Drawing.Point(129, 0)
+        Me.rbtnST11_B1_F.Location = New System.Drawing.Point(131, 0)
         Me.rbtnST11_B1_F.Name = "rbtnST11_B1_F"
         Me.rbtnST11_B1_F.Size = New System.Drawing.Size(75, 28)
         Me.rbtnST11_B1_F.TabIndex = 1
@@ -1880,7 +1880,7 @@ Partial Class FrmG0011
         Me.Label126.Location = New System.Drawing.Point(22, 117)
         Me.Label126.Margin = New System.Windows.Forms.Padding(0)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(485, 28)
+        Me.Label126.Size = New System.Drawing.Size(483, 28)
         Me.Label126.TabIndex = 241
         Me.Label126.Text = "âeãøóLÇÃèÍçáÅAå⁄ãqÇ÷ÇÃí ímÇÃóvî€"
         Me.Label126.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1896,7 +1896,7 @@ Partial Class FrmG0011
         Me.Label127.Location = New System.Drawing.Point(22, 88)
         Me.Label127.Margin = New System.Windows.Forms.Padding(0)
         Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(485, 28)
+        Me.Label127.Size = New System.Drawing.Size(483, 28)
         Me.Label127.TabIndex = 242
         Me.Label127.Text = "ìñäYïsìKçáÇ…ÇÊÇÈå⁄ãqÇ÷ÇÃâeãø"
         Me.Label127.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1912,7 +1912,7 @@ Partial Class FrmG0011
         Me.lblSYOCHI_C_2.Location = New System.Drawing.Point(22, 59)
         Me.lblSYOCHI_C_2.Margin = New System.Windows.Forms.Padding(0)
         Me.lblSYOCHI_C_2.Name = "lblSYOCHI_C_2"
-        Me.lblSYOCHI_C_2.Size = New System.Drawing.Size(485, 28)
+        Me.lblSYOCHI_C_2.Size = New System.Drawing.Size(483, 28)
         Me.lblSYOCHI_C_2.TabIndex = 241
         Me.lblSYOCHI_C_2.Text = "îpãpèàíuÇÕñ{óàÇÃà”ê}ÇµÇΩégópñîÇÕìKópÇ™Ç≈Ç´Ç»Ç¢ï˚ñ@ÇæÇ¡ÇΩÇ©ÅH"
         Me.lblSYOCHI_C_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1941,7 +1941,7 @@ Partial Class FrmG0011
         Me.Label130.Location = New System.Drawing.Point(22, 30)
         Me.Label130.Margin = New System.Windows.Forms.Padding(0)
         Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(485, 28)
+        Me.Label130.Size = New System.Drawing.Size(483, 28)
         Me.Label130.TabIndex = 240
         Me.Label130.Text = "é–ì‡å†å¿é“Ç…ÇÊÇËÅAñîÇÕå⁄ãqçƒêRÇÃèÍçáÇÕå⁄ãqÇ…ÇÊÇËîªíËÇ≥ÇÍÇΩÇ©ÅH"
         Me.Label130.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1999,7 +1999,7 @@ Partial Class FrmG0011
         Me.Label134.Location = New System.Drawing.Point(22, 171)
         Me.Label134.Margin = New System.Windows.Forms.Padding(0)
         Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(485, 28)
+        Me.Label134.Size = New System.Drawing.Size(483, 28)
         Me.Label134.TabIndex = 240
         Me.Label134.Text = "ìñäYïsìKçáÇ…ÇÊÇÈëºÇÃÉvÉçÉZÉXÇ÷ÇÃâeãø"
         Me.Label134.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2030,7 +2030,7 @@ Partial Class FrmG0011
         Me.Label136.Location = New System.Drawing.Point(22, 200)
         Me.Label136.Margin = New System.Windows.Forms.Padding(0)
         Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(485, 28)
+        Me.Label136.Size = New System.Drawing.Size(483, 28)
         Me.Label136.TabIndex = 247
         Me.Label136.Text = "âeãøóLÇÃèÍçáÅAïïÇ∂çûÇﬂèàíuÇÃóvî€"
         Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2046,7 +2046,7 @@ Partial Class FrmG0011
         Me.Label137.Location = New System.Drawing.Point(22, 1)
         Me.Label137.Margin = New System.Windows.Forms.Padding(0)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(485, 28)
+        Me.Label137.Size = New System.Drawing.Size(483, 28)
         Me.Label137.TabIndex = 238
         Me.Label137.Text = "åüèoÇ≥ÇÍÇΩïsìKçáÇèúãéÇ∑ÇÈèàíuÅiîpãpÇä‹ÇﬁÅjÇÕämé¿Ç…Ç∆ÇÁÇÍÇΩÇ©ÅH"
         Me.Label137.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2072,10 +2072,10 @@ Partial Class FrmG0011
         Me.pnlSYOCHI_A.Controls.Add(Me.rbtnST11_A1_T)
         Me.pnlSYOCHI_A.Controls.Add(Me.rbtnST11_A1_F)
         Me.pnlSYOCHI_A.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlSYOCHI_A.Location = New System.Drawing.Point(508, 1)
+        Me.pnlSYOCHI_A.Location = New System.Drawing.Point(506, 1)
         Me.pnlSYOCHI_A.Margin = New System.Windows.Forms.Padding(0)
         Me.pnlSYOCHI_A.Name = "pnlSYOCHI_A"
-        Me.pnlSYOCHI_A.Size = New System.Drawing.Size(204, 28)
+        Me.pnlSYOCHI_A.Size = New System.Drawing.Size(206, 28)
         Me.pnlSYOCHI_A.TabIndex = 248
         '
         'rbtnST11_A1_T
@@ -2096,7 +2096,7 @@ Partial Class FrmG0011
         '
         Me.rbtnST11_A1_F.BackColor = System.Drawing.SystemColors.Window
         Me.rbtnST11_A1_F.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbtnST11_A1_F.Location = New System.Drawing.Point(129, 0)
+        Me.rbtnST11_A1_F.Location = New System.Drawing.Point(131, 0)
         Me.rbtnST11_A1_F.Name = "rbtnST11_A1_F"
         Me.rbtnST11_A1_F.Size = New System.Drawing.Size(75, 28)
         Me.rbtnST11_A1_F.TabIndex = 1
@@ -4172,7 +4172,7 @@ Partial Class FrmG0011
         Me.tabSTAGE08_1.Location = New System.Drawing.Point(4, 26)
         Me.tabSTAGE08_1.Name = "tabSTAGE08_1"
         Me.tabSTAGE08_1.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabSTAGE08_1.Size = New System.Drawing.Size(587, 223)
+        Me.tabSTAGE08_1.Size = New System.Drawing.Size(587, 261)
         Me.tabSTAGE08_1.TabIndex = 0
         Me.tabSTAGE08_1.Text = "îpä¸é¿é{ãLò^"
         Me.tabSTAGE08_1.UseVisualStyleBackColor = True
@@ -4346,6 +4346,33 @@ Partial Class FrmG0011
         Me.tabSTAGE08_2.Text = "çƒâ¡çHéwé¶/ãLò^"
         Me.tabSTAGE08_2.UseVisualStyleBackColor = True
         '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label35.Location = New System.Drawing.Point(6, 41)
+        Me.Label35.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(96, 15)
+        Me.Label35.TabIndex = 260
+        Me.Label35.Text = "çÏã∆äÆóπó\íËì˙:"
+        Me.Label35.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'dtST08_2_SYOCHI_YOTEI_YMD
+        '
+        Me.dtST08_2_SYOCHI_YOTEI_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.dtST08_2_SYOCHI_YOTEI_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.dtST08_2_SYOCHI_YOTEI_YMD.Location = New System.Drawing.Point(108, 35)
+        Me.dtST08_2_SYOCHI_YOTEI_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
+        Me.dtST08_2_SYOCHI_YOTEI_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
+        Me.dtST08_2_SYOCHI_YOTEI_YMD.MinimumSize = New System.Drawing.Size(98, 24)
+        Me.dtST08_2_SYOCHI_YOTEI_YMD.Name = "dtST08_2_SYOCHI_YOTEI_YMD"
+        Me.dtST08_2_SYOCHI_YOTEI_YMD.ReadOnly = False
+        Me.dtST08_2_SYOCHI_YOTEI_YMD.Size = New System.Drawing.Size(98, 24)
+        Me.dtST08_2_SYOCHI_YOTEI_YMD.TabIndex = 259
+        Me.dtST08_2_SYOCHI_YOTEI_YMD.Value = ""
+        Me.dtST08_2_SYOCHI_YOTEI_YMD.ValueNonFormat = ""
+        '
         'txtST09_SAI_KAKO_Comment
         '
         Me.txtST09_SAI_KAKO_Comment.BackColor = System.Drawing.SystemColors.Window
@@ -4427,7 +4454,7 @@ Partial Class FrmG0011
         Me.cmbSAI_FUTEKIGO_KISO_TANTO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbSAI_FUTEKIGO_KISO_TANTO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbSAI_FUTEKIGO_KISO_TANTO.IsSelected = False
-        Me.cmbSAI_FUTEKIGO_KISO_TANTO.Location = New System.Drawing.Point(347, 96)
+        Me.cmbSAI_FUTEKIGO_KISO_TANTO.Location = New System.Drawing.Point(347, 125)
         Me.cmbSAI_FUTEKIGO_KISO_TANTO.Name = "cmbSAI_FUTEKIGO_KISO_TANTO"
         Me.cmbSAI_FUTEKIGO_KISO_TANTO.NullValue = " "
         Me.cmbSAI_FUTEKIGO_KISO_TANTO.Size = New System.Drawing.Size(154, 25)
@@ -4439,7 +4466,7 @@ Partial Class FrmG0011
         '
         Me.lblSAI_FUTEKIGO_KISO_TANTO.AutoSize = True
         Me.lblSAI_FUTEKIGO_KISO_TANTO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblSAI_FUTEKIGO_KISO_TANTO.Location = New System.Drawing.Point(233, 101)
+        Me.lblSAI_FUTEKIGO_KISO_TANTO.Location = New System.Drawing.Point(233, 130)
         Me.lblSAI_FUTEKIGO_KISO_TANTO.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.lblSAI_FUTEKIGO_KISO_TANTO.Name = "lblSAI_FUTEKIGO_KISO_TANTO"
         Me.lblSAI_FUTEKIGO_KISO_TANTO.Size = New System.Drawing.Size(108, 15)
@@ -4515,7 +4542,7 @@ Partial Class FrmG0011
         Me.cmbST08_2_TANTO_SEIZO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST08_2_TANTO_SEIZO.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST08_2_TANTO_SEIZO.IsSelected = False
-        Me.cmbST08_2_TANTO_SEIZO.Location = New System.Drawing.Point(347, 36)
+        Me.cmbST08_2_TANTO_SEIZO.Location = New System.Drawing.Point(347, 65)
         Me.cmbST08_2_TANTO_SEIZO.Name = "cmbST08_2_TANTO_SEIZO"
         Me.cmbST08_2_TANTO_SEIZO.NullValue = " "
         Me.cmbST08_2_TANTO_SEIZO.Size = New System.Drawing.Size(154, 25)
@@ -4621,7 +4648,7 @@ Partial Class FrmG0011
         Me.cmbST08_2_TANTO_KENSA.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbST08_2_TANTO_KENSA.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.cmbST08_2_TANTO_KENSA.IsSelected = False
-        Me.cmbST08_2_TANTO_KENSA.Location = New System.Drawing.Point(347, 65)
+        Me.cmbST08_2_TANTO_KENSA.Location = New System.Drawing.Point(347, 94)
         Me.cmbST08_2_TANTO_KENSA.Name = "cmbST08_2_TANTO_KENSA"
         Me.cmbST08_2_TANTO_KENSA.NullValue = " "
         Me.cmbST08_2_TANTO_KENSA.Size = New System.Drawing.Size(154, 25)
@@ -4633,7 +4660,7 @@ Partial Class FrmG0011
         '
         Me.lblST08_2_TANTO_KENSA.AutoSize = True
         Me.lblST08_2_TANTO_KENSA.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblST08_2_TANTO_KENSA.Location = New System.Drawing.Point(281, 70)
+        Me.lblST08_2_TANTO_KENSA.Location = New System.Drawing.Point(281, 99)
         Me.lblST08_2_TANTO_KENSA.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.lblST08_2_TANTO_KENSA.Name = "lblST08_2_TANTO_KENSA"
         Me.lblST08_2_TANTO_KENSA.Size = New System.Drawing.Size(60, 15)
@@ -4645,7 +4672,7 @@ Partial Class FrmG0011
         '
         Me.lblST08_2_TANTO_SEIZO.AutoSize = True
         Me.lblST08_2_TANTO_SEIZO.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.lblST08_2_TANTO_SEIZO.Location = New System.Drawing.Point(281, 40)
+        Me.lblST08_2_TANTO_SEIZO.Location = New System.Drawing.Point(281, 69)
         Me.lblST08_2_TANTO_SEIZO.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
         Me.lblST08_2_TANTO_SEIZO.Name = "lblST08_2_TANTO_SEIZO"
         Me.lblST08_2_TANTO_SEIZO.Size = New System.Drawing.Size(60, 15)
@@ -4705,7 +4732,7 @@ Partial Class FrmG0011
         Me.tabSTAGE08_3.HitEnabled = False
         Me.tabSTAGE08_3.Location = New System.Drawing.Point(4, 26)
         Me.tabSTAGE08_3.Name = "tabSTAGE08_3"
-        Me.tabSTAGE08_3.Size = New System.Drawing.Size(587, 223)
+        Me.tabSTAGE08_3.Size = New System.Drawing.Size(587, 261)
         Me.tabSTAGE08_3.TabIndex = 2
         Me.tabSTAGE08_3.Text = "ï‘ãpé¿é{ãLò^"
         Me.tabSTAGE08_3.UseVisualStyleBackColor = True
@@ -4853,7 +4880,7 @@ Partial Class FrmG0011
         Me.tabSTAGE08_4.HitEnabled = False
         Me.tabSTAGE08_4.Location = New System.Drawing.Point(4, 26)
         Me.tabSTAGE08_4.Name = "tabSTAGE08_4"
-        Me.tabSTAGE08_4.Size = New System.Drawing.Size(587, 223)
+        Me.tabSTAGE08_4.Size = New System.Drawing.Size(587, 261)
         Me.tabSTAGE08_4.TabIndex = 3
         Me.tabSTAGE08_4.Text = "ì]ópêÊãLò^"
         Me.tabSTAGE08_4.UseVisualStyleBackColor = True
@@ -8567,33 +8594,6 @@ Partial Class FrmG0011
         Me.PicBox.TabIndex = 260
         Me.PicBox.TabStop = False
         Me.PicBox.Visible = False
-        '
-        'Label35
-        '
-        Me.Label35.AutoSize = True
-        Me.Label35.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label35.Location = New System.Drawing.Point(6, 41)
-        Me.Label35.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(96, 15)
-        Me.Label35.TabIndex = 260
-        Me.Label35.Text = "çÏã∆äÆóπó\íËì˙:"
-        Me.Label35.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'dtST08_2_SYOCHI_YOTEI_YMD
-        '
-        Me.dtST08_2_SYOCHI_YOTEI_YMD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.dtST08_2_SYOCHI_YOTEI_YMD.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.dtST08_2_SYOCHI_YOTEI_YMD.Location = New System.Drawing.Point(108, 35)
-        Me.dtST08_2_SYOCHI_YOTEI_YMD.MaxDate = New Date(9998, 12, 31, 0, 0, 0, 0)
-        Me.dtST08_2_SYOCHI_YOTEI_YMD.MinDate = New Date(1753, 1, 1, 0, 0, 0, 0)
-        Me.dtST08_2_SYOCHI_YOTEI_YMD.MinimumSize = New System.Drawing.Size(98, 24)
-        Me.dtST08_2_SYOCHI_YOTEI_YMD.Name = "dtST08_2_SYOCHI_YOTEI_YMD"
-        Me.dtST08_2_SYOCHI_YOTEI_YMD.ReadOnly = False
-        Me.dtST08_2_SYOCHI_YOTEI_YMD.Size = New System.Drawing.Size(98, 24)
-        Me.dtST08_2_SYOCHI_YOTEI_YMD.TabIndex = 259
-        Me.dtST08_2_SYOCHI_YOTEI_YMD.Value = ""
-        Me.dtST08_2_SYOCHI_YOTEI_YMD.ValueNonFormat = ""
         '
         'FrmG0011
         '
