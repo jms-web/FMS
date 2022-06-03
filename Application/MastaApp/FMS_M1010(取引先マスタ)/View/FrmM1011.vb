@@ -141,7 +141,9 @@ Public Class FrmM1011
 
                     Select Case PrMODE
                         Case ENM_DATA_OPERATION_MODE._1_ADD, ENM_DATA_OPERATION_MODE._2_ADDREF
-                            _M101.TORI_ID = FunGetNextTORI_ID()
+                            If _M101.TORI_ID = 0 Then
+                                _M101.TORI_ID = FunGetNextTORI_ID()
+                            End If
                         Case Else
                     End Select
 
@@ -287,6 +289,14 @@ Public Class FrmM1011
         End Try
     End Sub
 
+    'éÊà¯êÊID
+    Private Sub mtxTORI_ID_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mtxTORI_ID.Validating
+        Dim mtx As MaskedTextBoxEx = DirectCast(sender, MaskedTextBoxEx)
+        If IsCheckRequired Then
+            IsValidated *= ErrorProvider.UpdateErrorInfo(mtx, Not mtx.Text.IsNulOrWS, String.Format(My.Resources.infoMsgRequireSelectOrInput, "éÊà¯êÊID"))
+        End If
+    End Sub
+
     'éÊà¯ãÊï™
     Private Sub CmbTORI_KB_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbTORI_KB.Validating
         Dim cmb As ComboboxEx = DirectCast(sender, ComboboxEx)
@@ -312,6 +322,9 @@ Public Class FrmM1011
         Try
             IsValidated = True
             IsCheckRequired = True
+
+            'éÊà¯êÊID
+            Call mtxTORI_ID_Validating(mtxTORI_ID, Nothing)
 
             'éÊà¯ãÊï™
             Call CmbTORI_KB_Validating(cmbTORI_KB, Nothing)
@@ -366,7 +379,7 @@ Public Class FrmM1011
 
     Private Function FunSetBinding() As Boolean
 
-        mtxTORI_ID.DataBindings.Add(New Binding(NameOf(mtxTORI_ID.Text), _M101, NameOf(_M101.TORI_ID), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+        mtxTORI_ID.DataBindings.Add(New Binding(NameOf(mtxTORI_ID.Text), _M101, NameOf(_M101.TORI_ID), False, DataSourceUpdateMode.OnPropertyChanged, 0))
 
         cmbTORI_KB.DataBindings.Add(New Binding(NameOf(cmbTORI_KB.SelectedValue), _M101, NameOf(_M101.TORI_KB), False, DataSourceUpdateMode.OnPropertyChanged, ""))
         mtxTORI_NAME.DataBindings.Add(New Binding(NameOf(mtxTORI_NAME.Text), _M101, NameOf(_M101.TORI_NAME), False, DataSourceUpdateMode.OnPropertyChanged, ""))

@@ -54,6 +54,7 @@ Partial Class FrmM1011
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
@@ -155,10 +156,6 @@ Partial Class FrmM1011
         'ToolTip
         '
         Me.ToolTip.InitialDelay = 700
-        '
-        'ErrorProvider
-        '
-        Me.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         '
         'GroupBox1
         '
@@ -381,12 +378,12 @@ Partial Class FrmM1011
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxTORI_ID, 5)
         Me.mtxTORI_ID.Dock = System.Windows.Forms.DockStyle.Fill
         Me.mtxTORI_ID.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxTORI_ID.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxTORI_ID.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxTORI_ID.InputRequired = False
         Me.mtxTORI_ID.Location = New System.Drawing.Point(113, 3)
         Me.mtxTORI_ID.MaxByteLength = 6
         Me.mtxTORI_ID.Name = "mtxTORI_ID"
+        Me.mtxTORI_ID.SelectAllText = False
         Me.mtxTORI_ID.Size = New System.Drawing.Size(84, 24)
         Me.mtxTORI_ID.TabIndex = 0
         Me.mtxTORI_ID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -411,12 +408,12 @@ Partial Class FrmM1011
         Me.mtxTORI_NAME.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxTORI_NAME, 12)
         Me.mtxTORI_NAME.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxTORI_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxTORI_NAME.ImeMode = System.Windows.Forms.ImeMode.Hiragana
         Me.mtxTORI_NAME.InputRequired = False
         Me.mtxTORI_NAME.Location = New System.Drawing.Point(113, 38)
         Me.mtxTORI_NAME.MaxByteLength = 100
         Me.mtxTORI_NAME.Name = "mtxTORI_NAME"
+        Me.mtxTORI_NAME.SelectAllText = False
         Me.mtxTORI_NAME.Size = New System.Drawing.Size(221, 24)
         Me.mtxTORI_NAME.TabIndex = 4
         Me.mtxTORI_NAME.WatermarkColor = System.Drawing.Color.Empty
@@ -473,7 +470,6 @@ Partial Class FrmM1011
         Me.mtxPOST.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxPOST, 6)
         Me.mtxPOST.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxPOST.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxPOST.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxPOST.InputRequired = False
         Me.mtxPOST.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite
@@ -482,6 +478,7 @@ Partial Class FrmM1011
         Me.mtxPOST.MaxByteLength = 10
         Me.mtxPOST.Name = "mtxPOST"
         Me.mtxPOST.PermitNumChars = True
+        Me.mtxPOST.SelectAllText = False
         Me.mtxPOST.Size = New System.Drawing.Size(104, 24)
         Me.mtxPOST.TabIndex = 18
         Me.mtxPOST.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -542,12 +539,12 @@ Partial Class FrmM1011
         Me.mtxADD1.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxADD1, 11)
         Me.mtxADD1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxADD1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxADD1.ImeMode = System.Windows.Forms.ImeMode.Hiragana
         Me.mtxADD1.InputRequired = False
         Me.mtxADD1.Location = New System.Drawing.Point(113, 143)
         Me.mtxADD1.MaxByteLength = 100
         Me.mtxADD1.Name = "mtxADD1"
+        Me.mtxADD1.SelectAllText = False
         Me.mtxADD1.Size = New System.Drawing.Size(204, 24)
         Me.mtxADD1.TabIndex = 19
         Me.mtxADD1.WatermarkColor = System.Drawing.Color.Empty
@@ -558,12 +555,12 @@ Partial Class FrmM1011
         Me.mtxADD2.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxADD2, 11)
         Me.mtxADD2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxADD2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxADD2.ImeMode = System.Windows.Forms.ImeMode.Hiragana
         Me.mtxADD2.InputRequired = False
         Me.mtxADD2.Location = New System.Drawing.Point(113, 178)
         Me.mtxADD2.MaxByteLength = 100
         Me.mtxADD2.Name = "mtxADD2"
+        Me.mtxADD2.SelectAllText = False
         Me.mtxADD2.Size = New System.Drawing.Size(204, 24)
         Me.mtxADD2.TabIndex = 20
         Me.mtxADD2.WatermarkColor = System.Drawing.Color.Empty
@@ -574,12 +571,12 @@ Partial Class FrmM1011
         Me.mtxADD3.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxADD3, 11)
         Me.mtxADD3.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxADD3.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxADD3.ImeMode = System.Windows.Forms.ImeMode.Hiragana
         Me.mtxADD3.InputRequired = False
         Me.mtxADD3.Location = New System.Drawing.Point(113, 213)
         Me.mtxADD3.MaxByteLength = 100
         Me.mtxADD3.Name = "mtxADD3"
+        Me.mtxADD3.SelectAllText = False
         Me.mtxADD3.Size = New System.Drawing.Size(204, 24)
         Me.mtxADD3.TabIndex = 21
         Me.mtxADD3.WatermarkColor = System.Drawing.Color.Empty
@@ -614,7 +611,6 @@ Partial Class FrmM1011
         Me.mtxTEL1.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxTEL1, 3)
         Me.mtxTEL1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxTEL1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxTEL1.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxTEL1.InputRequired = False
         Me.mtxTEL1.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite
@@ -624,6 +620,7 @@ Partial Class FrmM1011
         Me.mtxTEL1.Name = "mtxTEL1"
         Me.mtxTEL1.PermitNumChars = True
         Me.mtxTEL1.PromptChar = Global.Microsoft.VisualBasic.ChrW(32)
+        Me.mtxTEL1.SelectAllText = False
         Me.mtxTEL1.Size = New System.Drawing.Size(44, 24)
         Me.mtxTEL1.TabIndex = 22
         Me.mtxTEL1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -635,7 +632,6 @@ Partial Class FrmM1011
         Me.mtxFAX1.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxFAX1, 3)
         Me.mtxFAX1.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxFAX1.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxFAX1.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxFAX1.InputRequired = False
         Me.mtxFAX1.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite
@@ -645,6 +641,7 @@ Partial Class FrmM1011
         Me.mtxFAX1.Name = "mtxFAX1"
         Me.mtxFAX1.PermitNumChars = True
         Me.mtxFAX1.PromptChar = Global.Microsoft.VisualBasic.ChrW(32)
+        Me.mtxFAX1.SelectAllText = False
         Me.mtxFAX1.Size = New System.Drawing.Size(44, 24)
         Me.mtxFAX1.TabIndex = 25
         Me.mtxFAX1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -678,7 +675,6 @@ Partial Class FrmM1011
         Me.mtxTEL2.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxTEL2, 3)
         Me.mtxTEL2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxTEL2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxTEL2.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxTEL2.InputRequired = False
         Me.mtxTEL2.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite
@@ -688,6 +684,7 @@ Partial Class FrmM1011
         Me.mtxTEL2.Name = "mtxTEL2"
         Me.mtxTEL2.PermitNumChars = True
         Me.mtxTEL2.PromptChar = Global.Microsoft.VisualBasic.ChrW(32)
+        Me.mtxTEL2.SelectAllText = False
         Me.mtxTEL2.Size = New System.Drawing.Size(54, 24)
         Me.mtxTEL2.TabIndex = 23
         Me.mtxTEL2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -699,7 +696,6 @@ Partial Class FrmM1011
         Me.mtxFAX2.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxFAX2, 3)
         Me.mtxFAX2.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxFAX2.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxFAX2.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxFAX2.InputRequired = False
         Me.mtxFAX2.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite
@@ -709,6 +705,7 @@ Partial Class FrmM1011
         Me.mtxFAX2.Name = "mtxFAX2"
         Me.mtxFAX2.PermitNumChars = True
         Me.mtxFAX2.PromptChar = Global.Microsoft.VisualBasic.ChrW(32)
+        Me.mtxFAX2.SelectAllText = False
         Me.mtxFAX2.Size = New System.Drawing.Size(54, 24)
         Me.mtxFAX2.TabIndex = 26
         Me.mtxFAX2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -720,7 +717,6 @@ Partial Class FrmM1011
         Me.mtxTEL3.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxTEL3, 3)
         Me.mtxTEL3.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxTEL3.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxTEL3.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxTEL3.InputRequired = False
         Me.mtxTEL3.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite
@@ -730,6 +726,7 @@ Partial Class FrmM1011
         Me.mtxTEL3.Name = "mtxTEL3"
         Me.mtxTEL3.PermitNumChars = True
         Me.mtxTEL3.PromptChar = Global.Microsoft.VisualBasic.ChrW(32)
+        Me.mtxTEL3.SelectAllText = False
         Me.mtxTEL3.Size = New System.Drawing.Size(53, 24)
         Me.mtxTEL3.TabIndex = 24
         Me.mtxTEL3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -741,7 +738,6 @@ Partial Class FrmM1011
         Me.mtxFAX3.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel2.SetColumnSpan(Me.mtxFAX3, 3)
         Me.mtxFAX3.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxFAX3.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxFAX3.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.mtxFAX3.InputRequired = False
         Me.mtxFAX3.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite
@@ -751,6 +747,7 @@ Partial Class FrmM1011
         Me.mtxFAX3.Name = "mtxFAX3"
         Me.mtxFAX3.PermitNumChars = True
         Me.mtxFAX3.PromptChar = Global.Microsoft.VisualBasic.ChrW(32)
+        Me.mtxFAX3.SelectAllText = False
         Me.mtxFAX3.Size = New System.Drawing.Size(53, 24)
         Me.mtxFAX3.TabIndex = 28
         Me.mtxFAX3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -805,6 +802,7 @@ Partial Class FrmM1011
         Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc1, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
