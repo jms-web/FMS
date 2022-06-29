@@ -1479,7 +1479,7 @@ Module mdlG0010
             End If
 
             ssgSheet1.Range(NameOf(_V002_NCR_J.YOKYU_NAIYO)).Value = _V002_NCR_J.YOKYU_NAIYO.Replace(Environment.NewLine, "")
-            ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = $"(ê}ñ /ãKäiÅF {If(_V002_NCR_J.ZUMEN_KIKAKU.IsNulOrWS, Space(38), _V002_NCR_J.ZUMEN_KIKAKU.Trim)} )"
+            ssgSheet1.Range(NameOf(_V002_NCR_J.ZUMEN_KIKAKU)).Value = $"Å@(ê}ñ /ãKäiÅF {If(_V002_NCR_J.ZUMEN_KIKAKU.IsNulOrWS, Space(38), _V002_NCR_J.ZUMEN_KIKAKU.Trim)} )"
 
             Dim kiso_tanto As String = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).FirstOrDefault?.UPD_SYAIN_NAME
             If kiso_tanto.IsNulOrWS Then kiso_tanto = _V003_SYONIN_J_KANRI_List.Where(Function(r) r.SYONIN_JUN = ENM_NCR_STAGE._10_ãNëêì¸óÕ).FirstOrDefault?.ADD_SYAIN_NAME
