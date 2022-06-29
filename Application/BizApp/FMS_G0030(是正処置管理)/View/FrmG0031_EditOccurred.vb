@@ -2696,14 +2696,7 @@ Public Class FrmG0031_EditOccurred
                 Case ENM_ZESEI_STAGE._21_是正処置入力_点検
                     Return ENM_ZESEI_STAGE._22_是正処置入力_認可
                 Case ENM_ZESEI_STAGE._22_是正処置入力_認可
-
-                    Select Case _D013.INPUT_TYPE
-                        Case 1, 2
-                            Return ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
-                        Case Else
-                            Return ENM_ZESEI_STAGE._30_処置結果入力
-                    End Select
-
+                    Return ENM_ZESEI_STAGE._30_処置結果入力
                 Case ENM_ZESEI_STAGE._23_是正処置入力_品証_点検
                     Return ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
                 Case ENM_ZESEI_STAGE._24_是正処置入力_品証_認可
