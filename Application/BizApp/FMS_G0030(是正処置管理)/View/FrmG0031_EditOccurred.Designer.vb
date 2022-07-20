@@ -167,6 +167,8 @@ Partial Class FrmG0031_EditOccurred
         Me.chkJINTEKI_YOUIN_UMU = New System.Windows.Forms.CheckBox()
         Me.lblSTAGEFlame02 = New System.Windows.Forms.Label()
         Me.pnlST05 = New JMS_COMMON.PanelEx()
+        Me.txtMOTO_COMMENT = New JMS_COMMON.TextBoxEx()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.txtCOMMENT5 = New JMS_COMMON.TextBoxEx()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
@@ -184,6 +186,8 @@ Partial Class FrmG0031_EditOccurred
         Me.btnST13_SYONIN = New System.Windows.Forms.Button()
         Me.lblSTAGEFlame05 = New System.Windows.Forms.Label()
         Me.pnlST04 = New JMS_COMMON.PanelEx()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.txtREV_COMMENT = New JMS_COMMON.TextBoxEx()
         Me.Label37 = New System.Windows.Forms.Label()
         Me.txtCOMMENT4 = New JMS_COMMON.TextBoxEx()
         Me.chkZESEI_SYOCHI_HANTEI = New System.Windows.Forms.CheckBox()
@@ -806,7 +810,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST01.Location = New System.Drawing.Point(2, 5)
         Me.pnlST01.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST01.Name = "pnlST01"
-        Me.pnlST01.Size = New System.Drawing.Size(1174, 497)
+        Me.pnlST01.Size = New System.Drawing.Size(1191, 497)
         Me.pnlST01.TabIndex = 4
         Me.pnlST01.Visible = False
         '
@@ -1502,7 +1506,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame01.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame01.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame01.Location = New System.Drawing.Point(1168, 0)
+        Me.lblSTAGEFlame01.Location = New System.Drawing.Point(1185, 0)
         Me.lblSTAGEFlame01.Name = "lblSTAGEFlame01"
         Me.lblSTAGEFlame01.Size = New System.Drawing.Size(4, 495)
         Me.lblSTAGEFlame01.TabIndex = 335
@@ -1548,7 +1552,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST02.Location = New System.Drawing.Point(2, 508)
         Me.pnlST02.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST02.Name = "pnlST02"
-        Me.pnlST02.Size = New System.Drawing.Size(1174, 816)
+        Me.pnlST02.Size = New System.Drawing.Size(1191, 816)
         Me.pnlST02.TabIndex = 329
         Me.pnlST02.Visible = False
         '
@@ -2747,7 +2751,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame02.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame02.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame02.Location = New System.Drawing.Point(1168, 0)
+        Me.lblSTAGEFlame02.Location = New System.Drawing.Point(1185, 0)
         Me.lblSTAGEFlame02.Name = "lblSTAGEFlame02"
         Me.lblSTAGEFlame02.Size = New System.Drawing.Size(4, 814)
         Me.lblSTAGEFlame02.TabIndex = 356
@@ -2759,6 +2763,8 @@ Partial Class FrmG0031_EditOccurred
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlST05.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.pnlST05.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST05.Controls.Add(Me.txtMOTO_COMMENT)
+        Me.pnlST05.Controls.Add(Me.Label4)
         Me.pnlST05.Controls.Add(Me.Label20)
         Me.pnlST05.Controls.Add(Me.txtCOMMENT5)
         Me.pnlST05.Controls.Add(Me.TableLayoutPanel3)
@@ -2769,9 +2775,41 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST05.Location = New System.Drawing.Point(2, 1754)
         Me.pnlST05.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST05.Name = "pnlST05"
-        Me.pnlST05.Size = New System.Drawing.Size(1174, 145)
+        Me.pnlST05.Size = New System.Drawing.Size(1191, 145)
         Me.pnlST05.TabIndex = 321
         Me.pnlST05.Visible = False
+        '
+        'txtMOTO_COMMENT
+        '
+        Me.txtMOTO_COMMENT.AcceptsReturn = True
+        Me.txtMOTO_COMMENT.BackColor = System.Drawing.SystemColors.Window
+        Me.txtMOTO_COMMENT.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtMOTO_COMMENT.InputRequired = False
+        Me.txtMOTO_COMMENT.Location = New System.Drawing.Point(256, 23)
+        Me.txtMOTO_COMMENT.MaxByteLength = 300
+        Me.txtMOTO_COMMENT.MaxLength = 150
+        Me.txtMOTO_COMMENT.Multiline = True
+        Me.txtMOTO_COMMENT.Name = "txtMOTO_COMMENT"
+        Me.txtMOTO_COMMENT.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtMOTO_COMMENT.SelectAllText = False
+        Me.txtMOTO_COMMENT.ShowRemainingChars = True
+        Me.txtMOTO_COMMENT.Size = New System.Drawing.Size(288, 117)
+        Me.txtMOTO_COMMENT.TabIndex = 359
+        Me.txtMOTO_COMMENT.WatermarkColor = System.Drawing.Color.Empty
+        Me.txtMOTO_COMMENT.WatermarkText = Nothing
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
+        Me.Label4.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label4.Location = New System.Drawing.Point(259, 5)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(45, 15)
+        Me.Label4.TabIndex = 357
+        Me.Label4.Text = "コメント:"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label20
         '
@@ -3046,7 +3084,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame05.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame05.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame05.Location = New System.Drawing.Point(1168, 0)
+        Me.lblSTAGEFlame05.Location = New System.Drawing.Point(1185, 0)
         Me.lblSTAGEFlame05.Name = "lblSTAGEFlame05"
         Me.lblSTAGEFlame05.Size = New System.Drawing.Size(4, 143)
         Me.lblSTAGEFlame05.TabIndex = 358
@@ -3058,6 +3096,8 @@ Partial Class FrmG0031_EditOccurred
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlST04.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.pnlST04.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlST04.Controls.Add(Me.Label11)
+        Me.pnlST04.Controls.Add(Me.txtREV_COMMENT)
         Me.pnlST04.Controls.Add(Me.Label37)
         Me.pnlST04.Controls.Add(Me.txtCOMMENT4)
         Me.pnlST04.Controls.Add(Me.chkZESEI_SYOCHI_HANTEI)
@@ -3073,9 +3113,39 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST04.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST04.Name = "pnlST04"
         Me.pnlST04.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlST04.Size = New System.Drawing.Size(1174, 150)
+        Me.pnlST04.Size = New System.Drawing.Size(1191, 150)
         Me.pnlST04.TabIndex = 320
         Me.pnlST04.Visible = False
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.BackColor = System.Drawing.Color.Transparent
+        Me.Label11.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label11.Location = New System.Drawing.Point(22, 122)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(45, 15)
+        Me.Label11.TabIndex = 361
+        Me.Label11.Text = "コメント:"
+        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtREV_COMMENT
+        '
+        Me.txtREV_COMMENT.BackColor = System.Drawing.SystemColors.Window
+        Me.txtREV_COMMENT.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.txtREV_COMMENT.InputRequired = False
+        Me.txtREV_COMMENT.Location = New System.Drawing.Point(73, 117)
+        Me.txtREV_COMMENT.MaxByteLength = 100
+        Me.txtREV_COMMENT.MaxLength = 50
+        Me.txtREV_COMMENT.Multiline = True
+        Me.txtREV_COMMENT.Name = "txtREV_COMMENT"
+        Me.txtREV_COMMENT.SelectAllText = False
+        Me.txtREV_COMMENT.ShowRemainingChars = True
+        Me.txtREV_COMMENT.Size = New System.Drawing.Size(763, 24)
+        Me.txtREV_COMMENT.TabIndex = 360
+        Me.txtREV_COMMENT.WatermarkColor = System.Drawing.Color.Empty
+        Me.txtREV_COMMENT.WatermarkText = Nothing
         '
         'Label37
         '
@@ -3104,7 +3174,7 @@ Partial Class FrmG0031_EditOccurred
         Me.txtCOMMENT4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtCOMMENT4.SelectAllText = False
         Me.txtCOMMENT4.ShowRemainingChars = True
-        Me.txtCOMMENT4.Size = New System.Drawing.Size(288, 119)
+        Me.txtCOMMENT4.Size = New System.Drawing.Size(288, 87)
         Me.txtCOMMENT4.TabIndex = 2
         Me.txtCOMMENT4.WatermarkColor = System.Drawing.Color.Empty
         Me.txtCOMMENT4.WatermarkText = Nothing
@@ -3612,7 +3682,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame04.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame04.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame04.Location = New System.Drawing.Point(1166, 2)
+        Me.lblSTAGEFlame04.Location = New System.Drawing.Point(1183, 2)
         Me.lblSTAGEFlame04.Name = "lblSTAGEFlame04"
         Me.lblSTAGEFlame04.Size = New System.Drawing.Size(4, 144)
         Me.lblSTAGEFlame04.TabIndex = 359
@@ -3641,7 +3711,7 @@ Partial Class FrmG0031_EditOccurred
         Me.pnlST03.Margin = New System.Windows.Forms.Padding(2)
         Me.pnlST03.Name = "pnlST03"
         Me.pnlST03.Padding = New System.Windows.Forms.Padding(2)
-        Me.pnlST03.Size = New System.Drawing.Size(1174, 271)
+        Me.pnlST03.Size = New System.Drawing.Size(1191, 271)
         Me.pnlST03.TabIndex = 319
         Me.pnlST03.Visible = False
         '
@@ -4234,7 +4304,7 @@ Partial Class FrmG0031_EditOccurred
         '
         Me.lblSTAGEFlame03.BackColor = System.Drawing.Color.Black
         Me.lblSTAGEFlame03.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSTAGEFlame03.Location = New System.Drawing.Point(1166, 2)
+        Me.lblSTAGEFlame03.Location = New System.Drawing.Point(1183, 2)
         Me.lblSTAGEFlame03.Name = "lblSTAGEFlame03"
         Me.lblSTAGEFlame03.Size = New System.Drawing.Size(4, 265)
         Me.lblSTAGEFlame03.TabIndex = 354
@@ -4595,4 +4665,8 @@ Partial Class FrmG0031_EditOccurred
     Friend WithEvents lblSTAGEFlame03 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
+    Friend WithEvents txtMOTO_COMMENT As TextBoxEx
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label11 As Label
+    Friend WithEvents txtREV_COMMENT As TextBoxEx
 End Class

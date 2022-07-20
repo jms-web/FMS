@@ -148,6 +148,10 @@ Partial Public Class V016_ZESEI_HASSEI
 
     Public Property ZESEI_SYOCHI_NG_DOC_NO As String
 
+    Public Property REV_COMMENT As String
+
+    Public Property MOTO_COMMENT As String
+
     Public Property ADD_YMDHNS As String
 
     Public Property ADD_SYAIN_ID As String

@@ -1604,6 +1604,9 @@ Public Class FrmG0031_EditOccurred
         txtZESEI_SYOCHI_KEKKA.DataBindings.Clear()
         chkZESEI_SYOCHI_HANTEI.DataBindings.Clear()
 
+        txtREV_COMMENT.DataBindings.Clear()
+        txtMOTO_COMMENT.DataBindings.Clear()
+
         txtCOMMENT1.DataBindings.Clear()
         txtCOMMENT2.DataBindings.Clear()
         txtCOMMENT3.DataBindings.Clear()
@@ -1648,6 +1651,9 @@ Public Class FrmG0031_EditOccurred
             txtOUKYU_SYOCHI_KEKKA.DataBindings.Add(New Binding(NameOf(txtOUKYU_SYOCHI_KEKKA.Text), _D013, NameOf(_D013.OUKYU_SYOCHI_KEKKA), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             txtZESEI_SYOCHI_KEKKA.DataBindings.Add(New Binding(NameOf(txtZESEI_SYOCHI_KEKKA.Text), _D013, NameOf(_D013.ZESEI_SYOCHI_KEKKA), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             chkZESEI_SYOCHI_HANTEI.DataBindings.Add(New Binding(NameOf(chkZESEI_SYOCHI_HANTEI.Checked), _D013, NameOf(_D013.ZESEI_SYOCHI_HANTEI), False, DataSourceUpdateMode.OnPropertyChanged, False))
+
+            txtREV_COMMENT.DataBindings.Add(New Binding(NameOf(txtREV_COMMENT.Text), _D013, NameOf(_D013.REV_COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, ""))
+            txtMOTO_COMMENT.DataBindings.Add(New Binding(NameOf(txtMOTO_COMMENT.Text), _D013, NameOf(_D013.MOTO_COMMENT), False, DataSourceUpdateMode.OnPropertyChanged, ""))
 
             txtCOMMENT1.DataBindings.Add(New Binding(NameOf(txtCOMMENT1.Text), _D013, NameOf(_D013.COMMENT1), False, DataSourceUpdateMode.OnPropertyChanged, ""))
             txtCOMMENT2.DataBindings.Add(New Binding(NameOf(txtCOMMENT2.Text), _D013, NameOf(_D013.COMMENT2), False, DataSourceUpdateMode.OnPropertyChanged, ""))
@@ -1773,7 +1779,7 @@ Public Class FrmG0031_EditOccurred
             _D013 = FunGetD013Model(HOKOKU_NO)
             _V003_SYONIN_J_KANRI_List = FunGetV003Model(Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI, HOKOKU_NO)
 
-#Region "D003"
+#Region "D013"
 
             Dim t As Type = GetType(D013_ZESEI_HASSEI_J)
             Dim properties As Reflection.PropertyInfo() = t.GetProperties(
@@ -2191,7 +2197,7 @@ Public Class FrmG0031_EditOccurred
                 'dt = GetExcludeyakusyokuUsers(_D013.BUMON_KB, {ENM_YAKUSYOKU_KB._99_なし.Value}.ToList)
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._20_是正処置入力)
                 cmbST04_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                cmbST04_SAKUSEI_TANTO.SelectedValue = _D013.TANTO_ID
+                'cmbST04_SAKUSEI_TANTO.SelectedValue = _D013.TANTO_ID
 
                 cmbST04_SAKUSEI_TANTO.Visible = True
                 lblST04_SAKUSEI_TANTO.Visible = True
@@ -2236,7 +2242,7 @@ Public Class FrmG0031_EditOccurred
                     cmbST04_TENKEN_TANTO.SelectedValue = V003.SYAIN_ID
                     dtST04_TENKEN_YMD.Text = V003.SYONIN_YMDHNS.ToDateTimeWithFormat("yyyyMMddHHmmss", "yyyy/MM/dd")
                 Else
-                    cmbST04_TENKEN_TANTO.SelectedValue = cmbST02_TENKEN_TANTO.SelectedValue
+                    'cmbST04_TENKEN_TANTO.SelectedValue = cmbST02_TENKEN_TANTO.SelectedValue
                 End If
 
                 V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._42_処置結果レビュー_認可).FirstOrDefault
@@ -2244,7 +2250,7 @@ Public Class FrmG0031_EditOccurred
                     cmbST04_NINKA_TANTO.SelectedValue = V003.SYAIN_ID
                     dtST04_NINKA_YMD.Text = V003.SYONIN_YMDHNS.ToDateTimeWithFormat("yyyyMMddHHmmss", "yyyy/MM/dd")
                 Else
-                    cmbST04_NINKA_TANTO.SelectedValue = cmbST02_NINKA_TANTO.SelectedValue
+                    'cmbST04_NINKA_TANTO.SelectedValue = cmbST02_NINKA_TANTO.SelectedValue
                 End If
 
 #End Region
@@ -2263,7 +2269,7 @@ Public Class FrmG0031_EditOccurred
                 pnlST05.Visible = True
 
                 cmbST05_SAKUSEI_TANTO.DataSource = cmbST01_SAKUSEI_TANTO.DataSource
-                cmbST05_SAKUSEI_TANTO.SelectedValue = cmbST01_SAKUSEI_TANTO.SelectedValue
+                'cmbST05_SAKUSEI_TANTO.SelectedValue = cmbST01_SAKUSEI_TANTO.SelectedValue
                 cmbST05_SAKUSEI_TANTO.Visible = True
                 lblST05_SAKUSEI_TANTO.Visible = True
                 dtST05_SAKUSEI_YMD.Visible = True
@@ -2297,7 +2303,7 @@ Public Class FrmG0031_EditOccurred
                     cmbST05_TENKEN_TANTO.SelectedValue = V003.SYAIN_ID
                     dtST05_TENKEN_YMD.Text = V003.SYONIN_YMDHNS.ToDateTimeWithFormat("yyyyMMddHHmmss", "yyyy/MM/dd")
                 Else
-                    cmbST05_TENKEN_TANTO.SelectedValue = cmbST01_TENKEN_TANTO.SelectedValue
+                    'cmbST05_TENKEN_TANTO.SelectedValue = cmbST01_TENKEN_TANTO.SelectedValue
                 End If
 
                 V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._52_要求元完了確認_認可).FirstOrDefault
@@ -2305,7 +2311,7 @@ Public Class FrmG0031_EditOccurred
                     cmbST05_NINKA_TANTO.SelectedValue = V003.SYAIN_ID
                     dtST05_NINKA_YMD.Text = V003.SYONIN_YMDHNS.ToDateTimeWithFormat("yyyyMMddHHmmss", "yyyy/MM/dd")
                 Else
-                    cmbST05_NINKA_TANTO.SelectedValue = cmbST01_NINKA_TANTO.SelectedValue
+                    'cmbST05_NINKA_TANTO.SelectedValue = cmbST01_NINKA_TANTO.SelectedValue
                 End If
 
 #End Region

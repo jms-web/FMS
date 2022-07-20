@@ -286,6 +286,16 @@ Partial Public Class D013_ZESEI_HASSEI_J
     <ComponentModel.DisplayName("フリースペース")>
     Public Property COMMENT5 As String
 
+    <Required>
+    <StringLength(50)>
+    <ComponentModel.DisplayName("処置結果レビューコメント")>
+    Public Property REV_COMMENT As String
+
+    <Required>
+    <StringLength(150)>
+    <ComponentModel.DisplayName("要求元コメント")>
+    Public Property MOTO_COMMENT As String
+
     ''共通項目------------------------------------
     <Required>
     <StringLength(14)>

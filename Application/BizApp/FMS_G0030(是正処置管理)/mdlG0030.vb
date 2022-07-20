@@ -1283,6 +1283,10 @@ Module mdlG0030
             spSheet1.Range(NameOf(_V.ZESEI_SYOCHI)).Value = _V.ZESEI_SYOCHI
             spSheet1.Range(NameOf(_V.ZESEI_SYOCHI_KEKKA)).Value = _V.ZESEI_SYOCHI_KEKKA
             spSheet1.Range(NameOf(_V.ZESEI_SYOCHI_NG_DOC_NO)).Value = _V.ZESEI_SYOCHI_NG_DOC_NO
+
+            spSheet1.Range(NameOf(_V.REV_COMMENT)).Value = _V.REV_COMMENT
+            spSheet1.Range(NameOf(_V.MOTO_COMMENT)).Value = _V.MOTO_COMMENT
+
             If Not _V.ZESEI_SYOCHI_YMD.IsNulOrWS Then
                 spSheet1.Range(NameOf(_V.ZESEI_SYOCHI_YMD)).Value = _V.ZESEI_SYOCHI_YMD 'DateTime.ParseExact(_V.ZESEI_SYOCHI_YMD.Trim, "yyyyMMdd", Nothing).ToString("yyyy/MM/dd")
             End If
