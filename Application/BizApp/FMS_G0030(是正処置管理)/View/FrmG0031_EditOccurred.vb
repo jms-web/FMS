@@ -2169,7 +2169,7 @@ Public Class FrmG0031_EditOccurred
                     cmbST03_TENKEN_TANTO.SelectedValue = V003.SYAIN_ID
                     dtST03_TENKEN_YMD.Text = V003.SYONIN_YMDHNS.ToDateTimeWithFormat("yyyyMMddHHmmss", "yyyy/MM/dd")
                 Else
-                    cmbST03_TENKEN_TANTO.SelectedValue = cmbST02_TENKEN_TANTO.SelectedValue
+                    'cmbST03_TENKEN_TANTO.SelectedValue = cmbST02_TENKEN_TANTO.SelectedValue
                 End If
 
                 V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._32_èàíuåãâ ì¸óÕ_îFâ¬).FirstOrDefault
@@ -2177,7 +2177,7 @@ Public Class FrmG0031_EditOccurred
                     cmbST03_NINKA_TANTO.SelectedValue = V003.SYAIN_ID
                     dtST03_NINKA_YMD.Text = V003.SYONIN_YMDHNS.ToDateTimeWithFormat("yyyyMMddHHmmss", "yyyy/MM/dd")
                 Else
-                    cmbST03_NINKA_TANTO.SelectedValue = cmbST02_NINKA_TANTO.SelectedValue
+                    'cmbST03_NINKA_TANTO.SelectedValue = cmbST02_NINKA_TANTO.SelectedValue
                 End If
 
 #End Region
@@ -2197,7 +2197,7 @@ Public Class FrmG0031_EditOccurred
                 'dt = GetExcludeyakusyokuUsers(_D013.BUMON_KB, {ENM_YAKUSYOKU_KB._99_Ç»Çµ.Value}.ToList)
                 dt = FunGetSYONIN_SYOZOKU_SYAIN(_D013.BUMON_KB, Context.ENM_SYONIN_HOKOKUSYO_ID._5_ZESEI.Value, ENM_ZESEI_STAGE._20_ê•ê≥èàíuì¸óÕ)
                 cmbST04_SAKUSEI_TANTO.SetDataSource(dt, ENM_COMBO_SELECT_VALUE_TYPE._0_Required)
-                'cmbST04_SAKUSEI_TANTO.SelectedValue = _D013.TANTO_ID
+                cmbST04_SAKUSEI_TANTO.SelectedValue = _D013.TANTO_ID
 
                 cmbST04_SAKUSEI_TANTO.Visible = True
                 lblST04_SAKUSEI_TANTO.Visible = True
@@ -2269,7 +2269,7 @@ Public Class FrmG0031_EditOccurred
                 pnlST05.Visible = True
 
                 cmbST05_SAKUSEI_TANTO.DataSource = cmbST01_SAKUSEI_TANTO.DataSource
-                'cmbST05_SAKUSEI_TANTO.SelectedValue = cmbST01_SAKUSEI_TANTO.SelectedValue
+                cmbST05_SAKUSEI_TANTO.SelectedValue = cmbST01_SAKUSEI_TANTO.SelectedValue
                 cmbST05_SAKUSEI_TANTO.Visible = True
                 lblST05_SAKUSEI_TANTO.Visible = True
                 dtST05_SAKUSEI_YMD.Visible = True
