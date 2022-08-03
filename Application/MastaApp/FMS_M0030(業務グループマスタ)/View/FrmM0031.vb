@@ -169,7 +169,11 @@ Public Class FrmM0031
                     sbSQL.Append(" ,DEL_SYAIN_ID")
                     sbSQL.Append(" ) VALUES ( ")
                     '業務グループID
-                    sbSQL.Append(" (SELECT MAX(GYOMU_GROUP_ID)+1 FROM M003_GYOMU_GROUP)")
+                    If Me.mtxGYOMU_GROUP_ID.Text.IsNulOrWS Then
+                        sbSQL.Append(" (SELECT MAX(GYOMU_GROUP_ID)+1 FROM M003_GYOMU_GROUP)")
+                    Else
+                        sbSQL.Append($"{Me.mtxGYOMU_GROUP_ID.Text.ToVal}")
+                    End If
                     '業務グループ名
                     sbSQL.Append(" ,'" & Me.mtxBUSYO_NAME.Text.Trim & "'")
                     '追加日時
@@ -411,8 +415,6 @@ Public Class FrmM0031
     End Function
 
 #End Region
-
-
 
 #Region "入力チェック"
 

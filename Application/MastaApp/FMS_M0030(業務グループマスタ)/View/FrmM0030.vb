@@ -1,6 +1,5 @@
 Imports JMS_COMMON.ClsPubMethod
 
-
 Public Class FrmM0030
 
 #Region "コンストラクタ"
@@ -42,7 +41,6 @@ Public Class FrmM0030
             'Me.cmbBUMON_KB.SetDataSource(tblBUMON.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
 
             'Me.cmbBUSYO_KB.SetDataSource(tblBUSYO_KB.ExcludeDeleted, ENM_COMBO_SELECT_VALUE_TYPE._1_Filter)
-
 
             ''-----イベントハンドラ設定
             'AddHandler Me.cmbBUMON_KB.SelectedValueChanged, AddressOf SearchFilterValueChanged
@@ -95,9 +93,10 @@ Public Class FrmM0030
     End Function
 
     '行選択時イベント
-    Private Sub FlxDATA_RowColChange(sender As Object, e As EventArgs)
+    Private Sub FlxDATA_RowColChange(sender As Object, e As EventArgs) Handles flxDATA.RowColChange
         Call SubInitFuncButtonEnabled()
     End Sub
+
     '列フィルタ適用
     Private Sub FlxDATA_AfterFilter(sender As Object, e As EventArgs)
         Dim flx As C1.Win.C1FlexGrid.C1FlexGrid = DirectCast(sender, C1.Win.C1FlexGrid.C1FlexGrid)
@@ -175,7 +174,6 @@ Public Class FrmM0030
 
                     Dim strFileName As String = pub_APP_INFO.strTitle & "_" & DateTime.Today.ToString("yyyyMMdd") & ".CSV"
                     Call FunCSV_OUT(Me.flxDATA.DataSource, strFileName, pub_APP_INFO.strOUTPUT_PATH)
-
 
                 Case 12 '閉じる
                     Me.Close()
@@ -256,7 +254,6 @@ Public Class FrmM0030
                     Return Nothing
                 End If
             End If
-
 
             '------DataTableに変換
             Dim dt As New DataTable
@@ -339,7 +336,6 @@ Public Class FrmM0030
                 Try
 
                     flx.RowSel = intCURROW
-
                 Catch dgvEx As Exception
                 End Try
                 Me.lblRecordCount.Text = String.Format(My.Resources.infoToolTipMsgFoundData, flx.Rows.Count - flx.Rows.Fixed.ToString)
@@ -368,7 +364,6 @@ Public Class FrmM0030
                     r.Style = flx.Styles("DeletedRow")
                 End If
             Next
-
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
@@ -598,10 +593,6 @@ Public Class FrmM0030
         Me.cmdFunc1.PerformClick()
 
     End Sub
-
-
-
-
 
 #End Region
 

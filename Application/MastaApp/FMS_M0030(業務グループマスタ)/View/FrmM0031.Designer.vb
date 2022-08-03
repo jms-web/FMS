@@ -235,16 +235,14 @@ Partial Class FrmM0031
         '
         'mtxGYOMU_GROUP_ID
         '
-        Me.mtxGYOMU_GROUP_ID.BackColor = System.Drawing.SystemColors.Control
+        Me.mtxGYOMU_GROUP_ID.BackColor = System.Drawing.Color.White
         Me.tlpFields.SetColumnSpan(Me.mtxGYOMU_GROUP_ID, 2)
         Me.mtxGYOMU_GROUP_ID.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxGYOMU_GROUP_ID.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxGYOMU_GROUP_ID.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxGYOMU_GROUP_ID.InputRequired = False
         Me.mtxGYOMU_GROUP_ID.Location = New System.Drawing.Point(129, 3)
         Me.mtxGYOMU_GROUP_ID.MaxByteLength = 200
         Me.mtxGYOMU_GROUP_ID.Name = "mtxGYOMU_GROUP_ID"
-        Me.mtxGYOMU_GROUP_ID.ReadOnly = True
         Me.mtxGYOMU_GROUP_ID.SelectAllText = False
         Me.mtxGYOMU_GROUP_ID.Size = New System.Drawing.Size(63, 24)
         Me.mtxGYOMU_GROUP_ID.TabIndex = 68
@@ -267,7 +265,6 @@ Partial Class FrmM0031
         Me.mtxBUSYO_NAME.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFields.SetColumnSpan(Me.mtxBUSYO_NAME, 2)
         Me.mtxBUSYO_NAME.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxBUSYO_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxBUSYO_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxBUSYO_NAME.InputRequired = False
         Me.mtxBUSYO_NAME.Location = New System.Drawing.Point(129, 33)

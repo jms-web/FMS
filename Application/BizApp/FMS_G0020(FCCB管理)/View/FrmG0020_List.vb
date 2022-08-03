@@ -220,7 +220,7 @@ Public Class FrmG0020_List
         End With
     End Function
 
-    Private Sub FlxDATA_RowColChange(sender As Object, e As EventArgs)
+    Private Sub FlxDATA_RowColChange(sender As Object, e As EventArgs) Handles flxDATA.RowColChange
         Call FunInitFuncButtonEnabled()
     End Sub
 
