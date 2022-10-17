@@ -724,9 +724,25 @@ Module mdlG0020
             '#End If
 
             ''認証なし フジワラ
-            blnSend = ClsMailSend.FunSendMail(strSmtpServer:=strSmtpServer,
-                           intSmtpPort:=intSmtpPort,
-                           FromAddress:=strFromAddress,
+            'blnSend = ClsMailSend.FunSendMail(strSmtpServer:=strSmtpServer,
+            '               intSmtpPort:=intSmtpPort,
+            '               FromAddress:=strFromAddress,
+            '               ToAddress:=ToAddressList,
+            '               CCAddress:=CCAddressList,
+            '               BCCAddress:=BCCAddressList,
+            '               strSubject:=strSubject,
+            '               strBody:=strBody,
+            '               AttachmentList:=New List(Of String),
+            '               strFromName:="FCCB管理",
+            '               isHTML:=True)
+
+            '認証あり JMS
+            Dim smtp As New ClsMailSend
+            blnSend = smtp.FunSendMailoverAUTH(strSmtpServer,
+                           intSmtpPort,
+                           strUserID,
+                           strPassword,
+                           strFromAddress,
                            ToAddress:=ToAddressList,
                            CCAddress:=CCAddressList,
                            BCCAddress:=BCCAddressList,
@@ -735,20 +751,6 @@ Module mdlG0020
                            AttachmentList:=New List(Of String),
                            strFromName:="FCCB管理",
                            isHTML:=True)
-
-            '認証あり JMS
-            'blnSend = ClsMailSend.FunSendMailoverAUTH(strSmtpServer,
-            '               intSmtpPort,
-            '               strUserID,
-            '               strPassword,
-            '               strFromAddress,
-            '               strToAddress,
-            '               strFromAddress,
-            '               "",
-            '               strSubject,
-            '               strBody,
-            '               "",
-            '               "不適合管理システム")
 
             Return blnSend
         Catch ex As Exception

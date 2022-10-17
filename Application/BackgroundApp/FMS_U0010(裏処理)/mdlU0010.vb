@@ -251,8 +251,11 @@ Module mdlU0010
                         "FMS_G0010.exe",
                         strEXEParam)
 
-                        blnSend = ClsMailSend.FunSendMail(strSmtpServer,
+                        Dim smtp As New ClsMailSend
+                        blnSend = smtp.FunSendMailoverAUTH(strSmtpServer,
                            intSmtpPort,
+                           strUserID,
+                           strPassword,
                            strFromAddress,
                            ToAddressList,
                            CCAddress:=CCAddressList,
@@ -399,8 +402,11 @@ Module mdlU0010
                     返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
                     "
 
-                    blnSend = ClsMailSend.FunSendMail(strSmtpServer,
+                    Dim smtp As New ClsMailSend
+                    blnSend = smtp.FunSendMailoverAUTH(strSmtpServer,
                            intSmtpPort,
+                           strUserID,
+                           strPassword,
                            strFromAddress,
                            ToAddressList,
                            CCAddress:=CCAddressList,
@@ -410,6 +416,18 @@ Module mdlU0010
                            AttachmentList:=New List(Of String),
                            strFromName:="FCCB記録書管理システム",
                            isHTML:=True)
+
+                    'blnSend = ClsMailSend.FunSendMail(strSmtpServer,
+                    '       intSmtpPort,
+                    '       strFromAddress,
+                    '       ToAddressList,
+                    '       CCAddress:=CCAddressList,
+                    '       BCCAddress:=BCCAddressList,
+                    '       strSubject:=strSubject,
+                    '       strBody:=strBody.Trim,
+                    '       AttachmentList:=New List(Of String),
+                    '       strFromName:="FCCB記録書管理システム",
+                    '       isHTML:=True)
 
                     If blnSend Then
                         WL.WriteLogDat($"【メール送信成功】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}")
@@ -563,9 +581,12 @@ Module mdlU0010
                         返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
                         "
 
-                        blnSend = ClsMailSend.FunSendMail(strSmtpServer,
-                               intSmtpPort,
-                               strFromAddress,
+                        Dim smtp As New ClsMailSend
+                        blnSend = smtp.FunSendMailoverAUTH(strSmtpServer,
+                           intSmtpPort,
+                           strUserID,
+                           strPassword,
+                           strFromAddress,
                                ToAddressList,
                                CCAddress:=CCAddressList,
                                BCCAddress:=BCCAddressList,
@@ -574,6 +595,18 @@ Module mdlU0010
                                AttachmentList:=New List(Of String),
                                strFromName:="FCCB記録書管理システム",
                                isHTML:=True)
+
+                        'blnSend = ClsMailSend.FunSendMail(strSmtpServer,
+                        '       intSmtpPort,
+                        '       strFromAddress,
+                        '       ToAddressList,
+                        '       CCAddress:=CCAddressList,
+                        '       BCCAddress:=BCCAddressList,
+                        '       strSubject:=strSubject,
+                        '       strBody:=strBody.Trim,
+                        '       AttachmentList:=New List(Of String),
+                        '       strFromName:="FCCB記録書管理システム",
+                        '       isHTML:=True)
 
                         If blnSend Then
                             WL.WriteLogDat($"【メール送信成功】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}")
@@ -723,9 +756,12 @@ Module mdlU0010
                         返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
                         "
 
-                        blnSend = ClsMailSend.FunSendMail(strSmtpServer,
-                               intSmtpPort,
-                               strFromAddress,
+                        Dim smtp As New ClsMailSend
+                        blnSend = smtp.FunSendMailoverAUTH(strSmtpServer,
+                           intSmtpPort,
+                           strUserID,
+                           strPassword,
+                           strFromAddress,
                                ToAddressList,
                                CCAddress:=CCAddressList,
                                BCCAddress:=BCCAddressList,
@@ -734,6 +770,17 @@ Module mdlU0010
                                AttachmentList:=New List(Of String),
                                strFromName:="フジワラシステム",
                                isHTML:=True)
+                        'blnSend = ClsMailSend.FunSendMail(strSmtpServer,
+                        '       intSmtpPort,
+                        '       strFromAddress,
+                        '       ToAddressList,
+                        '       CCAddress:=CCAddressList,
+                        '       BCCAddress:=BCCAddressList,
+                        '       strSubject:=strSubject,
+                        '       strBody:=strBody.Trim,
+                        '       AttachmentList:=New List(Of String),
+                        '       strFromName:="フジワラシステム",
+                        '       isHTML:=True)
 
                         If blnSend Then
                             WL.WriteLogDat($"【メール送信成功】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}")
@@ -902,9 +949,12 @@ Module mdlU0010
                         返信する場合は、各担当者のメールアドレスを使用して下さい。<br />
                         "
 
-                        blnSend = ClsMailSend.FunSendMail(strSmtpServer,
-                               intSmtpPort,
-                               strFromAddress,
+                        Dim smtp As New ClsMailSend
+                        blnSend = smtp.FunSendMailoverAUTH(strSmtpServer,
+                           intSmtpPort,
+                           strUserID,
+                           strPassword,
+                           strFromAddress,
                                ToAddressList,
                                CCAddress:=CCAddressList,
                                BCCAddress:=BCCAddressList,
@@ -913,6 +963,18 @@ Module mdlU0010
                                AttachmentList:=New List(Of String),
                                strFromName:="フジワラシステム",
                                isHTML:=True)
+
+                        'blnSend = ClsMailSend.FunSendMail(strSmtpServer,
+                        '       intSmtpPort,
+                        '       strFromAddress,
+                        '       ToAddressList,
+                        '       CCAddress:=CCAddressList,
+                        '       BCCAddress:=BCCAddressList,
+                        '       strSubject:=strSubject,
+                        '       strBody:=strBody.Trim,
+                        '       AttachmentList:=New List(Of String),
+                        '       strFromName:="フジワラシステム",
+                        '       isHTML:=True)
 
                         If blnSend Then
                             WL.WriteLogDat($"【メール送信成功】TO:{strToSyainName}({ToAddressList(0)}) SUBJECT:{strSubject}")

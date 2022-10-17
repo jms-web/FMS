@@ -347,6 +347,9 @@ Public Class FrmG0021
 
         If _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_FILEPATH.IsNulOrWS And
             _V011_FCR_J.OTHER_PROCESS_INFLUENCE_FILEPATH.IsNulOrWS And
+            _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH.IsNulOrWS And
+            _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH.IsNulOrWS And
+            _V011_FCR_J.SYOCHI_FILEPATH.IsNulOrWS And
             _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH.IsNulOrWS Then
             Return True
         Else
@@ -366,10 +369,12 @@ Public Class FrmG0021
                 End If
             Else
                 Try
+                    Dim tmpPath As String
                     System.IO.Directory.CreateDirectory($"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS")
                     If Not _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_FILEPATH.IsNulOrWS Then
                         If System.IO.File.Exists(lblKOKYAKU_EIKYO_HANTEI_FILEPATH.Links.Item(0).LinkData) Then
-                            If lblKOKYAKU_EIKYO_HANTEI_FILEPATH.Links.Item(0).LinkData <> strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\" & _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_FILEPATH Then
+                            tmpPath = strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\CTS\" & _V011_FCR_J.KOKYAKU_EIKYO_HANTEI_FILEPATH
+                            If lblKOKYAKU_EIKYO_HANTEI_FILEPATH.Links.Item(0).LinkData <> tmpPath Then
                                 System.IO.File.Copy(lblKOKYAKU_EIKYO_HANTEI_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.KOKYAKU_EIKYO_HANTEI_FILEPATH}", True)
                             End If
                         Else
@@ -378,7 +383,8 @@ Public Class FrmG0021
                     End If
                     If Not _V011_FCR_J.OTHER_PROCESS_INFLUENCE_FILEPATH.IsNulOrWS Then
                         If System.IO.File.Exists(lblOTHER_PROCESS_INFLUENCE_FILEPATH.Links.Item(0).LinkData) Then
-                            If lblOTHER_PROCESS_INFLUENCE_FILEPATH.Links.Item(0).LinkData <> strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\" & _V011_FCR_J.OTHER_PROCESS_INFLUENCE_FILEPATH Then
+                            tmpPath = strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\" & _V011_FCR_J.OTHER_PROCESS_INFLUENCE_FILEPATH
+                            If lblOTHER_PROCESS_INFLUENCE_FILEPATH.Links.Item(0).LinkData <> tmpPath Then
                                 System.IO.File.Copy(lblOTHER_PROCESS_INFLUENCE_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.OTHER_PROCESS_INFLUENCE_FILEPATH}", True)
                             End If
                         Else
@@ -387,7 +393,8 @@ Public Class FrmG0021
                     End If
                     If Not _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH.IsNulOrWS Then
                         If System.IO.File.Exists(lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Links.Item(0).LinkData) Then
-                            If lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Links.Item(0).LinkData <> strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\" & _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH Then
+                            tmpPath = strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\CTS\" & _V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH
+                            If lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Links.Item(0).LinkData <> tmpPath Then
                                 System.IO.File.Copy(lblFOLLOW_PROCESS_OUTFLOW_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.FOLLOW_PROCESS_OUTFLOW_FILEPATH}", True)
                             End If
                         Else
@@ -396,7 +403,8 @@ Public Class FrmG0021
                     End If
                     If Not _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH.IsNulOrWS Then
                         If System.IO.File.Exists(lblFUTEKIGO_SEIHIN_FILEPATH.Links.Item(0).LinkData) Then
-                            If lblFUTEKIGO_SEIHIN_FILEPATH.Links.Item(0).LinkData <> strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\" & _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH Then
+                            tmpPath = strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\CTS\" & _V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH
+                            If lblFUTEKIGO_SEIHIN_FILEPATH.Links.Item(0).LinkData <> tmpPath Then
                                 System.IO.File.Copy(lblFUTEKIGO_SEIHIN_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.FUTEKIGO_SEIHIN_FILEPATH}", True)
                             End If
                         Else
@@ -405,7 +413,8 @@ Public Class FrmG0021
                     End If
                     If Not _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH.IsNulOrWS Then
                         If System.IO.File.Exists(lblKOKYAKU_EIKYO_FILEPATH.Links.Item(0).LinkData) Then
-                            If lblKOKYAKU_EIKYO_FILEPATH.Links.Item(0).LinkData <> strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\" & _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH Then
+                            tmpPath = strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\CTS\" & _V011_FCR_J.KOKYAKU_EIKYO_FILEPATH
+                            If lblKOKYAKU_EIKYO_FILEPATH.Links.Item(0).LinkData <> tmpPath Then
                                 System.IO.File.Copy(lblKOKYAKU_EIKYO_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.KOKYAKU_EIKYO_FILEPATH}", True)
                             End If
                         Else
@@ -414,7 +423,8 @@ Public Class FrmG0021
                     End If
                     If Not _V011_FCR_J.SYOCHI_FILEPATH.IsNulOrWS Then
                         If System.IO.File.Exists(lblSYOCHI_FILEPATH.Links.Item(0).LinkData) Then
-                            If lblSYOCHI_FILEPATH.Links.Item(0).LinkData <> strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\" & _V011_FCR_J.SYOCHI_FILEPATH Then
+                            tmpPath = strRootDir & _V011_FCR_J.HOKOKU_NO.Trim & "\CTS\" & _V011_FCR_J.SYOCHI_FILEPATH
+                            If lblSYOCHI_FILEPATH.Links.Item(0).LinkData <> tmpPath Then
                                 System.IO.File.Copy(lblSYOCHI_FILEPATH.Links.Item(0).LinkData, $"{strRootDir}{_V011_FCR_J.HOKOKU_NO.Trim}\CTS\{_V011_FCR_J.SYOCHI_FILEPATH}", True)
                             End If
                         Else
@@ -429,6 +439,9 @@ Public Class FrmG0021
                 Catch exIO As UnauthorizedAccessException
                     strMsg = $"添付ファイル保存先のアクセス権限がありません。{vbCrLf}添付ファイル保存先:{strRootDir}"
                     MessageBox.Show(strMsg, "ファイル保存先アクセス不可", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return False
+                Catch exIOa As System.IO.IOException
+                    MessageBox.Show(exIOa.Message, "添付ファイルアクセス不可", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Return False
                 Catch ex As Exception
                     Throw
