@@ -2760,7 +2760,16 @@ Public Class FrmG0021
                     pnlZESEI_SYOCHI.DisableContaints(IsEditingClosed, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     PnlPROCESS.DisableContaints(IsEditingClosed, PanelEx.ENM_PROPERTY._2_ReadOnly)
                     pnlSYOCHI_JISSI.DisableContaints(IsEditingClosed, PanelEx.ENM_PROPERTY._2_ReadOnly)
-
+                    lblKOKYAKU_EIKYO_HANTEI_FILEPATH_Clear.Enabled = False
+                    fpnlKOKYAKU_EIKYO_HANTEI_FILEPATH.Enabled = True
+                    lblFUTEKIGO_SEIHIN_FILEPATH_Clear.Enabled = False
+                    fpnlFUTEKIGO_SEIHIN_FILEPATH.Enabled = True
+                    lblKOKYAKU_EIKYO_FILEPATH_Clear.Enabled = False
+                    fpnlKOKYAKU_EIKYO_FILEPATH.Enabled = True
+                    lblFOLLOW_PROCESS_OUTFLOW_FILEPATH_Clear.Enabled = False
+                    fpnlFOLLOW_PROCESS_OUTFLOW_FILEPATH.Enabled = True
+                    lblSYOCHI_FILEPATH_Clear.Enabled = False
+                    fpnlSYOCHI_FILEPATH.Enabled = True
                 Case Else
             End Select
 
