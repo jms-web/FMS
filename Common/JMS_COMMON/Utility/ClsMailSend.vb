@@ -111,7 +111,7 @@ Public Class ClsMailSend
         End Try
     End Function
 
-    Public Shared Function FunSendMailoverAUTH_(ByVal strSmtpServer As String,
+    Public Shared Function FunSendMailoverAUTH(ByVal strSmtpServer As String,
                                 ByVal intSmtpPort As Integer,
                                 ByVal strUserID As String,
                                 ByVal strPassword As String,
@@ -131,9 +131,14 @@ Public Class ClsMailSend
 
             '送信メールの作成クラスを定義
             Dim message As New MimeMessage
+            Dim adrs As MailboxAddress
 
+            adrs = MailboxAddress.Parse(FromAddress)
+            If Not strFromName.IsNulOrWS Then
+                adrs.Name = strFromName
+            End If
             'メールの実際の差出人
-            message.From.Add(MailboxAddress.Parse(FromAddress))
+            message.From.Add(adrs)
 
             'メールの実際の宛先
             Dim strAddress As String
@@ -167,14 +172,6 @@ Public Class ClsMailSend
 
             Using client As New MailKit.Net.Smtp.SmtpClient
                 client.Connect(strSmtpServer, intSmtpPort, SecureSocketOptions.Auto)
-
-                'Dim enc As Encoding = Encoding.GetEncoding("UTF-8")
-                'Dim authUserID As String
-                'Dim authPass As String
-                'authUserID = Convert.ToBase64String(enc.GetBytes(strUserID))
-                'authPass = Convert.ToBase64String(enc.GetBytes(strPassword))
-                'client.Authenticate(authUserID, authPass)
-
                 client.Authenticate(strUserID, strPassword)
                 client.Send(message)
                 client.Disconnect(True)
@@ -189,7 +186,7 @@ Public Class ClsMailSend
         End Try
     End Function
 
-    Public Function FunSendMailoverAUTH(ByVal strSmtpServer As String,
+    Public Function FunSendMailoverAUTH_(ByVal strSmtpServer As String,
                                 ByVal intSmtpPort As Integer,
                                 ByVal strUserID As String,
                                 ByVal strPassword As String,
