@@ -976,7 +976,6 @@ Module mdlG0010
 
             Return blnSend
         Catch ex As Exception
-            Throw
             strMsg = String.Format("yƒ[ƒ‹‘—M¸”szTO:{0}({1}) SUBJECT:{2}" & vbCrLf & Err.Description, strToSyainName, ToAddressList(0), strSubject)
             WL.WriteLogDat(strMsg)
         End Try
