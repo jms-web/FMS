@@ -3,8 +3,6 @@ Imports MODEL
 
 Public Class FrmM0021
 
-
-
 #Region "プロパティ"
 
     ''' <summary>

@@ -43,6 +43,7 @@ Partial Class FrmM0021
         Me.cmbOYA_BUSYO_KB = New JMS_COMMON.ComboboxEx()
         Me.datYUKO_YMD = New JMS_COMMON.DateTextBoxEx()
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.tlpFields.SuspendLayout()
         Me.SuspendLayout()
@@ -140,10 +141,6 @@ Partial Class FrmM0021
         'ToolTip
         '
         Me.ToolTip.InitialDelay = 700
-        '
-        'ErrorProvider
-        '
-        Me.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         '
         'GroupBox1
         '
@@ -271,14 +268,13 @@ Partial Class FrmM0021
         Me.cmbBUSYO_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbBUSYO_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUSYO_KB.FormattingEnabled = True
-        Me.cmbBUSYO_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbBUSYO_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbBUSYO_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbBUSYO_KB.IsSelected = False
         Me.cmbBUSYO_KB.Location = New System.Drawing.Point(93, 33)
         Me.cmbBUSYO_KB.MaxLength = 30
         Me.cmbBUSYO_KB.Name = "cmbBUSYO_KB"
         Me.cmbBUSYO_KB.NullValue = " "
-        Me.cmbBUSYO_KB.ReadOnly = False
-        Me.cmbBUSYO_KB.IsSelected = False
         Me.cmbBUSYO_KB.Size = New System.Drawing.Size(158, 25)
         Me.cmbBUSYO_KB.TabIndex = 1
         Me.cmbBUSYO_KB.ValueMember = "VALUE"
@@ -328,12 +324,12 @@ Partial Class FrmM0021
         '
         Me.mtxTEL.BackColor = System.Drawing.SystemColors.Window
         Me.mtxTEL.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxTEL.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxTEL.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxTEL.InputRequired = False
         Me.mtxTEL.Location = New System.Drawing.Point(93, 186)
         Me.mtxTEL.MaxByteLength = 16
         Me.mtxTEL.Name = "mtxTEL"
+        Me.mtxTEL.SelectAllText = False
         Me.mtxTEL.Size = New System.Drawing.Size(165, 24)
         Me.mtxTEL.TabIndex = 0
         Me.mtxTEL.WatermarkColor = System.Drawing.Color.Empty
@@ -350,14 +346,13 @@ Partial Class FrmM0021
         Me.cmbBUMON_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbBUMON_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbBUMON_KB.FormattingEnabled = True
-        Me.cmbBUMON_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbBUMON_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbBUMON_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Location = New System.Drawing.Point(93, 3)
         Me.cmbBUMON_KB.MaxLength = 30
         Me.cmbBUMON_KB.Name = "cmbBUMON_KB"
         Me.cmbBUMON_KB.NullValue = " "
-        Me.cmbBUMON_KB.ReadOnly = False
-        Me.cmbBUMON_KB.IsSelected = False
         Me.cmbBUMON_KB.Size = New System.Drawing.Size(158, 25)
         Me.cmbBUMON_KB.TabIndex = 69
         Me.cmbBUMON_KB.ValueMember = "VALUE"
@@ -386,22 +381,22 @@ Partial Class FrmM0021
         '
         'cmbSYOZOKUCYO
         '
+        Me.cmbSYOZOKUCYO.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cmbSYOZOKUCYO.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cmbSYOZOKUCYO.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFields.SetColumnSpan(Me.cmbSYOZOKUCYO, 2)
         Me.cmbSYOZOKUCYO.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmbSYOZOKUCYO.DisplayMember = "DISP"
-        Me.cmbSYOZOKUCYO.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbSYOZOKUCYO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbSYOZOKUCYO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbSYOZOKUCYO.FormattingEnabled = True
-        Me.cmbSYOZOKUCYO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbSYOZOKUCYO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbSYOZOKUCYO.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cmbSYOZOKUCYO.IsSelected = False
         Me.cmbSYOZOKUCYO.Location = New System.Drawing.Point(93, 153)
         Me.cmbSYOZOKUCYO.MaxLength = 30
         Me.cmbSYOZOKUCYO.Name = "cmbSYOZOKUCYO"
         Me.cmbSYOZOKUCYO.NullValue = " "
-        Me.cmbSYOZOKUCYO.ReadOnly = False
-        Me.cmbSYOZOKUCYO.IsSelected = False
         Me.cmbSYOZOKUCYO.Size = New System.Drawing.Size(270, 25)
         Me.cmbSYOZOKUCYO.TabIndex = 72
         Me.cmbSYOZOKUCYO.ValueMember = "VALUE"
@@ -411,12 +406,12 @@ Partial Class FrmM0021
         Me.mtxBUSYO_NAME.BackColor = System.Drawing.SystemColors.Window
         Me.tlpFields.SetColumnSpan(Me.mtxBUSYO_NAME, 2)
         Me.mtxBUSYO_NAME.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.mtxBUSYO_NAME.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.mtxBUSYO_NAME.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.mtxBUSYO_NAME.InputRequired = False
         Me.mtxBUSYO_NAME.Location = New System.Drawing.Point(93, 123)
         Me.mtxBUSYO_NAME.MaxByteLength = 200
         Me.mtxBUSYO_NAME.Name = "mtxBUSYO_NAME"
+        Me.mtxBUSYO_NAME.SelectAllText = False
         Me.mtxBUSYO_NAME.Size = New System.Drawing.Size(270, 24)
         Me.mtxBUSYO_NAME.TabIndex = 3
         Me.mtxBUSYO_NAME.WatermarkColor = System.Drawing.Color.Empty
@@ -432,14 +427,13 @@ Partial Class FrmM0021
         Me.cmbOYA_BUSYO.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbOYA_BUSYO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbOYA_BUSYO.FormattingEnabled = True
-        Me.cmbOYA_BUSYO.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbOYA_BUSYO.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbOYA_BUSYO.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cmbOYA_BUSYO.IsSelected = False
         Me.cmbOYA_BUSYO.Location = New System.Drawing.Point(369, 93)
         Me.cmbOYA_BUSYO.MaxLength = 30
         Me.cmbOYA_BUSYO.Name = "cmbOYA_BUSYO"
         Me.cmbOYA_BUSYO.NullValue = " "
-        Me.cmbOYA_BUSYO.ReadOnly = False
-        Me.cmbOYA_BUSYO.IsSelected = False
         Me.cmbOYA_BUSYO.Size = New System.Drawing.Size(292, 25)
         Me.cmbOYA_BUSYO.TabIndex = 4
         Me.cmbOYA_BUSYO.ValueMember = "VALUE"
@@ -477,14 +471,13 @@ Partial Class FrmM0021
         Me.cmbOYA_BUSYO_KB.Font = New System.Drawing.Font("Meiryo UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmbOYA_BUSYO_KB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmbOYA_BUSYO_KB.FormattingEnabled = True
-        Me.cmbOYA_BUSYO_KB.GotFocusedColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmbOYA_BUSYO_KB.HorizontalContentAlignment = System.Drawing.StringAlignment.Near
         Me.cmbOYA_BUSYO_KB.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.cmbOYA_BUSYO_KB.IsSelected = False
         Me.cmbOYA_BUSYO_KB.Location = New System.Drawing.Point(93, 93)
         Me.cmbOYA_BUSYO_KB.MaxLength = 30
         Me.cmbOYA_BUSYO_KB.Name = "cmbOYA_BUSYO_KB"
         Me.cmbOYA_BUSYO_KB.NullValue = " "
-        Me.cmbOYA_BUSYO_KB.ReadOnly = False
-        Me.cmbOYA_BUSYO_KB.IsSelected = False
         Me.cmbOYA_BUSYO_KB.Size = New System.Drawing.Size(158, 25)
         Me.cmbOYA_BUSYO_KB.TabIndex = 74
         Me.cmbOYA_BUSYO_KB.ValueMember = "VALUE"
@@ -531,6 +524,7 @@ Partial Class FrmM0021
         Me.Controls.SetChildIndex(Me.cmdFunc2, 0)
         Me.Controls.SetChildIndex(Me.cmdFunc1, 0)
         CType(Me.ErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.WarningErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.tlpFields.ResumeLayout(False)
         Me.tlpFields.PerformLayout()
