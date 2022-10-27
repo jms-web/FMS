@@ -29,7 +29,7 @@
     <AssemblyVersionSettings>None.None.DateStamp.TimeStamp</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>None.None.DateStamp.TimeStamp</AssemblyFileVersionSettings>
     <AssemblyInfoVersionSettings>None.None.DateStamp.TimeStamp</AssemblyInfoVersionSettings>
-    <AssemblyVersion>0.9.22201.0541</AssemblyVersion>
+    <AssemblyVersion>0.9.22300.0806</AssemblyVersion>
     <PublishUrl>\\Sv04\fms\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -43,13 +43,13 @@
     <InstallUrl>http://172.16.11.7:8000/</InstallUrl>
     <ProductName>フジワラシステム</ProductName>
     <PublisherName>JMS</PublisherName>
-    <MinimumRequiredVersion>0.9.22201.0541</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.9.22300.0806</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>541</ApplicationRevision>
-    <ApplicationVersion>0.9.22201.0541</ApplicationVersion>
+    <ApplicationRevision>806</ApplicationRevision>
+    <ApplicationVersion>0.9.22300.0806</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -181,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="EXE\BouncyCastle.Crypto.dll" />
     <Content Include="EXE\C1.Win.4.dll" />
     <Content Include="EXE\C1.Win.C1Command.4.dll" />
     <Content Include="EXE\C1.Win.C1FlexGrid.4.Design.dll" />
@@ -208,14 +209,21 @@
     <Content Include="EXE\FMS_M1070.exe" />
     <Content Include="EXE\FMS_MODEL.dll" />
     <Content Include="EXE\JMS_COMMON.dll" />
+    <Content Include="EXE\MailKit.dll" />
     <Content Include="EXE\Microsoft.WindowsAPICodePack.dll" />
     <Content Include="EXE\Microsoft.WindowsAPICodePack.Shell.dll" />
+    <Content Include="EXE\MimeKit.dll" />
     <Content Include="EXE\OrangeEasyAPI.dll" />
     <Content Include="EXE\PanelManager.dll" />
     <Content Include="EXE\PropertyChanged.dll" />
     <Content Include="EXE\SpreadsheetGear2012.Core.dll" />
     <Content Include="EXE\SpreadsheetGear2012.Drawing.dll" />
     <Content Include="EXE\SpreadsheetGear2012.Windows.Forms.dll" />
+    <Content Include="EXE\System.Buffers.dll" />
+    <Content Include="EXE\System.Memory.dll" />
+    <Content Include="EXE\System.Numerics.Vectors.dll" />
+    <Content Include="EXE\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="EXE\System.Threading.Tasks.Extensions.dll" />
     <Content Include="EXE\TKMP.dll" />
     <Content Include="favicon.ico" />
     <Content Include="INI\RIREKI.TXT" />
