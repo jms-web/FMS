@@ -564,7 +564,7 @@ Public Class FrmG0012
         sbSQL.Append($" UPDATE SET")
         sbSQL.Append($" SrcT.{NameOf(_D005_CAR_J.CLOSE_FG)}         = WK.{NameOf(_D005_CAR_J.CLOSE_FG)}")
         Select Case PrCurrentStage
-            Case ENM_CAR_STAGE._10_起草入力 To ENM_CAR_STAGE._70_起草確認_品証課長
+            Case ENM_CAR_STAGE._10_起草入力 To ENM_CAR_STAGE._70_起草確認_品証課長, ENM_CAR_STAGE._999_Closed
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_1)}  = WK.{NameOf(_D005_CAR_J.SETUMON_1)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_2)}  = WK.{NameOf(_D005_CAR_J.SETUMON_2)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SETUMON_3)}  = WK.{NameOf(_D005_CAR_J.SETUMON_3)}")
@@ -615,7 +615,8 @@ Public Class FrmG0012
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD)}  = WK.{NameOf(_D005_CAR_J.FUTEKIGO_HASSEI_YMD)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.ADD_SYAIN_ID)}         = WK.{NameOf(_D005_CAR_J.ADD_SYAIN_ID)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.ADD_YMDHNS)}           = WK.{NameOf(_D005_CAR_J.ADD_YMDHNS)}")
-
+        End Select
+        Select Case PrCurrentStage
             Case ENM_CAR_STAGE._80_処置実施記録入力 To ENM_CAR_STAGE._90_処置実施確認, ENM_CAR_STAGE._999_Closed
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID)}  = WK.{NameOf(_D005_CAR_J.SYOCHI_A_SYAIN_ID)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_A_YMDHNS)}   = WK.{NameOf(_D005_CAR_J.SYOCHI_A_YMDHNS)}")
@@ -624,7 +625,8 @@ Public Class FrmG0012
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_C_SYAIN_ID)} = WK.{NameOf(_D005_CAR_J.SYOCHI_C_SYAIN_ID)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.SYOCHI_C_YMDHNS)}   = WK.{NameOf(_D005_CAR_J.SYOCHI_C_YMDHNS)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KYOIKU_FILE_PATH)}  = WK.{NameOf(_D005_CAR_J.KYOIKU_FILE_PATH)}")
-
+        End Select
+        Select Case PrCurrentStage
             Case ENM_CAR_STAGE._100_是正有効性記入 To ENM_CAR_STAGE._130_是正有効性確認_品証担当課長, ENM_CAR_STAGE._999_Closed
 
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU)} = WK.{NameOf(_D005_CAR_J.ZESEI_SYOCHI_YUKO_UMU)}")
@@ -635,9 +637,7 @@ Public Class FrmG0012
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KENSA_TOROKU_YMDHNS)}  = WK.{NameOf(_D005_CAR_J.KENSA_TOROKU_YMDHNS)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KENSA_GL_SYAIN_ID)}    = WK.{NameOf(_D005_CAR_J.KENSA_GL_SYAIN_ID)}")
                 sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KENSA_GL_YMDHNS)}      = WK.{NameOf(_D005_CAR_J.KENSA_GL_YMDHNS)}")
-            Case Else
-                'Err
-                Return False
+
         End Select
 
         sbSQL.Append($" ,SrcT.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}      = WK.{NameOf(_D005_CAR_J.KONPON_YOIN_KB1)}")
