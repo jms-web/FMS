@@ -179,6 +179,7 @@ Public Class ClsMailSend
 
             Return True
         Catch ex As Exception
+            'Throw
             MessageBox.Show($"メールサーバに接続出来ませんでした{vbCrLf}{vbCrLf}MailServer{vbCrLf}{strSmtpServer}{vbCrLf}{ex.Message}", "メール送信失敗", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return False
         Finally
