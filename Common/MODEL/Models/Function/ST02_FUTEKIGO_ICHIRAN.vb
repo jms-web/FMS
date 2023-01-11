@@ -107,6 +107,61 @@ Partial Public Class ST02_FUTEKIGO_ICHIRAN
     <ComponentModel.DisplayName("社内コード")>
     Public Property SYANAI_CD As String
 
+#Region "CAR ABC"
+
+    <ComponentModel.DisplayName("A:修正・応急処置期限")>
+    <Display(AutoGenerateField:=False)>
+    <Column(NameOf(SYOCHI_YOTEI_YMD_A), TypeName:="String")>
+    Public Property _SYOCHI_YOTEI_YMD_A As String
+
+    <NotMapped>
+    <ComponentModel.DisplayName("A:修正・応急処置期限")>
+    Public Property SYOCHI_YOTEI_YMD_A As Date
+        Get
+            Return DateTime.ParseExact(_SYOCHI_YOTEI_YMD_A, "yyyyMMdd", Nothing)
+        End Get
+        Set(value As Date)
+
+            _SYOCHI_YOTEI_YMD_A = value.ToString("yyyyMMdd")
+        End Set
+    End Property
+
+    <ComponentModel.DisplayName("B:是正処置期限")>
+    <Display(AutoGenerateField:=False)>
+    <Column(NameOf(SYOCHI_YOTEI_YMD_B), TypeName:="String")>
+    Public Property _SYOCHI_YOTEI_YMD_B As String
+
+    <NotMapped>
+    <ComponentModel.DisplayName("B:是正処置期限")>
+    Public Property SYOCHI_YOTEI_YMD_B As Date
+        Get
+            Return DateTime.ParseExact(_SYOCHI_YOTEI_YMD_B, "yyyyMMdd", Nothing)
+        End Get
+        Set(value As Date)
+
+            _SYOCHI_YOTEI_YMD_B = value.ToString("yyyyMMdd")
+        End Set
+    End Property
+
+    <ComponentModel.DisplayName("C:処置の水平展開期限")>
+    <Display(AutoGenerateField:=False)>
+    <Column(NameOf(SYOCHI_YOTEI_YMD_C), TypeName:="String")>
+    Public Property _SYOCHI_YOTEI_YMD_C As String
+
+    <NotMapped>
+    <ComponentModel.DisplayName("C:処置の水平展開期限")>
+    Public Property SYOCHI_YOTEI_YMD_C As Date
+        Get
+            Return DateTime.ParseExact(_SYOCHI_YOTEI_YMD_C, "yyyyMMdd", Nothing)
+        End Get
+        Set(value As Date)
+
+            _SYOCHI_YOTEI_YMD_C = value.ToString("yyyyMMdd")
+        End Set
+    End Property
+
+#End Region
+
     <StringLength(2)>
     <ComponentModel.DisplayName("不適合区分")>
     Public Property FUTEKIGO_KB As String

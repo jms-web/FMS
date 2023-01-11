@@ -451,7 +451,7 @@ Public Class FrmG0010
     'èâä˙âª
     Private Function FunInitializeFlexGrid(ByVal flxgrd As C1.Win.C1FlexGrid.C1FlexGrid) As Boolean
         With flxgrd
-            .Rows(0).Height = 30
+            .Rows(0).Height = 40
             .AutoGenerateColumns = False
             .AutoResize = True
             .AllowEditing = True
@@ -474,6 +474,10 @@ Public Class FrmG0010
 
             .Styles.Add("delStyle")
             .Styles("delStyle").ForeColor = Color.Red
+
+            .Styles.Add("Header")
+            .Styles("Header").WordWrap = True
+            .Rows(0).Style = flxDATA.Styles("Header")
 
             '.Cols("HASSEI_YMD").Filter = New DateFilter
             '.Cols("SYOCHI_YOTEI_YMD").Filter = New DateFilter
@@ -578,6 +582,10 @@ Public Class FrmG0010
                 flxDATA.Cols(NameOf(ST03.SURYO)).Visible = chkDispSURYO.Checked
                 flxDATA.Cols(NameOf(ST03.SURYO)).Style.BackColor = Color.LightSkyBlue
 
+                flxDATA.Cols("SYOCHI_YOTEI_YMD_A").Visible = False
+                flxDATA.Cols("SYOCHI_YOTEI_YMD_B").Visible = False
+                flxDATA.Cols("SYOCHI_YOTEI_YMD_C").Visible = False
+
                 flxDATA.Cols(NameOf(ST03.KISO_KENSU)).Visible = True
                 flxDATA.Cols(NameOf(ST03.SYOCHI_KENSU)).Visible = True
                 flxDATA.Cols(NameOf(ST03.SYOCHI_ZANSU)).Visible = True
@@ -635,6 +643,10 @@ Public Class FrmG0010
 
                 flxDATA.Cols(NameOf(ST03.SURYO)).Visible = True
                 flxDATA.Cols(NameOf(ST03.SURYO)).Style.BackColor = Color.White
+
+                flxDATA.Cols("SYOCHI_YOTEI_YMD_A").Visible = True
+                flxDATA.Cols("SYOCHI_YOTEI_YMD_B").Visible = True
+                flxDATA.Cols("SYOCHI_YOTEI_YMD_C").Visible = True
 
                 flxDATA.Cols(NameOf(ST03.KISO_KENSU)).Visible = False
                 flxDATA.Cols(NameOf(ST03.SYOCHI_KENSU)).Visible = False
