@@ -614,7 +614,13 @@ Public Class FrmG0031_EditOccurred
 
             '#80 承認申請日は画面で入力
             If _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.IsNulOrWS Then
-                _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
+
+                If PrCurrentStage = ENM_ZESEI_STAGE._10_起草入力 Then
+                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = dtST01_SAKUSEI_YMD.ValueDate.ToString("yyyyMMdd") & "000000"
+                Else
+                    _D004_SYONIN_J_KANRI.SYONIN_YMDHNS = strSysDate
+                End If
+
             ElseIf _D004_SYONIN_J_KANRI.SYONIN_YMDHNS.Trim.Length = 8 Then
                 'datetextboxにバインド時は時刻情報を結合
                 _D004_SYONIN_J_KANRI.SYONIN_YMDHNS &= "000000"
@@ -644,8 +650,13 @@ Public Class FrmG0031_EditOccurred
             sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)} = WK.{NameOf(_D004_SYONIN_J_KANRI.HOKOKU_NO)}")
             sbSQL.Append($" AND SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_JUN)})")
             'UPDATE
-            sbSQL.Append($" WHEN MATCHED THEN")
-            sbSQL.Append($" {_D004_SYONIN_J_KANRI.ToUpdateSqlString("SrcT", "WK")}")
+            sbSQL.Append($" WHEN MATCHED THEN UPDATE SET")
+            sbSQL.Append($"  SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYAIN_ID)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_YMDHNS)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)} = WK.{NameOf(_D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)} = WK.{NameOf(_D004_SYONIN_J_KANRI.COMMENT)}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_SYAIN_ID)} = {pub_SYAIN_INFO.SYAIN_ID}")
+            sbSQL.Append($" ,SrcT.{NameOf(_D004_SYONIN_J_KANRI.UPD_YMDHNS)} = '{strSysDate}'")
             'INSERT
             sbSQL.Append(" WHEN NOT MATCHED THEN")
             sbSQL.Append($" {_D004_SYONIN_J_KANRI.ToInsertSqlString("WK")}")
@@ -1766,6 +1777,12 @@ Public Class FrmG0031_EditOccurred
             Call ClearBinding()
             Call FunSetBinding()
 
+            If PrCurrentStage = ENM_ZESEI_STAGE._10_起草入力 Then
+                Using DB = DBOpen()
+                    dtST01_SAKUSEI_YMD.Text = DB.GetSysDateTime.ToString("yyyy/MM/dd")
+                End Using
+            End If
+
             Return True
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
@@ -1974,6 +1991,7 @@ Public Class FrmG0031_EditOccurred
                 If V003 IsNot Nothing Then
                     cmbST01_SAKUSEI_TANTO.SelectedValue = V003.SYAIN_ID
                     dtST01_SAKUSEI_YMD.Text = V003.SYONIN_YMDHNS.ToDateTimeWithFormat("yyyyMMddHHmmss", "yyyy/MM/dd")
+                    dtST01_SAKUSEI_YMD.ReadOnly = intStageID > ENM_ZESEI_STAGE._10_起草入力
                 End If
                 V003 = _V003_SYONIN_J_KANRI_List.AsEnumerable.Where(Function(r) r.SYONIN_JUN = ENM_ZESEI_STAGE._11_起草入力_点検).FirstOrDefault
                 If V003 IsNot Nothing Then
@@ -2453,7 +2471,7 @@ Public Class FrmG0031_EditOccurred
 
         Call SetInfoLabelFormat(lblST01_SAKUSEI_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}QMS管理責任者・品証")
         Call SetInfoLabelFormat(lblST01_TENKEN_TANTO, $"承認担当者マスタ{vbCr}所属部門のST11.に登録された担当者")
-        Call SetInfoLabelFormat(lblST01_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST12.に登録された担当者")
+        Call SetInfoLabelFormat(lblST01_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST12.に登録された担当者{vbCrLf}{vbCrLf}および以下の部署所属の担当者{vbCrLf}MS統括室")
 
         Call SetInfoLabelFormat(lblST02_SAKUSEI_TANTO, $"承認担当者マスタ{vbCr}所属部門の[ST02.是正処置入力]に登録された担当者")
         Call SetInfoLabelFormat(lblST02_TENKEN_TANTO, $"選択した部門・課の役職区分:なし)以外の担当者")
@@ -2471,7 +2489,7 @@ Public Class FrmG0031_EditOccurred
 
         Call SetInfoLabelFormat(lblST05_SAKUSEI_TANTO, $"社員業務グループマスタ{vbCr}以下の業務グループに登録された担当者{vbCrLf}{vbCrLf}QMS管理責任者・品証")
         Call SetInfoLabelFormat(lblST05_TENKEN_TANTO, $"承認担当者マスタ{vbCr}所属部門のST11.に登録された担当者")
-        Call SetInfoLabelFormat(lblST05_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST12.に登録された担当者")
+        Call SetInfoLabelFormat(lblST05_NINKA_TANTO, $"承認担当者マスタ{vbCr}所属部門のST12.に登録された担当者{vbCrLf}{vbCrLf}および以下の部署所属の担当者{vbCrLf}MS統括室")
 
     End Function
 

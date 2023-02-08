@@ -1240,7 +1240,14 @@ Module mdlG0030
 
             spSheet1.Range(NameOf(_V.HOKOKU_NO)).Value = _V.HOKOKU_NO
             spSheet1.Range(NameOf(_V.ADD_YMDHNS)).Value = _V.ADD_YMDHNS
-            spSheet1.Range(NameOf(_V.BUMON_NAME)).Value = _V.BUMON_NAME
+
+            Select Case _V.BUMON_KB.ToVal
+                Case ENM_BUMON_KB._1_ïóñh, ENM_BUMON_KB._2_LP
+                    spSheet1.Range(NameOf(_V.BUMON_NAME)).Value = "çqãÛã@"
+                Case Else
+                    spSheet1.Range(NameOf(_V.BUMON_NAME)).Value = _V.BUMON_NAME
+            End Select
+
             spSheet1.Range(NameOf(_V.BUSYO_NAME)).Value = _V.BUSYO_NAME
             spSheet1.Range(NameOf(_V.TANTO_NAME)).Value = _V.TANTO_NAME
             spSheet1.Range(NameOf(_V.CHOUSA_HANI)).Value = _V.CHOUSA_HANI

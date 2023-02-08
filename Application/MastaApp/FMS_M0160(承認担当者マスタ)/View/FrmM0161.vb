@@ -224,9 +224,9 @@ Public Class FrmM0161
                     sbSQL.Remove(0, sbSQL.Length)
                     sbSQL.Append($"MERGE INTO {NameOf(MODEL.M016_SYONIN_TANTO)} AS TARGET")
                     sbSQL.Append($" USING (SELECT")
-                    sbSQL.Append($" {_M016.SYONIN_HOKOKUSYO_ID} AS {NameOf(_M016.SYONIN_HOKOKUSYO_ID)}")
-                    sbSQL.Append($",'{_M016.SYONIN_JUN}' AS {NameOf(_M016.SYONIN_JUN)}")
-                    sbSQL.Append($",'{_M016.SYAIN_ID}' AS {NameOf(_M016.SYAIN_ID)}")
+                    sbSQL.Append($" {CmbSYONIN_HOKOKUSYO_ID.SelectedValue} AS {NameOf(_M016.SYONIN_HOKOKUSYO_ID)}")
+                    sbSQL.Append($",'{CmbSYONIN_JUN.SelectedValue}' AS {NameOf(_M016.SYONIN_JUN)}")
+                    sbSQL.Append($",'{CmbSYAIN_ID.SelectedValue}' AS {NameOf(_M016.SYAIN_ID)}")
                     sbSQL.Append($",'{strSysDate}' AS {NameOf(_M016.ADD_YMDHNS)}")
                     sbSQL.Append($",{pub_SYAIN_INFO.SYAIN_ID} AS {NameOf(_M016.ADD_SYAIN_ID)}")
 

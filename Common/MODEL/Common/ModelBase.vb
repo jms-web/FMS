@@ -111,8 +111,8 @@ Public Class ModelBase
         Dim props = Properties.Where(Function(p) Attribute.IsDefined(Me.GetType.GetProperty(p.Name), GetType(KeyAttribute)) = False)
 
         sbSQL.Append($"UPDATE SET")
-        props.Take(1).ForEach(Sub(p) sbSQL.Append($"  {targetSchema}.{p.Name} = {sourceSchema}.{p.Name}"))
-        props.Skip(1).ForEach(Sub(p) sbSQL.Append($" ,{targetSchema}.{p.Name} = {sourceSchema}.{p.Name}"))
+        props.Take(1).Where(Function(p) p.Name <> "ADD_YMDHNS" And p.Name <> "ADD_SYAIN_ID").ForEach(Sub(p) sbSQL.Append($"  {targetSchema}.{p.Name} = {sourceSchema}.{p.Name}"))
+        props.Skip(1).Where(Function(p) p.Name <> "ADD_YMDHNS" And p.Name <> "ADD_SYAIN_ID").ForEach(Sub(p) sbSQL.Append($" ,{targetSchema}.{p.Name} = {sourceSchema}.{p.Name}"))
 
         Return sbSQL.ToString
     End Function
