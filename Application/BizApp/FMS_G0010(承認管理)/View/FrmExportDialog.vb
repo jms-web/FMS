@@ -30,7 +30,7 @@ Public Class FrmExportDialog
         Try
             '-----フォーム共通設定
             'Call FunFormCommonSetting(pub_APP_INFO, pub_SYAIN_INFO)
-            Me.Text = "CSV出力"
+            Me.Text = "データ出力"
 
             '-----位置・サイズ
             Me.Top = Me.Owner.Top + (Me.Owner.Height - Me.Height) / 2
@@ -66,10 +66,13 @@ Public Class FrmExportDialog
             'ボタンINDEX毎の処理
             Select Case intFUNC
                 Case 1  '不適合データ
-                    PrDataType = "不適合データ"
+                    PrDataType = "不適合データExcel"
                     Me.DialogResult = Windows.Forms.DialogResult.OK
-                Case 2 '履歴データ
-                    PrDataType = "履歴データ"
+                Case 2  '不適合データ
+                    PrDataType = "不適合データCSV"
+                    Me.DialogResult = Windows.Forms.DialogResult.OK
+                Case 3 '履歴データ
+                    PrDataType = "履歴データCSV"
                     Me.DialogResult = Windows.Forms.DialogResult.OK
                 Case 12
                     Me.DialogResult = Windows.Forms.DialogResult.Cancel

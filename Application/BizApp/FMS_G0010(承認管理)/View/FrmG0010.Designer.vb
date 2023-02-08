@@ -285,7 +285,7 @@ Partial Class FrmG0010
         Me.cmdFunc8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.cmdFunc8.Image = Global.FMS.My.Resources.Resources._imgExportToExcel32x32
         Me.cmdFunc8.Location = New System.Drawing.Point(279, 643)
-        Me.cmdFunc8.Text = "CSV出力(F8)"
+        Me.cmdFunc8.Text = "データ出力(F8)"
         '
         'lblTytle
         '

@@ -1,5 +1,6 @@
 Imports JMS_COMMON.ClsPubMethod
 Imports MODEL
+Imports ST02 = MODEL.ST02_FUTEKIGO_ICHIRAN
 
 Module mdlG0010
 
@@ -2238,6 +2239,149 @@ Module mdlG0010
             spWorksheets = Nothing
             spWorkbook = Nothing
 
+        End Try
+    End Function
+
+    Public Function FunMakeReportList(ByVal strFilePath As String, src As DataTable) As Boolean
+
+        Dim spWorkbookSet As SpreadsheetGear.IWorkbookSet
+        Dim spWorkbook As SpreadsheetGear.IWorkbook
+        Dim spWorksheets As SpreadsheetGear.IWorksheets
+        Dim spSheet As SpreadsheetGear.IWorksheet
+        Dim spRange As SpreadsheetGear.IRange
+
+        Try
+
+            spWorkbookSet = SpreadsheetGear.Factory.GetWorkbookSet
+            spWorkbook = spWorkbookSet.Workbooks.Add
+            spWorksheets = spWorkbook.Worksheets
+
+            spSheet = spWorksheets.Item(0)
+            spRange = spSheet.Cells("A1")
+
+            Dim dicColumnDisplayNames As New Dictionary(Of String, String)
+
+#Region "表示列指定"
+
+            dicColumnDisplayNames.Add(NameOf(ST02.SELECTED), "選択")
+            dicColumnDisplayNames.Add(NameOf(ST02.BUMON_NAME), "製品区分")
+            dicColumnDisplayNames.Add(NameOf(ST02.HOKOKU_NO), "報告書No")
+            dicColumnDisplayNames.Add(NameOf(ST02.SYONIN_NAIYO), "ステージ")
+            dicColumnDisplayNames.Add(NameOf(ST02.GEN_TANTO_NAME), "処置担当者名")
+            dicColumnDisplayNames.Add(NameOf(ST02.TAIRYU_NISSU), "滞留日数")
+            dicColumnDisplayNames.Add(NameOf(ST02.TOTAL_TAIRYU_NISSU), "累計滞留日数")
+            'dicColumnDisplayNames.Add(NameOf(ST02.TAIRYU_FG), "滞留フラグ") 'H列
+            dicColumnDisplayNames.Add(NameOf(ST02.SYOCHI_YOTEI_YMD_A), "A:修正・応急処置期限")
+            dicColumnDisplayNames.Add(NameOf(ST02.SYOCHI_YOTEI_YMD_B), "B:是正処置期限")
+            dicColumnDisplayNames.Add(NameOf(ST02.SYOCHI_YOTEI_YMD_C), "C:処置の水平展開期限")
+            dicColumnDisplayNames.Add(NameOf(ST02.KISYU_NAME), "機種")
+            dicColumnDisplayNames.Add(NameOf(ST02.BUHIN_BANGO), "部品番号")
+            dicColumnDisplayNames.Add(NameOf(ST02.SYANAI_CD), "社内コード")
+            dicColumnDisplayNames.Add(NameOf(ST02.BUHIN_NAME), "部品名")
+            dicColumnDisplayNames.Add(NameOf(ST02.GOKI), "号機")
+            dicColumnDisplayNames.Add(NameOf(ST02.JIZEN_SINSA_HANTEI_NAME), "事前判定区分")
+            dicColumnDisplayNames.Add(NameOf(ST02.SAISIN_IINKAI_HANTEI_NAME), "再審委員会判定区分")
+            dicColumnDisplayNames.Add(NameOf(ST02.SYOCHI_YOTEI_YMD), "処置予定日")
+            dicColumnDisplayNames.Add(NameOf(ST02.HASSEI_YMD), "発生日")
+            dicColumnDisplayNames.Add(NameOf(ST02.SURYO), "個数")
+
+#End Region
+
+            Dim i As Integer
+            Dim dt As DataTable = src.Clone
+            dt.Columns(NameOf(ST02.SELECTED)).DataType = GetType(String)
+            For Each row As DataRow In src.Rows
+                dt.ImportRow(row)
+            Next
+            dt.AsEnumerable.ForEach(Sub(r) r.Item(NameOf(ST02.SELECTED)) = "□")
+
+            Do
+                If Not dicColumnDisplayNames.Keys.Contains(dt.Columns(i).ColumnName) Then
+                    dt.Columns.RemoveAt(i)
+                Else
+                    Dim existCount = dt.Columns.OfType(Of DataColumn).
+                                                    Where(Function(c) c.ColumnName.Contains(dicColumnDisplayNames(dt.Columns(i).ColumnName))).
+                                                    Count
+
+                    If existCount > 0 Then
+                        dt.Columns(i).ColumnName = $"{dicColumnDisplayNames(dt.Columns(i).ColumnName)}{existCount + 1}"
+                    Else
+                        dt.Columns(i).ColumnName = dicColumnDisplayNames(dt.Columns(i).ColumnName)
+                    End If
+                    i += 1
+                End If
+            Loop While i < dt.Columns.Count
+
+            'データコピー
+            spRange.CopyFromDataTable(dt, SpreadsheetGear.Data.SetDataFlags.None)
+
+            '罫線
+            Dim border1 As SpreadsheetGear.IBorder = spRange.CurrentRegion.Borders(SpreadsheetGear.BordersIndex.EdgeLeft)
+            border1.LineStyle = SpreadsheetGear.LineStyle.Continuous
+            border1.Weight = SpreadsheetGear.BorderWeight.Thin
+            Dim border2 As SpreadsheetGear.IBorder = spRange.CurrentRegion.Borders(SpreadsheetGear.BordersIndex.EdgeTop)
+            border2.LineStyle = SpreadsheetGear.LineStyle.Continuous
+            border2.Weight = SpreadsheetGear.BorderWeight.Thin
+            Dim border3 As SpreadsheetGear.IBorder = spRange.CurrentRegion.Borders(SpreadsheetGear.BordersIndex.EdgeRight)
+            border3.LineStyle = SpreadsheetGear.LineStyle.Continuous
+            border3.Weight = SpreadsheetGear.BorderWeight.Thin
+            Dim border4 As SpreadsheetGear.IBorder = spRange.CurrentRegion.Borders(SpreadsheetGear.BordersIndex.EdgeBottom)
+            border4.LineStyle = SpreadsheetGear.LineStyle.Continuous
+            border4.Weight = SpreadsheetGear.BorderWeight.Thin
+            Dim border5 As SpreadsheetGear.IBorder = spRange.CurrentRegion.Borders(SpreadsheetGear.BordersIndex.InsideHorizontal)
+            border5.LineStyle = SpreadsheetGear.LineStyle.Continuous
+            border5.Weight = SpreadsheetGear.BorderWeight.Thin
+            Dim border6 As SpreadsheetGear.IBorder = spRange.CurrentRegion.Borders(SpreadsheetGear.BordersIndex.InsideVertical)
+            border6.LineStyle = SpreadsheetGear.LineStyle.Continuous
+            border6.Weight = SpreadsheetGear.BorderWeight.Thin
+            spSheet.UsedRange.Columns.AutoFit()
+
+            ' 条件付き書式
+            Dim conditions As SpreadsheetGear.IFormatConditions = spSheet.Cells($"F2:F{spSheet.Cells("F2").EndDown.Row + 1}").FormatConditions
+            conditions.Delete()
+            Dim condition As SpreadsheetGear.IFormatCondition = conditions.Add(
+              SpreadsheetGear.FormatConditionType.CellValue,
+              SpreadsheetGear.FormatConditionOperator.GreaterEqual,
+              "6", Nothing)
+            condition.Font.Bold = False
+            condition.Font.Color = SpreadsheetGear.Colors.Red
+            'condition.Interior.Color = SpreadsheetGear.Colors.DarkRed '背景色
+
+            spSheet.Cells("A1:A1").EntireRow.VerticalAlignment = SpreadsheetGear.VAlign.Top
+
+            '印刷設定
+            Dim pagesetting As SpreadsheetGear.IPageSetup = spWorksheets(0).PageSetup
+            pagesetting.FitToPages = True
+            pagesetting.FitToPagesTall = 1
+            pagesetting.FitToPagesWide = 1
+            pagesetting.Orientation = SpreadsheetGear.PageOrientation.Landscape
+            pagesetting.PaperSize = SpreadsheetGear.PaperSize.A4
+            pagesetting.BottomMargin = 36
+            pagesetting.TopMargin = 36
+            pagesetting.LeftMargin = 18
+            pagesetting.RightMargin = 18
+
+            'Excelファイル保存
+            spSheet.SaveAs(filename:=strFilePath, fileFormat:=SpreadsheetGear.FileFormat.OpenXMLWorkbook)
+            'spWorkbook.WorkbookSet.ReleaseLock()
+            Dim p As System.Diagnostics.Process = System.Diagnostics.Process.Start(strFilePath)
+            'Call OpenExcelPrintPreview(strFilePath)
+
+            ''Excel作業ファイルを削除
+            'Try
+            '    System.IO.File.Delete(strFilePath)
+            'Catch ex As UnauthorizedAccessException
+            'End Try
+
+            Return True
+        Catch ex As Exception
+            EM.ErrorSyori(ex, False, conblnNonMsg)
+        Finally
+            spRange = Nothing
+            spSheet = Nothing
+            spWorksheets = Nothing
+            spWorkbook = Nothing
+            spWorkbookSet = Nothing
         End Try
     End Function
 

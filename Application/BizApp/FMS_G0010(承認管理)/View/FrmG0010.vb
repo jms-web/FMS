@@ -652,6 +652,7 @@ Public Class FrmG0010
                 flxDATA.Cols(NameOf(ST03.SYOCHI_KENSU)).Visible = False
                 flxDATA.Cols(NameOf(ST03.SYOCHI_ZANSU)).Visible = False
             End If
+            flxDATA.Cols(NameOf(ST03.TAIRYU_FG)).Visible = False
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
         End Try
@@ -1245,7 +1246,7 @@ Public Class FrmG0010
 
                     Call SetStageList()
 
-                Case 8 'CSV出力
+                Case 8 'データ出力
 
                     Call ExportCSV()
 
@@ -1744,7 +1745,7 @@ Public Class FrmG0010
             If dlgRET = DialogResult.OK Then
 
                 Select Case frmDLG.PrDataType
-                    Case "不適合データ"
+                    Case "不適合データCSV"
                         'Dim dt As DataTable
                         If pub_intOPEN_MODE = ENM_OPEN_MODE._3_分析集計 Then
                             strFileName = $"不適合集計_{DateTime.Now:yyyyMMddHHmmss}.CSV"
@@ -1754,13 +1755,32 @@ Public Class FrmG0010
 
                         Call FunCSV_OUTviaFlexGrid(flxDATA, strFileName, pub_APP_INFO.strOUTPUT_PATH)
 
-                    Case "履歴データ"
+                    Case "履歴データCSV"
                         strFileName = $"不適合処置履歴_{DateTime.Now:yyyyMMddHHmmss}.CSV"
 
                         Dim src = DirectCast(flxDATA.DataSource, DataView).Table
                         Dim HOKOKU_NOs = src.Select.Select(Function(r) r.Item("HOKOKU_NO").ToString).ToList
                         Dim dt = FunGetHistoryData(HOKOKU_NOs)
                         Call FunCSV_OUT(dt, strFileName, pub_APP_INFO.strOUTPUT_PATH)
+                    Case "不適合データExcel"
+                        strFileName = $"{pub_APP_INFO.strTitle}_{DateTime.Now:yyyyMMdd}.xlsx"
+                        Dim outputPath As String = $"{pub_APP_INFO.strOUTPUT_PATH}{strFileName}"
+                        Dim src = DirectCast(flxDATA.DataSource, DataView).Table
+
+                        '既存ファイル削除
+                        If FunDELETE_FILE(outputPath) = False Then
+                        End If
+
+                        'Dim strTEMPFILE As String
+                        'Using iniIF As New IniFile(FunGetRootPath() & "\INI\" & CON_TEMPLATE_INI)
+                        '    strTEMPFILE = FunConvRootPath(iniIF.GetIniString("FUTEKIGO_LIST", "FILEPATH"))
+                        'End Using
+
+                        ''エクセル出力ファイル用意
+                        'If OUT_EXCEL_READY(strTEMPFILE, pub_APP_INFO.strOUTPUT_PATH, strFileName) = False Then
+                        '    Return False
+                        'End If
+                        Call FunMakeReportList(outputPath, src)
                     Case Else
                 End Select
 
