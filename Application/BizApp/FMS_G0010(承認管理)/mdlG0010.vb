@@ -2267,20 +2267,21 @@ Module mdlG0010
             dicColumnDisplayNames.Add(NameOf(ST02.BUMON_NAME), "製品区分")
             dicColumnDisplayNames.Add(NameOf(ST02.HOKOKU_NO), "報告書No")
             dicColumnDisplayNames.Add(NameOf(ST02.SYONIN_NAIYO), "ステージ")
-            dicColumnDisplayNames.Add(NameOf(ST02.GEN_TANTO_NAME), "処置担当者名")
-            dicColumnDisplayNames.Add(NameOf(ST02.TAIRYU_NISSU), "滞留日数")
-            dicColumnDisplayNames.Add(NameOf(ST02.TOTAL_TAIRYU_NISSU), "累計滞留日数")
+            dicColumnDisplayNames.Add(NameOf(ST02.SYONIN_HOKOKUSYO_R_NAME), $"種類{vbCrLf}略名")
+            dicColumnDisplayNames.Add(NameOf(ST02.GEN_TANTO_NAME), $"処置{vbCrLf}担当者名")
+            dicColumnDisplayNames.Add(NameOf(ST02.TAIRYU_NISSU), $"滞留日数")
+            dicColumnDisplayNames.Add(NameOf(ST02.TOTAL_TAIRYU_NISSU), $"累計{vbCrLf}滞留日数")
             'dicColumnDisplayNames.Add(NameOf(ST02.TAIRYU_FG), "滞留フラグ") 'H列
-            dicColumnDisplayNames.Add(NameOf(ST02.SYOCHI_YOTEI_YMD_A), "A:修正・応急処置期限")
-            dicColumnDisplayNames.Add(NameOf(ST02.SYOCHI_YOTEI_YMD_B), "B:是正処置期限")
-            dicColumnDisplayNames.Add(NameOf(ST02.SYOCHI_YOTEI_YMD_C), "C:処置の水平展開期限")
+            dicColumnDisplayNames.Add(NameOf(ST02.SYOCHI_YOTEI_YMD_A), $"A:修正・応急{vbCrLf}処置期限")
+            dicColumnDisplayNames.Add(NameOf(ST02.SYOCHI_YOTEI_YMD_B), $"B:是正処置{vbCrLf}期限")
+            dicColumnDisplayNames.Add(NameOf(ST02.SYOCHI_YOTEI_YMD_C), $"C:処置の水平{vbCrLf}展開期限")
             dicColumnDisplayNames.Add(NameOf(ST02.KISYU_NAME), "機種")
             dicColumnDisplayNames.Add(NameOf(ST02.BUHIN_BANGO), "部品番号")
             dicColumnDisplayNames.Add(NameOf(ST02.SYANAI_CD), "社内コード")
             dicColumnDisplayNames.Add(NameOf(ST02.BUHIN_NAME), "部品名")
             dicColumnDisplayNames.Add(NameOf(ST02.GOKI), "号機")
             dicColumnDisplayNames.Add(NameOf(ST02.JIZEN_SINSA_HANTEI_NAME), "事前判定区分")
-            dicColumnDisplayNames.Add(NameOf(ST02.SAISIN_IINKAI_HANTEI_NAME), "再審委員会判定区分")
+            dicColumnDisplayNames.Add(NameOf(ST02.SAISIN_IINKAI_HANTEI_NAME), $"再審委員会{vbCrLf}判定区分")
             dicColumnDisplayNames.Add(NameOf(ST02.SYOCHI_YOTEI_YMD), "処置予定日")
             dicColumnDisplayNames.Add(NameOf(ST02.HASSEI_YMD), "発生日")
             dicColumnDisplayNames.Add(NameOf(ST02.SURYO), "個数")
@@ -2334,10 +2335,12 @@ Module mdlG0010
             Dim border6 As SpreadsheetGear.IBorder = spRange.CurrentRegion.Borders(SpreadsheetGear.BordersIndex.InsideVertical)
             border6.LineStyle = SpreadsheetGear.LineStyle.Continuous
             border6.Weight = SpreadsheetGear.BorderWeight.Thin
-            spSheet.UsedRange.Columns.AutoFit()
+
+            spSheet.Cells("N:P").EntireColumn.NumberFormat = "yyyy/MM/dd"
+            spSheet.Cells("S:T").EntireColumn.NumberFormat = "yyyy/MM/dd"
 
             ' 条件付き書式
-            Dim conditions As SpreadsheetGear.IFormatConditions = spSheet.Cells($"F2:F{spSheet.Cells("F2").EndDown.Row + 1}").FormatConditions
+            Dim conditions As SpreadsheetGear.IFormatConditions = spSheet.Cells($"G2:G{spSheet.Cells("G2").EndDown.Row + 1}").FormatConditions
             conditions.Delete()
             Dim condition As SpreadsheetGear.IFormatCondition = conditions.Add(
               SpreadsheetGear.FormatConditionType.CellValue,
@@ -2348,6 +2351,12 @@ Module mdlG0010
             'condition.Interior.Color = SpreadsheetGear.Colors.DarkRed '背景色
 
             spSheet.Cells("A1:A1").EntireRow.VerticalAlignment = SpreadsheetGear.VAlign.Top
+            spSheet.Cells("A1:A1").EntireRow.WrapText = True
+
+            spSheet.Cells("A:U").EntireColumn.AutoFit()
+            For Each column As SpreadsheetGear.IRange In spSheet.Cells("A:U").Columns
+                column.ColumnWidth *= 1.24
+            Next
 
             '印刷設定
             Dim pagesetting As SpreadsheetGear.IPageSetup = spWorksheets(0).PageSetup
