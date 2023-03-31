@@ -679,6 +679,8 @@ Public Class FrmG0011
         Select Case PrCurrentStage
             Case ENM_NCR_STAGE._10_ãNëêì¸óÕ
                 _D003_NCR_J.ADD_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
+                _D003_NCR_J.SAIHATU = FunIsReIssue(_D003_NCR_J.BUHIN_BANGO, _D003_NCR_J.FUTEKIGO_KB, _D003_NCR_J.FUTEKIGO_S_KB)
+
             Case ENM_NCR_STAGE._40_éñëOêRç∏îªíËãyÇ—CARóvî€îªíË
                 _D003_NCR_J.JIZEN_SINSA_SYAIN_ID = pub_SYAIN_INFO.SYAIN_ID
                 _D003_NCR_J.JIZEN_SINSA_YMD = _D004_SYONIN_J_KANRI.SYONIN_YMD'Now.ToString("yyyyMMdd")
@@ -7167,7 +7169,7 @@ Public Class FrmG0011
             sbSQL.Append($" WHERE {NameOf(D003_NCR_J.BUHIN_BANGO)} ='{strBUHIN_BANGO}'")
             sbSQL.Append($" AND {NameOf(D003_NCR_J.FUTEKIGO_KB)}='{strFUTEKIGO_KB}'")
             sbSQL.Append($" AND {NameOf(D003_NCR_J.FUTEKIGO_S_KB)}='{strFUTEKIGO_S_KB}'")
-            sbSQL.Append($" AND RTRIM({NameOf(D003_NCR_J.DEL_YMDHNS)})<>''")
+            sbSQL.Append($" AND RTRIM({NameOf(D003_NCR_J.DEL_YMDHNS)})=''")
             If Not _D003_NCR_J.HOKOKU_NO.IsNullOrEmpty Then
                 sbSQL.Append($" AND {NameOf(D003_NCR_J.HOKOKU_NO)}<>'{_D003_NCR_J.HOKOKU_NO}'")
             End If
