@@ -67,6 +67,8 @@ Module mdlU0010
                 End If
 
             End Using
+
+            Application.Exit()
         Catch ex As Exception
             EM.ErrorSyori(ex, False, conblnNonMsg)
             'MsgBox(My.Resources.ErrMsgInit, MsgBoxStyle.Critical, My.Application.Info.AssemblyName)
@@ -322,7 +324,7 @@ Module mdlU0010
             sbSQL.Append($"　WHERE {NameOf(MODEL.V013_FCCB_ICHIRAN.GEN_TANTO_ID)} > 0")
             sbSQL.Append($"　AND {NameOf(MODEL.V013_FCCB_ICHIRAN.SYONIN_JUN)} <> 20")
             sbSQL.Append($"　AND RTRIM({NameOf(MODEL.V013_FCCB_ICHIRAN.DEL_YMDHNS)})=''")
-
+            dt = DB.GetDataSet(sbSQL.ToString, conblnNonMsg)?.Tables(0)
             'UNDONE: ST2の滞留通知
 
             strSmtpServer = FunGetCodeMastaValue(DB, "メール設定", "SMTP_SERVER")
