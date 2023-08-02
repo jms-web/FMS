@@ -4133,6 +4133,12 @@ Public Class FrmG0011
                     rsbtnST08.Enabled = False
                     rsbtnST08.BackColor = Color.Silver
                 End If
+
+                If IsEditingClosed Then
+                    mtxST07_ITAG_NO.ReadOnly = False
+                    pnlST08.Enabled = True
+
+                End If
             Else
                 pnlST08.Visible = False
                 rsbtnST08.Enabled = False
