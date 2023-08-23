@@ -844,7 +844,7 @@ Public Module mdlDBContext
                     If blnIncludeDeleted = False Then
                         sbSQL.Append(" AND DEL_FLG='0'")
                     End If
-                    sbSQL.Append(" ORDER BY SYAIN_ID")
+                    sbSQL.Append(" ORDER BY SYAIN_NO")
 
                     'éÂÉLÅ[ê›íË
                     dt.PrimaryKey = {dt.Columns("VALUE")}
@@ -861,7 +861,7 @@ Public Module mdlDBContext
                         For intCNT = 0 To .Rows.Count - 1
                             Dim Trow As DataRow = dt.NewRow()
                             '
-                            Trow("DISP") = .Rows(intCNT).Item("SIMEI")
+                            Trow("DISP") = .Rows(intCNT).Item("SYAIN_NO") & ":" & .Rows(intCNT).Item("SIMEI")
                             Trow("VALUE") = .Rows(intCNT).Item("SYAIN_ID")
                             Trow("DEL_FLG") = CBool(.Rows(intCNT).Item("DEL_FLG"))
                             Trow("SYAIN_NO") = .Rows(intCNT).Item("SYAIN_NO")

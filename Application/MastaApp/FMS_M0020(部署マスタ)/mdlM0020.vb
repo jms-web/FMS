@@ -12,6 +12,7 @@ Module mdlM0020
 #End Region
 
 #Region "MAIN"
+
     <STAThread()>
     Public Sub Main()
         Try
@@ -51,7 +52,7 @@ Module mdlM0020
                     Call FunGetCodeDataTable(DB, "•”–å‹æ•ª", tblBUMON)
                     Call FunGetCodeDataTable(DB, "•”‹æ•ª", tblBUSYO_KB)
                     Call FunGetCodeDataTable(DB, "•”", tblBUSYO, " YUKO_YMD >= '" & Replace(Now.ToShortDateString, "/", "") & "'")
-                    Call FunGetCodeDataTable(DB, "’S“–", tblSYAIN, " del_ymdhns = '' ")
+                    Call FunGetCodeDataTable(DB, "’S“–", tblSYAIN, " del_ymdhns = '' AND RTRIM(TAISYA_YMD)=''")
                 End Using
 
                 '-----ˆê——‰æ–Ê•\Ž¦
@@ -66,6 +67,7 @@ Module mdlM0020
 
         End Try
     End Sub
+
 #End Region
 
 End Module
