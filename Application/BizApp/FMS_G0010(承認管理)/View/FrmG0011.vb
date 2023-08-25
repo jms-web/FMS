@@ -1475,18 +1475,18 @@ Public Class FrmG0011
         End If
     End Function
 
-    Private Function FunSendRequestMail_FCR()
+    Private Function FunSendRequestMail_CTS()
         Dim KISYU_NAME As String = tblKISYU.LazyLoad("機種").AsEnumerable.Where(Function(r) r.Field(Of Integer)("VALUE") = _D003_NCR_J.KISYU_ID).FirstOrDefault?.Item("DISP")
         Dim SYONIN_HANTEI_NAME As String = tblSYONIN_HANTEI_KB.LazyLoad("承認判定区分").AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = _D004_SYONIN_J_KANRI.SYONIN_HANTEI_KB).FirstOrDefault?.Item("DISP")
         Dim strEXEParam As String = _D004_SYONIN_J_KANRI.SYAIN_ID & "," & ENM_OPEN_MODE._2_処置画面起動 & "," & Context.ENM_SYONIN_HOKOKUSYO_ID._3_CTS.Value & "," & _D004_SYONIN_J_KANRI.HOKOKU_NO
-        Dim strSubject As String = $"【不適合品処置依頼】[CAR] {KISYU_NAME}・{_D003_NCR_J.BUHIN_BANGO}"
+        Dim strSubject As String = $"【不適合品処置依頼】[CTS] {KISYU_NAME}・{_D003_NCR_J.BUHIN_BANGO}"
         Dim strBody As String = <sql><![CDATA[
         {0} 殿<br />
         <br />
         　{1} 殿より{0} 殿宛に不適合封じ込め調査書の起草入力依頼がありました。<br />
         　不適合管理システムから該当するデータを選択し、起草入力を行って下さい。<br />
         <br />
-        　　【報 告 書】CAR<br />
+        　　【報 告 書】CTS<br />
         　　【報告書No】{2}<br />
         　　【機  　種】{3}<br />
         　　【部品番号】{4}<br />
@@ -7312,7 +7312,7 @@ Public Class FrmG0011
 
                         If FunSAVE_D007(DB) Then
                             '承認依頼メール送信
-                            If FunSendRequestMail_FCR() Then
+                            If FunSendRequestMail_CTS() Then
                                 WL.WriteLogDat($"[DEBUG]封込調査書 報告書NO:{_D003_NCR_J.HOKOKU_NO}、INSERT D007 Send Request FCR Mail")
                             End If
                         Else
