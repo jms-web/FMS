@@ -1,6 +1,8 @@
+Imports System.Text.RegularExpressions
 Imports System.Threading.Tasks
 Imports JMS_COMMON.ClsPubMethod
 Imports MODEL
+Imports SpreadsheetGear.CustomFunctions
 
 ''' <summary>
 ''' CAR登録画面
@@ -3009,7 +3011,7 @@ Public Class FrmG0012
 
             _D005_CAR_J.SETUMON_1 = tblSETUMON_NAIYO.LazyLoad("設問内容").AsEnumerable.Where(Function(r) r.Field(Of String)("VALUE") = 1).First.Item("DISP")
 
-            If _V005_CAR_J.SYONIN_YMD10 >= "20200213" Then
+            If Nz(_V005_CAR_J.SYONIN_YMD10, _V005_CAR_J.ADD_YMDHNS.Substring(0, 8)) >= "20200213" Then
                 _D005_CAR_J.SETUMON_2 = $"不適合要因(関係する要因(4Mなど)の調査) 人的要因{Space(30)}(有の場合は以下に内容を記入)"
                 pnl_FUTEKIGO_YOUIN.Visible = True
             Else
@@ -3604,6 +3606,8 @@ Public Class FrmG0012
             Return intRET > 0
         End If
     End Function
+
+
 
 #End Region
 
